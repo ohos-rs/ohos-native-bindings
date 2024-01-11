@@ -13,7 +13,7 @@ pub struct LogOptions<'a> {
 
 macro_rules! log_factory {
     ($level: ident,$level_enum: expr) => {
-        pub fn $level<T: Default + AsRef<str>>(info: T, options: Option<LogOptions>) {
+        pub fn $level<T: AsRef<str>>(info: T, options: Option<LogOptions>) {
             let option_result = options.unwrap_or(LogOptions {
                 tag: None,
                 domain: None,
