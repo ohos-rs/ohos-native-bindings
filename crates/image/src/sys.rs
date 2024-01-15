@@ -1,4 +1,5 @@
 #![allow(non_snake_case)]
+#![allow(dead_code)]
 
 use napi_sys_ohos::{napi_env, napi_value};
 use std::ffi::c_void;
