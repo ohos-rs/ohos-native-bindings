@@ -1,4 +1,4 @@
-use std::ffi::{c_char, c_int};
+use std::ffi::c_char;
 
 /// 打印日志类型 第三方应用仅有此类型
 #[repr(C)]
