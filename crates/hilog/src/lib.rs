@@ -32,7 +32,7 @@ macro_rules! log_factory {
                     domain,
                     tag.as_ptr(),
                     content.as_ptr(),
-                )
+                );
             }
         }
     };
@@ -47,59 +47,49 @@ log_factory!(fatal, LogLevel::LogFatal);
 #[macro_export]
 macro_rules! hilog_debug {
     ($info: expr) => {
-        use hilog_binding::*;
-        debug($info, None);
+        hilog_binding::debug($info, None);
     };
     ($info: expr,$option: expr) => {
-        use hilog_binding::*;
-        debug($info, Some($option));
+        hilog_binding::debug($info, Some($option));
     };
 }
 
 #[macro_export]
 macro_rules! hilog_info {
     ($info: expr) => {
-        use hilog_binding::*;
-        info($info, None);
+        hilog_binding::info($info, None);
     };
     ($info: expr,$option: expr) => {
-        use hilog_binding::*;
-        info($info, Some($option));
+        hilog_binding::info($info, Some($option));
     };
 }
 
 #[macro_export]
 macro_rules! hilog_warn {
     ($info: expr) => {
-        use hilog_binding::*;
-        warn($info, None);
+        hilog_binding::warn($info, None);
     };
     ($info: expr,$option: expr) => {
-        use hilog_binding::*;
-        warn($info, Some($option));
+        hilog_binding::warn($info, Some($option));
     };
 }
 
 #[macro_export]
 macro_rules! hilog_error {
     ($info: expr) => {
-        use hilog_binding::*;
-        error($info, None);
+        hilog_binding::error($info, None);
     };
     ($info: expr,$option: expr) => {
-        use hilog_binding::*;
-        error($info, Some($option));
+        hilog_binding::error($info, Some($option));
     };
 }
 
 #[macro_export]
 macro_rules! hilog_fatal {
     ($info: expr) => {
-        use hilog_binding::*;
-        fatal($info, None);
+        hilog_binding::fatal($info, None);
     };
     ($info: expr,$option: expr) => {
-        use hilog_binding::*;
-        fatal($info, Some($option));
+        hilog_binding::fatal($info, Some($option));
     };
 }

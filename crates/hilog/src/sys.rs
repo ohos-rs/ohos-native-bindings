@@ -1,4 +1,4 @@
-use std::ffi::c_char;
+use std::ffi::{c_char, c_int};
 
 /// 打印日志类型 第三方应用仅有此类型
 #[repr(C)]
@@ -9,7 +9,7 @@ pub enum LogType {
 /// 日志等级
 #[repr(C)]
 pub enum LogLevel {
-    LogDebug,
+    LogDebug = 3,
     LogInfo,
     LogWarn,
     LogError,
