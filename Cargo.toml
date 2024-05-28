@@ -1,3 +1,8 @@
 [workspace]
-members = ["crates/*"]
+members = ["crates/*", "sys/*"]
 resolver = "2"
+
+[workspace.dependencies]
+ohos-bundle-sys = {path = "./sys/bundle-sys"}
+
+ohos-bundle-binding = {path = "./crates/bundle"}
