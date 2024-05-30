@@ -12,10 +12,16 @@ struct SysConfig<'a> {
 }
 
 static CONFIG: Lazy<Vec<SysConfig>> = Lazy::new(|| {
-    vec![SysConfig {
-        name: "ohos-bundle-sys",
-        headers: vec!["bundle/native_interface_bundle.h"],
-    }]
+    vec![
+        SysConfig {
+            name: "ohos-bundle-sys",
+            headers: vec!["bundle/native_interface_bundle.h"],
+        },
+        SysConfig {
+            name: "ohos-init-sys",
+            headers: vec!["syscap_ndk.h"],
+        },
+    ]
 });
 
 fn generate_code(config: &SysConfig) -> anyhow::Result<()> {
