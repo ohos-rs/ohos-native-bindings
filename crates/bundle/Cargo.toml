@@ -1,12 +1,9 @@
 [package]
-name = "ohos-bundle-binding"
-version = "0.0.1"
-edition = "2021"
+name        = "ohos-bundle-binding"
+version     = "0.0.1"
+edition     = "2021"
 license     = "MIT OR Apache-2.0"
 description = "OpenHarmony's bundle binding for rust"
 
 [dependencies]
-ohos-bundle-sys = {workspace = true}
-
-[build-dependencies]
-bindgen = "0.65.1"
+ohos-bundle-sys = { workspace = true }

@@ -1,8 +1,8 @@
 [workspace]
-members = ["crates/*", "sys/*",  "tools/*"]
+members  = ["crates/*", "sys/*", "tools/*"]
 resolver = "2"
 
 [workspace.dependencies]
-ohos-bundle-binding = { version = "0.0.1",path = "crates/bundle" }
+ohos-bundle-binding = { version = "0.0.1", path = "crates/bundle" }
 
-ohos-bundle-sys = { version = "0.0.1",path = "sys/ohos-bundle-sys" }
+ohos-bundle-sys = { version = "0.0.1", path = "sys/ohos-bundle-sys" }
