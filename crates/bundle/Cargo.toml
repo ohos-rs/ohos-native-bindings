@@ -1,0 +1,10 @@
+[package]
+name = "ohos-bundle-binding"
+version = "0.1.0"
+edition = "2021"
+
+[dependencies]
+ohos-bundle-sys = {workspace = true}
+
+[build-dependencies]
+bindgen = "0.65.1"
