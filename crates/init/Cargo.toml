@@ -1,6 +1,6 @@
 [package]
 name        = "ohos-init-binding"
-version     = "0.0.2"
+version     = "0.0.3"
 edition     = "2021"
 license     = "MIT OR Apache-2.0"
 description = "OpenHarmony's init binding for rust"
@@ -8,3 +8,4 @@ description = "OpenHarmony's init binding for rust"
 # See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
 
 [dependencies]
+ohos-init-sys = { workspace = true }
