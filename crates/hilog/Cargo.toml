@@ -1,5 +1,5 @@
 [package]
-name        = "ohos-hilog-binding"
+name        = "ohos-hilogs-binding"
 version     = "0.0.1"
 edition     = "2021"
 license     = "MIT OR Apache-2.0"
@@ -8,4 +8,4 @@ description = "hilog binding for rust"
 # See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
 
 [dependencies]
-ohos-hilog-sys = { workspace = true }
+ohos-hilogs-sys = { workspace = true }

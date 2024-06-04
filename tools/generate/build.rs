@@ -21,8 +21,9 @@ static CONFIG: Lazy<Vec<SysConfig>> = Lazy::new(|| {
             name: "ohos-init-sys",
             headers: vec!["syscap_ndk.h"],
         },
+        // ohos-hilog-sys already exists
         SysConfig {
-            name: "ohos-hilog-sys",
+            name: "ohos-hilogs-sys",
             headers: vec!["hilog/log.h"],
         },
     ]
