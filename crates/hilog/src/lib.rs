@@ -77,49 +77,49 @@ log_factory!(fatal, LogLevel::LogFatal.into());
 #[macro_export]
 macro_rules! hilog_debug {
     ($info: expr) => {
-        hilog_binding::debug($info, None);
+        ohos_hilog_binding::debug($info, None);
     };
     ($info: expr,$option: expr) => {
-        hilog_binding::debug($info, Some($option));
+        ohos_hilog_binding::debug($info, Some($option));
     };
 }
 
 #[macro_export]
 macro_rules! hilog_info {
     ($info: expr) => {
-        hilog_binding::info($info, None);
+        ohos_hilog_binding::info($info, None);
     };
     ($info: expr,$option: expr) => {
-        hilog_binding::info($info, Some($option));
+        ohos_hilog_binding::info($info, Some($option));
     };
 }
 
 #[macro_export]
 macro_rules! hilog_warn {
     ($info: expr) => {
-        hilog_binding::warn($info, None);
+        ohos_hilog_binding::warn($info, None);
     };
     ($info: expr,$option: expr) => {
-        hilog_binding::warn($info, Some($option));
+        ohos_hilog_binding::warn($info, Some($option));
     };
 }
 
 #[macro_export]
 macro_rules! hilog_error {
     ($info: expr) => {
-        hilog_binding::error($info, None);
+        ohos_hilog_binding::error($info, None);
     };
     ($info: expr,$option: expr) => {
-        hilog_binding::error($info, Some($option));
+        ohos_hilog_binding::error($info, Some($option));
     };
 }
 
 #[macro_export]
 macro_rules! hilog_fatal {
     ($info: expr) => {
-        hilog_binding::fatal($info, None);
+        ohos_hilog_binding::fatal($info, None);
     };
     ($info: expr,$option: expr) => {
-        hilog_binding::fatal($info, Some($option));
+        ohos_hilog_binding::fatal($info, Some($option));
     };
 }

@@ -1,4 +1,4 @@
-include = ["Cargo.toml", "crates/**/*.toml", "tools/**/*.toml", "sys/**/*.toml", "taplo.toml", ".typos.toml"]
+include = ["Cargo.toml", "crates/**/*.toml", "tools/**/*.toml", "sys/**/*.toml", "taplo.toml", ".typos.toml","examples/*.toml"]
 
 [formatting]
 align_entries = true
