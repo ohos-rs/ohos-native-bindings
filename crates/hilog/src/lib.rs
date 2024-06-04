@@ -1,7 +1,37 @@
+use ohos_hilog_sys::OH_LOG_Print;
 use std::ffi::CString;
-use sys::{LogLevel, LogType, OH_LOG_Print};
 
-mod sys;
+pub enum LogType {
+    LogApp,
+}
+
+impl From<LogType> for ohos_hilog_sys::LogType {
+    fn from(value: LogType) -> Self {
+        match value {
+            LogType::LogApp => ohos_hilog_sys::LogType_LOG_APP,
+        }
+    }
+}
+
+pub enum LogLevel {
+    LogDebug,
+    LogInfo,
+    LogWarn,
+    LogError,
+    LogFatal,
+}
+
+impl From<LogLevel> for ohos_hilog_sys::LogLevel {
+    fn from(value: LogLevel) -> Self {
+        match value {
+            LogLevel::LogDebug => ohos_hilog_sys::LogLevel_LOG_DEBUG,
+            LogLevel::LogInfo => ohos_hilog_sys::LogLevel_LOG_INFO,
+            LogLevel::LogWarn => ohos_hilog_sys::LogLevel_LOG_WARN,
+            LogLevel::LogError => ohos_hilog_sys::LogLevel_LOG_ERROR,
+            LogLevel::LogFatal => ohos_hilog_sys::LogLevel_LOG_FATAL,
+        }
+    }
+}
 
 #[derive(Default)]
 pub struct LogOptions<'a> {
@@ -27,7 +57,7 @@ macro_rules! log_factory {
 
             unsafe {
                 OH_LOG_Print(
-                    LogType::LogApp,
+                    LogType::LogApp.into(),
                     $level_enum,
                     domain,
                     tag.as_ptr(),
@@ -38,11 +68,11 @@ macro_rules! log_factory {
     };
 }
 
-log_factory!(debug, LogLevel::LogDebug);
-log_factory!(info, LogLevel::LogInfo);
-log_factory!(warn, LogLevel::LogWarn);
-log_factory!(error, LogLevel::LogError);
-log_factory!(fatal, LogLevel::LogFatal);
+log_factory!(debug, LogLevel::LogDebug.into());
+log_factory!(info, LogLevel::LogInfo.into());
+log_factory!(warn, LogLevel::LogWarn.into());
+log_factory!(error, LogLevel::LogError.into());
+log_factory!(fatal, LogLevel::LogFatal.into());
 
 #[macro_export]
 macro_rules! hilog_debug {
