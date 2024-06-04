@@ -1,14 +1,14 @@
-use ohos_hilog_sys::OH_LOG_Print;
+use ohos_hilogs_sys::OH_LOG_Print;
 use std::ffi::CString;
 
 pub enum LogType {
     LogApp,
 }
 
-impl From<LogType> for ohos_hilog_sys::LogType {
+impl From<LogType> for ohos_hilogs_sys::LogType {
     fn from(value: LogType) -> Self {
         match value {
-            LogType::LogApp => ohos_hilog_sys::LogType_LOG_APP,
+            LogType::LogApp => ohos_hilogs_sys::LogType_LOG_APP,
         }
     }
 }
@@ -21,14 +21,14 @@ pub enum LogLevel {
     LogFatal,
 }
 
-impl From<LogLevel> for ohos_hilog_sys::LogLevel {
+impl From<LogLevel> for ohos_hilogs_sys::LogLevel {
     fn from(value: LogLevel) -> Self {
         match value {
-            LogLevel::LogDebug => ohos_hilog_sys::LogLevel_LOG_DEBUG,
-            LogLevel::LogInfo => ohos_hilog_sys::LogLevel_LOG_INFO,
-            LogLevel::LogWarn => ohos_hilog_sys::LogLevel_LOG_WARN,
-            LogLevel::LogError => ohos_hilog_sys::LogLevel_LOG_ERROR,
-            LogLevel::LogFatal => ohos_hilog_sys::LogLevel_LOG_FATAL,
+            LogLevel::LogDebug => ohos_hilogs_sys::LogLevel_LOG_DEBUG,
+            LogLevel::LogInfo => ohos_hilogs_sys::LogLevel_LOG_INFO,
+            LogLevel::LogWarn => ohos_hilogs_sys::LogLevel_LOG_WARN,
+            LogLevel::LogError => ohos_hilogs_sys::LogLevel_LOG_ERROR,
+            LogLevel::LogFatal => ohos_hilogs_sys::LogLevel_LOG_FATAL,
         }
     }
 }
