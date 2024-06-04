@@ -60,6 +60,9 @@ fn generate_code(config: &SysConfig) -> anyhow::Result<()> {
 
     let bindings = bindgen::Builder::default()
         .header_contents("wrapper.h", &header_content)
+        .raw_line(
+            "#![allow(non_snake_case)]\n#![allow(non_upper_case_globals)]\n#![allow(non_camel_case_types)]",
+        )
         .layout_tests(false)
         .generate()?;
 
