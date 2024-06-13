@@ -28,4 +28,4 @@ jobs:
       with:
         issue-number: ${{ github.event.pull_request.number }}
         body: |
-          @southorange0929 Please check this PR, thanks.
+          @richerfu Please check this PR, thanks.
