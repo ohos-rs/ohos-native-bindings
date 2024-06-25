@@ -15,7 +15,8 @@ use ohos_asset_sys::{
     Asset_ResultCode_ASSET_STATUS_MISMATCH, Asset_ResultCode_ASSET_SUCCESS,
     Asset_ResultCode_ASSET_UNSUPPORTED, Asset_ReturnType_ASSET_RETURN_ALL,
     Asset_ReturnType_ASSET_RETURN_ATTRIBUTES, Asset_SyncType_ASSET_SYNC_TYPE_NEVER,
-    Asset_SyncType_ASSET_SYNC_TYPE_THIS_DEVICE, Asset_SyncType_ASSET_SYNC_TYPE_TRUSTED_DEVICE,
+    Asset_SyncType_ASSET_SYNC_TYPE_THIS_DEVICE, Asset_SyncType_ASSET_SYNC_TYPE_TRUSTED_ACCOUNT,
+    Asset_SyncType_ASSET_SYNC_TYPE_TRUSTED_DEVICE,
 };
 
 #[derive(Debug)]
@@ -157,10 +158,147 @@ impl From<AssetSyncType> for ohos_asset_sys::Asset_SyncType {
             AssetSyncType::AssetSyncTypeNever => Asset_SyncType_ASSET_SYNC_TYPE_NEVER,
             AssetSyncType::AssetSyncTypeThisDevice => Asset_SyncType_ASSET_SYNC_TYPE_THIS_DEVICE,
             AssetSyncType::AssetSyncTypeTrustedAccount => {
-                Asset_SyncType_ASSET_SYNC_TYPE_TRUSTED_DEVICE
+                Asset_SyncType_ASSET_SYNC_TYPE_TRUSTED_ACCOUNT
             }
             AssetSyncType::AssetSyncTypeTrustedDevice => {
                 Asset_SyncType_ASSET_SYNC_TYPE_TRUSTED_DEVICE
+            }
+        }
+    }
+}
+
+#[derive(Debug, Clone, Copy)]
+pub enum AssetTag {
+    AssetTagSecret,
+    AssetTagAlias,
+    AssetTagAccessibility,
+    AssetTagRequirePasswordSet,
+    AssetTagAuthType,
+    AssetTagAuthValidityPeriod,
+    AssetTagAuthChallenge,
+    AssetTagAuthToken,
+    AssetTagSyncType,
+    AssetTagIsPersistent,
+    AssetTagDataLabelCritical1,
+    AssetTagDataLabelCritical2,
+    AssetTagDataLabelCritical3,
+    AssetTagDataLabelCritical4,
+    AssetTagDataLabelNormal1,
+    AssetTagDataLabelNormal2,
+    AssetTagDataLabelNormal3,
+    AssetTagDataLabelNormal4,
+    AssetTagDataLabelNormalLocal1,
+    AssetTagDataLabelNormalLocal2,
+    AssetTagDataLabelNormalLocal3,
+    AssetTagDataLabelNormalLocal4,
+    AssetTagReturnType,
+    AssetTagReturnLimit,
+    AssetTagReturnOffset,
+    AssetTagReturnOrderedBy,
+    AssetTagConflictResolution,
+    AssetTagUpdateTime,
+    AssetTagOperationType,
+}
+
+impl From<AssetTag> for ohos_asset_sys::Asset_Tag {
+    fn from(value: AssetTag) -> Self {
+        match value {
+            AssetTag::AssetTagSecret => ohos_asset_sys::Asset_Tag_ASSET_TAG_SECRET,
+            AssetTag::AssetTagAlias => ohos_asset_sys::Asset_Tag_ASSET_TAG_ALIAS,
+            AssetTag::AssetTagAccessibility => ohos_asset_sys::Asset_Tag_ASSET_TAG_ACCESSIBILITY,
+            AssetTag::AssetTagRequirePasswordSet => {
+                ohos_asset_sys::Asset_Tag_ASSET_TAG_REQUIRE_PASSWORD_SET
+            }
+            AssetTag::AssetTagAuthType => ohos_asset_sys::Asset_Tag_ASSET_TAG_AUTH_TYPE,
+            AssetTag::AssetTagAuthValidityPeriod => {
+                ohos_asset_sys::Asset_Tag_ASSET_TAG_AUTH_VALIDITY_PERIOD
+            }
+            AssetTag::AssetTagAuthChallenge => ohos_asset_sys::Asset_Tag_ASSET_TAG_AUTH_CHALLENGE,
+            AssetTag::AssetTagAuthToken => ohos_asset_sys::Asset_Tag_ASSET_TAG_AUTH_TOKEN,
+            AssetTag::AssetTagSyncType => ohos_asset_sys::Asset_Tag_ASSET_TAG_AUTH_TYPE,
+            AssetTag::AssetTagIsPersistent => ohos_asset_sys::Asset_Tag_ASSET_TAG_IS_PERSISTENT,
+            AssetTag::AssetTagDataLabelCritical1 => {
+                ohos_asset_sys::Asset_Tag_ASSET_TAG_DATA_LABEL_CRITICAL_1
+            }
+            AssetTag::AssetTagDataLabelCritical2 => {
+                ohos_asset_sys::Asset_Tag_ASSET_TAG_DATA_LABEL_CRITICAL_2
+            }
+            AssetTag::AssetTagDataLabelCritical3 => {
+                ohos_asset_sys::Asset_Tag_ASSET_TAG_DATA_LABEL_CRITICAL_3
+            }
+            AssetTag::AssetTagDataLabelCritical4 => {
+                ohos_asset_sys::Asset_Tag_ASSET_TAG_DATA_LABEL_CRITICAL_4
+            }
+            AssetTag::AssetTagDataLabelNormal1 => {
+                ohos_asset_sys::Asset_Tag_ASSET_TAG_DATA_LABEL_NORMAL_1
+            }
+            AssetTag::AssetTagDataLabelNormal2 => {
+                ohos_asset_sys::Asset_Tag_ASSET_TAG_DATA_LABEL_NORMAL_2
+            }
+            AssetTag::AssetTagDataLabelNormal3 => {
+                ohos_asset_sys::Asset_Tag_ASSET_TAG_DATA_LABEL_NORMAL_3
+            }
+            AssetTag::AssetTagDataLabelNormal4 => {
+                ohos_asset_sys::Asset_Tag_ASSET_TAG_DATA_LABEL_NORMAL_4
+            }
+            AssetTag::AssetTagDataLabelNormalLocal1 => {
+                ohos_asset_sys::Asset_Tag_ASSET_TAG_DATA_LABEL_NORMAL_LOCAL_1
+            }
+            AssetTag::AssetTagDataLabelNormalLocal2 => {
+                ohos_asset_sys::Asset_Tag_ASSET_TAG_DATA_LABEL_NORMAL_LOCAL_2
+            }
+            AssetTag::AssetTagDataLabelNormalLocal3 => {
+                ohos_asset_sys::Asset_Tag_ASSET_TAG_DATA_LABEL_NORMAL_LOCAL_3
+            }
+            AssetTag::AssetTagDataLabelNormalLocal4 => {
+                ohos_asset_sys::Asset_Tag_ASSET_TAG_DATA_LABEL_NORMAL_LOCAL_4
+            }
+            AssetTag::AssetTagReturnType => ohos_asset_sys::Asset_Tag_ASSET_TAG_RETURN_TYPE,
+            AssetTag::AssetTagReturnLimit => ohos_asset_sys::Asset_Tag_ASSET_TAG_RETURN_LIMIT,
+            AssetTag::AssetTagReturnOffset => ohos_asset_sys::Asset_Tag_ASSET_TAG_RETURN_OFFSET,
+            AssetTag::AssetTagReturnOrderedBy => {
+                ohos_asset_sys::Asset_Tag_ASSET_TAG_RETURN_ORDERED_BY
+            }
+            AssetTag::AssetTagConflictResolution => {
+                ohos_asset_sys::Asset_Tag_ASSET_TAG_CONFLICT_RESOLUTION
+            }
+            AssetTag::AssetTagUpdateTime => ohos_asset_sys::Asset_Tag_ASSET_TAG_UPDATE_TIME,
+            AssetTag::AssetTagOperationType => ohos_asset_sys::Asset_Tag_ASSET_TAG_OPERATION_TYPE,
+        }
+    }
+}
+
+#[derive(Debug)]
+pub enum AssetTagType {
+    AssetTypeBool,
+    AssetTypeNumber,
+    AssetTypeBytes,
+}
+
+impl From<AssetTagType> for ohos_asset_sys::Asset_TagType {
+    fn from(value: AssetTagType) -> Self {
+        match value {
+            AssetTagType::AssetTypeBool => ohos_asset_sys::Asset_TagType_ASSET_TYPE_BOOL,
+            AssetTagType::AssetTypeNumber => ohos_asset_sys::Asset_TagType_ASSET_TYPE_NUMBER,
+            AssetTagType::AssetTypeBytes => ohos_asset_sys::Asset_TagType_ASSET_TYPE_BYTES,
+        }
+    }
+}
+
+#[derive(Debug)]
+pub enum AssetOperationType {
+    AssetNeedSync,
+    AssetNeedLogout,
+}
+
+impl From<AssetOperationType> for ohos_asset_sys::Asset_OperationType {
+    fn from(value: AssetOperationType) -> Self {
+        match value {
+            AssetOperationType::AssetNeedLogout => {
+                ohos_asset_sys::Asset_OperationType_ASSET_NEED_LOGOUT
+            }
+            AssetOperationType::AssetNeedSync => {
+                ohos_asset_sys::Asset_OperationType_ASSET_NEED_SYNC
             }
         }
     }

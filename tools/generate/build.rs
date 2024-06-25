@@ -28,7 +28,7 @@ static CONFIG: Lazy<Vec<SysConfig>> = Lazy::new(|| {
         },
         SysConfig {
             name: "ohos-asset-sys",
-            headers: vec!["asset/asset_api.h","asset/asset_type.h"],
+            headers: vec!["asset/asset_api.h", "asset/asset_type.h"],
         },
     ]
 });

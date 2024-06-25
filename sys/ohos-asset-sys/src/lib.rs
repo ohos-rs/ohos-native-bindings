@@ -474,11 +474,17 @@ pub const Asset_Tag_ASSET_TAG_DATA_LABEL_NORMAL_1: Asset_Tag = 805306416;
 pub const Asset_Tag_ASSET_TAG_DATA_LABEL_NORMAL_2: Asset_Tag = 805306417;
 pub const Asset_Tag_ASSET_TAG_DATA_LABEL_NORMAL_3: Asset_Tag = 805306418;
 pub const Asset_Tag_ASSET_TAG_DATA_LABEL_NORMAL_4: Asset_Tag = 805306419;
+pub const Asset_Tag_ASSET_TAG_DATA_LABEL_NORMAL_LOCAL_1: Asset_Tag = 805306420;
+pub const Asset_Tag_ASSET_TAG_DATA_LABEL_NORMAL_LOCAL_2: Asset_Tag = 805306421;
+pub const Asset_Tag_ASSET_TAG_DATA_LABEL_NORMAL_LOCAL_3: Asset_Tag = 805306422;
+pub const Asset_Tag_ASSET_TAG_DATA_LABEL_NORMAL_LOCAL_4: Asset_Tag = 805306423;
 pub const Asset_Tag_ASSET_TAG_RETURN_TYPE: Asset_Tag = 536870976;
 pub const Asset_Tag_ASSET_TAG_RETURN_LIMIT: Asset_Tag = 536870977;
 pub const Asset_Tag_ASSET_TAG_RETURN_OFFSET: Asset_Tag = 536870978;
 pub const Asset_Tag_ASSET_TAG_RETURN_ORDERED_BY: Asset_Tag = 536870979;
 pub const Asset_Tag_ASSET_TAG_CONFLICT_RESOLUTION: Asset_Tag = 536870980;
+pub const Asset_Tag_ASSET_TAG_UPDATE_TIME: Asset_Tag = 805306437;
+pub const Asset_Tag_ASSET_TAG_OPERATION_TYPE: Asset_Tag = 536870982;
 pub type Asset_Tag = ::std::os::raw::c_uint;
 pub const Asset_ResultCode_ASSET_SUCCESS: Asset_ResultCode = 0;
 pub const Asset_ResultCode_ASSET_PERMISSION_DENIED: Asset_ResultCode = 201;
@@ -511,6 +517,7 @@ pub type Asset_AuthType = ::std::os::raw::c_uint;
 pub const Asset_SyncType_ASSET_SYNC_TYPE_NEVER: Asset_SyncType = 0;
 pub const Asset_SyncType_ASSET_SYNC_TYPE_THIS_DEVICE: Asset_SyncType = 1;
 pub const Asset_SyncType_ASSET_SYNC_TYPE_TRUSTED_DEVICE: Asset_SyncType = 2;
+pub const Asset_SyncType_ASSET_SYNC_TYPE_TRUSTED_ACCOUNT: Asset_SyncType = 4;
 pub type Asset_SyncType = ::std::os::raw::c_uint;
 pub const Asset_ConflictResolution_ASSET_CONFLICT_OVERWRITE: Asset_ConflictResolution = 0;
 pub const Asset_ConflictResolution_ASSET_CONFLICT_THROW_ERROR: Asset_ConflictResolution = 1;
@@ -518,6 +525,9 @@ pub type Asset_ConflictResolution = ::std::os::raw::c_uint;
 pub const Asset_ReturnType_ASSET_RETURN_ALL: Asset_ReturnType = 0;
 pub const Asset_ReturnType_ASSET_RETURN_ATTRIBUTES: Asset_ReturnType = 1;
 pub type Asset_ReturnType = ::std::os::raw::c_uint;
+pub const Asset_OperationType_ASSET_NEED_SYNC: Asset_OperationType = 0;
+pub const Asset_OperationType_ASSET_NEED_LOGOUT: Asset_OperationType = 1;
+pub type Asset_OperationType = ::std::os::raw::c_uint;
 #[repr(C)]
 #[derive(Debug, Copy, Clone)]
 pub struct Asset_Blob {
