@@ -1,4 +1,3 @@
-use ohos_init_sys;
 use std::ffi::CString;
 
 /// check cap can be used, implement with canIUse

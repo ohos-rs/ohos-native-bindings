@@ -1,0 +1,9 @@
+[package]
+name        = "ohos-asset-binding"
+version     = "0.0.1"
+edition     = "2021"
+license     = "MIT OR Apache-2.0"
+description = "OpenHarmony's asset binding for rust"
+
+[dependencies]
+ohos-asset-sys = { workspace = true }

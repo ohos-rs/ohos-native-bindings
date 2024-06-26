@@ -26,28 +26,32 @@ static CONFIG: Lazy<Vec<SysConfig>> = Lazy::new(|| {
             name: "ohos-hilogs-sys",
             headers: vec!["hilog/log.h"],
         },
+        SysConfig {
+            name: "ohos-asset-sys",
+            headers: vec!["asset/asset_api.h", "asset/asset_type.h"],
+        },
     ]
 });
 
 fn generate_code(config: &SysConfig) -> anyhow::Result<()> {
     let pwd = env::current_dir()?;
-    let basic_folder = PathBuf::from(pwd)
+    let basic_folder = pwd
         .parent()
         .ok_or(Error::msg("Get parent path failed"))?
         .parent()
         .ok_or(Error::msg("Get parent path failed"))?
         .join("sys")
-        .join(&config.name);
+        .join(config.name);
 
     if !basic_folder.is_dir() {
         let _ = Command::new("cargo")
             .current_dir(
-                &basic_folder
+                basic_folder
                     .parent()
                     .ok_or(Error::msg("Get parent path failed"))?,
             )
             .arg("new")
-            .arg(&config.name)
+            .arg(config.name)
             .arg("--lib")
             .status()?;
     }
