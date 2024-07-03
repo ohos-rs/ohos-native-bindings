@@ -15,9 +15,17 @@ napi-derive-ohos = { workspace = true }
 ohos-hilog-binding  = { workspace = true }
 ohos-bundle-binding = { workspace = true }
 ohos-init-binding   = { workspace = true }
+ohos-raw-binding    = { workspace = true }
 
 [build-dependencies]
 napi-build-ohos = { workspace = true }
 
 [profile.release]
 lto = true
+
+
+[package.metadata.template]
+header = """
+import { resourceManager } from '@kit.LocalizationKit';
+
+"""

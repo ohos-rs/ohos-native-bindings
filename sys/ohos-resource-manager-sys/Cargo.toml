@@ -1,0 +1,10 @@
+[package]
+name        = "ohos-resource-manager-sys"
+version     = "0.0.1"
+edition     = "2021"
+license     = "MIT OR Apache-2.0"
+description = "OpenHarmony's resource_manager binding for rust"
+
+[dependencies]
+napi-sys-ohos = { workspace = true }
+ohos-raw-sys  = { workspace = true }
