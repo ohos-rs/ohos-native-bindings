@@ -58,8 +58,7 @@ pub const UINTPTR_MAX: i32 = -1;
 pub const PTRDIFF_MIN: i64 = -9223372036854775808;
 pub const PTRDIFF_MAX: u64 = 9223372036854775807;
 pub const SIZE_MAX: i32 = -1;
-pub const _BSD_SOURCE: u32 = 1;
-pub const _XOPEN_SOURCE: u32 = 700;
+pub const NULL: u32 = 0;
 pub const EXIT_FAILURE: u32 = 1;
 pub const EXIT_SUCCESS: u32 = 0;
 pub const RAND_MAX: u32 = 2147483647;
@@ -85,8 +84,6 @@ pub const OUTPUT_PARAMETER_BYTES : & [u8 ; 95usize] = b"the output parameter mus
 pub const SIZE_LARGER_THEN_DESTINATION_BUFFER: &[u8; 43usize] =
     b"the size is greater than the target buffer\0";
 pub const __bool_true_false_are_defined: u32 = 1;
-pub const true_: u32 = 1;
-pub const false_: u32 = 0;
 pub const ASSET_TAG_TYPE_MASK: u32 = 4026531840;
 pub type intmax_t = ::std::os::raw::c_long;
 pub type uintmax_t = ::std::os::raw::c_ulong;
@@ -106,7 +103,6 @@ pub type int_fast16_t = i32;
 pub type int_fast32_t = i32;
 pub type uint_fast16_t = u32;
 pub type uint_fast32_t = u32;
-pub type wchar_t = ::std::os::raw::c_uint;
 extern "C" {
     pub fn atoi(arg1: *const ::std::os::raw::c_char) -> ::std::os::raw::c_int;
 }
@@ -172,28 +168,19 @@ extern "C" {
     pub fn srand(arg1: ::std::os::raw::c_uint);
 }
 extern "C" {
-    pub fn malloc(arg1: ::std::os::raw::c_ulong) -> *mut ::std::os::raw::c_void;
+    pub fn malloc(arg1: usize) -> *mut ::std::os::raw::c_void;
 }
 extern "C" {
-    pub fn calloc(
-        arg1: ::std::os::raw::c_ulong,
-        arg2: ::std::os::raw::c_ulong,
-    ) -> *mut ::std::os::raw::c_void;
+    pub fn calloc(arg1: usize, arg2: usize) -> *mut ::std::os::raw::c_void;
 }
 extern "C" {
-    pub fn realloc(
-        arg1: *mut ::std::os::raw::c_void,
-        arg2: ::std::os::raw::c_ulong,
-    ) -> *mut ::std::os::raw::c_void;
+    pub fn realloc(arg1: *mut ::std::os::raw::c_void, arg2: usize) -> *mut ::std::os::raw::c_void;
 }
 extern "C" {
     pub fn free(arg1: *mut ::std::os::raw::c_void);
 }
 extern "C" {
-    pub fn aligned_alloc(
-        arg1: ::std::os::raw::c_ulong,
-        arg2: ::std::os::raw::c_ulong,
-    ) -> *mut ::std::os::raw::c_void;
+    pub fn aligned_alloc(arg1: usize, arg2: usize) -> *mut ::std::os::raw::c_void;
 }
 extern "C" {
     pub fn abort() -> !;
@@ -213,7 +200,7 @@ extern "C" {
     ) -> ::std::os::raw::c_int;
 }
 extern "C" {
-    pub fn quick_exit(arg1: ::std::os::raw::c_int);
+    pub fn quick_exit(arg1: ::std::os::raw::c_int) -> !;
 }
 extern "C" {
     pub fn getenv(arg1: *const ::std::os::raw::c_char) -> *mut ::std::os::raw::c_char;
@@ -289,19 +276,19 @@ extern "C" {
 }
 extern "C" {
     pub fn mbtowc(
-        arg1: *mut wchar_t,
+        arg1: *mut u32,
         arg2: *const ::std::os::raw::c_char,
         arg3: usize,
     ) -> ::std::os::raw::c_int;
 }
 extern "C" {
-    pub fn wctomb(arg1: *mut ::std::os::raw::c_char, arg2: wchar_t) -> ::std::os::raw::c_int;
+    pub fn wctomb(arg1: *mut ::std::os::raw::c_char, arg2: u32) -> ::std::os::raw::c_int;
 }
 extern "C" {
-    pub fn mbstowcs(arg1: *mut wchar_t, arg2: *const ::std::os::raw::c_char, arg3: usize) -> usize;
+    pub fn mbstowcs(arg1: *mut u32, arg2: *const ::std::os::raw::c_char, arg3: usize) -> usize;
 }
 extern "C" {
-    pub fn wcstombs(arg1: *mut ::std::os::raw::c_char, arg2: *const wchar_t, arg3: usize) -> usize;
+    pub fn wcstombs(arg1: *mut ::std::os::raw::c_char, arg2: *const u32, arg3: usize) -> usize;
 }
 extern "C" {
     pub fn arc4random() -> ::std::os::raw::c_uint;
@@ -438,16 +425,46 @@ extern "C" {
     pub fn valloc(arg1: usize) -> *mut ::std::os::raw::c_void;
 }
 extern "C" {
-    pub fn memalign(
-        arg1: ::std::os::raw::c_ulong,
-        arg2: ::std::os::raw::c_ulong,
-    ) -> *mut ::std::os::raw::c_void;
+    pub fn memalign(arg1: usize, arg2: usize) -> *mut ::std::os::raw::c_void;
 }
 extern "C" {
     pub fn getloadavg(arg1: *mut f64, arg2: ::std::os::raw::c_int) -> ::std::os::raw::c_int;
 }
 extern "C" {
     pub fn clearenv() -> ::std::os::raw::c_int;
+}
+extern "C" {
+    pub fn ptsname_r(
+        arg1: ::std::os::raw::c_int,
+        arg2: *mut ::std::os::raw::c_char,
+        arg3: usize,
+    ) -> ::std::os::raw::c_int;
+}
+#[repr(C)]
+#[derive(Debug, Copy, Clone)]
+pub struct __locale_struct {
+    _unused: [u8; 0],
+}
+extern "C" {
+    pub fn strtof_l(
+        arg1: *const ::std::os::raw::c_char,
+        arg2: *mut *mut ::std::os::raw::c_char,
+        arg3: *mut __locale_struct,
+    ) -> f32;
+}
+extern "C" {
+    pub fn strtod_l(
+        arg1: *const ::std::os::raw::c_char,
+        arg2: *mut *mut ::std::os::raw::c_char,
+        arg3: *mut __locale_struct,
+    ) -> f64;
+}
+extern "C" {
+    pub fn strtold_l(
+        arg1: *const ::std::os::raw::c_char,
+        arg2: *mut *mut ::std::os::raw::c_char,
+        arg3: *mut __locale_struct,
+    ) -> u128;
 }
 extern "C" {
     pub fn __fortify_error(info: *const ::std::os::raw::c_char, ...);
