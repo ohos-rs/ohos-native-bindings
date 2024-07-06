@@ -29,6 +29,7 @@ impl From<ScreenDensity> for ohos_resource_manager_sys::ScreenDensity {
     }
 }
 
+#[repr(u32)]
 #[derive(Debug, Ord, PartialOrd, Eq, PartialEq, Default)]
 pub enum IconType {
     #[default]
