@@ -18,7 +18,7 @@ pub enum ScreenDensity {
 impl From<ScreenDensity> for ohos_resource_manager_sys::ScreenDensity {
     fn from(value: ScreenDensity) -> Self {
         match value {
-            ScreenDensity::Current => 0,
+            ScreenDensity::Current => 0 as ohos_resource_manager_sys::ScreenDensity,
             ScreenDensity::ScreenMDPI => ScreenDensity_SCREEN_MDPI,
             ScreenDensity::ScreenSDPI => ScreenDensity_SCREEN_SDPI,
             ScreenDensity::ScreenLDPI => ScreenDensity_SCREEN_LDPI,
