@@ -31,6 +31,13 @@ pub const ResourceManager_ErrorCode_ERROR_CODE_OVERLAY_RES_PATH_INVALID: Resourc
     9001010;
 pub const ResourceManager_ErrorCode_ERROR_CODE_OUT_OF_MEMORY: ResourceManager_ErrorCode = 9001100;
 pub type ResourceManager_ErrorCode = ::std::os::raw::c_uint;
+pub const ScreenDensity_SCREEN_SDPI: ScreenDensity = 120;
+pub const ScreenDensity_SCREEN_MDPI: ScreenDensity = 160;
+pub const ScreenDensity_SCREEN_LDPI: ScreenDensity = 240;
+pub const ScreenDensity_SCREEN_XLDPI: ScreenDensity = 320;
+pub const ScreenDensity_SCREEN_XXLDPI: ScreenDensity = 480;
+pub const ScreenDensity_SCREEN_XXXLDPI: ScreenDensity = 640;
+pub type ScreenDensity = ::std::os::raw::c_uint;
 #[repr(C)]
 #[derive(Debug, Copy, Clone)]
 pub struct ArkUI_DrawableDescriptor {

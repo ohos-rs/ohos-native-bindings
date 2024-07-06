@@ -74,6 +74,7 @@ static CONFIG: Lazy<Vec<SysConfig>> = Lazy::new(|| {
                 "OH_ResourceManager_GetMediaByName",
                 "OH_ResourceManager_GetDrawableDescriptor",
                 "OH_ResourceManager_GetDrawableDescriptorByName",
+                "ScreenDensity",
             ],
             block_list: vec!["napi_.*", "NativeResourceManager"],
             extra: "\n\nuse ohos_raw_sys::*;\n",
@@ -120,6 +121,8 @@ fn generate_code(config: &SysConfig) -> anyhow::Result<()> {
     if !config.white_list.is_empty() {
         for i in &config.white_list {
             bindings = bindings.allowlist_function(i);
+            bindings = bindings.allowlist_var(i);
+            bindings = bindings.allowlist_type(i);
         }
     }
 

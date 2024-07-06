@@ -16,6 +16,7 @@ ohos-hilog-binding  = { workspace = true }
 ohos-bundle-binding = { workspace = true }
 ohos-init-binding   = { workspace = true }
 ohos-raw-binding    = { workspace = true }
+ohos-resource-manager-binding = {workspace = true}
 
 [build-dependencies]
 napi-build-ohos = { workspace = true }

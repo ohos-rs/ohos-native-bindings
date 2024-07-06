@@ -7,3 +7,4 @@ description = "OpenHarmony's resource manager binding for rust"
 
 [dependencies]
 ohos-resource-manager-sys = { workspace = true }
+ohos-raw-binding          = { workspace = true }

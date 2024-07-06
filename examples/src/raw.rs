@@ -1,6 +1,7 @@
 use napi_derive_ohos::napi;
 use napi_ohos::{bindgen_prelude::Object, Env};
 use ohos_raw_binding::Raw;
+use ohos_resource_manager_binding::ResourceManager;
 
 #[napi]
 pub fn raw_example(

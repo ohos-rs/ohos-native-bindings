@@ -3,7 +3,7 @@ use std::ffi::CString;
 use napi_ohos::{bindgen_prelude::Object, Env, NapiRaw};
 use ohos_raw_sys::{
     NativeResourceManager, OH_ResourceManager_InitNativeResourceManager,
-    OH_ResourceManager_OpenRawDir,
+    OH_ResourceManager_OpenRawDir, OH_ResourceManager_ReleaseNativeResourceManager,
 };
 
 mod data;
@@ -12,7 +12,7 @@ pub use data::*;
 
 /// Raw file manager
 pub struct Raw {
-    resource_manager: *mut NativeResourceManager,
+    pub resource_manager: *mut NativeResourceManager,
 }
 
 impl Raw {
@@ -49,5 +49,13 @@ impl Raw {
         let raw =
             unsafe { OH_ResourceManager_OpenRawDir(self.resource_manager, dir.as_ptr().cast()) };
         data::RawDir::new(raw)
+    }
+}
+
+impl Drop for Raw {
+    fn drop(&mut self) {
+        unsafe {
+            OH_ResourceManager_ReleaseNativeResourceManager(self.resource_manager);
+        }
     }
 }
