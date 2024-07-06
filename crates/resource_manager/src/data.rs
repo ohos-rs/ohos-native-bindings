@@ -29,11 +29,20 @@ impl From<ScreenDensity> for ohos_resource_manager_sys::ScreenDensity {
     }
 }
 
-#[repr(u32)]
 #[derive(Debug, Ord, PartialOrd, Eq, PartialEq, Default)]
 pub enum IconType {
     #[default]
     Current,
     Theme,
     Dynamic,
+}
+
+impl From<IconType> for u32 {
+    fn from(value: IconType) -> Self {
+        match value {
+            IconType::Current => 0,
+            IconType::Theme => 1,
+            IconType::Dynamic => 2,
+        }
+    }
 }

@@ -91,9 +91,8 @@ impl RawFile {
             start,
             length: len,
         };
-        let ret = unsafe {
-            OH_ResourceManager_GetRawFileDescriptor(self.raw, &mut file_descriptor)
-        };
+        let ret =
+            unsafe { OH_ResourceManager_GetRawFileDescriptor(self.raw, &mut file_descriptor) };
         if ret {
             file_descriptor.fd
         } else {
@@ -151,9 +150,8 @@ impl RawFile64 {
             start,
             length: len,
         };
-        let ret = unsafe {
-            OH_ResourceManager_GetRawFileDescriptor64(self.raw, &mut file_descriptor)
-        };
+        let ret =
+            unsafe { OH_ResourceManager_GetRawFileDescriptor64(self.raw, &mut file_descriptor) };
         if ret {
             file_descriptor.fd
         } else {
