@@ -1,7 +1,7 @@
 use ohos_raw_sys::{
     NativeResourceManager, OH_ResourceManager_CloseRawDir, OH_ResourceManager_CloseRawFile,
     OH_ResourceManager_CloseRawFile64, OH_ResourceManager_GetRawFileCount,
-    OH_ResourceManager_GetRawFileDescriptorData, OH_ResourceManager_GetRawFileDescriptor64,
+    OH_ResourceManager_GetRawFileDescriptor64, OH_ResourceManager_GetRawFileDescriptorData,
     OH_ResourceManager_GetRawFileName, OH_ResourceManager_GetRawFileOffset,
     OH_ResourceManager_GetRawFileOffset64, OH_ResourceManager_GetRawFileRemainingLength,
     OH_ResourceManager_GetRawFileRemainingLength64, OH_ResourceManager_GetRawFileSize,

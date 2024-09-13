@@ -1,0 +1,7 @@
+[package]
+name    = "ohos-ability-access-control-binding"
+version = "0.0.1"
+edition = "2021"
+
+[dependencies]
+ohos-ability-access-control-sys = { workspace = true }

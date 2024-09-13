@@ -115,6 +115,13 @@ static CONFIG: Lazy<Vec<SysConfig>> = Lazy::new(|| {
             block_list: vec![],
             extra: "",
         },
+        SysConfig {
+            name: "ohos-ability-access-control-sys",
+            headers: vec!["accesstoken/ability_access_control.h"],
+            white_list: vec!["OH_.*"],
+            block_list: vec![],
+            extra: "",
+        },
     ]
 });
 
