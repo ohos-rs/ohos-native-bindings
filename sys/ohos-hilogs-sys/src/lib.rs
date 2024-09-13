@@ -6,6 +6,8 @@
 
 pub const __GNUC_VA_LIST: u32 = 1;
 pub const __bool_true_false_are_defined: u32 = 1;
+pub const true_: u32 = 1;
+pub const false_: u32 = 0;
 pub const LOG_DOMAIN: u32 = 0;
 pub type va_list = [u64; 4usize];
 pub type __gnuc_va_list = [u64; 4usize];

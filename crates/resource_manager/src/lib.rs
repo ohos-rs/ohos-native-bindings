@@ -13,6 +13,7 @@ use std::ffi::CString;
 use std::os::raw::c_char;
 use std::ptr;
 
+#[allow(unused_imports)]
 pub use data::*;
 
 pub trait ResourceManager {

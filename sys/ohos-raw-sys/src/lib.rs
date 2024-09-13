@@ -76,13 +76,13 @@ extern "C" {
     pub fn OH_ResourceManager_GetRawFileOffset(rawFile: *const RawFile) -> ::std::os::raw::c_long;
 }
 extern "C" {
-    pub fn OH_ResourceManager_GetRawFileDescriptor(
+    pub fn OH_ResourceManager_GetRawFileDescriptorData(
         rawFile: *const RawFile,
         descriptor: *mut RawFileDescriptor,
     ) -> bool;
 }
 extern "C" {
-    pub fn OH_ResourceManager_ReleaseRawFileDescriptor(
+    pub fn OH_ResourceManager_ReleaseRawFileDescriptorData(
         descriptor: *const RawFileDescriptor,
     ) -> bool;
 }

@@ -61,6 +61,8 @@ static CONFIG: Lazy<Vec<SysConfig>> = Lazy::new(|| {
             block_list: vec!["napi_.*"],
             extra: "\n\nuse napi_sys_ohos::*;\n",
         },
+        // source code with default value which is not supported by clang
+        // you should change it.
         SysConfig {
             name: "ohos-resource-manager-sys",
             headers: vec![
@@ -78,6 +80,40 @@ static CONFIG: Lazy<Vec<SysConfig>> = Lazy::new(|| {
             ],
             block_list: vec!["napi_.*", "NativeResourceManager"],
             extra: "\n\nuse ohos_raw_sys::*;\n",
+        },
+        SysConfig {
+            name: "ohos-xcomponent-sys",
+            headers: vec![
+                "ace/xcomponent/native_interface_xcomponent.h",
+                "ace/xcomponent/native_xcomponent_key_event.h",
+            ],
+            white_list: vec!["OH_NativeXComponent.*"],
+            block_list: vec![],
+            extra: "",
+        },
+        SysConfig {
+            name: "ohos-arkui-sys",
+            headers: vec![
+                "arkui/drawable_descriptor.h",
+                "arkui/native_animate.h",
+                "arkui/native_dialog.h",
+                "arkui/native_gesture.h",
+                "arkui/native_interface.h",
+                "arkui/native_node.h",
+                "arkui/native_node_napi.h",
+                "arkui/native_type.h",
+                "arkui/styled_string.h",
+            ],
+            white_list: vec!["ArkUI_.*", "ARKUI_.*", "OH_.*"],
+            block_list: vec!["napi_.*"],
+            extra: "\n\nuse napi_sys_ohos::*;\n",
+        },
+        SysConfig {
+            name: "ohos-event-sys",
+            headers: vec!["arkui/ui_input_event.h"],
+            white_list: vec!["ArkUI_.*", "ARKUI_.*", "OH_.*", "UI_.*", "Hit.*"],
+            block_list: vec![],
+            extra: "",
         },
     ]
 });
@@ -112,10 +148,12 @@ fn generate_code(config: &SysConfig) -> anyhow::Result<()> {
         .join("\n");
 
     let mut bindings = bindgen::Builder::default()
-        .header_contents("wrapper.hpp", &header_content)
+        .header_contents("wrapper.h", &header_content)
         .raw_line(
             format!("#![allow(non_snake_case)]\n#![allow(non_upper_case_globals)]\n#![allow(non_camel_case_types)]{}", config.extra),
         )
+        .clang_arg("-x")
+        .clang_arg("c")
         .layout_tests(false);
 
     if !config.white_list.is_empty() {

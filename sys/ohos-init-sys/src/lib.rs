@@ -5,6 +5,8 @@
 #![allow(non_camel_case_types)]
 
 pub const __bool_true_false_are_defined: u32 = 1;
+pub const true_: u32 = 1;
+pub const false_: u32 = 0;
 extern "C" {
     pub fn canIUse(cap: *const ::std::os::raw::c_char) -> bool;
 }
