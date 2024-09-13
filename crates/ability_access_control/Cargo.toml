@@ -1,7 +1,9 @@
 [package]
-name    = "ohos-ability-access-control-binding"
-version = "0.0.1"
-edition = "2021"
+name        = "ohos-ability-access-control-binding"
+version     = "0.0.1"
+edition     = "2021"
+license     = "MIT OR Apache-2.0"
+description = "OpenHarmony's ability-access-control binding for rust"
 
 [dependencies]
 ohos-ability-access-control-sys = { workspace = true }
