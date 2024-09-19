@@ -9,7 +9,10 @@ use std::{os::raw::c_void, ptr, sync::LazyLock};
 
 use crate::{
     code::XComponentResultCode,
-    r#type::{NativeXComponentCallback, PersistedPerInstanceHashMap, Window, XComponentSize},
+    r#type::{
+        NativeXComponentCallback, PersistedPerInstanceHashMap, Window, XComponentInstance,
+        XComponentSize,
+    },
 };
 
 #[cfg(feature = "log")]
@@ -17,7 +20,7 @@ use ohos_hilog_binding::{hilog_error, hilog_warn};
 
 pub(crate) type XComponentMap = PersistedPerInstanceHashMap<
     String,
-    Box<dyn Fn(XComponent, Window) -> Result<()> + 'static + Send>,
+    Box<dyn Fn(XComponentInstance, Window) -> Result<()> + 'static + Send>,
 >;
 
 static X_COMPONENT_MAP: LazyLock<XComponentMap> = LazyLock::new(Default::default);
@@ -32,10 +35,13 @@ static X_COMPONENT_MAP: LazyLock<XComponentMap> = LazyLock::new(Default::default
 ///     Ok(())
 /// }
 /// ```
-#[repr(transparent)]
-pub struct XComponent(*mut OH_NativeXComponent);
+#[derive(Debug,Clone, Copy)]
+pub struct XComponent {
+    instance: XComponentInstance,
+    callbacks: Option<*mut OH_NativeXComponent_Callback>,
+}
 
-pub type XComponentCallback = fn(xcomponent: XComponent, window: Window) -> Result<()>;
+pub type XComponentCallback = fn(xcomponent: XComponentInstance, window: Window) -> Result<()>;
 
 /// Allow to add custom event callback
 /// ### Example
@@ -81,7 +87,7 @@ impl XComponentCallbacks {
     /// set OnSurfaceCreated callback
     pub fn set_on_surface_created<F>(&mut self, callback: F)
     where
-        F: Fn(XComponent, Window) -> Result<()> + 'static + Send,
+        F: Fn(XComponentInstance, Window) -> Result<()> + 'static + Send,
     {
         let boxed_callback = Box::new(callback);
         self.inner.on_surface_created = Some(on_surface_created::<F>);
@@ -93,7 +99,7 @@ impl XComponentCallbacks {
     /// set OnSurfaceChanged callback
     pub fn set_on_surface_changed<F>(&mut self, callback: F)
     where
-        F: Fn(XComponent, Window) -> Result<()> + 'static + Send,
+        F: Fn(XComponentInstance, Window) -> Result<()> + 'static + Send,
     {
         let boxed_callback = Box::new(callback);
         self.inner.on_surface_changed = Some(on_surface_changed::<F>);
@@ -105,7 +111,7 @@ impl XComponentCallbacks {
     /// set OnSurfaceDestroyed callback
     pub fn set_on_surface_destroyed<F>(&mut self, callback: F)
     where
-        F: Fn(XComponent, Window) -> Result<()> + 'static + Send,
+        F: Fn(XComponentInstance, Window) -> Result<()> + 'static + Send,
     {
         let boxed_callback = Box::new(callback);
         self.inner.on_surface_destroyed = Some(on_surface_destroyed::<F>);
@@ -117,7 +123,7 @@ impl XComponentCallbacks {
     /// set DispatchTouchEvent callback
     pub fn set_dispatch_touch_event<F>(&mut self, callback: F)
     where
-        F: Fn(XComponent, Window) -> Result<()> + 'static + Send,
+        F: Fn(XComponentInstance, Window) -> Result<()> + 'static + Send,
     {
         let boxed_callback = Box::new(callback);
         self.inner.dispatch_touch_event = Some(dispatch_touch_event::<F>);
@@ -151,12 +157,15 @@ impl XComponent {
             "Get OH_NativeXComponent failed."
         )?;
 
-        Ok(XComponent(instance))
+        Ok(XComponent {
+            instance: XComponentInstance(instance),
+            callbacks: None,
+        })
     }
 
     /// Get current xcomponent instance's id
     pub fn id(&self) -> Result<String> {
-        let current_id = resolve_id(self.0);
+        let current_id = resolve_id(self.instance.0);
         if let Some(id_str) = current_id {
             return Ok(id_str);
         }
@@ -164,16 +173,17 @@ impl XComponent {
     }
 
     /// register callbacks
-    pub fn register_callback(&self, callbacks: XComponentCallbacks) -> Result<()> {
+    pub fn register_callback(&mut self, callbacks: XComponentCallbacks) -> Result<()> {
         let cbs = Box::new(OH_NativeXComponent_Callback {
             OnSurfaceCreated: callbacks.inner.on_surface_created,
             OnSurfaceChanged: callbacks.inner.on_surface_changed,
             OnSurfaceDestroyed: callbacks.inner.on_surface_destroyed,
             DispatchTouchEvent: callbacks.inner.dispatch_touch_event,
         });
-        let ret: XComponentResultCode = unsafe {
-            OH_NativeXComponent_RegisterCallback(self.0, Box::leak(cbs) as *mut _).into()
-        };
+        let raw_ptr = Box::into_raw(cbs);
+        self.callbacks = Some(raw_ptr);
+        let ret: XComponentResultCode =
+            unsafe { OH_NativeXComponent_RegisterCallback(self.instance.0, raw_ptr).into() };
         if ret != XComponentResultCode::Success {
             return Err(Error::from_reason("XComponent register callbacks failed"));
         }
@@ -185,14 +195,31 @@ impl XComponent {
         let mut width: u64 = 0;
         let mut height: u64 = 0;
         let ret: XComponentResultCode = unsafe {
-            OH_NativeXComponent_GetXComponentSize(self.0, window.0, &mut width, &mut height).into()
+            OH_NativeXComponent_GetXComponentSize(
+                self.instance.0,
+                window.0,
+                &mut width,
+                &mut height,
+            )
+            .into()
         };
         if ret != XComponentResultCode::Success {
             return Err(Error::from_reason("XComponent get size failed"));
         }
         Ok(XComponentSize { width, height })
     }
+
+    /// release callback info, which can be called in destroy lifecycle
+    pub fn release(&self) {
+        if let Some(cb) = self.callbacks  {
+            let _ = unsafe {
+                Box::from_raw(cb)
+            };
+        }
+    }
 }
+
+unsafe impl Send for XComponent {}
 
 /// get xcomponent id
 fn resolve_id(component: *mut OH_NativeXComponent) -> Option<String> {
@@ -223,7 +250,7 @@ macro_rules! callback {
             component: *mut OH_NativeXComponent,
             window: *mut ::std::os::raw::c_void,
         ) where
-            F: Fn(XComponent, Window) -> Result<()>,
+            F: Fn(XComponentInstance, Window) -> Result<()>,
         {
             let id = resolve_id(component);
             if let Some(id) = id {
@@ -231,7 +258,7 @@ macro_rules! callback {
                     let map_id = format!("{}_{}", &id, &$name);
                     if let Some(callback) = map.get(&map_id) {
                         #[allow(unused_variables)]
-                        if let Err(e) = callback(XComponent(component), Window(window)) {
+                        if let Err(e) = callback(XComponentInstance(component), Window(window)) {
                             #[cfg(feature = "log")]
                             hilog_warn!(format!("XComponent {} run failed: {}", e.reason, &$name));
                         }

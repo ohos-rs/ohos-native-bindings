@@ -4,6 +4,8 @@
 #![allow(non_upper_case_globals)]
 #![allow(non_camel_case_types)]
 
+unsafe impl Send for OH_NativeXComponent_Callback{}
+
 pub const OH_NATIVE_XCOMPONENT_OBJ: &[u8; 26usize] = b"__NATIVE_XCOMPONENT_OBJ__\0";
 #[repr(C)]
 #[derive(Debug, Copy, Clone)]

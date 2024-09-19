@@ -24,7 +24,7 @@ pub mod gl {
 
 #[module_exports]
 pub fn init(exports: JsObject, env: Env) -> Result<()> {
-    let xcomponent = XComponent::init(env, exports)?;
+    let mut xcomponent = XComponent::init(env, exports)?;
 
     let id = xcomponent.id()?;
 
@@ -39,7 +39,9 @@ pub fn init(exports: JsObject, env: Env) -> Result<()> {
         Ok(())
     });
 
-    callbacks.set_on_surface_destroyed(|_xcomponent, _win| {
+    let a = xcomponent.clone();
+    callbacks.set_on_surface_destroyed(move |_xcomponent, _win| {
+        a.release();
         hilog_info!("xcomponent_destroy");
         Ok(())
     });

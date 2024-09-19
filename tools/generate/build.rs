@@ -89,7 +89,8 @@ static CONFIG: Lazy<Vec<SysConfig>> = Lazy::new(|| {
             ],
             white_list: vec!["OH_.*"],
             block_list: vec![],
-            extra: "",
+            // allow us to release in destroy
+            extra: "\nunsafe impl Send for OH_NativeXComponent_Callback{}\n",
         },
         SysConfig {
             name: "ohos-arkui-sys",

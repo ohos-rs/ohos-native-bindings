@@ -1,8 +1,12 @@
-use ohos_xcomponent_sys::OH_NativeXComponent;
+use ohos_xcomponent_sys::{OH_NativeXComponent, OH_NativeXComponent_Callback};
 use std::{collections::HashMap, os::raw::c_void, sync::RwLock};
 
 #[repr(transparent)]
 pub struct Window(pub *mut c_void);
+
+#[repr(transparent)]
+#[derive(Debug,Clone, Copy)]
+pub struct XComponentInstance(pub *mut OH_NativeXComponent);
 
 #[repr(C)]
 pub struct NativeXComponentCallback {
