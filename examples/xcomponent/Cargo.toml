@@ -1,0 +1,27 @@
+[package]
+name    = "nativerender"
+version = "0.1.0"
+edition = "2021"
+
+# See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
+
+[lib]
+crate-type = ["cdylib"]
+
+[dependencies]
+napi-ohos               = { workspace = true }
+napi-derive-ohos        = { workspace = true }
+ohos-xcomponent-binding = { workspace = true }
+gl                      = "0.14.0"
+libc                    = "*"
+glutin                  = { version = "*" }
+raw-window-handle       = { version = "*" }
+ohos-hilog-binding      = { workspace = true }
+
+
+[build-dependencies]
+napi-build-ohos = { workspace = true }
+gl_generator    = { version = "0.14.0" }
+
+[profile.release]
+lto = true

@@ -4,12 +4,1102 @@
 #![allow(non_upper_case_globals)]
 #![allow(non_camel_case_types)]
 
+pub const OH_NATIVE_XCOMPONENT_OBJ: &[u8; 26usize] = b"__NATIVE_XCOMPONENT_OBJ__\0";
+#[repr(C)]
+#[derive(Debug, Copy, Clone)]
+pub struct ArkUI_DrawableDescriptor {
+    _unused: [u8; 0],
+}
+#[repr(C)]
+#[derive(Debug, Copy, Clone)]
+pub struct OH_PixelmapNative {
+    _unused: [u8; 0],
+}
+pub type OH_PixelmapNativeHandle = *mut OH_PixelmapNative;
+extern "C" {
+    pub fn OH_ArkUI_DrawableDescriptor_CreateFromPixelMap(
+        pixelMap: OH_PixelmapNativeHandle,
+    ) -> *mut ArkUI_DrawableDescriptor;
+}
+extern "C" {
+    pub fn OH_ArkUI_DrawableDescriptor_CreateFromAnimatedPixelMap(
+        array: *mut OH_PixelmapNativeHandle,
+        size: i32,
+    ) -> *mut ArkUI_DrawableDescriptor;
+}
+extern "C" {
+    pub fn OH_ArkUI_DrawableDescriptor_Dispose(drawableDescriptor: *mut ArkUI_DrawableDescriptor);
+}
+extern "C" {
+    pub fn OH_ArkUI_DrawableDescriptor_GetStaticPixelMap(
+        drawableDescriptor: *mut ArkUI_DrawableDescriptor,
+    ) -> OH_PixelmapNativeHandle;
+}
+extern "C" {
+    pub fn OH_ArkUI_DrawableDescriptor_GetAnimatedPixelMapArray(
+        drawableDescriptor: *mut ArkUI_DrawableDescriptor,
+    ) -> *mut OH_PixelmapNativeHandle;
+}
+extern "C" {
+    pub fn OH_ArkUI_DrawableDescriptor_GetAnimatedPixelMapArraySize(
+        drawableDescriptor: *mut ArkUI_DrawableDescriptor,
+    ) -> i32;
+}
+extern "C" {
+    pub fn OH_ArkUI_DrawableDescriptor_SetAnimationDuration(
+        drawableDescriptor: *mut ArkUI_DrawableDescriptor,
+        duration: i32,
+    );
+}
+extern "C" {
+    pub fn OH_ArkUI_DrawableDescriptor_GetAnimationDuration(
+        drawableDescriptor: *mut ArkUI_DrawableDescriptor,
+    ) -> i32;
+}
+extern "C" {
+    pub fn OH_ArkUI_DrawableDescriptor_SetAnimationIteration(
+        drawableDescriptor: *mut ArkUI_DrawableDescriptor,
+        iteration: i32,
+    );
+}
+extern "C" {
+    pub fn OH_ArkUI_DrawableDescriptor_GetAnimationIteration(
+        drawableDescriptor: *mut ArkUI_DrawableDescriptor,
+    ) -> i32;
+}
 #[repr(C)]
 #[derive(Debug, Copy, Clone)]
 pub struct ArkUI_Node {
     _unused: [u8; 0],
 }
+#[repr(C)]
+#[derive(Debug, Copy, Clone)]
+pub struct ArkUI_LayoutConstraint {
+    _unused: [u8; 0],
+}
+#[repr(C)]
+#[derive(Debug, Copy, Clone)]
+pub struct ArkUI_DrawContext {
+    _unused: [u8; 0],
+}
 pub type ArkUI_NodeHandle = *mut ArkUI_Node;
+#[repr(C)]
+#[derive(Debug, Copy, Clone)]
+pub struct ArkUI_WaterFlowSectionOption {
+    _unused: [u8; 0],
+}
+#[repr(C)]
+#[derive(Debug, Copy, Clone)]
+pub struct ArkUI_ListItemSwipeActionItem {
+    _unused: [u8; 0],
+}
+#[repr(C)]
+#[derive(Debug, Copy, Clone)]
+pub struct ArkUI_ListItemSwipeActionOption {
+    _unused: [u8; 0],
+}
+#[repr(C)]
+#[derive(Debug, Copy, Clone)]
+pub struct ArkUI_SwiperIndicator {
+    _unused: [u8; 0],
+}
+#[repr(C)]
+#[derive(Debug, Copy, Clone)]
+pub struct ArkUI_AlignmentRuleOption {
+    _unused: [u8; 0],
+}
+#[repr(C)]
+#[derive(Debug, Copy, Clone)]
+pub struct ArkUI_GuidelineOption {
+    _unused: [u8; 0],
+}
+#[repr(C)]
+#[derive(Debug, Copy, Clone)]
+pub struct ArkUI_BarrierOption {
+    _unused: [u8; 0],
+}
+#[repr(C)]
+#[derive(Debug, Copy, Clone)]
+pub struct ArkUI_ListChildrenMainSize {
+    _unused: [u8; 0],
+}
+#[repr(C)]
+#[derive(Debug, Copy, Clone)]
+pub struct ArkUI_ImageAnimatorFrameInfo {
+    _unused: [u8; 0],
+}
+#[repr(C)]
+#[derive(Debug, Copy, Clone)]
+pub struct ArkUI_AccessibilityState {
+    _unused: [u8; 0],
+}
+#[repr(C)]
+#[derive(Debug, Copy, Clone)]
+pub struct ArkUI_AccessibilityValue {
+    _unused: [u8; 0],
+}
+pub const ArkUI_Axis_ARKUI_AXIS_VERTICAL: ArkUI_Axis = 0;
+pub const ArkUI_Axis_ARKUI_AXIS_HORIZONTAL: ArkUI_Axis = 1;
+pub type ArkUI_Axis = ::std::os::raw::c_uint;
+pub const ArkUI_VerticalAlignment_ARKUI_VERTICAL_ALIGNMENT_TOP: ArkUI_VerticalAlignment = 0;
+pub const ArkUI_VerticalAlignment_ARKUI_VERTICAL_ALIGNMENT_CENTER: ArkUI_VerticalAlignment = 1;
+pub const ArkUI_VerticalAlignment_ARKUI_VERTICAL_ALIGNMENT_BOTTOM: ArkUI_VerticalAlignment = 2;
+pub type ArkUI_VerticalAlignment = ::std::os::raw::c_uint;
+pub const ArkUI_HorizontalAlignment_ARKUI_HORIZONTAL_ALIGNMENT_START: ArkUI_HorizontalAlignment = 0;
+pub const ArkUI_HorizontalAlignment_ARKUI_HORIZONTAL_ALIGNMENT_CENTER: ArkUI_HorizontalAlignment =
+    1;
+pub const ArkUI_HorizontalAlignment_ARKUI_HORIZONTAL_ALIGNMENT_END: ArkUI_HorizontalAlignment = 2;
+pub type ArkUI_HorizontalAlignment = ::std::os::raw::c_uint;
+#[repr(C)]
+#[derive(Debug, Copy, Clone)]
+pub struct ArkUI_IntSize {
+    pub width: i32,
+    pub height: i32,
+}
+pub const ArkUI_BarrierDirection_ARKUI_BARRIER_DIRECTION_START: ArkUI_BarrierDirection = 0;
+pub const ArkUI_BarrierDirection_ARKUI_BARRIER_DIRECTION_END: ArkUI_BarrierDirection = 1;
+pub const ArkUI_BarrierDirection_ARKUI_BARRIER_DIRECTION_TOP: ArkUI_BarrierDirection = 2;
+pub const ArkUI_BarrierDirection_ARKUI_BARRIER_DIRECTION_BOTTOM: ArkUI_BarrierDirection = 3;
+pub type ArkUI_BarrierDirection = ::std::os::raw::c_uint;
+#[repr(C)]
+#[derive(Debug, Copy, Clone)]
+pub struct ArkUI_Margin {
+    pub top: f32,
+    pub right: f32,
+    pub bottom: f32,
+    pub left: f32,
+}
+pub const ArkUI_SwiperIndicatorType_ARKUI_SWIPER_INDICATOR_TYPE_DOT: ArkUI_SwiperIndicatorType = 0;
+pub const ArkUI_SwiperIndicatorType_ARKUI_SWIPER_INDICATOR_TYPE_DIGIT: ArkUI_SwiperIndicatorType =
+    1;
+pub type ArkUI_SwiperIndicatorType = ::std::os::raw::c_uint;
+pub const ArkUI_ListItemSwipeActionState_ARKUI_LIST_ITEM_SWIPE_ACTION_STATE_COLLAPSED:
+    ArkUI_ListItemSwipeActionState = 0;
+pub const ArkUI_ListItemSwipeActionState_ARKUI_LIST_ITEM_SWIPE_ACTION_STATE_EXPANDED:
+    ArkUI_ListItemSwipeActionState = 1;
+pub const ArkUI_ListItemSwipeActionState_ARKUI_LIST_ITEM_SWIPE_ACTION_STATE_ACTIONING:
+    ArkUI_ListItemSwipeActionState = 2;
+pub type ArkUI_ListItemSwipeActionState = ::std::os::raw::c_uint;
+pub const ArkUI_ListItemSwipeEdgeEffect_ARKUI_LIST_ITEM_SWIPE_EDGE_EFFECT_SPRING:
+    ArkUI_ListItemSwipeEdgeEffect = 0;
+pub const ArkUI_ListItemSwipeEdgeEffect_ARKUI_LIST_ITEM_SWIPE_EDGE_EFFECT_NONE:
+    ArkUI_ListItemSwipeEdgeEffect = 1;
+pub type ArkUI_ListItemSwipeEdgeEffect = ::std::os::raw::c_uint;
+#[repr(C)]
+#[derive(Debug, Copy, Clone)]
+pub struct ArkUI_CustomSpanMeasureInfo {
+    _unused: [u8; 0],
+}
+#[repr(C)]
+#[derive(Debug, Copy, Clone)]
+pub struct ArkUI_CustomSpanMetrics {
+    _unused: [u8; 0],
+}
+#[repr(C)]
+#[derive(Debug, Copy, Clone)]
+pub struct ArkUI_CustomSpanDrawInfo {
+    _unused: [u8; 0],
+}
+extern "C" {
+    pub fn OH_ArkUI_LayoutConstraint_Create() -> *mut ArkUI_LayoutConstraint;
+}
+extern "C" {
+    pub fn OH_ArkUI_LayoutConstraint_Copy(
+        Constraint: *const ArkUI_LayoutConstraint,
+    ) -> *mut ArkUI_LayoutConstraint;
+}
+extern "C" {
+    pub fn OH_ArkUI_LayoutConstraint_Dispose(
+        Constraint: *mut ArkUI_LayoutConstraint,
+    ) -> *mut ::std::os::raw::c_void;
+}
+extern "C" {
+    pub fn OH_ArkUI_LayoutConstraint_GetMaxWidth(Constraint: *const ArkUI_LayoutConstraint) -> i32;
+}
+extern "C" {
+    pub fn OH_ArkUI_LayoutConstraint_GetMinWidth(Constraint: *const ArkUI_LayoutConstraint) -> i32;
+}
+extern "C" {
+    pub fn OH_ArkUI_LayoutConstraint_GetMaxHeight(Constraint: *const ArkUI_LayoutConstraint)
+        -> i32;
+}
+extern "C" {
+    pub fn OH_ArkUI_LayoutConstraint_GetMinHeight(Constraint: *const ArkUI_LayoutConstraint)
+        -> i32;
+}
+extern "C" {
+    pub fn OH_ArkUI_LayoutConstraint_GetPercentReferenceWidth(
+        Constraint: *const ArkUI_LayoutConstraint,
+    ) -> i32;
+}
+extern "C" {
+    pub fn OH_ArkUI_LayoutConstraint_GetPercentReferenceHeight(
+        Constraint: *const ArkUI_LayoutConstraint,
+    ) -> i32;
+}
+extern "C" {
+    pub fn OH_ArkUI_LayoutConstraint_SetMaxWidth(
+        Constraint: *mut ArkUI_LayoutConstraint,
+        value: i32,
+    );
+}
+extern "C" {
+    pub fn OH_ArkUI_LayoutConstraint_SetMinWidth(
+        Constraint: *mut ArkUI_LayoutConstraint,
+        value: i32,
+    );
+}
+extern "C" {
+    pub fn OH_ArkUI_LayoutConstraint_SetMaxHeight(
+        Constraint: *mut ArkUI_LayoutConstraint,
+        value: i32,
+    );
+}
+extern "C" {
+    pub fn OH_ArkUI_LayoutConstraint_SetMinHeight(
+        Constraint: *mut ArkUI_LayoutConstraint,
+        value: i32,
+    );
+}
+extern "C" {
+    pub fn OH_ArkUI_LayoutConstraint_SetPercentReferenceWidth(
+        Constraint: *mut ArkUI_LayoutConstraint,
+        value: i32,
+    );
+}
+extern "C" {
+    pub fn OH_ArkUI_LayoutConstraint_SetPercentReferenceHeight(
+        Constraint: *mut ArkUI_LayoutConstraint,
+        value: i32,
+    );
+}
+extern "C" {
+    pub fn OH_ArkUI_DrawContext_GetCanvas(
+        context: *mut ArkUI_DrawContext,
+    ) -> *mut ::std::os::raw::c_void;
+}
+extern "C" {
+    pub fn OH_ArkUI_DrawContext_GetSize(context: *mut ArkUI_DrawContext) -> ArkUI_IntSize;
+}
+extern "C" {
+    pub fn OH_ArkUI_WaterFlowSectionOption_Create() -> *mut ArkUI_WaterFlowSectionOption;
+}
+extern "C" {
+    pub fn OH_ArkUI_WaterFlowSectionOption_Dispose(option: *mut ArkUI_WaterFlowSectionOption);
+}
+extern "C" {
+    pub fn OH_ArkUI_WaterFlowSectionOption_SetSize(
+        option: *mut ArkUI_WaterFlowSectionOption,
+        size: i32,
+    );
+}
+extern "C" {
+    pub fn OH_ArkUI_WaterFlowSectionOption_GetSize(
+        option: *mut ArkUI_WaterFlowSectionOption,
+    ) -> i32;
+}
+extern "C" {
+    pub fn OH_ArkUI_WaterFlowSectionOption_SetItemCount(
+        option: *mut ArkUI_WaterFlowSectionOption,
+        index: i32,
+        itemCount: i32,
+    );
+}
+extern "C" {
+    pub fn OH_ArkUI_WaterFlowSectionOption_GetItemCount(
+        option: *mut ArkUI_WaterFlowSectionOption,
+        index: i32,
+    ) -> i32;
+}
+extern "C" {
+    pub fn OH_ArkUI_WaterFlowSectionOption_RegisterGetItemMainSizeCallbackByIndex(
+        option: *mut ArkUI_WaterFlowSectionOption,
+        index: i32,
+        callback: ::std::option::Option<unsafe extern "C" fn(itemIndex: i32) -> f32>,
+    );
+}
+extern "C" {
+    pub fn OH_ArkUI_WaterFlowSectionOption_RegisterGetItemMainSizeCallbackByIndexWithUserData(
+        option: *mut ArkUI_WaterFlowSectionOption,
+        index: i32,
+        userData: *mut ::std::os::raw::c_void,
+        callback: ::std::option::Option<
+            unsafe extern "C" fn(itemIndex: i32, userData: *mut ::std::os::raw::c_void) -> f32,
+        >,
+    );
+}
+extern "C" {
+    pub fn OH_ArkUI_WaterFlowSectionOption_SetCrossCount(
+        option: *mut ArkUI_WaterFlowSectionOption,
+        index: i32,
+        crossCount: i32,
+    );
+}
+extern "C" {
+    pub fn OH_ArkUI_WaterFlowSectionOption_GetCrossCount(
+        option: *mut ArkUI_WaterFlowSectionOption,
+        index: i32,
+    ) -> i32;
+}
+extern "C" {
+    pub fn OH_ArkUI_WaterFlowSectionOption_SetColumnGap(
+        option: *mut ArkUI_WaterFlowSectionOption,
+        index: i32,
+        columnGap: f32,
+    );
+}
+extern "C" {
+    pub fn OH_ArkUI_WaterFlowSectionOption_GetColumnGap(
+        option: *mut ArkUI_WaterFlowSectionOption,
+        index: i32,
+    ) -> f32;
+}
+extern "C" {
+    pub fn OH_ArkUI_WaterFlowSectionOption_SetRowGap(
+        option: *mut ArkUI_WaterFlowSectionOption,
+        index: i32,
+        rowGap: f32,
+    );
+}
+extern "C" {
+    pub fn OH_ArkUI_WaterFlowSectionOption_GetRowGap(
+        option: *mut ArkUI_WaterFlowSectionOption,
+        index: i32,
+    ) -> f32;
+}
+extern "C" {
+    pub fn OH_ArkUI_WaterFlowSectionOption_SetMargin(
+        option: *mut ArkUI_WaterFlowSectionOption,
+        index: i32,
+        marginTop: f32,
+        marginRight: f32,
+        marginBottom: f32,
+        marginLeft: f32,
+    );
+}
+extern "C" {
+    pub fn OH_ArkUI_WaterFlowSectionOption_GetMargin(
+        option: *mut ArkUI_WaterFlowSectionOption,
+        index: i32,
+    ) -> ArkUI_Margin;
+}
+extern "C" {
+    pub fn OH_ArkUI_SwiperIndicator_Create(
+        type_: ArkUI_SwiperIndicatorType,
+    ) -> *mut ArkUI_SwiperIndicator;
+}
+extern "C" {
+    pub fn OH_ArkUI_SwiperIndicator_Dispose(indicator: *mut ArkUI_SwiperIndicator);
+}
+extern "C" {
+    pub fn OH_ArkUI_SwiperIndicator_SetStartPosition(
+        indicator: *mut ArkUI_SwiperIndicator,
+        value: f32,
+    );
+}
+extern "C" {
+    pub fn OH_ArkUI_SwiperIndicator_GetStartPosition(indicator: *mut ArkUI_SwiperIndicator) -> f32;
+}
+extern "C" {
+    pub fn OH_ArkUI_SwiperIndicator_SetTopPosition(
+        indicator: *mut ArkUI_SwiperIndicator,
+        value: f32,
+    );
+}
+extern "C" {
+    pub fn OH_ArkUI_SwiperIndicator_GetTopPosition(indicator: *mut ArkUI_SwiperIndicator) -> f32;
+}
+extern "C" {
+    pub fn OH_ArkUI_SwiperIndicator_SetEndPosition(
+        indicator: *mut ArkUI_SwiperIndicator,
+        value: f32,
+    );
+}
+extern "C" {
+    pub fn OH_ArkUI_SwiperIndicator_GetEndPosition(indicator: *mut ArkUI_SwiperIndicator) -> f32;
+}
+extern "C" {
+    pub fn OH_ArkUI_SwiperIndicator_SetBottomPosition(
+        indicator: *mut ArkUI_SwiperIndicator,
+        value: f32,
+    );
+}
+extern "C" {
+    pub fn OH_ArkUI_SwiperIndicator_GetBottomPosition(indicator: *mut ArkUI_SwiperIndicator)
+        -> f32;
+}
+extern "C" {
+    pub fn OH_ArkUI_SwiperIndicator_SetItemWidth(indicator: *mut ArkUI_SwiperIndicator, value: f32);
+}
+extern "C" {
+    pub fn OH_ArkUI_SwiperIndicator_GetItemWidth(indicator: *mut ArkUI_SwiperIndicator) -> f32;
+}
+extern "C" {
+    pub fn OH_ArkUI_SwiperIndicator_SetItemHeight(
+        indicator: *mut ArkUI_SwiperIndicator,
+        value: f32,
+    );
+}
+extern "C" {
+    pub fn OH_ArkUI_SwiperIndicator_GetItemHeight(indicator: *mut ArkUI_SwiperIndicator) -> f32;
+}
+extern "C" {
+    pub fn OH_ArkUI_SwiperIndicator_SetSelectedItemWidth(
+        indicator: *mut ArkUI_SwiperIndicator,
+        value: f32,
+    );
+}
+extern "C" {
+    pub fn OH_ArkUI_SwiperIndicator_GetSelectedItemWidth(
+        indicator: *mut ArkUI_SwiperIndicator,
+    ) -> f32;
+}
+extern "C" {
+    pub fn OH_ArkUI_SwiperIndicator_SetSelectedItemHeight(
+        indicator: *mut ArkUI_SwiperIndicator,
+        value: f32,
+    );
+}
+extern "C" {
+    pub fn OH_ArkUI_SwiperIndicator_GetSelectedItemHeight(
+        indicator: *mut ArkUI_SwiperIndicator,
+    ) -> f32;
+}
+extern "C" {
+    pub fn OH_ArkUI_SwiperIndicator_SetMask(indicator: *mut ArkUI_SwiperIndicator, mask: i32);
+}
+extern "C" {
+    pub fn OH_ArkUI_SwiperIndicator_GetMask(indicator: *mut ArkUI_SwiperIndicator) -> i32;
+}
+extern "C" {
+    pub fn OH_ArkUI_SwiperIndicator_SetColor(indicator: *mut ArkUI_SwiperIndicator, color: u32);
+}
+extern "C" {
+    pub fn OH_ArkUI_SwiperIndicator_GetColor(indicator: *mut ArkUI_SwiperIndicator) -> u32;
+}
+extern "C" {
+    pub fn OH_ArkUI_SwiperIndicator_SetSelectedColor(
+        indicator: *mut ArkUI_SwiperIndicator,
+        selectedColor: u32,
+    );
+}
+extern "C" {
+    pub fn OH_ArkUI_SwiperIndicator_GetSelectedColor(indicator: *mut ArkUI_SwiperIndicator) -> u32;
+}
+extern "C" {
+    pub fn OH_ArkUI_SwiperIndicator_SetMaxDisplayCount(
+        indicator: *mut ArkUI_SwiperIndicator,
+        maxDisplayCount: i32,
+    ) -> i32;
+}
+extern "C" {
+    pub fn OH_ArkUI_SwiperIndicator_GetMaxDisplayCount(
+        indicator: *mut ArkUI_SwiperIndicator,
+    ) -> i32;
+}
+extern "C" {
+    pub fn OH_ArkUI_GuidelineOption_Create(size: i32) -> *mut ArkUI_GuidelineOption;
+}
+extern "C" {
+    pub fn OH_ArkUI_GuidelineOption_Dispose(guideline: *mut ArkUI_GuidelineOption);
+}
+extern "C" {
+    pub fn OH_ArkUI_GuidelineOption_SetId(
+        guideline: *mut ArkUI_GuidelineOption,
+        value: *const ::std::os::raw::c_char,
+        index: i32,
+    );
+}
+extern "C" {
+    pub fn OH_ArkUI_GuidelineOption_SetDirection(
+        guideline: *mut ArkUI_GuidelineOption,
+        value: ArkUI_Axis,
+        index: i32,
+    );
+}
+extern "C" {
+    pub fn OH_ArkUI_GuidelineOption_SetPositionStart(
+        guideline: *mut ArkUI_GuidelineOption,
+        value: f32,
+        index: i32,
+    );
+}
+extern "C" {
+    pub fn OH_ArkUI_GuidelineOption_SetPositionEnd(
+        guideline: *mut ArkUI_GuidelineOption,
+        value: f32,
+        index: i32,
+    );
+}
+extern "C" {
+    pub fn OH_ArkUI_GuidelineOption_GetId(
+        guideline: *mut ArkUI_GuidelineOption,
+        index: i32,
+    ) -> *const ::std::os::raw::c_char;
+}
+extern "C" {
+    pub fn OH_ArkUI_GuidelineOption_GetDirection(
+        guideline: *mut ArkUI_GuidelineOption,
+        index: i32,
+    ) -> ArkUI_Axis;
+}
+extern "C" {
+    pub fn OH_ArkUI_GuidelineOption_GetPositionStart(
+        guideline: *mut ArkUI_GuidelineOption,
+        index: i32,
+    ) -> f32;
+}
+extern "C" {
+    pub fn OH_ArkUI_GuidelineOption_GetPositionEnd(
+        guideline: *mut ArkUI_GuidelineOption,
+        index: i32,
+    ) -> f32;
+}
+extern "C" {
+    pub fn OH_ArkUI_BarrierOption_Create(size: i32) -> *mut ArkUI_BarrierOption;
+}
+extern "C" {
+    pub fn OH_ArkUI_BarrierOption_Dispose(barrierStyle: *mut ArkUI_BarrierOption);
+}
+extern "C" {
+    pub fn OH_ArkUI_BarrierOption_SetId(
+        barrierStyle: *mut ArkUI_BarrierOption,
+        value: *const ::std::os::raw::c_char,
+        index: i32,
+    );
+}
+extern "C" {
+    pub fn OH_ArkUI_BarrierOption_SetDirection(
+        barrierStyle: *mut ArkUI_BarrierOption,
+        value: ArkUI_BarrierDirection,
+        index: i32,
+    );
+}
+extern "C" {
+    pub fn OH_ArkUI_BarrierOption_SetReferencedId(
+        barrierStyle: *mut ArkUI_BarrierOption,
+        value: *const ::std::os::raw::c_char,
+        index: i32,
+    );
+}
+extern "C" {
+    pub fn OH_ArkUI_BarrierOption_GetId(
+        barrierStyle: *mut ArkUI_BarrierOption,
+        index: i32,
+    ) -> *const ::std::os::raw::c_char;
+}
+extern "C" {
+    pub fn OH_ArkUI_BarrierOption_GetDirection(
+        barrierStyle: *mut ArkUI_BarrierOption,
+        index: i32,
+    ) -> ArkUI_BarrierDirection;
+}
+extern "C" {
+    pub fn OH_ArkUI_BarrierOption_GetReferencedId(
+        barrierStyle: *mut ArkUI_BarrierOption,
+        index: i32,
+        referencedIndex: i32,
+    ) -> *const ::std::os::raw::c_char;
+}
+extern "C" {
+    pub fn OH_ArkUI_BarrierOption_GetReferencedIdSize(
+        barrierStyle: *mut ArkUI_BarrierOption,
+        index: i32,
+    ) -> i32;
+}
+extern "C" {
+    pub fn OH_ArkUI_AlignmentRuleOption_Create() -> *mut ArkUI_AlignmentRuleOption;
+}
+extern "C" {
+    pub fn OH_ArkUI_AlignmentRuleOption_Dispose(option: *mut ArkUI_AlignmentRuleOption);
+}
+extern "C" {
+    pub fn OH_ArkUI_AlignmentRuleOption_SetStart(
+        option: *mut ArkUI_AlignmentRuleOption,
+        id: *const ::std::os::raw::c_char,
+        alignment: ArkUI_HorizontalAlignment,
+    );
+}
+extern "C" {
+    pub fn OH_ArkUI_AlignmentRuleOption_SetEnd(
+        option: *mut ArkUI_AlignmentRuleOption,
+        id: *const ::std::os::raw::c_char,
+        alignment: ArkUI_HorizontalAlignment,
+    );
+}
+extern "C" {
+    pub fn OH_ArkUI_AlignmentRuleOption_SetCenterHorizontal(
+        option: *mut ArkUI_AlignmentRuleOption,
+        id: *const ::std::os::raw::c_char,
+        alignment: ArkUI_HorizontalAlignment,
+    );
+}
+extern "C" {
+    pub fn OH_ArkUI_AlignmentRuleOption_SetTop(
+        option: *mut ArkUI_AlignmentRuleOption,
+        id: *const ::std::os::raw::c_char,
+        alignment: ArkUI_VerticalAlignment,
+    );
+}
+extern "C" {
+    pub fn OH_ArkUI_AlignmentRuleOption_SetBottom(
+        option: *mut ArkUI_AlignmentRuleOption,
+        id: *const ::std::os::raw::c_char,
+        alignment: ArkUI_VerticalAlignment,
+    );
+}
+extern "C" {
+    pub fn OH_ArkUI_AlignmentRuleOption_SetCenterVertical(
+        option: *mut ArkUI_AlignmentRuleOption,
+        id: *const ::std::os::raw::c_char,
+        alignment: ArkUI_VerticalAlignment,
+    );
+}
+extern "C" {
+    pub fn OH_ArkUI_AlignmentRuleOption_SetBiasHorizontal(
+        option: *mut ArkUI_AlignmentRuleOption,
+        horizontal: f32,
+    );
+}
+extern "C" {
+    pub fn OH_ArkUI_AlignmentRuleOption_SetBiasVertical(
+        option: *mut ArkUI_AlignmentRuleOption,
+        vertical: f32,
+    );
+}
+extern "C" {
+    pub fn OH_ArkUI_AlignmentRuleOption_GetStartId(
+        option: *mut ArkUI_AlignmentRuleOption,
+    ) -> *const ::std::os::raw::c_char;
+}
+extern "C" {
+    pub fn OH_ArkUI_AlignmentRuleOption_GetStartAlignment(
+        option: *mut ArkUI_AlignmentRuleOption,
+    ) -> ArkUI_HorizontalAlignment;
+}
+extern "C" {
+    pub fn OH_ArkUI_AlignmentRuleOption_GetEndId(
+        option: *mut ArkUI_AlignmentRuleOption,
+    ) -> *const ::std::os::raw::c_char;
+}
+extern "C" {
+    pub fn OH_ArkUI_AlignmentRuleOption_GetEndAlignment(
+        option: *mut ArkUI_AlignmentRuleOption,
+    ) -> ArkUI_HorizontalAlignment;
+}
+extern "C" {
+    pub fn OH_ArkUI_AlignmentRuleOption_GetCenterIdHorizontal(
+        option: *mut ArkUI_AlignmentRuleOption,
+    ) -> *const ::std::os::raw::c_char;
+}
+extern "C" {
+    pub fn OH_ArkUI_AlignmentRuleOption_GetCenterAlignmentHorizontal(
+        option: *mut ArkUI_AlignmentRuleOption,
+    ) -> ArkUI_HorizontalAlignment;
+}
+extern "C" {
+    pub fn OH_ArkUI_AlignmentRuleOption_GetTopId(
+        option: *mut ArkUI_AlignmentRuleOption,
+    ) -> *const ::std::os::raw::c_char;
+}
+extern "C" {
+    pub fn OH_ArkUI_AlignmentRuleOption_GetTopAlignment(
+        option: *mut ArkUI_AlignmentRuleOption,
+    ) -> ArkUI_VerticalAlignment;
+}
+extern "C" {
+    pub fn OH_ArkUI_AlignmentRuleOption_GetBottomId(
+        option: *mut ArkUI_AlignmentRuleOption,
+    ) -> *const ::std::os::raw::c_char;
+}
+extern "C" {
+    pub fn OH_ArkUI_AlignmentRuleOption_GetBottomAlignment(
+        option: *mut ArkUI_AlignmentRuleOption,
+    ) -> ArkUI_VerticalAlignment;
+}
+extern "C" {
+    pub fn OH_ArkUI_AlignmentRuleOption_GetCenterIdVertical(
+        option: *mut ArkUI_AlignmentRuleOption,
+    ) -> *const ::std::os::raw::c_char;
+}
+extern "C" {
+    pub fn OH_ArkUI_AlignmentRuleOption_GetCenterAlignmentVertical(
+        option: *mut ArkUI_AlignmentRuleOption,
+    ) -> ArkUI_VerticalAlignment;
+}
+extern "C" {
+    pub fn OH_ArkUI_AlignmentRuleOption_GetBiasHorizontal(
+        option: *mut ArkUI_AlignmentRuleOption,
+    ) -> f32;
+}
+extern "C" {
+    pub fn OH_ArkUI_AlignmentRuleOption_GetBiasVertical(
+        option: *mut ArkUI_AlignmentRuleOption,
+    ) -> f32;
+}
+extern "C" {
+    pub fn OH_ArkUI_ListItemSwipeActionItem_Create() -> *mut ArkUI_ListItemSwipeActionItem;
+}
+extern "C" {
+    pub fn OH_ArkUI_ListItemSwipeActionItem_Dispose(item: *mut ArkUI_ListItemSwipeActionItem);
+}
+extern "C" {
+    pub fn OH_ArkUI_ListItemSwipeActionItem_SetContent(
+        item: *mut ArkUI_ListItemSwipeActionItem,
+        node: ArkUI_NodeHandle,
+    );
+}
+extern "C" {
+    pub fn OH_ArkUI_ListItemSwipeActionItem_SetActionAreaDistance(
+        item: *mut ArkUI_ListItemSwipeActionItem,
+        distance: f32,
+    );
+}
+extern "C" {
+    pub fn OH_ArkUI_ListItemSwipeActionItem_GetActionAreaDistance(
+        item: *mut ArkUI_ListItemSwipeActionItem,
+    ) -> f32;
+}
+extern "C" {
+    pub fn OH_ArkUI_ListItemSwipeActionItem_SetOnEnterActionArea(
+        item: *mut ArkUI_ListItemSwipeActionItem,
+        callback: ::std::option::Option<unsafe extern "C" fn()>,
+    );
+}
+extern "C" {
+    pub fn OH_ArkUI_ListItemSwipeActionItem_SetOnEnterActionAreaWithUserData(
+        item: *mut ArkUI_ListItemSwipeActionItem,
+        userData: *mut ::std::os::raw::c_void,
+        callback: ::std::option::Option<
+            unsafe extern "C" fn(userData: *mut ::std::os::raw::c_void),
+        >,
+    );
+}
+extern "C" {
+    pub fn OH_ArkUI_ListItemSwipeActionItem_SetOnAction(
+        item: *mut ArkUI_ListItemSwipeActionItem,
+        callback: ::std::option::Option<unsafe extern "C" fn()>,
+    );
+}
+extern "C" {
+    pub fn OH_ArkUI_ListItemSwipeActionItem_SetOnActionWithUserData(
+        item: *mut ArkUI_ListItemSwipeActionItem,
+        userData: *mut ::std::os::raw::c_void,
+        callback: ::std::option::Option<
+            unsafe extern "C" fn(userData: *mut ::std::os::raw::c_void),
+        >,
+    );
+}
+extern "C" {
+    pub fn OH_ArkUI_ListItemSwipeActionItem_SetOnExitActionArea(
+        item: *mut ArkUI_ListItemSwipeActionItem,
+        callback: ::std::option::Option<unsafe extern "C" fn()>,
+    );
+}
+extern "C" {
+    pub fn OH_ArkUI_ListItemSwipeActionItem_SetOnExitActionAreaWithUserData(
+        item: *mut ArkUI_ListItemSwipeActionItem,
+        userData: *mut ::std::os::raw::c_void,
+        callback: ::std::option::Option<
+            unsafe extern "C" fn(userData: *mut ::std::os::raw::c_void),
+        >,
+    );
+}
+extern "C" {
+    pub fn OH_ArkUI_ListItemSwipeActionItem_SetOnStateChange(
+        item: *mut ArkUI_ListItemSwipeActionItem,
+        callback: ::std::option::Option<
+            unsafe extern "C" fn(swipeActionState: ArkUI_ListItemSwipeActionState),
+        >,
+    );
+}
+extern "C" {
+    pub fn OH_ArkUI_ListItemSwipeActionItem_SetOnStateChangeWithUserData(
+        item: *mut ArkUI_ListItemSwipeActionItem,
+        userData: *mut ::std::os::raw::c_void,
+        callback: ::std::option::Option<
+            unsafe extern "C" fn(
+                swipeActionState: ArkUI_ListItemSwipeActionState,
+                userData: *mut ::std::os::raw::c_void,
+            ),
+        >,
+    );
+}
+extern "C" {
+    pub fn OH_ArkUI_ListItemSwipeActionOption_Create() -> *mut ArkUI_ListItemSwipeActionOption;
+}
+extern "C" {
+    pub fn OH_ArkUI_ListItemSwipeActionOption_Dispose(option: *mut ArkUI_ListItemSwipeActionOption);
+}
+extern "C" {
+    pub fn OH_ArkUI_ListItemSwipeActionOption_SetStart(
+        option: *mut ArkUI_ListItemSwipeActionOption,
+        item: *mut ArkUI_ListItemSwipeActionItem,
+    );
+}
+extern "C" {
+    pub fn OH_ArkUI_ListItemSwipeActionOption_SetEnd(
+        option: *mut ArkUI_ListItemSwipeActionOption,
+        item: *mut ArkUI_ListItemSwipeActionItem,
+    );
+}
+extern "C" {
+    pub fn OH_ArkUI_ListItemSwipeActionOption_SetEdgeEffect(
+        option: *mut ArkUI_ListItemSwipeActionOption,
+        edgeEffect: ArkUI_ListItemSwipeEdgeEffect,
+    );
+}
+extern "C" {
+    pub fn OH_ArkUI_ListItemSwipeActionOption_GetEdgeEffect(
+        option: *mut ArkUI_ListItemSwipeActionOption,
+    ) -> i32;
+}
+extern "C" {
+    pub fn OH_ArkUI_ListItemSwipeActionOption_SetOnOffsetChange(
+        option: *mut ArkUI_ListItemSwipeActionOption,
+        callback: ::std::option::Option<unsafe extern "C" fn(offset: f32)>,
+    );
+}
+extern "C" {
+    pub fn OH_ArkUI_ListItemSwipeActionOption_SetOnOffsetChangeWithUserData(
+        option: *mut ArkUI_ListItemSwipeActionOption,
+        userData: *mut ::std::os::raw::c_void,
+        callback: ::std::option::Option<
+            unsafe extern "C" fn(offset: f32, userData: *mut ::std::os::raw::c_void),
+        >,
+    );
+}
+extern "C" {
+    pub fn OH_ArkUI_ListChildrenMainSizeOption_Create() -> *mut ArkUI_ListChildrenMainSize;
+}
+extern "C" {
+    pub fn OH_ArkUI_ListChildrenMainSizeOption_Dispose(option: *mut ArkUI_ListChildrenMainSize);
+}
+extern "C" {
+    pub fn OH_ArkUI_ListChildrenMainSizeOption_SetDefaultMainSize(
+        option: *mut ArkUI_ListChildrenMainSize,
+        defaultMainSize: f32,
+    ) -> i32;
+}
+extern "C" {
+    pub fn OH_ArkUI_ListChildrenMainSizeOption_GetDefaultMainSize(
+        option: *mut ArkUI_ListChildrenMainSize,
+    ) -> f32;
+}
+extern "C" {
+    pub fn OH_ArkUI_ListChildrenMainSizeOption_Resize(
+        option: *mut ArkUI_ListChildrenMainSize,
+        totalSize: i32,
+    );
+}
+extern "C" {
+    pub fn OH_ArkUI_ListChildrenMainSizeOption_Splice(
+        option: *mut ArkUI_ListChildrenMainSize,
+        index: i32,
+        deleteCount: i32,
+        addCount: i32,
+    ) -> i32;
+}
+extern "C" {
+    pub fn OH_ArkUI_ListChildrenMainSizeOption_UpdateSize(
+        option: *mut ArkUI_ListChildrenMainSize,
+        index: i32,
+        mainSize: f32,
+    ) -> i32;
+}
+extern "C" {
+    pub fn OH_ArkUI_ListChildrenMainSizeOption_GetMainSize(
+        option: *mut ArkUI_ListChildrenMainSize,
+        index: i32,
+    ) -> f32;
+}
+extern "C" {
+    pub fn OH_ArkUI_CustomSpanMeasureInfo_Create() -> *mut ArkUI_CustomSpanMeasureInfo;
+}
+extern "C" {
+    pub fn OH_ArkUI_CustomSpanMeasureInfo_Dispose(info: *mut ArkUI_CustomSpanMeasureInfo);
+}
+extern "C" {
+    pub fn OH_ArkUI_CustomSpanMeasureInfo_GetFontSize(
+        info: *mut ArkUI_CustomSpanMeasureInfo,
+    ) -> f32;
+}
+extern "C" {
+    pub fn OH_ArkUI_CustomSpanMetrics_Create() -> *mut ArkUI_CustomSpanMetrics;
+}
+extern "C" {
+    pub fn OH_ArkUI_CustomSpanMetrics_Dispose(metrics: *mut ArkUI_CustomSpanMetrics);
+}
+extern "C" {
+    pub fn OH_ArkUI_CustomSpanMetrics_SetWidth(
+        metrics: *mut ArkUI_CustomSpanMetrics,
+        width: f32,
+    ) -> i32;
+}
+extern "C" {
+    pub fn OH_ArkUI_CustomSpanMetrics_SetHeight(
+        metrics: *mut ArkUI_CustomSpanMetrics,
+        height: f32,
+    ) -> i32;
+}
+extern "C" {
+    pub fn OH_ArkUI_CustomSpanDrawInfo_Create() -> *mut ArkUI_CustomSpanDrawInfo;
+}
+extern "C" {
+    pub fn OH_ArkUI_CustomSpanDrawInfo_Dispose(info: *mut ArkUI_CustomSpanDrawInfo);
+}
+extern "C" {
+    pub fn OH_ArkUI_CustomSpanDrawInfo_GetXOffset(info: *mut ArkUI_CustomSpanDrawInfo) -> f32;
+}
+extern "C" {
+    pub fn OH_ArkUI_CustomSpanDrawInfo_GetLineTop(info: *mut ArkUI_CustomSpanDrawInfo) -> f32;
+}
+extern "C" {
+    pub fn OH_ArkUI_CustomSpanDrawInfo_GetLineBottom(info: *mut ArkUI_CustomSpanDrawInfo) -> f32;
+}
+extern "C" {
+    pub fn OH_ArkUI_CustomSpanDrawInfo_GetBaseline(info: *mut ArkUI_CustomSpanDrawInfo) -> f32;
+}
+extern "C" {
+    pub fn OH_ArkUI_ImageAnimatorFrameInfo_CreateFromString(
+        src: *mut ::std::os::raw::c_char,
+    ) -> *mut ArkUI_ImageAnimatorFrameInfo;
+}
+extern "C" {
+    pub fn OH_ArkUI_ImageAnimatorFrameInfo_CreateFromDrawableDescriptor(
+        drawable: *mut ArkUI_DrawableDescriptor,
+    ) -> *mut ArkUI_ImageAnimatorFrameInfo;
+}
+extern "C" {
+    pub fn OH_ArkUI_ImageAnimatorFrameInfo_Dispose(imageInfo: *mut ArkUI_ImageAnimatorFrameInfo);
+}
+extern "C" {
+    pub fn OH_ArkUI_ImageAnimatorFrameInfo_SetWidth(
+        imageInfo: *mut ArkUI_ImageAnimatorFrameInfo,
+        width: i32,
+    );
+}
+extern "C" {
+    pub fn OH_ArkUI_ImageAnimatorFrameInfo_GetWidth(
+        imageInfo: *mut ArkUI_ImageAnimatorFrameInfo,
+    ) -> i32;
+}
+extern "C" {
+    pub fn OH_ArkUI_ImageAnimatorFrameInfo_SetHeight(
+        imageInfo: *mut ArkUI_ImageAnimatorFrameInfo,
+        height: i32,
+    );
+}
+extern "C" {
+    pub fn OH_ArkUI_ImageAnimatorFrameInfo_GetHeight(
+        imageInfo: *mut ArkUI_ImageAnimatorFrameInfo,
+    ) -> i32;
+}
+extern "C" {
+    pub fn OH_ArkUI_ImageAnimatorFrameInfo_SetTop(
+        imageInfo: *mut ArkUI_ImageAnimatorFrameInfo,
+        top: i32,
+    );
+}
+extern "C" {
+    pub fn OH_ArkUI_ImageAnimatorFrameInfo_GetTop(
+        imageInfo: *mut ArkUI_ImageAnimatorFrameInfo,
+    ) -> i32;
+}
+extern "C" {
+    pub fn OH_ArkUI_ImageAnimatorFrameInfo_SetLeft(
+        imageInfo: *mut ArkUI_ImageAnimatorFrameInfo,
+        left: i32,
+    );
+}
+extern "C" {
+    pub fn OH_ArkUI_ImageAnimatorFrameInfo_GetLeft(
+        imageInfo: *mut ArkUI_ImageAnimatorFrameInfo,
+    ) -> i32;
+}
+extern "C" {
+    pub fn OH_ArkUI_ImageAnimatorFrameInfo_SetDuration(
+        imageInfo: *mut ArkUI_ImageAnimatorFrameInfo,
+        duration: i32,
+    );
+}
+extern "C" {
+    pub fn OH_ArkUI_ImageAnimatorFrameInfo_GetDuration(
+        imageInfo: *mut ArkUI_ImageAnimatorFrameInfo,
+    ) -> i32;
+}
+extern "C" {
+    pub fn OH_ArkUI_AccessibilityState_Create() -> *mut ArkUI_AccessibilityState;
+}
+extern "C" {
+    pub fn OH_ArkUI_AccessibilityState_Dispose(state: *mut ArkUI_AccessibilityState);
+}
+extern "C" {
+    pub fn OH_ArkUI_AccessibilityState_SetDisabled(
+        state: *mut ArkUI_AccessibilityState,
+        isDisabled: i32,
+    );
+}
+extern "C" {
+    pub fn OH_ArkUI_AccessibilityState_IsDisabled(state: *mut ArkUI_AccessibilityState) -> i32;
+}
+extern "C" {
+    pub fn OH_ArkUI_AccessibilityState_SetSelected(
+        state: *mut ArkUI_AccessibilityState,
+        isSelected: i32,
+    );
+}
+extern "C" {
+    pub fn OH_ArkUI_AccessibilityState_IsSelected(state: *mut ArkUI_AccessibilityState) -> i32;
+}
+extern "C" {
+    pub fn OH_ArkUI_AccessibilityState_SetCheckedState(
+        state: *mut ArkUI_AccessibilityState,
+        checkedState: i32,
+    );
+}
+extern "C" {
+    pub fn OH_ArkUI_AccessibilityState_GetCheckedState(state: *mut ArkUI_AccessibilityState)
+        -> i32;
+}
+extern "C" {
+    pub fn OH_ArkUI_AccessibilityValue_Create() -> *mut ArkUI_AccessibilityValue;
+}
+extern "C" {
+    pub fn OH_ArkUI_AccessibilityValue_Dispose(value: *mut ArkUI_AccessibilityValue);
+}
+extern "C" {
+    pub fn OH_ArkUI_AccessibilityValue_SetMin(value: *mut ArkUI_AccessibilityValue, min: i32);
+}
+extern "C" {
+    pub fn OH_ArkUI_AccessibilityValue_GetMin(value: *mut ArkUI_AccessibilityValue) -> i32;
+}
+extern "C" {
+    pub fn OH_ArkUI_AccessibilityValue_SetMax(value: *mut ArkUI_AccessibilityValue, max: i32);
+}
+extern "C" {
+    pub fn OH_ArkUI_AccessibilityValue_GetMax(value: *mut ArkUI_AccessibilityValue) -> i32;
+}
+extern "C" {
+    pub fn OH_ArkUI_AccessibilityValue_SetCurrent(
+        value: *mut ArkUI_AccessibilityValue,
+        current: i32,
+    );
+}
+extern "C" {
+    pub fn OH_ArkUI_AccessibilityValue_GetCurrent(value: *mut ArkUI_AccessibilityValue) -> i32;
+}
+extern "C" {
+    pub fn OH_ArkUI_AccessibilityValue_SetText(
+        value: *mut ArkUI_AccessibilityValue,
+        text: *const ::std::os::raw::c_char,
+    );
+}
+extern "C" {
+    pub fn OH_ArkUI_AccessibilityValue_GetText(
+        value: *mut ArkUI_AccessibilityValue,
+    ) -> *const ::std::os::raw::c_char;
+}
 #[repr(C)]
 #[derive(Debug, Copy, Clone)]
 pub struct ArkUI_UIInputEvent {
@@ -25,6 +1115,240 @@ pub const HitTestMode_HTM_BLOCK: HitTestMode = 1;
 pub const HitTestMode_HTM_TRANSPARENT: HitTestMode = 2;
 pub const HitTestMode_HTM_NONE: HitTestMode = 3;
 pub type HitTestMode = ::std::os::raw::c_uint;
+extern "C" {
+    pub fn OH_ArkUI_UIInputEvent_GetType(event: *const ArkUI_UIInputEvent) -> i32;
+}
+extern "C" {
+    pub fn OH_ArkUI_UIInputEvent_GetAction(event: *const ArkUI_UIInputEvent) -> i32;
+}
+extern "C" {
+    pub fn OH_ArkUI_UIInputEvent_GetSourceType(event: *const ArkUI_UIInputEvent) -> i32;
+}
+extern "C" {
+    pub fn OH_ArkUI_UIInputEvent_GetToolType(event: *const ArkUI_UIInputEvent) -> i32;
+}
+extern "C" {
+    pub fn OH_ArkUI_UIInputEvent_GetEventTime(event: *const ArkUI_UIInputEvent) -> i64;
+}
+extern "C" {
+    pub fn OH_ArkUI_PointerEvent_GetPointerCount(event: *const ArkUI_UIInputEvent) -> u32;
+}
+extern "C" {
+    pub fn OH_ArkUI_PointerEvent_GetPointerId(
+        event: *const ArkUI_UIInputEvent,
+        pointerIndex: u32,
+    ) -> i32;
+}
+extern "C" {
+    pub fn OH_ArkUI_PointerEvent_GetX(event: *const ArkUI_UIInputEvent) -> f32;
+}
+extern "C" {
+    pub fn OH_ArkUI_PointerEvent_GetXByIndex(
+        event: *const ArkUI_UIInputEvent,
+        pointerIndex: u32,
+    ) -> f32;
+}
+extern "C" {
+    pub fn OH_ArkUI_PointerEvent_GetY(event: *const ArkUI_UIInputEvent) -> f32;
+}
+extern "C" {
+    pub fn OH_ArkUI_PointerEvent_GetYByIndex(
+        event: *const ArkUI_UIInputEvent,
+        pointerIndex: u32,
+    ) -> f32;
+}
+extern "C" {
+    pub fn OH_ArkUI_PointerEvent_GetWindowX(event: *const ArkUI_UIInputEvent) -> f32;
+}
+extern "C" {
+    pub fn OH_ArkUI_PointerEvent_GetWindowXByIndex(
+        event: *const ArkUI_UIInputEvent,
+        pointerIndex: u32,
+    ) -> f32;
+}
+extern "C" {
+    pub fn OH_ArkUI_PointerEvent_GetWindowY(event: *const ArkUI_UIInputEvent) -> f32;
+}
+extern "C" {
+    pub fn OH_ArkUI_PointerEvent_GetWindowYByIndex(
+        event: *const ArkUI_UIInputEvent,
+        pointerIndex: u32,
+    ) -> f32;
+}
+extern "C" {
+    pub fn OH_ArkUI_PointerEvent_GetDisplayX(event: *const ArkUI_UIInputEvent) -> f32;
+}
+extern "C" {
+    pub fn OH_ArkUI_PointerEvent_GetDisplayXByIndex(
+        event: *const ArkUI_UIInputEvent,
+        pointerIndex: u32,
+    ) -> f32;
+}
+extern "C" {
+    pub fn OH_ArkUI_PointerEvent_GetDisplayY(event: *const ArkUI_UIInputEvent) -> f32;
+}
+extern "C" {
+    pub fn OH_ArkUI_PointerEvent_GetDisplayYByIndex(
+        event: *const ArkUI_UIInputEvent,
+        pointerIndex: u32,
+    ) -> f32;
+}
+extern "C" {
+    pub fn OH_ArkUI_PointerEvent_GetPressure(
+        event: *const ArkUI_UIInputEvent,
+        pointerIndex: u32,
+    ) -> f32;
+}
+extern "C" {
+    pub fn OH_ArkUI_PointerEvent_GetTiltX(
+        event: *const ArkUI_UIInputEvent,
+        pointerIndex: u32,
+    ) -> f32;
+}
+extern "C" {
+    pub fn OH_ArkUI_PointerEvent_GetTiltY(
+        event: *const ArkUI_UIInputEvent,
+        pointerIndex: u32,
+    ) -> f32;
+}
+extern "C" {
+    pub fn OH_ArkUI_PointerEvent_GetTouchAreaWidth(
+        event: *const ArkUI_UIInputEvent,
+        pointerIndex: u32,
+    ) -> f32;
+}
+extern "C" {
+    pub fn OH_ArkUI_PointerEvent_GetTouchAreaHeight(
+        event: *const ArkUI_UIInputEvent,
+        pointerIndex: u32,
+    ) -> f32;
+}
+extern "C" {
+    pub fn OH_ArkUI_PointerEvent_GetHistorySize(event: *const ArkUI_UIInputEvent) -> u32;
+}
+extern "C" {
+    pub fn OH_ArkUI_PointerEvent_GetHistoryEventTime(
+        event: *const ArkUI_UIInputEvent,
+        historyIndex: u32,
+    ) -> i64;
+}
+extern "C" {
+    pub fn OH_ArkUI_PointerEvent_GetHistoryPointerCount(
+        event: *const ArkUI_UIInputEvent,
+        historyIndex: u32,
+    ) -> u32;
+}
+extern "C" {
+    pub fn OH_ArkUI_PointerEvent_GetHistoryPointerId(
+        event: *const ArkUI_UIInputEvent,
+        pointerIndex: u32,
+        historyIndex: u32,
+    ) -> i32;
+}
+extern "C" {
+    pub fn OH_ArkUI_PointerEvent_GetHistoryX(
+        event: *const ArkUI_UIInputEvent,
+        pointerIndex: u32,
+        historyIndex: u32,
+    ) -> f32;
+}
+extern "C" {
+    pub fn OH_ArkUI_PointerEvent_GetHistoryY(
+        event: *const ArkUI_UIInputEvent,
+        pointerIndex: u32,
+        historyIndex: u32,
+    ) -> f32;
+}
+extern "C" {
+    pub fn OH_ArkUI_PointerEvent_GetHistoryWindowX(
+        event: *const ArkUI_UIInputEvent,
+        pointerIndex: u32,
+        historyIndex: u32,
+    ) -> f32;
+}
+extern "C" {
+    pub fn OH_ArkUI_PointerEvent_GetHistoryWindowY(
+        event: *const ArkUI_UIInputEvent,
+        pointerIndex: u32,
+        historyIndex: u32,
+    ) -> f32;
+}
+extern "C" {
+    pub fn OH_ArkUI_PointerEvent_GetHistoryDisplayX(
+        event: *const ArkUI_UIInputEvent,
+        pointerIndex: u32,
+        historyIndex: u32,
+    ) -> f32;
+}
+extern "C" {
+    pub fn OH_ArkUI_PointerEvent_GetHistoryDisplayY(
+        event: *const ArkUI_UIInputEvent,
+        pointerIndex: u32,
+        historyIndex: u32,
+    ) -> f32;
+}
+extern "C" {
+    pub fn OH_ArkUI_PointerEvent_GetHistoryPressure(
+        event: *const ArkUI_UIInputEvent,
+        pointerIndex: u32,
+        historyIndex: u32,
+    ) -> f32;
+}
+extern "C" {
+    pub fn OH_ArkUI_PointerEvent_GetHistoryTiltX(
+        event: *const ArkUI_UIInputEvent,
+        pointerIndex: u32,
+        historyIndex: u32,
+    ) -> f32;
+}
+extern "C" {
+    pub fn OH_ArkUI_PointerEvent_GetHistoryTiltY(
+        event: *const ArkUI_UIInputEvent,
+        pointerIndex: u32,
+        historyIndex: u32,
+    ) -> f32;
+}
+extern "C" {
+    pub fn OH_ArkUI_PointerEvent_GetHistoryTouchAreaWidth(
+        event: *const ArkUI_UIInputEvent,
+        pointerIndex: u32,
+        historyIndex: u32,
+    ) -> f32;
+}
+extern "C" {
+    pub fn OH_ArkUI_PointerEvent_GetHistoryTouchAreaHeight(
+        event: *const ArkUI_UIInputEvent,
+        pointerIndex: u32,
+        historyIndex: u32,
+    ) -> f32;
+}
+extern "C" {
+    pub fn OH_ArkUI_AxisEvent_GetVerticalAxisValue(event: *const ArkUI_UIInputEvent) -> f64;
+}
+extern "C" {
+    pub fn OH_ArkUI_AxisEvent_GetHorizontalAxisValue(event: *const ArkUI_UIInputEvent) -> f64;
+}
+extern "C" {
+    pub fn OH_ArkUI_AxisEvent_GetPinchAxisScaleValue(event: *const ArkUI_UIInputEvent) -> f64;
+}
+extern "C" {
+    pub fn OH_ArkUI_PointerEvent_SetInterceptHitTestMode(
+        event: *const ArkUI_UIInputEvent,
+        mode: HitTestMode,
+    ) -> i32;
+}
+extern "C" {
+    pub fn OH_ArkUI_MouseEvent_GetMouseButton(event: *const ArkUI_UIInputEvent) -> i32;
+}
+extern "C" {
+    pub fn OH_ArkUI_MouseEvent_GetMouseAction(event: *const ArkUI_UIInputEvent) -> i32;
+}
+extern "C" {
+    pub fn OH_ArkUI_PointerEvent_SetStopPropagation(
+        event: *const ArkUI_UIInputEvent,
+        stopPropagation: bool,
+    ) -> i32;
+}
 pub const OH_NativeXComponent_KeyCode_KEY_UNKNOWN: OH_NativeXComponent_KeyCode = -1;
 pub const OH_NativeXComponent_KeyCode_KEY_FN: OH_NativeXComponent_KeyCode = 0;
 pub const OH_NativeXComponent_KeyCode_KEY_HOME: OH_NativeXComponent_KeyCode = 1;
@@ -366,6 +1690,12 @@ pub const OH_NativeXComponent_KeyAction_OH_NATIVEXCOMPONENT_KEY_ACTION_DOWN:
 pub const OH_NativeXComponent_KeyAction_OH_NATIVEXCOMPONENT_KEY_ACTION_UP:
     OH_NativeXComponent_KeyAction = 1;
 pub type OH_NativeXComponent_KeyAction = ::std::os::raw::c_int;
+pub const OH_XCOMPONENT_ID_LEN_MAX: u32 = 128;
+pub const OH_MAX_TOUCH_POINTS_NUMBER: u32 = 10;
+pub const OH_NATIVEXCOMPONENT_RESULT_SUCCESS: _bindgen_ty_6 = 0;
+pub const OH_NATIVEXCOMPONENT_RESULT_FAILED: _bindgen_ty_6 = -1;
+pub const OH_NATIVEXCOMPONENT_RESULT_BAD_PARAMETER: _bindgen_ty_6 = -2;
+pub type _bindgen_ty_6 = ::std::os::raw::c_int;
 pub const OH_NativeXComponent_TouchEventType_OH_NATIVEXCOMPONENT_DOWN:
     OH_NativeXComponent_TouchEventType = 0;
 pub const OH_NativeXComponent_TouchEventType_OH_NATIVEXCOMPONENT_UP:

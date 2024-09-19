@@ -1,0 +1,15 @@
+[package]
+name    = "ohos-xcomponent-binding"
+version = "0.0.1"
+edition = "2021"
+
+[features]
+log = ["dep:ohos-hilog-binding"]
+
+[dependencies]
+napi-sys-ohos       = { workspace = true }
+ohos-xcomponent-sys = { workspace = true }
+napi-ohos           = { workspace = true }
+napi-derive-ohos    = { workspace = true }
+
+ohos-hilog-binding = { workspace = true, optional = true }

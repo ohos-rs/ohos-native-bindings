@@ -87,7 +87,7 @@ static CONFIG: Lazy<Vec<SysConfig>> = Lazy::new(|| {
                 "ace/xcomponent/native_interface_xcomponent.h",
                 "ace/xcomponent/native_xcomponent_key_event.h",
             ],
-            white_list: vec!["OH_NativeXComponent.*"],
+            white_list: vec!["OH_.*"],
             block_list: vec![],
             extra: "",
         },

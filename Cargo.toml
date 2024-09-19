@@ -1,5 +1,5 @@
 [workspace]
-members  = ["crates/*", "sys/*", "tools/*", "examples"]
+members  = ["crates/*", "sys/*", "tools/*", "examples/*"]
 resolver = "2"
 
 [workspace.dependencies]
@@ -10,6 +10,7 @@ ohos-asset-binding                  = { version = "0.0.1", path = "crates/asset"
 ohos-raw-binding                    = { version = "0.0.2", path = "crates/raw" }
 ohos-resource-manager-binding       = { version = "0.0.1", path = "crates/resource_manager" }
 ohos-ability-access-control-binding = { version = "0.0.1", path = "crates/ability_access_control" }
+ohos-xcomponent-binding             = { version = "0.0.1", path = "crates/xcomponent" }
 
 ohos-bundle-sys                 = { version = "0.0.2", path = "sys/ohos-bundle-sys" }
 ohos-init-sys                   = { version = "0.0.2", path = "sys/ohos-init-sys" }
@@ -18,6 +19,7 @@ ohos-asset-sys                  = { version = "0.0.1", path = "sys/ohos-asset-sy
 ohos-raw-sys                    = { version = "0.0.1", path = "sys/ohos-raw-sys" }
 ohos-resource-manager-sys       = { version = "0.0.2", path = "sys/ohos-resource-manager-sys" }
 ohos-ability-access-control-sys = { version = "0.0.1", path = "sys/ohos-ability-access-control-sys" }
+ohos-xcomponent-sys             = { version = "0.0.1", path = "sys/ohos-xcomponent-sys" }
 
 napi-ohos        = { version = "1.0.0-beta.7" }
 napi-derive-ohos = { version = "1.0.0-beta.7" }
