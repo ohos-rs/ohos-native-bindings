@@ -19,9 +19,7 @@ use raw_window_handle::{
 pub fn init(exports: JsObject, env: Env) -> Result<()> {
     let xcomponent = XComponent::init(env, exports)?;
 
-    let id = xcomponent.id()?;
-
-    let mut callbacks = XComponentCallbacks::new(id);
+    let mut callbacks = XComponentCallbacks::new();
     callbacks.set_on_surface_created(|xcomponent, win| {
         hilog_info!("xcomponent_create");
 
