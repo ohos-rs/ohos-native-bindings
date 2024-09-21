@@ -2,6 +2,7 @@ use ohos_xcomponent_sys::OH_NativeXComponent;
 use std::{collections::HashMap, os::raw::c_void, sync::RwLock};
 
 #[repr(transparent)]
+#[derive(Debug, Clone, Copy)]
 pub struct Window(pub *mut c_void);
 
 #[repr(C)]
@@ -27,12 +28,12 @@ impl NativeXComponentCallback {
     }
 }
 
+#[derive(Debug, Clone, Copy)]
 pub struct XComponentSize {
     pub width: u64,
     pub height: u64,
 }
 
-#[repr(transparent)]
 pub(crate) struct PersistedPerInstanceHashMap<K, V>(RwLock<HashMap<K, V>>);
 
 impl<K, V> PersistedPerInstanceHashMap<K, V> {

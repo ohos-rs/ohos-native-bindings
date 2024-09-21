@@ -11,10 +11,10 @@ crate-type = ["cdylib"]
 [dependencies]
 napi-ohos               = { workspace = true }
 napi-derive-ohos        = { workspace = true }
-ohos-xcomponent-binding = { workspace = true }
+ohos-xcomponent-binding = { workspace = true, features = ["log"] }
 gl                      = "0.14.0"
 libc                    = "*"
-glutin                  = { version = "*" }
+glutin                  = { git = "https://github.com/richerfu/glutin" }
 raw-window-handle       = { version = "*" }
 ohos-hilog-binding      = { workspace = true }
 

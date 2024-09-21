@@ -13,7 +13,7 @@ use crate::{
 };
 
 #[cfg(feature = "log")]
-use ohos_hilog_binding::{hilog_error, hilog_warn};
+use ohos_hilog_binding::hilog_warn;
 
 pub(crate) type XComponentMap = PersistedPerInstanceHashMap<
     String,
@@ -233,13 +233,13 @@ macro_rules! callback {
                         #[allow(unused_variables)]
                         if let Err(e) = callback(XComponent(component), Window(window)) {
                             #[cfg(feature = "log")]
-                            hilog_warn!(format!("XComponent {} run failed: {}", e.reason, &$name));
+                            hilog_warn!(format!("XComponent {} run failed: {}", &$name, e.reason));
                         }
                     } else {
                         #[cfg(feature = "log")]
                         hilog_warn!(format!(
-                            "XComponent {} run failed: can't resolve current $name callback.",
-                            &$name
+                            "XComponent {} run failed: can't resolve current {} callback.",
+                            &$name, &$name
                         ));
                     }
                 });
