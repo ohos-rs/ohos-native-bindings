@@ -69,7 +69,7 @@ impl XComponent {
 
     /// Register callbacks   
     /// For multi-mode, it will use hashmap to store all of your callbacks closure.   
-    /// This may carse xcomponent being slower, if you want to avoid this.    
+    /// This may cause xcomponent being slower, if you want to avoid this.    
     /// You can disable feature with `callbacks` and use `register_native_callback`   
     #[cfg(feature = "callbacks")]
     pub fn register_callback(&self, callbacks: XComponentCallbacks) -> Result<()> {
@@ -88,7 +88,7 @@ impl XComponent {
         Ok(())
     }
 
-    /// use ffi to register callbacks
+    /// Use ffi to register callbacks directly.
     pub unsafe fn register_native_callback(
         &self,
         callbacks: Box<OH_NativeXComponent_Callback>,
