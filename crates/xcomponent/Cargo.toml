@@ -1,7 +1,9 @@
 [package]
-name    = "ohos-xcomponent-binding"
-version = "0.0.1"
-edition = "2021"
+name        = "ohos-xcomponent-binding"
+version     = "0.0.1"
+edition     = "2021"
+license     = "MIT OR Apache-2.0"
+description = "OpenHarmony's xcomponent binding for rust"
 
 [features]
 # allow print log with hilog
