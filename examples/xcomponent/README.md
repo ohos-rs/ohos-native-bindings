@@ -9,7 +9,7 @@
 @Component
 struct Index {
     @State message: string = 'Hello World'
-    xComponentContext: object | undefined = undefined;
+    xComponentContext: ESObject | undefined = undefined;
     xComponentAttrs: XComponentAttrs = {
         id: 'xcomponentId',
         type: XComponentType.SURFACE,
@@ -18,6 +18,9 @@ struct Index {
 
     build() {
     Row() {
+        Button("draw").onClick(() => {
+          this.xComponentContext!.drawXcomponent();
+        })
         // ...
         // 在xxx.ets 中定义 XComponent
         XComponent(this.xComponentAttrs)

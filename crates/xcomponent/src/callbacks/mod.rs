@@ -180,7 +180,7 @@ macro_rules! callback {
             }
 
             #[cfg(feature = "single_mode")]
-            single::X_COMPONENT_SINGLE_MAP.borrow_mut(|cb| {
+            single::X_COMPONENT_SINGLE_MAP.borrow(|cb| {
                 if let Some(callback) = &cb.$func {
                     #[allow(unused_variables)]
                     if let Err(e) = callback(NativeXComponent(component), Window(win)) {

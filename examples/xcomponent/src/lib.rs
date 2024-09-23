@@ -1,19 +1,34 @@
-use std::{num::NonZeroU32, ptr::NonNull};
+use std::{
+    num::NonZeroU32,
+    ptr::NonNull,
+    sync::{LazyLock, Mutex},
+};
 
 use glutin::{
     config::ConfigTemplateBuilder,
-    context::{ContextApi, ContextAttributesBuilder},
-    display::{DisplayApiPreference, GetGlDisplay},
+    context::{ContextApi, ContextAttributesBuilder, PossiblyCurrentContext},
+    display::{Display, DisplayApiPreference, GetGlDisplay},
     prelude::{GlDisplay, NotCurrentGlContext},
-    surface::{GlSurface, SurfaceAttributesBuilder, WindowSurface},
+    surface::{GlSurface, Surface, SurfaceAttributesBuilder, WindowSurface},
 };
-use napi_derive_ohos::module_exports;
+use napi_derive_ohos::{module_exports, napi};
 use napi_ohos::{Env, Error, JsObject, Result};
 use ohos_hilog_binding::hilog_info;
 use ohos_xcomponent_binding::{XComponent, XComponentCallbacks};
 use raw_window_handle::{
     OhosDisplayHandle, OhosNdkWindowHandle, RawDisplayHandle, RawWindowHandle,
 };
+
+static GL_CTX: LazyLock<Mutex<Option<Render>>> = LazyLock::new(|| Mutex::new(None));
+
+struct Render {
+    display: Display,
+    pub ctx: PossiblyCurrentContext,
+    pub surface: Surface<WindowSurface>,
+}
+
+unsafe impl Send for Render {}
+unsafe impl Sync for Render {}
 
 #[module_exports]
 pub fn init(exports: JsObject, env: Env) -> Result<()> {
@@ -63,18 +78,22 @@ pub fn init(exports: JsObject, env: Env) -> Result<()> {
             .make_current(&surface)
             .map_err(|e| Error::from_reason(e.to_string()))?;
 
-        unsafe {
-            gl::load_with(|symbol| {
-                let symbol = std::ffi::CString::new(symbol).unwrap();
-                let gl_display = ctx.display();
-                gl_display.get_proc_address(symbol.as_c_str())
-            });
-            gl::ClearColor(0.0, 0.0, 1.0, 1.0);
-            gl::Clear(gl::COLOR_BUFFER_BIT);
-        }
+        gl::load_with(|symbol| {
+            let symbol = std::ffi::CString::new(symbol).unwrap();
+            let gl_display = ctx.display();
+            gl_display.get_proc_address(symbol.as_c_str())
+        });
 
-        // 交换缓冲区
-        surface.swap_buffers(&ctx).expect("Failed to swap buffers");
+        let gl_display = ctx.display();
+
+        let render = Render {
+            ctx,
+            surface,
+            display: gl_display,
+        };
+
+        let mut gl_ctx_guard = GL_CTX.lock().unwrap();
+        *gl_ctx_guard = Some(render);
 
         Ok(())
     });
@@ -97,4 +116,19 @@ pub fn init(exports: JsObject, env: Env) -> Result<()> {
     xcomponent.register_callback(callbacks)?;
 
     Ok(())
+}
+
+#[napi]
+pub fn draw_xcomponent() {
+    let guard = GL_CTX.lock().unwrap();
+    match &*guard {
+        Some(render) => {
+            unsafe {
+                gl::ClearColor(0.0, 0.0, 1.0, 1.0);
+                gl::Clear(gl::COLOR_BUFFER_BIT);
+            }
+            render.surface.swap_buffers(&render.ctx).unwrap()
+        }
+        None => {}
+    }
 }

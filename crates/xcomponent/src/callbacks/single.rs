@@ -30,6 +30,14 @@ impl SingleCallbacks {
         let mut write_lock = self.0.write().unwrap();
         f(&mut *write_lock)
     }
+
+    pub(crate) fn borrow<F, R>(&self, f: F) -> R
+    where
+        F: FnOnce(&SingleXComponent) -> R,
+    {
+        let write_lock: std::sync::RwLockReadGuard<'_, SingleXComponent> = self.0.read().unwrap();
+        f(&*write_lock)
+    }
 }
 
 impl Default for SingleCallbacks {
@@ -41,4 +49,4 @@ impl Default for SingleCallbacks {
 unsafe impl Send for SingleCallbacks {}
 unsafe impl Sync for SingleCallbacks {}
 
-pub static X_COMPONENT_SINGLE_MAP: LazyLock<SingleCallbacks> = LazyLock::new(Default::default);
+pub(crate) static X_COMPONENT_SINGLE_MAP: LazyLock<SingleCallbacks> = LazyLock::new(Default::default);
