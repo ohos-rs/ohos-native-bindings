@@ -1,6 +1,14 @@
 use ohos_hilogs_sys::OH_LOG_Print;
 use std::ffi::CString;
 
+#[cfg(feature = "redirect")]
+use std::{
+    ffi::CStr,
+    fs::File,
+    io::{BufRead as _, BufReader, Result},
+    os::fd::{FromRawFd as _, RawFd},
+};
+
 pub enum LogType {
     LogApp,
 }
@@ -122,4 +130,51 @@ macro_rules! hilog_fatal {
     ($info: expr,$option: expr) => {
         ohos_hilog_binding::fatal($info, Some($option));
     };
+}
+
+#[cfg(feature = "redirect")]
+pub fn forward_stdio_to_hilog() -> std::thread::JoinHandle<Result<()>> {
+    // XXX: make this stdout/stderr redirection an optional / opt-in feature?...
+
+    let file = unsafe {
+        let mut logpipe: [RawFd; 2] = Default::default();
+        libc::pipe2(logpipe.as_mut_ptr(), libc::O_CLOEXEC);
+        libc::dup2(logpipe[1], libc::STDOUT_FILENO);
+        libc::dup2(logpipe[1], libc::STDERR_FILENO);
+        libc::close(logpipe[1]);
+
+        File::from_raw_fd(logpipe[0])
+    };
+
+    std::thread::Builder::new()
+        .name("stdio-to-hilog".to_string())
+        .spawn(move || -> Result<()> {
+            let tag = CStr::from_bytes_with_nul(b"RustStdoutStderr\0").unwrap();
+            let mut reader = BufReader::new(file);
+            let mut buffer = String::new();
+            loop {
+                buffer.clear();
+                let len = match reader.read_line(&mut buffer) {
+                    Ok(len) => len,
+                    Err(e) => {
+                        error("Hilog forwarder failed to read stdin/stderr: {e:?}", None);
+                        break Err(e);
+                    }
+                };
+                if len == 0 {
+                    break Ok(());
+                } else if let Ok(msg) = CString::new(buffer.clone()) {
+                    unsafe {
+                        OH_LOG_Print(
+                            LogType::LogApp.into(),
+                            LogLevel::LogInfo.into(),
+                            0x0000,
+                            tag.as_ptr().cast(),
+                            msg.as_ptr().cast(),
+                        )
+                    };
+                }
+            }
+        })
+        .expect("Failed to start stdout/stderr to hilog forwarder thread")
 }

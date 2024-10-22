@@ -25,3 +25,32 @@ pub fn add(left: u32, right: u32) -> u32 {
     left + right
 }
 ```
+
+## Feature
+
+### redirect
+
+Allow us redirect stdout/stderr to hilog. 
+
+```toml
+# Cargo.toml
+
+[dependencies]
+ohos-hilog-binding = {version = "*", features = ["redirect"]}
+```
+
+```rust
+use napi_derive_ohos::napi;
+
+#[napi]
+pub fn add(left: u32, right: u32) -> u32 {
+  // setup at first
+  let _handle = ohos_hilog_binding::forward_stdio_to_hilog();
+  // can be redirected to hilog with info level
+  println!("hello");
+  
+  left + right
+}
+
+
+```
