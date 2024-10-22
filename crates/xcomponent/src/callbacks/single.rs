@@ -49,4 +49,5 @@ impl Default for SingleCallbacks {
 unsafe impl Send for SingleCallbacks {}
 unsafe impl Sync for SingleCallbacks {}
 
-pub(crate) static X_COMPONENT_SINGLE_MAP: LazyLock<SingleCallbacks> = LazyLock::new(Default::default);
+pub(crate) static X_COMPONENT_SINGLE_MAP: LazyLock<SingleCallbacks> =
+    LazyLock::new(Default::default);
