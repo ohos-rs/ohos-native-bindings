@@ -135,7 +135,9 @@ macro_rules! hilog_fatal {
 #[cfg(feature = "redirect")]
 pub fn forward_stdio_to_hilog() -> std::thread::JoinHandle<Result<()>> {
     // XXX: make this stdout/stderr redirection an optional / opt-in feature?...
-
+    // these code base with android-activity
+    // https://github.com/rust-mobile/android-activity/blob/main/android-activity/src/util.rs#L39
+    // Use MIT LICENSE
     let file = unsafe {
         let mut logpipe: [RawFd; 2] = Default::default();
         libc::pipe2(logpipe.as_mut_ptr(), libc::O_CLOEXEC);
