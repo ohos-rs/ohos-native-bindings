@@ -5,7 +5,7 @@ resolver = "2"
 [workspace.dependencies]
 ohos-bundle-binding                 = { version = "0.0.1", path = "crates/bundle" }
 ohos-init-binding                   = { version = "0.0.3", path = "crates/init" }
-ohos-hilog-binding                  = { version = "0.0.3", path = "crates/hilog" }
+ohos-hilog-binding                  = { version = "0.0.4", path = "crates/hilog" }
 ohos-asset-binding                  = { version = "0.0.1", path = "crates/asset" }
 ohos-raw-binding                    = { version = "0.0.2", path = "crates/raw" }
 ohos-resource-manager-binding       = { version = "0.0.1", path = "crates/resource_manager" }
