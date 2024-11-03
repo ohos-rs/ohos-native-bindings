@@ -6,6 +6,7 @@
 
 use napi_sys_ohos::*;
 
+
 #[repr(C)]
 #[derive(Debug, Copy, Clone)]
 pub struct ArkUI_DrawableDescriptor {
@@ -800,6 +801,17 @@ pub const ArkUI_AccessibilityCheckedState_ARKUI_ACCESSIBILITY_UNCHECKED:
 pub const ArkUI_AccessibilityCheckedState_ARKUI_ACCESSIBILITY_CHECKED:
     ArkUI_AccessibilityCheckedState = 1;
 pub type ArkUI_AccessibilityCheckedState = ::std::os::raw::c_uint;
+pub const ArkUI_AccessibilityActionType_ARKUI_ACCESSIBILITY_ACTION_CLICK:
+    ArkUI_AccessibilityActionType = 1;
+pub const ArkUI_AccessibilityActionType_ARKUI_ACCESSIBILITY_ACTION_LONG_CLICK:
+    ArkUI_AccessibilityActionType = 2;
+pub const ArkUI_AccessibilityActionType_ARKUI_ACCESSIBILITY_ACTION_CUT:
+    ArkUI_AccessibilityActionType = 4;
+pub const ArkUI_AccessibilityActionType_ARKUI_ACCESSIBILITY_ACTION_COPY:
+    ArkUI_AccessibilityActionType = 8;
+pub const ArkUI_AccessibilityActionType_ARKUI_ACCESSIBILITY_ACTION_PASTE:
+    ArkUI_AccessibilityActionType = 16;
+pub type ArkUI_AccessibilityActionType = ::std::os::raw::c_uint;
 pub const ArkUI_AnimationDirection_ARKUI_ANIMATION_DIRECTION_NORMAL: ArkUI_AnimationDirection = 0;
 pub const ArkUI_AnimationDirection_ARKUI_ANIMATION_DIRECTION_REVERSE: ArkUI_AnimationDirection = 1;
 pub const ArkUI_AnimationDirection_ARKUI_ANIMATION_DIRECTION_ALTERNATE: ArkUI_AnimationDirection =
@@ -816,17 +828,6 @@ pub const ArkUI_ScrollSource_ARKUI_SCROLL_SOURCE_SCROLL_BAR_FLING: ArkUI_ScrollS
 pub const ArkUI_ScrollSource_ARKUI_SCROLL_SOURCE_SCROLLER: ArkUI_ScrollSource = 6;
 pub const ArkUI_ScrollSource_ARKUI_SCROLL_SOURCE_ANIMATION: ArkUI_ScrollSource = 7;
 pub type ArkUI_ScrollSource = ::std::os::raw::c_uint;
-pub const ArkUI_AccessibilityActionType_ARKUI_ACCESSIBILITY_ACTION_CLICK:
-    ArkUI_AccessibilityActionType = 1;
-pub const ArkUI_AccessibilityActionType_ARKUI_ACCESSIBILITY_ACTION_LONG_CLICK:
-    ArkUI_AccessibilityActionType = 2;
-pub const ArkUI_AccessibilityActionType_ARKUI_ACCESSIBILITY_ACTION_CUT:
-    ArkUI_AccessibilityActionType = 4;
-pub const ArkUI_AccessibilityActionType_ARKUI_ACCESSIBILITY_ACTION_COPY:
-    ArkUI_AccessibilityActionType = 8;
-pub const ArkUI_AccessibilityActionType_ARKUI_ACCESSIBILITY_ACTION_PASTE:
-    ArkUI_AccessibilityActionType = 16;
-pub type ArkUI_AccessibilityActionType = ::std::os::raw::c_uint;
 #[repr(C)]
 #[derive(Debug, Copy, Clone)]
 pub struct ArkUI_TranslationOptions {
@@ -1809,6 +1810,1023 @@ extern "C" {
     pub fn OH_ArkUI_AccessibilityValue_GetText(
         value: *mut ArkUI_AccessibilityValue,
     ) -> *const ::std::os::raw::c_char;
+}
+#[repr(C)]
+#[derive(Debug, Copy, Clone)]
+pub struct OH_UdsPlainText {
+    _unused: [u8; 0],
+}
+#[repr(C)]
+#[derive(Debug, Copy, Clone)]
+pub struct OH_UdsHyperlink {
+    _unused: [u8; 0],
+}
+#[repr(C)]
+#[derive(Debug, Copy, Clone)]
+pub struct OH_UdsHtml {
+    _unused: [u8; 0],
+}
+#[repr(C)]
+#[derive(Debug, Copy, Clone)]
+pub struct OH_UdsAppItem {
+    _unused: [u8; 0],
+}
+extern "C" {
+    pub fn OH_UdsPlainText_Create() -> *mut OH_UdsPlainText;
+}
+extern "C" {
+    pub fn OH_UdsPlainText_Destroy(pThis: *mut OH_UdsPlainText);
+}
+extern "C" {
+    pub fn OH_UdsPlainText_GetType(pThis: *mut OH_UdsPlainText) -> *const ::std::os::raw::c_char;
+}
+extern "C" {
+    pub fn OH_UdsPlainText_GetContent(pThis: *mut OH_UdsPlainText)
+        -> *const ::std::os::raw::c_char;
+}
+extern "C" {
+    pub fn OH_UdsPlainText_GetAbstract(
+        pThis: *mut OH_UdsPlainText,
+    ) -> *const ::std::os::raw::c_char;
+}
+extern "C" {
+    pub fn OH_UdsPlainText_SetContent(
+        pThis: *mut OH_UdsPlainText,
+        content: *const ::std::os::raw::c_char,
+    ) -> ::std::os::raw::c_int;
+}
+extern "C" {
+    pub fn OH_UdsPlainText_SetAbstract(
+        pThis: *mut OH_UdsPlainText,
+        abstract_: *const ::std::os::raw::c_char,
+    ) -> ::std::os::raw::c_int;
+}
+extern "C" {
+    pub fn OH_UdsHyperlink_Create() -> *mut OH_UdsHyperlink;
+}
+extern "C" {
+    pub fn OH_UdsHyperlink_Destroy(pThis: *mut OH_UdsHyperlink);
+}
+extern "C" {
+    pub fn OH_UdsHyperlink_GetType(pThis: *mut OH_UdsHyperlink) -> *const ::std::os::raw::c_char;
+}
+extern "C" {
+    pub fn OH_UdsHyperlink_GetUrl(pThis: *mut OH_UdsHyperlink) -> *const ::std::os::raw::c_char;
+}
+extern "C" {
+    pub fn OH_UdsHyperlink_GetDescription(
+        pThis: *mut OH_UdsHyperlink,
+    ) -> *const ::std::os::raw::c_char;
+}
+extern "C" {
+    pub fn OH_UdsHyperlink_SetUrl(
+        pThis: *mut OH_UdsHyperlink,
+        url: *const ::std::os::raw::c_char,
+    ) -> ::std::os::raw::c_int;
+}
+extern "C" {
+    pub fn OH_UdsHyperlink_SetDescription(
+        pThis: *mut OH_UdsHyperlink,
+        description: *const ::std::os::raw::c_char,
+    ) -> ::std::os::raw::c_int;
+}
+extern "C" {
+    pub fn OH_UdsHtml_Create() -> *mut OH_UdsHtml;
+}
+extern "C" {
+    pub fn OH_UdsHtml_Destroy(pThis: *mut OH_UdsHtml);
+}
+extern "C" {
+    pub fn OH_UdsHtml_GetType(pThis: *mut OH_UdsHtml) -> *const ::std::os::raw::c_char;
+}
+extern "C" {
+    pub fn OH_UdsHtml_GetContent(pThis: *mut OH_UdsHtml) -> *const ::std::os::raw::c_char;
+}
+extern "C" {
+    pub fn OH_UdsHtml_GetPlainContent(pThis: *mut OH_UdsHtml) -> *const ::std::os::raw::c_char;
+}
+extern "C" {
+    pub fn OH_UdsHtml_SetContent(
+        pThis: *mut OH_UdsHtml,
+        content: *const ::std::os::raw::c_char,
+    ) -> ::std::os::raw::c_int;
+}
+extern "C" {
+    pub fn OH_UdsHtml_SetPlainContent(
+        pThis: *mut OH_UdsHtml,
+        plainContent: *const ::std::os::raw::c_char,
+    ) -> ::std::os::raw::c_int;
+}
+extern "C" {
+    pub fn OH_UdsAppItem_Create() -> *mut OH_UdsAppItem;
+}
+extern "C" {
+    pub fn OH_UdsAppItem_Destroy(pThis: *mut OH_UdsAppItem);
+}
+extern "C" {
+    pub fn OH_UdsAppItem_GetType(pThis: *mut OH_UdsAppItem) -> *const ::std::os::raw::c_char;
+}
+extern "C" {
+    pub fn OH_UdsAppItem_GetId(pThis: *mut OH_UdsAppItem) -> *const ::std::os::raw::c_char;
+}
+extern "C" {
+    pub fn OH_UdsAppItem_GetName(pThis: *mut OH_UdsAppItem) -> *const ::std::os::raw::c_char;
+}
+extern "C" {
+    pub fn OH_UdsAppItem_GetIconId(pThis: *mut OH_UdsAppItem) -> *const ::std::os::raw::c_char;
+}
+extern "C" {
+    pub fn OH_UdsAppItem_GetLabelId(pThis: *mut OH_UdsAppItem) -> *const ::std::os::raw::c_char;
+}
+extern "C" {
+    pub fn OH_UdsAppItem_GetBundleName(pThis: *mut OH_UdsAppItem) -> *const ::std::os::raw::c_char;
+}
+extern "C" {
+    pub fn OH_UdsAppItem_GetAbilityName(pThis: *mut OH_UdsAppItem)
+        -> *const ::std::os::raw::c_char;
+}
+extern "C" {
+    pub fn OH_UdsAppItem_SetId(
+        pThis: *mut OH_UdsAppItem,
+        appId: *const ::std::os::raw::c_char,
+    ) -> ::std::os::raw::c_int;
+}
+extern "C" {
+    pub fn OH_UdsAppItem_SetName(
+        pThis: *mut OH_UdsAppItem,
+        appName: *const ::std::os::raw::c_char,
+    ) -> ::std::os::raw::c_int;
+}
+extern "C" {
+    pub fn OH_UdsAppItem_SetIconId(
+        pThis: *mut OH_UdsAppItem,
+        appIconId: *const ::std::os::raw::c_char,
+    ) -> ::std::os::raw::c_int;
+}
+extern "C" {
+    pub fn OH_UdsAppItem_SetLabelId(
+        pThis: *mut OH_UdsAppItem,
+        appLabelId: *const ::std::os::raw::c_char,
+    ) -> ::std::os::raw::c_int;
+}
+extern "C" {
+    pub fn OH_UdsAppItem_SetBundleName(
+        pThis: *mut OH_UdsAppItem,
+        bundleName: *const ::std::os::raw::c_char,
+    ) -> ::std::os::raw::c_int;
+}
+extern "C" {
+    pub fn OH_UdsAppItem_SetAbilityName(
+        pThis: *mut OH_UdsAppItem,
+        abilityName: *const ::std::os::raw::c_char,
+    ) -> ::std::os::raw::c_int;
+}
+pub const Udmf_Intention_UDMF_INTENTION_DRAG: Udmf_Intention = 0;
+pub const Udmf_Intention_UDMF_INTENTION_PASTEBOARD: Udmf_Intention = 1;
+pub type Udmf_Intention = ::std::os::raw::c_uint;
+pub const Udmf_ShareOption_SHARE_OPTIONS_INVALID: Udmf_ShareOption = 0;
+pub const Udmf_ShareOption_SHARE_OPTIONS_IN_APP: Udmf_ShareOption = 1;
+pub const Udmf_ShareOption_SHARE_OPTIONS_CROSS_APP: Udmf_ShareOption = 2;
+pub type Udmf_ShareOption = ::std::os::raw::c_uint;
+#[repr(C)]
+#[derive(Debug, Copy, Clone)]
+pub struct OH_UdmfData {
+    _unused: [u8; 0],
+}
+#[repr(C)]
+#[derive(Debug, Copy, Clone)]
+pub struct OH_UdmfRecord {
+    _unused: [u8; 0],
+}
+#[repr(C)]
+#[derive(Debug, Copy, Clone)]
+pub struct OH_UdmfProperty {
+    _unused: [u8; 0],
+}
+extern "C" {
+    pub fn OH_UdmfData_Create() -> *mut OH_UdmfData;
+}
+extern "C" {
+    pub fn OH_UdmfData_Destroy(pThis: *mut OH_UdmfData);
+}
+extern "C" {
+    pub fn OH_UdmfData_AddRecord(
+        pThis: *mut OH_UdmfData,
+        record: *mut OH_UdmfRecord,
+    ) -> ::std::os::raw::c_int;
+}
+extern "C" {
+    pub fn OH_UdmfData_HasType(
+        pThis: *mut OH_UdmfData,
+        type_: *const ::std::os::raw::c_char,
+    ) -> bool;
+}
+extern "C" {
+    pub fn OH_UdmfData_GetTypes(
+        pThis: *mut OH_UdmfData,
+        count: *mut ::std::os::raw::c_uint,
+    ) -> *mut *mut ::std::os::raw::c_char;
+}
+extern "C" {
+    pub fn OH_UdmfData_GetRecords(
+        pThis: *mut OH_UdmfData,
+        count: *mut ::std::os::raw::c_uint,
+    ) -> *mut *mut OH_UdmfRecord;
+}
+extern "C" {
+    pub fn OH_UdmfRecord_Create() -> *mut OH_UdmfRecord;
+}
+extern "C" {
+    pub fn OH_UdmfRecord_Destroy(pThis: *mut OH_UdmfRecord);
+}
+extern "C" {
+    pub fn OH_UdmfRecord_AddGeneralEntry(
+        pThis: *mut OH_UdmfRecord,
+        typeId: *const ::std::os::raw::c_char,
+        entry: *mut ::std::os::raw::c_uchar,
+        count: ::std::os::raw::c_uint,
+    ) -> ::std::os::raw::c_int;
+}
+extern "C" {
+    pub fn OH_UdmfRecord_AddPlainText(
+        pThis: *mut OH_UdmfRecord,
+        plainText: *mut OH_UdsPlainText,
+    ) -> ::std::os::raw::c_int;
+}
+extern "C" {
+    pub fn OH_UdmfRecord_AddHyperlink(
+        pThis: *mut OH_UdmfRecord,
+        hyperlink: *mut OH_UdsHyperlink,
+    ) -> ::std::os::raw::c_int;
+}
+extern "C" {
+    pub fn OH_UdmfRecord_AddHtml(
+        pThis: *mut OH_UdmfRecord,
+        html: *mut OH_UdsHtml,
+    ) -> ::std::os::raw::c_int;
+}
+extern "C" {
+    pub fn OH_UdmfRecord_AddAppItem(
+        pThis: *mut OH_UdmfRecord,
+        appItem: *mut OH_UdsAppItem,
+    ) -> ::std::os::raw::c_int;
+}
+extern "C" {
+    pub fn OH_UdmfRecord_GetTypes(
+        pThis: *mut OH_UdmfRecord,
+        count: *mut ::std::os::raw::c_uint,
+    ) -> *mut *mut ::std::os::raw::c_char;
+}
+extern "C" {
+    pub fn OH_UdmfRecord_GetGeneralEntry(
+        pThis: *mut OH_UdmfRecord,
+        typeId: *const ::std::os::raw::c_char,
+        entry: *mut *mut ::std::os::raw::c_uchar,
+        count: *mut ::std::os::raw::c_uint,
+    ) -> ::std::os::raw::c_int;
+}
+extern "C" {
+    pub fn OH_UdmfRecord_GetPlainText(
+        pThis: *mut OH_UdmfRecord,
+        plainText: *mut OH_UdsPlainText,
+    ) -> ::std::os::raw::c_int;
+}
+extern "C" {
+    pub fn OH_UdmfRecord_GetHyperlink(
+        pThis: *mut OH_UdmfRecord,
+        hyperlink: *mut OH_UdsHyperlink,
+    ) -> ::std::os::raw::c_int;
+}
+extern "C" {
+    pub fn OH_UdmfRecord_GetHtml(
+        pThis: *mut OH_UdmfRecord,
+        html: *mut OH_UdsHtml,
+    ) -> ::std::os::raw::c_int;
+}
+extern "C" {
+    pub fn OH_UdmfRecord_GetAppItem(
+        pThis: *mut OH_UdmfRecord,
+        appItem: *mut OH_UdsAppItem,
+    ) -> ::std::os::raw::c_int;
+}
+extern "C" {
+    pub fn OH_UdmfProperty_Create(unifiedData: *mut OH_UdmfData) -> *mut OH_UdmfProperty;
+}
+extern "C" {
+    pub fn OH_UdmfProperty_Destroy(pThis: *mut OH_UdmfProperty);
+}
+extern "C" {
+    pub fn OH_UdmfProperty_GetTag(pThis: *mut OH_UdmfProperty) -> *const ::std::os::raw::c_char;
+}
+extern "C" {
+    pub fn OH_UdmfProperty_GetTimestamp(pThis: *mut OH_UdmfProperty) -> i64;
+}
+extern "C" {
+    pub fn OH_UdmfProperty_GetShareOption(pThis: *mut OH_UdmfProperty) -> Udmf_ShareOption;
+}
+extern "C" {
+    pub fn OH_UdmfProperty_GetExtrasIntParam(
+        pThis: *mut OH_UdmfProperty,
+        key: *const ::std::os::raw::c_char,
+        defaultValue: ::std::os::raw::c_int,
+    ) -> ::std::os::raw::c_int;
+}
+extern "C" {
+    pub fn OH_UdmfProperty_GetExtrasStringParam(
+        pThis: *mut OH_UdmfProperty,
+        key: *const ::std::os::raw::c_char,
+    ) -> *const ::std::os::raw::c_char;
+}
+extern "C" {
+    pub fn OH_UdmfProperty_SetTag(
+        pThis: *mut OH_UdmfProperty,
+        tag: *const ::std::os::raw::c_char,
+    ) -> ::std::os::raw::c_int;
+}
+extern "C" {
+    pub fn OH_UdmfProperty_SetShareOption(
+        pThis: *mut OH_UdmfProperty,
+        option: Udmf_ShareOption,
+    ) -> ::std::os::raw::c_int;
+}
+extern "C" {
+    pub fn OH_UdmfProperty_SetExtrasIntParam(
+        pThis: *mut OH_UdmfProperty,
+        key: *const ::std::os::raw::c_char,
+        param: ::std::os::raw::c_int,
+    ) -> ::std::os::raw::c_int;
+}
+extern "C" {
+    pub fn OH_UdmfProperty_SetExtrasStringParam(
+        pThis: *mut OH_UdmfProperty,
+        key: *const ::std::os::raw::c_char,
+        param: *const ::std::os::raw::c_char,
+    ) -> ::std::os::raw::c_int;
+}
+extern "C" {
+    pub fn OH_Udmf_GetUnifiedData(
+        key: *const ::std::os::raw::c_char,
+        intention: Udmf_Intention,
+        unifiedData: *mut OH_UdmfData,
+    ) -> ::std::os::raw::c_int;
+}
+extern "C" {
+    pub fn OH_Udmf_SetUnifiedData(
+        intention: Udmf_Intention,
+        unifiedData: *mut OH_UdmfData,
+        key: *mut ::std::os::raw::c_char,
+        keyLen: ::std::os::raw::c_uint,
+    ) -> ::std::os::raw::c_int;
+}
+#[repr(C)]
+#[derive(Debug, Copy, Clone)]
+pub struct Image_Region {
+    pub x: u32,
+    pub y: u32,
+    pub width: u32,
+    pub height: u32,
+}
+pub const Image_ErrorCode_IMAGE_SUCCESS: Image_ErrorCode = 0;
+pub const Image_ErrorCode_IMAGE_BAD_PARAMETER: Image_ErrorCode = 401;
+pub const Image_ErrorCode_IMAGE_UNSUPPORTED_MIME_TYPE: Image_ErrorCode = 7600101;
+pub const Image_ErrorCode_IMAGE_UNKNOWN_MIME_TYPE: Image_ErrorCode = 7600102;
+pub const Image_ErrorCode_IMAGE_TOO_LARGE: Image_ErrorCode = 7600103;
+pub const Image_ErrorCode_IMAGE_DMA_NOT_EXIST: Image_ErrorCode = 7600173;
+pub const Image_ErrorCode_IMAGE_DMA_OPERATION_FAILED: Image_ErrorCode = 7600174;
+pub const Image_ErrorCode_IMAGE_UNSUPPORTED_OPERATION: Image_ErrorCode = 7600201;
+pub const Image_ErrorCode_IMAGE_UNSUPPORTED_METADATA: Image_ErrorCode = 7600202;
+pub const Image_ErrorCode_IMAGE_UNSUPPORTED_CONVERSION: Image_ErrorCode = 7600203;
+pub const Image_ErrorCode_IMAGE_INVALID_REGION: Image_ErrorCode = 7600204;
+pub const Image_ErrorCode_IMAGE_ALLOC_FAILED: Image_ErrorCode = 7600301;
+pub const Image_ErrorCode_IMAGE_COPY_FAILED: Image_ErrorCode = 7600302;
+pub const Image_ErrorCode_IMAGE_UNKNOWN_ERROR: Image_ErrorCode = 7600901;
+pub const Image_ErrorCode_IMAGE_BAD_SOURCE: Image_ErrorCode = 7700101;
+pub const Image_ErrorCode_IMAGE_DECODE_FAILED: Image_ErrorCode = 7700301;
+pub const Image_ErrorCode_IMAGE_ENCODE_FAILED: Image_ErrorCode = 7800301;
+pub type Image_ErrorCode = ::std::os::raw::c_uint;
+#[repr(C)]
+#[derive(Debug, Copy, Clone)]
+pub struct OH_NativeBuffer {
+    _unused: [u8; 0],
+}
+pub const OH_PixelmapNative_AntiAliasingLevel_OH_PixelmapNative_AntiAliasing_NONE:
+    OH_PixelmapNative_AntiAliasingLevel = 0;
+pub const OH_PixelmapNative_AntiAliasingLevel_OH_PixelmapNative_AntiAliasing_LOW:
+    OH_PixelmapNative_AntiAliasingLevel = 1;
+pub const OH_PixelmapNative_AntiAliasingLevel_OH_PixelmapNative_AntiAliasing_MEDIUM:
+    OH_PixelmapNative_AntiAliasingLevel = 2;
+pub const OH_PixelmapNative_AntiAliasingLevel_OH_PixelmapNative_AntiAliasing_HIGH:
+    OH_PixelmapNative_AntiAliasingLevel = 3;
+pub type OH_PixelmapNative_AntiAliasingLevel = ::std::os::raw::c_uint;
+pub const OH_Pixelmap_HdrMetadataKey_HDR_METADATA_TYPE: OH_Pixelmap_HdrMetadataKey = 0;
+pub const OH_Pixelmap_HdrMetadataKey_HDR_STATIC_METADATA: OH_Pixelmap_HdrMetadataKey = 1;
+pub const OH_Pixelmap_HdrMetadataKey_HDR_DYNAMIC_METADATA: OH_Pixelmap_HdrMetadataKey = 2;
+pub const OH_Pixelmap_HdrMetadataKey_HDR_GAINMAP_METADATA: OH_Pixelmap_HdrMetadataKey = 3;
+pub type OH_Pixelmap_HdrMetadataKey = ::std::os::raw::c_uint;
+pub const OH_Pixelmap_HdrMetadataType_HDR_METADATA_TYPE_NONE: OH_Pixelmap_HdrMetadataType = 0;
+pub const OH_Pixelmap_HdrMetadataType_HDR_METADATA_TYPE_BASE: OH_Pixelmap_HdrMetadataType = 1;
+pub const OH_Pixelmap_HdrMetadataType_HDR_METADATA_TYPE_GAINMAP: OH_Pixelmap_HdrMetadataType = 2;
+pub const OH_Pixelmap_HdrMetadataType_HDR_METADATA_TYPE_ALTERNATE: OH_Pixelmap_HdrMetadataType = 3;
+pub type OH_Pixelmap_HdrMetadataType = ::std::os::raw::c_uint;
+#[repr(C)]
+#[derive(Debug, Copy, Clone)]
+pub struct OH_Pixelmap_HdrStaticMetadata {
+    pub displayPrimariesX: [f32; 3usize],
+    pub displayPrimariesY: [f32; 3usize],
+    pub whitePointX: f32,
+    pub whitePointY: f32,
+    pub maxLuminance: f32,
+    pub minLuminance: f32,
+    pub maxContentLightLevel: f32,
+    pub maxFrameAverageLightLevel: f32,
+}
+#[repr(C)]
+#[derive(Debug, Copy, Clone)]
+pub struct OH_Pixelmap_HdrDynamicMetadata {
+    pub data: *mut u8,
+    pub length: u32,
+}
+#[repr(C)]
+#[derive(Debug, Copy, Clone)]
+pub struct OH_Pixelmap_HdrGainmapMetadata {
+    pub writerVersion: u16,
+    pub miniVersion: u16,
+    pub gainmapChannelNum: u8,
+    pub useBaseColorFlag: bool,
+    pub baseHeadroom: f32,
+    pub alternateHeadroom: f32,
+    pub gainmapMax: [f32; 3usize],
+    pub gainmapMin: [f32; 3usize],
+    pub gamma: [f32; 3usize],
+    pub baselineOffset: [f32; 3usize],
+    pub alternateOffset: [f32; 3usize],
+}
+#[repr(C)]
+#[derive(Debug, Copy, Clone)]
+pub struct OH_Pixelmap_HdrMetadataValue {
+    pub type_: OH_Pixelmap_HdrMetadataType,
+    pub staticMetadata: OH_Pixelmap_HdrStaticMetadata,
+    pub dynamicMetadata: OH_Pixelmap_HdrDynamicMetadata,
+    pub gainmapMetadata: OH_Pixelmap_HdrGainmapMetadata,
+}
+#[repr(C)]
+#[derive(Debug, Copy, Clone)]
+pub struct OH_Pixelmap_InitializationOptions {
+    _unused: [u8; 0],
+}
+extern "C" {
+    pub fn OH_PixelmapInitializationOptions_Create(
+        options: *mut *mut OH_Pixelmap_InitializationOptions,
+    ) -> Image_ErrorCode;
+}
+extern "C" {
+    pub fn OH_PixelmapInitializationOptions_GetWidth(
+        options: *mut OH_Pixelmap_InitializationOptions,
+        width: *mut u32,
+    ) -> Image_ErrorCode;
+}
+extern "C" {
+    pub fn OH_PixelmapInitializationOptions_SetWidth(
+        options: *mut OH_Pixelmap_InitializationOptions,
+        width: u32,
+    ) -> Image_ErrorCode;
+}
+extern "C" {
+    pub fn OH_PixelmapInitializationOptions_GetHeight(
+        options: *mut OH_Pixelmap_InitializationOptions,
+        height: *mut u32,
+    ) -> Image_ErrorCode;
+}
+extern "C" {
+    pub fn OH_PixelmapInitializationOptions_SetHeight(
+        options: *mut OH_Pixelmap_InitializationOptions,
+        height: u32,
+    ) -> Image_ErrorCode;
+}
+extern "C" {
+    pub fn OH_PixelmapInitializationOptions_GetPixelFormat(
+        options: *mut OH_Pixelmap_InitializationOptions,
+        pixelFormat: *mut i32,
+    ) -> Image_ErrorCode;
+}
+extern "C" {
+    pub fn OH_PixelmapInitializationOptions_SetPixelFormat(
+        options: *mut OH_Pixelmap_InitializationOptions,
+        pixelFormat: i32,
+    ) -> Image_ErrorCode;
+}
+extern "C" {
+    pub fn OH_PixelmapInitializationOptions_GetSrcPixelFormat(
+        options: *mut OH_Pixelmap_InitializationOptions,
+        srcpixelFormat: *mut i32,
+    ) -> Image_ErrorCode;
+}
+extern "C" {
+    pub fn OH_PixelmapInitializationOptions_SetSrcPixelFormat(
+        options: *mut OH_Pixelmap_InitializationOptions,
+        srcpixelFormat: i32,
+    ) -> Image_ErrorCode;
+}
+extern "C" {
+    pub fn OH_PixelmapInitializationOptions_GetRowStride(
+        options: *mut OH_Pixelmap_InitializationOptions,
+        rowStride: *mut i32,
+    ) -> Image_ErrorCode;
+}
+extern "C" {
+    pub fn OH_PixelmapInitializationOptions_SetRowStride(
+        options: *mut OH_Pixelmap_InitializationOptions,
+        rowStride: i32,
+    ) -> Image_ErrorCode;
+}
+extern "C" {
+    pub fn OH_PixelmapInitializationOptions_GetAlphaType(
+        options: *mut OH_Pixelmap_InitializationOptions,
+        alphaType: *mut i32,
+    ) -> Image_ErrorCode;
+}
+extern "C" {
+    pub fn OH_PixelmapInitializationOptions_SetAlphaType(
+        options: *mut OH_Pixelmap_InitializationOptions,
+        alphaType: i32,
+    ) -> Image_ErrorCode;
+}
+extern "C" {
+    pub fn OH_PixelmapInitializationOptions_Release(
+        options: *mut OH_Pixelmap_InitializationOptions,
+    ) -> Image_ErrorCode;
+}
+#[repr(C)]
+#[derive(Debug, Copy, Clone)]
+pub struct OH_Pixelmap_ImageInfo {
+    _unused: [u8; 0],
+}
+extern "C" {
+    pub fn OH_PixelmapImageInfo_Create(info: *mut *mut OH_Pixelmap_ImageInfo) -> Image_ErrorCode;
+}
+extern "C" {
+    pub fn OH_PixelmapImageInfo_GetWidth(
+        info: *mut OH_Pixelmap_ImageInfo,
+        width: *mut u32,
+    ) -> Image_ErrorCode;
+}
+extern "C" {
+    pub fn OH_PixelmapImageInfo_GetHeight(
+        info: *mut OH_Pixelmap_ImageInfo,
+        height: *mut u32,
+    ) -> Image_ErrorCode;
+}
+extern "C" {
+    pub fn OH_PixelmapImageInfo_GetRowStride(
+        info: *mut OH_Pixelmap_ImageInfo,
+        rowStride: *mut u32,
+    ) -> Image_ErrorCode;
+}
+extern "C" {
+    pub fn OH_PixelmapImageInfo_GetPixelFormat(
+        info: *mut OH_Pixelmap_ImageInfo,
+        pixelFormat: *mut i32,
+    ) -> Image_ErrorCode;
+}
+extern "C" {
+    pub fn OH_PixelmapImageInfo_GetAlphaType(
+        info: *mut OH_Pixelmap_ImageInfo,
+        alphaType: *mut i32,
+    ) -> Image_ErrorCode;
+}
+extern "C" {
+    pub fn OH_PixelmapImageInfo_GetDynamicRange(
+        info: *mut OH_Pixelmap_ImageInfo,
+        isHdr: *mut bool,
+    ) -> Image_ErrorCode;
+}
+extern "C" {
+    pub fn OH_PixelmapImageInfo_Release(info: *mut OH_Pixelmap_ImageInfo) -> Image_ErrorCode;
+}
+extern "C" {
+    pub fn OH_PixelmapNative_CreatePixelmap(
+        data: *mut u8,
+        dataLength: usize,
+        options: *mut OH_Pixelmap_InitializationOptions,
+        pixelmap: *mut *mut OH_PixelmapNative,
+    ) -> Image_ErrorCode;
+}
+extern "C" {
+    pub fn OH_PixelmapNative_ConvertPixelmapNativeToNapi(
+        env: napi_env,
+        pixelmapNative: *mut OH_PixelmapNative,
+        pixelmapNapi: *mut napi_value,
+    ) -> Image_ErrorCode;
+}
+extern "C" {
+    pub fn OH_PixelmapNative_ConvertPixelmapNativeFromNapi(
+        env: napi_env,
+        pixelmapNapi: napi_value,
+        pixelmapNative: *mut *mut OH_PixelmapNative,
+    ) -> Image_ErrorCode;
+}
+extern "C" {
+    pub fn OH_PixelmapNative_ReadPixels(
+        pixelmap: *mut OH_PixelmapNative,
+        destination: *mut u8,
+        bufferSize: *mut usize,
+    ) -> Image_ErrorCode;
+}
+extern "C" {
+    pub fn OH_PixelmapNative_WritePixels(
+        pixelmap: *mut OH_PixelmapNative,
+        source: *mut u8,
+        bufferSize: usize,
+    ) -> Image_ErrorCode;
+}
+extern "C" {
+    pub fn OH_PixelmapNative_ToSdr(pixelmap: *mut OH_PixelmapNative) -> Image_ErrorCode;
+}
+extern "C" {
+    pub fn OH_PixelmapNative_GetImageInfo(
+        pixelmap: *mut OH_PixelmapNative,
+        imageInfo: *mut OH_Pixelmap_ImageInfo,
+    ) -> Image_ErrorCode;
+}
+extern "C" {
+    pub fn OH_PixelmapNative_Opacity(
+        pixelmap: *mut OH_PixelmapNative,
+        rate: f32,
+    ) -> Image_ErrorCode;
+}
+extern "C" {
+    pub fn OH_PixelmapNative_Scale(
+        pixelmap: *mut OH_PixelmapNative,
+        scaleX: f32,
+        scaleY: f32,
+    ) -> Image_ErrorCode;
+}
+extern "C" {
+    pub fn OH_PixelmapNative_ScaleWithAntiAliasing(
+        pixelmap: *mut OH_PixelmapNative,
+        scaleX: f32,
+        scaleY: f32,
+        level: OH_PixelmapNative_AntiAliasingLevel,
+    ) -> Image_ErrorCode;
+}
+extern "C" {
+    pub fn OH_PixelmapNative_Translate(
+        pixelmap: *mut OH_PixelmapNative,
+        x: f32,
+        y: f32,
+    ) -> Image_ErrorCode;
+}
+extern "C" {
+    pub fn OH_PixelmapNative_Rotate(
+        pixelmap: *mut OH_PixelmapNative,
+        angle: f32,
+    ) -> Image_ErrorCode;
+}
+extern "C" {
+    pub fn OH_PixelmapNative_Flip(
+        pixelmap: *mut OH_PixelmapNative,
+        shouldFilpHorizontally: bool,
+        shouldFilpVertically: bool,
+    ) -> Image_ErrorCode;
+}
+extern "C" {
+    pub fn OH_PixelmapNative_Crop(
+        pixelmap: *mut OH_PixelmapNative,
+        region: *mut Image_Region,
+    ) -> Image_ErrorCode;
+}
+extern "C" {
+    pub fn OH_PixelmapNative_Release(pixelmap: *mut OH_PixelmapNative) -> Image_ErrorCode;
+}
+extern "C" {
+    pub fn OH_PixelmapNative_ConvertAlphaFormat(
+        srcpixelmap: *mut OH_PixelmapNative,
+        dstpixelmap: *mut OH_PixelmapNative,
+        isPremul: bool,
+    ) -> Image_ErrorCode;
+}
+extern "C" {
+    pub fn OH_PixelmapNative_CreateEmptyPixelmap(
+        options: *mut OH_Pixelmap_InitializationOptions,
+        pixelmap: *mut *mut OH_PixelmapNative,
+    ) -> Image_ErrorCode;
+}
+extern "C" {
+    pub fn OH_PixelmapNative_GetMetadata(
+        pixelmap: *mut OH_PixelmapNative,
+        key: OH_Pixelmap_HdrMetadataKey,
+        value: *mut *mut OH_Pixelmap_HdrMetadataValue,
+    ) -> Image_ErrorCode;
+}
+extern "C" {
+    pub fn OH_PixelmapNative_SetMetadata(
+        pixelmap: *mut OH_PixelmapNative,
+        key: OH_Pixelmap_HdrMetadataKey,
+        value: *mut OH_Pixelmap_HdrMetadataValue,
+    ) -> Image_ErrorCode;
+}
+extern "C" {
+    pub fn OH_PixelmapNative_GetNativeBuffer(
+        pixelmap: *mut OH_PixelmapNative,
+        nativeBuffer: *mut *mut OH_NativeBuffer,
+    ) -> Image_ErrorCode;
+}
+pub const ArkUI_DragResult_ARKUI_DRAG_RESULT_SUCCESSFUL: ArkUI_DragResult = 0;
+pub const ArkUI_DragResult_ARKUI_DRAG_RESULT_FAILED: ArkUI_DragResult = 1;
+pub const ArkUI_DragResult_ARKUI_DRAG_RESULT_CANCELED: ArkUI_DragResult = 2;
+pub type ArkUI_DragResult = ::std::os::raw::c_uint;
+pub const ArkUI_DropOperation_ARKUI_DROP_OPERATION_COPY: ArkUI_DropOperation = 0;
+pub const ArkUI_DropOperation_ARKUI_DROP_OPERATION_MOVE: ArkUI_DropOperation = 1;
+pub type ArkUI_DropOperation = ::std::os::raw::c_uint;
+pub const ArkUI_PreDragStatus_ARKUI_PRE_DRAG_STATUS_UNKNOWN: ArkUI_PreDragStatus = -1;
+pub const ArkUI_PreDragStatus_ARKUI_PRE_DRAG_STATUS_ACTION_DETECTING: ArkUI_PreDragStatus = 0;
+pub const ArkUI_PreDragStatus_ARKUI_PRE_DRAG_STATUS_READY_TO_TRIGGER_DRAG: ArkUI_PreDragStatus = 1;
+pub const ArkUI_PreDragStatus_ARKUI_PRE_DRAG_STATUS_PREVIEW_LIFT_STARTED: ArkUI_PreDragStatus = 2;
+pub const ArkUI_PreDragStatus_ARKUI_PRE_DRAG_STATUS_PREVIEW_LIFT_FINISHED: ArkUI_PreDragStatus = 3;
+pub const ArkUI_PreDragStatus_ARKUI_PRE_DRAG_STATUS_PREVIEW_LANDING_STARTED: ArkUI_PreDragStatus =
+    4;
+pub const ArkUI_PreDragStatus_ARKUI_PRE_DRAG_STATUS_PREVIEW_LANDING_FINISHED: ArkUI_PreDragStatus =
+    5;
+pub const ArkUI_PreDragStatus_ARKUI_PRE_DRAG_STATUS_CANCELED_BEFORE_DRAG: ArkUI_PreDragStatus = 6;
+pub type ArkUI_PreDragStatus = ::std::os::raw::c_int;
+pub const ArkUI_DragPreviewScaleMode_ARKUI_DRAG_PREVIEW_SCALE_AUTO: ArkUI_DragPreviewScaleMode = 0;
+pub const ArkUI_DragPreviewScaleMode_ARKUI_DRAG_PREVIEW_SCALE_DISABLED: ArkUI_DragPreviewScaleMode =
+    1;
+pub type ArkUI_DragPreviewScaleMode = ::std::os::raw::c_uint;
+pub const ArkUI_DragStatus_ARKUI_DRAG_STATUS_UNKNOWN: ArkUI_DragStatus = -1;
+pub const ArkUI_DragStatus_ARKUI_DRAG_STATUS_STARTED: ArkUI_DragStatus = 0;
+pub const ArkUI_DragStatus_ARKUI_DRAG_STATUS_ENDED: ArkUI_DragStatus = 1;
+pub type ArkUI_DragStatus = ::std::os::raw::c_int;
+#[repr(C)]
+#[derive(Debug, Copy, Clone)]
+pub struct ArkUI_NodeEvent {
+    _unused: [u8; 0],
+}
+#[repr(C)]
+#[derive(Debug, Copy, Clone)]
+pub struct ArkUI_DragEvent {
+    _unused: [u8; 0],
+}
+#[repr(C)]
+#[derive(Debug, Copy, Clone)]
+pub struct ArkUI_DragPreviewOption {
+    _unused: [u8; 0],
+}
+#[repr(C)]
+#[derive(Debug, Copy, Clone)]
+pub struct ArkUI_DragAction {
+    _unused: [u8; 0],
+}
+#[repr(C)]
+#[derive(Debug, Copy, Clone)]
+pub struct ArkUI_DragAndDropInfo {
+    _unused: [u8; 0],
+}
+extern "C" {
+    pub fn OH_ArkUI_NodeEvent_GetDragEvent(nodeEvent: *mut ArkUI_NodeEvent)
+        -> *mut ArkUI_DragEvent;
+}
+extern "C" {
+    pub fn OH_ArkUI_NodeEvent_GetPreDragStatus(
+        nodeEvent: *mut ArkUI_NodeEvent,
+    ) -> ArkUI_PreDragStatus;
+}
+extern "C" {
+    pub fn OH_ArkUI_DragEvent_DisableDefaultDropAnimation(
+        event: *mut ArkUI_DragEvent,
+        disable: bool,
+    ) -> i32;
+}
+extern "C" {
+    pub fn OH_ArkUI_DragEvent_SetSuggestedDropOperation(
+        event: *mut ArkUI_DragEvent,
+        dropOperation: ArkUI_DropOperation,
+    ) -> i32;
+}
+extern "C" {
+    pub fn OH_ArkUI_DragEvent_SetDragResult(
+        event: *mut ArkUI_DragEvent,
+        result: ArkUI_DragResult,
+    ) -> i32;
+}
+extern "C" {
+    pub fn OH_ArkUI_DragEvent_SetData(event: *mut ArkUI_DragEvent, data: *mut OH_UdmfData) -> i32;
+}
+extern "C" {
+    pub fn OH_ArkUI_DragEvent_GetUdmfData(
+        event: *mut ArkUI_DragEvent,
+        data: *mut OH_UdmfData,
+    ) -> i32;
+}
+extern "C" {
+    pub fn OH_ArkUI_DragEvent_GetDataTypeCount(event: *mut ArkUI_DragEvent, count: *mut i32)
+        -> i32;
+}
+extern "C" {
+    pub fn OH_ArkUI_DragEvent_GetDataTypes(
+        event: *mut ArkUI_DragEvent,
+        eventTypeArray: *mut *mut ::std::os::raw::c_char,
+        length: i32,
+        maxStrLen: i32,
+    ) -> i32;
+}
+extern "C" {
+    pub fn OH_ArkUI_DragEvent_GetDragResult(
+        event: *mut ArkUI_DragEvent,
+        result: *mut ArkUI_DragResult,
+    ) -> i32;
+}
+extern "C" {
+    pub fn OH_ArkUI_DragEvent_GetDropOperation(
+        event: *mut ArkUI_DragEvent,
+        operation: *mut ArkUI_DropOperation,
+    ) -> i32;
+}
+extern "C" {
+    pub fn OH_ArkUI_DragEvent_GetPreviewTouchPointX(event: *mut ArkUI_DragEvent) -> f32;
+}
+extern "C" {
+    pub fn OH_ArkUI_DragEvent_GetPreviewTouchPointY(event: *mut ArkUI_DragEvent) -> f32;
+}
+extern "C" {
+    pub fn OH_ArkUI_DragEvent_GetPreviewRectWidth(event: *mut ArkUI_DragEvent) -> f32;
+}
+extern "C" {
+    pub fn OH_ArkUI_DragEvent_GetPreviewRectHeight(event: *mut ArkUI_DragEvent) -> f32;
+}
+extern "C" {
+    pub fn OH_ArkUI_DragEvent_GetTouchPointXToWindow(event: *mut ArkUI_DragEvent) -> f32;
+}
+extern "C" {
+    pub fn OH_ArkUI_DragEvent_GetTouchPointYToWindow(event: *mut ArkUI_DragEvent) -> f32;
+}
+extern "C" {
+    pub fn OH_ArkUI_DragEvent_GetTouchPointXToDisplay(event: *mut ArkUI_DragEvent) -> f32;
+}
+extern "C" {
+    pub fn OH_ArkUI_DragEvent_GetTouchPointYToDisplay(event: *mut ArkUI_DragEvent) -> f32;
+}
+extern "C" {
+    pub fn OH_ArkUI_DragEvent_GetVelocityX(event: *mut ArkUI_DragEvent) -> f32;
+}
+extern "C" {
+    pub fn OH_ArkUI_DragEvent_GetVelocityY(event: *mut ArkUI_DragEvent) -> f32;
+}
+extern "C" {
+    pub fn OH_ArkUI_DragEvent_GetVelocity(event: *mut ArkUI_DragEvent) -> f32;
+}
+extern "C" {
+    pub fn OH_ArkUI_DragEvent_GetModifierKeyStates(
+        event: *mut ArkUI_DragEvent,
+        keys: *mut u64,
+    ) -> i32;
+}
+extern "C" {
+    pub fn OH_ArkUI_SetDragEventStrictReportWithNode(node: ArkUI_NodeHandle, enabled: bool) -> i32;
+}
+extern "C" {
+    pub fn OH_ArkUI_SetDragEventStrictReportWithContext(
+        uiContext: ArkUI_ContextHandle,
+        enabled: bool,
+    ) -> i32;
+}
+extern "C" {
+    pub fn OH_ArkUI_SetNodeAllowedDropDataTypes(
+        node: ArkUI_NodeHandle,
+        typesArray: *mut *const ::std::os::raw::c_char,
+        count: i32,
+    ) -> i32;
+}
+extern "C" {
+    pub fn OH_ArkUI_DisallowNodeAnyDropDataTypes(node: ArkUI_NodeHandle) -> i32;
+}
+extern "C" {
+    pub fn OH_ArkUI_AllowNodeAllDropDataTypes(node: ArkUI_NodeHandle) -> i32;
+}
+extern "C" {
+    pub fn OH_ArkUI_SetNodeDraggable(node: ArkUI_NodeHandle, enabled: bool) -> i32;
+}
+extern "C" {
+    pub fn OH_ArkUI_SetNodeDragPreview(
+        node: ArkUI_NodeHandle,
+        preview: *mut OH_PixelmapNative,
+    ) -> i32;
+}
+extern "C" {
+    pub fn OH_ArkUI_CreateDragPreviewOption() -> *mut ArkUI_DragPreviewOption;
+}
+extern "C" {
+    pub fn OH_ArkUI_DragPreviewOption_Dispose(option: *mut ArkUI_DragPreviewOption);
+}
+extern "C" {
+    pub fn OH_ArkUI_DragPreviewOption_SetScaleMode(
+        option: *mut ArkUI_DragPreviewOption,
+        scaleMode: ArkUI_DragPreviewScaleMode,
+    ) -> i32;
+}
+extern "C" {
+    pub fn OH_ArkUI_DragPreviewOption_SetDefaultShadowEnabled(
+        option: *mut ArkUI_DragPreviewOption,
+        enabled: bool,
+    ) -> i32;
+}
+extern "C" {
+    pub fn OH_ArkUI_DragPreviewOption_SetDefaultRadiusEnabled(
+        option: *mut ArkUI_DragPreviewOption,
+        enabled: bool,
+    ) -> i32;
+}
+extern "C" {
+    pub fn OH_ArkUI_DragPreviewOption_SetNumberBadgeEnabled(
+        option: *mut ArkUI_DragPreviewOption,
+        enabled: bool,
+    ) -> i32;
+}
+extern "C" {
+    pub fn OH_ArkUI_DragPreviewOption_SetBadgeNumber(
+        option: *mut ArkUI_DragPreviewOption,
+        forcedNumber: u32,
+    ) -> i32;
+}
+extern "C" {
+    pub fn OH_ArkUI_DragPreviewOption_SetDefaultAnimationBeforeLiftingEnabled(
+        option: *mut ArkUI_DragPreviewOption,
+        enabled: bool,
+    ) -> i32;
+}
+extern "C" {
+    pub fn OH_ArkUI_SetNodeDragPreviewOption(
+        node: ArkUI_NodeHandle,
+        option: *mut ArkUI_DragPreviewOption,
+    ) -> i32;
+}
+extern "C" {
+    pub fn OH_ArkUI_CreateDragActionWithNode(node: ArkUI_NodeHandle) -> *mut ArkUI_DragAction;
+}
+extern "C" {
+    pub fn OH_ArkUI_CreateDragActionWithContext(
+        uiContext: ArkUI_ContextHandle,
+    ) -> *mut ArkUI_DragAction;
+}
+extern "C" {
+    pub fn OH_ArkUI_DragAction_Dispose(dragAction: *mut ArkUI_DragAction);
+}
+extern "C" {
+    pub fn OH_ArkUI_DragAction_SetPointerId(dragAction: *mut ArkUI_DragAction, pointer: i32)
+        -> i32;
+}
+extern "C" {
+    pub fn OH_ArkUI_DragAction_SetPixelMaps(
+        dragAction: *mut ArkUI_DragAction,
+        pixelmapArray: *mut *mut OH_PixelmapNative,
+        size: i32,
+    ) -> i32;
+}
+extern "C" {
+    pub fn OH_ArkUI_DragAction_SetTouchPointX(dragAction: *mut ArkUI_DragAction, x: f32) -> i32;
+}
+extern "C" {
+    pub fn OH_ArkUI_DragAction_SetTouchPointY(dragAction: *mut ArkUI_DragAction, y: f32) -> i32;
+}
+extern "C" {
+    pub fn OH_ArkUI_DragAction_SetData(
+        dragAction: *mut ArkUI_DragAction,
+        data: *mut OH_UdmfData,
+    ) -> i32;
+}
+extern "C" {
+    pub fn OH_ArkUI_DragAction_SetDragPreviewOption(
+        dragAction: *mut ArkUI_DragAction,
+        option: *mut ArkUI_DragPreviewOption,
+    ) -> i32;
+}
+extern "C" {
+    pub fn OH_ArkUI_DragAction_RegisterStatusListener(
+        dragAction: *mut ArkUI_DragAction,
+        userData: *mut ::std::os::raw::c_void,
+        listener: ::std::option::Option<
+            unsafe extern "C" fn(
+                dragAndDropInfo: *mut ArkUI_DragAndDropInfo,
+                userData: *mut ::std::os::raw::c_void,
+            ),
+        >,
+    ) -> i32;
+}
+extern "C" {
+    pub fn OH_ArkUI_DragAction_UnregisterStatusListener(dragAction: *mut ArkUI_DragAction);
+}
+extern "C" {
+    pub fn OH_ArkUI_DragAndDropInfo_GetDragStatus(
+        dragAndDropInfo: *mut ArkUI_DragAndDropInfo,
+    ) -> ArkUI_DragStatus;
+}
+extern "C" {
+    pub fn OH_ArkUI_DragAndDropInfo_GetDragEvent(
+        dragAndDropInfo: *mut ArkUI_DragAndDropInfo,
+    ) -> *mut ArkUI_DragEvent;
+}
+extern "C" {
+    pub fn OH_ArkUI_StartDrag(dragAction: *mut ArkUI_DragAction) -> i32;
 }
 #[repr(C)]
 #[derive(Debug, Copy, Clone)]
@@ -3579,11 +4597,6 @@ pub const ArkUI_NodeEventType_NODE_ON_WILL_SCROLL: ArkUI_NodeEventType = 1010000
 pub const ArkUI_NodeEventType_NODE_WATER_FLOW_ON_DID_SCROLL: ArkUI_NodeEventType = 1010001;
 pub const ArkUI_NodeEventType_NODE_WATER_FLOW_ON_SCROLL_INDEX: ArkUI_NodeEventType = 1010002;
 pub type ArkUI_NodeEventType = ::std::os::raw::c_uint;
-#[repr(C)]
-#[derive(Debug, Copy, Clone)]
-pub struct ArkUI_NodeEvent {
-    _unused: [u8; 0],
-}
 extern "C" {
     pub fn OH_ArkUI_NodeEvent_GetEventType(event: *mut ArkUI_NodeEvent) -> ArkUI_NodeEventType;
 }

@@ -28,8 +28,6 @@ fn generate_code(config: &SysConfig) -> anyhow::Result<()> {
         .ok_or(Error::msg("Get parent path failed"))?
         .parent()
         .ok_or(Error::msg("Get parent path failed"))?
-        .parent()
-        .ok_or(Error::msg("Get parent path failed"))?
         .join("sys")
         .join(config.name);
 

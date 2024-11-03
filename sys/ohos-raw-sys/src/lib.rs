@@ -6,6 +6,7 @@
 
 use napi_sys_ohos::*;
 
+
 #[repr(C)]
 #[derive(Debug, Copy, Clone)]
 pub struct RawDir {
@@ -76,9 +77,20 @@ extern "C" {
     pub fn OH_ResourceManager_GetRawFileOffset(rawFile: *const RawFile) -> ::std::os::raw::c_long;
 }
 extern "C" {
+    pub fn OH_ResourceManager_GetRawFileDescriptor(
+        rawFile: *const RawFile,
+        descriptor: *mut RawFileDescriptor,
+    ) -> bool;
+}
+extern "C" {
     pub fn OH_ResourceManager_GetRawFileDescriptorData(
         rawFile: *const RawFile,
         descriptor: *mut RawFileDescriptor,
+    ) -> bool;
+}
+extern "C" {
+    pub fn OH_ResourceManager_ReleaseRawFileDescriptor(
+        descriptor: *const RawFileDescriptor,
     ) -> bool;
 }
 extern "C" {

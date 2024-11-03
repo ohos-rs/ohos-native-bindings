@@ -5,6 +5,7 @@ use crate::config::SysConfig;
 pub const ARKUI: Lazy<SysConfig> = Lazy::new(|| SysConfig {
     name: "ohos-arkui-sys",
     headers: vec![
+        "arkui/drag_and_drop.h",
         "arkui/drawable_descriptor.h",
         "arkui/native_animate.h",
         "arkui/native_dialog.h",

@@ -1,0 +1,9 @@
+[package]
+name    = "ohos-arkui-binding"
+version = "0.0.1"
+edition = "2021"
+
+[dependencies]
+ohos-arkui-sys = { workspace = true }
+napi-sys-ohos  = { workspace = true }
+napi-ohos      = { workspace = true }

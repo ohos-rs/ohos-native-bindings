@@ -6,6 +6,7 @@
 
 use ohos_raw_sys::*;
 
+
 pub const ResourceManager_ErrorCode_SUCCESS: ResourceManager_ErrorCode = 0;
 pub const ResourceManager_ErrorCode_ERROR_CODE_INVALID_INPUT_PARAMETER: ResourceManager_ErrorCode =
     401;
