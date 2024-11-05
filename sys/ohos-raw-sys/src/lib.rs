@@ -6,7 +6,6 @@
 
 use napi_sys_ohos::*;
 
-
 #[repr(C)]
 #[derive(Debug, Copy, Clone)]
 pub struct RawDir {
