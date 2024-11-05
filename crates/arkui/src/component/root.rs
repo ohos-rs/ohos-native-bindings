@@ -18,28 +18,38 @@ impl RootNode {
         RootNode { base: None, handle }
     }
 
-    pub fn set_node(&mut self, node: ArkUINode) {
-        self.base = Some(node);
-    }
-
     pub fn handle(&self) -> &ArkUIHandle {
         &self.handle
     }
 
-    pub fn mount(&self) -> Result<()> {
+    pub fn mount<T: Into<ArkUINode>>(&mut self, node: T) -> Result<()> {
+        let node_raw = node.into();
+        self.base = Some(node_raw.clone());
         if let Some(base) = self.base.as_ref() {
-            let ret = unsafe {
-                OH_ArkUI_NodeContent_AddNode(self.handle.raw(), base.raw())
-            };
-            // unsafe {
-            //     check_status!(
-            //         OH_ArkUI_NodeContent_AddNode(self.handle.raw(), base.raw()),
-            //         "Mount root node failed"
-            //     )
-            // }?;
+            unsafe {
+                check_status!(
+                    OH_ArkUI_NodeContent_AddNode(self.handle.raw(), base.raw()),
+                    "Mount root node failed"
+                )
+            }?;
             Ok(())
         } else {
-            return Err(Error::from_reason("root node is empty, can't be mounted"));
+            Err(Error::from_reason("Mount root node failed, base is None"))
+        }
+    }
+
+    pub fn unmount(&mut self) -> Result<()> {
+        if let Some(base) = self.base.as_ref() {
+            unsafe {
+                check_status!(
+                    OH_ArkUI_NodeContent_AddNode(self.handle.raw(), base.raw()),
+                    "Mount root node failed"
+                )
+            }?;
+            self.base = None;
+            Ok(())
+        } else {
+            Err(Error::from_reason("Mount root node failed, base is None"))
         }
     }
 }
@@ -49,9 +59,7 @@ impl Drop for RootNode {
         if let Some(base) = self.base.as_mut() {
             unsafe { OH_ArkUI_NodeContent_RemoveNode(self.handle.raw(), base.raw()) };
             base.children_mut().clear();
+            self.base = None;
         }
     }
 }
-
-unsafe impl Send for RootNode {}
-unsafe impl Sync for RootNode {}
