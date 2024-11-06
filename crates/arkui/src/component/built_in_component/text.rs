@@ -5,6 +5,8 @@ use crate::{
     ARK_UI_NATIVE_NODE_API_1,
 };
 
+use crate::component::ArkUICommonAttribute;
+
 pub struct Text(ArkUINode);
 
 impl Text {
@@ -15,10 +17,6 @@ impl Text {
             children: Vec::new(),
             tag: ArkUINodeType::Text,
         }))
-    }
-
-    pub fn node(&self) -> ArkUINode {
-        self.0.clone()
     }
 
     pub fn set_font_size(&self, font_size: f32) -> Result<()> {
@@ -43,43 +41,16 @@ impl Text {
         )?;
         Ok(())
     }
-
-    pub fn set_percent_width(&self, width: f32) -> Result<()> {
-        let percent_width_property =
-            ArkUINodeAttributeItem::NumberValue(vec![ArkUINodeAttributeNumber(Either3::A(width))]);
-        ARK_UI_NATIVE_NODE_API_1.set_attribute(
-            &self.0,
-            crate::ArkUINodeAttributeType::WidthPercent,
-            percent_width_property,
-        )?;
-        Ok(())
-    }
-
-    pub fn set_percent_height(&self, height: f32) -> Result<()> {
-        let percent_height_property =
-            ArkUINodeAttributeItem::NumberValue(vec![ArkUINodeAttributeNumber(Either3::A(height))]);
-        ARK_UI_NATIVE_NODE_API_1.set_attribute(
-            &self.0,
-            crate::ArkUINodeAttributeType::HeightPercent,
-            percent_height_property,
-        )?;
-        Ok(())
-    }
-
-    pub fn set_background_color(&self, color: u32) -> Result<()> {
-        let background_color_property =
-            ArkUINodeAttributeItem::NumberValue(vec![ArkUINodeAttributeNumber(Either3::C(color))]);
-        ARK_UI_NATIVE_NODE_API_1.set_attribute(
-            &self.0,
-            crate::ArkUINodeAttributeType::BackgroundColor,
-            background_color_property,
-        )?;
-        Ok(())
-    }
 }
 
 impl From<Text> for ArkUINode {
     fn from(text: Text) -> Self {
         text.0
+    }
+}
+
+impl ArkUICommonAttribute for Text {
+    fn raw(&self) -> &ArkUINode {
+        &self.0
     }
 }

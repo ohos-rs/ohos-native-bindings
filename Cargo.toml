@@ -36,3 +36,4 @@ quote        = { version = "1.0" }
 proc-macro2  = { version = "1.0" }
 convert_case = { version = "0.6" }
 regex        = { version = "1.0" }
+thiserror    = { version = "2.0" }

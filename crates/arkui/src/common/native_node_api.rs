@@ -20,6 +20,11 @@ pub const ARK_UI_NATIVE_NODE_API_1: LazyCell<ArkUINativeNodeAPI1> = LazyCell::ne
 pub struct ArkUINativeNodeAPI1(pub(crate) *mut ArkUI_NativeNodeAPI_1);
 
 impl ArkUINativeNodeAPI1 {
+    /// allow us to get the pointer of ArkUI_NativeNodeAPI_1 and use it directly
+    pub fn raw(&self) -> *mut ArkUI_NativeNodeAPI_1 {
+        self.0
+    }
+
     pub fn new() -> Self {
         let mut api: *mut ArkUI_NativeNodeAPI_1 = std::ptr::null_mut();
         let struct_name = CString::new("ArkUI_NativeNodeAPI_1").unwrap();
@@ -37,8 +42,8 @@ impl ArkUINativeNodeAPI1 {
 
     pub fn create_node(&self, node_type: ArkUINodeType) -> Result<ArkUI_NodeHandle> {
         unsafe {
-            if let Some(api) = (*self.0).createNode {
-                let handle = api(node_type.into());
+            if let Some(create_node) = (*self.0).createNode {
+                let handle = create_node(node_type.into());
                 Ok(handle)
             } else {
                 Err(Error::from_reason(
@@ -55,12 +60,8 @@ impl ArkUINativeNodeAPI1 {
         value: ArkUINodeAttributeItem,
     ) -> Result<()> {
         unsafe {
-            if let Some(api) = (*self.0).setAttribute {
-                api(
-                    node.raw(),
-                    attr.into(),
-                    Box::into_raw(Box::new(value.into())),
-                );
+            if let Some(set_attribute) = (*self.0).setAttribute {
+                set_attribute(node.raw(), attr.into(), &value.into());
                 Ok(())
             } else {
                 Err(Error::from_reason(

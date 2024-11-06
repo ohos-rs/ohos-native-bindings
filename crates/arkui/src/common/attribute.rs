@@ -42,12 +42,12 @@ impl From<ArkUINodeAttributeItem> for ArkUI_AttributeItem {
                 string: std::ptr::null(),
                 object: obj,
             },
-            ArkUINodeAttributeItem::String(string) => {
-                let c_string = CString::new(string).unwrap();
+            ArkUINodeAttributeItem::String(s) => {
+                let c_string = CString::new(s).unwrap();
                 ArkUI_AttributeItem {
                     value: std::ptr::null(),
                     size: 0,
-                    string: c_string.as_ptr().cast(),
+                    string: c_string.as_ptr(),
                     object: std::ptr::null_mut(),
                 }
             }

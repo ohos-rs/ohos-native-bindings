@@ -8,3 +8,4 @@ ohos-arkui-sys = { workspace = true }
 napi-sys-ohos  = { workspace = true }
 napi-ohos      = { workspace = true }
 enum_macro     = { workspace = true }
+thiserror      = { workspace = true }

@@ -1,5 +1,7 @@
+mod built_in_component;
+mod common_attr;
 mod root;
-mod text;
 
+pub use built_in_component::*;
+pub use common_attr::*;
 pub use root::*;
-pub use text::*;
