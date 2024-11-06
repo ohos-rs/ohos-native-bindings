@@ -1,4 +1,4 @@
-use napi_ohos::{bindgen_prelude::Either3, Result};
+use napi_ohos::Result;
 
 use crate::{
     ArkUINode, ArkUINodeAttributeItem, ArkUINodeAttributeNumber, ARK_UI_NATIVE_NODE_API_1,
@@ -13,7 +13,7 @@ pub trait ArkUICommonAttribute {
     /// Set node height
     fn set_height(&self, height: f32) -> Result<()> {
         let percent_width_property =
-            ArkUINodeAttributeItem::NumberValue(vec![ArkUINodeAttributeNumber(Either3::A(height))]);
+            ArkUINodeAttributeItem::NumberValue(vec![ArkUINodeAttributeNumber::Float(height)]);
         ARK_UI_NATIVE_NODE_API_1.set_attribute(
             self.raw(),
             crate::ArkUINodeAttributeType::Height,
@@ -25,7 +25,7 @@ pub trait ArkUICommonAttribute {
     /// Set percent width
     fn set_percent_width(&self, width: f32) -> Result<()> {
         let percent_width_property =
-            ArkUINodeAttributeItem::NumberValue(vec![ArkUINodeAttributeNumber(Either3::A(width))]);
+            ArkUINodeAttributeItem::NumberValue(vec![ArkUINodeAttributeNumber::Float(width)]);
         ARK_UI_NATIVE_NODE_API_1.set_attribute(
             self.raw(),
             crate::ArkUINodeAttributeType::WidthPercent,
@@ -37,7 +37,7 @@ pub trait ArkUICommonAttribute {
     /// Set percent height
     fn set_percent_height(&self, height: f32) -> Result<()> {
         let percent_height_property =
-            ArkUINodeAttributeItem::NumberValue(vec![ArkUINodeAttributeNumber(Either3::A(height))]);
+            ArkUINodeAttributeItem::NumberValue(vec![ArkUINodeAttributeNumber::Float(height)]);
         ARK_UI_NATIVE_NODE_API_1.set_attribute(
             self.raw(),
             crate::ArkUINodeAttributeType::HeightPercent,
@@ -49,7 +49,7 @@ pub trait ArkUICommonAttribute {
     /// Set background-color
     fn set_background_color(&self, color: u32) -> Result<()> {
         let background_color_property =
-            ArkUINodeAttributeItem::NumberValue(vec![ArkUINodeAttributeNumber(Either3::C(color))]);
+            ArkUINodeAttributeItem::NumberValue(vec![ArkUINodeAttributeNumber::Uint(color)]);
         ARK_UI_NATIVE_NODE_API_1.set_attribute(
             self.raw(),
             crate::ArkUINodeAttributeType::BackgroundColor,

@@ -1,4 +1,4 @@
-use napi_ohos::{bindgen_prelude::Either3, Result};
+use napi_ohos::Result;
 
 use crate::{
     ArkUINode, ArkUINodeAttributeItem, ArkUINodeAttributeNumber, ArkUINodeType,
@@ -21,9 +21,7 @@ impl Text {
 
     pub fn set_font_size(&self, font_size: f32) -> Result<()> {
         let font_size_property =
-            ArkUINodeAttributeItem::NumberValue(vec![ArkUINodeAttributeNumber(Either3::A(
-                font_size,
-            ))]);
+            ArkUINodeAttributeItem::NumberValue(vec![ArkUINodeAttributeNumber::Float(font_size)]);
         ARK_UI_NATIVE_NODE_API_1.set_attribute(
             &self.0,
             crate::ArkUINodeAttributeType::FontSize,
