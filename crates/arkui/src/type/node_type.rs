@@ -1,0 +1,43 @@
+use enum_macro::EnumFrom;
+use ohos_arkui_sys::*;
+
+#[derive(Debug, Clone, Copy, PartialEq, Eq, EnumFrom)]
+#[enum_from_config(ArkUI_NodeType, "ArkUI_NodeType_ARKUI_NODE_")]
+pub enum ArkUINodeType {
+    Custom,
+    Text,
+    Span,
+    ImageSpan,
+    Image,
+    Toggle,
+    LoadingProgress,
+    TextInput,
+    TextArea,
+    Button,
+    Progress,
+    Checkbox,
+    XComponent,
+    DatePicker,
+    TimePicker,
+    TextPicker,
+    CalendarPicker,
+    Slider,
+    Radio,
+    ImageAnimator,
+    Stack,
+    Swiper,
+    Scroll,
+    List,
+    ListItem,
+    ListItemGroup,
+    Column,
+    Row,
+    Flex,
+    Refresh,
+    WaterFlow,
+    FlowItem,
+    RelativeContainer,
+    Grid,
+    GridItem,
+    CustomSpan,
+}

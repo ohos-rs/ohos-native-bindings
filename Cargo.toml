@@ -5,12 +5,13 @@ resolver = "2"
 [workspace.dependencies]
 ohos-bundle-binding                 = { version = "0.0.1", path = "crates/bundle" }
 ohos-init-binding                   = { version = "0.0.3", path = "crates/init" }
-ohos-hilog-binding                  = { version = "0.0.3", path = "crates/hilog" }
+ohos-hilog-binding                  = { version = "0.0.4", path = "crates/hilog" }
 ohos-asset-binding                  = { version = "0.0.1", path = "crates/asset" }
 ohos-raw-binding                    = { version = "0.0.2", path = "crates/raw" }
 ohos-resource-manager-binding       = { version = "0.0.1", path = "crates/resource_manager" }
 ohos-ability-access-control-binding = { version = "0.0.1", path = "crates/ability_access_control" }
 ohos-xcomponent-binding             = { version = "0.0.1", path = "crates/xcomponent" }
+ohos-arkui-binding                  = { version = "0.0.1", path = "crates/arkui" }
 
 ohos-bundle-sys                 = { version = "0.0.2", path = "sys/ohos-bundle-sys" }
 ohos-init-sys                   = { version = "0.0.2", path = "sys/ohos-init-sys" }
@@ -20,10 +21,19 @@ ohos-raw-sys                    = { version = "0.0.1", path = "sys/ohos-raw-sys"
 ohos-resource-manager-sys       = { version = "0.0.2", path = "sys/ohos-resource-manager-sys" }
 ohos-ability-access-control-sys = { version = "0.0.1", path = "sys/ohos-ability-access-control-sys" }
 ohos-xcomponent-sys             = { version = "0.0.1", path = "sys/ohos-xcomponent-sys" }
+ohos-arkui-sys                  = { version = "0.0.1", path = "sys/ohos-arkui-sys" }
 
-napi-ohos        = { version = "1.0.0-beta.7" }
-napi-derive-ohos = { version = "1.0.0-beta.7" }
-napi-build-ohos  = { version = "1.0.0-beta.7" }
-napi-sys-ohos    = { version = "1.0.0-beta.7" }
+enum_macro = { version = "0.0.1", path = "crates/enum_macro" }
 
-libc = { version = "0.2" }
+napi-ohos        = { version = "1.0" }
+napi-derive-ohos = { version = "1.0" }
+napi-build-ohos  = { version = "1.0" }
+napi-sys-ohos    = { version = "1.0" }
+
+libc         = { version = "0.2" }
+syn          = { version = "2.0" }
+quote        = { version = "1.0" }
+proc-macro2  = { version = "1.0" }
+convert_case = { version = "0.6" }
+regex        = { version = "1.0" }
+thiserror    = { version = "2.0" }

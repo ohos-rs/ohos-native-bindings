@@ -1,0 +1,16 @@
+[package]
+name        = "enum_macro"
+version     = "0.0.1"
+edition     = "2021"
+license     = "MIT OR Apache-2.0"
+description = "enum convert tool for rust and openharmony"
+
+[lib]
+proc-macro = true
+
+[dependencies]
+syn          = { workspace = true }
+quote        = { workspace = true }
+proc-macro2  = { workspace = true }
+convert_case = { workspace = true }
+regex        = { workspace = true }
