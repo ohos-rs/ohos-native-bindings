@@ -11,7 +11,7 @@ crate-type = ["cdylib"]
 [dependencies]
 napi-ohos          = { workspace = true, default-features = false, features = ["napi8", "async"] }
 napi-derive-ohos   = { workspace = true }
-ohos-arkui-binding = { workspace = true }
+ohos-arkui-binding = { workspace = true, features = ["napi"] }
 ohos-arkui-sys     = { workspace = true }
 
 [build-dependencies]

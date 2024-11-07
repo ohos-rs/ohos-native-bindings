@@ -1,8 +1,8 @@
 use napi_derive_ohos::napi;
 use napi_ohos::Result;
 use ohos_arkui_binding::{
-    ArkUICommonAttribute, ArkUICommonFontAttribute, ArkUIHandle, List, ListItem, RootNode, Text,
-    TextAlignment,
+    ArkUICommonAttribute, ArkUICommonFontAttribute, ArkUIErrorCode, ArkUIHandle, List, ListItem,
+    RootNode, Text, TextAlignment,
 };
 
 #[napi]
@@ -20,7 +20,7 @@ impl MyApp {
     }
 
     #[napi]
-    pub fn create_native_node(&mut self) -> Result<()> {
+    pub fn create_native_node(&mut self) -> Result<(), ArkUIErrorCode> {
         let mut list = List::new()?;
 
         list.set_percent_width(1.0)?;
@@ -37,9 +37,9 @@ impl MyApp {
             text.set_background_color(0xFFfffacd)?;
             text.set_alignment(TextAlignment::Center)?;
 
-            list_item.add_child(text);
+            list_item.add_child(text)?;
 
-            list.add_child(list_item);
+            list.add_child(list_item)?;
         }
 
         self.root.mount(list)?;
@@ -47,7 +47,7 @@ impl MyApp {
     }
 
     #[napi]
-    pub fn destroy_native_node(&mut self) -> Result<()> {
+    pub fn destroy_native_node(&mut self) -> Result<(), ArkUIErrorCode> {
         self.root.unmount()?;
         Ok(())
     }

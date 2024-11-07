@@ -12,7 +12,10 @@ pub static CONVERTER: LazyLock<Mutex<CaseConverter>> = LazyLock::new(|| {
     let mut converter = CaseConverter::new();
 
     let pattern = "x(?:_?c)(?:_?o)(?:_?m)(?:_?p)(?:_?o)(?:_?n)(?:_?e)(?:_?n)(?:_?t)";
+
+    let arkts_pattern = "a(?:_?r)(?:_?k)(?:_?t)(?:_?s)";
     converter.add_pattern(&format!(r"(?i){}", pattern), "XCOMPONENT");
+    converter.add_pattern(&format!(r"(?i){}", arkts_pattern), "ARKTS");
 
     Mutex::new(converter)
 });

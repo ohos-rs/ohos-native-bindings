@@ -1,13 +1,12 @@
-use napi_ohos::Result;
-
 use crate::{
-    ArkUIAttributeBasic, ArkUICommonAttribute, ArkUINode, ArkUINodeType, ARK_UI_NATIVE_NODE_API_1,
+    ArkUIAttributeBasic, ArkUICommonAttribute, ArkUINode, ArkUINodeType, ArkUIResult,
+    ARK_UI_NATIVE_NODE_API_1,
 };
 
 pub struct ListItem(ArkUINode);
 
 impl ListItem {
-    pub fn new() -> Result<Self> {
+    pub fn new() -> ArkUIResult<Self> {
         let list_item = ARK_UI_NATIVE_NODE_API_1.create_node(ArkUINodeType::ListItem)?;
         Ok(Self(ArkUINode {
             raw: list_item,
