@@ -9,3 +9,5 @@ napi-sys-ohos  = { workspace = true }
 napi-ohos      = { workspace = true }
 enum_macro     = { workspace = true }
 thiserror      = { workspace = true }
+
+ohos-hilog-binding = {workspace = true}

@@ -70,4 +70,54 @@ impl ArkUINativeNodeAPI1 {
             }
         }
     }
+
+    pub fn add_child(&self, parent: &ArkUINode, child: &ArkUINode) -> Result<()> {
+        unsafe {
+            if let Some(add_child) = (*self.0).addChild {
+                add_child(parent.raw(), child.raw());
+                Ok(())
+            } else {
+                Err(Error::from_reason(
+                    "ArkUI_NativeNodeAPI_1::addChild is None",
+                ))
+            }
+        }
+    }
+
+    pub fn remove_child(&self, parent: &ArkUINode, child: &ArkUINode) -> Result<()> {
+        unsafe {
+            if let Some(remove_child) = (*self.0).removeChild {
+                remove_child(parent.raw(), child.raw());
+                Ok(())
+            } else {
+                Err(Error::from_reason(
+                    "ArkUI_NativeNodeAPI_1::removeChild is None",
+                ))
+            }
+        }
+    }
+
+    pub fn insert_child(&self, parent: &ArkUINode, child: &ArkUINode, index: i32) -> Result<()> {
+        unsafe {
+            if let Some(insert_child_at) = (*self.0).insertChildAt {
+                insert_child_at(parent.raw(), child.raw(), index);
+                Ok(())
+            } else {
+                Err(Error::from_reason(
+                    "ArkUI_NativeNodeAPI_1::insertChild is None",
+                ))
+            }
+        }
+    }
+
+    pub fn dispose(&self, node: &ArkUINode) -> Result<()> {
+        unsafe {
+            if let Some(dispose_node) = (*self.0).disposeNode {
+                dispose_node(node.raw());
+                Ok(())
+            } else {
+                Err(Error::from_reason("ArkUI_NativeNodeAPI_1::dispose is None"))
+            }
+        }
+    }
 }
