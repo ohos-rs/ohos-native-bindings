@@ -1,9 +1,12 @@
 use napi_ohos::bindgen_prelude::{check_status, FromNapiValue, TypeName, ValidateNapiValue};
 use napi_sys_ohos as sys;
 use ohos_arkui_sys::{ArkUI_NodeHandle, OH_ArkUI_GetNodeHandleFromNapiValue};
+use ohos_hilog_binding::hilog_info;
 use std::ptr;
 
 use crate::ArkUINodeType;
+
+use super::ARK_UI_NATIVE_NODE_API_1;
 
 #[derive(Clone)]
 pub struct ArkUINode {
@@ -25,20 +28,14 @@ impl ArkUINode {
         self.raw
     }
 
-    pub fn remove_child(&mut self, index: usize) -> Option<Box<ArkUINode>> {
-        if index < self.children().len() {
-            Some(self.children_mut().remove(index))
-        } else {
-            None
-        }
-    }
-
-    pub fn add_child(&mut self, child: Box<ArkUINode>) {
-        self.children_mut().push(child);
-    }
-
-    pub fn insert_child(&mut self, child: Box<ArkUINode>, index: usize) {
-        self.children_mut().insert(index, child);
+    /// Clear dom
+    /// We can't use drop impl, because it will be called when the object is dropped.
+    pub fn dispose(&mut self) {
+        ARK_UI_NATIVE_NODE_API_1.dispose(self);
+        self.children.iter_mut().for_each(|child| {
+            child.dispose();
+        });
+        self.children.clear();
     }
 }
 

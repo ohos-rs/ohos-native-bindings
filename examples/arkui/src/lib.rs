@@ -1,6 +1,9 @@
 use napi_derive_ohos::napi;
 use napi_ohos::Result;
-use ohos_arkui_binding::{ArkUICommonAttribute, ArkUIHandle, RootNode, Text};
+use ohos_arkui_binding::{
+    ArkUICommonAttribute, ArkUICommonFontAttribute, ArkUIHandle, List, ListItem, RootNode, Text,
+    TextAlignment,
+};
 
 #[napi]
 struct MyApp {
@@ -18,14 +21,28 @@ impl MyApp {
 
     #[napi]
     pub fn create_native_node(&mut self) -> Result<()> {
-        let text = Text::new()?;
+        let mut list = List::new()?;
 
-        text.set_content("hello")?;
-        text.set_font_size(20.0)?;
-        text.set_percent_width(1.0)?;
-        text.set_height(200.0)?;
-        text.set_background_color(0xFFfffacd)?;
-        self.root.mount(text)?;
+        list.set_percent_width(1.0)?;
+        list.set_percent_height(1.0)?;
+
+        for i in 0..30 {
+            let mut list_item = ListItem::new()?;
+            let text = Text::new()?;
+
+            text.set_content(i.to_string())?;
+            text.set_font_size(20.0)?;
+            text.set_percent_width(1.0)?;
+            text.set_height(100.0)?;
+            text.set_background_color(0xFFfffacd)?;
+            text.set_alignment(TextAlignment::Center)?;
+
+            list_item.add_child(text);
+
+            list.add_child(list_item);
+        }
+
+        self.root.mount(list)?;
         Ok(())
     }
 

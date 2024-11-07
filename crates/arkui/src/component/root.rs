@@ -39,18 +39,20 @@ impl RootNode {
     }
 
     pub fn unmount(&mut self) -> Result<()> {
-        if let Some(base) = self.base.as_ref() {
-            unsafe {
-                check_status!(
-                    OH_ArkUI_NodeContent_AddNode(self.handle.raw(), base.raw()),
-                    "Mount root node failed"
-                )
-            }?;
+        // If root node is empty, just ignore it.
+        if let Some(base) = self.base.as_mut() {
+            let ret = unsafe { OH_ArkUI_NodeContent_RemoveNode(self.handle.raw(), base.raw()) };
+
+            base.dispose();
+            // unsafe {
+            //     check_status!(
+            //         OH_ArkUI_NodeContent_RemoveNode(self.handle.raw(), base.raw()),
+            //         "Mount root node failed"
+            //     )
+            // }?;
             self.base = None;
-            Ok(())
-        } else {
-            Err(Error::from_reason("Mount root node failed, base is None"))
         }
+        Ok(())
     }
 }
 
