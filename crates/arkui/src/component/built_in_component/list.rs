@@ -1,14 +1,13 @@
-use napi_ohos::Result;
-
 use crate::{
     ArkUIAttributeBasic, ArkUICommonAttribute, ArkUINode, ArkUINodeAttributeItem,
-    ArkUINodeAttributeNumber, ArkUINodeType, ScrollBarDisplayMode, ARK_UI_NATIVE_NODE_API_1,
+    ArkUINodeAttributeNumber, ArkUINodeType, ArkUIResult, ScrollBarDisplayMode,
+    ARK_UI_NATIVE_NODE_API_1,
 };
 
 pub struct List(ArkUINode);
 
 impl List {
-    pub fn new() -> Result<Self> {
+    pub fn new() -> ArkUIResult<Self> {
         let list = ARK_UI_NATIVE_NODE_API_1.create_node(ArkUINodeType::List)?;
         Ok(Self(ArkUINode {
             raw: list,
@@ -17,7 +16,7 @@ impl List {
         }))
     }
 
-    pub fn set_scroll_bar_state(&mut self, mode: ScrollBarDisplayMode) -> Result<()> {
+    pub fn set_scroll_bar_state(&mut self, mode: ScrollBarDisplayMode) -> ArkUIResult<()> {
         let scroll_bar_display_mode_property =
             ArkUINodeAttributeItem::NumberValue(vec![ArkUINodeAttributeNumber::Int(mode.into())]);
         ARK_UI_NATIVE_NODE_API_1.set_attribute(

@@ -1,14 +1,13 @@
 use std::{cell::LazyCell, ffi::CString};
 
-use napi_ohos::{Error, Result};
 use ohos_arkui_sys::{
     ArkUI_NativeAPIVariantKind_ARKUI_NATIVE_NODE, ArkUI_NativeNodeAPI_1, ArkUI_NodeHandle,
     OH_ArkUI_QueryModuleInterfaceByName,
 };
 
-use crate::{ArkUINodeAttributeType, ArkUINodeType};
+use crate::{check_arkui_status, ArkUINodeAttributeType, ArkUINodeType};
 
-use super::{ArkUINode, ArkUINodeAttributeItem};
+use super::{ArkUIError, ArkUIErrorCode, ArkUINode, ArkUINodeAttributeItem, ArkUIResult};
 
 /// ArkUI_NativeNodeAPI_1 struct
 /// Only can be used in main thread
@@ -26,6 +25,7 @@ impl ArkUINativeNodeAPI1 {
     }
 
     pub fn new() -> Self {
+        #[allow(unused_assignments)]
         let mut api: *mut ArkUI_NativeNodeAPI_1 = std::ptr::null_mut();
         let struct_name = CString::new("ArkUI_NativeNodeAPI_1").unwrap();
         let raw_ptr = unsafe {
@@ -40,13 +40,20 @@ impl ArkUINativeNodeAPI1 {
         Self(api)
     }
 
-    pub fn create_node(&self, node_type: ArkUINodeType) -> Result<ArkUI_NodeHandle> {
+    pub fn create_node(&self, node_type: ArkUINodeType) -> ArkUIResult<ArkUI_NodeHandle> {
         unsafe {
             if let Some(create_node) = (*self.0).createNode {
                 let handle = create_node(node_type.into());
+                if handle.is_null() {
+                    return Err(ArkUIError::new(
+                        super::ArkUIErrorCode::ArkTSNodeNotSupported,
+                        "Create node failed",
+                    ));
+                }
                 Ok(handle)
             } else {
-                Err(Error::from_reason(
+                Err(ArkUIError::new(
+                    ArkUIErrorCode::AttributeOrEventNotSupported,
                     "ArkUI_NativeNodeAPI_1::createNode is None",
                 ))
             }
@@ -58,65 +65,73 @@ impl ArkUINativeNodeAPI1 {
         node: &ArkUINode,
         attr: ArkUINodeAttributeType,
         value: ArkUINodeAttributeItem,
-    ) -> Result<()> {
+    ) -> ArkUIResult<()> {
         unsafe {
             if let Some(set_attribute) = (*self.0).setAttribute {
-                set_attribute(node.raw(), attr.into(), &value.into());
-                Ok(())
+                check_arkui_status!(set_attribute(node.raw(), attr.into(), &value.into()))
             } else {
-                Err(Error::from_reason(
+                Err(ArkUIError::new(
+                    ArkUIErrorCode::AttributeOrEventNotSupported,
                     "ArkUI_NativeNodeAPI_1::setAttribute is None",
                 ))
             }
         }
     }
 
-    pub fn add_child(&self, parent: &ArkUINode, child: &ArkUINode) -> Result<()> {
+    pub fn add_child(&self, parent: &ArkUINode, child: &ArkUINode) -> ArkUIResult<()> {
         unsafe {
             if let Some(add_child) = (*self.0).addChild {
-                add_child(parent.raw(), child.raw());
-                Ok(())
+                check_arkui_status!(add_child(parent.raw(), child.raw()))
             } else {
-                Err(Error::from_reason(
+                Err(ArkUIError::new(
+                    ArkUIErrorCode::AttributeOrEventNotSupported,
                     "ArkUI_NativeNodeAPI_1::addChild is None",
                 ))
             }
         }
     }
 
-    pub fn remove_child(&self, parent: &ArkUINode, child: &ArkUINode) -> Result<()> {
+    pub fn remove_child(&self, parent: &ArkUINode, child: &ArkUINode) -> ArkUIResult<()> {
         unsafe {
             if let Some(remove_child) = (*self.0).removeChild {
-                remove_child(parent.raw(), child.raw());
-                Ok(())
+                check_arkui_status!(remove_child(parent.raw(), child.raw()))
             } else {
-                Err(Error::from_reason(
+                Err(ArkUIError::new(
+                    ArkUIErrorCode::AttributeOrEventNotSupported,
                     "ArkUI_NativeNodeAPI_1::removeChild is None",
                 ))
             }
         }
     }
 
-    pub fn insert_child(&self, parent: &ArkUINode, child: &ArkUINode, index: i32) -> Result<()> {
+    pub fn insert_child(
+        &self,
+        parent: &ArkUINode,
+        child: &ArkUINode,
+        index: i32,
+    ) -> ArkUIResult<()> {
         unsafe {
             if let Some(insert_child_at) = (*self.0).insertChildAt {
-                insert_child_at(parent.raw(), child.raw(), index);
-                Ok(())
+                check_arkui_status!(insert_child_at(parent.raw(), child.raw(), index))
             } else {
-                Err(Error::from_reason(
+                Err(ArkUIError::new(
+                    ArkUIErrorCode::AttributeOrEventNotSupported,
                     "ArkUI_NativeNodeAPI_1::insertChild is None",
                 ))
             }
         }
     }
 
-    pub fn dispose(&self, node: &ArkUINode) -> Result<()> {
+    pub fn dispose(&self, node: &ArkUINode) -> ArkUIResult<()> {
         unsafe {
             if let Some(dispose_node) = (*self.0).disposeNode {
                 dispose_node(node.raw());
                 Ok(())
             } else {
-                Err(Error::from_reason("ArkUI_NativeNodeAPI_1::dispose is None"))
+                Err(ArkUIError::new(
+                    ArkUIErrorCode::AttributeOrEventNotSupported,
+                    "ArkUI_NativeNodeAPI_1::dispose is None",
+                ))
             }
         }
     }

@@ -1,8 +1,6 @@
-use napi_ohos::Result;
-
 use crate::{
     ArkUIAttributeBasic, ArkUICommonFontAttribute, ArkUINode, ArkUINodeAttributeItem,
-    ArkUINodeAttributeNumber, ArkUINodeType, TextAlignment, ARK_UI_NATIVE_NODE_API_1,
+    ArkUINodeAttributeNumber, ArkUINodeType, ArkUIResult, TextAlignment, ARK_UI_NATIVE_NODE_API_1,
 };
 
 use crate::component::ArkUICommonAttribute;
@@ -10,7 +8,7 @@ use crate::component::ArkUICommonAttribute;
 pub struct Text(ArkUINode);
 
 impl Text {
-    pub fn new() -> Result<Self> {
+    pub fn new() -> ArkUIResult<Self> {
         let text = ARK_UI_NATIVE_NODE_API_1.create_node(ArkUINodeType::Text)?;
         Ok(Self(ArkUINode {
             raw: text,
@@ -19,7 +17,7 @@ impl Text {
         }))
     }
 
-    pub fn set_content<T: Into<String>>(&self, content: T) -> Result<()> {
+    pub fn set_content<T: Into<String>>(&self, content: T) -> ArkUIResult<()> {
         let content_property = ArkUINodeAttributeItem::String(content.into());
         ARK_UI_NATIVE_NODE_API_1.set_attribute(
             &self.0,
@@ -29,7 +27,7 @@ impl Text {
         Ok(())
     }
 
-    pub fn set_alignment(&self, alignment: TextAlignment) -> Result<()> {
+    pub fn set_alignment(&self, alignment: TextAlignment) -> ArkUIResult<()> {
         let alignment_property =
             ArkUINodeAttributeItem::NumberValue(vec![ArkUINodeAttributeNumber::Int(
                 alignment.into(),

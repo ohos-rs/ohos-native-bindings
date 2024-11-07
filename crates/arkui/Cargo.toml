@@ -5,9 +5,11 @@ edition = "2021"
 
 [dependencies]
 ohos-arkui-sys = { workspace = true }
-napi-sys-ohos  = { workspace = true }
-napi-ohos      = { workspace = true }
+napi-sys-ohos  = { workspace = true, optional = true }
+napi-ohos      = { workspace = true, optional = true }
 enum_macro     = { workspace = true }
-thiserror      = { workspace = true }
 
-ohos-hilog-binding = {workspace = true}
+
+[features]
+default = ["napi"]
+napi    = ["dep:napi-ohos", "dep:napi-sys-ohos"]
