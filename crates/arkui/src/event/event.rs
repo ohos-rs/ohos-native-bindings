@@ -1,5 +1,5 @@
 use ohos_arkui_sys::ArkUI_NodeEvent;
-use std::sync::Arc;
+use std::{cell::RefCell, rc::Rc};
 
 pub struct Event(*mut ArkUI_NodeEvent);
 
@@ -13,7 +13,7 @@ impl Event {
     }
 }
 
-pub type NoParamClause = Arc<*mut dyn Fn() -> ()>;
+pub type NoParamClause = Rc<RefCell<dyn Fn() -> ()>>;
 
 #[derive(Default, Clone)]
 pub struct EventHandle {
