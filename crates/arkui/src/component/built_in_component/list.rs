@@ -1,5 +1,5 @@
 use crate::{
-    ArkUIAttributeBasic, ArkUICommonAttribute, ArkUINode, ArkUINodeAttributeItem,
+    ArkUIAttributeBasic, ArkUICommonAttribute, ArkUIEvent, ArkUINode, ArkUINodeAttributeItem,
     ArkUINodeAttributeNumber, ArkUINodeType, ArkUIResult, ScrollBarDisplayMode,
     ARK_UI_NATIVE_NODE_API_1,
 };
@@ -11,8 +11,8 @@ impl List {
         let list = ARK_UI_NATIVE_NODE_API_1.create_node(ArkUINodeType::List)?;
         Ok(Self(ArkUINode {
             raw: list,
-            children: Vec::new(),
             tag: ArkUINodeType::List,
+            ..Default::default()
         }))
     }
 
@@ -45,3 +45,4 @@ impl ArkUIAttributeBasic for List {
 }
 
 impl ArkUICommonAttribute for List {}
+impl ArkUIEvent for List {}

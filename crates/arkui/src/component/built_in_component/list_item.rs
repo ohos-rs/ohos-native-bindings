@@ -1,5 +1,5 @@
 use crate::{
-    ArkUIAttributeBasic, ArkUICommonAttribute, ArkUINode, ArkUINodeType, ArkUIResult,
+    ArkUIAttributeBasic, ArkUICommonAttribute, ArkUIEvent, ArkUINode, ArkUINodeType, ArkUIResult,
     ARK_UI_NATIVE_NODE_API_1,
 };
 
@@ -10,8 +10,8 @@ impl ListItem {
         let list_item = ARK_UI_NATIVE_NODE_API_1.create_node(ArkUINodeType::ListItem)?;
         Ok(Self(ArkUINode {
             raw: list_item,
-            children: Vec::new(),
             tag: ArkUINodeType::ListItem,
+            ..Default::default()
         }))
     }
 }
@@ -33,3 +33,4 @@ impl ArkUIAttributeBasic for ListItem {
 }
 
 impl ArkUICommonAttribute for ListItem {}
+impl ArkUIEvent for ListItem {}

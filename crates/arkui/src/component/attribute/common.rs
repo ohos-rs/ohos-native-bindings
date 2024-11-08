@@ -1,3 +1,5 @@
+use std::{cell::RefCell, os::raw::c_void, rc::Rc};
+
 use crate::{
     ArkUINode, ArkUINodeAttributeItem, ArkUINodeAttributeNumber, ArkUIResult,
     ARK_UI_NATIVE_NODE_API_1,
@@ -74,11 +76,11 @@ pub trait ArkUICommonAttribute: ArkUIAttributeBasic {
     }
 
     /// Remove child node
-    fn remove_child(&mut self, index: usize) -> ArkUIResult<Option<Box<ArkUINode>>> {
+    fn remove_child(&mut self, index: usize) -> ArkUIResult<Option<Rc<RefCell<ArkUINode>>>> {
         let children = self.borrow_mut();
         if index < children.children().len() {
             let removed_node = children.children_mut().remove(index);
-            ARK_UI_NATIVE_NODE_API_1.remove_child(self.raw(), &removed_node)?;
+            ARK_UI_NATIVE_NODE_API_1.remove_child(self.raw(), &removed_node.borrow())?;
             Ok(Some(removed_node))
         } else {
             Ok(None)
@@ -86,20 +88,27 @@ pub trait ArkUICommonAttribute: ArkUIAttributeBasic {
     }
 
     fn add_child<T: Into<ArkUINode>>(&mut self, child: T) -> ArkUIResult<()> {
-        let child_handle = child.into();
-        ARK_UI_NATIVE_NODE_API_1.add_child(self.raw(), &child_handle)?;
-        self.borrow_mut()
-            .children_mut()
-            .push(Box::new(child_handle));
+        let child_handle: Rc<RefCell<ArkUINode>> = Rc::new(RefCell::new(child.into()));
+
+        let child_handle_clone = child_handle.clone();
+        // save self ArkUINode to custom user data for event dispatch
+        ARK_UI_NATIVE_NODE_API_1.set_user_data(
+            &child_handle.borrow(),
+            Box::into_raw(Box::new(child_handle_clone)) as *mut c_void,
+        )?;
+        ARK_UI_NATIVE_NODE_API_1.add_event_receiver(&child_handle.borrow())?;
+
+        ARK_UI_NATIVE_NODE_API_1.add_child(self.raw(), &child_handle.borrow())?;
+        self.borrow_mut().children_mut().push(child_handle);
         Ok(())
     }
 
     fn insert_child<T: Into<ArkUINode>>(&mut self, child: T, index: usize) -> ArkUIResult<()> {
-        let child_handle = child.into();
-        ARK_UI_NATIVE_NODE_API_1.insert_child(self.raw(), &child_handle, index as i32)?;
+        let child_handle: Rc<RefCell<ArkUINode>> = Rc::new(RefCell::new(child.into()));
+        ARK_UI_NATIVE_NODE_API_1.insert_child(self.raw(), &child_handle.borrow(), index as i32)?;
         self.borrow_mut()
             .children_mut()
-            .insert(index, Box::new(child_handle));
+            .insert(index, child_handle.clone());
         Ok(())
     }
 }
