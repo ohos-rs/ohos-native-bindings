@@ -1,5 +1,5 @@
 use crate::{
-    ArkUIAttributeBasic, ArkUICommonFontAttribute, ArkUINode, ArkUINodeAttributeItem,
+    ArkUIAttributeBasic, ArkUICommonFontAttribute, ArkUIEvent, ArkUINode, ArkUINodeAttributeItem,
     ArkUINodeAttributeNumber, ArkUINodeType, ArkUIResult, TextAlignment, ARK_UI_NATIVE_NODE_API_1,
 };
 
@@ -12,8 +12,8 @@ impl Text {
         let text = ARK_UI_NATIVE_NODE_API_1.create_node(ArkUINodeType::Text)?;
         Ok(Self(ArkUINode {
             raw: text,
-            children: Vec::new(),
             tag: ArkUINodeType::Text,
+            ..Default::default()
         }))
     }
 
@@ -59,3 +59,4 @@ impl ArkUIAttributeBasic for Text {
 
 impl ArkUICommonAttribute for Text {}
 impl ArkUICommonFontAttribute for Text {}
+impl ArkUIEvent for Text {}

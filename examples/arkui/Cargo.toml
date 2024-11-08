@@ -13,6 +13,7 @@ napi-ohos          = { workspace = true, default-features = false, features = ["
 napi-derive-ohos   = { workspace = true }
 ohos-arkui-binding = { workspace = true, features = ["napi"] }
 ohos-arkui-sys     = { workspace = true }
+ohos-hilog-binding = { workspace = true }
 
 [build-dependencies]
 napi-build-ohos = { workspace = true }

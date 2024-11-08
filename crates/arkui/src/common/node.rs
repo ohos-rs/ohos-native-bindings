@@ -9,23 +9,26 @@ use ohos_arkui_sys::OH_ArkUI_GetNodeHandleFromNapiValue;
 #[cfg(feature = "napi")]
 use std::ptr;
 
-use crate::ArkUINodeType;
+use std::{borrow::BorrowMut, cell::RefCell, rc::Rc};
 
-use super::{ArkUIResult, ARK_UI_NATIVE_NODE_API_1};
+use crate::{ArkUINodeType, EventHandle, ARK_UI_NATIVE_NODE_API_1};
+
+use super::ArkUIResult;
 
 #[derive(Clone)]
 pub struct ArkUINode {
     pub(crate) raw: ArkUI_NodeHandle,
     pub(crate) tag: ArkUINodeType,
-    pub(crate) children: Vec<Box<ArkUINode>>,
+    pub(crate) children: Vec<Rc<RefCell<ArkUINode>>>,
+    pub(crate) event_handle: EventHandle,
 }
 
 impl ArkUINode {
-    pub fn children(&self) -> &[Box<ArkUINode>] {
+    pub fn children(&self) -> &[Rc<RefCell<ArkUINode>>] {
         self.children.as_slice()
     }
 
-    pub fn children_mut(&mut self) -> &mut Vec<Box<ArkUINode>> {
+    pub fn children_mut(&mut self) -> &mut Vec<Rc<RefCell<ArkUINode>>> {
         self.children.as_mut()
     }
 
@@ -36,12 +39,30 @@ impl ArkUINode {
     /// Clear dom
     /// We can't use drop impl, because it will be called when the object is dropped.
     pub fn dispose(&mut self) -> ArkUIResult<()> {
+        let handle = &self.event_handle;
+        if let Some(_cb) = handle.click.as_ref() {
+            ARK_UI_NATIVE_NODE_API_1.remove_event_receiver(self)?;
+        }
         ARK_UI_NATIVE_NODE_API_1.dispose(self)?;
-        for child in self.children.iter_mut() {
-            child.dispose()?;
+        for mut child in self.children.iter() {
+            let child_ref = child.borrow_mut();
+            child_ref.take().dispose()?;
         }
         self.children.clear();
         Ok(())
+    }
+}
+
+/// This implementation just for event and animation to use it.
+/// When you need to create a new node, you should add raw and tag at the same time.
+impl Default for ArkUINode {
+    fn default() -> Self {
+        Self {
+            raw: std::ptr::null_mut(),
+            tag: ArkUINodeType::Custom,
+            children: vec![],
+            event_handle: Default::default(),
+        }
     }
 }
 

@@ -1,4 +1,9 @@
-use crate::{check_arkui_status, ArkUIError, ArkUIErrorCode, ArkUINode, ArkUIResult};
+use std::os::raw::c_void;
+
+use crate::{
+    check_arkui_status, ArkUIError, ArkUIErrorCode, ArkUINode, ArkUIResult,
+    ARK_UI_NATIVE_NODE_API_1,
+};
 use ohos_arkui_sys::{OH_ArkUI_NodeContent_AddNode, OH_ArkUI_NodeContent_RemoveNode};
 
 #[cfg(not(feature = "napi"))]
@@ -53,6 +58,12 @@ impl RootNode {
 
             #[cfg(not(feature = "napi"))]
             let raw = self.raw;
+
+            ARK_UI_NATIVE_NODE_API_1
+                .set_user_data(base, Box::into_raw(Box::new(base)) as *mut c_void)?;
+
+            // Node will be mounted, we can think it as a event receiver.
+            ARK_UI_NATIVE_NODE_API_1.add_event_receiver(base)?;
             unsafe {
                 check_arkui_status!(
                     OH_ArkUI_NodeContent_AddNode(raw, base.raw()),

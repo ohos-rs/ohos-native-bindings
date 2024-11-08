@@ -1,9 +1,10 @@
 use napi_derive_ohos::napi;
 use napi_ohos::Result;
 use ohos_arkui_binding::{
-    ArkUICommonAttribute, ArkUICommonFontAttribute, ArkUIErrorCode, ArkUIHandle, List, ListItem,
-    RootNode, Text, TextAlignment,
+    ArkUICommonAttribute, ArkUICommonFontAttribute, ArkUIErrorCode, ArkUIEvent, ArkUIHandle, List,
+    ListItem, RootNode, Text, TextAlignment,
 };
+use ohos_hilog_binding::hilog_info;
 
 #[napi]
 struct MyApp {
@@ -38,6 +39,8 @@ impl MyApp {
             text.set_alignment(TextAlignment::Center)?;
 
             list_item.add_child(text)?;
+
+            list_item.on_click(move || hilog_info!(format!("ohos-rs: click event {i}")));
 
             list.add_child(list_item)?;
         }
