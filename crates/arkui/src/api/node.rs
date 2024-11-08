@@ -1,4 +1,3 @@
-use std::borrow::BorrowMut;
 use std::cell::RefCell;
 use std::os::raw::c_void;
 use std::rc::Rc;
@@ -225,20 +224,16 @@ unsafe extern "C" fn node_event_receiver(event: *mut ArkUI_NodeEvent) {
     #[cfg(debug_assertions)]
     assert!(!user_data.is_null(), "user_data is null");
 
-    let user_data_box: Box<Rc<RefCell<ArkUINode>>> =
-        unsafe { Box::from_raw(user_data as *mut Rc<RefCell<ArkUINode>>) };
+    let user_data_rc: &Rc<RefCell<ArkUINode>> = &*(user_data as *const Rc<RefCell<ArkUINode>>);
 
-    let mut user_data_rc: Rc<RefCell<ArkUINode>> = *user_data_box;
-
-    let node = user_data_rc.borrow_mut();
+    let node = user_data_rc.borrow();
 
     let event_type = OH_ArkUI_NodeEvent_GetEventType(event);
     let event_type = NodeEventType::from(event_type);
     match event_type {
         NodeEventType::OnClick => {
-            if let Some(cb) = node.take().event_handle.click.take() {
-                let f: Box<dyn Fn() -> ()> = Box::from_raw(*cb);
-                f();
+            if let Some(cb) = node.event_handle.click.as_ref() {
+                cb.borrow()();
             }
         }
         _ => {}
