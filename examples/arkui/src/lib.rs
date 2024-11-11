@@ -1,14 +1,15 @@
 use napi_derive_ohos::napi;
 use napi_ohos::Result;
 use ohos_arkui_binding::{
-    ArkUICommonAttribute, ArkUICommonFontAttribute, ArkUIErrorCode, ArkUIEvent, ArkUIHandle, List,
-    ListItem, RootNode, Text, TextAlignment,
+    ArkUICommonAttribute, ArkUICommonFontAttribute, ArkUIErrorCode, ArkUIEvent, ArkUIHandle,
+    Dialog, List, ListItem, RootNode, Text, TextAlignment,
 };
 use ohos_hilog_binding::hilog_info;
 
 #[napi]
 struct MyApp {
     root: RootNode,
+    dialog: Option<Dialog>,
 }
 
 #[napi]
@@ -17,6 +18,7 @@ impl MyApp {
     pub fn new(#[napi(ts_arg_type = "NodeContent")] slot: ArkUIHandle) -> Self {
         Self {
             root: RootNode::new(slot),
+            dialog: None,
         }
     }
 
@@ -46,6 +48,25 @@ impl MyApp {
         }
 
         self.root.mount(list)?;
+        Ok(())
+    }
+
+    #[napi]
+    pub fn show_dialog(&mut self) -> Result<(), ArkUIErrorCode> {
+        let dialog = Dialog::new()?;
+
+        let text = Text::new()?;
+        text.set_content("rs dialog")?;
+
+        dialog.set_content(text)?;
+        dialog.set_auto_cancel(true)?;
+
+        dialog.on_will_dismiss(|_| hilog_info!("ohos-rs: dialog will dismiss"))?;
+
+        dialog.show()?;
+
+        self.dialog = Some(dialog);
+
         Ok(())
     }
 
