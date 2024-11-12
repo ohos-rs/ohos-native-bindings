@@ -61,7 +61,10 @@ impl MyApp {
         dialog.set_content(text)?;
         dialog.set_auto_cancel(true)?;
 
-        dialog.on_will_dismiss(|_| hilog_info!("ohos-rs: dialog will dismiss"))?;
+        dialog.on_will_dismiss(|_| {
+            hilog_info!("ohos-rs: dialog will dismiss");
+            Some(true)
+        })?;
 
         dialog.show()?;
 

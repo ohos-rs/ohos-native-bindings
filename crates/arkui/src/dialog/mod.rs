@@ -5,8 +5,8 @@ use crate::{Alignment, ArkUINode, ArkUIResult, DismissReason, ARK_UI_NATIVE_DIAL
 use ohos_arkui_sys::ArkUI_NativeDialogHandle;
 
 pub(crate) struct InnerDialogDismissData {
-    pub dismiss_handle: Option<Rc<RefCell<fn(DialogDismissData) -> ()>>>,
-    pub data: Option<Rc<RefCell<*mut c_void>>>,
+    pub dismiss_handle: Option<fn(DialogDismissData) -> Option<bool>>,
+    pub data: Option<*mut c_void>,
 }
 
 /// OnDismiss callback data
@@ -14,7 +14,7 @@ pub struct DialogDismissData {
     /// dismiss reason
     pub dismiss_reason: DismissReason,
     /// User custom data,if not and it will be None
-    pub data: Option<Rc<RefCell<*mut c_void>>>,
+    pub data: Option<*mut c_void>,
 }
 
 pub struct Dialog {
@@ -105,8 +105,11 @@ impl Dialog {
         Ok(())
     }
 
-    pub fn on_will_dismiss(&self, callback: fn(DialogDismissData) -> ()) -> ArkUIResult<()> {
-        self.inner_dismiss_data.borrow_mut().dismiss_handle = Some(Rc::new(RefCell::new(callback)));
+    pub fn on_will_dismiss(
+        &self,
+        callback: fn(DialogDismissData) -> Option<bool>,
+    ) -> ArkUIResult<()> {
+        self.inner_dismiss_data.borrow_mut().dismiss_handle = Some(callback);
 
         ARK_UI_NATIVE_DIALOG_API_1.register_dismiss(self.raw, self.inner_dismiss_data.clone())?;
         Ok(())
@@ -117,14 +120,12 @@ impl Dialog {
     pub fn on_will_dismiss_with_data<T: 'static>(
         &self,
         data: T,
-        callback: fn(data: DialogDismissData) -> (),
+        callback: fn(data: DialogDismissData) -> Option<bool>,
     ) -> ArkUIResult<()> {
-        self.inner_dismiss_data.borrow_mut().dismiss_handle = Some(Rc::new(RefCell::new(callback)));
+        self.inner_dismiss_data.borrow_mut().dismiss_handle = Some(callback);
 
-        self.inner_dismiss_data.borrow_mut().data = Some(Rc::new(RefCell::new(Box::into_raw(
-            Box::new(data),
-        )
-            as *mut c_void)));
+        self.inner_dismiss_data.borrow_mut().data =
+            Some(Box::into_raw(Box::new(data)) as *mut c_void);
 
         ARK_UI_NATIVE_DIALOG_API_1.register_dismiss(self.raw, self.inner_dismiss_data.clone())?;
         Ok(())

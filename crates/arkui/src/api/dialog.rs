@@ -9,7 +9,7 @@ use ohos_arkui_sys::{
     ArkUI_DialogDismissEvent, ArkUI_NativeAPIVariantKind_ARKUI_NATIVE_DIALOG,
     ArkUI_NativeDialogAPI_1, ArkUI_NativeDialogHandle, ArkUI_NodeHandle,
     OH_ArkUI_DialogDismissEvent_GetDismissReason, OH_ArkUI_DialogDismissEvent_GetUserData,
-    OH_ArkUI_QueryModuleInterfaceByName,
+    OH_ArkUI_DialogDismissEvent_SetShouldBlockDismiss, OH_ArkUI_QueryModuleInterfaceByName,
 };
 
 use crate::{
@@ -252,13 +252,22 @@ unsafe extern "C" fn dialog_dismiss_callback(event: *mut ArkUI_DialogDismissEven
     #[cfg(debug_assertions)]
     assert!(!user_data.is_null(), "user_data is NULL");
 
-    let data = &*(user_data as *const InnerDialogDismissData);
+    let user_data_rc: &Rc<RefCell<InnerDialogDismissData>> =
+        &*(user_data as *const Rc<RefCell<InnerDialogDismissData>>);
+
+    let data = user_data_rc.borrow_mut();
+
     if let Some(handle) = data.dismiss_handle.as_ref() {
         let reason = OH_ArkUI_DialogDismissEvent_GetDismissReason(event) as u32;
-        let cb = handle.as_ref().borrow();
-        (*cb)(DialogDismissData {
+
+        let ret = handle(DialogDismissData {
             dismiss_reason: reason.into(),
-            data: data.data.clone(),
-        })
+            data: data.data,
+        });
+        if let Some(block) = ret {
+            if block {
+                OH_ArkUI_DialogDismissEvent_SetShouldBlockDismiss(event, block);
+            }
+        }
     }
 }
