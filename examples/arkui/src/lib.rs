@@ -1,8 +1,9 @@
 use napi_derive_ohos::napi;
 use napi_ohos::Result;
 use ohos_arkui_binding::{
-    ArkUICommonAttribute, ArkUICommonFontAttribute, ArkUIErrorCode, ArkUIEvent, ArkUIHandle,
-    Dialog, List, ListItem, RootNode, Text, TextAlignment,
+    ArkUICommonAttribute, ArkUICommonFontAttribute, ArkUIErrorCode, ArkUIEvent, ArkUIGesture,
+    ArkUIHandle, Dialog, Gesture, GestureEventAction, List, ListItem, RootNode, Text,
+    TextAlignment,
 };
 use ohos_hilog_binding::hilog_info;
 
@@ -32,6 +33,17 @@ impl MyApp {
         for i in 0..30 {
             let mut list_item = ListItem::new()?;
             let text = Text::new()?;
+
+            let long_gesture = Gesture::create_long_gesture(1, true, 1000)?;
+
+            let a =
+                GestureEventAction::Accept | GestureEventAction::Update | GestureEventAction::End;
+
+            long_gesture.on_gesture(a, |_| {
+                hilog_info!("ohos-rs: long gesture");
+            })?;
+
+            list_item.add_gesture(long_gesture, None, None)?;
 
             text.set_content(i.to_string())?;
             text.set_font_size(20.0)?;
