@@ -1,7 +1,7 @@
 use crate::{
-    ArkUIAttributeBasic, ArkUICommonAttribute, ArkUIEvent, ArkUINode, ArkUINodeAttributeItem,
-    ArkUINodeAttributeNumber, ArkUINodeType, ArkUIResult, ScrollBarDisplayMode,
-    ARK_UI_NATIVE_NODE_API_1,
+    ArkUIAttributeBasic, ArkUICommonAttribute, ArkUIEvent, ArkUIGesture, ArkUINode,
+    ArkUINodeAttributeItem, ArkUINodeAttributeNumber, ArkUINodeType, ArkUIResult,
+    ScrollBarDisplayMode, ARK_UI_NATIVE_NODE_API_1,
 };
 
 pub struct List(ArkUINode);
@@ -46,3 +46,4 @@ impl ArkUIAttributeBasic for List {
 
 impl ArkUICommonAttribute for List {}
 impl ArkUIEvent for List {}
+impl ArkUIGesture for List {}

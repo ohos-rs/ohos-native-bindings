@@ -1,6 +1,7 @@
 use crate::{
-    ArkUIAttributeBasic, ArkUICommonFontAttribute, ArkUIEvent, ArkUINode, ArkUINodeAttributeItem,
-    ArkUINodeAttributeNumber, ArkUINodeType, ArkUIResult, TextAlignment, ARK_UI_NATIVE_NODE_API_1,
+    ArkUIAttributeBasic, ArkUICommonFontAttribute, ArkUIEvent, ArkUIGesture, ArkUINode,
+    ArkUINodeAttributeItem, ArkUINodeAttributeNumber, ArkUINodeType, ArkUIResult, TextAlignment,
+    ARK_UI_NATIVE_NODE_API_1,
 };
 
 use crate::component::ArkUICommonAttribute;
@@ -60,3 +61,4 @@ impl ArkUIAttributeBasic for Text {
 impl ArkUICommonAttribute for Text {}
 impl ArkUICommonFontAttribute for Text {}
 impl ArkUIEvent for Text {}
+impl ArkUIGesture for Text {}

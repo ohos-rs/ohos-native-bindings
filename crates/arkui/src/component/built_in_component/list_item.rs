@@ -1,6 +1,6 @@
 use crate::{
-    ArkUIAttributeBasic, ArkUICommonAttribute, ArkUIEvent, ArkUINode, ArkUINodeType, ArkUIResult,
-    ARK_UI_NATIVE_NODE_API_1,
+    ArkUIAttributeBasic, ArkUICommonAttribute, ArkUIEvent, ArkUIGesture, ArkUINode, ArkUINodeType,
+    ArkUIResult, ARK_UI_NATIVE_NODE_API_1,
 };
 
 pub struct ListItem(ArkUINode);
@@ -34,3 +34,4 @@ impl ArkUIAttributeBasic for ListItem {
 
 impl ArkUICommonAttribute for ListItem {}
 impl ArkUIEvent for ListItem {}
+impl ArkUIGesture for ListItem {}
