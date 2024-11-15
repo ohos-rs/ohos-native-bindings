@@ -1,7 +1,7 @@
 use napi_ohos::Result;
 use ohos_xcomponent_sys::OH_NativeXComponent;
 
-use crate::r#type::{NativeXComponent, NativeXComponentCallback, Window};
+use crate::native_xcomponent::{NativeXComponent, NativeXComponentCallback, Window};
 
 #[cfg(feature = "single_mode")]
 mod single;
@@ -63,12 +63,9 @@ impl XComponentCallbacks {
     }
 
     /// set OnSurfaceCreated callback
-    pub fn set_on_surface_created<F>(&mut self, callback: F)
-    where
-        F: Fn(NativeXComponent, Window) -> Result<()> + 'static + Send,
-    {
+    pub fn set_on_surface_created(&mut self, callback: fn(NativeXComponent, Window) -> Result<()>) {
         let boxed_callback = Box::new(callback);
-        self.inner.on_surface_created = Some(on_surface_created::<F>);
+        self.inner.on_surface_created = Some(on_surface_created);
 
         #[cfg(feature = "multi_mode")]
         {
@@ -81,12 +78,9 @@ impl XComponentCallbacks {
     }
 
     /// set OnSurfaceChanged callback
-    pub fn set_on_surface_changed<F>(&mut self, callback: F)
-    where
-        F: Fn(NativeXComponent, Window) -> Result<()> + 'static + Send,
-    {
+    pub fn set_on_surface_changed(&mut self, callback: fn(NativeXComponent, Window) -> Result<()>) {
         let boxed_callback = Box::new(callback);
-        self.inner.on_surface_changed = Some(on_surface_changed::<F>);
+        self.inner.on_surface_changed = Some(on_surface_changed);
 
         #[cfg(feature = "multi_mode")]
         {
@@ -99,12 +93,12 @@ impl XComponentCallbacks {
     }
 
     /// set OnSurfaceDestroyed callback
-    pub fn set_on_surface_destroyed<F>(&mut self, callback: F)
-    where
-        F: Fn(NativeXComponent, Window) -> Result<()> + 'static + Send,
-    {
+    pub fn set_on_surface_destroyed(
+        &mut self,
+        callback: fn(NativeXComponent, Window) -> Result<()>,
+    ) {
         let boxed_callback = Box::new(callback);
-        self.inner.on_surface_destroyed = Some(on_surface_destroyed::<F>);
+        self.inner.on_surface_destroyed = Some(on_surface_destroyed);
 
         #[cfg(feature = "multi_mode")]
         {
@@ -118,12 +112,12 @@ impl XComponentCallbacks {
     }
 
     /// set DispatchTouchEvent callback
-    pub fn set_dispatch_touch_event<F>(&mut self, callback: F)
-    where
-        F: Fn(NativeXComponent, Window) -> Result<()> + 'static + Send,
-    {
+    pub fn set_dispatch_touch_event(
+        &mut self,
+        callback: fn(NativeXComponent, Window) -> Result<()>,
+    ) {
         let boxed_callback = Box::new(callback);
-        self.inner.dispatch_touch_event = Some(dispatch_touch_event::<F>);
+        self.inner.dispatch_touch_event = Some(dispatch_touch_event);
 
         #[cfg(feature = "multi_mode")]
         {
@@ -139,12 +133,10 @@ impl XComponentCallbacks {
 
 macro_rules! callback {
     ($func: ident, $name: expr) => {
-        unsafe extern "C" fn $func<F>(
+        unsafe extern "C" fn $func(
             component: *mut OH_NativeXComponent,
             win: *mut ::std::os::raw::c_void,
-        ) where
-            F: Fn(NativeXComponent, Window) -> Result<()> + 'static + Send,
-        {
+        ) {
             #[cfg(feature = "multi_mode")]
             {
                 use crate::tool::resolve_id;

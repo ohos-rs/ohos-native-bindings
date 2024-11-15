@@ -4,6 +4,8 @@
 #![allow(non_upper_case_globals)]
 #![allow(non_camel_case_types)]
 
+use ohos_arkui_sys::*;
+
 pub const OH_NATIVE_XCOMPONENT_OBJ: &[u8; 26usize] = b"__NATIVE_XCOMPONENT_OBJ__\0";
 #[repr(C)]
 #[derive(Debug, Copy, Clone)]
@@ -69,11 +71,6 @@ extern "C" {
 }
 #[repr(C)]
 #[derive(Debug, Copy, Clone)]
-pub struct ArkUI_Node {
-    _unused: [u8; 0],
-}
-#[repr(C)]
-#[derive(Debug, Copy, Clone)]
 pub struct ArkUI_LayoutConstraint {
     _unused: [u8; 0],
 }
@@ -82,7 +79,7 @@ pub struct ArkUI_LayoutConstraint {
 pub struct ArkUI_DrawContext {
     _unused: [u8; 0],
 }
-pub type ArkUI_NodeHandle = *mut ArkUI_Node;
+
 #[repr(C)]
 #[derive(Debug, Copy, Clone)]
 pub struct ArkUI_WaterFlowSectionOption {

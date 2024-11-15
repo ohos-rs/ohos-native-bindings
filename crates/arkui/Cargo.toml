@@ -4,13 +4,15 @@ version = "0.0.1"
 edition = "2021"
 
 [dependencies]
-ohos-arkui-sys = { workspace = true }
-napi-sys-ohos  = { workspace = true, optional = true }
-napi-ohos      = { workspace = true, optional = true }
-enum_macro     = { workspace = true }
-bitflags       = { workspace = true }
-
+ohos-arkui-sys          = { workspace = true }
+napi-sys-ohos           = { workspace = true, optional = true }
+napi-ohos               = { workspace = true, optional = true }
+enum_macro              = { workspace = true }
+bitflags                = { workspace = true }
+ohos-xcomponent-binding = { workspace = true, optional = true }
+ohos-xcomponent-sys     = { workspace = true, optional = true }
 
 [features]
-default = ["napi"]
-napi    = ["dep:napi-ohos", "dep:napi-sys-ohos"]
+default    = ["napi", "xcomponent"]
+napi       = ["dep:napi-ohos", "dep:napi-sys-ohos"]
+xcomponent = ["dep:ohos-xcomponent-binding", "dep:ohos-xcomponent-sys"]

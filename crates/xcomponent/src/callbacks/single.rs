@@ -1,6 +1,6 @@
 use std::sync::{LazyLock, RwLock};
 
-use crate::r#type::CallbackClosure;
+use crate::native_xcomponent::CallbackClosure;
 
 pub struct SingleXComponent {
     pub on_surface_created: Option<CallbackClosure>,
