@@ -20,5 +20,5 @@ pub const RESOURCE_MANAGER: Lazy<SysConfig> = Lazy::new(|| SysConfig {
         "ScreenDensity",
     ],
     block_list: vec!["napi_.*", "NativeResourceManager"],
-    extra: "\n\nuse ohos_raw_sys::*;\n",
+    extra: "\n\nuse ohos_raw_sys::*;",
 });

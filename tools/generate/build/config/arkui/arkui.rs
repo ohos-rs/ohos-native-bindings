@@ -18,5 +18,5 @@ pub const ARKUI: Lazy<SysConfig> = Lazy::new(|| SysConfig {
     ],
     white_list: vec!["ArkUI_.*", "ARKUI_.*", "OH_.*"],
     block_list: vec!["napi_.*"],
-    extra: "\n\nuse napi_sys_ohos::*;\n",
+    extra: "\n\nuse napi_sys_ohos::*;",
 });

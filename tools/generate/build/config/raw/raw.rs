@@ -16,5 +16,5 @@ pub const RAW: Lazy<SysConfig> = Lazy::new(|| SysConfig {
     ],
     white_list: vec!["OH_ResourceManager_.*"],
     block_list: vec!["napi_.*"],
-    extra: "\n\nuse napi_sys_ohos::*;\n",
+    extra: "\n\nuse napi_sys_ohos::*;",
 });
