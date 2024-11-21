@@ -64,10 +64,13 @@ impl NativeXComponent {
         Ok(())
     }
 
-    pub fn on_surface_changed(&self, cb: fn(XComponentRaw, WindowRaw) -> Result<()>) {
+    pub fn on_surface_changed<T: Fn(XComponentRaw, WindowRaw) -> Result<()> + 'static>(
+        &self,
+        cb: T,
+    ) {
         #[cfg(feature = "single_mode")]
         X_COMPONENT_CALLBACKS.with_borrow_mut(|f| {
-            f.on_surface_changed = Some(cb);
+            f.on_surface_changed = Some(Box::new(cb));
         });
 
         #[cfg(feature = "multi_mode")]
@@ -76,15 +79,18 @@ impl NativeXComponent {
             X_COMPONENT_CALLBACKS_MAP.with_borrow_mut(|f| {
                 f.entry(id)
                     .or_insert_with(|| Default::default())
-                    .on_surface_changed = Some(cb);
+                    .on_surface_changed = Some(Box::new(cb));
             });
         }
     }
 
-    pub fn on_surface_created(&self, cb: fn(XComponentRaw, WindowRaw) -> Result<()>) {
+    pub fn on_surface_created<T: Fn(XComponentRaw, WindowRaw) -> Result<()> + 'static>(
+        &self,
+        cb: T,
+    ) {
         #[cfg(feature = "single_mode")]
         X_COMPONENT_CALLBACKS.with_borrow_mut(|f| {
-            f.on_surface_created = Some(cb);
+            f.on_surface_created = Some(Box::new(cb));
         });
 
         #[cfg(feature = "multi_mode")]
@@ -93,15 +99,18 @@ impl NativeXComponent {
             X_COMPONENT_CALLBACKS_MAP.with_borrow_mut(|f| {
                 f.entry(id)
                     .or_insert_with(|| Default::default())
-                    .on_surface_created = Some(cb);
+                    .on_surface_created = Some(Box::new(cb));
             });
         }
     }
 
-    pub fn on_surface_destroyed(&self, cb: fn(XComponentRaw, WindowRaw) -> Result<()>) {
+    pub fn on_surface_destroyed<T: Fn(XComponentRaw, WindowRaw) -> Result<()> + 'static>(
+        &self,
+        cb: T,
+    ) {
         #[cfg(feature = "single_mode")]
         X_COMPONENT_CALLBACKS.with_borrow_mut(|f| {
-            f.on_surface_destroyed = Some(cb);
+            f.on_surface_destroyed = Some(Box::new(cb));
         });
 
         #[cfg(feature = "multi_mode")]
@@ -110,15 +119,18 @@ impl NativeXComponent {
             X_COMPONENT_CALLBACKS_MAP.with_borrow_mut(|f| {
                 f.entry(id)
                     .or_insert_with(|| Default::default())
-                    .on_surface_destroyed = Some(cb);
+                    .on_surface_destroyed = Some(Box::new(cb));
             });
         }
     }
 
-    pub fn dispatch_touch_event(&self, cb: fn(XComponentRaw, WindowRaw) -> Result<()>) {
+    pub fn dispatch_touch_event<T: Fn(XComponentRaw, WindowRaw) -> Result<()> + 'static>(
+        &self,
+        cb: T,
+    ) {
         #[cfg(feature = "single_mode")]
         X_COMPONENT_CALLBACKS.with_borrow_mut(|f| {
-            f.dispatch_touch_event = Some(cb);
+            f.dispatch_touch_event = Some(Box::new(cb));
         });
 
         #[cfg(feature = "multi_mode")]
@@ -127,7 +139,7 @@ impl NativeXComponent {
             X_COMPONENT_CALLBACKS_MAP.with_borrow_mut(|f| {
                 f.entry(id)
                     .or_insert_with(|| Default::default())
-                    .dispatch_touch_event = Some(cb);
+                    .dispatch_touch_event = Some(Box::new(cb));
             });
         }
     }
@@ -152,10 +164,13 @@ impl NativeXComponent {
     }
 
     /// Register frame callback
-    pub fn on_frame_callback(&self, cb: fn(XComponentRaw, u64, u64) -> Result<()>) -> Result<()> {
+    pub fn on_frame_callback<T: Fn(XComponentRaw, u64, u64) -> Result<()> + 'static>(
+        &self,
+        cb: T,
+    ) -> Result<()> {
         #[cfg(feature = "single_mode")]
         X_COMPONENT_CALLBACKS.with_borrow_mut(|f| {
-            f.on_frame_change = Some(cb);
+            f.on_frame_change = Some(Box::new(cb));
         });
 
         #[cfg(feature = "multi_mode")]
@@ -164,7 +179,7 @@ impl NativeXComponent {
             X_COMPONENT_CALLBACKS_MAP.with_borrow_mut(|f| {
                 f.entry(id)
                     .or_insert_with(|| Default::default())
-                    .on_frame_change = Some(cb);
+                    .on_frame_change = Some(Box::new(cb));
             });
         }
 

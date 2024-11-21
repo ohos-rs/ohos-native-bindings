@@ -114,6 +114,8 @@ pub fn init(exports: JsObject, env: Env) -> Result<()> {
 
     xcomponent.register_callback()?;
 
+    xcomponent.on_frame_callback(|_, _, _| Ok(()))?;
+
     Ok(())
 }
 

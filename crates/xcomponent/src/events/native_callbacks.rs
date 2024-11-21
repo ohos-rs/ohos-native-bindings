@@ -19,7 +19,7 @@ pub unsafe extern "C" fn on_surface_created(
 
     #[cfg(feature = "single_mode")]
     X_COMPONENT_CALLBACKS.with_borrow(|cb| {
-        if let Some(callback) = cb.on_surface_created {
+        if let Some(callback) = &cb.on_surface_created {
             callback(xcomponent, window).unwrap();
         }
     });
@@ -28,7 +28,7 @@ pub unsafe extern "C" fn on_surface_created(
     X_COMPONENT_CALLBACKS_MAP.with_borrow(|cb| {
         let id = resolve_id(xcomponent.0).unwrap();
         if let Some(callback) = cb.get(&id) {
-            if let Some(callback) = callback.on_surface_created {
+            if let Some(callback) = &callback.on_surface_created {
                 callback(xcomponent, window).unwrap();
             }
         }
@@ -44,7 +44,7 @@ pub unsafe extern "C" fn on_surface_changed(
 
     #[cfg(feature = "single_mode")]
     X_COMPONENT_CALLBACKS.with_borrow(|cb| {
-        if let Some(callback) = cb.on_surface_changed {
+        if let Some(callback) = &cb.on_surface_changed {
             callback(xcomponent, window).unwrap();
         }
     });
@@ -53,7 +53,7 @@ pub unsafe extern "C" fn on_surface_changed(
     X_COMPONENT_CALLBACKS_MAP.with_borrow(|cb| {
         let id = resolve_id(xcomponent.0).unwrap();
         if let Some(callback) = cb.get(&id) {
-            if let Some(callback) = callback.on_surface_changed {
+            if let Some(callback) = &callback.on_surface_changed {
                 callback(xcomponent, window).unwrap();
             }
         }
@@ -69,7 +69,7 @@ pub unsafe extern "C" fn on_surface_destroyed(
 
     #[cfg(feature = "single_mode")]
     X_COMPONENT_CALLBACKS.with_borrow(|cb| {
-        if let Some(callback) = cb.on_surface_destroyed {
+        if let Some(callback) = &cb.on_surface_destroyed {
             callback(xcomponent, window).unwrap();
         }
     });
@@ -78,7 +78,7 @@ pub unsafe extern "C" fn on_surface_destroyed(
     X_COMPONENT_CALLBACKS_MAP.with_borrow(|cb| {
         let id = resolve_id(xcomponent.0).unwrap();
         if let Some(callback) = cb.get(&id) {
-            if let Some(callback) = callback.on_surface_destroyed {
+            if let Some(callback) = &callback.on_surface_destroyed {
                 callback(xcomponent, window).unwrap();
             }
         }
@@ -94,7 +94,7 @@ pub unsafe extern "C" fn dispatch_touch_event(
 
     #[cfg(feature = "single_mode")]
     X_COMPONENT_CALLBACKS.with_borrow(|cb| {
-        if let Some(callback) = cb.dispatch_touch_event {
+        if let Some(callback) = &cb.dispatch_touch_event {
             callback(xcomponent, window).unwrap();
         }
     });
@@ -103,7 +103,7 @@ pub unsafe extern "C" fn dispatch_touch_event(
     X_COMPONENT_CALLBACKS_MAP.with_borrow(|cb| {
         let id = resolve_id(xcomponent.0).unwrap();
         if let Some(callback) = cb.get(&id) {
-            if let Some(callback) = callback.dispatch_touch_event {
+            if let Some(callback) = &callback.dispatch_touch_event {
                 callback(xcomponent, window).unwrap();
             }
         }
@@ -119,7 +119,7 @@ pub unsafe extern "C" fn on_frame_change(
 
     #[cfg(feature = "single_mode")]
     X_COMPONENT_CALLBACKS.with_borrow(|cb| {
-        if let Some(callback) = cb.on_frame_change {
+        if let Some(callback) = &cb.on_frame_change {
             callback(xcomponent, width, height).unwrap();
         }
     });
@@ -128,7 +128,7 @@ pub unsafe extern "C" fn on_frame_change(
     X_COMPONENT_CALLBACKS_MAP.with_borrow(|cb| {
         let id = resolve_id(xcomponent.0).unwrap();
         if let Some(callback) = cb.get(&id) {
-            if let Some(callback) = callback.on_frame_change {
+            if let Some(callback) = &callback.on_frame_change {
                 callback(xcomponent, width, height).unwrap();
             }
         }

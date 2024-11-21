@@ -15,11 +15,11 @@ mod native_callbacks;
 pub use native_callbacks::*;
 
 pub struct XComponentCallbacks {
-    pub on_surface_created: Option<fn(XComponentRaw, WindowRaw) -> Result<()>>,
-    pub on_surface_changed: Option<fn(XComponentRaw, WindowRaw) -> Result<()>>,
-    pub on_surface_destroyed: Option<fn(XComponentRaw, WindowRaw) -> Result<()>>,
-    pub dispatch_touch_event: Option<fn(XComponentRaw, WindowRaw) -> Result<()>>,
-    pub on_frame_change: Option<fn(XComponentRaw, u64, u64) -> Result<()>>,
+    pub on_surface_created: Option<Box<dyn Fn(XComponentRaw, WindowRaw) -> Result<()>>>,
+    pub on_surface_changed: Option<Box<dyn Fn(XComponentRaw, WindowRaw) -> Result<()>>>,
+    pub on_surface_destroyed: Option<Box<dyn Fn(XComponentRaw, WindowRaw) -> Result<()>>>,
+    pub dispatch_touch_event: Option<Box<dyn Fn(XComponentRaw, WindowRaw) -> Result<()>>>,
+    pub on_frame_change: Option<Box<dyn Fn(XComponentRaw, u64, u64) -> Result<()>>>,
 }
 
 impl Default for XComponentCallbacks {
