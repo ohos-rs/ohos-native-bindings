@@ -6,8 +6,7 @@ use ohos_xcomponent_sys::{
 use std::{os::raw::c_void, ptr};
 
 use crate::{
-    callbacks::XComponentCallbacks,
-    native_xcomponent::{NativeXComponent, Window, XComponentSize},
+    native_xcomponent::NativeXComponent, tool::resolve_id, WindowRaw, XComponentRaw, XComponentSize,
 };
 
 /// Accept XComponent with env and exports
@@ -47,7 +46,12 @@ impl XComponent {
             "Get OH_NativeXComponent failed."
         )?;
 
-        Ok(XComponent(NativeXComponent(instance)))
+        let id = resolve_id(instance);
+
+        Ok(XComponent(NativeXComponent {
+            raw: XComponentRaw(instance),
+            id,
+        }))
     }
 
     /// Get current xcomponent instance's id
@@ -65,8 +69,8 @@ impl XComponent {
     /// This may cause xcomponent being slower, if you want to avoid this.    
     /// You can disable feature with `callbacks` and use `register_native_callback`   
     #[cfg(feature = "callbacks")]
-    pub fn register_callback(&self, callbacks: XComponentCallbacks) -> Result<()> {
-        self.0.register_callback(callbacks)
+    pub fn register_callback(&self) -> Result<()> {
+        self.0.register_callback()
     }
 
     /// Use ffi to register callbacks directly.
@@ -78,7 +82,26 @@ impl XComponent {
     }
 
     /// Get current XComponent's size info include width and height.
-    pub fn size(&self, window: Window) -> Result<XComponentSize> {
+    pub fn size(&self, window: WindowRaw) -> Result<XComponentSize> {
         self.0.size(window)
+    }
+    pub fn on_frame_callback(&self, cb: fn(XComponentRaw, u64, u64) -> Result<()>) -> Result<()> {
+        self.0.on_frame_callback(cb)
+    }
+
+    pub fn on_surface_changed(&self, cb: fn(XComponentRaw, WindowRaw) -> Result<()>) {
+        self.0.on_surface_changed(cb)
+    }
+
+    pub fn on_surface_created(&self, cb: fn(XComponentRaw, WindowRaw) -> Result<()>) {
+        self.0.on_surface_created(cb)
+    }
+
+    pub fn on_surface_destroyed(&self, cb: fn(XComponentRaw, WindowRaw) -> Result<()>) {
+        self.0.on_surface_destroyed(cb)
+    }
+
+    pub fn dispatch_touch_event(&self, cb: fn(XComponentRaw, WindowRaw) -> Result<()>) {
+        self.0.dispatch_touch_event(cb)
     }
 }

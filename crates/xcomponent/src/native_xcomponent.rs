@@ -1,23 +1,36 @@
 use napi_ohos::{Error, Result};
 use ohos_xcomponent_sys::{
-    OH_NativeXComponent, OH_NativeXComponent_Callback, OH_NativeXComponent_GetXComponentSize,
-    OH_NativeXComponent_RegisterCallback,
+    OH_NativeXComponent, OH_NativeXComponent_Callback, OH_NativeXComponent_RegisterCallback,
+    OH_NativeXComponent_RegisterOnFrameCallback,
 };
-use std::os::raw::c_void;
 
-use crate::{callbacks::XComponentCallbacks, code::XComponentResultCode, tool::resolve_id};
+use crate::{
+    code::XComponentResultCode, dispatch_touch_event, on_frame_change, on_surface_changed,
+    on_surface_created, on_surface_destroyed, raw::XComponentRaw, tool::resolve_id, WindowRaw,
+    XComponentSize,
+};
 
-#[repr(transparent)]
-#[derive(Debug, Clone, Copy)]
-pub struct Window(pub *mut c_void);
+#[cfg(feature = "single_mode")]
+use crate::X_COMPONENT_CALLBACKS;
 
-#[repr(transparent)]
-#[derive(Debug, Clone, Copy)]
-pub struct NativeXComponent(pub *mut OH_NativeXComponent);
+#[cfg(feature = "multi_mode")]
+use crate::X_COMPONENT_CALLBACKS_MAP;
+
+pub struct NativeXComponent {
+    pub raw: XComponentRaw,
+    pub(crate) id: Option<String>,
+}
 
 impl NativeXComponent {
+    pub fn new(raw: XComponentRaw) -> Self {
+        Self { raw, id: None }
+    }
+
     /// Get current xcomponent instance's id
     pub fn id(&self) -> Result<String> {
+        if let Some(id) = &self.id {
+            return Ok(id.clone());
+        }
         let current_id = resolve_id(self.raw());
         if let Some(id_str) = current_id {
             return Ok(id_str);
@@ -27,7 +40,7 @@ impl NativeXComponent {
 
     /// get raw point
     pub fn raw(&self) -> *mut OH_NativeXComponent {
-        self.0
+        self.raw.0
     }
 
     /// Register callbacks   
@@ -35,12 +48,12 @@ impl NativeXComponent {
     /// This may cause xcomponent being slower, if you want to avoid this.    
     /// You can disable feature with `callbacks` and use `register_native_callback`   
     #[cfg(feature = "callbacks")]
-    pub fn register_callback(&self, callbacks: XComponentCallbacks) -> Result<()> {
+    pub fn register_callback(&self) -> Result<()> {
         let cbs = Box::new(OH_NativeXComponent_Callback {
-            OnSurfaceCreated: callbacks.inner.on_surface_created,
-            OnSurfaceChanged: callbacks.inner.on_surface_changed,
-            OnSurfaceDestroyed: callbacks.inner.on_surface_destroyed,
-            DispatchTouchEvent: callbacks.inner.dispatch_touch_event,
+            OnSurfaceCreated: Some(on_surface_created),
+            OnSurfaceChanged: Some(on_surface_changed),
+            OnSurfaceDestroyed: Some(on_surface_destroyed),
+            DispatchTouchEvent: Some(dispatch_touch_event),
         });
         let ret: XComponentResultCode = unsafe {
             OH_NativeXComponent_RegisterCallback(self.raw(), Box::leak(cbs) as *mut _).into()
@@ -49,6 +62,74 @@ impl NativeXComponent {
             return Err(Error::from_reason("XComponent register callbacks failed"));
         }
         Ok(())
+    }
+
+    pub fn on_surface_changed(&self, cb: fn(XComponentRaw, WindowRaw) -> Result<()>) {
+        #[cfg(feature = "single_mode")]
+        X_COMPONENT_CALLBACKS.with_borrow_mut(|f| {
+            f.on_surface_changed = Some(cb);
+        });
+
+        #[cfg(feature = "multi_mode")]
+        {
+            let id = self.id().unwrap();
+            X_COMPONENT_CALLBACKS_MAP.with_borrow_mut(|f| {
+                f.entry(id)
+                    .or_insert_with(|| Default::default())
+                    .on_surface_changed = Some(cb);
+            });
+        }
+    }
+
+    pub fn on_surface_created(&self, cb: fn(XComponentRaw, WindowRaw) -> Result<()>) {
+        #[cfg(feature = "single_mode")]
+        X_COMPONENT_CALLBACKS.with_borrow_mut(|f| {
+            f.on_surface_created = Some(cb);
+        });
+
+        #[cfg(feature = "multi_mode")]
+        {
+            let id = self.id().unwrap();
+            X_COMPONENT_CALLBACKS_MAP.with_borrow_mut(|f| {
+                f.entry(id)
+                    .or_insert_with(|| Default::default())
+                    .on_surface_created = Some(cb);
+            });
+        }
+    }
+
+    pub fn on_surface_destroyed(&self, cb: fn(XComponentRaw, WindowRaw) -> Result<()>) {
+        #[cfg(feature = "single_mode")]
+        X_COMPONENT_CALLBACKS.with_borrow_mut(|f| {
+            f.on_surface_destroyed = Some(cb);
+        });
+
+        #[cfg(feature = "multi_mode")]
+        {
+            let id = self.id().unwrap();
+            X_COMPONENT_CALLBACKS_MAP.with_borrow_mut(|f| {
+                f.entry(id)
+                    .or_insert_with(|| Default::default())
+                    .on_surface_destroyed = Some(cb);
+            });
+        }
+    }
+
+    pub fn dispatch_touch_event(&self, cb: fn(XComponentRaw, WindowRaw) -> Result<()>) {
+        #[cfg(feature = "single_mode")]
+        X_COMPONENT_CALLBACKS.with_borrow_mut(|f| {
+            f.dispatch_touch_event = Some(cb);
+        });
+
+        #[cfg(feature = "multi_mode")]
+        {
+            let id = self.id().unwrap();
+            X_COMPONENT_CALLBACKS_MAP.with_borrow_mut(|f| {
+                f.entry(id)
+                    .or_insert_with(|| Default::default())
+                    .dispatch_touch_event = Some(cb);
+            });
+        }
     }
 
     /// Use ffi to register callbacks directly.
@@ -66,47 +147,35 @@ impl NativeXComponent {
     }
 
     /// Get current XComponent's size info include width and height.
-    pub fn size(&self, window: Window) -> Result<XComponentSize> {
-        let mut width: u64 = 0;
-        let mut height: u64 = 0;
+    pub fn size(&self, window: WindowRaw) -> Result<XComponentSize> {
+        self.raw.size(window)
+    }
+
+    /// Register frame callback
+    pub fn on_frame_callback(&self, cb: fn(XComponentRaw, u64, u64) -> Result<()>) -> Result<()> {
+        #[cfg(feature = "single_mode")]
+        X_COMPONENT_CALLBACKS.with_borrow_mut(|f| {
+            f.on_frame_change = Some(cb);
+        });
+
+        #[cfg(feature = "multi_mode")]
+        {
+            let id = self.id().unwrap();
+            X_COMPONENT_CALLBACKS_MAP.with_borrow_mut(|f| {
+                f.entry(id)
+                    .or_insert_with(|| Default::default())
+                    .on_frame_change = Some(cb);
+            });
+        }
+
         let ret: XComponentResultCode = unsafe {
-            OH_NativeXComponent_GetXComponentSize(self.raw(), window.0, &mut width, &mut height)
-                .into()
+            OH_NativeXComponent_RegisterOnFrameCallback(self.raw(), Some(on_frame_change)).into()
         };
         if ret != XComponentResultCode::Success {
-            return Err(Error::from_reason("XComponent get size failed"));
+            return Err(Error::from_reason(
+                "XComponent register frame callback failed",
+            ));
         }
-        Ok(XComponentSize { width, height })
+        Ok(())
     }
-}
-
-pub(crate) type CallbackClosure = Box<fn(NativeXComponent, Window) -> Result<()>>;
-
-#[repr(C)]
-pub struct NativeXComponentCallback {
-    pub on_surface_created:
-        Option<unsafe extern "C" fn(*mut OH_NativeXComponent, *mut std::os::raw::c_void)>,
-    pub on_surface_changed:
-        Option<unsafe extern "C" fn(*mut OH_NativeXComponent, *mut std::os::raw::c_void)>,
-    pub on_surface_destroyed:
-        Option<unsafe extern "C" fn(*mut OH_NativeXComponent, *mut std::os::raw::c_void)>,
-    pub dispatch_touch_event:
-        Option<unsafe extern "C" fn(*mut OH_NativeXComponent, *mut std::os::raw::c_void)>,
-}
-
-impl NativeXComponentCallback {
-    pub fn new() -> Self {
-        NativeXComponentCallback {
-            on_surface_created: None,
-            on_surface_changed: None,
-            on_surface_destroyed: None,
-            dispatch_touch_event: None,
-        }
-    }
-}
-
-#[derive(Debug, Clone, Copy)]
-pub struct XComponentSize {
-    pub width: u64,
-    pub height: u64,
 }

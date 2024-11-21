@@ -24,8 +24,10 @@ impl XComponent {
 
     #[cfg(feature = "xcomponent")]
     pub fn native_xcomponent(&self) -> XC {
+        use ohos_xcomponent_binding::XComponentRaw;
+
         let handle = unsafe { OH_NativeXComponent_GetNativeXComponent(self.0.raw) };
-        XC(handle)
+        XC::new(XComponentRaw(handle))
     }
 }
 
