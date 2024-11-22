@@ -112,15 +112,15 @@ pub unsafe extern "C" fn dispatch_touch_event(
 
 pub unsafe extern "C" fn on_frame_change(
     xcomponent: *mut OH_NativeXComponent,
-    width: u64,
-    height: u64,
+    timestamp: u64,
+    target_timestamp: u64,
 ) {
     let xcomponent = XComponentRaw(xcomponent);
 
     #[cfg(feature = "single_mode")]
     X_COMPONENT_CALLBACKS.with_borrow(|cb| {
         if let Some(callback) = &cb.on_frame_change {
-            callback(xcomponent, width, height).unwrap();
+            callback(xcomponent, timestamp, target_timestamp).unwrap();
         }
     });
 
@@ -129,7 +129,7 @@ pub unsafe extern "C" fn on_frame_change(
         let id = resolve_id(xcomponent.0).unwrap();
         if let Some(callback) = cb.get(&id) {
             if let Some(callback) = &callback.on_frame_change {
-                callback(xcomponent, width, height).unwrap();
+                callback(xcomponent, timestamp, target_timestamp).unwrap();
             }
         }
     })
