@@ -114,7 +114,10 @@ pub fn init(exports: JsObject, env: Env) -> Result<()> {
 
     xcomponent.register_callback()?;
 
-    xcomponent.on_frame_callback(|_, _, _| Ok(()))?;
+    xcomponent.on_frame_callback(|_, _, _| {
+        hilog_info!("xcomponent_frame");
+        Ok(())
+    })?;
 
     Ok(())
 }
