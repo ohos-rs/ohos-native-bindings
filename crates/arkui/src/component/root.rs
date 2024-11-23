@@ -25,10 +25,6 @@ pub struct RootNode {
     raw: ArkUI_NodeContentHandle,
 }
 
-// TODO: we need to remove them
-unsafe impl Send for RootNode {}
-unsafe impl Sync for RootNode {}
-
 impl RootNode {
     #[cfg(feature = "napi")]
     pub fn new(handle: ArkUIHandle) -> Self {
