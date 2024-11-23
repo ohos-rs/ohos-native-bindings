@@ -4,12 +4,9 @@
 #![allow(non_upper_case_globals)]
 #![allow(non_camel_case_types)]
 
+use ohos_arkui_sys::*;
+
 pub const OH_NATIVE_XCOMPONENT_OBJ: &[u8; 26usize] = b"__NATIVE_XCOMPONENT_OBJ__\0";
-#[repr(C)]
-#[derive(Debug, Copy, Clone)]
-pub struct ArkUI_DrawableDescriptor {
-    _unused: [u8; 0],
-}
 #[repr(C)]
 #[derive(Debug, Copy, Clone)]
 pub struct OH_PixelmapNative {
@@ -66,139 +63,6 @@ extern "C" {
     pub fn OH_ArkUI_DrawableDescriptor_GetAnimationIteration(
         drawableDescriptor: *mut ArkUI_DrawableDescriptor,
     ) -> i32;
-}
-#[repr(C)]
-#[derive(Debug, Copy, Clone)]
-pub struct ArkUI_Node {
-    _unused: [u8; 0],
-}
-#[repr(C)]
-#[derive(Debug, Copy, Clone)]
-pub struct ArkUI_LayoutConstraint {
-    _unused: [u8; 0],
-}
-#[repr(C)]
-#[derive(Debug, Copy, Clone)]
-pub struct ArkUI_DrawContext {
-    _unused: [u8; 0],
-}
-pub type ArkUI_NodeHandle = *mut ArkUI_Node;
-#[repr(C)]
-#[derive(Debug, Copy, Clone)]
-pub struct ArkUI_WaterFlowSectionOption {
-    _unused: [u8; 0],
-}
-#[repr(C)]
-#[derive(Debug, Copy, Clone)]
-pub struct ArkUI_ListItemSwipeActionItem {
-    _unused: [u8; 0],
-}
-#[repr(C)]
-#[derive(Debug, Copy, Clone)]
-pub struct ArkUI_ListItemSwipeActionOption {
-    _unused: [u8; 0],
-}
-#[repr(C)]
-#[derive(Debug, Copy, Clone)]
-pub struct ArkUI_SwiperIndicator {
-    _unused: [u8; 0],
-}
-#[repr(C)]
-#[derive(Debug, Copy, Clone)]
-pub struct ArkUI_AlignmentRuleOption {
-    _unused: [u8; 0],
-}
-#[repr(C)]
-#[derive(Debug, Copy, Clone)]
-pub struct ArkUI_GuidelineOption {
-    _unused: [u8; 0],
-}
-#[repr(C)]
-#[derive(Debug, Copy, Clone)]
-pub struct ArkUI_BarrierOption {
-    _unused: [u8; 0],
-}
-#[repr(C)]
-#[derive(Debug, Copy, Clone)]
-pub struct ArkUI_ListChildrenMainSize {
-    _unused: [u8; 0],
-}
-#[repr(C)]
-#[derive(Debug, Copy, Clone)]
-pub struct ArkUI_ImageAnimatorFrameInfo {
-    _unused: [u8; 0],
-}
-#[repr(C)]
-#[derive(Debug, Copy, Clone)]
-pub struct ArkUI_AccessibilityState {
-    _unused: [u8; 0],
-}
-#[repr(C)]
-#[derive(Debug, Copy, Clone)]
-pub struct ArkUI_AccessibilityValue {
-    _unused: [u8; 0],
-}
-pub const ArkUI_Axis_ARKUI_AXIS_VERTICAL: ArkUI_Axis = 0;
-pub const ArkUI_Axis_ARKUI_AXIS_HORIZONTAL: ArkUI_Axis = 1;
-pub type ArkUI_Axis = ::std::os::raw::c_uint;
-pub const ArkUI_VerticalAlignment_ARKUI_VERTICAL_ALIGNMENT_TOP: ArkUI_VerticalAlignment = 0;
-pub const ArkUI_VerticalAlignment_ARKUI_VERTICAL_ALIGNMENT_CENTER: ArkUI_VerticalAlignment = 1;
-pub const ArkUI_VerticalAlignment_ARKUI_VERTICAL_ALIGNMENT_BOTTOM: ArkUI_VerticalAlignment = 2;
-pub type ArkUI_VerticalAlignment = ::std::os::raw::c_uint;
-pub const ArkUI_HorizontalAlignment_ARKUI_HORIZONTAL_ALIGNMENT_START: ArkUI_HorizontalAlignment = 0;
-pub const ArkUI_HorizontalAlignment_ARKUI_HORIZONTAL_ALIGNMENT_CENTER: ArkUI_HorizontalAlignment =
-    1;
-pub const ArkUI_HorizontalAlignment_ARKUI_HORIZONTAL_ALIGNMENT_END: ArkUI_HorizontalAlignment = 2;
-pub type ArkUI_HorizontalAlignment = ::std::os::raw::c_uint;
-#[repr(C)]
-#[derive(Debug, Copy, Clone)]
-pub struct ArkUI_IntSize {
-    pub width: i32,
-    pub height: i32,
-}
-pub const ArkUI_BarrierDirection_ARKUI_BARRIER_DIRECTION_START: ArkUI_BarrierDirection = 0;
-pub const ArkUI_BarrierDirection_ARKUI_BARRIER_DIRECTION_END: ArkUI_BarrierDirection = 1;
-pub const ArkUI_BarrierDirection_ARKUI_BARRIER_DIRECTION_TOP: ArkUI_BarrierDirection = 2;
-pub const ArkUI_BarrierDirection_ARKUI_BARRIER_DIRECTION_BOTTOM: ArkUI_BarrierDirection = 3;
-pub type ArkUI_BarrierDirection = ::std::os::raw::c_uint;
-#[repr(C)]
-#[derive(Debug, Copy, Clone)]
-pub struct ArkUI_Margin {
-    pub top: f32,
-    pub right: f32,
-    pub bottom: f32,
-    pub left: f32,
-}
-pub const ArkUI_SwiperIndicatorType_ARKUI_SWIPER_INDICATOR_TYPE_DOT: ArkUI_SwiperIndicatorType = 0;
-pub const ArkUI_SwiperIndicatorType_ARKUI_SWIPER_INDICATOR_TYPE_DIGIT: ArkUI_SwiperIndicatorType =
-    1;
-pub type ArkUI_SwiperIndicatorType = ::std::os::raw::c_uint;
-pub const ArkUI_ListItemSwipeActionState_ARKUI_LIST_ITEM_SWIPE_ACTION_STATE_COLLAPSED:
-    ArkUI_ListItemSwipeActionState = 0;
-pub const ArkUI_ListItemSwipeActionState_ARKUI_LIST_ITEM_SWIPE_ACTION_STATE_EXPANDED:
-    ArkUI_ListItemSwipeActionState = 1;
-pub const ArkUI_ListItemSwipeActionState_ARKUI_LIST_ITEM_SWIPE_ACTION_STATE_ACTIONING:
-    ArkUI_ListItemSwipeActionState = 2;
-pub type ArkUI_ListItemSwipeActionState = ::std::os::raw::c_uint;
-pub const ArkUI_ListItemSwipeEdgeEffect_ARKUI_LIST_ITEM_SWIPE_EDGE_EFFECT_SPRING:
-    ArkUI_ListItemSwipeEdgeEffect = 0;
-pub const ArkUI_ListItemSwipeEdgeEffect_ARKUI_LIST_ITEM_SWIPE_EDGE_EFFECT_NONE:
-    ArkUI_ListItemSwipeEdgeEffect = 1;
-pub type ArkUI_ListItemSwipeEdgeEffect = ::std::os::raw::c_uint;
-#[repr(C)]
-#[derive(Debug, Copy, Clone)]
-pub struct ArkUI_CustomSpanMeasureInfo {
-    _unused: [u8; 0],
-}
-#[repr(C)]
-#[derive(Debug, Copy, Clone)]
-pub struct ArkUI_CustomSpanMetrics {
-    _unused: [u8; 0],
-}
-#[repr(C)]
-#[derive(Debug, Copy, Clone)]
-pub struct ArkUI_CustomSpanDrawInfo {
-    _unused: [u8; 0],
 }
 extern "C" {
     pub fn OH_ArkUI_LayoutConstraint_Create() -> *mut ArkUI_LayoutConstraint;
@@ -1100,16 +964,6 @@ extern "C" {
         value: *mut ArkUI_AccessibilityValue,
     ) -> *const ::std::os::raw::c_char;
 }
-#[repr(C)]
-#[derive(Debug, Copy, Clone)]
-pub struct ArkUI_UIInputEvent {
-    _unused: [u8; 0],
-}
-pub const ArkUI_UIInputEvent_Type_ARKUI_UIINPUTEVENT_TYPE_UNKNOWN: ArkUI_UIInputEvent_Type = 0;
-pub const ArkUI_UIInputEvent_Type_ARKUI_UIINPUTEVENT_TYPE_TOUCH: ArkUI_UIInputEvent_Type = 1;
-pub const ArkUI_UIInputEvent_Type_ARKUI_UIINPUTEVENT_TYPE_AXIS: ArkUI_UIInputEvent_Type = 2;
-pub const ArkUI_UIInputEvent_Type_ARKUI_UIINPUTEVENT_TYPE_MOUSE: ArkUI_UIInputEvent_Type = 3;
-pub type ArkUI_UIInputEvent_Type = ::std::os::raw::c_uint;
 pub const HitTestMode_HTM_DEFAULT: HitTestMode = 0;
 pub const HitTestMode_HTM_BLOCK: HitTestMode = 1;
 pub const HitTestMode_HTM_TRANSPARENT: HitTestMode = 2;

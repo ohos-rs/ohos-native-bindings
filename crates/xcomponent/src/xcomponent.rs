@@ -1,16 +1,12 @@
-use napi_ohos::{bindgen_prelude::check_status, Env, Error, JsObject, NapiRaw, Result};
+use napi_ohos::{bindgen_prelude::check_status, Env, JsObject, NapiRaw, Result};
 use napi_sys_ohos as sys;
 use ohos_xcomponent_sys::{
-    OH_NativeXComponent, OH_NativeXComponent_Callback, OH_NativeXComponent_GetXComponentSize,
-    OH_NativeXComponent_RegisterCallback, OH_NATIVE_XCOMPONENT_OBJ,
+    OH_NativeXComponent, OH_NativeXComponent_Callback, OH_NATIVE_XCOMPONENT_OBJ,
 };
 use std::{os::raw::c_void, ptr};
 
 use crate::{
-    callbacks::XComponentCallbacks,
-    code::XComponentResultCode,
-    r#type::{NativeXComponent, Window, XComponentSize},
-    tool::resolve_id,
+    native_xcomponent::NativeXComponent, tool::resolve_id, WindowRaw, XComponentRaw, XComponentSize,
 };
 
 /// Accept XComponent with env and exports
@@ -50,21 +46,22 @@ impl XComponent {
             "Get OH_NativeXComponent failed."
         )?;
 
-        Ok(XComponent(NativeXComponent(instance)))
+        let id = resolve_id(instance);
+
+        Ok(XComponent(NativeXComponent {
+            raw: XComponentRaw(instance),
+            id,
+        }))
     }
 
     /// Get current xcomponent instance's id
     pub fn id(&self) -> Result<String> {
-        let current_id = resolve_id(self.raw());
-        if let Some(id_str) = current_id {
-            return Ok(id_str);
-        }
-        Err(Error::from_reason("Get XComponent id failed."))
+        self.0.id()
     }
 
     /// get raw point
     pub fn raw(&self) -> *mut OH_NativeXComponent {
-        self.0 .0
+        self.0.raw()
     }
 
     /// Register callbacks   
@@ -72,20 +69,8 @@ impl XComponent {
     /// This may cause xcomponent being slower, if you want to avoid this.    
     /// You can disable feature with `callbacks` and use `register_native_callback`   
     #[cfg(feature = "callbacks")]
-    pub fn register_callback(&self, callbacks: XComponentCallbacks) -> Result<()> {
-        let cbs = Box::new(OH_NativeXComponent_Callback {
-            OnSurfaceCreated: callbacks.inner.on_surface_created,
-            OnSurfaceChanged: callbacks.inner.on_surface_changed,
-            OnSurfaceDestroyed: callbacks.inner.on_surface_destroyed,
-            DispatchTouchEvent: callbacks.inner.dispatch_touch_event,
-        });
-        let ret: XComponentResultCode = unsafe {
-            OH_NativeXComponent_RegisterCallback(self.raw(), Box::leak(cbs) as *mut _).into()
-        };
-        if ret != XComponentResultCode::Success {
-            return Err(Error::from_reason("XComponent register callbacks failed"));
-        }
-        Ok(())
+    pub fn register_callback(&self) -> Result<()> {
+        self.0.register_callback()
     }
 
     /// Use ffi to register callbacks directly.
@@ -93,26 +78,30 @@ impl XComponent {
         &self,
         callbacks: Box<OH_NativeXComponent_Callback>,
     ) -> Result<()> {
-        let ret: XComponentResultCode = unsafe {
-            OH_NativeXComponent_RegisterCallback(self.raw(), Box::leak(callbacks) as *mut _).into()
-        };
-        if ret != XComponentResultCode::Success {
-            return Err(Error::from_reason("XComponent register callbacks failed"));
-        }
-        Ok(())
+        self.0.register_native_callback(callbacks)
     }
 
     /// Get current XComponent's size info include width and height.
-    pub fn size(&self, window: Window) -> Result<XComponentSize> {
-        let mut width: u64 = 0;
-        let mut height: u64 = 0;
-        let ret: XComponentResultCode = unsafe {
-            OH_NativeXComponent_GetXComponentSize(self.raw(), window.0, &mut width, &mut height)
-                .into()
-        };
-        if ret != XComponentResultCode::Success {
-            return Err(Error::from_reason("XComponent get size failed"));
-        }
-        Ok(XComponentSize { width, height })
+    pub fn size(&self, window: WindowRaw) -> Result<XComponentSize> {
+        self.0.size(window)
+    }
+    pub fn on_frame_callback(&self, cb: fn(XComponentRaw, u64, u64) -> Result<()>) -> Result<()> {
+        self.0.on_frame_callback(cb)
+    }
+
+    pub fn on_surface_changed(&self, cb: fn(XComponentRaw, WindowRaw) -> Result<()>) {
+        self.0.on_surface_changed(cb)
+    }
+
+    pub fn on_surface_created(&self, cb: fn(XComponentRaw, WindowRaw) -> Result<()>) {
+        self.0.on_surface_created(cb)
+    }
+
+    pub fn on_surface_destroyed(&self, cb: fn(XComponentRaw, WindowRaw) -> Result<()>) {
+        self.0.on_surface_destroyed(cb)
+    }
+
+    pub fn dispatch_touch_event(&self, cb: fn(XComponentRaw, WindowRaw) -> Result<()>) {
+        self.0.dispatch_touch_event(cb)
     }
 }

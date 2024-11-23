@@ -14,7 +14,7 @@ use glutin::{
 use napi_derive_ohos::{module_exports, napi};
 use napi_ohos::{Env, Error, JsObject, Result};
 use ohos_hilog_binding::hilog_info;
-use ohos_xcomponent_binding::{XComponent, XComponentCallbacks};
+use ohos_xcomponent_binding::XComponent;
 use raw_window_handle::{
     OhosDisplayHandle, OhosNdkWindowHandle, RawDisplayHandle, RawWindowHandle,
 };
@@ -34,8 +34,7 @@ unsafe impl Sync for Render {}
 pub fn init(exports: JsObject, env: Env) -> Result<()> {
     let xcomponent = XComponent::init(env, exports)?;
 
-    let mut callbacks = XComponentCallbacks::new();
-    callbacks.set_on_surface_created(|xcomponent, win| {
+    xcomponent.on_surface_created(|xcomponent, win| {
         hilog_info!("xcomponent_create");
 
         let size = xcomponent.size(win)?;
@@ -98,22 +97,27 @@ pub fn init(exports: JsObject, env: Env) -> Result<()> {
         Ok(())
     });
 
-    callbacks.set_on_surface_changed(|_xcomponent, _win| {
+    xcomponent.on_surface_changed(|_xcomponent, _win| {
         hilog_info!("xcomponent_changed");
         Ok(())
     });
 
-    callbacks.set_on_surface_destroyed(|_xcomponent, _win| {
+    xcomponent.on_surface_destroyed(|_xcomponent, _win| {
         hilog_info!("xcomponent_destroy");
         Ok(())
     });
 
-    callbacks.set_dispatch_touch_event(|_xcomponent, _win| {
+    xcomponent.dispatch_touch_event(|_xcomponent, _win| {
         hilog_info!("xcomponent_dispatch");
         Ok(())
     });
 
-    xcomponent.register_callback(callbacks)?;
+    xcomponent.register_callback()?;
+
+    xcomponent.on_frame_callback(|_, _, _| {
+        hilog_info!("xcomponent_frame");
+        Ok(())
+    })?;
 
     Ok(())
 }
