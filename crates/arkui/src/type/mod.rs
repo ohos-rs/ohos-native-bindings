@@ -13,6 +13,7 @@ mod scroll;
 mod text_alignment;
 mod curve;
 mod animation_mode;
+mod animation_finish_type;
 
 pub use alignment::*;
 pub use attribute::*;
@@ -29,3 +30,4 @@ pub use scroll::*;
 pub use text_alignment::*;
 pub use curve::*;
 pub use animation_mode::*;
+pub use animation_finish_type::*;

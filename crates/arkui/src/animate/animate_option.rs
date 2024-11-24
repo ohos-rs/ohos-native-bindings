@@ -7,13 +7,17 @@ use ohos_arkui_sys::{
     OH_ArkUI_AnimateOption_SetPlayMode, OH_ArkUI_AnimateOption_SetTempo,
 };
 
-use crate::{AnimationMode, ArkUIContext, Curve, ARK_UI_NATIVE_ANIMATE_API_1};
+use crate::{
+    AnimationFinishCallbackType, AnimationMode, ArkUIContext, ArkUIResult, Curve,
+    ARK_UI_NATIVE_ANIMATE_API_1,
+};
 
-use super::{AnimationFrameRateRange, AnimationUpdateContext};
+use super::{AnimationFinishContext, AnimationFrameRateRange, AnimationUpdateContext};
 
 pub struct Animation {
     pub(crate) raw: Rc<RefCell<*mut ArkUI_AnimateOption>>,
     pub(crate) update_ctx: Rc<RefCell<AnimationUpdateContext>>,
+    pub(crate) finish_ctx: Rc<RefCell<AnimationFinishContext>>,
 }
 
 impl Animation {
@@ -24,6 +28,11 @@ impl Animation {
             update_ctx: Rc::new(RefCell::new(AnimationUpdateContext {
                 callback: Rc::new(RefCell::new(None)),
                 data: Rc::new(RefCell::new(None)),
+            })),
+            finish_ctx: Rc::new(RefCell::new(AnimationFinishContext {
+                callback: Rc::new(RefCell::new(None)),
+                data: Rc::new(RefCell::new(None)),
+                callback_type: Rc::new(RefCell::new(AnimationFinishCallbackType::Removed)),
             })),
         }
     }
@@ -68,13 +77,32 @@ impl Animation {
     pub fn update<T: Fn(*mut c_void) -> () + 'static>(&self, data: *mut c_void, callback: T) {
         let mut ctx = self.update_ctx.borrow_mut();
         ctx.data = Rc::new(RefCell::new(Some(data)));
-        ctx.callback = Rc::new(RefCell::new(Some(Box::new(callback))))
+        ctx.callback = Rc::new(RefCell::new(Some(Box::new(callback))));
     }
 
-    // #[cfg(feature = "napi")]
-    // pub fn animate_to(&self, ctx: ArkUIContext) {
-    //     unsafe {
-    //         ARK_UI_NATIVE_ANIMATE_API_1.
-    //     };
-    // }
+    pub fn finish<T: Fn(*mut c_void) -> () + 'static>(
+        &self,
+        callback_type: AnimationFinishCallbackType,
+        data: *mut c_void,
+        callback: T,
+    ) {
+        let mut ctx = self.finish_ctx.borrow_mut();
+        ctx.data = Rc::new(RefCell::new(Some(data)));
+        ctx.callback = Rc::new(RefCell::new(Some(Box::new(callback))));
+        ctx.callback_type = Rc::new(RefCell::new(callback_type));
+    }
+
+    #[cfg(feature = "napi")]
+    pub fn animate_to(&self, ctx: ArkUIContext) -> ArkUIResult<()> {
+        let option = self.raw.borrow();
+        let update_ctx_raw = self.update_ctx.borrow().raw();
+        let finish_ctx_raw = self.finish_ctx.borrow().raw();
+        ARK_UI_NATIVE_ANIMATE_API_1.animate_to(
+            ctx.raw(),
+            *option,
+            update_ctx_raw,
+            finish_ctx_raw,
+        )?;
+        Ok(())
+    }
 }
