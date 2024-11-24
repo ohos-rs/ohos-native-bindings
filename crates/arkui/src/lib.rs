@@ -7,6 +7,7 @@ mod dialog;
 mod event;
 mod gesture;
 mod r#type;
+mod animate;
 
 pub use api::*;
 pub use common::*;
@@ -15,3 +16,4 @@ pub use dialog::*;
 pub use event::*;
 pub use gesture::*;
 pub use r#type::*;
+pub use animate::*;

@@ -11,6 +11,8 @@ mod gesture_priority;
 mod node_type;
 mod scroll;
 mod text_alignment;
+mod curve;
+mod animation_mode;
 
 pub use alignment::*;
 pub use attribute::*;
@@ -25,3 +27,5 @@ pub use gesture_priority::*;
 pub use node_type::*;
 pub use scroll::*;
 pub use text_alignment::*;
+pub use curve::*;
+pub use animation_mode::*;
