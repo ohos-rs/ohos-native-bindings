@@ -13,6 +13,7 @@ ohos-ability-access-control-binding = { version = "0.0.1", path = "crates/abilit
 ohos-xcomponent-binding             = { version = "0.0.1", path = "crates/xcomponent" }
 ohos-arkui-binding                  = { version = "0.0.1", path = "crates/arkui" }
 ohos-vsync-binding                  = { version = "0.0.1", path = "crates/vsync" }
+ohos-display-soloist-binding        = { version = "0.0.1", path = "crates/native_display_soloist" }
 
 ohos-bundle-sys                 = { version = "0.0.2", path = "sys/ohos-bundle-sys" }
 ohos-init-sys                   = { version = "0.0.2", path = "sys/ohos-init-sys" }
@@ -24,6 +25,7 @@ ohos-ability-access-control-sys = { version = "0.0.1", path = "sys/ohos-ability-
 ohos-xcomponent-sys             = { version = "0.0.1", path = "sys/ohos-xcomponent-sys" }
 ohos-arkui-sys                  = { version = "0.0.1", path = "sys/ohos-arkui-sys" }
 ohos-vsync-sys                  = { version = "0.0.1", path = "sys/ohos-vsync-sys" }
+ohos-display-soloist-sys        = { version = "0.0.1", path = "sys/ohos-display-soloist-sys" }
 
 enum_macro = { version = "0.0.1", path = "crates/enum_macro" }
 
