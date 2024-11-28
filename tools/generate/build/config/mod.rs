@@ -16,6 +16,7 @@ mod bundle;
 mod hilog;
 mod init;
 mod raw;
+mod vsync;
 
 pub use ability::*;
 pub use arkui::*;
@@ -24,3 +25,4 @@ pub use bundle::*;
 pub use hilog::*;
 pub use init::*;
 pub use raw::*;
+pub use vsync::*;
