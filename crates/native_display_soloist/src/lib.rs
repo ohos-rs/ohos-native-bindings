@@ -1,4 +1,8 @@
-use std::{cell::RefCell, os::raw::c_void};
+use std::{
+    cell::RefCell,
+    os::raw::c_void,
+    sync::{LazyLock, RwLock},
+};
 
 use ohos_display_soloist_sys::{
     DisplaySoloist_ExpectedRateRange, OH_DisplaySoloist, OH_DisplaySoloist_Create,
@@ -6,9 +10,11 @@ use ohos_display_soloist_sys::{
     OH_DisplaySoloist_Start, OH_DisplaySoloist_Stop,
 };
 
-thread_local! {
-    static DISPLAY_SOLOIST: RefCell<Option<Box<dyn Fn(i64, i64, *mut c_void)>>> = RefCell::new(None);
-}
+static DISPLAY_SOLOIST: LazyLock<
+    RwLock<Option<Option<Box<dyn Fn(i64, i64, *mut c_void) + Send + Sync>>>>,
+> = LazyLock::new(|| RwLock::new(None));
+
+pub use ohos_display_soloist_sys::DisplaySoloist_ExpectedRateRange;
 
 pub struct DisplaySoloist {
     raw: *mut OH_DisplaySoloist,
@@ -29,13 +35,16 @@ impl DisplaySoloist {
         };
     }
 
-    pub fn on_frame<F: Fn(i64, i64, *mut c_void) + 'static>(&self, data: *mut c_void, callback: F) {
-        DISPLAY_SOLOIST.with(|display_soloist| {
-            *display_soloist.borrow_mut() = Some(Box::new(callback));
-        });
-        unsafe {
-            OH_DisplaySoloist_Start(self.raw, Some(frame_callback), data);
-        };
+    /// callback will execute in the sub-thread as the caller
+    /// we need to ensure the callback is thread-safe
+    pub fn on_frame<F>(&self, data: *mut c_void, callback: F)
+    where
+        F: Fn(i64, i64, *mut c_void) + Send + Sync + 'static,
+    {
+        let mut display_soloist = DISPLAY_SOLOIST.write().unwrap();
+        *display_soloist = Some(Some(Box::new(callback)));
+
+        unsafe { OH_DisplaySoloist_Start(self.raw, Some(frame_callback), data) };
         self.running.replace(true);
     }
 
@@ -48,11 +57,10 @@ impl DisplaySoloist {
 }
 
 extern "C" fn frame_callback(timestamp: i64, target_timestamp: i64, data: *mut c_void) {
-    DISPLAY_SOLOIST.with(|display_soloist| {
-        if let Some(callback) = &*display_soloist.borrow() {
-            callback(timestamp, target_timestamp, data);
-        }
-    });
+    let display_soloist = DISPLAY_SOLOIST.read().unwrap();
+    if let Some(Some(callback)) = &*display_soloist {
+        callback(timestamp, target_timestamp, data);
+    }
 }
 
 impl Drop for DisplaySoloist {
