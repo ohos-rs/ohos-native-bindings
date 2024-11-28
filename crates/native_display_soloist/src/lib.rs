@@ -1,14 +1,15 @@
 use std::{cell::RefCell, os::raw::c_void};
 
 use ohos_display_soloist_sys::{
-    DisplaySoloist_ExpectedRateRange, OH_DisplaySoloist, OH_DisplaySoloist_Create,
-    OH_DisplaySoloist_Destroy, OH_DisplaySoloist_SetExpectedFrameRateRange,
-    OH_DisplaySoloist_Start, OH_DisplaySoloist_Stop,
+    OH_DisplaySoloist, OH_DisplaySoloist_Create, OH_DisplaySoloist_Destroy,
+    OH_DisplaySoloist_SetExpectedFrameRateRange, OH_DisplaySoloist_Start, OH_DisplaySoloist_Stop,
 };
 
 thread_local! {
     static DISPLAY_SOLOIST: RefCell<Option<Box<dyn Fn(i64, i64, *mut c_void)>>> = RefCell::new(None);
 }
+
+pub use ohos_display_soloist_sys::DisplaySoloist_ExpectedRateRange;
 
 pub struct DisplaySoloist {
     raw: *mut OH_DisplaySoloist,
