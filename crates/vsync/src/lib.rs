@@ -8,7 +8,7 @@ use ohos_vsync_sys::{
 pub struct Vsync(*const OH_NativeVSync);
 
 thread_local! {
-    static VSYNC_HANDLE: RefCell<Option<Box<dyn Fn(u32, *mut c_void) + 'static>>> = RefCell::new(None);
+    static VSYNC_HANDLE: RefCell<Option<Box<dyn Fn(i64, *mut c_void) + 'static>>> = RefCell::new(None);
 }
 
 impl Vsync {
@@ -19,7 +19,7 @@ impl Vsync {
         Vsync(vsync)
     }
 
-    pub fn on_frame<F: Fn(u32, *mut c_void) + 'static>(&self, data: *mut c_void, callback: F) {
+    pub fn on_frame<F: Fn(i64, *mut c_void) + 'static>(&self, data: *mut c_void, callback: F) {
         VSYNC_HANDLE.with_borrow_mut(|f| {
             *f = Some(Box::new(callback));
         });
@@ -32,7 +32,7 @@ impl Vsync {
         }
     }
 
-    pub fn on_frame_with_multi_callback<F: Fn(u32, *mut c_void) + 'static>(
+    pub fn on_frame_with_multi_callback<F: Fn(i64, *mut c_void) + 'static>(
         &self,
         data: *mut c_void,
         callback: F,
@@ -61,7 +61,7 @@ impl Vsync {
 extern "C" fn request_frame_callback(timestamp: i64, data: *mut c_void) {
     VSYNC_HANDLE.with_borrow(|f| {
         if let Some(f) = f.as_ref() {
-            f(timestamp as u32, data);
+            f(timestamp, data);
         }
     })
 }
