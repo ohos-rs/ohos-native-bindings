@@ -16,7 +16,7 @@ pub trait ArkUIAttributeBasic {
 /// Every node should implement this trait, include the custom node.
 pub trait ArkUICommonAttribute: ArkUIAttributeBasic {
     /// Set node height
-    fn set_width(&self, width: f32) -> ArkUIResult<()> {
+    fn width(&self, width: f32) -> ArkUIResult<()> {
         let width_property: ArkUINodeAttributeItem =
             ArkUINodeAttributeItem::NumberValue(vec![ArkUINodeAttributeNumber::Float(width)]);
         ARK_UI_NATIVE_NODE_API_1.set_attribute(
@@ -28,7 +28,7 @@ pub trait ArkUICommonAttribute: ArkUIAttributeBasic {
     }
 
     /// Set node height
-    fn set_height(&self, height: f32) -> ArkUIResult<()> {
+    fn height(&self, height: f32) -> ArkUIResult<()> {
         let height_property =
             ArkUINodeAttributeItem::NumberValue(vec![ArkUINodeAttributeNumber::Float(height)]);
         ARK_UI_NATIVE_NODE_API_1.set_attribute(
@@ -40,7 +40,7 @@ pub trait ArkUICommonAttribute: ArkUIAttributeBasic {
     }
 
     /// Set percent width
-    fn set_percent_width(&self, width: f32) -> ArkUIResult<()> {
+    fn percent_width(&self, width: f32) -> ArkUIResult<()> {
         let percent_width_property =
             ArkUINodeAttributeItem::NumberValue(vec![ArkUINodeAttributeNumber::Float(width)]);
         ARK_UI_NATIVE_NODE_API_1.set_attribute(
@@ -52,7 +52,7 @@ pub trait ArkUICommonAttribute: ArkUIAttributeBasic {
     }
 
     /// Set percent height
-    fn set_percent_height(&self, height: f32) -> ArkUIResult<()> {
+    fn percent_height(&self, height: f32) -> ArkUIResult<()> {
         let percent_height_property =
             ArkUINodeAttributeItem::NumberValue(vec![ArkUINodeAttributeNumber::Float(height)]);
         ARK_UI_NATIVE_NODE_API_1.set_attribute(
@@ -64,7 +64,7 @@ pub trait ArkUICommonAttribute: ArkUIAttributeBasic {
     }
 
     /// Set background-color
-    fn set_background_color(&self, color: u32) -> ArkUIResult<()> {
+    fn background_color(&self, color: u32) -> ArkUIResult<()> {
         let background_color_property =
             ArkUINodeAttributeItem::NumberValue(vec![ArkUINodeAttributeNumber::Uint(color)]);
         ARK_UI_NATIVE_NODE_API_1.set_attribute(

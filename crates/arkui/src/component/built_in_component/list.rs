@@ -16,7 +16,7 @@ impl List {
         }))
     }
 
-    pub fn set_scroll_bar_state(&mut self, mode: ScrollBarDisplayMode) -> ArkUIResult<()> {
+    pub fn scroll_bar_state(&mut self, mode: ScrollBarDisplayMode) -> ArkUIResult<()> {
         let scroll_bar_display_mode_property =
             ArkUINodeAttributeItem::NumberValue(vec![ArkUINodeAttributeNumber::Int(mode.into())]);
         ARK_UI_NATIVE_NODE_API_1.set_attribute(

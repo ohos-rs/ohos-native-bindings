@@ -34,7 +34,7 @@ impl Dialog {
         })
     }
 
-    pub fn set_content<T: Into<ArkUINode>>(&self, content: T) -> ArkUIResult<()> {
+    pub fn content<T: Into<ArkUINode>>(&self, content: T) -> ArkUIResult<()> {
         let node: ArkUINode = content.into();
         ARK_UI_NATIVE_DIALOG_API_1.set_content(self.raw, node.raw())?;
         Ok(())
@@ -55,29 +55,29 @@ impl Dialog {
         Ok(())
     }
 
-    pub fn set_modal_mode(&self, modal_mode: bool) -> ArkUIResult<()> {
+    pub fn modal_mode(&self, modal_mode: bool) -> ArkUIResult<()> {
         ARK_UI_NATIVE_DIALOG_API_1.set_modal_mode(self.raw, modal_mode)?;
         Ok(())
     }
 
-    pub fn set_auto_cancel(&self, auto_cancel: bool) -> ArkUIResult<()> {
+    pub fn auto_cancel(&self, auto_cancel: bool) -> ArkUIResult<()> {
         ARK_UI_NATIVE_DIALOG_API_1.set_auto_cancel(self.raw, auto_cancel)?;
         Ok(())
     }
 
-    pub fn set_background_color(&self, color: u32) -> ArkUIResult<()> {
+    pub fn background_color(&self, color: u32) -> ArkUIResult<()> {
         ARK_UI_NATIVE_DIALOG_API_1.set_background_color(self.raw, color)?;
         Ok(())
     }
 
     /// Set content alignment, offset_x and offset_y will be set with 0.0
-    pub fn set_content_alignment(&self, alignment: Alignment) -> ArkUIResult<()> {
+    pub fn content_alignment(&self, alignment: Alignment) -> ArkUIResult<()> {
         ARK_UI_NATIVE_DIALOG_API_1.set_content_alignment(self.raw, alignment, 0.0, 0.0)?;
         Ok(())
     }
 
     /// Set content alignment with offset_x and offset_y.
-    pub fn set_content_alignment_with_offset(
+    pub fn content_alignment_with_offset(
         &self,
         alignment: Alignment,
         offset_x: f32,
@@ -88,7 +88,7 @@ impl Dialog {
         Ok(())
     }
 
-    pub fn set_corner_radius(
+    pub fn corner_radius(
         &self,
         top_left: f32,
         top_right: f32,

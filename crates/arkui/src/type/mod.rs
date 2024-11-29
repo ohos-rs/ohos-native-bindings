@@ -1,5 +1,8 @@
 mod alignment;
+mod animation_finish_type;
+mod animation_mode;
 mod attribute;
+mod curve;
 mod dismiss_reason;
 mod event;
 mod gesture;
@@ -13,7 +16,10 @@ mod scroll;
 mod text_alignment;
 
 pub use alignment::*;
+pub use animation_finish_type::*;
+pub use animation_mode::*;
 pub use attribute::*;
+pub use curve::*;
 pub use dismiss_reason::*;
 pub use event::*;
 pub use gesture::*;
