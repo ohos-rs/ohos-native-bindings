@@ -1,0 +1,9 @@
+[package]
+name        = "ohos-vsync-binding"
+version     = "0.0.1"
+edition     = "2021"
+license     = "MIT OR Apache-2.0"
+description = "OpenHarmony's vsync binding for rust"
+
+[dependencies]
+ohos-vsync-sys = { workspace = true }

@@ -15,7 +15,9 @@ mod asset;
 mod bundle;
 mod hilog;
 mod init;
+mod native_display_soloist;
 mod raw;
+mod vsync;
 
 pub use ability::*;
 pub use arkui::*;
@@ -23,4 +25,6 @@ pub use asset::*;
 pub use bundle::*;
 pub use hilog::*;
 pub use init::*;
+pub use native_display_soloist::*;
 pub use raw::*;
+pub use vsync::*;
