@@ -9,5 +9,5 @@ use enum_macro::EnumFrom;
 )]
 pub enum AnimationFinishCallbackType {
     Removed,
-    Logically
+    Logically,
 }

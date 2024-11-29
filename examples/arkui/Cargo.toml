@@ -23,4 +23,4 @@ lto = true
 
 
 [package.metadata.template]
-header = "import { NodeContent } from '@kit.ArkUI';\n"
+header = "import { NodeContent, UIContext } from '@kit.ArkUI';\n"

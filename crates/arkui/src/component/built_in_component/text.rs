@@ -18,7 +18,7 @@ impl Text {
         }))
     }
 
-    pub fn set_content<T: Into<String>>(&self, content: T) -> ArkUIResult<()> {
+    pub fn content<T: Into<String>>(&self, content: T) -> ArkUIResult<()> {
         let content_property = ArkUINodeAttributeItem::String(content.into());
         ARK_UI_NATIVE_NODE_API_1.set_attribute(
             &self.0,
@@ -28,7 +28,7 @@ impl Text {
         Ok(())
     }
 
-    pub fn set_alignment(&self, alignment: TextAlignment) -> ArkUIResult<()> {
+    pub fn alignment(&self, alignment: TextAlignment) -> ArkUIResult<()> {
         let alignment_property =
             ArkUINodeAttributeItem::NumberValue(vec![ArkUINodeAttributeNumber::Int(
                 alignment.into(),

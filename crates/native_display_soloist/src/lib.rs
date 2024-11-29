@@ -15,8 +15,6 @@ static DISPLAY_SOLOIST: LazyLock<
 
 pub use ohos_display_soloist_sys::DisplaySoloist_ExpectedRateRange;
 
-pub use ohos_display_soloist_sys::DisplaySoloist_ExpectedRateRange;
-
 pub struct DisplaySoloist {
     raw: *mut OH_DisplaySoloist,
     running: RefCell<bool>,

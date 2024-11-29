@@ -25,15 +25,8 @@ impl Animation {
         let ret = unsafe { OH_ArkUI_AnimateOption_Create() };
         Animation {
             raw: Rc::new(RefCell::new(ret)),
-            update_ctx: Rc::new(RefCell::new(AnimationUpdateContext {
-                callback: Rc::new(RefCell::new(None)),
-                data: Rc::new(RefCell::new(None)),
-            })),
-            finish_ctx: Rc::new(RefCell::new(AnimationFinishContext {
-                callback: Rc::new(RefCell::new(None)),
-                data: Rc::new(RefCell::new(None)),
-                callback_type: Rc::new(RefCell::new(AnimationFinishCallbackType::Removed)),
-            })),
+            update_ctx: Default::default(),
+            finish_ctx: Default::default(),
         }
     }
 
@@ -75,9 +68,9 @@ impl Animation {
     }
 
     pub fn update<T: Fn(*mut c_void) -> () + 'static>(&self, data: *mut c_void, callback: T) {
-        let mut ctx = self.update_ctx.borrow_mut();
-        ctx.data = Rc::new(RefCell::new(Some(data)));
-        ctx.callback = Rc::new(RefCell::new(Some(Box::new(callback))));
+        let ctx = self.update_ctx.borrow_mut();
+        ctx.data(data);
+        ctx.callback(callback);
     }
 
     pub fn finish<T: Fn(*mut c_void) -> () + 'static>(
@@ -86,10 +79,10 @@ impl Animation {
         data: *mut c_void,
         callback: T,
     ) {
-        let mut ctx = self.finish_ctx.borrow_mut();
-        ctx.data = Rc::new(RefCell::new(Some(data)));
-        ctx.callback = Rc::new(RefCell::new(Some(Box::new(callback))));
-        ctx.callback_type = Rc::new(RefCell::new(callback_type));
+        let ctx = self.finish_ctx.borrow_mut();
+        ctx.data(data);
+        ctx.callback(callback);
+        ctx.callback_type(callback_type);
     }
 
     #[cfg(feature = "napi")]
