@@ -20,6 +20,7 @@ static CONFIG: Lazy<Vec<Lazy<SysConfig>>> = Lazy::new(|| {
         config::INIT,
         config::VSYNC,
         config::NATIVE_DISPLAY_SOLOIST,
+        config::MULTI_MODAL_INPUT,
     ]
 });
 

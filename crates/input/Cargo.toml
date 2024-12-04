@@ -1,0 +1,10 @@
+[package]
+name        = "ohos-input-binding"
+version     = "0.0.1"
+edition     = "2021"
+license     = "MIT OR Apache-2.0"
+description = "OpenHarmony's multi modal input binding for rust"
+
+[dependencies]
+ohos-input-sys = { workspace = true }
+enum_macro     = { workspace = true }
