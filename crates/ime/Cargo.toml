@@ -1,0 +1,11 @@
+[package]
+name        = "ohos-ime-binding"
+version     = "0.0.1"
+edition     = "2021"
+license     = "MIT OR Apache-2.0"
+description = "OpenHarmony's input method binding for rust"
+
+
+[dependencies]
+ohos-input-method-sys = { workspace = true }
+enum_macro            = { workspace = true }
