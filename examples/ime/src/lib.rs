@@ -6,7 +6,7 @@ use ohos_ime_binding::IME;
 pub fn add_ime() -> () {
     let ime = IME::new(Default::default());
 
-    ime.on_insert_text(|s| {
+    ime.insert_text(|s| {
         hilog_info!(format!("ohos-rs {}", s));
     });
 }

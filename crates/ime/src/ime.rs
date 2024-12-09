@@ -4,7 +4,10 @@ use ohos_input_method_sys::{
 };
 use std::{cell::RefCell, ptr, rc::Rc};
 
-use crate::{common::IME_INSTANCE, AttachOptions, TextEditor};
+use crate::{
+    common::IME_INSTANCE, private_command::PrivateCommand, Action, AttachOptions, Direction,
+    EnterKey, KeyboardStatus, Selection, TextConfig, TextEditor,
+};
 
 #[derive(Clone)]
 pub struct IME {
@@ -12,6 +15,19 @@ pub struct IME {
     text_editor: TextEditor,
     pub(crate) delete_backward: Rc<RefCell<Option<Box<dyn Fn(i32) -> ()>>>>,
     pub(crate) insert_text: Rc<RefCell<Option<Box<dyn Fn(String) -> ()>>>>,
+    pub(crate) delete_forward: Rc<RefCell<Option<Box<dyn Fn(i32) -> ()>>>>,
+    pub(crate) finish_text_preview: Rc<RefCell<Option<Box<dyn Fn() -> ()>>>>,
+    pub(crate) get_left_text_of_cursor: Rc<RefCell<Option<Box<dyn Fn(i32) -> String>>>>,
+    pub(crate) get_right_text_of_cursor: Rc<RefCell<Option<Box<dyn Fn(i32) -> String>>>>,
+    pub(crate) get_text_config: Rc<RefCell<Option<Box<dyn Fn(TextConfig) -> ()>>>>,
+    pub(crate) get_text_index_at_cursor: Rc<RefCell<Option<Box<dyn Fn() -> i32>>>>,
+    pub(crate) handle_extend_action: Rc<RefCell<Option<Box<dyn Fn(Action) -> ()>>>>,
+    pub(crate) handle_set_selection: Rc<RefCell<Option<Box<dyn Fn(Selection) -> ()>>>>,
+    pub(crate) move_cursor: Rc<RefCell<Option<Box<dyn Fn(Direction) -> ()>>>>,
+    pub(crate) receive_private_command: Rc<RefCell<Option<Box<dyn Fn(Vec<PrivateCommand>) -> ()>>>>,
+    pub(crate) send_enter_key: Rc<RefCell<Option<Box<dyn Fn(EnterKey) -> ()>>>>,
+    pub(crate) send_keyboard_status: Rc<RefCell<Option<Box<dyn Fn(KeyboardStatus) -> ()>>>>,
+    pub(crate) set_preview_text: Rc<RefCell<Option<Box<dyn Fn(String, i32, i32) -> ()>>>>,
 }
 
 unsafe impl Send for IME {}
@@ -35,30 +51,32 @@ impl IME {
             text_editor: editor,
             delete_backward: Rc::new(RefCell::new(None)),
             insert_text: Rc::new(RefCell::new(None)),
+            delete_forward: Rc::new(RefCell::new(None)),
+            finish_text_preview: Rc::new(RefCell::new(None)),
+            get_left_text_of_cursor: Rc::new(RefCell::new(None)),
+            get_right_text_of_cursor: Rc::new(RefCell::new(None)),
+            get_text_config: Rc::new(RefCell::new(None)),
+            get_text_index_at_cursor: Rc::new(RefCell::new(None)),
+            handle_extend_action: Rc::new(RefCell::new(None)),
+            handle_set_selection: Rc::new(RefCell::new(None)),
+            move_cursor: Rc::new(RefCell::new(None)),
+            receive_private_command: Rc::new(RefCell::new(None)),
+            send_enter_key: Rc::new(RefCell::new(None)),
+            send_keyboard_status: Rc::new(RefCell::new(None)),
+            set_preview_text: Rc::new(RefCell::new(None)),
         };
 
-        let mut instance = IME_INSTANCE.write().unwrap();
-        instance.insert(ime.text_editor.raw as usize, Box::new(ime.clone()));
+        // let mut instance = IME_INSTANCE.write().unwrap();
+        // instance.insert(ime.text_editor.raw as usize, Box::new(ime.clone()));
 
         ime
     }
 
-    pub fn on_delete_backward<F>(&self, f: F)
+    pub fn insert_text<T>(&self, callback: T)
     where
-        F: Fn(i32) -> () + 'static,
+        T: Fn(String) -> () + 'static,
     {
-        *self.delete_backward.borrow_mut() = Some(Box::new(f));
-
-        self.text_editor.set_delete_backward();
-    }
-
-    pub fn on_insert_text<F>(&self, f: F)
-    where
-        F: Fn(String) -> () + 'static,
-    {
-        *self.insert_text.borrow_mut() = Some(Box::new(f));
-
-        self.text_editor.set_insert_text();
+        *self.insert_text.borrow_mut() = Some(Box::new(callback));
     }
 
     pub fn show_keyboard(&self) {

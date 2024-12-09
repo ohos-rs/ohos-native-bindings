@@ -22,7 +22,7 @@ impl AttachOptions {
 
 impl Default for AttachOptions {
     fn default() -> Self {
-        Self::new(false)
+        Self::new(true)
     }
 }
 

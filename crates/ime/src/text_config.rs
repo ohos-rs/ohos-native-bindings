@@ -10,7 +10,7 @@ use std::ptr;
 use crate::{Cursor, EnterKey, InputType};
 
 pub struct TextConfig {
-    raw: *mut InputMethod_TextConfig,
+    pub(crate) raw: *mut InputMethod_TextConfig,
 }
 
 #[derive(Debug, Clone, Copy)]
