@@ -66,8 +66,8 @@ impl IME {
             set_preview_text: Rc::new(RefCell::new(None)),
         };
 
-        // let mut instance = IME_INSTANCE.write().unwrap();
-        // instance.insert(ime.text_editor.raw as usize, Box::new(ime.clone()));
+        let mut instance = IME_INSTANCE.write().unwrap();
+        instance.insert(ime.text_editor.raw as usize, Box::new(ime.clone()));
 
         ime
     }
