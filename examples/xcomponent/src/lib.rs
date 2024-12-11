@@ -107,7 +107,7 @@ pub fn init(exports: JsObject, env: Env) -> Result<()> {
         Ok(())
     });
 
-    xcomponent.dispatch_touch_event(|_xcomponent, _win| {
+    xcomponent.dispatch_touch_event(|_xcomponent, _win, _data| {
         hilog_info!("xcomponent_dispatch");
         Ok(())
     });
