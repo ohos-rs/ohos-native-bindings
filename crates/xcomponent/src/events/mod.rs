@@ -10,16 +10,22 @@ use std::collections::HashMap;
 #[cfg(feature = "multi_mode")]
 use std::cell::RefCell;
 
+mod key_event;
 mod native_callbacks;
+mod touch_event;
 
+pub use key_event::*;
 pub use native_callbacks::*;
+pub use touch_event::*;
 
 pub struct XComponentCallbacks {
     pub on_surface_created: Option<Box<dyn Fn(XComponentRaw, WindowRaw) -> Result<()>>>,
     pub on_surface_changed: Option<Box<dyn Fn(XComponentRaw, WindowRaw) -> Result<()>>>,
     pub on_surface_destroyed: Option<Box<dyn Fn(XComponentRaw, WindowRaw) -> Result<()>>>,
-    pub dispatch_touch_event: Option<Box<dyn Fn(XComponentRaw, WindowRaw) -> Result<()>>>,
+    pub dispatch_touch_event:
+        Option<Box<dyn Fn(XComponentRaw, WindowRaw, TouchEventData) -> Result<()>>>,
     pub on_frame_change: Option<Box<dyn Fn(XComponentRaw, u64, u64) -> Result<()>>>,
+    pub on_key_event: Option<Box<dyn Fn(XComponentRaw, WindowRaw, KeyEventData) -> Result<()>>>,
 }
 
 impl Default for XComponentCallbacks {
@@ -30,6 +36,7 @@ impl Default for XComponentCallbacks {
             on_surface_destroyed: None,
             dispatch_touch_event: None,
             on_frame_change: None,
+            on_key_event: None,
         }
     }
 }

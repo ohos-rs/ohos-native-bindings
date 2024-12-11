@@ -1,13 +1,13 @@
 use napi_ohos::{Error, Result};
 use ohos_xcomponent_sys::{
     OH_NativeXComponent, OH_NativeXComponent_Callback, OH_NativeXComponent_RegisterCallback,
-    OH_NativeXComponent_RegisterOnFrameCallback,
+    OH_NativeXComponent_RegisterKeyEventCallback, OH_NativeXComponent_RegisterOnFrameCallback,
 };
 
 use crate::{
-    code::XComponentResultCode, dispatch_touch_event, on_frame_change, on_surface_changed,
-    on_surface_created, on_surface_destroyed, raw::XComponentRaw, tool::resolve_id, WindowRaw,
-    XComponentSize,
+    code::XComponentResultCode, dispatch_touch_event, key_event, on_frame_change,
+    on_surface_changed, on_surface_created, on_surface_destroyed, raw::XComponentRaw,
+    tool::resolve_id, KeyEventData, TouchEventData, WindowRaw, XComponentSize,
 };
 
 #[cfg(feature = "single_mode")]
@@ -124,7 +124,9 @@ impl NativeXComponent {
         }
     }
 
-    pub fn dispatch_touch_event<T: Fn(XComponentRaw, WindowRaw) -> Result<()> + 'static>(
+    pub fn on_touch_event<
+        T: Fn(XComponentRaw, WindowRaw, TouchEventData) -> Result<()> + 'static,
+    >(
         &self,
         cb: T,
     ) {
@@ -189,6 +191,36 @@ impl NativeXComponent {
         if ret != XComponentResultCode::Success {
             return Err(Error::from_reason(
                 "XComponent register frame callback failed",
+            ));
+        }
+        Ok(())
+    }
+
+    pub fn on_key_event<T: Fn(XComponentRaw, WindowRaw, KeyEventData) -> Result<()> + 'static>(
+        &self,
+        cb: T,
+    ) -> Result<()> {
+        #[cfg(feature = "single_mode")]
+        X_COMPONENT_CALLBACKS.with_borrow_mut(|f| {
+            f.on_key_event = Some(Box::new(cb));
+        });
+
+        #[cfg(feature = "multi_mode")]
+        {
+            let id = self.id().unwrap();
+            X_COMPONENT_CALLBACKS_MAP.with_borrow_mut(|f| {
+                f.entry(id)
+                    .or_insert_with(|| Default::default())
+                    .on_key_event = Some(Box::new(cb));
+            });
+        }
+
+        let ret: XComponentResultCode = unsafe {
+            OH_NativeXComponent_RegisterKeyEventCallback(self.raw(), Some(key_event)).into()
+        };
+        if ret != XComponentResultCode::Success {
+            return Err(Error::from_reason(
+                "XComponent register key event callback failed",
             ));
         }
         Ok(())

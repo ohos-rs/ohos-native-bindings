@@ -6,7 +6,8 @@ use ohos_xcomponent_sys::{
 use std::{os::raw::c_void, ptr};
 
 use crate::{
-    native_xcomponent::NativeXComponent, tool::resolve_id, WindowRaw, XComponentRaw, XComponentSize,
+    native_xcomponent::NativeXComponent, tool::resolve_id, TouchEventData, WindowRaw,
+    XComponentRaw, XComponentSize,
 };
 
 /// Accept XComponent with env and exports
@@ -101,7 +102,7 @@ impl XComponent {
         self.0.on_surface_destroyed(cb)
     }
 
-    pub fn dispatch_touch_event(&self, cb: fn(XComponentRaw, WindowRaw) -> Result<()>) {
-        self.0.dispatch_touch_event(cb)
+    pub fn on_touch_event(&self, cb: fn(XComponentRaw, WindowRaw, TouchEventData) -> Result<()>) {
+        self.0.on_touch_event(cb)
     }
 }
