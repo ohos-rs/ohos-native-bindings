@@ -124,7 +124,7 @@ impl NativeXComponent {
         }
     }
 
-    pub fn dispatch_touch_event<
+    pub fn on_touch_event<
         T: Fn(XComponentRaw, WindowRaw, TouchEventData) -> Result<()> + 'static,
     >(
         &self,

@@ -74,6 +74,41 @@ impl From<TouchEventData> for OH_NativeXComponent_TouchEvent {
     }
 }
 
+impl From<OH_NativeXComponent_TouchEvent> for TouchEventData {
+    fn from(value: OH_NativeXComponent_TouchEvent) -> Self {
+        let mut touch_points = Vec::with_capacity(value.numPoints as usize);
+        for point in value.touchPoints.iter().take(value.numPoints as usize) {
+            touch_points.push(TouchPointData {
+                id: point.id,
+                screen_x: point.screenX,
+                screen_y: point.screenY,
+                x: point.x,
+                y: point.y,
+                event_type: point.type_.into(),
+                size: point.size,
+                force: point.force,
+                timestamp: point.timeStamp,
+                is_pressed: point.isPressed,
+            });
+        }
+
+        Self {
+            id: value.id,
+            screen_x: value.screenX,
+            screen_y: value.screenY,
+            x: value.x,
+            y: value.y,
+            event_type: value.type_.into(),
+            size: value.size,
+            force: value.force,
+            device_id: value.deviceId,
+            timestamp: value.timeStamp,
+            touch_points,
+            num_points: value.numPoints,
+        }
+    }
+}
+
 #[derive(Debug, Clone)]
 pub struct TouchPointData {
     pub id: i32,

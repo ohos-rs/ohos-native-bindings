@@ -1,10 +1,10 @@
-use std::{cell::RefCell, rc::Rc};
+use std::mem::MaybeUninit;
 
 use ohos_xcomponent_sys::{
     OH_NativeXComponent, OH_NativeXComponent_GetKeyEvent, OH_NativeXComponent_GetKeyEventAction,
     OH_NativeXComponent_GetKeyEventCode, OH_NativeXComponent_GetKeyEventDeviceId,
     OH_NativeXComponent_GetKeyEventSourceType, OH_NativeXComponent_GetKeyEventTimestamp,
-    OH_NativeXComponent_GetTouchEvent,
+    OH_NativeXComponent_GetTouchEvent, OH_NativeXComponent_TouchEvent,
 };
 
 use crate::{Action, EventSource, KeyCode, KeyEventData, WindowRaw, XComponentRaw};
@@ -98,19 +98,20 @@ pub unsafe extern "C" fn dispatch_touch_event(
     xcomponent: *mut OH_NativeXComponent,
     window: *mut std::os::raw::c_void,
 ) {
-    let data = Rc::new(RefCell::new(TouchEventData::default()));
-    let real_data = data.borrow().clone();
-    let ret = OH_NativeXComponent_GetTouchEvent(xcomponent, window, &mut real_data.into());
+    let mut touch_event = MaybeUninit::<OH_NativeXComponent_TouchEvent>::uninit();
+    let ret = OH_NativeXComponent_GetTouchEvent(xcomponent, window, touch_event.as_mut_ptr());
     assert!(ret == 0, "Get touch event failed");
+
+    let touch_event_data = touch_event.assume_init();
+    let data = TouchEventData::from(touch_event_data);
 
     let window = WindowRaw(window);
     let xcomponent = XComponentRaw(xcomponent);
 
-    let render_data = data.borrow().clone();
     #[cfg(feature = "single_mode")]
     X_COMPONENT_CALLBACKS.with_borrow(|cb| {
         if let Some(callback) = &cb.dispatch_touch_event {
-            callback(xcomponent, window, render_data).unwrap();
+            callback(xcomponent, window, data).unwrap();
         }
     });
 
@@ -119,7 +120,7 @@ pub unsafe extern "C" fn dispatch_touch_event(
         let id = resolve_id(xcomponent.0).unwrap();
         if let Some(callback) = cb.get(&id) {
             if let Some(callback) = &callback.dispatch_touch_event {
-                callback(xcomponent, window, render_data).unwrap();
+                callback(xcomponent, window, data).unwrap();
             }
         }
     })

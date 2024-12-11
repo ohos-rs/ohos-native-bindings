@@ -102,10 +102,7 @@ impl XComponent {
         self.0.on_surface_destroyed(cb)
     }
 
-    pub fn dispatch_touch_event(
-        &self,
-        cb: fn(XComponentRaw, WindowRaw, TouchEventData) -> Result<()>,
-    ) {
-        self.0.dispatch_touch_event(cb)
+    pub fn on_touch_event(&self, cb: fn(XComponentRaw, WindowRaw, TouchEventData) -> Result<()>) {
+        self.0.on_touch_event(cb)
     }
 }
