@@ -7,7 +7,7 @@ use enum_macro::EnumFrom;
     OH_NativeXComponent_KeyAction,
     "OH_NativeXComponent_KeyAction_OH_NATIVEXCOMPONENT_KEY_ACTION_"
 )]
-pub enum EventSource {
+pub enum Action {
     Unknown,
     Down,
     Up,

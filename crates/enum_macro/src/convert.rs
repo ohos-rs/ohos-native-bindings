@@ -4,6 +4,7 @@ use std::collections::HashMap;
 use std::sync::{LazyLock, Mutex};
 
 pub struct CaseConverter<'a> {
+    #[allow(dead_code)]
     special_words: HashMap<&'a str, &'a str>,
     word_patterns: Vec<(Regex, String)>,
 }
@@ -136,35 +137,48 @@ pub fn convert_case(input: &str, case: Case) -> String {
 fn find_and_replace(input: &str) -> String {
     let mut longest_match: Option<(usize, usize, &str)> = None;
     let mut longest_len = 0;
+    let input_len = input.len();
 
-    let chars: Vec<char> = input.chars().collect();
+    // 遍历原始字符串的每个字符位置
+    let mut i = 0;
+    while i < input_len {
+        let mut current_len = 1;
+        while i + current_len <= input_len {
+            let current_substr = &input[i..i + current_len];
 
-    for start in 0..chars.len() {
-        let mut cleaned_substr = String::new();
-        let mut orig_positions = Vec::new(); // 记录原始位置
+            // 将当前子串转换为小写并移除下划线用于比较
+            let cleaned_current = current_substr
+                .chars()
+                .filter(|&c| c != '_')
+                .collect::<String>()
+                .to_lowercase();
 
-        for (i, &c) in chars[start..].iter().enumerate() {
-            if c != '_' {
-                cleaned_substr.push(c);
-                orig_positions.push(start + i);
+            // 检查是否有匹配的 key
+            for (key, value) in SPECIAL_WORDS.iter() {
+                let cleaned_key = key
+                    .chars()
+                    .filter(|&c| c != '_')
+                    .collect::<String>()
+                    .to_lowercase();
+
+                if cleaned_current == cleaned_key {
+                    let total_len = current_substr.len();
+                    // 确保这是一个完整的单词边界（前后是下划线或字符串边界）
+                    let is_word_boundary = (i == 0 || input.chars().nth(i - 1) == Some('_'))
+                        && (i + total_len == input_len
+                            || input.chars().nth(i + total_len) == Some('_'));
+
+                    if total_len > longest_len && is_word_boundary {
+                        longest_len = total_len;
+                        longest_match = Some((i, i + total_len, value));
+                    }
+                }
             }
+
+            current_len += 1;
         }
 
-        let lower_substr = cleaned_substr.to_lowercase();
-
-        for (key, value) in SPECIAL_WORDS.iter() {
-            let lower_key = key.to_lowercase();
-
-            if lower_substr.starts_with(&lower_key) && lower_key.len() > longest_len {
-                let end_pos = orig_positions
-                    .get(lower_key.len() - 1)
-                    .map(|&pos| pos + 1)
-                    .unwrap_or(start);
-
-                longest_len = lower_key.len();
-                longest_match = Some((start, end_pos, value));
-            }
-        }
+        i += 1;
     }
 
     if let Some((start, end, value)) = longest_match {
@@ -177,6 +191,7 @@ fn find_and_replace(input: &str) -> String {
         input.to_string()
     }
 }
+
 #[cfg(test)]
 mod tests {
     use super::*;

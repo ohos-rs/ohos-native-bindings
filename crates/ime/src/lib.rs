@@ -12,5 +12,6 @@ pub use attach::*;
 pub use cursor::*;
 pub use data::*;
 pub use ime::*;
+pub use private_command::*;
 pub use text_config::*;
 pub use text_editor::*;
