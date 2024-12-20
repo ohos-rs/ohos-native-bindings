@@ -17,7 +17,7 @@ mod touch_event;
 
 pub use key_event::*;
 pub use native_callbacks::*;
-pub(crate) use raw_window::*;
+pub use raw_window::*;
 pub use touch_event::*;
 
 pub struct XComponentCallbacks {

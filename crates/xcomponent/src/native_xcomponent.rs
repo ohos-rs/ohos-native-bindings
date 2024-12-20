@@ -1,16 +1,14 @@
-use std::ptr::NonNull;
-
 use napi_ohos::{Error, Result};
 use ohos_xcomponent_sys::{
     OH_NativeXComponent, OH_NativeXComponent_Callback, OH_NativeXComponent_RegisterCallback,
     OH_NativeXComponent_RegisterKeyEventCallback, OH_NativeXComponent_RegisterOnFrameCallback,
 };
-use raw_window_handle::{OhosNdkWindowHandle, RawWindowHandle};
 
 use crate::{
     code::XComponentResultCode, dispatch_touch_event, key_event, on_frame_change,
     on_surface_changed, on_surface_created, on_surface_destroyed, raw::XComponentRaw,
-    tool::resolve_id, KeyEventData, TouchEventData, WindowRaw, XComponentSize, RAW_WINDOW,
+    tool::resolve_id, KeyEventData, RawWindow, TouchEventData, WindowRaw, XComponentSize,
+    RAW_WINDOW,
 };
 
 #[cfg(feature = "single_mode")]
@@ -46,16 +44,11 @@ impl NativeXComponent {
         self.raw.0
     }
 
-    /// Get window handle
-    pub fn raw_window_handle(&self) -> Option<RawWindowHandle> {
+    pub fn native_window(&self) -> Option<RawWindow> {
         let guard = (*RAW_WINDOW).read();
         if let Ok(guard) = guard {
             if let Some(win) = &*guard {
-                let win = NonNull::new(win.0);
-                if let Some(win) = win {
-                    return Some(RawWindowHandle::OhosNdk(OhosNdkWindowHandle::new(win)));
-                }
-                return None;
+                return Some(RawWindow::new(win.0));
             }
             return None;
         }
