@@ -12,10 +12,12 @@ use std::cell::RefCell;
 
 mod key_event;
 mod native_callbacks;
+mod raw_window;
 mod touch_event;
 
 pub use key_event::*;
 pub use native_callbacks::*;
+pub(crate) use raw_window::*;
 pub use touch_event::*;
 
 pub struct XComponentCallbacks {

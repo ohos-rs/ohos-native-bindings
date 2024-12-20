@@ -38,10 +38,11 @@ napi-derive-ohos = { version = "1.0" }
 napi-build-ohos  = { version = "1.0" }
 napi-sys-ohos    = { version = "1.0" }
 
-libc         = { version = "0.2" }
-syn          = { version = "2.0" }
-quote        = { version = "1.0" }
-proc-macro2  = { version = "1.0" }
-convert_case = { version = "0.6" }
-regex        = { version = "1.0" }
-bitflags     = { version = "2.6" }
+libc              = { version = "0.2" }
+syn               = { version = "2.0" }
+quote             = { version = "1.0" }
+proc-macro2       = { version = "1.0" }
+convert_case      = { version = "0.6" }
+regex             = { version = "1.0" }
+bitflags          = { version = "2.6" }
+raw-window-handle = { version = "0.6" }

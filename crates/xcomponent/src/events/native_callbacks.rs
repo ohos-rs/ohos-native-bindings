@@ -9,7 +9,7 @@ use ohos_xcomponent_sys::{
 
 use crate::{Action, EventSource, KeyCode, KeyEventData, WindowRaw, XComponentRaw};
 
-use super::TouchEventData;
+use super::{RawWindow, TouchEventData, RAW_WINDOW};
 
 #[cfg(feature = "single_mode")]
 use super::X_COMPONENT_CALLBACKS;
@@ -25,6 +25,10 @@ pub unsafe extern "C" fn on_surface_created(
 ) {
     let window = WindowRaw(window);
     let xcomponent = XComponentRaw(xcomponent);
+
+    let mut guard = (*RAW_WINDOW).write().expect("read raw window failed");
+
+    guard.replace(RawWindow(window.0));
 
     #[cfg(feature = "single_mode")]
     X_COMPONENT_CALLBACKS.with_borrow(|cb| {
@@ -51,6 +55,10 @@ pub unsafe extern "C" fn on_surface_changed(
     let window = WindowRaw(window);
     let xcomponent = XComponentRaw(xcomponent);
 
+    let mut guard = (*RAW_WINDOW).write().expect("read raw window failed");
+
+    guard.replace(RawWindow(window.0));
+
     #[cfg(feature = "single_mode")]
     X_COMPONENT_CALLBACKS.with_borrow(|cb| {
         if let Some(callback) = &cb.on_surface_changed {
@@ -75,6 +83,10 @@ pub unsafe extern "C" fn on_surface_destroyed(
 ) {
     let window = WindowRaw(window);
     let xcomponent = XComponentRaw(xcomponent);
+
+    let mut guard = (*RAW_WINDOW).write().expect("read raw window failed");
+
+    *guard = None;
 
     #[cfg(feature = "single_mode")]
     X_COMPONENT_CALLBACKS.with_borrow(|cb| {
