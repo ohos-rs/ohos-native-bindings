@@ -30,6 +30,20 @@ pub struct IME {
     pub(crate) set_preview_text: Rc<RefCell<Option<Box<dyn Fn(String, i32, i32) -> ()>>>>,
 }
 
+impl PartialEq for IME {
+    fn eq(&self, other: &Self) -> bool {
+        self.raw == other.raw
+    }
+}
+
+impl Eq for IME {}
+
+impl std::hash::Hash for IME {
+    fn hash<H: std::hash::Hasher>(&self, state: &mut H) {
+        self.raw.hash(state);
+    }
+}
+
 unsafe impl Send for IME {}
 unsafe impl Sync for IME {}
 
