@@ -1,0 +1,10 @@
+[package]
+name        = "ohos-display-binding"
+version     = "0.0.1"
+edition     = "2021"
+license     = "MIT OR Apache-2.0"
+description = "OpenHarmony's display binding for rust"
+
+[dependencies]
+ohos-display-sys = { workspace = true }
+enum_macro       = { workspace = true }

@@ -17,7 +17,7 @@ use crate::proxy::{
     send_keyboard_status, set_preview_text,
 };
 
-#[derive(Clone)]
+#[derive(Clone, PartialEq, Eq, Hash)]
 pub struct TextEditor {
     pub(crate) raw: *mut InputMethod_TextEditorProxy,
 }

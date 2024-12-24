@@ -7,7 +7,8 @@ use ohos_xcomponent_sys::{
 use crate::{
     code::XComponentResultCode, dispatch_touch_event, key_event, on_frame_change,
     on_surface_changed, on_surface_created, on_surface_destroyed, raw::XComponentRaw,
-    tool::resolve_id, KeyEventData, TouchEventData, WindowRaw, XComponentSize,
+    tool::resolve_id, KeyEventData, RawWindow, TouchEventData, WindowRaw, XComponentSize,
+    RAW_WINDOW,
 };
 
 #[cfg(feature = "single_mode")]
@@ -41,6 +42,17 @@ impl NativeXComponent {
     /// get raw point
     pub fn raw(&self) -> *mut OH_NativeXComponent {
         self.raw.0
+    }
+
+    pub fn native_window(&self) -> Option<RawWindow> {
+        let guard = (*RAW_WINDOW).read();
+        if let Ok(guard) = guard {
+            if let Some(win) = &*guard {
+                return Some(RawWindow::new(win.0));
+            }
+            return None;
+        }
+        None
     }
 
     /// Register callbacks   
