@@ -16,6 +16,7 @@ ohos-vsync-binding                  = { version = "0.0.1", path = "crates/vsync"
 ohos-display-soloist-binding        = { version = "0.0.1", path = "crates/native_display_soloist" }
 ohos-input-binding                  = { version = "0.0.1", path = "crates/input" }
 ohos-ime-binding                    = { version = "0.0.1", path = "crates/ime" }
+ohos-display-binding                = { version = "0.0.1", path = "crates/display" }
 
 ohos-bundle-sys                 = { version = "0.0.2", path = "sys/ohos-bundle-sys" }
 ohos-init-sys                   = { version = "0.0.2", path = "sys/ohos-init-sys" }
@@ -30,6 +31,7 @@ ohos-vsync-sys                  = { version = "0.0.1", path = "sys/ohos-vsync-sy
 ohos-display-soloist-sys        = { version = "0.0.1", path = "sys/ohos-display-soloist-sys" }
 ohos-input-sys                  = { version = "0.0.1", path = "sys/ohos-input-sys" }
 ohos-input-method-sys           = { version = "0.0.1", path = "sys/ohos-input-method-sys" }
+ohos-display-sys                = { version = "0.0.1", path = "sys/ohos-display-sys" }
 
 enum_macro = { version = "0.0.1", path = "crates/enum_macro" }
 
