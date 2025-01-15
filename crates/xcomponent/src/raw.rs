@@ -24,3 +24,9 @@ impl XComponentRaw {
         Ok(XComponentSize { width, height })
     }
 }
+
+impl Clone for XComponentRaw {
+    fn clone(&self) -> Self {
+        Self(self.0)
+    }
+}

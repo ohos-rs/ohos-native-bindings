@@ -1,3 +1,4 @@
+use ohos_display_binding::{default_display_height, default_display_width};
 use raw_window_handle::{OhosNdkWindowHandle, RawWindowHandle};
 use std::{
     os::raw::c_void,
@@ -40,6 +41,13 @@ impl RawWindow {
             return None;
         }
         None
+    }
+
+    pub fn width(&self) -> i32 {
+        default_display_width()
+    }
+    pub fn height(&self) -> i32 {
+        default_display_height()
     }
 }
 

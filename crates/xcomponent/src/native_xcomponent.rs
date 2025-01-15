@@ -238,3 +238,12 @@ impl NativeXComponent {
         Ok(())
     }
 }
+
+impl Clone for NativeXComponent {
+    fn clone(&self) -> Self {
+        Self {
+            raw: self.raw.clone(),
+            id: self.id.clone(),
+        }
+    }
+}

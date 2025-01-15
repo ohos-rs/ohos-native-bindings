@@ -336,3 +336,10 @@ pub enum KeyCode {
     Btn8,
     Btn9,
 }
+
+impl From<KeyCode> for u32 {
+    fn from(value: KeyCode) -> Self {
+        let key: OH_NativeXComponent_KeyCode = value.into();
+        key as u32
+    }
+}
