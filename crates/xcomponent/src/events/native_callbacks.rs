@@ -26,9 +26,10 @@ pub unsafe extern "C" fn on_surface_created(
     let window = WindowRaw(window);
     let xcomponent = XComponentRaw(xcomponent);
 
-    let mut guard = (*RAW_WINDOW).write().expect("read raw window failed");
-
-    guard.replace(RawWindow(window.0));
+    {
+        let mut guard = (*RAW_WINDOW).write().expect("read raw window failed");
+        guard.replace(RawWindow(window.0));
+    }
 
     #[cfg(feature = "single_mode")]
     X_COMPONENT_CALLBACKS.with_borrow(|cb| {
@@ -55,9 +56,10 @@ pub unsafe extern "C" fn on_surface_changed(
     let window = WindowRaw(window);
     let xcomponent = XComponentRaw(xcomponent);
 
-    let mut guard = (*RAW_WINDOW).write().expect("read raw window failed");
-
-    guard.replace(RawWindow(window.0));
+    {
+        let mut guard = (*RAW_WINDOW).write().expect("read raw window failed");
+        guard.replace(RawWindow(window.0));
+    }
 
     #[cfg(feature = "single_mode")]
     X_COMPONENT_CALLBACKS.with_borrow(|cb| {
@@ -84,9 +86,10 @@ pub unsafe extern "C" fn on_surface_destroyed(
     let window = WindowRaw(window);
     let xcomponent = XComponentRaw(xcomponent);
 
-    let mut guard = (*RAW_WINDOW).write().expect("read raw window failed");
-
-    *guard = None;
+    {
+        let mut guard = (*RAW_WINDOW).write().expect("read raw window failed");
+        *guard = None;
+    }
 
     #[cfg(feature = "single_mode")]
     X_COMPONENT_CALLBACKS.with_borrow(|cb| {
