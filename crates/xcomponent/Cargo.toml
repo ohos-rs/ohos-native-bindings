@@ -18,12 +18,12 @@ callbacks = []
 default = ["single_mode", "callbacks"]
 
 [dependencies]
-napi-sys-ohos       = { workspace = true }
-ohos-xcomponent-sys = { workspace = true }
-napi-ohos           = { workspace = true }
-napi-derive-ohos    = { workspace = true }
-enum_macro          = { workspace = true }
-raw-window-handle   = { workspace = true }
-ohos-display-binding = {workspace = true}
+napi-sys-ohos        = { workspace = true }
+ohos-xcomponent-sys  = { workspace = true }
+napi-ohos            = { workspace = true }
+napi-derive-ohos     = { workspace = true }
+enum_macro           = { workspace = true }
+raw-window-handle    = { workspace = true }
+ohos-display-binding = { workspace = true }
 
 ohos-hilog-binding = { workspace = true, optional = true }
