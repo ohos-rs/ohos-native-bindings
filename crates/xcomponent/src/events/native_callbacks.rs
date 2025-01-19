@@ -4,7 +4,8 @@ use ohos_xcomponent_sys::{
     OH_NativeXComponent, OH_NativeXComponent_GetKeyEvent, OH_NativeXComponent_GetKeyEventAction,
     OH_NativeXComponent_GetKeyEventCode, OH_NativeXComponent_GetKeyEventDeviceId,
     OH_NativeXComponent_GetKeyEventSourceType, OH_NativeXComponent_GetKeyEventTimestamp,
-    OH_NativeXComponent_GetTouchEvent, OH_NativeXComponent_TouchEvent,
+    OH_NativeXComponent_GetTouchEvent, OH_NativeXComponent_GetTouchPointToolType,
+    OH_NativeXComponent_TouchEvent,
 };
 
 use crate::{Action, EventSource, KeyCode, KeyEventData, WindowRaw, XComponentRaw};
@@ -118,7 +119,14 @@ pub unsafe extern "C" fn dispatch_touch_event(
     assert!(ret == 0, "Get touch event failed");
 
     let touch_event_data = touch_event.assume_init();
-    let data = TouchEventData::from(touch_event_data);
+    let mut data = TouchEventData::from(touch_event_data);
+
+    data.touch_points.iter_mut().for_each(|point| {
+        let mut tool = 0;
+        let ret = OH_NativeXComponent_GetTouchPointToolType(xcomponent, point.id as _, &mut tool);
+        assert!(ret == 0, "Get touch point tool type failed");
+        point.event_tool_type = tool.into();
+    });
 
     let window = WindowRaw(window);
     let xcomponent = XComponentRaw(xcomponent);
