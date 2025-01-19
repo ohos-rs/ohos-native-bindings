@@ -1,6 +1,6 @@
 use ohos_xcomponent_sys::{OH_NativeXComponent_TouchEvent, OH_NativeXComponent_TouchPoint};
 
-use crate::TouchEvent;
+use crate::{TouchEvent, TouchPointTool};
 
 #[derive(Debug, Clone)]
 pub struct TouchEventData {
@@ -89,6 +89,7 @@ impl From<OH_NativeXComponent_TouchEvent> for TouchEventData {
                 force: point.force,
                 timestamp: point.timeStamp,
                 is_pressed: point.isPressed,
+                event_tool_type: TouchPointTool::Unknown,
             });
         }
 
@@ -121,6 +122,7 @@ pub struct TouchPointData {
     pub force: f32,
     pub timestamp: i64,
     pub is_pressed: bool,
+    pub event_tool_type: TouchPointTool,
 }
 
 impl Default for TouchPointData {
@@ -136,6 +138,7 @@ impl Default for TouchPointData {
             force: 0.0,
             timestamp: 0,
             is_pressed: false,
+            event_tool_type: TouchPointTool::Unknown,
         }
     }
 }
