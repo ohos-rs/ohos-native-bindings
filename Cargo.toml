@@ -25,7 +25,7 @@ ohos-asset-sys                  = { version = "0.0.1", path = "sys/ohos-asset-sy
 ohos-raw-sys                    = { version = "0.0.1", path = "sys/ohos-raw-sys" }
 ohos-resource-manager-sys       = { version = "0.0.2", path = "sys/ohos-resource-manager-sys" }
 ohos-ability-access-control-sys = { version = "0.0.1", path = "sys/ohos-ability-access-control-sys" }
-ohos-xcomponent-sys             = { version = "0.0.1", path = "sys/ohos-xcomponent-sys" }
+ohos-xcomponent-sys             = { version = "0.0.2", path = "sys/ohos-xcomponent-sys" }
 ohos-arkui-sys                  = { version = "0.0.1", path = "sys/ohos-arkui-sys" }
 ohos-vsync-sys                  = { version = "0.0.1", path = "sys/ohos-vsync-sys" }
 ohos-display-soloist-sys        = { version = "0.0.1", path = "sys/ohos-display-soloist-sys" }
