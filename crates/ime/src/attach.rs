@@ -3,6 +3,7 @@ use ohos_input_method_sys::{
     OH_AttachOptions_IsShowKeyboard,
 };
 
+#[derive(PartialEq, Eq, Hash)]
 pub struct AttachOptions {
     pub(crate) raw: *mut InputMethod_AttachOptions,
 }
@@ -23,6 +24,12 @@ impl AttachOptions {
 impl Default for AttachOptions {
     fn default() -> Self {
         Self::new(true)
+    }
+}
+
+impl Clone for AttachOptions {
+    fn clone(&self) -> Self {
+        Self { raw: self.raw }
     }
 }
 
