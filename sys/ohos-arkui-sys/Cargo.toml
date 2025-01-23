@@ -1,7 +1,9 @@
 [package]
-name    = "ohos-arkui-sys"
-version = "0.0.1"
-edition = "2021"
+name        = "ohos-arkui-sys"
+version     = "0.0.1"
+edition     = "2021"
+license     = "MIT OR Apache-2.0"
+description = "OpenHarmony's arkui binding for rust"
 
 [dependencies]
 napi-sys-ohos = { workspace = true }

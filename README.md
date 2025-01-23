@@ -13,6 +13,9 @@ Sets of HarmonyNext native module bindings for rust.
 | ohos-raw-binding                    | ![Crates.io Version](https://img.shields.io/crates/v/ohos-raw-binding)                    | [rawfile](https://developer.huawei.com/consumer/cn/doc/harmonyos-references-V5/rawfile-V5) binding                                |
 | ohos-resource-manager-binding       | ![Crates.io Version](https://img.shields.io/crates/v/ohos-resource-manager-binding)       | [resource manager](https://developer.huawei.com/consumer/cn/doc/harmonyos-references-V5/resourcemanager-V5) binding               |
 | ohos-xcomponent-binding             | ![Crates.io Version](https://img.shields.io/crates/v/ohos-xcomponent-binding)             | [xcomponent](https://developer.huawei.com/consumer/cn/doc/harmonyos-references-V5/_o_h___native_x_component-V5) binding           |
+| ohos-display-binding                | ![Crates.io Version](https://img.shields.io/crates/v/ohos-display-binding)                | [display](https://developer.huawei.com/consumer/cn/doc/harmonyos-references-V5/_o_h___display_manager-V5) binding                 |
+| ohos-ime-binding                    | ![Crates.io Version](https://img.shields.io/crates/v/ohos-ime-binding)                    | [ime](https://developer.huawei.com/consumer/cn/doc/harmonyos-references-V5/_input_method-V5) binding                              |
+| ohos-arkui-binding                  | ![Crates.io Version](https://img.shields.io/crates/v/ohos-arkui-binding)                  | [arkui](https://developer.huawei.com/consumer/cn/doc/harmonyos-references-V5/_ark_u_i___native_module-V5) binding                 |
 
 ## Contribution
 

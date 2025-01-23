@@ -7,4 +7,4 @@ description = "OpenHarmony's display binding for rust"
 
 [dependencies]
 ohos-display-sys = { workspace = true }
-enum_macro       = { workspace = true }
+ohos_enum_macro  = { workspace = true }

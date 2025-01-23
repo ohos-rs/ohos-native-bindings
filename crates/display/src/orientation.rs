@@ -5,7 +5,7 @@ use ohos_display_sys::{
     NativeDisplayManager_Orientation_DISPLAY_MANAGER_PORTRAIT_INVERTED,
 };
 
-use enum_macro::EnumFrom;
+use ohos_enum_macro::EnumFrom;
 
 #[derive(Debug, Clone, Copy, PartialEq, Eq, EnumFrom)]
 #[enum_from_config(

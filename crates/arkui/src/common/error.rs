@@ -1,7 +1,7 @@
-use enum_macro::EnumFrom;
 #[cfg(feature = "napi")]
 use napi_ohos::{Error, Result};
 use ohos_arkui_sys::*;
+use ohos_enum_macro::EnumFrom;
 
 #[derive(Debug, EnumFrom)]
 #[enum_from_config(ArkUI_ErrorCode, "ArkUI_ErrorCode_ARKUI_ERROR_CODE_")]
