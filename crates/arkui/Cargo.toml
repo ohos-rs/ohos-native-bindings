@@ -9,7 +9,7 @@ description = "OpenHarmony's arkui binding for rust"
 ohos-arkui-sys          = { workspace = true }
 napi-sys-ohos           = { workspace = true, optional = true }
 napi-ohos               = { workspace = true, optional = true }
-enum_macro              = { workspace = true }
+ohos_enum_macro         = { workspace = true }
 bitflags                = { workspace = true }
 ohos-xcomponent-binding = { workspace = true, optional = true }
 ohos-xcomponent-sys     = { workspace = true, optional = true }

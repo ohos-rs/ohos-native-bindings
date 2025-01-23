@@ -33,7 +33,7 @@ ohos-input-sys                  = { version = "0.0.1", path = "sys/ohos-input-sy
 ohos-input-method-sys           = { version = "0.0.1", path = "sys/ohos-input-method-sys" }
 ohos-display-sys                = { version = "0.0.1", path = "sys/ohos-display-sys" }
 
-enum_macro = { version = "0.0.1", path = "crates/enum_macro" }
+ohos_enum_macro = { version = "0.0.1", path = "crates/enum_macro" }
 
 napi-ohos        = { version = "1.0" }
 napi-derive-ohos = { version = "1.0" }

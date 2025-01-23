@@ -8,4 +8,4 @@ description = "OpenHarmony's input method binding for rust"
 
 [dependencies]
 ohos-input-method-sys = { workspace = true }
-enum_macro            = { workspace = true }
+ohos_enum_macro       = { workspace = true }

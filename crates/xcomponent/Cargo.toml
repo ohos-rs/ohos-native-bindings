@@ -22,7 +22,7 @@ napi-sys-ohos        = { workspace = true }
 ohos-xcomponent-sys  = { workspace = true }
 napi-ohos            = { workspace = true }
 napi-derive-ohos     = { workspace = true }
-enum_macro           = { workspace = true }
+ohos_enum_macro      = { workspace = true }
 raw-window-handle    = { workspace = true }
 ohos-display-binding = { workspace = true }
 
