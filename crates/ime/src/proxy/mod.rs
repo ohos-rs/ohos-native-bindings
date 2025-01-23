@@ -5,9 +5,13 @@ use ohos_input_method_sys::{
 };
 
 use crate::{
-    common::IME_INSTANCE, private_command::PrivateCommand, Action, Direction, EnterKey,
-    KeyboardStatus, Selection, TextConfig,
+    private_command::PrivateCommand, Action, Direction, EnterKey, KeyboardStatus, Selection,
+    TextConfig,
 };
+
+mod callbacks;
+
+pub use callbacks::*;
 
 fn char16_ptr_to_string(ptr: *const u16, length: usize) -> String {
     let mut result = String::new();
@@ -27,270 +31,184 @@ fn char16_ptr_to_string(ptr: *const u16, length: usize) -> String {
     result
 }
 
-pub unsafe extern "C" fn delete_backward(text_editor: *mut InputMethod_TextEditorProxy, len: i32) {
-    let guard = IME_INSTANCE.read().unwrap();
-    let ime_option = guard.get(&(text_editor as usize));
-    match ime_option {
-        Some(ime) => {
-            if let Some(f) = ime.delete_backward.borrow_mut().as_ref() {
-                f(len);
-            }
-        }
-        None => {}
+pub unsafe extern "C" fn delete_backward(_text_editor: *mut InputMethod_TextEditorProxy, len: i32) {
+    let guard = IME_CALLBACKS.read().expect("Failed to acquire read lock");
+    if let Some(f) = &(*guard).delete_backward {
+        f(len);
     }
 }
 
 pub unsafe extern "C" fn insert_text(
-    text_editor: *mut InputMethod_TextEditorProxy,
+    _text_editor: *mut InputMethod_TextEditorProxy,
     text: *const char16_t,
     len: usize,
 ) {
-    let guard = IME_INSTANCE.read().unwrap();
-    let ime_option = guard.get(&(text_editor as usize));
-    match ime_option {
-        Some(ime) => {
-            if let Some(f) = ime.insert_text.borrow_mut().as_ref() {
-                let ret = char16_ptr_to_string(text, len);
-                f(ret);
-            }
-        }
-        None => {}
+    let mut guard = IME_CALLBACKS.write().expect("Failed to acquire read lock");
+    if let Some(ref mut f) = (*guard).insert_text {
+        let ret = char16_ptr_to_string(text, len);
+        f(ret);
     }
 }
 
-pub unsafe extern "C" fn delete_forward(text_editor: *mut InputMethod_TextEditorProxy, len: i32) {
-    let guard = IME_INSTANCE.read().unwrap();
-    let ime_option = guard.get(&(text_editor as usize));
-    match ime_option {
-        Some(ime) => {
-            if let Some(f) = ime.delete_forward.borrow_mut().as_ref() {
-                f(len);
-            }
-        }
-        None => {}
+pub unsafe extern "C" fn delete_forward(_text_editor: *mut InputMethod_TextEditorProxy, len: i32) {
+    let guard = IME_CALLBACKS.read().expect("Failed to acquire read lock");
+
+    if let Some(f) = &(*guard).delete_forward {
+        f(len);
     }
 }
 
-pub unsafe extern "C" fn finish_text_preview(text_editor: *mut InputMethod_TextEditorProxy) {
-    let guard = IME_INSTANCE.read().unwrap();
-    let ime_option = guard.get(&(text_editor as usize));
-    match ime_option {
-        Some(ime) => {
-            if let Some(f) = ime.finish_text_preview.borrow_mut().as_ref() {
-                f();
-            }
-        }
-        None => {}
+pub unsafe extern "C" fn finish_text_preview(_text_editor: *mut InputMethod_TextEditorProxy) {
+    let guard = IME_CALLBACKS.read().expect("Failed to acquire read lock");
+    if let Some(f) = &(*guard).finish_text_preview {
+        f();
     }
 }
 
 pub unsafe extern "C" fn get_left_text_of_cursor(
-    text_editor: *mut InputMethod_TextEditorProxy,
+    _text_editor: *mut InputMethod_TextEditorProxy,
     number: i32,
     text: *mut char16_t,
     len: *mut usize,
 ) {
-    let guard = IME_INSTANCE.read().unwrap();
-    let ime_option = guard.get(&(text_editor as usize));
-    match ime_option {
-        Some(ime) => {
-            if let Some(f) = ime.get_left_text_of_cursor.borrow_mut().as_ref() {
-                let s = f(number);
-                let utf16: Vec<u16> = s.encode_utf16().collect();
+    let guard = IME_CALLBACKS.read().expect("Failed to acquire read lock");
+    if let Some(f) = &(*guard).get_left_text_of_cursor {
+        let s = f(number);
+        let utf16: Vec<u16> = s.encode_utf16().collect();
 
-                if !text.is_null() && !len.is_null() && *len >= utf16.len() {
-                    std::ptr::copy_nonoverlapping(utf16.as_ptr(), text, utf16.len());
-                    *len = utf16.len();
-                }
-            }
+        if !text.is_null() && !len.is_null() && *len >= utf16.len() {
+            std::ptr::copy_nonoverlapping(utf16.as_ptr(), text, utf16.len());
+            *len = utf16.len();
         }
-        None => {}
     }
 }
 
 pub unsafe extern "C" fn get_right_text_of_cursor(
-    text_editor: *mut InputMethod_TextEditorProxy,
+    _text_editor: *mut InputMethod_TextEditorProxy,
     number: i32,
     text: *mut char16_t,
     len: *mut usize,
 ) {
-    let guard = IME_INSTANCE.read().unwrap();
-    let ime_option = guard.get(&(text_editor as usize));
-    match ime_option {
-        Some(ime) => {
-            if let Some(f) = ime.get_right_text_of_cursor.borrow_mut().as_ref() {
-                let s = f(number);
-                let utf16: Vec<u16> = s.encode_utf16().collect();
+    let guard = IME_CALLBACKS.read().expect("Failed to acquire read lock");
+    if let Some(f) = &(*guard).get_right_text_of_cursor {
+        let s = f(number);
+        let utf16: Vec<u16> = s.encode_utf16().collect();
 
-                if !text.is_null() && !len.is_null() && *len >= utf16.len() {
-                    std::ptr::copy_nonoverlapping(utf16.as_ptr(), text, utf16.len());
-                    *len = utf16.len();
-                }
-            }
+        if !text.is_null() && !len.is_null() && *len >= utf16.len() {
+            std::ptr::copy_nonoverlapping(utf16.as_ptr(), text, utf16.len());
+            *len = utf16.len();
         }
-        None => {}
     }
 }
 
 pub unsafe extern "C" fn get_text_config(
-    text_editor: *mut InputMethod_TextEditorProxy,
+    _text_editor: *mut InputMethod_TextEditorProxy,
     config: *mut InputMethod_TextConfig,
 ) {
-    let guard = IME_INSTANCE.read().unwrap();
-    let ime_option = guard.get(&(text_editor as usize));
-    match ime_option {
-        Some(ime) => {
-            if let Some(f) = ime.get_text_config.borrow_mut().as_ref() {
-                f(TextConfig { raw: config });
-            }
-        }
-        None => {}
+    let guard = IME_CALLBACKS.read().expect("Failed to acquire read lock");
+    if let Some(f) = &(*guard).get_text_config {
+        f(TextConfig { raw: config });
     }
 }
 
 pub unsafe extern "C" fn get_text_index_at_cursor(
-    text_editor: *mut InputMethod_TextEditorProxy,
+    _text_editor: *mut InputMethod_TextEditorProxy,
 ) -> i32 {
-    let guard = IME_INSTANCE.read().unwrap();
-    let ime_option = guard.get(&(text_editor as usize));
-    match ime_option {
-        Some(ime) => {
-            if let Some(f) = ime.get_text_index_at_cursor.borrow_mut().as_ref() {
-                let ret = f();
-                return ret;
-            }
-            return 0;
+    let guard = IME_CALLBACKS.read().expect("Failed to acquire read lock");
+    let ret = match &(*guard).get_text_index_at_cursor {
+        Some(f) => {
+            let ret = f();
+            return ret;
         }
         None => 0,
-    }
+    };
+    ret
 }
 
 pub unsafe extern "C" fn handle_extend_action(
-    text_editor: *mut InputMethod_TextEditorProxy,
+    _text_editor: *mut InputMethod_TextEditorProxy,
     action: InputMethod_ExtendAction,
 ) {
-    let guard = IME_INSTANCE.read().unwrap();
-    let ime_option = guard.get(&(text_editor as usize));
-    match ime_option {
-        Some(ime) => {
-            if let Some(f) = ime.handle_extend_action.borrow_mut().as_ref() {
-                f(Action::from(action));
-            }
-        }
-        None => {}
+    let guard = IME_CALLBACKS.read().expect("Failed to acquire read lock");
+    if let Some(f) = &(*guard).handle_extend_action {
+        f(Action::from(action));
     }
 }
 
 pub unsafe extern "C" fn handle_set_selection(
-    text_editor: *mut InputMethod_TextEditorProxy,
+    _text_editor: *mut InputMethod_TextEditorProxy,
     start: i32,
     end: i32,
 ) {
-    let guard = IME_INSTANCE.read().unwrap();
-    let ime_option = guard.get(&(text_editor as usize));
-    match ime_option {
-        Some(ime) => {
-            if let Some(f) = ime.handle_set_selection.borrow_mut().as_ref() {
-                f(Selection { start, end });
-            }
-        }
-        None => {}
+    let guard = IME_CALLBACKS.read().expect("Failed to acquire read lock");
+    if let Some(f) = &(*guard).handle_set_selection {
+        f(Selection { start, end });
     }
 }
 
 pub unsafe extern "C" fn move_cursor(
-    text_editor: *mut InputMethod_TextEditorProxy,
+    _text_editor: *mut InputMethod_TextEditorProxy,
     direction: InputMethod_Direction,
 ) {
-    let guard = IME_INSTANCE.read().unwrap();
-    let ime_option = guard.get(&(text_editor as usize));
-    match ime_option {
-        Some(ime) => {
-            if let Some(f) = ime.move_cursor.borrow_mut().as_ref() {
-                f(Direction::from(direction));
-            }
-        }
-        None => {}
+    let guard = IME_CALLBACKS.read().expect("Failed to acquire read lock");
+    if let Some(f) = &(*guard).move_cursor {
+        f(Direction::from(direction));
     }
 }
 
 pub unsafe extern "C" fn receive_private_command(
-    text_editor: *mut InputMethod_TextEditorProxy,
+    _text_editor: *mut InputMethod_TextEditorProxy,
     command: *mut *mut InputMethod_PrivateCommand,
     len: usize,
 ) -> i32 {
-    let guard = IME_INSTANCE.read().unwrap();
-    let ime_option = guard.get(&(text_editor as usize));
-    match ime_option {
-        Some(ime) => {
-            if let Some(f) = ime.receive_private_command.borrow_mut().as_ref() {
-                unsafe {
-                    let slice = std::slice::from_raw_parts_mut(command, len);
+    let guard = IME_CALLBACKS.read().expect("Failed to acquire read lock");
+    if let Some(f) = &(*guard).receive_private_command {
+        unsafe {
+            let slice = std::slice::from_raw_parts_mut(command, len);
 
-                    let mut manual_array = Vec::new();
-                    for i in 0..len {
-                        manual_array[i] = PrivateCommand {
-                            raw: *slice.get_unchecked(i),
-                        };
-                    }
-                    f(manual_array);
-                }
+            let mut manual_array = Vec::new();
+            for i in 0..len {
+                manual_array[i] = PrivateCommand {
+                    raw: *slice.get_unchecked(i),
+                };
             }
-            0
+            f(manual_array);
         }
-        None => 0,
     }
+    0
 }
 
 pub unsafe extern "C" fn send_enter_key(
-    text_editor: *mut InputMethod_TextEditorProxy,
+    _text_editor: *mut InputMethod_TextEditorProxy,
     enter_key_type: InputMethod_EnterKeyType,
 ) {
-    let guard = IME_INSTANCE.read().unwrap();
-    let ime_option = guard.get(&(text_editor as usize));
-    match ime_option {
-        Some(ime) => {
-            if let Some(f) = ime.send_enter_key.borrow_mut().as_ref() {
-                f(EnterKey::from(enter_key_type));
-            }
-        }
-        None => {}
+    let guard = IME_CALLBACKS.read().expect("Failed to acquire read lock");
+    if let Some(f) = &(*guard).send_enter_key {
+        f(EnterKey::from(enter_key_type));
     }
 }
 
 pub unsafe extern "C" fn send_keyboard_status(
-    text_editor: *mut InputMethod_TextEditorProxy,
+    _text_editor: *mut InputMethod_TextEditorProxy,
     keyboard_status: InputMethod_KeyboardStatus,
 ) {
-    let guard = IME_INSTANCE.read().unwrap();
-    let ime_option = guard.get(&(text_editor as usize));
-    match ime_option {
-        Some(ime) => {
-            if let Some(f) = ime.send_keyboard_status.borrow_mut().as_ref() {
-                f(KeyboardStatus::from(keyboard_status));
-            }
-        }
-        None => {}
+    let guard = IME_CALLBACKS.read().expect("Failed to acquire read lock");
+    if let Some(f) = &(*guard).send_keyboard_status {
+        f(KeyboardStatus::from(keyboard_status));
     }
 }
 
 pub unsafe extern "C" fn set_preview_text(
-    text_editor: *mut InputMethod_TextEditorProxy,
+    _text_editor: *mut InputMethod_TextEditorProxy,
     text: *const char16_t,
     length: usize,
     start: i32,
     end: i32,
 ) -> i32 {
-    let guard = IME_INSTANCE.read().unwrap();
-    let ime_option = guard.get(&(text_editor as usize));
-    match ime_option {
-        Some(ime) => {
-            if let Some(f) = ime.set_preview_text.borrow_mut().as_ref() {
-                let ret = char16_ptr_to_string(text, length);
-                f(ret, start, end);
-            }
-            0
-        }
-        None => 0,
+    let guard = IME_CALLBACKS.read().expect("Failed to acquire read lock");
+    if let Some(f) = &(*guard).set_preview_text {
+        let ret = char16_ptr_to_string(text, length);
+        f(ret, start, end);
     }
+    0
 }
