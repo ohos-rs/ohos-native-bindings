@@ -1,5 +1,8 @@
 use ohos_hilogs_sys::OH_LOG_Print;
-use std::ffi::CString;
+use std::{
+    ffi::CString,
+    sync::{LazyLock, RwLock},
+};
 
 #[cfg(feature = "redirect")]
 use std::{
@@ -19,6 +22,15 @@ impl From<LogType> for ohos_hilogs_sys::LogType {
             LogType::LogApp => ohos_hilogs_sys::LogType_LOG_APP,
         }
     }
+}
+
+static GLOBAL_OPTIONS: LazyLock<RwLock<LogOptions>> =
+    LazyLock::new(|| RwLock::new(LogOptions::default()));
+
+/// set global options for hilog
+pub fn set_global_options(options: LogOptions) {
+    let mut global_options = GLOBAL_OPTIONS.write().unwrap();
+    *global_options = options;
 }
 
 pub enum LogLevel {
@@ -41,24 +53,123 @@ impl From<LogLevel> for ohos_hilogs_sys::LogLevel {
     }
 }
 
-#[derive(Default)]
-pub struct LogOptions<'a> {
-    // 打印的domain 一般直接使用 0x0000
-    pub domain: Option<u32>,
-    /// 打印的标签 默认为 hilog_rs
-    pub tag: Option<&'a str>,
+pub struct LogOptions {
+    // hilog print domain default is 0x0000
+    pub domain: u32,
+    /// hilog print tag default is `hilog_rs`
+    pub tag: &'static str,
+}
+
+impl Default for LogOptions {
+    fn default() -> Self {
+        LogOptions {
+            domain: 0x0000,
+            tag: "hilog_rs",
+        }
+    }
+}
+
+pub struct Hilog {
+    options: RwLock<LogOptions>,
+}
+
+unsafe impl Send for Hilog {}
+unsafe impl Sync for Hilog {}
+
+impl Hilog {
+    pub fn new() -> Hilog {
+        Hilog {
+            options: RwLock::new(Default::default()),
+        }
+    }
+
+    pub fn with_options(&self, options: LogOptions) {
+        let mut inner_options = self.options.write().unwrap();
+        *inner_options = options;
+    }
+
+    pub fn debug<T: AsRef<str>>(&self, info: T) {
+        let option_result = self.options.read().unwrap();
+        let tag = CString::new(option_result.tag).unwrap();
+        let content = CString::new(info.as_ref()).unwrap();
+        unsafe {
+            OH_LOG_Print(
+                LogType::LogApp.into(),
+                LogLevel::LogDebug.into(),
+                option_result.domain,
+                tag.as_ptr(),
+                content.as_ptr(),
+            );
+        }
+    }
+
+    pub fn info<T: AsRef<str>>(&self, info: T) {
+        let option_result = self.options.read().unwrap();
+        let tag = CString::new(option_result.tag).unwrap();
+        let content = CString::new(info.as_ref()).unwrap();
+        unsafe {
+            OH_LOG_Print(
+                LogType::LogApp.into(),
+                LogLevel::LogInfo.into(),
+                option_result.domain,
+                tag.as_ptr(),
+                content.as_ptr(),
+            );
+        }
+    }
+
+    pub fn warn<T: AsRef<str>>(&self, info: T) {
+        let option_result = self.options.read().unwrap();
+        let tag = CString::new(option_result.tag).unwrap();
+        let content = CString::new(info.as_ref()).unwrap();
+        unsafe {
+            OH_LOG_Print(
+                LogType::LogApp.into(),
+                LogLevel::LogWarn.into(),
+                option_result.domain,
+                tag.as_ptr(),
+                content.as_ptr(),
+            );
+        }
+    }
+
+    pub fn error<T: AsRef<str>>(&self, info: T) {
+        let option_result = self.options.read().unwrap();
+        let tag = CString::new(option_result.tag).unwrap();
+        let content = CString::new(info.as_ref()).unwrap();
+        unsafe {
+            OH_LOG_Print(
+                LogType::LogApp.into(),
+                LogLevel::LogError.into(),
+                option_result.domain,
+                tag.as_ptr(),
+                content.as_ptr(),
+            );
+        }
+    }
+
+    pub fn fatal<T: AsRef<str>>(&self, info: T) {
+        let option_result = self.options.read().unwrap();
+        let tag = CString::new(option_result.tag).unwrap();
+        let content = CString::new(info.as_ref()).unwrap();
+        unsafe {
+            OH_LOG_Print(
+                LogType::LogApp.into(),
+                LogLevel::LogFatal.into(),
+                option_result.domain,
+                tag.as_ptr(),
+                content.as_ptr(),
+            );
+        }
+    }
 }
 
 macro_rules! log_factory {
     ($level: ident,$level_enum: expr) => {
-        pub fn $level<T: AsRef<str>>(info: T, options: Option<LogOptions>) {
-            let option_result = options.unwrap_or(LogOptions {
-                tag: None,
-                domain: None,
-            });
-
-            let tag_result = option_result.tag.unwrap_or("hilog_rs");
-            let domain = option_result.domain.unwrap_or(0x0000);
+        pub fn $level<T: AsRef<str>>(info: T) {
+            let option_result = GLOBAL_OPTIONS.read().unwrap();
+            let tag_result = option_result.tag;
+            let domain = option_result.domain;
 
             let tag = CString::new(tag_result).unwrap();
             let content = CString::new(info.as_ref()).unwrap();
@@ -84,52 +195,67 @@ log_factory!(fatal, LogLevel::LogFatal.into());
 
 #[macro_export]
 macro_rules! hilog_debug {
-    ($info: expr) => {
-        ohos_hilog_binding::debug($info, None);
+    ($fmt:literal $(, $($arg:tt)*)?) => {
+        ohos_hilog_binding::debug(format!("{}", format_args!($fmt $(, $($arg)*)?)))
     };
-    ($info: expr,$option: expr) => {
-        ohos_hilog_binding::debug($info, Some($option));
+    (format!($($arg:tt)*)) => {
+        ohos_hilog_binding::debug(format!($($arg)*))
     };
+    ($expr:expr) => {
+        ohos_hilog_binding::debug(format!("{}", $expr))
+    }
 }
 
 #[macro_export]
 macro_rules! hilog_info {
-    ($info: expr) => {
-        ohos_hilog_binding::info($info, None);
+    ($fmt:literal $(, $($arg:tt)*)?) => {
+        ohos_hilog_binding::info(format!("{}", format_args!($fmt $(, $($arg)*)?)))
     };
-    ($info: expr,$option: expr) => {
-        ohos_hilog_binding::info($info, Some($option));
+    (format!($($arg:tt)*)) => {
+        ohos_hilog_binding::info(format!($($arg)*))
     };
+    ($expr:expr) => {
+        ohos_hilog_binding::info(format!("{}", $expr))
+    }
 }
 
 #[macro_export]
 macro_rules! hilog_warn {
-    ($info: expr) => {
-        ohos_hilog_binding::warn($info, None);
+    ($fmt:literal $(, $($arg:tt)*)?) => {
+        ohos_hilog_binding::warn(format!("{}", format_args!($fmt $(, $($arg)*)?)))
     };
-    ($info: expr,$option: expr) => {
-        ohos_hilog_binding::warn($info, Some($option));
+    (format!($($arg:tt)*)) => {
+        ohos_hilog_binding::warn(format!($($arg)*))
     };
+    ($expr:expr) => {
+        ohos_hilog_binding::warn(format!("{}", $expr))
+    }
 }
 
 #[macro_export]
 macro_rules! hilog_error {
-    ($info: expr) => {
-        ohos_hilog_binding::error($info, None);
+    ($fmt:literal $(, $($arg:tt)*)?) => {
+        ohos_hilog_binding::error(format!("{}", format_args!($fmt $(, $($arg)*)?)))
     };
-    ($info: expr,$option: expr) => {
-        ohos_hilog_binding::error($info, Some($option));
+    (format!($($arg:tt)*)) => {
+        ohos_hilog_binding::error(format!($($arg)*))
     };
+    ($expr:expr) => {
+        ohos_hilog_binding::error(format!("{}", $expr))
+    }
 }
 
 #[macro_export]
 macro_rules! hilog_fatal {
-    ($info: expr) => {
-        ohos_hilog_binding::fatal($info, None);
+    ($fmt:literal $(, $($arg:tt)*)?) => {
+        ohos_hilog_binding::fatal(format!("{}", format_args!($fmt $(, $($arg)*)?)))
     };
-    ($info: expr,$option: expr) => {
-        ohos_hilog_binding::fatal($info, Some($option));
+    (format!($($arg:tt)*)) => {
+        ohos_hilog_binding::fatal(format!($($arg)*))
     };
+    ($expr:expr) => {
+        ohos_hilog_binding::fatal(format!("{}", $expr))
+    }
 }
 
 #[cfg(feature = "redirect")]
@@ -179,4 +305,41 @@ pub fn forward_stdio_to_hilog() -> std::thread::JoinHandle<Result<()>> {
             }
         })
         .expect("Failed to start stdout/stderr to hilog forwarder thread")
+}
+
+// TODO: can't run but can compile
+#[cfg(test)]
+mod test {
+    use crate as ohos_hilog_binding;
+    use crate::Hilog;
+
+    #[test]
+    fn test_hilog() {
+        let hilog = Hilog::new();
+        hilog.debug("test debug");
+        hilog.info("test info");
+        hilog.warn("test warn");
+    }
+
+    #[test]
+    fn test_hilog_macro() {
+        hilog_debug!("test debug");
+        hilog_info!("test info");
+        hilog_warn!("test warn");
+        hilog_error!("test error");
+        hilog_fatal!("test fatal");
+
+        hilog_debug!(format!("test debug {}", 1));
+        hilog_info!(format!("test info {}", 1));
+        hilog_warn!(format!("test warn {}", 1));
+        hilog_error!(format!("test error {}", 1));
+        hilog_fatal!(format!("test fatal {}", 1));
+
+        let a = 1;
+        hilog_debug!("test debug {a}");
+        hilog_info!("test info {a}");
+        hilog_warn!("test warn {a}");
+        hilog_error!("test error {a}");
+        hilog_fatal!("test fatal {a}");
+    }
 }
