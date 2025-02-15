@@ -5,8 +5,327 @@
 #![allow(non_camel_case_types)]
 
 use ohos_arkui_sys::*;
+use ohos_accessibility_sys::*;
 
 pub const OH_NATIVE_XCOMPONENT_OBJ: &[u8; 26usize] = b"__NATIVE_XCOMPONENT_OBJ__\0";
+pub const OH_NATIVE_XCOMPONENT_MAX_TOUCH_POINTS_NUMBER: u32 = 10;
+extern "C" {
+    pub fn OH_ArkUI_AccessibilityProviderRegisterCallback(
+        provider: *mut ArkUI_AccessibilityProvider,
+        callbacks: *mut ArkUI_AccessibilityProviderCallbacks,
+    ) -> i32;
+}
+extern "C" {
+    pub fn OH_ArkUI_SendAccessibilityAsyncEvent(
+        provider: *mut ArkUI_AccessibilityProvider,
+        eventInfo: *mut ArkUI_AccessibilityEventInfo,
+        callback: ::std::option::Option<unsafe extern "C" fn(errorCode: i32)>,
+    );
+}
+extern "C" {
+    pub fn OH_ArkUI_AddAndGetAccessibilityElementInfo(
+        list: *mut ArkUI_AccessibilityElementInfoList,
+    ) -> *mut ArkUI_AccessibilityElementInfo;
+}
+extern "C" {
+    pub fn OH_ArkUI_AccessibilityElementInfoSetElementId(
+        elementInfo: *mut ArkUI_AccessibilityElementInfo,
+        elementId: i32,
+    ) -> i32;
+}
+extern "C" {
+    pub fn OH_ArkUI_AccessibilityElementInfoSetParentId(
+        elementInfo: *mut ArkUI_AccessibilityElementInfo,
+        parentId: i32,
+    ) -> i32;
+}
+extern "C" {
+    pub fn OH_ArkUI_AccessibilityElementInfoSetComponentType(
+        elementInfo: *mut ArkUI_AccessibilityElementInfo,
+        componentType: *const ::std::os::raw::c_char,
+    ) -> i32;
+}
+extern "C" {
+    pub fn OH_ArkUI_AccessibilityElementInfoSetContents(
+        elementInfo: *mut ArkUI_AccessibilityElementInfo,
+        contents: *const ::std::os::raw::c_char,
+    ) -> i32;
+}
+extern "C" {
+    pub fn OH_ArkUI_AccessibilityElementInfoSetHintText(
+        elementInfo: *mut ArkUI_AccessibilityElementInfo,
+        hintText: *const ::std::os::raw::c_char,
+    ) -> i32;
+}
+extern "C" {
+    pub fn OH_ArkUI_AccessibilityElementInfoSetAccessibilityText(
+        elementInfo: *mut ArkUI_AccessibilityElementInfo,
+        accessibilityText: *const ::std::os::raw::c_char,
+    ) -> i32;
+}
+extern "C" {
+    pub fn OH_ArkUI_AccessibilityElementInfoSetAccessibilityDescription(
+        elementInfo: *mut ArkUI_AccessibilityElementInfo,
+        accessibilityDescription: *const ::std::os::raw::c_char,
+    ) -> i32;
+}
+extern "C" {
+    pub fn OH_ArkUI_AccessibilityElementInfoSetChildNodeIds(
+        elementInfo: *mut ArkUI_AccessibilityElementInfo,
+        childCount: i32,
+        childNodeIds: *mut i64,
+    ) -> i32;
+}
+extern "C" {
+    pub fn OH_ArkUI_AccessibilityElementInfoSetOperationActions(
+        elementInfo: *mut ArkUI_AccessibilityElementInfo,
+        operationCount: i32,
+        operationActions: *mut ArkUI_AccessibleAction,
+    ) -> i32;
+}
+extern "C" {
+    pub fn OH_ArkUI_AccessibilityElementInfoSetScreenRect(
+        elementInfo: *mut ArkUI_AccessibilityElementInfo,
+        screenRect: *mut ArkUI_AccessibleRect,
+    ) -> i32;
+}
+extern "C" {
+    pub fn OH_ArkUI_AccessibilityElementInfoSetCheckable(
+        elementInfo: *mut ArkUI_AccessibilityElementInfo,
+        checkable: bool,
+    ) -> i32;
+}
+extern "C" {
+    pub fn OH_ArkUI_AccessibilityElementInfoSetChecked(
+        elementInfo: *mut ArkUI_AccessibilityElementInfo,
+        checked: bool,
+    ) -> i32;
+}
+extern "C" {
+    pub fn OH_ArkUI_AccessibilityElementInfoSetFocusable(
+        elementInfo: *mut ArkUI_AccessibilityElementInfo,
+        focusable: bool,
+    ) -> i32;
+}
+extern "C" {
+    pub fn OH_ArkUI_AccessibilityElementInfoSetFocused(
+        elementInfo: *mut ArkUI_AccessibilityElementInfo,
+        isFocused: bool,
+    ) -> i32;
+}
+extern "C" {
+    pub fn OH_ArkUI_AccessibilityElementInfoSetVisible(
+        elementInfo: *mut ArkUI_AccessibilityElementInfo,
+        isVisible: bool,
+    ) -> i32;
+}
+extern "C" {
+    pub fn OH_ArkUI_AccessibilityElementInfoSetAccessibilityFocused(
+        elementInfo: *mut ArkUI_AccessibilityElementInfo,
+        accessibilityFocused: bool,
+    ) -> i32;
+}
+extern "C" {
+    pub fn OH_ArkUI_AccessibilityElementInfoSetSelected(
+        elementInfo: *mut ArkUI_AccessibilityElementInfo,
+        selected: bool,
+    ) -> i32;
+}
+extern "C" {
+    pub fn OH_ArkUI_AccessibilityElementInfoSetClickable(
+        elementInfo: *mut ArkUI_AccessibilityElementInfo,
+        clickable: bool,
+    ) -> i32;
+}
+extern "C" {
+    pub fn OH_ArkUI_AccessibilityElementInfoSetLongClickable(
+        elementInfo: *mut ArkUI_AccessibilityElementInfo,
+        longClickable: bool,
+    ) -> i32;
+}
+extern "C" {
+    pub fn OH_ArkUI_AccessibilityElementInfoSetEnabled(
+        elementInfo: *mut ArkUI_AccessibilityElementInfo,
+        isEnabled: bool,
+    ) -> i32;
+}
+extern "C" {
+    pub fn OH_ArkUI_AccessibilityElementInfoSetIsPassword(
+        elementInfo: *mut ArkUI_AccessibilityElementInfo,
+        isPassword: bool,
+    ) -> i32;
+}
+extern "C" {
+    pub fn OH_ArkUI_AccessibilityElementInfoSetScrollable(
+        elementInfo: *mut ArkUI_AccessibilityElementInfo,
+        scrollable: bool,
+    ) -> i32;
+}
+extern "C" {
+    pub fn OH_ArkUI_AccessibilityElementInfoSetEditable(
+        elementInfo: *mut ArkUI_AccessibilityElementInfo,
+        editable: bool,
+    ) -> i32;
+}
+extern "C" {
+    pub fn OH_ArkUI_AccessibilityElementInfoSetIsHint(
+        elementInfo: *mut ArkUI_AccessibilityElementInfo,
+        isHint: bool,
+    ) -> i32;
+}
+extern "C" {
+    pub fn OH_ArkUI_AccessibilityElementInfoSetRangeInfo(
+        elementInfo: *mut ArkUI_AccessibilityElementInfo,
+        rangeInfo: *mut ArkUI_AccessibleRangeInfo,
+    ) -> i32;
+}
+extern "C" {
+    pub fn OH_ArkUI_AccessibilityElementInfoSetGridInfo(
+        elementInfo: *mut ArkUI_AccessibilityElementInfo,
+        gridInfo: *mut ArkUI_AccessibleGridInfo,
+    ) -> i32;
+}
+extern "C" {
+    pub fn OH_ArkUI_AccessibilityElementInfoSetGridItemInfo(
+        elementInfo: *mut ArkUI_AccessibilityElementInfo,
+        gridItem: *mut ArkUI_AccessibleGridItemInfo,
+    ) -> i32;
+}
+extern "C" {
+    pub fn OH_ArkUI_AccessibilityElementInfoSetSelectedTextStart(
+        elementInfo: *mut ArkUI_AccessibilityElementInfo,
+        selectedTextStart: i32,
+    ) -> i32;
+}
+extern "C" {
+    pub fn OH_ArkUI_AccessibilityElementInfoSetSelectedTextEnd(
+        elementInfo: *mut ArkUI_AccessibilityElementInfo,
+        selectedTextEnd: i32,
+    ) -> i32;
+}
+extern "C" {
+    pub fn OH_ArkUI_AccessibilityElementInfoSetCurrentItemIndex(
+        elementInfo: *mut ArkUI_AccessibilityElementInfo,
+        currentItemIndex: i32,
+    ) -> i32;
+}
+extern "C" {
+    pub fn OH_ArkUI_AccessibilityElementInfoSetStartItemIndex(
+        elementInfo: *mut ArkUI_AccessibilityElementInfo,
+        startItemIndex: i32,
+    ) -> i32;
+}
+extern "C" {
+    pub fn OH_ArkUI_AccessibilityElementInfoSetEndItemIndex(
+        elementInfo: *mut ArkUI_AccessibilityElementInfo,
+        endItemIndex: i32,
+    ) -> i32;
+}
+extern "C" {
+    pub fn OH_ArkUI_AccessibilityElementInfoSetItemCount(
+        elementInfo: *mut ArkUI_AccessibilityElementInfo,
+        itemCount: i32,
+    ) -> i32;
+}
+extern "C" {
+    pub fn OH_ArkUI_AccessibilityElementInfoSetAccessibilityOffset(
+        elementInfo: *mut ArkUI_AccessibilityElementInfo,
+        offset: i32,
+    ) -> i32;
+}
+extern "C" {
+    pub fn OH_ArkUI_AccessibilityElementInfoSetAccessibilityGroup(
+        elementInfo: *mut ArkUI_AccessibilityElementInfo,
+        accessibilityGroup: bool,
+    ) -> i32;
+}
+extern "C" {
+    pub fn OH_ArkUI_AccessibilityElementInfoSetAccessibilityLevel(
+        elementInfo: *mut ArkUI_AccessibilityElementInfo,
+        accessibilityLevel: *const ::std::os::raw::c_char,
+    ) -> i32;
+}
+extern "C" {
+    pub fn OH_ArkUI_AccessibilityElementInfoSetZIndex(
+        elementInfo: *mut ArkUI_AccessibilityElementInfo,
+        zIndex: i32,
+    ) -> i32;
+}
+extern "C" {
+    pub fn OH_ArkUI_AccessibilityElementInfoSetAccessibilityOpacity(
+        elementInfo: *mut ArkUI_AccessibilityElementInfo,
+        opacity: f32,
+    ) -> i32;
+}
+extern "C" {
+    pub fn OH_ArkUI_AccessibilityElementInfoSetBackgroundColor(
+        elementInfo: *mut ArkUI_AccessibilityElementInfo,
+        backgroundColor: *const ::std::os::raw::c_char,
+    ) -> i32;
+}
+extern "C" {
+    pub fn OH_ArkUI_AccessibilityElementInfoSetBackgroundImage(
+        elementInfo: *mut ArkUI_AccessibilityElementInfo,
+        backgroundImage: *const ::std::os::raw::c_char,
+    ) -> i32;
+}
+extern "C" {
+    pub fn OH_ArkUI_AccessibilityElementInfoSetBlur(
+        elementInfo: *mut ArkUI_AccessibilityElementInfo,
+        blur: *const ::std::os::raw::c_char,
+    ) -> i32;
+}
+extern "C" {
+    pub fn OH_ArkUI_AccessibilityElementInfoSetHitTestBehavior(
+        elementInfo: *mut ArkUI_AccessibilityElementInfo,
+        hitTestBehavior: *const ::std::os::raw::c_char,
+    ) -> i32;
+}
+extern "C" {
+    pub fn OH_ArkUI_CreateAccessibilityElementInfo() -> *mut ArkUI_AccessibilityElementInfo;
+}
+extern "C" {
+    pub fn OH_ArkUI_DestoryAccessibilityElementInfo(
+        elementInfo: *mut ArkUI_AccessibilityElementInfo,
+    );
+}
+extern "C" {
+    pub fn OH_ArkUI_CreateAccessibilityEventInfo() -> *mut ArkUI_AccessibilityEventInfo;
+}
+extern "C" {
+    pub fn OH_ArkUI_DestoryAccessibilityEventInfo(eventInfo: *mut ArkUI_AccessibilityEventInfo);
+}
+extern "C" {
+    pub fn OH_ArkUI_AccessibilityEventSetEventType(
+        eventInfo: *mut ArkUI_AccessibilityEventInfo,
+        eventType: ArkUI_AccessibilityEventType,
+    ) -> i32;
+}
+extern "C" {
+    pub fn OH_ArkUI_AccessibilityEventSetTextAnnouncedForAccessibility(
+        eventInfo: *mut ArkUI_AccessibilityEventInfo,
+        textAnnouncedForAccessibility: *const ::std::os::raw::c_char,
+    ) -> i32;
+}
+extern "C" {
+    pub fn OH_ArkUI_AccessibilityEventSetRequestFocusId(
+        eventInfo: *mut ArkUI_AccessibilityEventInfo,
+        requestFocusId: i32,
+    ) -> i32;
+}
+extern "C" {
+    pub fn OH_ArkUI_AccessibilityEventSetElementInfo(
+        eventInfo: *mut ArkUI_AccessibilityEventInfo,
+        elementInfo: *mut ArkUI_AccessibilityElementInfo,
+    ) -> i32;
+}
+extern "C" {
+    pub fn OH_ArkUI_FindAccessibilityActionArgumentByKey(
+        arguments: *mut ArkUI_AccessibilityActionArguments,
+        key: *const ::std::os::raw::c_char,
+        value: *mut *mut ::std::os::raw::c_char,
+    ) -> i32;
+}
 #[repr(C)]
 #[derive(Debug, Copy, Clone)]
 pub struct OH_PixelmapNative {
@@ -964,6 +1283,26 @@ extern "C" {
         value: *mut ArkUI_AccessibilityValue,
     ) -> *const ::std::os::raw::c_char;
 }
+extern "C" {
+    pub fn OH_ArkUI_CustomProperty_Destroy(handle: *mut ArkUI_CustomProperty);
+}
+extern "C" {
+    pub fn OH_ArkUI_CustomProperty_GetStringValue(
+        handle: *mut ArkUI_CustomProperty,
+    ) -> *const ::std::os::raw::c_char;
+}
+extern "C" {
+    pub fn OH_ArkUI_ActiveChildrenInfo_Destroy(handle: *mut ArkUI_ActiveChildrenInfo);
+}
+extern "C" {
+    pub fn OH_ArkUI_ActiveChildrenInfo_GetNodeByIndex(
+        handle: *mut ArkUI_ActiveChildrenInfo,
+        index: i32,
+    ) -> ArkUI_NodeHandle;
+}
+extern "C" {
+    pub fn OH_ArkUI_ActiveChildrenInfo_GetCount(handle: *mut ArkUI_ActiveChildrenInfo) -> i32;
+}
 pub const HitTestMode_HTM_DEFAULT: HitTestMode = 0;
 pub const HitTestMode_HTM_BLOCK: HitTestMode = 1;
 pub const HitTestMode_HTM_TRANSPARENT: HitTestMode = 2;
@@ -1201,6 +1540,16 @@ extern "C" {
     pub fn OH_ArkUI_PointerEvent_SetStopPropagation(
         event: *const ArkUI_UIInputEvent,
         stopPropagation: bool,
+    ) -> i32;
+}
+extern "C" {
+    pub fn OH_ArkUI_UIInputEvent_GetDeviceId(event: *const ArkUI_UIInputEvent) -> i32;
+}
+extern "C" {
+    pub fn OH_ArkUI_UIInputEvent_GetPressedKeys(
+        event: *const ArkUI_UIInputEvent,
+        pressedKeyCodes: *mut i32,
+        length: *mut i32,
     ) -> i32;
 }
 pub const OH_NativeXComponent_KeyCode_KEY_UNKNOWN: OH_NativeXComponent_KeyCode = -1;
@@ -2024,4 +2373,21 @@ extern "C" {
     pub fn OH_NativeXComponent_GetNativeXComponent(
         node: ArkUI_NodeHandle,
     ) -> *mut OH_NativeXComponent;
+}
+extern "C" {
+    pub fn OH_NativeXComponent_GetNativeAccessibilityProvider(
+        component: *mut OH_NativeXComponent,
+        handle: *mut *mut ArkUI_AccessibilityProvider,
+    ) -> i32;
+}
+extern "C" {
+    pub fn OH_NativeXComponent_RegisterKeyEventCallbackWithResult(
+        component: *mut OH_NativeXComponent,
+        callback: ::std::option::Option<
+            unsafe extern "C" fn(
+                component: *mut OH_NativeXComponent,
+                window: *mut ::std::os::raw::c_void,
+            ) -> bool,
+        >,
+    ) -> i32;
 }

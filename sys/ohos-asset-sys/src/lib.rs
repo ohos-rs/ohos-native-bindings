@@ -485,6 +485,7 @@ pub const Asset_Tag_ASSET_TAG_RETURN_ORDERED_BY: Asset_Tag = 536870979;
 pub const Asset_Tag_ASSET_TAG_CONFLICT_RESOLUTION: Asset_Tag = 536870980;
 pub const Asset_Tag_ASSET_TAG_UPDATE_TIME: Asset_Tag = 805306437;
 pub const Asset_Tag_ASSET_TAG_OPERATION_TYPE: Asset_Tag = 536870982;
+pub const Asset_Tag_ASSET_TAG_REQUIRE_ATTR_ENCRYPTED: Asset_Tag = 268435527;
 pub type Asset_Tag = ::std::os::raw::c_uint;
 pub const Asset_ResultCode_ASSET_SUCCESS: Asset_ResultCode = 0;
 pub const Asset_ResultCode_ASSET_PERMISSION_DENIED: Asset_ResultCode = 201;

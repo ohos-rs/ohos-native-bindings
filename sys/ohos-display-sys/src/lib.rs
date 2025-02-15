@@ -74,6 +74,63 @@ pub struct NativeDisplayManager_CutoutInfo {
     pub boundingRects: *mut NativeDisplayManager_Rect,
     pub waterfallDisplayAreaRects: NativeDisplayManager_WaterfallDisplayAreaRects,
 }
+pub const NativeDisplayManager_DisplayState_DISPLAY_MANAGER_DISPLAY_STATE_UNKNOWN:
+    NativeDisplayManager_DisplayState = 0;
+pub const NativeDisplayManager_DisplayState_DISPLAY_MANAGER_DISPLAY_STATE_OFF:
+    NativeDisplayManager_DisplayState = 1;
+pub const NativeDisplayManager_DisplayState_DISPLAY_MANAGER_DISPLAY_STATE_ON:
+    NativeDisplayManager_DisplayState = 2;
+pub const NativeDisplayManager_DisplayState_DISPLAY_MANAGER_DISPLAY_STATE_DOZE:
+    NativeDisplayManager_DisplayState = 3;
+pub const NativeDisplayManager_DisplayState_DISPLAY_MANAGER_DISPLAY_STATE_DOZE_SUSPEND:
+    NativeDisplayManager_DisplayState = 4;
+pub const NativeDisplayManager_DisplayState_DISPLAY_MANAGER_DISPLAY_STATE_VR:
+    NativeDisplayManager_DisplayState = 5;
+pub const NativeDisplayManager_DisplayState_DISPLAY_MANAGER_DISPLAY_STATE_ON_SUSPEND:
+    NativeDisplayManager_DisplayState = 6;
+pub type NativeDisplayManager_DisplayState = ::std::os::raw::c_uint;
+#[repr(C)]
+#[derive(Debug, Copy, Clone)]
+pub struct NativeDisplayManager_DisplayHdrFormat {
+    pub hdrFormatLength: u32,
+    pub hdrFormats: *mut u32,
+}
+#[repr(C)]
+#[derive(Debug, Copy, Clone)]
+pub struct NativeDisplayManager_DisplayColorSpace {
+    pub colorSpaceLength: u32,
+    pub colorSpaces: *mut u32,
+}
+#[repr(C)]
+#[derive(Debug, Copy, Clone)]
+pub struct NativeDisplayManager_DisplayInfo {
+    pub id: u32,
+    pub name: [::std::os::raw::c_char; 33usize],
+    pub isAlive: bool,
+    pub width: i32,
+    pub height: i32,
+    pub physicalWidth: i32,
+    pub physicalHeight: i32,
+    pub refreshRate: u32,
+    pub availableWidth: u32,
+    pub availableHeight: u32,
+    pub densityDPI: f32,
+    pub densityPixels: f32,
+    pub scaledDensity: f32,
+    pub xDPI: f32,
+    pub yDPI: f32,
+    pub rotation: NativeDisplayManager_Rotation,
+    pub state: NativeDisplayManager_DisplayState,
+    pub orientation: NativeDisplayManager_Orientation,
+    pub hdrFormat: *mut NativeDisplayManager_DisplayHdrFormat,
+    pub colorSpace: *mut NativeDisplayManager_DisplayColorSpace,
+}
+#[repr(C)]
+#[derive(Debug, Copy, Clone)]
+pub struct NativeDisplayManager_DisplaysInfo {
+    pub displaysLength: u32,
+    pub displaysInfo: *mut NativeDisplayManager_DisplayInfo,
+}
 extern "C" {
     pub fn OH_NativeDisplayManager_GetDefaultDisplayId(
         displayId: *mut u64,
@@ -176,5 +233,31 @@ extern "C" {
 extern "C" {
     pub fn OH_NativeDisplayManager_UnregisterFoldDisplayModeChangeListener(
         listenerIndex: u32,
+    ) -> NativeDisplayManager_ErrorCode;
+}
+extern "C" {
+    pub fn OH_NativeDisplayManager_CreateAllDisplays(
+        allDisplays: *mut *mut NativeDisplayManager_DisplaysInfo,
+    ) -> NativeDisplayManager_ErrorCode;
+}
+extern "C" {
+    pub fn OH_NativeDisplayManager_DestroyAllDisplays(
+        allDisplays: *mut NativeDisplayManager_DisplaysInfo,
+    );
+}
+extern "C" {
+    pub fn OH_NativeDisplayManager_CreateDisplayById(
+        displayId: u32,
+        displayInfo: *mut *mut NativeDisplayManager_DisplayInfo,
+    ) -> NativeDisplayManager_ErrorCode;
+}
+extern "C" {
+    pub fn OH_NativeDisplayManager_DestroyDisplay(
+        displayInfo: *mut NativeDisplayManager_DisplayInfo,
+    );
+}
+extern "C" {
+    pub fn OH_NativeDisplayManager_CreatePrimaryDisplay(
+        displayInfo: *mut *mut NativeDisplayManager_DisplayInfo,
     ) -> NativeDisplayManager_ErrorCode;
 }

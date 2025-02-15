@@ -124,6 +124,11 @@ pub struct ArkUI_SwiperIndicator {
 }
 #[repr(C)]
 #[derive(Debug, Copy, Clone)]
+pub struct ArkUI_StyledString_Descriptor {
+    _unused: [u8; 0],
+}
+#[repr(C)]
+#[derive(Debug, Copy, Clone)]
 pub struct ArkUI_AlignmentRuleOption {
     _unused: [u8; 0],
 }
@@ -155,6 +160,16 @@ pub struct ArkUI_AccessibilityState {
 #[repr(C)]
 #[derive(Debug, Copy, Clone)]
 pub struct ArkUI_AccessibilityValue {
+    _unused: [u8; 0],
+}
+#[repr(C)]
+#[derive(Debug, Copy, Clone)]
+pub struct ArkUI_CustomProperty {
+    _unused: [u8; 0],
+}
+#[repr(C)]
+#[derive(Debug, Copy, Clone)]
+pub struct ArkUI_ActiveChildrenInfo {
     _unused: [u8; 0],
 }
 #[repr(C)]
@@ -784,6 +799,7 @@ pub const ArkUI_ErrorCode_ARKUI_ERROR_CODE_GET_INFO_FAILED: ArkUI_ErrorCode = 10
 pub const ArkUI_ErrorCode_ARKUI_ERROR_CODE_BUFFER_SIZE_ERROR: ArkUI_ErrorCode = 106202;
 pub const ArkUI_ErrorCode_ARKUI_ERROR_CODE_NON_SCROLLABLE_CONTAINER: ArkUI_ErrorCode = 180001;
 pub const ArkUI_ErrorCode_ARKUI_ERROR_CODE_BUFFER_SIZE_NOT_ENOUGH: ArkUI_ErrorCode = 180002;
+pub const ArkUI_ErrorCode_ARKUI_ERROR_CODE_INVALID_STYLED_STRING: ArkUI_ErrorCode = 180101;
 pub type ArkUI_ErrorCode = ::std::os::raw::c_uint;
 pub const ArkUI_AnimationStatus_ARKUI_ANIMATION_STATUS_INITIAL: ArkUI_AnimationStatus = 0;
 pub const ArkUI_AnimationStatus_ARKUI_ANIMATION_STATUS_RUNNING: ArkUI_AnimationStatus = 1;
@@ -800,17 +816,6 @@ pub const ArkUI_AccessibilityCheckedState_ARKUI_ACCESSIBILITY_UNCHECKED:
 pub const ArkUI_AccessibilityCheckedState_ARKUI_ACCESSIBILITY_CHECKED:
     ArkUI_AccessibilityCheckedState = 1;
 pub type ArkUI_AccessibilityCheckedState = ::std::os::raw::c_uint;
-pub const ArkUI_AccessibilityActionType_ARKUI_ACCESSIBILITY_ACTION_CLICK:
-    ArkUI_AccessibilityActionType = 1;
-pub const ArkUI_AccessibilityActionType_ARKUI_ACCESSIBILITY_ACTION_LONG_CLICK:
-    ArkUI_AccessibilityActionType = 2;
-pub const ArkUI_AccessibilityActionType_ARKUI_ACCESSIBILITY_ACTION_CUT:
-    ArkUI_AccessibilityActionType = 4;
-pub const ArkUI_AccessibilityActionType_ARKUI_ACCESSIBILITY_ACTION_COPY:
-    ArkUI_AccessibilityActionType = 8;
-pub const ArkUI_AccessibilityActionType_ARKUI_ACCESSIBILITY_ACTION_PASTE:
-    ArkUI_AccessibilityActionType = 16;
-pub type ArkUI_AccessibilityActionType = ::std::os::raw::c_uint;
 pub const ArkUI_AnimationDirection_ARKUI_ANIMATION_DIRECTION_NORMAL: ArkUI_AnimationDirection = 0;
 pub const ArkUI_AnimationDirection_ARKUI_ANIMATION_DIRECTION_REVERSE: ArkUI_AnimationDirection = 1;
 pub const ArkUI_AnimationDirection_ARKUI_ANIMATION_DIRECTION_ALTERNATE: ArkUI_AnimationDirection =
@@ -827,6 +832,17 @@ pub const ArkUI_ScrollSource_ARKUI_SCROLL_SOURCE_SCROLL_BAR_FLING: ArkUI_ScrollS
 pub const ArkUI_ScrollSource_ARKUI_SCROLL_SOURCE_SCROLLER: ArkUI_ScrollSource = 6;
 pub const ArkUI_ScrollSource_ARKUI_SCROLL_SOURCE_ANIMATION: ArkUI_ScrollSource = 7;
 pub type ArkUI_ScrollSource = ::std::os::raw::c_uint;
+pub const ArkUI_AccessibilityActionType_ARKUI_ACCESSIBILITY_ACTION_CLICK:
+    ArkUI_AccessibilityActionType = 1;
+pub const ArkUI_AccessibilityActionType_ARKUI_ACCESSIBILITY_ACTION_LONG_CLICK:
+    ArkUI_AccessibilityActionType = 2;
+pub const ArkUI_AccessibilityActionType_ARKUI_ACCESSIBILITY_ACTION_CUT:
+    ArkUI_AccessibilityActionType = 4;
+pub const ArkUI_AccessibilityActionType_ARKUI_ACCESSIBILITY_ACTION_COPY:
+    ArkUI_AccessibilityActionType = 8;
+pub const ArkUI_AccessibilityActionType_ARKUI_ACCESSIBILITY_ACTION_PASTE:
+    ArkUI_AccessibilityActionType = 16;
+pub type ArkUI_AccessibilityActionType = ::std::os::raw::c_uint;
 #[repr(C)]
 #[derive(Debug, Copy, Clone)]
 pub struct ArkUI_TranslationOptions {
@@ -1810,372 +1826,25 @@ extern "C" {
         value: *mut ArkUI_AccessibilityValue,
     ) -> *const ::std::os::raw::c_char;
 }
-#[repr(C)]
-#[derive(Debug, Copy, Clone)]
-pub struct OH_UdsPlainText {
-    _unused: [u8; 0],
-}
-#[repr(C)]
-#[derive(Debug, Copy, Clone)]
-pub struct OH_UdsHyperlink {
-    _unused: [u8; 0],
-}
-#[repr(C)]
-#[derive(Debug, Copy, Clone)]
-pub struct OH_UdsHtml {
-    _unused: [u8; 0],
-}
-#[repr(C)]
-#[derive(Debug, Copy, Clone)]
-pub struct OH_UdsAppItem {
-    _unused: [u8; 0],
+extern "C" {
+    pub fn OH_ArkUI_CustomProperty_Destroy(handle: *mut ArkUI_CustomProperty);
 }
 extern "C" {
-    pub fn OH_UdsPlainText_Create() -> *mut OH_UdsPlainText;
-}
-extern "C" {
-    pub fn OH_UdsPlainText_Destroy(pThis: *mut OH_UdsPlainText);
-}
-extern "C" {
-    pub fn OH_UdsPlainText_GetType(pThis: *mut OH_UdsPlainText) -> *const ::std::os::raw::c_char;
-}
-extern "C" {
-    pub fn OH_UdsPlainText_GetContent(pThis: *mut OH_UdsPlainText)
-        -> *const ::std::os::raw::c_char;
-}
-extern "C" {
-    pub fn OH_UdsPlainText_GetAbstract(
-        pThis: *mut OH_UdsPlainText,
+    pub fn OH_ArkUI_CustomProperty_GetStringValue(
+        handle: *mut ArkUI_CustomProperty,
     ) -> *const ::std::os::raw::c_char;
 }
 extern "C" {
-    pub fn OH_UdsPlainText_SetContent(
-        pThis: *mut OH_UdsPlainText,
-        content: *const ::std::os::raw::c_char,
-    ) -> ::std::os::raw::c_int;
+    pub fn OH_ArkUI_ActiveChildrenInfo_Destroy(handle: *mut ArkUI_ActiveChildrenInfo);
 }
 extern "C" {
-    pub fn OH_UdsPlainText_SetAbstract(
-        pThis: *mut OH_UdsPlainText,
-        abstract_: *const ::std::os::raw::c_char,
-    ) -> ::std::os::raw::c_int;
+    pub fn OH_ArkUI_ActiveChildrenInfo_GetNodeByIndex(
+        handle: *mut ArkUI_ActiveChildrenInfo,
+        index: i32,
+    ) -> ArkUI_NodeHandle;
 }
 extern "C" {
-    pub fn OH_UdsHyperlink_Create() -> *mut OH_UdsHyperlink;
-}
-extern "C" {
-    pub fn OH_UdsHyperlink_Destroy(pThis: *mut OH_UdsHyperlink);
-}
-extern "C" {
-    pub fn OH_UdsHyperlink_GetType(pThis: *mut OH_UdsHyperlink) -> *const ::std::os::raw::c_char;
-}
-extern "C" {
-    pub fn OH_UdsHyperlink_GetUrl(pThis: *mut OH_UdsHyperlink) -> *const ::std::os::raw::c_char;
-}
-extern "C" {
-    pub fn OH_UdsHyperlink_GetDescription(
-        pThis: *mut OH_UdsHyperlink,
-    ) -> *const ::std::os::raw::c_char;
-}
-extern "C" {
-    pub fn OH_UdsHyperlink_SetUrl(
-        pThis: *mut OH_UdsHyperlink,
-        url: *const ::std::os::raw::c_char,
-    ) -> ::std::os::raw::c_int;
-}
-extern "C" {
-    pub fn OH_UdsHyperlink_SetDescription(
-        pThis: *mut OH_UdsHyperlink,
-        description: *const ::std::os::raw::c_char,
-    ) -> ::std::os::raw::c_int;
-}
-extern "C" {
-    pub fn OH_UdsHtml_Create() -> *mut OH_UdsHtml;
-}
-extern "C" {
-    pub fn OH_UdsHtml_Destroy(pThis: *mut OH_UdsHtml);
-}
-extern "C" {
-    pub fn OH_UdsHtml_GetType(pThis: *mut OH_UdsHtml) -> *const ::std::os::raw::c_char;
-}
-extern "C" {
-    pub fn OH_UdsHtml_GetContent(pThis: *mut OH_UdsHtml) -> *const ::std::os::raw::c_char;
-}
-extern "C" {
-    pub fn OH_UdsHtml_GetPlainContent(pThis: *mut OH_UdsHtml) -> *const ::std::os::raw::c_char;
-}
-extern "C" {
-    pub fn OH_UdsHtml_SetContent(
-        pThis: *mut OH_UdsHtml,
-        content: *const ::std::os::raw::c_char,
-    ) -> ::std::os::raw::c_int;
-}
-extern "C" {
-    pub fn OH_UdsHtml_SetPlainContent(
-        pThis: *mut OH_UdsHtml,
-        plainContent: *const ::std::os::raw::c_char,
-    ) -> ::std::os::raw::c_int;
-}
-extern "C" {
-    pub fn OH_UdsAppItem_Create() -> *mut OH_UdsAppItem;
-}
-extern "C" {
-    pub fn OH_UdsAppItem_Destroy(pThis: *mut OH_UdsAppItem);
-}
-extern "C" {
-    pub fn OH_UdsAppItem_GetType(pThis: *mut OH_UdsAppItem) -> *const ::std::os::raw::c_char;
-}
-extern "C" {
-    pub fn OH_UdsAppItem_GetId(pThis: *mut OH_UdsAppItem) -> *const ::std::os::raw::c_char;
-}
-extern "C" {
-    pub fn OH_UdsAppItem_GetName(pThis: *mut OH_UdsAppItem) -> *const ::std::os::raw::c_char;
-}
-extern "C" {
-    pub fn OH_UdsAppItem_GetIconId(pThis: *mut OH_UdsAppItem) -> *const ::std::os::raw::c_char;
-}
-extern "C" {
-    pub fn OH_UdsAppItem_GetLabelId(pThis: *mut OH_UdsAppItem) -> *const ::std::os::raw::c_char;
-}
-extern "C" {
-    pub fn OH_UdsAppItem_GetBundleName(pThis: *mut OH_UdsAppItem) -> *const ::std::os::raw::c_char;
-}
-extern "C" {
-    pub fn OH_UdsAppItem_GetAbilityName(pThis: *mut OH_UdsAppItem)
-        -> *const ::std::os::raw::c_char;
-}
-extern "C" {
-    pub fn OH_UdsAppItem_SetId(
-        pThis: *mut OH_UdsAppItem,
-        appId: *const ::std::os::raw::c_char,
-    ) -> ::std::os::raw::c_int;
-}
-extern "C" {
-    pub fn OH_UdsAppItem_SetName(
-        pThis: *mut OH_UdsAppItem,
-        appName: *const ::std::os::raw::c_char,
-    ) -> ::std::os::raw::c_int;
-}
-extern "C" {
-    pub fn OH_UdsAppItem_SetIconId(
-        pThis: *mut OH_UdsAppItem,
-        appIconId: *const ::std::os::raw::c_char,
-    ) -> ::std::os::raw::c_int;
-}
-extern "C" {
-    pub fn OH_UdsAppItem_SetLabelId(
-        pThis: *mut OH_UdsAppItem,
-        appLabelId: *const ::std::os::raw::c_char,
-    ) -> ::std::os::raw::c_int;
-}
-extern "C" {
-    pub fn OH_UdsAppItem_SetBundleName(
-        pThis: *mut OH_UdsAppItem,
-        bundleName: *const ::std::os::raw::c_char,
-    ) -> ::std::os::raw::c_int;
-}
-extern "C" {
-    pub fn OH_UdsAppItem_SetAbilityName(
-        pThis: *mut OH_UdsAppItem,
-        abilityName: *const ::std::os::raw::c_char,
-    ) -> ::std::os::raw::c_int;
-}
-pub const Udmf_Intention_UDMF_INTENTION_DRAG: Udmf_Intention = 0;
-pub const Udmf_Intention_UDMF_INTENTION_PASTEBOARD: Udmf_Intention = 1;
-pub type Udmf_Intention = ::std::os::raw::c_uint;
-pub const Udmf_ShareOption_SHARE_OPTIONS_INVALID: Udmf_ShareOption = 0;
-pub const Udmf_ShareOption_SHARE_OPTIONS_IN_APP: Udmf_ShareOption = 1;
-pub const Udmf_ShareOption_SHARE_OPTIONS_CROSS_APP: Udmf_ShareOption = 2;
-pub type Udmf_ShareOption = ::std::os::raw::c_uint;
-#[repr(C)]
-#[derive(Debug, Copy, Clone)]
-pub struct OH_UdmfData {
-    _unused: [u8; 0],
-}
-#[repr(C)]
-#[derive(Debug, Copy, Clone)]
-pub struct OH_UdmfRecord {
-    _unused: [u8; 0],
-}
-#[repr(C)]
-#[derive(Debug, Copy, Clone)]
-pub struct OH_UdmfProperty {
-    _unused: [u8; 0],
-}
-extern "C" {
-    pub fn OH_UdmfData_Create() -> *mut OH_UdmfData;
-}
-extern "C" {
-    pub fn OH_UdmfData_Destroy(pThis: *mut OH_UdmfData);
-}
-extern "C" {
-    pub fn OH_UdmfData_AddRecord(
-        pThis: *mut OH_UdmfData,
-        record: *mut OH_UdmfRecord,
-    ) -> ::std::os::raw::c_int;
-}
-extern "C" {
-    pub fn OH_UdmfData_HasType(
-        pThis: *mut OH_UdmfData,
-        type_: *const ::std::os::raw::c_char,
-    ) -> bool;
-}
-extern "C" {
-    pub fn OH_UdmfData_GetTypes(
-        pThis: *mut OH_UdmfData,
-        count: *mut ::std::os::raw::c_uint,
-    ) -> *mut *mut ::std::os::raw::c_char;
-}
-extern "C" {
-    pub fn OH_UdmfData_GetRecords(
-        pThis: *mut OH_UdmfData,
-        count: *mut ::std::os::raw::c_uint,
-    ) -> *mut *mut OH_UdmfRecord;
-}
-extern "C" {
-    pub fn OH_UdmfRecord_Create() -> *mut OH_UdmfRecord;
-}
-extern "C" {
-    pub fn OH_UdmfRecord_Destroy(pThis: *mut OH_UdmfRecord);
-}
-extern "C" {
-    pub fn OH_UdmfRecord_AddGeneralEntry(
-        pThis: *mut OH_UdmfRecord,
-        typeId: *const ::std::os::raw::c_char,
-        entry: *mut ::std::os::raw::c_uchar,
-        count: ::std::os::raw::c_uint,
-    ) -> ::std::os::raw::c_int;
-}
-extern "C" {
-    pub fn OH_UdmfRecord_AddPlainText(
-        pThis: *mut OH_UdmfRecord,
-        plainText: *mut OH_UdsPlainText,
-    ) -> ::std::os::raw::c_int;
-}
-extern "C" {
-    pub fn OH_UdmfRecord_AddHyperlink(
-        pThis: *mut OH_UdmfRecord,
-        hyperlink: *mut OH_UdsHyperlink,
-    ) -> ::std::os::raw::c_int;
-}
-extern "C" {
-    pub fn OH_UdmfRecord_AddHtml(
-        pThis: *mut OH_UdmfRecord,
-        html: *mut OH_UdsHtml,
-    ) -> ::std::os::raw::c_int;
-}
-extern "C" {
-    pub fn OH_UdmfRecord_AddAppItem(
-        pThis: *mut OH_UdmfRecord,
-        appItem: *mut OH_UdsAppItem,
-    ) -> ::std::os::raw::c_int;
-}
-extern "C" {
-    pub fn OH_UdmfRecord_GetTypes(
-        pThis: *mut OH_UdmfRecord,
-        count: *mut ::std::os::raw::c_uint,
-    ) -> *mut *mut ::std::os::raw::c_char;
-}
-extern "C" {
-    pub fn OH_UdmfRecord_GetGeneralEntry(
-        pThis: *mut OH_UdmfRecord,
-        typeId: *const ::std::os::raw::c_char,
-        entry: *mut *mut ::std::os::raw::c_uchar,
-        count: *mut ::std::os::raw::c_uint,
-    ) -> ::std::os::raw::c_int;
-}
-extern "C" {
-    pub fn OH_UdmfRecord_GetPlainText(
-        pThis: *mut OH_UdmfRecord,
-        plainText: *mut OH_UdsPlainText,
-    ) -> ::std::os::raw::c_int;
-}
-extern "C" {
-    pub fn OH_UdmfRecord_GetHyperlink(
-        pThis: *mut OH_UdmfRecord,
-        hyperlink: *mut OH_UdsHyperlink,
-    ) -> ::std::os::raw::c_int;
-}
-extern "C" {
-    pub fn OH_UdmfRecord_GetHtml(
-        pThis: *mut OH_UdmfRecord,
-        html: *mut OH_UdsHtml,
-    ) -> ::std::os::raw::c_int;
-}
-extern "C" {
-    pub fn OH_UdmfRecord_GetAppItem(
-        pThis: *mut OH_UdmfRecord,
-        appItem: *mut OH_UdsAppItem,
-    ) -> ::std::os::raw::c_int;
-}
-extern "C" {
-    pub fn OH_UdmfProperty_Create(unifiedData: *mut OH_UdmfData) -> *mut OH_UdmfProperty;
-}
-extern "C" {
-    pub fn OH_UdmfProperty_Destroy(pThis: *mut OH_UdmfProperty);
-}
-extern "C" {
-    pub fn OH_UdmfProperty_GetTag(pThis: *mut OH_UdmfProperty) -> *const ::std::os::raw::c_char;
-}
-extern "C" {
-    pub fn OH_UdmfProperty_GetTimestamp(pThis: *mut OH_UdmfProperty) -> i64;
-}
-extern "C" {
-    pub fn OH_UdmfProperty_GetShareOption(pThis: *mut OH_UdmfProperty) -> Udmf_ShareOption;
-}
-extern "C" {
-    pub fn OH_UdmfProperty_GetExtrasIntParam(
-        pThis: *mut OH_UdmfProperty,
-        key: *const ::std::os::raw::c_char,
-        defaultValue: ::std::os::raw::c_int,
-    ) -> ::std::os::raw::c_int;
-}
-extern "C" {
-    pub fn OH_UdmfProperty_GetExtrasStringParam(
-        pThis: *mut OH_UdmfProperty,
-        key: *const ::std::os::raw::c_char,
-    ) -> *const ::std::os::raw::c_char;
-}
-extern "C" {
-    pub fn OH_UdmfProperty_SetTag(
-        pThis: *mut OH_UdmfProperty,
-        tag: *const ::std::os::raw::c_char,
-    ) -> ::std::os::raw::c_int;
-}
-extern "C" {
-    pub fn OH_UdmfProperty_SetShareOption(
-        pThis: *mut OH_UdmfProperty,
-        option: Udmf_ShareOption,
-    ) -> ::std::os::raw::c_int;
-}
-extern "C" {
-    pub fn OH_UdmfProperty_SetExtrasIntParam(
-        pThis: *mut OH_UdmfProperty,
-        key: *const ::std::os::raw::c_char,
-        param: ::std::os::raw::c_int,
-    ) -> ::std::os::raw::c_int;
-}
-extern "C" {
-    pub fn OH_UdmfProperty_SetExtrasStringParam(
-        pThis: *mut OH_UdmfProperty,
-        key: *const ::std::os::raw::c_char,
-        param: *const ::std::os::raw::c_char,
-    ) -> ::std::os::raw::c_int;
-}
-extern "C" {
-    pub fn OH_Udmf_GetUnifiedData(
-        key: *const ::std::os::raw::c_char,
-        intention: Udmf_Intention,
-        unifiedData: *mut OH_UdmfData,
-    ) -> ::std::os::raw::c_int;
-}
-extern "C" {
-    pub fn OH_Udmf_SetUnifiedData(
-        intention: Udmf_Intention,
-        unifiedData: *mut OH_UdmfData,
-        key: *mut ::std::os::raw::c_char,
-        keyLen: ::std::os::raw::c_uint,
-    ) -> ::std::os::raw::c_int;
+    pub fn OH_ArkUI_ActiveChildrenInfo_GetCount(handle: *mut ArkUI_ActiveChildrenInfo) -> i32;
 }
 #[repr(C)]
 #[derive(Debug, Copy, Clone)]
@@ -2184,6 +1853,17 @@ pub struct Image_Region {
     pub y: u32,
     pub width: u32,
     pub height: u32,
+}
+#[repr(C)]
+#[derive(Debug, Copy, Clone)]
+pub struct Image_String {
+    pub data: *mut ::std::os::raw::c_char,
+    pub size: usize,
+}
+#[repr(C)]
+#[derive(Debug, Copy, Clone)]
+pub struct OH_PictureMetadata {
+    _unused: [u8; 0],
 }
 pub const Image_ErrorCode_IMAGE_SUCCESS: Image_ErrorCode = 0;
 pub const Image_ErrorCode_IMAGE_BAD_PARAMETER: Image_ErrorCode = 401;
@@ -2196,6 +1876,7 @@ pub const Image_ErrorCode_IMAGE_UNSUPPORTED_OPERATION: Image_ErrorCode = 7600201
 pub const Image_ErrorCode_IMAGE_UNSUPPORTED_METADATA: Image_ErrorCode = 7600202;
 pub const Image_ErrorCode_IMAGE_UNSUPPORTED_CONVERSION: Image_ErrorCode = 7600203;
 pub const Image_ErrorCode_IMAGE_INVALID_REGION: Image_ErrorCode = 7600204;
+pub const Image_ErrorCode_IMAGE_UNSUPPORTED_MEMORY_FORMAT: Image_ErrorCode = 7600205;
 pub const Image_ErrorCode_IMAGE_ALLOC_FAILED: Image_ErrorCode = 7600301;
 pub const Image_ErrorCode_IMAGE_COPY_FAILED: Image_ErrorCode = 7600302;
 pub const Image_ErrorCode_IMAGE_UNKNOWN_ERROR: Image_ErrorCode = 7600901;
@@ -2203,9 +1884,46 @@ pub const Image_ErrorCode_IMAGE_BAD_SOURCE: Image_ErrorCode = 7700101;
 pub const Image_ErrorCode_IMAGE_DECODE_FAILED: Image_ErrorCode = 7700301;
 pub const Image_ErrorCode_IMAGE_ENCODE_FAILED: Image_ErrorCode = 7800301;
 pub type Image_ErrorCode = ::std::os::raw::c_uint;
+pub const Image_MetadataType_EXIF_METADATA: Image_MetadataType = 1;
+pub const Image_MetadataType_FRAGMENT_METADATA: Image_MetadataType = 2;
+pub type Image_MetadataType = ::std::os::raw::c_uint;
+extern "C" {
+    pub fn OH_PictureMetadata_Create(
+        metadataType: Image_MetadataType,
+        metadata: *mut *mut OH_PictureMetadata,
+    ) -> Image_ErrorCode;
+}
+extern "C" {
+    pub fn OH_PictureMetadata_GetProperty(
+        metadata: *mut OH_PictureMetadata,
+        key: *mut Image_String,
+        value: *mut Image_String,
+    ) -> Image_ErrorCode;
+}
+extern "C" {
+    pub fn OH_PictureMetadata_SetProperty(
+        metadata: *mut OH_PictureMetadata,
+        key: *mut Image_String,
+        value: *mut Image_String,
+    ) -> Image_ErrorCode;
+}
+extern "C" {
+    pub fn OH_PictureMetadata_Release(metadata: *mut OH_PictureMetadata) -> Image_ErrorCode;
+}
+extern "C" {
+    pub fn OH_PictureMetadata_Clone(
+        oldMetadata: *mut OH_PictureMetadata,
+        newMetadata: *mut *mut OH_PictureMetadata,
+    ) -> Image_ErrorCode;
+}
 #[repr(C)]
 #[derive(Debug, Copy, Clone)]
 pub struct OH_NativeBuffer {
+    _unused: [u8; 0],
+}
+#[repr(C)]
+#[derive(Debug, Copy, Clone)]
+pub struct OH_NativeColorSpaceManager {
     _unused: [u8; 0],
 }
 pub const OH_PixelmapNative_AntiAliasingLevel_OH_PixelmapNative_AntiAliasing_NONE:
@@ -2439,6 +2157,13 @@ extern "C" {
     ) -> Image_ErrorCode;
 }
 extern "C" {
+    pub fn OH_PixelmapNative_GetArgbPixels(
+        pixelmap: *mut OH_PixelmapNative,
+        destination: *mut u8,
+        bufferSize: *mut usize,
+    ) -> Image_ErrorCode;
+}
+extern "C" {
     pub fn OH_PixelmapNative_ToSdr(pixelmap: *mut OH_PixelmapNative) -> Image_ErrorCode;
 }
 extern "C" {
@@ -2529,6 +2254,674 @@ extern "C" {
         pixelmap: *mut OH_PixelmapNative,
         nativeBuffer: *mut *mut OH_NativeBuffer,
     ) -> Image_ErrorCode;
+}
+extern "C" {
+    pub fn OH_PixelmapNative_GetColorSpaceNative(
+        pixelmap: *mut OH_PixelmapNative,
+        colorSpaceNative: *mut *mut OH_NativeColorSpaceManager,
+    ) -> Image_ErrorCode;
+}
+extern "C" {
+    pub fn OH_PixelmapNative_SetColorSpaceNative(
+        pixelmap: *mut OH_PixelmapNative,
+        colorSpaceNative: *mut OH_NativeColorSpaceManager,
+    ) -> Image_ErrorCode;
+}
+extern "C" {
+    pub fn OH_PixelmapNative_SetMemoryName(
+        pixelmap: *mut OH_PixelmapNative,
+        name: *mut ::std::os::raw::c_char,
+        size: *mut usize,
+    ) -> Image_ErrorCode;
+}
+#[repr(C)]
+#[derive(Debug, Copy, Clone)]
+pub struct OH_UdsPlainText {
+    _unused: [u8; 0],
+}
+#[repr(C)]
+#[derive(Debug, Copy, Clone)]
+pub struct OH_UdsHyperlink {
+    _unused: [u8; 0],
+}
+#[repr(C)]
+#[derive(Debug, Copy, Clone)]
+pub struct OH_UdsHtml {
+    _unused: [u8; 0],
+}
+#[repr(C)]
+#[derive(Debug, Copy, Clone)]
+pub struct OH_UdsAppItem {
+    _unused: [u8; 0],
+}
+#[repr(C)]
+#[derive(Debug, Copy, Clone)]
+pub struct OH_UdsFileUri {
+    _unused: [u8; 0],
+}
+#[repr(C)]
+#[derive(Debug, Copy, Clone)]
+pub struct OH_UdsPixelMap {
+    _unused: [u8; 0],
+}
+#[repr(C)]
+#[derive(Debug, Copy, Clone)]
+pub struct OH_UdsContentForm {
+    _unused: [u8; 0],
+}
+#[repr(C)]
+#[derive(Debug, Copy, Clone)]
+pub struct OH_UdsArrayBuffer {
+    _unused: [u8; 0],
+}
+extern "C" {
+    pub fn OH_UdsPlainText_Create() -> *mut OH_UdsPlainText;
+}
+extern "C" {
+    pub fn OH_UdsPlainText_Destroy(pThis: *mut OH_UdsPlainText);
+}
+extern "C" {
+    pub fn OH_UdsPlainText_GetType(pThis: *mut OH_UdsPlainText) -> *const ::std::os::raw::c_char;
+}
+extern "C" {
+    pub fn OH_UdsPlainText_GetContent(pThis: *mut OH_UdsPlainText)
+        -> *const ::std::os::raw::c_char;
+}
+extern "C" {
+    pub fn OH_UdsPlainText_GetAbstract(
+        pThis: *mut OH_UdsPlainText,
+    ) -> *const ::std::os::raw::c_char;
+}
+extern "C" {
+    pub fn OH_UdsPlainText_SetContent(
+        pThis: *mut OH_UdsPlainText,
+        content: *const ::std::os::raw::c_char,
+    ) -> ::std::os::raw::c_int;
+}
+extern "C" {
+    pub fn OH_UdsPlainText_SetAbstract(
+        pThis: *mut OH_UdsPlainText,
+        abstract_: *const ::std::os::raw::c_char,
+    ) -> ::std::os::raw::c_int;
+}
+extern "C" {
+    pub fn OH_UdsHyperlink_Create() -> *mut OH_UdsHyperlink;
+}
+extern "C" {
+    pub fn OH_UdsHyperlink_Destroy(pThis: *mut OH_UdsHyperlink);
+}
+extern "C" {
+    pub fn OH_UdsHyperlink_GetType(pThis: *mut OH_UdsHyperlink) -> *const ::std::os::raw::c_char;
+}
+extern "C" {
+    pub fn OH_UdsHyperlink_GetUrl(pThis: *mut OH_UdsHyperlink) -> *const ::std::os::raw::c_char;
+}
+extern "C" {
+    pub fn OH_UdsHyperlink_GetDescription(
+        pThis: *mut OH_UdsHyperlink,
+    ) -> *const ::std::os::raw::c_char;
+}
+extern "C" {
+    pub fn OH_UdsHyperlink_SetUrl(
+        pThis: *mut OH_UdsHyperlink,
+        url: *const ::std::os::raw::c_char,
+    ) -> ::std::os::raw::c_int;
+}
+extern "C" {
+    pub fn OH_UdsHyperlink_SetDescription(
+        pThis: *mut OH_UdsHyperlink,
+        description: *const ::std::os::raw::c_char,
+    ) -> ::std::os::raw::c_int;
+}
+extern "C" {
+    pub fn OH_UdsHtml_Create() -> *mut OH_UdsHtml;
+}
+extern "C" {
+    pub fn OH_UdsHtml_Destroy(pThis: *mut OH_UdsHtml);
+}
+extern "C" {
+    pub fn OH_UdsHtml_GetType(pThis: *mut OH_UdsHtml) -> *const ::std::os::raw::c_char;
+}
+extern "C" {
+    pub fn OH_UdsHtml_GetContent(pThis: *mut OH_UdsHtml) -> *const ::std::os::raw::c_char;
+}
+extern "C" {
+    pub fn OH_UdsHtml_GetPlainContent(pThis: *mut OH_UdsHtml) -> *const ::std::os::raw::c_char;
+}
+extern "C" {
+    pub fn OH_UdsHtml_SetContent(
+        pThis: *mut OH_UdsHtml,
+        content: *const ::std::os::raw::c_char,
+    ) -> ::std::os::raw::c_int;
+}
+extern "C" {
+    pub fn OH_UdsHtml_SetPlainContent(
+        pThis: *mut OH_UdsHtml,
+        plainContent: *const ::std::os::raw::c_char,
+    ) -> ::std::os::raw::c_int;
+}
+extern "C" {
+    pub fn OH_UdsAppItem_Create() -> *mut OH_UdsAppItem;
+}
+extern "C" {
+    pub fn OH_UdsAppItem_Destroy(pThis: *mut OH_UdsAppItem);
+}
+extern "C" {
+    pub fn OH_UdsAppItem_GetType(pThis: *mut OH_UdsAppItem) -> *const ::std::os::raw::c_char;
+}
+extern "C" {
+    pub fn OH_UdsAppItem_GetId(pThis: *mut OH_UdsAppItem) -> *const ::std::os::raw::c_char;
+}
+extern "C" {
+    pub fn OH_UdsAppItem_GetName(pThis: *mut OH_UdsAppItem) -> *const ::std::os::raw::c_char;
+}
+extern "C" {
+    pub fn OH_UdsAppItem_GetIconId(pThis: *mut OH_UdsAppItem) -> *const ::std::os::raw::c_char;
+}
+extern "C" {
+    pub fn OH_UdsAppItem_GetLabelId(pThis: *mut OH_UdsAppItem) -> *const ::std::os::raw::c_char;
+}
+extern "C" {
+    pub fn OH_UdsAppItem_GetBundleName(pThis: *mut OH_UdsAppItem) -> *const ::std::os::raw::c_char;
+}
+extern "C" {
+    pub fn OH_UdsAppItem_GetAbilityName(pThis: *mut OH_UdsAppItem)
+        -> *const ::std::os::raw::c_char;
+}
+extern "C" {
+    pub fn OH_UdsAppItem_SetId(
+        pThis: *mut OH_UdsAppItem,
+        appId: *const ::std::os::raw::c_char,
+    ) -> ::std::os::raw::c_int;
+}
+extern "C" {
+    pub fn OH_UdsAppItem_SetName(
+        pThis: *mut OH_UdsAppItem,
+        appName: *const ::std::os::raw::c_char,
+    ) -> ::std::os::raw::c_int;
+}
+extern "C" {
+    pub fn OH_UdsAppItem_SetIconId(
+        pThis: *mut OH_UdsAppItem,
+        appIconId: *const ::std::os::raw::c_char,
+    ) -> ::std::os::raw::c_int;
+}
+extern "C" {
+    pub fn OH_UdsAppItem_SetLabelId(
+        pThis: *mut OH_UdsAppItem,
+        appLabelId: *const ::std::os::raw::c_char,
+    ) -> ::std::os::raw::c_int;
+}
+extern "C" {
+    pub fn OH_UdsAppItem_SetBundleName(
+        pThis: *mut OH_UdsAppItem,
+        bundleName: *const ::std::os::raw::c_char,
+    ) -> ::std::os::raw::c_int;
+}
+extern "C" {
+    pub fn OH_UdsAppItem_SetAbilityName(
+        pThis: *mut OH_UdsAppItem,
+        abilityName: *const ::std::os::raw::c_char,
+    ) -> ::std::os::raw::c_int;
+}
+extern "C" {
+    pub fn OH_UdsFileUri_Create() -> *mut OH_UdsFileUri;
+}
+extern "C" {
+    pub fn OH_UdsFileUri_Destroy(pThis: *mut OH_UdsFileUri);
+}
+extern "C" {
+    pub fn OH_UdsFileUri_GetType(pThis: *mut OH_UdsFileUri) -> *const ::std::os::raw::c_char;
+}
+extern "C" {
+    pub fn OH_UdsFileUri_GetFileUri(pThis: *mut OH_UdsFileUri) -> *const ::std::os::raw::c_char;
+}
+extern "C" {
+    pub fn OH_UdsFileUri_GetFileType(pThis: *mut OH_UdsFileUri) -> *const ::std::os::raw::c_char;
+}
+extern "C" {
+    pub fn OH_UdsFileUri_SetFileUri(
+        pThis: *mut OH_UdsFileUri,
+        fileUri: *const ::std::os::raw::c_char,
+    ) -> ::std::os::raw::c_int;
+}
+extern "C" {
+    pub fn OH_UdsFileUri_SetFileType(
+        pThis: *mut OH_UdsFileUri,
+        fileType: *const ::std::os::raw::c_char,
+    ) -> ::std::os::raw::c_int;
+}
+extern "C" {
+    pub fn OH_UdsPixelMap_Create() -> *mut OH_UdsPixelMap;
+}
+extern "C" {
+    pub fn OH_UdsPixelMap_Destroy(pThis: *mut OH_UdsPixelMap);
+}
+extern "C" {
+    pub fn OH_UdsPixelMap_GetType(pThis: *mut OH_UdsPixelMap) -> *const ::std::os::raw::c_char;
+}
+extern "C" {
+    pub fn OH_UdsPixelMap_GetPixelMap(
+        pThis: *mut OH_UdsPixelMap,
+        pixelmapNative: *mut OH_PixelmapNative,
+    );
+}
+extern "C" {
+    pub fn OH_UdsPixelMap_SetPixelMap(
+        pThis: *mut OH_UdsPixelMap,
+        pixelmapNative: *mut OH_PixelmapNative,
+    ) -> ::std::os::raw::c_int;
+}
+extern "C" {
+    pub fn OH_UdsArrayBuffer_Create() -> *mut OH_UdsArrayBuffer;
+}
+extern "C" {
+    pub fn OH_UdsArrayBuffer_Destroy(buffer: *mut OH_UdsArrayBuffer) -> ::std::os::raw::c_int;
+}
+extern "C" {
+    pub fn OH_UdsArrayBuffer_SetData(
+        buffer: *mut OH_UdsArrayBuffer,
+        data: *mut ::std::os::raw::c_uchar,
+        len: ::std::os::raw::c_uint,
+    ) -> ::std::os::raw::c_int;
+}
+extern "C" {
+    pub fn OH_UdsArrayBuffer_GetData(
+        buffer: *mut OH_UdsArrayBuffer,
+        data: *mut *mut ::std::os::raw::c_uchar,
+        len: *mut ::std::os::raw::c_uint,
+    ) -> ::std::os::raw::c_int;
+}
+extern "C" {
+    pub fn OH_UdsContentForm_Create() -> *mut OH_UdsContentForm;
+}
+extern "C" {
+    pub fn OH_UdsContentForm_Destroy(pThis: *mut OH_UdsContentForm);
+}
+extern "C" {
+    pub fn OH_UdsContentForm_GetType(
+        pThis: *mut OH_UdsContentForm,
+    ) -> *const ::std::os::raw::c_char;
+}
+extern "C" {
+    pub fn OH_UdsContentForm_GetThumbData(
+        pThis: *mut OH_UdsContentForm,
+        thumbData: *mut *mut ::std::os::raw::c_uchar,
+        len: *mut ::std::os::raw::c_uint,
+    ) -> ::std::os::raw::c_int;
+}
+extern "C" {
+    pub fn OH_UdsContentForm_GetDescription(
+        pThis: *mut OH_UdsContentForm,
+    ) -> *const ::std::os::raw::c_char;
+}
+extern "C" {
+    pub fn OH_UdsContentForm_GetTitle(
+        pThis: *mut OH_UdsContentForm,
+    ) -> *const ::std::os::raw::c_char;
+}
+extern "C" {
+    pub fn OH_UdsContentForm_GetAppIcon(
+        pThis: *mut OH_UdsContentForm,
+        appIcon: *mut *mut ::std::os::raw::c_uchar,
+        len: *mut ::std::os::raw::c_uint,
+    ) -> ::std::os::raw::c_int;
+}
+extern "C" {
+    pub fn OH_UdsContentForm_GetAppName(
+        pThis: *mut OH_UdsContentForm,
+    ) -> *const ::std::os::raw::c_char;
+}
+extern "C" {
+    pub fn OH_UdsContentForm_GetLinkUri(
+        pThis: *mut OH_UdsContentForm,
+    ) -> *const ::std::os::raw::c_char;
+}
+extern "C" {
+    pub fn OH_UdsContentForm_SetThumbData(
+        pThis: *mut OH_UdsContentForm,
+        thumbData: *const ::std::os::raw::c_uchar,
+        len: ::std::os::raw::c_uint,
+    ) -> ::std::os::raw::c_int;
+}
+extern "C" {
+    pub fn OH_UdsContentForm_SetDescription(
+        pThis: *mut OH_UdsContentForm,
+        description: *const ::std::os::raw::c_char,
+    ) -> ::std::os::raw::c_int;
+}
+extern "C" {
+    pub fn OH_UdsContentForm_SetTitle(
+        pThis: *mut OH_UdsContentForm,
+        title: *const ::std::os::raw::c_char,
+    ) -> ::std::os::raw::c_int;
+}
+extern "C" {
+    pub fn OH_UdsContentForm_SetAppIcon(
+        pThis: *mut OH_UdsContentForm,
+        appIcon: *const ::std::os::raw::c_uchar,
+        len: ::std::os::raw::c_uint,
+    ) -> ::std::os::raw::c_int;
+}
+extern "C" {
+    pub fn OH_UdsContentForm_SetAppName(
+        pThis: *mut OH_UdsContentForm,
+        appName: *const ::std::os::raw::c_char,
+    ) -> ::std::os::raw::c_int;
+}
+extern "C" {
+    pub fn OH_UdsContentForm_SetLinkUri(
+        pThis: *mut OH_UdsContentForm,
+        linkUri: *const ::std::os::raw::c_char,
+    ) -> ::std::os::raw::c_int;
+}
+pub const Udmf_Intention_UDMF_INTENTION_DRAG: Udmf_Intention = 0;
+pub const Udmf_Intention_UDMF_INTENTION_PASTEBOARD: Udmf_Intention = 1;
+pub type Udmf_Intention = ::std::os::raw::c_uint;
+pub const Udmf_ShareOption_SHARE_OPTIONS_INVALID: Udmf_ShareOption = 0;
+pub const Udmf_ShareOption_SHARE_OPTIONS_IN_APP: Udmf_ShareOption = 1;
+pub const Udmf_ShareOption_SHARE_OPTIONS_CROSS_APP: Udmf_ShareOption = 2;
+pub type Udmf_ShareOption = ::std::os::raw::c_uint;
+#[repr(C)]
+#[derive(Debug, Copy, Clone)]
+pub struct OH_UdmfData {
+    _unused: [u8; 0],
+}
+#[repr(C)]
+#[derive(Debug, Copy, Clone)]
+pub struct OH_UdmfRecord {
+    _unused: [u8; 0],
+}
+#[repr(C)]
+#[derive(Debug, Copy, Clone)]
+pub struct OH_UdmfRecordProvider {
+    _unused: [u8; 0],
+}
+#[repr(C)]
+#[derive(Debug, Copy, Clone)]
+pub struct OH_UdmfProperty {
+    _unused: [u8; 0],
+}
+extern "C" {
+    pub fn OH_UdmfData_Create() -> *mut OH_UdmfData;
+}
+extern "C" {
+    pub fn OH_UdmfData_Destroy(pThis: *mut OH_UdmfData);
+}
+extern "C" {
+    pub fn OH_UdmfData_AddRecord(
+        pThis: *mut OH_UdmfData,
+        record: *mut OH_UdmfRecord,
+    ) -> ::std::os::raw::c_int;
+}
+extern "C" {
+    pub fn OH_UdmfData_HasType(
+        pThis: *mut OH_UdmfData,
+        type_: *const ::std::os::raw::c_char,
+    ) -> bool;
+}
+extern "C" {
+    pub fn OH_UdmfData_GetTypes(
+        pThis: *mut OH_UdmfData,
+        count: *mut ::std::os::raw::c_uint,
+    ) -> *mut *mut ::std::os::raw::c_char;
+}
+extern "C" {
+    pub fn OH_UdmfData_GetRecords(
+        pThis: *mut OH_UdmfData,
+        count: *mut ::std::os::raw::c_uint,
+    ) -> *mut *mut OH_UdmfRecord;
+}
+pub type UdmfData_Finalize =
+    ::std::option::Option<unsafe extern "C" fn(context: *mut ::std::os::raw::c_void)>;
+extern "C" {
+    pub fn OH_UdmfRecordProvider_Create() -> *mut OH_UdmfRecordProvider;
+}
+extern "C" {
+    pub fn OH_UdmfRecordProvider_Destroy(
+        provider: *mut OH_UdmfRecordProvider,
+    ) -> ::std::os::raw::c_int;
+}
+pub type OH_UdmfRecordProvider_GetData = ::std::option::Option<
+    unsafe extern "C" fn(
+        context: *mut ::std::os::raw::c_void,
+        type_: *const ::std::os::raw::c_char,
+    ) -> *mut ::std::os::raw::c_void,
+>;
+extern "C" {
+    pub fn OH_UdmfRecordProvider_SetData(
+        provider: *mut OH_UdmfRecordProvider,
+        context: *mut ::std::os::raw::c_void,
+        callback: OH_UdmfRecordProvider_GetData,
+        finalize: UdmfData_Finalize,
+    ) -> ::std::os::raw::c_int;
+}
+extern "C" {
+    pub fn OH_UdmfRecord_Create() -> *mut OH_UdmfRecord;
+}
+extern "C" {
+    pub fn OH_UdmfRecord_Destroy(pThis: *mut OH_UdmfRecord);
+}
+extern "C" {
+    pub fn OH_UdmfRecord_AddGeneralEntry(
+        pThis: *mut OH_UdmfRecord,
+        typeId: *const ::std::os::raw::c_char,
+        entry: *mut ::std::os::raw::c_uchar,
+        count: ::std::os::raw::c_uint,
+    ) -> ::std::os::raw::c_int;
+}
+extern "C" {
+    pub fn OH_UdmfRecord_AddPlainText(
+        pThis: *mut OH_UdmfRecord,
+        plainText: *mut OH_UdsPlainText,
+    ) -> ::std::os::raw::c_int;
+}
+extern "C" {
+    pub fn OH_UdmfRecord_AddHyperlink(
+        pThis: *mut OH_UdmfRecord,
+        hyperlink: *mut OH_UdsHyperlink,
+    ) -> ::std::os::raw::c_int;
+}
+extern "C" {
+    pub fn OH_UdmfRecord_AddHtml(
+        pThis: *mut OH_UdmfRecord,
+        html: *mut OH_UdsHtml,
+    ) -> ::std::os::raw::c_int;
+}
+extern "C" {
+    pub fn OH_UdmfRecord_AddAppItem(
+        pThis: *mut OH_UdmfRecord,
+        appItem: *mut OH_UdsAppItem,
+    ) -> ::std::os::raw::c_int;
+}
+extern "C" {
+    pub fn OH_UdmfRecord_AddFileUri(
+        pThis: *mut OH_UdmfRecord,
+        fileUri: *mut OH_UdsFileUri,
+    ) -> ::std::os::raw::c_int;
+}
+extern "C" {
+    pub fn OH_UdmfRecord_AddPixelMap(
+        pThis: *mut OH_UdmfRecord,
+        pixelMap: *mut OH_UdsPixelMap,
+    ) -> ::std::os::raw::c_int;
+}
+extern "C" {
+    pub fn OH_UdmfRecord_AddArrayBuffer(
+        record: *mut OH_UdmfRecord,
+        type_: *const ::std::os::raw::c_char,
+        buffer: *mut OH_UdsArrayBuffer,
+    ) -> ::std::os::raw::c_int;
+}
+extern "C" {
+    pub fn OH_UdmfRecord_AddContentForm(
+        pThis: *mut OH_UdmfRecord,
+        contentForm: *mut OH_UdsContentForm,
+    ) -> ::std::os::raw::c_int;
+}
+extern "C" {
+    pub fn OH_UdmfRecord_GetTypes(
+        pThis: *mut OH_UdmfRecord,
+        count: *mut ::std::os::raw::c_uint,
+    ) -> *mut *mut ::std::os::raw::c_char;
+}
+extern "C" {
+    pub fn OH_UdmfRecord_GetGeneralEntry(
+        pThis: *mut OH_UdmfRecord,
+        typeId: *const ::std::os::raw::c_char,
+        entry: *mut *mut ::std::os::raw::c_uchar,
+        count: *mut ::std::os::raw::c_uint,
+    ) -> ::std::os::raw::c_int;
+}
+extern "C" {
+    pub fn OH_UdmfRecord_GetPlainText(
+        pThis: *mut OH_UdmfRecord,
+        plainText: *mut OH_UdsPlainText,
+    ) -> ::std::os::raw::c_int;
+}
+extern "C" {
+    pub fn OH_UdmfRecord_GetHyperlink(
+        pThis: *mut OH_UdmfRecord,
+        hyperlink: *mut OH_UdsHyperlink,
+    ) -> ::std::os::raw::c_int;
+}
+extern "C" {
+    pub fn OH_UdmfRecord_GetHtml(
+        pThis: *mut OH_UdmfRecord,
+        html: *mut OH_UdsHtml,
+    ) -> ::std::os::raw::c_int;
+}
+extern "C" {
+    pub fn OH_UdmfRecord_GetAppItem(
+        pThis: *mut OH_UdmfRecord,
+        appItem: *mut OH_UdsAppItem,
+    ) -> ::std::os::raw::c_int;
+}
+extern "C" {
+    pub fn OH_UdmfRecord_GetFileUri(
+        pThis: *mut OH_UdmfRecord,
+        fileUri: *mut OH_UdsFileUri,
+    ) -> ::std::os::raw::c_int;
+}
+extern "C" {
+    pub fn OH_UdmfRecord_GetPixelMap(
+        pThis: *mut OH_UdmfRecord,
+        pixelMap: *mut OH_UdsPixelMap,
+    ) -> ::std::os::raw::c_int;
+}
+extern "C" {
+    pub fn OH_UdmfRecord_SetProvider(
+        pThis: *mut OH_UdmfRecord,
+        types: *const *const ::std::os::raw::c_char,
+        count: ::std::os::raw::c_uint,
+        provider: *mut OH_UdmfRecordProvider,
+    ) -> ::std::os::raw::c_int;
+}
+extern "C" {
+    pub fn OH_UdmfRecord_GetArrayBuffer(
+        record: *mut OH_UdmfRecord,
+        type_: *const ::std::os::raw::c_char,
+        buffer: *mut OH_UdsArrayBuffer,
+    ) -> ::std::os::raw::c_int;
+}
+extern "C" {
+    pub fn OH_UdmfRecord_GetContentForm(
+        pThis: *mut OH_UdmfRecord,
+        contentForm: *mut OH_UdsContentForm,
+    ) -> ::std::os::raw::c_int;
+}
+extern "C" {
+    pub fn OH_UdmfData_GetPrimaryPlainText(
+        data: *mut OH_UdmfData,
+        plainText: *mut OH_UdsPlainText,
+    ) -> ::std::os::raw::c_int;
+}
+extern "C" {
+    pub fn OH_UdmfData_GetPrimaryHtml(
+        data: *mut OH_UdmfData,
+        html: *mut OH_UdsHtml,
+    ) -> ::std::os::raw::c_int;
+}
+extern "C" {
+    pub fn OH_UdmfData_GetRecordCount(data: *mut OH_UdmfData) -> ::std::os::raw::c_int;
+}
+extern "C" {
+    pub fn OH_UdmfData_GetRecord(
+        data: *mut OH_UdmfData,
+        index: ::std::os::raw::c_uint,
+    ) -> *mut OH_UdmfRecord;
+}
+extern "C" {
+    pub fn OH_UdmfData_IsLocal(data: *mut OH_UdmfData) -> bool;
+}
+extern "C" {
+    pub fn OH_UdmfProperty_Create(unifiedData: *mut OH_UdmfData) -> *mut OH_UdmfProperty;
+}
+extern "C" {
+    pub fn OH_UdmfProperty_Destroy(pThis: *mut OH_UdmfProperty);
+}
+extern "C" {
+    pub fn OH_UdmfProperty_GetTag(pThis: *mut OH_UdmfProperty) -> *const ::std::os::raw::c_char;
+}
+extern "C" {
+    pub fn OH_UdmfProperty_GetTimestamp(pThis: *mut OH_UdmfProperty) -> i64;
+}
+extern "C" {
+    pub fn OH_UdmfProperty_GetShareOption(pThis: *mut OH_UdmfProperty) -> Udmf_ShareOption;
+}
+extern "C" {
+    pub fn OH_UdmfProperty_GetExtrasIntParam(
+        pThis: *mut OH_UdmfProperty,
+        key: *const ::std::os::raw::c_char,
+        defaultValue: ::std::os::raw::c_int,
+    ) -> ::std::os::raw::c_int;
+}
+extern "C" {
+    pub fn OH_UdmfProperty_GetExtrasStringParam(
+        pThis: *mut OH_UdmfProperty,
+        key: *const ::std::os::raw::c_char,
+    ) -> *const ::std::os::raw::c_char;
+}
+extern "C" {
+    pub fn OH_UdmfProperty_SetTag(
+        pThis: *mut OH_UdmfProperty,
+        tag: *const ::std::os::raw::c_char,
+    ) -> ::std::os::raw::c_int;
+}
+extern "C" {
+    pub fn OH_UdmfProperty_SetShareOption(
+        pThis: *mut OH_UdmfProperty,
+        option: Udmf_ShareOption,
+    ) -> ::std::os::raw::c_int;
+}
+extern "C" {
+    pub fn OH_UdmfProperty_SetExtrasIntParam(
+        pThis: *mut OH_UdmfProperty,
+        key: *const ::std::os::raw::c_char,
+        param: ::std::os::raw::c_int,
+    ) -> ::std::os::raw::c_int;
+}
+extern "C" {
+    pub fn OH_UdmfProperty_SetExtrasStringParam(
+        pThis: *mut OH_UdmfProperty,
+        key: *const ::std::os::raw::c_char,
+        param: *const ::std::os::raw::c_char,
+    ) -> ::std::os::raw::c_int;
+}
+extern "C" {
+    pub fn OH_Udmf_GetUnifiedData(
+        key: *const ::std::os::raw::c_char,
+        intention: Udmf_Intention,
+        unifiedData: *mut OH_UdmfData,
+    ) -> ::std::os::raw::c_int;
+}
+extern "C" {
+    pub fn OH_Udmf_SetUnifiedData(
+        intention: Udmf_Intention,
+        unifiedData: *mut OH_UdmfData,
+        key: *mut ::std::os::raw::c_char,
+        keyLen: ::std::os::raw::c_uint,
+    ) -> ::std::os::raw::c_int;
 }
 pub const ArkUI_DragResult_ARKUI_DRAG_RESULT_SUCCESSFUL: ArkUI_DragResult = 0;
 pub const ArkUI_DragResult_ARKUI_DRAG_RESULT_FAILED: ArkUI_DragResult = 1;
@@ -3689,6 +4082,16 @@ extern "C" {
         stopPropagation: bool,
     ) -> i32;
 }
+extern "C" {
+    pub fn OH_ArkUI_UIInputEvent_GetDeviceId(event: *const ArkUI_UIInputEvent) -> i32;
+}
+extern "C" {
+    pub fn OH_ArkUI_UIInputEvent_GetPressedKeys(
+        event: *const ArkUI_UIInputEvent,
+        pressedKeyCodes: *mut i32,
+        length: *mut i32,
+    ) -> i32;
+}
 #[repr(C)]
 #[derive(Debug, Copy, Clone)]
 pub struct ArkUI_GestureRecognizer {
@@ -4062,6 +4465,207 @@ extern "C" {
         structName: *const ::std::os::raw::c_char,
     ) -> *mut ::std::os::raw::c_void;
 }
+pub const ArkUI_KeyCode_ARKUI_KEYCODE_UNKNOWN: ArkUI_KeyCode = -1;
+pub const ArkUI_KeyCode_ARKUI_KEYCODE_FN: ArkUI_KeyCode = 0;
+pub const ArkUI_KeyCode_ARKUI_KEYCODE_VOLUME_UP: ArkUI_KeyCode = 16;
+pub const ArkUI_KeyCode_ARKUI_KEYCODE_VOLUME_DOWN: ArkUI_KeyCode = 17;
+pub const ArkUI_KeyCode_ARKUI_KEYCODE_POWER: ArkUI_KeyCode = 18;
+pub const ArkUI_KeyCode_ARKUI_KEYCODE_CAMERA: ArkUI_KeyCode = 19;
+pub const ArkUI_KeyCode_ARKUI_KEYCODE_VOLUME_MUTE: ArkUI_KeyCode = 22;
+pub const ArkUI_KeyCode_ARKUI_KEYCODE_MUTE: ArkUI_KeyCode = 23;
+pub const ArkUI_KeyCode_ARKUI_KEYCODE_BRIGHTNESS_UP: ArkUI_KeyCode = 40;
+pub const ArkUI_KeyCode_ARKUI_KEYCODE_BRIGHTNESS_DOWN: ArkUI_KeyCode = 41;
+pub const ArkUI_KeyCode_ARKUI_KEYCODE_0: ArkUI_KeyCode = 2000;
+pub const ArkUI_KeyCode_ARKUI_KEYCODE_1: ArkUI_KeyCode = 2001;
+pub const ArkUI_KeyCode_ARKUI_KEYCODE_2: ArkUI_KeyCode = 2002;
+pub const ArkUI_KeyCode_ARKUI_KEYCODE_3: ArkUI_KeyCode = 2003;
+pub const ArkUI_KeyCode_ARKUI_KEYCODE_4: ArkUI_KeyCode = 2004;
+pub const ArkUI_KeyCode_ARKUI_KEYCODE_5: ArkUI_KeyCode = 2005;
+pub const ArkUI_KeyCode_ARKUI_KEYCODE_6: ArkUI_KeyCode = 2006;
+pub const ArkUI_KeyCode_ARKUI_KEYCODE_7: ArkUI_KeyCode = 2007;
+pub const ArkUI_KeyCode_ARKUI_KEYCODE_8: ArkUI_KeyCode = 2008;
+pub const ArkUI_KeyCode_ARKUI_KEYCODE_9: ArkUI_KeyCode = 2009;
+pub const ArkUI_KeyCode_ARKUI_KEYCODE_STAR: ArkUI_KeyCode = 2010;
+pub const ArkUI_KeyCode_ARKUI_KEYCODE_POUND: ArkUI_KeyCode = 2011;
+pub const ArkUI_KeyCode_ARKUI_KEYCODE_DPAD_UP: ArkUI_KeyCode = 2012;
+pub const ArkUI_KeyCode_ARKUI_KEYCODE_DPAD_DOWN: ArkUI_KeyCode = 2013;
+pub const ArkUI_KeyCode_ARKUI_KEYCODE_DPAD_LEFT: ArkUI_KeyCode = 2014;
+pub const ArkUI_KeyCode_ARKUI_KEYCODE_DPAD_RIGHT: ArkUI_KeyCode = 2015;
+pub const ArkUI_KeyCode_ARKUI_KEYCODE_DPAD_CENTER: ArkUI_KeyCode = 2016;
+pub const ArkUI_KeyCode_ARKUI_KEYCODE_A: ArkUI_KeyCode = 2017;
+pub const ArkUI_KeyCode_ARKUI_KEYCODE_B: ArkUI_KeyCode = 2018;
+pub const ArkUI_KeyCode_ARKUI_KEYCODE_C: ArkUI_KeyCode = 2019;
+pub const ArkUI_KeyCode_ARKUI_KEYCODE_D: ArkUI_KeyCode = 2020;
+pub const ArkUI_KeyCode_ARKUI_KEYCODE_E: ArkUI_KeyCode = 2021;
+pub const ArkUI_KeyCode_ARKUI_KEYCODE_F: ArkUI_KeyCode = 2022;
+pub const ArkUI_KeyCode_ARKUI_KEYCODE_G: ArkUI_KeyCode = 2023;
+pub const ArkUI_KeyCode_ARKUI_KEYCODE_H: ArkUI_KeyCode = 2024;
+pub const ArkUI_KeyCode_ARKUI_KEYCODE_I: ArkUI_KeyCode = 2025;
+pub const ArkUI_KeyCode_ARKUI_KEYCODE_J: ArkUI_KeyCode = 2026;
+pub const ArkUI_KeyCode_ARKUI_KEYCODE_K: ArkUI_KeyCode = 2027;
+pub const ArkUI_KeyCode_ARKUI_KEYCODE_L: ArkUI_KeyCode = 2028;
+pub const ArkUI_KeyCode_ARKUI_KEYCODE_M: ArkUI_KeyCode = 2029;
+pub const ArkUI_KeyCode_ARKUI_KEYCODE_N: ArkUI_KeyCode = 2030;
+pub const ArkUI_KeyCode_ARKUI_KEYCODE_O: ArkUI_KeyCode = 2031;
+pub const ArkUI_KeyCode_ARKUI_KEYCODE_P: ArkUI_KeyCode = 2032;
+pub const ArkUI_KeyCode_ARKUI_KEYCODE_Q: ArkUI_KeyCode = 2033;
+pub const ArkUI_KeyCode_ARKUI_KEYCODE_R: ArkUI_KeyCode = 2034;
+pub const ArkUI_KeyCode_ARKUI_KEYCODE_S: ArkUI_KeyCode = 2035;
+pub const ArkUI_KeyCode_ARKUI_KEYCODE_T: ArkUI_KeyCode = 2036;
+pub const ArkUI_KeyCode_ARKUI_KEYCODE_U: ArkUI_KeyCode = 2037;
+pub const ArkUI_KeyCode_ARKUI_KEYCODE_V: ArkUI_KeyCode = 2038;
+pub const ArkUI_KeyCode_ARKUI_KEYCODE_W: ArkUI_KeyCode = 2039;
+pub const ArkUI_KeyCode_ARKUI_KEYCODE_X: ArkUI_KeyCode = 2040;
+pub const ArkUI_KeyCode_ARKUI_KEYCODE_Y: ArkUI_KeyCode = 2041;
+pub const ArkUI_KeyCode_ARKUI_KEYCODE_Z: ArkUI_KeyCode = 2042;
+pub const ArkUI_KeyCode_ARKUI_KEYCODE_COMMA: ArkUI_KeyCode = 2043;
+pub const ArkUI_KeyCode_ARKUI_KEYCODE_PERIOD: ArkUI_KeyCode = 2044;
+pub const ArkUI_KeyCode_ARKUI_KEYCODE_ALT_LEFT: ArkUI_KeyCode = 2045;
+pub const ArkUI_KeyCode_ARKUI_KEYCODE_ALT_RIGHT: ArkUI_KeyCode = 2046;
+pub const ArkUI_KeyCode_ARKUI_KEYCODE_SHIFT_LEFT: ArkUI_KeyCode = 2047;
+pub const ArkUI_KeyCode_ARKUI_KEYCODE_SHIFT_RIGHT: ArkUI_KeyCode = 2048;
+pub const ArkUI_KeyCode_ARKUI_KEYCODE_TAB: ArkUI_KeyCode = 2049;
+pub const ArkUI_KeyCode_ARKUI_KEYCODE_SPACE: ArkUI_KeyCode = 2050;
+pub const ArkUI_KeyCode_ARKUI_KEYCODE_SYM: ArkUI_KeyCode = 2051;
+pub const ArkUI_KeyCode_ARKUI_KEYCODE_EXPLORER: ArkUI_KeyCode = 2052;
+pub const ArkUI_KeyCode_ARKUI_KEYCODE_ENVELOPE: ArkUI_KeyCode = 2053;
+pub const ArkUI_KeyCode_ARKUI_KEYCODE_ENTER: ArkUI_KeyCode = 2054;
+pub const ArkUI_KeyCode_ARKUI_KEYCODE_DEL: ArkUI_KeyCode = 2055;
+pub const ArkUI_KeyCode_ARKUI_KEYCODE_GRAVE: ArkUI_KeyCode = 2056;
+pub const ArkUI_KeyCode_ARKUI_KEYCODE_MINUS: ArkUI_KeyCode = 2057;
+pub const ArkUI_KeyCode_ARKUI_KEYCODE_EQUALS: ArkUI_KeyCode = 2058;
+pub const ArkUI_KeyCode_ARKUI_KEYCODE_LEFT_BRACKET: ArkUI_KeyCode = 2059;
+pub const ArkUI_KeyCode_ARKUI_KEYCODE_RIGHT_BRACKET: ArkUI_KeyCode = 2060;
+pub const ArkUI_KeyCode_ARKUI_KEYCODE_BACKSLASH: ArkUI_KeyCode = 2061;
+pub const ArkUI_KeyCode_ARKUI_KEYCODE_SEMICOLON: ArkUI_KeyCode = 2062;
+pub const ArkUI_KeyCode_ARKUI_KEYCODE_APOSTROPHE: ArkUI_KeyCode = 2063;
+pub const ArkUI_KeyCode_ARKUI_KEYCODE_SLASH: ArkUI_KeyCode = 2064;
+pub const ArkUI_KeyCode_ARKUI_KEYCODE_AT: ArkUI_KeyCode = 2065;
+pub const ArkUI_KeyCode_ARKUI_KEYCODE_PLUS: ArkUI_KeyCode = 2066;
+pub const ArkUI_KeyCode_ARKUI_KEYCODE_MENU: ArkUI_KeyCode = 2067;
+pub const ArkUI_KeyCode_ARKUI_KEYCODE_PAGE_UP: ArkUI_KeyCode = 2068;
+pub const ArkUI_KeyCode_ARKUI_KEYCODE_PAGE_DOWN: ArkUI_KeyCode = 2069;
+pub const ArkUI_KeyCode_ARKUI_KEYCODE_ESCAPE: ArkUI_KeyCode = 2070;
+pub const ArkUI_KeyCode_ARKUI_KEYCODE_FORWARD_DEL: ArkUI_KeyCode = 2071;
+pub const ArkUI_KeyCode_ARKUI_KEYCODE_CTRL_LEFT: ArkUI_KeyCode = 2072;
+pub const ArkUI_KeyCode_ARKUI_KEYCODE_CTRL_RIGHT: ArkUI_KeyCode = 2073;
+pub const ArkUI_KeyCode_ARKUI_KEYCODE_CAPS_LOCK: ArkUI_KeyCode = 2074;
+pub const ArkUI_KeyCode_ARKUI_KEYCODE_SCROLL_LOCK: ArkUI_KeyCode = 2075;
+pub const ArkUI_KeyCode_ARKUI_KEYCODE_META_LEFT: ArkUI_KeyCode = 2076;
+pub const ArkUI_KeyCode_ARKUI_KEYCODE_META_RIGHT: ArkUI_KeyCode = 2077;
+pub const ArkUI_KeyCode_ARKUI_KEYCODE_FUNCTION: ArkUI_KeyCode = 2078;
+pub const ArkUI_KeyCode_ARKUI_KEYCODE_SYSRQ: ArkUI_KeyCode = 2079;
+pub const ArkUI_KeyCode_ARKUI_KEYCODE_BREAK: ArkUI_KeyCode = 2080;
+pub const ArkUI_KeyCode_ARKUI_KEYCODE_MOVE_HOME: ArkUI_KeyCode = 2081;
+pub const ArkUI_KeyCode_ARKUI_KEYCODE_MOVE_END: ArkUI_KeyCode = 2082;
+pub const ArkUI_KeyCode_ARKUI_KEYCODE_INSERT: ArkUI_KeyCode = 2083;
+pub const ArkUI_KeyCode_ARKUI_KEYCODE_FORWARD: ArkUI_KeyCode = 2084;
+pub const ArkUI_KeyCode_ARKUI_KEYCODE_MEDIA_PLAY: ArkUI_KeyCode = 2085;
+pub const ArkUI_KeyCode_ARKUI_KEYCODE_MEDIA_PAUSE: ArkUI_KeyCode = 2086;
+pub const ArkUI_KeyCode_ARKUI_KEYCODE_MEDIA_CLOSE: ArkUI_KeyCode = 2087;
+pub const ArkUI_KeyCode_ARKUI_KEYCODE_MEDIA_EJECT: ArkUI_KeyCode = 2088;
+pub const ArkUI_KeyCode_ARKUI_KEYCODE_MEDIA_RECORD: ArkUI_KeyCode = 2089;
+pub const ArkUI_KeyCode_ARKUI_KEYCODE_F1: ArkUI_KeyCode = 2090;
+pub const ArkUI_KeyCode_ARKUI_KEYCODE_F2: ArkUI_KeyCode = 2091;
+pub const ArkUI_KeyCode_ARKUI_KEYCODE_F3: ArkUI_KeyCode = 2092;
+pub const ArkUI_KeyCode_ARKUI_KEYCODE_F4: ArkUI_KeyCode = 2093;
+pub const ArkUI_KeyCode_ARKUI_KEYCODE_F5: ArkUI_KeyCode = 2094;
+pub const ArkUI_KeyCode_ARKUI_KEYCODE_F6: ArkUI_KeyCode = 2095;
+pub const ArkUI_KeyCode_ARKUI_KEYCODE_F7: ArkUI_KeyCode = 2096;
+pub const ArkUI_KeyCode_ARKUI_KEYCODE_F8: ArkUI_KeyCode = 2097;
+pub const ArkUI_KeyCode_ARKUI_KEYCODE_F9: ArkUI_KeyCode = 2098;
+pub const ArkUI_KeyCode_ARKUI_KEYCODE_F10: ArkUI_KeyCode = 2099;
+pub const ArkUI_KeyCode_ARKUI_KEYCODE_F11: ArkUI_KeyCode = 2100;
+pub const ArkUI_KeyCode_ARKUI_KEYCODE_F12: ArkUI_KeyCode = 2101;
+pub const ArkUI_KeyCode_ARKUI_KEYCODE_NUM_LOCK: ArkUI_KeyCode = 2102;
+pub const ArkUI_KeyCode_ARKUI_KEYCODE_NUMPAD_0: ArkUI_KeyCode = 2103;
+pub const ArkUI_KeyCode_ARKUI_KEYCODE_NUMPAD_1: ArkUI_KeyCode = 2104;
+pub const ArkUI_KeyCode_ARKUI_KEYCODE_NUMPAD_2: ArkUI_KeyCode = 2105;
+pub const ArkUI_KeyCode_ARKUI_KEYCODE_NUMPAD_3: ArkUI_KeyCode = 2106;
+pub const ArkUI_KeyCode_ARKUI_KEYCODE_NUMPAD_4: ArkUI_KeyCode = 2107;
+pub const ArkUI_KeyCode_ARKUI_KEYCODE_NUMPAD_5: ArkUI_KeyCode = 2108;
+pub const ArkUI_KeyCode_ARKUI_KEYCODE_NUMPAD_6: ArkUI_KeyCode = 2109;
+pub const ArkUI_KeyCode_ARKUI_KEYCODE_NUMPAD_7: ArkUI_KeyCode = 2110;
+pub const ArkUI_KeyCode_ARKUI_KEYCODE_NUMPAD_8: ArkUI_KeyCode = 2111;
+pub const ArkUI_KeyCode_ARKUI_KEYCODE_NUMPAD_9: ArkUI_KeyCode = 2112;
+pub const ArkUI_KeyCode_ARKUI_KEYCODE_NUMPAD_DIVIDE: ArkUI_KeyCode = 2113;
+pub const ArkUI_KeyCode_ARKUI_KEYCODE_NUMPAD_MULTIPLY: ArkUI_KeyCode = 2114;
+pub const ArkUI_KeyCode_ARKUI_KEYCODE_NUMPAD_SUBTRACT: ArkUI_KeyCode = 2115;
+pub const ArkUI_KeyCode_ARKUI_KEYCODE_NUMPAD_ADD: ArkUI_KeyCode = 2116;
+pub const ArkUI_KeyCode_ARKUI_KEYCODE_NUMPAD_DOT: ArkUI_KeyCode = 2117;
+pub const ArkUI_KeyCode_ARKUI_KEYCODE_NUMPAD_COMMA: ArkUI_KeyCode = 2118;
+pub const ArkUI_KeyCode_ARKUI_KEYCODE_NUMPAD_ENTER: ArkUI_KeyCode = 2119;
+pub const ArkUI_KeyCode_ARKUI_KEYCODE_NUMPAD_EQUALS: ArkUI_KeyCode = 2120;
+pub const ArkUI_KeyCode_ARKUI_KEYCODE_NUMPAD_LEFT_PAREN: ArkUI_KeyCode = 2121;
+pub const ArkUI_KeyCode_ARKUI_KEYCODE_NUMPAD_RIGHT_PAREN: ArkUI_KeyCode = 2122;
+pub type ArkUI_KeyCode = ::std::os::raw::c_int;
+pub const ArkUI_KeyEventType_ARKUI_KEY_EVENT_UNKNOWN: ArkUI_KeyEventType = -1;
+pub const ArkUI_KeyEventType_ARKUI_KEY_EVENT_DOWN: ArkUI_KeyEventType = 0;
+pub const ArkUI_KeyEventType_ARKUI_KEY_EVENT_UP: ArkUI_KeyEventType = 1;
+pub const ArkUI_KeyEventType_ARKUI_KEY_EVENT_LONG_PRESS: ArkUI_KeyEventType = 2;
+pub const ArkUI_KeyEventType_ARKUI_KEY_EVENT_CLICK: ArkUI_KeyEventType = 3;
+pub type ArkUI_KeyEventType = ::std::os::raw::c_int;
+pub const ArkUI_KeySourceType_ARKUI_KEY_SOURCE_UNKNOWN: ArkUI_KeySourceType = 0;
+pub const ArkUI_KeySourceType_ARKUI_KEY_SOURCE_TYPE_MOUSE: ArkUI_KeySourceType = 1;
+pub const ArkUI_KeySourceType_ARKUI_KEY_SOURCE_TYPE_KEYBOARD: ArkUI_KeySourceType = 4;
+pub type ArkUI_KeySourceType = ::std::os::raw::c_uint;
+pub const ArkUI_KeyIntension_ARKUI_KEY_INTENSION_UNKNOWN: ArkUI_KeyIntension = -1;
+pub const ArkUI_KeyIntension_ARKUI_KEY_INTENSION_UP: ArkUI_KeyIntension = 1;
+pub const ArkUI_KeyIntension_ARKUI_KEY_INTENSION_DOWN: ArkUI_KeyIntension = 2;
+pub const ArkUI_KeyIntension_ARKUI_KEY_INTENSION_LEFT: ArkUI_KeyIntension = 3;
+pub const ArkUI_KeyIntension_ARKUI_KEY_INTENSION_RIGHT: ArkUI_KeyIntension = 4;
+pub const ArkUI_KeyIntension_ARKUI_KEY_INTENSION_SELECT: ArkUI_KeyIntension = 5;
+pub const ArkUI_KeyIntension_ARKUI_KEY_INTENSION_ESCAPE: ArkUI_KeyIntension = 6;
+pub const ArkUI_KeyIntension_ARKUI_KEY_INTENSION_BACK: ArkUI_KeyIntension = 7;
+pub const ArkUI_KeyIntension_ARKUI_KEY_INTENSION_FORWARD: ArkUI_KeyIntension = 8;
+pub const ArkUI_KeyIntension_ARKUI_KEY_INTENSION_MENU: ArkUI_KeyIntension = 9;
+pub const ArkUI_KeyIntension_ARKUI_KEY_INTENSION_HOME: ArkUI_KeyIntension = 10;
+pub const ArkUI_KeyIntension_ARKUI_KEY_INTENSION_PAGE_UP: ArkUI_KeyIntension = 11;
+pub const ArkUI_KeyIntension_ARKUI_KEY_INTENSION_PAGE_DOWN: ArkUI_KeyIntension = 12;
+pub const ArkUI_KeyIntension_ARKUI_KEY_INTENSION_ZOOM_OUT: ArkUI_KeyIntension = 13;
+pub const ArkUI_KeyIntension_ARKUI_KEY_INTENSION_ZOOM_IN: ArkUI_KeyIntension = 14;
+pub const ArkUI_KeyIntension_ARKUI_KEY_INTENTION_MEDIA_PLAY_PAUSE: ArkUI_KeyIntension = 100;
+pub const ArkUI_KeyIntension_ARKUI_KEY_INTENTION_MEDIA_FAST_FORWARD: ArkUI_KeyIntension = 101;
+pub const ArkUI_KeyIntension_ARKUI_KEY_INTENTION_MEDIA_FAST_PLAYBACK: ArkUI_KeyIntension = 103;
+pub const ArkUI_KeyIntension_ARKUI_KEY_INTENTION_MEDIA_NEXT: ArkUI_KeyIntension = 104;
+pub const ArkUI_KeyIntension_ARKUI_KEY_INTENTION_MEDIA_PREVIOUS: ArkUI_KeyIntension = 105;
+pub const ArkUI_KeyIntension_ARKUI_KEY_INTENTION_MEDIA_MUTE: ArkUI_KeyIntension = 106;
+pub const ArkUI_KeyIntension_ARKUI_KEY_INTENTION_VOLUME_UP: ArkUI_KeyIntension = 107;
+pub const ArkUI_KeyIntension_ARKUI_KEY_INTENTION_VOLUME_DOWN: ArkUI_KeyIntension = 108;
+pub const ArkUI_KeyIntension_ARKUI_KEY_INTENTION_CALL: ArkUI_KeyIntension = 200;
+pub const ArkUI_KeyIntension_ARKUI_KEY_INTENTION_CAMERA: ArkUI_KeyIntension = 300;
+pub type ArkUI_KeyIntension = ::std::os::raw::c_int;
+extern "C" {
+    pub fn OH_ArkUI_KeyEvent_GetType(event: *const ArkUI_UIInputEvent) -> ArkUI_KeyEventType;
+}
+extern "C" {
+    pub fn OH_ArkUI_KeyEvent_GetKeyCode(event: *const ArkUI_UIInputEvent) -> i32;
+}
+extern "C" {
+    pub fn OH_ArkUI_KeyEvent_GetKeyText(
+        event: *const ArkUI_UIInputEvent,
+    ) -> *const ::std::os::raw::c_char;
+}
+extern "C" {
+    pub fn OH_ArkUI_KeyEvent_GetKeySource(event: *const ArkUI_UIInputEvent) -> ArkUI_KeySourceType;
+}
+extern "C" {
+    pub fn OH_ArkUI_KeyEvent_StopPropagation(
+        event: *const ArkUI_UIInputEvent,
+        stopPropagation: bool,
+    );
+}
+extern "C" {
+    pub fn OH_ArkUI_KeyEvent_GetKeyIntensionCode(
+        event: *const ArkUI_UIInputEvent,
+    ) -> ArkUI_KeyIntension;
+}
+extern "C" {
+    pub fn OH_ArkUI_KeyEvent_GetUnicode(event: *const ArkUI_UIInputEvent) -> u32;
+}
+extern "C" {
+    pub fn OH_ArkUI_KeyEvent_SetConsumed(event: *const ArkUI_UIInputEvent, isConsumed: bool);
+}
 pub const ArkUI_NodeType_ARKUI_NODE_CUSTOM: ArkUI_NodeType = 0;
 pub const ArkUI_NodeType_ARKUI_NODE_TEXT: ArkUI_NodeType = 1;
 pub const ArkUI_NodeType_ARKUI_NODE_SPAN: ArkUI_NodeType = 2;
@@ -4206,6 +4810,7 @@ pub const ArkUI_NodeAttributeType_NODE_TRANSITION: ArkUI_NodeAttributeType = 94;
 pub const ArkUI_NodeAttributeType_NODE_UNIQUE_ID: ArkUI_NodeAttributeType = 95;
 pub const ArkUI_NodeAttributeType_NODE_FOCUS_BOX: ArkUI_NodeAttributeType = 96;
 pub const ArkUI_NodeAttributeType_NODE_CLICK_DISTANCE: ArkUI_NodeAttributeType = 97;
+pub const ArkUI_NodeAttributeType_NODE_TAB_STOP: ArkUI_NodeAttributeType = 98;
 pub const ArkUI_NodeAttributeType_NODE_TEXT_CONTENT: ArkUI_NodeAttributeType = 1000;
 pub const ArkUI_NodeAttributeType_NODE_FONT_COLOR: ArkUI_NodeAttributeType = 1001;
 pub const ArkUI_NodeAttributeType_NODE_FONT_SIZE: ArkUI_NodeAttributeType = 1002;
@@ -4246,6 +4851,7 @@ pub const ArkUI_NodeAttributeType_NODE_IMAGE_SPAN_SRC: ArkUI_NodeAttributeType =
 pub const ArkUI_NodeAttributeType_NODE_IMAGE_SPAN_VERTICAL_ALIGNMENT: ArkUI_NodeAttributeType =
     3001;
 pub const ArkUI_NodeAttributeType_NODE_IMAGE_SPAN_ALT: ArkUI_NodeAttributeType = 3002;
+pub const ArkUI_NodeAttributeType_NODE_IMAGE_SPAN_BASELINE_OFFSET: ArkUI_NodeAttributeType = 3003;
 pub const ArkUI_NodeAttributeType_NODE_IMAGE_SRC: ArkUI_NodeAttributeType = 4000;
 pub const ArkUI_NodeAttributeType_NODE_IMAGE_OBJECT_FIT: ArkUI_NodeAttributeType = 4001;
 pub const ArkUI_NodeAttributeType_NODE_IMAGE_INTERPOLATION: ArkUI_NodeAttributeType = 4002;
@@ -4419,6 +5025,9 @@ pub const ArkUI_NodeAttributeType_NODE_SCROLL_EDGE: ArkUI_NodeAttributeType = 10
 pub const ArkUI_NodeAttributeType_NODE_SCROLL_ENABLE_PAGING: ArkUI_NodeAttributeType = 1002011;
 pub const ArkUI_NodeAttributeType_NODE_SCROLL_PAGE: ArkUI_NodeAttributeType = 1002012;
 pub const ArkUI_NodeAttributeType_NODE_SCROLL_BY: ArkUI_NodeAttributeType = 1002013;
+pub const ArkUI_NodeAttributeType_NODE_SCROLL_FLING: ArkUI_NodeAttributeType = 1002014;
+pub const ArkUI_NodeAttributeType_NODE_SCROLL_FADING_EDGE: ArkUI_NodeAttributeType = 1002015;
+pub const ArkUI_NodeAttributeType_NODE_SCROLL_SIZE: ArkUI_NodeAttributeType = 1002016;
 pub const ArkUI_NodeAttributeType_NODE_LIST_DIRECTION: ArkUI_NodeAttributeType = 1003000;
 pub const ArkUI_NodeAttributeType_NODE_LIST_STICKY: ArkUI_NodeAttributeType = 1003001;
 pub const ArkUI_NodeAttributeType_NODE_LIST_SPACE: ArkUI_NodeAttributeType = 1003002;
@@ -4527,6 +5136,8 @@ pub const ArkUI_NodeEventType_NODE_ON_DRAG_MOVE: ArkUI_NodeEventType = 17;
 pub const ArkUI_NodeEventType_NODE_ON_DRAG_LEAVE: ArkUI_NodeEventType = 18;
 pub const ArkUI_NodeEventType_NODE_ON_DROP: ArkUI_NodeEventType = 19;
 pub const ArkUI_NodeEventType_NODE_ON_DRAG_END: ArkUI_NodeEventType = 20;
+pub const ArkUI_NodeEventType_NODE_ON_KEY_EVENT: ArkUI_NodeEventType = 21;
+pub const ArkUI_NodeEventType_NODE_ON_KEY_PRE_IME: ArkUI_NodeEventType = 22;
 pub const ArkUI_NodeEventType_NODE_TEXT_ON_DETECT_RESULT_UPDATE: ArkUI_NodeEventType = 1000;
 pub const ArkUI_NodeEventType_NODE_IMAGE_ON_COMPLETE: ArkUI_NodeEventType = 4000;
 pub const ArkUI_NodeEventType_NODE_IMAGE_ON_ERROR: ArkUI_NodeEventType = 4001;
@@ -4562,6 +5173,7 @@ pub const ArkUI_NodeEventType_NODE_CHECKBOX_EVENT_ON_CHANGE: ArkUI_NodeEventType
 pub const ArkUI_NodeEventType_NODE_DATE_PICKER_EVENT_ON_DATE_CHANGE: ArkUI_NodeEventType = 13000;
 pub const ArkUI_NodeEventType_NODE_TIME_PICKER_EVENT_ON_CHANGE: ArkUI_NodeEventType = 14000;
 pub const ArkUI_NodeEventType_NODE_TEXT_PICKER_EVENT_ON_CHANGE: ArkUI_NodeEventType = 15000;
+pub const ArkUI_NodeEventType_NODE_TEXT_PICKER_EVENT_ON_SCROLL_STOP: ArkUI_NodeEventType = 15001;
 pub const ArkUI_NodeEventType_NODE_CALENDAR_PICKER_EVENT_ON_CHANGE: ArkUI_NodeEventType = 16000;
 pub const ArkUI_NodeEventType_NODE_SLIDER_EVENT_ON_CHANGE: ArkUI_NodeEventType = 17000;
 pub const ArkUI_NodeEventType_NODE_RADIO_EVENT_ON_CHANGE: ArkUI_NodeEventType = 18000;
@@ -5091,6 +5703,44 @@ extern "C" {
     ) -> i32;
 }
 extern "C" {
+    pub fn OH_ArkUI_NodeUtils_AddCustomProperty(
+        node: ArkUI_NodeHandle,
+        name: *const ::std::os::raw::c_char,
+        value: *const ::std::os::raw::c_char,
+    );
+}
+extern "C" {
+    pub fn OH_ArkUI_NodeUtils_RemoveCustomProperty(
+        node: ArkUI_NodeHandle,
+        name: *const ::std::os::raw::c_char,
+    );
+}
+extern "C" {
+    pub fn OH_ArkUI_NodeUtils_GetCustomProperty(
+        node: ArkUI_NodeHandle,
+        name: *const ::std::os::raw::c_char,
+        handle: *mut *mut ArkUI_CustomProperty,
+    ) -> i32;
+}
+extern "C" {
+    pub fn OH_ArkUI_NodeUtils_GetParentInPageTree(node: ArkUI_NodeHandle) -> ArkUI_NodeHandle;
+}
+extern "C" {
+    pub fn OH_ArkUI_NodeUtils_GetActiveChildrenInfo(
+        head: ArkUI_NodeHandle,
+        handle: *mut *mut ArkUI_ActiveChildrenInfo,
+    ) -> i32;
+}
+extern "C" {
+    pub fn OH_ArkUI_NodeUtils_GetCurrentPageRootNode(node: ArkUI_NodeHandle) -> ArkUI_NodeHandle;
+}
+extern "C" {
+    pub fn OH_ArkUI_NodeUtils_IsCreatedByNDK(node: ArkUI_NodeHandle) -> bool;
+}
+extern "C" {
+    pub fn OH_ArkUI_NodeUtils_GetNodeType(node: ArkUI_NodeHandle) -> i32;
+}
+extern "C" {
     pub fn OH_ArkUI_List_CloseAllSwipeActions(
         node: ArkUI_NodeHandle,
         userData: *mut ::std::os::raw::c_void,
@@ -5316,6 +5966,7 @@ pub const OH_Drawing_ErrorCode_OH_DRAWING_ERROR_NO_PERMISSION: OH_Drawing_ErrorC
 pub const OH_Drawing_ErrorCode_OH_DRAWING_ERROR_INVALID_PARAMETER: OH_Drawing_ErrorCode = 401;
 pub const OH_Drawing_ErrorCode_OH_DRAWING_ERROR_PARAMETER_OUT_OF_RANGE: OH_Drawing_ErrorCode =
     26200001;
+pub const OH_Drawing_ErrorCode_OH_DRAWING_ERROR_ALLOCATION_FAILED: OH_Drawing_ErrorCode = 26200002;
 pub type OH_Drawing_ErrorCode = ::std::os::raw::c_uint;
 extern "C" {
     pub fn OH_Drawing_ErrorCodeGet() -> OH_Drawing_ErrorCode;
@@ -5436,6 +6087,11 @@ pub struct OH_Drawing_MemoryStream {
 }
 #[repr(C)]
 #[derive(Debug, Copy, Clone)]
+pub struct OH_Drawing_FontArguments {
+    _unused: [u8; 0],
+}
+#[repr(C)]
+#[derive(Debug, Copy, Clone)]
 pub struct OH_Drawing_Typeface {
     _unused: [u8; 0],
 }
@@ -5533,6 +6189,12 @@ pub struct OH_Drawing_RectStyle_Info {
     pub rightBottomRadius: f64,
     pub leftBottomRadius: f64,
 }
+#[repr(C)]
+#[derive(Debug, Copy, Clone)]
+pub struct OH_Drawing_String {
+    pub strData: *mut u8,
+    pub strLen: u32,
+}
 pub const OH_Drawing_TextEncoding_TEXT_ENCODING_UTF8: OH_Drawing_TextEncoding = 0;
 pub const OH_Drawing_TextEncoding_TEXT_ENCODING_UTF16: OH_Drawing_TextEncoding = 1;
 pub const OH_Drawing_TextEncoding_TEXT_ENCODING_UTF32: OH_Drawing_TextEncoding = 2;
@@ -5548,6 +6210,21 @@ pub struct OH_Drawing_FontMgr {
 pub struct OH_Drawing_FontStyleSet {
     _unused: [u8; 0],
 }
+#[repr(C)]
+#[derive(Debug, Copy, Clone)]
+pub struct OH_Drawing_RecordCmdUtils {
+    _unused: [u8; 0],
+}
+#[repr(C)]
+#[derive(Debug, Copy, Clone)]
+pub struct OH_Drawing_RecordCmd {
+    _unused: [u8; 0],
+}
+#[repr(C)]
+#[derive(Debug, Copy, Clone)]
+pub struct OH_Drawing_Array {
+    _unused: [u8; 0],
+}
 pub const OH_Drawing_SrcRectConstraint_STRICT_SRC_RECT_CONSTRAINT: OH_Drawing_SrcRectConstraint = 0;
 pub const OH_Drawing_SrcRectConstraint_FAST_SRC_RECT_CONSTRAINT: OH_Drawing_SrcRectConstraint = 1;
 pub type OH_Drawing_SrcRectConstraint = ::std::os::raw::c_uint;
@@ -5555,48 +6232,48 @@ extern "C" {
     pub fn OH_Drawing_CanvasCreate() -> *mut OH_Drawing_Canvas;
 }
 extern "C" {
-    pub fn OH_Drawing_CanvasDestroy(arg1: *mut OH_Drawing_Canvas);
+    pub fn OH_Drawing_CanvasDestroy(canvas: *mut OH_Drawing_Canvas);
 }
 extern "C" {
-    pub fn OH_Drawing_CanvasBind(arg1: *mut OH_Drawing_Canvas, arg2: *mut OH_Drawing_Bitmap);
+    pub fn OH_Drawing_CanvasBind(canvas: *mut OH_Drawing_Canvas, bitmap: *mut OH_Drawing_Bitmap);
 }
 extern "C" {
-    pub fn OH_Drawing_CanvasAttachPen(arg1: *mut OH_Drawing_Canvas, arg2: *const OH_Drawing_Pen);
+    pub fn OH_Drawing_CanvasAttachPen(canvas: *mut OH_Drawing_Canvas, pen: *const OH_Drawing_Pen);
 }
 extern "C" {
-    pub fn OH_Drawing_CanvasDetachPen(arg1: *mut OH_Drawing_Canvas);
+    pub fn OH_Drawing_CanvasDetachPen(canvas: *mut OH_Drawing_Canvas);
 }
 extern "C" {
     pub fn OH_Drawing_CanvasAttachBrush(
-        arg1: *mut OH_Drawing_Canvas,
-        arg2: *const OH_Drawing_Brush,
+        canvas: *mut OH_Drawing_Canvas,
+        brush: *const OH_Drawing_Brush,
     );
 }
 extern "C" {
-    pub fn OH_Drawing_CanvasDetachBrush(arg1: *mut OH_Drawing_Canvas);
+    pub fn OH_Drawing_CanvasDetachBrush(canvas: *mut OH_Drawing_Canvas);
 }
 extern "C" {
-    pub fn OH_Drawing_CanvasSave(arg1: *mut OH_Drawing_Canvas);
+    pub fn OH_Drawing_CanvasSave(canvas: *mut OH_Drawing_Canvas);
 }
 extern "C" {
     pub fn OH_Drawing_CanvasSaveLayer(
-        arg1: *mut OH_Drawing_Canvas,
-        arg2: *const OH_Drawing_Rect,
-        arg3: *const OH_Drawing_Brush,
+        canvas: *mut OH_Drawing_Canvas,
+        rect: *const OH_Drawing_Rect,
+        brush: *const OH_Drawing_Brush,
     );
 }
 extern "C" {
-    pub fn OH_Drawing_CanvasRestore(arg1: *mut OH_Drawing_Canvas);
+    pub fn OH_Drawing_CanvasRestore(canvas: *mut OH_Drawing_Canvas);
 }
 extern "C" {
-    pub fn OH_Drawing_CanvasGetSaveCount(arg1: *mut OH_Drawing_Canvas) -> u32;
+    pub fn OH_Drawing_CanvasGetSaveCount(canvas: *mut OH_Drawing_Canvas) -> u32;
 }
 extern "C" {
-    pub fn OH_Drawing_CanvasRestoreToCount(arg1: *mut OH_Drawing_Canvas, saveCount: u32);
+    pub fn OH_Drawing_CanvasRestoreToCount(canvas: *mut OH_Drawing_Canvas, saveCount: u32);
 }
 extern "C" {
     pub fn OH_Drawing_CanvasDrawLine(
-        arg1: *mut OH_Drawing_Canvas,
+        canvas: *mut OH_Drawing_Canvas,
         x1: f32,
         y1: f32,
         x2: f32,
@@ -5604,27 +6281,27 @@ extern "C" {
     );
 }
 extern "C" {
-    pub fn OH_Drawing_CanvasDrawPath(arg1: *mut OH_Drawing_Canvas, arg2: *const OH_Drawing_Path);
+    pub fn OH_Drawing_CanvasDrawPath(canvas: *mut OH_Drawing_Canvas, path: *const OH_Drawing_Path);
 }
 extern "C" {
     pub fn OH_Drawing_CanvasDrawPixelMapRect(
-        arg1: *mut OH_Drawing_Canvas,
-        arg2: *mut OH_Drawing_PixelMap,
+        canvas: *mut OH_Drawing_Canvas,
+        pixelMap: *mut OH_Drawing_PixelMap,
         src: *const OH_Drawing_Rect,
         dst: *const OH_Drawing_Rect,
-        arg3: *const OH_Drawing_SamplingOptions,
+        samplingOptions: *const OH_Drawing_SamplingOptions,
     );
 }
 extern "C" {
     pub fn OH_Drawing_CanvasDrawBackground(
-        arg1: *mut OH_Drawing_Canvas,
-        arg2: *const OH_Drawing_Brush,
+        canvas: *mut OH_Drawing_Canvas,
+        brush: *const OH_Drawing_Brush,
     );
 }
 extern "C" {
     pub fn OH_Drawing_CanvasDrawRegion(
-        arg1: *mut OH_Drawing_Canvas,
-        arg2: *const OH_Drawing_Region,
+        canvas: *mut OH_Drawing_Canvas,
+        region: *const OH_Drawing_Region,
     );
 }
 pub const OH_Drawing_PointMode_POINT_MODE_POINTS: OH_Drawing_PointMode = 0;
@@ -5639,36 +6316,36 @@ extern "C" {
 }
 extern "C" {
     pub fn OH_Drawing_CanvasDrawPoints(
-        arg1: *mut OH_Drawing_Canvas,
+        canvas: *mut OH_Drawing_Canvas,
         mode: OH_Drawing_PointMode,
         count: u32,
-        arg2: *const OH_Drawing_Point2D,
+        point2D: *const OH_Drawing_Point2D,
     );
 }
 extern "C" {
     pub fn OH_Drawing_CanvasDrawBitmap(
-        arg1: *mut OH_Drawing_Canvas,
-        arg2: *const OH_Drawing_Bitmap,
+        canvas: *mut OH_Drawing_Canvas,
+        bitmap: *const OH_Drawing_Bitmap,
         left: f32,
         top: f32,
     );
 }
 extern "C" {
     pub fn OH_Drawing_CanvasDrawBitmapRect(
-        arg1: *mut OH_Drawing_Canvas,
-        arg2: *const OH_Drawing_Bitmap,
+        canvas: *mut OH_Drawing_Canvas,
+        bitmap: *const OH_Drawing_Bitmap,
         src: *const OH_Drawing_Rect,
         dst: *const OH_Drawing_Rect,
-        arg3: *const OH_Drawing_SamplingOptions,
+        samplingOptions: *const OH_Drawing_SamplingOptions,
     );
 }
 extern "C" {
-    pub fn OH_Drawing_CanvasDrawRect(arg1: *mut OH_Drawing_Canvas, arg2: *const OH_Drawing_Rect);
+    pub fn OH_Drawing_CanvasDrawRect(canvas: *mut OH_Drawing_Canvas, rect: *const OH_Drawing_Rect);
 }
 extern "C" {
     pub fn OH_Drawing_CanvasDrawCircle(
-        arg1: *mut OH_Drawing_Canvas,
-        arg2: *const OH_Drawing_Point,
+        canvas: *mut OH_Drawing_Canvas,
+        point: *const OH_Drawing_Point,
         radius: f32,
     );
 }
@@ -5680,20 +6357,20 @@ extern "C" {
     ) -> OH_Drawing_ErrorCode;
 }
 extern "C" {
-    pub fn OH_Drawing_CanvasDrawOval(arg1: *mut OH_Drawing_Canvas, arg2: *const OH_Drawing_Rect);
+    pub fn OH_Drawing_CanvasDrawOval(canvas: *mut OH_Drawing_Canvas, rect: *const OH_Drawing_Rect);
 }
 extern "C" {
     pub fn OH_Drawing_CanvasDrawArc(
-        arg1: *mut OH_Drawing_Canvas,
-        arg2: *const OH_Drawing_Rect,
+        canvas: *mut OH_Drawing_Canvas,
+        rect: *const OH_Drawing_Rect,
         startAngle: f32,
         sweepAngle: f32,
     );
 }
 extern "C" {
     pub fn OH_Drawing_CanvasDrawRoundRect(
-        arg1: *mut OH_Drawing_Canvas,
-        arg2: *const OH_Drawing_RoundRect,
+        canvas: *mut OH_Drawing_Canvas,
+        roundRect: *const OH_Drawing_RoundRect,
     );
 }
 extern "C" {
@@ -5707,8 +6384,8 @@ extern "C" {
 }
 extern "C" {
     pub fn OH_Drawing_CanvasDrawTextBlob(
-        arg1: *mut OH_Drawing_Canvas,
-        arg2: *const OH_Drawing_TextBlob,
+        canvas: *mut OH_Drawing_Canvas,
+        textBlob: *const OH_Drawing_TextBlob,
         x: f32,
         y: f32,
     );
@@ -5718,24 +6395,24 @@ pub const OH_Drawing_CanvasClipOp_INTERSECT: OH_Drawing_CanvasClipOp = 1;
 pub type OH_Drawing_CanvasClipOp = ::std::os::raw::c_uint;
 extern "C" {
     pub fn OH_Drawing_CanvasClipRect(
-        arg1: *mut OH_Drawing_Canvas,
-        arg2: *const OH_Drawing_Rect,
+        canvas: *mut OH_Drawing_Canvas,
+        rect: *const OH_Drawing_Rect,
         clipOp: OH_Drawing_CanvasClipOp,
         doAntiAlias: bool,
     );
 }
 extern "C" {
     pub fn OH_Drawing_CanvasClipRoundRect(
-        arg1: *mut OH_Drawing_Canvas,
-        arg2: *const OH_Drawing_RoundRect,
+        canvas: *mut OH_Drawing_Canvas,
+        roundRect: *const OH_Drawing_RoundRect,
         clipOp: OH_Drawing_CanvasClipOp,
         doAntiAlias: bool,
     );
 }
 extern "C" {
     pub fn OH_Drawing_CanvasClipPath(
-        arg1: *mut OH_Drawing_Canvas,
-        arg2: *const OH_Drawing_Path,
+        canvas: *mut OH_Drawing_Canvas,
+        path: *const OH_Drawing_Path,
         clipOp: OH_Drawing_CanvasClipOp,
         doAntiAlias: bool,
     );
@@ -5748,42 +6425,39 @@ extern "C" {
     ) -> OH_Drawing_ErrorCode;
 }
 extern "C" {
-    pub fn OH_Drawing_CanvasRotate(arg1: *mut OH_Drawing_Canvas, degrees: f32, px: f32, py: f32);
+    pub fn OH_Drawing_CanvasRotate(canvas: *mut OH_Drawing_Canvas, degrees: f32, px: f32, py: f32);
 }
 extern "C" {
-    pub fn OH_Drawing_CanvasTranslate(arg1: *mut OH_Drawing_Canvas, dx: f32, dy: f32);
+    pub fn OH_Drawing_CanvasTranslate(canvas: *mut OH_Drawing_Canvas, dx: f32, dy: f32);
 }
 extern "C" {
-    pub fn OH_Drawing_CanvasScale(arg1: *mut OH_Drawing_Canvas, sx: f32, sy: f32);
+    pub fn OH_Drawing_CanvasScale(canvas: *mut OH_Drawing_Canvas, sx: f32, sy: f32);
 }
 extern "C" {
-    pub fn OH_Drawing_CanvasSkew(arg1: *mut OH_Drawing_Canvas, sx: f32, sy: f32);
+    pub fn OH_Drawing_CanvasSkew(canvas: *mut OH_Drawing_Canvas, sx: f32, sy: f32);
 }
 extern "C" {
-    pub fn OH_Drawing_CanvasClear(arg1: *mut OH_Drawing_Canvas, color: u32);
+    pub fn OH_Drawing_CanvasGetWidth(canvas: *mut OH_Drawing_Canvas) -> i32;
 }
 extern "C" {
-    pub fn OH_Drawing_CanvasGetWidth(arg1: *mut OH_Drawing_Canvas) -> i32;
-}
-extern "C" {
-    pub fn OH_Drawing_CanvasGetHeight(arg1: *mut OH_Drawing_Canvas) -> i32;
+    pub fn OH_Drawing_CanvasGetHeight(canvas: *mut OH_Drawing_Canvas) -> i32;
 }
 extern "C" {
     pub fn OH_Drawing_CanvasGetLocalClipBounds(
-        arg1: *mut OH_Drawing_Canvas,
-        arg2: *mut OH_Drawing_Rect,
+        canvas: *mut OH_Drawing_Canvas,
+        rect: *mut OH_Drawing_Rect,
     );
 }
 extern "C" {
     pub fn OH_Drawing_CanvasGetTotalMatrix(
-        arg1: *mut OH_Drawing_Canvas,
-        arg2: *mut OH_Drawing_Matrix,
+        canvas: *mut OH_Drawing_Canvas,
+        matrix: *mut OH_Drawing_Matrix,
     );
 }
 extern "C" {
     pub fn OH_Drawing_CanvasConcatMatrix(
-        arg1: *mut OH_Drawing_Canvas,
-        arg2: *mut OH_Drawing_Matrix,
+        canvas: *mut OH_Drawing_Canvas,
+        matrix: *mut OH_Drawing_Matrix,
     );
 }
 pub const OH_Drawing_CanvasShadowFlags_SHADOW_FLAGS_NONE: OH_Drawing_CanvasShadowFlags = 0;
@@ -5795,8 +6469,8 @@ pub const OH_Drawing_CanvasShadowFlags_SHADOW_FLAGS_ALL: OH_Drawing_CanvasShadow
 pub type OH_Drawing_CanvasShadowFlags = ::std::os::raw::c_uint;
 extern "C" {
     pub fn OH_Drawing_CanvasDrawShadow(
-        arg1: *mut OH_Drawing_Canvas,
-        arg2: *mut OH_Drawing_Path,
+        canvas: *mut OH_Drawing_Canvas,
+        path: *mut OH_Drawing_Path,
         planeParams: OH_Drawing_Point3D,
         devLightPos: OH_Drawing_Point3D,
         lightRadius: f32,
@@ -5806,27 +6480,33 @@ extern "C" {
     );
 }
 extern "C" {
-    pub fn OH_Drawing_CanvasSetMatrix(arg1: *mut OH_Drawing_Canvas, arg2: *mut OH_Drawing_Matrix);
+    pub fn OH_Drawing_CanvasClear(canvas: *mut OH_Drawing_Canvas, color: u32);
 }
 extern "C" {
-    pub fn OH_Drawing_CanvasResetMatrix(arg1: *mut OH_Drawing_Canvas);
+    pub fn OH_Drawing_CanvasSetMatrix(
+        canvas: *mut OH_Drawing_Canvas,
+        matrix: *mut OH_Drawing_Matrix,
+    );
+}
+extern "C" {
+    pub fn OH_Drawing_CanvasResetMatrix(canvas: *mut OH_Drawing_Canvas);
 }
 extern "C" {
     pub fn OH_Drawing_CanvasDrawImageRectWithSrc(
-        arg1: *mut OH_Drawing_Canvas,
-        arg2: *const OH_Drawing_Image,
+        canvas: *mut OH_Drawing_Canvas,
+        image: *const OH_Drawing_Image,
         src: *const OH_Drawing_Rect,
         dst: *const OH_Drawing_Rect,
-        arg3: *const OH_Drawing_SamplingOptions,
-        arg4: OH_Drawing_SrcRectConstraint,
+        samplingOptions: *const OH_Drawing_SamplingOptions,
+        srcRectConstraint: OH_Drawing_SrcRectConstraint,
     );
 }
 extern "C" {
     pub fn OH_Drawing_CanvasDrawImageRect(
-        arg1: *mut OH_Drawing_Canvas,
-        arg2: *mut OH_Drawing_Image,
-        dst: *mut OH_Drawing_Rect,
-        arg3: *mut OH_Drawing_SamplingOptions,
+        canvas: *mut OH_Drawing_Canvas,
+        image: *mut OH_Drawing_Image,
+        rect: *mut OH_Drawing_Rect,
+        samplingOptions: *mut OH_Drawing_SamplingOptions,
     );
 }
 pub const OH_Drawing_VertexMode_VERTEX_MODE_TRIANGLES: OH_Drawing_VertexMode = 0;
@@ -5835,7 +6515,7 @@ pub const OH_Drawing_VertexMode_VERTEX_MODE_TRIANGLE_FAN: OH_Drawing_VertexMode 
 pub type OH_Drawing_VertexMode = ::std::os::raw::c_uint;
 extern "C" {
     pub fn OH_Drawing_CanvasDrawVertices(
-        arg1: *mut OH_Drawing_Canvas,
+        canvas: *mut OH_Drawing_Canvas,
         vertexMmode: OH_Drawing_VertexMode,
         vertexCount: i32,
         positions: *const OH_Drawing_Point2D,
@@ -5848,8 +6528,8 @@ extern "C" {
 }
 extern "C" {
     pub fn OH_Drawing_CanvasReadPixels(
-        arg1: *mut OH_Drawing_Canvas,
-        arg2: *mut OH_Drawing_Image_Info,
+        canvas: *mut OH_Drawing_Canvas,
+        imageInfo: *mut OH_Drawing_Image_Info,
         dstPixels: *mut ::std::os::raw::c_void,
         dstRowBytes: u32,
         srcX: i32,
@@ -5858,8 +6538,8 @@ extern "C" {
 }
 extern "C" {
     pub fn OH_Drawing_CanvasReadPixelsToBitmap(
-        arg1: *mut OH_Drawing_Canvas,
-        arg2: *mut OH_Drawing_Bitmap,
+        canvas: *mut OH_Drawing_Canvas,
+        bitmap: *mut OH_Drawing_Bitmap,
         srcX: i32,
         srcY: i32,
     ) -> bool;
@@ -5874,6 +6554,12 @@ extern "C" {
     pub fn OH_Drawing_CanvasGetImageInfo(
         canvas: *mut OH_Drawing_Canvas,
         imageInfo: *mut OH_Drawing_Image_Info,
+    ) -> OH_Drawing_ErrorCode;
+}
+extern "C" {
+    pub fn OH_Drawing_CanvasDrawRecordCmd(
+        canvas: *mut OH_Drawing_Canvas,
+        recordCmd: *mut OH_Drawing_RecordCmd,
     ) -> OH_Drawing_ErrorCode;
 }
 extern "C" {
@@ -5892,38 +6578,41 @@ pub const OH_Drawing_FontEdging_FONT_EDGING_ANTI_ALIAS: OH_Drawing_FontEdging = 
 pub const OH_Drawing_FontEdging_FONT_EDGING_SUBPIXEL_ANTI_ALIAS: OH_Drawing_FontEdging = 2;
 pub type OH_Drawing_FontEdging = ::std::os::raw::c_uint;
 extern "C" {
-    pub fn OH_Drawing_FontSetBaselineSnap(arg1: *mut OH_Drawing_Font, baselineSnap: bool);
+    pub fn OH_Drawing_FontSetBaselineSnap(font: *mut OH_Drawing_Font, baselineSnap: bool);
 }
 extern "C" {
-    pub fn OH_Drawing_FontIsBaselineSnap(arg1: *const OH_Drawing_Font) -> bool;
+    pub fn OH_Drawing_FontIsBaselineSnap(font: *const OH_Drawing_Font) -> bool;
 }
 extern "C" {
-    pub fn OH_Drawing_FontSetSubpixel(arg1: *mut OH_Drawing_Font, isSubpixel: bool);
+    pub fn OH_Drawing_FontSetSubpixel(font: *mut OH_Drawing_Font, isSubpixel: bool);
 }
 extern "C" {
-    pub fn OH_Drawing_FontIsSubpixel(arg1: *const OH_Drawing_Font) -> bool;
+    pub fn OH_Drawing_FontIsSubpixel(font: *const OH_Drawing_Font) -> bool;
 }
 extern "C" {
-    pub fn OH_Drawing_FontSetForceAutoHinting(arg1: *mut OH_Drawing_Font, isForceAutoHinting: bool);
+    pub fn OH_Drawing_FontSetForceAutoHinting(font: *mut OH_Drawing_Font, isForceAutoHinting: bool);
 }
 extern "C" {
-    pub fn OH_Drawing_FontIsForceAutoHinting(arg1: *const OH_Drawing_Font) -> bool;
+    pub fn OH_Drawing_FontIsForceAutoHinting(font: *const OH_Drawing_Font) -> bool;
 }
 extern "C" {
-    pub fn OH_Drawing_FontSetTypeface(arg1: *mut OH_Drawing_Font, arg2: *mut OH_Drawing_Typeface);
+    pub fn OH_Drawing_FontSetTypeface(
+        font: *mut OH_Drawing_Font,
+        typeface: *mut OH_Drawing_Typeface,
+    );
 }
 extern "C" {
-    pub fn OH_Drawing_FontGetTypeface(arg1: *mut OH_Drawing_Font) -> *mut OH_Drawing_Typeface;
+    pub fn OH_Drawing_FontGetTypeface(font: *mut OH_Drawing_Font) -> *mut OH_Drawing_Typeface;
 }
 extern "C" {
-    pub fn OH_Drawing_FontSetTextSize(arg1: *mut OH_Drawing_Font, textSize: f32);
+    pub fn OH_Drawing_FontSetTextSize(font: *mut OH_Drawing_Font, textSize: f32);
 }
 extern "C" {
-    pub fn OH_Drawing_FontGetTextSize(arg1: *const OH_Drawing_Font) -> f32;
+    pub fn OH_Drawing_FontGetTextSize(font: *const OH_Drawing_Font) -> f32;
 }
 extern "C" {
     pub fn OH_Drawing_FontCountText(
-        arg1: *mut OH_Drawing_Font,
+        font: *mut OH_Drawing_Font,
         text: *const ::std::os::raw::c_void,
         byteLength: usize,
         encoding: OH_Drawing_TextEncoding,
@@ -5931,7 +6620,7 @@ extern "C" {
 }
 extern "C" {
     pub fn OH_Drawing_FontTextToGlyphs(
-        arg1: *const OH_Drawing_Font,
+        font: *const OH_Drawing_Font,
         text: *const ::std::os::raw::c_void,
         byteLength: u32,
         encoding: OH_Drawing_TextEncoding,
@@ -5941,7 +6630,7 @@ extern "C" {
 }
 extern "C" {
     pub fn OH_Drawing_FontGetWidths(
-        arg1: *const OH_Drawing_Font,
+        font: *const OH_Drawing_Font,
         glyphs: *const u16,
         count: ::std::os::raw::c_int,
         widths: *mut f32,
@@ -5965,49 +6654,52 @@ extern "C" {
     ) -> OH_Drawing_ErrorCode;
 }
 extern "C" {
-    pub fn OH_Drawing_FontSetLinearText(arg1: *mut OH_Drawing_Font, isLinearText: bool);
+    pub fn OH_Drawing_FontSetLinearText(font: *mut OH_Drawing_Font, isLinearText: bool);
 }
 extern "C" {
-    pub fn OH_Drawing_FontIsLinearText(arg1: *const OH_Drawing_Font) -> bool;
+    pub fn OH_Drawing_FontIsLinearText(font: *const OH_Drawing_Font) -> bool;
 }
 extern "C" {
-    pub fn OH_Drawing_FontSetTextSkewX(arg1: *mut OH_Drawing_Font, skewX: f32);
+    pub fn OH_Drawing_FontSetTextSkewX(font: *mut OH_Drawing_Font, skewX: f32);
 }
 extern "C" {
-    pub fn OH_Drawing_FontGetTextSkewX(arg1: *const OH_Drawing_Font) -> f32;
+    pub fn OH_Drawing_FontGetTextSkewX(font: *const OH_Drawing_Font) -> f32;
 }
 extern "C" {
-    pub fn OH_Drawing_FontSetFakeBoldText(arg1: *mut OH_Drawing_Font, isFakeBoldText: bool);
+    pub fn OH_Drawing_FontSetFakeBoldText(font: *mut OH_Drawing_Font, isFakeBoldText: bool);
 }
 extern "C" {
-    pub fn OH_Drawing_FontIsFakeBoldText(arg1: *const OH_Drawing_Font) -> bool;
+    pub fn OH_Drawing_FontIsFakeBoldText(font: *const OH_Drawing_Font) -> bool;
 }
 extern "C" {
-    pub fn OH_Drawing_FontSetScaleX(arg1: *mut OH_Drawing_Font, scaleX: f32);
+    pub fn OH_Drawing_FontSetScaleX(font: *mut OH_Drawing_Font, scaleX: f32);
 }
 extern "C" {
-    pub fn OH_Drawing_FontGetScaleX(arg1: *const OH_Drawing_Font) -> f32;
+    pub fn OH_Drawing_FontGetScaleX(font: *const OH_Drawing_Font) -> f32;
 }
 extern "C" {
-    pub fn OH_Drawing_FontSetHinting(arg1: *mut OH_Drawing_Font, arg2: OH_Drawing_FontHinting);
+    pub fn OH_Drawing_FontSetHinting(
+        font: *mut OH_Drawing_Font,
+        fontHinting: OH_Drawing_FontHinting,
+    );
 }
 extern "C" {
-    pub fn OH_Drawing_FontGetHinting(arg1: *const OH_Drawing_Font) -> OH_Drawing_FontHinting;
+    pub fn OH_Drawing_FontGetHinting(font: *const OH_Drawing_Font) -> OH_Drawing_FontHinting;
 }
 extern "C" {
-    pub fn OH_Drawing_FontSetEmbeddedBitmaps(arg1: *mut OH_Drawing_Font, isEmbeddedBitmaps: bool);
+    pub fn OH_Drawing_FontSetEmbeddedBitmaps(font: *mut OH_Drawing_Font, isEmbeddedBitmaps: bool);
 }
 extern "C" {
-    pub fn OH_Drawing_FontIsEmbeddedBitmaps(arg1: *const OH_Drawing_Font) -> bool;
+    pub fn OH_Drawing_FontIsEmbeddedBitmaps(font: *const OH_Drawing_Font) -> bool;
 }
 extern "C" {
-    pub fn OH_Drawing_FontSetEdging(arg1: *mut OH_Drawing_Font, arg2: OH_Drawing_FontEdging);
+    pub fn OH_Drawing_FontSetEdging(font: *mut OH_Drawing_Font, fontEdging: OH_Drawing_FontEdging);
 }
 extern "C" {
-    pub fn OH_Drawing_FontGetEdging(arg1: *const OH_Drawing_Font) -> OH_Drawing_FontEdging;
+    pub fn OH_Drawing_FontGetEdging(font: *const OH_Drawing_Font) -> OH_Drawing_FontEdging;
 }
 extern "C" {
-    pub fn OH_Drawing_FontDestroy(arg1: *mut OH_Drawing_Font);
+    pub fn OH_Drawing_FontDestroy(font: *mut OH_Drawing_Font);
 }
 #[repr(C)]
 #[derive(Debug, Copy, Clone)]
@@ -6031,8 +6723,8 @@ pub struct OH_Drawing_Font_Metrics {
 }
 extern "C" {
     pub fn OH_Drawing_FontGetMetrics(
-        arg1: *mut OH_Drawing_Font,
-        arg2: *mut OH_Drawing_Font_Metrics,
+        font: *mut OH_Drawing_Font,
+        fontMetrics: *mut OH_Drawing_Font_Metrics,
     ) -> f32;
 }
 pub const OH_Drawing_TextDirection_TEXT_DIRECTION_RTL: OH_Drawing_TextDirection = 0;
@@ -6267,684 +6959,707 @@ extern "C" {
     pub fn OH_Drawing_CreateTypographyStyle() -> *mut OH_Drawing_TypographyStyle;
 }
 extern "C" {
-    pub fn OH_Drawing_DestroyTypographyStyle(arg1: *mut OH_Drawing_TypographyStyle);
+    pub fn OH_Drawing_DestroyTypographyStyle(style: *mut OH_Drawing_TypographyStyle);
 }
 extern "C" {
     pub fn OH_Drawing_SetTypographyTextDirection(
-        arg1: *mut OH_Drawing_TypographyStyle,
-        arg2: ::std::os::raw::c_int,
+        style: *mut OH_Drawing_TypographyStyle,
+        direction: ::std::os::raw::c_int,
     );
 }
 extern "C" {
     pub fn OH_Drawing_SetTypographyTextAlign(
-        arg1: *mut OH_Drawing_TypographyStyle,
-        arg2: ::std::os::raw::c_int,
+        style: *mut OH_Drawing_TypographyStyle,
+        align: ::std::os::raw::c_int,
     );
 }
 extern "C" {
     pub fn OH_Drawing_SetTypographyTextMaxLines(
-        arg1: *mut OH_Drawing_TypographyStyle,
-        arg2: ::std::os::raw::c_int,
+        style: *mut OH_Drawing_TypographyStyle,
+        lineNumber: ::std::os::raw::c_int,
     );
 }
 extern "C" {
     pub fn OH_Drawing_CreateTextStyle() -> *mut OH_Drawing_TextStyle;
 }
 extern "C" {
-    pub fn OH_Drawing_DestroyTextStyle(arg1: *mut OH_Drawing_TextStyle);
+    pub fn OH_Drawing_DestroyTextStyle(style: *mut OH_Drawing_TextStyle);
 }
 extern "C" {
-    pub fn OH_Drawing_SetTextStyleColor(arg1: *mut OH_Drawing_TextStyle, arg2: u32);
+    pub fn OH_Drawing_SetTextStyleColor(style: *mut OH_Drawing_TextStyle, color: u32);
 }
 extern "C" {
-    pub fn OH_Drawing_SetTextStyleFontSize(arg1: *mut OH_Drawing_TextStyle, arg2: f64);
+    pub fn OH_Drawing_SetTextStyleFontSize(style: *mut OH_Drawing_TextStyle, fontSize: f64);
 }
 extern "C" {
     pub fn OH_Drawing_SetTextStyleFontWeight(
-        arg1: *mut OH_Drawing_TextStyle,
-        arg2: ::std::os::raw::c_int,
+        style: *mut OH_Drawing_TextStyle,
+        fontWeight: ::std::os::raw::c_int,
     );
 }
 extern "C" {
     pub fn OH_Drawing_SetTextStyleBaseLine(
-        arg1: *mut OH_Drawing_TextStyle,
-        arg2: ::std::os::raw::c_int,
+        style: *mut OH_Drawing_TextStyle,
+        baseline: ::std::os::raw::c_int,
     );
 }
 extern "C" {
     pub fn OH_Drawing_SetTextStyleDecoration(
-        arg1: *mut OH_Drawing_TextStyle,
-        arg2: ::std::os::raw::c_int,
+        style: *mut OH_Drawing_TextStyle,
+        decoration: ::std::os::raw::c_int,
     );
 }
 extern "C" {
-    pub fn OH_Drawing_SetTextStyleDecorationColor(arg1: *mut OH_Drawing_TextStyle, arg2: u32);
+    pub fn OH_Drawing_SetTextStyleDecorationColor(style: *mut OH_Drawing_TextStyle, color: u32);
 }
 extern "C" {
-    pub fn OH_Drawing_SetTextStyleFontHeight(arg1: *mut OH_Drawing_TextStyle, arg2: f64);
+    pub fn OH_Drawing_SetTextStyleFontHeight(style: *mut OH_Drawing_TextStyle, fontHeight: f64);
 }
 extern "C" {
     pub fn OH_Drawing_SetTextStyleFontFamilies(
-        arg1: *mut OH_Drawing_TextStyle,
-        arg2: ::std::os::raw::c_int,
+        style: *mut OH_Drawing_TextStyle,
+        fontFamiliesNumber: ::std::os::raw::c_int,
         fontFamilies: *mut *const ::std::os::raw::c_char,
     );
 }
 extern "C" {
     pub fn OH_Drawing_SetTextStyleFontStyle(
-        arg1: *mut OH_Drawing_TextStyle,
-        arg2: ::std::os::raw::c_int,
+        style: *mut OH_Drawing_TextStyle,
+        fontStyle: ::std::os::raw::c_int,
     );
 }
 extern "C" {
     pub fn OH_Drawing_SetTextStyleLocale(
-        arg1: *mut OH_Drawing_TextStyle,
-        arg2: *const ::std::os::raw::c_char,
+        style: *mut OH_Drawing_TextStyle,
+        locale: *const ::std::os::raw::c_char,
     );
 }
 extern "C" {
     pub fn OH_Drawing_SetTextStyleForegroundBrush(
-        arg1: *mut OH_Drawing_TextStyle,
-        arg2: *mut OH_Drawing_Brush,
+        style: *mut OH_Drawing_TextStyle,
+        foregroundBrush: *mut OH_Drawing_Brush,
     );
 }
 extern "C" {
     pub fn OH_Drawing_TextStyleGetForegroundBrush(
-        arg1: *mut OH_Drawing_TextStyle,
-        arg2: *mut OH_Drawing_Brush,
+        style: *mut OH_Drawing_TextStyle,
+        foregroundBrush: *mut OH_Drawing_Brush,
     );
 }
 extern "C" {
     pub fn OH_Drawing_SetTextStyleForegroundPen(
-        arg1: *mut OH_Drawing_TextStyle,
-        arg2: *mut OH_Drawing_Pen,
+        style: *mut OH_Drawing_TextStyle,
+        foregroundPen: *mut OH_Drawing_Pen,
     );
 }
 extern "C" {
     pub fn OH_Drawing_TextStyleGetForegroundPen(
-        arg1: *mut OH_Drawing_TextStyle,
-        arg2: *mut OH_Drawing_Pen,
+        style: *mut OH_Drawing_TextStyle,
+        foregroundPen: *mut OH_Drawing_Pen,
     );
 }
 extern "C" {
     pub fn OH_Drawing_SetTextStyleBackgroundBrush(
-        arg1: *mut OH_Drawing_TextStyle,
-        arg2: *mut OH_Drawing_Brush,
+        style: *mut OH_Drawing_TextStyle,
+        foregroundPen: *mut OH_Drawing_Brush,
     );
 }
 extern "C" {
     pub fn OH_Drawing_TextStyleGetBackgroundBrush(
-        arg1: *mut OH_Drawing_TextStyle,
-        arg2: *mut OH_Drawing_Brush,
+        style: *mut OH_Drawing_TextStyle,
+        backgroundBrush: *mut OH_Drawing_Brush,
     );
 }
 extern "C" {
     pub fn OH_Drawing_SetTextStyleBackgroundPen(
-        arg1: *mut OH_Drawing_TextStyle,
-        arg2: *mut OH_Drawing_Pen,
+        style: *mut OH_Drawing_TextStyle,
+        backgroundPen: *mut OH_Drawing_Pen,
     );
 }
 extern "C" {
     pub fn OH_Drawing_TextStyleGetBackgroundPen(
-        arg1: *mut OH_Drawing_TextStyle,
-        arg2: *mut OH_Drawing_Pen,
+        style: *mut OH_Drawing_TextStyle,
+        backgroundPen: *mut OH_Drawing_Pen,
     );
 }
 extern "C" {
     pub fn OH_Drawing_CreateTypographyHandler(
-        arg1: *mut OH_Drawing_TypographyStyle,
-        arg2: *mut OH_Drawing_FontCollection,
+        style: *mut OH_Drawing_TypographyStyle,
+        fontCollection: *mut OH_Drawing_FontCollection,
     ) -> *mut OH_Drawing_TypographyCreate;
 }
 extern "C" {
-    pub fn OH_Drawing_DestroyTypographyHandler(arg1: *mut OH_Drawing_TypographyCreate);
+    pub fn OH_Drawing_DestroyTypographyHandler(handler: *mut OH_Drawing_TypographyCreate);
 }
 extern "C" {
     pub fn OH_Drawing_TypographyHandlerPushTextStyle(
-        arg1: *mut OH_Drawing_TypographyCreate,
-        arg2: *mut OH_Drawing_TextStyle,
+        handler: *mut OH_Drawing_TypographyCreate,
+        style: *mut OH_Drawing_TextStyle,
     );
 }
 extern "C" {
     pub fn OH_Drawing_TypographyHandlerAddText(
-        arg1: *mut OH_Drawing_TypographyCreate,
-        arg2: *const ::std::os::raw::c_char,
+        handler: *mut OH_Drawing_TypographyCreate,
+        text: *const ::std::os::raw::c_char,
     );
 }
 extern "C" {
-    pub fn OH_Drawing_TypographyHandlerPopTextStyle(arg1: *mut OH_Drawing_TypographyCreate);
+    pub fn OH_Drawing_TypographyHandlerPopTextStyle(handler: *mut OH_Drawing_TypographyCreate);
 }
 extern "C" {
     pub fn OH_Drawing_CreateTypography(
-        arg1: *mut OH_Drawing_TypographyCreate,
+        handler: *mut OH_Drawing_TypographyCreate,
     ) -> *mut OH_Drawing_Typography;
 }
 extern "C" {
-    pub fn OH_Drawing_DestroyTypography(arg1: *mut OH_Drawing_Typography);
+    pub fn OH_Drawing_DestroyTypography(typography: *mut OH_Drawing_Typography);
 }
 extern "C" {
-    pub fn OH_Drawing_TypographyLayout(arg1: *mut OH_Drawing_Typography, arg2: f64);
+    pub fn OH_Drawing_TypographyLayout(typography: *mut OH_Drawing_Typography, maxWidth: f64);
 }
 extern "C" {
     pub fn OH_Drawing_TypographyPaint(
-        arg1: *mut OH_Drawing_Typography,
-        arg2: *mut OH_Drawing_Canvas,
-        arg3: f64,
-        arg4: f64,
+        typography: *mut OH_Drawing_Typography,
+        canvas: *mut OH_Drawing_Canvas,
+        potisionX: f64,
+        potisionY: f64,
     );
 }
 extern "C" {
     pub fn OH_Drawing_TypographyPaintOnPath(
-        arg1: *mut OH_Drawing_Typography,
-        arg2: *mut OH_Drawing_Canvas,
-        arg3: *mut OH_Drawing_Path,
-        arg4: f64,
-        arg5: f64,
+        typography: *mut OH_Drawing_Typography,
+        canvas: *mut OH_Drawing_Canvas,
+        path: *mut OH_Drawing_Path,
+        hOffset: f64,
+        vOffset: f64,
     );
 }
 extern "C" {
-    pub fn OH_Drawing_TypographyGetMaxWidth(arg1: *mut OH_Drawing_Typography) -> f64;
+    pub fn OH_Drawing_TypographyGetMaxWidth(typography: *mut OH_Drawing_Typography) -> f64;
 }
 extern "C" {
-    pub fn OH_Drawing_TypographyGetHeight(arg1: *mut OH_Drawing_Typography) -> f64;
+    pub fn OH_Drawing_TypographyGetHeight(typography: *mut OH_Drawing_Typography) -> f64;
 }
 extern "C" {
-    pub fn OH_Drawing_TypographyGetLongestLine(arg1: *mut OH_Drawing_Typography) -> f64;
+    pub fn OH_Drawing_TypographyGetLongestLine(typography: *mut OH_Drawing_Typography) -> f64;
 }
 extern "C" {
-    pub fn OH_Drawing_TypographyGetMinIntrinsicWidth(arg1: *mut OH_Drawing_Typography) -> f64;
+    pub fn OH_Drawing_TypographyGetLongestLineWithIndent(
+        typography: *mut OH_Drawing_Typography,
+    ) -> f64;
 }
 extern "C" {
-    pub fn OH_Drawing_TypographyGetMaxIntrinsicWidth(arg1: *mut OH_Drawing_Typography) -> f64;
+    pub fn OH_Drawing_TypographyGetMinIntrinsicWidth(typography: *mut OH_Drawing_Typography)
+        -> f64;
 }
 extern "C" {
-    pub fn OH_Drawing_TypographyGetAlphabeticBaseline(arg1: *mut OH_Drawing_Typography) -> f64;
+    pub fn OH_Drawing_TypographyGetMaxIntrinsicWidth(typography: *mut OH_Drawing_Typography)
+        -> f64;
 }
 extern "C" {
-    pub fn OH_Drawing_TypographyGetIdeographicBaseline(arg1: *mut OH_Drawing_Typography) -> f64;
+    pub fn OH_Drawing_TypographyGetAlphabeticBaseline(
+        typography: *mut OH_Drawing_Typography,
+    ) -> f64;
+}
+extern "C" {
+    pub fn OH_Drawing_TypographyGetIdeographicBaseline(
+        typography: *mut OH_Drawing_Typography,
+    ) -> f64;
 }
 extern "C" {
     pub fn OH_Drawing_TypographyHandlerAddPlaceholder(
-        arg1: *mut OH_Drawing_TypographyCreate,
-        arg2: *mut OH_Drawing_PlaceholderSpan,
+        handler: *mut OH_Drawing_TypographyCreate,
+        span: *mut OH_Drawing_PlaceholderSpan,
     );
 }
 extern "C" {
-    pub fn OH_Drawing_TypographyDidExceedMaxLines(arg1: *mut OH_Drawing_Typography) -> bool;
+    pub fn OH_Drawing_TypographyDidExceedMaxLines(typography: *mut OH_Drawing_Typography) -> bool;
 }
 extern "C" {
     pub fn OH_Drawing_TypographyGetRectsForRange(
-        arg1: *mut OH_Drawing_Typography,
-        arg2: usize,
-        arg3: usize,
-        arg4: OH_Drawing_RectHeightStyle,
-        arg5: OH_Drawing_RectWidthStyle,
+        typography: *mut OH_Drawing_Typography,
+        start: usize,
+        end: usize,
+        heightStyle: OH_Drawing_RectHeightStyle,
+        widthStyle: OH_Drawing_RectWidthStyle,
     ) -> *mut OH_Drawing_TextBox;
 }
 extern "C" {
     pub fn OH_Drawing_TypographyGetRectsForPlaceholders(
-        arg1: *mut OH_Drawing_Typography,
+        typography: *mut OH_Drawing_Typography,
     ) -> *mut OH_Drawing_TextBox;
 }
 extern "C" {
     pub fn OH_Drawing_GetLeftFromTextBox(
-        arg1: *mut OH_Drawing_TextBox,
-        arg2: ::std::os::raw::c_int,
+        textbox: *mut OH_Drawing_TextBox,
+        index: ::std::os::raw::c_int,
     ) -> f32;
 }
 extern "C" {
     pub fn OH_Drawing_GetRightFromTextBox(
-        arg1: *mut OH_Drawing_TextBox,
-        arg2: ::std::os::raw::c_int,
+        textbox: *mut OH_Drawing_TextBox,
+        index: ::std::os::raw::c_int,
     ) -> f32;
 }
 extern "C" {
     pub fn OH_Drawing_GetTopFromTextBox(
-        arg1: *mut OH_Drawing_TextBox,
-        arg2: ::std::os::raw::c_int,
+        textbox: *mut OH_Drawing_TextBox,
+        index: ::std::os::raw::c_int,
     ) -> f32;
 }
 extern "C" {
     pub fn OH_Drawing_GetBottomFromTextBox(
-        arg1: *mut OH_Drawing_TextBox,
-        arg2: ::std::os::raw::c_int,
+        textbox: *mut OH_Drawing_TextBox,
+        index: ::std::os::raw::c_int,
     ) -> f32;
 }
 extern "C" {
     pub fn OH_Drawing_GetTextDirectionFromTextBox(
-        arg1: *mut OH_Drawing_TextBox,
-        arg2: ::std::os::raw::c_int,
+        textbox: *mut OH_Drawing_TextBox,
+        index: ::std::os::raw::c_int,
     ) -> ::std::os::raw::c_int;
 }
 extern "C" {
-    pub fn OH_Drawing_GetSizeOfTextBox(arg1: *mut OH_Drawing_TextBox) -> usize;
+    pub fn OH_Drawing_GetSizeOfTextBox(textBox: *mut OH_Drawing_TextBox) -> usize;
 }
 extern "C" {
     pub fn OH_Drawing_TypographyGetGlyphPositionAtCoordinate(
-        arg1: *mut OH_Drawing_Typography,
-        arg2: f64,
-        arg3: f64,
+        typography: *mut OH_Drawing_Typography,
+        dx: f64,
+        dy: f64,
     ) -> *mut OH_Drawing_PositionAndAffinity;
 }
 extern "C" {
     pub fn OH_Drawing_TypographyGetGlyphPositionAtCoordinateWithCluster(
-        arg1: *mut OH_Drawing_Typography,
-        arg2: f64,
-        arg3: f64,
+        typography: *mut OH_Drawing_Typography,
+        dx: f64,
+        dy: f64,
     ) -> *mut OH_Drawing_PositionAndAffinity;
 }
 extern "C" {
     pub fn OH_Drawing_GetPositionFromPositionAndAffinity(
-        arg1: *mut OH_Drawing_PositionAndAffinity,
+        positionAndAffinity: *mut OH_Drawing_PositionAndAffinity,
     ) -> usize;
 }
 extern "C" {
     pub fn OH_Drawing_GetAffinityFromPositionAndAffinity(
-        arg1: *mut OH_Drawing_PositionAndAffinity,
+        positionandaffinity: *mut OH_Drawing_PositionAndAffinity,
     ) -> ::std::os::raw::c_int;
 }
 extern "C" {
     pub fn OH_Drawing_TypographyGetWordBoundary(
-        arg1: *mut OH_Drawing_Typography,
-        arg2: usize,
+        typography: *mut OH_Drawing_Typography,
+        offset: usize,
     ) -> *mut OH_Drawing_Range;
 }
 extern "C" {
-    pub fn OH_Drawing_GetStartFromRange(arg1: *mut OH_Drawing_Range) -> usize;
+    pub fn OH_Drawing_GetStartFromRange(range: *mut OH_Drawing_Range) -> usize;
 }
 extern "C" {
-    pub fn OH_Drawing_GetEndFromRange(arg1: *mut OH_Drawing_Range) -> usize;
+    pub fn OH_Drawing_GetEndFromRange(range: *mut OH_Drawing_Range) -> usize;
 }
 extern "C" {
-    pub fn OH_Drawing_TypographyGetLineCount(arg1: *mut OH_Drawing_Typography) -> usize;
+    pub fn OH_Drawing_TypographyGetLineCount(typography: *mut OH_Drawing_Typography) -> usize;
 }
 extern "C" {
     pub fn OH_Drawing_SetTextStyleDecorationStyle(
-        arg1: *mut OH_Drawing_TextStyle,
-        arg2: ::std::os::raw::c_int,
+        style: *mut OH_Drawing_TextStyle,
+        decorationStyle: ::std::os::raw::c_int,
     );
 }
 extern "C" {
     pub fn OH_Drawing_SetTextStyleDecorationThicknessScale(
-        arg1: *mut OH_Drawing_TextStyle,
-        arg2: f64,
+        style: *mut OH_Drawing_TextStyle,
+        decorationThicknessScale: f64,
     );
 }
 extern "C" {
-    pub fn OH_Drawing_SetTextStyleLetterSpacing(arg1: *mut OH_Drawing_TextStyle, arg2: f64);
+    pub fn OH_Drawing_SetTextStyleLetterSpacing(
+        style: *mut OH_Drawing_TextStyle,
+        letterSpacing: f64,
+    );
 }
 extern "C" {
-    pub fn OH_Drawing_SetTextStyleWordSpacing(arg1: *mut OH_Drawing_TextStyle, arg2: f64);
+    pub fn OH_Drawing_SetTextStyleWordSpacing(style: *mut OH_Drawing_TextStyle, wordSpacing: f64);
 }
 extern "C" {
-    pub fn OH_Drawing_SetTextStyleHalfLeading(arg1: *mut OH_Drawing_TextStyle, arg2: bool);
+    pub fn OH_Drawing_SetTextStyleHalfLeading(style: *mut OH_Drawing_TextStyle, halfLeading: bool);
 }
 extern "C" {
     pub fn OH_Drawing_SetTextStyleEllipsis(
-        arg1: *mut OH_Drawing_TextStyle,
-        arg2: *const ::std::os::raw::c_char,
+        style: *mut OH_Drawing_TextStyle,
+        ellipsis: *const ::std::os::raw::c_char,
     );
 }
 extern "C" {
     pub fn OH_Drawing_SetTextStyleEllipsisModal(
-        arg1: *mut OH_Drawing_TextStyle,
-        arg2: ::std::os::raw::c_int,
+        style: *mut OH_Drawing_TextStyle,
+        ellipsisModal: ::std::os::raw::c_int,
     );
 }
 extern "C" {
     pub fn OH_Drawing_SetTypographyTextBreakStrategy(
-        arg1: *mut OH_Drawing_TypographyStyle,
-        arg2: ::std::os::raw::c_int,
+        style: *mut OH_Drawing_TypographyStyle,
+        breakStrategy: ::std::os::raw::c_int,
     );
 }
 extern "C" {
     pub fn OH_Drawing_SetTypographyTextWordBreakType(
-        arg1: *mut OH_Drawing_TypographyStyle,
-        arg2: ::std::os::raw::c_int,
+        style: *mut OH_Drawing_TypographyStyle,
+        wordBreakType: ::std::os::raw::c_int,
     );
 }
 extern "C" {
     pub fn OH_Drawing_SetTypographyTextEllipsisModal(
-        arg1: *mut OH_Drawing_TypographyStyle,
-        arg2: ::std::os::raw::c_int,
+        style: *mut OH_Drawing_TypographyStyle,
+        ellipsisModal: ::std::os::raw::c_int,
     );
 }
 extern "C" {
     pub fn OH_Drawing_TypographyGetLineHeight(
-        arg1: *mut OH_Drawing_Typography,
-        arg2: ::std::os::raw::c_int,
+        typography: *mut OH_Drawing_Typography,
+        lineNumber: ::std::os::raw::c_int,
     ) -> f64;
 }
 extern "C" {
     pub fn OH_Drawing_TypographyGetLineWidth(
-        arg1: *mut OH_Drawing_Typography,
-        arg2: ::std::os::raw::c_int,
+        typography: *mut OH_Drawing_Typography,
+        lineNumber: ::std::os::raw::c_int,
     ) -> f64;
 }
 extern "C" {
     pub fn OH_Drawing_TypographyGetLineTextRange(
-        arg1: *mut OH_Drawing_Typography,
-        arg2: ::std::os::raw::c_int,
-        arg3: bool,
+        typography: *mut OH_Drawing_Typography,
+        lineNumber: ::std::os::raw::c_int,
+        includeSpaces: bool,
     ) -> *mut OH_Drawing_Range;
 }
 extern "C" {
     pub fn OH_Drawing_CreateFontDescriptor() -> *mut OH_Drawing_FontDescriptor;
 }
 extern "C" {
-    pub fn OH_Drawing_DestroyFontDescriptor(arg1: *mut OH_Drawing_FontDescriptor);
+    pub fn OH_Drawing_DestroyFontDescriptor(descriptor: *mut OH_Drawing_FontDescriptor);
 }
 extern "C" {
     pub fn OH_Drawing_CreateFontParser() -> *mut OH_Drawing_FontParser;
 }
 extern "C" {
-    pub fn OH_Drawing_DestroyFontParser(arg1: *mut OH_Drawing_FontParser);
+    pub fn OH_Drawing_DestroyFontParser(parser: *mut OH_Drawing_FontParser);
 }
 extern "C" {
     pub fn OH_Drawing_FontParserGetSystemFontList(
-        arg1: *mut OH_Drawing_FontParser,
-        arg2: *mut usize,
+        fontParser: *mut OH_Drawing_FontParser,
+        num: *mut usize,
     ) -> *mut *mut ::std::os::raw::c_char;
 }
 extern "C" {
-    pub fn OH_Drawing_DestroySystemFontList(arg1: *mut *mut ::std::os::raw::c_char, arg2: usize);
+    pub fn OH_Drawing_DestroySystemFontList(fontList: *mut *mut ::std::os::raw::c_char, num: usize);
 }
 extern "C" {
     pub fn OH_Drawing_FontParserGetFontByName(
-        arg1: *mut OH_Drawing_FontParser,
-        arg2: *const ::std::os::raw::c_char,
+        fontParser: *mut OH_Drawing_FontParser,
+        name: *const ::std::os::raw::c_char,
     ) -> *mut OH_Drawing_FontDescriptor;
 }
 extern "C" {
     pub fn OH_Drawing_TypographyGetLineMetrics(
-        arg1: *mut OH_Drawing_Typography,
+        typography: *mut OH_Drawing_Typography,
     ) -> *mut OH_Drawing_LineMetrics;
 }
 extern "C" {
-    pub fn OH_Drawing_LineMetricsGetSize(arg1: *mut OH_Drawing_LineMetrics) -> usize;
+    pub fn OH_Drawing_LineMetricsGetSize(lineMetrics: *mut OH_Drawing_LineMetrics) -> usize;
 }
 extern "C" {
-    pub fn OH_Drawing_DestroyLineMetrics(arg1: *mut OH_Drawing_LineMetrics);
+    pub fn OH_Drawing_DestroyLineMetrics(lineMetrics: *mut OH_Drawing_LineMetrics);
 }
 extern "C" {
     pub fn OH_Drawing_TypographyGetLineMetricsAt(
-        arg1: *mut OH_Drawing_Typography,
-        arg2: ::std::os::raw::c_int,
-        arg3: *mut OH_Drawing_LineMetrics,
+        typography: *mut OH_Drawing_Typography,
+        lineNumber: ::std::os::raw::c_int,
+        lineMetric: *mut OH_Drawing_LineMetrics,
     ) -> bool;
 }
 extern "C" {
     pub fn OH_Drawing_SetTypographyTextEllipsis(
-        arg1: *mut OH_Drawing_TypographyStyle,
-        arg2: *const ::std::os::raw::c_char,
+        style: *mut OH_Drawing_TypographyStyle,
+        ellipsis: *const ::std::os::raw::c_char,
     );
 }
 extern "C" {
     pub fn OH_Drawing_SetTypographyTextLocale(
-        arg1: *mut OH_Drawing_TypographyStyle,
-        arg2: *const ::std::os::raw::c_char,
+        style: *mut OH_Drawing_TypographyStyle,
+        locale: *const ::std::os::raw::c_char,
     );
 }
 extern "C" {
-    pub fn OH_Drawing_SetTypographyTextSplitRatio(arg1: *mut OH_Drawing_TypographyStyle, arg2: f32);
+    pub fn OH_Drawing_SetTypographyTextSplitRatio(
+        style: *mut OH_Drawing_TypographyStyle,
+        textSplitRatio: f32,
+    );
 }
 extern "C" {
     pub fn OH_Drawing_TypographyGetTextStyle(
-        arg1: *mut OH_Drawing_TypographyStyle,
+        style: *mut OH_Drawing_TypographyStyle,
     ) -> *mut OH_Drawing_TextStyle;
 }
 extern "C" {
     pub fn OH_Drawing_TypographyGetEffectiveAlignment(
-        arg1: *mut OH_Drawing_TypographyStyle,
+        style: *mut OH_Drawing_TypographyStyle,
     ) -> ::std::os::raw::c_int;
 }
 extern "C" {
-    pub fn OH_Drawing_TypographyIsLineUnlimited(arg1: *mut OH_Drawing_TypographyStyle) -> bool;
+    pub fn OH_Drawing_TypographyIsLineUnlimited(style: *mut OH_Drawing_TypographyStyle) -> bool;
 }
 extern "C" {
-    pub fn OH_Drawing_TypographyIsEllipsized(arg1: *mut OH_Drawing_TypographyStyle) -> bool;
+    pub fn OH_Drawing_TypographyIsEllipsized(style: *mut OH_Drawing_TypographyStyle) -> bool;
 }
 extern "C" {
     pub fn OH_Drawing_SetTypographyTextStyle(
-        arg1: *mut OH_Drawing_TypographyStyle,
-        arg2: *mut OH_Drawing_TextStyle,
+        handler: *mut OH_Drawing_TypographyStyle,
+        style: *mut OH_Drawing_TextStyle,
     );
 }
 extern "C" {
     pub fn OH_Drawing_TextStyleGetFontMetrics(
-        arg1: *mut OH_Drawing_Typography,
-        arg2: *mut OH_Drawing_TextStyle,
-        arg3: *mut OH_Drawing_Font_Metrics,
+        typography: *mut OH_Drawing_Typography,
+        style: *mut OH_Drawing_TextStyle,
+        fontmetrics: *mut OH_Drawing_Font_Metrics,
     ) -> bool;
 }
 extern "C" {
     pub fn OH_Drawing_TypographyGetLineInfo(
-        arg1: *mut OH_Drawing_Typography,
-        arg2: ::std::os::raw::c_int,
-        arg3: bool,
-        arg4: bool,
-        arg5: *mut OH_Drawing_LineMetrics,
+        typography: *mut OH_Drawing_Typography,
+        lineNumber: ::std::os::raw::c_int,
+        oneLine: bool,
+        includeWhitespace: bool,
+        drawingLineMetrics: *mut OH_Drawing_LineMetrics,
     ) -> bool;
 }
 extern "C" {
     pub fn OH_Drawing_SetTypographyTextFontWeight(
-        arg1: *mut OH_Drawing_TypographyStyle,
-        arg2: ::std::os::raw::c_int,
+        style: *mut OH_Drawing_TypographyStyle,
+        weight: ::std::os::raw::c_int,
     );
 }
 extern "C" {
     pub fn OH_Drawing_SetTypographyTextFontStyle(
-        arg1: *mut OH_Drawing_TypographyStyle,
-        arg2: ::std::os::raw::c_int,
+        style: *mut OH_Drawing_TypographyStyle,
+        fontStyle: ::std::os::raw::c_int,
     );
 }
 extern "C" {
     pub fn OH_Drawing_SetTypographyTextFontFamily(
-        arg1: *mut OH_Drawing_TypographyStyle,
-        arg2: *const ::std::os::raw::c_char,
+        style: *mut OH_Drawing_TypographyStyle,
+        fontFamily: *const ::std::os::raw::c_char,
     );
 }
 extern "C" {
-    pub fn OH_Drawing_SetTypographyTextFontSize(arg1: *mut OH_Drawing_TypographyStyle, arg2: f64);
+    pub fn OH_Drawing_SetTypographyTextFontSize(
+        style: *mut OH_Drawing_TypographyStyle,
+        fontSize: f64,
+    );
 }
 extern "C" {
-    pub fn OH_Drawing_SetTypographyTextFontHeight(arg1: *mut OH_Drawing_TypographyStyle, arg2: f64);
+    pub fn OH_Drawing_SetTypographyTextFontHeight(
+        style: *mut OH_Drawing_TypographyStyle,
+        fontHeight: f64,
+    );
 }
 extern "C" {
     pub fn OH_Drawing_SetTypographyTextHalfLeading(
-        arg1: *mut OH_Drawing_TypographyStyle,
-        arg2: bool,
+        style: *mut OH_Drawing_TypographyStyle,
+        halfLeading: bool,
     );
 }
 extern "C" {
     pub fn OH_Drawing_SetTypographyTextUseLineStyle(
-        arg1: *mut OH_Drawing_TypographyStyle,
-        arg2: bool,
+        style: *mut OH_Drawing_TypographyStyle,
+        useLineStyle: bool,
     );
 }
 extern "C" {
     pub fn OH_Drawing_SetTypographyTextLineStyleFontWeight(
-        arg1: *mut OH_Drawing_TypographyStyle,
-        arg2: ::std::os::raw::c_int,
+        style: *mut OH_Drawing_TypographyStyle,
+        weight: ::std::os::raw::c_int,
     );
 }
 extern "C" {
     pub fn OH_Drawing_SetTypographyTextLineStyleFontStyle(
-        arg1: *mut OH_Drawing_TypographyStyle,
-        arg2: ::std::os::raw::c_int,
+        style: *mut OH_Drawing_TypographyStyle,
+        fontStyle: ::std::os::raw::c_int,
     );
 }
 extern "C" {
     pub fn OH_Drawing_SetTypographyTextLineStyleFontFamilies(
-        arg1: *mut OH_Drawing_TypographyStyle,
-        arg2: ::std::os::raw::c_int,
+        style: *mut OH_Drawing_TypographyStyle,
+        fontFamiliesNumber: ::std::os::raw::c_int,
         fontFamilies: *mut *const ::std::os::raw::c_char,
     );
 }
 extern "C" {
     pub fn OH_Drawing_SetTypographyTextLineStyleFontSize(
-        arg1: *mut OH_Drawing_TypographyStyle,
-        arg2: f64,
+        style: *mut OH_Drawing_TypographyStyle,
+        lineStyleFontSize: f64,
     );
 }
 extern "C" {
     pub fn OH_Drawing_SetTypographyTextLineStyleFontHeight(
-        arg1: *mut OH_Drawing_TypographyStyle,
-        arg2: f64,
+        style: *mut OH_Drawing_TypographyStyle,
+        lineStyleFontHeight: f64,
     );
 }
 extern "C" {
     pub fn OH_Drawing_SetTypographyTextLineStyleHalfLeading(
-        arg1: *mut OH_Drawing_TypographyStyle,
-        arg2: bool,
+        style: *mut OH_Drawing_TypographyStyle,
+        lineStyleHalfLeading: bool,
     );
 }
 extern "C" {
     pub fn OH_Drawing_SetTypographyTextLineStyleSpacingScale(
-        arg1: *mut OH_Drawing_TypographyStyle,
-        arg2: f64,
+        style: *mut OH_Drawing_TypographyStyle,
+        spacingScale: f64,
     );
 }
 extern "C" {
     pub fn OH_Drawing_SetTypographyTextLineStyleOnly(
-        arg1: *mut OH_Drawing_TypographyStyle,
-        arg2: bool,
+        style: *mut OH_Drawing_TypographyStyle,
+        lineStyleOnly: bool,
     );
 }
 extern "C" {
     pub fn OH_Drawing_CreateTextShadow() -> *mut OH_Drawing_TextShadow;
 }
 extern "C" {
-    pub fn OH_Drawing_DestroyTextShadow(arg1: *mut OH_Drawing_TextShadow);
+    pub fn OH_Drawing_DestroyTextShadow(shadow: *mut OH_Drawing_TextShadow);
 }
 extern "C" {
     pub fn OH_Drawing_TextStyleGetShadows(
-        arg1: *mut OH_Drawing_TextStyle,
+        style: *mut OH_Drawing_TextStyle,
     ) -> *mut OH_Drawing_TextShadow;
 }
 extern "C" {
     pub fn OH_Drawing_TextStyleGetShadowCount(
-        arg1: *mut OH_Drawing_TextStyle,
+        style: *mut OH_Drawing_TextStyle,
     ) -> ::std::os::raw::c_int;
 }
 extern "C" {
     pub fn OH_Drawing_TextStyleAddShadow(
-        arg1: *mut OH_Drawing_TextStyle,
-        arg2: *const OH_Drawing_TextShadow,
+        style: *mut OH_Drawing_TextStyle,
+        shadow: *const OH_Drawing_TextShadow,
     );
 }
 extern "C" {
-    pub fn OH_Drawing_TextStyleClearShadows(arg1: *mut OH_Drawing_TextStyle);
+    pub fn OH_Drawing_TextStyleClearShadows(style: *mut OH_Drawing_TextStyle);
 }
 extern "C" {
     pub fn OH_Drawing_TextStyleGetShadowWithIndex(
-        arg1: *mut OH_Drawing_TextStyle,
-        arg2: ::std::os::raw::c_int,
+        style: *mut OH_Drawing_TextStyle,
+        index: ::std::os::raw::c_int,
     ) -> *mut OH_Drawing_TextShadow;
 }
 extern "C" {
     pub fn OH_Drawing_TypographySetIndents(
-        arg1: *mut OH_Drawing_Typography,
-        arg2: ::std::os::raw::c_int,
+        typography: *mut OH_Drawing_Typography,
+        indentsNumber: ::std::os::raw::c_int,
         indents: *const f32,
     );
 }
 extern "C" {
     pub fn OH_Drawing_TypographyGetIndentsWithIndex(
-        arg1: *mut OH_Drawing_Typography,
-        arg2: ::std::os::raw::c_int,
+        typography: *mut OH_Drawing_Typography,
+        index: ::std::os::raw::c_int,
     ) -> f32;
 }
 extern "C" {
-    pub fn OH_Drawing_DestroyTextShadows(arg1: *mut OH_Drawing_TextShadow);
+    pub fn OH_Drawing_DestroyTextShadows(shadow: *mut OH_Drawing_TextShadow);
 }
 extern "C" {
     pub fn OH_Drawing_TypographyTextSetHeightBehavior(
-        arg1: *mut OH_Drawing_TypographyStyle,
+        style: *mut OH_Drawing_TypographyStyle,
         heightMode: OH_Drawing_TextHeightBehavior,
     );
 }
 extern "C" {
     pub fn OH_Drawing_TypographyTextGetHeightBehavior(
-        arg1: *mut OH_Drawing_TypographyStyle,
+        style: *mut OH_Drawing_TypographyStyle,
     ) -> OH_Drawing_TextHeightBehavior;
 }
 extern "C" {
     pub fn OH_Drawing_TextStyleSetBackgroundRect(
-        arg1: *mut OH_Drawing_TextStyle,
-        arg2: *const OH_Drawing_RectStyle_Info,
+        style: *mut OH_Drawing_TextStyle,
+        rectStyleInfo: *const OH_Drawing_RectStyle_Info,
         styleId: ::std::os::raw::c_int,
     );
 }
 extern "C" {
     pub fn OH_Drawing_TypographyHandlerAddSymbol(
-        arg1: *mut OH_Drawing_TypographyCreate,
+        handler: *mut OH_Drawing_TypographyCreate,
         symbol: u32,
     );
 }
 extern "C" {
     pub fn OH_Drawing_TextStyleAddFontFeature(
-        arg1: *mut OH_Drawing_TextStyle,
+        style: *mut OH_Drawing_TextStyle,
         tag: *const ::std::os::raw::c_char,
         value: ::std::os::raw::c_int,
     );
 }
 extern "C" {
     pub fn OH_Drawing_TextStyleAddFontVariation(
-        arg1: *mut OH_Drawing_TextStyle,
-        arg2: *const ::std::os::raw::c_char,
-        arg3: f32,
+        style: *mut OH_Drawing_TextStyle,
+        axis: *const ::std::os::raw::c_char,
+        value: f32,
     );
 }
 extern "C" {
     pub fn OH_Drawing_TextStyleGetFontFeatures(
-        arg1: *mut OH_Drawing_TextStyle,
+        style: *mut OH_Drawing_TextStyle,
     ) -> *mut OH_Drawing_FontFeature;
 }
 extern "C" {
     pub fn OH_Drawing_TextStyleDestroyFontFeatures(
-        arg1: *mut OH_Drawing_FontFeature,
+        fontFeature: *mut OH_Drawing_FontFeature,
         fontFeatureSize: usize,
     );
 }
 extern "C" {
-    pub fn OH_Drawing_TextStyleGetFontFeatureSize(arg1: *mut OH_Drawing_TextStyle) -> usize;
+    pub fn OH_Drawing_TextStyleGetFontFeatureSize(style: *mut OH_Drawing_TextStyle) -> usize;
 }
 extern "C" {
-    pub fn OH_Drawing_TextStyleClearFontFeature(arg1: *mut OH_Drawing_TextStyle);
+    pub fn OH_Drawing_TextStyleClearFontFeature(style: *mut OH_Drawing_TextStyle);
 }
 extern "C" {
-    pub fn OH_Drawing_TextStyleSetBaselineShift(arg1: *mut OH_Drawing_TextStyle, lineShift: f64);
+    pub fn OH_Drawing_TextStyleSetBaselineShift(style: *mut OH_Drawing_TextStyle, lineShift: f64);
 }
 extern "C" {
-    pub fn OH_Drawing_TextStyleGetBaselineShift(arg1: *mut OH_Drawing_TextStyle) -> f64;
+    pub fn OH_Drawing_TextStyleGetBaselineShift(style: *mut OH_Drawing_TextStyle) -> f64;
 }
 extern "C" {
-    pub fn OH_Drawing_TextStyleGetColor(arg1: *mut OH_Drawing_TextStyle) -> u32;
+    pub fn OH_Drawing_TextStyleGetColor(style: *mut OH_Drawing_TextStyle) -> u32;
 }
 extern "C" {
     pub fn OH_Drawing_TextStyleGetDecorationStyle(
-        arg1: *mut OH_Drawing_TextStyle,
+        style: *mut OH_Drawing_TextStyle,
     ) -> OH_Drawing_TextDecorationStyle;
 }
 extern "C" {
     pub fn OH_Drawing_TextStyleGetFontWeight(
-        arg1: *mut OH_Drawing_TextStyle,
+        style: *mut OH_Drawing_TextStyle,
     ) -> OH_Drawing_FontWeight;
 }
 extern "C" {
     pub fn OH_Drawing_TextStyleGetFontStyle(
-        arg1: *mut OH_Drawing_TextStyle,
+        style: *mut OH_Drawing_TextStyle,
     ) -> OH_Drawing_FontStyle;
 }
 extern "C" {
     pub fn OH_Drawing_TextStyleGetBaseline(
-        arg1: *mut OH_Drawing_TextStyle,
+        style: *mut OH_Drawing_TextStyle,
     ) -> OH_Drawing_TextBaseline;
 }
 extern "C" {
     pub fn OH_Drawing_TextStyleGetFontFamilies(
-        arg1: *mut OH_Drawing_TextStyle,
+        style: *mut OH_Drawing_TextStyle,
         num: *mut usize,
     ) -> *mut *mut ::std::os::raw::c_char;
 }
@@ -6955,23 +7670,23 @@ extern "C" {
     );
 }
 extern "C" {
-    pub fn OH_Drawing_TextStyleGetFontSize(arg1: *mut OH_Drawing_TextStyle) -> f64;
+    pub fn OH_Drawing_TextStyleGetFontSize(style: *mut OH_Drawing_TextStyle) -> f64;
 }
 extern "C" {
-    pub fn OH_Drawing_TextStyleGetLetterSpacing(arg1: *mut OH_Drawing_TextStyle) -> f64;
+    pub fn OH_Drawing_TextStyleGetLetterSpacing(style: *mut OH_Drawing_TextStyle) -> f64;
 }
 extern "C" {
-    pub fn OH_Drawing_TextStyleGetWordSpacing(arg1: *mut OH_Drawing_TextStyle) -> f64;
+    pub fn OH_Drawing_TextStyleGetWordSpacing(style: *mut OH_Drawing_TextStyle) -> f64;
 }
 extern "C" {
-    pub fn OH_Drawing_TextStyleGetFontHeight(arg1: *mut OH_Drawing_TextStyle) -> f64;
+    pub fn OH_Drawing_TextStyleGetFontHeight(style: *mut OH_Drawing_TextStyle) -> f64;
 }
 extern "C" {
-    pub fn OH_Drawing_TextStyleGetHalfLeading(arg1: *mut OH_Drawing_TextStyle) -> bool;
+    pub fn OH_Drawing_TextStyleGetHalfLeading(style: *mut OH_Drawing_TextStyle) -> bool;
 }
 extern "C" {
     pub fn OH_Drawing_TextStyleGetLocale(
-        arg1: *mut OH_Drawing_TextStyle,
+        style: *mut OH_Drawing_TextStyle,
     ) -> *const ::std::os::raw::c_char;
 }
 extern "C" {
@@ -7031,24 +7746,24 @@ extern "C" {
 }
 extern "C" {
     pub fn OH_Drawing_GetSystemFontConfigInfo(
-        arg1: *mut OH_Drawing_FontConfigInfoErrorCode,
+        errorCode: *mut OH_Drawing_FontConfigInfoErrorCode,
     ) -> *mut OH_Drawing_FontConfigInfo;
 }
 extern "C" {
-    pub fn OH_Drawing_DestroySystemFontConfigInfo(arg1: *mut OH_Drawing_FontConfigInfo);
+    pub fn OH_Drawing_DestroySystemFontConfigInfo(drawFontCfgInfo: *mut OH_Drawing_FontConfigInfo);
 }
 extern "C" {
     pub fn OH_Drawing_SetTypographyStyleTextStrutStyle(
-        arg1: *mut OH_Drawing_TypographyStyle,
-        arg2: *mut OH_Drawing_StrutStyle,
+        style: *mut OH_Drawing_TypographyStyle,
+        strutstyle: *mut OH_Drawing_StrutStyle,
     );
 }
 extern "C" {
-    pub fn OH_Drawing_TypographyStyleDestroyStrutStyle(arg1: *mut OH_Drawing_StrutStyle);
+    pub fn OH_Drawing_TypographyStyleDestroyStrutStyle(strutstyle: *mut OH_Drawing_StrutStyle);
 }
 extern "C" {
     pub fn OH_Drawing_TypographyStyleGetStrutStyle(
-        arg1: *mut OH_Drawing_TypographyStyle,
+        style: *mut OH_Drawing_TypographyStyle,
     ) -> *mut OH_Drawing_StrutStyle;
 }
 extern "C" {
@@ -7065,44 +7780,48 @@ extern "C" {
 }
 extern "C" {
     pub fn OH_Drawing_TypographyGetLineFontMetrics(
-        arg1: *mut OH_Drawing_Typography,
+        typography: *mut OH_Drawing_Typography,
         lineNumber: usize,
         fontMetricsSize: *mut usize,
     ) -> *mut OH_Drawing_Font_Metrics;
 }
 extern "C" {
-    pub fn OH_Drawing_TypographyDestroyLineFontMetrics(arg1: *mut OH_Drawing_Font_Metrics);
+    pub fn OH_Drawing_TypographyDestroyLineFontMetrics(
+        lineFontMetric: *mut OH_Drawing_Font_Metrics,
+    );
 }
 extern "C" {
-    pub fn OH_Drawing_TypographyMarkDirty(arg1: *mut OH_Drawing_Typography);
+    pub fn OH_Drawing_TypographyMarkDirty(typography: *mut OH_Drawing_Typography);
 }
 extern "C" {
-    pub fn OH_Drawing_TypographyGetUnresolvedGlyphsCount(arg1: *mut OH_Drawing_Typography) -> i32;
+    pub fn OH_Drawing_TypographyGetUnresolvedGlyphsCount(
+        typography: *mut OH_Drawing_Typography,
+    ) -> i32;
 }
 extern "C" {
     pub fn OH_Drawing_TypographyUpdateFontSize(
-        arg1: *mut OH_Drawing_Typography,
+        typography: *mut OH_Drawing_Typography,
         from: usize,
         to: usize,
         fontSize: f32,
     );
 }
 extern "C" {
-    pub fn OH_Drawing_TypographyTextGetLineStyle(arg1: *mut OH_Drawing_TypographyStyle) -> bool;
+    pub fn OH_Drawing_TypographyTextGetLineStyle(style: *mut OH_Drawing_TypographyStyle) -> bool;
 }
 extern "C" {
     pub fn OH_Drawing_TypographyTextlineStyleGetFontWeight(
-        arg1: *mut OH_Drawing_TypographyStyle,
+        style: *mut OH_Drawing_TypographyStyle,
     ) -> OH_Drawing_FontWeight;
 }
 extern "C" {
     pub fn OH_Drawing_TypographyTextlineStyleGetFontStyle(
-        arg1: *mut OH_Drawing_TypographyStyle,
+        style: *mut OH_Drawing_TypographyStyle,
     ) -> OH_Drawing_FontStyle;
 }
 extern "C" {
     pub fn OH_Drawing_TypographyTextlineStyleGetFontFamilies(
-        arg1: *mut OH_Drawing_TypographyStyle,
+        style: *mut OH_Drawing_TypographyStyle,
         num: *mut usize,
     ) -> *mut *mut ::std::os::raw::c_char;
 }
@@ -7114,49 +7833,50 @@ extern "C" {
 }
 extern "C" {
     pub fn OH_Drawing_TypographyTextlineStyleGetFontSize(
-        arg1: *mut OH_Drawing_TypographyStyle,
+        style: *mut OH_Drawing_TypographyStyle,
     ) -> f64;
 }
 extern "C" {
     pub fn OH_Drawing_TypographyTextlineStyleGetHeightScale(
-        arg1: *mut OH_Drawing_TypographyStyle,
+        style: *mut OH_Drawing_TypographyStyle,
     ) -> f64;
 }
 extern "C" {
     pub fn OH_Drawing_TypographyTextlineStyleGetHeightOnly(
-        arg1: *mut OH_Drawing_TypographyStyle,
+        style: *mut OH_Drawing_TypographyStyle,
     ) -> bool;
 }
 extern "C" {
     pub fn OH_Drawing_TypographyTextlineStyleGetHalfLeading(
-        arg1: *mut OH_Drawing_TypographyStyle,
+        style: *mut OH_Drawing_TypographyStyle,
     ) -> bool;
 }
 extern "C" {
     pub fn OH_Drawing_TypographyTextlineStyleGetSpacingScale(
-        arg1: *mut OH_Drawing_TypographyStyle,
+        style: *mut OH_Drawing_TypographyStyle,
     ) -> f64;
 }
 extern "C" {
-    pub fn OH_Drawing_TypographyTextlineGetStyleOnly(arg1: *mut OH_Drawing_TypographyStyle)
-        -> bool;
+    pub fn OH_Drawing_TypographyTextlineGetStyleOnly(
+        style: *mut OH_Drawing_TypographyStyle,
+    ) -> bool;
 }
 extern "C" {
     pub fn OH_Drawing_TypographyGetTextAlign(
-        arg1: *mut OH_Drawing_TypographyStyle,
+        style: *mut OH_Drawing_TypographyStyle,
     ) -> OH_Drawing_TextAlign;
 }
 extern "C" {
     pub fn OH_Drawing_TypographyGetTextDirection(
-        arg1: *mut OH_Drawing_TypographyStyle,
+        style: *mut OH_Drawing_TypographyStyle,
     ) -> OH_Drawing_TextDirection;
 }
 extern "C" {
-    pub fn OH_Drawing_TypographyGetTextMaxLines(arg1: *mut OH_Drawing_TypographyStyle) -> usize;
+    pub fn OH_Drawing_TypographyGetTextMaxLines(style: *mut OH_Drawing_TypographyStyle) -> usize;
 }
 extern "C" {
     pub fn OH_Drawing_TypographyGetTextEllipsis(
-        arg1: *mut OH_Drawing_TypographyStyle,
+        style: *mut OH_Drawing_TypographyStyle,
     ) -> *mut ::std::os::raw::c_char;
 }
 extern "C" {
@@ -7169,7 +7889,7 @@ extern "C" {
     ) -> bool;
 }
 extern "C" {
-    pub fn OH_Drawing_TypographyDestroyTextBox(arg1: *mut OH_Drawing_TextBox);
+    pub fn OH_Drawing_TypographyDestroyTextBox(textBox: *mut OH_Drawing_TextBox);
 }
 extern "C" {
     pub fn OH_Drawing_SetTextShadow(
@@ -7178,6 +7898,9 @@ extern "C" {
         offset: *mut OH_Drawing_Point,
         blurRadius: f64,
     );
+}
+extern "C" {
+    pub fn OH_Drawing_GetDrawingArraySize(drawingArray: *mut OH_Drawing_Array) -> usize;
 }
 #[repr(C)]
 #[derive(Debug, Copy, Clone)]
@@ -7218,4 +7941,30 @@ extern "C" {
         handle: *mut ArkUI_StyledString,
         placeholder: *mut OH_Drawing_PlaceholderSpan,
     );
+}
+extern "C" {
+    pub fn OH_ArkUI_StyledString_Descriptor_Create() -> *mut ArkUI_StyledString_Descriptor;
+}
+extern "C" {
+    pub fn OH_ArkUI_StyledString_Descriptor_Destroy(descriptor: *mut ArkUI_StyledString_Descriptor);
+}
+extern "C" {
+    pub fn OH_ArkUI_ConvertToHtml(
+        descriptor: *mut ArkUI_StyledString_Descriptor,
+    ) -> *const ::std::os::raw::c_char;
+}
+extern "C" {
+    pub fn OH_ArkUI_UnmarshallStyledStringDescriptor(
+        buffer: *mut u8,
+        bufferSize: usize,
+        descriptor: *mut ArkUI_StyledString_Descriptor,
+    ) -> i32;
+}
+extern "C" {
+    pub fn OH_ArkUI_MarshallStyledStringDescriptor(
+        buffer: *mut u8,
+        bufferSize: usize,
+        descriptor: *mut ArkUI_StyledString_Descriptor,
+        resultSize: *mut usize,
+    ) -> i32;
 }

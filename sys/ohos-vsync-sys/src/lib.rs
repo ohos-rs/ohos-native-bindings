@@ -4,6 +4,81 @@
 #![allow(non_upper_case_globals)]
 #![allow(non_camel_case_types)]
 
+pub const __BYTE_ORDER: u32 = 1234;
+pub const __LONG_MAX: u64 = 9223372036854775807;
+pub const __LITTLE_ENDIAN: u32 = 1234;
+pub const __BIG_ENDIAN: u32 = 4321;
+pub const __USE_TIME_BITS64: u32 = 1;
+pub const INT8_MIN: i32 = -128;
+pub const INT16_MIN: i32 = -32768;
+pub const INT32_MIN: i32 = -2147483648;
+pub const INT64_MIN: i64 = -9223372036854775808;
+pub const INT8_MAX: u32 = 127;
+pub const INT16_MAX: u32 = 32767;
+pub const INT32_MAX: u32 = 2147483647;
+pub const INT64_MAX: u64 = 9223372036854775807;
+pub const UINT8_MAX: u32 = 255;
+pub const UINT16_MAX: u32 = 65535;
+pub const UINT32_MAX: u32 = 4294967295;
+pub const UINT64_MAX: i32 = -1;
+pub const INT_FAST8_MIN: i32 = -128;
+pub const INT_FAST64_MIN: i64 = -9223372036854775808;
+pub const INT_LEAST8_MIN: i32 = -128;
+pub const INT_LEAST16_MIN: i32 = -32768;
+pub const INT_LEAST32_MIN: i32 = -2147483648;
+pub const INT_LEAST64_MIN: i64 = -9223372036854775808;
+pub const INT_FAST8_MAX: u32 = 127;
+pub const INT_FAST64_MAX: u64 = 9223372036854775807;
+pub const INT_LEAST8_MAX: u32 = 127;
+pub const INT_LEAST16_MAX: u32 = 32767;
+pub const INT_LEAST32_MAX: u32 = 2147483647;
+pub const INT_LEAST64_MAX: u64 = 9223372036854775807;
+pub const UINT_FAST8_MAX: u32 = 255;
+pub const UINT_FAST64_MAX: i32 = -1;
+pub const UINT_LEAST8_MAX: u32 = 255;
+pub const UINT_LEAST16_MAX: u32 = 65535;
+pub const UINT_LEAST32_MAX: u32 = 4294967295;
+pub const UINT_LEAST64_MAX: i32 = -1;
+pub const INTMAX_MIN: i64 = -9223372036854775808;
+pub const INTMAX_MAX: u64 = 9223372036854775807;
+pub const UINTMAX_MAX: i32 = -1;
+pub const WINT_MIN: u32 = 0;
+pub const WINT_MAX: u32 = 4294967295;
+pub const SIG_ATOMIC_MIN: i32 = -2147483648;
+pub const SIG_ATOMIC_MAX: u32 = 2147483647;
+pub const INT_FAST16_MIN: i32 = -2147483648;
+pub const INT_FAST32_MIN: i32 = -2147483648;
+pub const INT_FAST16_MAX: u32 = 2147483647;
+pub const INT_FAST32_MAX: u32 = 2147483647;
+pub const UINT_FAST16_MAX: u32 = 4294967295;
+pub const UINT_FAST32_MAX: u32 = 4294967295;
+pub const INTPTR_MIN: i64 = -9223372036854775808;
+pub const INTPTR_MAX: u64 = 9223372036854775807;
+pub const UINTPTR_MAX: i32 = -1;
+pub const PTRDIFF_MIN: i64 = -9223372036854775808;
+pub const PTRDIFF_MAX: u64 = 9223372036854775807;
+pub const SIZE_MAX: i32 = -1;
+pub const __bool_true_false_are_defined: u32 = 1;
+pub const true_: u32 = 1;
+pub const false_: u32 = 0;
+pub type intmax_t = ::std::os::raw::c_long;
+pub type uintmax_t = ::std::os::raw::c_ulong;
+pub type int_fast8_t = i8;
+pub type int_fast64_t = i64;
+pub type int_least8_t = i8;
+pub type int_least16_t = i16;
+pub type int_least32_t = i32;
+pub type int_least64_t = i64;
+pub type uint_fast8_t = u8;
+pub type uint_fast64_t = u64;
+pub type uint_least8_t = u8;
+pub type uint_least16_t = u16;
+pub type uint_least32_t = u32;
+pub type uint_least64_t = u64;
+pub type int_fast16_t = i32;
+pub type int_fast32_t = i32;
+pub type uint_fast16_t = u32;
+pub type uint_fast32_t = u32;
 #[repr(C)]
 #[derive(Debug, Copy, Clone)]
 pub struct OH_NativeVSync {
@@ -20,6 +95,13 @@ extern "C" {
 }
 extern "C" {
     pub fn OH_NativeVSync_Destroy(nativeVsync: *mut OH_NativeVSync);
+}
+extern "C" {
+    pub fn OH_NativeVSync_Create_ForAssociatedWindow(
+        windowID: u64,
+        name: *const ::std::os::raw::c_char,
+        length: ::std::os::raw::c_uint,
+    ) -> *mut OH_NativeVSync;
 }
 extern "C" {
     pub fn OH_NativeVSync_RequestFrame(
@@ -39,5 +121,11 @@ extern "C" {
     pub fn OH_NativeVSync_GetPeriod(
         nativeVsync: *mut OH_NativeVSync,
         period: *mut ::std::os::raw::c_longlong,
+    ) -> ::std::os::raw::c_int;
+}
+extern "C" {
+    pub fn OH_NativeVSync_DVSyncSwitch(
+        nativeVsync: *mut OH_NativeVSync,
+        enable: bool,
     ) -> ::std::os::raw::c_int;
 }

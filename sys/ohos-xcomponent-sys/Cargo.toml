@@ -6,4 +6,5 @@ license     = "MIT OR Apache-2.0"
 description = "OpenHarmony's xcomponent binding for rust"
 
 [dependencies]
-ohos-arkui-sys = { workspace = true }
+ohos-arkui-sys         = { workspace = true }
+ohos-accessibility-sys = { workspace = true }

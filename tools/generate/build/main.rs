@@ -23,6 +23,9 @@ static CONFIG: Lazy<Vec<Lazy<SysConfig>>> = Lazy::new(|| {
         config::MULTI_MODAL_INPUT,
         config::INPUT_METHOD,
         config::DISPLAY,
+        config::NATIVE_WINDOW,
+        config::ACCESSIBILITY,
+        config::NATIVE_BUFFER,
     ]
 });
 

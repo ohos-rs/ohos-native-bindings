@@ -286,3 +286,13 @@ extern "C" {
         stopPropagation: bool,
     ) -> i32;
 }
+extern "C" {
+    pub fn OH_ArkUI_UIInputEvent_GetDeviceId(event: *const ArkUI_UIInputEvent) -> i32;
+}
+extern "C" {
+    pub fn OH_ArkUI_UIInputEvent_GetPressedKeys(
+        event: *const ArkUI_UIInputEvent,
+        pressedKeyCodes: *mut i32,
+        length: *mut i32,
+    ) -> i32;
+}

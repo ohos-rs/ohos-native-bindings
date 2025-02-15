@@ -10,6 +10,13 @@ pub struct OH_NativeBundle_ApplicationInfo {
     pub bundleName: *mut ::std::os::raw::c_char,
     pub fingerprint: *mut ::std::os::raw::c_char,
 }
+#[repr(C)]
+#[derive(Debug, Copy, Clone)]
+pub struct OH_NativeBundle_ElementName {
+    pub bundleName: *mut ::std::os::raw::c_char,
+    pub moduleName: *mut ::std::os::raw::c_char,
+    pub abilityName: *mut ::std::os::raw::c_char,
+}
 extern "C" {
     pub fn OH_NativeBundle_GetCurrentApplicationInfo() -> OH_NativeBundle_ApplicationInfo;
 }
@@ -18,4 +25,10 @@ extern "C" {
 }
 extern "C" {
     pub fn OH_NativeBundle_GetAppIdentifier() -> *mut ::std::os::raw::c_char;
+}
+extern "C" {
+    pub fn OH_NativeBundle_GetMainElementName() -> OH_NativeBundle_ElementName;
+}
+extern "C" {
+    pub fn OH_NativeBundle_GetCompatibleDeviceType() -> *mut ::std::os::raw::c_char;
 }

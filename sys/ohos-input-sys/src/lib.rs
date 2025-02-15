@@ -185,6 +185,13 @@ pub const Input_TouchEventAction_TOUCH_ACTION_DOWN: Input_TouchEventAction = 1;
 pub const Input_TouchEventAction_TOUCH_ACTION_MOVE: Input_TouchEventAction = 2;
 pub const Input_TouchEventAction_TOUCH_ACTION_UP: Input_TouchEventAction = 3;
 pub type Input_TouchEventAction = ::std::os::raw::c_uint;
+pub const Input_KeyboardType_KEYBOARD_TYPE_NONE: Input_KeyboardType = 0;
+pub const Input_KeyboardType_KEYBOARD_TYPE_UNKNOWN: Input_KeyboardType = 1;
+pub const Input_KeyboardType_KEYBOARD_TYPE_ALPHABETIC: Input_KeyboardType = 2;
+pub const Input_KeyboardType_KEYBOARD_TYPE_DIGITAL: Input_KeyboardType = 3;
+pub const Input_KeyboardType_KEYBOARD_TYPE_STYLUS: Input_KeyboardType = 4;
+pub const Input_KeyboardType_KEYBOARD_TYPE_REMOTE_CONTROL: Input_KeyboardType = 5;
+pub type Input_KeyboardType = ::std::os::raw::c_uint;
 pub const InputEvent_SourceType_SOURCE_TYPE_MOUSE: InputEvent_SourceType = 1;
 pub const InputEvent_SourceType_SOURCE_TYPE_TOUCHSCREEN: InputEvent_SourceType = 2;
 pub const InputEvent_SourceType_SOURCE_TYPE_TOUCHPAD: InputEvent_SourceType = 3;
@@ -214,13 +221,28 @@ pub struct Input_TouchEvent {
 pub struct Input_AxisEvent {
     _unused: [u8; 0],
 }
+#[repr(C)]
+#[derive(Debug, Copy, Clone)]
+pub struct Input_Hotkey {
+    _unused: [u8; 0],
+}
 pub const Input_Result_INPUT_SUCCESS: Input_Result = 0;
 pub const Input_Result_INPUT_PERMISSION_DENIED: Input_Result = 201;
 pub const Input_Result_INPUT_NOT_SYSTEM_APPLICATION: Input_Result = 202;
 pub const Input_Result_INPUT_PARAMETER_ERROR: Input_Result = 401;
+pub const Input_Result_INPUT_DEVICE_NOT_SUPPORTED: Input_Result = 801;
 pub const Input_Result_INPUT_SERVICE_EXCEPTION: Input_Result = 3800001;
 pub const Input_Result_INPUT_REPEAT_INTERCEPTOR: Input_Result = 4200001;
+pub const Input_Result_INPUT_OCCUPIED_BY_SYSTEM: Input_Result = 4200002;
+pub const Input_Result_INPUT_OCCUPIED_BY_OTHER: Input_Result = 4200003;
 pub type Input_Result = ::std::os::raw::c_uint;
+pub type Input_HotkeyCallback =
+    ::std::option::Option<unsafe extern "C" fn(hotkey: *mut Input_Hotkey)>;
+#[repr(C)]
+#[derive(Debug, Copy, Clone)]
+pub struct Input_DeviceInfo {
+    _unused: [u8; 0],
+}
 pub type Input_KeyEventCallback =
     ::std::option::Option<unsafe extern "C" fn(keyEvent: *const Input_KeyEvent)>;
 pub type Input_MouseEventCallback =
@@ -229,12 +251,20 @@ pub type Input_TouchEventCallback =
     ::std::option::Option<unsafe extern "C" fn(touchEvent: *const Input_TouchEvent)>;
 pub type Input_AxisEventCallback =
     ::std::option::Option<unsafe extern "C" fn(axisEvent: *const Input_AxisEvent)>;
+pub type Input_DeviceAddedCallback = ::std::option::Option<unsafe extern "C" fn(deviceId: i32)>;
+pub type Input_DeviceRemovedCallback = ::std::option::Option<unsafe extern "C" fn(deviceId: i32)>;
 #[repr(C)]
 #[derive(Debug, Copy, Clone)]
 pub struct Input_InterceptorEventCallback {
     pub mouseCallback: Input_MouseEventCallback,
     pub touchCallback: Input_TouchEventCallback,
     pub axisCallback: Input_AxisEventCallback,
+}
+#[repr(C)]
+#[derive(Debug, Copy, Clone)]
+pub struct Input_DeviceListener {
+    pub deviceAddedCallback: Input_DeviceAddedCallback,
+    pub deviceRemovedCallback: Input_DeviceRemovedCallback,
 }
 #[repr(C)]
 #[derive(Debug, Copy, Clone)]
@@ -534,4 +564,132 @@ extern "C" {
 }
 extern "C" {
     pub fn OH_Input_RemoveInputEventInterceptor() -> Input_Result;
+}
+extern "C" {
+    pub fn OH_Input_GetIntervalSinceLastInput(timeInterval: *mut i64) -> Input_Result;
+}
+extern "C" {
+    pub fn OH_Input_CreateHotkey() -> *mut Input_Hotkey;
+}
+extern "C" {
+    pub fn OH_Input_DestroyHotkey(hotkey: *mut *mut Input_Hotkey);
+}
+extern "C" {
+    pub fn OH_Input_SetPreKeys(hotkey: *mut Input_Hotkey, preKeys: *mut i32, size: i32);
+}
+extern "C" {
+    pub fn OH_Input_GetPreKeys(
+        hotkey: *const Input_Hotkey,
+        preKeys: *mut *mut i32,
+        preKeyCount: *mut i32,
+    ) -> Input_Result;
+}
+extern "C" {
+    pub fn OH_Input_SetFinalKey(hotkey: *mut Input_Hotkey, finalKey: i32);
+}
+extern "C" {
+    pub fn OH_Input_GetFinalKey(
+        hotkey: *const Input_Hotkey,
+        finalKeyCode: *mut i32,
+    ) -> Input_Result;
+}
+extern "C" {
+    pub fn OH_Input_CreateAllSystemHotkeys(count: i32) -> *mut *mut Input_Hotkey;
+}
+extern "C" {
+    pub fn OH_Input_DestroyAllSystemHotkeys(hotkeys: *mut *mut Input_Hotkey, count: i32);
+}
+extern "C" {
+    pub fn OH_Input_GetAllSystemHotkeys(
+        hotkey: *mut *mut Input_Hotkey,
+        count: *mut i32,
+    ) -> Input_Result;
+}
+extern "C" {
+    pub fn OH_Input_SetRepeat(hotkey: *mut Input_Hotkey, isRepeat: bool);
+}
+extern "C" {
+    pub fn OH_Input_GetRepeat(hotkey: *const Input_Hotkey, isRepeat: *mut bool) -> Input_Result;
+}
+extern "C" {
+    pub fn OH_Input_AddHotkeyMonitor(
+        hotkey: *const Input_Hotkey,
+        callback: Input_HotkeyCallback,
+    ) -> Input_Result;
+}
+extern "C" {
+    pub fn OH_Input_RemoveHotkeyMonitor(
+        hotkey: *const Input_Hotkey,
+        callback: Input_HotkeyCallback,
+    ) -> Input_Result;
+}
+extern "C" {
+    pub fn OH_Input_GetDeviceIds(
+        deviceIds: *mut i32,
+        inSize: i32,
+        outSize: *mut i32,
+    ) -> Input_Result;
+}
+extern "C" {
+    pub fn OH_Input_GetDevice(
+        deviceId: i32,
+        deviceInfo: *mut *mut Input_DeviceInfo,
+    ) -> Input_Result;
+}
+extern "C" {
+    pub fn OH_Input_CreateDeviceInfo() -> *mut Input_DeviceInfo;
+}
+extern "C" {
+    pub fn OH_Input_DestroyDeviceInfo(deviceInfo: *mut *mut Input_DeviceInfo);
+}
+extern "C" {
+    pub fn OH_Input_GetKeyboardType(deviceId: i32, keyboardType: *mut i32) -> Input_Result;
+}
+extern "C" {
+    pub fn OH_Input_GetDeviceId(deviceInfo: *mut Input_DeviceInfo, id: *mut i32) -> Input_Result;
+}
+extern "C" {
+    pub fn OH_Input_GetDeviceName(
+        deviceInfo: *mut Input_DeviceInfo,
+        name: *mut *mut ::std::os::raw::c_char,
+    ) -> Input_Result;
+}
+extern "C" {
+    pub fn OH_Input_GetCapabilities(
+        deviceInfo: *mut Input_DeviceInfo,
+        capabilities: *mut i32,
+    ) -> Input_Result;
+}
+extern "C" {
+    pub fn OH_Input_GetDeviceVersion(
+        deviceInfo: *mut Input_DeviceInfo,
+        version: *mut i32,
+    ) -> Input_Result;
+}
+extern "C" {
+    pub fn OH_Input_GetDeviceProduct(
+        deviceInfo: *mut Input_DeviceInfo,
+        product: *mut i32,
+    ) -> Input_Result;
+}
+extern "C" {
+    pub fn OH_Input_GetDeviceVendor(
+        deviceInfo: *mut Input_DeviceInfo,
+        vendor: *mut i32,
+    ) -> Input_Result;
+}
+extern "C" {
+    pub fn OH_Input_GetDeviceAddress(
+        deviceInfo: *mut Input_DeviceInfo,
+        address: *mut *mut ::std::os::raw::c_char,
+    ) -> Input_Result;
+}
+extern "C" {
+    pub fn OH_Input_RegisterDeviceListener(listener: *mut Input_DeviceListener) -> Input_Result;
+}
+extern "C" {
+    pub fn OH_Input_UnregisterDeviceListener(listener: *mut Input_DeviceListener) -> Input_Result;
+}
+extern "C" {
+    pub fn OH_Input_UnregisterDeviceListeners() -> Input_Result;
 }

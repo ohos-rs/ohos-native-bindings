@@ -17,7 +17,9 @@ mod hilog;
 mod init;
 mod input;
 mod input_method;
+mod native_buffer;
 mod native_display_soloist;
+mod native_window;
 mod raw;
 mod vsync;
 
@@ -29,6 +31,8 @@ pub use hilog::*;
 pub use init::*;
 pub use input::*;
 pub use input_method::*;
+pub use native_buffer::*;
 pub use native_display_soloist::*;
+pub use native_window::*;
 pub use raw::*;
 pub use vsync::*;
