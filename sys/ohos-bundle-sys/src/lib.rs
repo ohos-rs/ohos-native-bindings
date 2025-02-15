@@ -4,31 +4,43 @@
 #![allow(non_upper_case_globals)]
 #![allow(non_camel_case_types)]
 
+#[doc = " @brief Indicates information of application\n\n @syscap SystemCapability.BundleManager.BundleFramework.Core\n @since 9"]
 #[repr(C)]
 #[derive(Debug, Copy, Clone)]
 pub struct OH_NativeBundle_ApplicationInfo {
+    #[doc = " Indicates the name of application\n @syscap SystemCapability.BundleManager.BundleFramework.Core\n @since 9"]
     pub bundleName: *mut ::std::os::raw::c_char,
+    #[doc = " Indicates the fingerprint of application\n @syscap SystemCapability.BundleManager.BundleFramework.Core\n @since 9"]
     pub fingerprint: *mut ::std::os::raw::c_char,
 }
+#[doc = " @brief Indicates information of elementName.\n\n @since 13"]
 #[repr(C)]
 #[derive(Debug, Copy, Clone)]
 pub struct OH_NativeBundle_ElementName {
+    #[doc = " Indicates the name of application."]
     pub bundleName: *mut ::std::os::raw::c_char,
+    #[doc = " Indicates the name of module."]
     pub moduleName: *mut ::std::os::raw::c_char,
+    #[doc = " Indicates the name of ability."]
     pub abilityName: *mut ::std::os::raw::c_char,
 }
 extern "C" {
+    #[doc = " @brief Obtains the application info based on the The current bundle.\n\n @return Returns the newly created OH_NativeBundle_ApplicationInfo object, if the returned object is NULL,\n it indicates creation failure. The possible cause of failure could be that the application address space is full,\n leading to space allocation failure.\n @since 9\n @version 1.0"]
     pub fn OH_NativeBundle_GetCurrentApplicationInfo() -> OH_NativeBundle_ApplicationInfo;
 }
 extern "C" {
+    #[doc = " @brief Obtains the appId of application. AppId indicates the ID of the application to which this bundle belongs\n The application ID uniquely identifies an application. It is determined by the bundle name and signature.\n After utilizing this interface, to prevent memory leaks,\n it is necessary to manually release the pointer returned by the interface.\n\n @return Returns the newly created string that indicates appId information,\n if the returned object is NULL, it indicates creation failure.\n The possible cause of failure could be that the application address space is full,\n leading to space allocation failure.\n @since 11\n @version 1.0"]
     pub fn OH_NativeBundle_GetAppId() -> *mut ::std::os::raw::c_char;
 }
 extern "C" {
+    #[doc = " @brief Obtains the appIdentifier of application. AppIdentifier does not change along the application lifecycle,\n including version updates, certificate changes, public and private key changes, and application transfer.\n After utilizing this interface, to prevent memory leaks,\n it is necessary to manually release the pointer returned by the interface.\n\n @return Returns the newly created string that indicates app identifier information,\n if the returned object is NULL, it indicates creation failure.\n The possible cause of failure could be that the application address space is full,\n leading to space allocation failure.\n @since 11\n @version 1.0"]
     pub fn OH_NativeBundle_GetAppIdentifier() -> *mut ::std::os::raw::c_char;
 }
 extern "C" {
+    #[doc = " @brief Obtains information of the entry mainElement based on the current application, including bundle name,\n module name, and ability name.\n After utilizing this interface, to prevent memory leaks,\n it is necessary to manually release the pointer returned by the interface.\n\n @return Returns the newly created OH_NativeBundle_ElementName object, if the returned object is NULL,\n it indicates creation failure. The possible cause of failure could be that the application address space is full,\n leading to space allocation failure.\n @since 13"]
     pub fn OH_NativeBundle_GetMainElementName() -> OH_NativeBundle_ElementName;
 }
 extern "C" {
+    #[doc = " @brief Obtains the compatible device type of the current application.\n After utilizing this interface, to prevent memory leaks,\n it is necessary to manually release the pointer returned by the interface.\n\n @return Returns the newly created string that indicates the compatible device type,\n if the returned object is NULL, it indicates creation failure.\n The possible cause of failure could be that the application address space is full,\n leading to space allocation failure.\n @since 14\n @version 1.0"]
     pub fn OH_NativeBundle_GetCompatibleDeviceType() -> *mut ::std::os::raw::c_char;
 }

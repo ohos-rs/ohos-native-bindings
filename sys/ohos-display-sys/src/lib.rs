@@ -4,53 +4,80 @@
 #![allow(non_upper_case_globals)]
 #![allow(non_camel_case_types)]
 
+#[doc = " device rotation 0 degree"]
 pub const NativeDisplayManager_Rotation_DISPLAY_MANAGER_ROTATION_0: NativeDisplayManager_Rotation =
     0;
+#[doc = " device rotation 90 degrees"]
 pub const NativeDisplayManager_Rotation_DISPLAY_MANAGER_ROTATION_90: NativeDisplayManager_Rotation =
     1;
+#[doc = " device rotation 180 degrees"]
 pub const NativeDisplayManager_Rotation_DISPLAY_MANAGER_ROTATION_180:
     NativeDisplayManager_Rotation = 2;
+#[doc = " device rotation 270 degree"]
 pub const NativeDisplayManager_Rotation_DISPLAY_MANAGER_ROTATION_270:
     NativeDisplayManager_Rotation = 3;
+#[doc = " @brief Enumerates rotations.\n\n @since 12\n @version 1.0"]
 pub type NativeDisplayManager_Rotation = ::std::os::raw::c_uint;
+#[doc = " device portrait show"]
 pub const NativeDisplayManager_Orientation_DISPLAY_MANAGER_PORTRAIT:
     NativeDisplayManager_Orientation = 0;
+#[doc = " device landscape show"]
 pub const NativeDisplayManager_Orientation_DISPLAY_MANAGER_LANDSCAPE:
     NativeDisplayManager_Orientation = 1;
+#[doc = " device portrait inverted show"]
 pub const NativeDisplayManager_Orientation_DISPLAY_MANAGER_PORTRAIT_INVERTED:
     NativeDisplayManager_Orientation = 2;
+#[doc = " device landscape inverted show"]
 pub const NativeDisplayManager_Orientation_DISPLAY_MANAGER_LANDSCAPE_INVERTED:
     NativeDisplayManager_Orientation = 3;
+#[doc = " device unknow show"]
 pub const NativeDisplayManager_Orientation_DISPLAY_MANAGER_UNKNOWN:
     NativeDisplayManager_Orientation = 4;
+#[doc = " @brief Enumerates orientations.\n\n @since 12\n @version 1.0"]
 pub type NativeDisplayManager_Orientation = ::std::os::raw::c_uint;
+#[doc = " @error Operation is successful"]
 pub const NativeDisplayManager_ErrorCode_DISPLAY_MANAGER_OK: NativeDisplayManager_ErrorCode = 0;
+#[doc = " @error Operation no permission"]
 pub const NativeDisplayManager_ErrorCode_DISPLAY_MANAGER_ERROR_NO_PERMISSION:
     NativeDisplayManager_ErrorCode = 201;
+#[doc = " @error Operation not system app"]
 pub const NativeDisplayManager_ErrorCode_DISPLAY_MANAGER_ERROR_NOT_SYSTEM_APP:
     NativeDisplayManager_ErrorCode = 202;
+#[doc = " @error Operation invalid param"]
 pub const NativeDisplayManager_ErrorCode_DISPLAY_MANAGER_ERROR_INVALID_PARAM:
     NativeDisplayManager_ErrorCode = 401;
+#[doc = " @error Operation device not supported"]
 pub const NativeDisplayManager_ErrorCode_DISPLAY_MANAGER_ERROR_DEVICE_NOT_SUPPORTED:
     NativeDisplayManager_ErrorCode = 801;
+#[doc = " @error Operation screen invalid"]
 pub const NativeDisplayManager_ErrorCode_DISPLAY_MANAGER_ERROR_INVALID_SCREEN:
     NativeDisplayManager_ErrorCode = 1400001;
+#[doc = " @error Operation invalid call"]
 pub const NativeDisplayManager_ErrorCode_DISPLAY_MANAGER_ERROR_INVALID_CALL:
     NativeDisplayManager_ErrorCode = 1400002;
+#[doc = " @error Operation system abnormal"]
 pub const NativeDisplayManager_ErrorCode_DISPLAY_MANAGER_ERROR_SYSTEM_ABNORMAL:
     NativeDisplayManager_ErrorCode = 1400003;
+#[doc = " @brief Enumerates the result types of the display manager interface.\n\n @since 12\n @version 1.0"]
 pub type NativeDisplayManager_ErrorCode = ::std::os::raw::c_uint;
+#[doc = " display mode unknown"]
 pub const NativeDisplayManager_FoldDisplayMode_DISPLAY_MANAGER_FOLD_DISPLAY_MODE_UNKNOWN:
     NativeDisplayManager_FoldDisplayMode = 0;
+#[doc = " display mode full"]
 pub const NativeDisplayManager_FoldDisplayMode_DISPLAY_MANAGER_FOLD_DISPLAY_MODE_FULL:
     NativeDisplayManager_FoldDisplayMode = 1;
+#[doc = " display mode main"]
 pub const NativeDisplayManager_FoldDisplayMode_DISPLAY_MANAGER_FOLD_DISPLAY_MODE_MAIN:
     NativeDisplayManager_FoldDisplayMode = 2;
+#[doc = " display mode sub"]
 pub const NativeDisplayManager_FoldDisplayMode_DISPLAY_MANAGER_FOLD_DISPLAY_MODE_SUB:
     NativeDisplayManager_FoldDisplayMode = 3;
+#[doc = " display mode coordination"]
 pub const NativeDisplayManager_FoldDisplayMode_DISPLAY_MANAGER_FOLD_DISPLAY_MODE_COORDINATION:
     NativeDisplayManager_FoldDisplayMode = 4;
+#[doc = " @brief Enumerates the fold display mode.\n\n @since 12\n @version 1.0"]
 pub type NativeDisplayManager_FoldDisplayMode = ::std::os::raw::c_uint;
+#[doc = " @brief Defines the display rect data structure.\n\n @since 12\n @version 1.0"]
 #[repr(C)]
 #[derive(Debug, Copy, Clone)]
 pub struct NativeDisplayManager_Rect {
@@ -59,6 +86,7 @@ pub struct NativeDisplayManager_Rect {
     pub width: u32,
     pub height: u32,
 }
+#[doc = " @brief Defines the display waterfallDisplayAreaRects data structure.\n\n @since 12\n @version 1.0"]
 #[repr(C)]
 #[derive(Debug, Copy, Clone)]
 pub struct NativeDisplayManager_WaterfallDisplayAreaRects {
@@ -67,6 +95,7 @@ pub struct NativeDisplayManager_WaterfallDisplayAreaRects {
     pub right: NativeDisplayManager_Rect,
     pub bottom: NativeDisplayManager_Rect,
 }
+#[doc = " @brief Defines the display cutout info data structure.\n\n @since 12\n @version 1.0"]
 #[repr(C)]
 #[derive(Debug, Copy, Clone)]
 pub struct NativeDisplayManager_CutoutInfo {
@@ -74,189 +103,254 @@ pub struct NativeDisplayManager_CutoutInfo {
     pub boundingRects: *mut NativeDisplayManager_Rect,
     pub waterfallDisplayAreaRects: NativeDisplayManager_WaterfallDisplayAreaRects,
 }
+#[doc = " display state unknown"]
 pub const NativeDisplayManager_DisplayState_DISPLAY_MANAGER_DISPLAY_STATE_UNKNOWN:
     NativeDisplayManager_DisplayState = 0;
+#[doc = " display state off"]
 pub const NativeDisplayManager_DisplayState_DISPLAY_MANAGER_DISPLAY_STATE_OFF:
     NativeDisplayManager_DisplayState = 1;
+#[doc = " display state on"]
 pub const NativeDisplayManager_DisplayState_DISPLAY_MANAGER_DISPLAY_STATE_ON:
     NativeDisplayManager_DisplayState = 2;
+#[doc = " display state doze"]
 pub const NativeDisplayManager_DisplayState_DISPLAY_MANAGER_DISPLAY_STATE_DOZE:
     NativeDisplayManager_DisplayState = 3;
+#[doc = " display state doze suspend"]
 pub const NativeDisplayManager_DisplayState_DISPLAY_MANAGER_DISPLAY_STATE_DOZE_SUSPEND:
     NativeDisplayManager_DisplayState = 4;
+#[doc = " display state vr"]
 pub const NativeDisplayManager_DisplayState_DISPLAY_MANAGER_DISPLAY_STATE_VR:
     NativeDisplayManager_DisplayState = 5;
+#[doc = " display state on suspend"]
 pub const NativeDisplayManager_DisplayState_DISPLAY_MANAGER_DISPLAY_STATE_ON_SUSPEND:
     NativeDisplayManager_DisplayState = 6;
+#[doc = " @brief Enumerates of the display state.\n\n @since 14\n @version 1.0"]
 pub type NativeDisplayManager_DisplayState = ::std::os::raw::c_uint;
+#[doc = " @brief Defines the display hdr structure.\n\n @since 14\n @version 1.0"]
 #[repr(C)]
 #[derive(Debug, Copy, Clone)]
 pub struct NativeDisplayManager_DisplayHdrFormat {
+    #[doc = " hdrFormat length"]
     pub hdrFormatLength: u32,
+    #[doc = " hdrFormat pointer"]
     pub hdrFormats: *mut u32,
 }
+#[doc = " @brief Defines the display color space structure.\n\n @since 14\n @version 1.0"]
 #[repr(C)]
 #[derive(Debug, Copy, Clone)]
 pub struct NativeDisplayManager_DisplayColorSpace {
+    #[doc = " color space length"]
     pub colorSpaceLength: u32,
+    #[doc = " color space pointer"]
     pub colorSpaces: *mut u32,
 }
+#[doc = " @brief Defines the display structure.\n\n @since 14\n @version 1.0"]
 #[repr(C)]
 #[derive(Debug, Copy, Clone)]
 pub struct NativeDisplayManager_DisplayInfo {
+    #[doc = " display id"]
     pub id: u32,
+    #[doc = " display name"]
     pub name: [::std::os::raw::c_char; 33usize],
+    #[doc = " display is alive"]
     pub isAlive: bool,
+    #[doc = " display width"]
     pub width: i32,
+    #[doc = " display height"]
     pub height: i32,
+    #[doc = " display physical width"]
     pub physicalWidth: i32,
+    #[doc = " display physical height"]
     pub physicalHeight: i32,
+    #[doc = " display refresh rate"]
     pub refreshRate: u32,
+    #[doc = " display available width"]
     pub availableWidth: u32,
+    #[doc = " display available height"]
     pub availableHeight: u32,
+    #[doc = " display density dpi"]
     pub densityDPI: f32,
+    #[doc = " display density pixels"]
     pub densityPixels: f32,
+    #[doc = " display scale density"]
     pub scaledDensity: f32,
+    #[doc = " display xdpi"]
     pub xDPI: f32,
+    #[doc = " display ydpi"]
     pub yDPI: f32,
+    #[doc = " display rotation"]
     pub rotation: NativeDisplayManager_Rotation,
+    #[doc = " display state"]
     pub state: NativeDisplayManager_DisplayState,
+    #[doc = " display orientation"]
     pub orientation: NativeDisplayManager_Orientation,
+    #[doc = " display hdr format"]
     pub hdrFormat: *mut NativeDisplayManager_DisplayHdrFormat,
+    #[doc = " display color space"]
     pub colorSpace: *mut NativeDisplayManager_DisplayColorSpace,
 }
+#[doc = " @brief Defines the displays structure.\n\n @since 14\n @version 1.0"]
 #[repr(C)]
 #[derive(Debug, Copy, Clone)]
 pub struct NativeDisplayManager_DisplaysInfo {
+    #[doc = " displays length"]
     pub displaysLength: u32,
+    #[doc = " displays pointer"]
     pub displaysInfo: *mut NativeDisplayManager_DisplayInfo,
 }
 extern "C" {
+    #[doc = " @brief Obtain the default display Id.\n\n @param displayId Indicates the pointer to an <b>uint64_t</b> object.\n @return { @link DISPLAY_MANAGER_OK } If the operation is successful\n         { @link DISPLAY_MANAGER_ERROR_INVALID_PARAM } If Parameter error.\n         { @link DISPLAY_MANAGER_ERROR_SYSTEM_ABNORMAL } If display manager service works abnormally.\n @syscap SystemCapability.WindowManager.WindowManager.Core\n @since 12"]
     pub fn OH_NativeDisplayManager_GetDefaultDisplayId(
         displayId: *mut u64,
     ) -> NativeDisplayManager_ErrorCode;
 }
 extern "C" {
+    #[doc = " @brief Obtain the default display width.\n\n @param displayWidth Indicates the pointer to an <b>int32_t</b> object.\n @return { @link DISPLAY_MANAGER_OK } If the operation is successful\n         { @link DISPLAY_MANAGER_ERROR_INVALID_PARAM } If Parameter error.\n         { @link DISPLAY_MANAGER_ERROR_SYSTEM_ABNORMAL } If display manager service works abnormally.\n @syscap SystemCapability.WindowManager.WindowManager.Core\n @since 12"]
     pub fn OH_NativeDisplayManager_GetDefaultDisplayWidth(
         displayWidth: *mut i32,
     ) -> NativeDisplayManager_ErrorCode;
 }
 extern "C" {
+    #[doc = " @brief Obtain the default display height.\n\n @param displayHeight Indicates the pointer to an <b>int32_t</b> object.\n @return { @link DISPLAY_MANAGER_OK } If the operation is successful\n         { @link DISPLAY_MANAGER_ERROR_INVALID_PARAM } If Parameter error.\n         { @link DISPLAY_MANAGER_ERROR_SYSTEM_ABNORMAL } If display manager service works abnormally.\n @syscap SystemCapability.WindowManager.WindowManager.Core\n @since 12"]
     pub fn OH_NativeDisplayManager_GetDefaultDisplayHeight(
         displayHeight: *mut i32,
     ) -> NativeDisplayManager_ErrorCode;
 }
 extern "C" {
+    #[doc = " @brief Obtain the default display rotation.\n\n @param displayRotation Indicates the pointer to an <b>NativeDisplayManager_Rotation</b> object.\n @return { @link DISPLAY_MANAGER_OK } If the operation is successful\n         { @link DISPLAY_MANAGER_ERROR_INVALID_PARAM } If Parameter error.\n         { @link DISPLAY_MANAGER_ERROR_SYSTEM_ABNORMAL } If display manager service works abnormally.\n @syscap SystemCapability.WindowManager.WindowManager.Core\n @since 12"]
     pub fn OH_NativeDisplayManager_GetDefaultDisplayRotation(
         displayRotation: *mut NativeDisplayManager_Rotation,
     ) -> NativeDisplayManager_ErrorCode;
 }
 extern "C" {
+    #[doc = " @brief Obtain the default display orientation.\n\n @param displayOrientation Indicates the pointer to an <b>NativeDisplayManager_Orientation</b> object.\n @return { @link DISPLAY_MANAGER_OK } If the operation is successful\n         { @link DISPLAY_MANAGER_ERROR_INVALID_PARAM } If Parameter error.\n         { @link DISPLAY_MANAGER_ERROR_SYSTEM_ABNORMAL } If display manager service works abnormally.\n @syscap SystemCapability.WindowManager.WindowManager.Core\n @since 12"]
     pub fn OH_NativeDisplayManager_GetDefaultDisplayOrientation(
         displayOrientation: *mut NativeDisplayManager_Orientation,
     ) -> NativeDisplayManager_ErrorCode;
 }
 extern "C" {
+    #[doc = " @brief Obtain the default display virtualPixels.\n\n @param virtualPixels Indicates the pointer to an <b>float</b> object.\n @return { @link DISPLAY_MANAGER_OK } If the operation is successful\n         { @link DISPLAY_MANAGER_ERROR_INVALID_PARAM } If Parameter error.\n         { @link DISPLAY_MANAGER_ERROR_SYSTEM_ABNORMAL } If display manager service works abnormally.\n @syscap SystemCapability.WindowManager.WindowManager.Core\n @since 12"]
     pub fn OH_NativeDisplayManager_GetDefaultDisplayVirtualPixelRatio(
         virtualPixels: *mut f32,
     ) -> NativeDisplayManager_ErrorCode;
 }
 extern "C" {
+    #[doc = " @brief Obtain the default display refreshRate.\n\n @param refreshRate Indicates the pointer to an <b>uint32_t</b> object.\n @return { @link DISPLAY_MANAGER_OK } If the operation is successful\n         { @link DISPLAY_MANAGER_ERROR_INVALID_PARAM } If Parameter error.\n         { @link DISPLAY_MANAGER_ERROR_SYSTEM_ABNORMAL } If display manager service works abnormally.\n @syscap SystemCapability.WindowManager.WindowManager.Core\n @since 12"]
     pub fn OH_NativeDisplayManager_GetDefaultDisplayRefreshRate(
         refreshRate: *mut u32,
     ) -> NativeDisplayManager_ErrorCode;
 }
 extern "C" {
+    #[doc = " @brief Obtain the default display densityDpi.\n\n @param densityDpi Indicates the pointer to an <b>int32_t</b> object.\n @return { @link DISPLAY_MANAGER_OK } If the operation is successful\n         { @link DISPLAY_MANAGER_ERROR_INVALID_PARAM } If Parameter error.\n         { @link DISPLAY_MANAGER_ERROR_SYSTEM_ABNORMAL } If display manager service works abnormally.\n @syscap SystemCapability.WindowManager.WindowManager.Core\n @since 12"]
     pub fn OH_NativeDisplayManager_GetDefaultDisplayDensityDpi(
         densityDpi: *mut i32,
     ) -> NativeDisplayManager_ErrorCode;
 }
 extern "C" {
+    #[doc = " @brief Obtain the default display densityPixels.\n\n @param densityPixels Indicates the pointer to an <b>float</b> object.\n @return { @link DISPLAY_MANAGER_OK } If the operation is successful\n         { @link DISPLAY_MANAGER_ERROR_INVALID_PARAM } If Parameter error.\n         { @link DISPLAY_MANAGER_ERROR_SYSTEM_ABNORMAL } If display manager service works abnormally.\n @syscap SystemCapability.WindowManager.WindowManager.Core\n @since 12"]
     pub fn OH_NativeDisplayManager_GetDefaultDisplayDensityPixels(
         densityPixels: *mut f32,
     ) -> NativeDisplayManager_ErrorCode;
 }
 extern "C" {
+    #[doc = " @brief Obtain the default display scaledDensity.\n\n @param scaledDensity Indicates the pointer to an <b>float</b> object.\n @return { @link DISPLAY_MANAGER_OK } If the operation is successful\n         { @link DISPLAY_MANAGER_ERROR_INVALID_PARAM } If Parameter error.\n         { @link DISPLAY_MANAGER_ERROR_SYSTEM_ABNORMAL } If display manager service works abnormally.\n @syscap SystemCapability.WindowManager.WindowManager.Core\n @since 12"]
     pub fn OH_NativeDisplayManager_GetDefaultDisplayScaledDensity(
         scaledDensity: *mut f32,
     ) -> NativeDisplayManager_ErrorCode;
 }
 extern "C" {
+    #[doc = " @brief Obtain the default display xDpi.\n\n @param xDpi Indicates the pointer to an <b>float</b> object.\n @return { @link DISPLAY_MANAGER_OK } If the operation is successful\n         { @link DISPLAY_MANAGER_ERROR_INVALID_PARAM } If Parameter error.\n         { @link DISPLAY_MANAGER_ERROR_SYSTEM_ABNORMAL } If display manager service works abnormally.\n @syscap SystemCapability.WindowManager.WindowManager.Core\n @since 12"]
     pub fn OH_NativeDisplayManager_GetDefaultDisplayDensityXdpi(
         xDpi: *mut f32,
     ) -> NativeDisplayManager_ErrorCode;
 }
 extern "C" {
+    #[doc = " @brief Obtain the default display yDpi.\n\n @param yDpi Indicates the pointer to an <b>float</b> object.\n @return { @link DISPLAY_MANAGER_OK } If the operation is successful\n         { @link DISPLAY_MANAGER_ERROR_INVALID_PARAM } If Parameter error.\n         { @link DISPLAY_MANAGER_ERROR_SYSTEM_ABNORMAL } If display manager service works abnormally.\n @syscap SystemCapability.WindowManager.WindowManager.Core\n @since 12"]
     pub fn OH_NativeDisplayManager_GetDefaultDisplayDensityYdpi(
         yDpi: *mut f32,
     ) -> NativeDisplayManager_ErrorCode;
 }
 extern "C" {
+    #[doc = " @brief Create the cutout info of the device.\n\n @param cutoutInfo Indicates the pointer to an <b>NativeDisplayManager_CutoutInfo</b> object.\n @return { @link DISPLAY_MANAGER_OK } If the operation is successful\n         { @link DISPLAY_MANAGER_ERROR_INVALID_PARAM } If Parameter error.\n         { @link DISPLAY_MANAGER_ERROR_SYSTEM_ABNORMAL } If display manager service works abnormally.\n @syscap SystemCapability.WindowManager.WindowManager.Core\n @since 12"]
     pub fn OH_NativeDisplayManager_CreateDefaultDisplayCutoutInfo(
         cutoutInfo: *mut *mut NativeDisplayManager_CutoutInfo,
     ) -> NativeDisplayManager_ErrorCode;
 }
 extern "C" {
+    #[doc = " @brief Destroy an <b>NativeDisplayManager_CutoutInfo</b> object and reclaims the memory occupied by the object.\n\n @param cutoutInfo Indicates the pointer to an <b>NativeDisplayManager_CutoutInfo</b> object.\n @return { @link DISPLAY_MANAGER_OK } If the operation is successful\n         { @link DISPLAY_MANAGER_ERROR_INVALID_PARAM } If Parameter error.\n @syscap SystemCapability.WindowManager.WindowManager.Core\n @since 12"]
     pub fn OH_NativeDisplayManager_DestroyDefaultDisplayCutoutInfo(
         cutoutInfo: *mut NativeDisplayManager_CutoutInfo,
     ) -> NativeDisplayManager_ErrorCode;
 }
 extern "C" {
+    #[doc = " @brief Check whether the device is foldable.\n\n @return { bool } true means the device is foldable.\n @syscap SystemCapability.WindowManager.WindowManager.Core\n @since 12"]
     pub fn OH_NativeDisplayManager_IsFoldable() -> bool;
 }
 extern "C" {
+    #[doc = " @brief Get the display mode of the foldable device.\n\n @param displayMode Indicates the pointer to an <b>NativeDisplayManager_FoldDisplayMode</b> object.\n @return { @link DISPLAY_MANAGER_OK } If the operation is successful\n         { @link DISPLAY_MANAGER_ERROR_INVALID_PARAM } If Parameter error.\n         { @link DISPLAY_MANAGER_ERROR_DEVICE_NOT_SUPPORTED } device not support.\n @syscap SystemCapability.Window.SessionManager\n @since 12"]
     pub fn OH_NativeDisplayManager_GetFoldDisplayMode(
         displayMode: *mut NativeDisplayManager_FoldDisplayMode,
     ) -> NativeDisplayManager_ErrorCode;
 }
+#[doc = " @brief the callback function type when display change.\n\n @param displayId change display id.\n @syscap SystemCapability.Window.SessionManager\n @since 12"]
 pub type OH_NativeDisplayManager_DisplayChangeCallback =
     ::std::option::Option<unsafe extern "C" fn(displayId: u64)>;
 extern "C" {
+    #[doc = " @brief Register the callback for display change listener.\n\n @param displayChangeCallback display change callback.\n @param listenerIndex Indicates the pointer to an <b>uint32_t</b> object. used in unregister call.\n @return { @link DISPLAY_MANAGER_OK } If the operation is successful\n         { @link DISPLAY_MANAGER_ERROR_INVALID_PARAM } If Parameter error.\n         { @link DISPLAY_MANAGER_ERROR_SYSTEM_ABNORMAL } If display manager service works abnormally.\n @syscap SystemCapability.WindowManager.WindowManager.Core\n @since 12"]
     pub fn OH_NativeDisplayManager_RegisterDisplayChangeListener(
         displayChangeCallback: OH_NativeDisplayManager_DisplayChangeCallback,
         listenerIndex: *mut u32,
     ) -> NativeDisplayManager_ErrorCode;
 }
 extern "C" {
+    #[doc = " @brief Unregister the callback for display changes listener.\n\n @param listenerIndex display changed listener index.\n @return { @link DISPLAY_MANAGER_OK } If the operation is successful\n         { @link DISPLAY_MANAGER_ERROR_INVALID_PARAM } If Parameter error.\n         { @link DISPLAY_MANAGER_ERROR_SYSTEM_ABNORMAL } If display manager service works abnormally.\n @syscap SystemCapability.WindowManager.WindowManager.Core\n @since 12"]
     pub fn OH_NativeDisplayManager_UnregisterDisplayChangeListener(
         listenerIndex: u32,
     ) -> NativeDisplayManager_ErrorCode;
 }
+#[doc = " @brief the callback function type when display fold change.\n\n @param displayMode current fold display mode.\n @syscap SystemCapability.Window.SessionManager\n @since 12"]
 pub type OH_NativeDisplayManager_FoldDisplayModeChangeCallback =
     ::std::option::Option<unsafe extern "C" fn(displayMode: NativeDisplayManager_FoldDisplayMode)>;
 extern "C" {
+    #[doc = " @brief Register the callback for display mode change listener.\n\n @param displayModeChangeCallback display mode change callback.\n @param listenerIndex Indicates the pointer to an <b>uint32_t</b> object. used in unregister call.\n @return { @link DISPLAY_MANAGER_OK } If the operation is successful\n         { @link DISPLAY_MANAGER_ERROR_INVALID_PARAM } If Parameter error.\n         { @link DISPLAY_MANAGER_ERROR_DEVICE_NOT_SUPPORTED } device not support.\n         { @link DISPLAY_MANAGER_ERROR_SYSTEM_ABNORMAL } If display manager service works abnormally.\n @syscap SystemCapability.Window.SessionManager\n @since 12"]
     pub fn OH_NativeDisplayManager_RegisterFoldDisplayModeChangeListener(
         displayModeChangeCallback: OH_NativeDisplayManager_FoldDisplayModeChangeCallback,
         listenerIndex: *mut u32,
     ) -> NativeDisplayManager_ErrorCode;
 }
 extern "C" {
+    #[doc = " @brief Unregister the callback for display mode change listener.\n\n @param listenerIndex display mode change listener index.\n @return { @link DISPLAY_MANAGER_OK } If the operation is successful\n         { @link DISPLAY_MANAGER_ERROR_INVALID_PARAM } If Parameter error.\n         { @link DISPLAY_MANAGER_ERROR_DEVICE_NOT_SUPPORTED } device not support.\n         { @link DISPLAY_MANAGER_ERROR_SYSTEM_ABNORMAL } If display manager service works abnormally.\n @syscap SystemCapability.Window.SessionManager\n @since 12"]
     pub fn OH_NativeDisplayManager_UnregisterFoldDisplayModeChangeListener(
         listenerIndex: u32,
     ) -> NativeDisplayManager_ErrorCode;
 }
 extern "C" {
+    #[doc = " @brief Create all displays.\n\n @param allDisplays Output parameter for all displays information.\n @return { @link DISPLAY_MANAGER_OK } If the operation is successful.\n         { @link DISPLAY_MANAGER_ERROR_INVALID_PARAM } If Parameter error.\n         { @link DISPLAY_MANAGER_ERROR_SYSTEM_ABNORMAL } If display manager service works abnormally.\n @syscap SystemCapability.Window.SessionManager.Core\n @since 14"]
     pub fn OH_NativeDisplayManager_CreateAllDisplays(
         allDisplays: *mut *mut NativeDisplayManager_DisplaysInfo,
     ) -> NativeDisplayManager_ErrorCode;
 }
 extern "C" {
+    #[doc = " @brief Destroy all displays.\n\n @param allDisplays all displays to be free.\n @syscap SystemCapability.Window.SessionManager.Core\n @since 14"]
     pub fn OH_NativeDisplayManager_DestroyAllDisplays(
         allDisplays: *mut NativeDisplayManager_DisplaysInfo,
     );
 }
 extern "C" {
+    #[doc = " @brief Create display information by display id.\n\n @param displayId The display id.\n @param displayInfo The pointer to the display information.\n @return { @link DISPLAY_MANAGER_OK } If the operation is successful.\n         { @link DISPLAY_MANAGER_ERROR_INVALID_PARAM } If Parameter error.\n         { @link DISPLAY_MANAGER_ERROR_SYSTEM_ABNORMAL } If display manager service works abnormally.\n @syscap SystemCapability.Window.SessionManager.Core\n @since 14"]
     pub fn OH_NativeDisplayManager_CreateDisplayById(
         displayId: u32,
         displayInfo: *mut *mut NativeDisplayManager_DisplayInfo,
     ) -> NativeDisplayManager_ErrorCode;
 }
 extern "C" {
+    #[doc = " @brief Destroy the display information.\n\n @param displayInfo the target display to be free.\n @syscap SystemCapability.Window.SessionManager.Core\n @since 14"]
     pub fn OH_NativeDisplayManager_DestroyDisplay(
         displayInfo: *mut NativeDisplayManager_DisplayInfo,
     );
 }
 extern "C" {
+    #[doc = " @brief Create a primary display.\n\n @param displayInfo The information of the created display.\n @return { @link DISPLAY_MANAGER_OK } If the operation is successful.\n         { @link DISPLAY_MANAGER_ERROR_INVALID_PARAM } If Parameter error.\n         { @link DISPLAY_MANAGER_ERROR_SYSTEM_ABNORMAL } If display manager service works abnormally.\n @syscap SystemCapability.Window.SessionManager.Core\n @since 14"]
     pub fn OH_NativeDisplayManager_CreatePrimaryDisplay(
         displayInfo: *mut *mut NativeDisplayManager_DisplayInfo,
     ) -> NativeDisplayManager_ErrorCode;

@@ -4,18 +4,20 @@
 #![allow(non_upper_case_globals)]
 #![allow(non_camel_case_types)]
 
-use ohos_arkui_sys::*;
 use ohos_accessibility_sys::*;
+use ohos_arkui_sys::*;
 
 pub const OH_NATIVE_XCOMPONENT_OBJ: &[u8; 26usize] = b"__NATIVE_XCOMPONENT_OBJ__\0";
 pub const OH_NATIVE_XCOMPONENT_MAX_TOUCH_POINTS_NUMBER: u32 = 10;
 extern "C" {
+    #[doc = " @brief Registers a callback for this <b>ArkUI_AccessibilityProvider</b> instance.\n\n @param provider Indicates the pointer to the <b>ArkUI_AccessibilityProvider</b> instance.\n @param callbacks Indicates the pointer to the <b>GetAccessibilityNodeCursorPosition</b> callback.\n @return Returns {@link ARKUI_ACCESSIBILITY_NATIVE_RESULT_SUCCESSFUL} if the operation is successful.\n         Returns {@link ARKUI_ACCESSIBILITY_NATIVE_RESULT_BAD_PARAMETER} if a parameter is incorrect.\n @since 13"]
     pub fn OH_ArkUI_AccessibilityProviderRegisterCallback(
         provider: *mut ArkUI_AccessibilityProvider,
         callbacks: *mut ArkUI_AccessibilityProviderCallbacks,
     ) -> i32;
 }
 extern "C" {
+    #[doc = " @brief Sends accessibility event information.\n\n @param provider Indicates the pointer to the <b>ArkUI_AccessibilityProvider</b> instance.\n @param eventInfo Indicates the pointer to the accessibility event information.\n @param callback Indicates the pointer to the callback that is called after the event is sent.\n @since 13"]
     pub fn OH_ArkUI_SendAccessibilityAsyncEvent(
         provider: *mut ArkUI_AccessibilityProvider,
         eventInfo: *mut ArkUI_AccessibilityEventInfo,
@@ -23,53 +25,62 @@ extern "C" {
     );
 }
 extern "C" {
+    #[doc = " @brief Adds and obtains the pointer to an <b>ArkUI_AccessibilityElementInfo</b> object.\n\n @param list Indicates the pointer to an <b>ArkUI_AccessibilityElementInfoList</b> object.\n @return Returns the pointer to the <b>ArkUI_AccessibilityElementInfo</b> object.\n @since 13"]
     pub fn OH_ArkUI_AddAndGetAccessibilityElementInfo(
         list: *mut ArkUI_AccessibilityElementInfoList,
     ) -> *mut ArkUI_AccessibilityElementInfo;
 }
 extern "C" {
+    #[doc = " @brief Sets the element ID for an <b>ArkUI_AccessibilityElementInfo</b> object.\n\n @param elementInfo Indicates the pointer to an <b>ArkUI_AccessibilityElementInfo</b> object.\n @param elementId Indicates the element ID.\n @return Returns {@link ARKUI_ACCESSIBILITY_NATIVE_RESULT_SUCCESSFUL} if the operation is successful.\n         Returns {@link ARKUI_ACCESSIBILITY_NATIVE_RESULT_BAD_PARAMETER} if a parameter is incorrect.\n @since 13"]
     pub fn OH_ArkUI_AccessibilityElementInfoSetElementId(
         elementInfo: *mut ArkUI_AccessibilityElementInfo,
         elementId: i32,
     ) -> i32;
 }
 extern "C" {
+    #[doc = " @brief Sets the parent ID for an <b>ArkUI_AccessibilityElementInfo</b> object.\n\n @param elementInfo Indicates the pointer to an <b>ArkUI_AccessibilityElementInfo</b> object.\n @param parentId Indicates the parent ID.\n @return Returns {@link ARKUI_ACCESSIBILITY_NATIVE_RESULT_SUCCESSFUL} if the operation is successful.\n         Returns {@link ARKUI_ACCESSIBILITY_NATIVE_RESULT_BAD_PARAMETER} if a parameter is incorrect.\n @since 13"]
     pub fn OH_ArkUI_AccessibilityElementInfoSetParentId(
         elementInfo: *mut ArkUI_AccessibilityElementInfo,
         parentId: i32,
     ) -> i32;
 }
 extern "C" {
+    #[doc = " @brief Sets the component type for an <b>ArkUI_AccessibilityElementInfo</b> object.\n\n @param elementInfo Indicates the pointer to an <b>ArkUI_AccessibilityElementInfo</b> object.\n @param componentType Indicates the component type.\n @return Returns {@link ARKUI_ACCESSIBILITY_NATIVE_RESULT_SUCCESSFUL} if the operation is successful.\n         Returns {@link ARKUI_ACCESSIBILITY_NATIVE_RESULT_BAD_PARAMETER} if a parameter is incorrect.\n @since 13"]
     pub fn OH_ArkUI_AccessibilityElementInfoSetComponentType(
         elementInfo: *mut ArkUI_AccessibilityElementInfo,
         componentType: *const ::std::os::raw::c_char,
     ) -> i32;
 }
 extern "C" {
+    #[doc = " @brief Sets the component content for an <b>ArkUI_AccessibilityElementInfo</b> object.\n\n @param elementInfo Indicates the pointer to an <b>ArkUI_AccessibilityElementInfo</b> object.\n @param contents Indicates the component content.\n @return Returns {@link ARKUI_ACCESSIBILITY_NATIVE_RESULT_SUCCESSFUL} if the operation is successful.\n         Returns {@link ARKUI_ACCESSIBILITY_NATIVE_RESULT_BAD_PARAMETER} if a parameter is incorrect.\n @since 13"]
     pub fn OH_ArkUI_AccessibilityElementInfoSetContents(
         elementInfo: *mut ArkUI_AccessibilityElementInfo,
         contents: *const ::std::os::raw::c_char,
     ) -> i32;
 }
 extern "C" {
+    #[doc = " @brief Sets the hint text for an <b>ArkUI_AccessibilityElementInfo</b> object.\n\n @param elementInfo Indicates the pointer to an <b>ArkUI_AccessibilityElementInfo</b> object.\n @param hintText Indicates the hint text.\n @return Returns {@link ARKUI_ACCESSIBILITY_NATIVE_RESULT_SUCCESSFUL} if the operation is successful.\n         Returns {@link ARKUI_ACCESSIBILITY_NATIVE_RESULT_BAD_PARAMETER} if a parameter is incorrect.\n @since 13"]
     pub fn OH_ArkUI_AccessibilityElementInfoSetHintText(
         elementInfo: *mut ArkUI_AccessibilityElementInfo,
         hintText: *const ::std::os::raw::c_char,
     ) -> i32;
 }
 extern "C" {
+    #[doc = " @brief Sets the accessibility text for an <b>ArkUI_AccessibilityElementInfo</b> object.\n\n @param elementInfo Indicates the pointer to an <b>ArkUI_AccessibilityElementInfo</b> object.\n @param accessibilityText Indicates the accessibility text.\n @return Returns {@link ARKUI_ACCESSIBILITY_NATIVE_RESULT_SUCCESSFUL} if the operation is successful.\n         Returns {@link ARKUI_ACCESSIBILITY_NATIVE_RESULT_BAD_PARAMETER} if a parameter is incorrect.\n @since 13"]
     pub fn OH_ArkUI_AccessibilityElementInfoSetAccessibilityText(
         elementInfo: *mut ArkUI_AccessibilityElementInfo,
         accessibilityText: *const ::std::os::raw::c_char,
     ) -> i32;
 }
 extern "C" {
+    #[doc = " @brief Sets the accessibility description for an <b>ArkUI_AccessibilityElementInfo</b> object.\n\n @param elementInfo Indicates the pointer to an <b>ArkUI_AccessibilityElementInfo</b> object.\n @param accessibilityDescription Indicates the accessibility description.\n @return Returns {@link ARKUI_ACCESSIBILITY_NATIVE_RESULT_SUCCESSFUL} if the operation is successful.\n         Returns {@link ARKUI_ACCESSIBILITY_NATIVE_RESULT_BAD_PARAMETER} if a parameter is incorrect.\n @since 13"]
     pub fn OH_ArkUI_AccessibilityElementInfoSetAccessibilityDescription(
         elementInfo: *mut ArkUI_AccessibilityElementInfo,
         accessibilityDescription: *const ::std::os::raw::c_char,
     ) -> i32;
 }
 extern "C" {
+    #[doc = " @brief Set the number of child nodes and child node IDs for an <b>ArkUI_AccessibilityElementInfo</b> object.\n\n @param elementInfo Indicates the pointer to an <b>ArkUI_AccessibilityElementInfo</b> object.\n @param childCount Indicates the number of child nodes.\n @param childNodeIds Indicates an array of child node IDs.\n @return Returns {@link ARKUI_ACCESSIBILITY_NATIVE_RESULT_SUCCESSFUL} if the operation is successful.\n         Returns {@link ARKUI_ACCESSIBILITY_NATIVE_RESULT_BAD_PARAMETER} if a parameter is incorrect.\n @since 13"]
     pub fn OH_ArkUI_AccessibilityElementInfoSetChildNodeIds(
         elementInfo: *mut ArkUI_AccessibilityElementInfo,
         childCount: i32,
@@ -77,6 +88,7 @@ extern "C" {
     ) -> i32;
 }
 extern "C" {
+    #[doc = " @brief Sets the operation actions for an <b>ArkUI_AccessibilityElementInfo</b> object.\n\n @param elementInfo Indicates the pointer to an <b>ArkUI_AccessibilityElementInfo</b> object.\n @param operationCount Indicates the operation count.\n @param operationActions Indicates the operation actions.\n @return Returns {@link ARKUI_ACCESSIBILITY_NATIVE_RESULT_SUCCESSFUL} if the operation is successful.\n         Returns {@link ARKUI_ACCESSIBILITY_NATIVE_RESULT_BAD_PARAMETER} if a parameter is incorrect.\n @since 13"]
     pub fn OH_ArkUI_AccessibilityElementInfoSetOperationActions(
         elementInfo: *mut ArkUI_AccessibilityElementInfo,
         operationCount: i32,
@@ -84,404 +96,480 @@ extern "C" {
     ) -> i32;
 }
 extern "C" {
+    #[doc = " @brief Sets the screen area for an <b>ArkUI_AccessibilityElementInfo</b> object.\n\n @param elementInfo Indicates the pointer to an <b>ArkUI_AccessibilityElementInfo</b> object.\n @param screenRect Indicates the screen area.\n @return Returns {@link ARKUI_ACCESSIBILITY_NATIVE_RESULT_SUCCESSFUL} if the operation is successful.\n         Returns {@link ARKUI_ACCESSIBILITY_NATIVE_RESULT_BAD_PARAMETER} if a parameter is incorrect.\n @since 13"]
     pub fn OH_ArkUI_AccessibilityElementInfoSetScreenRect(
         elementInfo: *mut ArkUI_AccessibilityElementInfo,
         screenRect: *mut ArkUI_AccessibleRect,
     ) -> i32;
 }
 extern "C" {
+    #[doc = " @brief Sets whether the element is checkable for an <b>ArkUI_AccessibilityElementInfo</b> object.\n\n @param elementInfo Indicates the pointer to an <b>ArkUI_AccessibilityElementInfo</b> object.\n @param checkable Indicates whether the element is checkable.\n @return Returns {@link ARKUI_ACCESSIBILITY_NATIVE_RESULT_SUCCESSFUL} if the operation is successful.\n         Returns {@link ARKUI_ACCESSIBILITY_NATIVE_RESULT_BAD_PARAMETER} if a parameter is incorrect.\n @since 13"]
     pub fn OH_ArkUI_AccessibilityElementInfoSetCheckable(
         elementInfo: *mut ArkUI_AccessibilityElementInfo,
         checkable: bool,
     ) -> i32;
 }
 extern "C" {
+    #[doc = " @brief Sets whether the element is checked for an <b>ArkUI_AccessibilityElementInfo</b> object.\n\n @param elementInfo Indicates the pointer to an <b>ArkUI_AccessibilityElementInfo</b> object.\n @param checked Indicates whether the element is checked.\n @return Returns {@link ARKUI_ACCESSIBILITY_NATIVE_RESULT_SUCCESSFUL} if the operation is successful.\n         Returns {@link ARKUI_ACCESSIBILITY_NATIVE_RESULT_BAD_PARAMETER} if a parameter is incorrect.\n @since 13"]
     pub fn OH_ArkUI_AccessibilityElementInfoSetChecked(
         elementInfo: *mut ArkUI_AccessibilityElementInfo,
         checked: bool,
     ) -> i32;
 }
 extern "C" {
+    #[doc = " @brief Sets whether the element is focusable for an <b>ArkUI_AccessibilityElementInfo</b> object.\n @param elementInfo Indicates the pointer to an <b>ArkUI_AccessibilityElementInfo</b> object.\n @param focusable Indicates whether the element is focusable.\n @return Returns {@link ARKUI_ACCESSIBILITY_NATIVE_RESULT_SUCCESSFUL} if the operation is successful.\n         Returns {@link ARKUI_ACCESSIBILITY_NATIVE_RESULT_BAD_PARAMETER} if a parameter is incorrect.\n @since 13"]
     pub fn OH_ArkUI_AccessibilityElementInfoSetFocusable(
         elementInfo: *mut ArkUI_AccessibilityElementInfo,
         focusable: bool,
     ) -> i32;
 }
 extern "C" {
+    #[doc = " @brief Sets whether the element is focused for an <b>ArkUI_AccessibilityElementInfo</b> object.\n\n @param elementInfo Indicates the pointer to an <b>ArkUI_AccessibilityElementInfo</b> object.\n @param isFocused Indicates whether the element is focused.\n @return Returns {@link ARKUI_ACCESSIBILITY_NATIVE_RESULT_SUCCESSFUL} if the operation is successful.\n         Returns {@link ARKUI_ACCESSIBILITY_NATIVE_RESULT_BAD_PARAMETER} if a parameter is incorrect.\n @since 13"]
     pub fn OH_ArkUI_AccessibilityElementInfoSetFocused(
         elementInfo: *mut ArkUI_AccessibilityElementInfo,
         isFocused: bool,
     ) -> i32;
 }
 extern "C" {
+    #[doc = " @brief Sets whether the element is visible for an <b>ArkUI_AccessibilityElementInfo</b> object.\n\n @param elementInfo Indicates the pointer to an <b>ArkUI_AccessibilityElementInfo</b> object.\n @param isVisible Indicates whether the element is visible.\n @return Returns {@link ARKUI_ACCESSIBILITY_NATIVE_RESULT_SUCCESSFUL} if the operation is successful.\n         Returns {@link ARKUI_ACCESSIBILITY_NATIVE_RESULT_BAD_PARAMETER} if a parameter is incorrect.\n @since 13"]
     pub fn OH_ArkUI_AccessibilityElementInfoSetVisible(
         elementInfo: *mut ArkUI_AccessibilityElementInfo,
         isVisible: bool,
     ) -> i32;
 }
 extern "C" {
+    #[doc = " @brief Sets the accessibility focus state for an <b>ArkUI_AccessibilityElementInfo</b> object.\n\n @param elementInfo Indicates the pointer to an <b>ArkUI_AccessibilityElementInfo</b> object.\n @param accessibilityFocused Indicates whether the element has accessibility focus.\n @return Returns {@link ARKUI_ACCESSIBILITY_NATIVE_RESULT_SUCCESSFUL} if the operation is successful.\n         Returns {@link ARKUI_ACCESSIBILITY_NATIVE_RESULT_BAD_PARAMETER} if a parameter is incorrect.\n @since 13"]
     pub fn OH_ArkUI_AccessibilityElementInfoSetAccessibilityFocused(
         elementInfo: *mut ArkUI_AccessibilityElementInfo,
         accessibilityFocused: bool,
     ) -> i32;
 }
 extern "C" {
+    #[doc = " @brief Sets whether the element is selected for an <b>ArkUI_AccessibilityElementInfo</b> object.\n\n @param elementInfo Indicates the pointer to an <b>ArkUI_AccessibilityElementInfo</b> object.\n @param selected Indicates whether the element is selected.\n @return Returns {@link ARKUI_ACCESSIBILITY_NATIVE_RESULT_SUCCESSFUL} if the operation is successful.\n         Returns {@link ARKUI_ACCESSIBILITY_NATIVE_RESULT_BAD_PARAMETER} if a parameter is incorrect.\n @since 13"]
     pub fn OH_ArkUI_AccessibilityElementInfoSetSelected(
         elementInfo: *mut ArkUI_AccessibilityElementInfo,
         selected: bool,
     ) -> i32;
 }
 extern "C" {
+    #[doc = " @brief Sets whether the element is clickable for an <b>ArkUI_AccessibilityElementInfo</b> object.\n\n @param elementInfo Indicates the pointer to an <b>ArkUI_AccessibilityElementInfo</b> object.\n @param clickable Indicates whether the element is clickable.\n @return Returns {@link ARKUI_ACCESSIBILITY_NATIVE_RESULT_SUCCESSFUL} if the operation is successful.\n         Returns {@link ARKUI_ACCESSIBILITY_NATIVE_RESULT_BAD_PARAMETER} if a parameter is incorrect.\n @since 13"]
     pub fn OH_ArkUI_AccessibilityElementInfoSetClickable(
         elementInfo: *mut ArkUI_AccessibilityElementInfo,
         clickable: bool,
     ) -> i32;
 }
 extern "C" {
+    #[doc = " @brief Sets whether the element is long clickable for an <b>ArkUI_AccessibilityElementInfo</b> object.\n\n @param elementInfo Indicates the pointer to an <b>ArkUI_AccessibilityElementInfo</b> object.\n @param longClickable Indicates whether the element is long clickable.\n @return Returns {@link ARKUI_ACCESSIBILITY_NATIVE_RESULT_SUCCESSFUL} if the operation is successful.\n         Returns {@link ARKUI_ACCESSIBILITY_NATIVE_RESULT_BAD_PARAMETER} if a parameter is incorrect.\n @since 13"]
     pub fn OH_ArkUI_AccessibilityElementInfoSetLongClickable(
         elementInfo: *mut ArkUI_AccessibilityElementInfo,
         longClickable: bool,
     ) -> i32;
 }
 extern "C" {
+    #[doc = " @brief Sets whether the element is enabled for an <b>ArkUI_AccessibilityElementInfo</b> object.\n\n @param elementInfo Indicates the pointer to an <b>ArkUI_AccessibilityElementInfo</b> object.\n @param isEnabled Indicates whether the element is enabled.\n @return Returns {@link ARKUI_ACCESSIBILITY_NATIVE_RESULT_SUCCESSFUL} if the operation is successful.\n         Returns {@link ARKUI_ACCESSIBILITY_NATIVE_RESULT_BAD_PARAMETER} if a parameter is incorrect.\n @since 13"]
     pub fn OH_ArkUI_AccessibilityElementInfoSetEnabled(
         elementInfo: *mut ArkUI_AccessibilityElementInfo,
         isEnabled: bool,
     ) -> i32;
 }
 extern "C" {
+    #[doc = " @brief Sets whether the element is a password for an <b>ArkUI_AccessibilityElementInfo</b> object.\n\n @param elementInfo Indicates the pointer to an <b>ArkUI_AccessibilityElementInfo</b> object.\n @param isPassword Indicates whether the element is a password.\n @return Returns {@link ARKUI_ACCESSIBILITY_NATIVE_RESULT_SUCCESSFUL} if the operation is successful.\n         Returns {@link ARKUI_ACCESSIBILITY_NATIVE_RESULT_BAD_PARAMETER} if a parameter is incorrect.\n @since 13"]
     pub fn OH_ArkUI_AccessibilityElementInfoSetIsPassword(
         elementInfo: *mut ArkUI_AccessibilityElementInfo,
         isPassword: bool,
     ) -> i32;
 }
 extern "C" {
+    #[doc = " @brief Sets whether the element is scrollable for an <b>ArkUI_AccessibilityElementInfo</b> object.\n\n @param elementInfo Indicates the pointer to an <b>ArkUI_AccessibilityElementInfo</b> object.\n @param scrollable Indicates whether the element is scrollable.\n @return Returns {@link ARKUI_ACCESSIBILITY_NATIVE_RESULT_SUCCESSFUL} if the operation is successful.\n         Returns {@link ARKUI_ACCESSIBILITY_NATIVE_RESULT_BAD_PARAMETER} if a parameter is incorrect.\n @since 13"]
     pub fn OH_ArkUI_AccessibilityElementInfoSetScrollable(
         elementInfo: *mut ArkUI_AccessibilityElementInfo,
         scrollable: bool,
     ) -> i32;
 }
 extern "C" {
+    #[doc = " @brief Sets whether the element is editable for an <b>ArkUI_AccessibilityElementInfo</b> object.\n\n @param elementInfo Indicates the pointer to an <b>ArkUI_AccessibilityElementInfo</b> object.\n @param editable Indicates whether the element is editable.\n @return Returns {@link ARKUI_ACCESSIBILITY_NATIVE_RESULT_SUCCESSFUL} if the operation is successful.\n         Returns {@link ARKUI_ACCESSIBILITY_NATIVE_RESULT_BAD_PARAMETER} if a parameter is incorrect.\n @since 13"]
     pub fn OH_ArkUI_AccessibilityElementInfoSetEditable(
         elementInfo: *mut ArkUI_AccessibilityElementInfo,
         editable: bool,
     ) -> i32;
 }
 extern "C" {
+    #[doc = " @brief Sets whether the element is a hint for an <b>ArkUI_AccessibilityElementInfo</b> object.\n\n @param elementInfo Indicates the pointer to an <b>ArkUI_AccessibilityElementInfo</b> object.\n @param isHint Indicates whether the element is a hint.\n @return Returns {@link ARKUI_ACCESSIBILITY_NATIVE_RESULT_SUCCESSFUL} if the operation is successful.\n         Returns {@link ARKUI_ACCESSIBILITY_NATIVE_RESULT_BAD_PARAMETER} if a parameter is incorrect.\n @since 13"]
     pub fn OH_ArkUI_AccessibilityElementInfoSetIsHint(
         elementInfo: *mut ArkUI_AccessibilityElementInfo,
         isHint: bool,
     ) -> i32;
 }
 extern "C" {
+    #[doc = " @brief Sets the range information for an <b>ArkUI_AccessibilityElementInfo</b> object.\n\n @param elementInfo Indicates the pointer to an <b>ArkUI_AccessibilityElementInfo</b> object.\n @param rangeInfo Indicates the range information.\n @return Returns {@link ARKUI_ACCESSIBILITY_NATIVE_RESULT_SUCCESSFUL} if the operation is successful.\n         Returns {@link ARKUI_ACCESSIBILITY_NATIVE_RESULT_BAD_PARAMETER} if a parameter is incorrect.\n @since 13"]
     pub fn OH_ArkUI_AccessibilityElementInfoSetRangeInfo(
         elementInfo: *mut ArkUI_AccessibilityElementInfo,
         rangeInfo: *mut ArkUI_AccessibleRangeInfo,
     ) -> i32;
 }
 extern "C" {
+    #[doc = " @brief Sets the grid information for an <b>ArkUI_AccessibilityElementInfo</b> object.\n\n @param elementInfo Indicates the pointer to an <b>ArkUI_AccessibilityElementInfo</b> object.\n @param gridInfo Indicates the grid information.\n @return Returns {@link ARKUI_ACCESSIBILITY_NATIVE_RESULT_SUCCESSFUL} if the operation is successful.\n         Returns {@link ARKUI_ACCESSIBILITY_NATIVE_RESULT_BAD_PARAMETER} if a parameter is incorrect.\n @since 13"]
     pub fn OH_ArkUI_AccessibilityElementInfoSetGridInfo(
         elementInfo: *mut ArkUI_AccessibilityElementInfo,
         gridInfo: *mut ArkUI_AccessibleGridInfo,
     ) -> i32;
 }
 extern "C" {
+    #[doc = " @brief Sets the grid item for an <b>ArkUI_AccessibilityElementInfo</b> object.\n\n @param elementInfo Indicates the pointer to an <b>ArkUI_AccessibilityElementInfo</b> object.\n @param gridItem Indicates the grid item.\n @return Returns {@link ARKUI_ACCESSIBILITY_NATIVE_RESULT_SUCCESSFUL} if the operation is successful.\n         Returns {@link ARKUI_ACCESSIBILITY_NATIVE_RESULT_BAD_PARAMETER} if a parameter is incorrect.\n @since 13"]
     pub fn OH_ArkUI_AccessibilityElementInfoSetGridItemInfo(
         elementInfo: *mut ArkUI_AccessibilityElementInfo,
         gridItem: *mut ArkUI_AccessibleGridItemInfo,
     ) -> i32;
 }
 extern "C" {
+    #[doc = " @brief Sets the starting index of the selected text for an <b>ArkUI_AccessibilityElementInfo</b> object.\n\n @param elementInfo Indicates the pointer to an <b>ArkUI_AccessibilityElementInfo</b> object.\n @param selectedTextStart Indicates the starting index of the selected text\n @return Returns {@link ARKUI_ACCESSIBILITY_NATIVE_RESULT_SUCCESSFUL} if the operation is successful.\n         Returns {@link ARKUI_ACCESSIBILITY_NATIVE_RESULT_BAD_PARAMETER} if a parameter is incorrect.\n @since 13"]
     pub fn OH_ArkUI_AccessibilityElementInfoSetSelectedTextStart(
         elementInfo: *mut ArkUI_AccessibilityElementInfo,
         selectedTextStart: i32,
     ) -> i32;
 }
 extern "C" {
+    #[doc = " @brief Sets the end index of the selected text for an <b>ArkUI_AccessibilityElementInfo</b> object.\n\n @param elementInfo Indicates the pointer to an <b>ArkUI_AccessibilityElementInfo</b> object.\n @param selectedTextEnd Indicates the end index of the selected text\n @return Returns {@link ARKUI_ACCESSIBILITY_NATIVE_RESULT_SUCCESSFUL} if the operation is successful.\n         Returns {@link ARKUI_ACCESSIBILITY_NATIVE_RESULT_BAD_PARAMETER} if a parameter is incorrect.\n @since 13"]
     pub fn OH_ArkUI_AccessibilityElementInfoSetSelectedTextEnd(
         elementInfo: *mut ArkUI_AccessibilityElementInfo,
         selectedTextEnd: i32,
     ) -> i32;
 }
 extern "C" {
+    #[doc = " @brief Sets the index of the currently selected item for an <b>ArkUI_AccessibilityElementInfo</b> object.\n\n @param elementInfo Indicates the pointer to an <b>ArkUI_AccessibilityElementInfo</b> object.\n @param currentItemIndex Indicates the index of the currently selected item.\n @return Returns {@link ARKUI_ACCESSIBILITY_NATIVE_RESULT_SUCCESSFUL} if the operation is successful.\n         Returns {@link ARKUI_ACCESSIBILITY_NATIVE_RESULT_BAD_PARAMETER} if a parameter is incorrect.\n @since 13"]
     pub fn OH_ArkUI_AccessibilityElementInfoSetCurrentItemIndex(
         elementInfo: *mut ArkUI_AccessibilityElementInfo,
         currentItemIndex: i32,
     ) -> i32;
 }
 extern "C" {
+    #[doc = " @brief Sets the index of the first item for an <b>ArkUI_AccessibilityElementInfo</b> object.\n\n @param elementInfo Indicates the pointer to an <b>ArkUI_AccessibilityElementInfo</b> object.\n @param startItemIndex Indicates the index of the first item.\n @return Returns {@link ARKUI_ACCESSIBILITY_NATIVE_RESULT_SUCCESSFUL} if the operation is successful.\n         Returns {@link ARKUI_ACCESSIBILITY_NATIVE_RESULT_BAD_PARAMETER} if a parameter is incorrect.\n @since 13"]
     pub fn OH_ArkUI_AccessibilityElementInfoSetStartItemIndex(
         elementInfo: *mut ArkUI_AccessibilityElementInfo,
         startItemIndex: i32,
     ) -> i32;
 }
 extern "C" {
+    #[doc = " @brief Sets the index of the last item for an <b>ArkUI_AccessibilityElementInfo</b> object.\n\n @param elementInfo Indicates the pointer to an <b>ArkUI_AccessibilityElementInfo</b> object.\n @param endItemIndex Indicates the index of the last item.\n @return Returns {@link ARKUI_ACCESSIBILITY_NATIVE_RESULT_SUCCESSFUL} if the operation is successful.\n         Returns {@link ARKUI_ACCESSIBILITY_NATIVE_RESULT_BAD_PARAMETER} if a parameter is incorrect.\n @since 13"]
     pub fn OH_ArkUI_AccessibilityElementInfoSetEndItemIndex(
         elementInfo: *mut ArkUI_AccessibilityElementInfo,
         endItemIndex: i32,
     ) -> i32;
 }
 extern "C" {
+    #[doc = " @brief Sets the number of items for an <b>ArkUI_AccessibilityElementInfo</b> object.\n\n @param elementInfo Indicates the pointer to an <b>ArkUI_AccessibilityElementInfo</b> object.\n @param itemCount Indicates the number of items.\n @return Returns {@link ARKUI_ACCESSIBILITY_NATIVE_RESULT_SUCCESSFUL} if the operation is successful.\n         Returns {@link ARKUI_ACCESSIBILITY_NATIVE_RESULT_BAD_PARAMETER} if a parameter is incorrect.\n @since 13"]
     pub fn OH_ArkUI_AccessibilityElementInfoSetItemCount(
         elementInfo: *mut ArkUI_AccessibilityElementInfo,
         itemCount: i32,
     ) -> i32;
 }
 extern "C" {
+    #[doc = " @brief Sets the offset for an <b>ArkUI_AccessibilityElementInfo</b> object.\n\n @param elementInfo Indicates the pointer to an <b>ArkUI_AccessibilityElementInfo</b> object.\n @param offset Indicates the scroll pixel offset relative to the top of the element.\n @return Returns {@link ARKUI_ACCESSIBILITY_NATIVE_RESULT_SUCCESSFUL} if the operation is successful.\n         Returns {@link ARKUI_ACCESSIBILITY_NATIVE_RESULT_BAD_PARAMETER} if a parameter is incorrect.\n @since 13"]
     pub fn OH_ArkUI_AccessibilityElementInfoSetAccessibilityOffset(
         elementInfo: *mut ArkUI_AccessibilityElementInfo,
         offset: i32,
     ) -> i32;
 }
 extern "C" {
+    #[doc = " @brief Sets the accessibility group for an <b>ArkUI_AccessibilityElementInfo</b> object.\n\n @param elementInfo Indicates the pointer to an <b>ArkUI_AccessibilityElementInfo</b> object.\n @param accessibilityGroup Indicates the accessibility group.\n @return Returns {@link ARKUI_ACCESSIBILITY_NATIVE_RESULT_SUCCESSFUL} if the operation is successful.\n         Returns {@link ARKUI_ACCESSIBILITY_NATIVE_RESULT_BAD_PARAMETER} if a parameter is incorrect.\n @since 13"]
     pub fn OH_ArkUI_AccessibilityElementInfoSetAccessibilityGroup(
         elementInfo: *mut ArkUI_AccessibilityElementInfo,
         accessibilityGroup: bool,
     ) -> i32;
 }
 extern "C" {
+    #[doc = " @brief Sets the accessibility level for an <b>ArkUI_AccessibilityElementInfo</b> object.\n\n @param elementInfo Indicates the pointer to an <b>ArkUI_AccessibilityElementInfo</b> object.\n @param accessibilityLevel Indicates the accessibility level.\n @return Returns {@link ARKUI_ACCESSIBILITY_NATIVE_RESULT_SUCCESSFUL} if the operation is successful.\n         Returns {@link ARKUI_ACCESSIBILITY_NATIVE_RESULT_BAD_PARAMETER} if a parameter is incorrect.\n @since 13"]
     pub fn OH_ArkUI_AccessibilityElementInfoSetAccessibilityLevel(
         elementInfo: *mut ArkUI_AccessibilityElementInfo,
         accessibilityLevel: *const ::std::os::raw::c_char,
     ) -> i32;
 }
 extern "C" {
+    #[doc = " @brief Sets the z-index for an <b>ArkUI_AccessibilityElementInfo</b> object.\n\n @param elementInfo Indicates the pointer to an <b>ArkUI_AccessibilityElementInfo</b> object.\n @param zIndex Indicates the z-index value.\n @return Returns {@link ARKUI_ACCESSIBILITY_NATIVE_RESULT_SUCCESSFUL} if the operation is successful.\n         Returns {@link ARKUI_ACCESSIBILITY_NATIVE_RESULT_BAD_PARAMETER} if a parameter is incorrect.\n @since 13"]
     pub fn OH_ArkUI_AccessibilityElementInfoSetZIndex(
         elementInfo: *mut ArkUI_AccessibilityElementInfo,
         zIndex: i32,
     ) -> i32;
 }
 extern "C" {
+    #[doc = " @brief Sets the opacity for an <b>ArkUI_AccessibilityElementInfo</b> object.\n\n @param elementInfo Indicates the pointer to an <b>ArkUI_AccessibilityElementInfo</b> object.\n @param opacity Indicates the opacity.\n @return Returns {@link ARKUI_ACCESSIBILITY_NATIVE_RESULT_SUCCESSFUL} if the operation is successful.\n         Returns {@link ARKUI_ACCESSIBILITY_NATIVE_RESULT_BAD_PARAMETER} if a parameter is incorrect.\n @since 13"]
     pub fn OH_ArkUI_AccessibilityElementInfoSetAccessibilityOpacity(
         elementInfo: *mut ArkUI_AccessibilityElementInfo,
         opacity: f32,
     ) -> i32;
 }
 extern "C" {
+    #[doc = " @brief Sets the background color for an <b>ArkUI_AccessibilityElementInfo</b> object.\n\n @param elementInfo Indicates the pointer to an <b>ArkUI_AccessibilityElementInfo</b> object.\n @param backgroundColor Indicates the background color.\n @return Returns {@link ARKUI_ACCESSIBILITY_NATIVE_RESULT_SUCCESSFUL} if the operation is successful.\n         Returns {@link ARKUI_ACCESSIBILITY_NATIVE_RESULT_BAD_PARAMETER} if a parameter is incorrect.\n @since 13"]
     pub fn OH_ArkUI_AccessibilityElementInfoSetBackgroundColor(
         elementInfo: *mut ArkUI_AccessibilityElementInfo,
         backgroundColor: *const ::std::os::raw::c_char,
     ) -> i32;
 }
 extern "C" {
+    #[doc = " @brief Sets the background image for an <b>ArkUI_AccessibilityElementInfo</b> object.\n\n @param elementInfo Indicates the pointer to an <b>ArkUI_AccessibilityElementInfo</b> object.\n @param backgroundImage Indicates the backgroundImage.\n @return Returns {@link ARKUI_ACCESSIBILITY_NATIVE_RESULT_SUCCESSFUL} if the operation is successful.\n         Returns {@link ARKUI_ACCESSIBILITY_NATIVE_RESULT_BAD_PARAMETER} if a parameter is incorrect.\n @since 13"]
     pub fn OH_ArkUI_AccessibilityElementInfoSetBackgroundImage(
         elementInfo: *mut ArkUI_AccessibilityElementInfo,
         backgroundImage: *const ::std::os::raw::c_char,
     ) -> i32;
 }
 extern "C" {
+    #[doc = " @brief Sets the blur effect for an <b>ArkUI_AccessibilityElementInfo</b> object.\n\n @param elementInfo Indicates the pointer to an <b>ArkUI_AccessibilityElementInfo</b> object.\n @param blur Indicates the blur effect.\n @return Returns {@link ARKUI_ACCESSIBILITY_NATIVE_RESULT_SUCCESSFUL} if the operation is successful.\n         Returns {@link ARKUI_ACCESSIBILITY_NATIVE_RESULT_BAD_PARAMETER} if a parameter is incorrect.\n @since 13"]
     pub fn OH_ArkUI_AccessibilityElementInfoSetBlur(
         elementInfo: *mut ArkUI_AccessibilityElementInfo,
         blur: *const ::std::os::raw::c_char,
     ) -> i32;
 }
 extern "C" {
+    #[doc = " @brief Sets the hit test behavior for an <b>ArkUI_AccessibilityElementInfo</b> object.\n\n @param elementInfo Indicates the pointer to an <b>ArkUI_AccessibilityElementInfo</b> object.\n @param hitTestBehavior Indicates the hit test behavior.\n @return Returns {@link ARKUI_ACCESSIBILITY_NATIVE_RESULT_SUCCESSFUL} if the operation is successful.\n         Returns {@link ARKUI_ACCESSIBILITY_NATIVE_RESULT_BAD_PARAMETER} if a parameter is incorrect.\n @since 13"]
     pub fn OH_ArkUI_AccessibilityElementInfoSetHitTestBehavior(
         elementInfo: *mut ArkUI_AccessibilityElementInfo,
         hitTestBehavior: *const ::std::os::raw::c_char,
     ) -> i32;
 }
 extern "C" {
+    #[doc = " @brief Creates an <b>ArkUI_AccessibilityElementInfo</b> object.\n\n @return Returns the <b>ArkUI_AccessibilityElementInfo</b> object, or NULL if it fails to create.\n         The possible reason for failure is that the memory error occurred during object creation.\n @since 13\n @version 1.0"]
     pub fn OH_ArkUI_CreateAccessibilityElementInfo() -> *mut ArkUI_AccessibilityElementInfo;
 }
 extern "C" {
+    #[doc = " @brief Destroys an <b>ArkUI_AccessibilityElementInfo</b> object.\n\n @param elementInfo Indicates the pointer to the <b>ArkUI_AccessibilityElementInfo</b> object to destroy.\n @since 13\n @version 1.0"]
     pub fn OH_ArkUI_DestoryAccessibilityElementInfo(
         elementInfo: *mut ArkUI_AccessibilityElementInfo,
     );
 }
 extern "C" {
+    #[doc = " @brief Creates an <b>ArkUI_AccessibilityEventInfo</b> object.\n\n @return Returns the <b>ArkUI_AccessibilityEventInfo</b> object, or NULL if it fails to create.\n         The possible reason for failure is that the memory error occurred during object creation.\n @since 13"]
     pub fn OH_ArkUI_CreateAccessibilityEventInfo() -> *mut ArkUI_AccessibilityEventInfo;
 }
 extern "C" {
+    #[doc = " @brief Destroys an <b>ArkUI_AccessibilityEventInfo</b> object.\n\n @param eventInfo Indicates the pointer to the <b>ArkUI_AccessibilityEventInfo</b> object to destroy.\n @since 13"]
     pub fn OH_ArkUI_DestoryAccessibilityEventInfo(eventInfo: *mut ArkUI_AccessibilityEventInfo);
 }
 extern "C" {
+    #[doc = " @brief Sets the event type for an <b>ArkUI_AccessibilityEventInfo</b> object.\n\n @param eventInfo Indicates the pointer to an <b>ArkUI_AccessibilityEventInfo</b> object.\n @param eventType Indicates the event type.\n @return Returns {@link ARKUI_ACCESSIBILITY_NATIVE_RESULT_SUCCESSFUL} if the operation is successful.\n         Returns {@link ARKUI_ACCESSIBILITY_NATIVE_RESULT_BAD_PARAMETER} if a parameter is incorrect.\n @since 13"]
     pub fn OH_ArkUI_AccessibilityEventSetEventType(
         eventInfo: *mut ArkUI_AccessibilityEventInfo,
         eventType: ArkUI_AccessibilityEventType,
     ) -> i32;
 }
 extern "C" {
+    #[doc = " @brief Sets the text announced for accessibility for an <b>ArkUI_AccessibilityEventInfo</b> object.\n\n @param eventInfo Indicates the pointer to an <b>ArkUI_AccessibilityEventInfo</b> object.\n @param textAnnouncedForAccessibility Indicates the text announced for accessibility.\n @return Returns {@link ARKUI_ACCESSIBILITY_NATIVE_RESULT_SUCCESSFUL} if the operation is successful.\n         Returns {@link ARKUI_ACCESSIBILITY_NATIVE_RESULT_BAD_PARAMETER} if a parameter is incorrect.\n @since 13"]
     pub fn OH_ArkUI_AccessibilityEventSetTextAnnouncedForAccessibility(
         eventInfo: *mut ArkUI_AccessibilityEventInfo,
         textAnnouncedForAccessibility: *const ::std::os::raw::c_char,
     ) -> i32;
 }
 extern "C" {
+    #[doc = " @brief Sets the request focus ID for an <b>ArkUI_AccessibilityEventInfo</b> object.\n\n @param eventInfo Indicates the pointer to an <b>ArkUI_AccessibilityEventInfo</b> object.\n @param requestFocusId Indicates the request focus ID.\n @return Returns {@link ARKUI_ACCESSIBILITY_NATIVE_RESULT_SUCCESSFUL} if the operation is successful.\n         Returns {@link ARKUI_ACCESSIBILITY_NATIVE_RESULT_BAD_PARAMETER} if a parameter is incorrect.\n @since 13"]
     pub fn OH_ArkUI_AccessibilityEventSetRequestFocusId(
         eventInfo: *mut ArkUI_AccessibilityEventInfo,
         requestFocusId: i32,
     ) -> i32;
 }
 extern "C" {
+    #[doc = " @brief Sets the element information for an <b>ArkUI_AccessibilityEventInfo</b> object.\n\n @param eventInfo Indicates the pointer to an <b>ArkUI_AccessibilityEventInfo</b> object.\n @param elementInfo Indicates the pointer to an <b>ArkUI_AccessibilityElementInfo</b> object.\n @return Returns {@link ARKUI_ACCESSIBILITY_NATIVE_RESULT_SUCCESSFUL} if the operation is successful.\n         Returns {@link ARKUI_ACCESSIBILITY_NATIVE_RESULT_BAD_PARAMETER} if a parameter is incorrect.\n @since 13"]
     pub fn OH_ArkUI_AccessibilityEventSetElementInfo(
         eventInfo: *mut ArkUI_AccessibilityEventInfo,
         elementInfo: *mut ArkUI_AccessibilityElementInfo,
     ) -> i32;
 }
 extern "C" {
+    #[doc = " @brief Obtains the value of a key from an <b>ArkUI_AccessibilityActionArguments</b> object.\n\n @param arguments Indicates the pointer to an <b>ArkUI_AccessibilityActionArguments</b> object.\n @param key Indicates the key.\n @param value Indicates the value.\n @return Returns {@link ARKUI_ACCESSIBILITY_NATIVE_RESULT_SUCCESSFUL} if the operation is successful.\n         Returns {@link ARKUI_ACCESSIBILITY_NATIVE_RESULT_BAD_PARAMETER} if a parameter is incorrect.\n @since 13"]
     pub fn OH_ArkUI_FindAccessibilityActionArgumentByKey(
         arguments: *mut ArkUI_AccessibilityActionArguments,
         key: *const ::std::os::raw::c_char,
         value: *mut *mut ::std::os::raw::c_char,
     ) -> i32;
 }
+#[doc = " @brief Introduces the native pixel map information defined by Image Kit.\n\n @since 12"]
 #[repr(C)]
 #[derive(Debug, Copy, Clone)]
 pub struct OH_PixelmapNative {
     _unused: [u8; 0],
 }
+#[doc = " @brief Defines the pointer to OH_PixelmapNative.\n\n @since 12"]
 pub type OH_PixelmapNativeHandle = *mut OH_PixelmapNative;
 extern "C" {
+    #[doc = " @brief Creates a DrawableDescriptor from a Pixelmap.\n\n @param pixelMap Indicates the pointer to a Pixelmap\n @return Returns the pointer to the drawableDescriptor.\n @since 12"]
     pub fn OH_ArkUI_DrawableDescriptor_CreateFromPixelMap(
         pixelMap: OH_PixelmapNativeHandle,
     ) -> *mut ArkUI_DrawableDescriptor;
 }
 extern "C" {
+    #[doc = " @brief Creates a DrawableDescriptor from a Pixelmap array.\n\n @param array Indicates the pointer to a Pixelmap array.\n @param size Indicates the size of the Pixelmap array.\n @return Returns the pointer to the drawableDescriptor.\n @since 12"]
     pub fn OH_ArkUI_DrawableDescriptor_CreateFromAnimatedPixelMap(
         array: *mut OH_PixelmapNativeHandle,
         size: i32,
     ) -> *mut ArkUI_DrawableDescriptor;
 }
 extern "C" {
+    #[doc = " @brief Destroys the pointer to the drawableDescriptor.\n\n @param drawableDescriptor Indicates the pointer to the drawableDescriptor.\n @since 12"]
     pub fn OH_ArkUI_DrawableDescriptor_Dispose(drawableDescriptor: *mut ArkUI_DrawableDescriptor);
 }
 extern "C" {
+    #[doc = " @brief Obtains the Pixelmap object.\n\n @param drawableDescriptor Indicates the pointer to the drawableDescriptor.\n @return Returns the pointer to the PixelMap.\n @since 12"]
     pub fn OH_ArkUI_DrawableDescriptor_GetStaticPixelMap(
         drawableDescriptor: *mut ArkUI_DrawableDescriptor,
     ) -> OH_PixelmapNativeHandle;
 }
 extern "C" {
+    #[doc = " @brief Obtains the Pixelmap array used to play the animation.\n\n @param drawableDescriptor Indicates the pointer to the drawableDescriptor.\n @return Returns the pointer to the PixelMap array.\n @since 12"]
     pub fn OH_ArkUI_DrawableDescriptor_GetAnimatedPixelMapArray(
         drawableDescriptor: *mut ArkUI_DrawableDescriptor,
     ) -> *mut OH_PixelmapNativeHandle;
 }
 extern "C" {
+    #[doc = " @brief Obtains the size of the Pixelmap array used to play the animation.\n\n @param drawableDescriptor Indicates the pointer to the drawableDescriptor.\n @return Returns the size of the Pixelmap array.\n @since 12"]
     pub fn OH_ArkUI_DrawableDescriptor_GetAnimatedPixelMapArraySize(
         drawableDescriptor: *mut ArkUI_DrawableDescriptor,
     ) -> i32;
 }
 extern "C" {
+    #[doc = " @brief Sets the total playback duration.\n\n @param drawableDescriptor Indicates the pointer to the drawableDescriptor.\n @param duration Indicates the total playback duration. The unit is millisecond.\n @since 12"]
     pub fn OH_ArkUI_DrawableDescriptor_SetAnimationDuration(
         drawableDescriptor: *mut ArkUI_DrawableDescriptor,
         duration: i32,
     );
 }
 extern "C" {
+    #[doc = " @brief Obtains the total playback duration.\n\n @param drawableDescriptor Indicates the pointer to the drawableDescriptor.\n @return Return the total playback duration. The unit is millisecond.\n @since 12"]
     pub fn OH_ArkUI_DrawableDescriptor_GetAnimationDuration(
         drawableDescriptor: *mut ArkUI_DrawableDescriptor,
     ) -> i32;
 }
 extern "C" {
+    #[doc = " @brief Sets the number of playback times.\n\n @param drawableDescriptor Indicates the pointer to the drawableDescriptor.\n @param iterations Indicates the number of playback times.\n @since 12"]
     pub fn OH_ArkUI_DrawableDescriptor_SetAnimationIteration(
         drawableDescriptor: *mut ArkUI_DrawableDescriptor,
         iteration: i32,
     );
 }
 extern "C" {
+    #[doc = " @brief Obtains the number of playback times.\n\n @param drawableDescriptor Indicates the pointer to the drawableDescriptor.\n @return Returns the number of playback times.\n @since 12"]
     pub fn OH_ArkUI_DrawableDescriptor_GetAnimationIteration(
         drawableDescriptor: *mut ArkUI_DrawableDescriptor,
     ) -> i32;
 }
 extern "C" {
+    #[doc = " @brief Creates a size constraint.\n\n @since 12"]
     pub fn OH_ArkUI_LayoutConstraint_Create() -> *mut ArkUI_LayoutConstraint;
 }
 extern "C" {
+    #[doc = " @brief Creates a deep copy of a size constraint.\n\n @param Constraint Indicates the pointer to the size constraint.\n @return Returns the pointer to the new size constraint.\n @since 12"]
     pub fn OH_ArkUI_LayoutConstraint_Copy(
         Constraint: *const ArkUI_LayoutConstraint,
     ) -> *mut ArkUI_LayoutConstraint;
 }
 extern "C" {
+    #[doc = " @brief Destroys the pointer to a size constraint.\n\n @param Constraint Indicates the pointer to the size constraint.\n @since 12"]
     pub fn OH_ArkUI_LayoutConstraint_Dispose(
         Constraint: *mut ArkUI_LayoutConstraint,
     ) -> *mut ::std::os::raw::c_void;
 }
 extern "C" {
+    #[doc = " @brief Obtains the maximum width for a size constraint, in px.\n\n @param Constraint Indicates the pointer to the size constraint.\n @return Returns the maximum width.\n @since 12"]
     pub fn OH_ArkUI_LayoutConstraint_GetMaxWidth(Constraint: *const ArkUI_LayoutConstraint) -> i32;
 }
 extern "C" {
+    #[doc = " @brief Obtains the minimum width for a size constraint, in px.\n\n @param Constraint Indicates the pointer to the size constraint.\n @return Returns the minimum width.\n @since 12"]
     pub fn OH_ArkUI_LayoutConstraint_GetMinWidth(Constraint: *const ArkUI_LayoutConstraint) -> i32;
 }
 extern "C" {
+    #[doc = " @brief Obtains the maximum height for a size constraint, in px.\n\n @param Constraint Indicates the pointer to the size constraint.\n @return Returns the maximum height.\n @since 12"]
     pub fn OH_ArkUI_LayoutConstraint_GetMaxHeight(Constraint: *const ArkUI_LayoutConstraint)
         -> i32;
 }
 extern "C" {
+    #[doc = " @brief Obtains the minimum height for a size constraint, in px.\n\n @param Constraint Indicates the pointer to the size constraint.\n @return Returns the minimum height.\n @since 12"]
     pub fn OH_ArkUI_LayoutConstraint_GetMinHeight(Constraint: *const ArkUI_LayoutConstraint)
         -> i32;
 }
 extern "C" {
+    #[doc = " @brief Obtains the width percentage reference for a size constraint, in px.\n\n @param Constraint Indicates the pointer to the size constraint.\n @return Returns the width percentage reference.\n @since 12"]
     pub fn OH_ArkUI_LayoutConstraint_GetPercentReferenceWidth(
         Constraint: *const ArkUI_LayoutConstraint,
     ) -> i32;
 }
 extern "C" {
+    #[doc = " @brief Obtains the height percentage reference for a size constraint, in px.\n\n @param Constraint Indicates the pointer to the size constraint.\n @return Returns the height percentage reference.\n @since 12"]
     pub fn OH_ArkUI_LayoutConstraint_GetPercentReferenceHeight(
         Constraint: *const ArkUI_LayoutConstraint,
     ) -> i32;
 }
 extern "C" {
+    #[doc = " @brief Sets the maximum width.\n\n @param Constraint Indicates the pointer to the size constraint.\n @param value Indicates the maximum width, in px.\n @since 12"]
     pub fn OH_ArkUI_LayoutConstraint_SetMaxWidth(
         Constraint: *mut ArkUI_LayoutConstraint,
         value: i32,
     );
 }
 extern "C" {
+    #[doc = " @brief Sets the minimum width.\n\n @param Constraint Indicates the pointer to the size constraint.\n @param value Indicates the minimum width, in px.\n @since 12"]
     pub fn OH_ArkUI_LayoutConstraint_SetMinWidth(
         Constraint: *mut ArkUI_LayoutConstraint,
         value: i32,
     );
 }
 extern "C" {
+    #[doc = " @brief Sets the maximum height.\n\n @param Constraint Indicates the pointer to the size constraint.\n @param value Indicates the maximum height, in px.\n @since 12"]
     pub fn OH_ArkUI_LayoutConstraint_SetMaxHeight(
         Constraint: *mut ArkUI_LayoutConstraint,
         value: i32,
     );
 }
 extern "C" {
+    #[doc = " @brief Sets the minimum height.\n\n @param Constraint Indicates the pointer to the size constraint.\n @param value Indicates the minimum height, in px.\n @since 12"]
     pub fn OH_ArkUI_LayoutConstraint_SetMinHeight(
         Constraint: *mut ArkUI_LayoutConstraint,
         value: i32,
     );
 }
 extern "C" {
+    #[doc = " @brief Sets the width percentage reference.\n\n @param Constraint Indicates the pointer to the size constraint.\n @param value Indicates the width percentage reference, in px.\n @since 12"]
     pub fn OH_ArkUI_LayoutConstraint_SetPercentReferenceWidth(
         Constraint: *mut ArkUI_LayoutConstraint,
         value: i32,
     );
 }
 extern "C" {
+    #[doc = " @brief Sets the height percentage reference.\n\n @param Constraint Indicates the pointer to the size constraint.\n @param value Indicates the height percentage reference, in px.\n @since 12"]
     pub fn OH_ArkUI_LayoutConstraint_SetPercentReferenceHeight(
         Constraint: *mut ArkUI_LayoutConstraint,
         value: i32,
     );
 }
 extern "C" {
+    #[doc = " @brief Obtains the pointer to a canvas for drawing, which can be converted into the <b>OH_Drawing_Canvas</b> pointer\n in the <b>Drawing</b> module.\n\n @param context Indicates the pointer to the drawing context.\n @return Returns the pointer to the canvas for drawing.\n @since 12"]
     pub fn OH_ArkUI_DrawContext_GetCanvas(
         context: *mut ArkUI_DrawContext,
     ) -> *mut ::std::os::raw::c_void;
 }
 extern "C" {
+    #[doc = " @brief Obtains the size of a drawing area.\n\n @param context Indicates the pointer to the drawing context.\n @return Returns the size of the drawing area.\n @since 12"]
     pub fn OH_ArkUI_DrawContext_GetSize(context: *mut ArkUI_DrawContext) -> ArkUI_IntSize;
 }
 extern "C" {
+    #[doc = " @brief Creates water flow section configuration.\n\n @return Returns the water flow section configuration.\n @since 12"]
     pub fn OH_ArkUI_WaterFlowSectionOption_Create() -> *mut ArkUI_WaterFlowSectionOption;
 }
 extern "C" {
+    #[doc = " @brief Destroys the pointer to a water flow section configuration.\n\n @param option Indicates the pointer to a water flow section configuration.\n @since 12"]
     pub fn OH_ArkUI_WaterFlowSectionOption_Dispose(option: *mut ArkUI_WaterFlowSectionOption);
 }
 extern "C" {
+    #[doc = " @brief Sets the FlowItem block configuration information array length.\n\n @param option FlowItem Indicates the packet configuration.\n @param size Array Length.\n @since 12"]
     pub fn OH_ArkUI_WaterFlowSectionOption_SetSize(
         option: *mut ArkUI_WaterFlowSectionOption,
         size: i32,
     );
 }
 extern "C" {
+    #[doc = " @brief Gets the FlowItem grouping configuration information array length.\n\n @param option FlowItem Indicates the packet configuration.\n @return Array size. If -1 is returned, the return fails.\n         The possible cause of the failure is that the option parameter is abnormal, such as a null pointer.\n @since 12"]
     pub fn OH_ArkUI_WaterFlowSectionOption_GetSize(
         option: *mut ArkUI_WaterFlowSectionOption,
     ) -> i32;
 }
 extern "C" {
+    #[doc = " @brief Sets the number of items in a water flow section.\n\n @param option Indicates the pointer to a water flow section configuration.\n @param index Indicates the index of the target water flow section.\n @param itemCount Indicates the number of items in the water flow section.\n @since 12"]
     pub fn OH_ArkUI_WaterFlowSectionOption_SetItemCount(
         option: *mut ArkUI_WaterFlowSectionOption,
         index: i32,
@@ -489,12 +577,14 @@ extern "C" {
     );
 }
 extern "C" {
+    #[doc = " @brief Obtains the number of items in the water flow section that matches the specified index.\n\n @param option Indicates the pointer to a water flow section configuration.\n @param index Indicates the index of the target water flow section.\n @return Returns the number of items in the water flow section.\n @since 12"]
     pub fn OH_ArkUI_WaterFlowSectionOption_GetItemCount(
         option: *mut ArkUI_WaterFlowSectionOption,
         index: i32,
     ) -> i32;
 }
 extern "C" {
+    #[doc = " @brief The FlowItem grouping configuration information getsthe spindle size of\n the specified Item based on flowItemIndex.\n\n @param option Indicates the pointer to a water flow section configuration.\n @param index Indicates the index of the target water flow section.\n @param callback Gets the spindle size of the specified Item based on index.\n @since 12"]
     pub fn OH_ArkUI_WaterFlowSectionOption_RegisterGetItemMainSizeCallbackByIndex(
         option: *mut ArkUI_WaterFlowSectionOption,
         index: i32,
@@ -502,6 +592,7 @@ extern "C" {
     );
 }
 extern "C" {
+    #[doc = " @brief The FlowItem grouping configuration information getsthe spindle size of\n the specified Item based on flowItemIndex.\n\n @param option Indicates the pointer to a water flow section configuration.\n @param index Indicates the index of the target water flow section.\n @param userData FlowItem Custom data.\n @param callback Gets the spindle size of the specified Item based on index.\n @since 12"]
     pub fn OH_ArkUI_WaterFlowSectionOption_RegisterGetItemMainSizeCallbackByIndexWithUserData(
         option: *mut ArkUI_WaterFlowSectionOption,
         index: i32,
@@ -512,6 +603,7 @@ extern "C" {
     );
 }
 extern "C" {
+    #[doc = " @brief Sets the number of columns (in a vertical layout) or rows (in a horizontal layout) of a water flow.\n\n @param option Indicates the pointer to a water flow section configuration.\n @param index Indicates the index of the target water flow section.\n @param crossCount Indicates the number of columns or rows, depending on the layout direction.\n @since 12"]
     pub fn OH_ArkUI_WaterFlowSectionOption_SetCrossCount(
         option: *mut ArkUI_WaterFlowSectionOption,
         index: i32,
@@ -519,12 +611,14 @@ extern "C" {
     );
 }
 extern "C" {
+    #[doc = " @brief Obtains the number of columns (in a vertical layout) or rows (in a horizontal layout) in the water flow section\n that matches the specified index.\n\n @param option Indicates the pointer to a water flow section configuration.\n @param index Indicates the index of the target water flow section.\n @return Returns the number of columns or rows.\n @since 12"]
     pub fn OH_ArkUI_WaterFlowSectionOption_GetCrossCount(
         option: *mut ArkUI_WaterFlowSectionOption,
         index: i32,
     ) -> i32;
 }
 extern "C" {
+    #[doc = " @brief Sets the gap between columns in the specified water flow section.\n\n @param option Indicates the pointer to a water flow section configuration.\n @param index Indicates the index of the target water flow section.\n @param columnGap Indicates the gap between columns to set.\n @since 12"]
     pub fn OH_ArkUI_WaterFlowSectionOption_SetColumnGap(
         option: *mut ArkUI_WaterFlowSectionOption,
         index: i32,
@@ -532,12 +626,14 @@ extern "C" {
     );
 }
 extern "C" {
+    #[doc = " @brief Obtains the gap between columns in the water flow section that matches the specified index.\n\n @param option Indicates the pointer to a water flow section configuration.\n @param index Indicates the index of the target water flow section.\n @return Returns the gap between columns.\n @since 12"]
     pub fn OH_ArkUI_WaterFlowSectionOption_GetColumnGap(
         option: *mut ArkUI_WaterFlowSectionOption,
         index: i32,
     ) -> f32;
 }
 extern "C" {
+    #[doc = " @brief Sets the gap between rows in the specified water flow section.\n\n @param option Indicates the pointer to a water flow section configuration.\n @param index Indicates the index of the target water flow section.\n @param rowGap Indicates the gap between rows to set.\n @since 12"]
     pub fn OH_ArkUI_WaterFlowSectionOption_SetRowGap(
         option: *mut ArkUI_WaterFlowSectionOption,
         index: i32,
@@ -545,12 +641,14 @@ extern "C" {
     );
 }
 extern "C" {
+    #[doc = " @brief Obtains the gap between rows in the water flow section that matches the specified index.\n\n @param option Indicates the pointer to a water flow section configuration.\n @param index Indicates the index of the target water flow section.\n @return Returns the gap between rows.\n @since 12"]
     pub fn OH_ArkUI_WaterFlowSectionOption_GetRowGap(
         option: *mut ArkUI_WaterFlowSectionOption,
         index: i32,
     ) -> f32;
 }
 extern "C" {
+    #[doc = " @brief Sets the margins for the specified water flow section.\n\n @param option Indicates the pointer to a water flow section configuration.\n @param index Indicates the index of the target water flow section.\n @param marginTop Indicates the top margin of the water flow section.\n @param marginRight Indicates the right margin of the water flow section.\n @param marginBottom Indicates the bottom margin of the water flow section.\n @param marginLeft Indicates the left margin of the water flow section.\n @since 12"]
     pub fn OH_ArkUI_WaterFlowSectionOption_SetMargin(
         option: *mut ArkUI_WaterFlowSectionOption,
         index: i32,
@@ -561,132 +659,162 @@ extern "C" {
     );
 }
 extern "C" {
+    #[doc = " @brief Obtains the margins of the water flow section that matches the specified index.\n\n @param option Indicates the pointer to a water flow section configuration.\n @param index Indicates the index of the target water flow section.\n @return Returns the margins.\n @since 12"]
     pub fn OH_ArkUI_WaterFlowSectionOption_GetMargin(
         option: *mut ArkUI_WaterFlowSectionOption,
         index: i32,
     ) -> ArkUI_Margin;
 }
 extern "C" {
+    #[doc = " @brief Creates a navigation indicator.\n\n @param type Indicates the type of the indicator.\n @return Returns the pointer to the new indicator.\n @since 12"]
     pub fn OH_ArkUI_SwiperIndicator_Create(
         type_: ArkUI_SwiperIndicatorType,
     ) -> *mut ArkUI_SwiperIndicator;
 }
 extern "C" {
+    #[doc = " @brief Destroys the pointer to the indicator.\n\n @param indicator Indicates the pointer to the indicator.\n @since 12"]
     pub fn OH_ArkUI_SwiperIndicator_Dispose(indicator: *mut ArkUI_SwiperIndicator);
 }
 extern "C" {
+    #[doc = " @brief Sets the distance between the navigation point and the start of the swiper.\n\n @param indicator Indicates the pointer to the indicator.\n @param value Indicates the distance between the navigation point and the start of the swiper.\n @since 12"]
     pub fn OH_ArkUI_SwiperIndicator_SetStartPosition(
         indicator: *mut ArkUI_SwiperIndicator,
         value: f32,
     );
 }
 extern "C" {
+    #[doc = " @brief Obtains the distance between the navigation point and the start of the swiper.\n\n @param indicator Indicates the pointer to the indicator.\n @return Returns the distance between the navigation point and the start of the swiper.\n @since 12"]
     pub fn OH_ArkUI_SwiperIndicator_GetStartPosition(indicator: *mut ArkUI_SwiperIndicator) -> f32;
 }
 extern "C" {
+    #[doc = " @brief Sets the distance between the navigation point and the top of the swiper.\n\n @param indicator Indicates the pointer to the indicator.\n @param value Indicates the distance between the navigation point and the top of the swiper.\n @since 12"]
     pub fn OH_ArkUI_SwiperIndicator_SetTopPosition(
         indicator: *mut ArkUI_SwiperIndicator,
         value: f32,
     );
 }
 extern "C" {
+    #[doc = " @brief Obtains the distance between the navigation point and the top of the swiper.\n\n @param indicator Indicates the pointer to the indicator.\n @return Returns the distance between the navigation point and the top of the swiper.\n @since 12"]
     pub fn OH_ArkUI_SwiperIndicator_GetTopPosition(indicator: *mut ArkUI_SwiperIndicator) -> f32;
 }
 extern "C" {
+    #[doc = " @brief Sets the distance between the navigation point and the right of the swiper.\n\n @param indicator Indicates the pointer to the indicator.\n @param value Indicates the distance between the navigation point and the right of the swiper.\n @since 12"]
     pub fn OH_ArkUI_SwiperIndicator_SetEndPosition(
         indicator: *mut ArkUI_SwiperIndicator,
         value: f32,
     );
 }
 extern "C" {
+    #[doc = " @brief Obtains the distance between the navigation point and the end of the swiper.\n\n @param indicator Indicates the pointer to the indicator.\n @return Returns the distance between the navigation point and the end of the swiper.\n @since 12"]
     pub fn OH_ArkUI_SwiperIndicator_GetEndPosition(indicator: *mut ArkUI_SwiperIndicator) -> f32;
 }
 extern "C" {
+    #[doc = " @brief Sets the distance between the navigation point and the bottom of the swiper.\n\n @param indicator Indicates the pointer to the indicator.\n @param value Indicates the distance between the navigation point and the bottom of the swiper.\n @since 12"]
     pub fn OH_ArkUI_SwiperIndicator_SetBottomPosition(
         indicator: *mut ArkUI_SwiperIndicator,
         value: f32,
     );
 }
 extern "C" {
+    #[doc = " @brief Obtains the distance between the navigation point and the bottom of the swiper.\n\n @param indicator Indicates the pointer to the indicator.\n @return Returns the distance between the navigation point and the bottom of the swiper.\n @since 12"]
     pub fn OH_ArkUI_SwiperIndicator_GetBottomPosition(indicator: *mut ArkUI_SwiperIndicator)
         -> f32;
 }
 extern "C" {
+    #[doc = " @brief Sets the width of the dot for the dot indicator.\n\n @param indicator Indicates the pointer to the indicator.\n @param value Indicates the width of the dot for the dot indicator.\n @since 12"]
     pub fn OH_ArkUI_SwiperIndicator_SetItemWidth(indicator: *mut ArkUI_SwiperIndicator, value: f32);
 }
 extern "C" {
+    #[doc = " @brief Obtains the width of the dot for the dot indicator.\n\n @param indicator Indicates the pointer to the indicator.\n @return Returns the width of the dot for the dot indicator.\n @since 12"]
     pub fn OH_ArkUI_SwiperIndicator_GetItemWidth(indicator: *mut ArkUI_SwiperIndicator) -> f32;
 }
 extern "C" {
+    #[doc = " @brief Sets the height of the dot for the dot indicator.\n\n @param indicator Indicates the pointer to the indicator.\n @param value Indicates the height of the dot for the dot indicator.\n @since 12"]
     pub fn OH_ArkUI_SwiperIndicator_SetItemHeight(
         indicator: *mut ArkUI_SwiperIndicator,
         value: f32,
     );
 }
 extern "C" {
+    #[doc = " @brief  Obtains the height of the dot for the dot indicator.\n\n @param indicator Indicates the pointer to the indicator.\n @return Returns the height of the dot for the dot indicator.\n @since 12"]
     pub fn OH_ArkUI_SwiperIndicator_GetItemHeight(indicator: *mut ArkUI_SwiperIndicator) -> f32;
 }
 extern "C" {
+    #[doc = " @brief Sets the width of the selected dot for the dot indicator.\n\n @param indicator Indicates the pointer to the indicator.\n @param value Indicates the width of the selected dot for the dot indicator.\n @since 12"]
     pub fn OH_ArkUI_SwiperIndicator_SetSelectedItemWidth(
         indicator: *mut ArkUI_SwiperIndicator,
         value: f32,
     );
 }
 extern "C" {
+    #[doc = " @brief  Obtains the width of the selected dot for the dot indicator.\n\n @param indicator Indicates the pointer to the indicator.\n @return Returns the width of the selected dot for the dot indicator.\n @since 12"]
     pub fn OH_ArkUI_SwiperIndicator_GetSelectedItemWidth(
         indicator: *mut ArkUI_SwiperIndicator,
     ) -> f32;
 }
 extern "C" {
+    #[doc = " @brief Sets the height of the selected dot for the dot indicator.\n\n @param indicator Indicates the pointer to the indicator.\n @param value Indicates the height of the selected dot for the dot indicator.\n @since 12"]
     pub fn OH_ArkUI_SwiperIndicator_SetSelectedItemHeight(
         indicator: *mut ArkUI_SwiperIndicator,
         value: f32,
     );
 }
 extern "C" {
+    #[doc = " @brief  Obtains the height of the selected dot for the dot indicator.\n\n @param indicator Indicates the pointer to the indicator.\n @return Returns the height of the selected dot for the dot indicator.\n @since 12"]
     pub fn OH_ArkUI_SwiperIndicator_GetSelectedItemHeight(
         indicator: *mut ArkUI_SwiperIndicator,
     ) -> f32;
 }
 extern "C" {
+    #[doc = " @brief Sets whether to display the mask style of the dot navigation indicator.\n\n @param indicator Indicates the pointer to the indicator.\n @param mask Whether to display the mask style. True means to display.\n @since 12"]
     pub fn OH_ArkUI_SwiperIndicator_SetMask(indicator: *mut ArkUI_SwiperIndicator, mask: i32);
 }
 extern "C" {
+    #[doc = " @brief Obtains whether to display the mask style of the dot navigation indicator.\n\n @param indicator Indicates the pointer to the indicator.\n @return Returns whether to display the mask style. True means to display.\n @since 12"]
     pub fn OH_ArkUI_SwiperIndicator_GetMask(indicator: *mut ArkUI_SwiperIndicator) -> i32;
 }
 extern "C" {
+    #[doc = " @brief Sets the color of the dot navigation indicator.\n\n @param indicator Indicates the pointer to the indicator.\n @param color the color of the dot navigation indicator, in 0xARGB format.\n @since 12"]
     pub fn OH_ArkUI_SwiperIndicator_SetColor(indicator: *mut ArkUI_SwiperIndicator, color: u32);
 }
 extern "C" {
+    #[doc = " @brief Obtains the color of the dot navigation indicator.\n\n @param indicator Indicates the pointer to the indicator.\n @return Returns the color of the dot navigation indicator, in 0xARGB format.\n @since 12"]
     pub fn OH_ArkUI_SwiperIndicator_GetColor(indicator: *mut ArkUI_SwiperIndicator) -> u32;
 }
 extern "C" {
+    #[doc = " @brief Sets the color of the selected dot for the navigation indicator.\n\n @param indicator Indicates the pointer to the indicator.\n @param color the color of the selected dot, in 0xARGB format.\n @since 12"]
     pub fn OH_ArkUI_SwiperIndicator_SetSelectedColor(
         indicator: *mut ArkUI_SwiperIndicator,
         selectedColor: u32,
     );
 }
 extern "C" {
+    #[doc = " @brief Obtains the color of the selected dot for the dot navigation indicator.\n\n @param indicator Indicates the pointer to the indicator.\n @return Returns the color of the selected dot, in 0xARGB format.\n @since 12"]
     pub fn OH_ArkUI_SwiperIndicator_GetSelectedColor(indicator: *mut ArkUI_SwiperIndicator) -> u32;
 }
 extern "C" {
+    #[doc = " @brief Sets the number of maxDisplayCount for the dot navigation indicator.\n\n @param indicator Indicates the pointer to the indicator.\n @param maxDisplayCount the maxDisplayCount of the navigation dot, span is 6-9.\n @return {@link ARKUI_ERROR_CODE_NO_ERROR} Success.\n         {@link ARKUI_ERROR_CODE_PARAM_INVALID} indicator is null or maxDisplayCount less then 6 or\n         maxDisplayCount more then 9\n @since 12"]
     pub fn OH_ArkUI_SwiperIndicator_SetMaxDisplayCount(
         indicator: *mut ArkUI_SwiperIndicator,
         maxDisplayCount: i32,
     ) -> i32;
 }
 extern "C" {
+    #[doc = " @brief Obtains the number of maxDisplayCount for the dot navigation indicator.\n\n @param indicator Indicates the pointer to the indicator.\n @return Returns the number of the maxDisplayCount, span is 6-9.\n         0 - indicator is null\n @since 12"]
     pub fn OH_ArkUI_SwiperIndicator_GetMaxDisplayCount(
         indicator: *mut ArkUI_SwiperIndicator,
     ) -> i32;
 }
 extern "C" {
+    #[doc = " @brief Create auxiliary line information in the RelativeContaine container.\n\n @param size The number of auxiliary lines.\n @return auxiliary line information.\n @since 12"]
     pub fn OH_ArkUI_GuidelineOption_Create(size: i32) -> *mut ArkUI_GuidelineOption;
 }
 extern "C" {
+    #[doc = " @brief Destroy auxiliary line information.\n\n @param guideline auxiliary line information.\n @since 12"]
     pub fn OH_ArkUI_GuidelineOption_Dispose(guideline: *mut ArkUI_GuidelineOption);
 }
 extern "C" {
+    #[doc = " @brief Set the Id of the auxiliary line.\n\n @param guideline auxiliary line information.\n @param value id, must be unique and cannot have the same name as the component in the container.\n @param index auxiliary line index value.\n @since 12"]
     pub fn OH_ArkUI_GuidelineOption_SetId(
         guideline: *mut ArkUI_GuidelineOption,
         value: *const ::std::os::raw::c_char,
@@ -694,6 +822,7 @@ extern "C" {
     );
 }
 extern "C" {
+    #[doc = " @brief Set the direction of the auxiliary line.\n\n @param guideline auxiliary line information.\n @param value direction.\n @param index auxiliary line index value.\n @since 12"]
     pub fn OH_ArkUI_GuidelineOption_SetDirection(
         guideline: *mut ArkUI_GuidelineOption,
         value: ArkUI_Axis,
@@ -701,6 +830,7 @@ extern "C" {
     );
 }
 extern "C" {
+    #[doc = " @brief Set the distance from the left or top of the container.\n\n @param guideline auxiliary line information.\n @param value The distance from the left or top of the container.\n @param index auxiliary line index value.\n @since 12"]
     pub fn OH_ArkUI_GuidelineOption_SetPositionStart(
         guideline: *mut ArkUI_GuidelineOption,
         value: f32,
@@ -708,6 +838,7 @@ extern "C" {
     );
 }
 extern "C" {
+    #[doc = " @brief Set the distance from the right or bottom of the container.\n\n @param guideline auxiliary line information.\n @param value The distance from the right side or bottom of the container.\n @param index auxiliary line index value.\n @since 12"]
     pub fn OH_ArkUI_GuidelineOption_SetPositionEnd(
         guideline: *mut ArkUI_GuidelineOption,
         value: f32,
@@ -715,36 +846,43 @@ extern "C" {
     );
 }
 extern "C" {
+    #[doc = " @brief Get the Id of the auxiliary line.\n\n @param guideline auxiliary line information.\n @param index auxiliary line index value.\n @return Id.\n @since 12"]
     pub fn OH_ArkUI_GuidelineOption_GetId(
         guideline: *mut ArkUI_GuidelineOption,
         index: i32,
     ) -> *const ::std::os::raw::c_char;
 }
 extern "C" {
+    #[doc = " @brief Get the direction of the auxiliary line.\n\n @param guideline auxiliary line information.\n @param index auxiliary line index value.\n @return direction.\n @since 12"]
     pub fn OH_ArkUI_GuidelineOption_GetDirection(
         guideline: *mut ArkUI_GuidelineOption,
         index: i32,
     ) -> ArkUI_Axis;
 }
 extern "C" {
+    #[doc = " @brief Get the distance from the left or top of the container.\n\n @param guideline auxiliary line information.\n @param index auxiliary line index value.\n @return The distance from the left or top of the container.\n @since 12"]
     pub fn OH_ArkUI_GuidelineOption_GetPositionStart(
         guideline: *mut ArkUI_GuidelineOption,
         index: i32,
     ) -> f32;
 }
 extern "C" {
+    #[doc = " @brief Get the distance from the right side or bottom of the container.\n\n @param guideline auxiliary line information.\n @param index auxiliary line index value.\n @return The distance from the right side or bottom of the container.\n @since 12"]
     pub fn OH_ArkUI_GuidelineOption_GetPositionEnd(
         guideline: *mut ArkUI_GuidelineOption,
         index: i32,
     ) -> f32;
 }
 extern "C" {
+    #[doc = " @brief creates barrier information within the RelativeContaine container.\n\n @param size Number of barriers.\n @return barrier information.\n @since 12"]
     pub fn OH_ArkUI_BarrierOption_Create(size: i32) -> *mut ArkUI_BarrierOption;
 }
 extern "C" {
+    #[doc = " @brief Destroy barrier information.\n\n @param barrierStyle barrier information.\n @since 12"]
     pub fn OH_ArkUI_BarrierOption_Dispose(barrierStyle: *mut ArkUI_BarrierOption);
 }
 extern "C" {
+    #[doc = " @brief Set the Id of the barrier.\n\n @param barrierStyle barrier information.\n @param value id, must be unique and cannot have the same name as the component in the container.\n @param index Barrier index value.\n @since 12"]
     pub fn OH_ArkUI_BarrierOption_SetId(
         barrierStyle: *mut ArkUI_BarrierOption,
         value: *const ::std::os::raw::c_char,
@@ -752,6 +890,7 @@ extern "C" {
     );
 }
 extern "C" {
+    #[doc = " @brief Set the direction of the barrier.\n\n @param barrierStyle barrier information.\n @param value direction.\n @param index Barrier index value.\n @since 12"]
     pub fn OH_ArkUI_BarrierOption_SetDirection(
         barrierStyle: *mut ArkUI_BarrierOption,
         value: ArkUI_BarrierDirection,
@@ -759,6 +898,7 @@ extern "C" {
     );
 }
 extern "C" {
+    #[doc = " @brief Sets the dependent component of the barrier.\n\n @param barrierStyle barrier information.\n @param value The ID of the dependent component.\n @param index Barrier index value.\n @since 12"]
     pub fn OH_ArkUI_BarrierOption_SetReferencedId(
         barrierStyle: *mut ArkUI_BarrierOption,
         value: *const ::std::os::raw::c_char,
@@ -766,18 +906,21 @@ extern "C" {
     );
 }
 extern "C" {
+    #[doc = " @brief Get the Id of the barrier.\n\n @param barrierStyle auxiliary line information.\n @param index auxiliary line index value.\n @return The Id of the barrier.\n @since 12"]
     pub fn OH_ArkUI_BarrierOption_GetId(
         barrierStyle: *mut ArkUI_BarrierOption,
         index: i32,
     ) -> *const ::std::os::raw::c_char;
 }
 extern "C" {
+    #[doc = " @brief Gets the direction of the barrier.\n\n @param barrierStyle auxiliary line information.\n @param index auxiliary line index value.\n @return The direction of the barrier.\n @since 12"]
     pub fn OH_ArkUI_BarrierOption_GetDirection(
         barrierStyle: *mut ArkUI_BarrierOption,
         index: i32,
     ) -> ArkUI_BarrierDirection;
 }
 extern "C" {
+    #[doc = " @brief Get the dependent components of the barrier.\n\n @param barrierStyle auxiliary line information.\n @param index auxiliary line index value.\n @param referencedIndex dependent component Id index value.\n @return The barrier's dependent components.\n @since 12"]
     pub fn OH_ArkUI_BarrierOption_GetReferencedId(
         barrierStyle: *mut ArkUI_BarrierOption,
         index: i32,
@@ -785,18 +928,22 @@ extern "C" {
     ) -> *const ::std::os::raw::c_char;
 }
 extern "C" {
+    #[doc = " @brief Gets the number of dependent components of the barrier.\n\n @param barrierStyle auxiliary line information.\n @param index auxiliary line index value.\n @return The number of dependent components of the barrier.\n @since 12"]
     pub fn OH_ArkUI_BarrierOption_GetReferencedIdSize(
         barrierStyle: *mut ArkUI_BarrierOption,
         index: i32,
     ) -> i32;
 }
 extern "C" {
+    #[doc = " @brief creates alignment rule information for subcomponents in relative containers.\n\n @return Alignment rule information.\n @since 12"]
     pub fn OH_ArkUI_AlignmentRuleOption_Create() -> *mut ArkUI_AlignmentRuleOption;
 }
 extern "C" {
+    #[doc = " @brief Destroys the alignment rule information of subcomponents in relative containers.\n\n @param option Alignment rule information of subcomponents in the relative container.\n @since 12"]
     pub fn OH_ArkUI_AlignmentRuleOption_Dispose(option: *mut ArkUI_AlignmentRuleOption);
 }
 extern "C" {
+    #[doc = " @brief Set the start alignment parameter.\n\n @param option Alignment rule information of subcomponents in the relative container.\n @param id The id value of the anchor component.\n @param value Alignment relative to the anchor component.\n @since 12"]
     pub fn OH_ArkUI_AlignmentRuleOption_SetStart(
         option: *mut ArkUI_AlignmentRuleOption,
         id: *const ::std::os::raw::c_char,
@@ -804,6 +951,7 @@ extern "C" {
     );
 }
 extern "C" {
+    #[doc = " @brief Set the end alignment parameter.\n\n @param option Alignment rule information of subcomponents in the relative container.\n @param id The id value of the anchor component.\n @param value Alignment relative to the anchor component.\n @since 12"]
     pub fn OH_ArkUI_AlignmentRuleOption_SetEnd(
         option: *mut ArkUI_AlignmentRuleOption,
         id: *const ::std::os::raw::c_char,
@@ -811,6 +959,7 @@ extern "C" {
     );
 }
 extern "C" {
+    #[doc = " @brief Set the parameters for horizontal center alignment.\n\n @param option Alignment rule information of subcomponents in the relative container.\n @param id The id value of the anchor component.\n @param value Alignment relative to anchor component\n @since 12"]
     pub fn OH_ArkUI_AlignmentRuleOption_SetCenterHorizontal(
         option: *mut ArkUI_AlignmentRuleOption,
         id: *const ::std::os::raw::c_char,
@@ -818,6 +967,7 @@ extern "C" {
     );
 }
 extern "C" {
+    #[doc = " @brief Set the parameters for top alignment.\n\n @param option Alignment rule information of subcomponents in the relative container.\n @param id The id value of the anchor component.\n @param value Alignment relative to anchor component\n @since 12"]
     pub fn OH_ArkUI_AlignmentRuleOption_SetTop(
         option: *mut ArkUI_AlignmentRuleOption,
         id: *const ::std::os::raw::c_char,
@@ -825,6 +975,7 @@ extern "C" {
     );
 }
 extern "C" {
+    #[doc = " @brief Set the bottom alignment parameters.\n\n @param option Alignment rule information of subcomponents in the relative container.\n @param id The id value of the anchor component.\n @param value Alignment relative to anchor component\n @since 12"]
     pub fn OH_ArkUI_AlignmentRuleOption_SetBottom(
         option: *mut ArkUI_AlignmentRuleOption,
         id: *const ::std::os::raw::c_char,
@@ -832,6 +983,7 @@ extern "C" {
     );
 }
 extern "C" {
+    #[doc = " @brief Set the parameters for vertical center alignment.\n\n @param option Alignment rule information of subcomponents in the relative container.\n @param id The id value of the anchor component.\n @param value Alignment relative to the anchor component.\n @since 12"]
     pub fn OH_ArkUI_AlignmentRuleOption_SetCenterVertical(
         option: *mut ArkUI_AlignmentRuleOption,
         id: *const ::std::os::raw::c_char,
@@ -839,117 +991,140 @@ extern "C" {
     );
 }
 extern "C" {
+    #[doc = " @brief Sets the horizontal offset parameter of the component under the anchor point constraint.\n\n @param option Alignment rule information of subcomponents in the relative container.\n @param horizontal bias value in the horizontal direction.\n @since 12"]
     pub fn OH_ArkUI_AlignmentRuleOption_SetBiasHorizontal(
         option: *mut ArkUI_AlignmentRuleOption,
         horizontal: f32,
     );
 }
 extern "C" {
+    #[doc = " @brief Set the vertical offset parameter of the component under the anchor point constraint.\n\n @param option Alignment rule information of subcomponents in the relative container.\n @param horizontal bias value in the vertical direction.\n @since 12"]
     pub fn OH_ArkUI_AlignmentRuleOption_SetBiasVertical(
         option: *mut ArkUI_AlignmentRuleOption,
         vertical: f32,
     );
 }
 extern "C" {
+    #[doc = " @brief Get the Id of the start-aligned parameter.\n\n @param option Alignment rule information of subcomponents in the relative container.\n @return The id value of the anchor component.\n @since 12"]
     pub fn OH_ArkUI_AlignmentRuleOption_GetStartId(
         option: *mut ArkUI_AlignmentRuleOption,
     ) -> *const ::std::os::raw::c_char;
 }
 extern "C" {
+    #[doc = " @brief Gets the alignment of the start-aligned parameter.\n\n @param option Alignment rule information of subcomponents in the relative container.\n @return The alignment of the parameters.\n @since 12"]
     pub fn OH_ArkUI_AlignmentRuleOption_GetStartAlignment(
         option: *mut ArkUI_AlignmentRuleOption,
     ) -> ArkUI_HorizontalAlignment;
 }
 extern "C" {
+    #[doc = " @brief Get the end alignment parameter.\n\n @param option Alignment rule information of subcomponents in the relative container.\n @return End-aligned parameter id.\n @since 12"]
     pub fn OH_ArkUI_AlignmentRuleOption_GetEndId(
         option: *mut ArkUI_AlignmentRuleOption,
     ) -> *const ::std::os::raw::c_char;
 }
 extern "C" {
+    #[doc = " @brief Get the end alignment parameter.\n\n @param option Alignment rule information of subcomponents in the relative container.\n @return The alignment of the end-aligned parameter.\n @since 12"]
     pub fn OH_ArkUI_AlignmentRuleOption_GetEndAlignment(
         option: *mut ArkUI_AlignmentRuleOption,
     ) -> ArkUI_HorizontalAlignment;
 }
 extern "C" {
+    #[doc = " @brief Gets the parameters of horizontal center alignment.\n\n @param option Alignment rule information of subcomponents in the relative container.\n @return The id of the parameter of horizontal center alignment.\n @since 12"]
     pub fn OH_ArkUI_AlignmentRuleOption_GetCenterIdHorizontal(
         option: *mut ArkUI_AlignmentRuleOption,
     ) -> *const ::std::os::raw::c_char;
 }
 extern "C" {
+    #[doc = " @brief Gets the parameters of horizontal center alignment.\n\n @param option Alignment rule information of subcomponents in the relative container.\n @return The alignment of the horizontally centered alignment parameter.\n @since 12"]
     pub fn OH_ArkUI_AlignmentRuleOption_GetCenterAlignmentHorizontal(
         option: *mut ArkUI_AlignmentRuleOption,
     ) -> ArkUI_HorizontalAlignment;
 }
 extern "C" {
+    #[doc = " @brief Get the top-aligned parameters.\n\n @param option Alignment rule information of subcomponents in the relative container.\n @return Top aligned parameter id.\n @since 12"]
     pub fn OH_ArkUI_AlignmentRuleOption_GetTopId(
         option: *mut ArkUI_AlignmentRuleOption,
     ) -> *const ::std::os::raw::c_char;
 }
 extern "C" {
+    #[doc = " @brief Get the top-aligned parameters.\n\n @param option Alignment rule information of subcomponents in the relative container.\n @return The alignment of the top-aligned parameter.\n @since 12"]
     pub fn OH_ArkUI_AlignmentRuleOption_GetTopAlignment(
         option: *mut ArkUI_AlignmentRuleOption,
     ) -> ArkUI_VerticalAlignment;
 }
 extern "C" {
+    #[doc = " @brief Get the bottom alignment parameters.\n\n @param option Alignment rule information of subcomponents in the relative container.\n @return The id of the bottom-aligned parameter.\n @since 12"]
     pub fn OH_ArkUI_AlignmentRuleOption_GetBottomId(
         option: *mut ArkUI_AlignmentRuleOption,
     ) -> *const ::std::os::raw::c_char;
 }
 extern "C" {
+    #[doc = " @brief Get the bottom alignment parameters.\n\n @param option Alignment rule information of subcomponents in the relative container.\n @return The alignment of the bottom-aligned parameter.\n @since 12"]
     pub fn OH_ArkUI_AlignmentRuleOption_GetBottomAlignment(
         option: *mut ArkUI_AlignmentRuleOption,
     ) -> ArkUI_VerticalAlignment;
 }
 extern "C" {
+    #[doc = " @brief Gets the parameters of vertical center alignment.\n\n @param option Alignment rule information of subcomponents in the relative container.\n @return The id of the vertical center alignment parameter.\n @since 12"]
     pub fn OH_ArkUI_AlignmentRuleOption_GetCenterIdVertical(
         option: *mut ArkUI_AlignmentRuleOption,
     ) -> *const ::std::os::raw::c_char;
 }
 extern "C" {
+    #[doc = " @brief Gets the parameters of vertical center alignment.\n\n @param option Alignment rule information of subcomponents in the relative container.\n @return The alignment of the vertical center alignment parameter.\n @since 12"]
     pub fn OH_ArkUI_AlignmentRuleOption_GetCenterAlignmentVertical(
         option: *mut ArkUI_AlignmentRuleOption,
     ) -> ArkUI_VerticalAlignment;
 }
 extern "C" {
+    #[doc = " @brief Get the bias value in the horizontal direction.\n\n @param option Alignment rule information of subcomponents in the relative container.\n @return The bias value in the horizontal direction.\n @since 12"]
     pub fn OH_ArkUI_AlignmentRuleOption_GetBiasHorizontal(
         option: *mut ArkUI_AlignmentRuleOption,
     ) -> f32;
 }
 extern "C" {
+    #[doc = " @brief Get the bias value in the vertical direction.\n\n @param option Alignment rule information of subcomponents in the relative container.\n @return bias value in vertical direction.\n @since 12"]
     pub fn OH_ArkUI_AlignmentRuleOption_GetBiasVertical(
         option: *mut ArkUI_AlignmentRuleOption,
     ) -> f32;
 }
 extern "C" {
+    #[doc = " @brief Create a configuration item for the ListitemSwipeActionItem interface settings.\n\n @return List Item SwipeActionItem configuration item instance. If the object returns a null pointer,\n         it indicates creation failure, and the reason for the failure may be that the address space is full.\n @since 12"]
     pub fn OH_ArkUI_ListItemSwipeActionItem_Create() -> *mut ArkUI_ListItemSwipeActionItem;
 }
 extern "C" {
+    #[doc = " @brief Destroy the ListitemSwipeActionItem instance.\n\n @param option List Item SwipeActionItem instance to be destroyed.\n @since 12"]
     pub fn OH_ArkUI_ListItemSwipeActionItem_Dispose(item: *mut ArkUI_ListItemSwipeActionItem);
 }
 extern "C" {
+    #[doc = " @brief Set the layout content of ListItem SwipeActionItem.\n\n @param option List Item SwipeActionItem instance.\n @param builder Layout information.\n @since 12"]
     pub fn OH_ArkUI_ListItemSwipeActionItem_SetContent(
         item: *mut ArkUI_ListItemSwipeActionItem,
         node: ArkUI_NodeHandle,
     );
 }
 extern "C" {
+    #[doc = " @brief Set the threshold for long-distance sliding deletion distance of components.\n\n @param option List Item SwipeActionItem instance.\n @param distance Component long-distance sliding deletion distance threshold.\n @since 12"]
     pub fn OH_ArkUI_ListItemSwipeActionItem_SetActionAreaDistance(
         item: *mut ArkUI_ListItemSwipeActionItem,
         distance: f32,
     );
 }
 extern "C" {
+    #[doc = " @brief Obtain the threshold for long-distance sliding deletion distance of components.\n\n @param option List Item SwipeActionItem instance.\n @return Component long-distance sliding deletion distance threshold. If -1.0f is returned, the return fails.\n         The possible cause of the failure is that the item parameter is abnormal, such as a null pointer.\n @since 12"]
     pub fn OH_ArkUI_ListItemSwipeActionItem_GetActionAreaDistance(
         item: *mut ArkUI_ListItemSwipeActionItem,
     ) -> f32;
 }
 extern "C" {
+    #[doc = " @brief Set the event to be called when a sliding entry enters the deletion area.\n\n @param option List Item SwipeActionItem instance.\n @param callback Callback Events.\n @since 12"]
     pub fn OH_ArkUI_ListItemSwipeActionItem_SetOnEnterActionArea(
         item: *mut ArkUI_ListItemSwipeActionItem,
         callback: ::std::option::Option<unsafe extern "C" fn()>,
     );
 }
 extern "C" {
+    #[doc = " @brief Set the event triggered when a sliding entry enters the deletion area.\n\n @param option List Item SwipeActionItem instance.\n @param userData User defined data.\n @param callback Callback Events.\n @since 12"]
     pub fn OH_ArkUI_ListItemSwipeActionItem_SetOnEnterActionAreaWithUserData(
         item: *mut ArkUI_ListItemSwipeActionItem,
         userData: *mut ::std::os::raw::c_void,
@@ -959,12 +1134,14 @@ extern "C" {
     );
 }
 extern "C" {
+    #[doc = " @brief Set the event to be called when a component enters the long-range deletion area and deletes a ListItem.\n\n @param option List Item SwipeActionItem instance.\n @param callback Callback Events.\n @since 12"]
     pub fn OH_ArkUI_ListItemSwipeActionItem_SetOnAction(
         item: *mut ArkUI_ListItemSwipeActionItem,
         callback: ::std::option::Option<unsafe extern "C" fn()>,
     );
 }
 extern "C" {
+    #[doc = " @brief Set the event triggered when a component enters the long-range deletion area and deletes a ListItem.\n\n @param option List Item SwipeActionItem instance.\n @param userData User defined data.\n @param callback Callback Events.\n @since 12"]
     pub fn OH_ArkUI_ListItemSwipeActionItem_SetOnActionWithUserData(
         item: *mut ArkUI_ListItemSwipeActionItem,
         userData: *mut ::std::os::raw::c_void,
@@ -974,12 +1151,14 @@ extern "C" {
     );
 }
 extern "C" {
+    #[doc = " @brief Set the event to be called when a sliding entry exits the deletion area.\n\n @param option List Item SwipeActionItem instance.\n @param callback Callback Events.\n @since 12"]
     pub fn OH_ArkUI_ListItemSwipeActionItem_SetOnExitActionArea(
         item: *mut ArkUI_ListItemSwipeActionItem,
         callback: ::std::option::Option<unsafe extern "C" fn()>,
     );
 }
 extern "C" {
+    #[doc = " @brief Set the event triggered when a sliding entry exits the deletion area.\n\n @param option List Item SwipeActionItem instance.\n @param userData User defined data.\n @param callback Callback Events.\n @since 12"]
     pub fn OH_ArkUI_ListItemSwipeActionItem_SetOnExitActionAreaWithUserData(
         item: *mut ArkUI_ListItemSwipeActionItem,
         userData: *mut ::std::os::raw::c_void,
@@ -989,6 +1168,7 @@ extern "C" {
     );
 }
 extern "C" {
+    #[doc = " @brief Set the event triggered when the sliding state of a list item changes.\n\n @param option List Item SwipeActionItem instance.\n @param callback Callback Events.\n        swipeActionState The changed state.\n @since 12"]
     pub fn OH_ArkUI_ListItemSwipeActionItem_SetOnStateChange(
         item: *mut ArkUI_ListItemSwipeActionItem,
         callback: ::std::option::Option<
@@ -997,6 +1177,7 @@ extern "C" {
     );
 }
 extern "C" {
+    #[doc = " @brief Set the event triggered when the sliding state of a list item changes.\n\n @param option List Item SwipeActionItem instance.\n @param userData User defined data.\n @param callback Callback Events.\n        swipeActionState The changed state.\n @since 12"]
     pub fn OH_ArkUI_ListItemSwipeActionItem_SetOnStateChangeWithUserData(
         item: *mut ArkUI_ListItemSwipeActionItem,
         userData: *mut ::std::os::raw::c_void,
@@ -1009,41 +1190,49 @@ extern "C" {
     );
 }
 extern "C" {
+    #[doc = " @brief Create a configuration item for the ListitemSwipeActionOption interface settings.\n\n @return List Item SwipeActionOption configuration item instance.If the object returns a null pointer,\n         it indicates a creation failure, and the reason for the failure may be that the address space is full.\n @since 12"]
     pub fn OH_ArkUI_ListItemSwipeActionOption_Create() -> *mut ArkUI_ListItemSwipeActionOption;
 }
 extern "C" {
+    #[doc = " @brief Destroy the ListitemSwipeActionOption instance.\n\n @param option List Item SwipeActionOption instance to be destroyed.\n @since 12"]
     pub fn OH_ArkUI_ListItemSwipeActionOption_Dispose(option: *mut ArkUI_ListItemSwipeActionOption);
 }
 extern "C" {
+    #[doc = " @brief Set the layout content on the left (vertical layout) or top (horizontal layout)\n of the ListItem SwipeActionItem.\n\n @param option List Item SwipeActionItem instance.\n @param builder Layout information.\n @since 12"]
     pub fn OH_ArkUI_ListItemSwipeActionOption_SetStart(
         option: *mut ArkUI_ListItemSwipeActionOption,
         item: *mut ArkUI_ListItemSwipeActionItem,
     );
 }
 extern "C" {
+    #[doc = " @brief Set the layout content on the right (vertical layout) or bottom (horizontal layout)\n of the ListItem SwipeActionItem.\n\n @param option List Item SwipeActionItem instance.\n @param builder Layout information.\n @since 12"]
     pub fn OH_ArkUI_ListItemSwipeActionOption_SetEnd(
         option: *mut ArkUI_ListItemSwipeActionOption,
         item: *mut ArkUI_ListItemSwipeActionItem,
     );
 }
 extern "C" {
+    #[doc = " @brief Set the sliding effect.\n\n @param option List Item SwipeActionItem instance.\n @param edgeEffect Sliding effect.\n @since 12"]
     pub fn OH_ArkUI_ListItemSwipeActionOption_SetEdgeEffect(
         option: *mut ArkUI_ListItemSwipeActionOption,
         edgeEffect: ArkUI_ListItemSwipeEdgeEffect,
     );
 }
 extern "C" {
+    #[doc = " @brief Get the sliding effect.\n\n @param option List Item SwipeActionItem instance.\n @return Sliding effect. The default return value is 0. If -1 is returned, the return fails.\n         The possible cause of the failure is that the option parameter is abnormal, such as a null pointer.\n @since 12"]
     pub fn OH_ArkUI_ListItemSwipeActionOption_GetEdgeEffect(
         option: *mut ArkUI_ListItemSwipeActionOption,
     ) -> i32;
 }
 extern "C" {
+    #[doc = " @brief The event called when the sliding operation offset changes.\n\n @param option List Item SwipeActionItem instance.\n @param callback Callback Events.\n        offset Slide offset.\n @since 12"]
     pub fn OH_ArkUI_ListItemSwipeActionOption_SetOnOffsetChange(
         option: *mut ArkUI_ListItemSwipeActionOption,
         callback: ::std::option::Option<unsafe extern "C" fn(offset: f32)>,
     );
 }
 extern "C" {
+    #[doc = " @brief Set the event triggered when the sliding operation offset changes.\n\n @param option List Item SwipeActionItem instance.\n @param userData User defined data.\n @param callback Callback Events.\n        offset Slide offset.\n @since 12"]
     pub fn OH_ArkUI_ListItemSwipeActionOption_SetOnOffsetChangeWithUserData(
         option: *mut ArkUI_ListItemSwipeActionOption,
         userData: *mut ::std::os::raw::c_void,
@@ -1053,29 +1242,35 @@ extern "C" {
     );
 }
 extern "C" {
+    #[doc = " @brief Create configuration items for the ListChildrenMainSize interface settings.\n\n @return ListChildrenMainSize configuration item instance.If the object returns a null pointer,\n         it indicates a creation failure, and the reason for the failure may be that the address space is full.\n @since 12"]
     pub fn OH_ArkUI_ListChildrenMainSizeOption_Create() -> *mut ArkUI_ListChildrenMainSize;
 }
 extern "C" {
+    #[doc = " @brief Destroy the ListChildrenMainSize instance.\n\n @param option The ListChildrenMainSize instance to be destroyed.\n @since 12"]
     pub fn OH_ArkUI_ListChildrenMainSizeOption_Dispose(option: *mut ArkUI_ListChildrenMainSize);
 }
 extern "C" {
+    #[doc = " @brief Set the default size of ChildrenMainSizeOption for the List component.\n\n @param option ListChildrenMainSize instance.\n @param defaultMainSize The default size of the ListItem under the List, measured in vp.\n @return 0 represents success. If defaultMainSize is less than 0 or option is a null pointer, return 401.\n @since 12"]
     pub fn OH_ArkUI_ListChildrenMainSizeOption_SetDefaultMainSize(
         option: *mut ArkUI_ListChildrenMainSize,
         defaultMainSize: f32,
     ) -> i32;
 }
 extern "C" {
+    #[doc = " @brief Get the default size of ChildrenMainSizeOption for the List component.\n\n @param option ListChildrenMainSize instance.\n @return The default size of the ListItem under the List is 0, measured in vp.\n         When the option is a null pointer, it returns -1.\n @since 12"]
     pub fn OH_ArkUI_ListChildrenMainSizeOption_GetDefaultMainSize(
         option: *mut ArkUI_ListChildrenMainSize,
     ) -> f32;
 }
 extern "C" {
+    #[doc = " @brief Reset the array size of ChildrenMainSizeOption for the List component.\n\n @param option ListChildrenMainSize instance.\n @param totalSize Array size.\n @since 12"]
     pub fn OH_ArkUI_ListChildrenMainSizeOption_Resize(
         option: *mut ArkUI_ListChildrenMainSize,
         totalSize: i32,
     );
 }
 extern "C" {
+    #[doc = " @brief Resize the ChildrenMainSizeOption array operation on the List component.\n\n @param option ListChildrenMainSize instance.\n @param index To modify the starting position of the MainSize array.\n @param deleteCount The number of MainSize arrays to be deleted starting from index.\n @param addCount The number of MainSize arrays to be added starting from index.\n @return 0 represents success. If the function parameter is abnormal, return 401.\n @since 12"]
     pub fn OH_ArkUI_ListChildrenMainSizeOption_Splice(
         option: *mut ArkUI_ListChildrenMainSize,
         index: i32,
@@ -1084,6 +1279,7 @@ extern "C" {
     ) -> i32;
 }
 extern "C" {
+    #[doc = " @brief Update the value of the ChildrenMainSizeOption array in the List component.\n\n @param option ListChildrenMainSize instance.\n @param index To modify the starting position of the MainSize array.\n @param mainSize The actual modified value.\n @return 0 represents success. If the function parameter is abnormal, return 401.\n @since 12"]
     pub fn OH_ArkUI_ListChildrenMainSizeOption_UpdateSize(
         option: *mut ArkUI_ListChildrenMainSize,
         index: i32,
@@ -1091,347 +1287,430 @@ extern "C" {
     ) -> i32;
 }
 extern "C" {
+    #[doc = " @brief Get the value of the ChildrenMainSizeOption array for the List component.\n\n @param option ListChildrenMainSize instance.\n @param index The index position of the value to be obtained.\n @return The value of the specific position of the array. If the function parameter is abnormal, return -1.\n @since 12"]
     pub fn OH_ArkUI_ListChildrenMainSizeOption_GetMainSize(
         option: *mut ArkUI_ListChildrenMainSize,
         index: i32,
     ) -> f32;
 }
 extern "C" {
+    #[doc = " @brief Creates measurement information for this custom span.\n\n @return Returns a <b>CustomSpanMeasureInfo</b> instance.\n <br> If the result returns nullptr, there may be out of memory.\n @since 12"]
     pub fn OH_ArkUI_CustomSpanMeasureInfo_Create() -> *mut ArkUI_CustomSpanMeasureInfo;
 }
 extern "C" {
+    #[doc = " @brief Disposes of measurement information of this custom span.\n\n @param info The CustomSpanMeasureInfo instance to be destroyed.\n @since 12"]
     pub fn OH_ArkUI_CustomSpanMeasureInfo_Dispose(info: *mut ArkUI_CustomSpanMeasureInfo);
 }
 extern "C" {
+    #[doc = " @brief Obtains the font size of a custom span.\n\n @param info Indicates the pointer to the measurement information of a custom span.\n @return Returns the font size. If a parameter error occurs, <b>0.0f</b> is returned.\n <br> Possible causes: Parameter verification failed, the parameter should not be nullptr.\n @since 12"]
     pub fn OH_ArkUI_CustomSpanMeasureInfo_GetFontSize(
         info: *mut ArkUI_CustomSpanMeasureInfo,
     ) -> f32;
 }
 extern "C" {
+    #[doc = " @brief Creates measurement metrics for this custom span.\n\n @return Returns a <b>CustomSpanMetrics</b> instance.\n <br> If the result returns nullptr, there may be out of memory.\n @since 12"]
     pub fn OH_ArkUI_CustomSpanMetrics_Create() -> *mut ArkUI_CustomSpanMetrics;
 }
 extern "C" {
+    #[doc = " @brief Disposes of measurement metrics of this custom span.\n\n @param info The CustomSpanMetrics instance to be destroyed.\n @since 12"]
     pub fn OH_ArkUI_CustomSpanMetrics_Dispose(metrics: *mut ArkUI_CustomSpanMetrics);
 }
 extern "C" {
+    #[doc = " @brief Sets the width for a custom span.\n\n @param metrics Indicates the pointer to a <b>CustomSpanMetrics</b> instance.\n @param width Indicates the width, in px. The width should be greater than 0.\n @return Returns the result code.\n         Returns {@link ARKUI_ERROR_CODE_NO_ERROR} if the operation is successful.\n         Returns {@link ARKUI_ERROR_CODE_PARAM_INVALID} if a parameter error occurs.\n         <br> Possible causes: Parameter verification failed, the parameter should not be nullptr.\n @since 12"]
     pub fn OH_ArkUI_CustomSpanMetrics_SetWidth(
         metrics: *mut ArkUI_CustomSpanMetrics,
         width: f32,
     ) -> i32;
 }
 extern "C" {
+    #[doc = " @brief Sets the height for a custom span.\n\n @param metrics Indicates the pointer to a <b>CustomSpanMetrics</b> instance.\n @param width Indicates the height, in px. The width should be greater than 0.\n @return Returns the result code.\n         Returns {@link ARKUI_ERROR_CODE_NO_ERROR} if the operation is successful.\n         Returns {@link ARKUI_ERROR_CODE_PARAM_INVALID} if a parameter error occurs.\n         <br> Possible causes: Parameter verification failed, the parameter should not be nullptr.\n @since 12"]
     pub fn OH_ArkUI_CustomSpanMetrics_SetHeight(
         metrics: *mut ArkUI_CustomSpanMetrics,
         height: f32,
     ) -> i32;
 }
 extern "C" {
+    #[doc = " @brief Creates drawing information for this custom span.\n\n @return Returns a <b>CustomSpanDrawInfo</b> instance.\n <br> If the result returns nullptr, there may be out of memory.\n @since 12"]
     pub fn OH_ArkUI_CustomSpanDrawInfo_Create() -> *mut ArkUI_CustomSpanDrawInfo;
 }
 extern "C" {
+    #[doc = " @brief Disposes of drawing information for this custom span.\n\n @param info The CustomSpanDrawInfo instance to be destroyed.\n @since 12"]
     pub fn OH_ArkUI_CustomSpanDrawInfo_Dispose(info: *mut ArkUI_CustomSpanDrawInfo);
 }
 extern "C" {
+    #[doc = " @brief Obtains the x-axis offset of the custom span relative to the mounted component.\n\n @param info Indicates the pointer to the drawing information of a custom span.\n @return Returns the x-axis offset. If a parameter error occurs, <b>0.0f</b> is returned.\n <br> Possible causes: Parameter verification failed, the parameter should not be nullptr.\n @since 12"]
     pub fn OH_ArkUI_CustomSpanDrawInfo_GetXOffset(info: *mut ArkUI_CustomSpanDrawInfo) -> f32;
 }
 extern "C" {
+    #[doc = " @brief Obtains the top margin of the custom span relative to the mounted component.\n\n @param info Indicates the pointer to the drawing information of a custom span.\n @return Returns the top margin. If a parameter error occurs, <b>0.0f</b> is returned.\n <br> Possible causes: Parameter verification failed, the parameter should not be nullptr.\n @since 12"]
     pub fn OH_ArkUI_CustomSpanDrawInfo_GetLineTop(info: *mut ArkUI_CustomSpanDrawInfo) -> f32;
 }
 extern "C" {
+    #[doc = " @brief Obtains the bottom margin of the custom span relative to the mounted component.\n\n @param info Indicates the pointer to the drawing information of a custom span.\n @return Returns the bottom margin. If a parameter error occurs, <b>0.0f</b> is returned.\n <br> Possible causes: Parameter verification failed, the parameter should not be nullptr.\n @since 12"]
     pub fn OH_ArkUI_CustomSpanDrawInfo_GetLineBottom(info: *mut ArkUI_CustomSpanDrawInfo) -> f32;
 }
 extern "C" {
+    #[doc = " @brief Obtains the baseline offset of the custom span relative to the mounted component.\n\n @param info Indicates the pointer to the drawing information of a custom span.\n @return Returns the baseline offset. If a parameter error occurs, <b>0.0f</b> is returned.\n <br> Possible causes: Parameter verification failed, the parameter should not be nullptr.\n @since 12"]
     pub fn OH_ArkUI_CustomSpanDrawInfo_GetBaseline(info: *mut ArkUI_CustomSpanDrawInfo) -> f32;
 }
 extern "C" {
+    #[doc = " @brief Create a image frame from the image path.\n @param src Indicates the image path.\n @return Returns the pointer to the image frame object.\n If a null pointer is returned, the object fails to be created. The possible cause is that\n the src parameter is abnormal, for example, the pointer is null.\n @since 12"]
     pub fn OH_ArkUI_ImageAnimatorFrameInfo_CreateFromString(
         src: *mut ::std::os::raw::c_char,
     ) -> *mut ArkUI_ImageAnimatorFrameInfo;
 }
 extern "C" {
+    #[doc = " @brief Create a image frame from the drawable descriptor.\n\n @param drawable Indicates the pointer to the drawable descriptor.\n @return Returns the pointer to the image frame object.\n If a null pointer is returned, the object fails to be created. The possible cause is that\n the drawable parameter is abnormal, for example, the pointer is null.\n @since 12"]
     pub fn OH_ArkUI_ImageAnimatorFrameInfo_CreateFromDrawableDescriptor(
         drawable: *mut ArkUI_DrawableDescriptor,
     ) -> *mut ArkUI_ImageAnimatorFrameInfo;
 }
 extern "C" {
+    #[doc = " @brief Destroy the pointer to the image frame.\n\n @param imageInfo Indicates the pointer to the image frame.\n @since 12"]
     pub fn OH_ArkUI_ImageAnimatorFrameInfo_Dispose(imageInfo: *mut ArkUI_ImageAnimatorFrameInfo);
 }
 extern "C" {
+    #[doc = " @brief Set the width of the image frame.\n\n @param imageInfo Indicates the pointer to the image frame.\n @param width Indicates the width of the image frame, and the unit is PX.\n @since 12"]
     pub fn OH_ArkUI_ImageAnimatorFrameInfo_SetWidth(
         imageInfo: *mut ArkUI_ImageAnimatorFrameInfo,
         width: i32,
     );
 }
 extern "C" {
+    #[doc = " @brief Get the width of the image frame.\n\n @param imageInfo Indicates the pointer to the image frame.\n @return Return the width of the image frame, and the unit is PX. Return 0 when the imageInfo is null.\n @since 12"]
     pub fn OH_ArkUI_ImageAnimatorFrameInfo_GetWidth(
         imageInfo: *mut ArkUI_ImageAnimatorFrameInfo,
     ) -> i32;
 }
 extern "C" {
+    #[doc = " @brief Set the height of the image frame.\n\n @param imageInfo Indicates the pointer to the image frame.\n @param height Indicates the height of the image frame, and the unit is PX.\n @since 12"]
     pub fn OH_ArkUI_ImageAnimatorFrameInfo_SetHeight(
         imageInfo: *mut ArkUI_ImageAnimatorFrameInfo,
         height: i32,
     );
 }
 extern "C" {
+    #[doc = " @brief Get the height of the image frame.\n\n @param imageInfo Indicates the pointer to the image frame.\n @return Return the height of the image frame, and the unit is PX. Return 0 when the imageInfo is null.\n @since 12"]
     pub fn OH_ArkUI_ImageAnimatorFrameInfo_GetHeight(
         imageInfo: *mut ArkUI_ImageAnimatorFrameInfo,
     ) -> i32;
 }
 extern "C" {
+    #[doc = " @brief Set the vertical coordinate of the image relative to the upper left corner of the widget.\n\n @param imageInfo Indicates the pointer to the image frame.\n @param top Indicates the vertical coordinate of the image relative to the upper left corner of the widget,\n and the unit is PX.\n @since 12"]
     pub fn OH_ArkUI_ImageAnimatorFrameInfo_SetTop(
         imageInfo: *mut ArkUI_ImageAnimatorFrameInfo,
         top: i32,
     );
 }
 extern "C" {
+    #[doc = " @brief Get the vertical coordinate of the image relative to the upper left corner of the widget.\n\n @param imageInfo Indicates the pointer to the image frame.\n @return Returns the vertical coordinate of the image relative to the upper left corner of the widget,\n and the unit is PX. Return 0 when the imageInfo is null.\n @since 12"]
     pub fn OH_ArkUI_ImageAnimatorFrameInfo_GetTop(
         imageInfo: *mut ArkUI_ImageAnimatorFrameInfo,
     ) -> i32;
 }
 extern "C" {
+    #[doc = " @brief Set the horizontal coordinate of the image relative to the upper left corner of the widget.\n\n @param imageInfo Indicates the pointer to the image frame.\n @param left Indicates the horizontal coordinate of the image relative to the upper left corner of the widget,\n and the unit is PX.\n @since 12"]
     pub fn OH_ArkUI_ImageAnimatorFrameInfo_SetLeft(
         imageInfo: *mut ArkUI_ImageAnimatorFrameInfo,
         left: i32,
     );
 }
 extern "C" {
+    #[doc = " @brief Get the horizontal coordinate of the image relative to the upper left corner of the widget.\n\n @param imageInfo Indicates the pointer to the image frame.\n @return Returns the horizontal coordinate of the image relative to the upper left corner of the widget,\n and the unit is PX. Return 0 when the imageInfo is null.\n @since 12"]
     pub fn OH_ArkUI_ImageAnimatorFrameInfo_GetLeft(
         imageInfo: *mut ArkUI_ImageAnimatorFrameInfo,
     ) -> i32;
 }
 extern "C" {
+    #[doc = " @brief Set the playback duration of the image frame.\n\n @param imageInfo Indicates the pointer to the image frame.\n @param duration Indicates the playback duration of each image frame, and the unit is milliseconds.\n @since 12"]
     pub fn OH_ArkUI_ImageAnimatorFrameInfo_SetDuration(
         imageInfo: *mut ArkUI_ImageAnimatorFrameInfo,
         duration: i32,
     );
 }
 extern "C" {
+    #[doc = " @brief Get the playback duration of the image frame.\n\n @param imageInfo Indicates the pointer to the image frame.\n @return Returns the playback duration of the image frame, and the unit is milliseconds.\n Return 0 when the imageInfo is null.\n @since 12"]
     pub fn OH_ArkUI_ImageAnimatorFrameInfo_GetDuration(
         imageInfo: *mut ArkUI_ImageAnimatorFrameInfo,
     ) -> i32;
 }
 extern "C" {
+    #[doc = " @brief Create accessibility state.\n\n @return Returns the pointer to the accessibility state object.\n If a null pointer is returned, the object fails to be created. The possible cause is that the address space is full.\n @since 12"]
     pub fn OH_ArkUI_AccessibilityState_Create() -> *mut ArkUI_AccessibilityState;
 }
 extern "C" {
+    #[doc = " @brief Dispose accessibility state.\n\n @param state accessibility state object.\n @since 12"]
     pub fn OH_ArkUI_AccessibilityState_Dispose(state: *mut ArkUI_AccessibilityState);
 }
 extern "C" {
+    #[doc = " @brief Set accessibility state disabled.\n\n @param state accessibility state object.\n @param isDisabled accessibility state disabled, Value 1 indicates disabled and 0 indicates enbled.\n @since 12"]
     pub fn OH_ArkUI_AccessibilityState_SetDisabled(
         state: *mut ArkUI_AccessibilityState,
         isDisabled: i32,
     );
 }
 extern "C" {
+    #[doc = " @brief Get accessibility state disabled.\n\n @param state accessibility state object.\n @return accessibility state disabled, Value 1 indicates disabled and 0 indicates enbled. The default value is 0.\n         If the function parameter is abnormal, return the default value.\n @since 12"]
     pub fn OH_ArkUI_AccessibilityState_IsDisabled(state: *mut ArkUI_AccessibilityState) -> i32;
 }
 extern "C" {
+    #[doc = " @brief Set accessibility state selected.\n\n @param state accessibility state object.\n @param isSelected accessibility state selected, Value 1 indicates selected, and 0 indicates not selected.\n        The default value is 0.\n @since 12"]
     pub fn OH_ArkUI_AccessibilityState_SetSelected(
         state: *mut ArkUI_AccessibilityState,
         isSelected: i32,
     );
 }
 extern "C" {
+    #[doc = " @brief Get accessibility state selected.\n\n @param state accessibility state object.\n @return accessibility state selected, Value 1 indicates selected, and 0 indicates not selected.\n         The default value is 0.\n         If the function parameter is abnormal, return the default value.\n @since 12"]
     pub fn OH_ArkUI_AccessibilityState_IsSelected(state: *mut ArkUI_AccessibilityState) -> i32;
 }
 extern "C" {
+    #[doc = " @brief Set accessibility checked state.\n\n @param state accessibility state object.\n @param checkedState checked state, and uses the {@link ArkUI_AccessibilityCheckedState} enumeration value,\n        The default value is ARKUI_ACCESSIBILITY_UNCHECKED.\n @since 12"]
     pub fn OH_ArkUI_AccessibilityState_SetCheckedState(
         state: *mut ArkUI_AccessibilityState,
         checkedState: i32,
     );
 }
 extern "C" {
+    #[doc = " @brief Get accessibility checked state.\n\n @param state accessibility state object.\n @return checked state, and uses the {@link ArkUI_AccessibilityCheckedState} enumeration value,\n         The default value is ARKUI_ACCESSIBILITY_UNCHECKED.\n         If the function parameter is abnormal, return the default value.\n @since 12"]
     pub fn OH_ArkUI_AccessibilityState_GetCheckedState(state: *mut ArkUI_AccessibilityState)
         -> i32;
 }
 extern "C" {
+    #[doc = " @brief Create accessibility value.\n\n @return Returns the pointer to the accessibility state object.\n If a null pointer is returned, the object fails to be created. The possible cause is that the address space is full.\n @since 12"]
     pub fn OH_ArkUI_AccessibilityValue_Create() -> *mut ArkUI_AccessibilityValue;
 }
 extern "C" {
+    #[doc = " @brief Dispose accessibility value.\n\n @param value accessibility value object.\n @since 12"]
     pub fn OH_ArkUI_AccessibilityValue_Dispose(value: *mut ArkUI_AccessibilityValue);
 }
 extern "C" {
+    #[doc = " @brief Set accessibility minimum value.\n\n @param value accessibility value object.\n @param min minimum value based on range components, The default value is -1.\n @since 12"]
     pub fn OH_ArkUI_AccessibilityValue_SetMin(value: *mut ArkUI_AccessibilityValue, min: i32);
 }
 extern "C" {
+    #[doc = " @brief Get accessibility minimum value.\n\n @param value accessibility value object.\n @return minimum value based on range components, The default value is -1.\n         If the function parameter is abnormal, return -1.\n @since 12"]
     pub fn OH_ArkUI_AccessibilityValue_GetMin(value: *mut ArkUI_AccessibilityValue) -> i32;
 }
 extern "C" {
+    #[doc = " @brief Set accessibility minimum value.\n\n @param value accessibility value object.\n @param max maximum value based on range components, The default value is -1.\n @since 12"]
     pub fn OH_ArkUI_AccessibilityValue_SetMax(value: *mut ArkUI_AccessibilityValue, max: i32);
 }
 extern "C" {
+    #[doc = " @brief Get accessibility minimum value.\n\n @param value accessibility value object.\n @return maximum value based on range components, The default value is -1.\n         If the function parameter is abnormal, return -1.\n @since 12"]
     pub fn OH_ArkUI_AccessibilityValue_GetMax(value: *mut ArkUI_AccessibilityValue) -> i32;
 }
 extern "C" {
+    #[doc = " @brief Set accessibility current value.\n\n @param value accessibility value object.\n @param current value based on range components, The default value is -1.\n @since 12"]
     pub fn OH_ArkUI_AccessibilityValue_SetCurrent(
         value: *mut ArkUI_AccessibilityValue,
         current: i32,
     );
 }
 extern "C" {
+    #[doc = " @brief Get accessibility current value.\n\n @param value accessibility value object.\n @return current value based on range components, The default value is -1.\n         If the function parameter is abnormal, return -1.\n @since 12"]
     pub fn OH_ArkUI_AccessibilityValue_GetCurrent(value: *mut ArkUI_AccessibilityValue) -> i32;
 }
 extern "C" {
+    #[doc = " @brief Set accessibility text value.\n\n @param value accessibility value object.\n @param text The textual description information of the component, which defaults to an empty string.\n @since 12"]
     pub fn OH_ArkUI_AccessibilityValue_SetText(
         value: *mut ArkUI_AccessibilityValue,
         text: *const ::std::os::raw::c_char,
     );
 }
 extern "C" {
+    #[doc = " @brief Get accessibility text value.\n\n @param value accessibility value object.\n @return The textual description information of the component, which defaults to an empty string;\n         If the function parameter is abnormal, return null.\n @since 12"]
     pub fn OH_ArkUI_AccessibilityValue_GetText(
         value: *mut ArkUI_AccessibilityValue,
     ) -> *const ::std::os::raw::c_char;
 }
 extern "C" {
+    #[doc = " @brief Destroy the instance of Customs Property.\n\n @param handle The instance of Customs Property to be destroyed.\n @since 14"]
     pub fn OH_ArkUI_CustomProperty_Destroy(handle: *mut ArkUI_CustomProperty);
 }
 extern "C" {
+    #[doc = " @brief Get custom attribute value information.\n\n @param handle Custom attribute object pointer.\n @return Customize the value information within the attribute structure.\n @since 14"]
     pub fn OH_ArkUI_CustomProperty_GetStringValue(
         handle: *mut ArkUI_CustomProperty,
     ) -> *const ::std::os::raw::c_char;
 }
 extern "C" {
+    #[doc = " @brief Destroy ActiveChildenInfo instance.\n\n @param handle ActiveChild instance to be destroyed.\n @since 14"]
     pub fn OH_ArkUI_ActiveChildrenInfo_Destroy(handle: *mut ArkUI_ActiveChildrenInfo);
 }
 extern "C" {
+    #[doc = " @brief Retrieve the child nodes of ActiveChildenInfo with the structure index.\n\n @param handle The ActiveChildenInfo instance for obtaining information.\n @param index The index of child nodes.\n @return The child node pointer corresponding to the index. Return nullptr in case of exception.\n @since 14"]
     pub fn OH_ArkUI_ActiveChildrenInfo_GetNodeByIndex(
         handle: *mut ArkUI_ActiveChildrenInfo,
         index: i32,
     ) -> ArkUI_NodeHandle;
 }
 extern "C" {
+    #[doc = " @brief Retrieve the number of nodes within the structure of ActiveChildenInfo.\n\n @param handle The ActiveChildenInfo instance for obtaining information.\n @return Number of child nodes. Default value: 0.\n @since 14"]
     pub fn OH_ArkUI_ActiveChildrenInfo_GetCount(handle: *mut ArkUI_ActiveChildrenInfo) -> i32;
 }
+#[doc = " Both the node and its child node respond to the hit test of a touch event, but its sibling node is blocked from\n  the hit test."]
 pub const HitTestMode_HTM_DEFAULT: HitTestMode = 0;
+#[doc = " The node responds to the hit test of a touch event, but its child node and sibling node are blocked from the hit\n  test."]
 pub const HitTestMode_HTM_BLOCK: HitTestMode = 1;
+#[doc = " Both the node and its child node respond to the hit test of a touch event, and its sibling node is also\n  considered during the hit test."]
 pub const HitTestMode_HTM_TRANSPARENT: HitTestMode = 2;
+#[doc = " The node does not respond to the hit test of a touch event, but its child node and sibling node are considered\n  during the hit test."]
 pub const HitTestMode_HTM_NONE: HitTestMode = 3;
+#[doc = " @brief Enumerates the hit test modes.\n\n @since 12"]
 pub type HitTestMode = ::std::os::raw::c_uint;
 extern "C" {
+    #[doc = " @brief Obtains the type of this UI input event.\n\n @param event Indicates the pointer to the current UI input event.\n @return Returns the type of the current UI input event; returns <b>0</b> if any parameter error occurs.\n @since 12"]
     pub fn OH_ArkUI_UIInputEvent_GetType(event: *const ArkUI_UIInputEvent) -> i32;
 }
 extern "C" {
+    #[doc = " @brief Obtains the action type of this UI input event.\n\n @param event Indicates the pointer to the current UI input event.\n @return Returns the action type of the current UI input event; returns <b>0</b> if any parameter error occurs.\n @since 12"]
     pub fn OH_ArkUI_UIInputEvent_GetAction(event: *const ArkUI_UIInputEvent) -> i32;
 }
 extern "C" {
+    #[doc = " @brief Obtains the source type of this UI input event.\n\n @param event Indicates the pointer to the current UI input event.\n @return Returns the source type of the current UI input event.\n @since 12"]
     pub fn OH_ArkUI_UIInputEvent_GetSourceType(event: *const ArkUI_UIInputEvent) -> i32;
 }
 extern "C" {
+    #[doc = " @brief Obtains the tool type of this UI input event.\n\n @param event Indicates the pointer to the current UI input event.\n @return Returns the tool type of the current UI input event.\n @since 12"]
     pub fn OH_ArkUI_UIInputEvent_GetToolType(event: *const ArkUI_UIInputEvent) -> i32;
 }
 extern "C" {
+    #[doc = " @brief Obtains the time when this UI input event occurs.\n\n @param event Indicates the pointer to the current UI input event.\n @return Returns the time when the UI input event occurs; returns <b>0</b> if any parameter error occurs.\n @since 12"]
     pub fn OH_ArkUI_UIInputEvent_GetEventTime(event: *const ArkUI_UIInputEvent) -> i64;
 }
 extern "C" {
+    #[doc = " @brief Obtains the number of touch points from a directional input event (such as a touch event, mouse event,\n or axis event).\n\n @param event Indicates the pointer to the current UI input event.\n @return Returns the number of touch points for the directional input event.\n @since 12"]
     pub fn OH_ArkUI_PointerEvent_GetPointerCount(event: *const ArkUI_UIInputEvent) -> u32;
 }
 extern "C" {
+    #[doc = " @brief Obtains the ID of a touch point from a directional input event (such as a touch event, mouse event,\n or axis event).\n\n @param event Indicates the pointer to the current UI input event.\n @param pointerIndex Indicates the index of the target touch point in the multi-touch data list.\n @return Returns the ID of the corresponding touch point.\n @since 12"]
     pub fn OH_ArkUI_PointerEvent_GetPointerId(
         event: *const ArkUI_UIInputEvent,
         pointerIndex: u32,
     ) -> i32;
 }
 extern "C" {
+    #[doc = " @brief Obtains the X coordinate relative to the upper left corner of the current component from a directional\n input event (such as a touch event, mouse event, or axis event).\n\n @param event Indicates the pointer to the directional input event.\n @return Returns the X coordinate relative to the upper left corner of the current component;\n returns <b>0</b> if any parameter error occurs.\n @since 12"]
     pub fn OH_ArkUI_PointerEvent_GetX(event: *const ArkUI_UIInputEvent) -> f32;
 }
 extern "C" {
+    #[doc = " @brief Obtains the X coordinate of a specific touch point relative to the upper left corner of the current component\n from a directional input event (such as a touch event, mouse event, or axis event).\n\n @param event Indicates the pointer to the current UI input event.\n @param pointerIndex Indicates the index of the target touch point in the multi-touch data list.\n @return Returns the X coordinate relative to the upper left corner of the current component;\n returns <b>0.0f</b> if any parameter error occurs.\n @since 12"]
     pub fn OH_ArkUI_PointerEvent_GetXByIndex(
         event: *const ArkUI_UIInputEvent,
         pointerIndex: u32,
     ) -> f32;
 }
 extern "C" {
+    #[doc = " @brief Obtains the Y coordinate relative to the upper left corner of the current component from a directional\n input event (such as a touch event, mouse event, or axis event).\n\n @param event Indicates the pointer to the UI input event.\n @return Returns the Y coordinate relative to the upper left corner of the current component;\n returns <b>0</b> if any parameter error occurs.\n @since 12"]
     pub fn OH_ArkUI_PointerEvent_GetY(event: *const ArkUI_UIInputEvent) -> f32;
 }
 extern "C" {
+    #[doc = " @brief Obtains the Y coordinate of a specific touch point relative to the upper left corner of the current component\n from a directional input event (such as a touch event, mouse event, or axis event).\n\n @param event Indicates the pointer to the current UI input event.\n @param pointerIndex Indicates the index of the target touch point in the multi-touch data list.\n @return Returns the Y coordinate relative to the upper left corner of the current component;\n returns <b>0.0f</b> if any parameter error occurs.\n @since 12"]
     pub fn OH_ArkUI_PointerEvent_GetYByIndex(
         event: *const ArkUI_UIInputEvent,
         pointerIndex: u32,
     ) -> f32;
 }
 extern "C" {
+    #[doc = " @brief Obtains the X coordinate relative to the upper left corner of the current application window from a\n directional input event (such as a touch event, mouse event, or axis event).\n\n @param event Indicates the pointer to the UI input event.\n @return Returns the X coordinate relative to the upper left corner of the current application window;\n returns <b>0</b> if any parameter error occurs.\n @since 12"]
     pub fn OH_ArkUI_PointerEvent_GetWindowX(event: *const ArkUI_UIInputEvent) -> f32;
 }
 extern "C" {
+    #[doc = " @brief Obtains the X coordinate of a specific touch point relative to the upper left corner of the current\n application window from a directional input event (such as a touch event, mouse event, or axis event).\n\n @param event Indicates the pointer to the current UI input event.\n @param pointerIndex Indicates the index of the target touch point in the multi-touch data list.\n @return Returns the X coordinate relative to the upper left corner of the current application window;\n returns <b>0.0f</b> if any parameter error occurs.\n @since 12"]
     pub fn OH_ArkUI_PointerEvent_GetWindowXByIndex(
         event: *const ArkUI_UIInputEvent,
         pointerIndex: u32,
     ) -> f32;
 }
 extern "C" {
+    #[doc = " @brief Obtains the Y coordinate relative to the upper left corner of the current application window from a\n directional input event (such as a touch event, mouse event, or axis event).\n\n @param event Indicates the pointer to the UI input event.\n @return Returns the Y coordinate relative to the upper left corner of the current application window;\n returns <b>0</b> if any parameter error occurs.\n @since 12"]
     pub fn OH_ArkUI_PointerEvent_GetWindowY(event: *const ArkUI_UIInputEvent) -> f32;
 }
 extern "C" {
+    #[doc = " @brief Obtains the Y coordinate of a specific touch point relative to the upper left corner of the current\n application window from a directional input event (such as a touch event, mouse event, or axis event).\n\n @param event Indicates the pointer to the current UI input event.\n @param pointerIndex Indicates the index of the target touch point in the multi-touch data list.\n @return Returns the Y coordinate relative to the upper left corner of the current application window;\n returns <b>0.0f</b> if any parameter error occurs.\n @since 12"]
     pub fn OH_ArkUI_PointerEvent_GetWindowYByIndex(
         event: *const ArkUI_UIInputEvent,
         pointerIndex: u32,
     ) -> f32;
 }
 extern "C" {
+    #[doc = " @brief Obtains the X coordinate relative to the upper left corner of the current screen from a directional input\n event (such as a touch event, mouse event, or axis event).\n\n @param event Indicates the pointer to the UI input event.\n @return Returns the X coordinate relative to the upper left corner of the current screen;\n returns <b>0</b> if any parameter error occurs.\n @since 12"]
     pub fn OH_ArkUI_PointerEvent_GetDisplayX(event: *const ArkUI_UIInputEvent) -> f32;
 }
 extern "C" {
+    #[doc = " @brief Obtains the X coordinate of a specific touch point relative to the upper left corner of the current screen\n from a directional input event (such as a touch event, mouse event, or axis event).\n\n @param event Indicates the pointer to the current UI input event.\n @param pointerIndex Indicates the index of the target touch point in the multi-touch data list.\n @return Returns the X coordinate relative to the upper left corner of the current screen;\n returns <b>0.0f</b> if any parameter error occurs.\n @since 12"]
     pub fn OH_ArkUI_PointerEvent_GetDisplayXByIndex(
         event: *const ArkUI_UIInputEvent,
         pointerIndex: u32,
     ) -> f32;
 }
 extern "C" {
+    #[doc = " @brief Obtains the Y coordinate relative to the upper left corner of the current screen from a directional input\n event (such as a touch event, mouse event, or axis event).\n\n @param event Indicates the pointer to the UI input event.\n @return Returns the Y coordinate relative to the upper left corner of the current screen;\n returns <b>0</b> if any parameter error occurs.\n @since 12"]
     pub fn OH_ArkUI_PointerEvent_GetDisplayY(event: *const ArkUI_UIInputEvent) -> f32;
 }
 extern "C" {
+    #[doc = " @brief Obtains the Y coordinate of a specific touch point relative to the upper left corner of the current screen\n from a directional input event (such as a touch event, mouse event, or axis event).\n\n @param event Indicates the pointer to the current UI input event.\n @param pointerIndex Indicates the index of the target touch point in the multi-touch data list.\n @return Returns the Y coordinate relative to the upper left corner of the current screen;\n returns <b>0.0f</b> if any parameter error occurs.\n @since 12"]
     pub fn OH_ArkUI_PointerEvent_GetDisplayYByIndex(
         event: *const ArkUI_UIInputEvent,
         pointerIndex: u32,
     ) -> f32;
 }
 extern "C" {
+    #[doc = " @brief Obtains the pressure applied to the touchscreen from a directional input event (for example, a touch event).\n\n @param event Indicates the pointer to the current UI input event.\n @param pointerIndex Indicates the index of the target touch point in the multi-touch data list.\n @return Returns the pressure applied to the touchscreen; returns <b>0.0f</b> if any parameter error occurs.\n @since 12"]
     pub fn OH_ArkUI_PointerEvent_GetPressure(
         event: *const ArkUI_UIInputEvent,
         pointerIndex: u32,
     ) -> f32;
 }
 extern "C" {
+    #[doc = " @brief Obtains the angle relative to the YZ plane from a directional input event (for example, a touch event).\n The value range is [-90, 90]. A positive value indicates a rightward tilt.\n\n @param event Indicates the pointer to the current UI input event.\n @param pointerIndex Indicates the index of the target touch point in the multi-touch data list.\n @return Returns the angle relative to the YZ plane.\n @since 12"]
     pub fn OH_ArkUI_PointerEvent_GetTiltX(
         event: *const ArkUI_UIInputEvent,
         pointerIndex: u32,
     ) -> f32;
 }
 extern "C" {
+    #[doc = " @brief Obtains the angle relative to the XZ plane from a directional input event (for example, a touch event).\n The value range is [-90, 90]. A positive value indicates a downward tilt.\n\n @param event Indicates the pointer to the current UI input event.\n @param pointerIndex Indicates the index of the target touch point in the multi-touch data list.\n @return Returns the angle relative to the XZ plane.\n @since 12"]
     pub fn OH_ArkUI_PointerEvent_GetTiltY(
         event: *const ArkUI_UIInputEvent,
         pointerIndex: u32,
     ) -> f32;
 }
 extern "C" {
+    #[doc = " @brief Obtains the width of the touch area from a directional input event (for example, a touch event).\n\n @param event Indicates the pointer to the current UI input event.\n @param pointerIndex Indicates the index of the target touch point in the multi-touch data list.\n @return Returns the width of the touch area.\n @since 12"]
     pub fn OH_ArkUI_PointerEvent_GetTouchAreaWidth(
         event: *const ArkUI_UIInputEvent,
         pointerIndex: u32,
     ) -> f32;
 }
 extern "C" {
+    #[doc = " @brief Obtains the height of the touch area from a directional input event (for example, a touch event).\n\n @param event Indicates the pointer to the current UI input event.\n @param pointerIndex Indicates the index of the target touch point in the multi-touch data list.\n @return Returns the height of the touch area.\n @since 12"]
     pub fn OH_ArkUI_PointerEvent_GetTouchAreaHeight(
         event: *const ArkUI_UIInputEvent,
         pointerIndex: u32,
     ) -> f32;
 }
 extern "C" {
+    #[doc = " @brief Obtains the number of historical events from a directional input event (such as a touch event, mouse event,\n or axis event).\n\n @param event Indicates the pointer to the current UI input event.\n @return Returns the number of historical events.\n @since 12"]
     pub fn OH_ArkUI_PointerEvent_GetHistorySize(event: *const ArkUI_UIInputEvent) -> u32;
 }
 extern "C" {
+    #[doc = " @brief Obtains the occurrence time of a historical event from a directional input event (such as a touch event,\n mouse event, or axis event).\n\n @param event Indicates the pointer to the current UI input event.\n @param historyIndex Indicates the index of the target historical event.\n @return Returns the time when the UI input event occurs; returns <b>0</b> if any parameter error occurs.\n @since 12"]
     pub fn OH_ArkUI_PointerEvent_GetHistoryEventTime(
         event: *const ArkUI_UIInputEvent,
         historyIndex: u32,
     ) -> i64;
 }
 extern "C" {
+    #[doc = " @brief Obtains the number of touch points in a specific historical event from a directional input event (such as\n a touch event, mouse event, or axis event).\n\n @param event Indicates the pointer to the current UI input event.\n @param historyIndex Indicates the index of the target historical event.\n @return Returns the number of touch points in the specified historical event\n @since 12"]
     pub fn OH_ArkUI_PointerEvent_GetHistoryPointerCount(
         event: *const ArkUI_UIInputEvent,
         historyIndex: u32,
     ) -> u32;
 }
 extern "C" {
+    #[doc = " @brief Obtains the ID of a touch point in a specific historical event from a directional input event (such as\n a touch event, mouse event, or axis event).\n\n @param event Indicates the pointer to the current UI input event.\n @param pointerIndex Indicates the index of the target touch point in the multi-touch data list.\n @param historyIndex Indicates the index of the target historical event.\n @return Returns the ID of the corresponding touch point in the specified historical event.\n @since 12"]
     pub fn OH_ArkUI_PointerEvent_GetHistoryPointerId(
         event: *const ArkUI_UIInputEvent,
         pointerIndex: u32,
@@ -1439,6 +1718,7 @@ extern "C" {
     ) -> i32;
 }
 extern "C" {
+    #[doc = " @brief Obtains the X coordinate of a specific touch point in a historical event relative to the upper left corner\n of the current component from a directional input event (such as a touch event, mouse event, or axis event).\n\n @param event Indicates the pointer to the current UI input event.\n @param pointerIndex Indicates the index of the target touch point in the multi-touch data list.\n @param historyIndex Indicates the index of the target historical event.\n @return Returns the X coordinate relative to the upper left corner of the current component;\n returns <b>0.0f</b> if any parameter error occurs.\n @since 12"]
     pub fn OH_ArkUI_PointerEvent_GetHistoryX(
         event: *const ArkUI_UIInputEvent,
         pointerIndex: u32,
@@ -1446,6 +1726,7 @@ extern "C" {
     ) -> f32;
 }
 extern "C" {
+    #[doc = " @brief Obtains the Y coordinate of a specific touch point in a historical event relative to the upper left corner\n of the current component from a directional input event (such as a touch event, mouse event, or axis event).\n\n @param event Indicates the pointer to the current UI input event.\n @param pointerIndex Indicates the index of the target touch point in the multi-touch data list.\n @param historyIndex Indicates the index of the target historical event.\n @return Returns the Y coordinate relative to the upper left corner of the current component;\n returns <b>0.0f</b> if any parameter error occurs.\n @since 12"]
     pub fn OH_ArkUI_PointerEvent_GetHistoryY(
         event: *const ArkUI_UIInputEvent,
         pointerIndex: u32,
@@ -1453,6 +1734,7 @@ extern "C" {
     ) -> f32;
 }
 extern "C" {
+    #[doc = " @brief Obtains the X coordinate of a specific touch point in a historical event relative to the upper left corner\n of the current application window from a directional input event (such as a touch event, mouse event, or axis event).\n\n @param event Indicates the pointer to the current UI input event.\n @param pointerIndex Indicates the index of the target touch point in the multi-touch data list.\n @param historyIndex Indicates the index of the target historical event.\n @return Returns the X coordinate relative to the upper left corner of the current application window;\n returns <b>0.0f</b> if any parameter error occurs.\n @since 12"]
     pub fn OH_ArkUI_PointerEvent_GetHistoryWindowX(
         event: *const ArkUI_UIInputEvent,
         pointerIndex: u32,
@@ -1460,6 +1742,7 @@ extern "C" {
     ) -> f32;
 }
 extern "C" {
+    #[doc = " @brief Obtains the Y coordinate of a specific touch point in a historical event relative to the upper left corner\n of the current application window from a directional input event (such as a touch event, mouse event, or axis event).\n\n @param event Indicates the pointer to the current UI input event.\n @param pointerIndex Indicates the index of the target touch point in the multi-touch data list.\n @param historyIndex Indicates the index of the target historical event.\n @return Returns the Y coordinate relative to the upper left corner of the current application window;\n returns <b>0.0f</b> if any parameter error occurs.\n @since 12"]
     pub fn OH_ArkUI_PointerEvent_GetHistoryWindowY(
         event: *const ArkUI_UIInputEvent,
         pointerIndex: u32,
@@ -1467,6 +1750,7 @@ extern "C" {
     ) -> f32;
 }
 extern "C" {
+    #[doc = " @brief Obtains the X coordinate of a specific touch point in a historical event relative to the upper left corner\n of the current screen from a directional input event (such as a touch event, mouse event, or axis event).\n\n @param event Indicates the pointer to the current UI input event.\n @param pointerIndex Indicates the index of the target touch point in the multi-touch data list.\n @param historyIndex Indicates the index of the target historical event.\n @return Returns the X coordinate relative to the upper left corner of the current screen;\n returns <b>0.0f</b> if any parameter error occurs.\n @since 12"]
     pub fn OH_ArkUI_PointerEvent_GetHistoryDisplayX(
         event: *const ArkUI_UIInputEvent,
         pointerIndex: u32,
@@ -1474,6 +1758,7 @@ extern "C" {
     ) -> f32;
 }
 extern "C" {
+    #[doc = " @brief Obtains the Y coordinate of a specific touch point in a historical event relative to the upper left corner\n of the current screen from a directional input event (such as a touch event, mouse event, or axis event).\n\n @param event Indicates the pointer to the current UI input event.\n @param pointerIndex Indicates the index of the target touch point in the multi-touch data list.\n @param historyIndex Indicates the index of the target historical event.\n @return Returns the Y coordinate relative to the upper left corner of the current screen;\n returns <b>0.0f</b> if any parameter error occurs.\n @since 12"]
     pub fn OH_ArkUI_PointerEvent_GetHistoryDisplayY(
         event: *const ArkUI_UIInputEvent,
         pointerIndex: u32,
@@ -1481,6 +1766,7 @@ extern "C" {
     ) -> f32;
 }
 extern "C" {
+    #[doc = " @brief Obtains the pressure applied to the touchscreen in a specific historical event from a directional input event\n (for example, a touch event)..\n\n @param event Indicates the pointer to the current UI input event.\n @param pointerIndex Indicates the index of the target touch point in the multi-touch data list.\n @param historyIndex Indicates the index of the target historical event.\n @return Returns the pressure applied to the touchscreen; returns <b>0.0f</b> if any parameter error occurs.\n @since 12"]
     pub fn OH_ArkUI_PointerEvent_GetHistoryPressure(
         event: *const ArkUI_UIInputEvent,
         pointerIndex: u32,
@@ -1488,6 +1774,7 @@ extern "C" {
     ) -> f32;
 }
 extern "C" {
+    #[doc = " @brief Obtains the angle relative to the YZ plane in a specific historical event from a directional input event\n (for example, a touch event). The value range is [-90, 90]. A positive value indicates a rightward tilt.\n\n @param event Indicates the pointer to the current UI input event.\n @param pointerIndex Indicates the index of the target touch point in the multi-touch data list.\n @param historyIndex Indicates the index of the target historical event.\n @return Returns the angle relative to the YZ plane.\n @since 12"]
     pub fn OH_ArkUI_PointerEvent_GetHistoryTiltX(
         event: *const ArkUI_UIInputEvent,
         pointerIndex: u32,
@@ -1495,6 +1782,7 @@ extern "C" {
     ) -> f32;
 }
 extern "C" {
+    #[doc = " @brief Obtains the angle relative to the XZ plane in a specific historical event from a directional input event\n (for example, a touch event). The value range is [-90, 90]. A positive value indicates a downward tilt.\n\n @param event Indicates the pointer to the current UI input event.\n @param pointerIndex Indicates the index of the target touch point in the multi-touch data list.\n @param historyIndex Indicates the index of the target historical event.\n @return Returns the angle relative to the XZ plane.\n @since 12"]
     pub fn OH_ArkUI_PointerEvent_GetHistoryTiltY(
         event: *const ArkUI_UIInputEvent,
         pointerIndex: u32,
@@ -1502,6 +1790,7 @@ extern "C" {
     ) -> f32;
 }
 extern "C" {
+    #[doc = " @brief Obtains the width of the touch area in a specific historical event from a directional input event\n (for example, a touch event).\n\n @param event Indicates the pointer to the current UI input event.\n @param pointerIndex Indicates the index of the target touch point in the multi-touch data list.\n @param historyIndex Indicates the index of the target historical event.\n @return Returns the width of the touch area.\n @since 12"]
     pub fn OH_ArkUI_PointerEvent_GetHistoryTouchAreaWidth(
         event: *const ArkUI_UIInputEvent,
         pointerIndex: u32,
@@ -1509,6 +1798,7 @@ extern "C" {
     ) -> f32;
 }
 extern "C" {
+    #[doc = " @brief Obtains the height of the touch area in a specific historical event from a directional input event\n (for example, a touch event).\n\n @param event Indicates the pointer to the current UI input event.\n @param pointerIndex Indicates the index of the target touch point in the multi-touch data list.\n @param historyIndex Indicates the index of the target historical event.\n @return Returns the height of the touch area.\n @since 12"]
     pub fn OH_ArkUI_PointerEvent_GetHistoryTouchAreaHeight(
         event: *const ArkUI_UIInputEvent,
         pointerIndex: u32,
@@ -1516,36 +1806,45 @@ extern "C" {
     ) -> f32;
 }
 extern "C" {
+    #[doc = " @brief Obtains the value of the vertical scroll axis for this axis event.\n\n @param event Indicates the pointer to the UI input event.\n @return Returns the value of the vertical scroll axis of the current axis event;\n returns <b>0</b> if any parameter error occurs.\n @since 12"]
     pub fn OH_ArkUI_AxisEvent_GetVerticalAxisValue(event: *const ArkUI_UIInputEvent) -> f64;
 }
 extern "C" {
+    #[doc = " @brief Obtains the value of the horizontal scroll axis for this axis event.\n\n @param event Indicates the pointer to the UI input event.\n @return Returns the value of the horizontal scroll axis of the current axis event;\n returns <b>0</b> if any parameter error occurs.\n @since 12"]
     pub fn OH_ArkUI_AxisEvent_GetHorizontalAxisValue(event: *const ArkUI_UIInputEvent) -> f64;
 }
 extern "C" {
+    #[doc = " @brief Obtains the scale value of the pinch axis for this axis event.\n\n @param event Indicates the pointer to the UI input event.\n @return Returns the scale value of the pinch axis of the current axis event;\n returns <b>0</b> if any parameter error occurs.\n @since 12"]
     pub fn OH_ArkUI_AxisEvent_GetPinchAxisScaleValue(event: *const ArkUI_UIInputEvent) -> f64;
 }
 extern "C" {
+    #[doc = " @brief Sets how the component behaves during hit testing.\n\n @param event Indicates the pointer to the current UI input event.\n @param mode Indicates how the component behaves during hit testing. The parameter type is {@link HitTestMode}.\n @return Returns the status code of the execution.\n @since 12"]
     pub fn OH_ArkUI_PointerEvent_SetInterceptHitTestMode(
         event: *const ArkUI_UIInputEvent,
         mode: HitTestMode,
     ) -> i32;
 }
 extern "C" {
+    #[doc = " @brief Get the value of the button type for mouse events.\n\n @param event Represents a pointer to the current UI input event.\n @return Return to the mouse button type, where <b>1</b> is the left button, <b>2</b> is the right button,\n <b>3</b> is the middle button, <b>4</b> is the back button, and <b>5</b> is the forward button.\n @since 12"]
     pub fn OH_ArkUI_MouseEvent_GetMouseButton(event: *const ArkUI_UIInputEvent) -> i32;
 }
 extern "C" {
+    #[doc = " @brief Get the value of the mouse action type for mouse events.\n\n @param event Represents a pointer to the current UI input event.\n @return Returns the type of mouse action, where <b>1</b> represents button pressed,\n <b>2</b> represents button released, and <b>3</b> represents mouse movement.\n @since 12"]
     pub fn OH_ArkUI_MouseEvent_GetMouseAction(event: *const ArkUI_UIInputEvent) -> i32;
 }
 extern "C" {
+    #[doc = " @brief Sets whether to prevent event bubbling.\n\n @param event Indicates the pointer to the current UI input event.\n @param stopPropagation Indicates whether the event is prevented from bubbling.\n @return Returns the status code of the execution. If 0 is returned, the setting is successful.\n         If 401 is returned, the execution fails.\n         The possible cause of the failure is that the event parameter is abnormal, such as a null pointer.\n @since 12"]
     pub fn OH_ArkUI_PointerEvent_SetStopPropagation(
         event: *const ArkUI_UIInputEvent,
         stopPropagation: bool,
     ) -> i32;
 }
 extern "C" {
+    #[doc = " @brief Obtains the ID of device that triggers UI input event.\n\n @param event Pointer to an <b>ArkUI_UIInputEvent</b> object.\n @return Returns the device ID.\n @since 14"]
     pub fn OH_ArkUI_UIInputEvent_GetDeviceId(event: *const ArkUI_UIInputEvent) -> i32;
 }
 extern "C" {
+    #[doc = " @brief Obtains the pressed status of modifier keys from UI input event.\n The following modifier keys are supported: Ctrl, Alt, Shift, Fn. However, the <b>Fn</b> key on external keyboards\n is not supported.\n\n @param event Pointer to an <b>ArkUI_UIInputEvent</b> object.\n @param pressedKeyCodes Array of all keys that are pressed. You need to allocate the memory space.\n @param length Length of the passed pressedKeyCodes array (when used as an input parameter);\n               number of the keys pressed (when used as an output parameter).\n @return Returns the result code.\n         Returns {@link ARKUI_ERROR_CODE_NO_ERROR} if the operation is successful.\n         Returns {@link ARKUI_ERROR_CODE_BUFFER_SIZE_ERROR} if the giving buffer is not enough.\n         Returns {@link ARKUI_ERROR_CODE_PARAM_INVALID} if a parameter error occurs.\n @since 14"]
     pub fn OH_ArkUI_UIInputEvent_GetPressedKeys(
         event: *const ArkUI_UIInputEvent,
         pressedKeyCodes: *mut i32,
@@ -1885,6 +2184,7 @@ pub const OH_NativeXComponent_KeyCode_KEY_BTN_6: OH_NativeXComponent_KeyCode = 3
 pub const OH_NativeXComponent_KeyCode_KEY_BTN_7: OH_NativeXComponent_KeyCode = 3107;
 pub const OH_NativeXComponent_KeyCode_KEY_BTN_8: OH_NativeXComponent_KeyCode = 3108;
 pub const OH_NativeXComponent_KeyCode_KEY_BTN_9: OH_NativeXComponent_KeyCode = 3109;
+#[doc = " @brief Represents the key event code.\n\n @since 10\n @version 1.0"]
 pub type OH_NativeXComponent_KeyCode = ::std::os::raw::c_int;
 pub const OH_NativeXComponent_KeyAction_OH_NATIVEXCOMPONENT_KEY_ACTION_UNKNOWN:
     OH_NativeXComponent_KeyAction = -1;
@@ -1892,55 +2192,82 @@ pub const OH_NativeXComponent_KeyAction_OH_NATIVEXCOMPONENT_KEY_ACTION_DOWN:
     OH_NativeXComponent_KeyAction = 0;
 pub const OH_NativeXComponent_KeyAction_OH_NATIVEXCOMPONENT_KEY_ACTION_UP:
     OH_NativeXComponent_KeyAction = 1;
+#[doc = " @brief Represents the key event action.\n\n @since 10\n @version 1.0"]
 pub type OH_NativeXComponent_KeyAction = ::std::os::raw::c_int;
 pub const OH_XCOMPONENT_ID_LEN_MAX: u32 = 128;
 pub const OH_MAX_TOUCH_POINTS_NUMBER: u32 = 10;
+#[doc = " Successful."]
 pub const OH_NATIVEXCOMPONENT_RESULT_SUCCESS: _bindgen_ty_6 = 0;
+#[doc = " Failed."]
 pub const OH_NATIVEXCOMPONENT_RESULT_FAILED: _bindgen_ty_6 = -1;
+#[doc = " Invalid parameters."]
 pub const OH_NATIVEXCOMPONENT_RESULT_BAD_PARAMETER: _bindgen_ty_6 = -2;
+#[doc = " @brief Enumerates the API access states.\n\n @since 8\n @version 1.0"]
 pub type _bindgen_ty_6 = ::std::os::raw::c_int;
+#[doc = " Trigger a touch event when a finger is pressed."]
 pub const OH_NativeXComponent_TouchEventType_OH_NATIVEXCOMPONENT_DOWN:
     OH_NativeXComponent_TouchEventType = 0;
+#[doc = " Trigger a touch event when a finger is lifted."]
 pub const OH_NativeXComponent_TouchEventType_OH_NATIVEXCOMPONENT_UP:
     OH_NativeXComponent_TouchEventType = 1;
+#[doc = " Trigger a touch event when a finger moves on the screen in pressed state."]
 pub const OH_NativeXComponent_TouchEventType_OH_NATIVEXCOMPONENT_MOVE:
     OH_NativeXComponent_TouchEventType = 2;
+#[doc = " Trigger an event when a touch event is canceled."]
 pub const OH_NativeXComponent_TouchEventType_OH_NATIVEXCOMPONENT_CANCEL:
     OH_NativeXComponent_TouchEventType = 3;
+#[doc = " Invalid touch type."]
 pub const OH_NativeXComponent_TouchEventType_OH_NATIVEXCOMPONENT_UNKNOWN:
     OH_NativeXComponent_TouchEventType = 4;
 pub type OH_NativeXComponent_TouchEventType = ::std::os::raw::c_uint;
+#[doc = " Indicates invalid tool type."]
 pub const OH_NativeXComponent_TouchPointToolType_OH_NATIVEXCOMPONENT_TOOL_TYPE_UNKNOWN:
     OH_NativeXComponent_TouchPointToolType = 0;
+#[doc = " Indicates a finger."]
 pub const OH_NativeXComponent_TouchPointToolType_OH_NATIVEXCOMPONENT_TOOL_TYPE_FINGER:
     OH_NativeXComponent_TouchPointToolType = 1;
+#[doc = " Indicates a stylus."]
 pub const OH_NativeXComponent_TouchPointToolType_OH_NATIVEXCOMPONENT_TOOL_TYPE_PEN:
     OH_NativeXComponent_TouchPointToolType = 2;
+#[doc = " Indicates a eraser."]
 pub const OH_NativeXComponent_TouchPointToolType_OH_NATIVEXCOMPONENT_TOOL_TYPE_RUBBER:
     OH_NativeXComponent_TouchPointToolType = 3;
+#[doc = " Indicates a brush."]
 pub const OH_NativeXComponent_TouchPointToolType_OH_NATIVEXCOMPONENT_TOOL_TYPE_BRUSH:
     OH_NativeXComponent_TouchPointToolType = 4;
+#[doc = " Indicates a pencil."]
 pub const OH_NativeXComponent_TouchPointToolType_OH_NATIVEXCOMPONENT_TOOL_TYPE_PENCIL:
     OH_NativeXComponent_TouchPointToolType = 5;
+#[doc = " Indicates a brush."]
 pub const OH_NativeXComponent_TouchPointToolType_OH_NATIVEXCOMPONENT_TOOL_TYPE_AIRBRUSH:
     OH_NativeXComponent_TouchPointToolType = 6;
+#[doc = " Indicates a mouse."]
 pub const OH_NativeXComponent_TouchPointToolType_OH_NATIVEXCOMPONENT_TOOL_TYPE_MOUSE:
     OH_NativeXComponent_TouchPointToolType = 7;
+#[doc = " Indicates a lens."]
 pub const OH_NativeXComponent_TouchPointToolType_OH_NATIVEXCOMPONENT_TOOL_TYPE_LENS:
     OH_NativeXComponent_TouchPointToolType = 8;
+#[doc = " @brief Represents the touch point tool type.\n\n @since 9\n @version 1.0"]
 pub type OH_NativeXComponent_TouchPointToolType = ::std::os::raw::c_uint;
+#[doc = " Indicates an unknown input source type."]
 pub const OH_NativeXComponent_EventSourceType_OH_NATIVEXCOMPONENT_SOURCE_TYPE_UNKNOWN:
     OH_NativeXComponent_EventSourceType = 0;
+#[doc = " Indicates that the input source generates a mouse multi-touch event."]
 pub const OH_NativeXComponent_EventSourceType_OH_NATIVEXCOMPONENT_SOURCE_TYPE_MOUSE:
     OH_NativeXComponent_EventSourceType = 1;
+#[doc = " Indicates that the input source generates a touchscreen multi-touch event."]
 pub const OH_NativeXComponent_EventSourceType_OH_NATIVEXCOMPONENT_SOURCE_TYPE_TOUCHSCREEN:
     OH_NativeXComponent_EventSourceType = 2;
+#[doc = " Indicates that the input source generates a touchpad multi-touch event."]
 pub const OH_NativeXComponent_EventSourceType_OH_NATIVEXCOMPONENT_SOURCE_TYPE_TOUCHPAD:
     OH_NativeXComponent_EventSourceType = 3;
+#[doc = " Indicates that the input source generates a joystick multi-touch event."]
 pub const OH_NativeXComponent_EventSourceType_OH_NATIVEXCOMPONENT_SOURCE_TYPE_JOYSTICK:
     OH_NativeXComponent_EventSourceType = 4;
+#[doc = " @brief Indicates that the input source generates a keyboard event.\n\n @since 10\n @version 1.0"]
 pub const OH_NativeXComponent_EventSourceType_OH_NATIVEXCOMPONENT_SOURCE_TYPE_KEYBOARD:
     OH_NativeXComponent_EventSourceType = 5;
+#[doc = " @brief Represents the touch event source type.\n\n @since 9\n @version 1.0"]
 pub type OH_NativeXComponent_EventSourceType = ::std::os::raw::c_uint;
 pub const OH_NativeXComponent_MouseEventAction_OH_NATIVEXCOMPONENT_MOUSE_NONE:
     OH_NativeXComponent_MouseEventAction = 0;
@@ -1950,6 +2277,7 @@ pub const OH_NativeXComponent_MouseEventAction_OH_NATIVEXCOMPONENT_MOUSE_RELEASE
     OH_NativeXComponent_MouseEventAction = 2;
 pub const OH_NativeXComponent_MouseEventAction_OH_NATIVEXCOMPONENT_MOUSE_MOVE:
     OH_NativeXComponent_MouseEventAction = 3;
+#[doc = " @brief Represents the mouse event action.\n\n @since 9\n @version 1.0"]
 pub type OH_NativeXComponent_MouseEventAction = ::std::os::raw::c_uint;
 pub const OH_NativeXComponent_MouseEventButton_OH_NATIVEXCOMPONENT_NONE_BUTTON:
     OH_NativeXComponent_MouseEventButton = 0;
@@ -1963,6 +2291,7 @@ pub const OH_NativeXComponent_MouseEventButton_OH_NATIVEXCOMPONENT_BACK_BUTTON:
     OH_NativeXComponent_MouseEventButton = 8;
 pub const OH_NativeXComponent_MouseEventButton_OH_NATIVEXCOMPONENT_FORWARD_BUTTON:
     OH_NativeXComponent_MouseEventButton = 16;
+#[doc = " @brief Represents the mouse event button.\n\n @since 9\n @version 1.0"]
 pub type OH_NativeXComponent_MouseEventButton = ::std::os::raw::c_uint;
 pub const OH_NativeXComponent_TouchEvent_SourceTool_OH_NATIVEXCOMPONENT_SOURCETOOL_UNKNOWN:
     OH_NativeXComponent_TouchEvent_SourceTool = 0;
@@ -1984,62 +2313,105 @@ pub const OH_NativeXComponent_TouchEvent_SourceTool_OH_NATIVEXCOMPONENT_SOURCETO
     OH_NativeXComponent_TouchEvent_SourceTool = 8;
 pub const OH_NativeXComponent_TouchEvent_SourceTool_OH_NATIVEXCOMPONENT_SOURCETOOL_TOUCHPAD:
     OH_NativeXComponent_TouchEvent_SourceTool = 9;
+#[doc = " @brief Represents the source tool type of TouchEvent\n\n @since 10\n @version 1.0"]
 pub type OH_NativeXComponent_TouchEvent_SourceTool = ::std::os::raw::c_uint;
 #[repr(C)]
 #[derive(Debug, Copy, Clone)]
 pub struct OH_NativeXComponent_HistoricalPoint {
+    #[doc = " Unique identifier of a finger."]
     pub id: i32,
+    #[doc = " X coordinate of the touch point relative to the left edge of the screen."]
     pub screenX: f32,
+    #[doc = " Y coordinate of the touch point relative to the upper edge of the screen."]
     pub screenY: f32,
+    #[doc = " X coordinate of the touch point relative to the left edge of the element to touch."]
     pub x: f32,
+    #[doc = " Y coordinate of the touch point relative to the upper edge of the element to touch."]
     pub y: f32,
+    #[doc = " Touch type of the touch event."]
     pub type_: OH_NativeXComponent_TouchEventType,
+    #[doc = " Contact area between the finger pad and the screen."]
     pub size: f64,
+    #[doc = " Pressure of the current touch event."]
     pub force: f32,
+    #[doc = " Timestamp of the current touch event."]
     pub timeStamp: i64,
+    #[doc = " The angle betweenprojection on plane-X-Y and axis-Z of the current touch event."]
     pub titlX: f32,
+    #[doc = " The angle betweenprojection on plane-Y-Z and axis-Z of the current touch event."]
     pub titlY: f32,
+    #[doc = " The sourceTool of the current touch event."]
     pub sourceTool: OH_NativeXComponent_TouchEvent_SourceTool,
 }
 #[repr(C)]
 #[derive(Debug, Copy, Clone)]
 pub struct OH_NativeXComponent_TouchPoint {
+    #[doc = " Unique identifier of a finger."]
     pub id: i32,
+    #[doc = " X coordinate of the touch point relative to the left edge of the screen."]
     pub screenX: f32,
+    #[doc = " Y coordinate of the touch point relative to the upper edge of the screen."]
     pub screenY: f32,
+    #[doc = " X coordinate of the touch point relative to the left edge of the element to touch."]
     pub x: f32,
+    #[doc = " Y coordinate of the touch point relative to the upper edge of the element to touch."]
     pub y: f32,
+    #[doc = " Touch type of the touch event."]
     pub type_: OH_NativeXComponent_TouchEventType,
+    #[doc = " Contact area between the finger pad and the screen."]
     pub size: f64,
+    #[doc = " Pressure of the current touch event."]
     pub force: f32,
+    #[doc = " Timestamp of the current touch event."]
     pub timeStamp: i64,
+    #[doc = " Whether the current point is pressed."]
     pub isPressed: bool,
 }
 #[repr(C)]
 #[derive(Debug, Copy, Clone)]
 pub struct OH_NativeXComponent_TouchEvent {
+    #[doc = " Unique identifier of a finger."]
     pub id: i32,
+    #[doc = " X coordinate of the touch point relative to the left edge of the screen."]
     pub screenX: f32,
+    #[doc = " Y coordinate of the touch point relative to the upper edge of the screen."]
     pub screenY: f32,
+    #[doc = " X coordinate of the touch point relative to the left edge of the element to touch."]
     pub x: f32,
+    #[doc = " Y coordinate of the touch point relative to the upper edge of the element to touch."]
     pub y: f32,
+    #[doc = " Touch type of the touch event."]
     pub type_: OH_NativeXComponent_TouchEventType,
+    #[doc = " Contact area between the finger pad and the screen."]
     pub size: f64,
+    #[doc = " Pressure of the current touch event."]
     pub force: f32,
+    #[doc = " ID of the device where the current touch event is generated."]
     pub deviceId: i64,
+    #[doc = " Timestamp of the current touch event."]
     pub timeStamp: i64,
+    #[doc = " Array of the current touch points."]
     pub touchPoints: [OH_NativeXComponent_TouchPoint; 10usize],
+    #[doc = " Number of current touch points."]
     pub numPoints: u32,
 }
+#[doc = " @brief Represents the mouse event information.\n\n @since 9\n @version 1.0"]
 #[repr(C)]
 #[derive(Debug, Copy, Clone)]
 pub struct OH_NativeXComponent_MouseEvent {
+    #[doc = " X coordinate of the mouse point relative to the left edge of the element to mouse."]
     pub x: f32,
+    #[doc = " Y coordinate of the mouse point relative to the upper edge of the element to mouse."]
     pub y: f32,
+    #[doc = " X coordinate of the mouse point relative to the left edge of the screen."]
     pub screenX: f32,
+    #[doc = " Y coordinate of the mouse point relative to the upper edge of the screen."]
     pub screenY: f32,
+    #[doc = " Timestamp of the current mouse event."]
     pub timestamp: i64,
+    #[doc = " Mouse event action."]
     pub action: OH_NativeXComponent_MouseEventAction,
+    #[doc = " Mouse event button."]
     pub button: OH_NativeXComponent_MouseEventButton,
 }
 #[repr(C)]
@@ -2047,27 +2419,32 @@ pub struct OH_NativeXComponent_MouseEvent {
 pub struct OH_NativeXComponent {
     _unused: [u8; 0],
 }
+#[doc = " @brief Registers the surface lifecycle and touch event callbacks.\n\n @since 8\n @version 1.0"]
 #[repr(C)]
 #[derive(Debug, Copy, Clone)]
 pub struct OH_NativeXComponent_Callback {
+    #[doc = " Called when the surface is created."]
     pub OnSurfaceCreated: ::std::option::Option<
         unsafe extern "C" fn(
             component: *mut OH_NativeXComponent,
             window: *mut ::std::os::raw::c_void,
         ),
     >,
+    #[doc = " Called when the surface is changed."]
     pub OnSurfaceChanged: ::std::option::Option<
         unsafe extern "C" fn(
             component: *mut OH_NativeXComponent,
             window: *mut ::std::os::raw::c_void,
         ),
     >,
+    #[doc = " Called when the surface is destroyed."]
     pub OnSurfaceDestroyed: ::std::option::Option<
         unsafe extern "C" fn(
             component: *mut OH_NativeXComponent,
             window: *mut ::std::os::raw::c_void,
         ),
     >,
+    #[doc = " Called when a touch event is triggered."]
     pub DispatchTouchEvent: ::std::option::Option<
         unsafe extern "C" fn(
             component: *mut OH_NativeXComponent,
@@ -2075,15 +2452,18 @@ pub struct OH_NativeXComponent_Callback {
         ),
     >,
 }
+#[doc = " @brief Registers the mouse event callbacks.\n\n @since 9\n @version 1.0"]
 #[repr(C)]
 #[derive(Debug, Copy, Clone)]
 pub struct OH_NativeXComponent_MouseEvent_Callback {
+    #[doc = " Called when a mouse event is triggered."]
     pub DispatchMouseEvent: ::std::option::Option<
         unsafe extern "C" fn(
             component: *mut OH_NativeXComponent,
             window: *mut ::std::os::raw::c_void,
         ),
     >,
+    #[doc = " Called when a hover event is triggered."]
     pub DispatchHoverEvent: ::std::option::Option<
         unsafe extern "C" fn(component: *mut OH_NativeXComponent, isHover: bool),
     >,
@@ -2093,14 +2473,19 @@ pub struct OH_NativeXComponent_MouseEvent_Callback {
 pub struct OH_NativeXComponent_KeyEvent {
     _unused: [u8; 0],
 }
+#[doc = " @brief Defines the expected frame rate range struct.\n\n @since 11\n @version 1.0"]
 #[repr(C)]
 #[derive(Debug, Copy, Clone)]
 pub struct OH_NativeXComponent_ExpectedRateRange {
+    #[doc = " The minimum frame rate of dynamical callback rate range."]
     pub min: i32,
+    #[doc = " The maximum frame rate of dynamical callback rate range."]
     pub max: i32,
+    #[doc = " The expected frame rate of dynamical callback rate range."]
     pub expected: i32,
 }
 extern "C" {
+    #[doc = " @brief Obtains the ID of the ArkUI XComponent.\n\n @param component Indicates the pointer to this <b>OH_NativeXComponent</b> instance.\n @param id Indicates the char buffer to keep the ID of this <b>OH_NativeXComponent</b> instance.\\n\n        Notice that a null-terminator will be appended to the char buffer, so the size of the\\n\n        char buffer should be at least as large as the size of the real id length plus 1.\\n\n        It is recommended that the size of the char buffer be [OH_XCOMPONENT_ID_LEN_MAX + 1].\n @param size Indicates the pointer to the length of <b>id</b>, which you can receive.\n @return Returns the status code of the execution.\n @since 8\n @version 1.0"]
     pub fn OH_NativeXComponent_GetXComponentId(
         component: *mut OH_NativeXComponent,
         id: *mut ::std::os::raw::c_char,
@@ -2108,6 +2493,7 @@ extern "C" {
     ) -> i32;
 }
 extern "C" {
+    #[doc = " @brief Obtains the size of the surface held by the ArkUI XComponent.\n\n @param component Indicates the pointer to this <b>OH_NativeXComponent</b> instance.\n @param window Indicates the native window handler.\n @param width Indicates the pointer to the width of the current surface.\n @param height Indicates the pointer to the height of the current surface.\n @return Returns the status code of the execution.\n @since 8\n @version 1.0"]
     pub fn OH_NativeXComponent_GetXComponentSize(
         component: *mut OH_NativeXComponent,
         window: *const ::std::os::raw::c_void,
@@ -2116,6 +2502,7 @@ extern "C" {
     ) -> i32;
 }
 extern "C" {
+    #[doc = " @brief Obtains the offset of the surface held by the ArkUI XComponent.\n\n @param component Indicates the pointer to this <b>OH_NativeXComponent</b> instance.\n @param window Indicates the native window handler.\n @param x Indicates the pointer to the x coordinate of the current surface.\n @param y Indicates the pointer to the y coordinate of the current surface.\n @return Returns the status code of the execution.\n @since 8\n @version 1.0"]
     pub fn OH_NativeXComponent_GetXComponentOffset(
         component: *mut OH_NativeXComponent,
         window: *const ::std::os::raw::c_void,
@@ -2124,6 +2511,7 @@ extern "C" {
     ) -> i32;
 }
 extern "C" {
+    #[doc = " @brief Obtains the touch event dispatched by the ArkUI XComponent.\n\n @param component Indicates the pointer to this <b>OH_NativeXComponent</b> instance.\n @param window Indicates the native window handler.\n @param touchEvent Indicates the pointer to the current touch event.\n @return Returns the status code of the execution.\n @since 8\n @version 1.0"]
     pub fn OH_NativeXComponent_GetTouchEvent(
         component: *mut OH_NativeXComponent,
         window: *const ::std::os::raw::c_void,
@@ -2131,6 +2519,7 @@ extern "C" {
     ) -> i32;
 }
 extern "C" {
+    #[doc = " @brief Obtains the touch pointer tool type by the ArkUI XComponent.\n\n @param component Indicates the pointer to this <b>OH_NativeXComponent</b> instance.\n @param pointIndex Indicates the pointer index in the touchPoints.\n @param toolType Indicates the tool Type of the pointer.\n @return Returns the status code of the execution.\n @since 9\n @version 1.0"]
     pub fn OH_NativeXComponent_GetTouchPointToolType(
         component: *mut OH_NativeXComponent,
         pointIndex: u32,
@@ -2138,6 +2527,7 @@ extern "C" {
     ) -> i32;
 }
 extern "C" {
+    #[doc = " @brief Obtains the touch pointer tiltX by the ArkUI XComponent.\n\n @param component Indicates the pointer to this <b>OH_NativeXComponent</b> instance.\n @param pointIndex Indicates the pointer index in the touchPoints.\n @param tiltX Indicates the x tilt of the pointer.\n @return Returns the status code of the execution.\n @since 9\n @version 1.0"]
     pub fn OH_NativeXComponent_GetTouchPointTiltX(
         component: *mut OH_NativeXComponent,
         pointIndex: u32,
@@ -2145,6 +2535,7 @@ extern "C" {
     ) -> i32;
 }
 extern "C" {
+    #[doc = " @brief Obtains the touch pointer tiltX by the ArkUI XComponent.\n\n @param component Indicates the pointer to this <b>OH_NativeXComponent</b> instance.\n @param pointIndex Indicates the pointer index in the touchPoints.\n @param tiltY Indicates the y tilt of the pointer.\n @return Returns the status code of the execution.\n @since 9\n @version 1.0"]
     pub fn OH_NativeXComponent_GetTouchPointTiltY(
         component: *mut OH_NativeXComponent,
         pointIndex: u32,
@@ -2152,6 +2543,7 @@ extern "C" {
     ) -> i32;
 }
 extern "C" {
+    #[doc = " @brief Obtains the x coordinate of a specific touch point relative to the upper left corner of\\n\n        the current application window from the ArkUI XComponent.\n\n @param component Indicates the pointer to this <b>OH_NativeXComponent</b> instance.\n @param pointIndex Indicates the pointer index in the touchPoints.\n @param windowX Indicates the x coordinate relative to the upper left corner of the current\\n\napplication window.\n @return Returns the status code of the execution.\n         {@link OH_NATIVEXCOMPONENT_RESULT_SUCCESS} get windowX success.\n         {@link OH_NATIVEXCOMPONENT_RESULT_BAD_PARAMETER} component is NULL, windowX is NULL\\n\n         or native XComponent is NULL.\n @since 12\n @version 1.0"]
     pub fn OH_NativeXComponent_GetTouchPointWindowX(
         component: *mut OH_NativeXComponent,
         pointIndex: u32,
@@ -2159,6 +2551,7 @@ extern "C" {
     ) -> i32;
 }
 extern "C" {
+    #[doc = " @brief Obtains the y coordinate of a specific touch point relative to the upper left corner of\\n\n        the current application window from the ArkUI XComponent.\n\n @param component Indicates the pointer to this <b>OH_NativeXComponent</b> instance.\n @param pointIndex Indicates the pointer index in the touchPoints.\n @param windowY Indicates the y coordinate relative to the upper left corner of the current\\n\napplication window.\n @return Returns the status code of the execution.\n         {@link OH_NATIVEXCOMPONENT_RESULT_SUCCESS} get windowY success.\n         {@link OH_NATIVEXCOMPONENT_RESULT_BAD_PARAMETER} component is NULL, windowY is NULL\\n\n         or native XComponent is NULL.\n @since 12\n @version 1.0"]
     pub fn OH_NativeXComponent_GetTouchPointWindowY(
         component: *mut OH_NativeXComponent,
         pointIndex: u32,
@@ -2166,6 +2559,7 @@ extern "C" {
     ) -> i32;
 }
 extern "C" {
+    #[doc = " @brief Obtains the x coordinate of a specific touch point relative to the upper left corner of\\n\n        the current screen from the ArkUI XComponent.\n\n @param component Indicates the pointer to this <b>OH_NativeXComponent</b> instance.\n @param pointIndex Indicates the pointer index in the touchPoints.\n @param displayX Indicates the x coordinate relative to the upper left corner of the current\\n\nscreen.\n @return Returns the status code of the execution.\n         {@link OH_NATIVEXCOMPONENT_RESULT_SUCCESS} get displayX success.\n         {@link OH_NATIVEXCOMPONENT_RESULT_BAD_PARAMETER} component is NULL, displayX is NULL\\n\n         or native XComponent is NULL.\n @since 12\n @version 1.0"]
     pub fn OH_NativeXComponent_GetTouchPointDisplayX(
         component: *mut OH_NativeXComponent,
         pointIndex: u32,
@@ -2173,6 +2567,7 @@ extern "C" {
     ) -> i32;
 }
 extern "C" {
+    #[doc = " @brief Obtains the y coordinate of a specific touch point relative to the upper left corner of\\n\n        the current screen from the ArkUI XComponent.\n\n @param component Indicates the pointer to this <b>OH_NativeXComponent</b> instance.\n @param pointIndex Indicates the pointer index in the touchPoints.\n @param displayY Indicates the y coordinate relative to the upper left corner of the current\\n\nscreen.\n @return Returns the status code of the execution.\n         {@link OH_NATIVEXCOMPONENT_RESULT_SUCCESS} get displayY success.\n         {@link OH_NATIVEXCOMPONENT_RESULT_BAD_PARAMETER} component is NULL, displayY is NULL\\n\n         or native XComponent is NULL.\n @since 12\n @version 1.0"]
     pub fn OH_NativeXComponent_GetTouchPointDisplayY(
         component: *mut OH_NativeXComponent,
         pointIndex: u32,
@@ -2180,6 +2575,7 @@ extern "C" {
     ) -> i32;
 }
 extern "C" {
+    #[doc = " @brief Obtains the touch event dispatched by the ArkUI XComponent.\n\n @param component Indicates the pointer to this <b>OH_NativeXComponent</b> instance.\n @param window Indicates the native window handler.\n @param historicalPoints Indicates the pointer to the current historicalPoints.\n @return Returns the status code of the execution.\n @since 10\n @version 1.0"]
     pub fn OH_NativeXComponent_GetHistoricalPoints(
         component: *mut OH_NativeXComponent,
         window: *const ::std::os::raw::c_void,
@@ -2188,6 +2584,7 @@ extern "C" {
     ) -> i32;
 }
 extern "C" {
+    #[doc = " @brief Obtains the mouse event dispatched by the ArkUI XComponent.\n\n @param component Indicates the pointer to this <b>OH_NativeXComponent</b> instance.\n @param window Indicates the native window handler.\n @param mouseEvent Indicates the pointer to the current mouse event.\n @return Returns the status code of the execution.\n @since 9\n @version 1.0"]
     pub fn OH_NativeXComponent_GetMouseEvent(
         component: *mut OH_NativeXComponent,
         window: *const ::std::os::raw::c_void,
@@ -2195,18 +2592,21 @@ extern "C" {
     ) -> i32;
 }
 extern "C" {
+    #[doc = " @brief Registers a callback for this <b>OH_NativeXComponent</b> instance.\n\n @param component Indicates the pointer to this <b>OH_NativeXComponent</b> instance.\n @param callback Indicates the pointer to a surface lifecycle and touch event callback.\n @return Returns the status code of the execution.\n @since 8\n @version 1.0"]
     pub fn OH_NativeXComponent_RegisterCallback(
         component: *mut OH_NativeXComponent,
         callback: *mut OH_NativeXComponent_Callback,
     ) -> i32;
 }
 extern "C" {
+    #[doc = " @brief Registers a callback for this <b>OH_NativeXComponent</b> instance.\n\n @param component Indicates the pointer to this <b>OH_NativeXComponent</b> instance.\n @param callback Indicates the pointer to a mouse event callback.\n @return Returns the status code of the execution.\n @since 9\n @version 1.0"]
     pub fn OH_NativeXComponent_RegisterMouseEventCallback(
         component: *mut OH_NativeXComponent,
         callback: *mut OH_NativeXComponent_MouseEvent_Callback,
     ) -> i32;
 }
 extern "C" {
+    #[doc = " @brief Registers a callback for this <b>OH_NativeXComponent</b> instance.\n\n @param component Indicates the pointer to this <b>OH_NativeXComponent</b> instance.\n @param callback Indicates the pointer to a focus event callback.\n @return Returns the status code of the execution.\n @since 10\n @version 1.0"]
     pub fn OH_NativeXComponent_RegisterFocusEventCallback(
         component: *mut OH_NativeXComponent,
         callback: ::std::option::Option<
@@ -2218,6 +2618,7 @@ extern "C" {
     ) -> i32;
 }
 extern "C" {
+    #[doc = " @brief Registers a callback for this <b>OH_NativeXComponent</b> instance.\n\n @param component Indicates the pointer to this <b>OH_NativeXComponent</b> instance.\n @param callback Indicates the pointer to a key event callback.\n @return Returns the status code of the execution.\n @since 10\n @version 1.0"]
     pub fn OH_NativeXComponent_RegisterKeyEventCallback(
         component: *mut OH_NativeXComponent,
         callback: ::std::option::Option<
@@ -2229,6 +2630,7 @@ extern "C" {
     ) -> i32;
 }
 extern "C" {
+    #[doc = " @brief Registers a callback for this <b>OH_NativeXComponent</b> instance.\n\n @param component Indicates the pointer to this <b>OH_NativeXComponent</b> instance.\n @param callback Indicates the pointer to a blur event callback.\n @return Returns the status code of the execution.\n @since 10\n @version 1.0"]
     pub fn OH_NativeXComponent_RegisterBlurEventCallback(
         component: *mut OH_NativeXComponent,
         callback: ::std::option::Option<
@@ -2240,48 +2642,56 @@ extern "C" {
     ) -> i32;
 }
 extern "C" {
+    #[doc = " @brief Obtains the key event dispatched by the ArkUI XComponent.\n\n @param component Indicates the pointer to this <b>OH_NativeXComponent</b> instance.\n @param keyEvent Indicates the pointer to pointer of <b>OH_NativeXComponent_KeyEvent</b> instance.\n @return Returns the status code of the execution.\n @since 10\n @version 1.0"]
     pub fn OH_NativeXComponent_GetKeyEvent(
         component: *mut OH_NativeXComponent,
         keyEvent: *mut *mut OH_NativeXComponent_KeyEvent,
     ) -> i32;
 }
 extern "C" {
+    #[doc = " @brief Obtains the action of the key event.\n\n @param keyEvent Indicates the pointer to this <b>OH_NativeXComponent_KeyEvent</b> instance.\n @param action Indicates the action of the <b>OH_NativeXComponent_KeyEvent</b> instance.\n @return Returns the status code of the execution.\n @since 10\n @version 1.0"]
     pub fn OH_NativeXComponent_GetKeyEventAction(
         keyEvent: *mut OH_NativeXComponent_KeyEvent,
         action: *mut OH_NativeXComponent_KeyAction,
     ) -> i32;
 }
 extern "C" {
+    #[doc = " @brief Obtains the keyCode of the key event.\n\n @param keyEvent Indicates the pointer to this <b>OH_NativeXComponent_KeyEvent</b> instance.\n @param code Indicates the keyCode of the <b>OH_NativeXComponent_KeyEvent</b> instance.\n @return Returns the status code of the execution.\n @since 10\n @version 1.0"]
     pub fn OH_NativeXComponent_GetKeyEventCode(
         keyEvent: *mut OH_NativeXComponent_KeyEvent,
         code: *mut OH_NativeXComponent_KeyCode,
     ) -> i32;
 }
 extern "C" {
+    #[doc = " @brief Obtains the sourceType of the key event.\n\n @param keyEvent Indicates the pointer to this <b>OH_NativeXComponent_KeyEvent</b> instance.\n @param sourceType Indicates the sourceType of the <b>OH_NativeXComponent_KeyEvent</b> instance.\n @return Returns the status code of the execution.\n @since 10\n @version 1.0"]
     pub fn OH_NativeXComponent_GetKeyEventSourceType(
         keyEvent: *mut OH_NativeXComponent_KeyEvent,
         sourceType: *mut OH_NativeXComponent_EventSourceType,
     ) -> i32;
 }
 extern "C" {
+    #[doc = " @brief Obtains the deviceId of the key event.\n\n @param keyEvent Indicates the pointer to this <b>OH_NativeXComponent_KeyEvent</b> instance.\n @param deviceId Indicates the deviceId of the <b>OH_NativeXComponent_KeyEvent</b> instance.\n @return Returns the status code of the execution.\n @since 10\n @version 1.0"]
     pub fn OH_NativeXComponent_GetKeyEventDeviceId(
         keyEvent: *mut OH_NativeXComponent_KeyEvent,
         deviceId: *mut i64,
     ) -> i32;
 }
 extern "C" {
+    #[doc = " @brief Obtains the timestamp of the key event.\n\n @param keyEvent Indicates the pointer to this <b>OH_NativeXComponent_KeyEvent</b> instance.\n @param timestamp Indicates the timestamp of the <b>OH_NativeXComponent_KeyEvent</b> instance.\n @return Returns the status code of the execution.\n @since 10\n @version 1.0"]
     pub fn OH_NativeXComponent_GetKeyEventTimestamp(
         keyEvent: *mut OH_NativeXComponent_KeyEvent,
         timestamp: *mut i64,
     ) -> i32;
 }
 extern "C" {
+    #[doc = " @brief Set the Expected FrameRateRange.\n\n @param component Indicates the pointer to this <b>OH_NativeXComponent</b> instance.\n @param callback Indicates the pointer to a expected rate range.\n @return Returns the status code of the execution.\n @since 11\n @version 1.0"]
     pub fn OH_NativeXComponent_SetExpectedFrameRateRange(
         component: *mut OH_NativeXComponent,
         range: *mut OH_NativeXComponent_ExpectedRateRange,
     ) -> i32;
 }
 extern "C" {
+    #[doc = " @brief Registers a callback for this <b>OH_NativeXComponent</b> instance.\n\n @param component Indicates the pointer to this <b>OH_NativeXComponent</b> instance.\n @param callback Indicates the pointer to a onFrame callback.\n @return Returns the status code of the execution.\n @since 11\n @version 1.0"]
     pub fn OH_NativeXComponent_RegisterOnFrameCallback(
         component: *mut OH_NativeXComponent,
         callback: ::std::option::Option<
@@ -2294,23 +2704,27 @@ extern "C" {
     ) -> i32;
 }
 extern "C" {
+    #[doc = " @brief UnRegister a callback for this <b>OH_NativeXComponent</b> instance.\n\n @param component Indicates the pointer to this <b>OH_NativeXComponent</b> instance.\n @return Returns the status code of the execution.\n @since 11\n @version 1.0"]
     pub fn OH_NativeXComponent_UnregisterOnFrameCallback(
         component: *mut OH_NativeXComponent,
     ) -> i32;
 }
 extern "C" {
+    #[doc = " @brief Attaches the UI component created through the native API of ArkUI to this <b>OH_NativeXComponent</b> instance.\n\n @param component Indicates the pointer to the <b>OH_NativeXComponent</b> instance.\n @param root Indicates the pointer to the component instance created by the native API.\n @return Returns the error code.\n         Returns {@link ARKUI_ERROR_CODE_NO_ERROR} if the operation is successful.\n         Returns {@link ARKUI_ERROR_CODE_PARAM_INVALID} if a parameter error occurs.\n\n @since 12"]
     pub fn OH_NativeXComponent_AttachNativeRootNode(
         component: *mut OH_NativeXComponent,
         root: ArkUI_NodeHandle,
     ) -> i32;
 }
 extern "C" {
+    #[doc = " @brief Detaches the native component of ArkUI from this <b>OH_NativeXComponent</b> instance.\n\n @param component Indicates the pointer to the <b>OH_NativeXComponent</b> instance.\n @param root Indicates the pointer to the component instance created by the native API.\n @return Returns the error code.\n         Returns {@link ARKUI_ERROR_CODE_NO_ERROR} if the operation is successful.\n         Returns {@link ARKUI_ERROR_CODE_PARAM_INVALID} if a parameter error occurs.\n\n @since 12"]
     pub fn OH_NativeXComponent_DetachNativeRootNode(
         component: *mut OH_NativeXComponent,
         root: ArkUI_NodeHandle,
     ) -> i32;
 }
 extern "C" {
+    #[doc = " @brief Registers a callback for this <b>OH_NativeXComponent</b> instance.\n\n @param component Indicates the pointer to this <b>OH_NativeXComponent</b> instance.\n @param callback Indicates the pointer to a surface show event callback.\n @return Returns the status code of the execution.\n @since 12\n @version 1.0"]
     pub fn OH_NativeXComponent_RegisterSurfaceShowCallback(
         component: *mut OH_NativeXComponent,
         callback: ::std::option::Option<
@@ -2322,6 +2736,7 @@ extern "C" {
     ) -> i32;
 }
 extern "C" {
+    #[doc = " @brief Registers a callback for this <b>OH_NativeXComponent</b> instance.\n\n @param component Indicates the pointer to this <b>OH_NativeXComponent</b> instance.\n @param callback Indicates the pointer to a surface hide event callback.\n @return Returns the status code of the execution.\n @since 12\n @version 1.0"]
     pub fn OH_NativeXComponent_RegisterSurfaceHideCallback(
         component: *mut OH_NativeXComponent,
         callback: ::std::option::Option<
@@ -2333,6 +2748,7 @@ extern "C" {
     ) -> i32;
 }
 extern "C" {
+    #[doc = " @brief Registers a UI input event callback for this <b>OH_NativeXComponent</b> instance and enables the callback to\n be invoked when a UI input event is received.\n\n @param component Indicates the pointer to the <b>OH_NativeXComponent</b> instance.\n @param callback Indicates the pointer to the UI input event callback.\n @param type Indicates the type of the current UI input event.\n @return Returns the error code.\n         Returns {@link ARKUI_ERROR_CODE_NO_ERROR} if the operation is successful.\n         Returns {@link ARKUI_ERROR_CODE_PARAM_INVALID} if a parameter error occurs.\n @since 12"]
     pub fn OH_NativeXComponent_RegisterUIInputEventCallback(
         component: *mut OH_NativeXComponent,
         callback: ::std::option::Option<
@@ -2346,12 +2762,14 @@ extern "C" {
     ) -> i32;
 }
 extern "C" {
+    #[doc = " @brief Set whether the <b>OH_NativeXComponent</b> instance needs soft keyboard.\n @param component Indicates the pointer to this <b>OH_NativeXComponent</b> instance.\n @param needSoftKeyboard Indicates whether the <b>OH_NativeXComponent</b> instance needs soft keyboard or not.\n                           Default value is false.\n @return Returns the status code of the execution.\n @since 12\n @version 1.0"]
     pub fn OH_NativeXComponent_SetNeedSoftKeyboard(
         component: *mut OH_NativeXComponent,
         needSoftKeyboard: bool,
     ) -> i32;
 }
 extern "C" {
+    #[doc = " @brief Registers a custom event intercept callback for this <b>OH_NativeXComponent</b> and enables the callback\n during the hit test.\n\n @param component Indicates the pointer to the <b>OH_NativeXComponent</b> instance.\n @param callback Indicates the pointer to the custom event intercept callback.\n @return Returns the error code.\n         Returns {@link ARKUI_ERROR_CODE_NO_ERROR} if the operation is successful.\n         Returns {@link ARKUI_ERROR_CODE_PARAM_INVALID} if a parameter error occurs.\n @since 12"]
     pub fn OH_NativeXComponent_RegisterOnTouchInterceptCallback(
         component: *mut OH_NativeXComponent,
         callback: ::std::option::Option<
@@ -2363,6 +2781,7 @@ extern "C" {
     ) -> i32;
 }
 extern "C" {
+    #[doc = " @brief Obtains the touch event's source type dispatched by the ArkUI XComponent.\n\n @param component Indicates the pointer to this <b>OH_NativeXComponent</b> instance.\n @param pointId Indicates the id of the touch point which triggers this touch event.\n @param sourceType Indicates the source type of this touch event.\n @return Returns OH_NATIVEXCOMPONENT_RESULT_SUCCESS if success.\n         Returns OH_NATIVEXCOMPONENT_RESULT_BAD_PARAMETER if a parameter exception occurs.\n         Returns OH_NATIVEXCOMPONENT_RESULT_FAILED if other exceptions occur.\n @since 12\n @version 1.0"]
     pub fn OH_NativeXComponent_GetTouchEventSourceType(
         component: *mut OH_NativeXComponent,
         pointId: i32,
@@ -2370,17 +2789,20 @@ extern "C" {
     ) -> i32;
 }
 extern "C" {
+    #[doc = " @brief Obtains the pointer to an <b>OH_NativeXComponent</b> instance based on the specified component\n instance created by the native API.\n\n @param node Indicates the pointer to the component instance created by the native API.\n @return Returns the pointer to the <b>OH_NativeXComponent</b> instance.\n @since 12\n @version 1.0"]
     pub fn OH_NativeXComponent_GetNativeXComponent(
         node: ArkUI_NodeHandle,
     ) -> *mut OH_NativeXComponent;
 }
 extern "C" {
+    #[doc = " @brief Obtains the pointer to the <b> ArkUI_AccessibilityProvider</b>\n instance of this <b>OH_NativeXComponent</b> instance.\n\n @param component Indicates the pointer to the <b>OH_NativeXComponent</b> instance.\n @param handle Indicates the pointer to the <b>ArkUI_AccessibilityProvider</b> instance.\n @return Returns {@link OH_NATIVEXCOMPONENT_RESULT_SUCCESS} if the operation is successful.\n         Returns {@link OH_NATIVEXCOMPONENT_RESULT_BAD_PARAMETER} if a parameter error occurs.\n @since 13"]
     pub fn OH_NativeXComponent_GetNativeAccessibilityProvider(
         component: *mut OH_NativeXComponent,
         handle: *mut *mut ArkUI_AccessibilityProvider,
     ) -> i32;
 }
 extern "C" {
+    #[doc = " @brief Registers a callback for this <b>OH_NativeXComponent</b> instance.\n\n @param component Indicates the pointer to this <b>OH_NativeXComponent</b> instance.\n @param callback Indicates the pointer to a key event callback with result.\n @return Returns the status code of the execution.\n         {@link OH_NATIVEXCOMPONENT_RESULT_SUCCESS} the callback function is successfully registered.\\n\n         {@link OH_NATIVEXCOMPONENT_RESULT_BAD_PARAMETER} component is nullptr or callback is nullptr.\\n\n @since 14\n @version 1.0"]
     pub fn OH_NativeXComponent_RegisterKeyEventCallbackWithResult(
         component: *mut OH_NativeXComponent,
         callback: ::std::option::Option<

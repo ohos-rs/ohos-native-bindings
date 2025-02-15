@@ -65,6 +65,7 @@ fn generate_code(config: &SysConfig) -> anyhow::Result<()> {
         )
         .clang_arg("-x")
         .clang_arg("c")
+        .clang_arg("-fretain-comments-from-system-headers") // keep comments from system headers
         .layout_tests(false);
 
     if !config.white_list.is_empty() {
@@ -80,8 +81,8 @@ fn generate_code(config: &SysConfig) -> anyhow::Result<()> {
             bindings = bindings.blocklist_item(i);
         }
     }
-
-    let bindings = bindings.generate()?;
+    // Don't generate deprecated functions or types
+    let bindings = bindings.blocklist_item(r".*@deprecated.*").generate()?;
 
     let out_path = basic_folder.join("src");
     bindings.write_to_file(out_path.join("lib.rs"))?;

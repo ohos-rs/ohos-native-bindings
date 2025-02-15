@@ -5,74 +5,133 @@
 #![allow(non_camel_case_types)]
 
 pub type char16_t = ::std::os::raw::c_ushort;
+#[doc = " The keyboard status is none."]
 pub const InputMethod_KeyboardStatus_IME_KEYBOARD_STATUS_NONE: InputMethod_KeyboardStatus = 0;
+#[doc = " The keyboard status is hide."]
 pub const InputMethod_KeyboardStatus_IME_KEYBOARD_STATUS_HIDE: InputMethod_KeyboardStatus = 1;
+#[doc = " The keyboard status is show."]
 pub const InputMethod_KeyboardStatus_IME_KEYBOARD_STATUS_SHOW: InputMethod_KeyboardStatus = 2;
+#[doc = " @brief Keyboard status.\n\n @since 12"]
 pub type InputMethod_KeyboardStatus = ::std::os::raw::c_uint;
+#[doc = " The enter key type is UNSPECIFIED."]
 pub const InputMethod_EnterKeyType_IME_ENTER_KEY_UNSPECIFIED: InputMethod_EnterKeyType = 0;
+#[doc = " The enter key type is NONE."]
 pub const InputMethod_EnterKeyType_IME_ENTER_KEY_NONE: InputMethod_EnterKeyType = 1;
+#[doc = " The enter key type is GO."]
 pub const InputMethod_EnterKeyType_IME_ENTER_KEY_GO: InputMethod_EnterKeyType = 2;
+#[doc = " The enter key type is SEARCH."]
 pub const InputMethod_EnterKeyType_IME_ENTER_KEY_SEARCH: InputMethod_EnterKeyType = 3;
+#[doc = " The enter key type is SEND."]
 pub const InputMethod_EnterKeyType_IME_ENTER_KEY_SEND: InputMethod_EnterKeyType = 4;
+#[doc = " The enter key type is NEXT."]
 pub const InputMethod_EnterKeyType_IME_ENTER_KEY_NEXT: InputMethod_EnterKeyType = 5;
+#[doc = " The enter key type is DONE."]
 pub const InputMethod_EnterKeyType_IME_ENTER_KEY_DONE: InputMethod_EnterKeyType = 6;
+#[doc = " The enter key type is PREVIOUS."]
 pub const InputMethod_EnterKeyType_IME_ENTER_KEY_PREVIOUS: InputMethod_EnterKeyType = 7;
+#[doc = " The enter key type is NEWLINE."]
 pub const InputMethod_EnterKeyType_IME_ENTER_KEY_NEWLINE: InputMethod_EnterKeyType = 8;
+#[doc = " @brief Enter key type.\n\n @since 12"]
 pub type InputMethod_EnterKeyType = ::std::os::raw::c_uint;
+#[doc = " The direction is NONE."]
 pub const InputMethod_Direction_IME_DIRECTION_NONE: InputMethod_Direction = 0;
+#[doc = " The direction is UP."]
 pub const InputMethod_Direction_IME_DIRECTION_UP: InputMethod_Direction = 1;
+#[doc = " The direction is DOWN."]
 pub const InputMethod_Direction_IME_DIRECTION_DOWN: InputMethod_Direction = 2;
+#[doc = " The direction is LEFT."]
 pub const InputMethod_Direction_IME_DIRECTION_LEFT: InputMethod_Direction = 3;
+#[doc = " The direction is RIGHT."]
 pub const InputMethod_Direction_IME_DIRECTION_RIGHT: InputMethod_Direction = 4;
+#[doc = " @brief Direction.\n\n @since 12"]
 pub type InputMethod_Direction = ::std::os::raw::c_uint;
+#[doc = " Select all text."]
 pub const InputMethod_ExtendAction_IME_EXTEND_ACTION_SELECT_ALL: InputMethod_ExtendAction = 0;
+#[doc = " Cut selected text."]
 pub const InputMethod_ExtendAction_IME_EXTEND_ACTION_CUT: InputMethod_ExtendAction = 3;
+#[doc = " Copy selected text."]
 pub const InputMethod_ExtendAction_IME_EXTEND_ACTION_COPY: InputMethod_ExtendAction = 4;
+#[doc = " Paste from paste board."]
 pub const InputMethod_ExtendAction_IME_EXTEND_ACTION_PASTE: InputMethod_ExtendAction = 5;
+#[doc = " @brief The extend action.\n\n @since 12"]
 pub type InputMethod_ExtendAction = ::std::os::raw::c_uint;
+#[doc = " The text input type is NONE."]
 pub const InputMethod_TextInputType_IME_TEXT_INPUT_TYPE_NONE: InputMethod_TextInputType = -1;
+#[doc = " The text input type is TEXT."]
 pub const InputMethod_TextInputType_IME_TEXT_INPUT_TYPE_TEXT: InputMethod_TextInputType = 0;
+#[doc = " The text input type is MULTILINE."]
 pub const InputMethod_TextInputType_IME_TEXT_INPUT_TYPE_MULTILINE: InputMethod_TextInputType = 1;
+#[doc = " The text input type is NUMBER."]
 pub const InputMethod_TextInputType_IME_TEXT_INPUT_TYPE_NUMBER: InputMethod_TextInputType = 2;
+#[doc = " The text input type is PHONE."]
 pub const InputMethod_TextInputType_IME_TEXT_INPUT_TYPE_PHONE: InputMethod_TextInputType = 3;
+#[doc = " The text input type is DATETIME."]
 pub const InputMethod_TextInputType_IME_TEXT_INPUT_TYPE_DATETIME: InputMethod_TextInputType = 4;
+#[doc = " The text input type is EMAIL ADDRESS."]
 pub const InputMethod_TextInputType_IME_TEXT_INPUT_TYPE_EMAIL_ADDRESS: InputMethod_TextInputType =
     5;
+#[doc = " The text input type is URL."]
 pub const InputMethod_TextInputType_IME_TEXT_INPUT_TYPE_URL: InputMethod_TextInputType = 6;
+#[doc = " The text input type is VISIBLE PASSWORD."]
 pub const InputMethod_TextInputType_IME_TEXT_INPUT_TYPE_VISIBLE_PASSWORD:
     InputMethod_TextInputType = 7;
+#[doc = " The text input type is NUMBER PASSWORD."]
 pub const InputMethod_TextInputType_IME_TEXT_INPUT_TYPE_NUMBER_PASSWORD: InputMethod_TextInputType =
     8;
+#[doc = " The text input type is SCREEN LOCK PASSWORD."]
 pub const InputMethod_TextInputType_IME_TEXT_INPUT_TYPE_SCREEN_LOCK_PASSWORD:
     InputMethod_TextInputType = 9;
+#[doc = " The text input type is USER NAME."]
 pub const InputMethod_TextInputType_IME_TEXT_INPUT_TYPE_USER_NAME: InputMethod_TextInputType = 10;
+#[doc = " The text input type is NEW PASSWORD."]
 pub const InputMethod_TextInputType_IME_TEXT_INPUT_TYPE_NEW_PASSWORD: InputMethod_TextInputType =
     11;
+#[doc = " The text input type is NUMBER DECIMAL."]
 pub const InputMethod_TextInputType_IME_TEXT_INPUT_TYPE_NUMBER_DECIMAL: InputMethod_TextInputType =
     12;
+#[doc = " @brief The text input type.\n\n @since 12"]
 pub type InputMethod_TextInputType = ::std::os::raw::c_int;
+#[doc = " Value type is NONE."]
 pub const InputMethod_CommandValueType_IME_COMMAND_VALUE_TYPE_NONE: InputMethod_CommandValueType =
     0;
+#[doc = " Value type is STRING."]
 pub const InputMethod_CommandValueType_IME_COMMAND_VALUE_TYPE_STRING: InputMethod_CommandValueType =
     1;
+#[doc = " Value type is BOOL."]
 pub const InputMethod_CommandValueType_IME_COMMAND_VALUE_TYPE_BOOL: InputMethod_CommandValueType =
     2;
+#[doc = " Value type is INT32."]
 pub const InputMethod_CommandValueType_IME_COMMAND_VALUE_TYPE_INT32: InputMethod_CommandValueType =
     3;
+#[doc = " @brief The value type of command data.\n\n @since 12"]
 pub type InputMethod_CommandValueType = ::std::os::raw::c_uint;
+#[doc = " @error The error code in the correct case."]
 pub const InputMethod_ErrorCode_IME_ERR_OK: InputMethod_ErrorCode = 0;
+#[doc = " @error The error code when error is undefined."]
 pub const InputMethod_ErrorCode_IME_ERR_UNDEFINED: InputMethod_ErrorCode = 1;
+#[doc = " @error The error code when parameter check failed."]
 pub const InputMethod_ErrorCode_IME_ERR_PARAMCHECK: InputMethod_ErrorCode = 401;
+#[doc = " @error The error code when the bundle manager error."]
 pub const InputMethod_ErrorCode_IME_ERR_PACKAGEMANAGER: InputMethod_ErrorCode = 12800001;
+#[doc = " @error The error code when input method engine error."]
 pub const InputMethod_ErrorCode_IME_ERR_IMENGINE: InputMethod_ErrorCode = 12800002;
+#[doc = " @error The error code when input method client error."]
 pub const InputMethod_ErrorCode_IME_ERR_IMCLIENT: InputMethod_ErrorCode = 12800003;
+#[doc = " @error The error code when configuration persistence error."]
 pub const InputMethod_ErrorCode_IME_ERR_CONFIG_PERSIST: InputMethod_ErrorCode = 12800005;
+#[doc = " @error The error code when input method controller error."]
 pub const InputMethod_ErrorCode_IME_ERR_CONTROLLER: InputMethod_ErrorCode = 12800006;
+#[doc = " @error The error code when input method setting error."]
 pub const InputMethod_ErrorCode_IME_ERR_SETTINGS: InputMethod_ErrorCode = 12800007;
+#[doc = " @error The error code when input method manager service error."]
 pub const InputMethod_ErrorCode_IME_ERR_IMMS: InputMethod_ErrorCode = 12800008;
+#[doc = " @error The error code when input method client detached."]
 pub const InputMethod_ErrorCode_IME_ERR_DETACHED: InputMethod_ErrorCode = 12800009;
+#[doc = " @error The error code when unexpected null pointer."]
 pub const InputMethod_ErrorCode_IME_ERR_NULL_POINTER: InputMethod_ErrorCode = 12802000;
+#[doc = " @error The error code when query failed."]
 pub const InputMethod_ErrorCode_IME_ERR_QUERY_FAILED: InputMethod_ErrorCode = 12802001;
+#[doc = " @brief The value type of command data.\n\n @since 12"]
 pub type InputMethod_ErrorCode = ::std::os::raw::c_uint;
 #[repr(C)]
 #[derive(Debug, Copy, Clone)]
@@ -80,15 +139,18 @@ pub struct InputMethod_PrivateCommand {
     _unused: [u8; 0],
 }
 extern "C" {
+    #[doc = " @brief Create a new {@link InputMethod_PrivateCommand} instance.\n\n @param key The key of the private command.\n @param keyLength The length of the key.\n @return If the creation succeeds, a pointer to the newly created {@link InputMethod_PrivateCommand}\n instance is returned. If the creation fails, NULL is returned, possible cause is insufficient memory.\n @since 12"]
     pub fn OH_PrivateCommand_Create(
         key: *mut ::std::os::raw::c_char,
         keyLength: usize,
     ) -> *mut InputMethod_PrivateCommand;
 }
 extern "C" {
+    #[doc = " @brief Destroy a {@link InputMethod_PrivateCommand} instance.\n\n @param command Represents a pointer to an {@link InputMethod_PrivateCommand} instance which will be destroyed.\n @since 12"]
     pub fn OH_PrivateCommand_Destroy(command: *mut InputMethod_PrivateCommand);
 }
 extern "C" {
+    #[doc = " @brief Set key value into {@link InputMethod_PrivateCommand}.\n\n @param command Represents a pointer to an {@link InputMethod_PrivateCommand} instance which will be set value.\n @param key Represents key value.\n @param keyLength Represents key length.\n @return Returns a specific error code.\n     {@link IME_ERR_OK} - success.\n     {@link IME_ERR_NULL_POINTER} - unexpected null pointer.\n Specific error codes can be referenced {@link InputMethod_ErrorCode}.\n @since 12"]
     pub fn OH_PrivateCommand_SetKey(
         command: *mut InputMethod_PrivateCommand,
         key: *mut ::std::os::raw::c_char,
@@ -96,18 +158,21 @@ extern "C" {
     ) -> InputMethod_ErrorCode;
 }
 extern "C" {
+    #[doc = " @brief Set bool data value into {@link InputMethod_PrivateCommand}.\n\n @param command Represents a pointer to an {@link InputMethod_PrivateCommand} instance which will be set value.\n @param value Represents bool data value.\n @return Returns a specific error code.\n     {@link IME_ERR_OK} - success.\n     {@link IME_ERR_NULL_POINTER} - unexpected null pointer.\n Specific error codes can be referenced {@link InputMethod_ErrorCode}.\n @since 12"]
     pub fn OH_PrivateCommand_SetBoolValue(
         command: *mut InputMethod_PrivateCommand,
         value: bool,
     ) -> InputMethod_ErrorCode;
 }
 extern "C" {
+    #[doc = " @brief Set integer data value into {@link InputMethod_PrivateCommand}.\n\n @param command Represents a pointer to an {@link InputMethod_PrivateCommand} instance which will be set value.\n @param value Represents integer data value.\n @return Returns a specific error code.\n     {@link IME_ERR_OK} - success.\n     {@link IME_ERR_NULL_POINTER} - unexpected null pointer.\n Specific error codes can be referenced {@link InputMethod_ErrorCode}.\n @since 12"]
     pub fn OH_PrivateCommand_SetIntValue(
         command: *mut InputMethod_PrivateCommand,
         value: i32,
     ) -> InputMethod_ErrorCode;
 }
 extern "C" {
+    #[doc = " @brief Set string data value into {@link InputMethod_PrivateCommand}.\n\n @param command Represents a pointer to an {@link InputMethod_PrivateCommand} instance which will be set value.\n @param value Represents string data value.\n @param valueLength Represents the length of string data value.\n @return Returns a specific error code.\n     {@link IME_ERR_OK} - success.\n     {@link IME_ERR_NULL_POINTER} - unexpected null pointer.\n Specific error codes can be referenced {@link InputMethod_ErrorCode}.\n @since 12"]
     pub fn OH_PrivateCommand_SetStrValue(
         command: *mut InputMethod_PrivateCommand,
         value: *mut ::std::os::raw::c_char,
@@ -115,6 +180,7 @@ extern "C" {
     ) -> InputMethod_ErrorCode;
 }
 extern "C" {
+    #[doc = " @brief Get key value from {@link InputMethod_PrivateCommand}.\n\n @param command Represents a pointer to an {@link InputMethod_PrivateCommand} instance which will be get value from.\n @param key Represents key value.\n @param keyLength Represents key length.\n @return Returns a specific error code.\n     {@link IME_ERR_OK} - success.\n     {@link IME_ERR_NULL_POINTER} - unexpected null pointer.\n Specific error codes can be referenced {@link InputMethod_ErrorCode}.\n @since 12"]
     pub fn OH_PrivateCommand_GetKey(
         command: *mut InputMethod_PrivateCommand,
         key: *mut *const ::std::os::raw::c_char,
@@ -122,24 +188,28 @@ extern "C" {
     ) -> InputMethod_ErrorCode;
 }
 extern "C" {
+    #[doc = " @brief Get value type from {@link InputMethod_PrivateCommand}.\n\n @param command Represents a pointer to an {@link InputMethod_PrivateCommand} instance which will be get value from.\n @param type Represents a pointer to a {@link InputMethod_CommandValueType} instance. Indicates the data type of the\n value.\n @return Returns a specific error code.\n     {@link IME_ERR_OK} - success.\n     {@link IME_ERR_NULL_POINTER} - unexpected null pointer.\n Specific error codes can be referenced {@link InputMethod_ErrorCode}.\n @since 12"]
     pub fn OH_PrivateCommand_GetValueType(
         command: *mut InputMethod_PrivateCommand,
         type_: *mut InputMethod_CommandValueType,
     ) -> InputMethod_ErrorCode;
 }
 extern "C" {
+    #[doc = " @brief Get bool data value from {@link InputMethod_PrivateCommand}.\n\n @param command Represents a pointer to an {@link InputMethod_PrivateCommand} instance which will be get value from.\n @param value Represents bool data value.\n @return Returns a specific error code.\n     {@link IME_ERR_OK} - success.\n     {@link IME_ERR_NULL_POINTER} - unexpected null pointer.\n     {@link IME_ERR_QUERY_FAILED} - query failed, no bool value in command.\n Specific error codes can be referenced {@link InputMethod_ErrorCode}.\n @since 12"]
     pub fn OH_PrivateCommand_GetBoolValue(
         command: *mut InputMethod_PrivateCommand,
         value: *mut bool,
     ) -> InputMethod_ErrorCode;
 }
 extern "C" {
+    #[doc = " @brief Get integer data value from {@link InputMethod_PrivateCommand}.\n\n @param command Represents a pointer to an {@link InputMethod_PrivateCommand} instance which will be get value from.\n @param value Represents integer data value.\n @return Returns a specific error code.\n     {@link IME_ERR_OK} - success.\n     {@link IME_ERR_NULL_POINTER} - unexpected null pointer.\n     {@link IME_ERR_QUERY_FAILED} - query failed, no integer value in command.\n Specific error codes can be referenced {@link InputMethod_ErrorCode}.\n @since 12"]
     pub fn OH_PrivateCommand_GetIntValue(
         command: *mut InputMethod_PrivateCommand,
         value: *mut i32,
     ) -> InputMethod_ErrorCode;
 }
 extern "C" {
+    #[doc = " @brief Get string data value from {@link InputMethod_PrivateCommand}.\n\n @param command Represents a pointer to an {@link InputMethod_PrivateCommand} instance which will be get value from.\n @param value Represents string data value.\n @param valueLength Represents the length of string data value.\n @return Returns a specific error code.\n     {@link IME_ERR_OK} - success.\n     {@link IME_ERR_NULL_POINTER} - unexpected null pointer.\n     {@link IME_ERR_QUERY_FAILED} - query failed, no string value in command.\n Specific error codes can be referenced {@link InputMethod_ErrorCode}.\n @since 12"]
     pub fn OH_PrivateCommand_GetStrValue(
         command: *mut InputMethod_PrivateCommand,
         value: *mut *const ::std::os::raw::c_char,
@@ -152,6 +222,7 @@ pub struct InputMethod_CursorInfo {
     _unused: [u8; 0],
 }
 extern "C" {
+    #[doc = " @brief Create a new {@link InputMethod_CursorInfo} instance.\n\n @param left The left point of the cursor and must be absolute coordinate of the physical screen.\n @param top The top point of the cursor and must be absolute coordinate of the physical screen.\n @param width The width of the cursor.\n @param height The height of the cursor.\n @return If the creation succeeds, a pointer to the newly created {@link InputMethod_CursorInfo}\n instance is returned. If the creation fails, NULL is returned, possible cause is insufficient memory.\n @since 12"]
     pub fn OH_CursorInfo_Create(
         left: f64,
         top: f64,
@@ -160,9 +231,11 @@ extern "C" {
     ) -> *mut InputMethod_CursorInfo;
 }
 extern "C" {
+    #[doc = " @brief Destroy a {@link InputMethod_CursorInfo} instance.\n\n @param cursorInfo Represents a pointer to an {@link InputMethod_CursorInfo} instance which will be destroyed.\n @since 12"]
     pub fn OH_CursorInfo_Destroy(cursorInfo: *mut InputMethod_CursorInfo);
 }
 extern "C" {
+    #[doc = " @brief Set cursor info.\n\n @param cursorInfo Represents a pointer to an {@link InputMethod_CursorInfo} instance.\n @param left The left point of the cursor and must be absolute coordinate of the physical screen.\n @param top The top point of the cursor and must be absolute coordinate of the physical screen.\n @param width The width of the cursor.\n @param height The height of the cursor.\n @return Returns a specific error code.\n     {@link IME_ERR_OK} - success.\n     {@link IME_ERR_NULL_POINTER} - unexpected null pointer.\n Specific error codes can be referenced {@link InputMethod_ErrorCode}.\n @since 12"]
     pub fn OH_CursorInfo_SetRect(
         cursorInfo: *mut InputMethod_CursorInfo,
         left: f64,
@@ -172,6 +245,7 @@ extern "C" {
     ) -> InputMethod_ErrorCode;
 }
 extern "C" {
+    #[doc = " @brief Get cursor info.\n\n @param cursorInfo Represents a pointer to an {@link InputMethod_CursorInfo} instance.\n @param left The left point of the cursor and must be absolute coordinate of the physical screen.\n @param top The top point of the cursor and must be absolute coordinate of the physical screen.\n @param width The width of the cursor.\n @param height The height of the cursor.\n @return Returns a specific error code.\n     {@link IME_ERR_OK} - success.\n     {@link IME_ERR_NULL_POINTER} - unexpected null pointer.\n Specific error codes can be referenced {@link InputMethod_ErrorCode}.\n @since 12"]
     pub fn OH_CursorInfo_GetRect(
         cursorInfo: *mut InputMethod_CursorInfo,
         left: *mut f64,
@@ -186,30 +260,36 @@ pub struct InputMethod_TextAvoidInfo {
     _unused: [u8; 0],
 }
 extern "C" {
+    #[doc = " @brief Create a new {@link InputMethod_TextAvoidInfo} instance.\n\n @param positionY The y-coordinate of the avoid area.\n @param height The height of the avoid area.\n @return If the creation succeeds, a pointer to the newly created {@link InputMethod_TextAvoidInfo}\n instance is returned. If the creation fails, NULL is returned, possible cause is insufficient memory.\n @since 12"]
     pub fn OH_TextAvoidInfo_Create(positionY: f64, height: f64) -> *mut InputMethod_TextAvoidInfo;
 }
 extern "C" {
+    #[doc = " @brief Destroy a {@link InputMethod_TextAvoidInfo} instance.\n\n @param info Represents a pointer to an {@link InputMethod_TextAvoidInfo} instance which will be destroyed.\n @since 12"]
     pub fn OH_TextAvoidInfo_Destroy(info: *mut InputMethod_TextAvoidInfo);
 }
 extern "C" {
+    #[doc = " @brief Set positionY value into {@link InputMethod_TextAvoidInfo}.\n\n @param info Represents a pointer to an {@link InputMethod_TextAvoidInfo} instance which will be set value.\n @param positionY Represents positionY value.\n @return Returns a specific error code.\n     {@link IME_ERR_OK} - success.\n     {@link IME_ERR_NULL_POINTER} - unexpected null pointer.\n Specific error codes can be referenced {@link InputMethod_ErrorCode}.\n @since 12"]
     pub fn OH_TextAvoidInfo_SetPositionY(
         info: *mut InputMethod_TextAvoidInfo,
         positionY: f64,
     ) -> InputMethod_ErrorCode;
 }
 extern "C" {
+    #[doc = " @brief Set height value into {@link InputMethod_TextAvoidInfo}.\n\n @param info Represents a pointer to an {@link InputMethod_TextAvoidInfo} instance which will be set value.\n @param height Represents height value.\n @return Returns a specific error code.\n     {@link IME_ERR_OK} - success.\n     {@link IME_ERR_NULL_POINTER} - unexpected null pointer.\n Specific error codes can be referenced {@link InputMethod_ErrorCode}.\n @since 12"]
     pub fn OH_TextAvoidInfo_SetHeight(
         info: *mut InputMethod_TextAvoidInfo,
         height: f64,
     ) -> InputMethod_ErrorCode;
 }
 extern "C" {
+    #[doc = " @brief Get positionY value from {@link InputMethod_TextAvoidInfo}.\n\n @param info Represents a pointer to an {@link InputMethod_TextAvoidInfo} instance which will be get value from.\n @param positionY Represents positionY value.\n @return Returns a specific error code.\n     {@link IME_ERR_OK} - success.\n     {@link IME_ERR_NULL_POINTER} - unexpected null pointer.\n Specific error codes can be referenced {@link InputMethod_ErrorCode}.\n @since 12"]
     pub fn OH_TextAvoidInfo_GetPositionY(
         info: *mut InputMethod_TextAvoidInfo,
         positionY: *mut f64,
     ) -> InputMethod_ErrorCode;
 }
 extern "C" {
+    #[doc = " @brief Get height value into {@link InputMethod_TextAvoidInfo}.\n\n @param info Represents a pointer to an {@link InputMethod_TextAvoidInfo} instance which will be get value from.\n @param height Represents height value.\n @return Returns a specific error code.\n     {@link IME_ERR_OK} - success.\n     {@link IME_ERR_NULL_POINTER} - unexpected null pointer.\n Specific error codes can be referenced {@link InputMethod_ErrorCode}.\n @since 12"]
     pub fn OH_TextAvoidInfo_GetHeight(
         info: *mut InputMethod_TextAvoidInfo,
         height: *mut f64,
@@ -221,30 +301,36 @@ pub struct InputMethod_TextConfig {
     _unused: [u8; 0],
 }
 extern "C" {
+    #[doc = " @brief Create a new {@link InputMethod_TextConfig} instance.\n\n @return If the creation succeeds, a pointer to the newly created {@link InputMethod_TextConfig}\n instance is returned. If the creation fails, NULL is returned, possible cause is insufficient memory.\n @since 12"]
     pub fn OH_TextConfig_Create() -> *mut InputMethod_TextConfig;
 }
 extern "C" {
+    #[doc = " @brief Destroy a {@link InputMethod_TextConfig} instance.\n\n @param config Represents a pointer to an {@link InputMethod_TextConfig} instance which will be destroyed.\n @since 12"]
     pub fn OH_TextConfig_Destroy(config: *mut InputMethod_TextConfig);
 }
 extern "C" {
+    #[doc = " @brief Set input type into TextConfig.\n\n @param config Represents a pointer to an {@link InputMethod_TextConfig} instance which will be set.\n @param inputType The text input type of text Editor, which is defined in {@link InputMethod_TextInputType}.\n @return Returns a specific error code.\n     {@link IME_ERR_OK} - success.\n     {@link IME_ERR_NULL_POINTER} - unexpected null pointer.\n Specific error codes can be referenced {@link InputMethod_ErrorCode}.\n @since 12"]
     pub fn OH_TextConfig_SetInputType(
         config: *mut InputMethod_TextConfig,
         inputType: InputMethod_TextInputType,
     ) -> InputMethod_ErrorCode;
 }
 extern "C" {
+    #[doc = " @brief Set enter key type into TextConfig.\n\n @param config Represents a pointer to an {@link InputMethod_TextConfig} instance which will be set.\n @param enterKeyType The enter key type of text Editor, which is defined in {@link InputMethod_EnterKeyType}.\n @return Returns a specific error code.\n     {@link IME_ERR_OK} - success.\n     {@link IME_ERR_NULL_POINTER} - unexpected null pointer.\n Specific error codes can be referenced {@link InputMethod_ErrorCode}.\n @since 12"]
     pub fn OH_TextConfig_SetEnterKeyType(
         config: *mut InputMethod_TextConfig,
         enterKeyType: InputMethod_EnterKeyType,
     ) -> InputMethod_ErrorCode;
 }
 extern "C" {
+    #[doc = " @brief Set preview text support into TextConfig.\n\n @param config Represents a pointer to an {@link InputMethod_TextConfig} instance which will be set.\n @param supported Indicates whether the preview text is supported.\n @return Returns a specific error code.\n     {@link IME_ERR_OK} - success.\n     {@link IME_ERR_NULL_POINTER} - unexpected null pointer.\n Specific error codes can be referenced {@link InputMethod_ErrorCode}.\n @since 12"]
     pub fn OH_TextConfig_SetPreviewTextSupport(
         config: *mut InputMethod_TextConfig,
         supported: bool,
     ) -> InputMethod_ErrorCode;
 }
 extern "C" {
+    #[doc = " @brief Set selection into TextConfig.\n\n @param config Represents a pointer to an {@link InputMethod_TextConfig} instance which will be set.\n @param start The start position of selection.\n @param end The end position of selection.\n @return Returns a specific error code.\n     {@link IME_ERR_OK} - success.\n     {@link IME_ERR_NULL_POINTER} - unexpected null pointer.\n Specific error codes can be referenced {@link InputMethod_ErrorCode}.\n @since 12"]
     pub fn OH_TextConfig_SetSelection(
         config: *mut InputMethod_TextConfig,
         start: i32,
@@ -252,42 +338,49 @@ extern "C" {
     ) -> InputMethod_ErrorCode;
 }
 extern "C" {
+    #[doc = " @brief Set window id into TextConfig.\n\n @param config Represents a pointer to an {@link InputMethod_TextConfig} instance which will be set.\n @param windowId The window ID of the application currently bound to the input method.\n @return Returns a specific error code.\n     {@link IME_ERR_OK} - success.\n     {@link IME_ERR_NULL_POINTER} - unexpected null pointer.\n Specific error codes can be referenced {@link InputMethod_ErrorCode}.\n @since 12"]
     pub fn OH_TextConfig_SetWindowId(
         config: *mut InputMethod_TextConfig,
         windowId: i32,
     ) -> InputMethod_ErrorCode;
 }
 extern "C" {
+    #[doc = " @brief Get input type from TextConfig\n\n @param config Represents a pointer to an {@link InputMethod_TextConfig} instance which will be get from.\n @param inputType Represents a pointer to an {@link InputMethod_TextInputType} instance.\n     The text input type of text Editor\n @return Returns a specific error code.\n     {@link IME_ERR_OK} - success.\n     {@link IME_ERR_NULL_POINTER} - unexpected null pointer.\n Specific error codes can be referenced {@link InputMethod_ErrorCode}.\n @since 12"]
     pub fn OH_TextConfig_GetInputType(
         config: *mut InputMethod_TextConfig,
         inputType: *mut InputMethod_TextInputType,
     ) -> InputMethod_ErrorCode;
 }
 extern "C" {
+    #[doc = " @brief Get enter key type from TextConfig\n\n @param config Represents a pointer to an {@link InputMethod_TextConfig} instance which will be get from.\n @param enterKeyType Represents a pointer to an {@link InputMethod_EnterKeyType} instance.\n     Indicates the enter key type of text Editor\n @return Returns a specific error code.\n     {@link IME_ERR_OK} - success.\n     {@link IME_ERR_NULL_POINTER} - unexpected null pointer.\n Specific error codes can be referenced {@link InputMethod_ErrorCode}.\n @since 12"]
     pub fn OH_TextConfig_GetEnterKeyType(
         config: *mut InputMethod_TextConfig,
         enterKeyType: *mut InputMethod_EnterKeyType,
     ) -> InputMethod_ErrorCode;
 }
 extern "C" {
+    #[doc = " @brief Get is preview text supported from TextConfig.\n\n @param config Represents a pointer to an {@link InputMethod_TextConfig} instance which will be get from.\n @param supported Indicates whether the preview text is supported.\n @return Returns a specific error code.\n     {@link IME_ERR_OK} - success.\n     {@link IME_ERR_NULL_POINTER} - unexpected null pointer.\n Specific error codes can be referenced {@link InputMethod_ErrorCode}.\n @since 12"]
     pub fn OH_TextConfig_IsPreviewTextSupported(
         config: *mut InputMethod_TextConfig,
         supported: *mut bool,
     ) -> InputMethod_ErrorCode;
 }
 extern "C" {
+    #[doc = " @brief Get cursor info from TextConfig.\n\n @param config Represents a pointer to an {@link InputMethod_TextConfig} instance which will be get from.\n @param cursorInfo Represents a pointer to an {@link InputMethod_CursorInfo} instance.\n @return Returns a specific error code.\n     {@link IME_ERR_OK} - success.\n     {@link IME_ERR_NULL_POINTER} - unexpected null pointer.\n Specific error codes can be referenced {@link InputMethod_ErrorCode}.\n @since 12"]
     pub fn OH_TextConfig_GetCursorInfo(
         config: *mut InputMethod_TextConfig,
         cursorInfo: *mut *mut InputMethod_CursorInfo,
     ) -> InputMethod_ErrorCode;
 }
 extern "C" {
+    #[doc = " @brief Get text avoid information from text configuration.\n\n @param config Indicates the text configuration.\n @param avoidInfo Indicates the text avoid information.\n @return Returns a specific error code.\n     {@link IME_ERR_OK} - success.\n     {@link IME_ERR_NULL_POINTER} - unexpected null pointer.\n Specific error codes can be referenced {@link InputMethod_ErrorCode}.\n@since 12"]
     pub fn OH_TextConfig_GetTextAvoidInfo(
         config: *mut InputMethod_TextConfig,
         avoidInfo: *mut *mut InputMethod_TextAvoidInfo,
     ) -> InputMethod_ErrorCode;
 }
 extern "C" {
+    #[doc = " @brief Get selection from TextConfig.\n\n @param config Represents a pointer to an {@link InputMethod_TextConfig} instance which will be get from.\n @param start Represents selection start position.\n @param end Represents selection end position.\n @return Returns a specific error code.\n     {@link IME_ERR_OK} - success.\n     {@link IME_ERR_NULL_POINTER} - unexpected null pointer.\n Specific error codes can be referenced {@link InputMethod_ErrorCode}.\n @since 12"]
     pub fn OH_TextConfig_GetSelection(
         config: *mut InputMethod_TextConfig,
         start: *mut i32,
@@ -295,6 +388,7 @@ extern "C" {
     ) -> InputMethod_ErrorCode;
 }
 extern "C" {
+    #[doc = " @brief Get window id from TextConfig.\n\n @param config Represents a pointer to an {@link InputMethod_TextConfig} instance which will be get from.\n @param windowId The window ID of the application currently bound to the input method.\n @return Returns a specific error code.\n     {@link IME_ERR_OK} - success.\n     {@link IME_ERR_NULL_POINTER} - unexpected null pointer.\n Specific error codes can be referenced {@link InputMethod_ErrorCode}.\n @since 12"]
     pub fn OH_TextConfig_GetWindowId(
         config: *mut InputMethod_TextConfig,
         windowId: *mut i32,
@@ -305,12 +399,14 @@ extern "C" {
 pub struct InputMethod_TextEditorProxy {
     _unused: [u8; 0],
 }
+#[doc = " @brief Defines the function called when input method getting text config.\n\n You need to implement this function, set it to {@link InputMethod_TextEditorProxy} through {@link\n OH_TextEditorProxy_SetGetTextConfigFunc}, and use {@link OH_InputMethodController_Attach} to complete the\n registration.\\n\n\n @param textEditorProxy Represents a pointer to an {@link InputMethod_TextEditorProxy} instance.\n @param config Represents a pointer to an {@link InputMethod_TextConfig} instance.\n @since 12"]
 pub type OH_TextEditorProxy_GetTextConfigFunc = ::std::option::Option<
     unsafe extern "C" fn(
         textEditorProxy: *mut InputMethod_TextEditorProxy,
         config: *mut InputMethod_TextConfig,
     ),
 >;
+#[doc = " @brief Defines the function called when input method inserting text.\n\n You need to implement this function, set it to {@link InputMethod_TextEditorProxy} through {@link\n OH_TextEditorProxy_SetInsertTextFunc}, and use {@link OH_InputMethodController_Attach} to complete the\n registration.\\n\n\n @param textEditorProxy Represents a pointer to the {@link InputMethod_TextEditorProxy} instance which will be set\n in.\n @param text Represents a pointer to the text to be inserted.\n @param length Represents the length of the text to be inserted.\n @since 12"]
 pub type OH_TextEditorProxy_InsertTextFunc = ::std::option::Option<
     unsafe extern "C" fn(
         textEditorProxy: *mut InputMethod_TextEditorProxy,
@@ -318,39 +414,47 @@ pub type OH_TextEditorProxy_InsertTextFunc = ::std::option::Option<
         length: usize,
     ),
 >;
+#[doc = " @brief Defines the function called when input method deleting text forward.\n\n You need to implement this function, set it to {@link InputMethod_TextEditorProxy} through {@link\n OH_TextEditorProxy_SetDeleteForwardFunc}, and use {@link OH_InputMethodController_Attach} to complete the\n registration.\\n\n\n @param textEditorProxy Represents a pointer to the {@link InputMethod_TextEditorProxy} instance which will be set\n in.\n @param length Represents the length of the text to be deleted.\n @since 12"]
 pub type OH_TextEditorProxy_DeleteForwardFunc = ::std::option::Option<
     unsafe extern "C" fn(textEditorProxy: *mut InputMethod_TextEditorProxy, length: i32),
 >;
+#[doc = " @brief Defines the function called when input method deleting text backward.\n\n You need to implement this function, set it to {@link InputMethod_TextEditorProxy} through {@link\n OH_TextEditorProxy_SetDeleteForwardFunc}, and use {@link OH_InputMethodController_Attach} to complete the\n registration.\\n\n\n @param textEditorProxy Represents a pointer to the {@link InputMethod_TextEditorProxy} instance which will be set\n in.\n @param length Represents the length of the text to be deleted.\n @since 12"]
 pub type OH_TextEditorProxy_DeleteBackwardFunc = ::std::option::Option<
     unsafe extern "C" fn(textEditorProxy: *mut InputMethod_TextEditorProxy, length: i32),
 >;
+#[doc = " @brief Called when input method notifying keyboard status.\n\n You need to implement this function, set it to {@link InputMethod_TextEditorProxy} through {@link\n OH_TextEditorProxy_SetSendKeyboardStatusFunc}, and use {@link OH_InputMethodController_Attach} to complete the\n registration.\\n\n\n @param textEditorProxy Represents a pointer to an {@link InputMethod_TextEditorProxy} instance which will be set in.\n @param keyboardStatus Keyboard status, which is defined in {@link InputMethod_KeyboardStatus}.\n @since 12"]
 pub type OH_TextEditorProxy_SendKeyboardStatusFunc = ::std::option::Option<
     unsafe extern "C" fn(
         textEditorProxy: *mut InputMethod_TextEditorProxy,
         keyboardStatus: InputMethod_KeyboardStatus,
     ),
 >;
+#[doc = " @brief Called when input method sending enter key.\n\n You need to implement this function, set it to {@link InputMethod_TextEditorProxy} through {@link\n OH_TextEditorProxy_SetSendEnterKeyFunc}, and use {@link OH_InputMethodController_Attach} to complete the\n registration.\\n\n\n @param textEditorProxy Represents a pointer to an {@link InputMethod_TextEditorProxy} instance which will be set in.\n @param enterKeyType Enter key type, which is defined in {@link InputMethod_EnterKeyType}.\n @since 12"]
 pub type OH_TextEditorProxy_SendEnterKeyFunc = ::std::option::Option<
     unsafe extern "C" fn(
         textEditorProxy: *mut InputMethod_TextEditorProxy,
         enterKeyType: InputMethod_EnterKeyType,
     ),
 >;
+#[doc = " @brief Called when input method requesting to move cursor.\n\n You need to implement this function, set it to {@link InputMethod_TextEditorProxy} through {@link\n OH_TextEditorProxy_SetMoveCursorFunc}, and use {@link OH_InputMethodController_Attach} to complete the\n registration.\\n\n\n @param textEditorProxy Represents a pointer to an {@link InputMethod_TextEditorProxy} instance which will be set in.\n @param direction Represents the direction of the cursor movement, which is defined in {@link InputMethod_Direction}.\n @since 12"]
 pub type OH_TextEditorProxy_MoveCursorFunc = ::std::option::Option<
     unsafe extern "C" fn(
         textEditorProxy: *mut InputMethod_TextEditorProxy,
         direction: InputMethod_Direction,
     ),
 >;
+#[doc = " @brief Called when input method requesting to set selection.\n\n You need to implement this function, set it to {@link InputMethod_TextEditorProxy} through {@link\n OH_TextEditorProxy_SetHandleSetSelectionFunc}, and use {@link OH_InputMethodController_Attach} to complete the\n registration.\\n\n\n @param textEditorProxy Represents a pointer to an {@link InputMethod_TextEditorProxy} instance which will be set in.\n @param start Represents the start position of the selection.\n @param end Represents the end position of the selection.\n @since 12"]
 pub type OH_TextEditorProxy_HandleSetSelectionFunc = ::std::option::Option<
     unsafe extern "C" fn(textEditorProxy: *mut InputMethod_TextEditorProxy, start: i32, end: i32),
 >;
+#[doc = " @brief Called when input method sending extend action.\n\n You need to implement this function, set it to {@link InputMethod_TextEditorProxy} through {@link\n OH_TextEditorProxy_SetHandleExtendActionFunc}, and use {@link OH_InputMethodController_Attach} to complete the\n registration.\\n\n\n @param textEditorProxy Represents a pointer to an {@link InputMethod_TextEditorProxy} instance which will be set in.\n @param action Represents the extend action, which is defined in {@link InputMethod_ExtendAction}.\n @since 12"]
 pub type OH_TextEditorProxy_HandleExtendActionFunc = ::std::option::Option<
     unsafe extern "C" fn(
         textEditorProxy: *mut InputMethod_TextEditorProxy,
         action: InputMethod_ExtendAction,
     ),
 >;
+#[doc = " @brief Called when input method requesting to get left text of cursor.\n\n You need to implement this function, set it to {@link InputMethod_TextEditorProxy} through {@link\n OH_TextEditorProxy_SetGetLeftTextOfCursorFunc}, and use {@link OH_InputMethodController_Attach} to complete the\n registration.\\n\n\n @param textEditorProxy Represents a pointer to an {@link InputMethod_TextEditorProxy} instance which will be set in.\n @param number Represents the number of characters to be get.\n @param text Represents the left text of cursor, you need to assing this parameter.\n @param length Represents the length of the left text of cursor, you need to assing this parameter.\n @since 12"]
 pub type OH_TextEditorProxy_GetLeftTextOfCursorFunc = ::std::option::Option<
     unsafe extern "C" fn(
         textEditorProxy: *mut InputMethod_TextEditorProxy,
@@ -359,6 +463,7 @@ pub type OH_TextEditorProxy_GetLeftTextOfCursorFunc = ::std::option::Option<
         length: *mut usize,
     ),
 >;
+#[doc = " @brief Called when input method requesting to get right text of cursor.\n\n You need to implement this function, set it to {@link InputMethod_TextEditorProxy} through {@link\n OH_TextEditorProxy_SetGetRightTextOfCursorFunc}, and use {@link OH_InputMethodController_Attach} to complete the\n registration.\\n\n\n @param textEditorProxy Represents a pointer to an {@link InputMethod_TextEditorProxy} instance which will be set in.\n @param number Represents the number of characters to be get.\n @param text Represents the right text of cursor, you need to assing this parameter.\n @param length Represents the length of the right text of cursor.\n @since 12"]
 pub type OH_TextEditorProxy_GetRightTextOfCursorFunc = ::std::option::Option<
     unsafe extern "C" fn(
         textEditorProxy: *mut InputMethod_TextEditorProxy,
@@ -367,9 +472,11 @@ pub type OH_TextEditorProxy_GetRightTextOfCursorFunc = ::std::option::Option<
         length: *mut usize,
     ),
 >;
+#[doc = " @brief Called when input method requesting to get text index at cursor.\n\n You need to implement this function, set it to {@link InputMethod_TextEditorProxy} through {@link\n OH_TextEditorProxy_SetGetTextIndexAtCursorFunc}, and use {@link OH_InputMethodController_Attach} to complete the\n registration.\\n\n\n @param textEditorProxy Represents a pointer to an {@link InputMethod_TextEditorProxy} instance which will be set in.\n @return Returns the index of text at cursor.\n @since 12"]
 pub type OH_TextEditorProxy_GetTextIndexAtCursorFunc = ::std::option::Option<
     unsafe extern "C" fn(textEditorProxy: *mut InputMethod_TextEditorProxy) -> i32,
 >;
+#[doc = " @brief Called when input method sending private command.\n\n You need to implement this function, set it to {@link InputMethod_TextEditorProxy} through {@link\n OH_TextEditorProxy_SetReceivePrivateCommandFunc}, and use {@link OH_InputMethodController_Attach} to complete the\n registration.\\n\n\n @param textEditorProxy Represents a pointer to an {@link InputMethod_TextEditorProxy} instance which will be set in.\n @param privateCommand Private command from input method.\n @param size Size of private command.\n @return Returns the result of handling private command.\n @since 12"]
 pub type OH_TextEditorProxy_ReceivePrivateCommandFunc = ::std::option::Option<
     unsafe extern "C" fn(
         textEditorProxy: *mut InputMethod_TextEditorProxy,
@@ -377,6 +484,7 @@ pub type OH_TextEditorProxy_ReceivePrivateCommandFunc = ::std::option::Option<
         size: usize,
     ) -> i32,
 >;
+#[doc = " @brief Called when input method setting preview text.\n\n You need to implement this function, set it to {@link InputMethod_TextEditorProxy} through {@link\n OH_TextEditorProxy_SetReceivePrivateCommandFunc}, and use {@link OH_InputMethodController_Attach} to complete the\n registration.\\n\n\n @param textEditorProxy Represents a pointer to an {@link InputMethod_TextEditorProxy} instance which will be set in.\n @param text Represents text to be previewd.\n @param length Length of preview text.\n @param start Start position of preview text.\n @param end End position of preview text.\n @return Returns the result of setting preview text.\n @since 12"]
 pub type OH_TextEditorProxy_SetPreviewTextFunc = ::std::option::Option<
     unsafe extern "C" fn(
         textEditorProxy: *mut InputMethod_TextEditorProxy,
@@ -386,189 +494,222 @@ pub type OH_TextEditorProxy_SetPreviewTextFunc = ::std::option::Option<
         end: i32,
     ) -> i32,
 >;
+#[doc = " @brief Called when input method finishing preview text.\n\n You need to implement this function, set it to {@link InputMethod_TextEditorProxy} through {@link\n OH_TextEditorProxy_SetReceivePrivateCommandFunc}, and use {@link OH_InputMethodController_Attach} to complete the\n registration.\\n\n\n @param textEditorProxy Represents a pointer to an {@link InputMethod_TextEditorProxy} instance which will be set in.\n @since 12"]
 pub type OH_TextEditorProxy_FinishTextPreviewFunc =
     ::std::option::Option<unsafe extern "C" fn(textEditorProxy: *mut InputMethod_TextEditorProxy)>;
 extern "C" {
+    #[doc = " @brief Create a new {@link InputMethod_TextEditorProxy} instance.\n\n @return If the creation succeeds, a pointer to the newly created {@link InputMethod_TextEditorProxy}\n instance is returned. If the creation fails, NULL is returned, possible cause is insufficient memory.\n @since 12"]
     pub fn OH_TextEditorProxy_Create() -> *mut InputMethod_TextEditorProxy;
 }
 extern "C" {
+    #[doc = " @brief Destroy a {@link InputMethod_TextEditorProxy} instance.\n\n @param proxy The {@link InputMethod_TextEditorProxy} instance to be destroyed.\n @since 12"]
     pub fn OH_TextEditorProxy_Destroy(proxy: *mut InputMethod_TextEditorProxy);
 }
 extern "C" {
+    #[doc = " @brief Set function {@link OH_TextEditorProxy_GetTextConfigFunc} into {@link InputMethod_TextEditorProxy}.\n\n @param proxy Represents a pointer to an {@link InputMethod_TextEditorProxy} instance which will be set function in.\n @param getTextConfigFunc Represents function {@link OH_TextEditorProxy_GetTextConfigFunc} which will be set.\n @return Returns a specific error code.\n     {@link IME_ERR_OK} - success.\n     {@link IME_ERR_NULL_POINTER} - unexpected null pointer.\n Specific error codes can be referenced {@link InputMethod_ErrorCode}.\n @since 12"]
     pub fn OH_TextEditorProxy_SetGetTextConfigFunc(
         proxy: *mut InputMethod_TextEditorProxy,
         getTextConfigFunc: OH_TextEditorProxy_GetTextConfigFunc,
     ) -> InputMethod_ErrorCode;
 }
 extern "C" {
+    #[doc = " @brief Set function {@link OH_TextEditorProxy_InsertTextFunc} into {@link InputMethod_TextEditorProxy}.\n\n @param proxy Represents a pointer to an {@link InputMethod_TextEditorProxy} instance which will be set function in.\n @param insertTextFunc Represents function {@link OH_TextEditorProxy_InsertTextFunc} which will be set.\n @return Returns a specific error code.\n     {@link IME_ERR_OK} - success.\n     {@link IME_ERR_NULL_POINTER} - unexpected null pointer.\n Specific error codes can be referenced {@link InputMethod_ErrorCode}.\n @since 12"]
     pub fn OH_TextEditorProxy_SetInsertTextFunc(
         proxy: *mut InputMethod_TextEditorProxy,
         insertTextFunc: OH_TextEditorProxy_InsertTextFunc,
     ) -> InputMethod_ErrorCode;
 }
 extern "C" {
+    #[doc = " @brief Set function {@link OH_TextEditorProxy_SetDeleteForwardFunc} into {@link InputMethod_TextEditorProxy}.\n\n @param proxy Represents a pointer to an {@link InputMethod_TextEditorProxy} instance which will be set function in.\n @param deleteForwardFunc Represents function {@link OH_TextEditorProxy_DeleteForwardFunc} which will be set.\n @return Returns a specific error code.\n     {@link IME_ERR_OK} - success.\n     {@link IME_ERR_NULL_POINTER} - unexpected null pointer.\n Specific error codes can be referenced {@link InputMethod_ErrorCode}.\n @since 12"]
     pub fn OH_TextEditorProxy_SetDeleteForwardFunc(
         proxy: *mut InputMethod_TextEditorProxy,
         deleteForwardFunc: OH_TextEditorProxy_DeleteForwardFunc,
     ) -> InputMethod_ErrorCode;
 }
 extern "C" {
+    #[doc = " @brief Set function {@link OH_TextEditorProxy_DeleteBackwardFunc} into {@link InputMethod_TextEditorProxy}.\n\n @param proxy Represents a pointer to an {@link InputMethod_TextEditorProxy} instance which will be set function in.\n @param deleteBackwardFunc Represents function {@link OH_TextEditorProxy_DeleteBackwardFunc} which will be set.\n @return Returns a specific error code.\n     {@link IME_ERR_OK} - success.\n     {@link IME_ERR_NULL_POINTER} - unexpected null pointer.\n Specific error codes can be referenced {@link InputMethod_ErrorCode}.\n @since 12"]
     pub fn OH_TextEditorProxy_SetDeleteBackwardFunc(
         proxy: *mut InputMethod_TextEditorProxy,
         deleteBackwardFunc: OH_TextEditorProxy_DeleteBackwardFunc,
     ) -> InputMethod_ErrorCode;
 }
 extern "C" {
+    #[doc = " @brief Set function {@link OH_TextEditorProxy_SendKeyboardStatusFunc} into {@link InputMethod_TextEditorProxy}.\n\n @param proxy Represents a pointer to an {@link InputMethod_TextEditorProxy} instance which will be set function in.\n @param sendKeyboardStatusFunc Represents function {@link OH_TextEditorProxy_SendKeyboardStatusFunc} which will be\n set.\n @return Returns a specific error code.\n     {@link IME_ERR_OK} - success.\n     {@link IME_ERR_NULL_POINTER} - unexpected null pointer.\n Specific error codes can be referenced {@link InputMethod_ErrorCode}.\n @since 12"]
     pub fn OH_TextEditorProxy_SetSendKeyboardStatusFunc(
         proxy: *mut InputMethod_TextEditorProxy,
         sendKeyboardStatusFunc: OH_TextEditorProxy_SendKeyboardStatusFunc,
     ) -> InputMethod_ErrorCode;
 }
 extern "C" {
+    #[doc = " @brief Set function {@link OH_TextEditorProxy_SendEnterKeyFunc} into {@link InputMethod_TextEditorProxy}.\n\n @param proxy Represents a pointer to an {@link InputMethod_TextEditorProxy} instance which will be set function in.\n @param sendEnterKeyFunc Represents function {@link OH_TextEditorProxy_SendEnterKeyFunc} which will be set.\n @return Returns a specific error code.\n     {@link IME_ERR_OK} - success.\n     {@link IME_ERR_NULL_POINTER} - unexpected null pointer.\n Specific error codes can be referenced {@link InputMethod_ErrorCode}.\n @since 12"]
     pub fn OH_TextEditorProxy_SetSendEnterKeyFunc(
         proxy: *mut InputMethod_TextEditorProxy,
         sendEnterKeyFunc: OH_TextEditorProxy_SendEnterKeyFunc,
     ) -> InputMethod_ErrorCode;
 }
 extern "C" {
+    #[doc = " @brief Set function {@link OH_TextEditorProxy_MoveCursorFunc} into {@link InputMethod_TextEditorProxy}.\n\n @param proxy Represents a pointer to an {@link InputMethod_TextEditorProxy} instance which will be set function in.\n @param moveCursorFunc Represents function {@link OH_TextEditorProxy_MoveCursorFunc} which will be set.\n @return Returns a specific error code.\n     {@link IME_ERR_OK} - success.\n     {@link IME_ERR_NULL_POINTER} - unexpected null pointer.\n Specific error codes can be referenced {@link InputMethod_ErrorCode}.\n @since 12"]
     pub fn OH_TextEditorProxy_SetMoveCursorFunc(
         proxy: *mut InputMethod_TextEditorProxy,
         moveCursorFunc: OH_TextEditorProxy_MoveCursorFunc,
     ) -> InputMethod_ErrorCode;
 }
 extern "C" {
+    #[doc = " @brief Set function {@link OH_TextEditorProxy_HandleSetSelectionFunc} into {@link InputMethod_TextEditorProxy}.\n\n @param proxy Represents a pointer to an {@link InputMethod_TextEditorProxy} instance which will be set function in.\n @param handleSetSelectionFunc Represents function {@link OH_TextEditorProxy_HandleSetSelectionFunc} which will be\n set.\n @return Returns a specific error code.\n     {@link IME_ERR_OK} - success.\n     {@link IME_ERR_NULL_POINTER} - unexpected null pointer.\n Specific error codes can be referenced {@link InputMethod_ErrorCode}.\n @since 12"]
     pub fn OH_TextEditorProxy_SetHandleSetSelectionFunc(
         proxy: *mut InputMethod_TextEditorProxy,
         handleSetSelectionFunc: OH_TextEditorProxy_HandleSetSelectionFunc,
     ) -> InputMethod_ErrorCode;
 }
 extern "C" {
+    #[doc = " @brief Set function {@link OH_TextEditorProxy_HandleExtendActionFunc} into {@link InputMethod_TextEditorProxy}.\n\n @param proxy Represents a pointer to an {@link InputMethod_TextEditorProxy} instance which will be set function in.\n @param handleExtendActionFunc Represents function {@link OH_TextEditorProxy_HandleExtendActionFunc} which will be\n set.\n @return Returns a specific error code.\n     {@link IME_ERR_OK} - success.\n     {@link IME_ERR_NULL_POINTER} - unexpected null pointer.\n Specific error codes can be referenced {@link InputMethod_ErrorCode}.\n @since 12"]
     pub fn OH_TextEditorProxy_SetHandleExtendActionFunc(
         proxy: *mut InputMethod_TextEditorProxy,
         handleExtendActionFunc: OH_TextEditorProxy_HandleExtendActionFunc,
     ) -> InputMethod_ErrorCode;
 }
 extern "C" {
+    #[doc = " @brief Set function {@link OH_TextEditorProxy_GetLeftTextOfCursorFunc} into {@link InputMethod_TextEditorProxy}.\n\n @param proxy Represents a pointer to an {@link InputMethod_TextEditorProxy} instance which will be set function in.\n @param getLeftTextOfCursorFunc Represents function {@link OH_TextEditorProxy_GetLeftTextOfCursorFunc} which will\n be set.\n @return Returns a specific error code.\n     {@link IME_ERR_OK} - success.\n     {@link IME_ERR_NULL_POINTER} - unexpected null pointer.\n Specific error codes can be referenced {@link InputMethod_ErrorCode}.\n @since 12"]
     pub fn OH_TextEditorProxy_SetGetLeftTextOfCursorFunc(
         proxy: *mut InputMethod_TextEditorProxy,
         getLeftTextOfCursorFunc: OH_TextEditorProxy_GetLeftTextOfCursorFunc,
     ) -> InputMethod_ErrorCode;
 }
 extern "C" {
+    #[doc = " @brief Set function {@link OH_TextEditorProxy_GetRightTextOfCursorFunc} into {@link InputMethod_TextEditorProxy}.\n\n @param proxy Represents a pointer to an {@link InputMethod_TextEditorProxy} instance which will be set function in.\n @param getRightTextOfCursorFunc Represents function {@link OH_TextEditorProxy_GetRightTextOfCursorFunc} which\n will be set.\n @return Returns a specific error code.\n     {@link IME_ERR_OK} - success.\n     {@link IME_ERR_NULL_POINTER} - unexpected null pointer.\n Specific error codes can be referenced {@link InputMethod_ErrorCode}.\n @since 12"]
     pub fn OH_TextEditorProxy_SetGetRightTextOfCursorFunc(
         proxy: *mut InputMethod_TextEditorProxy,
         getRightTextOfCursorFunc: OH_TextEditorProxy_GetRightTextOfCursorFunc,
     ) -> InputMethod_ErrorCode;
 }
 extern "C" {
+    #[doc = " @brief Set function {@link OH_TextEditorProxy_GetTextIndexAtCursorFunc} into {@link InputMethod_TextEditorProxy}.\n\n @param proxy Represents a pointer to an {@link InputMethod_TextEditorProxy} instance which will be set function in.\n @param getTextIndexAtCursorFunc Represents function {@link OH_TextEditorProxy_GetTextIndexAtCursorFunc} which\n will be set.\n @return Returns a specific error code.\n     {@link IME_ERR_OK} - success.\n     {@link IME_ERR_NULL_POINTER} - unexpected null pointer.\n Specific error codes can be referenced {@link InputMethod_ErrorCode}.\n @since 12"]
     pub fn OH_TextEditorProxy_SetGetTextIndexAtCursorFunc(
         proxy: *mut InputMethod_TextEditorProxy,
         getTextIndexAtCursorFunc: OH_TextEditorProxy_GetTextIndexAtCursorFunc,
     ) -> InputMethod_ErrorCode;
 }
 extern "C" {
+    #[doc = " @brief Set function {@link OH_TextEditorProxy_ReceivePrivateCommandFunc} into {@link InputMethod_TextEditorProxy}.\n\n @param proxy Represents a pointer to an {@link InputMethod_TextEditorProxy} instance which will be set function in.\n @param receivePrivateCommandFunc Represents function {@link OH_TextEditorProxy_ReceivePrivateCommandFunc} which\n will be set.\n @return Returns a specific error code.\n     {@link IME_ERR_OK} - success.\n     {@link IME_ERR_NULL_POINTER} - unexpected null pointer.\n Specific error codes can be referenced {@link InputMethod_ErrorCode}.\n @since 12"]
     pub fn OH_TextEditorProxy_SetReceivePrivateCommandFunc(
         proxy: *mut InputMethod_TextEditorProxy,
         receivePrivateCommandFunc: OH_TextEditorProxy_ReceivePrivateCommandFunc,
     ) -> InputMethod_ErrorCode;
 }
 extern "C" {
+    #[doc = " @brief Set function {@link OH_TextEditorProxy_SetPreviewTextFunc} into {@link InputMethod_TextEditorProxy}.\n\n @param proxy Represents a pointer to an {@link InputMethod_TextEditorProxy} instance which will be set function in.\n @param setPreviewTextFunc Represents function {@link OH_TextEditorProxy_SetPreviewTextFunc} which will be set.\n @return Returns a specific error code.\n     {@link IME_ERR_OK} - success.\n     {@link IME_ERR_NULL_POINTER} - unexpected null pointer.\n Specific error codes can be referenced {@link InputMethod_ErrorCode}.\n @since 12"]
     pub fn OH_TextEditorProxy_SetSetPreviewTextFunc(
         proxy: *mut InputMethod_TextEditorProxy,
         setPreviewTextFunc: OH_TextEditorProxy_SetPreviewTextFunc,
     ) -> InputMethod_ErrorCode;
 }
 extern "C" {
+    #[doc = " @brief Set function {@link OH_TextEditorProxy_FinishTextPreviewFunc} into {@link InputMethod_TextEditorProxy}.\n\n @param proxy Represents a pointer to an {@link InputMethod_TextEditorProxy} instance which will be set function in.\n @param finishTextPreviewFunc Represents function {@link OH_TextEditorProxy_FinishTextPreviewFunc} which will be\n set.\n @return Returns a specific error code.\n     {@link IME_ERR_OK} - success.\n     {@link IME_ERR_NULL_POINTER} - unexpected null pointer.\n Specific error codes can be referenced {@link InputMethod_ErrorCode}.\n @since 12"]
     pub fn OH_TextEditorProxy_SetFinishTextPreviewFunc(
         proxy: *mut InputMethod_TextEditorProxy,
         finishTextPreviewFunc: OH_TextEditorProxy_FinishTextPreviewFunc,
     ) -> InputMethod_ErrorCode;
 }
 extern "C" {
+    #[doc = " @brief Get function {@link OH_TextEditorProxy_GetTextConfigFunc} from {@link InputMethod_TextEditorProxy}.\n\n @param proxy Represents a pointer to an {@link InputMethod_TextEditorProxy} instance which will be get function\n from.\n @param getTextConfigFunc Represents function {@link OH_TextEditorProxy_GetTextConfigFunc} which will be get.\n @return Returns a specific error code.\n     {@link IME_ERR_OK} - success.\n     {@link IME_ERR_NULL_POINTER} - unexpected null pointer.\n Specific error codes can be referenced {@link InputMethod_ErrorCode}.\n @since 12"]
     pub fn OH_TextEditorProxy_GetGetTextConfigFunc(
         proxy: *mut InputMethod_TextEditorProxy,
         getTextConfigFunc: *mut OH_TextEditorProxy_GetTextConfigFunc,
     ) -> InputMethod_ErrorCode;
 }
 extern "C" {
+    #[doc = " @brief Get function {@link OH_TextEditorProxy_InsertTextFunc} from {@link InputMethod_TextEditorProxy}.\n\n @param proxy Represents a pointer to an {@link InputMethod_TextEditorProxy} instance which will be get function\n from.\n @param insertTextFunc Represents function {@link OH_TextEditorProxy_InsertTextFunc} which will be get.\n @return Returns a specific error code.\n     {@link IME_ERR_OK} - success.\n     {@link IME_ERR_NULL_POINTER} - unexpected null pointer.\n Specific error codes can be referenced {@link InputMethod_ErrorCode}.\n @since 12"]
     pub fn OH_TextEditorProxy_GetInsertTextFunc(
         proxy: *mut InputMethod_TextEditorProxy,
         insertTextFunc: *mut OH_TextEditorProxy_InsertTextFunc,
     ) -> InputMethod_ErrorCode;
 }
 extern "C" {
+    #[doc = " @brief Get function {@link OH_TextEditorProxy_DeleteForwardFunc} from {@link InputMethod_TextEditorProxy}.\n\n @param proxy Represents a pointer to an {@link InputMethod_TextEditorProxy} instance which will be get function\n from.\n @param deleteForwardFunc Represents function {@link OH_TextEditorProxy_DeleteForwardFunc} which will be get.\n @return Returns a specific error code.\n     {@link IME_ERR_OK} - success.\n     {@link IME_ERR_NULL_POINTER} - unexpected null pointer.\n Specific error codes can be referenced {@link InputMethod_ErrorCode}.\n @since 12"]
     pub fn OH_TextEditorProxy_GetDeleteForwardFunc(
         proxy: *mut InputMethod_TextEditorProxy,
         deleteForwardFunc: *mut OH_TextEditorProxy_DeleteForwardFunc,
     ) -> InputMethod_ErrorCode;
 }
 extern "C" {
+    #[doc = " @brief Get function {@link OH_TextEditorProxy_DeleteBackwardFunc} from {@link InputMethod_TextEditorProxy}.\n\n @param proxy Represents a pointer to an {@link InputMethod_TextEditorProxy} instance which will be get function\n from.\n @param deleteBackwardFunc Represents function {@link OH_TextEditorProxy_DeleteBackwardFunc} which will be get.\n @return Returns a specific error code.\n     {@link IME_ERR_OK} - success.\n     {@link IME_ERR_NULL_POINTER} - unexpected null pointer.\n Specific error codes can be referenced {@link InputMethod_ErrorCode}.\n @since 12"]
     pub fn OH_TextEditorProxy_GetDeleteBackwardFunc(
         proxy: *mut InputMethod_TextEditorProxy,
         deleteBackwardFunc: *mut OH_TextEditorProxy_DeleteBackwardFunc,
     ) -> InputMethod_ErrorCode;
 }
 extern "C" {
+    #[doc = " @brief Get function {@link OH_TextEditorProxy_SendKeyboardStatusFunc} from {@link InputMethod_TextEditorProxy}.\n\n @param proxy Represents a pointer to an {@link InputMethod_TextEditorProxy} instance which will be get function\n from.\n @param sendKeyboardStatusFunc Represents function {@link OH_TextEditorProxy_SendKeyboardStatusFunc} which will be\n get.\n @return Returns a specific error code.\n     {@link IME_ERR_OK} - success.\n     {@link IME_ERR_NULL_POINTER} - unexpected null pointer.\n Specific error codes can be referenced {@link InputMethod_ErrorCode}.\n @since 12"]
     pub fn OH_TextEditorProxy_GetSendKeyboardStatusFunc(
         proxy: *mut InputMethod_TextEditorProxy,
         sendKeyboardStatusFunc: *mut OH_TextEditorProxy_SendKeyboardStatusFunc,
     ) -> InputMethod_ErrorCode;
 }
 extern "C" {
+    #[doc = " @brief Get function {@link OH_TextEditorProxy_SendEnterKeyFunc} from {@link InputMethod_TextEditorProxy}.\n\n @param proxy Represents a pointer to an {@link InputMethod_TextEditorProxy} instance which will be get function\n from.\n @param sendEnterKeyFunc Represents function {@link OH_TextEditorProxy_SendEnterKeyFunc} which will be get.\n @return Returns a specific error code.\n     {@link IME_ERR_OK} - success.\n     {@link IME_ERR_NULL_POINTER} - unexpected null pointer.\n Specific error codes can be referenced {@link InputMethod_ErrorCode}.\n @since 12"]
     pub fn OH_TextEditorProxy_GetSendEnterKeyFunc(
         proxy: *mut InputMethod_TextEditorProxy,
         sendEnterKeyFunc: *mut OH_TextEditorProxy_SendEnterKeyFunc,
     ) -> InputMethod_ErrorCode;
 }
 extern "C" {
+    #[doc = " @brief Get function {@link OH_TextEditorProxy_MoveCursorFunc} from {@link InputMethod_TextEditorProxy}.\n\n @param proxy Represents a pointer to an {@link InputMethod_TextEditorProxy} instance which will be get function\n from.\n @param moveCursorFunc Represents function {@link OH_TextEditorProxy_MoveCursorFunc} which will be get.\n @return Returns a specific error code.\n     {@link IME_ERR_OK} - success.\n     {@link IME_ERR_NULL_POINTER} - unexpected null pointer.\n Specific error codes can be referenced {@link InputMethod_ErrorCode}.\n @since 12"]
     pub fn OH_TextEditorProxy_GetMoveCursorFunc(
         proxy: *mut InputMethod_TextEditorProxy,
         moveCursorFunc: *mut OH_TextEditorProxy_MoveCursorFunc,
     ) -> InputMethod_ErrorCode;
 }
 extern "C" {
+    #[doc = " @brief Get function {@link OH_TextEditorProxy_HandleSetSelectionFunc} from {@link InputMethod_TextEditorProxy}.\n\n @param proxy Represents a pointer to an {@link InputMethod_TextEditorProxy} instance which will be get function\n from.\n @param handleSetSelectionFunc Represents function {@link OH_TextEditorProxy_HandleSetSelectionFunc} which will be\n get.\n @return Returns a specific error code.\n     {@link IME_ERR_OK} - success.\n     {@link IME_ERR_NULL_POINTER} - unexpected null pointer.\n Specific error codes can be referenced {@link InputMethod_ErrorCode}.\n @since 12"]
     pub fn OH_TextEditorProxy_GetHandleSetSelectionFunc(
         proxy: *mut InputMethod_TextEditorProxy,
         handleSetSelectionFunc: *mut OH_TextEditorProxy_HandleSetSelectionFunc,
     ) -> InputMethod_ErrorCode;
 }
 extern "C" {
+    #[doc = " @brief Get function {@link OH_TextEditorProxy_HandleExtendActionFunc} from {@link InputMethod_TextEditorProxy}.\n\n @param proxy Represents a pointer to an {@link InputMethod_TextEditorProxy} instance which will be get function\n from.\n @param handleExtendActionFunc Represents function {@link OH_TextEditorProxy_HandleExtendActionFunc} which will be\n get.\n @return Returns a specific error code.\n     {@link IME_ERR_OK} - success.\n     {@link IME_ERR_NULL_POINTER} - unexpected null pointer.\n Specific error codes can be referenced {@link InputMethod_ErrorCode}.\n @since 12"]
     pub fn OH_TextEditorProxy_GetHandleExtendActionFunc(
         proxy: *mut InputMethod_TextEditorProxy,
         handleExtendActionFunc: *mut OH_TextEditorProxy_HandleExtendActionFunc,
     ) -> InputMethod_ErrorCode;
 }
 extern "C" {
+    #[doc = " @brief Get function {@link OH_TextEditorProxy_GetLeftTextOfCursorFunc} from {@link InputMethod_TextEditorProxy}.\n\n @param proxy Represents a pointer to an {@link InputMethod_TextEditorProxy} instance which will be get function\n from.\n @param getLeftTextOfCursorFunc Represents function {@link OH_TextEditorProxy_GetLeftTextOfCursorFunc} which will\n be get.\n @return Returns a specific error code.\n     {@link IME_ERR_OK} - success.\n     {@link IME_ERR_NULL_POINTER} - unexpected null pointer.\n Specific error codes can be referenced {@link InputMethod_ErrorCode}.\n @since 12"]
     pub fn OH_TextEditorProxy_GetGetLeftTextOfCursorFunc(
         proxy: *mut InputMethod_TextEditorProxy,
         getLeftTextOfCursorFunc: *mut OH_TextEditorProxy_GetLeftTextOfCursorFunc,
     ) -> InputMethod_ErrorCode;
 }
 extern "C" {
+    #[doc = " @brief Get function {@link OH_TextEditorProxy_GetRightTextOfCursorFunc} from {@link InputMethod_TextEditorProxy}.\n\n @param proxy Represents a pointer to an {@link InputMethod_TextEditorProxy} instance which will be get function\n from.\n @param getRightTextOfCursorFunc Represents function {@link OH_TextEditorProxy_GetRightTextOfCursorFunc} which\n will be get.\n @return Returns a specific error code.\n     {@link IME_ERR_OK} - success.\n     {@link IME_ERR_NULL_POINTER} - unexpected null pointer.\n Specific error codes can be referenced {@link InputMethod_ErrorCode}.\n @since 12"]
     pub fn OH_TextEditorProxy_GetGetRightTextOfCursorFunc(
         proxy: *mut InputMethod_TextEditorProxy,
         getRightTextOfCursorFunc: *mut OH_TextEditorProxy_GetRightTextOfCursorFunc,
     ) -> InputMethod_ErrorCode;
 }
 extern "C" {
+    #[doc = " @brief Get function {@link OH_TextEditorProxy_GetTextIndexAtCursorFunc} from {@link InputMethod_TextEditorProxy}.\n\n @param proxy Represents a pointer to an {@link InputMethod_TextEditorProxy} instance which will be get function\n from.\n @param getTextIndexAtCursorFunc Represents function {@link OH_TextEditorProxy_GetTextIndexAtCursorFunc} which\n will be get.\n @return Returns a specific error code.\n     {@link IME_ERR_OK} - success.\n     {@link IME_ERR_NULL_POINTER} - unexpected null pointer.\n Specific error codes can be referenced {@link InputMethod_ErrorCode}.\n @since 12"]
     pub fn OH_TextEditorProxy_GetGetTextIndexAtCursorFunc(
         proxy: *mut InputMethod_TextEditorProxy,
         getTextIndexAtCursorFunc: *mut OH_TextEditorProxy_GetTextIndexAtCursorFunc,
     ) -> InputMethod_ErrorCode;
 }
 extern "C" {
+    #[doc = " @brief Get function {@link OH_TextEditorProxy_ReceivePrivateCommandFunc} from {@link InputMethod_TextEditorProxy}.\n\n @param proxy Represents a pointer to an {@link InputMethod_TextEditorProxy} instance which will be get function\n from.\n @param receivePrivateCommandFunc Represents function {@link OH_TextEditorProxy_ReceivePrivateCommandFunc} which\n will be get.\n @return Returns a specific error code.\n     {@link IME_ERR_OK} - success.\n     {@link IME_ERR_NULL_POINTER} - unexpected null pointer.\n Specific error codes can be referenced {@link InputMethod_ErrorCode}.\n @since 12"]
     pub fn OH_TextEditorProxy_GetReceivePrivateCommandFunc(
         proxy: *mut InputMethod_TextEditorProxy,
         receivePrivateCommandFunc: *mut OH_TextEditorProxy_ReceivePrivateCommandFunc,
     ) -> InputMethod_ErrorCode;
 }
 extern "C" {
+    #[doc = " @brief Get function {@link OH_TextEditorProxy_SetPreviewTextFunc} from {@link InputMethod_TextEditorProxy}.\n\n @param proxy Represents a pointer to an {@link InputMethod_TextEditorProxy} instance which will be get function\n from.\n @param setPreviewTextFunc Represents function {@link OH_TextEditorProxy_SetPreviewTextFunc} which will be get.\n @return Returns a specific error code.\n     {@link IME_ERR_OK} - success.\n     {@link IME_ERR_NULL_POINTER} - unexpected null pointer.\n Specific error codes can be referenced {@link InputMethod_ErrorCode}.\n @since 12"]
     pub fn OH_TextEditorProxy_GetSetPreviewTextFunc(
         proxy: *mut InputMethod_TextEditorProxy,
         setPreviewTextFunc: *mut OH_TextEditorProxy_SetPreviewTextFunc,
     ) -> InputMethod_ErrorCode;
 }
 extern "C" {
+    #[doc = " @brief Get function {@link OH_TextEditorProxy_FinishTextPreviewFunc} from {@link InputMethod_TextEditorProxy}.\n\n @param proxy Represents a pointer to an {@link InputMethod_TextEditorProxy} instance which will be get function\n from.\n @param finishTextPreviewFunc Represents function {@link OH_TextEditorProxy_FinishTextPreviewFunc} which will be\n get.\n @return Returns a specific error code.\n     {@link IME_ERR_OK} - success.\n     {@link IME_ERR_NULL_POINTER} - unexpected null pointer.\n Specific error codes can be referenced {@link InputMethod_ErrorCode}.\n @since 12"]
     pub fn OH_TextEditorProxy_GetFinishTextPreviewFunc(
         proxy: *mut InputMethod_TextEditorProxy,
         finishTextPreviewFunc: *mut OH_TextEditorProxy_FinishTextPreviewFunc,
@@ -580,16 +721,19 @@ pub struct InputMethod_InputMethodProxy {
     _unused: [u8; 0],
 }
 extern "C" {
+    #[doc = " @brief Show keyboard.\n\n @param inputMethodProxy Represents a pointer to an {@link InputMethod_InputMethodProxy} instance.\n     The inputMethodProxy is obtained from {@link OH_InputMethodController_Attach}.\n @return Returns a specific error code.\n     {@link IME_ERR_OK} - success.\n     {@link IME_ERR_IMCLIENT} - input method client error.\n     {@link IME_ERR_IMMS} - input method manager service error.\n     {@link IME_ERR_DETACHED} - input method client detached.\n     {@link IME_ERR_NULL_POINTER} - unexpected null pointer.\n Specific error codes can be referenced {@link InputMethod_ErrorCode}.\n @since 12"]
     pub fn OH_InputMethodProxy_ShowKeyboard(
         inputMethodProxy: *mut InputMethod_InputMethodProxy,
     ) -> InputMethod_ErrorCode;
 }
 extern "C" {
+    #[doc = " @brief Hide keyboard.\n\n @param inputMethodProxy Represents a pointer to an {@link InputMethod_InputMethodProxy} instance.\n     The inputMethodProxy is obtained from {@link OH_InputMethodController_Attach}.\n @return Returns a specific error code.\n     {@link IME_ERR_OK} - success.\n     {@link IME_ERR_IMCLIENT} - input method client error.\n     {@link IME_ERR_IMMS} - input method manager service error.\n     {@link IME_ERR_DETACHED} - input method client detached.\n     {@link IME_ERR_NULL_POINTER} - unexpected null pointer.\n Specific error codes can be referenced {@link InputMethod_ErrorCode}.\n @since 12"]
     pub fn OH_InputMethodProxy_HideKeyboard(
         inputMethodProxy: *mut InputMethod_InputMethodProxy,
     ) -> InputMethod_ErrorCode;
 }
 extern "C" {
+    #[doc = " @brief Notify selection change.\n\n Notify selection change when text or cursor position or selected text changed.\n\n @param inputMethodProxy Represents a pointer to an {@link InputMethod_InputMethodProxy} instance.\n     The inputMethodProxy is obtained from {@link OH_InputMethodController_Attach}.\n @param text The whole input text.\n @param length The length of text. Max length is 8K.\n @param start The start position of selected text.\n @param end The end position of selected text.\n @return Returns a specific error code.\n     {@link IME_ERR_OK} - success.\n     {@link IME_ERR_PARAMCHECK} - parameter check failed.\n     {@link IME_ERR_IMCLIENT} - input method client error.\n     {@link IME_ERR_IMMS} - input method manager service error.\n     {@link IME_ERR_DETACHED} - input method client detached.\n     {@link IME_ERR_NULL_POINTER} - unexpected null pointer.\n Specific error codes can be referenced {@link InputMethod_ErrorCode}.\n @since 12"]
     pub fn OH_InputMethodProxy_NotifySelectionChange(
         inputMethodProxy: *mut InputMethod_InputMethodProxy,
         text: *mut char16_t,
@@ -599,6 +743,7 @@ extern "C" {
     ) -> InputMethod_ErrorCode;
 }
 extern "C" {
+    #[doc = " @brief Notify text editor configuration change.\n\n @param inputMethodProxy Represents a pointer to an {@link InputMethod_InputMethodProxy} instance.\n     The inputMethodProxy is obtained from {@link OH_InputMethodController_Attach}.\n @param enterKey The enter key type.\n @param textType The text input type.\n @return Returns a specific error code.\n     {@link IME_ERR_OK} - success.\n     {@link IME_ERR_PARAMCHECK} - parameter check failed.\n     {@link IME_ERR_IMCLIENT} - input method client error.\n     {@link IME_ERR_IMMS} - input method manager service error.\n     {@link IME_ERR_DETACHED} - input method client detached.\n     {@link IME_ERR_NULL_POINTER} - unexpected null pointer.\n Specific error codes can be referenced {@link InputMethod_ErrorCode}.\n @since 12"]
     pub fn OH_InputMethodProxy_NotifyConfigurationChange(
         inputMethodProxy: *mut InputMethod_InputMethodProxy,
         enterKey: InputMethod_EnterKeyType,
@@ -606,12 +751,14 @@ extern "C" {
     ) -> InputMethod_ErrorCode;
 }
 extern "C" {
+    #[doc = " @brief Notify cursor update.\n\n @param inputMethodProxy Represents a pointer to an {@link InputMethod_InputMethodProxy} instance.\n     The inputMethodProxy is obtained from {@link OH_InputMethodController_Attach}.\n @param cursorInfo Represents a pointer to an {@link InputMethod_CursorInfo} instance.\n     The cursor information.\n @return Returns a specific error code.\n     {@link IME_ERR_OK} - success.\n     {@link IME_ERR_PARAMCHECK} - parameter check failed.\n     {@link IME_ERR_IMCLIENT} - input method client error.\n     {@link IME_ERR_IMMS} - input method manager service error.\n     {@link IME_ERR_DETACHED} - input method client detached.\n     {@link IME_ERR_NULL_POINTER} - unexpected null pointer.\n Specific error codes can be referenced {@link InputMethod_ErrorCode}.\n @since 12"]
     pub fn OH_InputMethodProxy_NotifyCursorUpdate(
         inputMethodProxy: *mut InputMethod_InputMethodProxy,
         cursorInfo: *mut InputMethod_CursorInfo,
     ) -> InputMethod_ErrorCode;
 }
 extern "C" {
+    #[doc = " @brief Send private command.\n\n @param inputMethodProxy Represents a pointer to an {@link InputMethod_InputMethodProxy} instance.\n     The inputMethodProxy is obtained from {@link OH_InputMethodController_Attach}.\n @param privateCommand The private commands, which is defined in {@link InputMethod_PrivateCommand}. Max size 32KB.\n @param size The size of privateCommand. Max is 5.\n @return Returns a specific error code.\n     {@link IME_ERR_OK} - success.\n     {@link IME_ERR_PARAMCHECK} - parameter check failed.\n     {@link IME_ERR_IMCLIENT} - input method client error.\n     {@link IME_ERR_IMMS} - input method manager service error.\n     {@link IME_ERR_DETACHED} - input method client detached.\n     {@link IME_ERR_NULL_POINTER} - unexpected null pointer.\n Specific error codes can be referenced {@link InputMethod_ErrorCode}.\n @since 12"]
     pub fn OH_InputMethodProxy_SendPrivateCommand(
         inputMethodProxy: *mut InputMethod_InputMethodProxy,
         privateCommand: *mut *mut InputMethod_PrivateCommand,
@@ -624,18 +771,22 @@ pub struct InputMethod_AttachOptions {
     _unused: [u8; 0],
 }
 extern "C" {
+    #[doc = " @brief Create a new {@link InputMethod_AttachOptions} instance.\n\n @param showKeyboard Represents whether to show the keyboard.\n @return If the creation succeeds, a pointer to the newly created {@link InputMethod_AttachOptions}\n instance is returned. If the creation fails, NULL is returned, possible cause is insufficient memory.\n @since 12"]
     pub fn OH_AttachOptions_Create(showKeyboard: bool) -> *mut InputMethod_AttachOptions;
 }
 extern "C" {
+    #[doc = " @brief Delete a {@link InputMethod_AttachOptions} instance.\n\n @param options Represents a pointer to an {@link InputMethod_AttachOptions} instance which will be destroyed.\n @since 12"]
     pub fn OH_AttachOptions_Destroy(options: *mut InputMethod_AttachOptions);
 }
 extern "C" {
+    #[doc = " @brief Get showKeyboard value from {@link InputMethod_AttachOptions}.\n\n @param options Represents a pointer to an {@link InputMethod_AttachOptions} instance which will be get value from.\n @param showKeyboard  Represents showKeyboard value.\n     true - need to show keyboard.\n     false - no need to show keyboard.\n @return Returns a specific error code.\n     {@link IME_ERR_OK} - success.\n     {@link IME_ERR_NULL_POINTER} - unexpected null pointer.\n Specific error codes can be referenced {@link InputMethod_ErrorCode}.\n @since 12"]
     pub fn OH_AttachOptions_IsShowKeyboard(
         options: *mut InputMethod_AttachOptions,
         showKeyboard: *mut bool,
     ) -> InputMethod_ErrorCode;
 }
 extern "C" {
+    #[doc = " @brief Attach application to the input method service.\n\n @param textEditorProxy Represents a pointer to an {@link InputMethod_TextEditorProxy} instance.\n     The caller needs to manage the lifecycle of textEditorProxy.\n     If the call succeeds, caller cannot release textEditorProxy until the next attach or detach call.\n @param options Represents a pointer to an {@link InputMethod_AttachOptions} instance.\n     The options when attaching input method.\n @param inputMethodProxy Represents a pointer to an {@link InputMethod_InputMethodProxy} instance.\n     Lifecycle is mantianed until the next attach or detach call.\n @return Returns a specific error code.\n     {@link IME_ERR_OK} - success.\n     {@link IME_ERR_PARAMCHECK} - parameter check failed.\n     {@link IME_ERR_IMCLIENT} - input method client error.\n     {@link IME_ERR_IMMS} - input method manager service error.\n     {@link IME_ERR_NULL_POINTER} - unexpected null pointer.\n Specific error codes can be referenced {@link InputMethod_ErrorCode}.\n @since 12"]
     pub fn OH_InputMethodController_Attach(
         textEditorProxy: *mut InputMethod_TextEditorProxy,
         options: *mut InputMethod_AttachOptions,
@@ -643,6 +794,7 @@ extern "C" {
     ) -> InputMethod_ErrorCode;
 }
 extern "C" {
+    #[doc = " @brief Detach application from the input method service.\n\n @param inputMethodProxy Represents a pointer to an {@link InputMethod_InputMethodProxy} instance.\n     The inputMethodProxy is obtained from {@link OH_InputMethodController_Attach}.\n @return Returns a specific error code.\n     {@link IME_ERR_OK} - success.\n     {@link IME_ERR_IMCLIENT} - input method client error.\n     {@link IME_ERR_IMMS} - input method manager service error.\n     {@link IME_ERR_NULL_POINTER} - unexpected null pointer.\n Specific error codes can be referenced {@link InputMethod_ErrorCode}.\n @since 12"]
     pub fn OH_InputMethodController_Detach(
         inputMethodProxy: *mut InputMethod_InputMethodProxy,
     ) -> InputMethod_ErrorCode;

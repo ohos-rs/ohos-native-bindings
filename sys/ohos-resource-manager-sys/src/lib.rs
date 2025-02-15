@@ -6,37 +6,58 @@
 
 use ohos_raw_sys::*;
 
+#[doc = " @error Success"]
 pub const ResourceManager_ErrorCode_SUCCESS: ResourceManager_ErrorCode = 0;
+#[doc = " @error Invalid input parameter"]
 pub const ResourceManager_ErrorCode_ERROR_CODE_INVALID_INPUT_PARAMETER: ResourceManager_ErrorCode =
     401;
+#[doc = " @error Invalid resource ID"]
 pub const ResourceManager_ErrorCode_ERROR_CODE_RES_ID_NOT_FOUND: ResourceManager_ErrorCode =
     9001001;
+#[doc = " @error Invalid resource name"]
 pub const ResourceManager_ErrorCode_ERROR_CODE_RES_NOT_FOUND_BY_ID: ResourceManager_ErrorCode =
     9001002;
+#[doc = " @error No matching resource is found based on the resource ID"]
 pub const ResourceManager_ErrorCode_ERROR_CODE_RES_NAME_NOT_FOUND: ResourceManager_ErrorCode =
     9001003;
+#[doc = " @error No matching resource is found based on the resource name"]
 pub const ResourceManager_ErrorCode_ERROR_CODE_RES_NOT_FOUND_BY_NAME: ResourceManager_ErrorCode =
     9001004;
+#[doc = " @error Invalid relative path"]
 pub const ResourceManager_ErrorCode_ERROR_CODE_RES_PATH_INVALID: ResourceManager_ErrorCode =
     9001005;
+#[doc = " @error The resource is referenced cyclically"]
 pub const ResourceManager_ErrorCode_ERROR_CODE_RES_REF_TOO_MUCH: ResourceManager_ErrorCode =
     9001006;
+#[doc = " @error Failed to format the resource obtained based on the resource ID"]
 pub const ResourceManager_ErrorCode_ERROR_CODE_RES_ID_FORMAT_ERROR: ResourceManager_ErrorCode =
     9001007;
+#[doc = " @error Failed to format the resource obtained based on the resource Name"]
 pub const ResourceManager_ErrorCode_ERROR_CODE_RES_NAME_FORMAT_ERROR: ResourceManager_ErrorCode =
     9001008;
+#[doc = " @error Failed to access the system resource"]
 pub const ResourceManager_ErrorCode_ERROR_CODE_SYSTEM_RES_MANAGER_GET_FAILED:
     ResourceManager_ErrorCode = 9001009;
+#[doc = " @error Invalid overlay path"]
 pub const ResourceManager_ErrorCode_ERROR_CODE_OVERLAY_RES_PATH_INVALID: ResourceManager_ErrorCode =
     9001010;
+#[doc = " @error Out of memory"]
 pub const ResourceManager_ErrorCode_ERROR_CODE_OUT_OF_MEMORY: ResourceManager_ErrorCode = 9001100;
+#[doc = " @brief The error code of resource manager.\n\n @since 12"]
 pub type ResourceManager_ErrorCode = ::std::os::raw::c_uint;
+#[doc = " Indicates small screen density."]
 pub const ScreenDensity_SCREEN_SDPI: ScreenDensity = 120;
+#[doc = " Indicates medium screen density."]
 pub const ScreenDensity_SCREEN_MDPI: ScreenDensity = 160;
+#[doc = " Indicates large screen density."]
 pub const ScreenDensity_SCREEN_LDPI: ScreenDensity = 240;
+#[doc = " Indicates extra-large screen density."]
 pub const ScreenDensity_SCREEN_XLDPI: ScreenDensity = 320;
+#[doc = " Indicates extra-extra-large screen density."]
 pub const ScreenDensity_SCREEN_XXLDPI: ScreenDensity = 480;
+#[doc = " Indicates extra-extra-extra-large screen density."]
 pub const ScreenDensity_SCREEN_XXXLDPI: ScreenDensity = 640;
+#[doc = " @brief Enumerates screen density types.\n\n @since 12"]
 pub type ScreenDensity = ::std::os::raw::c_uint;
 #[repr(C)]
 #[derive(Debug, Copy, Clone)]
@@ -44,6 +65,7 @@ pub struct ArkUI_DrawableDescriptor {
     _unused: [u8; 0],
 }
 extern "C" {
+    #[doc = " @brief Obtains the Base64 code of the image resource.\n\n Obtains the Base64 code of the image resource corresponding to the specified resource ID.\n\n @param mgr Indicates the pointer to {@link NativeResourceManager}\n {@link OH_ResourceManager_InitNativeResourceManager}.\n @param resId Indicates the resource ID.\n @param resultValue the result write to resultValue.\n @param resultLen the media length write to resultLen.\n @param density The optional parameter ScreenDensity{@link ScreenDensity}, A value of 0 means\n to use the density of current system dpi.\n @return {@link SUCCESS} 0 - Success.\n         {@link ERROR_CODE_INVALID_INPUT_PARAMETER} 401 - The input parameter invalid. Possible causes:\n         1.Incorrect parameter types; 2.Parameter verification failed.\n{@link ERROR_CODE_RES_ID_NOT_FOUND} 9001001 - Invalid resource ID.\n{@link ERROR_CODE_RES_NOT_FOUND_BY_ID} 9001002 - No matching resource is found based on the resource ID.\n{@link ERROR_CODE_OUT_OF_MEMORY} 9001100 - Out of memory.\n @since 12"]
     pub fn OH_ResourceManager_GetMediaBase64(
         mgr: *const NativeResourceManager,
         resId: u32,
@@ -53,6 +75,7 @@ extern "C" {
     ) -> ResourceManager_ErrorCode;
 }
 extern "C" {
+    #[doc = " @brief Obtains the Base64 code of the image resource.\n\n Obtains the Base64 code of the image resource corresponding to the specified resource name.\n\n @param mgr Indicates the pointer to {@link NativeResourceManager}\n {@link OH_ResourceManager_InitNativeResourceManager}.\n @param resName Indicates the resource name.\n @param resultValue the result write to resultValue.\n @param resultLen the media length write to resultLen.\n @param density The optional parameter ScreenDensity{@link ScreenDensity}, A value of 0 means\n to use the density of current system dpi.\n @return {@link SUCCESS} 0 - Success.\n         {@link ERROR_CODE_INVALID_INPUT_PARAMETER} 401 - The input parameter invalid. Possible causes:\n         1.Incorrect parameter types; 2.Parameter verification failed.\n{@link ERROR_CODE_RES_NAME_NOT_FOUND} 9001003 - Invalid resource name.\n{@link ERROR_CODE_RES_NOT_FOUND_BY_NAME} 9001004 - No matching resource is found based on the resource name.\n{@link ERROR_CODE_OUT_OF_MEMORY} 9001100 - Out of memory.\n @since 12"]
     pub fn OH_ResourceManager_GetMediaBase64ByName(
         mgr: *const NativeResourceManager,
         resName: *const ::std::os::raw::c_char,
@@ -62,6 +85,7 @@ extern "C" {
     ) -> ResourceManager_ErrorCode;
 }
 extern "C" {
+    #[doc = " @brief Obtains the content of the image resource.\n\n Obtains the content of the specified screen density media file corresponding to a specified resource ID.\n\n @param mgr Indicates the pointer to {@link NativeResourceManager}\n {@link OH_ResourceManager_InitNativeResourceManager}.\n @param resId Indicates the resource ID.\n @param resultValue the result write to resultValue.\n @param resultLen the media length write to resultLen.\n @param density The optional parameter ScreenDensity{@link ScreenDensity}, A value of 0 means\n to use the density of current system dpi.\n @return {@link SUCCESS} 0 - Success.\n         {@link ERROR_CODE_INVALID_INPUT_PARAMETER} 401 - The input parameter invalid. Possible causes:\n         1.Incorrect parameter types; 2.Parameter verification failed.\n{@link ERROR_CODE_RES_ID_NOT_FOUND} 9001001 - Invalid resource ID.\n{@link ERROR_CODE_RES_NOT_FOUND_BY_ID} 9001002 - No matching resource is found based on the resource ID.\n{@link ERROR_CODE_OUT_OF_MEMORY} 9001100 - Out of memory.\n @since 12"]
     pub fn OH_ResourceManager_GetMedia(
         mgr: *const NativeResourceManager,
         resId: u32,
@@ -71,6 +95,7 @@ extern "C" {
     ) -> ResourceManager_ErrorCode;
 }
 extern "C" {
+    #[doc = " @brief Obtains the content of the image resource.\n\n Obtains the content of the specified screen density media file corresponding to a specified resource name.\n\n @param mgr Indicates the pointer to {@link NativeResourceManager}\n {@link OH_ResourceManager_InitNativeResourceManager}.\n @param resName Indicates the resource name.\n @param resultValue the result write to resultValue.\n @param resultLen the media length write to resultLen.\n @param density The optional parameter ScreenDensity{@link ScreenDensity}, A value of 0 means\n to use the density of current system dpi.\n @return {@link SUCCESS} 0 - Success.\n         {@link ERROR_CODE_INVALID_INPUT_PARAMETER} 401 - The input parameter invalid. Possible causes:\n         1.Incorrect parameter types; 2.Parameter verification failed.\n{@link ERROR_CODE_RES_NAME_NOT_FOUND} 9001003 - Invalid resource name.\n{@link ERROR_CODE_RES_NOT_FOUND_BY_NAME} 9001004 - No matching resource is found based on the resource name.\n{@link ERROR_CODE_OUT_OF_MEMORY} 9001100 - Out of memory.\n @since 12"]
     pub fn OH_ResourceManager_GetMediaByName(
         mgr: *const NativeResourceManager,
         resName: *const ::std::os::raw::c_char,
@@ -80,6 +105,7 @@ extern "C" {
     ) -> ResourceManager_ErrorCode;
 }
 extern "C" {
+    #[doc = " @brief Obtains the DrawableDescriptor of the media file.\n\n Obtains the DrawableDescriptor of the media file corresponding to a specified resource ID.\n\n @param mgr Indicates the pointer to {@link NativeResourceManager}\n {@link OH_ResourceManager_InitNativeResourceManager}.\n @param resId Indicates the resource ID.\n @param drawableDescriptor the result write to drawableDescriptor.\n @param density The optional parameter ScreenDensity{@link ScreenDensity}, A value of 0 means\n to use the density of current system dpi.\n @param type The optional parameter means the media type, 0 means the normal media, 1 means the the theme style media.\n @return {@link SUCCESS} 0 - Success.\n         {@link ERROR_CODE_INVALID_INPUT_PARAMETER} 401 - The input parameter invalid. Possible causes:\n         1.Incorrect parameter types; 2.Parameter verification failed.\n{@link ERROR_CODE_RES_ID_NOT_FOUND} 9001001 - Invalid resource ID.\n{@link ERROR_CODE_RES_NOT_FOUND_BY_ID} 9001002 - No matching resource is found based on the resource ID.\n @since 12"]
     pub fn OH_ResourceManager_GetDrawableDescriptor(
         mgr: *const NativeResourceManager,
         resId: u32,
@@ -89,6 +115,7 @@ extern "C" {
     ) -> ResourceManager_ErrorCode;
 }
 extern "C" {
+    #[doc = " @brief Obtains the DrawableDescriptor of the media file.\n\n Obtains the DrawableDescriptor of the media file corresponding to a specified resource name.\n @param mgr Indicates the pointer to {@link NativeResourceManager}\n {@link OH_ResourceManager_InitNativeResourceManager}.\n @param resName Indicates the resource name.\n @param drawableDescriptor the result write to drawableDescriptor.\n @param density The optional parameter ScreenDensity{@link ScreenDensity}, A value of 0 means\n to use the density of current system dpi.\n @param type The optional parameter means the media type, 0 means the normal media, 1 means the the theme style media,\n 2 means the theme dynamic media.\n @return {@link SUCCESS} 0 - Success.\n         {@link ERROR_CODE_INVALID_INPUT_PARAMETER} 401 - The input parameter invalid. Possible causes:\n         1.Incorrect parameter types; 2.Parameter verification failed.\n{@link ERROR_CODE_RES_NAME_NOT_FOUND} 9001003 - Invalid resource name.\n{@link ERROR_CODE_RES_NOT_FOUND_BY_NAME} 9001004 - No matching resource is found based on the resource name.\n @since 12"]
     pub fn OH_ResourceManager_GetDrawableDescriptorByName(
         mgr: *const NativeResourceManager,
         resName: *const ::std::os::raw::c_char,

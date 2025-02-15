@@ -24,143 +24,221 @@ pub struct ArkUI_AccessibilityProvider {
 pub struct ArkUI_AccessibilityActionArguments {
     _unused: [u8; 0],
 }
+#[doc = " Invalid action."]
 pub const ArkUI_Accessibility_ActionType_ARKUI_ACCESSIBILITY_NATIVE_ACTION_TYPE_INVALID:
     ArkUI_Accessibility_ActionType = 0;
+#[doc = " Response to a click."]
 pub const ArkUI_Accessibility_ActionType_ARKUI_ACCESSIBILITY_NATIVE_ACTION_TYPE_CLICK:
     ArkUI_Accessibility_ActionType = 16;
+#[doc = " Response to a long click."]
 pub const ArkUI_Accessibility_ActionType_ARKUI_ACCESSIBILITY_NATIVE_ACTION_TYPE_LONG_CLICK:
     ArkUI_Accessibility_ActionType = 32;
+#[doc = " Accessibility focus acquisition."]
 pub const ArkUI_Accessibility_ActionType_ARKUI_ACCESSIBILITY_NATIVE_ACTION_TYPE_GAIN_ACCESSIBILITY_FOCUS : ArkUI_Accessibility_ActionType = 64 ;
+#[doc = " Accessibility focus clearance."]
 pub const ArkUI_Accessibility_ActionType_ARKUI_ACCESSIBILITY_NATIVE_ACTION_TYPE_CLEAR_ACCESSIBILITY_FOCUS : ArkUI_Accessibility_ActionType = 128 ;
+#[doc = " Forward scroll action."]
 pub const ArkUI_Accessibility_ActionType_ARKUI_ACCESSIBILITY_NATIVE_ACTION_TYPE_SCROLL_FORWARD:
     ArkUI_Accessibility_ActionType = 256;
+#[doc = " Backward scroll action."]
 pub const ArkUI_Accessibility_ActionType_ARKUI_ACCESSIBILITY_NATIVE_ACTION_TYPE_SCROLL_BACKWARD:
     ArkUI_Accessibility_ActionType = 512;
+#[doc = " Copy action for text content."]
 pub const ArkUI_Accessibility_ActionType_ARKUI_ACCESSIBILITY_NATIVE_ACTION_TYPE_COPY:
     ArkUI_Accessibility_ActionType = 1024;
+#[doc = " Paste action for text content."]
 pub const ArkUI_Accessibility_ActionType_ARKUI_ACCESSIBILITY_NATIVE_ACTION_TYPE_PASTE:
     ArkUI_Accessibility_ActionType = 2048;
+#[doc = " Cut action for text content."]
 pub const ArkUI_Accessibility_ActionType_ARKUI_ACCESSIBILITY_NATIVE_ACTION_TYPE_CUT:
     ArkUI_Accessibility_ActionType = 4096;
+#[doc = " Text selection action, requiring the setting of <b>selectTextBegin</b>, <b>TextEnd</b>, and <b>TextInForward</b>\n  parameters to select a text segment in the text box."]
 pub const ArkUI_Accessibility_ActionType_ARKUI_ACCESSIBILITY_NATIVE_ACTION_TYPE_SELECT_TEXT:
     ArkUI_Accessibility_ActionType = 8192;
+#[doc = " Text content setting action."]
 pub const ArkUI_Accessibility_ActionType_ARKUI_ACCESSIBILITY_NATIVE_ACTION_TYPE_SET_TEXT:
     ArkUI_Accessibility_ActionType = 16384;
+#[doc = " Cursor position setting action."]
 pub const ArkUI_Accessibility_ActionType_ARKUI_ACCESSIBILITY_NATIVE_ACTION_TYPE_SET_CURSOR_POSITION : ArkUI_Accessibility_ActionType = 1048576 ;
+#[doc = " @brief Defines an enum for accessibility action types.\n\n @since 13"]
 pub type ArkUI_Accessibility_ActionType = ::std::os::raw::c_uint;
+#[doc = " Invalid event."]
 pub const ArkUI_AccessibilityEventType_ARKUI_ACCESSIBILITY_NATIVE_EVENT_TYPE_INVALID:
     ArkUI_AccessibilityEventType = 0;
+#[doc = " Click event, sent after the UI component responds."]
 pub const ArkUI_AccessibilityEventType_ARKUI_ACCESSIBILITY_NATIVE_EVENT_TYPE_CLICKED:
     ArkUI_AccessibilityEventType = 1;
+#[doc = " Long click event, sent after the UI component responds."]
 pub const ArkUI_AccessibilityEventType_ARKUI_ACCESSIBILITY_NATIVE_EVENT_TYPE_LONG_CLICKED:
     ArkUI_AccessibilityEventType = 2;
+#[doc = " Selection event, sent after the UI component responds."]
 pub const ArkUI_AccessibilityEventType_ARKUI_ACCESSIBILITY_NATIVE_EVENT_TYPE_SELECTED:
     ArkUI_AccessibilityEventType = 4;
+#[doc = " Text update event, sent when text is updated."]
 pub const ArkUI_AccessibilityEventType_ARKUI_ACCESSIBILITY_NATIVE_EVENT_TYPE_TEXT_UPDATE:
     ArkUI_AccessibilityEventType = 16;
+#[doc = " Page state update event, sent when the page transitions, switches, resizes, or moves."]
 pub const ArkUI_AccessibilityEventType_ARKUI_ACCESSIBILITY_NATIVE_EVENT_TYPE_PAGE_STATE_UPDATE:
     ArkUI_AccessibilityEventType = 32;
+#[doc = " Page content update event, sent when the page content changes."]
 pub const ArkUI_AccessibilityEventType_ARKUI_ACCESSIBILITY_NATIVE_EVENT_TYPE_PAGE_CONTENT_UPDATE:
     ArkUI_AccessibilityEventType = 2048;
+#[doc = " Scrolled event, sent when a scrollable component experiences a scroll event."]
 pub const ArkUI_AccessibilityEventType_ARKUI_ACCESSIBILITY_NATIVE_EVENT_TYPE_SCROLLED:
     ArkUI_AccessibilityEventType = 4096;
+#[doc = " Accessibility focus event, sent after the UI component responds."]
 pub const ArkUI_AccessibilityEventType_ARKUI_ACCESSIBILITY_NATIVE_EVENT_TYPE_ACCESSIBILITY_FOCUSED : ArkUI_AccessibilityEventType = 32768 ;
+#[doc = " Accessibility focus cleared event, sent after the UI component responds."]
 pub const ArkUI_AccessibilityEventType_ARKUI_ACCESSIBILITY_NATIVE_EVENT_TYPE_ACCESSIBILITY_FOCUS_CLEARED : ArkUI_AccessibilityEventType = 65536 ;
+#[doc = " FOcus request for a specific node."]
 pub const ArkUI_AccessibilityEventType_ARKUI_ACCESSIBILITY_NATIVE_EVENT_TYPE_REQUEST_ACCESSIBILITY_FOCUS : ArkUI_AccessibilityEventType = 33554432 ;
+#[doc = " Page open event reported by the UI component."]
 pub const ArkUI_AccessibilityEventType_ARKUI_ACCESSIBILITY_NATIVE_EVENT_TYPE_PAGE_OPEN:
     ArkUI_AccessibilityEventType = 536870912;
+#[doc = " Page close event reported by the UI component."]
 pub const ArkUI_AccessibilityEventType_ARKUI_ACCESSIBILITY_NATIVE_EVENT_TYPE_PAGE_CLOSE:
     ArkUI_AccessibilityEventType = 134217728;
+#[doc = " Announcement event, indicating a request to proactively announce specified content."]
 pub const ArkUI_AccessibilityEventType_ARKUI_ACCESSIBILITY_NATIVE_EVENT_TYPE_ANNOUNCE_FOR_ACCESSIBILITY : ArkUI_AccessibilityEventType = 268435456 ;
+#[doc = " Focus update event, used for focus update scenarios."]
 pub const ArkUI_AccessibilityEventType_ARKUI_ACCESSIBILITY_NATIVE_EVENT_TYPE_FOCUS_NODE_UPDATE:
     ArkUI_AccessibilityEventType = 268435457;
+#[doc = " @brief Defines an enum for accessibility event types.\n\n @since 13"]
 pub type ArkUI_AccessibilityEventType = ::std::os::raw::c_uint;
+#[doc = " @brief Defines a struct for the accessible action.\n\n @since 13"]
 #[repr(C)]
 #[derive(Debug, Copy, Clone)]
 pub struct ArkUI_AccessibleAction {
+    #[doc = " Action type."]
     pub actionType: ArkUI_Accessibility_ActionType,
+    #[doc = " Action description."]
     pub description: *const ::std::os::raw::c_char,
 }
+#[doc = " @brief Defines a struct for the accessible rectangle.\n\n @since 13"]
 #[repr(C)]
 #[derive(Debug, Copy, Clone)]
 pub struct ArkUI_AccessibleRect {
+    #[doc = " X coordinate of the upper left corner."]
     pub leftTopX: i32,
+    #[doc = " Y coordinate of the upper left corner."]
     pub leftTopY: i32,
+    #[doc = " X coordinate of the lower right corner."]
     pub rightBottomX: i32,
+    #[doc = " Y coordinate of the lower right corner."]
     pub rightBottomY: i32,
 }
+#[doc = " @brief Define a struct for the accessible range information.\n\n @since 13"]
 #[repr(C)]
 #[derive(Debug, Copy, Clone)]
 pub struct ArkUI_AccessibleRangeInfo {
+    #[doc = " Minimum value."]
     pub min: f64,
+    #[doc = " Maximum value."]
     pub max: f64,
+    #[doc = " Current value."]
     pub current: f64,
 }
+#[doc = " @brief Defines a struct for the accessible grid information.\n\n @since 13"]
 #[repr(C)]
 #[derive(Debug, Copy, Clone)]
 pub struct ArkUI_AccessibleGridInfo {
+    #[doc = " Number of rows."]
     pub rowCount: i32,
+    #[doc = " Number of columns."]
     pub columnCount: i32,
+    #[doc = " Selection mode. The value <b>0</b> indicates that only one row can be selected."]
     pub selectionMode: i32,
 }
+#[doc = " @brief Defines a struct for the accessible grid item information.\n\n @since 13"]
 #[repr(C)]
 #[derive(Debug, Copy, Clone)]
 pub struct ArkUI_AccessibleGridItemInfo {
+    #[doc = " Whether it is a header."]
     pub heading: bool,
+    #[doc = " Whether it is selected."]
     pub selected: bool,
+    #[doc = " Column index."]
     pub columnIndex: i32,
+    #[doc = " Row index."]
     pub rowIndex: i32,
+    #[doc = " Column span."]
     pub columnSpan: i32,
+    #[doc = " Row span."]
     pub rowSpan: i32,
 }
+#[doc = " @error Success."]
 pub const ArkUI_AcessbilityErrorCode_ARKUI_ACCESSIBILITY_NATIVE_RESULT_SUCCESSFUL:
     ArkUI_AcessbilityErrorCode = 0;
+#[doc = " @error Failure."]
 pub const ArkUI_AcessbilityErrorCode_ARKUI_ACCESSIBILITY_NATIVE_RESULT_FAILED:
     ArkUI_AcessbilityErrorCode = -1;
+#[doc = " @error Invalid parameter."]
 pub const ArkUI_AcessbilityErrorCode_ARKUI_ACCESSIBILITY_NATIVE_RESULT_BAD_PARAMETER:
     ArkUI_AcessbilityErrorCode = -2;
+#[doc = " @error Out of memory."]
 pub const ArkUI_AcessbilityErrorCode_ARKUI_ACCESSIBILITY_NATIVE_RESULT_OUT_OF_MEMORY:
     ArkUI_AcessbilityErrorCode = -3;
+#[doc = " @brief Enumerates the accessibility error codes.\n\n @since 13"]
 pub type ArkUI_AcessbilityErrorCode = ::std::os::raw::c_int;
+#[doc = " Search for current nodes."]
 pub const ArkUI_AccessibilitySearchMode_ARKUI_ACCESSIBILITY_NATIVE_SEARCH_MODE_PREFETCH_CURRENT:
     ArkUI_AccessibilitySearchMode = 0;
+#[doc = " Search for parent nodes."]
 pub const ArkUI_AccessibilitySearchMode_ARKUI_ACCESSIBILITY_NATIVE_SEARCH_MODE_PREFETCH_PREDECESSORS : ArkUI_AccessibilitySearchMode = 1 ;
+#[doc = " Search for sibling nodes."]
 pub const ArkUI_AccessibilitySearchMode_ARKUI_ACCESSIBILITY_NATIVE_SEARCH_MODE_PREFETCH_SIBLINGS:
     ArkUI_AccessibilitySearchMode = 2;
+#[doc = " Search for child nodes at the next level."]
 pub const ArkUI_AccessibilitySearchMode_ARKUI_ACCESSIBILITY_NATIVE_SEARCH_MODE_PREFETCH_CHILDREN:
     ArkUI_AccessibilitySearchMode = 4;
+#[doc = " Search for all child nodes."]
 pub const ArkUI_AccessibilitySearchMode_ARKUI_ACCESSIBILITY_NATIVE_SEARCH_MODE_PREFETCH_RECURSIVE_CHILDREN : ArkUI_AccessibilitySearchMode = 8 ;
+#[doc = " @brief Defines an enum for the accessibility search modes.\n\n @since 13"]
 pub type ArkUI_AccessibilitySearchMode = ::std::os::raw::c_uint;
+#[doc = " Invalid type."]
 pub const ArkUI_AccessibilityFocusType_ARKUI_ACCESSIBILITY_NATIVE_FOCUS_TYPE_INVALID:
     ArkUI_AccessibilityFocusType = -1;
+#[doc = " Input focus type."]
 pub const ArkUI_AccessibilityFocusType_ARKUI_ACCESSIBILITY_NATIVE_FOCUS_TYPE_INPUT:
     ArkUI_AccessibilityFocusType = 1;
+#[doc = " Accessibility focus type."]
 pub const ArkUI_AccessibilityFocusType_ARKUI_ACCESSIBILITY_NATIVE_FOCUS_TYPE_ACCESSIBILITY:
     ArkUI_AccessibilityFocusType = 2;
+#[doc = " @brief Defines an enum for the accessibility focus types.\n\n @since 13"]
 pub type ArkUI_AccessibilityFocusType = ::std::os::raw::c_int;
+#[doc = " Invalid direction."]
 pub const ArkUI_AccessibilityFocusMoveDirection_ARKUI_ACCESSIBILITY_NATIVE_DIRECTION_INVALID:
     ArkUI_AccessibilityFocusMoveDirection = 0;
+#[doc = " Up."]
 pub const ArkUI_AccessibilityFocusMoveDirection_ARKUI_ACCESSIBILITY_NATIVE_DIRECTION_UP:
     ArkUI_AccessibilityFocusMoveDirection = 1;
+#[doc = " Down."]
 pub const ArkUI_AccessibilityFocusMoveDirection_ARKUI_ACCESSIBILITY_NATIVE_DIRECTION_DOWN:
     ArkUI_AccessibilityFocusMoveDirection = 2;
+#[doc = " Left."]
 pub const ArkUI_AccessibilityFocusMoveDirection_ARKUI_ACCESSIBILITY_NATIVE_DIRECTION_LEFT:
     ArkUI_AccessibilityFocusMoveDirection = 4;
+#[doc = " Right."]
 pub const ArkUI_AccessibilityFocusMoveDirection_ARKUI_ACCESSIBILITY_NATIVE_DIRECTION_RIGHT:
     ArkUI_AccessibilityFocusMoveDirection = 8;
+#[doc = " Forward."]
 pub const ArkUI_AccessibilityFocusMoveDirection_ARKUI_ACCESSIBILITY_NATIVE_DIRECTION_FORWARD:
     ArkUI_AccessibilityFocusMoveDirection = 16;
+#[doc = " Backward."]
 pub const ArkUI_AccessibilityFocusMoveDirection_ARKUI_ACCESSIBILITY_NATIVE_DIRECTION_BACKWARD:
     ArkUI_AccessibilityFocusMoveDirection = 32;
+#[doc = " @brief Enumerates the directions for moving the accessibility focus.\n\n @since 13"]
 pub type ArkUI_AccessibilityFocusMoveDirection = ::std::os::raw::c_uint;
 #[repr(C)]
 #[derive(Debug, Copy, Clone)]
 pub struct ArkUI_AccessibilityElementInfoList {
     _unused: [u8; 0],
 }
+#[doc = " @brief Registers callbacks for the accessibility provider.\n\n @since 13"]
 #[repr(C)]
 #[derive(Debug, Copy, Clone)]
 pub struct ArkUI_AccessibilityProviderCallbacks {
+    #[doc = " @brief Called to obtain element information based on a specified node.\n\n @param elementId Indicates the element ID.\n @param mode Indicates accessibility search mode.\n @param requestId Indicates the request ID.\n @param elementList Indicates accessibility elementInfo list.\n @return Returns {@link ARKUI_ACCESSIBILITY_NATIVE_RESULT_SUCCESSFUL} if the operation is successful.\n         Returns {@link ARKUI_ACCESSIBILITY_NATIVE_RESULT_BAD_PARAMETER} if a parameter is incorrect."]
     pub findAccessibilityNodeInfosById: ::std::option::Option<
         unsafe extern "C" fn(
             elementId: i64,
@@ -169,6 +247,7 @@ pub struct ArkUI_AccessibilityProviderCallbacks {
             elementList: *mut ArkUI_AccessibilityElementInfoList,
         ) -> i32,
     >,
+    #[doc = " @brief Called to obtain element information based on a specified node and text content.\n\n @param elementId Indicates the element ID.\n @param text Indicates accessibility text.\n @param requestId Indicates the request ID.\n @param elementList Indicates accessibility elementInfo list.\n @return Returns {@link ARKUI_ACCESSIBILITY_NATIVE_RESULT_SUCCESSFUL} if the operation is successful.\n         Returns {@link ARKUI_ACCESSIBILITY_NATIVE_RESULT_BAD_PARAMETER} if a parameter is incorrect."]
     pub findAccessibilityNodeInfosByText: ::std::option::Option<
         unsafe extern "C" fn(
             elementId: i64,
@@ -177,6 +256,7 @@ pub struct ArkUI_AccessibilityProviderCallbacks {
             elementList: *mut ArkUI_AccessibilityElementInfoList,
         ) -> i32,
     >,
+    #[doc = " @brief Called to obtain focused element information based on a specified node.\n\n @param elementId Indicates the element ID.\n @param focusType Indicates focus type.\n @param requestId Indicates the request ID.\n @param elementInfo Indicates accessibility elementInfo.\n @return Returns {@link ARKUI_ACCESSIBILITY_NATIVE_RESULT_SUCCESSFUL} if the operation is successful.\n         Returns {@link ARKUI_ACCESSIBILITY_NATIVE_RESULT_BAD_PARAMETER} if a parameter is incorrect."]
     pub findFocusedAccessibilityNode: ::std::option::Option<
         unsafe extern "C" fn(
             elementId: i64,
@@ -185,6 +265,7 @@ pub struct ArkUI_AccessibilityProviderCallbacks {
             elementInfo: *mut ArkUI_AccessibilityElementInfo,
         ) -> i32,
     >,
+    #[doc = " @brief Called to find the next focusable node based on the reference node.\n\n @param elementId Indicates the element ID.\n @param direction Indicates direction.\n @param requestId Indicates the request ID.\n @param elementInfo Indicates accessibility elementInfo.\n @return Returns {@link ARKUI_ACCESSIBILITY_NATIVE_RESULT_SUCCESSFUL} if the operation is successful.\n         Returns {@link ARKUI_ACCESSIBILITY_NATIVE_RESULT_BAD_PARAMETER} if a parameter is incorrect."]
     pub findNextFocusAccessibilityNode: ::std::option::Option<
         unsafe extern "C" fn(
             elementId: i64,
@@ -193,6 +274,7 @@ pub struct ArkUI_AccessibilityProviderCallbacks {
             elementInfo: *mut ArkUI_AccessibilityElementInfo,
         ) -> i32,
     >,
+    #[doc = " @brief Called to execute a specified action on a specified node.\n\n @param elementId Indicates the element ID.\n @param action Indicates action.\n @param actionArguments Indicates action arguments.\n @param requestId Indicates the request ID.\n @return Returns {@link ARKUI_ACCESSIBILITY_NATIVE_RESULT_SUCCESSFUL} if the operation is successful.\n         Returns {@link ARKUI_ACCESSIBILITY_NATIVE_RESULT_BAD_PARAMETER} if a parameter is incorrect."]
     pub executeAccessibilityAction: ::std::option::Option<
         unsafe extern "C" fn(
             elementId: i64,
@@ -201,18 +283,22 @@ pub struct ArkUI_AccessibilityProviderCallbacks {
             requestId: i32,
         ) -> i32,
     >,
+    #[doc = " @brief Called to clear the focus state of the current focused node.\n\n @return Returns {@link ARKUI_ACCESSIBILITY_NATIVE_RESULT_SUCCESSFUL} if the operation is successful.\n         Returns {@link ARKUI_ACCESSIBILITY_NATIVE_RESULT_FAILED} if the operation is failed."]
     pub clearFocusedFocusAccessibilityNode: ::std::option::Option<unsafe extern "C" fn() -> i32>,
+    #[doc = " @brief Called to query the current cursor position of the specified node.\n\n @param elementId Indicates the element ID.\n @param requestId Indicates the request ID.\n @param index Indicates index.\n @return Returns {@link ARKUI_ACCESSIBILITY_NATIVE_RESULT_SUCCESSFUL} if the operation is successful.\n         Returns {@link ARKUI_ACCESSIBILITY_NATIVE_RESULT_BAD_PARAMETER} if a parameter is incorrect."]
     pub getAccessibilityNodeCursorPosition: ::std::option::Option<
         unsafe extern "C" fn(elementId: i64, requestId: i32, index: *mut i32) -> i32,
     >,
 }
 extern "C" {
+    #[doc = " @brief Registers a callback for this <b>ArkUI_AccessibilityProvider</b> instance.\n\n @param provider Indicates the pointer to the <b>ArkUI_AccessibilityProvider</b> instance.\n @param callbacks Indicates the pointer to the <b>GetAccessibilityNodeCursorPosition</b> callback.\n @return Returns {@link ARKUI_ACCESSIBILITY_NATIVE_RESULT_SUCCESSFUL} if the operation is successful.\n         Returns {@link ARKUI_ACCESSIBILITY_NATIVE_RESULT_BAD_PARAMETER} if a parameter is incorrect.\n @since 13"]
     pub fn OH_ArkUI_AccessibilityProviderRegisterCallback(
         provider: *mut ArkUI_AccessibilityProvider,
         callbacks: *mut ArkUI_AccessibilityProviderCallbacks,
     ) -> i32;
 }
 extern "C" {
+    #[doc = " @brief Sends accessibility event information.\n\n @param provider Indicates the pointer to the <b>ArkUI_AccessibilityProvider</b> instance.\n @param eventInfo Indicates the pointer to the accessibility event information.\n @param callback Indicates the pointer to the callback that is called after the event is sent.\n @since 13"]
     pub fn OH_ArkUI_SendAccessibilityAsyncEvent(
         provider: *mut ArkUI_AccessibilityProvider,
         eventInfo: *mut ArkUI_AccessibilityEventInfo,
@@ -220,53 +306,62 @@ extern "C" {
     );
 }
 extern "C" {
+    #[doc = " @brief Adds and obtains the pointer to an <b>ArkUI_AccessibilityElementInfo</b> object.\n\n @param list Indicates the pointer to an <b>ArkUI_AccessibilityElementInfoList</b> object.\n @return Returns the pointer to the <b>ArkUI_AccessibilityElementInfo</b> object.\n @since 13"]
     pub fn OH_ArkUI_AddAndGetAccessibilityElementInfo(
         list: *mut ArkUI_AccessibilityElementInfoList,
     ) -> *mut ArkUI_AccessibilityElementInfo;
 }
 extern "C" {
+    #[doc = " @brief Sets the element ID for an <b>ArkUI_AccessibilityElementInfo</b> object.\n\n @param elementInfo Indicates the pointer to an <b>ArkUI_AccessibilityElementInfo</b> object.\n @param elementId Indicates the element ID.\n @return Returns {@link ARKUI_ACCESSIBILITY_NATIVE_RESULT_SUCCESSFUL} if the operation is successful.\n         Returns {@link ARKUI_ACCESSIBILITY_NATIVE_RESULT_BAD_PARAMETER} if a parameter is incorrect.\n @since 13"]
     pub fn OH_ArkUI_AccessibilityElementInfoSetElementId(
         elementInfo: *mut ArkUI_AccessibilityElementInfo,
         elementId: i32,
     ) -> i32;
 }
 extern "C" {
+    #[doc = " @brief Sets the parent ID for an <b>ArkUI_AccessibilityElementInfo</b> object.\n\n @param elementInfo Indicates the pointer to an <b>ArkUI_AccessibilityElementInfo</b> object.\n @param parentId Indicates the parent ID.\n @return Returns {@link ARKUI_ACCESSIBILITY_NATIVE_RESULT_SUCCESSFUL} if the operation is successful.\n         Returns {@link ARKUI_ACCESSIBILITY_NATIVE_RESULT_BAD_PARAMETER} if a parameter is incorrect.\n @since 13"]
     pub fn OH_ArkUI_AccessibilityElementInfoSetParentId(
         elementInfo: *mut ArkUI_AccessibilityElementInfo,
         parentId: i32,
     ) -> i32;
 }
 extern "C" {
+    #[doc = " @brief Sets the component type for an <b>ArkUI_AccessibilityElementInfo</b> object.\n\n @param elementInfo Indicates the pointer to an <b>ArkUI_AccessibilityElementInfo</b> object.\n @param componentType Indicates the component type.\n @return Returns {@link ARKUI_ACCESSIBILITY_NATIVE_RESULT_SUCCESSFUL} if the operation is successful.\n         Returns {@link ARKUI_ACCESSIBILITY_NATIVE_RESULT_BAD_PARAMETER} if a parameter is incorrect.\n @since 13"]
     pub fn OH_ArkUI_AccessibilityElementInfoSetComponentType(
         elementInfo: *mut ArkUI_AccessibilityElementInfo,
         componentType: *const ::std::os::raw::c_char,
     ) -> i32;
 }
 extern "C" {
+    #[doc = " @brief Sets the component content for an <b>ArkUI_AccessibilityElementInfo</b> object.\n\n @param elementInfo Indicates the pointer to an <b>ArkUI_AccessibilityElementInfo</b> object.\n @param contents Indicates the component content.\n @return Returns {@link ARKUI_ACCESSIBILITY_NATIVE_RESULT_SUCCESSFUL} if the operation is successful.\n         Returns {@link ARKUI_ACCESSIBILITY_NATIVE_RESULT_BAD_PARAMETER} if a parameter is incorrect.\n @since 13"]
     pub fn OH_ArkUI_AccessibilityElementInfoSetContents(
         elementInfo: *mut ArkUI_AccessibilityElementInfo,
         contents: *const ::std::os::raw::c_char,
     ) -> i32;
 }
 extern "C" {
+    #[doc = " @brief Sets the hint text for an <b>ArkUI_AccessibilityElementInfo</b> object.\n\n @param elementInfo Indicates the pointer to an <b>ArkUI_AccessibilityElementInfo</b> object.\n @param hintText Indicates the hint text.\n @return Returns {@link ARKUI_ACCESSIBILITY_NATIVE_RESULT_SUCCESSFUL} if the operation is successful.\n         Returns {@link ARKUI_ACCESSIBILITY_NATIVE_RESULT_BAD_PARAMETER} if a parameter is incorrect.\n @since 13"]
     pub fn OH_ArkUI_AccessibilityElementInfoSetHintText(
         elementInfo: *mut ArkUI_AccessibilityElementInfo,
         hintText: *const ::std::os::raw::c_char,
     ) -> i32;
 }
 extern "C" {
+    #[doc = " @brief Sets the accessibility text for an <b>ArkUI_AccessibilityElementInfo</b> object.\n\n @param elementInfo Indicates the pointer to an <b>ArkUI_AccessibilityElementInfo</b> object.\n @param accessibilityText Indicates the accessibility text.\n @return Returns {@link ARKUI_ACCESSIBILITY_NATIVE_RESULT_SUCCESSFUL} if the operation is successful.\n         Returns {@link ARKUI_ACCESSIBILITY_NATIVE_RESULT_BAD_PARAMETER} if a parameter is incorrect.\n @since 13"]
     pub fn OH_ArkUI_AccessibilityElementInfoSetAccessibilityText(
         elementInfo: *mut ArkUI_AccessibilityElementInfo,
         accessibilityText: *const ::std::os::raw::c_char,
     ) -> i32;
 }
 extern "C" {
+    #[doc = " @brief Sets the accessibility description for an <b>ArkUI_AccessibilityElementInfo</b> object.\n\n @param elementInfo Indicates the pointer to an <b>ArkUI_AccessibilityElementInfo</b> object.\n @param accessibilityDescription Indicates the accessibility description.\n @return Returns {@link ARKUI_ACCESSIBILITY_NATIVE_RESULT_SUCCESSFUL} if the operation is successful.\n         Returns {@link ARKUI_ACCESSIBILITY_NATIVE_RESULT_BAD_PARAMETER} if a parameter is incorrect.\n @since 13"]
     pub fn OH_ArkUI_AccessibilityElementInfoSetAccessibilityDescription(
         elementInfo: *mut ArkUI_AccessibilityElementInfo,
         accessibilityDescription: *const ::std::os::raw::c_char,
     ) -> i32;
 }
 extern "C" {
+    #[doc = " @brief Set the number of child nodes and child node IDs for an <b>ArkUI_AccessibilityElementInfo</b> object.\n\n @param elementInfo Indicates the pointer to an <b>ArkUI_AccessibilityElementInfo</b> object.\n @param childCount Indicates the number of child nodes.\n @param childNodeIds Indicates an array of child node IDs.\n @return Returns {@link ARKUI_ACCESSIBILITY_NATIVE_RESULT_SUCCESSFUL} if the operation is successful.\n         Returns {@link ARKUI_ACCESSIBILITY_NATIVE_RESULT_BAD_PARAMETER} if a parameter is incorrect.\n @since 13"]
     pub fn OH_ArkUI_AccessibilityElementInfoSetChildNodeIds(
         elementInfo: *mut ArkUI_AccessibilityElementInfo,
         childCount: i32,
@@ -274,6 +369,7 @@ extern "C" {
     ) -> i32;
 }
 extern "C" {
+    #[doc = " @brief Sets the operation actions for an <b>ArkUI_AccessibilityElementInfo</b> object.\n\n @param elementInfo Indicates the pointer to an <b>ArkUI_AccessibilityElementInfo</b> object.\n @param operationCount Indicates the operation count.\n @param operationActions Indicates the operation actions.\n @return Returns {@link ARKUI_ACCESSIBILITY_NATIVE_RESULT_SUCCESSFUL} if the operation is successful.\n         Returns {@link ARKUI_ACCESSIBILITY_NATIVE_RESULT_BAD_PARAMETER} if a parameter is incorrect.\n @since 13"]
     pub fn OH_ArkUI_AccessibilityElementInfoSetOperationActions(
         elementInfo: *mut ArkUI_AccessibilityElementInfo,
         operationCount: i32,
@@ -281,242 +377,284 @@ extern "C" {
     ) -> i32;
 }
 extern "C" {
+    #[doc = " @brief Sets the screen area for an <b>ArkUI_AccessibilityElementInfo</b> object.\n\n @param elementInfo Indicates the pointer to an <b>ArkUI_AccessibilityElementInfo</b> object.\n @param screenRect Indicates the screen area.\n @return Returns {@link ARKUI_ACCESSIBILITY_NATIVE_RESULT_SUCCESSFUL} if the operation is successful.\n         Returns {@link ARKUI_ACCESSIBILITY_NATIVE_RESULT_BAD_PARAMETER} if a parameter is incorrect.\n @since 13"]
     pub fn OH_ArkUI_AccessibilityElementInfoSetScreenRect(
         elementInfo: *mut ArkUI_AccessibilityElementInfo,
         screenRect: *mut ArkUI_AccessibleRect,
     ) -> i32;
 }
 extern "C" {
+    #[doc = " @brief Sets whether the element is checkable for an <b>ArkUI_AccessibilityElementInfo</b> object.\n\n @param elementInfo Indicates the pointer to an <b>ArkUI_AccessibilityElementInfo</b> object.\n @param checkable Indicates whether the element is checkable.\n @return Returns {@link ARKUI_ACCESSIBILITY_NATIVE_RESULT_SUCCESSFUL} if the operation is successful.\n         Returns {@link ARKUI_ACCESSIBILITY_NATIVE_RESULT_BAD_PARAMETER} if a parameter is incorrect.\n @since 13"]
     pub fn OH_ArkUI_AccessibilityElementInfoSetCheckable(
         elementInfo: *mut ArkUI_AccessibilityElementInfo,
         checkable: bool,
     ) -> i32;
 }
 extern "C" {
+    #[doc = " @brief Sets whether the element is checked for an <b>ArkUI_AccessibilityElementInfo</b> object.\n\n @param elementInfo Indicates the pointer to an <b>ArkUI_AccessibilityElementInfo</b> object.\n @param checked Indicates whether the element is checked.\n @return Returns {@link ARKUI_ACCESSIBILITY_NATIVE_RESULT_SUCCESSFUL} if the operation is successful.\n         Returns {@link ARKUI_ACCESSIBILITY_NATIVE_RESULT_BAD_PARAMETER} if a parameter is incorrect.\n @since 13"]
     pub fn OH_ArkUI_AccessibilityElementInfoSetChecked(
         elementInfo: *mut ArkUI_AccessibilityElementInfo,
         checked: bool,
     ) -> i32;
 }
 extern "C" {
+    #[doc = " @brief Sets whether the element is focusable for an <b>ArkUI_AccessibilityElementInfo</b> object.\n @param elementInfo Indicates the pointer to an <b>ArkUI_AccessibilityElementInfo</b> object.\n @param focusable Indicates whether the element is focusable.\n @return Returns {@link ARKUI_ACCESSIBILITY_NATIVE_RESULT_SUCCESSFUL} if the operation is successful.\n         Returns {@link ARKUI_ACCESSIBILITY_NATIVE_RESULT_BAD_PARAMETER} if a parameter is incorrect.\n @since 13"]
     pub fn OH_ArkUI_AccessibilityElementInfoSetFocusable(
         elementInfo: *mut ArkUI_AccessibilityElementInfo,
         focusable: bool,
     ) -> i32;
 }
 extern "C" {
+    #[doc = " @brief Sets whether the element is focused for an <b>ArkUI_AccessibilityElementInfo</b> object.\n\n @param elementInfo Indicates the pointer to an <b>ArkUI_AccessibilityElementInfo</b> object.\n @param isFocused Indicates whether the element is focused.\n @return Returns {@link ARKUI_ACCESSIBILITY_NATIVE_RESULT_SUCCESSFUL} if the operation is successful.\n         Returns {@link ARKUI_ACCESSIBILITY_NATIVE_RESULT_BAD_PARAMETER} if a parameter is incorrect.\n @since 13"]
     pub fn OH_ArkUI_AccessibilityElementInfoSetFocused(
         elementInfo: *mut ArkUI_AccessibilityElementInfo,
         isFocused: bool,
     ) -> i32;
 }
 extern "C" {
+    #[doc = " @brief Sets whether the element is visible for an <b>ArkUI_AccessibilityElementInfo</b> object.\n\n @param elementInfo Indicates the pointer to an <b>ArkUI_AccessibilityElementInfo</b> object.\n @param isVisible Indicates whether the element is visible.\n @return Returns {@link ARKUI_ACCESSIBILITY_NATIVE_RESULT_SUCCESSFUL} if the operation is successful.\n         Returns {@link ARKUI_ACCESSIBILITY_NATIVE_RESULT_BAD_PARAMETER} if a parameter is incorrect.\n @since 13"]
     pub fn OH_ArkUI_AccessibilityElementInfoSetVisible(
         elementInfo: *mut ArkUI_AccessibilityElementInfo,
         isVisible: bool,
     ) -> i32;
 }
 extern "C" {
+    #[doc = " @brief Sets the accessibility focus state for an <b>ArkUI_AccessibilityElementInfo</b> object.\n\n @param elementInfo Indicates the pointer to an <b>ArkUI_AccessibilityElementInfo</b> object.\n @param accessibilityFocused Indicates whether the element has accessibility focus.\n @return Returns {@link ARKUI_ACCESSIBILITY_NATIVE_RESULT_SUCCESSFUL} if the operation is successful.\n         Returns {@link ARKUI_ACCESSIBILITY_NATIVE_RESULT_BAD_PARAMETER} if a parameter is incorrect.\n @since 13"]
     pub fn OH_ArkUI_AccessibilityElementInfoSetAccessibilityFocused(
         elementInfo: *mut ArkUI_AccessibilityElementInfo,
         accessibilityFocused: bool,
     ) -> i32;
 }
 extern "C" {
+    #[doc = " @brief Sets whether the element is selected for an <b>ArkUI_AccessibilityElementInfo</b> object.\n\n @param elementInfo Indicates the pointer to an <b>ArkUI_AccessibilityElementInfo</b> object.\n @param selected Indicates whether the element is selected.\n @return Returns {@link ARKUI_ACCESSIBILITY_NATIVE_RESULT_SUCCESSFUL} if the operation is successful.\n         Returns {@link ARKUI_ACCESSIBILITY_NATIVE_RESULT_BAD_PARAMETER} if a parameter is incorrect.\n @since 13"]
     pub fn OH_ArkUI_AccessibilityElementInfoSetSelected(
         elementInfo: *mut ArkUI_AccessibilityElementInfo,
         selected: bool,
     ) -> i32;
 }
 extern "C" {
+    #[doc = " @brief Sets whether the element is clickable for an <b>ArkUI_AccessibilityElementInfo</b> object.\n\n @param elementInfo Indicates the pointer to an <b>ArkUI_AccessibilityElementInfo</b> object.\n @param clickable Indicates whether the element is clickable.\n @return Returns {@link ARKUI_ACCESSIBILITY_NATIVE_RESULT_SUCCESSFUL} if the operation is successful.\n         Returns {@link ARKUI_ACCESSIBILITY_NATIVE_RESULT_BAD_PARAMETER} if a parameter is incorrect.\n @since 13"]
     pub fn OH_ArkUI_AccessibilityElementInfoSetClickable(
         elementInfo: *mut ArkUI_AccessibilityElementInfo,
         clickable: bool,
     ) -> i32;
 }
 extern "C" {
+    #[doc = " @brief Sets whether the element is long clickable for an <b>ArkUI_AccessibilityElementInfo</b> object.\n\n @param elementInfo Indicates the pointer to an <b>ArkUI_AccessibilityElementInfo</b> object.\n @param longClickable Indicates whether the element is long clickable.\n @return Returns {@link ARKUI_ACCESSIBILITY_NATIVE_RESULT_SUCCESSFUL} if the operation is successful.\n         Returns {@link ARKUI_ACCESSIBILITY_NATIVE_RESULT_BAD_PARAMETER} if a parameter is incorrect.\n @since 13"]
     pub fn OH_ArkUI_AccessibilityElementInfoSetLongClickable(
         elementInfo: *mut ArkUI_AccessibilityElementInfo,
         longClickable: bool,
     ) -> i32;
 }
 extern "C" {
+    #[doc = " @brief Sets whether the element is enabled for an <b>ArkUI_AccessibilityElementInfo</b> object.\n\n @param elementInfo Indicates the pointer to an <b>ArkUI_AccessibilityElementInfo</b> object.\n @param isEnabled Indicates whether the element is enabled.\n @return Returns {@link ARKUI_ACCESSIBILITY_NATIVE_RESULT_SUCCESSFUL} if the operation is successful.\n         Returns {@link ARKUI_ACCESSIBILITY_NATIVE_RESULT_BAD_PARAMETER} if a parameter is incorrect.\n @since 13"]
     pub fn OH_ArkUI_AccessibilityElementInfoSetEnabled(
         elementInfo: *mut ArkUI_AccessibilityElementInfo,
         isEnabled: bool,
     ) -> i32;
 }
 extern "C" {
+    #[doc = " @brief Sets whether the element is a password for an <b>ArkUI_AccessibilityElementInfo</b> object.\n\n @param elementInfo Indicates the pointer to an <b>ArkUI_AccessibilityElementInfo</b> object.\n @param isPassword Indicates whether the element is a password.\n @return Returns {@link ARKUI_ACCESSIBILITY_NATIVE_RESULT_SUCCESSFUL} if the operation is successful.\n         Returns {@link ARKUI_ACCESSIBILITY_NATIVE_RESULT_BAD_PARAMETER} if a parameter is incorrect.\n @since 13"]
     pub fn OH_ArkUI_AccessibilityElementInfoSetIsPassword(
         elementInfo: *mut ArkUI_AccessibilityElementInfo,
         isPassword: bool,
     ) -> i32;
 }
 extern "C" {
+    #[doc = " @brief Sets whether the element is scrollable for an <b>ArkUI_AccessibilityElementInfo</b> object.\n\n @param elementInfo Indicates the pointer to an <b>ArkUI_AccessibilityElementInfo</b> object.\n @param scrollable Indicates whether the element is scrollable.\n @return Returns {@link ARKUI_ACCESSIBILITY_NATIVE_RESULT_SUCCESSFUL} if the operation is successful.\n         Returns {@link ARKUI_ACCESSIBILITY_NATIVE_RESULT_BAD_PARAMETER} if a parameter is incorrect.\n @since 13"]
     pub fn OH_ArkUI_AccessibilityElementInfoSetScrollable(
         elementInfo: *mut ArkUI_AccessibilityElementInfo,
         scrollable: bool,
     ) -> i32;
 }
 extern "C" {
+    #[doc = " @brief Sets whether the element is editable for an <b>ArkUI_AccessibilityElementInfo</b> object.\n\n @param elementInfo Indicates the pointer to an <b>ArkUI_AccessibilityElementInfo</b> object.\n @param editable Indicates whether the element is editable.\n @return Returns {@link ARKUI_ACCESSIBILITY_NATIVE_RESULT_SUCCESSFUL} if the operation is successful.\n         Returns {@link ARKUI_ACCESSIBILITY_NATIVE_RESULT_BAD_PARAMETER} if a parameter is incorrect.\n @since 13"]
     pub fn OH_ArkUI_AccessibilityElementInfoSetEditable(
         elementInfo: *mut ArkUI_AccessibilityElementInfo,
         editable: bool,
     ) -> i32;
 }
 extern "C" {
+    #[doc = " @brief Sets whether the element is a hint for an <b>ArkUI_AccessibilityElementInfo</b> object.\n\n @param elementInfo Indicates the pointer to an <b>ArkUI_AccessibilityElementInfo</b> object.\n @param isHint Indicates whether the element is a hint.\n @return Returns {@link ARKUI_ACCESSIBILITY_NATIVE_RESULT_SUCCESSFUL} if the operation is successful.\n         Returns {@link ARKUI_ACCESSIBILITY_NATIVE_RESULT_BAD_PARAMETER} if a parameter is incorrect.\n @since 13"]
     pub fn OH_ArkUI_AccessibilityElementInfoSetIsHint(
         elementInfo: *mut ArkUI_AccessibilityElementInfo,
         isHint: bool,
     ) -> i32;
 }
 extern "C" {
+    #[doc = " @brief Sets the range information for an <b>ArkUI_AccessibilityElementInfo</b> object.\n\n @param elementInfo Indicates the pointer to an <b>ArkUI_AccessibilityElementInfo</b> object.\n @param rangeInfo Indicates the range information.\n @return Returns {@link ARKUI_ACCESSIBILITY_NATIVE_RESULT_SUCCESSFUL} if the operation is successful.\n         Returns {@link ARKUI_ACCESSIBILITY_NATIVE_RESULT_BAD_PARAMETER} if a parameter is incorrect.\n @since 13"]
     pub fn OH_ArkUI_AccessibilityElementInfoSetRangeInfo(
         elementInfo: *mut ArkUI_AccessibilityElementInfo,
         rangeInfo: *mut ArkUI_AccessibleRangeInfo,
     ) -> i32;
 }
 extern "C" {
+    #[doc = " @brief Sets the grid information for an <b>ArkUI_AccessibilityElementInfo</b> object.\n\n @param elementInfo Indicates the pointer to an <b>ArkUI_AccessibilityElementInfo</b> object.\n @param gridInfo Indicates the grid information.\n @return Returns {@link ARKUI_ACCESSIBILITY_NATIVE_RESULT_SUCCESSFUL} if the operation is successful.\n         Returns {@link ARKUI_ACCESSIBILITY_NATIVE_RESULT_BAD_PARAMETER} if a parameter is incorrect.\n @since 13"]
     pub fn OH_ArkUI_AccessibilityElementInfoSetGridInfo(
         elementInfo: *mut ArkUI_AccessibilityElementInfo,
         gridInfo: *mut ArkUI_AccessibleGridInfo,
     ) -> i32;
 }
 extern "C" {
+    #[doc = " @brief Sets the grid item for an <b>ArkUI_AccessibilityElementInfo</b> object.\n\n @param elementInfo Indicates the pointer to an <b>ArkUI_AccessibilityElementInfo</b> object.\n @param gridItem Indicates the grid item.\n @return Returns {@link ARKUI_ACCESSIBILITY_NATIVE_RESULT_SUCCESSFUL} if the operation is successful.\n         Returns {@link ARKUI_ACCESSIBILITY_NATIVE_RESULT_BAD_PARAMETER} if a parameter is incorrect.\n @since 13"]
     pub fn OH_ArkUI_AccessibilityElementInfoSetGridItemInfo(
         elementInfo: *mut ArkUI_AccessibilityElementInfo,
         gridItem: *mut ArkUI_AccessibleGridItemInfo,
     ) -> i32;
 }
 extern "C" {
+    #[doc = " @brief Sets the starting index of the selected text for an <b>ArkUI_AccessibilityElementInfo</b> object.\n\n @param elementInfo Indicates the pointer to an <b>ArkUI_AccessibilityElementInfo</b> object.\n @param selectedTextStart Indicates the starting index of the selected text\n @return Returns {@link ARKUI_ACCESSIBILITY_NATIVE_RESULT_SUCCESSFUL} if the operation is successful.\n         Returns {@link ARKUI_ACCESSIBILITY_NATIVE_RESULT_BAD_PARAMETER} if a parameter is incorrect.\n @since 13"]
     pub fn OH_ArkUI_AccessibilityElementInfoSetSelectedTextStart(
         elementInfo: *mut ArkUI_AccessibilityElementInfo,
         selectedTextStart: i32,
     ) -> i32;
 }
 extern "C" {
+    #[doc = " @brief Sets the end index of the selected text for an <b>ArkUI_AccessibilityElementInfo</b> object.\n\n @param elementInfo Indicates the pointer to an <b>ArkUI_AccessibilityElementInfo</b> object.\n @param selectedTextEnd Indicates the end index of the selected text\n @return Returns {@link ARKUI_ACCESSIBILITY_NATIVE_RESULT_SUCCESSFUL} if the operation is successful.\n         Returns {@link ARKUI_ACCESSIBILITY_NATIVE_RESULT_BAD_PARAMETER} if a parameter is incorrect.\n @since 13"]
     pub fn OH_ArkUI_AccessibilityElementInfoSetSelectedTextEnd(
         elementInfo: *mut ArkUI_AccessibilityElementInfo,
         selectedTextEnd: i32,
     ) -> i32;
 }
 extern "C" {
+    #[doc = " @brief Sets the index of the currently selected item for an <b>ArkUI_AccessibilityElementInfo</b> object.\n\n @param elementInfo Indicates the pointer to an <b>ArkUI_AccessibilityElementInfo</b> object.\n @param currentItemIndex Indicates the index of the currently selected item.\n @return Returns {@link ARKUI_ACCESSIBILITY_NATIVE_RESULT_SUCCESSFUL} if the operation is successful.\n         Returns {@link ARKUI_ACCESSIBILITY_NATIVE_RESULT_BAD_PARAMETER} if a parameter is incorrect.\n @since 13"]
     pub fn OH_ArkUI_AccessibilityElementInfoSetCurrentItemIndex(
         elementInfo: *mut ArkUI_AccessibilityElementInfo,
         currentItemIndex: i32,
     ) -> i32;
 }
 extern "C" {
+    #[doc = " @brief Sets the index of the first item for an <b>ArkUI_AccessibilityElementInfo</b> object.\n\n @param elementInfo Indicates the pointer to an <b>ArkUI_AccessibilityElementInfo</b> object.\n @param startItemIndex Indicates the index of the first item.\n @return Returns {@link ARKUI_ACCESSIBILITY_NATIVE_RESULT_SUCCESSFUL} if the operation is successful.\n         Returns {@link ARKUI_ACCESSIBILITY_NATIVE_RESULT_BAD_PARAMETER} if a parameter is incorrect.\n @since 13"]
     pub fn OH_ArkUI_AccessibilityElementInfoSetStartItemIndex(
         elementInfo: *mut ArkUI_AccessibilityElementInfo,
         startItemIndex: i32,
     ) -> i32;
 }
 extern "C" {
+    #[doc = " @brief Sets the index of the last item for an <b>ArkUI_AccessibilityElementInfo</b> object.\n\n @param elementInfo Indicates the pointer to an <b>ArkUI_AccessibilityElementInfo</b> object.\n @param endItemIndex Indicates the index of the last item.\n @return Returns {@link ARKUI_ACCESSIBILITY_NATIVE_RESULT_SUCCESSFUL} if the operation is successful.\n         Returns {@link ARKUI_ACCESSIBILITY_NATIVE_RESULT_BAD_PARAMETER} if a parameter is incorrect.\n @since 13"]
     pub fn OH_ArkUI_AccessibilityElementInfoSetEndItemIndex(
         elementInfo: *mut ArkUI_AccessibilityElementInfo,
         endItemIndex: i32,
     ) -> i32;
 }
 extern "C" {
+    #[doc = " @brief Sets the number of items for an <b>ArkUI_AccessibilityElementInfo</b> object.\n\n @param elementInfo Indicates the pointer to an <b>ArkUI_AccessibilityElementInfo</b> object.\n @param itemCount Indicates the number of items.\n @return Returns {@link ARKUI_ACCESSIBILITY_NATIVE_RESULT_SUCCESSFUL} if the operation is successful.\n         Returns {@link ARKUI_ACCESSIBILITY_NATIVE_RESULT_BAD_PARAMETER} if a parameter is incorrect.\n @since 13"]
     pub fn OH_ArkUI_AccessibilityElementInfoSetItemCount(
         elementInfo: *mut ArkUI_AccessibilityElementInfo,
         itemCount: i32,
     ) -> i32;
 }
 extern "C" {
+    #[doc = " @brief Sets the offset for an <b>ArkUI_AccessibilityElementInfo</b> object.\n\n @param elementInfo Indicates the pointer to an <b>ArkUI_AccessibilityElementInfo</b> object.\n @param offset Indicates the scroll pixel offset relative to the top of the element.\n @return Returns {@link ARKUI_ACCESSIBILITY_NATIVE_RESULT_SUCCESSFUL} if the operation is successful.\n         Returns {@link ARKUI_ACCESSIBILITY_NATIVE_RESULT_BAD_PARAMETER} if a parameter is incorrect.\n @since 13"]
     pub fn OH_ArkUI_AccessibilityElementInfoSetAccessibilityOffset(
         elementInfo: *mut ArkUI_AccessibilityElementInfo,
         offset: i32,
     ) -> i32;
 }
 extern "C" {
+    #[doc = " @brief Sets the accessibility group for an <b>ArkUI_AccessibilityElementInfo</b> object.\n\n @param elementInfo Indicates the pointer to an <b>ArkUI_AccessibilityElementInfo</b> object.\n @param accessibilityGroup Indicates the accessibility group.\n @return Returns {@link ARKUI_ACCESSIBILITY_NATIVE_RESULT_SUCCESSFUL} if the operation is successful.\n         Returns {@link ARKUI_ACCESSIBILITY_NATIVE_RESULT_BAD_PARAMETER} if a parameter is incorrect.\n @since 13"]
     pub fn OH_ArkUI_AccessibilityElementInfoSetAccessibilityGroup(
         elementInfo: *mut ArkUI_AccessibilityElementInfo,
         accessibilityGroup: bool,
     ) -> i32;
 }
 extern "C" {
+    #[doc = " @brief Sets the accessibility level for an <b>ArkUI_AccessibilityElementInfo</b> object.\n\n @param elementInfo Indicates the pointer to an <b>ArkUI_AccessibilityElementInfo</b> object.\n @param accessibilityLevel Indicates the accessibility level.\n @return Returns {@link ARKUI_ACCESSIBILITY_NATIVE_RESULT_SUCCESSFUL} if the operation is successful.\n         Returns {@link ARKUI_ACCESSIBILITY_NATIVE_RESULT_BAD_PARAMETER} if a parameter is incorrect.\n @since 13"]
     pub fn OH_ArkUI_AccessibilityElementInfoSetAccessibilityLevel(
         elementInfo: *mut ArkUI_AccessibilityElementInfo,
         accessibilityLevel: *const ::std::os::raw::c_char,
     ) -> i32;
 }
 extern "C" {
+    #[doc = " @brief Sets the z-index for an <b>ArkUI_AccessibilityElementInfo</b> object.\n\n @param elementInfo Indicates the pointer to an <b>ArkUI_AccessibilityElementInfo</b> object.\n @param zIndex Indicates the z-index value.\n @return Returns {@link ARKUI_ACCESSIBILITY_NATIVE_RESULT_SUCCESSFUL} if the operation is successful.\n         Returns {@link ARKUI_ACCESSIBILITY_NATIVE_RESULT_BAD_PARAMETER} if a parameter is incorrect.\n @since 13"]
     pub fn OH_ArkUI_AccessibilityElementInfoSetZIndex(
         elementInfo: *mut ArkUI_AccessibilityElementInfo,
         zIndex: i32,
     ) -> i32;
 }
 extern "C" {
+    #[doc = " @brief Sets the opacity for an <b>ArkUI_AccessibilityElementInfo</b> object.\n\n @param elementInfo Indicates the pointer to an <b>ArkUI_AccessibilityElementInfo</b> object.\n @param opacity Indicates the opacity.\n @return Returns {@link ARKUI_ACCESSIBILITY_NATIVE_RESULT_SUCCESSFUL} if the operation is successful.\n         Returns {@link ARKUI_ACCESSIBILITY_NATIVE_RESULT_BAD_PARAMETER} if a parameter is incorrect.\n @since 13"]
     pub fn OH_ArkUI_AccessibilityElementInfoSetAccessibilityOpacity(
         elementInfo: *mut ArkUI_AccessibilityElementInfo,
         opacity: f32,
     ) -> i32;
 }
 extern "C" {
+    #[doc = " @brief Sets the background color for an <b>ArkUI_AccessibilityElementInfo</b> object.\n\n @param elementInfo Indicates the pointer to an <b>ArkUI_AccessibilityElementInfo</b> object.\n @param backgroundColor Indicates the background color.\n @return Returns {@link ARKUI_ACCESSIBILITY_NATIVE_RESULT_SUCCESSFUL} if the operation is successful.\n         Returns {@link ARKUI_ACCESSIBILITY_NATIVE_RESULT_BAD_PARAMETER} if a parameter is incorrect.\n @since 13"]
     pub fn OH_ArkUI_AccessibilityElementInfoSetBackgroundColor(
         elementInfo: *mut ArkUI_AccessibilityElementInfo,
         backgroundColor: *const ::std::os::raw::c_char,
     ) -> i32;
 }
 extern "C" {
+    #[doc = " @brief Sets the background image for an <b>ArkUI_AccessibilityElementInfo</b> object.\n\n @param elementInfo Indicates the pointer to an <b>ArkUI_AccessibilityElementInfo</b> object.\n @param backgroundImage Indicates the backgroundImage.\n @return Returns {@link ARKUI_ACCESSIBILITY_NATIVE_RESULT_SUCCESSFUL} if the operation is successful.\n         Returns {@link ARKUI_ACCESSIBILITY_NATIVE_RESULT_BAD_PARAMETER} if a parameter is incorrect.\n @since 13"]
     pub fn OH_ArkUI_AccessibilityElementInfoSetBackgroundImage(
         elementInfo: *mut ArkUI_AccessibilityElementInfo,
         backgroundImage: *const ::std::os::raw::c_char,
     ) -> i32;
 }
 extern "C" {
+    #[doc = " @brief Sets the blur effect for an <b>ArkUI_AccessibilityElementInfo</b> object.\n\n @param elementInfo Indicates the pointer to an <b>ArkUI_AccessibilityElementInfo</b> object.\n @param blur Indicates the blur effect.\n @return Returns {@link ARKUI_ACCESSIBILITY_NATIVE_RESULT_SUCCESSFUL} if the operation is successful.\n         Returns {@link ARKUI_ACCESSIBILITY_NATIVE_RESULT_BAD_PARAMETER} if a parameter is incorrect.\n @since 13"]
     pub fn OH_ArkUI_AccessibilityElementInfoSetBlur(
         elementInfo: *mut ArkUI_AccessibilityElementInfo,
         blur: *const ::std::os::raw::c_char,
     ) -> i32;
 }
 extern "C" {
+    #[doc = " @brief Sets the hit test behavior for an <b>ArkUI_AccessibilityElementInfo</b> object.\n\n @param elementInfo Indicates the pointer to an <b>ArkUI_AccessibilityElementInfo</b> object.\n @param hitTestBehavior Indicates the hit test behavior.\n @return Returns {@link ARKUI_ACCESSIBILITY_NATIVE_RESULT_SUCCESSFUL} if the operation is successful.\n         Returns {@link ARKUI_ACCESSIBILITY_NATIVE_RESULT_BAD_PARAMETER} if a parameter is incorrect.\n @since 13"]
     pub fn OH_ArkUI_AccessibilityElementInfoSetHitTestBehavior(
         elementInfo: *mut ArkUI_AccessibilityElementInfo,
         hitTestBehavior: *const ::std::os::raw::c_char,
     ) -> i32;
 }
 extern "C" {
+    #[doc = " @brief Creates an <b>ArkUI_AccessibilityElementInfo</b> object.\n\n @return Returns the <b>ArkUI_AccessibilityElementInfo</b> object, or NULL if it fails to create.\n         The possible reason for failure is that the memory error occurred during object creation.\n @since 13\n @version 1.0"]
     pub fn OH_ArkUI_CreateAccessibilityElementInfo() -> *mut ArkUI_AccessibilityElementInfo;
 }
 extern "C" {
+    #[doc = " @brief Destroys an <b>ArkUI_AccessibilityElementInfo</b> object.\n\n @param elementInfo Indicates the pointer to the <b>ArkUI_AccessibilityElementInfo</b> object to destroy.\n @since 13\n @version 1.0"]
     pub fn OH_ArkUI_DestoryAccessibilityElementInfo(
         elementInfo: *mut ArkUI_AccessibilityElementInfo,
     );
 }
 extern "C" {
+    #[doc = " @brief Creates an <b>ArkUI_AccessibilityEventInfo</b> object.\n\n @return Returns the <b>ArkUI_AccessibilityEventInfo</b> object, or NULL if it fails to create.\n         The possible reason for failure is that the memory error occurred during object creation.\n @since 13"]
     pub fn OH_ArkUI_CreateAccessibilityEventInfo() -> *mut ArkUI_AccessibilityEventInfo;
 }
 extern "C" {
+    #[doc = " @brief Destroys an <b>ArkUI_AccessibilityEventInfo</b> object.\n\n @param eventInfo Indicates the pointer to the <b>ArkUI_AccessibilityEventInfo</b> object to destroy.\n @since 13"]
     pub fn OH_ArkUI_DestoryAccessibilityEventInfo(eventInfo: *mut ArkUI_AccessibilityEventInfo);
 }
 extern "C" {
+    #[doc = " @brief Sets the event type for an <b>ArkUI_AccessibilityEventInfo</b> object.\n\n @param eventInfo Indicates the pointer to an <b>ArkUI_AccessibilityEventInfo</b> object.\n @param eventType Indicates the event type.\n @return Returns {@link ARKUI_ACCESSIBILITY_NATIVE_RESULT_SUCCESSFUL} if the operation is successful.\n         Returns {@link ARKUI_ACCESSIBILITY_NATIVE_RESULT_BAD_PARAMETER} if a parameter is incorrect.\n @since 13"]
     pub fn OH_ArkUI_AccessibilityEventSetEventType(
         eventInfo: *mut ArkUI_AccessibilityEventInfo,
         eventType: ArkUI_AccessibilityEventType,
     ) -> i32;
 }
 extern "C" {
+    #[doc = " @brief Sets the text announced for accessibility for an <b>ArkUI_AccessibilityEventInfo</b> object.\n\n @param eventInfo Indicates the pointer to an <b>ArkUI_AccessibilityEventInfo</b> object.\n @param textAnnouncedForAccessibility Indicates the text announced for accessibility.\n @return Returns {@link ARKUI_ACCESSIBILITY_NATIVE_RESULT_SUCCESSFUL} if the operation is successful.\n         Returns {@link ARKUI_ACCESSIBILITY_NATIVE_RESULT_BAD_PARAMETER} if a parameter is incorrect.\n @since 13"]
     pub fn OH_ArkUI_AccessibilityEventSetTextAnnouncedForAccessibility(
         eventInfo: *mut ArkUI_AccessibilityEventInfo,
         textAnnouncedForAccessibility: *const ::std::os::raw::c_char,
     ) -> i32;
 }
 extern "C" {
+    #[doc = " @brief Sets the request focus ID for an <b>ArkUI_AccessibilityEventInfo</b> object.\n\n @param eventInfo Indicates the pointer to an <b>ArkUI_AccessibilityEventInfo</b> object.\n @param requestFocusId Indicates the request focus ID.\n @return Returns {@link ARKUI_ACCESSIBILITY_NATIVE_RESULT_SUCCESSFUL} if the operation is successful.\n         Returns {@link ARKUI_ACCESSIBILITY_NATIVE_RESULT_BAD_PARAMETER} if a parameter is incorrect.\n @since 13"]
     pub fn OH_ArkUI_AccessibilityEventSetRequestFocusId(
         eventInfo: *mut ArkUI_AccessibilityEventInfo,
         requestFocusId: i32,
     ) -> i32;
 }
 extern "C" {
+    #[doc = " @brief Sets the element information for an <b>ArkUI_AccessibilityEventInfo</b> object.\n\n @param eventInfo Indicates the pointer to an <b>ArkUI_AccessibilityEventInfo</b> object.\n @param elementInfo Indicates the pointer to an <b>ArkUI_AccessibilityElementInfo</b> object.\n @return Returns {@link ARKUI_ACCESSIBILITY_NATIVE_RESULT_SUCCESSFUL} if the operation is successful.\n         Returns {@link ARKUI_ACCESSIBILITY_NATIVE_RESULT_BAD_PARAMETER} if a parameter is incorrect.\n @since 13"]
     pub fn OH_ArkUI_AccessibilityEventSetElementInfo(
         eventInfo: *mut ArkUI_AccessibilityEventInfo,
         elementInfo: *mut ArkUI_AccessibilityElementInfo,
     ) -> i32;
 }
 extern "C" {
+    #[doc = " @brief Obtains the value of a key from an <b>ArkUI_AccessibilityActionArguments</b> object.\n\n @param arguments Indicates the pointer to an <b>ArkUI_AccessibilityActionArguments</b> object.\n @param key Indicates the key.\n @param value Indicates the value.\n @return Returns {@link ARKUI_ACCESSIBILITY_NATIVE_RESULT_SUCCESSFUL} if the operation is successful.\n         Returns {@link ARKUI_ACCESSIBILITY_NATIVE_RESULT_BAD_PARAMETER} if a parameter is incorrect.\n @since 13"]
     pub fn OH_ArkUI_FindAccessibilityActionArgumentByKey(
         arguments: *mut ArkUI_AccessibilityActionArguments,
         key: *const ::std::os::raw::c_char,

@@ -4,197 +4,389 @@
 #![allow(non_upper_case_globals)]
 #![allow(non_camel_case_types)]
 
+#[doc = " Indicates an unknown axis type. It is generally used as the initial value.\n\n @since 12"]
 pub const InputEvent_AxisType_AXIS_TYPE_UNKNOWN: InputEvent_AxisType = 0;
+#[doc = " Indicates the vertical scroll axis. When you scroll the mouse wheel or make certain gestures on the touchpad,\n the status of the vertical scroll axis changes.\n\n @since 12"]
 pub const InputEvent_AxisType_AXIS_TYPE_SCROLL_VERTICAL: InputEvent_AxisType = 1;
+#[doc = " Indicates the horizontal scroll axis.\n When you scroll the mouse wheel or make certain gestures on the touchpad,\n the status of the horizontal scroll axis changes.\n\n @since 12"]
 pub const InputEvent_AxisType_AXIS_TYPE_SCROLL_HORIZONTAL: InputEvent_AxisType = 2;
+#[doc = " Indicates the pinch axis, which is used to describe a pinch gesture on the touchscreen or touchpad.\n\n @since 12"]
 pub const InputEvent_AxisType_AXIS_TYPE_PINCH: InputEvent_AxisType = 3;
+#[doc = " Indicates the rotate axis, which is used to describe a rotate gesture on the touchpad.\n\n @since 12"]
 pub const InputEvent_AxisType_AXIS_TYPE_ROTATE: InputEvent_AxisType = 4;
+#[doc = " @brief Enumerates axis types.\n\n @since 12"]
 pub type InputEvent_AxisType = ::std::os::raw::c_uint;
+#[doc = " @brief Enumerates two-finger pinch events. The axis value can be AXIS_TYPE_PINCH or AXIS_TYPE_ROTATE.\n\n @since 12"]
 pub const InputEvent_AxisEventType_AXIS_EVENT_TYPE_PINCH: InputEvent_AxisEventType = 1;
+#[doc = " @brief Enumerates scroll axis events.\n The axis value can be AXIS_TYPE_SCROLL_VERTICAL or AXIS_TYPE_SCROLL_HORIZONTAL.\n Wherein, the value of AXIS_TYPE_SCROLL_HORIZONTAL is 0 for a mouse wheel event.\n\n @since 12"]
 pub const InputEvent_AxisEventType_AXIS_EVENT_TYPE_SCROLL: InputEvent_AxisEventType = 2;
+#[doc = " @brief Enumerates axis event types.\n\n @since 12"]
 pub type InputEvent_AxisEventType = ::std::os::raw::c_uint;
+#[doc = " Cancel action for the axis input event.\n\n @since 12"]
 pub const InputEvent_AxisAction_AXIS_ACTION_CANCEL: InputEvent_AxisAction = 0;
+#[doc = " Start action for the axis input event.\n\n @since 12"]
 pub const InputEvent_AxisAction_AXIS_ACTION_BEGIN: InputEvent_AxisAction = 1;
+#[doc = " Update action for the axis input event.\n\n @since 12"]
 pub const InputEvent_AxisAction_AXIS_ACTION_UPDATE: InputEvent_AxisAction = 2;
+#[doc = " End action for the axis input event.\n\n @since 12"]
 pub const InputEvent_AxisAction_AXIS_ACTION_END: InputEvent_AxisAction = 3;
+#[doc = " @brief Enumerates axis event actions.\n\n @since 12"]
 pub type InputEvent_AxisAction = ::std::os::raw::c_uint;
+#[doc = " Unknown key"]
 pub const Input_KeyCode_KEYCODE_UNKNOWN: Input_KeyCode = -1;
+#[doc = " Function (Fn) key"]
 pub const Input_KeyCode_KEYCODE_FN: Input_KeyCode = 0;
+#[doc = " Volume Up key"]
 pub const Input_KeyCode_KEYCODE_VOLUME_UP: Input_KeyCode = 16;
+#[doc = " Volume Down button"]
 pub const Input_KeyCode_KEYCODE_VOLUME_DOWN: Input_KeyCode = 17;
+#[doc = " Power key"]
 pub const Input_KeyCode_KEYCODE_POWER: Input_KeyCode = 18;
+#[doc = " Shutter key"]
 pub const Input_KeyCode_KEYCODE_CAMERA: Input_KeyCode = 19;
+#[doc = " Speaker Mute key"]
 pub const Input_KeyCode_KEYCODE_VOLUME_MUTE: Input_KeyCode = 22;
+#[doc = " Mute key"]
 pub const Input_KeyCode_KEYCODE_MUTE: Input_KeyCode = 23;
+#[doc = " Brightness Up key"]
 pub const Input_KeyCode_KEYCODE_BRIGHTNESS_UP: Input_KeyCode = 40;
+#[doc = " Brightness Down key"]
 pub const Input_KeyCode_KEYCODE_BRIGHTNESS_DOWN: Input_KeyCode = 41;
+#[doc = " Key 0"]
 pub const Input_KeyCode_KEYCODE_0: Input_KeyCode = 2000;
+#[doc = " Key 1"]
 pub const Input_KeyCode_KEYCODE_1: Input_KeyCode = 2001;
+#[doc = " Key 2"]
 pub const Input_KeyCode_KEYCODE_2: Input_KeyCode = 2002;
+#[doc = " Key 3"]
 pub const Input_KeyCode_KEYCODE_3: Input_KeyCode = 2003;
+#[doc = " Key 4"]
 pub const Input_KeyCode_KEYCODE_4: Input_KeyCode = 2004;
+#[doc = " Key 5"]
 pub const Input_KeyCode_KEYCODE_5: Input_KeyCode = 2005;
+#[doc = " Key 6"]
 pub const Input_KeyCode_KEYCODE_6: Input_KeyCode = 2006;
+#[doc = " Key 7"]
 pub const Input_KeyCode_KEYCODE_7: Input_KeyCode = 2007;
+#[doc = " Key 8"]
 pub const Input_KeyCode_KEYCODE_8: Input_KeyCode = 2008;
+#[doc = " Key 9"]
 pub const Input_KeyCode_KEYCODE_9: Input_KeyCode = 2009;
+#[doc = " Key *"]
 pub const Input_KeyCode_KEYCODE_STAR: Input_KeyCode = 2010;
+#[doc = " Key #"]
 pub const Input_KeyCode_KEYCODE_POUND: Input_KeyCode = 2011;
+#[doc = " Up key on D-pad"]
 pub const Input_KeyCode_KEYCODE_DPAD_UP: Input_KeyCode = 2012;
+#[doc = " Down key on D-pad"]
 pub const Input_KeyCode_KEYCODE_DPAD_DOWN: Input_KeyCode = 2013;
+#[doc = " Left key on D-pad"]
 pub const Input_KeyCode_KEYCODE_DPAD_LEFT: Input_KeyCode = 2014;
+#[doc = " Right key on D-pad"]
 pub const Input_KeyCode_KEYCODE_DPAD_RIGHT: Input_KeyCode = 2015;
+#[doc = " OK key on D-pad"]
 pub const Input_KeyCode_KEYCODE_DPAD_CENTER: Input_KeyCode = 2016;
+#[doc = " Key A"]
 pub const Input_KeyCode_KEYCODE_A: Input_KeyCode = 2017;
+#[doc = " Key B"]
 pub const Input_KeyCode_KEYCODE_B: Input_KeyCode = 2018;
+#[doc = " Key C"]
 pub const Input_KeyCode_KEYCODE_C: Input_KeyCode = 2019;
+#[doc = " Key D"]
 pub const Input_KeyCode_KEYCODE_D: Input_KeyCode = 2020;
+#[doc = " Key E"]
 pub const Input_KeyCode_KEYCODE_E: Input_KeyCode = 2021;
+#[doc = " Key F"]
 pub const Input_KeyCode_KEYCODE_F: Input_KeyCode = 2022;
+#[doc = " Key G"]
 pub const Input_KeyCode_KEYCODE_G: Input_KeyCode = 2023;
+#[doc = " Key H"]
 pub const Input_KeyCode_KEYCODE_H: Input_KeyCode = 2024;
+#[doc = " Key I"]
 pub const Input_KeyCode_KEYCODE_I: Input_KeyCode = 2025;
+#[doc = " Key J"]
 pub const Input_KeyCode_KEYCODE_J: Input_KeyCode = 2026;
+#[doc = " Key K"]
 pub const Input_KeyCode_KEYCODE_K: Input_KeyCode = 2027;
+#[doc = " Key L"]
 pub const Input_KeyCode_KEYCODE_L: Input_KeyCode = 2028;
+#[doc = " Key M"]
 pub const Input_KeyCode_KEYCODE_M: Input_KeyCode = 2029;
+#[doc = " Key N"]
 pub const Input_KeyCode_KEYCODE_N: Input_KeyCode = 2030;
+#[doc = " Key O"]
 pub const Input_KeyCode_KEYCODE_O: Input_KeyCode = 2031;
+#[doc = " Key P"]
 pub const Input_KeyCode_KEYCODE_P: Input_KeyCode = 2032;
+#[doc = " Key Q"]
 pub const Input_KeyCode_KEYCODE_Q: Input_KeyCode = 2033;
+#[doc = " Key R"]
 pub const Input_KeyCode_KEYCODE_R: Input_KeyCode = 2034;
+#[doc = " Key S"]
 pub const Input_KeyCode_KEYCODE_S: Input_KeyCode = 2035;
+#[doc = " Key T"]
 pub const Input_KeyCode_KEYCODE_T: Input_KeyCode = 2036;
+#[doc = " Key U"]
 pub const Input_KeyCode_KEYCODE_U: Input_KeyCode = 2037;
+#[doc = " Key V"]
 pub const Input_KeyCode_KEYCODE_V: Input_KeyCode = 2038;
+#[doc = " Key W"]
 pub const Input_KeyCode_KEYCODE_W: Input_KeyCode = 2039;
+#[doc = " Key X"]
 pub const Input_KeyCode_KEYCODE_X: Input_KeyCode = 2040;
+#[doc = " Key Y"]
 pub const Input_KeyCode_KEYCODE_Y: Input_KeyCode = 2041;
+#[doc = " Key Z"]
 pub const Input_KeyCode_KEYCODE_Z: Input_KeyCode = 2042;
+#[doc = " Key ,"]
 pub const Input_KeyCode_KEYCODE_COMMA: Input_KeyCode = 2043;
+#[doc = " Key ."]
 pub const Input_KeyCode_KEYCODE_PERIOD: Input_KeyCode = 2044;
+#[doc = " Left Alt key"]
 pub const Input_KeyCode_KEYCODE_ALT_LEFT: Input_KeyCode = 2045;
+#[doc = " Right Alt key"]
 pub const Input_KeyCode_KEYCODE_ALT_RIGHT: Input_KeyCode = 2046;
+#[doc = " Left Shift key"]
 pub const Input_KeyCode_KEYCODE_SHIFT_LEFT: Input_KeyCode = 2047;
+#[doc = " Right Shift key"]
 pub const Input_KeyCode_KEYCODE_SHIFT_RIGHT: Input_KeyCode = 2048;
+#[doc = " Tab key"]
 pub const Input_KeyCode_KEYCODE_TAB: Input_KeyCode = 2049;
+#[doc = " Space key"]
 pub const Input_KeyCode_KEYCODE_SPACE: Input_KeyCode = 2050;
+#[doc = " Symbol key"]
 pub const Input_KeyCode_KEYCODE_SYM: Input_KeyCode = 2051;
+#[doc = " Explorer key, used to start the explorer application"]
 pub const Input_KeyCode_KEYCODE_EXPLORER: Input_KeyCode = 2052;
+#[doc = " Email key, used to start the email application"]
 pub const Input_KeyCode_KEYCODE_ENVELOPE: Input_KeyCode = 2053;
+#[doc = " Enter key"]
 pub const Input_KeyCode_KEYCODE_ENTER: Input_KeyCode = 2054;
+#[doc = " Backspace key"]
 pub const Input_KeyCode_KEYCODE_DEL: Input_KeyCode = 2055;
+#[doc = " Key *"]
 pub const Input_KeyCode_KEYCODE_GRAVE: Input_KeyCode = 2056;
+#[doc = " Key -"]
 pub const Input_KeyCode_KEYCODE_MINUS: Input_KeyCode = 2057;
+#[doc = " Key ="]
 pub const Input_KeyCode_KEYCODE_EQUALS: Input_KeyCode = 2058;
+#[doc = " Key ["]
 pub const Input_KeyCode_KEYCODE_LEFT_BRACKET: Input_KeyCode = 2059;
+#[doc = " Key ]"]
 pub const Input_KeyCode_KEYCODE_RIGHT_BRACKET: Input_KeyCode = 2060;
+#[doc = " Key \\"]
 pub const Input_KeyCode_KEYCODE_BACKSLASH: Input_KeyCode = 2061;
+#[doc = " Key ;"]
 pub const Input_KeyCode_KEYCODE_SEMICOLON: Input_KeyCode = 2062;
+#[doc = " Key '"]
 pub const Input_KeyCode_KEYCODE_APOSTROPHE: Input_KeyCode = 2063;
+#[doc = " Key /"]
 pub const Input_KeyCode_KEYCODE_SLASH: Input_KeyCode = 2064;
+#[doc = " Key @"]
 pub const Input_KeyCode_KEYCODE_AT: Input_KeyCode = 2065;
+#[doc = " Key +"]
 pub const Input_KeyCode_KEYCODE_PLUS: Input_KeyCode = 2066;
+#[doc = " Menu key"]
 pub const Input_KeyCode_KEYCODE_MENU: Input_KeyCode = 2067;
+#[doc = " Page Up key"]
 pub const Input_KeyCode_KEYCODE_PAGE_UP: Input_KeyCode = 2068;
+#[doc = " Page Down key"]
 pub const Input_KeyCode_KEYCODE_PAGE_DOWN: Input_KeyCode = 2069;
+#[doc = " ESC key"]
 pub const Input_KeyCode_KEYCODE_ESCAPE: Input_KeyCode = 2070;
+#[doc = " Delete key"]
 pub const Input_KeyCode_KEYCODE_FORWARD_DEL: Input_KeyCode = 2071;
+#[doc = " Left Ctrl key"]
 pub const Input_KeyCode_KEYCODE_CTRL_LEFT: Input_KeyCode = 2072;
+#[doc = " Right Ctrl key"]
 pub const Input_KeyCode_KEYCODE_CTRL_RIGHT: Input_KeyCode = 2073;
+#[doc = " Caps Lock key"]
 pub const Input_KeyCode_KEYCODE_CAPS_LOCK: Input_KeyCode = 2074;
+#[doc = " Scroll Lock key"]
 pub const Input_KeyCode_KEYCODE_SCROLL_LOCK: Input_KeyCode = 2075;
+#[doc = " Left Meta key"]
 pub const Input_KeyCode_KEYCODE_META_LEFT: Input_KeyCode = 2076;
+#[doc = " Right Meta key"]
 pub const Input_KeyCode_KEYCODE_META_RIGHT: Input_KeyCode = 2077;
+#[doc = " Function key"]
 pub const Input_KeyCode_KEYCODE_FUNCTION: Input_KeyCode = 2078;
+#[doc = " System Request/Print Screen key"]
 pub const Input_KeyCode_KEYCODE_SYSRQ: Input_KeyCode = 2079;
+#[doc = " Break/Pause key"]
 pub const Input_KeyCode_KEYCODE_BREAK: Input_KeyCode = 2080;
+#[doc = " Move to Home key"]
 pub const Input_KeyCode_KEYCODE_MOVE_HOME: Input_KeyCode = 2081;
+#[doc = " Move to End key"]
 pub const Input_KeyCode_KEYCODE_MOVE_END: Input_KeyCode = 2082;
+#[doc = " Insert key"]
 pub const Input_KeyCode_KEYCODE_INSERT: Input_KeyCode = 2083;
+#[doc = " Forward key"]
 pub const Input_KeyCode_KEYCODE_FORWARD: Input_KeyCode = 2084;
+#[doc = " Play key"]
 pub const Input_KeyCode_KEYCODE_MEDIA_PLAY: Input_KeyCode = 2085;
+#[doc = " Pause key"]
 pub const Input_KeyCode_KEYCODE_MEDIA_PAUSE: Input_KeyCode = 2086;
+#[doc = " Close key"]
 pub const Input_KeyCode_KEYCODE_MEDIA_CLOSE: Input_KeyCode = 2087;
+#[doc = " Eject key"]
 pub const Input_KeyCode_KEYCODE_MEDIA_EJECT: Input_KeyCode = 2088;
+#[doc = " Record key"]
 pub const Input_KeyCode_KEYCODE_MEDIA_RECORD: Input_KeyCode = 2089;
+#[doc = " F1 key"]
 pub const Input_KeyCode_KEYCODE_F1: Input_KeyCode = 2090;
+#[doc = " F2 key"]
 pub const Input_KeyCode_KEYCODE_F2: Input_KeyCode = 2091;
+#[doc = " F3 key"]
 pub const Input_KeyCode_KEYCODE_F3: Input_KeyCode = 2092;
+#[doc = " F4 key"]
 pub const Input_KeyCode_KEYCODE_F4: Input_KeyCode = 2093;
+#[doc = " F5 key"]
 pub const Input_KeyCode_KEYCODE_F5: Input_KeyCode = 2094;
+#[doc = " F6 key"]
 pub const Input_KeyCode_KEYCODE_F6: Input_KeyCode = 2095;
+#[doc = " F7 key"]
 pub const Input_KeyCode_KEYCODE_F7: Input_KeyCode = 2096;
+#[doc = " F8 key"]
 pub const Input_KeyCode_KEYCODE_F8: Input_KeyCode = 2097;
+#[doc = " F9 key"]
 pub const Input_KeyCode_KEYCODE_F9: Input_KeyCode = 2098;
+#[doc = " F10 key"]
 pub const Input_KeyCode_KEYCODE_F10: Input_KeyCode = 2099;
+#[doc = " F11 key"]
 pub const Input_KeyCode_KEYCODE_F11: Input_KeyCode = 2100;
+#[doc = " F12 key"]
 pub const Input_KeyCode_KEYCODE_F12: Input_KeyCode = 2101;
+#[doc = " Number Lock key on numeric keypad"]
 pub const Input_KeyCode_KEYCODE_NUM_LOCK: Input_KeyCode = 2102;
+#[doc = " Key 0 on numeric keypad"]
 pub const Input_KeyCode_KEYCODE_NUMPAD_0: Input_KeyCode = 2103;
+#[doc = " Key 1 on numeric keypad"]
 pub const Input_KeyCode_KEYCODE_NUMPAD_1: Input_KeyCode = 2104;
+#[doc = " Key 2 on numeric keypad"]
 pub const Input_KeyCode_KEYCODE_NUMPAD_2: Input_KeyCode = 2105;
+#[doc = " Key 3 on numeric keypad"]
 pub const Input_KeyCode_KEYCODE_NUMPAD_3: Input_KeyCode = 2106;
+#[doc = " Key 4 on numeric keypad"]
 pub const Input_KeyCode_KEYCODE_NUMPAD_4: Input_KeyCode = 2107;
+#[doc = " Key 5 on numeric keypad"]
 pub const Input_KeyCode_KEYCODE_NUMPAD_5: Input_KeyCode = 2108;
+#[doc = " Key 6 on numeric keypad"]
 pub const Input_KeyCode_KEYCODE_NUMPAD_6: Input_KeyCode = 2109;
+#[doc = " Key 7 on numeric keypad"]
 pub const Input_KeyCode_KEYCODE_NUMPAD_7: Input_KeyCode = 2110;
+#[doc = " Key 8 on numeric keypad"]
 pub const Input_KeyCode_KEYCODE_NUMPAD_8: Input_KeyCode = 2111;
+#[doc = " Key 9 on numeric keypad"]
 pub const Input_KeyCode_KEYCODE_NUMPAD_9: Input_KeyCode = 2112;
+#[doc = " Key / on numeric keypad"]
 pub const Input_KeyCode_KEYCODE_NUMPAD_DIVIDE: Input_KeyCode = 2113;
+#[doc = " Key * on numeric keypad"]
 pub const Input_KeyCode_KEYCODE_NUMPAD_MULTIPLY: Input_KeyCode = 2114;
+#[doc = " Key - on numeric keypad"]
 pub const Input_KeyCode_KEYCODE_NUMPAD_SUBTRACT: Input_KeyCode = 2115;
+#[doc = " Key + on numeric keypad"]
 pub const Input_KeyCode_KEYCODE_NUMPAD_ADD: Input_KeyCode = 2116;
+#[doc = " Key . on numeric keypad"]
 pub const Input_KeyCode_KEYCODE_NUMPAD_DOT: Input_KeyCode = 2117;
+#[doc = " Key , on numeric keypad"]
 pub const Input_KeyCode_KEYCODE_NUMPAD_COMMA: Input_KeyCode = 2118;
+#[doc = " Enter key on numeric keypad"]
 pub const Input_KeyCode_KEYCODE_NUMPAD_ENTER: Input_KeyCode = 2119;
+#[doc = " Key = on numeric keypad"]
 pub const Input_KeyCode_KEYCODE_NUMPAD_EQUALS: Input_KeyCode = 2120;
+#[doc = " Key ( on numeric keypad"]
 pub const Input_KeyCode_KEYCODE_NUMPAD_LEFT_PAREN: Input_KeyCode = 2121;
+#[doc = " Key ) on numeric keypad"]
 pub const Input_KeyCode_KEYCODE_NUMPAD_RIGHT_PAREN: Input_KeyCode = 2122;
+#[doc = " @brief Enumerated values of OpenHarmony key code.\n\n @since 12"]
 pub type Input_KeyCode = ::std::os::raw::c_int;
+#[doc = " Default"]
 pub const Input_KeyStateAction_KEY_DEFAULT: Input_KeyStateAction = -1;
+#[doc = " Pressing of a key"]
 pub const Input_KeyStateAction_KEY_PRESSED: Input_KeyStateAction = 0;
+#[doc = " Release of a key"]
 pub const Input_KeyStateAction_KEY_RELEASED: Input_KeyStateAction = 1;
+#[doc = " Key switch enabled"]
 pub const Input_KeyStateAction_KEY_SWITCH_ON: Input_KeyStateAction = 2;
+#[doc = " Key switch disabled"]
 pub const Input_KeyStateAction_KEY_SWITCH_OFF: Input_KeyStateAction = 3;
+#[doc = " @brief Enumerated values of key event action.\n\n @since 12"]
 pub type Input_KeyStateAction = ::std::os::raw::c_int;
+#[doc = " Cancellation of a key action."]
 pub const Input_KeyEventAction_KEY_ACTION_CANCEL: Input_KeyEventAction = 0;
+#[doc = " Pressing of a key."]
 pub const Input_KeyEventAction_KEY_ACTION_DOWN: Input_KeyEventAction = 1;
+#[doc = " Release of a key."]
 pub const Input_KeyEventAction_KEY_ACTION_UP: Input_KeyEventAction = 2;
+#[doc = " @brief Enumerates key event types.\n\n @since 12"]
 pub type Input_KeyEventAction = ::std::os::raw::c_uint;
+#[doc = " Cancel."]
 pub const Input_MouseEventAction_MOUSE_ACTION_CANCEL: Input_MouseEventAction = 0;
+#[doc = " Moving of the mouse pointer."]
 pub const Input_MouseEventAction_MOUSE_ACTION_MOVE: Input_MouseEventAction = 1;
+#[doc = " Pressing down of the mouse."]
 pub const Input_MouseEventAction_MOUSE_ACTION_BUTTON_DOWN: Input_MouseEventAction = 2;
+#[doc = " Lifting of the mouse button."]
 pub const Input_MouseEventAction_MOUSE_ACTION_BUTTON_UP: Input_MouseEventAction = 3;
+#[doc = " Beginning of the mouse axis event"]
 pub const Input_MouseEventAction_MOUSE_ACTION_AXIS_BEGIN: Input_MouseEventAction = 4;
+#[doc = " Updating of the mouse axis event"]
 pub const Input_MouseEventAction_MOUSE_ACTION_AXIS_UPDATE: Input_MouseEventAction = 5;
+#[doc = " End of the mouse axis event"]
 pub const Input_MouseEventAction_MOUSE_ACTION_AXIS_END: Input_MouseEventAction = 6;
+#[doc = " @brief Enumerated values of mouse event action.\n\n @since 12"]
 pub type Input_MouseEventAction = ::std::os::raw::c_uint;
+#[doc = " Vertical scroll axis"]
 pub const InputEvent_MouseAxis_MOUSE_AXIS_SCROLL_VERTICAL: InputEvent_MouseAxis = 0;
+#[doc = " Horizontal scroll axis"]
 pub const InputEvent_MouseAxis_MOUSE_AXIS_SCROLL_HORIZONTAL: InputEvent_MouseAxis = 1;
+#[doc = " @brief Mouse axis types.\n\n @since 12"]
 pub type InputEvent_MouseAxis = ::std::os::raw::c_uint;
+#[doc = " Invalid button"]
 pub const Input_MouseEventButton_MOUSE_BUTTON_NONE: Input_MouseEventButton = -1;
+#[doc = " Left button on the mouse."]
 pub const Input_MouseEventButton_MOUSE_BUTTON_LEFT: Input_MouseEventButton = 0;
+#[doc = " Middle button on the mouse."]
 pub const Input_MouseEventButton_MOUSE_BUTTON_MIDDLE: Input_MouseEventButton = 1;
+#[doc = " Right button on the mouse."]
 pub const Input_MouseEventButton_MOUSE_BUTTON_RIGHT: Input_MouseEventButton = 2;
+#[doc = " Forward button on the mouse."]
 pub const Input_MouseEventButton_MOUSE_BUTTON_FORWARD: Input_MouseEventButton = 3;
+#[doc = " Back button on the mouse."]
 pub const Input_MouseEventButton_MOUSE_BUTTON_BACK: Input_MouseEventButton = 4;
+#[doc = " @brief Enumerated values of mouse event button.\n\n @since 12"]
 pub type Input_MouseEventButton = ::std::os::raw::c_int;
+#[doc = " Touch cancelled."]
 pub const Input_TouchEventAction_TOUCH_ACTION_CANCEL: Input_TouchEventAction = 0;
+#[doc = " Touch pressed."]
 pub const Input_TouchEventAction_TOUCH_ACTION_DOWN: Input_TouchEventAction = 1;
+#[doc = " Touch moved."]
 pub const Input_TouchEventAction_TOUCH_ACTION_MOVE: Input_TouchEventAction = 2;
+#[doc = " Touch lifted."]
 pub const Input_TouchEventAction_TOUCH_ACTION_UP: Input_TouchEventAction = 3;
+#[doc = " @brief Enumerated values of touch event action.\n\n @since 12"]
 pub type Input_TouchEventAction = ::std::os::raw::c_uint;
+#[doc = " Keyboard without keys"]
 pub const Input_KeyboardType_KEYBOARD_TYPE_NONE: Input_KeyboardType = 0;
+#[doc = " Keyboard with unknown keys"]
 pub const Input_KeyboardType_KEYBOARD_TYPE_UNKNOWN: Input_KeyboardType = 1;
+#[doc = " Full keyboard"]
 pub const Input_KeyboardType_KEYBOARD_TYPE_ALPHABETIC: Input_KeyboardType = 2;
+#[doc = " Digital keyboard"]
 pub const Input_KeyboardType_KEYBOARD_TYPE_DIGITAL: Input_KeyboardType = 3;
+#[doc = " Stylus"]
 pub const Input_KeyboardType_KEYBOARD_TYPE_STYLUS: Input_KeyboardType = 4;
+#[doc = " Remote control"]
 pub const Input_KeyboardType_KEYBOARD_TYPE_REMOTE_CONTROL: Input_KeyboardType = 5;
+#[doc = " @brief Enumerates keyboard types.\n\n @since 13"]
 pub type Input_KeyboardType = ::std::os::raw::c_uint;
+#[doc = " Indicates that the input source generates events similar to mouse cursor movement,\n button press and release, and wheel scrolling.\n\n @since 12"]
 pub const InputEvent_SourceType_SOURCE_TYPE_MOUSE: InputEvent_SourceType = 1;
+#[doc = " Indicates that the input source generates a touchscreen multi-touch event.\n\n @since 12"]
 pub const InputEvent_SourceType_SOURCE_TYPE_TOUCHSCREEN: InputEvent_SourceType = 2;
+#[doc = " Indicates that the input source generates a touchpad multi-touch event.\n\n @since 12"]
 pub const InputEvent_SourceType_SOURCE_TYPE_TOUCHPAD: InputEvent_SourceType = 3;
+#[doc = " @brief Enumerates event source types.\n\n @since 12"]
 pub type InputEvent_SourceType = ::std::os::raw::c_uint;
 #[repr(C)]
 #[derive(Debug, Copy, Clone)]
@@ -226,16 +418,27 @@ pub struct Input_AxisEvent {
 pub struct Input_Hotkey {
     _unused: [u8; 0],
 }
+#[doc = " @error Success return code on success"]
 pub const Input_Result_INPUT_SUCCESS: Input_Result = 0;
+#[doc = " @error Permission verification failed"]
 pub const Input_Result_INPUT_PERMISSION_DENIED: Input_Result = 201;
+#[doc = " @error Non-system application"]
 pub const Input_Result_INPUT_NOT_SYSTEM_APPLICATION: Input_Result = 202;
+#[doc = " @error Parameter check failed"]
 pub const Input_Result_INPUT_PARAMETER_ERROR: Input_Result = 401;
+#[doc = " @error Device not support"]
 pub const Input_Result_INPUT_DEVICE_NOT_SUPPORTED: Input_Result = 801;
+#[doc = " @error Service error"]
 pub const Input_Result_INPUT_SERVICE_EXCEPTION: Input_Result = 3800001;
+#[doc = " @error Interceptor repeatedly created for an application"]
 pub const Input_Result_INPUT_REPEAT_INTERCEPTOR: Input_Result = 4200001;
+#[doc = " @error Already occupied by the system\n @since 14"]
 pub const Input_Result_INPUT_OCCUPIED_BY_SYSTEM: Input_Result = 4200002;
+#[doc = " @error Already occupied by the other\n @since 14"]
 pub const Input_Result_INPUT_OCCUPIED_BY_OTHER: Input_Result = 4200003;
+#[doc = " @brief Enumerates error codes.\n\n @since 12"]
 pub type Input_Result = ::std::os::raw::c_uint;
+#[doc = " @brief Callback used to return shortcut key events.\n @since 14"]
 pub type Input_HotkeyCallback =
     ::std::option::Option<unsafe extern "C" fn(hotkey: *mut Input_Hotkey)>;
 #[repr(C)]
@@ -243,27 +446,40 @@ pub type Input_HotkeyCallback =
 pub struct Input_DeviceInfo {
     _unused: [u8; 0],
 }
+#[doc = " @brief Defines a lifecycle callback for keyEvent. If the callback is triggered, keyEvent will be destroyed.\n\n @param keyEvent Key event object.\n @since 12"]
 pub type Input_KeyEventCallback =
     ::std::option::Option<unsafe extern "C" fn(keyEvent: *const Input_KeyEvent)>;
+#[doc = " @brief Defines a lifecycle callback for mouseEvent. If the callback is triggered, mouseEvent will be destroyed.\n\n @param mouseEvent Mouse event object.\n @since 12"]
 pub type Input_MouseEventCallback =
     ::std::option::Option<unsafe extern "C" fn(mouseEvent: *const Input_MouseEvent)>;
+#[doc = " @brief Defines a lifecycle callback for touchEvent. If the callback is triggered, touchEvent will be destroyed.\n\n @param touchEvent Touch event object.\n @since 12"]
 pub type Input_TouchEventCallback =
     ::std::option::Option<unsafe extern "C" fn(touchEvent: *const Input_TouchEvent)>;
+#[doc = " @brief Defines a lifecycle callback for axisEvent. If the callback is triggered, axisEvent will be destroyed.\n\n @param axisEvent Axis event object.\n @since 12"]
 pub type Input_AxisEventCallback =
     ::std::option::Option<unsafe extern "C" fn(axisEvent: *const Input_AxisEvent)>;
+#[doc = " @brief Defines the callback for device addition events.\n @param deviceId Device ID.\n @since 13"]
 pub type Input_DeviceAddedCallback = ::std::option::Option<unsafe extern "C" fn(deviceId: i32)>;
+#[doc = " @brief Defines the callback for device removal events.\n @param deviceId Device ID.\n @since 13"]
 pub type Input_DeviceRemovedCallback = ::std::option::Option<unsafe extern "C" fn(deviceId: i32)>;
+#[doc = " @brief Defines the structure for the interceptor of event callbacks,\n including mouseCallback, touchCallback, and axisCallback.\n @since 12"]
 #[repr(C)]
 #[derive(Debug, Copy, Clone)]
 pub struct Input_InterceptorEventCallback {
+    #[doc = " Defines a lifecycle callback for **mouseEvent**."]
     pub mouseCallback: Input_MouseEventCallback,
+    #[doc = " Defines a lifecycle callback for **touchEvent**."]
     pub touchCallback: Input_TouchEventCallback,
+    #[doc = " Defines a lifecycle callback for **axisEvent**."]
     pub axisCallback: Input_AxisEventCallback,
 }
+#[doc = " @brief Defines a listener for device insertion and removal events.\n @since 13"]
 #[repr(C)]
 #[derive(Debug, Copy, Clone)]
 pub struct Input_DeviceListener {
+    #[doc = " Callback for device addition events"]
     pub deviceAddedCallback: Input_DeviceAddedCallback,
+    #[doc = " Callback for device removal events"]
     pub deviceRemovedCallback: Input_DeviceRemovedCallback,
 }
 #[repr(C)]
@@ -272,195 +488,253 @@ pub struct Input_InterceptorOptions {
     _unused: [u8; 0],
 }
 extern "C" {
+    #[doc = " @brief Queries the key state.\n\n @param keyState Key state.\n @return OH_Input_GetKeyState function result code.\n         {@link INPUT_SUCCESS} get KeyState success.\\n\n         {@link INPUT_PARAMETER_ERROR} keyCode is invalid.\\n\n @syscap SystemCapability.MultimodalInput.Input.Core\n @since 12"]
     pub fn OH_Input_GetKeyState(keyState: *mut Input_KeyState) -> Input_Result;
 }
 extern "C" {
+    #[doc = " @brief Creates a key status enumeration object.\n\n @return Returns an {@Input_KeyState} pointer object if the operation is successful.\n Otherwise, a null pointer is returned. The possible cause is memory allocation failure.\n @syscap SystemCapability.MultimodalInput.Input.Core\n @since 12"]
     pub fn OH_Input_CreateKeyState() -> *mut Input_KeyState;
 }
 extern "C" {
+    #[doc = " @brief Destroys a key status enumeration object.\n\n @param keyState Key status enumeration object.\n @syscap SystemCapability.MultimodalInput.Input.Core\n @since 12"]
     pub fn OH_Input_DestroyKeyState(keyState: *mut *mut Input_KeyState);
 }
 extern "C" {
+    #[doc = " @brief Sets the key value of a key status enumeration object.\n\n @param keyState Key status enumeration object.\n @param keyCode Key value of the key status enumeration object.\n @syscap SystemCapability.MultimodalInput.Input.Core\n @since 12"]
     pub fn OH_Input_SetKeyCode(keyState: *mut Input_KeyState, keyCode: i32);
 }
 extern "C" {
+    #[doc = " @brief Obtains the key value of a key status enumeration object.\n\n @param keyState Key status enumeration object.\n @return Key value of the key status enumeration object.\n @syscap SystemCapability.MultimodalInput.Input.Core\n @since 12"]
     pub fn OH_Input_GetKeyCode(keyState: *const Input_KeyState) -> i32;
 }
 extern "C" {
+    #[doc = " @brief Sets whether the key specific to a key status enumeration object is pressed.\n\n @param keyState Key status enumeration object.\n @param keyAction Whether the key is pressed.\n @syscap SystemCapability.MultimodalInput.Input.Core\n @since 12"]
     pub fn OH_Input_SetKeyPressed(keyState: *mut Input_KeyState, keyAction: i32);
 }
 extern "C" {
+    #[doc = " @brief Checks whether the key specific to a key status enumeration object is pressed.\n\n @param keyState Key status enumeration object.\n @return Key pressing status of the key status enumeration object.\n @syscap SystemCapability.MultimodalInput.Input.Core\n @since 12"]
     pub fn OH_Input_GetKeyPressed(keyState: *const Input_KeyState) -> i32;
 }
 extern "C" {
+    #[doc = " @brief Sets the key switch of the key status enumeration object.\n\n @param keyState Key status enumeration object.\n @param keySwitch Key switch of the key status enumeration object.\n @syscap SystemCapability.MultimodalInput.Input.Core\n @since 12"]
     pub fn OH_Input_SetKeySwitch(keyState: *mut Input_KeyState, keySwitch: i32);
 }
 extern "C" {
+    #[doc = " @brief Obtains the key switch of the key status enumeration object.\n\n @param keyState Key status enumeration object.\n @return Key switch of the key status enumeration object.\n @syscap SystemCapability.MultimodalInput.Input.Core\n @since 12"]
     pub fn OH_Input_GetKeySwitch(keyState: *const Input_KeyState) -> i32;
 }
 extern "C" {
+    #[doc = " @brief Inject system keys.\n\n @param keyEvent - the key event to be injected.\n @return OH_Input_InjectKeyEvent function result code.\n         {@link INPUT_SUCCESS} inject keyEvent success.\\n\n         {@link INPUT_PERMISSION_DENIED} Permission verification failed.\\n\n         {@link INPUT_PARAMETER_ERROR} keyCode is less 0, can not process.\\n\n @syscap SystemCapability.MultimodalInput.Input.Core\n @since 12"]
     pub fn OH_Input_InjectKeyEvent(keyEvent: *const Input_KeyEvent) -> i32;
 }
 extern "C" {
+    #[doc = " @brief Creates a key event object.\n\n @return Returns an {@link Input_KeyEvent} pointer object if the operation is successful.\n Otherwise, a null pointer is returned. The possible cause is memory allocation failure.\n @syscap SystemCapability.MultimodalInput.Input.Core\n @since 12"]
     pub fn OH_Input_CreateKeyEvent() -> *mut Input_KeyEvent;
 }
 extern "C" {
+    #[doc = " @brief Destroys a key event object.\n\n @param keyEvent Key event object.\n @syscap SystemCapability.MultimodalInput.Input.Core\n @since 12"]
     pub fn OH_Input_DestroyKeyEvent(keyEvent: *mut *mut Input_KeyEvent);
 }
 extern "C" {
+    #[doc = " @brief Sets the key event type.\n\n @param keyEvent Key event object.\n @param action Key event type.\n @syscap SystemCapability.MultimodalInput.Input.Core\n @since 12"]
     pub fn OH_Input_SetKeyEventAction(keyEvent: *mut Input_KeyEvent, action: i32);
 }
 extern "C" {
+    #[doc = " @brief Obtains the key event type.\n\n @param keyEvent Key event object.\n @return Key event type.\n @syscap SystemCapability.MultimodalInput.Input.Core\n @since 12"]
     pub fn OH_Input_GetKeyEventAction(keyEvent: *const Input_KeyEvent) -> i32;
 }
 extern "C" {
+    #[doc = " @brief Sets the key value for a key event.\n\n @param keyEvent Key event object.\n @param keyCode keyCode Key code.\n @syscap SystemCapability.MultimodalInput.Input.Core\n @since 12"]
     pub fn OH_Input_SetKeyEventKeyCode(keyEvent: *mut Input_KeyEvent, keyCode: i32);
 }
 extern "C" {
+    #[doc = " @brief Obtains the key value of a key event.\n\n @param keyEvent Key event object.\n @return Key code.\n @syscap SystemCapability.MultimodalInput.Input.Core\n @since 12"]
     pub fn OH_Input_GetKeyEventKeyCode(keyEvent: *const Input_KeyEvent) -> i32;
 }
 extern "C" {
+    #[doc = " @brief Sets the time when a key event occurs.\n\n @param keyEvent Key event object.\n @param actionTime Time when the key event occurs.\n @syscap SystemCapability.MultimodalInput.Input.Core\n @since 12"]
     pub fn OH_Input_SetKeyEventActionTime(keyEvent: *mut Input_KeyEvent, actionTime: i64);
 }
 extern "C" {
+    #[doc = " @brief Obtains the time when a key event occurs.\n\n @param keyEvent Key event object.\n @return Returns the time when the key event occurs.\n @syscap SystemCapability.MultimodalInput.Input.Core\n @since 12"]
     pub fn OH_Input_GetKeyEventActionTime(keyEvent: *const Input_KeyEvent) -> i64;
 }
 extern "C" {
+    #[doc = " @brief Inject mouse event.\n\n @param mouseEvent - the mouse event to be injected.\n @return OH_Input_InjectMouseEvent function result code.\n         {@link INPUT_SUCCESS} inject mouseEvent success.\\n\n         {@link INPUT_PERMISSION_DENIED} Permission verification failed.\\n\n         {@link INPUT_PARAMETER_ERROR} Parameter check failed.\\n\n @syscap SystemCapability.MultimodalInput.Input.Core\n @since 12"]
     pub fn OH_Input_InjectMouseEvent(mouseEvent: *const Input_MouseEvent) -> i32;
 }
 extern "C" {
+    #[doc = " @brief Creates a mouse event object.\n\n @return Returns an {@link Input_MouseEvent} pointer object if the operation is successful.\n Otherwise, a null pointer is returned. The possible cause is memory allocation failure.\n @syscap SystemCapability.MultimodalInput.Input.Core\n @since 12"]
     pub fn OH_Input_CreateMouseEvent() -> *mut Input_MouseEvent;
 }
 extern "C" {
+    #[doc = " @brief Destroys a mouse event object.\n\n @param mouseEvent Mouse event object.\n @syscap SystemCapability.MultimodalInput.Input.Core\n @since 12"]
     pub fn OH_Input_DestroyMouseEvent(mouseEvent: *mut *mut Input_MouseEvent);
 }
 extern "C" {
+    #[doc = " @brief Sets the action for a mouse event.\n\n @param mouseEvent Mouse event object.\n @param action Mouse action.\n @syscap SystemCapability.MultimodalInput.Input.Core\n @since 12"]
     pub fn OH_Input_SetMouseEventAction(mouseEvent: *mut Input_MouseEvent, action: i32);
 }
 extern "C" {
+    #[doc = " @brief Obtains the action of a mouse event.\n\n @param mouseEvent Mouse event object.\n @return Mouse action.\n @syscap SystemCapability.MultimodalInput.Input.Core\n @since 12"]
     pub fn OH_Input_GetMouseEventAction(mouseEvent: *const Input_MouseEvent) -> i32;
 }
 extern "C" {
+    #[doc = " @brief Sets the X coordinate for a mouse event.\n\n @param mouseEvent Mouse event object.\n @param displayX  X coordinate on the display.\n @syscap SystemCapability.MultimodalInput.Input.Core\n @since 12"]
     pub fn OH_Input_SetMouseEventDisplayX(mouseEvent: *mut Input_MouseEvent, displayX: i32);
 }
 extern "C" {
+    #[doc = " @brief Obtains the X coordinate of a mouse event.\n\n @param mouseEvent Mouse event object.\n @return X coordinate on the display.\n @syscap SystemCapability.MultimodalInput.Input.Core\n @since 12"]
     pub fn OH_Input_GetMouseEventDisplayX(mouseEvent: *const Input_MouseEvent) -> i32;
 }
 extern "C" {
+    #[doc = " @brief Sets the Y coordinate for a mouse event.\n\n @param mouseEvent Mouse event object.\n @param displayY Y coordinate on the display.\n @syscap SystemCapability.MultimodalInput.Input.Core\n @since 12"]
     pub fn OH_Input_SetMouseEventDisplayY(mouseEvent: *mut Input_MouseEvent, displayY: i32);
 }
 extern "C" {
+    #[doc = " @brief Obtains the Y coordinate of a mouse event.\n\n @param mouseEvent Mouse event object.\n @return Y coordinate on the display.\n @syscap SystemCapability.MultimodalInput.Input.Core\n @since 12"]
     pub fn OH_Input_GetMouseEventDisplayY(mouseEvent: *const Input_MouseEvent) -> i32;
 }
 extern "C" {
+    #[doc = " @brief Sets the button for a mouse event.\n\n @param mouseEvent Mouse event object.\n @param button Mouse button.\n @syscap SystemCapability.MultimodalInput.Input.Core\n @since 12"]
     pub fn OH_Input_SetMouseEventButton(mouseEvent: *mut Input_MouseEvent, button: i32);
 }
 extern "C" {
+    #[doc = " @brief Obtains the button of a mouse event.\n\n @param mouseEvent Mouse event object.\n @return Mouse button.\n @syscap SystemCapability.MultimodalInput.Input.Core\n @since 12"]
     pub fn OH_Input_GetMouseEventButton(mouseEvent: *const Input_MouseEvent) -> i32;
 }
 extern "C" {
+    #[doc = " @brief Sets the axis type for mouse event.\n\n @param mouseEvent Mouse event object.\n @param axisType Axis type, for example, X axis or Y axis.\n @syscap SystemCapability.MultimodalInput.Input.Core\n @since 12"]
     pub fn OH_Input_SetMouseEventAxisType(mouseEvent: *mut Input_MouseEvent, axisType: i32);
 }
 extern "C" {
+    #[doc = " @brief Obtains the axis type of a mouse event.\n\n @param mouseEvent Mouse event object.\n @return Axis type.\n @syscap SystemCapability.MultimodalInput.Input.Core\n @since 12"]
     pub fn OH_Input_GetMouseEventAxisType(mouseEvent: *const Input_MouseEvent) -> i32;
 }
 extern "C" {
+    #[doc = " @brief Sets the axis value for a mouse axis event.\n\n @param mouseEvent Mouse event object.\n @param axisValue Axis value. A positive value means scrolling forward,\n and a negative number means scrolling backward.\n @syscap SystemCapability.MultimodalInput.Input.Core\n @since 12"]
     pub fn OH_Input_SetMouseEventAxisValue(mouseEvent: *mut Input_MouseEvent, axisValue: f32);
 }
 extern "C" {
+    #[doc = " @brief Obtains the axis value of a mouse event.\n\n @param mouseEvent Mouse event object.\n @return Axis value.\n @syscap SystemCapability.MultimodalInput.Input.Core\n @since 12"]
     pub fn OH_Input_GetMouseEventAxisValue(mouseEvent: *const Input_MouseEvent) -> f32;
 }
 extern "C" {
+    #[doc = " @brief Sets the time when a mouse event occurs.\n\n @param mouseEvent Mouse event object.\n @param actionTime Time when the mouse event occurs.\n @syscap SystemCapability.MultimodalInput.Input.Core\n @since 12"]
     pub fn OH_Input_SetMouseEventActionTime(mouseEvent: *mut Input_MouseEvent, actionTime: i64);
 }
 extern "C" {
+    #[doc = " @brief Obtains the time when a mouse event occurs.\n\n @param mouseEvent Mouse event object.\n @return Returns the time when the mouse event occurs.\n @syscap SystemCapability.MultimodalInput.Input.Core\n @since 12"]
     pub fn OH_Input_GetMouseEventActionTime(mouseEvent: *const Input_MouseEvent) -> i64;
 }
 extern "C" {
+    #[doc = " @brief Inject touch event.\n\n @param touchEvent - the touch event to be injected.\n @return OH_Input_InjectTouchEvent function result code.\n         {@link INPUT_SUCCESS} inject touchEvent success.\\n\n         {@link INPUT_PARAMETER_ERROR} Parameter check failed.\\n\n @syscap SystemCapability.MultimodalInput.Input.Core\n @since 12"]
     pub fn OH_Input_InjectTouchEvent(touchEvent: *const Input_TouchEvent) -> i32;
 }
 extern "C" {
+    #[doc = " @brief Creates a touch event object.\n\n @return Returns an {@link Input_TouchEvent} pointer object if the operation is successful.\n Otherwise, a null pointer is returned. The possible cause is memory allocation failure.\n @syscap SystemCapability.MultimodalInput.Input.Core\n @since 12"]
     pub fn OH_Input_CreateTouchEvent() -> *mut Input_TouchEvent;
 }
 extern "C" {
+    #[doc = " @brief Destroys a touch event object.\n\n @param touchEvent Touch event object.\n @syscap SystemCapability.MultimodalInput.Input.Core\n @since 12"]
     pub fn OH_Input_DestroyTouchEvent(touchEvent: *mut *mut Input_TouchEvent);
 }
 extern "C" {
+    #[doc = " @brief Sets the action for a touch event.\n\n @param touchEvent Touch event object.\n @param action Touch action.\n @syscap SystemCapability.MultimodalInput.Input.Core\n @since 12"]
     pub fn OH_Input_SetTouchEventAction(touchEvent: *mut Input_TouchEvent, action: i32);
 }
 extern "C" {
+    #[doc = " @brief Obtains the action of a touch event.\n\n @param touchEvent Touch event object.\n @return Touch action.\n @syscap SystemCapability.MultimodalInput.Input.Core\n @since 12"]
     pub fn OH_Input_GetTouchEventAction(touchEvent: *const Input_TouchEvent) -> i32;
 }
 extern "C" {
+    #[doc = " @brief Sets the finger ID for the touch event.\n\n @param touchEvent Touch event object.\n @param id Finger ID.\n @syscap SystemCapability.MultimodalInput.Input.Core\n @since 12"]
     pub fn OH_Input_SetTouchEventFingerId(touchEvent: *mut Input_TouchEvent, id: i32);
 }
 extern "C" {
+    #[doc = " @brief Obtains the finger ID of a touch event.\n\n @param touchEvent Touch event object.\n @return Finger ID.\n @syscap SystemCapability.MultimodalInput.Input.Core\n @since 12"]
     pub fn OH_Input_GetTouchEventFingerId(touchEvent: *const Input_TouchEvent) -> i32;
 }
 extern "C" {
+    #[doc = " @brief Sets the X coordinate for a touch event.\n\n @param touchEvent Touch event object.\n @param displayX X coordinate.\n @syscap SystemCapability.MultimodalInput.Input.Core\n @since 12"]
     pub fn OH_Input_SetTouchEventDisplayX(touchEvent: *mut Input_TouchEvent, displayX: i32);
 }
 extern "C" {
+    #[doc = " @brief Obtains the X coordinate of a touch event.\n\n @param touchEvent Touch event object.\n @return X coordinate.\n @syscap SystemCapability.MultimodalInput.Input.Core\n @since 12"]
     pub fn OH_Input_GetTouchEventDisplayX(touchEvent: *const Input_TouchEvent) -> i32;
 }
 extern "C" {
+    #[doc = " @brief Sets the Y coordinate for a touch event.\n\n @param touchEvent Touch event object.\n @param displayY Y coordinate.\n @syscap SystemCapability.MultimodalInput.Input.Core\n @since 12"]
     pub fn OH_Input_SetTouchEventDisplayY(touchEvent: *mut Input_TouchEvent, displayY: i32);
 }
 extern "C" {
+    #[doc = " @brief Obtains the Y coordinate of a touch event.\n\n @param touchEvent Touch event object.\n @return Y coordinate.\n @syscap SystemCapability.MultimodalInput.Input.Core\n @since 12"]
     pub fn OH_Input_GetTouchEventDisplayY(touchEvent: *const Input_TouchEvent) -> i32;
 }
 extern "C" {
+    #[doc = " @brief Sets the time when a touch event occurs.\n\n @param touchEvent Touch event object.\n @param actionTime Time when the touch event occurs.\n @syscap SystemCapability.MultimodalInput.Input.Core\n @since 12"]
     pub fn OH_Input_SetTouchEventActionTime(touchEvent: *mut Input_TouchEvent, actionTime: i64);
 }
 extern "C" {
+    #[doc = " @brief Obtains the time when a touch event occurs.\n\n @param touchEvent touch event object.\n @return Returns the time when the touch event occurs.\n @syscap SystemCapability.MultimodalInput.Input.Core\n @since 12"]
     pub fn OH_Input_GetTouchEventActionTime(touchEvent: *const Input_TouchEvent) -> i64;
 }
 extern "C" {
+    #[doc = " @brief Cancels event injection and revokes authorization.\n\n @syscap SystemCapability.MultimodalInput.Input.Core\n @since 12"]
     pub fn OH_Input_CancelInjection();
 }
 extern "C" {
+    #[doc = " @brief Creates an axis event object.\n\n @return If the operation is successful, a {@Link Input_AxisEvent} object is returned.\n If the operation fails, null is returned.\n @syscap SystemCapability.MultimodalInput.Input.Core\n @since 12"]
     pub fn OH_Input_CreateAxisEvent() -> *mut Input_AxisEvent;
 }
 extern "C" {
+    #[doc = " @brief Destroys an axis event object.\n\n @param axisEvent Pointer to the axis event object.\n @return OH_Input_DestroyAxisEvent function result code.\n         {@link INPUT_SUCCESS} Destroys axisEvent success.\\n\n         {@link INPUT_PARAMETER_ERROR}The axisEvent is NULL or the *axisEvent is NULL.\\n\n @syscap SystemCapability.MultimodalInput.Input.Core\n @since 12"]
     pub fn OH_Input_DestroyAxisEvent(axisEvent: *mut *mut Input_AxisEvent) -> Input_Result;
 }
 extern "C" {
+    #[doc = " @brief Sets the axis event action.\n\n @param axisEvent Axis event object. For details, see {@Link Input_AxisEvent}.\n @param action Axis event action. The values are defined in {@link InputEvent_AxisAction}.\n @return OH_Input_SetAxisEventAction function result code.\n         {@link INPUT_SUCCESS} Sets the axis event action success.\\n\n         {@link INPUT_PARAMETER_ERROR} The axisEvent is NULL.\\n\n @syscap SystemCapability.MultimodalInput.Input.Core\n @since 12"]
     pub fn OH_Input_SetAxisEventAction(
         axisEvent: *mut Input_AxisEvent,
         action: InputEvent_AxisAction,
     ) -> Input_Result;
 }
 extern "C" {
+    #[doc = " @brief Obtains the axis event action.\n\n @param axisEvent Axis event object. For details, see {@Link Input_AxisEvent}.\n @param action Axis event action. The values are defined in {@link InputEvent_AxisAction}.\n @return OH_Input_GetAxisEventAction function result code.\n         {@link INPUT_SUCCESS} Obtains the axis event action success.\\n\n         {@link INPUT_PARAMETER_ERROR} The axisEvent is NULL or the action is NULL.\\n\n @syscap SystemCapability.MultimodalInput.Input.Core\n @since 12"]
     pub fn OH_Input_GetAxisEventAction(
         axisEvent: *const Input_AxisEvent,
         action: *mut InputEvent_AxisAction,
     ) -> Input_Result;
 }
 extern "C" {
+    #[doc = " @brief Sets the X coordinate of an axis event.\n\n @param axisEvent Axis event object. For details, see {@Link Input_AxisEvent}.\n @param displayX X coordinate of the axis event.\n @return OH_Input_SetAxisEventDisplayX function result code.\n         {@link INPUT_SUCCESS} Sets the X coordinate of the axis event success.\\n\n         {@link INPUT_PARAMETER_ERROR} The axisEvent is NULL.\\n\n @syscap SystemCapability.MultimodalInput.Input.Core\n @since 12"]
     pub fn OH_Input_SetAxisEventDisplayX(
         axisEvent: *mut Input_AxisEvent,
         displayX: f32,
     ) -> Input_Result;
 }
 extern "C" {
+    #[doc = " @brief Obtains the X coordinate of an axis event.\n\n @param axisEvent Axis event object. For details, see {@Link Input_AxisEvent}.\n @param displayX X coordinate of the axis event.\n @return OH_Input_GetAxisEventDisplayX function result code.\n         {@link INPUT_SUCCESS} Obtains the X coordinate of the axis event success.\\n\n         {@link INPUT_PARAMETER_ERROR} The axisEvent is NULL or the displayX is NULL.\\n\n @syscap SystemCapability.MultimodalInput.Input.Core\n @since 12"]
     pub fn OH_Input_GetAxisEventDisplayX(
         axisEvent: *const Input_AxisEvent,
         displayX: *mut f32,
     ) -> Input_Result;
 }
 extern "C" {
+    #[doc = " @brief Sets the Y coordinate of an axis event.\n\n @param axisEvent Axis event object. For details, see {@Link Input_AxisEvent}.\n @param displayY Y coordinate of the axis event.\n @return OH_Input_SetAxisEventDisplayY function result code.\n         {@link INPUT_SUCCESS} Sets the Y coordinate of the axis event success.\\n\n         {@link INPUT_PARAMETER_ERROR} The axisEvent is NULL.\\n\n @syscap SystemCapability.MultimodalInput.Input.Core\n @since 12"]
     pub fn OH_Input_SetAxisEventDisplayY(
         axisEvent: *mut Input_AxisEvent,
         displayY: f32,
     ) -> Input_Result;
 }
 extern "C" {
+    #[doc = " @brief Obtains the Y coordinate of an axis event.\n\n @param axisEvent Axis event object. For details, see {@Link Input_AxisEvent}.\n @param displayY Y coordinate of the axis event.\n @return OH_Input_GetAxisEventDisplayY function result code.\n         {@link INPUT_SUCCESS} Obtains the Y coordinate of the axis event success.\\n\n         {@link INPUT_PARAMETER_ERROR} The axisEvent is NULL or the displayY is NULL.\\n\n @syscap SystemCapability.MultimodalInput.Input.Core\n @since 12"]
     pub fn OH_Input_GetAxisEventDisplayY(
         axisEvent: *const Input_AxisEvent,
         displayY: *mut f32,
     ) -> Input_Result;
 }
 extern "C" {
+    #[doc = " @brief Sets the axis value of the axis type specified by the axis event.\n\n @param axisEvent Axis event object. For details, see {@Link Input_AxisEvent}.\n @param axisType Axis type. The values are defined in {@link InputEvent_AxisType}.\n @param axisValue Axis value.\n @return OH_Input_SetAxisEventAxisValue function result code.\n         {@link INPUT_SUCCESS} Sets the axis value of the axis event success.\\n\n         {@link INPUT_PARAMETER_ERROR} The axisEvent is NULL.\\n\n @syscap SystemCapability.MultimodalInput.Input.Core\n @since 12"]
     pub fn OH_Input_SetAxisEventAxisValue(
         axisEvent: *mut Input_AxisEvent,
         axisType: InputEvent_AxisType,
@@ -468,6 +742,7 @@ extern "C" {
     ) -> Input_Result;
 }
 extern "C" {
+    #[doc = " @brief Obtains the axis value for the specified axis type of the axis event.\n\n @param axisEvent Axis event object. For details, see {@Link Input_AxisEvent}.\n @param axisType Axis type. The values are defined in {@link InputEvent_AxisType}.\n @param axisValue Axis value.\n @return OH_Input_GetAxisEventAxisValue function result code.\n         {@link INPUT_SUCCESS} Obtains the axis value of the axis event success.\\n\n         {@link INPUT_PARAMETER_ERROR} The axisEvent is NULL or the axisValue is NULL,\n         or the axisType not found in the axisEvent.\\n\n @syscap SystemCapability.MultimodalInput.Input.Core\n @since 12"]
     pub fn OH_Input_GetAxisEventAxisValue(
         axisEvent: *const Input_AxisEvent,
         axisType: InputEvent_AxisType,
@@ -475,109 +750,134 @@ extern "C" {
     ) -> Input_Result;
 }
 extern "C" {
+    #[doc = " @brief Sets the time when an axis event occurs.\n\n @param axisEvent Axis event object. For details, see {@Link Input_AxisEvent}.\n @param actionTime Time when an axis event occurs.\n @return OH_Input_SetAxisEventActionTime function result code.\n         {@link INPUT_SUCCESS} Sets the time when an axis event occurs success.\\n\n         {@link INPUT_PARAMETER_ERROR} The axisEvent is NULL.\\n\n @syscap SystemCapability.MultimodalInput.Input.Core\n @since 12"]
     pub fn OH_Input_SetAxisEventActionTime(
         axisEvent: *mut Input_AxisEvent,
         actionTime: i64,
     ) -> Input_Result;
 }
 extern "C" {
+    #[doc = " @brief Obtains the time when an axis event occurs.\n\n @param axisEvent Axis event object. For details, see {@Link Input_AxisEvent}.\n @param actionTime Time when an axis event occurs.\n @return OH_Input_GetAxisEventActionTime function result code.\n         {@link INPUT_SUCCESS} Obtains the time when an axis event occurs success.\\n\n         {@link INPUT_PARAMETER_ERROR} The axisEvent is NULL or the actionTime is NULL.\\n\n @syscap SystemCapability.MultimodalInput.Input.Core\n @since 12"]
     pub fn OH_Input_GetAxisEventActionTime(
         axisEvent: *const Input_AxisEvent,
         actionTime: *mut i64,
     ) -> Input_Result;
 }
 extern "C" {
+    #[doc = " @brief Sets the axis event type.\n\n @param axisEvent Axis event object. For details, see {@Link Input_AxisEvent}.\n @param axisEventType Axis event type. The values are defined in {@link InputEvent_AxisEventType}.\n @return OH_Input_SetAxisEventType function result code.\n         {@link INPUT_SUCCESS} Sets the axis event type success.\\n\n         {@link INPUT_PARAMETER_ERROR} The axisEvent is NULL.\\n\n @syscap SystemCapability.MultimodalInput.Input.Core\n @since 12"]
     pub fn OH_Input_SetAxisEventType(
         axisEvent: *mut Input_AxisEvent,
         axisEventType: InputEvent_AxisEventType,
     ) -> Input_Result;
 }
 extern "C" {
+    #[doc = " @brief Obtains the axis event type.\n\n @param axisEvent Axis event object.\n @param axisEventType Axis event type. The values are defined in {@link InputEvent_AxisEventType}.\n @return OH_Input_GetAxisEventType function result code.\n         {@link INPUT_SUCCESS} Obtains the axis event type success.\\n\n         {@Link INPUT_PARAMETER_ERROR} The axisEvent is NULL or the axisEventType is NULL.\\n\n @syscap SystemCapability.MultimodalInput.Input.Core\n @since 12"]
     pub fn OH_Input_GetAxisEventType(
         axisEvent: *const Input_AxisEvent,
         axisEventType: *mut InputEvent_AxisEventType,
     ) -> Input_Result;
 }
 extern "C" {
+    #[doc = " @brief Sets the axis event source type.\n\n @param axisEvent Axis event object.\n @param sourceType Axis event source type. The values are defined in {@link InputEvent_SourceType}.\n @return OH_Input_SetAxisEventSourceType function result code.\n         {@link INPUT_SUCCESS} Sets the axis event source type success.\\n\n         {@link INPUT_PARAMETER_ERROR} The axisEvent is NULL.\\n\n @syscap SystemCapability.MultimodalInput.Input.Core\n @since 12"]
     pub fn OH_Input_SetAxisEventSourceType(
         axisEvent: *mut Input_AxisEvent,
         sourceType: InputEvent_SourceType,
     ) -> Input_Result;
 }
 extern "C" {
+    #[doc = " @brief Obtains the axis event source type.\n\n @param axisEvent Axis event object.\n @param sourceType Axis event source type. The values are defined in {@link InputEvent_SourceType}.\n @return OH_Input_GetAxisEventSourceType function result code.\n         {@link INPUT_SUCCESS} Obtains the axis event source type success.\\n\n         {@link INPUT_PARAMETER_ERROR} The axisEvent is NULL or the sourceType is NULL.\\n\n @syscap SystemCapability.MultimodalInput.Input.Core\n @since 12"]
     pub fn OH_Input_GetAxisEventSourceType(
         axisEvent: *const Input_AxisEvent,
         sourceType: *mut InputEvent_SourceType,
     ) -> Input_Result;
 }
 extern "C" {
+    #[doc = " @brief Adds a listener of key events.\n\n @permission ohos.permission.INPUT_MONITORING\n @param callback - Callback used to receive key events.\n @return OH_Input_AddKeyEventMonitor function result code.\n         {@link INPUT_SUCCESS} Adds a listener of key events success.\\n\n         {@link INPUT_PERMISSION_DENIED} Permission verification failed.\\n\n         {@link INPUT_PARAMETER_ERROR} The callback is NULL.\\n\n         {@link INPUT_SERVICE_EXCEPTION} Failed to add the monitor because the service is exception.\\n\n @syscap SystemCapability.MultimodalInput.Input.Core\n @since 12"]
     pub fn OH_Input_AddKeyEventMonitor(callback: Input_KeyEventCallback) -> Input_Result;
 }
 extern "C" {
+    #[doc = " @brief Adds a listener for mouse events, including mouse click and movement events,\n but not scroll wheel events. Scroll wheel events are axis events.\n\n @permission ohos.permission.INPUT_MONITORING\n @param callback - Callback used to receive mouse events.\n @return OH_Input_AddMouseEventMonitor function result code.\n         {@link INPUT_SUCCESS} Adds a listener of mouse events success.\\n\n         {@link INPUT_PERMISSION_DENIED} Permission verification failed.\\n\n         {@link INPUT_PARAMETER_ERROR} The callback is NULL.\\n\n         {@link INPUT_SERVICE_EXCEPTION} Failed to add the monitor because the service is exception.\\n\n @syscap SystemCapability.MultimodalInput.Input.Core\n @since 12"]
     pub fn OH_Input_AddMouseEventMonitor(callback: Input_MouseEventCallback) -> Input_Result;
 }
 extern "C" {
+    #[doc = " @brief Add a listener for touch events.\n\n @permission ohos.permission.INPUT_MONITORING\n @param callback - Callback used to receive touch events.\n @return OH_Input_AddTouchEventMonitor function result code.\n         {@link INPUT_SUCCESS} Adds a listener of touch events success.\\n\n         {@link INPUT_PERMISSION_DENIED} Permission verification failed.\\n\n         {@link INPUT_PARAMETER_ERROR} The callback is NULL.\\n\n         {@link INPUT_SERVICE_EXCEPTION} Failed to add the monitor because the service is exception.\\n\n @syscap SystemCapability.MultimodalInput.Input.Core\n @since 12"]
     pub fn OH_Input_AddTouchEventMonitor(callback: Input_TouchEventCallback) -> Input_Result;
 }
 extern "C" {
+    #[doc = " @brief Adds a listener for all types of axis events.\n The axis event types are defined in {@Link InputEvent_AxisEventType}.\n\n @permission ohos.permission.INPUT_MONITORING\n @param callback - Callback used to receive axis events.\n @return OH_Input_AddAxisEventMonitorForAll function result code.\n         {@link INPUT_SUCCESS} Adds a listener for all types of axis events success.\\n\n         {@link INPUT_PERMISSION_DENIED} Permission verification failed.\\n\n         {@link INPUT_PARAMETER_ERROR} The callback is NULL.\\n\n         {@link INPUT_SERVICE_EXCEPTION} Failed to add the monitor because the service is exception.\\n\n @syscap SystemCapability.MultimodalInput.Input.Core\n @since 12"]
     pub fn OH_Input_AddAxisEventMonitorForAll(callback: Input_AxisEventCallback) -> Input_Result;
 }
 extern "C" {
+    #[doc = " @brief Adds a listener for the specified type of axis events.\n\n @permission ohos.permission.INPUT_MONITORING\n @param axisEventType - Axis event type. The values are defined in {@Link InputEvent_AxisEventType}.\n @param callback - Callback used to receive the specified type of axis events.\n @return OH_Input_AddAxisEventMonitor function result code.\n         {@link INPUT_SUCCESS} Adds a listener for the specified types of axis events success.\\n\n         {@link INPUT_PERMISSION_DENIED} Permission verification failed.\\n\n         {@link INPUT_PARAMETER_ERROR} The callback is NULL.\\n\n         {@link INPUT_SERVICE_EXCEPTION} Failed to add the monitor because the service is exception.\\n\n @syscap SystemCapability.MultimodalInput.Input.Core\n @since 12"]
     pub fn OH_Input_AddAxisEventMonitor(
         axisEventType: InputEvent_AxisEventType,
         callback: Input_AxisEventCallback,
     ) -> Input_Result;
 }
 extern "C" {
+    #[doc = " @brief Removes a key event listener.\n\n @permission ohos.permission.INPUT_MONITORING\n @param callback - Callback for the key event listener.\n @return OH_Input_RemoveKeyEventMonitor function result code.\n         {@link INPUT_SUCCESS} Removes a key event listener success.\\n\n         {@link INPUT_PERMISSION_DENIED} Permission verification failed.\\n\n         {@link INPUT_PARAMETER_ERROR} The callback is NULL or has not been added.\\n\n         {@link INPUT_SERVICE_EXCEPTION} Fail to remove the monitor because the service is exception.\\n\n @syscap SystemCapability.MultimodalInput.Input.Core\n @since 12"]
     pub fn OH_Input_RemoveKeyEventMonitor(callback: Input_KeyEventCallback) -> Input_Result;
 }
 extern "C" {
+    #[doc = " @brief Removes a mouse event listener.\n\n @permission ohos.permission.INPUT_MONITORING\n @param callback - Callback for the mouse event listener.\n @return OH_Input_RemoveMouseEventMonitor function result code.\n         {@link INPUT_SUCCESS} Removes a mouse event listener success.\\n\n         {@link INPUT_PERMISSION_DENIED} Permission verification failed.\\n\n         {@link INPUT_PARAMETER_ERROR} The callback is NULL or has not been added.\\n\n         {@link INPUT_SERVICE_EXCEPTION} Fail to remove the monitor because the service is exception.\\n\n @syscap SystemCapability.MultimodalInput.Input.Core\n @since 12"]
     pub fn OH_Input_RemoveMouseEventMonitor(callback: Input_MouseEventCallback) -> Input_Result;
 }
 extern "C" {
+    #[doc = " @brief Removes a touch event listener.\n\n @permission ohos.permission.INPUT_MONITORING\n @param callback - Callback for the touch event listener.\n @return OH_Input_RemoveTouchEventMonitor function result code.\n         {@link INPUT_SUCCESS} Removes a touch event listener success.\\n\n         {@link INPUT_PERMISSION_DENIED} Permission verification failed.\\n\n         {@link INPUT_PARAMETER_ERROR} The callback is NULL or has not been added.\\n\n         {@link INPUT_SERVICE_EXCEPTION} Fail to remove the monitor because the service is exception.\\n\n @syscap SystemCapability.MultimodalInput.Input.Core\n @since 12"]
     pub fn OH_Input_RemoveTouchEventMonitor(callback: Input_TouchEventCallback) -> Input_Result;
 }
 extern "C" {
+    #[doc = " @brief Removes the listener for all types of axis events.\n\n @permission ohos.permission.INPUT_MONITORING\n @param callback - Callback for the listener used to listen for all types of axis events.\n @return OH_Input_RemoveAxisEventMonitorForAll function result code.\n         {@link INPUT_SUCCESS} Removes the listener for all types of axis events success.\\n\n         {@link INPUT_PERMISSION_DENIED} Permission verification failed.\\n\n         {@link INPUT_PARAMETER_ERROR} The callback is NULL or has not been added.\\n\n         {@link INPUT_SERVICE_EXCEPTION} Fail to remove the monitor because the service is exception.\\n\n @syscap SystemCapability.MultimodalInput.Input.Core\n @since 12"]
     pub fn OH_Input_RemoveAxisEventMonitorForAll(callback: Input_AxisEventCallback)
         -> Input_Result;
 }
 extern "C" {
+    #[doc = " @brief Removes the listener for the specified type of axis events.\n\n @permission ohos.permission.INPUT_MONITORING\n @param axisEventType - Axis event type. The axis event type is defined in {@Link InputEvent_AxisEventType}.\n @param callback - Callback for the listener used to listen for the specified type of axis events.\n @return OH_Input_RemoveAxisEventMonitor function result code.\n         {@link INPUT_SUCCESS} Removes the listener for the specified type of axis events success.\\n\n         {@link INPUT_PERMISSION_DENIED} Permission verification failed.\\n\n         {@link INPUT_PARAMETER_ERROR} The callback is NULL or has not been added.\\n\n         {@link INPUT_SERVICE_EXCEPTION} Fail to remove the monitor because the service is exception.\\n\n @syscap SystemCapability.MultimodalInput.Input.Core\n @since 12"]
     pub fn OH_Input_RemoveAxisEventMonitor(
         axisEventType: InputEvent_AxisEventType,
         callback: Input_AxisEventCallback,
     ) -> Input_Result;
 }
 extern "C" {
+    #[doc = " @brief Adds a key event interceptor. If multiple interceptors are added, only the first one takes effect.\n\n @permission ohos.permission.INTERCEPT_INPUT_EVENT\n @param callback - Callback used to receive key events.\n @param option - Options for event interception. If **null** is passed, the default value is used.\n @return OH_Input_AddKeyEventInterceptor function result code.\n         {@link INPUT_SUCCESS} Adds a key event interceptor success.\\n\n         {@link INPUT_PERMISSION_DENIED} Permission verification failed.\\n\n         {@link INPUT_PARAMETER_ERROR} The callback is NULL.\\n\n         {@link INPUT_REPEAT_INTERCEPTOR} Interceptor repeatedly created for an application.\\n\n         {@link INPUT_SERVICE_EXCEPTION} Failed to add the interceptor because the service is exception.\\n\n @syscap SystemCapability.MultimodalInput.Input.Core\n @since 12"]
     pub fn OH_Input_AddKeyEventInterceptor(
         callback: Input_KeyEventCallback,
         option: *mut Input_InterceptorOptions,
     ) -> Input_Result;
 }
 extern "C" {
+    #[doc = " @brief Adds an interceptor for input events, including mouse, touch, and axis events.\n If multiple interceptors are added, only the first one takes effect.\n\n @permission ohos.permission.INTERCEPT_INPUT_EVENT\n @param callback - Pointer to the structure of the callback for the input event interceptor.\n For details, see {@Link Input_InterceptorEventCallback}.\n @param option - Options for event interception. If **null** is passed, the default value is used.\n @return OH_Input_AddInputEventInterceptor function result code.\n         {@link INPUT_SUCCESS} Adds an interceptor for input events success.\\n\n         {@link INPUT_PERMISSION_DENIED} Permission verification failed.\\n\n         {@link INPUT_PARAMETER_ERROR} The callback is NULL.\\n\n         {@link INPUT_REPEAT_INTERCEPTOR} Interceptor repeatedly created for an application.\\n\n         {@link INPUT_SERVICE_EXCEPTION} Failed to add the interceptor because the service is exception.\\n\n @syscap SystemCapability.MultimodalInput.Input.Core\n @since 12"]
     pub fn OH_Input_AddInputEventInterceptor(
         callback: *mut Input_InterceptorEventCallback,
         option: *mut Input_InterceptorOptions,
     ) -> Input_Result;
 }
 extern "C" {
+    #[doc = " @brief Removes a key event interceptor.\n\n @permission ohos.permission.INTERCEPT_INPUT_EVENT\n @return OH_Input_RemoveKeyEventInterceptor function result code.\n         {@link INPUT_SUCCESS}Removes a key event interceptor success.\\n\n         {@link INPUT_PERMISSION_DENIED} Permission verification failed.\\n\n         {@link INPUT_SERVICE_EXCEPTION} Failed to remove the interceptor because the service is exception.\\n\n @syscap SystemCapability.MultimodalInput.Input.Core\n @since 12"]
     pub fn OH_Input_RemoveKeyEventInterceptor() -> Input_Result;
 }
 extern "C" {
+    #[doc = " @brief Removes an interceptor for input events, including mouse, touch, and axis events.\n\n @permission ohos.permission.INTERCEPT_INPUT_EVENT\n @return OH_Input_RemoveInputEventInterceptor function result code.\n         {@link INPUT_SUCCESS} Removes an interceptor for input events success.\\n\n         {@link INPUT_PERMISSION_DENIED} Permission verification failed.\\n\n         {@link INPUT_SERVICE_EXCEPTION} Failed to remove the interceptor because the service is exception.\\n\n @syscap SystemCapability.MultimodalInput.Input.Core\n @since 12"]
     pub fn OH_Input_RemoveInputEventInterceptor() -> Input_Result;
 }
 extern "C" {
+    #[doc = " @brief Obtains the interval since the last system input event.\n\n @param timeInterval Interval, in microseconds.\n @return OH_Input_GetIntervalSinceLastInput status code, specifically.\n         {@Link INPUT_SUCCESS} if the Operation is successful.\\n\n         {@Link INPUT_SERVICE_EXCEPTION} Failed to get the interval because the service is exception.\\n\n         {@Link INPUT_PARAMETER_ERROR} The timeInterval is NULL.\\n\n @syscap SystemCapability.MultimodalInput.Input.Core\n @since 14"]
     pub fn OH_Input_GetIntervalSinceLastInput(timeInterval: *mut i64) -> Input_Result;
 }
 extern "C" {
+    #[doc = " @brief Creates a hot key object.\n\n @return Returns an {@Link Input_Hotkey} pointer object if the operation is successful. Otherwise, a null pointer is\n returned. The possible cause is memory allocation failure.\n @syscap SystemCapability.MultimodalInput.Input.Core\n @since 14"]
     pub fn OH_Input_CreateHotkey() -> *mut Input_Hotkey;
 }
 extern "C" {
+    #[doc = " @brief Destroys a hot key object.\n\n @param hotkey Hot key object.\n @syscap SystemCapability.MultimodalInput.Input.Core\n @since 14"]
     pub fn OH_Input_DestroyHotkey(hotkey: *mut *mut Input_Hotkey);
 }
 extern "C" {
+    #[doc = " @brief Sets a modifier key.\n\n @param hotkey Hotkey key object.\n @param preKeys List of modifier keys.\n @param size Number of modifier keys. One or two modifier keys are supported.\n @syscap SystemCapability.MultimodalInput.Input.Core\n @since 14"]
     pub fn OH_Input_SetPreKeys(hotkey: *mut Input_Hotkey, preKeys: *mut i32, size: i32);
 }
 extern "C" {
+    #[doc = " @brief Obtains a modifier key.\n\n @param hotkey Hotkey key object.\n @param preKeys List of modifier keys.\n @param preKeyCount Number of modifier keys.\n @return OH_Input_GetPreKeys status code, specifically,\n         {@link INPUT_SUCCESS} if the operation is successful;\\n\n         {@link INPUT_PARAMETER_ERROR} The hotkey is NULL or the pressedKeys is NULL or the pressedKeyCount\n         is NULL;\\n\n         {@Link INPUT_DEVICE_NOT_SUPPORTED} Capability not supported.\\n\n @syscap SystemCapability.MultimodalInput.Input.Core\n @since 14"]
     pub fn OH_Input_GetPreKeys(
         hotkey: *const Input_Hotkey,
         preKeys: *mut *mut i32,
@@ -585,45 +885,55 @@ extern "C" {
     ) -> Input_Result;
 }
 extern "C" {
+    #[doc = " @brief Sets a modified key.\n\n @param hotkey Hotkey key object.\n @param finalKey Modified key. Only one modified key is supported.\n @syscap SystemCapability.MultimodalInput.Input.Core\n @since 14"]
     pub fn OH_Input_SetFinalKey(hotkey: *mut Input_Hotkey, finalKey: i32);
 }
 extern "C" {
+    #[doc = " @brief Obtains a modified key.\n\n @param hotkey Hotkey key object.\n @param finalKeyCode Returns the key value of the decorated key.\n @return OH_Input_GetfinalKey status code, specifically,\n         {@link INPUT_SUCCESS} if the operation is successful;\\n\n         {@link INPUT_PARAMETER_ERROR} The hotkey is NULL or the finalKeyCode is NULL;\\n\n         {@Link INPUT_DEVICE_NOT_SUPPORTED} Capability not supported.\\n\n @syscap SystemCapability.MultimodalInput.Input.Core\n @since 14"]
     pub fn OH_Input_GetFinalKey(
         hotkey: *const Input_Hotkey,
         finalKeyCode: *mut i32,
     ) -> Input_Result;
 }
 extern "C" {
+    #[doc = " @brief Creates an array of {@Link Input_Hotkey} instances.\n\n @param count Number of {@Link Input_Hotkey} instances to be created. The count must be the same as the number of\n system shortcut keys.\n @return Returns a pointer to an array of {@Link Input_Hotkey} instances if the operation is successful. If the\n operation fails, a null pointer is returned. The possible cause is memory allocation failure or count is not equal\n to the number of system hotkeys.\n @syscap SystemCapability.MultimodalInput.Input.Core\n @since 14"]
     pub fn OH_Input_CreateAllSystemHotkeys(count: i32) -> *mut *mut Input_Hotkey;
 }
 extern "C" {
+    #[doc = " @brief Destroys an array of {@link Input_Hotkey} instances and reclaims memory.\n\n @param hotkeys Pointer to an array of {@Link Input_Hotkey } instances created by the\n {@Link OH_Input_CreateAllSystemHotkeys} method.\n @param count Count of the array to be destroyed, which must be the same as the number of system shortcut keys.\n @syscap SystemCapability.MultimodalInput.Input.Core\n @since 14"]
     pub fn OH_Input_DestroyAllSystemHotkeys(hotkeys: *mut *mut Input_Hotkey, count: i32);
 }
 extern "C" {
+    #[doc = " @brief Obtains all hot keys supported by the system.\n\n @param hotkey Array of {@Link Input_Hotkey} instances.\n When calling this API for the first time, you can pass NULL to obtain the array length.\n @param count Number of hot keys supported by the system.\n @return OH_Input_GetAllSystemHotkeys status code, specifically,\n         {@link INPUT_SUCCESS} if the operation is successful;\\n\n         {@link INPUT_PARAMETER_ERROR} The hotkey or count is NULL, or the value of count does not match the number\n         of system shortcut keys supported by the system;\n         {@Link INPUT_DEVICE_NOT_SUPPORTED} Capability not supported.\\n\n @syscap SystemCapability.MultimodalInput.Input.Core\n @since 14"]
     pub fn OH_Input_GetAllSystemHotkeys(
         hotkey: *mut *mut Input_Hotkey,
         count: *mut i32,
     ) -> Input_Result;
 }
 extern "C" {
+    #[doc = " @brief Specifies whether to report repeated key events.\n\n @param hotkey Shortcut key object.\n @param isRepeat Whether to report repeated key events.\n The value <b>true</b> means to report repeated key events, and the value <b>false</b> means the opposite.\n @syscap SystemCapability.MultimodalInput.Input.Core\n @since 14"]
     pub fn OH_Input_SetRepeat(hotkey: *mut Input_Hotkey, isRepeat: bool);
 }
 extern "C" {
+    #[doc = " @brief Checks whether to report repeated key events.\n\n @param hotkey Shortcut key object.\n @param isRepeat Whether a key event is repeated.\n @return OH_Input_GetIsRepeat status code, specifically,\n         {@link INPUT_SUCCESS} if the operation is successful;\\n\n         {@link INPUT_PARAMETER_ERROR} otherwise;\\n\n         {@Link INPUT_DEVICE_NOT_SUPPORTED} Capability not supported.\\n\n @syscap SystemCapability.MultimodalInput.Input.Core\n @since 14"]
     pub fn OH_Input_GetRepeat(hotkey: *const Input_Hotkey, isRepeat: *mut bool) -> Input_Result;
 }
 extern "C" {
+    #[doc = " @brief Subscribes to shortcut key events.\n\n @param hotkey Shortcut key object.\n @param callback Callback used to return shortcut key events.\n @return OH_Input_AddHotkeyMonitor status code, specifically,\n         {@link INPUT_SUCCESS} if the operation is successful;\\n\n         {@link INPUT_PARAMETER_ERROR} if hotkey or callback is NULL;\\n\n         {@Link INPUT_DEVICE_NOT_SUPPORTED} Capability not supported;\\n\n         {@Link INPUT_OCCUPIED_BY_SYSTEM} The hotkey has been used by the system. You can call the {@Link\n         GetAllSystemHotkeys} interface to query all system shortcut keys.\\n\n         {@Link INPUT_OCCUPIED_BY_OTHER} The hotkey has been subscribed to by another.\\n\n @syscap SystemCapability.MultimodalInput.Input.Core\n @since 14"]
     pub fn OH_Input_AddHotkeyMonitor(
         hotkey: *const Input_Hotkey,
         callback: Input_HotkeyCallback,
     ) -> Input_Result;
 }
 extern "C" {
+    #[doc = " @brief Unsubscribes from shortcut key events.\n\n @param hotkey Shortcut key object.\n @param callback Callback used to return shortcut key events.\n @return OH_Input_RemoveHotkeyMonitor status code, specifically,\n         {@link INPUT_SUCCESS} if the operation is successful;\\n\n         {@link INPUT_PARAMETER_ERROR} if hotkey or callback is NULL;\\n\n         {@Link INPUT_DEVICE_NOT_SUPPORTED} Capability not supported.\\n\n @syscap SystemCapability.MultimodalInput.Input.Core\n @since 14"]
     pub fn OH_Input_RemoveHotkeyMonitor(
         hotkey: *const Input_Hotkey,
         callback: Input_HotkeyCallback,
     ) -> Input_Result;
 }
 extern "C" {
+    #[doc = " @brief Obtains the IDs of all input devices.\n\n @param deviceIds Array of input device IDs.\n @param inSize Size of the array of input device IDs.\n @param outSize Length of the list of input device IDs. The value cannot be greater than the value of inSize.\n @return OH_Input_GetDeviceIds result code, specifically,\n         {@link INPUT_SUCCESS} if the operation is successful;\n         {@link INPUT_PARAMETER_ERROR} if deviceIds or outSize is a null pointer or inSize is less than 0.\n @syscap SystemCapability.MultimodalInput.Input.Core\n @since 13"]
     pub fn OH_Input_GetDeviceIds(
         deviceIds: *mut i32,
         inSize: i32,
@@ -631,65 +941,79 @@ extern "C" {
     ) -> Input_Result;
 }
 extern "C" {
+    #[doc = " @brief Obtains the information about an input device.\n\n @param deviceId Device ID.\n @param deviceInfo Pointer to an {@Link Input_DeviceInfo} object.\n @return OH_Input_GetDevice result code, specifically,\n         {@link INPUT_SUCCESS} if the operation is successful;\n         {@link INPUT_PARAMETER_ERROR} if the deviceInfo is a null pointer or the deviceId is invalid.\n You can use the {@Link OH_Input_GetDeviceIds} interface to query the device IDs supported by the system.\n @syscap SystemCapability.MultimodalInput.Input.Core\n @since 13"]
     pub fn OH_Input_GetDevice(
         deviceId: i32,
         deviceInfo: *mut *mut Input_DeviceInfo,
     ) -> Input_Result;
 }
 extern "C" {
+    #[doc = " @brief Creates a deviceInfo object.\n\n @return Pointer to an {@Link Input_DeviceInfo} object if the operation is successful;\n a null pointer otherwise (possibly because of a memory allocation failure).\n @syscap SystemCapability.MultimodalInput.Input.Core\n @since 13"]
     pub fn OH_Input_CreateDeviceInfo() -> *mut Input_DeviceInfo;
 }
 extern "C" {
+    #[doc = " @brief Destroys a deviceInfo object.\n\n @param deviceInfo information object. For details, see {@Link Input_DeviceInfo}.\n @syscap SystemCapability.MultimodalInput.Input.Core\n @since 13"]
     pub fn OH_Input_DestroyDeviceInfo(deviceInfo: *mut *mut Input_DeviceInfo);
 }
 extern "C" {
+    #[doc = " @brief Obtains the keyboard type of an input device.\n\n @param deviceId Device ID.\n @param keyboardType Pointer to the keyboard type of the input device.\n @return OH_Input_GetKeyboardType result code, specifically,\n         {@link INPUT_SUCCESS} if the operation is successful;\n         {@link INPUT_PARAMETER_ERROR} if the device ID is invalid or keyboardType is a null pointer.\n @syscap SystemCapability.MultimodalInput.Input.Core\n @since 13"]
     pub fn OH_Input_GetKeyboardType(deviceId: i32, keyboardType: *mut i32) -> Input_Result;
 }
 extern "C" {
+    #[doc = " @brief Obtains the ID of an input device.\n\n @param deviceInfo information object. For details, see {@Link Input_DeviceInfo}.\n @param id Pointer to the ID of the input device.\n @return OH_Input_GetDeviceId result code, specifically,\n         {@link INPUT_SUCCESS} if the operation is successful;\n         {@link INPUT_PARAMETER_ERROR} if deviceInfo or id is a null pointer.\n @syscap SystemCapability.MultimodalInput.Input.Core\n @since 13"]
     pub fn OH_Input_GetDeviceId(deviceInfo: *mut Input_DeviceInfo, id: *mut i32) -> Input_Result;
 }
 extern "C" {
+    #[doc = " @brief Obtains the name of an input device.\n\n @param deviceInfo information object. For details, see {@Link Input_DeviceInfo}.\n @param name Pointer to the name of the input device.\n @return OH_Input_GetDeviceName result code, specifically,\n         {@link INPUT_SUCCESS} if the operation is successful;\n         {@link INPUT_PARAMETER_ERROR} if deviceInfo or name is a null pointer.\n @syscap SystemCapability.MultimodalInput.Input.Core\n @since 13"]
     pub fn OH_Input_GetDeviceName(
         deviceInfo: *mut Input_DeviceInfo,
         name: *mut *mut ::std::os::raw::c_char,
     ) -> Input_Result;
 }
 extern "C" {
+    #[doc = " @brief Obtains the capabilities of an input device, for example, a touchscreen, touchpad, or keyboard.\n\n @param deviceInfo information object. For details, see {@Link Input_DeviceInfo}.\n @param capabilities Pointer to the capabilities of the input device.\n @return OH_Input_GetCapabilities result code, specifically,\n         {@link INPUT_SUCCESS} if the operation is successful;\n         {@link INPUT_PARAMETER_ERROR} if deviceInfo or capabilities is a null pointer.\n @syscap SystemCapability.MultimodalInput.Input.Core\n @since 13"]
     pub fn OH_Input_GetCapabilities(
         deviceInfo: *mut Input_DeviceInfo,
         capabilities: *mut i32,
     ) -> Input_Result;
 }
 extern "C" {
+    #[doc = " @brief Obtains the version information of an input device.\n\n @param deviceInfo information object. For details, see {@Link Input_DeviceInfo}.\n @param version Pointer to the version information of the input device.\n @return OH_Input_GetDeviceVersion result code, specifically,\n         {@link INPUT_SUCCESS} if the operation is successful;\n         {@link INPUT_PARAMETER_ERROR} if deviceInfo or version is a null pointer.\n @syscap SystemCapability.MultimodalInput.Input.Core\n @since 13"]
     pub fn OH_Input_GetDeviceVersion(
         deviceInfo: *mut Input_DeviceInfo,
         version: *mut i32,
     ) -> Input_Result;
 }
 extern "C" {
+    #[doc = " @brief Obtains the product information of an input device.\n\n @param deviceInfo information object. For details, see {@Link Input_DeviceInfo}.\n @param product Pointer to the product information of the input device.\n @return OH_Input_GetDeviceProduct result code, specifically,\n         {@link INPUT_SUCCESS} if the operation is successful;\n         {@link INPUT_PARAMETER_ERROR} if deviceInfo or product is a null pointer.\n @syscap SystemCapability.MultimodalInput.Input.Core\n @since 13"]
     pub fn OH_Input_GetDeviceProduct(
         deviceInfo: *mut Input_DeviceInfo,
         product: *mut i32,
     ) -> Input_Result;
 }
 extern "C" {
+    #[doc = " @brief Obtains the vendor information of an input device.\n\n @param deviceInfo information object. For details, see {@Link Input_DeviceInfo}.\n @param vendor Pointer to the vendor information of the input device.\n @return OH_Input_GetDeviceVendor result code, specifically,\n         {@link INPUT_SUCCESS} if the operation is successful;\n         {@link INPUT_PARAMETER_ERROR} if deviceInfo or vendor is a null pointer.\n @syscap SystemCapability.MultimodalInput.Input.Core\n @since 13"]
     pub fn OH_Input_GetDeviceVendor(
         deviceInfo: *mut Input_DeviceInfo,
         vendor: *mut i32,
     ) -> Input_Result;
 }
 extern "C" {
+    #[doc = " @brief Obtains the physical address of an input device.\n\n @param deviceInfo information object. For details, see {@Link Input_DeviceInfo}.\n @param address Pointer to the physical address of the input device.\n @return OH_Input_GetDeviceAddress result code, specifically,\n         {@link INPUT_SUCCESS} if the operation is successful;\n         {@link INPUT_PARAMETER_ERROR} if deviceInfo or address is a null pointer.\n @syscap SystemCapability.MultimodalInput.Input.Core\n @since 13"]
     pub fn OH_Input_GetDeviceAddress(
         deviceInfo: *mut Input_DeviceInfo,
         address: *mut *mut ::std::os::raw::c_char,
     ) -> Input_Result;
 }
 extern "C" {
+    #[doc = " @brief Registers a listener for device hot swap events.\n\n @param listener Pointer to an {@Link Input_DeviceListener} object.\n\n @return OH_Input_RegisterDeviceListener status code, specifically,\n         {@link INPUT_SUCCESS} if the operation is successful;\\n\n         {@link INPUT_PARAMETER_ERROR} if listener is NULL;\n @syscap SystemCapability.MultimodalInput.Input.Core\n @since 13"]
     pub fn OH_Input_RegisterDeviceListener(listener: *mut Input_DeviceListener) -> Input_Result;
 }
 extern "C" {
+    #[doc = " @brief Unregisters the listener for device hot swap events.\n\n @param listener Pointer to the listener for device hot swap events. For details, see {@Link Input_DeviceListener}.\n\n @return OH_Input_UnregisterDeviceListener status code, specifically,\n         {@link INPUT_SUCCESS} if the operation is successful;\\n\n         {@link INPUT_PARAMETER_ERROR} if listener is NULL or no listener is registered;\n         {@link INPUT_SERVICE_EXCEPTION} if the service is abnormal.\n @syscap SystemCapability.MultimodalInput.Input.Core\n @since 13"]
     pub fn OH_Input_UnregisterDeviceListener(listener: *mut Input_DeviceListener) -> Input_Result;
 }
 extern "C" {
+    #[doc = " @brief Unregisters the listener for all device hot swap events.\n\n @return OH_Input_UnregisterDeviceListener status code, specifically,\n         {@link INPUT_SUCCESS} if the operation is successful;\\n\n         {@link INPUT_SERVICE_EXCEPTION} if the service is abnormal.\n @syscap SystemCapability.MultimodalInput.Input.Core\n @since 13"]
     pub fn OH_Input_UnregisterDeviceListeners() -> Input_Result;
 }
