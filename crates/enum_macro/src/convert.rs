@@ -98,6 +98,9 @@ static SPECIAL_WORDS: LazyLock<HashMap<&str, &str>> = LazyLock::new(|| {
         ("AltErase", "ALTERASE"),
         ("SwitchVideoMode", "SWITCHVIDEOMODE"),
         ("RfKill", "RFKILL"),
+        ("UI", "UI"),
+        ("HDR","HDR"),
+        ("SDR","SDR")
     ])
 });
 
