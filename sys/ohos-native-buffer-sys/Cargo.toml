@@ -6,3 +6,4 @@ license     = "MIT OR Apache-2.0"
 description = "OpenHarmony's native buffer binding for rust"
 
 [dependencies]
+ohos-native-window-sys = { workspace = true }

@@ -7,3 +7,4 @@ description = "OpenHarmony's native buffer binding for rust"
 
 [dependencies]
 ohos-native-buffer-sys = { workspace = true }
+ohos-native-window-sys = { workspace = true }
