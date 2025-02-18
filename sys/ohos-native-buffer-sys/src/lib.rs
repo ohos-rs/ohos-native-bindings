@@ -4,6 +4,8 @@
 #![allow(non_upper_case_globals)]
 #![allow(non_camel_case_types)]
 
+use ohos_native_window_sys::*;
+
 #[repr(C)]
 #[derive(Default)]
 pub struct __IncompleteArrayField<T>(::std::marker::PhantomData<T>, [T; 0]);
@@ -204,18 +206,6 @@ pub struct OH_NativeBuffer {
 #[repr(C)]
 #[derive(Debug, Copy, Clone)]
 pub struct OHIPCParcel {
-    _unused: [u8; 0],
-}
-#[doc = " @brief native window.\n @since 8"]
-#[repr(C)]
-#[derive(Debug, Copy, Clone)]
-pub struct NativeWindow {
-    _unused: [u8; 0],
-}
-#[doc = " @brief native window buffer.\n @since 8"]
-#[repr(C)]
-#[derive(Debug, Copy, Clone)]
-pub struct NativeWindowBuffer {
     _unused: [u8; 0],
 }
 #[doc = " @brief define the new type name OHNativeWindow for struct NativeWindow.\n @since 8"]

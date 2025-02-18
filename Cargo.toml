@@ -17,6 +17,8 @@ ohos-display-soloist-binding        = { version = "0.0.1", path = "crates/native
 ohos-input-binding                  = { version = "0.0.1", path = "crates/input" }
 ohos-ime-binding                    = { version = "0.0.1", path = "crates/ime" }
 ohos-display-binding                = { version = "0.0.1", path = "crates/display" }
+ohos-native-window-binding          = { version = "0.0.1", path = "crates/native_window" }
+ohos-native-buffer-binding          = { version = "0.0.1", path = "crates/native_buffer" }
 
 ohos-bundle-sys                 = { version = "0.0.2", path = "sys/ohos-bundle-sys" }
 ohos-init-sys                   = { version = "0.0.2", path = "sys/ohos-init-sys" }
