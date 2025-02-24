@@ -41,6 +41,8 @@ ohos-native-window-sys          = { version = "0.0.1", path = "sys/ohos-native-w
 ohos-native-buffer-sys          = { version = "0.0.1", path = "sys/ohos-native-buffer-sys" }
 ohos-udmf-sys                   = { version = "0.0.1", path = "sys/ohos-udmf-sys" }
 ohos-pasteboard-sys             = { version = "0.0.1", path = "sys/ohos-pasteboard-sys" }
+ohos-image-sys                  = { version = "0.0.1", path = "sys/ohos-image-sys" }
+ohos-image-native-sys           = { version = "0.0.1", path = "sys/ohos-image-native-sys" }
 
 ohos_enum_macro = { version = "0.0.1", path = "crates/enum_macro" }
 
