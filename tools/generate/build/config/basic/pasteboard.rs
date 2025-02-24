@@ -9,6 +9,6 @@ pub const PASTEBOARD: Lazy<SysConfig> = Lazy::new(|| SysConfig {
         "database/pasteboard/oh_pasteboard_err_code.h",
     ],
     white_list: vec!["OH_.*"],
-    block_list: vec![],
-    extra: "",
+    block_list: vec!["OH_Ud.*"],
+    extra: "\n\nuse ohos_udmf_sys::*;",
 });
