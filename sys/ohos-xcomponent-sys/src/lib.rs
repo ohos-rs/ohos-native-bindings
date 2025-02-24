@@ -4,8 +4,8 @@
 #![allow(non_upper_case_globals)]
 #![allow(non_camel_case_types)]
 
-use ohos_arkui_sys::*;
 use ohos_accessibility_sys::*;
+use ohos_arkui_sys::*;
 
 pub const OH_NATIVE_XCOMPONENT_OBJ: &[u8; 26usize] = b"__NATIVE_XCOMPONENT_OBJ__\0";
 pub const OH_NATIVE_XCOMPONENT_MAX_TOUCH_POINTS_NUMBER: u32 = 10;

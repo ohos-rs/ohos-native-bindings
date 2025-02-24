@@ -1,7 +1,7 @@
 #[derive(Debug)]
 pub enum NativeBufferError {
     /// Call system api failed.
-    IntervalError(i32)
+    IntervalError(i32),
 }
 
 impl std::fmt::Display for NativeBufferError {

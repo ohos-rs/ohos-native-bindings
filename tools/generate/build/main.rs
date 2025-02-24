@@ -26,6 +26,10 @@ static CONFIG: Lazy<Vec<Lazy<SysConfig>>> = Lazy::new(|| {
         config::NATIVE_WINDOW,
         config::ACCESSIBILITY,
         config::NATIVE_BUFFER,
+        config::PASTEBOARD,
+        config::UDMF,
+        config::IMAGE_NATIVE,
+        config::IMAGE,
     ]
 });
 

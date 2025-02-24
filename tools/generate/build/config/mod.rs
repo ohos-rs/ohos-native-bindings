@@ -10,10 +10,13 @@ pub(crate) struct SysConfig {
 }
 
 mod ability;
+mod ark_data;
 mod arkui;
 mod asset;
+mod basic;
 mod bundle;
 mod hilog;
+mod image;
 mod init;
 mod input;
 mod input_method;
@@ -24,10 +27,13 @@ mod raw;
 mod vsync;
 
 pub use ability::*;
+pub use ark_data::*;
 pub use arkui::*;
 pub use asset::*;
+pub use basic::*;
 pub use bundle::*;
 pub use hilog::*;
+pub use image::*;
 pub use init::*;
 pub use input::*;
 pub use input_method::*;
