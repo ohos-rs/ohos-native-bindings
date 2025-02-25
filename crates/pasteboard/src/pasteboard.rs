@@ -3,6 +3,7 @@ use std::{ffi::CString, ptr::NonNull};
 use ohos_pasteboard_sys::{
     OH_Pasteboard, OH_Pasteboard_Create, OH_Pasteboard_Destroy, OH_Pasteboard_GetData,
     OH_Pasteboard_HasData, OH_Pasteboard_HasType, OH_Pasteboard_IsRemoteData,
+    OH_Pasteboard_SetData,
 };
 use ohos_udmf_binding::UdmfData;
 
@@ -63,6 +64,14 @@ impl Pasteboard {
 
     pub fn is_remote_data(&self) -> bool {
         unsafe { OH_Pasteboard_IsRemoteData(self.raw.as_ptr()) }
+    }
+
+    pub fn set_data(&self, data: &UdmfData) -> Result<(), PasteboardError> {
+        let ret = unsafe { OH_Pasteboard_SetData(self.raw.as_ptr(), data.raw().as_ptr()) };
+        if ret != 0 {
+            return Err(PasteboardError::IntervalError(ret));
+        }
+        Ok(())
     }
 }
 
