@@ -1,7 +1,8 @@
 use std::ptr::NonNull;
 
 use ohos_udmf_sys::{
-    OH_UdmfRecord, OH_UdmfRecord_AddPlainText, OH_UdmfRecord_Create, OH_UdmfRecord_Destroy,
+    OH_UdmfRecord, OH_UdmfRecord_AddHtml, OH_UdmfRecord_AddPlainText, OH_UdmfRecord_Create,
+    OH_UdmfRecord_Destroy,
 };
 
 use crate::{UdmfError, Uds};
@@ -18,11 +19,23 @@ impl UdmfRecord {
         }
     }
 
+    pub fn from_raw(raw: *mut OH_UdmfRecord) -> Self {
+        Self {
+            raw: NonNull::new(raw).expect("OH_UdmfRecord_Create from a raw ptr failed"),
+        }
+    }
+
     pub fn add(&self, value: Uds) -> Result<(), UdmfError> {
         match value {
             Uds::PlainText(text) => {
                 let ret =
                     unsafe { OH_UdmfRecord_AddPlainText(self.raw.as_ptr(), text.raw.as_ptr()) };
+                if ret != 0 {
+                    return Err(UdmfError::IntervalError(ret));
+                }
+            }
+            Uds::Html(html) => {
+                let ret = unsafe { OH_UdmfRecord_AddHtml(self.raw.as_ptr(), html.raw.as_ptr()) };
                 if ret != 0 {
                     return Err(UdmfError::IntervalError(ret));
                 }

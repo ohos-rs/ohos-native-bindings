@@ -23,6 +23,10 @@ impl UdsPlainText {
         Self { raw }
     }
 
+    pub fn from_raw(raw: *mut OH_UdsPlainText) -> Self {
+        Self { raw: NonNull::new(raw).expect("OH_UdsPlainTextCreate create from a raw pointer failed") }
+    }
+
     pub fn init_with_text<T: AsRef<str>>(&mut self, text: T) -> Result<Self, UdmfError> {
         let ret = UdsPlainText::new();
         ret.set_content(text)?;
@@ -41,12 +45,12 @@ impl UdsPlainText {
     pub fn get_content(&self) -> Result<String, UdmfError> {
         let ret = unsafe { OH_UdsPlainText_GetContent(self.raw.as_ptr()) };
         if ret.is_null() {
-            return Err(UdmfError::IntervalError(-1));
+            return Err(UdmfError::UdsInitError(String::from("OH_UdsPlainText_GetContent call failed")));
         }
         let c_str = unsafe { CStr::from_ptr(ret) };
         let text = c_str
             .to_str()
-            .map_err(|_| UdmfError::IntervalError(-1))?
+            .map_err(|e| UdmfError::CommonError(e.to_string()))?
             .to_string();
         Ok(text)
     }
