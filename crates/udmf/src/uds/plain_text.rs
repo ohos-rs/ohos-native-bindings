@@ -10,6 +10,8 @@ use ohos_udmf_sys::{
 
 use crate::UdmfError;
 
+use super::Uds;
+
 pub struct UdsPlainText {
     pub(crate) raw: NonNull<OH_UdsPlainText>,
 }
@@ -53,5 +55,11 @@ impl UdsPlainText {
 impl Drop for UdsPlainText {
     fn drop(&mut self) {
         unsafe { OH_UdsPlainText_Destroy(self.raw.as_ptr()) }
+    }
+}
+
+impl From<UdsPlainText> for Uds {
+    fn from(value: UdsPlainText) -> Self {
+        Uds::PlainText(value)
     }
 }

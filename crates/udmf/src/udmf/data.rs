@@ -19,6 +19,11 @@ impl UdmfData {
         Self { raw }
     }
 
+    pub fn from_raw(raw: *mut OH_UdmfData) -> Self {
+        let raw = NonNull::new(raw).expect("Create UdmfData from raw failed");
+        Self { raw }
+    }
+
     pub fn create_from_database<T: AsRef<str>>(key: T, intention: UdmfIntention) -> Self {
         let raw = unsafe { OH_UdmfData_Create() };
         #[cfg(debug_assertions)]
