@@ -1,0 +1,13 @@
+[package]
+name        = "ohos-pasteboard-binding"
+version     = "0.0.1"
+edition     = "2021"
+license     = "MIT OR Apache-2.0"
+description = "OpenHarmony's pasteboard binding for rust"
+
+[features]
+api-13 = []
+
+[dependencies]
+ohos-pasteboard-sys = { workspace = true }
+ohos-udmf-binding   = { workspace = true }

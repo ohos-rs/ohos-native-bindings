@@ -4,8 +4,6 @@
 #![allow(non_upper_case_globals)]
 #![allow(non_camel_case_types)]
 
-use ohos_native_window_sys::*;
-
 #[repr(C)]
 #[derive(Default)]
 pub struct __IncompleteArrayField<T>(::std::marker::PhantomData<T>, [T; 0]);
@@ -208,8 +206,12 @@ pub struct OH_NativeBuffer {
 pub struct OHIPCParcel {
     _unused: [u8; 0],
 }
-#[doc = " @brief define the new type name OHNativeWindow for struct NativeWindow.\n @since 8"]
-pub type OHNativeWindow = NativeWindow;
+#[doc = " @brief native window buffer.\n @since 8"]
+#[repr(C)]
+#[derive(Debug, Copy, Clone)]
+pub struct NativeWindowBuffer {
+    _unused: [u8; 0],
+}
 #[doc = " @brief define the new type name OHNativeWindowBuffer for struct NativeWindowBuffer.\n @since 8"]
 pub type OHNativeWindowBuffer = NativeWindowBuffer;
 #[doc = " @brief indicates a dirty region where content is updated.\n @since 8"]
@@ -281,216 +283,6 @@ pub struct OHExtDataHandle {
     pub fd: i32,
     pub reserveInts: u32,
     pub reserve: __IncompleteArrayField<i32>,
-}
-extern "C" {
-    #[doc = " @brief Creates a <b>OHNativeWindow</b> instance. A new <b>OHNativeWindow</b> instance is created each time this function is called.\n\n @syscap SystemCapability.Graphic.Graphic2D.NativeWindow\n @param pSurface Indicates the pointer to a <b>ProduceSurface</b>. The type is a pointer to <b>sptr<OHOS::Surface></b>.\n @return Returns the pointer to the <b>OHNativeWindow</b> instance created.\n @since 8\n @version 1.0\n @deprecated since 12"]
-    pub fn OH_NativeWindow_CreateNativeWindow(
-        pSurface: *mut ::std::os::raw::c_void,
-    ) -> *mut OHNativeWindow;
-}
-extern "C" {
-    #[doc = " @brief Decreases the reference count of a <b>OHNativeWindow</b> instance by 1,\n and when the reference count reaches 0, destroys the instance.\\n\n This interface is a non-thread-safe type interface.\\n\n\n @syscap SystemCapability.Graphic.Graphic2D.NativeWindow\n @param window Indicates the pointer to a <b>OHNativeWindow</b> instance.\n @since 8\n @version 1.0"]
-    pub fn OH_NativeWindow_DestroyNativeWindow(window: *mut OHNativeWindow);
-}
-extern "C" {
-    #[doc = " @brief Creates a <b>OHNativeWindowBuffer</b> instance. A new <b>OHNativeWindowBuffer</b> instance is created each time this function is called.\n\n @syscap SystemCapability.Graphic.Graphic2D.NativeWindow\n @param pSurfaceBuffer Indicates the pointer to a produce buffer. The type is <b>sptr<OHOS::SurfaceBuffer></b>.\n @return Returns the pointer to the <b>OHNativeWindowBuffer</b> instance created.\n @since 8\n @version 1.0\n @deprecated since 12\n @useinstead OH_NativeWindow_CreateNativeWindowBufferFromNativeBuffer"]
-    pub fn OH_NativeWindow_CreateNativeWindowBufferFromSurfaceBuffer(
-        pSurfaceBuffer: *mut ::std::os::raw::c_void,
-    ) -> *mut OHNativeWindowBuffer;
-}
-extern "C" {
-    #[doc = " @brief Creates a <b>OHNativeWindowBuffer</b> instance.\\n\n A new <b>OHNativeWindowBuffer</b> instance is created each time this function is called.\\n\n This interface needs to be used in conjunction with <b>OH_NativeWindow_DestroyNativeWindowBuffer<\\b>,\n otherwise memory leaks will occur.\\n\n This interface is a non-thread-safe type interface.\\n\n\n @syscap SystemCapability.Graphic.Graphic2D.NativeWindow\n @param nativeBuffer Indicates the pointer to a native buffer. The type is <b>OH_NativeBuffer*</b>.\n @return Returns the pointer to the <b>OHNativeWindowBuffer</b> instance created.\n @since 11\n @version 1.0"]
-    pub fn OH_NativeWindow_CreateNativeWindowBufferFromNativeBuffer(
-        nativeBuffer: *mut OH_NativeBuffer,
-    ) -> *mut OHNativeWindowBuffer;
-}
-extern "C" {
-    #[doc = " @brief Decreases the reference count of a <b>OHNativeWindowBuffer</b> instance by 1 and,\n when the reference count reaches 0, destroys the instance.\\n\n This interface is a non-thread-safe type interface.\\n\n\n @syscap SystemCapability.Graphic.Graphic2D.NativeWindow\n @param buffer Indicates the pointer to a <b>OHNativeWindowBuffer</b> instance.\n @since 8\n @version 1.0"]
-    pub fn OH_NativeWindow_DestroyNativeWindowBuffer(buffer: *mut OHNativeWindowBuffer);
-}
-extern "C" {
-    #[doc = " @brief Requests a <b>OHNativeWindowBuffer</b> through a <b>OHNativeWindow</b> instance for content production.\\n\n Before calling this interface, you need to set the width and height of\n <b>OHNativeWindow</b> through <b>SET_BUFFER_GEOMETRY</b>.\\n\n This interface needs to be used in conjunction with <b>OH_NativeWindow_NativeWindowFlushBuffer<\\b>,\n otherwise buffer will be exhausted.\\n\n When the fenceFd is used up, you need to close it.\\n\n This interface is a non-thread-safe type interface.\\n\n\n @syscap SystemCapability.Graphic.Graphic2D.NativeWindow\n @param window Indicates the pointer to a <b>OHNativeWindow</b> instance.\n @param buffer Indicates the double pointer to a <b>OHNativeWindowBuffer</b> instance.\n @param fenceFd Indicates the pointer to a file descriptor handle.\n @return Returns an error code, 0 is success, otherwise, failed.\n @since 8\n @version 1.0"]
-    pub fn OH_NativeWindow_NativeWindowRequestBuffer(
-        window: *mut OHNativeWindow,
-        buffer: *mut *mut OHNativeWindowBuffer,
-        fenceFd: *mut ::std::os::raw::c_int,
-    ) -> i32;
-}
-extern "C" {
-    #[doc = " @brief Flushes the <b>OHNativeWindowBuffer</b> filled with the content to the buffer queue\n through a <b>OHNativeWindow</b> instance for content consumption.\\n\n The fenceFd will be close by system.\\n\n This interface is a non-thread-safe type interface.\\n\n\n @syscap SystemCapability.Graphic.Graphic2D.NativeWindow\n @param window Indicates the pointer to a <b>OHNativeWindow</b> instance.\n @param buffer Indicates the pointer to a <b>OHNativeWindowBuffer</b> instance.\n @param fenceFd Indicates a file descriptor handle, which is used for timing synchronization.\n @param region Indicates a dirty region where content is updated.\n @return Returns an error code, 0 is success, otherwise, failed.\n @since 8\n @version 1.0"]
-    pub fn OH_NativeWindow_NativeWindowFlushBuffer(
-        window: *mut OHNativeWindow,
-        buffer: *mut OHNativeWindowBuffer,
-        fenceFd: ::std::os::raw::c_int,
-        region: Region,
-    ) -> i32;
-}
-extern "C" {
-    #[doc = " @brief Get the last flushed <b>OHNativeWindowBuffer</b> from a <b>OHNativeWindow</b> instance.\n\n @syscap SystemCapability.Graphic.Graphic2D.NativeWindow\n @param window Indicates the pointer to a <b>OHNativeWindow</b> instance.\n @param buffer Indicates the pointer to a <b>OHNativeWindowBuffer</b> pointer.\n @param fenceFd Indicates the pointer to a file descriptor handle.\n @param matrix Indicates the retrieved 4*4 transform matrix.\n @return Returns an error code, 0 is success, otherwise, failed.\n @since 11\n @version 1.0\n @deprecated since 12\n @useinstead OH_NativeWindow_GetLastFlushedBufferV2"]
-    pub fn OH_NativeWindow_GetLastFlushedBuffer(
-        window: *mut OHNativeWindow,
-        buffer: *mut *mut OHNativeWindowBuffer,
-        fenceFd: *mut ::std::os::raw::c_int,
-        matrix: *mut f32,
-    ) -> i32;
-}
-extern "C" {
-    #[doc = " @brief Returns the <b>OHNativeWindowBuffer</b> to the buffer queue through a <b>OHNativeWindow</b> instance,\n without filling in any content. The <b>OHNativeWindowBuffer</b> can be used for another request.\\n\n This interface is a non-thread-safe type interface.\\n\n\n @syscap SystemCapability.Graphic.Graphic2D.NativeWindow\n @param window Indicates the pointer to a <b>OHNativeWindow</b> instance.\n @param buffer Indicates the pointer to a <b>OHNativeWindowBuffer</b> instance.\n @return Returns an error code, 0 is success, otherwise, failed.\n @since 8\n @version 1.0"]
-    pub fn OH_NativeWindow_NativeWindowAbortBuffer(
-        window: *mut OHNativeWindow,
-        buffer: *mut OHNativeWindowBuffer,
-    ) -> i32;
-}
-extern "C" {
-    #[doc = " @brief Sets or obtains the attributes of a native window, including the width, height, and content format.\\n\n This interface is a non-thread-safe type interface.\\n\n\n @syscap SystemCapability.Graphic.Graphic2D.NativeWindow\n @param window Indicates the pointer to a <b>OHNativeWindow</b> instance.\n @param code Indicates the operation code, pointer to <b>NativeWindowOperation</b>.\n @param ... variable parameter, must correspond to code one-to-one.\n @return Returns an error code, 0 is success, otherwise, failed.\n @since 8\n @version 1.0"]
-    pub fn OH_NativeWindow_NativeWindowHandleOpt(
-        window: *mut OHNativeWindow,
-        code: ::std::os::raw::c_int,
-        ...
-    ) -> i32;
-}
-extern "C" {
-    #[doc = " @brief Obtains the pointer to a <b>BufferHandle</b> of a <b>OHNativeWindowBuffer</b> instance.\\n\n This interface is a non-thread-safe type interface.\\n\n\n @syscap SystemCapability.Graphic.Graphic2D.NativeWindow\n @param buffer Indicates the pointer to a <b>OHNativeWindowBuffer</b> instance.\n @return Returns the pointer to the <b>BufferHandle</b> instance obtained.\n @since 8\n @version 1.0"]
-    pub fn OH_NativeWindow_GetBufferHandleFromNative(
-        buffer: *mut OHNativeWindowBuffer,
-    ) -> *mut BufferHandle;
-}
-extern "C" {
-    #[doc = " @brief Adds the reference count of a native object.\\n\n This interface needs to be used in conjunction with <b>OH_NativeWindow_NativeObjectUnreference<\\b>,\n otherwise memory leaks will occur.\\n\n This interface is a non-thread-safe type interface.\\n\n\n @syscap SystemCapability.Graphic.Graphic2D.NativeWindow\n @param obj Indicates the pointer to a <b>OHNativeWindow</b> or <b>OHNativeWindowBuffer</b> instance.\n @return Returns an error code, 0 is success, otherwise, failed.\n @since 8\n @version 1.0"]
-    pub fn OH_NativeWindow_NativeObjectReference(obj: *mut ::std::os::raw::c_void) -> i32;
-}
-extern "C" {
-    #[doc = " @brief Decreases the reference count of a native object and,\n when the reference count reaches 0, destroys this object.\\n\n This interface is a non-thread-safe type interface.\\n\n\n @syscap SystemCapability.Graphic.Graphic2D.NativeWindow\n @param obj Indicates the pointer to a <b>OHNativeWindow</b> or <b>OHNativeWindowBuffer</b> instance.\n @return Returns an error code, 0 is success, otherwise, failed.\n @since 8\n @version 1.0"]
-    pub fn OH_NativeWindow_NativeObjectUnreference(obj: *mut ::std::os::raw::c_void) -> i32;
-}
-extern "C" {
-    #[doc = " @brief Obtains the magic ID of a native object.\\n\n This interface is a non-thread-safe type interface.\\n\n\n @syscap SystemCapability.Graphic.Graphic2D.NativeWindow\n @param obj Indicates the pointer to a <b>OHNativeWindow</b> or <b>OHNativeWindowBuffer</b> instance.\n @return Returns the magic ID, which is unique for each native object.\n @since 8\n @version 1.0"]
-    pub fn OH_NativeWindow_GetNativeObjectMagic(obj: *mut ::std::os::raw::c_void) -> i32;
-}
-extern "C" {
-    #[doc = " @brief Sets scalingMode of a native window.\n\n @syscap SystemCapability.Graphic.Graphic2D.NativeWindow\n @param window Indicates the pointer to a <b>OHNativeWindow</b> instance.\n @param sequence Indicates the sequence to a produce buffer.\n @param scalingMode Indicates the enum value to <b>OHScalingMode</b>\n @return Returns an error code, 0 is success, otherwise, failed.\n @since 9\n @version 1.0\n @deprecated(since = \"10\")"]
-    pub fn OH_NativeWindow_NativeWindowSetScalingMode(
-        window: *mut OHNativeWindow,
-        sequence: u32,
-        scalingMode: OHScalingMode,
-    ) -> i32;
-}
-extern "C" {
-    #[doc = " @brief Sets metaData of a native window.\n\n @syscap SystemCapability.Graphic.Graphic2D.NativeWindow\n @param window Indicates the pointer to a <b>OHNativeWindow</b> instance.\n @param sequence Indicates the sequence to a produce buffer.\n @param size Indicates the size of a <b>OHHDRMetaData</b> vector.\n @param metaDate Indicates the pointer to a <b>OHHDRMetaData</b> vector.\n @return Returns an error code, 0 is success, otherwise, failed.\n @since 9\n @version 1.0\n @deprecated(since = \"10\")"]
-    pub fn OH_NativeWindow_NativeWindowSetMetaData(
-        window: *mut OHNativeWindow,
-        sequence: u32,
-        size: i32,
-        metaData: *const OHHDRMetaData,
-    ) -> i32;
-}
-extern "C" {
-    #[doc = " @brief Sets metaDataSet of a native window.\n\n @syscap SystemCapability.Graphic.Graphic2D.NativeWindow\n @param window Indicates the pointer to a <b>OHNativeWindow</b> instance.\n @param sequence Indicates the sequence to a produce buffer.\n @param key Indicates the enum value to <b>OHHDRMetadataKey</b>\n @param size Indicates the size of a uint8_t vector.\n @param metaDate Indicates the pointer to a uint8_t vector.\n @return Returns an error code, 0 is success, otherwise, failed.\n @since 9\n @version 1.0\n @deprecated(since = \"10\")"]
-    pub fn OH_NativeWindow_NativeWindowSetMetaDataSet(
-        window: *mut OHNativeWindow,
-        sequence: u32,
-        key: OHHDRMetadataKey,
-        size: i32,
-        metaData: *const u8,
-    ) -> i32;
-}
-extern "C" {
-    #[doc = " @brief Sets tunnel handle of a native window.\n\n @syscap SystemCapability.Graphic.Graphic2D.NativeWindow\n @param window Indicates the pointer to a <b>OHNativeWindow</b> instance.\n @param handle Indicates the pointer to a <b>OHExtDataHandle</b>.\n @return Returns an error code, 0 is success, otherwise, failed.\n @since 9\n @version 1.0\n @deprecated(since = \"10\")"]
-    pub fn OH_NativeWindow_NativeWindowSetTunnelHandle(
-        window: *mut OHNativeWindow,
-        handle: *const OHExtDataHandle,
-    ) -> i32;
-}
-extern "C" {
-    #[doc = " @brief Attach a buffer to an <b>OHNativeWindow</b> instance.\\n\n This interface needs to be used in conjunction with <b>OH_NativeWindow_NativeWindowDetachBuffer<\\b>,\n otherwise buffer management will be chaotic.\\n\n This interface is a non-thread-safe type interface.\\n\n\n @syscap SystemCapability.Graphic.Graphic2D.NativeWindow\n @param window Indicates the pointer to an <b>OHNativeWindow</b> instance.\n @param buffer Indicates the pointer to a <b>OHNativeWindowBuffer</b> instance.\n @return Returns an error code, 0 is success, otherwise, failed.\n @since 12\n @version 1.0"]
-    pub fn OH_NativeWindow_NativeWindowAttachBuffer(
-        window: *mut OHNativeWindow,
-        buffer: *mut OHNativeWindowBuffer,
-    ) -> i32;
-}
-extern "C" {
-    #[doc = " @brief Detach a buffer from an <b>OHNativeWindow</b> instance.\\n\n This interface is a non-thread-safe type interface.\\n\n\n @syscap SystemCapability.Graphic.Graphic2D.NativeWindow\n @param window Indicates the pointer to an <b>OHNativeWindow</b> instance.\n @param buffer Indicates the pointer to a <b>OHNativeWindowBuffer</b> instance.\n @return Returns an error code, 0 is success, otherwise, failed.\n @since 12\n @version 1.0"]
-    pub fn OH_NativeWindow_NativeWindowDetachBuffer(
-        window: *mut OHNativeWindow,
-        buffer: *mut OHNativeWindowBuffer,
-    ) -> i32;
-}
-extern "C" {
-    #[doc = " @brief Get surfaceId from native window.\\n\n This interface is a non-thread-safe type interface.\\n\n\n @syscap SystemCapability.Graphic.Graphic2D.NativeWindow\n @param window Indicates the pointer to an <b>OHNativeWindow</b> instance.\n @param surfaceId Indicates the pointer to a surfaceId.\n @return Returns an error code, 0 is success, otherwise, failed.\n @since 12\n @version 1.0"]
-    pub fn OH_NativeWindow_GetSurfaceId(window: *mut OHNativeWindow, surfaceId: *mut u64) -> i32;
-}
-extern "C" {
-    #[doc = " @brief Creates an <b>OHNativeWindow</b> instance.\\n\n This interface needs to be used in conjunction with <b>OH_NativeWindow_DestroyNativeWindow<\\b>,\n otherwise memory leaks will occur.\\n\n If there is a concurrent destroy OHNativeWindow, you need to add once and decrement once to the\n OHNativeWindow reference count through <b>OH_NativeWindow_NativeObjectReference<\\b> and\n <b>OH_NativeWindow_NativeObjectUnreference<\\b>.\\n\n If the surface obtained through surfaceId is created in this process, the surface cannot be obtained\n across processes.\\n\n This interface is a non-thread-safe type interface.\\n\n\n @syscap SystemCapability.Graphic.Graphic2D.NativeWindow\n @param surfaceId Indicates the surfaceId to a surface.\n @param window indicates the pointer to an <b>OHNativeWindow</b> instance.\n @return Returns an error code, 0 is Success, otherwise, failed.\n @since 12\n @version 1.0"]
-    pub fn OH_NativeWindow_CreateNativeWindowFromSurfaceId(
-        surfaceId: u64,
-        window: *mut *mut OHNativeWindow,
-    ) -> i32;
-}
-extern "C" {
-    #[doc = " @brief Sets scalingMode of a native window.\\n\n This interface is a non-thread-safe type interface.\\n\n\n @syscap SystemCapability.Graphic.Graphic2D.NativeWindow\n @param window indicates the pointer to an <b>OHNativeWindow</b> instance.\n @param scalingMode Indicates the enum value to <b>OHScalingModeV2</b>\n @return Returns an error code, 0 is Success, otherwise, failed.\n @since 12\n @version 1.0"]
-    pub fn OH_NativeWindow_NativeWindowSetScalingModeV2(
-        window: *mut OHNativeWindow,
-        scalingMode: OHScalingModeV2,
-    ) -> i32;
-}
-extern "C" {
-    #[doc = " @brief Set native window buffer hold.\\n\n This interface is a non-thread-safe type interface.\\n\n\n @syscap SystemCapability.Graphic.Graphic2D.NativeWindow\n @param window Indicates the pointer to an <b>OHNativeWindow</b> instance.\n @since 12\n @version 1.0"]
-    pub fn OH_NativeWindow_SetBufferHold(window: *mut OHNativeWindow);
-}
-extern "C" {
-    #[doc = " @brief Write an OHNativeWindow to an OHIPCParcel.\\n\n This interface is a non-thread-safe type interface.\\n\n\n @syscap SystemCapability.Graphic.Graphic2D.NativeWindow\n @param window Indicates the pointer to an <b>OHNativeWindow</b> instance.\n @param parcel Indicates the pointer to an <b>OHIPCParcel</b> instance.\n @return {@link NATIVE_ERROR_OK} 0 - Success.\n     {@link NATIVE_ERROR_INVALID_ARGUMENTS} 40001000 - parcel is NULL or window is NULL.\n @since 12\n @version 1.0"]
-    pub fn OH_NativeWindow_WriteToParcel(
-        window: *mut OHNativeWindow,
-        parcel: *mut OHIPCParcel,
-    ) -> i32;
-}
-extern "C" {
-    #[doc = " @brief Read an OHNativeWindow from an OHIPCParcel.\\n\n This interface is a non-thread-safe type interface.\\n\n\n @syscap SystemCapability.Graphic.Graphic2D.NativeWindow\n @param parcel Indicates the pointer to an <b>OHIPCParcel</b> instance.\n @param window Indicates the pointer to an <b>OHNativeWindow</b> instance.\n @return {@link NATIVE_ERROR_OK} 0 - Success.\n     {@link NATIVE_ERROR_INVALID_ARGUMENTS} 40001000 - parcel is NULL or parcel does not contain the window.\n @since 12\n @version 1.0"]
-    pub fn OH_NativeWindow_ReadFromParcel(
-        parcel: *mut OHIPCParcel,
-        window: *mut *mut OHNativeWindow,
-    ) -> i32;
-}
-extern "C" {
-    #[doc = " @brief Get the last flushed <b>OHNativeWindowBuffer</b> from an <b>OHNativeWindow</b> instance.\\n\n When the fenceFd is used up, you need to close it.\\n\n This interface needs to be used in conjunction with <b>OH_NativeWindow_NativeObjectUnreference<\\b>,\n otherwise memory leaks will occur.\\n\n This interface is a non-thread-safe type interface.\\n\n\n @syscap SystemCapability.Graphic.Graphic2D.NativeWindow\n @param window Indicates the pointer to an <b>OHNativeWindow</b> instance.\n @param buffer Indicates the pointer to an <b>OHNativeWindowBuffer</b> pointer.\n @param fenceFd Indicates the pointer to a file descriptor handle.\n @param matrix Indicates the retrieved 4*4 transform matrix.\n @return {@link NATIVE_ERROR_OK} 0 - Success.\n     {@link NATIVE_ERROR_INVALID_ARGUMENTS} 40001000 - window is NULL or buffer is NULL or fenceFd is NULL.\n     {@link NATIVE_ERROR_BUFFER_STATE_INVALID} 41207000 - buffer state is wrong.\n @since 12\n @version 1.0"]
-    pub fn OH_NativeWindow_GetLastFlushedBufferV2(
-        window: *mut OHNativeWindow,
-        buffer: *mut *mut OHNativeWindowBuffer,
-        fenceFd: *mut ::std::os::raw::c_int,
-        matrix: *mut f32,
-    ) -> i32;
-}
-extern "C" {
-    #[doc = " @brief Set the color space of the native window.\\n\n This interface is a non-thread-safe type interface.\\n\n\n @syscap SystemCapability.Graphic.Graphic2D.NativeWindow\n @param window Indicates the pointer to a <b>OHNativeWindow</b> instance.\n @param colorSpace Indicates the color space of native window, see <b>OH_NativeBuffer_ColorSpace</b>.\n @return {@link NATIVE_ERROR_OK} 0 - Success.\n     {@link NATIVE_ERROR_INVALID_ARGUMENTS} 40001000 - window is NULL.\n     {@link NATIVE_ERROR_BUFFER_STATE_INVALID} 41207000 - Incorrect colorSpace state.\n @since 12\n @version 1.0"]
-    pub fn OH_NativeWindow_SetColorSpace(
-        window: *mut OHNativeWindow,
-        colorSpace: OH_NativeBuffer_ColorSpace,
-    ) -> i32;
-}
-extern "C" {
-    #[doc = " @brief Get the color space of the native window.\\n\n This interface is a non-thread-safe type interface.\\n\n\n @syscap SystemCapability.Graphic.Graphic2D.NativeWindow\n @param window Indicates the pointer to a <b>OHNativeWindow</b> instance.\n @param colorSpace Indicates the color space of native window, see <b>OH_NativeBuffer_ColorSpace</b>.\n @return {@link NATIVE_ERROR_OK} 0 - Success.\n     {@link NATIVE_ERROR_INVALID_ARGUMENTS} 40001000 - window is NULL.\n     {@link NATIVE_ERROR_BUFFER_STATE_INVALID} 41207000 - Incorrect colorSpace state.\n @since 12\n @version 1.0"]
-    pub fn OH_NativeWindow_GetColorSpace(
-        window: *mut OHNativeWindow,
-        colorSpace: *mut OH_NativeBuffer_ColorSpace,
-    ) -> i32;
-}
-extern "C" {
-    #[doc = " @brief Set the metadata type of the native window.\\n\n This interface is a non-thread-safe type interface.\\n\n\n @syscap SystemCapability.Graphic.Graphic2D.NativeWindow\n @param window Indicates the pointer to a <b>OHNativeWindow</b> instance.\n @param metadataKey Indicates the metadata type of native window, see <b>OH_NativeBuffer_MetadataKey</b>.\n @param size Indicates the size of a uint8_t vector.\n @param metadata Indicates the pointer to a uint8_t vector.\n @return {@link NATIVE_ERROR_OK} 0 - Success.\n     {@link NATIVE_ERROR_INVALID_ARGUMENTS} 40001000 - window or metadata is NULL.\n     {@link NATIVE_ERROR_BUFFER_STATE_INVALID} 41207000 - Incorrect metadata state.\n     {@link NATIVE_ERROR_UNSUPPORTED} 50102000 - Unsupported metadata key.\n @since 12\n @version 1.0"]
-    pub fn OH_NativeWindow_SetMetadataValue(
-        window: *mut OHNativeWindow,
-        metadataKey: OH_NativeBuffer_MetadataKey,
-        size: i32,
-        metadata: *mut u8,
-    ) -> i32;
-}
-extern "C" {
-    #[doc = " @brief Set the metadata type of the native window.\\n\n This interface is a non-thread-safe type interface.\\n\n\n @syscap SystemCapability.Graphic.Graphic2D.NativeWindow\n @param window Indicates the pointer to a <b>OHNativeWindow</b> instance.\n @param metadataKey Indicates the metadata type of native window, see <b>OH_NativeBuffer_MetadataKey</b>.\n @param size Indicates the size of a uint8_t vector.\n @param metadata Indicates the pointer to a uint8_t vector.\n @return {@link NATIVE_ERROR_OK} 0 - Success.\n     {@link NATIVE_ERROR_INVALID_ARGUMENTS} 40001000 - window, metadata, or size is NULL.\n     {@link NATIVE_ERROR_BUFFER_STATE_INVALID} 41207000 - Incorrect metadata state.\n     {@link NATIVE_ERROR_UNSUPPORTED} 50102000 - Unsupported metadata key.\n @since 12\n @version 1.0"]
-    pub fn OH_NativeWindow_GetMetadataValue(
-        window: *mut OHNativeWindow,
-        metadataKey: OH_NativeBuffer_MetadataKey,
-        size: *mut i32,
-        metadata: *mut *mut u8,
-    ) -> i32;
 }
 pub const OH_NativeBuffer_Usage_NATIVEBUFFER_USAGE_CPU_READ: OH_NativeBuffer_Usage = 1;
 #[doc = " < CPU read buffer */"]

@@ -9,7 +9,7 @@ pub const NATIVE_BUFFER: Lazy<SysConfig> = Lazy::new(|| SysConfig {
         "native_buffer/graphic_error_code.h",
         "native_buffer/native_buffer.h",
     ],
-    white_list: vec!["OH_.*"],
-    block_list: vec!["NativeWindow.*"],
-    extra: "\n\nuse ohos_native_window_sys::*;",
+    white_list: vec!["OH_.*", "NativeWindowBuffer"],
+    block_list: vec!["OHNativeWindow", "OH_NativeWindow.*", "NativeWindow"],
+    extra: "",
 });
