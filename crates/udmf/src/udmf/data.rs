@@ -1,4 +1,7 @@
-use std::{ffi::CString, ptr::NonNull};
+use std::{
+    ffi::{CStr, CString},
+    ptr::NonNull,
+};
 
 use ohos_udmf_sys::{
     OH_UdmfData, OH_UdmfData_AddRecord, OH_UdmfData_Create, OH_UdmfData_GetPrimaryHtml,
@@ -61,7 +64,9 @@ impl UdmfData {
     pub fn record(&self, index: u32) -> Result<UdmfRecord, UdmfError> {
         let ret = unsafe { OH_UdmfData_GetRecord(self.raw.as_ptr(), index) };
         if ret.is_null() {
-            return Err(UdmfError::IntervalError(-1));
+            return Err(UdmfError::UdmfInitError(String::from(
+                "UdmfData::record get record failed",
+            )));
         }
         Ok(UdmfRecord::from_raw(ret))
     }
@@ -91,21 +96,21 @@ impl UdmfData {
     }
 
     pub fn primary_plain_text(&self) -> Result<UdsPlainText, UdmfError> {
-        let raw = std::ptr::null_mut();
-        let ret = unsafe { OH_UdmfData_GetPrimaryPlainText(self.raw.as_ptr(), raw) };
+        let text = UdsPlainText::new();
+        let ret = unsafe { OH_UdmfData_GetPrimaryPlainText(self.raw.as_ptr(), text.raw.as_ptr()) };
         if ret != 0 {
             return Err(UdmfError::IntervalError(ret));
         }
-        Ok(UdsPlainText::from_raw(raw))
+        Ok(text)
     }
 
     pub fn primary_html(&self) -> Result<UdsHtml, UdmfError> {
-        let raw = std::ptr::null_mut();
-        let ret = unsafe { OH_UdmfData_GetPrimaryHtml(self.raw.as_ptr(), raw) };
+        let html = UdsHtml::new();
+        let ret = unsafe { OH_UdmfData_GetPrimaryHtml(self.raw.as_ptr(), html.raw.as_ptr()) };
         if ret != 0 {
             return Err(UdmfError::IntervalError(ret));
         }
-        Ok(UdsHtml::from_raw(raw))
+        Ok(html)
     }
 
     /// Save Udmf to database
@@ -123,9 +128,15 @@ impl UdmfData {
         if ret != 0 {
             return Err(UdmfError::IntervalError(ret));
         }
-        let key =
-            CString::from_vec_with_nul(key.to_vec()).expect("CString::from_vec_with_nul failed");
-        Ok(key.to_str().expect("CString::to_str failed").to_owned())
+        let key = unsafe { CStr::from_ptr(key.as_ptr()) }
+            .to_str()
+            .map_err(|e| {
+                return UdmfError::CommonError(format!(
+                    "UdmfData::save convert to str failed: {}",
+                    e
+                ));
+            })?;
+        Ok(key.to_owned())
     }
 
     /// Save Udmf to database with custom key size
@@ -147,8 +158,14 @@ impl UdmfData {
         if ret != 0 {
             return Err(UdmfError::IntervalError(ret));
         }
-        let key =
-            CString::from_vec_with_nul(key.to_vec()).expect("CString::from_vec_with_nul failed");
-        Ok(key.to_str().expect("CString::to_str failed").to_owned())
+        let key = unsafe { CStr::from_ptr(key.as_ptr()) }
+            .to_str()
+            .map_err(|e| {
+                return UdmfError::CommonError(format!(
+                    "UdmfData::save_with_key_size convert to str failed: {}",
+                    e
+                ));
+            })?;
+        Ok(key.to_owned())
     }
 }
