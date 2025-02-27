@@ -13,7 +13,7 @@ pub enum UdmfError {
     UdmfInitError(String),
 
     /// Some STD called error
-    CommonError(String)
+    CommonError(String),
 }
 
 impl std::fmt::Display for UdmfError {
@@ -25,7 +25,7 @@ impl std::fmt::Display for UdmfError {
             }
             UdmfError::UdsInitError(err) => write!(f, "Init {} Uds failed.", err),
             UdmfError::UdmfInitError(err) => write!(f, "Init udmf failed: {}", err),
-            UdmfError::CommonError(err) => write!(f, "Std Error: {}", err)
+            UdmfError::CommonError(err) => write!(f, "Std Error: {}", err),
         }
     }
 }

@@ -9,9 +9,9 @@ edition = "2021"
 crate-type = ["cdylib"]
 
 [dependencies]
-napi-ohos        = { workspace = true, default-features = false, features = ["napi8", "async"] }
-napi-derive-ohos = { workspace = true }
-ohos-pasteboard-binding = { workspace = true ,features = ["api-13"]}
+napi-ohos               = { workspace = true, default-features = false, features = ["napi8", "async"] }
+napi-derive-ohos        = { workspace = true }
+ohos-pasteboard-binding = { workspace = true, features = ["api-13"] }
 
 [build-dependencies]
 napi-build-ohos = { workspace = true }
