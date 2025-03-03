@@ -34,7 +34,7 @@ impl<'a> Vsync<'a> {
     /// This function is used to handle the vsync event.
     ///
     /// The callback function will be called when the vsync event occurs.
-    pub fn on_frame<F: FnMut(i64) + 'a>(&self, mut callback: F) {
+    pub fn on_frame_once<F: FnMut(i64) + 'a>(&self, mut callback: F) {
         let callback_with_data = unsafe {
             std::mem::transmute::<Box<dyn FnMut(i64)>, Box<dyn FnMut(i64) + 'static>>(Box::new(
                 |time: i64| {
@@ -58,7 +58,7 @@ impl<'a> Vsync<'a> {
     }
 
     /// This function is used to handle the vsync event with multiple callbacks.
-    pub fn on_frame_with_multi_callback<F: FnMut(i64) + 'a>(&self, mut callback: F) {
+    pub fn on_frame_once_with_multi_callback<F: FnMut(i64) + 'a>(&self, mut callback: F) {
         let f = unsafe {
             std::mem::transmute::<Box<dyn FnMut(i64)>, Box<dyn FnMut(i64) + 'static>>(Box::new(
                 move |t| {
@@ -83,7 +83,7 @@ impl<'a> Vsync<'a> {
     ///
     /// The callback function will be called every frame, and the callback function can call
     /// `OH_NativeVSync_RequestFrame` to request the next frame.
-    pub fn on_frame_with_self<F: FnMut(i64) + 'a>(&self, mut callback: F) {
+    pub fn on_frame<F: FnMut(i64) + 'a>(&self, mut callback: F) {
         let callback_with_data = unsafe {
             std::mem::transmute::<Box<dyn FnMut(i64)>, Box<dyn FnMut(i64) + 'static>>(Box::new(
                 |time: i64| {
