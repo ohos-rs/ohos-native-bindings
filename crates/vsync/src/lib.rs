@@ -116,24 +116,25 @@ impl<'a> Vsync<'a> {
 }
 
 extern "C" fn request_frame_callback(timestamp: i64, data: *mut c_void) {
-    let data = unsafe { &mut *(data as *mut VsyncData) };
+    let mut data = unsafe { Box::from_raw(data as *mut VsyncData) };
     let handle = &mut data.callback;
     handle(timestamp);
 }
 
 extern "C" fn request_frame_callback_with_self(timestamp: i64, data: *mut c_void) {
-    let raw_data = unsafe { &mut *(data as *mut VsyncData) };
-    let handle = &mut raw_data.callback;
+    let mut raw_data = unsafe { Box::from_raw(data as *mut VsyncData) };
     // request next frame
     unsafe {
         OH_NativeVSync_RequestFrame(
             raw_data.raw.as_ptr(),
             Some(request_frame_callback_with_self),
-            data as _,
+            data,
         );
     }
+    let handle = &mut raw_data.callback;
     // handle current frame
     handle(timestamp);
+    let _ = Box::into_raw(raw_data);
 }
 
 impl<'a> Drop for Vsync<'a> {
