@@ -12,7 +12,7 @@ crate-type = ["cdylib"]
 napi-ohos                    = { workspace = true, default-features = false, features = ["napi8", "async"] }
 napi-derive-ohos             = { workspace = true }
 ohos-display-soloist-binding = { workspace = true }
-ohos-hilog-binding          = { workspace = true }
+ohos-hilog-binding           = { workspace = true }
 
 [build-dependencies]
 napi-build-ohos = { workspace = true }

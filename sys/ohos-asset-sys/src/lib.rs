@@ -4,6 +4,7 @@
 #![allow(non_upper_case_globals)]
 #![allow(non_camel_case_types)]
 
+pub const ASSET_TAG_TYPE_MASK: u32 = 4026531840;
 #[doc = " The asset attribute tag is a Boolean value."]
 pub const Asset_TagType_ASSET_TYPE_BOOL: Asset_TagType = 268435456;
 #[doc = " The asset attribute tag is a number."]
