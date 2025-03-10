@@ -27,7 +27,7 @@ impl Pasteboard {
         let mut ret = 0;
         let raw = unsafe { OH_Pasteboard_GetData(self.raw.as_ptr(), &mut ret) };
         if ret != 0 {
-            return Err(PasteboardError::IntervalError(ret));
+            return Err(PasteboardError::InternalError(ret));
         }
         let udmf_data = UdmfData::from_raw(raw);
         Ok(udmf_data)
@@ -39,14 +39,14 @@ impl Pasteboard {
     //         OH_Pasteboard_GetDataSource(self.raw.as_ptr(), std::ptr::null_mut(), &mut len)
     //     };
     //     if ret != 0 {
-    //         return Err(PasteboardError::IntervalError(ret));
+    //         return Err(PasteboardError::InternalError(ret));
     //     }
 
     //     let mut buf = vec![0; len as usize];
     //     let ret =
     //         unsafe { OH_Pasteboard_GetDataSource(self.raw.as_ptr(), buf.as_mut_ptr(), &mut len) };
     //     if ret != 0 {
-    //         return Err(PasteboardError::IntervalError(ret));
+    //         return Err(PasteboardError::InternalError(ret));
     //     }
     //     Ok(String::from_utf8(buf).expect("Invalid UTF-8"))
     // }
@@ -79,7 +79,7 @@ impl Pasteboard {
     pub fn set_data(&self, data: &UdmfData) -> Result<(), PasteboardError> {
         let ret = unsafe { OH_Pasteboard_SetData(self.raw.as_ptr(), data.raw().as_ptr()) };
         if ret != 0 {
-            return Err(PasteboardError::IntervalError(ret));
+            return Err(PasteboardError::InternalError(ret));
         }
         Ok(())
     }

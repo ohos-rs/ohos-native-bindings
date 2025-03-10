@@ -31,13 +31,13 @@ impl UdmfRecord {
                 let ret =
                     unsafe { OH_UdmfRecord_AddPlainText(self.raw.as_ptr(), text.raw.as_ptr()) };
                 if ret != 0 {
-                    return Err(UdmfError::IntervalError(ret));
+                    return Err(UdmfError::InternalError(ret));
                 }
             }
             Uds::Html(html) => {
                 let ret = unsafe { OH_UdmfRecord_AddHtml(self.raw.as_ptr(), html.raw.as_ptr()) };
                 if ret != 0 {
-                    return Err(UdmfError::IntervalError(ret));
+                    return Err(UdmfError::InternalError(ret));
                 }
             }
         }

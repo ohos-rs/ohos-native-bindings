@@ -49,7 +49,7 @@ impl NativeWindow {
             )
         };
         if ret != 0 {
-            return Err(NativeWindowError::IntervalError(ret));
+            return Err(NativeWindowError::InternalError(ret));
         }
         Ok(())
     }
@@ -69,7 +69,7 @@ impl NativeWindow {
             )
         };
         if ret != 0 {
-            return Err(NativeWindowError::IntervalError(ret));
+            return Err(NativeWindowError::InternalError(ret));
         }
 
         let buf = NativeBuffer::from_window_buffer_ptr(window_buf);

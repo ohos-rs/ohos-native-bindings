@@ -51,7 +51,7 @@ impl UdmfData {
     pub fn add_record(&self, record: &UdmfRecord) -> Result<(), UdmfError> {
         let ret = unsafe { OH_UdmfData_AddRecord(self.raw.as_ptr(), record.raw.as_ptr()) };
         if ret != 0 {
-            return Err(UdmfError::IntervalError(ret));
+            return Err(UdmfError::InternalError(ret));
         }
         Ok(())
     }
@@ -75,7 +75,7 @@ impl UdmfData {
         let mut count = 0;
         let ret = unsafe { OH_UdmfData_GetRecords(self.raw.as_ptr(), &mut count) };
         if ret.is_null() {
-            return Err(UdmfError::IntervalError(-1));
+            return Err(UdmfError::InternalError(-1));
         }
         if count == 0 {
             return Ok(vec![]);
@@ -99,7 +99,7 @@ impl UdmfData {
         let text = UdsPlainText::new();
         let ret = unsafe { OH_UdmfData_GetPrimaryPlainText(self.raw.as_ptr(), text.raw.as_ptr()) };
         if ret != 0 {
-            return Err(UdmfError::IntervalError(ret));
+            return Err(UdmfError::InternalError(ret));
         }
         Ok(text)
     }
@@ -108,7 +108,7 @@ impl UdmfData {
         let html = UdsHtml::new();
         let ret = unsafe { OH_UdmfData_GetPrimaryHtml(self.raw.as_ptr(), html.raw.as_ptr()) };
         if ret != 0 {
-            return Err(UdmfError::IntervalError(ret));
+            return Err(UdmfError::InternalError(ret));
         }
         Ok(html)
     }
@@ -126,7 +126,7 @@ impl UdmfData {
             )
         };
         if ret != 0 {
-            return Err(UdmfError::IntervalError(ret));
+            return Err(UdmfError::InternalError(ret));
         }
         let key = unsafe { CStr::from_ptr(key.as_ptr()) }
             .to_str()
@@ -156,7 +156,7 @@ impl UdmfData {
             )
         };
         if ret != 0 {
-            return Err(UdmfError::IntervalError(ret));
+            return Err(UdmfError::InternalError(ret));
         }
         let key = unsafe { CStr::from_ptr(key.as_ptr()) }
             .to_str()

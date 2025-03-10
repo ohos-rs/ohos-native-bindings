@@ -40,7 +40,7 @@ impl UdsPlainText {
         let s = CString::new(content.as_ref()).expect("CString::new failed");
         let ret = unsafe { OH_UdsPlainText_SetContent(self.raw.as_ptr(), s.as_ptr().cast()) };
         if ret != 0 {
-            return Err(UdmfError::IntervalError(ret));
+            return Err(UdmfError::InternalError(ret));
         }
         Ok(())
     }
