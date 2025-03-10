@@ -5,5 +5,10 @@ edition     = "2021"
 license     = "MIT OR Apache-2.0"
 description = "OpenHarmony's bundle binding for rust"
 
+[features]
+default = []
+api-13  = []
+api-14  = []
+
 [dependencies]
 ohos-bundle-sys = { workspace = true }
