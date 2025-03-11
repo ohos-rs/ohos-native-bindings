@@ -1,6 +1,6 @@
 use crate::{
-    ArkUIAttributeBasic, ArkUICommonFontAttribute, ArkUIEvent, ArkUIGesture, ArkUINode,
-    ArkUINodeType, ArkUIResult, ARK_UI_NATIVE_NODE_API_1,
+    ArkUIAttributeBasic, ArkUICommonFontAttribute, ArkUIError, ArkUIEvent, ArkUIGesture, ArkUINode,
+    ArkUINodeType, ARK_UI_NATIVE_NODE_API_1,
 };
 
 #[cfg(feature = "xcomponent")]
@@ -13,7 +13,7 @@ use crate::component::ArkUICommonAttribute;
 pub struct XComponent(ArkUINode);
 
 impl XComponent {
-    pub fn new() -> ArkUIResult<Self> {
+    pub fn new() -> Result<Self, ArkUIError> {
         let xcomponent = ARK_UI_NATIVE_NODE_API_1.create_node(ArkUINodeType::XComponent)?;
         Ok(Self(ArkUINode {
             raw: xcomponent,

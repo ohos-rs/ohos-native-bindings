@@ -2,6 +2,7 @@ use std::{
     cell::{LazyCell, RefCell},
     ffi::CString,
     os::raw::c_void,
+    ptr::NonNull,
     rc::Rc,
 };
 
@@ -12,10 +13,7 @@ use ohos_arkui_sys::{
     OH_ArkUI_DialogDismissEvent_SetShouldBlockDismiss, OH_ArkUI_QueryModuleInterfaceByName,
 };
 
-use crate::{
-    check_arkui_status, Alignment, ArkUIError, ArkUIErrorCode, ArkUIResult, DialogDismissData,
-    InnerDialogDismissData,
-};
+use crate::{Alignment, ArkUIError, DialogDismissData, InnerDialogDismissData};
 
 /// ArkUI_NativeNodeAPI_1 struct
 /// Only can be used in main thread
@@ -24,18 +22,21 @@ pub const ARK_UI_NATIVE_DIALOG_API_1: LazyCell<ArkUINativeDialogAPI1> = LazyCell
     api
 });
 
-pub struct ArkUINativeDialogAPI1(pub(crate) *mut ArkUI_NativeDialogAPI_1);
+pub struct ArkUINativeDialogAPI1 {
+    pub(crate) raw: NonNull<ArkUI_NativeDialogAPI_1>,
+}
 
 impl ArkUINativeDialogAPI1 {
     /// allow us to get the pointer of ArkUI_NativeDialogAPI_1 and use it directly
-    pub fn raw(&self) -> *mut ArkUI_NativeDialogAPI_1 {
-        self.0
+    pub fn raw(&self) -> NonNull<ArkUI_NativeDialogAPI_1> {
+        self.raw
     }
 
     pub fn new() -> Self {
         #[allow(unused_assignments)]
         let mut api: *mut ArkUI_NativeDialogAPI_1 = std::ptr::null_mut();
-        let struct_name = CString::new("ArkUI_NativeDialogAPI_1").unwrap();
+        let struct_name =
+            CString::new("ArkUI_NativeDialogAPI_1").expect("Failed to create CString");
         let raw_ptr = unsafe {
             OH_ArkUI_QueryModuleInterfaceByName(
                 ArkUI_NativeAPIVariantKind_ARKUI_NATIVE_DIALOG,
@@ -45,19 +46,26 @@ impl ArkUINativeDialogAPI1 {
         #[cfg(debug_assertions)]
         assert!(!raw_ptr.is_null(), "ArkUI_NativeDialogAPI_1 is NULL");
         api = raw_ptr.cast();
-        Self(api)
+        Self {
+            raw: unsafe { NonNull::new_unchecked(api) },
+        }
     }
 
-    pub fn create(&self) -> ArkUIResult<ArkUI_NativeDialogHandle> {
+    pub fn create(&self) -> Result<ArkUI_NativeDialogHandle, ArkUIError> {
         unsafe {
-            if let Some(create_dialog_controller) = (*self.0).create {
+            if let Some(create_dialog_controller) = (*self.raw.as_ptr()).create {
                 let ret = create_dialog_controller();
-                Ok(ret)
+                if ret.is_null() {
+                    Err(ArkUIError::NullError(String::from(
+                        "api is: ArkUI_NativeDialogAPI_1::create",
+                    )))
+                } else {
+                    Ok(ret)
+                }
             } else {
-                Err(ArkUIError::new(
-                    ArkUIErrorCode::AttributeOrEventNotSupported,
+                Err(ArkUIError::InternalError(String::from(
                     "ArkUI_NativeDialogAPI_1::create is None",
-                ))
+                )))
             }
         }
     }
@@ -66,15 +74,22 @@ impl ArkUINativeDialogAPI1 {
         &self,
         dialog: ArkUI_NativeDialogHandle,
         content: ArkUI_NodeHandle,
-    ) -> ArkUIResult<()> {
+    ) -> Result<(), ArkUIError> {
         unsafe {
-            if let Some(set_content) = (*self.0).setContent {
-                check_arkui_status!(set_content(dialog, content))
+            if let Some(set_content) = (*self.raw.as_ptr()).setContent {
+                let ret = set_content(dialog, content);
+                if ret != 0 {
+                    Err(ArkUIError::InternalError(format!(
+                        "api is: ArkUI_NativeDialogAPI_1::setContent, error_code is {:?}",
+                        ret
+                    )))
+                } else {
+                    Ok(())
+                }
             } else {
-                Err(ArkUIError::new(
-                    ArkUIErrorCode::AttributeOrEventNotSupported,
+                Err(ArkUIError::InternalError(String::from(
                     "ArkUI_NativeDialogAPI_1::setContent is None",
-                ))
+                )))
             }
         }
     }
@@ -85,20 +100,22 @@ impl ArkUINativeDialogAPI1 {
         alignment: Alignment,
         offset_x: f32,
         offset_y: f32,
-    ) -> ArkUIResult<()> {
+    ) -> Result<(), ArkUIError> {
         unsafe {
-            if let Some(set_content_alignment) = (*self.0).setContentAlignment {
-                check_arkui_status!(set_content_alignment(
-                    dialog,
-                    alignment.into(),
-                    offset_x,
-                    offset_y
-                ))
+            if let Some(set_content_alignment) = (*self.raw.as_ptr()).setContentAlignment {
+                let ret = set_content_alignment(dialog, alignment.into(), offset_x, offset_y);
+                if ret != 0 {
+                    Err(ArkUIError::InternalError(format!(
+                        "api is: ArkUI_NativeDialogAPI_1::setContentAlignment, error_code is {:?}",
+                        ret
+                    )))
+                } else {
+                    Ok(())
+                }
             } else {
-                Err(ArkUIError::new(
-                    ArkUIErrorCode::AttributeOrEventNotSupported,
+                Err(ArkUIError::InternalError(String::from(
                     "ArkUI_NativeDialogAPI_1::setContentAlignment is None",
-                ))
+                )))
             }
         }
     }
@@ -107,15 +124,22 @@ impl ArkUINativeDialogAPI1 {
         &self,
         dialog: ArkUI_NativeDialogHandle,
         color: u32,
-    ) -> ArkUIResult<()> {
+    ) -> Result<(), ArkUIError> {
         unsafe {
-            if let Some(set_background_color) = (*self.0).setBackgroundColor {
-                check_arkui_status!(set_background_color(dialog, color))
+            if let Some(set_background_color) = (*self.raw.as_ptr()).setBackgroundColor {
+                let ret = set_background_color(dialog, color);
+                if ret != 0 {
+                    Err(ArkUIError::InternalError(format!(
+                        "api is: ArkUI_NativeDialogAPI_1::setBackgroundColor, error_code is {:?}",
+                        ret
+                    )))
+                } else {
+                    Ok(())
+                }
             } else {
-                Err(ArkUIError::new(
-                    ArkUIErrorCode::AttributeOrEventNotSupported,
+                Err(ArkUIError::InternalError(String::from(
                     "ArkUI_NativeDialogAPI_1::setBackgroundColor is None",
-                ))
+                )))
             }
         }
     }
@@ -127,21 +151,28 @@ impl ArkUINativeDialogAPI1 {
         top_right_radius: f32,
         bottom_left_radius: f32,
         bottom_right_radius: f32,
-    ) -> ArkUIResult<()> {
+    ) -> Result<(), ArkUIError> {
         unsafe {
-            if let Some(set_corner_radius) = (*self.0).setCornerRadius {
-                check_arkui_status!(set_corner_radius(
+            if let Some(set_corner_radius) = (*self.raw.as_ptr()).setCornerRadius {
+                let ret = set_corner_radius(
                     dialog,
                     top_left_radius,
                     top_right_radius,
                     bottom_left_radius,
-                    bottom_right_radius
-                ))
+                    bottom_right_radius,
+                );
+                if ret != 0 {
+                    Err(ArkUIError::InternalError(format!(
+                        "api is: ArkUI_NativeDialogAPI_1::setCornerRadius, error_code is {:?}",
+                        ret
+                    )))
+                } else {
+                    Ok(())
+                }
             } else {
-                Err(ArkUIError::new(
-                    ArkUIErrorCode::AttributeOrEventNotSupported,
+                Err(ArkUIError::InternalError(String::from(
                     "ArkUI_NativeDialogAPI_1::setCornerRadius is None",
-                ))
+                )))
             }
         }
     }
@@ -150,15 +181,22 @@ impl ArkUINativeDialogAPI1 {
         &self,
         dialog: ArkUI_NativeDialogHandle,
         modal_mode: bool,
-    ) -> ArkUIResult<()> {
+    ) -> Result<(), ArkUIError> {
         unsafe {
-            if let Some(set_modal_mode) = (*self.0).setModalMode {
-                check_arkui_status!(set_modal_mode(dialog, modal_mode))
+            if let Some(set_modal_mode) = (*self.raw.as_ptr()).setModalMode {
+                let ret = set_modal_mode(dialog, modal_mode);
+                if ret != 0 {
+                    Err(ArkUIError::InternalError(format!(
+                        "api is: ArkUI_NativeDialogAPI_1::setModalMode, error_code is {:?}",
+                        ret
+                    )))
+                } else {
+                    Ok(())
+                }
             } else {
-                Err(ArkUIError::new(
-                    ArkUIErrorCode::AttributeOrEventNotSupported,
+                Err(ArkUIError::InternalError(String::from(
                     "ArkUI_NativeDialogAPI_1::setModalMode is None",
-                ))
+                )))
             }
         }
     }
@@ -167,15 +205,22 @@ impl ArkUINativeDialogAPI1 {
         &self,
         dialog: ArkUI_NativeDialogHandle,
         auto_cancel: bool,
-    ) -> ArkUIResult<()> {
+    ) -> Result<(), ArkUIError> {
         unsafe {
-            if let Some(set_auto_cancel) = (*self.0).setAutoCancel {
-                check_arkui_status!(set_auto_cancel(dialog, auto_cancel))
+            if let Some(set_auto_cancel) = (*self.raw.as_ptr()).setAutoCancel {
+                let ret = set_auto_cancel(dialog, auto_cancel);
+                if ret != 0 {
+                    Err(ArkUIError::InternalError(format!(
+                        "api is: ArkUI_NativeDialogAPI_1::setAutoCancel, error_code is {:?}",
+                        ret
+                    )))
+                } else {
+                    Ok(())
+                }
             } else {
-                Err(ArkUIError::new(
-                    ArkUIErrorCode::AttributeOrEventNotSupported,
+                Err(ArkUIError::InternalError(String::from(
                     "ArkUI_NativeDialogAPI_1::setAutoCancel is None",
-                ))
+                )))
             }
         }
     }
@@ -184,42 +229,55 @@ impl ArkUINativeDialogAPI1 {
         &self,
         dialog: ArkUI_NativeDialogHandle,
         show_in_sub_window: bool,
-    ) -> ArkUIResult<()> {
+    ) -> Result<(), ArkUIError> {
         unsafe {
-            if let Some(show) = (*self.0).show {
-                check_arkui_status!(show(dialog, show_in_sub_window))
+            if let Some(show) = (*self.raw.as_ptr()).show {
+                let ret = show(dialog, show_in_sub_window);
+                if ret != 0 {
+                    Err(ArkUIError::InternalError(format!(
+                        "api is: ArkUI_NativeDialogAPI_1::show, error_code is {:?}",
+                        ret
+                    )))
+                } else {
+                    Ok(())
+                }
             } else {
-                Err(ArkUIError::new(
-                    ArkUIErrorCode::AttributeOrEventNotSupported,
+                Err(ArkUIError::InternalError(String::from(
                     "ArkUI_NativeDialogAPI_1::show is None",
-                ))
+                )))
             }
         }
     }
 
-    pub fn close(&self, dialog: ArkUI_NativeDialogHandle) -> ArkUIResult<()> {
+    pub fn close(&self, dialog: ArkUI_NativeDialogHandle) -> Result<(), ArkUIError> {
         unsafe {
-            if let Some(close_dialog) = (*self.0).close {
-                check_arkui_status!(close_dialog(dialog))
+            if let Some(close_dialog) = (*self.raw.as_ptr()).close {
+                let ret = close_dialog(dialog);
+                if ret != 0 {
+                    Err(ArkUIError::InternalError(format!(
+                        "api is: ArkUI_NativeDialogAPI_1::close, error_code is {:?}",
+                        ret
+                    )))
+                } else {
+                    Ok(())
+                }
             } else {
-                Err(ArkUIError::new(
-                    ArkUIErrorCode::AttributeOrEventNotSupported,
+                Err(ArkUIError::InternalError(String::from(
                     "ArkUI_NativeDialogAPI_1::close is None",
-                ))
+                )))
             }
         }
     }
 
-    pub fn dispose(&self, dialog: ArkUI_NativeDialogHandle) -> ArkUIResult<()> {
+    pub fn dispose(&self, dialog: ArkUI_NativeDialogHandle) -> Result<(), ArkUIError> {
         unsafe {
-            if let Some(dispose_dialog) = (*self.0).dispose {
+            if let Some(dispose_dialog) = (*self.raw.as_ptr()).dispose {
                 dispose_dialog(dialog);
                 Ok(())
             } else {
-                Err(ArkUIError::new(
-                    ArkUIErrorCode::AttributeOrEventNotSupported,
+                Err(ArkUIError::InternalError(String::from(
                     "ArkUI_NativeDialogAPI_1::dispose is None",
-                ))
+                )))
             }
         }
     }
@@ -228,19 +286,28 @@ impl ArkUINativeDialogAPI1 {
         &self,
         dialog: ArkUI_NativeDialogHandle,
         data: Rc<RefCell<InnerDialogDismissData>>,
-    ) -> ArkUIResult<()> {
+    ) -> Result<(), ArkUIError> {
         unsafe {
-            if let Some(register_dismiss_with_data) = (*self.0).registerOnWillDismissWithUserData {
-                check_arkui_status!(register_dismiss_with_data(
+            if let Some(register_dismiss_with_data) =
+                (*self.raw.as_ptr()).registerOnWillDismissWithUserData
+            {
+                let ret = register_dismiss_with_data(
                     dialog,
                     Box::into_raw(Box::new(data)) as *mut c_void,
-                    Some(dialog_dismiss_callback)
-                ))
+                    Some(dialog_dismiss_callback),
+                );
+                if ret != 0 {
+                    Err(ArkUIError::InternalError(format!(
+                        "api is: ArkUI_NativeDialogAPI_1::registerOnWillDismissWithUserData, error_code is {:?}",
+                        ret
+                    )))
+                } else {
+                    Ok(())
+                }
             } else {
-                Err(ArkUIError::new(
-                    ArkUIErrorCode::AttributeOrEventNotSupported,
+                Err(ArkUIError::InternalError(String::from(
                     "ArkUI_NativeDialogAPI_1::registerOnWillDismissWithUserData is None",
-                ))
+                )))
             }
         }
     }

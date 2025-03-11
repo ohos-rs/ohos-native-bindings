@@ -1,9 +1,6 @@
 use std::os::raw::c_void;
 
-use crate::{
-    check_arkui_status, ArkUIError, ArkUIErrorCode, ArkUINode, ArkUIResult,
-    ARK_UI_NATIVE_NODE_API_1,
-};
+use crate::{ArkUIError, ArkUINode, ARK_UI_NATIVE_NODE_API_1};
 use ohos_arkui_sys::{OH_ArkUI_NodeContent_AddNode, OH_ArkUI_NodeContent_RemoveNode};
 
 #[cfg(not(feature = "napi"))]
@@ -49,7 +46,7 @@ impl RootNode {
         &self.raw
     }
 
-    pub fn mount<T: Into<ArkUINode>>(&mut self, node: T) -> ArkUIResult<()> {
+    pub fn mount<T: Into<ArkUINode>>(&mut self, node: T) -> Result<(), ArkUIError> {
         let node_raw = node.into();
         self.base = Some(node_raw.clone());
         if let Some(base) = self.base.as_ref() {
@@ -65,20 +62,23 @@ impl RootNode {
             // Node will be mounted, we can think it as a event receiver.
             ARK_UI_NATIVE_NODE_API_1.add_event_receiver(base)?;
             unsafe {
-                check_arkui_status!(
-                    OH_ArkUI_NodeContent_AddNode(raw, base.raw()),
-                    "Mount root node failed"
-                )
+                let ret = OH_ArkUI_NodeContent_AddNode(raw, base.raw());
+                if ret != 0 {
+                    Err(ArkUIError::InternalError(String::from(
+                        "Mount root node failed",
+                    )))
+                } else {
+                    Ok(())
+                }
             }
         } else {
-            Err(ArkUIError::new(
-                ArkUIErrorCode::ChildNodeExist,
+            Err(ArkUIError::InternalError(String::from(
                 "Mount root node failed, base is None",
-            ))
+            )))
         }
     }
 
-    pub fn unmount(&mut self) -> ArkUIResult<()> {
+    pub fn unmount(&mut self) -> Result<(), ArkUIError> {
         // If root node is empty, just ignore it.
         if let Some(base) = self.base.as_mut() {
             #[cfg(feature = "napi")]
@@ -87,11 +87,13 @@ impl RootNode {
             #[cfg(not(feature = "napi"))]
             let raw = self.raw;
             unsafe {
-                check_arkui_status!(
-                    OH_ArkUI_NodeContent_RemoveNode(raw, base.raw()),
-                    "Mount root node failed"
-                )
-            }?;
+                let ret = OH_ArkUI_NodeContent_RemoveNode(raw, base.raw());
+                if ret != 0 {
+                    return Err(ArkUIError::InternalError(String::from(
+                        "Unmount root node failed",
+                    )));
+                }
+            }
             base.dispose()?;
             self.base = None;
         }

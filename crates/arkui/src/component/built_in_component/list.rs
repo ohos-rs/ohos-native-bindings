@@ -1,13 +1,13 @@
 use crate::{
-    ArkUIAttributeBasic, ArkUICommonAttribute, ArkUIEvent, ArkUIGesture, ArkUINode,
-    ArkUINodeAttributeItem, ArkUINodeAttributeNumber, ArkUINodeType, ArkUIResult,
-    ScrollBarDisplayMode, ARK_UI_NATIVE_NODE_API_1,
+    ArkUIAttributeBasic, ArkUICommonAttribute, ArkUIError, ArkUIEvent, ArkUIGesture, ArkUINode,
+    ArkUINodeAttributeItem, ArkUINodeAttributeNumber, ArkUINodeType, ScrollBarDisplayMode,
+    ARK_UI_NATIVE_NODE_API_1,
 };
 
 pub struct List(ArkUINode);
 
 impl List {
-    pub fn new() -> ArkUIResult<Self> {
+    pub fn new() -> Result<Self, ArkUIError> {
         let list = ARK_UI_NATIVE_NODE_API_1.create_node(ArkUINodeType::List)?;
         Ok(Self(ArkUINode {
             raw: list,
@@ -16,7 +16,7 @@ impl List {
         }))
     }
 
-    pub fn scroll_bar_state(&mut self, mode: ScrollBarDisplayMode) -> ArkUIResult<()> {
+    pub fn scroll_bar_state(&mut self, mode: ScrollBarDisplayMode) -> Result<(), ArkUIError> {
         let scroll_bar_display_mode_property =
             ArkUINodeAttributeItem::NumberValue(vec![ArkUINodeAttributeNumber::Int(mode.into())]);
         ARK_UI_NATIVE_NODE_API_1.set_attribute(

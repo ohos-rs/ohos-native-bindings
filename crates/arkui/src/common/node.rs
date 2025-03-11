@@ -13,7 +13,7 @@ use std::{borrow::BorrowMut, cell::RefCell, rc::Rc};
 
 use crate::{ArkUINodeType, EventHandle, ARK_UI_NATIVE_NODE_API_1};
 
-use super::ArkUIResult;
+use super::ArkUIError;
 
 #[derive(Clone)]
 pub struct ArkUINode {
@@ -38,7 +38,7 @@ impl ArkUINode {
 
     /// Clear dom
     /// We can't use drop impl, because it will be called when the object is dropped.
-    pub fn dispose(&mut self) -> ArkUIResult<()> {
+    pub fn dispose(&mut self) -> Result<(), ArkUIError> {
         let handle = &self.event_handle;
         if let Some(_cb) = handle.click.as_ref() {
             ARK_UI_NATIVE_NODE_API_1.remove_event_receiver(self)?;

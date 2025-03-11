@@ -1,7 +1,7 @@
 use std::cell::RefCell;
 use std::os::raw::c_void;
 use std::rc::Rc;
-use std::{cell::LazyCell, ffi::CString};
+use std::{cell::LazyCell, ffi::CString, ptr::NonNull};
 
 use ohos_arkui_sys::{
     ArkUI_NativeAPIVariantKind_ARKUI_NATIVE_NODE, ArkUI_NativeNodeAPI_1, ArkUI_NodeEvent,
@@ -9,9 +9,9 @@ use ohos_arkui_sys::{
     OH_ArkUI_NodeEvent_GetNodeHandle, OH_ArkUI_QueryModuleInterfaceByName,
 };
 
-use crate::{check_arkui_status, ArkUINodeAttributeType, ArkUINodeType, NodeEventType};
+use crate::{ArkUINodeAttributeType, ArkUINodeType, NodeEventType};
 
-use crate::common::{ArkUIError, ArkUIErrorCode, ArkUINode, ArkUINodeAttributeItem, ArkUIResult};
+use crate::common::{ArkUIError, ArkUINode, ArkUINodeAttributeItem};
 
 /// ArkUI_NativeNodeAPI_1 struct
 /// Only can be used in main thread
@@ -20,12 +20,14 @@ pub const ARK_UI_NATIVE_NODE_API_1: LazyCell<ArkUINativeNodeAPI1> = LazyCell::ne
     api
 });
 
-pub struct ArkUINativeNodeAPI1(pub(crate) *mut ArkUI_NativeNodeAPI_1);
+pub struct ArkUINativeNodeAPI1 {
+    pub(crate) raw: NonNull<ArkUI_NativeNodeAPI_1>,
+}
 
 impl ArkUINativeNodeAPI1 {
     /// allow us to get the pointer of ArkUI_NativeNodeAPI_1 and use it directly
-    pub fn raw(&self) -> *mut ArkUI_NativeNodeAPI_1 {
-        self.0
+    pub fn raw(&self) -> NonNull<ArkUI_NativeNodeAPI_1> {
+        self.raw
     }
 
     pub fn new() -> Self {
@@ -41,25 +43,26 @@ impl ArkUINativeNodeAPI1 {
         #[cfg(debug_assertions)]
         assert!(!raw_ptr.is_null(), "ArkUI_NativeNodeAPI_1 is NULL");
         api = raw_ptr.cast();
-        Self(api)
+        Self {
+            raw: unsafe { NonNull::new_unchecked(api) },
+        }
     }
 
-    pub fn create_node(&self, node_type: ArkUINodeType) -> ArkUIResult<ArkUI_NodeHandle> {
+    pub fn create_node(&self, node_type: ArkUINodeType) -> Result<ArkUI_NodeHandle, ArkUIError> {
         unsafe {
-            if let Some(create_node) = (*self.0).createNode {
+            if let Some(create_node) = (*self.raw.as_ptr()).createNode {
                 let handle = create_node(node_type.into());
                 if handle.is_null() {
-                    return Err(ArkUIError::new(
-                        ArkUIErrorCode::ArkTSNodeNotSupported,
-                        "Create node failed",
-                    ));
+                    Err(ArkUIError::NullError(String::from(
+                        "api is ArkUINativeNodeAPI1::createNode",
+                    )))
+                } else {
+                    Ok(handle)
                 }
-                Ok(handle)
             } else {
-                Err(ArkUIError::new(
-                    ArkUIErrorCode::AttributeOrEventNotSupported,
+                Err(ArkUIError::InternalError(String::from(
                     "ArkUI_NativeNodeAPI_1::createNode is None",
-                ))
+                )))
             }
         }
     }
@@ -69,41 +72,62 @@ impl ArkUINativeNodeAPI1 {
         node: &ArkUINode,
         attr: ArkUINodeAttributeType,
         value: ArkUINodeAttributeItem,
-    ) -> ArkUIResult<()> {
+    ) -> Result<(), ArkUIError> {
         unsafe {
-            if let Some(set_attribute) = (*self.0).setAttribute {
-                check_arkui_status!(set_attribute(node.raw(), attr.into(), &value.into()))
+            if let Some(set_attribute) = (*self.raw.as_ptr()).setAttribute {
+                let ret = set_attribute(node.raw(), attr.into(), &value.into());
+                if ret != 0 {
+                    Err(ArkUIError::InternalError(format!(
+                        "api is ArkUINativeNodeAPI1::setAttribute, error_code is {:?}",
+                        ret
+                    )))
+                } else {
+                    Ok(())
+                }
             } else {
-                Err(ArkUIError::new(
-                    ArkUIErrorCode::AttributeOrEventNotSupported,
+                Err(ArkUIError::InternalError(String::from(
                     "ArkUI_NativeNodeAPI_1::setAttribute is None",
-                ))
+                )))
             }
         }
     }
 
-    pub fn add_child(&self, parent: &ArkUINode, child: &ArkUINode) -> ArkUIResult<()> {
+    pub fn add_child(&self, parent: &ArkUINode, child: &ArkUINode) -> Result<(), ArkUIError> {
         unsafe {
-            if let Some(add_child) = (*self.0).addChild {
-                check_arkui_status!(add_child(parent.raw(), child.raw()))
+            if let Some(add_child) = (*self.raw.as_ptr()).addChild {
+                let ret = add_child(parent.raw(), child.raw());
+                if ret != 0 {
+                    Err(ArkUIError::InternalError(format!(
+                        "api is ArkUINativeNodeAPI1::addChild, error_code is {:?}",
+                        ret
+                    )))
+                } else {
+                    Ok(())
+                }
             } else {
-                Err(ArkUIError::new(
-                    ArkUIErrorCode::AttributeOrEventNotSupported,
+                Err(ArkUIError::InternalError(String::from(
                     "ArkUI_NativeNodeAPI_1::addChild is None",
-                ))
+                )))
             }
         }
     }
 
-    pub fn remove_child(&self, parent: &ArkUINode, child: &ArkUINode) -> ArkUIResult<()> {
+    pub fn remove_child(&self, parent: &ArkUINode, child: &ArkUINode) -> Result<(), ArkUIError> {
         unsafe {
-            if let Some(remove_child) = (*self.0).removeChild {
-                check_arkui_status!(remove_child(parent.raw(), child.raw()))
+            if let Some(remove_child) = (*self.raw.as_ptr()).removeChild {
+                let ret = remove_child(parent.raw(), child.raw());
+                if ret != 0 {
+                    Err(ArkUIError::InternalError(format!(
+                        "api is ArkUINativeNodeAPI1::removeChild, error_code is {:?}",
+                        ret
+                    )))
+                } else {
+                    Ok(())
+                }
             } else {
-                Err(ArkUIError::new(
-                    ArkUIErrorCode::AttributeOrEventNotSupported,
+                Err(ArkUIError::InternalError(String::from(
                     "ArkUI_NativeNodeAPI_1::removeChild is None",
-                ))
+                )))
             }
         }
     }
@@ -113,29 +137,35 @@ impl ArkUINativeNodeAPI1 {
         parent: &ArkUINode,
         child: &ArkUINode,
         index: i32,
-    ) -> ArkUIResult<()> {
+    ) -> Result<(), ArkUIError> {
         unsafe {
-            if let Some(insert_child_at) = (*self.0).insertChildAt {
-                check_arkui_status!(insert_child_at(parent.raw(), child.raw(), index))
+            if let Some(insert_child_at) = (*self.raw.as_ptr()).insertChildAt {
+                let ret = insert_child_at(parent.raw(), child.raw(), index);
+                if ret != 0 {
+                    Err(ArkUIError::InternalError(format!(
+                        "api is ArkUINativeNodeAPI1::insertChildAt, error_code is {:?}",
+                        ret
+                    )))
+                } else {
+                    Ok(())
+                }
             } else {
-                Err(ArkUIError::new(
-                    ArkUIErrorCode::AttributeOrEventNotSupported,
+                Err(ArkUIError::InternalError(String::from(
                     "ArkUI_NativeNodeAPI_1::insertChild is None",
-                ))
+                )))
             }
         }
     }
 
-    pub fn dispose(&self, node: &ArkUINode) -> ArkUIResult<()> {
+    pub fn dispose(&self, node: &ArkUINode) -> Result<(), ArkUIError> {
         unsafe {
-            if let Some(dispose_node) = (*self.0).disposeNode {
+            if let Some(dispose_node) = (*self.raw.as_ptr()).disposeNode {
                 dispose_node(node.raw());
                 Ok(())
             } else {
-                Err(ArkUIError::new(
-                    ArkUIErrorCode::AttributeOrEventNotSupported,
+                Err(ArkUIError::InternalError(String::from(
                     "ArkUI_NativeNodeAPI_1::disposeNode is None",
-                ))
+                )))
             }
         }
     }
@@ -144,74 +174,99 @@ impl ArkUINativeNodeAPI1 {
         &self,
         node: &ArkUINode,
         event_type: NodeEventType,
-    ) -> ArkUIResult<()> {
+    ) -> Result<(), ArkUIError> {
         unsafe {
-            if let Some(register_node_event) = (*self.0).registerNodeEvent {
+            if let Some(register_node_event) = (*self.raw.as_ptr()).registerNodeEvent {
                 let t: ArkUI_NodeEventType = event_type.into();
-                check_arkui_status!(register_node_event(node.raw(), t, 0, std::ptr::null_mut()))
+                let ret = register_node_event(node.raw(), t, 0, std::ptr::null_mut());
+                if ret != 0 {
+                    Err(ArkUIError::InternalError(format!(
+                        "api is ArkUINativeNodeAPI1::registerNodeEvent, error_code is {:?}",
+                        ret
+                    )))
+                } else {
+                    Ok(())
+                }
             } else {
-                Err(ArkUIError::new(
-                    ArkUIErrorCode::AttributeOrEventNotSupported,
+                Err(ArkUIError::InternalError(String::from(
                     "ArkUI_NativeNodeAPI_1::registerNodeEvent is None",
-                ))
+                )))
             }
         }
     }
 
-    pub fn add_event_receiver(&self, node: &ArkUINode) -> ArkUIResult<()> {
+    pub fn add_event_receiver(&self, node: &ArkUINode) -> Result<(), ArkUIError> {
         unsafe {
-            if let Some(add_node_event_receiver) = (*self.0).addNodeEventReceiver {
-                check_arkui_status!(add_node_event_receiver(
-                    node.raw(),
-                    Some(node_event_receiver)
-                ))
+            if let Some(add_node_event_receiver) = (*self.raw.as_ptr()).addNodeEventReceiver {
+                let ret = add_node_event_receiver(node.raw(), Some(node_event_receiver));
+                if ret != 0 {
+                    Err(ArkUIError::InternalError(format!(
+                        "api is ArkUINativeNodeAPI1::addNodeEventReceiver, error_code is {:?}",
+                        ret
+                    )))
+                } else {
+                    Ok(())
+                }
             } else {
-                Err(ArkUIError::new(
-                    ArkUIErrorCode::AttributeOrEventNotSupported,
+                Err(ArkUIError::InternalError(String::from(
                     "ArkUI_NativeNodeAPI_1::addNodeEventReceiver is None",
-                ))
+                )))
             }
         }
     }
 
-    pub fn remove_event_receiver(&self, node: &ArkUINode) -> ArkUIResult<()> {
+    pub fn remove_event_receiver(&self, node: &ArkUINode) -> Result<(), ArkUIError> {
         unsafe {
-            if let Some(remove_node_event_receiver) = (*self.0).removeNodeEventReceiver {
-                check_arkui_status!(remove_node_event_receiver(
-                    node.raw(),
-                    Some(node_event_receiver)
-                ))
+            if let Some(remove_node_event_receiver) = (*self.raw.as_ptr()).removeNodeEventReceiver {
+                let ret = remove_node_event_receiver(node.raw(), Some(node_event_receiver));
+                if ret != 0 {
+                    Err(ArkUIError::InternalError(format!(
+                        "api is ArkUINativeNodeAPI1::removeNodeEventReceiver, error_code is {:?}",
+                        ret
+                    )))
+                } else {
+                    Ok(())
+                }
             } else {
-                Err(ArkUIError::new(
-                    ArkUIErrorCode::AttributeOrEventNotSupported,
+                Err(ArkUIError::InternalError(String::from(
                     "ArkUI_NativeNodeAPI_1::removeNodeEventReceiver is None",
-                ))
+                )))
             }
         }
     }
 
-    pub fn set_user_data(&self, node: &ArkUINode, user_data: *mut c_void) -> ArkUIResult<()> {
+    pub fn set_user_data(
+        &self,
+        node: &ArkUINode,
+        user_data: *mut c_void,
+    ) -> Result<(), ArkUIError> {
         unsafe {
-            if let Some(set_user_data) = (*self.0).setUserData {
-                check_arkui_status!(set_user_data(node.raw(), user_data))
+            if let Some(set_user_data) = (*self.raw.as_ptr()).setUserData {
+                let ret = set_user_data(node.raw(), user_data);
+                if ret != 0 {
+                    Err(ArkUIError::InternalError(format!(
+                        "api is ArkUINativeNodeAPI1::setUserData, error_code is {:?}",
+                        ret
+                    )))
+                } else {
+                    Ok(())
+                }
             } else {
-                Err(ArkUIError::new(
-                    ArkUIErrorCode::AttributeOrEventNotSupported,
+                Err(ArkUIError::InternalError(String::from(
                     "ArkUI_NativeNodeAPI_1::setUserData is None",
-                ))
+                )))
             }
         }
     }
 
-    pub fn get_user_data(&self, node_handle: ArkUI_NodeHandle) -> ArkUIResult<*mut c_void> {
+    pub fn get_user_data(&self, node_handle: ArkUI_NodeHandle) -> Result<*mut c_void, ArkUIError> {
         unsafe {
-            if let Some(get_user_data) = (*self.0).getUserData {
+            if let Some(get_user_data) = (*self.raw.as_ptr()).getUserData {
                 Ok(get_user_data(node_handle))
             } else {
-                Err(ArkUIError::new(
-                    ArkUIErrorCode::AttributeOrEventNotSupported,
+                Err(ArkUIError::InternalError(String::from(
                     "ArkUI_NativeNodeAPI_1::setUserData is None",
-                ))
+                )))
             }
         }
     }

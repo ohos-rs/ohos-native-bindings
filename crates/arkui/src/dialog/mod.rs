@@ -1,6 +1,8 @@
 use std::{cell::RefCell, os::raw::c_void, rc::Rc};
 
-use crate::{Alignment, ArkUINode, ArkUIResult, DismissReason, ARK_UI_NATIVE_DIALOG_API_1};
+use crate::{Alignment, ArkUINode, DismissReason, ARK_UI_NATIVE_DIALOG_API_1};
+
+use super::ArkUIError;
 
 use ohos_arkui_sys::ArkUI_NativeDialogHandle;
 
@@ -23,7 +25,7 @@ pub struct Dialog {
 }
 
 impl Dialog {
-    pub fn new() -> ArkUIResult<Self> {
+    pub fn new() -> Result<Self, ArkUIError> {
         let dialog_controller = ARK_UI_NATIVE_DIALOG_API_1.create()?;
         Ok(Dialog {
             raw: dialog_controller,
@@ -34,44 +36,44 @@ impl Dialog {
         })
     }
 
-    pub fn content<T: Into<ArkUINode>>(&self, content: T) -> ArkUIResult<()> {
+    pub fn content<T: Into<ArkUINode>>(&self, content: T) -> Result<(), ArkUIError> {
         let node: ArkUINode = content.into();
         ARK_UI_NATIVE_DIALOG_API_1.set_content(self.raw, node.raw())?;
         Ok(())
     }
 
-    pub fn show(&self) -> ArkUIResult<()> {
+    pub fn show(&self) -> Result<(), ArkUIError> {
         ARK_UI_NATIVE_DIALOG_API_1.show(self.raw, false)?;
         Ok(())
     }
 
-    pub fn show_with_sub_window(&self) -> ArkUIResult<()> {
+    pub fn show_with_sub_window(&self) -> Result<(), ArkUIError> {
         ARK_UI_NATIVE_DIALOG_API_1.show(self.raw, true)?;
         Ok(())
     }
 
-    pub fn close(&self) -> ArkUIResult<()> {
+    pub fn close(&self) -> Result<(), ArkUIError> {
         ARK_UI_NATIVE_DIALOG_API_1.close(self.raw)?;
         Ok(())
     }
 
-    pub fn modal_mode(&self, modal_mode: bool) -> ArkUIResult<()> {
+    pub fn modal_mode(&self, modal_mode: bool) -> Result<(), ArkUIError> {
         ARK_UI_NATIVE_DIALOG_API_1.set_modal_mode(self.raw, modal_mode)?;
         Ok(())
     }
 
-    pub fn auto_cancel(&self, auto_cancel: bool) -> ArkUIResult<()> {
+    pub fn auto_cancel(&self, auto_cancel: bool) -> Result<(), ArkUIError> {
         ARK_UI_NATIVE_DIALOG_API_1.set_auto_cancel(self.raw, auto_cancel)?;
         Ok(())
     }
 
-    pub fn background_color(&self, color: u32) -> ArkUIResult<()> {
+    pub fn background_color(&self, color: u32) -> Result<(), ArkUIError> {
         ARK_UI_NATIVE_DIALOG_API_1.set_background_color(self.raw, color)?;
         Ok(())
     }
 
     /// Set content alignment, offset_x and offset_y will be set with 0.0
-    pub fn content_alignment(&self, alignment: Alignment) -> ArkUIResult<()> {
+    pub fn content_alignment(&self, alignment: Alignment) -> Result<(), ArkUIError> {
         ARK_UI_NATIVE_DIALOG_API_1.set_content_alignment(self.raw, alignment, 0.0, 0.0)?;
         Ok(())
     }
@@ -82,7 +84,7 @@ impl Dialog {
         alignment: Alignment,
         offset_x: f32,
         offset_y: f32,
-    ) -> ArkUIResult<()> {
+    ) -> Result<(), ArkUIError> {
         ARK_UI_NATIVE_DIALOG_API_1
             .set_content_alignment(self.raw, alignment, offset_x, offset_y)?;
         Ok(())
@@ -94,7 +96,7 @@ impl Dialog {
         top_right: f32,
         bottom_left: f32,
         bottom_right: f32,
-    ) -> ArkUIResult<()> {
+    ) -> Result<(), ArkUIError> {
         ARK_UI_NATIVE_DIALOG_API_1.set_corner_radius(
             self.raw,
             top_left,
@@ -108,7 +110,7 @@ impl Dialog {
     pub fn on_will_dismiss(
         &self,
         callback: fn(DialogDismissData) -> Option<bool>,
-    ) -> ArkUIResult<()> {
+    ) -> Result<(), ArkUIError> {
         self.inner_dismiss_data.borrow_mut().dismiss_handle = Some(callback);
 
         ARK_UI_NATIVE_DIALOG_API_1.register_dismiss(self.raw, self.inner_dismiss_data.clone())?;
@@ -121,7 +123,7 @@ impl Dialog {
         &self,
         data: T,
         callback: fn(data: DialogDismissData) -> Option<bool>,
-    ) -> ArkUIResult<()> {
+    ) -> Result<(), ArkUIError> {
         self.inner_dismiss_data.borrow_mut().dismiss_handle = Some(callback);
 
         self.inner_dismiss_data.borrow_mut().data =

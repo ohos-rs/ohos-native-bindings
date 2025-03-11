@@ -1,13 +1,13 @@
 use crate::{
-    ArkUIAttributeBasic, ArkUICommonAttribute, ArkUIEvent, ArkUIGesture, ArkUINode, ArkUINodeType,
-    ArkUIResult, ARK_UI_NATIVE_NODE_API_1,
+    ArkUIAttributeBasic, ArkUICommonAttribute, ArkUIError, ArkUIEvent, ArkUIGesture, ArkUINode,
+    ArkUINodeType, ARK_UI_NATIVE_NODE_API_1,
 };
 
 #[derive(Clone)]
 pub struct TextInput(ArkUINode);
 
 impl TextInput {
-    pub fn new() -> ArkUIResult<Self> {
+    pub fn new() -> Result<Self, ArkUIError> {
         let list_item = ARK_UI_NATIVE_NODE_API_1.create_node(ArkUINodeType::TextInput)?;
         Ok(Self(ArkUINode {
             raw: list_item,

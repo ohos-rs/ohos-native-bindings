@@ -8,7 +8,7 @@ use ohos_arkui_sys::{
 };
 
 use crate::{
-    AnimationFinishCallbackType, AnimationMode, ArkUIContext, ArkUIResult, Curve,
+    AnimationFinishCallbackType, AnimationMode, ArkUIContext, ArkUIError, Curve,
     ARK_UI_NATIVE_ANIMATE_API_1,
 };
 
@@ -86,7 +86,7 @@ impl Animation {
     }
 
     #[cfg(feature = "napi")]
-    pub fn animate_to(&self, ctx: ArkUIContext) -> ArkUIResult<()> {
+    pub fn animate_to(&self, ctx: ArkUIContext) -> Result<(), ArkUIError> {
         let option = self.raw.borrow();
         let update_ctx_raw = self.update_ctx.borrow().raw();
         let finish_ctx_raw = self.finish_ctx.borrow().raw();

@@ -2,6 +2,7 @@ use std::{
     cell::{LazyCell, RefCell},
     ffi::CString,
     os::raw::c_void,
+    ptr::NonNull,
     rc::Rc,
 };
 
@@ -19,9 +20,9 @@ use ohos_arkui_sys::{
 };
 
 use crate::{
-    check_arkui_status, ArkUIError, ArkUIErrorCode, ArkUIResult, GestureData, GestureEventAction,
-    GestureEventData, GestureRecognizerType, InnerGestureData, LongPressGestureData,
-    PanGestureData, PinchGestureData, RotationGestureData, SwipeGestureData,
+    ArkUIError, GestureData, GestureEventAction, GestureEventData, GestureRecognizerType,
+    InnerGestureData, LongPressGestureData, PanGestureData, PinchGestureData, RotationGestureData,
+    SwipeGestureData,
 };
 
 /// ArkUINativeGestureAPI1 struct
@@ -31,18 +32,21 @@ pub const ARK_UI_NATIVE_GESTURE_API_1: LazyCell<ArkUINativeGestureAPI1> = LazyCe
     api
 });
 
-pub struct ArkUINativeGestureAPI1(pub(crate) *mut ArkUI_NativeGestureAPI_1);
+pub struct ArkUINativeGestureAPI1 {
+    pub(crate) raw: NonNull<ArkUI_NativeGestureAPI_1>,
+}
 
 impl ArkUINativeGestureAPI1 {
     /// allow us to get the pointer of ArkUI_NativeGestureAPI_1 and use it directly
-    pub fn raw(&self) -> *mut ArkUI_NativeGestureAPI_1 {
-        self.0
+    pub fn raw(&self) -> NonNull<ArkUI_NativeGestureAPI_1> {
+        self.raw
     }
 
     pub fn new() -> Self {
         #[allow(unused_assignments)]
         let mut api: *mut ArkUI_NativeGestureAPI_1 = std::ptr::null_mut();
-        let struct_name = CString::new("ArkUI_NativeGestureAPI_1").unwrap();
+        let struct_name =
+            CString::new("ArkUI_NativeGestureAPI_1").expect("Failed to create CString");
         let raw_ptr = unsafe {
             OH_ArkUI_QueryModuleInterfaceByName(
                 ArkUI_NativeAPIVariantKind_ARKUI_NATIVE_GESTURE,
@@ -52,7 +56,9 @@ impl ArkUINativeGestureAPI1 {
         #[cfg(debug_assertions)]
         assert!(!raw_ptr.is_null(), "ArkUI_NativeGestureAPI_1 is NULL");
         api = raw_ptr.cast();
-        Self(api)
+        Self {
+            raw: unsafe { NonNull::new_unchecked(api) },
+        }
     }
 
     pub fn create_long_gesture(
@@ -60,23 +66,21 @@ impl ArkUINativeGestureAPI1 {
         finger_number: i32,
         repeat: bool,
         duration: i32,
-    ) -> ArkUIResult<ArkUI_GestureRecognizerHandle> {
+    ) -> Result<ArkUI_GestureRecognizerHandle, ArkUIError> {
         unsafe {
-            if let Some(create_long_press_gesture) = (*self.0).createLongPressGesture {
+            if let Some(create_long_press_gesture) = (*self.raw.as_ptr()).createLongPressGesture {
                 let ret = create_long_press_gesture(finger_number, repeat, duration);
                 if ret.is_null() {
-                    Err(ArkUIError::new(
-                        ArkUIErrorCode::AttributeOrEventNotSupported,
-                        "ArkUINativeGestureAPI1::createLongPressGesture is None",
-                    ))
+                    Err(ArkUIError::NullError(String::from(
+                        "api is ArkUINativeGestureAPI1::createLongPressGesture",
+                    )))
                 } else {
                     Ok(ret)
                 }
             } else {
-                Err(ArkUIError::new(
-                    ArkUIErrorCode::AttributeOrEventNotSupported,
+                Err(ArkUIError::InternalError(String::from(
                     "ArkUINativeGestureAPI1::createLongPressGesture is None",
-                ))
+                )))
             }
         }
     }
@@ -85,23 +89,21 @@ impl ArkUINativeGestureAPI1 {
         &self,
         count: i32,
         finger: i32,
-    ) -> ArkUIResult<ArkUI_GestureRecognizerHandle> {
+    ) -> Result<ArkUI_GestureRecognizerHandle, ArkUIError> {
         unsafe {
-            if let Some(create_tap_gesture) = (*self.0).createTapGesture {
+            if let Some(create_tap_gesture) = (*self.raw.as_ptr()).createTapGesture {
                 let ret = create_tap_gesture(count, finger);
                 if ret.is_null() {
-                    Err(ArkUIError::new(
-                        ArkUIErrorCode::AttributeOrEventNotSupported,
-                        "ArkUINativeGestureAPI1::createTapGesture is None",
-                    ))
+                    Err(ArkUIError::NullError(String::from(
+                        "api is ArkUINativeGestureAPI1::createTapGesture",
+                    )))
                 } else {
                     Ok(ret)
                 }
             } else {
-                Err(ArkUIError::new(
-                    ArkUIErrorCode::AttributeOrEventNotSupported,
+                Err(ArkUIError::InternalError(String::from(
                     "ArkUINativeGestureAPI1::createTapGesture is None",
-                ))
+                )))
             }
         }
     }
@@ -111,23 +113,21 @@ impl ArkUINativeGestureAPI1 {
         finger: i32,
         direction: u32,
         distance: f64,
-    ) -> ArkUIResult<ArkUI_GestureRecognizerHandle> {
+    ) -> Result<ArkUI_GestureRecognizerHandle, ArkUIError> {
         unsafe {
-            if let Some(create_pan_gesture) = (*self.0).createPanGesture {
+            if let Some(create_pan_gesture) = (*self.raw.as_ptr()).createPanGesture {
                 let ret = create_pan_gesture(finger, direction, distance);
                 if ret.is_null() {
-                    Err(ArkUIError::new(
-                        ArkUIErrorCode::AttributeOrEventNotSupported,
-                        "ArkUINativeGestureAPI1::createPanGesture is None",
-                    ))
+                    Err(ArkUIError::NullError(String::from(
+                        "api is ArkUINativeGestureAPI1::createPanGesture",
+                    )))
                 } else {
                     Ok(ret)
                 }
             } else {
-                Err(ArkUIError::new(
-                    ArkUIErrorCode::AttributeOrEventNotSupported,
+                Err(ArkUIError::InternalError(String::from(
                     "ArkUINativeGestureAPI1::createPanGesture is None",
-                ))
+                )))
             }
         }
     }
@@ -136,23 +136,21 @@ impl ArkUINativeGestureAPI1 {
         &self,
         finger: i32,
         distance: f64,
-    ) -> ArkUIResult<ArkUI_GestureRecognizerHandle> {
+    ) -> Result<ArkUI_GestureRecognizerHandle, ArkUIError> {
         unsafe {
-            if let Some(create_pinch_gesture) = (*self.0).createPinchGesture {
+            if let Some(create_pinch_gesture) = (*self.raw.as_ptr()).createPinchGesture {
                 let ret = create_pinch_gesture(finger, distance);
                 if ret.is_null() {
-                    Err(ArkUIError::new(
-                        ArkUIErrorCode::AttributeOrEventNotSupported,
-                        "ArkUINativeGestureAPI1::createPinchGesture is None",
-                    ))
+                    Err(ArkUIError::NullError(String::from(
+                        "api is ArkUINativeGestureAPI1::createPinchGesture",
+                    )))
                 } else {
                     Ok(ret)
                 }
             } else {
-                Err(ArkUIError::new(
-                    ArkUIErrorCode::AttributeOrEventNotSupported,
+                Err(ArkUIError::InternalError(String::from(
                     "ArkUINativeGestureAPI1::createPinchGesture is None",
-                ))
+                )))
             }
         }
     }
@@ -161,23 +159,21 @@ impl ArkUINativeGestureAPI1 {
         &self,
         finger: i32,
         angle: f64,
-    ) -> ArkUIResult<ArkUI_GestureRecognizerHandle> {
+    ) -> Result<ArkUI_GestureRecognizerHandle, ArkUIError> {
         unsafe {
-            if let Some(create_rotation_gesture) = (*self.0).createRotationGesture {
+            if let Some(create_rotation_gesture) = (*self.raw.as_ptr()).createRotationGesture {
                 let ret = create_rotation_gesture(finger, angle);
                 if ret.is_null() {
-                    Err(ArkUIError::new(
-                        ArkUIErrorCode::AttributeOrEventNotSupported,
-                        "ArkUINativeGestureAPI1::createRotationGesture is None",
-                    ))
+                    Err(ArkUIError::NullError(String::from(
+                        "api is ArkUINativeGestureAPI1::createRotationGesture",
+                    )))
                 } else {
                     Ok(ret)
                 }
             } else {
-                Err(ArkUIError::new(
-                    ArkUIErrorCode::AttributeOrEventNotSupported,
+                Err(ArkUIError::InternalError(String::from(
                     "ArkUINativeGestureAPI1::createRotationGesture is None",
-                ))
+                )))
             }
         }
     }
@@ -187,23 +183,21 @@ impl ArkUINativeGestureAPI1 {
         finger: i32,
         direction: u32,
         speed: f64,
-    ) -> ArkUIResult<ArkUI_GestureRecognizerHandle> {
+    ) -> Result<ArkUI_GestureRecognizerHandle, ArkUIError> {
         unsafe {
-            if let Some(create_swipe_gesture) = (*self.0).createSwipeGesture {
+            if let Some(create_swipe_gesture) = (*self.raw.as_ptr()).createSwipeGesture {
                 let ret = create_swipe_gesture(finger, direction, speed);
                 if ret.is_null() {
-                    Err(ArkUIError::new(
-                        ArkUIErrorCode::AttributeOrEventNotSupported,
-                        "ArkUINativeGestureAPI1::createSwipeGesture is None",
-                    ))
+                    Err(ArkUIError::NullError(String::from(
+                        "api is ArkUINativeGestureAPI1::createSwipeGesture",
+                    )))
                 } else {
                     Ok(ret)
                 }
             } else {
-                Err(ArkUIError::new(
-                    ArkUIErrorCode::AttributeOrEventNotSupported,
+                Err(ArkUIError::InternalError(String::from(
                     "ArkUINativeGestureAPI1::createSwipeGesture is None",
-                ))
+                )))
             }
         }
     }
@@ -211,23 +205,21 @@ impl ArkUINativeGestureAPI1 {
     pub fn create_gesture_group(
         &self,
         mode: ArkUI_GroupGestureMode,
-    ) -> ArkUIResult<ArkUI_GestureRecognizerHandle> {
+    ) -> Result<ArkUI_GestureRecognizerHandle, ArkUIError> {
         unsafe {
-            if let Some(create_group_gesture) = (*self.0).createGroupGesture {
+            if let Some(create_group_gesture) = (*self.raw.as_ptr()).createGroupGesture {
                 let ret = create_group_gesture(mode);
                 if ret.is_null() {
-                    Err(ArkUIError::new(
-                        ArkUIErrorCode::AttributeOrEventNotSupported,
-                        "ArkUINativeGestureAPI1::createGroupGesture is None",
-                    ))
+                    Err(ArkUIError::NullError(String::from(
+                        "api is ArkUINativeGestureAPI1::createGroupGesture",
+                    )))
                 } else {
                     Ok(ret)
                 }
             } else {
-                Err(ArkUIError::new(
-                    ArkUIErrorCode::AttributeOrEventNotSupported,
+                Err(ArkUIError::InternalError(String::from(
                     "ArkUINativeGestureAPI1::createGestureGroup is None",
-                ))
+                )))
             }
         }
     }
@@ -236,15 +228,21 @@ impl ArkUINativeGestureAPI1 {
         &self,
         group: ArkUI_GestureRecognizerHandle,
         child: ArkUI_GestureRecognizerHandle,
-    ) -> ArkUIResult<()> {
+    ) -> Result<(), ArkUIError> {
         unsafe {
-            if let Some(add_child_gesture) = (*self.0).addChildGesture {
-                check_arkui_status!(add_child_gesture(group, child))
+            if let Some(add_child_gesture) = (*self.raw.as_ptr()).addChildGesture {
+                let ret = add_child_gesture(group, child);
+                if ret != 0 {
+                    Err(ArkUIError::InternalError(String::from(
+                        "api is ArkUINativeGestureAPI1::addChildGesture",
+                    )))
+                } else {
+                    Ok(())
+                }
             } else {
-                Err(ArkUIError::new(
-                    ArkUIErrorCode::AttributeOrEventNotSupported,
+                Err(ArkUIError::InternalError(String::from(
                     "ArkUINativeGestureAPI1::addChildGesture is None",
-                ))
+                )))
             }
         }
     }
@@ -255,15 +253,22 @@ impl ArkUINativeGestureAPI1 {
         node: ArkUI_NodeHandle,
         mode: ArkUI_GesturePriority,
         mask: ArkUI_GestureMask,
-    ) -> ArkUIResult<()> {
+    ) -> Result<(), ArkUIError> {
         unsafe {
-            if let Some(add_gesture_to_node) = (*self.0).addGestureToNode {
-                check_arkui_status!(add_gesture_to_node(node, gesture, mode, mask))
+            if let Some(add_gesture_to_node) = (*self.raw.as_ptr()).addGestureToNode {
+                let ret = add_gesture_to_node(node, gesture, mode, mask);
+                if ret != 0 {
+                    Err(ArkUIError::InternalError(format!(
+                        "api is ArkUINativeGestureAPI1::addGestureToNode, error_code is {:?}",
+                        ret
+                    )))
+                } else {
+                    Ok(())
+                }
             } else {
-                Err(ArkUIError::new(
-                    ArkUIErrorCode::AttributeOrEventNotSupported,
+                Err(ArkUIError::InternalError(String::from(
                     "ArkUINativeGestureAPI1::addGestureToNode is None",
-                ))
+                )))
             }
         }
     }
@@ -273,20 +278,27 @@ impl ArkUINativeGestureAPI1 {
         gesture: ArkUI_GestureRecognizerHandle,
         action_type: ArkUI_GestureEventActionTypeMask,
         extra_params: Rc<RefCell<InnerGestureData>>,
-    ) -> ArkUIResult<()> {
+    ) -> Result<(), ArkUIError> {
         unsafe {
-            if let Some(set_gesture_event_to_target) = (*self.0).setGestureEventTarget {
-                check_arkui_status!(set_gesture_event_to_target(
+            if let Some(set_gesture_event_to_target) = (*self.raw.as_ptr()).setGestureEventTarget {
+                let ret = set_gesture_event_to_target(
                     gesture,
                     action_type,
                     Box::into_raw(Box::new(extra_params)) as *mut c_void,
-                    Some(target_receiver)
-                ))
+                    Some(target_receiver),
+                );
+                if ret != 0 {
+                    Err(ArkUIError::InternalError(format!(
+                        "api is ArkUINativeGestureAPI1::setGestureEventTarget, error_code is {:?}",
+                        ret
+                    )))
+                } else {
+                    Ok(())
+                }
             } else {
-                Err(ArkUIError::new(
-                    ArkUIErrorCode::AttributeOrEventNotSupported,
+                Err(ArkUIError::InternalError(String::from(
                     "ArkUINativeGestureAPI1::setGestureEventTarget is None",
-                ))
+                )))
             }
         }
     }
