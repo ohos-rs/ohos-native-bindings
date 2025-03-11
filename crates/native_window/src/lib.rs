@@ -29,7 +29,7 @@ impl NativeWindow {
 
         let ret = unsafe { OH_NativeWindow_NativeObjectReference(window) };
         #[cfg(debug_assertions)]
-        assert!(ret == 1, "OH_NativeWindow_NativeObjectReference failed");
+        assert!(ret == 0, "OH_NativeWindow_NativeObjectReference failed");
 
         unsafe {
             NativeWindow {
@@ -74,11 +74,14 @@ impl NativeWindow {
 
         let buf = NativeBuffer::from_window_buffer_ptr(window_buf);
 
+        let window_buffer = buf.mmap();
+
         Ok(NativeWindowBuffer {
             window: self,
+            raw_buf: NonNull::new(window_buf).expect("NonNull::new failed"),
             buffer: buf,
             release_fd,
-            window_buffer: NonNull::new(window_buf).expect("NonNull::new failed"),
+            window_buffer,
         })
     }
 }
@@ -87,7 +90,9 @@ unsafe impl Send for NativeWindow {}
 
 pub struct NativeWindowBuffer<'a> {
     window: &'a NativeWindow,
-    window_buffer: NonNull<OHNativeWindowBufferRaw>,
+    // can be operate memory directly
+    window_buffer: NonNull<c_void>,
+    raw_buf: NonNull<OHNativeWindowBufferRaw>,
     buffer: NativeBuffer,
     #[allow(dead_code)]
     release_fd: i32,
@@ -128,7 +133,7 @@ impl NativeWindowBuffer<'_> {
     ///
     /// See [`bytes()`][Self::bytes()] for safe access to these bytes.
     pub fn bits(&mut self) -> *mut c_void {
-        self.buffer.raw().cast()
+        self.window_buffer.as_ptr()
     }
 
     /// Safe write access to likely uninitialized pixel buffer data.
@@ -181,10 +186,11 @@ impl<'a> Drop for NativeWindowBuffer<'a> {
                 rects: r as *const _ as *mut _,
             };
         }
+
         let ret = unsafe {
             OH_NativeWindow_NativeWindowFlushBuffer(
                 self.window.window.as_ptr(),
-                self.window_buffer.as_ptr(),
+                self.raw_buf.as_ptr(),
                 -1,
                 region,
             )
@@ -200,6 +206,6 @@ impl Drop for NativeWindow {
     fn drop(&mut self) {
         let ret = unsafe { OH_NativeWindow_NativeObjectUnreference(self.window.as_ptr().cast()) };
         #[cfg(debug_assertions)]
-        assert!(ret == 1, "OH_NativeWindow_NativeObjectUnreference failed");
+        assert!(ret == 0, "OH_NativeWindow_NativeObjectUnreference failed");
     }
 }

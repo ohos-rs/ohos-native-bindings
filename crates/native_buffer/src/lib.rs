@@ -40,6 +40,7 @@ impl NativeBuffer {
     pub fn from_window_buffer_ptr(buffer: *mut OHNativeWindowBuffer) -> Self {
         let mut buf = std::ptr::null_mut();
         let ret = unsafe { OH_NativeBuffer_FromNativeWindowBuffer(buffer, &mut buf) };
+        #[cfg(debug_assertions)]
         assert!(ret == 0, "OH_NativeBuffer_FromNativeWindowBuffer failed");
 
         Self {
