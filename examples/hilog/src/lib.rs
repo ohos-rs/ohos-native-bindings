@@ -1,6 +1,8 @@
 use napi_derive_ohos::napi;
 
 #[napi]
-pub fn add(left: u32, right: u32) -> u32 {
-    left + right
+pub fn log() {
+    let _ = ohos_hilog_binding::forward_stdio_to_hilog();
+    println!("hello");
+    ohos_hilog_binding::hilog_info!("hello");
 }

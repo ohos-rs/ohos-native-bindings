@@ -285,7 +285,9 @@ pub fn forward_stdio_to_hilog() -> std::thread::JoinHandle<Result<()>> {
                 let len = match reader.read_line(&mut buffer) {
                     Ok(len) => len,
                     Err(e) => {
-                        error("Hilog forwarder failed to read stdin/stderr: {e:?}", None);
+                        error(format!(
+                            "Hilog forwarder failed to read stdin/stderr: {e:?}"
+                        ));
                         break Err(e);
                     }
                 };
