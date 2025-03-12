@@ -1,7 +1,7 @@
 use std::cell::RefCell;
 use std::os::raw::c_void;
 use std::rc::Rc;
-use std::{cell::LazyCell, ffi::CString, ptr::NonNull};
+use std::{cell::LazyCell, ptr::NonNull};
 
 use ohos_arkui_sys::{
     ArkUI_NativeAPIVariantKind_ARKUI_NATIVE_NODE, ArkUI_NativeNodeAPI_1, ArkUI_NodeEvent,
@@ -33,7 +33,7 @@ impl ArkUINativeNodeAPI1 {
     pub fn new() -> Self {
         #[allow(unused_assignments)]
         let mut api: *mut ArkUI_NativeNodeAPI_1 = std::ptr::null_mut();
-        let struct_name = CString::new("ArkUI_NativeNodeAPI_1").unwrap();
+        let struct_name = c"ArkUI_NativeNodeAPI_1";
         let raw_ptr = unsafe {
             OH_ArkUI_QueryModuleInterfaceByName(
                 ArkUI_NativeAPIVariantKind_ARKUI_NATIVE_NODE,

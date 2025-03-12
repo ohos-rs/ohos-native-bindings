@@ -35,8 +35,7 @@ impl ArkUINativeDialogAPI1 {
     pub fn new() -> Self {
         #[allow(unused_assignments)]
         let mut api: *mut ArkUI_NativeDialogAPI_1 = std::ptr::null_mut();
-        let struct_name =
-            CString::new("ArkUI_NativeDialogAPI_1").expect("Failed to create CString");
+        let struct_name = c"ArkUI_NativeDialogAPI_1";
         let raw_ptr = unsafe {
             OH_ArkUI_QueryModuleInterfaceByName(
                 ArkUI_NativeAPIVariantKind_ARKUI_NATIVE_DIALOG,
