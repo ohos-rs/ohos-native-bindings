@@ -15,6 +15,10 @@ ohos-xcomponent-binding = { workspace = true, optional = true }
 ohos-xcomponent-sys     = { workspace = true, optional = true }
 
 [features]
-default    = ["napi", "xcomponent"]
-napi       = ["dep:napi-ohos", "dep:napi-sys-ohos"]
+default = ["napi", "xcomponent"]
+
+# Allow you to use napi simple binding: convert internal error to napi error, get arkui handle from napi value and so on.
+napi = ["dep:napi-ohos", "dep:napi-sys-ohos"]
+
+# Allow you to use xcomponent binding
 xcomponent = ["dep:ohos-xcomponent-binding", "dep:ohos-xcomponent-sys"]
