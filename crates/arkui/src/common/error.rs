@@ -1,3 +1,6 @@
+#[cfg(feature = "napi")]
+use napi_ohos::Error;
+
 #[derive(Debug)]
 pub enum ArkUIError {
     /// Call system api failed
@@ -23,3 +26,10 @@ impl std::fmt::Display for ArkUIError {
 }
 
 impl std::error::Error for ArkUIError {}
+
+#[cfg(feature = "napi")]
+impl From<ArkUIError> for Error {
+    fn from(err: ArkUIError) -> Self {
+        Error::from_reason(err.to_string())
+    }
+}

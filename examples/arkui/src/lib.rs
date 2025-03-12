@@ -4,8 +4,8 @@ use napi_derive_ohos::napi;
 use napi_ohos::Result;
 use ohos_arkui_binding::{
     Animation, AnimationMode, ArkUICommonAttribute, ArkUICommonFontAttribute, ArkUIContext,
-    ArkUIErrorCode, ArkUIEvent, ArkUIGesture, ArkUIHandle, Curve, Dialog, Gesture,
-    GestureEventAction, List, ListItem, RootNode, Text, TextAlignment, TextInput,
+    ArkUIEvent, ArkUIGesture, ArkUIHandle, Curve, Dialog, Gesture, GestureEventAction, List,
+    ListItem, RootNode, Text, TextAlignment, TextInput,
 };
 use ohos_hilog_binding::hilog_info;
 
@@ -28,7 +28,7 @@ impl MyApp {
     }
 
     #[napi]
-    pub fn create_native_node(&mut self) -> Result<(), ArkUIErrorCode> {
+    pub fn create_native_node(&mut self) -> Result<()> {
         let mut list = List::new()?;
 
         list.percent_width(1.0)?;
@@ -68,7 +68,7 @@ impl MyApp {
     }
 
     #[napi]
-    pub fn show_dialog(&mut self) -> Result<(), ArkUIErrorCode> {
+    pub fn show_dialog(&mut self) -> Result<()> {
         let dialog = Dialog::new()?;
 
         let text = Text::new()?;
@@ -90,7 +90,7 @@ impl MyApp {
     }
 
     #[napi]
-    pub fn create_text_input(&mut self) -> Result<(), ArkUIErrorCode> {
+    pub fn create_text_input(&mut self) -> Result<()> {
         let input = TextInput::new()?;
         self.input.replace(Some(input));
 
@@ -103,7 +103,7 @@ impl MyApp {
     }
 
     #[napi]
-    pub fn animation(&mut self, ctx: ArkUIContext) -> Result<(), ArkUIErrorCode> {
+    pub fn animation(&mut self, ctx: ArkUIContext) -> Result<()> {
         let animation_test = Animation::new();
         animation_test.duration(2000);
         animation_test.delay(20);
@@ -126,7 +126,7 @@ impl MyApp {
     }
 
     #[napi]
-    pub fn destroy_native_node(&mut self) -> Result<(), ArkUIErrorCode> {
+    pub fn destroy_native_node(&mut self) -> Result<()> {
         self.root.unmount()?;
         Ok(())
     }
