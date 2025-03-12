@@ -1,6 +1,5 @@
 use std::{
     cell::{LazyCell, RefCell},
-    ffi::CString,
     os::raw::c_void,
     ptr::NonNull,
     rc::Rc,

@@ -1,4 +1,4 @@
-use std::{cell::LazyCell, ffi::CString, ptr::NonNull};
+use std::{cell::LazyCell, ptr::NonNull};
 
 use ohos_arkui_sys::{
     ArkUI_AnimateCompleteCallback, ArkUI_AnimateOption, ArkUI_ContextCallback, ArkUI_ContextHandle,
