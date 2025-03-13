@@ -69,6 +69,7 @@ impl Default for LogOptions {
     }
 }
 
+#[derive(Default)]
 pub struct Hilog {
     options: RwLock<LogOptions>,
 }

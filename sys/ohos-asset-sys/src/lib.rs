@@ -3,6 +3,7 @@
 #![allow(non_snake_case)]
 #![allow(non_upper_case_globals)]
 #![allow(non_camel_case_types)]
+#![allow(clippy::missing_safety_doc)]
 
 pub const ASSET_TAG_TYPE_MASK: u32 = 4026531840;
 #[doc = " The asset attribute tag is a Boolean value."]

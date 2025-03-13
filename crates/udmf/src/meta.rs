@@ -1,5 +1,6 @@
+#![allow(clippy::inherent_to_string)]
+
 use ohos_udmf_sys::{OH_Utd_IsHigher, OH_Utd_IsLower};
-use std::fmt;
 use std::str::FromStr;
 
 #[derive(Debug, PartialEq, Clone)]
@@ -141,12 +142,6 @@ pub enum UdmfMeta {
     OpenHarmonyWant,
     GeneralFileUri,
     GeneralContentForm,
-}
-
-impl fmt::Display for UdmfMeta {
-    fn fmt(&self, f: &mut fmt::Formatter) -> fmt::Result {
-        write!(f, "{:?}", self)
-    }
 }
 
 impl FromStr for UdmfMeta {
@@ -302,23 +297,21 @@ impl FromStr for UdmfMeta {
 
 impl UdmfMeta {
     pub fn is_higher(&self, dest: &UdmfMeta) -> bool {
-        let ret = unsafe {
+        unsafe {
             OH_Utd_IsHigher(
                 self.to_string().as_ptr().cast(),
                 dest.to_string().as_ptr().cast(),
             )
-        };
-        ret
+        }
     }
 
     pub fn is_lower(&self, dest: &UdmfMeta) -> bool {
-        let ret = unsafe {
+        unsafe {
             OH_Utd_IsLower(
                 self.to_string().as_ptr().cast(),
                 dest.to_string().as_ptr().cast(),
             )
-        };
-        ret
+        }
     }
 
     pub fn to_string(&self) -> String {

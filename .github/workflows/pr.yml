@@ -1,0 +1,26 @@
+name: PR Check
+
+on:
+  pull_request:
+    types: [opened, reopened]
+
+permissions:
+  pull-requests: write
+
+jobs:
+  mention:
+    runs-on: ubuntu-latest
+    steps:
+      - name: checkout
+        uses: actions/checkout@v4
+
+      - name: setup Rust
+        uses: dtolnay/rust-toolchain@master
+        with:
+          toolchain: "stable"
+          components: "clippy"
+
+      - name: Check
+        run: |
+          cargo fmt --check
+          cargo clippy --target aarch64-unknown-linux-ohos --all-targets --all-features -- -D warnings

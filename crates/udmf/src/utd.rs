@@ -13,7 +13,7 @@ impl Utd {
     pub fn new(meta: UdmfMeta) -> Result<Self, UdmfError> {
         let ret = unsafe { OH_Utd_Create(meta.to_string().as_ptr().cast()) };
         if ret.is_null() {
-            return Err(UdmfError::UtdInitError(meta.to_string()));
+            Err(UdmfError::UtdInitError(meta.to_string()))
         } else {
             let raw = NonNull::new(ret).expect("OH_Utd_Create return null");
             Ok(Self {
@@ -36,8 +36,7 @@ impl Drop for Utd {
 
 impl PartialEq for Utd {
     fn eq(&self, other: &Self) -> bool {
-        let ret = unsafe { OH_Utd_Equals(self.raw.as_ptr(), other.raw.as_ptr()) };
-        ret
+        unsafe { OH_Utd_Equals(self.raw.as_ptr(), other.raw.as_ptr()) }
     }
 }
 

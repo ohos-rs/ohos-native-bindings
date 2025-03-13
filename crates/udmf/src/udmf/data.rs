@@ -57,8 +57,7 @@ impl UdmfData {
     }
 
     pub fn count(&self) -> i32 {
-        let ret = unsafe { OH_UdmfData_GetRecordCount(self.raw.as_ptr()) };
-        ret
+        unsafe { OH_UdmfData_GetRecordCount(self.raw.as_ptr()) }
     }
 
     pub fn record(&self, index: u32) -> Result<UdmfRecord, UdmfError> {
@@ -78,7 +77,7 @@ impl UdmfData {
             return Err(UdmfError::InternalError(-1));
         }
         if count == 0 {
-            return Ok(vec![]);
+            Ok(vec![])
         } else {
             let mut records = Vec::with_capacity(count as usize);
             for i in 0..count {
@@ -131,10 +130,7 @@ impl UdmfData {
         let key = unsafe { CStr::from_ptr(key.as_ptr()) }
             .to_str()
             .map_err(|e| {
-                return UdmfError::CommonError(format!(
-                    "UdmfData::save convert to str failed: {}",
-                    e
-                ));
+                UdmfError::CommonError(format!("UdmfData::save convert to str failed: {}", e))
             })?;
         Ok(key.to_owned())
     }
@@ -145,8 +141,7 @@ impl UdmfData {
         intension: UdmfIntention,
         size: i32,
     ) -> Result<String, UdmfError> {
-        let mut key = Vec::with_capacity(size as _);
-        key.resize(size as _, 0);
+        let mut key = vec![0; size as _];
         let ret = unsafe {
             OH_Udmf_SetUnifiedData(
                 intension.into(),
@@ -161,11 +156,17 @@ impl UdmfData {
         let key = unsafe { CStr::from_ptr(key.as_ptr()) }
             .to_str()
             .map_err(|e| {
-                return UdmfError::CommonError(format!(
+                UdmfError::CommonError(format!(
                     "UdmfData::save_with_key_size convert to str failed: {}",
                     e
-                ));
+                ))
             })?;
         Ok(key.to_owned())
+    }
+}
+
+impl Default for UdmfData {
+    fn default() -> Self {
+        Self::new()
     }
 }

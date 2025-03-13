@@ -92,6 +92,12 @@ impl UdsHtml {
     }
 }
 
+impl Default for UdsHtml {
+    fn default() -> Self {
+        Self::new()
+    }
+}
+
 impl Drop for UdsHtml {
     fn drop(&mut self) {
         unsafe { OH_UdsHtml_Destroy(self.raw.as_ptr()) }
