@@ -26,4 +26,3 @@ impl XComponentRaw {
         Ok(XComponentSize { width, height })
     }
 }
-
