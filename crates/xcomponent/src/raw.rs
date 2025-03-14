@@ -9,6 +9,8 @@ use crate::{code::XComponentResultCode, XComponentSize};
 #[derive(Debug, Clone, Copy)]
 pub struct WindowRaw(pub *mut c_void);
 
+#[repr(transparent)]
+#[derive(Debug, Clone, Copy)]
 pub struct XComponentRaw(pub *mut OH_NativeXComponent);
 
 impl XComponentRaw {
@@ -25,8 +27,3 @@ impl XComponentRaw {
     }
 }
 
-impl Clone for XComponentRaw {
-    fn clone(&self) -> Self {
-        Self(self.0)
-    }
-}

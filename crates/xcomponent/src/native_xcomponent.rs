@@ -1,3 +1,5 @@
+#![allow(clippy::missing_safety_doc)]
+
 use napi_ohos::{Error, Result};
 use ohos_xcomponent_sys::{
     OH_NativeXComponent, OH_NativeXComponent_Callback, OH_NativeXComponent_RegisterCallback,
@@ -17,6 +19,7 @@ use crate::X_COMPONENT_CALLBACKS;
 #[cfg(feature = "multi_mode")]
 use crate::X_COMPONENT_CALLBACKS_MAP;
 
+#[derive(Debug, Clone)]
 pub struct NativeXComponent {
     pub raw: XComponentRaw,
     pub(crate) id: Option<String>,
@@ -236,14 +239,5 @@ impl NativeXComponent {
             ));
         }
         Ok(())
-    }
-}
-
-impl Clone for NativeXComponent {
-    fn clone(&self) -> Self {
-        Self {
-            raw: self.raw.clone(),
-            id: self.id.clone(),
-        }
     }
 }

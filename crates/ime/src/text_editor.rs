@@ -118,3 +118,9 @@ impl Drop for TextEditor {
         }
     }
 }
+
+impl Default for TextEditor {
+    fn default() -> Self {
+        Self::new()
+    }
+}
