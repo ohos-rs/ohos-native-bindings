@@ -1,8 +1,12 @@
+use libc::{
+    __errno_location, close, mmap, pollfd, EAGAIN, EINTR, MAP_SHARED, PROT_READ, PROT_WRITE,
+};
 use ohos_native_window_sys::{
     NativeWindow as NativeWindowRaw, OHNativeWindowBuffer as OHNativeWindowBufferRaw,
-    OH_NativeWindow_NativeObjectReference, OH_NativeWindow_NativeObjectUnreference,
-    OH_NativeWindow_NativeWindowFlushBuffer, OH_NativeWindow_NativeWindowHandleOpt,
-    OH_NativeWindow_NativeWindowRequestBuffer, Region as RegionRaw, Region_Rect,
+    OH_NativeWindow_GetBufferHandleFromNative, OH_NativeWindow_NativeObjectReference,
+    OH_NativeWindow_NativeObjectUnreference, OH_NativeWindow_NativeWindowFlushBuffer,
+    OH_NativeWindow_NativeWindowHandleOpt, OH_NativeWindow_NativeWindowRequestBuffer,
+    Region as RegionRaw, Region_Rect,
 };
 use std::{cell::RefCell, mem::MaybeUninit, os::raw::c_void, ptr::NonNull, rc::Rc};
 
@@ -72,17 +76,48 @@ impl NativeWindow {
             return Err(NativeWindowError::InternalError(ret));
         }
 
+        // Convert to NativeBuffer and can get buffer config
         let buf = NativeBuffer::from_window_buffer_ptr(window_buf);
 
-        let window_buffer = buf.mmap();
+        unsafe {
+            let handle = OH_NativeWindow_GetBufferHandleFromNative(window_buf);
 
-        Ok(NativeWindowBuffer {
-            window: self,
-            raw_buf: NonNull::new(window_buf).expect("NonNull::new failed"),
-            buffer: buf,
-            release_fd,
-            window_buffer,
-        })
+            let addr = mmap(
+                (*handle).virAddr,
+                (*handle).size as _,
+                PROT_READ | PROT_WRITE,
+                MAP_SHARED,
+                (*handle).fd,
+                0,
+            );
+
+            if addr == libc::MAP_FAILED {
+                return Err(NativeWindowError::InternalError(-1));
+            }
+
+            if release_fd != -1 {
+                let mut ret_code = -1;
+                let mut fds = pollfd {
+                    fd: release_fd,
+                    events: libc::POLLIN,
+                    revents: 0,
+                };
+                while ret_code == -1
+                    && (*__errno_location() == EINTR || *__errno_location() == EAGAIN)
+                {
+                    ret_code = libc::poll(&mut fds, 1, 3000);
+                }
+                close(release_fd);
+            }
+
+            Ok(NativeWindowBuffer {
+                window: self,
+                raw_buf: NonNull::new(window_buf).expect("NonNull::new failed"),
+                buffer: buf,
+                release_fd,
+                window_buffer: NonNull::new_unchecked(addr),
+            })
+        }
     }
 }
 
@@ -198,7 +233,11 @@ impl<'a> Drop for NativeWindowBuffer<'a> {
         #[cfg(debug_assertions)]
         assert!(ret == 0, "OH_NativeWindow_NativeWindowFlushBuffer failed");
 
-        self.buffer.un_mmap();
+        // self.buffer.un_mmap();
+        unsafe {
+            let handle = OH_NativeWindow_GetBufferHandleFromNative(self.raw_buf.as_ptr());
+            libc::munmap(self.window_buffer.as_ptr(), (*handle).size as _);
+        }
     }
 }
 

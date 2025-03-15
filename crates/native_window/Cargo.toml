@@ -9,3 +9,4 @@ description = "OpenHarmony's native window binding for rust"
 ohos-native-window-sys     = { workspace = true }
 ohos_enum_macro            = { workspace = true }
 ohos-native-buffer-binding = { workspace = true }
+libc                       = { workspace = true }
