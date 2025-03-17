@@ -1,6 +1,7 @@
 use libc::{
     __errno_location, close, mmap, pollfd, EAGAIN, EINTR, MAP_SHARED, PROT_READ, PROT_WRITE,
 };
+use ohos_native_buffer_sys::BufferHandle as BufferHandleRaw;
 use ohos_native_window_sys::{
     NativeWindow as NativeWindowRaw, OHNativeWindowBuffer as OHNativeWindowBufferRaw,
     OH_NativeWindow_GetBufferHandleFromNative, OH_NativeWindow_NativeObjectReference,
@@ -76,9 +77,6 @@ impl NativeWindow {
             return Err(NativeWindowError::InternalError(ret));
         }
 
-        // Convert to NativeBuffer and can get buffer config
-        let buf = NativeBuffer::from_window_buffer_ptr(window_buf);
-
         unsafe {
             let handle = OH_NativeWindow_GetBufferHandleFromNative(window_buf);
 
@@ -112,8 +110,8 @@ impl NativeWindow {
 
             Ok(NativeWindowBuffer {
                 window: self,
-                raw_buf: NonNull::new(window_buf).expect("NonNull::new failed"),
-                buffer: buf,
+                raw_buf: NonNull::new_unchecked(window_buf),
+                handle: NonNull::new_unchecked(handle),
                 release_fd,
                 window_buffer: NonNull::new_unchecked(addr),
             })
@@ -128,7 +126,7 @@ pub struct NativeWindowBuffer<'a> {
     // can be operate memory directly
     window_buffer: NonNull<c_void>,
     raw_buf: NonNull<OHNativeWindowBufferRaw>,
-    buffer: NativeBuffer,
+    handle: NonNull<BufferHandleRaw>,
     #[allow(dead_code)]
     release_fd: i32,
 }
@@ -139,23 +137,27 @@ pub struct NativeWindowBuffer<'a> {
 impl NativeWindowBuffer<'_> {
     /// The number of pixels that are shown horizontally.
     pub fn width(&self) -> usize {
-        usize::try_from(self.buffer.config().width).unwrap()
+        let width = unsafe { (*self.handle.as_ptr()).width };
+        usize::try_from(width).unwrap()
     }
 
     // The number of pixels that are shown vertically.
     pub fn height(&self) -> usize {
-        usize::try_from(self.buffer.config().height).unwrap()
+        let height = unsafe { (*self.handle.as_ptr()).height };
+        usize::try_from(height).unwrap()
     }
 
     /// The number of _pixels_ that a line in the buffer takes in memory.
     ///
     /// This may be `>= width`.
     pub fn stride(&self) -> usize {
-        usize::try_from(self.buffer.config().stride).unwrap()
+        let stride = unsafe { (*self.handle.as_ptr()).stride };
+        usize::try_from(stride).unwrap()
     }
 
     pub fn format(&self) -> NativeBufferFormat {
-        self.buffer.config().format.into()
+        let format = unsafe { (*self.handle.as_ptr()).format };
+        NativeBufferFormat::from(format)
     }
 
     /// The actual bits.
@@ -172,20 +174,10 @@ impl NativeWindowBuffer<'_> {
     }
 
     /// Safe write access to likely uninitialized pixel buffer data.
-    ///
-    /// Returns [`None`] when there is no [`HardwareBufferFormat::bytes_per_pixel()`] size
-    /// available for this [`format()`][Self::format()].
-    ///
-    /// The returned slice consists of [`stride()`][Self::stride()] * [`height()`][Self::height()]
-    /// \* [`HardwareBufferFormat::bytes_per_pixel()`] bytes.
-    ///
-    /// Only [`width()`][Self::width()] pixels are visible for each [`stride()`][Self::stride()]
-    /// line of pixels in the buffer.
     pub fn bytes(&mut self) -> Option<&mut [MaybeUninit<u8>]> {
-        let config = self.buffer.config();
         let num_pixels = self.height() * self.stride();
-        let num_bytes = num_pixels * NativeBufferFormat::from(config.format).bytes_per_pixel();
-        Some(unsafe { std::slice::from_raw_parts_mut(self.bits().cast(), num_bytes) })
+        let bytes_nums = num_pixels * NativeBufferFormat::from(self.format()).bytes_per_pixel();
+        Some(unsafe { std::slice::from_raw_parts_mut(self.bits().cast(), bytes_nums) })
     }
 
     /// Returns a slice of bytes for each line of visible pixels in the buffer, ignoring any
@@ -194,9 +186,8 @@ impl NativeWindowBuffer<'_> {
     /// See [`bits()`][Self::bits()] and [`bytes()`][Self::bytes()] for contiguous access to the
     /// underlying buffer.
     pub fn lines(&mut self) -> Option<impl Iterator<Item = &mut [MaybeUninit<u8>]>> {
-        let config = self.buffer.config();
-        let bpp = NativeBufferFormat::from(config.format).bytes_per_pixel();
-        let scanline_bytes = bpp * self.stride();
+        let bpp = NativeBufferFormat::from(self.format()).bytes_per_pixel();
+        let scanline_bytes = self.stride();
         let width_bytes = bpp * self.width();
         let bytes = self.bytes()?;
 
@@ -226,7 +217,7 @@ impl<'a> Drop for NativeWindowBuffer<'a> {
             OH_NativeWindow_NativeWindowFlushBuffer(
                 self.window.window.as_ptr(),
                 self.raw_buf.as_ptr(),
-                -1,
+                self.release_fd,
                 region,
             )
         };
@@ -235,8 +226,10 @@ impl<'a> Drop for NativeWindowBuffer<'a> {
 
         // self.buffer.un_mmap();
         unsafe {
-            let handle = OH_NativeWindow_GetBufferHandleFromNative(self.raw_buf.as_ptr());
-            libc::munmap(self.window_buffer.as_ptr(), (*handle).size as _);
+            libc::munmap(
+                self.window_buffer.as_ptr(),
+                (*self.handle.as_ptr()).size as _,
+            );
         }
     }
 }
