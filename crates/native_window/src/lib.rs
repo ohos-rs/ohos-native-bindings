@@ -163,7 +163,7 @@ impl NativeWindowBuffer<'_> {
     /// The actual bits.
     ///
     /// This points to a memory segment of [`stride()`][Self::stride()] *
-    /// [`height()`][Self::height()] * [`HardwareBufferFormat::bytes_per_pixel()`] bytes.
+    /// [`height()`][Self::height()] * [`NativeBufferFormat::bytes_per_pixel()`] bytes.
     ///
     /// Only [`width()`][Self::width()] pixels are visible for each [`stride()`][Self::stride()]
     /// line of pixels in the buffer.
