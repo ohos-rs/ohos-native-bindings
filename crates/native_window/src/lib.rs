@@ -1,7 +1,6 @@
 use libc::{
     __errno_location, close, mmap, pollfd, EAGAIN, EINTR, MAP_SHARED, PROT_READ, PROT_WRITE,
 };
-use ohos_native_buffer_binding::NativeBufferFormat;
 use ohos_native_buffer_sys::BufferHandle as BufferHandleRaw;
 use ohos_native_window_sys::{
     NativeWindow as NativeWindowRaw, OHNativeWindowBuffer as OHNativeWindowBufferRaw,
@@ -19,6 +18,7 @@ mod error;
 mod operation;
 
 pub use error::*;
+pub use ohos_native_buffer_binding::*;
 pub use operation::*;
 
 pub struct NativeWindow {
