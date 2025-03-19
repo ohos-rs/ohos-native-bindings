@@ -31,7 +31,7 @@ ohos-resource-manager-sys       = { version = "0.0.2", path = "sys/ohos-resource
 ohos-ability-access-control-sys = { version = "0.0.1", path = "sys/ohos-ability-access-control-sys" }
 ohos-xcomponent-sys             = { version = "0.0.2", path = "sys/ohos-xcomponent-sys" }
 ohos-arkui-sys                  = { version = "0.0.1", path = "sys/ohos-arkui-sys" }
-ohos-vsync-sys                  = { version = "0.0.1", path = "sys/ohos-vsync-sys" }
+ohos-native-vsync-sys           = { version = "0.0.1", path = "sys/ohos-native-vsync-sys" }
 ohos-display-soloist-sys        = { version = "0.0.1", path = "sys/ohos-display-soloist-sys" }
 ohos-input-sys                  = { version = "0.0.1", path = "sys/ohos-input-sys" }
 ohos-input-method-sys           = { version = "0.0.1", path = "sys/ohos-input-method-sys" }
