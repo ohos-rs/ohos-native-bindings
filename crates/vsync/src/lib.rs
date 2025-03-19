@@ -1,6 +1,6 @@
 use std::{ffi::CString, os::raw::c_void, ptr::NonNull};
 
-use ohos_vsync_sys::{
+use ohos_native_vsync_sys::{
     OH_NativeVSync, OH_NativeVSync_Create, OH_NativeVSync_Destroy, OH_NativeVSync_GetPeriod,
     OH_NativeVSync_RequestFrame, OH_NativeVSync_RequestFrameWithMultiCallback,
 };
