@@ -10,8 +10,8 @@ ohos-asset-binding                  = { version = "0.0.1", path = "crates/asset"
 ohos-raw-binding                    = { version = "0.0.2", path = "crates/raw" }
 ohos-resource-manager-binding       = { version = "0.0.1", path = "crates/resource_manager" }
 ohos-ability-access-control-binding = { version = "0.0.1", path = "crates/ability_access_control" }
-ohos-xcomponent-binding             = { version = "0.0.3", path = "crates/xcomponent" }
-ohos-arkui-binding                  = { version = "0.0.1", path = "crates/arkui" }
+ohos-xcomponent-binding             = { version = "0.0.4", path = "crates/xcomponent" }
+ohos-arkui-binding                  = { version = "0.0.2", path = "crates/arkui" }
 ohos-vsync-binding                  = { version = "0.1.0", path = "crates/vsync" }
 ohos-display-soloist-binding        = { version = "0.1.0", path = "crates/native_display_soloist" }
 ohos-input-binding                  = { version = "0.0.1", path = "crates/input" }
