@@ -1,6 +1,6 @@
 [package]
 name        = "ohos-arkui-binding"
-version     = "0.0.1"
+version     = "0.0.2"
 edition     = "2021"
 license     = "MIT OR Apache-2.0"
 description = "OpenHarmony's arkui binding for rust"
@@ -18,3 +18,6 @@ ohos-xcomponent-sys     = { workspace = true, optional = true }
 default    = ["napi", "xcomponent"]
 napi       = ["dep:napi-ohos", "dep:napi-sys-ohos"]
 xcomponent = ["dep:ohos-xcomponent-binding", "dep:ohos-xcomponent-sys"]
+
+# enable multi mode for xcomponent
+xcomponent_multi_mode = ["ohos-xcomponent-binding/multi_mode"]

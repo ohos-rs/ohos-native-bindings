@@ -12,7 +12,7 @@ use crate::{Action, EventSource, KeyCode, KeyEventData, WindowRaw, XComponentRaw
 
 use super::{RawWindow, TouchEventData, RAW_WINDOW};
 
-#[cfg(feature = "single_mode")]
+#[cfg(not(feature = "multi_mode"))]
 use super::X_COMPONENT_CALLBACKS;
 
 #[cfg(feature = "multi_mode")]
@@ -32,7 +32,7 @@ pub unsafe extern "C" fn on_surface_created(
         guard.replace(RawWindow(window.0));
     }
 
-    #[cfg(feature = "single_mode")]
+    #[cfg(not(feature = "multi_mode"))]
     X_COMPONENT_CALLBACKS.with_borrow(|cb| {
         if let Some(callback) = &cb.on_surface_created {
             callback(xcomponent, window).unwrap();
@@ -62,7 +62,7 @@ pub unsafe extern "C" fn on_surface_changed(
         guard.replace(RawWindow(window.0));
     }
 
-    #[cfg(feature = "single_mode")]
+    #[cfg(not(feature = "multi_mode"))]
     X_COMPONENT_CALLBACKS.with_borrow(|cb| {
         if let Some(callback) = &cb.on_surface_changed {
             callback(xcomponent, window).unwrap();
@@ -92,7 +92,7 @@ pub unsafe extern "C" fn on_surface_destroyed(
         *guard = None;
     }
 
-    #[cfg(feature = "single_mode")]
+    #[cfg(not(feature = "multi_mode"))]
     X_COMPONENT_CALLBACKS.with_borrow(|cb| {
         if let Some(callback) = &cb.on_surface_destroyed {
             callback(xcomponent, window).unwrap();
@@ -131,7 +131,7 @@ pub unsafe extern "C" fn dispatch_touch_event(
     let window = WindowRaw(window);
     let xcomponent = XComponentRaw(xcomponent);
 
-    #[cfg(feature = "single_mode")]
+    #[cfg(not(feature = "multi_mode"))]
     X_COMPONENT_CALLBACKS.with_borrow(|cb| {
         if let Some(callback) = &cb.dispatch_touch_event {
             callback(xcomponent, window, data).unwrap();
@@ -156,7 +156,7 @@ pub unsafe extern "C" fn on_frame_change(
 ) {
     let xcomponent = XComponentRaw(xcomponent);
 
-    #[cfg(feature = "single_mode")]
+    #[cfg(not(feature = "multi_mode"))]
     X_COMPONENT_CALLBACKS.with_borrow(|cb| {
         if let Some(callback) = &cb.on_frame_change {
             callback(xcomponent, timestamp, target_timestamp).unwrap();
@@ -213,7 +213,7 @@ pub unsafe extern "C" fn key_event(
         timestamp,
     };
 
-    #[cfg(feature = "single_mode")]
+    #[cfg(not(feature = "multi_mode"))]
     X_COMPONENT_CALLBACKS.with_borrow(|cb| {
         if let Some(callback) = &cb.on_key_event {
             callback(xcomponent, window, key_event_data).unwrap();
