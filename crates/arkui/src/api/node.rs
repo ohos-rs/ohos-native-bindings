@@ -82,6 +82,26 @@ impl ArkUINativeNodeAPI1 {
         }
     }
 
+    pub fn get_attribute(
+        &self,
+        node: &ArkUINode,
+        attr: ArkUINodeAttributeType,
+    ) -> ArkUIResult<ArkUINodeAttributeItem> {
+        unsafe {
+            (*self.0)
+                .getAttribute
+                .map(|get_attribute| get_attribute(node.raw(), attr.into()))
+                .and_then(|attr_ptr| ArkUINodeAttributeItem::try_from(attr_ptr).ok())
+                .map(ArkUIResult::Ok)
+                .unwrap_or_else(|| {
+                    Err(ArkUIError::new(
+                        ArkUIErrorCode::AttributeOrEventNotSupported,
+                        "ArkUI_NativeNodeAPI_1::getAttribute failed to get or convert attribute",
+                    ))
+                })
+        }
+    }
+
     pub fn add_child(&self, parent: &ArkUINode, child: &ArkUINode) -> ArkUIResult<()> {
         unsafe {
             if let Some(add_child) = (*self.0).addChild {
