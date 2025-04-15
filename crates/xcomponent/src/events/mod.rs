@@ -5,7 +5,6 @@ use std::cell::RefCell;
 #[cfg(feature = "multi_mode")]
 use std::collections::HashMap;
 
-
 mod key_event;
 mod native_callbacks;
 mod raw_window;

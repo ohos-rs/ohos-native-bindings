@@ -28,10 +28,7 @@ impl NativeXComponent {
     }
 
     pub fn with_id(raw: XComponentRaw, id: String) -> Self {
-        Self {
-            raw,
-            id: Some(id),
-        }
+        Self { raw, id: Some(id) }
     }
 
     /// Get current xcomponent instance's id
