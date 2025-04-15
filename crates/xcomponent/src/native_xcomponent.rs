@@ -27,6 +27,13 @@ impl NativeXComponent {
         Self { raw, id: None }
     }
 
+    pub fn with_id(raw: XComponentRaw, id: String) -> Self {
+        Self {
+            raw,
+            id: Some(id),
+        }
+    }
+
     /// Get current xcomponent instance's id
     pub fn id(&self) -> Result<String> {
         if let Some(id) = &self.id {

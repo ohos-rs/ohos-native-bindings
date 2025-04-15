@@ -1,4 +1,4 @@
-use std::ffi::CString;
+use std::ffi::{CStr, CString};
 
 use ohos_arkui_sys::{ArkUI_AttributeItem, ArkUI_NumberValue};
 
@@ -57,6 +57,57 @@ impl From<ArkUINodeAttributeItem> for ArkUI_AttributeItem {
                     string: c_string.into_raw(),
                     object: std::ptr::null_mut(),
                 }
+            }
+        }
+    }
+}
+
+
+impl TryFrom<ArkUI_AttributeItem> for ArkUINodeAttributeItem {
+    type Error = &'static str;
+
+    fn try_from(item: ArkUI_AttributeItem) -> Result<Self, Self::Error> {
+        unsafe {
+            if !item.string.is_null() {
+                // String case
+                let c_str = CStr::from_ptr(item.string);
+                Ok(ArkUINodeAttributeItem::String(c_str.to_string_lossy().into_owned()))
+            } else if !item.object.is_null() {
+                // Object case
+                Ok(ArkUINodeAttributeItem::Object(item.object))
+            } else if !item.value.is_null() && item.size > 0 {
+                // Number array case
+                let slice = std::slice::from_raw_parts(item.value, item.size as usize);
+                let numbers = slice.iter().map(|num| {
+                    // This is a bit tricky since ArkUI_NumberValue is a union in C
+                    // You'll need to know which field is actually valid
+                    // Here we assume it's based on some external knowledge
+                    if num.f32_ != 0.0 {
+                        ArkUINodeAttributeNumber::Float(num.f32_)
+                    } else if num.i32_ != 0 {
+                        ArkUINodeAttributeNumber::Int(num.i32_)
+                    } else {
+                        ArkUINodeAttributeNumber::Uint(num.u32_)
+                    }
+                }).collect();
+                Ok(ArkUINodeAttributeItem::NumberValue(numbers))
+            } else {
+                Err("Invalid ArkUI_AttributeItem - all fields are null")
+            }
+        }
+    }
+}
+
+impl TryFrom<*const ArkUI_AttributeItem> for ArkUINodeAttributeItem {
+    type Error = &'static str;
+
+    fn try_from(ptr: *const ArkUI_AttributeItem) -> Result<Self, Self::Error> {
+        unsafe {
+            if ptr.is_null() {
+                Err("Null pointer provided")
+            } else {
+                // Dereference the pointer and convert
+                ArkUINodeAttributeItem::try_from(*ptr)
             }
         }
     }
