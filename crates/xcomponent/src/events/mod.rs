@@ -1,14 +1,10 @@
 use crate::raw::{WindowRaw, XComponentRaw};
 use napi_ohos::Result;
-
-#[cfg(feature = "single_mode")]
 use std::cell::RefCell;
 
 #[cfg(feature = "multi_mode")]
 use std::collections::HashMap;
 
-#[cfg(feature = "multi_mode")]
-use std::cell::RefCell;
 
 mod key_event;
 mod native_callbacks;
@@ -44,7 +40,7 @@ impl Default for XComponentCallbacks {
 }
 
 thread_local! {
-    #[cfg(feature = "single_mode")]
+    #[cfg(not(feature = "multi_mode"))]
     pub static X_COMPONENT_CALLBACKS: RefCell<XComponentCallbacks> = RefCell::new(XComponentCallbacks::default());
 
     #[cfg(feature = "multi_mode")]

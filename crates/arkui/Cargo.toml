@@ -18,3 +18,6 @@ ohos-xcomponent-sys     = { workspace = true, optional = true }
 default    = ["napi", "xcomponent"]
 napi       = ["dep:napi-ohos", "dep:napi-sys-ohos"]
 xcomponent = ["dep:ohos-xcomponent-binding", "dep:ohos-xcomponent-sys"]
+
+# enable multi mode for xcomponent
+xcomponent_multi_mode = ["ohos-xcomponent-binding/multi_mode"]

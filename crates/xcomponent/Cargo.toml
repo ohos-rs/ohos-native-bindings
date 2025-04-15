@@ -8,14 +8,12 @@ description = "OpenHarmony's xcomponent binding for rust"
 [features]
 # allow print log with hilog
 log = ["dep:ohos-hilog-binding"]
-# init with single xcomponent instance mode
-single_mode = []
 # init with muilt xcomponent instance mode
 multi_mode = []
 # allow use closure to define callbacks
 callbacks = []
 
-default = ["single_mode", "callbacks"]
+default = ["callbacks"]
 
 [dependencies]
 napi-sys-ohos        = { workspace = true }
