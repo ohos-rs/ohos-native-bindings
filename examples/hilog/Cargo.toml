@@ -12,6 +12,7 @@ crate-type = ["cdylib"]
 napi-ohos          = { workspace = true }
 napi-derive-ohos   = { workspace = true }
 ohos-hilog-binding = { workspace = true, features = ["redirect"] }
+log                = { version = "*" }
 
 [build-dependencies]
 napi-build-ohos = { workspace = true }

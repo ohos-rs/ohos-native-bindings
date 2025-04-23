@@ -11,7 +11,14 @@ description = "hilog binding for rust"
 ohos-hilogs-sys = { workspace = true }
 libc            = { workspace = true, optional = true }
 
+log        = { version = "0.4", optional = true }
+env_filter = { version = "0.1", default-features = false, optional = true}
+
 [features]
 default = []
 # Allow redirect stdout/stderr to hilog. 
 redirect = ["dep:libc"]
+
+
+log = ["dep:log", "dep:env_filter"]
+regex = ["env_filter/regex"]
