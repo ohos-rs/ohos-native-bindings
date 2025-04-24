@@ -1,3 +1,7 @@
+#![allow(clippy::declare_interior_mutable_const)]
+#![allow(clippy::borrow_interior_mutable_const)]
+#![allow(clippy::module_inception)]
+
 use crate::config::SysConfig;
 use anyhow::Error;
 use once_cell::sync::Lazy;
@@ -64,9 +68,15 @@ fn generate_code(config: &SysConfig) -> anyhow::Result<()> {
 
     let mut bindings = bindgen::Builder::default()
         .header_contents("wrapper.h", &header_content)
-        .raw_line(
-            format!("#![allow(non_snake_case)]\n#![allow(non_upper_case_globals)]\n#![allow(non_camel_case_types)]{}", config.extra),
-        )
+        .raw_line(format!(
+            r"
+#![allow(non_snake_case)]
+#![allow(non_upper_case_globals)]
+#![allow(non_camel_case_types)]
+#![allow(clippy::missing_safety_doc)]
+{}",
+            config.extra
+        ))
         .clang_arg("-x")
         .clang_arg("c")
         .clang_arg("-fretain-comments-from-system-headers") // keep comments from system headers

@@ -83,3 +83,9 @@ impl UdsValue for UdsPlainText {
             .map_err(|_| UdmfError::CommonError(String::from("UdmfMeta::from_str failed")))
     }
 }
+
+impl Default for UdsPlainText {
+    fn default() -> Self {
+        Self::new()
+    }
+}

@@ -3,6 +3,7 @@
 #![allow(non_snake_case)]
 #![allow(non_upper_case_globals)]
 #![allow(non_camel_case_types)]
+#![allow(clippy::missing_safety_doc)]
 
 #[doc = " @brief Indicates information of application\n\n @syscap SystemCapability.BundleManager.BundleFramework.Core\n @since 9"]
 #[repr(C)]

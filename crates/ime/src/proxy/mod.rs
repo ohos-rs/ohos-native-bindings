@@ -20,10 +20,8 @@ fn char16_ptr_to_string(ptr: *const u16, length: usize) -> String {
         let slice = std::slice::from_raw_parts(ptr, length);
 
         for &unit in slice.iter() {
-            if let Some(c) = char::decode_utf16(std::iter::once(unit)).next() {
-                if let Ok(c) = c {
-                    result.push(c);
-                }
+            if let Some(Ok(c)) = char::decode_utf16(std::iter::once(unit)).next() {
+                result.push(c);
             }
         }
     }
@@ -33,7 +31,7 @@ fn char16_ptr_to_string(ptr: *const u16, length: usize) -> String {
 
 pub unsafe extern "C" fn delete_backward(_text_editor: *mut InputMethod_TextEditorProxy, len: i32) {
     let guard = IME_CALLBACKS.read().expect("Failed to acquire read lock");
-    if let Some(f) = &(*guard).delete_backward {
+    if let Some(f) = &guard.delete_backward {
         f(len);
     }
 }
@@ -44,7 +42,7 @@ pub unsafe extern "C" fn insert_text(
     len: usize,
 ) {
     let mut guard = IME_CALLBACKS.write().expect("Failed to acquire read lock");
-    if let Some(ref mut f) = (*guard).insert_text {
+    if let Some(ref mut f) = guard.insert_text {
         let ret = char16_ptr_to_string(text, len);
         f(ret);
     }
@@ -53,14 +51,14 @@ pub unsafe extern "C" fn insert_text(
 pub unsafe extern "C" fn delete_forward(_text_editor: *mut InputMethod_TextEditorProxy, len: i32) {
     let guard = IME_CALLBACKS.read().expect("Failed to acquire read lock");
 
-    if let Some(f) = &(*guard).delete_forward {
+    if let Some(f) = &guard.delete_forward {
         f(len);
     }
 }
 
 pub unsafe extern "C" fn finish_text_preview(_text_editor: *mut InputMethod_TextEditorProxy) {
     let guard = IME_CALLBACKS.read().expect("Failed to acquire read lock");
-    if let Some(f) = &(*guard).finish_text_preview {
+    if let Some(f) = &guard.finish_text_preview {
         f();
     }
 }
@@ -72,7 +70,7 @@ pub unsafe extern "C" fn get_left_text_of_cursor(
     len: *mut usize,
 ) {
     let guard = IME_CALLBACKS.read().expect("Failed to acquire read lock");
-    if let Some(f) = &(*guard).get_left_text_of_cursor {
+    if let Some(f) = &guard.get_left_text_of_cursor {
         let s = f(number);
         let utf16: Vec<u16> = s.encode_utf16().collect();
 
@@ -90,7 +88,7 @@ pub unsafe extern "C" fn get_right_text_of_cursor(
     len: *mut usize,
 ) {
     let guard = IME_CALLBACKS.read().expect("Failed to acquire read lock");
-    if let Some(f) = &(*guard).get_right_text_of_cursor {
+    if let Some(f) = &guard.get_right_text_of_cursor {
         let s = f(number);
         let utf16: Vec<u16> = s.encode_utf16().collect();
 
@@ -106,7 +104,7 @@ pub unsafe extern "C" fn get_text_config(
     config: *mut InputMethod_TextConfig,
 ) {
     let guard = IME_CALLBACKS.read().expect("Failed to acquire read lock");
-    if let Some(f) = &(*guard).get_text_config {
+    if let Some(f) = &guard.get_text_config {
         f(TextConfig { raw: config });
     }
 }
@@ -115,14 +113,13 @@ pub unsafe extern "C" fn get_text_index_at_cursor(
     _text_editor: *mut InputMethod_TextEditorProxy,
 ) -> i32 {
     let guard = IME_CALLBACKS.read().expect("Failed to acquire read lock");
-    let ret = match &(*guard).get_text_index_at_cursor {
+    match &guard.get_text_index_at_cursor {
         Some(f) => {
             let ret = f();
             return ret;
         }
         None => 0,
-    };
-    ret
+    }
 }
 
 pub unsafe extern "C" fn handle_extend_action(
@@ -130,7 +127,7 @@ pub unsafe extern "C" fn handle_extend_action(
     action: InputMethod_ExtendAction,
 ) {
     let guard = IME_CALLBACKS.read().expect("Failed to acquire read lock");
-    if let Some(f) = &(*guard).handle_extend_action {
+    if let Some(f) = &guard.handle_extend_action {
         f(Action::from(action));
     }
 }
@@ -141,7 +138,7 @@ pub unsafe extern "C" fn handle_set_selection(
     end: i32,
 ) {
     let guard = IME_CALLBACKS.read().expect("Failed to acquire read lock");
-    if let Some(f) = &(*guard).handle_set_selection {
+    if let Some(f) = &guard.handle_set_selection {
         f(Selection { start, end });
     }
 }
@@ -151,7 +148,7 @@ pub unsafe extern "C" fn move_cursor(
     direction: InputMethod_Direction,
 ) {
     let guard = IME_CALLBACKS.read().expect("Failed to acquire read lock");
-    if let Some(f) = &(*guard).move_cursor {
+    if let Some(f) = &guard.move_cursor {
         f(Direction::from(direction));
     }
 }
@@ -162,13 +159,13 @@ pub unsafe extern "C" fn receive_private_command(
     len: usize,
 ) -> i32 {
     let guard = IME_CALLBACKS.read().expect("Failed to acquire read lock");
-    if let Some(f) = &(*guard).receive_private_command {
+    if let Some(f) = &guard.receive_private_command {
         unsafe {
             let slice = std::slice::from_raw_parts_mut(command, len);
 
             let mut manual_array = Vec::new();
-            for i in 0..len {
-                manual_array[i] = PrivateCommand {
+            for (i, command) in manual_array.iter_mut().enumerate().take(len) {
+                *command = PrivateCommand {
                     raw: *slice.get_unchecked(i),
                 };
             }
@@ -183,7 +180,7 @@ pub unsafe extern "C" fn send_enter_key(
     enter_key_type: InputMethod_EnterKeyType,
 ) {
     let guard = IME_CALLBACKS.read().expect("Failed to acquire read lock");
-    if let Some(f) = &(*guard).send_enter_key {
+    if let Some(f) = &guard.send_enter_key {
         f(EnterKey::from(enter_key_type));
     }
 }
@@ -193,7 +190,7 @@ pub unsafe extern "C" fn send_keyboard_status(
     keyboard_status: InputMethod_KeyboardStatus,
 ) {
     let guard = IME_CALLBACKS.read().expect("Failed to acquire read lock");
-    if let Some(f) = &(*guard).send_keyboard_status {
+    if let Some(f) = &guard.send_keyboard_status {
         f(KeyboardStatus::from(keyboard_status));
     }
 }
@@ -206,7 +203,7 @@ pub unsafe extern "C" fn set_preview_text(
     end: i32,
 ) -> i32 {
     let guard = IME_CALLBACKS.read().expect("Failed to acquire read lock");
-    if let Some(f) = &(*guard).set_preview_text {
+    if let Some(f) = &guard.set_preview_text {
         let ret = char16_ptr_to_string(text, length);
         f(ret, start, end);
     }

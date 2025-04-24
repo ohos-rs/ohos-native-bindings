@@ -90,3 +90,9 @@ impl Drop for TextConfig {
         }
     }
 }
+
+impl Default for TextConfig {
+    fn default() -> Self {
+        Self::new()
+    }
+}

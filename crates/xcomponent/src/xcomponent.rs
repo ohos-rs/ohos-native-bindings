@@ -1,3 +1,5 @@
+#![allow(clippy::missing_safety_doc)]
+
 use napi_ohos::{bindgen_prelude::check_status, Env, JsObject, NapiRaw, Result};
 use napi_sys_ohos as sys;
 use ohos_xcomponent_sys::{

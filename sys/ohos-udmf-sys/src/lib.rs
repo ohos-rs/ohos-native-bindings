@@ -3,6 +3,7 @@
 #![allow(non_snake_case)]
 #![allow(non_upper_case_globals)]
 #![allow(non_camel_case_types)]
+#![allow(clippy::missing_safety_doc)]
 
 #[doc = " @brief Defines the region of the image source to decode.\n\n @since 12"]
 #[repr(C)]

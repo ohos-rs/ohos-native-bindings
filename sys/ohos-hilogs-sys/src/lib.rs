@@ -3,6 +3,7 @@
 #![allow(non_snake_case)]
 #![allow(non_upper_case_globals)]
 #![allow(non_camel_case_types)]
+#![allow(clippy::missing_safety_doc)]
 
 pub const __GNUC_VA_LIST: u32 = 1;
 pub const __bool_true_false_are_defined: u32 = 1;

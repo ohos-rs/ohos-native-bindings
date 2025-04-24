@@ -1,3 +1,5 @@
+#![allow(clippy::missing_safety_doc)]
+
 use std::mem::MaybeUninit;
 
 use ohos_xcomponent_sys::{

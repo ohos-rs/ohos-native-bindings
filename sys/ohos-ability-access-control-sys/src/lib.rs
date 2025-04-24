@@ -3,6 +3,7 @@
 #![allow(non_snake_case)]
 #![allow(non_upper_case_globals)]
 #![allow(non_camel_case_types)]
+#![allow(clippy::missing_safety_doc)]
 
 extern "C" {
     #[doc = " @brief Checks whether this application has been granted the given permission.\n\n @param permission - Name of the permission to be granted.\n @return true  - The permission has been granted to this application.\n         false - The permission has not been granted to this application.\n @since 12"]

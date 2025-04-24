@@ -9,6 +9,8 @@ use crate::{code::XComponentResultCode, XComponentSize};
 #[derive(Debug, Clone, Copy)]
 pub struct WindowRaw(pub *mut c_void);
 
+#[repr(transparent)]
+#[derive(Debug, Clone, Copy)]
 pub struct XComponentRaw(pub *mut OH_NativeXComponent);
 
 impl XComponentRaw {
@@ -22,11 +24,5 @@ impl XComponentRaw {
             return Err(Error::from_reason("XComponent get size failed"));
         }
         Ok(XComponentSize { width, height })
-    }
-}
-
-impl Clone for XComponentRaw {
-    fn clone(&self) -> Self {
-        Self(self.0)
     }
 }

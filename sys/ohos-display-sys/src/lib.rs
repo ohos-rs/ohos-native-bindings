@@ -3,6 +3,7 @@
 #![allow(non_snake_case)]
 #![allow(non_upper_case_globals)]
 #![allow(non_camel_case_types)]
+#![allow(clippy::missing_safety_doc)]
 
 #[doc = " device rotation 0 degree"]
 pub const NativeDisplayManager_Rotation_DISPLAY_MANAGER_ROTATION_0: NativeDisplayManager_Rotation =

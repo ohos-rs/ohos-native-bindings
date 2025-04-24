@@ -45,6 +45,12 @@ impl UdmfRecord {
     }
 }
 
+impl Default for UdmfRecord {
+    fn default() -> Self {
+        Self::new()
+    }
+}
+
 impl Drop for UdmfRecord {
     fn drop(&mut self) {
         unsafe { OH_UdmfRecord_Destroy(self.raw.as_ptr()) }

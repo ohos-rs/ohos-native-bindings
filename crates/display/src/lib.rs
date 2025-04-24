@@ -127,6 +127,5 @@ pub fn fold_display_mode() -> FoldMode {
 }
 
 pub fn is_foldable() -> bool {
-    let is_foldable = unsafe { OH_NativeDisplayManager_IsFoldable() };
-    is_foldable
+    unsafe { OH_NativeDisplayManager_IsFoldable() }
 }
