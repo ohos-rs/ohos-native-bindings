@@ -10,15 +10,15 @@ ohos-asset-binding                  = { version = "0.0.1", path = "crates/asset"
 ohos-raw-binding                    = { version = "0.0.2", path = "crates/raw" }
 ohos-resource-manager-binding       = { version = "0.0.1", path = "crates/resource_manager" }
 ohos-ability-access-control-binding = { version = "0.0.1", path = "crates/ability_access_control" }
-ohos-xcomponent-binding             = { version = "0.0.3", path = "crates/xcomponent" }
-ohos-arkui-binding                  = { version = "0.0.1", path = "crates/arkui" }
-ohos-vsync-binding                  = { version = "0.0.1", path = "crates/vsync" }
-ohos-display-soloist-binding        = { version = "0.0.1", path = "crates/native_display_soloist" }
+ohos-xcomponent-binding             = { version = "0.0.5", path = "crates/xcomponent" }
+ohos-arkui-binding                  = { version = "0.0.3", path = "crates/arkui" }
+ohos-vsync-binding                  = { version = "0.1.0", path = "crates/vsync" }
+ohos-display-soloist-binding        = { version = "0.1.0", path = "crates/native_display_soloist" }
 ohos-input-binding                  = { version = "0.0.1", path = "crates/input" }
 ohos-ime-binding                    = { version = "0.0.1", path = "crates/ime" }
 ohos-display-binding                = { version = "0.0.1", path = "crates/display" }
-ohos-native-window-binding          = { version = "0.0.1", path = "crates/native_window" }
-ohos-native-buffer-binding          = { version = "0.0.1", path = "crates/native_buffer" }
+ohos-native-window-binding          = { version = "0.1.1", path = "crates/native_window" }
+ohos-native-buffer-binding          = { version = "0.1.0", path = "crates/native_buffer" }
 ohos-udmf-binding                   = { version = "0.0.1", path = "crates/udmf" }
 ohos-pasteboard-binding             = { version = "0.0.1", path = "crates/pasteboard" }
 
@@ -31,7 +31,7 @@ ohos-resource-manager-sys       = { version = "0.0.2", path = "sys/ohos-resource
 ohos-ability-access-control-sys = { version = "0.0.1", path = "sys/ohos-ability-access-control-sys" }
 ohos-xcomponent-sys             = { version = "0.0.2", path = "sys/ohos-xcomponent-sys" }
 ohos-arkui-sys                  = { version = "0.0.1", path = "sys/ohos-arkui-sys" }
-ohos-vsync-sys                  = { version = "0.0.1", path = "sys/ohos-vsync-sys" }
+ohos-native-vsync-sys           = { version = "0.0.1", path = "sys/ohos-native-vsync-sys" }
 ohos-display-soloist-sys        = { version = "0.0.1", path = "sys/ohos-display-soloist-sys" }
 ohos-input-sys                  = { version = "0.0.1", path = "sys/ohos-input-sys" }
 ohos-input-method-sys           = { version = "0.0.1", path = "sys/ohos-input-method-sys" }

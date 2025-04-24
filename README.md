@@ -1,6 +1,6 @@
 # ohos-native-bindings
 
-Sets of HarmonyNext native module bindings for rust.
+A set of HarmonyNext native module bindings for rust.
 
 | Module                              | Version                                                                                   | Description                                                                                                                       |
 | ----------------------------------- | ----------------------------------------------------------------------------------------- | --------------------------------------------------------------------------------------------------------------------------------- |
@@ -16,6 +16,10 @@ Sets of HarmonyNext native module bindings for rust.
 | ohos-display-binding                | ![Crates.io Version](https://img.shields.io/crates/v/ohos-display-binding)                | [display](https://developer.huawei.com/consumer/cn/doc/harmonyos-references-V5/_o_h___display_manager-V5) binding                 |
 | ohos-ime-binding                    | ![Crates.io Version](https://img.shields.io/crates/v/ohos-ime-binding)                    | [ime](https://developer.huawei.com/consumer/cn/doc/harmonyos-references-V5/_input_method-V5) binding                              |
 | ohos-arkui-binding                  | ![Crates.io Version](https://img.shields.io/crates/v/ohos-arkui-binding)                  | [arkui](https://developer.huawei.com/consumer/cn/doc/harmonyos-references-V5/_ark_u_i___native_module-V5) binding                 |
+| ohos-native-buffer-binding          | ![Crates.io Version](https://img.shields.io/crates/v/ohos-native-buffer-binding)          | [native buffer](https://developer.huawei.com/consumer/cn/doc/harmonyos-references-V5/_o_h___native_buffer-V5) binding             |
+| ohos-native-window-binding          | ![Crates.io Version](https://img.shields.io/crates/v/ohos-native-window-binding)          | [native window](https://developer.huawei.com/consumer/cn/doc/harmonyos-references-V5/_o_h___native_image-V5) binding              |
+| ohos-vsync-binding                  | ![Crates.io Version](https://img.shields.io/crates/v/ohos-vsync-binding)                  | [vsync](https://developer.huawei.com/consumer/cn/doc/harmonyos-references-V5/_native_vsync-V5) binding                            |
+| ohos-display-soloist-binding        | ![Crates.io Version](https://img.shields.io/crates/v/ohos-display-soloist-binding)        | [display-soloist](https://developer.huawei.com/consumer/cn/doc/harmonyos-references-V5/_native_display_soloist-V5) binding        |
 
 ## Contribution
 

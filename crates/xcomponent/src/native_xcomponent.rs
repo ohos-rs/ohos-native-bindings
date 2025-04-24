@@ -13,7 +13,7 @@ use crate::{
     RAW_WINDOW,
 };
 
-#[cfg(feature = "single_mode")]
+#[cfg(not(feature = "multi_mode"))]
 use crate::X_COMPONENT_CALLBACKS;
 
 #[cfg(feature = "multi_mode")]
@@ -28,6 +28,10 @@ pub struct NativeXComponent {
 impl NativeXComponent {
     pub fn new(raw: XComponentRaw) -> Self {
         Self { raw, id: None }
+    }
+
+    pub fn with_id(raw: XComponentRaw, id: String) -> Self {
+        Self { raw, id: Some(id) }
     }
 
     /// Get current xcomponent instance's id
@@ -83,7 +87,7 @@ impl NativeXComponent {
         &self,
         cb: T,
     ) {
-        #[cfg(feature = "single_mode")]
+        #[cfg(not(feature = "multi_mode"))]
         X_COMPONENT_CALLBACKS.with_borrow_mut(|f| {
             f.on_surface_changed = Some(Box::new(cb));
         });
@@ -103,7 +107,7 @@ impl NativeXComponent {
         &self,
         cb: T,
     ) {
-        #[cfg(feature = "single_mode")]
+        #[cfg(not(feature = "multi_mode"))]
         X_COMPONENT_CALLBACKS.with_borrow_mut(|f| {
             f.on_surface_created = Some(Box::new(cb));
         });
@@ -123,7 +127,7 @@ impl NativeXComponent {
         &self,
         cb: T,
     ) {
-        #[cfg(feature = "single_mode")]
+        #[cfg(not(feature = "multi_mode"))]
         X_COMPONENT_CALLBACKS.with_borrow_mut(|f| {
             f.on_surface_destroyed = Some(Box::new(cb));
         });
@@ -145,7 +149,7 @@ impl NativeXComponent {
         &self,
         cb: T,
     ) {
-        #[cfg(feature = "single_mode")]
+        #[cfg(not(feature = "multi_mode"))]
         X_COMPONENT_CALLBACKS.with_borrow_mut(|f| {
             f.dispatch_touch_event = Some(Box::new(cb));
         });
@@ -185,7 +189,7 @@ impl NativeXComponent {
         &self,
         cb: T,
     ) -> Result<()> {
-        #[cfg(feature = "single_mode")]
+        #[cfg(not(feature = "multi_mode"))]
         X_COMPONENT_CALLBACKS.with_borrow_mut(|f| {
             f.on_frame_change = Some(Box::new(cb));
         });
@@ -215,7 +219,7 @@ impl NativeXComponent {
         &self,
         cb: T,
     ) -> Result<()> {
-        #[cfg(feature = "single_mode")]
+        #[cfg(not(feature = "multi_mode"))]
         X_COMPONENT_CALLBACKS.with_borrow_mut(|f| {
             f.on_key_event = Some(Box::new(cb));
         });

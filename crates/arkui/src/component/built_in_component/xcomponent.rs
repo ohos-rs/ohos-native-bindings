@@ -1,6 +1,7 @@
 use crate::{
     ArkUIAttributeBasic, ArkUICommonFontAttribute, ArkUIEvent, ArkUIGesture, ArkUINode,
-    ArkUINodeType, ArkUIResult, ARK_UI_NATIVE_NODE_API_1,
+    ArkUINodeAttributeItem, ArkUINodeAttributeType, ArkUINodeType, ArkUIResult,
+    ARK_UI_NATIVE_NODE_API_1,
 };
 
 #[cfg(feature = "xcomponent")]
@@ -27,7 +28,20 @@ impl XComponent {
         use ohos_xcomponent_binding::XComponentRaw;
 
         let handle = unsafe { OH_NativeXComponent_GetNativeXComponent(self.0.raw) };
-        XC::new(XComponentRaw(handle))
+        let id = ARK_UI_NATIVE_NODE_API_1
+            .get_attribute(&self.0, ArkUINodeAttributeType::XComponentId.into())
+            .ok()
+            .and_then(|attr| {
+                if let ArkUINodeAttributeItem::String(xcomponent_id) = attr {
+                    Some(xcomponent_id)
+                } else {
+                    None
+                }
+            });
+        match id {
+            Some(id) => XC::with_id(XComponentRaw(handle), id),
+            None => XC::new(XComponentRaw(handle)),
+        }
     }
 }
 
