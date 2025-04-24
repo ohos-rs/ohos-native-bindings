@@ -37,7 +37,7 @@ impl NativeBuffer {
     }
 
     /// create NativeBuffer from OHNativeWindowBuffer
-    pub fn from_window_buffer_ptr(buffer: *mut OHNativeWindowBuffer) -> Self {
+    pub unsafe fn from_window_buffer_ptr(buffer: *mut OHNativeWindowBuffer) -> Self {
         let mut buf = std::ptr::null_mut();
         let ret = unsafe { OH_NativeBuffer_FromNativeWindowBuffer(buffer, &mut buf) };
         #[cfg(debug_assertions)]
@@ -59,11 +59,11 @@ impl NativeBuffer {
             };
             self.config.replace(Some(config));
         }
-        self.config
+        *self
+            .config
             .borrow()
             .as_ref()
             .expect("OH_NativeBuffer_GetConfig failed")
-            .clone()
     }
 
     /// Map ION memory to process space

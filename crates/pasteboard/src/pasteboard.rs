@@ -13,6 +13,12 @@ pub struct Pasteboard {
     raw: NonNull<OH_Pasteboard>,
 }
 
+impl Default for Pasteboard {
+    fn default() -> Self {
+        Self::new()
+    }
+}
+
 impl Pasteboard {
     pub fn new() -> Self {
         let raw = unsafe { OH_Pasteboard_Create() };
@@ -52,8 +58,7 @@ impl Pasteboard {
     // }
 
     pub fn has_data(&self) -> bool {
-        let ret = unsafe { OH_Pasteboard_HasData(self.raw.as_ptr()) };
-        ret
+        unsafe { OH_Pasteboard_HasData(self.raw.as_ptr()) }
     }
 
     /// Current pasteboard has some types   

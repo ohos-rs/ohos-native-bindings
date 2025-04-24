@@ -21,16 +21,16 @@ impl From<GestureEventAction> for ArkUI_GestureEventActionType {
         let mut result = 0;
 
         if value.contains(GestureEventAction::Accept) {
-            result |= ArkUI_GestureEventActionType_GESTURE_EVENT_ACTION_ACCEPT as u32;
+            result |= ArkUI_GestureEventActionType_GESTURE_EVENT_ACTION_ACCEPT;
         }
         if value.contains(GestureEventAction::Update) {
-            result |= ArkUI_GestureEventActionType_GESTURE_EVENT_ACTION_UPDATE as u32;
+            result |= ArkUI_GestureEventActionType_GESTURE_EVENT_ACTION_UPDATE;
         }
         if value.contains(GestureEventAction::End) {
-            result |= ArkUI_GestureEventActionType_GESTURE_EVENT_ACTION_END as u32;
+            result |= ArkUI_GestureEventActionType_GESTURE_EVENT_ACTION_END;
         }
         if value.contains(GestureEventAction::Cancel) {
-            result |= ArkUI_GestureEventActionType_GESTURE_EVENT_ACTION_CANCEL as u32;
+            result |= ArkUI_GestureEventActionType_GESTURE_EVENT_ACTION_CANCEL;
         }
         result as ArkUI_GestureEventActionType
     }

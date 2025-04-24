@@ -1,3 +1,21 @@
 {
-    "rust-analyzer.cargo.target": "aarch64-unknown-linux-ohos"
+  "rust-analyzer.cargo.target": "aarch64-unknown-linux-ohos",
+  "rust-analyzer.cargo.buildScripts.overrideCommand": [
+    "ohrs",
+    "cargo",
+    "check",
+    "--",
+    "--workspace",
+    "--message-format=json",
+    "--all-targets"
+  ],
+  "rust-analyzer.check.overrideCommand": [
+    "ohrs",
+    "cargo",
+    "check",
+    "--",
+    "--workspace",
+    "--message-format=json",
+    "--all-targets"
+  ]
 }

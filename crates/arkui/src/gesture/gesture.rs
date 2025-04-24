@@ -116,7 +116,7 @@ impl Gesture {
 
         let event_action_type: ArkUI_GestureEventActionType = action_type.into();
 
-        let raw = self.raw.borrow().clone();
+        let raw = *self.raw.borrow();
 
         ARK_UI_NATIVE_GESTURE_API_1.set_gesture_event_to_target(
             raw,
@@ -135,7 +135,7 @@ impl Gesture {
         self.inner_gesture_data.borrow_mut().gesture_callback = Some(callback);
         self.inner_gesture_data.borrow_mut().user_data = Some(data);
 
-        let raw = self.raw.borrow().clone();
+        let raw = *self.raw.borrow();
 
         let event_action_type: ArkUI_GestureEventActionType = action_type.into();
         ARK_UI_NATIVE_GESTURE_API_1.set_gesture_event_to_target(

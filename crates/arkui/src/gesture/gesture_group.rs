@@ -23,7 +23,7 @@ impl GestureGroup {
 
     pub fn add_gesture(&mut self, gesture: Gesture) -> ArkUIResult<()> {
         self.gestures.push(gesture);
-        let raw = self.raw.borrow().clone();
+        let raw = *self.raw.borrow();
         ARK_UI_NATIVE_GESTURE_API_1.add_child_gesture(self.raw, raw)?;
         Ok(())
     }

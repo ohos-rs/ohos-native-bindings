@@ -26,28 +26,28 @@ impl From<GestureDirection> for ArkUI_GestureDirectionMask {
     fn from(value: GestureDirection) -> Self {
         let mut mask = 0;
         if value.contains(GestureDirection::All) {
-            mask |= ArkUI_GestureDirection_GESTURE_DIRECTION_ALL as u32;
+            mask |= ArkUI_GestureDirection_GESTURE_DIRECTION_ALL;
         }
         if value.contains(GestureDirection::Horizontal) {
-            mask |= ArkUI_GestureDirection_GESTURE_DIRECTION_HORIZONTAL as u32;
+            mask |= ArkUI_GestureDirection_GESTURE_DIRECTION_HORIZONTAL;
         }
         if value.contains(GestureDirection::Vertical) {
-            mask |= ArkUI_GestureDirection_GESTURE_DIRECTION_VERTICAL as u32;
+            mask |= ArkUI_GestureDirection_GESTURE_DIRECTION_VERTICAL;
         }
         if value.contains(GestureDirection::Left) {
-            mask |= ArkUI_GestureDirection_GESTURE_DIRECTION_LEFT as u32;
+            mask |= ArkUI_GestureDirection_GESTURE_DIRECTION_LEFT;
         }
         if value.contains(GestureDirection::Right) {
-            mask |= ArkUI_GestureDirection_GESTURE_DIRECTION_RIGHT as u32;
+            mask |= ArkUI_GestureDirection_GESTURE_DIRECTION_RIGHT;
         }
         if value.contains(GestureDirection::Up) {
-            mask |= ArkUI_GestureDirection_GESTURE_DIRECTION_UP as u32;
+            mask |= ArkUI_GestureDirection_GESTURE_DIRECTION_UP;
         }
         if value.contains(GestureDirection::Down) {
-            mask |= ArkUI_GestureDirection_GESTURE_DIRECTION_DOWN as u32;
+            mask |= ArkUI_GestureDirection_GESTURE_DIRECTION_DOWN;
         }
         if value.contains(GestureDirection::None) {
-            mask |= ArkUI_GestureDirection_GESTURE_DIRECTION_NONE as u32;
+            mask |= ArkUI_GestureDirection_GESTURE_DIRECTION_NONE;
         }
         mask as ArkUI_GestureDirectionMask
     }
