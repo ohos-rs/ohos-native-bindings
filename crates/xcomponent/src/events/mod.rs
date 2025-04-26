@@ -1,6 +1,6 @@
 use crate::raw::{WindowRaw, XComponentRaw};
 use napi_ohos::Result;
-use std::cell::RefCell;
+use std::{cell::RefCell, rc::Rc};
 
 #[cfg(feature = "multi_mode")]
 use std::collections::HashMap;
@@ -15,15 +15,15 @@ pub use native_callbacks::*;
 pub use raw_window::*;
 pub use touch_event::*;
 
-pub type OnSurfaceCreated = Option<Box<dyn Fn(XComponentRaw, WindowRaw) -> Result<()>>>;
-pub type OnSurfaceChanged = Option<Box<dyn Fn(XComponentRaw, WindowRaw) -> Result<()>>>;
-pub type OnSurfaceDestroyed = Option<Box<dyn Fn(XComponentRaw, WindowRaw) -> Result<()>>>;
+pub type OnSurfaceCreated = Option<Rc<dyn Fn(XComponentRaw, WindowRaw) -> Result<()>>>;
+pub type OnSurfaceChanged = Option<Rc<dyn Fn(XComponentRaw, WindowRaw) -> Result<()>>>;
+pub type OnSurfaceDestroyed = Option<Rc<dyn Fn(XComponentRaw, WindowRaw) -> Result<()>>>;
 pub type DispatchTouchEvent =
-    Option<Box<dyn Fn(XComponentRaw, WindowRaw, TouchEventData) -> Result<()>>>;
-pub type OnFrameChange = Option<Box<dyn Fn(XComponentRaw, u64, u64) -> Result<()>>>;
-pub type OnKeyEvent = Option<Box<dyn Fn(XComponentRaw, WindowRaw, KeyEventData) -> Result<()>>>;
+    Option<Rc<dyn Fn(XComponentRaw, WindowRaw, TouchEventData) -> Result<()>>>;
+pub type OnFrameChange = Option<Rc<dyn Fn(XComponentRaw, u64, u64) -> Result<()>>>;
+pub type OnKeyEvent = Option<Rc<dyn Fn(XComponentRaw, WindowRaw, KeyEventData) -> Result<()>>>;
 
-#[derive(Default)]
+#[derive(Default, Clone)]
 pub struct XComponentCallbacks {
     pub on_surface_created: OnSurfaceCreated,
     pub on_surface_changed: OnSurfaceChanged,

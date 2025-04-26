@@ -17,7 +17,11 @@ pub fn resolve_id(component: *mut OH_NativeXComponent) -> Option<String> {
     }
 
     // id_len will change to real length if OH_NativeXComponent_GetXComponentId call successfully.
-    let id_str: Vec<u8> = origin_id.into_iter().take(id_len as usize).collect();
+    let id_str: Vec<u8> = origin_id
+        .into_iter()
+        .take(id_len as usize)
+        .map(|x| x as u8)
+        .collect();
     let id = String::from_utf8_lossy(&id_str).into_owned();
     Some(id)
 }
