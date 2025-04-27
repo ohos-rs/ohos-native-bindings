@@ -1,5 +1,7 @@
 #![allow(clippy::missing_safety_doc)]
 
+use std::rc::Rc;
+
 use napi_ohos::{Error, Result};
 use ohos_xcomponent_sys::{
     OH_NativeXComponent, OH_NativeXComponent_Callback, OH_NativeXComponent_RegisterCallback,
@@ -89,7 +91,7 @@ impl NativeXComponent {
     ) {
         #[cfg(not(feature = "multi_mode"))]
         X_COMPONENT_CALLBACKS.with_borrow_mut(|f| {
-            f.on_surface_changed = Some(Box::new(cb));
+            f.on_surface_changed = Some(Rc::new(cb));
         });
 
         #[cfg(feature = "multi_mode")]
@@ -98,7 +100,7 @@ impl NativeXComponent {
             X_COMPONENT_CALLBACKS_MAP.with_borrow_mut(|f| {
                 f.entry(id)
                     .or_insert_with(|| Default::default())
-                    .on_surface_changed = Some(Box::new(cb));
+                    .on_surface_changed = Some(Rc::new(cb));
             });
         }
     }
@@ -109,7 +111,7 @@ impl NativeXComponent {
     ) {
         #[cfg(not(feature = "multi_mode"))]
         X_COMPONENT_CALLBACKS.with_borrow_mut(|f| {
-            f.on_surface_created = Some(Box::new(cb));
+            f.on_surface_created = Some(Rc::new(cb));
         });
 
         #[cfg(feature = "multi_mode")]
@@ -118,7 +120,7 @@ impl NativeXComponent {
             X_COMPONENT_CALLBACKS_MAP.with_borrow_mut(|f| {
                 f.entry(id)
                     .or_insert_with(|| Default::default())
-                    .on_surface_created = Some(Box::new(cb));
+                    .on_surface_created = Some(Rc::new(cb));
             });
         }
     }
@@ -129,7 +131,7 @@ impl NativeXComponent {
     ) {
         #[cfg(not(feature = "multi_mode"))]
         X_COMPONENT_CALLBACKS.with_borrow_mut(|f| {
-            f.on_surface_destroyed = Some(Box::new(cb));
+            f.on_surface_destroyed = Some(Rc::new(cb));
         });
 
         #[cfg(feature = "multi_mode")]
@@ -138,7 +140,7 @@ impl NativeXComponent {
             X_COMPONENT_CALLBACKS_MAP.with_borrow_mut(|f| {
                 f.entry(id)
                     .or_insert_with(|| Default::default())
-                    .on_surface_destroyed = Some(Box::new(cb));
+                    .on_surface_destroyed = Some(Rc::new(cb));
             });
         }
     }
@@ -151,7 +153,7 @@ impl NativeXComponent {
     ) {
         #[cfg(not(feature = "multi_mode"))]
         X_COMPONENT_CALLBACKS.with_borrow_mut(|f| {
-            f.dispatch_touch_event = Some(Box::new(cb));
+            f.dispatch_touch_event = Some(Rc::new(cb));
         });
 
         #[cfg(feature = "multi_mode")]
@@ -160,7 +162,7 @@ impl NativeXComponent {
             X_COMPONENT_CALLBACKS_MAP.with_borrow_mut(|f| {
                 f.entry(id)
                     .or_insert_with(|| Default::default())
-                    .dispatch_touch_event = Some(Box::new(cb));
+                    .dispatch_touch_event = Some(Rc::new(cb));
             });
         }
     }
@@ -191,7 +193,7 @@ impl NativeXComponent {
     ) -> Result<()> {
         #[cfg(not(feature = "multi_mode"))]
         X_COMPONENT_CALLBACKS.with_borrow_mut(|f| {
-            f.on_frame_change = Some(Box::new(cb));
+            f.on_frame_change = Some(Rc::new(cb));
         });
 
         #[cfg(feature = "multi_mode")]
@@ -200,7 +202,7 @@ impl NativeXComponent {
             X_COMPONENT_CALLBACKS_MAP.with_borrow_mut(|f| {
                 f.entry(id)
                     .or_insert_with(|| Default::default())
-                    .on_frame_change = Some(Box::new(cb));
+                    .on_frame_change = Some(Rc::new(cb));
             });
         }
 
@@ -221,7 +223,7 @@ impl NativeXComponent {
     ) -> Result<()> {
         #[cfg(not(feature = "multi_mode"))]
         X_COMPONENT_CALLBACKS.with_borrow_mut(|f| {
-            f.on_key_event = Some(Box::new(cb));
+            f.on_key_event = Some(Rc::new(cb));
         });
 
         #[cfg(feature = "multi_mode")]
@@ -230,7 +232,7 @@ impl NativeXComponent {
             X_COMPONENT_CALLBACKS_MAP.with_borrow_mut(|f| {
                 f.entry(id)
                     .or_insert_with(|| Default::default())
-                    .on_key_event = Some(Box::new(cb));
+                    .on_key_event = Some(Rc::new(cb));
             });
         }
 

@@ -35,21 +35,25 @@ pub unsafe extern "C" fn on_surface_created(
     }
 
     #[cfg(not(feature = "multi_mode"))]
-    X_COMPONENT_CALLBACKS.with_borrow(|cb| {
-        if let Some(callback) = &cb.on_surface_created {
+    {
+        let callback = X_COMPONENT_CALLBACKS.with_borrow(|cb| cb.clone());
+
+        if let Some(callback) = &callback.on_surface_created {
             callback(xcomponent, window).unwrap();
         }
-    });
+    }
 
     #[cfg(feature = "multi_mode")]
-    X_COMPONENT_CALLBACKS_MAP.with_borrow(|cb| {
+    {
+        let cb = X_COMPONENT_CALLBACKS_MAP.with_borrow(|cb| cb.clone());
+
         let id = resolve_id(xcomponent.0).unwrap();
         if let Some(callback) = cb.get(&id) {
             if let Some(callback) = &callback.on_surface_created {
                 callback(xcomponent, window).unwrap();
             }
         }
-    })
+    }
 }
 
 pub unsafe extern "C" fn on_surface_changed(
@@ -65,21 +69,24 @@ pub unsafe extern "C" fn on_surface_changed(
     }
 
     #[cfg(not(feature = "multi_mode"))]
-    X_COMPONENT_CALLBACKS.with_borrow(|cb| {
-        if let Some(callback) = &cb.on_surface_changed {
+    {
+        let callback = X_COMPONENT_CALLBACKS.with_borrow(|cb| cb.clone());
+        if let Some(callback) = &callback.on_surface_changed {
             callback(xcomponent, window).unwrap();
         }
-    });
+    }
 
     #[cfg(feature = "multi_mode")]
-    X_COMPONENT_CALLBACKS_MAP.with_borrow(|cb| {
+    {
+        let cb = X_COMPONENT_CALLBACKS_MAP.with_borrow(|cb| cb.clone());
+
         let id = resolve_id(xcomponent.0).unwrap();
         if let Some(callback) = cb.get(&id) {
             if let Some(callback) = &callback.on_surface_changed {
                 callback(xcomponent, window).unwrap();
             }
         }
-    })
+    }
 }
 
 pub unsafe extern "C" fn on_surface_destroyed(
@@ -95,21 +102,24 @@ pub unsafe extern "C" fn on_surface_destroyed(
     }
 
     #[cfg(not(feature = "multi_mode"))]
-    X_COMPONENT_CALLBACKS.with_borrow(|cb| {
+    {
+        let cb = X_COMPONENT_CALLBACKS.with_borrow(|cb| cb.clone());
         if let Some(callback) = &cb.on_surface_destroyed {
             callback(xcomponent, window).unwrap();
         }
-    });
+    }
 
     #[cfg(feature = "multi_mode")]
-    X_COMPONENT_CALLBACKS_MAP.with_borrow(|cb| {
+    {
+        let cb = X_COMPONENT_CALLBACKS_MAP.with_borrow(|cb| cb.clone());
+
         let id = resolve_id(xcomponent.0).unwrap();
         if let Some(callback) = cb.get(&id) {
             if let Some(callback) = &callback.on_surface_destroyed {
                 callback(xcomponent, window).unwrap();
             }
         }
-    })
+    }
 }
 
 pub unsafe extern "C" fn dispatch_touch_event(
@@ -134,21 +144,24 @@ pub unsafe extern "C" fn dispatch_touch_event(
     let xcomponent = XComponentRaw(xcomponent);
 
     #[cfg(not(feature = "multi_mode"))]
-    X_COMPONENT_CALLBACKS.with_borrow(|cb| {
+    {
+        let cb = X_COMPONENT_CALLBACKS.with_borrow(|cb| cb.clone());
         if let Some(callback) = &cb.dispatch_touch_event {
             callback(xcomponent, window, data).unwrap();
         }
-    });
+    }
 
     #[cfg(feature = "multi_mode")]
-    X_COMPONENT_CALLBACKS_MAP.with_borrow(|cb| {
+    {
+        let cb = X_COMPONENT_CALLBACKS_MAP.with_borrow(|cb| cb.clone());
+
         let id = resolve_id(xcomponent.0).unwrap();
         if let Some(callback) = cb.get(&id) {
             if let Some(callback) = &callback.dispatch_touch_event {
                 callback(xcomponent, window, data).unwrap();
             }
         }
-    })
+    }
 }
 
 pub unsafe extern "C" fn on_frame_change(
@@ -159,21 +172,24 @@ pub unsafe extern "C" fn on_frame_change(
     let xcomponent = XComponentRaw(xcomponent);
 
     #[cfg(not(feature = "multi_mode"))]
-    X_COMPONENT_CALLBACKS.with_borrow(|cb| {
+    {
+        let cb = X_COMPONENT_CALLBACKS.with_borrow(|cb| cb.clone());
         if let Some(callback) = &cb.on_frame_change {
             callback(xcomponent, timestamp, target_timestamp).unwrap();
         }
-    });
+    }
 
     #[cfg(feature = "multi_mode")]
-    X_COMPONENT_CALLBACKS_MAP.with_borrow(|cb| {
+    {
+        let cb = X_COMPONENT_CALLBACKS_MAP.with_borrow(|cb| cb.clone());
+
         let id = resolve_id(xcomponent.0).unwrap();
         if let Some(callback) = cb.get(&id) {
             if let Some(callback) = &callback.on_frame_change {
                 callback(xcomponent, timestamp, target_timestamp).unwrap();
             }
         }
-    })
+    }
 }
 
 pub unsafe extern "C" fn key_event(
@@ -216,19 +232,22 @@ pub unsafe extern "C" fn key_event(
     };
 
     #[cfg(not(feature = "multi_mode"))]
-    X_COMPONENT_CALLBACKS.with_borrow(|cb| {
+    {
+        let cb = X_COMPONENT_CALLBACKS.with_borrow(|cb| cb.clone());
         if let Some(callback) = &cb.on_key_event {
             callback(xcomponent, window, key_event_data).unwrap();
         }
-    });
+    }
 
     #[cfg(feature = "multi_mode")]
-    X_COMPONENT_CALLBACKS_MAP.with_borrow(|cb| {
+    {
+        let cb = X_COMPONENT_CALLBACKS_MAP.with_borrow(|cb| cb.clone());
+
         let id = resolve_id(xcomponent.0).unwrap();
         if let Some(callback) = cb.get(&id) {
             if let Some(callback) = &callback.on_key_event {
                 callback(xcomponent, window, key_event_data).unwrap();
             }
         }
-    })
+    }
 }
