@@ -4,6 +4,14 @@ use std::{
     sync::{LazyLock, RwLock},
 };
 
+#[cfg(feature = "log")]
+mod openharmony_log;
+
+#[cfg(feature = "log")]
+pub mod log {
+    pub use crate::openharmony_log::*;
+}
+
 #[cfg(feature = "redirect")]
 use std::{
     ffi::CStr,
@@ -33,6 +41,7 @@ pub fn set_global_options(options: LogOptions) {
     *global_options = options;
 }
 
+#[derive(Debug, Clone, Copy)]
 pub enum LogLevel {
     LogDebug,
     LogInfo,
