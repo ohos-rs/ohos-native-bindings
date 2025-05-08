@@ -27,5 +27,5 @@ pub struct IMECallbacks {
 unsafe impl Sync for IMECallbacks {}
 unsafe impl Send for IMECallbacks {}
 
-pub static IME_CALLBACKS: LazyLock<RwLock<IMECallbacks>> =
+pub static OHOS_RS_IME_CALLBACKS: LazyLock<RwLock<IMECallbacks>> =
     LazyLock::new(|| RwLock::new(IMECallbacks::default()));
