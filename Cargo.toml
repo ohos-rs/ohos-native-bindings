@@ -15,7 +15,7 @@ ohos-arkui-binding                  = { version = "0.0.4", path = "crates/arkui"
 ohos-vsync-binding                  = { version = "0.1.0", path = "crates/vsync" }
 ohos-display-soloist-binding        = { version = "0.1.0", path = "crates/native_display_soloist" }
 ohos-input-binding                  = { version = "0.0.1", path = "crates/input" }
-ohos-ime-binding                    = { version = "0.0.2", path = "crates/ime" }
+ohos-ime-binding                    = { version = "0.1.0", path = "crates/ime" }
 ohos-display-binding                = { version = "0.0.1", path = "crates/display" }
 ohos-native-window-binding          = { version = "0.1.1", path = "crates/native_window" }
 ohos-native-buffer-binding          = { version = "0.1.0", path = "crates/native_buffer" }
@@ -34,7 +34,7 @@ ohos-arkui-sys                  = { version = "0.0.1", path = "sys/ohos-arkui-sy
 ohos-native-vsync-sys           = { version = "0.0.1", path = "sys/ohos-native-vsync-sys" }
 ohos-display-soloist-sys        = { version = "0.0.1", path = "sys/ohos-display-soloist-sys" }
 ohos-input-sys                  = { version = "0.0.1", path = "sys/ohos-input-sys" }
-ohos-input-method-sys           = { version = "0.0.1", path = "sys/ohos-input-method-sys" }
+ohos-input-method-sys           = { version = "0.1.0", path = "sys/ohos-input-method-sys" }
 ohos-display-sys                = { version = "0.0.1", path = "sys/ohos-display-sys" }
 ohos-accessibility-sys          = { version = "0.0.1", path = "sys/ohos-accessibility-sys" }
 ohos-native-window-sys          = { version = "0.0.1", path = "sys/ohos-native-window-sys" }

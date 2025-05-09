@@ -8,7 +8,7 @@ use std::{
     rc::Rc,
 };
 
-use crate::{proxy::OHOS_RS_IME_CALLBACKS, AttachOptions, TextEditor};
+use crate::{proxy::OHOS_RS_IME_CALLBACKS, AttachOptions, KeyboardStatus, TextEditor};
 
 unsafe impl Send for IME {}
 unsafe impl Sync for IME {}
@@ -58,6 +58,53 @@ impl IME {
             )
         };
         (*guard).insert_text = Some(cb);
+    }
+
+    pub fn pre_edit<'a, T>(&self, callback: T)
+    where
+        T: Fn(String, i32, i32) + 'a,
+    {
+        let mut guard = OHOS_RS_IME_CALLBACKS
+            .write()
+            .expect("OHOS_RS_IME_CALLBACKS write failed");
+        let cb = unsafe {
+            std::mem::transmute::<
+                Box<dyn Fn(String, i32, i32) + 'a>,
+                Box<dyn Fn(String, i32, i32) + 'static>,
+            >(Box::new(callback))
+        };
+        (*guard).set_preview_text = Some(cb);
+    }
+
+    pub fn on_status_change<'a, T>(&self, callback: T)
+    where
+        T: Fn(KeyboardStatus) + 'a,
+    {
+        let mut guard = OHOS_RS_IME_CALLBACKS
+            .write()
+            .expect("OHOS_RS_IME_CALLBACKS write failed");
+        let cb = unsafe {
+            std::mem::transmute::<
+                Box<dyn Fn(KeyboardStatus) + 'a>,
+                Box<dyn Fn(KeyboardStatus) + 'static>,
+            >(Box::new(callback))
+        };
+        (*guard).send_keyboard_status = Some(cb);
+    }
+
+    pub fn on_delete<'a, T>(&self, callback: T)
+    where
+        T: Fn(i32) + 'a,
+    {
+        let mut guard = OHOS_RS_IME_CALLBACKS
+            .write()
+            .expect("OHOS_RS_IME_CALLBACKS write failed");
+        let cb = unsafe {
+            std::mem::transmute::<Box<dyn Fn(i32) + 'a>, Box<dyn Fn(i32) + 'static>>(Box::new(
+                callback,
+            ))
+        };
+        (*guard).delete_backward = Some(cb);
     }
 
     pub fn show_keyboard(&self) {
