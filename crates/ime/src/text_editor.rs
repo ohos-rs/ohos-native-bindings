@@ -7,7 +7,7 @@ use ohos_input_method_sys::{
     OH_TextEditorProxy_SetHandleSetSelectionFunc, OH_TextEditorProxy_SetInsertTextFunc,
     OH_TextEditorProxy_SetMoveCursorFunc, OH_TextEditorProxy_SetReceivePrivateCommandFunc,
     OH_TextEditorProxy_SetSendEnterKeyFunc, OH_TextEditorProxy_SetSendKeyboardStatusFunc,
-    OH_TextEditorProxy_SetSetPreviewTextFunc,
+    OH_TextEditorProxy_SetSetPreviewTextFunc,OH_TextEditorProxy_SendKeyboardStatusFunc
 };
 
 use crate::proxy::{
@@ -105,7 +105,7 @@ impl TextEditor {
             let status = OH_TextEditorProxy_SetSetPreviewTextFunc(raw, Some(set_preview_text));
             #[cfg(debug_assertions)]
             assert!(status == 0, "Failed to set set preview text function");
-
+            
             TextEditor { raw }
         }
     }
