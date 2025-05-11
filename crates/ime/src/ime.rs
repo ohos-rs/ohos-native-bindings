@@ -8,7 +8,7 @@ use std::{
     rc::Rc,
 };
 
-use crate::{proxy::OHOS_RS_IME_CALLBACKS, AttachOptions, KeyboardStatus, TextEditor};
+use crate::{proxy::OHOS_RS_IME_CALLBACKS, AttachOptions, EnterKey, KeyboardStatus, TextEditor};
 
 unsafe impl Send for IME {}
 unsafe impl Sync for IME {}
@@ -129,6 +129,36 @@ impl IME {
             #[cfg(debug_assertions)]
             assert!(ret == 0, "OH_InputMethodController_Attach failed");
         }
+    }
+
+    pub fn on_backspace<'a, T>(&self, callback: T)
+    where
+        T: Fn(i32) -> () + 'a,
+    {
+        let mut guard = OHOS_RS_IME_CALLBACKS
+            .write()
+            .expect("OHOS_RS_IME_CALLBACKS write failed");
+        let cb = unsafe {
+            std::mem::transmute::<Box<dyn Fn(i32) + 'a>, Box<dyn Fn(i32) + 'static>>(Box::new(
+                callback,
+            ))
+        };
+        (*guard).delete_backward = Some(cb);
+    }
+
+    pub fn on_enter<'a, T>(&self, callback: T)
+    where
+        T: Fn(EnterKey) -> () + 'a,
+    {
+        let mut guard = OHOS_RS_IME_CALLBACKS
+            .write()
+            .expect("OHOS_RS_IME_CALLBACKS write failed");
+        let cb = unsafe {
+            std::mem::transmute::<Box<dyn Fn(EnterKey) + 'a>, Box<dyn Fn(EnterKey) + 'static>>(
+                Box::new(callback),
+            )
+        };
+        (*guard).send_enter_key = Some(cb);
     }
 
     pub fn hide_keyboard(&self) {
