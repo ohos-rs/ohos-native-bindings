@@ -161,6 +161,35 @@ impl IME {
         (*guard).send_enter_key = Some(cb);
     }
 
+    pub fn on_preview<'a, T>(&self, callback: T)
+    where
+        T: Fn(String, i32, i32) -> () + 'a,
+    {
+        let mut guard = OHOS_RS_IME_CALLBACKS
+            .write()
+            .expect("OHOS_RS_IME_CALLBACKS write failed");
+        let cb = unsafe {
+            std::mem::transmute::<
+                Box<dyn Fn(String, i32, i32) + 'a>,
+                Box<dyn Fn(String, i32, i32) + 'static>,
+            >(Box::new(callback))
+        };
+        (*guard).set_preview_text = Some(cb);
+    }
+
+    pub fn on_finish_preview<'a, T>(&self, callback: T)
+    where
+        T: Fn() -> () + 'a,
+    {
+        let mut guard = OHOS_RS_IME_CALLBACKS
+            .write()
+            .expect("OHOS_RS_IME_CALLBACKS write failed");
+        let cb = unsafe {
+            std::mem::transmute::<Box<dyn Fn() + 'a>, Box<dyn Fn() + 'static>>(Box::new(callback))
+        };
+        (*guard).finish_text_preview = Some(cb);
+    }
+
     pub fn hide_keyboard(&self) {
         unsafe {
             if let Some(raw) = *self.raw.borrow() {
