@@ -25,6 +25,8 @@ A set of HarmonyNext native module bindings for rust.
 
 ![contribution](https://img.shields.io/badge/PR-welcome-green)
 
+[How to add a new crate?](./How-To-Add-A-New-Crate.md)
+
 ## License
 
 [MIT](https://github.com/ohos-rs/ohos-native-bindings/blob/master/LICENSE)
