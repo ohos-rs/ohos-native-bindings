@@ -34,7 +34,7 @@ static CONFIG: Lazy<Vec<Lazy<SysConfig>>> = Lazy::new(|| {
         config::UDMF,
         config::IMAGE_NATIVE,
         config::IMAGE,
-        config::ARK_WEB
+        config::ARK_WEB,
     ]
 });
 
