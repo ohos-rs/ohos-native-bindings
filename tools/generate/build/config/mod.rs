@@ -25,6 +25,7 @@ mod native_display_soloist;
 mod native_window;
 mod raw;
 mod vsync;
+mod ark_web;
 
 pub use ability::*;
 pub use ark_data::*;
@@ -42,3 +43,4 @@ pub use native_display_soloist::*;
 pub use native_window::*;
 pub use raw::*;
 pub use vsync::*;
+pub use ark_web::*;
