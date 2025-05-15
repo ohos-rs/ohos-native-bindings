@@ -1,13 +1,17 @@
-use ohos_enum_macro::EnumFrom;
-use ohos_xcomponent_sys::{
-    _bindgen_ty_6, OH_NATIVEXCOMPONENT_RESULT_BAD_PARAMETER, OH_NATIVEXCOMPONENT_RESULT_FAILED,
-    OH_NATIVEXCOMPONENT_RESULT_SUCCESS,
-};
-
-#[derive(Debug, PartialEq, EnumFrom)]
-#[enum_from_config(_bindgen_ty_6, "OH_NATIVEXCOMPONENT_RESULT_")]
+#[derive(Debug, PartialEq)]
 pub enum XComponentResultCode {
-    Success,
-    Failed,
-    BadParameter,
+    Success = 0,
+    Failed = -1,
+    BadParameter = -2,
+}
+
+impl From<i32> for XComponentResultCode {
+    fn from(value: i32) -> Self {
+        match value {
+            0 => XComponentResultCode::Success,
+            -1 => XComponentResultCode::Failed,
+            -2 => XComponentResultCode::BadParameter,
+            _ => unimplemented!("Unsupported XComponentResultCode: {}", value),
+        }
+    }
 }
