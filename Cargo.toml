@@ -21,6 +21,7 @@ ohos-native-window-binding          = { version = "0.1.1", path = "crates/native
 ohos-native-buffer-binding          = { version = "0.1.0", path = "crates/native_buffer" }
 ohos-udmf-binding                   = { version = "0.0.1", path = "crates/udmf" }
 ohos-pasteboard-binding             = { version = "0.0.1", path = "crates/pasteboard" }
+ohos-web-binding                    = { version = "0.0.1", path = "crates/web" }
 
 ohos-bundle-sys                 = { version = "0.0.2", path = "sys/ohos-bundle-sys" }
 ohos-init-sys                   = { version = "0.0.2", path = "sys/ohos-init-sys" }
