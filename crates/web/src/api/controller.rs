@@ -1,4 +1,4 @@
-use std::ptr::NonNull;
+use std::{ptr::NonNull, sync::LazyLock};
 
 use ohos_web_sys::{
     ArkWeb_ControllerAPI, ArkWeb_NativeAPIVariantKind_ARKWEB_NATIVE_CONTROLLER,
@@ -26,3 +26,8 @@ impl Controller {
         }
     }
 }
+
+unsafe impl Send for Controller {}
+unsafe impl Sync for Controller {}
+
+pub static ARK_WEB_CONTROLLER_API: LazyLock<Controller> = LazyLock::new(Controller::new);

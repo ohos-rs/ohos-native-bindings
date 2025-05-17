@@ -1,4 +1,4 @@
-use std::ptr::NonNull;
+use std::{ptr::NonNull, sync::LazyLock};
 
 use ohos_web_sys::{
     ArkWeb_ComponentAPI, ArkWeb_NativeAPIVariantKind_ARKWEB_NATIVE_COMPONENT,
@@ -6,7 +6,7 @@ use ohos_web_sys::{
 };
 
 pub struct Component {
-    raw: NonNull<ArkWeb_ComponentAPI>,
+    pub(crate) raw: NonNull<ArkWeb_ComponentAPI>,
 }
 
 impl Component {
@@ -26,3 +26,8 @@ impl Component {
         }
     }
 }
+
+unsafe impl Send for Component {}
+unsafe impl Sync for Component {}
+
+pub static ARK_WEB_COMPONENT_API: LazyLock<Component> = LazyLock::new(Component::new);
