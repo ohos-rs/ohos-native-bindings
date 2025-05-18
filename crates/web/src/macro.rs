@@ -1,35 +1,26 @@
 #[macro_export]
 macro_rules! ark_web_member_exists {
     ($struct:expr, $field:ident) => {
-        {
-            use std::mem;
-            let struct_ptr = $struct as *const _;
-            let field_ptr = &(*struct_ptr).$field as *const _;
-            let offset = field_ptr as usize - struct_ptr as usize;
-            offset + mem::size_of_val(&(*struct_ptr).$field) <= mem::size_of_val($struct)
+        unsafe {
+            let s_ptr = $struct as *const _ as *const u8;
+            let f_ptr = &(*$struct).$field as *const _ as *const u8;
+            let offset = f_ptr.offset_from(s_ptr) as usize;
+            let size = std::mem::size_of_val(&(*$struct).$field);
+
+            let s_size_ptr = $struct as *const _ as *const usize;
+            let max_size = *s_size_ptr;
+
+            offset + size <= max_size
         }
     };
 }
 
 #[macro_export]
 macro_rules! ark_web_member_missing {
-    ($struct:expr, $field:ident) => {
-        {
-            !ark_web_member_exists!($struct, $field) || {
-                let field_value = &(*$struct).$field;
-                match field_value {
-                    // For numeric types, check if zero
-                    n if std::any::type_name::<T>() == "i32" || std::any::type_name::<T>() == "u32" => *n == 0,
-                    // For boolean, check if false
-                    b if std::any::type_name::<T>() == "bool" => !*b,
-                    // For Option types, check if None
-                    o if std::any::type_name::<T>() == "Option<T>" => o.is_none(),
-                    // For references, check if null
-                    r if std::any::type_name::<T>() == "&T" => r.is_null(),
-                    // For other types, consider them as missing if they're default
-                    _ => field_value == &Default::default()
-                }
-            }
+    ($struct:expr, $field:ident) => {{
+        !crate::ark_web_member_exists!($struct, $field) || {
+            let field_value = unsafe { &(*$struct).$field };
+            field_value.is_none()
         }
-    };
-} 
+    }};
+}
