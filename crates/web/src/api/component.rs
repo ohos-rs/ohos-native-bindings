@@ -35,30 +35,30 @@ impl Component {
         match member {
             "onControllerAttached" => {
                 if !ark_web_member_missing!(self.raw.as_ptr(), onControllerAttached) {
-                    Err(ArkWebError::ArkWebApiMemberMissing(member.to_string()))
-                } else {
                     Ok(())
+                } else {
+                    Err(ArkWebError::ArkWebApiMemberMissing(member.to_string()))
                 }
             }
             "onPageBegin" => {
                 if !ark_web_member_missing!(self.raw.as_ptr(), onPageBegin) {
-                    Err(ArkWebError::ArkWebApiMemberMissing(member.to_string()))
-                } else {
                     Ok(())
+                } else {
+                    Err(ArkWebError::ArkWebApiMemberMissing(member.to_string()))
                 }
             }
             "onPageEnd" => {
                 if !ark_web_member_missing!(self.raw.as_ptr(), onPageEnd) {
-                    Err(ArkWebError::ArkWebApiMemberMissing(member.to_string()))
-                } else {
                     Ok(())
+                } else {
+                    Err(ArkWebError::ArkWebApiMemberMissing(member.to_string()))
                 }
             }
             "onDestroy" => {
                 if !ark_web_member_missing!(self.raw.as_ptr(), onDestroy) {
-                    Err(ArkWebError::ArkWebApiMemberMissing(member.to_string()))
-                } else {
                     Ok(())
+                } else {
+                    Err(ArkWebError::ArkWebApiMemberMissing(member.to_string()))
                 }
             }
             _ => Err(ArkWebError::ArkWebApiMemberMissing(member.to_string())),

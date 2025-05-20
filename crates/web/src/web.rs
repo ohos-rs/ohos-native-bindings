@@ -1,8 +1,6 @@
 use std::{cell::RefCell, rc::Rc, sync::LazyLock};
 
-use crate::{
-    ark_web_member_missing, error::ArkWebError, Callback, ARK_WEB_COMPONENT_API, CALLBACK_MAP,
-};
+use crate::{error::ArkWebError, Callback, ARK_WEB_COMPONENT_API, CALLBACK_MAP};
 
 // store all web view instances
 pub static WEB_VIEW_INSTANCE: LazyLock<papaya::HashMap<String, Web>> =
@@ -26,11 +24,8 @@ impl Web {
         let new_instance = Self {
             web_tag: web_tag.clone(),
         };
-        let t = map.insert(web_tag.clone(), new_instance.clone());
-        if let Some(inst) = t {
-            return Ok(inst.to_owned());
-        }
-        Err(ArkWebError::WebviewCreateFailed(web_tag))
+        _ = map.insert(web_tag.clone(), new_instance.clone());
+        Ok(new_instance.clone())
     }
 
     pub fn on_controller_attach<F>(&self, mut callback: F) -> Result<(), ArkWebError>
@@ -61,13 +56,39 @@ impl Web {
                 destroy: Rc::new(RefCell::new(None)),
             },
         );
-        let api = ARK_WEB_COMPONENT_API.raw.as_ptr();
-        if ark_web_member_missing!(api, onControllerAttached) {
-            return Err(ArkWebError::ArkWebApiMemberMissing(
-                "onControllerAttached".to_string(),
-            ));
-        }
         ARK_WEB_COMPONENT_API.on_controller_attached(self.web_tag.clone())?;
+        Ok(())
+    }
+
+    pub fn on_page_begin<F>(&self, mut callback: F) -> Result<(), ArkWebError>
+    where
+        F: FnMut(),
+    {
+        let cb = unsafe {
+            std::mem::transmute::<Box<dyn FnMut()>, Box<dyn FnMut() + 'static>>(Box::new(
+                move || {
+                    callback();
+                },
+            ))
+        };
+        let attach = Rc::new(RefCell::new(Some(cb)));
+        let update = attach.clone();
+        let map = CALLBACK_MAP.pin();
+        map.update_or_insert(
+            self.web_tag.clone(),
+            move |e| {
+                let mut e = e.clone();
+                e.page_begin = update.clone();
+                e.clone()
+            },
+            Callback {
+                controller_attach: Rc::new(RefCell::new(None)),
+                page_begin: attach.clone(),
+                page_end: Rc::new(RefCell::new(None)),
+                destroy: Rc::new(RefCell::new(None)),
+            },
+        );
+        ARK_WEB_COMPONENT_API.on_page_begin(self.web_tag.clone())?;
         Ok(())
     }
 }
