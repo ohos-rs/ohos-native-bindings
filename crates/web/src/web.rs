@@ -1,10 +1,19 @@
-use std::{cell::RefCell, rc::Rc, sync::LazyLock};
+use std::{
+    cell::RefCell,
+    ffi::{c_char, CStr, CString},
+    rc::Rc,
+    sync::{LazyLock, Mutex},
+};
 
 use crate::{error::ArkWebError, Callback, ARK_WEB_COMPONENT_API, CALLBACK_MAP};
+use ohos_web_sys::OH_NativeArkWeb_RunJavaScript;
 
 // store all web view instances
 pub static WEB_VIEW_INSTANCE: LazyLock<papaya::HashMap<String, Web>> =
     LazyLock::new(papaya::HashMap::new);
+
+pub static EVALUATE_SCRIPT_CALLBACK: LazyLock<Mutex<Option<Box<dyn Fn(String) + Sync + Send>>>> =
+    LazyLock::new(|| Mutex::new(None));
 
 #[derive(Debug, Clone)]
 pub struct Web {
@@ -91,6 +100,34 @@ impl Web {
         ARK_WEB_COMPONENT_API.on_page_begin(self.web_tag.clone())?;
         Ok(())
     }
+
+    /// Evaluate js code and get result   
+    /// Only one callback can be set at a time
+    pub fn evaluate_js(
+        &self,
+        js: String,
+        callback: Option<Box<dyn Fn(String) + Sync + Send + 'static>>,
+    ) -> Result<(), ArkWebError> {
+        if let Some(callback) = callback {
+            let mut guard = EVALUATE_SCRIPT_CALLBACK
+                .lock()
+                .expect("Failed to lock EVALUATE_SCRIPT_CALLBACK");
+            if (*guard).is_some() {
+                return Err(ArkWebError::EvaluateScriptCallbackAlreadyExists);
+            }
+            *guard = Some(callback);
+        }
+        let js_code = CString::new(js).expect("Failed to create CString");
+        unsafe {
+            OH_NativeArkWeb_RunJavaScript(
+                self.web_tag.as_ptr(),
+                js_code.as_ptr().cast(),
+                Some(on_evaluate_script_callback),
+            );
+        }
+
+        Ok(())
+    }
 }
 
 impl Drop for Web {
@@ -98,4 +135,16 @@ impl Drop for Web {
         let map = WEB_VIEW_INSTANCE.pin();
         map.remove(&self.web_tag);
     }
+}
+
+extern "C" fn on_evaluate_script_callback(result: *const c_char) {
+    let result = unsafe { CStr::from_ptr(result) };
+    let result = result.to_string_lossy().to_string();
+    let mut guard = EVALUATE_SCRIPT_CALLBACK
+        .lock()
+        .expect("Failed to lock EVALUATE_SCRIPT_CALLBACK");
+    if let Some(callback) = (*guard).take() {
+        callback(result);
+    }
+    *guard = None;
 }
