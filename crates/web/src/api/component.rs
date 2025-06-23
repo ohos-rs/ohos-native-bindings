@@ -1,4 +1,4 @@
-use std::{ptr::NonNull, sync::LazyLock};
+use std::{ffi::CString, ptr::NonNull, sync::LazyLock};
 
 use ohos_web_sys::{
     ArkWeb_ComponentAPI, ArkWeb_NativeAPIVariantKind_ARKWEB_NATIVE_COMPONENT,
@@ -96,9 +96,11 @@ impl Component {
     pub fn on_page_end(&self, web_tag: String) -> Result<(), ArkWebError> {
         self.check_member_missing("onPageEnd")?;
 
+        let tag = CString::new(web_tag).expect("Failed to create CString");
+
         unsafe {
             if let Some(cb) = (*self.raw.as_ptr()).onPageEnd {
-                cb(web_tag.as_ptr(), Some(on_page_end), std::ptr::null_mut());
+                cb(tag.as_ptr().cast(), Some(on_page_end), std::ptr::null_mut());
             }
         }
 
@@ -108,9 +110,11 @@ impl Component {
     pub fn on_destroy(&self, web_tag: String) -> Result<(), ArkWebError> {
         self.check_member_missing("onDestroy")?;
 
+        let tag = CString::new(web_tag).expect("Failed to create CString");
+
         unsafe {
             if let Some(cb) = (*self.raw.as_ptr()).onDestroy {
-                cb(web_tag.as_ptr(), Some(on_destroy), std::ptr::null_mut());
+                cb(tag.as_ptr().cast(), Some(on_destroy), std::ptr::null_mut());
             }
         }
 

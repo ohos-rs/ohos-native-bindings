@@ -106,7 +106,7 @@ impl Web {
     pub fn evaluate_js(
         &self,
         js: String,
-        callback: Option<Box<dyn Fn(String) + Sync + Send + 'static>>,
+        callback: Option<Box<dyn Fn(String) + Send + Sync + 'static>>,
     ) -> Result<(), ArkWebError> {
         if let Some(callback) = callback {
             let mut guard = EVALUATE_SCRIPT_CALLBACK
@@ -117,10 +117,13 @@ impl Web {
             }
             *guard = Some(callback);
         }
+
+
         let js_code = CString::new(js).expect("Failed to create CString");
+        let tag = CString::new(self.web_tag.clone()).expect("Failed to create CString");
         unsafe {
             OH_NativeArkWeb_RunJavaScript(
-                self.web_tag.as_ptr(),
+                tag.as_ptr().cast(),
                 js_code.as_ptr().cast(),
                 Some(on_evaluate_script_callback),
             );
