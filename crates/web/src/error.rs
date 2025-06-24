@@ -2,7 +2,7 @@
 pub enum ArkWebError {
     WebviewCreateFailed(String),
     ArkWebApiMemberMissing(String),
-    EvaluateScriptCallbackAlreadyExists
+    EvaluateScriptCallbackAlreadyExists,
 }
 
 impl std::fmt::Display for ArkWebError {

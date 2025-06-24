@@ -118,7 +118,6 @@ impl Web {
             *guard = Some(callback);
         }
 
-
         let js_code = CString::new(js).expect("Failed to create CString");
         let tag = CString::new(self.web_tag.clone()).expect("Failed to create CString");
         unsafe {
