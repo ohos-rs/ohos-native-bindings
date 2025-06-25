@@ -2,6 +2,7 @@
 pub enum ArkWebError {
     WebviewCreateFailed(String),
     ArkWebApiMemberMissing(String),
+    EvaluateScriptCallbackAlreadyExists,
 }
 
 impl std::fmt::Display for ArkWebError {
@@ -12,6 +13,9 @@ impl std::fmt::Display for ArkWebError {
             }
             ArkWebError::ArkWebApiMemberMissing(member) => {
                 write!(f, "ArkWeb API member missing: {}", member)
+            }
+            ArkWebError::EvaluateScriptCallbackAlreadyExists => {
+                write!(f, "Evaluate script callback already exists")
             }
         }
     }
