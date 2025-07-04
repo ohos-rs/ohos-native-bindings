@@ -3,6 +3,7 @@ pub enum ArkWebError {
     WebviewCreateFailed(String),
     ArkWebApiMemberMissing(String),
     EvaluateScriptCallbackAlreadyExists,
+    JsApiRegisterFailed(String),
 }
 
 impl std::fmt::Display for ArkWebError {
@@ -16,6 +17,9 @@ impl std::fmt::Display for ArkWebError {
             }
             ArkWebError::EvaluateScriptCallbackAlreadyExists => {
                 write!(f, "Evaluate script callback already exists")
+            }
+            ArkWebError::JsApiRegisterFailed(obj_name) => {
+                write!(f, "JS API register failed: {}", obj_name)
             }
         }
     }

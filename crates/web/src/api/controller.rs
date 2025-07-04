@@ -1,7 +1,7 @@
-use std::{ptr::NonNull, sync::LazyLock};
+use std::{ffi::CString, ptr::NonNull, sync::LazyLock};
 
 use ohos_web_sys::{
-    ArkWeb_ControllerAPI, ArkWeb_NativeAPIVariantKind_ARKWEB_NATIVE_CONTROLLER,
+    ArkWeb_ControllerAPI, ArkWeb_NativeAPIVariantKind_ARKWEB_NATIVE_CONTROLLER, ArkWeb_ProxyObject,
     OH_ArkWeb_GetNativeAPI,
 };
 
@@ -98,6 +98,28 @@ impl Controller {
             }
             _ => Ok(()),
         }
+    }
+
+    pub fn register_javascript_proxy(
+        &self,
+        web_tag: String,
+        proxy_object: *const ArkWeb_ProxyObject,
+    ) -> Result<(), ArkWebError> {
+        self.check_member_missing("registerJavaScriptProxy")?;
+
+        let tag = CString::new(web_tag).map_err(|e| {
+            ArkWebError::JsApiRegisterFailed(format!(
+                "Failed to create CString when call registerJavaScriptProxy: {}",
+                e
+            ))
+        })?;
+
+        unsafe {
+            if let Some(cb) = (*self.raw.as_ptr()).registerJavaScriptProxy {
+                cb(tag.as_ptr().cast(), proxy_object);
+            }
+        }
+        Ok(())
     }
 }
 
