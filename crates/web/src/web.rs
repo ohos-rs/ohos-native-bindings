@@ -1,15 +1,6 @@
-use std::{
-    cell::RefCell,
-    ffi::{c_void, CString},
-    rc::Rc,
-    sync::LazyLock,
-};
+use std::{cell::RefCell, rc::Rc, sync::LazyLock};
 
-use crate::{
-    ark_web_proxy_method, error::ArkWebError, Callback, JsApiCallbackContext,
-    ARK_WEB_COMPONENT_API, ARK_WEB_CONTROLLER_API, CALLBACK_MAP,
-};
-use ohos_web_sys::{ArkWeb_ProxyMethod, ArkWeb_ProxyObject};
+use crate::{error::ArkWebError, Callback, ARK_WEB_COMPONENT_API, CALLBACK_MAP};
 
 // store all web view instances
 pub static WEB_VIEW_INSTANCE: LazyLock<papaya::HashMap<String, Web>> =
@@ -161,50 +152,6 @@ impl Web {
                 destroy: attach.clone(),
             },
         );
-        Ok(())
-    }
-
-    pub fn register_js_api<S, F>(
-        &self,
-        obj_name: S,
-        method_name: S,
-        callback: F,
-    ) -> Result<(), ArkWebError>
-    where
-        S: Into<String>,
-        F: FnMut(String, Vec<String>),
-    {
-        let obj_name = CString::new(obj_name.into())
-            .map_err(|e| ArkWebError::JsApiRegisterFailed(e.to_string()))?;
-        let method_name = CString::new(method_name.into())
-            .map_err(|e| ArkWebError::JsApiRegisterFailed(e.to_string()))?;
-
-        let cb: Box<dyn FnMut(String, Vec<String>)> = unsafe {
-            std::mem::transmute::<
-                Box<dyn FnMut(String, Vec<String>)>,
-                Box<dyn FnMut(String, Vec<String>) + 'static>,
-            >(Box::new(callback))
-        };
-
-        let ctx: Box<JsApiCallbackContext> = Box::new(JsApiCallbackContext { callback: cb });
-        let user_data = Box::into_raw(ctx) as *mut c_void;
-
-        let method = ArkWeb_ProxyMethod {
-            methodName: method_name.as_ptr().cast(),
-            callback: Some(ark_web_proxy_method),
-            userData: user_data,
-        };
-
-        let obj = ArkWeb_ProxyObject {
-            objName: obj_name.as_ptr().cast(),
-            methodList: &method as *const ArkWeb_ProxyMethod,
-            size: 1,
-        };
-
-        // Keep CString and method alive during the function call
-        let _ = ARK_WEB_CONTROLLER_API
-            .register_javascript_proxy(self.web_tag.clone(), &obj as *const ArkWeb_ProxyObject)?;
-
         Ok(())
     }
 }

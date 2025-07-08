@@ -121,6 +121,22 @@ impl Controller {
         }
         Ok(())
     }
+
+    pub fn refresh(&self, web_tag: String) -> Result<(), ArkWebError> {
+        let tag = CString::new(web_tag).map_err(|e| {
+            ArkWebError::JsApiRegisterFailed(format!(
+                "Failed to create CString when call refresh: {}",
+                e
+            ))
+        })?;
+
+        unsafe {
+            if let Some(cb) = (*self.raw.as_ptr()).refresh {
+                cb(tag.as_ptr().cast());
+            }
+        }
+        Ok(())
+    }
 }
 
 unsafe impl Send for Controller {}
