@@ -7,4 +7,3 @@ description = "OpenHarmony's web binding for rust"
 
 [dependencies]
 ohos-web-sys = { workspace = true }
-papaya = "0.2"

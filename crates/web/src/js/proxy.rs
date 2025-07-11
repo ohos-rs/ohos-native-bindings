@@ -30,7 +30,7 @@ impl WebProxy {
 }
 
 struct ArkWebProxyMethod {
-    js_name: String,
+    js_name: CString, // Store CString instead of raw pointer
     user_data: *mut c_void,
 }
 
@@ -75,6 +75,9 @@ impl WebProxyBuilder {
         S: Into<String>,
         F: FnMut(String, Vec<String>),
     {
+        let js_name =
+            CString::new(js_name.into()).expect("Failed to create CString for method name");
+
         let cb: Box<dyn FnMut(String, Vec<String>)> = unsafe {
             std::mem::transmute::<
                 Box<dyn FnMut(String, Vec<String>)>,
@@ -85,10 +88,7 @@ impl WebProxyBuilder {
         let ctx: Box<JsApiCallbackContext> = Box::new(JsApiCallbackContext { callback: cb });
         let user_data = Box::into_raw(ctx) as *mut c_void;
 
-        let method = ArkWebProxyMethod {
-            js_name: js_name.into(),
-            user_data: user_data,
-        };
+        let method = ArkWebProxyMethod { js_name, user_data };
 
         let mut methods = self.js_methods;
         methods.push(method);
@@ -107,10 +107,8 @@ impl WebProxyBuilder {
             .js_methods
             .iter()
             .map(|method| {
-                let c_name = CString::new(method.js_name.clone())
-                    .expect("Failed to create CString for method name");
                 return ArkWeb_ProxyMethod {
-                    methodName: c_name.as_ptr().cast(),
+                    methodName: method.js_name.as_ptr().cast(),
                     callback: Some(ark_web_proxy_method),
                     userData: method.user_data,
                 };

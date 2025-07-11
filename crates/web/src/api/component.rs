@@ -1,4 +1,8 @@
-use std::{ffi::CString, ptr::NonNull, sync::LazyLock};
+use std::{
+    ffi::{c_void, CString},
+    ptr::NonNull,
+    sync::LazyLock,
+};
 
 use ohos_web_sys::{
     ArkWeb_ComponentAPI, ArkWeb_NativeAPIVariantKind_ARKWEB_NATIVE_COMPONENT,
@@ -65,56 +69,60 @@ impl Component {
         }
     }
 
-    pub fn on_controller_attached(&self, web_tag: String) -> Result<(), ArkWebError> {
+    pub fn on_controller_attached(
+        &self,
+        web_tag: String,
+        user_data: *mut c_void,
+    ) -> Result<(), ArkWebError> {
         self.check_member_missing("onControllerAttached")?;
 
         unsafe {
             if let Some(cb) = (*self.raw.as_ptr()).onControllerAttached {
-                cb(
-                    web_tag.as_ptr(),
-                    Some(on_controller_attach),
-                    std::ptr::null_mut(),
-                );
+                cb(web_tag.as_ptr(), Some(on_controller_attach), user_data);
             }
         }
 
         Ok(())
     }
 
-    pub fn on_page_begin(&self, web_tag: String) -> Result<(), ArkWebError> {
+    pub fn on_page_begin(
+        &self,
+        web_tag: String,
+        user_data: *mut c_void,
+    ) -> Result<(), ArkWebError> {
         self.check_member_missing("onPageBegin")?;
 
         unsafe {
             if let Some(cb) = (*self.raw.as_ptr()).onPageBegin {
-                cb(web_tag.as_ptr(), Some(on_page_begin), std::ptr::null_mut());
+                cb(web_tag.as_ptr(), Some(on_page_begin), user_data);
             }
         }
 
         Ok(())
     }
 
-    pub fn on_page_end(&self, web_tag: String) -> Result<(), ArkWebError> {
+    pub fn on_page_end(&self, web_tag: String, user_data: *mut c_void) -> Result<(), ArkWebError> {
         self.check_member_missing("onPageEnd")?;
 
         let tag = CString::new(web_tag).expect("Failed to create CString");
 
         unsafe {
             if let Some(cb) = (*self.raw.as_ptr()).onPageEnd {
-                cb(tag.as_ptr().cast(), Some(on_page_end), std::ptr::null_mut());
+                cb(tag.as_ptr().cast(), Some(on_page_end), user_data);
             }
         }
 
         Ok(())
     }
 
-    pub fn on_destroy(&self, web_tag: String) -> Result<(), ArkWebError> {
+    pub fn on_destroy(&self, web_tag: String, user_data: *mut c_void) -> Result<(), ArkWebError> {
         self.check_member_missing("onDestroy")?;
 
         let tag = CString::new(web_tag).expect("Failed to create CString");
 
         unsafe {
             if let Some(cb) = (*self.raw.as_ptr()).onDestroy {
-                cb(tag.as_ptr().cast(), Some(on_destroy), std::ptr::null_mut());
+                cb(tag.as_ptr().cast(), Some(on_destroy), user_data);
             }
         }
 
