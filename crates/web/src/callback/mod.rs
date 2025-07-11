@@ -1,63 +1,37 @@
-use std::cell::RefCell;
 use std::ffi::c_char;
 use std::ffi::c_void;
-use std::ffi::CStr;
-use std::rc::Rc;
-use std::sync::LazyLock;
+use std::mem::ManuallyDrop;
 
-#[derive(Default, Clone)]
-pub struct Callback {
-    pub(crate) controller_attach: Rc<RefCell<Option<Box<dyn FnMut()>>>>,
-    pub(crate) page_begin: Rc<RefCell<Option<Box<dyn FnMut()>>>>,
-    pub(crate) page_end: Rc<RefCell<Option<Box<dyn FnMut()>>>>,
-    pub(crate) destroy: Rc<RefCell<Option<Box<dyn FnMut()>>>>,
+pub(crate) struct WebComponentLifeCycleContext {
+    pub(crate) callback: Box<dyn FnMut()>,
 }
 
-unsafe impl Send for Callback {}
-unsafe impl Sync for Callback {}
+pub(crate) type OnControllerAttachContext = WebComponentLifeCycleContext;
+pub(crate) type OnPageBeginContext = WebComponentLifeCycleContext;
+pub(crate) type OnPageEndContext = WebComponentLifeCycleContext;
+pub(crate) type OnDestroyContext = WebComponentLifeCycleContext;
 
-pub static CALLBACK_MAP: LazyLock<papaya::HashMap<String, Callback>> =
-    LazyLock::new(papaya::HashMap::new);
-
-pub unsafe extern "C" fn on_controller_attach(web_tag: *const c_char, _data: *mut c_void) {
-    let web_tag = CStr::from_ptr(web_tag).to_string_lossy().into_owned();
-
-    let map = CALLBACK_MAP.pin();
-    if let Some(callback) = map.get(&web_tag) {
-        let mut callback = callback.controller_attach.borrow_mut();
-        if let Some(callback) = &mut *callback {
-            callback();
-        }
-    }
+pub unsafe extern "C" fn on_controller_attach(_web_tag: *const c_char, user_data: *mut c_void) {
+    let mut ctx =
+        unsafe { ManuallyDrop::new(Box::from_raw(user_data as *mut OnControllerAttachContext)) };
+    let cb = &mut ctx.callback;
+    cb();
 }
 
-pub unsafe extern "C" fn on_page_begin(web_tag: *const c_char, _data: *mut c_void) {
-    let web_tag = CStr::from_ptr(web_tag).to_string_lossy().into_owned();
-
-    let map = CALLBACK_MAP.pin();
-    if let Some(callback) = map.get(&web_tag) {
-        let mut callback = callback.page_begin.borrow_mut();
-        if let Some(callback) = &mut *callback {
-            callback();
-        }
-    }
+pub unsafe extern "C" fn on_page_begin(_web_tag: *const c_char, user_data: *mut c_void) {
+    let mut ctx = unsafe { ManuallyDrop::new(Box::from_raw(user_data as *mut OnPageBeginContext)) };
+    let cb = &mut ctx.callback;
+    cb();
 }
 
-pub unsafe extern "C" fn on_page_end(web_tag: *const c_char, _data: *mut c_void) {
-    let web_tag = CStr::from_ptr(web_tag).to_string_lossy().into_owned();
-
-    let map = CALLBACK_MAP.pin();
-    if let Some(callback) = map.get(&web_tag) {
-        let mut callback = callback.page_end.borrow_mut();
-        if let Some(callback) = &mut *callback {
-            callback();
-        }
-    }
+pub unsafe extern "C" fn on_page_end(_web_tag: *const c_char, user_data: *mut c_void) {
+    let mut ctx = unsafe { ManuallyDrop::new(Box::from_raw(user_data as *mut OnPageEndContext)) };
+    let cb = &mut ctx.callback;
+    cb();
 }
 
-pub unsafe extern "C" fn on_destroy(web_tag: *const c_char, _data: *mut c_void) {
-    let web_tag = CStr::from_ptr(web_tag).to_string_lossy().into_owned();
-
-    let map = CALLBACK_MAP.pin();
-    map.remove(&web_tag);
+pub unsafe extern "C" fn on_destroy(_web_tag: *const c_char, user_data: *mut c_void) {
+    let mut ctx = unsafe { ManuallyDrop::new(Box::from_raw(user_data as *mut OnDestroyContext)) };
+    let cb = &mut ctx.callback;
+    cb();
 }
