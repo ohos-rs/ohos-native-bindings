@@ -101,6 +101,11 @@ static SPECIAL_WORDS: LazyLock<HashMap<&str, &str>> = LazyLock::new(|| {
         ("UI", "UI"),
         ("HDR", "HDR"),
         ("SDR", "SDR"),
+        ("H2", "H2"),
+        ("TLS13", "TLS13"),
+        ("HTTP2", "HTTP2"),
+        ("HTTP11", "HTTP_1_1"),
+        ("PKCS12", "PKCS12"),
     ])
 });
 
