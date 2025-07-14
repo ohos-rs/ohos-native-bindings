@@ -1,7 +1,7 @@
 use std::ptr::NonNull;
 
 use ohos_web_sys::{
-    ArkWeb_ResourceHandler, OH_ArkWebResourceHandler_DidFinish,
+    ArkWeb_ResourceHandler, OH_ArkWebResourceHandler_Destroy, OH_ArkWebResourceHandler_DidFinish,
     OH_ArkWebResourceHandler_DidReceiveData, OH_ArkWebResourceHandler_DidReceiveResponse,
 };
 
@@ -40,6 +40,14 @@ impl ResourceHandle {
     pub fn finish(&self) {
         unsafe {
             OH_ArkWebResourceHandler_DidFinish(self.raw.as_ptr());
+        }
+    }
+}
+
+impl Drop for ResourceHandle {
+    fn drop(&mut self) {
+        unsafe {
+            OH_ArkWebResourceHandler_Destroy(self.raw.as_ptr());
         }
     }
 }

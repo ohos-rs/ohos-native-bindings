@@ -10,9 +10,11 @@ use ohos_web_sys::{
     OH_ArkWeb_DestroySchemeHandler,
 };
 
+use crate::{ResourceHandle, ResourceRequest};
+
 pub struct CustomProtocolHandlerContext {
-    request: Option<Box<dyn FnMut() -> bool>>,
-    response: Option<Box<dyn FnMut()>>,
+    request: Option<Box<dyn FnMut(ResourceRequest, ResourceHandle) -> bool>>,
+    response: Option<Box<dyn FnMut(ResourceRequest)>>,
 }
 
 pub struct CustomProtocolHandler {
@@ -37,7 +39,7 @@ impl CustomProtocolHandler {
 
     pub fn on_request_start<F>(&self, mut handler: F)
     where
-        F: FnMut() -> bool,
+        F: FnMut(ResourceRequest, ResourceHandle) -> bool,
     {
         let user_data_raw = unsafe { OH_ArkWebSchemeHandler_GetUserData(self.raw.as_ptr()) };
 
@@ -47,9 +49,10 @@ impl CustomProtocolHandler {
             ))
         };
         let static_on_request_start = unsafe {
-            std::mem::transmute::<Box<dyn FnMut() -> bool>, Box<dyn FnMut() -> bool + 'static>>(
-                Box::new(move || handler()),
-            )
+            std::mem::transmute::<
+                Box<dyn FnMut(ResourceRequest, ResourceHandle) -> bool>,
+                Box<dyn FnMut(ResourceRequest, ResourceHandle) -> bool + 'static>,
+            >(Box::new(move |request, handle| handler(request, handle)))
         };
         user_data.request = Some(Box::new(static_on_request_start));
 
@@ -60,7 +63,7 @@ impl CustomProtocolHandler {
 
     pub fn on_request_stop<F>(&self, mut handler: F)
     where
-        F: FnMut(),
+        F: FnMut(ResourceRequest),
     {
         let user_data_raw = unsafe { OH_ArkWebSchemeHandler_GetUserData(self.raw.as_ptr()) };
 
@@ -71,9 +74,10 @@ impl CustomProtocolHandler {
         };
 
         let static_on_request_stop = unsafe {
-            std::mem::transmute::<Box<dyn FnMut()>, Box<dyn FnMut() + 'static>>(
-                Box::new(move || handler()),
-            )
+            std::mem::transmute::<
+                Box<dyn FnMut(ResourceRequest)>,
+                Box<dyn FnMut(ResourceRequest) + 'static>,
+            >(Box::new(move |handle| handler(handle)))
         };
 
         user_data.response = Some(Box::new(static_on_request_stop));
@@ -107,9 +111,16 @@ extern "C" fn on_request_start(
     };
 
     if let Some(request) = &mut user_data.request {
-        let ret = request();
+        let ret = request(
+            ResourceRequest::new(resource_request),
+            ResourceHandle::new(resource_handler as _),
+        );
         unsafe {
             *intercept = ret;
+        }
+    } else {
+        unsafe {
+            *intercept = false;
         }
     }
 }
@@ -127,6 +138,6 @@ extern "C" fn on_request_stop(
     };
 
     if let Some(response) = &mut user_data.response {
-        response();
+        response(ResourceRequest::new(resource_request as _));
     }
 }

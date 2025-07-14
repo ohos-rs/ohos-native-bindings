@@ -46,3 +46,10 @@ pub type ResponseHeaderValue = CommonString;
 pub type ResponseMimeType = CommonString;
 /// Response Status Text
 pub type ResponseStatusText = CommonString;
+/// Response Url
+pub type Url = CommonString;
+/// Response Method
+pub type Method = CommonString;
+/// Response Referrer
+pub type Referrer = CommonString;
+

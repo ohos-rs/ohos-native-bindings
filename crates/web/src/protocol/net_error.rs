@@ -8,8 +8,8 @@ use ohos_enum_macro::EnumFrom;
     "ArkWeb_NetError_ARKWEB_ERR_"
 )]
 pub enum NetError {
-    #[enum_prefix("ArkWeb_NetError_ARKWEB_")]
-    NetOk = 0,
+    #[enum_prefix("ArkWeb_NetError_ARKWEB_NET_")]
+    Ok = 0,
     IoPending = -1,
     Failed = -2,
     Aborted = -3,

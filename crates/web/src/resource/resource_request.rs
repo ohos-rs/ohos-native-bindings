@@ -1,8 +1,14 @@
 use std::ptr::{self, NonNull};
 
-use ohos_web_sys::{ArkWeb_ResourceRequest, OH_ArkWebResourceRequest_GetHttpBodyStream};
+use ohos_web_sys::{
+    ArkWeb_ResourceRequest, OH_ArkWebResourceRequest_Destroy, OH_ArkWebResourceRequest_GetFrameUrl,
+    OH_ArkWebResourceRequest_GetHttpBodyStream, OH_ArkWebResourceRequest_GetMethod,
+    OH_ArkWebResourceRequest_GetReferrer, OH_ArkWebResourceRequest_GetResourceType,
+    OH_ArkWebResourceRequest_GetUrl, OH_ArkWebResourceRequest_HasGesture,
+    OH_ArkWebResourceRequest_IsMainFrame, OH_ArkWebResourceRequest_IsRedirect,
+};
 
-use crate::HttpBodyStream;
+use crate::{HttpBodyStream, Method, Referrer, ResourceType, Url};
 
 pub struct ResourceRequest {
     raw: NonNull<ArkWeb_ResourceRequest>,
@@ -22,6 +28,65 @@ impl ResourceRequest {
         unsafe {
             OH_ArkWebResourceRequest_GetHttpBodyStream(self.raw.as_ptr(), &mut raw);
             HttpBodyStream::new(raw)
+        }
+    }
+
+    pub fn frame_url(&self) -> Url {
+        let mut url = ptr::null_mut();
+        unsafe {
+            OH_ArkWebResourceRequest_GetFrameUrl(self.raw.as_ptr(), &mut url);
+            Url { raw: url }
+        }
+    }
+
+    pub fn method(&self) -> Method {
+        let mut method = ptr::null_mut();
+        unsafe {
+            OH_ArkWebResourceRequest_GetMethod(self.raw.as_ptr(), &mut method);
+            Method { raw: method }
+        }
+    }
+
+    pub fn referrer(&self) -> Referrer {
+        let mut referrer = ptr::null_mut();
+        unsafe {
+            OH_ArkWebResourceRequest_GetReferrer(self.raw.as_ptr(), &mut referrer);
+            Referrer { raw: referrer }
+        }
+    }
+
+    pub fn resource_type(&self) -> ResourceType {
+        unsafe {
+            let ret = OH_ArkWebResourceRequest_GetResourceType(self.raw.as_ptr());
+            ResourceType::from(ret as u32)
+        }
+    }
+
+    pub fn url(&self) -> Url {
+        let mut url = ptr::null_mut();
+        unsafe {
+            OH_ArkWebResourceRequest_GetUrl(self.raw.as_ptr(), &mut url);
+            Url { raw: url }
+        }
+    }
+
+    pub fn has_gesture(&self) -> bool {
+        unsafe { OH_ArkWebResourceRequest_HasGesture(self.raw.as_ptr()) }
+    }
+
+    pub fn is_main_frame(&self) -> bool {
+        unsafe { OH_ArkWebResourceRequest_IsMainFrame(self.raw.as_ptr()) }
+    }
+
+    pub fn is_redirect(&self) -> bool {
+        unsafe { OH_ArkWebResourceRequest_IsRedirect(self.raw.as_ptr()) }
+    }
+}
+
+impl Drop for ResourceRequest {
+    fn drop(&mut self) {
+        unsafe {
+            OH_ArkWebResourceRequest_Destroy(self.raw.as_ptr());
         }
     }
 }

@@ -1,4 +1,4 @@
-use std::{collections::HashMap, ffi::c_void, mem::ManuallyDrop, ptr::NonNull};
+use std::{ffi::c_void, mem::ManuallyDrop, ptr::NonNull};
 
 use ohos_web_sys::{
     ArkWeb_HttpBodyStream, OH_ArkWebHttpBodyStream_GetUserData, OH_ArkWebHttpBodyStream_Init,
@@ -46,8 +46,8 @@ impl HttpBodyStream {
 
         unsafe {
             OH_ArkWebHttpBodyStream_SetUserData(self.raw.as_ptr(), ctx_ptr);
-            OH_ArkWebHttpBodyStream_Read(self.raw.as_ptr(), buf_ptr, size as _);
             OH_ArkWebHttpBodyStream_SetReadCallback(self.raw.as_ptr(), Some(read_callback));
+            OH_ArkWebHttpBodyStream_Read(self.raw.as_ptr(), buf_ptr, size as _);
         };
     }
 }
