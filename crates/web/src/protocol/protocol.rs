@@ -108,16 +108,43 @@ impl From<ArkWeb_CustomSchemeOption> for CustomProtocolOption {
 pub struct CustomProtocol;
 
 impl CustomProtocol {
-    pub fn add_protocol(protocol: &str, option: CustomProtocolOption) {
+    /// Add a custom protocol to the list.
+    ///
+    /// # Arguments
+    ///
+    /// * `protocol` - The protocol to add.
+    ///
+    pub fn add_protocol(protocol: &str) {
+        CustomProtocol::add_protocol_with_option(protocol, CustomProtocolOption::Standard);
+    }
+
+    /// Add a custom protocol to the list.
+    ///
+    /// # Arguments
+    ///
+    /// * `protocol` - The protocol to add.
+    /// * `option` - The option for the protocol.
+    ///
+    pub fn add_protocol_with_option(protocol: &str, option: CustomProtocolOption) {
         let mut list = CUSTOM_PROTOCOL_LIST.lock().unwrap();
         list.insert(protocol.to_string(), option);
     }
 
+    /// Check if a protocol is registered.
+    ///
+    /// # Arguments
+    ///
+    /// * `protocol` - The protocol to check.
+    ///
+    /// # Return
     pub fn is_protocol_registered(protocol: &str) -> bool {
         let list = CUSTOM_PROTOCOL_LIST.lock().unwrap();
         list.contains_key(&protocol.to_string())
     }
 
+    /// Register all custom protocols to the web view.
+    ///
+    /// Note: You need to call this function after all custom protocols are added and before web init.
     pub fn register() {
         let mut list = CUSTOM_PROTOCOL_LIST.lock().unwrap();
         list.iter_mut().for_each(|p| unsafe {

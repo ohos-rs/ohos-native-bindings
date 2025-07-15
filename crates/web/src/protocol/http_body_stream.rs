@@ -1,8 +1,8 @@
 use std::{ffi::c_void, mem::ManuallyDrop, ptr::NonNull};
 
 use ohos_web_sys::{
-    ArkWeb_HttpBodyStream, OH_ArkWebHttpBodyStream_GetUserData, OH_ArkWebHttpBodyStream_Init,
-    OH_ArkWebHttpBodyStream_IsChunked, OH_ArkWebHttpBodyStream_IsEof,
+    ArkWeb_HttpBodyStream, OH_ArkWebHttpBodyStream_GetSize, OH_ArkWebHttpBodyStream_GetUserData,
+    OH_ArkWebHttpBodyStream_Init, OH_ArkWebHttpBodyStream_IsChunked, OH_ArkWebHttpBodyStream_IsEof,
     OH_ArkWebHttpBodyStream_IsInMemory, OH_ArkWebHttpBodyStream_Read,
     OH_ArkWebHttpBodyStream_SetReadCallback, OH_ArkWebHttpBodyStream_SetUserData,
 };
@@ -37,11 +37,24 @@ impl HttpBodyStream {
         unsafe { OH_ArkWebHttpBodyStream_IsInMemory(self.raw.as_ptr()) }
     }
 
-    pub fn read(&self, size: usize, callback: Box<dyn FnMut(Vec<u8>)>) {
+    pub fn read<F>(&self, size: usize, mut callback: F)
+    where
+        F: FnMut(Vec<u8>),
+    {
         let mut buf: Vec<u8> = Vec::with_capacity(size);
         let buf_ptr = buf.as_mut_ptr();
 
-        let ctx = ReadCallbackContext { callback };
+        let static_callback = unsafe {
+            std::mem::transmute::<Box<dyn FnMut(Vec<u8>)>, Box<dyn FnMut(Vec<u8>) + 'static>>(
+                Box::new(move |buf| {
+                    callback(buf);
+                }),
+            )
+        };
+
+        let ctx = ReadCallbackContext {
+            callback: static_callback,
+        };
         let ctx_ptr = Box::into_raw(Box::new(ctx)) as *mut c_void;
 
         unsafe {
@@ -49,6 +62,10 @@ impl HttpBodyStream {
             OH_ArkWebHttpBodyStream_SetReadCallback(self.raw.as_ptr(), Some(read_callback));
             OH_ArkWebHttpBodyStream_Read(self.raw.as_ptr(), buf_ptr, size as _);
         };
+    }
+
+    pub fn size(&self) -> u64 {
+        unsafe { OH_ArkWebHttpBodyStream_GetSize(self.raw.as_ptr()) }
     }
 }
 

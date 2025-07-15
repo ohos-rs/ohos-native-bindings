@@ -31,27 +31,27 @@ impl ResourceRequest {
         }
     }
 
-    pub fn frame_url(&self) -> Url {
+    pub fn frame_url(&self) -> String {
         let mut url = ptr::null_mut();
         unsafe {
             OH_ArkWebResourceRequest_GetFrameUrl(self.raw.as_ptr(), &mut url);
-            Url { raw: url }
+            Url { raw: url }.into()
         }
     }
 
-    pub fn method(&self) -> Method {
+    pub fn method(&self) -> String {
         let mut method = ptr::null_mut();
         unsafe {
             OH_ArkWebResourceRequest_GetMethod(self.raw.as_ptr(), &mut method);
-            Method { raw: method }
+            Method { raw: method }.into()
         }
     }
 
-    pub fn referrer(&self) -> Referrer {
+    pub fn referrer(&self) -> String {
         let mut referrer = ptr::null_mut();
         unsafe {
             OH_ArkWebResourceRequest_GetReferrer(self.raw.as_ptr(), &mut referrer);
-            Referrer { raw: referrer }
+            Referrer { raw: referrer }.into()
         }
     }
 
@@ -62,11 +62,11 @@ impl ResourceRequest {
         }
     }
 
-    pub fn url(&self) -> Url {
+    pub fn url(&self) -> String {
         let mut url = ptr::null_mut();
         unsafe {
             OH_ArkWebResourceRequest_GetUrl(self.raw.as_ptr(), &mut url);
-            Url { raw: url }
+            Url { raw: url }.into()
         }
     }
 

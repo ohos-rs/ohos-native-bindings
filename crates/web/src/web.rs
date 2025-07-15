@@ -1,9 +1,11 @@
-use std::ffi::c_void;
+use std::ffi::{c_void, CString};
+
+use ohos_web_sys::OH_ArkWeb_SetSchemeHandler;
 
 use crate::{
     callback::{OnControllerAttachContext, OnDestroyContext, OnPageBeginContext, OnPageEndContext},
     error::ArkWebError,
-    ARK_WEB_COMPONENT_API,
+    CustomProtocolHandler, ARK_WEB_COMPONENT_API,
 };
 
 #[derive(Debug, Clone)]
@@ -91,5 +93,46 @@ impl Web {
 
         ARK_WEB_COMPONENT_API.on_destroy(self.web_tag.clone(), user_data)?;
         Ok(())
+    }
+
+    /// Register a custom protocol handler for the web view.
+    ///
+    /// # Arguments
+    ///
+    /// * `protocol` - The protocol to register the handler for.
+    /// * `handle` - The handler to register.
+    ///
+    /// ```ignore
+    /// let web = Web::new("web_tag".to_string());
+    /// 
+    /// let handler = CustomProtocolHandler::new();
+    /// handler.on_request_start(|request, handle| {
+    ///     handle.receive_data("Hello, world!");
+    ///     true
+    /// });
+    /// handler.on_request_stop(|request| {
+    ///     println!("Request stopped: {:?}", request);
+    /// });
+    /// 
+    /// web.custom_protocol("custom", handler).unwrap();
+    /// ```
+    pub fn custom_protocol<S>(
+        &self,
+        protocol: S,
+        handle: CustomProtocolHandler,
+    ) -> Result<bool, ArkWebError>
+    where
+        S: Into<String>,
+    {
+        let protocol: String = protocol.into();
+
+        let tag = CString::new(self.web_tag.clone()).unwrap();
+        let protocol = CString::new(protocol).unwrap();
+
+        let ret = unsafe {
+            OH_ArkWeb_SetSchemeHandler(tag.as_ptr().cast(), protocol.as_ptr().cast(), handle.raw())
+        };
+        let _ = Box::leak(Box::new(handle));
+        Ok(ret)
     }
 }
