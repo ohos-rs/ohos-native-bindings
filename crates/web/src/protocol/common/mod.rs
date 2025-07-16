@@ -40,6 +40,8 @@ impl Drop for CommonBytes {
 // Define response related types
 /// Response Charset
 pub type ResponseCharset = CommonString;
+/// Response Header Key
+pub type ResponseHeaderKey = CommonString;
 /// Response Header Value
 pub type ResponseHeaderValue = CommonString;
 /// Response Mime Type

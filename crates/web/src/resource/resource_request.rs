@@ -1,14 +1,22 @@
-use std::ptr::{self, NonNull};
-
-use ohos_web_sys::{
-    ArkWeb_ResourceRequest, OH_ArkWebResourceRequest_Destroy, OH_ArkWebResourceRequest_GetFrameUrl,
-    OH_ArkWebResourceRequest_GetHttpBodyStream, OH_ArkWebResourceRequest_GetMethod,
-    OH_ArkWebResourceRequest_GetReferrer, OH_ArkWebResourceRequest_GetResourceType,
-    OH_ArkWebResourceRequest_GetUrl, OH_ArkWebResourceRequest_HasGesture,
-    OH_ArkWebResourceRequest_IsMainFrame, OH_ArkWebResourceRequest_IsRedirect,
+use std::{
+    collections::HashMap,
+    ptr::{self, NonNull},
 };
 
-use crate::{HttpBodyStream, Method, Referrer, ResourceType, Url};
+use ohos_web_sys::{
+    ArkWeb_ResourceRequest, OH_ArkWebRequestHeaderList_Destroy,
+    OH_ArkWebRequestHeaderList_GetHeader, OH_ArkWebRequestHeaderList_GetSize,
+    OH_ArkWebResourceRequest_Destroy, OH_ArkWebResourceRequest_GetFrameUrl,
+    OH_ArkWebResourceRequest_GetHttpBodyStream, OH_ArkWebResourceRequest_GetMethod,
+    OH_ArkWebResourceRequest_GetReferrer, OH_ArkWebResourceRequest_GetRequestHeaders,
+    OH_ArkWebResourceRequest_GetResourceType, OH_ArkWebResourceRequest_GetUrl,
+    OH_ArkWebResourceRequest_HasGesture, OH_ArkWebResourceRequest_IsMainFrame,
+    OH_ArkWebResourceRequest_IsRedirect,
+};
+
+use crate::{
+    HttpBodyStream, Method, Referrer, ResourceType, ResponseHeaderKey, ResponseHeaderValue, Url,
+};
 
 pub struct ResourceRequest {
     raw: NonNull<ArkWeb_ResourceRequest>,
@@ -66,12 +74,42 @@ impl ResourceRequest {
         }
     }
 
+    /// Get the url of the request
     pub fn url(&self) -> String {
         let mut url = ptr::null_mut();
         unsafe {
             OH_ArkWebResourceRequest_GetUrl(self.raw.as_ptr(), &mut url);
             Url { raw: url }.into()
         }
+    }
+
+    /// Get all headers of the request
+    pub fn headers(&self) -> HashMap<String, String> {
+        let mut all_headers: HashMap<String, String> = HashMap::new();
+
+        unsafe {
+            let mut headers = ptr::null_mut();
+            OH_ArkWebResourceRequest_GetRequestHeaders(self.raw.as_ptr(), &mut headers);
+
+            let size = OH_ArkWebRequestHeaderList_GetSize(headers);
+
+            for i in 0..size {
+                let mut header_key = ptr::null_mut();
+                let mut header_value = ptr::null_mut();
+                OH_ArkWebRequestHeaderList_GetHeader(
+                    headers,
+                    i,
+                    &mut header_key,
+                    &mut header_value,
+                );
+                let key = ResponseHeaderKey { raw: header_key }.into();
+                let value = ResponseHeaderValue { raw: header_value }.into();
+                all_headers.insert(key, value);
+            }
+            OH_ArkWebRequestHeaderList_Destroy(headers);
+        };
+
+        all_headers
     }
 
     pub fn has_gesture(&self) -> bool {
