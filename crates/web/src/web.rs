@@ -104,7 +104,7 @@ impl Web {
     ///
     /// ```ignore
     /// let web = Web::new("web_tag".to_string());
-    /// 
+    ///
     /// let handler = CustomProtocolHandler::new();
     /// handler.on_request_start(|request, handle| {
     ///     handle.receive_data("Hello, world!");
@@ -113,7 +113,7 @@ impl Web {
     /// handler.on_request_stop(|request| {
     ///     println!("Request stopped: {:?}", request);
     /// });
-    /// 
+    ///
     /// web.custom_protocol("custom", handler).unwrap();
     /// ```
     pub fn custom_protocol<S>(
@@ -130,7 +130,7 @@ impl Web {
         let protocol = CString::new(protocol).unwrap();
 
         let ret = unsafe {
-            OH_ArkWeb_SetSchemeHandler(tag.as_ptr().cast(), protocol.as_ptr().cast(), handle.raw())
+            OH_ArkWeb_SetSchemeHandler(protocol.as_ptr().cast(), tag.as_ptr().cast(), handle.raw())
         };
         let _ = Box::leak(Box::new(handle));
         Ok(ret)

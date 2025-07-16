@@ -23,11 +23,15 @@ impl ResourceRequest {
         }
     }
 
-    pub fn http_body_stream(&self) -> HttpBodyStream {
+    pub fn http_body_stream(&self) -> Option<HttpBodyStream> {
         let mut raw = ptr::null_mut();
         unsafe {
             OH_ArkWebResourceRequest_GetHttpBodyStream(self.raw.as_ptr(), &mut raw);
-            HttpBodyStream::new(raw)
+            if raw.is_null() {
+                None
+            } else {
+                Some(HttpBodyStream::new(raw))
+            }
         }
     }
 
