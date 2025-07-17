@@ -6,12 +6,11 @@ use std::{
 use ohos_web_sys::{
     ArkWeb_ResourceRequest, OH_ArkWebRequestHeaderList_Destroy,
     OH_ArkWebRequestHeaderList_GetHeader, OH_ArkWebRequestHeaderList_GetSize,
-    OH_ArkWebResourceRequest_Destroy, OH_ArkWebResourceRequest_GetFrameUrl,
-    OH_ArkWebResourceRequest_GetHttpBodyStream, OH_ArkWebResourceRequest_GetMethod,
-    OH_ArkWebResourceRequest_GetReferrer, OH_ArkWebResourceRequest_GetRequestHeaders,
-    OH_ArkWebResourceRequest_GetResourceType, OH_ArkWebResourceRequest_GetUrl,
-    OH_ArkWebResourceRequest_HasGesture, OH_ArkWebResourceRequest_IsMainFrame,
-    OH_ArkWebResourceRequest_IsRedirect,
+    OH_ArkWebResourceRequest_GetFrameUrl, OH_ArkWebResourceRequest_GetHttpBodyStream,
+    OH_ArkWebResourceRequest_GetMethod, OH_ArkWebResourceRequest_GetReferrer,
+    OH_ArkWebResourceRequest_GetRequestHeaders, OH_ArkWebResourceRequest_GetResourceType,
+    OH_ArkWebResourceRequest_GetUrl, OH_ArkWebResourceRequest_HasGesture,
+    OH_ArkWebResourceRequest_IsMainFrame, OH_ArkWebResourceRequest_IsRedirect,
 };
 
 use crate::{
@@ -122,13 +121,5 @@ impl ResourceRequest {
 
     pub fn is_redirect(&self) -> bool {
         unsafe { OH_ArkWebResourceRequest_IsRedirect(self.raw.as_ptr()) }
-    }
-}
-
-impl Drop for ResourceRequest {
-    fn drop(&mut self) {
-        unsafe {
-            OH_ArkWebResourceRequest_Destroy(self.raw.as_ptr());
-        }
     }
 }

@@ -5,6 +5,7 @@ use std::{
 
 use ohos_web_sys::{
     ArkWeb_ResourceHandler, ArkWeb_ResourceRequest, ArkWeb_SchemeHandler,
+    OH_ArkWebResourceHandler_Destroy, OH_ArkWebResourceRequest_Destroy,
     OH_ArkWebSchemeHandler_GetUserData, OH_ArkWebSchemeHandler_SetOnRequestStart,
     OH_ArkWebSchemeHandler_SetOnRequestStop, OH_ArkWebSchemeHandler_SetUserData,
     OH_ArkWeb_CreateSchemeHandler, OH_ArkWeb_DestroySchemeHandler,
@@ -15,6 +16,9 @@ use crate::{ResourceHandle, ResourceRequest};
 pub struct CustomProtocolHandlerContext {
     request: Option<Box<dyn FnMut(ResourceRequest, ResourceHandle) -> bool>>,
     response: Option<Box<dyn FnMut(ResourceRequest)>>,
+
+    // can help us to release it
+    resource_handle: Option<*mut ArkWeb_ResourceHandler>,
 }
 
 /// A custom protocol handler for the web view.
@@ -92,6 +96,7 @@ impl CustomProtocolHandler {
                 let user_data = Box::new(CustomProtocolHandlerContext {
                     request: Some(Box::new(static_on_request_start)),
                     response: None,
+                    resource_handle: None,
                 });
                 let user_data_raw = Box::into_raw(user_data);
                 unsafe {
@@ -135,6 +140,7 @@ impl CustomProtocolHandler {
                 let user_data = Box::new(CustomProtocolHandlerContext {
                     request: None,
                     response: Some(Box::new(static_on_request_stop)),
+                    resource_handle: None,
                 });
                 let user_data_raw = Box::into_raw(user_data);
                 unsafe {
@@ -181,6 +187,8 @@ extern "C" fn on_request_start(
         ))
     };
 
+    user_data.resource_handle = Some(resource_handler as _);
+
     if let Some(request) = &mut user_data.request {
         let ret = request(
             ResourceRequest::new(resource_request),
@@ -214,5 +222,13 @@ extern "C" fn on_request_stop(
 
     if let Some(response) = &mut user_data.response {
         response(ResourceRequest::new(resource_request as _));
+    }
+
+    // release the resource
+    unsafe {
+        OH_ArkWebResourceRequest_Destroy(resource_request);
+        if let Some(resource_handle) = user_data.resource_handle {
+            OH_ArkWebResourceHandler_Destroy(resource_handle);
+        }
     }
 }
