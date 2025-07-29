@@ -20,6 +20,7 @@ A set of HarmonyNext native module bindings for rust.
 | ohos-native-window-binding          | ![Crates.io Version](https://img.shields.io/crates/v/ohos-native-window-binding)          | [native window](https://developer.huawei.com/consumer/cn/doc/harmonyos-references-V5/_o_h___native_image-V5) binding              |
 | ohos-vsync-binding                  | ![Crates.io Version](https://img.shields.io/crates/v/ohos-vsync-binding)                  | [vsync](https://developer.huawei.com/consumer/cn/doc/harmonyos-references-V5/_native_vsync-V5) binding                            |
 | ohos-display-soloist-binding        | ![Crates.io Version](https://img.shields.io/crates/v/ohos-display-soloist-binding)        | [display-soloist](https://developer.huawei.com/consumer/cn/doc/harmonyos-references-V5/_native_display_soloist-V5) binding        |
+| ohos-web-binding                    | ![Crates.io Version](https://img.shields.io/crates/v/ohos-web-binding)                    | [arkweb](https://developer.huawei.com/consumer/cn/doc/harmonyos-references-V5/_web-V5) binding                                    |
 
 ## Contribution
 
