@@ -76,9 +76,11 @@ impl Component {
     ) -> Result<(), ArkWebError> {
         self.check_member_missing("onControllerAttached")?;
 
+        let tag = CString::new(web_tag).expect("Failed to create CString");
+
         unsafe {
             if let Some(cb) = (*self.raw.as_ptr()).onControllerAttached {
-                cb(web_tag.as_ptr(), Some(on_controller_attach), user_data);
+                cb(tag.as_ptr().cast(), Some(on_controller_attach), user_data);
             }
         }
 
@@ -92,9 +94,11 @@ impl Component {
     ) -> Result<(), ArkWebError> {
         self.check_member_missing("onPageBegin")?;
 
+        let tag = CString::new(web_tag).expect("Failed to create CString");
+
         unsafe {
             if let Some(cb) = (*self.raw.as_ptr()).onPageBegin {
-                cb(web_tag.as_ptr(), Some(on_page_begin), user_data);
+                cb(tag.as_ptr().cast(), Some(on_page_begin), user_data);
             }
         }
 
