@@ -27,7 +27,7 @@ ohos-bundle-sys                 = { version = "0.0.2", path = "sys/ohos-bundle-s
 ohos-init-sys                   = { version = "0.0.2", path = "sys/ohos-init-sys" }
 ohos-hilogs-sys                 = { version = "0.0.2", path = "sys/ohos-hilogs-sys" }
 ohos-asset-sys                  = { version = "0.0.1", path = "sys/ohos-asset-sys" }
-ohos-raw-sys                    = { version = "0.0.1", path = "sys/ohos-raw-sys" }
+ohos-raw-sys                    = { version = "0.1.0", path = "sys/ohos-raw-sys" }
 ohos-resource-manager-sys       = { version = "0.0.2", path = "sys/ohos-resource-manager-sys" }
 ohos-ability-access-control-sys = { version = "0.0.1", path = "sys/ohos-ability-access-control-sys" }
 ohos-xcomponent-sys             = { version = "0.0.2", path = "sys/ohos-xcomponent-sys" }
