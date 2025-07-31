@@ -9,7 +9,7 @@ edition = "2021"
 crate-type = ["cdylib"]
 
 [dependencies]
-napi-ohos               = { workspace = true }
+napi-ohos               = { workspace = true, features = ["compact-mode"]}
 napi-derive-ohos        = { workspace = true }
 ohos-xcomponent-binding = { workspace = true, features = ["log"] }
 gl                      = "0.14.0"

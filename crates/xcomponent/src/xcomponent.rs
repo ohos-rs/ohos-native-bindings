@@ -1,6 +1,9 @@
 #![allow(clippy::missing_safety_doc)]
 
-use napi_ohos::{bindgen_prelude::check_status, Env, JsObject, NapiRaw, Result};
+use napi_ohos::{
+    bindgen_prelude::{check_status, JsObjectValue, Object},
+    Env, JsValue, Result,
+};
 use napi_sys_ohos as sys;
 use ohos_xcomponent_sys::{
     OH_NativeXComponent, OH_NativeXComponent_Callback, OH_NATIVE_XCOMPONENT_OBJ,
@@ -16,7 +19,7 @@ use crate::{
 /// ### Example
 /// ```no_run
 /// #[module_exports]
-/// pub fn init(exports: JsObject, env: Env) -> Result<()> {
+/// pub fn init(exports: Object, env: Env) -> Result<()> {
 ///     let xcomponent = XComponent::init(env, exports)?;
 ///
 ///     Ok(())
@@ -26,7 +29,7 @@ use crate::{
 pub struct XComponent(NativeXComponent);
 
 impl XComponent {
-    pub fn init(env: Env, exports: JsObject) -> Result<Self> {
+    pub fn init(env: Env, exports: Object<'_>) -> Result<Self> {
         // Safety: static char * we can use it directly.
         // c char has \0, we should remove it.
         let xcomponent_obj_name: &str = unsafe {
@@ -35,7 +38,7 @@ impl XComponent {
             )
         };
 
-        let export_instance: JsObject = exports.get_named_property(xcomponent_obj_name)?;
+        let export_instance: Object<'_> = exports.get_named_property(xcomponent_obj_name)?;
         // env.unwrap will check type, so we just use ffi directly.
         let mut instance = ptr::null_mut();
         check_status!(

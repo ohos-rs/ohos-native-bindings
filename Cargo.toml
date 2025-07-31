@@ -7,10 +7,10 @@ ohos-bundle-binding                 = { version = "0.0.1", path = "crates/bundle
 ohos-init-binding                   = { version = "0.0.3", path = "crates/init" }
 ohos-hilog-binding                  = { version = "0.1.0", path = "crates/hilog" }
 ohos-asset-binding                  = { version = "0.0.1", path = "crates/asset" }
-ohos-raw-binding                    = { version = "0.0.2", path = "crates/raw" }
+ohos-raw-binding                    = { version = "0.1.0", path = "crates/raw" }
 ohos-resource-manager-binding       = { version = "0.0.1", path = "crates/resource_manager" }
 ohos-ability-access-control-binding = { version = "0.0.1", path = "crates/ability_access_control" }
-ohos-xcomponent-binding             = { version = "0.0.6", path = "crates/xcomponent" }
+ohos-xcomponent-binding             = { version = "0.1.0", path = "crates/xcomponent" }
 ohos-arkui-binding                  = { version = "0.0.4", path = "crates/arkui" }
 ohos-vsync-binding                  = { version = "0.1.0", path = "crates/vsync" }
 ohos-display-soloist-binding        = { version = "0.1.0", path = "crates/native_display_soloist" }
@@ -27,7 +27,7 @@ ohos-bundle-sys                 = { version = "0.0.2", path = "sys/ohos-bundle-s
 ohos-init-sys                   = { version = "0.0.2", path = "sys/ohos-init-sys" }
 ohos-hilogs-sys                 = { version = "0.0.2", path = "sys/ohos-hilogs-sys" }
 ohos-asset-sys                  = { version = "0.0.1", path = "sys/ohos-asset-sys" }
-ohos-raw-sys                    = { version = "0.0.1", path = "sys/ohos-raw-sys" }
+ohos-raw-sys                    = { version = "0.1.0", path = "sys/ohos-raw-sys" }
 ohos-resource-manager-sys       = { version = "0.0.2", path = "sys/ohos-resource-manager-sys" }
 ohos-ability-access-control-sys = { version = "0.0.1", path = "sys/ohos-ability-access-control-sys" }
 ohos-xcomponent-sys             = { version = "0.0.2", path = "sys/ohos-xcomponent-sys" }
@@ -48,10 +48,10 @@ ohos-web-sys                    = { version = "0.0.1", path = "sys/ohos-web-sys"
 
 ohos_enum_macro = { version = "0.0.2", path = "crates/enum_macro" }
 
-napi-sys-ohos    = { version = "1.0", features = ["napi8"] }
-napi-ohos        = { version = "1.0" }
-napi-derive-ohos = { version = "1.0" }
-napi-build-ohos  = { version = "1.0" }
+napi-sys-ohos    = { version = "1.1", features = ["napi8"] }
+napi-ohos        = { version = "1.1" }
+napi-derive-ohos = { version = "1.1" }
+napi-build-ohos  = { version = "1.1" }
 
 libc              = { version = "0.2" }
 syn               = { version = "2.0" }
