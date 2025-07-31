@@ -1,6 +1,6 @@
 use std::ffi::CString;
 
-use napi_ohos::{bindgen_prelude::Object, Env, NapiRaw};
+use napi_ohos::{bindgen_prelude::Object, Env, JsValue};
 use ohos_raw_sys::{
     NativeResourceManager, OH_ResourceManager_InitNativeResourceManager,
     OH_ResourceManager_OpenRawDir, OH_ResourceManager_ReleaseNativeResourceManager,
