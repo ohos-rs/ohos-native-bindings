@@ -1,10 +1,17 @@
 [package]
 name        = "ohos-resource-manager-binding"
-version     = "0.0.1"
+version     = "0.1.0"
 edition     = "2021"
 license     = "MIT OR Apache-2.0"
 description = "OpenHarmony's resource manager binding for rust"
 
+[features]
+default = ["napi"]
+
+# Using napi-ohos to create a raw file manager
+napi = ["dep:napi-ohos"]
+
+
 [dependencies]
 ohos-resource-manager-sys = { workspace = true }
-ohos-raw-binding          = { workspace = true }
+napi-ohos                 = { workspace = true, optional = true }

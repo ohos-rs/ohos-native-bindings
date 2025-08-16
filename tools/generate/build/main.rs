@@ -15,7 +15,6 @@ static CONFIG: Lazy<Vec<Lazy<SysConfig>>> = Lazy::new(|| {
         config::ARKUI,
         config::EVENT,
         config::XCOMPONENT,
-        config::RAW,
         config::RESOURCE_MANAGER,
         config::ABILITY,
         config::ASSET,
