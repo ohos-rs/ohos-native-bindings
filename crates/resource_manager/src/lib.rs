@@ -158,14 +158,14 @@ impl ResourceManager {
         res_id: u32,
         density: Option<ScreenDensity>,
     ) -> Result<Vec<u8>, RawFileError> {
-        let mut ret = Vec::new();
+        let mut ret: Vec<u8> = Vec::new();
         let mut len = 0;
         let use_density = density.unwrap_or_default();
         let code = unsafe {
             OH_ResourceManager_GetMedia(
                 self.resource_manager.as_ptr(),
                 res_id,
-                ret.as_mut_ptr() as *mut *mut u8,
+                ret.as_mut_ptr().cast(),
                 &mut len,
                 use_density.into(),
             )
@@ -185,14 +185,14 @@ impl ResourceManager {
         res_id: u32,
         density: Option<ScreenDensity>,
     ) -> Result<Vec<u8>, RawFileError> {
-        let mut ret = Vec::new();
+        let mut ret: Vec<u8> = Vec::new();
         let mut len = 0;
         let use_density = density.unwrap_or_default();
         let code = unsafe {
             OH_ResourceManager_GetMediaBase64(
                 self.resource_manager.as_ptr(),
                 res_id,
-                ret.as_mut_ptr() as *mut *mut u8,
+                ret.as_mut_ptr().cast(),
                 &mut len,
                 use_density.into(),
             )
@@ -212,7 +212,7 @@ impl ResourceManager {
         name: String,
         density: Option<ScreenDensity>,
     ) -> Result<Vec<u8>, RawFileError> {
-        let mut ret = Vec::new();
+        let mut ret: Vec<u8> = Vec::new();
         let mut len = 0;
         let use_density = density.unwrap_or_default();
         let use_name = CString::new(name).expect("Create CString failed");
@@ -221,7 +221,7 @@ impl ResourceManager {
             OH_ResourceManager_GetMediaByName(
                 self.resource_manager.as_ptr(),
                 use_name.as_ptr().cast(),
-                ret.as_mut_ptr() as *mut *mut u8,
+                ret.as_mut_ptr().cast(),
                 &mut len,
                 use_density.into(),
             )
@@ -241,7 +241,7 @@ impl ResourceManager {
         name: String,
         density: Option<ScreenDensity>,
     ) -> Result<Vec<u8>, RawFileError> {
-        let mut ret = Vec::new();
+        let mut ret: Vec<u8> = Vec::new();
         let mut len = 0;
         let use_density = density.unwrap_or_default();
         let use_name = CString::new(name).expect("Create CString failed");
@@ -250,7 +250,7 @@ impl ResourceManager {
             OH_ResourceManager_GetMediaBase64ByName(
                 self.resource_manager.as_ptr(),
                 use_name.as_ptr().cast(),
-                ret.as_mut_ptr() as *mut *mut u8,
+                ret.as_mut_ptr().cast(),
                 &mut len,
                 use_density.into(),
             )
