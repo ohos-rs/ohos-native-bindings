@@ -5,45 +5,131 @@ use ohos_resource_manager_sys::{
     OH_ResourceManager_GetRawFileName, OH_ResourceManager_GetRawFileOffset,
     OH_ResourceManager_GetRawFileOffset64, OH_ResourceManager_GetRawFileRemainingLength,
     OH_ResourceManager_GetRawFileRemainingLength64, OH_ResourceManager_GetRawFileSize,
-    OH_ResourceManager_GetRawFileSize64, OH_ResourceManager_ReadRawFile,
+    OH_ResourceManager_GetRawFileSize64, OH_ResourceManager_IsRawDir,
+    OH_ResourceManager_OpenRawDir, OH_ResourceManager_OpenRawFile,
+    OH_ResourceManager_OpenRawFile64, OH_ResourceManager_ReadRawFile,
     OH_ResourceManager_ReadRawFile64, OH_ResourceManager_SeekRawFile,
     OH_ResourceManager_SeekRawFile64, RawFileDescriptor, RawFileDescriptor64,
 };
 use std::collections::HashMap;
+use std::ffi::CString;
 use std::ptr::NonNull;
 use std::{ffi::CStr, fmt::Display, os::raw::c_void};
 
+#[derive(Debug, Clone, Copy, PartialEq, Eq)]
+pub struct FileMetaInfo {
+    index: i32,
+    is_dir: bool,
+}
+
 /// RawDir
 pub struct RawDir {
-    raw: NonNull<ohos_resource_manager_sys::RawDir>,
+    #[allow(dead_code)]
+    mgr: NonNull<ohos_resource_manager_sys::NativeResourceManager>,
     path: String,
 
     /// Current file folder file name and index
-    pub files: HashMap<String, i32>,
+    pub files: HashMap<String, FileMetaInfo>,
 }
 
 impl RawDir {
-    pub fn from_raw(raw: NonNull<ohos_resource_manager_sys::RawDir>, path: String) -> Self {
+    pub fn from_raw(
+        mgr: NonNull<ohos_resource_manager_sys::NativeResourceManager>,
+        path: String,
+        recursive: bool,
+    ) -> Self {
         let mut files = HashMap::new();
+        let mut dirs = Vec::new();
 
-        let count = unsafe { OH_ResourceManager_GetRawFileCount(raw.as_ptr()) };
+        let dir = CString::new(path.clone()).expect("Can't crate CString.");
+        let raw = unsafe { OH_ResourceManager_OpenRawDir(mgr.as_ptr(), dir.as_ptr().cast()) };
+        #[cfg(debug_assertions)]
+        assert!(!raw.is_null(), "RawDir is null");
+
+        let count = unsafe { OH_ResourceManager_GetRawFileCount(raw) };
         for i in 0..count {
-            let name = unsafe { OH_ResourceManager_GetRawFileName(raw.as_ptr(), i) };
-            files.insert(
-                unsafe { CStr::from_ptr(name).to_str().unwrap_or("").to_string() },
-                i,
-            );
+            let name = unsafe { OH_ResourceManager_GetRawFileName(raw, i) };
+            let name_ret = unsafe { CStr::from_ptr(name).to_str().unwrap_or("") }.to_string();
+
+            // avoid double //
+            let mut format_name = format!("{}/{}", path, name_ret).replace("//", "/");
+
+            if format_name.starts_with("/") {
+                format_name = format_name.split_at(1).1.to_string();
+            }
+
+            let full_path = CString::new(format_name.clone()).unwrap();
+
+            let is_dir =
+                unsafe { OH_ResourceManager_IsRawDir(mgr.as_ptr(), full_path.as_ptr().cast()) };
+
+            files.insert(format_name.clone(), FileMetaInfo { index: i, is_dir });
+
+            // if recursive, and is dir, then add to dirs
+            if recursive && is_dir {
+                dirs.push(format_name.clone());
+            }
         }
 
-        RawDir { raw, files, path }
+        // close raw dir
+        unsafe { OH_ResourceManager_CloseRawDir(raw) };
+
+        while let Some(dir) = dirs.pop() {
+            let dir_c = CString::new(dir.clone()).unwrap();
+
+            let dir_raw =
+                unsafe { OH_ResourceManager_OpenRawDir(mgr.as_ptr(), dir_c.as_ptr().cast()) };
+            #[cfg(debug_assertions)]
+            assert!(!dir_raw.is_null(), "RawDir is null");
+
+            let count = unsafe { OH_ResourceManager_GetRawFileCount(dir_raw) };
+            for i in 0..count {
+                let name = unsafe { OH_ResourceManager_GetRawFileName(dir_raw, i) };
+                let name_ret = unsafe { CStr::from_ptr(name).to_str().unwrap_or("") }.to_string();
+
+                let mut format_name = format!("{}/{}", dir.clone(), name_ret).replace("//", "/");
+
+                if format_name.starts_with("/") {
+                    format_name = format_name.split_at(1).1.to_string();
+                }
+
+                let full_path = CString::new(format_name.clone()).unwrap();
+
+                let is_dir =
+                    unsafe { OH_ResourceManager_IsRawDir(mgr.as_ptr(), full_path.as_ptr().cast()) };
+
+                files.insert(format_name.clone(), FileMetaInfo { index: i, is_dir });
+
+                // if recursive, and is dir, then add to dirs
+                if recursive && is_dir {
+                    dirs.push(format_name.clone());
+                }
+            }
+
+            unsafe { OH_ResourceManager_CloseRawDir(dir_raw) };
+        }
+
+        RawDir { mgr, files, path }
     }
-}
 
-impl Drop for RawDir {
-    fn drop(&mut self) {
-        unsafe {
-            OH_ResourceManager_CloseRawDir(self.raw.as_ptr());
-        }
+    pub fn open_file<S: AsRef<str>>(&self, file_name: S) -> RawFile {
+        let file_name = file_name.as_ref();
+        let file_name_c = CString::new(file_name).unwrap();
+
+        let raw = unsafe {
+            OH_ResourceManager_OpenRawFile(self.mgr.as_ptr(), file_name_c.as_ptr().cast())
+        };
+        RawFile::from_raw(raw)
+    }
+
+    pub fn open_file64<S: AsRef<str>>(&self, file_name: S) -> RawFile64 {
+        let file_name = file_name.as_ref();
+        let file_name_c = CString::new(file_name).unwrap();
+
+        let raw = unsafe {
+            OH_ResourceManager_OpenRawFile64(self.mgr.as_ptr(), file_name_c.as_ptr().cast())
+        };
+        RawFile64::from_raw(raw)
     }
 }
 
@@ -124,7 +210,7 @@ pub struct RawFile64 {
 }
 
 impl RawFile64 {
-    pub fn new(raw: *mut ohos_resource_manager_sys::RawFile64) -> Self {
+    pub fn from_raw(raw: *mut ohos_resource_manager_sys::RawFile64) -> Self {
         #[cfg(debug_assertions)]
         assert!(!raw.is_null(), "RawFile64 is null");
         Self {

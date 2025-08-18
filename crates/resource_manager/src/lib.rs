@@ -15,7 +15,7 @@ use napi_ohos::{bindgen_prelude::Object, Env, JsValue};
 use ohos_resource_manager_sys::OH_ResourceManager_InitNativeResourceManager;
 
 use ohos_resource_manager_sys::{
-    NativeResourceManager, OH_ResourceManager_IsRawDir, OH_ResourceManager_OpenRawDir,
+    NativeResourceManager, OH_ResourceManager_IsRawDir,
     OH_ResourceManager_ReleaseNativeResourceManager,
 };
 
@@ -76,18 +76,15 @@ impl ResourceManager {
     }
 
     /// get raw file dirs
-    pub fn open_dir<S: AsRef<str>>(&self, path: S) -> Result<RawDir, RawFileError> {
-        let dir = CString::new(path.as_ref()).expect("Can't crate CString.");
-
-        let raw = unsafe {
-            OH_ResourceManager_OpenRawDir(self.resource_manager.as_ptr(), dir.as_ptr().cast())
-        };
-        #[cfg(debug_assertions)]
-        assert!(!raw.is_null(), "RawDir is null");
-
+    pub fn open_dir<S: AsRef<str>>(
+        &self,
+        path: S,
+        recursive: bool,
+    ) -> Result<RawDir, RawFileError> {
         Ok(RawDir::from_raw(
-            unsafe { NonNull::new_unchecked(raw) },
+            self.resource_manager,
             path.as_ref().to_string(),
+            recursive,
         ))
     }
 
