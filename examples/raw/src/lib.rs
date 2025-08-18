@@ -8,10 +8,11 @@ use ohos_resource_manager_binding::ResourceManager;
 pub fn open_raw_dir<'a>(
     env: Env,
     #[napi(ts_arg_type = "resourceManager.ResourceManager")] resource_manager: Object<'a>,
+    dir: String,
 ) -> Result<()> {
     let raw_manager = ResourceManager::new(env, resource_manager);
     let raw_dir = raw_manager
-        .open_dir("")
+        .open_dir(dir, true)
         .map_err(|e| Error::from_reason(e.to_string()))?;
     let files = raw_dir.files.clone();
 
