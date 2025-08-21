@@ -25,14 +25,14 @@ bitflags! {
     #[derive(PartialEq, Clone, Copy)]
     pub struct CustomProtocolOption: u32 {
         const None = 0;
-        const Standard = 1;
-        const Local = 2;
-        const DisplayIsolated = 4;
-        const Secure = 8;
-        const CorsEnabled = 16;
-        const CspBypassing = 32;
-        const FetchEnabled = 64;
-        const CodeCacheEnabled = 128;
+        const Standard = 1 << 0;
+        const Local = 1 << 1;
+        const DisplayIsolated = 1 << 2;
+        const Secure = 1 << 3;
+        const CorsEnabled = 1 << 4;
+        const CspBypassing = 1 << 5;
+        const FetchEnabled = 1 << 6;
+        const CodeCacheEnabled = 1 << 7;
     }
 }
 
