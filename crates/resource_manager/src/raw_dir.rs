@@ -139,6 +139,7 @@ impl Display for RawDir {
     }
 }
 
+/// 适用于 2G 以下的文件操作,如果文件大小超过2G,会有精度丢失风险,推荐使用 RawFile64
 pub struct RawFile {
     raw: NonNull<ohos_resource_manager_sys::RawFile>,
 }
@@ -153,16 +154,16 @@ impl RawFile {
         }
     }
 
-    pub fn file_size(&self) -> i64 {
-        unsafe { OH_ResourceManager_GetRawFileSize(self.raw.as_ptr()) }
+    pub fn file_size(&self) -> i32 {
+        unsafe { OH_ResourceManager_GetRawFileSize(self.raw.as_ptr()) as _}
     }
 
-    pub fn seek(&self, offset: i64, whence: i32) -> i32 {
-        unsafe { OH_ResourceManager_SeekRawFile(self.raw.as_ptr(), offset, whence) }
+    pub fn seek(&self, offset: i32, whence: i32) -> i32 {
+        unsafe { OH_ResourceManager_SeekRawFile(self.raw.as_ptr(), offset as _, whence) }
     }
 
-    pub fn offset(&self) -> i64 {
-        unsafe { OH_ResourceManager_GetRawFileOffset(self.raw.as_ptr()) }
+    pub fn offset(&self) -> i32 {
+        unsafe { OH_ResourceManager_GetRawFileOffset(self.raw.as_ptr())  as _}
     }
 
     pub fn read(&self, len: usize) -> (&str, i32) {
@@ -175,16 +176,16 @@ impl RawFile {
     }
 
     pub fn remain(&self) -> i64 {
-        unsafe { OH_ResourceManager_GetRawFileRemainingLength(self.raw.as_ptr()) }
+        unsafe { OH_ResourceManager_GetRawFileRemainingLength(self.raw.as_ptr()) as i64}
     }
-
+    
     /// try to get fd with start and length
     /// get failed it will return -1 and then return fd
-    pub fn fd(&self, start: i64, len: i64) -> i32 {
+    pub fn fd(&self, start: i32, len: i32) -> i32 {
         let mut file_descriptor = RawFileDescriptor {
             fd: 0,
-            start,
-            length: len,
+            start: start as _,
+            length: len as _,
         };
         let ret = unsafe {
             OH_ResourceManager_GetRawFileDescriptorData(self.raw.as_ptr(), &mut file_descriptor)
@@ -209,6 +210,7 @@ pub struct RawFile64 {
     raw: NonNull<ohos_resource_manager_sys::RawFile64>,
 }
 
+/// 推荐使用这个类型
 impl RawFile64 {
     pub fn from_raw(raw: *mut ohos_resource_manager_sys::RawFile64) -> Self {
         #[cfg(debug_assertions)]
