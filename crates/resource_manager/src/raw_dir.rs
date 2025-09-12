@@ -176,8 +176,8 @@ impl RawFile {
         unsafe { (CStr::from_ptr(buf_ptr).to_str().unwrap_or(""), offset) }
     }
 
-    pub fn remain(&self) -> i64 {
-        unsafe { OH_ResourceManager_GetRawFileRemainingLength(self.raw.as_ptr()) as i64 }
+    pub fn remain(&self) -> i32 {
+        unsafe { OH_ResourceManager_GetRawFileRemainingLength(self.raw.as_ptr()) as _ }
     }
 
     /// try to get fd with start and length
