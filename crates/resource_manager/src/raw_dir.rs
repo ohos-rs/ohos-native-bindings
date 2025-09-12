@@ -139,7 +139,8 @@ impl Display for RawDir {
     }
 }
 
-/// 适用于 2G 以下的文件操作,如果文件大小超过2G,会有精度丢失风险,推荐使用 RawFile64
+/// Use for file size less than 2G
+/// If the file size is greater than 2G, there is a risk of precision loss, it is recommended to use RawFile64
 pub struct RawFile {
     raw: NonNull<ohos_resource_manager_sys::RawFile>,
 }
@@ -155,7 +156,7 @@ impl RawFile {
     }
 
     pub fn file_size(&self) -> i32 {
-        unsafe { OH_ResourceManager_GetRawFileSize(self.raw.as_ptr()) as _}
+        unsafe { OH_ResourceManager_GetRawFileSize(self.raw.as_ptr()) as _ }
     }
 
     pub fn seek(&self, offset: i32, whence: i32) -> i32 {
@@ -163,7 +164,7 @@ impl RawFile {
     }
 
     pub fn offset(&self) -> i32 {
-        unsafe { OH_ResourceManager_GetRawFileOffset(self.raw.as_ptr())  as _}
+        unsafe { OH_ResourceManager_GetRawFileOffset(self.raw.as_ptr()) as _ }
     }
 
     pub fn read(&self, len: usize) -> (&str, i32) {
@@ -176,9 +177,9 @@ impl RawFile {
     }
 
     pub fn remain(&self) -> i64 {
-        unsafe { OH_ResourceManager_GetRawFileRemainingLength(self.raw.as_ptr()) as i64}
+        unsafe { OH_ResourceManager_GetRawFileRemainingLength(self.raw.as_ptr()) as i64 }
     }
-    
+
     /// try to get fd with start and length
     /// get failed it will return -1 and then return fd
     pub fn fd(&self, start: i32, len: i32) -> i32 {
@@ -210,7 +211,8 @@ pub struct RawFile64 {
     raw: NonNull<ohos_resource_manager_sys::RawFile64>,
 }
 
-/// 推荐使用这个类型
+/// Using for file size.
+/// Recommended to use this type if the file size is greater than 2G
 impl RawFile64 {
     pub fn from_raw(raw: *mut ohos_resource_manager_sys::RawFile64) -> Self {
         #[cfg(debug_assertions)]
