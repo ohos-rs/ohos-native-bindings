@@ -34,6 +34,8 @@ static CONFIG: Lazy<Vec<Lazy<SysConfig>>> = Lazy::new(|| {
         config::IMAGE_NATIVE,
         config::IMAGE,
         config::ARK_WEB,
+        config::SENSORS,
+        config::VIBRATOR,
     ]
 });
 

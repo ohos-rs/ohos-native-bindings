@@ -26,6 +26,7 @@ mod native_window;
 mod raw;
 mod vsync;
 mod ark_web;
+mod sensors;
 
 pub use ability::*;
 pub use ark_data::*;
@@ -44,3 +45,4 @@ pub use native_window::*;
 pub use raw::*;
 pub use vsync::*;
 pub use ark_web::*;
+pub use sensors::*;
