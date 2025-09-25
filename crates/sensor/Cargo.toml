@@ -1,0 +1,10 @@
+[package]
+name = "ohos-sensor-binding"
+version = "0.1.0"
+edition = "2021"
+license     = "MIT OR Apache-2.0"
+description = "OpenHarmony's sensor binding for rust"
+
+
+[dependencies]
+ohos-sensor-sys = { workspace = true }
