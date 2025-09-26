@@ -1,0 +1,16 @@
+[package]
+name = "vibrator"
+version = "0.1.0"
+edition = "2021"
+
+[lib]
+crate-type = ["cdylib"]
+
+[dependencies]
+ohos-vibrator-binding = { workspace = true }
+
+napi-ohos          = { workspace = true, default-features = false, features = ["napi8", "async"] }
+napi-derive-ohos   = { workspace = true }
+
+[build-dependencies]
+napi-build-ohos = { workspace = true }
