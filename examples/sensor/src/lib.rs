@@ -1,14 +1,11 @@
-pub fn add(left: u64, right: u64) -> u64 {
-    left + right
-}
+use napi_derive_ohos::napi;
 
-#[cfg(test)]
-mod tests {
-    use super::*;
+use ohos_sensor_binding::{SensorSubscriber, SensorType};
 
-    #[test]
-    fn it_works() {
-        let result = add(2, 2);
-        assert_eq!(result, 4);
-    }
+#[napi]
+pub fn sensor_test() {
+    let subscriber = SensorSubscriber::new(SensorType::Accelerometer, 1000);
+    subscriber.subscribe(|event| {
+        println!("sensor_test: {:?}", event);
+    });
 }
