@@ -20,6 +20,8 @@ A set of HarmonyNext native module bindings for rust.
 | ohos-vsync-binding                  | ![Crates.io Version](https://img.shields.io/crates/v/ohos-vsync-binding)                  | [vsync](https://developer.huawei.com/consumer/cn/doc/harmonyos-references-V5/_native_vsync-V5) binding                            |
 | ohos-display-soloist-binding        | ![Crates.io Version](https://img.shields.io/crates/v/ohos-display-soloist-binding)        | [display-soloist](https://developer.huawei.com/consumer/cn/doc/harmonyos-references-V5/_native_display_soloist-V5) binding        |
 | ohos-web-binding                    | ![Crates.io Version](https://img.shields.io/crates/v/ohos-web-binding)                    | [arkweb](https://developer.huawei.com/consumer/cn/doc/harmonyos-references-V5/_web-V5) binding                                    |
+| ohos-sensor-binding                 | ![Crates.io Version](https://img.shields.io/crates/v/ohos-sensor-binding)                 | [sensor](https://developer.huawei.com/consumer/cn/doc/harmonyos-references/_sensor) binding                                       |
+| ohos-vibrator-binding               | ![Crates.io Version](https://img.shields.io/crates/v/ohos-vibrator-binding)               | [vibrator](https://developer.huawei.com/consumer/cn/doc/harmonyos-references/_vibrator) binding                                   |
 
 ## Contribution
 
