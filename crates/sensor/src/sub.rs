@@ -2,6 +2,7 @@ use std::{
     cell::RefCell,
     collections::HashMap,
     ptr::{self, NonNull},
+    sync::{LazyLock, RwLock},
 };
 
 use ohos_sensor_sys::{
@@ -70,7 +71,7 @@ impl SensorCallbackEvent {
 }
 
 /// Sensor subscriber
-/// Because of the limitation of the OS-API and FFI, we only support one callback for each sensor type with per-thread.
+/// Because of the limitation of the OS-API and FFI, we only support one callback for each sensor type
 pub struct SensorSubscriber {
     subscriber: RefCell<Option<NonNull<Sensor_Subscriber>>>,
     id: RefCell<Option<NonNull<Sensor_SubscriptionId>>>,
@@ -79,9 +80,12 @@ pub struct SensorSubscriber {
     interval: i64,
 }
 
-thread_local! {
-    static SENSOR_SUBSCRIBE_CALLBACK: RefCell<HashMap<SensorType, Box<dyn Fn(SensorCallbackEvent) + 'static>>> = RefCell::new(HashMap::new());
-}
+static SENSOR_SUBSCRIBE_CALLBACK: LazyLock<
+    RwLock<HashMap<SensorType, Box<dyn Fn(SensorCallbackEvent) + 'static + Send + Sync>>>,
+> = LazyLock::new(|| RwLock::new(HashMap::new()));
+
+unsafe impl Send for SensorSubscriber {}
+unsafe impl Sync for SensorSubscriber {}
 
 impl SensorSubscriber {
     pub fn new(sensor_type: SensorType, sampling_interval: i64) -> Self {
@@ -96,10 +100,12 @@ impl SensorSubscriber {
 
     pub fn subscribe<F>(&self, callback: F) -> Result<(), SensorError>
     where
-        F: Fn(SensorCallbackEvent) + 'static,
+        F: Fn(SensorCallbackEvent) + 'static + Send + Sync,
     {
-        SENSOR_SUBSCRIBE_CALLBACK
-            .with_borrow_mut(|cb| cb.insert(self.sensor_type, Box::new(callback)));
+        {
+            let mut guard = SENSOR_SUBSCRIBE_CALLBACK.write().unwrap();
+            guard.insert(self.sensor_type, Box::new(callback));
+        }
 
         let subscriber = unsafe { OH_Sensor_CreateSubscriber() };
         #[cfg(debug_assertions)]
@@ -166,9 +172,10 @@ impl Drop for SensorSubscriber {
 }
 
 unsafe extern "C" fn sensor_callback(event: *mut Sensor_Event) {
-    SENSOR_SUBSCRIBE_CALLBACK.with_borrow(|cb| {
-        let sensor_event = SensorCallbackEvent::new(event).unwrap();
-        cb.get(&sensor_event.sensor_type)
-            .map(|callback| callback(sensor_event));
-    });
+    let sensor_event = SensorCallbackEvent::new(event).unwrap();
+    SENSOR_SUBSCRIBE_CALLBACK
+        .read()
+        .unwrap()
+        .get(&sensor_event.sensor_type)
+        .map(|callback| callback(sensor_event));
 }
