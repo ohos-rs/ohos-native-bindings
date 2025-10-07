@@ -1,5 +1,5 @@
 [package]
-name = "sensor"
+name    = "sensor"
 version = "0.1.0"
 edition = "2021"
 
@@ -11,7 +11,7 @@ ohos-sensor-binding = { workspace = true }
 
 napi-ohos          = { workspace = true, default-features = false, features = ["napi8", "async"] }
 napi-derive-ohos   = { workspace = true }
+ohos-hilog-binding = { workspace = true }
 
 [build-dependencies]
 napi-build-ohos = { workspace = true }
-

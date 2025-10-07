@@ -3,7 +3,7 @@ use std::ptr::NonNull;
 use ohos_sensor_sys::{
     OH_SensorSubscriptionAttribute_GetSamplingInterval,
     OH_SensorSubscriptionAttribute_SetSamplingInterval, OH_Sensor_CreateSubscriptionAttribute,
-    Sensor_SubscriptionAttribute,
+    OH_Sensor_DestroySubscriptionAttribute, Sensor_SubscriptionAttribute,
 };
 
 use crate::SensorError;
@@ -52,5 +52,11 @@ impl SensorAttribute {
             return Err(SensorError::InternalError(ret as _));
         }
         Ok(sampling_interval)
+    }
+}
+
+impl Drop for SensorAttribute {
+    fn drop(&mut self) {
+        unsafe { OH_Sensor_DestroySubscriptionAttribute(self.attribute.as_ptr()) };
     }
 }

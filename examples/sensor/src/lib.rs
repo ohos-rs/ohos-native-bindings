@@ -1,11 +1,10 @@
 use napi_derive_ohos::napi;
 
+use ohos_hilog_binding::hilog_info;
 use ohos_sensor_binding::{SensorSubscriber, SensorType};
 
 #[napi]
 pub fn sensor_test() {
-    let subscriber = SensorSubscriber::new(SensorType::Accelerometer, 1000);
-    subscriber.subscribe(|event| {
-        println!("sensor_test: {:?}", event);
-    });
+    let subscriber = SensorSubscriber::new(SensorType::Accelerometer, 200000000);
+    let _ = subscriber.subscribe(|event| hilog_info!("sensor: {:?}", event));
 }
