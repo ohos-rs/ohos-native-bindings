@@ -3,10 +3,7 @@ use ohos_web_sys::*;
 use ohos_enum_macro::EnumFrom;
 
 #[derive(Debug, Clone, Copy, PartialEq, Eq, EnumFrom)]
-#[enum_from_config(
-    ArkWeb_NetError,
-    "ArkWeb_NetError_ARKWEB_ERR_"
-)]
+#[enum_from_config(ArkWeb_NetError, "ArkWeb_NetError_ARKWEB_ERR_")]
 pub enum NetError {
     #[enum_prefix("ArkWeb_NetError_ARKWEB_NET_")]
     Ok = 0,

@@ -54,4 +54,3 @@ pub type Url = CommonString;
 pub type Method = CommonString;
 /// Response Referrer
 pub type Referrer = CommonString;
-

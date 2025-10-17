@@ -42,7 +42,6 @@ impl From<Attribute> for Vibrator_Attribute {
     }
 }
 
-
 /// Start the vibration.
 /// ```rs
 /// use ohos_vibrator_binding::{start, Attribute};
@@ -80,7 +79,7 @@ impl From<FileDescription> for Vibrator_FileDescription {
 
 /// Start the vibration with custom file description. Allow user to use custom vibration file.   
 /// See details: https://developer.huawei.com/consumer/cn/doc/harmonyos-guides/vibrator-guidelines#%E6%8C%AF%E5%8A%A8%E6%95%88%E6%9E%9C%E8%AF%B4%E6%98%8E
-/// 
+///
 /// ```rs
 /// #[napi]
 /// pub fn custom_start() -> Result<()> {

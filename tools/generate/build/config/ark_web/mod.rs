@@ -10,9 +10,9 @@ pub const ARK_WEB: Lazy<SysConfig> = Lazy::new(|| SysConfig {
         "web/arkweb_net_error_list.h",
         "web/arkweb_scheme_handler.h",
         "web/arkweb_type.h",
-        "web/native_interface_arkweb.h"
+        "web/native_interface_arkweb.h",
     ],
-    white_list: vec!["OH_.*","ArkWeb_.*"],
+    white_list: vec!["OH_.*", "ArkWeb_.*"],
     block_list: vec![],
     extra: "",
 });
