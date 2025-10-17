@@ -1,7 +1,7 @@
 use crate::{
     ArkUIAttributeBasic, ArkUICommonFontAttribute, ArkUIEvent, ArkUIGesture, ArkUINode,
     ArkUINodeAttributeItem, ArkUINodeAttributeType, ArkUINodeType, ArkUIResult,
-    ARK_UI_NATIVE_NODE_API_1
+    ARK_UI_NATIVE_NODE_API_1,
 };
 
 #[cfg(feature = "xcomponent")]

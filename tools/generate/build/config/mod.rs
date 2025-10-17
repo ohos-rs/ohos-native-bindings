@@ -11,6 +11,7 @@ pub(crate) struct SysConfig {
 
 mod ability;
 mod ark_data;
+mod ark_web;
 mod arkui;
 mod asset;
 mod basic;
@@ -24,12 +25,12 @@ mod native_buffer;
 mod native_display_soloist;
 mod native_window;
 mod raw;
-mod vsync;
-mod ark_web;
 mod sensors;
+mod vsync;
 
 pub use ability::*;
 pub use ark_data::*;
+pub use ark_web::*;
 pub use arkui::*;
 pub use asset::*;
 pub use basic::*;
@@ -43,6 +44,5 @@ pub use native_buffer::*;
 pub use native_display_soloist::*;
 pub use native_window::*;
 pub use raw::*;
-pub use vsync::*;
-pub use ark_web::*;
 pub use sensors::*;
+pub use vsync::*;

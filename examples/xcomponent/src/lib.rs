@@ -11,8 +11,8 @@ use glutin::{
     prelude::{GlDisplay, NotCurrentGlContext},
     surface::{GlSurface, Surface, SurfaceAttributesBuilder, WindowSurface},
 };
-use napi_derive_ohos::{module_exports, napi};
-use napi_ohos::{Env, Error, JsObject, Result};
+use napi_derive_ohos::napi;
+use napi_ohos::{bindgen_prelude::Object, Env, Error, Result};
 use ohos_hilog_binding::hilog_info;
 use ohos_xcomponent_binding::XComponent;
 use raw_window_handle::{
@@ -30,8 +30,8 @@ struct Render {
 unsafe impl Send for Render {}
 unsafe impl Sync for Render {}
 
-#[module_exports]
-pub fn init(exports: JsObject, env: Env) -> Result<()> {
+#[napi(module_exports)]
+pub fn init(exports: Object, env: Env) -> Result<()> {
     let xcomponent = XComponent::init(env, exports)?;
 
     xcomponent.on_surface_created(|xcomponent, win| {

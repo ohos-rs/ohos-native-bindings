@@ -1,7 +1,7 @@
 use crate::LogLevel;
 
 use super::arrays::slice_assume_init_ref;
-use super::{LOGGING_MSG_MAX_LEN, openharmony_log, uninit_array};
+use super::{openharmony_log, uninit_array, LOGGING_MSG_MAX_LEN};
 use log::Level;
 use std::ffi::CStr;
 use std::mem::MaybeUninit;
@@ -18,10 +18,7 @@ pub struct PlatformLogWriter<'a> {
 }
 
 impl PlatformLogWriter<'_> {
-    pub fn new_with_priority(
-        priority: crate::LogLevel,
-        tag: &CStr,
-    ) -> PlatformLogWriter<'_> {
+    pub fn new_with_priority(priority: crate::LogLevel, tag: &CStr) -> PlatformLogWriter<'_> {
         #[allow(deprecated)] // created an issue #35 for this
         PlatformLogWriter {
             priority,
@@ -100,7 +97,7 @@ impl PlatformLogWriter<'_> {
         let initialized = unsafe { slice_assume_init_ref(&self.buffer[..len + 1]) };
         let msg = CStr::from_bytes_with_nul(initialized)
             .expect("Unreachable: nul terminator was placed at `len`");
-        openharmony_log( self.priority, self.tag, msg);
+        openharmony_log(self.priority, self.tag, msg);
 
         unsafe { *self.buffer.get_unchecked_mut(len) = last_byte };
     }
@@ -128,7 +125,11 @@ impl fmt::Write for PlatformLogWriter<'_> {
                 .enumerate()
                 .fold(None, |acc, (i, (output, input))| {
                     output.write(*input);
-                    if *input == b'\n' { Some(i) } else { acc }
+                    if *input == b'\n' {
+                        Some(i)
+                    } else {
+                        acc
+                    }
                 });
 
             // update last \n index
