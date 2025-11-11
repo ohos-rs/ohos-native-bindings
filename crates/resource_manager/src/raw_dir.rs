@@ -45,7 +45,6 @@ impl RawDir {
         let raw = unsafe { OH_ResourceManager_OpenRawDir(mgr.as_ptr(), dir.as_ptr().cast()) };
         // if rawfiles is empty, return null ptr.
         if raw.is_null() {
-            unsafe { OH_ResourceManager_CloseRawDir(raw) };
             return RawDir { mgr, path, files };
         }
 
