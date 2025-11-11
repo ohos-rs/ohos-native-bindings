@@ -43,8 +43,11 @@ impl RawDir {
 
         let dir = CString::new(path.clone()).expect("Can't crate CString.");
         let raw = unsafe { OH_ResourceManager_OpenRawDir(mgr.as_ptr(), dir.as_ptr().cast()) };
-        #[cfg(debug_assertions)]
-        assert!(!raw.is_null(), "RawDir is null");
+        // if rawfiles is empty, return null ptr.
+        if raw.is_null() {
+            unsafe { OH_ResourceManager_CloseRawDir(raw) };
+            return RawDir { mgr, path, files };
+        }
 
         let count = unsafe { OH_ResourceManager_GetRawFileCount(raw) };
         for i in 0..count {
