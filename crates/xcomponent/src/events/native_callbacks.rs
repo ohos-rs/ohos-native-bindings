@@ -31,7 +31,7 @@ pub unsafe extern "C" fn on_surface_created(
 
     {
         let mut guard = (*RAW_WINDOW).write().expect("read raw window failed");
-        guard.replace(RawWindow(window.0));
+        guard.replace(RawWindow::new(window.0));
     }
 
     #[cfg(not(feature = "multi_mode"))]
@@ -65,7 +65,7 @@ pub unsafe extern "C" fn on_surface_changed(
 
     {
         let mut guard = (*RAW_WINDOW).write().expect("read raw window failed");
-        guard.replace(RawWindow(window.0));
+        guard.replace(RawWindow::new(window.0));
     }
 
     #[cfg(not(feature = "multi_mode"))]

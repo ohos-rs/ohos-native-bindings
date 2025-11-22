@@ -57,7 +57,7 @@ impl NativeXComponent {
         let guard = (*RAW_WINDOW).read();
         if let Ok(guard) = guard {
             if let Some(win) = &*guard {
-                return Some(RawWindow::new(win.0));
+                return Some(RawWindow::new(win.raw()));
             }
             return None;
         }
