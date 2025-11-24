@@ -4,15 +4,16 @@ use std::rc::Rc;
 
 use napi_ohos::{Error, Result};
 use ohos_xcomponent_sys::{
-    OH_NativeXComponent, OH_NativeXComponent_Callback, OH_NativeXComponent_RegisterCallback,
-    OH_NativeXComponent_RegisterKeyEventCallback, OH_NativeXComponent_RegisterOnFrameCallback,
+    OH_NativeXComponent, OH_NativeXComponent_Callback, OH_NativeXComponent_ExpectedRateRange,
+    OH_NativeXComponent_RegisterCallback, OH_NativeXComponent_RegisterKeyEventCallback,
+    OH_NativeXComponent_RegisterOnFrameCallback, OH_NativeXComponent_SetExpectedFrameRateRange,
 };
 
 use crate::{
     code::XComponentResultCode, dispatch_touch_event, key_event, on_frame_change,
     on_surface_changed, on_surface_created, on_surface_destroyed, raw::XComponentRaw,
-    tool::resolve_id, KeyEventData, RawWindow, TouchEventData, WindowRaw, XComponentSize,
-    RAW_WINDOW,
+    tool::resolve_id, KeyEventData, RawWindow, TouchEventData, WindowRaw, XComponentOffset,
+    XComponentSize, RAW_WINDOW,
 };
 
 #[cfg(not(feature = "multi_mode"))]
@@ -184,6 +185,25 @@ impl NativeXComponent {
     /// Get current XComponent's size info include width and height.
     pub fn size(&self, window: WindowRaw) -> Result<XComponentSize> {
         self.raw.size(window)
+    }
+
+    pub fn offset(&self, window: WindowRaw) -> Result<XComponentOffset> {
+        self.raw.offset(window)
+    }
+
+    pub fn set_frame_rate(&self, min: i32, max: i32, expected: i32) -> Result<()> {
+        let mut range = OH_NativeXComponent_ExpectedRateRange { min, max, expected };
+        let ret: XComponentResultCode = unsafe {
+            OH_NativeXComponent_SetExpectedFrameRateRange(
+                self.raw(),
+                &mut range as *mut _ as *mut OH_NativeXComponent_ExpectedRateRange,
+            )
+            .into()
+        };
+        if ret != XComponentResultCode::Success {
+            return Err(Error::from_reason("XComponent set frame rate failed"));
+        }
+        Ok(())
     }
 
     /// Register frame callback

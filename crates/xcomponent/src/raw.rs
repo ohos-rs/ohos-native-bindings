@@ -1,9 +1,11 @@
 use napi_ohos::{Error, Result};
 use ohos_xcomponent_sys::OH_NativeXComponent;
-use ohos_xcomponent_sys::OH_NativeXComponent_GetXComponentSize;
+use ohos_xcomponent_sys::{
+    OH_NativeXComponent_GetXComponentOffset, OH_NativeXComponent_GetXComponentSize,
+};
 use std::os::raw::c_void;
 
-use crate::{code::XComponentResultCode, XComponentSize};
+use crate::{code::XComponentResultCode, XComponentOffset, XComponentSize};
 
 #[repr(transparent)]
 #[derive(Debug, Clone, Copy)]
@@ -14,6 +16,7 @@ pub struct WindowRaw(pub *mut c_void);
 pub struct XComponentRaw(pub *mut OH_NativeXComponent);
 
 impl XComponentRaw {
+    /// Get the current XComponent's surface size
     pub fn size(&self, win: WindowRaw) -> Result<XComponentSize> {
         let mut width: u64 = 0;
         let mut height: u64 = 0;
@@ -24,5 +27,18 @@ impl XComponentRaw {
             return Err(Error::from_reason("XComponent get size failed"));
         }
         Ok(XComponentSize { width, height })
+    }
+
+    /// Get the offset of the surface held by the current XComponent.
+    pub fn offset(&self, win: WindowRaw) -> Result<XComponentOffset> {
+        let mut x: f64 = 0.0;
+        let mut y: f64 = 0.0;
+        let ret: XComponentResultCode = unsafe {
+            OH_NativeXComponent_GetXComponentOffset(self.0, win.0, &mut x, &mut y).into()
+        };
+        if ret != XComponentResultCode::Success {
+            return Err(Error::from_reason("XComponent get offset failed"));
+        }
+        Ok(XComponentOffset { x, y })
     }
 }

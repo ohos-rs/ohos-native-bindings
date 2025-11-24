@@ -12,7 +12,7 @@ use std::{os::raw::c_void, ptr};
 
 use crate::{
     native_xcomponent::NativeXComponent, tool::resolve_id, TouchEventData, WindowRaw,
-    XComponentRaw, XComponentSize,
+    XComponentOffset, XComponentRaw, XComponentSize,
 };
 
 /// Accept XComponent with env and exports
@@ -70,6 +70,10 @@ impl XComponent {
         self.0.raw()
     }
 
+    pub fn set_frame_rate(&self, min: i32, max: i32, expected: i32) -> Result<()> {
+        self.0.set_frame_rate(min, max, expected)
+    }
+
     /// Register callbacks   
     /// For multi-mode, it will use hashmap to store all of your callbacks closure.   
     /// This may cause xcomponent being slower, if you want to avoid this.    
@@ -91,6 +95,12 @@ impl XComponent {
     pub fn size(&self, window: WindowRaw) -> Result<XComponentSize> {
         self.0.size(window)
     }
+
+    /// Get the offset of the surface held by the current XComponent.
+    pub fn offset(&self, window: WindowRaw) -> Result<XComponentOffset> {
+        self.0.offset(window)
+    }
+
     pub fn on_frame_callback(&self, cb: fn(XComponentRaw, u64, u64) -> Result<()>) -> Result<()> {
         self.0.on_frame_callback(cb)
     }
