@@ -9,6 +9,7 @@ pub fn uninit_array<const N: usize, T>() -> [MaybeUninit<T>; N] {
 }
 
 // FIXME: Remove when maybe_uninit_slice is stabilized to provide MaybeUninit::slice_assume_init_ref()
+/// # Safety
 pub unsafe fn slice_assume_init_ref<T>(slice: &[MaybeUninit<T>]) -> &[T] {
     &*(slice as *const [MaybeUninit<T>] as *const [T])
 }
