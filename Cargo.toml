@@ -67,3 +67,7 @@ convert_case      = { version = "0.6" }
 regex             = { version = "1.0" }
 bitflags          = { version = "2.6" }
 raw-window-handle = { version = "0.6" }
+
+
+[workspace.lints.clippy]
+not_unsafe_ptr_arg_deref = "allow"
