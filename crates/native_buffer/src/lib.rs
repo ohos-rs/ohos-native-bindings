@@ -59,11 +59,11 @@ impl NativeBuffer {
             };
             self.config.replace(Some(config));
         }
-        self.config
+        *self
+            .config
             .borrow()
             .as_ref()
             .expect("OH_NativeBuffer_GetConfig failed")
-            .clone()
     }
 
     /// Map ION memory to process space

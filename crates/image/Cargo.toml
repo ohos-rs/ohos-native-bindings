@@ -5,6 +5,9 @@ edition     = "2021"
 license     = "MIT OR Apache-2.0"
 description = "OpenHarmony's image binding for rust"
 
+[lints]
+workspace = true
+
 # See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
 
 [dependencies]
