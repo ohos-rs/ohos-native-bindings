@@ -176,7 +176,7 @@ impl NativeWindowBuffer<'_> {
     /// Safe write access to likely uninitialized pixel buffer data.
     pub fn bytes(&mut self) -> Option<&mut [MaybeUninit<u8>]> {
         let num_pixels = self.height() * self.stride();
-        let bytes_nums = num_pixels * NativeBufferFormat::from(self.format()).bytes_per_pixel();
+        let bytes_nums = num_pixels * self.format().bytes_per_pixel();
         Some(unsafe { std::slice::from_raw_parts_mut(self.bits().cast(), bytes_nums) })
     }
 
@@ -186,7 +186,7 @@ impl NativeWindowBuffer<'_> {
     /// See [`bits()`][Self::bits()] and [`bytes()`][Self::bytes()] for contiguous access to the
     /// underlying buffer.
     pub fn lines(&mut self) -> Option<impl Iterator<Item = &mut [MaybeUninit<u8>]>> {
-        let bpp = NativeBufferFormat::from(self.format()).bytes_per_pixel();
+        let bpp = self.format().bytes_per_pixel();
         let scanline_bytes = self.stride();
         let width_bytes = bpp * self.width();
         let bytes = self.bytes()?;

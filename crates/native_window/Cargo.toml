@@ -5,6 +5,9 @@ edition     = "2021"
 license     = "MIT OR Apache-2.0"
 description = "OpenHarmony's native window binding for rust"
 
+[lints]
+workspace = true
+
 [dependencies]
 ohos-native-window-sys     = { workspace = true }
 ohos-native-buffer-sys     = { workspace = true }
