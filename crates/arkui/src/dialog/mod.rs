@@ -24,7 +24,7 @@ pub struct Dialog {
 
 impl Dialog {
     pub fn new() -> ArkUIResult<Self> {
-        let dialog_controller = ARK_UI_NATIVE_DIALOG_API_1.create()?;
+        let dialog_controller = ARK_UI_NATIVE_DIALOG_API_1.with(|api| api.create())?;
         Ok(Dialog {
             raw: dialog_controller,
             inner_dismiss_data: Rc::new(RefCell::new(InnerDialogDismissData {
@@ -36,43 +36,44 @@ impl Dialog {
 
     pub fn content<T: Into<ArkUINode>>(&self, content: T) -> ArkUIResult<()> {
         let node: ArkUINode = content.into();
-        ARK_UI_NATIVE_DIALOG_API_1.set_content(self.raw, node.raw())?;
+        ARK_UI_NATIVE_DIALOG_API_1.with(|api| api.set_content(self.raw, node.raw()))?;
         Ok(())
     }
 
     pub fn show(&self) -> ArkUIResult<()> {
-        ARK_UI_NATIVE_DIALOG_API_1.show(self.raw, false)?;
+        ARK_UI_NATIVE_DIALOG_API_1.with(|api| api.show(self.raw, false))?;
         Ok(())
     }
 
     pub fn show_with_sub_window(&self) -> ArkUIResult<()> {
-        ARK_UI_NATIVE_DIALOG_API_1.show(self.raw, true)?;
+        ARK_UI_NATIVE_DIALOG_API_1.with(|api| api.show(self.raw, true))?;
         Ok(())
     }
 
     pub fn close(&self) -> ArkUIResult<()> {
-        ARK_UI_NATIVE_DIALOG_API_1.close(self.raw)?;
+        ARK_UI_NATIVE_DIALOG_API_1.with(|api| api.close(self.raw))?;
         Ok(())
     }
 
     pub fn modal_mode(&self, modal_mode: bool) -> ArkUIResult<()> {
-        ARK_UI_NATIVE_DIALOG_API_1.set_modal_mode(self.raw, modal_mode)?;
+        ARK_UI_NATIVE_DIALOG_API_1.with(|api| api.set_modal_mode(self.raw, modal_mode))?;
         Ok(())
     }
 
     pub fn auto_cancel(&self, auto_cancel: bool) -> ArkUIResult<()> {
-        ARK_UI_NATIVE_DIALOG_API_1.set_auto_cancel(self.raw, auto_cancel)?;
+        ARK_UI_NATIVE_DIALOG_API_1.with(|api| api.set_auto_cancel(self.raw, auto_cancel))?;
         Ok(())
     }
 
     pub fn background_color(&self, color: u32) -> ArkUIResult<()> {
-        ARK_UI_NATIVE_DIALOG_API_1.set_background_color(self.raw, color)?;
+        ARK_UI_NATIVE_DIALOG_API_1.with(|api| api.set_background_color(self.raw, color))?;
         Ok(())
     }
 
     /// Set content alignment, offset_x and offset_y will be set with 0.0
     pub fn content_alignment(&self, alignment: Alignment) -> ArkUIResult<()> {
-        ARK_UI_NATIVE_DIALOG_API_1.set_content_alignment(self.raw, alignment, 0.0, 0.0)?;
+        ARK_UI_NATIVE_DIALOG_API_1
+            .with(|api| api.set_content_alignment(self.raw, alignment, 0.0, 0.0))?;
         Ok(())
     }
 
@@ -84,7 +85,7 @@ impl Dialog {
         offset_y: f32,
     ) -> ArkUIResult<()> {
         ARK_UI_NATIVE_DIALOG_API_1
-            .set_content_alignment(self.raw, alignment, offset_x, offset_y)?;
+            .with(|api| api.set_content_alignment(self.raw, alignment, offset_x, offset_y))?;
         Ok(())
     }
 
@@ -95,13 +96,9 @@ impl Dialog {
         bottom_left: f32,
         bottom_right: f32,
     ) -> ArkUIResult<()> {
-        ARK_UI_NATIVE_DIALOG_API_1.set_corner_radius(
-            self.raw,
-            top_left,
-            top_right,
-            bottom_left,
-            bottom_right,
-        )?;
+        ARK_UI_NATIVE_DIALOG_API_1.with(|api| {
+            api.set_corner_radius(self.raw, top_left, top_right, bottom_left, bottom_right)
+        })?;
         Ok(())
     }
 
@@ -111,7 +108,8 @@ impl Dialog {
     ) -> ArkUIResult<()> {
         self.inner_dismiss_data.borrow_mut().dismiss_handle = Some(callback);
 
-        ARK_UI_NATIVE_DIALOG_API_1.register_dismiss(self.raw, self.inner_dismiss_data.clone())?;
+        ARK_UI_NATIVE_DIALOG_API_1
+            .with(|api| api.register_dismiss(self.raw, self.inner_dismiss_data.clone()))?;
         Ok(())
     }
 
@@ -127,7 +125,8 @@ impl Dialog {
         self.inner_dismiss_data.borrow_mut().data =
             Some(Box::into_raw(Box::new(data)) as *mut c_void);
 
-        ARK_UI_NATIVE_DIALOG_API_1.register_dismiss(self.raw, self.inner_dismiss_data.clone())?;
+        ARK_UI_NATIVE_DIALOG_API_1
+            .with(|api| api.register_dismiss(self.raw, self.inner_dismiss_data.clone()))?;
         Ok(())
     }
 }

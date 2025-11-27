@@ -16,7 +16,8 @@ pub struct XComponent(ArkUINode);
 
 impl XComponent {
     pub fn new() -> ArkUIResult<Self> {
-        let xcomponent = ARK_UI_NATIVE_NODE_API_1.create_node(ArkUINodeType::XComponent)?;
+        let xcomponent =
+            ARK_UI_NATIVE_NODE_API_1.with(|api| api.create_node(ArkUINodeType::XComponent))?;
         Ok(Self(ArkUINode {
             raw: xcomponent,
             tag: ArkUINodeType::XComponent,
@@ -30,7 +31,7 @@ impl XComponent {
 
         let handle = unsafe { OH_NativeXComponent_GetNativeXComponent(self.0.raw) };
         let id = ARK_UI_NATIVE_NODE_API_1
-            .get_attribute(&self.0, ArkUINodeAttributeType::XComponentId.into())
+            .with(|api| api.get_attribute(&self.0, ArkUINodeAttributeType::XComponentId))
             .ok()
             .and_then(|attr| {
                 if let ArkUINodeAttributeItem::String(xcomponent_id) = attr {

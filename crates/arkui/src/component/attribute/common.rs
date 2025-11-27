@@ -19,11 +19,13 @@ pub trait ArkUICommonAttribute: ArkUIAttributeBasic {
     fn width(&self, width: f32) -> ArkUIResult<()> {
         let width_property: ArkUINodeAttributeItem =
             ArkUINodeAttributeItem::NumberValue(vec![ArkUINodeAttributeNumber::Float(width)]);
-        ARK_UI_NATIVE_NODE_API_1.set_attribute(
-            self.raw(),
-            crate::ArkUINodeAttributeType::Width,
-            width_property,
-        )?;
+        ARK_UI_NATIVE_NODE_API_1.with(|api| {
+            api.set_attribute(
+                self.raw(),
+                crate::ArkUINodeAttributeType::Width,
+                width_property,
+            )
+        })?;
         Ok(())
     }
 
@@ -31,11 +33,13 @@ pub trait ArkUICommonAttribute: ArkUIAttributeBasic {
     fn height(&self, height: f32) -> ArkUIResult<()> {
         let height_property =
             ArkUINodeAttributeItem::NumberValue(vec![ArkUINodeAttributeNumber::Float(height)]);
-        ARK_UI_NATIVE_NODE_API_1.set_attribute(
-            self.raw(),
-            crate::ArkUINodeAttributeType::Height,
-            height_property,
-        )?;
+        ARK_UI_NATIVE_NODE_API_1.with(|api| {
+            api.set_attribute(
+                self.raw(),
+                crate::ArkUINodeAttributeType::Height,
+                height_property,
+            )
+        })?;
         Ok(())
     }
 
@@ -43,11 +47,13 @@ pub trait ArkUICommonAttribute: ArkUIAttributeBasic {
     fn percent_width(&self, width: f32) -> ArkUIResult<()> {
         let percent_width_property =
             ArkUINodeAttributeItem::NumberValue(vec![ArkUINodeAttributeNumber::Float(width)]);
-        ARK_UI_NATIVE_NODE_API_1.set_attribute(
-            self.raw(),
-            crate::ArkUINodeAttributeType::WidthPercent,
-            percent_width_property,
-        )?;
+        ARK_UI_NATIVE_NODE_API_1.with(|api| {
+            api.set_attribute(
+                self.raw(),
+                crate::ArkUINodeAttributeType::WidthPercent,
+                percent_width_property,
+            )
+        })?;
         Ok(())
     }
 
@@ -55,11 +61,13 @@ pub trait ArkUICommonAttribute: ArkUIAttributeBasic {
     fn percent_height(&self, height: f32) -> ArkUIResult<()> {
         let percent_height_property =
             ArkUINodeAttributeItem::NumberValue(vec![ArkUINodeAttributeNumber::Float(height)]);
-        ARK_UI_NATIVE_NODE_API_1.set_attribute(
-            self.raw(),
-            crate::ArkUINodeAttributeType::HeightPercent,
-            percent_height_property,
-        )?;
+        ARK_UI_NATIVE_NODE_API_1.with(|api| {
+            api.set_attribute(
+                self.raw(),
+                crate::ArkUINodeAttributeType::HeightPercent,
+                percent_height_property,
+            )
+        })?;
         Ok(())
     }
 
@@ -67,11 +75,13 @@ pub trait ArkUICommonAttribute: ArkUIAttributeBasic {
     fn background_color(&self, color: u32) -> ArkUIResult<()> {
         let background_color_property =
             ArkUINodeAttributeItem::NumberValue(vec![ArkUINodeAttributeNumber::Uint(color)]);
-        ARK_UI_NATIVE_NODE_API_1.set_attribute(
-            self.raw(),
-            crate::ArkUINodeAttributeType::BackgroundColor,
-            background_color_property,
-        )?;
+        ARK_UI_NATIVE_NODE_API_1.with(|api| {
+            api.set_attribute(
+                self.raw(),
+                crate::ArkUINodeAttributeType::BackgroundColor,
+                background_color_property,
+            )
+        })?;
         Ok(())
     }
 
@@ -80,7 +90,8 @@ pub trait ArkUICommonAttribute: ArkUIAttributeBasic {
         let children = self.borrow_mut();
         if index < children.children().len() {
             let removed_node = children.children_mut().remove(index);
-            ARK_UI_NATIVE_NODE_API_1.remove_child(self.raw(), &removed_node.borrow())?;
+            ARK_UI_NATIVE_NODE_API_1
+                .with(|api| api.remove_child(self.raw(), &removed_node.borrow()))?;
             Ok(Some(removed_node))
         } else {
             Ok(None)
@@ -92,20 +103,23 @@ pub trait ArkUICommonAttribute: ArkUIAttributeBasic {
 
         let child_handle_clone = child_handle.clone();
         // save self ArkUINode to custom user data for event dispatch
-        ARK_UI_NATIVE_NODE_API_1.set_user_data(
-            &child_handle.borrow(),
-            Box::into_raw(Box::new(child_handle_clone)) as *mut c_void,
-        )?;
-        ARK_UI_NATIVE_NODE_API_1.add_event_receiver(&child_handle.borrow())?;
+        ARK_UI_NATIVE_NODE_API_1.with(|api| {
+            api.set_user_data(
+                &child_handle.borrow(),
+                Box::into_raw(Box::new(child_handle_clone)) as *mut c_void,
+            )
+        })?;
+        ARK_UI_NATIVE_NODE_API_1.with(|api| api.add_event_receiver(&child_handle.borrow()))?;
 
-        ARK_UI_NATIVE_NODE_API_1.add_child(self.raw(), &child_handle.borrow())?;
+        ARK_UI_NATIVE_NODE_API_1.with(|api| api.add_child(self.raw(), &child_handle.borrow()))?;
         self.borrow_mut().children_mut().push(child_handle);
         Ok(())
     }
 
     fn insert_child<T: Into<ArkUINode>>(&mut self, child: T, index: usize) -> ArkUIResult<()> {
         let child_handle: Rc<RefCell<ArkUINode>> = Rc::new(RefCell::new(child.into()));
-        ARK_UI_NATIVE_NODE_API_1.insert_child(self.raw(), &child_handle.borrow(), index as i32)?;
+        ARK_UI_NATIVE_NODE_API_1
+            .with(|api| api.insert_child(self.raw(), &child_handle.borrow(), index as i32))?;
         self.borrow_mut()
             .children_mut()
             .insert(index, child_handle.clone());

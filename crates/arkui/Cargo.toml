@@ -5,6 +5,9 @@ edition     = "2021"
 license     = "MIT OR Apache-2.0"
 description = "OpenHarmony's arkui binding for rust"
 
+[lints]
+workspace = true
+
 [dependencies]
 ohos-arkui-sys          = { workspace = true }
 napi-sys-ohos           = { workspace = true, optional = true }

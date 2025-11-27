@@ -11,12 +11,12 @@ use crate::{
     common::{ArkUIError, ArkUIErrorCode, ArkUIResult},
 };
 
-/// ArkUI_NativeNodeAPI_1 struct
-/// Only can be used in main thread
-pub const ARK_UI_NATIVE_ANIMATE_API_1: LazyCell<ArkUINativeAnimateAPI1> = LazyCell::new(|| {
-    let api = ArkUINativeAnimateAPI1::new();
-    api
-});
+thread_local! {
+    /// ArkUI_NativeNodeAPI_1 struct.
+    /// Only can be used in main thread
+    pub static ARK_UI_NATIVE_ANIMATE_API_1: LazyCell<ArkUINativeAnimateAPI1> =
+    LazyCell::new(ArkUINativeAnimateAPI1::new);
+}
 
 pub struct ArkUINativeAnimateAPI1(pub(crate) *mut ArkUI_NativeAnimateAPI_1);
 
@@ -59,5 +59,11 @@ impl ArkUINativeAnimateAPI1 {
                 ))
             }
         }
+    }
+}
+
+impl Default for ArkUINativeAnimateAPI1 {
+    fn default() -> Self {
+        Self::new()
     }
 }

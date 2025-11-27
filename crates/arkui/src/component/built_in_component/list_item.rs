@@ -7,7 +7,8 @@ pub struct ListItem(ArkUINode);
 
 impl ListItem {
     pub fn new() -> ArkUIResult<Self> {
-        let list_item = ARK_UI_NATIVE_NODE_API_1.create_node(ArkUINodeType::ListItem)?;
+        let list_item =
+            ARK_UI_NATIVE_NODE_API_1.with(|api| api.create_node(ArkUINodeType::ListItem))?;
         Ok(Self(ArkUINode {
             raw: list_item,
             tag: ArkUINodeType::ListItem,

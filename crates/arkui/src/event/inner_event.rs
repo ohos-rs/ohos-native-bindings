@@ -13,7 +13,7 @@ impl Event {
     }
 }
 
-pub type NoParamClause = Rc<RefCell<dyn Fn() -> ()>>;
+pub type NoParamClause = Rc<RefCell<dyn Fn()>>;
 
 #[derive(Default, Clone)]
 pub struct EventHandle {

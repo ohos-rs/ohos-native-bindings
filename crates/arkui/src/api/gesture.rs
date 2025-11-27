@@ -24,12 +24,12 @@ use crate::{
     PanGestureData, PinchGestureData, RotationGestureData, SwipeGestureData,
 };
 
-/// ArkUINativeGestureAPI1 struct
-/// Only can be used in main thread
-pub const ARK_UI_NATIVE_GESTURE_API_1: LazyCell<ArkUINativeGestureAPI1> = LazyCell::new(|| {
-    let api = ArkUINativeGestureAPI1::new();
-    api
-});
+thread_local! {
+    /// ArkUINativeGestureAPI1 struct
+    /// Only can be used in main thread
+    pub static ARK_UI_NATIVE_GESTURE_API_1: LazyCell<ArkUINativeGestureAPI1> =
+    LazyCell::new(ArkUINativeGestureAPI1::new);
+}
 
 pub struct ArkUINativeGestureAPI1(pub(crate) *mut ArkUI_NativeGestureAPI_1);
 
@@ -292,6 +292,12 @@ impl ArkUINativeGestureAPI1 {
     }
 }
 
+impl Default for ArkUINativeGestureAPI1 {
+    fn default() -> Self {
+        Self::new()
+    }
+}
+
 unsafe extern "C" fn target_receiver(event: *mut ArkUI_GestureEvent, extra_params: *mut c_void) {
     let user_data: &Rc<RefCell<InnerGestureData>> =
         &*(extra_params as *const Rc<RefCell<InnerGestureData>>);
@@ -344,7 +350,7 @@ unsafe extern "C" fn target_receiver(event: *mut ArkUI_GestureEvent, extra_param
     if let Some(event) = data.gesture_callback.as_ref() {
         event(GestureEventData {
             data: data.user_data,
-            event_action_type: event_action_type,
+            event_action_type,
             event_action_data: event_data,
         });
     }
