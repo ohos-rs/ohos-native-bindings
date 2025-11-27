@@ -71,11 +71,10 @@ impl RawFile {
     }
 
     pub fn read(&self, len: usize) -> (&str, i32) {
-        let mut ret = Vec::with_capacity(len as usize);
+        let mut ret = Vec::with_capacity(len as _);
         let buf_ptr = ret.as_mut_ptr();
-        let offset = unsafe {
-            OH_ResourceManager_ReadRawFile(self.raw, buf_ptr as *mut c_void, len as usize)
-        };
+        let offset =
+            unsafe { OH_ResourceManager_ReadRawFile(self.raw, buf_ptr as *mut c_void, len as _) };
         unsafe { (CStr::from_ptr(buf_ptr).to_str().unwrap_or(""), offset) }
     }
 

@@ -5,6 +5,9 @@ edition     = "2021"
 license     = "MIT OR Apache-2.0"
 description = "OpenHarmony's raw binding for rust"
 
+[lints]
+workspace = true
+
 [dependencies]
 ohos-raw-sys = { workspace = true }
 napi-ohos    = { workspace = true }

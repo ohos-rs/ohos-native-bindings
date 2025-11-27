@@ -52,8 +52,7 @@ impl Pasteboard {
     // }
 
     pub fn has_data(&self) -> bool {
-        let ret = unsafe { OH_Pasteboard_HasData(self.raw.as_ptr()) };
-        ret
+        unsafe { OH_Pasteboard_HasData(self.raw.as_ptr()) }
     }
 
     /// Current pasteboard has some types   
@@ -88,5 +87,11 @@ impl Pasteboard {
 impl Drop for Pasteboard {
     fn drop(&mut self) {
         unsafe { OH_Pasteboard_Destroy(self.raw.as_ptr()) }
+    }
+}
+
+impl Default for Pasteboard {
+    fn default() -> Self {
+        Self::new()
     }
 }
