@@ -130,10 +130,7 @@ pub unsafe extern "C" fn get_text_index_at_cursor(
         .read()
         .expect("Failed to acquire read lock");
     match &guard.get_text_index_at_cursor {
-        Some(f) => {
-            let ret = f();
-            return ret;
-        }
+        Some(f) => f(),
         None => 0,
     }
 }

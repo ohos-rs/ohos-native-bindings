@@ -5,6 +5,8 @@ edition     = "2021"
 license     = "MIT OR Apache-2.0"
 description = "OpenHarmony's input method binding for rust"
 
+[lints]
+workspace = true
 
 [dependencies]
 ohos-input-method-sys = { workspace = true }
