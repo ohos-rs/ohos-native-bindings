@@ -36,18 +36,16 @@ impl std::hash::Hash for IME {
 
 impl IME {
     pub fn new(option: AttachOptions) -> Self {
-        let ime = IME {
+        IME {
             raw: Rc::new(RefCell::new(None)),
             text_editor: Rc::new(RefCell::new(None)),
             option,
-        };
-
-        ime
+        }
     }
 
     pub fn insert_text<'a, T>(&self, callback: T)
     where
-        T: Fn(String) -> () + 'a,
+        T: Fn(String) + 'a,
     {
         let mut guard = OHOS_RS_IME_CALLBACKS
             .write()
@@ -57,7 +55,7 @@ impl IME {
                 Box::new(callback),
             )
         };
-        (*guard).insert_text = Some(cb);
+        guard.insert_text = Some(cb);
     }
 
     pub fn pre_edit<'a, T>(&self, callback: T)
@@ -73,7 +71,7 @@ impl IME {
                 Box<dyn Fn(String, i32, i32) + 'static>,
             >(Box::new(callback))
         };
-        (*guard).set_preview_text = Some(cb);
+        guard.set_preview_text = Some(cb);
     }
 
     pub fn on_status_change<'a, T>(&self, callback: T)
@@ -89,7 +87,7 @@ impl IME {
                 Box<dyn Fn(KeyboardStatus) + 'static>,
             >(Box::new(callback))
         };
-        (*guard).send_keyboard_status = Some(cb);
+        guard.send_keyboard_status = Some(cb);
     }
 
     pub fn on_delete<'a, T>(&self, callback: T)
@@ -104,7 +102,7 @@ impl IME {
                 callback,
             ))
         };
-        (*guard).delete_backward = Some(cb);
+        guard.delete_backward = Some(cb);
     }
 
     pub fn show_keyboard(&self) {
@@ -133,7 +131,7 @@ impl IME {
 
     pub fn on_backspace<'a, T>(&self, callback: T)
     where
-        T: Fn(i32) -> () + 'a,
+        T: Fn(i32) + 'a,
     {
         let mut guard = OHOS_RS_IME_CALLBACKS
             .write()
@@ -143,12 +141,12 @@ impl IME {
                 callback,
             ))
         };
-        (*guard).delete_backward = Some(cb);
+        guard.delete_backward = Some(cb);
     }
 
     pub fn on_enter<'a, T>(&self, callback: T)
     where
-        T: Fn(EnterKey) -> () + 'a,
+        T: Fn(EnterKey) + 'a,
     {
         let mut guard = OHOS_RS_IME_CALLBACKS
             .write()
@@ -158,12 +156,12 @@ impl IME {
                 Box::new(callback),
             )
         };
-        (*guard).send_enter_key = Some(cb);
+        guard.send_enter_key = Some(cb);
     }
 
     pub fn on_preview<'a, T>(&self, callback: T)
     where
-        T: Fn(String, i32, i32) -> () + 'a,
+        T: Fn(String, i32, i32) + 'a,
     {
         let mut guard = OHOS_RS_IME_CALLBACKS
             .write()
@@ -174,12 +172,12 @@ impl IME {
                 Box<dyn Fn(String, i32, i32) + 'static>,
             >(Box::new(callback))
         };
-        (*guard).set_preview_text = Some(cb);
+        guard.set_preview_text = Some(cb);
     }
 
     pub fn on_finish_preview<'a, T>(&self, callback: T)
     where
-        T: Fn() -> () + 'a,
+        T: Fn() + 'a,
     {
         let mut guard = OHOS_RS_IME_CALLBACKS
             .write()
@@ -187,7 +185,7 @@ impl IME {
         let cb = unsafe {
             std::mem::transmute::<Box<dyn Fn() + 'a>, Box<dyn Fn() + 'static>>(Box::new(callback))
         };
-        (*guard).finish_text_preview = Some(cb);
+        guard.finish_text_preview = Some(cb);
     }
 
     pub fn hide_keyboard(&self) {
