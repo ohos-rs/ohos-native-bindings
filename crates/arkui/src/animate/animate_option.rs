@@ -67,13 +67,13 @@ impl Animation {
         };
     }
 
-    pub fn update<T: Fn(*mut c_void) -> () + 'static>(&self, data: *mut c_void, callback: T) {
+    pub fn update<T: Fn(*mut c_void) + 'static>(&self, data: *mut c_void, callback: T) {
         let ctx = self.update_ctx.borrow_mut();
         ctx.data(data);
         ctx.callback(callback);
     }
 
-    pub fn finish<T: Fn(*mut c_void) -> () + 'static>(
+    pub fn finish<T: Fn(*mut c_void) + 'static>(
         &self,
         callback_type: AnimationFinishCallbackType,
         data: *mut c_void,
@@ -90,12 +90,14 @@ impl Animation {
         let option = self.raw.borrow();
         let update_ctx_raw = self.update_ctx.borrow().raw();
         let finish_ctx_raw = self.finish_ctx.borrow().raw();
-        ARK_UI_NATIVE_ANIMATE_API_1.animate_to(
-            ctx.raw(),
-            *option,
-            update_ctx_raw,
-            finish_ctx_raw,
-        )?;
+        ARK_UI_NATIVE_ANIMATE_API_1
+            .with(|api| api.animate_to(ctx.raw(), *option, update_ctx_raw, finish_ctx_raw))?;
         Ok(())
+    }
+}
+
+impl Default for Animation {
+    fn default() -> Self {
+        Self::new()
     }
 }

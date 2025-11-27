@@ -25,7 +25,8 @@ pub struct Gesture {
 impl Gesture {
     /// create long gesture
     pub fn create_long_gesture(finger: i32, repeat: bool, duration: i32) -> ArkUIResult<Self> {
-        let handle = ARK_UI_NATIVE_GESTURE_API_1.create_long_gesture(finger, repeat, duration)?;
+        let handle = ARK_UI_NATIVE_GESTURE_API_1
+            .with(|api| api.create_long_gesture(finger, repeat, duration))?;
         Ok(Self {
             raw: Rc::new(RefCell::new(handle)),
             inner_gesture_data: Rc::new(RefCell::new(InnerGestureData {
@@ -42,7 +43,8 @@ impl Gesture {
         distance: f64,
     ) -> ArkUIResult<Self> {
         let direction: ArkUI_GestureDirectionMask = direction.into();
-        let handle = ARK_UI_NATIVE_GESTURE_API_1.create_pan_gesture(finger, direction, distance)?;
+        let handle = ARK_UI_NATIVE_GESTURE_API_1
+            .with(|api| api.create_pan_gesture(finger, direction, distance))?;
         Ok(Self {
             raw: Rc::new(RefCell::new(handle)),
             inner_gesture_data: Rc::new(RefCell::new(InnerGestureData {
@@ -54,7 +56,8 @@ impl Gesture {
     }
 
     pub fn create_tap_gesture(finger: i32, count: i32) -> ArkUIResult<Self> {
-        let handle = ARK_UI_NATIVE_GESTURE_API_1.create_tap_gesture(count, finger)?;
+        let handle =
+            ARK_UI_NATIVE_GESTURE_API_1.with(|api| api.create_tap_gesture(count, finger))?;
         Ok(Self {
             raw: Rc::new(RefCell::new(handle)),
             inner_gesture_data: Rc::new(RefCell::new(InnerGestureData {
@@ -66,7 +69,8 @@ impl Gesture {
     }
 
     pub fn create_pinch_gesture(finger: i32, distance: f64) -> ArkUIResult<Self> {
-        let handle = ARK_UI_NATIVE_GESTURE_API_1.create_pinch_gesture(finger, distance)?;
+        let handle =
+            ARK_UI_NATIVE_GESTURE_API_1.with(|api| api.create_pinch_gesture(finger, distance))?;
         Ok(Self {
             raw: Rc::new(RefCell::new(handle)),
             inner_gesture_data: Rc::new(RefCell::new(InnerGestureData {
@@ -78,7 +82,8 @@ impl Gesture {
     }
 
     pub fn create_rotation_gesture(finger: i32, angle: f64) -> ArkUIResult<Self> {
-        let handle = ARK_UI_NATIVE_GESTURE_API_1.create_rotation_gesture(finger, angle)?;
+        let handle =
+            ARK_UI_NATIVE_GESTURE_API_1.with(|api| api.create_rotation_gesture(finger, angle))?;
         Ok(Self {
             raw: Rc::new(RefCell::new(handle)),
             inner_gesture_data: Rc::new(RefCell::new(InnerGestureData {
@@ -95,7 +100,8 @@ impl Gesture {
         speed: f64,
     ) -> ArkUIResult<Self> {
         let direction: ArkUI_GestureDirectionMask = direction.into();
-        let handle = ARK_UI_NATIVE_GESTURE_API_1.create_swipe_gesture(finger, direction, speed)?;
+        let handle = ARK_UI_NATIVE_GESTURE_API_1
+            .with(|api| api.create_swipe_gesture(finger, direction, speed))?;
         Ok(Self {
             raw: Rc::new(RefCell::new(handle)),
             inner_gesture_data: Rc::new(RefCell::new(InnerGestureData {
@@ -116,13 +122,11 @@ impl Gesture {
 
         let event_action_type: ArkUI_GestureEventActionType = action_type.into();
 
-        let raw = self.raw.borrow().clone();
+        let raw = *self.raw.borrow();
 
-        ARK_UI_NATIVE_GESTURE_API_1.set_gesture_event_to_target(
-            raw,
-            event_action_type,
-            self.inner_gesture_data.clone(),
-        )?;
+        ARK_UI_NATIVE_GESTURE_API_1.with(|api| {
+            api.set_gesture_event_to_target(raw, event_action_type, self.inner_gesture_data.clone())
+        })?;
         Ok(())
     }
 
@@ -135,14 +139,12 @@ impl Gesture {
         self.inner_gesture_data.borrow_mut().gesture_callback = Some(callback);
         self.inner_gesture_data.borrow_mut().user_data = Some(data);
 
-        let raw = self.raw.borrow().clone();
+        let raw = *self.raw.borrow();
 
         let event_action_type: ArkUI_GestureEventActionType = action_type.into();
-        ARK_UI_NATIVE_GESTURE_API_1.set_gesture_event_to_target(
-            raw,
-            event_action_type,
-            self.inner_gesture_data.clone(),
-        )?;
+        ARK_UI_NATIVE_GESTURE_API_1.with(|api| {
+            api.set_gesture_event_to_target(raw, event_action_type, self.inner_gesture_data.clone())
+        })?;
         Ok(())
     }
 }

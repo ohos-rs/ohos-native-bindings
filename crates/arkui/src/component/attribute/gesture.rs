@@ -13,8 +13,9 @@ pub trait ArkUIGesture: ArkUIAttributeBasic {
     ) -> ArkUIResult<()> {
         let mode: ArkUI_GesturePriority = mode.unwrap_or(GesturePriority::Parallel).into();
         let mask: ArkUI_GestureMask = mask.unwrap_or(GestureMask::NormalGestureMask).into();
-        let raw = gesture.raw.borrow().clone();
-        ARK_UI_NATIVE_GESTURE_API_1.add_gesture(raw, self.raw().raw(), mode, mask)?;
+        let raw = *gesture.raw.borrow();
+        ARK_UI_NATIVE_GESTURE_API_1
+            .with(|api| api.add_gesture(raw, self.raw().raw(), mode, mask))?;
         Ok(())
     }
 }

@@ -10,7 +10,7 @@ pub struct Text(ArkUINode);
 
 impl Text {
     pub fn new() -> ArkUIResult<Self> {
-        let text = ARK_UI_NATIVE_NODE_API_1.create_node(ArkUINodeType::Text)?;
+        let text = ARK_UI_NATIVE_NODE_API_1.with(|api| api.create_node(ArkUINodeType::Text))?;
         Ok(Self(ArkUINode {
             raw: text,
             tag: ArkUINodeType::Text,
@@ -20,11 +20,13 @@ impl Text {
 
     pub fn content<T: Into<String>>(&self, content: T) -> ArkUIResult<()> {
         let content_property = ArkUINodeAttributeItem::String(content.into());
-        ARK_UI_NATIVE_NODE_API_1.set_attribute(
-            &self.0,
-            crate::ArkUINodeAttributeType::TextContent,
-            content_property,
-        )?;
+        ARK_UI_NATIVE_NODE_API_1.with(|api| {
+            api.set_attribute(
+                &self.0,
+                crate::ArkUINodeAttributeType::TextContent,
+                content_property,
+            )
+        })?;
         Ok(())
     }
 
@@ -33,11 +35,13 @@ impl Text {
             ArkUINodeAttributeItem::NumberValue(vec![ArkUINodeAttributeNumber::Int(
                 alignment.into(),
             )]);
-        ARK_UI_NATIVE_NODE_API_1.set_attribute(
-            self.raw(),
-            crate::ArkUINodeAttributeType::TextAlign,
-            alignment_property,
-        )?;
+        ARK_UI_NATIVE_NODE_API_1.with(|api| {
+            api.set_attribute(
+                self.raw(),
+                crate::ArkUINodeAttributeType::TextAlign,
+                alignment_property,
+            )
+        })?;
         Ok(())
     }
 }

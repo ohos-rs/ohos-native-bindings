@@ -1,3 +1,3 @@
-mod event;
+mod inner_event;
 
-pub use event::*;
+pub use inner_event::*;

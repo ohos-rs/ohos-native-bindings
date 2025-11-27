@@ -17,12 +17,12 @@ use crate::{
     InnerDialogDismissData,
 };
 
-/// ArkUI_NativeNodeAPI_1 struct
-/// Only can be used in main thread
-pub const ARK_UI_NATIVE_DIALOG_API_1: LazyCell<ArkUINativeDialogAPI1> = LazyCell::new(|| {
-    let api = ArkUINativeDialogAPI1::new();
-    api
-});
+thread_local! {
+    /// ArkUI_NativeNodeAPI_1 struct
+    /// Only can be used in main thread
+    pub static ARK_UI_NATIVE_DIALOG_API_1: LazyCell<ArkUINativeDialogAPI1> =
+    LazyCell::new(ArkUINativeDialogAPI1::new);
+}
 
 pub struct ArkUINativeDialogAPI1(pub(crate) *mut ArkUI_NativeDialogAPI_1);
 
@@ -243,6 +243,12 @@ impl ArkUINativeDialogAPI1 {
                 ))
             }
         }
+    }
+}
+
+impl Default for ArkUINativeDialogAPI1 {
+    fn default() -> Self {
+        Self::new()
     }
 }
 

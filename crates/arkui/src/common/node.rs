@@ -41,9 +41,9 @@ impl ArkUINode {
     pub fn dispose(&mut self) -> ArkUIResult<()> {
         let handle = &self.event_handle;
         if let Some(_cb) = handle.click.as_ref() {
-            ARK_UI_NATIVE_NODE_API_1.remove_event_receiver(self)?;
+            ARK_UI_NATIVE_NODE_API_1.with(|api| api.remove_event_receiver(self))?;
         }
-        ARK_UI_NATIVE_NODE_API_1.dispose(self)?;
+        ARK_UI_NATIVE_NODE_API_1.with(|api| api.dispose(self))?;
         for mut child in self.children.iter() {
             let child_ref = child.borrow_mut();
             child_ref.take().dispose()?;

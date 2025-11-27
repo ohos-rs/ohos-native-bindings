@@ -13,12 +13,12 @@ use crate::{check_arkui_status, ArkUINodeAttributeType, ArkUINodeType, NodeEvent
 
 use crate::common::{ArkUIError, ArkUIErrorCode, ArkUINode, ArkUINodeAttributeItem, ArkUIResult};
 
-/// ArkUI_NativeNodeAPI_1 struct
-/// Only can be used in main thread
-pub const ARK_UI_NATIVE_NODE_API_1: LazyCell<ArkUINativeNodeAPI1> = LazyCell::new(|| {
-    let api = ArkUINativeNodeAPI1::new();
-    api
-});
+thread_local! {
+    /// ArkUI_NativeNodeAPI_1 struct
+    /// Only can be used in main thread
+    pub static ARK_UI_NATIVE_NODE_API_1: LazyCell<ArkUINativeNodeAPI1> =
+    LazyCell::new(ArkUINativeNodeAPI1::new);
+}
 
 pub struct ArkUINativeNodeAPI1(pub(crate) *mut ArkUI_NativeNodeAPI_1);
 
@@ -237,9 +237,17 @@ impl ArkUINativeNodeAPI1 {
     }
 }
 
+impl Default for ArkUINativeNodeAPI1 {
+    fn default() -> Self {
+        Self::new()
+    }
+}
+
 unsafe extern "C" fn node_event_receiver(event: *mut ArkUI_NodeEvent) {
     let handle = OH_ArkUI_NodeEvent_GetNodeHandle(event);
-    let user_data = ARK_UI_NATIVE_NODE_API_1.get_user_data(handle).unwrap();
+    let user_data = ARK_UI_NATIVE_NODE_API_1
+        .with(|api| api.get_user_data(handle))
+        .unwrap();
 
     #[cfg(debug_assertions)]
     assert!(!user_data.is_null(), "user_data is null");
@@ -250,6 +258,9 @@ unsafe extern "C" fn node_event_receiver(event: *mut ArkUI_NodeEvent) {
 
     let event_type = OH_ArkUI_NodeEvent_GetEventType(event);
     let event_type = NodeEventType::from(event_type);
+
+    // TODO: handle other event types
+    #[allow(clippy::single_match)]
     match event_type {
         NodeEventType::OnClick => {
             if let Some(cb) = node.event_handle.click.as_ref() {

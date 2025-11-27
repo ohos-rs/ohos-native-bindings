@@ -8,7 +8,8 @@ pub struct TextInput(ArkUINode);
 
 impl TextInput {
     pub fn new() -> ArkUIResult<Self> {
-        let list_item = ARK_UI_NATIVE_NODE_API_1.create_node(ArkUINodeType::TextInput)?;
+        let list_item =
+            ARK_UI_NATIVE_NODE_API_1.with(|api| api.create_node(ArkUINodeType::TextInput))?;
         Ok(Self(ArkUINode {
             raw: list_item,
             tag: ArkUINodeType::TextInput,

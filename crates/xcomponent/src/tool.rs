@@ -20,7 +20,7 @@ pub fn resolve_id(component: *mut OH_NativeXComponent) -> Option<String> {
     let id_str: Vec<u8> = origin_id
         .into_iter()
         .take(id_len as usize)
-        .map(|x| x as u8)
+        .map(|x| x as _)
         .collect();
     let id = String::from_utf8_lossy(&id_str).into_owned();
     Some(id)

@@ -2,8 +2,10 @@ use std::{cell::RefCell, os::raw::c_void, rc::Rc};
 
 use ohos_arkui_sys::ArkUI_ContextCallback;
 
+type UpdateCallback = Rc<RefCell<Option<Box<dyn Fn(*mut c_void)>>>>;
+
 struct CallbackContext {
-    pub(crate) callback: Rc<RefCell<Option<Box<dyn Fn(*mut c_void) -> ()>>>>,
+    pub(crate) callback: UpdateCallback,
     pub(crate) data: Rc<RefCell<Option<*mut c_void>>>,
 }
 
@@ -45,6 +47,7 @@ impl AnimationUpdateContext {
     }
 }
 
+/// # Safety
 pub unsafe extern "C" fn update(data: *mut c_void) {
     let context_ptr = Box::from_raw(data as *mut Rc<RefCell<Option<CallbackContext>>>);
     let context = context_ptr.borrow();

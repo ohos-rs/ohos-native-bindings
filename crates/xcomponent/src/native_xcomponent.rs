@@ -99,9 +99,7 @@ impl NativeXComponent {
         {
             let id = self.id().unwrap();
             X_COMPONENT_CALLBACKS_MAP.with_borrow_mut(|f| {
-                f.entry(id)
-                    .or_insert_with(|| Default::default())
-                    .on_surface_changed = Some(Rc::new(cb));
+                f.entry(id).or_default().on_surface_changed = Some(Rc::new(cb));
             });
         }
     }
@@ -119,9 +117,7 @@ impl NativeXComponent {
         {
             let id = self.id().unwrap();
             X_COMPONENT_CALLBACKS_MAP.with_borrow_mut(|f| {
-                f.entry(id)
-                    .or_insert_with(|| Default::default())
-                    .on_surface_created = Some(Rc::new(cb));
+                f.entry(id).or_default().on_surface_created = Some(Rc::new(cb));
             });
         }
     }
@@ -139,9 +135,7 @@ impl NativeXComponent {
         {
             let id = self.id().unwrap();
             X_COMPONENT_CALLBACKS_MAP.with_borrow_mut(|f| {
-                f.entry(id)
-                    .or_insert_with(|| Default::default())
-                    .on_surface_destroyed = Some(Rc::new(cb));
+                f.entry(id).or_default().on_surface_destroyed = Some(Rc::new(cb));
             });
         }
     }
@@ -161,9 +155,7 @@ impl NativeXComponent {
         {
             let id = self.id().unwrap();
             X_COMPONENT_CALLBACKS_MAP.with_borrow_mut(|f| {
-                f.entry(id)
-                    .or_insert_with(|| Default::default())
-                    .dispatch_touch_event = Some(Rc::new(cb));
+                f.entry(id).or_default().dispatch_touch_event = Some(Rc::new(cb));
             });
         }
     }
@@ -194,11 +186,7 @@ impl NativeXComponent {
     pub fn set_frame_rate(&self, min: i32, max: i32, expected: i32) -> Result<()> {
         let mut range = OH_NativeXComponent_ExpectedRateRange { min, max, expected };
         let ret: XComponentResultCode = unsafe {
-            OH_NativeXComponent_SetExpectedFrameRateRange(
-                self.raw(),
-                &mut range as *mut _ as *mut OH_NativeXComponent_ExpectedRateRange,
-            )
-            .into()
+            OH_NativeXComponent_SetExpectedFrameRateRange(self.raw(), &mut range as *mut _).into()
         };
         if ret != XComponentResultCode::Success {
             return Err(Error::from_reason("XComponent set frame rate failed"));
@@ -220,9 +208,7 @@ impl NativeXComponent {
         {
             let id = self.id().unwrap();
             X_COMPONENT_CALLBACKS_MAP.with_borrow_mut(|f| {
-                f.entry(id)
-                    .or_insert_with(|| Default::default())
-                    .on_frame_change = Some(Rc::new(cb));
+                f.entry(id).or_default().on_frame_change = Some(Rc::new(cb));
             });
         }
 
@@ -250,9 +236,7 @@ impl NativeXComponent {
         {
             let id = self.id().unwrap();
             X_COMPONENT_CALLBACKS_MAP.with_borrow_mut(|f| {
-                f.entry(id)
-                    .or_insert_with(|| Default::default())
-                    .on_key_event = Some(Rc::new(cb));
+                f.entry(id).or_default().on_key_event = Some(Rc::new(cb));
             });
         }
 

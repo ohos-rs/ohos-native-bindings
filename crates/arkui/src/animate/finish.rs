@@ -4,8 +4,10 @@ use ohos_arkui_sys::ArkUI_AnimateCompleteCallback;
 
 use crate::AnimationFinishCallbackType;
 
+pub type FinishCallback = Rc<RefCell<Option<Box<dyn Fn(*mut c_void)>>>>;
+
 struct CallbackContext {
-    pub(crate) callback: Rc<RefCell<Option<Box<dyn Fn(*mut c_void) -> ()>>>>,
+    pub(crate) callback: FinishCallback,
     pub(crate) data: Rc<RefCell<Option<*mut c_void>>>,
     pub(crate) callback_type: Rc<RefCell<AnimationFinishCallbackType>>,
 }

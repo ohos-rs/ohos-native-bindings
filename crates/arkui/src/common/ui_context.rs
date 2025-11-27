@@ -1,5 +1,3 @@
-#![cfg(feature = "napi")]
-
 use napi_ohos::bindgen_prelude::{check_status, FromNapiValue, TypeName, ValidateNapiValue};
 use napi_sys_ohos as sys;
 use ohos_arkui_sys::{ArkUI_ContextHandle, OH_ArkUI_GetContextFromNapiValue};

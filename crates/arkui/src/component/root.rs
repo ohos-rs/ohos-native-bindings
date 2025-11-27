@@ -59,11 +59,12 @@ impl RootNode {
             #[cfg(not(feature = "napi"))]
             let raw = self.raw;
 
-            ARK_UI_NATIVE_NODE_API_1
-                .set_user_data(base, Box::into_raw(Box::new(base)) as *mut c_void)?;
+            ARK_UI_NATIVE_NODE_API_1.with(|api| {
+                api.set_user_data(base, Box::into_raw(Box::new(base)) as *mut c_void)
+            })?;
 
             // Node will be mounted, we can think it as a event receiver.
-            ARK_UI_NATIVE_NODE_API_1.add_event_receiver(base)?;
+            ARK_UI_NATIVE_NODE_API_1.with(|api| api.add_event_receiver(base))?;
             unsafe {
                 check_arkui_status!(
                     OH_ArkUI_NodeContent_AddNode(raw, base.raw()),

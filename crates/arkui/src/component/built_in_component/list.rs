@@ -8,7 +8,7 @@ pub struct List(ArkUINode);
 
 impl List {
     pub fn new() -> ArkUIResult<Self> {
-        let list = ARK_UI_NATIVE_NODE_API_1.create_node(ArkUINodeType::List)?;
+        let list = ARK_UI_NATIVE_NODE_API_1.with(|api| api.create_node(ArkUINodeType::List))?;
         Ok(Self(ArkUINode {
             raw: list,
             tag: ArkUINodeType::List,
@@ -19,11 +19,13 @@ impl List {
     pub fn scroll_bar_state(&mut self, mode: ScrollBarDisplayMode) -> ArkUIResult<()> {
         let scroll_bar_display_mode_property =
             ArkUINodeAttributeItem::NumberValue(vec![ArkUINodeAttributeNumber::Int(mode.into())]);
-        ARK_UI_NATIVE_NODE_API_1.set_attribute(
-            &self.0,
-            crate::ArkUINodeAttributeType::ScrollBarDisplayMode,
-            scroll_bar_display_mode_property,
-        )?;
+        ARK_UI_NATIVE_NODE_API_1.with(|api| {
+            api.set_attribute(
+                &self.0,
+                crate::ArkUINodeAttributeType::ScrollBarDisplayMode,
+                scroll_bar_display_mode_property,
+            )
+        })?;
         Ok(())
     }
 }
