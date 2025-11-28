@@ -50,10 +50,6 @@ ohos-vibrator-sys               = { version = "0.1.0", path = "sys/ohos-vibrator
 
 ohos_enum_macro = { version = "0.0.2", path = "crates/enum_macro" }
 
-# deprecated don't use them
-ohos-raw-binding = { version = "0.1.0", path = "crates/raw" }
-ohos-raw-sys     = { version = "0.1.0", path = "sys/ohos-raw-sys" }
-
 napi-sys-ohos    = { version = "1.1.3", features = ["napi8"] }
 napi-ohos        = { version = "1.1.3" }
 napi-derive-ohos = { version = "1.1.3" }

@@ -15,5 +15,5 @@ pub const IMAGE: Lazy<SysConfig> = Lazy::new(|| SysConfig {
     ],
     white_list: vec!["OH_.*"],
     block_list: vec!["OH_ResourceManager.*", "RawFile.*", "napi_.*"],
-    extra: "\n\nuse napi_sys_ohos::*;\nuse ohos_raw_sys::*;",
+    extra: "\n\nuse napi_sys_ohos::*;\nuse ohos_resource_manager_sys::*;",
 });

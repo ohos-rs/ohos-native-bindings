@@ -2,7 +2,8 @@ use once_cell::sync::Lazy;
 
 use crate::SysConfig;
 
-pub const IMAGE_NATIVE: Lazy<SysConfig> = Lazy::new(|| SysConfig {
+pub const IMAGE_NATIVE: Lazy<SysConfig> = Lazy::new(|| {
+    SysConfig {
     name: "ohos-image-native-sys",
     headers: vec![
         "multimedia/image_framework/image/image_common.h",
@@ -25,5 +26,6 @@ pub const IMAGE_NATIVE: Lazy<SysConfig> = Lazy::new(|| SysConfig {
         "NativeWindow.*",
         "Region",
     ],
-    extra: "\n\nuse napi_sys_ohos::*;\nuse ohos_native_buffer_sys::*;\nuse ohos_raw_sys::*;",
+    extra: "\n\nuse napi_sys_ohos::*;\nuse ohos_native_buffer_sys::*;\nuse ohos_resource_manager_sys::*;",
+}
 });
