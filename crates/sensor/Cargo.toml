@@ -5,9 +5,11 @@ edition     = "2021"
 license     = "MIT OR Apache-2.0"
 description = "OpenHarmony's sensor binding for rust"
 
+[lints]
+workspace = true
+
 [features]
 api-13 = []
-
 
 [dependencies]
 ohos-sensor-sys = { workspace = true }

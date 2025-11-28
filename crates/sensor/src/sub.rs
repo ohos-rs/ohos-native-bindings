@@ -63,7 +63,7 @@ impl SensorCallbackEvent {
         }
         Ok(Self {
             timestamp,
-            accuracy: Accuracy::from(accuracy as u32),
+            accuracy: Accuracy::from(accuracy),
             data: human_data,
             sensor_type: SensorType::from(sensor_type),
         })
@@ -80,9 +80,10 @@ pub struct SensorSubscriber {
     interval: i64,
 }
 
-static SENSOR_SUBSCRIBE_CALLBACK: LazyLock<
-    RwLock<HashMap<SensorType, Box<dyn Fn(SensorCallbackEvent) + 'static + Send + Sync>>>,
-> = LazyLock::new(|| RwLock::new(HashMap::new()));
+type SensorSubscribeCallback = Box<dyn Fn(SensorCallbackEvent) + 'static + Send + Sync>;
+
+static SENSOR_SUBSCRIBE_CALLBACK: LazyLock<RwLock<HashMap<SensorType, SensorSubscribeCallback>>> =
+    LazyLock::new(|| RwLock::new(HashMap::new()));
 
 unsafe impl Send for SensorSubscriber {}
 unsafe impl Sync for SensorSubscriber {}
@@ -173,9 +174,12 @@ impl Drop for SensorSubscriber {
 
 unsafe extern "C" fn sensor_callback(event: *mut Sensor_Event) {
     let sensor_event = SensorCallbackEvent::new(event).unwrap();
-    SENSOR_SUBSCRIBE_CALLBACK
+
+    if let Some(callback) = SENSOR_SUBSCRIBE_CALLBACK
         .read()
         .unwrap()
         .get(&sensor_event.sensor_type)
-        .map(|callback| callback(sensor_event));
+    {
+        callback(sensor_event);
+    }
 }

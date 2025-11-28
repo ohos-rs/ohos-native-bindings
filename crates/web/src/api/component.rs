@@ -38,28 +38,28 @@ impl Component {
     pub fn check_member_missing(&self, member: &str) -> Result<(), ArkWebError> {
         match member {
             "onControllerAttached" => {
-                if !ark_web_member_missing!(self.raw.as_ptr(), onControllerAttached) {
+                if unsafe { !ark_web_member_missing!(self.raw.as_ptr(), onControllerAttached) } {
                     Ok(())
                 } else {
                     Err(ArkWebError::ArkWebApiMemberMissing(member.to_string()))
                 }
             }
             "onPageBegin" => {
-                if !ark_web_member_missing!(self.raw.as_ptr(), onPageBegin) {
+                if unsafe { !ark_web_member_missing!(self.raw.as_ptr(), onPageBegin) } {
                     Ok(())
                 } else {
                     Err(ArkWebError::ArkWebApiMemberMissing(member.to_string()))
                 }
             }
             "onPageEnd" => {
-                if !ark_web_member_missing!(self.raw.as_ptr(), onPageEnd) {
+                if unsafe { !ark_web_member_missing!(self.raw.as_ptr(), onPageEnd) } {
                     Ok(())
                 } else {
                     Err(ArkWebError::ArkWebApiMemberMissing(member.to_string()))
                 }
             }
             "onDestroy" => {
-                if !ark_web_member_missing!(self.raw.as_ptr(), onDestroy) {
+                if unsafe { !ark_web_member_missing!(self.raw.as_ptr(), onDestroy) } {
                     Ok(())
                 } else {
                     Err(ArkWebError::ArkWebApiMemberMissing(member.to_string()))
@@ -136,5 +136,11 @@ impl Component {
 
 unsafe impl Send for Component {}
 unsafe impl Sync for Component {}
+
+impl Default for Component {
+    fn default() -> Self {
+        Self::new()
+    }
+}
 
 pub static ARK_WEB_COMPONENT_API: LazyLock<Component> = LazyLock::new(Component::new);

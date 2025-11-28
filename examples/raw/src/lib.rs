@@ -1,3 +1,5 @@
+#![allow(clippy::all)]
+
 use napi_derive_ohos::napi;
 use napi_ohos::{bindgen_prelude::Object, Env, Error, Result};
 

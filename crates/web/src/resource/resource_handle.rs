@@ -25,7 +25,7 @@ impl ResourceHandle {
         unsafe {
             OH_ArkWebResourceHandler_DidReceiveData(
                 self.raw.as_ptr(),
-                buf.as_ptr() as *const u8,
+                buf.as_ptr().cast(),
                 buf.len() as _,
             );
         }
