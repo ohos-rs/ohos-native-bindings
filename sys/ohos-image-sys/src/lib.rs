@@ -6,7 +6,7 @@
 #![allow(clippy::missing_safety_doc)]
 
 use napi_sys_ohos::*;
-use ohos_raw_sys::*;
+use ohos_resource_manager_sys::*;
 
 #[doc = " @brief Defines the image size.\n\n @since 10\n @version 2.0"]
 #[repr(C)]

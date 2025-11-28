@@ -7,7 +7,7 @@
 
 use napi_sys_ohos::*;
 use ohos_native_buffer_sys::*;
-use ohos_raw_sys::*;
+use ohos_resource_manager_sys::*;
 
 #[repr(C)]
 #[derive(Default)]
