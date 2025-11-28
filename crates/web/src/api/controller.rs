@@ -31,66 +31,71 @@ impl Controller {
     pub fn check_member_missing(&self, member: &str) -> Result<(), ArkWebError> {
         match member {
             "runJavaScript" => {
-                if !ark_web_member_missing!(self.raw.as_ptr(), runJavaScript) {
+                if unsafe { !ark_web_member_missing!(self.raw.as_ptr(), runJavaScript) } {
                     Ok(())
                 } else {
                     Err(ArkWebError::ArkWebApiMemberMissing(member.to_string()))
                 }
             }
             "registerJavaScriptProxy" => {
-                if !ark_web_member_missing!(self.raw.as_ptr(), registerJavaScriptProxy) {
+                if unsafe { !ark_web_member_missing!(self.raw.as_ptr(), registerJavaScriptProxy) } {
                     Ok(())
                 } else {
                     Err(ArkWebError::ArkWebApiMemberMissing(member.to_string()))
                 }
             }
             "deleteJavaScriptRegister" => {
-                if !ark_web_member_missing!(self.raw.as_ptr(), deleteJavaScriptRegister) {
+                if unsafe { !ark_web_member_missing!(self.raw.as_ptr(), deleteJavaScriptRegister) }
+                {
                     Ok(())
                 } else {
                     Err(ArkWebError::ArkWebApiMemberMissing(member.to_string()))
                 }
             }
             "refresh" => {
-                if !ark_web_member_missing!(self.raw.as_ptr(), refresh) {
+                if unsafe { !ark_web_member_missing!(self.raw.as_ptr(), refresh) } {
                     Ok(())
                 } else {
                     Err(ArkWebError::ArkWebApiMemberMissing(member.to_string()))
                 }
             }
             "registerAsyncJavaScriptProxy" => {
-                if !ark_web_member_missing!(self.raw.as_ptr(), registerAsyncJavaScriptProxy) {
+                if unsafe {
+                    !ark_web_member_missing!(self.raw.as_ptr(), registerAsyncJavaScriptProxy)
+                } {
                     Ok(())
                 } else {
                     Err(ArkWebError::ArkWebApiMemberMissing(member.to_string()))
                 }
             }
             "createWebMessagePorts" => {
-                if !ark_web_member_missing!(self.raw.as_ptr(), createWebMessagePorts) {
+                if unsafe { !ark_web_member_missing!(self.raw.as_ptr(), createWebMessagePorts) } {
                     Ok(())
                 } else {
                     Err(ArkWebError::ArkWebApiMemberMissing(member.to_string()))
                 }
             }
             "destroyWebMessagePorts" => {
-                if !ark_web_member_missing!(self.raw.as_ptr(), destroyWebMessagePorts) {
+                if unsafe { !ark_web_member_missing!(self.raw.as_ptr(), destroyWebMessagePorts) } {
                     Ok(())
                 } else {
                     Err(ArkWebError::ArkWebApiMemberMissing(member.to_string()))
                 }
             }
             "postWebMessage" => {
-                if !ark_web_member_missing!(self.raw.as_ptr(), postWebMessage) {
+                if unsafe { !ark_web_member_missing!(self.raw.as_ptr(), postWebMessage) } {
                     Ok(())
                 } else {
                     Err(ArkWebError::ArkWebApiMemberMissing(member.to_string()))
                 }
             }
             "getLastJavascriptProxyCallingFrameUrl" => {
-                if !ark_web_member_missing!(
-                    self.raw.as_ptr(),
-                    getLastJavascriptProxyCallingFrameUrl
-                ) {
+                if unsafe {
+                    !ark_web_member_missing!(
+                        self.raw.as_ptr(),
+                        getLastJavascriptProxyCallingFrameUrl
+                    )
+                } {
                     Ok(())
                 } else {
                     Err(ArkWebError::ArkWebApiMemberMissing(member.to_string()))
@@ -141,5 +146,11 @@ impl Controller {
 
 unsafe impl Send for Controller {}
 unsafe impl Sync for Controller {}
+
+impl Default for Controller {
+    fn default() -> Self {
+        Self::new()
+    }
+}
 
 pub static ARK_WEB_CONTROLLER_API: LazyLock<Controller> = LazyLock::new(Controller::new);

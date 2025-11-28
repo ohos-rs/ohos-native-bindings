@@ -1,3 +1,6 @@
+#![allow(clippy::all)]
+#![allow(dead_code)]
+
 use std::{cell::RefCell, rc::Rc};
 
 use napi_derive_ohos::napi;

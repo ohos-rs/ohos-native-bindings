@@ -5,6 +5,9 @@ edition     = "2021"
 license     = "MIT OR Apache-2.0"
 description = "OpenHarmony's web binding for rust"
 
+[lints]
+workspace = true
+
 [dependencies]
 ohos-web-sys    = { workspace = true }
 bitflags        = { workspace = true }

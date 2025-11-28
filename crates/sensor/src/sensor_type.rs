@@ -38,7 +38,7 @@ impl From<Sensor_Type> for SensorType {
             Sensor_Type_SENSOR_TYPE_LINEAR_ACCELERATION => Self::LinearAcceleration,
             Sensor_Type_SENSOR_TYPE_ROTATION_VECTOR => Self::RotationVector,
             #[cfg(feature = "api-13")]
-            Sensor_Type_SENSOR_TYPE_GAME_ROVEMENT => Self::GameRotationVector,
+            Sensor_Type_SENSOR_TYPE_GAME_ROTATION_VECTOR => Self::GameRotationVector,
             Sensor_Type_SENSOR_TYPE_PEDOMETER_DETECTION => Self::PedometerDetection,
             Sensor_Type_SENSOR_TYPE_PEDOMETER => Self::Pedometer,
             Sensor_Type_SENSOR_TYPE_HEART_RATE => Self::HeartRate,

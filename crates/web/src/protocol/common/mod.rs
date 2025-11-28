@@ -15,10 +15,10 @@ impl Drop for CommonString {
     }
 }
 
-impl Into<String> for CommonString {
-    fn into(self) -> String {
+impl From<CommonString> for String {
+    fn from(value: CommonString) -> Self {
         unsafe {
-            let s = std::ffi::CStr::from_ptr(self.raw);
+            let s = std::ffi::CStr::from_ptr(value.raw);
             s.to_string_lossy().to_string()
         }
     }

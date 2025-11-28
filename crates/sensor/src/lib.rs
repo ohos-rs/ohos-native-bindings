@@ -45,41 +45,41 @@ pub fn get_sensor_list() -> Result<Vec<SensorInfo>, SensorError> {
         .map(|info| {
             let name = ptr::null_mut();
 
-            let ret = unsafe { OH_SensorInfo_GetName(info.clone(), name, 128 as _) };
+            let ret = unsafe { OH_SensorInfo_GetName(*info, name, 128 as _) };
             if ret != 0 {
                 return Err(SensorError::InternalError(ret as _));
             }
             let name = unsafe { CStr::from_ptr(name).to_str().unwrap_or("") };
 
             let vendor_name = ptr::null_mut();
-            let ret = unsafe { OH_SensorInfo_GetVendorName(info.clone(), vendor_name, 128 as _) };
+            let ret = unsafe { OH_SensorInfo_GetVendorName(*info, vendor_name, 128 as _) };
             if ret != 0 {
                 return Err(SensorError::InternalError(ret as _));
             }
             let vendor_name = unsafe { CStr::from_ptr(vendor_name).to_str().unwrap_or("") };
 
             let mut resolution = 0.0;
-            let ret = unsafe { OH_SensorInfo_GetResolution(info.clone(), &mut resolution as _) };
+            let ret = unsafe { OH_SensorInfo_GetResolution(*info, &mut resolution as _) };
             if ret != 0 {
                 return Err(SensorError::InternalError(ret as _));
             }
             let mut min_sampling_interval = 0;
             let ret = unsafe {
-                OH_SensorInfo_GetMinSamplingInterval(info.clone(), &mut min_sampling_interval as _)
+                OH_SensorInfo_GetMinSamplingInterval(*info, &mut min_sampling_interval as _)
             };
             if ret != 0 {
                 return Err(SensorError::InternalError(ret as _));
             }
             let mut max_sampling_interval = 0;
             let ret = unsafe {
-                OH_SensorInfo_GetMaxSamplingInterval(info.clone(), &mut max_sampling_interval as _)
+                OH_SensorInfo_GetMaxSamplingInterval(*info, &mut max_sampling_interval as _)
             };
             if ret != 0 {
                 return Err(SensorError::InternalError(ret as _));
             }
 
             let mut sensor_type = 0;
-            let ret = unsafe { OH_SensorInfo_GetType(info.clone(), &mut sensor_type as _) };
+            let ret = unsafe { OH_SensorInfo_GetType(*info, &mut sensor_type as _) };
             if ret != 0 {
                 return Err(SensorError::InternalError(ret as _));
             }

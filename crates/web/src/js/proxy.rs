@@ -23,7 +23,7 @@ impl WebProxy {
     ///
     /// If you want register new proxy without onControllerAttach, you can call this method to refresh current page
     pub fn refresh(&self) -> Result<(), ArkWebError> {
-        let _ = ARK_WEB_CONTROLLER_API.refresh(self.web_tag.clone())?;
+        ARK_WEB_CONTROLLER_API.refresh(self.web_tag.clone())?;
 
         Ok(())
     }
@@ -106,12 +106,10 @@ impl WebProxyBuilder {
         let method_list = self
             .js_methods
             .iter()
-            .map(|method| {
-                return ArkWeb_ProxyMethod {
-                    methodName: method.js_name.as_ptr().cast(),
-                    callback: Some(ark_web_proxy_method),
-                    userData: method.user_data,
-                };
+            .map(|method| ArkWeb_ProxyMethod {
+                methodName: method.js_name.as_ptr().cast(),
+                callback: Some(ark_web_proxy_method),
+                userData: method.user_data,
             })
             .collect::<Vec<_>>();
 
@@ -121,7 +119,7 @@ impl WebProxyBuilder {
             size: method_list.len(),
         };
 
-        let _ = ARK_WEB_CONTROLLER_API
+        ARK_WEB_CONTROLLER_API
             .register_javascript_proxy(self.web_tag.clone(), &obj as *const ArkWeb_ProxyObject)?;
 
         Ok(WebProxy {

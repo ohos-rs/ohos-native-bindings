@@ -66,7 +66,7 @@ impl CustomProtocolHandler {
     ///     true
     /// });
     /// ```
-    pub fn on_request_start<F>(&self, mut handler: F)
+    pub fn on_request_start<F>(&self, handler: F)
     where
         F: FnMut(ResourceRequest, ResourceHandle) -> bool,
     {
@@ -76,7 +76,7 @@ impl CustomProtocolHandler {
             std::mem::transmute::<
                 Box<dyn FnMut(ResourceRequest, ResourceHandle) -> bool>,
                 Box<dyn FnMut(ResourceRequest, ResourceHandle) -> bool + 'static>,
-            >(Box::new(move |request, handle| handler(request, handle)))
+            >(Box::new(handler))
         };
 
         match user_data_raw.is_null() {
@@ -109,7 +109,7 @@ impl CustomProtocolHandler {
     }
 
     /// Set the callback for the request stop event.
-    pub fn on_request_stop<F>(&self, mut handler: F)
+    pub fn on_request_stop<F>(&self, handler: F)
     where
         F: FnMut(ResourceRequest),
     {
@@ -119,7 +119,7 @@ impl CustomProtocolHandler {
             std::mem::transmute::<
                 Box<dyn FnMut(ResourceRequest)>,
                 Box<dyn FnMut(ResourceRequest) + 'static>,
-            >(Box::new(move |handle| handler(handle)))
+            >(Box::new(handler))
         };
 
         match user_data_raw.is_null() {
@@ -157,6 +157,12 @@ impl Drop for CustomProtocolHandler {
         unsafe {
             OH_ArkWeb_DestroySchemeHandler(self.raw.as_ptr());
         }
+    }
+}
+
+impl Default for CustomProtocolHandler {
+    fn default() -> Self {
+        Self::new()
     }
 }
 

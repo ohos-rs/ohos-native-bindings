@@ -1,3 +1,6 @@
+#![allow(clippy::all)]
+#![allow(dead_code)]
+
 use std::{
     num::NonZeroU32,
     ptr::NonNull,

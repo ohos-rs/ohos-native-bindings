@@ -7,7 +7,7 @@ use ohos_ime_binding::IME;
 static IME_INSTANCE: LazyLock<Mutex<Option<IME>>> = LazyLock::new(|| Mutex::new(None));
 
 #[napi]
-pub fn add_ime() -> () {
+pub fn add_ime() {
     let ime = IME::new(Default::default());
 
     ime.insert_text(|s| hilog_info!(format!("insert_text: {}", s)));
@@ -17,7 +17,7 @@ pub fn add_ime() -> () {
 }
 
 #[napi]
-pub fn show() -> () {
+pub fn show() {
     let mut guard = IME_INSTANCE.lock().unwrap();
     if let Some(ime) = guard.as_mut() {
         ime.show_keyboard();

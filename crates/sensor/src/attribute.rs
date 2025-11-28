@@ -60,3 +60,9 @@ impl Drop for SensorAttribute {
         unsafe { OH_Sensor_DestroySubscriptionAttribute(self.attribute.as_ptr()) };
     }
 }
+
+impl Default for SensorAttribute {
+    fn default() -> Self {
+        Self::new()
+    }
+}
