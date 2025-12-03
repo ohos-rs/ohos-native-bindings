@@ -14,7 +14,6 @@ pub mod log {
 
 #[cfg(feature = "redirect")]
 use std::{
-    ffi::CStr,
     fs::File,
     io::{BufRead as _, BufReader, Result},
     os::fd::{FromRawFd as _, RawFd},
@@ -287,7 +286,7 @@ pub fn forward_stdio_to_hilog() -> std::thread::JoinHandle<Result<()>> {
     std::thread::Builder::new()
         .name("stdio-to-hilog".to_string())
         .spawn(move || -> Result<()> {
-            let tag = CStr::from_bytes_with_nul(b"RustStdoutStderr\0").unwrap();
+            let tag = c"RustStdoutStderr";
             let mut reader = BufReader::new(file);
             let mut buffer = String::new();
             loop {
