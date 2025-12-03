@@ -62,7 +62,7 @@ impl NativeWindow {
     pub fn request_buffer(
         &self,
         region: Option<Region>,
-    ) -> Result<NativeWindowBuffer, NativeWindowError> {
+    ) -> Result<NativeWindowBuffer<'_>, NativeWindowError> {
         self.region.replace(region);
         let mut window_buf = std::ptr::null_mut();
         let mut release_fd = -1;

@@ -18,17 +18,12 @@ pub struct OhosPixelMapInfo {
 }
 
 #[repr(C)]
-#[derive(PartialEq)]
+#[derive(PartialEq, Debug, Default)]
 pub enum PixelFormat {
+    #[default]
     OhosPixelMapFormatNone = 0,
     OhosPixelMapFormatRgba8888 = 3,
     OhosPixelMapFormatRgb565 = 2,
-}
-
-impl Default for PixelFormat {
-    fn default() -> Self {
-        Self::OhosPixelMapFormatNone
-    }
 }
 
 #[repr(C)]
