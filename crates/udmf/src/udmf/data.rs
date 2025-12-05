@@ -3,11 +3,7 @@ use std::{
     ptr::NonNull,
 };
 
-use ohos_udmf_sys::{
-    OH_UdmfData, OH_UdmfData_AddRecord, OH_UdmfData_Create, OH_UdmfData_GetPrimaryHtml,
-    OH_UdmfData_GetPrimaryPlainText, OH_UdmfData_GetRecord, OH_UdmfData_GetRecordCount,
-    OH_UdmfData_GetRecords, OH_UdmfData_IsLocal, OH_Udmf_GetUnifiedData, OH_Udmf_SetUnifiedData,
-};
+use ohos_udmf_sys::*;
 
 use crate::{UdmfError, UdmfIntention, UdsHtml, UdsPlainText};
 
@@ -56,10 +52,12 @@ impl UdmfData {
         Ok(())
     }
 
+    #[cfg(feature = "api-13")]
     pub fn count(&self) -> i32 {
         unsafe { OH_UdmfData_GetRecordCount(self.raw.as_ptr()) }
     }
 
+    #[cfg(feature = "api-13")]
     pub fn record(&self, index: u32) -> Result<UdmfRecord, UdmfError> {
         let ret = unsafe { OH_UdmfData_GetRecord(self.raw.as_ptr(), index) };
         if ret.is_null() {
@@ -90,10 +88,12 @@ impl UdmfData {
         }
     }
 
+    #[cfg(feature = "api-13")]
     pub fn is_local(&self) -> bool {
         unsafe { OH_UdmfData_IsLocal(self.raw.as_ptr()) }
     }
 
+    #[cfg(feature = "api-13")]
     pub fn primary_plain_text(&self) -> Result<UdsPlainText, UdmfError> {
         let text = UdsPlainText::new();
         let ret = unsafe { OH_UdmfData_GetPrimaryPlainText(self.raw.as_ptr(), text.raw.as_ptr()) };
@@ -103,6 +103,7 @@ impl UdmfData {
         Ok(text)
     }
 
+    #[cfg(feature = "api-13")]
     pub fn primary_html(&self) -> Result<UdsHtml, UdmfError> {
         let html = UdsHtml::new();
         let ret = unsafe { OH_UdmfData_GetPrimaryHtml(self.raw.as_ptr(), html.raw.as_ptr()) };

@@ -12,3 +12,14 @@ workspace = true
 
 [dependencies]
 ohos-init-sys = { workspace = true }
+
+[features]
+default = []
+api-13  = ["ohos-init-sys/api-13"]
+api-14  = ["api-13", "ohos-init-sys/api-14"]
+api-15  = ["api-14", "ohos-init-sys/api-15"]
+api-16  = ["api-15", "ohos-init-sys/api-16"]
+api-17  = ["api-16", "ohos-init-sys/api-17"]
+api-18  = ["api-17", "ohos-init-sys/api-18"]
+api-19  = ["api-18", "ohos-init-sys/api-19"]
+api-20  = ["api-19", "ohos-init-sys/api-20"]

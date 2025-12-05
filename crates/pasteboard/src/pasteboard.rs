@@ -1,10 +1,6 @@
 use std::{ffi::CString, ptr::NonNull};
 
-use ohos_pasteboard_sys::{
-    OH_Pasteboard, OH_Pasteboard_Create, OH_Pasteboard_Destroy, OH_Pasteboard_GetData,
-    OH_Pasteboard_HasData, OH_Pasteboard_HasType, OH_Pasteboard_IsRemoteData,
-    OH_Pasteboard_SetData,
-};
+use ohos_pasteboard_sys::*;
 use ohos_udmf_binding::{UdmfData, UdsValue};
 
 use crate::error::PasteboardError;

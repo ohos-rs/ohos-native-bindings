@@ -29,6 +29,7 @@ pub enum Operation {
     GetAppFrameworkType,
     SetHDRWhitePointBrightness,
     SetSDRWhitePointBrightness,
+    #[cfg(feature = "api-13")]
     SetDesiredPresentTimestamp,
 }
 

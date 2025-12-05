@@ -354,8 +354,8 @@ fn generate_code(config: &SysConfig) -> anyhow::Result<()> {
     fs::write(&output_file, processed_content)?;
 
     // Update Cargo.toml with feature definitions
-    let cargo_toml_path = basic_folder.join("Cargo.toml");
-    update_cargo_toml_features(&cargo_toml_path, &api_versions)?;
+    // let cargo_toml_path = basic_folder.join("Cargo.toml");
+    // update_cargo_toml_features(&cargo_toml_path, &api_versions)?;
 
     Ok(())
 }

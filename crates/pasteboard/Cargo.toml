@@ -9,7 +9,15 @@ description = "OpenHarmony's pasteboard binding for rust"
 workspace = true
 
 [features]
-api-13 = []
+default = []
+api-13  = ["ohos-pasteboard-sys/api-13", "ohos-udmf-binding/api-13"]
+api-14  = ["api-13", "ohos-pasteboard-sys/api-14", "ohos-udmf-binding/api-14"]
+api-15  = ["api-14", "ohos-pasteboard-sys/api-15", "ohos-udmf-binding/api-15"]
+api-16  = ["api-15", "ohos-pasteboard-sys/api-16", "ohos-udmf-binding/api-16"]
+api-17  = ["api-16", "ohos-pasteboard-sys/api-17", "ohos-udmf-binding/api-17"]
+api-18  = ["api-15", "ohos-pasteboard-sys/api-18", "ohos-udmf-binding/api-18"]
+api-19  = ["api-18", "ohos-pasteboard-sys/api-19", "ohos-udmf-binding/api-19"]
+api-20  = ["api-19", "ohos-pasteboard-sys/api-20", "ohos-udmf-binding/api-20"]
 
 [dependencies]
 ohos-pasteboard-sys = { workspace = true }

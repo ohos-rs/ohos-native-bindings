@@ -8,5 +8,16 @@ description = "OpenHarmony's ability-access-control binding for rust"
 [lints]
 workspace = true
 
+[features]
+default = []
+api-13  = ["ohos-ability-access-control-sys/api-13"]
+api-14  = ["api-13", "ohos-ability-access-control-sys/api-14"]
+api-15  = ["api-14", "ohos-ability-access-control-sys/api-15"]
+api-16  = ["api-15", "ohos-ability-access-control-sys/api-16"]
+api-17  = ["api-16", "ohos-ability-access-control-sys/api-17"]
+api-18  = ["api-17", "ohos-ability-access-control-sys/api-18"]
+api-19  = ["api-18", "ohos-ability-access-control-sys/api-19"]
+api-20  = ["api-19", "ohos-ability-access-control-sys/api-20"]
+
 [dependencies]
 ohos-ability-access-control-sys = { workspace = true }

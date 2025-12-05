@@ -24,3 +24,12 @@ xcomponent = ["dep:ohos-xcomponent-binding", "dep:ohos-xcomponent-sys"]
 
 # enable multi mode for xcomponent
 xcomponent_multi_mode = ["ohos-xcomponent-binding/multi_mode"]
+
+api-13 = ["ohos-arkui-sys/api-13", "ohos-xcomponent-binding/api-13"]
+api-14 = ["api-13", "ohos-arkui-sys/api-14", "ohos-xcomponent-binding/api-14"]
+api-15 = ["api-14", "ohos-arkui-sys/api-15", "ohos-xcomponent-binding/api-15"]
+api-16 = ["api-15", "ohos-arkui-sys/api-16", "ohos-xcomponent-binding/api-16"]
+api-17 = ["api-16", "ohos-arkui-sys/api-17", "ohos-xcomponent-binding/api-17"]
+api-18 = ["api-17", "ohos-arkui-sys/api-18", "ohos-xcomponent-binding/api-18"]
+api-19 = ["api-18", "ohos-arkui-sys/api-19", "ohos-xcomponent-binding/api-19"]
+api-20 = ["api-19", "ohos-arkui-sys/api-20", "ohos-xcomponent-binding/api-20"]

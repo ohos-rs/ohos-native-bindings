@@ -7,8 +7,14 @@ description = "OpenHarmony's bundle binding for rust"
 
 [features]
 default = []
-api-13  = []
-api-14  = []
+api-13  = ["ohos-bundle-sys/api-13"]
+api-14  = ["api-13", "ohos-bundle-sys/api-14"]
+api-15  = ["api-14", "ohos-bundle-sys/api-15"]
+api-16  = ["api-15", "ohos-bundle-sys/api-16"]
+api-17  = ["api-16", "ohos-bundle-sys/api-17"]
+api-18  = ["api-17", "ohos-bundle-sys/api-18"]
+api-19  = ["api-18", "ohos-bundle-sys/api-19"]
+api-20  = ["api-19", "ohos-bundle-sys/api-20"]
 
 [dependencies]
 ohos-bundle-sys = { workspace = true }
