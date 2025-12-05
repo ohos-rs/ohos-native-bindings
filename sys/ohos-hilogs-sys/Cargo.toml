@@ -6,3 +6,7 @@ license     = "MIT OR Apache-2.0"
 description = "OpenHarmony's hilog binding for rust"
 
 [dependencies]
+[features]
+default = []
+api-15  = []
+api-18  = ["api-15"]

@@ -21,7 +21,38 @@ pub const ArkWeb_ErrorCode_ARKWEB_INVALID_URL: ArkWeb_ErrorCode = 17100103;
 pub const ArkWeb_ErrorCode_ARKWEB_INVALID_COOKIE_VALUE: ArkWeb_ErrorCode = 17100104;
 pub const ArkWeb_ErrorCode_ARKWEB_LIBRARY_OPEN_FAILURE: ArkWeb_ErrorCode = 17100105;
 pub const ArkWeb_ErrorCode_ARKWEB_LIBRARY_SYMBOL_NOT_FOUND: ArkWeb_ErrorCode = 17100106;
+#[cfg(feature = "api-20")]
+#[doc = " @brief The CookieManager not initialized.\n\n @since 20"]
+pub const ArkWeb_ErrorCode_ARKWEB_COOKIE_MANAGER_NOT_INITIALIZED: ArkWeb_ErrorCode = 17100107;
+#[cfg(feature = "api-20")]
+#[doc = " @brief The CookieManager initialize failed.\n\n @since 20"]
+pub const ArkWeb_ErrorCode_ARKWEB_COOKIE_MANAGER_INITIALIZE_FAILED: ArkWeb_ErrorCode = 17100108;
+#[cfg(feature = "api-20")]
+#[doc = " @brief Save cookie failed.\n\n @since 20"]
+pub const ArkWeb_ErrorCode_ARKWEB_COOKIE_SAVE_FAILED: ArkWeb_ErrorCode = 17100109;
 pub type ArkWeb_ErrorCode = ::std::os::raw::c_uint;
+#[doc = " @error The operation is successful."]
+pub const ArkWeb_BlanklessErrorCode_ARKWEB_BLANKLESS_SUCCESS: ArkWeb_BlanklessErrorCode = 0;
+#[doc = " @error Unidentified error."]
+pub const ArkWeb_BlanklessErrorCode_ARKWEB_BLANKLESS_ERR_UNKNOWN: ArkWeb_BlanklessErrorCode = -1;
+#[doc = " @error Invalid parameter."]
+pub const ArkWeb_BlanklessErrorCode_ARKWEB_BLANKLESS_ERR_INVALID_ARGS: ArkWeb_BlanklessErrorCode =
+    -2;
+#[doc = " @error The web controller is not bound to a component."]
+pub const ArkWeb_BlanklessErrorCode_ARKWEB_BLANKLESS_ERR_CONTROLLER_NOT_INITED:
+    ArkWeb_BlanklessErrorCode = -3;
+#[doc = " @error The key value is not matched. The OH_NativeArkWeb_SetBlanklessLoadingWithKey\n and OH_NativeArkWeb_GetBlanklessInfoWithKey APIs must be used in pair and use the same key value."]
+pub const ArkWeb_BlanklessErrorCode_ARKWEB_BLANKLESS_ERR_KEY_NOT_MATCH: ArkWeb_BlanklessErrorCode =
+    -4;
+#[doc = " @error If the similarity is low, the system determines that the change is too large.\n As a result, the OH_NativeArkWeb_SetBlanklessLoadingWithKey API fails to enable frame interpolation."]
+pub const ArkWeb_BlanklessErrorCode_ARKWEB_BLANKLESS_ERR_SIGNIFICANT_CHANGE:
+    ArkWeb_BlanklessErrorCode = -5;
+#[doc = " @error The device does not support this feature."]
+pub const ArkWeb_BlanklessErrorCode_ARKWEB_BLANKLESS_ERR_DEVICE_NOT_SUPPORT:
+    ArkWeb_BlanklessErrorCode = 801;
+#[cfg(feature = "api-20")]
+#[doc = " @brief Defines an enum for the error codes of the white screen optimization solution.\n\n @since 20"]
+pub type ArkWeb_BlanklessErrorCode = ::std::os::raw::c_int;
 #[doc = " @brief Defines the javascript bridge data type.\n\n @since 12"]
 #[repr(C)]
 #[derive(Debug, Copy, Clone)]
@@ -39,6 +70,15 @@ pub const ArkWeb_WebMessageType_ARKWEB_STRING: ArkWeb_WebMessageType = 1;
 pub const ArkWeb_WebMessageType_ARKWEB_BUFFER: ArkWeb_WebMessageType = 2;
 #[doc = " @brief Defines the data type carried in a ArkWeb_WebMessage.\n\n @since 12"]
 pub type ArkWeb_WebMessageType = ::std::os::raw::c_uint;
+#[doc = " Represent error data"]
+pub const ArkWeb_JavaScriptValueType_ARKWEB_JAVASCRIPT_NONE: ArkWeb_JavaScriptValueType = 0;
+#[doc = " The data carried in the ArkWeb_JavaScriptValue is string."]
+pub const ArkWeb_JavaScriptValueType_ARKWEB_JAVASCRIPT_STRING: ArkWeb_JavaScriptValueType = 1;
+#[doc = " The data carried in the ArkWeb_JavaScriptValue is bool."]
+pub const ArkWeb_JavaScriptValueType_ARKWEB_JAVASCRIPT_BOOL: ArkWeb_JavaScriptValueType = 2;
+#[cfg(feature = "api-18")]
+#[doc = " @brief Defines the data type carried in a ArkWeb_JavaScriptValue.\n\n @since 18"]
+pub type ArkWeb_JavaScriptValueType = ::std::os::raw::c_uint;
 #[repr(C)]
 #[derive(Debug, Copy, Clone)]
 pub struct ArkWeb_WebMessage {
@@ -46,6 +86,14 @@ pub struct ArkWeb_WebMessage {
 }
 #[doc = " @brief Defines the ArkWeb_WebMessage.\n\n @since 12"]
 pub type ArkWeb_WebMessagePtr = *mut ArkWeb_WebMessage;
+#[repr(C)]
+#[derive(Debug, Copy, Clone)]
+pub struct ArkWeb_JavaScriptValue {
+    _unused: [u8; 0],
+}
+#[cfg(feature = "api-18")]
+#[doc = " @brief Defines the ArkWeb_JavaScriptValuePtr.\n\n @since 18"]
+pub type ArkWeb_JavaScriptValuePtr = *mut ArkWeb_JavaScriptValue;
 #[doc = " @brief Defines the javascript callback of the native ArkWeb.\n\n @since 12"]
 pub type ArkWeb_OnJavaScriptCallback = ::std::option::Option<
     unsafe extern "C" fn(
@@ -63,11 +111,31 @@ pub type ArkWeb_OnJavaScriptProxyCallback = ::std::option::Option<
         userData: *mut ::std::os::raw::c_void,
     ),
 >;
+#[cfg(feature = "api-18")]
+#[doc = " @brief Defines the JavaScript proxy callback of the native ArkWeb.\n\n @param webTag The name of the web component.\n @param dataArray The JavaScript bridge data array from HTML.\n @param arraySize The number of elements in the array.\n @param userData The data set by user.\n\n @since 18"]
+pub type ArkWeb_OnJavaScriptProxyCallbackWithResult = ::std::option::Option<
+    unsafe extern "C" fn(
+        webTag: *const ::std::os::raw::c_char,
+        dataArray: *const ArkWeb_JavaScriptBridgeData,
+        arraySize: usize,
+        userData: *mut ::std::os::raw::c_void,
+    ) -> ArkWeb_JavaScriptValuePtr,
+>;
 #[doc = " @brief Defines the component callback of the native ArkWeb.\n\n @since 12"]
 pub type ArkWeb_OnComponentCallback = ::std::option::Option<
     unsafe extern "C" fn(
         webTag: *const ::std::os::raw::c_char,
         userData: *mut ::std::os::raw::c_void,
+    ),
+>;
+#[cfg(feature = "api-18")]
+#[doc = " @brief Defines the scroll callback of the native ArkWeb.\n\n @param webTag The name of the web component.\n @param userData The data set by user.\n @param x X-axis scrolling offset.\n @param y Y-axis scrolling offset.\n\n @since 18"]
+pub type ArkWeb_OnScrollCallback = ::std::option::Option<
+    unsafe extern "C" fn(
+        webTag: *const ::std::os::raw::c_char,
+        userData: *mut ::std::os::raw::c_void,
+        x: f64,
+        y: f64,
     ),
 >;
 #[repr(C)]
@@ -110,6 +178,18 @@ pub struct ArkWeb_ProxyMethod {
     #[doc = " The user data to set."]
     pub userData: *mut ::std::os::raw::c_void,
 }
+#[cfg(feature = "api-18")]
+#[doc = " @brief Defines the JavaScript proxy method with a return value.\n\n @since 18"]
+#[repr(C)]
+#[derive(Debug, Copy, Clone)]
+pub struct ArkWeb_ProxyMethodWithResult {
+    #[doc = " The method of the application side JavaScript object participating in the registration."]
+    pub methodName: *const ::std::os::raw::c_char,
+    #[doc = " The callback function with a return value registered by developer is called back when HTML side uses."]
+    pub callback: ArkWeb_OnJavaScriptProxyCallbackWithResult,
+    #[doc = " The user data to set."]
+    pub userData: *mut ::std::os::raw::c_void,
+}
 #[doc = " @brief Defines the javascript proxy registered object.\n\n @since 12"]
 #[repr(C)]
 #[derive(Debug, Copy, Clone)]
@@ -118,6 +198,18 @@ pub struct ArkWeb_ProxyObject {
     pub objName: *const ::std::os::raw::c_char,
     #[doc = " The javascript proxy registered method object list"]
     pub methodList: *const ArkWeb_ProxyMethod,
+    #[doc = " The size of the methodList."]
+    pub size: usize,
+}
+#[cfg(feature = "api-18")]
+#[doc = " @brief Defines the JavaScript proxy registered object with methodList that has a return value.\n\n @since 18"]
+#[repr(C)]
+#[derive(Debug, Copy, Clone)]
+pub struct ArkWeb_ProxyObjectWithResult {
+    #[doc = " The name of the registered object."]
+    pub objName: *const ::std::os::raw::c_char,
+    #[doc = " The JavaScript proxy registered method object list with a callback function that has a return value"]
+    pub methodList: *const ArkWeb_ProxyMethodWithResult,
     #[doc = " The size of the methodList."]
     pub size: usize,
 }
@@ -178,9 +270,28 @@ pub struct ArkWeb_ControllerAPI {
             url: *const ::std::os::raw::c_char,
         ) -> ArkWeb_ErrorCode,
     >,
+    #[cfg(feature = "api-14")]
     #[doc = " @brief Get the url of the last frame that calls the JavaScriptProxy.\n        This should be call on the thread which JavaScriptProxy called.\n\n @return The url of the last frame that calls the JavaScriptProxy.\n @since 14"]
     pub getLastJavascriptProxyCallingFrameUrl:
         ::std::option::Option<unsafe extern "C" fn() -> *const ::std::os::raw::c_char>,
+    #[cfg(feature = "api-18")]
+    #[doc = " @brief Register the JavaScript object and method list, the method is callback function that has a return value.\n\n @param webTag The name of the web component.\n @param proxyObject The JavaScript object to register, the object has callback functions with return value.\n @param permission The JSON string, which defaults to null, is used to configure the permission control for\n JSBridge, allowing for the definition of URL whitelists at the object and method levels.\n\n @since 18"]
+    pub registerJavaScriptProxyEx: ::std::option::Option<
+        unsafe extern "C" fn(
+            webTag: *const ::std::os::raw::c_char,
+            proxyObject: *const ArkWeb_ProxyObjectWithResult,
+            permission: *const ::std::os::raw::c_char,
+        ),
+    >,
+    #[cfg(feature = "api-18")]
+    #[doc = " @brief Register the JavaScript object and async method list.\n\n @param webTag The name of the web component.\n @param proxyObject The JavaScript object to register.\n @param permission The JSON string, which defaults to null, is used to configure the permission control\n for JSBridge, allowing for the definition of URL whitelists at the object and method levels.\n\n @since 18"]
+    pub registerAsyncJavaScriptProxyEx: ::std::option::Option<
+        unsafe extern "C" fn(
+            webTag: *const ::std::os::raw::c_char,
+            proxyObject: *const ArkWeb_ProxyObject,
+            permission: *const ::std::os::raw::c_char,
+        ),
+    >,
 }
 #[doc = " @brief Defines the component API for native ArkWeb.\n\n @since 12"]
 #[repr(C)]
@@ -318,6 +429,22 @@ pub struct ArkWeb_CookieManagerAPI {
     #[doc = " @brief Clear all session cookies."]
     pub clearSessionCookiesSync: ::std::option::Option<unsafe extern "C" fn()>,
 }
+#[cfg(feature = "api-18")]
+#[doc = " @brief Defines the native JavaScriptValue API for ArkWeb.\n Before invoking an API, you are advised to use ARKWEB_MEMBER_MISSING to check\n whether the function structure has a corresponding function pointer to avoid crash\n caused by mismatch between the SDK and the device ROM.\n\n @since 18"]
+#[repr(C)]
+#[derive(Debug, Copy, Clone)]
+pub struct ArkWeb_JavaScriptValueAPI {
+    #[doc = " The ArkWeb_JavaScriptValueAPI struct size."]
+    pub size: usize,
+    #[doc = " @brief Create the JavaScript value responding to HTML.\n\n @param type The type of ArkWeb_JavaScriptValue.\n @param data The data buffer of ArkWeb_JavaScriptValue.\n @param dataLength The length of data buffer.\n @return ArkWeb_JavaScriptValuePtr created by ArkWeb, the memory of ArkWeb_JavaScriptValue\n is managed by ArkWeb itself."]
+    pub createJavaScriptValue: ::std::option::Option<
+        unsafe extern "C" fn(
+            type_: ArkWeb_JavaScriptValueType,
+            data: *mut ::std::os::raw::c_void,
+            dataLength: usize,
+        ) -> ArkWeb_JavaScriptValuePtr,
+    >,
+}
 #[doc = " @brief Defines the native API type of any size.\n\n @since 12"]
 #[repr(C)]
 #[derive(Debug, Copy, Clone)]
@@ -336,10 +463,24 @@ pub const ArkWeb_NativeAPIVariantKind_ARKWEB_NATIVE_WEB_MESSAGE_PORT: ArkWeb_Nat
 pub const ArkWeb_NativeAPIVariantKind_ARKWEB_NATIVE_WEB_MESSAGE: ArkWeb_NativeAPIVariantKind = 3;
 #[doc = " API type related to ArkWeb cookie manager."]
 pub const ArkWeb_NativeAPIVariantKind_ARKWEB_NATIVE_COOKIE_MANAGER: ArkWeb_NativeAPIVariantKind = 4;
+#[cfg(feature = "api-18")]
+#[doc = " @brief API type related to ArkWeb JavaScript value.\n\n @since 18"]
+pub const ArkWeb_NativeAPIVariantKind_ARKWEB_NATIVE_JAVASCRIPT_VALUE: ArkWeb_NativeAPIVariantKind =
+    5;
 #[doc = " @brief Defines the native API set type.\n\n @since 12"]
 pub type ArkWeb_NativeAPIVariantKind = ::std::os::raw::c_uint;
 extern "C" {
+    #[doc = " @brief Obtains the native API set of a specified type.\n @param type Indicates the type of the native API set provided by ArkWeb.\n @return Return the pointer to the native API abstract object that carries the size.\n         If the type is incorrect, a null pointer is returned.\n\n @syscap SystemCapability.Web.Webview.Core\n @since 12"]
     pub fn OH_ArkWeb_GetNativeAPI(type_: ArkWeb_NativeAPIVariantKind) -> *mut ArkWeb_AnyNativeAPI;
+}
+extern "C" {
+    #[cfg(feature = "api-18")]
+    #[doc = " @brief Register a scrolling event callback.\n @param webTag The name of the web component.\n @param callback The ArkWeb scrolling callback.\n @param userData The data set by user.\n @return Returns whether the registration was successful, false indicates failure.\n\n @syscap SystemCapability.Web.Webview.Core\n @since 18"]
+    pub fn OH_ArkWeb_RegisterScrollCallback(
+        webTag: *const ::std::os::raw::c_char,
+        callback: ArkWeb_OnScrollCallback,
+        userData: *mut ::std::os::raw::c_void,
+    ) -> bool;
 }
 #[doc = " @error Normal."]
 pub const ArkWeb_NetError_ARKWEB_NET_OK: ArkWeb_NetError = 0;
@@ -964,6 +1105,15 @@ pub type ArkWeb_HttpBodyStreamReadCallback = ::std::option::Option<
         bytesRead: ::std::os::raw::c_int,
     ),
 >;
+#[cfg(feature = "api-20")]
+#[doc = " @brief Callback when the read operation done.\n @param httpBodyStream The ArkWeb_HttpBodyStream.\n @param buffer The buffer to receive data.\n @param bytesRead Callback after OH_ArkWebHttpBodyStream_AsyncRead. bytesRead greater than 0 means that\n                  the buffer is filled with data of bytesRead size. Caller can read from the buffer, and if\n                  OH_ArkWebHttpBodyStream_IsEOF is false, caller can continue to read the remaining data.\n\n @syscap SystemCapability.Web.Webview.Core\n @since 20"]
+pub type ArkWeb_HttpBodyStreamAsyncReadCallback = ::std::option::Option<
+    unsafe extern "C" fn(
+        httpBodyStream: *const ArkWeb_HttpBodyStream,
+        buffer: *mut u8,
+        bytesRead: ::std::os::raw::c_int,
+    ),
+>;
 #[doc = " @brief  Callback when the init operation done.\n @param httpBodyStream The ArkWeb_HttpBodyStream.\n @param result {@link ARKWEB_NET_OK} on success otherwise refer to arkweb_net_error_list.h.\n\n @syscap SystemCapability.Web.Webview.Core\n @since 12"]
 pub type ArkWeb_HttpBodyStreamInitCallback = ::std::option::Option<
     unsafe extern "C" fn(httpBodyStream: *const ArkWeb_HttpBodyStream, result: ArkWeb_NetError),
@@ -1061,6 +1211,14 @@ extern "C" {
     ) -> i32;
 }
 extern "C" {
+    #[cfg(feature = "api-20")]
+    #[doc = " @brief Set the callback for OH_ArkWebHttpBodyStream_AsyncRead.\n\n The result of OH_ArkWebHttpBodyStream_AsyncRead will be notified to caller through the\\n\n readCallback. The callback will runs in the ArkWeb worker thread.\\n\n\n @param httpBodyStream The ArkWeb_HttpBodyStream.\n @param readCallback The callback of read function.\n @return {@link ARKWEB_NET_OK} 0 - Success.\n {@link ARKWEB_INVALID_PARAM} 17100101 - Invalid param.\n\n @syscap SystemCapability.Web.Webview.Core\n @since 20"]
+    pub fn OH_ArkWebHttpBodyStream_SetAsyncReadCallback(
+        httpBodyStream: *mut ArkWeb_HttpBodyStream,
+        readCallback: ArkWeb_HttpBodyStreamAsyncReadCallback,
+    ) -> i32;
+}
+extern "C" {
     #[doc = " @brief Init the http body stream.\n\n This function must be called before calling any other functions.\\n\n\n @param httpBodyStream The ArkWeb_HttpBodyStream.\n @param initCallback The callback of init.\n @return {@link ARKWEB_NET_OK} 0 - Success.\n         {@link ARKWEB_INVALID_PARAM} 17100101 - Invalid param.\n\n @syscap SystemCapability.Web.Webview.Core\n @since 12"]
     pub fn OH_ArkWebHttpBodyStream_Init(
         httpBodyStream: *mut ArkWeb_HttpBodyStream,
@@ -1070,6 +1228,15 @@ extern "C" {
 extern "C" {
     #[doc = " @brief Read the http body to the buffer.\n\n The buffer must be larger than the bufLen. We will be reading data from a worker thread to the buffer,\\n\n so should not use the buffer in other threads before the callback to avoid concurrency issues.\\n\n\n @param httpBodyStream The ArkWeb_HttpBodyStream.\n @param buffer The buffer to receive data.\n @param bufLen The size of bytes to read.\n\n @syscap SystemCapability.Web.Webview.Core\n @since 12"]
     pub fn OH_ArkWebHttpBodyStream_Read(
+        httpBodyStream: *const ArkWeb_HttpBodyStream,
+        buffer: *mut u8,
+        bufLen: ::std::os::raw::c_int,
+    );
+}
+extern "C" {
+    #[cfg(feature = "api-20")]
+    #[doc = " @brief Read the http body to the buffer.\n\n The buffer must be larger than the bufLen. We will read data from a worker thread to the buffer,\\n\n so should not use the buffer in other threads before the callback to avoid concurrency issues.\\n\n\n @param httpBodyStream The ArkWeb_HttpBodyStream.\n @param buffer The buffer to receive data.\n @param bufLen The size of bytes to read.\n\n @syscap SystemCapability.Web.Webview.Core\n @since 20"]
+    pub fn OH_ArkWebHttpBodyStream_AsyncRead(
         httpBodyStream: *const ArkWeb_HttpBodyStream,
         buffer: *mut u8,
         bufLen: ::std::os::raw::c_int,
@@ -1334,6 +1501,15 @@ extern "C" {
     ) -> i32;
 }
 extern "C" {
+    #[cfg(feature = "api-20")]
+    #[doc = " @brief Notify the ArkWeb that this request should be failed.\n @param resourceHandler The ArkWeb_ResourceHandler for the request.\n @param errorCode The error code for this request. Refer to arkweb_net_error_list.h.\n @param completeIfNoResponse If completeIfNoResponse is true, when DidFailWithErrorV2 is called,\n        if DidReceiveResponse has not been called,\n        a response is automatically constructed and the current request is terminated.\n @return {@link ARKWEB_NET_OK} 0 - Success.\n         {@link ARKWEB_INVALID_PARAM} 17100101 - Invalid param, the resourceHandler is nullptr.\n @since 20"]
+    pub fn OH_ArkWebResourceHandler_DidFailWithErrorV2(
+        resourceHandler: *const ArkWeb_ResourceHandler,
+        errorCode: ArkWeb_NetError,
+        completeIfNoResponse: bool,
+    ) -> i32;
+}
+extern "C" {
     #[doc = " @brief Release the string acquired by native function.\n @param string The string to be released.\n\n @syscap SystemCapability.Web.Webview.Core\n @since 12"]
     pub fn OH_ArkWeb_ReleaseString(string: *mut ::std::os::raw::c_char);
 }
@@ -1357,7 +1533,36 @@ pub type NativeArkWeb_OnValidCallback =
 #[doc = " @brief Defines the destroy callback of the web component.\n\n @since 11"]
 pub type NativeArkWeb_OnDestroyCallback =
     ::std::option::Option<unsafe extern "C" fn(arg1: *const ::std::os::raw::c_char)>;
+#[cfg(feature = "api-20")]
+#[doc = " @brief Defines the callback of save cookie.\n @param errorCode {@link ARKWEB_SUCCESS} Save cookie success.\n                  {@link ARKWEB_COOKIE_MANAGER_INITIALIZE_FAILED} Cookie manager initialize failed.\n                  {@link ARKWEB_COOKIE_SAVE_FAILED} Save cookie failed.\n @since 20"]
+pub type OH_ArkWeb_OnCookieSaveCallback =
+    ::std::option::Option<unsafe extern "C" fn(errorCode: ArkWeb_ErrorCode)>;
+#[cfg(feature = "api-20")]
+#[doc = " @brief Defines the blankless information.\n\n @since 20"]
+#[repr(C)]
+#[derive(Debug, Copy, Clone)]
+pub struct ArkWeb_BlanklessInfo {
+    #[doc = " The errCode of the blankless."]
+    pub errCode: ArkWeb_BlanklessErrorCode,
+    #[doc = " The estimated similarity of the history snapshots."]
+    pub similarity: f64,
+    #[doc = " The loadingTime of the history loading."]
+    pub loadingTime: i32,
+}
+#[cfg(feature = "api-20")]
+#[doc = " the system default ArkWeb engine.\n @since 20"]
+pub const ArkWebEngineVersion_SYSTEM_DEFAULT: ArkWebEngineVersion = 0;
+#[cfg(feature = "api-20")]
+#[doc = " ArkWeb M114 version.\n @since 20"]
+pub const ArkWebEngineVersion_ARKWEB_M114: ArkWebEngineVersion = 1;
+#[cfg(feature = "api-20")]
+#[doc = " ArkWeb M132 version.\n @since 20"]
+pub const ArkWebEngineVersion_ARKWEB_M132: ArkWebEngineVersion = 2;
+#[cfg(feature = "api-20")]
+#[doc = " @brief ArkWeb Engine Version.\n\n <strong>ArkWeb Dual Web Engine Versioning Convention</strong>:\n <p>See [ArkWeb Dual Web Engine Versioning Convention] for switching between Legacy and Evergreen Web Engine.\n\n @since 20"]
+pub type ArkWebEngineVersion = ::std::os::raw::c_uint;
 extern "C" {
+    #[doc = " @brief Loads a piece of code and execute JS code in the context of the currently displayed page.\n\n @param webTag The name of the web component.\n @param jsCode a piece of javascript code.\n @param callback Callbacks execute JavaScript script results.\n\n @syscap SystemCapability.Web.Webview.Core\n @since 11"]
     pub fn OH_NativeArkWeb_RunJavaScript(
         webTag: *const ::std::os::raw::c_char,
         jsCode: *const ::std::os::raw::c_char,
@@ -1365,6 +1570,7 @@ extern "C" {
     );
 }
 extern "C" {
+    #[doc = " @brief Registers the JavaScript object and method list.\n\n @param webTag The name of the web component.\n @param objName The name of the registered object.\n @param methodList The method of the application side JavaScript object participating in the registration.\n @param callback The callback function registered by developer is called back when HTML side uses.\n @param size The size of the callback.\n @param needRefresh if web need refresh.\n\n @syscap SystemCapability.Web.Webview.Core\n @since 11"]
     pub fn OH_NativeArkWeb_RegisterJavaScriptProxy(
         webTag: *const ::std::os::raw::c_char,
         objName: *const ::std::os::raw::c_char,
@@ -1375,34 +1581,40 @@ extern "C" {
     );
 }
 extern "C" {
+    #[doc = " @brief Deletes the registered object which th given name.\n\n @param webTag The name of the web component.\n @param objName The name of the registered object.\n\n @syscap SystemCapability.Web.Webview.Core\n @since 11"]
     pub fn OH_NativeArkWeb_UnregisterJavaScriptProxy(
         webTag: *const ::std::os::raw::c_char,
         objName: *const ::std::os::raw::c_char,
     );
 }
 extern "C" {
+    #[doc = " @brief Registers the valid callback.\n\n @param webTag The name of the web component.\n @param callback The callback in which we can register object.\n\n @syscap SystemCapability.Web.Webview.Core\n @since 11"]
     pub fn OH_NativeArkWeb_SetJavaScriptProxyValidCallback(
         webTag: *const ::std::os::raw::c_char,
         callback: NativeArkWeb_OnValidCallback,
     );
 }
 extern "C" {
+    #[doc = " @brief Get the valid callback.\n\n @param webTag The name of the web component.\n @return Return the valid callback function registered. If the valid callback function\n         specified by the parameter webTag is not set, a null pointer is returned.\n\n @syscap SystemCapability.Web.Webview.Core\n @since 11"]
     pub fn OH_NativeArkWeb_GetJavaScriptProxyValidCallback(
         webTag: *const ::std::os::raw::c_char,
     ) -> NativeArkWeb_OnValidCallback;
 }
 extern "C" {
+    #[doc = " @brief Registers the destroy callback.\n\n @param webTag The name of the web component.\n @param callback the destroy callback.\n\n @syscap SystemCapability.Web.Webview.Core\n @since 11"]
     pub fn OH_NativeArkWeb_SetDestroyCallback(
         webTag: *const ::std::os::raw::c_char,
         callback: NativeArkWeb_OnDestroyCallback,
     );
 }
 extern "C" {
+    #[doc = " @brief Get the destroy callback.\n\n @param webTag The name of the web component.\n @return Return the destroy callback function registered. If the destroy callback\n         function specified by the parameter webTag is not set,\n         a null pointer is returned.\n\n @syscap SystemCapability.Web.Webview.Core\n @since 11"]
     pub fn OH_NativeArkWeb_GetDestroyCallback(
         webTag: *const ::std::os::raw::c_char,
     ) -> NativeArkWeb_OnDestroyCallback;
 }
 extern "C" {
+    #[cfg(feature = "api-15")]
     #[doc = " @brief Loads the data or URL.\n        This function should be called on main thread.\n\n @param webTag The name of the web component.\n @param data A string encoded according to \"Base64\" or \"URL\", should not be NULL.\n @param mimeType Media type. For example: \"text/html\", should not be NULL.\n @param encoding Encoding type. For example: \"UTF-8\", should not be NULL.\n @param baseUrl A specified URL path (\"http\"/\"https\"/\"data\" protocol),\n                which is assigned to window.origin by the Web component.\n @param historyUrl History URL. When it is not empty, it can be managed by\n                   history records to realize the back and forth function.\n @return LoadData result code.\n         {@link ARKWEB_SUCCESS} load data success.\n         {@link ARKWEB_INVALID_PARAM} Mandatory parameters are left unspecified or\n                                      Incorrect parameter types or Parameter verification failed.\n         {@link ARKWEB_INIT_ERROR} Initialization error, can't get a valid Web for the webTag.\n         {@link ARKWEB_LIBRARY_OPEN_FAILURE} Failed to open the library.\n         {@link ARKWEB_LIBRARY_SYMBOL_NOT_FOUND} The required symbol was not found in the library.\n\n @syscap SystemCapability.Web.Webview.Core\n @since 15"]
     pub fn OH_NativeArkWeb_LoadData(
         webTag: *const ::std::os::raw::c_char,
@@ -1412,4 +1624,63 @@ extern "C" {
         baseUrl: *const ::std::os::raw::c_char,
         historyUrl: *const ::std::os::raw::c_char,
     ) -> ArkWeb_ErrorCode;
+}
+extern "C" {
+    #[cfg(feature = "api-20")]
+    #[doc = " @brief Registers a JavaScript object with callback methods, which may return values. This object will be injected\n        into all frames of the current page, including all iframes, and will be accessible using the specified\n        name in ArkWeb_ProxyObjectWithResult. The object will only be available in JavaScript after the next\n        load or reload.\n        These methods will be executed in the ArkWeb worker thread.\n\n @param webTag Name of the web component.\n @param proxyObject JavaScript object to register, the object has callback functions with return value.\n @param permission Optional JSON string(default is null) for JSBridge permission control,\n                   allowing URL whitelist configuration at object-level and method-level.\n @syscap SystemCapability.Web.Webview.Core\n @since 20"]
+    pub fn OH_NativeArkWeb_RegisterAsyncThreadJavaScriptProxy(
+        webTag: *const ::std::os::raw::c_char,
+        proxyObject: *const ArkWeb_ProxyObjectWithResult,
+        permission: *const ::std::os::raw::c_char,
+    );
+}
+extern "C" {
+    #[cfg(feature = "api-20")]
+    #[doc = " @brief Sets whether to enable blankless page loading. This API must be used in pair with the\n OH_NativeArkWeb_GetBlanklessInfoWithKey API.\n\n @param webTag webTag used when the webviewController is created.\n @param key Key value that uniquely identifies the current page. It must be the same as the key value of the\n OH_NativeArkWeb_GetBlanklessInfoWithKey API.\n @param isStarted Whether to enable frame interpolation. The value true indicates to enable frame\n interpolation, and the value false indicates the opposite.\n The default value is false.\n The value can be true or false.\n Action for setting an invalid value: N/A.\n @return Whether the API is successfully called. For details, see ArkWeb_BlanklessErrorCode.\n @since 20"]
+    pub fn OH_NativeArkWeb_SetBlanklessLoadingWithKey(
+        webTag: *const ::std::os::raw::c_char,
+        key: *const ::std::os::raw::c_char,
+        isStarted: bool,
+    ) -> ArkWeb_BlanklessErrorCode;
+}
+extern "C" {
+    #[cfg(feature = "api-20")]
+    #[doc = " @brief Clears the blankless loading cache of the page with a specified key value.\n\n @param key The list of key values of pages cached in the blankless loading solution. These key values are\n specified in OH_NativeArkWeb_GetBlanklessInfoWithKey.\n The default value is the list of key values of all pages cached in the blankless loading solution.\n The key length cannot exceed 2048 characters, and the number of keys must be less than or equal to 100. The\n URL is the same as that input to the Web component during page loading.\n When the key length exceeds 2048 characters, the key does not take effect. When the number of keys exceeds\n 100, the first 100 keys are used. If this parameter is set to NULL, the default value is used.\n @param size Size of the key list.\n @since 20"]
+    pub fn OH_NativeArkWeb_ClearBlanklessLoadingCache(
+        key: *mut *const ::std::os::raw::c_char,
+        size: u32,
+    );
+}
+extern "C" {
+    #[cfg(feature = "api-20")]
+    #[doc = " @brief Obtains the prediction information about the blankless loading solution and enables the generation\n of the transition frame for the current loading. The application determines whether to enable the blankless\n loading solution based on the information.\n This API applies to pages in an applet or web application whose URLs are not fixed or cannot be uniquely\n identified.\n\n @param webTag webTag used when the webviewController is created.\n Default value: N/A.\n The value cannot be empty.\n When an invalid value is set, the error code is returned, and the API does not take effect.\n @param key Key value that uniquely identifies the current page.\n @return Return value of the ArkWeb_BlanklessInfo type.\n @since 20"]
+    pub fn OH_NativeArkWeb_GetBlanklessInfoWithKey(
+        webTag: *const ::std::os::raw::c_char,
+        key: *const ::std::os::raw::c_char,
+    ) -> ArkWeb_BlanklessInfo;
+}
+extern "C" {
+    #[cfg(feature = "api-20")]
+    #[doc = " @brief Sets the cache capacity of the blankless loading solution and returns the value that takes effect.\n\n @param capacity Cache capacity, in MB. The maximum value is 100 MB.\n The default value is 30 MB.\n The value ranges from 0 to 100. If this parameter is set to 0, no cache capacity is available and the\n functionality is disabled globally.\n When the value is set to a number smaller than 0, the value 0 takes effect. When the value is set to a\n number greater than 100, the value 100 takes effect.\n @return The effective value that ranges from 0 MB to 100 MB.\n @since 20"]
+    pub fn OH_NativeArkWeb_SetBlanklessLoadingCacheCapacity(capacity: u32) -> u32;
+}
+extern "C" {
+    #[cfg(feature = "api-20")]
+    #[doc = " @brief Ensure that all cookies currently accessible via the CookieManager API have been persisted to disk.\n        If you want to use this interface in a non-UI thread, you need to initialize the CookieManager interface\n        using OH_ArkWeb_GetNativeAPI first.\n @return Save cookie result code.\n         {@link ARKWEB_SUCCESS} Save cookie success.\n         {@link ARKWEB_COOKIE_SAVE_FAILED} Save cookie failed.\n         {@link ARKWEB_COOKIE_MANAGER_INITIALIZE_FAILED} The CookieManager initialize failed.\n         {@link ARKWEB_COOKIE_MANAGER_NOT_INITIALIZED} It is not allowed to call on a non-UI thread without\n                                                       initializing the CookieManager interface. please\n   \t\t\t\t\t\t\t\t\t\t\t\t\t initialize the CookieManager interface using\n  \t\t\t\t\t\t\t\t\t\t\t\t\t OH_ArkWeb_GetNativeAPI first.\n @since 20"]
+    pub fn OH_ArkWebCookieManager_SaveCookieSync() -> ArkWeb_ErrorCode;
+}
+extern "C" {
+    #[cfg(feature = "api-20")]
+    #[doc = " @brief Ensure that all cookies currently accessible via the CookieManager API have been persisted to disk.\n        Without initializing the CookieManager interface, this call will automatically be executed on the UI thread.\n @param callback Callback execute when save cookie done.\n @since 20"]
+    pub fn OH_ArkWebCookieManager_SaveCookieAsync(callback: OH_ArkWeb_OnCookieSaveCallback);
+}
+extern "C" {
+    #[cfg(feature = "api-20")]
+    #[doc = " Set active ArkWeb engine version.\n If the system does not support the specified version, it will not take effect.\n\n This is a global static API that must be called before initializeWebEngine, and it will have no effect if any\n Web components are loaded.\n\n <strong>Legacy Web Engine Compatibility Note</strong>:\n <p>When using legacy ArkWeb Engine, some ArkWeb newly created API will not take effect,<br>\n see [Compatible with Legacy Web Engine in release note] for compatibility guidelines.\n </p>\n\n @param { ArkWebEngineVersion } webEngineVersion - the ArkWebEngineVersion\n @since 20"]
+    pub fn OH_NativeArkWeb_SetActiveWebEngineVersion(webEngineVersion: ArkWebEngineVersion);
+}
+extern "C" {
+    #[cfg(feature = "api-20")]
+    #[doc = " Get currently active ArkWeb engine version.\n @return { ArkWebEngineVersion } Active ArkWeb Engine version as defined by ArkWebEngineVersion\n @since 20"]
+    pub fn OH_NativeArkWeb_GetActiveWebEngineVersion() -> ArkWebEngineVersion;
 }
