@@ -6,7 +6,7 @@ use super::SysConfig;
 pub const HILOG: Lazy<SysConfig> = Lazy::new(|| SysConfig {
     name: "ohos-hilogs-sys",
     headers: vec!["hilog/log.h"],
-    white_list: vec![],
+    white_list: vec!["Log.*", "OH.*", "LOG.*"],
     block_list: vec![],
     extra: "",
 });

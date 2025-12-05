@@ -3146,6 +3146,29 @@ pub const OH_NATIVEXCOMPONENT_RESULT_FAILED: _bindgen_ty_8 = -1;
 pub const OH_NATIVEXCOMPONENT_RESULT_BAD_PARAMETER: _bindgen_ty_8 = -2;
 #[doc = " @brief Enumerates the API access states.\n\n @since 8\n @version 1.0"]
 pub type _bindgen_ty_8 = ::std::os::raw::c_int;
+#[doc = " AI analyzer execution is finished."]
+#[cfg(feature = "api-18")]
+pub const ArkUI_XComponent_ImageAnalyzerState_ARKUI_XCOMPONENT_AI_ANALYSIS_FINISHED:
+    ArkUI_XComponent_ImageAnalyzerState = 0;
+#[doc = " AI analyzer is disabled."]
+#[cfg(feature = "api-18")]
+pub const ArkUI_XComponent_ImageAnalyzerState_ARKUI_XCOMPONENT_AI_ANALYSIS_DISABLED:
+    ArkUI_XComponent_ImageAnalyzerState = 110000;
+#[doc = " AI analyzer is unsupported."]
+#[cfg(feature = "api-18")]
+pub const ArkUI_XComponent_ImageAnalyzerState_ARKUI_XCOMPONENT_AI_ANALYSIS_UNSUPPORTED:
+    ArkUI_XComponent_ImageAnalyzerState = 110001;
+#[doc = " AI analyzer is ongoing."]
+#[cfg(feature = "api-18")]
+pub const ArkUI_XComponent_ImageAnalyzerState_ARKUI_XCOMPONENT_AI_ANALYSIS_ONGOING:
+    ArkUI_XComponent_ImageAnalyzerState = 110002;
+#[doc = " AI analyzer is stopped."]
+#[cfg(feature = "api-18")]
+pub const ArkUI_XComponent_ImageAnalyzerState_ARKUI_XCOMPONENT_AI_ANALYSIS_STOPPED:
+    ArkUI_XComponent_ImageAnalyzerState = 110003;
+#[cfg(feature = "api-18")]
+#[doc = " @brief Status code for AI analyzer.\n\n @since 18"]
+pub type ArkUI_XComponent_ImageAnalyzerState = ::std::os::raw::c_uint;
 #[doc = " Trigger a touch event when a finger is pressed."]
 pub const OH_NativeXComponent_TouchEventType_OH_NATIVEXCOMPONENT_DOWN:
     OH_NativeXComponent_TouchEventType = 0;

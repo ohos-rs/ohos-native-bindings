@@ -9,6 +9,6 @@ pub const XCOMPONENT: Lazy<SysConfig> = Lazy::new(|| SysConfig {
         "ace/xcomponent/native_xcomponent_key_event.h",
     ],
     white_list: vec!["OH_.*"],
-    block_list: vec!["ArkUI.*"],
+    block_list: vec!["ArkUI_[A-WY-Z].*"],
     extra: "\n\nuse ohos_arkui_sys::*;\nuse ohos_accessibility_sys::*;",
 });
