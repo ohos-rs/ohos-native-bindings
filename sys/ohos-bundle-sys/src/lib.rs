@@ -5,6 +5,18 @@
 #![allow(non_camel_case_types)]
 #![allow(clippy::missing_safety_doc)]
 
+pub const __bool_true_false_are_defined: u32 = 1;
+pub const true_: u32 = 1;
+pub const false_: u32 = 0;
+pub type wchar_t = ::std::os::raw::c_uint;
+#[repr(C)]
+#[repr(align(16))]
+#[derive(Debug, Copy, Clone)]
+pub struct max_align_t {
+    pub __clang_max_align_nonce1: ::std::os::raw::c_longlong,
+    pub __bindgen_padding_0: u64,
+    pub __clang_max_align_nonce2: u128,
+}
 #[doc = " @brief Indicates information of application\n\n @syscap SystemCapability.BundleManager.BundleFramework.Core\n @since 9"]
 #[repr(C)]
 #[derive(Debug, Copy, Clone)]
@@ -14,6 +26,7 @@ pub struct OH_NativeBundle_ApplicationInfo {
     #[doc = " Indicates the fingerprint of application\n @syscap SystemCapability.BundleManager.BundleFramework.Core\n @since 9"]
     pub fingerprint: *mut ::std::os::raw::c_char,
 }
+#[cfg(feature = "api-13")]
 #[doc = " @brief Indicates information of elementName.\n\n @since 13"]
 #[repr(C)]
 #[derive(Debug, Copy, Clone)]
@@ -24,6 +37,30 @@ pub struct OH_NativeBundle_ElementName {
     pub moduleName: *mut ::std::os::raw::c_char,
     #[doc = " Indicates the name of ability."]
     pub abilityName: *mut ::std::os::raw::c_char,
+}
+#[cfg(feature = "api-20")]
+#[doc = " @brief Indicates information of metadata.\n\n @since 20"]
+#[repr(C)]
+#[derive(Debug, Copy, Clone)]
+pub struct OH_NativeBundle_Metadata {
+    #[doc = " @brief Indicates the metadata name."]
+    pub name: *mut ::std::os::raw::c_char,
+    #[doc = " @brief Indicates the metadata value."]
+    pub value: *mut ::std::os::raw::c_char,
+    #[doc = " @brief Indicates the metadata resource."]
+    pub resource: *mut ::std::os::raw::c_char,
+}
+#[cfg(feature = "api-20")]
+#[doc = " @brief Indicates information of module metadata.\n\n @since 20"]
+#[repr(C)]
+#[derive(Debug, Copy, Clone)]
+pub struct OH_NativeBundle_ModuleMetadata {
+    #[doc = " @brief Indicates the moduleName of module."]
+    pub moduleName: *mut ::std::os::raw::c_char,
+    #[doc = " @brief Indicates the metadata array of module."]
+    pub metadataArray: *mut OH_NativeBundle_Metadata,
+    #[doc = " @brief Indicates the metadata array size of module."]
+    pub metadataArraySize: usize,
 }
 extern "C" {
     #[doc = " @brief Obtains the application info based on the The current bundle.\n\n @return Returns the newly created OH_NativeBundle_ApplicationInfo object, if the returned object is NULL,\n it indicates creation failure. The possible cause of failure could be that the application address space is full,\n leading to space allocation failure.\n @since 9\n @version 1.0"]
@@ -38,10 +75,24 @@ extern "C" {
     pub fn OH_NativeBundle_GetAppIdentifier() -> *mut ::std::os::raw::c_char;
 }
 extern "C" {
+    #[cfg(feature = "api-13")]
     #[doc = " @brief Obtains information of the entry mainElement based on the current application, including bundle name,\n module name, and ability name.\n After utilizing this interface, to prevent memory leaks,\n it is necessary to manually release the pointer returned by the interface.\n\n @return Returns the newly created OH_NativeBundle_ElementName object, if the returned object is NULL,\n it indicates creation failure. The possible cause of failure could be that the application address space is full,\n leading to space allocation failure.\n @since 13"]
     pub fn OH_NativeBundle_GetMainElementName() -> OH_NativeBundle_ElementName;
 }
 extern "C" {
+    #[cfg(feature = "api-14")]
     #[doc = " @brief Obtains the compatible device type of the current application.\n After utilizing this interface, to prevent memory leaks,\n it is necessary to manually release the pointer returned by the interface.\n\n @return Returns the newly created string that indicates the compatible device type,\n if the returned object is NULL, it indicates creation failure.\n The possible cause of failure could be that the application address space is full,\n leading to space allocation failure.\n @since 14\n @version 1.0"]
     pub fn OH_NativeBundle_GetCompatibleDeviceType() -> *mut ::std::os::raw::c_char;
+}
+extern "C" {
+    #[cfg(feature = "api-20")]
+    #[doc = " @brief Obtains the application debug mode.\n\n @param isDebugMode Indicates whether the application is in debug mode.\n @return Returns true if call successful, false otherwise.\n @since 20"]
+    pub fn OH_NativeBundle_IsDebugMode(isDebugMode: *mut bool) -> bool;
+}
+extern "C" {
+    #[cfg(feature = "api-20")]
+    #[doc = " @brief Obtains the module metadata array of the current application.\n After utilizing this interface, to prevent memory leaks,\n it is necessary to manually release the pointer returned by the interface.\n\n @param size Indicates the module metadata array size.\n @return Returns the newly created module metadata array, if the returned object is NULL,\n it indicates creation failure. The possible cause of failure could be that the application address space is full,\n leading to space allocation failure.\n @since 20"]
+    pub fn OH_NativeBundle_GetModuleMetadata(
+        size: *mut usize,
+    ) -> *mut OH_NativeBundle_ModuleMetadata;
 }

@@ -112,6 +112,7 @@ pub const OH_NativeBuffer_MetadataType_OH_VIDEO_HDR_HLG: OH_NativeBuffer_Metadat
 pub const OH_NativeBuffer_MetadataType_OH_VIDEO_HDR_HDR10: OH_NativeBuffer_MetadataType = 1;
 #[doc = " HDR VIVID"]
 pub const OH_NativeBuffer_MetadataType_OH_VIDEO_HDR_VIVID: OH_NativeBuffer_MetadataType = 2;
+#[cfg(feature = "api-13")]
 #[doc = " NONE Metadata\n @since 13"]
 pub const OH_NativeBuffer_MetadataType_OH_VIDEO_NONE: OH_NativeBuffer_MetadataType = -1;
 #[doc = " @brief Indicates the HDR metadata type of a native buffer.\n\n @syscap SystemCapability.Graphic.Graphic2D.NativeBuffer\n @since 12\n @version 1.0"]
@@ -168,6 +169,7 @@ pub const OH_NativeBuffer_MetadataKey_OH_HDR_STATIC_METADATA: OH_NativeBuffer_Me
 pub const OH_NativeBuffer_MetadataKey_OH_HDR_DYNAMIC_METADATA: OH_NativeBuffer_MetadataKey = 2;
 #[doc = " @brief Indicates the HDR metadata key of a native buffer.\n\n @syscap SystemCapability.Graphic.Graphic2D.NativeBuffer\n @since 12\n @version 1.0"]
 pub type OH_NativeBuffer_MetadataKey = ::std::os::raw::c_uint;
+#[doc = " @brief Buffer handle used to transfer and obtain information about the buffer.\n @since 8"]
 #[repr(C)]
 #[derive(Debug)]
 pub struct BufferHandle {
@@ -240,7 +242,7 @@ pub const OHScalingMode_OH_SCALING_MODE_SCALE_TO_WINDOW: OHScalingMode = 1;
 pub const OHScalingMode_OH_SCALING_MODE_SCALE_CROP: OHScalingMode = 2;
 #[doc = " the window is clipped to the size of the buffer's clipping rectangle\n pixels outside the clipping rectangle are considered fully transparent."]
 pub const OHScalingMode_OH_SCALING_MODE_NO_SCALE_CROP: OHScalingMode = 3;
-#[doc = " @brief Indicates Scaling Mode.\n @since 9\n @deprecated(since = \"10\")"]
+#[doc = " @brief Indicates Scaling Mode.\n @since 9\n @deprecated(since = \"10\")\n @useinstead OHScalingModeV2"]
 pub type OHScalingMode = ::std::os::raw::c_uint;
 #[doc = " the window content is not updated until a buffer of\n the window size is received"]
 pub const OHScalingModeV2_OH_SCALING_MODE_FREEZE_V2: OHScalingModeV2 = 0;
@@ -290,7 +292,11 @@ pub const OH_NativeBuffer_Usage_NATIVEBUFFER_USAGE_CPU_READ: OH_NativeBuffer_Usa
 pub const OH_NativeBuffer_Usage_NATIVEBUFFER_USAGE_CPU_WRITE: OH_NativeBuffer_Usage = 2;
 #[doc = " < CPU write memory */"]
 pub const OH_NativeBuffer_Usage_NATIVEBUFFER_USAGE_MEM_DMA: OH_NativeBuffer_Usage = 8;
-#[doc = " < Direct memory access (DMA) buffer */"]
+#[cfg(feature = "api-20")]
+#[doc = " < Direct memory access (DMA) buffer */\n**\n* MMZ with cache\n* @since 20\n*/"]
+pub const OH_NativeBuffer_Usage_NATIVEBUFFER_USAGE_MEM_MMZ_CACHE: OH_NativeBuffer_Usage = 32;
+#[cfg(feature = "api-20")]
+#[doc = " < Direct memory access (DMA) buffer */\n**\n* MMZ with cache\n* @since 20\n*/"]
 pub const OH_NativeBuffer_Usage_NATIVEBUFFER_USAGE_HW_RENDER: OH_NativeBuffer_Usage = 256;
 #[doc = " < For GPU write case */"]
 pub const OH_NativeBuffer_Usage_NATIVEBUFFER_USAGE_HW_TEXTURE: OH_NativeBuffer_Usage = 512;
@@ -344,21 +350,21 @@ pub const OH_NativeBuffer_Format_NATIVEBUFFER_PIXEL_FMT_BGRX_8888: OH_NativeBuff
 pub const OH_NativeBuffer_Format_NATIVEBUFFER_PIXEL_FMT_BGRA_8888: OH_NativeBuffer_Format = 20;
 #[doc = " < BGRA8888 format */\n**\n* YUV422 interleaved format\n* @since 12\n*/"]
 pub const OH_NativeBuffer_Format_NATIVEBUFFER_PIXEL_FMT_YUV_422_I: OH_NativeBuffer_Format = 21;
-#[doc = " YCBCR422 semi-plannar format\n @since 12"]
+#[doc = " YCBCR422 semi-planar format\n @since 12"]
 pub const OH_NativeBuffer_Format_NATIVEBUFFER_PIXEL_FMT_YCBCR_422_SP: OH_NativeBuffer_Format = 22;
-#[doc = " YCRCB422 semi-plannar format\n @since 12"]
+#[doc = " YCRCB422 semi-planar format\n @since 12"]
 pub const OH_NativeBuffer_Format_NATIVEBUFFER_PIXEL_FMT_YCRCB_422_SP: OH_NativeBuffer_Format = 23;
-#[doc = " YCBCR420 semi-plannar format\n @since 12"]
+#[doc = " YCBCR420 semi-planar format\n @since 12"]
 pub const OH_NativeBuffer_Format_NATIVEBUFFER_PIXEL_FMT_YCBCR_420_SP: OH_NativeBuffer_Format = 24;
-#[doc = " YCRCB420 semi-plannar format\n @since 12"]
+#[doc = " YCRCB420 semi-planar format\n @since 12"]
 pub const OH_NativeBuffer_Format_NATIVEBUFFER_PIXEL_FMT_YCRCB_420_SP: OH_NativeBuffer_Format = 25;
-#[doc = " YCBCR422 plannar format\n @since 12"]
+#[doc = " YCBCR422 planar format\n @since 12"]
 pub const OH_NativeBuffer_Format_NATIVEBUFFER_PIXEL_FMT_YCBCR_422_P: OH_NativeBuffer_Format = 26;
-#[doc = " YCRCB422 plannar format\n @since 12"]
+#[doc = " YCRCB422 planar format\n @since 12"]
 pub const OH_NativeBuffer_Format_NATIVEBUFFER_PIXEL_FMT_YCRCB_422_P: OH_NativeBuffer_Format = 27;
-#[doc = " YCBCR420 plannar format\n @since 12"]
+#[doc = " YCBCR420 planar format\n @since 12"]
 pub const OH_NativeBuffer_Format_NATIVEBUFFER_PIXEL_FMT_YCBCR_420_P: OH_NativeBuffer_Format = 28;
-#[doc = " YCRCB420 plannar format\n @since 12"]
+#[doc = " YCRCB420 planar format\n @since 12"]
 pub const OH_NativeBuffer_Format_NATIVEBUFFER_PIXEL_FMT_YCRCB_420_P: OH_NativeBuffer_Format = 29;
 #[doc = " YUYV422 packed format\n @since 12"]
 pub const OH_NativeBuffer_Format_NATIVEBUFFER_PIXEL_FMT_YUYV_422_PKG: OH_NativeBuffer_Format = 30;
@@ -376,14 +382,22 @@ pub const OH_NativeBuffer_Format_NATIVEBUFFER_PIXEL_FMT_YCBCR_P010: OH_NativeBuf
 pub const OH_NativeBuffer_Format_NATIVEBUFFER_PIXEL_FMT_YCRCB_P010: OH_NativeBuffer_Format = 36;
 #[doc = " Raw 10bit packed format\n @since 12"]
 pub const OH_NativeBuffer_Format_NATIVEBUFFER_PIXEL_FMT_RAW10: OH_NativeBuffer_Format = 37;
+#[cfg(feature = "api-15")]
 #[doc = " BLOB format\n @since 15"]
 pub const OH_NativeBuffer_Format_NATIVEBUFFER_PIXEL_FMT_BLOB: OH_NativeBuffer_Format = 38;
+#[cfg(feature = "api-15")]
 #[doc = " RGBA16 float format\n @since 15"]
 pub const OH_NativeBuffer_Format_NATIVEBUFFER_PIXEL_FMT_RGBA16_FLOAT: OH_NativeBuffer_Format = 39;
-#[doc = " vender mask format\n @since 12"]
+#[cfg(feature = "api-20")]
+#[doc = " Y8 format\n @since 20"]
+pub const OH_NativeBuffer_Format_NATIVEBUFFER_PIXEL_FMT_Y8: OH_NativeBuffer_Format = 40;
+#[cfg(feature = "api-20")]
+#[doc = " Y16 format\n @since 20"]
+pub const OH_NativeBuffer_Format_NATIVEBUFFER_PIXEL_FMT_Y16: OH_NativeBuffer_Format = 41;
+#[doc = " vendor mask format\n @since 12"]
 pub const OH_NativeBuffer_Format_NATIVEBUFFER_PIXEL_FMT_VENDER_MASK: OH_NativeBuffer_Format =
     2147418112;
-#[doc = " vender mask format\n @since 12"]
+#[doc = " vendor mask format\n @since 12"]
 pub const OH_NativeBuffer_Format_NATIVEBUFFER_PIXEL_FMT_BUTT: OH_NativeBuffer_Format = 2147483647;
 #[doc = " @brief Indicates the format of a native buffer.\n\n @syscap SystemCapability.Graphic.Graphic2D.NativeBuffer\n @since 10\n @version 1.0"]
 pub type OH_NativeBuffer_Format = ::std::os::raw::c_uint;
@@ -453,7 +467,7 @@ pub const OH_NativeBuffer_ColorGamut_NATIVEBUFFER_COLOR_GAMUT_DISPLAY_BT2020:
     OH_NativeBuffer_ColorGamut = 10;
 #[doc = " @brief Indicates the color gamut of a native buffer.\n\n @syscap SystemCapability.Graphic.Graphic2D.NativeBuffer\n @since 12\n @version 1.0"]
 pub type OH_NativeBuffer_ColorGamut = ::std::os::raw::c_uint;
-#[doc = " @brief <b>OH_NativeBuffer</b> config. \\n\n Used to allocating new <b>OH_NativeBuffer</b> andquery parameters if existing ones.\n\n @syscap SystemCapability.Graphic.Graphic2D.NativeBuffer\n @since 9\n @version 1.0"]
+#[doc = " @brief <b>OH_NativeBuffer</b> config. \\n\n Used to allocating new <b>OH_NativeBuffer</b> and query parameters if existing ones.\n\n @syscap SystemCapability.Graphic.Graphic2D.NativeBuffer\n @since 9\n @version 1.0"]
 #[repr(C)]
 #[derive(Debug, Copy, Clone)]
 pub struct OH_NativeBuffer_Config {
@@ -465,7 +479,7 @@ pub struct OH_NativeBuffer_Config {
     pub format: i32,
     #[doc = "< Combination of buffer usage"]
     pub usage: i32,
-    #[doc = "< the stride of memory"]
+    #[doc = "< the stride of memory in bytes"]
     pub stride: i32,
 }
 #[doc = " @brief Holds info for a single image plane. \\n\n\n @syscap SystemCapability.Graphic.Graphic2D.NativeBuffer\n @since 12\n @version 1.0"]
@@ -489,11 +503,11 @@ pub struct OH_NativeBuffer_Planes {
     pub planes: [OH_NativeBuffer_Plane; 4usize],
 }
 extern "C" {
-    #[doc = " @brief Alloc a <b>OH_NativeBuffer</b> that matches the passed BufferRequestConfig. \\n\n A new <b>OH_NativeBuffer</b> instance is created each time this function is called.\\n\n This interface needs to be used in conjunction with <b>OH_NativeBuffer_Unreference<\\b>,\n otherwise memory leaks will occur.\\n\n This interface is a non-thread-safe type interface.\\n\n\n @syscap SystemCapability.Graphic.Graphic2D.NativeBuffer\n @param config Indicates the pointer to a <b>BufferRequestConfig</b> instance.\n @return Returns the pointer to the <b>OH_NativeBuffer</b> instance created if the operation is successful, \\n\n returns <b>NULL</b> otherwise.\n @since 9\n @version 1.0"]
+    #[doc = " @brief Alloc a <b>OH_NativeBuffer</b> that matches the passed BufferRequestConfig. \\n\n A new <b>OH_NativeBuffer</b> instance is created each time this function is called.\\n\n This interface needs to be used in conjunction with <b>OH_NativeBuffer_Unreference</b>,\n otherwise memory leaks will occur.\\n\n This interface is a non-thread-safe type interface.\\n\n\n @syscap SystemCapability.Graphic.Graphic2D.NativeBuffer\n @param config Indicates the pointer to a <b>BufferRequestConfig</b> instance.\n @return Returns the pointer to the <b>OH_NativeBuffer</b> instance created if the operation is successful, \\n\n returns <b>NULL</b> otherwise.\n @since 9\n @version 1.0"]
     pub fn OH_NativeBuffer_Alloc(config: *const OH_NativeBuffer_Config) -> *mut OH_NativeBuffer;
 }
 extern "C" {
-    #[doc = " @brief Adds the reference count of a OH_NativeBuffer.\\n\n This interface needs to be used in conjunction with <b>OH_NativeBuffer_Unreference<\\b>,\n otherwise memory leaks will occur.\\n\n This interface is a non-thread-safe type interface.\\n\n\n @syscap SystemCapability.Graphic.Graphic2D.NativeBuffer\n @param buffer Indicates the pointer to a <b>OH_NativeBuffer</b> instance.\n @return Returns an error code, 0 is success, otherwise, failed.\n @since 9\n @version 1.0"]
+    #[doc = " @brief Adds the reference count of a OH_NativeBuffer.\\n\n This interface needs to be used in conjunction with <b>OH_NativeBuffer_Unreference</b>,\n otherwise memory leaks will occur.\\n\n This interface is a non-thread-safe type interface.\\n\n\n @syscap SystemCapability.Graphic.Graphic2D.NativeBuffer\n @param buffer Indicates the pointer to a <b>OH_NativeBuffer</b> instance.\n @return Returns an error code, 0 is success, otherwise, failed.\n @since 9\n @version 1.0"]
     pub fn OH_NativeBuffer_Reference(buffer: *mut OH_NativeBuffer) -> i32;
 }
 extern "C" {
@@ -508,7 +522,7 @@ extern "C" {
     );
 }
 extern "C" {
-    #[doc = " @brief Provide direct cpu access to the OH_NativeBuffer in the process's address space.\\n\n This interface needs to be used in conjunction with <b>OH_NativeBuffer_Unmap<\\b>.\\n\n This interface is a non-thread-safe type interface.\\n\n\n @syscap SystemCapability.Graphic.Graphic2D.NativeBuffer\n @param buffer Indicates the pointer to a <b>OH_NativeBuffer</b> instance.\n @param virAddr Indicates the address of the <b>OH_NativeBuffer</b> in virtual memory.\n @return Returns an error code, 0 is success, otherwise, failed.\n @since 9\n @version 1.0"]
+    #[doc = " @brief Provide direct cpu access to the OH_NativeBuffer in the process's address space.\\n\n This interface needs to be used in conjunction with <b>OH_NativeBuffer_Unmap</b>.\\n\n This interface is a non-thread-safe type interface.\\n\n\n @syscap SystemCapability.Graphic.Graphic2D.NativeBuffer\n @param buffer Indicates the pointer to a <b>OH_NativeBuffer</b> instance.\n @param virAddr Indicates the address of the <b>OH_NativeBuffer</b> in virtual memory.\n @return Returns an error code, 0 is success, otherwise, failed.\n @since 9\n @version 1.0"]
     pub fn OH_NativeBuffer_Map(
         buffer: *mut OH_NativeBuffer,
         virAddr: *mut *mut ::std::os::raw::c_void,
@@ -519,11 +533,11 @@ extern "C" {
     pub fn OH_NativeBuffer_Unmap(buffer: *mut OH_NativeBuffer) -> i32;
 }
 extern "C" {
-    #[doc = " @brief Get the systen wide unique sequence number of the OH_NativeBuffer.\\n\n This interface is a non-thread-safe type interface.\\n\n\n @syscap SystemCapability.Graphic.Graphic2D.NativeBuffer\n @param buffer Indicates the pointer to a <b>OH_NativeBuffer</b> instance.\n @return Returns the sequence number, which is unique for each OH_NativeBuffer.\n @since 9\n @version 1.0"]
+    #[doc = " @brief Get the system wide unique sequence number of the OH_NativeBuffer.\\n\n This interface is a non-thread-safe type interface.\\n\n\n @syscap SystemCapability.Graphic.Graphic2D.NativeBuffer\n @param buffer Indicates the pointer to a <b>OH_NativeBuffer</b> instance.\n @return Returns the sequence number, which is unique for each OH_NativeBuffer.\n @since 9\n @version 1.0"]
     pub fn OH_NativeBuffer_GetSeqNum(buffer: *mut OH_NativeBuffer) -> u32;
 }
 extern "C" {
-    #[doc = " @brief Provide direct cpu access to the potentially multi-plannar OH_NativeBuffer in the process's address space.\\n\n This interface is a non-thread-safe type interface.\\n\n\n @syscap SystemCapability.Graphic.Graphic2D.NativeBuffer\n @param buffer Indicates the pointer to a <b>OH_NativeBuffer</b> instance.\n @param virAddr Indicates the address of the <b>OH_NativeBuffer</b> in virtual memory.\n @param outPlanes Indicates all image planes that contain the pixel data.\n @return Returns an error code, 0 is sucess, otherwise, failed.\n @since 12\n @version 1.0"]
+    #[doc = " @brief Provide direct cpu access to the potentially multi-planar OH_NativeBuffer in the process's address space.\\n\n This interface is a non-thread-safe type interface.\\n\n\n @syscap SystemCapability.Graphic.Graphic2D.NativeBuffer\n @param buffer Indicates the pointer to a <b>OH_NativeBuffer</b> instance.\n @param virAddr Indicates the address of the <b>OH_NativeBuffer</b> in virtual memory.\n @param outPlanes Indicates all image planes that contain the pixel data.\n @return Returns an error code, 0 is success, otherwise, failed.\n @since 12\n @version 1.0"]
     pub fn OH_NativeBuffer_MapPlanes(
         buffer: *mut OH_NativeBuffer,
         virAddr: *mut *mut ::std::os::raw::c_void,
@@ -531,7 +545,7 @@ extern "C" {
     ) -> i32;
 }
 extern "C" {
-    #[doc = " @brief Converts an <b>OHNativeWindowBuffer</b> instance to an <b>OH_NativeBuffer</b>.\\n\n This interface is a non-thread-safe type interface.\\n\n\n @syscap SystemCapability.Graphic.Graphic2D.NativeBuffer\n @param nativeWindowBuffer Indicates the pointer to a <b>OHNativeWindowBuffer</b> instance.\n @param buffer Indicates the pointer to a <b>OH_NativeBuffer</b> pointer.\n @return Returns an error code, 0 is sucess, otherwise, failed.\n @since 12\n @version 1.0"]
+    #[doc = " @brief Converts an <b>OHNativeWindowBuffer</b> instance to an <b>OH_NativeBuffer</b>.\\n\n This interface is a non-thread-safe type interface.\\n\n\n @syscap SystemCapability.Graphic.Graphic2D.NativeBuffer\n @param nativeWindowBuffer Indicates the pointer to a <b>OHNativeWindowBuffer</b> instance.\n @param buffer Indicates the pointer to a <b>OH_NativeBuffer</b> pointer.\n @return Returns an error code, 0 is success, otherwise, failed.\n @since 12\n @version 1.0"]
     pub fn OH_NativeBuffer_FromNativeWindowBuffer(
         nativeWindowBuffer: *mut OHNativeWindowBuffer,
         buffer: *mut *mut OH_NativeBuffer,

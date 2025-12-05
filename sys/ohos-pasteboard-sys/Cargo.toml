@@ -7,3 +7,12 @@ description = "OpenHarmony's pasteboard binding for rust"
 
 [dependencies]
 ohos-udmf-sys = { workspace = true }
+
+[features]
+default = []
+api-13  = []
+api-14  = ["api-13"]
+api-15  = ["api-14"]
+api-18  = ["api-15"]
+api-19  = ["api-18"]
+api-20  = ["api-19"]

@@ -6,3 +6,10 @@ license     = "MIT OR Apache-2.0"
 description = "OpenHarmony's web binding for rust"
 
 [dependencies]
+
+[features]
+default = []
+api-14  = []
+api-15  = ["api-14"]
+api-18  = ["api-15"]
+api-20  = ["api-18"]

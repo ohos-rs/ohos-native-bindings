@@ -7,3 +7,8 @@ description = "OpenHarmony's native window binding for rust"
 
 [dependencies]
 ohos-native-buffer-sys = { workspace = true }
+
+[features]
+default = []
+api-13  = []
+api-19  = ["api-13"]

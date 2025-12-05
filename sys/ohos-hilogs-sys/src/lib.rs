@@ -5,13 +5,8 @@
 #![allow(non_camel_case_types)]
 #![allow(clippy::missing_safety_doc)]
 
-pub const __GNUC_VA_LIST: u32 = 1;
-pub const __bool_true_false_are_defined: u32 = 1;
-pub const true_: u32 = 1;
-pub const false_: u32 = 0;
 pub const LOG_DOMAIN: u32 = 0;
 pub type va_list = [u64; 4usize];
-pub type __gnuc_va_list = [u64; 4usize];
 #[doc = " Third-party application logs"]
 pub const LogType_LOG_APP: LogType = 0;
 #[doc = " @brief Enumerates log types.\n\n Currently, <b>LOG_APP</b> is available. \\n\n\n @since 8"]
@@ -40,6 +35,42 @@ extern "C" {
     ) -> ::std::os::raw::c_int;
 }
 extern "C" {
+    #[cfg(feature = "api-18")]
+    #[doc = " @brief Outputs logs.\n\n You can use this function to output logs based on the specified log type, log level, service domain, log tag,\n and message text.\n\n @param type Indicates the log type. The type for third-party applications is defined by {@link LOG_APP}.\n @param level Indicates the log level, which can be <b>LOG_DEBUG</b>, <b>LOG_INFO</b>, <b>LOG_WARN</b>,\n <b>LOG_ERROR</b>, and <b>LOG_FATAL</b>.\n @param domain Indicates the service domain of logs. Its value is a hexadecimal integer ranging from 0x0 to 0xFFFF.\n @param tag Indicates the log tag, which is a string used to identify the class, file, or service behavior.\n @param message Indicates the log string.\n @return Returns <b>0</b> or a larger value if the operation is successful; returns a value smaller\n than <b>0</b> otherwise.\n @since 18"]
+    pub fn OH_LOG_PrintMsg(
+        type_: LogType,
+        level: LogLevel,
+        domain: ::std::os::raw::c_uint,
+        tag: *const ::std::os::raw::c_char,
+        message: *const ::std::os::raw::c_char,
+    ) -> ::std::os::raw::c_int;
+}
+extern "C" {
+    #[cfg(feature = "api-18")]
+    #[doc = " @brief Outputs logs.\n\n You can use this function to output logs based on the specified log type, log level, service domain, log tag,\n message text and message length.\n\n @param type Indicates the log type. The type for third-party applications is defined by {@link LOG_APP}.\n @param level Indicates the log level, which can be <b>LOG_DEBUG</b>, <b>LOG_INFO</b>, <b>LOG_WARN</b>,\n <b>LOG_ERROR</b>, and <b>LOG_FATAL</b>.\n @param domain Indicates the service domain of logs. Its value is a hexadecimal integer ranging from 0x0 to 0xFFFF.\n @param tag Indicates the log tag, which is a string used to identify the class, file, or service behavior.\n @param tagLen Indicates the length of tag.\n @param message Indicates the log string.\n @param messageLen Indicates the length of message.\n @return Returns <b>0</b> or a larger value if the operation is successful; returns a value smaller\n than <b>0</b> otherwise.\n @since 18"]
+    pub fn OH_LOG_PrintMsgByLen(
+        type_: LogType,
+        level: LogLevel,
+        domain: ::std::os::raw::c_uint,
+        tag: *const ::std::os::raw::c_char,
+        tagLen: usize,
+        message: *const ::std::os::raw::c_char,
+        messageLen: usize,
+    ) -> ::std::os::raw::c_int;
+}
+extern "C" {
+    #[cfg(feature = "api-18")]
+    #[doc = " @brief Outputs logs.\n\n You can use this function to output logs based on the specified log type, log level, service domain, log tag,\n and a va_list instead of variable parameters determined by the format specifier and privacy identifier in the printf\n format.\n\n @param type Indicates the log type. The type for third-party applications is defined by {@link LOG_APP}.\n @param level Indicates the log level, which can be <b>LOG_DEBUG</b>, <b>LOG_INFO</b>, <b>LOG_WARN</b>,\n <b>LOG_ERROR</b>, and <b>LOG_FATAL</b>.\n @param domain Indicates the service domain of logs. Its value is a hexadecimal integer ranging from 0x0 to 0xFFFF.\n @param tag Indicates the log tag, which is a string used to identify the class, file, or service behavior.\n @param fmt Indicates the format string, which is an enhancement of a printf format string and supports the privacy\n identifier. Specifically, {public} or {private} is added between the % character and the format specifier\n in each parameter. \\n\n @param ap Indicates a list of parameters. The number and type of parameters must map onto the format specifiers\n in the format string.\n @return Returns <b>0</b> or a larger value if the operation is successful; returns a value smaller\n than <b>0</b> otherwise.\n @since 18"]
+    pub fn OH_LOG_VPrint(
+        type_: LogType,
+        level: LogLevel,
+        domain: ::std::os::raw::c_uint,
+        tag: *const ::std::os::raw::c_char,
+        fmt: *const ::std::os::raw::c_char,
+        ap: va_list,
+    ) -> ::std::os::raw::c_int;
+}
+extern "C" {
     #[doc = " @brief Checks whether logs of the specified service domain, log tag, and log level can be output.\n\n @param domain Indicates the service domain of logs.\n @param tag Indicates the log tag.\n @param level Indicates the log level.\n @return Returns <b>true</b> if the specified logs can be output; returns <b>false</b> otherwise.\n @since 8"]
     pub fn OH_LOG_IsLoggable(
         domain: ::std::os::raw::c_uint,
@@ -62,6 +93,7 @@ extern "C" {
     pub fn OH_LOG_SetCallback(callback: LogCallback);
 }
 extern "C" {
+    #[cfg(feature = "api-15")]
     #[doc = " @brief Sets the lowest log level of the current application process.\n\n @param level log level\n @since 15"]
     pub fn OH_LOG_SetMinLogLevel(level: LogLevel);
 }
