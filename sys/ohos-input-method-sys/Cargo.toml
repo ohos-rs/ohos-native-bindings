@@ -6,6 +6,7 @@ license     = "MIT OR Apache-2.0"
 description = "OpenHarmony's input method binding for rust"
 
 [dependencies]
+
 [features]
 default = []
 api-15  = []

@@ -32,22 +32,29 @@ pub const ArkWeb_ErrorCode_ARKWEB_COOKIE_MANAGER_INITIALIZE_FAILED: ArkWeb_Error
 pub const ArkWeb_ErrorCode_ARKWEB_COOKIE_SAVE_FAILED: ArkWeb_ErrorCode = 17100109;
 pub type ArkWeb_ErrorCode = ::std::os::raw::c_uint;
 #[doc = " @error The operation is successful."]
+#[cfg(feature = "api-20")]
 pub const ArkWeb_BlanklessErrorCode_ARKWEB_BLANKLESS_SUCCESS: ArkWeb_BlanklessErrorCode = 0;
 #[doc = " @error Unidentified error."]
+#[cfg(feature = "api-20")]
 pub const ArkWeb_BlanklessErrorCode_ARKWEB_BLANKLESS_ERR_UNKNOWN: ArkWeb_BlanklessErrorCode = -1;
 #[doc = " @error Invalid parameter."]
+#[cfg(feature = "api-20")]
 pub const ArkWeb_BlanklessErrorCode_ARKWEB_BLANKLESS_ERR_INVALID_ARGS: ArkWeb_BlanklessErrorCode =
     -2;
 #[doc = " @error The web controller is not bound to a component."]
+#[cfg(feature = "api-20")]
 pub const ArkWeb_BlanklessErrorCode_ARKWEB_BLANKLESS_ERR_CONTROLLER_NOT_INITED:
     ArkWeb_BlanklessErrorCode = -3;
 #[doc = " @error The key value is not matched. The OH_NativeArkWeb_SetBlanklessLoadingWithKey\n and OH_NativeArkWeb_GetBlanklessInfoWithKey APIs must be used in pair and use the same key value."]
+#[cfg(feature = "api-20")]
 pub const ArkWeb_BlanklessErrorCode_ARKWEB_BLANKLESS_ERR_KEY_NOT_MATCH: ArkWeb_BlanklessErrorCode =
     -4;
 #[doc = " @error If the similarity is low, the system determines that the change is too large.\n As a result, the OH_NativeArkWeb_SetBlanklessLoadingWithKey API fails to enable frame interpolation."]
+#[cfg(feature = "api-20")]
 pub const ArkWeb_BlanklessErrorCode_ARKWEB_BLANKLESS_ERR_SIGNIFICANT_CHANGE:
     ArkWeb_BlanklessErrorCode = -5;
 #[doc = " @error The device does not support this feature."]
+#[cfg(feature = "api-20")]
 pub const ArkWeb_BlanklessErrorCode_ARKWEB_BLANKLESS_ERR_DEVICE_NOT_SUPPORT:
     ArkWeb_BlanklessErrorCode = 801;
 #[cfg(feature = "api-20")]
@@ -71,10 +78,13 @@ pub const ArkWeb_WebMessageType_ARKWEB_BUFFER: ArkWeb_WebMessageType = 2;
 #[doc = " @brief Defines the data type carried in a ArkWeb_WebMessage.\n\n @since 12"]
 pub type ArkWeb_WebMessageType = ::std::os::raw::c_uint;
 #[doc = " Represent error data"]
+#[cfg(feature = "api-18")]
 pub const ArkWeb_JavaScriptValueType_ARKWEB_JAVASCRIPT_NONE: ArkWeb_JavaScriptValueType = 0;
 #[doc = " The data carried in the ArkWeb_JavaScriptValue is string."]
+#[cfg(feature = "api-18")]
 pub const ArkWeb_JavaScriptValueType_ARKWEB_JAVASCRIPT_STRING: ArkWeb_JavaScriptValueType = 1;
 #[doc = " The data carried in the ArkWeb_JavaScriptValue is bool."]
+#[cfg(feature = "api-18")]
 pub const ArkWeb_JavaScriptValueType_ARKWEB_JAVASCRIPT_BOOL: ArkWeb_JavaScriptValueType = 2;
 #[cfg(feature = "api-18")]
 #[doc = " @brief Defines the data type carried in a ArkWeb_JavaScriptValue.\n\n @since 18"]

@@ -26,40 +26,53 @@ pub struct ArkUI_AccessibilityActionArguments {
     _unused: [u8; 0],
 }
 #[doc = " Invalid action."]
+#[cfg(feature = "api-13")]
 pub const ArkUI_Accessibility_ActionType_ARKUI_ACCESSIBILITY_NATIVE_ACTION_TYPE_INVALID:
     ArkUI_Accessibility_ActionType = 0;
 #[doc = " Response to a click."]
+#[cfg(feature = "api-13")]
 pub const ArkUI_Accessibility_ActionType_ARKUI_ACCESSIBILITY_NATIVE_ACTION_TYPE_CLICK:
     ArkUI_Accessibility_ActionType = 16;
 #[doc = " Response to a long click."]
+#[cfg(feature = "api-13")]
 pub const ArkUI_Accessibility_ActionType_ARKUI_ACCESSIBILITY_NATIVE_ACTION_TYPE_LONG_CLICK:
     ArkUI_Accessibility_ActionType = 32;
 #[doc = " Accessibility focus acquisition."]
+#[cfg(feature = "api-13")]
 pub const ArkUI_Accessibility_ActionType_ARKUI_ACCESSIBILITY_NATIVE_ACTION_TYPE_GAIN_ACCESSIBILITY_FOCUS : ArkUI_Accessibility_ActionType = 64 ;
 #[doc = " Accessibility focus clearance."]
+#[cfg(feature = "api-13")]
 pub const ArkUI_Accessibility_ActionType_ARKUI_ACCESSIBILITY_NATIVE_ACTION_TYPE_CLEAR_ACCESSIBILITY_FOCUS : ArkUI_Accessibility_ActionType = 128 ;
 #[doc = " Forward scroll action."]
+#[cfg(feature = "api-13")]
 pub const ArkUI_Accessibility_ActionType_ARKUI_ACCESSIBILITY_NATIVE_ACTION_TYPE_SCROLL_FORWARD:
     ArkUI_Accessibility_ActionType = 256;
 #[doc = " Backward scroll action."]
+#[cfg(feature = "api-13")]
 pub const ArkUI_Accessibility_ActionType_ARKUI_ACCESSIBILITY_NATIVE_ACTION_TYPE_SCROLL_BACKWARD:
     ArkUI_Accessibility_ActionType = 512;
 #[doc = " Copy action for text content."]
+#[cfg(feature = "api-13")]
 pub const ArkUI_Accessibility_ActionType_ARKUI_ACCESSIBILITY_NATIVE_ACTION_TYPE_COPY:
     ArkUI_Accessibility_ActionType = 1024;
 #[doc = " Paste action for text content."]
+#[cfg(feature = "api-13")]
 pub const ArkUI_Accessibility_ActionType_ARKUI_ACCESSIBILITY_NATIVE_ACTION_TYPE_PASTE:
     ArkUI_Accessibility_ActionType = 2048;
 #[doc = " Cut action for text content."]
+#[cfg(feature = "api-13")]
 pub const ArkUI_Accessibility_ActionType_ARKUI_ACCESSIBILITY_NATIVE_ACTION_TYPE_CUT:
     ArkUI_Accessibility_ActionType = 4096;
 #[doc = " Text selection action, requiring the setting of <b>selectTextBegin</b>, <b>TextEnd</b>, and <b>TextInForward</b>\n  parameters to select a text segment in the text box."]
+#[cfg(feature = "api-13")]
 pub const ArkUI_Accessibility_ActionType_ARKUI_ACCESSIBILITY_NATIVE_ACTION_TYPE_SELECT_TEXT:
     ArkUI_Accessibility_ActionType = 8192;
 #[doc = " Text content setting action."]
+#[cfg(feature = "api-13")]
 pub const ArkUI_Accessibility_ActionType_ARKUI_ACCESSIBILITY_NATIVE_ACTION_TYPE_SET_TEXT:
     ArkUI_Accessibility_ActionType = 16384;
 #[doc = " Cursor position setting action."]
+#[cfg(feature = "api-13")]
 pub const ArkUI_Accessibility_ActionType_ARKUI_ACCESSIBILITY_NATIVE_ACTION_TYPE_SET_CURSOR_POSITION : ArkUI_Accessibility_ActionType = 1048576 ;
 #[cfg(feature = "api-15")]
 #[doc = " Support action for find next item in focus move operation\n  @since 15"]
@@ -72,44 +85,59 @@ pub const ArkUI_Accessibility_ActionType_ARKUI_ACCESSIBILITY_NATIVE_ACTION_TYPE_
 #[doc = " @brief Defines an enum for accessibility action types.\n\n @since 13"]
 pub type ArkUI_Accessibility_ActionType = ::std::os::raw::c_uint;
 #[doc = " Invalid event."]
+#[cfg(feature = "api-13")]
 pub const ArkUI_AccessibilityEventType_ARKUI_ACCESSIBILITY_NATIVE_EVENT_TYPE_INVALID:
     ArkUI_AccessibilityEventType = 0;
 #[doc = " Click event, sent after the UI component responds."]
+#[cfg(feature = "api-13")]
 pub const ArkUI_AccessibilityEventType_ARKUI_ACCESSIBILITY_NATIVE_EVENT_TYPE_CLICKED:
     ArkUI_AccessibilityEventType = 1;
 #[doc = " Long click event, sent after the UI component responds."]
+#[cfg(feature = "api-13")]
 pub const ArkUI_AccessibilityEventType_ARKUI_ACCESSIBILITY_NATIVE_EVENT_TYPE_LONG_CLICKED:
     ArkUI_AccessibilityEventType = 2;
 #[doc = " Selection event, sent after the UI component responds."]
+#[cfg(feature = "api-13")]
 pub const ArkUI_AccessibilityEventType_ARKUI_ACCESSIBILITY_NATIVE_EVENT_TYPE_SELECTED:
     ArkUI_AccessibilityEventType = 4;
 #[doc = " Text update event, sent when text is updated."]
+#[cfg(feature = "api-13")]
 pub const ArkUI_AccessibilityEventType_ARKUI_ACCESSIBILITY_NATIVE_EVENT_TYPE_TEXT_UPDATE:
     ArkUI_AccessibilityEventType = 16;
 #[doc = " Page state update event, sent when the page transitions, switches, resizes, or moves."]
+#[cfg(feature = "api-13")]
 pub const ArkUI_AccessibilityEventType_ARKUI_ACCESSIBILITY_NATIVE_EVENT_TYPE_PAGE_STATE_UPDATE:
     ArkUI_AccessibilityEventType = 32;
 #[doc = " Page content update event, sent when the page content changes."]
+#[cfg(feature = "api-13")]
 pub const ArkUI_AccessibilityEventType_ARKUI_ACCESSIBILITY_NATIVE_EVENT_TYPE_PAGE_CONTENT_UPDATE:
     ArkUI_AccessibilityEventType = 2048;
 #[doc = " Scrolled event, sent when a scrollable component experiences a scroll event."]
+#[cfg(feature = "api-13")]
 pub const ArkUI_AccessibilityEventType_ARKUI_ACCESSIBILITY_NATIVE_EVENT_TYPE_SCROLLED:
     ArkUI_AccessibilityEventType = 4096;
 #[doc = " Accessibility focus event, sent after the UI component responds."]
+#[cfg(feature = "api-13")]
 pub const ArkUI_AccessibilityEventType_ARKUI_ACCESSIBILITY_NATIVE_EVENT_TYPE_ACCESSIBILITY_FOCUSED : ArkUI_AccessibilityEventType = 32768 ;
 #[doc = " Accessibility focus cleared event, sent after the UI component responds."]
+#[cfg(feature = "api-13")]
 pub const ArkUI_AccessibilityEventType_ARKUI_ACCESSIBILITY_NATIVE_EVENT_TYPE_ACCESSIBILITY_FOCUS_CLEARED : ArkUI_AccessibilityEventType = 65536 ;
 #[doc = " FOcus request for a specific node."]
+#[cfg(feature = "api-13")]
 pub const ArkUI_AccessibilityEventType_ARKUI_ACCESSIBILITY_NATIVE_EVENT_TYPE_REQUEST_ACCESSIBILITY_FOCUS : ArkUI_AccessibilityEventType = 33554432 ;
 #[doc = " Page open event reported by the UI component."]
+#[cfg(feature = "api-13")]
 pub const ArkUI_AccessibilityEventType_ARKUI_ACCESSIBILITY_NATIVE_EVENT_TYPE_PAGE_OPEN:
     ArkUI_AccessibilityEventType = 536870912;
 #[doc = " Page close event reported by the UI component."]
+#[cfg(feature = "api-13")]
 pub const ArkUI_AccessibilityEventType_ARKUI_ACCESSIBILITY_NATIVE_EVENT_TYPE_PAGE_CLOSE:
     ArkUI_AccessibilityEventType = 134217728;
 #[doc = " Announcement event, indicating a request to proactively announce specified content."]
+#[cfg(feature = "api-13")]
 pub const ArkUI_AccessibilityEventType_ARKUI_ACCESSIBILITY_NATIVE_EVENT_TYPE_ANNOUNCE_FOR_ACCESSIBILITY : ArkUI_AccessibilityEventType = 268435456 ;
 #[doc = " Focus update event, used for focus update scenarios."]
+#[cfg(feature = "api-13")]
 pub const ArkUI_AccessibilityEventType_ARKUI_ACCESSIBILITY_NATIVE_EVENT_TYPE_FOCUS_NODE_UPDATE:
     ArkUI_AccessibilityEventType = 268435457;
 #[cfg(feature = "api-13")]
@@ -182,67 +210,86 @@ pub struct ArkUI_AccessibleGridItemInfo {
     pub rowSpan: i32,
 }
 #[doc = " @error Success."]
+#[cfg(feature = "api-13")]
 pub const ArkUI_AcessbilityErrorCode_ARKUI_ACCESSIBILITY_NATIVE_RESULT_SUCCESSFUL:
     ArkUI_AcessbilityErrorCode = 0;
 #[doc = " @error Failure."]
+#[cfg(feature = "api-13")]
 pub const ArkUI_AcessbilityErrorCode_ARKUI_ACCESSIBILITY_NATIVE_RESULT_FAILED:
     ArkUI_AcessbilityErrorCode = -1;
 #[doc = " @error Invalid parameter."]
+#[cfg(feature = "api-13")]
 pub const ArkUI_AcessbilityErrorCode_ARKUI_ACCESSIBILITY_NATIVE_RESULT_BAD_PARAMETER:
     ArkUI_AcessbilityErrorCode = -2;
 #[doc = " @error Out of memory."]
+#[cfg(feature = "api-13")]
 pub const ArkUI_AcessbilityErrorCode_ARKUI_ACCESSIBILITY_NATIVE_RESULT_OUT_OF_MEMORY:
     ArkUI_AcessbilityErrorCode = -3;
 #[cfg(feature = "api-13")]
 #[doc = " @brief Enumerates the accessibility error codes.\n\n @since 13"]
 pub type ArkUI_AcessbilityErrorCode = ::std::os::raw::c_int;
 #[doc = " Search for current nodes."]
+#[cfg(feature = "api-13")]
 pub const ArkUI_AccessibilitySearchMode_ARKUI_ACCESSIBILITY_NATIVE_SEARCH_MODE_PREFETCH_CURRENT:
     ArkUI_AccessibilitySearchMode = 0;
 #[doc = " Search for parent nodes."]
+#[cfg(feature = "api-13")]
 pub const ArkUI_AccessibilitySearchMode_ARKUI_ACCESSIBILITY_NATIVE_SEARCH_MODE_PREFETCH_PREDECESSORS : ArkUI_AccessibilitySearchMode = 1 ;
 #[doc = " Search for sibling nodes."]
+#[cfg(feature = "api-13")]
 pub const ArkUI_AccessibilitySearchMode_ARKUI_ACCESSIBILITY_NATIVE_SEARCH_MODE_PREFETCH_SIBLINGS:
     ArkUI_AccessibilitySearchMode = 2;
 #[doc = " Search for child nodes at the next level."]
+#[cfg(feature = "api-13")]
 pub const ArkUI_AccessibilitySearchMode_ARKUI_ACCESSIBILITY_NATIVE_SEARCH_MODE_PREFETCH_CHILDREN:
     ArkUI_AccessibilitySearchMode = 4;
 #[doc = " Search for all child nodes."]
+#[cfg(feature = "api-13")]
 pub const ArkUI_AccessibilitySearchMode_ARKUI_ACCESSIBILITY_NATIVE_SEARCH_MODE_PREFETCH_RECURSIVE_CHILDREN : ArkUI_AccessibilitySearchMode = 8 ;
 #[cfg(feature = "api-13")]
 #[doc = " @brief Defines an enum for the accessibility search modes.\n\n @since 13"]
 pub type ArkUI_AccessibilitySearchMode = ::std::os::raw::c_uint;
 #[doc = " Invalid type."]
+#[cfg(feature = "api-13")]
 pub const ArkUI_AccessibilityFocusType_ARKUI_ACCESSIBILITY_NATIVE_FOCUS_TYPE_INVALID:
     ArkUI_AccessibilityFocusType = -1;
 #[doc = " Input focus type."]
+#[cfg(feature = "api-13")]
 pub const ArkUI_AccessibilityFocusType_ARKUI_ACCESSIBILITY_NATIVE_FOCUS_TYPE_INPUT:
     ArkUI_AccessibilityFocusType = 1;
 #[doc = " Accessibility focus type."]
+#[cfg(feature = "api-13")]
 pub const ArkUI_AccessibilityFocusType_ARKUI_ACCESSIBILITY_NATIVE_FOCUS_TYPE_ACCESSIBILITY:
     ArkUI_AccessibilityFocusType = 2;
 #[cfg(feature = "api-13")]
 #[doc = " @brief Defines an enum for the accessibility focus types.\n\n @since 13"]
 pub type ArkUI_AccessibilityFocusType = ::std::os::raw::c_int;
 #[doc = " Invalid direction."]
+#[cfg(feature = "api-13")]
 pub const ArkUI_AccessibilityFocusMoveDirection_ARKUI_ACCESSIBILITY_NATIVE_DIRECTION_INVALID:
     ArkUI_AccessibilityFocusMoveDirection = 0;
 #[doc = " Up."]
+#[cfg(feature = "api-13")]
 pub const ArkUI_AccessibilityFocusMoveDirection_ARKUI_ACCESSIBILITY_NATIVE_DIRECTION_UP:
     ArkUI_AccessibilityFocusMoveDirection = 1;
 #[doc = " Down."]
+#[cfg(feature = "api-13")]
 pub const ArkUI_AccessibilityFocusMoveDirection_ARKUI_ACCESSIBILITY_NATIVE_DIRECTION_DOWN:
     ArkUI_AccessibilityFocusMoveDirection = 2;
 #[doc = " Left."]
+#[cfg(feature = "api-13")]
 pub const ArkUI_AccessibilityFocusMoveDirection_ARKUI_ACCESSIBILITY_NATIVE_DIRECTION_LEFT:
     ArkUI_AccessibilityFocusMoveDirection = 4;
 #[doc = " Right."]
+#[cfg(feature = "api-13")]
 pub const ArkUI_AccessibilityFocusMoveDirection_ARKUI_ACCESSIBILITY_NATIVE_DIRECTION_RIGHT:
     ArkUI_AccessibilityFocusMoveDirection = 8;
 #[doc = " Forward."]
+#[cfg(feature = "api-13")]
 pub const ArkUI_AccessibilityFocusMoveDirection_ARKUI_ACCESSIBILITY_NATIVE_DIRECTION_FORWARD:
     ArkUI_AccessibilityFocusMoveDirection = 16;
 #[doc = " Backward."]
+#[cfg(feature = "api-13")]
 pub const ArkUI_AccessibilityFocusMoveDirection_ARKUI_ACCESSIBILITY_NATIVE_DIRECTION_BACKWARD:
     ArkUI_AccessibilityFocusMoveDirection = 32;
 #[cfg(feature = "api-13")]

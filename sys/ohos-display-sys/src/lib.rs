@@ -109,42 +109,54 @@ pub struct NativeDisplayManager_CutoutInfo {
     pub waterfallDisplayAreaRects: NativeDisplayManager_WaterfallDisplayAreaRects,
 }
 #[doc = " display state unknown"]
+#[cfg(feature = "api-14")]
 pub const NativeDisplayManager_DisplayState_DISPLAY_MANAGER_DISPLAY_STATE_UNKNOWN:
     NativeDisplayManager_DisplayState = 0;
 #[doc = " display state off"]
+#[cfg(feature = "api-14")]
 pub const NativeDisplayManager_DisplayState_DISPLAY_MANAGER_DISPLAY_STATE_OFF:
     NativeDisplayManager_DisplayState = 1;
 #[doc = " display state on"]
+#[cfg(feature = "api-14")]
 pub const NativeDisplayManager_DisplayState_DISPLAY_MANAGER_DISPLAY_STATE_ON:
     NativeDisplayManager_DisplayState = 2;
 #[doc = " display state doze"]
+#[cfg(feature = "api-14")]
 pub const NativeDisplayManager_DisplayState_DISPLAY_MANAGER_DISPLAY_STATE_DOZE:
     NativeDisplayManager_DisplayState = 3;
 #[doc = " display state doze suspend"]
+#[cfg(feature = "api-14")]
 pub const NativeDisplayManager_DisplayState_DISPLAY_MANAGER_DISPLAY_STATE_DOZE_SUSPEND:
     NativeDisplayManager_DisplayState = 4;
 #[doc = " display state vr"]
+#[cfg(feature = "api-14")]
 pub const NativeDisplayManager_DisplayState_DISPLAY_MANAGER_DISPLAY_STATE_VR:
     NativeDisplayManager_DisplayState = 5;
 #[doc = " display state on suspend"]
+#[cfg(feature = "api-14")]
 pub const NativeDisplayManager_DisplayState_DISPLAY_MANAGER_DISPLAY_STATE_ON_SUSPEND:
     NativeDisplayManager_DisplayState = 6;
 #[cfg(feature = "api-14")]
 #[doc = " @brief Enumerates of the display state.\n\n @since 14\n @version 1.0"]
 pub type NativeDisplayManager_DisplayState = ::std::os::raw::c_uint;
 #[doc = " display is not in use"]
+#[cfg(feature = "api-20")]
 pub const NativeDisplayManager_SourceMode_DISPLAY_SOURCE_MODE_NONE:
     NativeDisplayManager_SourceMode = 0;
 #[doc = " display is in main mode"]
+#[cfg(feature = "api-20")]
 pub const NativeDisplayManager_SourceMode_DISPLAY_SOURCE_MODE_MAIN:
     NativeDisplayManager_SourceMode = 1;
 #[doc = " display is in mirror mode"]
+#[cfg(feature = "api-20")]
 pub const NativeDisplayManager_SourceMode_DISPLAY_SOURCE_MODE_MIRROR:
     NativeDisplayManager_SourceMode = 2;
 #[doc = " display is in extend mode"]
+#[cfg(feature = "api-20")]
 pub const NativeDisplayManager_SourceMode_DISPLAY_SOURCE_MODE_EXTEND:
     NativeDisplayManager_SourceMode = 3;
 #[doc = " display stands alone"]
+#[cfg(feature = "api-20")]
 pub const NativeDisplayManager_SourceMode_DISPLAY_SOURCE_MODE_ALONE:
     NativeDisplayManager_SourceMode = 4;
 #[cfg(feature = "api-20")]

@@ -139,15 +139,19 @@ pub const InputMethod_ErrorCode_IME_ERR_QUERY_FAILED: InputMethod_ErrorCode = 12
 #[doc = " @brief The value type of command data.\n\n @since 12"]
 pub type InputMethod_ErrorCode = ::std::os::raw::c_uint;
 #[doc = " The request keyboard reason is NONE."]
+#[cfg(feature = "api-15")]
 pub const InputMethod_RequestKeyboardReason_IME_REQUEST_REASON_NONE:
     InputMethod_RequestKeyboardReason = 0;
 #[doc = " The request keyboard reason is MOUSE."]
+#[cfg(feature = "api-15")]
 pub const InputMethod_RequestKeyboardReason_IME_REQUEST_REASON_MOUSE:
     InputMethod_RequestKeyboardReason = 1;
 #[doc = " The request keyboard reason is TOUCH."]
+#[cfg(feature = "api-15")]
 pub const InputMethod_RequestKeyboardReason_IME_REQUEST_REASON_TOUCH:
     InputMethod_RequestKeyboardReason = 2;
 #[doc = " The request keyboard reason is OTHER."]
+#[cfg(feature = "api-15")]
 pub const InputMethod_RequestKeyboardReason_IME_REQUEST_REASON_OTHER:
     InputMethod_RequestKeyboardReason = 20;
 #[cfg(feature = "api-15")]

@@ -150,8 +150,10 @@ pub const Image_ErrorCode_IMAGE_RECEIVER_INVALID_PARAMETER: Image_ErrorCode = 79
 #[doc = " @brief Enumerates the return values that may be used by the interface.\n\n @since 12"]
 pub type Image_ErrorCode = ::std::os::raw::c_uint;
 #[doc = " EXIF metadata."]
+#[cfg(feature = "api-13")]
 pub const Image_MetadataType_EXIF_METADATA: Image_MetadataType = 1;
 #[doc = " Fragment metadata."]
+#[cfg(feature = "api-13")]
 pub const Image_MetadataType_FRAGMENT_METADATA: Image_MetadataType = 2;
 #[cfg(feature = "api-20")]
 #[doc = " Metadata of a GIF image.\n\n @since 20"]
@@ -938,13 +940,18 @@ pub struct OH_AuxiliaryPictureNative {
 pub struct OH_AuxiliaryPictureInfo {
     _unused: [u8; 0],
 }
+#[cfg(feature = "api-13")]
 pub const Image_AuxiliaryPictureType_AUXILIARY_PICTURE_TYPE_GAINMAP: Image_AuxiliaryPictureType = 1;
+#[cfg(feature = "api-13")]
 pub const Image_AuxiliaryPictureType_AUXILIARY_PICTURE_TYPE_DEPTH_MAP: Image_AuxiliaryPictureType =
     2;
+#[cfg(feature = "api-13")]
 pub const Image_AuxiliaryPictureType_AUXILIARY_PICTURE_TYPE_UNREFOCUS_MAP:
     Image_AuxiliaryPictureType = 3;
+#[cfg(feature = "api-13")]
 pub const Image_AuxiliaryPictureType_AUXILIARY_PICTURE_TYPE_LINEAR_MAP: Image_AuxiliaryPictureType =
     4;
+#[cfg(feature = "api-13")]
 pub const Image_AuxiliaryPictureType_AUXILIARY_PICTURE_TYPE_FRAGMENT_MAP:
     Image_AuxiliaryPictureType = 5;
 #[cfg(feature = "api-13")]
@@ -1196,8 +1203,11 @@ pub struct OH_ImageSource_Info {
 pub struct OH_DecodingOptionsForPicture {
     _unused: [u8; 0],
 }
+#[cfg(feature = "api-15")]
 pub const IMAGE_ALLOCATOR_TYPE_IMAGE_ALLOCATOR_TYPE_AUTO: IMAGE_ALLOCATOR_TYPE = 0;
+#[cfg(feature = "api-15")]
 pub const IMAGE_ALLOCATOR_TYPE_IMAGE_ALLOCATOR_TYPE_DMA: IMAGE_ALLOCATOR_TYPE = 1;
+#[cfg(feature = "api-15")]
 pub const IMAGE_ALLOCATOR_TYPE_IMAGE_ALLOCATOR_TYPE_SHARE_MEMORY: IMAGE_ALLOCATOR_TYPE = 2;
 #[cfg(feature = "api-15")]
 #[doc = " @brief Type of allocator used to allocate memory of a PixelMap..\n\n @since 15"]

@@ -7,6 +7,7 @@ description = "OpenHarmony's resource_manager binding for rust"
 
 [dependencies]
 napi-sys-ohos = { workspace = true }
+
 [features]
 default = []
 api-18  = []

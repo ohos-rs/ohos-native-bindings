@@ -9,6 +9,7 @@ description = "OpenHarmony's native image binding for rust"
 napi-sys-ohos             = { workspace = true }
 ohos-native-buffer-sys    = { workspace = true }
 ohos-resource-manager-sys = { workspace = true }
+
 [features]
 default = []
 api-13  = []
