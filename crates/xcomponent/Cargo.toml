@@ -15,6 +15,15 @@ callbacks = []
 
 default = ["callbacks"]
 
+api-13 = ["ohos-xcomponent-sys/api-13"]
+api-14 = ["api-13", "ohos-xcomponent-sys/api-14"]
+api-15 = ["api-14", "ohos-xcomponent-sys/api-15"]
+api-16 = ["api-15", "ohos-xcomponent-sys/api-16"]
+api-17 = ["api-16", "ohos-xcomponent-sys/api-17"]
+api-18 = ["api-17", "ohos-xcomponent-sys/api-18"]
+api-19 = ["api-18", "ohos-xcomponent-sys/api-19"]
+api-20 = ["api-19", "ohos-xcomponent-sys/api-20"]
+
 [dependencies]
 napi-sys-ohos       = { workspace = true }
 ohos-xcomponent-sys = { workspace = true }

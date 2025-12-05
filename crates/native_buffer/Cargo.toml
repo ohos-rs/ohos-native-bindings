@@ -8,6 +8,17 @@ description = "OpenHarmony's native buffer binding for rust"
 [lints]
 workspace = true
 
+[features]
+default = []
+api-13  = ["ohos-native-buffer-sys/api-13", "ohos-native-window-sys/api-13"]
+api-14  = ["api-13", "ohos-native-buffer-sys/api-14", "ohos-native-window-sys/api-14"]
+api-15  = ["api-14", "ohos-native-buffer-sys/api-15", "ohos-native-window-sys/api-15"]
+api-16  = ["api-15", "ohos-native-buffer-sys/api-16", "ohos-native-window-sys/api-16"]
+api-17  = ["api-16", "ohos-native-buffer-sys/api-17", "ohos-native-window-sys/api-17"]
+api-18  = ["api-15", "ohos-native-buffer-sys/api-18", "ohos-native-window-sys/api-18"]
+api-19  = ["api-18", "ohos-native-buffer-sys/api-19", "ohos-native-window-sys/api-19"]
+api-20  = ["api-19", "ohos-native-buffer-sys/api-20", "ohos-native-window-sys/api-20"]
+
 [dependencies]
 ohos-native-buffer-sys = { workspace = true }
 ohos-native-window-sys = { workspace = true }

@@ -10,5 +10,11 @@ napi-sys-ohos = { workspace = true }
 
 [features]
 default = []
-api-18  = []
-api-20  = ["api-18"]
+api-13  = []
+api-14  = ["api-13"]
+api-15  = ["api-14"]
+api-16  = ["api-15"]
+api-17  = ["api-16"]
+api-18  = ["api-17"]
+api-19  = ["api-18"]
+api-20  = ["api-19"]

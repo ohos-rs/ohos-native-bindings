@@ -15,6 +15,15 @@ default = ["napi"]
 napi = ["dep:napi-ohos"]
 
 
+api-13 = ["ohos-resource-manager-sys/api-13"]
+api-14 = ["api-13", "ohos-resource-manager-sys/api-14"]
+api-15 = ["api-14", "ohos-resource-manager-sys/api-15"]
+api-16 = ["api-15", "ohos-resource-manager-sys/api-16"]
+api-17 = ["api-16", "ohos-resource-manager-sys/api-17"]
+api-18 = ["api-17", "ohos-resource-manager-sys/api-18"]
+api-19 = ["api-18", "ohos-resource-manager-sys/api-19"]
+api-20 = ["api-19", "ohos-resource-manager-sys/api-20"]
+
 [dependencies]
 ohos-resource-manager-sys = { workspace = true }
 napi-ohos                 = { workspace = true, optional = true }

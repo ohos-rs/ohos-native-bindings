@@ -7,3 +7,14 @@ description = "OpenHarmony's vsync binding for rust"
 
 [dependencies]
 ohos-native-vsync-sys = { workspace = true }
+
+[features]
+default = []
+api-13  = ["ohos-native-vsync-sys/api-13"]
+api-14  = ["api-13", "ohos-native-vsync-sys/api-14"]
+api-15  = ["api-14", "ohos-native-vsync-sys/api-15"]
+api-16  = ["api-15", "ohos-native-vsync-sys/api-16"]
+api-17  = ["api-16", "ohos-native-vsync-sys/api-17"]
+api-18  = ["api-17", "ohos-native-vsync-sys/api-18"]
+api-19  = ["api-18", "ohos-native-vsync-sys/api-19"]
+api-20  = ["api-19", "ohos-native-vsync-sys/api-20"]

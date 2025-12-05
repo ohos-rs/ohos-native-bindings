@@ -8,3 +8,14 @@ description = "OpenHarmony's vibrator binding for rust"
 [dependencies]
 ohos-vibrator-sys = { workspace = true }
 ohos_enum_macro   = { workspace = true }
+
+[features]
+default = []
+api-13  = ["ohos-vibrator-sys/api-13"]
+api-14  = ["api-13", "ohos-vibrator-sys/api-14"]
+api-15  = ["api-14", "ohos-vibrator-sys/api-15"]
+api-16  = ["api-15", "ohos-vibrator-sys/api-16"]
+api-17  = ["api-16", "ohos-vibrator-sys/api-17"]
+api-18  = ["api-17", "ohos-vibrator-sys/api-18"]
+api-19  = ["api-18", "ohos-vibrator-sys/api-19"]
+api-20  = ["api-19", "ohos-vibrator-sys/api-20"]

@@ -22,3 +22,12 @@ redirect = ["dep:libc"]
 # Allow log
 log   = ["dep:log", "dep:env_filter"]
 regex = ["env_filter/regex"]
+
+api-13 = ["ohos-hilogs-sys/api-13"]
+api-14 = ["api-13", "ohos-hilogs-sys/api-14"]
+api-15 = ["api-14", "ohos-hilogs-sys/api-15"]
+api-16 = ["api-15", "ohos-hilogs-sys/api-16"]
+api-17 = ["api-16", "ohos-hilogs-sys/api-17"]
+api-18 = ["api-17", "ohos-hilogs-sys/api-18"]
+api-19 = ["api-18", "ohos-hilogs-sys/api-19"]
+api-20 = ["api-19", "ohos-hilogs-sys/api-20"]

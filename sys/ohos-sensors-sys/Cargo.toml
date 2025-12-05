@@ -6,3 +6,14 @@ license     = "MIT OR Apache-2.0"
 description = "OpenHarmony's sensors binding for rust"
 
 [dependencies]
+
+[features]
+default = []
+api-13  = []
+api-14  = ["api-13"]
+api-15  = ["api-14"]
+api-16  = ["api-15"]
+api-17  = ["api-16"]
+api-18  = ["api-17"]
+api-19  = ["api-18"]
+api-20  = ["api-19"]

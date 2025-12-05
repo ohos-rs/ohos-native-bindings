@@ -8,3 +8,14 @@ description = "OpenHarmony's display binding for rust"
 [dependencies]
 ohos-display-sys = { workspace = true }
 ohos_enum_macro  = { workspace = true }
+
+[features]
+default = []
+api-13  = ["ohos-display-sys/api-13"]
+api-14  = ["api-13", "ohos-display-sys/api-14"]
+api-15  = ["api-14", "ohos-display-sys/api-15"]
+api-16  = ["api-15", "ohos-display-sys/api-16"]
+api-17  = ["api-16", "ohos-display-sys/api-17"]
+api-18  = ["api-17", "ohos-display-sys/api-18"]
+api-19  = ["api-18", "ohos-display-sys/api-19"]
+api-20  = ["api-19", "ohos-display-sys/api-20"]

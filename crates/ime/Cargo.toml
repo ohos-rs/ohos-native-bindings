@@ -11,3 +11,14 @@ workspace = true
 [dependencies]
 ohos-input-method-sys = { workspace = true }
 ohos_enum_macro       = { workspace = true }
+
+[features]
+default = []
+api-13  = ["ohos-input-method-sys/api-13"]
+api-14  = ["api-13", "ohos-input-method-sys/api-14"]
+api-15  = ["api-14", "ohos-input-method-sys/api-15"]
+api-16  = ["api-15", "ohos-input-method-sys/api-16"]
+api-17  = ["api-16", "ohos-input-method-sys/api-17"]
+api-18  = ["api-17", "ohos-input-method-sys/api-18"]
+api-19  = ["api-18", "ohos-input-method-sys/api-19"]
+api-20  = ["api-19", "ohos-input-method-sys/api-20"]

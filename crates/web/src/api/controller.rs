@@ -89,6 +89,7 @@ impl Controller {
                     Err(ArkWebError::ArkWebApiMemberMissing(member.to_string()))
                 }
             }
+            #[cfg(feature = "api-14")]
             "getLastJavascriptProxyCallingFrameUrl" => {
                 if unsafe {
                     !ark_web_member_missing!(
