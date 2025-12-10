@@ -7,6 +7,6 @@ pub const NATIVE_DISPLAY_SOLOIST: Lazy<SysConfig> = Lazy::new(|| SysConfig {
     headers: vec!["native_display_soloist/native_display_soloist.h"],
     white_list: vec!["OH_.*", "DisplaySoloist.*"],
     block_list: vec![],
-    dynamic_library: vec!["native_display_manager"],
+    dynamic_library: vec!["native_display_soloist"],
     extra: "",
 });

@@ -5,7 +5,7 @@
 #![allow(non_camel_case_types)]
 #![allow(clippy::missing_safety_doc)]
 
-#[link(name = "native_display_manager")]
+#[link(name = "native_display_soloist")]
 unsafe extern "C" {}
 
 #[repr(C)]
