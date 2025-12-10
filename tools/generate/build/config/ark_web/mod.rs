@@ -14,5 +14,6 @@ pub const ARK_WEB: Lazy<SysConfig> = Lazy::new(|| SysConfig {
     ],
     white_list: vec!["OH_.*", "ArkWeb_.*"],
     block_list: vec![],
+    dynamic_library: vec!["ohweb"],
     extra: "",
 });

@@ -19,5 +19,6 @@ pub const RESOURCE_MANAGER: Lazy<SysConfig> = Lazy::new(|| SysConfig {
         "ScreenDensity",
     ],
     block_list: vec!["napi_.*"],
+    dynamic_library: vec!["ohresmgr", "rawfile.z"],
     extra: "\n\nuse napi_sys_ohos::*;",
 });

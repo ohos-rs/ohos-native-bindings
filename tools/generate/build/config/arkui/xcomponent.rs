@@ -10,5 +10,6 @@ pub const XCOMPONENT: Lazy<SysConfig> = Lazy::new(|| SysConfig {
     ],
     white_list: vec!["OH_.*"],
     block_list: vec!["ArkUI_[A-WY-Z].*"],
+    dynamic_library: vec!["ace_ndk.z"],
     extra: "\n\nuse ohos_arkui_sys::*;\nuse ohos_accessibility_sys::*;",
 });

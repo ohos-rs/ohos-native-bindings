@@ -5,6 +5,9 @@
 #![allow(non_camel_case_types)]
 #![allow(clippy::missing_safety_doc)]
 
+#[link(name = "asset_ndk.z")]
+unsafe extern "C" {}
+
 pub const ASSET_TAG_TYPE_MASK: u32 = 4026531840;
 #[doc = " The asset attribute tag is a Boolean value."]
 pub const Asset_TagType_ASSET_TYPE_BOOL: Asset_TagType = 268435456;

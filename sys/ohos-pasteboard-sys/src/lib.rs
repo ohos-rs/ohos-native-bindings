@@ -7,6 +7,9 @@
 
 use ohos_udmf_sys::*;
 
+#[link(name = "pasteboard")]
+unsafe extern "C" {}
+
 #[doc = " @brief Defines the region of the image source to decode.\n\n @since 12"]
 #[repr(C)]
 #[derive(Debug, Copy, Clone)]

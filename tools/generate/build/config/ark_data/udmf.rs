@@ -13,5 +13,6 @@ pub const UDMF: Lazy<SysConfig> = Lazy::new(|| SysConfig {
     ],
     white_list: vec!["OH_.*"],
     block_list: vec![],
+    dynamic_library: vec!["udmf"],
     extra: "",
 });

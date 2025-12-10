@@ -7,5 +7,6 @@ pub const ABILITY: Lazy<SysConfig> = Lazy::new(|| SysConfig {
     headers: vec!["accesstoken/ability_access_control.h"],
     white_list: vec!["OH_.*"],
     block_list: vec![],
+    dynamic_library: vec!["ability_access_control"],
     extra: "",
 });

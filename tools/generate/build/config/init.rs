@@ -7,5 +7,6 @@ pub const INIT: Lazy<SysConfig> = Lazy::new(|| SysConfig {
     headers: vec!["syscap_ndk.h"],
     white_list: vec!["canIUse"],
     block_list: vec![],
+    dynamic_library: vec!["deviceinfo_ndk.z"],
     extra: "",
 });

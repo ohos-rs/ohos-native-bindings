@@ -8,5 +8,6 @@ pub const HILOG: Lazy<SysConfig> = Lazy::new(|| SysConfig {
     headers: vec!["hilog/log.h"],
     white_list: vec!["Log.*", "OH.*", "LOG.*"],
     block_list: vec![],
+    dynamic_library: vec!["hilog_ndk.z"],
     extra: "",
 });

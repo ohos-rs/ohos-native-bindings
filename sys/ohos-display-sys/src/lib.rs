@@ -5,6 +5,9 @@
 #![allow(non_camel_case_types)]
 #![allow(clippy::missing_safety_doc)]
 
+#[link(name = "native_display_manager")]
+unsafe extern "C" {}
+
 #[doc = " device rotation 0 degree"]
 pub const NativeDisplayManager_Rotation_DISPLAY_MANAGER_ROTATION_0: NativeDisplayManager_Rotation =
     0;

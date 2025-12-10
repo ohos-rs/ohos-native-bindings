@@ -7,6 +7,9 @@
 
 use napi_sys_ohos::*;
 
+#[link(name = "ace_ndk.z")]
+unsafe extern "C" {}
+
 #[repr(C)]
 #[derive(Debug, Copy, Clone)]
 pub struct ArkUI_DrawableDescriptor {

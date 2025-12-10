@@ -5,6 +5,9 @@
 #![allow(non_camel_case_types)]
 #![allow(clippy::missing_safety_doc)]
 
+#[link(name = "ohvibrator.z")]
+unsafe extern "C" {}
+
 #[doc = "< Vibration is used for unknown, lowest priority"]
 pub const Vibrator_Usage_VIBRATOR_USAGE_UNKNOWN: Vibrator_Usage = 0;
 #[doc = "< Vibration is used for alarm"]

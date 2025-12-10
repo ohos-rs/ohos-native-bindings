@@ -5,6 +5,9 @@
 #![allow(non_camel_case_types)]
 #![allow(clippy::missing_safety_doc)]
 
+#[link(name = "deviceinfo_ndk.z")]
+unsafe extern "C" {}
+
 extern "C" {
     #[doc = " @brief Queries whether a device supports a specified SystemCapability.\n @param cap SystemCapability whether supported\n @return true - Supports the specified SystemCapability.\n     false - The specified SystemCapability is not supported.\n @since 8"]
     pub fn canIUse(cap: *const ::std::os::raw::c_char) -> bool;

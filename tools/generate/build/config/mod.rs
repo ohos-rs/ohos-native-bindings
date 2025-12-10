@@ -6,6 +6,9 @@ pub(crate) struct SysConfig {
     pub white_list: Vec<&'static str>,
     pub block_list: Vec<&'static str>,
 
+    // dynamic library name
+    pub dynamic_library: Vec<&'static str>,
+
     pub extra: &'static str,
 }
 

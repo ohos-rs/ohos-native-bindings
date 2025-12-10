@@ -7,5 +7,6 @@ pub const BUNDLE: Lazy<SysConfig> = Lazy::new(|| SysConfig {
     headers: vec!["bundle/native_interface_bundle.h"],
     white_list: vec![],
     block_list: vec![],
+    dynamic_library: vec!["bundle_ndk.z"],
     extra: "",
 });

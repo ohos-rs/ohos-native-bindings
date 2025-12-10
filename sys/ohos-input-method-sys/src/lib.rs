@@ -5,6 +5,9 @@
 #![allow(non_camel_case_types)]
 #![allow(clippy::missing_safety_doc)]
 
+#[link(name = "ohinputmethod")]
+unsafe extern "C" {}
+
 pub type char16_t = ::std::os::raw::c_ushort;
 #[doc = " The keyboard status is none."]
 pub const InputMethod_KeyboardStatus_IME_KEYBOARD_STATUS_NONE: InputMethod_KeyboardStatus = 0;
