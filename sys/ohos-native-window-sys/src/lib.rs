@@ -7,6 +7,9 @@
 
 use ohos_native_buffer_sys::*;
 
+#[link(name = "native_window")]
+unsafe extern "C" {}
+
 #[repr(C)]
 #[derive(Default)]
 pub struct __IncompleteArrayField<T>(::std::marker::PhantomData<T>, [T; 0]);

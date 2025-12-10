@@ -9,6 +9,13 @@ use napi_sys_ohos::*;
 use ohos_native_buffer_sys::*;
 use ohos_resource_manager_sys::*;
 
+#[link(name = "image_ndk.z")]
+#[link(name = "image_packer_ndk.z")]
+#[link(name = "pixelmap_ndk.z")]
+#[link(name = "image_receiver_ndk.z")]
+#[link(name = "image_source_ndk.z")]
+unsafe extern "C" {}
+
 #[repr(C)]
 #[derive(Default)]
 pub struct __IncompleteArrayField<T>(::std::marker::PhantomData<T>, [T; 0]);

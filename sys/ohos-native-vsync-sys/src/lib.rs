@@ -5,6 +5,9 @@
 #![allow(non_camel_case_types)]
 #![allow(clippy::missing_safety_doc)]
 
+#[link(name = "native_vsync")]
+unsafe extern "C" {}
+
 pub const __BYTE_ORDER: u32 = 1234;
 pub const __LONG_MAX: u64 = 9223372036854775807;
 pub const __LITTLE_ENDIAN: u32 = 1234;

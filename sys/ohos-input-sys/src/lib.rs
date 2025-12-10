@@ -5,6 +5,9 @@
 #![allow(non_camel_case_types)]
 #![allow(clippy::missing_safety_doc)]
 
+#[link(name = "ohinput")]
+unsafe extern "C" {}
+
 #[doc = " Indicates an unknown axis type. It is generally used as the initial value.\n\n @since 12"]
 pub const InputEvent_AxisType_AXIS_TYPE_UNKNOWN: InputEvent_AxisType = 0;
 #[doc = " Indicates the vertical scroll axis. When you scroll the mouse wheel or make certain gestures on the touchpad,\n the status of the vertical scroll axis changes.\n\n @since 12"]

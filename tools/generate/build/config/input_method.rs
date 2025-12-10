@@ -17,5 +17,6 @@ pub const INPUT_METHOD: Lazy<SysConfig> = Lazy::new(|| SysConfig {
     ],
     white_list: vec!["OH.*", "Input.*"],
     block_list: vec![],
+    dynamic_library: vec!["ohinputmethod"],
     extra: "",
 });

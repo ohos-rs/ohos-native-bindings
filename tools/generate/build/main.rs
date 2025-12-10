@@ -203,80 +203,6 @@ fn add_feature_gates(content: &str) -> (String, BTreeSet<u32>) {
     (result.join("\n"), api_versions)
 }
 
-/// Updates the Cargo.toml file to add feature definitions for the found API versions.
-fn update_cargo_toml_features(
-    cargo_toml_path: &std::path::Path,
-    api_versions: &BTreeSet<u32>,
-) -> anyhow::Result<()> {
-    if api_versions.is_empty() {
-        return Ok(());
-    }
-
-    let content = fs::read_to_string(cargo_toml_path)?;
-
-    // Remove existing [features] section if present
-    let content_without_features = remove_features_section(&content);
-
-    // Build the new features section
-    let mut features_section = String::from("\n\n[features]\n");
-
-    // Add default feature (empty by default)
-    features_section.push_str("default = []\n");
-
-    // Add each API version as a feature, with higher versions depending on lower ones
-    let versions: Vec<u32> = api_versions.iter().copied().collect();
-    for (i, version) in versions.iter().enumerate() {
-        if i == 0 {
-            // First (lowest) version has no dependencies
-            features_section.push_str(&format!("api-{} = []\n", version));
-        } else {
-            // Higher versions depend on the previous version
-            let prev_version = versions[i - 1];
-            features_section.push_str(&format!("api-{} = [\"api-{}\"]\n", version, prev_version));
-        }
-    }
-
-    // Append features section to the content
-    let new_content = format!(
-        "{}{}",
-        content_without_features.trim_end(),
-        features_section
-    );
-
-    fs::write(cargo_toml_path, new_content)?;
-
-    Ok(())
-}
-
-/// Removes the [features] section from Cargo.toml content.
-fn remove_features_section(content: &str) -> String {
-    let mut result = String::new();
-    let mut in_features_section = false;
-
-    for line in content.lines() {
-        let trimmed = line.trim();
-
-        // Check if we're entering the features section
-        if trimmed == "[features]" {
-            in_features_section = true;
-            continue;
-        }
-
-        // Check if we're entering a new section (leaving features)
-        if in_features_section && trimmed.starts_with('[') && trimmed.ends_with(']') {
-            in_features_section = false;
-        }
-
-        // Only include lines that are not in the features section
-        if !in_features_section {
-            result.push_str(line);
-            result.push('\n');
-        }
-    }
-
-    result
-}
-
 fn generate_code(config: &SysConfig) -> anyhow::Result<()> {
     let pwd = env::current_dir()?;
     let basic_folder = pwd
@@ -306,15 +232,25 @@ fn generate_code(config: &SysConfig) -> anyhow::Result<()> {
         .collect::<Vec<String>>()
         .join("\n");
 
+    let dynamic_library_content = config
+        .dynamic_library
+        .iter()
+        .map(|i| format!("#[link(name = \"{}\")]", i))
+        .collect::<Vec<String>>()
+        .join("\n");
+
     let mut bindings = bindgen::Builder::default()
         .header_contents("wrapper.h", &header_content)
         .raw_line(format!(
-            r"#![allow(non_snake_case)]
+            r#"#![allow(non_snake_case)]
 #![allow(non_upper_case_globals)]
 #![allow(non_camel_case_types)]
 #![allow(clippy::missing_safety_doc)]
-{}",
-            config.extra
+{}
+
+{}
+unsafe extern "C" {{}}"#,
+            config.extra, dynamic_library_content
         ))
         .clang_arg("-x")
         .clang_arg("c")
@@ -348,14 +284,10 @@ fn generate_code(config: &SysConfig) -> anyhow::Result<()> {
     let content = fs::read_to_string(&output_file)?;
 
     // Add feature gates based on @since annotations
-    let (processed_content, api_versions) = add_feature_gates(&content);
+    let (processed_content, _) = add_feature_gates(&content);
 
     // Write the processed content back
     fs::write(&output_file, processed_content)?;
-
-    // Update Cargo.toml with feature definitions
-    // let cargo_toml_path = basic_folder.join("Cargo.toml");
-    // update_cargo_toml_features(&cargo_toml_path, &api_versions)?;
 
     Ok(())
 }

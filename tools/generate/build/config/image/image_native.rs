@@ -26,6 +26,7 @@ pub const IMAGE_NATIVE: Lazy<SysConfig> = Lazy::new(|| {
         "NativeWindow.*",
         "Region",
     ],
+    dynamic_library: vec!["image_ndk.z", "image_packer_ndk.z", "pixelmap_ndk.z", "image_receiver_ndk.z", "image_source_ndk.z"],
     extra: "\n\nuse napi_sys_ohos::*;\nuse ohos_native_buffer_sys::*;\nuse ohos_resource_manager_sys::*;",
 }
 });

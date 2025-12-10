@@ -8,6 +8,14 @@
 use napi_sys_ohos::*;
 use ohos_resource_manager_sys::*;
 
+#[link(name = "ohimage")]
+#[link(name = "image_packer")]
+#[link(name = "picture")]
+#[link(name = "image_receiver")]
+#[link(name = "image_source")]
+#[link(name = "pixelmap")]
+unsafe extern "C" {}
+
 #[doc = " @brief Defines the image size.\n\n @since 10\n @version 2.0"]
 #[repr(C)]
 #[derive(Debug, Copy, Clone)]

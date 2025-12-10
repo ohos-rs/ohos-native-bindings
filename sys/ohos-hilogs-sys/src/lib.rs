@@ -5,6 +5,9 @@
 #![allow(non_camel_case_types)]
 #![allow(clippy::missing_safety_doc)]
 
+#[link(name = "hilog_ndk.z")]
+unsafe extern "C" {}
+
 pub const LOG_DOMAIN: u32 = 0;
 pub type va_list = [u64; 4usize];
 #[doc = " Third-party application logs"]

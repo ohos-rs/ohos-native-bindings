@@ -10,5 +10,6 @@ pub const DISPLAY: Lazy<SysConfig> = Lazy::new(|| SysConfig {
     ],
     white_list: vec!["NativeDisplayManager_.*", "OH_NativeDisplayManager_.*"],
     block_list: vec![],
+    dynamic_library: vec!["native_display_manager"],
     extra: "",
 });

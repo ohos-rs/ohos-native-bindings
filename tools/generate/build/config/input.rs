@@ -11,5 +11,6 @@ pub const MULTI_MODAL_INPUT: Lazy<SysConfig> = Lazy::new(|| SysConfig {
     ],
     white_list: vec!["Input.*", "OH_.*"],
     block_list: vec![],
+    dynamic_library: vec!["ohinput"],
     extra: "",
 });

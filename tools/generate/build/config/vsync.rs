@@ -7,5 +7,6 @@ pub const VSYNC: Lazy<SysConfig> = Lazy::new(|| SysConfig {
     headers: vec!["native_vsync/native_vsync.h"],
     white_list: vec![],
     block_list: vec![],
+    dynamic_library: vec!["native_vsync"],
     extra: "",
 });

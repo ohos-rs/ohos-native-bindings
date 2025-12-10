@@ -5,6 +5,9 @@
 #![allow(non_camel_case_types)]
 #![allow(clippy::missing_safety_doc)]
 
+#[link(name = "ohweb")]
+unsafe extern "C" {}
+
 #[doc = " @error Success."]
 pub const ArkWeb_ErrorCode_ARKWEB_SUCCESS: ArkWeb_ErrorCode = 0;
 #[doc = " @error Init error."]

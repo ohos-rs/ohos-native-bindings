@@ -5,6 +5,9 @@
 #![allow(non_camel_case_types)]
 #![allow(clippy::missing_safety_doc)]
 
+#[link(name = "ohsensor")]
+unsafe extern "C" {}
+
 #[doc = " Acceleration sensor.\n @since 11"]
 pub const Sensor_Type_SENSOR_TYPE_ACCELEROMETER: Sensor_Type = 1;
 #[doc = " Gyroscope sensor.\n @since 11"]

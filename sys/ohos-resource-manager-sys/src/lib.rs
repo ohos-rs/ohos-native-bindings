@@ -7,6 +7,10 @@
 
 use napi_sys_ohos::*;
 
+#[link(name = "ohresmgr")]
+#[link(name = "rawfile.z")]
+unsafe extern "C" {}
+
 #[doc = " @error Success"]
 pub const ResourceManager_ErrorCode_SUCCESS: ResourceManager_ErrorCode = 0;
 #[doc = " @error Invalid input parameter"]
