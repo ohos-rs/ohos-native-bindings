@@ -42,6 +42,7 @@ static CONFIG: Lazy<Vec<Lazy<SysConfig>>> = Lazy::new(|| {
         config::ARK_WEB,
         config::SENSORS,
         config::VIBRATOR,
+        config::QOS,
     ]
 });
 

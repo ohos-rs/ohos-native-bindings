@@ -1,0 +1,22 @@
+[package]
+name        = "ohos-qos-sys"
+version     = "0.0.1"
+edition     = "2021"
+license     = "MIT OR Apache-2.0"
+description = "OpenHarmony's QoS sys binding for rust"
+
+[dependencies]
+
+[lints]
+workspace = true
+
+[features]
+default = []
+api-13  = []
+api-14  = ["api-13"]
+api-15  = ["api-14"]
+api-16  = ["api-15"]
+api-17  = ["api-16"]
+api-18  = ["api-17"]
+api-19  = ["api-18"]
+api-20  = ["api-19"]
