@@ -108,7 +108,7 @@ pub const OH_NativeBuffer_ColorSpace_OH_COLORSPACE_DISPLAY_BT2020_HLG: OH_Native
 pub const OH_NativeBuffer_ColorSpace_OH_COLORSPACE_DISPLAY_BT2020_PQ: OH_NativeBuffer_ColorSpace =
     31;
 #[doc = " @brief Indicates the color space of a native buffer.\n\n @syscap SystemCapability.Graphic.Graphic2D.NativeBuffer\n @since 11\n @version 1.0\n/\n/**\n @brief Indicates the color space of a native buffer.\n Move from native_buffer.h to native_common.h\n\n @syscap SystemCapability.Graphic.Graphic2D.NativeBuffer\n @since 12\n @version 1.0"]
-pub type OH_NativeBuffer_ColorSpace = ::std::os::raw::c_uint;
+pub type OH_NativeBuffer_ColorSpace = u32;
 #[doc = " HLG"]
 pub const OH_NativeBuffer_MetadataType_OH_VIDEO_HDR_HLG: OH_NativeBuffer_MetadataType = 0;
 #[doc = " HDR10"]
@@ -119,7 +119,7 @@ pub const OH_NativeBuffer_MetadataType_OH_VIDEO_HDR_VIVID: OH_NativeBuffer_Metad
 #[doc = " NONE Metadata\n @since 13"]
 pub const OH_NativeBuffer_MetadataType_OH_VIDEO_NONE: OH_NativeBuffer_MetadataType = -1;
 #[doc = " @brief Indicates the HDR metadata type of a native buffer.\n\n @syscap SystemCapability.Graphic.Graphic2D.NativeBuffer\n @since 12\n @version 1.0"]
-pub type OH_NativeBuffer_MetadataType = ::std::os::raw::c_int;
+pub type OH_NativeBuffer_MetadataType = i32;
 #[doc = " @brief Indicates the color x and y.\n\n @syscap SystemCapability.Graphic.Graphic2D.NativeBuffer\n @since 12\n @version 1.0"]
 #[repr(C)]
 #[derive(Debug, Copy, Clone)]
@@ -171,7 +171,7 @@ pub const OH_NativeBuffer_MetadataKey_OH_HDR_STATIC_METADATA: OH_NativeBuffer_Me
 #[doc = " byte stream of SEI in video stream"]
 pub const OH_NativeBuffer_MetadataKey_OH_HDR_DYNAMIC_METADATA: OH_NativeBuffer_MetadataKey = 2;
 #[doc = " @brief Indicates the HDR metadata key of a native buffer.\n\n @syscap SystemCapability.Graphic.Graphic2D.NativeBuffer\n @since 12\n @version 1.0"]
-pub type OH_NativeBuffer_MetadataKey = ::std::os::raw::c_uint;
+pub type OH_NativeBuffer_MetadataKey = u32;
 #[doc = " @brief Buffer handle used to transfer and obtain information about the buffer.\n @since 8"]
 #[repr(C)]
 #[derive(Debug)]
@@ -246,7 +246,7 @@ pub const OHScalingMode_OH_SCALING_MODE_SCALE_CROP: OHScalingMode = 2;
 #[doc = " the window is clipped to the size of the buffer's clipping rectangle\n pixels outside the clipping rectangle are considered fully transparent."]
 pub const OHScalingMode_OH_SCALING_MODE_NO_SCALE_CROP: OHScalingMode = 3;
 #[doc = " @brief Indicates Scaling Mode.\n @since 9\n @deprecated(since = \"10\")\n @useinstead OHScalingModeV2"]
-pub type OHScalingMode = ::std::os::raw::c_uint;
+pub type OHScalingMode = u32;
 #[doc = " the window content is not updated until a buffer of\n the window size is received"]
 pub const OHScalingModeV2_OH_SCALING_MODE_FREEZE_V2: OHScalingModeV2 = 0;
 #[doc = " the buffer is scaled in two dimensions to match the window size"]
@@ -258,7 +258,7 @@ pub const OHScalingModeV2_OH_SCALING_MODE_NO_SCALE_CROP_V2: OHScalingModeV2 = 3;
 #[doc = " Adapt to the buffer and scale proportionally to the buffer size. Prioritize displaying all buffer content.\n If the size is not the same as the window size, fill the unfilled area of the window with a background color."]
 pub const OHScalingModeV2_OH_SCALING_MODE_SCALE_FIT_V2: OHScalingModeV2 = 4;
 #[doc = " @brief Indicates Scaling Mode.\n @since 12"]
-pub type OHScalingModeV2 = ::std::os::raw::c_uint;
+pub type OHScalingModeV2 = u32;
 pub const OHHDRMetadataKey_OH_METAKEY_RED_PRIMARY_X: OHHDRMetadataKey = 0;
 pub const OHHDRMetadataKey_OH_METAKEY_RED_PRIMARY_Y: OHHDRMetadataKey = 1;
 pub const OHHDRMetadataKey_OH_METAKEY_GREEN_PRIMARY_X: OHHDRMetadataKey = 2;
@@ -274,7 +274,7 @@ pub const OHHDRMetadataKey_OH_METAKEY_MAX_FRAME_AVERAGE_LIGHT_LEVEL: OHHDRMetada
 pub const OHHDRMetadataKey_OH_METAKEY_HDR10_PLUS: OHHDRMetadataKey = 12;
 pub const OHHDRMetadataKey_OH_METAKEY_HDR_VIVID: OHHDRMetadataKey = 13;
 #[doc = " @brief Enumerates the HDR metadata keys.\n @since 9\n @deprecated(since = \"10\")"]
-pub type OHHDRMetadataKey = ::std::os::raw::c_uint;
+pub type OHHDRMetadataKey = u32;
 #[doc = " @brief Defines the HDR metadata.\n @since 9\n @deprecated(since = \"10\")"]
 #[repr(C)]
 #[derive(Debug, Copy, Clone)]
@@ -308,7 +308,7 @@ pub const OH_NativeBuffer_Usage_NATIVEBUFFER_USAGE_CPU_READ_OFTEN: OH_NativeBuff
 #[doc = " < Often be mapped for direct CPU reads */"]
 pub const OH_NativeBuffer_Usage_NATIVEBUFFER_USAGE_ALIGNMENT_512: OH_NativeBuffer_Usage = 262144;
 #[doc = " @brief Indicates the usage of a native buffer.\n\n @syscap SystemCapability.Graphic.Graphic2D.NativeBuffer\n @since 10\n @version 1.0"]
-pub type OH_NativeBuffer_Usage = ::std::os::raw::c_uint;
+pub type OH_NativeBuffer_Usage = u32;
 #[doc = " CLUT8 format\n @since 12"]
 pub const OH_NativeBuffer_Format_NATIVEBUFFER_PIXEL_FMT_CLUT8: OH_NativeBuffer_Format = 0;
 #[doc = " CLUT1 format\n @since 12"]
@@ -403,7 +403,7 @@ pub const OH_NativeBuffer_Format_NATIVEBUFFER_PIXEL_FMT_VENDER_MASK: OH_NativeBu
 #[doc = " vendor mask format\n @since 12"]
 pub const OH_NativeBuffer_Format_NATIVEBUFFER_PIXEL_FMT_BUTT: OH_NativeBuffer_Format = 2147483647;
 #[doc = " @brief Indicates the format of a native buffer.\n\n @syscap SystemCapability.Graphic.Graphic2D.NativeBuffer\n @since 10\n @version 1.0"]
-pub type OH_NativeBuffer_Format = ::std::os::raw::c_uint;
+pub type OH_NativeBuffer_Format = u32;
 #[doc = "< No rotation"]
 pub const OH_NativeBuffer_TransformType_NATIVEBUFFER_ROTATE_NONE: OH_NativeBuffer_TransformType = 0;
 #[doc = "< Rotation by 90 degrees"]
@@ -435,7 +435,7 @@ pub const OH_NativeBuffer_TransformType_NATIVEBUFFER_FLIP_H_ROT270: OH_NativeBuf
 pub const OH_NativeBuffer_TransformType_NATIVEBUFFER_FLIP_V_ROT270: OH_NativeBuffer_TransformType =
     11;
 #[doc = " @brief Indicates the transform type of a native buffer.\n\n @syscap SystemCapability.Graphic.Graphic2D.NativeBuffer\n @since 12\n @version 1.0"]
-pub type OH_NativeBuffer_TransformType = ::std::os::raw::c_uint;
+pub type OH_NativeBuffer_TransformType = u32;
 #[doc = "< Native or default"]
 pub const OH_NativeBuffer_ColorGamut_NATIVEBUFFER_COLOR_GAMUT_NATIVE: OH_NativeBuffer_ColorGamut =
     0;
@@ -469,7 +469,7 @@ pub const OH_NativeBuffer_ColorGamut_NATIVEBUFFER_COLOR_GAMUT_BT2100_HLG:
 pub const OH_NativeBuffer_ColorGamut_NATIVEBUFFER_COLOR_GAMUT_DISPLAY_BT2020:
     OH_NativeBuffer_ColorGamut = 10;
 #[doc = " @brief Indicates the color gamut of a native buffer.\n\n @syscap SystemCapability.Graphic.Graphic2D.NativeBuffer\n @since 12\n @version 1.0"]
-pub type OH_NativeBuffer_ColorGamut = ::std::os::raw::c_uint;
+pub type OH_NativeBuffer_ColorGamut = u32;
 #[doc = " @brief <b>OH_NativeBuffer</b> config. \\n\n Used to allocating new <b>OH_NativeBuffer</b> and query parameters if existing ones.\n\n @syscap SystemCapability.Graphic.Graphic2D.NativeBuffer\n @since 9\n @version 1.0"]
 #[repr(C)]
 #[derive(Debug, Copy, Clone)]

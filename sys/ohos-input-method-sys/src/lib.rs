@@ -16,7 +16,7 @@ pub const InputMethod_KeyboardStatus_IME_KEYBOARD_STATUS_HIDE: InputMethod_Keybo
 #[doc = " The keyboard status is show."]
 pub const InputMethod_KeyboardStatus_IME_KEYBOARD_STATUS_SHOW: InputMethod_KeyboardStatus = 2;
 #[doc = " @brief Keyboard status.\n\n @since 12"]
-pub type InputMethod_KeyboardStatus = ::std::os::raw::c_uint;
+pub type InputMethod_KeyboardStatus = u32;
 #[doc = " The enter key type is UNSPECIFIED."]
 pub const InputMethod_EnterKeyType_IME_ENTER_KEY_UNSPECIFIED: InputMethod_EnterKeyType = 0;
 #[doc = " The enter key type is NONE."]
@@ -36,7 +36,7 @@ pub const InputMethod_EnterKeyType_IME_ENTER_KEY_PREVIOUS: InputMethod_EnterKeyT
 #[doc = " The enter key type is NEWLINE."]
 pub const InputMethod_EnterKeyType_IME_ENTER_KEY_NEWLINE: InputMethod_EnterKeyType = 8;
 #[doc = " @brief Enter key type.\n\n @since 12"]
-pub type InputMethod_EnterKeyType = ::std::os::raw::c_uint;
+pub type InputMethod_EnterKeyType = u32;
 #[doc = " The direction is NONE."]
 pub const InputMethod_Direction_IME_DIRECTION_NONE: InputMethod_Direction = 0;
 #[doc = " The direction is UP."]
@@ -48,7 +48,7 @@ pub const InputMethod_Direction_IME_DIRECTION_LEFT: InputMethod_Direction = 3;
 #[doc = " The direction is RIGHT."]
 pub const InputMethod_Direction_IME_DIRECTION_RIGHT: InputMethod_Direction = 4;
 #[doc = " @brief Direction.\n\n @since 12"]
-pub type InputMethod_Direction = ::std::os::raw::c_uint;
+pub type InputMethod_Direction = u32;
 #[doc = " Select all text."]
 pub const InputMethod_ExtendAction_IME_EXTEND_ACTION_SELECT_ALL: InputMethod_ExtendAction = 0;
 #[doc = " Cut selected text."]
@@ -58,7 +58,7 @@ pub const InputMethod_ExtendAction_IME_EXTEND_ACTION_COPY: InputMethod_ExtendAct
 #[doc = " Paste from paste board."]
 pub const InputMethod_ExtendAction_IME_EXTEND_ACTION_PASTE: InputMethod_ExtendAction = 5;
 #[doc = " @brief The extend action.\n\n @since 12"]
-pub type InputMethod_ExtendAction = ::std::os::raw::c_uint;
+pub type InputMethod_ExtendAction = u32;
 #[doc = " The text input type is NONE."]
 pub const InputMethod_TextInputType_IME_TEXT_INPUT_TYPE_NONE: InputMethod_TextInputType = -1;
 #[doc = " The text input type is TEXT."]
@@ -98,7 +98,7 @@ pub const InputMethod_TextInputType_IME_TEXT_INPUT_TYPE_NUMBER_DECIMAL: InputMet
 pub const InputMethod_TextInputType_IME_TEXT_INPUT_TYPE_ONE_TIME_CODE: InputMethod_TextInputType =
     13;
 #[doc = " @brief The text input type.\n\n @since 12"]
-pub type InputMethod_TextInputType = ::std::os::raw::c_int;
+pub type InputMethod_TextInputType = i32;
 #[doc = " Value type is NONE."]
 pub const InputMethod_CommandValueType_IME_COMMAND_VALUE_TYPE_NONE: InputMethod_CommandValueType =
     0;
@@ -112,7 +112,7 @@ pub const InputMethod_CommandValueType_IME_COMMAND_VALUE_TYPE_BOOL: InputMethod_
 pub const InputMethod_CommandValueType_IME_COMMAND_VALUE_TYPE_INT32: InputMethod_CommandValueType =
     3;
 #[doc = " @brief The value type of command data.\n\n @since 12"]
-pub type InputMethod_CommandValueType = ::std::os::raw::c_uint;
+pub type InputMethod_CommandValueType = u32;
 #[doc = " @error The error code in the correct case."]
 pub const InputMethod_ErrorCode_IME_ERR_OK: InputMethod_ErrorCode = 0;
 #[doc = " @error The error code when error is undefined."]
@@ -140,7 +140,7 @@ pub const InputMethod_ErrorCode_IME_ERR_NULL_POINTER: InputMethod_ErrorCode = 12
 #[doc = " @error The error code when query failed."]
 pub const InputMethod_ErrorCode_IME_ERR_QUERY_FAILED: InputMethod_ErrorCode = 12802001;
 #[doc = " @brief The value type of command data.\n\n @since 12"]
-pub type InputMethod_ErrorCode = ::std::os::raw::c_uint;
+pub type InputMethod_ErrorCode = u32;
 #[doc = " The request keyboard reason is NONE."]
 #[cfg(feature = "api-15")]
 pub const InputMethod_RequestKeyboardReason_IME_REQUEST_REASON_NONE:
@@ -159,7 +159,7 @@ pub const InputMethod_RequestKeyboardReason_IME_REQUEST_REASON_OTHER:
     InputMethod_RequestKeyboardReason = 20;
 #[cfg(feature = "api-15")]
 #[doc = " @brief The value type of request keyboard.\n\n @since 15"]
-pub type InputMethod_RequestKeyboardReason = ::std::os::raw::c_uint;
+pub type InputMethod_RequestKeyboardReason = u32;
 #[repr(C)]
 #[derive(Debug, Copy, Clone)]
 pub struct InputMethod_PrivateCommand {

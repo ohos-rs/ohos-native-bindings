@@ -258,6 +258,8 @@ unsafe extern "C" {{}}"#,
         .clang_arg("c")
         .generate_comments(true)
         .clang_arg("-fretain-comments-from-system-headers") // keep comments from system headers
+        .default_alias_style(bindgen::AliasVariation::TypeAlias)
+        .translate_enum_integer_types(true)
         .layout_tests(false);
 
     if !config.white_list.is_empty() {

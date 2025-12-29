@@ -155,7 +155,7 @@ pub const Image_ErrorCode_IMAGE_ENCODE_FAILED: Image_ErrorCode = 7800301;
 #[doc = " @error Invalid parameter for ImageReceiver.\n @since 20"]
 pub const Image_ErrorCode_IMAGE_RECEIVER_INVALID_PARAMETER: Image_ErrorCode = 7900201;
 #[doc = " @brief Enumerates the return values that may be used by the interface.\n\n @since 12"]
-pub type Image_ErrorCode = ::std::os::raw::c_uint;
+pub type Image_ErrorCode = u32;
 #[doc = " EXIF metadata."]
 #[cfg(feature = "api-13")]
 pub const Image_MetadataType_EXIF_METADATA: Image_MetadataType = 1;
@@ -167,7 +167,7 @@ pub const Image_MetadataType_FRAGMENT_METADATA: Image_MetadataType = 2;
 pub const Image_MetadataType_GIF_METADATA: Image_MetadataType = 5;
 #[cfg(feature = "api-13")]
 #[doc = " @brief Define the metadata type.\n\n @since 13"]
-pub type Image_MetadataType = ::std::os::raw::c_uint;
+pub type Image_MetadataType = u32;
 #[cfg(feature = "api-20")]
 #[doc = " The system determines which memory to use to create the PixelMap.\n\n @since 20"]
 pub const IMAGE_ALLOCATOR_MODE_IMAGE_ALLOCATOR_MODE_AUTO: IMAGE_ALLOCATOR_MODE = 0;
@@ -179,7 +179,7 @@ pub const IMAGE_ALLOCATOR_MODE_IMAGE_ALLOCATOR_MODE_DMA: IMAGE_ALLOCATOR_MODE = 
 pub const IMAGE_ALLOCATOR_MODE_IMAGE_ALLOCATOR_MODE_SHARED_MEMORY: IMAGE_ALLOCATOR_MODE = 2;
 #[cfg(feature = "api-20")]
 #[doc = " @brief Type of allocator used to allocate memory of a PixelMap.\n\n @since 20"]
-pub type IMAGE_ALLOCATOR_MODE = ::std::os::raw::c_uint;
+pub type IMAGE_ALLOCATOR_MODE = u32;
 extern "C" {
     #[cfg(feature = "api-13")]
     #[doc = " @brief Creates a <b>PictureMetadata</b> object.\n\n @param metadataType The type of metadata.\n @param metadata The PictureMetadata pointer will be operated.\n @return Image functions result code.\n         {@link IMAGE_SUCCESS} if the execution is successful.\n         {@link IMAGE_BAD_PARAMETER} metadata is nullptr.\n @since 13"]
@@ -251,7 +251,7 @@ pub const OHScalingMode_OH_SCALING_MODE_SCALE_CROP: OHScalingMode = 2;
 #[doc = " the window is clipped to the size of the buffer's clipping rectangle\n pixels outside the clipping rectangle are considered fully transparent."]
 pub const OHScalingMode_OH_SCALING_MODE_NO_SCALE_CROP: OHScalingMode = 3;
 #[doc = " @brief Indicates Scaling Mode.\n @since 9\n @deprecated(since = \"10\")\n @useinstead OHScalingModeV2"]
-pub type OHScalingMode = ::std::os::raw::c_uint;
+pub type OHScalingMode = u32;
 #[doc = " the window content is not updated until a buffer of\n the window size is received"]
 pub const OHScalingModeV2_OH_SCALING_MODE_FREEZE_V2: OHScalingModeV2 = 0;
 #[doc = " the buffer is scaled in two dimensions to match the window size"]
@@ -263,7 +263,7 @@ pub const OHScalingModeV2_OH_SCALING_MODE_NO_SCALE_CROP_V2: OHScalingModeV2 = 3;
 #[doc = " Adapt to the buffer and scale proportionally to the buffer size. Prioritize displaying all buffer content.\n If the size is not the same as the window size, fill the unfilled area of the window with a background color."]
 pub const OHScalingModeV2_OH_SCALING_MODE_SCALE_FIT_V2: OHScalingModeV2 = 4;
 #[doc = " @brief Indicates Scaling Mode.\n @since 12"]
-pub type OHScalingModeV2 = ::std::os::raw::c_uint;
+pub type OHScalingModeV2 = u32;
 pub const OHHDRMetadataKey_OH_METAKEY_RED_PRIMARY_X: OHHDRMetadataKey = 0;
 pub const OHHDRMetadataKey_OH_METAKEY_RED_PRIMARY_Y: OHHDRMetadataKey = 1;
 pub const OHHDRMetadataKey_OH_METAKEY_GREEN_PRIMARY_X: OHHDRMetadataKey = 2;
@@ -279,7 +279,7 @@ pub const OHHDRMetadataKey_OH_METAKEY_MAX_FRAME_AVERAGE_LIGHT_LEVEL: OHHDRMetada
 pub const OHHDRMetadataKey_OH_METAKEY_HDR10_PLUS: OHHDRMetadataKey = 12;
 pub const OHHDRMetadataKey_OH_METAKEY_HDR_VIVID: OHHDRMetadataKey = 13;
 #[doc = " @brief Enumerates the HDR metadata keys.\n @since 9\n @deprecated(since = \"10\")"]
-pub type OHHDRMetadataKey = ::std::os::raw::c_uint;
+pub type OHHDRMetadataKey = u32;
 #[doc = " @brief Defines the HDR metadata.\n @since 9\n @deprecated(since = \"10\")"]
 #[repr(C)]
 #[derive(Debug, Copy, Clone)]
@@ -382,7 +382,7 @@ pub const PIXEL_FORMAT_PIXEL_FORMAT_NV12: PIXEL_FORMAT = 9;
 pub const PIXEL_FORMAT_PIXEL_FORMAT_RGBA_1010102: PIXEL_FORMAT = 10;
 pub const PIXEL_FORMAT_PIXEL_FORMAT_YCBCR_P010: PIXEL_FORMAT = 11;
 pub const PIXEL_FORMAT_PIXEL_FORMAT_YCRCB_P010: PIXEL_FORMAT = 12;
-pub type PIXEL_FORMAT = ::std::os::raw::c_uint;
+pub type PIXEL_FORMAT = u32;
 #[doc = " Nearest-neighbor interpolation algorithm"]
 pub const OH_PixelmapNative_AntiAliasingLevel_OH_PixelmapNative_AntiAliasing_NONE:
     OH_PixelmapNative_AntiAliasingLevel = 0;
@@ -396,7 +396,7 @@ pub const OH_PixelmapNative_AntiAliasingLevel_OH_PixelmapNative_AntiAliasing_MED
 pub const OH_PixelmapNative_AntiAliasingLevel_OH_PixelmapNative_AntiAliasing_HIGH:
     OH_PixelmapNative_AntiAliasingLevel = 3;
 #[doc = " @brief Defines the anti-aliasing level.\n\n @since 12"]
-pub type OH_PixelmapNative_AntiAliasingLevel = ::std::os::raw::c_uint;
+pub type OH_PixelmapNative_AntiAliasingLevel = u32;
 #[doc = " Indicate the types of metadata that image needs to use."]
 pub const OH_Pixelmap_HdrMetadataKey_HDR_METADATA_TYPE: OH_Pixelmap_HdrMetadataKey = 0;
 #[doc = " Static metadata key."]
@@ -406,7 +406,7 @@ pub const OH_Pixelmap_HdrMetadataKey_HDR_DYNAMIC_METADATA: OH_Pixelmap_HdrMetada
 #[doc = " Gainmap metadata key."]
 pub const OH_Pixelmap_HdrMetadataKey_HDR_GAINMAP_METADATA: OH_Pixelmap_HdrMetadataKey = 3;
 #[doc = " @brief Enumerates the HDR metadata types that need to be stored in Pixelmap.\n\n @since 12"]
-pub type OH_Pixelmap_HdrMetadataKey = ::std::os::raw::c_uint;
+pub type OH_Pixelmap_HdrMetadataKey = u32;
 #[doc = " No metadata."]
 pub const OH_Pixelmap_HdrMetadataType_HDR_METADATA_TYPE_NONE: OH_Pixelmap_HdrMetadataType = 0;
 #[doc = " Indicates that metadata will be used for the base image."]
@@ -416,7 +416,7 @@ pub const OH_Pixelmap_HdrMetadataType_HDR_METADATA_TYPE_GAINMAP: OH_Pixelmap_Hdr
 #[doc = " Indicates that metadata will be used for the alternate image."]
 pub const OH_Pixelmap_HdrMetadataType_HDR_METADATA_TYPE_ALTERNATE: OH_Pixelmap_HdrMetadataType = 3;
 #[doc = " @brief Value for HDR_METADATA_TYPE.\n\n @since 12"]
-pub type OH_Pixelmap_HdrMetadataType = ::std::os::raw::c_uint;
+pub type OH_Pixelmap_HdrMetadataType = u32;
 #[doc = " @brief Value for HDR_STATIC_METADATA.\n\n @since 12"]
 #[repr(C)]
 #[derive(Debug, Copy, Clone)]
@@ -963,7 +963,7 @@ pub const Image_AuxiliaryPictureType_AUXILIARY_PICTURE_TYPE_FRAGMENT_MAP:
     Image_AuxiliaryPictureType = 5;
 #[cfg(feature = "api-13")]
 #[doc = " @brief Define a auxiliary picture type.\n\n @since 13"]
-pub type Image_AuxiliaryPictureType = ::std::os::raw::c_uint;
+pub type Image_AuxiliaryPictureType = u32;
 extern "C" {
     #[cfg(feature = "api-13")]
     #[doc = " @brief Create a <b>Picture</b> object.\n\n @param mainPixelmap The pixel map of the main image.\n @param picture Picture pointer for created.\n @return Image functions result code.\n         {@link IMAGE_SUCCESS} if the execution is successful.\n         {@link IMAGE_BAD_PARAMETER} mainPixelmap is nullptr, or picture is nullptr.\n @since 13"]
@@ -1218,7 +1218,7 @@ pub const IMAGE_ALLOCATOR_TYPE_IMAGE_ALLOCATOR_TYPE_DMA: IMAGE_ALLOCATOR_TYPE = 
 pub const IMAGE_ALLOCATOR_TYPE_IMAGE_ALLOCATOR_TYPE_SHARE_MEMORY: IMAGE_ALLOCATOR_TYPE = 2;
 #[cfg(feature = "api-15")]
 #[doc = " @brief Type of allocator used to allocate memory of a PixelMap..\n\n @since 15"]
-pub type IMAGE_ALLOCATOR_TYPE = ::std::os::raw::c_uint;
+pub type IMAGE_ALLOCATOR_TYPE = u32;
 extern "C" {
     #[doc = " @brief Create a pointer for OH_ImageSource_Info struct.\n\n @param info The OH_ImageSource_Info pointer will be operated.\n @return Returns {@link Image_ErrorCode}\n @since 12"]
     pub fn OH_ImageSourceInfo_Create(info: *mut *mut OH_ImageSource_Info) -> Image_ErrorCode;

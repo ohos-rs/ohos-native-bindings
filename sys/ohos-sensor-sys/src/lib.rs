@@ -41,7 +41,7 @@ pub const Sensor_Type_SENSOR_TYPE_PEDOMETER: Sensor_Type = 266;
 #[doc = " Heart rate sensor.\n @since 11"]
 pub const Sensor_Type_SENSOR_TYPE_HEART_RATE: Sensor_Type = 278;
 #[doc = " @brief Enumerates the sensor types.\n\n @since 11"]
-pub type Sensor_Type = ::std::os::raw::c_uint;
+pub type Sensor_Type = u32;
 #[doc = " @error The operation is successful.\n @since 11"]
 pub const Sensor_Result_SENSOR_SUCCESS: Sensor_Result = 0;
 #[doc = " @error Permission verification failed.\n @since 11"]
@@ -51,7 +51,7 @@ pub const Sensor_Result_SENSOR_PARAMETER_ERROR: Sensor_Result = 401;
 #[doc = " @error The sensor service is abnormal.\n @since 11"]
 pub const Sensor_Result_SENSOR_SERVICE_EXCEPTION: Sensor_Result = 14500101;
 #[doc = " @brief Enumerates the sensor result codes.\n\n @since 11"]
-pub type Sensor_Result = ::std::os::raw::c_uint;
+pub type Sensor_Result = u32;
 #[doc = " The sensor data is unreliable. It is possible that the sensor does not contact with the device to measure.\n @since 11"]
 pub const Sensor_Accuracy_SENSOR_ACCURACY_UNRELIABLE: Sensor_Accuracy = 0;
 #[doc = " The sensor data is at a low accuracy level. The data must be calibrated based on\n the environment before being used.\n @since 11"]
@@ -61,7 +61,7 @@ pub const Sensor_Accuracy_SENSOR_ACCURACY_MEDIUM: Sensor_Accuracy = 2;
 #[doc = " The sensor data is at a high accuracy level. The data can be used directly.\n @since 11"]
 pub const Sensor_Accuracy_SENSOR_ACCURACY_HIGH: Sensor_Accuracy = 3;
 #[doc = " @brief Enumerates the accuracy levels of data reported by a sensor.\n\n @since 11"]
-pub type Sensor_Accuracy = ::std::os::raw::c_uint;
+pub type Sensor_Accuracy = u32;
 #[repr(C)]
 #[derive(Debug, Copy, Clone)]
 pub struct Sensor_Info {

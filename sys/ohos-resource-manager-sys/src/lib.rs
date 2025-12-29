@@ -49,19 +49,19 @@ pub const ResourceManager_ErrorCode_ERROR_CODE_OVERLAY_RES_PATH_INVALID: Resourc
 #[doc = " @error Out of memory"]
 pub const ResourceManager_ErrorCode_ERROR_CODE_OUT_OF_MEMORY: ResourceManager_ErrorCode = 9001100;
 #[doc = " @brief The error code of resource manager.\n\n @since 12"]
-pub type ResourceManager_ErrorCode = ::std::os::raw::c_uint;
+pub type ResourceManager_ErrorCode = u32;
 #[doc = " Indicates the vertical direction."]
 pub const ResourceManager_Direction_DIRECTION_VERTICAL: ResourceManager_Direction = 0;
 #[doc = " Indicates the horizontal direction."]
 pub const ResourceManager_Direction_DIRECTION_HORIZONTAL: ResourceManager_Direction = 1;
 #[doc = " @brief Enumerates screen directions.\n\n @since 12"]
-pub type ResourceManager_Direction = ::std::os::raw::c_uint;
+pub type ResourceManager_Direction = u32;
 #[doc = " Indicates dark mode."]
 pub const ResourceManager_ColorMode_COLOR_MODE_DARK: ResourceManager_ColorMode = 0;
 #[doc = " Indicates light mode."]
 pub const ResourceManager_ColorMode_COLOR_MODE_LIGHT: ResourceManager_ColorMode = 1;
 #[doc = " @brief Enumerates color mode types.\n\n @since 12"]
-pub type ResourceManager_ColorMode = ::std::os::raw::c_uint;
+pub type ResourceManager_ColorMode = u32;
 #[doc = " Indicates a phone."]
 pub const ResourceManager_DeviceType_DEVICE_TYPE_PHONE: ResourceManager_DeviceType = 0;
 #[doc = " Indicates a tablet."]
@@ -77,7 +77,7 @@ pub const ResourceManager_DeviceType_DEVICE_TYPE_WEARABLE: ResourceManager_Devic
 #[doc = " Indicates a 2in1 device."]
 pub const ResourceManager_DeviceType_DEVICE_TYPE_2IN1: ResourceManager_DeviceType = 7;
 #[doc = " @brief Enumerates device types.\n\n @since 12"]
-pub type ResourceManager_DeviceType = ::std::os::raw::c_uint;
+pub type ResourceManager_DeviceType = u32;
 #[doc = " Indicates small screen density."]
 pub const ScreenDensity_SCREEN_SDPI: ScreenDensity = 120;
 #[doc = " Indicates medium screen density."]
@@ -91,7 +91,7 @@ pub const ScreenDensity_SCREEN_XXLDPI: ScreenDensity = 480;
 #[doc = " Indicates extra-extra-extra-large screen density."]
 pub const ScreenDensity_SCREEN_XXXLDPI: ScreenDensity = 640;
 #[doc = " @brief Enumerates screen density types.\n\n @since 12"]
-pub type ScreenDensity = ::std::os::raw::c_uint;
+pub type ScreenDensity = u32;
 #[doc = " @brief Enumerates device configuration.\n\n @since 12"]
 #[repr(C)]
 #[derive(Debug, Copy, Clone)]
