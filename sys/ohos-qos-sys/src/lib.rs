@@ -21,7 +21,7 @@ pub const QoS_Level_QOS_DEADLINE_REQUEST: QoS_Level = 4;
 #[doc = " @brief Means the QoS level is user-interactive."]
 pub const QoS_Level_QOS_USER_INTERACTIVE: QoS_Level = 5;
 #[doc = " @brief Describes the level of QoS.\n\n @since 12"]
-pub type QoS_Level = ::std::os::raw::c_uint;
+pub type QoS_Level = u32;
 extern "C" {
     #[doc = " @brief Set the QoS level of the current thread.\n\n @param level Indicates the level to set. Specific level can be referenced {@link QoS_Level}.\n @return Returns 0 if the operation is successful; returns -1 if level is out of range or\n         internal error failed.\n @see QoS_Level\n @since 12"]
     pub fn OH_QoS_SetThreadQoS(level: QoS_Level) -> ::std::os::raw::c_int;
@@ -58,7 +58,7 @@ pub const OH_QoS_GewuErrorCode_OH_QOS_GEWU_NOSYS: OH_QoS_GewuErrorCode = 801;
 pub const OH_QoS_GewuErrorCode_OH_QOS_GEWU_FAULT: OH_QoS_GewuErrorCode = 901;
 #[cfg(feature = "api-20")]
 #[doc = " @brief Gewu error codes.\n\n @since 20"]
-pub type OH_QoS_GewuErrorCode = ::std::os::raw::c_uint;
+pub type OH_QoS_GewuErrorCode = u32;
 #[cfg(feature = "api-20")]
 #[doc = " @param session The created session id\n @param error Error code of CreateSession\n              - OH_QOS_GEWU_OK will be returned if the session is created successfully.\n              - OH_QOS_GEWU_NOMEM will be returned if the system does not have sufficient memory to\n                create the session.\n\n @since 20"]
 #[repr(C)]

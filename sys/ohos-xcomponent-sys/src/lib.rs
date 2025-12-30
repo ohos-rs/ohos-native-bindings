@@ -2243,7 +2243,7 @@ pub const HitTestMode_HTM_BLOCK_HIERARCHY: HitTestMode = 4;
 #[doc = " The node does not respond to hit tests, and none of its descendants (including children and grandchildren)\n participate in hit tests either.\n\n @since 20"]
 pub const HitTestMode_HTM_BLOCK_DESCENDANTS: HitTestMode = 5;
 #[doc = " @brief Enumerates the hit test modes.\n\n @since 12"]
-pub type HitTestMode = ::std::os::raw::c_uint;
+pub type HitTestMode = u32;
 extern "C" {
     #[doc = " @brief Obtains the type of a UI input event.\n\n Before accessing an <b>ArkUI_UIInputEvent</b> pointer, use this API to determine the type of the input event.\n This API returns a value from the {@link ArkUI_UIInputEvent_Type} enum. It helps ensure compatibility with subsequent\n accessors. For example, if the event is a touch event,\n which is directional, you can use OH_ArkUI_UIInputEvent_GetXXX or OH_ArkUI_PointerEvent_GetXXX for access.\n Using OH_ArkUI_KeyEvent_GetXXX to access the event may produce undefined behavior.\n\n For unsupported event types, this API returns the default value <b>0</b>.\n\n @param event Pointer to the current UI input event.\n @return Returns the type of the current UI input event; returns <b>0</b> if any parameter error occurs.\n @since 12"]
     pub fn OH_ArkUI_UIInputEvent_GetType(event: *const ArkUI_UIInputEvent) -> i32;
@@ -3130,7 +3130,7 @@ pub const OH_NativeXComponent_KeyCode_KEY_BTN_7: OH_NativeXComponent_KeyCode = 3
 pub const OH_NativeXComponent_KeyCode_KEY_BTN_8: OH_NativeXComponent_KeyCode = 3108;
 pub const OH_NativeXComponent_KeyCode_KEY_BTN_9: OH_NativeXComponent_KeyCode = 3109;
 #[doc = " @brief Represents the key event code.\n\n @since 10\n @version 1.0"]
-pub type OH_NativeXComponent_KeyCode = ::std::os::raw::c_int;
+pub type OH_NativeXComponent_KeyCode = i32;
 pub const OH_NativeXComponent_KeyAction_OH_NATIVEXCOMPONENT_KEY_ACTION_UNKNOWN:
     OH_NativeXComponent_KeyAction = -1;
 pub const OH_NativeXComponent_KeyAction_OH_NATIVEXCOMPONENT_KEY_ACTION_DOWN:
@@ -3138,7 +3138,7 @@ pub const OH_NativeXComponent_KeyAction_OH_NATIVEXCOMPONENT_KEY_ACTION_DOWN:
 pub const OH_NativeXComponent_KeyAction_OH_NATIVEXCOMPONENT_KEY_ACTION_UP:
     OH_NativeXComponent_KeyAction = 1;
 #[doc = " @brief Represents the key event action.\n\n @since 10\n @version 1.0"]
-pub type OH_NativeXComponent_KeyAction = ::std::os::raw::c_int;
+pub type OH_NativeXComponent_KeyAction = i32;
 pub const OH_XCOMPONENT_ID_LEN_MAX: u32 = 128;
 pub const OH_MAX_TOUCH_POINTS_NUMBER: u32 = 10;
 #[doc = " Successful."]
@@ -3148,7 +3148,7 @@ pub const OH_NATIVEXCOMPONENT_RESULT_FAILED: _bindgen_ty_8 = -1;
 #[doc = " Invalid parameters."]
 pub const OH_NATIVEXCOMPONENT_RESULT_BAD_PARAMETER: _bindgen_ty_8 = -2;
 #[doc = " @brief Enumerates the API access states.\n\n @since 8\n @version 1.0"]
-pub type _bindgen_ty_8 = ::std::os::raw::c_int;
+pub type _bindgen_ty_8 = i32;
 #[doc = " AI analyzer execution is finished."]
 #[cfg(feature = "api-18")]
 pub const ArkUI_XComponent_ImageAnalyzerState_ARKUI_XCOMPONENT_AI_ANALYSIS_FINISHED:
@@ -3171,7 +3171,7 @@ pub const ArkUI_XComponent_ImageAnalyzerState_ARKUI_XCOMPONENT_AI_ANALYSIS_STOPP
     ArkUI_XComponent_ImageAnalyzerState = 110003;
 #[cfg(feature = "api-18")]
 #[doc = " @brief Status code for AI analyzer.\n\n @since 18"]
-pub type ArkUI_XComponent_ImageAnalyzerState = ::std::os::raw::c_uint;
+pub type ArkUI_XComponent_ImageAnalyzerState = u32;
 #[doc = " Trigger a touch event when a finger is pressed."]
 pub const OH_NativeXComponent_TouchEventType_OH_NATIVEXCOMPONENT_DOWN:
     OH_NativeXComponent_TouchEventType = 0;
@@ -3188,7 +3188,7 @@ pub const OH_NativeXComponent_TouchEventType_OH_NATIVEXCOMPONENT_CANCEL:
 pub const OH_NativeXComponent_TouchEventType_OH_NATIVEXCOMPONENT_UNKNOWN:
     OH_NativeXComponent_TouchEventType = 4;
 #[doc = " @brief Represents the type of touch event.\n\n @since 8\n @version 1.0"]
-pub type OH_NativeXComponent_TouchEventType = ::std::os::raw::c_uint;
+pub type OH_NativeXComponent_TouchEventType = u32;
 #[doc = " Indicates invalid tool type."]
 pub const OH_NativeXComponent_TouchPointToolType_OH_NATIVEXCOMPONENT_TOOL_TYPE_UNKNOWN:
     OH_NativeXComponent_TouchPointToolType = 0;
@@ -3217,7 +3217,7 @@ pub const OH_NativeXComponent_TouchPointToolType_OH_NATIVEXCOMPONENT_TOOL_TYPE_M
 pub const OH_NativeXComponent_TouchPointToolType_OH_NATIVEXCOMPONENT_TOOL_TYPE_LENS:
     OH_NativeXComponent_TouchPointToolType = 8;
 #[doc = " @brief Represents the touch point tool type.\n\n @since 9\n @version 1.0"]
-pub type OH_NativeXComponent_TouchPointToolType = ::std::os::raw::c_uint;
+pub type OH_NativeXComponent_TouchPointToolType = u32;
 #[doc = " Indicates an unknown input source type."]
 pub const OH_NativeXComponent_EventSourceType_OH_NATIVEXCOMPONENT_SOURCE_TYPE_UNKNOWN:
     OH_NativeXComponent_EventSourceType = 0;
@@ -3237,7 +3237,7 @@ pub const OH_NativeXComponent_EventSourceType_OH_NATIVEXCOMPONENT_SOURCE_TYPE_JO
 pub const OH_NativeXComponent_EventSourceType_OH_NATIVEXCOMPONENT_SOURCE_TYPE_KEYBOARD:
     OH_NativeXComponent_EventSourceType = 5;
 #[doc = " @brief Represents the touch event source type.\n\n @since 9\n @version 1.0"]
-pub type OH_NativeXComponent_EventSourceType = ::std::os::raw::c_uint;
+pub type OH_NativeXComponent_EventSourceType = u32;
 pub const OH_NativeXComponent_MouseEventAction_OH_NATIVEXCOMPONENT_MOUSE_NONE:
     OH_NativeXComponent_MouseEventAction = 0;
 pub const OH_NativeXComponent_MouseEventAction_OH_NATIVEXCOMPONENT_MOUSE_PRESS:
@@ -3251,7 +3251,7 @@ pub const OH_NativeXComponent_MouseEventAction_OH_NATIVEXCOMPONENT_MOUSE_MOVE:
 pub const OH_NativeXComponent_MouseEventAction_OH_NATIVEXCOMPONENT_MOUSE_CANCEL:
     OH_NativeXComponent_MouseEventAction = 4;
 #[doc = " @brief Represents the mouse event action.\n\n @since 9\n @version 1.0"]
-pub type OH_NativeXComponent_MouseEventAction = ::std::os::raw::c_uint;
+pub type OH_NativeXComponent_MouseEventAction = u32;
 pub const OH_NativeXComponent_MouseEventButton_OH_NATIVEXCOMPONENT_NONE_BUTTON:
     OH_NativeXComponent_MouseEventButton = 0;
 pub const OH_NativeXComponent_MouseEventButton_OH_NATIVEXCOMPONENT_LEFT_BUTTON:
@@ -3265,7 +3265,7 @@ pub const OH_NativeXComponent_MouseEventButton_OH_NATIVEXCOMPONENT_BACK_BUTTON:
 pub const OH_NativeXComponent_MouseEventButton_OH_NATIVEXCOMPONENT_FORWARD_BUTTON:
     OH_NativeXComponent_MouseEventButton = 16;
 #[doc = " @brief Represents the mouse event button.\n\n @since 9\n @version 1.0"]
-pub type OH_NativeXComponent_MouseEventButton = ::std::os::raw::c_uint;
+pub type OH_NativeXComponent_MouseEventButton = u32;
 pub const OH_NativeXComponent_TouchEvent_SourceTool_OH_NATIVEXCOMPONENT_SOURCETOOL_UNKNOWN:
     OH_NativeXComponent_TouchEvent_SourceTool = 0;
 pub const OH_NativeXComponent_TouchEvent_SourceTool_OH_NATIVEXCOMPONENT_SOURCETOOL_FINGER:
@@ -3287,7 +3287,7 @@ pub const OH_NativeXComponent_TouchEvent_SourceTool_OH_NATIVEXCOMPONENT_SOURCETO
 pub const OH_NativeXComponent_TouchEvent_SourceTool_OH_NATIVEXCOMPONENT_SOURCETOOL_TOUCHPAD:
     OH_NativeXComponent_TouchEvent_SourceTool = 9;
 #[doc = " @brief Represents the source tool type of TouchEvent\n\n @since 10\n @version 1.0"]
-pub type OH_NativeXComponent_TouchEvent_SourceTool = ::std::os::raw::c_uint;
+pub type OH_NativeXComponent_TouchEvent_SourceTool = u32;
 #[doc = " @brief Represents the historical point.\n\n @since 10\n @version 1.0"]
 #[repr(C)]
 #[derive(Debug, Copy, Clone)]

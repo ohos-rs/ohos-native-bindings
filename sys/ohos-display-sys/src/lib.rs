@@ -21,7 +21,7 @@ pub const NativeDisplayManager_Rotation_DISPLAY_MANAGER_ROTATION_180:
 pub const NativeDisplayManager_Rotation_DISPLAY_MANAGER_ROTATION_270:
     NativeDisplayManager_Rotation = 3;
 #[doc = " @brief Enumerates rotations.\n\n @since 12\n @version 1.0"]
-pub type NativeDisplayManager_Rotation = ::std::os::raw::c_uint;
+pub type NativeDisplayManager_Rotation = u32;
 #[doc = " device portrait show"]
 pub const NativeDisplayManager_Orientation_DISPLAY_MANAGER_PORTRAIT:
     NativeDisplayManager_Orientation = 0;
@@ -38,7 +38,7 @@ pub const NativeDisplayManager_Orientation_DISPLAY_MANAGER_LANDSCAPE_INVERTED:
 pub const NativeDisplayManager_Orientation_DISPLAY_MANAGER_UNKNOWN:
     NativeDisplayManager_Orientation = 4;
 #[doc = " @brief Enumerates orientations.\n\n @since 12\n @version 1.0"]
-pub type NativeDisplayManager_Orientation = ::std::os::raw::c_uint;
+pub type NativeDisplayManager_Orientation = u32;
 #[doc = " @error Operation is successful"]
 pub const NativeDisplayManager_ErrorCode_DISPLAY_MANAGER_OK: NativeDisplayManager_ErrorCode = 0;
 #[doc = " @error Operation no permission"]
@@ -67,7 +67,7 @@ pub const NativeDisplayManager_ErrorCode_DISPLAY_MANAGER_ERROR_SYSTEM_ABNORMAL:
 pub const NativeDisplayManager_ErrorCode_DISPLAY_MANAGER_ERROR_ILLEGAL_PARAM:
     NativeDisplayManager_ErrorCode = 1400004;
 #[doc = " @brief Enumerates the result types of the display manager interface.\n\n @since 12\n @version 1.0"]
-pub type NativeDisplayManager_ErrorCode = ::std::os::raw::c_uint;
+pub type NativeDisplayManager_ErrorCode = u32;
 #[doc = " display mode unknown"]
 pub const NativeDisplayManager_FoldDisplayMode_DISPLAY_MANAGER_FOLD_DISPLAY_MODE_UNKNOWN:
     NativeDisplayManager_FoldDisplayMode = 0;
@@ -84,7 +84,7 @@ pub const NativeDisplayManager_FoldDisplayMode_DISPLAY_MANAGER_FOLD_DISPLAY_MODE
 pub const NativeDisplayManager_FoldDisplayMode_DISPLAY_MANAGER_FOLD_DISPLAY_MODE_COORDINATION:
     NativeDisplayManager_FoldDisplayMode = 4;
 #[doc = " @brief Enumerates the fold display mode.\n\n @since 12\n @version 1.0"]
-pub type NativeDisplayManager_FoldDisplayMode = ::std::os::raw::c_uint;
+pub type NativeDisplayManager_FoldDisplayMode = u32;
 #[doc = " @brief Defines the display rect data structure.\n\n @since 12\n @version 1.0"]
 #[repr(C)]
 #[derive(Debug, Copy, Clone)]
@@ -141,7 +141,7 @@ pub const NativeDisplayManager_DisplayState_DISPLAY_MANAGER_DISPLAY_STATE_ON_SUS
     NativeDisplayManager_DisplayState = 6;
 #[cfg(feature = "api-14")]
 #[doc = " @brief Enumerates of the display state.\n\n @since 14\n @version 1.0"]
-pub type NativeDisplayManager_DisplayState = ::std::os::raw::c_uint;
+pub type NativeDisplayManager_DisplayState = u32;
 #[doc = " display is not in use"]
 #[cfg(feature = "api-20")]
 pub const NativeDisplayManager_SourceMode_DISPLAY_SOURCE_MODE_NONE:
@@ -164,7 +164,7 @@ pub const NativeDisplayManager_SourceMode_DISPLAY_SOURCE_MODE_ALONE:
     NativeDisplayManager_SourceMode = 4;
 #[cfg(feature = "api-20")]
 #[doc = " @brief Enumerates of the display source mode.\n\n @since 20\n @version 1.0"]
-pub type NativeDisplayManager_SourceMode = ::std::os::raw::c_uint;
+pub type NativeDisplayManager_SourceMode = u32;
 #[cfg(feature = "api-14")]
 #[doc = " @brief Defines the display hdr structure.\n\n @since 14\n @version 1.0"]
 #[repr(C)]

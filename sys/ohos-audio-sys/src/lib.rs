@@ -209,13 +209,13 @@ pub const OH_AudioStream_Result_AUDIOSTREAM_ERROR_SYSTEM: OH_AudioStream_Result 
 #[doc = " @error Unsupported audio format, such as unsupported encoding type, sample format etc.\n\n @since 19"]
 pub const OH_AudioStream_Result_AUDIOSTREAM_ERROR_UNSUPPORTED_FORMAT: OH_AudioStream_Result = 4;
 #[doc = " @brief Define the result of the function execution.\n\n @since 10"]
-pub type OH_AudioStream_Result = ::std::os::raw::c_uint;
+pub type OH_AudioStream_Result = u32;
 #[doc = " The type for audio stream is renderer.\n\n @since 10"]
 pub const OH_AudioStream_Type_AUDIOSTREAM_TYPE_RENDERER: OH_AudioStream_Type = 1;
 #[doc = " The type for audio stream is capturer.\n\n @since 10"]
 pub const OH_AudioStream_Type_AUDIOSTREAM_TYPE_CAPTURER: OH_AudioStream_Type = 2;
 #[doc = " @brief Define the audio stream type.\n\n @since 10"]
-pub type OH_AudioStream_Type = ::std::os::raw::c_uint;
+pub type OH_AudioStream_Type = u32;
 #[doc = " Unsigned 8 format.\n\n @since 10"]
 pub const OH_AudioStream_SampleFormat_AUDIOSTREAM_SAMPLE_U8: OH_AudioStream_SampleFormat = 0;
 #[doc = " Signed 16 bit integer, little endian.\n\n @since 10"]
@@ -228,7 +228,7 @@ pub const OH_AudioStream_SampleFormat_AUDIOSTREAM_SAMPLE_S32LE: OH_AudioStream_S
 #[doc = " Float 32, little endian.\n\n @since 17"]
 pub const OH_AudioStream_SampleFormat_AUDIOSTREAM_SAMPLE_F32LE: OH_AudioStream_SampleFormat = 4;
 #[doc = " @brief Define the audio stream sample format.\n\n @since 10"]
-pub type OH_AudioStream_SampleFormat = ::std::os::raw::c_uint;
+pub type OH_AudioStream_SampleFormat = u32;
 #[doc = " PCM encoding type.\n\n @since 10"]
 pub const OH_AudioStream_EncodingType_AUDIOSTREAM_ENCODING_TYPE_RAW: OH_AudioStream_EncodingType =
     0;
@@ -240,7 +240,7 @@ pub const OH_AudioStream_EncodingType_AUDIOSTREAM_ENCODING_TYPE_AUDIOVIVID:
 pub const OH_AudioStream_EncodingType_AUDIOSTREAM_ENCODING_TYPE_E_AC3: OH_AudioStream_EncodingType =
     2;
 #[doc = " @brief Define the audio encoding type.\n\n @since 10"]
-pub type OH_AudioStream_EncodingType = ::std::os::raw::c_uint;
+pub type OH_AudioStream_EncodingType = u32;
 #[cfg(feature = "api-19")]
 #[doc = " @brief Define the audio stream info structure, used to describe basic audio format.\n\n @since 19"]
 #[repr(C)]
@@ -288,14 +288,14 @@ pub const OH_AudioStream_Usage_AUDIOSTREAM_USAGE_NAVIGATION: OH_AudioStream_Usag
 #[doc = " Video call usage.\n\n @since 12"]
 pub const OH_AudioStream_Usage_AUDIOSTREAM_USAGE_VIDEO_COMMUNICATION: OH_AudioStream_Usage = 17;
 #[doc = " @brief Define the audio stream usage.\n Audio stream usage is used to describe what work scenario\n the current stream is used for.\n\n @since 10"]
-pub type OH_AudioStream_Usage = ::std::os::raw::c_uint;
+pub type OH_AudioStream_Usage = u32;
 #[doc = " This is a normal audio scene.\n\n @since 10"]
 pub const OH_AudioStream_LatencyMode_AUDIOSTREAM_LATENCY_MODE_NORMAL: OH_AudioStream_LatencyMode =
     0;
 #[doc = " This is a low latency audio scene.\n\n @since 10"]
 pub const OH_AudioStream_LatencyMode_AUDIOSTREAM_LATENCY_MODE_FAST: OH_AudioStream_LatencyMode = 1;
 #[doc = " @brief Define the audio latency mode.\n\n @since 10"]
-pub type OH_AudioStream_LatencyMode = ::std::os::raw::c_uint;
+pub type OH_AudioStream_LatencyMode = u32;
 #[cfg(feature = "api-19")]
 #[doc = " Direct playback is not supported.\n\n @since 19"]
 pub const OH_AudioStream_DirectPlaybackMode_AUDIOSTREAM_DIRECT_PLAYBACK_NOT_SUPPORTED:
@@ -310,11 +310,11 @@ pub const OH_AudioStream_DirectPlaybackMode_AUDIOSTREAM_DIRECT_PLAYBACK_PCM_SUPP
     OH_AudioStream_DirectPlaybackMode = 2;
 #[cfg(feature = "api-19")]
 #[doc = " @brief Enumerates audio direct playback modes.\n\n @since 19"]
-pub type OH_AudioStream_DirectPlaybackMode = ::std::os::raw::c_uint;
+pub type OH_AudioStream_DirectPlaybackMode = u32;
 #[doc = " The routing of the audio has changed.\n\n @deprecated since 20\n @useinstead OH_AudioRenderer_OutputDeviceChangeCallback.\n @since 10"]
 pub const OH_AudioStream_Event_AUDIOSTREAM_EVENT_ROUTING_CHANGED: OH_AudioStream_Event = 0;
 #[doc = " @brief Define the audio event.\n\n @deprecated since 20\n @useinstead OH_AudioRenderer_OutputDeviceChangeCallback.\n @since 10"]
-pub type OH_AudioStream_Event = ::std::os::raw::c_uint;
+pub type OH_AudioStream_Event = u32;
 #[doc = " The invalid state.\n\n @since 10"]
 pub const OH_AudioStream_State_AUDIOSTREAM_STATE_INVALID: OH_AudioStream_State = -1;
 #[doc = " Create new instance state.\n\n @since 10"]
@@ -330,13 +330,13 @@ pub const OH_AudioStream_State_AUDIOSTREAM_STATE_RELEASED: OH_AudioStream_State 
 #[doc = " The stream is paused.\n\n @since 10"]
 pub const OH_AudioStream_State_AUDIOSTREAM_STATE_PAUSED: OH_AudioStream_State = 5;
 #[doc = " @brief The audio stream states\n\n @since 10"]
-pub type OH_AudioStream_State = ::std::os::raw::c_int;
+pub type OH_AudioStream_State = i32;
 #[doc = " Force type, system change audio state.\n\n @since 10"]
 pub const OH_AudioInterrupt_ForceType_AUDIOSTREAM_INTERRUPT_FORCE: OH_AudioInterrupt_ForceType = 0;
 #[doc = " Share type, application change audio state.\n\n @since 10"]
 pub const OH_AudioInterrupt_ForceType_AUDIOSTREAM_INTERRUPT_SHARE: OH_AudioInterrupt_ForceType = 1;
 #[doc = " @brief Defines the audio interrupt type.\n\n @since 10"]
-pub type OH_AudioInterrupt_ForceType = ::std::os::raw::c_uint;
+pub type OH_AudioInterrupt_ForceType = u32;
 #[doc = " None.\n\n @since 10"]
 pub const OH_AudioInterrupt_Hint_AUDIOSTREAM_INTERRUPT_HINT_NONE: OH_AudioInterrupt_Hint = 0;
 #[doc = " Resume the stream.\n\n @since 10"]
@@ -356,7 +356,7 @@ pub const OH_AudioInterrupt_Hint_AUDIOSTREAM_INTERRUPT_HINT_MUTE: OH_AudioInterr
 #[doc = " Unmute the stream.\n\n @since 20"]
 pub const OH_AudioInterrupt_Hint_AUDIOSTREAM_INTERRUPT_HINT_UNMUTE: OH_AudioInterrupt_Hint = 7;
 #[doc = " @brief Defines the audio interrupt hint type.\n\n @since 10"]
-pub type OH_AudioInterrupt_Hint = ::std::os::raw::c_uint;
+pub type OH_AudioInterrupt_Hint = u32;
 #[doc = " Invalid type.\n\n @since 10"]
 pub const OH_AudioStream_SourceType_AUDIOSTREAM_SOURCE_TYPE_INVALID: OH_AudioStream_SourceType = -1;
 #[doc = " Mic source type.\n\n @since 10"]
@@ -385,19 +385,19 @@ pub const OH_AudioStream_SourceType_AUDIOSTREAM_SOURCE_TYPE_UNPROCESSED: OH_Audi
 #[doc = " Live Broadcast source type.\n\n @since 20"]
 pub const OH_AudioStream_SourceType_AUDIOSTREAM_SOURCE_TYPE_LIVE: OH_AudioStream_SourceType = 17;
 #[doc = " @brief Defines the audio source type.\n\n @since 10"]
-pub type OH_AudioStream_SourceType = ::std::os::raw::c_int;
+pub type OH_AudioStream_SourceType = i32;
 #[doc = " Share mode"]
 pub const OH_AudioInterrupt_Mode_AUDIOSTREAM_INTERRUPT_MODE_SHARE: OH_AudioInterrupt_Mode = 0;
 #[doc = " Independent mode"]
 pub const OH_AudioInterrupt_Mode_AUDIOSTREAM_INTERRUPT_MODE_INDEPENDENT: OH_AudioInterrupt_Mode = 1;
 #[doc = " @brief Defines the audio interrupt mode.\n\n @since 12"]
-pub type OH_AudioInterrupt_Mode = ::std::os::raw::c_uint;
+pub type OH_AudioInterrupt_Mode = u32;
 #[doc = " Audio Effect Mode effect none.\n\n @since 12"]
 pub const OH_AudioStream_AudioEffectMode_EFFECT_NONE: OH_AudioStream_AudioEffectMode = 0;
 #[doc = " Audio Effect Mode effect default.\n\n @since 12"]
 pub const OH_AudioStream_AudioEffectMode_EFFECT_DEFAULT: OH_AudioStream_AudioEffectMode = 1;
 #[doc = " @brief Defines the audio effect mode.\n\n @since 12"]
-pub type OH_AudioStream_AudioEffectMode = ::std::os::raw::c_uint;
+pub type OH_AudioStream_AudioEffectMode = u32;
 #[doc = " normal status"]
 #[cfg(feature = "api-20")]
 pub const OH_AudioStream_FastStatus_AUDIOSTREAM_FASTSTATUS_NORMAL: OH_AudioStream_FastStatus = 0;
@@ -406,7 +406,7 @@ pub const OH_AudioStream_FastStatus_AUDIOSTREAM_FASTSTATUS_NORMAL: OH_AudioStrea
 pub const OH_AudioStream_FastStatus_AUDIOSTREAM_FASTSTATUS_FAST: OH_AudioStream_FastStatus = 1;
 #[cfg(feature = "api-20")]
 #[doc = " @brief Defines the fast status.\n\n @since 20"]
-pub type OH_AudioStream_FastStatus = ::std::os::raw::c_uint;
+pub type OH_AudioStream_FastStatus = u32;
 #[repr(C)]
 #[derive(Debug, Copy, Clone)]
 pub struct OH_AudioStreamBuilderStruct {
@@ -525,7 +525,7 @@ pub const OH_AudioStream_DeviceChangeReason_REASON_SESSION_ACTIVATED:
 pub const OH_AudioStream_DeviceChangeReason_REASON_STREAM_PRIORITY_CHANGED:
     OH_AudioStream_DeviceChangeReason = 5;
 #[doc = " @brief Defines reason for device changes of one audio stream.\n\n @since 11"]
-pub type OH_AudioStream_DeviceChangeReason = ::std::os::raw::c_uint;
+pub type OH_AudioStream_DeviceChangeReason = u32;
 #[doc = " @brief Callback when the output device of an audio renderer changed.\n\n @param renderer AudioRenderer where this event occurs.\n @param userData User data which is passed by user.\n @param reason Indicates that why does the output device changes.\n @since 11"]
 pub type OH_AudioRenderer_OutputDeviceChangeCallback = ::std::option::Option<
     unsafe extern "C" fn(
@@ -560,7 +560,7 @@ pub const OH_AudioStream_PrivacyType_AUDIO_STREAM_PRIVACY_TYPE_PUBLIC: OH_AudioS
 pub const OH_AudioStream_PrivacyType_AUDIO_STREAM_PRIVACY_TYPE_PRIVATE: OH_AudioStream_PrivacyType =
     1;
 #[doc = " @brief Defines Enumeration of audio stream privacy type for playback capture.\n\n @since 12"]
-pub type OH_AudioStream_PrivacyType = ::std::os::raw::c_uint;
+pub type OH_AudioStream_PrivacyType = u32;
 #[doc = " Result of audio data callabck is invalid."]
 pub const OH_AudioData_Callback_Result_AUDIO_DATA_CALLBACK_RESULT_INVALID:
     OH_AudioData_Callback_Result = -1;
@@ -568,7 +568,7 @@ pub const OH_AudioData_Callback_Result_AUDIO_DATA_CALLBACK_RESULT_INVALID:
 pub const OH_AudioData_Callback_Result_AUDIO_DATA_CALLBACK_RESULT_VALID:
     OH_AudioData_Callback_Result = 0;
 #[doc = " @brief Defines enumeration of audio data callback result.\n\n @since 12"]
-pub type OH_AudioData_Callback_Result = ::std::os::raw::c_int;
+pub type OH_AudioData_Callback_Result = i32;
 #[doc = " @brief Callback function of  write data.\n\n This function is similar with OH_AudioRenderer_Callbacks_Struct.OH_AudioRenderer_OnWriteData instead of the return\n value. The return result of this function indicates whether the data filled in the buffer is valid or invalid. If\n result is invalid, the data filled by user will not be played.\n\n @param renderer AudioRenderer where this callback occurs.\n @param userData User data which is passed by user.\n @param audioData Audio data pointer, where user should fill in audio data.\n @param audioDataSize Size of audio data that user should fill in.\n @return Audio Data callback result.\n @see OH_AudioRenderer_Callbacks_Struct.OH_AudioRenderer_OnWriteData\n @since 12"]
 pub type OH_AudioRenderer_OnWriteDataCallback = ::std::option::Option<
     unsafe extern "C" fn(
@@ -588,7 +588,7 @@ pub const OH_AudioStream_VolumeMode_AUDIOSTREAM_VOLUMEMODE_APP_INDIVIDUAL:
     OH_AudioStream_VolumeMode = 1;
 #[cfg(feature = "api-19")]
 #[doc = " @brief Define the audio stream volume mode.\n\n @since 19"]
-pub type OH_AudioStream_VolumeMode = ::std::os::raw::c_uint;
+pub type OH_AudioStream_VolumeMode = u32;
 #[doc = " @error The call was successful."]
 pub const OH_AudioCommon_Result_AUDIOCOMMON_RESULT_SUCCESS: OH_AudioCommon_Result = 0;
 #[doc = " @error This means that the input parameter is invalid."]
@@ -610,7 +610,7 @@ pub const OH_AudioCommon_Result_AUDIOCOMMON_RESULT_ERROR_STREAM_LIMIT: OH_AudioC
 #[doc = " @error An system error has occurred."]
 pub const OH_AudioCommon_Result_AUDIOCOMMON_RESULT_ERROR_SYSTEM: OH_AudioCommon_Result = 6800301;
 #[doc = " @brief Define the result of the function execution.\n\n @since 12"]
-pub type OH_AudioCommon_Result = ::std::os::raw::c_uint;
+pub type OH_AudioCommon_Result = u32;
 #[doc = " Default audio scene.\n\n @since 12"]
 pub const OH_AudioScene_AUDIO_SCENE_DEFAULT: OH_AudioScene = 0;
 #[doc = " Ringing scene.\n\n @since 12"]
@@ -620,7 +620,7 @@ pub const OH_AudioScene_AUDIO_SCENE_PHONE_CALL: OH_AudioScene = 2;
 #[doc = " Voice chat scene.\n\n @since 12"]
 pub const OH_AudioScene_AUDIO_SCENE_VOICE_CHAT: OH_AudioScene = 3;
 #[doc = " @brief Defines the audio scene.\n\n @since 12"]
-pub type OH_AudioScene = ::std::os::raw::c_uint;
+pub type OH_AudioScene = u32;
 #[cfg(feature = "api-20")]
 #[doc = " Silent ringer mode.\n\n @since 20"]
 pub const OH_AudioRingerMode_AUDIO_RINGER_MODE_SILENT: OH_AudioRingerMode = 0;
@@ -632,20 +632,20 @@ pub const OH_AudioRingerMode_AUDIO_RINGER_MODE_VIBRATE: OH_AudioRingerMode = 1;
 pub const OH_AudioRingerMode_AUDIO_RINGER_MODE_NORMAL: OH_AudioRingerMode = 2;
 #[cfg(feature = "api-20")]
 #[doc = " @brief Defines the ringer mode.\n\n @since 20"]
-pub type OH_AudioRingerMode = ::std::os::raw::c_uint;
+pub type OH_AudioRingerMode = u32;
 #[doc = " @brief Device connection."]
 pub const OH_AudioDevice_ChangeType_AUDIO_DEVICE_CHANGE_TYPE_CONNECT: OH_AudioDevice_ChangeType = 0;
 #[doc = " @brief Device disconnection."]
 pub const OH_AudioDevice_ChangeType_AUDIO_DEVICE_CHANGE_TYPE_DISCONNECT: OH_AudioDevice_ChangeType =
     1;
 #[doc = " @brief Defines the audio device change type.\n\n @since 12"]
-pub type OH_AudioDevice_ChangeType = ::std::os::raw::c_uint;
+pub type OH_AudioDevice_ChangeType = u32;
 #[doc = " @brief Input role."]
 pub const OH_AudioDevice_Role_AUDIO_DEVICE_ROLE_INPUT: OH_AudioDevice_Role = 1;
 #[doc = " @brief Output role."]
 pub const OH_AudioDevice_Role_AUDIO_DEVICE_ROLE_OUTPUT: OH_AudioDevice_Role = 2;
 #[doc = " @brief Defines the audio device device role.\n\n @since 12"]
-pub type OH_AudioDevice_Role = ::std::os::raw::c_uint;
+pub type OH_AudioDevice_Role = u32;
 #[doc = " @brief Invalid device."]
 pub const OH_AudioDevice_Type_AUDIO_DEVICE_TYPE_INVALID: OH_AudioDevice_Type = 0;
 #[doc = " @brief Built-in earpiece."]
@@ -689,7 +689,7 @@ pub const OH_AudioDevice_Type_AUDIO_DEVICE_TYPE_NEARLINK: OH_AudioDevice_Type = 
 #[doc = " @brief Default device type."]
 pub const OH_AudioDevice_Type_AUDIO_DEVICE_TYPE_DEFAULT: OH_AudioDevice_Type = 1000;
 #[doc = " @brief Defines the audio device device type.\n\n @since 12"]
-pub type OH_AudioDevice_Type = ::std::os::raw::c_uint;
+pub type OH_AudioDevice_Type = u32;
 #[doc = " @brief None device."]
 pub const OH_AudioDevice_Flag_AUDIO_DEVICE_FLAG_NONE: OH_AudioDevice_Flag = 0;
 #[doc = " @brief Output device."]
@@ -699,7 +699,7 @@ pub const OH_AudioDevice_Flag_AUDIO_DEVICE_FLAG_INPUT: OH_AudioDevice_Flag = 2;
 #[doc = " @brief All device."]
 pub const OH_AudioDevice_Flag_AUDIO_DEVICE_FLAG_ALL: OH_AudioDevice_Flag = 3;
 #[doc = " @brief Defines the audio device flag.\n\n @since 12"]
-pub type OH_AudioDevice_Flag = ::std::os::raw::c_uint;
+pub type OH_AudioDevice_Flag = u32;
 #[doc = " @brief Device used for media ouput.\n\n @since 12"]
 pub const OH_AudioDevice_Usage_AUDIO_DEVICE_USAGE_MEDIA_OUTPUT: OH_AudioDevice_Usage = 1;
 #[doc = " @brief Device used for media input.\n\n @since 12"]
@@ -713,7 +713,7 @@ pub const OH_AudioDevice_Usage_AUDIO_DEVICE_USAGE_CALL_INPUT: OH_AudioDevice_Usa
 #[doc = " @brief Device used for call, including input and output.\n\n @since 12"]
 pub const OH_AudioDevice_Usage_AUDIO_DEVICE_USAGE_CALL_ALL: OH_AudioDevice_Usage = 12;
 #[doc = " @brief Defines the audio device usage.\n\n @since 12"]
-pub type OH_AudioDevice_Usage = ::std::os::raw::c_uint;
+pub type OH_AudioDevice_Usage = u32;
 #[repr(C)]
 #[derive(Debug, Copy, Clone)]
 pub struct OH_AudioDeviceDescriptor {
@@ -736,7 +736,7 @@ pub const OH_AudioDevice_BlockStatus_AUDIO_DEVICE_UNBLOCKED: OH_AudioDevice_Bloc
 pub const OH_AudioDevice_BlockStatus_AUDIO_DEVICE_BLOCKED: OH_AudioDevice_BlockStatus = 1;
 #[cfg(feature = "api-13")]
 #[doc = " @brief Declaring the audio device blocked status. By default, the audio device is considered as unbloked.\n\n @since 13"]
-pub type OH_AudioDevice_BlockStatus = ::std::os::raw::c_uint;
+pub type OH_AudioDevice_BlockStatus = u32;
 extern "C" {
     #[doc = " @brief Query the device role of the target audio device descriptor.\n\n @param audioDeviceDescriptor reference returned by {@link OH_AudioRoutingManager_GetDevices} or\n {@link OH_AudioRouterManager_OnDeviceChangedCallback}.\n @param deviceRole the pointer {@link OH_AudioDevice_DeviceRole} variable that will be set the device role value.\n @return {@link #AUDIOCOMMON_RESULT_SUCCESS} or {@link #AUDIOCOMMON_RESULT_ERROR_INVALID_PARAM}.\n @since 12"]
     pub fn OH_AudioDeviceDescriptor_GetDeviceRole(
@@ -1697,7 +1697,7 @@ pub const OH_AudioSession_ConcurrencyMode_CONCURRENCY_DUCK_OTHERS: OH_AudioSessi
 pub const OH_AudioSession_ConcurrencyMode_CONCURRENCY_PAUSE_OTHERS:
     OH_AudioSession_ConcurrencyMode = 3;
 #[doc = " @brief Declare the audio concurrency modes.\n\n @since 12"]
-pub type OH_AudioSession_ConcurrencyMode = ::std::os::raw::c_uint;
+pub type OH_AudioSession_ConcurrencyMode = u32;
 #[doc = " @brief scene for media"]
 #[cfg(feature = "api-20")]
 pub const OH_AudioSession_Scene_AUDIO_SESSION_SCENE_MEDIA: OH_AudioSession_Scene = 0;
@@ -1709,7 +1709,7 @@ pub const OH_AudioSession_Scene_AUDIO_SESSION_SCENE_GAME: OH_AudioSession_Scene 
 pub const OH_AudioSession_Scene_AUDIO_SESSION_SCENE_VOICE_COMMUNICATION: OH_AudioSession_Scene = 2;
 #[cfg(feature = "api-20")]
 #[doc = " @brief Declare the audio session scene.\n\n @since 20"]
-pub type OH_AudioSession_Scene = ::std::os::raw::c_uint;
+pub type OH_AudioSession_Scene = u32;
 #[doc = " @brief Resume the playback"]
 #[cfg(feature = "api-20")]
 pub const OH_AudioSession_StateChangeHint_AUDIO_SESSION_STATE_CHANGE_HINT_RESUME:
@@ -1736,7 +1736,7 @@ pub const OH_AudioSession_StateChangeHint_AUDIO_SESSION_STATE_CHANGE_HINT_UNDUCK
     OH_AudioSession_StateChangeHint = 5;
 #[cfg(feature = "api-20")]
 #[doc = " @brief Declare the audio session state change hints.\n\n @since 20"]
-pub type OH_AudioSession_StateChangeHint = ::std::os::raw::c_uint;
+pub type OH_AudioSession_StateChangeHint = u32;
 #[doc = " @brief Recommend to continue the playback."]
 #[cfg(feature = "api-20")]
 pub const OH_AudioSession_OutputDeviceChangeRecommendedAction_DEVICE_CHANGE_RECOMMEND_TO_CONTINUE : OH_AudioSession_OutputDeviceChangeRecommendedAction = 0 ;
@@ -1746,7 +1746,7 @@ pub const OH_AudioSession_OutputDeviceChangeRecommendedAction_DEVICE_CHANGE_RECO
     OH_AudioSession_OutputDeviceChangeRecommendedAction = 1;
 #[cfg(feature = "api-20")]
 #[doc = " @brief Declare the recommend action when device change.\n\n @since 20"]
-pub type OH_AudioSession_OutputDeviceChangeRecommendedAction = ::std::os::raw::c_uint;
+pub type OH_AudioSession_OutputDeviceChangeRecommendedAction = u32;
 #[doc = " @brief deactivated because of lower priority"]
 pub const OH_AudioSession_DeactivatedReason_DEACTIVATED_LOWER_PRIORITY:
     OH_AudioSession_DeactivatedReason = 0;
@@ -1754,7 +1754,7 @@ pub const OH_AudioSession_DeactivatedReason_DEACTIVATED_LOWER_PRIORITY:
 pub const OH_AudioSession_DeactivatedReason_DEACTIVATED_TIMEOUT: OH_AudioSession_DeactivatedReason =
     1;
 #[doc = " @brief Declare the audio deactivated reasons.\n\n @since 12"]
-pub type OH_AudioSession_DeactivatedReason = ::std::os::raw::c_uint;
+pub type OH_AudioSession_DeactivatedReason = u32;
 #[doc = " @brief declare the audio session strategy\n\n @since 12"]
 #[repr(C)]
 #[derive(Debug, Copy, Clone)]

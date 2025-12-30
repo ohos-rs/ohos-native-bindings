@@ -108,7 +108,7 @@ pub const Image_ErrorCode_IMAGE_ENCODE_FAILED: Image_ErrorCode = 7800301;
 #[doc = " @error Invalid parameter for ImageReceiver.\n @since 20"]
 pub const Image_ErrorCode_IMAGE_RECEIVER_INVALID_PARAMETER: Image_ErrorCode = 7900201;
 #[doc = " @brief Enumerates the return values that may be used by the interface.\n\n @since 12"]
-pub type Image_ErrorCode = ::std::os::raw::c_uint;
+pub type Image_ErrorCode = u32;
 #[doc = " EXIF metadata."]
 #[cfg(feature = "api-13")]
 pub const Image_MetadataType_EXIF_METADATA: Image_MetadataType = 1;
@@ -120,7 +120,7 @@ pub const Image_MetadataType_FRAGMENT_METADATA: Image_MetadataType = 2;
 pub const Image_MetadataType_GIF_METADATA: Image_MetadataType = 5;
 #[cfg(feature = "api-13")]
 #[doc = " @brief Define the metadata type.\n\n @since 13"]
-pub type Image_MetadataType = ::std::os::raw::c_uint;
+pub type Image_MetadataType = u32;
 #[cfg(feature = "api-20")]
 #[doc = " The system determines which memory to use to create the PixelMap.\n\n @since 20"]
 pub const IMAGE_ALLOCATOR_MODE_IMAGE_ALLOCATOR_MODE_AUTO: IMAGE_ALLOCATOR_MODE = 0;
@@ -132,7 +132,7 @@ pub const IMAGE_ALLOCATOR_MODE_IMAGE_ALLOCATOR_MODE_DMA: IMAGE_ALLOCATOR_MODE = 
 pub const IMAGE_ALLOCATOR_MODE_IMAGE_ALLOCATOR_MODE_SHARED_MEMORY: IMAGE_ALLOCATOR_MODE = 2;
 #[cfg(feature = "api-20")]
 #[doc = " @brief Type of allocator used to allocate memory of a PixelMap.\n\n @since 20"]
-pub type IMAGE_ALLOCATOR_MODE = ::std::os::raw::c_uint;
+pub type IMAGE_ALLOCATOR_MODE = u32;
 extern "C" {
     #[cfg(feature = "api-13")]
     #[doc = " @brief Creates a <b>PictureMetadata</b> object.\n\n @param metadataType The type of metadata.\n @param metadata The PictureMetadata pointer will be operated.\n @return Image functions result code.\n         {@link IMAGE_SUCCESS} if the execution is successful.\n         {@link IMAGE_BAD_PARAMETER} metadata is nullptr.\n @since 13"]
@@ -223,7 +223,7 @@ pub const OH_PixelmapNative_AntiAliasingLevel_OH_PixelmapNative_AntiAliasing_MED
 pub const OH_PixelmapNative_AntiAliasingLevel_OH_PixelmapNative_AntiAliasing_HIGH:
     OH_PixelmapNative_AntiAliasingLevel = 3;
 #[doc = " @brief Defines the anti-aliasing level.\n\n @since 12"]
-pub type OH_PixelmapNative_AntiAliasingLevel = ::std::os::raw::c_uint;
+pub type OH_PixelmapNative_AntiAliasingLevel = u32;
 #[doc = " Indicate the types of metadata that image needs to use."]
 pub const OH_Pixelmap_HdrMetadataKey_HDR_METADATA_TYPE: OH_Pixelmap_HdrMetadataKey = 0;
 #[doc = " Static metadata key."]
@@ -233,7 +233,7 @@ pub const OH_Pixelmap_HdrMetadataKey_HDR_DYNAMIC_METADATA: OH_Pixelmap_HdrMetada
 #[doc = " Gainmap metadata key."]
 pub const OH_Pixelmap_HdrMetadataKey_HDR_GAINMAP_METADATA: OH_Pixelmap_HdrMetadataKey = 3;
 #[doc = " @brief Enumerates the HDR metadata types that need to be stored in Pixelmap.\n\n @since 12"]
-pub type OH_Pixelmap_HdrMetadataKey = ::std::os::raw::c_uint;
+pub type OH_Pixelmap_HdrMetadataKey = u32;
 #[doc = " No metadata."]
 pub const OH_Pixelmap_HdrMetadataType_HDR_METADATA_TYPE_NONE: OH_Pixelmap_HdrMetadataType = 0;
 #[doc = " Indicates that metadata will be used for the base image."]
@@ -243,7 +243,7 @@ pub const OH_Pixelmap_HdrMetadataType_HDR_METADATA_TYPE_GAINMAP: OH_Pixelmap_Hdr
 #[doc = " Indicates that metadata will be used for the alternate image."]
 pub const OH_Pixelmap_HdrMetadataType_HDR_METADATA_TYPE_ALTERNATE: OH_Pixelmap_HdrMetadataType = 3;
 #[doc = " @brief Value for HDR_METADATA_TYPE.\n\n @since 12"]
-pub type OH_Pixelmap_HdrMetadataType = ::std::os::raw::c_uint;
+pub type OH_Pixelmap_HdrMetadataType = u32;
 #[doc = " @brief Value for HDR_STATIC_METADATA.\n\n @since 12"]
 #[repr(C)]
 #[derive(Debug, Copy, Clone)]
@@ -770,7 +770,7 @@ pub const Udmf_Intention_UDMF_INTENTION_PICKER: Udmf_Intention = 4;
 #[doc = " @brief The intention is menu.\n\n @since 20"]
 pub const Udmf_Intention_UDMF_INTENTION_MENU: Udmf_Intention = 5;
 #[doc = " @brief Describe the intention type of the udmf.\n\n @since 12"]
-pub type Udmf_Intention = ::std::os::raw::c_uint;
+pub type Udmf_Intention = u32;
 #[doc = " @brief Invalid share option."]
 pub const Udmf_ShareOption_SHARE_OPTIONS_INVALID: Udmf_ShareOption = 0;
 #[doc = " @brief Allowed to be used in the same application on this device."]
@@ -778,7 +778,7 @@ pub const Udmf_ShareOption_SHARE_OPTIONS_IN_APP: Udmf_ShareOption = 1;
 #[doc = " @brief Allowed to be used in the cross application on this device."]
 pub const Udmf_ShareOption_SHARE_OPTIONS_CROSS_APP: Udmf_ShareOption = 2;
 #[doc = " @brief Describe intra-device usage range type enumeration.\n\n @since 12"]
-pub type Udmf_ShareOption = ::std::os::raw::c_uint;
+pub type Udmf_ShareOption = u32;
 #[doc = " @brief Overwrite when dest uri has file with same name."]
 #[cfg(feature = "api-15")]
 pub const Udmf_FileConflictOptions_UDMF_OVERWRITE: Udmf_FileConflictOptions = 0;
@@ -787,7 +787,7 @@ pub const Udmf_FileConflictOptions_UDMF_OVERWRITE: Udmf_FileConflictOptions = 0;
 pub const Udmf_FileConflictOptions_UDMF_SKIP: Udmf_FileConflictOptions = 1;
 #[cfg(feature = "api-15")]
 #[doc = " @brief Describe the types of file conflict options when getting data from the udmf.\n\n @since 15"]
-pub type Udmf_FileConflictOptions = ::std::os::raw::c_uint;
+pub type Udmf_FileConflictOptions = u32;
 #[doc = " @brief Getting data without system default progress indicator."]
 #[cfg(feature = "api-15")]
 pub const Udmf_ProgressIndicator_UDMF_NONE: Udmf_ProgressIndicator = 0;
@@ -796,7 +796,7 @@ pub const Udmf_ProgressIndicator_UDMF_NONE: Udmf_ProgressIndicator = 0;
 pub const Udmf_ProgressIndicator_UDMF_DEFAULT: Udmf_ProgressIndicator = 1;
 #[cfg(feature = "api-15")]
 #[doc = " @brief Describe the types of progress indicator when getting data from the udmf.\n\n @since 15"]
-pub type Udmf_ProgressIndicator = ::std::os::raw::c_uint;
+pub type Udmf_ProgressIndicator = u32;
 #[doc = " @brief The visibility level that specifies that any hap or native can be obtained."]
 #[cfg(feature = "api-20")]
 pub const Udmf_Visibility_UDMF_ALL: Udmf_Visibility = 0;
@@ -805,7 +805,7 @@ pub const Udmf_Visibility_UDMF_ALL: Udmf_Visibility = 0;
 pub const Udmf_Visibility_UDMF_OWN_PROCESS: Udmf_Visibility = 1;
 #[cfg(feature = "api-20")]
 #[doc = " @brief Describe the visibility range of data\n\n @since 20"]
-pub type Udmf_Visibility = ::std::os::raw::c_uint;
+pub type Udmf_Visibility = u32;
 #[cfg(feature = "api-13")]
 #[doc = " @brief Defines the callback function used free the context.\n @param context Pointer to the context which is to be free.\n @since 13"]
 pub type UdmfData_Finalize =
@@ -818,7 +818,7 @@ pub const Pasteboard_NotifyType_NOTIFY_LOCAL_DATA_CHANGE: Pasteboard_NotifyType 
 pub const Pasteboard_NotifyType_NOTIFY_REMOTE_DATA_CHANGE: Pasteboard_NotifyType = 2;
 #[cfg(feature = "api-13")]
 #[doc = " @brief Enumerates the types of data changes that can be observed.\n\n @since 13"]
-pub type Pasteboard_NotifyType = ::std::os::raw::c_uint;
+pub type Pasteboard_NotifyType = u32;
 #[doc = " @brief Overwrite when destUir has file with same name."]
 #[cfg(feature = "api-15")]
 pub const Pasteboard_FileConflictOptions_PASTEBOARD_OVERWRITE: Pasteboard_FileConflictOptions = 0;
@@ -827,7 +827,7 @@ pub const Pasteboard_FileConflictOptions_PASTEBOARD_OVERWRITE: Pasteboard_FileCo
 pub const Pasteboard_FileConflictOptions_PASTEBOARD_SKIP: Pasteboard_FileConflictOptions = 1;
 #[cfg(feature = "api-15")]
 #[doc = " @brief Enumerates the types of file confilct options when getting data from the Pastedboard.\n\n @since 15"]
-pub type Pasteboard_FileConflictOptions = ::std::os::raw::c_uint;
+pub type Pasteboard_FileConflictOptions = u32;
 #[doc = " @brief Getting data without system default progress indicator."]
 #[cfg(feature = "api-15")]
 pub const Pasteboard_ProgressIndicator_PASTEBOARD_NONE: Pasteboard_ProgressIndicator = 0;
@@ -836,7 +836,7 @@ pub const Pasteboard_ProgressIndicator_PASTEBOARD_NONE: Pasteboard_ProgressIndic
 pub const Pasteboard_ProgressIndicator_PASTEBOARD_DEFAULT: Pasteboard_ProgressIndicator = 1;
 #[cfg(feature = "api-15")]
 #[doc = " @brief Enumerates the types of progress indicator when getting data from the Pastedboard.\n\n @since 15"]
-pub type Pasteboard_ProgressIndicator = ::std::os::raw::c_uint;
+pub type Pasteboard_ProgressIndicator = u32;
 #[repr(C)]
 #[derive(Debug, Copy, Clone)]
 pub struct Pasteboard_ProgressInfo {

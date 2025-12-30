@@ -33,7 +33,7 @@ pub const ArkWeb_ErrorCode_ARKWEB_COOKIE_MANAGER_INITIALIZE_FAILED: ArkWeb_Error
 #[cfg(feature = "api-20")]
 #[doc = " @brief Save cookie failed.\n\n @since 20"]
 pub const ArkWeb_ErrorCode_ARKWEB_COOKIE_SAVE_FAILED: ArkWeb_ErrorCode = 17100109;
-pub type ArkWeb_ErrorCode = ::std::os::raw::c_uint;
+pub type ArkWeb_ErrorCode = u32;
 #[doc = " @error The operation is successful."]
 #[cfg(feature = "api-20")]
 pub const ArkWeb_BlanklessErrorCode_ARKWEB_BLANKLESS_SUCCESS: ArkWeb_BlanklessErrorCode = 0;
@@ -62,7 +62,7 @@ pub const ArkWeb_BlanklessErrorCode_ARKWEB_BLANKLESS_ERR_DEVICE_NOT_SUPPORT:
     ArkWeb_BlanklessErrorCode = 801;
 #[cfg(feature = "api-20")]
 #[doc = " @brief Defines an enum for the error codes of the white screen optimization solution.\n\n @since 20"]
-pub type ArkWeb_BlanklessErrorCode = ::std::os::raw::c_int;
+pub type ArkWeb_BlanklessErrorCode = i32;
 #[doc = " @brief Defines the javascript bridge data type.\n\n @since 12"]
 #[repr(C)]
 #[derive(Debug, Copy, Clone)]
@@ -79,7 +79,7 @@ pub const ArkWeb_WebMessageType_ARKWEB_STRING: ArkWeb_WebMessageType = 1;
 #[doc = " The data carried in the ArkWeb_WebMessage is buffer(uint8_t)."]
 pub const ArkWeb_WebMessageType_ARKWEB_BUFFER: ArkWeb_WebMessageType = 2;
 #[doc = " @brief Defines the data type carried in a ArkWeb_WebMessage.\n\n @since 12"]
-pub type ArkWeb_WebMessageType = ::std::os::raw::c_uint;
+pub type ArkWeb_WebMessageType = u32;
 #[doc = " Represent error data"]
 #[cfg(feature = "api-18")]
 pub const ArkWeb_JavaScriptValueType_ARKWEB_JAVASCRIPT_NONE: ArkWeb_JavaScriptValueType = 0;
@@ -91,7 +91,7 @@ pub const ArkWeb_JavaScriptValueType_ARKWEB_JAVASCRIPT_STRING: ArkWeb_JavaScript
 pub const ArkWeb_JavaScriptValueType_ARKWEB_JAVASCRIPT_BOOL: ArkWeb_JavaScriptValueType = 2;
 #[cfg(feature = "api-18")]
 #[doc = " @brief Defines the data type carried in a ArkWeb_JavaScriptValue.\n\n @since 18"]
-pub type ArkWeb_JavaScriptValueType = ::std::os::raw::c_uint;
+pub type ArkWeb_JavaScriptValueType = u32;
 #[repr(C)]
 #[derive(Debug, Copy, Clone)]
 pub struct ArkWeb_WebMessage {
@@ -481,7 +481,7 @@ pub const ArkWeb_NativeAPIVariantKind_ARKWEB_NATIVE_COOKIE_MANAGER: ArkWeb_Nativ
 pub const ArkWeb_NativeAPIVariantKind_ARKWEB_NATIVE_JAVASCRIPT_VALUE: ArkWeb_NativeAPIVariantKind =
     5;
 #[doc = " @brief Defines the native API set type.\n\n @since 12"]
-pub type ArkWeb_NativeAPIVariantKind = ::std::os::raw::c_uint;
+pub type ArkWeb_NativeAPIVariantKind = u32;
 extern "C" {
     #[doc = " @brief Obtains the native API set of a specified type.\n @param type Indicates the type of the native API set provided by ArkWeb.\n @return Return the pointer to the native API abstract object that carries the size.\n         If the type is incorrect, a null pointer is returned.\n\n @syscap SystemCapability.Web.Webview.Core\n @since 12"]
     pub fn OH_ArkWeb_GetNativeAPI(type_: ArkWeb_NativeAPIVariantKind) -> *mut ArkWeb_AnyNativeAPI;
@@ -985,7 +985,7 @@ pub const ArkWeb_NetError_ARKWEB_ERR_DNS_NAME_HTTPS_ONLY: ArkWeb_NetError = -809
 pub const ArkWeb_NetError_ARKWEB_ERR_DNS_REQUEST_CANCELED: ArkWeb_NetError = -810;
 #[doc = " @error The hostname resolution of HTTPS record was expected to be resolved with\n        alpn values of supported protocols, but did not."]
 pub const ArkWeb_NetError_ARKWEB_ERR_DNS_NO_MATCHING_SUPPORTED_ALPN: ArkWeb_NetError = -811;
-pub type ArkWeb_NetError = ::std::os::raw::c_int;
+pub type ArkWeb_NetError = i32;
 pub const ArkWeb_CustomSchemeOption_OH_ARKWEB_SCHEME_OPTION_NONE: ArkWeb_CustomSchemeOption = 0;
 #[doc = " If ARKWEB_SCHEME_OPTION_STANDARD is set, the scheme will be handled as a standard scheme. The standard\n  schemes need to comply with the URL normalization and parsing rules defined in Section 3.1 of RFC 1738,\n  which can be found in the http://www.ietf.org/rfc/rfc1738.txt."]
 pub const ArkWeb_CustomSchemeOption_ARKWEB_SCHEME_OPTION_STANDARD: ArkWeb_CustomSchemeOption = 1;
@@ -1009,7 +1009,7 @@ pub const ArkWeb_CustomSchemeOption_ARKWEB_SCHEME_OPTION_FETCH_ENABLED: ArkWeb_C
 pub const ArkWeb_CustomSchemeOption_ARKWEB_SCHEME_OPTION_CODE_CACHE_ENABLED:
     ArkWeb_CustomSchemeOption = 128;
 #[doc = " @brief Configuration information for custom schemes.\n\n @syscap SystemCapability.Web.Webview.Core\n @since 12"]
-pub type ArkWeb_CustomSchemeOption = ::std::os::raw::c_uint;
+pub type ArkWeb_CustomSchemeOption = u32;
 #[doc = " Top level page."]
 pub const ArkWeb_ResourceType_MAIN_FRAME: ArkWeb_ResourceType = 0;
 #[doc = " Frame or Iframe."]
@@ -1051,7 +1051,7 @@ pub const ArkWeb_ResourceType_NAVIGATION_PRELOAD_MAIN_FRAME: ArkWeb_ResourceType
 #[doc = " A sub-frame service worker navigation preload request."]
 pub const ArkWeb_ResourceType_NAVIGATION_PRELOAD_SUB_FRAME: ArkWeb_ResourceType = 20;
 #[doc = " @brief Resource type for a request.\n\n These constants match their equivalents in Chromium's ResourceType and should not be renumbered.\\n\n\n @syscap SystemCapability.Web.Webview.Core\n @since 12"]
-pub type ArkWeb_ResourceType = ::std::os::raw::c_uint;
+pub type ArkWeb_ResourceType = u32;
 #[repr(C)]
 #[derive(Debug, Copy, Clone)]
 pub struct ArkWeb_SchemeHandler_ {
@@ -1573,7 +1573,7 @@ pub const ArkWebEngineVersion_ARKWEB_M114: ArkWebEngineVersion = 1;
 pub const ArkWebEngineVersion_ARKWEB_M132: ArkWebEngineVersion = 2;
 #[cfg(feature = "api-20")]
 #[doc = " @brief ArkWeb Engine Version.\n\n <strong>ArkWeb Dual Web Engine Versioning Convention</strong>:\n <p>See [ArkWeb Dual Web Engine Versioning Convention] for switching between Legacy and Evergreen Web Engine.\n\n @since 20"]
-pub type ArkWebEngineVersion = ::std::os::raw::c_uint;
+pub type ArkWebEngineVersion = u32;
 extern "C" {
     #[doc = " @brief Loads a piece of code and execute JS code in the context of the currently displayed page.\n\n @param webTag The name of the web component.\n @param jsCode a piece of javascript code.\n @param callback Callbacks execute JavaScript script results.\n\n @syscap SystemCapability.Web.Webview.Core\n @since 11"]
     pub fn OH_NativeArkWeb_RunJavaScript(

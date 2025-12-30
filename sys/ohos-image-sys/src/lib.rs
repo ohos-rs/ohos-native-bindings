@@ -171,7 +171,7 @@ pub const OH_PixelMap_AntiAliasingLevel_OH_PixelMap_AntiAliasing_MEDIUM:
 pub const OH_PixelMap_AntiAliasingLevel_OH_PixelMap_AntiAliasing_HIGH:
     OH_PixelMap_AntiAliasingLevel = 3;
 #[doc = " @brief Enumerates the anti-aliasing level.\n\n @since 12\n @version 1.0"]
-pub type OH_PixelMap_AntiAliasingLevel = ::std::os::raw::c_uint;
+pub type OH_PixelMap_AntiAliasingLevel = u32;
 #[doc = " @brief Defines the options used for creating a pixel map.\n\n @since 10\n @version 1.0"]
 #[repr(C)]
 #[derive(Debug, Copy, Clone)]

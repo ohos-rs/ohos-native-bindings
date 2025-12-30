@@ -270,7 +270,7 @@ pub const ArkUI_Alignment_ARKUI_ALIGNMENT_BOTTOM: ArkUI_Alignment = 7;
 #[doc = " Bottom end."]
 pub const ArkUI_Alignment_ARKUI_ALIGNMENT_BOTTOM_END: ArkUI_Alignment = 8;
 #[doc = " @brief Enumerates the alignment modes.\n\n @since 12"]
-pub type ArkUI_Alignment = ::std::os::raw::c_uint;
+pub type ArkUI_Alignment = u32;
 #[doc = " The image is not repeatedly drawn."]
 pub const ArkUI_ImageRepeat_ARKUI_IMAGE_REPEAT_NONE: ArkUI_ImageRepeat = 0;
 #[doc = " The image is repeatedly drawn only along the x-axis."]
@@ -280,13 +280,13 @@ pub const ArkUI_ImageRepeat_ARKUI_IMAGE_REPEAT_Y: ArkUI_ImageRepeat = 2;
 #[doc = " The image is repeatedly drawn along both axes."]
 pub const ArkUI_ImageRepeat_ARKUI_IMAGE_REPEAT_XY: ArkUI_ImageRepeat = 3;
 #[doc = " @brief Enumerates the image repeat patterns.\n\n @since 12"]
-pub type ArkUI_ImageRepeat = ::std::os::raw::c_uint;
+pub type ArkUI_ImageRepeat = u32;
 #[doc = " Standard font style."]
 pub const ArkUI_FontStyle_ARKUI_FONT_STYLE_NORMAL: ArkUI_FontStyle = 0;
 #[doc = " Italic font style."]
 pub const ArkUI_FontStyle_ARKUI_FONT_STYLE_ITALIC: ArkUI_FontStyle = 1;
 #[doc = " @brief Enumerates the font styles.\n\n @since 12"]
-pub type ArkUI_FontStyle = ::std::os::raw::c_uint;
+pub type ArkUI_FontStyle = u32;
 #[doc = " 100"]
 pub const ArkUI_FontWeight_ARKUI_FONT_WEIGHT_W100: ArkUI_FontWeight = 0;
 #[doc = " 200"]
@@ -318,7 +318,7 @@ pub const ArkUI_FontWeight_ARKUI_FONT_WEIGHT_MEDIUM: ArkUI_FontWeight = 13;
 #[doc = " The font weight is normal."]
 pub const ArkUI_FontWeight_ARKUI_FONT_WEIGHT_REGULAR: ArkUI_FontWeight = 14;
 #[doc = " @brief Enumerates the font weights.\n\n @since 12"]
-pub type ArkUI_FontWeight = ::std::os::raw::c_uint;
+pub type ArkUI_FontWeight = u32;
 #[doc = " Aligned with the start."]
 pub const ArkUI_TextAlignment_ARKUI_TEXT_ALIGNMENT_START: ArkUI_TextAlignment = 0;
 #[doc = " Horizontally centered."]
@@ -328,7 +328,7 @@ pub const ArkUI_TextAlignment_ARKUI_TEXT_ALIGNMENT_END: ArkUI_TextAlignment = 2;
 #[doc = " Aligned with both margins."]
 pub const ArkUI_TextAlignment_ARKUI_TEXT_ALIGNMENT_JUSTIFY: ArkUI_TextAlignment = 3;
 #[doc = " @brief Enumerates the text alignment mode.\n\n @since 12"]
-pub type ArkUI_TextAlignment = ::std::os::raw::c_uint;
+pub type ArkUI_TextAlignment = u32;
 #[doc = " Aligned to the baseline."]
 #[cfg(feature = "api-20")]
 pub const ArkUI_TextVerticalAlignment_ARKUI_TEXT_VERTICAL_ALIGNMENT_BASELINE:
@@ -347,7 +347,7 @@ pub const ArkUI_TextVerticalAlignment_ARKUI_TEXT_VERTICAL_ALIGNMENT_TOP:
     ArkUI_TextVerticalAlignment = 3;
 #[cfg(feature = "api-20")]
 #[doc = " @brief Enumerates text vertical alignment styles.\n\n @since 20"]
-pub type ArkUI_TextVerticalAlignment = ::std::os::raw::c_uint;
+pub type ArkUI_TextVerticalAlignment = u32;
 #[doc = " The Enter key is labeled \"Go.\""]
 pub const ArkUI_EnterKeyType_ARKUI_ENTER_KEY_TYPE_GO: ArkUI_EnterKeyType = 2;
 #[doc = " The Enter key is labeled \"Search.\""]
@@ -363,7 +363,7 @@ pub const ArkUI_EnterKeyType_ARKUI_ENTER_KEY_TYPE_PREVIOUS: ArkUI_EnterKeyType =
 #[doc = " The Enter key is labeled \"New Line.\""]
 pub const ArkUI_EnterKeyType_ARKUI_ENTER_KEY_TYPE_NEW_LINE: ArkUI_EnterKeyType = 8;
 #[doc = " @brief Enumerates the types of the Enter key for a single-line text box.\n\n @since 12"]
-pub type ArkUI_EnterKeyType = ::std::os::raw::c_uint;
+pub type ArkUI_EnterKeyType = u32;
 #[doc = " Normal input mode."]
 pub const ArkUI_TextInputType_ARKUI_TEXTINPUT_TYPE_NORMAL: ArkUI_TextInputType = 0;
 #[doc = " Number input mode."]
@@ -388,7 +388,7 @@ pub const ArkUI_TextInputType_ARKUI_TEXTINPUT_TYPE_NUMBER_DECIMAL: ArkUI_TextInp
 #[doc = " One time code input mode.\n @since 20"]
 pub const ArkUI_TextInputType_ARKUI_TEXTINPUT_TYPE_ONE_TIME_CODE: ArkUI_TextInputType = 14;
 #[doc = " @brief Enumerates the text input types.\n\n @since 12"]
-pub type ArkUI_TextInputType = ::std::os::raw::c_uint;
+pub type ArkUI_TextInputType = u32;
 #[doc = " Normal input mode."]
 pub const ArkUI_TextAreaType_ARKUI_TEXTAREA_TYPE_NORMAL: ArkUI_TextAreaType = 0;
 #[doc = " Number input mode."]
@@ -401,7 +401,7 @@ pub const ArkUI_TextAreaType_ARKUI_TEXTAREA_TYPE_EMAIL: ArkUI_TextAreaType = 5;
 #[doc = " One time code input mode.\n @since 20"]
 pub const ArkUI_TextAreaType_ARKUI_TEXTAREA_TYPE_ONE_TIME_CODE: ArkUI_TextAreaType = 14;
 #[doc = " @brief Enumerates the text box types.\n\n @since 12"]
-pub type ArkUI_TextAreaType = ::std::os::raw::c_uint;
+pub type ArkUI_TextAreaType = u32;
 #[doc = " The Cancel button is always displayed."]
 pub const ArkUI_CancelButtonStyle_ARKUI_CANCELBUTTON_STYLE_CONSTANT: ArkUI_CancelButtonStyle = 0;
 #[doc = " The Cancel button is always hidden."]
@@ -409,13 +409,13 @@ pub const ArkUI_CancelButtonStyle_ARKUI_CANCELBUTTON_STYLE_INVISIBLE: ArkUI_Canc
 #[doc = " The Cancel button is displayed when there is text input."]
 pub const ArkUI_CancelButtonStyle_ARKUI_CANCELBUTTON_STYLE_INPUT: ArkUI_CancelButtonStyle = 2;
 #[doc = " @brief Enumerates the styles of the Cancel button.\n\n @since 12"]
-pub type ArkUI_CancelButtonStyle = ::std::os::raw::c_uint;
+pub type ArkUI_CancelButtonStyle = u32;
 #[doc = " The custom content of EGL/OpenGL ES and media data is displayed individually on the screen."]
 pub const ArkUI_XComponentType_ARKUI_XCOMPONENT_TYPE_SURFACE: ArkUI_XComponentType = 0;
 #[doc = " The custom content of EGL/OpenGL ES and media data is grouped and displayed together with content\n of the component."]
 pub const ArkUI_XComponentType_ARKUI_XCOMPONENT_TYPE_TEXTURE: ArkUI_XComponentType = 2;
 #[doc = " @brief Enumerates the types of the <b><XComponent></b> component.\n\n @since 12"]
-pub type ArkUI_XComponentType = ::std::os::raw::c_uint;
+pub type ArkUI_XComponentType = u32;
 #[doc = " Linear style."]
 pub const ArkUI_ProgressType_ARKUI_PROGRESS_TYPE_LINEAR: ArkUI_ProgressType = 0;
 #[doc = " Indeterminate ring style."]
@@ -427,7 +427,7 @@ pub const ArkUI_ProgressType_ARKUI_PROGRESS_TYPE_SCALE_RING: ArkUI_ProgressType 
 #[doc = " Capsule style."]
 pub const ArkUI_ProgressType_ARKUI_PROGRESS_TYPE_CAPSULE: ArkUI_ProgressType = 4;
 #[doc = " @brief Enumerates the styles of the progress indicator.\n\n @since 12"]
-pub type ArkUI_ProgressType = ::std::os::raw::c_uint;
+pub type ArkUI_ProgressType = u32;
 #[doc = " No text decoration."]
 pub const ArkUI_TextDecorationType_ARKUI_TEXT_DECORATION_TYPE_NONE: ArkUI_TextDecorationType = 0;
 #[doc = " Line under the text."]
@@ -440,7 +440,7 @@ pub const ArkUI_TextDecorationType_ARKUI_TEXT_DECORATION_TYPE_OVERLINE: ArkUI_Te
 pub const ArkUI_TextDecorationType_ARKUI_TEXT_DECORATION_TYPE_LINE_THROUGH:
     ArkUI_TextDecorationType = 3;
 #[doc = " @brief Enumerates the text decoration types.\n\n @since 12"]
-pub type ArkUI_TextDecorationType = ::std::os::raw::c_uint;
+pub type ArkUI_TextDecorationType = u32;
 #[doc = " Single solid line."]
 pub const ArkUI_TextDecorationStyle_ARKUI_TEXT_DECORATION_STYLE_SOLID: ArkUI_TextDecorationStyle =
     0;
@@ -456,7 +456,7 @@ pub const ArkUI_TextDecorationStyle_ARKUI_TEXT_DECORATION_STYLE_DASHED: ArkUI_Te
 #[doc = " Wavy line."]
 pub const ArkUI_TextDecorationStyle_ARKUI_TEXT_DECORATION_STYLE_WAVY: ArkUI_TextDecorationStyle = 4;
 #[doc = " @brief Enumerates the text decoration styles.\n\n @since 12"]
-pub type ArkUI_TextDecorationStyle = ::std::os::raw::c_uint;
+pub type ArkUI_TextDecorationStyle = u32;
 #[doc = " The original case of the text is retained."]
 pub const ArkUI_TextCase_ARKUI_TEXT_CASE_NORMAL: ArkUI_TextCase = 0;
 #[doc = " All letters in the text are in lowercase."]
@@ -464,7 +464,7 @@ pub const ArkUI_TextCase_ARKUI_TEXT_CASE_LOWER: ArkUI_TextCase = 1;
 #[doc = " All letters in the text are in uppercase."]
 pub const ArkUI_TextCase_ARKUI_TEXT_CASE_UPPER: ArkUI_TextCase = 2;
 #[doc = " @brief Enumerates the text cases.\n\n @since 12"]
-pub type ArkUI_TextCase = ::std::os::raw::c_uint;
+pub type ArkUI_TextCase = u32;
 #[doc = " Copy is not allowed."]
 pub const ArkUI_CopyOptions_ARKUI_COPY_OPTIONS_NONE: ArkUI_CopyOptions = 0;
 #[doc = " Intra-application copy is allowed."]
@@ -474,13 +474,13 @@ pub const ArkUI_CopyOptions_ARKUI_COPY_OPTIONS_LOCAL_DEVICE: ArkUI_CopyOptions =
 #[doc = " Cross-device copy is allowed."]
 pub const ArkUI_CopyOptions_ARKUI_COPY_OPTIONS_CROSS_DEVICE: ArkUI_CopyOptions = 3;
 #[doc = " @brief Enumerates the text copy and paste modes.\n\n @since 12"]
-pub type ArkUI_CopyOptions = ::std::os::raw::c_uint;
+pub type ArkUI_CopyOptions = u32;
 #[doc = " Color."]
 pub const ArkUI_ShadowType_ARKUI_SHADOW_TYPE_COLOR: ArkUI_ShadowType = 0;
 #[doc = " Blur."]
 pub const ArkUI_ShadowType_ARKUI_SHADOW_TYPE_BLUR: ArkUI_ShadowType = 1;
 #[doc = " @brief Enumerates the shadow types.\n\n @since 12"]
-pub type ArkUI_ShadowType = ::std::os::raw::c_uint;
+pub type ArkUI_ShadowType = u32;
 #[doc = " A mode that displays the date in months, days of month, and years."]
 #[cfg(feature = "api-18")]
 pub const ArkUI_DatePickerMode_ARKUI_DATEPICKER_MODE_DATE: ArkUI_DatePickerMode = 0;
@@ -492,7 +492,7 @@ pub const ArkUI_DatePickerMode_ARKUI_DATEPICKER_YEAR_AND_MONTH: ArkUI_DatePicker
 pub const ArkUI_DatePickerMode_ARKUI_DATEPICKER_MONTH_AND_DAY: ArkUI_DatePickerMode = 2;
 #[cfg(feature = "api-18")]
 #[doc = " @brief Enumerates the modes of the date picker.\n\n @since 18"]
-pub type ArkUI_DatePickerMode = ::std::os::raw::c_uint;
+pub type ArkUI_DatePickerMode = u32;
 #[doc = " Single-column text picker."]
 pub const ArkUI_TextPickerRangeType_ARKUI_TEXTPICKER_RANGETYPE_SINGLE: ArkUI_TextPickerRangeType =
     0;
@@ -505,7 +505,7 @@ pub const ArkUI_TextPickerRangeType_ARKUI_TEXTPICKER_RANGETYPE_RANGE_CONTENT:
 pub const ArkUI_TextPickerRangeType_ARKUI_TEXTPICKER_RANGETYPE_CASCADE_RANGE_CONTENT:
     ArkUI_TextPickerRangeType = 3;
 #[doc = " @brief Enumerates the types of the text picker.\n\n @since 12"]
-pub type ArkUI_TextPickerRangeType = ::std::os::raw::c_uint;
+pub type ArkUI_TextPickerRangeType = u32;
 #[doc = " @brief Defines the input structure of the single-column text picker with image resources.\n\n @since 12"]
 #[repr(C)]
 #[derive(Debug, Copy, Clone)]
@@ -533,7 +533,7 @@ pub const ArkUI_EdgeEffect_ARKUI_EDGE_EFFECT_FADE: ArkUI_EdgeEffect = 1;
 #[doc = " No effect after the scrollbar is moved to the edge."]
 pub const ArkUI_EdgeEffect_ARKUI_EDGE_EFFECT_NONE: ArkUI_EdgeEffect = 2;
 #[doc = " @brief Enumerates the effects used at the edges of the component when the boundary of the scrollable content is\n reached.\n\n @since 12"]
-pub type ArkUI_EdgeEffect = ::std::os::raw::c_uint;
+pub type ArkUI_EdgeEffect = u32;
 #[doc = " Start edge."]
 #[cfg(feature = "api-18")]
 pub const ArkUI_EffectEdge_ARKUI_EFFECT_EDGE_START: ArkUI_EffectEdge = 1;
@@ -542,7 +542,7 @@ pub const ArkUI_EffectEdge_ARKUI_EFFECT_EDGE_START: ArkUI_EffectEdge = 1;
 pub const ArkUI_EffectEdge_ARKUI_EFFECT_EDGE_END: ArkUI_EffectEdge = 2;
 #[cfg(feature = "api-18")]
 #[doc = " @brief Enumerates the edges for which the effect takes effect when the boundary of the scrollable content is reached.\n\n @since 18"]
-pub type ArkUI_EffectEdge = ::std::os::raw::c_uint;
+pub type ArkUI_EffectEdge = u32;
 #[doc = " Default mode, where focus does not wrap when arrow keys are used."]
 #[cfg(feature = "api-20")]
 pub const ArkUI_FocusWrapMode_ARKUI_FOCUS_WRAP_MODE_DEFAULT: ArkUI_FocusWrapMode = 0;
@@ -551,7 +551,7 @@ pub const ArkUI_FocusWrapMode_ARKUI_FOCUS_WRAP_MODE_DEFAULT: ArkUI_FocusWrapMode
 pub const ArkUI_FocusWrapMode_ARKUI_FOCUS_WRAP_WITH_ARROW: ArkUI_FocusWrapMode = 1;
 #[cfg(feature = "api-20")]
 #[doc = " @brief Enumerates the focus wrap mode of components.\n\n @since 20"]
-pub type ArkUI_FocusWrapMode = ::std::os::raw::c_uint;
+pub type ArkUI_FocusWrapMode = u32;
 #[doc = " Only vertical scrolling is supported."]
 pub const ArkUI_ScrollDirection_ARKUI_SCROLL_DIRECTION_VERTICAL: ArkUI_ScrollDirection = 0;
 #[doc = " Only horizontal scrolling is supported."]
@@ -562,7 +562,7 @@ pub const ArkUI_ScrollDirection_ARKUI_SCROLL_DIRECTION_NONE: ArkUI_ScrollDirecti
 #[doc = " Free scrolling in both directions.\n\n @since 20"]
 pub const ArkUI_ScrollDirection_ARKUI_SCROLL_DIRECTION_FREE: ArkUI_ScrollDirection = 4;
 #[doc = " @brief Enumerates the scroll directions for the <b><Scroll></b> component.\n\n @since 12"]
-pub type ArkUI_ScrollDirection = ::std::os::raw::c_uint;
+pub type ArkUI_ScrollDirection = u32;
 #[doc = " No alignment. This is the default value."]
 pub const ArkUI_ScrollSnapAlign_ARKUI_SCROLL_SNAP_ALIGN_NONE: ArkUI_ScrollSnapAlign = 0;
 #[doc = " The first item in the view is aligned at the start of the list."]
@@ -572,7 +572,7 @@ pub const ArkUI_ScrollSnapAlign_ARKUI_SCROLL_SNAP_ALIGN_CENTER: ArkUI_ScrollSnap
 #[doc = " The last item in the view is aligned at the end of the list."]
 pub const ArkUI_ScrollSnapAlign_ARKUI_SCROLL_SNAP_ALIGN_END: ArkUI_ScrollSnapAlign = 3;
 #[doc = " @brief Enumerates the alignment modes of list items when scrolling ends.\n\n @since 12"]
-pub type ArkUI_ScrollSnapAlign = ::std::os::raw::c_uint;
+pub type ArkUI_ScrollSnapAlign = u32;
 #[doc = " Hide."]
 pub const ArkUI_ScrollBarDisplayMode_ARKUI_SCROLL_BAR_DISPLAY_MODE_OFF: ArkUI_ScrollBarDisplayMode =
     0;
@@ -583,13 +583,13 @@ pub const ArkUI_ScrollBarDisplayMode_ARKUI_SCROLL_BAR_DISPLAY_MODE_AUTO:
 pub const ArkUI_ScrollBarDisplayMode_ARKUI_SCROLL_BAR_DISPLAY_MODE_ON: ArkUI_ScrollBarDisplayMode =
     2;
 #[doc = " @brief Enumerates the scrollbar display modes.\n\n @since 12"]
-pub type ArkUI_ScrollBarDisplayMode = ::std::os::raw::c_uint;
+pub type ArkUI_ScrollBarDisplayMode = u32;
 #[doc = " Only vertical scrolling is supported."]
 pub const ArkUI_Axis_ARKUI_AXIS_VERTICAL: ArkUI_Axis = 0;
 #[doc = " Only horizontal scrolling is supported."]
 pub const ArkUI_Axis_ARKUI_AXIS_HORIZONTAL: ArkUI_Axis = 1;
 #[doc = " @brief Enumerates the scroll directions for the <b><List></b> component.\n\n @since 12"]
-pub type ArkUI_Axis = ::std::os::raw::c_uint;
+pub type ArkUI_Axis = u32;
 #[doc = " In the list item group, the header is not pinned to the top, and the footer is not pinned to the bottom."]
 pub const ArkUI_StickyStyle_ARKUI_STICKY_STYLE_NONE: ArkUI_StickyStyle = 0;
 #[doc = " In the list item group, the header is pinned to the top, and the footer is not pinned to the bottom."]
@@ -599,7 +599,7 @@ pub const ArkUI_StickyStyle_ARKUI_STICKY_STYLE_FOOTER: ArkUI_StickyStyle = 2;
 #[doc = " In the list item group, the footer is pinned to the bottom, and the header is pinned to the top."]
 pub const ArkUI_StickyStyle_ARKUI_STICKY_STYLE_BOTH: ArkUI_StickyStyle = 3;
 #[doc = " @brief Enumerates the modes for pinning the header to the top or the footer to the bottom.\n\n @since 12"]
-pub type ArkUI_StickyStyle = ::std::os::raw::c_uint;
+pub type ArkUI_StickyStyle = u32;
 #[doc = " clip by content"]
 #[cfg(feature = "api-18")]
 pub const ArkUI_ContentClipMode_ARKUI_CONTENT_CLIP_MODE_CONTENT_ONLY: ArkUI_ContentClipMode = 0;
@@ -611,7 +611,7 @@ pub const ArkUI_ContentClipMode_ARKUI_CONTENT_CLIP_MODE_BOUNDARY: ArkUI_ContentC
 pub const ArkUI_ContentClipMode_ARKUI_CONTENT_CLIP_MODE_SAFE_AREA: ArkUI_ContentClipMode = 2;
 #[cfg(feature = "api-18")]
 #[doc = " @brief Enumerates the content clipping modes of scrollable components.\n\n @since 18"]
-pub type ArkUI_ContentClipMode = ::std::os::raw::c_uint;
+pub type ArkUI_ContentClipMode = u32;
 #[doc = " Layout items from top to viewport."]
 #[cfg(feature = "api-18")]
 pub const ArkUI_WaterFlowLayoutMode_ARKUI_WATER_FLOW_LAYOUT_MODE_ALWAYS_TOP_DOWN:
@@ -622,7 +622,7 @@ pub const ArkUI_WaterFlowLayoutMode_ARKUI_WATER_FLOW_LAYOUT_MODE_SLIDING_WINDOW:
     ArkUI_WaterFlowLayoutMode = 1;
 #[cfg(feature = "api-18")]
 #[doc = " @brief Enumerates the layout modes of the WaterFlow component.\n\n @since 18"]
-pub type ArkUI_WaterFlowLayoutMode = ::std::os::raw::c_uint;
+pub type ArkUI_WaterFlowLayoutMode = u32;
 #[doc = " Solid border."]
 pub const ArkUI_BorderStyle_ARKUI_BORDER_STYLE_SOLID: ArkUI_BorderStyle = 0;
 #[doc = " Dashed border."]
@@ -630,7 +630,7 @@ pub const ArkUI_BorderStyle_ARKUI_BORDER_STYLE_DASHED: ArkUI_BorderStyle = 1;
 #[doc = " Dotted border."]
 pub const ArkUI_BorderStyle_ARKUI_BORDER_STYLE_DOTTED: ArkUI_BorderStyle = 2;
 #[doc = " @brief Enumerates the border styles.\n\n @since 12"]
-pub type ArkUI_BorderStyle = ::std::os::raw::c_uint;
+pub type ArkUI_BorderStyle = u32;
 #[doc = " Both the node and its child node respond to the hit test of a touch event, but its sibling node is blocked from\n  the hit test."]
 pub const ArkUI_HitTestMode_ARKUI_HIT_TEST_MODE_DEFAULT: ArkUI_HitTestMode = 0;
 #[doc = " The node responds to the hit test of a touch event, but its child node and sibling node are blocked from the\n  hit test."]
@@ -646,7 +646,7 @@ pub const ArkUI_HitTestMode_ARKUI_HIT_TEST_MODE_BLOCK_HIERARCHY: ArkUI_HitTestMo
 #[doc = " The node does not respond to hit tests, and none of its descendants (including children and grandchildren)\n participate in hit tests either.\n\n @since 20"]
 pub const ArkUI_HitTestMode_ARKUI_HIT_TEST_MODE_BLOCK_DESCENDANTS: ArkUI_HitTestMode = 5;
 #[doc = " @brief Enumerates the hit test modes.\n\n @since 12"]
-pub type ArkUI_HitTestMode = ::std::os::raw::c_uint;
+pub type ArkUI_HitTestMode = u32;
 #[doc = " Mini shadow."]
 pub const ArkUI_ShadowStyle_ARKUI_SHADOW_STYLE_OUTER_DEFAULT_XS: ArkUI_ShadowStyle = 0;
 #[doc = " Little shadow."]
@@ -660,7 +660,7 @@ pub const ArkUI_ShadowStyle_ARKUI_SHADOW_STYLE_OUTER_FLOATING_SM: ArkUI_ShadowSt
 #[doc = " Floating medium shadow."]
 pub const ArkUI_ShadowStyle_ARKUI_SHADOW_STYLE_OUTER_FLOATING_MD: ArkUI_ShadowStyle = 5;
 #[doc = " @brief Enumerates the shadow styles.\n\n @since 12"]
-pub type ArkUI_ShadowStyle = ::std::os::raw::c_uint;
+pub type ArkUI_ShadowStyle = u32;
 #[doc = " The animation speed keeps unchanged."]
 pub const ArkUI_AnimationCurve_ARKUI_CURVE_LINEAR: ArkUI_AnimationCurve = 0;
 #[doc = " The animation starts slowly, accelerates, and then slows down towards the end."]
@@ -688,7 +688,7 @@ pub const ArkUI_AnimationCurve_ARKUI_CURVE_SMOOTH: ArkUI_AnimationCurve = 11;
 #[doc = " The animation uses the friction curve"]
 pub const ArkUI_AnimationCurve_ARKUI_CURVE_FRICTION: ArkUI_AnimationCurve = 12;
 #[doc = " @brief Enumerates the animation curves.\n\n @since 12"]
-pub type ArkUI_AnimationCurve = ::std::os::raw::c_uint;
+pub type ArkUI_AnimationCurve = u32;
 #[doc = " The arrow is not displayed for the navigation point indicator."]
 pub const ArkUI_SwiperArrow_ARKUI_SWIPER_ARROW_HIDE: ArkUI_SwiperArrow = 0;
 #[doc = " The arrow is displayed for the navigation point indicator."]
@@ -696,7 +696,7 @@ pub const ArkUI_SwiperArrow_ARKUI_SWIPER_ARROW_SHOW: ArkUI_SwiperArrow = 1;
 #[doc = " The arrow is displayed only when the mouse pointer hovers over the navigation point indicator."]
 pub const ArkUI_SwiperArrow_ARKUI_SWIPER_ARROW_SHOW_ON_HOVER: ArkUI_SwiperArrow = 2;
 #[doc = " @brief Enumerates arrow styles of the navigation point indicator.\n\n @since 12"]
-pub type ArkUI_SwiperArrow = ::std::os::raw::c_uint;
+pub type ArkUI_SwiperArrow = u32;
 #[doc = " Swiper only scrolls on its own and is not linked to its parent component."]
 pub const ArkUI_SwiperNestedScrollMode_ARKUI_SWIPER_NESTED_SRCOLL_SELF_ONLY:
     ArkUI_SwiperNestedScrollMode = 0;
@@ -704,7 +704,7 @@ pub const ArkUI_SwiperNestedScrollMode_ARKUI_SWIPER_NESTED_SRCOLL_SELF_ONLY:
 pub const ArkUI_SwiperNestedScrollMode_ARKUI_SWIPER_NESTED_SRCOLL_SELF_FIRST:
     ArkUI_SwiperNestedScrollMode = 1;
 #[doc = " @brief Nested scrolling mode for Swiper components and parent components.\n\n @since 12"]
-pub type ArkUI_SwiperNestedScrollMode = ::std::os::raw::c_uint;
+pub type ArkUI_SwiperNestedScrollMode = u32;
 #[doc = " When the mouse wheel is scrolled continuously, multiple pages are flipped, which is determined by the number of\n  times that mouse events are reported."]
 #[cfg(feature = "api-15")]
 pub const ArkUI_PageFlipMode_ARKUI_PAGE_FLIP_MODE_CONTINUOUS: ArkUI_PageFlipMode = 0;
@@ -713,7 +713,7 @@ pub const ArkUI_PageFlipMode_ARKUI_PAGE_FLIP_MODE_CONTINUOUS: ArkUI_PageFlipMode
 pub const ArkUI_PageFlipMode_ARKUI_PAGE_FLIP_MODE_SINGLE: ArkUI_PageFlipMode = 1;
 #[cfg(feature = "api-15")]
 #[doc = " @brief Enumerates the page flipping modes using the mouse wheel for the <b>Swiper</b> component.\n\n @since 15"]
-pub type ArkUI_PageFlipMode = ::std::os::raw::c_uint;
+pub type ArkUI_PageFlipMode = u32;
 #[doc = " Jump to target index without animation."]
 #[cfg(feature = "api-15")]
 pub const ArkUI_SwiperAnimationMode_ARKUI_SWIPER_NO_ANIMATION: ArkUI_SwiperAnimationMode = 0;
@@ -725,7 +725,7 @@ pub const ArkUI_SwiperAnimationMode_ARKUI_SWIPER_DEFAULT_ANIMATION: ArkUI_Swiper
 pub const ArkUI_SwiperAnimationMode_ARKUI_SWIPER_FAST_ANIMATION: ArkUI_SwiperAnimationMode = 2;
 #[cfg(feature = "api-15")]
 #[doc = " @brief Enumerates the animation modes for {@link NODE_SWIPER_INDEX}.\n\n @since 15"]
-pub type ArkUI_SwiperAnimationMode = ::std::os::raw::c_uint;
+pub type ArkUI_SwiperAnimationMode = u32;
 #[doc = " Whether the component can be identified by the accessibility service is dependent on the component."]
 pub const ArkUI_AccessibilityMode_ARKUI_ACCESSIBILITY_MODE_AUTO: ArkUI_AccessibilityMode = 0;
 #[doc = " The component can be identified by the accessibility service."]
@@ -736,7 +736,7 @@ pub const ArkUI_AccessibilityMode_ARKUI_ACCESSIBILITY_MODE_DISABLED: ArkUI_Acces
 pub const ArkUI_AccessibilityMode_ARKUI_ACCESSIBILITY_MODE_DISABLED_FOR_DESCENDANTS:
     ArkUI_AccessibilityMode = 3;
 #[doc = " @brief Enumerates the accessibility modes.\n\n @since 12"]
-pub type ArkUI_AccessibilityMode = ::std::os::raw::c_uint;
+pub type ArkUI_AccessibilityMode = u32;
 #[doc = " Copy is not allowed."]
 pub const ArkUI_TextCopyOptions_ARKUI_TEXT_COPY_OPTIONS_NONE: ArkUI_TextCopyOptions = 0;
 #[doc = " Intra-application copy is allowed."]
@@ -746,7 +746,7 @@ pub const ArkUI_TextCopyOptions_ARKUI_TEXT_COPY_OPTIONS_LOCAL_DEVICE: ArkUI_Text
 #[doc = " Cross-device copy is allowed."]
 pub const ArkUI_TextCopyOptions_ARKUI_TEXT_COPY_OPTIONS_CROSS_DEVICE: ArkUI_TextCopyOptions = 3;
 #[doc = " @brief Defines whether copy and paste is allowed for text content.\n\n @since 12"]
-pub type ArkUI_TextCopyOptions = ::std::os::raw::c_uint;
+pub type ArkUI_TextCopyOptions = u32;
 #[doc = " Prioritize the <b>maxLines</b> settings."]
 pub const ArkUI_TextHeightAdaptivePolicy_ARKUI_TEXT_HEIGHT_ADAPTIVE_POLICY_MAX_LINES_FIRST:
     ArkUI_TextHeightAdaptivePolicy = 0;
@@ -756,7 +756,7 @@ pub const ArkUI_TextHeightAdaptivePolicy_ARKUI_TEXT_HEIGHT_ADAPTIVE_POLICY_MIN_F
 #[doc = " Prioritize the layout constraint settings in terms of height."]
 pub const ArkUI_TextHeightAdaptivePolicy_ARKUI_TEXT_HEIGHT_ADAPTIVE_POLICY_LAYOUT_CONSTRAINT_FIRST : ArkUI_TextHeightAdaptivePolicy = 2 ;
 #[doc = " @brief Defines how the adaptive height is determined for the text.\n\n @since 12"]
-pub type ArkUI_TextHeightAdaptivePolicy = ::std::os::raw::c_uint;
+pub type ArkUI_TextHeightAdaptivePolicy = u32;
 #[doc = " The scrolling is contained within the component, and no scroll chaining occurs, that is, the parent component\n does not scroll when the component scrolling reaches the boundary."]
 pub const ArkUI_ScrollNestedMode_ARKUI_SCROLL_NESTED_MODE_SELF_ONLY: ArkUI_ScrollNestedMode = 0;
 #[doc = " The component scrolls first, and when it hits the boundary, the parent component scrolls.\n  When the parent component hits the boundary, its edge effect is displayed. If no edge\n  effect is specified for the parent component, the edge effect of the child component is displayed instead."]
@@ -766,7 +766,7 @@ pub const ArkUI_ScrollNestedMode_ARKUI_SCROLL_NESTED_MODE_PARENT_FIRST: ArkUI_Sc
 #[doc = " The component and its parent component scroll at the same time. When both the component and its parent component\n  hit the boundary, the edge effect of the component is displayed. If no edge effect is specified for the\n  component, the edge effect of the parent component is displayed instead."]
 pub const ArkUI_ScrollNestedMode_ARKUI_SCROLL_NESTED_MODE_PARALLEL: ArkUI_ScrollNestedMode = 3;
 #[doc = " @brief Defines nested scrolling options.\n\n @since 12"]
-pub type ArkUI_ScrollNestedMode = ::std::os::raw::c_uint;
+pub type ArkUI_ScrollNestedMode = u32;
 #[doc = " Top edge in the vertical direction."]
 pub const ArkUI_ScrollEdge_ARKUI_SCROLL_EDGE_TOP: ArkUI_ScrollEdge = 0;
 #[doc = " Bottom edge in the vertical direction."]
@@ -776,7 +776,7 @@ pub const ArkUI_ScrollEdge_ARKUI_SCROLL_EDGE_START: ArkUI_ScrollEdge = 2;
 #[doc = " End position in the horizontal direction."]
 pub const ArkUI_ScrollEdge_ARKUI_SCROLL_EDGE_END: ArkUI_ScrollEdge = 3;
 #[doc = " @brief Defines the edge to which the component scrolls.\n\n @since 12"]
-pub type ArkUI_ScrollEdge = ::std::os::raw::c_uint;
+pub type ArkUI_ScrollEdge = u32;
 #[doc = " Align the head. Align the head of the specified item with the head of the container."]
 pub const ArkUI_ScrollAlignment_ARKUI_SCROLL_ALIGNMENT_START: ArkUI_ScrollAlignment = 0;
 #[doc = " Center alignment. Align the axis direction of the specified item to the center of the container."]
@@ -786,7 +786,7 @@ pub const ArkUI_ScrollAlignment_ARKUI_SCROLL_ALIGNMENT_END: ArkUI_ScrollAlignmen
 #[doc = " Automatic alignment. If the specified item is completely in the display area, no adjustments will be made.\n Otherwise, according to the principle of the shortest sliding distance, align the head or tail of the specified\n item with the container, so that the specified item is completely in the display area."]
 pub const ArkUI_ScrollAlignment_ARKUI_SCROLL_ALIGNMENT_AUTO: ArkUI_ScrollAlignment = 3;
 #[doc = " @brief Alignment when scrolling to specific items.\n\n @since 12"]
-pub type ArkUI_ScrollAlignment = ::std::os::raw::c_uint;
+pub type ArkUI_ScrollAlignment = u32;
 #[doc = " Idle state. Trigger when using the method provided by the controller to control scrolling, and trigger when\n dragging the scroll bar to scroll."]
 pub const ArkUI_ScrollState_ARKUI_SCROLL_STATE_IDLE: ArkUI_ScrollState = 0;
 #[doc = " Scroll state. Triggered when dragging the container with fingers to scroll."]
@@ -794,7 +794,7 @@ pub const ArkUI_ScrollState_ARKUI_SCROLL_STATE_SCROLL: ArkUI_ScrollState = 1;
 #[doc = " Inertial rolling state. Triggered when inertia rolling and bouncing back to the edge are performed after\n releasing the hand quickly."]
 pub const ArkUI_ScrollState_ARKUI_SCROLL_STATE_FLING: ArkUI_ScrollState = 2;
 #[doc = " @brief Define the current scrolling state.\n\n @since 12"]
-pub type ArkUI_ScrollState = ::std::os::raw::c_uint;
+pub type ArkUI_ScrollState = u32;
 #[doc = " Round slider."]
 pub const ArkUI_SliderBlockStyle_ARKUI_SLIDER_BLOCK_STYLE_DEFAULT: ArkUI_SliderBlockStyle = 0;
 #[doc = " Slider with an image background."]
@@ -802,13 +802,13 @@ pub const ArkUI_SliderBlockStyle_ARKUI_SLIDER_BLOCK_STYLE_IMAGE: ArkUI_SliderBlo
 #[doc = " Slider in a custom shape."]
 pub const ArkUI_SliderBlockStyle_ARKUI_SLIDER_BLOCK_STYLE_SHAPE: ArkUI_SliderBlockStyle = 2;
 #[doc = " @brief Enumerates the types of the slider in the block direction.\n\n @since 12"]
-pub type ArkUI_SliderBlockStyle = ::std::os::raw::c_uint;
+pub type ArkUI_SliderBlockStyle = u32;
 #[doc = " Vertical direction."]
 pub const ArkUI_SliderDirection_ARKUI_SLIDER_DIRECTION_VERTICAL: ArkUI_SliderDirection = 0;
 #[doc = " Horizontal direction."]
 pub const ArkUI_SliderDirection_ARKUI_SLIDER_DIRECTION_HORIZONTAL: ArkUI_SliderDirection = 1;
 #[doc = " @brief Enumerates the scroll directions of the slider.\n\n @since 12"]
-pub type ArkUI_SliderDirection = ::std::os::raw::c_uint;
+pub type ArkUI_SliderDirection = u32;
 #[doc = " The slider is on the slider track."]
 pub const ArkUI_SliderStyle_ARKUI_SLIDER_STYLE_OUT_SET: ArkUI_SliderStyle = 0;
 #[doc = " The slider is in the slider track."]
@@ -816,13 +816,13 @@ pub const ArkUI_SliderStyle_ARKUI_SLIDER_STYLE_IN_SET: ArkUI_SliderStyle = 1;
 #[doc = " No slider."]
 pub const ArkUI_SliderStyle_ARKUI_SLIDER_STYLE_NONE: ArkUI_SliderStyle = 2;
 #[doc = " @brief Enumerates the slider styles.\n\n @since 12"]
-pub type ArkUI_SliderStyle = ::std::os::raw::c_uint;
+pub type ArkUI_SliderStyle = u32;
 #[doc = " Circle."]
 pub const ArkUI_CheckboxShape_ArkUI_CHECKBOX_SHAPE_CIRCLE: ArkUI_CheckboxShape = 0;
 #[doc = " Rounded square."]
 pub const ArkUI_CheckboxShape_ArkUI_CHECKBOX_SHAPE_ROUNDED_SQUARE: ArkUI_CheckboxShape = 1;
 #[doc = " @brief Enumerates the shapes of the check box\n\n @since 12"]
-pub type ArkUI_CheckboxShape = ::std::os::raw::c_uint;
+pub type ArkUI_CheckboxShape = u32;
 #[doc = " The animation is played forwards."]
 pub const ArkUI_AnimationPlayMode_ARKUI_ANIMATION_PLAY_MODE_NORMAL: ArkUI_AnimationPlayMode = 0;
 #[doc = " The animation is played reversely."]
@@ -833,7 +833,7 @@ pub const ArkUI_AnimationPlayMode_ARKUI_ANIMATION_PLAY_MODE_ALTERNATE: ArkUI_Ani
 pub const ArkUI_AnimationPlayMode_ARKUI_ANIMATION_PLAY_MODE_ALTERNATE_REVERSE:
     ArkUI_AnimationPlayMode = 3;
 #[doc = " @brief Enumerates the animation playback modes.\n\n @since 12"]
-pub type ArkUI_AnimationPlayMode = ::std::os::raw::c_uint;
+pub type ArkUI_AnimationPlayMode = u32;
 #[doc = " The original image aspect ratio is retained."]
 pub const ArkUI_ImageSize_ARKUI_IMAGE_SIZE_AUTO: ArkUI_ImageSize = 0;
 #[doc = " The image is scaled with its aspect ratio retained for both sides to be greater than or equal\n  to the display boundaries."]
@@ -841,13 +841,13 @@ pub const ArkUI_ImageSize_ARKUI_IMAGE_SIZE_COVER: ArkUI_ImageSize = 1;
 #[doc = " The image is scaled with its aspect ratio retained for the content to be completely displayed within the display\n  boundaries."]
 pub const ArkUI_ImageSize_ARKUI_IMAGE_SIZE_CONTAIN: ArkUI_ImageSize = 2;
 #[doc = " @brief Defines the image size.\n\n @since 12"]
-pub type ArkUI_ImageSize = ::std::os::raw::c_uint;
+pub type ArkUI_ImageSize = u32;
 #[doc = " Adaptive color mode is not used."]
 pub const ArkUI_AdaptiveColor_ARKUI_ADAPTIVE_COLOR_DEFAULT: ArkUI_AdaptiveColor = 0;
 #[doc = " Adaptive color mode is used."]
 pub const ArkUI_AdaptiveColor_ARKUI_ADAPTIVE_COLOR_AVERAGE: ArkUI_AdaptiveColor = 1;
 #[doc = " @brief Enumerates the adaptive color modes.\n\n @since 12"]
-pub type ArkUI_AdaptiveColor = ::std::os::raw::c_uint;
+pub type ArkUI_AdaptiveColor = u32;
 #[doc = " Following the system color mode."]
 pub const ArkUI_ColorMode_ARKUI_COLOR_MODE_SYSTEM: ArkUI_ColorMode = 0;
 #[doc = " Light color mode."]
@@ -855,13 +855,13 @@ pub const ArkUI_ColorMode_ARKUI_COLOR_MODE_LIGHT: ArkUI_ColorMode = 1;
 #[doc = " Dark color mode."]
 pub const ArkUI_ColorMode_ARKUI_COLOR_MODE_DARK: ArkUI_ColorMode = 2;
 #[doc = " @brief Enumerates the color modes.\n\n @since 12"]
-pub type ArkUI_ColorMode = ::std::os::raw::c_uint;
+pub type ArkUI_ColorMode = u32;
 #[doc = " Light color mode."]
 pub const ArkUI_SystemColorMode_ARKUI_SYSTEM_COLOR_MODE_LIGHT: ArkUI_SystemColorMode = 0;
 #[doc = " Dark color mode."]
 pub const ArkUI_SystemColorMode_ARKUI_SYSTEM_COLOR_MODE_DARK: ArkUI_SystemColorMode = 1;
 #[doc = " @brief Enumerates the system color modes.\n\n @since 12"]
-pub type ArkUI_SystemColorMode = ::std::os::raw::c_uint;
+pub type ArkUI_SystemColorMode = u32;
 #[doc = " Thin material."]
 pub const ArkUI_BlurStyle_ARKUI_BLUR_STYLE_THIN: ArkUI_BlurStyle = 0;
 #[doc = " Regular material."]
@@ -889,7 +889,7 @@ pub const ArkUI_BlurStyle_ARKUI_BLUR_STYLE_COMPONENT_THICK: ArkUI_BlurStyle = 11
 #[doc = " Component ultra-thick material."]
 pub const ArkUI_BlurStyle_ARKUI_BLUR_STYLE_COMPONENT_ULTRA_THICK: ArkUI_BlurStyle = 12;
 #[doc = " @brief Enumerates the blur styles.\n\n @since 12"]
-pub type ArkUI_BlurStyle = ::std::os::raw::c_uint;
+pub type ArkUI_BlurStyle = u32;
 #[doc = " The blur effect changes according to the window's focus state;\n  it is inactive when the window is not in focus and active when the window is in focus."]
 #[cfg(feature = "api-19")]
 pub const ArkUI_BlurStyleActivePolicy_ARKUI_BLUR_STYLE_ACTIVE_POLICY_FOLLOWS_WINDOW_ACTIVE_STATE:
@@ -904,7 +904,7 @@ pub const ArkUI_BlurStyleActivePolicy_ARKUI_BLUR_STYLE_ACTIVE_POLICY_ALWAYS_INAC
     ArkUI_BlurStyleActivePolicy = 2;
 #[cfg(feature = "api-19")]
 #[doc = " @brief Enumerates the activation policies for the background blur effect.\n\n @since 19"]
-pub type ArkUI_BlurStyleActivePolicy = ::std::os::raw::c_uint;
+pub type ArkUI_BlurStyleActivePolicy = u32;
 #[doc = " Top aligned."]
 pub const ArkUI_VerticalAlignment_ARKUI_VERTICAL_ALIGNMENT_TOP: ArkUI_VerticalAlignment = 0;
 #[doc = " Center aligned. This is the default alignment mode."]
@@ -912,7 +912,7 @@ pub const ArkUI_VerticalAlignment_ARKUI_VERTICAL_ALIGNMENT_CENTER: ArkUI_Vertica
 #[doc = " Bottom aligned."]
 pub const ArkUI_VerticalAlignment_ARKUI_VERTICAL_ALIGNMENT_BOTTOM: ArkUI_VerticalAlignment = 2;
 #[doc = " @brief Enumerates the vertical alignment modes.\n\n @since 12"]
-pub type ArkUI_VerticalAlignment = ::std::os::raw::c_uint;
+pub type ArkUI_VerticalAlignment = u32;
 #[doc = " Aligned with the start edge in the same direction as the language in use."]
 pub const ArkUI_HorizontalAlignment_ARKUI_HORIZONTAL_ALIGNMENT_START: ArkUI_HorizontalAlignment = 0;
 #[doc = " Center aligned. This is the default alignment mode."]
@@ -921,7 +921,7 @@ pub const ArkUI_HorizontalAlignment_ARKUI_HORIZONTAL_ALIGNMENT_CENTER: ArkUI_Hor
 #[doc = " Aligned with the end edge in the same direction as the language in use."]
 pub const ArkUI_HorizontalAlignment_ARKUI_HORIZONTAL_ALIGNMENT_END: ArkUI_HorizontalAlignment = 2;
 #[doc = " @brief Enumerates the alignment mode in the horizontal direction.\n\n @since 12"]
-pub type ArkUI_HorizontalAlignment = ::std::os::raw::c_uint;
+pub type ArkUI_HorizontalAlignment = u32;
 #[doc = " Extra-long text is not clipped."]
 pub const ArkUI_TextOverflow_ARKUI_TEXT_OVERFLOW_NONE: ArkUI_TextOverflow = 0;
 #[doc = " Extra-long text is clipped."]
@@ -931,7 +931,7 @@ pub const ArkUI_TextOverflow_ARKUI_TEXT_OVERFLOW_ELLIPSIS: ArkUI_TextOverflow = 
 #[doc = " Text continuously scrolls when text overflow occurs."]
 pub const ArkUI_TextOverflow_ARKUI_TEXT_OVERFLOW_MARQUEE: ArkUI_TextOverflow = 3;
 #[doc = " @brief Enumerates the display modes when the text is too long.\n\n @since 12"]
-pub type ArkUI_TextOverflow = ::std::os::raw::c_uint;
+pub type ArkUI_TextOverflow = u32;
 #[doc = " The image is bottom aligned with the text baseline."]
 pub const ArkUI_ImageSpanAlignment_ARKUI_IMAGE_SPAN_ALIGNMENT_BASELINE: ArkUI_ImageSpanAlignment =
     0;
@@ -946,7 +946,7 @@ pub const ArkUI_ImageSpanAlignment_ARKUI_IMAGE_SPAN_ALIGNMENT_TOP: ArkUI_ImageSp
 pub const ArkUI_ImageSpanAlignment_ARKUI_IMAGE_SPAN_ALIGNMENT_FOLLOW_PARAGRAPH:
     ArkUI_ImageSpanAlignment = 4;
 #[doc = " @brief Enumerates the alignment mode of the image with the text.\n\n @since 12"]
-pub type ArkUI_ImageSpanAlignment = ::std::os::raw::c_uint;
+pub type ArkUI_ImageSpanAlignment = u32;
 #[doc = " The image is scaled with its aspect ratio retained for the content to be completely displayed within the\n  display boundaries."]
 pub const ArkUI_ObjectFit_ARKUI_OBJECT_FIT_CONTAIN: ArkUI_ObjectFit = 0;
 #[doc = " The image is scaled with its aspect ratio retained for both sides to be greater than or equal to the\n  display boundaries."]
@@ -978,7 +978,7 @@ pub const ArkUI_ObjectFit_ARKUI_OBJECT_FIT_NONE_AND_ALIGN_BOTTOM: ArkUI_ObjectFi
 #[doc = " Not resized, the image is aligned with the end edge at the bottom of the container."]
 pub const ArkUI_ObjectFit_ARKUI_OBJECT_FIT_NONE_AND_ALIGN_BOTTOM_END: ArkUI_ObjectFit = 14;
 #[doc = " @brief Defines how the image is resized to fit its container.\nImageSpanAlignment\n @since 12"]
-pub type ArkUI_ObjectFit = ::std::os::raw::c_uint;
+pub type ArkUI_ObjectFit = u32;
 #[doc = " No image interpolation."]
 pub const ArkUI_ImageInterpolation_ARKUI_IMAGE_INTERPOLATION_NONE: ArkUI_ImageInterpolation = 0;
 #[doc = " Low quality interpolation."]
@@ -988,7 +988,7 @@ pub const ArkUI_ImageInterpolation_ARKUI_IMAGE_INTERPOLATION_MEDIUM: ArkUI_Image
 #[doc = " High quality interpolation. This mode produces scaled images of the highest possible quality."]
 pub const ArkUI_ImageInterpolation_ARKUI_IMAGE_INTERPOLATION_HIGH: ArkUI_ImageInterpolation = 3;
 #[doc = " @brief Enumerates the image interpolation effect.\n\n @since 12"]
-pub type ArkUI_ImageInterpolation = ::std::os::raw::c_uint;
+pub type ArkUI_ImageInterpolation = u32;
 #[doc = " The top image is superimposed on the bottom image without any blending."]
 pub const ArkUI_BlendMode_ARKUI_BLEND_MODE_NONE: ArkUI_BlendMode = 0;
 #[doc = " The target pixels covered by the source pixels are erased by being turned to completely transparent."]
@@ -1050,7 +1050,7 @@ pub const ArkUI_BlendMode_ARKUI_BLEND_MODE_COLOR: ArkUI_BlendMode = 28;
 #[doc = " The resultant image is created with the saturation and hue of the target image and the luminance of the source\n  image."]
 pub const ArkUI_BlendMode_ARKUI_BLEND_MODE_LUMINOSITY: ArkUI_BlendMode = 29;
 #[doc = " @brief Enumerates the blend modes.\n\n @since 12"]
-pub type ArkUI_BlendMode = ::std::os::raw::c_uint;
+pub type ArkUI_BlendMode = u32;
 #[doc = " Components are arranged from left to right."]
 pub const ArkUI_Direction_ARKUI_DIRECTION_LTR: ArkUI_Direction = 0;
 #[doc = " Components are arranged from right to left."]
@@ -1058,7 +1058,7 @@ pub const ArkUI_Direction_ARKUI_DIRECTION_RTL: ArkUI_Direction = 1;
 #[doc = " The default layout direction is used."]
 pub const ArkUI_Direction_ARKUI_DIRECTION_AUTO: ArkUI_Direction = 3;
 #[doc = " @brief Enumerates the modes in which components are laid out along the main axis of the container.\n\n @since 12"]
-pub type ArkUI_Direction = ::std::os::raw::c_uint;
+pub type ArkUI_Direction = u32;
 #[doc = " The default configuration in the container is used."]
 pub const ArkUI_ItemAlignment_ARKUI_ITEM_ALIGNMENT_AUTO: ArkUI_ItemAlignment = 0;
 #[doc = " The items in the container are aligned with the cross-start edge."]
@@ -1072,7 +1072,7 @@ pub const ArkUI_ItemAlignment_ARKUI_ITEM_ALIGNMENT_STRETCH: ArkUI_ItemAlignment 
 #[doc = " The items in the container are aligned in such a manner that their text baselines are aligned along the\n  cross axis."]
 pub const ArkUI_ItemAlignment_ARKUI_ITEM_ALIGNMENT_BASELINE: ArkUI_ItemAlignment = 5;
 #[doc = " @brief Enumerates the modes in which components are laid out along the cross axis of the container.\n\n @since 12"]
-pub type ArkUI_ItemAlignment = ::std::os::raw::c_uint;
+pub type ArkUI_ItemAlignment = u32;
 #[doc = " The foreground colors are the inverse of the component background colors."]
 pub const ArkUI_ColorStrategy_ARKUI_COLOR_STRATEGY_INVERT: ArkUI_ColorStrategy = 0;
 #[doc = " The shadow colors of the component are the average color obtained from the component background shadow area."]
@@ -1080,7 +1080,7 @@ pub const ArkUI_ColorStrategy_ARKUI_COLOR_STRATEGY_AVERAGE: ArkUI_ColorStrategy 
 #[doc = " The shadow colors of the component are the primary color obtained from the component background shadow area."]
 pub const ArkUI_ColorStrategy_ARKUI_COLOR_STRATEGY_PRIMARY: ArkUI_ColorStrategy = 2;
 #[doc = " @brief Enumerates the foreground colors.\n\n @since 12"]
-pub type ArkUI_ColorStrategy = ::std::os::raw::c_uint;
+pub type ArkUI_ColorStrategy = u32;
 #[doc = " The child components are aligned with the start edge of the main axis."]
 pub const ArkUI_FlexAlignment_ARKUI_FLEX_ALIGNMENT_START: ArkUI_FlexAlignment = 1;
 #[doc = " The child components are aligned in the center of the main axis."]
@@ -1094,7 +1094,7 @@ pub const ArkUI_FlexAlignment_ARKUI_FLEX_ALIGNMENT_SPACE_AROUND: ArkUI_FlexAlign
 #[doc = " The child components are evenly distributed along the main axis. The space between the first component\n  and main-start, the space between the last component and main-end, and the space between any two adjacent\n  components are the same."]
 pub const ArkUI_FlexAlignment_ARKUI_FLEX_ALIGNMENT_SPACE_EVENLY: ArkUI_FlexAlignment = 8;
 #[doc = " @brief Enumerates the vertical alignment modes.\n\n @since 12"]
-pub type ArkUI_FlexAlignment = ::std::os::raw::c_uint;
+pub type ArkUI_FlexAlignment = u32;
 #[doc = " The child components are arranged in the same direction as the main axis runs along the rows."]
 pub const ArkUI_FlexDirection_ARKUI_FLEX_DIRECTION_ROW: ArkUI_FlexDirection = 0;
 #[doc = " The child components are arranged in the same direction as the main axis runs down the columns."]
@@ -1104,7 +1104,7 @@ pub const ArkUI_FlexDirection_ARKUI_FLEX_DIRECTION_ROW_REVERSE: ArkUI_FlexDirect
 #[doc = " The child components are arranged opposite to the <b>COLUMN</b> direction."]
 pub const ArkUI_FlexDirection_ARKUI_FLEX_DIRECTION_COLUMN_REVERSE: ArkUI_FlexDirection = 3;
 #[doc = " @brief Enumerates the directions of the main axis in the flex container.\n\n @since 12"]
-pub type ArkUI_FlexDirection = ::std::os::raw::c_uint;
+pub type ArkUI_FlexDirection = u32;
 #[doc = " The child components in the flex container are arranged in a single line, and they cannot overflow."]
 pub const ArkUI_FlexWrap_ARKUI_FLEX_WRAP_NO_WRAP: ArkUI_FlexWrap = 0;
 #[doc = " The child components in the flex container are arranged in multiple lines, and they may overflow."]
@@ -1112,7 +1112,7 @@ pub const ArkUI_FlexWrap_ARKUI_FLEX_WRAP_WRAP: ArkUI_FlexWrap = 1;
 #[doc = " The child components in the flex container are reversely arranged in multiple lines, and they may overflow."]
 pub const ArkUI_FlexWrap_ARKUI_FLEX_WRAP_WRAP_REVERSE: ArkUI_FlexWrap = 2;
 #[doc = " @brief Defines whether the flex container has a single line or multiple lines.\n\n @since 12"]
-pub type ArkUI_FlexWrap = ::std::os::raw::c_uint;
+pub type ArkUI_FlexWrap = u32;
 #[doc = " The component is visible."]
 pub const ArkUI_Visibility_ARKUI_VISIBILITY_VISIBLE: ArkUI_Visibility = 0;
 #[doc = " The component is hidden, and a placeholder is used for it in the layout."]
@@ -1120,7 +1120,7 @@ pub const ArkUI_Visibility_ARKUI_VISIBILITY_HIDDEN: ArkUI_Visibility = 1;
 #[doc = " The component is hidden. It is not involved in the layout, and no placeholder is used for it."]
 pub const ArkUI_Visibility_ARKUI_VISIBILITY_NONE: ArkUI_Visibility = 2;
 #[doc = " @brief Enumerates the visibility values.\n\n @since 12"]
-pub type ArkUI_Visibility = ::std::os::raw::c_uint;
+pub type ArkUI_Visibility = u32;
 #[doc = " Left aligned."]
 pub const ArkUI_CalendarAlignment_ARKUI_CALENDAR_ALIGNMENT_START: ArkUI_CalendarAlignment = 0;
 #[doc = " Center aligned."]
@@ -1128,7 +1128,7 @@ pub const ArkUI_CalendarAlignment_ARKUI_CALENDAR_ALIGNMENT_CENTER: ArkUI_Calenda
 #[doc = " Right aligned."]
 pub const ArkUI_CalendarAlignment_ARKUI_CALENDAR_ALIGNMENT_END: ArkUI_CalendarAlignment = 2;
 #[doc = " @brief Enumerates the alignment modes between the calendar picker and the entry component.\n\n @since 12"]
-pub type ArkUI_CalendarAlignment = ::std::os::raw::c_uint;
+pub type ArkUI_CalendarAlignment = u32;
 #[doc = " Rectangle."]
 pub const ArkUI_MaskType_ARKUI_MASK_TYPE_RECTANGLE: ArkUI_MaskType = 0;
 #[doc = " Circle."]
@@ -1140,7 +1140,7 @@ pub const ArkUI_MaskType_ARKUI_MASK_TYPE_PATH: ArkUI_MaskType = 3;
 #[doc = " Progress indicator."]
 pub const ArkUI_MaskType_ARKUI_MASK_TYPE_PROGRESS: ArkUI_MaskType = 4;
 #[doc = " @brief Enumerates the mask types.\n\n @since 12"]
-pub type ArkUI_MaskType = ::std::os::raw::c_uint;
+pub type ArkUI_MaskType = u32;
 #[doc = " Rectangle."]
 pub const ArkUI_ClipType_ARKUI_CLIP_TYPE_RECTANGLE: ArkUI_ClipType = 0;
 #[doc = " Circle."]
@@ -1150,7 +1150,7 @@ pub const ArkUI_ClipType_ARKUI_CLIP_TYPE_ELLIPSE: ArkUI_ClipType = 2;
 #[doc = " Path."]
 pub const ArkUI_ClipType_ARKUI_CLIP_TYPE_PATH: ArkUI_ClipType = 3;
 #[doc = " @brief Enumerates the clipping region types.\n\n @since 12"]
-pub type ArkUI_ClipType = ::std::os::raw::c_uint;
+pub type ArkUI_ClipType = u32;
 #[doc = " @brief Defines the gradient color stop structure.\n\n @since 12"]
 #[repr(C)]
 #[derive(Debug, Copy, Clone)]
@@ -1171,7 +1171,7 @@ pub const ArkUI_ShapeType_ARKUI_SHAPE_TYPE_ELLIPSE: ArkUI_ShapeType = 2;
 #[doc = " Path."]
 pub const ArkUI_ShapeType_ARKUI_SHAPE_TYPE_PATH: ArkUI_ShapeType = 3;
 #[doc = " @brief Enumerates the custom shapes.\n\n @since 12"]
-pub type ArkUI_ShapeType = ::std::os::raw::c_uint;
+pub type ArkUI_ShapeType = u32;
 #[doc = " From right to left."]
 pub const ArkUI_LinearGradientDirection_ARKUI_LINEAR_GRADIENT_DIRECTION_LEFT:
     ArkUI_LinearGradientDirection = 0;
@@ -1203,7 +1203,7 @@ pub const ArkUI_LinearGradientDirection_ARKUI_LINEAR_GRADIENT_DIRECTION_NONE:
 pub const ArkUI_LinearGradientDirection_ARKUI_LINEAR_GRADIENT_DIRECTION_CUSTOM:
     ArkUI_LinearGradientDirection = 9;
 #[doc = " @brief Enumerates the gradient directions.\n\n @since 12"]
-pub type ArkUI_LinearGradientDirection = ::std::os::raw::c_uint;
+pub type ArkUI_LinearGradientDirection = u32;
 #[doc = " Word breaks can occur between any two characters for Chinese, Japanese, and Korean (CJK) text, but can occur\n  only at a space character for non-CJK text (such as English)."]
 pub const ArkUI_WordBreak_ARKUI_WORD_BREAK_NORMAL: ArkUI_WordBreak = 0;
 #[doc = " Word breaks can occur between any two characters for non-CJK text. CJK text behavior is the same as for\n  <b>NORMAL</b>."]
@@ -1214,7 +1214,7 @@ pub const ArkUI_WordBreak_ARKUI_WORD_BREAK_BREAK_WORD: ArkUI_WordBreak = 2;
 #[doc = " @brief Line breaks can occur between any two syllabic units for non-CJK text.\n CJK text behavior is the same as for <b>NORMAL</b>.\n @since 18"]
 pub const ArkUI_WordBreak_ARKUI_WORD_BREAK_HYPHENATION: ArkUI_WordBreak = 3;
 #[doc = " @brief Enumerates the word break rules.\n\n @since 12"]
-pub type ArkUI_WordBreak = ::std::os::raw::c_uint;
+pub type ArkUI_WordBreak = u32;
 #[doc = " An ellipsis is used at the start of the line of text."]
 pub const ArkUI_EllipsisMode_ARKUI_ELLIPSIS_MODE_START: ArkUI_EllipsisMode = 0;
 #[doc = " An ellipsis is used at the center of the line of text."]
@@ -1222,13 +1222,13 @@ pub const ArkUI_EllipsisMode_ARKUI_ELLIPSIS_MODE_CENTER: ArkUI_EllipsisMode = 1;
 #[doc = " An ellipsis is used at the end of the line of text."]
 pub const ArkUI_EllipsisMode_ARKUI_ELLIPSIS_MODE_END: ArkUI_EllipsisMode = 2;
 #[doc = " @brief Enumerates the ellipsis positions.\n\n @since 12"]
-pub type ArkUI_EllipsisMode = ::std::os::raw::c_uint;
+pub type ArkUI_EllipsisMode = u32;
 #[doc = " Render image pixels as they are in the original source image."]
 pub const ArkUI_ImageRenderMode_ARKUI_IMAGE_RENDER_MODE_ORIGINAL: ArkUI_ImageRenderMode = 0;
 #[doc = " Render image pixels to create a monochrome template image."]
 pub const ArkUI_ImageRenderMode_ARKUI_IMAGE_RENDER_MODE_TEMPLATE: ArkUI_ImageRenderMode = 1;
 #[doc = " @brief Enumerates the image rendering modes.\n\n @since 12"]
-pub type ArkUI_ImageRenderMode = ::std::os::raw::c_uint;
+pub type ArkUI_ImageRenderMode = u32;
 #[doc = " Top edge of the window."]
 pub const ArkUI_TransitionEdge_ARKUI_TRANSITION_EDGE_TOP: ArkUI_TransitionEdge = 0;
 #[doc = " Bottom edge of the window."]
@@ -1238,13 +1238,13 @@ pub const ArkUI_TransitionEdge_ARKUI_TRANSITION_EDGE_START: ArkUI_TransitionEdge
 #[doc = " Right edge of the window."]
 pub const ArkUI_TransitionEdge_ARKUI_TRANSITION_EDGE_END: ArkUI_TransitionEdge = 3;
 #[doc = " @brief Enumerates the slide-in and slide-out positions of the component from the screen edge during transition.\n\n @since 12"]
-pub type ArkUI_TransitionEdge = ::std::os::raw::c_uint;
+pub type ArkUI_TransitionEdge = u32;
 #[doc = " The content of the view is blended in sequence on the target image."]
 pub const ArkUI_BlendApplyType_BLEND_APPLY_TYPE_FAST: ArkUI_BlendApplyType = 0;
 #[doc = " The content of the component and its child components are drawn on the offscreen canvas, and then blended with\n  the existing content on the canvas."]
 pub const ArkUI_BlendApplyType_BLEND_APPLY_TYPE_OFFSCREEN: ArkUI_BlendApplyType = 1;
 #[doc = " @brief Defines how the specified blend mode is applied.\n\n @since 12"]
-pub type ArkUI_BlendApplyType = ::std::os::raw::c_uint;
+pub type ArkUI_BlendApplyType = u32;
 #[doc = " @brief Defines a mask area.\n\n @since 12"]
 #[repr(C)]
 #[derive(Debug, Copy, Clone)]
@@ -1281,7 +1281,7 @@ pub const ArkUI_FinishCallbackType_ARKUI_FINISH_CALLBACK_REMOVED: ArkUI_FinishCa
 #[doc = " The callback is invoked when the animation logically enters the falling state, though it may still be in its\n long tail state."]
 pub const ArkUI_FinishCallbackType_ARKUI_FINISH_CALLBACK_LOGICALLY: ArkUI_FinishCallbackType = 1;
 #[doc = " @brief Enumerates the animation onFinish callback types.\n\n @since 12"]
-pub type ArkUI_FinishCallbackType = ::std::os::raw::c_uint;
+pub type ArkUI_FinishCallbackType = u32;
 #[doc = " The list items are packed toward the start edge of the list container along the cross axis."]
 pub const ArkUI_ListItemAlignment_ARKUI_LIST_ITEM_ALIGNMENT_START: ArkUI_ListItemAlignment = 0;
 #[doc = " The list items are centered in the list container along the cross axis."]
@@ -1289,7 +1289,7 @@ pub const ArkUI_ListItemAlignment_ARKUI_LIST_ITEM_ALIGNMENT_CENTER: ArkUI_ListIt
 #[doc = " The list items are packed toward the end edge of the list container along the cross axis."]
 pub const ArkUI_ListItemAlignment_ARKUI_LIST_ITEM_ALIGNMENT_END: ArkUI_ListItemAlignment = 2;
 #[doc = " @brief Enumerates the alignment modes of items along the cross axis.\n\n @since 12"]
-pub type ArkUI_ListItemAlignment = ::std::os::raw::c_uint;
+pub type ArkUI_ListItemAlignment = u32;
 #[doc = " The barrier is the leftmost of all its referencedIds."]
 pub const ArkUI_BarrierDirection_ARKUI_BARRIER_DIRECTION_START: ArkUI_BarrierDirection = 0;
 #[doc = " The barrier is on the rightmost side of all its referencedIds."]
@@ -1299,7 +1299,7 @@ pub const ArkUI_BarrierDirection_ARKUI_BARRIER_DIRECTION_TOP: ArkUI_BarrierDirec
 #[doc = " The barrier is at the bottom of all its referencedIds."]
 pub const ArkUI_BarrierDirection_ARKUI_BARRIER_DIRECTION_BOTTOM: ArkUI_BarrierDirection = 3;
 #[doc = " @brief defines the direction of the barrier line.\n\n @since 12"]
-pub type ArkUI_BarrierDirection = ::std::os::raw::c_uint;
+pub type ArkUI_BarrierDirection = u32;
 #[doc = " Components are evenly distributed among constraint anchor points."]
 pub const ArkUI_RelativeLayoutChainStyle_ARKUI_RELATIVE_LAYOUT_CHAIN_STYLE_SPREAD:
     ArkUI_RelativeLayoutChainStyle = 0;
@@ -1310,7 +1310,7 @@ pub const ArkUI_RelativeLayoutChainStyle_ARKUI_RELATIVE_LAYOUT_CHAIN_STYLE_SPREA
 pub const ArkUI_RelativeLayoutChainStyle_ARKUI_RELATIVE_LAYOUT_CHAIN_STYLE_PACKED:
     ArkUI_RelativeLayoutChainStyle = 2;
 #[doc = " @brief defines the style of the chain.\n\n @since 12"]
-pub type ArkUI_RelativeLayoutChainStyle = ::std::os::raw::c_uint;
+pub type ArkUI_RelativeLayoutChainStyle = u32;
 #[doc = " @brief Describes the margins of a component.\n\n @since 12"]
 #[repr(C)]
 #[derive(Debug, Copy, Clone)]
@@ -1333,7 +1333,7 @@ pub const ArkUI_LengthMetricUnit_ARKUI_LENGTH_METRIC_UNIT_VP: ArkUI_LengthMetric
 #[doc = " fp."]
 pub const ArkUI_LengthMetricUnit_ARKUI_LENGTH_METRIC_UNIT_FP: ArkUI_LengthMetricUnit = 2;
 #[doc = " @brief Enumerates the component units.\n\n @since 12"]
-pub type ArkUI_LengthMetricUnit = ::std::os::raw::c_int;
+pub type ArkUI_LengthMetricUnit = i32;
 #[doc = " Maintains the content size of the animation's final state,\n and the content is always centered with the component."]
 pub const ArkUI_RenderFit_ARKUI_RENDER_FIT_CENTER: ArkUI_RenderFit = 0;
 #[doc = " Maintains the content size of the animation's final state,\n and the content is always aligned with the top center of the component."]
@@ -1367,7 +1367,7 @@ pub const ArkUI_RenderFit_ARKUI_RENDER_FIT_RESIZE_COVER_TOP_LEFT: ArkUI_RenderFi
 #[doc = " Keep the aspect ratio of the final content of the animation reduced or enlarged so\n that both sides of the content are exactly greater than or equal to both sides of the component.\n When the content width is left, the content and the component remain right aligned,\n and the right part of the content is displayed. When the content is left in the high direction,\n the content and the component remain aligned at the bottom,\n and the bottom part of the content is displayed."]
 pub const ArkUI_RenderFit_ARKUI_RENDER_FIT_RESIZE_COVER_BOTTOM_RIGHT: ArkUI_RenderFit = 15;
 #[doc = " @brief Enumerates the render fit.\n\n @since 12"]
-pub type ArkUI_RenderFit = ::std::os::raw::c_uint;
+pub type ArkUI_RenderFit = u32;
 #[doc = " Normal button (without rounded corners by default)."]
 pub const ArkUI_ButtonType_ARKUI_BUTTON_TYPE_NORMAL: ArkUI_ButtonType = 0;
 #[doc = " Capsule-type button (the round corner is half of the height by default)."]
@@ -1378,7 +1378,7 @@ pub const ArkUI_ButtonType_ARKUI_BUTTON_TYPE_CIRCLE: ArkUI_ButtonType = 2;
 #[doc = " Rounded rectangle button.\n @since 19"]
 pub const ArkUI_ButtonType_ARKUI_BUTTON_ROUNDED_RECTANGLE: ArkUI_ButtonType = 8;
 #[doc = " @brief Enumerates the button types.\n\n @since 12"]
-pub type ArkUI_ButtonType = ::std::os::raw::c_uint;
+pub type ArkUI_ButtonType = u32;
 #[doc = " Username. Password Vault, when enabled, can automatically save and fill in usernames."]
 pub const ArkUI_TextInputContentType_ARKUI_TEXTINPUT_CONTENT_TYPE_USER_NAME:
     ArkUI_TextInputContentType = 0;
@@ -1491,13 +1491,13 @@ pub const ArkUI_TextInputContentType_ARKUI_TEXTINPUT_CONTENT_TYPE_ENGINE_NUMBER:
 pub const ArkUI_TextInputContentType_ARKUI_TEXTINPUT_CONTENT_TYPE_LICENSE_CHASSIS_NUMBER:
     ArkUI_TextInputContentType = 32;
 #[doc = " @brief Enumerates the autofill types.\n\n @since 12"]
-pub type ArkUI_TextInputContentType = ::std::os::raw::c_uint;
+pub type ArkUI_TextInputContentType = u32;
 #[doc = " Default style. The caret width is fixed at 1.5 vp, and the caret height is subject to the background height and\n  font size of the selected text."]
 pub const ArkUI_TextInputStyle_ARKUI_TEXTINPUT_STYLE_DEFAULT: ArkUI_TextInputStyle = 0;
 #[doc = " Inline input style. The background height of the selected text is the same as the height of the text box."]
 pub const ArkUI_TextInputStyle_ARKUI_TEXTINPUT_STYLE_INLINE: ArkUI_TextInputStyle = 1;
 #[doc = " @brief Defines the text input style.\n\n @since 12"]
-pub type ArkUI_TextInputStyle = ::std::os::raw::c_uint;
+pub type ArkUI_TextInputStyle = u32;
 #[cfg(feature = "api-15")]
 #[doc = " Default appearance mode, won't adopt immersive styles.\n @since 15"]
 pub const ArkUI_KeyboardAppearance_ARKUI_KEYBOARD_APPEARANCE_NONE_IMMERSIVE:
@@ -1516,7 +1516,7 @@ pub const ArkUI_KeyboardAppearance_ARKUI_KEYBOARD_APPEARANCE_DARK_IMMERSIVE:
     ArkUI_KeyboardAppearance = 3;
 #[cfg(feature = "api-15")]
 #[doc = " @brief Defines the keyboard style of input box\n\n @since 15"]
-pub type ArkUI_KeyboardAppearance = ::std::os::raw::c_uint;
+pub type ArkUI_KeyboardAppearance = u32;
 #[doc = " Phone Number."]
 pub const ArkUI_TextDataDetectorType_ARKUI_TEXT_DATA_DETECTOR_TYPE_PHONE_NUMBER:
     ArkUI_TextDataDetectorType = 0;
@@ -1530,14 +1530,14 @@ pub const ArkUI_TextDataDetectorType_ARKUI_TEXT_DATA_DETECTOR_TYPE_EMAIL:
 pub const ArkUI_TextDataDetectorType_ARKUI_TEXT_DATA_DETECTOR_TYPE_ADDRESS:
     ArkUI_TextDataDetectorType = 3;
 #[doc = " @brief Defines the entity type for text recognition.\n\n @since 12"]
-pub type ArkUI_TextDataDetectorType = ::std::os::raw::c_uint;
+pub type ArkUI_TextDataDetectorType = u32;
 #[doc = " dot type."]
 pub const ArkUI_SwiperIndicatorType_ARKUI_SWIPER_INDICATOR_TYPE_DOT: ArkUI_SwiperIndicatorType = 0;
 #[doc = " digit type."]
 pub const ArkUI_SwiperIndicatorType_ARKUI_SWIPER_INDICATOR_TYPE_DIGIT: ArkUI_SwiperIndicatorType =
     1;
 #[doc = " @brief Define the navigation indicator type of the swiper.\n\n @since 12"]
-pub type ArkUI_SwiperIndicatorType = ::std::os::raw::c_uint;
+pub type ArkUI_SwiperIndicatorType = u32;
 #[doc = " In the folded state, when the ListItem slides in the opposite direction to the main axis,\n the operation item is hidden."]
 pub const ArkUI_ListItemSwipeActionState_ARKUI_LIST_ITEM_SWIPE_ACTION_STATE_COLLAPSED:
     ArkUI_ListItemSwipeActionState = 0;
@@ -1548,7 +1548,7 @@ pub const ArkUI_ListItemSwipeActionState_ARKUI_LIST_ITEM_SWIPE_ACTION_STATE_EXPA
 pub const ArkUI_ListItemSwipeActionState_ARKUI_LIST_ITEM_SWIPE_ACTION_STATE_ACTIONING:
     ArkUI_ListItemSwipeActionState = 2;
 #[doc = " @brief Define the pattern of element arrangement in the main axis direction of the Swiper component.\n\n @since 12"]
-pub type ArkUI_ListItemSwipeActionState = ::std::os::raw::c_uint;
+pub type ArkUI_ListItemSwipeActionState = u32;
 #[doc = " The ListItem can continue to be scratched after the distance exceeds the size of the scratched component."]
 pub const ArkUI_ListItemSwipeEdgeEffect_ARKUI_LIST_ITEM_SWIPE_EDGE_EFFECT_SPRING:
     ArkUI_ListItemSwipeEdgeEffect = 0;
@@ -1556,7 +1556,7 @@ pub const ArkUI_ListItemSwipeEdgeEffect_ARKUI_LIST_ITEM_SWIPE_EDGE_EFFECT_SPRING
 pub const ArkUI_ListItemSwipeEdgeEffect_ARKUI_LIST_ITEM_SWIPE_EDGE_EFFECT_NONE:
     ArkUI_ListItemSwipeEdgeEffect = 1;
 #[doc = " @brief Define the explicit and implicit mode of the SwipeAction method for the Listitem component.\n\n @since 12"]
-pub type ArkUI_ListItemSwipeEdgeEffect = ::std::os::raw::c_uint;
+pub type ArkUI_ListItemSwipeEdgeEffect = u32;
 #[doc = " @error No errors."]
 pub const ArkUI_ErrorCode_ARKUI_ERROR_CODE_NO_ERROR: ArkUI_ErrorCode = 0;
 #[doc = " @error Parameter error."]
@@ -1662,7 +1662,7 @@ pub const ArkUI_ErrorCode_ARKUI_ERROR_CODE_CALLBACK_INVALID: ArkUI_ErrorCode = 1
 pub const ArkUI_ErrorCode_ARKUI_ERROR_CODE_DRAG_DROP_OPERATION_NOT_ALLOWED: ArkUI_ErrorCode =
     190004;
 #[doc = " @brief Define error code enumeration values.\n\n @since 12"]
-pub type ArkUI_ErrorCode = ::std::os::raw::c_uint;
+pub type ArkUI_ErrorCode = u32;
 #[doc = " The animation is in the initial state."]
 pub const ArkUI_AnimationStatus_ARKUI_ANIMATION_STATUS_INITIAL: ArkUI_AnimationStatus = 0;
 #[doc = " The animation is being played."]
@@ -1672,7 +1672,7 @@ pub const ArkUI_AnimationStatus_ARKUI_ANIMATION_STATUS_PAUSED: ArkUI_AnimationSt
 #[doc = " The animation is stopped."]
 pub const ArkUI_AnimationStatus_ARKUI_ANIMATION_STATUS_STOPPED: ArkUI_AnimationStatus = 3;
 #[doc = " @brief Defines the playback status for the image animator.\n\n @since 12"]
-pub type ArkUI_AnimationStatus = ::std::os::raw::c_uint;
+pub type ArkUI_AnimationStatus = u32;
 #[doc = " Before execution, the animation does not apply any styles to the target component.\n After execution, the animation restores the target component to its default state."]
 pub const ArkUI_AnimationFillMode_ARKUI_ANIMATION_FILL_MODE_NONE: ArkUI_AnimationFillMode = 0;
 #[doc = " The target component retains the state set by the last keyframe encountered\n during execution of the animation."]
@@ -1682,7 +1682,7 @@ pub const ArkUI_AnimationFillMode_ARKUI_ANIMATION_FILL_MODE_BACKWARDS: ArkUI_Ani
 #[doc = " The animation follows the rules for both Forwards and Backwards,\n extending the animation attributes in both directions."]
 pub const ArkUI_AnimationFillMode_ARKUI_ANIMATION_FILL_MODE_BOTH: ArkUI_AnimationFillMode = 3;
 #[doc = " @brief Defines the status before and after execution of the animation in the current playback direction.\n\n @since 12"]
-pub type ArkUI_AnimationFillMode = ::std::os::raw::c_uint;
+pub type ArkUI_AnimationFillMode = u32;
 #[doc = " The Checkbox unchecked."]
 pub const ArkUI_AccessibilityCheckedState_ARKUI_ACCESSIBILITY_UNCHECKED:
     ArkUI_AccessibilityCheckedState = 0;
@@ -1690,7 +1690,7 @@ pub const ArkUI_AccessibilityCheckedState_ARKUI_ACCESSIBILITY_UNCHECKED:
 pub const ArkUI_AccessibilityCheckedState_ARKUI_ACCESSIBILITY_CHECKED:
     ArkUI_AccessibilityCheckedState = 1;
 #[doc = " @brief Defines the state type for the accessibility checkbox.\n\n @since 12"]
-pub type ArkUI_AccessibilityCheckedState = ::std::os::raw::c_uint;
+pub type ArkUI_AccessibilityCheckedState = u32;
 #[doc = " The animation plays in forward loop mode."]
 pub const ArkUI_AnimationDirection_ARKUI_ANIMATION_DIRECTION_NORMAL: ArkUI_AnimationDirection = 0;
 #[doc = " The animation plays in reverse loop mode."]
@@ -1702,7 +1702,7 @@ pub const ArkUI_AnimationDirection_ARKUI_ANIMATION_DIRECTION_ALTERNATE: ArkUI_An
 pub const ArkUI_AnimationDirection_ARKUI_ANIMATION_DIRECTION_ALTERNATE_REVERSE:
     ArkUI_AnimationDirection = 3;
 #[doc = "/**\n @brief Enumerates the animation playback modes.\n\n @since 12"]
-pub type ArkUI_AnimationDirection = ::std::os::raw::c_uint;
+pub type ArkUI_AnimationDirection = u32;
 #[doc = " Finger drag."]
 pub const ArkUI_ScrollSource_ARKUI_SCROLL_SOURCE_DRAG: ArkUI_ScrollSource = 0;
 #[doc = " Inertial roll after finger drag."]
@@ -1720,7 +1720,7 @@ pub const ArkUI_ScrollSource_ARKUI_SCROLL_SOURCE_SCROLLER: ArkUI_ScrollSource = 
 #[doc = " The scroll controller causes the scroll to drive the painting."]
 pub const ArkUI_ScrollSource_ARKUI_SCROLL_SOURCE_ANIMATION: ArkUI_ScrollSource = 7;
 #[doc = " @brief Define the rolling source enumeration value.\n\n @since 12"]
-pub type ArkUI_ScrollSource = ::std::os::raw::c_uint;
+pub type ArkUI_ScrollSource = u32;
 #[doc = " click action."]
 pub const ArkUI_AccessibilityActionType_ARKUI_ACCESSIBILITY_ACTION_CLICK:
     ArkUI_AccessibilityActionType = 1;
@@ -1737,7 +1737,7 @@ pub const ArkUI_AccessibilityActionType_ARKUI_ACCESSIBILITY_ACTION_COPY:
 pub const ArkUI_AccessibilityActionType_ARKUI_ACCESSIBILITY_ACTION_PASTE:
     ArkUI_AccessibilityActionType = 16;
 #[doc = " @brief Define accessible action types.\n\n @since 12"]
-pub type ArkUI_AccessibilityActionType = ::std::os::raw::c_uint;
+pub type ArkUI_AccessibilityActionType = u32;
 #[doc = " @brief Defines the translation options for component transition.\n\n @since 12"]
 #[repr(C)]
 #[derive(Debug, Copy, Clone)]
@@ -1828,7 +1828,7 @@ pub const ArkUI_NavDestinationState_ARKUI_NAV_DESTINATION_STATE_ON_WILL_DISAPPEA
 pub const ArkUI_NavDestinationState_ARKUI_NAV_DESTINATION_STATE_ON_BACK_PRESS:
     ArkUI_NavDestinationState = 100;
 #[doc = " @brief Defines the state of the NavDestination component.\n\n @since 12"]
-pub type ArkUI_NavDestinationState = ::std::os::raw::c_uint;
+pub type ArkUI_NavDestinationState = u32;
 #[doc = " The Router Page is about to be created."]
 pub const ArkUI_RouterPageState_ARKUI_ROUTER_PAGE_STATE_ABOUT_TO_APPEAR: ArkUI_RouterPageState = 0;
 #[doc = " The Router Page is about to be destroyed."]
@@ -1841,7 +1841,7 @@ pub const ArkUI_RouterPageState_ARKUI_ROUTER_PAGE_STATE_ON_HIDE: ArkUI_RouterPag
 #[doc = " The Router Page returns."]
 pub const ArkUI_RouterPageState_ARKUI_ROUTER_PAGE_STATE_ON_BACK_PRESS: ArkUI_RouterPageState = 4;
 #[doc = " @brief Define the state of Router Page.\n\n @since 12"]
-pub type ArkUI_RouterPageState = ::std::os::raw::c_uint;
+pub type ArkUI_RouterPageState = u32;
 #[doc = " The default security zone includes the status bar and navigation bar."]
 pub const ArkUI_SafeAreaType_ARKUI_SAFE_AREA_TYPE_SYSTEM: ArkUI_SafeAreaType = 1;
 #[doc = " Non-secure areas of the device, such as bangs or hole holes."]
@@ -1849,7 +1849,7 @@ pub const ArkUI_SafeAreaType_ARKUI_SAFE_AREA_TYPE_CUTOUT: ArkUI_SafeAreaType = 2
 #[doc = " Soft keyboard area."]
 pub const ArkUI_SafeAreaType_ARKUI_SAFE_AREA_TYPE_KEYBOARD: ArkUI_SafeAreaType = 4;
 #[doc = " @brief defines the enumerated value of the extended security zone.\n\n @since 12"]
-pub type ArkUI_SafeAreaType = ::std::os::raw::c_uint;
+pub type ArkUI_SafeAreaType = u32;
 #[doc = " Outside the area of the <b>ListItemGroup</b> component."]
 #[cfg(feature = "api-15")]
 pub const ArkUI_ListItemGroupArea_ARKUI_LIST_ITEM_GROUP_AREA_OUTSIDE: ArkUI_ListItemGroupArea = 0;
@@ -1867,7 +1867,7 @@ pub const ArkUI_ListItemGroupArea_ARKUI_LIST_ITEM_SWIPE_AREA_HEADER: ArkUI_ListI
 pub const ArkUI_ListItemGroupArea_ARKUI_LIST_ITEM_SWIPE_AREA_FOOTER: ArkUI_ListItemGroupArea = 4;
 #[cfg(feature = "api-15")]
 #[doc = " @brief Define an enum for the areas of the <b>ListItemGroup</b> component.\n\n @since 15"]
-pub type ArkUI_ListItemGroupArea = ::std::os::raw::c_uint;
+pub type ArkUI_ListItemGroupArea = u32;
 #[doc = " Upper area."]
 pub const ArkUI_SafeAreaEdge_ARKUI_SAFE_AREA_EDGE_TOP: ArkUI_SafeAreaEdge = 1;
 #[doc = " Lower area."]
@@ -1877,7 +1877,7 @@ pub const ArkUI_SafeAreaEdge_ARKUI_SAFE_AREA_EDGE_START: ArkUI_SafeAreaEdge = 4;
 #[doc = " Tail area."]
 pub const ArkUI_SafeAreaEdge_ARKUI_SAFE_AREA_EDGE_END: ArkUI_SafeAreaEdge = 8;
 #[doc = " @brief defines the enumerated value of the direction of the extended security zone.\n\n @since 12"]
-pub type ArkUI_SafeAreaEdge = ::std::os::raw::c_uint;
+pub type ArkUI_SafeAreaEdge = u32;
 #[doc = " Move focus forward."]
 #[cfg(feature = "api-18")]
 pub const ArkUI_FocusMove_ARKUI_FOCUS_MOVE_FORWARD: ArkUI_FocusMove = 0;
@@ -1898,7 +1898,7 @@ pub const ArkUI_FocusMove_ARKUI_FOCUS_MOVE_LEFT: ArkUI_FocusMove = 4;
 pub const ArkUI_FocusMove_ARKUI_FOCUS_MOVE_RIGHT: ArkUI_FocusMove = 5;
 #[cfg(feature = "api-18")]
 #[doc = " @brief Define an enum for the focus movement directions.\n\n @since 18"]
-pub type ArkUI_FocusMove = ::std::os::raw::c_uint;
+pub type ArkUI_FocusMove = u32;
 #[doc = " Defines avoid keyboard when keyboard shows."]
 #[cfg(feature = "api-15")]
 pub const ArkUI_KeyboardAvoidMode_ARKUI_KEYBOARD_AVOID_MODE_DEFAULT: ArkUI_KeyboardAvoidMode = 0;
@@ -1907,7 +1907,7 @@ pub const ArkUI_KeyboardAvoidMode_ARKUI_KEYBOARD_AVOID_MODE_DEFAULT: ArkUI_Keybo
 pub const ArkUI_KeyboardAvoidMode_ARKUI_KEYBOARD_AVOID_MODE_NONE: ArkUI_KeyboardAvoidMode = 1;
 #[cfg(feature = "api-15")]
 #[doc = " @brief defines the enumerated value of the customDialog's keyboard avoid mode.\n\n @since 15"]
-pub type ArkUI_KeyboardAvoidMode = ::std::os::raw::c_uint;
+pub type ArkUI_KeyboardAvoidMode = u32;
 #[doc = " Layout top half screen when the phone in hover mode."]
 #[cfg(feature = "api-15")]
 pub const ArkUI_HoverModeAreaType_ARKUI_HOVER_MODE_AREA_TYPE_TOP: ArkUI_HoverModeAreaType = 0;
@@ -1916,7 +1916,7 @@ pub const ArkUI_HoverModeAreaType_ARKUI_HOVER_MODE_AREA_TYPE_TOP: ArkUI_HoverMod
 pub const ArkUI_HoverModeAreaType_ARKUI_HOVER_MODE_AREA_TYPE_BOTTOM: ArkUI_HoverModeAreaType = 1;
 #[cfg(feature = "api-15")]
 #[doc = " @brief defines the enumerated value of area in hover mode.\n\n @since 15"]
-pub type ArkUI_HoverModeAreaType = ::std::os::raw::c_uint;
+pub type ArkUI_HoverModeAreaType = u32;
 #[doc = " Not expand."]
 #[cfg(feature = "api-15")]
 pub const ArkUI_ExpandMode_ARKUI_NOT_EXPAND: ArkUI_ExpandMode = 0;
@@ -1928,7 +1928,7 @@ pub const ArkUI_ExpandMode_ARKUI_EXPAND: ArkUI_ExpandMode = 1;
 pub const ArkUI_ExpandMode_ARKUI_LAZY_EXPAND: ArkUI_ExpandMode = 2;
 #[cfg(feature = "api-15")]
 #[doc = " @brief Enumerates the expand modes.\n\n @since 15"]
-pub type ArkUI_ExpandMode = ::std::os::raw::c_uint;
+pub type ArkUI_ExpandMode = u32;
 #[doc = " Normal state."]
 #[cfg(feature = "api-20")]
 pub const ArkUI_UIState_UI_STATE_NORMAL: ArkUI_UIState = 0;
@@ -1946,7 +1946,7 @@ pub const ArkUI_UIState_UI_STATE_DISABLED: ArkUI_UIState = 4;
 pub const ArkUI_UIState_UI_STATE_SELECTED: ArkUI_UIState = 8;
 #[cfg(feature = "api-20")]
 #[doc = " @brief Defines the navigation point indicator style of the <b><Swiper></b> component.\n @brief Enumerates the UI states of a component, used for handling state-specific styles.\n\n @since 20"]
-pub type ArkUI_UIState = ::std::os::raw::c_uint;
+pub type ArkUI_UIState = u32;
 #[doc = " Set all edge derection."]
 #[cfg(feature = "api-20")]
 pub const ArkUI_EdgeDirection_ARKUI_EDGE_DIRECTION_ALL: ArkUI_EdgeDirection = 0;
@@ -1964,7 +1964,7 @@ pub const ArkUI_EdgeDirection_ARKUI_EDGE_DIRECTION_TOP: ArkUI_EdgeDirection = 3;
 pub const ArkUI_EdgeDirection_ARKUI_EDGE_DIRECTION_BOTTOM: ArkUI_EdgeDirection = 4;
 #[cfg(feature = "api-20")]
 #[doc = " @brief Enumerates the edge derection.\n\n @since 20"]
-pub type ArkUI_EdgeDirection = ::std::os::raw::c_uint;
+pub type ArkUI_EdgeDirection = u32;
 #[doc = " Set all corner derection."]
 #[cfg(feature = "api-20")]
 pub const ArkUI_CornerDirection_ARKUI_CORNER_DIRECTION_ALL: ArkUI_CornerDirection = 0;
@@ -1982,7 +1982,7 @@ pub const ArkUI_CornerDirection_ARKUI_CORNER_DIRECTION_BOTTOM_LEFT: ArkUI_Corner
 pub const ArkUI_CornerDirection_ARKUI_CORNER_DIRECTION_BOTTOM_RIGHT: ArkUI_CornerDirection = 4;
 #[cfg(feature = "api-20")]
 #[doc = " @brief Enumerates the corner derection.\n\n @since 20"]
-pub type ArkUI_CornerDirection = ::std::os::raw::c_uint;
+pub type ArkUI_CornerDirection = u32;
 #[repr(C)]
 #[derive(Debug, Copy, Clone)]
 pub struct ArkUI_SystemFontStyleEvent {
@@ -3813,7 +3813,7 @@ pub const Image_ErrorCode_IMAGE_ENCODE_FAILED: Image_ErrorCode = 7800301;
 #[doc = " @error Invalid parameter for ImageReceiver.\n @since 20"]
 pub const Image_ErrorCode_IMAGE_RECEIVER_INVALID_PARAMETER: Image_ErrorCode = 7900201;
 #[doc = " @brief Enumerates the return values that may be used by the interface.\n\n @since 12"]
-pub type Image_ErrorCode = ::std::os::raw::c_uint;
+pub type Image_ErrorCode = u32;
 #[doc = " EXIF metadata."]
 #[cfg(feature = "api-13")]
 pub const Image_MetadataType_EXIF_METADATA: Image_MetadataType = 1;
@@ -3825,7 +3825,7 @@ pub const Image_MetadataType_FRAGMENT_METADATA: Image_MetadataType = 2;
 pub const Image_MetadataType_GIF_METADATA: Image_MetadataType = 5;
 #[cfg(feature = "api-13")]
 #[doc = " @brief Define the metadata type.\n\n @since 13"]
-pub type Image_MetadataType = ::std::os::raw::c_uint;
+pub type Image_MetadataType = u32;
 #[cfg(feature = "api-20")]
 #[doc = " The system determines which memory to use to create the PixelMap.\n\n @since 20"]
 pub const IMAGE_ALLOCATOR_MODE_IMAGE_ALLOCATOR_MODE_AUTO: IMAGE_ALLOCATOR_MODE = 0;
@@ -3837,7 +3837,7 @@ pub const IMAGE_ALLOCATOR_MODE_IMAGE_ALLOCATOR_MODE_DMA: IMAGE_ALLOCATOR_MODE = 
 pub const IMAGE_ALLOCATOR_MODE_IMAGE_ALLOCATOR_MODE_SHARED_MEMORY: IMAGE_ALLOCATOR_MODE = 2;
 #[cfg(feature = "api-20")]
 #[doc = " @brief Type of allocator used to allocate memory of a PixelMap.\n\n @since 20"]
-pub type IMAGE_ALLOCATOR_MODE = ::std::os::raw::c_uint;
+pub type IMAGE_ALLOCATOR_MODE = u32;
 extern "C" {
     #[cfg(feature = "api-13")]
     #[doc = " @brief Creates a <b>PictureMetadata</b> object.\n\n @param metadataType The type of metadata.\n @param metadata The PictureMetadata pointer will be operated.\n @return Image functions result code.\n         {@link IMAGE_SUCCESS} if the execution is successful.\n         {@link IMAGE_BAD_PARAMETER} metadata is nullptr.\n @since 13"]
@@ -3910,7 +3910,7 @@ pub const OH_PixelmapNative_AntiAliasingLevel_OH_PixelmapNative_AntiAliasing_MED
 pub const OH_PixelmapNative_AntiAliasingLevel_OH_PixelmapNative_AntiAliasing_HIGH:
     OH_PixelmapNative_AntiAliasingLevel = 3;
 #[doc = " @brief Defines the anti-aliasing level.\n\n @since 12"]
-pub type OH_PixelmapNative_AntiAliasingLevel = ::std::os::raw::c_uint;
+pub type OH_PixelmapNative_AntiAliasingLevel = u32;
 #[doc = " Indicate the types of metadata that image needs to use."]
 pub const OH_Pixelmap_HdrMetadataKey_HDR_METADATA_TYPE: OH_Pixelmap_HdrMetadataKey = 0;
 #[doc = " Static metadata key."]
@@ -3920,7 +3920,7 @@ pub const OH_Pixelmap_HdrMetadataKey_HDR_DYNAMIC_METADATA: OH_Pixelmap_HdrMetada
 #[doc = " Gainmap metadata key."]
 pub const OH_Pixelmap_HdrMetadataKey_HDR_GAINMAP_METADATA: OH_Pixelmap_HdrMetadataKey = 3;
 #[doc = " @brief Enumerates the HDR metadata types that need to be stored in Pixelmap.\n\n @since 12"]
-pub type OH_Pixelmap_HdrMetadataKey = ::std::os::raw::c_uint;
+pub type OH_Pixelmap_HdrMetadataKey = u32;
 #[doc = " No metadata."]
 pub const OH_Pixelmap_HdrMetadataType_HDR_METADATA_TYPE_NONE: OH_Pixelmap_HdrMetadataType = 0;
 #[doc = " Indicates that metadata will be used for the base image."]
@@ -3930,7 +3930,7 @@ pub const OH_Pixelmap_HdrMetadataType_HDR_METADATA_TYPE_GAINMAP: OH_Pixelmap_Hdr
 #[doc = " Indicates that metadata will be used for the alternate image."]
 pub const OH_Pixelmap_HdrMetadataType_HDR_METADATA_TYPE_ALTERNATE: OH_Pixelmap_HdrMetadataType = 3;
 #[doc = " @brief Value for HDR_METADATA_TYPE.\n\n @since 12"]
-pub type OH_Pixelmap_HdrMetadataType = ::std::os::raw::c_uint;
+pub type OH_Pixelmap_HdrMetadataType = u32;
 #[doc = " @brief Value for HDR_STATIC_METADATA.\n\n @since 12"]
 #[repr(C)]
 #[derive(Debug, Copy, Clone)]
@@ -4896,7 +4896,7 @@ pub const Udmf_Intention_UDMF_INTENTION_PICKER: Udmf_Intention = 4;
 #[doc = " @brief The intention is menu.\n\n @since 20"]
 pub const Udmf_Intention_UDMF_INTENTION_MENU: Udmf_Intention = 5;
 #[doc = " @brief Describe the intention type of the udmf.\n\n @since 12"]
-pub type Udmf_Intention = ::std::os::raw::c_uint;
+pub type Udmf_Intention = u32;
 #[doc = " @brief Invalid share option."]
 pub const Udmf_ShareOption_SHARE_OPTIONS_INVALID: Udmf_ShareOption = 0;
 #[doc = " @brief Allowed to be used in the same application on this device."]
@@ -4904,7 +4904,7 @@ pub const Udmf_ShareOption_SHARE_OPTIONS_IN_APP: Udmf_ShareOption = 1;
 #[doc = " @brief Allowed to be used in the cross application on this device."]
 pub const Udmf_ShareOption_SHARE_OPTIONS_CROSS_APP: Udmf_ShareOption = 2;
 #[doc = " @brief Describe intra-device usage range type enumeration.\n\n @since 12"]
-pub type Udmf_ShareOption = ::std::os::raw::c_uint;
+pub type Udmf_ShareOption = u32;
 #[doc = " @brief Overwrite when dest uri has file with same name."]
 #[cfg(feature = "api-15")]
 pub const Udmf_FileConflictOptions_UDMF_OVERWRITE: Udmf_FileConflictOptions = 0;
@@ -4913,7 +4913,7 @@ pub const Udmf_FileConflictOptions_UDMF_OVERWRITE: Udmf_FileConflictOptions = 0;
 pub const Udmf_FileConflictOptions_UDMF_SKIP: Udmf_FileConflictOptions = 1;
 #[cfg(feature = "api-15")]
 #[doc = " @brief Describe the types of file conflict options when getting data from the udmf.\n\n @since 15"]
-pub type Udmf_FileConflictOptions = ::std::os::raw::c_uint;
+pub type Udmf_FileConflictOptions = u32;
 #[doc = " @brief Getting data without system default progress indicator."]
 #[cfg(feature = "api-15")]
 pub const Udmf_ProgressIndicator_UDMF_NONE: Udmf_ProgressIndicator = 0;
@@ -4922,7 +4922,7 @@ pub const Udmf_ProgressIndicator_UDMF_NONE: Udmf_ProgressIndicator = 0;
 pub const Udmf_ProgressIndicator_UDMF_DEFAULT: Udmf_ProgressIndicator = 1;
 #[cfg(feature = "api-15")]
 #[doc = " @brief Describe the types of progress indicator when getting data from the udmf.\n\n @since 15"]
-pub type Udmf_ProgressIndicator = ::std::os::raw::c_uint;
+pub type Udmf_ProgressIndicator = u32;
 #[doc = " @brief The visibility level that specifies that any hap or native can be obtained."]
 #[cfg(feature = "api-20")]
 pub const Udmf_Visibility_UDMF_ALL: Udmf_Visibility = 0;
@@ -4931,7 +4931,7 @@ pub const Udmf_Visibility_UDMF_ALL: Udmf_Visibility = 0;
 pub const Udmf_Visibility_UDMF_OWN_PROCESS: Udmf_Visibility = 1;
 #[cfg(feature = "api-20")]
 #[doc = " @brief Describe the visibility range of data\n\n @since 20"]
-pub type Udmf_Visibility = ::std::os::raw::c_uint;
+pub type Udmf_Visibility = u32;
 #[repr(C)]
 #[derive(Debug, Copy, Clone)]
 pub struct OH_UdmfData {
@@ -5574,13 +5574,13 @@ pub const ArkUI_DragResult_ARKUI_DRAG_RESULT_FAILED: ArkUI_DragResult = 1;
 #[doc = " The drag and drop operation was canceled."]
 pub const ArkUI_DragResult_ARKUI_DRAG_RESULT_CANCELED: ArkUI_DragResult = 2;
 #[doc = " @brief Defines an enum for drag results, which are set by the data receiver and transferred by the system to the\n        drag source so that the drag source is aware of the data processing result of the receiver.\n\n @since 12"]
-pub type ArkUI_DragResult = ::std::os::raw::c_uint;
+pub type ArkUI_DragResult = u32;
 #[doc = " Copy."]
 pub const ArkUI_DropOperation_ARKUI_DROP_OPERATION_COPY: ArkUI_DropOperation = 0;
 #[doc = " Cut."]
 pub const ArkUI_DropOperation_ARKUI_DROP_OPERATION_MOVE: ArkUI_DropOperation = 1;
 #[doc = " @brief Defines an enum for data processing modes used when data is dropped, which affects the display of the badge.\n\n @since 12"]
-pub type ArkUI_DropOperation = ::std::os::raw::c_uint;
+pub type ArkUI_DropOperation = u32;
 #[doc = " Unknown."]
 pub const ArkUI_PreDragStatus_ARKUI_PRE_DRAG_STATUS_UNKNOWN: ArkUI_PreDragStatus = -1;
 #[doc = " A drag gesture is being detected."]
@@ -5600,14 +5600,14 @@ pub const ArkUI_PreDragStatus_ARKUI_PRE_DRAG_STATUS_PREVIEW_LANDING_FINISHED: Ar
 #[doc = " A drop animation is terminated."]
 pub const ArkUI_PreDragStatus_ARKUI_PRE_DRAG_STATUS_CANCELED_BEFORE_DRAG: ArkUI_PreDragStatus = 6;
 #[doc = " @brief Defines an enum for interaction states prior to a drop and drop operation.\n\n @since 12"]
-pub type ArkUI_PreDragStatus = ::std::os::raw::c_int;
+pub type ArkUI_PreDragStatus = i32;
 #[doc = " The system automatically changes the position of the dragged point based on the scenario and\n scales the drag preview based on set rules."]
 pub const ArkUI_DragPreviewScaleMode_ARKUI_DRAG_PREVIEW_SCALE_AUTO: ArkUI_DragPreviewScaleMode = 0;
 #[doc = " The system does not scale the drag preview."]
 pub const ArkUI_DragPreviewScaleMode_ARKUI_DRAG_PREVIEW_SCALE_DISABLED: ArkUI_DragPreviewScaleMode =
     1;
 #[doc = " @brief Defines an enum for drag preview scale modes.\n\n @since 12"]
-pub type ArkUI_DragPreviewScaleMode = ::std::os::raw::c_uint;
+pub type ArkUI_DragPreviewScaleMode = u32;
 #[doc = " Unknown."]
 pub const ArkUI_DragStatus_ARKUI_DRAG_STATUS_UNKNOWN: ArkUI_DragStatus = -1;
 #[doc = " Started."]
@@ -5615,7 +5615,7 @@ pub const ArkUI_DragStatus_ARKUI_DRAG_STATUS_STARTED: ArkUI_DragStatus = 0;
 #[doc = " Ended."]
 pub const ArkUI_DragStatus_ARKUI_DRAG_STATUS_ENDED: ArkUI_DragStatus = 1;
 #[doc = " @brief Defines an enum for drag states.\n\n @since 12"]
-pub type ArkUI_DragStatus = ::std::os::raw::c_int;
+pub type ArkUI_DragStatus = i32;
 #[repr(C)]
 #[derive(Debug, Copy, Clone)]
 pub struct ArkUI_NodeEvent {
@@ -6676,7 +6676,7 @@ pub const ArkUI_UIInputEvent_Type_ARKUI_UIINPUTEVENT_TYPE_MOUSE: ArkUI_UIInputEv
 #[doc = " @brief key event.\n\n @since 20"]
 pub const ArkUI_UIInputEvent_Type_ARKUI_UIINPUTEVENT_TYPE_KEY: ArkUI_UIInputEvent_Type = 4;
 #[doc = " @brief Enumerates the UI input event types.\n\n @since 12"]
-pub type ArkUI_UIInputEvent_Type = ::std::os::raw::c_uint;
+pub type ArkUI_UIInputEvent_Type = u32;
 #[doc = " Both the node and its child node respond to the hit test of a touch event, but its sibling node is blocked from\n  the hit test."]
 pub const HitTestMode_HTM_DEFAULT: HitTestMode = 0;
 #[doc = " The node responds to the hit test of a touch event, but its child node and sibling node are blocked from the hit\n  test."]
@@ -6692,7 +6692,7 @@ pub const HitTestMode_HTM_BLOCK_HIERARCHY: HitTestMode = 4;
 #[doc = " The node does not respond to hit tests, and none of its descendants (including children and grandchildren)\n participate in hit tests either.\n\n @since 20"]
 pub const HitTestMode_HTM_BLOCK_DESCENDANTS: HitTestMode = 5;
 #[doc = " @brief Enumerates the hit test modes.\n\n @since 12"]
-pub type HitTestMode = ::std::os::raw::c_uint;
+pub type HitTestMode = u32;
 #[doc = " Ctrl."]
 pub const ArkUI_ModifierKeyName_ARKUI_MODIFIER_KEY_CTRL: ArkUI_ModifierKeyName = 1;
 #[doc = " Shift."]
@@ -6702,7 +6702,7 @@ pub const ArkUI_ModifierKeyName_ARKUI_MODIFIER_KEY_ALT: ArkUI_ModifierKeyName = 
 #[doc = " Fn."]
 pub const ArkUI_ModifierKeyName_ARKUI_MODIFIER_KEY_FN: ArkUI_ModifierKeyName = 8;
 #[doc = " @brief Defines an enum for modifier keys.\n\n @since 12"]
-pub type ArkUI_ModifierKeyName = ::std::os::raw::c_uint;
+pub type ArkUI_ModifierKeyName = u32;
 #[doc = " Unknown."]
 #[cfg(feature = "api-15")]
 pub const ArkUI_InteractionHand_ARKUI_EVENT_HAND_NONE: ArkUI_InteractionHand = 0;
@@ -6714,7 +6714,7 @@ pub const ArkUI_InteractionHand_ARKUI_EVENT_HAND_LEFT: ArkUI_InteractionHand = 1
 pub const ArkUI_InteractionHand_ARKUI_EVENT_HAND_RIGHT: ArkUI_InteractionHand = 2;
 #[cfg(feature = "api-15")]
 #[doc = " @brief Defines whether the touch event is from the left or right hand.\n\n @since 15"]
-pub type ArkUI_InteractionHand = ::std::os::raw::c_uint;
+pub type ArkUI_InteractionHand = u32;
 extern "C" {
     #[doc = " @brief Obtains the type of a UI input event.\n\n Before accessing an <b>ArkUI_UIInputEvent</b> pointer, use this API to determine the type of the input event.\n This API returns a value from the {@link ArkUI_UIInputEvent_Type} enum. It helps ensure compatibility with subsequent\n accessors. For example, if the event is a touch event,\n which is directional, you can use OH_ArkUI_UIInputEvent_GetXXX or OH_ArkUI_PointerEvent_GetXXX for access.\n Using OH_ArkUI_KeyEvent_GetXXX to access the event may produce undefined behavior.\n\n For unsupported event types, this API returns the default value <b>0</b>.\n\n @param event Pointer to the current UI input event.\n @return Returns the type of the current UI input event; returns <b>0</b> if any parameter error occurs.\n @since 12"]
     pub fn OH_ArkUI_UIInputEvent_GetType(event: *const ArkUI_UIInputEvent) -> i32;
@@ -7352,7 +7352,7 @@ pub const ArkUI_NodeType_ARKUI_NODE_EMBEDDED_COMPONENT: ArkUI_NodeType = 1016;
 #[doc = " Undefined.\n @since 20"]
 pub const ArkUI_NodeType_ARKUI_NODE_UNDEFINED: ArkUI_NodeType = 1017;
 #[doc = " @brief Enumerates ArkUI component types that can be created on the native side.\n\n @since 12"]
-pub type ArkUI_NodeType = ::std::os::raw::c_uint;
+pub type ArkUI_NodeType = u32;
 #[doc = " @brief Defines the general input parameter structure of the {@link setAttribute} function.\n\n @since 12"]
 #[repr(C)]
 #[derive(Debug, Copy, Clone)]
@@ -8397,7 +8397,7 @@ pub const ArkUI_NodeAttributeType_NODE_EMBEDDED_COMPONENT_WANT: ArkUI_NodeAttrib
 #[doc = " @brief Set onError and onTerminated callbacks for EMBEDDED_COMPONENT.\n This attribute can be set as required through APIs.\n\n Format of the {@link ArkUI_AttributeItem} parameter for setting the attribute:\\n\n .object: The option for EmbeddedComponent, with parameter type {@ArkUI_EmbeddedComponentOption}.\\n\n\n @since 20"]
 pub const ArkUI_NodeAttributeType_NODE_EMBEDDED_COMPONENT_OPTION: ArkUI_NodeAttributeType = 1016001;
 #[doc = " @brief Defines the ArkUI style attributes that can be set on the native side.\n\n @since 12"]
-pub type ArkUI_NodeAttributeType = ::std::os::raw::c_uint;
+pub type ArkUI_NodeAttributeType = u32;
 #[doc = " @brief Defines the parameter type of the component callback event.\n\n @since 12"]
 #[repr(C)]
 #[derive(Copy, Clone)]
@@ -8682,7 +8682,7 @@ pub const ArkUI_NodeEventType_NODE_WATER_FLOW_ON_DID_SCROLL: ArkUI_NodeEventType
 #[doc = " @brief Defines the enumerated values of the event triggered,\n when the subcomponent of the start position or end position displayed in the current waterfall changes.\n Condition for triggering the event: \\n\n This event is triggered when the index value of the \\n\n first or last subcomponent in the waterfall display area changes. \\n\n When the event callback occurs, the union type in the {@Link ArkUI_NodeEvent} object is \\n\n {@Link ArkUI_NodeComponentEvent}. \\n\n {@Link ArkUI_NodeComponentEvent} contains three parameters: \\n\n ArkUI_NodeComponentEvent.data[0].i32: The index value of the \\n\n start position of the currently displayed WaterFlow. \\n\n ArkUI_NodeComponentEvent.data[1].i32: The index value of \\n\n the end position of the currently displayed waterfall. \\n"]
 pub const ArkUI_NodeEventType_NODE_WATER_FLOW_ON_SCROLL_INDEX: ArkUI_NodeEventType = 1010002;
 #[doc = " @brief Enumerates the event types supported by the NativeNode component.\n\n @since 12"]
-pub type ArkUI_NodeEventType = ::std::os::raw::c_uint;
+pub type ArkUI_NodeEventType = u32;
 extern "C" {
     #[doc = " @brief Obtains the type of a component event.\n\n @param event Indicates the pointer to the component event.\n @return Returns the type of the component event.\n @since 12"]
     pub fn OH_ArkUI_NodeEvent_GetEventType(event: *mut ArkUI_NodeEvent) -> ArkUI_NodeEventType;
@@ -8757,7 +8757,7 @@ pub const ArkUI_NodeDirtyFlag_NODE_NEED_LAYOUT: ArkUI_NodeDirtyFlag = 2;
 #[doc = " Re-rendering."]
 pub const ArkUI_NodeDirtyFlag_NODE_NEED_RENDER: ArkUI_NodeDirtyFlag = 3;
 #[doc = " @brief Defines the dirty area flag passed in the <b>::markDirty</b> API.\n\n @since 12"]
-pub type ArkUI_NodeDirtyFlag = ::std::os::raw::c_uint;
+pub type ArkUI_NodeDirtyFlag = u32;
 #[doc = " Measure type."]
 pub const ArkUI_NodeCustomEventType_ARKUI_NODE_CUSTOM_EVENT_ON_MEASURE: ArkUI_NodeCustomEventType =
     1;
@@ -8781,7 +8781,7 @@ pub const ArkUI_NodeCustomEventType_ARKUI_NODE_CUSTOM_EVENT_ON_DRAW_FRONT:
 pub const ArkUI_NodeCustomEventType_ARKUI_NODE_CUSTOM_EVENT_ON_DRAW_BEHIND:
     ArkUI_NodeCustomEventType = 64;
 #[doc = " @brief Defines the custom component event type.\n\n @since 12"]
-pub type ArkUI_NodeCustomEventType = ::std::os::raw::c_uint;
+pub type ArkUI_NodeCustomEventType = u32;
 #[repr(C)]
 #[derive(Debug, Copy, Clone)]
 pub struct ArkUI_NodeCustomEvent {
@@ -8815,7 +8815,7 @@ pub const ArkUI_NodeAdapterEventType_NODE_ADAPTER_EVENT_ON_ADD_NODE_TO_ADAPTER:
 pub const ArkUI_NodeAdapterEventType_NODE_ADAPTER_EVENT_ON_REMOVE_NODE_FROM_ADAPTER:
     ArkUI_NodeAdapterEventType = 5;
 #[doc = " @brief Enumerates component adapter events.\n\n @since 12"]
-pub type ArkUI_NodeAdapterEventType = ::std::os::raw::c_uint;
+pub type ArkUI_NodeAdapterEventType = u32;
 extern "C" {
     #[doc = " @brief Creates a component adapter.\n\n @since 12"]
     pub fn OH_ArkUI_NodeAdapter_Create() -> ArkUI_NodeAdapterHandle;
@@ -9203,7 +9203,7 @@ pub const ArkUI_NodeContentEventType_NODE_CONTENT_EVENT_ON_ATTACH_TO_WINDOW:
 pub const ArkUI_NodeContentEventType_NODE_CONTENT_EVENT_ON_DETACH_FROM_WINDOW:
     ArkUI_NodeContentEventType = 1;
 #[doc = " @brief Defines the node content event type.\n\n @since 12"]
-pub type ArkUI_NodeContentEventType = ::std::os::raw::c_uint;
+pub type ArkUI_NodeContentEventType = u32;
 #[doc = " @error Success."]
 #[cfg(feature = "api-15")]
 pub const ArkUI_InspectorErrorCode_ARKUI_INSPECTOR_NATIVE_RESULT_SUCCESSFUL:
@@ -9214,7 +9214,7 @@ pub const ArkUI_InspectorErrorCode_ARKUI_INSPECTOR_NATIVE_RESULT_BAD_PARAMETER:
     ArkUI_InspectorErrorCode = -1;
 #[cfg(feature = "api-15")]
 #[doc = " @brief Enumerates the inspector error codes.\n @since 15"]
-pub type ArkUI_InspectorErrorCode = ::std::os::raw::c_int;
+pub type ArkUI_InspectorErrorCode = i32;
 #[repr(C)]
 #[derive(Debug, Copy, Clone)]
 pub struct ArkUI_NodeContentEvent {
@@ -9621,7 +9621,7 @@ pub const ArkUI_DismissReason_DIALOG_DISMISS_CLOSE_BUTTON: ArkUI_DismissReason =
 #[doc = " Sliding down."]
 pub const ArkUI_DismissReason_DIALOG_DISMISS_SLIDE_DOWN: ArkUI_DismissReason = 3;
 #[doc = " @brief Enumerates the actions for triggering closure of the dialog box.\n\n @since 12"]
-pub type ArkUI_DismissReason = ::std::os::raw::c_uint;
+pub type ArkUI_DismissReason = u32;
 #[cfg(feature = "api-20")]
 #[doc = " @brief Uninitialized.\n @syscap SystemCapability.ArkUI.ArkUI.Full\n @since 20"]
 pub const ArkUI_DialogState_DIALOG_UNINITIALIZED: ArkUI_DialogState = 0;
@@ -9642,7 +9642,7 @@ pub const ArkUI_DialogState_DIALOG_DISAPPEARING: ArkUI_DialogState = 4;
 pub const ArkUI_DialogState_DIALOG_DISAPPEARED: ArkUI_DialogState = 5;
 #[cfg(feature = "api-20")]
 #[doc = " @brief Enumerates the state of dialog.\n\n @syscap SystemCapability.ArkUI.ArkUI.Full\n\n @since 20"]
-pub type ArkUI_DialogState = ::std::os::raw::c_uint;
+pub type ArkUI_DialogState = u32;
 #[doc = " overlay mode."]
 #[cfg(feature = "api-15")]
 pub const ArkUI_LevelMode_ARKUI_LEVEL_MODE_OVERLAY: ArkUI_LevelMode = 0;
@@ -9651,7 +9651,7 @@ pub const ArkUI_LevelMode_ARKUI_LEVEL_MODE_OVERLAY: ArkUI_LevelMode = 0;
 pub const ArkUI_LevelMode_ARKUI_LEVEL_MODE_EMBEDDED: ArkUI_LevelMode = 1;
 #[cfg(feature = "api-15")]
 #[doc = " @brief Enumerates the level mode.\n\n @since 15"]
-pub type ArkUI_LevelMode = ::std::os::raw::c_uint;
+pub type ArkUI_LevelMode = u32;
 #[doc = " Mask covering the parent node area."]
 #[cfg(feature = "api-15")]
 pub const ArkUI_ImmersiveMode_ARKUI_IMMERSIVE_MODE_DEFAULT: ArkUI_ImmersiveMode = 0;
@@ -9660,7 +9660,7 @@ pub const ArkUI_ImmersiveMode_ARKUI_IMMERSIVE_MODE_DEFAULT: ArkUI_ImmersiveMode 
 pub const ArkUI_ImmersiveMode_ARKUI_IMMERSIVE_MODE_EXTEND: ArkUI_ImmersiveMode = 1;
 #[cfg(feature = "api-15")]
 #[doc = " @brief Enumerates the immersive mode.\n\n @since 15"]
-pub type ArkUI_ImmersiveMode = ::std::os::raw::c_uint;
+pub type ArkUI_ImmersiveMode = u32;
 #[doc = " @brief Invoked when the dialog box is closed.\n\n @since 12"]
 pub type ArkUI_OnWillDismissEvent =
     ::std::option::Option<unsafe extern "C" fn(reason: i32) -> bool>;
@@ -10318,7 +10318,7 @@ pub const ArkUI_GestureEventActionType_GESTURE_EVENT_ACTION_END: ArkUI_GestureEv
 pub const ArkUI_GestureEventActionType_GESTURE_EVENT_ACTION_CANCEL: ArkUI_GestureEventActionType =
     8;
 #[doc = " @brief Enumerates gesture event types.\n\n @since 12"]
-pub type ArkUI_GestureEventActionType = ::std::os::raw::c_uint;
+pub type ArkUI_GestureEventActionType = u32;
 #[doc = " @brief Defines a set of gesture event types.\n\n Example: ArkUI_GestureEventActionTypeMask actions = GESTURE_EVENT_ACTION_ACCEPT | GESTURE_EVENT_ACTION_UPDATE;\\n\n\n @since 12"]
 pub type ArkUI_GestureEventActionTypeMask = u32;
 #[doc = " Normal."]
@@ -10328,7 +10328,7 @@ pub const ArkUI_GesturePriority_PRIORITY: ArkUI_GesturePriority = 1;
 #[doc = " Parallel."]
 pub const ArkUI_GesturePriority_PARALLEL: ArkUI_GesturePriority = 2;
 #[doc = " @brief Enumerates gesture event modes.\n\n @since 12"]
-pub type ArkUI_GesturePriority = ::std::os::raw::c_uint;
+pub type ArkUI_GesturePriority = u32;
 #[doc = " Sequential recognition. Gestures are recognized in the registration sequence until all gestures are recognized\n successfully. Once one gesture fails to be recognized, all subsequent gestures fail to be recognized.\n Only the last gesture in the gesture group can respond to the end event."]
 pub const ArkUI_GroupGestureMode_SEQUENTIAL_GROUP: ArkUI_GroupGestureMode = 0;
 #[doc = " Parallel recognition. Registered gestures are recognized concurrently until all gestures are recognized.\n The recognition result of each gesture does not affect each other."]
@@ -10336,7 +10336,7 @@ pub const ArkUI_GroupGestureMode_PARALLEL_GROUP: ArkUI_GroupGestureMode = 1;
 #[doc = " Exclusive recognition. Registered gestures are identified concurrently.\n If one gesture is successfully recognized, gesture recognition ends."]
 pub const ArkUI_GroupGestureMode_EXCLUSIVE_GROUP: ArkUI_GroupGestureMode = 2;
 #[doc = " @brief Enumerates gesture group modes.\n\n @since 12"]
-pub type ArkUI_GroupGestureMode = ::std::os::raw::c_uint;
+pub type ArkUI_GroupGestureMode = u32;
 #[doc = " All directions."]
 pub const ArkUI_GestureDirection_GESTURE_DIRECTION_ALL: ArkUI_GestureDirection = 15;
 #[doc = " Horizontal direction."]
@@ -10354,7 +10354,7 @@ pub const ArkUI_GestureDirection_GESTURE_DIRECTION_DOWN: ArkUI_GestureDirection 
 #[doc = " None."]
 pub const ArkUI_GestureDirection_GESTURE_DIRECTION_NONE: ArkUI_GestureDirection = 0;
 #[doc = " @brief Enumerates gesture directions.\n\n @since 12"]
-pub type ArkUI_GestureDirection = ::std::os::raw::c_uint;
+pub type ArkUI_GestureDirection = u32;
 #[doc = " @brief Defines a set of gesture directions.\n\n Example: ArkUI_GestureDirectionMask directions = GESTURE_DIRECTION_LEFT | GESTURE_DIRECTION_RIGHT \\n\n This example indicates that the leftward and rightward directions are supported. \\n\n\n @since 12"]
 pub type ArkUI_GestureDirectionMask = u32;
 #[doc = " The gestures of child components are enabled and recognized based on the default gesture recognition sequence."]
@@ -10362,7 +10362,7 @@ pub const ArkUI_GestureMask_NORMAL_GESTURE_MASK: ArkUI_GestureMask = 0;
 #[doc = " The gestures of child components are disabled, including the built-in gestures."]
 pub const ArkUI_GestureMask_IGNORE_INTERNAL_GESTURE_MASK: ArkUI_GestureMask = 1;
 #[doc = " @brief Enumerates gesture masking modes.\n\n @since 12"]
-pub type ArkUI_GestureMask = ::std::os::raw::c_uint;
+pub type ArkUI_GestureMask = u32;
 #[doc = " Tap."]
 pub const ArkUI_GestureRecognizerType_TAP_GESTURE: ArkUI_GestureRecognizerType = 0;
 #[doc = " Long press."]
@@ -10384,7 +10384,7 @@ pub const ArkUI_GestureRecognizerType_CLICK_GESTURE: ArkUI_GestureRecognizerType
 #[doc = " Drag gesture used for drag and drop.\n\n @since 20"]
 pub const ArkUI_GestureRecognizerType_DRAG_DROP: ArkUI_GestureRecognizerType = 8;
 #[doc = " @brief Enumerates gesture types.\n\n @since 12"]
-pub type ArkUI_GestureRecognizerType = ::std::os::raw::c_uint;
+pub type ArkUI_GestureRecognizerType = u32;
 #[doc = " The gesture recognition process continues."]
 pub const ArkUI_GestureInterruptResult_GESTURE_INTERRUPT_RESULT_CONTINUE:
     ArkUI_GestureInterruptResult = 0;
@@ -10392,7 +10392,7 @@ pub const ArkUI_GestureInterruptResult_GESTURE_INTERRUPT_RESULT_CONTINUE:
 pub const ArkUI_GestureInterruptResult_GESTURE_INTERRUPT_RESULT_REJECT:
     ArkUI_GestureInterruptResult = 1;
 #[doc = " @brief Enumerates gesture interruption results.\n\n @since 12"]
-pub type ArkUI_GestureInterruptResult = ::std::os::raw::c_uint;
+pub type ArkUI_GestureInterruptResult = u32;
 #[doc = " Ready."]
 pub const ArkUI_GestureRecognizerState_ARKUI_GESTURE_RECOGNIZER_STATE_READY:
     ArkUI_GestureRecognizerState = 0;
@@ -10412,7 +10412,7 @@ pub const ArkUI_GestureRecognizerState_ARKUI_GESTURE_RECOGNIZER_STATE_SUCCESSFUL
 pub const ArkUI_GestureRecognizerState_ARKUI_GESTURE_RECOGNIZER_STATE_FAILED:
     ArkUI_GestureRecognizerState = 5;
 #[doc = " @brief Enumerates the gesture recognizer states.\n\n @since 12"]
-pub type ArkUI_GestureRecognizerState = ::std::os::raw::c_uint;
+pub type ArkUI_GestureRecognizerState = u32;
 #[doc = " @brief Defines the gesture recognizer handle.\n\n @since 12"]
 pub type ArkUI_GestureRecognizerHandle = *mut ArkUI_GestureRecognizer;
 #[doc = " @brief Defines the gesture recognizer handle array.\n\n @since 12"]
@@ -10954,7 +10954,7 @@ pub const ArkUI_NativeAPIVariantKind_ARKUI_NATIVE_GESTURE: ArkUI_NativeAPIVarian
 #[doc = " API related to animations. For details, see the struct definition in <arkui/native_animate.h>."]
 pub const ArkUI_NativeAPIVariantKind_ARKUI_NATIVE_ANIMATE: ArkUI_NativeAPIVariantKind = 3;
 #[doc = " @brief Defines the native API types.\n\n @since 12"]
-pub type ArkUI_NativeAPIVariantKind = ::std::os::raw::c_uint;
+pub type ArkUI_NativeAPIVariantKind = u32;
 extern "C" {
     #[doc = " @brief Obtains the native API set of a specified type.\n\n @param type Indicates the type of the native API set provided by ArkUI, for example, <b>ARKUI_NATIVE_NODE</b>\n and <b>ARKUI_NATIVE_GESTURE</b>.\n @param structName Indicates the name of a native struct defined in the corresponding header file, for example,\n <b>ArkUI_NativeNodeAPI_1</b> in <arkui/native_node.h>.\n @return Returns the pointer to the abstract native API, which can be used after being converted into a specific type.\n @code {.cpp}\n #include<arkui/native_interface.h>\n #include<arkui/native_node.h>\n #include<arkui/native_gesture.h>\n\n auto* anyNativeAPI = OH_ArkUI_QueryModuleInterfaceByName(ARKUI_NATIVE_NODE, \"ArkUI_NativeNodeAPI_1\");\n if (anyNativeAPI) {\n     auto nativeNodeApi = reinterpret_cast<ArkUI_NativeNodeAPI_1*>(anyNativeAPI);\n }\n auto anyGestureAPI = OH_ArkUI_QueryModuleInterface(ARKUI_NATIVE_GESTURE, \"ArkUI_NativeGestureAPI_1\");\n if (anyNativeAPI) {\n     auto basicGestureApi = reinterpret_cast<ArkUI_NativeGestureAPI_1*>(anyGestureAPI);\n }\n @endcode\n\n @since 12"]
     pub fn OH_ArkUI_QueryModuleInterfaceByName(
@@ -11402,7 +11402,7 @@ pub const ArkUI_KeyCode_ARKUI_KEYCODE_BUTTON_THUMBL: ArkUI_KeyCode = 2314;
 pub const ArkUI_KeyCode_ARKUI_KEYCODE_BUTTON_THUMBR: ArkUI_KeyCode = 2315;
 #[cfg(feature = "api-14")]
 #[doc = " @brief Defines an enum for the key codes in key events.\n\n @since 14"]
-pub type ArkUI_KeyCode = ::std::os::raw::c_int;
+pub type ArkUI_KeyCode = i32;
 #[doc = " Unknown type"]
 #[cfg(feature = "api-14")]
 pub const ArkUI_KeyEventType_ARKUI_KEY_EVENT_UNKNOWN: ArkUI_KeyEventType = -1;
@@ -11420,7 +11420,7 @@ pub const ArkUI_KeyEventType_ARKUI_KEY_EVENT_LONG_PRESS: ArkUI_KeyEventType = 2;
 pub const ArkUI_KeyEventType_ARKUI_KEY_EVENT_CLICK: ArkUI_KeyEventType = 3;
 #[cfg(feature = "api-14")]
 #[doc = " @brief Defines an enum for the key event types.\n\n @since 14"]
-pub type ArkUI_KeyEventType = ::std::os::raw::c_int;
+pub type ArkUI_KeyEventType = i32;
 #[doc = " Unknown type"]
 #[cfg(feature = "api-14")]
 pub const ArkUI_KeySourceType_ARKUI_KEY_SOURCE_UNKNOWN: ArkUI_KeySourceType = 0;
@@ -11435,7 +11435,7 @@ pub const ArkUI_KeySourceType_ARKUI_KEY_SOURCE_TYPE_KEYBOARD: ArkUI_KeySourceTyp
 pub const ArkUI_KeySourceType_ARKUI_KEY_SOURCE_TYPE_JOYSTICK: ArkUI_KeySourceType = 5;
 #[cfg(feature = "api-14")]
 #[doc = " @brief Defines an enum for the types of devices that trigger a key event.\n\n @since 14"]
-pub type ArkUI_KeySourceType = ::std::os::raw::c_uint;
+pub type ArkUI_KeySourceType = u32;
 #[doc = " Unknown intention"]
 #[cfg(feature = "api-14")]
 pub const ArkUI_KeyIntension_ARKUI_KEY_INTENSION_UNKNOWN: ArkUI_KeyIntension = -1;
@@ -11513,7 +11513,7 @@ pub const ArkUI_KeyIntension_ARKUI_KEY_INTENTION_CALL: ArkUI_KeyIntension = 200;
 pub const ArkUI_KeyIntension_ARKUI_KEY_INTENTION_CAMERA: ArkUI_KeyIntension = 300;
 #[cfg(feature = "api-14")]
 #[doc = " @brief Defines an enum for key intentions.\n\n @since 14"]
-pub type ArkUI_KeyIntension = ::std::os::raw::c_int;
+pub type ArkUI_KeyIntension = i32;
 extern "C" {
     #[cfg(feature = "api-14")]
     #[doc = " @brief Obtains the type of a key event.\n\n @param event Pointer to an <b>ArkUI_UIInputEvent</b> object.\n @return Returns the key event type.\n @since 14"]
@@ -11850,7 +11850,7 @@ pub const OH_Drawing_ErrorCode_OH_DRAWING_ERROR_PARAMETER_OUT_OF_RANGE: OH_Drawi
 #[doc = " @error mem allocate failed.\n @since 13"]
 pub const OH_Drawing_ErrorCode_OH_DRAWING_ERROR_ALLOCATION_FAILED: OH_Drawing_ErrorCode = 26200002;
 #[doc = " @brief Enumerates error codes of drawing.\n @since 12"]
-pub type OH_Drawing_ErrorCode = ::std::os::raw::c_uint;
+pub type OH_Drawing_ErrorCode = u32;
 extern "C" {
     #[doc = " @brief Obtains the error code of the drawing module.\n\n @syscap SystemCapability.Graphic.Graphic2D.NativeDrawing\n @return Returns the error code.\n @since 12\n @version 1.0"]
     pub fn OH_Drawing_ErrorCodeGet() -> OH_Drawing_ErrorCode;
@@ -12040,7 +12040,7 @@ pub const OH_Drawing_ColorFormat_COLOR_FORMAT_RGBA_8888: OH_Drawing_ColorFormat 
 #[doc = " Each pixel is represented by 32 bits. From the most significant bit to the least significant bit,\n every 8 bits indicate blue, green, red, and alpha, respectively."]
 pub const OH_Drawing_ColorFormat_COLOR_FORMAT_BGRA_8888: OH_Drawing_ColorFormat = 5;
 #[doc = " @brief Enumerates storage formats of bitmap pixels.\n\n @since 8\n @version 1.0"]
-pub type OH_Drawing_ColorFormat = ::std::os::raw::c_uint;
+pub type OH_Drawing_ColorFormat = u32;
 #[doc = " Unknown format."]
 pub const OH_Drawing_AlphaFormat_ALPHA_FORMAT_UNKNOWN: OH_Drawing_AlphaFormat = 0;
 #[doc = " The bitmap does not have the alpha component."]
@@ -12050,7 +12050,7 @@ pub const OH_Drawing_AlphaFormat_ALPHA_FORMAT_PREMUL: OH_Drawing_AlphaFormat = 2
 #[doc = " The color component of each pixel is not premultiplied by the alpha component."]
 pub const OH_Drawing_AlphaFormat_ALPHA_FORMAT_UNPREMUL: OH_Drawing_AlphaFormat = 3;
 #[doc = " @brief Enumerates alpha formats of bitmap pixels.\n\n @since 8\n @version 1.0"]
-pub type OH_Drawing_AlphaFormat = ::std::os::raw::c_uint;
+pub type OH_Drawing_AlphaFormat = u32;
 #[doc = " r = 0."]
 pub const OH_Drawing_BlendMode_BLEND_MODE_CLEAR: OH_Drawing_BlendMode = 0;
 #[doc = " r = s."]
@@ -12110,7 +12110,7 @@ pub const OH_Drawing_BlendMode_BLEND_MODE_COLOR: OH_Drawing_BlendMode = 27;
 #[doc = " luminosity of source with hue and saturation of destination."]
 pub const OH_Drawing_BlendMode_BLEND_MODE_LUMINOSITY: OH_Drawing_BlendMode = 28;
 #[doc = " @brief The blending operation generates a new color for the two colors (source, destination).\n These operations are the same on the 4 color channels: red, green, blue, alpha.\n For these, we use alpha channel as an example, rather than naming each channel individually.\n\n For brevity, we use the following abbreviations.\n s  : source\n d  : destination\n sa : source alpha\n da : destination alpha\n\n Results are abbreviated\n r  : if all 4 channels are computed in the same manner\n ra : result alpha channel\n rc : result \"color\": red, green, blue channels\n\n @since 11\n @version 1.0"]
-pub type OH_Drawing_BlendMode = ::std::os::raw::c_uint;
+pub type OH_Drawing_BlendMode = u32;
 #[doc = " @brief Defines image info struct.\n\n @since 12\n @version 1.0"]
 #[repr(C)]
 #[derive(Debug, Copy, Clone)]
@@ -12158,7 +12158,7 @@ pub const OH_Drawing_TextEncoding_TEXT_ENCODING_UTF32: OH_Drawing_TextEncoding =
 #[doc = " uses two byte words to represent glyph indices"]
 pub const OH_Drawing_TextEncoding_TEXT_ENCODING_GLYPH_ID: OH_Drawing_TextEncoding = 3;
 #[doc = " @brief Enumerates text encoding types.\n @since 12\n @version 1.0"]
-pub type OH_Drawing_TextEncoding = ::std::os::raw::c_uint;
+pub type OH_Drawing_TextEncoding = u32;
 #[repr(C)]
 #[derive(Debug, Copy, Clone)]
 pub struct OH_Drawing_FontMgr {
@@ -12189,7 +12189,7 @@ pub const OH_Drawing_FilterMode_FILTER_MODE_NEAREST: OH_Drawing_FilterMode = 0;
 #[doc = " interporate between 2x2 sample points (bilinear interpolation)"]
 pub const OH_Drawing_FilterMode_FILTER_MODE_LINEAR: OH_Drawing_FilterMode = 1;
 #[doc = " @brief Enumerates storage filter mode.\n\n @since 12\n @version 1.0"]
-pub type OH_Drawing_FilterMode = ::std::os::raw::c_uint;
+pub type OH_Drawing_FilterMode = u32;
 #[doc = " ignore mipmap levels, sample from the \"base\""]
 pub const OH_Drawing_MipmapMode_MIPMAP_MODE_NONE: OH_Drawing_MipmapMode = 0;
 #[doc = " sample from the nearest level"]
@@ -12197,7 +12197,7 @@ pub const OH_Drawing_MipmapMode_MIPMAP_MODE_NEAREST: OH_Drawing_MipmapMode = 1;
 #[doc = " interpolate between the two nearest levels"]
 pub const OH_Drawing_MipmapMode_MIPMAP_MODE_LINEAR: OH_Drawing_MipmapMode = 2;
 #[doc = " @brief Enumerates storage formats mipmap mode.\n\n @since 12\n @version 1.0"]
-pub type OH_Drawing_MipmapMode = ::std::os::raw::c_uint;
+pub type OH_Drawing_MipmapMode = u32;
 extern "C" {
     #[doc = " @brief Creates an <b>OH_Drawing_SamplingOptions</b> object.\n\n @syscap SystemCapability.Graphic.Graphic2D.NativeDrawing\n @param filterMode sampling filter mode.\n @param mipmapMode sampling mipmap mode..\n @return Returns the pointer to the <b>OH_Drawing_SamplingOptions</b> object created.\n @since 12\n @version 1.0"]
     pub fn OH_Drawing_SamplingOptionsCreate(
@@ -12221,7 +12221,7 @@ pub const OH_Drawing_SrcRectConstraint_STRICT_SRC_RECT_CONSTRAINT: OH_Drawing_Sr
 #[doc = " Using sampling outside bounds in a faster manner."]
 pub const OH_Drawing_SrcRectConstraint_FAST_SRC_RECT_CONSTRAINT: OH_Drawing_SrcRectConstraint = 1;
 #[doc = " @brief Enumeration defines the constraint type.\n\n @since 12\n @version 1.0"]
-pub type OH_Drawing_SrcRectConstraint = ::std::os::raw::c_uint;
+pub type OH_Drawing_SrcRectConstraint = u32;
 extern "C" {
     #[doc = " @brief Creates an <b>OH_Drawing_Canvas</b> object.\n\n @syscap SystemCapability.Graphic.Graphic2D.NativeDrawing\n @return Returns the pointer to the <b>OH_Drawing_Canvas</b> object created.\n @since 8\n @version 1.0"]
     pub fn OH_Drawing_CanvasCreate() -> *mut OH_Drawing_Canvas;
@@ -12352,7 +12352,7 @@ pub const OH_Drawing_PointMode_POINT_MODE_LINES: OH_Drawing_PointMode = 1;
 #[doc = " Draw the array of points as a open polygon."]
 pub const OH_Drawing_PointMode_POINT_MODE_POLYGON: OH_Drawing_PointMode = 2;
 #[doc = " @brief Enumerates of scale to fit flags, selects if an array of points are drawn as discrete points, as lines,\n or as an open polygon.\n\n @since 12\n @version 1.0"]
-pub type OH_Drawing_PointMode = ::std::os::raw::c_uint;
+pub type OH_Drawing_PointMode = u32;
 extern "C" {
     #[doc = " @brief Draws a point.\n\n @syscap SystemCapability.Graphic.Graphic2D.NativeDrawing\n @param canvas Indicates the pointer to an <b>OH_Drawing_Canvas</b> object.\n @param point Indicates the pointer to an <b>OH_Drawing_Point</b> object.\n @return Returns the error code.\n         Returns {@link OH_DRAWING_SUCCESS} if the operation is successful.\n         Returns {@link OH_DRAWING_ERROR_INVALID_PARAMETER} if canvas or point is nullptr.\n @since 12\n @version 1.0"]
     pub fn OH_Drawing_CanvasDrawPoint(
@@ -12484,7 +12484,7 @@ pub const OH_Drawing_CanvasClipOp_DIFFERENCE: OH_Drawing_CanvasClipOp = 0;
 #[doc = " Clip with intersection."]
 pub const OH_Drawing_CanvasClipOp_INTERSECT: OH_Drawing_CanvasClipOp = 1;
 #[doc = " @brief Enumerates clip op.\n\n @since 11\n @version 1.0"]
-pub type OH_Drawing_CanvasClipOp = ::std::os::raw::c_uint;
+pub type OH_Drawing_CanvasClipOp = u32;
 extern "C" {
     #[doc = " @brief Clip a rect.\n\n @syscap SystemCapability.Graphic.Graphic2D.NativeDrawing\n @param canvas Indicates the pointer to an <b>OH_Drawing_Canvas</b> object.\n @param rect Indicates the pointer to an <b>OH_Drawing_Rect</b> object.\n @param clipOp Indicates the operation to apply to clip.\n @param doAntiAlias Indicates whether clip operation requires anti-aliased.\n @since 11\n @version 1.0"]
     pub fn OH_Drawing_CanvasClipRect(
@@ -12576,7 +12576,7 @@ pub const OH_Drawing_CanvasShadowFlags_SHADOW_FLAGS_GEOMETRIC_ONLY: OH_Drawing_C
 #[doc = " Use all shadow flags."]
 pub const OH_Drawing_CanvasShadowFlags_SHADOW_FLAGS_ALL: OH_Drawing_CanvasShadowFlags = 3;
 #[doc = " @brief Enumerates of shadow flags.\n\n @since 12\n @version 1.0"]
-pub type OH_Drawing_CanvasShadowFlags = ::std::os::raw::c_uint;
+pub type OH_Drawing_CanvasShadowFlags = u32;
 extern "C" {
     #[doc = " @brief Use circular light to draw an offset spot shadow and outlining ambient shadow for the given path.\n\n @syscap SystemCapability.Graphic.Graphic2D.NativeDrawing\n @param canvas Indicates the pointer to an <b>OH_Drawing_Canvas</b> object.\n @param path Indicates the pointer to an <b>OH_Drawing_Path</b> object, use to generate shadows.\n @param planeParams Represents the value of the function which returns Z offset of the occluder from the\n canvas based on x and y.\n @param devLightPos Represents the position of the light relative to the canvas.\n @param lightRadius The radius of the circular light.\n @param ambientColor Ambient shadow's color.\n @param spotColor Spot shadow's color.\n @param flag Indicates the flag to control opaque occluder, shadow, and light position.\n @since 12\n @version 1.0"]
     pub fn OH_Drawing_CanvasDrawShadow(
@@ -12632,7 +12632,7 @@ pub const OH_Drawing_VertexMode_VERTEX_MODE_TRIANGLES_STRIP: OH_Drawing_VertexMo
 #[doc = " The vertices are a triangle fan."]
 pub const OH_Drawing_VertexMode_VERTEX_MODE_TRIANGLE_FAN: OH_Drawing_VertexMode = 2;
 #[doc = " @brief Enumerates of vertices flags.\n\n @since 12\n @version 1.0"]
-pub type OH_Drawing_VertexMode = ::std::os::raw::c_uint;
+pub type OH_Drawing_VertexMode = u32;
 extern "C" {
     #[doc = " @brief Draw a triangular mesh with vertex descriptions.\n\n @syscap SystemCapability.Graphic.Graphic2D.NativeDrawing\n @param canvas Indicates the pointer to an <b>OH_Drawing_Canvas</b> object.\n @param vertexMmode Draw a set of vertices.\n @param vertexCount Vertex count.\n @param positions Positions data pointer.\n @param texs Texture coordinate data pointer.\n @param colors Color data pointer.\n @param indexCount Index count.\n @param indices Index data pointer.\n @param mode Blend mode used for drawing.\n @since 12\n @version 1.0"]
     pub fn OH_Drawing_CanvasDrawVertices(
@@ -12732,7 +12732,7 @@ pub const OH_Drawing_FontHinting_FONT_HINTING_NORMAL: OH_Drawing_FontHinting = 2
 #[doc = " modifies glyph outlines for maximum contrast"]
 pub const OH_Drawing_FontHinting_FONT_HINTING_FULL: OH_Drawing_FontHinting = 3;
 #[doc = " @brief Enumerates font hinting pattern.\n\n @since 12\n @version 1.0"]
-pub type OH_Drawing_FontHinting = ::std::os::raw::c_uint;
+pub type OH_Drawing_FontHinting = u32;
 #[doc = " no transparent pixels on glyph edges"]
 pub const OH_Drawing_FontEdging_FONT_EDGING_ALIAS: OH_Drawing_FontEdging = 0;
 #[doc = " may have transparent pixels on glyph edges"]
@@ -12740,7 +12740,7 @@ pub const OH_Drawing_FontEdging_FONT_EDGING_ANTI_ALIAS: OH_Drawing_FontEdging = 
 #[doc = " glyph positioned in pixel using transparency"]
 pub const OH_Drawing_FontEdging_FONT_EDGING_SUBPIXEL_ANTI_ALIAS: OH_Drawing_FontEdging = 2;
 #[doc = " @brief Enumerates font edging effect.\n\n @since 12\n @version 1.0"]
-pub type OH_Drawing_FontEdging = ::std::os::raw::c_uint;
+pub type OH_Drawing_FontEdging = u32;
 extern "C" {
     #[doc = " @brief Sets whether the font baselines and pixels alignment when the transformation matrix is \u{200b}\u{200b}axis aligned.\n\n @syscap SystemCapability.Graphic.Graphic2D.NativeDrawing\n @param font Indicates the pointer to an <b>OH_Drawing_Font</b> object.\n @param baselineSnap Indicates whether the font baselines and pixels alignment.\n @since 12\n @version 1.0"]
     pub fn OH_Drawing_FontSetBaselineSnap(font: *mut OH_Drawing_Font, baselineSnap: bool);
@@ -13069,7 +13069,7 @@ pub const OH_Drawing_TextDirection_TEXT_DIRECTION_RTL: OH_Drawing_TextDirection 
 #[doc = " Left to right (LTR)"]
 pub const OH_Drawing_TextDirection_TEXT_DIRECTION_LTR: OH_Drawing_TextDirection = 1;
 #[doc = " @brief Enumerates text directions.\n\n @since 8\n @version 1.0"]
-pub type OH_Drawing_TextDirection = ::std::os::raw::c_uint;
+pub type OH_Drawing_TextDirection = u32;
 #[doc = " Left-aligned"]
 pub const OH_Drawing_TextAlign_TEXT_ALIGN_LEFT: OH_Drawing_TextAlign = 0;
 #[doc = " Right-aligned"]
@@ -13083,7 +13083,7 @@ pub const OH_Drawing_TextAlign_TEXT_ALIGN_START: OH_Drawing_TextAlign = 4;
 #[doc = " <b>TEXT_ALIGN_END</b> achieves the same effect as <b>TEXT_ALIGN_RIGHT</b>\n when <b>OH_Drawing_TextDirection</b> is <b>TEXT_DIRECTION_LTR</b>;\n it achieves the same effect as <b>TEXT_ALIGN_LEFT</b>\n when <b>OH_Drawing_TextDirection</b> is <b>TEXT_DIRECTION_RTL</b>."]
 pub const OH_Drawing_TextAlign_TEXT_ALIGN_END: OH_Drawing_TextAlign = 5;
 #[doc = " @brief Enumerates text alignment modes.\n\n @since 8\n @version 1.0"]
-pub type OH_Drawing_TextAlign = ::std::os::raw::c_uint;
+pub type OH_Drawing_TextAlign = u32;
 #[doc = " Thin"]
 pub const OH_Drawing_FontWeight_FONT_WEIGHT_100: OH_Drawing_FontWeight = 0;
 #[doc = " Extra-light"]
@@ -13103,13 +13103,13 @@ pub const OH_Drawing_FontWeight_FONT_WEIGHT_800: OH_Drawing_FontWeight = 7;
 #[doc = " Black"]
 pub const OH_Drawing_FontWeight_FONT_WEIGHT_900: OH_Drawing_FontWeight = 8;
 #[doc = " @brief Enumerates font weights.\n\n @since 8\n @version 1.0"]
-pub type OH_Drawing_FontWeight = ::std::os::raw::c_uint;
+pub type OH_Drawing_FontWeight = u32;
 #[doc = " Alphabetic, where the letters in alphabets like English sit on."]
 pub const OH_Drawing_TextBaseline_TEXT_BASELINE_ALPHABETIC: OH_Drawing_TextBaseline = 0;
 #[doc = " Ideographic. The baseline is at the bottom of the text area."]
 pub const OH_Drawing_TextBaseline_TEXT_BASELINE_IDEOGRAPHIC: OH_Drawing_TextBaseline = 1;
 #[doc = " @brief Enumerates text baselines.\n\n @since 8\n @version 1.0"]
-pub type OH_Drawing_TextBaseline = ::std::os::raw::c_uint;
+pub type OH_Drawing_TextBaseline = u32;
 #[doc = " No decoration."]
 pub const OH_Drawing_TextDecoration_TEXT_DECORATION_NONE: OH_Drawing_TextDecoration = 0;
 #[doc = " A underline is used for decoration."]
@@ -13119,7 +13119,7 @@ pub const OH_Drawing_TextDecoration_TEXT_DECORATION_OVERLINE: OH_Drawing_TextDec
 #[doc = " A strikethrough is used for decoration."]
 pub const OH_Drawing_TextDecoration_TEXT_DECORATION_LINE_THROUGH: OH_Drawing_TextDecoration = 4;
 #[doc = " @brief Enumerates text decorations.\n\n @since 8\n @version 1.0"]
-pub type OH_Drawing_TextDecoration = ::std::os::raw::c_uint;
+pub type OH_Drawing_TextDecoration = u32;
 #[doc = " Normal style"]
 pub const OH_Drawing_FontStyle_FONT_STYLE_NORMAL: OH_Drawing_FontStyle = 0;
 #[doc = " Italic style"]
@@ -13127,7 +13127,7 @@ pub const OH_Drawing_FontStyle_FONT_STYLE_ITALIC: OH_Drawing_FontStyle = 1;
 #[doc = " Oblique style"]
 pub const OH_Drawing_FontStyle_FONT_STYLE_OBLIQUE: OH_Drawing_FontStyle = 2;
 #[doc = " @brief Enumerates font styles.\n\n @since 8\n @version 1.0"]
-pub type OH_Drawing_FontStyle = ::std::os::raw::c_uint;
+pub type OH_Drawing_FontStyle = u32;
 #[doc = " Offset At Baseline"]
 pub const OH_Drawing_PlaceholderVerticalAlignment_ALIGNMENT_OFFSET_AT_BASELINE:
     OH_Drawing_PlaceholderVerticalAlignment = 0;
@@ -13151,7 +13151,7 @@ pub const OH_Drawing_PlaceholderVerticalAlignment_ALIGNMENT_CENTER_OF_ROW_BOX:
 pub const OH_Drawing_PlaceholderVerticalAlignment_ALIGNMENT_FOLLOW_PARAGRAPH:
     OH_Drawing_PlaceholderVerticalAlignment = 6;
 #[doc = " @brief Enumerates placeholder vertical alignment.\n\n @since 11\n @version 1.0"]
-pub type OH_Drawing_PlaceholderVerticalAlignment = ::std::os::raw::c_uint;
+pub type OH_Drawing_PlaceholderVerticalAlignment = u32;
 #[doc = " @brief Defines the placeholder span.\n\n @since 11\n @version 1.0"]
 #[repr(C)]
 #[derive(Debug, Copy, Clone)]
@@ -13183,7 +13183,7 @@ pub const OH_Drawing_TextDecorationStyle_TEXT_DECORATION_STYLE_DASHED:
 pub const OH_Drawing_TextDecorationStyle_TEXT_DECORATION_STYLE_WAVY:
     OH_Drawing_TextDecorationStyle = 4;
 #[doc = " @brief Enumerates text decoration style.\n\n @since 11\n @version 1.0"]
-pub type OH_Drawing_TextDecorationStyle = ::std::os::raw::c_uint;
+pub type OH_Drawing_TextDecorationStyle = u32;
 #[doc = " Head modal"]
 pub const OH_Drawing_EllipsisModal_ELLIPSIS_MODAL_HEAD: OH_Drawing_EllipsisModal = 0;
 #[doc = " Middle modal"]
@@ -13191,7 +13191,7 @@ pub const OH_Drawing_EllipsisModal_ELLIPSIS_MODAL_MIDDLE: OH_Drawing_EllipsisMod
 #[doc = " Tail modal"]
 pub const OH_Drawing_EllipsisModal_ELLIPSIS_MODAL_TAIL: OH_Drawing_EllipsisModal = 2;
 #[doc = " @brief Enumerates ellipsis modal.\n\n @since 11\n @version 1.0"]
-pub type OH_Drawing_EllipsisModal = ::std::os::raw::c_uint;
+pub type OH_Drawing_EllipsisModal = u32;
 #[doc = " Greedy strategy"]
 pub const OH_Drawing_BreakStrategy_BREAK_STRATEGY_GREEDY: OH_Drawing_BreakStrategy = 0;
 #[doc = " Quality strategy"]
@@ -13199,7 +13199,7 @@ pub const OH_Drawing_BreakStrategy_BREAK_STRATEGY_HIGH_QUALITY: OH_Drawing_Break
 #[doc = " Balanced strategy"]
 pub const OH_Drawing_BreakStrategy_BREAK_STRATEGY_BALANCED: OH_Drawing_BreakStrategy = 2;
 #[doc = " @brief Enumerates break strategy.\n\n @since 11\n @version 1.0"]
-pub type OH_Drawing_BreakStrategy = ::std::os::raw::c_uint;
+pub type OH_Drawing_BreakStrategy = u32;
 #[doc = " Normal type"]
 pub const OH_Drawing_WordBreakType_WORD_BREAK_TYPE_NORMAL: OH_Drawing_WordBreakType = 0;
 #[doc = " Break All type"]
@@ -13210,7 +13210,7 @@ pub const OH_Drawing_WordBreakType_WORD_BREAK_TYPE_BREAK_WORD: OH_Drawing_WordBr
 #[doc = " Break word with hyphens\n @since 18"]
 pub const OH_Drawing_WordBreakType_WORD_BREAK_TYPE_BREAK_HYPHEN: OH_Drawing_WordBreakType = 3;
 #[doc = " @brief Enumerates word break type.\n\n @since 11\n @version 1.0"]
-pub type OH_Drawing_WordBreakType = ::std::os::raw::c_uint;
+pub type OH_Drawing_WordBreakType = u32;
 #[doc = " Tight style"]
 pub const OH_Drawing_RectHeightStyle_RECT_HEIGHT_STYLE_TIGHT: OH_Drawing_RectHeightStyle = 0;
 #[doc = " Max style"]
@@ -13227,13 +13227,13 @@ pub const OH_Drawing_RectHeightStyle_RECT_HEIGHT_STYLE_INCLUDELINESPACEBOTTOM:
 #[doc = " Struct style"]
 pub const OH_Drawing_RectHeightStyle_RECT_HEIGHT_STYLE_STRUCT: OH_Drawing_RectHeightStyle = 5;
 #[doc = " @brief Enumerates rect height style.\n\n @since 11\n @version 1.0"]
-pub type OH_Drawing_RectHeightStyle = ::std::os::raw::c_uint;
+pub type OH_Drawing_RectHeightStyle = u32;
 #[doc = " Tight style"]
 pub const OH_Drawing_RectWidthStyle_RECT_WIDTH_STYLE_TIGHT: OH_Drawing_RectWidthStyle = 0;
 #[doc = " Max style"]
 pub const OH_Drawing_RectWidthStyle_RECT_WIDTH_STYLE_MAX: OH_Drawing_RectWidthStyle = 1;
 #[doc = " @brief Enumerates rect Width style.\n\n @since 11\n @version 1.0"]
-pub type OH_Drawing_RectWidthStyle = ::std::os::raw::c_uint;
+pub type OH_Drawing_RectWidthStyle = u32;
 #[doc = " The list of system font configuration information was successfully obtained"]
 pub const OH_Drawing_FontConfigInfoErrorCode_SUCCESS_FONT_CONFIG_INFO:
     OH_Drawing_FontConfigInfoErrorCode = 0;
@@ -13250,7 +13250,7 @@ pub const OH_Drawing_FontConfigInfoErrorCode_ERROR_FONT_CONFIG_INFO_ALLOC_MEMORY
 pub const OH_Drawing_FontConfigInfoErrorCode_ERROR_FONT_CONFIG_INFO_COPY_STRING_DATA:
     OH_Drawing_FontConfigInfoErrorCode = 4;
 #[doc = " @brief Gets system font configuration information list result enum.\n\n @since 12\n @version 1.0"]
-pub type OH_Drawing_FontConfigInfoErrorCode = ::std::os::raw::c_uint;
+pub type OH_Drawing_FontConfigInfoErrorCode = u32;
 #[doc = " @brief Fallback font information.\n\n @since 12\n @version 1.0"]
 #[repr(C)]
 #[derive(Debug, Copy, Clone)]
@@ -13384,7 +13384,7 @@ pub const OH_Drawing_TextHeightBehavior_TEXT_HEIGHT_DISABLE_LAST_ASCENT:
 #[doc = " neither ascend of first row nor last row style"]
 pub const OH_Drawing_TextHeightBehavior_TEXT_HEIGHT_DISABLE_ALL: OH_Drawing_TextHeightBehavior = 3;
 #[doc = " @brief Enumerates of heightmode of text.\n\n @since 12\n @version 1.0"]
-pub type OH_Drawing_TextHeightBehavior = ::std::os::raw::c_uint;
+pub type OH_Drawing_TextHeightBehavior = u32;
 #[doc = " None style"]
 pub const OH_Drawing_TextStyleType_TEXT_STYLE_NONE: OH_Drawing_TextStyleType = 0;
 #[doc = " All attributes style"]
@@ -13404,7 +13404,7 @@ pub const OH_Drawing_TextStyleType_TEXT_STYLE_LETTER_SPACING: OH_Drawing_TextSty
 #[doc = " Word spacing style"]
 pub const OH_Drawing_TextStyleType_TEXT_STYLE_WORD_SPACING: OH_Drawing_TextStyleType = 8;
 #[doc = " @brief Enumerates text style type.\n\n @since 12\n @version 1.0"]
-pub type OH_Drawing_TextStyleType = ::std::os::raw::c_uint;
+pub type OH_Drawing_TextStyleType = u32;
 pub const OH_Drawing_FontWidth_FONT_WIDTH_ULTRA_CONDENSED: OH_Drawing_FontWidth = 1;
 pub const OH_Drawing_FontWidth_FONT_WIDTH_EXTRA_CONDENSED: OH_Drawing_FontWidth = 2;
 pub const OH_Drawing_FontWidth_FONT_WIDTH_CONDENSED: OH_Drawing_FontWidth = 3;
@@ -13415,7 +13415,7 @@ pub const OH_Drawing_FontWidth_FONT_WIDTH_EXPANDED: OH_Drawing_FontWidth = 7;
 pub const OH_Drawing_FontWidth_FONT_WIDTH_EXTRA_EXPANDED: OH_Drawing_FontWidth = 8;
 pub const OH_Drawing_FontWidth_FONT_WIDTH_ULTRA_EXPANDED: OH_Drawing_FontWidth = 9;
 #[doc = " @brief Enumerates font width.\n\n @since 12\n @version 1.0"]
-pub type OH_Drawing_FontWidth = ::std::os::raw::c_uint;
+pub type OH_Drawing_FontWidth = u32;
 #[doc = " No badge"]
 #[cfg(feature = "api-20")]
 pub const OH_Drawing_TextBadgeType_TEXT_BADGE_NONE: OH_Drawing_TextBadgeType = 0;
@@ -13427,7 +13427,7 @@ pub const OH_Drawing_TextBadgeType_TEXT_SUPERSCRIPT: OH_Drawing_TextBadgeType = 
 pub const OH_Drawing_TextBadgeType_TEXT_SUBSCRIPT: OH_Drawing_TextBadgeType = 2;
 #[cfg(feature = "api-20")]
 #[doc = " @brief Type of badge.\n\n @since 20\n @version 1.0"]
-pub type OH_Drawing_TextBadgeType = ::std::os::raw::c_uint;
+pub type OH_Drawing_TextBadgeType = u32;
 #[doc = " Baseline of text line"]
 #[cfg(feature = "api-20")]
 pub const OH_Drawing_TextVerticalAlignment_TEXT_VERTICAL_ALIGNMENT_BASELINE:
@@ -13446,7 +13446,7 @@ pub const OH_Drawing_TextVerticalAlignment_TEXT_VERTICAL_ALIGNMENT_TOP:
     OH_Drawing_TextVerticalAlignment = 3;
 #[cfg(feature = "api-20")]
 #[doc = " @brief Type of vertical alignment.\n\n @since 20\n @version 1.0"]
-pub type OH_Drawing_TextVerticalAlignment = ::std::os::raw::c_uint;
+pub type OH_Drawing_TextVerticalAlignment = u32;
 #[doc = " @brief Defines the font style struct.\n\n @since 12\n @version 1.0"]
 #[repr(C)]
 #[derive(Debug, Copy, Clone)]

@@ -86,7 +86,7 @@ pub const ArkUI_Accessibility_ActionType_ARKUI_ACCESSIBILITY_NATIVE_ACTION_TYPE_
 pub const ArkUI_Accessibility_ActionType_ARKUI_ACCESSIBILITY_NATIVE_ACTION_TYPE_PREVIOUS_HTML_ITEM : ArkUI_Accessibility_ActionType = 67108864 ;
 #[cfg(feature = "api-13")]
 #[doc = " @brief Defines an enum for accessibility action types.\n\n @since 13"]
-pub type ArkUI_Accessibility_ActionType = ::std::os::raw::c_uint;
+pub type ArkUI_Accessibility_ActionType = u32;
 #[doc = " Invalid event."]
 #[cfg(feature = "api-13")]
 pub const ArkUI_AccessibilityEventType_ARKUI_ACCESSIBILITY_NATIVE_EVENT_TYPE_INVALID:
@@ -145,7 +145,7 @@ pub const ArkUI_AccessibilityEventType_ARKUI_ACCESSIBILITY_NATIVE_EVENT_TYPE_FOC
     ArkUI_AccessibilityEventType = 268435457;
 #[cfg(feature = "api-13")]
 #[doc = " @brief Defines an enum for accessibility event types.\n\n @since 13"]
-pub type ArkUI_AccessibilityEventType = ::std::os::raw::c_uint;
+pub type ArkUI_AccessibilityEventType = u32;
 #[cfg(feature = "api-13")]
 #[doc = " @brief Defines a struct for the accessible action.\n\n @since 13"]
 #[repr(C)]
@@ -230,7 +230,7 @@ pub const ArkUI_AcessbilityErrorCode_ARKUI_ACCESSIBILITY_NATIVE_RESULT_OUT_OF_ME
     ArkUI_AcessbilityErrorCode = -3;
 #[cfg(feature = "api-13")]
 #[doc = " @brief Enumerates the accessibility error codes.\n\n @since 13"]
-pub type ArkUI_AcessbilityErrorCode = ::std::os::raw::c_int;
+pub type ArkUI_AcessbilityErrorCode = i32;
 #[doc = " Search for current nodes."]
 #[cfg(feature = "api-13")]
 pub const ArkUI_AccessibilitySearchMode_ARKUI_ACCESSIBILITY_NATIVE_SEARCH_MODE_PREFETCH_CURRENT:
@@ -251,7 +251,7 @@ pub const ArkUI_AccessibilitySearchMode_ARKUI_ACCESSIBILITY_NATIVE_SEARCH_MODE_P
 pub const ArkUI_AccessibilitySearchMode_ARKUI_ACCESSIBILITY_NATIVE_SEARCH_MODE_PREFETCH_RECURSIVE_CHILDREN : ArkUI_AccessibilitySearchMode = 8 ;
 #[cfg(feature = "api-13")]
 #[doc = " @brief Defines an enum for the accessibility search modes.\n\n @since 13"]
-pub type ArkUI_AccessibilitySearchMode = ::std::os::raw::c_uint;
+pub type ArkUI_AccessibilitySearchMode = u32;
 #[doc = " Invalid type."]
 #[cfg(feature = "api-13")]
 pub const ArkUI_AccessibilityFocusType_ARKUI_ACCESSIBILITY_NATIVE_FOCUS_TYPE_INVALID:
@@ -266,7 +266,7 @@ pub const ArkUI_AccessibilityFocusType_ARKUI_ACCESSIBILITY_NATIVE_FOCUS_TYPE_ACC
     ArkUI_AccessibilityFocusType = 2;
 #[cfg(feature = "api-13")]
 #[doc = " @brief Defines an enum for the accessibility focus types.\n\n @since 13"]
-pub type ArkUI_AccessibilityFocusType = ::std::os::raw::c_int;
+pub type ArkUI_AccessibilityFocusType = i32;
 #[doc = " Invalid direction."]
 #[cfg(feature = "api-13")]
 pub const ArkUI_AccessibilityFocusMoveDirection_ARKUI_ACCESSIBILITY_NATIVE_DIRECTION_INVALID:
@@ -297,7 +297,7 @@ pub const ArkUI_AccessibilityFocusMoveDirection_ARKUI_ACCESSIBILITY_NATIVE_DIREC
     ArkUI_AccessibilityFocusMoveDirection = 32;
 #[cfg(feature = "api-13")]
 #[doc = " @brief Enumerates the directions for moving the accessibility focus.\n\n @since 13"]
-pub type ArkUI_AccessibilityFocusMoveDirection = ::std::os::raw::c_uint;
+pub type ArkUI_AccessibilityFocusMoveDirection = u32;
 #[repr(C)]
 #[derive(Debug, Copy, Clone)]
 pub struct ArkUI_AccessibilityElementInfoList {

@@ -28,7 +28,7 @@ pub const Vibrator_Usage_VIBRATOR_USAGE_PHYSICAL_FEEDBACK: Vibrator_Usage = 7;
 pub const Vibrator_Usage_VIBRATOR_USAGE_SIMULATED_REALITY: Vibrator_Usage = 8;
 pub const Vibrator_Usage_VIBRATOR_USAGE_MAX: Vibrator_Usage = 9;
 #[doc = " @brief Enumerates vibration usages scenarios.\n\n @since 11"]
-pub type Vibrator_Usage = ::std::os::raw::c_uint;
+pub type Vibrator_Usage = u32;
 #[doc = " @brief Defines the vibrator attribute.\n\n @since 11"]
 #[repr(C)]
 #[derive(Debug, Copy, Clone)]
