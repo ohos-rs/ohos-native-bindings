@@ -5,15 +5,17 @@ use std::{
     rc::Rc,
 };
 
+use ohos_arkui_input_binding::sys::ArkUI_NodeHandle;
+use ohos_arkui_input_binding::ArkUIErrorCode;
 use ohos_arkui_sys::{
     ArkUI_DialogDismissEvent, ArkUI_NativeAPIVariantKind_ARKUI_NATIVE_DIALOG,
-    ArkUI_NativeDialogAPI_1, ArkUI_NativeDialogHandle, ArkUI_NodeHandle,
+    ArkUI_NativeDialogAPI_1, ArkUI_NativeDialogHandle,
     OH_ArkUI_DialogDismissEvent_GetDismissReason, OH_ArkUI_DialogDismissEvent_GetUserData,
     OH_ArkUI_DialogDismissEvent_SetShouldBlockDismiss, OH_ArkUI_QueryModuleInterfaceByName,
 };
 
 use crate::{
-    check_arkui_status, Alignment, ArkUIError, ArkUIErrorCode, ArkUIResult, DialogDismissData,
+    check_arkui_status, Alignment, ArkUIError, ArkUIResult, DialogDismissData,
     InnerDialogDismissData,
 };
 

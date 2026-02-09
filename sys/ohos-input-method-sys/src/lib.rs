@@ -461,14 +461,14 @@ extern "C" {
 pub struct InputMethod_TextEditorProxy {
     _unused: [u8; 0],
 }
-#[doc = " @brief Defines the function called when input method getting text config.\n\n You need to implement this function, set it to {@link InputMethod_TextEditorProxy} through {@link\n OH_TextEditorProxy_SetGetTextConfigFunc}, and use {@link OH_InputMethodController_Attach} to complete the\n registration.\\n\n\n @param textEditorProxy Represents a pointer to an {@link InputMethod_TextEditorProxy} instance.\n @param config Represents a pointer to an {@link InputMethod_TextConfig} instance. You can only access the memory when\n this callback is called. After this callback returns, the memory will be released and you should not access this\n memory again.\n @since 12"]
+#[doc = " @brief Defines the function called when input method getting text config.\n\n You need to implement this function, set it to {@link InputMethod_TextEditorProxy} through {@link\n OH_TextEditorProxy_SetGetTextConfigFunc}, and use {@link OH_InputMethodController_Attach} to complete the\n registration.\\n\n\n @param textEditorProxy Represents a pointer to an {@link InputMethod_TextEditorProxy} instance.\n @param config Represents a pointer to an {@link InputMethod_TextConfig} instance.\n @since 12"]
 pub type OH_TextEditorProxy_GetTextConfigFunc = ::std::option::Option<
     unsafe extern "C" fn(
         textEditorProxy: *mut InputMethod_TextEditorProxy,
         config: *mut InputMethod_TextConfig,
     ),
 >;
-#[doc = " @brief Defines the function called when input method inserting text.\n\n You need to implement this function, set it to {@link InputMethod_TextEditorProxy} through {@link\n OH_TextEditorProxy_SetInsertTextFunc}, and use {@link OH_InputMethodController_Attach} to complete the\n registration.\\n\n\n @param textEditorProxy Represents a pointer to the {@link InputMethod_TextEditorProxy} instance which will be set\n in.\n @param text Represents a pointer to the text to be inserted. You can only access the memory when this callback\n is called. After this callback returns, the memory will be released and you should not access this memory again.\n @param length Represents the length of the text to be inserted.\n @since 12"]
+#[doc = " @brief Defines the function called when input method inserting text.\n\n You need to implement this function, set it to {@link InputMethod_TextEditorProxy} through {@link\n OH_TextEditorProxy_SetInsertTextFunc}, and use {@link OH_InputMethodController_Attach} to complete the\n registration.\\n\n\n @param textEditorProxy Represents a pointer to the {@link InputMethod_TextEditorProxy} instance which will be set\n in.\n @param text Represents a pointer to the text to be inserted.\n @param length Represents the length of the text to be inserted.\n @since 12"]
 pub type OH_TextEditorProxy_InsertTextFunc = ::std::option::Option<
     unsafe extern "C" fn(
         textEditorProxy: *mut InputMethod_TextEditorProxy,
@@ -516,7 +516,7 @@ pub type OH_TextEditorProxy_HandleExtendActionFunc = ::std::option::Option<
         action: InputMethod_ExtendAction,
     ),
 >;
-#[doc = " @brief Called when input method requesting to get left text of cursor.\n\n You need to implement this function, set it to {@link InputMethod_TextEditorProxy} through {@link\n OH_TextEditorProxy_SetGetLeftTextOfCursorFunc}, and use {@link OH_InputMethodController_Attach} to complete the\n registration.\\n\n\n @param textEditorProxy Represents a pointer to an {@link InputMethod_TextEditorProxy} instance which will be set in.\n @param number Represents the number of characters to be get.\n @param text Represents the left text of cursor, you need to assing this parameter. You can only access the memory\n when this callback is called. After this callback returns, the memory will be released and you should not access this\n memory again.\n @param length Represents the length of the left text of cursor, you need to assing this parameter.\n @since 12"]
+#[doc = " @brief Called when input method requesting to get left text of cursor.\n\n You need to implement this function, set it to {@link InputMethod_TextEditorProxy} through {@link\n OH_TextEditorProxy_SetGetLeftTextOfCursorFunc}, and use {@link OH_InputMethodController_Attach} to complete the\n registration.\\n\n\n @param textEditorProxy Represents a pointer to an {@link InputMethod_TextEditorProxy} instance which will be set in.\n @param number Represents the number of characters to be get.\n @param text Represents the left text of cursor, you need to assing this parameter.\n @param length Represents the length of the left text of cursor, you need to assing this parameter.\n @since 12"]
 pub type OH_TextEditorProxy_GetLeftTextOfCursorFunc = ::std::option::Option<
     unsafe extern "C" fn(
         textEditorProxy: *mut InputMethod_TextEditorProxy,
@@ -525,7 +525,7 @@ pub type OH_TextEditorProxy_GetLeftTextOfCursorFunc = ::std::option::Option<
         length: *mut usize,
     ),
 >;
-#[doc = " @brief Called when input method requesting to get right text of cursor.\n\n You need to implement this function, set it to {@link InputMethod_TextEditorProxy} through {@link\n OH_TextEditorProxy_SetGetRightTextOfCursorFunc}, and use {@link OH_InputMethodController_Attach} to complete the\n registration.\\n\n\n @param textEditorProxy Represents a pointer to an {@link InputMethod_TextEditorProxy} instance which will be set in.\n @param number Represents the number of characters to be get.\n @param text Represents the right text of cursor, you need to assing this parameter. You can only access the memory\n when this callback is called. After this callback returns, the memory will be released and you should not access this\n memory again.\n @param length Represents the length of the right text of cursor.\n @since 12"]
+#[doc = " @brief Called when input method requesting to get right text of cursor.\n\n You need to implement this function, set it to {@link InputMethod_TextEditorProxy} through {@link\n OH_TextEditorProxy_SetGetRightTextOfCursorFunc}, and use {@link OH_InputMethodController_Attach} to complete the\n registration.\\n\n\n @param textEditorProxy Represents a pointer to an {@link InputMethod_TextEditorProxy} instance which will be set in.\n @param number Represents the number of characters to be get.\n @param text Represents the right text of cursor, you need to assing this parameter.\n @param length Represents the length of the right text of cursor.\n @since 12"]
 pub type OH_TextEditorProxy_GetRightTextOfCursorFunc = ::std::option::Option<
     unsafe extern "C" fn(
         textEditorProxy: *mut InputMethod_TextEditorProxy,
@@ -538,7 +538,7 @@ pub type OH_TextEditorProxy_GetRightTextOfCursorFunc = ::std::option::Option<
 pub type OH_TextEditorProxy_GetTextIndexAtCursorFunc = ::std::option::Option<
     unsafe extern "C" fn(textEditorProxy: *mut InputMethod_TextEditorProxy) -> i32,
 >;
-#[doc = " @brief Called when input method sending private command.\n\n You need to implement this function, set it to {@link InputMethod_TextEditorProxy} through {@link\n OH_TextEditorProxy_SetReceivePrivateCommandFunc}, and use {@link OH_InputMethodController_Attach} to complete the\n registration.\\n\n\n @param textEditorProxy Represents a pointer to an {@link InputMethod_TextEditorProxy} instance which will be set in.\n @param privateCommand Private command from input method. You can only access the memory when this callback is called.\n After this callback returns, the memory will be released and you should not access this memory again.\n @param size Size of private command.\n @return Returns the result of handling private command.\n @since 12"]
+#[doc = " @brief Called when input method sending private command.\n\n You need to implement this function, set it to {@link InputMethod_TextEditorProxy} through {@link\n OH_TextEditorProxy_SetReceivePrivateCommandFunc}, and use {@link OH_InputMethodController_Attach} to complete the\n registration.\\n\n\n @param textEditorProxy Represents a pointer to an {@link InputMethod_TextEditorProxy} instance which will be set in.\n @param privateCommand Private command from input method.\n @param size Size of private command.\n @return Returns the result of handling private command.\n @since 12"]
 pub type OH_TextEditorProxy_ReceivePrivateCommandFunc = ::std::option::Option<
     unsafe extern "C" fn(
         textEditorProxy: *mut InputMethod_TextEditorProxy,
@@ -546,7 +546,7 @@ pub type OH_TextEditorProxy_ReceivePrivateCommandFunc = ::std::option::Option<
         size: usize,
     ) -> i32,
 >;
-#[doc = " @brief Called when input method setting preview text.\n\n You need to implement this function, set it to {@link InputMethod_TextEditorProxy} through {@link\n OH_TextEditorProxy_SetReceivePrivateCommandFunc}, and use {@link OH_InputMethodController_Attach} to complete the\n registration.\\n\n\n @param textEditorProxy Represents a pointer to an {@link InputMethod_TextEditorProxy} instance which will be set in.\n @param text Represents text to be previewd. You can only access the memory when this callback is called.\n After this callback returns, the memory will be released and you should not access this memory again.\n @param length Length of preview text.\n @param start Start position of preview text.\n @param end End position of preview text.\n @return Returns the result of setting preview text.\n @since 12"]
+#[doc = " @brief Called when input method setting preview text.\n\n You need to implement this function, set it to {@link InputMethod_TextEditorProxy} through {@link\n OH_TextEditorProxy_SetReceivePrivateCommandFunc}, and use {@link OH_InputMethodController_Attach} to complete the\n registration.\\n\n\n @param textEditorProxy Represents a pointer to an {@link InputMethod_TextEditorProxy} instance which will be set in.\n @param text Represents text to be previewd.\n @param length Length of preview text.\n @param start Start position of preview text.\n @param end End position of preview text.\n @return Returns the result of setting preview text.\n @since 12"]
 pub type OH_TextEditorProxy_SetPreviewTextFunc = ::std::option::Option<
     unsafe extern "C" fn(
         textEditorProxy: *mut InputMethod_TextEditorProxy,
@@ -775,14 +775,6 @@ extern "C" {
     pub fn OH_TextEditorProxy_GetFinishTextPreviewFunc(
         proxy: *mut InputMethod_TextEditorProxy,
         finishTextPreviewFunc: *mut OH_TextEditorProxy_FinishTextPreviewFunc,
-    ) -> InputMethod_ErrorCode;
-}
-extern "C" {
-    #[doc = " @brief Configure the execution thread (main thread/IPC thread) for the callback functions of\n {@link InputMethod_TextEditorProxy}.\n This interface only controls all callbacks in {@link InputMethod_TextEditorProxy} except\n {@link OH_TextEditorProxy_GetTextConfigFunc}.\n The execution thread of {@link OH_TextEditorProxy_GetTextConfigFunc} is determined by the thread that calls\n {@link OH_InputMethodController_Attach} and is not affected by this interface.\n\n @param proxy Pointer to the target {@link InputMethod_TextEditorProxy} instance.\n @param isCallbackInMainThread Thread execution strategy\n                              - true: The callback function is switched to the main thread for execution (to avoid\n multi-thread concurrency)\n                              - false: The callback function is executed in the IPC thread (there may be multi-thread\n concurrency)\n @return Execution result.\n     {@link IME_ERR_OK} - Configuration succeeded.\n     {@link IME_ERR_NULL_POINTER} - Returned when proxy is NULL.\n @since 22"]
-    #[cfg(feature = "api-22")]
-    pub fn OH_TextEditorProxy_SetCallbackInMainThread(
-        proxy: *mut InputMethod_TextEditorProxy,
-        isCallbackInMainThread: bool,
     ) -> InputMethod_ErrorCode;
 }
 #[repr(C)]

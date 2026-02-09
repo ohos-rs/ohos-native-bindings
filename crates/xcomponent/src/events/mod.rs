@@ -1,16 +1,19 @@
 use crate::raw::{WindowRaw, XComponentRaw};
 use napi_ohos::Result;
+use ohos_arkui_input_binding::ArkUIInputEvent;
 use std::{cell::RefCell, rc::Rc};
 
 #[cfg(feature = "multi_mode")]
 use std::collections::HashMap;
 
 mod key_event;
+mod mouse_event;
 mod native_callbacks;
 mod raw_window;
 mod touch_event;
 
 pub use key_event::*;
+pub use mouse_event::*;
 pub use native_callbacks::*;
 pub use raw_window::*;
 pub use touch_event::*;
@@ -22,6 +25,9 @@ pub type DispatchTouchEvent =
     Option<Rc<dyn Fn(XComponentRaw, WindowRaw, TouchEventData) -> Result<()>>>;
 pub type OnFrameChange = Option<Rc<dyn Fn(XComponentRaw, u64, u64) -> Result<()>>>;
 pub type OnKeyEvent = Option<Rc<dyn Fn(XComponentRaw, WindowRaw, KeyEventData) -> Result<()>>>;
+pub type OnMouseEvent = Option<Rc<dyn Fn(XComponentRaw, WindowRaw, MouseEventData) -> Result<()>>>;
+pub type OnHoverEvent = Option<Rc<dyn Fn(XComponentRaw, bool) -> Result<()>>>;
+pub type OnUIInputEvent = Option<Rc<dyn Fn(XComponentRaw, ArkUIInputEvent) -> Result<()>>>;
 
 #[derive(Default, Clone)]
 pub struct XComponentCallbacks {
@@ -31,6 +37,9 @@ pub struct XComponentCallbacks {
     pub dispatch_touch_event: DispatchTouchEvent,
     pub on_frame_change: OnFrameChange,
     pub on_key_event: OnKeyEvent,
+    pub on_mouse_event: OnMouseEvent,
+    pub on_hover_event: OnHoverEvent,
+    pub on_ui_input_event: OnUIInputEvent,
 }
 
 thread_local! {

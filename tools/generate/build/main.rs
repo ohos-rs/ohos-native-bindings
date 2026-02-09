@@ -47,6 +47,7 @@ static CONFIG: Lazy<Vec<Lazy<SysConfig>>> = Lazy::new(|| {
         config::FILEURI,
         config::FILESHARE,
         config::DRAWING,
+        config::ARKUI_INPUT,
     ]
 });
 

@@ -408,7 +408,7 @@ extern "C" {
 pub type OH_NativeDisplayManager_AvailableAreaChangeCallback =
     ::std::option::Option<unsafe extern "C" fn(displayId: u64)>;
 extern "C" {
-    #[doc = " @brief Register the callback for available area change listener.\n\n @param availableAreaChangeCallback Available area change callback.\n @param listenerIndex Indicates the pointer to an <b>uint32_t</b> object. used in unregister call.\n @return { @link DISPLAY_MANAGER_OK } If the operation is successful\n         { @link DISPLAY_MANAGER_ERROR_ILLEGAL_PARAM } If Parameter illegal.\n         { @link DISPLAY_MANAGER_ERROR_SYSTEM_ABNORMAL } If display manager service works abnormally.\n @since 20"]
+    #[doc = " @brief Register the callback for available area change listener.\n\n @param availableAreaChangeCallback Available area change callback.\n @param listenerIndex Indicates the pointer to an <b>uint32_t</b> object. used in unregister call.\n @return { @link DISPLAY_MANAGER_OK } If the operation is successful\n         { @link DISPLAY_MANAGER_ERROR_ILLEGAL_PARAM } If Parameter illegal.\n         { @link DISPLAY_MANAGER_ERROR_DEVICE_NOT_SUPPORTED } device not support.\n         { @link DISPLAY_MANAGER_ERROR_SYSTEM_ABNORMAL } If display manager service works abnormally.\n @since 20"]
     #[cfg(feature = "api-20")]
     pub fn OH_NativeDisplayManager_RegisterAvailableAreaChangeListener(
         availableAreaChangeCallback: OH_NativeDisplayManager_AvailableAreaChangeCallback,
@@ -416,14 +416,14 @@ extern "C" {
     ) -> NativeDisplayManager_ErrorCode;
 }
 extern "C" {
-    #[doc = " @brief Unregister the callback for available area changes listener.\n\n @param listenerIndex The display changed listener index.\n @return { @link DISPLAY_MANAGER_OK } If the operation is successful\n         { @link DISPLAY_MANAGER_ERROR_ILLEGAL_PARAM } If Parameter illegal.\n         { @link DISPLAY_MANAGER_ERROR_SYSTEM_ABNORMAL } If display manager service works abnormally.\n @since 20"]
+    #[doc = " @brief Unregister the callback for available area changes listener.\n\n @param listenerIndex The display changed listener index.\n @return { @link DISPLAY_MANAGER_OK } If the operation is successful\n         { @link DISPLAY_MANAGER_ERROR_ILLEGAL_PARAM } If Parameter illegal.\n         { @link DISPLAY_MANAGER_ERROR_DEVICE_NOT_SUPPORTED } device not support.\n         { @link DISPLAY_MANAGER_ERROR_SYSTEM_ABNORMAL } If display manager service works abnormally.\n @since 20"]
     #[cfg(feature = "api-20")]
     pub fn OH_NativeDisplayManager_UnregisterAvailableAreaChangeListener(
         listenerIndex: u32,
     ) -> NativeDisplayManager_ErrorCode;
 }
 extern "C" {
-    #[doc = " @brief Create the available area.\n\n @param displayId The display id.\n @param availableArea Indicates the pointer to an <b>NativeDisplayManager_Rect</b> object.\n @return { @link DISPLAY_MANAGER_OK } If the operation is successful\n         { @link DISPLAY_MANAGER_ERROR_DEVICE_NOT_SUPPORTED } device not support.\n         { @link DISPLAY_MANAGER_ERROR_SYSTEM_ABNORMAL } If display manager service works abnormally.\n @since 20"]
+    #[doc = " @brief Create the available area.\n\n @param displayId The display id.\n @param availableArea Indicates the pointer to an <b>NativeDisplayManager_Rect</b> object.\n @return { @link DISPLAY_MANAGER_OK } If the operation is successful\n         { @link DISPLAY_MANAGER_ERROR_DEVICE_NOT_SUPPORTED } device not support.\n         { @link DISPLAY_MANAGER_ERROR_INVALID_SCREEN } Invalid screen.\n         { @link DISPLAY_MANAGER_ERROR_SYSTEM_ABNORMAL } If display manager service works abnormally.\n @since 20"]
     #[cfg(feature = "api-20")]
     pub fn OH_NativeDisplayManager_CreateAvailableArea(
         displayId: u64,
@@ -442,7 +442,7 @@ extern "C" {
 pub type OH_NativeDisplayManager_DisplayAddCallback =
     ::std::option::Option<unsafe extern "C" fn(displayId: u64)>;
 extern "C" {
-    #[doc = " @brief Register the callback for display connect listener.\n\n @param displayAddCallback display add callback.\n @param listenerIndex Indicates the pointer to an <b>uint32_t</b> object. used in unregister call.\n @return { @link DISPLAY_MANAGER_OK } If the operation is successful\n         { @link DISPLAY_MANAGER_ERROR_ILLEGAL_PARAM } If Parameter illegal.\n         { @link DISPLAY_MANAGER_ERROR_SYSTEM_ABNORMAL } If display manager service works abnormally.\n @since 20"]
+    #[doc = " @brief Register the callback for display connect listener.\n\n @param displayAddCallback display add callback.\n @param listenerIndex Indicates the pointer to an <b>uint32_t</b> object. used in unregister call.\n @return { @link DISPLAY_MANAGER_OK } If the operation is successful\n         { @link DISPLAY_MANAGER_ERROR_DEVICE_NOT_SUPPORTED } device not support.\n         { @link DISPLAY_MANAGER_ERROR_ILLEGAL_PARAM } If Parameter illegal.\n         { @link DISPLAY_MANAGER_ERROR_SYSTEM_ABNORMAL } If display manager service works abnormally.\n @since 20"]
     #[cfg(feature = "api-20")]
     pub fn OH_NativeDisplayManager_RegisterDisplayAddListener(
         displayAddCallback: OH_NativeDisplayManager_DisplayAddCallback,
@@ -450,7 +450,7 @@ extern "C" {
     ) -> NativeDisplayManager_ErrorCode;
 }
 extern "C" {
-    #[doc = " @brief Unregister the callback for display connect listener.\n\n @param listenerIndex The display add listener index.\n @return { @link DISPLAY_MANAGER_OK } If the operation is successful\n         { @link DISPLAY_MANAGER_ERROR_ILLEGAL_PARAM } If Parameter illegal.\n         { @link DISPLAY_MANAGER_ERROR_SYSTEM_ABNORMAL } If display manager service works abnormally.\n @since 20"]
+    #[doc = " @brief Unregister the callback for display connect listener.\n\n @param listenerIndex The display add listener index.\n @return { @link DISPLAY_MANAGER_OK } If the operation is successful\n         { @link DISPLAY_MANAGER_ERROR_DEVICE_NOT_SUPPORTED } device not support.\n         { @link DISPLAY_MANAGER_ERROR_ILLEGAL_PARAM } If Parameter illegal.\n         { @link DISPLAY_MANAGER_ERROR_SYSTEM_ABNORMAL } If display manager service works abnormally.\n @since 20"]
     #[cfg(feature = "api-20")]
     pub fn OH_NativeDisplayManager_UnregisterDisplayAddListener(
         listenerIndex: u32,
@@ -461,7 +461,7 @@ extern "C" {
 pub type OH_NativeDisplayManager_DisplayRemoveCallback =
     ::std::option::Option<unsafe extern "C" fn(displayId: u64)>;
 extern "C" {
-    #[doc = " @brief Register the callback for display disconnect listener.\n\n @param displayRemoveCallback display remove callback.\n @param listenerIndex Indicates the pointer to an <b>uint32_t</b> object. used in unregister call.\n @return { @link DISPLAY_MANAGER_OK } If the operation is successful\n         { @link DISPLAY_MANAGER_ERROR_ILLEGAL_PARAM } If Parameter illegal.\n         { @link DISPLAY_MANAGER_ERROR_SYSTEM_ABNORMAL } If display manager service works abnormally.\n @since 20"]
+    #[doc = " @brief Register the callback for display disconnect listener.\n\n @param displayRemoveCallback display remove callback.\n @param listenerIndex Indicates the pointer to an <b>uint32_t</b> object. used in unregister call.\n @return { @link DISPLAY_MANAGER_OK } If the operation is successful\n         { @link DISPLAY_MANAGER_ERROR_DEVICE_NOT_SUPPORTED } device not support.\n         { @link DISPLAY_MANAGER_ERROR_ILLEGAL_PARAM } If Parameter illegal.\n         { @link DISPLAY_MANAGER_ERROR_SYSTEM_ABNORMAL } If display manager service works abnormally.\n @since 20"]
     #[cfg(feature = "api-20")]
     pub fn OH_NativeDisplayManager_RegisterDisplayRemoveListener(
         displayRemoveCallback: OH_NativeDisplayManager_DisplayRemoveCallback,
@@ -469,14 +469,14 @@ extern "C" {
     ) -> NativeDisplayManager_ErrorCode;
 }
 extern "C" {
-    #[doc = " @brief Unregister the callback for display disconnect listener.\n\n @param listenerIndex The display remove listener index.\n @return { @link DISPLAY_MANAGER_OK } If the operation is successful\n         { @link DISPLAY_MANAGER_ERROR_ILLEGAL_PARAM } If Parameter illegal.\n         { @link DISPLAY_MANAGER_ERROR_SYSTEM_ABNORMAL } If display manager service works abnormally.\n @since 20"]
+    #[doc = " @brief Unregister the callback for display disconnect listener.\n\n @param listenerIndex The display remove listener index.\n @return { @link DISPLAY_MANAGER_OK } If the operation is successful\n         { @link DISPLAY_MANAGER_ERROR_DEVICE_NOT_SUPPORTED } device not support.\n         { @link DISPLAY_MANAGER_ERROR_ILLEGAL_PARAM } If Parameter illegal.\n         { @link DISPLAY_MANAGER_ERROR_SYSTEM_ABNORMAL } If display manager service works abnormally.\n @since 20"]
     #[cfg(feature = "api-20")]
     pub fn OH_NativeDisplayManager_UnregisterDisplayRemoveListener(
         listenerIndex: u32,
     ) -> NativeDisplayManager_ErrorCode;
 }
 extern "C" {
-    #[doc = " @brief Get the source mode of the device.\n\n @param displayId The display id.\n @param sourceMode Indicates the pointer to an <b>NativeDisplayManager_SourceMode</b> object.\n @return { @link DISPLAY_MANAGER_OK } If the operation is successful\n         { @link DISPLAY_MANAGER_ERROR_SYSTEM_ABNORMAL } If display manager service works abnormally.\n @since 20"]
+    #[doc = " @brief Get the source mode of the device.\n\n @param displayId The display id.\n @param sourceMode Indicates the pointer to an <b>NativeDisplayManager_SourceMode</b> object.\n @return { @link DISPLAY_MANAGER_OK } If the operation is successful\n         { @link DISPLAY_MANAGER_ERROR_DEVICE_NOT_SUPPORTED } device not support.\n         { @link DISPLAY_MANAGER_ERROR_INVALID_SCREEN } Invalid screen.\n         { @link DISPLAY_MANAGER_ERROR_SYSTEM_ABNORMAL } If display manager service works abnormally.\n @since 20"]
     #[cfg(feature = "api-20")]
     pub fn OH_NativeDisplayManager_GetDisplaySourceMode(
         displayId: u64,
@@ -484,7 +484,7 @@ extern "C" {
     ) -> NativeDisplayManager_ErrorCode;
 }
 extern "C" {
-    #[doc = " @brief Get the position of the device.\n\n @param displayId The display id.\n @param x The x-coordinate of the screen's top-left corner relative to the primary screen's origin (in px).\n @param y The y-coordinate of the screen's top-left corner relative to the primary screen's origin (in px).\n @return { @link DISPLAY_MANAGER_OK } If the operation is successful\n         { @link DISPLAY_MANAGER_ERROR_SYSTEM_ABNORMAL } If display manager service works abnormally.\n @since 20"]
+    #[doc = " @brief Get the position of the device.\n\n @param displayId The display id.\n @param x The x-coordinate of the screen's top-left corner relative to the primary screen's origin (in px).\n @param y The y-coordinate of the screen's top-left corner relative to the primary screen's origin (in px).\n @return { @link DISPLAY_MANAGER_OK } If the operation is successful\n         { @link DISPLAY_MANAGER_ERROR_DEVICE_NOT_SUPPORTED } device not support.\n         { @link DISPLAY_MANAGER_ERROR_INVALID_SCREEN } Invalid screen.\n         { @link DISPLAY_MANAGER_ERROR_SYSTEM_ABNORMAL } If display manager service works abnormally.\n @since 20"]
     #[cfg(feature = "api-20")]
     pub fn OH_NativeDisplayManager_GetDisplayPosition(
         displayId: u64,

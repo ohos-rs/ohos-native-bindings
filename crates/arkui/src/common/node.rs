@@ -2,7 +2,7 @@
 use napi_ohos::bindgen_prelude::{check_status, FromNapiValue, TypeName, ValidateNapiValue};
 #[cfg(feature = "napi")]
 use napi_sys_ohos as sys;
-use ohos_arkui_sys::ArkUI_NodeHandle;
+use ohos_arkui_input_binding::sys::ArkUI_NodeHandle;
 
 #[cfg(feature = "napi")]
 use ohos_arkui_sys::OH_ArkUI_GetNodeHandleFromNapiValue;

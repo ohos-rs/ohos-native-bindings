@@ -3,17 +3,20 @@
 use std::rc::Rc;
 
 use napi_ohos::{Error, Result};
+use ohos_arkui_input_binding::ArkUIInputEvent;
 use ohos_xcomponent_sys::{
     OH_NativeXComponent, OH_NativeXComponent_Callback, OH_NativeXComponent_ExpectedRateRange,
-    OH_NativeXComponent_RegisterCallback, OH_NativeXComponent_RegisterKeyEventCallback,
-    OH_NativeXComponent_RegisterOnFrameCallback, OH_NativeXComponent_SetExpectedFrameRateRange,
+    OH_NativeXComponent_MouseEvent_Callback, OH_NativeXComponent_RegisterCallback,
+    OH_NativeXComponent_RegisterKeyEventCallback, OH_NativeXComponent_RegisterMouseEventCallback,
+    OH_NativeXComponent_RegisterOnFrameCallback, OH_NativeXComponent_RegisterUIInputEventCallback,
+    OH_NativeXComponent_SetExpectedFrameRateRange,
 };
 
 use crate::{
-    code::XComponentResultCode, dispatch_touch_event, key_event, on_frame_change,
-    on_surface_changed, on_surface_created, on_surface_destroyed, raw::XComponentRaw,
-    tool::resolve_id, KeyEventData, RawWindow, TouchEventData, WindowRaw, XComponentOffset,
-    XComponentSize, RAW_WINDOW,
+    code::XComponentResultCode, dispatch_touch_event, key_event, on_frame_change, on_hover_event,
+    on_mouse_event, on_surface_changed, on_surface_created, on_surface_destroyed,
+    on_ui_input_event, raw::XComponentRaw, tool::resolve_id, KeyEventData, MouseEventData,
+    RawWindow, TouchEventData, WindowRaw, XComponentOffset, XComponentSize, RAW_WINDOW,
 };
 
 #[cfg(not(feature = "multi_mode"))]
@@ -246,6 +249,98 @@ impl NativeXComponent {
         if ret != XComponentResultCode::Success {
             return Err(Error::from_reason(
                 "XComponent register key event callback failed",
+            ));
+        }
+        Ok(())
+    }
+
+    pub fn on_hover_event<T: Fn(XComponentRaw, bool) -> Result<()> + 'static>(
+        &self,
+        cb: T,
+    ) -> Result<()> {
+        #[cfg(not(feature = "multi_mode"))]
+        X_COMPONENT_CALLBACKS.with_borrow_mut(|f| {
+            f.on_hover_event = Some(Rc::new(cb));
+        });
+
+        #[cfg(feature = "multi_mode")]
+        {
+            let id = self.id().unwrap();
+            X_COMPONENT_CALLBACKS_MAP.with_borrow_mut(|f| {
+                f.entry(id).or_default().on_hover_event = Some(Rc::new(cb));
+            });
+        }
+        Ok(())
+    }
+
+    pub fn on_mouse_event<
+        T: Fn(XComponentRaw, WindowRaw, MouseEventData) -> Result<()> + 'static,
+    >(
+        &self,
+        cb: T,
+    ) -> Result<()> {
+        #[cfg(not(feature = "multi_mode"))]
+        X_COMPONENT_CALLBACKS.with_borrow_mut(|f| {
+            f.on_mouse_event = Some(Rc::new(cb));
+        });
+
+        #[cfg(feature = "multi_mode")]
+        {
+            let id = self.id().unwrap();
+            X_COMPONENT_CALLBACKS_MAP.with_borrow_mut(|f| {
+                f.entry(id).or_default().on_mouse_event = Some(Rc::new(cb));
+            });
+        }
+        Ok(())
+    }
+
+    pub fn register_mouse_event_callback(&self) -> Result<()> {
+        let callback = Box::new(OH_NativeXComponent_MouseEvent_Callback {
+            DispatchMouseEvent: Some(on_mouse_event),
+            DispatchHoverEvent: Some(on_hover_event),
+        });
+        let ret: XComponentResultCode = unsafe {
+            OH_NativeXComponent_RegisterMouseEventCallback(
+                self.raw(),
+                Box::leak(callback) as *mut _,
+            )
+            .into()
+        };
+        if ret != XComponentResultCode::Success {
+            return Err(Error::from_reason(
+                "XComponent register mouse event callback failed",
+            ));
+        }
+        Ok(())
+    }
+
+    pub fn on_ui_input_event<T: Fn(XComponentRaw, ArkUIInputEvent) -> Result<()> + 'static>(
+        &self,
+        cb: T,
+    ) -> Result<()> {
+        #[cfg(not(feature = "multi_mode"))]
+        X_COMPONENT_CALLBACKS.with_borrow_mut(|f| {
+            f.on_ui_input_event = Some(Rc::new(cb));
+        });
+
+        #[cfg(feature = "multi_mode")]
+        {
+            let id = self.id().unwrap();
+            X_COMPONENT_CALLBACKS_MAP.with_borrow_mut(|f| {
+                f.entry(id).or_default().on_ui_input_event = Some(Rc::new(cb));
+            });
+        }
+        let ret: XComponentResultCode = unsafe {
+            OH_NativeXComponent_RegisterUIInputEventCallback(
+                self.raw(),
+                Some(on_ui_input_event),
+                ohos_arkui_input_binding::UIInputEvent::Axis.into(),
+            )
+            .into()
+        };
+        if ret != XComponentResultCode::Success {
+            return Err(Error::from_reason(
+                "XComponent register ui input event callback failed",
             ));
         }
         Ok(())
