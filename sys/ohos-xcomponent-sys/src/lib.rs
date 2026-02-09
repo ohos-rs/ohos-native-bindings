@@ -5,9 +5,7 @@
 #![allow(non_camel_case_types)]
 #![allow(clippy::missing_safety_doc)]
 
-use ohos_accessibility_sys::*;
 use ohos_arkui_input_sys::*;
-use ohos_arkui_sys::*;
 
 #[link(name = "ace_ndk.z")]
 unsafe extern "C" {}

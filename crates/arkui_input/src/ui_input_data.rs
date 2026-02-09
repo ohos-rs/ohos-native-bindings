@@ -1,12 +1,17 @@
 use ohos_arkui_input_sys::{
     ArkUI_UIInputEvent, OH_ArkUI_AxisEvent_GetHorizontalAxisValue,
-    OH_ArkUI_AxisEvent_GetScrollStep, OH_ArkUI_AxisEvent_GetVerticalAxisValue,
-    OH_ArkUI_PointerEvent_GetChangedPointerId, OH_ArkUI_PointerEvent_GetPointerCount,
+    OH_ArkUI_AxisEvent_GetVerticalAxisValue, OH_ArkUI_PointerEvent_GetPointerCount,
     OH_ArkUI_PointerEvent_GetPointerId, OH_ArkUI_UIInputEvent_GetAction,
     OH_ArkUI_UIInputEvent_GetSourceType, OH_ArkUI_UIInputEvent_GetToolType,
     OH_ArkUI_UIInputEvent_GetType,
 };
 use std::ptr::NonNull;
+
+#[cfg(feature = "api-17")]
+use ohos_arkui_input_sys::OH_ArkUI_AxisEvent_GetScrollStep;
+
+#[cfg(feature = "api-15")]
+use ohos_arkui_input_sys::OH_ArkUI_PointerEvent_GetChangedPointerId;
 
 use crate::{ArkUIInputError, UIInputAction, UIInputEvent, UIInputSourceType, UIInputToolType};
 
