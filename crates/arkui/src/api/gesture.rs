@@ -5,10 +5,12 @@ use std::{
     rc::Rc,
 };
 
+use ohos_arkui_input_binding::sys::ArkUI_NodeHandle;
+use ohos_arkui_input_binding::ArkUIErrorCode;
 use ohos_arkui_sys::{
     ArkUI_GestureEvent, ArkUI_GestureEventActionTypeMask, ArkUI_GestureMask, ArkUI_GesturePriority,
     ArkUI_GestureRecognizerHandle, ArkUI_GroupGestureMode,
-    ArkUI_NativeAPIVariantKind_ARKUI_NATIVE_GESTURE, ArkUI_NativeGestureAPI_1, ArkUI_NodeHandle,
+    ArkUI_NativeAPIVariantKind_ARKUI_NATIVE_GESTURE, ArkUI_NativeGestureAPI_1,
     OH_ArkUI_GestureEvent_GetActionType, OH_ArkUI_LongPress_GetRepeatCount,
     OH_ArkUI_PanGesture_GetOffsetX, OH_ArkUI_PanGesture_GetOffsetY,
     OH_ArkUI_PanGesture_GetVelocity, OH_ArkUI_PanGesture_GetVelocityX,
@@ -19,9 +21,9 @@ use ohos_arkui_sys::{
 };
 
 use crate::{
-    check_arkui_status, ArkUIError, ArkUIErrorCode, ArkUIResult, GestureData, GestureEventAction,
-    GestureEventData, GestureRecognizerType, InnerGestureData, LongPressGestureData,
-    PanGestureData, PinchGestureData, RotationGestureData, SwipeGestureData,
+    check_arkui_status, ArkUIError, ArkUIResult, GestureData, GestureEventAction, GestureEventData,
+    GestureRecognizerType, InnerGestureData, LongPressGestureData, PanGestureData,
+    PinchGestureData, RotationGestureData, SwipeGestureData,
 };
 
 thread_local! {

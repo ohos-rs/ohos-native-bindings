@@ -7,15 +7,16 @@ description = "OpenHarmony's xcomponent binding for rust"
 
 [dependencies]
 ohos-arkui-sys         = { workspace = true }
+ohos-arkui-input-sys   = { workspace = true }
 ohos-accessibility-sys = { workspace = true }
 
 [features]
 default = []
-api-13  = ["ohos-arkui-sys/api-13", "ohos-accessibility-sys/api-13"]
-api-14  = ["api-13", "ohos-arkui-sys/api-14", "ohos-accessibility-sys/api-14"]
-api-15  = ["api-14", "ohos-arkui-sys/api-15", "ohos-accessibility-sys/api-15"]
-api-16  = ["api-15", "ohos-arkui-sys/api-16", "ohos-accessibility-sys/api-16"]
-api-17  = ["api-16", "ohos-arkui-sys/api-17", "ohos-accessibility-sys/api-17"]
-api-18  = ["api-17", "ohos-arkui-sys/api-18", "ohos-accessibility-sys/api-18"]
-api-19  = ["api-18", "ohos-arkui-sys/api-19", "ohos-accessibility-sys/api-19"]
-api-20  = ["api-19", "ohos-arkui-sys/api-20", "ohos-accessibility-sys/api-20"]
+api-13  = ["ohos-arkui-sys/api-13", "ohos-arkui-input-sys/api-13", "ohos-accessibility-sys/api-13"]
+api-14  = ["api-13", "ohos-arkui-sys/api-14", "ohos-arkui-input-sys/api-14", "ohos-accessibility-sys/api-14"]
+api-15  = ["api-14", "ohos-arkui-sys/api-15", "ohos-arkui-input-sys/api-15", "ohos-accessibility-sys/api-15"]
+api-16  = ["api-15", "ohos-arkui-sys/api-16", "ohos-arkui-input-sys/api-16", "ohos-accessibility-sys/api-16"]
+api-17  = ["api-16", "ohos-arkui-sys/api-17", "ohos-arkui-input-sys/api-17", "ohos-accessibility-sys/api-17"]
+api-18  = ["api-17", "ohos-arkui-sys/api-18", "ohos-arkui-input-sys/api-18", "ohos-accessibility-sys/api-18"]
+api-19  = ["api-18", "ohos-arkui-sys/api-19", "ohos-arkui-input-sys/api-19", "ohos-accessibility-sys/api-19"]
+api-20  = ["api-19", "ohos-arkui-sys/api-20", "ohos-arkui-input-sys/api-20", "ohos-accessibility-sys/api-20"]

@@ -7,9 +7,10 @@ use napi_derive_ohos::napi;
 use napi_ohos::Result;
 use ohos_arkui_binding::{
     Animation, AnimationMode, ArkUICommonAttribute, ArkUICommonFontAttribute, ArkUIContext,
-    ArkUIErrorCode, ArkUIEvent, ArkUIGesture, ArkUIHandle, Curve, Dialog, Gesture,
-    GestureEventAction, List, ListItem, RootNode, Text, TextAlignment, TextInput,
+    ArkUIEvent, ArkUIGesture, ArkUIHandle, Curve, Dialog, Gesture, GestureEventAction, List,
+    ListItem, RootNode, Text, TextAlignment, TextInput,
 };
+use ohos_arkui_input_binding::ArkUIErrorCode;
 use ohos_hilog_binding::hilog_info;
 
 #[napi]

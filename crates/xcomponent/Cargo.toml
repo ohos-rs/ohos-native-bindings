@@ -15,21 +15,22 @@ callbacks = []
 
 default = ["callbacks"]
 
-api-13 = ["ohos-xcomponent-sys/api-13"]
-api-14 = ["api-13", "ohos-xcomponent-sys/api-14"]
-api-15 = ["api-14", "ohos-xcomponent-sys/api-15"]
-api-16 = ["api-15", "ohos-xcomponent-sys/api-16"]
-api-17 = ["api-16", "ohos-xcomponent-sys/api-17"]
-api-18 = ["api-17", "ohos-xcomponent-sys/api-18"]
-api-19 = ["api-18", "ohos-xcomponent-sys/api-19"]
-api-20 = ["api-19", "ohos-xcomponent-sys/api-20"]
+api-13 = ["ohos-xcomponent-sys/api-13", "ohos-arkui-input-binding/api-13"]
+api-14 = ["api-13", "ohos-xcomponent-sys/api-14", "ohos-arkui-input-binding/api-14"]
+api-15 = ["api-14", "ohos-xcomponent-sys/api-15", "ohos-arkui-input-binding/api-15"]
+api-16 = ["api-15", "ohos-xcomponent-sys/api-16", "ohos-arkui-input-binding/api-16"]
+api-17 = ["api-16", "ohos-xcomponent-sys/api-17", "ohos-arkui-input-binding/api-17"]
+api-18 = ["api-17", "ohos-xcomponent-sys/api-18", "ohos-arkui-input-binding/api-18"]
+api-19 = ["api-18", "ohos-xcomponent-sys/api-19", "ohos-arkui-input-binding/api-19"]
+api-20 = ["api-19", "ohos-xcomponent-sys/api-20", "ohos-arkui-input-binding/api-20"]
 
 [dependencies]
-napi-sys-ohos       = { workspace = true }
-ohos-xcomponent-sys = { workspace = true }
-napi-ohos           = { workspace = true }
-napi-derive-ohos    = { workspace = true }
-ohos_enum_macro     = { workspace = true }
-raw-window-handle   = { workspace = true }
+napi-sys-ohos            = { workspace = true }
+ohos-xcomponent-sys      = { workspace = true }
+napi-ohos                = { workspace = true }
+napi-derive-ohos         = { workspace = true }
+ohos_enum_macro          = { workspace = true }
+raw-window-handle        = { workspace = true }
+ohos-arkui-input-binding = { workspace = true }
 
 ohos-hilog-binding = { workspace = true, optional = true }

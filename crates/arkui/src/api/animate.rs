@@ -1,5 +1,6 @@
 use std::{cell::LazyCell, ffi::CString};
 
+use ohos_arkui_input_binding::ArkUIErrorCode;
 use ohos_arkui_sys::{
     ArkUI_AnimateCompleteCallback, ArkUI_AnimateOption, ArkUI_ContextCallback, ArkUI_ContextHandle,
     ArkUI_NativeAPIVariantKind_ARKUI_NATIVE_ANIMATE, ArkUI_NativeAnimateAPI_1,
@@ -8,7 +9,7 @@ use ohos_arkui_sys::{
 
 use crate::{
     check_arkui_status,
-    common::{ArkUIError, ArkUIErrorCode, ArkUIResult},
+    common::{ArkUIError, ArkUIResult},
 };
 
 thread_local! {
