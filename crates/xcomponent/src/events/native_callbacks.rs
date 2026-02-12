@@ -305,7 +305,7 @@ pub unsafe extern "C" fn on_hover_event(xcomponent: *mut OH_NativeXComponent, is
         let id = resolve_id(xcomponent.0).unwrap();
         if let Some(callback) = cb.get(&id) {
             if let Some(callback) = &callback.on_hover_event {
-                callback(xcomponent, window, is_hover).unwrap();
+                callback(xcomponent, is_hover).unwrap();
             }
         }
     }

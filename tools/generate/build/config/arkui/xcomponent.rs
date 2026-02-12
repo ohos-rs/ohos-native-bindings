@@ -15,5 +15,6 @@ pub const XCOMPONENT: Lazy<SysConfig> = Lazy::new(|| SysConfig {
     ],
     block_list: vec!["ArkUI_[A-WY-Z].*"],
     dynamic_library: vec!["ace_ndk.z"],
-    extra: "\n\nuse ohos_arkui_input_sys::*;",
+    extra:
+        "\n\n#[allow(unused_imports)]\nuse ohos_accessibility_sys::*;\nuse ohos_arkui_input_sys::*;",
 });
