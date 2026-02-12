@@ -3,15 +3,17 @@ use std::os::raw::c_void;
 use std::rc::Rc;
 use std::{cell::LazyCell, ffi::CString};
 
+use ohos_arkui_input_binding::sys::ArkUI_NodeHandle;
+use ohos_arkui_input_binding::ArkUIErrorCode;
 use ohos_arkui_sys::{
     ArkUI_NativeAPIVariantKind_ARKUI_NATIVE_NODE, ArkUI_NativeNodeAPI_1, ArkUI_NodeEvent,
-    ArkUI_NodeEventType, ArkUI_NodeHandle, OH_ArkUI_NodeEvent_GetEventType,
-    OH_ArkUI_NodeEvent_GetNodeHandle, OH_ArkUI_QueryModuleInterfaceByName,
+    ArkUI_NodeEventType, OH_ArkUI_NodeEvent_GetEventType, OH_ArkUI_NodeEvent_GetNodeHandle,
+    OH_ArkUI_QueryModuleInterfaceByName,
 };
 
 use crate::{check_arkui_status, ArkUINodeAttributeType, ArkUINodeType, NodeEventType};
 
-use crate::common::{ArkUIError, ArkUIErrorCode, ArkUINode, ArkUINodeAttributeItem, ArkUIResult};
+use crate::common::{ArkUIError, ArkUINode, ArkUINodeAttributeItem, ArkUIResult};
 
 thread_local! {
     /// ArkUI_NativeNodeAPI_1 struct

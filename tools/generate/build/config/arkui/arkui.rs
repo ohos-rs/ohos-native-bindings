@@ -18,7 +18,13 @@ pub const ARKUI: Lazy<SysConfig> = Lazy::new(|| SysConfig {
         "arkui/styled_string.h",
     ],
     white_list: vec!["ArkUI_.*", "ARKUI_.*", "OH_.*"],
-    block_list: vec!["napi_.*"],
+    block_list: vec![
+        "napi_.*",
+        "ArkUI_ErrorCode",
+        ".*UIInputEvent.*",
+        "ArkUI_NodeHandle",
+        "ArkUI_Node",
+    ],
     dynamic_library: vec!["ace_ndk.z"],
-    extra: "\n\nuse napi_sys_ohos::*;",
+    extra: "\n\nuse napi_sys_ohos::*;\nuse ohos_arkui_input_sys::*;",
 });

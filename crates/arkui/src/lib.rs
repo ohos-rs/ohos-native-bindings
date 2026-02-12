@@ -17,3 +17,6 @@ pub use dialog::*;
 pub use event::*;
 pub use gesture::*;
 pub use r#type::*;
+
+// re-export arkui_input_binding
+pub use ohos_arkui_input_binding as arkui_input_binding;

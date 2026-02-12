@@ -23,6 +23,7 @@ ohos-pasteboard-binding             = { version = "0.0.1", path = "crates/pasteb
 ohos-web-binding                    = { version = "0.1.0", path = "crates/web" }
 ohos-sensor-binding                 = { version = "0.1.0", path = "crates/sensor" }
 ohos-vibrator-binding               = { version = "0.1.0", path = "crates/vibrator" }
+ohos-arkui-input-binding            = { version = "0.1.0", path = "crates/arkui_input" }
 
 ohos-bundle-sys                 = { version = "0.0.2", path = "sys/ohos-bundle-sys" }
 ohos-init-sys                   = { version = "0.0.2", path = "sys/ohos-init-sys" }
@@ -49,6 +50,7 @@ ohos-sensor-sys                 = { version = "0.1.0", path = "sys/ohos-sensor-s
 ohos-vibrator-sys               = { version = "0.1.0", path = "sys/ohos-vibrator-sys" }
 ohos-qos-sys                    = { version = "0.0.1", path = "sys/ohos-qos-sys" }
 ohos-audio-sys                  = { version = "0.0.1", path = "sys/ohos-audio-sys" }
+ohos-arkui-input-sys            = { version = "0.1.0", path = "sys/ohos-arkui-input-sys" }
 
 ohos_enum_macro = { version = "0.0.2", path = "crates/enum_macro" }
 

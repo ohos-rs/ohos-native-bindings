@@ -6,6 +6,7 @@
 #![allow(clippy::missing_safety_doc)]
 
 use napi_sys_ohos::*;
+use ohos_arkui_input_sys::*;
 
 #[link(name = "ace_ndk.z")]
 unsafe extern "C" {}
@@ -84,12 +85,6 @@ extern "C" {
         drawableDescriptor: *mut ArkUI_DrawableDescriptor,
     ) -> i32;
 }
-#[doc = " @brief Defines the ArkUI native component object.\n\n @since 12"]
-#[repr(C)]
-#[derive(Debug, Copy, Clone)]
-pub struct ArkUI_Node {
-    _unused: [u8; 0],
-}
 #[repr(C)]
 #[derive(Debug, Copy, Clone)]
 pub struct ArkUI_NodeContent {
@@ -113,8 +108,6 @@ pub struct ArkUI_LayoutConstraint {
 pub struct ArkUI_DrawContext {
     _unused: [u8; 0],
 }
-#[doc = " @brief Defines the pointer to the ArkUI native component object.\n\n @since 12"]
-pub type ArkUI_NodeHandle = *mut ArkUI_Node;
 #[doc = " @brief Defines the pointer to the custom dialog box controller of ArkUI on the native side.\n\n @since 12"]
 pub type ArkUI_NativeDialogHandle = *mut ArkUI_NativeDialog;
 #[repr(C)]
@@ -1557,112 +1550,6 @@ pub const ArkUI_ListItemSwipeEdgeEffect_ARKUI_LIST_ITEM_SWIPE_EDGE_EFFECT_NONE:
     ArkUI_ListItemSwipeEdgeEffect = 1;
 #[doc = " @brief Define the explicit and implicit mode of the SwipeAction method for the Listitem component.\n\n @since 12"]
 pub type ArkUI_ListItemSwipeEdgeEffect = u32;
-#[doc = " @error No errors."]
-pub const ArkUI_ErrorCode_ARKUI_ERROR_CODE_NO_ERROR: ArkUI_ErrorCode = 0;
-#[doc = " @error Parameter error."]
-pub const ArkUI_ErrorCode_ARKUI_ERROR_CODE_PARAM_INVALID: ArkUI_ErrorCode = 401;
-#[cfg(feature = "api-18")]
-#[doc = " @error CAPI init error.\n @since 18"]
-pub const ArkUI_ErrorCode_ARKUI_ERROR_CODE_CAPI_INIT_ERROR: ArkUI_ErrorCode = 500;
-#[cfg(feature = "api-15")]
-#[doc = " @error Internal error occurs, such as failure occurs because of the internal environment error,\n or operation failed because of the internal execution failed.\n @since 15"]
-pub const ArkUI_ErrorCode_ARKUI_ERROR_CODE_INTERNAL_ERROR: ArkUI_ErrorCode = 100001;
-#[cfg(feature = "api-19")]
-#[doc = " @error The XComponent is in invalid state.\n @since 19"]
-pub const ArkUI_ErrorCode_ARKUI_ERROR_CODE_XCOMPONENT_STATE_INVALID: ArkUI_ErrorCode = 103501;
-#[doc = " @error The component does not support specific properties or events."]
-pub const ArkUI_ErrorCode_ARKUI_ERROR_CODE_ATTRIBUTE_OR_EVENT_NOT_SUPPORTED: ArkUI_ErrorCode =
-    106102;
-#[doc = " @error The corresponding operation does not support nodes created by ArkTS."]
-pub const ArkUI_ErrorCode_ARKUI_ERROR_CODE_ARKTS_NODE_NOT_SUPPORTED: ArkUI_ErrorCode = 106103;
-#[doc = " @error The lazy loading adapter is not bound to the component."]
-pub const ArkUI_ErrorCode_ARKUI_ERROR_CODE_ADAPTER_NOT_BOUND: ArkUI_ErrorCode = 106104;
-#[doc = " @error The adapter already exists."]
-pub const ArkUI_ErrorCode_ARKUI_ERROR_CODE_ADAPTER_EXIST: ArkUI_ErrorCode = 106105;
-#[doc = " @error The corresponding node already has a child node and cannot add an adapter."]
-pub const ArkUI_ErrorCode_ARKUI_ERROR_CODE_CHILD_NODE_EXIST: ArkUI_ErrorCode = 106106;
-#[doc = " The parameter length in the parameter event exceeds the limit."]
-pub const ArkUI_ErrorCode_ARKUI_ERROR_CODE_NODE_EVENT_PARAM_INDEX_OUT_OF_RANGE: ArkUI_ErrorCode =
-    106107;
-#[doc = " The data does not exist in the component event."]
-pub const ArkUI_ErrorCode_ARKUI_ERROR_CODE_NODE_EVENT_PARAM_INVALID: ArkUI_ErrorCode = 106108;
-#[doc = " The component event does not support return values."]
-pub const ArkUI_ErrorCode_ARKUI_ERROR_CODE_NODE_EVENT_NO_RETURN: ArkUI_ErrorCode = 106109;
-#[doc = " The index value is invalid."]
-pub const ArkUI_ErrorCode_ARKUI_ERROR_CODE_NODE_INDEX_INVALID: ArkUI_ErrorCode = 106200;
-#[doc = "  Failed to query route navigation information."]
-pub const ArkUI_ErrorCode_ARKUI_ERROR_CODE_GET_INFO_FAILED: ArkUI_ErrorCode = 106201;
-#[doc = " The buffer size is not large enough."]
-pub const ArkUI_ErrorCode_ARKUI_ERROR_CODE_BUFFER_SIZE_ERROR: ArkUI_ErrorCode = 106202;
-#[cfg(feature = "api-15")]
-#[doc = " @error The node is not on main tree.\n @since 15"]
-pub const ArkUI_ErrorCode_ARKUI_ERROR_CODE_NODE_NOT_ON_MAIN_TREE: ArkUI_ErrorCode = 106203;
-#[cfg(feature = "api-20")]
-#[doc = " @error Force dark config is invalid.\n @since 20"]
-pub const ArkUI_ErrorCode_ARKUI_ERROR_CODE_FORCE_DARK_CONFIG_INVALID: ArkUI_ErrorCode = 106205;
-#[cfg(feature = "api-20")]
-#[doc = " @error The node type is not custom node.\n @since 20"]
-pub const ArkUI_ErrorCode_ARKUI_ERROR_CODE_NOT_CUSTOM_NODE: ArkUI_ErrorCode = 106401;
-#[cfg(feature = "api-20")]
-#[doc = " @error Node already has children.\n @since 20"]
-pub const ArkUI_ErrorCode_ARKUI_ERROR_CODE_CHILD_EXISTED: ArkUI_ErrorCode = 106402;
-#[cfg(feature = "api-20")]
-#[doc = " @error RenderNode parent is existed.\n @since 20"]
-pub const ArkUI_ErrorCode_ARKUI_ERROR_CODE_RENDER_PARENT_EXISTED: ArkUI_ErrorCode = 106403;
-#[cfg(feature = "api-20")]
-#[doc = " @error RenderNode child is not exist.\n @since 20"]
-pub const ArkUI_ErrorCode_ARKUI_ERROR_CODE_RENDER_CHILD_NOT_EXIST: ArkUI_ErrorCode = 106404;
-#[cfg(feature = "api-20")]
-#[doc = " @error Param is out of range.\n @since 20"]
-pub const ArkUI_ErrorCode_ARKUI_ERROR_CODE_PARAM_OUT_OF_RANGE: ArkUI_ErrorCode = 106405;
-#[cfg(feature = "api-15")]
-#[doc = " @error The node requesting focus is not focusable.\n @since 15"]
-pub const ArkUI_ErrorCode_ARKUI_ERROR_CODE_FOCUS_NON_FOCUSABLE: ArkUI_ErrorCode = 150001;
-#[cfg(feature = "api-15")]
-#[doc = " @error The node requesting focus has unfocusable ancestor.\n @since 15"]
-pub const ArkUI_ErrorCode_ARKUI_ERROR_CODE_FOCUS_NON_FOCUSABLE_ANCESTOR: ArkUI_ErrorCode = 150002;
-#[cfg(feature = "api-15")]
-#[doc = " @error The node requesting focus does not exists.\n @since 15"]
-pub const ArkUI_ErrorCode_ARKUI_ERROR_CODE_FOCUS_NON_EXISTENT: ArkUI_ErrorCode = 150003;
-#[cfg(feature = "api-15")]
-#[doc = " @error The snapshot taking is timeout.\n @since 15"]
-pub const ArkUI_ErrorCode_ARKUI_ERROR_CODE_COMPONENT_SNAPSHOT_TIMEOUT: ArkUI_ErrorCode = 160002;
-#[doc = " The component is not a scroll container."]
-pub const ArkUI_ErrorCode_ARKUI_ERROR_CODE_NON_SCROLLABLE_CONTAINER: ArkUI_ErrorCode = 180001;
-#[doc = " The buffer is not large enough."]
-pub const ArkUI_ErrorCode_ARKUI_ERROR_CODE_BUFFER_SIZE_NOT_ENOUGH: ArkUI_ErrorCode = 180002;
-#[cfg(feature = "api-15")]
-#[doc = " @error The event is not a clone event.\n @since 15"]
-pub const ArkUI_ErrorCode_ARKUI_ERROR_CODE_NOT_CLONED_POINTER_EVENT: ArkUI_ErrorCode = 180003;
-#[cfg(feature = "api-15")]
-#[doc = " @error The component status is abnormal.\n @since 15"]
-pub const ArkUI_ErrorCode_ARKUI_ERROR_CODE_POST_CLONED_COMPONENT_STATUS_ABNORMAL: ArkUI_ErrorCode =
-    180004;
-#[cfg(feature = "api-15")]
-#[doc = " @error No component hit to respond to the event.\n @since 15"]
-pub const ArkUI_ErrorCode_ARKUI_ERROR_CODE_POST_CLONED_NO_COMPONENT_HIT_TO_RESPOND_TO_THE_EVENT:
-    ArkUI_ErrorCode = 180005;
-#[cfg(feature = "api-20")]
-#[doc = " @error Input event type not supported.\n @since 20"]
-pub const ArkUI_ErrorCode_ARKUI_ERROR_INPUT_EVENT_TYPE_NOT_SUPPORTED: ArkUI_ErrorCode = 180006;
-#[cfg(feature = "api-14")]
-#[doc = " @error invalid styled string.\n @since 14"]
-pub const ArkUI_ErrorCode_ARKUI_ERROR_CODE_INVALID_STYLED_STRING: ArkUI_ErrorCode = 180101;
-#[cfg(feature = "api-18")]
-#[doc = " @error The gesture recognizer type is not supported.\n @since 18"]
-pub const ArkUI_ErrorCode_ARKUI_ERROR_CODE_RECOGNIZER_TYPE_NOT_SUPPORTED: ArkUI_ErrorCode = 180102;
-#[cfg(feature = "api-18")]
-#[doc = " @error The uiContext is invalid.\n @since 18"]
-pub const ArkUI_ErrorCode_ARKUI_ERROR_CODE_UI_CONTEXT_INVALID: ArkUI_ErrorCode = 190001;
-#[cfg(feature = "api-18")]
-#[doc = " @error The callback function is invalid.\n @since 18"]
-pub const ArkUI_ErrorCode_ARKUI_ERROR_CODE_CALLBACK_INVALID: ArkUI_ErrorCode = 190002;
-#[cfg(feature = "api-19")]
-#[doc = " @error operation is not allowed for current drag drop pharse.\n @since 19"]
-pub const ArkUI_ErrorCode_ARKUI_ERROR_CODE_DRAG_DROP_OPERATION_NOT_ALLOWED: ArkUI_ErrorCode =
-    190004;
-#[doc = " @brief Define error code enumeration values.\n\n @since 12"]
-pub type ArkUI_ErrorCode = u32;
 #[doc = " The animation is in the initial state."]
 pub const ArkUI_AnimationStatus_ARKUI_ANIMATION_STATUS_INITIAL: ArkUI_AnimationStatus = 0;
 #[doc = " The animation is being played."]
@@ -6662,21 +6549,6 @@ extern "C" {
         animation: *mut ArkUI_AnimateOption,
     ) -> i32;
 }
-#[repr(C)]
-#[derive(Debug, Copy, Clone)]
-pub struct ArkUI_UIInputEvent {
-    _unused: [u8; 0],
-}
-pub const ArkUI_UIInputEvent_Type_ARKUI_UIINPUTEVENT_TYPE_UNKNOWN: ArkUI_UIInputEvent_Type = 0;
-pub const ArkUI_UIInputEvent_Type_ARKUI_UIINPUTEVENT_TYPE_TOUCH: ArkUI_UIInputEvent_Type = 1;
-pub const ArkUI_UIInputEvent_Type_ARKUI_UIINPUTEVENT_TYPE_AXIS: ArkUI_UIInputEvent_Type = 2;
-#[doc = " Mouse event."]
-pub const ArkUI_UIInputEvent_Type_ARKUI_UIINPUTEVENT_TYPE_MOUSE: ArkUI_UIInputEvent_Type = 3;
-#[cfg(feature = "api-20")]
-#[doc = " @brief key event.\n\n @since 20"]
-pub const ArkUI_UIInputEvent_Type_ARKUI_UIINPUTEVENT_TYPE_KEY: ArkUI_UIInputEvent_Type = 4;
-#[doc = " @brief Enumerates the UI input event types.\n\n @since 12"]
-pub type ArkUI_UIInputEvent_Type = u32;
 #[doc = " Both the node and its child node respond to the hit test of a touch event, but its sibling node is blocked from\n  the hit test."]
 pub const HitTestMode_HTM_DEFAULT: HitTestMode = 0;
 #[doc = " The node responds to the hit test of a touch event, but its child node and sibling node are blocked from the hit\n  test."]
@@ -6715,26 +6587,6 @@ pub const ArkUI_InteractionHand_ARKUI_EVENT_HAND_RIGHT: ArkUI_InteractionHand = 
 #[cfg(feature = "api-15")]
 #[doc = " @brief Defines whether the touch event is from the left or right hand.\n\n @since 15"]
 pub type ArkUI_InteractionHand = u32;
-extern "C" {
-    #[doc = " @brief Obtains the type of a UI input event.\n\n Before accessing an <b>ArkUI_UIInputEvent</b> pointer, use this API to determine the type of the input event.\n This API returns a value from the {@link ArkUI_UIInputEvent_Type} enum. It helps ensure compatibility with subsequent\n accessors. For example, if the event is a touch event,\n which is directional, you can use OH_ArkUI_UIInputEvent_GetXXX or OH_ArkUI_PointerEvent_GetXXX for access.\n Using OH_ArkUI_KeyEvent_GetXXX to access the event may produce undefined behavior.\n\n For unsupported event types, this API returns the default value <b>0</b>.\n\n @param event Pointer to the current UI input event.\n @return Returns the type of the current UI input event; returns <b>0</b> if any parameter error occurs.\n @since 12"]
-    pub fn OH_ArkUI_UIInputEvent_GetType(event: *const ArkUI_UIInputEvent) -> i32;
-}
-extern "C" {
-    #[doc = " @brief Obtains the action type of this UI input event.\n\n The action type defines the phase of a basic event (for example, start or end) and characterizes its behavior,\n such as touch down or touch up Action types are specific to the event category:\n UI_TOUCH_EVENT_ACTION_XXX for touch events and UI_MOUSE_EVENT_ACTION_XXX for mouse events.\n\n @note\n 1. For axis events, use {@link OH_ArkUI_AxisEvent_GetAxisAction} to obtain the action type,\n    which returns UI_AXIS_EVENT_ACTION_XXX.\n 2. For key events, use {@link OH_ArkUI_KeyEvent_GetType} instead.\n\n @param event Pointer to the current UI input event.\n @return Returns the action type of the current UI input event; returns <b>-1</b> if any parameter error occurs.\n @since 12"]
-    pub fn OH_ArkUI_UIInputEvent_GetAction(event: *const ArkUI_UIInputEvent) -> i32;
-}
-extern "C" {
-    #[doc = " @brief Obtains the source type of a UI input event.\n\n The source represents the physical device, such as a touchscreen or mouse device, that generates the event.\n It is defined by the UI_INPUT_EVENT_SOURCE_TYPE_XXX enum.\n This is different from the input tool, which is the device used to interact with the source, for example,\n a finger or stylus. However, in certain cases, the input source and the input tool can be the same.\n For example, a mouse device acts as both the source and tool for click events.\n\n @note For key events, obtaining the source type is not supported, and in such cases,\n       the API will return an <b>unknown</b> value.\n\n @param event Pointer to the current UI input event.\n @return Returns the source type of the current UI input event.\n @since 12"]
-    pub fn OH_ArkUI_UIInputEvent_GetSourceType(event: *const ArkUI_UIInputEvent) -> i32;
-}
-extern "C" {
-    #[doc = " @brief Obtains the tool type of a UI input event.\n\n The input tool is the device used to interact with the input source, such as a finger or stylus.\n It is defined by the UI_INPUT_EVENT_TOOL_TYPE_XXX enum.\n These tools do not produce events directly but drive the input source to generate them.\n\n @note For key events, obtaining the tool type is not supported, and in such cases,\n       the API will return an <b>unknown</b> value.\n\n @param event Pointer to the current UI input event.\n @return Returns the tool type of the current UI input event.\n @since 12"]
-    pub fn OH_ArkUI_UIInputEvent_GetToolType(event: *const ArkUI_UIInputEvent) -> i32;
-}
-extern "C" {
-    #[doc = " @brief Obtains the time when this UI input event occurs.\n\n @param event Indicates the pointer to the current UI input event.\n @return Returns the time when the UI input event occurs; returns <b>0</b> if any parameter error occurs.\n @since 12"]
-    pub fn OH_ArkUI_UIInputEvent_GetEventTime(event: *const ArkUI_UIInputEvent) -> i64;
-}
 extern "C" {
     #[doc = " @brief Obtains the number of contact points from a pointer event (such as a touch, mouse, or axis event).\n\n Pointer events are typically events that carry position information, such as touch events,\n where the location of the event can be determined.\n Non-pointer events, such as key events, do not have position information and do not involve contact points,\n so this API is not applicable to key events.\n\n For touch events, this API returns the number of active touch points, for example, fingers on the screen.\n For mouse and axis events, this API always returns <b>1</b>, as they are single-pointer interactions.\n\n @param event Pointer to the current UI input event.\n @return Number of contact points for the current pointer event.\n @since 12"]
     pub fn OH_ArkUI_PointerEvent_GetPointerCount(event: *const ArkUI_UIInputEvent) -> u32;
@@ -7078,20 +6930,6 @@ extern "C" {
     ) -> i32;
 }
 extern "C" {
-    #[cfg(feature = "api-14")]
-    #[doc = " @brief Obtains the ID of device that triggers UI input event.\n\n @param event Pointer to an <b>ArkUI_UIInputEvent</b> object.\n @return Returns the device ID.\n @since 14"]
-    pub fn OH_ArkUI_UIInputEvent_GetDeviceId(event: *const ArkUI_UIInputEvent) -> i32;
-}
-extern "C" {
-    #[cfg(feature = "api-14")]
-    #[doc = " @brief Obtains all keys that are pressed from UI input event. Only supports key events currently.\n\n @param event Pointer to an <b>ArkUI_UIInputEvent</b> object.\n @param pressedKeyCodes Array of all keys that are pressed. You need to allocate the memory space.\n @param length Length of the passed pressedKeyCodes array (when used as an input parameter);\n               number of the keys pressed (when used as an output parameter).\n @return Returns the result code.\n         Returns {@link ARKUI_ERROR_CODE_NO_ERROR} if the operation is successful.\n         Returns {@link ARKUI_ERROR_CODE_BUFFER_SIZE_NOT_ENOUGH} if the giving buffer is not enough.\n         Returns {@link ARKUI_ERROR_CODE_PARAM_INVALID} if a parameter error occurs.\n @since 14"]
-    pub fn OH_ArkUI_UIInputEvent_GetPressedKeys(
-        event: *const ArkUI_UIInputEvent,
-        pressedKeyCodes: *mut i32,
-        length: *mut i32,
-    ) -> i32;
-}
-extern "C" {
     #[cfg(feature = "api-15")]
     #[doc = " @brief Obtains the axis value of a focus axis event.\n\n @param event Pointer to an <b>ArkUI_UIInputEvent</b> object.\n @param axis Axis type of the focus axis event.\n @return Returns the axis value of the focus axis event; returns <b>0.0</b> if any parameter error occurs.\n @since 15"]
     pub fn OH_ArkUI_FocusAxisEvent_GetAxisValue(event: *const ArkUI_UIInputEvent, axis: i32)
@@ -7107,50 +6945,8 @@ extern "C" {
 }
 extern "C" {
     #[cfg(feature = "api-17")]
-    #[doc = " @brief Obtains the width of the component hit by an event.\n\n @param event Pointer to an <b>ArkUI_UIInputEvent</b> object.\n @return Returns the width of the component hit by the event; returns <b>0.0f</b> if any parameter error occurs.\n @since 17"]
-    pub fn OH_ArkUI_UIInputEvent_GetEventTargetWidth(event: *const ArkUI_UIInputEvent) -> f32;
-}
-extern "C" {
-    #[cfg(feature = "api-17")]
-    #[doc = " @brief Obtains the height of the component hit by an event.\n\n @param event Pointer to an <b>ArkUI_UIInputEvent</b> object.\n @return Returns the height of the component hit by the event; returns <b>0.0f</b> if any parameter error occurs.\n @since 17"]
-    pub fn OH_ArkUI_UIInputEvent_GetEventTargetHeight(event: *const ArkUI_UIInputEvent) -> f32;
-}
-extern "C" {
-    #[cfg(feature = "api-17")]
-    #[doc = " @brief Obtains the X coordinate of the component hit by an event.\n\n @param event Pointer to an <b>ArkUI_UIInputEvent</b> object.\n @return Returns the X coordinate of the component hit by the event; returns <b>0.0f</b> if any parameter error occurs.\n @since 17"]
-    pub fn OH_ArkUI_UIInputEvent_GetEventTargetPositionX(event: *const ArkUI_UIInputEvent) -> f32;
-}
-extern "C" {
-    #[cfg(feature = "api-17")]
-    #[doc = " @brief Obtains the Y coordinate of the component hit by an event.\n\n @param event Pointer to an <b>ArkUI_UIInputEvent</b> object.\n @return Returns the Y coordinate of the component hit by the event;\n         returns <b>0.0f</b> if any parameter error occurs.\n @since 17"]
-    pub fn OH_ArkUI_UIInputEvent_GetEventTargetPositionY(event: *const ArkUI_UIInputEvent) -> f32;
-}
-extern "C" {
-    #[cfg(feature = "api-17")]
-    #[doc = " @brief Obtains the global X coordinate of the component hit by an event.\n\n @param event Pointer to an <b>ArkUI_UIInputEvent</b> object.\n @return Returns the global X coordinate of the component hit by the event;\n         returns <b>0.0f</b> if any parameter error occurs.\n @since 17"]
-    pub fn OH_ArkUI_UIInputEvent_GetEventTargetGlobalPositionX(
-        event: *const ArkUI_UIInputEvent,
-    ) -> f32;
-}
-extern "C" {
-    #[cfg(feature = "api-17")]
-    #[doc = " @brief Obtains the global Y coordinate of the component hit by an event.\n\n @param event Pointer to an <b>ArkUI_UIInputEvent</b> object.\n @return Returns the global Y coordinate of the component hit by the event;\n         returns <b>0.0f</b> if any parameter error occurs.\n @since 17"]
-    pub fn OH_ArkUI_UIInputEvent_GetEventTargetGlobalPositionY(
-        event: *const ArkUI_UIInputEvent,
-    ) -> f32;
-}
-extern "C" {
-    #[cfg(feature = "api-17")]
     #[doc = " @brief Checks whether the cursor is hovering over this component.\n\n @param event Pointer to an <b>ArkUI_UIInputEvent</b> object.\n @return Returns <b>true</b> if the cursor is hovering over the current component.\n         Returns <b>false</b> if the cursor is not hovering over the current component.\n @since 17"]
     pub fn OH_ArkUI_HoverEvent_IsHovered(event: *const ArkUI_UIInputEvent) -> bool;
-}
-extern "C" {
-    #[cfg(feature = "api-17")]
-    #[doc = " @brief Obtains the modifier key states for a UI input event.\n This API outputs the state of all modifier keys at the time of the event through the <b>keys</b> parameter.\n You can determine which keys are pressed by performing bitwise operations with the modifier key types defined\n in {@link ArkUI_ModifierKeyName}.\n\n @param event Pointer to an <b>ArkUI_UIInputEvent</b> object.\n @param keys Pointer to a variable where the current combination of pressed modifier keys will be returned.\n        The application can use bitwise operations to determine the state of each modifier key.\n @return Result code.\n         {@link ARKUI_ERROR_CODE_NO_ERROR} if the operation is successful.\n         {@link ARKUI_ERROR_CODE_PARAM_INVALID} if a parameter error occurs.\n @since 17"]
-    pub fn OH_ArkUI_UIInputEvent_GetModifierKeyStates(
-        event: *const ArkUI_UIInputEvent,
-        keys: *mut u64,
-    ) -> i32;
 }
 extern "C" {
     #[cfg(feature = "api-15")]
@@ -7178,11 +6974,6 @@ extern "C" {
         pressedButtons: *mut i32,
         length: *mut i32,
     ) -> i32;
-}
-extern "C" {
-    #[cfg(feature = "api-15")]
-    #[doc = " @brief Obtains the ID of the screen where the UI input event occurs.\n\n @param event Pointer to an <b>ArkUI_UIInputEvent</b> object.\n @return Returns the screen ID; returns <b>0</b> if any parameter error occurs.\n @since 15"]
-    pub fn OH_ArkUI_UIInputEvent_GetTargetDisplayId(event: *const ArkUI_UIInputEvent) -> i32;
 }
 extern "C" {
     #[cfg(feature = "api-17")]
@@ -7261,11 +7052,6 @@ extern "C" {
         node: ArkUI_NodeHandle,
         event: *const ArkUI_UIInputEvent,
     ) -> i32;
-}
-extern "C" {
-    #[cfg(feature = "api-20")]
-    #[doc = " @brief Use this method to obtain the execution status of the latest UI input related method.\n\n In most cases, this method is unnecessary unless you need to determine if the return value indicates an error.\n Here's an example of usage: For return values like float (where 0.0 doesn't indicate an error), use GetLatestStatus\n to confirm if an error occurred.\n    float x = OH_ArkUI_PointerEvent_GetX(event);\n    if (ARKUI_ERROR_CODE_NO_ERROR != OH_ArkUI_UIInputEvent_GetLatestStatus()) {\n        // error\n        return;\n     }\n Note: The system clears the status of the previous function call each time a UIInput-related function is executed,\n ensuring you always get the latest status.\n\n @return Returns the ArkUI_ErrorCode.\n @since 20"]
-    pub fn OH_ArkUI_UIInputEvent_GetLatestStatus() -> ArkUI_ErrorCode;
 }
 #[doc = " Custom node."]
 pub const ArkUI_NodeType_ARKUI_NODE_CUSTOM: ArkUI_NodeType = 0;

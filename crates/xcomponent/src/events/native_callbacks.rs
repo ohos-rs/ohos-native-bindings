@@ -2,15 +2,17 @@
 
 use std::mem::MaybeUninit;
 
+use ohos_arkui_input_binding::ArkUIInputEvent;
 use ohos_xcomponent_sys::{
     OH_NativeXComponent, OH_NativeXComponent_GetKeyEvent, OH_NativeXComponent_GetKeyEventAction,
     OH_NativeXComponent_GetKeyEventCode, OH_NativeXComponent_GetKeyEventDeviceId,
     OH_NativeXComponent_GetKeyEventSourceType, OH_NativeXComponent_GetKeyEventTimestamp,
-    OH_NativeXComponent_GetTouchEvent, OH_NativeXComponent_GetTouchPointToolType,
+    OH_NativeXComponent_GetMouseEvent, OH_NativeXComponent_GetTouchEvent,
+    OH_NativeXComponent_GetTouchPointToolType, OH_NativeXComponent_MouseEvent,
     OH_NativeXComponent_TouchEvent,
 };
 
-use crate::{Action, EventSource, KeyCode, KeyEventData, WindowRaw, XComponentRaw};
+use crate::{Action, EventSource, KeyCode, KeyEventData, MouseEventData, WindowRaw, XComponentRaw};
 
 use super::{RawWindow, TouchEventData, RAW_WINDOW};
 
@@ -247,6 +249,91 @@ pub unsafe extern "C" fn key_event(
         if let Some(callback) = cb.get(&id) {
             if let Some(callback) = &callback.on_key_event {
                 callback(xcomponent, window, key_event_data).unwrap();
+            }
+        }
+    }
+}
+
+pub unsafe extern "C" fn on_mouse_event(
+    xcomponent: *mut OH_NativeXComponent,
+    window: *mut std::os::raw::c_void,
+) {
+    let mut mouse_event = MaybeUninit::<OH_NativeXComponent_MouseEvent>::uninit();
+    let ret = OH_NativeXComponent_GetMouseEvent(xcomponent, window, mouse_event.as_mut_ptr());
+    assert!(ret == 0, "Get mouse event failed");
+
+    let mouse_event_data = mouse_event.assume_init();
+    let data = MouseEventData::from(mouse_event_data);
+
+    let window = WindowRaw(window);
+    let xcomponent = XComponentRaw(xcomponent);
+
+    #[cfg(not(feature = "multi_mode"))]
+    {
+        let cb = X_COMPONENT_CALLBACKS.with_borrow(|cb| cb.clone());
+        if let Some(callback) = &cb.on_mouse_event {
+            callback(xcomponent, window, data).unwrap();
+        }
+    }
+
+    #[cfg(feature = "multi_mode")]
+    {
+        let cb = X_COMPONENT_CALLBACKS_MAP.with_borrow(|cb| cb.clone());
+        let id = resolve_id(xcomponent.0).unwrap();
+        if let Some(callback) = cb.get(&id) {
+            if let Some(callback) = &callback.on_mouse_event {
+                callback(xcomponent, window, data).unwrap();
+            }
+        }
+    }
+}
+
+pub unsafe extern "C" fn on_hover_event(xcomponent: *mut OH_NativeXComponent, is_hover: bool) {
+    let xcomponent = XComponentRaw(xcomponent);
+
+    #[cfg(not(feature = "multi_mode"))]
+    {
+        let cb = X_COMPONENT_CALLBACKS.with_borrow(|cb| cb.clone());
+        if let Some(callback) = &cb.on_hover_event {
+            callback(xcomponent, is_hover).unwrap();
+        }
+    }
+
+    #[cfg(feature = "multi_mode")]
+    {
+        let cb = X_COMPONENT_CALLBACKS_MAP.with_borrow(|cb| cb.clone());
+        let id = resolve_id(xcomponent.0).unwrap();
+        if let Some(callback) = cb.get(&id) {
+            if let Some(callback) = &callback.on_hover_event {
+                callback(xcomponent, is_hover).unwrap();
+            }
+        }
+    }
+}
+
+pub unsafe extern "C" fn on_ui_input_event(
+    xcomponent: *mut OH_NativeXComponent,
+    event: *mut ohos_arkui_input_binding::sys::ArkUI_UIInputEvent,
+    _type_: ohos_arkui_input_binding::sys::ArkUI_UIInputEvent_Type,
+) {
+    let xcomponent = XComponentRaw(xcomponent);
+    let arkui_input_event = ArkUIInputEvent::from_raw(event);
+
+    #[cfg(not(feature = "multi_mode"))]
+    {
+        let cb = X_COMPONENT_CALLBACKS.with_borrow(|cb| cb.clone());
+        if let Some(callback) = &cb.on_ui_input_event {
+            callback(xcomponent, arkui_input_event).unwrap();
+        }
+    }
+
+    #[cfg(feature = "multi_mode")]
+    {
+        let cb = X_COMPONENT_CALLBACKS_MAP.with_borrow(|cb| cb.clone());
+        let id = resolve_id(xcomponent.0).unwrap();
+        if let Some(callback) = cb.get(&id) {
+            if let Some(callback) = &callback.on_ui_input_event {
+                callback(xcomponent, arkui_input_event).unwrap();
             }
         }
     }
