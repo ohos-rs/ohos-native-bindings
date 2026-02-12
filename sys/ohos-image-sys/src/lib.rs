@@ -203,7 +203,7 @@ extern "C" {
     #[doc = " @brief Creates a <b>PixelMap</b> object with stride, whose memory is default as DMA.\n\n @param env Indicates the NAPI environment pointer.\n @param info Indicates the options for setting the <b>PixelMap</b> object.\n @param buf Indicates the pointer to the buffer of the image.\n @param len Indicates the image size.\n @param rowStride Indicates the stride of the image buffer.\n @param res Indicates the pointer to the <b>PixelMap</b> object at the application layer.\n @return Returns {@link IRNdkErrCode} IMAGE_RESULT_SUCCESS - if the operation is successful.\n returns {@link IRNdkErrCode} IMAGE_RESULT_BAD_PARAMETER - if info, len and rowStride do not match.\n returns {@link IRNdkErrCode} IMAGE_RESULT_JNI_ENV_ABNORMAL - if Abnormal JNI environment.\n returns {@link IRNdkErrCode} IMAGE_RESULT_GET_DATA_ABNORMAL - if image get data error.\n returns {@link IRNdkErrCode} IMAGE_RESULT_CHECK_FORMAT_ERROR - if check format failed.\n returns {@link IRNdkErrCode} IMAGE_RESULT_DATA_ABNORMAL - if image input data error.\n returns {@link IRNdkErrCode} IMAGE_RESULT_ERR_SHAMEM_DATA_ABNORMAL - if sharememory data abnormal.\n returns {@link IRNdkErrCode} IMAGE_RESULT_DATA_UNSUPPORT - if image init error.\n returns {@link IRNdkErrCode} IMAGE_RESULT_UNKNOWN_FORMAT - if image unknown format.\n @see OH_PixelMap_CreatePixelMapWithStride\n @since 12\n @version 1.0"]
     pub fn OH_PixelMap_CreatePixelMapWithStride(
         env: napi_env,
-        info: *mut OhosPixelMapCreateOps,
+        info: OhosPixelMapCreateOps,
         buf: *mut ::std::os::raw::c_void,
         len: usize,
         rowStride: i32,
