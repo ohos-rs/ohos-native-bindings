@@ -1,0 +1,24 @@
+[package]
+name        = "ohos-fileuri-binding"
+version     = "0.1.0"
+edition     = "2021"
+license     = "MIT OR Apache-2.0"
+description = "OpenHarmony's fileuri binding for rust"
+
+[dependencies]
+ohos-fileuri-sys = { workspace = true }
+libc             = { workspace = true }
+
+[features]
+default = []
+api-13  = ["ohos-fileuri-sys/api-13"]
+api-14  = ["api-13", "ohos-fileuri-sys/api-14"]
+api-15  = ["api-14", "ohos-fileuri-sys/api-15"]
+api-16  = ["api-15", "ohos-fileuri-sys/api-16"]
+api-17  = ["api-16", "ohos-fileuri-sys/api-17"]
+api-18  = ["api-17", "ohos-fileuri-sys/api-18"]
+api-19  = ["api-18", "ohos-fileuri-sys/api-19"]
+api-20  = ["api-19", "ohos-fileuri-sys/api-20"]
+
+[lints]
+workspace = true
