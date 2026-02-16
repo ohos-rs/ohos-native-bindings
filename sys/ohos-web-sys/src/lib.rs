@@ -34,30 +34,30 @@ pub const ArkWeb_ErrorCode_ARKWEB_COOKIE_MANAGER_INITIALIZE_FAILED: ArkWeb_Error
 #[doc = " @brief Save cookie failed.\n\n @since 20"]
 pub const ArkWeb_ErrorCode_ARKWEB_COOKIE_SAVE_FAILED: ArkWeb_ErrorCode = 17100109;
 pub type ArkWeb_ErrorCode = u32;
+#[cfg(feature = "api-20")]
 #[doc = " @error The operation is successful."]
-#[cfg(feature = "api-20")]
 pub const ArkWeb_BlanklessErrorCode_ARKWEB_BLANKLESS_SUCCESS: ArkWeb_BlanklessErrorCode = 0;
+#[cfg(feature = "api-20")]
 #[doc = " @error Unidentified error."]
-#[cfg(feature = "api-20")]
 pub const ArkWeb_BlanklessErrorCode_ARKWEB_BLANKLESS_ERR_UNKNOWN: ArkWeb_BlanklessErrorCode = -1;
-#[doc = " @error Invalid parameter."]
 #[cfg(feature = "api-20")]
+#[doc = " @error Invalid parameter."]
 pub const ArkWeb_BlanklessErrorCode_ARKWEB_BLANKLESS_ERR_INVALID_ARGS: ArkWeb_BlanklessErrorCode =
     -2;
-#[doc = " @error The web controller is not bound to a component."]
 #[cfg(feature = "api-20")]
+#[doc = " @error The web controller is not bound to a component."]
 pub const ArkWeb_BlanklessErrorCode_ARKWEB_BLANKLESS_ERR_CONTROLLER_NOT_INITED:
     ArkWeb_BlanklessErrorCode = -3;
-#[doc = " @error The key value is not matched. The OH_NativeArkWeb_SetBlanklessLoadingWithKey\n and OH_NativeArkWeb_GetBlanklessInfoWithKey APIs must be used in pair and use the same key value."]
 #[cfg(feature = "api-20")]
+#[doc = " @error The key value is not matched. The OH_NativeArkWeb_SetBlanklessLoadingWithKey\n and OH_NativeArkWeb_GetBlanklessInfoWithKey APIs must be used in pair and use the same key value."]
 pub const ArkWeb_BlanklessErrorCode_ARKWEB_BLANKLESS_ERR_KEY_NOT_MATCH: ArkWeb_BlanklessErrorCode =
     -4;
-#[doc = " @error If the similarity is low, the system determines that the change is too large.\n As a result, the OH_NativeArkWeb_SetBlanklessLoadingWithKey API fails to enable frame interpolation."]
 #[cfg(feature = "api-20")]
+#[doc = " @error If the similarity is low, the system determines that the change is too large.\n As a result, the OH_NativeArkWeb_SetBlanklessLoadingWithKey API fails to enable frame interpolation."]
 pub const ArkWeb_BlanklessErrorCode_ARKWEB_BLANKLESS_ERR_SIGNIFICANT_CHANGE:
     ArkWeb_BlanklessErrorCode = -5;
-#[doc = " @error The device does not support this feature."]
 #[cfg(feature = "api-20")]
+#[doc = " @error The device does not support this feature."]
 pub const ArkWeb_BlanklessErrorCode_ARKWEB_BLANKLESS_ERR_DEVICE_NOT_SUPPORT:
     ArkWeb_BlanklessErrorCode = 801;
 #[cfg(feature = "api-20")]
@@ -80,14 +80,14 @@ pub const ArkWeb_WebMessageType_ARKWEB_STRING: ArkWeb_WebMessageType = 1;
 pub const ArkWeb_WebMessageType_ARKWEB_BUFFER: ArkWeb_WebMessageType = 2;
 #[doc = " @brief Defines the data type carried in a ArkWeb_WebMessage.\n\n @since 12"]
 pub type ArkWeb_WebMessageType = u32;
+#[cfg(feature = "api-18")]
 #[doc = " Represent error data"]
-#[cfg(feature = "api-18")]
 pub const ArkWeb_JavaScriptValueType_ARKWEB_JAVASCRIPT_NONE: ArkWeb_JavaScriptValueType = 0;
+#[cfg(feature = "api-18")]
 #[doc = " The data carried in the ArkWeb_JavaScriptValue is string."]
-#[cfg(feature = "api-18")]
 pub const ArkWeb_JavaScriptValueType_ARKWEB_JAVASCRIPT_STRING: ArkWeb_JavaScriptValueType = 1;
-#[doc = " The data carried in the ArkWeb_JavaScriptValue is bool."]
 #[cfg(feature = "api-18")]
+#[doc = " The data carried in the ArkWeb_JavaScriptValue is bool."]
 pub const ArkWeb_JavaScriptValueType_ARKWEB_JAVASCRIPT_BOOL: ArkWeb_JavaScriptValueType = 2;
 #[cfg(feature = "api-18")]
 #[doc = " @brief Defines the data type carried in a ArkWeb_JavaScriptValue.\n\n @since 18"]
@@ -1119,7 +1119,7 @@ pub type ArkWeb_HttpBodyStreamReadCallback = ::std::option::Option<
     ),
 >;
 #[cfg(feature = "api-20")]
-#[doc = " @brief Callback when the read operation done.\n @param httpBodyStream The ArkWeb_HttpBodyStream.\n @param buffer The buffer to receive data.\n @param bytesRead Callback after OH_ArkWebHttpBodyStream_AsyncRead. bytesRead greater than 0 means that\n                  the buffer is filled with data of bytesRead size. Caller can read from the buffer, and if\n                  OH_ArkWebHttpBodyStream_IsEOF is false, caller can continue to read the remaining data.\n\n @syscap SystemCapability.Web.Webview.Core\n @since 20"]
+#[doc = " @brief Callback when the read operation done.\n @param httpBodyStream The ArkWeb_HttpBodyStream.\n @param buffer The buffer to receive data.\n @param bytesRead Callback after OH_ArkWebHttpBodyStream_AsyncRead. bytesRead greater than 0 means that\n                  the buffer is filled with data of bytesRead size. Caller can read from the buffer, and if\n                  OH_ArkWebHttpBodyStream_IsEOF is false, caller can continue to read the remaining data.\n\n @since 20"]
 pub type ArkWeb_HttpBodyStreamAsyncReadCallback = ::std::option::Option<
     unsafe extern "C" fn(
         httpBodyStream: *const ArkWeb_HttpBodyStream,
@@ -1225,7 +1225,7 @@ extern "C" {
 }
 extern "C" {
     #[cfg(feature = "api-20")]
-    #[doc = " @brief Set the callback for OH_ArkWebHttpBodyStream_AsyncRead.\n\n The result of OH_ArkWebHttpBodyStream_AsyncRead will be notified to caller through the\\n\n readCallback. The callback will runs in the ArkWeb worker thread.\\n\n\n @param httpBodyStream The ArkWeb_HttpBodyStream.\n @param readCallback The callback of read function.\n @return {@link ARKWEB_NET_OK} 0 - Success.\n {@link ARKWEB_INVALID_PARAM} 17100101 - Invalid param.\n\n @syscap SystemCapability.Web.Webview.Core\n @since 20"]
+    #[doc = " @brief Set the callback for OH_ArkWebHttpBodyStream_AsyncRead.\n\n The result of OH_ArkWebHttpBodyStream_AsyncRead will be notified to caller through the\\n\n readCallback. The callback will runs in the ArkWeb worker thread.\\n\n\n @param httpBodyStream The ArkWeb_HttpBodyStream.\n @param readCallback The callback of read function.\n @return {@link ARKWEB_NET_OK} 0 - Success.\n {@link ARKWEB_INVALID_PARAM} 17100101 - Invalid param.\n\n @since 20"]
     pub fn OH_ArkWebHttpBodyStream_SetAsyncReadCallback(
         httpBodyStream: *mut ArkWeb_HttpBodyStream,
         readCallback: ArkWeb_HttpBodyStreamAsyncReadCallback,
@@ -1248,7 +1248,7 @@ extern "C" {
 }
 extern "C" {
     #[cfg(feature = "api-20")]
-    #[doc = " @brief Read the http body to the buffer.\n\n The buffer must be larger than the bufLen. We will read data from a worker thread to the buffer,\\n\n so should not use the buffer in other threads before the callback to avoid concurrency issues.\\n\n\n @param httpBodyStream The ArkWeb_HttpBodyStream.\n @param buffer The buffer to receive data.\n @param bufLen The size of bytes to read.\n\n @syscap SystemCapability.Web.Webview.Core\n @since 20"]
+    #[doc = " @brief Read the http body to the buffer.\n\n The buffer must be larger than the bufLen. We will read data from a worker thread to the buffer,\\n\n so should not use the buffer in other threads before the callback to avoid concurrency issues.\\n\n\n @param httpBodyStream The ArkWeb_HttpBodyStream.\n @param buffer The buffer to receive data.\n @param bufLen The size of bytes to read.\n\n @since 20"]
     pub fn OH_ArkWebHttpBodyStream_AsyncRead(
         httpBodyStream: *const ArkWeb_HttpBodyStream,
         buffer: *mut u8,
@@ -1696,4 +1696,9 @@ extern "C" {
     #[cfg(feature = "api-20")]
     #[doc = " Get currently active ArkWeb engine version.\n @return { ArkWebEngineVersion } Active ArkWeb Engine version as defined by ArkWebEngineVersion\n @since 20"]
     pub fn OH_NativeArkWeb_GetActiveWebEngineVersion() -> ArkWebEngineVersion;
+}
+extern "C" {
+    #[cfg(feature = "api-22")]
+    #[doc = " Delays the initialization of the web engine. By default, the web engine is initialized when the CookieManager\n interface is called. By setting the 'lazy' parameter to true, the web engine will not be initialized when the\n CookieManager interface is called. Instead, the web engine will be initialized either when the web component is\n created or when initializeWebEngine is called.\n @param { bool } lazy - Controls whether to delay the initialization of the web engine.\n @since 22"]
+    pub fn OH_NativeArkWeb_LazyInitializeWebEngineInCookieManager(lazy: bool);
 }

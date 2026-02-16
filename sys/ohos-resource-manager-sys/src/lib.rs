@@ -201,10 +201,23 @@ extern "C" {
     pub fn OH_ResourceManager_GetRawFileOffset(rawFile: *const RawFile) -> ::std::os::raw::c_long;
 }
 extern "C" {
+    #[doc = " @brief Opens the file descriptor of a raw file based on the long offset and file length.\n\n The opened raw file descriptor is used to read the raw file.\n\n @param rawFile Indicates the pointer to {@link RawFile}.\n @param descriptor Indicates the raw file's file descriptor, start position and the length in the HAP.\n @return Returns true: open the raw file descriptor successfully, false: the raw file is not allowed to access.\n @since 8\n @version 1.0\n @deprecated since 12\n @useinstead OH_ResourceManager_GetRawFileDescriptorData"]
+    pub fn OH_ResourceManager_GetRawFileDescriptor(
+        rawFile: *const RawFile,
+        descriptor: *mut RawFileDescriptor,
+    ) -> bool;
+}
+extern "C" {
     #[doc = " @brief Obtains the file descriptor of a raw file based on the long offset and file length.\n\n The obtains raw file descriptor is used to read the raw file.\n\n @param rawFile Indicates the pointer to {@link RawFile}.\n @param descriptor Indicates the raw file's file descriptor, start position and the length in the HAP.\n @return Returns true: obtains the raw file descriptor successfully, false: the raw file is not allowed to access.\n @since 12\n @version 1.0"]
     pub fn OH_ResourceManager_GetRawFileDescriptorData(
         rawFile: *const RawFile,
         descriptor: *mut RawFileDescriptor,
+    ) -> bool;
+}
+extern "C" {
+    #[doc = " @brief Closes the file descriptor of a raw file.\n\n The opened raw file descriptor must be released after used to avoid the file descriptor leak.\n\n @param descriptor Indicates the raw file's file descriptor, start position and the length in the HAP.\n @return Returns true: closes the raw file descriptor successfully, false: closes the raw file descriptor failed.\n @since 8\n @version 1.0\n @deprecated since 12\n @useinstead OH_ResourceManager_ReleaseRawFileDescriptorData"]
+    pub fn OH_ResourceManager_ReleaseRawFileDescriptor(
+        descriptor: *const RawFileDescriptor,
     ) -> bool;
 }
 extern "C" {

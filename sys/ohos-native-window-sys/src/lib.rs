@@ -393,3 +393,9 @@ extern "C" {
     #[doc = " @brief Clean all <b>OHNativeWindowBuffer</b> caches of this <b>OHNativeWindow</b>\n This interface is a non-thread-safe type interface.\\n\n\n @syscap SystemCapability.Graphic.Graphic2D.NativeWindow\n @param window Indicates the pointer to a <b>OHNativeWindow</b> instance.\n @return {@link NATIVE_ERROR_OK} 0 - Success.\n     {@link NATIVE_ERROR_INVALID_ARGUMENTS} 40001000 - window is NULL.\n     {@link NATIVE_ERROR_CONSUMER_DISCONNECTED} 41211000 - the consumer is disconnected.\n     {@link NATIVE_ERROR_BINDER_ERROR} 50401000 - ipc send failed.\n @since 19\n @version 1.0"]
     pub fn OH_NativeWindow_CleanCache(window: *mut OHNativeWindow) -> i32;
 }
+extern "C" {
+    #[cfg(feature = "api-22")]
+    #[doc = " @brief PreAlloc <b>OHNativeWindowBuffer</b> of this <b>OHNativeWindow</b>\n This interface is a non-thread-safe type interface.\\n\n\n @syscap SystemCapability.Graphic.Graphic2D.NativeWindow\n @param window Indicates the pointer to a <b>OHNativeWindow</b> instance.\n @param allocBufferCnt Indicates the count of <b>OHNativeWindowBuffers</b>.\n @return Returns an error code, 0 is success, otherwise, failed.\n @since 22\n @version 1.0"]
+    pub fn OH_NativeWindow_PreAllocBuffers(window: *mut OHNativeWindow, allocBufferCnt: u32)
+        -> i32;
+}

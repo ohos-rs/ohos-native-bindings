@@ -1,5 +1,5 @@
 use ohos_input_method_sys::{
-    char16_t, InputMethod_Direction, InputMethod_EnterKeyType, InputMethod_ExtendAction,
+    InputMethod_Direction, InputMethod_EnterKeyType, InputMethod_ExtendAction,
     InputMethod_KeyboardStatus, InputMethod_PrivateCommand, InputMethod_TextConfig,
     InputMethod_TextEditorProxy,
 };
@@ -40,7 +40,7 @@ pub unsafe extern "C" fn delete_backward(_text_editor: *mut InputMethod_TextEdit
 
 pub unsafe extern "C" fn insert_text(
     _text_editor: *mut InputMethod_TextEditorProxy,
-    text: *const char16_t,
+    text: *const u16,
     len: usize,
 ) {
     let guard = OHOS_RS_IME_CALLBACKS
@@ -74,7 +74,7 @@ pub unsafe extern "C" fn finish_text_preview(_text_editor: *mut InputMethod_Text
 pub unsafe extern "C" fn get_left_text_of_cursor(
     _text_editor: *mut InputMethod_TextEditorProxy,
     number: i32,
-    text: *mut char16_t,
+    text: *mut u16,
     len: *mut usize,
 ) {
     let guard = OHOS_RS_IME_CALLBACKS
@@ -94,7 +94,7 @@ pub unsafe extern "C" fn get_left_text_of_cursor(
 pub unsafe extern "C" fn get_right_text_of_cursor(
     _text_editor: *mut InputMethod_TextEditorProxy,
     number: i32,
-    text: *mut char16_t,
+    text: *mut u16,
     len: *mut usize,
 ) {
     let guard = OHOS_RS_IME_CALLBACKS
@@ -222,7 +222,7 @@ pub unsafe extern "C" fn send_keyboard_status(
 
 pub unsafe extern "C" fn set_preview_text(
     _text_editor: *mut InputMethod_TextEditorProxy,
-    text: *const char16_t,
+    text: *const u16,
     length: usize,
     start: i32,
     end: i32,

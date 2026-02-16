@@ -26,6 +26,18 @@ pub const LogLevel_LOG_ERROR: LogLevel = 6;
 pub const LogLevel_LOG_FATAL: LogLevel = 7;
 #[doc = " @brief Enumerates log levels.\n\n You are advised to select log levels based on their respective usage scenarios:\\n\n <ul><li><b>DEBUG</b>: used for debugging and disabled from commercial releases</li> \\n\n <li><b>INFO</b>: used for logging important system running status and steps in key processes</li> \\n\n <li><b>WARN</b>: used for logging unexpected exceptions that have little impact on user experience and can\n automatically recover. Logs at this level are generally output when such exceptions are detected and\n captured.</li> \\n\n <li><b>ERROR</b>: used for logging malfunction that affects user experience and cannot automatically\n recover</li>\\n\n <li><b>FATAL</b>: used for logging major exceptions that have severely affected user experience and should\n not occur.</li></ul> \\n\n\n @since 8"]
 pub type LogLevel = u32;
+#[cfg(feature = "api-21")]
+#[doc = " Used to unset SetLogLevel, then none is set"]
+pub const PreferStrategy_UNSET_LOGLEVEL: PreferStrategy = 0;
+#[cfg(feature = "api-21")]
+#[doc = " The actual lowest log level is determined by\n the maximum level between the new level and the system-controlled level.\n This is equivalent to calling OH_LOG_SetMinLogLevel."]
+pub const PreferStrategy_PREFER_CLOSE_LOG: PreferStrategy = 1;
+#[cfg(feature = "api-21")]
+#[doc = " The actual lowest log level is determined by\n the minimum level between the new level and the system-controlled level."]
+pub const PreferStrategy_PREFER_OPEN_LOG: PreferStrategy = 2;
+#[cfg(feature = "api-21")]
+#[doc = " @brief Enumerates preference strategy to be used in {@link OH_LOG_SetLogLevel}.\n\n You are advised to select preference strategy based on their respective usage scenarios.\n\n @since 21"]
+pub type PreferStrategy = u32;
 extern "C" {
     #[doc = " @brief Outputs logs.\n\n You can use this function to output logs based on the specified log type, log level, service domain, log tag,\n and variable parameters determined by the format specifier and privacy identifier in the printf format.\n\n @param type Indicates the log type. The type for third-party applications is defined by {@link LOG_APP}.\n @param level Indicates the log level, which can be <b>LOG_DEBUG</b>, <b>LOG_INFO</b>, <b>LOG_WARN</b>,\n <b>LOG_ERROR</b>, and <b>LOG_FATAL</b>.\n @param domain Indicates the service domain of logs. Its value is a hexadecimal integer ranging from 0x0 to 0xFFFF.\n @param tag Indicates the log tag, which is a string used to identify the class, file, or service behavior.\n @param fmt Indicates the format string, which is an enhancement of a printf format string and supports the privacy\n identifier. Specifically, {public} or {private} is added between the % character and the format specifier\n in each parameter. \\n\n @param ... Indicates a list of parameters. The number and type of parameters must map onto the format specifiers\n in the format string.\n @return Returns <b>0</b> or a larger value if the operation is successful; returns a value smaller\n than <b>0</b> otherwise.\n @since 8"]
     pub fn OH_LOG_Print(
@@ -99,4 +111,9 @@ extern "C" {
     #[cfg(feature = "api-15")]
     #[doc = " @brief Sets the lowest log level of the current application process.\n\n @param level log level\n @since 15"]
     pub fn OH_LOG_SetMinLogLevel(level: LogLevel);
+}
+extern "C" {
+    #[cfg(feature = "api-21")]
+    #[doc = " @brief Sets the lowest log level of the current application process. Different preference strategy can be set.\n\n @param level log level.\n @param prefer preference strategy. See {@link PreferStrategy}.\n @since 21"]
+    pub fn OH_LOG_SetLogLevel(level: LogLevel, prefer: PreferStrategy);
 }

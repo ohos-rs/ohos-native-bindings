@@ -246,16 +246,12 @@ pub type OH_AudioStream_EncodingType = u32;
 #[repr(C)]
 #[derive(Debug, Copy, Clone)]
 pub struct OH_AudioStreamInfo {
-    #[cfg(feature = "api-19")]
     #[doc = " @brief Audio sampling rate.\n\n @since 19"]
     pub samplingRate: i32,
-    #[cfg(feature = "api-19")]
     #[doc = " @brief Audio channel layout.\n\n @since 19"]
     pub channelLayout: OH_AudioChannelLayout,
-    #[cfg(feature = "api-19")]
     #[doc = " @brief Audio encoding format type.\n\n @since 19"]
     pub encodingType: OH_AudioStream_EncodingType,
-    #[cfg(feature = "api-19")]
     #[doc = " @brief Audio sample format.\n\n @since 19"]
     pub sampleFormat: OH_AudioStream_SampleFormat,
 }
@@ -398,11 +394,11 @@ pub const OH_AudioStream_AudioEffectMode_EFFECT_NONE: OH_AudioStream_AudioEffect
 pub const OH_AudioStream_AudioEffectMode_EFFECT_DEFAULT: OH_AudioStream_AudioEffectMode = 1;
 #[doc = " @brief Defines the audio effect mode.\n\n @since 12"]
 pub type OH_AudioStream_AudioEffectMode = u32;
+#[cfg(feature = "api-20")]
 #[doc = " normal status"]
-#[cfg(feature = "api-20")]
 pub const OH_AudioStream_FastStatus_AUDIOSTREAM_FASTSTATUS_NORMAL: OH_AudioStream_FastStatus = 0;
-#[doc = " fast status"]
 #[cfg(feature = "api-20")]
+#[doc = " fast status"]
 pub const OH_AudioStream_FastStatus_AUDIOSTREAM_FASTSTATUS_FAST: OH_AudioStream_FastStatus = 1;
 #[cfg(feature = "api-20")]
 #[doc = " @brief Defines the fast status.\n\n @since 20"]
@@ -559,6 +555,10 @@ pub const OH_AudioStream_PrivacyType_AUDIO_STREAM_PRIVACY_TYPE_PUBLIC: OH_AudioS
 #[doc = " Privacy type that stream can not be captured.\n @since 12"]
 pub const OH_AudioStream_PrivacyType_AUDIO_STREAM_PRIVACY_TYPE_PRIVATE: OH_AudioStream_PrivacyType =
     1;
+#[cfg(feature = "api-21")]
+#[doc = " Privacy type that stream can be safely captured and screen casting.\n For example,{@link OH_AudioStream_Usage#AUDIOSTREAM_USAGE_VOICE_COMMUNICATION} will not be\n captured or screen casted by third party applications under AUDIO_STREAM_PRIVACY_TYPE_PUBLIC policy.\n However, the internal capture is allowed under the AUDIO_STREAM_PRIVACY_TYPE_SHARED policy.\n @since 21"]
+pub const OH_AudioStream_PrivacyType_AUDIO_STREAM_PRIVACY_TYPE_SHARED: OH_AudioStream_PrivacyType =
+    2;
 #[doc = " @brief Defines Enumeration of audio stream privacy type for playback capture.\n\n @since 12"]
 pub type OH_AudioStream_PrivacyType = u32;
 #[doc = " Result of audio data callabck is invalid."]
@@ -752,7 +752,7 @@ extern "C" {
     ) -> OH_AudioCommon_Result;
 }
 extern "C" {
-    #[doc = " @brief Query the device id of the target audio device descriptor.\n\n @param audioDeviceDescriptor reference returned by {@link OH_AudioRoutingManager_GetDevices} or\n {@link OH_AudioRouterManager_OnDeviceChangedCallback}.\n @param id pointer variable that will be set the device id value.\n @return {@link #AUDIODEVICE_SUCCESS} or {@link #AUDIOCOMMON_RESULT_ERROR_INVALID_PARAM}.\n @since 12"]
+    #[doc = " @brief Query the device id of the target audio device descriptor.\n\n @param audioDeviceDescriptor reference returned by {@link OH_AudioRoutingManager_GetDevices} or\n {@link OH_AudioRouterManager_OnDeviceChangedCallback}.\n @param id pointer variable that will be set the device id value.\n @return {@link #AUDIOCOMMON_RESULT_SUCCESS} or {@link #AUDIOCOMMON_RESULT_ERROR_INVALID_PARAM}.\n @since 12"]
     pub fn OH_AudioDeviceDescriptor_GetDeviceId(
         audioDeviceDescriptor: *mut OH_AudioDeviceDescriptor,
         id: *mut u32,
@@ -1698,50 +1698,50 @@ pub const OH_AudioSession_ConcurrencyMode_CONCURRENCY_PAUSE_OTHERS:
     OH_AudioSession_ConcurrencyMode = 3;
 #[doc = " @brief Declare the audio concurrency modes.\n\n @since 12"]
 pub type OH_AudioSession_ConcurrencyMode = u32;
+#[cfg(feature = "api-20")]
 #[doc = " @brief scene for media"]
-#[cfg(feature = "api-20")]
 pub const OH_AudioSession_Scene_AUDIO_SESSION_SCENE_MEDIA: OH_AudioSession_Scene = 0;
+#[cfg(feature = "api-20")]
 #[doc = " @brief scene for game"]
-#[cfg(feature = "api-20")]
 pub const OH_AudioSession_Scene_AUDIO_SESSION_SCENE_GAME: OH_AudioSession_Scene = 1;
-#[doc = " @brief scene for voice communication"]
 #[cfg(feature = "api-20")]
+#[doc = " @brief scene for voice communication"]
 pub const OH_AudioSession_Scene_AUDIO_SESSION_SCENE_VOICE_COMMUNICATION: OH_AudioSession_Scene = 2;
 #[cfg(feature = "api-20")]
 #[doc = " @brief Declare the audio session scene.\n\n @since 20"]
 pub type OH_AudioSession_Scene = u32;
-#[doc = " @brief Resume the playback"]
 #[cfg(feature = "api-20")]
+#[doc = " @brief Resume the playback"]
 pub const OH_AudioSession_StateChangeHint_AUDIO_SESSION_STATE_CHANGE_HINT_RESUME:
     OH_AudioSession_StateChangeHint = 0;
-#[doc = " @brief paused/pause the playback"]
 #[cfg(feature = "api-20")]
+#[doc = " @brief paused/pause the playback"]
 pub const OH_AudioSession_StateChangeHint_AUDIO_SESSION_STATE_CHANGE_HINT_PAUSE:
     OH_AudioSession_StateChangeHint = 1;
-#[doc = " @brief stopped/stop the playback."]
 #[cfg(feature = "api-20")]
+#[doc = " @brief stopped/stop the playback."]
 pub const OH_AudioSession_StateChangeHint_AUDIO_SESSION_STATE_CHANGE_HINT_STOP:
     OH_AudioSession_StateChangeHint = 2;
-#[doc = " @brief stopped/stop the playback due to no audio stream for a long time."]
 #[cfg(feature = "api-20")]
+#[doc = " @brief stopped/stop the playback due to no audio stream for a long time."]
 pub const OH_AudioSession_StateChangeHint_AUDIO_SESSION_STATE_CHANGE_HINT_TIME_OUT_STOP:
     OH_AudioSession_StateChangeHint = 3;
-#[doc = " @brief Ducked the playback. (In ducking, the audio volume is reduced, but not silenced.)"]
 #[cfg(feature = "api-20")]
+#[doc = " @brief Ducked the playback. (In ducking, the audio volume is reduced, but not silenced.)"]
 pub const OH_AudioSession_StateChangeHint_AUDIO_SESSION_STATE_CHANGE_HINT_DUCK:
     OH_AudioSession_StateChangeHint = 4;
-#[doc = " @brief Unducked the playback."]
 #[cfg(feature = "api-20")]
+#[doc = " @brief Unducked the playback."]
 pub const OH_AudioSession_StateChangeHint_AUDIO_SESSION_STATE_CHANGE_HINT_UNDUCK:
     OH_AudioSession_StateChangeHint = 5;
 #[cfg(feature = "api-20")]
 #[doc = " @brief Declare the audio session state change hints.\n\n @since 20"]
 pub type OH_AudioSession_StateChangeHint = u32;
+#[cfg(feature = "api-20")]
 #[doc = " @brief Recommend to continue the playback."]
-#[cfg(feature = "api-20")]
 pub const OH_AudioSession_OutputDeviceChangeRecommendedAction_DEVICE_CHANGE_RECOMMEND_TO_CONTINUE : OH_AudioSession_OutputDeviceChangeRecommendedAction = 0 ;
-#[doc = " @brief recommend to stop the playback."]
 #[cfg(feature = "api-20")]
+#[doc = " @brief recommend to stop the playback."]
 pub const OH_AudioSession_OutputDeviceChangeRecommendedAction_DEVICE_CHANGE_RECOMMEND_TO_STOP:
     OH_AudioSession_OutputDeviceChangeRecommendedAction = 1;
 #[cfg(feature = "api-20")]
@@ -1755,6 +1755,25 @@ pub const OH_AudioSession_DeactivatedReason_DEACTIVATED_TIMEOUT: OH_AudioSession
     1;
 #[doc = " @brief Declare the audio deactivated reasons.\n\n @since 12"]
 pub type OH_AudioSession_DeactivatedReason = u32;
+#[cfg(feature = "api-21")]
+#[doc = " @brief Not prefer to use bluetooth and nearlink record."]
+pub const OH_AudioSession_BluetoothAndNearlinkPreferredRecordCategory_PREFERRED_NONE:
+    OH_AudioSession_BluetoothAndNearlinkPreferredRecordCategory = 0;
+#[cfg(feature = "api-21")]
+#[doc = " @brief Prefer to use bluetooth and nearlink record.\n However, whether to use low latency or high quality recording\n depends on system."]
+pub const OH_AudioSession_BluetoothAndNearlinkPreferredRecordCategory_PREFERRED_DEFAULT:
+    OH_AudioSession_BluetoothAndNearlinkPreferredRecordCategory = 1;
+#[cfg(feature = "api-21")]
+#[doc = " @brief Prefer to use bluetooth and nearlink low latency mode to record."]
+pub const OH_AudioSession_BluetoothAndNearlinkPreferredRecordCategory_PREFERRED_LOW_LATENCY:
+    OH_AudioSession_BluetoothAndNearlinkPreferredRecordCategory = 2;
+#[cfg(feature = "api-21")]
+#[doc = " @brief Prefer to use bluetooth and nearlink high quality mode to record."]
+pub const OH_AudioSession_BluetoothAndNearlinkPreferredRecordCategory_PREFERRED_HIGH_QUALITY:
+    OH_AudioSession_BluetoothAndNearlinkPreferredRecordCategory = 3;
+#[cfg(feature = "api-21")]
+#[doc = " @brief Enumerates the categories application prefer to use\n when recording with bluetooth and nearlink.\n\n @since 21"]
+pub type OH_AudioSession_BluetoothAndNearlinkPreferredRecordCategory = u32;
 #[doc = " @brief declare the audio session strategy\n\n @since 12"]
 #[repr(C)]
 #[derive(Debug, Copy, Clone)]
@@ -1781,6 +1800,22 @@ pub struct OH_AudioSession_StateChangedEvent {
 #[doc = " @brief This function pointer will point to the callback function that\n is used to return the audio session state change event.\n\n @param event the {@link #OH_AudioSession_StateChangedEvent} state change triggering event.\n @since 20"]
 pub type OH_AudioSession_StateChangedCallback =
     ::std::option::Option<unsafe extern "C" fn(event: OH_AudioSession_StateChangedEvent)>;
+#[cfg(feature = "api-21")]
+#[doc = " @brief This function pointer will point to the callback function that\n     is used to return the changing audio device descriptors.\n     There may be more than one audio device descriptor returned.\n\n @param type the {@link OH_AudioDevice_ChangeType} is connect or disconnect.\n @param audioDeviceDescriptorArray the {@link OH_AudioDeviceDescriptorArray}\n     pointer variable which will be set the audio device descriptors value.\n     Do not release the audioDeviceDescriptorArray pointer separately\n     instead call {@link OH_AudioSessionManager_ReleaseDevices} to release the DeviceDescriptor array\n     when it is no use anymore.\n @since 21"]
+pub type OH_AudioSession_AvailableDeviceChangedCallback = ::std::option::Option<
+    unsafe extern "C" fn(
+        type_: OH_AudioDevice_ChangeType,
+        audioDeviceDescriptorArray: *mut OH_AudioDeviceDescriptorArray,
+    ),
+>;
+#[cfg(feature = "api-21")]
+#[doc = " @brief This function pointer will point to the callback function that\n     is used to return the audio session input device change event.\n\n @param audioDeviceDescriptorArray the {@link OH_AudioDeviceDescriptorArray}\n     pointer variable which will be set the audio input device descriptors value.\n     Do not release the audioDeviceDescriptorArray pointer separately\n     instead call {@link OH_AudioSessionManager_ReleaseDevices}\n     to release the DeviceDescriptor array when it is no use anymore.\n @param changeReason the {@link #OH_AudioStream_DeviceChangeReason} indicates\n     that why does the input device changes.\n @since 21"]
+pub type OH_AudioSession_CurrentInputDeviceChangedCallback = ::std::option::Option<
+    unsafe extern "C" fn(
+        devices: *mut OH_AudioDeviceDescriptorArray,
+        changeReason: OH_AudioStream_DeviceChangeReason,
+    ),
+>;
 #[cfg(feature = "api-20")]
 #[doc = " @brief This function pointer will point to the callback function that\n is used to return the audio session device change event.\n\n @param audioDeviceDescriptorArray the {@link OH_AudioDeviceDescriptorArray}\n pointer variable which will be set the audio device descriptors value.\n Do not release the audioDeviceDescriptorArray pointer separately\n instead call {@link OH_AudioSessionManager_ReleaseDevices}\n to release the DeviceDescriptor array when it is no use anymore.\n @param changeReason the {@link #OH_AudioStream_DeviceChangeReason} indicates that why does the device changes.\n @param recommendedAction the {@link #OH_AudioSession_OutputDeviceChangeRecommendedAction}\n recommend action when device change.\n @since 20"]
 pub type OH_AudioSession_CurrentOutputDeviceChangedCallback = ::std::option::Option<
@@ -1896,6 +1931,88 @@ extern "C" {
         callback: OH_AudioSession_CurrentOutputDeviceChangedCallback,
     ) -> OH_AudioCommon_Result;
 }
+extern "C" {
+    #[cfg(feature = "api-21")]
+    #[doc = " @brief Get available devices by device usage.\n\n @param audioSessionManager the {@link OH_AudioSessionManager} handle returned\n     by {@link OH_AudioManager_GetAudioSessionManager}.\n @param deviceUsage the {@link OH_AudioDevice_Usage} which is used as\n     the filter parameter for get the available devices.\n @param audioDeviceDescriptorArray the {@link OH_AudioDeviceDescriptorArray}\n     pointer variable which will be set the audio device descriptors value\n     Do not release the audioDeviceDescriptorArray pointer separately\n     instead call {@link OH_AudioSessionManager_ReleaseDevices} to release the DeviceDescriptor array\n     when it is no use anymore.\n @return {@link #AUDIOCOMMON_RESULT_SUCCESS} if execution succeeds.\n     or {@link #AUDIOCOMMON_RESULT_ERROR_INVALID_PARAM} if parameter validation fails.\n     or {@link #AUDIOCOMMON_RESULT_ERROR_SYSTEM} Audio client call audio service error, System error.\n @since 21"]
+    pub fn OH_AudioSessionManager_GetAvailableDevices(
+        audioSessionManager: *mut OH_AudioSessionManager,
+        deviceUsage: OH_AudioDevice_Usage,
+        audioDeviceDescriptorArray: *mut *mut OH_AudioDeviceDescriptorArray,
+    ) -> OH_AudioCommon_Result;
+}
+extern "C" {
+    #[cfg(feature = "api-21")]
+    #[doc = " @brief Register available device change event callback.\n\n @param audioSessionManager the {@link #OH_AudioSessionManager}\n     returned by the {@link #OH_AudioManager_GetAudioSessionManager}\n @param deviceUsage the {@link OH_AudioDevice_Usage} which is used as\n     the filter parameter for register the available devices change event.\n @param callback the {@link #OH_AudioSession_AvailableDeviceChangedCallback} which is used\n     to receive available device change event.\n @return {@link #AUDIOCOMMON_RESULT_SUCCESS} if execution succeeds.\n     or {@link #AUDIOCOMMON_RESULT_ERROR_INVALID_PARAM} if parameter validation fails.\n     or {@link #AUDIOCOMMON_RESULT_ERROR_SYSTEM} Audio client call audio service error, System error.\n @since 21"]
+    pub fn OH_AudioSessionManager_RegisterAvailableDevicesChangeCallback(
+        audioSessionManager: *mut OH_AudioSessionManager,
+        deviceUsage: OH_AudioDevice_Usage,
+        callback: OH_AudioSession_AvailableDeviceChangedCallback,
+    ) -> OH_AudioCommon_Result;
+}
+extern "C" {
+    #[cfg(feature = "api-21")]
+    #[doc = " @brief Unregister available device change event callback.\n\n @param audioSessionManager the {@link #OH_AudioSessionManager}\n     returned by the {@link #OH_AudioManager_GetAudioSessionManager}.\n @param callback the {@link #OH_AudioSession_AvailableDeviceChangedCallback} which is used\n     to receive the device change event.\n @return {@link #AUDIOCOMMON_RESULT_SUCCESS} if execution succeeds.\n     or {@link #AUDIOCOMMON_RESULT_ERROR_INVALID_PARAM} if parameter validation fails.\n     or {@link #AUDIOCOMMON_RESULT_ERROR_SYSTEM} Audio client call audio service error, System error.\n @since 21"]
+    pub fn OH_AudioSessionManager_UnregisterAvailableDevicesChangeCallback(
+        audioSessionManager: *mut OH_AudioSessionManager,
+        callback: OH_AudioSession_AvailableDeviceChangedCallback,
+    ) -> OH_AudioCommon_Result;
+}
+extern "C" {
+    #[cfg(feature = "api-21")]
+    #[doc = " @brief Sets the media input device.\n     This function is not valid for call recording, whose SourceType is\n     SOURCE_TYPE_VOICE_CALL or SOURCE_TYPE_VOICE_COMMUNICATION.\n     In scenarios where there are concurrent recording streams with higher priority,\n     the actual input device used by the application may differ from the selected one.\n     The application can use {@link OH_AudioSessionManager_RegisterCurrentInputDeviceChangeCallback}\n     to register a callback to listen for the actual input device.\n\n @param audioSessionManager the {@link OH_AudioSessionManager} handle returned\n     by {@link OH_AudioManager_GetAudioSessionManager}.\n @param deviceDescriptor The target device. The available device must be in the array returned\n     by {@link OH_AudioSessionManager_GetAvailableDevices}.\n     When the nullptr is passed, system will clear the last selection.\n @return {@link #AUDIOCOMMON_RESULT_SUCCESS} if execution succeeds.\n     or {@link #AUDIOCOMMON_RESULT_ERROR_INVALID_PARAM} if parameter validation fails.\n     or {@link #AUDIOCOMMON_RESULT_ERROR_SYSTEM} Audio client call audio service error, System error.\n @since 21"]
+    pub fn OH_AudioSessionManager_SelectMediaInputDevice(
+        audioSessionManager: *mut OH_AudioSessionManager,
+        deviceDescriptor: *mut OH_AudioDeviceDescriptor,
+    ) -> OH_AudioCommon_Result;
+}
+extern "C" {
+    #[cfg(feature = "api-21")]
+    #[doc = " @brief Gets the selected media input device.\n\n @param audioSessionManager the {@link #OH_AudioSessionManager}\n     returned by the {@link #OH_AudioManager_GetAudioSessionManager}.\n @param audioDeviceDescriptor The target device set by\n     {@link OH_AudioSessionManager_SelectMediaInputDevice} or\n     device with AUDIO_DEVICE_TYPE_INVALID if not set yet.\n     Do not release the audioDeviceDescriptor pointer separately,\n     instead call {@link OH_AudioSessionManager_ReleaseDevice} to release it\n     when it is no use anymore.\n @return {@link #AUDIOCOMMON_RESULT_SUCCESS} if execution succeeds.\n     or {@link #AUDIOCOMMON_RESULT_ERROR_INVALID_PARAM} if parameter validation fails.\n     or {@link #AUDIOCOMMON_RESULT_ERROR_SYSTEM} Audio client call audio service error, System error.\n @since 21"]
+    pub fn OH_AudioSessionManager_GetSelectedMediaInputDevice(
+        audioSessionManager: *mut OH_AudioSessionManager,
+        audioDeviceDescriptor: *mut *mut OH_AudioDeviceDescriptor,
+    ) -> OH_AudioCommon_Result;
+}
+extern "C" {
+    #[cfg(feature = "api-21")]
+    #[doc = " @brief Sets the prefered record category with bluetooth and nearlink device.\n     The application can set this category before bluetooth and nearlink connected, and the system will\n     prefer to use bluetooth and nearlink to record when the device connected.\n     In scenarios where there are concurrent recording streams with higher priority,\n     the actual input device used by the application may differ from the prefered one.\n     The application can use {@link OH_AudioSessionManager_RegisterCurrentInputDeviceChangeCallback}\n     to register a callback to listen for the actual input device.\n\n @param audioSessionManager the {@link OH_AudioSessionManager} handle returned\n     by {@link OH_AudioManager_GetAudioSessionManager}.\n @param category The category application prefer to use when recording with bluetooth and nearlink.\n @return {@link #AUDIOCOMMON_RESULT_SUCCESS} if execution succeeds.\n     or {@link #AUDIOCOMMON_RESULT_ERROR_INVALID_PARAM} if parameter validation fails.\n     or {@link #AUDIOCOMMON_RESULT_ERROR_SYSTEM} Audio client call audio service error, System error.\n @since 21"]
+    pub fn OH_AudioSessionManager_SetBluetoothAndNearlinkPreferredRecordCategory(
+        audioSessionManager: *mut OH_AudioSessionManager,
+        category: OH_AudioSession_BluetoothAndNearlinkPreferredRecordCategory,
+    ) -> OH_AudioCommon_Result;
+}
+extern "C" {
+    #[cfg(feature = "api-21")]
+    #[doc = " @brief Gets the prefered record category with bluetooth and nearlink device.\n\n @param audioSessionManager the {@link OH_AudioSessionManager} handle returned\n     by {@link OH_AudioManager_GetAudioSessionManager}.\n @param category The category application prefer to use when recording with bluetooth and nearlink.\n @return {@link #AUDIOCOMMON_RESULT_SUCCESS} if execution succeeds.\n     or {@link #AUDIOCOMMON_RESULT_ERROR_INVALID_PARAM} if parameter validation fails.\n     or {@link #AUDIOCOMMON_RESULT_ERROR_SYSTEM} Audio client call audio service error, System error.\n @since 21"]
+    pub fn OH_AudioSessionManager_GetBluetoothAndNearlinkPreferredRecordCategory(
+        audioSessionManager: *mut OH_AudioSessionManager,
+        category: *mut OH_AudioSession_BluetoothAndNearlinkPreferredRecordCategory,
+    ) -> OH_AudioCommon_Result;
+}
+extern "C" {
+    #[cfg(feature = "api-21")]
+    #[doc = " @brief Register the audio session input device change event callback.\n\n @param audioSessionManager the {@link #OH_AudioSessionManager}\n     returned by the {@link #OH_AudioManager_GetAudioSessionManager}.\n @param callback the {@link #OH_AudioSession_CurrentInputDeviceChangedCallback} which is used\n     to receive the input device change event.\n @return {@link #AUDIOCOMMON_RESULT_SUCCESS} if execution succeeds.\n     or {@link #AUDIOCOMMON_RESULT_ERROR_INVALID_PARAM} if parameter validation fails.\n     or {@link AUDIOCOMMON_RESULT_ERROR_NO_MEMORY} No memory error.\n     or {@link #AUDIOCOMMON_RESULT_ERROR_SYSTEM} Audio client call audio service error, System error.\n @since 21"]
+    pub fn OH_AudioSessionManager_RegisterCurrentInputDeviceChangeCallback(
+        audioSessionManager: *mut OH_AudioSessionManager,
+        callback: OH_AudioSession_CurrentInputDeviceChangedCallback,
+    ) -> OH_AudioCommon_Result;
+}
+extern "C" {
+    #[cfg(feature = "api-21")]
+    #[doc = " @brief Unregister the audio session input device change event callback.\n\n @param audioSessionManager the {@link #OH_AudioSessionManager}\n     returned by the {@link #OH_AudioManager_GetAudioSessionManager}.\n @param callback the {@link #OH_AudioSession_CurrentInputDeviceChangedCallback} which is used\n     to receive the input device change event.\n @return {@link #AUDIOCOMMON_RESULT_SUCCESS} if execution succeeds.\n     or {@link #AUDIOCOMMON_RESULT_ERROR_INVALID_PARAM} if parameter validation fails.\n     or {@link #AUDIOCOMMON_RESULT_ERROR_SYSTEM} Audio client call audio service error, System error.\n @since 21"]
+    pub fn OH_AudioSessionManager_UnregisterCurrentInputDeviceChangeCallback(
+        audioSessionManager: *mut OH_AudioSessionManager,
+        callback: OH_AudioSession_CurrentInputDeviceChangedCallback,
+    ) -> OH_AudioCommon_Result;
+}
+extern "C" {
+    #[cfg(feature = "api-21")]
+    #[doc = " @brief Release the audio device descriptor object.\n\n @param audioSessionManager the {@link OH_AudioSessionManager}\n     returned by the {@link #OH_AudioManager_GetAudioSessionManager}\n @param audioDeviceDescriptor Audio device descriptor to release.\n @return {@link AUDIOCOMMON_RESULT_SUCCESS} If the execution is successful.\n     or {@link AUDIOCOMMON_RESULT_ERROR_INVALID_PARAM} if parameter validation fails\n @since 21"]
+    pub fn OH_AudioSessionManager_ReleaseDevice(
+        audioSessionManager: *mut OH_AudioSessionManager,
+        audioDeviceDescriptor: *mut OH_AudioDeviceDescriptor,
+    ) -> OH_AudioCommon_Result;
+}
 #[repr(C)]
 #[derive(Debug, Copy, Clone)]
 pub struct OH_AudioStreamManager {
@@ -1942,6 +2059,14 @@ extern "C" {
     pub fn OH_AudioStreamManager_IsFastRecordingSupported(
         streamManager: *mut OH_AudioStreamManager,
         streamInfo: *mut OH_AudioStreamInfo,
+        source: OH_AudioStream_SourceType,
+    ) -> bool;
+}
+extern "C" {
+    #[cfg(feature = "api-21")]
+    #[doc = " @brief Return if the system recording enables intelligent noise reduction for current device.\n\n @param streamManager {@link OH_AudioStreamManager} handle\n     provided by {@link OH_AudioManager_GetAudioStreamManager}.\n @param source stream source type used to decide the audio device and pipe type selection result.\n @return {@code true} if the system recording enables intelligent noise reduction for current device.\n @since 21"]
+    pub fn OH_AudioStreamManager_IsIntelligentNoiseReductionEnabledForCurrentDevice(
+        streamManager: *mut OH_AudioStreamManager,
         source: OH_AudioStream_SourceType,
     ) -> bool;
 }
