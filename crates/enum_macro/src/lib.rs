@@ -62,25 +62,44 @@ pub fn enum_from(input: TokenStream) -> TokenStream {
         _ => panic!("AttributeConversion can only be derived for enums"),
     };
 
-    let from_attribute_type_arms = variants.iter().map(|v| {
-        let variant = &v.ident;
-        let variant_prefix = get_variant_prefix(v, &default_prefix);
-        let pascal_case_variant = to_pascal_case(&variant.to_string());
-        let target_variant = format_ident!("{}{}", variant_prefix, pascal_case_variant);
-        quote! {
-            #name::#variant => #target_variant,
-        }
-    });
+    let from_attribute_type_arms: Vec<_> = variants
+        .iter()
+        .map(|v| {
+            let variant = &v.ident;
+            let variant_prefix = get_variant_prefix(v, &default_prefix);
+            let pascal_case_variant = to_pascal_case(&variant.to_string());
+            let target_variant = format_ident!("{}{}", variant_prefix, pascal_case_variant);
+            quote! {
+                #name::#variant => #target_variant,
+            }
+        })
+        .collect();
 
-    let from_target_type_arms = variants.iter().map(|v| {
-        let variant = &v.ident;
-        let variant_prefix = get_variant_prefix(v, &default_prefix);
-        let pascal_case_variant = to_pascal_case(&variant.to_string());
-        let target_variant = format_ident!("{}{}", variant_prefix, pascal_case_variant);
-        quote! {
-            #target_variant => #name::#variant,
-        }
-    });
+    let from_target_type_arms: Vec<_> = variants
+        .iter()
+        .map(|v| {
+            let variant = &v.ident;
+            let variant_prefix = get_variant_prefix(v, &default_prefix);
+            let pascal_case_variant = to_pascal_case(&variant.to_string());
+            let target_variant = format_ident!("{}{}", variant_prefix, pascal_case_variant);
+            quote! {
+                #target_variant => #name::#variant,
+            }
+        })
+        .collect();
+
+    let try_from_target_type_arms: Vec<_> = variants
+        .iter()
+        .map(|v| {
+            let variant = &v.ident;
+            let variant_prefix = get_variant_prefix(v, &default_prefix);
+            let pascal_case_variant = to_pascal_case(&variant.to_string());
+            let target_variant = format_ident!("{}{}", variant_prefix, pascal_case_variant);
+            quote! {
+                #target_variant => ::std::option::Option::Some(#name::#variant),
+            }
+        })
+        .collect();
 
     let expanded = quote! {
         impl From<#name> for #target_type {
@@ -97,6 +116,15 @@ pub fn enum_from(input: TokenStream) -> TokenStream {
                 match attr {
                     #(#from_target_type_arms)*
                     _ => unreachable!("Invalid attribute value"),
+                }
+            }
+        }
+
+        impl #name {
+            pub fn try_from_raw(attr: #target_type) -> ::std::option::Option<Self> {
+                match attr {
+                    #(#try_from_target_type_arms)*
+                    _ => ::std::option::Option::None,
                 }
             }
         }
