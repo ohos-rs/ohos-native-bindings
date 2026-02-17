@@ -1,0 +1,26 @@
+[package]
+name        = "ohos-fileshare-binding"
+version     = "0.1.0"
+edition     = "2021"
+license     = "MIT OR Apache-2.0"
+description = "OpenHarmony's fileshare binding for rust"
+
+[dependencies]
+ohos-fileshare-sys = { workspace = true }
+libc               = { workspace = true }
+
+[features]
+default = []
+api-13  = ["ohos-fileshare-sys/api-13"]
+api-14  = ["api-13", "ohos-fileshare-sys/api-14"]
+api-15  = ["api-14", "ohos-fileshare-sys/api-15"]
+api-16  = ["api-15", "ohos-fileshare-sys/api-16"]
+api-17  = ["api-16", "ohos-fileshare-sys/api-17"]
+api-18  = ["api-17", "ohos-fileshare-sys/api-18"]
+api-19  = ["api-18", "ohos-fileshare-sys/api-19"]
+api-20  = ["api-19", "ohos-fileshare-sys/api-20"]
+api-21  = ["api-20", "ohos-fileshare-sys/api-21"]
+api-22  = ["api-21", "ohos-fileshare-sys/api-22"]
+
+[lints]
+workspace = true
