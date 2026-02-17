@@ -286,7 +286,7 @@ fn add_feature_gates(content: &str) -> (String, BTreeSet<u32>) {
                     if version > BASELINE_API_VERSION && !has_api_cfg(&attrs) {
                         let indent = line.len() - trimmed.len();
                         let indent_str = &line[..indent];
-                        result.push(format!("{indent_str}#[cfg(feature = \"api-{version}\")]"));
+                        insert_cfg_after_doc_attrs(&mut attrs, indent_str, version);
                         api_versions.insert(version);
                     }
                 }
@@ -466,14 +466,14 @@ fn infer_type_since(type_name: &str, min_since_by_key: &HashMap<String, u32>) ->
 fn emit_with_cfg(
     result: &mut Vec<String>,
     api_versions: &mut BTreeSet<u32>,
-    attrs: Vec<String>,
+    mut attrs: Vec<String>,
     line: String,
     indent: &str,
     since: Option<u32>,
 ) {
     if let Some(version) = since {
         if version > BASELINE_API_VERSION && !has_api_cfg(&attrs) {
-            result.push(format!("{indent}#[cfg(feature = \"api-{version}\")]"));
+            insert_cfg_after_doc_attrs(&mut attrs, indent, version);
             api_versions.insert(version);
         }
     }
@@ -484,15 +484,12 @@ fn emit_with_cfg(
 fn emit_pending_decl(
     result: &mut Vec<String>,
     api_versions: &mut BTreeSet<u32>,
-    pending: PendingDecl,
+    mut pending: PendingDecl,
 ) {
     let since = merge_doc_and_dep_since(pending.doc_since, pending.dep_since);
     if let Some(version) = since {
         if version > BASELINE_API_VERSION && !has_api_cfg(&pending.attrs) {
-            result.push(format!(
-                "{0}#[cfg(feature = \"api-{1}\")]",
-                pending.indent, version
-            ));
+            insert_cfg_after_doc_attrs(&mut pending.attrs, &pending.indent, version);
             api_versions.insert(version);
         }
     }
@@ -508,6 +505,15 @@ fn multiline_terminator_for_key(key: &str) -> Option<char> {
         return Some(',');
     }
     None
+}
+
+fn insert_cfg_after_doc_attrs(attrs: &mut Vec<String>, indent: &str, version: u32) {
+    let cfg_line = format!("{indent}#[cfg(feature = \"api-{version}\")]");
+    let insert_at = attrs
+        .iter()
+        .take_while(|line| line.trim_start().starts_with("#[doc ="))
+        .count();
+    attrs.insert(insert_at, cfg_line);
 }
 
 fn relax_min_since_by_references(

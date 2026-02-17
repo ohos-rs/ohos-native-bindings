@@ -40,32 +40,32 @@ pub type InputEvent_AxisAction = u32;
 pub const Input_KeyCode_KEYCODE_UNKNOWN: Input_KeyCode = -1;
 #[doc = " Function (Fn) key"]
 pub const Input_KeyCode_KEYCODE_FN: Input_KeyCode = 0;
-#[cfg(feature = "api-22")]
 #[doc = " Function (Home) key\n @since 22"]
+#[cfg(feature = "api-22")]
 pub const Input_KeyCode_KEYCODE_HOME: Input_KeyCode = 1;
-#[cfg(feature = "api-22")]
 #[doc = " Back key\n @since 22"]
+#[cfg(feature = "api-22")]
 pub const Input_KeyCode_KEYCODE_BACK: Input_KeyCode = 2;
-#[cfg(feature = "api-22")]
 #[doc = " KEYCODE_SEARCH\n @since 22"]
+#[cfg(feature = "api-22")]
 pub const Input_KeyCode_KEYCODE_SEARCH: Input_KeyCode = 9;
-#[cfg(feature = "api-22")]
 #[doc = " Play/Pause key\n @since 22"]
+#[cfg(feature = "api-22")]
 pub const Input_KeyCode_KEYCODE_MEDIA_PLAY_PAUSE: Input_KeyCode = 10;
-#[cfg(feature = "api-22")]
 #[doc = " Stop key\n @since 22"]
+#[cfg(feature = "api-22")]
 pub const Input_KeyCode_KEYCODE_MEDIA_STOP: Input_KeyCode = 11;
-#[cfg(feature = "api-22")]
 #[doc = " Next key\n @since 22"]
+#[cfg(feature = "api-22")]
 pub const Input_KeyCode_KEYCODE_MEDIA_NEXT: Input_KeyCode = 12;
-#[cfg(feature = "api-22")]
 #[doc = " Previous key\n @since 22"]
+#[cfg(feature = "api-22")]
 pub const Input_KeyCode_KEYCODE_MEDIA_PREVIOUS: Input_KeyCode = 13;
-#[cfg(feature = "api-22")]
 #[doc = " Rewind key\n @since 22"]
-pub const Input_KeyCode_KEYCODE_MEDIA_REWIND: Input_KeyCode = 14;
 #[cfg(feature = "api-22")]
+pub const Input_KeyCode_KEYCODE_MEDIA_REWIND: Input_KeyCode = 14;
 #[doc = " Fast forward key\n @since 22"]
+#[cfg(feature = "api-22")]
 pub const Input_KeyCode_KEYCODE_MEDIA_FAST_FORWARD: Input_KeyCode = 15;
 #[doc = " Volume Up key"]
 pub const Input_KeyCode_KEYCODE_VOLUME_UP: Input_KeyCode = 16;
@@ -329,787 +329,787 @@ pub const Input_KeyCode_KEYCODE_NUMPAD_EQUALS: Input_KeyCode = 2120;
 pub const Input_KeyCode_KEYCODE_NUMPAD_LEFT_PAREN: Input_KeyCode = 2121;
 #[doc = " Key ) on numeric keypad"]
 pub const Input_KeyCode_KEYCODE_NUMPAD_RIGHT_PAREN: Input_KeyCode = 2122;
-#[cfg(feature = "api-22")]
 #[doc = " Multi-task key\n @since 22"]
+#[cfg(feature = "api-22")]
 pub const Input_KeyCode_KEYCODE_VIRTUAL_MULTITASK: Input_KeyCode = 2210;
-#[cfg(feature = "api-22")]
 #[doc = " Joystick key A\n @since 22"]
+#[cfg(feature = "api-22")]
 pub const Input_KeyCode_KEYCODE_BUTTON_A: Input_KeyCode = 2301;
-#[cfg(feature = "api-22")]
 #[doc = " Joystick key B\n @since 22"]
+#[cfg(feature = "api-22")]
 pub const Input_KeyCode_KEYCODE_BUTTON_B: Input_KeyCode = 2302;
-#[cfg(feature = "api-22")]
 #[doc = " Joystick key X\n @since 22"]
+#[cfg(feature = "api-22")]
 pub const Input_KeyCode_KEYCODE_BUTTON_X: Input_KeyCode = 2304;
-#[cfg(feature = "api-22")]
 #[doc = " Joystick key Y\n @since 22"]
+#[cfg(feature = "api-22")]
 pub const Input_KeyCode_KEYCODE_BUTTON_Y: Input_KeyCode = 2305;
-#[cfg(feature = "api-22")]
 #[doc = " Joystick key L1\n @since 22"]
+#[cfg(feature = "api-22")]
 pub const Input_KeyCode_KEYCODE_BUTTON_L1: Input_KeyCode = 2307;
-#[cfg(feature = "api-22")]
 #[doc = " Joystick key R1\n @since 22"]
+#[cfg(feature = "api-22")]
 pub const Input_KeyCode_KEYCODE_BUTTON_R1: Input_KeyCode = 2308;
-#[cfg(feature = "api-22")]
 #[doc = " Joystick key L2\n @since 22"]
+#[cfg(feature = "api-22")]
 pub const Input_KeyCode_KEYCODE_BUTTON_L2: Input_KeyCode = 2309;
-#[cfg(feature = "api-22")]
 #[doc = " Joystick key R2\n @since 22"]
+#[cfg(feature = "api-22")]
 pub const Input_KeyCode_KEYCODE_BUTTON_R2: Input_KeyCode = 2310;
-#[cfg(feature = "api-22")]
 #[doc = " Joystick key Select\n @since 22"]
+#[cfg(feature = "api-22")]
 pub const Input_KeyCode_KEYCODE_BUTTON_SELECT: Input_KeyCode = 2311;
-#[cfg(feature = "api-22")]
 #[doc = " Joystick key Start\n @since 22"]
+#[cfg(feature = "api-22")]
 pub const Input_KeyCode_KEYCODE_BUTTON_START: Input_KeyCode = 2312;
-#[cfg(feature = "api-22")]
 #[doc = " Joystick key Mode\n @since 22"]
+#[cfg(feature = "api-22")]
 pub const Input_KeyCode_KEYCODE_BUTTON_MODE: Input_KeyCode = 2313;
-#[cfg(feature = "api-22")]
 #[doc = " Joystick key THUMBL\n @since 22"]
+#[cfg(feature = "api-22")]
 pub const Input_KeyCode_KEYCODE_BUTTON_THUMBL: Input_KeyCode = 2314;
-#[cfg(feature = "api-22")]
 #[doc = " Joystick key THUMBR\n @since 22"]
+#[cfg(feature = "api-22")]
 pub const Input_KeyCode_KEYCODE_BUTTON_THUMBR: Input_KeyCode = 2315;
-#[cfg(feature = "api-22")]
 #[doc = "Sleep key\n @since 22"]
+#[cfg(feature = "api-22")]
 pub const Input_KeyCode_KEYCODE_SLEEP: Input_KeyCode = 2600;
-#[cfg(feature = "api-22")]
 #[doc = " Zenkaku/Hankaku key\n @since 22"]
+#[cfg(feature = "api-22")]
 pub const Input_KeyCode_KEYCODE_ZENKAKU_HANKAKU: Input_KeyCode = 2601;
-#[cfg(feature = "api-22")]
 #[doc = "102nd key\n @since 22"]
+#[cfg(feature = "api-22")]
 pub const Input_KeyCode_KEYCODE_102ND: Input_KeyCode = 2602;
-#[cfg(feature = "api-22")]
 #[doc = " Ro key\n @since 22"]
+#[cfg(feature = "api-22")]
 pub const Input_KeyCode_KEYCODE_RO: Input_KeyCode = 2603;
-#[cfg(feature = "api-22")]
 #[doc = " Katakana key\n @since 22"]
+#[cfg(feature = "api-22")]
 pub const Input_KeyCode_KEYCODE_KATAKANA: Input_KeyCode = 2604;
-#[cfg(feature = "api-22")]
 #[doc = " Hiragana key\n @since 22"]
+#[cfg(feature = "api-22")]
 pub const Input_KeyCode_KEYCODE_HIRAGANA: Input_KeyCode = 2605;
-#[cfg(feature = "api-22")]
 #[doc = "  Henkan key\n @since 22"]
+#[cfg(feature = "api-22")]
 pub const Input_KeyCode_KEYCODE_HENKAN: Input_KeyCode = 2606;
-#[cfg(feature = "api-22")]
 #[doc = " Katakana/Hiragana key\n @since 22"]
+#[cfg(feature = "api-22")]
 pub const Input_KeyCode_KEYCODE_KATAKANA_HIRAGANA: Input_KeyCode = 2607;
-#[cfg(feature = "api-22")]
 #[doc = " Muhenkan key\n @since 22"]
+#[cfg(feature = "api-22")]
 pub const Input_KeyCode_KEYCODE_MUHENKAN: Input_KeyCode = 2608;
-#[cfg(feature = "api-22")]
 #[doc = " Linefeed key\n @since 22"]
+#[cfg(feature = "api-22")]
 pub const Input_KeyCode_KEYCODE_LINEFEED: Input_KeyCode = 2609;
-#[cfg(feature = "api-22")]
 #[doc = " Macro key\n @since 22"]
+#[cfg(feature = "api-22")]
 pub const Input_KeyCode_KEYCODE_MACRO: Input_KeyCode = 2610;
-#[cfg(feature = "api-22")]
 #[doc = " Plus/Minus key on the numeric keypad\n @since 22"]
+#[cfg(feature = "api-22")]
 pub const Input_KeyCode_KEYCODE_NUMPAD_PLUSMINUS: Input_KeyCode = 2611;
-#[cfg(feature = "api-22")]
 #[doc = " Scale key\n @since 22"]
+#[cfg(feature = "api-22")]
 pub const Input_KeyCode_KEYCODE_SCALE: Input_KeyCode = 2612;
-#[cfg(feature = "api-22")]
 #[doc = " Hanguel key\n @since 22"]
+#[cfg(feature = "api-22")]
 pub const Input_KeyCode_KEYCODE_HANGUEL: Input_KeyCode = 2613;
-#[cfg(feature = "api-22")]
 #[doc = " Hanja key\n @since 22"]
+#[cfg(feature = "api-22")]
 pub const Input_KeyCode_KEYCODE_HANJA: Input_KeyCode = 2614;
-#[cfg(feature = "api-22")]
 #[doc = " Yen key\n @since 22"]
+#[cfg(feature = "api-22")]
 pub const Input_KeyCode_KEYCODE_YEN: Input_KeyCode = 2615;
-#[cfg(feature = "api-22")]
 #[doc = " Stop key\n @since 22"]
+#[cfg(feature = "api-22")]
 pub const Input_KeyCode_KEYCODE_STOP: Input_KeyCode = 2616;
-#[cfg(feature = "api-22")]
 #[doc = " Again key\n @since 22"]
+#[cfg(feature = "api-22")]
 pub const Input_KeyCode_KEYCODE_AGAIN: Input_KeyCode = 2617;
-#[cfg(feature = "api-22")]
 #[doc = " Props key\n @since 22"]
+#[cfg(feature = "api-22")]
 pub const Input_KeyCode_KEYCODE_PROPS: Input_KeyCode = 2618;
-#[cfg(feature = "api-22")]
 #[doc = " Undo key\n @since 22"]
+#[cfg(feature = "api-22")]
 pub const Input_KeyCode_KEYCODE_UNDO: Input_KeyCode = 2619;
-#[cfg(feature = "api-22")]
 #[doc = " Copy key\n @since 22"]
+#[cfg(feature = "api-22")]
 pub const Input_KeyCode_KEYCODE_COPY: Input_KeyCode = 2620;
-#[cfg(feature = "api-22")]
 #[doc = " Open key\n @since 22"]
+#[cfg(feature = "api-22")]
 pub const Input_KeyCode_KEYCODE_OPEN: Input_KeyCode = 2621;
-#[cfg(feature = "api-22")]
 #[doc = " Paste key\n @since 22"]
+#[cfg(feature = "api-22")]
 pub const Input_KeyCode_KEYCODE_PASTE: Input_KeyCode = 2622;
-#[cfg(feature = "api-22")]
 #[doc = " Find key\n @since 22"]
+#[cfg(feature = "api-22")]
 pub const Input_KeyCode_KEYCODE_FIND: Input_KeyCode = 2623;
-#[cfg(feature = "api-22")]
 #[doc = " Cut key\n @since 22"]
+#[cfg(feature = "api-22")]
 pub const Input_KeyCode_KEYCODE_CUT: Input_KeyCode = 2624;
-#[cfg(feature = "api-22")]
 #[doc = " Help key\n @since 22"]
+#[cfg(feature = "api-22")]
 pub const Input_KeyCode_KEYCODE_HELP: Input_KeyCode = 2625;
-#[cfg(feature = "api-22")]
 #[doc = "  Calc key, which is used to start the calculator application\n @since 22"]
+#[cfg(feature = "api-22")]
 pub const Input_KeyCode_KEYCODE_CALC: Input_KeyCode = 2626;
-#[cfg(feature = "api-22")]
 #[doc = " File key\n @since 22"]
+#[cfg(feature = "api-22")]
 pub const Input_KeyCode_KEYCODE_FILE: Input_KeyCode = 2627;
-#[cfg(feature = "api-22")]
 #[doc = " Bookmarks key\n @since 22"]
+#[cfg(feature = "api-22")]
 pub const Input_KeyCode_KEYCODE_BOOKMARKS: Input_KeyCode = 2628;
-#[cfg(feature = "api-22")]
 #[doc = " Next key\n @since 22"]
+#[cfg(feature = "api-22")]
 pub const Input_KeyCode_KEYCODE_NEXT: Input_KeyCode = 2629;
-#[cfg(feature = "api-22")]
 #[doc = " Play/Pause key\n @since 22"]
+#[cfg(feature = "api-22")]
 pub const Input_KeyCode_KEYCODE_PLAYPAUSE: Input_KeyCode = 2630;
-#[cfg(feature = "api-22")]
 #[doc = " Previous key\n @since 22"]
+#[cfg(feature = "api-22")]
 pub const Input_KeyCode_KEYCODE_PREVIOUS: Input_KeyCode = 2631;
-#[cfg(feature = "api-22")]
 #[doc = " Stop CD key\n @since 22"]
+#[cfg(feature = "api-22")]
 pub const Input_KeyCode_KEYCODE_STOPCD: Input_KeyCode = 2632;
-#[cfg(feature = "api-22")]
 #[doc = " Config key\n @since 22"]
+#[cfg(feature = "api-22")]
 pub const Input_KeyCode_KEYCODE_CONFIG: Input_KeyCode = 2634;
-#[cfg(feature = "api-22")]
 #[doc = " Refresh key\n @since 22"]
+#[cfg(feature = "api-22")]
 pub const Input_KeyCode_KEYCODE_REFRESH: Input_KeyCode = 2635;
-#[cfg(feature = "api-22")]
 #[doc = " Exit key\n @since 22"]
+#[cfg(feature = "api-22")]
 pub const Input_KeyCode_KEYCODE_EXIT: Input_KeyCode = 2636;
-#[cfg(feature = "api-22")]
 #[doc = " Edit key\n @since 22"]
+#[cfg(feature = "api-22")]
 pub const Input_KeyCode_KEYCODE_EDIT: Input_KeyCode = 2637;
-#[cfg(feature = "api-22")]
 #[doc = " Scroll Up key\n @since 22"]
+#[cfg(feature = "api-22")]
 pub const Input_KeyCode_KEYCODE_SCROLLUP: Input_KeyCode = 2638;
-#[cfg(feature = "api-22")]
 #[doc = " Scroll Down key\n @since 22"]
+#[cfg(feature = "api-22")]
 pub const Input_KeyCode_KEYCODE_SCROLLDOWN: Input_KeyCode = 2639;
-#[cfg(feature = "api-22")]
 #[doc = " New key\n @since 22"]
+#[cfg(feature = "api-22")]
 pub const Input_KeyCode_KEYCODE_NEW: Input_KeyCode = 2640;
-#[cfg(feature = "api-22")]
 #[doc = " Redo key\n @since 22"]
+#[cfg(feature = "api-22")]
 pub const Input_KeyCode_KEYCODE_REDO: Input_KeyCode = 2641;
-#[cfg(feature = "api-22")]
 #[doc = " Close key\n @since 22"]
+#[cfg(feature = "api-22")]
 pub const Input_KeyCode_KEYCODE_CLOSE: Input_KeyCode = 2642;
-#[cfg(feature = "api-22")]
 #[doc = " Play key\n @since 22"]
+#[cfg(feature = "api-22")]
 pub const Input_KeyCode_KEYCODE_PLAY: Input_KeyCode = 2643;
-#[cfg(feature = "api-22")]
 #[doc = "Bass Boost key\n @since 22"]
+#[cfg(feature = "api-22")]
 pub const Input_KeyCode_KEYCODE_BASSBOOST: Input_KeyCode = 2644;
-#[cfg(feature = "api-22")]
 #[doc = " Print key\n @since 22"]
+#[cfg(feature = "api-22")]
 pub const Input_KeyCode_KEYCODE_PRINT: Input_KeyCode = 2645;
-#[cfg(feature = "api-22")]
 #[doc = " Chat key\n @since 22"]
+#[cfg(feature = "api-22")]
 pub const Input_KeyCode_KEYCODE_CHAT: Input_KeyCode = 2646;
-#[cfg(feature = "api-22")]
 #[doc = " Finance key\n @since 22"]
+#[cfg(feature = "api-22")]
 pub const Input_KeyCode_KEYCODE_FINANCE: Input_KeyCode = 2647;
-#[cfg(feature = "api-22")]
 #[doc = " Cancel key\n @since 22"]
+#[cfg(feature = "api-22")]
 pub const Input_KeyCode_KEYCODE_CANCEL: Input_KeyCode = 2648;
-#[cfg(feature = "api-22")]
 #[doc = " Keyboard Illumination Toggle key\n @since 22"]
+#[cfg(feature = "api-22")]
 pub const Input_KeyCode_KEYCODE_KBDILLUM_TOGGLE: Input_KeyCode = 2649;
-#[cfg(feature = "api-22")]
 #[doc = " Keyboard Illumination Down key\n @since 22"]
+#[cfg(feature = "api-22")]
 pub const Input_KeyCode_KEYCODE_KBDILLUM_DOWN: Input_KeyCode = 2650;
-#[cfg(feature = "api-22")]
 #[doc = " Keyboard Illumination Up key\n @since 22"]
+#[cfg(feature = "api-22")]
 pub const Input_KeyCode_KEYCODE_KBDILLUM_UP: Input_KeyCode = 2651;
-#[cfg(feature = "api-22")]
 #[doc = " Send key\n @since 22"]
+#[cfg(feature = "api-22")]
 pub const Input_KeyCode_KEYCODE_SEND: Input_KeyCode = 2652;
-#[cfg(feature = "api-22")]
 #[doc = " Reply key\n @since 22"]
+#[cfg(feature = "api-22")]
 pub const Input_KeyCode_KEYCODE_REPLY: Input_KeyCode = 2653;
-#[cfg(feature = "api-22")]
 #[doc = " Forward Mail key\n @since 22"]
+#[cfg(feature = "api-22")]
 pub const Input_KeyCode_KEYCODE_FORWARDMAIL: Input_KeyCode = 2654;
-#[cfg(feature = "api-22")]
 #[doc = " Save key\n @since 22"]
+#[cfg(feature = "api-22")]
 pub const Input_KeyCode_KEYCODE_SAVE: Input_KeyCode = 2655;
-#[cfg(feature = "api-22")]
 #[doc = " Documents key\n @since 22"]
+#[cfg(feature = "api-22")]
 pub const Input_KeyCode_KEYCODE_DOCUMENTS: Input_KeyCode = 2656;
-#[cfg(feature = "api-22")]
 #[doc = " Next Video key\n @since 22"]
+#[cfg(feature = "api-22")]
 pub const Input_KeyCode_KEYCODE_VIDEO_NEXT: Input_KeyCode = 2657;
-#[cfg(feature = "api-22")]
 #[doc = " Previous Video key\n @since 22"]
+#[cfg(feature = "api-22")]
 pub const Input_KeyCode_KEYCODE_VIDEO_PREV: Input_KeyCode = 2658;
-#[cfg(feature = "api-22")]
 #[doc = " Brightness Cycle key\n @since 22"]
+#[cfg(feature = "api-22")]
 pub const Input_KeyCode_KEYCODE_BRIGHTNESS_CYCLE: Input_KeyCode = 2659;
-#[cfg(feature = "api-22")]
 #[doc = " Brightness Zero key\n @since 22"]
+#[cfg(feature = "api-22")]
 pub const Input_KeyCode_KEYCODE_BRIGHTNESS_ZERO: Input_KeyCode = 2660;
-#[cfg(feature = "api-22")]
 #[doc = " Display Off key\n @since 22"]
+#[cfg(feature = "api-22")]
 pub const Input_KeyCode_KEYCODE_DISPLAY_OFF: Input_KeyCode = 2661;
-#[cfg(feature = "api-22")]
 #[doc = " Misc Button key\n @since 22"]
+#[cfg(feature = "api-22")]
 pub const Input_KeyCode_KEYCODE_BTN_MISC: Input_KeyCode = 2662;
-#[cfg(feature = "api-22")]
 #[doc = " Goto key\n @since 22"]
+#[cfg(feature = "api-22")]
 pub const Input_KeyCode_KEYCODE_GOTO: Input_KeyCode = 2663;
-#[cfg(feature = "api-22")]
 #[doc = " Info key\n @since 22"]
+#[cfg(feature = "api-22")]
 pub const Input_KeyCode_KEYCODE_INFO: Input_KeyCode = 2664;
-#[cfg(feature = "api-22")]
 #[doc = " Program key\n @since 22"]
+#[cfg(feature = "api-22")]
 pub const Input_KeyCode_KEYCODE_PROGRAM: Input_KeyCode = 2665;
-#[cfg(feature = "api-22")]
 #[doc = " PVR key\n @since 22"]
+#[cfg(feature = "api-22")]
 pub const Input_KeyCode_KEYCODE_PVR: Input_KeyCode = 2666;
-#[cfg(feature = "api-22")]
 #[doc = " Subtitle key\n @since 22"]
+#[cfg(feature = "api-22")]
 pub const Input_KeyCode_KEYCODE_SUBTITLE: Input_KeyCode = 2667;
-#[cfg(feature = "api-22")]
 #[doc = " Full Screen key\n @since 22"]
+#[cfg(feature = "api-22")]
 pub const Input_KeyCode_KEYCODE_FULL_SCREEN: Input_KeyCode = 2668;
-#[cfg(feature = "api-22")]
 #[doc = " Keyboard\n @since 22"]
+#[cfg(feature = "api-22")]
 pub const Input_KeyCode_KEYCODE_KEYBOARD: Input_KeyCode = 2669;
-#[cfg(feature = "api-22")]
 #[doc = " Aspect Ratio key\n @since 22"]
+#[cfg(feature = "api-22")]
 pub const Input_KeyCode_KEYCODE_ASPECT_RATIO: Input_KeyCode = 2670;
-#[cfg(feature = "api-22")]
 #[doc = "  Port Control key\n @since 22"]
+#[cfg(feature = "api-22")]
 pub const Input_KeyCode_KEYCODE_PC: Input_KeyCode = 2671;
-#[cfg(feature = "api-22")]
 #[doc = " TV key\n @since 22"]
+#[cfg(feature = "api-22")]
 pub const Input_KeyCode_KEYCODE_TV: Input_KeyCode = 2672;
-#[cfg(feature = "api-22")]
 #[doc = " TV key 2\n @since 22"]
+#[cfg(feature = "api-22")]
 pub const Input_KeyCode_KEYCODE_TV2: Input_KeyCode = 2673;
-#[cfg(feature = "api-22")]
 #[doc = " VCR key\n @since 22"]
+#[cfg(feature = "api-22")]
 pub const Input_KeyCode_KEYCODE_VCR: Input_KeyCode = 2674;
-#[cfg(feature = "api-22")]
 #[doc = " VCR key 2\n @since 22"]
+#[cfg(feature = "api-22")]
 pub const Input_KeyCode_KEYCODE_VCR2: Input_KeyCode = 2675;
-#[cfg(feature = "api-22")]
 #[doc = " SAT key\n @since 22"]
+#[cfg(feature = "api-22")]
 pub const Input_KeyCode_KEYCODE_SAT: Input_KeyCode = 2676;
-#[cfg(feature = "api-22")]
 #[doc = " CD key\n @since 22"]
+#[cfg(feature = "api-22")]
 pub const Input_KeyCode_KEYCODE_CD: Input_KeyCode = 2677;
-#[cfg(feature = "api-22")]
 #[doc = " Tape key\n @since 22"]
+#[cfg(feature = "api-22")]
 pub const Input_KeyCode_KEYCODE_TAPE: Input_KeyCode = 2678;
-#[cfg(feature = "api-22")]
 #[doc = " Tuner key\n @since 22"]
+#[cfg(feature = "api-22")]
 pub const Input_KeyCode_KEYCODE_TUNER: Input_KeyCode = 2679;
-#[cfg(feature = "api-22")]
 #[doc = " Player key\n @since 22"]
+#[cfg(feature = "api-22")]
 pub const Input_KeyCode_KEYCODE_PLAYER: Input_KeyCode = 2680;
-#[cfg(feature = "api-22")]
 #[doc = " DVD key\n @since 22"]
+#[cfg(feature = "api-22")]
 pub const Input_KeyCode_KEYCODE_DVD: Input_KeyCode = 2681;
-#[cfg(feature = "api-22")]
 #[doc = " Audio key\n @since 22"]
+#[cfg(feature = "api-22")]
 pub const Input_KeyCode_KEYCODE_AUDIO: Input_KeyCode = 2682;
-#[cfg(feature = "api-22")]
 #[doc = " Video key\n @since 22"]
+#[cfg(feature = "api-22")]
 pub const Input_KeyCode_KEYCODE_VIDEO: Input_KeyCode = 2683;
-#[cfg(feature = "api-22")]
 #[doc = " Memo key\n @since 22"]
+#[cfg(feature = "api-22")]
 pub const Input_KeyCode_KEYCODE_MEMO: Input_KeyCode = 2684;
-#[cfg(feature = "api-22")]
 #[doc = " Calendar key\n @since 22"]
+#[cfg(feature = "api-22")]
 pub const Input_KeyCode_KEYCODE_CALENDAR: Input_KeyCode = 2685;
-#[cfg(feature = "api-22")]
 #[doc = " Red indicator\n @since 22"]
+#[cfg(feature = "api-22")]
 pub const Input_KeyCode_KEYCODE_RED: Input_KeyCode = 2686;
-#[cfg(feature = "api-22")]
 #[doc = " Green indicator\n @since 22"]
+#[cfg(feature = "api-22")]
 pub const Input_KeyCode_KEYCODE_GREEN: Input_KeyCode = 2687;
-#[cfg(feature = "api-22")]
 #[doc = " Yellow indicator\n @since 22"]
+#[cfg(feature = "api-22")]
 pub const Input_KeyCode_KEYCODE_YELLOW: Input_KeyCode = 2688;
-#[cfg(feature = "api-22")]
 #[doc = " Blue indicator\n @since 22"]
+#[cfg(feature = "api-22")]
 pub const Input_KeyCode_KEYCODE_BLUE: Input_KeyCode = 2689;
-#[cfg(feature = "api-22")]
 #[doc = " Channel Up key\n @since 22"]
+#[cfg(feature = "api-22")]
 pub const Input_KeyCode_KEYCODE_CHANNELUP: Input_KeyCode = 2690;
-#[cfg(feature = "api-22")]
 #[doc = " Channel Down key\n @since 22"]
+#[cfg(feature = "api-22")]
 pub const Input_KeyCode_KEYCODE_CHANNELDOWN: Input_KeyCode = 2691;
-#[cfg(feature = "api-22")]
 #[doc = " Last key\n @since 22"]
+#[cfg(feature = "api-22")]
 pub const Input_KeyCode_KEYCODE_LAST: Input_KeyCode = 2692;
-#[cfg(feature = "api-22")]
 #[doc = " Restart key\n @since 22"]
+#[cfg(feature = "api-22")]
 pub const Input_KeyCode_KEYCODE_RESTART: Input_KeyCode = 2693;
-#[cfg(feature = "api-22")]
 #[doc = " Slow key\n @since 22"]
+#[cfg(feature = "api-22")]
 pub const Input_KeyCode_KEYCODE_SLOW: Input_KeyCode = 2694;
-#[cfg(feature = "api-22")]
 #[doc = " Shuffle key\n @since 22"]
+#[cfg(feature = "api-22")]
 pub const Input_KeyCode_KEYCODE_SHUFFLE: Input_KeyCode = 2695;
-#[cfg(feature = "api-22")]
 #[doc = " Videophone key\n @since 22"]
+#[cfg(feature = "api-22")]
 pub const Input_KeyCode_KEYCODE_VIDEOPHONE: Input_KeyCode = 2696;
-#[cfg(feature = "api-22")]
 #[doc = " Games key\n @since 22"]
+#[cfg(feature = "api-22")]
 pub const Input_KeyCode_KEYCODE_GAMES: Input_KeyCode = 2697;
-#[cfg(feature = "api-22")]
 #[doc = " Zoom in\n @since 22"]
+#[cfg(feature = "api-22")]
 pub const Input_KeyCode_KEYCODE_ZOOMIN: Input_KeyCode = 2698;
-#[cfg(feature = "api-22")]
 #[doc = " Zoom out\n @since 22"]
+#[cfg(feature = "api-22")]
 pub const Input_KeyCode_KEYCODE_ZOOMOUT: Input_KeyCode = 2699;
-#[cfg(feature = "api-22")]
 #[doc = " Zoom reset key\n @since 22"]
+#[cfg(feature = "api-22")]
 pub const Input_KeyCode_KEYCODE_ZOOMRESET: Input_KeyCode = 2700;
-#[cfg(feature = "api-22")]
 #[doc = " Word Processor key\n @since 22"]
+#[cfg(feature = "api-22")]
 pub const Input_KeyCode_KEYCODE_WORDPROCESSOR: Input_KeyCode = 2701;
-#[cfg(feature = "api-22")]
 #[doc = " Editor key\n @since 22"]
+#[cfg(feature = "api-22")]
 pub const Input_KeyCode_KEYCODE_EDITOR: Input_KeyCode = 2702;
-#[cfg(feature = "api-22")]
 #[doc = " Spreadsheet key\n @since 22"]
+#[cfg(feature = "api-22")]
 pub const Input_KeyCode_KEYCODE_SPREADSHEET: Input_KeyCode = 2703;
-#[cfg(feature = "api-22")]
 #[doc = " Graphics Editor key\n @since 22"]
+#[cfg(feature = "api-22")]
 pub const Input_KeyCode_KEYCODE_GRAPHICSEDITOR: Input_KeyCode = 2704;
-#[cfg(feature = "api-22")]
 #[doc = " Presentation key\n @since 22"]
+#[cfg(feature = "api-22")]
 pub const Input_KeyCode_KEYCODE_PRESENTATION: Input_KeyCode = 2705;
-#[cfg(feature = "api-22")]
 #[doc = " Database key\n @since 22"]
+#[cfg(feature = "api-22")]
 pub const Input_KeyCode_KEYCODE_DATABASE: Input_KeyCode = 2706;
-#[cfg(feature = "api-22")]
 #[doc = " News key\n @since 22"]
+#[cfg(feature = "api-22")]
 pub const Input_KeyCode_KEYCODE_NEWS: Input_KeyCode = 2707;
-#[cfg(feature = "api-22")]
 #[doc = " Voicemail key\n @since 22"]
+#[cfg(feature = "api-22")]
 pub const Input_KeyCode_KEYCODE_VOICEMAIL: Input_KeyCode = 2708;
-#[cfg(feature = "api-22")]
 #[doc = " Address book key\n @since 22"]
+#[cfg(feature = "api-22")]
 pub const Input_KeyCode_KEYCODE_ADDRESSBOOK: Input_KeyCode = 2709;
-#[cfg(feature = "api-22")]
 #[doc = " Messenger key\n @since 22"]
+#[cfg(feature = "api-22")]
 pub const Input_KeyCode_KEYCODE_MESSENGER: Input_KeyCode = 2710;
-#[cfg(feature = "api-22")]
 #[doc = " Brightness Toggle key\n @since 22"]
+#[cfg(feature = "api-22")]
 pub const Input_KeyCode_KEYCODE_BRIGHTNESS_TOGGLE: Input_KeyCode = 2711;
-#[cfg(feature = "api-22")]
 #[doc = " Spell Check key\n @since 22"]
+#[cfg(feature = "api-22")]
 pub const Input_KeyCode_KEYCODE_SPELLCHECK: Input_KeyCode = 2712;
-#[cfg(feature = "api-22")]
 #[doc = " Coffee key, which is used to launch screen lock or screen saver\n @since 22"]
+#[cfg(feature = "api-22")]
 pub const Input_KeyCode_KEYCODE_COFFEE: Input_KeyCode = 2713;
-#[cfg(feature = "api-22")]
 #[doc = " Media Repeat key\n @since 22"]
+#[cfg(feature = "api-22")]
 pub const Input_KeyCode_KEYCODE_MEDIA_REPEAT: Input_KeyCode = 2714;
-#[cfg(feature = "api-22")]
 #[doc = " Images key\n @since 22"]
+#[cfg(feature = "api-22")]
 pub const Input_KeyCode_KEYCODE_IMAGES: Input_KeyCode = 2715;
-#[cfg(feature = "api-22")]
 #[doc = " Button Configuration key\n @since 22"]
+#[cfg(feature = "api-22")]
 pub const Input_KeyCode_KEYCODE_BUTTONCONFIG: Input_KeyCode = 2716;
-#[cfg(feature = "api-22")]
 #[doc = " Task Manager key\n @since 22"]
+#[cfg(feature = "api-22")]
 pub const Input_KeyCode_KEYCODE_TASKMANAGER: Input_KeyCode = 2717;
-#[cfg(feature = "api-22")]
 #[doc = " Log key\n @since 22"]
+#[cfg(feature = "api-22")]
 pub const Input_KeyCode_KEYCODE_JOURNAL: Input_KeyCode = 2718;
-#[cfg(feature = "api-22")]
 #[doc = " Control Panel key\n @since 22"]
+#[cfg(feature = "api-22")]
 pub const Input_KeyCode_KEYCODE_CONTROLPANEL: Input_KeyCode = 2719;
-#[cfg(feature = "api-22")]
 #[doc = " App Select key\n @since 22"]
+#[cfg(feature = "api-22")]
 pub const Input_KeyCode_KEYCODE_APPSELECT: Input_KeyCode = 2720;
-#[cfg(feature = "api-22")]
 #[doc = " Screen Saver key\n @since 22"]
+#[cfg(feature = "api-22")]
 pub const Input_KeyCode_KEYCODE_SCREENSAVER: Input_KeyCode = 2721;
-#[cfg(feature = "api-22")]
 #[doc = " Smart key\n @since 22"]
+#[cfg(feature = "api-22")]
 pub const Input_KeyCode_KEYCODE_ASSISTANT: Input_KeyCode = 2722;
-#[cfg(feature = "api-22")]
 #[doc = " Next Keyboard Layout key\n @since 22"]
+#[cfg(feature = "api-22")]
 pub const Input_KeyCode_KEYCODE_KBD_LAYOUT_NEXT: Input_KeyCode = 2723;
-#[cfg(feature = "api-22")]
 #[doc = " Min Brightness key\n @since 22"]
+#[cfg(feature = "api-22")]
 pub const Input_KeyCode_KEYCODE_BRIGHTNESS_MIN: Input_KeyCode = 2724;
-#[cfg(feature = "api-22")]
 #[doc = " Max Brightness key\n @since 22"]
+#[cfg(feature = "api-22")]
 pub const Input_KeyCode_KEYCODE_BRIGHTNESS_MAX: Input_KeyCode = 2725;
-#[cfg(feature = "api-22")]
 #[doc = " Assist_Previous key, used to view historical inputs\n @since 22"]
+#[cfg(feature = "api-22")]
 pub const Input_KeyCode_KEYCODE_KBDINPUTASSIST_PREV: Input_KeyCode = 2726;
-#[cfg(feature = "api-22")]
 #[doc = " Assist_Next key, used to view predictive inputs\n @since 22"]
+#[cfg(feature = "api-22")]
 pub const Input_KeyCode_KEYCODE_KBDINPUTASSIST_NEXT: Input_KeyCode = 2727;
-#[cfg(feature = "api-22")]
 #[doc = " Assist_Previous_Group key, used to switch to the previous input method in the input group\n @since 22"]
+#[cfg(feature = "api-22")]
 pub const Input_KeyCode_KEYCODE_KBDINPUTASSIST_PREVGROUP: Input_KeyCode = 2728;
-#[cfg(feature = "api-22")]
 #[doc = "  Assist_Next_Group key, used to switch to the next input method in the input group\n @since 22"]
+#[cfg(feature = "api-22")]
 pub const Input_KeyCode_KEYCODE_KBDINPUTASSIST_NEXTGROUP: Input_KeyCode = 2729;
-#[cfg(feature = "api-22")]
 #[doc = " Keyboard Input-assisted Accept key\n @since 22"]
+#[cfg(feature = "api-22")]
 pub const Input_KeyCode_KEYCODE_KBDINPUTASSIST_ACCEPT: Input_KeyCode = 2730;
-#[cfg(feature = "api-22")]
 #[doc = " Keyboard Input-assisted Cancel key\n @since 22"]
+#[cfg(feature = "api-22")]
 pub const Input_KeyCode_KEYCODE_KBDINPUTASSIST_CANCEL: Input_KeyCode = 2731;
-#[cfg(feature = "api-22")]
 #[doc = " Front key, which is used to launch the windshield defogger\n @since 22"]
+#[cfg(feature = "api-22")]
 pub const Input_KeyCode_KEYCODE_FRONT: Input_KeyCode = 2800;
-#[cfg(feature = "api-22")]
 #[doc = " Setup key\n @since 22"]
+#[cfg(feature = "api-22")]
 pub const Input_KeyCode_KEYCODE_SETUP: Input_KeyCode = 2801;
-#[cfg(feature = "api-22")]
 #[doc = " Wakeup key\n @since 22"]
+#[cfg(feature = "api-22")]
 pub const Input_KeyCode_KEYCODE_WAKEUP: Input_KeyCode = 2802;
-#[cfg(feature = "api-22")]
 #[doc = " Send File key\n @since 22"]
+#[cfg(feature = "api-22")]
 pub const Input_KeyCode_KEYCODE_SENDFILE: Input_KeyCode = 2803;
-#[cfg(feature = "api-22")]
 #[doc = " Delete File key\n @since 22"]
+#[cfg(feature = "api-22")]
 pub const Input_KeyCode_KEYCODE_DELETEFILE: Input_KeyCode = 2804;
-#[cfg(feature = "api-22")]
 #[doc = " XFER key, which is used to start file transfer\n @since 22"]
+#[cfg(feature = "api-22")]
 pub const Input_KeyCode_KEYCODE_XFER: Input_KeyCode = 2805;
-#[cfg(feature = "api-22")]
 #[doc = " Program key 1\n @since 22"]
+#[cfg(feature = "api-22")]
 pub const Input_KeyCode_KEYCODE_PROG1: Input_KeyCode = 2806;
-#[cfg(feature = "api-22")]
 #[doc = " Program key 2\n @since 22"]
+#[cfg(feature = "api-22")]
 pub const Input_KeyCode_KEYCODE_PROG2: Input_KeyCode = 2807;
-#[cfg(feature = "api-22")]
 #[doc = " MS-DOS key\n @since 22"]
+#[cfg(feature = "api-22")]
 pub const Input_KeyCode_KEYCODE_MSDOS: Input_KeyCode = 2808;
-#[cfg(feature = "api-22")]
 #[doc = " Screen Lock key\n @since 22"]
+#[cfg(feature = "api-22")]
 pub const Input_KeyCode_KEYCODE_SCREENLOCK: Input_KeyCode = 2809;
-#[cfg(feature = "api-22")]
 #[doc = " Directional Rotation Display key\n @since 22"]
+#[cfg(feature = "api-22")]
 pub const Input_KeyCode_KEYCODE_DIRECTION_ROTATE_DISPLAY: Input_KeyCode = 2810;
-#[cfg(feature = "api-22")]
 #[doc = " Windows Cycle key\n @since 22"]
+#[cfg(feature = "api-22")]
 pub const Input_KeyCode_KEYCODE_CYCLEWINDOWS: Input_KeyCode = 2811;
-#[cfg(feature = "api-22")]
 #[doc = " Key\n @since 22"]
+#[cfg(feature = "api-22")]
 pub const Input_KeyCode_KEYCODE_COMPUTER: Input_KeyCode = 2812;
-#[cfg(feature = "api-22")]
 #[doc = " Eject CD key\n @since 22"]
+#[cfg(feature = "api-22")]
 pub const Input_KeyCode_KEYCODE_EJECTCLOSECD: Input_KeyCode = 2813;
-#[cfg(feature = "api-22")]
 #[doc = " ISO key\n @since 22"]
+#[cfg(feature = "api-22")]
 pub const Input_KeyCode_KEYCODE_ISO: Input_KeyCode = 2814;
-#[cfg(feature = "api-22")]
 #[doc = " Move key\n @since 22"]
+#[cfg(feature = "api-22")]
 pub const Input_KeyCode_KEYCODE_MOVE: Input_KeyCode = 2815;
-#[cfg(feature = "api-22")]
 #[doc = " F13 key\n @since 22"]
+#[cfg(feature = "api-22")]
 pub const Input_KeyCode_KEYCODE_F13: Input_KeyCode = 2816;
-#[cfg(feature = "api-22")]
 #[doc = " F14 key\n @since 22"]
+#[cfg(feature = "api-22")]
 pub const Input_KeyCode_KEYCODE_F14: Input_KeyCode = 2817;
-#[cfg(feature = "api-22")]
 #[doc = " F15 key\n @since 22"]
+#[cfg(feature = "api-22")]
 pub const Input_KeyCode_KEYCODE_F15: Input_KeyCode = 2818;
-#[cfg(feature = "api-22")]
 #[doc = " F16 key\n @since 22"]
+#[cfg(feature = "api-22")]
 pub const Input_KeyCode_KEYCODE_F16: Input_KeyCode = 2819;
-#[cfg(feature = "api-22")]
 #[doc = " F17 key\n @since 22"]
+#[cfg(feature = "api-22")]
 pub const Input_KeyCode_KEYCODE_F17: Input_KeyCode = 2820;
-#[cfg(feature = "api-22")]
 #[doc = " F18 key\n @since 22"]
+#[cfg(feature = "api-22")]
 pub const Input_KeyCode_KEYCODE_F18: Input_KeyCode = 2821;
-#[cfg(feature = "api-22")]
 #[doc = " F19 key\n @since 22"]
+#[cfg(feature = "api-22")]
 pub const Input_KeyCode_KEYCODE_F19: Input_KeyCode = 2822;
-#[cfg(feature = "api-22")]
 #[doc = " F20 key\n @since 22"]
+#[cfg(feature = "api-22")]
 pub const Input_KeyCode_KEYCODE_F20: Input_KeyCode = 2823;
-#[cfg(feature = "api-22")]
 #[doc = " F21 key\n @since 22"]
+#[cfg(feature = "api-22")]
 pub const Input_KeyCode_KEYCODE_F21: Input_KeyCode = 2824;
-#[cfg(feature = "api-22")]
 #[doc = " F22 key\n @since 22"]
+#[cfg(feature = "api-22")]
 pub const Input_KeyCode_KEYCODE_F22: Input_KeyCode = 2825;
-#[cfg(feature = "api-22")]
 #[doc = " F23 key\n @since 22"]
+#[cfg(feature = "api-22")]
 pub const Input_KeyCode_KEYCODE_F23: Input_KeyCode = 2826;
-#[cfg(feature = "api-22")]
 #[doc = " F24 key\n @since 22"]
+#[cfg(feature = "api-22")]
 pub const Input_KeyCode_KEYCODE_F24: Input_KeyCode = 2827;
-#[cfg(feature = "api-22")]
 #[doc = " Program key 3\n @since 22"]
+#[cfg(feature = "api-22")]
 pub const Input_KeyCode_KEYCODE_PROG3: Input_KeyCode = 2828;
-#[cfg(feature = "api-22")]
 #[doc = " Program key 4\n @since 22"]
+#[cfg(feature = "api-22")]
 pub const Input_KeyCode_KEYCODE_PROG4: Input_KeyCode = 2829;
-#[cfg(feature = "api-22")]
 #[doc = " Dashboard key\n @since 22"]
+#[cfg(feature = "api-22")]
 pub const Input_KeyCode_KEYCODE_DASHBOARD: Input_KeyCode = 2830;
-#[cfg(feature = "api-22")]
 #[doc = " Suspend key\n @since 22"]
+#[cfg(feature = "api-22")]
 pub const Input_KeyCode_KEYCODE_SUSPEND: Input_KeyCode = 2831;
-#[cfg(feature = "api-22")]
 #[doc = " HP key\n @since 22"]
+#[cfg(feature = "api-22")]
 pub const Input_KeyCode_KEYCODE_HP: Input_KeyCode = 2832;
-#[cfg(feature = "api-22")]
 #[doc = " Sound key\n @since 22"]
+#[cfg(feature = "api-22")]
 pub const Input_KeyCode_KEYCODE_SOUND: Input_KeyCode = 2833;
-#[cfg(feature = "api-22")]
 #[doc = " Question key\n @since 22"]
+#[cfg(feature = "api-22")]
 pub const Input_KeyCode_KEYCODE_QUESTION: Input_KeyCode = 2834;
-#[cfg(feature = "api-22")]
 #[doc = " Connect key\n @since 22"]
+#[cfg(feature = "api-22")]
 pub const Input_KeyCode_KEYCODE_CONNECT: Input_KeyCode = 2836;
-#[cfg(feature = "api-22")]
 #[doc = " Sport key\n @since 22"]
+#[cfg(feature = "api-22")]
 pub const Input_KeyCode_KEYCODE_SPORT: Input_KeyCode = 2837;
-#[cfg(feature = "api-22")]
 #[doc = " Shop key\n @since 22"]
+#[cfg(feature = "api-22")]
 pub const Input_KeyCode_KEYCODE_SHOP: Input_KeyCode = 2838;
-#[cfg(feature = "api-22")]
 #[doc = " Alterase key\n @since 22"]
+#[cfg(feature = "api-22")]
 pub const Input_KeyCode_KEYCODE_ALTERASE: Input_KeyCode = 2839;
-#[cfg(feature = "api-22")]
 #[doc = " Switch Video Mode key (monitor, LCD, and TV, etc)\n @since 22"]
+#[cfg(feature = "api-22")]
 pub const Input_KeyCode_KEYCODE_SWITCHVIDEOMODE: Input_KeyCode = 2841;
-#[cfg(feature = "api-22")]
 #[doc = " Battery key\n @since 22"]
+#[cfg(feature = "api-22")]
 pub const Input_KeyCode_KEYCODE_BATTERY: Input_KeyCode = 2842;
-#[cfg(feature = "api-22")]
 #[doc = " Bluetooth key\n @since 22"]
+#[cfg(feature = "api-22")]
 pub const Input_KeyCode_KEYCODE_BLUETOOTH: Input_KeyCode = 2843;
-#[cfg(feature = "api-22")]
 #[doc = " WLAN key\n @since 22"]
+#[cfg(feature = "api-22")]
 pub const Input_KeyCode_KEYCODE_WLAN: Input_KeyCode = 2844;
-#[cfg(feature = "api-22")]
 #[doc = " Ultra-wideband key\n @since 22"]
+#[cfg(feature = "api-22")]
 pub const Input_KeyCode_KEYCODE_UWB: Input_KeyCode = 2845;
-#[cfg(feature = "api-22")]
 #[doc = " WWAN WiMAX key\n @since 22"]
+#[cfg(feature = "api-22")]
 pub const Input_KeyCode_KEYCODE_WWAN_WIMAX: Input_KeyCode = 2846;
-#[cfg(feature = "api-22")]
 #[doc = " RF Kill key\n @since 22"]
+#[cfg(feature = "api-22")]
 pub const Input_KeyCode_KEYCODE_RFKILL: Input_KeyCode = 2847;
-#[cfg(feature = "api-22")]
 #[doc = " Channel key\n @since 22"]
+#[cfg(feature = "api-22")]
 pub const Input_KeyCode_KEYCODE_CHANNEL: Input_KeyCode = 3001;
-#[cfg(feature = "api-22")]
 #[doc = "Button 0\n @since 22"]
+#[cfg(feature = "api-22")]
 pub const Input_KeyCode_KEYCODE_BTN_0: Input_KeyCode = 3100;
-#[cfg(feature = "api-22")]
 #[doc = " Button 1\n @since 22"]
+#[cfg(feature = "api-22")]
 pub const Input_KeyCode_KEYCODE_BTN_1: Input_KeyCode = 3101;
-#[cfg(feature = "api-22")]
 #[doc = " Button 2\n @since 22"]
+#[cfg(feature = "api-22")]
 pub const Input_KeyCode_KEYCODE_BTN_2: Input_KeyCode = 3102;
-#[cfg(feature = "api-22")]
 #[doc = " Button 3\n @since 22"]
+#[cfg(feature = "api-22")]
 pub const Input_KeyCode_KEYCODE_BTN_3: Input_KeyCode = 3103;
-#[cfg(feature = "api-22")]
 #[doc = " Button 4\n @since 22"]
+#[cfg(feature = "api-22")]
 pub const Input_KeyCode_KEYCODE_BTN_4: Input_KeyCode = 3104;
-#[cfg(feature = "api-22")]
 #[doc = " Button 5\n @since 22"]
+#[cfg(feature = "api-22")]
 pub const Input_KeyCode_KEYCODE_BTN_5: Input_KeyCode = 3105;
-#[cfg(feature = "api-22")]
 #[doc = " Button 6\n @since 22"]
+#[cfg(feature = "api-22")]
 pub const Input_KeyCode_KEYCODE_BTN_6: Input_KeyCode = 3106;
-#[cfg(feature = "api-22")]
 #[doc = " Button 7\n @since 22"]
+#[cfg(feature = "api-22")]
 pub const Input_KeyCode_KEYCODE_BTN_7: Input_KeyCode = 3107;
-#[cfg(feature = "api-22")]
 #[doc = " Button 8\n @since 22"]
+#[cfg(feature = "api-22")]
 pub const Input_KeyCode_KEYCODE_BTN_8: Input_KeyCode = 3108;
-#[cfg(feature = "api-22")]
 #[doc = " Button 9\n @since 22"]
+#[cfg(feature = "api-22")]
 pub const Input_KeyCode_KEYCODE_BTN_9: Input_KeyCode = 3109;
-#[cfg(feature = "api-22")]
 #[doc = " Single tapping the smart watch's X-TAP sensor\n @since 22"]
+#[cfg(feature = "api-22")]
 pub const Input_KeyCode_KEYCODE_DAGGER_CLICK: Input_KeyCode = 3211;
-#[cfg(feature = "api-22")]
 #[doc = " Double tapping the smart watch's X-TAP sensor\n @since 22"]
+#[cfg(feature = "api-22")]
 pub const Input_KeyCode_KEYCODE_DAGGER_DOUBLE_CLICK: Input_KeyCode = 3212;
-#[cfg(feature = "api-22")]
 #[doc = " Long-pressing the smart watch's X-TAP sensor\n @since 22"]
-pub const Input_KeyCode_KEYCODE_DAGGER_LONG_PRESS: Input_KeyCode = 3213;
 #[cfg(feature = "api-22")]
+pub const Input_KeyCode_KEYCODE_DAGGER_LONG_PRESS: Input_KeyCode = 3213;
 #[doc = " Smart watch's left button\n @since 22"]
+#[cfg(feature = "api-22")]
 pub const Input_KeyCode_KEYCODE_DIV: Input_KeyCode = 3220;
 #[doc = " @brief Enumerated values of OpenHarmony key code.\n\n @since 12"]
 pub type Input_KeyCode = i32;
-#[cfg(feature = "api-22")]
 #[doc = " Default\n @since 22"]
+#[cfg(feature = "api-22")]
 pub const Input_PointerStyle_DEFAULT: Input_PointerStyle = 0;
-#[cfg(feature = "api-22")]
 #[doc = " East arrow\n @since 22"]
+#[cfg(feature = "api-22")]
 pub const Input_PointerStyle_EAST: Input_PointerStyle = 1;
-#[cfg(feature = "api-22")]
 #[doc = " West arrow\n @since 22"]
+#[cfg(feature = "api-22")]
 pub const Input_PointerStyle_WEST: Input_PointerStyle = 2;
-#[cfg(feature = "api-22")]
 #[doc = " South arrow\n @since 22"]
+#[cfg(feature = "api-22")]
 pub const Input_PointerStyle_SOUTH: Input_PointerStyle = 3;
-#[cfg(feature = "api-22")]
 #[doc = " North arrow\n @since 22"]
+#[cfg(feature = "api-22")]
 pub const Input_PointerStyle_NORTH: Input_PointerStyle = 4;
-#[cfg(feature = "api-22")]
 #[doc = " East-west arrow\n @since 22"]
+#[cfg(feature = "api-22")]
 pub const Input_PointerStyle_WEST_EAST: Input_PointerStyle = 5;
-#[cfg(feature = "api-22")]
 #[doc = " North-south arrow\n @since 22"]
+#[cfg(feature = "api-22")]
 pub const Input_PointerStyle_NORTH_SOUTH: Input_PointerStyle = 6;
-#[cfg(feature = "api-22")]
 #[doc = " North-east arrow\n @since 22"]
+#[cfg(feature = "api-22")]
 pub const Input_PointerStyle_NORTH_EAST: Input_PointerStyle = 7;
-#[cfg(feature = "api-22")]
 #[doc = " North-west arrow\n @since 22"]
+#[cfg(feature = "api-22")]
 pub const Input_PointerStyle_NORTH_WEST: Input_PointerStyle = 8;
-#[cfg(feature = "api-22")]
 #[doc = " South-east arrow\n @since 22"]
+#[cfg(feature = "api-22")]
 pub const Input_PointerStyle_SOUTH_EAST: Input_PointerStyle = 9;
-#[cfg(feature = "api-22")]
 #[doc = "South-west arrow\n @since 22"]
+#[cfg(feature = "api-22")]
 pub const Input_PointerStyle_SOUTH_WEST: Input_PointerStyle = 10;
-#[cfg(feature = "api-22")]
 #[doc = " Northeast and southwest adjustment\n @since 22"]
+#[cfg(feature = "api-22")]
 pub const Input_PointerStyle_NORTH_EAST_SOUTH_WEST: Input_PointerStyle = 11;
-#[cfg(feature = "api-22")]
 #[doc = " Northwest and southeast adjustment\n @since 22"]
+#[cfg(feature = "api-22")]
 pub const Input_PointerStyle_NORTH_WEST_SOUTH_EAST: Input_PointerStyle = 12;
-#[cfg(feature = "api-22")]
 #[doc = " Cross (accurate selection)\n @since 22"]
+#[cfg(feature = "api-22")]
 pub const Input_PointerStyle_CROSS: Input_PointerStyle = 13;
-#[cfg(feature = "api-22")]
 #[doc = " Copy\n @since 22"]
+#[cfg(feature = "api-22")]
 pub const Input_PointerStyle_CURSOR_COPY: Input_PointerStyle = 14;
-#[cfg(feature = "api-22")]
 #[doc = " Forbid\n @since 22"]
+#[cfg(feature = "api-22")]
 pub const Input_PointerStyle_CURSOR_FORBID: Input_PointerStyle = 15;
-#[cfg(feature = "api-22")]
 #[doc = " Sucker\n @since 22"]
+#[cfg(feature = "api-22")]
 pub const Input_PointerStyle_COLOR_SUCKER: Input_PointerStyle = 16;
-#[cfg(feature = "api-22")]
 #[doc = " Grabbing hand\n @since 22"]
+#[cfg(feature = "api-22")]
 pub const Input_PointerStyle_HAND_GRABBING: Input_PointerStyle = 17;
-#[cfg(feature = "api-22")]
 #[doc = " Opening hand\n @since 22"]
+#[cfg(feature = "api-22")]
 pub const Input_PointerStyle_HAND_OPEN: Input_PointerStyle = 18;
-#[cfg(feature = "api-22")]
 #[doc = " Hand-shaped pointer\n @since 22"]
+#[cfg(feature = "api-22")]
 pub const Input_PointerStyle_HAND_POINTING: Input_PointerStyle = 19;
-#[cfg(feature = "api-22")]
 #[doc = " Help\n @since 22"]
+#[cfg(feature = "api-22")]
 pub const Input_PointerStyle_HELP: Input_PointerStyle = 20;
-#[cfg(feature = "api-22")]
 #[doc = " Move\n @since 22"]
+#[cfg(feature = "api-22")]
 pub const Input_PointerStyle_MOVE: Input_PointerStyle = 21;
-#[cfg(feature = "api-22")]
 #[doc = " Left and right resizing\n @since 22"]
+#[cfg(feature = "api-22")]
 pub const Input_PointerStyle_RESIZE_LEFT_RIGHT: Input_PointerStyle = 22;
-#[cfg(feature = "api-22")]
 #[doc = " Up and down resizing\n @since 22"]
+#[cfg(feature = "api-22")]
 pub const Input_PointerStyle_RESIZE_UP_DOWN: Input_PointerStyle = 23;
-#[cfg(feature = "api-22")]
 #[doc = " Screenshot crosshair\n @since 22"]
+#[cfg(feature = "api-22")]
 pub const Input_PointerStyle_SCREENSHOT_CHOOSE: Input_PointerStyle = 24;
-#[cfg(feature = "api-22")]
 #[doc = " Screenshot\n @since 22"]
+#[cfg(feature = "api-22")]
 pub const Input_PointerStyle_SCREENSHOT_CURSOR: Input_PointerStyle = 25;
-#[cfg(feature = "api-22")]
 #[doc = " Text selection\n @since 22"]
+#[cfg(feature = "api-22")]
 pub const Input_PointerStyle_TEXT_CURSOR: Input_PointerStyle = 26;
-#[cfg(feature = "api-22")]
 #[doc = " Zoom in\n @since 22"]
+#[cfg(feature = "api-22")]
 pub const Input_PointerStyle_ZOOM_IN: Input_PointerStyle = 27;
-#[cfg(feature = "api-22")]
 #[doc = " Zoom out\n @since 22"]
+#[cfg(feature = "api-22")]
 pub const Input_PointerStyle_ZOOM_OUT: Input_PointerStyle = 28;
-#[cfg(feature = "api-22")]
 #[doc = " Scrolling east\n @since 22"]
+#[cfg(feature = "api-22")]
 pub const Input_PointerStyle_MIDDLE_BTN_EAST: Input_PointerStyle = 29;
-#[cfg(feature = "api-22")]
 #[doc = " Scrolling west\n @since 22"]
+#[cfg(feature = "api-22")]
 pub const Input_PointerStyle_MIDDLE_BTN_WEST: Input_PointerStyle = 30;
-#[cfg(feature = "api-22")]
 #[doc = " Scrolling south\n @since 22"]
+#[cfg(feature = "api-22")]
 pub const Input_PointerStyle_MIDDLE_BTN_SOUTH: Input_PointerStyle = 31;
-#[cfg(feature = "api-22")]
 #[doc = " Scrolling north\n @since 22"]
+#[cfg(feature = "api-22")]
 pub const Input_PointerStyle_MIDDLE_BTN_NORTH: Input_PointerStyle = 32;
-#[cfg(feature = "api-22")]
 #[doc = " Scrolling north and south\n @since 22"]
+#[cfg(feature = "api-22")]
 pub const Input_PointerStyle_MIDDLE_BTN_NORTH_SOUTH: Input_PointerStyle = 33;
-#[cfg(feature = "api-22")]
 #[doc = " Scrolling northeast\n @since 22"]
+#[cfg(feature = "api-22")]
 pub const Input_PointerStyle_MIDDLE_BTN_NORTH_EAST: Input_PointerStyle = 34;
-#[cfg(feature = "api-22")]
 #[doc = " Scrolling northwest\n @since 22"]
+#[cfg(feature = "api-22")]
 pub const Input_PointerStyle_MIDDLE_BTN_NORTH_WEST: Input_PointerStyle = 35;
-#[cfg(feature = "api-22")]
 #[doc = " Scrolling southeast\n @since 22"]
+#[cfg(feature = "api-22")]
 pub const Input_PointerStyle_MIDDLE_BTN_SOUTH_EAST: Input_PointerStyle = 36;
-#[cfg(feature = "api-22")]
 #[doc = " Scrolling southwest\n @since 22"]
+#[cfg(feature = "api-22")]
 pub const Input_PointerStyle_MIDDLE_BTN_SOUTH_WEST: Input_PointerStyle = 37;
-#[cfg(feature = "api-22")]
 #[doc = " Moving as a cone in four directions\n @since 22"]
+#[cfg(feature = "api-22")]
 pub const Input_PointerStyle_MIDDLE_BTN_NORTH_SOUTH_WEST_EAST: Input_PointerStyle = 38;
-#[cfg(feature = "api-22")]
 #[doc = " Horizontal text selection\n @since 22"]
+#[cfg(feature = "api-22")]
 pub const Input_PointerStyle_HORIZONTAL_TEXT_CURSOR: Input_PointerStyle = 39;
-#[cfg(feature = "api-22")]
 #[doc = " Precise selection\n @since 22"]
+#[cfg(feature = "api-22")]
 pub const Input_PointerStyle_CURSOR_CROSS: Input_PointerStyle = 40;
-#[cfg(feature = "api-22")]
 #[doc = " Cursor with circle style\n @since 22"]
+#[cfg(feature = "api-22")]
 pub const Input_PointerStyle_CURSOR_CIRCLE: Input_PointerStyle = 41;
-#[cfg(feature = "api-22")]
 #[doc = " Loading state with dynamic cursor\n @since 22"]
+#[cfg(feature = "api-22")]
 pub const Input_PointerStyle_LOADING: Input_PointerStyle = 42;
-#[cfg(feature = "api-22")]
 #[doc = " Running state with dynamic cursor\n @since 22"]
+#[cfg(feature = "api-22")]
 pub const Input_PointerStyle_RUNNING: Input_PointerStyle = 43;
-#[cfg(feature = "api-22")]
 #[doc = " Scrolling east and west\n @since 22"]
+#[cfg(feature = "api-22")]
 pub const Input_PointerStyle_MIDDLE_BTN_EAST_WEST: Input_PointerStyle = 44;
-#[cfg(feature = "api-22")]
 #[doc = " Left part of running state with dynamic cursor\n @since 22"]
+#[cfg(feature = "api-22")]
 pub const Input_PointerStyle_RUNNING_LEFT: Input_PointerStyle = 45;
-#[cfg(feature = "api-22")]
 #[doc = " Right part of running state with dynamic cursor\n @since 22"]
+#[cfg(feature = "api-22")]
 pub const Input_PointerStyle_RUNNING_RIGHT: Input_PointerStyle = 46;
-#[cfg(feature = "api-22")]
 #[doc = " Circular cursor\n @since 22"]
+#[cfg(feature = "api-22")]
 pub const Input_PointerStyle_AECH_DEVELOPER_DEFINED_ICON: Input_PointerStyle = 47;
-#[cfg(feature = "api-22")]
 #[doc = " Screen Recording\n @since 22"]
+#[cfg(feature = "api-22")]
 pub const Input_PointerStyle_SCREENRECORDER_CURSOR: Input_PointerStyle = 48;
-#[cfg(feature = "api-22")]
 #[doc = " Laser\n @since 22"]
+#[cfg(feature = "api-22")]
 pub const Input_PointerStyle_LASER_CURSOR: Input_PointerStyle = 49;
-#[cfg(feature = "api-22")]
 #[doc = " Dot laser\n @since 22"]
+#[cfg(feature = "api-22")]
 pub const Input_PointerStyle_LASER_CURSOR_DOT: Input_PointerStyle = 50;
-#[cfg(feature = "api-22")]
 #[doc = " Red dot laser\n @since 22"]
+#[cfg(feature = "api-22")]
 pub const Input_PointerStyle_LASER_CURSOR_DOT_RED: Input_PointerStyle = 51;
-#[cfg(feature = "api-22")]
 #[doc = " Developer defined\n @since 22"]
-pub const Input_PointerStyle_DEVELOPER_DEFINED_ICON: Input_PointerStyle = -100;
 #[cfg(feature = "api-22")]
+pub const Input_PointerStyle_DEVELOPER_DEFINED_ICON: Input_PointerStyle = -100;
 #[doc = " @brief Enumerated values of OpenHarmony pointer style.\n\n @since 22"]
+#[cfg(feature = "api-22")]
 pub type Input_PointerStyle = i32;
 #[repr(C)]
 #[derive(Debug, Copy, Clone)]
@@ -1182,38 +1182,38 @@ pub const Input_TouchEventAction_TOUCH_ACTION_MOVE: Input_TouchEventAction = 2;
 pub const Input_TouchEventAction_TOUCH_ACTION_UP: Input_TouchEventAction = 3;
 #[doc = " @brief Enumerated values of touch event action.\n\n @since 12"]
 pub type Input_TouchEventAction = u32;
-#[cfg(feature = "api-13")]
 #[doc = " Keyboard without keys"]
+#[cfg(feature = "api-13")]
 pub const Input_KeyboardType_KEYBOARD_TYPE_NONE: Input_KeyboardType = 0;
-#[cfg(feature = "api-13")]
 #[doc = " Keyboard with unknown keys"]
+#[cfg(feature = "api-13")]
 pub const Input_KeyboardType_KEYBOARD_TYPE_UNKNOWN: Input_KeyboardType = 1;
-#[cfg(feature = "api-13")]
 #[doc = " Full keyboard"]
+#[cfg(feature = "api-13")]
 pub const Input_KeyboardType_KEYBOARD_TYPE_ALPHABETIC: Input_KeyboardType = 2;
-#[cfg(feature = "api-13")]
 #[doc = " Digital keyboard"]
+#[cfg(feature = "api-13")]
 pub const Input_KeyboardType_KEYBOARD_TYPE_DIGITAL: Input_KeyboardType = 3;
-#[cfg(feature = "api-13")]
 #[doc = " Stylus"]
+#[cfg(feature = "api-13")]
 pub const Input_KeyboardType_KEYBOARD_TYPE_STYLUS: Input_KeyboardType = 4;
-#[cfg(feature = "api-13")]
 #[doc = " Remote control"]
-pub const Input_KeyboardType_KEYBOARD_TYPE_REMOTE_CONTROL: Input_KeyboardType = 5;
 #[cfg(feature = "api-13")]
+pub const Input_KeyboardType_KEYBOARD_TYPE_REMOTE_CONTROL: Input_KeyboardType = 5;
 #[doc = " @brief Enumerates keyboard types.\n\n @since 13"]
+#[cfg(feature = "api-13")]
 pub type Input_KeyboardType = u32;
-#[cfg(feature = "api-20")]
 #[doc = " Unauthorized"]
+#[cfg(feature = "api-20")]
 pub const Input_InjectionStatus_UNAUTHORIZED: Input_InjectionStatus = 0;
-#[cfg(feature = "api-20")]
 #[doc = " Authorizing"]
+#[cfg(feature = "api-20")]
 pub const Input_InjectionStatus_AUTHORIZING: Input_InjectionStatus = 1;
-#[cfg(feature = "api-20")]
 #[doc = " Authorized"]
-pub const Input_InjectionStatus_AUTHORIZED: Input_InjectionStatus = 2;
 #[cfg(feature = "api-20")]
+pub const Input_InjectionStatus_AUTHORIZED: Input_InjectionStatus = 2;
 #[doc = " @brief Enumerates the injection authorization status.\n\n @since 20"]
+#[cfg(feature = "api-20")]
 pub type Input_InjectionStatus = u32;
 #[doc = " Indicates that the input source generates events similar to mouse cursor movement,\n button press and release, and wheel scrolling.\n\n @since 12"]
 pub const InputEvent_SourceType_SOURCE_TYPE_MOUSE: InputEvent_SourceType = 1;
@@ -1272,40 +1272,40 @@ pub const Input_Result_INPUT_DEVICE_NOT_SUPPORTED: Input_Result = 801;
 pub const Input_Result_INPUT_SERVICE_EXCEPTION: Input_Result = 3800001;
 #[doc = " @error Interceptor repeatedly created for an application"]
 pub const Input_Result_INPUT_REPEAT_INTERCEPTOR: Input_Result = 4200001;
-#[cfg(feature = "api-14")]
 #[doc = " @error Already occupied by the system\n @since 14"]
-pub const Input_Result_INPUT_OCCUPIED_BY_SYSTEM: Input_Result = 4200002;
 #[cfg(feature = "api-14")]
+pub const Input_Result_INPUT_OCCUPIED_BY_SYSTEM: Input_Result = 4200002;
 #[doc = " @error Already occupied by the other\n @since 14"]
+#[cfg(feature = "api-14")]
 pub const Input_Result_INPUT_OCCUPIED_BY_OTHER: Input_Result = 4200003;
-#[cfg(feature = "api-15")]
 #[doc = " @error No keyboard device connected\n @since 15"]
+#[cfg(feature = "api-15")]
 pub const Input_Result_INPUT_KEYBOARD_DEVICE_NOT_EXIST: Input_Result = 3900002;
-#[cfg(feature = "api-20")]
 #[doc = " @error Authorizing\n @since 20"]
+#[cfg(feature = "api-20")]
 pub const Input_Result_INPUT_INJECTION_AUTHORIZING: Input_Result = 3900005;
-#[cfg(feature = "api-20")]
 #[doc = " @error Too many operations\n @since 20"]
+#[cfg(feature = "api-20")]
 pub const Input_Result_INPUT_INJECTION_OPERATION_FREQUENT: Input_Result = 3900006;
-#[cfg(feature = "api-20")]
 #[doc = " @error Authorized\n @since 20"]
+#[cfg(feature = "api-20")]
 pub const Input_Result_INPUT_INJECTION_AUTHORIZED: Input_Result = 3900007;
-#[cfg(feature = "api-20")]
 #[doc = " @error Authorized to other applications\n @since 20"]
+#[cfg(feature = "api-20")]
 pub const Input_Result_INPUT_INJECTION_AUTHORIZED_OTHERS: Input_Result = 3900008;
-#[cfg(feature = "api-20")]
 #[doc = " @error App is not the focused app\n @since 20"]
-pub const Input_Result_INPUT_APP_NOT_FOCUSED: Input_Result = 3900009;
 #[cfg(feature = "api-20")]
+pub const Input_Result_INPUT_APP_NOT_FOCUSED: Input_Result = 3900009;
 #[doc = " @error The device has no pointer\n @since 20"]
+#[cfg(feature = "api-20")]
 pub const Input_Result_INPUT_DEVICE_NO_POINTER: Input_Result = 3900010;
-#[cfg(feature = "api-22")]
 #[doc = " @error Invalid windowID\n @since 22"]
+#[cfg(feature = "api-22")]
 pub const Input_Result_INPUT_INVALID_WINDOWID: Input_Result = 26500001;
 #[doc = " @brief Enumerates error codes.\n\n @since 12"]
 pub type Input_Result = u32;
-#[cfg(feature = "api-14")]
 #[doc = " @brief Callback used to return shortcut key events.\n @since 14"]
+#[cfg(feature = "api-14")]
 pub type Input_HotkeyCallback =
     ::std::option::Option<unsafe extern "C" fn(hotkey: *mut Input_Hotkey)>;
 #[repr(C)]
@@ -1335,14 +1335,14 @@ pub type Input_TouchEventCallback =
 #[doc = " @brief Defines a lifecycle callback for axisEvent. If the callback is triggered, axisEvent will be destroyed.\n\n @param axisEvent Axis event object.\n @since 12"]
 pub type Input_AxisEventCallback =
     ::std::option::Option<unsafe extern "C" fn(axisEvent: *const Input_AxisEvent)>;
-#[cfg(feature = "api-13")]
 #[doc = " @brief Defines the callback for device addition events.\n @param deviceId Device ID.\n @since 13"]
-pub type Input_DeviceAddedCallback = ::std::option::Option<unsafe extern "C" fn(deviceId: i32)>;
 #[cfg(feature = "api-13")]
+pub type Input_DeviceAddedCallback = ::std::option::Option<unsafe extern "C" fn(deviceId: i32)>;
 #[doc = " @brief Defines the callback for device removal events.\n @param deviceId Device ID.\n @since 13"]
+#[cfg(feature = "api-13")]
 pub type Input_DeviceRemovedCallback = ::std::option::Option<unsafe extern "C" fn(deviceId: i32)>;
-#[cfg(feature = "api-20")]
 #[doc = " @brief Defines the event injection callback.\n @param authorizedStatus Authorization status.\n @since 20"]
+#[cfg(feature = "api-20")]
 pub type Input_InjectAuthorizeCallback =
     ::std::option::Option<unsafe extern "C" fn(authorizedStatus: Input_InjectionStatus)>;
 #[doc = " @brief Defines the structure for the interceptor of event callbacks,\n including mouseCallback, touchCallback, and axisCallback.\n @since 12"]
@@ -1356,8 +1356,8 @@ pub struct Input_InterceptorEventCallback {
     #[doc = " Defines a lifecycle callback for **axisEvent**."]
     pub axisCallback: Input_AxisEventCallback,
 }
-#[cfg(feature = "api-13")]
 #[doc = " @brief Defines a listener for device insertion and removal events.\n @since 13"]
+#[cfg(feature = "api-13")]
 #[repr(C)]
 #[derive(Debug, Copy, Clone)]
 pub struct Input_DeviceListener {
@@ -1444,46 +1444,46 @@ extern "C" {
     pub fn OH_Input_GetKeyEventActionTime(keyEvent: *const Input_KeyEvent) -> i64;
 }
 extern "C" {
-    #[cfg(feature = "api-15")]
     #[doc = " @brief Sets the windowId for a key event.\n\n @param keyEvent Key event object.\n @param windowId The windowId for a key event.\n @syscap SystemCapability.MultimodalInput.Input.Core\n @since 15"]
+    #[cfg(feature = "api-15")]
     pub fn OH_Input_SetKeyEventWindowId(keyEvent: *mut Input_KeyEvent, windowId: i32);
 }
 extern "C" {
-    #[cfg(feature = "api-15")]
     #[doc = " @brief Obtains the windowId of a key event.\n\n @param keyEvent Key event object.\n @return windowId.\n @syscap SystemCapability.MultimodalInput.Input.Core\n @since 15"]
+    #[cfg(feature = "api-15")]
     pub fn OH_Input_GetKeyEventWindowId(keyEvent: *const Input_KeyEvent) -> i32;
 }
 extern "C" {
-    #[cfg(feature = "api-15")]
     #[doc = " @brief Sets the displayId for a key event.\n\n @param keyEvent Key event object.\n @param displayId The displayId for a key event.\n @syscap SystemCapability.MultimodalInput.Input.Core\n @since 15"]
+    #[cfg(feature = "api-15")]
     pub fn OH_Input_SetKeyEventDisplayId(keyEvent: *mut Input_KeyEvent, displayId: i32);
 }
 extern "C" {
-    #[cfg(feature = "api-15")]
     #[doc = " @brief Obtains the displayId of a key event.\n\n @param keyEvent Key event object.\n @return displayId.\n @syscap SystemCapability.MultimodalInput.Input.Core\n @since 15"]
+    #[cfg(feature = "api-15")]
     pub fn OH_Input_GetKeyEventDisplayId(keyEvent: *const Input_KeyEvent) -> i32;
 }
 extern "C" {
-    #[cfg(feature = "api-21")]
     #[doc = " @brief Get the eventId of the keyEvent.\n\n @param keyEvent - Key event object.\n @param eventId - Get the keyEvent eventId.\n @return OH_Input_GetKeyEventId function result code.\n         {@link INPUT_SUCCESS} Get the eventId of the keyEvent success.\\n\n         {@link INPUT_PARAMETER_ERROR} Parameter check failed.\\n\n @since 21"]
+    #[cfg(feature = "api-21")]
     pub fn OH_Input_GetKeyEventId(
         keyEvent: *const Input_KeyEvent,
         eventId: *mut i32,
     ) -> Input_Result;
 }
 extern "C" {
-    #[cfg(feature = "api-21")]
     #[doc = " @brief Add a keyEvent interception hook function. Before using this interface,\n        the user needs to authorize it in the settings.\n\n @permission ohos.permission.HOOK_KEY_EVENT\n @param callback - Hook function, keyEvent will be sent to the hook function for priority processing.\n @return OH_Input_AddKeyEventHook function result code.\n         {@link INPUT_SUCCESS} Added hook function successfully.\\n\n         {@link INPUT_PARAMETER_ERROR}  Failed to add the hook function. Reason: Parameter check failed.\\n\n         {@link INPUT_DEVICE_NOT_SUPPORTED} Capability not supported.\\n\n         {@link INPUT_PERMISSION_DENIED} Failed to add the hook function. Reason: Permission check failed.\\n\n         {@link INPUT_REPEAT_INTERCEPTOR} Failed to add the hook function.\\n\n                 Reason: Repeatedly set the hook function. A process can only have one key hook function.\\n\n         {@link INPUT_SERVICE_EXCEPTION} Failed to add the hook function.\\n\n                 Reason: Input service exception, please try again.\\n\n @since 21"]
+    #[cfg(feature = "api-21")]
     pub fn OH_Input_AddKeyEventHook(callback: Input_KeyEventCallback) -> Input_Result;
 }
 extern "C" {
-    #[cfg(feature = "api-21")]
     #[doc = " @brief Remove keyEvent interception hook function.\n\n @param callback - Hook function, Same as the parameters when calling OH_Input_AddKeyEventHook.\n @return OH_Input_RemoveKeyEventHook function result code.\n         {@link INPUT_SUCCESS} Hook function removed successfully.\\n\n               Even if the hook function has not been added before, it will return success when removed.\\n\n         {@link INPUT_PARAMETER_ERROR} Failed to remove the hook function. Reason: Parameter check failed.\\n\n         {@link INPUT_SERVICE_EXCEPTION} Failed to remove the hook function.\\n\n                 Reason: Input service exception, please try again.\\n\n @since 21"]
+    #[cfg(feature = "api-21")]
     pub fn OH_Input_RemoveKeyEventHook(callback: Input_KeyEventCallback) -> Input_Result;
 }
 extern "C" {
-    #[cfg(feature = "api-21")]
     #[doc = " @brief Redispatches keyEvent.\n        Only keyEvent intercepted by hook functions can be redispatched,\n        and the event order must be maintained during redispatching.\n        The hook function intercepts the input event and then redistributes it for 3 seconds.\n        If this time is exceeded, calling this function will return INPUT_PARAMETER_ERROR.\n \t      Re-dispatching requires event pairing, usually starting with one or more KEY_ACTION_DOWN and\n        ending with KEY_ACTION_UP or KEY_ACTION_CANCEL.\n \t      Only KEY_ACTION_UP or KEY_ACTION_CANCEL is redispatched, the function call succeeds,\n        but no actual dispatch is made.\n        If an event is dispatched that is not intercepted by the hook function,\n        the function call succeeds, but no actual dispatch action is taken.\n\n @param eventId - keyEvent eventId.\n @return OH_Input_DispatchToNextHandler function result code.\n         {@link INPUT_SUCCESS} Redistribution successful.\\n\n         {@link INPUT_PARAMETER_ERROR} Redistribution failed. Reason: KeyEvent does not exist.\\n\n         {@link INPUT_SERVICE_EXCEPTION} Redistribution failed.\\n\n                 Reason: Input service exception, it's recommended to reset the pending distribution status.\\n\n @since 21"]
+    #[cfg(feature = "api-21")]
     pub fn OH_Input_DispatchToNextHandler(eventId: i32) -> Input_Result;
 }
 extern "C" {
@@ -1491,8 +1491,8 @@ extern "C" {
     pub fn OH_Input_InjectMouseEvent(mouseEvent: *const Input_MouseEvent) -> i32;
 }
 extern "C" {
-    #[cfg(feature = "api-20")]
     #[doc = " @brief Inject mouse event using global coordinate.\n since API 20, it is recommended to use OH_Input_RequestInjection\n to request authorization before using the interface,\n and then use OH_Input_QueryAuthorizedStatus to query the authorization status.\n When the authorization status is AUTHORIZED, use the interface.\n\n @param mouseEvent - the mouse event to be injected, set up effective globalX globalY.\n @return OH_Input_InjectMouseEventGlobal function result code.\n         {@link INPUT_SUCCESS} inject mouseEvent success.\\n\n         {@link INPUT_PERMISSION_DENIED} Permission verification failed.\\n\n         {@link INPUT_PARAMETER_ERROR} Parameter check failed.\\n\n @since 20"]
+    #[cfg(feature = "api-20")]
     pub fn OH_Input_InjectMouseEventGlobal(mouseEvent: *const Input_MouseEvent) -> i32;
 }
 extern "C" {
@@ -1560,43 +1560,43 @@ extern "C" {
     pub fn OH_Input_GetMouseEventActionTime(mouseEvent: *const Input_MouseEvent) -> i64;
 }
 extern "C" {
-    #[cfg(feature = "api-15")]
     #[doc = " @brief Sets the windowId for a mouse event.\n\n @param mouseEvent Mouse event object.\n @param windowId The windowId for a mouse event.\n @syscap SystemCapability.MultimodalInput.Input.Core\n @since 15"]
+    #[cfg(feature = "api-15")]
     pub fn OH_Input_SetMouseEventWindowId(mouseEvent: *mut Input_MouseEvent, windowId: i32);
 }
 extern "C" {
-    #[cfg(feature = "api-15")]
     #[doc = " @brief Obtains the windowId of a mouse event.\n\n @param mouseEvent Mouse event object.\n @return windowId.\n @syscap SystemCapability.MultimodalInput.Input.Core\n @since 15"]
+    #[cfg(feature = "api-15")]
     pub fn OH_Input_GetMouseEventWindowId(mouseEvent: *const Input_MouseEvent) -> i32;
 }
 extern "C" {
-    #[cfg(feature = "api-15")]
     #[doc = " @brief Sets the displayId for a mouse event.\n\n @param mouseEvent Mouse event object.\n @param displayId The displayId for a mouse event.\n @syscap SystemCapability.MultimodalInput.Input.Core\n @since 15"]
+    #[cfg(feature = "api-15")]
     pub fn OH_Input_SetMouseEventDisplayId(mouseEvent: *mut Input_MouseEvent, displayId: i32);
 }
 extern "C" {
-    #[cfg(feature = "api-15")]
     #[doc = " @brief Obtains the displayId of a mouse event.\n\n @param mouseEvent Mouse event object.\n @return displayId.\n @syscap SystemCapability.MultimodalInput.Input.Core\n @since 15"]
+    #[cfg(feature = "api-15")]
     pub fn OH_Input_GetMouseEventDisplayId(mouseEvent: *const Input_MouseEvent) -> i32;
 }
 extern "C" {
-    #[cfg(feature = "api-20")]
     #[doc = " @brief Set the global X coordinate of the mouse event.\n\n @param mouseEvent Mouse event object.\n @param globalX Global X coordinate.\n @since 20"]
+    #[cfg(feature = "api-20")]
     pub fn OH_Input_SetMouseEventGlobalX(mouseEvent: *mut Input_MouseEvent, globalX: i32);
 }
 extern "C" {
-    #[cfg(feature = "api-20")]
     #[doc = " @brief Queries the global X coordinate of the mouse event.\n\n @param mouseEvent Mouse event object.\n @return Global X coordinate.\n @since 20"]
+    #[cfg(feature = "api-20")]
     pub fn OH_Input_GetMouseEventGlobalX(mouseEvent: *const Input_MouseEvent) -> i32;
 }
 extern "C" {
-    #[cfg(feature = "api-20")]
     #[doc = " @brief Set the global Y coordinate of the mouse event.\n\n @param mouseEvent Mouse event object.\n @param globalY Global Y coordinate.\n @since 20"]
+    #[cfg(feature = "api-20")]
     pub fn OH_Input_SetMouseEventGlobalY(mouseEvent: *mut Input_MouseEvent, globalY: i32);
 }
 extern "C" {
-    #[cfg(feature = "api-20")]
     #[doc = " @brief Queries the global Y coordinate of the mouse event.\n\n @param mouseEvent Mouse event object.\n @return Global Y coordinate.\n @since 20"]
+    #[cfg(feature = "api-20")]
     pub fn OH_Input_GetMouseEventGlobalY(mouseEvent: *const Input_MouseEvent) -> i32;
 }
 extern "C" {
@@ -1604,8 +1604,8 @@ extern "C" {
     pub fn OH_Input_InjectTouchEvent(touchEvent: *const Input_TouchEvent) -> i32;
 }
 extern "C" {
-    #[cfg(feature = "api-20")]
     #[doc = " @brief Inject touch event using global coordinate.\n since API 20, it is recommended to use OH_Input_RequestInjection\n to request authorization before using the interface,\n and then use OH_Input_QueryAuthorizedStatus to query the authorization status.\n When the authorization status is AUTHORIZED, use the interface.\n\n @param touchEvent - the touch event to be injected, set up effective globalX globalY.\n @return OH_Input_InjectTouchEventGlobal function result code.\n         {@link INPUT_SUCCESS} inject touchEvent success.\\n\n         {@link INPUT_PARAMETER_ERROR} Parameter check failed.\\n\n         {@link INPUT_PERMISSION_DENIED} Permission verification failed.\\n\n @since 20"]
+    #[cfg(feature = "api-20")]
     pub fn OH_Input_InjectTouchEventGlobal(touchEvent: *const Input_TouchEvent) -> i32;
 }
 extern "C" {
@@ -1657,43 +1657,43 @@ extern "C" {
     pub fn OH_Input_GetTouchEventActionTime(touchEvent: *const Input_TouchEvent) -> i64;
 }
 extern "C" {
-    #[cfg(feature = "api-15")]
     #[doc = " @brief Sets the windowId for a touch event.\n\n @param touchEvent Touch event object.\n @param windowId The windowId for a touch event.\n @syscap SystemCapability.MultimodalInput.Input.Core\n @since 15"]
+    #[cfg(feature = "api-15")]
     pub fn OH_Input_SetTouchEventWindowId(touchEvent: *mut Input_TouchEvent, windowId: i32);
 }
 extern "C" {
-    #[cfg(feature = "api-15")]
     #[doc = " @brief Obtains the windowId of a touch event.\n\n @param touchEvent Touch event object.\n @return windowId.\n @syscap SystemCapability.MultimodalInput.Input.Core\n @since 15"]
+    #[cfg(feature = "api-15")]
     pub fn OH_Input_GetTouchEventWindowId(touchEvent: *const Input_TouchEvent) -> i32;
 }
 extern "C" {
-    #[cfg(feature = "api-15")]
     #[doc = " @brief Sets the displayId for a touch event.\n\n @param touchEvent Touch event object.\n @param displayId The displayId for a touch event.\n @syscap SystemCapability.MultimodalInput.Input.Core\n @since 15"]
+    #[cfg(feature = "api-15")]
     pub fn OH_Input_SetTouchEventDisplayId(touchEvent: *mut Input_TouchEvent, displayId: i32);
 }
 extern "C" {
-    #[cfg(feature = "api-15")]
     #[doc = " @brief Obtains the displayId of a touch event.\n\n @param touchEvent Touch event object.\n @return displayId.\n @syscap SystemCapability.MultimodalInput.Input.Core\n @since 15"]
+    #[cfg(feature = "api-15")]
     pub fn OH_Input_GetTouchEventDisplayId(touchEvent: *const Input_TouchEvent) -> i32;
 }
 extern "C" {
-    #[cfg(feature = "api-20")]
     #[doc = " @brief Set the global X coordinate of the touch event.\n\n @param touchEvent Touch event object.\n @param globalX Global X coordinate.\n @since 20"]
+    #[cfg(feature = "api-20")]
     pub fn OH_Input_SetTouchEventGlobalX(touchEvent: *mut Input_TouchEvent, globalX: i32);
 }
 extern "C" {
-    #[cfg(feature = "api-20")]
     #[doc = " @brief Queries the global X coordinate of the touch event.\n\n @param touchEvent Touch event object.\n @return Global X coordinate.\n @since 20"]
+    #[cfg(feature = "api-20")]
     pub fn OH_Input_GetTouchEventGlobalX(touchEvent: *const Input_TouchEvent) -> i32;
 }
 extern "C" {
-    #[cfg(feature = "api-20")]
     #[doc = " @brief Set the global Y coordinate of the touch event.\n\n @param touchEvent Touch event object.\n @param globalY Global Y coordinate.\n @since 20"]
+    #[cfg(feature = "api-20")]
     pub fn OH_Input_SetTouchEventGlobalY(touchEvent: *mut Input_TouchEvent, globalY: i32);
 }
 extern "C" {
-    #[cfg(feature = "api-20")]
     #[doc = " @brief Queries the global Y coordinate of the touch event.\n\n @param touchEvent Touch event object.\n @return Global Y coordinate.\n @since 20"]
+    #[cfg(feature = "api-20")]
     pub fn OH_Input_GetTouchEventGlobalY(touchEvent: *const Input_TouchEvent) -> i32;
 }
 extern "C" {
@@ -1701,13 +1701,13 @@ extern "C" {
     pub fn OH_Input_CancelInjection();
 }
 extern "C" {
-    #[cfg(feature = "api-20")]
     #[doc = " @brief Requests for injection authorization.\n\n @param callback - callback used to return the result.\n @return OH_Input_RequestInjection function result code.\n         {@link INPUT_SUCCESS} Success.\\n\n         {@link INPUT_PARAMETER_ERROR} The callback is NULL.\\n\n         {@INPUT_DEVICE_NOT_SUPPORTED} Capability not supported.\\n\n         {@link INPUT_SERVICE_EXCEPTION} Service error.\\n\n         {@link INPUT_INJECTION_AUTHORIZING} Authorizing.\\n\n         {@link INPUT_INJECTION_OPERATION_FREQUENT} Too many operations.\\n\n         {@link INPUT_INJECTION_AUTHORIZED} Authorized.\\n\n         {@link INPUT_INJECTION_AUTHORIZED_OTHERS} Authorized to other applications.\\n\n @since 20"]
+    #[cfg(feature = "api-20")]
     pub fn OH_Input_RequestInjection(callback: Input_InjectAuthorizeCallback) -> Input_Result;
 }
 extern "C" {
-    #[cfg(feature = "api-20")]
     #[doc = " @brief Queries the injection authorization status.\n\n @param status Injection authorization status. For details, see {@Link Input_InjectionStatus}.\n @return OH_Input_QueryAuthorizedStatus function result code.\n         {@link INPUT_SUCCESS} Success.\\n\n         {@link INPUT_PARAMETER_ERROR} The status is NULL\\n\n         {@link INPUT_SERVICE_EXCEPTION} Service error.\\n\n @since 20"]
+    #[cfg(feature = "api-20")]
     pub fn OH_Input_QueryAuthorizedStatus(status: *mut Input_InjectionStatus) -> Input_Result;
 }
 extern "C" {
@@ -1819,64 +1819,64 @@ extern "C" {
     ) -> Input_Result;
 }
 extern "C" {
-    #[cfg(feature = "api-15")]
     #[doc = " @brief Sets the windowId of an axis event.\n\n @param axisEvent Axis event object. For details, see {@Link Input_AxisEvent}.\n @param windowId The windowId for the axis event.\n @return OH_Input_SetAxisEventWindowId function result code.\n         {@link INPUT_SUCCESS} Sets the Y coordinate of the axis event success.\\n\n         {@link INPUT_PARAMETER_ERROR} The axisEvent is NULL.\\n\n @syscap SystemCapability.MultimodalInput.Input.Core\n @since 15"]
+    #[cfg(feature = "api-15")]
     pub fn OH_Input_SetAxisEventWindowId(
         axisEvent: *mut Input_AxisEvent,
         windowId: i32,
     ) -> Input_Result;
 }
 extern "C" {
-    #[cfg(feature = "api-15")]
     #[doc = " @brief Obtains the windowId of an axis event.\n\n @param axisEvent Axis event object. For details, see {@Link Input_AxisEvent}.\n @param windowId The windowId for the axis event.\n @return OH_Input_GetAxisEventWindowId function result code.\n         {@link INPUT_SUCCESS} Obtains the Y coordinate of the axis event success.\\n\n         {@link INPUT_PARAMETER_ERROR} The axisEvent is NULL or the displayY is NULL.\\n\n @syscap SystemCapability.MultimodalInput.Input.Core\n @since 15"]
+    #[cfg(feature = "api-15")]
     pub fn OH_Input_GetAxisEventWindowId(
         axisEvent: *const Input_AxisEvent,
         windowId: *mut i32,
     ) -> Input_Result;
 }
 extern "C" {
-    #[cfg(feature = "api-15")]
     #[doc = " @brief Sets the displayId of an axis event.\n\n @param axisEvent Axis event object. For details, see {@Link Input_AxisEvent}.\n @param displayId The displayId for the axis event.\n @return OH_Input_SetAxisEventDisplayId function result code.\n         {@link INPUT_SUCCESS} Sets the Y coordinate of the axis event success.\\n\n         {@link INPUT_PARAMETER_ERROR} The axisEvent is NULL.\\n\n @syscap SystemCapability.MultimodalInput.Input.Core\n @since 15"]
+    #[cfg(feature = "api-15")]
     pub fn OH_Input_SetAxisEventDisplayId(
         axisEvent: *mut Input_AxisEvent,
         displayId: i32,
     ) -> Input_Result;
 }
 extern "C" {
-    #[cfg(feature = "api-15")]
     #[doc = " @brief Obtains the displayId of an axis event.\n\n @param axisEvent Axis event object. For details, see {@Link Input_AxisEvent}.\n @param displayId The displayId for the axis event.\n @return OH_Input_GetAxisEventDisplayId function result code.\n         {@link INPUT_SUCCESS} Obtains the Y coordinate of the axis event success.\\n\n         {@link INPUT_PARAMETER_ERROR} The axisEvent is NULL or the displayY is NULL.\\n\n @syscap SystemCapability.MultimodalInput.Input.Core\n @since 15"]
+    #[cfg(feature = "api-15")]
     pub fn OH_Input_GetAxisEventDisplayId(
         axisEvent: *const Input_AxisEvent,
         displayId: *mut i32,
     ) -> Input_Result;
 }
 extern "C" {
-    #[cfg(feature = "api-20")]
     #[doc = " @brief Set the global X coordinate of the axis event.\n\n @param axisEvent Axis event object. For details, see {@Link Input_AxisEvent}.\n @param globalX Global X coordinate.\n @return OH_Input_SetAxisEventGlobalX function result code.\n        {@link INPUT_SUCCESS} Success.\\n\n        {@link INPUT_PARAMETER_ERROR} The axisEvent is NULL.\\n\n @since 20"]
+    #[cfg(feature = "api-20")]
     pub fn OH_Input_SetAxisEventGlobalX(
         axisEvent: *mut Input_AxisEvent,
         globalX: i32,
     ) -> Input_Result;
 }
 extern "C" {
-    #[cfg(feature = "api-20")]
     #[doc = " @brief Queries the global X coordinate of the axis event.\n\n @param axisEvent Axis event object. For details, see {@Link Input_AxisEvent}.\n @param globalX Global X coordinate.\n @return OH_Input_GetAxisEventGlobalX function result code.\n         {@link INPUT_SUCCESS} Success.\\n\n         {@link INPUT_PARAMETER_ERROR} The axisEvent is NULL or the globalX is NULL.\\n\n @since 20"]
+    #[cfg(feature = "api-20")]
     pub fn OH_Input_GetAxisEventGlobalX(
         axisEvent: *const Input_AxisEvent,
         globalX: *mut i32,
     ) -> Input_Result;
 }
 extern "C" {
-    #[cfg(feature = "api-20")]
     #[doc = " @brief Set the global Y coordinate of the axis event.\n\n @param axisEvent Axis event object. For details, see {@Link Input_AxisEvent}.\n @param globalY Global Y coordinate.\n @return OH_Input_SetAxisEventGlobalY function result code.\n         {@link INPUT_SUCCESS} Success.\\n\n         {@link INPUT_PARAMETER_ERROR} The axisEvent is NULL.\\n\n @since 20"]
+    #[cfg(feature = "api-20")]
     pub fn OH_Input_SetAxisEventGlobalY(
         axisEvent: *mut Input_AxisEvent,
         globalY: i32,
     ) -> Input_Result;
 }
 extern "C" {
-    #[cfg(feature = "api-20")]
     #[doc = " @brief Queries the global Y coordinate of the axis event.\n\n @param axisEvent Axis event object. For details, see {@Link Input_AxisEvent}.\n @param globalY Global Y coordinate.\n @return OH_Input_GetAxisEventGlobalY function result code.\n         {@link INPUT_SUCCESS} Success.\\n\n         {@link INPUT_PARAMETER_ERROR} The axisEvent is NULL or the globalY is NULL.\\n\n @since 20"]
+    #[cfg(feature = "api-20")]
     pub fn OH_Input_GetAxisEventGlobalY(
         axisEvent: *const Input_AxisEvent,
         globalY: *mut i32,
@@ -1952,28 +1952,28 @@ extern "C" {
     pub fn OH_Input_RemoveInputEventInterceptor() -> Input_Result;
 }
 extern "C" {
-    #[cfg(feature = "api-14")]
     #[doc = " @brief Obtains the interval since the last system input event.\n\n @param timeInterval Interval, in microseconds.\n @return OH_Input_GetIntervalSinceLastInput status code, specifically.\n         {@Link INPUT_SUCCESS} if the Operation is successful.\\n\n         {@Link INPUT_SERVICE_EXCEPTION} Failed to get the interval because the service is exception.\\n\n         {@Link INPUT_PARAMETER_ERROR} The timeInterval is NULL.\\n\n @syscap SystemCapability.MultimodalInput.Input.Core\n @since 14"]
+    #[cfg(feature = "api-14")]
     pub fn OH_Input_GetIntervalSinceLastInput(timeInterval: *mut i64) -> Input_Result;
 }
 extern "C" {
-    #[cfg(feature = "api-14")]
     #[doc = " @brief Creates a hot key object.\n\n @return Returns an {@Link Input_Hotkey} pointer object if the operation is successful. Otherwise, a null pointer is\n returned. The possible cause is memory allocation failure.\n @syscap SystemCapability.MultimodalInput.Input.Core\n @since 14"]
+    #[cfg(feature = "api-14")]
     pub fn OH_Input_CreateHotkey() -> *mut Input_Hotkey;
 }
 extern "C" {
-    #[cfg(feature = "api-14")]
     #[doc = " @brief Destroys a hot key object.\n\n @param hotkey Hot key object.\n @syscap SystemCapability.MultimodalInput.Input.Core\n @since 14"]
+    #[cfg(feature = "api-14")]
     pub fn OH_Input_DestroyHotkey(hotkey: *mut *mut Input_Hotkey);
 }
 extern "C" {
-    #[cfg(feature = "api-14")]
     #[doc = " @brief Sets a modifier key.\n\n @param hotkey Hotkey key object.\n @param preKeys List of modifier keys.\n @param size Number of modifier keys. One or two modifier keys are supported.\n @syscap SystemCapability.MultimodalInput.Input.Core\n @since 14"]
+    #[cfg(feature = "api-14")]
     pub fn OH_Input_SetPreKeys(hotkey: *mut Input_Hotkey, preKeys: *mut i32, size: i32);
 }
 extern "C" {
-    #[cfg(feature = "api-14")]
     #[doc = " @brief Obtains a modifier key.\n\n @param hotkey Hotkey key object.\n @param preKeys List of modifier keys.\n @param preKeyCount Number of modifier keys.\n @return OH_Input_GetPreKeys status code, specifically,\n         {@link INPUT_SUCCESS} if the operation is successful;\\n\n         {@link INPUT_PARAMETER_ERROR} The hotkey is NULL or the pressedKeys is NULL or the pressedKeyCount\n         is NULL;\\n\n         {@Link INPUT_DEVICE_NOT_SUPPORTED} Capability not supported.\\n\n @syscap SystemCapability.MultimodalInput.Input.Core\n @since 14"]
+    #[cfg(feature = "api-14")]
     pub fn OH_Input_GetPreKeys(
         hotkey: *const Input_Hotkey,
         preKeys: *mut *mut i32,
@@ -1981,65 +1981,65 @@ extern "C" {
     ) -> Input_Result;
 }
 extern "C" {
-    #[cfg(feature = "api-14")]
     #[doc = " @brief Sets a modified key.\n\n @param hotkey Hotkey key object.\n @param finalKey Modified key. Only one modified key is supported.\n @syscap SystemCapability.MultimodalInput.Input.Core\n @since 14"]
+    #[cfg(feature = "api-14")]
     pub fn OH_Input_SetFinalKey(hotkey: *mut Input_Hotkey, finalKey: i32);
 }
 extern "C" {
-    #[cfg(feature = "api-14")]
     #[doc = " @brief Obtains a modified key.\n\n @param hotkey Hotkey key object.\n @param finalKeyCode Returns the key value of the decorated key.\n @return OH_Input_GetFinalKey status code, specifically,\n         {@link INPUT_SUCCESS} if the operation is successful;\\n\n         {@link INPUT_PARAMETER_ERROR} The hotkey is NULL or the finalKeyCode is NULL;\\n\n         {@Link INPUT_DEVICE_NOT_SUPPORTED} Capability not supported.\\n\n @syscap SystemCapability.MultimodalInput.Input.Core\n @since 14"]
+    #[cfg(feature = "api-14")]
     pub fn OH_Input_GetFinalKey(
         hotkey: *const Input_Hotkey,
         finalKeyCode: *mut i32,
     ) -> Input_Result;
 }
 extern "C" {
-    #[cfg(feature = "api-14")]
     #[doc = " @brief Creates an array of {@Link Input_Hotkey} instances.\n\n @param count Number of {@Link Input_Hotkey} instances to be created. The count must be the same as the number of\n system shortcut keys.\n @return Returns a pointer to an array of {@Link Input_Hotkey} instances if the operation is successful. If the\n operation fails, a null pointer is returned. The possible cause is memory allocation failure or count is not equal\n to the number of system hotkeys.\n @syscap SystemCapability.MultimodalInput.Input.Core\n @since 14"]
+    #[cfg(feature = "api-14")]
     pub fn OH_Input_CreateAllSystemHotkeys(count: i32) -> *mut *mut Input_Hotkey;
 }
 extern "C" {
-    #[cfg(feature = "api-14")]
     #[doc = " @brief Destroys an array of {@link Input_Hotkey} instances and reclaims memory.\n\n @param hotkeys Pointer to an array of {@Link Input_Hotkey } instances created by the\n {@Link OH_Input_CreateAllSystemHotkeys} method.\n @param count Count of the array to be destroyed, which must be the same as the number of system shortcut keys.\n @syscap SystemCapability.MultimodalInput.Input.Core\n @since 14"]
+    #[cfg(feature = "api-14")]
     pub fn OH_Input_DestroyAllSystemHotkeys(hotkeys: *mut *mut Input_Hotkey, count: i32);
 }
 extern "C" {
-    #[cfg(feature = "api-14")]
     #[doc = " @brief Obtains all hot keys supported by the system.\n\n @param hotkey Array of {@Link Input_Hotkey} instances.\n When calling this API for the first time, you can pass NULL to obtain the array length.\n @param count Number of hot keys supported by the system.\n @return OH_Input_GetAllSystemHotkeys status code, specifically,\n         {@link INPUT_SUCCESS} if the operation is successful;\\n\n         {@link INPUT_PARAMETER_ERROR} The hotkey or count is NULL, or the value of count does not match the number\n         of system shortcut keys supported by the system;\n         {@Link INPUT_DEVICE_NOT_SUPPORTED} Capability not supported.\\n\n @syscap SystemCapability.MultimodalInput.Input.Core\n @since 14"]
+    #[cfg(feature = "api-14")]
     pub fn OH_Input_GetAllSystemHotkeys(
         hotkey: *mut *mut Input_Hotkey,
         count: *mut i32,
     ) -> Input_Result;
 }
 extern "C" {
-    #[cfg(feature = "api-14")]
     #[doc = " @brief Specifies whether to report repeated key events.\n\n @param hotkey Shortcut key object.\n @param isRepeat Whether to report repeated key events.\n The value <b>true</b> means to report repeated key events, and the value <b>false</b> means the opposite.\n @syscap SystemCapability.MultimodalInput.Input.Core\n @since 14"]
+    #[cfg(feature = "api-14")]
     pub fn OH_Input_SetRepeat(hotkey: *mut Input_Hotkey, isRepeat: bool);
 }
 extern "C" {
-    #[cfg(feature = "api-14")]
     #[doc = " @brief Checks whether to report repeated key events.\n\n @param hotkey Shortcut key object.\n @param isRepeat Whether a key event is repeated.\n @return OH_Input_GetRepeat status code, specifically,\n         {@link INPUT_SUCCESS} if the operation is successful;\\n\n         {@link INPUT_PARAMETER_ERROR} otherwise;\\n\n         {@Link INPUT_DEVICE_NOT_SUPPORTED} Capability not supported.\\n\n @syscap SystemCapability.MultimodalInput.Input.Core\n @since 14"]
+    #[cfg(feature = "api-14")]
     pub fn OH_Input_GetRepeat(hotkey: *const Input_Hotkey, isRepeat: *mut bool) -> Input_Result;
 }
 extern "C" {
-    #[cfg(feature = "api-14")]
     #[doc = " @brief Subscribes to shortcut key events.\n\n @param hotkey Shortcut key object.\n @param callback Callback used to return shortcut key events.\n @return OH_Input_AddHotkeyMonitor status code, specifically,\n         {@link INPUT_SUCCESS} if the operation is successful;\\n\n         {@link INPUT_PARAMETER_ERROR} if hotkey or callback is NULL;\\n\n         {@Link INPUT_DEVICE_NOT_SUPPORTED} Capability not supported;\\n\n         {@Link INPUT_OCCUPIED_BY_SYSTEM} The hotkey has been used by the system. You can call the {@Link\n         GetAllSystemHotkeys} interface to query all system shortcut keys.\\n\n         {@Link INPUT_OCCUPIED_BY_OTHER} The hotkey has been subscribed to by another.\\n\n @syscap SystemCapability.MultimodalInput.Input.Core\n @since 14"]
+    #[cfg(feature = "api-14")]
     pub fn OH_Input_AddHotkeyMonitor(
         hotkey: *const Input_Hotkey,
         callback: Input_HotkeyCallback,
     ) -> Input_Result;
 }
 extern "C" {
-    #[cfg(feature = "api-14")]
     #[doc = " @brief Unsubscribes from shortcut key events.\n\n @param hotkey Shortcut key object.\n @param callback Callback used to return shortcut key events.\n @return OH_Input_RemoveHotkeyMonitor status code, specifically,\n         {@link INPUT_SUCCESS} if the operation is successful;\\n\n         {@link INPUT_PARAMETER_ERROR} if hotkey or callback is NULL;\\n\n         {@Link INPUT_DEVICE_NOT_SUPPORTED} Capability not supported.\\n\n @syscap SystemCapability.MultimodalInput.Input.Core\n @since 14"]
+    #[cfg(feature = "api-14")]
     pub fn OH_Input_RemoveHotkeyMonitor(
         hotkey: *const Input_Hotkey,
         callback: Input_HotkeyCallback,
     ) -> Input_Result;
 }
 extern "C" {
-    #[cfg(feature = "api-13")]
     #[doc = " @brief Obtains the IDs of all input devices.\n\n @param deviceIds Array of input device IDs.\n @param inSize Size of the array of input device IDs.\n @param outSize Length of the list of input device IDs. The value cannot be greater than the value of inSize.\n @return OH_Input_GetDeviceIds result code, specifically,\n         {@link INPUT_SUCCESS} if the operation is successful;\n         {@link INPUT_PARAMETER_ERROR} if deviceIds or outSize is a null pointer or inSize is less than 0.\n @syscap SystemCapability.MultimodalInput.Input.Core\n @since 13"]
+    #[cfg(feature = "api-13")]
     pub fn OH_Input_GetDeviceIds(
         deviceIds: *mut i32,
         inSize: i32,
@@ -2047,109 +2047,109 @@ extern "C" {
     ) -> Input_Result;
 }
 extern "C" {
-    #[cfg(feature = "api-13")]
     #[doc = " @brief Obtains the information about an input device.\n\n @param deviceId Device ID.\n @param deviceInfo Pointer to an {@Link Input_DeviceInfo} object.\n @return OH_Input_GetDevice result code, specifically,\n         {@link INPUT_SUCCESS} if the operation is successful;\n         {@link INPUT_PARAMETER_ERROR} if the deviceInfo is a null pointer or the deviceId is invalid.\n You can use the {@Link OH_Input_GetDeviceIds} interface to query the device IDs supported by the system.\n @syscap SystemCapability.MultimodalInput.Input.Core\n @since 13"]
+    #[cfg(feature = "api-13")]
     pub fn OH_Input_GetDevice(
         deviceId: i32,
         deviceInfo: *mut *mut Input_DeviceInfo,
     ) -> Input_Result;
 }
 extern "C" {
-    #[cfg(feature = "api-13")]
     #[doc = " @brief Creates a deviceInfo object.\n\n @return Pointer to an {@Link Input_DeviceInfo} object if the operation is successful;\n a null pointer otherwise (possibly because of a memory allocation failure).\n @syscap SystemCapability.MultimodalInput.Input.Core\n @since 13"]
+    #[cfg(feature = "api-13")]
     pub fn OH_Input_CreateDeviceInfo() -> *mut Input_DeviceInfo;
 }
 extern "C" {
-    #[cfg(feature = "api-13")]
     #[doc = " @brief Destroys a deviceInfo object.\n\n @param deviceInfo information object. For details, see {@Link Input_DeviceInfo}.\n @syscap SystemCapability.MultimodalInput.Input.Core\n @since 13"]
+    #[cfg(feature = "api-13")]
     pub fn OH_Input_DestroyDeviceInfo(deviceInfo: *mut *mut Input_DeviceInfo);
 }
 extern "C" {
-    #[cfg(feature = "api-13")]
     #[doc = " @brief Obtains the keyboard type of an input device.\n\n @param deviceId Device ID.\n @param keyboardType Pointer to the keyboard type of the input device.\n @return OH_Input_GetKeyboardType result code, specifically,\n         {@link INPUT_SUCCESS} if the operation is successful;\n         {@link INPUT_PARAMETER_ERROR} if the device ID is invalid or keyboardType is a null pointer.\n @syscap SystemCapability.MultimodalInput.Input.Core\n @since 13"]
+    #[cfg(feature = "api-13")]
     pub fn OH_Input_GetKeyboardType(deviceId: i32, keyboardType: *mut i32) -> Input_Result;
 }
 extern "C" {
-    #[cfg(feature = "api-13")]
     #[doc = " @brief Obtains the ID of an input device.\n\n @param deviceInfo information object. For details, see {@Link Input_DeviceInfo}.\n @param id Pointer to the ID of the input device.\n @return OH_Input_GetDeviceId result code, specifically,\n         {@link INPUT_SUCCESS} if the operation is successful;\n         {@link INPUT_PARAMETER_ERROR} if deviceInfo or id is a null pointer.\n @syscap SystemCapability.MultimodalInput.Input.Core\n @since 13"]
+    #[cfg(feature = "api-13")]
     pub fn OH_Input_GetDeviceId(deviceInfo: *mut Input_DeviceInfo, id: *mut i32) -> Input_Result;
 }
 extern "C" {
-    #[cfg(feature = "api-13")]
     #[doc = " @brief Obtains the name of an input device.\n\n @param deviceInfo information object. For details, see {@Link Input_DeviceInfo}.\n @param name Pointer to the name of the input device.\n @return OH_Input_GetDeviceName result code, specifically,\n         {@link INPUT_SUCCESS} if the operation is successful;\n         {@link INPUT_PARAMETER_ERROR} if deviceInfo or name is a null pointer.\n @syscap SystemCapability.MultimodalInput.Input.Core\n @since 13"]
+    #[cfg(feature = "api-13")]
     pub fn OH_Input_GetDeviceName(
         deviceInfo: *mut Input_DeviceInfo,
         name: *mut *mut ::std::os::raw::c_char,
     ) -> Input_Result;
 }
 extern "C" {
-    #[cfg(feature = "api-13")]
     #[doc = " @brief Obtains the capabilities of an input device, for example, a touchscreen, touchpad, or keyboard.\n\n @param deviceInfo information object. For details, see {@Link Input_DeviceInfo}.\n @param capabilities Pointer to the capabilities of the input device.\n @return OH_Input_GetCapabilities result code, specifically,\n         {@link INPUT_SUCCESS} if the operation is successful;\n         {@link INPUT_PARAMETER_ERROR} if deviceInfo or capabilities is a null pointer.\n @syscap SystemCapability.MultimodalInput.Input.Core\n @since 13"]
+    #[cfg(feature = "api-13")]
     pub fn OH_Input_GetCapabilities(
         deviceInfo: *mut Input_DeviceInfo,
         capabilities: *mut i32,
     ) -> Input_Result;
 }
 extern "C" {
-    #[cfg(feature = "api-13")]
     #[doc = " @brief Obtains the version information of an input device.\n\n @param deviceInfo information object. For details, see {@Link Input_DeviceInfo}.\n @param version Pointer to the version information of the input device.\n @return OH_Input_GetDeviceVersion result code, specifically,\n         {@link INPUT_SUCCESS} if the operation is successful;\n         {@link INPUT_PARAMETER_ERROR} if deviceInfo or version is a null pointer.\n @syscap SystemCapability.MultimodalInput.Input.Core\n @since 13"]
+    #[cfg(feature = "api-13")]
     pub fn OH_Input_GetDeviceVersion(
         deviceInfo: *mut Input_DeviceInfo,
         version: *mut i32,
     ) -> Input_Result;
 }
 extern "C" {
-    #[cfg(feature = "api-13")]
     #[doc = " @brief Obtains the product information of an input device.\n\n @param deviceInfo information object. For details, see {@Link Input_DeviceInfo}.\n @param product Pointer to the product information of the input device.\n @return OH_Input_GetDeviceProduct result code, specifically,\n         {@link INPUT_SUCCESS} if the operation is successful;\n         {@link INPUT_PARAMETER_ERROR} if deviceInfo or product is a null pointer.\n @syscap SystemCapability.MultimodalInput.Input.Core\n @since 13"]
+    #[cfg(feature = "api-13")]
     pub fn OH_Input_GetDeviceProduct(
         deviceInfo: *mut Input_DeviceInfo,
         product: *mut i32,
     ) -> Input_Result;
 }
 extern "C" {
-    #[cfg(feature = "api-13")]
     #[doc = " @brief Obtains the vendor information of an input device.\n\n @param deviceInfo information object. For details, see {@Link Input_DeviceInfo}.\n @param vendor Pointer to the vendor information of the input device.\n @return OH_Input_GetDeviceVendor result code, specifically,\n         {@link INPUT_SUCCESS} if the operation is successful;\n         {@link INPUT_PARAMETER_ERROR} if deviceInfo or vendor is a null pointer.\n @syscap SystemCapability.MultimodalInput.Input.Core\n @since 13"]
+    #[cfg(feature = "api-13")]
     pub fn OH_Input_GetDeviceVendor(
         deviceInfo: *mut Input_DeviceInfo,
         vendor: *mut i32,
     ) -> Input_Result;
 }
 extern "C" {
-    #[cfg(feature = "api-13")]
     #[doc = " @brief Obtains the physical address of an input device.\n\n @param deviceInfo information object. For details, see {@Link Input_DeviceInfo}.\n @param address Pointer to the physical address of the input device.\n @return OH_Input_GetDeviceAddress result code, specifically,\n         {@link INPUT_SUCCESS} if the operation is successful;\n         {@link INPUT_PARAMETER_ERROR} if deviceInfo or address is a null pointer.\n @syscap SystemCapability.MultimodalInput.Input.Core\n @since 13"]
+    #[cfg(feature = "api-13")]
     pub fn OH_Input_GetDeviceAddress(
         deviceInfo: *mut Input_DeviceInfo,
         address: *mut *mut ::std::os::raw::c_char,
     ) -> Input_Result;
 }
 extern "C" {
-    #[cfg(feature = "api-13")]
     #[doc = " @brief Registers a listener for device hot swap events.\n\n @param listener Pointer to an {@Link Input_DeviceListener} object.\n\n @return OH_Input_RegisterDeviceListener status code, specifically,\n         {@link INPUT_SUCCESS} if the operation is successful;\\n\n         {@link INPUT_PARAMETER_ERROR} if listener is NULL;\n @syscap SystemCapability.MultimodalInput.Input.Core\n @since 13"]
+    #[cfg(feature = "api-13")]
     pub fn OH_Input_RegisterDeviceListener(listener: *mut Input_DeviceListener) -> Input_Result;
 }
 extern "C" {
-    #[cfg(feature = "api-13")]
     #[doc = " @brief Unregisters the listener for device hot swap events.\n\n @param listener Pointer to the listener for device hot swap events. For details, see {@Link Input_DeviceListener}.\n\n @return OH_Input_UnregisterDeviceListener status code, specifically,\n         {@link INPUT_SUCCESS} if the operation is successful;\\n\n         {@link INPUT_PARAMETER_ERROR} if listener is NULL or no listener is registered;\n         {@link INPUT_SERVICE_EXCEPTION} if the service is abnormal.\n @syscap SystemCapability.MultimodalInput.Input.Core\n @since 13"]
+    #[cfg(feature = "api-13")]
     pub fn OH_Input_UnregisterDeviceListener(listener: *mut Input_DeviceListener) -> Input_Result;
 }
 extern "C" {
-    #[cfg(feature = "api-13")]
     #[doc = " @brief Unregisters the listener for all device hot swap events.\n\n @return OH_Input_UnregisterDeviceListeners status code, specifically,\n         {@link INPUT_SUCCESS} if the operation is successful;\\n\n         {@link INPUT_SERVICE_EXCEPTION} if the service is abnormal.\n @syscap SystemCapability.MultimodalInput.Input.Core\n @since 13"]
+    #[cfg(feature = "api-13")]
     pub fn OH_Input_UnregisterDeviceListeners() -> Input_Result;
 }
 extern "C" {
-    #[cfg(feature = "api-15")]
     #[doc = " @brief Obtains the function key status.\n\n @param keyCode Function key value. Supported function keys include capsLock, NumLock, and ScrollLock.\n @param state Function key status. The value 0 indicates that the function key is disabled,\n and the value 1 indicates the opposite.\n @return OH_Input_GetFunctionKeyState function api result code\n         {@link INPUT_SUCCESS} if the operation is successful;\n         {@link INPUT_PARAMETER_ERROR} if keyCode is invalid or state is a null pointer.\n         {@link INPUT_KEYBOARD_DEVICE_NOT_EXIST} no keyboard device connected.\n @syscap SystemCapability.MultimodalInput.Input.Core\n @since 15"]
+    #[cfg(feature = "api-15")]
     pub fn OH_Input_GetFunctionKeyState(keyCode: i32, state: *mut i32) -> Input_Result;
 }
 extern "C" {
-    #[cfg(feature = "api-20")]
     #[doc = " @brief Queries the maximum number of touch points supported by the current device.\n      If -1 is returned, the number is unknown.\n\n @param count Maximum number of touch points supported.\n @return OH_Input_QueryMaxTouchPoints function api result code\n         {@link INPUT_SUCCESS} if the operation is successful;\n         {@link INPUT_PARAMETER_ERROR} if count is a null pointer.\n @since 20"]
+    #[cfg(feature = "api-20")]
     pub fn OH_Input_QueryMaxTouchPoints(count: *mut i32) -> Input_Result;
 }
 extern "C" {
-    #[cfg(feature = "api-20")]
     #[doc = " @brief Get pointer location.\n\n @param displayId The displayId for the pointer location.\n @param displayX The displayX for the pointer location.\n @param displayY The displayY for the pointer location.\n @return OH_Input_GetPointerLocation function api result code\n         {@link INPUT_SUCCESS} if the operation is successful;\n         {@link INPUT_PARAMETER_ERROR} if parameter is a null pointer;\n         {@link INPUT_APP_NOT_FOCUSED} if the app is not the focused app;\n         {@link INPUT_DEVICE_NO_POINTER} if the device has no pointer;\n         {@link INPUT_SERVICE_EXCEPTION} if the service is exception.\n @since 20"]
+    #[cfg(feature = "api-20")]
     pub fn OH_Input_GetPointerLocation(
         displayId: *mut i32,
         displayX: *mut f64,
@@ -2157,23 +2157,23 @@ extern "C" {
     ) -> Input_Result;
 }
 extern "C" {
-    #[cfg(feature = "api-22")]
     #[doc = " @brief Sets the visible status of the mouse pointer.\n\n @param visible Whether the mouse pointer is visible. The value true indicates that the pointer\n @return OH_Input_SetPointerVisible function api result code\n         {@link INPUT_SUCCESS} if the operation is successful;\n         {@link INPUT_DEVICE_NOT_SUPPORTED} if the device is not supported.\n         {@link INPUT_SERVICE_EXCEPTION} if the service is exception.\n @since 22"]
+    #[cfg(feature = "api-22")]
     pub fn OH_Input_SetPointerVisible(visible: bool) -> Input_Result;
 }
 extern "C" {
-    #[cfg(feature = "api-22")]
     #[doc = " @brief Obtains the mouse pointer style.\n\n @param windowId Window ID. The value is an integer greater than or equal to -1.\n @param pointerStyle Pointer to the pointerStyle.\n @return OH_Input_GetPointerStyle function api result code\n         {@link INPUT_SUCCESS} if the operation is successful;\n         {@link INPUT_PARAMETER_ERROR} if parameter is a null pointer or window ID is invalid;\n         {@link INPUT_SERVICE_EXCEPTION} if the service is exception.\n @since 22"]
+    #[cfg(feature = "api-22")]
     pub fn OH_Input_GetPointerStyle(windowId: i32, pointerStyle: *mut i32) -> Input_Result;
 }
 extern "C" {
-    #[cfg(feature = "api-22")]
     #[doc = " @brief Sets the mouse pointer style.\n\n @param windowId Window ID. The value is an integer greater than or equal to 0.\n @param pointerStyle Pointer style.The value should be a member of the {@link Input_PointerStyle} enumeration.\n @return OH_Input_SetPointerStyle function api result code\n         {@link INPUT_SUCCESS} if the operation is successful;\n         {@link INPUT_PARAMETER_ERROR} if window ID is invalid or pointerStyle is invalid;\n         {@link INPUT_SERVICE_EXCEPTION} if the service is exception.\n @since 22"]
+    #[cfg(feature = "api-22")]
     pub fn OH_Input_SetPointerStyle(windowId: i32, pointerStyle: i32) -> Input_Result;
 }
 extern "C" {
-    #[cfg(feature = "api-22")]
     #[doc = " @brief Creates a CustomCursor object.\n\n @param pixelMap Pointer to a {@link OH_PixelmapNative}  object.\n @param anchorX Horizontal coordinate of the cursor focus.\n @param anchorY Vertical coordinate of the cursor focus.\n @return Returns an {@link Input_CustomCursor} pointer object if the operation is successful.\n returns a null pointer otherwise.\n @since 22"]
+    #[cfg(feature = "api-22")]
     pub fn OH_Input_CustomCursor_Create(
         pixelMap: *mut OH_PixelmapNative,
         anchorX: i32,
@@ -2181,21 +2181,21 @@ extern "C" {
     ) -> *mut Input_CustomCursor;
 }
 extern "C" {
-    #[cfg(feature = "api-22")]
     #[doc = " @brief Destroys a CustomCursor object.\n\n @param customCursor Pointer to a pointer to an {@link Input_CustomCursor} object.\n @since 22"]
+    #[cfg(feature = "api-22")]
     pub fn OH_Input_CustomCursor_Destroy(customCursor: *mut *mut Input_CustomCursor);
 }
 extern "C" {
-    #[cfg(feature = "api-22")]
     #[doc = " @brief Obtains the pixelMap of the CustomCursor.\n\n @param customCursor Pointer to an {@link Input_CustomCursor} object.\n @param pixelMap Pointer to a {@link OH_PixelmapNative}  object.\n @return OH_Input_CustomCursor_GetPixelMap function result code.\n         {@link INPUT_SUCCESS} if the operation is successful;\n         {@link INPUT_PARAMETER_ERROR} The customCursor is NULL.\n @since 22"]
+    #[cfg(feature = "api-22")]
     pub fn OH_Input_CustomCursor_GetPixelMap(
         customCursor: *mut Input_CustomCursor,
         pixelMap: *mut *mut OH_PixelmapNative,
     ) -> Input_Result;
 }
 extern "C" {
-    #[cfg(feature = "api-22")]
     #[doc = " @brief Obtains the anchor of the CustomCursor.\n\n @param customCursor Pointer to an {@link Input_CustomCursor} object.\n @param anchorX Pointer to horizontal coordinate of the cursor focus.\n @param anchorY Pointer to vertical coordinate of the cursor focus.\n @return OH_Input_CustomCursor_GetAnchor function result code.\n         {@link INPUT_SUCCESS} if the operation is successful;\n         {@link INPUT_PARAMETER_ERROR} The customCursor is NULL.\n @since 22"]
+    #[cfg(feature = "api-22")]
     pub fn OH_Input_CustomCursor_GetAnchor(
         customCursor: *mut Input_CustomCursor,
         anchorX: *mut i32,
@@ -2203,26 +2203,26 @@ extern "C" {
     ) -> Input_Result;
 }
 extern "C" {
-    #[cfg(feature = "api-22")]
     #[doc = " @brief Creates a CursorConfig object.\n\n @param followSystem Pointer of the config whether to adjust the cursor size based on system settings\n @return Returns an {@link Input_CursorConfig} pointer object if the operation is successful.\n returns a null pointer otherwise.\n @since 22"]
+    #[cfg(feature = "api-22")]
     pub fn OH_Input_CursorConfig_Create(followSystem: bool) -> *mut Input_CursorConfig;
 }
 extern "C" {
-    #[cfg(feature = "api-22")]
     #[doc = " @brief Destroys a CursorConfig object.\n\n @param cursorConfig Pointer to a pointer to an {@link cursorConfig} object.\n @since 22"]
+    #[cfg(feature = "api-22")]
     pub fn OH_Input_CursorConfig_Destroy(cursorConfig: *mut *mut Input_CursorConfig);
 }
 extern "C" {
-    #[cfg(feature = "api-22")]
     #[doc = " @brief Obtains the followSystem of the cursorConfig.\n\n @param cursorConfig Pointer to an {@link Input_CursorConfig} object.\n @param followSystem Pointer of the config whether to adjust the cursor size based on system settings\n @return OH_Input_CursorConfig_IsFollowSystem function result code.\n         {@link INPUT_SUCCESS} if the operation is successful;\n         {@link INPUT_PARAMETER_ERROR} The cursorOptions or followSystem the is NULL.\n @since 22"]
+    #[cfg(feature = "api-22")]
     pub fn OH_Input_CursorConfig_IsFollowSystem(
         cursorConfig: *mut Input_CursorConfig,
         followSystem: *mut bool,
     ) -> Input_Result;
 }
 extern "C" {
-    #[cfg(feature = "api-22")]
     #[doc = " @brief Sets the custom cursor style.\n\n @param windowId Window ID. The value is an integer greater than or equal to 0.\n @param customCursor Pointer to an {@link Input_CustomCursor} object.\n @param cursorConfig Pointer to an {@link cursorConfig} object.\n @return OH_Input_SetCustomCursor function result code.\n         {@link INPUT_SUCCESS} if the operation is successful;\n         {@link INPUT_PARAMETER_ERROR} if window ID is abnormal or customCursor is invalid;\n         {@link INPUT_INVALID_WINDOWID} if window ID is invaild.\n         {@link INPUT_DEVICE_NOT_SUPPORTED} Capability not supported.\n         {@link INPUT_SERVICE_EXCEPTION} if the service is exception.\n @since 22"]
+    #[cfg(feature = "api-22")]
     pub fn OH_Input_SetCustomCursor(
         windowId: i32,
         customCursor: *mut Input_CustomCursor,
@@ -2230,58 +2230,58 @@ extern "C" {
     ) -> Input_Result;
 }
 extern "C" {
-    #[cfg(feature = "api-22")]
     #[doc = " @brief Creates a cursor info object.\n\n @return Returns an {@link Input_CursorInfo} cursor object if the operation is successful.\n         Otherwise, a null cursor is returned. The possible cause is memory allocation failure.\n @since 22"]
+    #[cfg(feature = "api-22")]
     pub fn OH_Input_CursorInfo_Create() -> *mut Input_CursorInfo;
 }
 extern "C" {
-    #[cfg(feature = "api-22")]
     #[doc = " @brief Destroys a cursor info object.\n\n @param cursorInfo Cursor info object.\n @since 22"]
+    #[cfg(feature = "api-22")]
     pub fn OH_Input_CursorInfo_Destroy(cursorInfo: *mut *mut Input_CursorInfo);
 }
 extern "C" {
-    #[cfg(feature = "api-22")]
     #[doc = " @brief Obtains the cursor visibility of the cursorInfo.\n\n @param cursorInfo Cursor info object.\n @param visible Visibility of the cursorInfo.\n @return OH_Input_CursorInfo_IsVisible function api result code\n         {@link INPUT_SUCCESS} if the operation is successful;\n         {@link INPUT_PARAMETER_ERROR} if parameter is a null cursor;\n @since 22"]
+    #[cfg(feature = "api-22")]
     pub fn OH_Input_CursorInfo_IsVisible(
         cursorInfo: *mut Input_CursorInfo,
         visible: *mut bool,
     ) -> Input_Result;
 }
 extern "C" {
-    #[cfg(feature = "api-22")]
     #[doc = " @brief Obtains the cursor style of the cursorInfo.\n\n @param cursorInfo Cursor info object.\n @param style Cursor style of the cursorInfo.\n @return OH_Input_CursorInfo_GetStyle function api result code\n         {@link INPUT_SUCCESS} if the operation is successful;\n         {@link INPUT_PARAMETER_ERROR} if parameter is a null cursor or the cursor is invisible;\n @since 22"]
+    #[cfg(feature = "api-22")]
     pub fn OH_Input_CursorInfo_GetStyle(
         cursorInfo: *mut Input_CursorInfo,
         style: *mut Input_PointerStyle,
     ) -> Input_Result;
 }
 extern "C" {
-    #[cfg(feature = "api-22")]
     #[doc = " @brief Obtains the cursor sizeLevel of the cursorInfo.\n\n @param cursorInfo Cursor info object.\n @param sizeLevel Cursor size level of the cursorInfo.\n @return OH_Input_CursorInfo_GetSizeLevel function api result code\n         {@link INPUT_SUCCESS} if the operation is successful;\n         {@link INPUT_PARAMETER_ERROR} if parameter is a null cursor or the cursor is invisible;\n @since 22"]
+    #[cfg(feature = "api-22")]
     pub fn OH_Input_CursorInfo_GetSizeLevel(
         cursorInfo: *mut Input_CursorInfo,
         sizeLevel: *mut i32,
     ) -> Input_Result;
 }
 extern "C" {
-    #[cfg(feature = "api-22")]
     #[doc = " @brief Obtains the cursor color of the cursorInfo represented as a 32-bit ARGB integer.\n\n @param cursorInfo Cursor info object.\n @param color Cursor color of the cursorInfo represented as a 32-bit ARGB integer.\n @return OH_Input_CursorInfo_GetColor function api result code\n         {@link INPUT_SUCCESS} if the operation is successful;\n         {@link INPUT_PARAMETER_ERROR} if parameter is a null cursor or the cursor is invisible;\n @since 22"]
+    #[cfg(feature = "api-22")]
     pub fn OH_Input_CursorInfo_GetColor(
         cursorInfo: *mut Input_CursorInfo,
         color: *mut u32,
     ) -> Input_Result;
 }
 extern "C" {
-    #[cfg(feature = "api-22")]
     #[doc = " @brief Get cursor info of the mouseEvent.\n\n @param mouseEvent The received mouseEvent.\n @param cursorInfo The object to receive the cursor info.\n @return OH_Input_GetMouseEventCursorInfo function api result code\n         {@link INPUT_SUCCESS} if the operation is successful;\n         {@link INPUT_PARAMETER_ERROR} if parameter is a null cursor;\n @since 22"]
+    #[cfg(feature = "api-22")]
     pub fn OH_Input_GetMouseEventCursorInfo(
         mouseEvent: *const Input_MouseEvent,
         cursorInfo: *mut Input_CursorInfo,
     ) -> Input_Result;
 }
 extern "C" {
-    #[cfg(feature = "api-22")]
     #[doc = " @brief Retrieves cursor information. If the pixelmap parameter is specified, and the cursor is user-defined type\n currently, the cursor's pixelmap will be returned along with it.\n\n @param cursorInfo The object to receive the cursor info.\n @param pixelmap The object to receive the cursor pixelmap, null value will be ignored.\n @return OH_Input_GetCursorInfo function api result code\n         {@link INPUT_SUCCESS} if the operation is successful;\n         {@link INPUT_PARAMETER_ERROR} if parameter is a null cursor;\n         {@link INPUT_SERVICE_EXCEPTION} if the service is exception.\n @since 22"]
+    #[cfg(feature = "api-22")]
     pub fn OH_Input_GetCursorInfo(
         cursorInfo: *mut Input_CursorInfo,
         pixelmap: *mut *mut OH_PixelmapNative,

@@ -92,8 +92,8 @@ pub const InputMethod_TextInputType_IME_TEXT_INPUT_TYPE_NEW_PASSWORD: InputMetho
 #[doc = " The text input type is NUMBER DECIMAL."]
 pub const InputMethod_TextInputType_IME_TEXT_INPUT_TYPE_NUMBER_DECIMAL: InputMethod_TextInputType =
     12;
-#[cfg(feature = "api-20")]
 #[doc = " The text input type is ONE TIME CODE.\n\n @since 20"]
+#[cfg(feature = "api-20")]
 pub const InputMethod_TextInputType_IME_TEXT_INPUT_TYPE_ONE_TIME_CODE: InputMethod_TextInputType =
     13;
 #[doc = " @brief The text input type.\n\n @since 12"]
@@ -140,24 +140,24 @@ pub const InputMethod_ErrorCode_IME_ERR_NULL_POINTER: InputMethod_ErrorCode = 12
 pub const InputMethod_ErrorCode_IME_ERR_QUERY_FAILED: InputMethod_ErrorCode = 12802001;
 #[doc = " @brief The value type of command data.\n\n @since 12"]
 pub type InputMethod_ErrorCode = u32;
-#[cfg(feature = "api-15")]
 #[doc = " The request keyboard reason is NONE."]
+#[cfg(feature = "api-15")]
 pub const InputMethod_RequestKeyboardReason_IME_REQUEST_REASON_NONE:
     InputMethod_RequestKeyboardReason = 0;
-#[cfg(feature = "api-15")]
 #[doc = " The request keyboard reason is MOUSE."]
+#[cfg(feature = "api-15")]
 pub const InputMethod_RequestKeyboardReason_IME_REQUEST_REASON_MOUSE:
     InputMethod_RequestKeyboardReason = 1;
-#[cfg(feature = "api-15")]
 #[doc = " The request keyboard reason is TOUCH."]
+#[cfg(feature = "api-15")]
 pub const InputMethod_RequestKeyboardReason_IME_REQUEST_REASON_TOUCH:
     InputMethod_RequestKeyboardReason = 2;
-#[cfg(feature = "api-15")]
 #[doc = " The request keyboard reason is OTHER."]
+#[cfg(feature = "api-15")]
 pub const InputMethod_RequestKeyboardReason_IME_REQUEST_REASON_OTHER:
     InputMethod_RequestKeyboardReason = 20;
-#[cfg(feature = "api-15")]
 #[doc = " @brief The value type of request keyboard.\n\n @since 15"]
+#[cfg(feature = "api-15")]
 pub type InputMethod_RequestKeyboardReason = u32;
 #[repr(C)]
 #[derive(Debug, Copy, Clone)]
@@ -371,8 +371,8 @@ extern "C" {
     ) -> InputMethod_ErrorCode;
 }
 extern "C" {
-    #[cfg(feature = "api-20")]
     #[doc = " @brief Sets the placeholder text of an InputMethod_TextConfig instance.\n\n @param config Pointer to the InputMethod_TextConfig instance.\n @param placeholder Pointer to a UTF-16 encoded double-byte string. If a null pointer is passed, the placeholder text\n     is an empty string.\n @param length Number of elements in the memory to which <b>placeholder</b> points, including the null character of\n     the double-byte string.\n      1) If <b>length</b> is <b>0</b>, the placeholder text is an empty string.\n      2) The maximum number of UTF-16 encoded characters is 256, and the last element must be a null character.\n      3) If the <b>length</b> exceeds 256, the placeholder text will be truncated.\n @return Returns a specific error code.\n     {@link IME_ERR_OK} - success.\n     {@link IME_ERR_NULL_POINTER} - unexpected null pointer.\n Specific error codes can be referenced {@link InputMethod_ErrorCode}.\n @since 20"]
+    #[cfg(feature = "api-20")]
     pub fn OH_TextConfig_SetPlaceholder(
         config: *mut InputMethod_TextConfig,
         placeholder: *const u16,
@@ -380,8 +380,8 @@ extern "C" {
     ) -> InputMethod_ErrorCode;
 }
 extern "C" {
-    #[cfg(feature = "api-20")]
     #[doc = " @brief Sets the ability name of an InputMethod_TextConfig instance.\n\n @param config Pointer to the InputMethod_TextConfig instance.\n @param abilityName Pointer to a UTF-16 encoded double-byte string. If a null pointer is passed, the ability name is\n     an empty string.\n @param length Number of elements in the memory to which <b>abilityName</b> points, including the null character of\n      the double-byte string.\n     1) If <b>length</b> is <b>0</b>, the ability name is an empty string.\n     2) The maximum number of UTF-16 encoded characters is 128, and the last element must be a null character.\n     3) If the <b>length</b> exceeds 128, the placeholder text will be truncated.\n @return Returns a specific error code.\n     {@link IME_ERR_OK} - success.\n     {@link IME_ERR_NULL_POINTER} - unexpected null pointer.\n Specific error codes can be referenced {@link InputMethod_ErrorCode}.\n @since 20"]
+    #[cfg(feature = "api-20")]
     pub fn OH_TextConfig_SetAbilityName(
         config: *mut InputMethod_TextConfig,
         abilityName: *const u16,
@@ -439,8 +439,8 @@ extern "C" {
     ) -> InputMethod_ErrorCode;
 }
 extern "C" {
-    #[cfg(feature = "api-20")]
     #[doc = " @brief Obtains the placeholder text of an InputMethod_TextConfig instance.\n\n @param config Pointer to the InputMethod_TextConfig instance.\n @param placeholder Pointer to the placeholder text. The memory of this pointer is maintained by the caller.\n @param length Pointer to the length of the placeholder text, in double bytes. The length includes the null character\n     of the string.\n     1) As an input parameter, <b>length</b> indicates the available length of the memory to which <b>placeholder</b>\n        points. As an output parameter, it indicates the actual length of the placeholder text.\n     2) If <b>placeholder</b> is a null pointer and <b>length</b> points to valid memory, <b>length</b> will be set to\n        the actual length of the placeholder text, and an error will be return.\n     3) If both <b>placeholder</b> and <b>length</b> point to valid memory, but the value of <b>length</b> is less\n        than the actual length of the placeholder text, <b>length</b> will be set to the actual length of the\n        placeholder text, and an error will be return.\n @return Returns a specific error code.\n     {@link IME_ERR_OK} - success.\n     {@link IME_ERR_PARAMCHECK} - parameter check failed.\n     {@link IME_ERR_NULL_POINTER} - unexpected null pointer.\n Specific error codes can be referenced {@link InputMethod_ErrorCode}.\n @since 20"]
+    #[cfg(feature = "api-20")]
     pub fn OH_TextConfig_GetPlaceholder(
         config: *mut InputMethod_TextConfig,
         placeholder: *mut u16,
@@ -448,8 +448,8 @@ extern "C" {
     ) -> InputMethod_ErrorCode;
 }
 extern "C" {
-    #[cfg(feature = "api-20")]
     #[doc = " @brief Obtains the ability name of an InputMethod_TextConfig instance.\n\n @param config Pointer to the InputMethod_TextConfig instance.\n @param abilityName Pointer to the ability name. The memory of this pointer is maintained by the caller.\n @param length Pointer to the length of the ability name, in double bytes. The length includes the null character of\n     the string.\n     1) As an input parameter, <b>length</b> indicates the available length of the memory to which <b>abilityName</b>\n        points. As an output parameter, it indicates the actual length of the ability name.\n     2) If <b>abilityName</b> is a null pointer and <b>length</b> points to valid memory, <b>length</b> will be set to\n        the actual length of the ability name, and an error will be return.\n     3) If both <b>abilityName</b> and <b>length</b> point to valid memory, but the value of <b>length</b> is less\n        than the actual length of the ability name, <b>length</b> will be set to the actual length of the ability\n        name, and an error will be return.\n @return Returns a specific error code.\n     {@link IME_ERR_OK} - success.\n     {@link IME_ERR_PARAMCHECK} - parameter check failed.\n     {@link IME_ERR_NULL_POINTER} - unexpected null pointer.\n Specific error codes can be referenced {@link InputMethod_ErrorCode}.\n @since 20"]
+    #[cfg(feature = "api-20")]
     pub fn OH_TextConfig_GetAbilityName(
         config: *mut InputMethod_TextConfig,
         abilityName: *mut u16,
@@ -778,8 +778,8 @@ extern "C" {
     ) -> InputMethod_ErrorCode;
 }
 extern "C" {
-    #[cfg(feature = "api-22")]
     #[doc = " @brief Configure the execution thread (main thread/IPC thread) for the callback functions of\n {@link InputMethod_TextEditorProxy}.\n This interface only controls all callbacks in {@link InputMethod_TextEditorProxy} except\n {@link OH_TextEditorProxy_GetTextConfigFunc}.\n The execution thread of {@link OH_TextEditorProxy_GetTextConfigFunc} is determined by the thread that calls\n {@link OH_InputMethodController_Attach} and is not affected by this interface.\n\n @param proxy Pointer to the target {@link InputMethod_TextEditorProxy} instance.\n @param isCallbackInMainThread Thread execution strategy\n                              - true: The callback function is switched to the main thread for execution (to avoid\n multi-thread concurrency)\n                              - false: The callback function is executed in the IPC thread (there may be multi-thread\n concurrency)\n @return Execution result.\n     {@link IME_ERR_OK} - Configuration succeeded.\n     {@link IME_ERR_NULL_POINTER} - Returned when proxy is NULL.\n @since 22"]
+    #[cfg(feature = "api-22")]
     pub fn OH_TextEditorProxy_SetCallbackInMainThread(
         proxy: *mut InputMethod_TextEditorProxy,
         isCallbackInMainThread: bool,
@@ -795,8 +795,8 @@ extern "C" {
     pub fn OH_AttachOptions_Create(showKeyboard: bool) -> *mut InputMethod_AttachOptions;
 }
 extern "C" {
-    #[cfg(feature = "api-15")]
     #[doc = " @brief Create a new {@link InputMethod_AttachOptions} instance.\n\n @param showKeyboard Represents whether to show the keyboard.\n @param requestKeyboardReason  the reason for showKeyboard.\n @return If the creation succeeds, a pointer to the newly created {@link InputMethod_AttachOptions}\n instance is returned. If the creation fails, NULL is returned, possible cause is insufficient memory.\n @since 15"]
+    #[cfg(feature = "api-15")]
     pub fn OH_AttachOptions_CreateWithRequestKeyboardReason(
         showKeyboard: bool,
         requestKeyboardReason: InputMethod_RequestKeyboardReason,
@@ -814,8 +814,8 @@ extern "C" {
     ) -> InputMethod_ErrorCode;
 }
 extern "C" {
-    #[cfg(feature = "api-15")]
     #[doc = " @brief Get showKeyboard value from {@link InputMethod_AttachOptions}.\n\n @param options Represents a pointer to an {@link InputMethod_AttachOptions} instance which will be get value from.\n @param requestKeyboardReason  Represents a pointer to an {@link InputMethodRequestKeyboardReason} instance which will\n be get value from.\n @return Returns a specific error code.\n     {@link IME_ERR_OK} - success.\n     {@link IME_ERR_NULL_POINTER} - unexpected null pointer. If options is NULL, or requestKeyboardReason is NULL.\n Specific error codes can be referenced {@link InputMethod_ErrorCode}.\n @since 15"]
+    #[cfg(feature = "api-15")]
     pub fn OH_AttachOptions_GetRequestKeyboardReason(
         options: *mut InputMethod_AttachOptions,
         requestKeyboardReason: *mut ::std::os::raw::c_int,
@@ -833,8 +833,8 @@ extern "C" {
     ) -> InputMethod_ErrorCode;
 }
 extern "C" {
-    #[cfg(feature = "api-15")]
     #[doc = " @brief ShowTextInput.\n\n @param inputMethodProxy Represents a pointer to an {@link InputMethod_InputMethodProxy} instance.\n     The inputMethodProxy is obtained from {@link OH_InputMethodController_Attach}.\n @param options Represents a pointer to an {@link InputMethod_AttachOptions} instance which will be get value from.\n     {@link ShowKeyboard} - property is always true,can not be changed,so no need to focus on\n     {@link InputMethod_RequestKeyboardReason} - property is the requestKeyboardReason for show keyboard\n @return Returns a specific error code.\n     {@link IME_ERR_OK} - success.\n     {@link IME_ERR_IMCLIENT} - input method client error.\n     {@link IME_ERR_IMMS} - input method manager service error.\n     {@link IME_ERR_DETACHED} - input method client detached.\n     {@link IME_ERR_NULL_POINTER} - unexpected null pointer. If inputMethodProxy is NULL, or options is NULL.\n Specific error codes can be referenced {@link InputMethod_ErrorCode}.\n @since 15"]
+    #[cfg(feature = "api-15")]
     pub fn OH_InputMethodProxy_ShowTextInput(
         inputMethodProxy: *mut InputMethod_InputMethodProxy,
         options: *mut InputMethod_AttachOptions,

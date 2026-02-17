@@ -115,14 +115,14 @@ pub const OH_NativeBuffer_MetadataType_OH_VIDEO_HDR_HLG: OH_NativeBuffer_Metadat
 pub const OH_NativeBuffer_MetadataType_OH_VIDEO_HDR_HDR10: OH_NativeBuffer_MetadataType = 1;
 #[doc = " HDR VIVID"]
 pub const OH_NativeBuffer_MetadataType_OH_VIDEO_HDR_VIVID: OH_NativeBuffer_MetadataType = 2;
-#[cfg(feature = "api-22")]
 #[doc = " HDR IMAGE DUAL.\n @since 22"]
-pub const OH_NativeBuffer_MetadataType_OH_IMAGE_HDR_VIVID_DUAL: OH_NativeBuffer_MetadataType = 3;
 #[cfg(feature = "api-22")]
+pub const OH_NativeBuffer_MetadataType_OH_IMAGE_HDR_VIVID_DUAL: OH_NativeBuffer_MetadataType = 3;
 #[doc = " HDR IMAGE SINGLE.\n @since 22"]
+#[cfg(feature = "api-22")]
 pub const OH_NativeBuffer_MetadataType_OH_IMAGE_HDR_VIVID_SINGLE: OH_NativeBuffer_MetadataType = 4;
-#[cfg(feature = "api-13")]
 #[doc = " NONE Metadata\n @since 13"]
+#[cfg(feature = "api-13")]
 pub const OH_NativeBuffer_MetadataType_OH_VIDEO_NONE: OH_NativeBuffer_MetadataType = -1;
 #[doc = " @brief Indicates the HDR metadata type of a native buffer.\n\n @syscap SystemCapability.Graphic.Graphic2D.NativeBuffer\n @since 12\n @version 1.0"]
 pub type OH_NativeBuffer_MetadataType = i32;
@@ -176,8 +176,8 @@ pub const OH_NativeBuffer_MetadataKey_OH_HDR_METADATA_TYPE: OH_NativeBuffer_Meta
 pub const OH_NativeBuffer_MetadataKey_OH_HDR_STATIC_METADATA: OH_NativeBuffer_MetadataKey = 1;
 #[doc = " byte stream of SEI in video stream"]
 pub const OH_NativeBuffer_MetadataKey_OH_HDR_DYNAMIC_METADATA: OH_NativeBuffer_MetadataKey = 2;
-#[cfg(feature = "api-22")]
 #[doc = " Region of interest(ROI) metadata is used to conifgure ROI feature in video encoding. Value type is string\n in the format \"Top1,Left1-Bottom1,Right1=QpOffset1;Top2,Left2-Bottom2,Right2=QpOffset2;\".\n Each \"Top,Left-Bottom,Right=QpOffset\" represents the coordinate information and quantization parameter\n offset of one ROI. Each \"=QpOffset\" in the string can be omitted,\n like \"Top1,Left1-Bottom1,Right1;Top2,Left2-Bottom2,Right2=QpOffset2;\", the encoder will use the default\n quantization parameter offset to perform the ROI encoding on the first ROI and use QpOffset2 on the second ROI.\n Note that the number of ROIs that can be applied simultaneously does not exceed six, and the total area must\n not exceed one-fifth of the total image area.\n\n @since 22"]
+#[cfg(feature = "api-22")]
 pub const OH_NativeBuffer_MetadataKey_OH_REGION_OF_INTEREST_METADATA: OH_NativeBuffer_MetadataKey =
     3;
 #[doc = " @brief Indicates the descriptive information of a native buffer,\n  such as HDR metadata, ROI metadata, etc.\n\n @syscap SystemCapability.Graphic.Graphic2D.NativeBuffer\n @since 12\n @version 1.0"]
@@ -258,17 +258,17 @@ pub const OH_NativeBuffer_Format_NATIVEBUFFER_PIXEL_FMT_YCBCR_P010: OH_NativeBuf
 pub const OH_NativeBuffer_Format_NATIVEBUFFER_PIXEL_FMT_YCRCB_P010: OH_NativeBuffer_Format = 36;
 #[doc = " Raw 10bit packed format\n @since 12"]
 pub const OH_NativeBuffer_Format_NATIVEBUFFER_PIXEL_FMT_RAW10: OH_NativeBuffer_Format = 37;
-#[cfg(feature = "api-15")]
 #[doc = " BLOB format\n @since 15"]
-pub const OH_NativeBuffer_Format_NATIVEBUFFER_PIXEL_FMT_BLOB: OH_NativeBuffer_Format = 38;
 #[cfg(feature = "api-15")]
+pub const OH_NativeBuffer_Format_NATIVEBUFFER_PIXEL_FMT_BLOB: OH_NativeBuffer_Format = 38;
 #[doc = " RGBA16 float format\n @since 15"]
+#[cfg(feature = "api-15")]
 pub const OH_NativeBuffer_Format_NATIVEBUFFER_PIXEL_FMT_RGBA16_FLOAT: OH_NativeBuffer_Format = 39;
-#[cfg(feature = "api-20")]
 #[doc = " Y8 format\n @since 20"]
-pub const OH_NativeBuffer_Format_NATIVEBUFFER_PIXEL_FMT_Y8: OH_NativeBuffer_Format = 40;
 #[cfg(feature = "api-20")]
+pub const OH_NativeBuffer_Format_NATIVEBUFFER_PIXEL_FMT_Y8: OH_NativeBuffer_Format = 40;
 #[doc = " Y16 format\n @since 20"]
+#[cfg(feature = "api-20")]
 pub const OH_NativeBuffer_Format_NATIVEBUFFER_PIXEL_FMT_Y16: OH_NativeBuffer_Format = 41;
 #[doc = " vender mask format\n @since 12"]
 pub const OH_NativeBuffer_Format_NATIVEBUFFER_PIXEL_FMT_VENDER_MASK: OH_NativeBuffer_Format =
@@ -432,11 +432,11 @@ pub const OH_NativeBuffer_Usage_NATIVEBUFFER_USAGE_CPU_READ: OH_NativeBuffer_Usa
 pub const OH_NativeBuffer_Usage_NATIVEBUFFER_USAGE_CPU_WRITE: OH_NativeBuffer_Usage = 2;
 #[doc = " < CPU write memory */"]
 pub const OH_NativeBuffer_Usage_NATIVEBUFFER_USAGE_MEM_DMA: OH_NativeBuffer_Usage = 8;
-#[cfg(feature = "api-20")]
 #[doc = " < Direct memory access (DMA) buffer */\n**\n* MMZ with cache\n* @since 20\n*/"]
+#[cfg(feature = "api-20")]
 pub const OH_NativeBuffer_Usage_NATIVEBUFFER_USAGE_MEM_MMZ_CACHE: OH_NativeBuffer_Usage = 32;
-#[cfg(feature = "api-20")]
 #[doc = " < Direct memory access (DMA) buffer */\n**\n* MMZ with cache\n* @since 20\n*/"]
+#[cfg(feature = "api-20")]
 pub const OH_NativeBuffer_Usage_NATIVEBUFFER_USAGE_HW_RENDER: OH_NativeBuffer_Usage = 256;
 #[doc = " < For GPU write case */"]
 pub const OH_NativeBuffer_Usage_NATIVEBUFFER_USAGE_HW_TEXTURE: OH_NativeBuffer_Usage = 512;

@@ -482,8 +482,8 @@ extern "C" {
     ) -> ResourceManager_ErrorCode;
 }
 extern "C" {
-    #[cfg(feature = "api-20")]
     #[doc = " @brief Obtains the device configuration.\n\n You need to call the OH_ResourceManager_ReleaseConfiguration() method to release the memory.\n If you use malloc to create a ResourceManager_Configuration object, you also need to call free to release it.\n\n @param {NativeResourceManager} mgr Indicates the pointer to {@link NativeResourceManager}\n        {@link OH_ResourceManager_InitNativeResourceManager}.\n @param {ResourceManager_Configuration} configuration the result write to ResourceManager_Configuration.\n @return {@link SUCCESS} 0 - Success.\n{@link ERROR_CODE_SYSTEM_RES_MANAGER_GET_FAILED} 9001009 - If failed to access the system resource.\n{@link ERROR_CODE_OUT_OF_MEMORY} 9001100 - Out of memory.\n @since 20"]
+    #[cfg(feature = "api-20")]
     pub fn OH_ResourceManager_GetResourceConfiguration(
         mgr: *const NativeResourceManager,
         configuration: *mut ResourceManager_Configuration,
@@ -557,8 +557,8 @@ extern "C" {
     ) -> ResourceManager_ErrorCode;
 }
 extern "C" {
-    #[cfg(feature = "api-18")]
     #[doc = " @brief Obtains the singular-plural character string represented.\n\n Obtains the singular-plural character string represented by the ID string corresponding to the specified number.\n You need to call free() to release the memory for the string.\n\n @param mgr Indicates the pointer to {@link NativeResourceManager}\n        {@link OH_ResourceManager_InitNativeResourceManager}.\n @param resId Indicates the resource ID.\n @param num - an integer used to get the correct string for the current plural rules.\n @param resultValue the result write to resultValue.\n @param { const char* | int | float } args - Indicates the formatting string resource parameters.\n @return {@link SUCCESS} 0 - Success.\n         {@link ERROR_CODE_INVALID_INPUT_PARAMETER} 401 - The input parameter invalid.\nPossible causes: Incorrect parameter types.\n{@link ERROR_CODE_RES_ID_NOT_FOUND} 9001001 - Invalid resource ID.\n{@link ERROR_CODE_RES_NOT_FOUND_BY_ID} 9001002 - No matching resource is found based on the resource ID.\n{@link ERROR_CODE_RES_REF_TOO_MUCH} 9001006 - The resource is referenced cyclically.\n{@link ERROR_CODE_OUT_OF_MEMORY} 9001100 - Out of memory.\n @since 18"]
+    #[cfg(feature = "api-18")]
     pub fn OH_ResourceManager_GetIntPluralString(
         mgr: *const NativeResourceManager,
         resId: u32,
@@ -568,8 +568,8 @@ extern "C" {
     ) -> ResourceManager_ErrorCode;
 }
 extern "C" {
-    #[cfg(feature = "api-18")]
     #[doc = " @brief Obtains the singular-plural character string represented.\n\n Obtains the singular-plural character string represented by the ID string corresponding to the specified number.\n You need to call free() to release the memory for the string.\n\n @param mgr Indicates the pointer to {@link NativeResourceManager}\n        {@link OH_ResourceManager_InitNativeResourceManager}.\n @param resId Indicates the resource ID.\n @param num - a double parameter used to get the correct string for the current plural rules.\n @param resultValue the result write to resultValue.\n @param { const char* | int | float } args - Indicates the formatting string resource parameters.\n @return {@link SUCCESS} 0 - Success.\n         {@link ERROR_CODE_INVALID_INPUT_PARAMETER} 401 - The input parameter invalid.\nPossible causes: Incorrect parameter types.\n{@link ERROR_CODE_RES_ID_NOT_FOUND} 9001001 - Invalid resource ID.\n{@link ERROR_CODE_RES_NOT_FOUND_BY_ID} 9001002 - No matching resource is found based on the resource ID.\n{@link ERROR_CODE_RES_REF_TOO_MUCH} 9001006 - The resource is referenced cyclically.\n{@link ERROR_CODE_OUT_OF_MEMORY} 9001100 - Out of memory.\n @since 18"]
+    #[cfg(feature = "api-18")]
     pub fn OH_ResourceManager_GetDoublePluralString(
         mgr: *const NativeResourceManager,
         resId: u32,
@@ -579,8 +579,8 @@ extern "C" {
     ) -> ResourceManager_ErrorCode;
 }
 extern "C" {
-    #[cfg(feature = "api-18")]
     #[doc = " @brief Obtains the singular-plural character string represented.\n\n Obtains the singular-plural character string represented by the Name string corresponding to the specified number.\n You need to call free() to release the memory for the string.\n\n @param mgr Indicates the pointer to {@link NativeResourceManager}\n        {@link OH_ResourceManager_InitNativeResourceManager}.\n @param resName Indicates the resource name.\n @param num - an integer used to get the correct string for the current plural rules.\n @param resultValue the result write to resultValue.\n @param { const char* | int | float } args - Indicates the formatting string resource parameters.\n @return {@link SUCCESS} 0 - Success.\n         {@link ERROR_CODE_INVALID_INPUT_PARAMETER} 401 - The input parameter invalid.\nPossible causes: Incorrect parameter types.\n{@link ERROR_CODE_RES_NAME_NOT_FOUND} 9001003 - Invalid resource name.\n{@link ERROR_CODE_RES_NOT_FOUND_BY_NAME} 9001004 - No matching resource is found based on the resource name.\n{@link ERROR_CODE_RES_REF_TOO_MUCH} 9001006 - The resource is referenced cyclically.\n{@link ERROR_CODE_OUT_OF_MEMORY} 9001100 - Out of memory.\n @since 18"]
+    #[cfg(feature = "api-18")]
     pub fn OH_ResourceManager_GetIntPluralStringByName(
         mgr: *const NativeResourceManager,
         resName: *const ::std::os::raw::c_char,
@@ -590,8 +590,8 @@ extern "C" {
     ) -> ResourceManager_ErrorCode;
 }
 extern "C" {
-    #[cfg(feature = "api-18")]
     #[doc = " @brief Obtains the singular-plural character string represented.\n\n Obtains the singular-plural character string represented by the Name string corresponding to the specified number.\n You need to call free() to release the memory for the string.\n\n @param mgr Indicates the pointer to {@link NativeResourceManager}\n        {@link OH_ResourceManager_InitNativeResourceManager}.\n @param resName Indicates the resource name.\n @param num - a double parameter used to get the correct string for the current plural rules.\n @param resultValue the result write to resultValue.\n @param { const char* | int | float } args - Indicates the formatting string resource parameters.\n @return {@link SUCCESS} 0 - Success.\n         {@link ERROR_CODE_INVALID_INPUT_PARAMETER} 401 - The input parameter invalid.\nPossible causes: Incorrect parameter types.\n{@link ERROR_CODE_RES_NAME_NOT_FOUND} 9001003 - Invalid resource name.\n{@link ERROR_CODE_RES_NOT_FOUND_BY_NAME} 9001004 - No matching resource is found based on the resource name.\n{@link ERROR_CODE_RES_REF_TOO_MUCH} 9001006 - The resource is referenced cyclically.\n{@link ERROR_CODE_OUT_OF_MEMORY} 9001100 - Out of memory.\n @since 18"]
+    #[cfg(feature = "api-18")]
     pub fn OH_ResourceManager_GetDoublePluralStringByName(
         mgr: *const NativeResourceManager,
         resName: *const ::std::os::raw::c_char,

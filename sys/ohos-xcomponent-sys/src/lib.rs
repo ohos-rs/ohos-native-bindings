@@ -14,16 +14,16 @@ unsafe extern "C" {}
 pub const OH_NATIVE_XCOMPONENT_OBJ: &[u8; 26usize] = b"__NATIVE_XCOMPONENT_OBJ__\0";
 pub const OH_NATIVE_XCOMPONENT_MAX_TOUCH_POINTS_NUMBER: u32 = 10;
 extern "C" {
-    #[cfg(feature = "api-13")]
     #[doc = " @brief Registers a callback for this <b>ArkUI_AccessibilityProvider</b> instance.\n\n @param provider Indicates the pointer to the <b>ArkUI_AccessibilityProvider</b> instance.\n @param callbacks Indicates the pointer to the <b>GetAccessibilityNodeCursorPosition</b> callback.\n @return Returns {@link ARKUI_ACCESSIBILITY_NATIVE_RESULT_SUCCESSFUL} if the operation is successful.\n         Returns {@link ARKUI_ACCESSIBILITY_NATIVE_RESULT_BAD_PARAMETER} if a parameter is incorrect.\n @since 13"]
+    #[cfg(feature = "api-13")]
     pub fn OH_ArkUI_AccessibilityProviderRegisterCallback(
         provider: *mut ArkUI_AccessibilityProvider,
         callbacks: *mut ArkUI_AccessibilityProviderCallbacks,
     ) -> i32;
 }
 extern "C" {
-    #[cfg(feature = "api-15")]
     #[doc = " @brief Registers a callback with instance for this <b>ArkUI_AccessibilityProvider</b> instance.\n @param instanceId Indicates ID of third-party framework instance.\n @param provider Indicates the pointer to the <b>ArkUI_AccessibilityProvider</b> instance.\n @param callbacks Indicates the pointer to the <b>ArkUI_AccessibilityProviderCallbacksWithInstance</b> callback.\n @return Returns {@link ARKUI_ACCESSIBILITY_NATIVE_RESULT_SUCCESSFUL} if the operation is successful.\n         Returns {@link ARKUI_ACCESSIBILITY_NATIVE_RESULT_BAD_PARAMETER} if a parameter is incorrect.\n @since 15"]
+    #[cfg(feature = "api-15")]
     pub fn OH_ArkUI_AccessibilityProviderRegisterCallbackWithInstance(
         instanceId: *const ::std::os::raw::c_char,
         provider: *mut ArkUI_AccessibilityProvider,
@@ -31,8 +31,8 @@ extern "C" {
     ) -> i32;
 }
 extern "C" {
-    #[cfg(feature = "api-13")]
     #[doc = " @brief Sends accessibility event information.\n\n @param provider Indicates the pointer to the <b>ArkUI_AccessibilityProvider</b> instance.\n @param eventInfo Indicates the pointer to the accessibility event information.\n @param callback Indicates the pointer to the callback that is called after the event is sent.\n @since 13"]
+    #[cfg(feature = "api-13")]
     pub fn OH_ArkUI_SendAccessibilityAsyncEvent(
         provider: *mut ArkUI_AccessibilityProvider,
         eventInfo: *mut ArkUI_AccessibilityEventInfo,
@@ -40,71 +40,71 @@ extern "C" {
     );
 }
 extern "C" {
-    #[cfg(feature = "api-13")]
     #[doc = " @brief Adds and obtains the pointer to an <b>ArkUI_AccessibilityElementInfo</b> object.\n\n @param list Indicates the pointer to an <b>ArkUI_AccessibilityElementInfoList</b> object.\n @return Returns the pointer to the <b>ArkUI_AccessibilityElementInfo</b> object.\n @since 13"]
+    #[cfg(feature = "api-13")]
     pub fn OH_ArkUI_AddAndGetAccessibilityElementInfo(
         list: *mut ArkUI_AccessibilityElementInfoList,
     ) -> *mut ArkUI_AccessibilityElementInfo;
 }
 extern "C" {
-    #[cfg(feature = "api-13")]
     #[doc = " @brief Sets the element ID for an <b>ArkUI_AccessibilityElementInfo</b> object.\n\n @param elementInfo Indicates the pointer to an <b>ArkUI_AccessibilityElementInfo</b> object.\n @param elementId Indicates the element ID.\n @return Returns {@link ARKUI_ACCESSIBILITY_NATIVE_RESULT_SUCCESSFUL} if the operation is successful.\n         Returns {@link ARKUI_ACCESSIBILITY_NATIVE_RESULT_BAD_PARAMETER} if a parameter is incorrect.\n @since 13"]
+    #[cfg(feature = "api-13")]
     pub fn OH_ArkUI_AccessibilityElementInfoSetElementId(
         elementInfo: *mut ArkUI_AccessibilityElementInfo,
         elementId: i32,
     ) -> i32;
 }
 extern "C" {
-    #[cfg(feature = "api-13")]
     #[doc = " @brief Sets the parent ID for an <b>ArkUI_AccessibilityElementInfo</b> object.\n\n @param elementInfo Indicates the pointer to an <b>ArkUI_AccessibilityElementInfo</b> object.\n @param parentId Indicates the parent ID.\n @return Returns {@link ARKUI_ACCESSIBILITY_NATIVE_RESULT_SUCCESSFUL} if the operation is successful.\n         Returns {@link ARKUI_ACCESSIBILITY_NATIVE_RESULT_BAD_PARAMETER} if a parameter is incorrect.\n @since 13"]
+    #[cfg(feature = "api-13")]
     pub fn OH_ArkUI_AccessibilityElementInfoSetParentId(
         elementInfo: *mut ArkUI_AccessibilityElementInfo,
         parentId: i32,
     ) -> i32;
 }
 extern "C" {
-    #[cfg(feature = "api-13")]
     #[doc = " @brief Sets the component type for an <b>ArkUI_AccessibilityElementInfo</b> object.\n\n @param elementInfo Indicates the pointer to an <b>ArkUI_AccessibilityElementInfo</b> object.\n @param componentType Indicates the component type.\n @return Returns {@link ARKUI_ACCESSIBILITY_NATIVE_RESULT_SUCCESSFUL} if the operation is successful.\n         Returns {@link ARKUI_ACCESSIBILITY_NATIVE_RESULT_BAD_PARAMETER} if a parameter is incorrect.\n @since 13"]
+    #[cfg(feature = "api-13")]
     pub fn OH_ArkUI_AccessibilityElementInfoSetComponentType(
         elementInfo: *mut ArkUI_AccessibilityElementInfo,
         componentType: *const ::std::os::raw::c_char,
     ) -> i32;
 }
 extern "C" {
-    #[cfg(feature = "api-13")]
     #[doc = " @brief Sets the component content for an <b>ArkUI_AccessibilityElementInfo</b> object.\n\n @param elementInfo Indicates the pointer to an <b>ArkUI_AccessibilityElementInfo</b> object.\n @param contents Indicates the component content.\n @return Returns {@link ARKUI_ACCESSIBILITY_NATIVE_RESULT_SUCCESSFUL} if the operation is successful.\n         Returns {@link ARKUI_ACCESSIBILITY_NATIVE_RESULT_BAD_PARAMETER} if a parameter is incorrect.\n @since 13"]
+    #[cfg(feature = "api-13")]
     pub fn OH_ArkUI_AccessibilityElementInfoSetContents(
         elementInfo: *mut ArkUI_AccessibilityElementInfo,
         contents: *const ::std::os::raw::c_char,
     ) -> i32;
 }
 extern "C" {
-    #[cfg(feature = "api-13")]
     #[doc = " @brief Sets the hint text for an <b>ArkUI_AccessibilityElementInfo</b> object.\n\n @param elementInfo Indicates the pointer to an <b>ArkUI_AccessibilityElementInfo</b> object.\n @param hintText Indicates the hint text.\n @return Returns {@link ARKUI_ACCESSIBILITY_NATIVE_RESULT_SUCCESSFUL} if the operation is successful.\n         Returns {@link ARKUI_ACCESSIBILITY_NATIVE_RESULT_BAD_PARAMETER} if a parameter is incorrect.\n @since 13"]
+    #[cfg(feature = "api-13")]
     pub fn OH_ArkUI_AccessibilityElementInfoSetHintText(
         elementInfo: *mut ArkUI_AccessibilityElementInfo,
         hintText: *const ::std::os::raw::c_char,
     ) -> i32;
 }
 extern "C" {
-    #[cfg(feature = "api-13")]
     #[doc = " @brief Sets the accessibility text for an <b>ArkUI_AccessibilityElementInfo</b> object.\n\n @param elementInfo Indicates the pointer to an <b>ArkUI_AccessibilityElementInfo</b> object.\n @param accessibilityText Indicates the accessibility text.\n @return Returns {@link ARKUI_ACCESSIBILITY_NATIVE_RESULT_SUCCESSFUL} if the operation is successful.\n         Returns {@link ARKUI_ACCESSIBILITY_NATIVE_RESULT_BAD_PARAMETER} if a parameter is incorrect.\n @since 13"]
+    #[cfg(feature = "api-13")]
     pub fn OH_ArkUI_AccessibilityElementInfoSetAccessibilityText(
         elementInfo: *mut ArkUI_AccessibilityElementInfo,
         accessibilityText: *const ::std::os::raw::c_char,
     ) -> i32;
 }
 extern "C" {
-    #[cfg(feature = "api-13")]
     #[doc = " @brief Sets the accessibility description for an <b>ArkUI_AccessibilityElementInfo</b> object.\n\n @param elementInfo Indicates the pointer to an <b>ArkUI_AccessibilityElementInfo</b> object.\n @param accessibilityDescription Indicates the accessibility description.\n @return Returns {@link ARKUI_ACCESSIBILITY_NATIVE_RESULT_SUCCESSFUL} if the operation is successful.\n         Returns {@link ARKUI_ACCESSIBILITY_NATIVE_RESULT_BAD_PARAMETER} if a parameter is incorrect.\n @since 13"]
+    #[cfg(feature = "api-13")]
     pub fn OH_ArkUI_AccessibilityElementInfoSetAccessibilityDescription(
         elementInfo: *mut ArkUI_AccessibilityElementInfo,
         accessibilityDescription: *const ::std::os::raw::c_char,
     ) -> i32;
 }
 extern "C" {
-    #[cfg(feature = "api-13")]
     #[doc = " @brief Set the number of child nodes and child node IDs for an <b>ArkUI_AccessibilityElementInfo</b> object.\n\n @param elementInfo Indicates the pointer to an <b>ArkUI_AccessibilityElementInfo</b> object.\n @param childCount Indicates the number of child nodes.\n @param childNodeIds Indicates an array of child node IDs.\n @return Returns {@link ARKUI_ACCESSIBILITY_NATIVE_RESULT_SUCCESSFUL} if the operation is successful.\n         Returns {@link ARKUI_ACCESSIBILITY_NATIVE_RESULT_BAD_PARAMETER} if a parameter is incorrect.\n @since 13"]
+    #[cfg(feature = "api-13")]
     pub fn OH_ArkUI_AccessibilityElementInfoSetChildNodeIds(
         elementInfo: *mut ArkUI_AccessibilityElementInfo,
         childCount: i32,
@@ -112,8 +112,8 @@ extern "C" {
     ) -> i32;
 }
 extern "C" {
-    #[cfg(feature = "api-13")]
     #[doc = " @brief Sets the operation actions for an <b>ArkUI_AccessibilityElementInfo</b> object.\n\n @param elementInfo Indicates the pointer to an <b>ArkUI_AccessibilityElementInfo</b> object.\n @param operationCount Indicates the operation count.\n @param operationActions Indicates the operation actions.\n @return Returns {@link ARKUI_ACCESSIBILITY_NATIVE_RESULT_SUCCESSFUL} if the operation is successful.\n         Returns {@link ARKUI_ACCESSIBILITY_NATIVE_RESULT_BAD_PARAMETER} if a parameter is incorrect.\n @since 13"]
+    #[cfg(feature = "api-13")]
     pub fn OH_ArkUI_AccessibilityElementInfoSetOperationActions(
         elementInfo: *mut ArkUI_AccessibilityElementInfo,
         operationCount: i32,
@@ -121,326 +121,326 @@ extern "C" {
     ) -> i32;
 }
 extern "C" {
-    #[cfg(feature = "api-13")]
     #[doc = " @brief Sets the screen area for an <b>ArkUI_AccessibilityElementInfo</b> object.\n\n @param elementInfo Indicates the pointer to an <b>ArkUI_AccessibilityElementInfo</b> object.\n @param screenRect Indicates the screen area.\n @return Returns {@link ARKUI_ACCESSIBILITY_NATIVE_RESULT_SUCCESSFUL} if the operation is successful.\n         Returns {@link ARKUI_ACCESSIBILITY_NATIVE_RESULT_BAD_PARAMETER} if a parameter is incorrect.\n @since 13"]
+    #[cfg(feature = "api-13")]
     pub fn OH_ArkUI_AccessibilityElementInfoSetScreenRect(
         elementInfo: *mut ArkUI_AccessibilityElementInfo,
         screenRect: *mut ArkUI_AccessibleRect,
     ) -> i32;
 }
 extern "C" {
-    #[cfg(feature = "api-13")]
     #[doc = " @brief Sets whether the element is checkable for an <b>ArkUI_AccessibilityElementInfo</b> object.\n\n @param elementInfo Indicates the pointer to an <b>ArkUI_AccessibilityElementInfo</b> object.\n @param checkable Indicates whether the element is checkable.\n @return Returns {@link ARKUI_ACCESSIBILITY_NATIVE_RESULT_SUCCESSFUL} if the operation is successful.\n         Returns {@link ARKUI_ACCESSIBILITY_NATIVE_RESULT_BAD_PARAMETER} if a parameter is incorrect.\n @since 13"]
+    #[cfg(feature = "api-13")]
     pub fn OH_ArkUI_AccessibilityElementInfoSetCheckable(
         elementInfo: *mut ArkUI_AccessibilityElementInfo,
         checkable: bool,
     ) -> i32;
 }
 extern "C" {
-    #[cfg(feature = "api-13")]
     #[doc = " @brief Sets whether the element is checked for an <b>ArkUI_AccessibilityElementInfo</b> object.\n\n @param elementInfo Indicates the pointer to an <b>ArkUI_AccessibilityElementInfo</b> object.\n @param checked Indicates whether the element is checked.\n @return Returns {@link ARKUI_ACCESSIBILITY_NATIVE_RESULT_SUCCESSFUL} if the operation is successful.\n         Returns {@link ARKUI_ACCESSIBILITY_NATIVE_RESULT_BAD_PARAMETER} if a parameter is incorrect.\n @since 13"]
+    #[cfg(feature = "api-13")]
     pub fn OH_ArkUI_AccessibilityElementInfoSetChecked(
         elementInfo: *mut ArkUI_AccessibilityElementInfo,
         checked: bool,
     ) -> i32;
 }
 extern "C" {
-    #[cfg(feature = "api-13")]
     #[doc = " @brief Sets whether the element is focusable for an <b>ArkUI_AccessibilityElementInfo</b> object.\n @param elementInfo Indicates the pointer to an <b>ArkUI_AccessibilityElementInfo</b> object.\n @param focusable Indicates whether the element is focusable.\n @return Returns {@link ARKUI_ACCESSIBILITY_NATIVE_RESULT_SUCCESSFUL} if the operation is successful.\n         Returns {@link ARKUI_ACCESSIBILITY_NATIVE_RESULT_BAD_PARAMETER} if a parameter is incorrect.\n @since 13"]
+    #[cfg(feature = "api-13")]
     pub fn OH_ArkUI_AccessibilityElementInfoSetFocusable(
         elementInfo: *mut ArkUI_AccessibilityElementInfo,
         focusable: bool,
     ) -> i32;
 }
 extern "C" {
-    #[cfg(feature = "api-13")]
     #[doc = " @brief Sets whether the element is focused for an <b>ArkUI_AccessibilityElementInfo</b> object.\n\n @param elementInfo Indicates the pointer to an <b>ArkUI_AccessibilityElementInfo</b> object.\n @param isFocused Indicates whether the element is focused.\n @return Returns {@link ARKUI_ACCESSIBILITY_NATIVE_RESULT_SUCCESSFUL} if the operation is successful.\n         Returns {@link ARKUI_ACCESSIBILITY_NATIVE_RESULT_BAD_PARAMETER} if a parameter is incorrect.\n @since 13"]
+    #[cfg(feature = "api-13")]
     pub fn OH_ArkUI_AccessibilityElementInfoSetFocused(
         elementInfo: *mut ArkUI_AccessibilityElementInfo,
         isFocused: bool,
     ) -> i32;
 }
 extern "C" {
-    #[cfg(feature = "api-13")]
     #[doc = " @brief Sets whether the element is visible for an <b>ArkUI_AccessibilityElementInfo</b> object.\n\n @param elementInfo Indicates the pointer to an <b>ArkUI_AccessibilityElementInfo</b> object.\n @param isVisible Indicates whether the element is visible.\n @return Returns {@link ARKUI_ACCESSIBILITY_NATIVE_RESULT_SUCCESSFUL} if the operation is successful.\n         Returns {@link ARKUI_ACCESSIBILITY_NATIVE_RESULT_BAD_PARAMETER} if a parameter is incorrect.\n @since 13"]
+    #[cfg(feature = "api-13")]
     pub fn OH_ArkUI_AccessibilityElementInfoSetVisible(
         elementInfo: *mut ArkUI_AccessibilityElementInfo,
         isVisible: bool,
     ) -> i32;
 }
 extern "C" {
-    #[cfg(feature = "api-13")]
     #[doc = " @brief Sets the accessibility focus state for an <b>ArkUI_AccessibilityElementInfo</b> object.\n\n @param elementInfo Indicates the pointer to an <b>ArkUI_AccessibilityElementInfo</b> object.\n @param accessibilityFocused Indicates whether the element has accessibility focus.\n @return Returns {@link ARKUI_ACCESSIBILITY_NATIVE_RESULT_SUCCESSFUL} if the operation is successful.\n         Returns {@link ARKUI_ACCESSIBILITY_NATIVE_RESULT_BAD_PARAMETER} if a parameter is incorrect.\n @since 13"]
+    #[cfg(feature = "api-13")]
     pub fn OH_ArkUI_AccessibilityElementInfoSetAccessibilityFocused(
         elementInfo: *mut ArkUI_AccessibilityElementInfo,
         accessibilityFocused: bool,
     ) -> i32;
 }
 extern "C" {
-    #[cfg(feature = "api-13")]
     #[doc = " @brief Sets whether the element is selected for an <b>ArkUI_AccessibilityElementInfo</b> object.\n\n @param elementInfo Indicates the pointer to an <b>ArkUI_AccessibilityElementInfo</b> object.\n @param selected Indicates whether the element is selected.\n @return Returns {@link ARKUI_ACCESSIBILITY_NATIVE_RESULT_SUCCESSFUL} if the operation is successful.\n         Returns {@link ARKUI_ACCESSIBILITY_NATIVE_RESULT_BAD_PARAMETER} if a parameter is incorrect.\n @since 13"]
+    #[cfg(feature = "api-13")]
     pub fn OH_ArkUI_AccessibilityElementInfoSetSelected(
         elementInfo: *mut ArkUI_AccessibilityElementInfo,
         selected: bool,
     ) -> i32;
 }
 extern "C" {
-    #[cfg(feature = "api-13")]
     #[doc = " @brief Sets whether the element is clickable for an <b>ArkUI_AccessibilityElementInfo</b> object.\n\n @param elementInfo Indicates the pointer to an <b>ArkUI_AccessibilityElementInfo</b> object.\n @param clickable Indicates whether the element is clickable.\n @return Returns {@link ARKUI_ACCESSIBILITY_NATIVE_RESULT_SUCCESSFUL} if the operation is successful.\n         Returns {@link ARKUI_ACCESSIBILITY_NATIVE_RESULT_BAD_PARAMETER} if a parameter is incorrect.\n @since 13"]
+    #[cfg(feature = "api-13")]
     pub fn OH_ArkUI_AccessibilityElementInfoSetClickable(
         elementInfo: *mut ArkUI_AccessibilityElementInfo,
         clickable: bool,
     ) -> i32;
 }
 extern "C" {
-    #[cfg(feature = "api-13")]
     #[doc = " @brief Sets whether the element is long clickable for an <b>ArkUI_AccessibilityElementInfo</b> object.\n\n @param elementInfo Indicates the pointer to an <b>ArkUI_AccessibilityElementInfo</b> object.\n @param longClickable Indicates whether the element is long clickable.\n @return Returns {@link ARKUI_ACCESSIBILITY_NATIVE_RESULT_SUCCESSFUL} if the operation is successful.\n         Returns {@link ARKUI_ACCESSIBILITY_NATIVE_RESULT_BAD_PARAMETER} if a parameter is incorrect.\n @since 13"]
+    #[cfg(feature = "api-13")]
     pub fn OH_ArkUI_AccessibilityElementInfoSetLongClickable(
         elementInfo: *mut ArkUI_AccessibilityElementInfo,
         longClickable: bool,
     ) -> i32;
 }
 extern "C" {
-    #[cfg(feature = "api-13")]
     #[doc = " @brief Sets whether the element is enabled for an <b>ArkUI_AccessibilityElementInfo</b> object.\n\n @param elementInfo Indicates the pointer to an <b>ArkUI_AccessibilityElementInfo</b> object.\n @param isEnabled Indicates whether the element is enabled.\n @return Returns {@link ARKUI_ACCESSIBILITY_NATIVE_RESULT_SUCCESSFUL} if the operation is successful.\n         Returns {@link ARKUI_ACCESSIBILITY_NATIVE_RESULT_BAD_PARAMETER} if a parameter is incorrect.\n @since 13"]
+    #[cfg(feature = "api-13")]
     pub fn OH_ArkUI_AccessibilityElementInfoSetEnabled(
         elementInfo: *mut ArkUI_AccessibilityElementInfo,
         isEnabled: bool,
     ) -> i32;
 }
 extern "C" {
-    #[cfg(feature = "api-13")]
     #[doc = " @brief Sets whether the element is a password for an <b>ArkUI_AccessibilityElementInfo</b> object.\n\n @param elementInfo Indicates the pointer to an <b>ArkUI_AccessibilityElementInfo</b> object.\n @param isPassword Indicates whether the element is a password.\n @return Returns {@link ARKUI_ACCESSIBILITY_NATIVE_RESULT_SUCCESSFUL} if the operation is successful.\n         Returns {@link ARKUI_ACCESSIBILITY_NATIVE_RESULT_BAD_PARAMETER} if a parameter is incorrect.\n @since 13"]
+    #[cfg(feature = "api-13")]
     pub fn OH_ArkUI_AccessibilityElementInfoSetIsPassword(
         elementInfo: *mut ArkUI_AccessibilityElementInfo,
         isPassword: bool,
     ) -> i32;
 }
 extern "C" {
-    #[cfg(feature = "api-13")]
     #[doc = " @brief Sets whether the element is scrollable for an <b>ArkUI_AccessibilityElementInfo</b> object.\n\n @param elementInfo Indicates the pointer to an <b>ArkUI_AccessibilityElementInfo</b> object.\n @param scrollable Indicates whether the element is scrollable.\n @return Returns {@link ARKUI_ACCESSIBILITY_NATIVE_RESULT_SUCCESSFUL} if the operation is successful.\n         Returns {@link ARKUI_ACCESSIBILITY_NATIVE_RESULT_BAD_PARAMETER} if a parameter is incorrect.\n @since 13"]
+    #[cfg(feature = "api-13")]
     pub fn OH_ArkUI_AccessibilityElementInfoSetScrollable(
         elementInfo: *mut ArkUI_AccessibilityElementInfo,
         scrollable: bool,
     ) -> i32;
 }
 extern "C" {
-    #[cfg(feature = "api-13")]
     #[doc = " @brief Sets whether the element is editable for an <b>ArkUI_AccessibilityElementInfo</b> object.\n\n @param elementInfo Indicates the pointer to an <b>ArkUI_AccessibilityElementInfo</b> object.\n @param editable Indicates whether the element is editable.\n @return Returns {@link ARKUI_ACCESSIBILITY_NATIVE_RESULT_SUCCESSFUL} if the operation is successful.\n         Returns {@link ARKUI_ACCESSIBILITY_NATIVE_RESULT_BAD_PARAMETER} if a parameter is incorrect.\n @since 13"]
+    #[cfg(feature = "api-13")]
     pub fn OH_ArkUI_AccessibilityElementInfoSetEditable(
         elementInfo: *mut ArkUI_AccessibilityElementInfo,
         editable: bool,
     ) -> i32;
 }
 extern "C" {
-    #[cfg(feature = "api-13")]
     #[doc = " @brief Sets whether the element is a hint for an <b>ArkUI_AccessibilityElementInfo</b> object.\n\n @param elementInfo Indicates the pointer to an <b>ArkUI_AccessibilityElementInfo</b> object.\n @param isHint Indicates whether the element is a hint.\n @return Returns {@link ARKUI_ACCESSIBILITY_NATIVE_RESULT_SUCCESSFUL} if the operation is successful.\n         Returns {@link ARKUI_ACCESSIBILITY_NATIVE_RESULT_BAD_PARAMETER} if a parameter is incorrect.\n @since 13"]
+    #[cfg(feature = "api-13")]
     pub fn OH_ArkUI_AccessibilityElementInfoSetIsHint(
         elementInfo: *mut ArkUI_AccessibilityElementInfo,
         isHint: bool,
     ) -> i32;
 }
 extern "C" {
-    #[cfg(feature = "api-13")]
     #[doc = " @brief Sets the range information for an <b>ArkUI_AccessibilityElementInfo</b> object.\n\n @param elementInfo Indicates the pointer to an <b>ArkUI_AccessibilityElementInfo</b> object.\n @param rangeInfo Indicates the range information.\n @return Returns {@link ARKUI_ACCESSIBILITY_NATIVE_RESULT_SUCCESSFUL} if the operation is successful.\n         Returns {@link ARKUI_ACCESSIBILITY_NATIVE_RESULT_BAD_PARAMETER} if a parameter is incorrect.\n @since 13"]
+    #[cfg(feature = "api-13")]
     pub fn OH_ArkUI_AccessibilityElementInfoSetRangeInfo(
         elementInfo: *mut ArkUI_AccessibilityElementInfo,
         rangeInfo: *mut ArkUI_AccessibleRangeInfo,
     ) -> i32;
 }
 extern "C" {
-    #[cfg(feature = "api-13")]
     #[doc = " @brief Sets the grid information for an <b>ArkUI_AccessibilityElementInfo</b> object.\n\n @param elementInfo Indicates the pointer to an <b>ArkUI_AccessibilityElementInfo</b> object.\n @param gridInfo Indicates the grid information.\n @return Returns {@link ARKUI_ACCESSIBILITY_NATIVE_RESULT_SUCCESSFUL} if the operation is successful.\n         Returns {@link ARKUI_ACCESSIBILITY_NATIVE_RESULT_BAD_PARAMETER} if a parameter is incorrect.\n @since 13"]
+    #[cfg(feature = "api-13")]
     pub fn OH_ArkUI_AccessibilityElementInfoSetGridInfo(
         elementInfo: *mut ArkUI_AccessibilityElementInfo,
         gridInfo: *mut ArkUI_AccessibleGridInfo,
     ) -> i32;
 }
 extern "C" {
-    #[cfg(feature = "api-13")]
     #[doc = " @brief Sets the grid item for an <b>ArkUI_AccessibilityElementInfo</b> object.\n\n @param elementInfo Indicates the pointer to an <b>ArkUI_AccessibilityElementInfo</b> object.\n @param gridItem Indicates the grid item.\n @return Returns {@link ARKUI_ACCESSIBILITY_NATIVE_RESULT_SUCCESSFUL} if the operation is successful.\n         Returns {@link ARKUI_ACCESSIBILITY_NATIVE_RESULT_BAD_PARAMETER} if a parameter is incorrect.\n @since 13"]
+    #[cfg(feature = "api-13")]
     pub fn OH_ArkUI_AccessibilityElementInfoSetGridItemInfo(
         elementInfo: *mut ArkUI_AccessibilityElementInfo,
         gridItem: *mut ArkUI_AccessibleGridItemInfo,
     ) -> i32;
 }
 extern "C" {
-    #[cfg(feature = "api-13")]
     #[doc = " @brief Sets the starting index of the selected text for an <b>ArkUI_AccessibilityElementInfo</b> object.\n\n @param elementInfo Indicates the pointer to an <b>ArkUI_AccessibilityElementInfo</b> object.\n @param selectedTextStart Indicates the starting index of the selected text\n @return Returns {@link ARKUI_ACCESSIBILITY_NATIVE_RESULT_SUCCESSFUL} if the operation is successful.\n         Returns {@link ARKUI_ACCESSIBILITY_NATIVE_RESULT_BAD_PARAMETER} if a parameter is incorrect.\n @since 13"]
+    #[cfg(feature = "api-13")]
     pub fn OH_ArkUI_AccessibilityElementInfoSetSelectedTextStart(
         elementInfo: *mut ArkUI_AccessibilityElementInfo,
         selectedTextStart: i32,
     ) -> i32;
 }
 extern "C" {
-    #[cfg(feature = "api-13")]
     #[doc = " @brief Sets the end index of the selected text for an <b>ArkUI_AccessibilityElementInfo</b> object.\n\n @param elementInfo Indicates the pointer to an <b>ArkUI_AccessibilityElementInfo</b> object.\n @param selectedTextEnd Indicates the end index of the selected text\n @return Returns {@link ARKUI_ACCESSIBILITY_NATIVE_RESULT_SUCCESSFUL} if the operation is successful.\n         Returns {@link ARKUI_ACCESSIBILITY_NATIVE_RESULT_BAD_PARAMETER} if a parameter is incorrect.\n @since 13"]
+    #[cfg(feature = "api-13")]
     pub fn OH_ArkUI_AccessibilityElementInfoSetSelectedTextEnd(
         elementInfo: *mut ArkUI_AccessibilityElementInfo,
         selectedTextEnd: i32,
     ) -> i32;
 }
 extern "C" {
-    #[cfg(feature = "api-13")]
     #[doc = " @brief Sets the index of the currently selected item for an <b>ArkUI_AccessibilityElementInfo</b> object.\n\n @param elementInfo Indicates the pointer to an <b>ArkUI_AccessibilityElementInfo</b> object.\n @param currentItemIndex Indicates the index of the currently selected item.\n @return Returns {@link ARKUI_ACCESSIBILITY_NATIVE_RESULT_SUCCESSFUL} if the operation is successful.\n         Returns {@link ARKUI_ACCESSIBILITY_NATIVE_RESULT_BAD_PARAMETER} if a parameter is incorrect.\n @since 13"]
+    #[cfg(feature = "api-13")]
     pub fn OH_ArkUI_AccessibilityElementInfoSetCurrentItemIndex(
         elementInfo: *mut ArkUI_AccessibilityElementInfo,
         currentItemIndex: i32,
     ) -> i32;
 }
 extern "C" {
-    #[cfg(feature = "api-13")]
     #[doc = " @brief Sets the index of the first item for an <b>ArkUI_AccessibilityElementInfo</b> object.\n\n @param elementInfo Indicates the pointer to an <b>ArkUI_AccessibilityElementInfo</b> object.\n @param startItemIndex Indicates the index of the first item.\n @return Returns {@link ARKUI_ACCESSIBILITY_NATIVE_RESULT_SUCCESSFUL} if the operation is successful.\n         Returns {@link ARKUI_ACCESSIBILITY_NATIVE_RESULT_BAD_PARAMETER} if a parameter is incorrect.\n @since 13"]
+    #[cfg(feature = "api-13")]
     pub fn OH_ArkUI_AccessibilityElementInfoSetStartItemIndex(
         elementInfo: *mut ArkUI_AccessibilityElementInfo,
         startItemIndex: i32,
     ) -> i32;
 }
 extern "C" {
-    #[cfg(feature = "api-13")]
     #[doc = " @brief Sets the index of the last item for an <b>ArkUI_AccessibilityElementInfo</b> object.\n\n @param elementInfo Indicates the pointer to an <b>ArkUI_AccessibilityElementInfo</b> object.\n @param endItemIndex Indicates the index of the last item.\n @return Returns {@link ARKUI_ACCESSIBILITY_NATIVE_RESULT_SUCCESSFUL} if the operation is successful.\n         Returns {@link ARKUI_ACCESSIBILITY_NATIVE_RESULT_BAD_PARAMETER} if a parameter is incorrect.\n @since 13"]
+    #[cfg(feature = "api-13")]
     pub fn OH_ArkUI_AccessibilityElementInfoSetEndItemIndex(
         elementInfo: *mut ArkUI_AccessibilityElementInfo,
         endItemIndex: i32,
     ) -> i32;
 }
 extern "C" {
-    #[cfg(feature = "api-13")]
     #[doc = " @brief Sets the number of items for an <b>ArkUI_AccessibilityElementInfo</b> object.\n\n @param elementInfo Indicates the pointer to an <b>ArkUI_AccessibilityElementInfo</b> object.\n @param itemCount Indicates the number of items.\n @return Returns {@link ARKUI_ACCESSIBILITY_NATIVE_RESULT_SUCCESSFUL} if the operation is successful.\n         Returns {@link ARKUI_ACCESSIBILITY_NATIVE_RESULT_BAD_PARAMETER} if a parameter is incorrect.\n @since 13"]
+    #[cfg(feature = "api-13")]
     pub fn OH_ArkUI_AccessibilityElementInfoSetItemCount(
         elementInfo: *mut ArkUI_AccessibilityElementInfo,
         itemCount: i32,
     ) -> i32;
 }
 extern "C" {
-    #[cfg(feature = "api-13")]
     #[doc = " @brief Sets the offset for an <b>ArkUI_AccessibilityElementInfo</b> object.\n\n @param elementInfo Indicates the pointer to an <b>ArkUI_AccessibilityElementInfo</b> object.\n @param offset Indicates the scroll pixel offset relative to the top of the element.\n @return Returns {@link ARKUI_ACCESSIBILITY_NATIVE_RESULT_SUCCESSFUL} if the operation is successful.\n         Returns {@link ARKUI_ACCESSIBILITY_NATIVE_RESULT_BAD_PARAMETER} if a parameter is incorrect.\n @since 13"]
+    #[cfg(feature = "api-13")]
     pub fn OH_ArkUI_AccessibilityElementInfoSetAccessibilityOffset(
         elementInfo: *mut ArkUI_AccessibilityElementInfo,
         offset: i32,
     ) -> i32;
 }
 extern "C" {
-    #[cfg(feature = "api-13")]
     #[doc = " @brief Sets the accessibility group for an <b>ArkUI_AccessibilityElementInfo</b> object.\n\n @param elementInfo Indicates the pointer to an <b>ArkUI_AccessibilityElementInfo</b> object.\n @param accessibilityGroup Indicates the accessibility group.\n @return Returns {@link ARKUI_ACCESSIBILITY_NATIVE_RESULT_SUCCESSFUL} if the operation is successful.\n         Returns {@link ARKUI_ACCESSIBILITY_NATIVE_RESULT_BAD_PARAMETER} if a parameter is incorrect.\n @since 13"]
+    #[cfg(feature = "api-13")]
     pub fn OH_ArkUI_AccessibilityElementInfoSetAccessibilityGroup(
         elementInfo: *mut ArkUI_AccessibilityElementInfo,
         accessibilityGroup: bool,
     ) -> i32;
 }
 extern "C" {
-    #[cfg(feature = "api-13")]
     #[doc = " @brief Sets the accessibility level for an <b>ArkUI_AccessibilityElementInfo</b> object.\n\n @param elementInfo Indicates the pointer to an <b>ArkUI_AccessibilityElementInfo</b> object.\n @param accessibilityLevel Indicates the accessibility level.\n @return Returns {@link ARKUI_ACCESSIBILITY_NATIVE_RESULT_SUCCESSFUL} if the operation is successful.\n         Returns {@link ARKUI_ACCESSIBILITY_NATIVE_RESULT_BAD_PARAMETER} if a parameter is incorrect.\n @since 13"]
+    #[cfg(feature = "api-13")]
     pub fn OH_ArkUI_AccessibilityElementInfoSetAccessibilityLevel(
         elementInfo: *mut ArkUI_AccessibilityElementInfo,
         accessibilityLevel: *const ::std::os::raw::c_char,
     ) -> i32;
 }
 extern "C" {
-    #[cfg(feature = "api-13")]
     #[doc = " @brief Sets the z-index for an <b>ArkUI_AccessibilityElementInfo</b> object.\n\n @param elementInfo Indicates the pointer to an <b>ArkUI_AccessibilityElementInfo</b> object.\n @param zIndex Indicates the z-index value.\n @return Returns {@link ARKUI_ACCESSIBILITY_NATIVE_RESULT_SUCCESSFUL} if the operation is successful.\n         Returns {@link ARKUI_ACCESSIBILITY_NATIVE_RESULT_BAD_PARAMETER} if a parameter is incorrect.\n @since 13"]
+    #[cfg(feature = "api-13")]
     pub fn OH_ArkUI_AccessibilityElementInfoSetZIndex(
         elementInfo: *mut ArkUI_AccessibilityElementInfo,
         zIndex: i32,
     ) -> i32;
 }
 extern "C" {
-    #[cfg(feature = "api-13")]
     #[doc = " @brief Sets the opacity for an <b>ArkUI_AccessibilityElementInfo</b> object.\n\n @param elementInfo Indicates the pointer to an <b>ArkUI_AccessibilityElementInfo</b> object.\n @param opacity Indicates the opacity.\n @return Returns {@link ARKUI_ACCESSIBILITY_NATIVE_RESULT_SUCCESSFUL} if the operation is successful.\n         Returns {@link ARKUI_ACCESSIBILITY_NATIVE_RESULT_BAD_PARAMETER} if a parameter is incorrect.\n @since 13"]
+    #[cfg(feature = "api-13")]
     pub fn OH_ArkUI_AccessibilityElementInfoSetAccessibilityOpacity(
         elementInfo: *mut ArkUI_AccessibilityElementInfo,
         opacity: f32,
     ) -> i32;
 }
 extern "C" {
-    #[cfg(feature = "api-13")]
     #[doc = " @brief Sets the background color for an <b>ArkUI_AccessibilityElementInfo</b> object.\n\n @param elementInfo Indicates the pointer to an <b>ArkUI_AccessibilityElementInfo</b> object.\n @param backgroundColor Indicates the background color.\n @return Returns {@link ARKUI_ACCESSIBILITY_NATIVE_RESULT_SUCCESSFUL} if the operation is successful.\n         Returns {@link ARKUI_ACCESSIBILITY_NATIVE_RESULT_BAD_PARAMETER} if a parameter is incorrect.\n @since 13"]
+    #[cfg(feature = "api-13")]
     pub fn OH_ArkUI_AccessibilityElementInfoSetBackgroundColor(
         elementInfo: *mut ArkUI_AccessibilityElementInfo,
         backgroundColor: *const ::std::os::raw::c_char,
     ) -> i32;
 }
 extern "C" {
-    #[cfg(feature = "api-13")]
     #[doc = " @brief Sets the background image for an <b>ArkUI_AccessibilityElementInfo</b> object.\n\n @param elementInfo Indicates the pointer to an <b>ArkUI_AccessibilityElementInfo</b> object.\n @param backgroundImage Indicates the backgroundImage.\n @return Returns {@link ARKUI_ACCESSIBILITY_NATIVE_RESULT_SUCCESSFUL} if the operation is successful.\n         Returns {@link ARKUI_ACCESSIBILITY_NATIVE_RESULT_BAD_PARAMETER} if a parameter is incorrect.\n @since 13"]
+    #[cfg(feature = "api-13")]
     pub fn OH_ArkUI_AccessibilityElementInfoSetBackgroundImage(
         elementInfo: *mut ArkUI_AccessibilityElementInfo,
         backgroundImage: *const ::std::os::raw::c_char,
     ) -> i32;
 }
 extern "C" {
-    #[cfg(feature = "api-13")]
     #[doc = " @brief Sets the blur effect for an <b>ArkUI_AccessibilityElementInfo</b> object.\n\n @param elementInfo Indicates the pointer to an <b>ArkUI_AccessibilityElementInfo</b> object.\n @param blur Indicates the blur effect.\n @return Returns {@link ARKUI_ACCESSIBILITY_NATIVE_RESULT_SUCCESSFUL} if the operation is successful.\n         Returns {@link ARKUI_ACCESSIBILITY_NATIVE_RESULT_BAD_PARAMETER} if a parameter is incorrect.\n @since 13"]
+    #[cfg(feature = "api-13")]
     pub fn OH_ArkUI_AccessibilityElementInfoSetBlur(
         elementInfo: *mut ArkUI_AccessibilityElementInfo,
         blur: *const ::std::os::raw::c_char,
     ) -> i32;
 }
 extern "C" {
-    #[cfg(feature = "api-13")]
     #[doc = " @brief Sets the hit test behavior for an <b>ArkUI_AccessibilityElementInfo</b> object.\n\n @param elementInfo Indicates the pointer to an <b>ArkUI_AccessibilityElementInfo</b> object.\n @param hitTestBehavior Indicates the hit test behavior.\n @return Returns {@link ARKUI_ACCESSIBILITY_NATIVE_RESULT_SUCCESSFUL} if the operation is successful.\n         Returns {@link ARKUI_ACCESSIBILITY_NATIVE_RESULT_BAD_PARAMETER} if a parameter is incorrect.\n @since 13"]
+    #[cfg(feature = "api-13")]
     pub fn OH_ArkUI_AccessibilityElementInfoSetHitTestBehavior(
         elementInfo: *mut ArkUI_AccessibilityElementInfo,
         hitTestBehavior: *const ::std::os::raw::c_char,
     ) -> i32;
 }
 extern "C" {
-    #[cfg(feature = "api-13")]
     #[doc = " @brief Creates an <b>ArkUI_AccessibilityElementInfo</b> object.\n\n @return Returns the <b>ArkUI_AccessibilityElementInfo</b> object, or NULL if it fails to create.\n         The possible reason for failure is that the memory error occurred during object creation.\n @since 13\n @version 1.0"]
+    #[cfg(feature = "api-13")]
     pub fn OH_ArkUI_CreateAccessibilityElementInfo() -> *mut ArkUI_AccessibilityElementInfo;
 }
 extern "C" {
-    #[cfg(feature = "api-13")]
     #[doc = " @brief Destroys an <b>ArkUI_AccessibilityElementInfo</b> object.\n\n @param elementInfo Indicates the pointer to the <b>ArkUI_AccessibilityElementInfo</b> object to destroy.\n @since 13\n @version 1.0"]
+    #[cfg(feature = "api-13")]
     pub fn OH_ArkUI_DestoryAccessibilityElementInfo(
         elementInfo: *mut ArkUI_AccessibilityElementInfo,
     );
 }
 extern "C" {
-    #[cfg(feature = "api-13")]
     #[doc = " @brief Creates an <b>ArkUI_AccessibilityEventInfo</b> object.\n\n @return Returns the <b>ArkUI_AccessibilityEventInfo</b> object, or NULL if it fails to create.\n         The possible reason for failure is that the memory error occurred during object creation.\n @since 13"]
+    #[cfg(feature = "api-13")]
     pub fn OH_ArkUI_CreateAccessibilityEventInfo() -> *mut ArkUI_AccessibilityEventInfo;
 }
 extern "C" {
-    #[cfg(feature = "api-13")]
     #[doc = " @brief Destroys an <b>ArkUI_AccessibilityEventInfo</b> object.\n\n @param eventInfo Indicates the pointer to the <b>ArkUI_AccessibilityEventInfo</b> object to destroy.\n @since 13"]
+    #[cfg(feature = "api-13")]
     pub fn OH_ArkUI_DestoryAccessibilityEventInfo(eventInfo: *mut ArkUI_AccessibilityEventInfo);
 }
 extern "C" {
-    #[cfg(feature = "api-13")]
     #[doc = " @brief Sets the event type for an <b>ArkUI_AccessibilityEventInfo</b> object.\n\n @param eventInfo Indicates the pointer to an <b>ArkUI_AccessibilityEventInfo</b> object.\n @param eventType Indicates the event type.\n @return Returns {@link ARKUI_ACCESSIBILITY_NATIVE_RESULT_SUCCESSFUL} if the operation is successful.\n         Returns {@link ARKUI_ACCESSIBILITY_NATIVE_RESULT_BAD_PARAMETER} if a parameter is incorrect.\n @since 13"]
+    #[cfg(feature = "api-13")]
     pub fn OH_ArkUI_AccessibilityEventSetEventType(
         eventInfo: *mut ArkUI_AccessibilityEventInfo,
         eventType: ArkUI_AccessibilityEventType,
     ) -> i32;
 }
 extern "C" {
-    #[cfg(feature = "api-13")]
     #[doc = " @brief Sets the text announced for accessibility for an <b>ArkUI_AccessibilityEventInfo</b> object.\n\n @param eventInfo Indicates the pointer to an <b>ArkUI_AccessibilityEventInfo</b> object.\n @param textAnnouncedForAccessibility Indicates the text announced for accessibility.\n @return Returns {@link ARKUI_ACCESSIBILITY_NATIVE_RESULT_SUCCESSFUL} if the operation is successful.\n         Returns {@link ARKUI_ACCESSIBILITY_NATIVE_RESULT_BAD_PARAMETER} if a parameter is incorrect.\n @since 13"]
+    #[cfg(feature = "api-13")]
     pub fn OH_ArkUI_AccessibilityEventSetTextAnnouncedForAccessibility(
         eventInfo: *mut ArkUI_AccessibilityEventInfo,
         textAnnouncedForAccessibility: *const ::std::os::raw::c_char,
     ) -> i32;
 }
 extern "C" {
-    #[cfg(feature = "api-13")]
     #[doc = " @brief Sets the request focus ID for an <b>ArkUI_AccessibilityEventInfo</b> object.\n\n @param eventInfo Indicates the pointer to an <b>ArkUI_AccessibilityEventInfo</b> object.\n @param requestFocusId Indicates the request focus ID.\n @return Returns {@link ARKUI_ACCESSIBILITY_NATIVE_RESULT_SUCCESSFUL} if the operation is successful.\n         Returns {@link ARKUI_ACCESSIBILITY_NATIVE_RESULT_BAD_PARAMETER} if a parameter is incorrect.\n @since 13"]
+    #[cfg(feature = "api-13")]
     pub fn OH_ArkUI_AccessibilityEventSetRequestFocusId(
         eventInfo: *mut ArkUI_AccessibilityEventInfo,
         requestFocusId: i32,
     ) -> i32;
 }
 extern "C" {
-    #[cfg(feature = "api-13")]
     #[doc = " @brief Sets the element information for an <b>ArkUI_AccessibilityEventInfo</b> object.\n\n @param eventInfo Indicates the pointer to an <b>ArkUI_AccessibilityEventInfo</b> object.\n @param elementInfo Indicates the pointer to an <b>ArkUI_AccessibilityElementInfo</b> object.\n @return Returns {@link ARKUI_ACCESSIBILITY_NATIVE_RESULT_SUCCESSFUL} if the operation is successful.\n         Returns {@link ARKUI_ACCESSIBILITY_NATIVE_RESULT_BAD_PARAMETER} if a parameter is incorrect.\n @since 13"]
+    #[cfg(feature = "api-13")]
     pub fn OH_ArkUI_AccessibilityEventSetElementInfo(
         eventInfo: *mut ArkUI_AccessibilityEventInfo,
         elementInfo: *mut ArkUI_AccessibilityElementInfo,
     ) -> i32;
 }
 extern "C" {
-    #[cfg(feature = "api-13")]
     #[doc = " @brief Obtains the value of a key from an <b>ArkUI_AccessibilityActionArguments</b> object.\n\n @param arguments Indicates the pointer to an <b>ArkUI_AccessibilityActionArguments</b> object.\n @param key Indicates the key.\n @param value Indicates the value.\n @return Returns {@link ARKUI_ACCESSIBILITY_NATIVE_RESULT_SUCCESSFUL} if the operation is successful.\n         Returns {@link ARKUI_ACCESSIBILITY_NATIVE_RESULT_BAD_PARAMETER} if a parameter is incorrect.\n @since 13"]
+    #[cfg(feature = "api-13")]
     pub fn OH_ArkUI_FindAccessibilityActionArgumentByKey(
         arguments: *mut ArkUI_AccessibilityActionArguments,
         key: *const ::std::os::raw::c_char,
@@ -455,24 +455,24 @@ pub struct OH_PixelmapNative {
 }
 #[doc = " @brief Defines the pointer to OH_PixelmapNative.\n\n @since 12"]
 pub type OH_PixelmapNativeHandle = *mut OH_PixelmapNative;
-#[cfg(feature = "api-22")]
 #[doc = " animation is initial."]
+#[cfg(feature = "api-22")]
 pub const DrawableDescriptor_AnimationStatus_DRAWABLE_DESCRIPTOR_ANIMATION_STATUS_INITIAL:
     DrawableDescriptor_AnimationStatus = 0;
-#[cfg(feature = "api-22")]
 #[doc = " animation is playing."]
+#[cfg(feature = "api-22")]
 pub const DrawableDescriptor_AnimationStatus_DRAWABLE_DESCRIPTOR_ANIMATION_STATUS_RUNNING:
     DrawableDescriptor_AnimationStatus = 1;
-#[cfg(feature = "api-22")]
 #[doc = " animation is paused."]
+#[cfg(feature = "api-22")]
 pub const DrawableDescriptor_AnimationStatus_DRAWABLE_DESCRIPTOR_ANIMATION_STATUS_PAUSED:
     DrawableDescriptor_AnimationStatus = 2;
-#[cfg(feature = "api-22")]
 #[doc = " animation is stopped."]
+#[cfg(feature = "api-22")]
 pub const DrawableDescriptor_AnimationStatus_DRAWABLE_DESCRIPTOR_ANIMATION_STATUS_STOPPED:
     DrawableDescriptor_AnimationStatus = 3;
-#[cfg(feature = "api-22")]
 #[doc = " @brief Defines the animation status of the drawable descriptor.\n\n @since 22"]
+#[cfg(feature = "api-22")]
 pub type DrawableDescriptor_AnimationStatus = u32;
 extern "C" {
     #[doc = " @brief Creates a DrawableDescriptor from a Pixelmap.\n\n @param pixelMap Indicates the pointer to a Pixelmap\n @return Returns the pointer to the drawableDescriptor.\n @since 12"]
@@ -536,8 +536,8 @@ extern "C" {
     ) -> i32;
 }
 extern "C" {
-    #[cfg(feature = "api-22")]
     #[doc = " @brief Sets the frame duration array.\n\n @param drawableDescriptor Indicates the pointer to the drawableDescriptor.\n @param durations Indicates the pointer to the frame duration array.\n @param size Indicates the size of the frame duration array.\n @return Returns {@link ARKUI_ERROR_CODE_NO_ERROR} if the operation is successful;\n         Returns {@link ARKUI_ERROR_CODE_PARAM_INVALID} if a parameter error occurs.\n @since 22"]
+    #[cfg(feature = "api-22")]
     pub fn OH_ArkUI_DrawableDescriptor_SetAnimationFrameDurations(
         drawableDescriptor: *mut ArkUI_DrawableDescriptor,
         durations: *mut u32,
@@ -545,8 +545,8 @@ extern "C" {
     ) -> i32;
 }
 extern "C" {
-    #[cfg(feature = "api-22")]
     #[doc = " @brief Obtains the frame duration array.\n\n @param drawableDescriptor Indicates the pointer to the drawableDescriptor.\n @param durations Indicates the pointer to the frame duration array.\n @param size Indicates the size of the frame duration array.\n @return Returns {@link ARKUI_ERROR_CODE_NO_ERROR} if the operation is successful;\n         Returns {@link ARKUI_ERROR_CODE_PARAM_INVALID} if a parameter error occurs.\n @since 22"]
+    #[cfg(feature = "api-22")]
     pub fn OH_ArkUI_DrawableDescriptor_GetAnimationFrameDurations(
         drawableDescriptor: *mut ArkUI_DrawableDescriptor,
         durations: *mut u32,
@@ -554,24 +554,24 @@ extern "C" {
     ) -> i32;
 }
 extern "C" {
-    #[cfg(feature = "api-22")]
     #[doc = " @brief Sets whether to play the animation automatically.\n\n @param drawableDescriptor Indicates the pointer to the drawableDescriptor.\n @param autoPlay Indicates whether to play the animation automatically.\n                 default value is 1, which means to play the animation automatically.\n                 value 0 means not to play the animation automatically.\n @return Returns {@link ARKUI_ERROR_CODE_NO_ERROR} if the operation is successful;\n         Returns {@link ARKUI_ERROR_CODE_PARAM_INVALID} if a parameter error occurs.\n @since 22"]
+    #[cfg(feature = "api-22")]
     pub fn OH_ArkUI_DrawableDescriptor_SetAnimationAutoPlay(
         drawableDescriptor: *mut ArkUI_DrawableDescriptor,
         autoPlay: u32,
     ) -> i32;
 }
 extern "C" {
-    #[cfg(feature = "api-22")]
     #[doc = " @brief Obtains whether to play the animation automatically.\n\n @param drawableDescriptor Indicates the pointer to the drawableDescriptor.\n @param autoPlay Indicates whether to play the animation automatically.\n @return Returns {@link ARKUI_ERROR_CODE_NO_ERROR} if the operation is successful;\n         Returns {@link ARKUI_ERROR_CODE_PARAM_INVALID} if a parameter error occurs.\n @since 22"]
+    #[cfg(feature = "api-22")]
     pub fn OH_ArkUI_DrawableDescriptor_GetAnimationAutoPlay(
         drawableDescriptor: *mut ArkUI_DrawableDescriptor,
         autoPlay: *mut u32,
     ) -> i32;
 }
 extern "C" {
-    #[cfg(feature = "api-22")]
     #[doc = " @brief Obtains the animation controller.\n\n @param drawableDescriptor Indicates the pointer to the drawableDescriptor.\n @param node Indicates the node handle.\n @param controller Indicates the pointer to the animation controller.\n @return Returns {@link ARKUI_ERROR_CODE_NO_ERROR} if the operation is successful;\n         Returns {@link ARKUI_ERROR_CODE_PARAM_INVALID} if a parameter error occurs.\n @since 22"]
+    #[cfg(feature = "api-22")]
     pub fn OH_ArkUI_DrawableDescriptor_CreateAnimationController(
         drawableDescriptor: *mut ArkUI_DrawableDescriptor,
         node: ArkUI_NodeHandle,
@@ -579,43 +579,43 @@ extern "C" {
     ) -> i32;
 }
 extern "C" {
-    #[cfg(feature = "api-22")]
     #[doc = " @brief Releases the animation controller.\n\n @param controller Indicates the pointer to the animation controller.\n @since 22"]
+    #[cfg(feature = "api-22")]
     pub fn OH_ArkUI_DrawableDescriptor_DisposeAnimationController(
         controller: *mut ArkUI_DrawableDescriptor_AnimationController,
     );
 }
 extern "C" {
-    #[cfg(feature = "api-22")]
     #[doc = " @brief Starts the animation from first frame.\n\n @param controller Indicates the pointer to the animation controller.\n @return Returns {@link ARKUI_ERROR_CODE_NO_ERROR} if the operation is successful;\n         Returns {@link ARKUI_ERROR_CODE_PARAM_INVALID} if a parameter error occurs.\n @since 22"]
+    #[cfg(feature = "api-22")]
     pub fn OH_ArkUI_DrawableDescriptor_StartAnimation(
         controller: *mut ArkUI_DrawableDescriptor_AnimationController,
     ) -> i32;
 }
 extern "C" {
-    #[cfg(feature = "api-22")]
     #[doc = " @brief Stops the animation and back to first frame.\n\n @param controller Indicates the pointer to the animation controller.\n @return Returns {@link ARKUI_ERROR_CODE_NO_ERROR} if the operation is successful;\n         Returns {@link ARKUI_ERROR_CODE_PARAM_INVALID} if a parameter error occurs.\n @since 22"]
+    #[cfg(feature = "api-22")]
     pub fn OH_ArkUI_DrawableDescriptor_StopAnimation(
         controller: *mut ArkUI_DrawableDescriptor_AnimationController,
     ) -> i32;
 }
 extern "C" {
-    #[cfg(feature = "api-22")]
     #[doc = " @brief Resumes the animation at the current frame.\n\n @param controller Indicates the pointer to the animation controller.\n @return Returns {@link ARKUI_ERROR_CODE_NO_ERROR} if the operation is successful;\n         Returns {@link ARKUI_ERROR_CODE_PARAM_INVALID} if a parameter error occurs.\n @since 22"]
+    #[cfg(feature = "api-22")]
     pub fn OH_ArkUI_DrawableDescriptor_ResumeAnimation(
         controller: *mut ArkUI_DrawableDescriptor_AnimationController,
     ) -> i32;
 }
 extern "C" {
-    #[cfg(feature = "api-22")]
     #[doc = " @brief Pauses the animation at the current frame.\n\n @param controller Indicates the pointer to the animation controller.\n @return Returns {@link ARKUI_ERROR_CODE_NO_ERROR} if the operation is successful;\n         Returns {@link ARKUI_ERROR_CODE_PARAM_INVALID} if a parameter error occurs.\n @since 22"]
+    #[cfg(feature = "api-22")]
     pub fn OH_ArkUI_DrawableDescriptor_PauseAnimation(
         controller: *mut ArkUI_DrawableDescriptor_AnimationController,
     ) -> i32;
 }
 extern "C" {
-    #[cfg(feature = "api-22")]
     #[doc = " @brief Obtains the animation playback status.\n\n @param controller Indicates the pointer to the animation controller.\n @param status Indicates the pointer to the animation playback status.\n @return Returns {@link ARKUI_ERROR_CODE_NO_ERROR} if the operation is successful;\n         Returns {@link ARKUI_ERROR_CODE_PARAM_INVALID} if a parameter error occurs.\n @since 22"]
+    #[cfg(feature = "api-22")]
     pub fn OH_ArkUI_DrawableDescriptor_GetAnimationStatus(
         controller: *mut ArkUI_DrawableDescriptor_AnimationController,
         status: *mut DrawableDescriptor_AnimationStatus,
@@ -725,18 +725,18 @@ extern "C" {
     pub fn OH_ArkUI_DrawContext_GetSize(context: *mut ArkUI_DrawContext) -> ArkUI_IntSize;
 }
 extern "C" {
-    #[cfg(feature = "api-22")]
     #[doc = " @brief Creates <b>Grid</b> layout options.\n\n @return <b>Grid</b> layout options created.\n @since 22"]
+    #[cfg(feature = "api-22")]
     pub fn OH_ArkUI_GridLayoutOptions_Create() -> *mut ArkUI_GridLayoutOptions;
 }
 extern "C" {
-    #[cfg(feature = "api-22")]
     #[doc = " @brief Disposes of <b>Grid</b> layout options.\n\n @param option <b>Grid</b> layout options.\n @since 22"]
+    #[cfg(feature = "api-22")]
     pub fn OH_ArkUI_GridLayoutOptions_Dispose(option: *mut ArkUI_GridLayoutOptions);
 }
 extern "C" {
-    #[cfg(feature = "api-22")]
     #[doc = " @brief Sets the irregular grid item index array for the grid layout.\n\n @param option <b>Grid</b> layout options.\n @param irregularIndexes Array of irregular grid item indexes.\n @param size Size of the index array.\n @return Returns the result code.\n         Returns {@link ARKUI_ERROR_CODE_NO_ERROR} if the operation is successful.\n         Returns {@link ARKUI_ERROR_CODE_PARAM_INVALID} if a parameter error occurs.\n         If an error code is returned, it may be due to a failure in parameter validation;\n         the parameter must not be null.\n @since 22"]
+    #[cfg(feature = "api-22")]
     pub fn OH_ArkUI_GridLayoutOptions_SetIrregularIndexes(
         option: *mut ArkUI_GridLayoutOptions,
         irregularIndexes: *mut u32,
@@ -744,8 +744,8 @@ extern "C" {
     ) -> i32;
 }
 extern "C" {
-    #[cfg(feature = "api-22")]
     #[doc = " @brief Obtains the irregular grid item index array for the grid layout.\n When <b>OH_ArkUI_GridLayoutOptions_RegisterGetIrregularSizeByIndexCallback</b> is not set,\n the grid item specified in <b>irregularIndexes</b> occupies an entire row of the grid that scrolls vertically or\n an entire column of the grid that scrolls horizontally.\n\n @param option <b>Grid</b> layout options.\n @param irregularIndexes Array of irregular grid item indexes.\n @param size Size of the index array.\n @return Returns the result code.\n         Returns {@link ARKUI_ERROR_CODE_NO_ERROR} if the operation is successful.\n         Returns {@link ARKUI_ERROR_CODE_PARAM_INVALID} if a parameter error occurs.\n         Returns {@link ARKUI_ERROR_CODE_BUFFER_SIZE_ERROR} if the provided buffer size is insufficient.\n         If an error code is returned, it may be due to a failure in parameter validation;\n         the parameter must not be null.\n @since 22"]
+    #[cfg(feature = "api-22")]
     pub fn OH_ArkUI_GridLayoutOptions_GetIrregularIndexes(
         option: *mut ArkUI_GridLayoutOptions,
         irregularIndexes: *mut u32,
@@ -753,8 +753,8 @@ extern "C" {
     ) -> i32;
 }
 extern "C" {
-    #[cfg(feature = "api-22")]
     #[doc = " @brief Registers a callback to obtain the row and column span for the grid item at the specified index.\n\n @param option <b>Grid</b> layout options.\n @param userData Indicates the custom data.\n @param callback Callback that returns the row and column span for the grid item at the specified index.\n        itemIndex: grid item index, which must be within the range set by\n        {@link OH_ArkUI_GridLayoutOptions_SetIrregularIndexes}.\n @since 22"]
+    #[cfg(feature = "api-22")]
     pub fn OH_ArkUI_GridLayoutOptions_RegisterGetIrregularSizeByIndexCallback(
         option: *mut ArkUI_GridLayoutOptions,
         userData: *mut ::std::os::raw::c_void,
@@ -767,8 +767,8 @@ extern "C" {
     );
 }
 extern "C" {
-    #[cfg(feature = "api-22")]
     #[doc = " @brief Registers a callback to obtain the starting row, starting column, row span,\n and column span for the grid item at the specified index.\n\n @param option <b>Grid</b> layout options.\n @param userData Indicates the custom data.\n @param callback Callback that returns the starting row, starting column, row span,\n        and column span for the grid item at the specified index.\n        itemIndex: grid item index.\n @since 22"]
+    #[cfg(feature = "api-22")]
     pub fn OH_ArkUI_GridLayoutOptions_RegisterGetRectByIndexCallback(
         option: *mut ArkUI_GridLayoutOptions,
         userData: *mut ::std::os::raw::c_void,
@@ -1039,299 +1039,299 @@ extern "C" {
     ) -> i32;
 }
 extern "C" {
-    #[cfg(feature = "api-19")]
     #[doc = " @brief Sets whether to ignore the size of the indicator for {@link OH_ArkUI_SwiperIndicator_SetBottomPosition}.\n\n @param indicator Indicates the pointer to the indicator.\n @param ignoreSize Whether to ignore the size of the indicator. The value 1 means to ignore, and 0 means the opposite.\n The default value is 0.\n @since 19"]
+    #[cfg(feature = "api-19")]
     pub fn OH_ArkUI_SwiperIndicator_SetIgnoreSizeOfBottom(
         indicator: *mut ArkUI_SwiperIndicator,
         ignoreSize: i32,
     );
 }
 extern "C" {
-    #[cfg(feature = "api-19")]
     #[doc = " @brief Obtains whether to ignore the size of the indicator for {@link OH_ArkUI_SwiperIndicator_SetBottomPosition}.\n\n @param indicator Indicates the pointer to the indicator.\n @return Returns whether to ignore the size of the indicator.\n @since 19"]
+    #[cfg(feature = "api-19")]
     pub fn OH_ArkUI_SwiperIndicator_GetIgnoreSizeOfBottom(
         indicator: *mut ArkUI_SwiperIndicator,
     ) -> i32;
 }
 extern "C" {
-    #[cfg(feature = "api-19")]
     #[doc = " @brief Sets the space between the dots of the navigation indicator.\n\n @param indicator Indicates the pointer to the indicator.\n @param space the space between the dots of the navigation indicator, the default value is 8vp.\n @since 19"]
+    #[cfg(feature = "api-19")]
     pub fn OH_ArkUI_SwiperIndicator_SetSpace(indicator: *mut ArkUI_SwiperIndicator, space: f32);
 }
 extern "C" {
-    #[cfg(feature = "api-19")]
     #[doc = " @brief Obtains the space between the dots of the navigation indicator.\n\n @param indicator Indicates the pointer to the indicator.\n @return the space between the dots of the navigation indicator\n @since 19"]
+    #[cfg(feature = "api-19")]
     pub fn OH_ArkUI_SwiperIndicator_GetSpace(indicator: *mut ArkUI_SwiperIndicator) -> f32;
 }
 extern "C" {
-    #[cfg(feature = "api-19")]
     #[doc = " @brief Creates a digital indicator.\n\n @return Returns the pointer to the new indicator.\n @since 19"]
+    #[cfg(feature = "api-19")]
     pub fn OH_ArkUI_SwiperDigitIndicator_Create() -> *mut ArkUI_SwiperDigitIndicator;
 }
 extern "C" {
-    #[cfg(feature = "api-19")]
     #[doc = " @brief Sets the distance between the digital indicator and the start of the swiper.\n\n @param indicator The pointer to the digital indicator.\n @param value Indicates the distance between the digital indicator and the start of the swiper.\n @since 19"]
+    #[cfg(feature = "api-19")]
     pub fn OH_ArkUI_SwiperDigitIndicator_SetStartPosition(
         indicator: *mut ArkUI_SwiperDigitIndicator,
         value: f32,
     );
 }
 extern "C" {
-    #[cfg(feature = "api-19")]
     #[doc = " @brief Gets the distance between the digital indicator and the start of the swiper.\n\n @param indicator The pointer to the digital indicator.\n @return Returns the distance between the digital indicator and the start of the swiper.\n @since 19"]
+    #[cfg(feature = "api-19")]
     pub fn OH_ArkUI_SwiperDigitIndicator_GetStartPosition(
         indicator: *mut ArkUI_SwiperDigitIndicator,
     ) -> f32;
 }
 extern "C" {
-    #[cfg(feature = "api-19")]
     #[doc = " @brief Sets the distance between the digital indicator and the top of the swiper.\n\n @param indicator The pointer to the digital indicator.\n @param value Indicates the distance between the digital indicator and the top of the swiper.\n @since 19"]
+    #[cfg(feature = "api-19")]
     pub fn OH_ArkUI_SwiperDigitIndicator_SetTopPosition(
         indicator: *mut ArkUI_SwiperDigitIndicator,
         value: f32,
     );
 }
 extern "C" {
-    #[cfg(feature = "api-19")]
     #[doc = " @brief Gets the distance between the digital indicator and the top of the swiper.\n\n @param indicator The pointer to the digital indicator.\n @return Returns the distance between the digital indicator and the top of the swiper.\n @since 19"]
+    #[cfg(feature = "api-19")]
     pub fn OH_ArkUI_SwiperDigitIndicator_GetTopPosition(
         indicator: *mut ArkUI_SwiperDigitIndicator,
     ) -> f32;
 }
 extern "C" {
-    #[cfg(feature = "api-19")]
     #[doc = " @brief Sets the distance between the digital indicator and the end of the swiper.\n\n @param indicator The pointer to the digital indicator.\n @param value Indicates the distance between the digital indicator and the end of the swiper.\n @since 19"]
+    #[cfg(feature = "api-19")]
     pub fn OH_ArkUI_SwiperDigitIndicator_SetEndPosition(
         indicator: *mut ArkUI_SwiperDigitIndicator,
         value: f32,
     );
 }
 extern "C" {
-    #[cfg(feature = "api-19")]
     #[doc = " @brief Gets the distance between the digital indicator and the end of the swiper.\n\n @param indicator The pointer to the digital indicator.\n @return Returns the distance between the digital indicator and the end of the swiper.\n @since 19"]
+    #[cfg(feature = "api-19")]
     pub fn OH_ArkUI_SwiperDigitIndicator_GetEndPosition(
         indicator: *mut ArkUI_SwiperDigitIndicator,
     ) -> f32;
 }
 extern "C" {
-    #[cfg(feature = "api-19")]
     #[doc = " @brief Sets the distance between the digital indicator and the bottom of the swiper.\n\n @param indicator The pointer to the digital indicator.\n @param value Returns the distance between the digital indicator and the bottom of the swiper.\n @since 19"]
+    #[cfg(feature = "api-19")]
     pub fn OH_ArkUI_SwiperDigitIndicator_SetBottomPosition(
         indicator: *mut ArkUI_SwiperDigitIndicator,
         value: f32,
     );
 }
 extern "C" {
-    #[cfg(feature = "api-19")]
     #[doc = " @brief Gets the distance between the digital indicator and the bottom of the swiper.\n\n @param indicator The pointer to the digital indicator.\n @return Returns the distance between the digital indicator and the bottom of the swiper.\n @since 19"]
+    #[cfg(feature = "api-19")]
     pub fn OH_ArkUI_SwiperDigitIndicator_GetBottomPosition(
         indicator: *mut ArkUI_SwiperDigitIndicator,
     ) -> f32;
 }
 extern "C" {
-    #[cfg(feature = "api-19")]
     #[doc = " @brief Sets the font color of total count in the digital indicator.\n\n @param indicator The pointer to the digital indicator.\n @param color font color, in 0xARGB format. Default value: 0xFF182431.\n @since 19"]
+    #[cfg(feature = "api-19")]
     pub fn OH_ArkUI_SwiperDigitIndicator_SetFontColor(
         indicator: *mut ArkUI_SwiperDigitIndicator,
         color: u32,
     );
 }
 extern "C" {
-    #[cfg(feature = "api-19")]
     #[doc = " @brief Gets the font color of total count in the digital indicator.\n\n @param indicator The pointer to the digital indicator.\n @return font color, in 0xARGB format.\n @since 19"]
+    #[cfg(feature = "api-19")]
     pub fn OH_ArkUI_SwiperDigitIndicator_GetFontColor(
         indicator: *mut ArkUI_SwiperDigitIndicator,
     ) -> u32;
 }
 extern "C" {
-    #[cfg(feature = "api-19")]
     #[doc = " @brief Sets the font color of selected index in the digital indicator.\n\n @param indicator The pointer to the digital indicator.\n @param selectedColor font color, in 0xARGB format. Default value: 0xFF182431.\n @since 19"]
+    #[cfg(feature = "api-19")]
     pub fn OH_ArkUI_SwiperDigitIndicator_SetSelectedFontColor(
         indicator: *mut ArkUI_SwiperDigitIndicator,
         selectedColor: u32,
     );
 }
 extern "C" {
-    #[cfg(feature = "api-19")]
     #[doc = " @brief Gets the font color of selected index in the digital indicator.\n\n @param indicator The pointer to the digital indicator.\n @return font color, in 0xARGB format.\n @since 19"]
+    #[cfg(feature = "api-19")]
     pub fn OH_ArkUI_SwiperDigitIndicator_GetSelectedFontColor(
         indicator: *mut ArkUI_SwiperDigitIndicator,
     ) -> u32;
 }
 extern "C" {
-    #[cfg(feature = "api-19")]
     #[doc = " @brief Sets the font size of total count in the digital indicator.\n\n @param indicator The pointer to the digital indicator.\n @param size font size, in fp.\n @since 19"]
+    #[cfg(feature = "api-19")]
     pub fn OH_ArkUI_SwiperDigitIndicator_SetFontSize(
         indicator: *mut ArkUI_SwiperDigitIndicator,
         size: f32,
     );
 }
 extern "C" {
-    #[cfg(feature = "api-19")]
     #[doc = " @brief Gets the font size of total count in the digital indicator.\n\n @param indicator The pointer to the digital indicator.\n @return font size, in fp.\n @since 19"]
+    #[cfg(feature = "api-19")]
     pub fn OH_ArkUI_SwiperDigitIndicator_GetFontSize(
         indicator: *mut ArkUI_SwiperDigitIndicator,
     ) -> f32;
 }
 extern "C" {
-    #[cfg(feature = "api-19")]
     #[doc = " @brief Sets the font size of selected index in the digital indicator.\n\n @param indicator The pointer to the digital indicator.\n @param size font size, in fp.\n @since 19"]
+    #[cfg(feature = "api-19")]
     pub fn OH_ArkUI_SwiperDigitIndicator_SetSelectedFontSize(
         indicator: *mut ArkUI_SwiperDigitIndicator,
         size: f32,
     );
 }
 extern "C" {
-    #[cfg(feature = "api-19")]
     #[doc = " @brief Gets the font size of selected index in the digital indicator.\n\n @param indicator The pointer to the digital indicator.\n @return font size, in fp.\n @since 19"]
+    #[cfg(feature = "api-19")]
     pub fn OH_ArkUI_SwiperDigitIndicator_GetSelectedFontSize(
         indicator: *mut ArkUI_SwiperDigitIndicator,
     ) -> f32;
 }
 extern "C" {
-    #[cfg(feature = "api-19")]
     #[doc = " @brief Sets the font weight of total count in the digital indicator.\n\n @param indicator The pointer to the digital indicator.\n @param fontWeight font weight {@link ArkUI_FontWeight}. The default value is <b>ARKUI_FONT_WEIGHT_NORMAL</b>.\n @since 19"]
+    #[cfg(feature = "api-19")]
     pub fn OH_ArkUI_SwiperDigitIndicator_SetFontWeight(
         indicator: *mut ArkUI_SwiperDigitIndicator,
         fontWeight: ArkUI_FontWeight,
     );
 }
 extern "C" {
-    #[cfg(feature = "api-19")]
     #[doc = " @brief Gets the font weight of total count in the digital indicator.\n\n @param indicator The pointer to the digital indicator.\n @return font weight {@link ArkUI_FontWeight}.\n @since 19"]
+    #[cfg(feature = "api-19")]
     pub fn OH_ArkUI_SwiperDigitIndicator_GetFontWeight(
         indicator: *mut ArkUI_SwiperDigitIndicator,
     ) -> ArkUI_FontWeight;
 }
 extern "C" {
-    #[cfg(feature = "api-19")]
     #[doc = " @brief Sets the font weight of selected index in the digital indicator.\n\n @param indicator The pointer to the digital indicator.\n @param selectedFontWeight font weight {@link ArkUI_FontWeight}. The default value is <b>ARKUI_FONT_WEIGHT_NORMAL</b>.\n @since 19"]
+    #[cfg(feature = "api-19")]
     pub fn OH_ArkUI_SwiperDigitIndicator_SetSelectedFontWeight(
         indicator: *mut ArkUI_SwiperDigitIndicator,
         selectedFontWeight: ArkUI_FontWeight,
     );
 }
 extern "C" {
-    #[cfg(feature = "api-19")]
     #[doc = " @brief Gets the font weight of selected index in the digital indicator.\n\n @param indicator The pointer to the digital indicator.\n @return font weight {@link ArkUI_FontWeight}.\n @since 19"]
+    #[cfg(feature = "api-19")]
     pub fn OH_ArkUI_SwiperDigitIndicator_GetSelectedFontWeight(
         indicator: *mut ArkUI_SwiperDigitIndicator,
     ) -> ArkUI_FontWeight;
 }
 extern "C" {
-    #[cfg(feature = "api-19")]
     #[doc = " @brief Destroys the digital indicator.\n\n @param indicator The pointer to the digital indicator.\n @since 19"]
+    #[cfg(feature = "api-19")]
     pub fn OH_ArkUI_SwiperDigitIndicator_Destroy(indicator: *mut ArkUI_SwiperDigitIndicator);
 }
 extern "C" {
-    #[cfg(feature = "api-19")]
     #[doc = " @brief Sets whether to ignore the size of the indicator for {@link OH_ArkUI_SwiperDigitIndicator_SetBottomPosition}.\n\n @param indicator The pointer to the digital indicator.\n @param ignoreSize Whether to ignore the size of the indicator. The value 1 means to ignore, and 0 means the opposite.\n The default value is 0.\n @since 19"]
+    #[cfg(feature = "api-19")]
     pub fn OH_ArkUI_SwiperDigitIndicator_SetIgnoreSizeOfBottom(
         indicator: *mut ArkUI_SwiperDigitIndicator,
         ignoreSize: i32,
     );
 }
 extern "C" {
-    #[cfg(feature = "api-19")]
     #[doc = " @brief Obtains whether to ignore the size of the indicator for {@link OH_ArkUI_SwiperDigitIndicator_SetBottomPosition}.\n\n @param indicator The pointer to the digital indicator.\n @return Returns whether to ignore the size of the indicator.\n @since 19"]
+    #[cfg(feature = "api-19")]
     pub fn OH_ArkUI_SwiperDigitIndicator_GetIgnoreSizeOfBottom(
         indicator: *mut ArkUI_SwiperDigitIndicator,
     ) -> i32;
 }
 extern "C" {
-    #[cfg(feature = "api-19")]
     #[doc = " @brief Creates a arrow style for swiper.\n\n @return Returns the pointer to the new arrow style.\n @since 19"]
+    #[cfg(feature = "api-19")]
     pub fn OH_ArkUI_SwiperArrowStyle_Create() -> *mut ArkUI_SwiperArrowStyle;
 }
 extern "C" {
-    #[cfg(feature = "api-19")]
     #[doc = " @brief Sets whether to show the background for the arrow.\n\n @param arrowStyle The pointer to the arrow style.\n @param showBackground whether to show the background for the arrow.\n        The value <b>1</b> means to show the background, and <b>0</b> means the opposite.\n        The default value is <b>0</b>.\n @since 19"]
+    #[cfg(feature = "api-19")]
     pub fn OH_ArkUI_SwiperArrowStyle_SetShowBackground(
         arrowStyle: *mut ArkUI_SwiperArrowStyle,
         showBackground: i32,
     );
 }
 extern "C" {
-    #[cfg(feature = "api-19")]
     #[doc = " @brief Gets whether to show the background for the arrow.\n\n @param arrowStyle The pointer to the arrow style.\n @return whether to show the background for the arrow.\n         The value <b>1</b> means to show the background, and <b>0</b> means the opposite.\n @since 19"]
+    #[cfg(feature = "api-19")]
     pub fn OH_ArkUI_SwiperArrowStyle_GetShowBackground(
         arrowStyle: *mut ArkUI_SwiperArrowStyle,
     ) -> i32;
 }
 extern "C" {
-    #[cfg(feature = "api-19")]
     #[doc = " @brief Sets the display position of the arrow.\n\n @param arrowStyle The pointer to the arrow style.\n @param showSidebarMiddle the display position of the arrow.\n        The value <b>1</b> means to display on boths sides of the swiper,\n        and <b>0</b> means display on boths sides of the swiper indicator.\n        The default value is <b>0</b>.\n @since 19"]
+    #[cfg(feature = "api-19")]
     pub fn OH_ArkUI_SwiperArrowStyle_SetShowSidebarMiddle(
         arrowStyle: *mut ArkUI_SwiperArrowStyle,
         showSidebarMiddle: i32,
     );
 }
 extern "C" {
-    #[cfg(feature = "api-19")]
     #[doc = " @brief Gets the display position of the arrow.\n\n @param arrowStyle The pointer to the arrow style.\n @return the display position of the arrow. The value <b>1</b> means to display on boths sides of the swiper,\n         and <b>0</b> means display on boths sides of the swiper indicator.\n @since 19"]
+    #[cfg(feature = "api-19")]
     pub fn OH_ArkUI_SwiperArrowStyle_GetShowSidebarMiddle(
         arrowStyle: *mut ArkUI_SwiperArrowStyle,
     ) -> i32;
 }
 extern "C" {
-    #[cfg(feature = "api-19")]
     #[doc = " @brief Sets the background size of the arrow.\n\n @param arrowStyle The pointer to the arrow style.\n @param backgroundSize the background size of the arrow. The unit is vp.\n        The default value is <b>24</b> when the arrow displays on both sides of the swiper indicator.\n        The default value is <b>32</b> when the arrow displays on both sides of the swiper.\n @since 19"]
+    #[cfg(feature = "api-19")]
     pub fn OH_ArkUI_SwiperArrowStyle_SetBackgroundSize(
         arrowStyle: *mut ArkUI_SwiperArrowStyle,
         backgroundSize: f32,
     );
 }
 extern "C" {
-    #[cfg(feature = "api-19")]
     #[doc = " @brief Gets the background size of the arrow.\n\n @param arrowStyle The pointer to the arrow style.\n @return Returns the background size of the arrow. The unit is vp.\n @since 19"]
+    #[cfg(feature = "api-19")]
     pub fn OH_ArkUI_SwiperArrowStyle_GetBackgroundSize(
         arrowStyle: *mut ArkUI_SwiperArrowStyle,
     ) -> f32;
 }
 extern "C" {
-    #[cfg(feature = "api-19")]
     #[doc = " @brief Destroys the arrow style.\n\n @param arrowStyle The pointer to the arrow style.\n @since 19"]
+    #[cfg(feature = "api-19")]
     pub fn OH_ArkUI_SwiperArrowStyle_Destroy(arrowStyle: *mut ArkUI_SwiperArrowStyle);
 }
 extern "C" {
-    #[cfg(feature = "api-19")]
     #[doc = " @brief Sets the background color of the arrow.\n\n @param arrowStyle The pointer to the arrow style.\n @param backgroundColor the background color of the arrow, in 0xARGB format.\n        The default value is <b>0x00000000</b> when the arrow displays on both sides of the swiper indicator.\n        The default value is <b>0x19182431</b> when the arrow displays on both sides of the swiper.\n @since 19"]
+    #[cfg(feature = "api-19")]
     pub fn OH_ArkUI_SwiperArrowStyle_SetBackgroundColor(
         arrowStyle: *mut ArkUI_SwiperArrowStyle,
         backgroundColor: u32,
     );
 }
 extern "C" {
-    #[cfg(feature = "api-19")]
     #[doc = " @brief Gets the background color of the arrow.\n\n @param arrowStyle The pointer to the arrow style.\n @return Returns the background color of the arrow, in 0xARGB format.\n @since 19"]
+    #[cfg(feature = "api-19")]
     pub fn OH_ArkUI_SwiperArrowStyle_GetBackgroundColor(
         arrowStyle: *mut ArkUI_SwiperArrowStyle,
     ) -> u32;
 }
 extern "C" {
-    #[cfg(feature = "api-19")]
     #[doc = " @brief Sets the size of the arrow.\n\n @param arrowStyle The pointer to the arrow style.\n @param arrowSize the size of the arrow. The unit is vp.\n        The default value is <b>18</b> when the arrow displays on both sides of the swiper indicator.\n        The default value is <b>24</b> when the arrow displays on both sides of the swiper.\n        The arrow size is fixed to 3/4 of the background size when the background is shown.\n @since 19"]
+    #[cfg(feature = "api-19")]
     pub fn OH_ArkUI_SwiperArrowStyle_SetArrowSize(
         arrowStyle: *mut ArkUI_SwiperArrowStyle,
         arrowSize: f32,
     );
 }
 extern "C" {
-    #[cfg(feature = "api-19")]
     #[doc = " @brief Gets the size of the arrow.\n\n @param arrowStyle The pointer to the arrow style.\n @return the size of the arrow. The unit is vp.\n @since 19"]
+    #[cfg(feature = "api-19")]
     pub fn OH_ArkUI_SwiperArrowStyle_GetArrowSize(arrowStyle: *mut ArkUI_SwiperArrowStyle) -> f32;
 }
 extern "C" {
-    #[cfg(feature = "api-19")]
     #[doc = " @brief Sets the color of the arrow.\n\n @param arrowStyle The pointer to the arrow style.\n @param arrowColor the color of the arrow, in 0xARGB format. The default value is <b>0x00182431</b>.\n @since 19"]
+    #[cfg(feature = "api-19")]
     pub fn OH_ArkUI_SwiperArrowStyle_SetArrowColor(
         arrowStyle: *mut ArkUI_SwiperArrowStyle,
         arrowColor: u32,
     );
 }
 extern "C" {
-    #[cfg(feature = "api-19")]
     #[doc = " @brief Gets the color of the arrow.\n\n @param arrowStyle The pointer to the arrow style.\n @return Returns the color of the arrow, in 0xARGB format.\n @since 19"]
+    #[cfg(feature = "api-19")]
     pub fn OH_ArkUI_SwiperArrowStyle_GetArrowColor(arrowStyle: *mut ArkUI_SwiperArrowStyle) -> u32;
 }
 extern "C" {
@@ -1464,8 +1464,8 @@ extern "C" {
     ) -> i32;
 }
 extern "C" {
-    #[cfg(feature = "api-21")]
     #[doc = " @brief creates content switching animation effects.\n\n @param type content transition type: 0-identity, 1-opacity.\n @return content transition effect.\n @since 21"]
+    #[cfg(feature = "api-21")]
     pub fn OH_ArkUI_ContentTransitionEffect_Create(
         type_: i32,
     ) -> *mut ArkUI_ContentTransitionEffect;
@@ -2048,42 +2048,42 @@ extern "C" {
     pub fn OH_ArkUI_AccessibilityValue_GetCurrent(value: *mut ArkUI_AccessibilityValue) -> i32;
 }
 extern "C" {
-    #[cfg(feature = "api-18")]
     #[doc = " @brief Set accessibility minimum value.\n\n @param value accessibility value object.\n @param rangeMin minimum value based on range components, The default value is -1.\n @since 18"]
+    #[cfg(feature = "api-18")]
     pub fn OH_ArkUI_AccessibilityValue_SetRangeMin(
         value: *mut ArkUI_AccessibilityValue,
         rangeMin: i32,
     );
 }
 extern "C" {
-    #[cfg(feature = "api-18")]
     #[doc = " @brief Get accessibility minimum value.\n\n @param value accessibility value object.\n @return minimum value based on range components, The default value is -1.\n         If the function parameter is abnormal, return -1.\n @since 18"]
+    #[cfg(feature = "api-18")]
     pub fn OH_ArkUI_AccessibilityValue_GetRangeMin(value: *mut ArkUI_AccessibilityValue) -> i32;
 }
 extern "C" {
-    #[cfg(feature = "api-18")]
     #[doc = " @brief Set accessibility maximum value.\n\n @param value accessibility value object.\n @param rangeMax maximum value based on range components, The default value is -1.\n @since 18"]
+    #[cfg(feature = "api-18")]
     pub fn OH_ArkUI_AccessibilityValue_SetRangeMax(
         value: *mut ArkUI_AccessibilityValue,
         rangeMax: i32,
     );
 }
 extern "C" {
-    #[cfg(feature = "api-18")]
     #[doc = " @brief Get accessibility maximum value.\n\n @param value accessibility value object.\n @return maximum value based on range components, The default value is -1.\n         If the function parameter is abnormal, return -1.\n @since 18"]
+    #[cfg(feature = "api-18")]
     pub fn OH_ArkUI_AccessibilityValue_GetRangeMax(value: *mut ArkUI_AccessibilityValue) -> i32;
 }
 extern "C" {
-    #[cfg(feature = "api-18")]
     #[doc = " @brief Set accessibility current value.\n\n @param value accessibility value object.\n @param rangeCurrent value based on range components, The default value is -1.\n @since 18"]
+    #[cfg(feature = "api-18")]
     pub fn OH_ArkUI_AccessibilityValue_SetRangeCurrent(
         value: *mut ArkUI_AccessibilityValue,
         rangeCurrent: i32,
     );
 }
 extern "C" {
-    #[cfg(feature = "api-18")]
     #[doc = " @brief Get accessibility current value.\n\n @param value accessibility value object.\n @return current value based on range components, The default value is -1.\n         If the function parameter is abnormal, return -1.\n @since 18"]
+    #[cfg(feature = "api-18")]
     pub fn OH_ArkUI_AccessibilityValue_GetRangeCurrent(value: *mut ArkUI_AccessibilityValue)
         -> i32;
 }
@@ -2101,173 +2101,173 @@ extern "C" {
     ) -> *const ::std::os::raw::c_char;
 }
 extern "C" {
-    #[cfg(feature = "api-14")]
     #[doc = " @brief Destroy the instance of Customs Property.\n\n @param handle The instance of Customs Property to be destroyed.\n @since 14"]
+    #[cfg(feature = "api-14")]
     pub fn OH_ArkUI_CustomProperty_Destroy(handle: *mut ArkUI_CustomProperty);
 }
 extern "C" {
-    #[cfg(feature = "api-14")]
     #[doc = " @brief Get custom attribute value information.\n\n @param handle Custom attribute object pointer.\n @return Customize the value information within the attribute structure.\n @since 14"]
+    #[cfg(feature = "api-14")]
     pub fn OH_ArkUI_CustomProperty_GetStringValue(
         handle: *mut ArkUI_CustomProperty,
     ) -> *const ::std::os::raw::c_char;
 }
 extern "C" {
-    #[cfg(feature = "api-15")]
     #[doc = " @brief Get window name from HostWindowInfo.\n\n @param info HostWindowInfo object pointer.\n @return Window name in HostWindowInfo.\n @since 15"]
+    #[cfg(feature = "api-15")]
     pub fn OH_ArkUI_HostWindowInfo_GetName(
         info: *mut ArkUI_HostWindowInfo,
     ) -> *const ::std::os::raw::c_char;
 }
 extern "C" {
-    #[cfg(feature = "api-15")]
     #[doc = " @brief Destroy the instance of HostWindowInfo.\n\n @param info Instance of HostWindowInfo to be destroyed.\n @since 15"]
+    #[cfg(feature = "api-15")]
     pub fn OH_ArkUI_HostWindowInfo_Destroy(info: *mut ArkUI_HostWindowInfo);
 }
 extern "C" {
-    #[cfg(feature = "api-14")]
     #[doc = " @brief Destroy ActiveChildenInfo instance.\n\n @param handle ActiveChild instance to be destroyed.\n @since 14"]
+    #[cfg(feature = "api-14")]
     pub fn OH_ArkUI_ActiveChildrenInfo_Destroy(handle: *mut ArkUI_ActiveChildrenInfo);
 }
 extern "C" {
-    #[cfg(feature = "api-14")]
     #[doc = " @brief Retrieve the child nodes of ActiveChildenInfo with the structure index.\n\n @param handle The ActiveChildenInfo instance for obtaining information.\n @param index The index of child nodes.\n @return The child node pointer corresponding to the index. Return nullptr in case of exception.\n @since 14"]
+    #[cfg(feature = "api-14")]
     pub fn OH_ArkUI_ActiveChildrenInfo_GetNodeByIndex(
         handle: *mut ArkUI_ActiveChildrenInfo,
         index: i32,
     ) -> ArkUI_NodeHandle;
 }
 extern "C" {
-    #[cfg(feature = "api-14")]
     #[doc = " @brief Retrieve the number of nodes within the structure of ActiveChildenInfo.\n\n @param handle The ActiveChildenInfo instance for obtaining information.\n @return Number of child nodes. Default value: 0.\n @since 14"]
+    #[cfg(feature = "api-14")]
     pub fn OH_ArkUI_ActiveChildrenInfo_GetCount(handle: *mut ArkUI_ActiveChildrenInfo) -> i32;
 }
 extern "C" {
-    #[cfg(feature = "api-15")]
     #[doc = " @brief Create linear progress indicator style information.\n\n @return Returns a <b>ProgressLinearStyleOption</b> instance.\n <br> If the result returns nullptr, there may be out of memory.\n @since 15"]
+    #[cfg(feature = "api-15")]
     pub fn OH_ArkUI_ProgressLinearStyleOption_Create() -> *mut ArkUI_ProgressLinearStyleOption;
 }
 extern "C" {
-    #[cfg(feature = "api-15")]
     #[doc = " @brief Destroy linear progress indicator style information.\n\n @param option Linear progress indicator style information.\n @since 15"]
+    #[cfg(feature = "api-15")]
     pub fn OH_ArkUI_ProgressLinearStyleOption_Destroy(option: *mut ArkUI_ProgressLinearStyleOption);
 }
 extern "C" {
-    #[cfg(feature = "api-15")]
     #[doc = " @brief Set whether the scan effect is enabled.\n\n @param option Linear progress indicator style information.\n @param enabled Whether to enable the scan effect. Default value: false.\n @since 15"]
+    #[cfg(feature = "api-15")]
     pub fn OH_ArkUI_ProgressLinearStyleOption_SetScanEffectEnabled(
         option: *mut ArkUI_ProgressLinearStyleOption,
         enabled: bool,
     );
 }
 extern "C" {
-    #[cfg(feature = "api-15")]
     #[doc = " @brief Set whether smoothing effect is enabled.\n\n @param option Linear progress indicator style information.\n @param enabled Whether to enable the smooth effect. When this effect is enabled, the progress change to\n the set value takes place gradually. Otherwise, it takes place immediately. Default value: true.\n @since 15"]
+    #[cfg(feature = "api-15")]
     pub fn OH_ArkUI_ProgressLinearStyleOption_SetSmoothEffectEnabled(
         option: *mut ArkUI_ProgressLinearStyleOption,
         enabled: bool,
     );
 }
 extern "C" {
-    #[cfg(feature = "api-15")]
     #[doc = " @brief Set linear progress indicator stroke width.\n\n @param option Linear progress indicator style information.\n @param strokeWidth Stroke width of the progress indicator. It cannot be set in percentage.\n Default value: 4.0vp.\n @since 15"]
+    #[cfg(feature = "api-15")]
     pub fn OH_ArkUI_ProgressLinearStyleOption_SetStrokeWidth(
         option: *mut ArkUI_ProgressLinearStyleOption,
         strokeWidth: f32,
     );
 }
 extern "C" {
-    #[cfg(feature = "api-15")]
     #[doc = " @brief Set linear progress indicator stroke radius.\n\n @param option Linear progress indicator style information.\n @param strokeRadius Rounded corner radius of the progress indicator. Value range: [0, strokeWidth/2].\n Default value: strokeWidth/2.\n @since 15"]
+    #[cfg(feature = "api-15")]
     pub fn OH_ArkUI_ProgressLinearStyleOption_SetStrokeRadius(
         option: *mut ArkUI_ProgressLinearStyleOption,
         strokeRadius: f32,
     );
 }
 extern "C" {
-    #[cfg(feature = "api-15")]
     #[doc = " @brief Get whether scan effect is enable.\n\n @param option Linear progress indicator style information.\n @return Whether to enable the scan effect.\n @since 15"]
+    #[cfg(feature = "api-15")]
     pub fn OH_ArkUI_ProgressLinearStyleOption_GetScanEffectEnabled(
         option: *mut ArkUI_ProgressLinearStyleOption,
     ) -> bool;
 }
 extern "C" {
-    #[cfg(feature = "api-15")]
     #[doc = " @brief Get whether smoothing effect is enabled.\n\n @param option Linear progress indicator style information.\n @return Whether to enable the smooth effect.\n @since 15"]
+    #[cfg(feature = "api-15")]
     pub fn OH_ArkUI_ProgressLinearStyleOption_GetSmoothEffectEnabled(
         option: *mut ArkUI_ProgressLinearStyleOption,
     ) -> bool;
 }
 extern "C" {
-    #[cfg(feature = "api-15")]
     #[doc = " @brief Get linear progress indicator stroke width.\n\n @param option Linear progress indicator style information.\n @return Stroke width of the progress indicator.\n @since 15"]
+    #[cfg(feature = "api-15")]
     pub fn OH_ArkUI_ProgressLinearStyleOption_GetStrokeWidth(
         option: *mut ArkUI_ProgressLinearStyleOption,
     ) -> f32;
 }
 extern "C" {
-    #[cfg(feature = "api-15")]
     #[doc = " @brief Get linear progress indicator stroke radius.\n\n @param option Linear progress indicator style information.\n @return Rounded corner radius of the progress indicator.\n @since 15"]
+    #[cfg(feature = "api-15")]
     pub fn OH_ArkUI_ProgressLinearStyleOption_GetStrokeRadius(
         option: *mut ArkUI_ProgressLinearStyleOption,
     ) -> f32;
 }
 extern "C" {
-    #[cfg(feature = "api-15")]
     #[doc = " @brief Create a cross-language option instance.\n\n @return Returns a cross-language option instance. If the result is a null pointer, it may be out of memory.\n @since 15"]
+    #[cfg(feature = "api-15")]
     pub fn OH_ArkUI_CrossLanguageOption_Create() -> *mut ArkUI_CrossLanguageOption;
 }
 extern "C" {
-    #[cfg(feature = "api-15")]
     #[doc = " @brief Destroy the cross-language option instance.\n\n @param option The cross-language option instance.\n @since 15"]
+    #[cfg(feature = "api-15")]
     pub fn OH_ArkUI_CrossLanguageOption_Destroy(option: *mut ArkUI_CrossLanguageOption);
 }
 extern "C" {
-    #[cfg(feature = "api-15")]
     #[doc = " @brief Enable the attribute setting in the cross-language option.\n\n @param option The cross-language option.\n @param enabled The attribute setting in the cross-language option.\n Default value: false.\n @since 15"]
+    #[cfg(feature = "api-15")]
     pub fn OH_ArkUI_CrossLanguageOption_SetAttributeSettingStatus(
         option: *mut ArkUI_CrossLanguageOption,
         enabled: bool,
     );
 }
 extern "C" {
-    #[cfg(feature = "api-15")]
     #[doc = " @brief Get the attribute setting enable of the cross-language option.\n\n @param option The cross-language option.\n @return The attribute setting enable of the cross-language option.\n @since 15"]
+    #[cfg(feature = "api-15")]
     pub fn OH_ArkUI_CrossLanguageOption_GetAttributeSettingStatus(
         option: *mut ArkUI_CrossLanguageOption,
     ) -> bool;
 }
 extern "C" {
-    #[cfg(feature = "api-15")]
     #[doc = " @brief Creates an option for taking snapshot, the returned value must be released through\n        {@link OH_ArkUI_DestroySnapshotOptions} when it's not used anymore.\n\n @return Returns the pointer to the created snapshot options object.If the object returns a null pointer,\n         it indicates a creation failure, and the reason for the failure may be that the address space is full.\n @since 15"]
+    #[cfg(feature = "api-15")]
     pub fn OH_ArkUI_CreateSnapshotOptions() -> *mut ArkUI_SnapshotOptions;
 }
 extern "C" {
-    #[cfg(feature = "api-15")]
     #[doc = " @brief Dispose a snapshot option object.\n\n @param snapshotOptions Indicates the pointer to the snapshot option.\n @since 15"]
+    #[cfg(feature = "api-15")]
     pub fn OH_ArkUI_DestroySnapshotOptions(snapshotOptions: *mut ArkUI_SnapshotOptions);
 }
 extern "C" {
-    #[cfg(feature = "api-15")]
     #[doc = " @brief Config the snapshot option with scale.\n\n @param snapshotOptions Indicates the pointer to the snapshot option.\n @param scale Indicates the scale property to take the snapshot.\n @return Returns {@link ARKUI_ERROR_CODE_NO_ERROR} if the operation is successful.\n         Returns {@link ARKUI_ERROR_CODE_PARAM_INVALID} if a parameter error occurs.\n @since 15"]
+    #[cfg(feature = "api-15")]
     pub fn OH_ArkUI_SnapshotOptions_SetScale(
         snapshotOptions: *mut ArkUI_SnapshotOptions,
         scale: f32,
     ) -> i32;
 }
 extern "C" {
-    #[cfg(feature = "api-17")]
     #[doc = " @brief Creates an instance of visible area change event parameters\n\n @return Returns the created instance of visible area change event parameters.\n @since 17"]
+    #[cfg(feature = "api-17")]
     pub fn OH_ArkUI_VisibleAreaEventOptions_Create() -> *mut ArkUI_VisibleAreaEventOptions;
 }
 extern "C" {
-    #[cfg(feature = "api-17")]
     #[doc = " @brief Disposes of an instance of visible area change event parameters.\n\n @param option Instance to be destroyed.\n @since 17"]
+    #[cfg(feature = "api-17")]
     pub fn OH_ArkUI_VisibleAreaEventOptions_Dispose(option: *mut ArkUI_VisibleAreaEventOptions);
 }
 extern "C" {
-    #[cfg(feature = "api-17")]
     #[doc = " @brief Sets the threshold ratios for visible area changes.\n\n @param option Instance of visible area change event parameters.\n @param value Array of threshold ratios. Each element represents the ratio of the visible area of a component to\n its total area. The visible area is calculated within the parent component's bounds; any area outside the parent\n component is not considered. Each value must be within the [0.0, 1.0] range.\n Values outside this range will be handled as 0.0 or 1.0.\n @param size Size of the threshold array.\n @return Returns the result code.\n         Returns {@link ARKUI_ERROR_CODE_NO_ERROR} if the operation is successful.\n         Returns {@link ARKUI_ERROR_CODE_PARAM_INVALID} if a parameter error occurs.\n         If an error code is returned, it may be due to a failure in parameter validation;\n         the parameter must not be null.\n @since 17"]
+    #[cfg(feature = "api-17")]
     pub fn OH_ArkUI_VisibleAreaEventOptions_SetRatios(
         option: *mut ArkUI_VisibleAreaEventOptions,
         value: *mut f32,
@@ -2275,24 +2275,24 @@ extern "C" {
     ) -> i32;
 }
 extern "C" {
-    #[cfg(feature = "api-17")]
     #[doc = " @brief Sets the expected update interval for visible area changes.\n\n @param option Instance of visible area change event parameters.\n @param value Expected update interval, in ms.  Default value: <b>1000</b>.\n @return Returns the result code.\n         Returns {@link ARKUI_ERROR_CODE_NO_ERROR} if the operation is successful.\n         Returns {@link ARKUI_ERROR_CODE_PARAM_INVALID} if a parameter error occurs.\n         If an error code is returned, it may be due to a failure in parameter validation;\n         the parameter must not be null.\n @since 17"]
+    #[cfg(feature = "api-17")]
     pub fn OH_ArkUI_VisibleAreaEventOptions_SetExpectedUpdateInterval(
         option: *mut ArkUI_VisibleAreaEventOptions,
         value: i32,
     ) -> i32;
 }
 extern "C" {
-    #[cfg(feature = "api-22")]
     #[doc = " @brief Sets the flag for controlling if the child components can exceed the parent's bounds.\n if set to false, the part that exceeds the parent's bounds will be considered as invisible area,\n set to true to allow the exceeding, the part that exceeds will be considered as visible area.\n\n Please note that if the parent component set clip(true), the measureFromViewport configuration\n will be ignored.\n\n @param option Instance of visible area change event parameters.\n @param measureFromViewport When this parameter is set to true, the parts of the component\n    that exceed the parent component's area will also be included in the visible area calculation. However, this\n    only applies if the parent component does not explicitly set the clip property to true. If the parent component\n    sets clip to true, regardless of the value of this parameter, the parts that exceed the parent component's area\n    will still be treated as invisible in the visible area calculation.\n Default measureFromViewport: <b>false</b>.\n @return Returns the result code.\n         Returns {@link ARKUI_ERROR_CODE_NO_ERROR} if the operation is successful.\n         Returns {@link ARKUI_ERROR_CODE_PARAM_INVALID} if a parameter error occurs.\n         If an error code is returned, it may be due to a failure in parameter validation;\n         the parameter must not be null.\n @since 22"]
+    #[cfg(feature = "api-22")]
     pub fn OH_ArkUI_VisibleAreaEventOptions_SetMeasureFromViewport(
         option: *mut ArkUI_VisibleAreaEventOptions,
         measureFromViewport: bool,
     ) -> i32;
 }
 extern "C" {
-    #[cfg(feature = "api-17")]
     #[doc = " @brief Obtains the threshold ratios for visible area changes.\n\n @param option Instance of visible area change event parameters.\n @param value Array of threshold ratios.\n @param size Size of the threshold array.\n @return Returns the result code.\n         Returns {@link ARKUI_ERROR_CODE_NO_ERROR} if the operation is successful.\n         Returns {@link ARKUI_ERROR_CODE_PARAM_INVALID} if a parameter error occurs.\n         Returns {@link ARKUI_ERROR_CODE_BUFFER_SIZE_ERROR} if the provided buffer size is insufficient.\n         If an error code is returned, it may be due to a failure in parameter validation;\n         the parameter must not be null.\n @since 17"]
+    #[cfg(feature = "api-17")]
     pub fn OH_ArkUI_VisibleAreaEventOptions_GetRatios(
         option: *mut ArkUI_VisibleAreaEventOptions,
         value: *mut f32,
@@ -2300,29 +2300,29 @@ extern "C" {
     ) -> i32;
 }
 extern "C" {
-    #[cfg(feature = "api-17")]
     #[doc = " @brief Obtains the expected update interval for visible area changes.\n\n @param option Instance of visible area change event parameters.\n @return Returns the expected update interval, in ms.  Default value: <b>1000</b>.\n @since 17"]
+    #[cfg(feature = "api-17")]
     pub fn OH_ArkUI_VisibleAreaEventOptions_GetExpectedUpdateInterval(
         option: *mut ArkUI_VisibleAreaEventOptions,
     ) -> i32;
 }
 extern "C" {
-    #[cfg(feature = "api-22")]
     #[doc = " @brief Obtains the value set through {@link OH_ArkUI_VisibleAreaEventOptions_SetMeasureFromViewport} .\n\n @param option Instance of visible area change event parameters.\n @return Returns the flag for controlling of the visible area calculation. Default value: <b>false</b>.\n\n @since 22"]
+    #[cfg(feature = "api-22")]
     pub fn OH_ArkUI_VisibleAreaEventOptions_GetMeasureFromViewport(
         option: *mut ArkUI_VisibleAreaEventOptions,
     ) -> bool;
 }
 extern "C" {
-    #[cfg(feature = "api-19")]
     #[doc = "@brief Creates a TextPickerRangeContent instance.\n\n@param length The length of the picker array.\n@return Returns a <b>TextPickerRangeContent</b> instance.\n@since 19"]
+    #[cfg(feature = "api-19")]
     pub fn OH_ArkUI_TextPickerRangeContentArray_Create(
         length: i32,
     ) -> *mut ArkUI_TextPickerRangeContentArray;
 }
 extern "C" {
-    #[cfg(feature = "api-19")]
     #[doc = "@brief Sets the icon of items in a text picker ranges.\n\n@param handle The TextPickerRangeContent instance for obtaining information.\n@param icon Icon addreass.\n@param index The index position of the value to be obtained.\n@since 19"]
+    #[cfg(feature = "api-19")]
     pub fn OH_ArkUI_TextPickerRangeContentArray_SetIconAtIndex(
         handle: *mut ArkUI_TextPickerRangeContentArray,
         icon: *mut ::std::os::raw::c_char,
@@ -2330,8 +2330,8 @@ extern "C" {
     );
 }
 extern "C" {
-    #[cfg(feature = "api-19")]
     #[doc = "@brief Sets the text of items in a text picker ranges\n\n@param handle The TextPickerRangeContent instance for obtaining information.\n@param text Text content\n@param index The index position of the value to be obtained.\n@since 19"]
+    #[cfg(feature = "api-19")]
     pub fn OH_ArkUI_TextPickerRangeContentArray_SetTextAtIndex(
         handle: *mut ArkUI_TextPickerRangeContentArray,
         text: *mut ::std::os::raw::c_char,
@@ -2339,22 +2339,22 @@ extern "C" {
     );
 }
 extern "C" {
-    #[cfg(feature = "api-19")]
     #[doc = "@brief Destroy the TextPickerRangeContent instance.\n\n@param handle The TextPickerRangeContent instance for obtaining information.\n@since 19"]
+    #[cfg(feature = "api-19")]
     pub fn OH_ArkUI_TextPickerRangeContentArray_Destroy(
         handle: *mut ArkUI_TextPickerRangeContentArray,
     );
 }
 extern "C" {
-    #[cfg(feature = "api-19")]
     #[doc = "@brief Creates a TextCascadePickerRangeContent instance.\n\n@param length The length of the picker array.\n@return Returns a <b>TextCascadePickerRangeContent</b> instance.\n@since 19"]
+    #[cfg(feature = "api-19")]
     pub fn OH_ArkUI_TextCascadePickerRangeContentArray_Create(
         length: i32,
     ) -> *mut ArkUI_TextCascadePickerRangeContentArray;
 }
 extern "C" {
-    #[cfg(feature = "api-19")]
     #[doc = "@brief Sets the text of items in a multi text picker ranges.\n\n@param handle The TextCascadePickerRangeContent instance for obtaining information.\n@param text text content\n@param index The index position of the value to be obtained.\n@since 19"]
+    #[cfg(feature = "api-19")]
     pub fn OH_ArkUI_TextCascadePickerRangeContentArray_SetTextAtIndex(
         handle: *mut ArkUI_TextCascadePickerRangeContentArray,
         text: *mut ::std::os::raw::c_char,
@@ -2362,8 +2362,8 @@ extern "C" {
     );
 }
 extern "C" {
-    #[cfg(feature = "api-19")]
     #[doc = "@brief Sets the childs info of items in a multi text picker ranges.\n\n@param handle The TextCascadePickerRangeContent instance for obtaining information.\n@param child The child instance.\n@param index The index position of the value to be obtained.\n@since 19"]
+    #[cfg(feature = "api-19")]
     pub fn OH_ArkUI_TextCascadePickerRangeContentArray_SetChildAtIndex(
         handle: *mut ArkUI_TextCascadePickerRangeContentArray,
         child: *mut ArkUI_TextCascadePickerRangeContentArray,
@@ -2371,25 +2371,25 @@ extern "C" {
     );
 }
 extern "C" {
-    #[cfg(feature = "api-19")]
     #[doc = "@brief Destroy the TextCascadePickerRangeContent instance.\n\n@param handle The TextCascadePickerRangeContent instance for obtaining information.\n@since 19"]
+    #[cfg(feature = "api-19")]
     pub fn OH_ArkUI_TextCascadePickerRangeContentArray_Destroy(
         handle: *mut ArkUI_TextCascadePickerRangeContentArray,
     );
 }
 extern "C" {
-    #[cfg(feature = "api-20")]
     #[doc = " @brief Create an object for the EmbeddedComponent option.\n\n @return A pointer to the object of the EmbeddedComponent option.\n @since 20"]
+    #[cfg(feature = "api-20")]
     pub fn OH_ArkUI_EmbeddedComponentOption_Create() -> *mut ArkUI_EmbeddedComponentOption;
 }
 extern "C" {
-    #[cfg(feature = "api-20")]
     #[doc = " @brief Destroy the object by EmbeddedComponent option.\n\n @param option Pointer to the object by the EmbeddeComponent to be destroyed.\n @since 20"]
+    #[cfg(feature = "api-20")]
     pub fn OH_ArkUI_EmbeddedComponentOption_Dispose(option: *mut ArkUI_EmbeddedComponentOption);
 }
 extern "C" {
-    #[cfg(feature = "api-20")]
     #[doc = " @brief Set the onError of EmbeddedComponent.\n\n @param option Pointer to the object option by the EmbeddedComponent.\n @param code Common error information about the API invoking failure.\n @param name Common error name information about the API invoking failure.\n @param message Common error message information about the API invoking failure.\n @since 20"]
+    #[cfg(feature = "api-20")]
     pub fn OH_ArkUI_EmbeddedComponentOption_SetOnError(
         option: *mut ArkUI_EmbeddedComponentOption,
         callback: ::std::option::Option<
@@ -2402,8 +2402,8 @@ extern "C" {
     );
 }
 extern "C" {
-    #[cfg(feature = "api-20")]
     #[doc = " @brief Set the onTerminated of EmbeddedComponent.\n\n @param option Pointer to the object option by the EmbeddedComponent.\n @param code Result code returned when the EmbeddedUIExtensionAbility exits.\n @param want Data returned when the EmbeddedUIExtensionAbility exits.\n @since 20"]
+    #[cfg(feature = "api-20")]
     pub fn OH_ArkUI_EmbeddedComponentOption_SetOnTerminated(
         option: *mut ArkUI_EmbeddedComponentOption,
         callback: ::std::option::Option<
@@ -2412,174 +2412,174 @@ extern "C" {
     );
 }
 extern "C" {
-    #[cfg(feature = "api-21")]
     #[doc = " @brief Expand the swipe action.\n\n @param node List Item node.\n @param direction expand direction of swipeAction.\n @return Error code.\n         {@link ARKUI_ERROR_CODE_NO_ERROR} success.\n         {@link ARKUI_ERROR_CODE_PARAM_ERROR} The component type of the node is incorrect.\n         {@link ARKUI_ERROR_CODE_NODE_NOT_ON_MAIN_TREE} The node not mounted to component tree.\n @since 21"]
+    #[cfg(feature = "api-21")]
     pub fn OH_ArkUI_ListItemSwipeAction_Expand(
         node: ArkUI_NodeHandle,
         direction: ArkUI_ListItemSwipeActionDirection,
     ) -> i32;
 }
 extern "C" {
-    #[cfg(feature = "api-21")]
     #[doc = " @brief Collapse the swipe action.\n\n @param node List Item node.\n @return Error code.\n         {@link ARKUI_ERROR_CODE_NO_ERROR} success.\n         {@link ARKUI_ERROR_CODE_PARAM_ERROR} The component type of the node is incorrect.\n         {@link ARKUI_ERROR_CODE_NODE_NOT_ON_MAIN_TREE} The node not mounted to component tree.\n @since 21"]
+    #[cfg(feature = "api-21")]
     pub fn OH_ArkUI_ListItemSwipeAction_Collapse(node: ArkUI_NodeHandle) -> i32;
 }
 extern "C" {
-    #[cfg(feature = "api-21")]
     #[doc = " @brief Create an edge object for position attribute.\n\n @return A pointer to the edge object.\n @since 21"]
+    #[cfg(feature = "api-21")]
     pub fn OH_ArkUI_PositionEdges_Create() -> *mut ArkUI_PositionEdges;
 }
 extern "C" {
-    #[cfg(feature = "api-21")]
     #[doc = " @brief Creates a deep copy of an edge object for position attribute.\n\n @param edges A pointer to an edge object.\n @return A pointer to the new edge object.\n @since 21"]
+    #[cfg(feature = "api-21")]
     pub fn OH_ArkUI_PositionEdges_Copy(
         edges: *const ArkUI_PositionEdges,
     ) -> *mut ArkUI_PositionEdges;
 }
 extern "C" {
-    #[cfg(feature = "api-21")]
     #[doc = " @brief Dispose an edge object for position attribute.\n\n @param edges Pointer to the edge object to be disposed.\n @since 21"]
+    #[cfg(feature = "api-21")]
     pub fn OH_ArkUI_PositionEdges_Dispose(edges: *mut ArkUI_PositionEdges);
 }
 extern "C" {
-    #[cfg(feature = "api-21")]
     #[doc = " @brief Sets the top edge of an edge object for position attribute.\n\n @param edges Pointer to the edge object.\n @param value The distance of top edge to the corresponding edge of parent container, in vp.\n @since 21"]
+    #[cfg(feature = "api-21")]
     pub fn OH_ArkUI_PositionEdges_SetTop(edges: *mut ArkUI_PositionEdges, value: f32);
 }
 extern "C" {
-    #[cfg(feature = "api-21")]
     #[doc = " @brief Gets the top edge of an edge object for position attribute.\n\n @param edges Pointer to the edge object.\n @param value The distance of top edge to the corresponding edge of parent container, in vp.\n @return Returns the result code.\n      Returns {@link ARKUI_ERROR_CODE_NO_ERROR} if the operation is successful.\n      Returns {@link ARKUI_ERROR_CODE_PARAM_INVALID} if the parameter is invalid.\n @since 21"]
+    #[cfg(feature = "api-21")]
     pub fn OH_ArkUI_PositionEdges_GetTop(edges: *mut ArkUI_PositionEdges, value: *mut f32) -> i32;
 }
 extern "C" {
-    #[cfg(feature = "api-21")]
     #[doc = " @brief Sets the left edge of an edge object for position attribute.\n\n @param edges Pointer to the edge object.\n @param value The distance of left edge to the corresponding edge of parent container, in vp.\n @since 21"]
+    #[cfg(feature = "api-21")]
     pub fn OH_ArkUI_PositionEdges_SetLeft(edges: *mut ArkUI_PositionEdges, value: f32);
 }
 extern "C" {
-    #[cfg(feature = "api-21")]
     #[doc = " @brief Gets the left edge of an edge object for position attribute.\n\n @param edges Pointer to the edge object.\n @param value The distance of left edge to the corresponding edge of parent container, in vp.\n @return Returns the result code.\n      Returns {@link ARKUI_ERROR_CODE_NO_ERROR} if the operation is successful.\n      Returns {@link ARKUI_ERROR_CODE_PARAM_INVALID} if the parameter is invalid.\n @since 21"]
+    #[cfg(feature = "api-21")]
     pub fn OH_ArkUI_PositionEdges_GetLeft(edges: *mut ArkUI_PositionEdges, value: *mut f32) -> i32;
 }
 extern "C" {
-    #[cfg(feature = "api-21")]
     #[doc = " @brief Sets the bottom edge of an edge object for position attribute.\n\n @param edges Pointer to the edge object.\n @param value The distance of bottom edge to the corresponding edge of parent container, in vp.\n @since 21"]
+    #[cfg(feature = "api-21")]
     pub fn OH_ArkUI_PositionEdges_SetBottom(edges: *mut ArkUI_PositionEdges, value: f32);
 }
 extern "C" {
-    #[cfg(feature = "api-21")]
     #[doc = " @brief Gets the bottom edge of an edge object for position attribute.\n\n @param edges Pointer to the edge object.\n @param value The distance of bottom edge to the corresponding edge of parent container, in vp.\n @return Returns the result code.\n      Returns {@link ARKUI_ERROR_CODE_NO_ERROR} if the operation is successful.\n      Returns {@link ARKUI_ERROR_CODE_PARAM_INVALID} if the parameter is invalid.\n @since 21"]
+    #[cfg(feature = "api-21")]
     pub fn OH_ArkUI_PositionEdges_GetBottom(
         edges: *mut ArkUI_PositionEdges,
         value: *mut f32,
     ) -> i32;
 }
 extern "C" {
-    #[cfg(feature = "api-21")]
     #[doc = " @brief Sets the right edge of an edge object for position attribute.\n\n @param edges Pointer to the edge object.\n @param value The distance of right edge to the corresponding edge of parent container, in vp.\n @since 21"]
+    #[cfg(feature = "api-21")]
     pub fn OH_ArkUI_PositionEdges_SetRight(edges: *mut ArkUI_PositionEdges, value: f32);
 }
 extern "C" {
-    #[cfg(feature = "api-21")]
     #[doc = " @brief Gets the right edge of an edge object for position attribute.\n\n @param edges Pointer to the edge object.\n @param value The distance of right edge to the corresponding edge of parent container, in vp.\n @return Returns the result code.\n      Returns {@link ARKUI_ERROR_CODE_NO_ERROR} if the operation is successful.\n      Returns {@link ARKUI_ERROR_CODE_PARAM_INVALID} if the parameter is invalid.\n @since 21"]
+    #[cfg(feature = "api-21")]
     pub fn OH_ArkUI_PositionEdges_GetRight(edges: *mut ArkUI_PositionEdges, value: *mut f32)
         -> i32;
 }
 extern "C" {
-    #[cfg(feature = "api-21")]
     #[doc = " @brief Create a policy object for PixelRound attribute.\n\n @return A pointer to the policy object.\n @since 21"]
+    #[cfg(feature = "api-21")]
     pub fn OH_ArkUI_PixelRoundPolicy_Create() -> *mut ArkUI_PixelRoundPolicy;
 }
 extern "C" {
-    #[cfg(feature = "api-21")]
     #[doc = " @brief Dispose a policy object for PixelRound attribute.\n\n @param policy Pointer to the policy object to be disposed.\n @since 21"]
+    #[cfg(feature = "api-21")]
     pub fn OH_ArkUI_PixelRoundPolicy_Dispose(policy: *mut ArkUI_PixelRoundPolicy);
 }
 extern "C" {
-    #[cfg(feature = "api-21")]
     #[doc = " @brief Sets the top edge of a policy object for PixelRound attribute.\n\n @param policy Pointer to the policy object.\n @param value The CalcPolicy of top edge.\n @since 21"]
+    #[cfg(feature = "api-21")]
     pub fn OH_ArkUI_PixelRoundPolicy_SetTop(
         policy: *mut ArkUI_PixelRoundPolicy,
         value: ArkUI_PixelRoundCalcPolicy,
     );
 }
 extern "C" {
-    #[cfg(feature = "api-21")]
     #[doc = " @brief Gets the top edge of a policy object for PixelRound attribute.\n\n @param policy Pointer to the policy object.\n @param value The CalcPolicy of top edge.\n @return Returns the result code.\n      Returns {@link ARKUI_ERROR_CODE_NO_ERROR} if the operation is successful.\n      Returns {@link ARKUI_ERROR_CODE_PARAM_INVALID} if the parameter is invalid.\n @since 21"]
+    #[cfg(feature = "api-21")]
     pub fn OH_ArkUI_PixelRoundPolicy_GetTop(
         policy: *mut ArkUI_PixelRoundPolicy,
         value: *mut ArkUI_PixelRoundCalcPolicy,
     ) -> i32;
 }
 extern "C" {
-    #[cfg(feature = "api-21")]
     #[doc = " @brief Sets the start edge of a policy object for PixelRound attribute.\n\n @param policy Pointer to the policy object.\n @param value The CalcPolicy of start edge.\n @since 21"]
+    #[cfg(feature = "api-21")]
     pub fn OH_ArkUI_PixelRoundPolicy_SetStart(
         policy: *mut ArkUI_PixelRoundPolicy,
         value: ArkUI_PixelRoundCalcPolicy,
     );
 }
 extern "C" {
-    #[cfg(feature = "api-21")]
     #[doc = " @brief Gets the start edge of a policy object for PixelRound attribute.\n\n @param policy Pointer to the policy object.\n @param value The CalcPolicy of start edge.\n @return Returns the result code.\n      Returns {@link ARKUI_ERROR_CODE_NO_ERROR} if the operation is successful.\n      Returns {@link ARKUI_ERROR_CODE_PARAM_INVALID} if the parameter is invalid.\n @since 21"]
+    #[cfg(feature = "api-21")]
     pub fn OH_ArkUI_PixelRoundPolicy_GetStart(
         policy: *mut ArkUI_PixelRoundPolicy,
         value: *mut ArkUI_PixelRoundCalcPolicy,
     ) -> i32;
 }
 extern "C" {
-    #[cfg(feature = "api-21")]
     #[doc = " @brief Sets the bottom edge of a policy object for PixelRound attribute.\n\n @param policy Pointer to the policy object.\n @param value The CalcPolicy of bottom edge.\n @since 21"]
+    #[cfg(feature = "api-21")]
     pub fn OH_ArkUI_PixelRoundPolicy_SetBottom(
         policy: *mut ArkUI_PixelRoundPolicy,
         value: ArkUI_PixelRoundCalcPolicy,
     );
 }
 extern "C" {
-    #[cfg(feature = "api-21")]
     #[doc = " @brief Gets the bottom edge of a policy object for PixelRound attribute.\n\n @param policy Pointer to the policy object.\n @param value The CalcPolicy of bottom edge.\n @return Returns the result code.\n      Returns {@link ARKUI_ERROR_CODE_NO_ERROR} if the operation is successful.\n      Returns {@link ARKUI_ERROR_CODE_PARAM_INVALID} if the parameter is invalid.\n @since 21"]
+    #[cfg(feature = "api-21")]
     pub fn OH_ArkUI_PixelRoundPolicy_GetBottom(
         policy: *mut ArkUI_PixelRoundPolicy,
         value: *mut ArkUI_PixelRoundCalcPolicy,
     ) -> i32;
 }
 extern "C" {
-    #[cfg(feature = "api-21")]
     #[doc = " @brief Sets the end edge of a policy object for PixelRound attribute.\n\n @param policy Pointer to the policy object.\n @param value The CalcPolicy of end edge.\n @since 21"]
+    #[cfg(feature = "api-21")]
     pub fn OH_ArkUI_PixelRoundPolicy_SetEnd(
         policy: *mut ArkUI_PixelRoundPolicy,
         value: ArkUI_PixelRoundCalcPolicy,
     );
 }
 extern "C" {
-    #[cfg(feature = "api-21")]
     #[doc = " @brief Gets the end edge of a policy object for PixelRound attribute.\n\n @param policy Pointer to the policy object.\n @param value The CalcPolicy of end edge.\n @return Returns the result code.\n      Returns {@link ARKUI_ERROR_CODE_NO_ERROR} if the operation is successful.\n      Returns {@link ARKUI_ERROR_CODE_PARAM_INVALID} if the parameter is invalid.\n @since 21"]
+    #[cfg(feature = "api-21")]
     pub fn OH_ArkUI_PixelRoundPolicy_GetEnd(
         policy: *mut ArkUI_PixelRoundPolicy,
         value: *mut ArkUI_PixelRoundCalcPolicy,
     ) -> i32;
 }
 extern "C" {
-    #[cfg(feature = "api-22")]
     #[doc = " @brief Create an object of the text edit menu item.\n\n @return A pointer to the ArkUI_TextMenuItem.\n @since 22"]
+    #[cfg(feature = "api-22")]
     pub fn OH_ArkUI_TextMenuItem_Create() -> *mut ArkUI_TextMenuItem;
 }
 extern "C" {
-    #[cfg(feature = "api-22")]
     #[doc = " @brief Dispose an object of the text edit menu options.\n\n @param textMenuItem Pointer to the ArkUI_TextMenuItem object to be disposed.\n @since 22"]
+    #[cfg(feature = "api-22")]
     pub fn OH_ArkUI_TextMenuItem_Dispose(textMenuItem: *mut ArkUI_TextMenuItem);
 }
 extern "C" {
-    #[cfg(feature = "api-22")]
     #[doc = " @brief Set text menu item title.\n\n @param item The text menu item.\n @param content The name of the text menu item, which defaults to an empty string. The string will copy to framework.\n @return Returns the result code.\n         Returns {@link ARKUI_ERROR_CODE_NO_ERROR} if the operation is successful.\n         Returns {@link ARKUI_ERROR_CODE_PARAM_INVALID} if a parameter exception occurs.\n @since 22"]
+    #[cfg(feature = "api-22")]
     pub fn OH_ArkUI_TextMenuItem_SetContent(
         item: *mut ArkUI_TextMenuItem,
         content: *const ::std::os::raw::c_char,
     ) -> ArkUI_ErrorCode;
 }
 extern "C" {
-    #[cfg(feature = "api-22")]
     #[doc = " @brief Get text menu item title.\n\n @param item The text menu item object.\n @param buffer The buffer of the text menu content, memory space needs to be allocated by the developer.\n @param bufferSize The name of the text menu item, which defaults to an empty string;\n @param writeLength Indicates the string length actually written to the buffer\n                    when returning {@link ARKUI_ERROR_CODE_NO_ERROR}.\n                    Indicates the minimum buffer size that can accommodate the target\n                    when {@link ARKUI_ERROR_CODE_BUFFER_SIZE_ERROR} is returned.\n\n @return The error code.\n         {@link ARKUI_ERROR_CODE_NO_ERROR} if the operation is successful.\n         {@link ARKUI_ERROR_CODE_PARAM_INVALID} if the node, buffer or writeLength is null.\n         {@link ARKUI_ERROR_CODE_BUFFER_SIZE_ERROR} If the buffer size is less than the minimum buffer size.\n @since 22"]
+    #[cfg(feature = "api-22")]
     pub fn OH_ArkUI_TextMenuItem_GetContent(
         item: *const ArkUI_TextMenuItem,
         buffer: *mut ::std::os::raw::c_char,
@@ -2588,16 +2588,16 @@ extern "C" {
     ) -> ArkUI_ErrorCode;
 }
 extern "C" {
-    #[cfg(feature = "api-22")]
     #[doc = " @brief Set text menu item icon.\n\n @param item The text menu item.\n @param icon The text menu item icon resource, which defaults to an empty string. The string will copy to framework.\n @return Returns the result code.\n         Returns {@link ARKUI_ERROR_CODE_NO_ERROR} if the operation is successful.\n         Returns {@link ARKUI_ERROR_CODE_PARAM_INVALID} if a parameter exception occurs.\n @since 22"]
+    #[cfg(feature = "api-22")]
     pub fn OH_ArkUI_TextMenuItem_SetIcon(
         item: *mut ArkUI_TextMenuItem,
         icon: *const ::std::os::raw::c_char,
     ) -> ArkUI_ErrorCode;
 }
 extern "C" {
-    #[cfg(feature = "api-22")]
     #[doc = " @brief Get text menu item icon.\n\n @param item The text menu item object\n @param buffer The buffer of the text menu content, memory space needs to be allocated by the developer.\n @param bufferSize The icon of the text menu item, which defaults to an empty string;\n @param writeLength Indicates the string length actually written to the buffer\n                    when returning {@link ARKUI_ERROR_CODE_NO_ERROR}.\n                    Indicates the minimum buffer size that can accommodate the target\n                    when {@link ARKUI_ERROR_CODE_BUFFER_SIZE_ERROR} is returned.\n\n @return The error code.\n         {@link ARKUI_ERROR_CODE_NO_ERROR} if the operation is successful.\n         {@link ARKUI_ERROR_CODE_PARAM_INVALID} if the node, buffer or writeLength is null.\n         {@link ARKUI_ERROR_CODE_BUFFER_SIZE_ERROR} If the buffer size is less than the minimum buffer size.\n @since 22"]
+    #[cfg(feature = "api-22")]
     pub fn OH_ArkUI_TextMenuItem_GetIcon(
         item: *const ArkUI_TextMenuItem,
         buffer: *mut ::std::os::raw::c_char,
@@ -2606,16 +2606,16 @@ extern "C" {
     ) -> ArkUI_ErrorCode;
 }
 extern "C" {
-    #[cfg(feature = "api-22")]
     #[doc = " @brief Set text menu item label info for keyboard shortcut.\n\n @param item The text menu item.\n @param labelInfo The text menu item shortcut displays, which defaults to an empty string.\n      The string will copy to framework.\n @return Returns the result code.\n         Returns {@link ARKUI_ERROR_CODE_NO_ERROR} if the operation is successful.\n         Returns {@link ARKUI_ERROR_CODE_PARAM_INVALID} if a parameter exception occurs.\n @since 22"]
+    #[cfg(feature = "api-22")]
     pub fn OH_ArkUI_TextMenuItem_SetLabelInfo(
         item: *mut ArkUI_TextMenuItem,
         labelInfo: *const ::std::os::raw::c_char,
     ) -> ArkUI_ErrorCode;
 }
 extern "C" {
-    #[cfg(feature = "api-22")]
     #[doc = " @brief Get text menu item label info for keyboard shortcut..\n\n @param item The text menu item object\n @param buffer The buffer of the text menu content, memory space needs to be allocated by the developer.\n @param bufferSize The shortcuts of the text menu item, which defaults to an empty string;\n @param writeLength Indicates the string length actually written to the buffer\n                    when returning {@link ARKUI_ERROR_CODE_NO_ERROR}.\n                    Indicates the minimum buffer size that can accommodate the target\n                    when {@link ARKUI_ERROR_CODE_BUFFER_SIZE_ERROR} is returned.\n\n @return The error code.\n         {@link ARKUI_ERROR_CODE_NO_ERROR} if the operation is successful.\n         {@link ARKUI_ERROR_CODE_PARAM_INVALID} if the node, buffer or writeLength is null.\n         {@link ARKUI_ERROR_CODE_BUFFER_SIZE_ERROR} If the buffer size is less than the minimum buffer size.\n @since 22"]
+    #[cfg(feature = "api-22")]
     pub fn OH_ArkUI_TextMenuItem_GetLabelInfo(
         item: *const ArkUI_TextMenuItem,
         buffer: *mut ::std::os::raw::c_char,
@@ -2624,29 +2624,29 @@ extern "C" {
     ) -> ArkUI_ErrorCode;
 }
 extern "C" {
-    #[cfg(feature = "api-22")]
     #[doc = " @brief Set text menu item id.\n\n @param item The text menu item.\n @param id The text menu id.\n @return Returns the result code.\n         Returns {@link ARKUI_ERROR_CODE_NO_ERROR} if the operation is successful.\n         Returns {@link ARKUI_ERROR_CODE_PARAM_INVALID} if a parameter exception occurs.\n @since 22"]
+    #[cfg(feature = "api-22")]
     pub fn OH_ArkUI_TextMenuItem_SetId(item: *mut ArkUI_TextMenuItem, id: i32) -> ArkUI_ErrorCode;
 }
 extern "C" {
-    #[cfg(feature = "api-22")]
     #[doc = " @brief Get text menu item id.\n\n @param item The text menu item object\n @param id The text menu item id;\n @return Returns the result code.\n         Returns {@link ARKUI_ERROR_CODE_NO_ERROR} if the operation is successful.\n         Returns {@link ARKUI_ERROR_CODE_PARAM_INVALID} if a parameter exception occurs.\n @since 22"]
+    #[cfg(feature = "api-22")]
     pub fn OH_ArkUI_TextMenuItem_GetId(
         item: *const ArkUI_TextMenuItem,
         id: *mut i32,
     ) -> ArkUI_ErrorCode;
 }
 extern "C" {
-    #[cfg(feature = "api-22")]
     #[doc = " @brief Get the size of text menu items.\n\n @param items The text menu items.\n @param size The size of text menu items.\n @return Returns the result code.\n         Returns {@link ARKUI_ERROR_CODE_NO_ERROR} if the operation is successful.\n         Returns {@link ARKUI_ERROR_CODE_PARAM_INVALID} if a parameter exception occurs.\n @since 22"]
+    #[cfg(feature = "api-22")]
     pub fn OH_ArkUI_TextMenuItemArray_GetSize(
         items: *mut ArkUI_TextMenuItemArray,
         size: *mut i32,
     ) -> ArkUI_ErrorCode;
 }
 extern "C" {
-    #[cfg(feature = "api-22")]
     #[doc = " @brief Get text menu item at index.\n\n @param items The text menu items.\n @param index The index of text menu items.\n @param item The text menu item at index of array.\n @return Returns the result code.\n         Returns {@link ARKUI_ERROR_CODE_NO_ERROR} if the operation is successful.\n         Returns {@link ARKUI_ERROR_CODE_PARAM_INVALID} if a parameter exception occurs.\n @since 22"]
+    #[cfg(feature = "api-22")]
     pub fn OH_ArkUI_TextMenuItemArray_GetItem(
         items: *mut ArkUI_TextMenuItemArray,
         index: i32,
@@ -2654,8 +2654,8 @@ extern "C" {
     ) -> ArkUI_ErrorCode;
 }
 extern "C" {
-    #[cfg(feature = "api-22")]
     #[doc = " @brief Insert text menu item at index.\n\n @param items The text menu items.\n @param item The text menu item at index of array. The item will copy by framework.\n @param index The index of text menu items.\n @return Returns the result code.\n         Returns {@link ARKUI_ERROR_CODE_NO_ERROR} if the operation is successful.\n         Returns {@link ARKUI_ERROR_CODE_PARAM_INVALID} if a parameter exception occurs.\n @since 22"]
+    #[cfg(feature = "api-22")]
     pub fn OH_ArkUI_TextMenuItemArray_Insert(
         items: *mut ArkUI_TextMenuItemArray,
         item: *mut ArkUI_TextMenuItem,
@@ -2663,32 +2663,32 @@ extern "C" {
     ) -> ArkUI_ErrorCode;
 }
 extern "C" {
-    #[cfg(feature = "api-22")]
     #[doc = " @brief Erase text menu item at index.\n\n @param items The text menu items.\n @param index The index of text menu items.\n @return Returns the result code.\n         Returns {@link ARKUI_ERROR_CODE_NO_ERROR} if the operation is successful.\n         Returns {@link ARKUI_ERROR_CODE_PARAM_INVALID} if a parameter exception occurs.\n @since 22"]
+    #[cfg(feature = "api-22")]
     pub fn OH_ArkUI_TextMenuItemArray_Erase(
         items: *mut ArkUI_TextMenuItemArray,
         index: i32,
     ) -> ArkUI_ErrorCode;
 }
 extern "C" {
-    #[cfg(feature = "api-22")]
     #[doc = " @brief Clear all the items.\n\n @param items The text menu items.\n @return Returns the result code.\n         Returns {@link ARKUI_ERROR_CODE_NO_ERROR} if the operation is successful.\n         Returns {@link ARKUI_ERROR_CODE_PARAM_INVALID} if a parameter exception occurs.\n @since 22"]
+    #[cfg(feature = "api-22")]
     pub fn OH_ArkUI_TextMenuItemArray_Clear(items: *mut ArkUI_TextMenuItemArray)
         -> ArkUI_ErrorCode;
 }
 extern "C" {
-    #[cfg(feature = "api-22")]
     #[doc = " @brief Create an object of the text edit menu options.\n\n @return A pointer to the ArkUI_TextEditMenuOptions.\n @since 22"]
+    #[cfg(feature = "api-22")]
     pub fn OH_ArkUI_TextEditMenuOptions_Create() -> *mut ArkUI_TextEditMenuOptions;
 }
 extern "C" {
-    #[cfg(feature = "api-22")]
     #[doc = " @brief Dispose an object of the text edit menu options.\n\n @param editMenuOptions Pointer to the ArkUI_TextEditMenuOptions object to be disposed.\n @since 22"]
+    #[cfg(feature = "api-22")]
     pub fn OH_ArkUI_TextEditMenuOptions_Dispose(editMenuOptions: *mut ArkUI_TextEditMenuOptions);
 }
 extern "C" {
-    #[cfg(feature = "api-22")]
     #[doc = " @brief Set the event to be called when text menu create.\n\n @param editMenuOptions Pointer to the ArkUI_TextEditMenuOptions object.\n @param userData The user data.\n @param cb The create callback function.\n @return Returns the result code.\n         Returns {@link ARKUI_ERROR_CODE_NO_ERROR} if the operation is successful.\n         Returns {@link ARKUI_ERROR_CODE_PARAM_INVALID} if a parameter exception occurs.\n @since 22"]
+    #[cfg(feature = "api-22")]
     pub fn OH_ArkUI_TextEditMenuOptions_RegisterOnCreateMenuCallback(
         editMenuOptions: *mut ArkUI_TextEditMenuOptions,
         userData: *mut ::std::os::raw::c_void,
@@ -2696,8 +2696,8 @@ extern "C" {
     ) -> ArkUI_ErrorCode;
 }
 extern "C" {
-    #[cfg(feature = "api-22")]
     #[doc = " @brief Set the event to be called when menu prepare.\n\n @param editMenuOptions Pointer to the ArkUI_TextEditMenuOptions object.\n @param userData The user data.\n @param cb The prepare callback function.\n @return Returns the result code.\n         Returns {@link ARKUI_ERROR_CODE_NO_ERROR} if the operation is successful.\n         Returns {@link ARKUI_ERROR_CODE_PARAM_INVALID} if a parameter exception occurs.\n @since 22"]
+    #[cfg(feature = "api-22")]
     pub fn OH_ArkUI_TextEditMenuOptions_RegisterOnPrepareMenuCallback(
         editMenuOptions: *mut ArkUI_TextEditMenuOptions,
         userData: *mut ::std::os::raw::c_void,
@@ -2705,8 +2705,8 @@ extern "C" {
     ) -> ArkUI_ErrorCode;
 }
 extern "C" {
-    #[cfg(feature = "api-22")]
     #[doc = " @brief Set the event to be called when menu item click.\n\n @param editMenuOptions Pointer to the ArkUI_TextEditMenuOptions object.\n @param userData The user data.\n @param cb The menu item click callback function.\n @return Returns the result code.\n         Returns {@link ARKUI_ERROR_CODE_NO_ERROR} if the operation is successful.\n         Returns {@link ARKUI_ERROR_CODE_PARAM_INVALID} if a parameter exception occurs.\n @since 22"]
+    #[cfg(feature = "api-22")]
     pub fn OH_ArkUI_TextEditMenuOptions_RegisterOnMenuItemClickCallback(
         editMenuOptions: *mut ArkUI_TextEditMenuOptions,
         userData: *mut ::std::os::raw::c_void,
@@ -2714,68 +2714,68 @@ extern "C" {
     ) -> ArkUI_ErrorCode;
 }
 extern "C" {
-    #[cfg(feature = "api-22")]
     #[doc = " @brief Create an object of the text selection menu options.\n\n @return A pointer to the ArkUI_TextSelectionMenuOptions.\n @since 22"]
+    #[cfg(feature = "api-22")]
     pub fn OH_ArkUI_TextSelectionMenuOptions_Create() -> *mut ArkUI_TextSelectionMenuOptions;
 }
 extern "C" {
-    #[cfg(feature = "api-22")]
     #[doc = " @brief Dispose an object of the text selection menu options.\n\n @param selectionMenuOptions Pointer to the ArkUI_TextSelectionMenuOptions object to be disposed.\n @since 22"]
+    #[cfg(feature = "api-22")]
     pub fn OH_ArkUI_TextSelectionMenuOptions_Dispose(
         selectionMenuOptions: *mut ArkUI_TextSelectionMenuOptions,
     );
 }
 extern "C" {
-    #[cfg(feature = "api-22")]
     #[doc = " @brief Sets the recognition types of a configuration object for selected text recognition.\n\n @param selectionMenuOptions Pointer to the ArkUI_TextSelectionMenuOptions object.\n @param textSpanType The span type of {@link ArkUI_TextSpanType}.\n @return Returns the result code.\n         Returns {@link ARKUI_ERROR_CODE_NO_ERROR} if the operation is successful.\n         Returns {@link ARKUI_ERROR_CODE_PARAM_INVALID} if a parameter exception occurs.\n @since 22"]
+    #[cfg(feature = "api-22")]
     pub fn OH_ArkUI_TextSelectionMenuOptions_SetSpanType(
         selectionMenuOptions: *mut ArkUI_TextSelectionMenuOptions,
         textSpanType: ArkUI_TextSpanType,
     ) -> ArkUI_ErrorCode;
 }
 extern "C" {
-    #[cfg(feature = "api-22")]
     #[doc = " @brief Gets the span type select menu options.\n\n @param selectionMenuOptions Pointer to the ArkUI_TextSelectionMenuOptions object.\n @param spanType the text span type {@link ArkUI_TextSpanType}.\n @return Returns the result code.\n         Returns {@link ARKUI_ERROR_CODE_NO_ERROR} if the operation is successful.\n         Returns {@link ARKUI_ERROR_CODE_PARAM_INVALID} if a parameter exception occurs.\n @since 22"]
+    #[cfg(feature = "api-22")]
     pub fn OH_ArkUI_TextSelectionMenuOptions_GetSpanType(
         selectionMenuOptions: *mut ArkUI_TextSelectionMenuOptions,
         spanType: *mut ArkUI_TextSpanType,
     ) -> ArkUI_ErrorCode;
 }
 extern "C" {
-    #[cfg(feature = "api-22")]
     #[doc = " @brief Set custom text menu node of text.\n\n @param selectionMenuOptions Pointer to the ArkUI_TextSelectionMenuOptions object.\n @param node The custom menu node.\n @return Returns the result code.\n         Returns {@link ARKUI_ERROR_CODE_NO_ERROR} if the operation is successful.\n         Returns {@link ARKUI_ERROR_CODE_PARAM_INVALID} if a parameter exception occurs.\n @since 22"]
+    #[cfg(feature = "api-22")]
     pub fn OH_ArkUI_TextSelectionMenuOptions_SetContentNode(
         selectionMenuOptions: *mut ArkUI_TextSelectionMenuOptions,
         node: ArkUI_NodeHandle,
     ) -> ArkUI_ErrorCode;
 }
 extern "C" {
-    #[cfg(feature = "api-22")]
     #[doc = " @brief Get custom text menu node of text.\n\n @param selectionMenuOptions Pointer to the ArkUI_TextSelectionMenuOptions object.\n @param node The custom menu node.\n @return Returns the result code.\n         Returns {@link ARKUI_ERROR_CODE_NO_ERROR} if the operation is successful.\n         Returns {@link ARKUI_ERROR_CODE_PARAM_INVALID} if a parameter exception occurs.\n @since 22"]
+    #[cfg(feature = "api-22")]
     pub fn OH_ArkUI_TextSelectionMenuOptions_GetContentNode(
         selectionMenuOptions: *mut ArkUI_TextSelectionMenuOptions,
         node: *mut ArkUI_NodeHandle,
     ) -> ArkUI_ErrorCode;
 }
 extern "C" {
-    #[cfg(feature = "api-22")]
     #[doc = " @brief Sets the recognition types of a configuration object for selected text recognition.\n\n @param selectionMenuOptions Pointer to the ArkUI_TextSelectionMenuOptions object.\n @param responseType The response type of {@link ArkUI_TextResponseType}.\n @return Returns the result code.\n         Returns {@link ARKUI_ERROR_CODE_NO_ERROR} if the operation is successful.\n         Returns {@link ARKUI_ERROR_CODE_PARAM_INVALID} if a parameter exception occurs.\n @since 22"]
+    #[cfg(feature = "api-22")]
     pub fn OH_ArkUI_TextSelectionMenuOptions_SetResponseType(
         selectionMenuOptions: *mut ArkUI_TextSelectionMenuOptions,
         responseType: ArkUI_TextResponseType,
     ) -> ArkUI_ErrorCode;
 }
 extern "C" {
-    #[cfg(feature = "api-22")]
     #[doc = " @brief Gets the response type select menu options.\n\n @param selectionMenuOptions Pointer to the ArkUI_TextSelectionMenuOptions object.\n @param responseType The text response type {@link ArkUI_TextResponseType}.\n @return Returns the result code.\n         Returns {@link ARKUI_ERROR_CODE_NO_ERROR} if the operation is successful.\n         Returns {@link ARKUI_ERROR_CODE_PARAM_INVALID} if a parameter exception occurs.\n @since 22"]
+    #[cfg(feature = "api-22")]
     pub fn OH_ArkUI_TextSelectionMenuOptions_GetResponseType(
         selectionMenuOptions: *mut ArkUI_TextSelectionMenuOptions,
         responseType: *mut ArkUI_TextResponseType,
     ) -> ArkUI_ErrorCode;
 }
 extern "C" {
-    #[cfg(feature = "api-22")]
     #[doc = " @brief Set the event to be called when selection menu show.\n\n @param selectionMenuOptions Pointer to the ArkUI_TextSelectionMenuOptions object.\n @param userData The user data.\n @param callback The callback function of menu show.\n     start The start offset of the selected content.\n     end The end offset of the selected content.\n     userData The user data.\n @return Returns the result code.\n         Returns {@link ARKUI_ERROR_CODE_NO_ERROR} if the operation is successful.\n         Returns {@link ARKUI_ERROR_CODE_PARAM_INVALID} if a parameter exception occurs.\n @since 22"]
+    #[cfg(feature = "api-22")]
     pub fn OH_ArkUI_TextSelectionMenuOptions_RegisterOnMenuShowCallback(
         selectionMenuOptions: *mut ArkUI_TextSelectionMenuOptions,
         userData: *mut ::std::os::raw::c_void,
@@ -2785,8 +2785,8 @@ extern "C" {
     ) -> ArkUI_ErrorCode;
 }
 extern "C" {
-    #[cfg(feature = "api-22")]
     #[doc = " @brief Set the event to be called when selection menu hide.\n\n @param selectionMenuOptions Pointer to the ArkUI_TextSelectionMenuOptions object.\n @param userData The user data.\n @param callback The callback function of menu hide.\n     start The start offset of the selected content.\n     end The end offset of the selected content.\n     userData The user data.\n @return Returns the result code.\n         Returns {@link ARKUI_ERROR_CODE_NO_ERROR} if the operation is successful.\n         Returns {@link ARKUI_ERROR_CODE_PARAM_INVALID} if a parameter exception occurs.\n @since 22"]
+    #[cfg(feature = "api-22")]
     pub fn OH_ArkUI_TextSelectionMenuOptions_RegisterOnMenuHideCallback(
         selectionMenuOptions: *mut ArkUI_TextSelectionMenuOptions,
         userData: *mut ::std::os::raw::c_void,
@@ -2796,41 +2796,41 @@ extern "C" {
     ) -> ArkUI_ErrorCode;
 }
 extern "C" {
-    #[cfg(feature = "api-22")]
     #[doc = " @brief Creates a configuration object for textField's counter.\n\n @return A pointer to the configuration object.\n @since 22"]
+    #[cfg(feature = "api-22")]
     pub fn OH_ArkUI_ShowCounterConfig_Create() -> *mut ArkUI_ShowCounterConfig;
 }
 extern "C" {
-    #[cfg(feature = "api-22")]
     #[doc = " @brief Disposes a configuration object for textField's counter.\n\n @param config Pointer to the configuration object to be disposed.\n @since 22"]
+    #[cfg(feature = "api-22")]
     pub fn OH_ArkUI_ShowCounterConfig_Dispose(config: *mut ArkUI_ShowCounterConfig);
 }
 extern "C" {
-    #[cfg(feature = "api-22")]
     #[doc = " @brief Sets the color of counter when textField hasn't wanted to exceed the maximum character count.\n\n @param config Pointer to the configuration object to be modified.\n @param color The color of the counter when textField hasn't wanted to exceed the maximum character count, in 0xARGB format.\n @since 22"]
+    #[cfg(feature = "api-22")]
     pub fn OH_ArkUI_ShowCounterConfig_SetCounterTextColor(
         config: *mut ArkUI_ShowCounterConfig,
         color: u32,
     );
 }
 extern "C" {
-    #[cfg(feature = "api-22")]
     #[doc = " @brief Sets the color of counter when textField wants to exceed the maximum character count.\n\n @param config Pointer to the configuration object to be modified.\n @param color The color of the counter when textField wants to exceed the maximum character count, in 0xARGB format.\n @since 22"]
+    #[cfg(feature = "api-22")]
     pub fn OH_ArkUI_ShowCounterConfig_SetCounterTextOverflowColor(
         config: *mut ArkUI_ShowCounterConfig,
         color: u32,
     );
 }
 extern "C" {
-    #[cfg(feature = "api-22")]
     #[doc = " @brief Gets the color of counter when textField hasn't wanted to exceed the maximum character count.\n\n @param config Pointer to the configuration object.\n @return Returns the color of the counter when textField hasn't wanted to exceed the maximum character count, in 0xARGB format.\n @since 22"]
+    #[cfg(feature = "api-22")]
     pub fn OH_ArkUI_ShowCounterConfig_GetCounterTextColor(
         config: *mut ArkUI_ShowCounterConfig,
     ) -> u32;
 }
 extern "C" {
-    #[cfg(feature = "api-22")]
     #[doc = " @brief Gets the color of counter when textField wants to exceed the maximum character count.\n\n @param config Pointer to the configuration object.\n @return Returns the color of the counter when textField wants to exceed the maximum character count, in 0xARGB format.\n @since 22"]
+    #[cfg(feature = "api-22")]
     pub fn OH_ArkUI_ShowCounterConfig_GetCounterTextOverflowColor(
         config: *mut ArkUI_ShowCounterConfig,
     ) -> u32;
@@ -2843,11 +2843,11 @@ pub const HitTestMode_HTM_BLOCK: HitTestMode = 1;
 pub const HitTestMode_HTM_TRANSPARENT: HitTestMode = 2;
 #[doc = " The node does not respond to the hit test of a touch event, but its child node and sibling node are considered\n  during the hit test."]
 pub const HitTestMode_HTM_NONE: HitTestMode = 3;
-#[cfg(feature = "api-20")]
 #[doc = " The node and its child nodes participate in hit tests, while blocking hit tests for all sibling nodes and parent\n nodes with lower priority.\n\n @since 20"]
-pub const HitTestMode_HTM_BLOCK_HIERARCHY: HitTestMode = 4;
 #[cfg(feature = "api-20")]
+pub const HitTestMode_HTM_BLOCK_HIERARCHY: HitTestMode = 4;
 #[doc = " The node does not respond to hit tests, and none of its descendants (including children and grandchildren)\n participate in hit tests either.\n\n @since 20"]
+#[cfg(feature = "api-20")]
 pub const HitTestMode_HTM_BLOCK_DESCENDANTS: HitTestMode = 5;
 #[doc = " @brief Enumerates the hit test modes.\n\n @since 12"]
 pub type HitTestMode = u32;
@@ -2883,8 +2883,8 @@ extern "C" {
     ) -> i32;
 }
 extern "C" {
-    #[cfg(feature = "api-15")]
     #[doc = " @brief Obtains the ID of the touch pointer that triggers the current touch event.\n\n @param event Indicates the pointer to the current UI input event.\n @param pointerIndex Indicates the index of the target touch point in the multi-touch data list.\n @return Returns the result code.\n         Returns {@link ARKUI_ERROR_CODE_NO_ERROR} if the operation is successful.\n         Returns {@link ARKUI_ERROR_CODE_PARAM_INVALID} if a parameter error occurs.\n @since 15"]
+    #[cfg(feature = "api-15")]
     pub fn OH_ArkUI_PointerEvent_GetChangedPointerId(
         event: *const ArkUI_UIInputEvent,
         pointerIndex: *mut u32,
@@ -2957,26 +2957,26 @@ extern "C" {
     ) -> f32;
 }
 extern "C" {
-    #[cfg(feature = "api-20")]
     #[doc = " @brief Obtains the X coordinate relative to global display from a pointer event (such as a touch, mouse,\n or axis event).\n Position information can only be obtained from UI input events.\n\n @param event Pointer to the current UI input event.\n @return float X coordinate relative to the global display. <b>0</b> is returned if any parameter error occurs\n (for example, if the event does not contain position information).\n @since 20"]
+    #[cfg(feature = "api-20")]
     pub fn OH_ArkUI_PointerEvent_GetGlobalDisplayX(event: *const ArkUI_UIInputEvent) -> f32;
 }
 extern "C" {
-    #[cfg(feature = "api-20")]
     #[doc = " @brief Obtains the X coordinate of a specific contact point relative to global display from a pointer event\n (such as a touch, mouse, or axis event).\n Position information can only be obtained from UI input events. For mouse and axis events, if the provided\n <b>pointerIndex</b> is greater than 0, this API always returns the default value <b>0.0f</b>.\n\n @param event Pointer to the current UI input event.\n @param pointerIndex Index of the target touch point in the multi-touch data list.\nValue range: [0, @link OH_ArkUI_PointerEvent_GetPointerCount() - 1]\n @return float X coordinate relative to the global display; <b>0.0f</b> if any parameter error occurs.\n @since 20"]
+    #[cfg(feature = "api-20")]
     pub fn OH_ArkUI_PointerEvent_GetGlobalDisplayXByIndex(
         event: *const ArkUI_UIInputEvent,
         pointerIndex: u32,
     ) -> f32;
 }
 extern "C" {
-    #[cfg(feature = "api-20")]
     #[doc = " @brief Obtains the Y coordinate relative to global display from a pointer event (such as a touch, mouse,\n or axis event).\n Position information can only be obtained from pointer-like events.\n\n @param event Pointer to the current UI input event.\n @return float Y coordinate relative to the global display; <b>0</b> if any parameter error occurs\n (for example, if the event does not contain position information).\n @since 20"]
+    #[cfg(feature = "api-20")]
     pub fn OH_ArkUI_PointerEvent_GetGlobalDisplayY(event: *const ArkUI_UIInputEvent) -> f32;
 }
 extern "C" {
-    #[cfg(feature = "api-20")]
     #[doc = " @brief Obtains the Y coordinate of a specific contact point relative to global display from a pointer event\n (such as a touch, mouse, or axis event).\n Position information can only be obtained from UI input events. For mouse and axis events, if the provided\n <b>pointerIndex</b> is greater than 0, this API always returns the default value <b>0.0f</b>.\n\n @param event Pointer to the current UI input event.\n @param pointerIndex Index of the target touch point in the multi-touch data list.\nValue range: [0, @link OH_ArkUI_PointerEvent_GetPointerCount() - 1]\n @return float Y coordinate relative to the global display; <b>0.0f</b> if any parameter error occurs.\n @since 20"]
+    #[cfg(feature = "api-20")]
     pub fn OH_ArkUI_PointerEvent_GetGlobalDisplayYByIndex(
         event: *const ArkUI_UIInputEvent,
         pointerIndex: u32,
@@ -3004,8 +3004,8 @@ extern "C" {
     ) -> f32;
 }
 extern "C" {
-    #[cfg(feature = "api-17")]
     #[doc = " @brief Obtains the rotation angle of the stylus around the z-axis from a UI input event.\n\n @param event Pointer to the UI input event.\n @param rollAngle Rotation angle of the stylus around the z-axis.\n @return Returns the result code.\n         Returns {@link ARKUI_ERROR_CODE_NO_ERROR} if the operation is successful.\n         Returns {@link ARKUI_ERROR_CODE_PARAM_INVALID} if a parameter error occurs.\n @since 17"]
+    #[cfg(feature = "api-17")]
     pub fn OH_ArkUI_PointerEvent_GetRollAngle(
         event: *const ArkUI_UIInputEvent,
         rollAngle: *mut f64,
@@ -3026,16 +3026,16 @@ extern "C" {
     ) -> f32;
 }
 extern "C" {
-    #[cfg(feature = "api-15")]
     #[doc = " @brief Checks whether an event is triggered by the user's left or right hand.\n This API is only effective on some touch devices.\n\n @note This value cannot be obtained in real time when pressed. Before the\n system completes result inference, it will return <b>NONE</b> by default. Therefore,\n please do not over-rely on the results returned by this interface.\n\n @param event Pointer to the current UI input event.\n @param hand Whether the touch point is from the left or right hand.\n @return Result code.\n         {@link ARKUI_ERROR_CODE_NO_ERROR} if the operation is successful.\n         {@link ARKUI_ERROR_CODE_PARAM_INVALID} if a parameter error occurs.\n @since 15"]
+    #[cfg(feature = "api-15")]
     pub fn OH_ArkUI_PointerEvent_GetInteractionHand(
         event: *const ArkUI_UIInputEvent,
         hand: *mut ArkUI_InteractionHand,
     ) -> i32;
 }
 extern "C" {
-    #[cfg(feature = "api-15")]
     #[doc = " @brief Checks whether an event is triggered by the user's left or right hand.\n This API is only effective on some touch devices.\n\n @note This value cannot be obtained in real time when pressed. Before the\n system completes result inference, it will return <b>NONE</b> by default. Therefore,\n please do not over-rely on the results returned by this interface.\n\n @param event Pointer to the current UI input event.\n @param pointerIndex Index of the target touch point in the multi-touch data list.\n @param hand Whether the touch point is from the left or right hand.\n @return Result code.\n         {@link ARKUI_ERROR_CODE_NO_ERROR} if the operation is successful.\n         {@link ARKUI_ERROR_CODE_PARAM_INVALID} if a parameter error occurs.\n @since 15"]
+    #[cfg(feature = "api-15")]
     pub fn OH_ArkUI_PointerEvent_GetInteractionHandByIndex(
         event: *const ArkUI_UIInputEvent,
         pointerIndex: i32,
@@ -3117,8 +3117,8 @@ extern "C" {
     ) -> f32;
 }
 extern "C" {
-    #[cfg(feature = "api-20")]
     #[doc = " @brief Obtains the X coordinate relative to the global display for a specific touch point from historical events,\n based on the given pointer index and history index of an input event (such as a touch, mouse, or axis event).\n Position information can only be obtained from UI input events. For mouse and axis events, if the provided\n <b>pointerIndex</b> is greater than 0, this API always returns the default value <b>0.0f</b>.\n\n @param event Pointer to the current UI input event.\n @param pointerIndex Index of the target touch point in the multi-touch data list.\nValue range: [0, @link OH_ArkUI_PointerEvent_GetPointerCount() - 1]\n @param historyIndex Index of the historical value to return. It must be less than\n {@link #OH_ArkUI_PointerEvent_GetHistorySize}.\n @return float X coordinate relative to the global display; <b>0.0f</b> if any parameter error occurs.\n @since 20"]
+    #[cfg(feature = "api-20")]
     pub fn OH_ArkUI_PointerEvent_GetHistoryGlobalDisplayX(
         event: *const ArkUI_UIInputEvent,
         pointerIndex: u32,
@@ -3126,8 +3126,8 @@ extern "C" {
     ) -> f32;
 }
 extern "C" {
-    #[cfg(feature = "api-20")]
     #[doc = " @brief Obtains the Y coordinate relative to the global display for a specific touch point from historical events,\n based on the given pointer index and history index of an input event (such as a touch, mouse, or axis event).\n Position information can only be obtained from UI input events. For mouse and axis events, if the provided\n <b>pointerIndex</b> is greater than 0, this API always returns the default value <b>0.0f</b>.\n\n @param event Pointer to the current UI input event.\n @param pointerIndex Index of the target touch point in the multi-touch data list.\nValue range: [0, @link OH_ArkUI_PointerEvent_GetPointerCount() - 1]\n @param historyIndex Index of the historical value to return. It must be less than\n {@link #OH_ArkUI_PointerEvent_GetHistorySize}.\n @return float Y coordinate relative to the global display; <b>0.0f</b> if any parameter error occurs.\n @since 20"]
+    #[cfg(feature = "api-20")]
     pub fn OH_ArkUI_PointerEvent_GetHistoryGlobalDisplayY(
         event: *const ArkUI_UIInputEvent,
         pointerIndex: u32,
@@ -3187,13 +3187,13 @@ extern "C" {
     pub fn OH_ArkUI_AxisEvent_GetPinchAxisScaleValue(event: *const ArkUI_UIInputEvent) -> f64;
 }
 extern "C" {
-    #[cfg(feature = "api-15")]
     #[doc = " @brief Obtains the action type of the current axis event.\n\n @param event Indicates the pointer to the current UI input event.\n @return Returns the action type of the current axis event.\n @since 15"]
+    #[cfg(feature = "api-15")]
     pub fn OH_ArkUI_AxisEvent_GetAxisAction(event: *const ArkUI_UIInputEvent) -> i32;
 }
 extern "C" {
-    #[cfg(feature = "api-22")]
     #[doc = " @brief Checks whether this axis event contains the specified axis type.\n\n @param event Indicates the pointer to the current UI input event.\n @param axis Axis type of the axis event.\n @return Whether the current axis event contains the specified axis type.\n Returns <b>true</b> if the axis event contains the specified axis type, and <b>false</b> otherwise.\n @since 22"]
+    #[cfg(feature = "api-22")]
     pub fn OH_ArkUI_AxisEvent_HasAxis(event: *const ArkUI_UIInputEvent, axis: i32) -> i32;
 }
 extern "C" {
@@ -3219,13 +3219,13 @@ extern "C" {
     ) -> i32;
 }
 extern "C" {
-    #[cfg(feature = "api-14")]
     #[doc = " @brief Obtains the ID of device that triggers UI input event.\n\n @param event Pointer to an <b>ArkUI_UIInputEvent</b> object.\n @return Returns the device ID.\n @since 14"]
+    #[cfg(feature = "api-14")]
     pub fn OH_ArkUI_UIInputEvent_GetDeviceId(event: *const ArkUI_UIInputEvent) -> i32;
 }
 extern "C" {
-    #[cfg(feature = "api-14")]
     #[doc = " @brief Obtains all keys that are pressed from UI input event. Only supports key events currently.\n\n @param event Pointer to an <b>ArkUI_UIInputEvent</b> object.\n @param pressedKeyCodes Array of all keys that are pressed. You need to allocate the memory space.\n @param length Length of the passed pressedKeyCodes array (when used as an input parameter);\n               number of the keys pressed (when used as an output parameter).\n @return Returns the result code.\n         Returns {@link ARKUI_ERROR_CODE_NO_ERROR} if the operation is successful.\n         Returns {@link ARKUI_ERROR_CODE_BUFFER_SIZE_NOT_ENOUGH} if the giving buffer is not enough.\n         Returns {@link ARKUI_ERROR_CODE_PARAM_INVALID} if a parameter error occurs.\n @since 14"]
+    #[cfg(feature = "api-14")]
     pub fn OH_ArkUI_UIInputEvent_GetPressedKeys(
         event: *const ArkUI_UIInputEvent,
         pressedKeyCodes: *mut i32,
@@ -3233,87 +3233,87 @@ extern "C" {
     ) -> i32;
 }
 extern "C" {
-    #[cfg(feature = "api-15")]
     #[doc = " @brief Obtains the axis value of a focus axis event.\n\n @param event Pointer to an <b>ArkUI_UIInputEvent</b> object.\n @param axis Axis type of the focus axis event.\n @return Returns the axis value of the focus axis event; returns <b>0.0</b> if any parameter error occurs.\n @since 15"]
+    #[cfg(feature = "api-15")]
     pub fn OH_ArkUI_FocusAxisEvent_GetAxisValue(event: *const ArkUI_UIInputEvent, axis: i32)
         -> f64;
 }
 extern "C" {
-    #[cfg(feature = "api-15")]
     #[doc = " @brief Sets whether to prevent a focus axis event from bubbling up.\n\n @param event Indicates the pointer to the current UI input event.\n @param stopPropagation Indicates whether to stop event propagation.\n @return Returns the result code.\n         Returns {@link ARKUI_ERROR_CODE_NO_ERROR} if the operation is successful.\n         Returns {@link ARKUI_ERROR_CODE_PARAM_INVALID} if a parameter error occurs.\n @since 15"]
+    #[cfg(feature = "api-15")]
     pub fn OH_ArkUI_FocusAxisEvent_SetStopPropagation(
         event: *const ArkUI_UIInputEvent,
         stopPropagation: bool,
     ) -> i32;
 }
 extern "C" {
-    #[cfg(feature = "api-17")]
     #[doc = " @brief Obtains the width of the component hit by an event.\n\n @param event Pointer to an <b>ArkUI_UIInputEvent</b> object.\n @return Returns the width of the component hit by the event; returns <b>0.0f</b> if any parameter error occurs.\n @since 17"]
+    #[cfg(feature = "api-17")]
     pub fn OH_ArkUI_UIInputEvent_GetEventTargetWidth(event: *const ArkUI_UIInputEvent) -> f32;
 }
 extern "C" {
-    #[cfg(feature = "api-17")]
     #[doc = " @brief Obtains the height of the component hit by an event.\n\n @param event Pointer to an <b>ArkUI_UIInputEvent</b> object.\n @return Returns the height of the component hit by the event; returns <b>0.0f</b> if any parameter error occurs.\n @since 17"]
+    #[cfg(feature = "api-17")]
     pub fn OH_ArkUI_UIInputEvent_GetEventTargetHeight(event: *const ArkUI_UIInputEvent) -> f32;
 }
 extern "C" {
-    #[cfg(feature = "api-17")]
     #[doc = " @brief Obtains the X coordinate of the component hit by an event.\n\n @param event Pointer to an <b>ArkUI_UIInputEvent</b> object.\n @return Returns the X coordinate of the component hit by the event; returns <b>0.0f</b> if any parameter error occurs.\n @since 17"]
+    #[cfg(feature = "api-17")]
     pub fn OH_ArkUI_UIInputEvent_GetEventTargetPositionX(event: *const ArkUI_UIInputEvent) -> f32;
 }
 extern "C" {
-    #[cfg(feature = "api-17")]
     #[doc = " @brief Obtains the Y coordinate of the component hit by an event.\n\n @param event Pointer to an <b>ArkUI_UIInputEvent</b> object.\n @return Returns the Y coordinate of the component hit by the event;\n         returns <b>0.0f</b> if any parameter error occurs.\n @since 17"]
+    #[cfg(feature = "api-17")]
     pub fn OH_ArkUI_UIInputEvent_GetEventTargetPositionY(event: *const ArkUI_UIInputEvent) -> f32;
 }
 extern "C" {
-    #[cfg(feature = "api-17")]
     #[doc = " @brief Obtains the global X coordinate of the component hit by an event.\n\n @param event Pointer to an <b>ArkUI_UIInputEvent</b> object.\n @return Returns the global X coordinate of the component hit by the event;\n         returns <b>0.0f</b> if any parameter error occurs.\n @since 17"]
+    #[cfg(feature = "api-17")]
     pub fn OH_ArkUI_UIInputEvent_GetEventTargetGlobalPositionX(
         event: *const ArkUI_UIInputEvent,
     ) -> f32;
 }
 extern "C" {
-    #[cfg(feature = "api-17")]
     #[doc = " @brief Obtains the global Y coordinate of the component hit by an event.\n\n @param event Pointer to an <b>ArkUI_UIInputEvent</b> object.\n @return Returns the global Y coordinate of the component hit by the event;\n         returns <b>0.0f</b> if any parameter error occurs.\n @since 17"]
+    #[cfg(feature = "api-17")]
     pub fn OH_ArkUI_UIInputEvent_GetEventTargetGlobalPositionY(
         event: *const ArkUI_UIInputEvent,
     ) -> f32;
 }
 extern "C" {
-    #[cfg(feature = "api-17")]
     #[doc = " @brief Checks whether the cursor is hovering over this component.\n\n @param event Pointer to an <b>ArkUI_UIInputEvent</b> object.\n @return Returns <b>true</b> if the cursor is hovering over the current component.\n         Returns <b>false</b> if the cursor is not hovering over the current component.\n @since 17"]
+    #[cfg(feature = "api-17")]
     pub fn OH_ArkUI_HoverEvent_IsHovered(event: *const ArkUI_UIInputEvent) -> bool;
 }
 extern "C" {
-    #[cfg(feature = "api-17")]
     #[doc = " @brief Obtains the modifier key states for a UI input event.\n This API outputs the state of all modifier keys at the time of the event through the <b>keys</b> parameter.\n You can determine which keys are pressed by performing bitwise operations with the modifier key types defined\n in {@link ArkUI_ModifierKeyName}.\n\n @param event Pointer to an <b>ArkUI_UIInputEvent</b> object.\n @param keys Pointer to a variable where the current combination of pressed modifier keys will be returned.\n        The application can use bitwise operations to determine the state of each modifier key.\n @return Result code.\n         {@link ARKUI_ERROR_CODE_NO_ERROR} if the operation is successful.\n         {@link ARKUI_ERROR_CODE_PARAM_INVALID} if a parameter error occurs.\n @since 17"]
+    #[cfg(feature = "api-17")]
     pub fn OH_ArkUI_UIInputEvent_GetModifierKeyStates(
         event: *const ArkUI_UIInputEvent,
         keys: *mut u64,
     ) -> i32;
 }
 extern "C" {
-    #[cfg(feature = "api-15")]
     #[doc = " @brief Obtains the press time of a specified touch point. This API is effective only for touch events.\n\n @param event Pointer to an <b>ArkUI_UIInputEvent</b> object.\n @param pointerIndex Index of the target touch point in the multi-touch data list.\n @return Returns the press time of the specific touch point; returns <b>0</b> if any parameter error occurs.\n @since 15"]
+    #[cfg(feature = "api-15")]
     pub fn OH_ArkUI_PointerEvent_GetPressedTimeByIndex(
         event: *const ArkUI_UIInputEvent,
         pointerIndex: u32,
     ) -> i64;
 }
 extern "C" {
-    #[cfg(feature = "api-15")]
     #[doc = " @brief Obtains the movement increment of the mouse device along the X-axis in a two-dimensional plane.\n Its value represents the raw movement data from the mouse device, expressed in units of physical\n distance in the real world. The reported value is determined by the hardware itself and does not\n correspond to the physical or logical pixels on the screen.\n\n @param event Pointer to an <b>ArkUI_UIInputEvent</b> object.\n @return Returns the x-axis offset of the mouse position relative to the position in the previously reported\n mouse event; returns <b>0.0f</b> if any parameter error occurs.\n @since 15"]
+    #[cfg(feature = "api-15")]
     pub fn OH_ArkUI_MouseEvent_GetRawDeltaX(event: *const ArkUI_UIInputEvent) -> f32;
 }
 extern "C" {
-    #[cfg(feature = "api-15")]
     #[doc = " @brief Obtains the movement increment of the mouse device along the Y-axis in a two-dimensional plane.\n Its value represents the raw movement data from the mouse device, expressed in units of physical\n distance in the real world. The reported value is determined by the hardware itself and does not\n correspond to the physical or logical pixels on the screen.\n\n @param event Pointer to an <b>ArkUI_UIInputEvent</b> object.\n @return Returns the y-axis offset of the mouse position relative to the position in the previously reported\n mouse event; returns <b>0.0f</b> if any parameter error occurs.\n @since 15"]
+    #[cfg(feature = "api-15")]
     pub fn OH_ArkUI_MouseEvent_GetRawDeltaY(event: *const ArkUI_UIInputEvent) -> f32;
 }
 extern "C" {
-    #[cfg(feature = "api-15")]
     #[doc = " @brief Obtains the pressed buttons from a mouse event.\n\n @param event Pointer to an <b>ArkUI_UIInputEvent</b> object.\n @param pressedButtons Array of the pressed buttons. An int array must be created beforehand to store the pressed\n                       buttons.\n @param length Length of the passed pressedButtons array (when used as an input parameter);\n               number of the buttons pressed (when used as an output parameter).\n @return Returns the result code.\n          Returns {@link ARKUI_ERROR_CODE_NO_ERROR} if the operation is successful.\n          Returns {@link ARKUI_ERROR_CODE_BUFFER_SIZE_ERROR} if the given buffer size is insufficient.\n @since 15"]
+    #[cfg(feature = "api-15")]
     pub fn OH_ArkUI_MouseEvent_GetPressedButtons(
         event: *const ArkUI_UIInputEvent,
         pressedButtons: *mut i32,
@@ -3321,39 +3321,39 @@ extern "C" {
     ) -> i32;
 }
 extern "C" {
-    #[cfg(feature = "api-15")]
     #[doc = " @brief Obtains the ID of the screen where the UI input event occurs.\n\n @param event Pointer to an <b>ArkUI_UIInputEvent</b> object.\n @return Returns the screen ID; returns <b>0</b> if any parameter error occurs.\n @since 15"]
+    #[cfg(feature = "api-15")]
     pub fn OH_ArkUI_UIInputEvent_GetTargetDisplayId(event: *const ArkUI_UIInputEvent) -> i32;
 }
 extern "C" {
-    #[cfg(feature = "api-17")]
     #[doc = " @brief Sets whether to enable axis event propagation (bubbling). By default, axis events do not bubble and are\n only sent to the first component that can respond to axis events. You can enable axis event bubbling\n to allow the current event to be passed to the next ancestor component in the response chain\n that can handle axis events.\n This API cannot be used on axis events obtained from gesture events.\n\n @param event Pointer to the UI input event.\n @param propagation Whether to enable event propagation.\n @return Result code.\n         {@link ARKUI_ERROR_CODE_NO_ERROR} if the operation is successful.\n         {@link ARKUI_ERROR_CODE_PARAM_INVALID} if a parameter error occurs.\n @since 17"]
+    #[cfg(feature = "api-17")]
     pub fn OH_ArkUI_AxisEvent_SetPropagation(
         event: *const ArkUI_UIInputEvent,
         propagation: bool,
     ) -> i32;
 }
 extern "C" {
-    #[cfg(feature = "api-17")]
     #[doc = " @brief Obtains the scroll step coefficient for a wheel-based axis event.\n This API returns the user-configured scroll scale factor factor.\n\n @param event Pointer to the UI input event.\n @return Scroll step configuration of the mouse wheel axis event.\n @since 17"]
+    #[cfg(feature = "api-17")]
     pub fn OH_ArkUI_AxisEvent_GetScrollStep(event: *const ArkUI_UIInputEvent) -> i32;
 }
 extern "C" {
-    #[cfg(feature = "api-15")]
     #[doc = " @brief Creates a cloned event pointer based on an event pointer. This API is effective only for touch events.\n\n @param event Pointer to an <b>ArkUI_UIInputEvent</b> object.\n @param clonedEvent Pointer to the cloned <b>ArkUI_UIInputEvent</b> object.\n @return Result code.\n          {@link ARKUI_ERROR_CODE_NO_ERROR} if the operation is successful.\n          {@link ARKUI_ERROR_CODE_PARAM_INVALID} if a parameter error occurs.\n @since 15"]
+    #[cfg(feature = "api-15")]
     pub fn OH_ArkUI_PointerEvent_CreateClonedEvent(
         event: *const ArkUI_UIInputEvent,
         clonedEvent: *mut *mut ArkUI_UIInputEvent,
     ) -> i32;
 }
 extern "C" {
-    #[cfg(feature = "api-15")]
     #[doc = " @brief Destroys a cloned event pointer.\n\n @param event Pointer to an <b>ArkUI_UIInputEvent</b> object.\n @return Returns the result code.\n          Returns {@link ARKUI_ERROR_CODE_NO_ERROR} if the operation is successful.\n          Returns {@link ARKUI_ERROR_CODE_PARAM_INVALID} if a parameter error occurs.\n          Returns {@link ARKUI_ERROR_CODE_NOT_CLONED_POINTER_EVENT} if the input event pointer is not a\n          cloned event pointer.\n @since 15"]
+    #[cfg(feature = "api-15")]
     pub fn OH_ArkUI_PointerEvent_DestroyClonedEvent(event: *const ArkUI_UIInputEvent) -> i32;
 }
 extern "C" {
-    #[cfg(feature = "api-15")]
     #[doc = " @brief Sets the X and Y coordinates of a cloned event relative to the upper left corner of the current component.\n\n @param event Pointer to an <b>ArkUI_UIInputEvent</b> object.\n @param x X coordinate of the event relative to the upper left corner of the current component.\n @param y Y coordinate of the event relative to the upper left corner of the current component.\n @return Returns the result code.\n          Returns {@link ARKUI_ERROR_CODE_NO_ERROR} if the operation is successful.\n          Returns {@link ARKUI_ERROR_CODE_PARAM_INVALID} if a parameter error occurs.\n          Returns {@link ARKUI_ERROR_CODE_NOT_CLONED_POINTER_EVENT} if the input event pointer is not a\n          cloned event pointer.\n @since 15"]
+    #[cfg(feature = "api-15")]
     pub fn OH_ArkUI_PointerEvent_SetClonedEventLocalPosition(
         event: *const ArkUI_UIInputEvent,
         x: f32,
@@ -3361,8 +3361,8 @@ extern "C" {
     ) -> i32;
 }
 extern "C" {
-    #[cfg(feature = "api-15")]
     #[doc = " @brief Sets the X and Y coordinates of a specific contact point of a cloned event relative to the upper left corner\n of the current component.\n\n @param event Pointer to an <b>ArkUI_UIInputEvent</b> object.\n @param x X coordinate of the event relative to the upper left corner of the current component.\n @param y Y coordinate of the event relative to the upper left corner of the current component.\n @param pointerIndex Index of the target touch point in the multi-touch data list.\n @return Returns the result code.\n          Returns {@link ARKUI_ERROR_CODE_NO_ERROR} if the operation is successful.\n          Returns {@link ARKUI_ERROR_CODE_PARAM_INVALID} if a parameter error occurs.\n          Returns {@link ARKUI_ERROR_CODE_NOT_CLONED_POINTER_EVENT} if the input event pointer is not a\n          cloned event pointer.\n @since 15"]
+    #[cfg(feature = "api-15")]
     pub fn OH_ArkUI_PointerEvent_SetClonedEventLocalPositionByIndex(
         event: *const ArkUI_UIInputEvent,
         x: f32,
@@ -3371,24 +3371,24 @@ extern "C" {
     ) -> i32;
 }
 extern "C" {
-    #[cfg(feature = "api-15")]
     #[doc = " @brief Sets the action type of a cloned event.\n\n @param event Pointer to an <b>ArkUI_UIInputEvent</b> object.\n @param actionType Action type of the cloned event.\n @return Returns the result code.\n          Returns {@link ARKUI_ERROR_CODE_NO_ERROR} if the operation is successful.\n          Returns {@link ARKUI_ERROR_CODE_PARAM_INVALID} if a parameter error occurs.\n          Returns {@link ARKUI_ERROR_CODE_NOT_CLONED_POINTER_EVENT} if the input event pointer is not a\n          cloned event pointer.\n @since 15"]
+    #[cfg(feature = "api-15")]
     pub fn OH_ArkUI_PointerEvent_SetClonedEventActionType(
         event: *const ArkUI_UIInputEvent,
         actionType: i32,
     ) -> i32;
 }
 extern "C" {
-    #[cfg(feature = "api-15")]
     #[doc = " @brief Sets the touch point ID of a cloned pointer event.\n\n @param event Pointer to an <b>ArkUI_UIInputEvent</b> object.\n @param fingerId ID of the touch point that triggers the event.\n @return Returns the result code.\n          Returns {@link ARKUI_ERROR_CODE_NO_ERROR} if the operation is successful.\n          Returns {@link ARKUI_ERROR_CODE_PARAM_INVALID} if a parameter error occurs.\n          Returns {@link ARKUI_ERROR_CODE_NOT_CLONED_POINTER_EVENT} if the input event pointer is not a\n          cloned event pointer.\n @since 15"]
+    #[cfg(feature = "api-15")]
     pub fn OH_ArkUI_PointerEvent_SetClonedEventChangedFingerId(
         event: *const ArkUI_UIInputEvent,
         fingerId: i32,
     ) -> i32;
 }
 extern "C" {
-    #[cfg(feature = "api-15")]
     #[doc = " @brief Sets the touch point ID of a specific contact point of a cloned event.\n\n @param event Pointer to an <b>ArkUI_UIInputEvent</b> object.\n @param fingerId Touch point ID of the specific contact point.\n @param pointerIndex Index of the target touch point in the multi-touch data list.\n @return Returns the result code.\n          Returns {@link ARKUI_ERROR_CODE_NO_ERROR} if the operation is successful.\n          Returns {@link ARKUI_ERROR_CODE_PARAM_INVALID} if a parameter error occurs.\n          Returns {@link ARKUI_ERROR_CODE_NOT_CLONED_POINTER_EVENT} if the input event pointer is not a\n          cloned event pointer.\n @since 15"]
+    #[cfg(feature = "api-15")]
     pub fn OH_ArkUI_PointerEvent_SetClonedEventFingerIdByIndex(
         event: *const ArkUI_UIInputEvent,
         fingerId: i32,
@@ -3396,58 +3396,58 @@ extern "C" {
     ) -> i32;
 }
 extern "C" {
-    #[cfg(feature = "api-15")]
     #[doc = " @brief Posts a cloned event to a specific node.\n\n @param node Target node.\n @param event Pointer to an <b>ArkUI_UIInputEvent</b> object.\n @return Returns the result code.\n         Returns {@link ARKUI_ERROR_CODE_NO_ERROR} if the operation is successful.\n         Returns {@link ARKUI_ERROR_CODE_PARAM_INVALID} if a parameter error occurs.\n         Returns {@link ARKUI_ERROR_CODE_NOT_CLONED_POINTER_EVENT} if the input event pointer is not a\n         cloned event pointer.\n         Returns {@link ARKUI_ERROR_CODE_POST_CLONED_COMPONENT_STATUS_ABNORMAL}\n         if the component status abnormal.\n         Returns {@link ARKUI_ERROR_CODE_POST_CLONED_NO_COMPONENT_HIT_TO_RESPOND_TO_THE_EVENT}\n         if no component hit to response to the event.\n @since 15"]
+    #[cfg(feature = "api-15")]
     pub fn OH_ArkUI_PointerEvent_PostClonedEvent(
         node: ArkUI_NodeHandle,
         event: *const ArkUI_UIInputEvent,
     ) -> i32;
 }
 extern "C" {
-    #[cfg(feature = "api-20")]
     #[doc = " @brief Use this method to obtain the execution status of the latest UI input related method.\n\n In most cases, this method is unnecessary unless you need to determine if the return value indicates an error.\n Here's an example of usage: For return values like float (where 0.0 doesn't indicate an error), use GetLatestStatus\n to confirm if an error occurred.\n    float x = OH_ArkUI_PointerEvent_GetX(event);\n    if (ARKUI_ERROR_CODE_NO_ERROR != OH_ArkUI_UIInputEvent_GetLatestStatus()) {\n        // error\n        return;\n     }\n Note: The system clears the status of the previous function call each time a UIInput-related function is executed,\n ensuring you always get the latest status.\n\n @return Returns the ArkUI_ErrorCode.\n @since 20"]
+    #[cfg(feature = "api-20")]
     pub fn OH_ArkUI_UIInputEvent_GetLatestStatus() -> ArkUI_ErrorCode;
 }
 extern "C" {
-    #[cfg(feature = "api-22")]
     #[doc = " @brief Obtains the coasting axis event from a component event, valid event only can be\n fetched only when user flings on the touchpad with two fingers and any components register\n NODE_ON_COASTING_AXIS_EVENT exist under the pointer location.\n Call this method after the {@link ArkUI_UIInputEvent} object is obtained from the {@link ArkUI_NodeEvent} object.\n\n @param event Indicates the pointer to the UI input event.\n @return Returns the pointer to the coasting axis event, return null if no any coasting axis event occurs.\n @since 22"]
+    #[cfg(feature = "api-22")]
     pub fn OH_ArkUI_UIInputEvent_GetCoastingAxisEvent(
         event: *mut ArkUI_UIInputEvent,
     ) -> *mut ArkUI_CoastingAxisEvent;
 }
 extern "C" {
-    #[cfg(feature = "api-22")]
     #[doc = " @brief Obtains the time when this coasting event occurs.\n\n @param event Indicates the pointer to the coasting axis event.\n @return Returns the time when the UI input event occurs; returns <b>0</b> if any parameter error occurs.\n\n @since 22"]
+    #[cfg(feature = "api-22")]
     pub fn OH_ArkUI_CoastingAxisEvent_GetEventTime(event: *mut ArkUI_CoastingAxisEvent) -> i64;
 }
 extern "C" {
-    #[cfg(feature = "api-22")]
     #[doc = " @brief Obtains the coasting phase when this coasting event occurs.\n\n @param event Indicates the pointer to the coasting axis event.\n @return Returns the event phase, see {@link ArkUI_CoastingAxisEventPhase};\n     returns <b>ARKUI_COASTING_AXIS_EVENT_PHASE_NONE</b> if any parameter error occurs.\n\n @since 22"]
+    #[cfg(feature = "api-22")]
     pub fn OH_ArkUI_CoastingAxisEvent_GetPhase(
         event: *mut ArkUI_CoastingAxisEvent,
     ) -> ArkUI_CoastingAxisEventPhase;
 }
 extern "C" {
-    #[cfg(feature = "api-22")]
     #[doc = " @brief Obtains the horizontal delta value.\n\n @param event Indicates the pointer to the coasting axis event.\n @return Returns delta X value, count in PX; returns <b>0</b> if any parameter error occurs.\n\n @since 22"]
+    #[cfg(feature = "api-22")]
     pub fn OH_ArkUI_CoastingAxisEvent_GetDeltaX(event: *mut ArkUI_CoastingAxisEvent) -> f32;
 }
 extern "C" {
-    #[cfg(feature = "api-22")]
     #[doc = " @brief Obtains the vertical delta value.\n\n @param event Indicates the pointer to the coasting axis event.\n @return Returns delta Y value, count in PX; returns <b>0</b> if any parameter error occurs.\n\n @since 22"]
+    #[cfg(feature = "api-22")]
     pub fn OH_ArkUI_CoastingAxisEvent_GetDeltaY(event: *mut ArkUI_CoastingAxisEvent) -> f32;
 }
 extern "C" {
-    #[cfg(feature = "api-22")]
     #[doc = " @brief Sets whether to enable coasting axis event propagation.\n\n @param event Pointer to the coasting axis event.\n @param propagation Whether to enable event propagation.\n @return Returns the result code.\n         Returns {@link ARKUI_ERROR_CODE_NO_ERROR} if the operation is successful.\n         Returns {@link ARKUI_ERROR_CODE_PARAM_INVALID} if a parameter error occurs.\n @since 22"]
+    #[cfg(feature = "api-22")]
     pub fn OH_ArkUI_CoastingAxisEvent_SetPropagation(
         event: *mut ArkUI_CoastingAxisEvent,
         propagation: bool,
     ) -> i32;
 }
 extern "C" {
-    #[cfg(feature = "api-22")]
     #[doc = " @brief Obtains touch test info item list in the touch test info.\n\n @param info Indicates the pointer to a touch test info.\n @param array Indicates the pointer to the array of touch test info list.\n @param size Indicates the size of the array of touch test info list.\n @return Returns {@link ARKUI_ERROR_CODE_NO_ERROR} if success.\n         Returns {@link ARKUI_ERROR_CODE_PARAM_INVALID} if a parameter exception occurs.\n @since 22"]
+    #[cfg(feature = "api-22")]
     pub fn OH_ArkUI_TouchTestInfo_GetTouchTestInfoList(
         info: *mut ArkUI_TouchTestInfo,
         array: *mut ArkUI_TouchTestInfoItemArray,
@@ -3455,50 +3455,50 @@ extern "C" {
     ) -> ArkUI_ErrorCode;
 }
 extern "C" {
-    #[cfg(feature = "api-22")]
     #[doc = " @brief Obtains the X coordinate relative to the upper left corner of the child component from the touch test\n info item.\n\n @param info Indicates the pointer to the touch test info item.\n @return Returns the X coordinate relative to the upper left corner of the parent component.\n returns <b>0</b> if any parameter error occurs.\n @since 22"]
+    #[cfg(feature = "api-22")]
     pub fn OH_ArkUI_TouchTestInfoItem_GetX(info: *const ArkUI_TouchTestInfoItem) -> f32;
 }
 extern "C" {
-    #[cfg(feature = "api-22")]
     #[doc = " @brief Obtains the Y coordinate relative to the upper left corner of the child component from the touch test\n info item.\n\n @param info Indicates the pointer to the touch test info item.\n @return Returns the Y coordinate relative to the upper left corner of the parent component.\n returns <b>0</b> if any parameter error occurs.\n @since 22"]
+    #[cfg(feature = "api-22")]
     pub fn OH_ArkUI_TouchTestInfoItem_GetY(info: *const ArkUI_TouchTestInfoItem) -> f32;
 }
 extern "C" {
-    #[cfg(feature = "api-22")]
     #[doc = " @brief Obtains the X coordinate relative to the upper left corner of the current application window from the touch\n test info item.\n\n @param info Indicates the pointer to the touch test info item.\n @return Returns the X coordinate relative to the upper left corner of the current application window.\n returns <b>0.0f</b> if any parameter error occurs.\n @since 22"]
+    #[cfg(feature = "api-22")]
     pub fn OH_ArkUI_TouchTestInfoItem_GetWindowX(info: *const ArkUI_TouchTestInfoItem) -> f32;
 }
 extern "C" {
-    #[cfg(feature = "api-22")]
     #[doc = " @brief Obtains the Y coordinate relative to the upper left corner of the current application window from the touch\n test info item.\n\n @param info Indicates the pointer to the touch test info item.\n @return Returns the Y coordinate relative to the upper left corner of the current application window.\n returns <b>0.0f</b> if any parameter error occurs.\n @since 22"]
+    #[cfg(feature = "api-22")]
     pub fn OH_ArkUI_TouchTestInfoItem_GetWindowY(info: *const ArkUI_TouchTestInfoItem) -> f32;
 }
 extern "C" {
-    #[cfg(feature = "api-22")]
     #[doc = " @brief Obtains the X coordinate relative to the upper left corner of the parent component from the touch test\n info item.\n\n @param info Indicates the pointer to the touch test info item.\n @return Returns the X coordinate relative to the upper left corner of the parent component.\n returns <b>0</b> if any parameter error occurs.\n @since 22"]
+    #[cfg(feature = "api-22")]
     pub fn OH_ArkUI_TouchTestInfoItem_GetXRelativeToParent(
         info: *const ArkUI_TouchTestInfoItem,
     ) -> f32;
 }
 extern "C" {
-    #[cfg(feature = "api-22")]
     #[doc = " @brief Obtains the Y coordinate relative to the upper left corner of the parent component from the touch test\n info item.\n\n @param info Indicates the pointer to the touch test info item.\n @return Returns the Y coordinate relative to the upper left corner of the parent component.\n returns <b>0</b> if any parameter error occurs.\n @since 22"]
+    #[cfg(feature = "api-22")]
     pub fn OH_ArkUI_TouchTestInfoItem_GetYRelativeToParent(
         info: *const ArkUI_TouchTestInfoItem,
     ) -> f32;
 }
 extern "C" {
-    #[cfg(feature = "api-22")]
     #[doc = " @brief Obtains the sub component's frame rect info from the touch test info item.\n\n @param info Indicates the pointer to the touch test info item.\n @param childRect Indicates the pointer to the child frame rect.\n @return Returns {@link ARKUI_ERROR_CODE_NO_ERROR} if success.\n         Returns {@link ARKUI_ERROR_CODE_PARAM_INVALID} if a parameter exception occurs.\n @since 22"]
+    #[cfg(feature = "api-22")]
     pub fn OH_ArkUI_TouchTestInfoItem_GetChildRect(
         info: *const ArkUI_TouchTestInfoItem,
         childRect: *mut ArkUI_Rect,
     ) -> ArkUI_ErrorCode;
 }
 extern "C" {
-    #[cfg(feature = "api-22")]
     #[doc = " @brief Obtains the sub component's name from the touch test info item.\n\n @param info Indicates the pointer to the touch test info item.\n @param buffer Indicates the buffer.\n @param bufferSize Indicates the buffer size.\n @return Returns {@link ARKUI_ERROR_CODE_NO_ERROR} if success.\n         Returns {@link ARKUI_ERROR_CODE_PARAM_INVALID} if a parameter exception occurs.\n         Returns {@link ARKUI_ERROR_CODE_BUFFER_SIZE_NOT_ENOUGH} if the buffer is not large enough.\n @since 22"]
+    #[cfg(feature = "api-22")]
     pub fn OH_ArkUI_TouchTestInfoItem_GetChildId(
         info: *const ArkUI_TouchTestInfoItem,
         buffer: *mut ::std::os::raw::c_char,
@@ -3506,16 +3506,16 @@ extern "C" {
     ) -> ArkUI_ErrorCode;
 }
 extern "C" {
-    #[cfg(feature = "api-22")]
     #[doc = " @brief Sets the touch test strategy, that is, how the component and the sub components behave during hit testing.\n\n @param {pointer} info Indicates the pointer to a touch test info.\n @param {ArkUI_TouchTestStrategy} strategy The touch test strategy.\n @return Returns {@link ARKUI_ERROR_CODE_NO_ERROR} if success.\n Returns {@link ARKUI_ERROR_CODE_PARAM_INVALID} if a parameter exception occurs.\n @since 22"]
+    #[cfg(feature = "api-22")]
     pub fn OH_ArkUI_TouchTestInfo_SetTouchResultStrategy(
         info: *mut ArkUI_TouchTestInfo,
         strategy: ArkUI_TouchTestStrategy,
     ) -> ArkUI_ErrorCode;
 }
 extern "C" {
-    #[cfg(feature = "api-22")]
     #[doc = " @brief Sets the sub component's name, that is, which sub components need to be effected during hit testing.\n\n @param {pointer} info Indicates the pointer to a touch test info.\n @param {pointer} id The sub component's name.\n @return Returns {@link ARKUI_ERROR_CODE_NO_ERROR} if success.\n Returns {@link ARKUI_ERROR_CODE_PARAM_INVALID} if a parameter exception occurs.\n @since 22"]
+    #[cfg(feature = "api-22")]
     pub fn OH_ArkUI_TouchTestInfo_SetTouchResultId(
         info: *mut ArkUI_TouchTestInfo,
         id: *const ::std::os::raw::c_char,
@@ -3874,28 +3874,28 @@ pub const OH_NATIVEXCOMPONENT_RESULT_FAILED: _bindgen_ty_17 = -1;
 pub const OH_NATIVEXCOMPONENT_RESULT_BAD_PARAMETER: _bindgen_ty_17 = -2;
 #[doc = " @brief Enumerates the API access states.\n\n @since 8\n @version 1.0"]
 pub type _bindgen_ty_17 = i32;
-#[cfg(feature = "api-18")]
 #[doc = " AI analyzer execution is finished."]
+#[cfg(feature = "api-18")]
 pub const ArkUI_XComponent_ImageAnalyzerState_ARKUI_XCOMPONENT_AI_ANALYSIS_FINISHED:
     ArkUI_XComponent_ImageAnalyzerState = 0;
-#[cfg(feature = "api-18")]
 #[doc = " AI analyzer is disabled."]
+#[cfg(feature = "api-18")]
 pub const ArkUI_XComponent_ImageAnalyzerState_ARKUI_XCOMPONENT_AI_ANALYSIS_DISABLED:
     ArkUI_XComponent_ImageAnalyzerState = 110000;
-#[cfg(feature = "api-18")]
 #[doc = " AI analyzer is unsupported."]
+#[cfg(feature = "api-18")]
 pub const ArkUI_XComponent_ImageAnalyzerState_ARKUI_XCOMPONENT_AI_ANALYSIS_UNSUPPORTED:
     ArkUI_XComponent_ImageAnalyzerState = 110001;
-#[cfg(feature = "api-18")]
 #[doc = " AI analyzer is ongoing."]
+#[cfg(feature = "api-18")]
 pub const ArkUI_XComponent_ImageAnalyzerState_ARKUI_XCOMPONENT_AI_ANALYSIS_ONGOING:
     ArkUI_XComponent_ImageAnalyzerState = 110002;
-#[cfg(feature = "api-18")]
 #[doc = " AI analyzer is stopped."]
+#[cfg(feature = "api-18")]
 pub const ArkUI_XComponent_ImageAnalyzerState_ARKUI_XCOMPONENT_AI_ANALYSIS_STOPPED:
     ArkUI_XComponent_ImageAnalyzerState = 110003;
-#[cfg(feature = "api-18")]
 #[doc = " @brief Status code for AI analyzer.\n\n @since 18"]
+#[cfg(feature = "api-18")]
 pub type ArkUI_XComponent_ImageAnalyzerState = u32;
 #[doc = " Trigger a touch event when a finger is pressed."]
 pub const OH_NativeXComponent_TouchEventType_OH_NATIVEXCOMPONENT_DOWN:
@@ -3971,8 +3971,8 @@ pub const OH_NativeXComponent_MouseEventAction_OH_NATIVEXCOMPONENT_MOUSE_RELEASE
     OH_NativeXComponent_MouseEventAction = 2;
 pub const OH_NativeXComponent_MouseEventAction_OH_NATIVEXCOMPONENT_MOUSE_MOVE:
     OH_NativeXComponent_MouseEventAction = 3;
-#[cfg(feature = "api-18")]
 #[doc = " Triggered when the mouse event is canceled.\n @since 18"]
+#[cfg(feature = "api-18")]
 pub const OH_NativeXComponent_MouseEventAction_OH_NATIVEXCOMPONENT_MOUSE_CANCEL:
     OH_NativeXComponent_MouseEventAction = 4;
 #[doc = " @brief Represents the mouse event action.\n\n @since 9\n @version 1.0"]
@@ -4312,16 +4312,16 @@ pub struct OH_NativeXComponent_ExtraMouseEventInfo {
     _unused: [u8; 0],
 }
 extern "C" {
-    #[cfg(feature = "api-20")]
     #[doc = " @brief Obtains the extra mouse event dispatched by the ArkUI XComponent.\n\n @param component Indicates the pointer to this <b>OH_NativeXComponent</b> instance.\n @param extraMouseEventInfo Indicates the pointer to pointer of <b>OH_NativeXComponent_ExtraMouseEventInfo</b> instance.\n @return Returns the status code of the execution.\n         {@link ARKUI_ERROR_CODE_NO_ERROR} the execution is successful.\n         {@link ARKUI_ERROR_CODE_PARAM_INVALID} if a parameter error occurs.\n @since 20\n @version 1.0"]
+    #[cfg(feature = "api-20")]
     pub fn OH_NativeXComponent_GetExtraMouseEventInfo(
         component: *mut OH_NativeXComponent,
         extraMouseEventInfo: *mut *mut OH_NativeXComponent_ExtraMouseEventInfo,
     ) -> i32;
 }
 extern "C" {
-    #[cfg(feature = "api-20")]
     #[doc = " @brief Obtains the state of the modifier keys of the mouse event.\n\n @param extraMouseEventInfo Indicates the pointer to this <b>OH_NativeXComponent_ExtraMouseEventInfo</b> instance.\n @param keys Pointer to a variable where the current combination of pressed modifier keys will be returned.\n        The application can use bitwise operations to determine the state of each modifier key.\n        Modifier keys can be referred to {@link ArkUI_ModifierKeyName}.\n @return Returns the result code.\n         Returns {@link ARKUI_ERROR_CODE_NO_ERROR} if the operation is successful.\n         Returns {@link ARKUI_ERROR_CODE_PARAM_INVALID} if a parameter error occurs.\n @since 20\n @version 1.0"]
+    #[cfg(feature = "api-20")]
     pub fn OH_NativeXComponent_GetMouseEventModifierKeyStates(
         extraMouseEventInfo: *mut OH_NativeXComponent_ExtraMouseEventInfo,
         keys: *mut u64,
@@ -4406,32 +4406,32 @@ extern "C" {
     ) -> i32;
 }
 extern "C" {
-    #[cfg(feature = "api-20")]
     #[doc = " @brief Obtains the state of the modifier keys of the key event.\n\n @param keyEvent Indicates the pointer to this <b>OH_NativeXComponent_KeyEvent</b> instance.\n @param keys Pointer to a variable where the current combination of pressed modifier keys will be returned.\n        The application can use bitwise operations to determine the state of each modifier key.\n        Modifier keys can be referred to {@link ArkUI_ModifierKeyName}.\n @return Returns the result code.\n         Returns {@link ARKUI_ERROR_CODE_NO_ERROR} if the operation is successful.\n         Returns {@link ARKUI_ERROR_CODE_PARAM_INVALID} if a parameter error occurs.\n @since 20\n @version 1.0"]
+    #[cfg(feature = "api-20")]
     pub fn OH_NativeXComponent_GetKeyEventModifierKeyStates(
         keyEvent: *mut OH_NativeXComponent_KeyEvent,
         keys: *mut u64,
     ) -> i32;
 }
 extern "C" {
-    #[cfg(feature = "api-20")]
     #[doc = " @brief Obtains the Num Lock state of the key event.\n\n @param keyEvent Indicates the pointer to this <b>OH_NativeXComponent_KeyEvent</b> instance.\n @param isNumLockOn Return whether the Num Lock is on.\n @return Returns the result code.\n         Returns {@link ARKUI_ERROR_CODE_NO_ERROR} if the operation is successful.\n         Returns {@link ARKUI_ERROR_CODE_PARAM_INVALID} if a parameter error occurs.\n @since 20\n @version 1.0"]
+    #[cfg(feature = "api-20")]
     pub fn OH_NativeXComponent_GetKeyEventNumLockState(
         keyEvent: *mut OH_NativeXComponent_KeyEvent,
         isNumLockOn: *mut bool,
     ) -> i32;
 }
 extern "C" {
-    #[cfg(feature = "api-20")]
     #[doc = " @brief Obtains the Caps Lock state of the key event.\n\n @param keyEvent Indicates the pointer to this <b>OH_NativeXComponent_KeyEvent</b> instance.\n @param isCapsLockOn Return whether the Caps Lock is on.\n @return Returns the result code.\n         Returns {@link ARKUI_ERROR_CODE_NO_ERROR} if the operation is successful.\n         Returns {@link ARKUI_ERROR_CODE_PARAM_INVALID} if a parameter error occurs.\n @since 20\n @version 1.0"]
+    #[cfg(feature = "api-20")]
     pub fn OH_NativeXComponent_GetKeyEventCapsLockState(
         keyEvent: *mut OH_NativeXComponent_KeyEvent,
         isCapsLockOn: *mut bool,
     ) -> i32;
 }
 extern "C" {
-    #[cfg(feature = "api-20")]
     #[doc = " @brief Obtains the Scroll Lock state of the key event.\n\n @param keyEvent Indicates the pointer to this <b>OH_NativeXComponent_KeyEvent</b> instance.\n @param isScrollLockOn Return whether the Scroll Lock is on.\n @return Returns the result code.\n         Returns {@link ARKUI_ERROR_CODE_NO_ERROR} if the operation is successful.\n         Returns {@link ARKUI_ERROR_CODE_PARAM_INVALID} if a parameter error occurs.\n @since 20\n @version 1.0"]
+    #[cfg(feature = "api-20")]
     pub fn OH_NativeXComponent_GetKeyEventScrollLockState(
         keyEvent: *mut OH_NativeXComponent_KeyEvent,
         isScrollLockOn: *mut bool,
@@ -4549,16 +4549,16 @@ extern "C" {
     ) -> *mut OH_NativeXComponent;
 }
 extern "C" {
-    #[cfg(feature = "api-13")]
     #[doc = " @brief Obtains the pointer to the <b> ArkUI_AccessibilityProvider</b>\n instance of this <b>OH_NativeXComponent</b> instance.\n\n @param component Indicates the pointer to the <b>OH_NativeXComponent</b> instance.\n @param handle Indicates the pointer to the <b>ArkUI_AccessibilityProvider</b> instance.\n @return Returns {@link OH_NATIVEXCOMPONENT_RESULT_SUCCESS} if the operation is successful.\n         Returns {@link OH_NATIVEXCOMPONENT_RESULT_BAD_PARAMETER} if a parameter error occurs.\n @since 13"]
+    #[cfg(feature = "api-13")]
     pub fn OH_NativeXComponent_GetNativeAccessibilityProvider(
         component: *mut OH_NativeXComponent,
         handle: *mut *mut ArkUI_AccessibilityProvider,
     ) -> i32;
 }
 extern "C" {
-    #[cfg(feature = "api-14")]
     #[doc = " @brief Registers a callback for this <b>OH_NativeXComponent</b> instance.\n\n @param component Indicates the pointer to this <b>OH_NativeXComponent</b> instance.\n @param callback Indicates the pointer to a key event callback with result.\n @return Returns the status code of the execution.\n         {@link OH_NATIVEXCOMPONENT_RESULT_SUCCESS} the callback function is successfully registered.\\n\n         {@link OH_NATIVEXCOMPONENT_RESULT_BAD_PARAMETER} component is nullptr or callback is nullptr.\\n\n @since 14\n @version 1.0"]
+    #[cfg(feature = "api-14")]
     pub fn OH_NativeXComponent_RegisterKeyEventCallbackWithResult(
         component: *mut OH_NativeXComponent,
         callback: ::std::option::Option<
@@ -4570,8 +4570,8 @@ extern "C" {
     ) -> i32;
 }
 extern "C" {
-    #[cfg(feature = "api-18")]
     #[doc = " @brief Start image analyzer for the specified XComponent\n instance created by the native API.\n\n @param node Indicates the pointer to the XComponent instance created by the native API.\n @param userData Indicates the pointer to a user defined data.\n @param callback Indicates the pointer to a image analyzer status callback function.\n @return Returns the status code of the execution.\n         {@link ARKUI_ERROR_CODE_NO_ERROR} the execution is successful.\\n\n         {@link ARKUI_ERROR_CODE_PARAM_INVALID} component is nullptr or callback is nullptr,\n         or the type of node is not XComponent.\\n\n @since 18"]
+    #[cfg(feature = "api-18")]
     pub fn OH_ArkUI_XComponent_StartImageAnalyzer(
         node: ArkUI_NodeHandle,
         userData: *mut ::std::os::raw::c_void,
@@ -4585,8 +4585,8 @@ extern "C" {
     ) -> i32;
 }
 extern "C" {
-    #[cfg(feature = "api-18")]
     #[doc = " @brief Stop image analyzer for the specified XComponent\n instance created by the native API.\n\n @param node Indicates the pointer to the XComponent instance created by the native API.\n @return Returns the status code of the execution.\n         {@link ARKUI_ERROR_CODE_NO_ERROR} the execution is successful.\\n\n         {@link ARKUI_ERROR_CODE_PARAM_INVALID} component is nullptr or the type of node is not XComponent.\\n\n @since 18"]
+    #[cfg(feature = "api-18")]
     pub fn OH_ArkUI_XComponent_StopImageAnalyzer(node: ArkUI_NodeHandle) -> i32;
 }
 #[repr(C)]
@@ -4595,26 +4595,26 @@ pub struct OH_ArkUI_SurfaceHolder {
     _unused: [u8; 0],
 }
 extern "C" {
-    #[cfg(feature = "api-19")]
     #[doc = " @brief Create a <b>OH_ArkUI_SurfaceHolder</b> object from an XComponent node.\n\n @param node Indicates the pointer to the XComponent node.\n @return Returns the created <b>OH_ArkUI_SurfaceHolder</b> object's pointer.\n @since 19"]
+    #[cfg(feature = "api-19")]
     pub fn OH_ArkUI_SurfaceHolder_Create(node: ArkUI_NodeHandle) -> *mut OH_ArkUI_SurfaceHolder;
 }
 extern "C" {
-    #[cfg(feature = "api-19")]
     #[doc = " @brief Disposes of a <b>OH_ArkUI_SurfaceHolder</b> object.\n\n @param node Indicates the pointer to <b>OH_ArkUI_SurfaceHolder</b> object needed to dispose.\n @since 19"]
+    #[cfg(feature = "api-19")]
     pub fn OH_ArkUI_SurfaceHolder_Dispose(surfaceHolder: *mut OH_ArkUI_SurfaceHolder);
 }
 extern "C" {
-    #[cfg(feature = "api-19")]
     #[doc = " @brief Saves custom data on the <b>OH_ArkUI_SurfaceHolder</b> instance.\n\n @param surfaceHolder Indicates the <b>OH_ArkUI_SurfaceHolder</b> instance\n        on which the custom data will be saved.\n @param userData Indicates the custom data to be saved.\n @return Returns the error code.\n         Returns {@link ARKUI_ERROR_CODE_NO_ERROR} if the operation is successful.\n         Returns {@link ARKUI_ERROR_CODE_PARAM_INVALID} if a parameter error occurs.\n @since 19"]
+    #[cfg(feature = "api-19")]
     pub fn OH_ArkUI_SurfaceHolder_SetUserData(
         surfaceHolder: *mut OH_ArkUI_SurfaceHolder,
         userData: *mut ::std::os::raw::c_void,
     ) -> i32;
 }
 extern "C" {
-    #[cfg(feature = "api-19")]
     #[doc = " @brief Obtains the custom data saved on the <b>OH_ArkUI_SurfaceHolder</b> instance.\n\n @param surfaceHolder Indicates the target <b>OH_ArkUI_SurfaceHolder</b> instance.\n @return Returns the custom data.\n @since 19"]
+    #[cfg(feature = "api-19")]
     pub fn OH_ArkUI_SurfaceHolder_GetUserData(
         surfaceHolder: *mut OH_ArkUI_SurfaceHolder,
     ) -> *mut ::std::os::raw::c_void;
@@ -4625,18 +4625,18 @@ pub struct OH_ArkUI_SurfaceCallback {
     _unused: [u8; 0],
 }
 extern "C" {
-    #[cfg(feature = "api-19")]
     #[doc = " @brief Create a <b>OH_ArkUI_SurfaceCallback</b> object.\n\n @return Returns the created <b>OH_ArkUI_SurfaceCallback</b> object's pointer.\n @since 19"]
+    #[cfg(feature = "api-19")]
     pub fn OH_ArkUI_SurfaceCallback_Create() -> *mut OH_ArkUI_SurfaceCallback;
 }
 extern "C" {
-    #[cfg(feature = "api-19")]
     #[doc = " @brief Disposes of a <b>OH_ArkUI_SurfaceCallback</b> object.\n\n @param callback Indicates the pointer to <b>OH_ArkUI_SurfaceCallback</b> object needed to dispose.\n @since 19"]
+    #[cfg(feature = "api-19")]
     pub fn OH_ArkUI_SurfaceCallback_Dispose(callback: *mut OH_ArkUI_SurfaceCallback);
 }
 extern "C" {
-    #[cfg(feature = "api-19")]
     #[doc = " @brief Set the surface created event of the surface callback.\n\n @param callback Indicated the pointer to the surface callback.\n @param onSurfaceCreated Indicates the surface created callback event\n        which will called when the surface is created.\n @since 19"]
+    #[cfg(feature = "api-19")]
     pub fn OH_ArkUI_SurfaceCallback_SetSurfaceCreatedEvent(
         callback: *mut OH_ArkUI_SurfaceCallback,
         onSurfaceCreated: ::std::option::Option<
@@ -4645,8 +4645,8 @@ extern "C" {
     );
 }
 extern "C" {
-    #[cfg(feature = "api-19")]
     #[doc = " @brief Set the surface changed event of the surface callback.\n\n @param callback Indicated the pointer to the surface callback.\n @param onSurfaceChanged Indicates the surface changed callback event\n        which will called when the surface is changed.\n @since 19"]
+    #[cfg(feature = "api-19")]
     pub fn OH_ArkUI_SurfaceCallback_SetSurfaceChangedEvent(
         callback: *mut OH_ArkUI_SurfaceCallback,
         onSurfaceChanged: ::std::option::Option<
@@ -4659,8 +4659,8 @@ extern "C" {
     );
 }
 extern "C" {
-    #[cfg(feature = "api-19")]
     #[doc = " @brief Set the surface destroyed event of the surface callback.\n\n @param callback Indicated the pointer to the surface callback.\n @param onSurfaceDestroyed Indicates the surface destroyed callback event\n        which will called when the surface is destroyed.\n @since 19"]
+    #[cfg(feature = "api-19")]
     pub fn OH_ArkUI_SurfaceCallback_SetSurfaceDestroyedEvent(
         callback: *mut OH_ArkUI_SurfaceCallback,
         onSurfaceDestroyed: ::std::option::Option<
@@ -4669,16 +4669,16 @@ extern "C" {
     );
 }
 extern "C" {
-    #[cfg(feature = "api-19")]
     #[doc = " @brief Adds a surface lifecycle callback for this <b>OH_ArkUI_SurfaceHolder</b> instance.\n\n @param surfaceHolder Indicates the pointer to this <b>OH_ArkUI_SurfaceHolder</b> instance.\n @param callback Indicates the pointer to this new callback.\n @return Returns the status code of the execution.\n         {@link ARKUI_ERROR_CODE_NO_ERROR} the execution is successful.\n         {@link ARKUI_ERROR_CODE_PARAM_INVALID} if a parameter error occurs.\n @since 19"]
+    #[cfg(feature = "api-19")]
     pub fn OH_ArkUI_SurfaceHolder_AddSurfaceCallback(
         surfaceHolder: *mut OH_ArkUI_SurfaceHolder,
         callback: *mut OH_ArkUI_SurfaceCallback,
     ) -> i32;
 }
 extern "C" {
-    #[cfg(feature = "api-19")]
     #[doc = " @brief Removes a previously added surface lifecycle callback\n        from this <b>OH_ArkUI_SurfaceHolder</b> instance.\n\n @param surfaceHolder Indicates the pointer to this <b>OH_ArkUI_SurfaceHolder</b> instance.\n @param callback Indicates the pointer to the callback needed to remove.\n @return Returns the status code of the execution.\n         {@link ARKUI_ERROR_CODE_NO_ERROR} the execution is successful.\n         {@link ARKUI_ERROR_CODE_PARAM_INVALID} if a parameter error occurs.\n @since 19"]
+    #[cfg(feature = "api-19")]
     pub fn OH_ArkUI_SurfaceHolder_RemoveSurfaceCallback(
         surfaceHolder: *mut OH_ArkUI_SurfaceHolder,
         callback: *mut OH_ArkUI_SurfaceCallback,
@@ -4689,53 +4689,53 @@ extern "C" {
 pub struct NativeWindow {
     _unused: [u8; 0],
 }
-#[cfg(feature = "api-19")]
 #[doc = " @brief Forward declaration of OHNativeWindow.\n\n @since 19"]
+#[cfg(feature = "api-19")]
 pub type OHNativeWindow = NativeWindow;
 extern "C" {
-    #[cfg(feature = "api-19")]
     #[doc = " @brief Obtains the nativeWindow associated with a <b>OH_ArkUI_SurfaceHolder</b> instance.\n\n @param surfaceHolder Indicates the pointer to this <b>OH_ArkUI_SurfaceHolder</b> instance.\n @return Returns the nativeWindow associated with this <b>OH_ArkUI_SurfaceHolder</b> instance.\n @since 19"]
+    #[cfg(feature = "api-19")]
     pub fn OH_ArkUI_XComponent_GetNativeWindow(
         surfaceHolder: *mut OH_ArkUI_SurfaceHolder,
     ) -> *mut OHNativeWindow;
 }
 extern "C" {
-    #[cfg(feature = "api-19")]
     #[doc = " @brief Set whether the XComponent node needs to initialize automatically.\n\n @param node Indicates the pointer to the XComponent node.\n @param autoInitialize Indicates whether the XComponent node needs to initialize automatically or not.\n        If the value is true, OnSurfaceCreated will be called when the node is mounted and\n        OnSurfaceDestroyed will be called when the node is unmounted.\n        Default value is true.\n @return Returns the status code of the execution.\n         {@link ARKUI_ERROR_CODE_NO_ERROR} the execution is successful.\n         {@link ARKUI_ERROR_CODE_PARAM_INVALID} if the node is invalid.\n @since 19"]
+    #[cfg(feature = "api-19")]
     pub fn OH_ArkUI_XComponent_SetAutoInitialize(
         node: ArkUI_NodeHandle,
         autoInitialize: bool,
     ) -> i32;
 }
 extern "C" {
-    #[cfg(feature = "api-19")]
     #[doc = " @brief Initialize the XComponent node.\n\n @param node Indicates the pointer to the XComponent node.\n @return Returns the status code of the execution.\n         {@link ARKUI_ERROR_CODE_NO_ERROR} the execution is successful.\n         {@link ARKUI_ERROR_CODE_PARAM_INVALID} if the node is invalid.\n         {@link ARKUI_ERROR_CODE_XCOMPONENT_STATE_INVALID} if the node has initialized.\n @since 19"]
+    #[cfg(feature = "api-19")]
     pub fn OH_ArkUI_XComponent_Initialize(node: ArkUI_NodeHandle) -> i32;
 }
 extern "C" {
-    #[cfg(feature = "api-19")]
     #[doc = " @brief Finalize the XComponent node.\n\n @param node Indicates the pointer to the XComponent node.\n @return Returns the status code of the execution.\n         {@link ARKUI_ERROR_CODE_NO_ERROR} the execution is successful.\n         {@link ARKUI_ERROR_CODE_PARAM_INVALID} if the node is invalid.\n         {@link ARKUI_ERROR_CODE_XCOMPONENT_STATE_INVALID} if the node has finalized.\n @since 19"]
+    #[cfg(feature = "api-19")]
     pub fn OH_ArkUI_XComponent_Finalize(node: ArkUI_NodeHandle) -> i32;
 }
 extern "C" {
-    #[cfg(feature = "api-19")]
     #[doc = " @brief Obtains whether the XComponent node has initalized or not.\n\n @param node Indicates the pointer to the XComponent node.\n @param isInitialized Indicates whether the XComponent node has initalized.\n @return Returns the status code of the execution.\n         {@link ARKUI_ERROR_CODE_NO_ERROR} the execution is successful.\n         {@link ARKUI_ERROR_CODE_PARAM_INVALID} if the node is invalid.\n @since 19"]
+    #[cfg(feature = "api-19")]
     pub fn OH_ArkUI_XComponent_IsInitialized(
         node: ArkUI_NodeHandle,
         isInitialized: *mut bool,
     ) -> i32;
 }
 extern "C" {
-    #[cfg(feature = "api-20")]
     #[doc = " @brief Set the Expected FrameRateRange for the XComponent node.\n\n @param node Indicates the pointer to the XComponent node.\n @param range Indicates the expected rate range.\n @return Returns the status code of the execution.\n         {@link ARKUI_ERROR_CODE_NO_ERROR} the execution is successful.\n         {@link ARKUI_ERROR_CODE_PARAM_INVALID} if a parameter error occurs.\n @since 20\n @version 1.0"]
+    #[cfg(feature = "api-20")]
     pub fn OH_ArkUI_XComponent_SetExpectedFrameRateRange(
         node: ArkUI_NodeHandle,
         range: OH_NativeXComponent_ExpectedRateRange,
     ) -> i32;
 }
 extern "C" {
-    #[cfg(feature = "api-20")]
     #[doc = " @brief Registers an onFrame callback for the XComponent node.\n\n @param node Indicates the pointer to the XComponent node.\n @param callback Indicates the pointer to an onFrame callback.\n @return Returns the status code of the execution.\n         {@link ARKUI_ERROR_CODE_NO_ERROR} the execution is successful.\n         {@link ARKUI_ERROR_CODE_PARAM_INVALID} if a parameter error occurs.\n @since 20\n @version 1.0"]
+    #[cfg(feature = "api-20")]
     pub fn OH_ArkUI_XComponent_RegisterOnFrameCallback(
         node: ArkUI_NodeHandle,
         callback: ::std::option::Option<
@@ -4744,33 +4744,33 @@ extern "C" {
     ) -> i32;
 }
 extern "C" {
-    #[cfg(feature = "api-20")]
     #[doc = " @brief UnRegister the onFrame callback for the XComponent node.\n\n @param node Indicates the pointer to the XComponent node.\n @return Returns the status code of the execution.\n         {@link ARKUI_ERROR_CODE_NO_ERROR} the execution is successful.\n         {@link ARKUI_ERROR_CODE_PARAM_INVALID} if a parameter error occurs.\n @since 20\n @version 1.0"]
+    #[cfg(feature = "api-20")]
     pub fn OH_ArkUI_XComponent_UnregisterOnFrameCallback(node: ArkUI_NodeHandle) -> i32;
 }
 extern "C" {
-    #[cfg(feature = "api-20")]
     #[doc = " @brief Set whether the XComponent node needs soft keyboard when focused.\n @param node Indicates the pointer to the XComponent node.\n @param needSoftKeyboard Indicates whether the XComponent node needs soft keyboard or not.\n        Default value is false.\n @return Returns the status code of the execution.\n         {@link ARKUI_ERROR_CODE_NO_ERROR} the execution is successful.\n         {@link ARKUI_ERROR_CODE_PARAM_INVALID} if a parameter error occurs.\n @since 20"]
+    #[cfg(feature = "api-20")]
     pub fn OH_ArkUI_XComponent_SetNeedSoftKeyboard(
         node: ArkUI_NodeHandle,
         needSoftKeyboard: bool,
     ) -> i32;
 }
 extern "C" {
-    #[cfg(feature = "api-20")]
     #[doc = " @brief Create a <b>ArkUI_AccessibilityProvider</b> object from an XComponent node.\n\n @param node Indicates the pointer to the XComponent node.\n @return Returns the created <b>ArkUI_AccessibilityProvider</b> object's pointer.\n @since 20"]
+    #[cfg(feature = "api-20")]
     pub fn OH_ArkUI_AccessibilityProvider_Create(
         node: ArkUI_NodeHandle,
     ) -> *mut ArkUI_AccessibilityProvider;
 }
 extern "C" {
-    #[cfg(feature = "api-20")]
     #[doc = " @brief Disposes of an <b>ArkUI_AccessibilityProvider</b> object.\n\n @param provider Indicates the pointer to <b>ArkUI_AccessibilityProvider</b> object needed to dispose.\n @since 20"]
+    #[cfg(feature = "api-20")]
     pub fn OH_ArkUI_AccessibilityProvider_Dispose(provider: *mut ArkUI_AccessibilityProvider);
 }
 extern "C" {
-    #[cfg(feature = "api-20")]
     #[doc = " @brief Set the surface show event of the surface callback.\n\n @param callback Indicated the pointer to the surface callback.\n @param onSurfaceShow Indicates the surface show callback event which will called when the surface is shown.\n @since 20"]
+    #[cfg(feature = "api-20")]
     pub fn OH_ArkUI_SurfaceCallback_SetSurfaceShowEvent(
         callback: *mut OH_ArkUI_SurfaceCallback,
         onSurfaceShow: ::std::option::Option<
@@ -4779,8 +4779,8 @@ extern "C" {
     );
 }
 extern "C" {
-    #[cfg(feature = "api-20")]
     #[doc = " @brief Set the surface hide event of the surface callback.\n\n @param callback Indicated the pointer to the surface callback.\n @param onSurfaceHide Indicates the surface hide callback event which will called when the surface is hide.\n @since 20"]
+    #[cfg(feature = "api-20")]
     pub fn OH_ArkUI_SurfaceCallback_SetSurfaceHideEvent(
         callback: *mut OH_ArkUI_SurfaceCallback,
         onSurfaceHide: ::std::option::Option<
@@ -4794,26 +4794,26 @@ pub struct ArkUI_XComponentSurfaceConfig {
     _unused: [u8; 0],
 }
 extern "C" {
-    #[cfg(feature = "api-22")]
     #[doc = " @brief Create an <b>ArkUI_XComponentSurfaceConfig</b> object.\n\n @return A pointer to the object of the XComponent's surface config.\n @since 22"]
+    #[cfg(feature = "api-22")]
     pub fn OH_ArkUI_XComponentSurfaceConfig_Create() -> *mut ArkUI_XComponentSurfaceConfig;
 }
 extern "C" {
-    #[cfg(feature = "api-22")]
     #[doc = " @brief Dispose of an <b>ArkUI_XComponentSurfaceConfig</b> object.\n\n @param config A pointer to the object of the XComponent's surface config to be destroyed.\n @since 22"]
+    #[cfg(feature = "api-22")]
     pub fn OH_ArkUI_XComponentSurfaceConfig_Dispose(config: *mut ArkUI_XComponentSurfaceConfig);
 }
 extern "C" {
-    #[cfg(feature = "api-22")]
     #[doc = " @brief Set whether the surface held by XComponent needs to be considered opaque,\n even if the surface has translucent pixel.\n\n @param config A pointer to the object of the XComponent's surface config.\n @param isOpaque Indicates whether the surface held by XComponent needs to be considered opaque,\n     True means needing to be considered opaque, false otherwise.\n @since 22"]
+    #[cfg(feature = "api-22")]
     pub fn OH_ArkUI_XComponentSurfaceConfig_SetIsOpaque(
         config: *mut ArkUI_XComponentSurfaceConfig,
         isOpaque: bool,
     );
 }
 extern "C" {
-    #[cfg(feature = "api-22")]
     #[doc = " @brief Set surface config for this <b>OH_ArkUI_SurfaceHolder</b> instance.\n\n @param surfaceHolder Indicates the pointer to this <b>OH_ArkUI_SurfaceHolder</b> instance.\n @param config Indicates the pointer to the XComponent's surface config.\n @return Returns the status code of the execution.\n         {@link ARKUI_ERROR_CODE_NO_ERROR} the execution is successful.\n         {@link ARKUI_ERROR_CODE_PARAM_INVALID} if a parameter error occurs.\n @since 22"]
+    #[cfg(feature = "api-22")]
     pub fn OH_ArkUI_SurfaceHolder_SetSurfaceConfig(
         surfaceHolder: *mut OH_ArkUI_SurfaceHolder,
         config: *mut ArkUI_XComponentSurfaceConfig,

@@ -58,8 +58,8 @@ extern "C" {
     ) -> bool;
 }
 extern "C" {
-    #[cfg(feature = "api-13")]
     #[doc = " @brief Gets the fileName From uri.\n This function obtains that the last segment of the URI string is the return value of the function,\n and the URI of the media type is not supported\n @param uri Input a pointer to the uri string.\n @param length  The length of the input uri.\n @param result Output a pointer to a FileName string. Please use free() to clear the resource.\n @return Returns the status code of the execution.\n         {@link ERR_PARAMS} 401 - Invalid input parameter.\n         {@link ERR_ENOMEM} 13900011 - Failed to apply for memory or failed to copy memory.\n         {@link ERR_OK} 0 - This operation was successfully executed.\n @syscap SystemCapability.FileManagement.AppFileService\n @since 13"]
+    #[cfg(feature = "api-13")]
     pub fn OH_FileUri_GetFileName(
         uri: *const ::std::os::raw::c_char,
         length: ::std::os::raw::c_uint,

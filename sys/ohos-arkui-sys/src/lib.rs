@@ -36,24 +36,24 @@ pub type ArkUI_NodeHandle = *mut ArkUI_Node;
 pub struct ArkUI_DrawableDescriptor_AnimationController {
     _unused: [u8; 0],
 }
-#[cfg(feature = "api-22")]
 #[doc = " animation is initial."]
+#[cfg(feature = "api-22")]
 pub const DrawableDescriptor_AnimationStatus_DRAWABLE_DESCRIPTOR_ANIMATION_STATUS_INITIAL:
     DrawableDescriptor_AnimationStatus = 0;
-#[cfg(feature = "api-22")]
 #[doc = " animation is playing."]
+#[cfg(feature = "api-22")]
 pub const DrawableDescriptor_AnimationStatus_DRAWABLE_DESCRIPTOR_ANIMATION_STATUS_RUNNING:
     DrawableDescriptor_AnimationStatus = 1;
-#[cfg(feature = "api-22")]
 #[doc = " animation is paused."]
+#[cfg(feature = "api-22")]
 pub const DrawableDescriptor_AnimationStatus_DRAWABLE_DESCRIPTOR_ANIMATION_STATUS_PAUSED:
     DrawableDescriptor_AnimationStatus = 2;
-#[cfg(feature = "api-22")]
 #[doc = " animation is stopped."]
+#[cfg(feature = "api-22")]
 pub const DrawableDescriptor_AnimationStatus_DRAWABLE_DESCRIPTOR_ANIMATION_STATUS_STOPPED:
     DrawableDescriptor_AnimationStatus = 3;
-#[cfg(feature = "api-22")]
 #[doc = " @brief Defines the animation status of the drawable descriptor.\n\n @since 22"]
+#[cfg(feature = "api-22")]
 pub type DrawableDescriptor_AnimationStatus = u32;
 extern "C" {
     #[doc = " @brief Creates a DrawableDescriptor from a Pixelmap.\n\n @param pixelMap Indicates the pointer to a Pixelmap\n @return Returns the pointer to the drawableDescriptor.\n @since 12"]
@@ -117,8 +117,8 @@ extern "C" {
     ) -> i32;
 }
 extern "C" {
-    #[cfg(feature = "api-22")]
     #[doc = " @brief Sets the frame duration array.\n\n @param drawableDescriptor Indicates the pointer to the drawableDescriptor.\n @param durations Indicates the pointer to the frame duration array.\n @param size Indicates the size of the frame duration array.\n @return Returns {@link ARKUI_ERROR_CODE_NO_ERROR} if the operation is successful;\n         Returns {@link ARKUI_ERROR_CODE_PARAM_INVALID} if a parameter error occurs.\n @since 22"]
+    #[cfg(feature = "api-22")]
     pub fn OH_ArkUI_DrawableDescriptor_SetAnimationFrameDurations(
         drawableDescriptor: *mut ArkUI_DrawableDescriptor,
         durations: *mut u32,
@@ -126,8 +126,8 @@ extern "C" {
     ) -> i32;
 }
 extern "C" {
-    #[cfg(feature = "api-22")]
     #[doc = " @brief Obtains the frame duration array.\n\n @param drawableDescriptor Indicates the pointer to the drawableDescriptor.\n @param durations Indicates the pointer to the frame duration array.\n @param size Indicates the size of the frame duration array.\n @return Returns {@link ARKUI_ERROR_CODE_NO_ERROR} if the operation is successful;\n         Returns {@link ARKUI_ERROR_CODE_PARAM_INVALID} if a parameter error occurs.\n @since 22"]
+    #[cfg(feature = "api-22")]
     pub fn OH_ArkUI_DrawableDescriptor_GetAnimationFrameDurations(
         drawableDescriptor: *mut ArkUI_DrawableDescriptor,
         durations: *mut u32,
@@ -135,24 +135,24 @@ extern "C" {
     ) -> i32;
 }
 extern "C" {
-    #[cfg(feature = "api-22")]
     #[doc = " @brief Sets whether to play the animation automatically.\n\n @param drawableDescriptor Indicates the pointer to the drawableDescriptor.\n @param autoPlay Indicates whether to play the animation automatically.\n                 default value is 1, which means to play the animation automatically.\n                 value 0 means not to play the animation automatically.\n @return Returns {@link ARKUI_ERROR_CODE_NO_ERROR} if the operation is successful;\n         Returns {@link ARKUI_ERROR_CODE_PARAM_INVALID} if a parameter error occurs.\n @since 22"]
+    #[cfg(feature = "api-22")]
     pub fn OH_ArkUI_DrawableDescriptor_SetAnimationAutoPlay(
         drawableDescriptor: *mut ArkUI_DrawableDescriptor,
         autoPlay: u32,
     ) -> i32;
 }
 extern "C" {
-    #[cfg(feature = "api-22")]
     #[doc = " @brief Obtains whether to play the animation automatically.\n\n @param drawableDescriptor Indicates the pointer to the drawableDescriptor.\n @param autoPlay Indicates whether to play the animation automatically.\n @return Returns {@link ARKUI_ERROR_CODE_NO_ERROR} if the operation is successful;\n         Returns {@link ARKUI_ERROR_CODE_PARAM_INVALID} if a parameter error occurs.\n @since 22"]
+    #[cfg(feature = "api-22")]
     pub fn OH_ArkUI_DrawableDescriptor_GetAnimationAutoPlay(
         drawableDescriptor: *mut ArkUI_DrawableDescriptor,
         autoPlay: *mut u32,
     ) -> i32;
 }
 extern "C" {
-    #[cfg(feature = "api-22")]
     #[doc = " @brief Obtains the animation controller.\n\n @param drawableDescriptor Indicates the pointer to the drawableDescriptor.\n @param node Indicates the node handle.\n @param controller Indicates the pointer to the animation controller.\n @return Returns {@link ARKUI_ERROR_CODE_NO_ERROR} if the operation is successful;\n         Returns {@link ARKUI_ERROR_CODE_PARAM_INVALID} if a parameter error occurs.\n @since 22"]
+    #[cfg(feature = "api-22")]
     pub fn OH_ArkUI_DrawableDescriptor_CreateAnimationController(
         drawableDescriptor: *mut ArkUI_DrawableDescriptor,
         node: ArkUI_NodeHandle,
@@ -160,43 +160,43 @@ extern "C" {
     ) -> i32;
 }
 extern "C" {
-    #[cfg(feature = "api-22")]
     #[doc = " @brief Releases the animation controller.\n\n @param controller Indicates the pointer to the animation controller.\n @since 22"]
+    #[cfg(feature = "api-22")]
     pub fn OH_ArkUI_DrawableDescriptor_DisposeAnimationController(
         controller: *mut ArkUI_DrawableDescriptor_AnimationController,
     );
 }
 extern "C" {
-    #[cfg(feature = "api-22")]
     #[doc = " @brief Starts the animation from first frame.\n\n @param controller Indicates the pointer to the animation controller.\n @return Returns {@link ARKUI_ERROR_CODE_NO_ERROR} if the operation is successful;\n         Returns {@link ARKUI_ERROR_CODE_PARAM_INVALID} if a parameter error occurs.\n @since 22"]
+    #[cfg(feature = "api-22")]
     pub fn OH_ArkUI_DrawableDescriptor_StartAnimation(
         controller: *mut ArkUI_DrawableDescriptor_AnimationController,
     ) -> i32;
 }
 extern "C" {
-    #[cfg(feature = "api-22")]
     #[doc = " @brief Stops the animation and back to first frame.\n\n @param controller Indicates the pointer to the animation controller.\n @return Returns {@link ARKUI_ERROR_CODE_NO_ERROR} if the operation is successful;\n         Returns {@link ARKUI_ERROR_CODE_PARAM_INVALID} if a parameter error occurs.\n @since 22"]
+    #[cfg(feature = "api-22")]
     pub fn OH_ArkUI_DrawableDescriptor_StopAnimation(
         controller: *mut ArkUI_DrawableDescriptor_AnimationController,
     ) -> i32;
 }
 extern "C" {
-    #[cfg(feature = "api-22")]
     #[doc = " @brief Resumes the animation at the current frame.\n\n @param controller Indicates the pointer to the animation controller.\n @return Returns {@link ARKUI_ERROR_CODE_NO_ERROR} if the operation is successful;\n         Returns {@link ARKUI_ERROR_CODE_PARAM_INVALID} if a parameter error occurs.\n @since 22"]
+    #[cfg(feature = "api-22")]
     pub fn OH_ArkUI_DrawableDescriptor_ResumeAnimation(
         controller: *mut ArkUI_DrawableDescriptor_AnimationController,
     ) -> i32;
 }
 extern "C" {
-    #[cfg(feature = "api-22")]
     #[doc = " @brief Pauses the animation at the current frame.\n\n @param controller Indicates the pointer to the animation controller.\n @return Returns {@link ARKUI_ERROR_CODE_NO_ERROR} if the operation is successful;\n         Returns {@link ARKUI_ERROR_CODE_PARAM_INVALID} if a parameter error occurs.\n @since 22"]
+    #[cfg(feature = "api-22")]
     pub fn OH_ArkUI_DrawableDescriptor_PauseAnimation(
         controller: *mut ArkUI_DrawableDescriptor_AnimationController,
     ) -> i32;
 }
 extern "C" {
-    #[cfg(feature = "api-22")]
     #[doc = " @brief Obtains the animation playback status.\n\n @param controller Indicates the pointer to the animation controller.\n @param status Indicates the pointer to the animation playback status.\n @return Returns {@link ARKUI_ERROR_CODE_NO_ERROR} if the operation is successful;\n         Returns {@link ARKUI_ERROR_CODE_PARAM_INVALID} if a parameter error occurs.\n @since 22"]
+    #[cfg(feature = "api-22")]
     pub fn OH_ArkUI_DrawableDescriptor_GetAnimationStatus(
         controller: *mut ArkUI_DrawableDescriptor_AnimationController,
         status: *mut DrawableDescriptor_AnimationStatus,
@@ -227,8 +227,8 @@ pub struct ArkUI_DrawContext {
 }
 #[doc = " @brief Defines the pointer to the custom dialog box controller of ArkUI on the native side.\n\n @since 12"]
 pub type ArkUI_NativeDialogHandle = *mut ArkUI_NativeDialog;
-#[cfg(feature = "api-22")]
 #[doc = " @brief Defines the return value structure for the <b>onGetIrregularSizeByIndex</b> callback\n in <b>Grid</b> layout options.\n\n @since 22"]
+#[cfg(feature = "api-22")]
 #[repr(C)]
 #[derive(Debug, Copy, Clone)]
 pub struct ArkUI_GridItemSize {
@@ -237,8 +237,8 @@ pub struct ArkUI_GridItemSize {
     #[doc = " Number of columns occupied by the <b>GridItem</b> component."]
     pub columnSpan: u32,
 }
-#[cfg(feature = "api-22")]
 #[doc = " @brief Defines the return value structure for the <b>onGetRectByIndex</b> callback in <b>Grid</b> layout options.\n\n @since 22"]
+#[cfg(feature = "api-22")]
 #[repr(C)]
 #[derive(Debug, Copy, Clone)]
 pub struct ArkUI_GridItemRect {
@@ -483,36 +483,36 @@ pub const ArkUI_TextAlignment_ARKUI_TEXT_ALIGNMENT_END: ArkUI_TextAlignment = 2;
 pub const ArkUI_TextAlignment_ARKUI_TEXT_ALIGNMENT_JUSTIFY: ArkUI_TextAlignment = 3;
 #[doc = " @brief Enumerates the text alignment mode.\n\n @since 12"]
 pub type ArkUI_TextAlignment = u32;
-#[cfg(feature = "api-20")]
 #[doc = " Aligned to the baseline."]
+#[cfg(feature = "api-20")]
 pub const ArkUI_TextVerticalAlignment_ARKUI_TEXT_VERTICAL_ALIGNMENT_BASELINE:
     ArkUI_TextVerticalAlignment = 0;
-#[cfg(feature = "api-20")]
 #[doc = " Bottom aligned."]
+#[cfg(feature = "api-20")]
 pub const ArkUI_TextVerticalAlignment_ARKUI_TEXT_VERTICAL_ALIGNMENT_BOTTOM:
     ArkUI_TextVerticalAlignment = 1;
-#[cfg(feature = "api-20")]
 #[doc = " Center aligned."]
+#[cfg(feature = "api-20")]
 pub const ArkUI_TextVerticalAlignment_ARKUI_TEXT_VERTICAL_ALIGNMENT_CENTER:
     ArkUI_TextVerticalAlignment = 2;
-#[cfg(feature = "api-20")]
 #[doc = " Top aligned."]
+#[cfg(feature = "api-20")]
 pub const ArkUI_TextVerticalAlignment_ARKUI_TEXT_VERTICAL_ALIGNMENT_TOP:
     ArkUI_TextVerticalAlignment = 3;
-#[cfg(feature = "api-20")]
 #[doc = " @brief Enumerates text vertical alignment styles.\n\n @since 20"]
+#[cfg(feature = "api-20")]
 pub type ArkUI_TextVerticalAlignment = u32;
-#[cfg(feature = "api-21")]
 #[doc = " Top aligned."]
+#[cfg(feature = "api-21")]
 pub const ArkUI_TextContentAlign_ARKUI_TEXT_CONTENT_ALIGN_TOP: ArkUI_TextContentAlign = 0;
-#[cfg(feature = "api-21")]
 #[doc = " Center aligned."]
+#[cfg(feature = "api-21")]
 pub const ArkUI_TextContentAlign_ARKUI_TEXT_CONTENT_ALIGN_CENTER: ArkUI_TextContentAlign = 1;
-#[cfg(feature = "api-21")]
 #[doc = " Bottom aligned."]
-pub const ArkUI_TextContentAlign_ARKUI_TEXT_CONTENT_ALIGN_BOTTOM: ArkUI_TextContentAlign = 2;
 #[cfg(feature = "api-21")]
+pub const ArkUI_TextContentAlign_ARKUI_TEXT_CONTENT_ALIGN_BOTTOM: ArkUI_TextContentAlign = 2;
 #[doc = " @brief Enumerates text content align styles.\n\n @since 21"]
+#[cfg(feature = "api-21")]
 pub type ArkUI_TextContentAlign = u32;
 #[doc = " The Enter key is labeled \"Go.\""]
 pub const ArkUI_EnterKeyType_ARKUI_ENTER_KEY_TYPE_GO: ArkUI_EnterKeyType = 2;
@@ -550,8 +550,8 @@ pub const ArkUI_TextInputType_ARKUI_TEXTINPUT_TYPE_USER_NAME: ArkUI_TextInputTyp
 pub const ArkUI_TextInputType_ARKUI_TEXTINPUT_TYPE_NEW_PASSWORD: ArkUI_TextInputType = 11;
 #[doc = " Number input mode with a decimal point."]
 pub const ArkUI_TextInputType_ARKUI_TEXTINPUT_TYPE_NUMBER_DECIMAL: ArkUI_TextInputType = 12;
-#[cfg(feature = "api-20")]
 #[doc = " One time code input mode.\n @since 20"]
+#[cfg(feature = "api-20")]
 pub const ArkUI_TextInputType_ARKUI_TEXTINPUT_TYPE_ONE_TIME_CODE: ArkUI_TextInputType = 14;
 #[doc = " @brief Enumerates the text input types.\n\n @since 12"]
 pub type ArkUI_TextInputType = u32;
@@ -563,8 +563,8 @@ pub const ArkUI_TextAreaType_ARKUI_TEXTAREA_TYPE_NUMBER: ArkUI_TextAreaType = 2;
 pub const ArkUI_TextAreaType_ARKUI_TEXTAREA_TYPE_PHONE_NUMBER: ArkUI_TextAreaType = 3;
 #[doc = " Email address input mode."]
 pub const ArkUI_TextAreaType_ARKUI_TEXTAREA_TYPE_EMAIL: ArkUI_TextAreaType = 5;
-#[cfg(feature = "api-20")]
 #[doc = " One time code input mode.\n @since 20"]
+#[cfg(feature = "api-20")]
 pub const ArkUI_TextAreaType_ARKUI_TEXTAREA_TYPE_ONE_TIME_CODE: ArkUI_TextAreaType = 14;
 #[doc = " @brief Enumerates the text box types.\n\n @since 12"]
 pub type ArkUI_TextAreaType = u32;
@@ -647,17 +647,17 @@ pub const ArkUI_ShadowType_ARKUI_SHADOW_TYPE_COLOR: ArkUI_ShadowType = 0;
 pub const ArkUI_ShadowType_ARKUI_SHADOW_TYPE_BLUR: ArkUI_ShadowType = 1;
 #[doc = " @brief Enumerates the shadow types.\n\n @since 12"]
 pub type ArkUI_ShadowType = u32;
-#[cfg(feature = "api-18")]
 #[doc = " A mode that displays the date in months, days of month, and years."]
+#[cfg(feature = "api-18")]
 pub const ArkUI_DatePickerMode_ARKUI_DATEPICKER_MODE_DATE: ArkUI_DatePickerMode = 0;
-#[cfg(feature = "api-18")]
 #[doc = " A mode that displays the date in months and years."]
+#[cfg(feature = "api-18")]
 pub const ArkUI_DatePickerMode_ARKUI_DATEPICKER_YEAR_AND_MONTH: ArkUI_DatePickerMode = 1;
-#[cfg(feature = "api-18")]
 #[doc = " A mode that displays the date in months and days of the month."]
-pub const ArkUI_DatePickerMode_ARKUI_DATEPICKER_MONTH_AND_DAY: ArkUI_DatePickerMode = 2;
 #[cfg(feature = "api-18")]
+pub const ArkUI_DatePickerMode_ARKUI_DATEPICKER_MONTH_AND_DAY: ArkUI_DatePickerMode = 2;
 #[doc = " @brief Enumerates the modes of the date picker.\n\n @since 18"]
+#[cfg(feature = "api-18")]
 pub type ArkUI_DatePickerMode = u32;
 #[doc = " Single-column text picker."]
 pub const ArkUI_TextPickerRangeType_ARKUI_TEXTPICKER_RANGETYPE_SINGLE: ArkUI_TextPickerRangeType =
@@ -700,68 +700,68 @@ pub const ArkUI_EdgeEffect_ARKUI_EDGE_EFFECT_FADE: ArkUI_EdgeEffect = 1;
 pub const ArkUI_EdgeEffect_ARKUI_EDGE_EFFECT_NONE: ArkUI_EdgeEffect = 2;
 #[doc = " @brief Enumerates the effects used at the edges of the component when the boundary of the scrollable content is\n reached.\n\n @since 12"]
 pub type ArkUI_EdgeEffect = u32;
-#[cfg(feature = "api-22")]
 #[doc = " Not displayed."]
+#[cfg(feature = "api-22")]
 pub const ArkUI_BarState_ARKUI_BAR_STATE_OFF: ArkUI_BarState = 0;
-#[cfg(feature = "api-22")]
 #[doc = " On-demand display."]
+#[cfg(feature = "api-22")]
 pub const ArkUI_BarState_ARKUI_BAR_STATE_AUTO: ArkUI_BarState = 1;
-#[cfg(feature = "api-22")]
 #[doc = " Resident display."]
+#[cfg(feature = "api-22")]
 pub const ArkUI_BarState_ARKUI_BAR_STATE_ON: ArkUI_BarState = 2;
-#[cfg(feature = "api-22")]
 #[doc = " @brief Enumerates the status of the scroll bar.\n\n @since 22"]
+#[cfg(feature = "api-22")]
 pub type ArkUI_BarState = u32;
-#[cfg(feature = "api-18")]
 #[doc = " Start edge."]
+#[cfg(feature = "api-18")]
 pub const ArkUI_EffectEdge_ARKUI_EFFECT_EDGE_START: ArkUI_EffectEdge = 1;
-#[cfg(feature = "api-18")]
 #[doc = " End edge."]
-pub const ArkUI_EffectEdge_ARKUI_EFFECT_EDGE_END: ArkUI_EffectEdge = 2;
 #[cfg(feature = "api-18")]
+pub const ArkUI_EffectEdge_ARKUI_EFFECT_EDGE_END: ArkUI_EffectEdge = 2;
 #[doc = " @brief Enumerates the edges for which the effect takes effect when the boundary of the scrollable content is reached.\n\n @since 18"]
+#[cfg(feature = "api-18")]
 pub type ArkUI_EffectEdge = u32;
-#[cfg(feature = "api-20")]
 #[doc = " Default mode, where focus does not wrap when arrow keys are used."]
+#[cfg(feature = "api-20")]
 pub const ArkUI_FocusWrapMode_ARKUI_FOCUS_WRAP_MODE_DEFAULT: ArkUI_FocusWrapMode = 0;
-#[cfg(feature = "api-20")]
 #[doc = " Focus wraps automatically when arrow keys are used."]
-pub const ArkUI_FocusWrapMode_ARKUI_FOCUS_WRAP_WITH_ARROW: ArkUI_FocusWrapMode = 1;
 #[cfg(feature = "api-20")]
+pub const ArkUI_FocusWrapMode_ARKUI_FOCUS_WRAP_WITH_ARROW: ArkUI_FocusWrapMode = 1;
 #[doc = " @brief Enumerates the focus wrap mode of components.\n\n @since 20"]
+#[cfg(feature = "api-20")]
 pub type ArkUI_FocusWrapMode = u32;
-#[cfg(feature = "api-22")]
 #[doc = " No responsive breakpoint configuration."]
+#[cfg(feature = "api-22")]
 pub const ArkUI_ItemFillPolicy_ARKUI_ITEMFILLPOLICY_NONE: ArkUI_ItemFillPolicy = -1;
-#[cfg(feature = "api-22")]
 #[doc = " Default responsive layout:\n <b>List</b> or <b>Swiper</b> component: 1 column (SM or smaller), 2 columns (MD), 3 columns (LG or larger).\n <b>Grid</b> or <b>WaterFlow</b> component: 2 columns (SM or smaller), 3 columns (MD), 5 columns (LG or larger)."]
+#[cfg(feature = "api-22")]
 pub const ArkUI_ItemFillPolicy_ARKUI_ITEMFILLPOLICY_DEFAULT: ArkUI_ItemFillPolicy = 0;
-#[cfg(feature = "api-22")]
 #[doc = " 1 column (SM or smaller), 2 columns (MD), 3 columns (LG or larger)."]
+#[cfg(feature = "api-22")]
 pub const ArkUI_ItemFillPolicy_ARKUI_ITEMFILLPOLICY_SM1MD2LG3: ArkUI_ItemFillPolicy = 1;
-#[cfg(feature = "api-22")]
 #[doc = " 2 columns (SM or smaller), 3 columns (MD), 5 columns (LG or larger)."]
+#[cfg(feature = "api-22")]
 pub const ArkUI_ItemFillPolicy_ARKUI_ITEMFILLPOLICY_SM2MD3LG5: ArkUI_ItemFillPolicy = 2;
-#[cfg(feature = "api-22")]
 #[doc = " @brief Specifies the number of columns for different responsive breakpoint specifications.\n\n @since 22"]
+#[cfg(feature = "api-22")]
 pub type ArkUI_ItemFillPolicy = i32;
-#[cfg(feature = "api-22")]
 #[doc = " Use the default alignment mode of the grid."]
+#[cfg(feature = "api-22")]
 pub const ArkUI_GridItemAlignment_GRID_ITEM_ALIGNMENT_DEFAULT: ArkUI_GridItemAlignment = 0;
-#[cfg(feature = "api-22")]
 #[doc = " Set the height of all grid items in a row to match the height of the tallest item in that row."]
+#[cfg(feature = "api-22")]
 pub const ArkUI_GridItemAlignment_GRID_ITEM_ALIGNMENT_STRETCH: ArkUI_GridItemAlignment = 1;
-#[cfg(feature = "api-22")]
 #[doc = " @brief Enumerates the grid item alignment modes.\n\n @since 22"]
+#[cfg(feature = "api-22")]
 pub type ArkUI_GridItemAlignment = u32;
-#[cfg(feature = "api-22")]
 #[doc = " No style."]
+#[cfg(feature = "api-22")]
 pub const ArkUI_GridItemStyle_GRID_ITEM_STYLE_NONE: ArkUI_GridItemStyle = 0;
-#[cfg(feature = "api-22")]
 #[doc = " Hover or press style."]
-pub const ArkUI_GridItemStyle_GRID_ITEM_STYLE_PLAIN: ArkUI_GridItemStyle = 1;
 #[cfg(feature = "api-22")]
+pub const ArkUI_GridItemStyle_GRID_ITEM_STYLE_PLAIN: ArkUI_GridItemStyle = 1;
 #[doc = " @brief Enumerates styles of grid items.\n\n @since 22"]
+#[cfg(feature = "api-22")]
 pub type ArkUI_GridItemStyle = u32;
 #[doc = " Only vertical scrolling is supported."]
 pub const ArkUI_ScrollDirection_ARKUI_SCROLL_DIRECTION_VERTICAL: ArkUI_ScrollDirection = 0;
@@ -769,8 +769,8 @@ pub const ArkUI_ScrollDirection_ARKUI_SCROLL_DIRECTION_VERTICAL: ArkUI_ScrollDir
 pub const ArkUI_ScrollDirection_ARKUI_SCROLL_DIRECTION_HORIZONTAL: ArkUI_ScrollDirection = 1;
 #[doc = " Scrolling is not allowed."]
 pub const ArkUI_ScrollDirection_ARKUI_SCROLL_DIRECTION_NONE: ArkUI_ScrollDirection = 3;
-#[cfg(feature = "api-20")]
 #[doc = " Free scrolling in both directions.\n\n @since 20"]
+#[cfg(feature = "api-20")]
 pub const ArkUI_ScrollDirection_ARKUI_SCROLL_DIRECTION_FREE: ArkUI_ScrollDirection = 4;
 #[doc = " @brief Enumerates the scroll directions for the <b><Scroll></b> component.\n\n @since 12"]
 pub type ArkUI_ScrollDirection = u32;
@@ -784,16 +784,16 @@ pub const ArkUI_ScrollSnapAlign_ARKUI_SCROLL_SNAP_ALIGN_CENTER: ArkUI_ScrollSnap
 pub const ArkUI_ScrollSnapAlign_ARKUI_SCROLL_SNAP_ALIGN_END: ArkUI_ScrollSnapAlign = 3;
 #[doc = " @brief Enumerates the alignment modes of list items when scrolling ends.\n\n @since 12"]
 pub type ArkUI_ScrollSnapAlign = u32;
-#[cfg(feature = "api-22")]
 #[doc = " Normal scroll snap animation speed."]
+#[cfg(feature = "api-22")]
 pub const ArkUI_ScrollSnapAnimationSpeed_ARKUI_SCROLL_SNAP_ANIMATION_NORMAL:
     ArkUI_ScrollSnapAnimationSpeed = 0;
-#[cfg(feature = "api-22")]
 #[doc = " Slow scroll snap animation speed."]
+#[cfg(feature = "api-22")]
 pub const ArkUI_ScrollSnapAnimationSpeed_ARKUI_SCROLL_SNAP_ANIMATION_SLOW:
     ArkUI_ScrollSnapAnimationSpeed = 1;
-#[cfg(feature = "api-22")]
 #[doc = " @brief Enumerates the scroll snap animation speeds for lists.\n\n @since 22"]
+#[cfg(feature = "api-22")]
 pub type ArkUI_ScrollSnapAnimationSpeed = u32;
 #[doc = " Hide."]
 pub const ArkUI_ScrollBarDisplayMode_ARKUI_SCROLL_BAR_DISPLAY_MODE_OFF: ArkUI_ScrollBarDisplayMode =
@@ -822,28 +822,28 @@ pub const ArkUI_StickyStyle_ARKUI_STICKY_STYLE_FOOTER: ArkUI_StickyStyle = 2;
 pub const ArkUI_StickyStyle_ARKUI_STICKY_STYLE_BOTH: ArkUI_StickyStyle = 3;
 #[doc = " @brief Enumerates the modes for pinning the header to the top or the footer to the bottom.\n\n @since 12"]
 pub type ArkUI_StickyStyle = u32;
-#[cfg(feature = "api-18")]
 #[doc = " clip by content"]
+#[cfg(feature = "api-18")]
 pub const ArkUI_ContentClipMode_ARKUI_CONTENT_CLIP_MODE_CONTENT_ONLY: ArkUI_ContentClipMode = 0;
-#[cfg(feature = "api-18")]
 #[doc = " clip by boundary"]
+#[cfg(feature = "api-18")]
 pub const ArkUI_ContentClipMode_ARKUI_CONTENT_CLIP_MODE_BOUNDARY: ArkUI_ContentClipMode = 1;
-#[cfg(feature = "api-18")]
 #[doc = " clip by safe area padding"]
+#[cfg(feature = "api-18")]
 pub const ArkUI_ContentClipMode_ARKUI_CONTENT_CLIP_MODE_SAFE_AREA: ArkUI_ContentClipMode = 2;
-#[cfg(feature = "api-18")]
 #[doc = " @brief Enumerates the content clipping modes of scrollable components.\n\n @since 18"]
-pub type ArkUI_ContentClipMode = u32;
 #[cfg(feature = "api-18")]
+pub type ArkUI_ContentClipMode = u32;
 #[doc = " Layout items from top to viewport."]
+#[cfg(feature = "api-18")]
 pub const ArkUI_WaterFlowLayoutMode_ARKUI_WATER_FLOW_LAYOUT_MODE_ALWAYS_TOP_DOWN:
     ArkUI_WaterFlowLayoutMode = 0;
-#[cfg(feature = "api-18")]
 #[doc = " Layout items in viewport."]
+#[cfg(feature = "api-18")]
 pub const ArkUI_WaterFlowLayoutMode_ARKUI_WATER_FLOW_LAYOUT_MODE_SLIDING_WINDOW:
     ArkUI_WaterFlowLayoutMode = 1;
-#[cfg(feature = "api-18")]
 #[doc = " @brief Enumerates the layout modes of the WaterFlow component.\n\n @since 18"]
+#[cfg(feature = "api-18")]
 pub type ArkUI_WaterFlowLayoutMode = u32;
 #[doc = " Solid border."]
 pub const ArkUI_BorderStyle_ARKUI_BORDER_STYLE_SOLID: ArkUI_BorderStyle = 0;
@@ -861,11 +861,11 @@ pub const ArkUI_HitTestMode_ARKUI_HIT_TEST_MODE_BLOCK: ArkUI_HitTestMode = 1;
 pub const ArkUI_HitTestMode_ARKUI_HIT_TEST_MODE_TRANSPARENT: ArkUI_HitTestMode = 2;
 #[doc = " The node does not respond to the hit test of a touch event."]
 pub const ArkUI_HitTestMode_ARKUI_HIT_TEST_MODE_NONE: ArkUI_HitTestMode = 3;
-#[cfg(feature = "api-20")]
 #[doc = " The node and its child nodes participate in hit tests, while blocking hit tests for all sibling nodes and\n parent nodes with lower priority.\n\n @since 20"]
-pub const ArkUI_HitTestMode_ARKUI_HIT_TEST_MODE_BLOCK_HIERARCHY: ArkUI_HitTestMode = 4;
 #[cfg(feature = "api-20")]
+pub const ArkUI_HitTestMode_ARKUI_HIT_TEST_MODE_BLOCK_HIERARCHY: ArkUI_HitTestMode = 4;
 #[doc = " The node does not respond to hit tests, and none of its descendants (including children and grandchildren)\n participate in hit tests either.\n\n @since 20"]
+#[cfg(feature = "api-20")]
 pub const ArkUI_HitTestMode_ARKUI_HIT_TEST_MODE_BLOCK_DESCENDANTS: ArkUI_HitTestMode = 5;
 #[doc = " @brief Enumerates the hit test modes.\n\n @since 12"]
 pub type ArkUI_HitTestMode = u32;
@@ -927,26 +927,26 @@ pub const ArkUI_SwiperNestedScrollMode_ARKUI_SWIPER_NESTED_SRCOLL_SELF_FIRST:
     ArkUI_SwiperNestedScrollMode = 1;
 #[doc = " @brief Nested scrolling mode for Swiper components and parent components.\n\n @since 12"]
 pub type ArkUI_SwiperNestedScrollMode = u32;
-#[cfg(feature = "api-15")]
 #[doc = " When the mouse wheel is scrolled continuously, multiple pages are flipped, which is determined by the number of\n  times that mouse events are reported."]
+#[cfg(feature = "api-15")]
 pub const ArkUI_PageFlipMode_ARKUI_PAGE_FLIP_MODE_CONTINUOUS: ArkUI_PageFlipMode = 0;
-#[cfg(feature = "api-15")]
 #[doc = " The system does not respond to other mouse wheel events until the page flipping animation ends."]
+#[cfg(feature = "api-15")]
 pub const ArkUI_PageFlipMode_ARKUI_PAGE_FLIP_MODE_SINGLE: ArkUI_PageFlipMode = 1;
-#[cfg(feature = "api-15")]
 #[doc = " @brief Enumerates the page flipping modes using the mouse wheel for the <b>Swiper</b> component.\n\n @since 15"]
+#[cfg(feature = "api-15")]
 pub type ArkUI_PageFlipMode = u32;
-#[cfg(feature = "api-15")]
 #[doc = " Jump to target index without animation."]
+#[cfg(feature = "api-15")]
 pub const ArkUI_SwiperAnimationMode_ARKUI_SWIPER_NO_ANIMATION: ArkUI_SwiperAnimationMode = 0;
-#[cfg(feature = "api-15")]
 #[doc = " Scroll to target index with animation."]
+#[cfg(feature = "api-15")]
 pub const ArkUI_SwiperAnimationMode_ARKUI_SWIPER_DEFAULT_ANIMATION: ArkUI_SwiperAnimationMode = 1;
-#[cfg(feature = "api-15")]
 #[doc = " Jump to some index near the target index without animation, then scroll to target index with animation."]
-pub const ArkUI_SwiperAnimationMode_ARKUI_SWIPER_FAST_ANIMATION: ArkUI_SwiperAnimationMode = 2;
 #[cfg(feature = "api-15")]
+pub const ArkUI_SwiperAnimationMode_ARKUI_SWIPER_FAST_ANIMATION: ArkUI_SwiperAnimationMode = 2;
 #[doc = " @brief Enumerates the animation modes for {@link NODE_SWIPER_INDEX}.\n\n @since 15"]
+#[cfg(feature = "api-15")]
 pub type ArkUI_SwiperAnimationMode = u32;
 #[doc = " Whether the component can be identified by the accessibility service is dependent on the component."]
 pub const ArkUI_AccessibilityMode_ARKUI_ACCESSIBILITY_MODE_AUTO: ArkUI_AccessibilityMode = 0;
@@ -1112,20 +1112,20 @@ pub const ArkUI_BlurStyle_ARKUI_BLUR_STYLE_COMPONENT_THICK: ArkUI_BlurStyle = 11
 pub const ArkUI_BlurStyle_ARKUI_BLUR_STYLE_COMPONENT_ULTRA_THICK: ArkUI_BlurStyle = 12;
 #[doc = " @brief Enumerates the blur styles.\n\n @since 12"]
 pub type ArkUI_BlurStyle = u32;
-#[cfg(feature = "api-19")]
 #[doc = " The blur effect changes according to the window's focus state;\n  it is inactive when the window is not in focus and active when the window is in focus."]
+#[cfg(feature = "api-19")]
 pub const ArkUI_BlurStyleActivePolicy_ARKUI_BLUR_STYLE_ACTIVE_POLICY_FOLLOWS_WINDOW_ACTIVE_STATE:
     ArkUI_BlurStyleActivePolicy = 0;
-#[cfg(feature = "api-19")]
 #[doc = " The blur effect is always active."]
+#[cfg(feature = "api-19")]
 pub const ArkUI_BlurStyleActivePolicy_ARKUI_BLUR_STYLE_ACTIVE_POLICY_ALWAYS_ACTIVE:
     ArkUI_BlurStyleActivePolicy = 1;
-#[cfg(feature = "api-19")]
 #[doc = " The blur effect is always inactive."]
+#[cfg(feature = "api-19")]
 pub const ArkUI_BlurStyleActivePolicy_ARKUI_BLUR_STYLE_ACTIVE_POLICY_ALWAYS_INACTIVE:
     ArkUI_BlurStyleActivePolicy = 2;
-#[cfg(feature = "api-19")]
 #[doc = " @brief Enumerates the activation policies for the background blur effect.\n\n @since 19"]
+#[cfg(feature = "api-19")]
 pub type ArkUI_BlurStyleActivePolicy = u32;
 #[doc = " Top aligned."]
 pub const ArkUI_VerticalAlignment_ARKUI_VERTICAL_ALIGNMENT_TOP: ArkUI_VerticalAlignment = 0;
@@ -1163,8 +1163,8 @@ pub const ArkUI_ImageSpanAlignment_ARKUI_IMAGE_SPAN_ALIGNMENT_BOTTOM: ArkUI_Imag
 pub const ArkUI_ImageSpanAlignment_ARKUI_IMAGE_SPAN_ALIGNMENT_CENTER: ArkUI_ImageSpanAlignment = 2;
 #[doc = " The image is top aligned with the text."]
 pub const ArkUI_ImageSpanAlignment_ARKUI_IMAGE_SPAN_ALIGNMENT_TOP: ArkUI_ImageSpanAlignment = 3;
-#[cfg(feature = "api-20")]
 #[doc = " The image alignment mode follows the text component's alignment mode.\n\n @since 20"]
+#[cfg(feature = "api-20")]
 pub const ArkUI_ImageSpanAlignment_ARKUI_IMAGE_SPAN_ALIGNMENT_FOLLOW_PARAGRAPH:
     ArkUI_ImageSpanAlignment = 4;
 #[doc = " @brief Enumerates the alignment mode of the image with the text.\n\n @since 12"]
@@ -1199,8 +1199,8 @@ pub const ArkUI_ObjectFit_ARKUI_OBJECT_FIT_NONE_AND_ALIGN_BOTTOM_START: ArkUI_Ob
 pub const ArkUI_ObjectFit_ARKUI_OBJECT_FIT_NONE_AND_ALIGN_BOTTOM: ArkUI_ObjectFit = 13;
 #[doc = " Not resized, the image is aligned with the end edge at the bottom of the container."]
 pub const ArkUI_ObjectFit_ARKUI_OBJECT_FIT_NONE_AND_ALIGN_BOTTOM_END: ArkUI_ObjectFit = 14;
-#[cfg(feature = "api-21")]
 #[doc = " Not resized, and is used in conjunction with NODE_IMAGE_IMAGE_MATRIX.\n\n @since 21"]
+#[cfg(feature = "api-21")]
 pub const ArkUI_ObjectFit_ARKUI_OBJECT_FIT_NONE_MATRIX: ArkUI_ObjectFit = 15;
 #[doc = " @brief Defines how the image is resized to fit its container.\nImageSpanAlignment\n @since 12"]
 pub type ArkUI_ObjectFit = u32;
@@ -1214,51 +1214,51 @@ pub const ArkUI_ImageInterpolation_ARKUI_IMAGE_INTERPOLATION_MEDIUM: ArkUI_Image
 pub const ArkUI_ImageInterpolation_ARKUI_IMAGE_INTERPOLATION_HIGH: ArkUI_ImageInterpolation = 3;
 #[doc = " @brief Enumerates the image interpolation effect.\n\n @since 12"]
 pub type ArkUI_ImageInterpolation = u32;
-#[cfg(feature = "api-21")]
 #[doc = " high dynamic range mode."]
+#[cfg(feature = "api-21")]
 pub const ArkUI_DynamicRangeMode_ARKUI_DYNAMIC_RANGE_MODE_HIGH: ArkUI_DynamicRangeMode = 0;
-#[cfg(feature = "api-21")]
 #[doc = " constraint dynamic range mode."]
+#[cfg(feature = "api-21")]
 pub const ArkUI_DynamicRangeMode_ARKUI_DYNAMIC_RANGE_MODE_CONSTRAINT: ArkUI_DynamicRangeMode = 1;
-#[cfg(feature = "api-21")]
 #[doc = " standard dynamic range mode."]
+#[cfg(feature = "api-21")]
 pub const ArkUI_DynamicRangeMode_ARKUI_DYNAMIC_RANGE_MODE_STANDARD: ArkUI_DynamicRangeMode = 2;
-#[cfg(feature = "api-21")]
 #[doc = " @brief Enumerates the image dynamic range mode.\n\n @since 21"]
+#[cfg(feature = "api-21")]
 pub type ArkUI_DynamicRangeMode = u32;
-#[cfg(feature = "api-21")]
 #[doc = " Use EXIF metadata for display orientation, with support for rotation and mirroring."]
+#[cfg(feature = "api-21")]
 pub const ArkUI_ImageRotateOrientation_ARKUI_ORIENTATION_AUTO: ArkUI_ImageRotateOrientation = 0;
-#[cfg(feature = "api-21")]
 #[doc = " Display original pixel data without transformation."]
+#[cfg(feature = "api-21")]
 pub const ArkUI_ImageRotateOrientation_ARKUI_ORIENTATION_UP: ArkUI_ImageRotateOrientation = 1;
-#[cfg(feature = "api-21")]
 #[doc = " Display the image after rotating it 90 degrees clockwise."]
+#[cfg(feature = "api-21")]
 pub const ArkUI_ImageRotateOrientation_ARKUI_ORIENTATION_RIGHT: ArkUI_ImageRotateOrientation = 2;
-#[cfg(feature = "api-21")]
 #[doc = " Display the image after rotating it 180 degrees clockwise."]
+#[cfg(feature = "api-21")]
 pub const ArkUI_ImageRotateOrientation_ARKUI_ORIENTATION_DOWN: ArkUI_ImageRotateOrientation = 3;
-#[cfg(feature = "api-21")]
 #[doc = " Display the image after rotating it 270 degrees clockwise."]
-pub const ArkUI_ImageRotateOrientation_ARKUI_ORIENTATION_LEFT: ArkUI_ImageRotateOrientation = 4;
 #[cfg(feature = "api-21")]
+pub const ArkUI_ImageRotateOrientation_ARKUI_ORIENTATION_LEFT: ArkUI_ImageRotateOrientation = 4;
 #[doc = " Display the image after flipping it horizontally."]
+#[cfg(feature = "api-21")]
 pub const ArkUI_ImageRotateOrientation_ARKUI_ORIENTATION_UP_MIRRORED: ArkUI_ImageRotateOrientation =
     5;
-#[cfg(feature = "api-21")]
 #[doc = " Display the image after flipping it horizontally and then rotating it 90 degrees clockwise."]
+#[cfg(feature = "api-21")]
 pub const ArkUI_ImageRotateOrientation_ARKUI_ORIENTATION_RIGHT_MIRRORED:
     ArkUI_ImageRotateOrientation = 6;
-#[cfg(feature = "api-21")]
 #[doc = " Display the image after flipping it vertically."]
+#[cfg(feature = "api-21")]
 pub const ArkUI_ImageRotateOrientation_ARKUI_ORIENTATION_DOWN_MIRRORED:
     ArkUI_ImageRotateOrientation = 7;
-#[cfg(feature = "api-21")]
 #[doc = " Display the image after flipping it horizontally and then rotating it 270 degrees clockwise."]
+#[cfg(feature = "api-21")]
 pub const ArkUI_ImageRotateOrientation_ARKUI_ORIENTATION_LEFT_MIRRORED:
     ArkUI_ImageRotateOrientation = 8;
-#[cfg(feature = "api-21")]
 #[doc = " @brief Enumerates the image rotate orientation.\n\n @since 21"]
+#[cfg(feature = "api-21")]
 pub type ArkUI_ImageRotateOrientation = u32;
 #[doc = " The top image is superimposed on the bottom image without any blending."]
 pub const ArkUI_BlendMode_ARKUI_BLEND_MODE_NONE: ArkUI_BlendMode = 0;
@@ -1481,8 +1481,8 @@ pub const ArkUI_WordBreak_ARKUI_WORD_BREAK_NORMAL: ArkUI_WordBreak = 0;
 pub const ArkUI_WordBreak_ARKUI_WORD_BREAK_BREAK_ALL: ArkUI_WordBreak = 1;
 #[doc = " This option has the same effect as <b>BREAK_ALL</b> for non-CJK text, except that if it preferentially wraps\n  lines at appropriate characters (for example, spaces) whenever possible.\nCJK text behavior is the same as for <b>NORMAL</b>."]
 pub const ArkUI_WordBreak_ARKUI_WORD_BREAK_BREAK_WORD: ArkUI_WordBreak = 2;
-#[cfg(feature = "api-18")]
 #[doc = " @brief Line breaks can occur between any two syllabic units for non-CJK text.\n CJK text behavior is the same as for <b>NORMAL</b>.\n @since 18"]
+#[cfg(feature = "api-18")]
 pub const ArkUI_WordBreak_ARKUI_WORD_BREAK_HYPHENATION: ArkUI_WordBreak = 3;
 #[doc = " @brief Enumerates the word break rules.\n\n @since 12"]
 pub type ArkUI_WordBreak = u32;
@@ -1645,8 +1645,8 @@ pub const ArkUI_ButtonType_ARKUI_BUTTON_TYPE_NORMAL: ArkUI_ButtonType = 0;
 pub const ArkUI_ButtonType_ARKUI_BUTTON_TYPE_CAPSULE: ArkUI_ButtonType = 1;
 #[doc = " Circle button."]
 pub const ArkUI_ButtonType_ARKUI_BUTTON_TYPE_CIRCLE: ArkUI_ButtonType = 2;
-#[cfg(feature = "api-19")]
 #[doc = " Rounded rectangle button.\n @since 19"]
+#[cfg(feature = "api-19")]
 pub const ArkUI_ButtonType_ARKUI_BUTTON_ROUNDED_RECTANGLE: ArkUI_ButtonType = 8;
 #[doc = " @brief Enumerates the button types.\n\n @since 12"]
 pub type ArkUI_ButtonType = u32;
@@ -1713,52 +1713,52 @@ pub const ArkUI_TextInputContentType_ARKUI_TEXTINPUT_CONTENT_TYPE_DETAIL_INFO_WI
 #[doc = " Standard address. The scenario-based autofill feature, when enabled, can automatically save and fill in standard\n  addresses."]
 pub const ArkUI_TextInputContentType_ARKUI_TEXTINPUT_CONTENT_TYPE_FORMAT_ADDRESS:
     ArkUI_TextInputContentType = 20;
-#[cfg(feature = "api-18")]
 #[doc = " Passport number. The scenario-based autofill feature, when enabled, can automatically save and fill in passport\n numbers.\n @since 18"]
+#[cfg(feature = "api-18")]
 pub const ArkUI_TextInputContentType_ARKUI_TEXTINPUT_CONTENT_TYPE_PASSPORT_NUMBER:
     ArkUI_TextInputContentType = 21;
-#[cfg(feature = "api-18")]
 #[doc = "  Passport validity. The scenario-based autofill feature, when enabled, can automatically save and fill in\n  passport validities.\n  @since 18"]
+#[cfg(feature = "api-18")]
 pub const ArkUI_TextInputContentType_ARKUI_TEXTINPUT_CONTENT_TYPE_VALIDITY:
     ArkUI_TextInputContentType = 22;
-#[cfg(feature = "api-18")]
 #[doc = "  Place of issue. The scenario-based autofill feature, when enabled, can automatically save and fill in\n  place of issues.\n  @since 18"]
+#[cfg(feature = "api-18")]
 pub const ArkUI_TextInputContentType_ARKUI_TEXTINPUT_CONTENT_TYPE_ISSUE_AT:
     ArkUI_TextInputContentType = 23;
-#[cfg(feature = "api-18")]
 #[doc = "  Tax organization. The scenario-based autofill feature, when enabled, can automatically save and fill in tax\n  organizations.\n  @since 18"]
+#[cfg(feature = "api-18")]
 pub const ArkUI_TextInputContentType_ARKUI_TEXTINPUT_CONTENT_TYPE_ORGANIZATION:
     ArkUI_TextInputContentType = 24;
-#[cfg(feature = "api-18")]
 #[doc = "  Tax id. The scenario-based autofill feature, when enabled, can automatically save and fill in standard Tax ids.\n  @since 18"]
+#[cfg(feature = "api-18")]
 pub const ArkUI_TextInputContentType_ARKUI_TEXTINPUT_CONTENT_TYPE_TAX_ID:
     ArkUI_TextInputContentType = 25;
-#[cfg(feature = "api-18")]
 #[doc = "  City name and state name or state code. The scenario-based autofill feature, when enabled, can automatically\n  save and fill in city names and state names or state codes.\n  @since 18"]
+#[cfg(feature = "api-18")]
 pub const ArkUI_TextInputContentType_ARKUI_TEXTINPUT_CONTENT_TYPE_ADDRESS_CITY_AND_STATE:
     ArkUI_TextInputContentType = 26;
-#[cfg(feature = "api-18")]
 #[doc = "  Flight number. The scenario-based autofill feature, when enabled, can automatically save and fill in flight\n  numbers.\n  @since 18"]
+#[cfg(feature = "api-18")]
 pub const ArkUI_TextInputContentType_ARKUI_TEXTINPUT_CONTENT_TYPE_FLIGHT_NUMBER:
     ArkUI_TextInputContentType = 27;
-#[cfg(feature = "api-18")]
 #[doc = "  License number. The scenario-based autofill feature, when enabled, can automatically save and fill in license\n  numbers.\n  @since 18"]
+#[cfg(feature = "api-18")]
 pub const ArkUI_TextInputContentType_ARKUI_TEXTINPUT_CONTENT_TYPE_LICENSE_NUMBER:
     ArkUI_TextInputContentType = 28;
-#[cfg(feature = "api-18")]
 #[doc = "  License file number. The scenario-based autofill feature, when enabled, can automatically save and fill in\n  license file numbers.\n  @since 18"]
+#[cfg(feature = "api-18")]
 pub const ArkUI_TextInputContentType_ARKUI_TEXTINPUT_CONTENT_TYPE_LICENSE_FILE_NUMBER:
     ArkUI_TextInputContentType = 29;
-#[cfg(feature = "api-18")]
 #[doc = "  License plate number. The scenario-based autofill feature, when enabled, can automatically save and fill in\n  license plate numbers.\n  @since 18"]
+#[cfg(feature = "api-18")]
 pub const ArkUI_TextInputContentType_ARKUI_TEXTINPUT_CONTENT_TYPE_LICENSE_PLATE:
     ArkUI_TextInputContentType = 30;
-#[cfg(feature = "api-18")]
 #[doc = "  Engine number. The scenario-based autofill feature, when enabled, can automatically save and fill in engine\n  numbers.\n  @since 18"]
+#[cfg(feature = "api-18")]
 pub const ArkUI_TextInputContentType_ARKUI_TEXTINPUT_CONTENT_TYPE_ENGINE_NUMBER:
     ArkUI_TextInputContentType = 31;
-#[cfg(feature = "api-18")]
 #[doc = "  License chassis number. The scenario-based autofill feature, when enabled, can automatically save and fill in\n  license chassis numbers.\n  @since 18"]
+#[cfg(feature = "api-18")]
 pub const ArkUI_TextInputContentType_ARKUI_TEXTINPUT_CONTENT_TYPE_LICENSE_CHASSIS_NUMBER:
     ArkUI_TextInputContentType = 32;
 #[doc = " @brief Enumerates the autofill types.\n\n @since 12"]
@@ -1769,24 +1769,24 @@ pub const ArkUI_TextInputStyle_ARKUI_TEXTINPUT_STYLE_DEFAULT: ArkUI_TextInputSty
 pub const ArkUI_TextInputStyle_ARKUI_TEXTINPUT_STYLE_INLINE: ArkUI_TextInputStyle = 1;
 #[doc = " @brief Defines the text input style.\n\n @since 12"]
 pub type ArkUI_TextInputStyle = u32;
-#[cfg(feature = "api-15")]
 #[doc = " Default appearance mode, won't adopt immersive styles.\n @since 15"]
+#[cfg(feature = "api-15")]
 pub const ArkUI_KeyboardAppearance_ARKUI_KEYBOARD_APPEARANCE_NONE_IMMERSIVE:
     ArkUI_KeyboardAppearance = 0;
-#[cfg(feature = "api-15")]
 #[doc = " Immersive mode.\n @since 15"]
+#[cfg(feature = "api-15")]
 pub const ArkUI_KeyboardAppearance_ARKUI_KEYBOARD_APPEARANCE_IMMERSIVE: ArkUI_KeyboardAppearance =
     1;
-#[cfg(feature = "api-15")]
 #[doc = " Light immersive style.\n @since 15"]
+#[cfg(feature = "api-15")]
 pub const ArkUI_KeyboardAppearance_ARKUI_KEYBOARD_APPEARANCE_LIGHT_IMMERSIVE:
     ArkUI_KeyboardAppearance = 2;
-#[cfg(feature = "api-15")]
 #[doc = " Dark immersive style.\n @since 15"]
+#[cfg(feature = "api-15")]
 pub const ArkUI_KeyboardAppearance_ARKUI_KEYBOARD_APPEARANCE_DARK_IMMERSIVE:
     ArkUI_KeyboardAppearance = 3;
-#[cfg(feature = "api-15")]
 #[doc = " @brief Defines the keyboard style of input box\n\n @since 15"]
+#[cfg(feature = "api-15")]
 pub type ArkUI_KeyboardAppearance = u32;
 #[doc = " Phone Number."]
 pub const ArkUI_TextDataDetectorType_ARKUI_TEXT_DATA_DETECTOR_TYPE_PHONE_NUMBER:
@@ -1832,14 +1832,14 @@ pub type ArkUI_ListItemSwipeEdgeEffect = u32;
 pub const ArkUI_ErrorCode_ARKUI_ERROR_CODE_NO_ERROR: ArkUI_ErrorCode = 0;
 #[doc = " @error Parameter error."]
 pub const ArkUI_ErrorCode_ARKUI_ERROR_CODE_PARAM_INVALID: ArkUI_ErrorCode = 401;
-#[cfg(feature = "api-18")]
 #[doc = " @error CAPI init error.\n @since 18"]
+#[cfg(feature = "api-18")]
 pub const ArkUI_ErrorCode_ARKUI_ERROR_CODE_CAPI_INIT_ERROR: ArkUI_ErrorCode = 500;
-#[cfg(feature = "api-15")]
 #[doc = " @error Internal error occurs, such as failure occurs because of the internal environment error,\n or operation failed because of the internal execution failed.\n @since 15"]
+#[cfg(feature = "api-15")]
 pub const ArkUI_ErrorCode_ARKUI_ERROR_CODE_INTERNAL_ERROR: ArkUI_ErrorCode = 100001;
-#[cfg(feature = "api-19")]
 #[doc = " @error The XComponent is in invalid state.\n @since 19"]
+#[cfg(feature = "api-19")]
 pub const ArkUI_ErrorCode_ARKUI_ERROR_CODE_XCOMPONENT_STATE_INVALID: ArkUI_ErrorCode = 103501;
 #[doc = " @error The component does not support specific properties or events."]
 pub const ArkUI_ErrorCode_ARKUI_ERROR_CODE_ATTRIBUTE_OR_EVENT_NOT_SUPPORTED: ArkUI_ErrorCode =
@@ -1859,8 +1859,8 @@ pub const ArkUI_ErrorCode_ARKUI_ERROR_CODE_NODE_EVENT_PARAM_INDEX_OUT_OF_RANGE: 
 pub const ArkUI_ErrorCode_ARKUI_ERROR_CODE_NODE_EVENT_PARAM_INVALID: ArkUI_ErrorCode = 106108;
 #[doc = " The component event does not support return values."]
 pub const ArkUI_ErrorCode_ARKUI_ERROR_CODE_NODE_EVENT_NO_RETURN: ArkUI_ErrorCode = 106109;
-#[cfg(feature = "api-21")]
 #[doc = " @error The event type is not supported by the node.\n @since 21"]
+#[cfg(feature = "api-21")]
 pub const ArkUI_ErrorCode_ARKUI_ERROR_CODE_NODE_UNSUPPORTED_EVENT_TYPE: ArkUI_ErrorCode = 106110;
 #[doc = " The index value is invalid."]
 pub const ArkUI_ErrorCode_ARKUI_ERROR_CODE_NODE_INDEX_INVALID: ArkUI_ErrorCode = 106200;
@@ -1868,103 +1868,103 @@ pub const ArkUI_ErrorCode_ARKUI_ERROR_CODE_NODE_INDEX_INVALID: ArkUI_ErrorCode =
 pub const ArkUI_ErrorCode_ARKUI_ERROR_CODE_GET_INFO_FAILED: ArkUI_ErrorCode = 106201;
 #[doc = " The buffer size is not large enough."]
 pub const ArkUI_ErrorCode_ARKUI_ERROR_CODE_BUFFER_SIZE_ERROR: ArkUI_ErrorCode = 106202;
-#[cfg(feature = "api-15")]
 #[doc = " @error The node is not on main tree.\n @since 15"]
+#[cfg(feature = "api-15")]
 pub const ArkUI_ErrorCode_ARKUI_ERROR_CODE_NODE_NOT_ON_MAIN_TREE: ArkUI_ErrorCode = 106203;
-#[cfg(feature = "api-22")]
 #[doc = " @error The node is running on invalid thread.\n @since 22"]
+#[cfg(feature = "api-22")]
 pub const ArkUI_ErrorCode_ARKUI_ERROR_CODE_NODE_ON_INVALID_THREAD: ArkUI_ErrorCode = 106204;
-#[cfg(feature = "api-20")]
 #[doc = " @error Force dark config is invalid.\n @since 20"]
+#[cfg(feature = "api-20")]
 pub const ArkUI_ErrorCode_ARKUI_ERROR_CODE_FORCE_DARK_CONFIG_INVALID: ArkUI_ErrorCode = 106205;
-#[cfg(feature = "api-22")]
 #[doc = " @error The node has already been adopted.\n @since 22"]
+#[cfg(feature = "api-22")]
 pub const ArkUI_ErrorCode_ARKUI_ERROR_CODE_NODE_IS_ADOPTED: ArkUI_ErrorCode = 106206;
-#[cfg(feature = "api-22")]
 #[doc = " @error This node already has a parent node.\n @since 22"]
+#[cfg(feature = "api-22")]
 pub const ArkUI_ErrorCode_ARKUI_ERROR_CODE_NODE_HAS_PARENT: ArkUI_ErrorCode = 106207;
-#[cfg(feature = "api-22")]
 #[doc = " @error The node cannot be adopted.\n @since 22"]
+#[cfg(feature = "api-22")]
 pub const ArkUI_ErrorCode_ARKUI_ERROR_CODE_NODE_CAN_NOT_BE_ADOPTED: ArkUI_ErrorCode = 106208;
-#[cfg(feature = "api-22")]
 #[doc = " @error The node cannot adopt children.\n @since 22"]
-pub const ArkUI_ErrorCode_ARKUI_ERROR_CODE_NODE_CAN_NOT_ADOPT_TO: ArkUI_ErrorCode = 106209;
 #[cfg(feature = "api-22")]
+pub const ArkUI_ErrorCode_ARKUI_ERROR_CODE_NODE_CAN_NOT_ADOPT_TO: ArkUI_ErrorCode = 106209;
 #[doc = " @error This child node is not adopted by the parent node.\n @since 22"]
+#[cfg(feature = "api-22")]
 pub const ArkUI_ErrorCode_ARKUI_ERROR_CODE_NODE_IS_NOT_IN_ADOPTED_CHILDREN: ArkUI_ErrorCode =
     106210;
-#[cfg(feature = "api-20")]
 #[doc = " @error The node type is not custom node.\n @since 20"]
+#[cfg(feature = "api-20")]
 pub const ArkUI_ErrorCode_ARKUI_ERROR_CODE_NOT_CUSTOM_NODE: ArkUI_ErrorCode = 106401;
-#[cfg(feature = "api-20")]
 #[doc = " @error Node already has children.\n @since 20"]
+#[cfg(feature = "api-20")]
 pub const ArkUI_ErrorCode_ARKUI_ERROR_CODE_CHILD_EXISTED: ArkUI_ErrorCode = 106402;
-#[cfg(feature = "api-20")]
 #[doc = " @error RenderNode parent is existed.\n @since 20"]
+#[cfg(feature = "api-20")]
 pub const ArkUI_ErrorCode_ARKUI_ERROR_CODE_RENDER_PARENT_EXISTED: ArkUI_ErrorCode = 106403;
-#[cfg(feature = "api-20")]
 #[doc = " @error RenderNode child is not exist.\n @since 20"]
-pub const ArkUI_ErrorCode_ARKUI_ERROR_CODE_RENDER_CHILD_NOT_EXIST: ArkUI_ErrorCode = 106404;
 #[cfg(feature = "api-20")]
+pub const ArkUI_ErrorCode_ARKUI_ERROR_CODE_RENDER_CHILD_NOT_EXIST: ArkUI_ErrorCode = 106404;
 #[doc = " @error Param is out of range.\n @since 20"]
+#[cfg(feature = "api-20")]
 pub const ArkUI_ErrorCode_ARKUI_ERROR_CODE_PARAM_OUT_OF_RANGE: ArkUI_ErrorCode = 106405;
-#[cfg(feature = "api-22")]
 #[doc = " @error The RenderNode is obtained from a FrameNode.\n @since 22"]
+#[cfg(feature = "api-22")]
 pub const ArkUI_ErrorCode_ARKUI_ERROR_CODE_RENDER_IS_FROM_FRAME_NODE: ArkUI_ErrorCode = 106406;
-#[cfg(feature = "api-22")]
 #[doc = " @error The RenderNode is obtained from a FrameNode,\n and its corresponding FrameNode is no longer in the adopted state.\n @since 22"]
-pub const ArkUI_ErrorCode_ARKUI_ERROR_CODE_RENDER_HAS_INVALID_FRAME_NODE: ArkUI_ErrorCode = 106407;
 #[cfg(feature = "api-22")]
+pub const ArkUI_ErrorCode_ARKUI_ERROR_CODE_RENDER_HAS_INVALID_FRAME_NODE: ArkUI_ErrorCode = 106407;
 #[doc = " @error The node is not adopted.\n @since 22"]
+#[cfg(feature = "api-22")]
 pub const ArkUI_ErrorCode_ARKUI_ERROR_CODE_RENDER_NOT_ADOPTED_NODE: ArkUI_ErrorCode = 106408;
-#[cfg(feature = "api-15")]
 #[doc = " @error The node requesting focus is not focusable.\n @since 15"]
+#[cfg(feature = "api-15")]
 pub const ArkUI_ErrorCode_ARKUI_ERROR_CODE_FOCUS_NON_FOCUSABLE: ArkUI_ErrorCode = 150001;
-#[cfg(feature = "api-15")]
 #[doc = " @error The node requesting focus has unfocusable ancestor.\n @since 15"]
+#[cfg(feature = "api-15")]
 pub const ArkUI_ErrorCode_ARKUI_ERROR_CODE_FOCUS_NON_FOCUSABLE_ANCESTOR: ArkUI_ErrorCode = 150002;
-#[cfg(feature = "api-15")]
 #[doc = " @error The node requesting focus does not exists.\n @since 15"]
-pub const ArkUI_ErrorCode_ARKUI_ERROR_CODE_FOCUS_NON_EXISTENT: ArkUI_ErrorCode = 150003;
 #[cfg(feature = "api-15")]
+pub const ArkUI_ErrorCode_ARKUI_ERROR_CODE_FOCUS_NON_EXISTENT: ArkUI_ErrorCode = 150003;
 #[doc = " @error The snapshot taking is timeout.\n @since 15"]
+#[cfg(feature = "api-15")]
 pub const ArkUI_ErrorCode_ARKUI_ERROR_CODE_COMPONENT_SNAPSHOT_TIMEOUT: ArkUI_ErrorCode = 160002;
 #[doc = " The component is not a scroll container."]
 pub const ArkUI_ErrorCode_ARKUI_ERROR_CODE_NON_SCROLLABLE_CONTAINER: ArkUI_ErrorCode = 180001;
 #[doc = " The buffer is not large enough."]
 pub const ArkUI_ErrorCode_ARKUI_ERROR_CODE_BUFFER_SIZE_NOT_ENOUGH: ArkUI_ErrorCode = 180002;
-#[cfg(feature = "api-15")]
 #[doc = " @error The event is not a clone event.\n @since 15"]
-pub const ArkUI_ErrorCode_ARKUI_ERROR_CODE_NOT_CLONED_POINTER_EVENT: ArkUI_ErrorCode = 180003;
 #[cfg(feature = "api-15")]
+pub const ArkUI_ErrorCode_ARKUI_ERROR_CODE_NOT_CLONED_POINTER_EVENT: ArkUI_ErrorCode = 180003;
 #[doc = " @error The component status is abnormal.\n @since 15"]
+#[cfg(feature = "api-15")]
 pub const ArkUI_ErrorCode_ARKUI_ERROR_CODE_POST_CLONED_COMPONENT_STATUS_ABNORMAL: ArkUI_ErrorCode =
     180004;
-#[cfg(feature = "api-15")]
 #[doc = " @error No component hit to respond to the event.\n @since 15"]
+#[cfg(feature = "api-15")]
 pub const ArkUI_ErrorCode_ARKUI_ERROR_CODE_POST_CLONED_NO_COMPONENT_HIT_TO_RESPOND_TO_THE_EVENT:
     ArkUI_ErrorCode = 180005;
-#[cfg(feature = "api-20")]
 #[doc = " @error Input event type not supported.\n @since 20"]
+#[cfg(feature = "api-20")]
 pub const ArkUI_ErrorCode_ARKUI_ERROR_INPUT_EVENT_TYPE_NOT_SUPPORTED: ArkUI_ErrorCode = 180006;
-#[cfg(feature = "api-14")]
 #[doc = " @error invalid styled string.\n @since 14"]
+#[cfg(feature = "api-14")]
 pub const ArkUI_ErrorCode_ARKUI_ERROR_CODE_INVALID_STYLED_STRING: ArkUI_ErrorCode = 180101;
-#[cfg(feature = "api-18")]
 #[doc = " @error The gesture recognizer type is not supported.\n @since 18"]
+#[cfg(feature = "api-18")]
 pub const ArkUI_ErrorCode_ARKUI_ERROR_CODE_RECOGNIZER_TYPE_NOT_SUPPORTED: ArkUI_ErrorCode = 180102;
-#[cfg(feature = "api-18")]
 #[doc = " @error The uiContext is invalid.\n @since 18"]
-pub const ArkUI_ErrorCode_ARKUI_ERROR_CODE_UI_CONTEXT_INVALID: ArkUI_ErrorCode = 190001;
 #[cfg(feature = "api-18")]
+pub const ArkUI_ErrorCode_ARKUI_ERROR_CODE_UI_CONTEXT_INVALID: ArkUI_ErrorCode = 190001;
 #[doc = " @error The callback function is invalid.\n @since 18"]
+#[cfg(feature = "api-18")]
 pub const ArkUI_ErrorCode_ARKUI_ERROR_CODE_CALLBACK_INVALID: ArkUI_ErrorCode = 190002;
-#[cfg(feature = "api-19")]
 #[doc = " @error operation is not allowed for current drag drop pharse.\n @since 19"]
+#[cfg(feature = "api-19")]
 pub const ArkUI_ErrorCode_ARKUI_ERROR_CODE_DRAG_DROP_OPERATION_NOT_ALLOWED: ArkUI_ErrorCode =
     190004;
-#[cfg(feature = "api-21")]
 #[doc = " @error Parameter error.\n @since 21"]
+#[cfg(feature = "api-21")]
 pub const ArkUI_ErrorCode_ARKUI_ERROR_CODE_PARAM_ERROR: ArkUI_ErrorCode = 100023;
 #[doc = " @brief Define error code enumeration values.\n\n @since 12"]
 pub type ArkUI_ErrorCode = u32;
@@ -2155,23 +2155,23 @@ pub const ArkUI_SafeAreaType_ARKUI_SAFE_AREA_TYPE_CUTOUT: ArkUI_SafeAreaType = 2
 pub const ArkUI_SafeAreaType_ARKUI_SAFE_AREA_TYPE_KEYBOARD: ArkUI_SafeAreaType = 4;
 #[doc = " @brief defines the enumerated value of the extended security zone.\n\n @since 12"]
 pub type ArkUI_SafeAreaType = u32;
-#[cfg(feature = "api-15")]
 #[doc = " Outside the area of the <b>ListItemGroup</b> component."]
+#[cfg(feature = "api-15")]
 pub const ArkUI_ListItemGroupArea_ARKUI_LIST_ITEM_GROUP_AREA_OUTSIDE: ArkUI_ListItemGroupArea = 0;
-#[cfg(feature = "api-15")]
 #[doc = " Area when the <b>ListItemGroup</b> component does not have the header, footer, or list item."]
+#[cfg(feature = "api-15")]
 pub const ArkUI_ListItemGroupArea_ARKUI_LIST_ITEM_SWIPE_AREA_NONE: ArkUI_ListItemGroupArea = 1;
-#[cfg(feature = "api-15")]
 #[doc = " List item area of the <b>ListItemGroup</b> component."]
+#[cfg(feature = "api-15")]
 pub const ArkUI_ListItemGroupArea_ARKUI_LIST_ITEM_SWIPE_AREA_ITEM: ArkUI_ListItemGroupArea = 2;
-#[cfg(feature = "api-15")]
 #[doc = " Header area of the <b>ListItemGroup</b> component."]
+#[cfg(feature = "api-15")]
 pub const ArkUI_ListItemGroupArea_ARKUI_LIST_ITEM_SWIPE_AREA_HEADER: ArkUI_ListItemGroupArea = 3;
-#[cfg(feature = "api-15")]
 #[doc = " Footer area of the <b>ListItemGroup</b> component."]
-pub const ArkUI_ListItemGroupArea_ARKUI_LIST_ITEM_SWIPE_AREA_FOOTER: ArkUI_ListItemGroupArea = 4;
 #[cfg(feature = "api-15")]
+pub const ArkUI_ListItemGroupArea_ARKUI_LIST_ITEM_SWIPE_AREA_FOOTER: ArkUI_ListItemGroupArea = 4;
 #[doc = " @brief Define an enum for the areas of the <b>ListItemGroup</b> component.\n\n @since 15"]
+#[cfg(feature = "api-15")]
 pub type ArkUI_ListItemGroupArea = u32;
 #[doc = " Upper area."]
 pub const ArkUI_SafeAreaEdge_ARKUI_SAFE_AREA_EDGE_TOP: ArkUI_SafeAreaEdge = 1;
@@ -2183,148 +2183,148 @@ pub const ArkUI_SafeAreaEdge_ARKUI_SAFE_AREA_EDGE_START: ArkUI_SafeAreaEdge = 4;
 pub const ArkUI_SafeAreaEdge_ARKUI_SAFE_AREA_EDGE_END: ArkUI_SafeAreaEdge = 8;
 #[doc = " @brief defines the enumerated value of the direction of the extended security zone.\n\n @since 12"]
 pub type ArkUI_SafeAreaEdge = u32;
-#[cfg(feature = "api-18")]
 #[doc = " Move focus forward."]
+#[cfg(feature = "api-18")]
 pub const ArkUI_FocusMove_ARKUI_FOCUS_MOVE_FORWARD: ArkUI_FocusMove = 0;
-#[cfg(feature = "api-18")]
 #[doc = " Move focus backward."]
+#[cfg(feature = "api-18")]
 pub const ArkUI_FocusMove_ARKUI_FOCUS_MOVE_BACKWARD: ArkUI_FocusMove = 1;
-#[cfg(feature = "api-18")]
 #[doc = " Move focus up."]
+#[cfg(feature = "api-18")]
 pub const ArkUI_FocusMove_ARKUI_FOCUS_MOVE_UP: ArkUI_FocusMove = 2;
-#[cfg(feature = "api-18")]
 #[doc = " Move focus down."]
+#[cfg(feature = "api-18")]
 pub const ArkUI_FocusMove_ARKUI_FOCUS_MOVE_DOWN: ArkUI_FocusMove = 3;
-#[cfg(feature = "api-18")]
 #[doc = " Move focus left."]
+#[cfg(feature = "api-18")]
 pub const ArkUI_FocusMove_ARKUI_FOCUS_MOVE_LEFT: ArkUI_FocusMove = 4;
-#[cfg(feature = "api-18")]
 #[doc = " Move focus right."]
-pub const ArkUI_FocusMove_ARKUI_FOCUS_MOVE_RIGHT: ArkUI_FocusMove = 5;
 #[cfg(feature = "api-18")]
+pub const ArkUI_FocusMove_ARKUI_FOCUS_MOVE_RIGHT: ArkUI_FocusMove = 5;
 #[doc = " @brief Define an enum for the focus movement directions.\n\n @since 18"]
+#[cfg(feature = "api-18")]
 pub type ArkUI_FocusMove = u32;
-#[cfg(feature = "api-15")]
 #[doc = " Defines avoid keyboard when keyboard shows."]
+#[cfg(feature = "api-15")]
 pub const ArkUI_KeyboardAvoidMode_ARKUI_KEYBOARD_AVOID_MODE_DEFAULT: ArkUI_KeyboardAvoidMode = 0;
-#[cfg(feature = "api-15")]
 #[doc = " Defines not avoid keyboard when keyboard shows."]
+#[cfg(feature = "api-15")]
 pub const ArkUI_KeyboardAvoidMode_ARKUI_KEYBOARD_AVOID_MODE_NONE: ArkUI_KeyboardAvoidMode = 1;
-#[cfg(feature = "api-15")]
 #[doc = " @brief defines the enumerated value of the customDialog's keyboard avoid mode.\n\n @since 15"]
+#[cfg(feature = "api-15")]
 pub type ArkUI_KeyboardAvoidMode = u32;
-#[cfg(feature = "api-15")]
 #[doc = " Layout top half screen when the phone in hover mode."]
+#[cfg(feature = "api-15")]
 pub const ArkUI_HoverModeAreaType_ARKUI_HOVER_MODE_AREA_TYPE_TOP: ArkUI_HoverModeAreaType = 0;
-#[cfg(feature = "api-15")]
 #[doc = " Layout bottom half screen when the phone in hover mode."]
+#[cfg(feature = "api-15")]
 pub const ArkUI_HoverModeAreaType_ARKUI_HOVER_MODE_AREA_TYPE_BOTTOM: ArkUI_HoverModeAreaType = 1;
-#[cfg(feature = "api-15")]
 #[doc = " @brief defines the enumerated value of area in hover mode.\n\n @since 15"]
+#[cfg(feature = "api-15")]
 pub type ArkUI_HoverModeAreaType = u32;
-#[cfg(feature = "api-15")]
 #[doc = " Not expand."]
+#[cfg(feature = "api-15")]
 pub const ArkUI_ExpandMode_ARKUI_NOT_EXPAND: ArkUI_ExpandMode = 0;
-#[cfg(feature = "api-15")]
 #[doc = " Expand."]
+#[cfg(feature = "api-15")]
 pub const ArkUI_ExpandMode_ARKUI_EXPAND: ArkUI_ExpandMode = 1;
-#[cfg(feature = "api-15")]
 #[doc = " Lazy expand. Expand the children of node if needed."]
-pub const ArkUI_ExpandMode_ARKUI_LAZY_EXPAND: ArkUI_ExpandMode = 2;
 #[cfg(feature = "api-15")]
+pub const ArkUI_ExpandMode_ARKUI_LAZY_EXPAND: ArkUI_ExpandMode = 2;
 #[doc = " @brief Enumerates the expand modes.\n\n @since 15"]
+#[cfg(feature = "api-15")]
 pub type ArkUI_ExpandMode = u32;
-#[cfg(feature = "api-20")]
 #[doc = " Normal state."]
+#[cfg(feature = "api-20")]
 pub const ArkUI_UIState_UI_STATE_NORMAL: ArkUI_UIState = 0;
-#[cfg(feature = "api-20")]
 #[doc = " Pressed state."]
+#[cfg(feature = "api-20")]
 pub const ArkUI_UIState_UI_STATE_PRESSED: ArkUI_UIState = 1;
-#[cfg(feature = "api-20")]
 #[doc = " Focused state."]
+#[cfg(feature = "api-20")]
 pub const ArkUI_UIState_UI_STATE_FOCUSED: ArkUI_UIState = 2;
-#[cfg(feature = "api-20")]
 #[doc = " Disabled state."]
+#[cfg(feature = "api-20")]
 pub const ArkUI_UIState_UI_STATE_DISABLED: ArkUI_UIState = 4;
-#[cfg(feature = "api-20")]
 #[doc = " Selected state. This state is supported only by specific component types:\n <b>Checkbox</b>, <b>Radio</b>, <b>Toggle</b>, <b>List</b>, <b>Grid</b>, and <b>MenuItem</b>."]
+#[cfg(feature = "api-20")]
 pub const ArkUI_UIState_UI_STATE_SELECTED: ArkUI_UIState = 8;
-#[cfg(feature = "api-20")]
 #[doc = " @brief Defines the navigation point indicator style of the <b><Swiper></b> component.\n @brief Enumerates the UI states of a component, used for handling state-specific styles.\n\n @since 20"]
+#[cfg(feature = "api-20")]
 pub type ArkUI_UIState = u32;
-#[cfg(feature = "api-20")]
 #[doc = " Set all edge derection."]
+#[cfg(feature = "api-20")]
 pub const ArkUI_EdgeDirection_ARKUI_EDGE_DIRECTION_ALL: ArkUI_EdgeDirection = 0;
-#[cfg(feature = "api-20")]
 #[doc = " Set left edge derection."]
+#[cfg(feature = "api-20")]
 pub const ArkUI_EdgeDirection_ARKUI_EDGE_DIRECTION_LEFT: ArkUI_EdgeDirection = 1;
-#[cfg(feature = "api-20")]
 #[doc = " Set right edge derection."]
+#[cfg(feature = "api-20")]
 pub const ArkUI_EdgeDirection_ARKUI_EDGE_DIRECTION_RIGHT: ArkUI_EdgeDirection = 2;
-#[cfg(feature = "api-20")]
 #[doc = " Set top edge derection."]
+#[cfg(feature = "api-20")]
 pub const ArkUI_EdgeDirection_ARKUI_EDGE_DIRECTION_TOP: ArkUI_EdgeDirection = 3;
-#[cfg(feature = "api-20")]
 #[doc = " Set bottom edge derection."]
+#[cfg(feature = "api-20")]
 pub const ArkUI_EdgeDirection_ARKUI_EDGE_DIRECTION_BOTTOM: ArkUI_EdgeDirection = 4;
-#[cfg(feature = "api-20")]
 #[doc = " @brief Enumerates the edge derection.\n\n @since 20"]
+#[cfg(feature = "api-20")]
 pub type ArkUI_EdgeDirection = u32;
-#[cfg(feature = "api-20")]
 #[doc = " Set all corner derection."]
+#[cfg(feature = "api-20")]
 pub const ArkUI_CornerDirection_ARKUI_CORNER_DIRECTION_ALL: ArkUI_CornerDirection = 0;
-#[cfg(feature = "api-20")]
 #[doc = " Set top left corner derection."]
+#[cfg(feature = "api-20")]
 pub const ArkUI_CornerDirection_ARKUI_CORNER_DIRECTION_TOP_LEFT: ArkUI_CornerDirection = 1;
-#[cfg(feature = "api-20")]
 #[doc = " Set top right corner derection."]
+#[cfg(feature = "api-20")]
 pub const ArkUI_CornerDirection_ARKUI_CORNER_DIRECTION_TOP_RIGHT: ArkUI_CornerDirection = 2;
-#[cfg(feature = "api-20")]
 #[doc = " Set bottom left corner derection."]
+#[cfg(feature = "api-20")]
 pub const ArkUI_CornerDirection_ARKUI_CORNER_DIRECTION_BOTTOM_LEFT: ArkUI_CornerDirection = 3;
-#[cfg(feature = "api-20")]
 #[doc = " Set bottom right corner derection."]
-pub const ArkUI_CornerDirection_ARKUI_CORNER_DIRECTION_BOTTOM_RIGHT: ArkUI_CornerDirection = 4;
 #[cfg(feature = "api-20")]
+pub const ArkUI_CornerDirection_ARKUI_CORNER_DIRECTION_BOTTOM_RIGHT: ArkUI_CornerDirection = 4;
 #[doc = " @brief Enumerates the corner derection.\n\n @since 20"]
+#[cfg(feature = "api-20")]
 pub type ArkUI_CornerDirection = u32;
-#[cfg(feature = "api-21")]
 #[doc = " When the List direction is vertical, it indicates the left in LTR mode and right in RTL mode.\n When the List direction is horizontal, it indicates the top."]
+#[cfg(feature = "api-21")]
 pub const ArkUI_ListItemSwipeActionDirection_ARKUI_LIST_ITEM_SWIPE_ACTION_DIRECTION_START:
     ArkUI_ListItemSwipeActionDirection = 0;
-#[cfg(feature = "api-21")]
 #[doc = " When the List direction is vertical, it indicates the right in LTR mode and left in RTL mode.\n When the List direction is horizontal, it indicates the bottom."]
+#[cfg(feature = "api-21")]
 pub const ArkUI_ListItemSwipeActionDirection_ARKUI_LIST_ITEM_SWIPE_ACTION_DIRECTION_END:
     ArkUI_ListItemSwipeActionDirection = 1;
-#[cfg(feature = "api-21")]
 #[doc = " @brief Define the direction to expand the swipe action.\n\n @since 21"]
+#[cfg(feature = "api-21")]
 pub type ArkUI_ListItemSwipeActionDirection = u32;
-#[cfg(feature = "api-21")]
 #[doc = " The component fills its parent, which means its size is as large as its parent"]
+#[cfg(feature = "api-21")]
 pub const ArkUI_LayoutPolicy_ARKUI_LAYOUTPOLICY_MATCHPARENT: ArkUI_LayoutPolicy = 0;
-#[cfg(feature = "api-21")]
 #[doc = " The component fills its content, which means its size is as large as its children but it is constrained\n by its parent."]
+#[cfg(feature = "api-21")]
 pub const ArkUI_LayoutPolicy_ARKUI_LAYOUTPOLICY_WRAPCONTENT: ArkUI_LayoutPolicy = 1;
-#[cfg(feature = "api-21")]
 #[doc = " The component fills its content which means its size is as large as its children."]
+#[cfg(feature = "api-21")]
 pub const ArkUI_LayoutPolicy_ARKUI_LAYOUTPOLICY_FIXATIDEALSIZE: ArkUI_LayoutPolicy = 2;
-#[cfg(feature = "api-21")]
 #[doc = " @brief Enumerates the LayoutPolicy.\n\n @since 21"]
-pub type ArkUI_LayoutPolicy = u32;
 #[cfg(feature = "api-21")]
+pub type ArkUI_LayoutPolicy = u32;
 #[doc = " No Force round the component boundary coordinates to integer pixel."]
+#[cfg(feature = "api-21")]
 pub const ArkUI_PixelRoundCalcPolicy_ARKUI_PIXELROUNDCALCPOLICY_NOFORCEROUND:
     ArkUI_PixelRoundCalcPolicy = 0;
-#[cfg(feature = "api-21")]
 #[doc = " Force ceil the component boundary coordinates to integer pixel."]
+#[cfg(feature = "api-21")]
 pub const ArkUI_PixelRoundCalcPolicy_ARKUI_PIXELROUNDCALCPOLICY_FORCECEIL:
     ArkUI_PixelRoundCalcPolicy = 1;
-#[cfg(feature = "api-21")]
 #[doc = " Force floor the component boundary coordinates to integer pixel."]
+#[cfg(feature = "api-21")]
 pub const ArkUI_PixelRoundCalcPolicy_ARKUI_PIXELROUNDCALCPOLICY_FORCEFLOOR:
     ArkUI_PixelRoundCalcPolicy = 2;
-#[cfg(feature = "api-21")]
 #[doc = " @brief Enumerates the PixelRoundPolicy.\n\n @since 21"]
+#[cfg(feature = "api-21")]
 pub type ArkUI_PixelRoundCalcPolicy = u32;
 #[repr(C)]
 #[derive(Debug, Copy, Clone)]
@@ -2445,18 +2445,18 @@ extern "C" {
     pub fn OH_ArkUI_DrawContext_GetSize(context: *mut ArkUI_DrawContext) -> ArkUI_IntSize;
 }
 extern "C" {
-    #[cfg(feature = "api-22")]
     #[doc = " @brief Creates <b>Grid</b> layout options.\n\n @return <b>Grid</b> layout options created.\n @since 22"]
+    #[cfg(feature = "api-22")]
     pub fn OH_ArkUI_GridLayoutOptions_Create() -> *mut ArkUI_GridLayoutOptions;
 }
 extern "C" {
-    #[cfg(feature = "api-22")]
     #[doc = " @brief Disposes of <b>Grid</b> layout options.\n\n @param option <b>Grid</b> layout options.\n @since 22"]
+    #[cfg(feature = "api-22")]
     pub fn OH_ArkUI_GridLayoutOptions_Dispose(option: *mut ArkUI_GridLayoutOptions);
 }
 extern "C" {
-    #[cfg(feature = "api-22")]
     #[doc = " @brief Sets the irregular grid item index array for the grid layout.\n\n @param option <b>Grid</b> layout options.\n @param irregularIndexes Array of irregular grid item indexes.\n @param size Size of the index array.\n @return Returns the result code.\n         Returns {@link ARKUI_ERROR_CODE_NO_ERROR} if the operation is successful.\n         Returns {@link ARKUI_ERROR_CODE_PARAM_INVALID} if a parameter error occurs.\n         If an error code is returned, it may be due to a failure in parameter validation;\n         the parameter must not be null.\n @since 22"]
+    #[cfg(feature = "api-22")]
     pub fn OH_ArkUI_GridLayoutOptions_SetIrregularIndexes(
         option: *mut ArkUI_GridLayoutOptions,
         irregularIndexes: *mut u32,
@@ -2464,8 +2464,8 @@ extern "C" {
     ) -> i32;
 }
 extern "C" {
-    #[cfg(feature = "api-22")]
     #[doc = " @brief Obtains the irregular grid item index array for the grid layout.\n When <b>OH_ArkUI_GridLayoutOptions_RegisterGetIrregularSizeByIndexCallback</b> is not set,\n the grid item specified in <b>irregularIndexes</b> occupies an entire row of the grid that scrolls vertically or\n an entire column of the grid that scrolls horizontally.\n\n @param option <b>Grid</b> layout options.\n @param irregularIndexes Array of irregular grid item indexes.\n @param size Size of the index array.\n @return Returns the result code.\n         Returns {@link ARKUI_ERROR_CODE_NO_ERROR} if the operation is successful.\n         Returns {@link ARKUI_ERROR_CODE_PARAM_INVALID} if a parameter error occurs.\n         Returns {@link ARKUI_ERROR_CODE_BUFFER_SIZE_ERROR} if the provided buffer size is insufficient.\n         If an error code is returned, it may be due to a failure in parameter validation;\n         the parameter must not be null.\n @since 22"]
+    #[cfg(feature = "api-22")]
     pub fn OH_ArkUI_GridLayoutOptions_GetIrregularIndexes(
         option: *mut ArkUI_GridLayoutOptions,
         irregularIndexes: *mut u32,
@@ -2473,8 +2473,8 @@ extern "C" {
     ) -> i32;
 }
 extern "C" {
-    #[cfg(feature = "api-22")]
     #[doc = " @brief Registers a callback to obtain the row and column span for the grid item at the specified index.\n\n @param option <b>Grid</b> layout options.\n @param userData Indicates the custom data.\n @param callback Callback that returns the row and column span for the grid item at the specified index.\n        itemIndex: grid item index, which must be within the range set by\n        {@link OH_ArkUI_GridLayoutOptions_SetIrregularIndexes}.\n @since 22"]
+    #[cfg(feature = "api-22")]
     pub fn OH_ArkUI_GridLayoutOptions_RegisterGetIrregularSizeByIndexCallback(
         option: *mut ArkUI_GridLayoutOptions,
         userData: *mut ::std::os::raw::c_void,
@@ -2487,8 +2487,8 @@ extern "C" {
     );
 }
 extern "C" {
-    #[cfg(feature = "api-22")]
     #[doc = " @brief Registers a callback to obtain the starting row, starting column, row span,\n and column span for the grid item at the specified index.\n\n @param option <b>Grid</b> layout options.\n @param userData Indicates the custom data.\n @param callback Callback that returns the starting row, starting column, row span,\n        and column span for the grid item at the specified index.\n        itemIndex: grid item index.\n @since 22"]
+    #[cfg(feature = "api-22")]
     pub fn OH_ArkUI_GridLayoutOptions_RegisterGetRectByIndexCallback(
         option: *mut ArkUI_GridLayoutOptions,
         userData: *mut ::std::os::raw::c_void,
@@ -2759,299 +2759,299 @@ extern "C" {
     ) -> i32;
 }
 extern "C" {
-    #[cfg(feature = "api-19")]
     #[doc = " @brief Sets whether to ignore the size of the indicator for {@link OH_ArkUI_SwiperIndicator_SetBottomPosition}.\n\n @param indicator Indicates the pointer to the indicator.\n @param ignoreSize Whether to ignore the size of the indicator. The value 1 means to ignore, and 0 means the opposite.\n The default value is 0.\n @since 19"]
+    #[cfg(feature = "api-19")]
     pub fn OH_ArkUI_SwiperIndicator_SetIgnoreSizeOfBottom(
         indicator: *mut ArkUI_SwiperIndicator,
         ignoreSize: i32,
     );
 }
 extern "C" {
-    #[cfg(feature = "api-19")]
     #[doc = " @brief Obtains whether to ignore the size of the indicator for {@link OH_ArkUI_SwiperIndicator_SetBottomPosition}.\n\n @param indicator Indicates the pointer to the indicator.\n @return Returns whether to ignore the size of the indicator.\n @since 19"]
+    #[cfg(feature = "api-19")]
     pub fn OH_ArkUI_SwiperIndicator_GetIgnoreSizeOfBottom(
         indicator: *mut ArkUI_SwiperIndicator,
     ) -> i32;
 }
 extern "C" {
-    #[cfg(feature = "api-19")]
     #[doc = " @brief Sets the space between the dots of the navigation indicator.\n\n @param indicator Indicates the pointer to the indicator.\n @param space the space between the dots of the navigation indicator, the default value is 8vp.\n @since 19"]
+    #[cfg(feature = "api-19")]
     pub fn OH_ArkUI_SwiperIndicator_SetSpace(indicator: *mut ArkUI_SwiperIndicator, space: f32);
 }
 extern "C" {
-    #[cfg(feature = "api-19")]
     #[doc = " @brief Obtains the space between the dots of the navigation indicator.\n\n @param indicator Indicates the pointer to the indicator.\n @return the space between the dots of the navigation indicator\n @since 19"]
+    #[cfg(feature = "api-19")]
     pub fn OH_ArkUI_SwiperIndicator_GetSpace(indicator: *mut ArkUI_SwiperIndicator) -> f32;
 }
 extern "C" {
-    #[cfg(feature = "api-19")]
     #[doc = " @brief Creates a digital indicator.\n\n @return Returns the pointer to the new indicator.\n @since 19"]
+    #[cfg(feature = "api-19")]
     pub fn OH_ArkUI_SwiperDigitIndicator_Create() -> *mut ArkUI_SwiperDigitIndicator;
 }
 extern "C" {
-    #[cfg(feature = "api-19")]
     #[doc = " @brief Sets the distance between the digital indicator and the start of the swiper.\n\n @param indicator The pointer to the digital indicator.\n @param value Indicates the distance between the digital indicator and the start of the swiper.\n @since 19"]
+    #[cfg(feature = "api-19")]
     pub fn OH_ArkUI_SwiperDigitIndicator_SetStartPosition(
         indicator: *mut ArkUI_SwiperDigitIndicator,
         value: f32,
     );
 }
 extern "C" {
-    #[cfg(feature = "api-19")]
     #[doc = " @brief Gets the distance between the digital indicator and the start of the swiper.\n\n @param indicator The pointer to the digital indicator.\n @return Returns the distance between the digital indicator and the start of the swiper.\n @since 19"]
+    #[cfg(feature = "api-19")]
     pub fn OH_ArkUI_SwiperDigitIndicator_GetStartPosition(
         indicator: *mut ArkUI_SwiperDigitIndicator,
     ) -> f32;
 }
 extern "C" {
-    #[cfg(feature = "api-19")]
     #[doc = " @brief Sets the distance between the digital indicator and the top of the swiper.\n\n @param indicator The pointer to the digital indicator.\n @param value Indicates the distance between the digital indicator and the top of the swiper.\n @since 19"]
+    #[cfg(feature = "api-19")]
     pub fn OH_ArkUI_SwiperDigitIndicator_SetTopPosition(
         indicator: *mut ArkUI_SwiperDigitIndicator,
         value: f32,
     );
 }
 extern "C" {
-    #[cfg(feature = "api-19")]
     #[doc = " @brief Gets the distance between the digital indicator and the top of the swiper.\n\n @param indicator The pointer to the digital indicator.\n @return Returns the distance between the digital indicator and the top of the swiper.\n @since 19"]
+    #[cfg(feature = "api-19")]
     pub fn OH_ArkUI_SwiperDigitIndicator_GetTopPosition(
         indicator: *mut ArkUI_SwiperDigitIndicator,
     ) -> f32;
 }
 extern "C" {
-    #[cfg(feature = "api-19")]
     #[doc = " @brief Sets the distance between the digital indicator and the end of the swiper.\n\n @param indicator The pointer to the digital indicator.\n @param value Indicates the distance between the digital indicator and the end of the swiper.\n @since 19"]
+    #[cfg(feature = "api-19")]
     pub fn OH_ArkUI_SwiperDigitIndicator_SetEndPosition(
         indicator: *mut ArkUI_SwiperDigitIndicator,
         value: f32,
     );
 }
 extern "C" {
-    #[cfg(feature = "api-19")]
     #[doc = " @brief Gets the distance between the digital indicator and the end of the swiper.\n\n @param indicator The pointer to the digital indicator.\n @return Returns the distance between the digital indicator and the end of the swiper.\n @since 19"]
+    #[cfg(feature = "api-19")]
     pub fn OH_ArkUI_SwiperDigitIndicator_GetEndPosition(
         indicator: *mut ArkUI_SwiperDigitIndicator,
     ) -> f32;
 }
 extern "C" {
-    #[cfg(feature = "api-19")]
     #[doc = " @brief Sets the distance between the digital indicator and the bottom of the swiper.\n\n @param indicator The pointer to the digital indicator.\n @param value Returns the distance between the digital indicator and the bottom of the swiper.\n @since 19"]
+    #[cfg(feature = "api-19")]
     pub fn OH_ArkUI_SwiperDigitIndicator_SetBottomPosition(
         indicator: *mut ArkUI_SwiperDigitIndicator,
         value: f32,
     );
 }
 extern "C" {
-    #[cfg(feature = "api-19")]
     #[doc = " @brief Gets the distance between the digital indicator and the bottom of the swiper.\n\n @param indicator The pointer to the digital indicator.\n @return Returns the distance between the digital indicator and the bottom of the swiper.\n @since 19"]
+    #[cfg(feature = "api-19")]
     pub fn OH_ArkUI_SwiperDigitIndicator_GetBottomPosition(
         indicator: *mut ArkUI_SwiperDigitIndicator,
     ) -> f32;
 }
 extern "C" {
-    #[cfg(feature = "api-19")]
     #[doc = " @brief Sets the font color of total count in the digital indicator.\n\n @param indicator The pointer to the digital indicator.\n @param color font color, in 0xARGB format. Default value: 0xFF182431.\n @since 19"]
+    #[cfg(feature = "api-19")]
     pub fn OH_ArkUI_SwiperDigitIndicator_SetFontColor(
         indicator: *mut ArkUI_SwiperDigitIndicator,
         color: u32,
     );
 }
 extern "C" {
-    #[cfg(feature = "api-19")]
     #[doc = " @brief Gets the font color of total count in the digital indicator.\n\n @param indicator The pointer to the digital indicator.\n @return font color, in 0xARGB format.\n @since 19"]
+    #[cfg(feature = "api-19")]
     pub fn OH_ArkUI_SwiperDigitIndicator_GetFontColor(
         indicator: *mut ArkUI_SwiperDigitIndicator,
     ) -> u32;
 }
 extern "C" {
-    #[cfg(feature = "api-19")]
     #[doc = " @brief Sets the font color of selected index in the digital indicator.\n\n @param indicator The pointer to the digital indicator.\n @param selectedColor font color, in 0xARGB format. Default value: 0xFF182431.\n @since 19"]
+    #[cfg(feature = "api-19")]
     pub fn OH_ArkUI_SwiperDigitIndicator_SetSelectedFontColor(
         indicator: *mut ArkUI_SwiperDigitIndicator,
         selectedColor: u32,
     );
 }
 extern "C" {
-    #[cfg(feature = "api-19")]
     #[doc = " @brief Gets the font color of selected index in the digital indicator.\n\n @param indicator The pointer to the digital indicator.\n @return font color, in 0xARGB format.\n @since 19"]
+    #[cfg(feature = "api-19")]
     pub fn OH_ArkUI_SwiperDigitIndicator_GetSelectedFontColor(
         indicator: *mut ArkUI_SwiperDigitIndicator,
     ) -> u32;
 }
 extern "C" {
-    #[cfg(feature = "api-19")]
     #[doc = " @brief Sets the font size of total count in the digital indicator.\n\n @param indicator The pointer to the digital indicator.\n @param size font size, in fp.\n @since 19"]
+    #[cfg(feature = "api-19")]
     pub fn OH_ArkUI_SwiperDigitIndicator_SetFontSize(
         indicator: *mut ArkUI_SwiperDigitIndicator,
         size: f32,
     );
 }
 extern "C" {
-    #[cfg(feature = "api-19")]
     #[doc = " @brief Gets the font size of total count in the digital indicator.\n\n @param indicator The pointer to the digital indicator.\n @return font size, in fp.\n @since 19"]
+    #[cfg(feature = "api-19")]
     pub fn OH_ArkUI_SwiperDigitIndicator_GetFontSize(
         indicator: *mut ArkUI_SwiperDigitIndicator,
     ) -> f32;
 }
 extern "C" {
-    #[cfg(feature = "api-19")]
     #[doc = " @brief Sets the font size of selected index in the digital indicator.\n\n @param indicator The pointer to the digital indicator.\n @param size font size, in fp.\n @since 19"]
+    #[cfg(feature = "api-19")]
     pub fn OH_ArkUI_SwiperDigitIndicator_SetSelectedFontSize(
         indicator: *mut ArkUI_SwiperDigitIndicator,
         size: f32,
     );
 }
 extern "C" {
-    #[cfg(feature = "api-19")]
     #[doc = " @brief Gets the font size of selected index in the digital indicator.\n\n @param indicator The pointer to the digital indicator.\n @return font size, in fp.\n @since 19"]
+    #[cfg(feature = "api-19")]
     pub fn OH_ArkUI_SwiperDigitIndicator_GetSelectedFontSize(
         indicator: *mut ArkUI_SwiperDigitIndicator,
     ) -> f32;
 }
 extern "C" {
-    #[cfg(feature = "api-19")]
     #[doc = " @brief Sets the font weight of total count in the digital indicator.\n\n @param indicator The pointer to the digital indicator.\n @param fontWeight font weight {@link ArkUI_FontWeight}. The default value is <b>ARKUI_FONT_WEIGHT_NORMAL</b>.\n @since 19"]
+    #[cfg(feature = "api-19")]
     pub fn OH_ArkUI_SwiperDigitIndicator_SetFontWeight(
         indicator: *mut ArkUI_SwiperDigitIndicator,
         fontWeight: ArkUI_FontWeight,
     );
 }
 extern "C" {
-    #[cfg(feature = "api-19")]
     #[doc = " @brief Gets the font weight of total count in the digital indicator.\n\n @param indicator The pointer to the digital indicator.\n @return font weight {@link ArkUI_FontWeight}.\n @since 19"]
+    #[cfg(feature = "api-19")]
     pub fn OH_ArkUI_SwiperDigitIndicator_GetFontWeight(
         indicator: *mut ArkUI_SwiperDigitIndicator,
     ) -> ArkUI_FontWeight;
 }
 extern "C" {
-    #[cfg(feature = "api-19")]
     #[doc = " @brief Sets the font weight of selected index in the digital indicator.\n\n @param indicator The pointer to the digital indicator.\n @param selectedFontWeight font weight {@link ArkUI_FontWeight}. The default value is <b>ARKUI_FONT_WEIGHT_NORMAL</b>.\n @since 19"]
+    #[cfg(feature = "api-19")]
     pub fn OH_ArkUI_SwiperDigitIndicator_SetSelectedFontWeight(
         indicator: *mut ArkUI_SwiperDigitIndicator,
         selectedFontWeight: ArkUI_FontWeight,
     );
 }
 extern "C" {
-    #[cfg(feature = "api-19")]
     #[doc = " @brief Gets the font weight of selected index in the digital indicator.\n\n @param indicator The pointer to the digital indicator.\n @return font weight {@link ArkUI_FontWeight}.\n @since 19"]
+    #[cfg(feature = "api-19")]
     pub fn OH_ArkUI_SwiperDigitIndicator_GetSelectedFontWeight(
         indicator: *mut ArkUI_SwiperDigitIndicator,
     ) -> ArkUI_FontWeight;
 }
 extern "C" {
-    #[cfg(feature = "api-19")]
     #[doc = " @brief Destroys the digital indicator.\n\n @param indicator The pointer to the digital indicator.\n @since 19"]
+    #[cfg(feature = "api-19")]
     pub fn OH_ArkUI_SwiperDigitIndicator_Destroy(indicator: *mut ArkUI_SwiperDigitIndicator);
 }
 extern "C" {
-    #[cfg(feature = "api-19")]
     #[doc = " @brief Sets whether to ignore the size of the indicator for {@link OH_ArkUI_SwiperDigitIndicator_SetBottomPosition}.\n\n @param indicator The pointer to the digital indicator.\n @param ignoreSize Whether to ignore the size of the indicator. The value 1 means to ignore, and 0 means the opposite.\n The default value is 0.\n @since 19"]
+    #[cfg(feature = "api-19")]
     pub fn OH_ArkUI_SwiperDigitIndicator_SetIgnoreSizeOfBottom(
         indicator: *mut ArkUI_SwiperDigitIndicator,
         ignoreSize: i32,
     );
 }
 extern "C" {
-    #[cfg(feature = "api-19")]
     #[doc = " @brief Obtains whether to ignore the size of the indicator for {@link OH_ArkUI_SwiperDigitIndicator_SetBottomPosition}.\n\n @param indicator The pointer to the digital indicator.\n @return Returns whether to ignore the size of the indicator.\n @since 19"]
+    #[cfg(feature = "api-19")]
     pub fn OH_ArkUI_SwiperDigitIndicator_GetIgnoreSizeOfBottom(
         indicator: *mut ArkUI_SwiperDigitIndicator,
     ) -> i32;
 }
 extern "C" {
-    #[cfg(feature = "api-19")]
     #[doc = " @brief Creates a arrow style for swiper.\n\n @return Returns the pointer to the new arrow style.\n @since 19"]
+    #[cfg(feature = "api-19")]
     pub fn OH_ArkUI_SwiperArrowStyle_Create() -> *mut ArkUI_SwiperArrowStyle;
 }
 extern "C" {
-    #[cfg(feature = "api-19")]
     #[doc = " @brief Sets whether to show the background for the arrow.\n\n @param arrowStyle The pointer to the arrow style.\n @param showBackground whether to show the background for the arrow.\n        The value <b>1</b> means to show the background, and <b>0</b> means the opposite.\n        The default value is <b>0</b>.\n @since 19"]
+    #[cfg(feature = "api-19")]
     pub fn OH_ArkUI_SwiperArrowStyle_SetShowBackground(
         arrowStyle: *mut ArkUI_SwiperArrowStyle,
         showBackground: i32,
     );
 }
 extern "C" {
-    #[cfg(feature = "api-19")]
     #[doc = " @brief Gets whether to show the background for the arrow.\n\n @param arrowStyle The pointer to the arrow style.\n @return whether to show the background for the arrow.\n         The value <b>1</b> means to show the background, and <b>0</b> means the opposite.\n @since 19"]
+    #[cfg(feature = "api-19")]
     pub fn OH_ArkUI_SwiperArrowStyle_GetShowBackground(
         arrowStyle: *mut ArkUI_SwiperArrowStyle,
     ) -> i32;
 }
 extern "C" {
-    #[cfg(feature = "api-19")]
     #[doc = " @brief Sets the display position of the arrow.\n\n @param arrowStyle The pointer to the arrow style.\n @param showSidebarMiddle the display position of the arrow.\n        The value <b>1</b> means to display on boths sides of the swiper,\n        and <b>0</b> means display on boths sides of the swiper indicator.\n        The default value is <b>0</b>.\n @since 19"]
+    #[cfg(feature = "api-19")]
     pub fn OH_ArkUI_SwiperArrowStyle_SetShowSidebarMiddle(
         arrowStyle: *mut ArkUI_SwiperArrowStyle,
         showSidebarMiddle: i32,
     );
 }
 extern "C" {
-    #[cfg(feature = "api-19")]
     #[doc = " @brief Gets the display position of the arrow.\n\n @param arrowStyle The pointer to the arrow style.\n @return the display position of the arrow. The value <b>1</b> means to display on boths sides of the swiper,\n         and <b>0</b> means display on boths sides of the swiper indicator.\n @since 19"]
+    #[cfg(feature = "api-19")]
     pub fn OH_ArkUI_SwiperArrowStyle_GetShowSidebarMiddle(
         arrowStyle: *mut ArkUI_SwiperArrowStyle,
     ) -> i32;
 }
 extern "C" {
-    #[cfg(feature = "api-19")]
     #[doc = " @brief Sets the background size of the arrow.\n\n @param arrowStyle The pointer to the arrow style.\n @param backgroundSize the background size of the arrow. The unit is vp.\n        The default value is <b>24</b> when the arrow displays on both sides of the swiper indicator.\n        The default value is <b>32</b> when the arrow displays on both sides of the swiper.\n @since 19"]
+    #[cfg(feature = "api-19")]
     pub fn OH_ArkUI_SwiperArrowStyle_SetBackgroundSize(
         arrowStyle: *mut ArkUI_SwiperArrowStyle,
         backgroundSize: f32,
     );
 }
 extern "C" {
-    #[cfg(feature = "api-19")]
     #[doc = " @brief Gets the background size of the arrow.\n\n @param arrowStyle The pointer to the arrow style.\n @return Returns the background size of the arrow. The unit is vp.\n @since 19"]
+    #[cfg(feature = "api-19")]
     pub fn OH_ArkUI_SwiperArrowStyle_GetBackgroundSize(
         arrowStyle: *mut ArkUI_SwiperArrowStyle,
     ) -> f32;
 }
 extern "C" {
-    #[cfg(feature = "api-19")]
     #[doc = " @brief Destroys the arrow style.\n\n @param arrowStyle The pointer to the arrow style.\n @since 19"]
+    #[cfg(feature = "api-19")]
     pub fn OH_ArkUI_SwiperArrowStyle_Destroy(arrowStyle: *mut ArkUI_SwiperArrowStyle);
 }
 extern "C" {
-    #[cfg(feature = "api-19")]
     #[doc = " @brief Sets the background color of the arrow.\n\n @param arrowStyle The pointer to the arrow style.\n @param backgroundColor the background color of the arrow, in 0xARGB format.\n        The default value is <b>0x00000000</b> when the arrow displays on both sides of the swiper indicator.\n        The default value is <b>0x19182431</b> when the arrow displays on both sides of the swiper.\n @since 19"]
+    #[cfg(feature = "api-19")]
     pub fn OH_ArkUI_SwiperArrowStyle_SetBackgroundColor(
         arrowStyle: *mut ArkUI_SwiperArrowStyle,
         backgroundColor: u32,
     );
 }
 extern "C" {
-    #[cfg(feature = "api-19")]
     #[doc = " @brief Gets the background color of the arrow.\n\n @param arrowStyle The pointer to the arrow style.\n @return Returns the background color of the arrow, in 0xARGB format.\n @since 19"]
+    #[cfg(feature = "api-19")]
     pub fn OH_ArkUI_SwiperArrowStyle_GetBackgroundColor(
         arrowStyle: *mut ArkUI_SwiperArrowStyle,
     ) -> u32;
 }
 extern "C" {
-    #[cfg(feature = "api-19")]
     #[doc = " @brief Sets the size of the arrow.\n\n @param arrowStyle The pointer to the arrow style.\n @param arrowSize the size of the arrow. The unit is vp.\n        The default value is <b>18</b> when the arrow displays on both sides of the swiper indicator.\n        The default value is <b>24</b> when the arrow displays on both sides of the swiper.\n        The arrow size is fixed to 3/4 of the background size when the background is shown.\n @since 19"]
+    #[cfg(feature = "api-19")]
     pub fn OH_ArkUI_SwiperArrowStyle_SetArrowSize(
         arrowStyle: *mut ArkUI_SwiperArrowStyle,
         arrowSize: f32,
     );
 }
 extern "C" {
-    #[cfg(feature = "api-19")]
     #[doc = " @brief Gets the size of the arrow.\n\n @param arrowStyle The pointer to the arrow style.\n @return the size of the arrow. The unit is vp.\n @since 19"]
+    #[cfg(feature = "api-19")]
     pub fn OH_ArkUI_SwiperArrowStyle_GetArrowSize(arrowStyle: *mut ArkUI_SwiperArrowStyle) -> f32;
 }
 extern "C" {
-    #[cfg(feature = "api-19")]
     #[doc = " @brief Sets the color of the arrow.\n\n @param arrowStyle The pointer to the arrow style.\n @param arrowColor the color of the arrow, in 0xARGB format. The default value is <b>0x00182431</b>.\n @since 19"]
+    #[cfg(feature = "api-19")]
     pub fn OH_ArkUI_SwiperArrowStyle_SetArrowColor(
         arrowStyle: *mut ArkUI_SwiperArrowStyle,
         arrowColor: u32,
     );
 }
 extern "C" {
-    #[cfg(feature = "api-19")]
     #[doc = " @brief Gets the color of the arrow.\n\n @param arrowStyle The pointer to the arrow style.\n @return Returns the color of the arrow, in 0xARGB format.\n @since 19"]
+    #[cfg(feature = "api-19")]
     pub fn OH_ArkUI_SwiperArrowStyle_GetArrowColor(arrowStyle: *mut ArkUI_SwiperArrowStyle) -> u32;
 }
 extern "C" {
@@ -3189,8 +3189,8 @@ pub struct ArkUI_ContentTransitionEffect {
     _unused: [u8; 0],
 }
 extern "C" {
-    #[cfg(feature = "api-21")]
     #[doc = " @brief creates content switching animation effects.\n\n @param type content transition type: 0-identity, 1-opacity.\n @return content transition effect.\n @since 21"]
+    #[cfg(feature = "api-21")]
     pub fn OH_ArkUI_ContentTransitionEffect_Create(
         type_: i32,
     ) -> *mut ArkUI_ContentTransitionEffect;
@@ -3773,42 +3773,42 @@ extern "C" {
     pub fn OH_ArkUI_AccessibilityValue_GetCurrent(value: *mut ArkUI_AccessibilityValue) -> i32;
 }
 extern "C" {
-    #[cfg(feature = "api-18")]
     #[doc = " @brief Set accessibility minimum value.\n\n @param value accessibility value object.\n @param rangeMin minimum value based on range components, The default value is -1.\n @since 18"]
+    #[cfg(feature = "api-18")]
     pub fn OH_ArkUI_AccessibilityValue_SetRangeMin(
         value: *mut ArkUI_AccessibilityValue,
         rangeMin: i32,
     );
 }
 extern "C" {
-    #[cfg(feature = "api-18")]
     #[doc = " @brief Get accessibility minimum value.\n\n @param value accessibility value object.\n @return minimum value based on range components, The default value is -1.\n         If the function parameter is abnormal, return -1.\n @since 18"]
+    #[cfg(feature = "api-18")]
     pub fn OH_ArkUI_AccessibilityValue_GetRangeMin(value: *mut ArkUI_AccessibilityValue) -> i32;
 }
 extern "C" {
-    #[cfg(feature = "api-18")]
     #[doc = " @brief Set accessibility maximum value.\n\n @param value accessibility value object.\n @param rangeMax maximum value based on range components, The default value is -1.\n @since 18"]
+    #[cfg(feature = "api-18")]
     pub fn OH_ArkUI_AccessibilityValue_SetRangeMax(
         value: *mut ArkUI_AccessibilityValue,
         rangeMax: i32,
     );
 }
 extern "C" {
-    #[cfg(feature = "api-18")]
     #[doc = " @brief Get accessibility maximum value.\n\n @param value accessibility value object.\n @return maximum value based on range components, The default value is -1.\n         If the function parameter is abnormal, return -1.\n @since 18"]
+    #[cfg(feature = "api-18")]
     pub fn OH_ArkUI_AccessibilityValue_GetRangeMax(value: *mut ArkUI_AccessibilityValue) -> i32;
 }
 extern "C" {
-    #[cfg(feature = "api-18")]
     #[doc = " @brief Set accessibility current value.\n\n @param value accessibility value object.\n @param rangeCurrent value based on range components, The default value is -1.\n @since 18"]
+    #[cfg(feature = "api-18")]
     pub fn OH_ArkUI_AccessibilityValue_SetRangeCurrent(
         value: *mut ArkUI_AccessibilityValue,
         rangeCurrent: i32,
     );
 }
 extern "C" {
-    #[cfg(feature = "api-18")]
     #[doc = " @brief Get accessibility current value.\n\n @param value accessibility value object.\n @return current value based on range components, The default value is -1.\n         If the function parameter is abnormal, return -1.\n @since 18"]
+    #[cfg(feature = "api-18")]
     pub fn OH_ArkUI_AccessibilityValue_GetRangeCurrent(value: *mut ArkUI_AccessibilityValue)
         -> i32;
 }
@@ -3826,155 +3826,155 @@ extern "C" {
     ) -> *const ::std::os::raw::c_char;
 }
 extern "C" {
-    #[cfg(feature = "api-14")]
     #[doc = " @brief Destroy the instance of Customs Property.\n\n @param handle The instance of Customs Property to be destroyed.\n @since 14"]
+    #[cfg(feature = "api-14")]
     pub fn OH_ArkUI_CustomProperty_Destroy(handle: *mut ArkUI_CustomProperty);
 }
 extern "C" {
-    #[cfg(feature = "api-14")]
     #[doc = " @brief Get custom attribute value information.\n\n @param handle Custom attribute object pointer.\n @return Customize the value information within the attribute structure.\n @since 14"]
+    #[cfg(feature = "api-14")]
     pub fn OH_ArkUI_CustomProperty_GetStringValue(
         handle: *mut ArkUI_CustomProperty,
     ) -> *const ::std::os::raw::c_char;
 }
 extern "C" {
-    #[cfg(feature = "api-15")]
     #[doc = " @brief Get window name from HostWindowInfo.\n\n @param info HostWindowInfo object pointer.\n @return Window name in HostWindowInfo.\n @since 15"]
+    #[cfg(feature = "api-15")]
     pub fn OH_ArkUI_HostWindowInfo_GetName(
         info: *mut ArkUI_HostWindowInfo,
     ) -> *const ::std::os::raw::c_char;
 }
 extern "C" {
-    #[cfg(feature = "api-15")]
     #[doc = " @brief Destroy the instance of HostWindowInfo.\n\n @param info Instance of HostWindowInfo to be destroyed.\n @since 15"]
+    #[cfg(feature = "api-15")]
     pub fn OH_ArkUI_HostWindowInfo_Destroy(info: *mut ArkUI_HostWindowInfo);
 }
 extern "C" {
-    #[cfg(feature = "api-14")]
     #[doc = " @brief Destroy ActiveChildenInfo instance.\n\n @param handle ActiveChild instance to be destroyed.\n @since 14"]
+    #[cfg(feature = "api-14")]
     pub fn OH_ArkUI_ActiveChildrenInfo_Destroy(handle: *mut ArkUI_ActiveChildrenInfo);
 }
 extern "C" {
-    #[cfg(feature = "api-14")]
     #[doc = " @brief Retrieve the child nodes of ActiveChildenInfo with the structure index.\n\n @param handle The ActiveChildenInfo instance for obtaining information.\n @param index The index of child nodes.\n @return The child node pointer corresponding to the index. Return nullptr in case of exception.\n @since 14"]
+    #[cfg(feature = "api-14")]
     pub fn OH_ArkUI_ActiveChildrenInfo_GetNodeByIndex(
         handle: *mut ArkUI_ActiveChildrenInfo,
         index: i32,
     ) -> ArkUI_NodeHandle;
 }
 extern "C" {
-    #[cfg(feature = "api-14")]
     #[doc = " @brief Retrieve the number of nodes within the structure of ActiveChildenInfo.\n\n @param handle The ActiveChildenInfo instance for obtaining information.\n @return Number of child nodes. Default value: 0.\n @since 14"]
+    #[cfg(feature = "api-14")]
     pub fn OH_ArkUI_ActiveChildrenInfo_GetCount(handle: *mut ArkUI_ActiveChildrenInfo) -> i32;
 }
 extern "C" {
-    #[cfg(feature = "api-15")]
     #[doc = " @brief Create linear progress indicator style information.\n\n @return Returns a <b>ProgressLinearStyleOption</b> instance.\n <br> If the result returns nullptr, there may be out of memory.\n @since 15"]
+    #[cfg(feature = "api-15")]
     pub fn OH_ArkUI_ProgressLinearStyleOption_Create() -> *mut ArkUI_ProgressLinearStyleOption;
 }
 extern "C" {
-    #[cfg(feature = "api-15")]
     #[doc = " @brief Destroy linear progress indicator style information.\n\n @param option Linear progress indicator style information.\n @since 15"]
+    #[cfg(feature = "api-15")]
     pub fn OH_ArkUI_ProgressLinearStyleOption_Destroy(option: *mut ArkUI_ProgressLinearStyleOption);
 }
 extern "C" {
-    #[cfg(feature = "api-15")]
     #[doc = " @brief Set whether the scan effect is enabled.\n\n @param option Linear progress indicator style information.\n @param enabled Whether to enable the scan effect. Default value: false.\n @since 15"]
+    #[cfg(feature = "api-15")]
     pub fn OH_ArkUI_ProgressLinearStyleOption_SetScanEffectEnabled(
         option: *mut ArkUI_ProgressLinearStyleOption,
         enabled: bool,
     );
 }
 extern "C" {
-    #[cfg(feature = "api-15")]
     #[doc = " @brief Set whether smoothing effect is enabled.\n\n @param option Linear progress indicator style information.\n @param enabled Whether to enable the smooth effect. When this effect is enabled, the progress change to\n the set value takes place gradually. Otherwise, it takes place immediately. Default value: true.\n @since 15"]
+    #[cfg(feature = "api-15")]
     pub fn OH_ArkUI_ProgressLinearStyleOption_SetSmoothEffectEnabled(
         option: *mut ArkUI_ProgressLinearStyleOption,
         enabled: bool,
     );
 }
 extern "C" {
-    #[cfg(feature = "api-15")]
     #[doc = " @brief Set linear progress indicator stroke width.\n\n @param option Linear progress indicator style information.\n @param strokeWidth Stroke width of the progress indicator. It cannot be set in percentage.\n Default value: 4.0vp.\n @since 15"]
+    #[cfg(feature = "api-15")]
     pub fn OH_ArkUI_ProgressLinearStyleOption_SetStrokeWidth(
         option: *mut ArkUI_ProgressLinearStyleOption,
         strokeWidth: f32,
     );
 }
 extern "C" {
-    #[cfg(feature = "api-15")]
     #[doc = " @brief Set linear progress indicator stroke radius.\n\n @param option Linear progress indicator style information.\n @param strokeRadius Rounded corner radius of the progress indicator. Value range: [0, strokeWidth/2].\n Default value: strokeWidth/2.\n @since 15"]
+    #[cfg(feature = "api-15")]
     pub fn OH_ArkUI_ProgressLinearStyleOption_SetStrokeRadius(
         option: *mut ArkUI_ProgressLinearStyleOption,
         strokeRadius: f32,
     );
 }
 extern "C" {
-    #[cfg(feature = "api-15")]
     #[doc = " @brief Get whether scan effect is enable.\n\n @param option Linear progress indicator style information.\n @return Whether to enable the scan effect.\n @since 15"]
+    #[cfg(feature = "api-15")]
     pub fn OH_ArkUI_ProgressLinearStyleOption_GetScanEffectEnabled(
         option: *mut ArkUI_ProgressLinearStyleOption,
     ) -> bool;
 }
 extern "C" {
-    #[cfg(feature = "api-15")]
     #[doc = " @brief Get whether smoothing effect is enabled.\n\n @param option Linear progress indicator style information.\n @return Whether to enable the smooth effect.\n @since 15"]
+    #[cfg(feature = "api-15")]
     pub fn OH_ArkUI_ProgressLinearStyleOption_GetSmoothEffectEnabled(
         option: *mut ArkUI_ProgressLinearStyleOption,
     ) -> bool;
 }
 extern "C" {
-    #[cfg(feature = "api-15")]
     #[doc = " @brief Get linear progress indicator stroke width.\n\n @param option Linear progress indicator style information.\n @return Stroke width of the progress indicator.\n @since 15"]
+    #[cfg(feature = "api-15")]
     pub fn OH_ArkUI_ProgressLinearStyleOption_GetStrokeWidth(
         option: *mut ArkUI_ProgressLinearStyleOption,
     ) -> f32;
 }
 extern "C" {
-    #[cfg(feature = "api-15")]
     #[doc = " @brief Get linear progress indicator stroke radius.\n\n @param option Linear progress indicator style information.\n @return Rounded corner radius of the progress indicator.\n @since 15"]
+    #[cfg(feature = "api-15")]
     pub fn OH_ArkUI_ProgressLinearStyleOption_GetStrokeRadius(
         option: *mut ArkUI_ProgressLinearStyleOption,
     ) -> f32;
 }
 extern "C" {
-    #[cfg(feature = "api-15")]
     #[doc = " @brief Create a cross-language option instance.\n\n @return Returns a cross-language option instance. If the result is a null pointer, it may be out of memory.\n @since 15"]
+    #[cfg(feature = "api-15")]
     pub fn OH_ArkUI_CrossLanguageOption_Create() -> *mut ArkUI_CrossLanguageOption;
 }
 extern "C" {
-    #[cfg(feature = "api-15")]
     #[doc = " @brief Destroy the cross-language option instance.\n\n @param option The cross-language option instance.\n @since 15"]
+    #[cfg(feature = "api-15")]
     pub fn OH_ArkUI_CrossLanguageOption_Destroy(option: *mut ArkUI_CrossLanguageOption);
 }
 extern "C" {
-    #[cfg(feature = "api-15")]
     #[doc = " @brief Enable the attribute setting in the cross-language option.\n\n @param option The cross-language option.\n @param enabled The attribute setting in the cross-language option.\n Default value: false.\n @since 15"]
+    #[cfg(feature = "api-15")]
     pub fn OH_ArkUI_CrossLanguageOption_SetAttributeSettingStatus(
         option: *mut ArkUI_CrossLanguageOption,
         enabled: bool,
     );
 }
 extern "C" {
-    #[cfg(feature = "api-15")]
     #[doc = " @brief Get the attribute setting enable of the cross-language option.\n\n @param option The cross-language option.\n @return The attribute setting enable of the cross-language option.\n @since 15"]
+    #[cfg(feature = "api-15")]
     pub fn OH_ArkUI_CrossLanguageOption_GetAttributeSettingStatus(
         option: *mut ArkUI_CrossLanguageOption,
     ) -> bool;
 }
 extern "C" {
-    #[cfg(feature = "api-15")]
     #[doc = " @brief Creates an option for taking snapshot, the returned value must be released through\n        {@link OH_ArkUI_DestroySnapshotOptions} when it's not used anymore.\n\n @return Returns the pointer to the created snapshot options object.If the object returns a null pointer,\n         it indicates a creation failure, and the reason for the failure may be that the address space is full.\n @since 15"]
+    #[cfg(feature = "api-15")]
     pub fn OH_ArkUI_CreateSnapshotOptions() -> *mut ArkUI_SnapshotOptions;
 }
 extern "C" {
-    #[cfg(feature = "api-15")]
     #[doc = " @brief Dispose a snapshot option object.\n\n @param snapshotOptions Indicates the pointer to the snapshot option.\n @since 15"]
+    #[cfg(feature = "api-15")]
     pub fn OH_ArkUI_DestroySnapshotOptions(snapshotOptions: *mut ArkUI_SnapshotOptions);
 }
 extern "C" {
-    #[cfg(feature = "api-15")]
     #[doc = " @brief Config the snapshot option with scale.\n\n @param snapshotOptions Indicates the pointer to the snapshot option.\n @param scale Indicates the scale property to take the snapshot.\n @return Returns {@link ARKUI_ERROR_CODE_NO_ERROR} if the operation is successful.\n         Returns {@link ARKUI_ERROR_CODE_PARAM_INVALID} if a parameter error occurs.\n @since 15"]
+    #[cfg(feature = "api-15")]
     pub fn OH_ArkUI_SnapshotOptions_SetScale(
         snapshotOptions: *mut ArkUI_SnapshotOptions,
         scale: f32,
@@ -3986,18 +3986,18 @@ pub struct ArkUI_VisibleAreaEventOptions {
     _unused: [u8; 0],
 }
 extern "C" {
-    #[cfg(feature = "api-17")]
     #[doc = " @brief Creates an instance of visible area change event parameters\n\n @return Returns the created instance of visible area change event parameters.\n @since 17"]
+    #[cfg(feature = "api-17")]
     pub fn OH_ArkUI_VisibleAreaEventOptions_Create() -> *mut ArkUI_VisibleAreaEventOptions;
 }
 extern "C" {
-    #[cfg(feature = "api-17")]
     #[doc = " @brief Disposes of an instance of visible area change event parameters.\n\n @param option Instance to be destroyed.\n @since 17"]
+    #[cfg(feature = "api-17")]
     pub fn OH_ArkUI_VisibleAreaEventOptions_Dispose(option: *mut ArkUI_VisibleAreaEventOptions);
 }
 extern "C" {
-    #[cfg(feature = "api-17")]
     #[doc = " @brief Sets the threshold ratios for visible area changes.\n\n @param option Instance of visible area change event parameters.\n @param value Array of threshold ratios. Each element represents the ratio of the visible area of a component to\n its total area. The visible area is calculated within the parent component's bounds; any area outside the parent\n component is not considered. Each value must be within the [0.0, 1.0] range.\n Values outside this range will be handled as 0.0 or 1.0.\n @param size Size of the threshold array.\n @return Returns the result code.\n         Returns {@link ARKUI_ERROR_CODE_NO_ERROR} if the operation is successful.\n         Returns {@link ARKUI_ERROR_CODE_PARAM_INVALID} if a parameter error occurs.\n         If an error code is returned, it may be due to a failure in parameter validation;\n         the parameter must not be null.\n @since 17"]
+    #[cfg(feature = "api-17")]
     pub fn OH_ArkUI_VisibleAreaEventOptions_SetRatios(
         option: *mut ArkUI_VisibleAreaEventOptions,
         value: *mut f32,
@@ -4005,24 +4005,24 @@ extern "C" {
     ) -> i32;
 }
 extern "C" {
-    #[cfg(feature = "api-17")]
     #[doc = " @brief Sets the expected update interval for visible area changes.\n\n @param option Instance of visible area change event parameters.\n @param value Expected update interval, in ms.  Default value: <b>1000</b>.\n @return Returns the result code.\n         Returns {@link ARKUI_ERROR_CODE_NO_ERROR} if the operation is successful.\n         Returns {@link ARKUI_ERROR_CODE_PARAM_INVALID} if a parameter error occurs.\n         If an error code is returned, it may be due to a failure in parameter validation;\n         the parameter must not be null.\n @since 17"]
+    #[cfg(feature = "api-17")]
     pub fn OH_ArkUI_VisibleAreaEventOptions_SetExpectedUpdateInterval(
         option: *mut ArkUI_VisibleAreaEventOptions,
         value: i32,
     ) -> i32;
 }
 extern "C" {
-    #[cfg(feature = "api-22")]
     #[doc = " @brief Sets the flag for controlling if the child components can exceed the parent's bounds.\n if set to false, the part that exceeds the parent's bounds will be considered as invisible area,\n set to true to allow the exceeding, the part that exceeds will be considered as visible area.\n\n Please note that if the parent component set clip(true), the measureFromViewport configuration\n will be ignored.\n\n @param option Instance of visible area change event parameters.\n @param measureFromViewport When this parameter is set to true, the parts of the component\n    that exceed the parent component's area will also be included in the visible area calculation. However, this\n    only applies if the parent component does not explicitly set the clip property to true. If the parent component\n    sets clip to true, regardless of the value of this parameter, the parts that exceed the parent component's area\n    will still be treated as invisible in the visible area calculation.\n Default measureFromViewport: <b>false</b>.\n @return Returns the result code.\n         Returns {@link ARKUI_ERROR_CODE_NO_ERROR} if the operation is successful.\n         Returns {@link ARKUI_ERROR_CODE_PARAM_INVALID} if a parameter error occurs.\n         If an error code is returned, it may be due to a failure in parameter validation;\n         the parameter must not be null.\n @since 22"]
+    #[cfg(feature = "api-22")]
     pub fn OH_ArkUI_VisibleAreaEventOptions_SetMeasureFromViewport(
         option: *mut ArkUI_VisibleAreaEventOptions,
         measureFromViewport: bool,
     ) -> i32;
 }
 extern "C" {
-    #[cfg(feature = "api-17")]
     #[doc = " @brief Obtains the threshold ratios for visible area changes.\n\n @param option Instance of visible area change event parameters.\n @param value Array of threshold ratios.\n @param size Size of the threshold array.\n @return Returns the result code.\n         Returns {@link ARKUI_ERROR_CODE_NO_ERROR} if the operation is successful.\n         Returns {@link ARKUI_ERROR_CODE_PARAM_INVALID} if a parameter error occurs.\n         Returns {@link ARKUI_ERROR_CODE_BUFFER_SIZE_ERROR} if the provided buffer size is insufficient.\n         If an error code is returned, it may be due to a failure in parameter validation;\n         the parameter must not be null.\n @since 17"]
+    #[cfg(feature = "api-17")]
     pub fn OH_ArkUI_VisibleAreaEventOptions_GetRatios(
         option: *mut ArkUI_VisibleAreaEventOptions,
         value: *mut f32,
@@ -4030,29 +4030,29 @@ extern "C" {
     ) -> i32;
 }
 extern "C" {
-    #[cfg(feature = "api-17")]
     #[doc = " @brief Obtains the expected update interval for visible area changes.\n\n @param option Instance of visible area change event parameters.\n @return Returns the expected update interval, in ms.  Default value: <b>1000</b>.\n @since 17"]
+    #[cfg(feature = "api-17")]
     pub fn OH_ArkUI_VisibleAreaEventOptions_GetExpectedUpdateInterval(
         option: *mut ArkUI_VisibleAreaEventOptions,
     ) -> i32;
 }
 extern "C" {
-    #[cfg(feature = "api-22")]
     #[doc = " @brief Obtains the value set through {@link OH_ArkUI_VisibleAreaEventOptions_SetMeasureFromViewport} .\n\n @param option Instance of visible area change event parameters.\n @return Returns the flag for controlling of the visible area calculation. Default value: <b>false</b>.\n\n @since 22"]
+    #[cfg(feature = "api-22")]
     pub fn OH_ArkUI_VisibleAreaEventOptions_GetMeasureFromViewport(
         option: *mut ArkUI_VisibleAreaEventOptions,
     ) -> bool;
 }
 extern "C" {
-    #[cfg(feature = "api-19")]
     #[doc = "@brief Creates a TextPickerRangeContent instance.\n\n@param length The length of the picker array.\n@return Returns a <b>TextPickerRangeContent</b> instance.\n@since 19"]
+    #[cfg(feature = "api-19")]
     pub fn OH_ArkUI_TextPickerRangeContentArray_Create(
         length: i32,
     ) -> *mut ArkUI_TextPickerRangeContentArray;
 }
 extern "C" {
-    #[cfg(feature = "api-19")]
     #[doc = "@brief Sets the icon of items in a text picker ranges.\n\n@param handle The TextPickerRangeContent instance for obtaining information.\n@param icon Icon addreass.\n@param index The index position of the value to be obtained.\n@since 19"]
+    #[cfg(feature = "api-19")]
     pub fn OH_ArkUI_TextPickerRangeContentArray_SetIconAtIndex(
         handle: *mut ArkUI_TextPickerRangeContentArray,
         icon: *mut ::std::os::raw::c_char,
@@ -4060,8 +4060,8 @@ extern "C" {
     );
 }
 extern "C" {
-    #[cfg(feature = "api-19")]
     #[doc = "@brief Sets the text of items in a text picker ranges\n\n@param handle The TextPickerRangeContent instance for obtaining information.\n@param text Text content\n@param index The index position of the value to be obtained.\n@since 19"]
+    #[cfg(feature = "api-19")]
     pub fn OH_ArkUI_TextPickerRangeContentArray_SetTextAtIndex(
         handle: *mut ArkUI_TextPickerRangeContentArray,
         text: *mut ::std::os::raw::c_char,
@@ -4069,22 +4069,22 @@ extern "C" {
     );
 }
 extern "C" {
-    #[cfg(feature = "api-19")]
     #[doc = "@brief Destroy the TextPickerRangeContent instance.\n\n@param handle The TextPickerRangeContent instance for obtaining information.\n@since 19"]
+    #[cfg(feature = "api-19")]
     pub fn OH_ArkUI_TextPickerRangeContentArray_Destroy(
         handle: *mut ArkUI_TextPickerRangeContentArray,
     );
 }
 extern "C" {
-    #[cfg(feature = "api-19")]
     #[doc = "@brief Creates a TextCascadePickerRangeContent instance.\n\n@param length The length of the picker array.\n@return Returns a <b>TextCascadePickerRangeContent</b> instance.\n@since 19"]
+    #[cfg(feature = "api-19")]
     pub fn OH_ArkUI_TextCascadePickerRangeContentArray_Create(
         length: i32,
     ) -> *mut ArkUI_TextCascadePickerRangeContentArray;
 }
 extern "C" {
-    #[cfg(feature = "api-19")]
     #[doc = "@brief Sets the text of items in a multi text picker ranges.\n\n@param handle The TextCascadePickerRangeContent instance for obtaining information.\n@param text text content\n@param index The index position of the value to be obtained.\n@since 19"]
+    #[cfg(feature = "api-19")]
     pub fn OH_ArkUI_TextCascadePickerRangeContentArray_SetTextAtIndex(
         handle: *mut ArkUI_TextCascadePickerRangeContentArray,
         text: *mut ::std::os::raw::c_char,
@@ -4092,8 +4092,8 @@ extern "C" {
     );
 }
 extern "C" {
-    #[cfg(feature = "api-19")]
     #[doc = "@brief Sets the childs info of items in a multi text picker ranges.\n\n@param handle The TextCascadePickerRangeContent instance for obtaining information.\n@param child The child instance.\n@param index The index position of the value to be obtained.\n@since 19"]
+    #[cfg(feature = "api-19")]
     pub fn OH_ArkUI_TextCascadePickerRangeContentArray_SetChildAtIndex(
         handle: *mut ArkUI_TextCascadePickerRangeContentArray,
         child: *mut ArkUI_TextCascadePickerRangeContentArray,
@@ -4101,25 +4101,25 @@ extern "C" {
     );
 }
 extern "C" {
-    #[cfg(feature = "api-19")]
     #[doc = "@brief Destroy the TextCascadePickerRangeContent instance.\n\n@param handle The TextCascadePickerRangeContent instance for obtaining information.\n@since 19"]
+    #[cfg(feature = "api-19")]
     pub fn OH_ArkUI_TextCascadePickerRangeContentArray_Destroy(
         handle: *mut ArkUI_TextCascadePickerRangeContentArray,
     );
 }
 extern "C" {
-    #[cfg(feature = "api-20")]
     #[doc = " @brief Create an object for the EmbeddedComponent option.\n\n @return A pointer to the object of the EmbeddedComponent option.\n @since 20"]
+    #[cfg(feature = "api-20")]
     pub fn OH_ArkUI_EmbeddedComponentOption_Create() -> *mut ArkUI_EmbeddedComponentOption;
 }
 extern "C" {
-    #[cfg(feature = "api-20")]
     #[doc = " @brief Destroy the object by EmbeddedComponent option.\n\n @param option Pointer to the object by the EmbeddeComponent to be destroyed.\n @since 20"]
+    #[cfg(feature = "api-20")]
     pub fn OH_ArkUI_EmbeddedComponentOption_Dispose(option: *mut ArkUI_EmbeddedComponentOption);
 }
 extern "C" {
-    #[cfg(feature = "api-20")]
     #[doc = " @brief Set the onError of EmbeddedComponent.\n\n @param option Pointer to the object option by the EmbeddedComponent.\n @param code Common error information about the API invoking failure.\n @param name Common error name information about the API invoking failure.\n @param message Common error message information about the API invoking failure.\n @since 20"]
+    #[cfg(feature = "api-20")]
     pub fn OH_ArkUI_EmbeddedComponentOption_SetOnError(
         option: *mut ArkUI_EmbeddedComponentOption,
         callback: ::std::option::Option<
@@ -4132,8 +4132,8 @@ extern "C" {
     );
 }
 extern "C" {
-    #[cfg(feature = "api-20")]
     #[doc = " @brief Set the onTerminated of EmbeddedComponent.\n\n @param option Pointer to the object option by the EmbeddedComponent.\n @param code Result code returned when the EmbeddedUIExtensionAbility exits.\n @param want Data returned when the EmbeddedUIExtensionAbility exits.\n @since 20"]
+    #[cfg(feature = "api-20")]
     pub fn OH_ArkUI_EmbeddedComponentOption_SetOnTerminated(
         option: *mut ArkUI_EmbeddedComponentOption,
         callback: ::std::option::Option<
@@ -4142,148 +4142,148 @@ extern "C" {
     );
 }
 extern "C" {
-    #[cfg(feature = "api-21")]
     #[doc = " @brief Expand the swipe action.\n\n @param node List Item node.\n @param direction expand direction of swipeAction.\n @return Error code.\n         {@link ARKUI_ERROR_CODE_NO_ERROR} success.\n         {@link ARKUI_ERROR_CODE_PARAM_ERROR} The component type of the node is incorrect.\n         {@link ARKUI_ERROR_CODE_NODE_NOT_ON_MAIN_TREE} The node not mounted to component tree.\n @since 21"]
+    #[cfg(feature = "api-21")]
     pub fn OH_ArkUI_ListItemSwipeAction_Expand(
         node: ArkUI_NodeHandle,
         direction: ArkUI_ListItemSwipeActionDirection,
     ) -> i32;
 }
 extern "C" {
-    #[cfg(feature = "api-21")]
     #[doc = " @brief Collapse the swipe action.\n\n @param node List Item node.\n @return Error code.\n         {@link ARKUI_ERROR_CODE_NO_ERROR} success.\n         {@link ARKUI_ERROR_CODE_PARAM_ERROR} The component type of the node is incorrect.\n         {@link ARKUI_ERROR_CODE_NODE_NOT_ON_MAIN_TREE} The node not mounted to component tree.\n @since 21"]
+    #[cfg(feature = "api-21")]
     pub fn OH_ArkUI_ListItemSwipeAction_Collapse(node: ArkUI_NodeHandle) -> i32;
 }
 extern "C" {
-    #[cfg(feature = "api-21")]
     #[doc = " @brief Create an edge object for position attribute.\n\n @return A pointer to the edge object.\n @since 21"]
+    #[cfg(feature = "api-21")]
     pub fn OH_ArkUI_PositionEdges_Create() -> *mut ArkUI_PositionEdges;
 }
 extern "C" {
-    #[cfg(feature = "api-21")]
     #[doc = " @brief Creates a deep copy of an edge object for position attribute.\n\n @param edges A pointer to an edge object.\n @return A pointer to the new edge object.\n @since 21"]
+    #[cfg(feature = "api-21")]
     pub fn OH_ArkUI_PositionEdges_Copy(
         edges: *const ArkUI_PositionEdges,
     ) -> *mut ArkUI_PositionEdges;
 }
 extern "C" {
-    #[cfg(feature = "api-21")]
     #[doc = " @brief Dispose an edge object for position attribute.\n\n @param edges Pointer to the edge object to be disposed.\n @since 21"]
+    #[cfg(feature = "api-21")]
     pub fn OH_ArkUI_PositionEdges_Dispose(edges: *mut ArkUI_PositionEdges);
 }
 extern "C" {
-    #[cfg(feature = "api-21")]
     #[doc = " @brief Sets the top edge of an edge object for position attribute.\n\n @param edges Pointer to the edge object.\n @param value The distance of top edge to the corresponding edge of parent container, in vp.\n @since 21"]
+    #[cfg(feature = "api-21")]
     pub fn OH_ArkUI_PositionEdges_SetTop(edges: *mut ArkUI_PositionEdges, value: f32);
 }
 extern "C" {
-    #[cfg(feature = "api-21")]
     #[doc = " @brief Gets the top edge of an edge object for position attribute.\n\n @param edges Pointer to the edge object.\n @param value The distance of top edge to the corresponding edge of parent container, in vp.\n @return Returns the result code.\n      Returns {@link ARKUI_ERROR_CODE_NO_ERROR} if the operation is successful.\n      Returns {@link ARKUI_ERROR_CODE_PARAM_INVALID} if the parameter is invalid.\n @since 21"]
+    #[cfg(feature = "api-21")]
     pub fn OH_ArkUI_PositionEdges_GetTop(edges: *mut ArkUI_PositionEdges, value: *mut f32) -> i32;
 }
 extern "C" {
-    #[cfg(feature = "api-21")]
     #[doc = " @brief Sets the left edge of an edge object for position attribute.\n\n @param edges Pointer to the edge object.\n @param value The distance of left edge to the corresponding edge of parent container, in vp.\n @since 21"]
+    #[cfg(feature = "api-21")]
     pub fn OH_ArkUI_PositionEdges_SetLeft(edges: *mut ArkUI_PositionEdges, value: f32);
 }
 extern "C" {
-    #[cfg(feature = "api-21")]
     #[doc = " @brief Gets the left edge of an edge object for position attribute.\n\n @param edges Pointer to the edge object.\n @param value The distance of left edge to the corresponding edge of parent container, in vp.\n @return Returns the result code.\n      Returns {@link ARKUI_ERROR_CODE_NO_ERROR} if the operation is successful.\n      Returns {@link ARKUI_ERROR_CODE_PARAM_INVALID} if the parameter is invalid.\n @since 21"]
+    #[cfg(feature = "api-21")]
     pub fn OH_ArkUI_PositionEdges_GetLeft(edges: *mut ArkUI_PositionEdges, value: *mut f32) -> i32;
 }
 extern "C" {
-    #[cfg(feature = "api-21")]
     #[doc = " @brief Sets the bottom edge of an edge object for position attribute.\n\n @param edges Pointer to the edge object.\n @param value The distance of bottom edge to the corresponding edge of parent container, in vp.\n @since 21"]
+    #[cfg(feature = "api-21")]
     pub fn OH_ArkUI_PositionEdges_SetBottom(edges: *mut ArkUI_PositionEdges, value: f32);
 }
 extern "C" {
-    #[cfg(feature = "api-21")]
     #[doc = " @brief Gets the bottom edge of an edge object for position attribute.\n\n @param edges Pointer to the edge object.\n @param value The distance of bottom edge to the corresponding edge of parent container, in vp.\n @return Returns the result code.\n      Returns {@link ARKUI_ERROR_CODE_NO_ERROR} if the operation is successful.\n      Returns {@link ARKUI_ERROR_CODE_PARAM_INVALID} if the parameter is invalid.\n @since 21"]
+    #[cfg(feature = "api-21")]
     pub fn OH_ArkUI_PositionEdges_GetBottom(
         edges: *mut ArkUI_PositionEdges,
         value: *mut f32,
     ) -> i32;
 }
 extern "C" {
-    #[cfg(feature = "api-21")]
     #[doc = " @brief Sets the right edge of an edge object for position attribute.\n\n @param edges Pointer to the edge object.\n @param value The distance of right edge to the corresponding edge of parent container, in vp.\n @since 21"]
+    #[cfg(feature = "api-21")]
     pub fn OH_ArkUI_PositionEdges_SetRight(edges: *mut ArkUI_PositionEdges, value: f32);
 }
 extern "C" {
-    #[cfg(feature = "api-21")]
     #[doc = " @brief Gets the right edge of an edge object for position attribute.\n\n @param edges Pointer to the edge object.\n @param value The distance of right edge to the corresponding edge of parent container, in vp.\n @return Returns the result code.\n      Returns {@link ARKUI_ERROR_CODE_NO_ERROR} if the operation is successful.\n      Returns {@link ARKUI_ERROR_CODE_PARAM_INVALID} if the parameter is invalid.\n @since 21"]
+    #[cfg(feature = "api-21")]
     pub fn OH_ArkUI_PositionEdges_GetRight(edges: *mut ArkUI_PositionEdges, value: *mut f32)
         -> i32;
 }
 extern "C" {
-    #[cfg(feature = "api-21")]
     #[doc = " @brief Create a policy object for PixelRound attribute.\n\n @return A pointer to the policy object.\n @since 21"]
+    #[cfg(feature = "api-21")]
     pub fn OH_ArkUI_PixelRoundPolicy_Create() -> *mut ArkUI_PixelRoundPolicy;
 }
 extern "C" {
-    #[cfg(feature = "api-21")]
     #[doc = " @brief Dispose a policy object for PixelRound attribute.\n\n @param policy Pointer to the policy object to be disposed.\n @since 21"]
+    #[cfg(feature = "api-21")]
     pub fn OH_ArkUI_PixelRoundPolicy_Dispose(policy: *mut ArkUI_PixelRoundPolicy);
 }
 extern "C" {
-    #[cfg(feature = "api-21")]
     #[doc = " @brief Sets the top edge of a policy object for PixelRound attribute.\n\n @param policy Pointer to the policy object.\n @param value The CalcPolicy of top edge.\n @since 21"]
+    #[cfg(feature = "api-21")]
     pub fn OH_ArkUI_PixelRoundPolicy_SetTop(
         policy: *mut ArkUI_PixelRoundPolicy,
         value: ArkUI_PixelRoundCalcPolicy,
     );
 }
 extern "C" {
-    #[cfg(feature = "api-21")]
     #[doc = " @brief Gets the top edge of a policy object for PixelRound attribute.\n\n @param policy Pointer to the policy object.\n @param value The CalcPolicy of top edge.\n @return Returns the result code.\n      Returns {@link ARKUI_ERROR_CODE_NO_ERROR} if the operation is successful.\n      Returns {@link ARKUI_ERROR_CODE_PARAM_INVALID} if the parameter is invalid.\n @since 21"]
+    #[cfg(feature = "api-21")]
     pub fn OH_ArkUI_PixelRoundPolicy_GetTop(
         policy: *mut ArkUI_PixelRoundPolicy,
         value: *mut ArkUI_PixelRoundCalcPolicy,
     ) -> i32;
 }
 extern "C" {
-    #[cfg(feature = "api-21")]
     #[doc = " @brief Sets the start edge of a policy object for PixelRound attribute.\n\n @param policy Pointer to the policy object.\n @param value The CalcPolicy of start edge.\n @since 21"]
+    #[cfg(feature = "api-21")]
     pub fn OH_ArkUI_PixelRoundPolicy_SetStart(
         policy: *mut ArkUI_PixelRoundPolicy,
         value: ArkUI_PixelRoundCalcPolicy,
     );
 }
 extern "C" {
-    #[cfg(feature = "api-21")]
     #[doc = " @brief Gets the start edge of a policy object for PixelRound attribute.\n\n @param policy Pointer to the policy object.\n @param value The CalcPolicy of start edge.\n @return Returns the result code.\n      Returns {@link ARKUI_ERROR_CODE_NO_ERROR} if the operation is successful.\n      Returns {@link ARKUI_ERROR_CODE_PARAM_INVALID} if the parameter is invalid.\n @since 21"]
+    #[cfg(feature = "api-21")]
     pub fn OH_ArkUI_PixelRoundPolicy_GetStart(
         policy: *mut ArkUI_PixelRoundPolicy,
         value: *mut ArkUI_PixelRoundCalcPolicy,
     ) -> i32;
 }
 extern "C" {
-    #[cfg(feature = "api-21")]
     #[doc = " @brief Sets the bottom edge of a policy object for PixelRound attribute.\n\n @param policy Pointer to the policy object.\n @param value The CalcPolicy of bottom edge.\n @since 21"]
+    #[cfg(feature = "api-21")]
     pub fn OH_ArkUI_PixelRoundPolicy_SetBottom(
         policy: *mut ArkUI_PixelRoundPolicy,
         value: ArkUI_PixelRoundCalcPolicy,
     );
 }
 extern "C" {
-    #[cfg(feature = "api-21")]
     #[doc = " @brief Gets the bottom edge of a policy object for PixelRound attribute.\n\n @param policy Pointer to the policy object.\n @param value The CalcPolicy of bottom edge.\n @return Returns the result code.\n      Returns {@link ARKUI_ERROR_CODE_NO_ERROR} if the operation is successful.\n      Returns {@link ARKUI_ERROR_CODE_PARAM_INVALID} if the parameter is invalid.\n @since 21"]
+    #[cfg(feature = "api-21")]
     pub fn OH_ArkUI_PixelRoundPolicy_GetBottom(
         policy: *mut ArkUI_PixelRoundPolicy,
         value: *mut ArkUI_PixelRoundCalcPolicy,
     ) -> i32;
 }
 extern "C" {
-    #[cfg(feature = "api-21")]
     #[doc = " @brief Sets the end edge of a policy object for PixelRound attribute.\n\n @param policy Pointer to the policy object.\n @param value The CalcPolicy of end edge.\n @since 21"]
+    #[cfg(feature = "api-21")]
     pub fn OH_ArkUI_PixelRoundPolicy_SetEnd(
         policy: *mut ArkUI_PixelRoundPolicy,
         value: ArkUI_PixelRoundCalcPolicy,
     );
 }
 extern "C" {
-    #[cfg(feature = "api-21")]
     #[doc = " @brief Gets the end edge of a policy object for PixelRound attribute.\n\n @param policy Pointer to the policy object.\n @param value The CalcPolicy of end edge.\n @return Returns the result code.\n      Returns {@link ARKUI_ERROR_CODE_NO_ERROR} if the operation is successful.\n      Returns {@link ARKUI_ERROR_CODE_PARAM_INVALID} if the parameter is invalid.\n @since 21"]
+    #[cfg(feature = "api-21")]
     pub fn OH_ArkUI_PixelRoundPolicy_GetEnd(
         policy: *mut ArkUI_PixelRoundPolicy,
         value: *mut ArkUI_PixelRoundCalcPolicy,
@@ -4295,26 +4295,26 @@ pub struct ArkUI_TextMenuItem {
     _unused: [u8; 0],
 }
 extern "C" {
-    #[cfg(feature = "api-22")]
     #[doc = " @brief Create an object of the text edit menu item.\n\n @return A pointer to the ArkUI_TextMenuItem.\n @since 22"]
+    #[cfg(feature = "api-22")]
     pub fn OH_ArkUI_TextMenuItem_Create() -> *mut ArkUI_TextMenuItem;
 }
 extern "C" {
-    #[cfg(feature = "api-22")]
     #[doc = " @brief Dispose an object of the text edit menu options.\n\n @param textMenuItem Pointer to the ArkUI_TextMenuItem object to be disposed.\n @since 22"]
+    #[cfg(feature = "api-22")]
     pub fn OH_ArkUI_TextMenuItem_Dispose(textMenuItem: *mut ArkUI_TextMenuItem);
 }
 extern "C" {
-    #[cfg(feature = "api-22")]
     #[doc = " @brief Set text menu item title.\n\n @param item The text menu item.\n @param content The name of the text menu item, which defaults to an empty string. The string will copy to framework.\n @return Returns the result code.\n         Returns {@link ARKUI_ERROR_CODE_NO_ERROR} if the operation is successful.\n         Returns {@link ARKUI_ERROR_CODE_PARAM_INVALID} if a parameter exception occurs.\n @since 22"]
+    #[cfg(feature = "api-22")]
     pub fn OH_ArkUI_TextMenuItem_SetContent(
         item: *mut ArkUI_TextMenuItem,
         content: *const ::std::os::raw::c_char,
     ) -> ArkUI_ErrorCode;
 }
 extern "C" {
-    #[cfg(feature = "api-22")]
     #[doc = " @brief Get text menu item title.\n\n @param item The text menu item object.\n @param buffer The buffer of the text menu content, memory space needs to be allocated by the developer.\n @param bufferSize The name of the text menu item, which defaults to an empty string;\n @param writeLength Indicates the string length actually written to the buffer\n                    when returning {@link ARKUI_ERROR_CODE_NO_ERROR}.\n                    Indicates the minimum buffer size that can accommodate the target\n                    when {@link ARKUI_ERROR_CODE_BUFFER_SIZE_ERROR} is returned.\n\n @return The error code.\n         {@link ARKUI_ERROR_CODE_NO_ERROR} if the operation is successful.\n         {@link ARKUI_ERROR_CODE_PARAM_INVALID} if the node, buffer or writeLength is null.\n         {@link ARKUI_ERROR_CODE_BUFFER_SIZE_ERROR} If the buffer size is less than the minimum buffer size.\n @since 22"]
+    #[cfg(feature = "api-22")]
     pub fn OH_ArkUI_TextMenuItem_GetContent(
         item: *const ArkUI_TextMenuItem,
         buffer: *mut ::std::os::raw::c_char,
@@ -4323,16 +4323,16 @@ extern "C" {
     ) -> ArkUI_ErrorCode;
 }
 extern "C" {
-    #[cfg(feature = "api-22")]
     #[doc = " @brief Set text menu item icon.\n\n @param item The text menu item.\n @param icon The text menu item icon resource, which defaults to an empty string. The string will copy to framework.\n @return Returns the result code.\n         Returns {@link ARKUI_ERROR_CODE_NO_ERROR} if the operation is successful.\n         Returns {@link ARKUI_ERROR_CODE_PARAM_INVALID} if a parameter exception occurs.\n @since 22"]
+    #[cfg(feature = "api-22")]
     pub fn OH_ArkUI_TextMenuItem_SetIcon(
         item: *mut ArkUI_TextMenuItem,
         icon: *const ::std::os::raw::c_char,
     ) -> ArkUI_ErrorCode;
 }
 extern "C" {
-    #[cfg(feature = "api-22")]
     #[doc = " @brief Get text menu item icon.\n\n @param item The text menu item object\n @param buffer The buffer of the text menu content, memory space needs to be allocated by the developer.\n @param bufferSize The icon of the text menu item, which defaults to an empty string;\n @param writeLength Indicates the string length actually written to the buffer\n                    when returning {@link ARKUI_ERROR_CODE_NO_ERROR}.\n                    Indicates the minimum buffer size that can accommodate the target\n                    when {@link ARKUI_ERROR_CODE_BUFFER_SIZE_ERROR} is returned.\n\n @return The error code.\n         {@link ARKUI_ERROR_CODE_NO_ERROR} if the operation is successful.\n         {@link ARKUI_ERROR_CODE_PARAM_INVALID} if the node, buffer or writeLength is null.\n         {@link ARKUI_ERROR_CODE_BUFFER_SIZE_ERROR} If the buffer size is less than the minimum buffer size.\n @since 22"]
+    #[cfg(feature = "api-22")]
     pub fn OH_ArkUI_TextMenuItem_GetIcon(
         item: *const ArkUI_TextMenuItem,
         buffer: *mut ::std::os::raw::c_char,
@@ -4341,16 +4341,16 @@ extern "C" {
     ) -> ArkUI_ErrorCode;
 }
 extern "C" {
-    #[cfg(feature = "api-22")]
     #[doc = " @brief Set text menu item label info for keyboard shortcut.\n\n @param item The text menu item.\n @param labelInfo The text menu item shortcut displays, which defaults to an empty string.\n      The string will copy to framework.\n @return Returns the result code.\n         Returns {@link ARKUI_ERROR_CODE_NO_ERROR} if the operation is successful.\n         Returns {@link ARKUI_ERROR_CODE_PARAM_INVALID} if a parameter exception occurs.\n @since 22"]
+    #[cfg(feature = "api-22")]
     pub fn OH_ArkUI_TextMenuItem_SetLabelInfo(
         item: *mut ArkUI_TextMenuItem,
         labelInfo: *const ::std::os::raw::c_char,
     ) -> ArkUI_ErrorCode;
 }
 extern "C" {
-    #[cfg(feature = "api-22")]
     #[doc = " @brief Get text menu item label info for keyboard shortcut..\n\n @param item The text menu item object\n @param buffer The buffer of the text menu content, memory space needs to be allocated by the developer.\n @param bufferSize The shortcuts of the text menu item, which defaults to an empty string;\n @param writeLength Indicates the string length actually written to the buffer\n                    when returning {@link ARKUI_ERROR_CODE_NO_ERROR}.\n                    Indicates the minimum buffer size that can accommodate the target\n                    when {@link ARKUI_ERROR_CODE_BUFFER_SIZE_ERROR} is returned.\n\n @return The error code.\n         {@link ARKUI_ERROR_CODE_NO_ERROR} if the operation is successful.\n         {@link ARKUI_ERROR_CODE_PARAM_INVALID} if the node, buffer or writeLength is null.\n         {@link ARKUI_ERROR_CODE_BUFFER_SIZE_ERROR} If the buffer size is less than the minimum buffer size.\n @since 22"]
+    #[cfg(feature = "api-22")]
     pub fn OH_ArkUI_TextMenuItem_GetLabelInfo(
         item: *const ArkUI_TextMenuItem,
         buffer: *mut ::std::os::raw::c_char,
@@ -4359,13 +4359,13 @@ extern "C" {
     ) -> ArkUI_ErrorCode;
 }
 extern "C" {
-    #[cfg(feature = "api-22")]
     #[doc = " @brief Set text menu item id.\n\n @param item The text menu item.\n @param id The text menu id.\n @return Returns the result code.\n         Returns {@link ARKUI_ERROR_CODE_NO_ERROR} if the operation is successful.\n         Returns {@link ARKUI_ERROR_CODE_PARAM_INVALID} if a parameter exception occurs.\n @since 22"]
+    #[cfg(feature = "api-22")]
     pub fn OH_ArkUI_TextMenuItem_SetId(item: *mut ArkUI_TextMenuItem, id: i32) -> ArkUI_ErrorCode;
 }
 extern "C" {
-    #[cfg(feature = "api-22")]
     #[doc = " @brief Get text menu item id.\n\n @param item The text menu item object\n @param id The text menu item id;\n @return Returns the result code.\n         Returns {@link ARKUI_ERROR_CODE_NO_ERROR} if the operation is successful.\n         Returns {@link ARKUI_ERROR_CODE_PARAM_INVALID} if a parameter exception occurs.\n @since 22"]
+    #[cfg(feature = "api-22")]
     pub fn OH_ArkUI_TextMenuItem_GetId(
         item: *const ArkUI_TextMenuItem,
         id: *mut i32,
@@ -4377,16 +4377,16 @@ pub struct ArkUI_TextMenuItemArray {
     _unused: [u8; 0],
 }
 extern "C" {
-    #[cfg(feature = "api-22")]
     #[doc = " @brief Get the size of text menu items.\n\n @param items The text menu items.\n @param size The size of text menu items.\n @return Returns the result code.\n         Returns {@link ARKUI_ERROR_CODE_NO_ERROR} if the operation is successful.\n         Returns {@link ARKUI_ERROR_CODE_PARAM_INVALID} if a parameter exception occurs.\n @since 22"]
+    #[cfg(feature = "api-22")]
     pub fn OH_ArkUI_TextMenuItemArray_GetSize(
         items: *mut ArkUI_TextMenuItemArray,
         size: *mut i32,
     ) -> ArkUI_ErrorCode;
 }
 extern "C" {
-    #[cfg(feature = "api-22")]
     #[doc = " @brief Get text menu item at index.\n\n @param items The text menu items.\n @param index The index of text menu items.\n @param item The text menu item at index of array.\n @return Returns the result code.\n         Returns {@link ARKUI_ERROR_CODE_NO_ERROR} if the operation is successful.\n         Returns {@link ARKUI_ERROR_CODE_PARAM_INVALID} if a parameter exception occurs.\n @since 22"]
+    #[cfg(feature = "api-22")]
     pub fn OH_ArkUI_TextMenuItemArray_GetItem(
         items: *mut ArkUI_TextMenuItemArray,
         index: i32,
@@ -4394,8 +4394,8 @@ extern "C" {
     ) -> ArkUI_ErrorCode;
 }
 extern "C" {
-    #[cfg(feature = "api-22")]
     #[doc = " @brief Insert text menu item at index.\n\n @param items The text menu items.\n @param item The text menu item at index of array. The item will copy by framework.\n @param index The index of text menu items.\n @return Returns the result code.\n         Returns {@link ARKUI_ERROR_CODE_NO_ERROR} if the operation is successful.\n         Returns {@link ARKUI_ERROR_CODE_PARAM_INVALID} if a parameter exception occurs.\n @since 22"]
+    #[cfg(feature = "api-22")]
     pub fn OH_ArkUI_TextMenuItemArray_Insert(
         items: *mut ArkUI_TextMenuItemArray,
         item: *mut ArkUI_TextMenuItem,
@@ -4403,78 +4403,78 @@ extern "C" {
     ) -> ArkUI_ErrorCode;
 }
 extern "C" {
-    #[cfg(feature = "api-22")]
     #[doc = " @brief Erase text menu item at index.\n\n @param items The text menu items.\n @param index The index of text menu items.\n @return Returns the result code.\n         Returns {@link ARKUI_ERROR_CODE_NO_ERROR} if the operation is successful.\n         Returns {@link ARKUI_ERROR_CODE_PARAM_INVALID} if a parameter exception occurs.\n @since 22"]
+    #[cfg(feature = "api-22")]
     pub fn OH_ArkUI_TextMenuItemArray_Erase(
         items: *mut ArkUI_TextMenuItemArray,
         index: i32,
     ) -> ArkUI_ErrorCode;
 }
 extern "C" {
-    #[cfg(feature = "api-22")]
     #[doc = " @brief Clear all the items.\n\n @param items The text menu items.\n @return Returns the result code.\n         Returns {@link ARKUI_ERROR_CODE_NO_ERROR} if the operation is successful.\n         Returns {@link ARKUI_ERROR_CODE_PARAM_INVALID} if a parameter exception occurs.\n @since 22"]
+    #[cfg(feature = "api-22")]
     pub fn OH_ArkUI_TextMenuItemArray_Clear(items: *mut ArkUI_TextMenuItemArray)
         -> ArkUI_ErrorCode;
 }
-#[cfg(feature = "api-22")]
 #[doc = " Indicates the TextMenuItemId to copy and delete the currently selected text."]
+#[cfg(feature = "api-22")]
 pub const ArkUI_TextMenuItemId_ARKUI_TEXT_MENU_ITEM_ID_CUT: ArkUI_TextMenuItemId = 0;
-#[cfg(feature = "api-22")]
 #[doc = " Indicates the TextMenuItemId to copy the currently selected text to the clipboard."]
+#[cfg(feature = "api-22")]
 pub const ArkUI_TextMenuItemId_ARKUI_TEXT_MENU_ITEM_ID_COPY: ArkUI_TextMenuItemId = 1;
-#[cfg(feature = "api-22")]
 #[doc = " Indicates the TextMenuItemId to copy the current contents of the clipboard into the text view."]
+#[cfg(feature = "api-22")]
 pub const ArkUI_TextMenuItemId_ARKUI_TEXT_MENU_ITEM_ID_PASTE: ArkUI_TextMenuItemId = 2;
-#[cfg(feature = "api-22")]
 #[doc = " Indicates the TextMenuItemId to select all text in a text view."]
-pub const ArkUI_TextMenuItemId_ARKUI_TEXT_MENU_ITEM_ID_SELECT_ALL: ArkUI_TextMenuItemId = 3;
 #[cfg(feature = "api-22")]
+pub const ArkUI_TextMenuItemId_ARKUI_TEXT_MENU_ITEM_ID_SELECT_ALL: ArkUI_TextMenuItemId = 3;
 #[doc = " Indicates the TextMenuItemId for collaboration service menu items."]
+#[cfg(feature = "api-22")]
 pub const ArkUI_TextMenuItemId_ARKUI_TEXT_MENU_ITEM_ID_COLLABORATION_SERVICE: ArkUI_TextMenuItemId =
     4;
-#[cfg(feature = "api-22")]
 #[doc = " Indicates the TextMenuItemId to recognize the text in the picture and input it into the text view."]
+#[cfg(feature = "api-22")]
 pub const ArkUI_TextMenuItemId_ARKUI_TEXT_MENU_ITEM_ID_CAMERA_INPUT: ArkUI_TextMenuItemId = 5;
-#[cfg(feature = "api-22")]
 #[doc = " Indicates the TextMenuItemId to help with text creation by invoking large models."]
+#[cfg(feature = "api-22")]
 pub const ArkUI_TextMenuItemId_ARKUI_TEXT_MENU_ITEM_ID_AI_WRITER: ArkUI_TextMenuItemId = 6;
-#[cfg(feature = "api-22")]
 #[doc = " Indicates the TextMenuItemId to translate the selected content."]
+#[cfg(feature = "api-22")]
 pub const ArkUI_TextMenuItemId_ARKUI_TEXT_MENU_ITEM_ID_TRANSLATE: ArkUI_TextMenuItemId = 7;
-#[cfg(feature = "api-22")]
 #[doc = " Indicates the TextMenuItemId to search the selected content."]
+#[cfg(feature = "api-22")]
 pub const ArkUI_TextMenuItemId_ARKUI_TEXT_MENU_ITEM_ID_SEARCH: ArkUI_TextMenuItemId = 8;
-#[cfg(feature = "api-22")]
 #[doc = " Indicates the TextMenuItemId to share the selected content."]
+#[cfg(feature = "api-22")]
 pub const ArkUI_TextMenuItemId_ARKUI_TEXT_MENU_ITEM_ID_SHARE: ArkUI_TextMenuItemId = 9;
-#[cfg(feature = "api-22")]
 #[doc = " Indicates the TextMenuItemId to open url."]
+#[cfg(feature = "api-22")]
 pub const ArkUI_TextMenuItemId_ARKUI_TEXT_MENU_ITEM_ID_URL: ArkUI_TextMenuItemId = 10;
-#[cfg(feature = "api-22")]
 #[doc = " Indicates the TextMenuItemId to open email."]
+#[cfg(feature = "api-22")]
 pub const ArkUI_TextMenuItemId_ARKUI_TEXT_MENU_ITEM_ID_EMAIL: ArkUI_TextMenuItemId = 11;
-#[cfg(feature = "api-22")]
 #[doc = " Indicates the TextMenuItemId to call the phone number."]
+#[cfg(feature = "api-22")]
 pub const ArkUI_TextMenuItemId_ARKUI_TEXT_MENU_ITEM_ID_PHONE_NUMBER: ArkUI_TextMenuItemId = 12;
-#[cfg(feature = "api-22")]
 #[doc = " Indicates the TextMenuItemId to open map."]
+#[cfg(feature = "api-22")]
 pub const ArkUI_TextMenuItemId_ARKUI_TEXT_MENU_ITEM_ID_ADDRESS: ArkUI_TextMenuItemId = 13;
-#[cfg(feature = "api-22")]
 #[doc = " Indicates the TextMenuItemId to open calendar."]
+#[cfg(feature = "api-22")]
 pub const ArkUI_TextMenuItemId_ARKUI_TEXT_MENU_ITEM_ID_DATA_TIME: ArkUI_TextMenuItemId = 14;
-#[cfg(feature = "api-22")]
 #[doc = " Indicates the TextMenuItemId for asking AI."]
-pub const ArkUI_TextMenuItemId_ARKUI_TEXT_MENU_ITEM_ID_ASK_AI: ArkUI_TextMenuItemId = 15;
 #[cfg(feature = "api-22")]
+pub const ArkUI_TextMenuItemId_ARKUI_TEXT_MENU_ITEM_ID_ASK_AI: ArkUI_TextMenuItemId = 15;
 #[doc = " Inclusive begin of app-reserved ID range."]
+#[cfg(feature = "api-22")]
 pub const ArkUI_TextMenuItemId_ARKUI_TEXT_MENU_ITEM_ID_APP_RESERVED_BEGIN: ArkUI_TextMenuItemId =
     10000;
-#[cfg(feature = "api-22")]
 #[doc = " Inclusive end of app-reserved ID range."]
+#[cfg(feature = "api-22")]
 pub const ArkUI_TextMenuItemId_ARKUI_TEXT_MENU_ITEM_ID_APP_RESERVED_END: ArkUI_TextMenuItemId =
     20000;
-#[cfg(feature = "api-22")]
 #[doc = " @brief Enumerates the text menu item id.\n\n @since 22"]
+#[cfg(feature = "api-22")]
 pub type ArkUI_TextMenuItemId = u32;
 #[repr(C)]
 #[derive(Debug, Copy, Clone)]
@@ -4482,33 +4482,33 @@ pub struct ArkUI_TextEditMenuOptions {
     _unused: [u8; 0],
 }
 extern "C" {
-    #[cfg(feature = "api-22")]
     #[doc = " @brief Create an object of the text edit menu options.\n\n @return A pointer to the ArkUI_TextEditMenuOptions.\n @since 22"]
+    #[cfg(feature = "api-22")]
     pub fn OH_ArkUI_TextEditMenuOptions_Create() -> *mut ArkUI_TextEditMenuOptions;
 }
 extern "C" {
-    #[cfg(feature = "api-22")]
     #[doc = " @brief Dispose an object of the text edit menu options.\n\n @param editMenuOptions Pointer to the ArkUI_TextEditMenuOptions object to be disposed.\n @since 22"]
+    #[cfg(feature = "api-22")]
     pub fn OH_ArkUI_TextEditMenuOptions_Dispose(editMenuOptions: *mut ArkUI_TextEditMenuOptions);
 }
-#[cfg(feature = "api-22")]
 #[doc = " The text menu create callback function.\n\n @param items The framework creates and owns the array.\n     In callback: the developer can modify the array by calling {@link OH_ArkUI_TextMenuItemArray_Insert},\n     {@link OH_ArkUI_TextMenuItemArray_Erase}, or similar APIs.\n     The developer must not free the array instance.\n @param userData User defined data.\n @since 22"]
+#[cfg(feature = "api-22")]
 pub type ArkUI_TextCreateMenuCallback = ::std::option::Option<
     unsafe extern "C" fn(
         items: *mut ArkUI_TextMenuItemArray,
         userData: *mut ::std::os::raw::c_void,
     ),
 >;
-#[cfg(feature = "api-22")]
 #[doc = " The text menu prepare callback function.\n\n @param items The framework creates and owns the array.\n     In callback: the developer can modify the array by calling {@link OH_ArkUI_TextMenuItemArray_Insert},\n     {@link OH_ArkUI_TextMenuItemArray_Erase}, or similar APIs.\n     The developer must not free the array instance.\n @param userData User defined data.\n @since 22"]
+#[cfg(feature = "api-22")]
 pub type ArkUI_TextPrepareMenuCallback = ::std::option::Option<
     unsafe extern "C" fn(
         items: *mut ArkUI_TextMenuItemArray,
         userData: *mut ::std::os::raw::c_void,
     ),
 >;
-#[cfg(feature = "api-22")]
 #[doc = " The text menu item click callback function.\n\n @param item The menu item click.\n @param start The start offset of the selected content.\n @param end The end offset of the selected content.\n @param userData The user data.\n @return bool Return True, the event is consumed, false otherwise.\n @since 22"]
+#[cfg(feature = "api-22")]
 pub type ArkUI_TextMenuItemClickCallback = ::std::option::Option<
     unsafe extern "C" fn(
         item: *const ArkUI_TextMenuItem,
@@ -4518,8 +4518,8 @@ pub type ArkUI_TextMenuItemClickCallback = ::std::option::Option<
     ) -> bool,
 >;
 extern "C" {
-    #[cfg(feature = "api-22")]
     #[doc = " @brief Set the event to be called when text menu create.\n\n @param editMenuOptions Pointer to the ArkUI_TextEditMenuOptions object.\n @param userData The user data.\n @param cb The create callback function.\n @return Returns the result code.\n         Returns {@link ARKUI_ERROR_CODE_NO_ERROR} if the operation is successful.\n         Returns {@link ARKUI_ERROR_CODE_PARAM_INVALID} if a parameter exception occurs.\n @since 22"]
+    #[cfg(feature = "api-22")]
     pub fn OH_ArkUI_TextEditMenuOptions_RegisterOnCreateMenuCallback(
         editMenuOptions: *mut ArkUI_TextEditMenuOptions,
         userData: *mut ::std::os::raw::c_void,
@@ -4527,8 +4527,8 @@ extern "C" {
     ) -> ArkUI_ErrorCode;
 }
 extern "C" {
-    #[cfg(feature = "api-22")]
     #[doc = " @brief Set the event to be called when menu prepare.\n\n @param editMenuOptions Pointer to the ArkUI_TextEditMenuOptions object.\n @param userData The user data.\n @param cb The prepare callback function.\n @return Returns the result code.\n         Returns {@link ARKUI_ERROR_CODE_NO_ERROR} if the operation is successful.\n         Returns {@link ARKUI_ERROR_CODE_PARAM_INVALID} if a parameter exception occurs.\n @since 22"]
+    #[cfg(feature = "api-22")]
     pub fn OH_ArkUI_TextEditMenuOptions_RegisterOnPrepareMenuCallback(
         editMenuOptions: *mut ArkUI_TextEditMenuOptions,
         userData: *mut ::std::os::raw::c_void,
@@ -4536,8 +4536,8 @@ extern "C" {
     ) -> ArkUI_ErrorCode;
 }
 extern "C" {
-    #[cfg(feature = "api-22")]
     #[doc = " @brief Set the event to be called when menu item click.\n\n @param editMenuOptions Pointer to the ArkUI_TextEditMenuOptions object.\n @param userData The user data.\n @param cb The menu item click callback function.\n @return Returns the result code.\n         Returns {@link ARKUI_ERROR_CODE_NO_ERROR} if the operation is successful.\n         Returns {@link ARKUI_ERROR_CODE_PARAM_INVALID} if a parameter exception occurs.\n @since 22"]
+    #[cfg(feature = "api-22")]
     pub fn OH_ArkUI_TextEditMenuOptions_RegisterOnMenuItemClickCallback(
         editMenuOptions: *mut ArkUI_TextEditMenuOptions,
         userData: *mut ::std::os::raw::c_void,
@@ -4549,99 +4549,99 @@ extern "C" {
 pub struct ArkUI_TextSelectionMenuOptions {
     _unused: [u8; 0],
 }
-#[cfg(feature = "api-22")]
 #[doc = " The span type only contains text."]
+#[cfg(feature = "api-22")]
 pub const ArkUI_TextSpanType_ARKUI_TEXT_SPAN_TYPE_TEXT: ArkUI_TextSpanType = 0;
-#[cfg(feature = "api-22")]
 #[doc = " The span type only contains image."]
+#[cfg(feature = "api-22")]
 pub const ArkUI_TextSpanType_ARKUI_TEXT_SPAN_TYPE_IMAGE: ArkUI_TextSpanType = 1;
-#[cfg(feature = "api-22")]
 #[doc = " The span type contains both text and image."]
+#[cfg(feature = "api-22")]
 pub const ArkUI_TextSpanType_ARKUI_TEXT_SPAN_TYPE_MIXED: ArkUI_TextSpanType = 2;
-#[cfg(feature = "api-22")]
 #[doc = " When no other types are explicitly specified, this type will be matched.\n When this type is registered but TEXT, IMAGE, or MIXED types are not registered,\n this type will be triggered and displayed for those registered types."]
+#[cfg(feature = "api-22")]
 pub const ArkUI_TextSpanType_ARKUI_TEXT_SPAN_TYPE_DEFAULT: ArkUI_TextSpanType = 3;
-#[cfg(feature = "api-22")]
 #[doc = " @brief Enumerates the text span type.\n\n @since 22"]
+#[cfg(feature = "api-22")]
 pub type ArkUI_TextSpanType = u32;
-#[cfg(feature = "api-22")]
 #[doc = " The response type of right click."]
+#[cfg(feature = "api-22")]
 pub const ArkUI_TextResponseType_ARKUI_TEXT_RESPONSE_TYPE_RIGHT_CLICK: ArkUI_TextResponseType = 0;
-#[cfg(feature = "api-22")]
 #[doc = " The response type of long press."]
+#[cfg(feature = "api-22")]
 pub const ArkUI_TextResponseType_ARKUI_TEXT_RESPONSE_TYPE_LONG_PRESS: ArkUI_TextResponseType = 1;
-#[cfg(feature = "api-22")]
 #[doc = " The response type of select by mouse."]
+#[cfg(feature = "api-22")]
 pub const ArkUI_TextResponseType_ARKUI_TEXT_RESPONSE_TYPE_SELECT: ArkUI_TextResponseType = 2;
-#[cfg(feature = "api-22")]
 #[doc = " When no other types are explicitly specified, this type will be matched.\n When this type is registered but RIGHT_CLICK, LONG_PRESS, or SELECT types are not registered,\n this type will be triggered and displayed for right-click, long press, and mouse selection actions."]
-pub const ArkUI_TextResponseType_ARKUI_TEXT_RESPONSE_TYPE_DEFAULT: ArkUI_TextResponseType = 3;
 #[cfg(feature = "api-22")]
+pub const ArkUI_TextResponseType_ARKUI_TEXT_RESPONSE_TYPE_DEFAULT: ArkUI_TextResponseType = 3;
 #[doc = " @brief Enumerates the text response type.\n\n @since 22"]
+#[cfg(feature = "api-22")]
 pub type ArkUI_TextResponseType = u32;
 extern "C" {
-    #[cfg(feature = "api-22")]
     #[doc = " @brief Create an object of the text selection menu options.\n\n @return A pointer to the ArkUI_TextSelectionMenuOptions.\n @since 22"]
+    #[cfg(feature = "api-22")]
     pub fn OH_ArkUI_TextSelectionMenuOptions_Create() -> *mut ArkUI_TextSelectionMenuOptions;
 }
 extern "C" {
-    #[cfg(feature = "api-22")]
     #[doc = " @brief Dispose an object of the text selection menu options.\n\n @param selectionMenuOptions Pointer to the ArkUI_TextSelectionMenuOptions object to be disposed.\n @since 22"]
+    #[cfg(feature = "api-22")]
     pub fn OH_ArkUI_TextSelectionMenuOptions_Dispose(
         selectionMenuOptions: *mut ArkUI_TextSelectionMenuOptions,
     );
 }
 extern "C" {
-    #[cfg(feature = "api-22")]
     #[doc = " @brief Sets the recognition types of a configuration object for selected text recognition.\n\n @param selectionMenuOptions Pointer to the ArkUI_TextSelectionMenuOptions object.\n @param textSpanType The span type of {@link ArkUI_TextSpanType}.\n @return Returns the result code.\n         Returns {@link ARKUI_ERROR_CODE_NO_ERROR} if the operation is successful.\n         Returns {@link ARKUI_ERROR_CODE_PARAM_INVALID} if a parameter exception occurs.\n @since 22"]
+    #[cfg(feature = "api-22")]
     pub fn OH_ArkUI_TextSelectionMenuOptions_SetSpanType(
         selectionMenuOptions: *mut ArkUI_TextSelectionMenuOptions,
         textSpanType: ArkUI_TextSpanType,
     ) -> ArkUI_ErrorCode;
 }
 extern "C" {
-    #[cfg(feature = "api-22")]
     #[doc = " @brief Gets the span type select menu options.\n\n @param selectionMenuOptions Pointer to the ArkUI_TextSelectionMenuOptions object.\n @param spanType the text span type {@link ArkUI_TextSpanType}.\n @return Returns the result code.\n         Returns {@link ARKUI_ERROR_CODE_NO_ERROR} if the operation is successful.\n         Returns {@link ARKUI_ERROR_CODE_PARAM_INVALID} if a parameter exception occurs.\n @since 22"]
+    #[cfg(feature = "api-22")]
     pub fn OH_ArkUI_TextSelectionMenuOptions_GetSpanType(
         selectionMenuOptions: *mut ArkUI_TextSelectionMenuOptions,
         spanType: *mut ArkUI_TextSpanType,
     ) -> ArkUI_ErrorCode;
 }
 extern "C" {
-    #[cfg(feature = "api-22")]
     #[doc = " @brief Set custom text menu node of text.\n\n @param selectionMenuOptions Pointer to the ArkUI_TextSelectionMenuOptions object.\n @param node The custom menu node.\n @return Returns the result code.\n         Returns {@link ARKUI_ERROR_CODE_NO_ERROR} if the operation is successful.\n         Returns {@link ARKUI_ERROR_CODE_PARAM_INVALID} if a parameter exception occurs.\n @since 22"]
+    #[cfg(feature = "api-22")]
     pub fn OH_ArkUI_TextSelectionMenuOptions_SetContentNode(
         selectionMenuOptions: *mut ArkUI_TextSelectionMenuOptions,
         node: ArkUI_NodeHandle,
     ) -> ArkUI_ErrorCode;
 }
 extern "C" {
-    #[cfg(feature = "api-22")]
     #[doc = " @brief Get custom text menu node of text.\n\n @param selectionMenuOptions Pointer to the ArkUI_TextSelectionMenuOptions object.\n @param node The custom menu node.\n @return Returns the result code.\n         Returns {@link ARKUI_ERROR_CODE_NO_ERROR} if the operation is successful.\n         Returns {@link ARKUI_ERROR_CODE_PARAM_INVALID} if a parameter exception occurs.\n @since 22"]
+    #[cfg(feature = "api-22")]
     pub fn OH_ArkUI_TextSelectionMenuOptions_GetContentNode(
         selectionMenuOptions: *mut ArkUI_TextSelectionMenuOptions,
         node: *mut ArkUI_NodeHandle,
     ) -> ArkUI_ErrorCode;
 }
 extern "C" {
-    #[cfg(feature = "api-22")]
     #[doc = " @brief Sets the recognition types of a configuration object for selected text recognition.\n\n @param selectionMenuOptions Pointer to the ArkUI_TextSelectionMenuOptions object.\n @param responseType The response type of {@link ArkUI_TextResponseType}.\n @return Returns the result code.\n         Returns {@link ARKUI_ERROR_CODE_NO_ERROR} if the operation is successful.\n         Returns {@link ARKUI_ERROR_CODE_PARAM_INVALID} if a parameter exception occurs.\n @since 22"]
+    #[cfg(feature = "api-22")]
     pub fn OH_ArkUI_TextSelectionMenuOptions_SetResponseType(
         selectionMenuOptions: *mut ArkUI_TextSelectionMenuOptions,
         responseType: ArkUI_TextResponseType,
     ) -> ArkUI_ErrorCode;
 }
 extern "C" {
-    #[cfg(feature = "api-22")]
     #[doc = " @brief Gets the response type select menu options.\n\n @param selectionMenuOptions Pointer to the ArkUI_TextSelectionMenuOptions object.\n @param responseType The text response type {@link ArkUI_TextResponseType}.\n @return Returns the result code.\n         Returns {@link ARKUI_ERROR_CODE_NO_ERROR} if the operation is successful.\n         Returns {@link ARKUI_ERROR_CODE_PARAM_INVALID} if a parameter exception occurs.\n @since 22"]
+    #[cfg(feature = "api-22")]
     pub fn OH_ArkUI_TextSelectionMenuOptions_GetResponseType(
         selectionMenuOptions: *mut ArkUI_TextSelectionMenuOptions,
         responseType: *mut ArkUI_TextResponseType,
     ) -> ArkUI_ErrorCode;
 }
 extern "C" {
-    #[cfg(feature = "api-22")]
     #[doc = " @brief Set the event to be called when selection menu show.\n\n @param selectionMenuOptions Pointer to the ArkUI_TextSelectionMenuOptions object.\n @param userData The user data.\n @param callback The callback function of menu show.\n     start The start offset of the selected content.\n     end The end offset of the selected content.\n     userData The user data.\n @return Returns the result code.\n         Returns {@link ARKUI_ERROR_CODE_NO_ERROR} if the operation is successful.\n         Returns {@link ARKUI_ERROR_CODE_PARAM_INVALID} if a parameter exception occurs.\n @since 22"]
+    #[cfg(feature = "api-22")]
     pub fn OH_ArkUI_TextSelectionMenuOptions_RegisterOnMenuShowCallback(
         selectionMenuOptions: *mut ArkUI_TextSelectionMenuOptions,
         userData: *mut ::std::os::raw::c_void,
@@ -4651,8 +4651,8 @@ extern "C" {
     ) -> ArkUI_ErrorCode;
 }
 extern "C" {
-    #[cfg(feature = "api-22")]
     #[doc = " @brief Set the event to be called when selection menu hide.\n\n @param selectionMenuOptions Pointer to the ArkUI_TextSelectionMenuOptions object.\n @param userData The user data.\n @param callback The callback function of menu hide.\n     start The start offset of the selected content.\n     end The end offset of the selected content.\n     userData The user data.\n @return Returns the result code.\n         Returns {@link ARKUI_ERROR_CODE_NO_ERROR} if the operation is successful.\n         Returns {@link ARKUI_ERROR_CODE_PARAM_INVALID} if a parameter exception occurs.\n @since 22"]
+    #[cfg(feature = "api-22")]
     pub fn OH_ArkUI_TextSelectionMenuOptions_RegisterOnMenuHideCallback(
         selectionMenuOptions: *mut ArkUI_TextSelectionMenuOptions,
         userData: *mut ::std::os::raw::c_void,
@@ -4662,41 +4662,41 @@ extern "C" {
     ) -> ArkUI_ErrorCode;
 }
 extern "C" {
-    #[cfg(feature = "api-22")]
     #[doc = " @brief Creates a configuration object for textField's counter.\n\n @return A pointer to the configuration object.\n @since 22"]
+    #[cfg(feature = "api-22")]
     pub fn OH_ArkUI_ShowCounterConfig_Create() -> *mut ArkUI_ShowCounterConfig;
 }
 extern "C" {
-    #[cfg(feature = "api-22")]
     #[doc = " @brief Disposes a configuration object for textField's counter.\n\n @param config Pointer to the configuration object to be disposed.\n @since 22"]
+    #[cfg(feature = "api-22")]
     pub fn OH_ArkUI_ShowCounterConfig_Dispose(config: *mut ArkUI_ShowCounterConfig);
 }
 extern "C" {
-    #[cfg(feature = "api-22")]
     #[doc = " @brief Sets the color of counter when textField hasn't wanted to exceed the maximum character count.\n\n @param config Pointer to the configuration object to be modified.\n @param color The color of the counter when textField hasn't wanted to exceed the maximum character count, in 0xARGB format.\n @since 22"]
+    #[cfg(feature = "api-22")]
     pub fn OH_ArkUI_ShowCounterConfig_SetCounterTextColor(
         config: *mut ArkUI_ShowCounterConfig,
         color: u32,
     );
 }
 extern "C" {
-    #[cfg(feature = "api-22")]
     #[doc = " @brief Sets the color of counter when textField wants to exceed the maximum character count.\n\n @param config Pointer to the configuration object to be modified.\n @param color The color of the counter when textField wants to exceed the maximum character count, in 0xARGB format.\n @since 22"]
+    #[cfg(feature = "api-22")]
     pub fn OH_ArkUI_ShowCounterConfig_SetCounterTextOverflowColor(
         config: *mut ArkUI_ShowCounterConfig,
         color: u32,
     );
 }
 extern "C" {
-    #[cfg(feature = "api-22")]
     #[doc = " @brief Gets the color of counter when textField hasn't wanted to exceed the maximum character count.\n\n @param config Pointer to the configuration object.\n @return Returns the color of the counter when textField hasn't wanted to exceed the maximum character count, in 0xARGB format.\n @since 22"]
+    #[cfg(feature = "api-22")]
     pub fn OH_ArkUI_ShowCounterConfig_GetCounterTextColor(
         config: *mut ArkUI_ShowCounterConfig,
     ) -> u32;
 }
 extern "C" {
-    #[cfg(feature = "api-22")]
     #[doc = " @brief Gets the color of counter when textField wants to exceed the maximum character count.\n\n @param config Pointer to the configuration object.\n @return Returns the color of the counter when textField wants to exceed the maximum character count, in 0xARGB format.\n @since 22"]
+    #[cfg(feature = "api-22")]
     pub fn OH_ArkUI_ShowCounterConfig_GetCounterTextOverflowColor(
         config: *mut ArkUI_ShowCounterConfig,
     ) -> u32;
@@ -4714,8 +4714,8 @@ pub struct Image_Region {
     #[doc = " Height of the region, in pixels."]
     pub height: u32,
 }
-#[cfg(feature = "api-22")]
 #[doc = " @brief Defines the area of the image pixels to read or write.\n\n @since 22"]
+#[cfg(feature = "api-22")]
 #[repr(C)]
 #[derive(Debug, Copy, Clone)]
 pub struct Image_PositionArea {
@@ -4730,8 +4730,8 @@ pub struct Image_PositionArea {
     #[doc = " Region to read or write."]
     pub region: Image_Region,
 }
-#[cfg(feature = "api-22")]
 #[doc = " @brief Defines the image scale ratio.\n\n @since 22"]
+#[cfg(feature = "api-22")]
 #[repr(C)]
 #[derive(Debug, Copy, Clone)]
 pub struct Image_Scale {
@@ -4749,8 +4749,8 @@ pub struct Image_String {
     #[doc = " data lenth for string type"]
     pub size: usize,
 }
-#[cfg(feature = "api-13")]
 #[doc = " @brief Define a PictureMetadata struct type, used for picture metadata.\n\n @since 13"]
+#[cfg(feature = "api-13")]
 #[repr(C)]
 #[derive(Debug, Copy, Clone)]
 pub struct OH_PictureMetadata {
@@ -4778,98 +4778,98 @@ pub const Image_ErrorCode_IMAGE_UNSUPPORTED_METADATA: Image_ErrorCode = 7600202;
 pub const Image_ErrorCode_IMAGE_UNSUPPORTED_CONVERSION: Image_ErrorCode = 7600203;
 #[doc = " invalid region"]
 pub const Image_ErrorCode_IMAGE_INVALID_REGION: Image_ErrorCode = 7600204;
-#[cfg(feature = "api-13")]
 #[doc = "  @error unsupported memory format\n  @since 13"]
+#[cfg(feature = "api-13")]
 pub const Image_ErrorCode_IMAGE_UNSUPPORTED_MEMORY_FORMAT: Image_ErrorCode = 7600205;
-#[cfg(feature = "api-19")]
 #[doc = " @error Invalid parameter.\n @since 19"]
+#[cfg(feature = "api-19")]
 pub const Image_ErrorCode_IMAGE_INVALID_PARAMETER: Image_ErrorCode = 7600206;
-#[cfg(feature = "api-22")]
 #[doc = " @error Unsupported data format\n @since 22"]
+#[cfg(feature = "api-22")]
 pub const Image_ErrorCode_IMAGE_UNSUPPORTED_DATA_FORMAT: Image_ErrorCode = 7600207;
 #[doc = " failed to allocate memory"]
 pub const Image_ErrorCode_IMAGE_ALLOC_FAILED: Image_ErrorCode = 7600301;
 #[doc = " memory copy failed"]
 pub const Image_ErrorCode_IMAGE_COPY_FAILED: Image_ErrorCode = 7600302;
-#[cfg(feature = "api-15")]
 #[doc = " @error memory lock or unlock failed\n @since 15"]
+#[cfg(feature = "api-15")]
 pub const Image_ErrorCode_IMAGE_LOCK_UNLOCK_FAILED: Image_ErrorCode = 7600303;
-#[cfg(feature = "api-22")]
 #[doc = " @error Initialization failed\n @since 22"]
-pub const Image_ErrorCode_IMAGE_INIT_FAILED: Image_ErrorCode = 7600304;
 #[cfg(feature = "api-22")]
+pub const Image_ErrorCode_IMAGE_INIT_FAILED: Image_ErrorCode = 7600304;
 #[doc = " @error Create PixelMap failed\n @since 22"]
+#[cfg(feature = "api-22")]
 pub const Image_ErrorCode_IMAGE_CREATE_PIXELMAP_FAILED: Image_ErrorCode = 7600305;
-#[cfg(feature = "api-20")]
 #[doc = " @error unsupported allocator mode, e.g., use share memory to create a HDR image as only\n DMA supported hdr metadata.\n @since 20"]
+#[cfg(feature = "api-20")]
 pub const Image_ErrorCode_IMAGE_ALLOCATOR_MODE_UNSUPPORTED: Image_ErrorCode = 7600501;
 #[doc = " unknown error"]
 pub const Image_ErrorCode_IMAGE_UNKNOWN_ERROR: Image_ErrorCode = 7600901;
 #[doc = " decode data source exception"]
 pub const Image_ErrorCode_IMAGE_BAD_SOURCE: Image_ErrorCode = 7700101;
-#[cfg(feature = "api-15")]
 #[doc = " @error unsupported mime type\n @since 15"]
+#[cfg(feature = "api-15")]
 pub const Image_ErrorCode_IMAGE_SOURCE_UNSUPPORTED_MIME_TYPE: Image_ErrorCode = 7700102;
-#[cfg(feature = "api-15")]
 #[doc = " @error image to large\n @since 15"]
-pub const Image_ErrorCode_IMAGE_SOURCE_TOO_LARGE: Image_ErrorCode = 7700103;
 #[cfg(feature = "api-15")]
+pub const Image_ErrorCode_IMAGE_SOURCE_TOO_LARGE: Image_ErrorCode = 7700103;
 #[doc = " @error unsupported allocator type, e.g., use share memory to decode a HDR image as only\n DMA supported hdr metadata.\n @since 15"]
+#[cfg(feature = "api-15")]
 pub const Image_ErrorCode_IMAGE_SOURCE_UNSUPPORTED_ALLOCATOR_TYPE: Image_ErrorCode = 7700201;
 pub const Image_ErrorCode_IMAGE_SOURCE_UNSUPPORTED_OPTIONS: Image_ErrorCode = 7700203;
-#[cfg(feature = "api-19")]
 #[doc = " @error Invalid parameter.\n @since 19"]
+#[cfg(feature = "api-19")]
 pub const Image_ErrorCode_IMAGE_SOURCE_INVALID_PARAMETER: Image_ErrorCode = 7700204;
 #[doc = " decode failed"]
 pub const Image_ErrorCode_IMAGE_DECODE_FAILED: Image_ErrorCode = 7700301;
-#[cfg(feature = "api-15")]
 #[doc = " @error memory allocation failed\n @since 15"]
+#[cfg(feature = "api-15")]
 pub const Image_ErrorCode_IMAGE_SOURCE_ALLOC_FAILED: Image_ErrorCode = 7700302;
-#[cfg(feature = "api-19")]
 #[doc = " @error Invalid parameter for ImagePacker.\n @since 19"]
+#[cfg(feature = "api-19")]
 pub const Image_ErrorCode_IMAGE_PACKER_INVALID_PARAMETER: Image_ErrorCode = 7800202;
 #[doc = " encode failed"]
 pub const Image_ErrorCode_IMAGE_ENCODE_FAILED: Image_ErrorCode = 7800301;
-#[cfg(feature = "api-20")]
 #[doc = " @error Invalid parameter for ImageReceiver.\n @since 20"]
+#[cfg(feature = "api-20")]
 pub const Image_ErrorCode_IMAGE_RECEIVER_INVALID_PARAMETER: Image_ErrorCode = 7900201;
 #[doc = " @brief Enumerates the return values that may be used by the interface.\n\n @since 12"]
 pub type Image_ErrorCode = u32;
-#[cfg(feature = "api-13")]
 #[doc = " EXIF metadata."]
+#[cfg(feature = "api-13")]
 pub const Image_MetadataType_EXIF_METADATA: Image_MetadataType = 1;
-#[cfg(feature = "api-13")]
 #[doc = " Fragment metadata."]
-pub const Image_MetadataType_FRAGMENT_METADATA: Image_MetadataType = 2;
-#[cfg(feature = "api-20")]
-#[doc = " Metadata of a GIF image.\n\n @since 20"]
-pub const Image_MetadataType_GIF_METADATA: Image_MetadataType = 5;
 #[cfg(feature = "api-13")]
+pub const Image_MetadataType_FRAGMENT_METADATA: Image_MetadataType = 2;
+#[doc = " Metadata of a GIF image.\n\n @since 20"]
+#[cfg(feature = "api-20")]
+pub const Image_MetadataType_GIF_METADATA: Image_MetadataType = 5;
 #[doc = " @brief Define the metadata type.\n\n @since 13"]
+#[cfg(feature = "api-13")]
 pub type Image_MetadataType = u32;
-#[cfg(feature = "api-20")]
 #[doc = " The system determines which memory to use to create the PixelMap.\n\n @since 20"]
+#[cfg(feature = "api-20")]
 pub const IMAGE_ALLOCATOR_MODE_IMAGE_ALLOCATOR_MODE_AUTO: IMAGE_ALLOCATOR_MODE = 0;
-#[cfg(feature = "api-20")]
 #[doc = " Use DMA buffer to create the PixelMap.\n\n @since 20"]
+#[cfg(feature = "api-20")]
 pub const IMAGE_ALLOCATOR_MODE_IMAGE_ALLOCATOR_MODE_DMA: IMAGE_ALLOCATOR_MODE = 1;
-#[cfg(feature = "api-20")]
 #[doc = " Use share memory to create the PixelMap.\n\n @since 20"]
-pub const IMAGE_ALLOCATOR_MODE_IMAGE_ALLOCATOR_MODE_SHARED_MEMORY: IMAGE_ALLOCATOR_MODE = 2;
 #[cfg(feature = "api-20")]
+pub const IMAGE_ALLOCATOR_MODE_IMAGE_ALLOCATOR_MODE_SHARED_MEMORY: IMAGE_ALLOCATOR_MODE = 2;
 #[doc = " @brief Type of allocator used to allocate memory of a PixelMap.\n\n @since 20"]
+#[cfg(feature = "api-20")]
 pub type IMAGE_ALLOCATOR_MODE = u32;
 extern "C" {
-    #[cfg(feature = "api-13")]
     #[doc = " @brief Creates a <b>PictureMetadata</b> object.\n\n @param metadataType The type of metadata.\n @param metadata The PictureMetadata pointer will be operated.\n @return Image functions result code.\n         {@link IMAGE_SUCCESS} if the execution is successful.\n         {@link IMAGE_BAD_PARAMETER} metadata is nullptr.\n @since 13"]
+    #[cfg(feature = "api-13")]
     pub fn OH_PictureMetadata_Create(
         metadataType: Image_MetadataType,
         metadata: *mut *mut OH_PictureMetadata,
     ) -> Image_ErrorCode;
 }
 extern "C" {
-    #[cfg(feature = "api-13")]
     #[doc = " @brief Obtains the property of picture metadata.\n\n @param metadata The PictureMetadata pointer will be operated.\n @param key The property's key.\n @param value The property's value.\n @return Image functions result code.\n         {@link IMAGE_SUCCESS} if the execution is successful.\n         {@link IMAGE_BAD_PARAMETER} metadata is nullptr, or key is nullptr, or value is nullptr.\n         {@link IMAGE_UNSUPPORTED_METADATA} unsupported metadata type, or the metadata type does not match the\n         auxiliary picture type.\n @since 13"]
+    #[cfg(feature = "api-13")]
     pub fn OH_PictureMetadata_GetProperty(
         metadata: *mut OH_PictureMetadata,
         key: *mut Image_String,
@@ -4877,8 +4877,8 @@ extern "C" {
     ) -> Image_ErrorCode;
 }
 extern "C" {
-    #[cfg(feature = "api-13")]
     #[doc = " @brief Set picture metadata property.\n\n @param metadata The PictureMetadata pointer will be operated.\n @param key The property's key.\n @param value The property's value.\n @return Image functions result code.\n         {@link IMAGE_SUCCESS} if the execution is successful.\n         {@link IMAGE_BAD_PARAMETER} metadata is nullptr, or key is nullptr, or value is nullptr.\n         {@link IMAGE_UNSUPPORTED_METADATA} unsupported metadata type, or the metadata type does not match the\n         auxiliary picture type.\n @since 13"]
+    #[cfg(feature = "api-13")]
     pub fn OH_PictureMetadata_SetProperty(
         metadata: *mut OH_PictureMetadata,
         key: *mut Image_String,
@@ -4886,8 +4886,8 @@ extern "C" {
     ) -> Image_ErrorCode;
 }
 extern "C" {
-    #[cfg(feature = "api-19")]
     #[doc = " @brief Obtains the property of picture metadata. The output value.data is null-terminated.\n\n @param metadata Pointer to OH_PictureMetadata.\n @param key Pointer to property's key.\n @param value Pointer to property's value. Output parameter.\n @return Image functions result code.\n         {@link IMAGE_SUCCESS} if the execution is successful.\n         {@link IMAGE_INVALID_PARAMETER} metadata is nullptr, or key is nullptr, or value is nullptr.\n         {@link IMAGE_UNSUPPORTED_METADATA} unsupported metadata type, or the metadata type does not match the\n         auxiliary picture type.\n @since 19"]
+    #[cfg(feature = "api-19")]
     pub fn OH_PictureMetadata_GetPropertyWithNull(
         metadata: *mut OH_PictureMetadata,
         key: *mut Image_String,
@@ -4895,13 +4895,13 @@ extern "C" {
     ) -> Image_ErrorCode;
 }
 extern "C" {
-    #[cfg(feature = "api-13")]
     #[doc = " @brief Releases this PictureMetadata object.\n\n @param metadata The PictureMetadata pointer will be operated.\n @return Image functions result code.\n         {@link IMAGE_SUCCESS} if the execution is successful.\n         {@link IMAGE_BAD_PARAMETER} metadata is nullptr.\n @since 13"]
+    #[cfg(feature = "api-13")]
     pub fn OH_PictureMetadata_Release(metadata: *mut OH_PictureMetadata) -> Image_ErrorCode;
 }
 extern "C" {
-    #[cfg(feature = "api-13")]
     #[doc = " @brief Obtains a clone of metadata.\n\n @param oldMetadata The PictureMetadata pointer will be operated.\n @param newMetadata The PictureMetadata pointer will be cloned.\n @return Image functions result code.\n         {@link IMAGE_SUCCESS} if the execution is successful.\n         {@link IMAGE_BAD_PARAMETER} metadata is nullptr.\n         {@link IMAGE_ALLOC_FAILED} memory alloc failed.\n         {@link IMAGE_COPY_FAILED} memory copy failed.\n @since 13"]
+    #[cfg(feature = "api-13")]
     pub fn OH_PictureMetadata_Clone(
         oldMetadata: *mut OH_PictureMetadata,
         newMetadata: *mut *mut OH_PictureMetadata,
@@ -5119,16 +5119,16 @@ extern "C" {
     ) -> Image_ErrorCode;
 }
 extern "C" {
-    #[cfg(feature = "api-18")]
     #[doc = " @brief Get editable for InitializationOptions struct.\n\n @param options The InitializationOptions pointer will be operated.\n @param editable The boolean value representing the editable status.\n @return Returns {@link Image_ErrorCode} IMAGE_SUCCESS - if the operation is successful.\n returns {@link Image_ErrorCode} IMAGE_BAD_PARAMETER - if options or editable is invalid.\n @since 18"]
+    #[cfg(feature = "api-18")]
     pub fn OH_PixelmapInitializationOptions_GetEditable(
         options: *mut OH_Pixelmap_InitializationOptions,
         editable: *mut bool,
     ) -> Image_ErrorCode;
 }
 extern "C" {
-    #[cfg(feature = "api-18")]
     #[doc = " @brief Set editable for InitializationOptions struct.\n\n @param options The InitializationOptions pointer will be operated.\n @param editable The boolean value representing the editable status.\n @return Returns {@link Image_ErrorCode} IMAGE_SUCCESS - if the operation is successful.\n returns {@link Image_ErrorCode} IMAGE_BAD_PARAMETER - if options is invalid.\n @since 18"]
+    #[cfg(feature = "api-18")]
     pub fn OH_PixelmapInitializationOptions_SetEditable(
         options: *mut OH_Pixelmap_InitializationOptions,
         editable: bool,
@@ -5165,8 +5165,8 @@ extern "C" {
     ) -> Image_ErrorCode;
 }
 extern "C" {
-    #[cfg(feature = "api-20")]
     #[doc = " @brief Get alphaMode number for imageinfo struct.\n\n @param info The imageinfo pointer will be operated.\n @param alphaMode The number of imageinfo alphaMode.\n @return Image functions result code.\n     {@link IMAGE_SUCCESS} if the execution is successful.\n     {@link IMAGE_BAD_PARAMETER} info is nullptr, or alphaMode is nullptr.\n @since 20"]
+    #[cfg(feature = "api-20")]
     pub fn OH_PixelmapImageInfo_GetAlphaMode(
         info: *mut OH_Pixelmap_ImageInfo,
         alphaMode: *mut i32,
@@ -5214,8 +5214,8 @@ extern "C" {
     ) -> Image_ErrorCode;
 }
 extern "C" {
-    #[cfg(feature = "api-20")]
     #[doc = " @brief Creates a pixelmap based on options {@link OH_Pixelmap_InitializationOptions}, the memory type used by the\n pixelmap can be specified by allocatorType {@link IMAGE_ALLOCATOR_MODE}. By default, the system selects the memory\n type based on the image type, image size, platform capability, etc. When processing the pixelmap returned by this\n interface, please always consider the impact of stride.\n\n @param data Input color buffer in BGRA_8888 format by default.\n @param dataLength Length of input buffer in bytes.\n @param options Pixelmap initialization properties including size, pixel format, alpha type, and editable flags.\n @param allocator Indicate which memory type will be used by the returned pixelmap.\n @param pixelmap Output parameter receiving the created pixelmap object pointer.\n @return Function result code:\n         {@link IMAGE_SUCCESS} If the operation is successful.\n         {@link IMAGE_BAD_PARAMETER} If the param is nullptr or invalid.\n         {@link IMAGE_TOO_LARGE} too large data or image.\n         {@link IMAGE_UNSUPPORTED_OPERATION} unsupported operations.\n         {@link IMAGE_DMA_OPERATION_FAILED} DMA operation failed.\n         {@link IMAGE_ALLOCATOR_MODE_UNSUPPORTED} unsupported allocator mode, e.g.,\n         use share memory to create a HDR image as only DMA supported hdr metadata.\n @since 20"]
+    #[cfg(feature = "api-20")]
     pub fn OH_PixelmapNative_CreatePixelmapUsingAllocator(
         data: *mut u8,
         dataLength: usize,
@@ -5257,24 +5257,24 @@ extern "C" {
     ) -> Image_ErrorCode;
 }
 extern "C" {
-    #[cfg(feature = "api-22")]
     #[doc = " @brief Reads data from a certain area of the PixelMap to a buffer. The resulting data will be in BGRA_8888 format.\n\n @param pixelmap The PixelMap to be read.\n @param area Area of the PixelMap to read the data. Data will be read and copied into area->pixels.\n @return Function result code:\n         {@link IMAGE_SUCCESS} If the operation is successful.\n         {@link IMAGE_BAD_PARAMETER} If any parameter is invalid, e.g. pixelmap or area is incorrect.\n         {@link IMAGE_UNKNOWN_ERROR} Internal unknown error, e.g. unsupported pixel format.\n @see OH_PixelmapNative\n @since 22"]
+    #[cfg(feature = "api-22")]
     pub fn OH_PixelmapNative_ReadPixelsFromArea(
         pixelmap: *mut OH_PixelmapNative,
         area: *mut Image_PositionArea,
     ) -> Image_ErrorCode;
 }
 extern "C" {
-    #[cfg(feature = "api-22")]
     #[doc = " @brief Writes data from a buffer to a certain area of the PixelMap. The source data should be in BGRA_8888 format.\n\n @param pixelmap The PixelMap to be written.\n @param area Area of the PixelMap to write the data.\n @return Function result code:\n         {@link IMAGE_SUCCESS} If the operation is successful.\n         {@link IMAGE_BAD_PARAMETER} If any parameter is invalid, e.g. pixelmap or area is incorrect.\n         {@link IMAGE_UNSUPPORTED_OPERATION} If the PixelMap is not editable.\n         {@link IMAGE_UNKNOWN_ERROR} Internal unknown error, e.g. unsupported pixel format.\n @see OH_PixelmapNative\n @since 22"]
+    #[cfg(feature = "api-22")]
     pub fn OH_PixelmapNative_WritePixelsToArea(
         pixelmap: *mut OH_PixelmapNative,
         area: *mut Image_PositionArea,
     ) -> Image_ErrorCode;
 }
 extern "C" {
-    #[cfg(feature = "api-13")]
     #[doc = " @brief Get argb pixel buffer from pixelmap.\n\n @param pixelmap The Pixelmap pointer to be operated.\n @param destination Buffer to which the image pixel map data will be written.\n @param bufferSize Buffer size to which the image pixel map data will be written.\n @return Function result code:\n         {@link IMAGE_SUCCESS} If the operation is successful.\n         {@link IMAGE_BAD_PARAMETER} If invalid parameter, destination and bufferSize are incorrect.\n         {@link IMAGE_UNSUPPORTED_CONVERSION} If format does not support conversion to argb or conversion failed.\n         {@link IMAGE_ALLOC_FAILED} If device has no memory.\n         {@link IMAGE_COPY_FAILED} If memory copy failed.\n @see OH_PixelmapNative\n @since 13"]
+    #[cfg(feature = "api-13")]
     pub fn OH_PixelmapNative_GetArgbPixels(
         pixelmap: *mut OH_PixelmapNative,
         destination: *mut u8,
@@ -5317,8 +5317,8 @@ extern "C" {
     ) -> Image_ErrorCode;
 }
 extern "C" {
-    #[cfg(feature = "api-18")]
     #[doc = " @brief Create a scaled pixelmap based on the source pixelmap and the input width and height.\n\n @param srcPixelmap The source native pixelmap.\n @param dstPixelmap The destination native pixelmap for create.\n @param scaleX Scaling ratio of the width.\n @param scaleY Scaling ratio of the height.\n @return Function result code:\n         {@link IMAGE_SUCCESS} If the execution is successful.\n         {@link IMAGE_BAD_PARAMETER} If the param is nullptr or invalid.\n @see OH_PixelmapNative\n @since 18"]
+    #[cfg(feature = "api-18")]
     pub fn OH_PixelmapNative_CreateScaledPixelMap(
         srcPixelmap: *mut OH_PixelmapNative,
         dstPixelmap: *mut *mut OH_PixelmapNative,
@@ -5327,8 +5327,8 @@ extern "C" {
     ) -> Image_ErrorCode;
 }
 extern "C" {
-    #[cfg(feature = "api-18")]
     #[doc = " @brief Create a scaled pixelmap based on the source pixelmap and the input width and height with anti-aliasing.\n\n @param srcPixelmap The source native pixelmap.\n @param dstPixelmap The destination native pixelmap for create.\n @param scaleX Scaling ratio of the width.\n @param scaleY Scaling ratio of the height.\n @param level The anti-aliasing algorithm to be used.\n @return Function result code:\n         {@link IMAGE_SUCCESS} If the execution is successful.\n         {@link IMAGE_BAD_PARAMETER} If the param is nullptr or invalid.\n         {@link IMAGE_TOO_LARGE} If image is too large.\n         {@link IMAGE_ALLOC_FAILED} If device has no memory.\n @see OH_PixelmapNative\n @since 18"]
+    #[cfg(feature = "api-18")]
     pub fn OH_PixelmapNative_CreateScaledPixelMapWithAntiAliasing(
         srcPixelmap: *mut OH_PixelmapNative,
         dstPixelmap: *mut *mut OH_PixelmapNative,
@@ -5346,24 +5346,24 @@ extern "C" {
     ) -> Image_ErrorCode;
 }
 extern "C" {
-    #[cfg(feature = "api-22")]
     #[doc = " @brief Creates a PixelMap with only alpha channel from the source PixelMap.\n\n @param srcPixelmap The source PixelMap.\n @param dstPixelmap The target PixelMap to be created.\n @return Function result code:\n         {@link IMAGE_SUCCESS} If the operation is successful.\n         {@link IMAGE_BAD_PARAMETER} If any parameter is invalid, e.g. srcPixelmap or dstPixelmap is incorrect.\n @see OH_PixelmapNative\n @since 22"]
+    #[cfg(feature = "api-22")]
     pub fn OH_PixelmapNative_CreateAlphaPixelmap(
         srcPixelmap: *mut OH_PixelmapNative,
         dstPixelmap: *mut *mut OH_PixelmapNative,
     ) -> Image_ErrorCode;
 }
 extern "C" {
-    #[cfg(feature = "api-22")]
     #[doc = " @brief Clones a PixelMap from the source PixelMap.\n\n @param srcPixelmap The source PixelMap to be cloned.\n @param dstPixelmap The target PixelMap to be created.\n @return Function result code:\n         {@link IMAGE_SUCCESS} If the operation is successful.\n         {@link IMAGE_BAD_PARAMETER} If any parameter is invalid, e.g. srcPixelmap or dstPixelmap is incorrect.\n         {@link IMAGE_UNSUPPORTED_DATA_FORMAT} If the pixel format is unsupported.\n         {@link IMAGE_TOO_LARGE} If the PixelMap size is too large.\n         {@link IMAGE_INIT_FAILED} If the PixelMap initialization failed.\n         {@link IMAGE_ALLOC_FAILED} If the copying of PixelMap data failed.\n @see OH_PixelmapNative\n @since 22"]
+    #[cfg(feature = "api-22")]
     pub fn OH_PixelmapNative_Clone(
         srcPixelmap: *mut OH_PixelmapNative,
         dstPixelmap: *mut *mut OH_PixelmapNative,
     ) -> Image_ErrorCode;
 }
 extern "C" {
-    #[cfg(feature = "api-22")]
     #[doc = " @brief Creates a cropped and then scaled PixelMap based on the source PixelMap.\n\n @param srcPixelmap The source PixelMap.\n @param region The crop region.\n @param scale The scale ratio of width and height.\n @param level The anti-aliasing algorithm to be used.\n @param dstPixelmap The target PixelMap to be created.\n @return Function result code:\n         {@link IMAGE_SUCCESS} If the operation is successful.\n         {@link IMAGE_BAD_PARAMETER} If any parameter is invalid, e.g. srcPixelmap, region, scale, or dstPixelmap is\n                                     incorrect.\n         {@link IMAGE_UNSUPPORTED_DATA_FORMAT} If the pixel format is unsupported.\n         {@link IMAGE_TOO_LARGE} If the PixelMap size is too large.\n         {@link IMAGE_INIT_FAILED} If the PixelMap initialization failed.\n         {@link IMAGE_ALLOC_FAILED} If the copying of PixelMap data failed.\n @see OH_PixelmapNative\n @since 22"]
+    #[cfg(feature = "api-22")]
     pub fn OH_PixelmapNative_CreateCroppedAndScaledPixelMap(
         srcPixelmap: *mut OH_PixelmapNative,
         region: *mut Image_Region,
@@ -5399,8 +5399,8 @@ extern "C" {
     pub fn OH_PixelmapNative_Release(pixelmap: *mut OH_PixelmapNative) -> Image_ErrorCode;
 }
 extern "C" {
-    #[cfg(feature = "api-18")]
     #[doc = " @brief Destroys an <b>OH_PixelmapNative</b> object and deallocates its resources.\n\n @param pixelmap A pointer to the OH_PixelmapNative pointer to destroy.\n @return Returns {@link Image_ErrorCode} IMAGE_SUCCESS - if the operation is successful.\n returns {@link Image_ErrorCode} IMAGE_BAD_PARAMETER - if pixelmap is null or *pixelmap is null.\n @since 18"]
+    #[cfg(feature = "api-18")]
     pub fn OH_PixelmapNative_Destroy(pixelmap: *mut *mut OH_PixelmapNative) -> Image_ErrorCode;
 }
 extern "C" {
@@ -5419,8 +5419,8 @@ extern "C" {
     ) -> Image_ErrorCode;
 }
 extern "C" {
-    #[cfg(feature = "api-20")]
     #[doc = " @brief Creates a empty pixelmap based on options {@link OH_Pixelmap_InitializationOptions}, the memory type used\n by the pixelmap can be specified by allocatorType {@link IMAGE_ALLOCATOR_MODE}. By default,\n the system selects the memory type based on the image type, image size, platform capability, etc. When processing\n the pixelmap returned by this interface, please always consider the impact of stride.\n\n @param options Pixelmap initialization properties including size, pixel format, alpha type, and editable flags.\n @param allocator Indicate which memory type will be used by the returned pixelmap.\n @param pixelmap Output parameter receiving the created pixelmap object pointer.\n @return Function result code:\n         {@link IMAGE_SUCCESS} If the operation is successful.\n         {@link IMAGE_BAD_PARAMETER} If the param is nullptr or invalid.\n         {@link IMAGE_TOO_LARGE} too large data or image.\n         {@link IMAGE_UNSUPPORTED_OPERATION} unsupported operations.\n         {@link IMAGE_ALLOCATOR_MODE_UNSUPPORTED} unsupported allocator mode, e.g., use\n         share memory to create a HDR image as only DMA supported hdr metadata.\n @since 20"]
+    #[cfg(feature = "api-20")]
     pub fn OH_PixelmapNative_CreateEmptyPixelmapUsingAllocator(
         options: *mut OH_Pixelmap_InitializationOptions,
         allocator: IMAGE_ALLOCATOR_MODE,
@@ -5428,8 +5428,8 @@ extern "C" {
     ) -> Image_ErrorCode;
 }
 extern "C" {
-    #[cfg(feature = "api-22")]
     #[doc = " @brief Creates a PixelMap from a Surface with the Surface ID.\n\n @param surfaceId The Surface ID.\n @param length Length of the Surface ID.\n @param pixelmap The PixelMap to be created.\n @return Function result code:\n         {@link IMAGE_SUCCESS} If the operation is successful.\n         {@link IMAGE_BAD_PARAMETER} If any parameter is invalid, e.g. surfaceId or pixelmap is incorrect.\n         {@link IMAGE_CREATE_PIXELMAP_FAILED} If the PixelMap creation failed.\n @see OH_PixelmapNative\n @since 22"]
+    #[cfg(feature = "api-22")]
     pub fn OH_PixelmapNative_CreatePixelmapFromSurface(
         surfaceId: *const ::std::os::raw::c_char,
         length: usize,
@@ -5437,8 +5437,8 @@ extern "C" {
     ) -> Image_ErrorCode;
 }
 extern "C" {
-    #[cfg(feature = "api-22")]
     #[doc = " @brief Creates a PixelMap from a native buffer.\n\n @param nativeBuffer The native buffer.\n @param pixelmap The PixelMap to be created.\n @return Function result code:\n         {@link IMAGE_SUCCESS} If the operation is successful.\n         {@link IMAGE_BAD_PARAMETER} If any parameter is invalid, e.g. nativeBuffer or pixelmap is incorrect.\n         {@link IMAGE_CREATE_PIXELMAP_FAILED} If the PixelMap creation failed.\n @see OH_PixelmapNative\n @since 22"]
+    #[cfg(feature = "api-22")]
     pub fn OH_PixelmapNative_CreatePixelmapFromNativeBuffer(
         nativeBuffer: *mut OH_NativeBuffer,
         pixelmap: *mut *mut OH_PixelmapNative,
@@ -5468,24 +5468,24 @@ extern "C" {
     ) -> Image_ErrorCode;
 }
 extern "C" {
-    #[cfg(feature = "api-13")]
     #[doc = " @brief Get the native colorspace from the PixelMap.\n\n @param pixelmap The native pixelmap to get the native colorspace from.\n @param colorSpaceNative The native colorspace to retrieve.\n @return Function result code:\n         {@link IMAGE_SUCCESS} If the execution is successful.\n         {@link IMAGE_BAD_PARAMETER} The param of pixelmap or colorSpaceNative is nullptr or invalid.\n @see OH_PixelmapNative\n @since 13"]
+    #[cfg(feature = "api-13")]
     pub fn OH_PixelmapNative_GetColorSpaceNative(
         pixelmap: *mut OH_PixelmapNative,
         colorSpaceNative: *mut *mut OH_NativeColorSpaceManager,
     ) -> Image_ErrorCode;
 }
 extern "C" {
-    #[cfg(feature = "api-13")]
     #[doc = " @brief Set the native colorspace for the PixelMap.\n\n @param pixelmap The native pixelmap to set the native colorspace for.\n @param colorSpaceNative The native colorspace to set.\n @return Function result code:\n         {@link IMAGE_SUCCESS} If the execution is successful.\n         {@link IMAGE_BAD_PARAMETER} The param of pixelmap or colorSpaceNative is nullptr or invalid.\n @see OH_PixelmapNative\n @since 13"]
+    #[cfg(feature = "api-13")]
     pub fn OH_PixelmapNative_SetColorSpaceNative(
         pixelmap: *mut OH_PixelmapNative,
         colorSpaceNative: *mut OH_NativeColorSpaceManager,
     ) -> Image_ErrorCode;
 }
 extern "C" {
-    #[cfg(feature = "api-13")]
     #[doc = " @brief Set pixelmap memory name.\n\n @param pixelmap The Pixelmap pointer to be operated.\n @param name The pointer of name that needs to be set.\n @param size The size of name size that needs to be set.\n @return Function result code:\n         {@link IMAGE_SUCCESS} If the operation is successful.\n         {@link IMAGE_BAD_PARAMETER} If invalid parameter, name and size are incorrect.\n         {@link IMAGE_UNSUPPORTED_MEMORY_FORMAT} If memory format is unsupported.\n @see OH_PixelmapNative\n @since 13"]
+    #[cfg(feature = "api-13")]
     pub fn OH_PixelmapNative_SetMemoryName(
         pixelmap: *mut OH_PixelmapNative,
         name: *mut ::std::os::raw::c_char,
@@ -5493,45 +5493,45 @@ extern "C" {
     ) -> Image_ErrorCode;
 }
 extern "C" {
-    #[cfg(feature = "api-18")]
     #[doc = " @brief Get the total number of bytes occupied by all pixels in the Pixelmap, without any padding.\n\n @param pixelmap The Pixelmap pointer to be operated.\n @param byteCount The total number of bytes to be retrieved.\n @return Function result code:\n         {@link IMAGE_SUCCESS} If the operation is successful.\n         {@link IMAGE_BAD_PARAMETER} If invalid parameter, pixelmap or byteCount are invalid.\n @see OH_PixelmapNative\n @since 18"]
+    #[cfg(feature = "api-18")]
     pub fn OH_PixelmapNative_GetByteCount(
         pixelmap: *mut OH_PixelmapNative,
         byteCount: *mut u32,
     ) -> Image_ErrorCode;
 }
 extern "C" {
-    #[cfg(feature = "api-18")]
     #[doc = " @brief Get the size of the allocated memory used to store this pixelmap's pixels.\n\n @param pixelmap The Pixelmap pointer to be operated.\n @param allocationByteCount The size of the allocated memory.\n @return Function result code:\n         {@link IMAGE_SUCCESS} If the operation is successful.\n         {@link IMAGE_BAD_PARAMETER} If invalid parameter, pixelmap or allocationByteCount are invalid.\n @see OH_PixelmapNative\n @since 18"]
+    #[cfg(feature = "api-18")]
     pub fn OH_PixelmapNative_GetAllocationByteCount(
         pixelmap: *mut OH_PixelmapNative,
         allocationByteCount: *mut u32,
     ) -> Image_ErrorCode;
 }
 extern "C" {
-    #[cfg(feature = "api-15")]
     #[doc = " @brief Obtains the memory address of a PixelMap and locks the memory.\n        When the memory is locked, any operation that modifies or releases the PixelMap will fail and return\n        {@link IMAGE_BAD_PARAMETER}.\n\n @param pixelmap The PixelMap pointer to be operated.\n @param addr The double pointer to the memory address of the PixelMap.\n @return Function result code:\n         {@link IMAGE_SUCCESS} If the operation is successful.\n         {@link IMAGE_BAD_PARAMETER} If invalid parameter, pixelmap or addr are invalid.\n         {@link IMAGE_LOCK_UNLOCK_FAILED} If memory failed to be locked.\n @see OH_PixelmapNative\n @since 15"]
+    #[cfg(feature = "api-15")]
     pub fn OH_PixelmapNative_AccessPixels(
         pixelmap: *mut OH_PixelmapNative,
         addr: *mut *mut ::std::os::raw::c_void,
     ) -> Image_ErrorCode;
 }
 extern "C" {
-    #[cfg(feature = "api-15")]
     #[doc = " @brief Unlocks the memory of the PixelMap data.\n        This function is used with {@link OH_PixelmapNative_AccessPixels} in pairs.\n\n @param pixelmap The PixelMap pointer to be operated.\n @return Function result code:\n         {@link IMAGE_SUCCESS} If the operation is successful.\n         {@link IMAGE_BAD_PARAMETER} If invalid parameter, pixelmap is invalid.\n         {@link IMAGE_LOCK_UNLOCK_FAILED} If memory failed to be unlocked.\n @see OH_PixelmapNative\n @since 15"]
+    #[cfg(feature = "api-15")]
     pub fn OH_PixelmapNative_UnaccessPixels(pixelmap: *mut OH_PixelmapNative) -> Image_ErrorCode;
 }
 extern "C" {
-    #[cfg(feature = "api-22")]
     #[doc = " @brief Gets the unique ID of a PixelMap.\n\n @param pixelmap The PixelMap to retrieve the unique ID.\n @param uniqueId The resulting unique ID.\n @return Function result code:\n         {@link IMAGE_SUCCESS} If the operation is successful.\n         {@link IMAGE_BAD_PARAMETER} If any parameter is invalid, e.g. pixelmap or uniqueId is incorrect.\n @see OH_PixelmapNative\n @since 22"]
+    #[cfg(feature = "api-22")]
     pub fn OH_PixelmapNative_GetUniqueId(
         pixelmap: *mut OH_PixelmapNative,
         uniqueId: *mut u32,
     ) -> Image_ErrorCode;
 }
 extern "C" {
-    #[cfg(feature = "api-22")]
     #[doc = " @brief Checks whether the PixelMap has been released.\n\n @param pixelmap The PixelMap to check.\n @param released The resulting release status.\n @return Function result code:\n         {@link IMAGE_SUCCESS} If the operation is successful.\n         {@link IMAGE_BAD_PARAMETER} If any parameter is invalid, e.g. pixelmap or released is incorrect.\n @see OH_PixelmapNative\n @since 22"]
+    #[cfg(feature = "api-22")]
     pub fn OH_PixelmapNative_IsReleased(
         pixelmap: *mut OH_PixelmapNative,
         released: *mut bool,
@@ -5606,8 +5606,8 @@ extern "C" {
     ) -> *const ::std::os::raw::c_char;
 }
 extern "C" {
-    #[cfg(feature = "api-22")]
     #[doc = " @brief Get details from the {@link OH_UdsPlainText}.\n\n @param pThis Represents a pointer to an instance of {@link OH_UdsPlainText}.\n @param details Represents a pointer to an instance of {@link OH_UdsDetails}. The pointer cannot be null.\n @return Returns the status code of the execution. See {@link Udmf_ErrCode}.\n         {@link UDMF_E_OK} success.\n         {@link UDMF_E_INVALID_PARAM} The error code for common invalid args.\n @see OH_UdsPlainText OH_UdsDetails Udmf_ErrCode\n @since 22"]
+    #[cfg(feature = "api-22")]
     pub fn OH_UdsPlainText_GetDetails(
         pThis: *mut OH_UdsPlainText,
         details: *mut OH_UdsDetails,
@@ -5628,8 +5628,8 @@ extern "C" {
     ) -> ::std::os::raw::c_int;
 }
 extern "C" {
-    #[cfg(feature = "api-22")]
     #[doc = " @brief Set details to the {@link OH_UdsPlainText}.\n\n @param pThis Represents a pointer to an instance of {@link OH_UdsPlainText}.\n @param details Represents a pointer to an instance of {@link OH_UdsDetails}. The pointer cannot be null.\n @return Returns the status code of the execution. See {@link Udmf_ErrCode}.\n         {@link UDMF_E_OK} success.\n         {@link UDMF_E_INVALID_PARAM} The error code for common invalid args.\n @see OH_UdsPlainText OH_UdsDetails Udmf_ErrCode\n @since 22"]
+    #[cfg(feature = "api-22")]
     pub fn OH_UdsPlainText_SetDetails(
         pThis: *mut OH_UdsPlainText,
         details: *const OH_UdsDetails,
@@ -5658,8 +5658,8 @@ extern "C" {
     ) -> *const ::std::os::raw::c_char;
 }
 extern "C" {
-    #[cfg(feature = "api-22")]
     #[doc = " @brief Get details from the {@link OH_UdsHyperlink}.\n\n @param pThis Represents a pointer to an instance of {@link OH_UdsHyperlink}.\n @param details Represents a pointer to an instance of {@link OH_UdsDetails}. The pointer cannot be null.\n @return Returns the status code of the execution. See {@link Udmf_ErrCode}.\n         {@link UDMF_E_OK} success.\n         {@link UDMF_E_INVALID_PARAM} The error code for common invalid args.\n @see OH_UdsHyperlink OH_UdsDetails Udmf_ErrCode\n @since 22"]
+    #[cfg(feature = "api-22")]
     pub fn OH_UdsHyperlink_GetDetails(
         pThis: *mut OH_UdsHyperlink,
         details: *mut OH_UdsDetails,
@@ -5680,8 +5680,8 @@ extern "C" {
     ) -> ::std::os::raw::c_int;
 }
 extern "C" {
-    #[cfg(feature = "api-22")]
     #[doc = " @brief Set details to the {@link OH_UdsHyperlink}.\n\n @param pThis Represents a pointer to an instance of {@link OH_UdsHyperlink}.\n @param details Represents a pointer to an instance of {@link OH_UdsDetails}. The pointer cannot be null.\n @return Returns the status code of the execution. See {@link Udmf_ErrCode}.\n         {@link UDMF_E_OK} success.\n         {@link UDMF_E_INVALID_PARAM} The error code for common invalid args.\n @since 22\n @see OH_UdsHyperlink OH_UdsDetails Udmf_ErrCode"]
+    #[cfg(feature = "api-22")]
     pub fn OH_UdsHyperlink_SetDetails(
         pThis: *mut OH_UdsHyperlink,
         details: *const OH_UdsDetails,
@@ -5708,8 +5708,8 @@ extern "C" {
     pub fn OH_UdsHtml_GetPlainContent(pThis: *mut OH_UdsHtml) -> *const ::std::os::raw::c_char;
 }
 extern "C" {
-    #[cfg(feature = "api-22")]
     #[doc = " @brief Get details from the {@link OH_UdsHtml}.\n\n @param pThis Represents a pointer to an instance of {@link OH_UdsHtml}.\n @param details Represents a pointer to an instance of {@link OH_UdsDetails}. The pointer cannot be null.\n @return Returns the status code of the execution. See {@link Udmf_ErrCode}.\n         {@link UDMF_E_OK} success.\n         {@link UDMF_E_INVALID_PARAM} The error code for common invalid args.\n @since 22\n @see OH_UdsHtml OH_UdsDetails Udmf_ErrCode"]
+    #[cfg(feature = "api-22")]
     pub fn OH_UdsHtml_GetDetails(
         pThis: *mut OH_UdsHtml,
         details: *mut OH_UdsDetails,
@@ -5730,8 +5730,8 @@ extern "C" {
     ) -> ::std::os::raw::c_int;
 }
 extern "C" {
-    #[cfg(feature = "api-22")]
     #[doc = " @brief Set details to the {@link OH_UdsHtml}.\n\n @param pThis Represents a pointer to an instance of {@link OH_UdsHtml}.\n @param details Represents a pointer to an instance of {@link OH_UdsDetails}. The pointer cannot be null.\n @return Returns the status code of the execution. See {@link Udmf_ErrCode}.\n         {@link UDMF_E_OK} success.\n         {@link UDMF_E_INVALID_PARAM} The error code for common invalid args.\n @since 22\n @see OH_UdsHtml OH_UdsDetails Udmf_ErrCode"]
+    #[cfg(feature = "api-22")]
     pub fn OH_UdsHtml_SetDetails(
         pThis: *mut OH_UdsHtml,
         details: *const OH_UdsDetails,
@@ -5775,8 +5775,8 @@ extern "C" {
         -> *const ::std::os::raw::c_char;
 }
 extern "C" {
-    #[cfg(feature = "api-22")]
     #[doc = " @brief Get details from the {@link OH_UdsAppItem}.\n\n @param pThis Represents a pointer to an instance of {@link OH_UdsAppItem}.\n @param details Represents a pointer to an instance of {@link OH_UdsDetails}. The pointer cannot be null.\n @return Returns the status code of the execution. See {@link Udmf_ErrCode}.\n         {@link UDMF_E_OK} success.\n         {@link UDMF_E_INVALID_PARAM} The error code for common invalid args.\n @since 22\n @see OH_UdsAppItem OH_UdsDetails Udmf_ErrCode"]
+    #[cfg(feature = "api-22")]
     pub fn OH_UdsAppItem_GetDetails(
         pThis: *mut OH_UdsAppItem,
         details: *mut OH_UdsDetails,
@@ -5825,130 +5825,130 @@ extern "C" {
     ) -> ::std::os::raw::c_int;
 }
 extern "C" {
-    #[cfg(feature = "api-22")]
     #[doc = " @brief Set details to the {@link OH_UdsAppItem}.\n\n @param pThis Represents a pointer to an instance of {@link OH_UdsAppItem}.\n @param details Represents a pointer to an instance of {@link OH_UdsDetails}. The pointer cannot be null.\n @return Returns the status code of the execution. See {@link Udmf_ErrCode}.\n         {@link UDMF_E_OK} success.\n         {@link UDMF_E_INVALID_PARAM} The error code for common invalid args.\n @see OH_UdsAppItem OH_UdsDetails Udmf_ErrCode\n @since 22"]
+    #[cfg(feature = "api-22")]
     pub fn OH_UdsAppItem_SetDetails(
         pThis: *mut OH_UdsAppItem,
         details: *const OH_UdsDetails,
     ) -> ::std::os::raw::c_int;
 }
 extern "C" {
-    #[cfg(feature = "api-13")]
     #[doc = " @brief Creation a pointer to the instance of the {@link OH_UdsFileUri}.\n\n @return If the operation is successful, a pointer to the instance of the {@link OH_UdsFileUri}\n structure is returned. If the memory is not enough, nullptr is returned.\n @see OH_UdsFileUri\n @since 13"]
+    #[cfg(feature = "api-13")]
     pub fn OH_UdsFileUri_Create() -> *mut OH_UdsFileUri;
 }
 extern "C" {
-    #[cfg(feature = "api-13")]
     #[doc = " @brief Destroy a pointer that points to the {@link OH_UdsFileUri} instance.\n\n @param pThis Represents a pointer to an instance of {@link OH_UdsFileUri}.\n @see OH_UdsFileUri\n @since 13"]
+    #[cfg(feature = "api-13")]
     pub fn OH_UdsFileUri_Destroy(pThis: *mut OH_UdsFileUri);
 }
 extern "C" {
-    #[cfg(feature = "api-13")]
     #[doc = " @brief Get type id from the {@link OH_UdsFileUri}.\n\n @param pThis Represents a pointer to an instance of {@link OH_UdsFileUri}.\n @return Returns a pointer of the value string when input args normally, otherwise return nullptr.\n @see OH_UdsFileUri\n @since 13"]
+    #[cfg(feature = "api-13")]
     pub fn OH_UdsFileUri_GetType(pThis: *mut OH_UdsFileUri) -> *const ::std::os::raw::c_char;
 }
 extern "C" {
-    #[cfg(feature = "api-13")]
     #[doc = " @brief Get file uri from the {@link OH_UdsFileUri}.\n\n @param pThis Represents a pointer to an instance of {@link OH_UdsFileUri}.\n @return Returns a pointer of the value string when input args normally, otherwise return nullptr.\n @see OH_UdsFileUri\n @since 13"]
+    #[cfg(feature = "api-13")]
     pub fn OH_UdsFileUri_GetFileUri(pThis: *mut OH_UdsFileUri) -> *const ::std::os::raw::c_char;
 }
 extern "C" {
-    #[cfg(feature = "api-13")]
     #[doc = " @brief Get file type from the {@link OH_UdsFileUri}.\n\n @param pThis Represents a pointer to an instance of {@link OH_UdsFileUri}.\n @return Returns a pointer of the value string when input args normally, otherwise return nullptr.\n @see OH_UdsFileUri\n @since 13"]
+    #[cfg(feature = "api-13")]
     pub fn OH_UdsFileUri_GetFileType(pThis: *mut OH_UdsFileUri) -> *const ::std::os::raw::c_char;
 }
 extern "C" {
-    #[cfg(feature = "api-22")]
     #[doc = " @brief Get details from the {@link OH_UdsFileUri}.\n\n @param pThis Represents a pointer to an instance of {@link OH_UdsFileUri}.\n @param details Represents a pointer to an instance of {@link OH_UdsDetails}. The pointer cannot be null.\n @return Returns the status code of the execution. See {@link Udmf_ErrCode}.\n         {@link UDMF_E_OK} success.\n         {@link UDMF_E_INVALID_PARAM} The error code for common invalid args.\n @since 22\n @see OH_UdsFileUri OH_UdsDetails Udmf_ErrCode"]
+    #[cfg(feature = "api-22")]
     pub fn OH_UdsFileUri_GetDetails(
         pThis: *mut OH_UdsFileUri,
         details: *mut OH_UdsDetails,
     ) -> ::std::os::raw::c_int;
 }
 extern "C" {
-    #[cfg(feature = "api-13")]
     #[doc = " @brief Set file uri to the {@link OH_UdsFileUri}.\n\n @param pThis Represents a pointer to an instance of {@link OH_UdsFileUri}.\n @param fileUri Represents a new file uri string.\n @return Returns the status code of the execution. See {@link Udmf_ErrCode}.\n         {@link UDMF_E_OK} success.\n         {@link UDMF_E_INVALID_PARAM} The error code for common invalid args.\n @see OH_UdsFileUri Udmf_ErrCode\n @since 13"]
+    #[cfg(feature = "api-13")]
     pub fn OH_UdsFileUri_SetFileUri(
         pThis: *mut OH_UdsFileUri,
         fileUri: *const ::std::os::raw::c_char,
     ) -> ::std::os::raw::c_int;
 }
 extern "C" {
-    #[cfg(feature = "api-13")]
     #[doc = " @brief Set file type to the {@link OH_UdsFileUri}.\n\n @param pThis Represents a pointer to an instance of {@link OH_UdsFileUri}.\n @param fileType Represents a new file type string.\n @return Returns the status code of the execution. See {@link Udmf_ErrCode}.\n         {@link UDMF_E_OK} success.\n         {@link UDMF_E_INVALID_PARAM} The error code for common invalid args.\n @see OH_UdsFileUri Udmf_ErrCode\n @since 13"]
+    #[cfg(feature = "api-13")]
     pub fn OH_UdsFileUri_SetFileType(
         pThis: *mut OH_UdsFileUri,
         fileType: *const ::std::os::raw::c_char,
     ) -> ::std::os::raw::c_int;
 }
 extern "C" {
-    #[cfg(feature = "api-22")]
     #[doc = " @brief Set details to the {@link OH_UdsFileUri}.\n\n @param pThis Represents a pointer to an instance of {@link OH_UdsFileUri}.\n @param details Represents a pointer to an instance of {@link OH_UdsDetails}. The pointer cannot be null.\n @return Returns the status code of the execution. See {@link Udmf_ErrCode}.\n         {@link UDMF_E_OK} success.\n         {@link UDMF_E_INVALID_PARAM} The error code for common invalid args.\n @see OH_UdsFileUri OH_UdsDetails Udmf_ErrCode\n @since 22"]
+    #[cfg(feature = "api-22")]
     pub fn OH_UdsFileUri_SetDetails(
         pThis: *mut OH_UdsFileUri,
         details: *const OH_UdsDetails,
     ) -> ::std::os::raw::c_int;
 }
 extern "C" {
-    #[cfg(feature = "api-13")]
     #[doc = " @brief Creation a pointer to the instance of the {@link OH_UdsPixelMap}.\n\n @return If the operation is successful, a pointer to the instance of the {@link OH_UdsPixelMap}\n structure is returned. If the memory is not enough, nullptr is returned.\n @see OH_UdsPixelMap\n @since 13"]
+    #[cfg(feature = "api-13")]
     pub fn OH_UdsPixelMap_Create() -> *mut OH_UdsPixelMap;
 }
 extern "C" {
-    #[cfg(feature = "api-13")]
     #[doc = " @brief Destroy a pointer that points to the {@link OH_UdsPixelMap} instance.\n\n @param pThis Represents a pointer to an instance of {@link OH_UdsPixelMap}.\n @see OH_UdsPixelMap\n @since 13"]
+    #[cfg(feature = "api-13")]
     pub fn OH_UdsPixelMap_Destroy(pThis: *mut OH_UdsPixelMap);
 }
 extern "C" {
-    #[cfg(feature = "api-13")]
     #[doc = " @brief Get type id from the {@link OH_UdsPixelMap}.\n\n @param pThis Represents a pointer to an instance of {@link OH_UdsPixelMap}.\n @return Returns a pointer of the value string when input args normally, otherwise return nullptr.\n @see OH_UdsPixelMap\n @since 13"]
+    #[cfg(feature = "api-13")]
     pub fn OH_UdsPixelMap_GetType(pThis: *mut OH_UdsPixelMap) -> *const ::std::os::raw::c_char;
 }
 extern "C" {
-    #[cfg(feature = "api-13")]
     #[doc = " @brief Get pixel map from the {@link OH_UdsPixelMap}.\n\n @param pThis Represents a pointer to an instance of {@link OH_UdsPixelMap}.\n @param pixelmapNative Represents output params of {@link OH_PixelmapNative}.\n @see OH_UdsPixelMap\n @since 13"]
+    #[cfg(feature = "api-13")]
     pub fn OH_UdsPixelMap_GetPixelMap(
         pThis: *mut OH_UdsPixelMap,
         pixelmapNative: *mut OH_PixelmapNative,
     );
 }
 extern "C" {
-    #[cfg(feature = "api-22")]
     #[doc = " @brief Get details from the {@link OH_UdsPixelMap}.\n\n @param pThis Represents a pointer to an instance of {@link OH_UdsPixelMap}.\n @param details Represents a pointer to an instance of {@link OH_UdsDetails}. The pointer cannot be null.\n @return Returns the status code of the execution. See {@link Udmf_ErrCode}.\n         {@link UDMF_E_OK} success.\n         {@link UDMF_E_INVALID_PARAM} The error code for common invalid args.\n @since 22\n @see OH_UdsPixelMap OH_UdsDetails Udmf_ErrCode"]
+    #[cfg(feature = "api-22")]
     pub fn OH_UdsPixelMap_GetDetails(
         pThis: *mut OH_UdsPixelMap,
         details: *mut OH_UdsDetails,
     ) -> ::std::os::raw::c_int;
 }
 extern "C" {
-    #[cfg(feature = "api-13")]
     #[doc = " @brief Set pixel map to the {@link OH_UdsPixelMap}.\n\n @param pThis Represents a pointer to an instance of {@link OH_UdsPixelMap}.\n @param pixelmapNative Represents a new {@link OH_PixelmapNative}.\n @return Returns the status code of the execution. See {@link Udmf_ErrCode}.\n         {@link UDMF_E_OK} success.\n         {@link UDMF_E_INVALID_PARAM} The error code for common invalid args.\n @see OH_UdsPixelMap Udmf_ErrCode\n @since 13"]
+    #[cfg(feature = "api-13")]
     pub fn OH_UdsPixelMap_SetPixelMap(
         pThis: *mut OH_UdsPixelMap,
         pixelmapNative: *mut OH_PixelmapNative,
     ) -> ::std::os::raw::c_int;
 }
 extern "C" {
-    #[cfg(feature = "api-22")]
     #[doc = " @brief Set details to the {@link OH_UdsPixelMap}.\n\n @param pThis Represents a pointer to an instance of {@link OH_UdsPixelMap}.\n @param details Represents a pointer to an instance of {@link OH_UdsDetails}. The pointer cannot be null.\n @return Returns the status code of the execution. See {@link Udmf_ErrCode}.\n         {@link UDMF_E_OK} success.\n         {@link UDMF_E_INVALID_PARAM} The error code for common invalid args.\n @since 22\n @see OH_UdsPixelMap OH_UdsDetails Udmf_ErrCode"]
+    #[cfg(feature = "api-22")]
     pub fn OH_UdsPixelMap_SetDetails(
         pThis: *mut OH_UdsPixelMap,
         details: *const OH_UdsDetails,
     ) -> ::std::os::raw::c_int;
 }
 extern "C" {
-    #[cfg(feature = "api-13")]
     #[doc = " @brief Creation a pointer to the instance of the {@link OH_UdsArrayBuffer}.\n\n @return If the operation is successful, a pointer to the instance of the {@link OH_UdsArrayBuffer}\n structure is returned. If the memory is not enough, nullptr is returned.\n @see OH_UdsArrayBuffer\n @since 13"]
+    #[cfg(feature = "api-13")]
     pub fn OH_UdsArrayBuffer_Create() -> *mut OH_UdsArrayBuffer;
 }
 extern "C" {
-    #[cfg(feature = "api-13")]
     #[doc = " @brief Destroy a pointer that points to the {@link OH_UdsArrayBuffer} instance.\n\n @param buffer Represents a pointer to an instance of {@link OH_UdsArrayBuffer}.\n @return Returns the status code of the execution. See {@link Udmf_ErrCode}.\n         {@link UDMF_E_OK} success.\n         {@link UDMF_E_INVALID_PARAM} The error code for common invalid args.\n @see OH_UdsArrayBuffer Udmf_ErrCode\n @since 13"]
+    #[cfg(feature = "api-13")]
     pub fn OH_UdsArrayBuffer_Destroy(buffer: *mut OH_UdsArrayBuffer) -> ::std::os::raw::c_int;
 }
 extern "C" {
-    #[cfg(feature = "api-13")]
     #[doc = " @brief Set array buffer data to the {@link OH_UdsArrayBuffer}.\n\n @param buffer Represents a pointer to an instance of {@link OH_UdsArrayBuffer}.\n @param data Represents the array buffer data.\n @param len Represents the length of data param.\n @return Returns the status code of the execution. See {@link Udmf_ErrCode}.\n         {@link UDMF_E_OK} success.\n         {@link UDMF_E_INVALID_PARAM} The error code for common invalid args.\n @see OH_UdsArrayBuffer Udmf_ErrCode\n @since 13"]
+    #[cfg(feature = "api-13")]
     pub fn OH_UdsArrayBuffer_SetData(
         buffer: *mut OH_UdsArrayBuffer,
         data: *mut ::std::os::raw::c_uchar,
@@ -5956,8 +5956,8 @@ extern "C" {
     ) -> ::std::os::raw::c_int;
 }
 extern "C" {
-    #[cfg(feature = "api-13")]
     #[doc = " @brief Get array buffer data from the {@link OH_UdsArrayBuffer}.\n\n @param buffer Represents a pointer to an instance of {@link OH_UdsArrayBuffer}.\n @param data Represents a pointer to array buffer data that is a output param.\n @param len Represents the array buffer data length that is a output param.\n @return Returns the status code of the execution. See {@link Udmf_ErrCode}.\n         {@link UDMF_E_OK} success.\n         {@link UDMF_E_INVALID_PARAM} The error code for common invalid args.\n @see OH_UdsArrayBuffer Udmf_ErrCode\n @since 13"]
+    #[cfg(feature = "api-13")]
     pub fn OH_UdsArrayBuffer_GetData(
         buffer: *mut OH_UdsArrayBuffer,
         data: *mut *mut ::std::os::raw::c_uchar,
@@ -5965,25 +5965,25 @@ extern "C" {
     ) -> ::std::os::raw::c_int;
 }
 extern "C" {
-    #[cfg(feature = "api-14")]
     #[doc = " @brief Creation a pointer to the instance of the {@link OH_UdsContentForm}.\n\n @return If the operation is successful, a pointer to the instance of the {@link OH_UdsContentForm}\n structure is returned. If the operation is failed, nullptr is returned.\n @see OH_UdsContentForm\n @since 14"]
+    #[cfg(feature = "api-14")]
     pub fn OH_UdsContentForm_Create() -> *mut OH_UdsContentForm;
 }
 extern "C" {
-    #[cfg(feature = "api-14")]
     #[doc = " @brief Destroy a pointer that points to the {@link OH_UdsContentForm} instance.\n\n @param pThis Represents a pointer to an instance of {@link OH_UdsContentForm}.\n @see OH_UdsContentForm\n @since 14"]
+    #[cfg(feature = "api-14")]
     pub fn OH_UdsContentForm_Destroy(pThis: *mut OH_UdsContentForm);
 }
 extern "C" {
-    #[cfg(feature = "api-14")]
     #[doc = " @brief Get type id from the {@link OH_UdsContentForm}.\n\n @param pThis Represents a pointer to an instance of {@link OH_UdsContentForm}.\n @return Returns a pointer of the value string when input args normally, otherwise return nullptr.\n @see OH_UdsContentForm\n @since 14"]
+    #[cfg(feature = "api-14")]
     pub fn OH_UdsContentForm_GetType(
         pThis: *mut OH_UdsContentForm,
     ) -> *const ::std::os::raw::c_char;
 }
 extern "C" {
-    #[cfg(feature = "api-14")]
     #[doc = " @brief Get thumb data from the {@link OH_UdsContentForm}.\n\n @param pThis Represents a pointer to an instance of {@link OH_UdsContentForm}.\n @param thumbData Represents a pointer to thumb data that is a output param.\n @param len Represents the thumb data length that is a output param.\n @return Returns the status code of the execution. See {@link Udmf_ErrCode}.\n         {@link UDMF_E_OK} success.\n         {@link UDMF_E_INVALID_PARAM} The error code for common invalid args.\n         {@link UDMF_ERR} Internal data error.\n @see OH_UdsContentForm Udmf_ErrCode\n @since 14"]
+    #[cfg(feature = "api-14")]
     pub fn OH_UdsContentForm_GetThumbData(
         pThis: *mut OH_UdsContentForm,
         thumbData: *mut *mut ::std::os::raw::c_uchar,
@@ -5991,22 +5991,22 @@ extern "C" {
     ) -> ::std::os::raw::c_int;
 }
 extern "C" {
-    #[cfg(feature = "api-14")]
     #[doc = " @brief Get description from the {@link OH_UdsContentForm}.\n\n @param pThis Represents a pointer to an instance of {@link OH_UdsContentForm}.\n @return Returns a pointer of the value string when input args normally, otherwise return nullptr.\n @see OH_UdsContentForm\n @since 14"]
+    #[cfg(feature = "api-14")]
     pub fn OH_UdsContentForm_GetDescription(
         pThis: *mut OH_UdsContentForm,
     ) -> *const ::std::os::raw::c_char;
 }
 extern "C" {
-    #[cfg(feature = "api-14")]
     #[doc = " @brief Get title from the {@link OH_UdsContentForm}.\n\n @param pThis Represents a pointer to an instance of {@link OH_UdsContentForm}.\n @return Returns a pointer of the value string when input args normally, otherwise return nullptr.\n @see OH_UdsContentForm\n @since 14"]
+    #[cfg(feature = "api-14")]
     pub fn OH_UdsContentForm_GetTitle(
         pThis: *mut OH_UdsContentForm,
     ) -> *const ::std::os::raw::c_char;
 }
 extern "C" {
-    #[cfg(feature = "api-14")]
     #[doc = " @brief Get thumb data from the {@link OH_UdsContentForm}.\n\n @param pThis Represents a pointer to an instance of {@link OH_UdsContentForm}.\n @param appIcon Represents a pointer to app icon that is a output param.\n @param len Represents the app icon length that is a output param.\n @return Returns the status code of the execution. See {@link Udmf_ErrCode}.\n         {@link UDMF_E_OK} success.\n         {@link UDMF_E_INVALID_PARAM} The error code for common invalid args.\n         {@link UDMF_ERR} Internal data error.\n @see OH_UdsContentForm Udmf_ErrCode\n @since 14"]
+    #[cfg(feature = "api-14")]
     pub fn OH_UdsContentForm_GetAppIcon(
         pThis: *mut OH_UdsContentForm,
         appIcon: *mut *mut ::std::os::raw::c_uchar,
@@ -6014,22 +6014,22 @@ extern "C" {
     ) -> ::std::os::raw::c_int;
 }
 extern "C" {
-    #[cfg(feature = "api-14")]
     #[doc = " @brief Get app name from the {@link OH_UdsContentForm}.\n\n @param pThis Represents a pointer to an instance of {@link OH_UdsContentForm}.\n @return Returns a pointer of the value string when input args normally, otherwise return nullptr.\n @see OH_UdsContentForm\n @since 14"]
+    #[cfg(feature = "api-14")]
     pub fn OH_UdsContentForm_GetAppName(
         pThis: *mut OH_UdsContentForm,
     ) -> *const ::std::os::raw::c_char;
 }
 extern "C" {
-    #[cfg(feature = "api-14")]
     #[doc = " @brief Get link url from the {@link OH_UdsContentForm}.\n\n @param pThis Represents a pointer to an instance of {@link OH_UdsContentForm}.\n @return Returns a pointer of the value string when input args normally, otherwise return nullptr.\n @see OH_UdsContentForm\n @since 14"]
+    #[cfg(feature = "api-14")]
     pub fn OH_UdsContentForm_GetLinkUri(
         pThis: *mut OH_UdsContentForm,
     ) -> *const ::std::os::raw::c_char;
 }
 extern "C" {
-    #[cfg(feature = "api-14")]
     #[doc = " @brief Set thumb data to the {@link OH_UdsContentForm}.\n\n @param pThis Represents a pointer to an instance of {@link OH_UdsContentForm}.\n @param thumbData Represents the thumb data.\n @param len Represents the length of thumb data param.\n @return Returns the status code of the execution. See {@link Udmf_ErrCode}.\n         {@link UDMF_E_OK} success.\n         {@link UDMF_E_INVALID_PARAM} The error code for common invalid args.\n @see OH_UdsContentForm Udmf_ErrCode\n @since 14"]
+    #[cfg(feature = "api-14")]
     pub fn OH_UdsContentForm_SetThumbData(
         pThis: *mut OH_UdsContentForm,
         thumbData: *const ::std::os::raw::c_uchar,
@@ -6037,24 +6037,24 @@ extern "C" {
     ) -> ::std::os::raw::c_int;
 }
 extern "C" {
-    #[cfg(feature = "api-14")]
     #[doc = " @brief Set description to the {@link OH_UdsContentForm}.\n\n @param pThis Represents a pointer to an instance of {@link OH_UdsContentForm}.\n @param description Represents a description string.\n @return Returns the status code of the execution. See {@link Udmf_ErrCode}.\n         {@link UDMF_E_OK} success.\n         {@link UDMF_E_INVALID_PARAM} The error code for common invalid args.\n @see OH_UdsContentForm Udmf_ErrCode\n @since 14"]
+    #[cfg(feature = "api-14")]
     pub fn OH_UdsContentForm_SetDescription(
         pThis: *mut OH_UdsContentForm,
         description: *const ::std::os::raw::c_char,
     ) -> ::std::os::raw::c_int;
 }
 extern "C" {
-    #[cfg(feature = "api-14")]
     #[doc = " @brief Set title to the {@link OH_UdsContentForm}.\n\n @param pThis Represents a pointer to an instance of {@link OH_UdsContentForm}.\n @param title Represents a title string.\n @return Returns the status code of the execution. See {@link Udmf_ErrCode}.\n         {@link UDMF_E_OK} success.\n         {@link UDMF_E_INVALID_PARAM} The error code for common invalid args.\n @see OH_UdsContentForm Udmf_ErrCode\n @since 14"]
+    #[cfg(feature = "api-14")]
     pub fn OH_UdsContentForm_SetTitle(
         pThis: *mut OH_UdsContentForm,
         title: *const ::std::os::raw::c_char,
     ) -> ::std::os::raw::c_int;
 }
 extern "C" {
-    #[cfg(feature = "api-14")]
     #[doc = " @brief Set thumb data to the {@link OH_UdsContentForm}.\n\n @param pThis Represents a pointer to an instance of {@link OH_UdsContentForm}.\n @param appIcon Represents the app icon.\n @param len Represents the length of app icon param.\n @return Returns the status code of the execution. See {@link Udmf_ErrCode}.\n         {@link UDMF_E_OK} success.\n         {@link UDMF_E_INVALID_PARAM} The error code for common invalid args.\n @see OH_UdsContentForm Udmf_ErrCode\n @since 14"]
+    #[cfg(feature = "api-14")]
     pub fn OH_UdsContentForm_SetAppIcon(
         pThis: *mut OH_UdsContentForm,
         appIcon: *const ::std::os::raw::c_uchar,
@@ -6062,55 +6062,55 @@ extern "C" {
     ) -> ::std::os::raw::c_int;
 }
 extern "C" {
-    #[cfg(feature = "api-14")]
     #[doc = " @brief Set app name to the {@link OH_UdsContentForm}.\n\n @param pThis Represents a pointer to an instance of {@link OH_UdsContentForm}.\n @param appName Represents a app name string.\n @return Returns the status code of the execution. See {@link Udmf_ErrCode}.\n         {@link UDMF_E_OK} success.\n         {@link UDMF_E_INVALID_PARAM} The error code for common invalid args.\n @see OH_UdsContentForm Udmf_ErrCode\n @since 14"]
+    #[cfg(feature = "api-14")]
     pub fn OH_UdsContentForm_SetAppName(
         pThis: *mut OH_UdsContentForm,
         appName: *const ::std::os::raw::c_char,
     ) -> ::std::os::raw::c_int;
 }
 extern "C" {
-    #[cfg(feature = "api-14")]
     #[doc = " @brief Set link uri to the {@link OH_UdsContentForm}.\n\n @param pThis Represents a pointer to an instance of {@link OH_UdsContentForm}.\n @param linkUri Represents a link uri string.\n @return Returns the status code of the execution. See {@link Udmf_ErrCode}.\n         {@link UDMF_E_OK} success.\n         {@link UDMF_E_INVALID_PARAM} The error code for common invalid args.\n @see OH_UdsContentForm Udmf_ErrCode\n @since 14"]
+    #[cfg(feature = "api-14")]
     pub fn OH_UdsContentForm_SetLinkUri(
         pThis: *mut OH_UdsContentForm,
         linkUri: *const ::std::os::raw::c_char,
     ) -> ::std::os::raw::c_int;
 }
 extern "C" {
-    #[cfg(feature = "api-22")]
     #[doc = " @brief Creation a pointer to the instance of the {@link OH_UdsDetails}.\n\n @return If the operation is successful, a pointer to the instance of the {@link OH_UdsDetails}\n structure is returned. If the operation is failed, nullptr is returned.\n @since 22\n @see OH_UdsDetails"]
+    #[cfg(feature = "api-22")]
     pub fn OH_UdsDetails_Create() -> *mut OH_UdsDetails;
 }
 extern "C" {
-    #[cfg(feature = "api-22")]
     #[doc = " @brief Destroy a pointer that points to the {@link OH_UdsDetails} instance.\n\n @param pThis Represents a pointer to an instance of {@link OH_UdsDetails}.\n @since 22\n @see OH_UdsDetails"]
+    #[cfg(feature = "api-22")]
     pub fn OH_UdsDetails_Destroy(pThis: *mut OH_UdsDetails);
 }
 extern "C" {
-    #[cfg(feature = "api-22")]
     #[doc = " @brief Determine whether the {@link OH_UdsDetails} contain the specified key.\n\n @param pThis Represents a pointer to an instance of the {@link OH_UdsDetails}.\n @param key Represents key in the details.\n @return Returns the status code of the execution.\n         {@code false} Represents The details do not contain the key.\n         {@code true} Represents The details contain the key.\n @see OH_UdsDetails\n @since 22"]
+    #[cfg(feature = "api-22")]
     pub fn OH_UdsDetails_HasKey(
         pThis: *const OH_UdsDetails,
         key: *const ::std::os::raw::c_char,
     ) -> bool;
 }
 extern "C" {
-    #[cfg(feature = "api-22")]
     #[doc = " @brief Remove the value corresponding to this key from the {@link OH_UdsDetails}.\n\n @param pThis Represents a pointer to an instance of {@link OH_UdsDetails}.\n @param key Represents key in the details.\n @return Returns the status code of the execution. See {@link Udmf_ErrCode}.\n         {@link UDMF_E_OK} success.\n         {@link UDMF_E_INVALID_PARAM} The error code for common invalid args.\n @since 22\n @see OH_UdsDetails Udmf_ErrCode"]
+    #[cfg(feature = "api-22")]
     pub fn OH_UdsDetails_Remove(
         pThis: *mut OH_UdsDetails,
         key: *const ::std::os::raw::c_char,
     ) -> ::std::os::raw::c_int;
 }
 extern "C" {
-    #[cfg(feature = "api-22")]
     #[doc = " @brief Clear all data in the {@link OH_UdsDetails}.\n\n @param pThis Represents a pointer to an instance of {@link OH_UdsDetails}.\n @return Returns the status code of the execution. See {@link Udmf_ErrCode}.\n         {@link UDMF_E_OK} success.\n         {@link UDMF_E_INVALID_PARAM} The error code for common invalid args.\n @since 22\n @see OH_UdsDetails Udmf_ErrCode"]
+    #[cfg(feature = "api-22")]
     pub fn OH_UdsDetails_Clear(pThis: *mut OH_UdsDetails) -> ::std::os::raw::c_int;
 }
 extern "C" {
-    #[cfg(feature = "api-22")]
     #[doc = " @brief Set key-value data to the {@link OH_UdsDetails}.\n\n @param pThis Represents a pointer to an instance of {@link OH_UdsDetails}.\n @param key Represents the key data to be written.\n @param value Represents the value data to be written.\n @return Returns the status code of the execution. See {@link Udmf_ErrCode}.\n         {@link UDMF_E_OK} success.\n         {@link UDMF_E_INVALID_PARAM} The error code for common invalid args.\n @since 22\n @see OH_UdsDetails Udmf_ErrCode"]
+    #[cfg(feature = "api-22")]
     pub fn OH_UdsDetails_SetValue(
         pThis: *mut OH_UdsDetails,
         key: *const ::std::os::raw::c_char,
@@ -6118,16 +6118,16 @@ extern "C" {
     ) -> ::std::os::raw::c_int;
 }
 extern "C" {
-    #[cfg(feature = "api-22")]
     #[doc = " @brief Get the value from the {@link OH_UdsDetails} using the key.\n\n @param pThis Represents a pointer to an instance of {@link OH_UdsDetails}.\n @param key Represents key in the details.\n @return Returns a string pointer when input args normally, otherwise return nullptr.\n @since 22\n @see OH_UdsDetails"]
+    #[cfg(feature = "api-22")]
     pub fn OH_UdsDetails_GetValue(
         pThis: *const OH_UdsDetails,
         key: *const ::std::os::raw::c_char,
     ) -> *const ::std::os::raw::c_char;
 }
 extern "C" {
-    #[cfg(feature = "api-22")]
     #[doc = " @brief Get the all keys from the {@link OH_UdsDetails}.\n\n @param pThis Represents a pointer to an instance of {@link OH_UdsDetails}.\n @param count Represents the keys count.\n @return Returns string list of keys. Memory will be released after calling the OH_UdsDetails_Destroy function.\n @since 22\n @see OH_UdsDetails"]
+    #[cfg(feature = "api-22")]
     pub fn OH_UdsDetails_GetAllKeys(
         pThis: *mut OH_UdsDetails,
         count: *mut ::std::os::raw::c_uint,
@@ -6137,17 +6137,17 @@ extern "C" {
 pub const Udmf_Intention_UDMF_INTENTION_DRAG: Udmf_Intention = 0;
 #[doc = " @brief The intention is pasteboard."]
 pub const Udmf_Intention_UDMF_INTENTION_PASTEBOARD: Udmf_Intention = 1;
-#[cfg(feature = "api-20")]
 #[doc = " @brief The intention is data hub.\n\n @since 20"]
+#[cfg(feature = "api-20")]
 pub const Udmf_Intention_UDMF_INTENTION_DATA_HUB: Udmf_Intention = 2;
-#[cfg(feature = "api-20")]
 #[doc = " @brief The intention is system share.\n\n @since 20"]
+#[cfg(feature = "api-20")]
 pub const Udmf_Intention_UDMF_INTENTION_SYSTEM_SHARE: Udmf_Intention = 3;
-#[cfg(feature = "api-20")]
 #[doc = " @brief The intention is picker.\n\n @since 20"]
-pub const Udmf_Intention_UDMF_INTENTION_PICKER: Udmf_Intention = 4;
 #[cfg(feature = "api-20")]
+pub const Udmf_Intention_UDMF_INTENTION_PICKER: Udmf_Intention = 4;
 #[doc = " @brief The intention is menu.\n\n @since 20"]
+#[cfg(feature = "api-20")]
 pub const Udmf_Intention_UDMF_INTENTION_MENU: Udmf_Intention = 5;
 #[doc = " @brief Describe the intention type of the udmf.\n\n @since 12"]
 pub type Udmf_Intention = u32;
@@ -6159,32 +6159,32 @@ pub const Udmf_ShareOption_SHARE_OPTIONS_IN_APP: Udmf_ShareOption = 1;
 pub const Udmf_ShareOption_SHARE_OPTIONS_CROSS_APP: Udmf_ShareOption = 2;
 #[doc = " @brief Describe intra-device usage range type enumeration.\n\n @since 12"]
 pub type Udmf_ShareOption = u32;
-#[cfg(feature = "api-15")]
 #[doc = " @brief Overwrite when dest uri has file with same name."]
+#[cfg(feature = "api-15")]
 pub const Udmf_FileConflictOptions_UDMF_OVERWRITE: Udmf_FileConflictOptions = 0;
-#[cfg(feature = "api-15")]
 #[doc = " @brief Skip when dest uri has file with same name."]
+#[cfg(feature = "api-15")]
 pub const Udmf_FileConflictOptions_UDMF_SKIP: Udmf_FileConflictOptions = 1;
-#[cfg(feature = "api-15")]
 #[doc = " @brief Describe the types of file conflict options when getting data from the udmf.\n\n @since 15"]
+#[cfg(feature = "api-15")]
 pub type Udmf_FileConflictOptions = u32;
-#[cfg(feature = "api-15")]
 #[doc = " @brief Getting data without system default progress indicator."]
+#[cfg(feature = "api-15")]
 pub const Udmf_ProgressIndicator_UDMF_NONE: Udmf_ProgressIndicator = 0;
-#[cfg(feature = "api-15")]
 #[doc = " @brief Getting data with system default progress indicator."]
-pub const Udmf_ProgressIndicator_UDMF_DEFAULT: Udmf_ProgressIndicator = 1;
 #[cfg(feature = "api-15")]
+pub const Udmf_ProgressIndicator_UDMF_DEFAULT: Udmf_ProgressIndicator = 1;
 #[doc = " @brief Describe the types of progress indicator when getting data from the udmf.\n\n @since 15"]
+#[cfg(feature = "api-15")]
 pub type Udmf_ProgressIndicator = u32;
-#[cfg(feature = "api-20")]
 #[doc = " @brief The visibility level that specifies that any hap or native can be obtained."]
+#[cfg(feature = "api-20")]
 pub const Udmf_Visibility_UDMF_ALL: Udmf_Visibility = 0;
-#[cfg(feature = "api-20")]
 #[doc = " @brief The visibility level that specifies that only data providers can be obtained."]
-pub const Udmf_Visibility_UDMF_OWN_PROCESS: Udmf_Visibility = 1;
 #[cfg(feature = "api-20")]
+pub const Udmf_Visibility_UDMF_OWN_PROCESS: Udmf_Visibility = 1;
 #[doc = " @brief Describe the visibility range of data\n\n @since 20"]
+#[cfg(feature = "api-20")]
 pub type Udmf_Visibility = u32;
 #[repr(C)]
 #[derive(Debug, Copy, Clone)]
@@ -6216,8 +6216,8 @@ pub struct OH_Udmf_ProgressInfo {
 pub struct OH_UdmfGetDataParams {
     _unused: [u8; 0],
 }
-#[cfg(feature = "api-15")]
 #[doc = " @brief Defines the callback function used to return the progress information and data.\n\n @param progressInfo The progress information notified to Application.\n @param data Represents the unified data.\n @since 15"]
+#[cfg(feature = "api-15")]
 pub type OH_Udmf_DataProgressListener = ::std::option::Option<
     unsafe extern "C" fn(progressInfo: *mut OH_Udmf_ProgressInfo, data: *mut OH_UdmfData),
 >;
@@ -6236,8 +6236,8 @@ pub struct OH_UdmfDataLoadParams {
 pub struct OH_UdmfDataLoadInfo {
     _unused: [u8; 0],
 }
-#[cfg(feature = "api-20")]
 #[doc = " @brief Indicates the callback function for loading data.\n\n @param acceptableInfo Indicates the type and number of data that can be accepted by the receiver.\n @return Returns the data to be loaded.\n @since 20"]
+#[cfg(feature = "api-20")]
 pub type OH_Udmf_DataLoadHandler = ::std::option::Option<
     unsafe extern "C" fn(acceptableInfo: *mut OH_UdmfDataLoadInfo) -> *mut OH_UdmfData,
 >;
@@ -6277,24 +6277,24 @@ extern "C" {
         count: *mut ::std::os::raw::c_uint,
     ) -> *mut *mut OH_UdmfRecord;
 }
-#[cfg(feature = "api-13")]
 #[doc = " @brief Defines the callback function used free the context.\n @param context Pointer to the context which is to be free.\n @since 13"]
+#[cfg(feature = "api-13")]
 pub type UdmfData_Finalize =
     ::std::option::Option<unsafe extern "C" fn(context: *mut ::std::os::raw::c_void)>;
 extern "C" {
-    #[cfg(feature = "api-13")]
     #[doc = " @brief Creates an {@link OH_UdmfRecordProvider} instance.\n\n @return Returns the pointer to the {@link OH_UdmfRecordProvider} instance created if the operation is successful.\n Returns nullptr if the memory is not enough.\n @see OH_UdmfRecordProvider.\n @since 13"]
+    #[cfg(feature = "api-13")]
     pub fn OH_UdmfRecordProvider_Create() -> *mut OH_UdmfRecordProvider;
 }
 extern "C" {
-    #[cfg(feature = "api-13")]
     #[doc = " @brief Destroy an {@link OH_UdmfRecordProvider} instance.\n\n @param provider Pointer to the {@link OH_UdmfRecordProvider} instance to destroy.\n @return Returns the status code of the execution. For details, see {@link Udmf_ErrCode}.\n         Returns {@link UDMF_E_OK} if the operation is successful.\n         Returns {@link UDMF_E_INVALID_PARAM} if invalid args are detected.\n @see OH_UdmfRecordProvider Udmf_ErrCode.\n @since 13"]
+    #[cfg(feature = "api-13")]
     pub fn OH_UdmfRecordProvider_Destroy(
         provider: *mut OH_UdmfRecordProvider,
     ) -> ::std::os::raw::c_int;
 }
-#[cfg(feature = "api-13")]
 #[doc = " @brief Defines a callback function used to obtain data by type.\n\n @param context Pointer to the context set by {@link OH_UdmfRecordProvider_SetData}.\n @param type Pointer to the type of data to obtain. For details, see {@link udmf_meta.h}.\n @return Returns the data content.\n @since 13"]
+#[cfg(feature = "api-13")]
 pub type OH_UdmfRecordProvider_GetData = ::std::option::Option<
     unsafe extern "C" fn(
         context: *mut ::std::os::raw::c_void,
@@ -6302,8 +6302,8 @@ pub type OH_UdmfRecordProvider_GetData = ::std::option::Option<
     ) -> *mut ::std::os::raw::c_void,
 >;
 extern "C" {
-    #[cfg(feature = "api-13")]
     #[doc = " @brief Sets a callback function to obtain data.\n\n @param provider Pointer to the {@link OH_UdmfRecordProvider} instance.\n @param context Pointer to the context set, which is the first parameter in OH_UdmfRecordProvider_GetData.\n @param callback Callback to set. For details, see {@link OH_UdmfRecordProvider_GetData}.\n @param finalize Optional callback that can free context when destroy provider.\n         For details, see {@link UdmfData_Finalize}.\n @return Returns the status code of the execution. For details, see {@link Udmf_ErrCode}.\n         Returns {@link UDMF_E_OK} if the operation is successful.\n         Returns {@link UDMF_E_INVALID_PARAM} if invalid args are detected.\n @see OH_UdmfRecordProvider OH_UdmfRecordProvider_GetData UdmfData_Finalize Udmf_ErrCode.\n @since 13"]
+    #[cfg(feature = "api-13")]
     pub fn OH_UdmfRecordProvider_SetData(
         provider: *mut OH_UdmfRecordProvider,
         context: *mut ::std::os::raw::c_void,
@@ -6357,24 +6357,24 @@ extern "C" {
     ) -> ::std::os::raw::c_int;
 }
 extern "C" {
-    #[cfg(feature = "api-13")]
     #[doc = " @brief Add one {OH_UdsFileUri} data to the {@link OH_UdmfRecord} record.\n\n @param pThis Represents a pointer to an instance of {@link OH_UdmfRecord}.\n @param fileUri Represents a pointer to an instance of {@link OH_UdsFileUri}.\n @return Returns the status code of the execution. See {@link Udmf_ErrCode}.\n         {@link UDMF_E_OK} success.\n         {@link UDMF_E_INVALID_PARAM} The error code for common invalid args.\n @see OH_UdmfRecord OH_UdsFileUri Udmf_ErrCode.\n @since 13"]
+    #[cfg(feature = "api-13")]
     pub fn OH_UdmfRecord_AddFileUri(
         pThis: *mut OH_UdmfRecord,
         fileUri: *mut OH_UdsFileUri,
     ) -> ::std::os::raw::c_int;
 }
 extern "C" {
-    #[cfg(feature = "api-13")]
     #[doc = " @brief Add one {OH_UdsPixelMap} data to the {@link OH_UdmfRecord} record.\n\n @param pThis Represents a pointer to an instance of {@link OH_UdmfRecord}.\n @param pixelMap Represents a pointer to an instance of {@link OH_UdsPixelMap}.\n @return Returns the status code of the execution. See {@link Udmf_ErrCode}.\n         {@link UDMF_E_OK} success.\n         {@link UDMF_E_INVALID_PARAM} The error code for common invalid args.\n @see OH_UdmfRecord OH_UdsPixelMap Udmf_ErrCode.\n @since 13"]
+    #[cfg(feature = "api-13")]
     pub fn OH_UdmfRecord_AddPixelMap(
         pThis: *mut OH_UdmfRecord,
         pixelMap: *mut OH_UdsPixelMap,
     ) -> ::std::os::raw::c_int;
 }
 extern "C" {
-    #[cfg(feature = "api-13")]
     #[doc = " @brief Add one {@link OH_UdsArrayBuffer} data to the {@link OH_UdmfRecord} record.\n\n @param record Represents a pointer to an instance of {@link OH_UdmfRecord}.\n @param type Represents record type, reference udmf_meta.h.\n @param buffer Represents a pointer to an instance of {@link OH_UdsArrayBuffer}.\n @return Returns the status code of the execution. See {@link Udmf_ErrCode}.\n         {@link UDMF_E_OK} success.\n         {@link UDMF_E_INVALID_PARAM} The error code for common invalid args.\n @see OH_UdmfRecord OH_UdsArrayBuffer Udmf_ErrCode.\n @since 13"]
+    #[cfg(feature = "api-13")]
     pub fn OH_UdmfRecord_AddArrayBuffer(
         record: *mut OH_UdmfRecord,
         type_: *const ::std::os::raw::c_char,
@@ -6382,8 +6382,8 @@ extern "C" {
     ) -> ::std::os::raw::c_int;
 }
 extern "C" {
-    #[cfg(feature = "api-14")]
     #[doc = " @brief Add one {@link OH_UdsContentForm} data to the {@link OH_UdmfRecord} record.\n\n @param pThis Represents a pointer to an instance of {@link OH_UdmfRecord}.\n @param contentForm Represents a pointer to an instance of {@link OH_UdsContentForm}.\n @return Returns the status code of the execution. See {@link Udmf_ErrCode}.\n         {@link UDMF_E_OK} success.\n         {@link UDMF_E_INVALID_PARAM} The error code for common invalid args.\n @see OH_UdmfRecord OH_UdsContentForm Udmf_ErrCode.\n @since 14"]
+    #[cfg(feature = "api-14")]
     pub fn OH_UdmfRecord_AddContentForm(
         pThis: *mut OH_UdmfRecord,
         contentForm: *mut OH_UdsContentForm,
@@ -6434,24 +6434,24 @@ extern "C" {
     ) -> ::std::os::raw::c_int;
 }
 extern "C" {
-    #[cfg(feature = "api-13")]
     #[doc = " @brief Get one {OH_UdsFileUri} data from the {@link OH_UdmfRecord} record.\n\n @param pThis Represents a pointer to an instance of {@link OH_UdmfRecord}.\n @param fileUri Represents a pointer to an instance of {@link OH_UdsFileUri}.\n @return Returns the status code of the execution. See {@link Udmf_ErrCode}.\n         {@link UDMF_E_OK} success.\n         {@link UDMF_E_INVALID_PARAM} The error code for common invalid args.\n @see OH_UdmfRecord OH_UdsFileUri Udmf_ErrCode.\n @since 13"]
+    #[cfg(feature = "api-13")]
     pub fn OH_UdmfRecord_GetFileUri(
         pThis: *mut OH_UdmfRecord,
         fileUri: *mut OH_UdsFileUri,
     ) -> ::std::os::raw::c_int;
 }
 extern "C" {
-    #[cfg(feature = "api-13")]
     #[doc = " @brief Get one {OH_UdsPixelMap} data from the {@link OH_UdmfRecord} record.\n\n @param pThis Represents a pointer to an instance of {@link OH_UdmfRecord}.\n @param pixelMap Represents a pointer to an instance of {@link OH_UdsPixelMap}.\n @return Returns the status code of the execution. See {@link Udmf_ErrCode}.\n         {@link UDMF_E_OK} success.\n         {@link UDMF_E_INVALID_PARAM} The error code for common invalid args.\n @see OH_UdmfRecord OH_UdsPixelMap Udmf_ErrCode.\n @since 13"]
+    #[cfg(feature = "api-13")]
     pub fn OH_UdmfRecord_GetPixelMap(
         pThis: *mut OH_UdmfRecord,
         pixelMap: *mut OH_UdsPixelMap,
     ) -> ::std::os::raw::c_int;
 }
 extern "C" {
-    #[cfg(feature = "api-13")]
     #[doc = " @brief Set the data provider of the types.\n\n @param pThis Represents a pointer to an instance of {@link OH_UdmfRecord}.\n @param types Represents a pointer to a group of data types;\n @param count Represents the number of data types;\n @param provider Represents a pointer an instance of {@link OH_UdmfRecordProvider}.\n @return Returns the status code of the execution. See {@link Udmf_ErrCode}.\n         {@link UDMF_E_OK} success.\n         {@link UDMF_E_INVALID_PARAM} The error code for common invalid args.\n @see OH_UdmfRecord OH_UdmfRecordProvider Udmf_ErrCode.\n @since 13"]
+    #[cfg(feature = "api-13")]
     pub fn OH_UdmfRecord_SetProvider(
         pThis: *mut OH_UdmfRecord,
         types: *const *const ::std::os::raw::c_char,
@@ -6460,8 +6460,8 @@ extern "C" {
     ) -> ::std::os::raw::c_int;
 }
 extern "C" {
-    #[cfg(feature = "api-13")]
     #[doc = " @brief Get one {@link OH_UdsArrayBuffer} data from the {@link OH_UdmfRecord} record.\n\n @param record Represents a pointer to an instance of {@link OH_UdmfRecord}.\n @param type Represents record type, reference udmf_meta.h.\n @param buffer Represents a pointer to an instance of {@link OH_UdsArrayBuffer}.\n @return Returns the status code of the execution. See {@link Udmf_ErrCode}.\n         {@link UDMF_E_OK} success.\n         {@link UDMF_E_INVALID_PARAM} The error code for common invalid args.\n @see OH_UdmfRecord OH_UdsArrayBuffer Udmf_ErrCode.\n @since 13"]
+    #[cfg(feature = "api-13")]
     pub fn OH_UdmfRecord_GetArrayBuffer(
         record: *mut OH_UdmfRecord,
         type_: *const ::std::os::raw::c_char,
@@ -6469,45 +6469,45 @@ extern "C" {
     ) -> ::std::os::raw::c_int;
 }
 extern "C" {
-    #[cfg(feature = "api-14")]
     #[doc = " @brief Get one {@link OH_UdsContentForm} data from the {@link OH_UdmfRecord} record.\n\n @param pThis Represents a pointer to an instance of {@link OH_UdmfRecord}.\n @param contentForm Represents a pointer to an instance of {@link OH_UdsContentForm}.\n @return Returns the status code of the execution. See {@link Udmf_ErrCode}.\n         {@link UDMF_E_OK} success.\n         {@link UDMF_E_INVALID_PARAM} The error code for common invalid args.\n @see OH_UdmfRecord OH_UdsContentForm Udmf_ErrCode.\n @since 14"]
+    #[cfg(feature = "api-14")]
     pub fn OH_UdmfRecord_GetContentForm(
         pThis: *mut OH_UdmfRecord,
         contentForm: *mut OH_UdsContentForm,
     ) -> ::std::os::raw::c_int;
 }
 extern "C" {
-    #[cfg(feature = "api-13")]
     #[doc = " @brief Get primary {@link OH_UdsPlainText} data from the {@link OH_UdmfData}.\n\n @param data Represents a pointer to an instance of {@link OH_UdmfData}.\n @param plainText Represents a pointer to an instance of {@link OH_UdsPlainText}.\n @return Returns the status code of the execution. See {@link Udmf_ErrCode}.\n         {@link UDMF_E_OK} success.\n         {@link UDMF_E_INVALID_PARAM} The error code for common invalid args.\n @see OH_UdmfData OH_UdsPlainText Udmf_ErrCode.\n @since 13"]
+    #[cfg(feature = "api-13")]
     pub fn OH_UdmfData_GetPrimaryPlainText(
         data: *mut OH_UdmfData,
         plainText: *mut OH_UdsPlainText,
     ) -> ::std::os::raw::c_int;
 }
 extern "C" {
-    #[cfg(feature = "api-13")]
     #[doc = " @brief Get one {@link OH_UdsHtml} data from the {@link OH_UdmfData}.\n\n @param data Represents a pointer to an instance of {@link OH_UdmfData}.\n @param html Represents a pointer to an instance of {@link OH_UdsHtml}.\n @return Returns the status code of the execution. See {@link Udmf_ErrCode}.\n         {@link UDMF_E_OK} success.\n         {@link UDMF_E_INVALID_PARAM} The error code for common invalid args.\n @see OH_UdmfData OH_UdsHtml Udmf_ErrCode.\n @since 13"]
+    #[cfg(feature = "api-13")]
     pub fn OH_UdmfData_GetPrimaryHtml(
         data: *mut OH_UdmfData,
         html: *mut OH_UdsHtml,
     ) -> ::std::os::raw::c_int;
 }
 extern "C" {
-    #[cfg(feature = "api-13")]
     #[doc = " @brief Get the count of {@link OH_UdmfRecord} in the {@link OH_UdmfData}.\n\n @param data Represents a pointer to an instance of {@link OH_UdmfData}.\n @return Returns the count of {@link OH_UdmfRecord}\n @see OH_UdmfData.\n @since 13"]
+    #[cfg(feature = "api-13")]
     pub fn OH_UdmfData_GetRecordCount(data: *mut OH_UdmfData) -> ::std::os::raw::c_int;
 }
 extern "C" {
-    #[cfg(feature = "api-13")]
     #[doc = " @brief Get the record of the specified index from the {@link OH_UdmfData}.\n\n @param data Represents a pointer to an instance of {@link OH_UdmfData}.\n @param index Represents the index of {@link OH_UdmfRecord} in the {@link OH_UdmfData}.\n @return Returns {@link OH_UdmfRecord} pointer when input parameters valid, otherwise return nullptr.\n @see OH_UdmfData.\n @since 13"]
+    #[cfg(feature = "api-13")]
     pub fn OH_UdmfData_GetRecord(
         data: *mut OH_UdmfData,
         index: ::std::os::raw::c_uint,
     ) -> *mut OH_UdmfRecord;
 }
 extern "C" {
-    #[cfg(feature = "api-13")]
     #[doc = " @brief Checks whether the UDMF data is from a local device.\n\n @param data Represents a pointer to an instance of {@link OH_UdmfData}.\n @return Returns a boolean value, which indicates whether the UDMF data is from a local device.\n         The value {@code true} means the data is from a local device.\n         The value {@code false} means the opposite.\n @see OH_UdmfData.\n @since 13"]
+    #[cfg(feature = "api-13")]
     pub fn OH_UdmfData_IsLocal(data: *mut OH_UdmfData) -> bool;
 }
 extern "C" {
@@ -6576,54 +6576,54 @@ extern "C" {
     ) -> ::std::os::raw::c_int;
 }
 extern "C" {
-    #[cfg(feature = "api-20")]
     #[doc = " @brief Creation a pointer to the instance of the {@link OH_UdmfOptions}.\n\n @return If the operation is successful, a pointer to the instance of the {@link OH_UdmfOptions}\n structure is returned. If the operation is failed, nullptr is returned.\n @see OH_UdmfOptions.\n @since 20"]
+    #[cfg(feature = "api-20")]
     pub fn OH_UdmfOptions_Create() -> *mut OH_UdmfOptions;
 }
 extern "C" {
-    #[cfg(feature = "api-20")]
     #[doc = " @brief Destroy the heap memory pointed to by the pointer of {@link OH_UdmfOptions}.\n Note that this function cannot be called repeatedly for the same pointer.\n\n @param pThis Represents a pointer to an instance of {@link OH_UdmfOptions}.\n @see OH_UdmfOptions.\n @since 20"]
+    #[cfg(feature = "api-20")]
     pub fn OH_UdmfOptions_Destroy(pThis: *mut OH_UdmfOptions);
 }
 extern "C" {
-    #[cfg(feature = "api-20")]
     #[doc = " @brief Get key from the {@link OH_UdmfOptions}.\n\n @param pThis Represents a pointer to an instance of {@link OH_UdmfOptions}.\n @return Returns a pointer of the value string when input args normally, otherwise return nullptr.\n @see OH_UdmfOptions\n @since 20"]
+    #[cfg(feature = "api-20")]
     pub fn OH_UdmfOptions_GetKey(pThis: *mut OH_UdmfOptions) -> *const ::std::os::raw::c_char;
 }
 extern "C" {
-    #[cfg(feature = "api-20")]
     #[doc = " @brief Set the key to the {@link OH_UdmfOptions}.\n\n @param pThis Represents a pointer to an instance of {@link OH_UdmfOptions}.\n @param key Represents a new string value of the key.\n @return Returns the status code of the execution. See {@link Udmf_ErrCode}.\n         {@link UDMF_E_OK} success.\n         {@link UDMF_E_INVALID_PARAM} The error code for common invalid args.\n @see OH_UdmfOptions Udmf_ErrCode\n @since 20"]
+    #[cfg(feature = "api-20")]
     pub fn OH_UdmfOptions_SetKey(
         pThis: *mut OH_UdmfOptions,
         key: *const ::std::os::raw::c_char,
     ) -> ::std::os::raw::c_int;
 }
 extern "C" {
-    #[cfg(feature = "api-20")]
     #[doc = " @brief Get intention from the {@link OH_UdmfOptions}.\n\n @param pThis Represents a pointer to an instance of {@link OH_UdmfOptions}.\n @return Returns {@link Udmf_Intention} value.\n @see OH_UdmfOptions Udmf_Intention\n @since 20"]
+    #[cfg(feature = "api-20")]
     pub fn OH_UdmfOptions_GetIntention(pThis: *mut OH_UdmfOptions) -> Udmf_Intention;
 }
 extern "C" {
-    #[cfg(feature = "api-20")]
     #[doc = " @brief Set intention value to {@link OH_UdmfOptions}.\n\n @param pThis Represents a pointer to an instance of {@link OH_UdmfOptions}.\n @param intention Represents new {@link Udmf_Intention} param.\n @return Returns the status code of the execution. See {@link Udmf_ErrCode}.\n         {@link UDMF_E_OK} success.\n         {@link UDMF_E_INVALID_PARAM} The error code for common invalid args.\n @see OH_UdmfOptions Udmf_Intention Udmf_ErrCode.\n @since 20"]
+    #[cfg(feature = "api-20")]
     pub fn OH_UdmfOptions_SetIntention(
         pThis: *mut OH_UdmfOptions,
         intention: Udmf_Intention,
     ) -> ::std::os::raw::c_int;
 }
 extern "C" {
-    #[cfg(feature = "api-20")]
     #[doc = " @brief Reset {@link OH_UdmfOptions} to default.\n\n @param pThis Represents a pointer to an instance of {@link OH_UdmfOptions}.\n @return Returns the status code of the execution. See {@link Udmf_ErrCode}.\n         {@link UDMF_E_OK} success.\n         {@link UDMF_E_INVALID_PARAM} The error code for common invalid args.\n @see OH_UdmfOptions Udmf_ErrCode.\n @since 20"]
+    #[cfg(feature = "api-20")]
     pub fn OH_UdmfOptions_Reset(pThis: *mut OH_UdmfOptions) -> ::std::os::raw::c_int;
 }
 extern "C" {
-    #[cfg(feature = "api-20")]
     #[doc = " @brief Get visibility from the {@link OH_UdmfOptions}.\n\n @param pThis Represents a pointer to an instance of {@link OH_UdmfOptions}.\n @return Returns {@link Udmf_Visibility} value.\n @see OH_UdmfOptions Udmf_Visibility\n @since 20"]
+    #[cfg(feature = "api-20")]
     pub fn OH_UdmfOptions_GetVisibility(pThis: *mut OH_UdmfOptions) -> Udmf_Visibility;
 }
 extern "C" {
-    #[cfg(feature = "api-20")]
     #[doc = " @brief Set visibility value to {@link OH_UdmfOptions}.\n\n @param pThis Represents a pointer to an instance of {@link OH_UdmfOptions}.\n @param visibility Represents new {@link Udmf_Visibility} param.\n @return Returns the status code of the execution. See {@link Udmf_ErrCode}.\n         {@link UDMF_E_OK} success.\n         {@link UDMF_E_INVALID_PARAM} The error code for common invalid args.\n @see OH_UdmfOptions Udmf_Visibility Udmf_ErrCode.\n @since 20"]
+    #[cfg(feature = "api-20")]
     pub fn OH_UdmfOptions_SetVisibility(
         pThis: *mut OH_UdmfOptions,
         visibility: Udmf_Visibility,
@@ -6638,8 +6638,8 @@ extern "C" {
     ) -> ::std::os::raw::c_int;
 }
 extern "C" {
-    #[cfg(feature = "api-20")]
     #[doc = " @brief Get {@link OH_UdmfData} data array from udmf database by intention.\n\n @param options Represents a pointer to an instance of {@link OH_UdmfOptions}.\n @param dataArray Represents output params of {@link OH_UdmfData}.\n     It should be accessed using {@link OH_UDMF_GetDataElementAt} to retrieve elements by index.\n     This pointer needs to be released using the {@link OH_Udmf_DestroyDataArray} function.\n @param dataSize Represents the data count of output params.\n @return Returns the status code of the execution. See {@link Udmf_ErrCode}.\n         {@link UDMF_E_OK} success.\n         {@link UDMF_E_INVALID_PARAM} The error code for common invalid args.\n         {@link UDMF_ERR} Internal data error. The potential reason is server malfunction or insufficient memory.\n @see OH_UdmfData Udmf_Intention Udmf_ErrCode.\n @since 20"]
+    #[cfg(feature = "api-20")]
     pub fn OH_Udmf_GetUnifiedDataByOptions(
         options: *mut OH_UdmfOptions,
         dataArray: *mut *mut OH_UdmfData,
@@ -6656,8 +6656,8 @@ extern "C" {
     ) -> ::std::os::raw::c_int;
 }
 extern "C" {
-    #[cfg(feature = "api-20")]
     #[doc = " @brief Set {@link OH_UdmfData} data to database with options.\n\n @param options Represents a pointer to an instance of {@link OH_UdmfOptions}.\n @param unifiedData Represents a pointer to an instance of {@link OH_UdmfData}.\n @param key Represents return value after set data to database successfully,\n it's memory size not less than {@link UDMF_KEY_BUFFER_LEN}.\n @param keyLen Represents size of key param.\n @return Returns the status code of the execution. See {@link Udmf_ErrCode}.\n         {@link UDMF_E_OK} success.\n         {@link UDMF_E_INVALID_PARAM} The error code for common invalid args.\n         {@link UDMF_ERR} Internal data error. The potential reason is server malfunction or insufficient memory.\n @see OH_UdmfOptions OH_UdmfData Udmf_ErrCode.\n @since 20"]
+    #[cfg(feature = "api-20")]
     pub fn OH_Udmf_SetUnifiedDataByOptions(
         options: *mut OH_UdmfOptions,
         unifiedData: *mut OH_UdmfData,
@@ -6666,16 +6666,16 @@ extern "C" {
     ) -> ::std::os::raw::c_int;
 }
 extern "C" {
-    #[cfg(feature = "api-20")]
     #[doc = " @brief Update {@link OH_UdmfData} data to database with options.\n\n @param options Represents a pointer to an instance of {@link OH_UdmfOptions}.\n @param unifiedData Represents a pointer to an instance of {@link OH_UdmfData}.\n @return Returns the status code of the execution. See {@link Udmf_ErrCode}.\n         {@link UDMF_E_OK} success.\n         {@link UDMF_E_INVALID_PARAM} The error code for common invalid args.\n         {@link UDMF_ERR} Internal data error. The potential reason is server malfunction or insufficient memory.\n @see OH_UdmfOptions OH_UdmfData Udmf_ErrCode.\n @since 20"]
+    #[cfg(feature = "api-20")]
     pub fn OH_Udmf_UpdateUnifiedData(
         options: *mut OH_UdmfOptions,
         unifiedData: *mut OH_UdmfData,
     ) -> ::std::os::raw::c_int;
 }
 extern "C" {
-    #[cfg(feature = "api-20")]
     #[doc = " @brief Delete {@link OH_UdmfData} data of database with options.\n\n @param options Represents a pointer to an instance of {@link OH_UdmfOptions}.\n @param dataArray Represents output params of {@link OH_UdmfData}.\n     It should be accessed using {@link OH_UDMF_GetDataElementAt} to retrieve elements by index.\n     This pointer needs to be released using the {@link OH_Udmf_DestroyDataArray} function.\n @param dataSize Represents the data count of output params.\n @return Returns the status code of the execution. See {@link Udmf_ErrCode}.\n         {@link UDMF_E_OK} success.\n         {@link UDMF_E_INVALID_PARAM} The error code for common invalid args.\n         {@link UDMF_ERR} Internal data error. The potential reason is server malfunction or insufficient memory.\n @see OH_UdmfData Udmf_Intention Udmf_ErrCode.\n @since 20"]
+    #[cfg(feature = "api-20")]
     pub fn OH_Udmf_DeleteUnifiedData(
         options: *mut OH_UdmfOptions,
         dataArray: *mut *mut OH_UdmfData,
@@ -6683,147 +6683,147 @@ extern "C" {
     ) -> ::std::os::raw::c_int;
 }
 extern "C" {
-    #[cfg(feature = "api-22")]
     #[doc = " @brief Gets the pointer to the element at the specified index from the input array.\n\n @param dataArray A pointer to an array of {@link OH_UdmfData} pointers.\n @param index The index of the desired element. Note that the input index should not exceed the array range.\n @return A pointer to the {@link OH_UdmfData} element at the specified index; returns NULL if the array is NULL.\n @see OH_UdmfData\n @since 22"]
+    #[cfg(feature = "api-22")]
     pub fn OH_UDMF_GetDataElementAt(
         dataArray: *mut *mut OH_UdmfData,
         index: ::std::os::raw::c_uint,
     ) -> *mut OH_UdmfData;
 }
 extern "C" {
-    #[cfg(feature = "api-20")]
     #[doc = " @brief Destroy data array memory.\n\n @param dataArray Represents a point to {@link OH_UdmfData}.\n @param dataSize Represents data size in list.\n @see OH_UdmfData\n @since 20"]
+    #[cfg(feature = "api-20")]
     pub fn OH_Udmf_DestroyDataArray(
         dataArray: *mut *mut OH_UdmfData,
         dataSize: ::std::os::raw::c_uint,
     );
 }
 extern "C" {
-    #[cfg(feature = "api-15")]
     #[doc = " @brief Gets the progress from the {@OH_Udmf_ProgressInfo}.\n\n @param progressInfo Represents a pointer to an instance of {@link OH_Udmf_ProgressInfo}.\n @return Returns the progress.\n @see OH_Udmf_ProgressInfo\n @since 15"]
+    #[cfg(feature = "api-15")]
     pub fn OH_UdmfProgressInfo_GetProgress(
         progressInfo: *mut OH_Udmf_ProgressInfo,
     ) -> ::std::os::raw::c_int;
 }
 extern "C" {
-    #[cfg(feature = "api-15")]
     #[doc = " @brief Gets the status from the {@OH_Udmf_ProgressInfo}.\n\n @param progressInfo Represents a pointer to an instance of {@link OH_Udmf_ProgressInfo}.\n @return Returns the status code. See {@link Udmf_ListenerStatus}.\n @see OH_Udmf_ProgressInfo Udmf_ListenerStatus\n @since 15"]
+    #[cfg(feature = "api-15")]
     pub fn OH_UdmfProgressInfo_GetStatus(
         progressInfo: *mut OH_Udmf_ProgressInfo,
     ) -> ::std::os::raw::c_int;
 }
 extern "C" {
-    #[cfg(feature = "api-15")]
     #[doc = " @brief Creation a pointer to the instance of the {@link OH_UdmfGetDataParams}.\n\n @return If the operation is successful, a pointer to the instance of the {@link OH_UdmfGetDataParams}\n structure is returned. If the operation is failed, nullptr is returned.\n @see OH_UdmfGetDataParams\n @since 15"]
+    #[cfg(feature = "api-15")]
     pub fn OH_UdmfGetDataParams_Create() -> *mut OH_UdmfGetDataParams;
 }
 extern "C" {
-    #[cfg(feature = "api-15")]
     #[doc = " @brief Destroy a pointer that points to an instance of {@link OH_UdmfGetDataParams}.\n\n @param pThis Represents a pointer to an instance of {@link OH_UdmfGetDataParams}.\n @see OH_UdmfGetDataParams\n @since 15"]
+    #[cfg(feature = "api-15")]
     pub fn OH_UdmfGetDataParams_Destroy(pThis: *mut OH_UdmfGetDataParams);
 }
 extern "C" {
-    #[cfg(feature = "api-15")]
     #[doc = " @brief Sets the destination uri to the {@OH_UdmfGetDataParams}.\n\n @param params Represents a pointer to an instance of {@link OH_UdmfGetDataParams}.\n @param destUri Pointer to a destination uri.\n @see OH_UdmfGetDataParams\n @since 15"]
+    #[cfg(feature = "api-15")]
     pub fn OH_UdmfGetDataParams_SetDestUri(
         params: *mut OH_UdmfGetDataParams,
         destUri: *const ::std::os::raw::c_char,
     );
 }
 extern "C" {
-    #[cfg(feature = "api-15")]
     #[doc = " @brief Sets the file conflict options to the {@OH_UdmfGetDataParams}.\n\n @param params Represents a pointer to an instance of {@link OH_UdmfGetDataParams}.\n @param options Represents to the file conflict options.\n @see OH_UdmfGetDataParams Udmf_FileConflictOptions\n @since 15"]
+    #[cfg(feature = "api-15")]
     pub fn OH_UdmfGetDataParams_SetFileConflictOptions(
         params: *mut OH_UdmfGetDataParams,
         options: Udmf_FileConflictOptions,
     );
 }
 extern "C" {
-    #[cfg(feature = "api-15")]
     #[doc = " @brief Sets the progress indicator to the {@OH_UdmfGetDataParams}.\n\n @param params Represents a pointer to an instance of {@link OH_UdmfGetDataParams}.\n @param progressIndicator Represents to the progress indicator.\n @see OH_UdmfGetDataParams Udmf_ProgressIndicator\n @since 15"]
+    #[cfg(feature = "api-15")]
     pub fn OH_UdmfGetDataParams_SetProgressIndicator(
         params: *mut OH_UdmfGetDataParams,
         progressIndicator: Udmf_ProgressIndicator,
     );
 }
 extern "C" {
-    #[cfg(feature = "api-15")]
     #[doc = " @brief Sets the progress indicator to the {@OH_UdmfGetDataParams}.\n\n @param params Represents a pointer to an instance of {@link OH_UdmfGetDataParams}.\n @param dataProgressListener Represents to the data progress listener.\n @see OH_UdmfGetDataParams OH_Udmf_DataProgressListener\n @since 15"]
+    #[cfg(feature = "api-15")]
     pub fn OH_UdmfGetDataParams_SetDataProgressListener(
         params: *mut OH_UdmfGetDataParams,
         dataProgressListener: OH_Udmf_DataProgressListener,
     );
 }
 extern "C" {
-    #[cfg(feature = "api-20")]
     #[doc = " @brief Sets the acceptable info to the {@OH_UdmfGetDataParams}.\n\n @param params Represents a pointer to an instance of {@link OH_UdmfGetDataParams}.\n @param acceptableInfo Represents a pointer to an instance of {@link OH_UdmfDataLoadInfo}.\n @see OH_UdmfGetDataParams OH_UdmfDataLoadInfo\n @since 20"]
+    #[cfg(feature = "api-20")]
     pub fn OH_UdmfGetDataParams_SetAcceptableInfo(
         params: *mut OH_UdmfGetDataParams,
         acceptableInfo: *mut OH_UdmfDataLoadInfo,
     );
 }
 extern "C" {
-    #[cfg(feature = "api-20")]
     #[doc = " @brief Creation a pointer to the instance of the {@link OH_UdmfDataLoadParams}.\n\n @return If the operation is successful, a pointer to the instance of the {@link OH_UdmfDataLoadParams}\n structure is returned. If the operation is failed, nullptr is returned.\n @see OH_UdmfDataLoadParams\n @since 20"]
+    #[cfg(feature = "api-20")]
     pub fn OH_UdmfDataLoadParams_Create() -> *mut OH_UdmfDataLoadParams;
 }
 extern "C" {
-    #[cfg(feature = "api-20")]
     #[doc = " @brief Destroy a pointer that points to an instance of {@link OH_UdmfDataLoadParams}.\n\n @param pThis Represents a pointer to an instance of {@link OH_UdmfDataLoadParams}.\n @see OH_UdmfDataLoadParams\n @since 20"]
+    #[cfg(feature = "api-20")]
     pub fn OH_UdmfDataLoadParams_Destroy(pThis: *mut OH_UdmfDataLoadParams);
 }
 extern "C" {
-    #[cfg(feature = "api-20")]
     #[doc = " @brief Sets the data load handler to the {@OH_UdmfDataLoadParams}.\n\n @param params Represents a pointer to an instance of {@link OH_UdmfDataLoadParams}.\n @param dataLoadHandler Represents to the data load handler.\n @see OH_UdmfDataLoadParams OH_Udmf_DataLoadHandler\n @since 20"]
+    #[cfg(feature = "api-20")]
     pub fn OH_UdmfDataLoadParams_SetLoadHandler(
         params: *mut OH_UdmfDataLoadParams,
         dataLoadHandler: OH_Udmf_DataLoadHandler,
     );
 }
 extern "C" {
-    #[cfg(feature = "api-20")]
     #[doc = " @brief Sets the data load info to the {@OH_UdmfDataLoadParams}.\n\n @param params Represents a pointer to an instance of {@link OH_UdmfDataLoadParams}.\n @param dataLoadInfo Represents a pointer to an instance of {@link OH_UdmfDataLoadInfo}.\n @see OH_UdmfDataLoadParams OH_UdmfDataLoadInfo\n @since 20"]
+    #[cfg(feature = "api-20")]
     pub fn OH_UdmfDataLoadParams_SetDataLoadInfo(
         params: *mut OH_UdmfDataLoadParams,
         dataLoadInfo: *mut OH_UdmfDataLoadInfo,
     );
 }
 extern "C" {
-    #[cfg(feature = "api-20")]
     #[doc = " @brief Creation a pointer to the instance of the {@link OH_UdmfDataLoadInfo}.\n\n @return If the operation is successful, a pointer to the instance of the {@link OH_UdmfDataLoadInfo}\n structure is returned. If the operation is failed, nullptr is returned.\n @see OH_UdmfDataLoadInfo\n @since 20"]
+    #[cfg(feature = "api-20")]
     pub fn OH_UdmfDataLoadInfo_Create() -> *mut OH_UdmfDataLoadInfo;
 }
 extern "C" {
-    #[cfg(feature = "api-20")]
     #[doc = " @brief Destroy the heap memory pointed to by the pointer of {@link OH_UdmfDataLoadInfo}.\n Note that this function cannot be called repeatedly for the same pointer.\n\n @param dataLoadInfo Represents a pointer to an instance of {@link OH_UdmfDataLoadInfo}.\n @see OH_UdmfDataLoadInfo\n @since 20"]
+    #[cfg(feature = "api-20")]
     pub fn OH_UdmfDataLoadInfo_Destroy(dataLoadInfo: *mut OH_UdmfDataLoadInfo);
 }
 extern "C" {
-    #[cfg(feature = "api-20")]
     #[doc = " @brief Gets the types from the {@OH_UdmfDataLoadInfo}.\n\n @param dataLoadInfo Represents a pointer to an instance of {@link OH_UdmfDataLoadInfo}.\n @param count the types count of data.\n @return Returns the types of data.\n @see OH_UdmfDataLoadInfo\n @since 20"]
+    #[cfg(feature = "api-20")]
     pub fn OH_UdmfDataLoadInfo_GetTypes(
         dataLoadInfo: *mut OH_UdmfDataLoadInfo,
         count: *mut ::std::os::raw::c_uint,
     ) -> *mut *mut ::std::os::raw::c_char;
 }
 extern "C" {
-    #[cfg(feature = "api-20")]
     #[doc = " @brief Sets the data load info to the {@OH_UdmfDataLoadInfo}.\n\n @param dataLoadInfo Represents a pointer to an instance of {@link OH_UdmfDataLoadInfo}.\n @param type Represents the type of data.\n @see OH_UdmfDataLoadInfo\n @since 20"]
+    #[cfg(feature = "api-20")]
     pub fn OH_UdmfDataLoadInfo_SetType(
         dataLoadInfo: *mut OH_UdmfDataLoadInfo,
         type_: *const ::std::os::raw::c_char,
     );
 }
 extern "C" {
-    #[cfg(feature = "api-20")]
     #[doc = " @brief Gets the record count from the {@OH_UdmfDataLoadInfo}.\n\n @param dataLoadInfo Represents a pointer to an instance of {@link OH_UdmfDataLoadInfo}.\n @return Returns the record count.\n @see OH_UdmfDataLoadInfo\n @since 20"]
+    #[cfg(feature = "api-20")]
     pub fn OH_UdmfDataLoadInfo_GetRecordCount(
         dataLoadInfo: *mut OH_UdmfDataLoadInfo,
     ) -> ::std::os::raw::c_int;
 }
 extern "C" {
-    #[cfg(feature = "api-20")]
     #[doc = " @brief Sets the record count to the {@OH_UdmfDataLoadInfo}.\n\n @param dataLoadInfo Represents a pointer to an instance of {@link OH_UdmfDataLoadInfo}.\n @param recordCount Represents the types of data.\n @see OH_UdmfDataLoadInfo\n @since 20"]
+    #[cfg(feature = "api-20")]
     pub fn OH_UdmfDataLoadInfo_SetRecordCount(
         dataLoadInfo: *mut OH_UdmfDataLoadInfo,
         recordCount: ::std::os::raw::c_uint,
@@ -6940,8 +6940,8 @@ extern "C" {
     pub fn OH_ArkUI_DragEvent_SetData(event: *mut ArkUI_DragEvent, data: *mut OH_UdmfData) -> i32;
 }
 extern "C" {
-    #[cfg(feature = "api-20")]
     #[doc = " @brief Use this method to provide a data loading parameter to the system instead of providing\n a complete data object directly. When the user drags and drops to the target application,\n the system will use this parameter to request data from you. This can greatly improve the efficiency\n of the dragging operation for large amounts of data and the effectiveness of the drop data handling\n in the target application.\n\n This method should be always prioritized over using {@link OH_ArkUI_DragEvent_SetData}.\n See {@link OH_UdmfDataLoadParams_Create} in <b>udmf.h</b> for how to create and prepare the data loading parameter.\n\n [Note]: Please be awared this method is conflict with {@link OH_ArkUI_DragEvent_SetData}, and the system always use\n the last called method as the final result.\n\n @param event Indicates the pointer to an <b>ArkUI_DragEvent</b> object.\n @param dataLoadParams Indicates the data loading parameters which will be used when dropping.\n @return Returns the result code.\n         Returns {@link ARKUI_ERROR_CODE_NO_ERROR} if the operation is successful.\n         Returns {@link ARKUI_ERROR_CODE_PARAM_INVALID} if a parameter error occurs.\n @since 20"]
+    #[cfg(feature = "api-20")]
     pub fn OH_ArkUI_DragEvent_SetDataLoadParams(
         event: *mut ArkUI_DragEvent,
         dataLoadParams: *mut OH_UdmfDataLoadParams,
@@ -7015,13 +7015,13 @@ extern "C" {
     pub fn OH_ArkUI_DragEvent_GetTouchPointYToDisplay(event: *mut ArkUI_DragEvent) -> f32;
 }
 extern "C" {
-    #[cfg(feature = "api-20")]
     #[doc = " @brief Obtains the global display X coordinate of the touch point from an <b>ArkUI_DragEvent</b> object.\n\n @param event Pointer to an <b>ArkUI_DragEvent</b> object.\n @return float Global display X coordinate of the touch point, in px.\n         If the input parameter is invalid, the default value <b>0</b> is returned.\n @since 20"]
+    #[cfg(feature = "api-20")]
     pub fn OH_ArkUI_DragEvent_GetTouchPointXToGlobalDisplay(event: *mut ArkUI_DragEvent) -> f32;
 }
 extern "C" {
-    #[cfg(feature = "api-20")]
     #[doc = " @brief Obtains the global display Y coordinate of the touch point from an <b>ArkUI_DragEvent</b> object.\n\n @param event Pointer to an <b>ArkUI_DragEvent</b> object.\n @return float Global display Y coordinate of the touch point, in px.\n         If the input parameter is invalid, the default value <b>0</b> is returned.\n @since 20"]
+    #[cfg(feature = "api-20")]
     pub fn OH_ArkUI_DragEvent_GetTouchPointYToGlobalDisplay(event: *mut ArkUI_DragEvent) -> f32;
 }
 extern "C" {
@@ -7044,16 +7044,16 @@ extern "C" {
     ) -> i32;
 }
 extern "C" {
-    #[cfg(feature = "api-20")]
     #[doc = " @brief Obtains the display ID of the screen for the specified drag event.\n\n @param event Pointer to an <b>ArkUI_DragEvent</b> object.\n @param displayId Display ID of the event occurs in.\n @return Returns the result code.\n         Returns {@link ARKUI_ERROR_CODE_NO_ERROR} if the operation is successful.\n         Returns {@link ARKUI_ERROR_CODE_PARAM_INVALID} if a parameter error occurs.\n @since 20"]
+    #[cfg(feature = "api-20")]
     pub fn OH_ArkUI_DragEvent_GetDisplayId(
         event: *mut ArkUI_DragEvent,
         displayId: *mut i32,
     ) -> ArkUI_ErrorCode;
 }
 extern "C" {
-    #[cfg(feature = "api-15")]
     #[doc = " @brief Request to start the data sync process with the sync option.\n\n @param event Indicates the pointer to an <b>ArkUI_DragEvent</b> object.\n @param options Indicates the pointer to an <b>OH_UdmfGetDataParams</b> object.\n @param key Represents return value after set data to database successfully, it should be not\n            less than {@link UDMF_KEY_BUFFER_LEN}.\n @param keyLen Represents the length of key string.\n @return Returns the result code.\n         Returns {@link ARKUI_ERROR_CODE_NO_ERROR} if the operation is successful.\n         Returns {@link ARKUI_ERROR_CODE_PARAM_INVALID} if a parameter error occurs.\n @since 15"]
+    #[cfg(feature = "api-15")]
     pub fn OH_ArkUI_DragEvent_StartDataLoading(
         event: *mut ArkUI_DragEvent,
         options: *mut OH_UdmfGetDataParams,
@@ -7062,16 +7062,16 @@ extern "C" {
     ) -> i32;
 }
 extern "C" {
-    #[cfg(feature = "api-15")]
     #[doc = " @brief Cancel the data sync process.\n\n @param uiContext Indicates the pointer to a UI instance.\n @param key Represents the data key returned by {@link OH_ArkUI_DragEvent_StartDataLoading}.\n @return Returns the result code.\n         Returns {@link ARKUI_ERROR_CODE_NO_ERROR} if the operation is successful.\n         Returns {@link ARKUI_ERROR_CODE_PARAM_INVALID} if a parameter error occurs.\n @since 15"]
+    #[cfg(feature = "api-15")]
     pub fn OH_ArkUI_CancelDataLoading(
         uiContext: ArkUI_ContextHandle,
         key: *const ::std::os::raw::c_char,
     ) -> i32;
 }
 extern "C" {
-    #[cfg(feature = "api-15")]
     #[doc = " @brief Sets whether to disable data prefetch process before the onDrop callback executing.\n        The system will retry to getting data until the max time limit (2.4s for now) reaches,\n        this's useful for the cross device draging operation, as the system helps to eliminate\n        the communication instability, but it's redundant for {@link OH_ArkUI_DragEvent_StartDataLoading}\n        method, as it will take care the data fetching with asynchronous mechanism, so must set this\n        field to true if using {@link OH_ArkUI_DragEvent_StartDataLoading} in onDrop to avoid the data is\n        fetched before onDrop executing unexpectedly.\n\n @param node Indicates the pointer to a component node.\n @param disabled Indicates whether to disable the data pre-fetch process, true for disable, false for not.\n @return Returns the result code.\n         Returns {@link ARKUI_ERROR_CODE_NO_ERROR} if the operation is successful.\n         Returns {@link ARKUI_ERROR_CODE_PARAM_INVALID} if a parameter error occurs.\n @since 15"]
+    #[cfg(feature = "api-15")]
     pub fn OH_ArkUI_DisableDropDataPrefetchOnNode(node: ArkUI_NodeHandle, disabled: bool) -> i32;
 }
 extern "C" {
@@ -7212,8 +7212,8 @@ extern "C" {
     ) -> i32;
 }
 extern "C" {
-    #[cfg(feature = "api-20")]
     #[doc = " @brief Use this method to provide a data loading parameter to the system instead of providing\n a complete data object directly. When the user drags and drops to the target application,\n the system will use this parameter to request data from you. This can greatly improve the efficiency\n of the dragging operation for large amounts of data and the effectiveness of the drop data handling\n in the target application.\n\n It's recommanded to use this method instead of using {@link OH_ArkUI_DragAction_SetData}.\n See {@link OH_UdmfDataLoadParams_Create} in <b>udmf.h</b> for how to create and prepare the data loading parameter.\n\n [Note]: Please be awared this method is conflict with {@link OH_ArkUI_DragAction_SetData}, and the system always use\n the last called method as the final result.\n\n @param dragAction Indicates the pointer to the target drag action object.\n @param dataLoadParams Indicates the data loading parameters which will be used when dropping.\n @return Returns the result code.\n         Returns {@link ARKUI_ERROR_CODE_NO_ERROR} if the operation is successful.\n         Returns {@link ARKUI_ERROR_CODE_PARAM_INVALID} if a parameter error occurs.\n @since 20"]
+    #[cfg(feature = "api-20")]
     pub fn OH_ArkUI_DragAction_SetDataLoadParams(
         dragAction: *mut ArkUI_DragAction,
         dataLoadParams: *mut OH_UdmfDataLoadParams,
@@ -7260,26 +7260,26 @@ extern "C" {
     pub fn OH_ArkUI_StartDrag(dragAction: *mut ArkUI_DragAction) -> i32;
 }
 extern "C" {
-    #[cfg(feature = "api-19")]
     #[doc = " @brief Request to delay the drop end handling for a while to wait until the process result\n        is really conformed by application, the result need to be notified back to system through\n        {@link OH_ArkUI_NotifyDragResult} interface. And when all the handling done, the\n        {@link OH_ArkUI_NotifyDragEndPendingDone} should be called.\n        Please be aware, the maximum pending time is 2 seconds;\n\n @param event Indicates the pointer to an <b>ArkUI_DragEvent</b> object.\n @param requestIdentify Indicates the Identify for the request initiated by this method, it's a number generated\nby system automatically, and it's an out parameter too, so one valid address needed.\n @return Returns the result code.\n         Returns {@link ARKUI_ERROR_CODE_NO_ERROR} if the operation is successful.\n         Returns {@link ARKUI_ERROR_CODE_PARAM_INVALID} if a parameter error occurs.\n         Returns {@link ARKUI_ERROR_CODE_DRAG_DROP_OPERATION_NOT_ALLOWED} if current is not during the drop handing.\n @since 19"]
+    #[cfg(feature = "api-19")]
     pub fn OH_ArkUI_DragEvent_RequestDragEndPending(
         event: *mut ArkUI_DragEvent,
         requestIdentify: *mut i32,
     ) -> i32;
 }
 extern "C" {
-    #[cfg(feature = "api-19")]
     #[doc = " @brief Notify the system final drag result, the request identify will be checked, it should be the same\n        as the one returned by {@link OH_ArkUI_DragEvent_RequestDragEndPending} interface, if it's not,\n        the calling will be ignored.\n\n @param requestIdentify The identify returned by {@link OH_ArkUI_DragEvent_RequestDragEndPending} interface.\n @param result Indicates the drag result.\n @return Returns the result code.\n         Returns {@link ARKUI_ERROR_CODE_NO_ERROR} if the operation is successful.\n         Returns {@link ARKUI_ERROR_CODE_PARAM_INVALID} if a parameter error occurs.\n         Returns {@link ARKUI_ERROR_CODE_DRAG_DROP_OPERATION_NOT_ALLOWED} if current is not during the drop handing.\n @since 19"]
+    #[cfg(feature = "api-19")]
     pub fn OH_ArkUI_NotifyDragResult(requestIdentify: i32, result: ArkUI_DragResult) -> i32;
 }
 extern "C" {
-    #[cfg(feature = "api-19")]
     #[doc = " @brief Notify the system all handling done, the drag end pending can be finished.\n\n @param requestIdentify The identify returned by {@link OH_ArkUI_DragEvent_RequestDragEndPending} interface.\n @return Returns the result code.\n         Returns {@link ARKUI_ERROR_CODE_NO_ERROR} if the operation is successful.\n         Returns {@link ARKUI_ERROR_CODE_PARAM_INVALID} if a parameter error occurs.\n         Returns {@link ARKUI_ERROR_CODE_DRAG_DROP_OPERATION_NOT_ALLOWED} if current is not during the drop handing.\n @since 19"]
+    #[cfg(feature = "api-19")]
     pub fn OH_ArkUI_NotifyDragEndPendingDone(requestIdentify: i32) -> i32;
 }
 extern "C" {
-    #[cfg(feature = "api-20")]
     #[doc = " @brief Use this method to obtain the application bundle name of the drag-and-drop initiator, you need\n  to pass a character array for receiving the string and explicitly specify the array length. It is\n  recommended that the array length be no less than 128 characters. If the length cannot accommodate\n  the actual bundle name length, the ERROR result will be returned.\n @param event Indicates the pointer to an <b>ArkUI_DragEvent</b> object.\n @param bundleName A string array used to receive the source application's bundle name.\n @param length Use this to explicitly specify the length of the incoming string array.\n  It is recommended to be bigger than 128.\n @return Returns the result code.\n         Returns {@link ARKUI_ERROR_CODE_NO_ERROR} if the operation is successful.\n         Returns {@link ARKUI_ERROR_CODE_PARAM_INVALID} if a parameter error occurs.\n @since 20"]
+    #[cfg(feature = "api-20")]
     pub fn OH_ArkUI_DragEvent_GetDragSource(
         event: *mut ArkUI_DragEvent,
         bundleName: *mut ::std::os::raw::c_char,
@@ -7287,16 +7287,16 @@ extern "C" {
     ) -> ArkUI_ErrorCode;
 }
 extern "C" {
-    #[cfg(feature = "api-20")]
     #[doc = " @brief Call this method to determine whether the current drag and drop operation is cross-device.\n\n @param event Indicates the pointer to an <b>ArkUI_DragEvent</b> object.\n @param isRemote Boolean pointer to receive the result.\n @return Returns the result code.\n         Returns {@link ARKUI_ERROR_CODE_NO_ERROR} if the operation is successful.\n         Returns {@link ARKUI_ERROR_CODE_PARAM_INVALID} if a parameter error occurs.\n @since 20"]
+    #[cfg(feature = "api-20")]
     pub fn OH_ArkUI_DragEvent_IsRemote(
         event: *mut ArkUI_DragEvent,
         isRemote: *mut bool,
     ) -> ArkUI_ErrorCode;
 }
 extern "C" {
-    #[cfg(feature = "api-20")]
     #[doc = " @brief Sets whether to enable the display of a disallow status icon.\n\n Typically, when a component can receive or process data dragged by the user, or when it declares to the\n system that data should be processed in COPY way by setting ARKUI_DROP_OPERATION_COPY through\n {@link OH_ArkUI_DragEvent_SetSuggestedDropOperation}, the system will display\n a plus sign together with the data number on the upper-left corner of the dragged object; if setting\n ARKUI_DROP_OPERATION_MOVE to the system to declare that data should be processed in CUT way, the system will only\n display the data number on the upper-left corner of the dragged object.\n\n In some cases, when the system determines or the component explicitly declares that it cannot handle the\n data that the user is dragging, the system displays a badge icon in the same way as it does for DragBehavior.MOVE.\n So if you want to show the more clearly status, you can call this method on the UI instance in advance to force\n the system to display a clear prohibition icon on the upper left corner in such cases, and the user can clearly\n know that data cannot be dropped here.\n\n @param uiContext Pointer to a UI instance.\n @param enabled Whether to enable the display of the disallow badge icon.\n @return Returns the result code.\n         Returns {@link ARKUI_ERROR_CODE_NO_ERROR} if the operation is successful.\n         Returns {@link ARKUI_ERROR_CODE_PARAM_INVALID} if a parameter error occurs.\n @since 20"]
+    #[cfg(feature = "api-20")]
     pub fn OH_ArkUI_EnableDropDisallowedBadge(
         uiContext: ArkUI_ContextHandle,
         enabled: bool,
@@ -7523,8 +7523,8 @@ extern "C" {
     ) -> i32;
 }
 extern "C" {
-    #[cfg(feature = "api-19")]
     #[doc = " @brief Sets the expected frame rate range of a keyframe animation.\n\n @param option Indicates the pointer to a keyframe animation configuration.\n @param frameRate Indicates the expected frame rate range.\n @return Returns the error code.\n         Returns {@link ARKUI_ERROR_CODE_NO_ERROR} if the operation is successful.\n         Returns {@link ARKUI_ERROR_CODE_PARAM_INVALID} if a parameter error occurs.\n @since 19"]
+    #[cfg(feature = "api-19")]
     pub fn OH_ArkUI_KeyframeAnimateOption_SetExpectedFrameRate(
         option: *mut ArkUI_KeyframeAnimateOption,
         frameRate: *mut ArkUI_ExpectedFrameRateRange,
@@ -7567,8 +7567,8 @@ extern "C" {
     ) -> i32;
 }
 extern "C" {
-    #[cfg(feature = "api-19")]
     #[doc = " @brief Obtains the expected frame rate range of a keyframe animation configuration.\n\n @param option Indicates the pointer to a keyframe animation configuration.\n @return Returns the expected frame rate range of the keyframe animation.\n @since 19"]
+    #[cfg(feature = "api-19")]
     pub fn OH_ArkUI_KeyframeAnimateOption_GetExpectedFrameRate(
         option: *mut ArkUI_KeyframeAnimateOption,
     ) -> *mut ArkUI_ExpectedFrameRateRange;
@@ -7944,40 +7944,40 @@ pub struct ArkUI_TouchTestInfo {
 pub struct ArkUI_TouchTestInfoItem {
     _unused: [u8; 0],
 }
-#[cfg(feature = "api-22")]
 #[doc = " @brief Defines the touch test info item handle.\n\n @since 22"]
-pub type ArkUI_TouchTestInfoItemHandle = *mut ArkUI_TouchTestInfoItem;
 #[cfg(feature = "api-22")]
+pub type ArkUI_TouchTestInfoItemHandle = *mut ArkUI_TouchTestInfoItem;
 #[doc = " @brief Defines the gesture recognizer handle array.\n\n @since 22"]
+#[cfg(feature = "api-22")]
 pub type ArkUI_TouchTestInfoItemArray = *mut ArkUI_TouchTestInfoItemHandle;
 pub const ArkUI_UIInputEvent_Type_ARKUI_UIINPUTEVENT_TYPE_UNKNOWN: ArkUI_UIInputEvent_Type = 0;
 pub const ArkUI_UIInputEvent_Type_ARKUI_UIINPUTEVENT_TYPE_TOUCH: ArkUI_UIInputEvent_Type = 1;
 pub const ArkUI_UIInputEvent_Type_ARKUI_UIINPUTEVENT_TYPE_AXIS: ArkUI_UIInputEvent_Type = 2;
 #[doc = " Mouse event."]
 pub const ArkUI_UIInputEvent_Type_ARKUI_UIINPUTEVENT_TYPE_MOUSE: ArkUI_UIInputEvent_Type = 3;
-#[cfg(feature = "api-20")]
 #[doc = " @brief key event.\n\n @since 20"]
+#[cfg(feature = "api-20")]
 pub const ArkUI_UIInputEvent_Type_ARKUI_UIINPUTEVENT_TYPE_KEY: ArkUI_UIInputEvent_Type = 4;
 #[doc = " @brief Enumerates the UI input event types.\n\n @since 12"]
 pub type ArkUI_UIInputEvent_Type = u32;
-#[cfg(feature = "api-22")]
 #[doc = " Idle phase, indicating no-coasting phase."]
+#[cfg(feature = "api-22")]
 pub const ArkUI_CoastingAxisEventPhase_ARKUI_COASTING_AXIS_EVENT_PHASE_NONE:
     ArkUI_CoastingAxisEventPhase = 0;
-#[cfg(feature = "api-22")]
 #[doc = " Coasting begin, this is the first coasting event."]
+#[cfg(feature = "api-22")]
 pub const ArkUI_CoastingAxisEventPhase_ARKUI_COASTING_AXIS_EVENT_PHASE_BEGIN:
     ArkUI_CoastingAxisEventPhase = 1;
-#[cfg(feature = "api-22")]
 #[doc = " Coasting ongoing."]
+#[cfg(feature = "api-22")]
 pub const ArkUI_CoastingAxisEventPhase_ARKUI_COASTING_AXIS_EVENT_PHASE_UPDATE:
     ArkUI_CoastingAxisEventPhase = 2;
-#[cfg(feature = "api-22")]
 #[doc = " Coasting end, this is the last coasting event."]
+#[cfg(feature = "api-22")]
 pub const ArkUI_CoastingAxisEventPhase_ARKUI_COASTING_AXIS_EVENT_PHASE_END:
     ArkUI_CoastingAxisEventPhase = 3;
-#[cfg(feature = "api-22")]
 #[doc = " @brief Enumerates the coasting axis event phases.\n\n @since 22"]
+#[cfg(feature = "api-22")]
 pub type ArkUI_CoastingAxisEventPhase = u32;
 #[doc = " Both the node and its child node respond to the hit test of a touch event, but its sibling node is blocked from\n  the hit test."]
 pub const HitTestMode_HTM_DEFAULT: HitTestMode = 0;
@@ -7987,11 +7987,11 @@ pub const HitTestMode_HTM_BLOCK: HitTestMode = 1;
 pub const HitTestMode_HTM_TRANSPARENT: HitTestMode = 2;
 #[doc = " The node does not respond to the hit test of a touch event, but its child node and sibling node are considered\n  during the hit test."]
 pub const HitTestMode_HTM_NONE: HitTestMode = 3;
-#[cfg(feature = "api-20")]
 #[doc = " The node and its child nodes participate in hit tests, while blocking hit tests for all sibling nodes and parent\n nodes with lower priority.\n\n @since 20"]
-pub const HitTestMode_HTM_BLOCK_HIERARCHY: HitTestMode = 4;
 #[cfg(feature = "api-20")]
+pub const HitTestMode_HTM_BLOCK_HIERARCHY: HitTestMode = 4;
 #[doc = " The node does not respond to hit tests, and none of its descendants (including children and grandchildren)\n participate in hit tests either.\n\n @since 20"]
+#[cfg(feature = "api-20")]
 pub const HitTestMode_HTM_BLOCK_DESCENDANTS: HitTestMode = 5;
 #[doc = " @brief Enumerates the hit test modes.\n\n @since 12"]
 pub type HitTestMode = u32;
@@ -8005,30 +8005,30 @@ pub const ArkUI_ModifierKeyName_ARKUI_MODIFIER_KEY_ALT: ArkUI_ModifierKeyName = 
 pub const ArkUI_ModifierKeyName_ARKUI_MODIFIER_KEY_FN: ArkUI_ModifierKeyName = 8;
 #[doc = " @brief Defines an enum for modifier keys.\n\n @since 12"]
 pub type ArkUI_ModifierKeyName = u32;
-#[cfg(feature = "api-15")]
 #[doc = " Unknown."]
+#[cfg(feature = "api-15")]
 pub const ArkUI_InteractionHand_ARKUI_EVENT_HAND_NONE: ArkUI_InteractionHand = 0;
-#[cfg(feature = "api-15")]
 #[doc = " Left hand."]
+#[cfg(feature = "api-15")]
 pub const ArkUI_InteractionHand_ARKUI_EVENT_HAND_LEFT: ArkUI_InteractionHand = 1;
-#[cfg(feature = "api-15")]
 #[doc = " Right hand."]
-pub const ArkUI_InteractionHand_ARKUI_EVENT_HAND_RIGHT: ArkUI_InteractionHand = 2;
 #[cfg(feature = "api-15")]
+pub const ArkUI_InteractionHand_ARKUI_EVENT_HAND_RIGHT: ArkUI_InteractionHand = 2;
 #[doc = " @brief Defines whether the touch event is from the left or right hand.\n\n @since 15"]
+#[cfg(feature = "api-15")]
 pub type ArkUI_InteractionHand = u32;
-#[cfg(feature = "api-22")]
 #[doc = " Custom dispatch has no effect; the system distributes events based on the hit status of the current node."]
-pub const ArkUI_TouchTestStrategy_ARKUI_TOUCH_TEST_STRATEGY_DEFAULT: ArkUI_TouchTestStrategy = 0;
 #[cfg(feature = "api-22")]
+pub const ArkUI_TouchTestStrategy_ARKUI_TOUCH_TEST_STRATEGY_DEFAULT: ArkUI_TouchTestStrategy = 0;
 #[doc = " The specified event is forwarded to a particular child node, and the system determines whether to\n  distribute the event to other sibling nodes."]
+#[cfg(feature = "api-22")]
 pub const ArkUI_TouchTestStrategy_ARKUI_TOUCH_TEST_STRATEGY_FORWARD_COMPETITION:
     ArkUI_TouchTestStrategy = 1;
-#[cfg(feature = "api-22")]
 #[doc = " The specified event is forwarded to a particular child node, and the system no longer distributes\n  the event to other sibling nodes."]
-pub const ArkUI_TouchTestStrategy_ARKUI_TOUCH_TEST_STRATEGY_FORWARD: ArkUI_TouchTestStrategy = 2;
 #[cfg(feature = "api-22")]
+pub const ArkUI_TouchTestStrategy_ARKUI_TOUCH_TEST_STRATEGY_FORWARD: ArkUI_TouchTestStrategy = 2;
 #[doc = " @brief Define the touch test strategy.\n\n @since 22"]
+#[cfg(feature = "api-22")]
 pub type ArkUI_TouchTestStrategy = u32;
 extern "C" {
     #[doc = " @brief Obtains the type of a UI input event.\n\n Before accessing an <b>ArkUI_UIInputEvent</b> pointer, use this API to determine the type of the input event.\n This API returns a value from the {@link ArkUI_UIInputEvent_Type} enum. It helps ensure compatibility with subsequent\n accessors. For example, if the event is a touch event,\n which is directional, you can use OH_ArkUI_UIInputEvent_GetXXX or OH_ArkUI_PointerEvent_GetXXX for access.\n Using OH_ArkUI_KeyEvent_GetXXX to access the event may produce undefined behavior.\n\n For unsupported event types, this API returns the default value <b>0</b>.\n\n @param event Pointer to the current UI input event.\n @return Returns the type of the current UI input event; returns <b>0</b> if any parameter error occurs.\n @since 12"]
@@ -8062,8 +8062,8 @@ extern "C" {
     ) -> i32;
 }
 extern "C" {
-    #[cfg(feature = "api-15")]
     #[doc = " @brief Obtains the ID of the touch pointer that triggers the current touch event.\n\n @param event Indicates the pointer to the current UI input event.\n @param pointerIndex Indicates the index of the target touch point in the multi-touch data list.\n @return Returns the result code.\n         Returns {@link ARKUI_ERROR_CODE_NO_ERROR} if the operation is successful.\n         Returns {@link ARKUI_ERROR_CODE_PARAM_INVALID} if a parameter error occurs.\n @since 15"]
+    #[cfg(feature = "api-15")]
     pub fn OH_ArkUI_PointerEvent_GetChangedPointerId(
         event: *const ArkUI_UIInputEvent,
         pointerIndex: *mut u32,
@@ -8136,26 +8136,26 @@ extern "C" {
     ) -> f32;
 }
 extern "C" {
-    #[cfg(feature = "api-20")]
     #[doc = " @brief Obtains the X coordinate relative to global display from a pointer event (such as a touch, mouse,\n or axis event).\n Position information can only be obtained from UI input events.\n\n @param event Pointer to the current UI input event.\n @return float X coordinate relative to the global display. <b>0</b> is returned if any parameter error occurs\n (for example, if the event does not contain position information).\n @since 20"]
+    #[cfg(feature = "api-20")]
     pub fn OH_ArkUI_PointerEvent_GetGlobalDisplayX(event: *const ArkUI_UIInputEvent) -> f32;
 }
 extern "C" {
-    #[cfg(feature = "api-20")]
     #[doc = " @brief Obtains the X coordinate of a specific contact point relative to global display from a pointer event\n (such as a touch, mouse, or axis event).\n Position information can only be obtained from UI input events. For mouse and axis events, if the provided\n <b>pointerIndex</b> is greater than 0, this API always returns the default value <b>0.0f</b>.\n\n @param event Pointer to the current UI input event.\n @param pointerIndex Index of the target touch point in the multi-touch data list.\nValue range: [0, @link OH_ArkUI_PointerEvent_GetPointerCount() - 1]\n @return float X coordinate relative to the global display; <b>0.0f</b> if any parameter error occurs.\n @since 20"]
+    #[cfg(feature = "api-20")]
     pub fn OH_ArkUI_PointerEvent_GetGlobalDisplayXByIndex(
         event: *const ArkUI_UIInputEvent,
         pointerIndex: u32,
     ) -> f32;
 }
 extern "C" {
-    #[cfg(feature = "api-20")]
     #[doc = " @brief Obtains the Y coordinate relative to global display from a pointer event (such as a touch, mouse,\n or axis event).\n Position information can only be obtained from pointer-like events.\n\n @param event Pointer to the current UI input event.\n @return float Y coordinate relative to the global display; <b>0</b> if any parameter error occurs\n (for example, if the event does not contain position information).\n @since 20"]
+    #[cfg(feature = "api-20")]
     pub fn OH_ArkUI_PointerEvent_GetGlobalDisplayY(event: *const ArkUI_UIInputEvent) -> f32;
 }
 extern "C" {
-    #[cfg(feature = "api-20")]
     #[doc = " @brief Obtains the Y coordinate of a specific contact point relative to global display from a pointer event\n (such as a touch, mouse, or axis event).\n Position information can only be obtained from UI input events. For mouse and axis events, if the provided\n <b>pointerIndex</b> is greater than 0, this API always returns the default value <b>0.0f</b>.\n\n @param event Pointer to the current UI input event.\n @param pointerIndex Index of the target touch point in the multi-touch data list.\nValue range: [0, @link OH_ArkUI_PointerEvent_GetPointerCount() - 1]\n @return float Y coordinate relative to the global display; <b>0.0f</b> if any parameter error occurs.\n @since 20"]
+    #[cfg(feature = "api-20")]
     pub fn OH_ArkUI_PointerEvent_GetGlobalDisplayYByIndex(
         event: *const ArkUI_UIInputEvent,
         pointerIndex: u32,
@@ -8183,8 +8183,8 @@ extern "C" {
     ) -> f32;
 }
 extern "C" {
-    #[cfg(feature = "api-17")]
     #[doc = " @brief Obtains the rotation angle of the stylus around the z-axis from a UI input event.\n\n @param event Pointer to the UI input event.\n @param rollAngle Rotation angle of the stylus around the z-axis.\n @return Returns the result code.\n         Returns {@link ARKUI_ERROR_CODE_NO_ERROR} if the operation is successful.\n         Returns {@link ARKUI_ERROR_CODE_PARAM_INVALID} if a parameter error occurs.\n @since 17"]
+    #[cfg(feature = "api-17")]
     pub fn OH_ArkUI_PointerEvent_GetRollAngle(
         event: *const ArkUI_UIInputEvent,
         rollAngle: *mut f64,
@@ -8205,16 +8205,16 @@ extern "C" {
     ) -> f32;
 }
 extern "C" {
-    #[cfg(feature = "api-15")]
     #[doc = " @brief Checks whether an event is triggered by the user's left or right hand.\n This API is only effective on some touch devices.\n\n @note This value cannot be obtained in real time when pressed. Before the\n system completes result inference, it will return <b>NONE</b> by default. Therefore,\n please do not over-rely on the results returned by this interface.\n\n @param event Pointer to the current UI input event.\n @param hand Whether the touch point is from the left or right hand.\n @return Result code.\n         {@link ARKUI_ERROR_CODE_NO_ERROR} if the operation is successful.\n         {@link ARKUI_ERROR_CODE_PARAM_INVALID} if a parameter error occurs.\n @since 15"]
+    #[cfg(feature = "api-15")]
     pub fn OH_ArkUI_PointerEvent_GetInteractionHand(
         event: *const ArkUI_UIInputEvent,
         hand: *mut ArkUI_InteractionHand,
     ) -> i32;
 }
 extern "C" {
-    #[cfg(feature = "api-15")]
     #[doc = " @brief Checks whether an event is triggered by the user's left or right hand.\n This API is only effective on some touch devices.\n\n @note This value cannot be obtained in real time when pressed. Before the\n system completes result inference, it will return <b>NONE</b> by default. Therefore,\n please do not over-rely on the results returned by this interface.\n\n @param event Pointer to the current UI input event.\n @param pointerIndex Index of the target touch point in the multi-touch data list.\n @param hand Whether the touch point is from the left or right hand.\n @return Result code.\n         {@link ARKUI_ERROR_CODE_NO_ERROR} if the operation is successful.\n         {@link ARKUI_ERROR_CODE_PARAM_INVALID} if a parameter error occurs.\n @since 15"]
+    #[cfg(feature = "api-15")]
     pub fn OH_ArkUI_PointerEvent_GetInteractionHandByIndex(
         event: *const ArkUI_UIInputEvent,
         pointerIndex: i32,
@@ -8296,8 +8296,8 @@ extern "C" {
     ) -> f32;
 }
 extern "C" {
-    #[cfg(feature = "api-20")]
     #[doc = " @brief Obtains the X coordinate relative to the global display for a specific touch point from historical events,\n based on the given pointer index and history index of an input event (such as a touch, mouse, or axis event).\n Position information can only be obtained from UI input events. For mouse and axis events, if the provided\n <b>pointerIndex</b> is greater than 0, this API always returns the default value <b>0.0f</b>.\n\n @param event Pointer to the current UI input event.\n @param pointerIndex Index of the target touch point in the multi-touch data list.\nValue range: [0, @link OH_ArkUI_PointerEvent_GetPointerCount() - 1]\n @param historyIndex Index of the historical value to return. It must be less than\n {@link #OH_ArkUI_PointerEvent_GetHistorySize}.\n @return float X coordinate relative to the global display; <b>0.0f</b> if any parameter error occurs.\n @since 20"]
+    #[cfg(feature = "api-20")]
     pub fn OH_ArkUI_PointerEvent_GetHistoryGlobalDisplayX(
         event: *const ArkUI_UIInputEvent,
         pointerIndex: u32,
@@ -8305,8 +8305,8 @@ extern "C" {
     ) -> f32;
 }
 extern "C" {
-    #[cfg(feature = "api-20")]
     #[doc = " @brief Obtains the Y coordinate relative to the global display for a specific touch point from historical events,\n based on the given pointer index and history index of an input event (such as a touch, mouse, or axis event).\n Position information can only be obtained from UI input events. For mouse and axis events, if the provided\n <b>pointerIndex</b> is greater than 0, this API always returns the default value <b>0.0f</b>.\n\n @param event Pointer to the current UI input event.\n @param pointerIndex Index of the target touch point in the multi-touch data list.\nValue range: [0, @link OH_ArkUI_PointerEvent_GetPointerCount() - 1]\n @param historyIndex Index of the historical value to return. It must be less than\n {@link #OH_ArkUI_PointerEvent_GetHistorySize}.\n @return float Y coordinate relative to the global display; <b>0.0f</b> if any parameter error occurs.\n @since 20"]
+    #[cfg(feature = "api-20")]
     pub fn OH_ArkUI_PointerEvent_GetHistoryGlobalDisplayY(
         event: *const ArkUI_UIInputEvent,
         pointerIndex: u32,
@@ -8366,13 +8366,13 @@ extern "C" {
     pub fn OH_ArkUI_AxisEvent_GetPinchAxisScaleValue(event: *const ArkUI_UIInputEvent) -> f64;
 }
 extern "C" {
-    #[cfg(feature = "api-15")]
     #[doc = " @brief Obtains the action type of the current axis event.\n\n @param event Indicates the pointer to the current UI input event.\n @return Returns the action type of the current axis event.\n @since 15"]
+    #[cfg(feature = "api-15")]
     pub fn OH_ArkUI_AxisEvent_GetAxisAction(event: *const ArkUI_UIInputEvent) -> i32;
 }
 extern "C" {
-    #[cfg(feature = "api-22")]
     #[doc = " @brief Checks whether this axis event contains the specified axis type.\n\n @param event Indicates the pointer to the current UI input event.\n @param axis Axis type of the axis event.\n @return Whether the current axis event contains the specified axis type.\n Returns <b>true</b> if the axis event contains the specified axis type, and <b>false</b> otherwise.\n @since 22"]
+    #[cfg(feature = "api-22")]
     pub fn OH_ArkUI_AxisEvent_HasAxis(event: *const ArkUI_UIInputEvent, axis: i32) -> i32;
 }
 extern "C" {
@@ -8398,13 +8398,13 @@ extern "C" {
     ) -> i32;
 }
 extern "C" {
-    #[cfg(feature = "api-14")]
     #[doc = " @brief Obtains the ID of device that triggers UI input event.\n\n @param event Pointer to an <b>ArkUI_UIInputEvent</b> object.\n @return Returns the device ID.\n @since 14"]
+    #[cfg(feature = "api-14")]
     pub fn OH_ArkUI_UIInputEvent_GetDeviceId(event: *const ArkUI_UIInputEvent) -> i32;
 }
 extern "C" {
-    #[cfg(feature = "api-14")]
     #[doc = " @brief Obtains all keys that are pressed from UI input event. Only supports key events currently.\n\n @param event Pointer to an <b>ArkUI_UIInputEvent</b> object.\n @param pressedKeyCodes Array of all keys that are pressed. You need to allocate the memory space.\n @param length Length of the passed pressedKeyCodes array (when used as an input parameter);\n               number of the keys pressed (when used as an output parameter).\n @return Returns the result code.\n         Returns {@link ARKUI_ERROR_CODE_NO_ERROR} if the operation is successful.\n         Returns {@link ARKUI_ERROR_CODE_BUFFER_SIZE_NOT_ENOUGH} if the giving buffer is not enough.\n         Returns {@link ARKUI_ERROR_CODE_PARAM_INVALID} if a parameter error occurs.\n @since 14"]
+    #[cfg(feature = "api-14")]
     pub fn OH_ArkUI_UIInputEvent_GetPressedKeys(
         event: *const ArkUI_UIInputEvent,
         pressedKeyCodes: *mut i32,
@@ -8412,87 +8412,87 @@ extern "C" {
     ) -> i32;
 }
 extern "C" {
-    #[cfg(feature = "api-15")]
     #[doc = " @brief Obtains the axis value of a focus axis event.\n\n @param event Pointer to an <b>ArkUI_UIInputEvent</b> object.\n @param axis Axis type of the focus axis event.\n @return Returns the axis value of the focus axis event; returns <b>0.0</b> if any parameter error occurs.\n @since 15"]
+    #[cfg(feature = "api-15")]
     pub fn OH_ArkUI_FocusAxisEvent_GetAxisValue(event: *const ArkUI_UIInputEvent, axis: i32)
         -> f64;
 }
 extern "C" {
-    #[cfg(feature = "api-15")]
     #[doc = " @brief Sets whether to prevent a focus axis event from bubbling up.\n\n @param event Indicates the pointer to the current UI input event.\n @param stopPropagation Indicates whether to stop event propagation.\n @return Returns the result code.\n         Returns {@link ARKUI_ERROR_CODE_NO_ERROR} if the operation is successful.\n         Returns {@link ARKUI_ERROR_CODE_PARAM_INVALID} if a parameter error occurs.\n @since 15"]
+    #[cfg(feature = "api-15")]
     pub fn OH_ArkUI_FocusAxisEvent_SetStopPropagation(
         event: *const ArkUI_UIInputEvent,
         stopPropagation: bool,
     ) -> i32;
 }
 extern "C" {
-    #[cfg(feature = "api-17")]
     #[doc = " @brief Obtains the width of the component hit by an event.\n\n @param event Pointer to an <b>ArkUI_UIInputEvent</b> object.\n @return Returns the width of the component hit by the event; returns <b>0.0f</b> if any parameter error occurs.\n @since 17"]
+    #[cfg(feature = "api-17")]
     pub fn OH_ArkUI_UIInputEvent_GetEventTargetWidth(event: *const ArkUI_UIInputEvent) -> f32;
 }
 extern "C" {
-    #[cfg(feature = "api-17")]
     #[doc = " @brief Obtains the height of the component hit by an event.\n\n @param event Pointer to an <b>ArkUI_UIInputEvent</b> object.\n @return Returns the height of the component hit by the event; returns <b>0.0f</b> if any parameter error occurs.\n @since 17"]
+    #[cfg(feature = "api-17")]
     pub fn OH_ArkUI_UIInputEvent_GetEventTargetHeight(event: *const ArkUI_UIInputEvent) -> f32;
 }
 extern "C" {
-    #[cfg(feature = "api-17")]
     #[doc = " @brief Obtains the X coordinate of the component hit by an event.\n\n @param event Pointer to an <b>ArkUI_UIInputEvent</b> object.\n @return Returns the X coordinate of the component hit by the event; returns <b>0.0f</b> if any parameter error occurs.\n @since 17"]
+    #[cfg(feature = "api-17")]
     pub fn OH_ArkUI_UIInputEvent_GetEventTargetPositionX(event: *const ArkUI_UIInputEvent) -> f32;
 }
 extern "C" {
-    #[cfg(feature = "api-17")]
     #[doc = " @brief Obtains the Y coordinate of the component hit by an event.\n\n @param event Pointer to an <b>ArkUI_UIInputEvent</b> object.\n @return Returns the Y coordinate of the component hit by the event;\n         returns <b>0.0f</b> if any parameter error occurs.\n @since 17"]
+    #[cfg(feature = "api-17")]
     pub fn OH_ArkUI_UIInputEvent_GetEventTargetPositionY(event: *const ArkUI_UIInputEvent) -> f32;
 }
 extern "C" {
-    #[cfg(feature = "api-17")]
     #[doc = " @brief Obtains the global X coordinate of the component hit by an event.\n\n @param event Pointer to an <b>ArkUI_UIInputEvent</b> object.\n @return Returns the global X coordinate of the component hit by the event;\n         returns <b>0.0f</b> if any parameter error occurs.\n @since 17"]
+    #[cfg(feature = "api-17")]
     pub fn OH_ArkUI_UIInputEvent_GetEventTargetGlobalPositionX(
         event: *const ArkUI_UIInputEvent,
     ) -> f32;
 }
 extern "C" {
-    #[cfg(feature = "api-17")]
     #[doc = " @brief Obtains the global Y coordinate of the component hit by an event.\n\n @param event Pointer to an <b>ArkUI_UIInputEvent</b> object.\n @return Returns the global Y coordinate of the component hit by the event;\n         returns <b>0.0f</b> if any parameter error occurs.\n @since 17"]
+    #[cfg(feature = "api-17")]
     pub fn OH_ArkUI_UIInputEvent_GetEventTargetGlobalPositionY(
         event: *const ArkUI_UIInputEvent,
     ) -> f32;
 }
 extern "C" {
-    #[cfg(feature = "api-17")]
     #[doc = " @brief Checks whether the cursor is hovering over this component.\n\n @param event Pointer to an <b>ArkUI_UIInputEvent</b> object.\n @return Returns <b>true</b> if the cursor is hovering over the current component.\n         Returns <b>false</b> if the cursor is not hovering over the current component.\n @since 17"]
+    #[cfg(feature = "api-17")]
     pub fn OH_ArkUI_HoverEvent_IsHovered(event: *const ArkUI_UIInputEvent) -> bool;
 }
 extern "C" {
-    #[cfg(feature = "api-17")]
     #[doc = " @brief Obtains the modifier key states for a UI input event.\n This API outputs the state of all modifier keys at the time of the event through the <b>keys</b> parameter.\n You can determine which keys are pressed by performing bitwise operations with the modifier key types defined\n in {@link ArkUI_ModifierKeyName}.\n\n @param event Pointer to an <b>ArkUI_UIInputEvent</b> object.\n @param keys Pointer to a variable where the current combination of pressed modifier keys will be returned.\n        The application can use bitwise operations to determine the state of each modifier key.\n @return Result code.\n         {@link ARKUI_ERROR_CODE_NO_ERROR} if the operation is successful.\n         {@link ARKUI_ERROR_CODE_PARAM_INVALID} if a parameter error occurs.\n @since 17"]
+    #[cfg(feature = "api-17")]
     pub fn OH_ArkUI_UIInputEvent_GetModifierKeyStates(
         event: *const ArkUI_UIInputEvent,
         keys: *mut u64,
     ) -> i32;
 }
 extern "C" {
-    #[cfg(feature = "api-15")]
     #[doc = " @brief Obtains the press time of a specified touch point. This API is effective only for touch events.\n\n @param event Pointer to an <b>ArkUI_UIInputEvent</b> object.\n @param pointerIndex Index of the target touch point in the multi-touch data list.\n @return Returns the press time of the specific touch point; returns <b>0</b> if any parameter error occurs.\n @since 15"]
+    #[cfg(feature = "api-15")]
     pub fn OH_ArkUI_PointerEvent_GetPressedTimeByIndex(
         event: *const ArkUI_UIInputEvent,
         pointerIndex: u32,
     ) -> i64;
 }
 extern "C" {
-    #[cfg(feature = "api-15")]
     #[doc = " @brief Obtains the movement increment of the mouse device along the X-axis in a two-dimensional plane.\n Its value represents the raw movement data from the mouse device, expressed in units of physical\n distance in the real world. The reported value is determined by the hardware itself and does not\n correspond to the physical or logical pixels on the screen.\n\n @param event Pointer to an <b>ArkUI_UIInputEvent</b> object.\n @return Returns the x-axis offset of the mouse position relative to the position in the previously reported\n mouse event; returns <b>0.0f</b> if any parameter error occurs.\n @since 15"]
+    #[cfg(feature = "api-15")]
     pub fn OH_ArkUI_MouseEvent_GetRawDeltaX(event: *const ArkUI_UIInputEvent) -> f32;
 }
 extern "C" {
-    #[cfg(feature = "api-15")]
     #[doc = " @brief Obtains the movement increment of the mouse device along the Y-axis in a two-dimensional plane.\n Its value represents the raw movement data from the mouse device, expressed in units of physical\n distance in the real world. The reported value is determined by the hardware itself and does not\n correspond to the physical or logical pixels on the screen.\n\n @param event Pointer to an <b>ArkUI_UIInputEvent</b> object.\n @return Returns the y-axis offset of the mouse position relative to the position in the previously reported\n mouse event; returns <b>0.0f</b> if any parameter error occurs.\n @since 15"]
+    #[cfg(feature = "api-15")]
     pub fn OH_ArkUI_MouseEvent_GetRawDeltaY(event: *const ArkUI_UIInputEvent) -> f32;
 }
 extern "C" {
-    #[cfg(feature = "api-15")]
     #[doc = " @brief Obtains the pressed buttons from a mouse event.\n\n @param event Pointer to an <b>ArkUI_UIInputEvent</b> object.\n @param pressedButtons Array of the pressed buttons. An int array must be created beforehand to store the pressed\n                       buttons.\n @param length Length of the passed pressedButtons array (when used as an input parameter);\n               number of the buttons pressed (when used as an output parameter).\n @return Returns the result code.\n          Returns {@link ARKUI_ERROR_CODE_NO_ERROR} if the operation is successful.\n          Returns {@link ARKUI_ERROR_CODE_BUFFER_SIZE_ERROR} if the given buffer size is insufficient.\n @since 15"]
+    #[cfg(feature = "api-15")]
     pub fn OH_ArkUI_MouseEvent_GetPressedButtons(
         event: *const ArkUI_UIInputEvent,
         pressedButtons: *mut i32,
@@ -8500,39 +8500,39 @@ extern "C" {
     ) -> i32;
 }
 extern "C" {
-    #[cfg(feature = "api-15")]
     #[doc = " @brief Obtains the ID of the screen where the UI input event occurs.\n\n @param event Pointer to an <b>ArkUI_UIInputEvent</b> object.\n @return Returns the screen ID; returns <b>0</b> if any parameter error occurs.\n @since 15"]
+    #[cfg(feature = "api-15")]
     pub fn OH_ArkUI_UIInputEvent_GetTargetDisplayId(event: *const ArkUI_UIInputEvent) -> i32;
 }
 extern "C" {
-    #[cfg(feature = "api-17")]
     #[doc = " @brief Sets whether to enable axis event propagation (bubbling). By default, axis events do not bubble and are\n only sent to the first component that can respond to axis events. You can enable axis event bubbling\n to allow the current event to be passed to the next ancestor component in the response chain\n that can handle axis events.\n This API cannot be used on axis events obtained from gesture events.\n\n @param event Pointer to the UI input event.\n @param propagation Whether to enable event propagation.\n @return Result code.\n         {@link ARKUI_ERROR_CODE_NO_ERROR} if the operation is successful.\n         {@link ARKUI_ERROR_CODE_PARAM_INVALID} if a parameter error occurs.\n @since 17"]
+    #[cfg(feature = "api-17")]
     pub fn OH_ArkUI_AxisEvent_SetPropagation(
         event: *const ArkUI_UIInputEvent,
         propagation: bool,
     ) -> i32;
 }
 extern "C" {
-    #[cfg(feature = "api-17")]
     #[doc = " @brief Obtains the scroll step coefficient for a wheel-based axis event.\n This API returns the user-configured scroll scale factor factor.\n\n @param event Pointer to the UI input event.\n @return Scroll step configuration of the mouse wheel axis event.\n @since 17"]
+    #[cfg(feature = "api-17")]
     pub fn OH_ArkUI_AxisEvent_GetScrollStep(event: *const ArkUI_UIInputEvent) -> i32;
 }
 extern "C" {
-    #[cfg(feature = "api-15")]
     #[doc = " @brief Creates a cloned event pointer based on an event pointer. This API is effective only for touch events.\n\n @param event Pointer to an <b>ArkUI_UIInputEvent</b> object.\n @param clonedEvent Pointer to the cloned <b>ArkUI_UIInputEvent</b> object.\n @return Result code.\n          {@link ARKUI_ERROR_CODE_NO_ERROR} if the operation is successful.\n          {@link ARKUI_ERROR_CODE_PARAM_INVALID} if a parameter error occurs.\n @since 15"]
+    #[cfg(feature = "api-15")]
     pub fn OH_ArkUI_PointerEvent_CreateClonedEvent(
         event: *const ArkUI_UIInputEvent,
         clonedEvent: *mut *mut ArkUI_UIInputEvent,
     ) -> i32;
 }
 extern "C" {
-    #[cfg(feature = "api-15")]
     #[doc = " @brief Destroys a cloned event pointer.\n\n @param event Pointer to an <b>ArkUI_UIInputEvent</b> object.\n @return Returns the result code.\n          Returns {@link ARKUI_ERROR_CODE_NO_ERROR} if the operation is successful.\n          Returns {@link ARKUI_ERROR_CODE_PARAM_INVALID} if a parameter error occurs.\n          Returns {@link ARKUI_ERROR_CODE_NOT_CLONED_POINTER_EVENT} if the input event pointer is not a\n          cloned event pointer.\n @since 15"]
+    #[cfg(feature = "api-15")]
     pub fn OH_ArkUI_PointerEvent_DestroyClonedEvent(event: *const ArkUI_UIInputEvent) -> i32;
 }
 extern "C" {
-    #[cfg(feature = "api-15")]
     #[doc = " @brief Sets the X and Y coordinates of a cloned event relative to the upper left corner of the current component.\n\n @param event Pointer to an <b>ArkUI_UIInputEvent</b> object.\n @param x X coordinate of the event relative to the upper left corner of the current component.\n @param y Y coordinate of the event relative to the upper left corner of the current component.\n @return Returns the result code.\n          Returns {@link ARKUI_ERROR_CODE_NO_ERROR} if the operation is successful.\n          Returns {@link ARKUI_ERROR_CODE_PARAM_INVALID} if a parameter error occurs.\n          Returns {@link ARKUI_ERROR_CODE_NOT_CLONED_POINTER_EVENT} if the input event pointer is not a\n          cloned event pointer.\n @since 15"]
+    #[cfg(feature = "api-15")]
     pub fn OH_ArkUI_PointerEvent_SetClonedEventLocalPosition(
         event: *const ArkUI_UIInputEvent,
         x: f32,
@@ -8540,8 +8540,8 @@ extern "C" {
     ) -> i32;
 }
 extern "C" {
-    #[cfg(feature = "api-15")]
     #[doc = " @brief Sets the X and Y coordinates of a specific contact point of a cloned event relative to the upper left corner\n of the current component.\n\n @param event Pointer to an <b>ArkUI_UIInputEvent</b> object.\n @param x X coordinate of the event relative to the upper left corner of the current component.\n @param y Y coordinate of the event relative to the upper left corner of the current component.\n @param pointerIndex Index of the target touch point in the multi-touch data list.\n @return Returns the result code.\n          Returns {@link ARKUI_ERROR_CODE_NO_ERROR} if the operation is successful.\n          Returns {@link ARKUI_ERROR_CODE_PARAM_INVALID} if a parameter error occurs.\n          Returns {@link ARKUI_ERROR_CODE_NOT_CLONED_POINTER_EVENT} if the input event pointer is not a\n          cloned event pointer.\n @since 15"]
+    #[cfg(feature = "api-15")]
     pub fn OH_ArkUI_PointerEvent_SetClonedEventLocalPositionByIndex(
         event: *const ArkUI_UIInputEvent,
         x: f32,
@@ -8550,24 +8550,24 @@ extern "C" {
     ) -> i32;
 }
 extern "C" {
-    #[cfg(feature = "api-15")]
     #[doc = " @brief Sets the action type of a cloned event.\n\n @param event Pointer to an <b>ArkUI_UIInputEvent</b> object.\n @param actionType Action type of the cloned event.\n @return Returns the result code.\n          Returns {@link ARKUI_ERROR_CODE_NO_ERROR} if the operation is successful.\n          Returns {@link ARKUI_ERROR_CODE_PARAM_INVALID} if a parameter error occurs.\n          Returns {@link ARKUI_ERROR_CODE_NOT_CLONED_POINTER_EVENT} if the input event pointer is not a\n          cloned event pointer.\n @since 15"]
+    #[cfg(feature = "api-15")]
     pub fn OH_ArkUI_PointerEvent_SetClonedEventActionType(
         event: *const ArkUI_UIInputEvent,
         actionType: i32,
     ) -> i32;
 }
 extern "C" {
-    #[cfg(feature = "api-15")]
     #[doc = " @brief Sets the touch point ID of a cloned pointer event.\n\n @param event Pointer to an <b>ArkUI_UIInputEvent</b> object.\n @param fingerId ID of the touch point that triggers the event.\n @return Returns the result code.\n          Returns {@link ARKUI_ERROR_CODE_NO_ERROR} if the operation is successful.\n          Returns {@link ARKUI_ERROR_CODE_PARAM_INVALID} if a parameter error occurs.\n          Returns {@link ARKUI_ERROR_CODE_NOT_CLONED_POINTER_EVENT} if the input event pointer is not a\n          cloned event pointer.\n @since 15"]
+    #[cfg(feature = "api-15")]
     pub fn OH_ArkUI_PointerEvent_SetClonedEventChangedFingerId(
         event: *const ArkUI_UIInputEvent,
         fingerId: i32,
     ) -> i32;
 }
 extern "C" {
-    #[cfg(feature = "api-15")]
     #[doc = " @brief Sets the touch point ID of a specific contact point of a cloned event.\n\n @param event Pointer to an <b>ArkUI_UIInputEvent</b> object.\n @param fingerId Touch point ID of the specific contact point.\n @param pointerIndex Index of the target touch point in the multi-touch data list.\n @return Returns the result code.\n          Returns {@link ARKUI_ERROR_CODE_NO_ERROR} if the operation is successful.\n          Returns {@link ARKUI_ERROR_CODE_PARAM_INVALID} if a parameter error occurs.\n          Returns {@link ARKUI_ERROR_CODE_NOT_CLONED_POINTER_EVENT} if the input event pointer is not a\n          cloned event pointer.\n @since 15"]
+    #[cfg(feature = "api-15")]
     pub fn OH_ArkUI_PointerEvent_SetClonedEventFingerIdByIndex(
         event: *const ArkUI_UIInputEvent,
         fingerId: i32,
@@ -8575,58 +8575,58 @@ extern "C" {
     ) -> i32;
 }
 extern "C" {
-    #[cfg(feature = "api-15")]
     #[doc = " @brief Posts a cloned event to a specific node.\n\n @param node Target node.\n @param event Pointer to an <b>ArkUI_UIInputEvent</b> object.\n @return Returns the result code.\n         Returns {@link ARKUI_ERROR_CODE_NO_ERROR} if the operation is successful.\n         Returns {@link ARKUI_ERROR_CODE_PARAM_INVALID} if a parameter error occurs.\n         Returns {@link ARKUI_ERROR_CODE_NOT_CLONED_POINTER_EVENT} if the input event pointer is not a\n         cloned event pointer.\n         Returns {@link ARKUI_ERROR_CODE_POST_CLONED_COMPONENT_STATUS_ABNORMAL}\n         if the component status abnormal.\n         Returns {@link ARKUI_ERROR_CODE_POST_CLONED_NO_COMPONENT_HIT_TO_RESPOND_TO_THE_EVENT}\n         if no component hit to response to the event.\n @since 15"]
+    #[cfg(feature = "api-15")]
     pub fn OH_ArkUI_PointerEvent_PostClonedEvent(
         node: ArkUI_NodeHandle,
         event: *const ArkUI_UIInputEvent,
     ) -> i32;
 }
 extern "C" {
-    #[cfg(feature = "api-20")]
     #[doc = " @brief Use this method to obtain the execution status of the latest UI input related method.\n\n In most cases, this method is unnecessary unless you need to determine if the return value indicates an error.\n Here's an example of usage: For return values like float (where 0.0 doesn't indicate an error), use GetLatestStatus\n to confirm if an error occurred.\n    float x = OH_ArkUI_PointerEvent_GetX(event);\n    if (ARKUI_ERROR_CODE_NO_ERROR != OH_ArkUI_UIInputEvent_GetLatestStatus()) {\n        // error\n        return;\n     }\n Note: The system clears the status of the previous function call each time a UIInput-related function is executed,\n ensuring you always get the latest status.\n\n @return Returns the ArkUI_ErrorCode.\n @since 20"]
+    #[cfg(feature = "api-20")]
     pub fn OH_ArkUI_UIInputEvent_GetLatestStatus() -> ArkUI_ErrorCode;
 }
 extern "C" {
-    #[cfg(feature = "api-22")]
     #[doc = " @brief Obtains the coasting axis event from a component event, valid event only can be\n fetched only when user flings on the touchpad with two fingers and any components register\n NODE_ON_COASTING_AXIS_EVENT exist under the pointer location.\n Call this method after the {@link ArkUI_UIInputEvent} object is obtained from the {@link ArkUI_NodeEvent} object.\n\n @param event Indicates the pointer to the UI input event.\n @return Returns the pointer to the coasting axis event, return null if no any coasting axis event occurs.\n @since 22"]
+    #[cfg(feature = "api-22")]
     pub fn OH_ArkUI_UIInputEvent_GetCoastingAxisEvent(
         event: *mut ArkUI_UIInputEvent,
     ) -> *mut ArkUI_CoastingAxisEvent;
 }
 extern "C" {
-    #[cfg(feature = "api-22")]
     #[doc = " @brief Obtains the time when this coasting event occurs.\n\n @param event Indicates the pointer to the coasting axis event.\n @return Returns the time when the UI input event occurs; returns <b>0</b> if any parameter error occurs.\n\n @since 22"]
+    #[cfg(feature = "api-22")]
     pub fn OH_ArkUI_CoastingAxisEvent_GetEventTime(event: *mut ArkUI_CoastingAxisEvent) -> i64;
 }
 extern "C" {
-    #[cfg(feature = "api-22")]
     #[doc = " @brief Obtains the coasting phase when this coasting event occurs.\n\n @param event Indicates the pointer to the coasting axis event.\n @return Returns the event phase, see {@link ArkUI_CoastingAxisEventPhase};\n     returns <b>ARKUI_COASTING_AXIS_EVENT_PHASE_NONE</b> if any parameter error occurs.\n\n @since 22"]
+    #[cfg(feature = "api-22")]
     pub fn OH_ArkUI_CoastingAxisEvent_GetPhase(
         event: *mut ArkUI_CoastingAxisEvent,
     ) -> ArkUI_CoastingAxisEventPhase;
 }
 extern "C" {
-    #[cfg(feature = "api-22")]
     #[doc = " @brief Obtains the horizontal delta value.\n\n @param event Indicates the pointer to the coasting axis event.\n @return Returns delta X value, count in PX; returns <b>0</b> if any parameter error occurs.\n\n @since 22"]
+    #[cfg(feature = "api-22")]
     pub fn OH_ArkUI_CoastingAxisEvent_GetDeltaX(event: *mut ArkUI_CoastingAxisEvent) -> f32;
 }
 extern "C" {
-    #[cfg(feature = "api-22")]
     #[doc = " @brief Obtains the vertical delta value.\n\n @param event Indicates the pointer to the coasting axis event.\n @return Returns delta Y value, count in PX; returns <b>0</b> if any parameter error occurs.\n\n @since 22"]
+    #[cfg(feature = "api-22")]
     pub fn OH_ArkUI_CoastingAxisEvent_GetDeltaY(event: *mut ArkUI_CoastingAxisEvent) -> f32;
 }
 extern "C" {
-    #[cfg(feature = "api-22")]
     #[doc = " @brief Sets whether to enable coasting axis event propagation.\n\n @param event Pointer to the coasting axis event.\n @param propagation Whether to enable event propagation.\n @return Returns the result code.\n         Returns {@link ARKUI_ERROR_CODE_NO_ERROR} if the operation is successful.\n         Returns {@link ARKUI_ERROR_CODE_PARAM_INVALID} if a parameter error occurs.\n @since 22"]
+    #[cfg(feature = "api-22")]
     pub fn OH_ArkUI_CoastingAxisEvent_SetPropagation(
         event: *mut ArkUI_CoastingAxisEvent,
         propagation: bool,
     ) -> i32;
 }
 extern "C" {
-    #[cfg(feature = "api-22")]
     #[doc = " @brief Obtains touch test info item list in the touch test info.\n\n @param info Indicates the pointer to a touch test info.\n @param array Indicates the pointer to the array of touch test info list.\n @param size Indicates the size of the array of touch test info list.\n @return Returns {@link ARKUI_ERROR_CODE_NO_ERROR} if success.\n         Returns {@link ARKUI_ERROR_CODE_PARAM_INVALID} if a parameter exception occurs.\n @since 22"]
+    #[cfg(feature = "api-22")]
     pub fn OH_ArkUI_TouchTestInfo_GetTouchTestInfoList(
         info: *mut ArkUI_TouchTestInfo,
         array: *mut ArkUI_TouchTestInfoItemArray,
@@ -8634,50 +8634,50 @@ extern "C" {
     ) -> ArkUI_ErrorCode;
 }
 extern "C" {
-    #[cfg(feature = "api-22")]
     #[doc = " @brief Obtains the X coordinate relative to the upper left corner of the child component from the touch test\n info item.\n\n @param info Indicates the pointer to the touch test info item.\n @return Returns the X coordinate relative to the upper left corner of the parent component.\n returns <b>0</b> if any parameter error occurs.\n @since 22"]
+    #[cfg(feature = "api-22")]
     pub fn OH_ArkUI_TouchTestInfoItem_GetX(info: *const ArkUI_TouchTestInfoItem) -> f32;
 }
 extern "C" {
-    #[cfg(feature = "api-22")]
     #[doc = " @brief Obtains the Y coordinate relative to the upper left corner of the child component from the touch test\n info item.\n\n @param info Indicates the pointer to the touch test info item.\n @return Returns the Y coordinate relative to the upper left corner of the parent component.\n returns <b>0</b> if any parameter error occurs.\n @since 22"]
+    #[cfg(feature = "api-22")]
     pub fn OH_ArkUI_TouchTestInfoItem_GetY(info: *const ArkUI_TouchTestInfoItem) -> f32;
 }
 extern "C" {
-    #[cfg(feature = "api-22")]
     #[doc = " @brief Obtains the X coordinate relative to the upper left corner of the current application window from the touch\n test info item.\n\n @param info Indicates the pointer to the touch test info item.\n @return Returns the X coordinate relative to the upper left corner of the current application window.\n returns <b>0.0f</b> if any parameter error occurs.\n @since 22"]
+    #[cfg(feature = "api-22")]
     pub fn OH_ArkUI_TouchTestInfoItem_GetWindowX(info: *const ArkUI_TouchTestInfoItem) -> f32;
 }
 extern "C" {
-    #[cfg(feature = "api-22")]
     #[doc = " @brief Obtains the Y coordinate relative to the upper left corner of the current application window from the touch\n test info item.\n\n @param info Indicates the pointer to the touch test info item.\n @return Returns the Y coordinate relative to the upper left corner of the current application window.\n returns <b>0.0f</b> if any parameter error occurs.\n @since 22"]
+    #[cfg(feature = "api-22")]
     pub fn OH_ArkUI_TouchTestInfoItem_GetWindowY(info: *const ArkUI_TouchTestInfoItem) -> f32;
 }
 extern "C" {
-    #[cfg(feature = "api-22")]
     #[doc = " @brief Obtains the X coordinate relative to the upper left corner of the parent component from the touch test\n info item.\n\n @param info Indicates the pointer to the touch test info item.\n @return Returns the X coordinate relative to the upper left corner of the parent component.\n returns <b>0</b> if any parameter error occurs.\n @since 22"]
+    #[cfg(feature = "api-22")]
     pub fn OH_ArkUI_TouchTestInfoItem_GetXRelativeToParent(
         info: *const ArkUI_TouchTestInfoItem,
     ) -> f32;
 }
 extern "C" {
-    #[cfg(feature = "api-22")]
     #[doc = " @brief Obtains the Y coordinate relative to the upper left corner of the parent component from the touch test\n info item.\n\n @param info Indicates the pointer to the touch test info item.\n @return Returns the Y coordinate relative to the upper left corner of the parent component.\n returns <b>0</b> if any parameter error occurs.\n @since 22"]
+    #[cfg(feature = "api-22")]
     pub fn OH_ArkUI_TouchTestInfoItem_GetYRelativeToParent(
         info: *const ArkUI_TouchTestInfoItem,
     ) -> f32;
 }
 extern "C" {
-    #[cfg(feature = "api-22")]
     #[doc = " @brief Obtains the sub component's frame rect info from the touch test info item.\n\n @param info Indicates the pointer to the touch test info item.\n @param childRect Indicates the pointer to the child frame rect.\n @return Returns {@link ARKUI_ERROR_CODE_NO_ERROR} if success.\n         Returns {@link ARKUI_ERROR_CODE_PARAM_INVALID} if a parameter exception occurs.\n @since 22"]
+    #[cfg(feature = "api-22")]
     pub fn OH_ArkUI_TouchTestInfoItem_GetChildRect(
         info: *const ArkUI_TouchTestInfoItem,
         childRect: *mut ArkUI_Rect,
     ) -> ArkUI_ErrorCode;
 }
 extern "C" {
-    #[cfg(feature = "api-22")]
     #[doc = " @brief Obtains the sub component's name from the touch test info item.\n\n @param info Indicates the pointer to the touch test info item.\n @param buffer Indicates the buffer.\n @param bufferSize Indicates the buffer size.\n @return Returns {@link ARKUI_ERROR_CODE_NO_ERROR} if success.\n         Returns {@link ARKUI_ERROR_CODE_PARAM_INVALID} if a parameter exception occurs.\n         Returns {@link ARKUI_ERROR_CODE_BUFFER_SIZE_NOT_ENOUGH} if the buffer is not large enough.\n @since 22"]
+    #[cfg(feature = "api-22")]
     pub fn OH_ArkUI_TouchTestInfoItem_GetChildId(
         info: *const ArkUI_TouchTestInfoItem,
         buffer: *mut ::std::os::raw::c_char,
@@ -8685,16 +8685,16 @@ extern "C" {
     ) -> ArkUI_ErrorCode;
 }
 extern "C" {
-    #[cfg(feature = "api-22")]
     #[doc = " @brief Sets the touch test strategy, that is, how the component and the sub components behave during hit testing.\n\n @param {pointer} info Indicates the pointer to a touch test info.\n @param {ArkUI_TouchTestStrategy} strategy The touch test strategy.\n @return Returns {@link ARKUI_ERROR_CODE_NO_ERROR} if success.\n Returns {@link ARKUI_ERROR_CODE_PARAM_INVALID} if a parameter exception occurs.\n @since 22"]
+    #[cfg(feature = "api-22")]
     pub fn OH_ArkUI_TouchTestInfo_SetTouchResultStrategy(
         info: *mut ArkUI_TouchTestInfo,
         strategy: ArkUI_TouchTestStrategy,
     ) -> ArkUI_ErrorCode;
 }
 extern "C" {
-    #[cfg(feature = "api-22")]
     #[doc = " @brief Sets the sub component's name, that is, which sub components need to be effected during hit testing.\n\n @param {pointer} info Indicates the pointer to a touch test info.\n @param {pointer} id The sub component's name.\n @return Returns {@link ARKUI_ERROR_CODE_NO_ERROR} if success.\n Returns {@link ARKUI_ERROR_CODE_PARAM_INVALID} if a parameter exception occurs.\n @since 22"]
+    #[cfg(feature = "api-22")]
     pub fn OH_ArkUI_TouchTestInfo_SetTouchResultId(
         info: *mut ArkUI_TouchTestInfo,
         id: *const ::std::os::raw::c_char,
@@ -8740,11 +8740,11 @@ pub const ArkUI_NodeType_ARKUI_NODE_SLIDER: ArkUI_NodeType = 17;
 pub const ArkUI_NodeType_ARKUI_NODE_RADIO: ArkUI_NodeType = 18;
 #[doc = " Image animator."]
 pub const ArkUI_NodeType_ARKUI_NODE_IMAGE_ANIMATOR: ArkUI_NodeType = 19;
-#[cfg(feature = "api-18")]
 #[doc = " XComponent of type TEXTURE.\n  @since 18"]
+#[cfg(feature = "api-18")]
 pub const ArkUI_NodeType_ARKUI_NODE_XCOMPONENT_TEXTURE: ArkUI_NodeType = 20;
-#[cfg(feature = "api-15")]
 #[doc = " Check box group.\n  @since 15"]
+#[cfg(feature = "api-15")]
 pub const ArkUI_NodeType_ARKUI_NODE_CHECKBOX_GROUP: ArkUI_NodeType = 21;
 #[doc = " Stack container."]
 pub const ArkUI_NodeType_ARKUI_NODE_STACK: ArkUI_NodeType = 1000;
@@ -8778,11 +8778,11 @@ pub const ArkUI_NodeType_ARKUI_NODE_GRID: ArkUI_NodeType = 1013;
 pub const ArkUI_NodeType_ARKUI_NODE_GRID_ITEM: ArkUI_NodeType = 1014;
 #[doc = " Custom span."]
 pub const ArkUI_NodeType_ARKUI_NODE_CUSTOM_SPAN: ArkUI_NodeType = 1015;
-#[cfg(feature = "api-20")]
 #[doc = " EmbeddedComponent.\n @since 20"]
-pub const ArkUI_NodeType_ARKUI_NODE_EMBEDDED_COMPONENT: ArkUI_NodeType = 1016;
 #[cfg(feature = "api-20")]
+pub const ArkUI_NodeType_ARKUI_NODE_EMBEDDED_COMPONENT: ArkUI_NodeType = 1016;
 #[doc = " Undefined.\n @since 20"]
+#[cfg(feature = "api-20")]
 pub const ArkUI_NodeType_ARKUI_NODE_UNDEFINED: ArkUI_NodeType = 1017;
 #[doc = " @brief Enumerates ArkUI component types that can be created on the native side.\n\n @since 12"]
 pub type ArkUI_NodeType = u32;
@@ -8996,43 +8996,43 @@ pub const ArkUI_NodeAttributeType_NODE_UNIQUE_ID: ArkUI_NodeAttributeType = 95;
 pub const ArkUI_NodeAttributeType_NODE_FOCUS_BOX: ArkUI_NodeAttributeType = 96;
 #[doc = " @brief Defines the moving distance limit for the component-bound tap gesture.\n This attribute can be set as required through APIs.\n\n Format of the {@link ArkUI_AttributeItem} parameter for setting the attribute:\\n\n .value[0].f32: allowed moving distance of a finger, in vp. \\n\n"]
 pub const ArkUI_NodeAttributeType_NODE_CLICK_DISTANCE: ArkUI_NodeAttributeType = 97;
-#[cfg(feature = "api-14")]
 #[doc = " @brief Sets whether the focus can be placed on this component.\n This attribute can be set, reset, and obtained as required through APIs.\n\n Format of the {@link ArkUI_AttributeItem} parameter for setting the attribute:\\n\n .value[0].i32: whether the focus can be placed on the current component. The parameter type is 1 or 0.\n \\n\n Format of the return value {@link ArkUI_AttributeItem}:\\n\n .value[0].i32: whether the focus can be placed on the current component. The parameter type is 1 or 0.\n\n @since 14"]
+#[cfg(feature = "api-14")]
 pub const ArkUI_NodeAttributeType_NODE_TAB_STOP: ArkUI_NodeAttributeType = 98;
-#[cfg(feature = "api-15")]
 #[doc = " @brief Defines the backdrop blur attribute, which can be set, reset, and obtained as required through APIs.\n\n Format of the {@link ArkUI_AttributeItem} parameter for setting the attribute:\\n\n .value[0].f32：backdrop blur radius, in px. The value range is [0, +∞).\\n\n .value[1]?.f32：grayscale blur settings that control the brightness of the black color.\\n\n The value range is [0, 127].\\n\n .value[2]?.f32：grayscale blur settings that control the darkness of the white color.\\n\n The value range is [0, 127].\\n\n \\n\n Format of the return value {@link ArkUI_AttributeItem}:\\n\n .value[0].f32：backdrop blur radius, in px. The value range is [0, +∞).\\n\n .value[1].f32：grayscale blur settings that control the brightness of the black color.\\n\n The value range is [0, 127].\\n\n .value[2].f32：grayscale blur settings that control the darkness of the white color.\\n\n The value range is [0, 127].\\n\n\n @since 15"]
+#[cfg(feature = "api-15")]
 pub const ArkUI_NodeAttributeType_NODE_BACKDROP_BLUR: ArkUI_NodeAttributeType = 99;
-#[cfg(feature = "api-19")]
 #[doc = " @brief Defines the background image resizable attribute, which can be set, reset,\n and obtained as required through APIs.\n\n Format of the {@link ArkUI_AttributeItem} parameter for setting the attribute:\\n\n .value[0].f32: width of the left edge. The unit is vp. \\n\n .value[1].f32: width of the top edge. The unit is vp. \\n\n .value[2].f32: width of the right edge. The unit is vp. \\n\n .value[3].f32: width of the bottom edge. The unit is vp. \\n\n \\n\n Format of the return value {@link ArkUI_AttributeItem}:\\n\n .value[0].f32: width of the left edge. The unit is vp. \\n\n .value[1].f32: width of the top edge. The unit is vp. \\n\n .value[2].f32: width of the right edge. The unit is vp. \\n\n .value[3].f32: width of the bottom edge. The unit is vp. \\n\n\n @since 19"]
+#[cfg(feature = "api-19")]
 pub const ArkUI_NodeAttributeType_NODE_BACKGROUND_IMAGE_RESIZABLE_WITH_SLICE:
     ArkUI_NodeAttributeType = 100;
-#[cfg(feature = "api-18")]
 #[doc = " @brief Sets the next focus node.\n\n Format of the {@link ArkUI_AttributeItem} parameter for setting the attribute: \\n\n .value[0].i32: focus movement direction, as defined in {@link ArkUI_FocusMove}.\n .object: next focus node. The parameter type is {@link ArkUI_NodeHandle}.\\n\n \\n\n\n @since 18"]
+#[cfg(feature = "api-18")]
 pub const ArkUI_NodeAttributeType_NODE_NEXT_FOCUS: ArkUI_NodeAttributeType = 101;
-#[cfg(feature = "api-17")]
 #[doc = " @brief Sets the parameters for visible area change events.\n\n @note The visible area change callback is not a real-time callback. The actual callback interval may differ from\n the expected interval due to system load and other factors.\n The interval between two visible area change callbacks will not be less than the expected update interval. If the\n provided expected interval is too short, the actual callback interval will be determined by the system load.\n By default, the interval threshold of the visible area change callback includes 0. This means that,\n if the provided threshold is [0.5], the effective threshold will be [0.0, 0.5].\n\n Format of the {@link ArkUI_AttributeItem} parameter for setting the attribute:\\n\n .object: parameters for visible area change events.\n The parameter type is {@link ArkUI_VisibleAreaEventOptions}. \\n\n \\n\n Format of the return value {@link ArkUI_AttributeItem}:\\n\n .object: parameters for visible area change events.\n The parameter type is {@link ArkUI_VisibleAreaEventOptions}. \\n\n\n @since 17"]
+#[cfg(feature = "api-17")]
 pub const ArkUI_NodeAttributeType_NODE_VISIBLE_AREA_APPROXIMATE_CHANGE_RATIO:
     ArkUI_NodeAttributeType = 102;
-#[cfg(feature = "api-20")]
 #[doc = " @brief Defines the translate attribute, which supports for percentile translation input, and can be set, reset,\n and obtained as required through APIs.\\n\n\n Format of the {@link ArkUI_AttributeItem} parameter for setting the attribute:\\n\n .value[0].f32: distance to translate along the x-axis. The default unit is percentage.\n The unit is vp only if value[3] exists and value[3] is 0. The default value of value[0] is <b>0</b>.\\n\n .value[1].f32: distance to translate along the y-axis. The default unit is percentage.\n The unit is vp only if value[4] exists and value[4] is 0. The default value of value[1] is <b>0</b>.\\n\n .value[2].f32: distance to translate along the z-axis, in vp. The default value is <b>0</b>.\\n\n .value[3]?.i32: Whether the translation distance along the x-axis is specified as a percentage.\n  The value can be 0 or 1. When the value is 1, it is specified as a percentage.\n  For example, value[0].f32=0.1 and value[3].i32=1 indicates a 10% shift in the x direction.\n  The default value is <b>1</b>.\\n\n .value[4]?.i32: Whether the translation distance along the y-axis is specified as a percentage.\n  The value can be 0 or 1. When the value is 1, it is specified as a percentage.\n  For example, value[1].f32=0.1 and value[4].i32=1 indicates a 10% shift in the y direction.\n  The default value is <b>1</b>.\\n\n \\n\n Format of the return value {@link ArkUI_AttributeItem}:\\n\n .value[0].f32: distance to translate along the x-axis. The unit depends on value[3].\\n\n .value[1].f32: distance to translate along the y-axis. The unit depends on value[4].\\n\n .value[2].f32: distance to translate along the z-axis. The unit is vp.\\n\n .value[3].i32: Whether the unit of the X-axis translation distance is in percentage. When value[3].i32 is 0,\n  the unit of the X-axis translation distance is vp; when value[3].i32 is 1, the unit of the X-axis translation\n  distance is percentage;\\n\n .value[4].i32: Whether the unit of the Y-axis translation distance is in percentage. When value[4].i32 is 0,\n  the unit of the Y-axis translation distance is vp; when value[4].i32 is 1, the unit of the Y-axis translation\n  distance is percentage;\\n\n\n @since 20"]
-pub const ArkUI_NodeAttributeType_NODE_TRANSLATE_WITH_PERCENT: ArkUI_NodeAttributeType = 103;
 #[cfg(feature = "api-20")]
+pub const ArkUI_NodeAttributeType_NODE_TRANSLATE_WITH_PERCENT: ArkUI_NodeAttributeType = 103;
 #[doc = " @brief Sets component rotation with multi-axis angle control. This attribute can be set, reset,\n and obtained as required through APIs.\n\n Format of the {@link ArkUI_AttributeItem} parameter for setting the attribute:\\n\n .value[0].f32: x-axis rotation angle. The default value is <b>0</b>. \\n\n .value[1].f32: y-axis rotation angle. The default value is <b>0</b>. \\n\n .value[2].f32: z-axis rotation angle. The default value is <b>0</b>. \\n\n .value[3].f32: perspective distance from the viewpoint to the z=0 plane, in px. The default value is <b>0</b>. \\n\n \\n\n Format of the return value {@link ArkUI_AttributeItem}:\\n\n .value[0].f32: x-axis rotation angle. The default value is <b>0</b>.\n .value[1].f32: y-axis rotation angle. The default value is <b>0</b>. \\n\n .value[2].f32: z-axis rotation angle. The default value is <b>0</b>. \\n\n .value[3].f32: perspective distance from the viewpoint to the z=0 plane, in px. The default value is <b>0</b>. \\n\n\n @since 20"]
+#[cfg(feature = "api-20")]
 pub const ArkUI_NodeAttributeType_NODE_ROTATE_ANGLE: ArkUI_NodeAttributeType = 104;
-#[cfg(feature = "api-21")]
 #[doc = " @brief Defines the width attribute with param type LayoutPolicy, which can be set, reset, and obtained\n as required through APIs.\n\n Format of the {@link ArkUI_AttributeItem} parameter for setting the attribute:\\n\n .value[0].i32: the LayoutPolicy that the width of the component follows.\\n\n The parameter type is {@link ArkUI_LayoutPolicy}. \\n\n \\n\n Format of the return value {@link ArkUI_AttributeItem}:\\n\n .value[0].i32: the LayoutPolicy that the width of the component follows.\\n\n The parameter type is {@link ArkUI_LayoutPolicy}. \\n\n\n @since 21"]
+#[cfg(feature = "api-21")]
 pub const ArkUI_NodeAttributeType_NODE_WIDTH_LAYOUTPOLICY: ArkUI_NodeAttributeType = 105;
-#[cfg(feature = "api-21")]
 #[doc = " @brief Defines the height attribute with param type LayoutPolicy, which can be set, reset, and obtained\n as required through APIs.\n\n Format of the {@link ArkUI_AttributeItem} parameter for setting the attribute:\\n\n .value[0].i32: the LayoutPolicy that the height of the component follows.\\n\n The parameter type is {@link ArkUI_LayoutPolicy}. \\n\n \\n\n Format of the return value {@link ArkUI_AttributeItem}:\\n\n .value[0].i32: the LayoutPolicy that the height of the component follows.\\n\n The parameter type is {@link ArkUI_LayoutPolicy}. \\n\n\n @since 21"]
+#[cfg(feature = "api-21")]
 pub const ArkUI_NodeAttributeType_NODE_HEIGHT_LAYOUTPOLICY: ArkUI_NodeAttributeType = 106;
-#[cfg(feature = "api-21")]
 #[doc = " @brief Defines the position attribute in param type Edges, which specifies the position of the component\n by the distance relative to the parent container's four edges. This attribute can be set, reset, and obtained as\n required through APIs.\n\n Format of the {@link ArkUI_AttributeItem} parameter for setting the attribute:\\n\n .object indicates struct of edges for position. The parameter type is {@link ArkUI_PositionEdges}. \\n\n \\n\n Format of the return value {@link ArkUI_AttributeItem}:\\n\n .object indicates struct of edges for position. The parameter type is {@link ArkUI_PositionEdges}. \\n\n\n @since 21"]
+#[cfg(feature = "api-21")]
 pub const ArkUI_NodeAttributeType_NODE_POSITION_EDGES: ArkUI_NodeAttributeType = 107;
-#[cfg(feature = "api-21")]
 #[doc = " @brief Set whether the component enables the ability to invert colors.\n This attribute can be set , and obtained as required through APIs.\n\n Format of the {@link ArkUI_AttributeItem} parameter for setting the attribute:\\n\n .value[0].i32: The parameter type is 1 or 0.\\n\n\n @since 21"]
-pub const ArkUI_NodeAttributeType_NODE_ALLOW_FORCE_DARK: ArkUI_NodeAttributeType = 108;
 #[cfg(feature = "api-21")]
+pub const ArkUI_NodeAttributeType_NODE_ALLOW_FORCE_DARK: ArkUI_NodeAttributeType = 108;
 #[doc = " @brief Defines the pixelRound attribute, which can be set, reset, and obtained as required through APIs.\n\n Format of the {@link ArkUI_AttributeItem} parameter for setting the attribute:\\n\n .object indicates struct of policy for pixelRound. The parameter type is {@link ArkUI_PixelRoundPolicy}. \\n\n \\n\n Format of the return value {@link ArkUI_AttributeItem}:\\n\n .object indicates struct of policy for pixelRound. The parameter type is {@link ArkUI_PixelRoundPolicy}. \\n\n\n @since 21"]
+#[cfg(feature = "api-21")]
 pub const ArkUI_NodeAttributeType_NODE_PIXEL_ROUND: ArkUI_NodeAttributeType = 109;
 #[doc = " @brief Defines the text content attribute, which can be set, reset, and obtained as required through APIs.\n\n Format of the {@link ArkUI_AttributeItem} parameter for setting the attribute:\\n\n .string: text content.\\n\n \\n\n Format of the return value {@link ArkUI_AttributeItem}:\\n\n .string: text content.\\n\n"]
 pub const ArkUI_NodeAttributeType_NODE_TEXT_CONTENT: ArkUI_NodeAttributeType = 1000;
@@ -9097,51 +9097,51 @@ pub const ArkUI_NodeAttributeType_NODE_TEXT_CONTENT_WITH_STYLED_STRING: ArkUI_No
     1028;
 #[doc = " @brief Sets whether to center text vertically in the text component.\n\n Format of the {@link ArkUI_AttributeItem} parameter for setting the attribute:\\n\n .value[0].i32: whether to center text vertically. The default value is <b>false</b>. \\n\n \\n\n Format of the return value {@link ArkUI_AttributeItem}:\\n\n .value[0].i32: whether to center text vertically. \\n\n"]
 pub const ArkUI_NodeAttributeType_NODE_TEXT_HALF_LEADING: ArkUI_NodeAttributeType = 1029;
-#[cfg(feature = "api-15")]
 #[doc = " @brief Defines the font weight attribute, which can be set, reset, and obtained as required through APIs.\n The font weight specified by this API is not affected by any changes in the system font weight settings.\n\n Format of the {@link ArkUI_AttributeItem} parameter for setting the attribute:\\n\n .value[0].i32: font weight {@link ArkUI_FontWeight}. The default value is <b>ARKUI_FONT_WEIGHT_NORMAL</b>.\\n\n \\n\n Format of the return value {@link ArkUI_AttributeItem}:\\n\n .value[0].i32: font weight {@link ArkUI_FontWeight}.\\n\n\n @since 15"]
+#[cfg(feature = "api-15")]
 pub const ArkUI_NodeAttributeType_NODE_IMMUTABLE_FONT_WEIGHT: ArkUI_NodeAttributeType = 1030;
-#[cfg(feature = "api-20")]
 #[doc = " @brief Sets whether to optimize the trailing spaces at the end of each line during text layout.\n This attribute can be set, reset, and obtained as required through APIs.\n\n Format of the {@link ArkUI_AttributeItem} parameter for setting the attribute:\\n\n value[0].i32: whether to optimize trailing spaces at the end of each line during text layout.\n               The default value is <b>false</b>. \\n\n \\n\n Format of the return value {@link ArkUI_AttributeItem}:\\n\n value[0].i32: whether to optimize trailing spaces at the end of each line during text layout. \\n\n\n @since 20"]
+#[cfg(feature = "api-20")]
 pub const ArkUI_NodeAttributeType_NODE_TEXT_OPTIMIZE_TRAILING_SPACE: ArkUI_NodeAttributeType = 1032;
-#[cfg(feature = "api-20")]
 #[doc = " @brief Defines the text line count attribute, which can only be obtained as required through APIs.\n\n Format of the return value {@link ArkUI_AttributeItem}:\\n\n .value[0].i32: line count of the node.\n\n @since 20"]
+#[cfg(feature = "api-20")]
 pub const ArkUI_NodeAttributeType_NODE_TEXT_LINE_COUNT: ArkUI_NodeAttributeType = 1031;
-#[cfg(feature = "api-20")]
 #[doc = " @brief Sets a linear gradient effect for text.\n This attribute can be set, reset, and obtained as required through APIs.\n\n Format of the {@link ArkUI_AttributeItem} parameter for setting the attribute:\\n\n .value[0].f32: start angle of the linear gradient.\n The setting takes effect only when <b>direction</b> is set to <b>ARKUI_LINEAR_GRADIENT_DIRECTION_CUSTOM</b>.\n A positive value indicates a clockwise rotation from the origin, (0, 0). The default value is <b>180</b>. \\n\n .value[1].i32: direction of the linear gradient. When a direction other than\n <b>ARKUI_LINEAR_GRADIENT_DIRECTION_CUSTOM</b> is set, the <b>angle</b> property is ignored.\n The parameter type is {@link ArkUI_LinearGradientDirection}. \\n\n .value[2].i32: whether the colors are repeated. The default value is <b>false</b>.\n .object: array of color stops, each of which consists of a color and its stop position.\n The parameter type is {@link ArkUI_ColorStop}. Invalid colors are automatically skipped. \\n \\n\n colors: colors of the color stops. \\n\n stops: stop positions of the color stops. \\n\n size: number of colors. \\n\n \\n\n Format of the return value {@link ArkUI_AttributeItem}:\\n\n .value[0].f32: start angle of the linear gradient.\n When <b>direction</b> is set to <b>ARKUI_LINEAR_GRADIENT_DIRECTION_CUSTOM</b>, <b>angle</b> at the set value;\n otherwise, it is at default value. \\n\n .value[1].i32: direction of the linear gradient. \\n\n .value[2].i32: whether the colors are repeated. \\n\n .object: array of color stops, each of which consists of a color and its stop position.\n The parameter type is {@link ArkUI_ColorStop}. Invalid colors are automatically skipped. \\n \\n\n colors: colors of the color stops. \\n\n stops: stop positions of the color stops. \\n\n size: number of colors. \\n\n\n @since 20"]
+#[cfg(feature = "api-20")]
 pub const ArkUI_NodeAttributeType_NODE_TEXT_LINEAR_GRADIENT: ArkUI_NodeAttributeType = 1033;
-#[cfg(feature = "api-20")]
 #[doc = " @brief Sets a radial gradient effect for text.\n This attribute can be set, reset, and obtained as required through APIs.\n\n Format of the {@link ArkUI_AttributeItem} parameter for setting the attribute:\\n\n .value[0]?.f32: X-coordinate of the radial gradient center relative to the upper left corner of the text. \\n\n .value[1]?.f32: Y-coordinate of the radial gradient center relative to the upper left corner of the text. \\n\n .value[2]?.f32: radius of the radial gradient. The default value is <b>0</b>. \\n\n .value[3]?.i32: whether the colors are repeated.\n The value <b>1</b> means that the colors are repeated, and <b>0</b> means the opposite.\\n \\n\n .object: array of color stops, each of which consists of a color and its stop position.\n The parameter type is {@link ArkUI_ColorStop}. Invalid colors are automatically skipped. \\n\n colors: colors of the color stops. \\n\n stops: stop positions of the color stops. \\n\n size: number of colors. \\n\n \\n\n Format of the return value {@link ArkUI_AttributeItem}:\\n\n .value[0].f32: X-coordinate of the radial gradient center relative to the upper left corner of the text. \\n\n .value[1].f32: Y-coordinate of the radial gradient center relative to the upper left corner of the text. \\n\n .value[2].f32: radius of the radial gradient. The default value is <b>0</b>. \\n\n .value[3].i32: whether the colors are repeated.\n The value <b>1</b> means that the colors are repeated, and <b>0</b> means the opposite.  \\n\n .object: array of color stops, each of which consists of a color and its stop position.\n The parameter type is {@link ArkUI_ColorStop}. Invalid colors are automatically skipped. \\n\n colors: colors of the color stops. \\n\n stops: stop positions of the color stops. \\n\n size: number of colors. \\n\n\n @since 20"]
-pub const ArkUI_NodeAttributeType_NODE_TEXT_RADIAL_GRADIENT: ArkUI_NodeAttributeType = 1034;
 #[cfg(feature = "api-20")]
+pub const ArkUI_NodeAttributeType_NODE_TEXT_RADIAL_GRADIENT: ArkUI_NodeAttributeType = 1034;
 #[doc = " @brief Sets the vertical alignment of the text content.\n This attribute can be set, reset, and obtained as required through APIs.\n\n Format of the {@link ArkUI_AttributeItem} parameter for setting the attribute:\\n\n .value[0].i32: vertical alignment of the text content, specified using the {@link ArkUI_TextVerticalAlignment}\n enum. The default value is <b>ARKUI_TEXT_VERTICAL_ALIGNMENT_BASELINE</b>. \\n\n \\n\n Format of the return value {@link ArkUI_AttributeItem}:\\n\n .value[0].i32: vertical alignment of the text content, specified using the {@link ArkUI_TextVerticalAlignment}\n enum. \\n\n\n @since 20"]
+#[cfg(feature = "api-20")]
 pub const ArkUI_NodeAttributeType_NODE_TEXT_VERTICAL_ALIGN: ArkUI_NodeAttributeType = 1035;
-#[cfg(feature = "api-21")]
 #[doc = " @brief Sets the content align of the text.\n This attribute can be set, reset, and obtained as required through APIs.\n\n Format of the {@link ArkUI_AttributeItem} parameter for setting the attribute:\\n\n .value[0].i32: content align of the text, specified using the {@link ArkUI_TextContentAlign}\n enum. The default value is <b>ARKUI_TEXT_CONTENT_ALIGN_CENTER</b>. \\n\n \\n\n Format of the return value {@link ArkUI_AttributeItem}:\\n\n .value[0].i32: content align of the text, specified using the {@link ArkUI_TextContentAlign}\n enum. \\n\n\n @since 21"]
+#[cfg(feature = "api-21")]
 pub const ArkUI_NodeAttributeType_NODE_TEXT_CONTENT_ALIGN: ArkUI_NodeAttributeType = 1036;
-#[cfg(feature = "api-22")]
 #[doc = " @brief Sets the minimum number of lines in the text.\n This attribute can be set, reset, and obtained as required through APIs.\n\n Format of the {@link ArkUI_AttributeItem} parameter for setting the attribute:\\n\n .value[0].i32: minimum number of lines in the text.\\n\n \\n\n Format of the return value {@link ArkUI_AttributeItem}:\\n\n .value[0].i32: minimum number of lines in the text.\\n\n\n @since 22\n"]
-pub const ArkUI_NodeAttributeType_NODE_TEXT_MIN_LINES: ArkUI_NodeAttributeType = 1037;
 #[cfg(feature = "api-22")]
+pub const ArkUI_NodeAttributeType_NODE_TEXT_MIN_LINES: ArkUI_NodeAttributeType = 1037;
 #[doc = " @brief Enables the selected data detector.\n\n Format of the {@link ArkUI_AttributeItem} parameter for setting the attribute:\\n\n .value[0].i32: Enable selected text recognition, default value true.\\n\n \\n\n Format of the return value {@link ArkUI_AttributeItem}:\\n\n .value[0].i32: Whether selected text recognition is enabled.\\n\n\n @since 22"]
+#[cfg(feature = "api-22")]
 pub const ArkUI_NodeAttributeType_NODE_TEXT_ENABLE_SELECTED_DATA_DETECTOR: ArkUI_NodeAttributeType =
     1038;
-#[cfg(feature = "api-22")]
 #[doc = " @brief Defines the minimum text line height attribute, which can be set, reset, and obtained as required through APIs.\n\n Format of the {@link ArkUI_AttributeItem} parameter for setting the attribute:\\n\n .value[0].f32: minimum line height.\\n\n \\n\n Format of the return value {@link ArkUI_AttributeItem}:\\n\n .value[0].f32: minimum line height.\\n\n\n @since 22\n"]
+#[cfg(feature = "api-22")]
 pub const ArkUI_NodeAttributeType_NODE_TEXT_MIN_LINE_HEIGHT: ArkUI_NodeAttributeType = 1040;
-#[cfg(feature = "api-22")]
 #[doc = " @brief Defines the maximum text line height attribute, which can be set, reset, and obtained as required through APIs.\n\n Format of the {@link ArkUI_AttributeItem} parameter for setting the attribute:\\n\n .value[0].f32: maximum line height.\\n\n \\n\n Format of the return value {@link ArkUI_AttributeItem}:\\n\n .value[0].f32: maximum line height.\\n\n\n @since 22\n"]
+#[cfg(feature = "api-22")]
 pub const ArkUI_NodeAttributeType_NODE_TEXT_MAX_LINE_HEIGHT: ArkUI_NodeAttributeType = 1041;
-#[cfg(feature = "api-22")]
 #[doc = " @brief Defines line height multiple value of text, which can be set, reset, and obtained as required through APIs.\n\n Format of the {@link ArkUI_AttributeItem} parameter for setting the attribute:\\n\n .value[0].f32: line height multiple value of text.\\n\n \\n\n Format of the return value {@link ArkUI_AttributeItem}:\\n\n .value[0].f32: line height multiple value of text.\\n\n\n @since 22\n"]
+#[cfg(feature = "api-22")]
 pub const ArkUI_NodeAttributeType_NODE_TEXT_LINE_HEIGHT_MULTIPLE: ArkUI_NodeAttributeType = 1042;
-#[cfg(feature = "api-22")]
 #[doc = " @brief Get the text layout manager of the text.\n\n Format of the return value {@link ArkUI_AttributeItem}:\\n\n .object: the layout manager of text. The parameter type is {@link ArkUI_TextLayoutManager}.\\n\n\n @since 22"]
+#[cfg(feature = "api-22")]
 pub const ArkUI_NodeAttributeType_NODE_TEXT_LAYOUT_MANAGER: ArkUI_NodeAttributeType = 1043;
-#[cfg(feature = "api-22")]
 #[doc = " @brief Set the edit menu options of the text.\n\n Format of the {@link ArkUI_AttributeItem} parameter for setting the attribute:\\n\n .object: the edit menu options of text. The parameter type is {@link ArkUI_TextEditMenuOptions}.\\n\n\n @since 22"]
-pub const ArkUI_NodeAttributeType_NODE_TEXT_EDIT_MENU_OPTIONS: ArkUI_NodeAttributeType = 1044;
 #[cfg(feature = "api-22")]
+pub const ArkUI_NodeAttributeType_NODE_TEXT_EDIT_MENU_OPTIONS: ArkUI_NodeAttributeType = 1044;
 #[doc = " @brief Bind the selection menu for text.\n\n Format of the {@link ArkUI_AttributeItem} parameter for setting the attribute:\\n\n .object: the custom selection menu of text.\n     The parameter type is {@link ArkUI_SelectionMenuOptions}.\\n\n\n @since 22"]
+#[cfg(feature = "api-22")]
 pub const ArkUI_NodeAttributeType_NODE_TEXT_BIND_SELECTION_MENU: ArkUI_NodeAttributeType = 1045;
 #[doc = " @brief Defines the text content attribute, which can be set, reset, and obtained as required through APIs.\n\n Format of the {@link ArkUI_AttributeItem} parameter for setting the attribute:\\n\n .string: content of the text span. \\n\n \\n\n Format of the return value {@link ArkUI_AttributeItem}:\\n\n .string: content of the text span. \\n\n"]
 pub const ArkUI_NodeAttributeType_NODE_SPAN_CONTENT: ArkUI_NodeAttributeType = 2000;
@@ -9156,14 +9156,14 @@ pub const ArkUI_NodeAttributeType_NODE_IMAGE_SPAN_VERTICAL_ALIGNMENT: ArkUI_Node
     3001;
 #[doc = " @brief Defines the placeholder image source.\n This attribute can be set, reset, and obtained as required through APIs.\n\n Format of the {@link ArkUI_AttributeItem} parameter for setting the attribute:\\n\n .string: placeholder image source. \\n\n .object: The parameter type is {@link ArkUI_DrawableDescriptor}. Either .string or .object must be set.\\n\n \\n\n Format of the return value {@link ArkUI_AttributeItem}:\\n\n .string: placeholder image source. \\n\n .object: The parameter type is {@link ArkUI_DrawableDescriptor}.\\n\n"]
 pub const ArkUI_NodeAttributeType_NODE_IMAGE_SPAN_ALT: ArkUI_NodeAttributeType = 3002;
-#[cfg(feature = "api-13")]
 #[doc = " @brief Defines the baseline offset attribute of the <b>ImageSpan</b> component.\n This attribute can be set, reset, and obtained as required through APIs.\n A positive value means an upward offset, while a negative value means a downward offset.\n The default value is <b>0</b>, and the unit is fp. \\n\n\n Format of the {@link ArkUI_AttributeItem} parameter for setting the attribute:\\n\n .value[0].f32: baseline offset, in fp.\\n\n \\n\n Format of the return value {@link ArkUI_AttributeItem}:\\n\n .value[0].f32: baseline offset, in fp. \\n\n\n @since 13"]
+#[cfg(feature = "api-13")]
 pub const ArkUI_NodeAttributeType_NODE_IMAGE_SPAN_BASELINE_OFFSET: ArkUI_NodeAttributeType = 3003;
-#[cfg(feature = "api-22")]
 #[doc = " @brief Defines the color filter of the image span.\n This attribute can be set, reset, and obtained as required through APIs.\n\n Format of the {@link ArkUI_AttributeItem } parameter for setting the attribute:\\n\n .value [0].f32 to . value [19].f32: filter matrix array. \\n\n .size :5 x 4 filter array size. \\n\n .object : the pointer to OH_Drawing_ColorFilter. Either . value or . object is set. \\n\n \\n\n Format of the return value {@ link ArkUI_AttributeItem ):\\n\n .value [0].f32 to .value [19].f32: filter matrix array. \\n\n .size: 5 x 4 filter array size. \\n\n .object: the pointer to OH_Drawing_ColorFilter. \\n\n\n @since 22"]
-pub const ArkUI_NodeAttributeType_NODE_IMAGE_SPAN_COLOR_FILTER: ArkUI_NodeAttributeType = 3004;
 #[cfg(feature = "api-22")]
+pub const ArkUI_NodeAttributeType_NODE_IMAGE_SPAN_COLOR_FILTER: ArkUI_NodeAttributeType = 3004;
 #[doc = " @brief Set the range of SVG parsing capabilities supported through enable switch.\n This attribute can be set, reset, and obtained as required through APIs.\n\n Format of the {@link ArkUI_AttributeItem} parameter for setting the attribute:\\n\n .value[0].i32: whether color fliter support svg. The default value is <b>false</b>. \\n\n \\n\n Format of the return value {@link ArkUI_AttributeItem}:\\n\n .value[0].i32: enable switch.\\n\n\n @since 22"]
+#[cfg(feature = "api-22")]
 pub const ArkUI_NodeAttributeType_NODE_IMAGE_SPAN_SUPPORT_SVG2: ArkUI_NodeAttributeType = 3005;
 #[doc = " @brief Defines the image source of the <Image> component.\n This attribute can be set, reset, and obtained as required through APIs.\n\n Format of the {@link ArkUI_AttributeItem} parameter for setting the attribute:\\n\n .string: image source.\\n\n .object: The parameter type is {@link ArkUI_DrawableDescriptor}. Either .string or .object must be set.\\n\n \\n\n Format of the return value {@link ArkUI_AttributeItem}:\\n\n .string: image source.\\n\n .object: The parameter type is {@link ArkUI_DrawableDescriptor}.\\n\n"]
 pub const ArkUI_NodeAttributeType_NODE_IMAGE_SRC: ArkUI_NodeAttributeType = 4000;
@@ -9189,44 +9189,44 @@ pub const ArkUI_NodeAttributeType_NODE_IMAGE_FIT_ORIGINAL_SIZE: ArkUI_NodeAttrib
 pub const ArkUI_NodeAttributeType_NODE_IMAGE_FILL_COLOR: ArkUI_NodeAttributeType = 4010;
 #[doc = " @brief Sets the resizable image options.\n\n Format of the {@link ArkUI_AttributeItem} parameter for setting the attribute:\\n\n .value[0].f32: width of the left edge. The unit is vp. \\n\n .value[1].f32: width of the top edge. The unit is vp. \\n\n .value[2].f32: width of the right edge. The unit is vp. \\n\n .value[3].f32: width of the bottom edge. The unit is vp. \\n\n \\n\n Format of the return value {@link ArkUI_AttributeItem}:\\n\n .value[0].f32: width of the left edge. The unit is vp. \\n\n .value[1].f32: width of the top edge. The unit is vp. \\n\n .value[2].f32: width of the right edge. The unit is vp. \\n\n .value[3].f32: width of the bottom edge. The unit is vp. \\n\n"]
 pub const ArkUI_NodeAttributeType_NODE_IMAGE_RESIZABLE: ArkUI_NodeAttributeType = 4011;
-#[cfg(feature = "api-20")]
 #[doc = " @brief Defines the synchronous image loading attribute.\n This attribute can be set, reset, and obtained as required through APIs.\n\n Format of the {@link ArkUI_AttributeItem} parameter for setting the attribute:\\n\n .value[0].i32: whether to load the image synchronously. \\n\n \\n\n Format of the return value {@link ArkUI_AttributeItem}:\\n\n .value[0].i32: whether to load the image synchronously. \\n\n\n @since 20"]
+#[cfg(feature = "api-20")]
 pub const ArkUI_NodeAttributeType_NODE_IMAGE_SYNC_LOAD: ArkUI_NodeAttributeType = 4012;
-#[cfg(feature = "api-21")]
 #[doc = " @brief Defines the image decoding size attribute.\n This attribute can be set, reset, and obtained as required through APIs.\n\n Format of the {@link ArkUI_AttributeItem} parameter for setting the attribute:\\n\n .value[0].i32: width of the image decoding, in px.\\n\n .value[1].i32: height of the image decoding, in px.\\n\n \\n\n Format of the return value {@link ArkUI_AttributeItem}:\\n\n .value[0].i32: width of the image decoding, in px.\\n\n .value[1].i32: height of the image decoding, in px.\\n\n\n @since 21"]
+#[cfg(feature = "api-21")]
 pub const ArkUI_NodeAttributeType_NODE_IMAGE_SOURCE_SIZE: ArkUI_NodeAttributeType = 4013;
-#[cfg(feature = "api-21")]
 #[doc = " @brief Defines the display tranformation matrix for an image.\n This attribute can be set, reset, and obtained as required through APIs.\n\n Format of the {@link ArkUI_AttributeItem} parameter for setting the attribute:\\n\n .value[0...15].f32: 16 floating-point numbers.\\n\n \\n\n Format of the return value {@link ArkUI_AttributeItem}:\\n\n .value[0...15].f32: 16 floating-point numbers.\\n\n\n @since 21"]
+#[cfg(feature = "api-21")]
 pub const ArkUI_NodeAttributeType_NODE_IMAGE_IMAGE_MATRIX: ArkUI_NodeAttributeType = 4014;
-#[cfg(feature = "api-21")]
 #[doc = " @brief Defines the image follow text direction attribute.\n This attribute can be set, reset, and obtained as required through APIs.\n\n Format of the {@link ArkUI_AttributeItem} parameter for setting the attribute:\\n\n .value[0].i32: whether to follows the text direction.\\n\n \\n\n Format of the return value {@link ArkUI_AttributeItem}:\\n\n .value[0].i32: whether to follows the text direction.\\n\n\n @since 21"]
+#[cfg(feature = "api-21")]
 pub const ArkUI_NodeAttributeType_NODE_IMAGE_MATCH_TEXT_DIRECTION: ArkUI_NodeAttributeType = 4015;
-#[cfg(feature = "api-21")]
 #[doc = " @brief Defines the image copy attribute.\n This attribute can be set, reset, and obtained as required through APIs.\n\n Format of the {@link ArkUI_AttributeItem} parameter for setting the attribute:\\n\n .value[0].i32: copy option {@link ArkUI_CopyOptions}. The default value is <b>ARKUI_COPY_OPTIONS_NONE</b>.\\n\n \\n\n Format of the return value {@link ArkUI_AttributeItem}:\\n\n .value[0].i32: copy option {@link ArkUI_CopyOptions.\\n\n\n @since 21"]
+#[cfg(feature = "api-21")]
 pub const ArkUI_NodeAttributeType_NODE_IMAGE_COPY_OPTION: ArkUI_NodeAttributeType = 4016;
-#[cfg(feature = "api-21")]
 #[doc = " @brief Defines the image AI analysis enable attribute.\n This attribute can be set, reset, and obtained as required through APIs.\n\n Format of the {@link ArkUI_AttributeItem} parameter for setting the attribute:\\n\n .value[0].i32: whether to enable AI analysis for the image.\\n\n \\n\n Format of the return value {@link ArkUI_AttributeItem}:\\n\n .value[0].i32: whether to enable AI analysis for the image.\\n\n\n @since 21"]
+#[cfg(feature = "api-21")]
 pub const ArkUI_NodeAttributeType_NODE_IMAGE_ENABLE_ANALYZER: ArkUI_NodeAttributeType = 4017;
-#[cfg(feature = "api-21")]
 #[doc = " @brief Defines the image dynamic display range attribute.\n This attribute can be set, reset, and obtained as required through APIs.\n\n Format of the {@link ArkUI_AttributeItem} parameter for setting the attribute:\\n\n .value[0].i32: dynamic range mode {@link ArkUI_DynamicRangeMode}.\n The default value is <b>ARKUI_DYNAMIC_RANGE_MODE_STANDARD</b>.\\n\n \\n\n Format of the return value {@link ArkUI_AttributeItem}:\\n\n .value[0].i32: dynamic range mode {@link ArkUI_DynamicRangeMode.\\n\n\n @since 21"]
+#[cfg(feature = "api-21")]
 pub const ArkUI_NodeAttributeType_NODE_IMAGE_DYNAMIC_RANGE_MODE: ArkUI_NodeAttributeType = 4018;
-#[cfg(feature = "api-21")]
 #[doc = " @brief Defines the image dynamic display brightness attribute.\n This attribute can be set, reset, and obtained as required through APIs.\n\n Format of the {@link ArkUI_AttributeItem} parameter for setting the attribute:\\n\n .value[0].f32: hdr brightness. value range [0, 1]\\n\n \\n\n Format of the return value {@link ArkUI_AttributeItem}:\\n\n .value[0].f32: hdr brightness. value range [0, 1]\\n\n\n @since 21"]
+#[cfg(feature = "api-21")]
 pub const ArkUI_NodeAttributeType_NODE_IMAGE_HDR_BRIGHTNESS: ArkUI_NodeAttributeType = 4019;
-#[cfg(feature = "api-21")]
 #[doc = " @brief Defines the image display direction attribute.\n This attribute can be set, reset, and obtained as required through APIs.\n\n Format of the {@link ArkUI_AttributeItem} parameter for setting the attribute:\\n\n .value[0].i32: orientation {@link ArkUI_Orientation}.\n The default value is <b>ARKUI_ORIENTATION_UP</b>.\\n\n \\n\n Format of the return value {@link ArkUI_AttributeItem}:\\n\n .value[0].i32: orientation {@link ArkUI_Orientation.\\n\n\n @since 21"]
+#[cfg(feature = "api-21")]
 pub const ArkUI_NodeAttributeType_NODE_IMAGE_ORIENTATION: ArkUI_NodeAttributeType = 4020;
-#[cfg(feature = "api-21")]
 #[doc = " @brief Set the range of SVG parsing capabilities supported through enable switch.\n This attribute can be set, reset, and obtained as required through APIs.\n\n Format of the {@link ArkUI_AttributeItem} parameter for setting the attribute:\\n\n .value[0].i32: enable switch.\\n\n \\n\n Format of the return value {@link ArkUI_AttributeItem}:\\n\n .value[0].i32: enable switch.\\n\n\n @since 21"]
-pub const ArkUI_NodeAttributeType_NODE_IMAGE_SUPPORT_SVG2: ArkUI_NodeAttributeType = 4021;
 #[cfg(feature = "api-21")]
+pub const ArkUI_NodeAttributeType_NODE_IMAGE_SUPPORT_SVG2: ArkUI_NodeAttributeType = 4021;
 #[doc = " @brief Set the animation effect for the image content transformation.\n This attribute can be set, reset, and obtained as required through APIs.\n\n Format of the {@link ArkUI_AttributeItem} parameter for setting the attribute:\\n\n .object: The parameter type is {@link ArkUI_ContentTransitionEffect}.\\n\n\n Format of the return value {@link ArkUI_AttributeItem}:\\n\n .object: The parameter type is {@link ArkUI_ContentTransitionEffect}.\\n\n\n @since 21"]
+#[cfg(feature = "api-21")]
 pub const ArkUI_NodeAttributeType_NODE_IMAGE_CONTENT_TRANSITION: ArkUI_NodeAttributeType = 4022;
-#[cfg(feature = "api-22")]
 #[doc = " @brief Defines the placeholder image during loading process.\n This attribute can be set, reset, and obtained as required through APIs.\n\n Format of the {@link ArkUI_AttributeItem} parameter for setting the attribute:\\n\n .string: placeholder image source. \\n\n .object: The parameter type is {@link ArkUI_DrawableDescriptor}. Either .string or .object must be set.\\n\n \\n\n Format of the return value {@link ArkUI_AttributeItem}:\\n\n .string: placeholder image source. \\n\n .object: The parameter type is {@link ArkUI_DrawableDescriptor}.\\n\n\n @since 22"]
-pub const ArkUI_NodeAttributeType_NODE_IMAGE_ALT_PLACEHOLDER: ArkUI_NodeAttributeType = 4023;
 #[cfg(feature = "api-22")]
+pub const ArkUI_NodeAttributeType_NODE_IMAGE_ALT_PLACEHOLDER: ArkUI_NodeAttributeType = 4023;
 #[doc = " @brief Defines the placeholder image when loading fails.\n This attribute can be set, reset, and obtained as required through APIs.\n\n Format of the {@link ArkUI_AttributeItem} parameter for setting the attribute:\\n\n .string: placeholder image source. \\n\n .object: The parameter type is {@link ArkUI_DrawableDescriptor}. Either .string or .object must be set.\\n\n \\n\n Format of the return value {@link ArkUI_AttributeItem}:\\n\n .string: placeholder image source. \\n\n .object: The parameter type is {@link ArkUI_DrawableDescriptor}.\\n\n\n @since 22"]
+#[cfg(feature = "api-22")]
 pub const ArkUI_NodeAttributeType_NODE_IMAGE_ALT_ERROR: ArkUI_NodeAttributeType = 4024;
 #[doc = " @brief Defines the color of the component when it is selected.\n This attribute can be set, reset, and obtained as required through APIs.\n\n Format of the {@link ArkUI_AttributeItem} parameter for setting the attribute:\\n\n .value[0].u32: background color, in 0xARGB format. For example, 0xFFFF0000 indicates red. \\n\n \\n\n Format of the return value {@link ArkUI_AttributeItem}:\\n\n .value[0].u32: background color, in 0xARGB format. \\n\n"]
 pub const ArkUI_NodeAttributeType_NODE_TOGGLE_SELECTED_COLOR: ArkUI_NodeAttributeType = 5000;
@@ -9311,33 +9311,33 @@ pub const ArkUI_NodeAttributeType_NODE_TEXT_INPUT_SHOW_KEYBOARD_ON_FOCUS: ArkUI_
     7030;
 #[doc = " @brief When this property is set, the height of the textInput component is calculated using this property.\n\n Format of the {@link ArkUI_AttributeItem} parameter for setting the attribute:\\n\n .value[0].i32: set the value of numberOfLines.\\n\n \\n\n Format of the return value {@link ArkUI_AttributeItem}:\\n\n .value[0].i32: the value of numberOfLines.\\n\n"]
 pub const ArkUI_NodeAttributeType_NODE_TEXT_INPUT_NUMBER_OF_LINES: ArkUI_NodeAttributeType = 7031;
-#[cfg(feature = "api-15")]
 #[doc = " @brief Sets the letter spacing of the <b>TextInput</b> component.\n This attribute can be set, reset, and obtained as required through APIs.\n\n Format of the {@link ArkUI_AttributeItem} parameter for setting the attribute:\\n\n .value[0].f32: letter spacing. The default unit is fp. \\n\n \\n\n Format of the return value {@link ArkUI_AttributeItem}:\\n\n .value[0].f32: letter spacing. The default unit is fp. \\n\n\n @since 15"]
-pub const ArkUI_NodeAttributeType_NODE_TEXT_INPUT_LETTER_SPACING: ArkUI_NodeAttributeType = 7032;
 #[cfg(feature = "api-15")]
+pub const ArkUI_NodeAttributeType_NODE_TEXT_INPUT_LETTER_SPACING: ArkUI_NodeAttributeType = 7032;
 #[doc = " @brief Sets whether to enable preview text for the <b>TextInput</b> component.\n This attribute can be set, reset, and obtained as required through APIs.\n\n Format of the {@link ArkUI_AttributeItem} parameter for setting the attribute:\\n\n .value[0].i32: whether to enable preview tex. \\n\n \\n\n Format of the return value {@link ArkUI_AttributeItem}:\\n\n .value[0].i32: whether to enable preview tex. \\n\n\n @since 15"]
+#[cfg(feature = "api-15")]
 pub const ArkUI_NodeAttributeType_NODE_TEXT_INPUT_ENABLE_PREVIEW_TEXT: ArkUI_NodeAttributeType =
     7033;
-#[cfg(feature = "api-18")]
 #[doc = " @brief Sets whether to center text vertically in the textInput component.\n\n Format of the {@link ArkUI_AttributeItem} parameter for setting the attribute:\\n\n .value[0].i32: whether to center text vertically. The default value is <b>false</b>. \\n\n \\n\n Format of the return value {@link ArkUI_AttributeItem}:\\n\n .value[0].i32: whether to center text vertically. \\n\n\n @since 18"]
+#[cfg(feature = "api-18")]
 pub const ArkUI_NodeAttributeType_NODE_TEXT_INPUT_HALF_LEADING: ArkUI_NodeAttributeType = 7034;
-#[cfg(feature = "api-15")]
 #[doc = " @brief Set the keyboard style of textInput\n\n Format of the {@link ArkUI_AttributeItem} parameter for setting the attribute:\\n\n .value[0].i32：keyboard style，the parameter type is {@link ArkUI_KeyboardAppearanceType}。\\n\n \\n\n Format of the return value {@link ArkUI_AttributeItem}：\\n\n .value[0].i32：keyboard style，the parameter type is {@link ArkUI_KeyboardAppearanceType}。\\n\n\n @since 15"]
+#[cfg(feature = "api-15")]
 pub const ArkUI_NodeAttributeType_NODE_TEXT_INPUT_KEYBOARD_APPEARANCE: ArkUI_NodeAttributeType =
     7035;
-#[cfg(feature = "api-20")]
 #[doc = " @brief Set whether to enable the auto fill animation or not.\n\n Format of the {@link ArkUI_AttributeItem} parameter for setting the attribute:\\n\n .value[0].i32: Whether to enable the auto fill animation.\\n\n \\n\n Format of the return value {@link ArkUI_AttributeItem}: \\n\n .value[0].i32: Get the flag of whether the auto fill animation is enabled.\\n\n\n @since 20"]
+#[cfg(feature = "api-20")]
 pub const ArkUI_NodeAttributeType_NODE_TEXT_INPUT_ENABLE_FILL_ANIMATION: ArkUI_NodeAttributeType =
     7036;
-#[cfg(feature = "api-20")]
 #[doc = " @brief Set the line height of the input node.\n This attribute can be set, reset, and obtained as required through APIs.\n\n Format of the {@link ArkUI_AttributeItem} parameter for setting the attribute:\\n\n .value[0].i32: line height value.\n \\n\n Format of the return value {@link ArkUI_AttributeItem}: \\n\n .value[0].i32: line height value\n\n @since 20"]
+#[cfg(feature = "api-20")]
 pub const ArkUI_NodeAttributeType_NODE_TEXT_INPUT_LINE_HEIGHT: ArkUI_NodeAttributeType = 7037;
-#[cfg(feature = "api-22")]
 #[doc = " @brief Enables selected data detector.\n\n Format of the {@link ArkUI_AttributeItem} parameter for setting the attribute:\\n\n .value[0].i32: Enable selected text recognition, default value true.\\n\n \\n\n Format of the return value {@link ArkUI_AttributeItem}:\\n\n .value[0].i32: Whether selected text recognition is enabled.\\n\n\n @since 22"]
+#[cfg(feature = "api-22")]
 pub const ArkUI_NodeAttributeType_NODE_TEXT_INPUT_ENABLE_SELECTED_DATA_DETECTOR:
     ArkUI_NodeAttributeType = 7038;
-#[cfg(feature = "api-22")]
 #[doc = " @brief Defines the counter settings. This attribute can be set, reset, and obtained as required through APIs.\n\n Format of the {@link ArkUI_AttributeItem} parameter for setting the attribute:\\n\n .value[0].i32: whether to show a character counter. The value <b>true</b> means to show a character counter. \\n\n .value[1]?.f32: threshold percentage for displaying the character counter. The character counter is displayed\n when the number of characters that have been entered is greater than the maximum number of characters multiplied\n by the threshold percentage value. The value range is 1 to 100. If the value is a decimal, it is rounded down. \\n\n .value[2]?.i32: whether to highlight the border when the number of entered characters reaches the maximum. \\n\n .object: counter configuration. The parameter type is {@link ArkUI_ShowCounterConfig}.\\n\n \\n\n Format of the return value {@link ArkUI_AttributeItem}:\\n\n .value[0].i32: whether to show a character counter. \\n\n .value[1].f32: threshold percentage for displaying the character counter. The character counter is displayed\n when the number of characters that have been entered is greater than the maximum number of characters multiplied\n by the threshold percentage value. The value range is 1 to 100. \\n\n .value[2].i32: whether to highlight the border when the number of entered characters reaches the maximum.\n The default value is <b>true</b>. \\n\n .object: counter configuration. The parameter type is {@link ArkUI_ShowCounterConfig}.\\n\n\n @since 22"]
+#[cfg(feature = "api-22")]
 pub const ArkUI_NodeAttributeType_NODE_TEXT_INPUT_SHOW_COUNTER: ArkUI_NodeAttributeType = 7040;
 #[doc = " @brief Defines the default placeholder text for the multi-line text box.\n This attribute can be set, reset, and obtained as required through APIs.\n\n Format of the {@link ArkUI_AttributeItem} parameter for setting the attribute:\\n\n .string: default placeholder text. \\n\n \\n\n Format of the return value {@link ArkUI_AttributeItem}:\\n\n .string: default placeholder text. \\n\n"]
 pub const ArkUI_NodeAttributeType_NODE_TEXT_AREA_PLACEHOLDER: ArkUI_NodeAttributeType = 8000;
@@ -9389,58 +9389,58 @@ pub const ArkUI_NodeAttributeType_NODE_TEXT_AREA_SHOW_KEYBOARD_ON_FOCUS: ArkUI_N
     8021;
 #[doc = " @brief When this property is set, the height of the textArea component is calculated using this property.\n\n Format of the {@link ArkUI_AttributeItem} parameter for setting the attribute:\\n\n .value[0].i32: set the value of numberOfLines.\\n\n \\n\n Format of the return value {@link ArkUI_AttributeItem}:\\n\n .value[0].i32: Set the value of numberOfLines\\n\n"]
 pub const ArkUI_NodeAttributeType_NODE_TEXT_AREA_NUMBER_OF_LINES: ArkUI_NodeAttributeType = 8022;
-#[cfg(feature = "api-15")]
 #[doc = " @brief Sets the letter spacing of the <b>TextArea</b> component.\n This attribute can be set, reset, and obtained as required through APIs.\n\n Format of the {@link ArkUI_AttributeItem} parameter for setting the attribute:\\n\n .value[0].f32: letter spacing. The default unit is fp. \\n\n \\n\n Format of the return value {@link ArkUI_AttributeItem}:\\n\n .value[0].f32: letter spacing. The default unit is fp. \\n\n\n @since 15"]
-pub const ArkUI_NodeAttributeType_NODE_TEXT_AREA_LETTER_SPACING: ArkUI_NodeAttributeType = 8023;
 #[cfg(feature = "api-15")]
+pub const ArkUI_NodeAttributeType_NODE_TEXT_AREA_LETTER_SPACING: ArkUI_NodeAttributeType = 8023;
 #[doc = " @brief Sets whether to enable preview text for the <b>TextArea</b> component.\n This attribute can be set, reset, and obtained as required through APIs.\n\n Format of the {@link ArkUI_AttributeItem} parameter for setting the attribute:\\n\n .value[0].i32: whether to enable preview tex. \\n\n \\n\n Format of the return value {@link ArkUI_AttributeItem}:\\n\n .value[0].i32: whether to enable preview tex. \\n\n\n @since 15"]
+#[cfg(feature = "api-15")]
 pub const ArkUI_NodeAttributeType_NODE_TEXT_AREA_ENABLE_PREVIEW_TEXT: ArkUI_NodeAttributeType =
     8024;
-#[cfg(feature = "api-18")]
 #[doc = " @brief Sets whether to center text vertically in the textArea component.\n\n Format of the {@link ArkUI_AttributeItem} parameter for setting the attribute:\\n\n .value[0].i32: whether to center text vertically. The default value is <b>false</b>. \\n\n \\n\n Format of the return value {@link ArkUI_AttributeItem}:\\n\n .value[0].i32: whether to center text vertically. \\n\n\n @since 18"]
+#[cfg(feature = "api-18")]
 pub const ArkUI_NodeAttributeType_NODE_TEXT_AREA_HALF_LEADING: ArkUI_NodeAttributeType = 8025;
-#[cfg(feature = "api-15")]
 #[doc = " @brief Set the keyboard style of textArea\n\n Format of the {@link ArkUI_AttributeItem} parameter for setting the attribute:\\n\n .value[0].i32：keyboard style，the parameter type is {@link ArkUI_KeyboardAppearanceType}。\\n\n \\n\n Format of the return value {@link ArkUI_AttributeItem}：\\n\n .value[0].i32：keyboard style，the parameter type is {@link ArkUI_KeyboardAppearanceType}。\\n\n\n @since 15"]
+#[cfg(feature = "api-15")]
 pub const ArkUI_NodeAttributeType_NODE_TEXT_AREA_KEYBOARD_APPEARANCE: ArkUI_NodeAttributeType =
     8026;
-#[cfg(feature = "api-20")]
 #[doc = " @brief Set the max lines of the node. This attribute can be set, reset, and obtained as required through APIs.\n\n Format of the {@link ArkUI_AttributeItem} parameter for setting the attribute:\\n\n .value[0].i32: max lines count.\n \\n\n Format of the return value {@link ArkUI_AttributeItem}:\\n\n .value[0].i32: max lines count.\\n\n\n @since 20"]
+#[cfg(feature = "api-20")]
 pub const ArkUI_NodeAttributeType_NODE_TEXT_AREA_MAX_LINES: ArkUI_NodeAttributeType = 8027;
-#[cfg(feature = "api-20")]
 #[doc = " @brief Set line spacing of the node. This attribute can be set, reset, and obtained as required through APIs.\n\n Format of the {@link ArkUI_AttributeItem} parameter for setting the attribute:\\n\n .value[0].i32: line spacing value. \\n\n \\n\n Format of the return value {@link ArkUI_AttributeItem}:\\n\n .value[0].i32: line spacing value. \\n\n\n @since 20"]
+#[cfg(feature = "api-20")]
 pub const ArkUI_NodeAttributeType_NODE_TEXT_AREA_LINE_SPACING: ArkUI_NodeAttributeType = 8028;
-#[cfg(feature = "api-20")]
 #[doc = " @brief Set the min lines of the node. This attribute can be set, reset, and obtained as required through APIs.\n\n Format of the {@link ArkUI_AttributeItem} parameter for setting the attribute:\\n\n .value[0].i32: min lines count.\n \\n\n Format of the return value {@link ArkUI_AttributeItem}: \\n\n .value[0].i32: min line count.\\n\n\n @since 20\n"]
-pub const ArkUI_NodeAttributeType_NODE_TEXT_AREA_MIN_LINES: ArkUI_NodeAttributeType = 8029;
 #[cfg(feature = "api-20")]
+pub const ArkUI_NodeAttributeType_NODE_TEXT_AREA_MIN_LINES: ArkUI_NodeAttributeType = 8029;
 #[doc = " @brief Set the max lines of the node with scroll.\n This attribute can be set, reset, and obtained as required through APIs.\n\n Format of the {@link ArkUI_AttributeItem} parameter for setting the attribute:\\n\n .value[0].i32: max lines count with scroll.\n \\n\n Format of the return value {@link ArkUI_AttributeItem}: \\n\n .value[0].i32: max line count with scroll.\\n\n\n @since 20"]
+#[cfg(feature = "api-20")]
 pub const ArkUI_NodeAttributeType_NODE_TEXT_AREA_MAX_LINES_WITH_SCROLL: ArkUI_NodeAttributeType =
     8030;
-#[cfg(feature = "api-20")]
 #[doc = " @brief Set the line height of the node. This attribute can be set, reset, and obtained as required through APIs.\n\n Format of the {@link ArkUI_AttributeItem} parameter for setting the attribute:\\n\n .value[0].i32: line height value.\n \\n\n Format of the return value {@link ArkUI_AttributeItem}: \\n\n .value[0].i32: line height value\n\n @since 20"]
+#[cfg(feature = "api-20")]
 pub const ArkUI_NodeAttributeType_NODE_TEXT_AREA_LINE_HEIGHT: ArkUI_NodeAttributeType = 8031;
-#[cfg(feature = "api-22")]
 #[doc = " @brief Define bar state of the text area.\n This attribute can be set, reset, and obtained as required through APIs.\n\n Format of the {@link ArkUI_AttributeItem} parameter for setting the attribute:\\n\n .value[0].i32: bar state of the text area, specified using the {@link ArkUI_BarState} enum.\n The default value is <b>ARKUI_BAR_STATE_AUTO</b>. \\n\n \\n\n Format of the return value {@link ArkUI_AttributeItem}:\\n\n .value[0].i32: bar state of the text area, specified using the {@link ArkUI_BarState} enum. \\n\n\n @since 22"]
-pub const ArkUI_NodeAttributeType_NODE_TEXT_AREA_BAR_STATE: ArkUI_NodeAttributeType = 8032;
 #[cfg(feature = "api-22")]
+pub const ArkUI_NodeAttributeType_NODE_TEXT_AREA_BAR_STATE: ArkUI_NodeAttributeType = 8032;
 #[doc = " @brief Enables selected data detector.\n\n Format of the {@link ArkUI_AttributeItem} parameter for setting the attribute:\\n\n .value[0].i32: Enable selected text recognition, default value true.\\n\n \\n\n Format of the return value {@link ArkUI_AttributeItem}:\\n\n .value[0].i32: Whether selected text recognition is enabled.\\n\n\n @since 22"]
+#[cfg(feature = "api-22")]
 pub const ArkUI_NodeAttributeType_NODE_TEXT_AREA_ENABLE_SELECTED_DATA_DETECTOR:
     ArkUI_NodeAttributeType = 8033;
-#[cfg(feature = "api-22")]
 #[doc = " @brief Defines the color of the scrollbar. This attribute can be set, reset, and obtained as required\n through APIs.\n\n Format of the {@link ArkUI_AttributeItem} parameter for setting the attribute:\\n\n .data[0].u32: color of the scroll bar thumb, in 0xARGB format. \\n\n \\n\n Format of the return value {@link ArkUI_AttributeItem}:\\n\n .data[0].u32: color of the scroll bar thumb, in 0xARGB format. \\n\n\n @since 22"]
-pub const ArkUI_NodeAttributeType_NODE_TEXT_AREA_SCROLL_BAR_COLOR: ArkUI_NodeAttributeType = 8035;
 #[cfg(feature = "api-22")]
+pub const ArkUI_NodeAttributeType_NODE_TEXT_AREA_SCROLL_BAR_COLOR: ArkUI_NodeAttributeType = 8035;
 #[doc = " @brief Sets up a custom keyboard.\n\n Format of the {@link ArkUI_AttributeItem} parameter for setting the attribute:\\n\n .object: custom keyboard,The parameter type is {@Link ArkUI_NodeHandle}.\\n\n .value[0]?.i32: Sets whether the custom keyboard supports the avoidance feature, default value false.\\n\n \\n\n Format of the return value {@link ArkUI_AttributeItem}:\\n\n .object:custom keyboard,The parameter type is {@Link ArkUI_NodeHandle}.\\n\n .value[0].i32: Set whether the custom keyboard supports the avoidance function.\\n\n\n @since 22"]
+#[cfg(feature = "api-22")]
 pub const ArkUI_NodeAttributeType_NODE_TEXT_AREA_CUSTOM_KEYBOARD: ArkUI_NodeAttributeType = 8036;
 #[doc = " @brief Defines the button text content. This attribute can be set, reset, and obtained as required through APIs.\n\n Format of the {@link ArkUI_AttributeItem} parameter for setting the attribute:\\n\n .string: default text content. \\n\n \\n\n Format of the return value {@link ArkUI_AttributeItem}:\\n\n .string: default text content. \\n\n"]
 pub const ArkUI_NodeAttributeType_NODE_BUTTON_LABEL: ArkUI_NodeAttributeType = 9000;
 #[doc = " @brief Sets the button type. This attribute can be set, reset, and obtained as required through APIs.\n\n Format of the {@link ArkUI_AttributeItem} parameter for setting the attribute:\\n\n .value[0].i32: button type. The parameter type is {@link ArkUI_ButtonType}.\n The default value is <b>ARKUI_BUTTON_TYPE_CAPSULE</b>. \\n\n \\n\n Format of the return value {@link ArkUI_AttributeItem}:\\n\n .value[0].i32: button type. The parameter type is {@link ArkUI_ButtonType}.\n The default value is <b>ARKUI_BUTTON_TYPE_CAPSULE</b>. \\n\n"]
 pub const ArkUI_NodeAttributeType_NODE_BUTTON_TYPE: ArkUI_NodeAttributeType = 9001;
-#[cfg(feature = "api-18")]
 #[doc = " @brief Defines the minimum font scale attribute, which can be set, reset, and obtained as required through APIs.\n\n Format of the {@link ArkUI_AttributeItem} parameter for setting the attribute:\\n\n .value[0].f32: minimum font scale, in fp.\n \\n\n Format of the return value {@link ArkUI_AttributeItem}:\\n\n .value[0].f32: minimum font scale, in fp.\n\n @since 18"]
-pub const ArkUI_NodeAttributeType_NODE_BUTTON_MIN_FONT_SCALE: ArkUI_NodeAttributeType = 9002;
 #[cfg(feature = "api-18")]
+pub const ArkUI_NodeAttributeType_NODE_BUTTON_MIN_FONT_SCALE: ArkUI_NodeAttributeType = 9002;
 #[doc = " @brief Defines the maximum font scale attribute, which can be set, reset, and obtained as required through APIs.\n\n Format of the {@link ArkUI_AttributeItem} parameter for setting the attribute:\\n\n .value[0].f32: maximum font scale, in fp.\n \\n\n Format of the return value {@link ArkUI_AttributeItem}:\\n\n .value[0].f32: maximum font scale, in fp.\n\n @since 18"]
+#[cfg(feature = "api-18")]
 pub const ArkUI_NodeAttributeType_NODE_BUTTON_MAX_FONT_SCALE: ArkUI_NodeAttributeType = 9003;
 #[doc = " @brief Defines the current value of the progress indicator.\n This attribute can be set, reset, and obtained as required through APIs.\n\n Format of the {@link ArkUI_AttributeItem} parameter for setting the attribute:\\n\n .value[0].f32: current value of the progress indicator. \\n\n \\n\n Format of the return value {@link ArkUI_AttributeItem}:\\n\n .value[0].f32: current value of the progress indicator. \\n\n"]
 pub const ArkUI_NodeAttributeType_NODE_PROGRESS_VALUE: ArkUI_NodeAttributeType = 10000;
@@ -9450,8 +9450,8 @@ pub const ArkUI_NodeAttributeType_NODE_PROGRESS_TOTAL: ArkUI_NodeAttributeType =
 pub const ArkUI_NodeAttributeType_NODE_PROGRESS_COLOR: ArkUI_NodeAttributeType = 10002;
 #[doc = " @brief Defines the type of the progress indicator.\n This attribute can be set, reset, and obtained as required through APIs.\n\n Format of the {@link ArkUI_AttributeItem} parameter for setting the attribute:\\n\n .value[0].i32: type of the progress indicator {@link ArkUI_ProgressType}.\n The default value is <b>ARKUI_PROGRESS_TYPE_LINEAR</b>. \\n\n \\n\n Format of the return value {@link ArkUI_AttributeItem}:\\n\n .value[0].i32: type of the progress indicator {@link ArkUI_ProgressType}. \\n\n"]
 pub const ArkUI_NodeAttributeType_NODE_PROGRESS_TYPE: ArkUI_NodeAttributeType = 10003;
-#[cfg(feature = "api-15")]
 #[doc = " @brief Sets the style of the linear progress indicator.\n This attribute can be set, reset, and obtained as required through APIs.\n If the progress indicator type is not linear, it will not take effect.\n\n Format of the {@link ArkUI_AttributeItem} parameter for setting the attribute:\\n\n .object: Use the {@link ArkUI_ProgressLinearStyleOption} object to set the style. \\n\n \\n\n Format of the return value {@link ArkUI_AttributeItem}:\\n\n .object: Use the {@link ArkUI_ProgressLinearStyleOption} object to get the style. \\n\n\n @since 15"]
+#[cfg(feature = "api-15")]
 pub const ArkUI_NodeAttributeType_NODE_PROGRESS_LINEAR_STYLE: ArkUI_NodeAttributeType = 10004;
 #[doc = " @brief Defines whether the check box is selected.\n This attribute can be set, reset, and obtained as required through APIs.\n\n Format of the {@link ArkUI_AttributeItem} parameter for setting the attribute:\\n\n .value[0].i32: whether the check box is selected.\n The value <b>1</b> means that the check box is selected, and <b>0</b> means the opposite. \\n\n \\n\n Format of the return value {@link ArkUI_AttributeItem}:\\n\n .value[0].i32: The value <b>1</b> means that the check box is selected, and <b>0</b> means the opposite. \\n\n"]
 pub const ArkUI_NodeAttributeType_NODE_CHECKBOX_SELECT: ArkUI_NodeAttributeType = 11000;
@@ -9463,11 +9463,11 @@ pub const ArkUI_NodeAttributeType_NODE_CHECKBOX_UNSELECT_COLOR: ArkUI_NodeAttrib
 pub const ArkUI_NodeAttributeType_NODE_CHECKBOX_MARK: ArkUI_NodeAttributeType = 11003;
 #[doc = " @brief Defines the shape of the check box.\n This attribute can be set, reset, and obtained as required through APIs.\n\n Format of the {@link ArkUI_AttributeItem} parameter for setting the attribute:\\n\n .value[0].i32: component shape. The parameter type is {@link ArkUI_CheckboxShape}. \\n\n \\n\n Format of the return value {@link ArkUI_AttributeItem}:\\n\n .value[0].i32: component shape. The parameter type is {@link ArkUI_CheckboxShape}.\n"]
 pub const ArkUI_NodeAttributeType_NODE_CHECKBOX_SHAPE: ArkUI_NodeAttributeType = 11004;
-#[cfg(feature = "api-15")]
 #[doc = " @brief Defines the name of the checkbox.\n This attribute can be set, reset, and obtained as required through APIs.\n\n Format of the {@link ArkUI_AttributeItem} parameter for setting the attribute:\\n\n .string: component name. \\n\n \\n\n Format of the return value {@link ArkUI_AttributeItem}:\\n\n .string: component name. \\n\n\n @since 15"]
+#[cfg(feature = "api-15")]
 pub const ArkUI_NodeAttributeType_NODE_CHECKBOX_NAME: ArkUI_NodeAttributeType = 11005;
-#[cfg(feature = "api-15")]
 #[doc = " @brief Defines the name of the checkbox.\n This attribute can be set, reset, and obtained as required through APIs.\n\n Format of the {@link ArkUI_AttributeItem} parameter for setting the attribute:\\n\n .string: component name. \\n\n \\n\n Format of the return value {@link ArkUI_AttributeItem}:\\n\n .string: component name. \\n\n\n @since 15"]
+#[cfg(feature = "api-15")]
 pub const ArkUI_NodeAttributeType_NODE_CHECKBOX_GROUP: ArkUI_NodeAttributeType = 11006;
 #[doc = " @brief Defines the ID of the <b><XComponent></b> component.\n This attribute can be set and obtained as required through APIs.\n\n Format of the {@link ArkUI_AttributeItem} parameter for setting the attribute:\\n\n .string: component ID. \\n\n \\n\n Format of the return value {@link ArkUI_AttributeItem}:\\n\n .string: component ID. \\n\n"]
 pub const ArkUI_NodeAttributeType_NODE_XCOMPONENT_ID: ArkUI_NodeAttributeType = 12000;
@@ -9475,11 +9475,11 @@ pub const ArkUI_NodeAttributeType_NODE_XCOMPONENT_ID: ArkUI_NodeAttributeType = 
 pub const ArkUI_NodeAttributeType_NODE_XCOMPONENT_TYPE: ArkUI_NodeAttributeType = 12001;
 #[doc = " @brief Specifies the size of the <b>XComponent</b> component. This attribute is read-only. \\n\n Attempting to modify the size through {@link setAttribute} will have no effect.\n\n Format of the return value {@link ArkUI_AttributeItem}:\\n\n .value[0].u32: width, in px. \\n\n .value[1].u32: height, in px. \\n\n"]
 pub const ArkUI_NodeAttributeType_NODE_XCOMPONENT_SURFACE_SIZE: ArkUI_NodeAttributeType = 12002;
-#[cfg(feature = "api-18")]
 #[doc = " @brief Defines the rectangle information of surface created by the <b><XComponent></b> component.\n This attribute can be set and obtained as required through APIs.\n\n Format of the {@link ArkUI_AttributeItem} parameter for setting the attribute:\\n\n .value[0].i32: The horizontal offset of the surface relative to XComponent, in pixels. \\n\n .value[1].i32: The vertical offset of the surface relative to XComponent, in pixels. \\n\n .value[2].i32: The width of the surface created by XComponent, in pixels. \\n\n .value[3].i32: The height of the surface created by XComponent, in pixels. \\n\n \\n\n Format of the return value {@link ArkUI_AttributeItem}:\\n\n Format of the {@link ArkUI_AttributeItem} parameter for setting the attribute:\\n\n .value[0].i32: The horizontal offset of the surface relative to XComponent, in pixels. \\n\n .value[1].i32: The vertical offset of the surface relative to XComponent, in pixels. \\n\n .value[2].i32: The width of the surface created by XComponent, in pixels. \\n\n .value[3].i32: The height of the surface created by XComponent, in pixels. \\n\n @since 18"]
-pub const ArkUI_NodeAttributeType_NODE_XCOMPONENT_SURFACE_RECT: ArkUI_NodeAttributeType = 12003;
 #[cfg(feature = "api-18")]
+pub const ArkUI_NodeAttributeType_NODE_XCOMPONENT_SURFACE_RECT: ArkUI_NodeAttributeType = 12003;
 #[doc = " @brief Defines whether to enable the AI analyzer for the <b><XComponent></b> component.\n This attribute can be set and obtained as required through APIs.\n\n Format of the {@link ArkUI_AttributeItem} parameter for setting the attribute:\\n\n value[0].i32: The parameter type is 1 or 0.\n \\n\n Format of the return value {@link ArkUI_AttributeItem}:\\n\n value[0].i32: The parameter type is 1 or 0.\n @since 18"]
+#[cfg(feature = "api-18")]
 pub const ArkUI_NodeAttributeType_NODE_XCOMPONENT_ENABLE_ANALYZER: ArkUI_NodeAttributeType = 12004;
 #[doc = " @brief Defines whether to display the lunar calendar in the date picker.\n This attribute can be set, reset, and obtained as required through APIs.\n\n Format of the {@link ArkUI_AttributeItem} parameter for setting the attribute:\\n\n .value[0].i32: whether to display the lunar calendar in the date picker. The default value is <b>false</b>. \\n\n \\n\n Format of the return value {@link ArkUI_AttributeItem}:\\n\n .value[0].i32: whether to display the lunar calendar in the date picker.\n"]
 pub const ArkUI_NodeAttributeType_NODE_DATE_PICKER_LUNAR: ArkUI_NodeAttributeType = 13000;
@@ -9497,15 +9497,15 @@ pub const ArkUI_NodeAttributeType_NODE_DATE_PICKER_TEXT_STYLE: ArkUI_NodeAttribu
 #[doc = " @brief Defines the font color, font size, and font weight of the selected item in the date picker.\n This attribute can be set, reset, and obtained as required through APIs.\n\n Format of the {@link ArkUI_AttributeItem} parameter for setting the attribute:\\n\n .string: array of five parameters of the string type, separated by semicolons (;).\\n\n Parameter 1: font color, in #ARGB format.\\n\n Parameter 2: font size, in fp. The value is a number.\\n\n Parameter 3: font weight. Available options are (\"bold\", \"normal\", \"bolder\", \"lighter\", \"medium\", \"regular\").\\n.\n Parameter 4: fonts, separated by commas (,).\\n\n Parameter 5: font style. Available options are (\"normal\", \"italic\").\\n\n Example: \"#ff182431;14;normal;Arial,HarmonyOS Sans;normal\". \\n\n \\n\n Format of the return value {@link ArkUI_AttributeItem}:\\n\n .string: array of five parameters of the string type, separated by semicolons (;).\\n\n Parameter 1: font color, in #ARGB format.\\n\n Parameter 2: font size, in fp. The value is a number.\\n\n Parameter 3: font weight. Available options are (\"bold\", \"normal\", \"bolder\", \"lighter\", \"medium\", \"regular\").\\n.\n Parameter 4: fonts, separated by commas (,).\\n\n Parameter 5: font style. Available options are (\"normal\", \"italic\").\\n\n Example: \"#ff182431;14;normal;Arial,HarmonyOS Sans;normal\". \\n\n"]
 pub const ArkUI_NodeAttributeType_NODE_DATE_PICKER_SELECTED_TEXT_STYLE: ArkUI_NodeAttributeType =
     13006;
-#[cfg(feature = "api-18")]
 #[doc = " @brief Defines the mode of the date picker.\n This attribute can be set, reset, and obtained as required through APIs.\n\n Format of the {@link ArkUI_AttributeItem} parameter for setting the attribute:\\n\n value[0].i32: the mode. The value is and enum of {@link ArkUI_DatePickerMode}.\\n.\n \\n\n Format of the return value {@link ArkUI_AttributeItem}:\\n\n value[0].i32: the mode. The value is and enum of {@link ArkUI_DatePickerMode}.\\n.\n\n @since 18"]
-pub const ArkUI_NodeAttributeType_NODE_DATE_PICKER_MODE: ArkUI_NodeAttributeType = 13007;
 #[cfg(feature = "api-18")]
+pub const ArkUI_NodeAttributeType_NODE_DATE_PICKER_MODE: ArkUI_NodeAttributeType = 13007;
 #[doc = " @brief Defines whether haptic feedback.\n This attribute can be set, reset, and obtained as required through APIs.\n\n Format of the {@link ArkUI_AttributeItem} parameter for setting the attribute:\\n\n .value[0].i32: whether to feedback. The value <b>true</b> means to feedback, and\n <b>false</b> means the opposite.\\n\n \\n\n Format of the return value {@link ArkUI_AttributeItem}:\\n\n value[0].i32: whether to feedback.\\n\n\n @since 18"]
+#[cfg(feature = "api-18")]
 pub const ArkUI_NodeAttributeType_NODE_DATE_PICKER_ENABLE_HAPTIC_FEEDBACK: ArkUI_NodeAttributeType =
     13008;
-#[cfg(feature = "api-20")]
 #[doc = " @brief Defines whether to support scroll looping for the date picker.\n This attribute can be set, reset, and obtained as required through APIs.\n\n Format of the {@link ArkUI_AttributeItem} parameter for setting the attribute:\\n\n .value[0].i32: whether to support scroll looping. The value <b>true</b> means to support scroll looping, and\n <b>false</b> means the opposite.\\n\n \\n\n Format of the return value {@link ArkUI_AttributeItem}:\\n\n value[0].i32: The value <b>1</b> means to support scroll looping, and <b>0</b> means the opposite. \\n\n\n @since 20"]
+#[cfg(feature = "api-20")]
 pub const ArkUI_NodeAttributeType_NODE_DATE_PICKER_CAN_LOOP: ArkUI_NodeAttributeType = 13009;
 #[doc = " @brief Defines the time of the selected item. in the timer picker.\n This attribute can be set, reset, and obtained as required through APIs.\n\n Format of the {@link ArkUI_AttributeItem} parameter for setting the attribute:\\n\n .string: time. The default value is the current system time. \\n\n \\n\n Format of the return value {@link ArkUI_AttributeItem}:\\n\n .string: time.\n"]
 pub const ArkUI_NodeAttributeType_NODE_TIME_PICKER_SELECTED: ArkUI_NodeAttributeType = 14000;
@@ -9520,14 +9520,14 @@ pub const ArkUI_NodeAttributeType_NODE_TIME_PICKER_TEXT_STYLE: ArkUI_NodeAttribu
 #[doc = " @brief Defines the font color, font size, and font weight of the selected item in the time picker.\n This attribute can be set, reset, and obtained as required through APIs.\n\n Format of the {@link ArkUI_AttributeItem} parameter for setting the attribute:\\n\n .string: array of five parameters of the string type, separated by semicolons (;).\\n\n Parameter 1: font color, in #ARGB format.\\n\n Parameter 2: font size, in fp. The value is a number.\\n\n Parameter 3: font weight. Available options are (\"bold\", \"normal\", \"bolder\", \"lighter\", \"medium\", \"regular\").\\n.\n Parameter 4: fonts, separated by commas (,).\\n\n Parameter 5: font style. Available options are (\"normal\", \"italic\").\\n\n Example: \"#ff182431;14;normal;Arial,HarmonyOS Sans;normal\". \\n\n \\n\n Format of the return value {@link ArkUI_AttributeItem}:\\n\n .string: array of five parameters of the string type, separated by semicolons (;).\\n\n Parameter 1: font color, in #ARGB format.\\n\n Parameter 2: font size, in fp. The value is a number.\\n\n Parameter 3: font weight. Available options are (\"bold\", \"normal\", \"bolder\", \"lighter\", \"medium\", \"regular\").\\n.\n Parameter 4: fonts, separated by commas (,).\\n\n Parameter 5: font style. Available options are (\"normal\", \"italic\").\\n\n Example: \"#ff182431;14;normal;Arial,HarmonyOS Sans;normal\". \\n\n"]
 pub const ArkUI_NodeAttributeType_NODE_TIME_PICKER_SELECTED_TEXT_STYLE: ArkUI_NodeAttributeType =
     14004;
-#[cfg(feature = "api-18")]
 #[doc = " @brief Defines the start time of the time picker.\n This attribute can be set, reset, and obtained as required through APIs.\n\n Format of the {@link ArkUI_AttributeItem} parameter for setting the attribute:\\n\n .string: time. The default value is <b>\"00:00:00\"</b>.\\n\n \\n\n Format of the return value {@link ArkUI_AttributeItem}:\\n\n .string: time. The default value is <b>\"00:00:00\"</b>.\\n\n\n @since 18"]
+#[cfg(feature = "api-18")]
 pub const ArkUI_NodeAttributeType_NODE_TIME_PICKER_START: ArkUI_NodeAttributeType = 14005;
-#[cfg(feature = "api-18")]
 #[doc = " @brief Defines the end time of the time picker.\n This attribute can be set, reset, and obtained as required through APIs.\n\n Format of the {@link ArkUI_AttributeItem} parameter for setting the attribute:\\n\n .string: time. The default value is <b>\"23:59:59\"</b>.\\n\n \\n\n Format of the return value {@link ArkUI_AttributeItem}:\\n\n .string: time. The default value is <b>\"23:59:59\"</b>.\\n\n\n @since 18"]
-pub const ArkUI_NodeAttributeType_NODE_TIME_PICKER_END: ArkUI_NodeAttributeType = 14006;
 #[cfg(feature = "api-18")]
+pub const ArkUI_NodeAttributeType_NODE_TIME_PICKER_END: ArkUI_NodeAttributeType = 14006;
 #[doc = " @brief Defines whether the AM/PM option is cascaded with the time in 12-hour mode.\n This attribute can be set, reset, and obtained as required through APIs.\n\n Format of the {@link ArkUI_AttributeItem} parameter for setting the attribute:\\n\n .value[0].i32: whether to enable cascade. The default value is <b>false</b>.\\n\n \\n\n Format of the return value {@link ArkUI_AttributeItem}:\\n\n .value[0].i32: whether to enable cascade.\\n\n\n @since 18"]
+#[cfg(feature = "api-18")]
 pub const ArkUI_NodeAttributeType_NODE_TIME_PICKER_ENABLE_CASCADE: ArkUI_NodeAttributeType = 14007;
 #[doc = " @brief Defines the data selection range of the text picker.\n This attribute can be set, reset, and obtained as required through APIs.\n\n Format of the {@link ArkUI_AttributeItem} parameter for setting the attribute:\\n\n .value[0].i32: type of the text picker {@link ArkUI_TextPickerRangeType}.\n The default value is <b>ARKUI_TEXTPICKER_RANGETYPE_SINGLE</b>. \\n\n ?.string: string input, whose format varies by picker type.\\n\n 1: single-column picker. The input format is a group of strings separated by semicolons (;).\\n\n 2: multi-column picker. Multiple pairs of plain text strings are supported. The pairs are separated by\n semicolons (;), and strings within each pair are separated by commas (,). \\n\n ?.object: Object input, whose format varies by picker type.\\n\n 1: single-column picker with image support. The input structure is {@link ARKUI_TextPickerRangeContent}.\\n\n 2: multi-column interconnected picker. The input structure is {@link ARKUI_TextPickerCascadeRangeContent}.\\n\n \\n\n Format of the return value {@link ArkUI_AttributeItem}:\\n\n .value[0].i32: type of the text picker {@link ArkUI_TextPickerRangeType}.\\n\n ?.string: string output, whose format varies by picker type.\\n\n 1: single-column picker. The output format is a group of strings separated by semicolons (;).\\n\n 2: multi-column picker. Multiple pairs of plain text strings are supported. The pairs are separated by\n semicolons (;), and strings within each pair are separated by commas (,). \\n\n ?.string: Object output, whose format varies by picker type.\\n\n 1: single-column picker with image support. The output structure is {@link ARKUI_TextPickerRangeContent}.\\n\n 2: multi-column interconnected picker. The output structure is {@link ARKUI_TextPickerCascadeRangeContent}.\\n\n"]
 pub const ArkUI_NodeAttributeType_NODE_TEXT_PICKER_OPTION_RANGE: ArkUI_NodeAttributeType = 15000;
@@ -9550,12 +9550,12 @@ pub const ArkUI_NodeAttributeType_NODE_TEXT_PICKER_CAN_LOOP: ArkUI_NodeAttribute
 #[doc = " @brief Defines the height of each item in the picker. This attribute can be set, reset, and obtained as required\n through APIs.\n\n Format of the {@link ArkUI_AttributeItem} parameter for setting the attribute:\\n\n .value[0].f32: item height, in vp. \\n\n \\n\n Format of the return value {@link ArkUI_AttributeItem}:\\n\n value[0].f32: item height, in vp. \\n\n"]
 pub const ArkUI_NodeAttributeType_NODE_TEXT_PICKER_DEFAULT_PICKER_ITEM_HEIGHT:
     ArkUI_NodeAttributeType = 15008;
-#[cfg(feature = "api-18")]
 #[doc = " @brief Defines whether haptic feedback.\n This attribute can be set, reset, and obtained as required through APIs.\n\n Format of the {@link ArkUI_AttributeItem} parameter for setting the attribute:\\n\n .value[0].i32: whether to feedback. The value <b>true</b> means to feedback, and\n <b>false</b> means the opposite.\\n\n \\n\n Format of the return value {@link ArkUI_AttributeItem}:\\n\n value[0].i32: whether to feedback.\\n\n\n @since 18"]
+#[cfg(feature = "api-18")]
 pub const ArkUI_NodeAttributeType_NODE_TEXT_PICKER_ENABLE_HAPTIC_FEEDBACK: ArkUI_NodeAttributeType =
     15010;
-#[cfg(feature = "api-20")]
 #[doc = " @brief Defines the background color and border radius of the selected items.\n This attribute can be set, reset, and obtained as required through APIs.\n\n Format of the {@link ArkUI_AttributeItem} parameter for setting the attribute:\\n\n .value[0].u32: background color, in 0xARGB format, for example, <b>0xFF1122FF</b>. \\n\n 1: .value[1].f32: radius of the four corners. \\n\n 2: .value[1].f32: radius of the upper left corner. \\n\n .value[2].f32: radius of the upper right corner. \\n\n .value[3].f32: radius of the lower left corner. \\n\n .value[4].f32: radius of the lower right corner. \\n\n \\n\n Format of the return value {@link ArkUI_AttributeItem}:\\n\n .value[0].u32: background color, in 0xARGB format, for example, <b>0xFF1122FF</b>. \\n     *\n .value[1].f32: radius of the upper left corner. \\n\n .value[2].f32: radius of the upper right corner. \\n\n .value[3].f32: radius of the lower left corner. \\n\n .value[4].f32: radius of the lower right corner. \\n\n\n @since 20"]
+#[cfg(feature = "api-20")]
 pub const ArkUI_NodeAttributeType_NODE_TEXT_PICKER_SELECTED_BACKGROUND_STYLE:
     ArkUI_NodeAttributeType = 15011;
 #[doc = " @brief Defines the style of the background in the selected state of the calendar picker.\n This attribute can be set, reset, and obtained as required through APIs.\n\n Format of the {@link ArkUI_AttributeItem} parameter for setting the attribute:\\n\n .value[0].f32: style of the background in the selected state of the calendar picker.\n The value range is [0, +∞). If the value is <b>0</b>, the background is a rectangle with square corners.\nIf the value is in the 0–16 range, the background is a rectangle with rounded corners. If the value is equal to\n or greater than 16, the background is a circle. \\n\n \\n\n Format of the return value {@link ArkUI_AttributeItem}:\\n\n .value[0].f32: style of the background in the selected state of the calendar picker. The value range is [0, +∞).\n If the value is <b>0</b>, the background is a rectangle with square corners.\nIf the value is in the 0–16 range, the background is a rectangle with rounded corners. If the value is equal to or\n greater than 16, the background is a circle. \\n\n"]
@@ -9568,11 +9568,11 @@ pub const ArkUI_NodeAttributeType_NODE_CALENDAR_PICKER_EDGE_ALIGNMENT: ArkUI_Nod
     16002;
 #[doc = " @brief Defines the font color, font size, and font weight in the entry area of the calendar picker.\n\n Format of the {@link ArkUI_AttributeItem} parameter for setting the attribute:\\n\n .value[0]?.u32: font color of the entry area. \\n\n .value[1]?.f32: font size of the entry area, in fp. \\n\n .value[2]?.i32: font weight of the entry area. The parameter type is {@link ArkUI_FontWeight}. \\n\n \\n\n Format of the return value {@link ArkUI_AttributeItem}:\\n\n .value[0].u32: font color of the entry area. \\n\n .value[1].f32: font size of the entry area, in fp. \\n\n .value[2].i32: font weight of the entry area. The parameter type is {@link ArkUI_FontWeight}. \\n\n"]
 pub const ArkUI_NodeAttributeType_NODE_CALENDAR_PICKER_TEXT_STYLE: ArkUI_NodeAttributeType = 16003;
-#[cfg(feature = "api-18")]
 #[doc = " @brief Defines the start date of the calendar picker.\n This attribute can be set, reset, and obtained as required through APIs.\n\n Format of the {@link ArkUI_AttributeItem} parameter for setting the attribute:\\n\n .string: date. The value like <b>\"1970-1-1\"</b>. \\n\n \\n\n Format of the return value {@link ArkUI_AttributeItem}:\\n\n .string: date. \\n\n\n @since 18"]
-pub const ArkUI_NodeAttributeType_NODE_CALENDAR_PICKER_START: ArkUI_NodeAttributeType = 16004;
 #[cfg(feature = "api-18")]
+pub const ArkUI_NodeAttributeType_NODE_CALENDAR_PICKER_START: ArkUI_NodeAttributeType = 16004;
 #[doc = " @brief Defines the end date of the calendar picker.\n This attribute can be set, reset, and obtained as required through APIs.\n\n Format of the {@link ArkUI_AttributeItem} parameter for setting the attribute:\\n\n .string: date. The value like <b>\"2100-12-31\"</b>. \\n\n \\n\n Format of the return value {@link ArkUI_AttributeItem}:\\n\n .string: date. \\n\n\n @since 18"]
+#[cfg(feature = "api-18")]
 pub const ArkUI_NodeAttributeType_NODE_CALENDAR_PICKER_END: ArkUI_NodeAttributeType = 16005;
 #[doc = " @brief Defines the color of the slider. This attribute can be set, reset, and obtained as required through APIs.\n\n Format of the {@link ArkUI_AttributeItem} parameter for setting the attribute:\\n\n .value[0].u32: color of the slider, in 0xARGB format, for example, <b>0xFF1122FF</b>.\n \\n\n Format of the return value {@link ArkUI_AttributeItem}:\\n\n .value[0].u32: color of the slider, in 0xARGB format, for example, <b>0xFF1122FF</b>.\n"]
 pub const ArkUI_NodeAttributeType_NODE_SLIDER_BLOCK_COLOR: ArkUI_NodeAttributeType = 17000;
@@ -9600,26 +9600,26 @@ pub const ArkUI_NodeAttributeType_NODE_SLIDER_REVERSE: ArkUI_NodeAttributeType =
 pub const ArkUI_NodeAttributeType_NODE_SLIDER_STYLE: ArkUI_NodeAttributeType = 17011;
 #[doc = " @brief Sets the track thickness of the slider.\n This attribute can be set, reset, and obtained as required through APIs.\n\n Format of the {@link ArkUI_AttributeItem} parameter for setting the attribute:\\n\n .value[0].f32: track thickness of the slider, in vp. The default value is 4.0 vp when <b>NODE_SLIDER_STYLE</b>\n is set to <b>ARKUI_SLIDER_STYLE_OUT_SET</b> and 20.0 vp when <b>NODE_SLIDER_STYLE</b> is set to\n <b>ARKUI_SLIDER_STYLE_IN_SET</b>. \\n\n \\n\n Format of the return value {@link ArkUI_AttributeItem}:\\n\n .value[0].f32: track thickness of the slider, in vp. \\n\n"]
 pub const ArkUI_NodeAttributeType_NODE_SLIDER_TRACK_THICKNESS: ArkUI_NodeAttributeType = 17012;
-#[cfg(feature = "api-18")]
 #[doc = " @brief Defines whether haptic feedback.\n This attribute can be set, reset, and obtained as required through APIs.\n\n Format of the {@link ArkUI_AttributeItem} parameter for setting the attribute:\\n\n .value[0].i32: whether to feedback. The value <b>true</b> means to feedback, and\n <b>false</b> means the opposite.\\n\n \\n\n Format of the return value {@link ArkUI_AttributeItem}:\\n\n value[0].i32: whether to feedback.\\n\n When enabling haptic feedback, you need to add \"ohos.permission.VIBRATE\" in the\n requestPermissions field of the module.json5 file to enable vibration permission.\\n\n\n @since 18"]
+#[cfg(feature = "api-18")]
 pub const ArkUI_NodeAttributeType_NODE_SLIDER_ENABLE_HAPTIC_FEEDBACK: ArkUI_NodeAttributeType =
     17013;
-#[cfg(feature = "api-20")]
 #[doc = " @brief Sets a custom component on the leading side of the Slider component.\n\n Attribute setting method {@link ArkUI_AttributeItem} parameter format:\\n\n .object: Parameter type {@link ArkUI_NodeHandle}.\n\n The prefix component will be placed at the start position of the Slider，\n typically on the left side in LTR layouts.\n\n @since 20"]
-pub const ArkUI_NodeAttributeType_NODE_SLIDER_PREFIX: ArkUI_NodeAttributeType = 17014;
 #[cfg(feature = "api-20")]
+pub const ArkUI_NodeAttributeType_NODE_SLIDER_PREFIX: ArkUI_NodeAttributeType = 17014;
 #[doc = " @brief Sets a custom component on the trailing side of the Slider component.\n\n Attribute setting method {@link link ArkUI_AttributeItem} parameter format:\\n\n .object: Parameter type {@link ArkUI_NodeHandle}.\n\n The suffix component will be placed at the end position of the Slider,\n typically on the right side in LTR layouts.\n\n @since 20"]
+#[cfg(feature = "api-20")]
 pub const ArkUI_NodeAttributeType_NODE_SLIDER_SUFFIX: ArkUI_NodeAttributeType = 17015;
-#[cfg(feature = "api-21")]
 #[doc = " @brief Defines the color of the slider block. This attribute can be set, reset, and obtained as required through APIs.\n\n Format of the {@link ArkUI_AttributeItem} parameter for setting the attribute:\\n\n .object: array of color stops, each of which consists of a color and its stop position.\n The parameter type is {@link ArkUI_ColorStop}. Invalid colors are automatically skipped. \\n \\n\n colors: colors of the color stops. \\n\n stops: stop positions of the color stops. \\n\n size: number of colors. \\n\n \\n\n Format of the return value {@link ArkUI_AttributeItem}:\\n\n .object: array of color stops, each of which consists of a color and its stop position.\n The parameter type is {@link ArkUI_ColorStop}. Invalid colors are automatically skipped. \\n \\n\n colors: colors of the color stops. \\n\n stops: stop positions of the color stops. \\n\n size: number of colors. \\n\n\n @since 21"]
+#[cfg(feature = "api-21")]
 pub const ArkUI_NodeAttributeType_NODE_SLIDER_BLOCK_LINEAR_GRADIENT_COLOR: ArkUI_NodeAttributeType =
     17016;
-#[cfg(feature = "api-21")]
 #[doc = " @brief Defines the background color of the slider. This attribute can be set, reset, and obtained as required\n through APIs.\n\n Format of the {@link ArkUI_AttributeItem} parameter for setting the attribute:\\n\n .object: array of color stops, each of which consists of a color and its stop position.\n The parameter type is {@link ArkUI_ColorStop}. Invalid colors are automatically skipped. \\n \\n\n colors: colors of the color stops. \\n\n stops: stop positions of the color stops. \\n\n size: number of colors. \\n\n \\n\n Format of the return value {@link ArkUI_AttributeItem}:\\n\n .object: array of color stops, each of which consists of a color and its stop position.\n The parameter type is {@link ArkUI_ColorStop}. Invalid colors are automatically skipped. \\n \\n\n colors: colors of the color stops. \\n\n stops: stop positions of the color stops. \\n\n size: number of colors. \\n\n\n @since 21"]
+#[cfg(feature = "api-21")]
 pub const ArkUI_NodeAttributeType_NODE_SLIDER_TRACK_LINEAR_GRADIENT_COLOR: ArkUI_NodeAttributeType =
     17017;
-#[cfg(feature = "api-21")]
 #[doc = " @brief Defines the color of the selected part of the slider track. This attribute can be set, reset, and obtained\n as required through APIs.\n\n Format of the {@link ArkUI_AttributeItem} parameter for setting the attribute:\\n\n .object: array of color stops, each of which consists of a color and its stop position.\n The parameter type is {@link ArkUI_ColorStop}. Invalid colors are automatically skipped. \\n \\n\n colors: colors of the color stops. \\n\n stops: stop positions of the color stops. \\n\n size: number of colors. \\n\n \\n\n Format of the return value {@link ArkUI_AttributeItem}:\\n\n .object: array of color stops, each of which consists of a color and its stop position.\n The parameter type is {@link ArkUI_ColorStop}. Invalid colors are automatically skipped. \\n \\n\n colors: colors of the color stops. \\n\n stops: stop positions of the color stops. \\n\n size: number of colors. \\n\n\n @since 21"]
+#[cfg(feature = "api-21")]
 pub const ArkUI_NodeAttributeType_NODE_SLIDER_SELECTED_LINEAR_GRADIENT_COLOR:
     ArkUI_NodeAttributeType = 17018;
 #[doc = " @brief Set the selection status of an option button. Attribute setting,\n attribute resetting, and attribute obtaining are supported.\n Attribute setting method {@Link ArkUI_AttributeItem} Parameter format:\\n\n .value[0].i32: check status of an option button. The default value is false.\n Attribute obtaining method return value {@Link ArkUI_AttributeItem} format:\\n\n .value[0].i32: selection status of an option button."]
@@ -9644,25 +9644,25 @@ pub const ArkUI_NodeAttributeType_NODE_IMAGE_ANIMATOR_FIXED_SIZE: ArkUI_NodeAttr
 pub const ArkUI_NodeAttributeType_NODE_IMAGE_ANIMATOR_FILL_MODE: ArkUI_NodeAttributeType = 19005;
 #[doc = " @brief Set the number of times that the animation is played.\n This attribute can be set, reset, and obtained as required through APIs.\n\n Attribute setting method {@Link ArkUI_AttributeItem} Parameter format:\\n\n .value[0].i32: the number of times that the animation is played.\\n\n\n Attribute setting method {@Link ArkUI_AttributeItem} Parameter format:\\n\n .value[0].i32: the number of times that the animation is played.\\n\n"]
 pub const ArkUI_NodeAttributeType_NODE_IMAGE_ANIMATOR_ITERATION: ArkUI_NodeAttributeType = 19006;
-#[cfg(feature = "api-15")]
 #[doc = " @brief Defines the name of the checkboxgroup.\n This attribute can be set, reset, and obtained as required through APIs.\n\n Format of the {@link ArkUI_AttributeItem} parameter for setting the attribute:\\n\n .string: component name. \\n\n \\n\n Format of the return value {@link ArkUI_AttributeItem}:\\n\n .string: component name. \\n\n\n @since 15"]
+#[cfg(feature = "api-15")]
 pub const ArkUI_NodeAttributeType_NODE_CHECKBOX_GROUP_NAME: ArkUI_NodeAttributeType = 21000;
-#[cfg(feature = "api-15")]
 #[doc = " @brief Defines whether the checkboxgroup is selected.\n This attribute can be set, reset, and obtained as required through APIs.\n\n Format of the {@link ArkUI_AttributeItem} parameter for setting the attribute:\\n\n .value[0].i32: whether the checkboxgroup is selected.\n The value <b>1</b> means that the checkboxgroup is selected, and <b>0</b> means the opposite. \\n\n \\n\n Format of the return value {@link ArkUI_AttributeItem}:\\n\n .value[0].i32: The value <b>1</b> means that the checkboxgroup is selected, and <b>0</b> means the opposite. \\n\n\n @since 15"]
-pub const ArkUI_NodeAttributeType_NODE_CHECKBOX_GROUP_SELECT_ALL: ArkUI_NodeAttributeType = 21001;
 #[cfg(feature = "api-15")]
+pub const ArkUI_NodeAttributeType_NODE_CHECKBOX_GROUP_SELECT_ALL: ArkUI_NodeAttributeType = 21001;
 #[doc = " @brief Defines the color of the checkboxgroup when it is selected.\n This attribute can be set, reset, and obtained as required through APIs.\n\n Format of the {@link ArkUI_AttributeItem} parameter for setting the attribute:\\n\n .value[0].u32: color of the checkboxgroup when it is selected, in 0xARGB format,\n for example, <b>0xFF1122FF</b>. \\n\n \\n\n Format of the return value {@link ArkUI_AttributeItem}:\\n\n .value[0].u32: color of the checkboxgroup when it is selected, in 0xARGB format, for example, <b>0xFF1122FF</b>.\n\n @since 15"]
+#[cfg(feature = "api-15")]
 pub const ArkUI_NodeAttributeType_NODE_CHECKBOX_GROUP_SELECTED_COLOR: ArkUI_NodeAttributeType =
     21002;
-#[cfg(feature = "api-15")]
 #[doc = " @brief Defines the border color of the checkboxgroup when it is not selected.\n This attribute can be set, reset, and obtained as required through APIs.\n\n Format of the {@link ArkUI_AttributeItem} parameter for setting the attribute:\\n\n .value[0].u32: border color, in 0xARGB format, for example, <b>0xFF1122FF</b>. \\n\n \\n\n Format of the return value {@link ArkUI_AttributeItem}:\\n\n .value[0].u32: border color, in 0xARGB format, for example, <b>0xFF1122FF</b>.\n\n @since 15"]
+#[cfg(feature = "api-15")]
 pub const ArkUI_NodeAttributeType_NODE_CHECKBOX_GROUP_UNSELECTED_COLOR: ArkUI_NodeAttributeType =
     21003;
-#[cfg(feature = "api-15")]
 #[doc = " @brief Defines the internal icon style of the checkboxgroup.\n This attribute can be set, reset, and obtained as required through APIs.\n\n Format of the {@link ArkUI_AttributeItem} parameter for setting the attribute:\\n\n .value[0].u32: border color, in 0xARGB format, for example, <b>0xFF1122FF</b>.\\n\n .value[1]?.f32: size of the internal mark, in vp. Optional.\\n\n .value[2]?.f32: stroke width of the internal mark, in vp. Optional. The default value is <b>2</b>. \\n\n \\n\n Format of the return value {@link ArkUI_AttributeItem}:\\n\n .value[0].u32: border color, in 0xARGB format, for example, <b>0xFF1122FF</b>.\\n\n .value[1].f32: size of the internal mark, in vp. \\n\n .value[2].f32: stroke width of the internal mark, in vp. The default value is <b>2</b>. \\n\n\n @since 15"]
-pub const ArkUI_NodeAttributeType_NODE_CHECKBOX_GROUP_MARK: ArkUI_NodeAttributeType = 21004;
 #[cfg(feature = "api-15")]
+pub const ArkUI_NodeAttributeType_NODE_CHECKBOX_GROUP_MARK: ArkUI_NodeAttributeType = 21004;
 #[doc = " @brief Defines the shape of the checkboxgroup.\n This attribute can be set, reset, and obtained as required through APIs.\n\n Format of the {@link ArkUI_AttributeItem} parameter for setting the attribute:\\n\n .value[0].i32: component shape. The parameter type is {@link ArkUI_CheckboxShape}. \\n\n \\n\n Format of the return value {@link ArkUI_AttributeItem}:\\n\n .value[0].i32: component shape. The parameter type is {@link ArkUI_CheckboxShape}.\n\n @since 15"]
+#[cfg(feature = "api-15")]
 pub const ArkUI_NodeAttributeType_NODE_CHECKBOX_GROUP_SHAPE: ArkUI_NodeAttributeType = 21005;
 #[doc = " @brief Defines the alignment mode of the child components in the container. This attribute can be set, reset,\n and obtained as required through APIs.\n\n Format of the {@link ArkUI_AttributeItem} parameter for setting the attribute:\\n\n .value[0].i32: alignment mode. The data type is {@link ArkUI_Alignment}.\n The default value is <b>ARKUI_ALIGNMENT_CENTER</b>. \\n\n \\n\n Format of the return value {@link ArkUI_AttributeItem}:\\n\n .value[0].i32: alignment mode. The data type is {@link ArkUI_Alignment}. \\n\n"]
 pub const ArkUI_NodeAttributeType_NODE_STACK_ALIGN_CONTENT: ArkUI_NodeAttributeType = 1000000;
@@ -9695,45 +9695,45 @@ pub const ArkUI_NodeAttributeType_NODE_SCROLL_ENABLE_PAGING: ArkUI_NodeAttribute
 pub const ArkUI_NodeAttributeType_NODE_SCROLL_PAGE: ArkUI_NodeAttributeType = 1002012;
 #[doc = " @brief Scroll a specified distance.\n\n Format of the {@link ArkUI_AttributeItem} parameter for setting the attribute:\\n\n .value[0].f32：Horizontal scrolling distance in vp; \\n\n .value[1].f32: Vertical scrolling distance in vp; \\n\n"]
 pub const ArkUI_NodeAttributeType_NODE_SCROLL_BY: ArkUI_NodeAttributeType = 1002013;
-#[cfg(feature = "api-13")]
 #[doc = " @brief Performs inertial scrolling based on the initial velocity passed in.\n\n Format of the {@link ArkUI_AttributeItem} parameter for setting the attribute:\\n\n .value[0].f32: Initial velocity of inertial scrolling. Unit: vp/s. If the value specified is 0, it is\n considered as invalid, and the scrolling for this instance will not take effect. If the value is positive,\n the scroll will move downward; if the value is negative, the scroll will move upward. \\n\n\n @since 13"]
+#[cfg(feature = "api-13")]
 pub const ArkUI_NodeAttributeType_NODE_SCROLL_FLING: ArkUI_NodeAttributeType = 1002014;
-#[cfg(feature = "api-14")]
 #[doc = " @brief Sets the fading effect for the edges of scrollable components.\n\n Format of the {@link ArkUI_AttributeItem} parameter for setting the attribute:\n .value[0].i32: whether to enable the fading effect on edges. The value 0 means to disable the fading effect,\n and 1 means to enable it.\n .value[1]?.f32: length of the fading effect on edges, in vp. Default value: 32.\n\n Format of the return value {@link ArkUI_AttributeItem}:\n .value[0].i32: whether the fading effect on edges is enabled. The value 0 means that the fading effect is\n disabled, and 1 means that it is enabled.\n .value[1].f32: length of the fading effect on edges, in vp.\n\n @since 14"]
-pub const ArkUI_NodeAttributeType_NODE_SCROLL_FADING_EDGE: ArkUI_NodeAttributeType = 1002015;
 #[cfg(feature = "api-14")]
+pub const ArkUI_NodeAttributeType_NODE_SCROLL_FADING_EDGE: ArkUI_NodeAttributeType = 1002015;
 #[doc = " @brief Obtains the total size of all child components when fully expanded in the scrollable component.\n\n Format of the return value {@link ArkUI_AttributeItem}:\\n\n .value[0].f32: total width of all child components when fully expanded in the scrollable component.\n                The default unit is vp. \\n\n .value[1].f32: total height of all child components when fully expanded in the scrollable component.\n                The default unit is vp. \\n\n When <b>NODE_PADDING</b>, <b>NODE_MARGIN</b>, or <b>NODE_BORDER_WIDTH</b> is set, the values are rounded to the\n nearest pixel when being converted from vp to px.\n The returned values are calculated based on these rounded pixel values. \\n\n\n @since 14"]
+#[cfg(feature = "api-14")]
 pub const ArkUI_NodeAttributeType_NODE_SCROLL_SIZE: ArkUI_NodeAttributeType = 1002016;
-#[cfg(feature = "api-15")]
 #[doc = " @brief Sets the offset from the start of the scrollable components content.\n\n Format of the {@link ArkUI_AttributeItem} parameter for setting the attribute:\\n\n .value[0].f32: offset from the start of the content, in vp. \\n\n \\n\n Format of the return value {@link ArkUI_AttributeItem}:\\n\n .value[0].f32: offset from the start of the content, in vp. \\n\n\n @since 15"]
+#[cfg(feature = "api-15")]
 pub const ArkUI_NodeAttributeType_NODE_SCROLL_CONTENT_START_OFFSET: ArkUI_NodeAttributeType =
     1002017;
-#[cfg(feature = "api-15")]
 #[doc = " @brief Sets the offset from the end of the scrollable components content.\n\n Format of the {@link ArkUI_AttributeItem} parameter for setting the attribute:\\n\n .value[0].f32: offset from the end of the content, in vp. \\n\n \\n\n Format of the return value {@link ArkUI_AttributeItem}:\\n\n .value[0].f32: offset from the end of the content, in vp. \\n\n\n @since 15"]
-pub const ArkUI_NodeAttributeType_NODE_SCROLL_CONTENT_END_OFFSET: ArkUI_NodeAttributeType = 1002018;
-#[cfg(feature = "api-18")]
-#[doc = " @brief Defines the maximum starting fling speed of the scrollable when the fling animation starts.\n This attribute can be set, reset, and obtained as required through APIs.\n\n Format of the {@link ArkUI_AttributeItem} parameter for setting the attribute: \\n\n .value[0].f32: maximum starting fling speed, Unit: vp/s \\n\n \\n\n Format of the return value {@link ArkUI_AttributeItem}: \\n\n .value[0].f32: maximum starting fling speed, Unit: vp/s \\n\n\n @since 18"]
-pub const ArkUI_NodeAttributeType_NODE_SCROLL_FLING_SPEED_LIMIT: ArkUI_NodeAttributeType = 1002019;
-#[cfg(feature = "api-18")]
-#[doc = " @brief Defines the clip mode of the scrollable.\n This attribute can be set, reset, and obtained as required through APIs.\n\n Format of the {@link ArkUI_AttributeItem} parameter for setting the attribute: \\n\n .value[0].i32: clip content mode, The parameter type is {@link ArkUI_ContentClipMode}. \\n\n \\n\n Format of the return value {@link ArkUI_AttributeItem}: \\n\n .value[0].i32: clip content mode, The parameter type is {@link ArkUI_ContentClipMode}. \\n\n\n @since 18"]
-pub const ArkUI_NodeAttributeType_NODE_SCROLL_CLIP_CONTENT: ArkUI_NodeAttributeType = 1002020;
 #[cfg(feature = "api-15")]
+pub const ArkUI_NodeAttributeType_NODE_SCROLL_CONTENT_END_OFFSET: ArkUI_NodeAttributeType = 1002018;
+#[doc = " @brief Defines the maximum starting fling speed of the scrollable when the fling animation starts.\n This attribute can be set, reset, and obtained as required through APIs.\n\n Format of the {@link ArkUI_AttributeItem} parameter for setting the attribute: \\n\n .value[0].f32: maximum starting fling speed, Unit: vp/s \\n\n \\n\n Format of the return value {@link ArkUI_AttributeItem}: \\n\n .value[0].f32: maximum starting fling speed, Unit: vp/s \\n\n\n @since 18"]
+#[cfg(feature = "api-18")]
+pub const ArkUI_NodeAttributeType_NODE_SCROLL_FLING_SPEED_LIMIT: ArkUI_NodeAttributeType = 1002019;
+#[doc = " @brief Defines the clip mode of the scrollable.\n This attribute can be set, reset, and obtained as required through APIs.\n\n Format of the {@link ArkUI_AttributeItem} parameter for setting the attribute: \\n\n .value[0].i32: clip content mode, The parameter type is {@link ArkUI_ContentClipMode}. \\n\n \\n\n Format of the return value {@link ArkUI_AttributeItem}: \\n\n .value[0].i32: clip content mode, The parameter type is {@link ArkUI_ContentClipMode}. \\n\n\n @since 18"]
+#[cfg(feature = "api-18")]
+pub const ArkUI_NodeAttributeType_NODE_SCROLL_CLIP_CONTENT: ArkUI_NodeAttributeType = 1002020;
 #[doc = " @brief Defines whether the scrollable scrolls back to top when status bar is clicked.\n This attribute can be set, reset, and obtained as required through APIs.\n\n Format of the {@link ArkUI_AttributeItem} parameter for setting the attribute: \\n\n .value[0].i32: whether the scrollable scrolls back to top when status bar is clicked.\n The value <b>1</b> means to scroll back to top, and <b>0</b> means the opposite. The default value is <b>0/b>. \\n\n \\n\n Format of the return value {@link ArkUI_AttributeItem}: \\n\n .value[0].i32: whether the scrollable scrolls back to top when status bar is clicked. \\n\n\n @since 15"]
+#[cfg(feature = "api-15")]
 pub const ArkUI_NodeAttributeType_NODE_SCROLL_BACK_TO_TOP: ArkUI_NodeAttributeType = 1002021;
-#[cfg(feature = "api-20")]
 #[doc = " @brief Defines the margin of the scrollbar.\n This attribute can be set, reset, and obtained as required through APIs.\n\n Format of the {@link ArkUI_AttributeItem} parameter for setting the attribute:\\n\n .value[0].f32: start margin of the scrollbar, in vp. The default value is <b>0</b>. \\n\n .value[1].f32: end margin of the scrollbar, in vp. The default value is <b>0</b>. \\n\n \\n\n Format of the return value {@link ArkUI_AttributeItem}:\\n\n .value[0].f32: start margin of the scrollbar, in vp. \\n\n .value[1].f32: end margin of the scrollbar, in vp. \\n\n\n @since 20"]
+#[cfg(feature = "api-20")]
 pub const ArkUI_NodeAttributeType_NODE_SCROLL_BAR_MARGIN: ArkUI_NodeAttributeType = 1002022;
-#[cfg(feature = "api-20")]
 #[doc = " @brief Sets the maximum zoom scale for scrollable content.\n\n Format of the {@link ArkUI_AttributeItem} parameter for setting the attribute:\\n\n .value[0].f32: maximum zoom scale to set. \\n\n \\n\n Format of the return value {@link ArkUI_AttributeItem}:\\n\n .value[0].f32: current maximum zoom scale. \\n\n\n @since 20"]
+#[cfg(feature = "api-20")]
 pub const ArkUI_NodeAttributeType_NODE_SCROLL_MAX_ZOOM_SCALE: ArkUI_NodeAttributeType = 1002023;
-#[cfg(feature = "api-20")]
 #[doc = " @brief Sets the minimum zoom scale for scrollable content.\n\n Format of the {@link ArkUI_AttributeItem} parameter for setting the attribute:\\n\n .value[0].f32: minimum zoom scale to set. \\n\n \\n\n Format of the return value {@link ArkUI_AttributeItem}:\\n\n .value[0].f32: current minimum zoom scale. \\n\n\n @since 20"]
+#[cfg(feature = "api-20")]
 pub const ArkUI_NodeAttributeType_NODE_SCROLL_MIN_ZOOM_SCALE: ArkUI_NodeAttributeType = 1002024;
-#[cfg(feature = "api-20")]
 #[doc = " @brief Sets the zoom scale for scrollable content.\n\n Format of the {@link ArkUI_AttributeItem} parameter for setting the attribute:\\n\n .value[0].f32: zoom scale to set. \\n\n \\n\n Format of the return value {@link ArkUI_AttributeItem}:\\n\n .value[0].f32: current zoom scale. \\n\n\n @since 20"]
-pub const ArkUI_NodeAttributeType_NODE_SCROLL_ZOOM_SCALE: ArkUI_NodeAttributeType = 1002025;
 #[cfg(feature = "api-20")]
+pub const ArkUI_NodeAttributeType_NODE_SCROLL_ZOOM_SCALE: ArkUI_NodeAttributeType = 1002025;
 #[doc = " @brief Sets whether to enable the zoom bounce effect when the scaling exceeds the limits.\n\n Format of the {@link ArkUI_AttributeItem} parameter for setting the attribute:\\n\n .value[0].i32: whether to enable the zoom bounce effect when the scaling exceeds the limits.\n The value <b>1</b> means to enable the effect, and <b>0</b> means the opposite. \\n\n \\n\n Format of the return value {@link ArkUI_AttributeItem}:\\n\n .value[0].i32: whether to enable the zoom bounce effect when the scaling exceeds the limits.\n The value <b>1</b> means to enable the effect, and <b>0</b> means the opposite. \\n\n\n @since 20"]
+#[cfg(feature = "api-20")]
 pub const ArkUI_NodeAttributeType_NODE_SCROLL_ENABLE_BOUNCES_ZOOM: ArkUI_NodeAttributeType =
     1002026;
 #[doc = " @brief Sets the direction in which the list items are arranged.\n This attribute can be set, reset, and obtained as required through APIs.\n\n Format of the {@link ArkUI_AttributeItem} parameter for setting the attribute:\\n\n .value[0].i32: direction in which the list items are arranged. The parameter type is {@link ArkUI_Axis}.\n The default value is <b>ARKUI_AXIS_VERTICAL</b>. \\n\n \\n\n Format of the return value {@link ArkUI_AttributeItem}:\\n\n .value[0].i32: direction in which the list items are arranged. The parameter type is {@link ArkUI_Axis}. \\n\n"]
@@ -9756,35 +9756,35 @@ pub const ArkUI_NodeAttributeType_NODE_LIST_CHILDREN_MAIN_SIZE: ArkUI_NodeAttrib
 pub const ArkUI_NodeAttributeType_NODE_LIST_INITIAL_INDEX: ArkUI_NodeAttributeType = 1003008;
 #[doc = " @brief sets the ListItem splitter style. By default, there is no splitter.\n This attribute can be set, reset, and obtained as required through APIs.\n\n Attribute setting method parameter {@link ArkUI_AttributeItem} Format: \\n\n.value[0].u32: divider color, type 0xargb; \\n\n.value[1].f32: dividing line width; \\n\n.value[2].f32: the distance between the divider and the beginning of the side of the list, unit vp; \\n\n.value[3].f32: the distance between the divider and the end of the side of the list (unit: vp). \\n\n \\n\n Attribute fetch method return value {@link ArkUI_AttributeItem} format: \\n\n.value[0].u32: divider color, type 0xargb; \\n\n.value[1].f32: dividing line width; \\n\n.value[2].f32: the distance between the divider and the beginning of the side of the list, unit vp; \\n\n.value[3].f32: the distance between the divider and the end of the side of the list (unit: vp). \\n\n"]
 pub const ArkUI_NodeAttributeType_NODE_LIST_DIVIDER: ArkUI_NodeAttributeType = 1003009;
-#[cfg(feature = "api-15")]
 #[doc = " @brief Scrolls to the item with the specified index in the specified list item group.\n\n When <b>smooth</b> is set to <b>true</b>, all passed items are loaded and counted in layout calculation.\n This may result in performance issues if a large number of items are involved. \\n\n \\n\n Format of the {@link ArkUI_AttributeItem} parameter for setting the attribute:\\n\n .value[0].i32: index of the target list item group in the current list. \\n\n.value[1].i32: index of the target list item in the list item group. \\n\n .value[2]?.i32: whether to enable the smooth animation for scrolling to the item with the specified index.\n The value <b>1</b> means to enable the animation, and <b>0</b> means the opposite.\n The default value is <b>0</b>. \\n\n .value[3]?.i32: how the item to scroll to is aligned with the container. The parameter type is\n {@link ArkUI_ScrollAlignment}. The default value is <b>ARKUI_SCROLL_ALIGNMENT_START</b>. \\n\n\n @since 15"]
+#[cfg(feature = "api-15")]
 pub const ArkUI_NodeAttributeType_NODE_LIST_SCROLL_TO_INDEX_IN_GROUP: ArkUI_NodeAttributeType =
     1003010;
-#[cfg(feature = "api-15")]
 #[doc = " @brief Sets the number of lanes in the list.\n This attribute can be set, reset, and obtained as required through APIs.\n\n Format of the {@link ArkUI_AttributeItem} parameter for setting the attribute:\\n\n .value[0].u32: number of lanes in the list. If the maximum and minimum lane widths are set, setting the number\n of lanes will not take effect. \\n\n .value[1]?.f32: minimum lane width, in vp. \\n\n .value[2]?.f32: maximum column width, in vp. \\n\n .value[3]?.f32: lane spacing, in vp. \\n\n \\n\n Format of the return value {@link ArkUI_AttributeItem}:\\n\n .value[0].u32: number of lanes in the list. \\n\n .value[1].f32: minimum lane width, in vp. \\n\n .value[2].f32: maximum column width, in vp. \\n\n .value[3].f32: lane spacing, in vp. \\n \\n\n\n @since 15"]
+#[cfg(feature = "api-15")]
 pub const ArkUI_NodeAttributeType_NODE_LIST_LANES: ArkUI_NodeAttributeType = 1003011;
-#[cfg(feature = "api-15")]
 #[doc = " @brief Sets the list snap alignment mode.\n\n Format of the {@link ArkUI_AttributeItem} parameter for setting the attribute:\\n\n .value[0].i32: alignment mode for the list snap position. The parameter type is {@link ArkUI_ScrollSnapAlign}.\n The default value is <b>ARKUI_SCROLL_SNAP_ALIGN_NONE</b>.\\n\n \\n\n Format of the return value {@link ArkUI_AttributeItem}:\\n\n.value[0].i32: alignment mode for the list snap position. The parameter type is {@link ArkUI_ScrollSnapAlign}.\\n\n\n @since 15"]
-pub const ArkUI_NodeAttributeType_NODE_LIST_SCROLL_SNAP_ALIGN: ArkUI_NodeAttributeType = 1003012;
 #[cfg(feature = "api-15")]
+pub const ArkUI_NodeAttributeType_NODE_LIST_SCROLL_SNAP_ALIGN: ArkUI_NodeAttributeType = 1003012;
 #[doc = " @brief Sets whether to maintain the visible content's position when data is inserted or deleted outside the\n display area of the <b>List</b> component.\n\n Format of the {@link ArkUI_AttributeItem} parameter for setting the attribute:\\n\n .value[0].i32: whether to maintain the visible content's position when data is inserted or deleted outside the\n display area of the <b>List</b> component. The value <b>0</b> means not to maintain the visible content's\n position, and <b>1</b> means the opposite. The default value is <b>0</b>. \\n\n \\n\n Format of the return value {@link ArkUI_AttributeItem}:\\n\n .value[0].i32: whether to maintain the visible content's position when data is inserted or deleted outside the\n display area of the <b>List</b> component. The value <b>0</b> means not to maintain the visible content's\n position, and <b>1</b> means the opposite. The default value is <b>0</b>. \\n\n\n @since 15"]
+#[cfg(feature = "api-15")]
 pub const ArkUI_NodeAttributeType_NODE_LIST_MAINTAIN_VISIBLE_CONTENT_POSITION:
     ArkUI_NodeAttributeType = 1003013;
-#[cfg(feature = "api-19")]
 #[doc = " @brief Sets whether the <b>List</b> component starts layout from the end.\n\n Format of the {@link ArkUI_AttributeItem} parameter for setting the attribute:\\n\n .value[0].i32: whether the <b>List</b> component starts layout from the end. The value <b>0</b> means layout\n starts from the top, and <b>1</b> means layout starts from the end. The default value is <b>0</b>. \\n\n \\n\n Format of the return value {@link ArkUI_AttributeItem}:\\n\n .value[0].i32: whether the <b>List</b> component starts layout from the end. The value <b>0</b> means layout\n starts from the top, and <b>1</b> means layout starts from the end. The default value is <b>0</b>. \\n\n\n @since 19"]
+#[cfg(feature = "api-19")]
 pub const ArkUI_NodeAttributeType_NODE_LIST_STACK_FROM_END: ArkUI_NodeAttributeType = 1003014;
-#[cfg(feature = "api-20")]
 #[doc = " @brief Defines the focus wrap mode for the <b>List</b> component.\n This attribute can be set, reset, and obtained as required through APIs.\n\n Format of the {@link ArkUI_AttributeItem} parameter for setting the attribute:\\n\n .value[0].i32: focus wrap mode of the <b>List</b> component.\n                The parameter type is {@link ArkUI_FocusWrapMode}. \\n\n \\n\n Format of the return value {@link ArkUI_AttributeItem}:\\n\n .value[0].i32: focus wrap mode of the <b>List</b> component.\n                The parameter type is {@link ArkUI_FocusWrapMode}. \\n\n\n @since 20"]
-pub const ArkUI_NodeAttributeType_NODE_LIST_FOCUS_WRAP_MODE: ArkUI_NodeAttributeType = 1003015;
 #[cfg(feature = "api-20")]
+pub const ArkUI_NodeAttributeType_NODE_LIST_FOCUS_WRAP_MODE: ArkUI_NodeAttributeType = 1003015;
 #[doc = " @brief Defines whether the <b>List</b> component loads child nodes synchronously.\n This attribute can be set, reset, and obtained as required through APIs.\n\n Format of the {@link ArkUI_AttributeItem} parameter for setting the attribute:\\n\n .value[0].i32: whether the <b>List</b> component synchronously loads child nodes.\n The value <b>0</b> means loading by frames, and <b>1</b> means synchronous loading. \\n\n \\n\n Format of the return value {@link ArkUI_AttributeItem}:\\n\n .value[0].i32: whether the <b>List</b> component synchronously loads child nodes.\n The value <b>0</b> means loading by frames, and <b>1</b> means synchronous loading. \\n\n\n @since 20"]
+#[cfg(feature = "api-20")]
 pub const ArkUI_NodeAttributeType_NODE_LIST_SYNC_LOAD: ArkUI_NodeAttributeType = 1003016;
-#[cfg(feature = "api-22")]
 #[doc = " @brief Defines the scroll snap animation speed for the <b>List</b> component.\n This attribute can be set, reset, and obtained as required through APIs.\n\n Format of the {@link ArkUI_AttributeItem} parameter for setting the attribute:\\n\n.value[0].i32: scroll snap animation speed for the <b>List</b> component.\n The parameter type is {@link ArkUI_ScrollSnapAnimationSpeed}.\n Default value: <b>ARKUI_SCROLL_SNAP_ANIMATION_NORMAL</b>. \\n\n \\n\n Format of the return value {@link ArkUI_AttributeItem}:\\n\n.value[0].i32: scroll snap animation speed for the <b>List</b> component.\n The parameter type is {@link ArkUI_ScrollSnapAnimationSpeed}. \\n\n\n @since 22"]
+#[cfg(feature = "api-22")]
 pub const ArkUI_NodeAttributeType_NODE_LIST_SCROLL_SNAP_ANIMATION_SPEED: ArkUI_NodeAttributeType =
     1003017;
-#[cfg(feature = "api-22")]
 #[doc = " @brief Specifies the responsive column layout policy for the <b>List</b> component.\n This attribute can be set, reset, and obtained as required through APIs.\n\n Format of the {@link ArkUI_AttributeItem} parameter for setting the attribute:\\n\n .value[0].i32: number of columns at different breakpoint specifications.\n The data type is {@link ArkUI_ItemFillPolicy}. \\n\n .value[1]?.f32: column spacing. unit: vp. Default value: <b>0</b>. \\n\n \\n\n Format of the return value {@link ArkUI_AttributeItem}:\\n\n .value[0].i32: number of columns at different breakpoint specifications.\n The data type is {@link ArkUI_ItemFillPolicy}. \\n\n .value[1].f32: column spacing. unit: vp. \\n\n\n @since 22"]
+#[cfg(feature = "api-22")]
 pub const ArkUI_NodeAttributeType_NODE_LIST_LANES_ITEMFILLPOLICY: ArkUI_NodeAttributeType = 1003018;
 #[doc = " @brief Defines whether to enable loop playback for the swiper.\n This attribute can be set, reset, and obtained as required through APIs.\n\n Format of the {@link ArkUI_AttributeItem} parameter for setting the attribute:\\n\n .value[0].i32: whether to enable loop playback. The value <b>1</b> means to enable loop playback, and <b>0</b>\n means the opposite. The default value is <b>1/b>. \\n\n \\n\n Format of the return value {@link ArkUI_AttributeItem}:\\n\n .value[0].i32: whether to enable loop playback. The value <b>1</b> means to enable loop playback, and <b>0</b>\n means the opposite. The default value is <b>1</b>. \\n\n"]
 pub const ArkUI_NodeAttributeType_NODE_SWIPER_LOOP: ArkUI_NodeAttributeType = 1001000;
@@ -9829,18 +9829,18 @@ pub const ArkUI_NodeAttributeType_NODE_SWIPER_SWIPE_TO_INDEX: ArkUI_NodeAttribut
 #[doc = " @brief Set to disable component navigation point interaction function。\n\n Property setting method parameter {@link ArkUI-AttributeItem} format: \\n\n .value[0].i32：Set to disable the interaction function of component navigation points. When set to true, it\n indicates that the navigation points are interactive. The default value is true. \\n\n The return value of the attribute acquisition method is in the format of {@ link ArkUI-AttributeItem}： \\n\n .value[0].i32：Set to disable component navigation point interaction. \\n"]
 pub const ArkUI_NodeAttributeType_NODE_SWIPER_INDICATOR_INTERACTIVE: ArkUI_NodeAttributeType =
     1001020;
-#[cfg(feature = "api-15")]
 #[doc = " @brief Sets the page flipping mode using the mouse wheel.\n\n Format of the {@link ArkUI_AttributeItem} parameter for setting the attribute:\\n\n .value[0].i32: page flipping mode using the mouse wheel. The parameter type is {@link ArkUI_PageFlipMode}. \\n\n \\n\n Format of the return value {@link ArkUI_PageFlipMode}:\\n\n .value[0].i32: page flipping mode using the mouse wheel. \\n\n\n @since 15"]
+#[cfg(feature = "api-15")]
 pub const ArkUI_NodeAttributeType_NODE_SWIPER_PAGE_FLIP_MODE: ArkUI_NodeAttributeType = 1001021;
-#[cfg(feature = "api-19")]
 #[doc = " @brief Defines the minimum main axis size of child element for swiper to works out the display count.\n This attribute can be set, reset, and obtained as required through APIs.\n\n Format of the {@link ArkUI_AttributeItem} parameter for setting the attribute:\\n\n .value[0].f32: minimum main axis size of the child element, Unit: vp. \\n\n .value[1]?.i32: whether to turn pages by group. The value <b>0</b> means to turn pages by child element,\n and <b>1</b> means to turn pages by group. The default value is <b>0</b>. \\n\n \\n\n Format of the return value {@link ArkUI_AttributeItem}:\\n\n .value[0].f32: minimum main axis size of the child element, Unit: vp. \\n\n .value[1].i32: whether to turn pages by group. \\n\n\n @since 19"]
+#[cfg(feature = "api-19")]
 pub const ArkUI_NodeAttributeType_NODE_SWIPER_AUTO_FILL: ArkUI_NodeAttributeType = 1001022;
-#[cfg(feature = "api-20")]
 #[doc = " @brief Sets whether to maintain the visible content's position when data is inserted or deleted outside\n the display area of the <b>Swiper</b> component.\n\n Format of the {@link ArkUI_AttributeItem} parameter for setting the attribute:\\n\n .value[0].i32: whether to maintain the visible content's position when data is inserted or deleted outside\n the display area of the <b>Swiper</b> component. The value <b>0</b> means not to maintain the visible content's\n position, and <b>1</b> means the opposite. The default value is <b>0</b>. \\n\n \\n\n Format of the return value {@link ArkUI_AttributeItem}:\\n\n .value[0].i32: whether to maintain the visible content's position when data is inserted or deleted outside\n the display area of the <b>Swiper</b> component. The value <b>0</b> means not to maintain the visible content's\n position, and <b>1</b> means the opposite. The default value is <b>0</b>. \\n\n\n @since 20"]
+#[cfg(feature = "api-20")]
 pub const ArkUI_NodeAttributeType_NODE_SWIPER_MAINTAIN_VISIBLE_CONTENT_POSITION:
     ArkUI_NodeAttributeType = 1001023;
-#[cfg(feature = "api-22")]
 #[doc = " @brief Specifies the responsive column layout policy for the <b>Swiper</b> component.\n This attribute can be set, reset, and obtained as required through APIs.\n\n Format of the {@link ArkUI_AttributeItem} parameter for setting the attribute: \\n\n .value[0].i32: number of columns at different breakpoint specifications.\n The data type is {@link ArkUI_ItemFillPolicy}. \\n\n .value[1]?.i32: whether to paginate by group. The value <b>0</b> means to paginate by individual child elements,\n and <b>1</b> means to paginate by groups of child elements displayed within the viewport.\n The default value is <b>0</b>.\n \\n\n Format of the return value {@link ArkUI_AttributeItem}: \\n\n .value[0].i32: number of columns at different breakpoint specifications.\n The data type is {@link ArkUI_ItemFillPolicy}. \\n\n .value[1].i32: whether to paginate by group. \\n\n\n @since 22"]
+#[cfg(feature = "api-22")]
 pub const ArkUI_NodeAttributeType_NODE_SWIPER_ITEMFILLPOLICY: ArkUI_NodeAttributeType = 1001024;
 #[doc = " @brief: Set the delineation component of the ListItem, supporting property settings, property resets, and\n property acquisition interfaces.\n\n Attribute setting method parameter {@link ArkUI_AttributeItem} format: \\n\n .object: Construct using the {@link ArkUI_ListitemSwipeActionOption} object. \\n\n \\n\n The return value of the attribute acquisition method {@link ArkUI_AttributeItem} format: \\n\n .object: Construct using the {@link ArkUI_ListitemSwipeActionOption} object. \\n\n"]
 pub const ArkUI_NodeAttributeType_NODE_LIST_ITEM_SWIPE_ACTION: ArkUI_NodeAttributeType = 1004000;
@@ -9856,8 +9856,8 @@ pub const ArkUI_NodeAttributeType_NODE_LIST_ITEM_GROUP_SET_DIVIDER: ArkUI_NodeAt
 #[doc = " @brief Set the default spindle size for the ListItem Group subcomponent.\n\n Format of the {@link ArkUI_AttributeItem} parameter for setting the attribute:\\n\n .object: The parameter format is {@ ArkUI-ListChildrenMainSize} \\n\n \\n\n Format of the return value {@link ArkUI_AttributeItem}:\\n\n .object: The parameter format is {@ ArkUI-ListChildrenMainSize} \\n"]
 pub const ArkUI_NodeAttributeType_NODE_LIST_ITEM_GROUP_CHILDREN_MAIN_SIZE: ArkUI_NodeAttributeType =
     1005003;
-#[cfg(feature = "api-15")]
 #[doc = " @brief Defines the list item group adapter.\n This attribute can be set, reset, and obtained as required through APIs.\n\n Format of the {@link ArkUI_AttributeItem} parameter for setting the attribute:\\n\n .object: {@link ArkUI_NodeAdapter} object as the adapter. \\n\n \\n\n Format of the return value {@link ArkUI_AttributeItem}:\\n\n .object: {@link ArkUI_NodeAdapter} object. \\n\n\n @since 15"]
+#[cfg(feature = "api-15")]
 pub const ArkUI_NodeAttributeType_NODE_LIST_ITEM_GROUP_NODE_ADAPTER: ArkUI_NodeAttributeType =
     1005004;
 #[doc = " @brief Defines the horizontal alignment mode of child components in the column.\n This attribute can be set, reset, and obtained as required through APIs.\n\n Format of the {@link ArkUI_AttributeItem} parameter for setting the attribute:\\n\n .value[0].i32: horizontal alignment mode of child components.\n The parameter type is {@link ArkUI_HorizontalAlignment}.\\n\n Default value: <b>ARKUI_HORIZONTAL_ALIGNMENT_CENTER</b>. \\n\n \\n\n Format of the return value {@link ArkUI_AttributeItem}:\\n\n .value[0].i32: horizontal alignment mode of child components.\n The parameter type is {@link ArkUI_HorizontalAlignment}. \\n\n"]
@@ -9880,8 +9880,8 @@ pub const ArkUI_NodeAttributeType_NODE_REFRESH_PULL_DOWN_RATIO: ArkUI_NodeAttrib
 pub const ArkUI_NodeAttributeType_NODE_REFRESH_OFFSET: ArkUI_NodeAttributeType = 1009003;
 #[doc = " @brief Sets whether to initiate a refresh when the pull-down distance exceeds the value of <b>refreshOffset</b>.\n This attribute can be set, reset, and obtained as required through APIs.\n\n Format of the {@link ArkUI_AttributeItem} parameter for setting the attribute:\\n\n .value[0].i32: whether to initiate a refresh. The value <b>true</b> means to initiate a refresh, and\n <b>false</b> means the opposite.\n \\n\n Format of the return value {@link ArkUI_AttributeItem}:\\n\n .value[0].i32: whether to initiate a refresh. The value <b>1</b> means to initiate a refresh, and\n <b>0</b> means the opposite.\n"]
 pub const ArkUI_NodeAttributeType_NODE_REFRESH_PULL_TO_REFRESH: ArkUI_NodeAttributeType = 1009004;
-#[cfg(feature = "api-20")]
 #[doc = " @brief Sets the maximum pull-down distance for refreshing.\n This attribute can be set, reset, and obtained through the API as required.\n\n Format of the {@link ArkUI_AttributeItem} parameter for setting the attribute:\\n\n .value[0].f32: maximum pull-down distance, in vp.\n \\n\n Format of the return value {@link ArkUI_AttributeItem}:\\n\n .value[0].f32: maximum pull-down distance, in vp.\n\n @since 20"]
+#[cfg(feature = "api-20")]
 pub const ArkUI_NodeAttributeType_NODE_REFRESH_MAX_PULL_DOWN_DISTANCE: ArkUI_NodeAttributeType =
     1009005;
 #[doc = " @brief Defines the main axis direction of the <b><WaterFlow></b> component layout.\n This attribute can be set, reset, and obtained as required through APIs.\n\n Format of the {@link ArkUI_AttributeItem} parameter for setting the attribute:\\n\n .value[0].i32: main axis direction. The parameter type is {@Link ArkUI_FlexDirection}.\n \\n\n Format of the return value {@link ArkUI_AttributeItem}:\\n\n .value[0].i32: main axis direction. The parameter type is {@Link ArkUI_FlexDirection}.\n"]
@@ -9910,14 +9910,14 @@ pub const ArkUI_NodeAttributeType_NODE_WATER_FLOW_SCROLL_TO_INDEX: ArkUI_NodeAtt
 #[doc = " @brief Defines the size constraints to apply to water flow items.\n This attribute can be set, reset, and obtained as required through APIs.\n\n Format of the {@link ArkUI_AttributeItem} parameter for setting the attribute:\\n\n .value[0].f32: minimum width, in vp.\\n\n .value[1].f32: maximum width, in vp.\\n\n .value[2].f32: minimum height, in vp.\\n\n .value[3].f32: maximum height, in vp.\\n\n \\n\n Format of the return value {@link ArkUI_AttributeItem}:\\n\n .value[0].f32: minimum width, in vp.\\n\n .value[1].f32: maximum width, in vp.\\n\n .value[2].f32: minimum height, in vp.\\n\n .value[3].f32: maximum height, in vp.\\n\n"]
 pub const ArkUI_NodeAttributeType_NODE_WATER_FLOW_ITEM_CONSTRAINT_SIZE: ArkUI_NodeAttributeType =
     1010010;
-#[cfg(feature = "api-18")]
 #[doc = " @brief Defines the layout mode of the <b><WaterFlow></b> component.\n This attribute can be set, reset, and obtained as required through APIs.\n\n Format of the {@link ArkUI_AttributeItem} parameter for setting the attribute:\\n\n .value[0].i32: waterflow layout mode. The parameter type is {@Link ArkUI_WaterFlowLayoutMode}.\n \\n\n Format of the return value {@link ArkUI_AttributeItem}:\\n\n .value[0].i32: waterflow layout mode. The parameter type is {@Link ArkUI_WaterFlowLayoutMode}.\n @since 18"]
+#[cfg(feature = "api-18")]
 pub const ArkUI_NodeAttributeType_NODE_WATER_FLOW_LAYOUT_MODE: ArkUI_NodeAttributeType = 1010011;
-#[cfg(feature = "api-20")]
 #[doc = " @brief Defines whether the <b>WaterFlow</b> component loads child nodes synchronously.\n This attribute can be set, reset, and obtained as required through APIs.\n\n Format of the {@link ArkUI_AttributeItem} parameter for setting the attribute:\\n\n .value[0].i32: whether the <b>WaterFlow</b> component synchronously loads child nodes.\n The value <b>0</b> means loading by frames, and <b>1</b> means synchronous loading. \\n\n \\n\n Format of the return value {@link ArkUI_AttributeItem}:\\n\n .value[0].i32: whether the <b>WaterFlow</b> component synchronously loads child nodes.\n The value <b>0</b> means loading by frames, and <b>1</b> means synchronous loading. \\n\n\n @since 20"]
+#[cfg(feature = "api-20")]
 pub const ArkUI_NodeAttributeType_NODE_WATER_FLOW_SYNC_LOAD: ArkUI_NodeAttributeType = 1010012;
-#[cfg(feature = "api-22")]
 #[doc = " @brief Specifies the responsive column layout policy for the <b>WaterFlow</b> component.\n This attribute can be set, reset, and obtained as required through APIs.\n\n Format of the {@link ArkUI_AttributeItem} parameter for setting the attribute:\\n\n .value[0].i32: number of columns at different breakpoint specifications.\n The data type is {@link ArkUI_ItemFillPolicy}. \\n\n \\n\n Format of the return value {@link ArkUI_AttributeItem}:\\n\n .value[0].i32: number of columns at different breakpoint specifications.\n The data type is {@link ArkUI_ItemFillPolicy}. \\n\n\n @since 22"]
+#[cfg(feature = "api-22")]
 pub const ArkUI_NodeAttributeType_NODE_WATER_FLOW_COLUMN_TEMPLATE_ITEMFILLPOLICY:
     ArkUI_NodeAttributeType = 1010013;
 #[doc = " @brief Set the auxiliary line in the RelativeContaine container, supporting property setting,\n property reset and property acquisition interfaces.\n\n Attribute setting method parameter {@link ArkUI_AttributeItem} format: \\n\n .object: Auxiliary lines within the RelativeContaine container: \\n\n\\n\n Attribute acquisition method return value {@link ArkUI_AttributeItem} format: \\n\n .object: Auxiliary lines within the RelativeContaine container: \\n\n"]
@@ -9938,40 +9938,40 @@ pub const ArkUI_NodeAttributeType_NODE_GRID_ROW_GAP: ArkUI_NodeAttributeType = 1
 pub const ArkUI_NodeAttributeType_NODE_GRID_NODE_ADAPTER: ArkUI_NodeAttributeType = 1013004;
 #[doc = " @brief Sets the number of cached items in the grid adapter.\n This attribute can be set, reset, and obtained as required through APIs.\n\n Format of the {@link ArkUI_AttributeItem} parameter for setting the attribute:\\n\n .value[0].i32: number of cached items in the grid adapter. \\n"]
 pub const ArkUI_NodeAttributeType_NODE_GRID_CACHED_COUNT: ArkUI_NodeAttributeType = 1013005;
-#[cfg(feature = "api-20")]
 #[doc = " @brief Defines the focus wrap mode for the <b>Grid</b> component.\n This attribute can be set, reset, and obtained as required through APIs.\n\n Format of the {@link ArkUI_AttributeItem} parameter for setting the attribute:\\n\n .value[0].i32: focus wrap mode of the <b>Grid</b> component.\n                The parameter type is {@link ArkUI_FocusWrapMode}. \\n\n \\n\n Format of the return value {@link ArkUI_AttributeItem}:\\n\n .value[0].i32: focus wrap mode of the <b>Grid</b> component.\n                The parameter type is {@link ArkUI_FocusWrapMode}. \\n\n\n @since 20"]
-pub const ArkUI_NodeAttributeType_NODE_GRID_FOCUS_WRAP_MODE: ArkUI_NodeAttributeType = 1013006;
 #[cfg(feature = "api-20")]
+pub const ArkUI_NodeAttributeType_NODE_GRID_FOCUS_WRAP_MODE: ArkUI_NodeAttributeType = 1013006;
 #[doc = " @brief Defines whether the <b>Grid</b> component loads child nodes synchronously.\n This attribute can be set, reset, and obtained as required through APIs.\n\n Format of the {@link ArkUI_AttributeItem} parameter for setting the attribute:\\n\n .value[0].i32: whether the <b>Grid</b> component synchronously loads child nodes.\n The value <b>0</b> means loading by frames, and <b>1</b> means synchronous loading. \\n\n \\n\n Format of the return value {@link ArkUI_AttributeItem}:\\n\n .value[0].i32: whether the <b>Grid</b> component synchronously loads child nodes.\n The value <b>0</b> means loading by frames, and <b>1</b> means synchronous loading. \\n\n\n @since 20"]
+#[cfg(feature = "api-20")]
 pub const ArkUI_NodeAttributeType_NODE_GRID_SYNC_LOAD: ArkUI_NodeAttributeType = 1013007;
-#[cfg(feature = "api-22")]
 #[doc = " @brief Specifies the alignment of <b>GridItem</b> components in the parent <b>Grid</b> container.\n This attribute can be set, reset, and obtained as required through APIs.\n\n Format of the {@link ArkUI_AttributeItem} parameter for setting the attribute:\\n\n .value[0].i32: alignment of <b>GridItem</b> components in the parent <b>Grid</b> container, \\n\n specified using the {@link ArkUI_GridItemAlignment} enum. \\n\n The default value is <b>GRID_ITEM_ALIGNMENT_DEFAULT</b>. \\n\n \\n\n Format of the return value {@link ArkUI_AttributeItem}:\\n\n .value[0].i32: alignment of <b>GridItem</b> components in the parent <b>Grid</b> container, \\n\n specified using the {@link ArkUI_GridItemAlignment} enum. \\n\n\n @since 22"]
+#[cfg(feature = "api-22")]
 pub const ArkUI_NodeAttributeType_NODE_GRID_ALIGN_ITEMS: ArkUI_NodeAttributeType = 1013008;
-#[cfg(feature = "api-22")]
 #[doc = " @brief Specifies the layout options of the <b>Grid</b> component.\n This attribute can be set, reset, and obtained as required through APIs.\n\n Format of the {@link ArkUI_AttributeItem} parameter for setting the attribute: \\n\n .object: layout options, with the parameter format of {@link ArkUI_GridLayoutOptions}. \\n\n \\n\n Format of the return value {@link ArkUI_AttributeItem}:\\n\n .object: current {@link ArkUI_GridLayoutOptions} object. \\n\n\n @since 22"]
-pub const ArkUI_NodeAttributeType_NODE_GRID_LAYOUT_OPTIONS: ArkUI_NodeAttributeType = 1013009;
 #[cfg(feature = "api-22")]
+pub const ArkUI_NodeAttributeType_NODE_GRID_LAYOUT_OPTIONS: ArkUI_NodeAttributeType = 1013009;
 #[doc = " @brief Specifies the responsive column layout policy for the <b>Grid</b> component.\n This attribute can be set, reset, and obtained as required through APIs.\n\n Format of the {@link ArkUI_AttributeItem} parameter for setting the attribute:\\n\n .value[0].i32: number of columns at different breakpoint specifications.\n The data type is {@link ArkUI_ItemFillPolicy}. \\n\n \\n\n Format of the return value {@link ArkUI_AttributeItem}:\\n\n .value[0].i32: number of columns at different breakpoint specifications.\n The data type is {@link ArkUI_ItemFillPolicy}. \\n\n\n @since 22"]
+#[cfg(feature = "api-22")]
 pub const ArkUI_NodeAttributeType_NODE_GRID_COLUMN_TEMPLATE_ITEMFILLPOLICY:
     ArkUI_NodeAttributeType = 1013010;
-#[cfg(feature = "api-22")]
 #[doc = " @brief Sets the style of the <b>GridItem</b> component.\n This attribute can be set, reset, and obtained as required through APIs.\n\n Format of the {@link ArkUI_AttributeItem} parameter for setting the attribute: \\n\n .value[0].i32: style of the <b>GridItem</b> component, specified using {@link ArkUI_SliderStyle}. \\n\n The default value is <b>GRID_ITEM_STYLE_NONE</b>. \\n\n \\n\n Format of the return value {@link ArkUI_AttributeItem}:\\n\n .value[0].i32: style of the <b>GridItem</b> component, specified using {@link ArkUI_SliderStyle}. \\n\n\n @since 22"]
+#[cfg(feature = "api-22")]
 pub const ArkUI_NodeAttributeType_NODE_GRID_ITEM_STYLE: ArkUI_NodeAttributeType = 1014000;
-#[cfg(feature = "api-18")]
 #[doc = " @brief Defines the column width of the text picker.\n This attribute can be set, reset, and obtained as required through APIs.\n\n Format of the {@link ArkUI_AttributeItem} parameter for setting the attribute:\\n\n .value[0].f32: percentage of total width. The default value is that all colulmns are equal width.\\n\n .value[1]?.f32: percentage of total width. The default value is that all colulmns are equal width.\\n\n .value[2]?.f32: percentage of total width. The default value is that all colulmns are equal width.\\n\n ...\\n\n .value[n]?.f32: percentage of total width. The default value is that all colulmns are equal width.\\n\n \\n\n Format of the return value {@link ArkUI_AttributeItem}:\\n\n value[0].f32: percentage of total width.\\n\n value[1].f32: percentage of total width.\\n\n value[2].f32: percentage of total width.\\n\n ...\\n\n value[n].f32: percentage of total width.\\n\n\n @since 18"]
+#[cfg(feature = "api-18")]
 pub const ArkUI_NodeAttributeType_NODE_TEXT_PICKER_COLUMN_WIDTHS: ArkUI_NodeAttributeType = 15009;
-#[cfg(feature = "api-19")]
 #[doc = " @brief Defines the disabled date range of the calendar picker.\n This attribute can be set, reset, and obtained as required through APIs.\n\n Format of the {@link ArkUI_AttributeItem} parameter for setting the attribute:\\n\n .string: A string of dates. The `1st start date`,`1st end date`,`2nd start date`,`2nd end date`,\n ...,`nth start date`,`nth end date` of the disabled date range.\\n\n  Example: 1910-01-01,1910-12-31,2020-01-01,2020-12-31\\n\n \\n\n Format of the return value {@link ArkUI_AttributeItem}:\\n\n .string: A string of dates.\\n\n\n @since 19"]
+#[cfg(feature = "api-19")]
 pub const ArkUI_NodeAttributeType_NODE_CALENDAR_PICKER_DISABLED_DATE_RANGE:
     ArkUI_NodeAttributeType = 16006;
-#[cfg(feature = "api-19")]
 #[doc = " @brief Defines whether the calendar picker marks today.\n This attribute can be set, reset, and obtained as required through APIs.\n\n Format of the {@link ArkUI_AttributeItem} parameter for setting the attribute:\\n\n value[0].i32: whether the calendar picker marks today. The default value is <b>false</b>.\\n\n \\n\n Format of the return value {@link ArkUI_AttributeItem}:\\n\n value[0].i32: whether the calendar picker marks today.\\n\n\n @since 19"]
+#[cfg(feature = "api-19")]
 pub const ArkUI_NodeAttributeType_NODE_CALENDAR_PICKER_MARK_TODAY: ArkUI_NodeAttributeType = 16007;
-#[cfg(feature = "api-20")]
 #[doc = " @brief Defines the want used to start EmbeddedAbility.\n This attribute can be set as required through APIs.\n\n Format of the {@link ArkUI_AttributeItem} parameter for setting the attribute:\\n\n .object: The want of EmbeddedComponent, with parameter type {@AbilityBase_Want}.\n The default value is <b>nullptr</b>.\\n\n\n @since 20"]
-pub const ArkUI_NodeAttributeType_NODE_EMBEDDED_COMPONENT_WANT: ArkUI_NodeAttributeType = 1016000;
 #[cfg(feature = "api-20")]
+pub const ArkUI_NodeAttributeType_NODE_EMBEDDED_COMPONENT_WANT: ArkUI_NodeAttributeType = 1016000;
 #[doc = " @brief Set onError and onTerminated callbacks for EMBEDDED_COMPONENT.\n This attribute can be set as required through APIs.\n\n Format of the {@link ArkUI_AttributeItem} parameter for setting the attribute:\\n\n .object: The option for EmbeddedComponent, with parameter type {@ArkUI_EmbeddedComponentOption}.\\n\n\n @since 20"]
+#[cfg(feature = "api-20")]
 pub const ArkUI_NodeAttributeType_NODE_EMBEDDED_COMPONENT_OPTION: ArkUI_NodeAttributeType = 1016001;
 #[doc = " @brief Defines the ArkUI style attributes that can be set on the native side.\n\n @since 12"]
 pub type ArkUI_NodeAttributeType = u32;
@@ -9989,8 +9989,8 @@ pub struct ArkUI_StringAsyncEvent {
     #[doc = " String."]
     pub pStr: *const ::std::os::raw::c_char,
 }
-#[cfg(feature = "api-15")]
 #[doc = " @brief Defines a hybrid data structure for component events.\n\n @since 15"]
+#[cfg(feature = "api-15")]
 #[repr(C)]
 #[derive(Debug, Copy, Clone)]
 pub struct ArkUI_TextChangeEvent {
@@ -10043,46 +10043,46 @@ pub const ArkUI_NodeEventType_NODE_ON_DRAG_LEAVE: ArkUI_NodeEventType = 18;
 pub const ArkUI_NodeEventType_NODE_ON_DROP: ArkUI_NodeEventType = 19;
 #[doc = " @brief Called when a drag operation ends.\n The drag source can obtain the drag result by registering this callback.\n\n A drag operation ends when the dragged item is released.\n When the event callback occurs, the {@link ArkUI_DragEvent} object can be obtained from the\n {@link ArkUI_NodeEvent} object. \\n"]
 pub const ArkUI_NodeEventType_NODE_ON_DRAG_END: ArkUI_NodeEventType = 20;
-#[cfg(feature = "api-14")]
 #[doc = " @brief Defines the event triggered when a key event occurs.\n\n The callback can be triggered during interactions with a focused window using an external keyboard or other input\n device. \\n\n When the event callback occurs, the union type in the {@link ArkUI_NodeEvent} object is\n {@link ArkUI_NodeComponentEvent}. \\n\n\n @since 14"]
-pub const ArkUI_NodeEventType_NODE_ON_KEY_EVENT: ArkUI_NodeEventType = 21;
 #[cfg(feature = "api-14")]
+pub const ArkUI_NodeEventType_NODE_ON_KEY_EVENT: ArkUI_NodeEventType = 21;
 #[doc = " @brief Defines the event triggered before the input method responds to the key action.\n\n If the return value of this callback is <b>true</b>, it is considered that the key event has been consumed, and\n subsequent event callbacks (<b>keyboardShortcut</b>, input method events, <b>onKeyEvent</b>) will be intercepted\n and no longer triggered.\n The callback can be triggered during interactions with a focused window using an external keyboard or other input\n device. \\n\n When the event callback occurs, the union type in the {@link ArkUI_NodeEvent} object is\n {@link ArkUI_NodeComponentEvent}. \\n\n\n @since 14"]
+#[cfg(feature = "api-14")]
 pub const ArkUI_NodeEventType_NODE_ON_KEY_PRE_IME: ArkUI_NodeEventType = 22;
-#[cfg(feature = "api-15")]
 #[doc = " @brief Defines the event triggered when the bound component receives a focus axis event after gaining focus.\n\n The event callback is triggered by interactions with a joystick and a focused component. \\n\n When the event callback occurs, the union type in the {@link ArkUI_NodeEvent} object is\n {@link ArkUI_UIInputEvent}. \\n\n\n @since 15"]
+#[cfg(feature = "api-15")]
 pub const ArkUI_NodeEventType_NODE_ON_FOCUS_AXIS: ArkUI_NodeEventType = 23;
-#[cfg(feature = "api-15")]
 #[doc = " @brief Dispatch key event on the component node.\n\n When the component node receives a key event, this callback will be triggered instead of dispatching event to its\n children. \\n\n When the event callback occurs, the union type in the {@link ArkUI_NodeEvent} object is\n {@link ArkUI_NodeComponentEvent}. \\n\n\n @since 15"]
-pub const ArkUI_NodeEventType_NODE_DISPATCH_KEY_EVENT: ArkUI_NodeEventType = 24;
-#[cfg(feature = "api-17")]
-#[doc = " @brief Defines the event triggered when the bound component receives an axis event.\n\n When the event callback occurs, the union type in the {@link ArkUI_NodeEvent} object is\n {@link ArkUI_UIInputEvent}. \\n\n\n @since 17"]
-pub const ArkUI_NodeEventType_NODE_ON_AXIS: ArkUI_NodeEventType = 25;
-#[cfg(feature = "api-18")]
-#[doc = " @brief Defines the event triggered when the bound component is clicked.\n\n When the event callback occurs, the union type in the {@link ArkUI_NodeEvent} object is\n {@link ArkUI_UIInputEvent}.  \\n\n\n @since 18"]
-pub const ArkUI_NodeEventType_NODE_ON_CLICK_EVENT: ArkUI_NodeEventType = 26;
-#[cfg(feature = "api-17")]
-#[doc = " @brief Defines the event triggered when the mouse pointer hovers over or moves away from a component.\n\n This event is triggered when the mouse pointer enters or leaves the component's bounding box. \\n\n When the event callback occurs, the union type in the {@link ArkUI_NodeEvent} object is\n {@link ArkUI_UIInputEvent}. \\n\n\n@since 17"]
-pub const ArkUI_NodeEventType_NODE_ON_HOVER_EVENT: ArkUI_NodeEventType = 27;
-#[cfg(feature = "api-17")]
-#[doc = " @brief Sets the callback for the NODE_EVENT_ON_VISIBLE_AREA_CHANGE event, which limits the callback interval.\n\n The callback is triggered when the ratio of the component's visible area to its total area is greater than or\n less than the threshold. Before registering the callback, you must configure the threshold and update interval\n using <b>NODE_VISIBLE_AREA_APPROXIMATE_CHANGE_RATIO</b>. \\n\n When the event callback occurs, the union type in the {@link ArkUI_NodeEvent} object is\n {@link ArkUI_NodeComponentEvent}. \\n\n {@link ArkUI_NodeComponentEvent} contains two parameters:\\n\n <b>ArkUI_NodeComponentEvent.data[0].i32</b>: how the ratio of the component's visible area to its total area\n changes compared to the previous one. The value <b>1</b> indicates an increase, and <b>0</b> indicates\n a decrease. \\n\n <b>ArkUI_NodeComponentEvent.data[1].f32</b>: ratio of the component's visible area to its total area\n when this callback is invoked. \\n\n\n @since 17"]
-pub const ArkUI_NodeEventType_NODE_VISIBLE_AREA_APPROXIMATE_CHANGE_EVENT: ArkUI_NodeEventType = 28;
 #[cfg(feature = "api-15")]
+pub const ArkUI_NodeEventType_NODE_DISPATCH_KEY_EVENT: ArkUI_NodeEventType = 24;
+#[doc = " @brief Defines the event triggered when the bound component receives an axis event.\n\n When the event callback occurs, the union type in the {@link ArkUI_NodeEvent} object is\n {@link ArkUI_UIInputEvent}. \\n\n\n @since 17"]
+#[cfg(feature = "api-17")]
+pub const ArkUI_NodeEventType_NODE_ON_AXIS: ArkUI_NodeEventType = 25;
+#[doc = " @brief Defines the event triggered when the bound component is clicked.\n\n When the event callback occurs, the union type in the {@link ArkUI_NodeEvent} object is\n {@link ArkUI_UIInputEvent}.  \\n\n\n @since 18"]
+#[cfg(feature = "api-18")]
+pub const ArkUI_NodeEventType_NODE_ON_CLICK_EVENT: ArkUI_NodeEventType = 26;
+#[doc = " @brief Defines the event triggered when the mouse pointer hovers over or moves away from a component.\n\n This event is triggered when the mouse pointer enters or leaves the component's bounding box. \\n\n When the event callback occurs, the union type in the {@link ArkUI_NodeEvent} object is\n {@link ArkUI_UIInputEvent}. \\n\n\n@since 17"]
+#[cfg(feature = "api-17")]
+pub const ArkUI_NodeEventType_NODE_ON_HOVER_EVENT: ArkUI_NodeEventType = 27;
+#[doc = " @brief Sets the callback for the NODE_EVENT_ON_VISIBLE_AREA_CHANGE event, which limits the callback interval.\n\n The callback is triggered when the ratio of the component's visible area to its total area is greater than or\n less than the threshold. Before registering the callback, you must configure the threshold and update interval\n using <b>NODE_VISIBLE_AREA_APPROXIMATE_CHANGE_RATIO</b>. \\n\n When the event callback occurs, the union type in the {@link ArkUI_NodeEvent} object is\n {@link ArkUI_NodeComponentEvent}. \\n\n {@link ArkUI_NodeComponentEvent} contains two parameters:\\n\n <b>ArkUI_NodeComponentEvent.data[0].i32</b>: how the ratio of the component's visible area to its total area\n changes compared to the previous one. The value <b>1</b> indicates an increase, and <b>0</b> indicates\n a decrease. \\n\n <b>ArkUI_NodeComponentEvent.data[1].f32</b>: ratio of the component's visible area to its total area\n when this callback is invoked. \\n\n\n @since 17"]
+#[cfg(feature = "api-17")]
+pub const ArkUI_NodeEventType_NODE_VISIBLE_AREA_APPROXIMATE_CHANGE_EVENT: ArkUI_NodeEventType = 28;
 #[doc = " @brief Defines the hover event.\n\n The event is triggered when the pointer is hovered by a pen device.\n within the component. \\n\n When the event callback occurs, the {@link ArkUI_NodeEvent} object can be obtained from the\n {@link ArkUI_UIInputEvent} object. \\n\n @since 15"]
+#[cfg(feature = "api-15")]
 pub const ArkUI_NodeEventType_NODE_ON_HOVER_MOVE: ArkUI_NodeEventType = 29;
-#[cfg(feature = "api-21")]
 #[doc = " @brief Defines the size change event.\n\n The event will be triggered when the component size changes.\n When the event callback occurs, the union type in the {@link ArkUI_NodeEvent} object is\n {@link ArkUI_NodeComponentEvent}.\n {@link ArkUI_NodeComponentEvent} contains four parameters:\n <b>ArkUI_NodeComponentEvent.data[0].f32</b>: the width of the old rectangle.\n <b>ArkUI_NodeComponentEvent.data[1].f32</b>: the height of the old rectangle.\n <b>ArkUI_NodeComponentEvent.data[2].f32</b>: the width of the new rectangle.\n <b>ArkUI_NodeComponentEvent.data[3].f32</b>: the height of the new rectangle.\n @since 21"]
+#[cfg(feature = "api-21")]
 pub const ArkUI_NodeEventType_NODE_ON_SIZE_CHANGE: ArkUI_NodeEventType = 30;
-#[cfg(feature = "api-22")]
 #[doc = " @brief Defines the coasting axis event.\n\n The event is triggered when user swipes with two fingers on the touchpad, the system constructs\n sliding events based on the speed at the moment the fingers are lifted, according to a certain\n decay curve. You can listen for such events to handle the flick effect immediately after the\n regular axis events. \\n\n When the event callback occurs, the {@link ArkUI_UIInputEvent} object can be obtained from the\n {@link ArkUI_NodeEvent} object through {@link OH_ArkUI_NodeEvent_GetInputEvent}.\n And the {@link ArkUI_CoastingAxisEvent} object can be obtained from the {@link ArkUI_UIInputEvent}\n object through {@link OH_ArkUI_UIInputEvent_GetCoastingAxisEvent}. \\n\n\n @since 22"]
-pub const ArkUI_NodeEventType_NODE_ON_COASTING_AXIS_EVENT: ArkUI_NodeEventType = 31;
 #[cfg(feature = "api-22")]
+pub const ArkUI_NodeEventType_NODE_ON_COASTING_AXIS_EVENT: ArkUI_NodeEventType = 31;
 #[doc = " @brief Defines the pre-touch test of sub component in touch events. Called to specify how to perform the touch test on the children of this component.\n\n The event is triggered when the component is touched. \\n\n When the event callback occurs, the {@link ArkUI_NodeEvent} object can be obtained from the\n {@link ArkUI_TouchTestInfo} object. \\n\n @since 22"]
+#[cfg(feature = "api-22")]
 pub const ArkUI_NodeEventType_NODE_ON_CHILD_TOUCH_TEST: ArkUI_NodeEventType = 32;
 #[doc = " @brief Triggers onDetectResultUpdate callback\n when the text is set to TextDataDetectorConfig and recognized successfully.\n\n Trigger this event when TextDataDetectorConfig is set and recognized successfully.\\n\n When the event callback occurs, the event parameter{@link ArkUI_NodeEvent}The union type in the object is\n {@link ArkUI_StringAsyncEvent}.\\n\n {@link ArkUI_StringAsyncEvent}contains 1 parameter\\n\n <b>ArkUI_StringAsyncEvent.pStr</b>：Indicates the result of text recognition, in Json format.\\n\n"]
 pub const ArkUI_NodeEventType_NODE_TEXT_ON_DETECT_RESULT_UPDATE: ArkUI_NodeEventType = 1000;
-#[cfg(feature = "api-20")]
 #[doc = " @brief Defines the long press event for span.\n\n The event is triggered when the span is long pressed.\n When the event callback occurs, the {@link ArkUI_NodeEvent} object can be obtained from the\n {@link ArkUI_UIInputEvent} object. \\n\n @since 20"]
+#[cfg(feature = "api-20")]
 pub const ArkUI_NodeEventType_NODE_TEXT_SPAN_ON_LONG_PRESS: ArkUI_NodeEventType = 1001;
 #[doc = " @brief Defines the image loading success event.\n\n This event is triggered when an image is successfully loaded or decoded. \\n\n When the event callback occurs, the union type in the {@link ArkUI_NodeEvent} object is\n {@link ArkUI_NodeComponentEvent}. \\n\n {@link ArkUI_NodeComponentEvent} contains nine parameters:\\n\n <b>ArkUI_NodeComponentEvent.data[0].i32</b>: loading status. The value <b>0</b> indicates that the image is\n loaded successfully, and the value <b>1</b> indicates that the image is decoded successfully. \\n\n <b>ArkUI_NodeComponentEvent.data[1].f32</b>: width of the image, in px. \\n\n <b>ArkUI_NodeComponentEvent.data[2].f32</b>: height of the image, in px. \\n\n <b>ArkUI_NodeComponentEvent.data[3].f32</b>: width of the component, in px. \\n\n <b>ArkUI_NodeComponentEvent.data[4].f32</b>: height of the component, in px. \\n\n <b>ArkUI_NodeComponentEvent.data[5].f32</b>: offset of the rendered content relative to the component on the\n x-axis, in px. \\n\n <b>ArkUI_NodeComponentEvent.data[6].f32</b>: offset of the rendered content relative to the component on the\n y-axis, in px. \\n\n <b>ArkUI_NodeComponentEvent.data[7].f32</b>: actual rendered width of the image, in px. \\n\n <b>ArkUI_NodeComponentEvent.data[8].f32</b>: actual rendered height of the image, in px. \\n"]
 pub const ArkUI_NodeEventType_NODE_IMAGE_ON_COMPLETE: ArkUI_NodeEventType = 4000;
@@ -10120,12 +10120,12 @@ pub const ArkUI_NodeEventType_NODE_TEXT_INPUT_ON_DID_INSERT: ArkUI_NodeEventType
 pub const ArkUI_NodeEventType_NODE_TEXT_INPUT_ON_WILL_DELETE: ArkUI_NodeEventType = 7011;
 #[doc = " @brief Defines the event triggered when text is deleted.\n\n The event parameter is {@link ArkUI_NodeEvent}. \\n\n value.f32: position of the text deleted, with the index of <b>0</b>; obtained using\n <b>OH_ArkUI_NodeEvent_GetNumberValue</b>. \\n\n value.i32: direction for deleting the text, with the index of <b>1</b>; obtained using\n <b>OH_ArkUI_NodeEvent_GetNumberValue</b>. The value <b>0</b> indicates backward-delete, and <b>1</b> indicates\n forward-delete. \\n\n buffer: string value of the text, with the index of <b>0</b>; obtained using\n <b>OH_ArkUI_NodeEvent_GetStringValue</b>."]
 pub const ArkUI_NodeEventType_NODE_TEXT_INPUT_ON_DID_DELETE: ArkUI_NodeEventType = 7012;
-#[cfg(feature = "api-15")]
 #[doc = " @brief Defines the event triggered when content (including preview text) changes in the <b>TextInput</b>\n component.\n\n When the event callback occurs, the union type {@link ArkUI_NodeEvent} is {@link ArkUI_TextChangeEvent}. \\n\n {@link ArkUI_TextChangeEvent} contains the following parameters: \\n\n <b>ArkUI_TextChangeEvent.pStr</b>: content in the <b>TextInput</b> component.\n <b>ArkUI_TextChangeEvent.pExtendStr</b>: content of the preview text in the <b>TextInput</b> component.\n <b>ArkUI_TextChangeEvent.number</b>: start position of the preview text in the <b>TextInput</b> component.\n\n @since 15"]
+#[cfg(feature = "api-15")]
 pub const ArkUI_NodeEventType_NODE_TEXT_INPUT_ON_CHANGE_WITH_PREVIEW_TEXT: ArkUI_NodeEventType =
     7013;
-#[cfg(feature = "api-20")]
 #[doc = " @brief Defines the event triggered before content changes\n\n When the event callback occurs, the union type {@link ArkUI_NodeEvent} is {@link ArkUI_TextChangeEvent}. \\n\n {@link ArkUI_TextChangeEvent} contains the following parameters: \\n\n <b>ArkUI_TextChangeEvent.pStr</b>: content in the <b>TextInput</b> component.\n <b>ArkUI_TextChangeEvent.pExtendStr</b>: content of the preview text in the <b>TextInput</b> component.\n <b>ArkUI_TextChangeEvent.number</b>: start position of the preview text in the <b>TextInput</b> component.\n\n @since 20"]
+#[cfg(feature = "api-20")]
 pub const ArkUI_NodeEventType_NODE_TEXT_INPUT_ON_WILL_CHANGE: ArkUI_NodeEventType = 7014;
 #[doc = " @brief Defines the event triggered when the input in the text box changes.\n\n\\n\n When the event callback occurs, the union type in the {@link ArkUI_NodeEvent} object is\n {@link ArkUI_StringAsyncEvent}. \\n\n {@link ArkUI_StringAsyncEvent} contains one parameter:\\n\n <b>ArkUI_StringAsyncEvent.pStr</b>: text entered.\n"]
 pub const ArkUI_NodeEventType_NODE_TEXT_AREA_ON_CHANGE: ArkUI_NodeEventType = 8000;
@@ -10151,12 +10151,12 @@ pub const ArkUI_NodeEventType_NODE_TEXT_AREA_ON_DID_INSERT: ArkUI_NodeEventType 
 pub const ArkUI_NodeEventType_NODE_TEXT_AREA_ON_WILL_DELETE: ArkUI_NodeEventType = 8010;
 #[doc = " @brief Defines the event triggered when text is deleted.\n\n The event parameter is {@link ArkUI_NodeEvent}. \\n\n value.f32: position of the text deleted, with the index of <b>0</b>; obtained using\n <b>OH_ArkUI_NodeEvent_GetNumberValue</b>. \\n\n value.i32: direction for deleting the text, with the index of <b>1</b>; obtained using\n <b>OH_ArkUI_NodeEvent_GetNumberValue</b>. The value <b>0</b> indicates backward-delete, and <b>1</b> indicates\n forward-delete. \\n\n buffer: string value of the text, with the index of <b>0</b>; obtained using\n <b>OH_ArkUI_NodeEvent_GetStringValue</b>."]
 pub const ArkUI_NodeEventType_NODE_TEXT_AREA_ON_DID_DELETE: ArkUI_NodeEventType = 8011;
-#[cfg(feature = "api-15")]
 #[doc = " @brief Defines the event triggered when content (including preview text) changes in the <b>TextArea</b>\n component.\n\n When the event callback occurs, the union type {@link ArkUI_NodeEvent} is {@link ArkUI_TextChangeEvent}. \\n\n {@link ArkUI_TextChangeEvent} contains the following parameters: \\n\n <b>ArkUI_TextChangeEvent.pStr</b>: content in the <b>TextArea</b> component.\n <b>ArkUI_TextChangeEvent.pExtendStr</b>: content of the preview text in the <b>TextArea</b> component.\n <b>ArkUI_TextChangeEvent.number</b>: start position of the preview text in the <b>TextArea</b> component.\n\n @since 15"]
+#[cfg(feature = "api-15")]
 pub const ArkUI_NodeEventType_NODE_TEXT_AREA_ON_CHANGE_WITH_PREVIEW_TEXT: ArkUI_NodeEventType =
     8012;
-#[cfg(feature = "api-20")]
 #[doc = " @brief Defines the event triggered before content changes.\n\n When the event callback occurs, the union type {@link ArkUI_NodeEvent} is {@link ArkUI_TextChangeEvent}. \\n\n {@link ArkUI_TextChangeEvent} contains the following parameters: \\n\n <b>ArkUI_TextChangeEvent.pStr</b>: content in the <b>TextArea</b> component.\n <b>ArkUI_TextChangeEvent.pExtendStr</b>: content of the preview text in the <b>TextArea</b> component.\n <b>ArkUI_TextChangeEvent.number</b>: start position of the preview text in the <b>TextArea</b> component.\n\n @since 20"]
+#[cfg(feature = "api-20")]
 pub const ArkUI_NodeEventType_NODE_TEXT_AREA_ON_WILL_CHANGE: ArkUI_NodeEventType = 8013;
 #[doc = " @brief Defines the event triggered when the selected status of the <b>ARKUI_NODE_CHECKBOX</b> component changes.\n\n When the event callback occurs, the union type in the {@link ArkUI_NodeEvent} object is\n {@link ArkUI_NodeComponentEvent}. \\n\n <b>ArkUI_NodeComponentEvent.data[0].i32</b><b>1</b>: selected; <b>0</b>: not selected.\\n"]
 pub const ArkUI_NodeEventType_NODE_CHECKBOX_EVENT_ON_CHANGE: ArkUI_NodeEventType = 11000;
@@ -10166,8 +10166,8 @@ pub const ArkUI_NodeEventType_NODE_DATE_PICKER_EVENT_ON_DATE_CHANGE: ArkUI_NodeE
 pub const ArkUI_NodeEventType_NODE_TIME_PICKER_EVENT_ON_CHANGE: ArkUI_NodeEventType = 14000;
 #[doc = " @brief Defines the event triggered when an item is selected in the <b>ARKUI_NODE_TEXT_PICKER</b> component.\n\n\\n\n When the event callback occurs, the union type in the {@link ArkUI_NodeEvent} object is\n {@link ArkUI_NodeComponentEvent}. \\n\n {@link ArkUI_NodeComponentEvent} contains one parameter:\\n\n <b>ArkUI_NodeComponentEvent.data[0...11].i32</b>: value of the selected item. \\n"]
 pub const ArkUI_NodeEventType_NODE_TEXT_PICKER_EVENT_ON_CHANGE: ArkUI_NodeEventType = 15000;
-#[cfg(feature = "api-14")]
 #[doc = " @brief Defines the event triggered when an item is selected and scrolling has stopped in the\n <b>ARKUI_NODE_TEXT_PICKER</b> component.\n\n When the event callback occurs, the union type in the {@link ArkUI_NodeEvent} object is\n {@link ArkUI_NodeComponentEvent}. \\n\n {@link ArkUI_NodeComponentEvent} contains one parameter:\\n\n <b>ArkUI_NodeComponentEvent.data[0...11].i32</b>: value of the selected item. \\n\n\n @since 14"]
+#[cfg(feature = "api-14")]
 pub const ArkUI_NodeEventType_NODE_TEXT_PICKER_EVENT_ON_SCROLL_STOP: ArkUI_NodeEventType = 15001;
 #[doc = " @brief Defines the event triggered when a date is selected in the <b>NODE_CALENDAR_PICKER</b>.\n\n When the event callback occurs, the union type in the {@link ArkUI_NodeEvent} object is\n {@link ArkUI_NodeComponentEvent}. \\n\n <b>ArkUI_NodeComponent.data[0].u32</b>: year of the selected date. \\n\n <b>ArkUI_NodeComponent.data[1].u32</b>: month of the selected date. \\n\n <b>ArkUI_NodeComponent.data[2].u32</b>: day of the selected date. \\n"]
 pub const ArkUI_NodeEventType_NODE_CALENDAR_PICKER_EVENT_ON_CHANGE: ArkUI_NodeEventType = 16000;
@@ -10185,8 +10185,8 @@ pub const ArkUI_NodeEventType_NODE_IMAGE_ANIMATOR_EVENT_ON_REPEAT: ArkUI_NodeEve
 pub const ArkUI_NodeEventType_NODE_IMAGE_ANIMATOR_EVENT_ON_CANCEL: ArkUI_NodeEventType = 19003;
 #[doc = " @brief Defines the event callback function triggered when the animation playback is complete or stopped.\n\n When the event callback occurs, the union type in the {@Link ArkUI_NodeEvent} object is \\n\n {@Link ArkUI_NodeComponentEvent}. \\n\n {@Link ArkUI_NodeComponentEvent} contains no parameter:\\n\n"]
 pub const ArkUI_NodeEventType_NODE_IMAGE_ANIMATOR_EVENT_ON_FINISH: ArkUI_NodeEventType = 19004;
-#[cfg(feature = "api-15")]
 #[doc = " @brief Defines the callback triggered when the selected status of the <b>ARKUI_NODE_CHECKBOX_GROOUP</b>\n or checkbox changes.\n\n When the event callback occurs, the union type in the {@link ArkUI_NodeEvent} object is\n {@link ArkUI_StringAsyncEvent}. \\n\n <b>ArkUI_StringAsyncEvent.pStr</b>\n Name: The names of the selected checkboxes;\n Status:\n 0: All checkboxes are selected.\n 1: Some checkboxes are selected.\n 2: No checkboxes are selected. \\n\n\n @since 15"]
+#[cfg(feature = "api-15")]
 pub const ArkUI_NodeEventType_NODE_CHECKBOX_GROUP_EVENT_ON_CHANGE: ArkUI_NodeEventType = 21000;
 #[doc = " @brief Defines the event triggered when the index of the currently displayed element of this\n <b>ARKUI_NODE_SWIPER</b> instance changes.\n\n When the event callback occurs, the union type in the {@link ArkUI_NodeEvent} object is\n {@link ArkUI_NodeComponentEvent}. \\n\n {@link ArkUI_NodeComponentEvent} contains one parameter:\\n\n <b>ArkUI_NodeComponentEvent.data[0].i32</b>: index of the currently displayed element. \\n"]
 pub const ArkUI_NodeEventType_NODE_SWIPER_EVENT_ON_CHANGE: ArkUI_NodeEventType = 1001000;
@@ -10199,18 +10199,18 @@ pub const ArkUI_NodeEventType_NODE_SWIPER_EVENT_ON_GESTURE_SWIPE: ArkUI_NodeEven
 #[doc = " @brief Define the <b>ARKUI_NODE_SWIPER</b> to listen for Swiper page slide events.\n Instruction: \\n\n 1. If the {@link ArkUI_SwiperDisplayModeType} attribute is set to \\n\n ARKUI_SWIPER_DISPLAY_MODE_AUTO_LINEAR, the interface does not take effect. \\n\n 2, circular scenario, set prevMargin and nextMargin attributes, \\n\n so that Swiper front and back end display the same page, the interface does not take effect. \\n\n 3. During page sliding, the ContentDidScrollCallback callback is \\n\n triggered frame-by-frame for all pages in the window. \\n\n For example, when there are two pages in the window with subscripts 0 and 1, \\n\n callbacks with index values 0 and 1 are triggered twice per frame. \\n\n 4, set the swipeByGroup parameter of the displayCount property to \\n\n true if at least one page in the same group is in the window, \\n\n A callback is triggered for all pages in the group. \\n\n When the event callback occurs, the union type in the {@link ArkUI_NodeEvent} object is\n {@link ArkUI_NodeComponentEvent}. \\n\n {@link ArkUI_NodeComponentEvent} contains four parameters:\\n\n <b>ArkUI_NodeComponentEvent.data[0].i32</b> : indicates the index of the Swiper component, \\n\n which is consistent with the index change in the onChange event. \\n\n <b>ArkUI_NodeComponentEvent.data[1].i32</b> : The index of a page in the window. \\n\n <b>ArkUI_NodeComponentEvent.data[2].f32</b> : The proportion of page movement relative to \\n\n the start position of the Swiper spindle (selectedIndex corresponds to the start position of the page). \\n\n <b>ArkUI_NodeComponentEvent.data[3].f32</b> : The length of the page in the axis direction. \\n"]
 pub const ArkUI_NodeEventType_NODE_SWIPER_EVENT_ON_CONTENT_DID_SCROLL: ArkUI_NodeEventType =
     1001004;
-#[cfg(feature = "api-15")]
 #[doc = " @brief Defines the event triggered when content in the swiper component will scroll.\n Instructions: Before page scrolling, the </b>ContentWillScrollCallback</b> callback is invoked. \\n \\n\n When the event callback occurs, the union type in the {@link ArkUI_NodeEvent} object is\n {@link ArkUI_NodeComponentEvent}. \\n\n {@link ArkUI_NodeComponentEvent} contains three parameters:\\n\n <b>ArkUI_NodeComponentEvent.data[0].i32</b>: the index value of the current child page. \\n\n <b>ArkUI_NodeComponentEvent.data[1].i32</b>: the index value of the child page that will display. \\n\n <b>ArkUI_NodeComponentEvent.data[2].f32</b>: the sliding offset of each frame.\n Positive numbers indicating slide backward(e.g. from index=1 to index=0), negative numbers indicating\n slide forward(e.g. from index=0 to index=1). \\n\n\n @since 15"]
+#[cfg(feature = "api-15")]
 pub const ArkUI_NodeEventType_NODE_SWIPER_EVENT_ON_CONTENT_WILL_SCROLL: ArkUI_NodeEventType =
     1001007;
-#[cfg(feature = "api-18")]
 #[doc = " @brief Defines the event triggered when the selected index of the <b>ARKUI_NODE_SWIPER</b> changed.\n\n This event is triggered under the following scenarios: \\n\n 1. When the page switching animation starts after the user lifts their finger after swiping and the swipe meets\n the threshold for page turning. \\n\n 2. When the page is changed programmatically using either <b>NODE_SWIPER_INDEX</b> or\n <b>NODE_SWIPER_SWIPE_TO_INDEX</b>. \\n\n When the event callback occurs, the union type in the {@link ArkUI_NodeEvent} object is\n {@link ArkUI_NodeComponentEvent}. \\n\n {@link ArkUI_NodeComponentEvent} contains one parameter:\\n\n <b>ArkUI_NodeComponentEvent.data[0].i32</b>: index of the currently selected element. \\n\n\n @since 18"]
-pub const ArkUI_NodeEventType_NODE_SWIPER_EVENT_ON_SELECTED: ArkUI_NodeEventType = 1001005;
 #[cfg(feature = "api-18")]
+pub const ArkUI_NodeEventType_NODE_SWIPER_EVENT_ON_SELECTED: ArkUI_NodeEventType = 1001005;
 #[doc = " @brief Defines the event triggered when the selected index of the <b>ARKUI_NODE_SWIPER</b> changed.\n\n This event is triggered under the following scenarios: \\n\n 1. When the page switching animation starts after the user lifts their finger after swiping and the swipe meets\n the threshold for page turning. \\n\n 2. When the page is changed programmatically using either <b>NODE_SWIPER_INDEX</b> or\n <b>NODE_SWIPER_SWIPE_TO_INDEX</b>. \\n\n When the event callback occurs, the union type in the {@link ArkUI_NodeEvent} object is\n {@link ArkUI_NodeComponentEvent}. \\n\n {@link ArkUI_NodeComponentEvent} contains one parameter:\\n\n <b>ArkUI_NodeComponentEvent.data[0].i32</b>: the index of the element becomes unselected. \\n\n\n @since 18"]
+#[cfg(feature = "api-18")]
 pub const ArkUI_NodeEventType_NODE_SWIPER_EVENT_ON_UNSELECTED: ArkUI_NodeEventType = 1001006;
-#[cfg(feature = "api-20")]
 #[doc = " @brief Defines the <b>ARKUI_NODE_SWIPER</b> scroll state change event.\n This event is triggered when the scroll state of the <b>Swiper</b> component changes during user dragging,\n during the animation phase after the user lifts their finger, or upon stopping of scrolling.\n When the event callback occurs, the union type in the {@link ArkUI_NodeEvent} object is\n {@link ArkUI_NodeComponentEvent}. \\n\n {@link ArkUI_NodeComponentEvent} contains one parameter:\\n\n <b>ArkUI_NodeComponentEvent.data[0].i32</b>: current scroll state. The parameter type is\n {@link ArkUI_ScrollState}. \\n\n\n @since 20"]
+#[cfg(feature = "api-20")]
 pub const ArkUI_NodeEventType_NODE_SWIPER_EVENT_ON_SCROLL_STATE_CHANGED: ArkUI_NodeEventType =
     1001008;
 #[doc = " @brief Defines the event triggered when the <b>ARKUI_NODE_SCROLL</b> component scrolls.\n\n Notes for triggering the event:\\n\n 1. This event is triggered when scrolling is started by the <b>ARKUI_NODE_SCROLL</b> component or other input\n settings, such as keyboard and mouse operations. \\n\n 2. Scrolling can be initiated by calling the controller API. \\n\n 3. The out-of-bounds bounce effect is supported. \\n\n When the event callback occurs, the union type in the {@link ArkUI_NodeEvent} object is\n {@link ArkUI_NodeComponentEvent}. \\n\n {@link ArkUI_NodeComponentEvent} contains two parameters:\\n\n <b>ArkUI_NodeComponentEvent.data[0].f32</b>: horizontal scrolling offset. \\n\n <b>ArkUI_NodeComponentEvent.data[1].f32</b>: vertical scrolling offset. \\n"]
@@ -10232,31 +10232,31 @@ pub const ArkUI_NodeEventType_NODE_SCROLL_EVENT_ON_SCROLL_EDGE: ArkUI_NodeEventT
 pub const ArkUI_NodeEventType_NODE_SCROLL_EVENT_ON_REACH_START: ArkUI_NodeEventType = 1002007;
 #[doc = " @brief Define that a callback is triggered when the scrolling container component ends. \\n\n Condition for triggering the event: \\n\n Triggered when the component reaches the end. \\n\n When the event callback occurs, the union type in the {@Link ArkUI_NodeEvent} object is\n {@Link ArkUI_NodeComponentEvent}. \\n\n {@Link ArkUI_NodeComponentEvent} contains no parameters. \\n"]
 pub const ArkUI_NodeEventType_NODE_SCROLL_EVENT_ON_REACH_END: ArkUI_NodeEventType = 1002008;
-#[cfg(feature = "api-20")]
 #[doc = " @brief Defines the callback for when the user is about to release the drag on the scrollable container component.\n\n This event is triggered when the user is about to release the drag on the scrollable container component. \\n\n When the event callback occurs, the union type in the {@link ArkUI_NodeEvent} object is\n {@link ArkUI_NodeComponentEvent}. \\n\n {@link ArkUI_NodeComponentEvent} contains one parameter: \\n\n <b>ArkUI_NodeComponentEvent.data[0].f32</b>: speed at which the user releases the drag, in vp. \\n\n\n @since 20"]
+#[cfg(feature = "api-20")]
 pub const ArkUI_NodeEventType_NODE_SCROLL_EVENT_ON_WILL_STOP_DRAGGING: ArkUI_NodeEventType =
     1002009;
-#[cfg(feature = "api-20")]
 #[doc = " @brief Defines the callback for the <b>Scroll</b> component's zoom event,\n triggered at the end of each frame during zooming. \\n\n When the event callback occurs, the union type in the {@link ArkUI_NodeEvent} object\n is {@link ArkUI_NodeComponentEvent}. \\n\n {@link ArkUI_NodeComponentEvent} contains one parameter:\\n\n <b>ArkUI_NodeComponentEvent.data[0].f32</b>: current zoom scale. \\n\n\n @since 20"]
+#[cfg(feature = "api-20")]
 pub const ArkUI_NodeEventType_NODE_SCROLL_EVENT_ON_DID_ZOOM: ArkUI_NodeEventType = 1002010;
-#[cfg(feature = "api-20")]
 #[doc = " @brief Defines the callback for the <b>Scroll</b> component's zoom start event,\n triggered when zooming begins. \\n\n When the event callback occurs, the union type in the {@link ArkUI_NodeEvent} object\n is {@link ArkUI_NodeComponentEvent}. \\n\n {@link ArkUI_NodeComponentEvent} does not contain parameters. \\n\n\n @since 20"]
-pub const ArkUI_NodeEventType_NODE_SCROLL_EVENT_ON_ZOOM_START: ArkUI_NodeEventType = 1002011;
 #[cfg(feature = "api-20")]
+pub const ArkUI_NodeEventType_NODE_SCROLL_EVENT_ON_ZOOM_START: ArkUI_NodeEventType = 1002011;
 #[doc = " @brief Defines the callback for the <b>Scroll</b> component's zoom end event,\n triggered when zooming ends. \\n\n When the event callback occurs, the union type in the {@link ArkUI_NodeEvent} object\n is {@link ArkUI_NodeComponentEvent}. \\n\n {@link ArkUI_NodeComponentEvent} does not contain parameters. \\n\n\n @since 20"]
+#[cfg(feature = "api-20")]
 pub const ArkUI_NodeEventType_NODE_SCROLL_EVENT_ON_ZOOM_STOP: ArkUI_NodeEventType = 1002012;
-#[cfg(feature = "api-21")]
 #[doc = " @brief Defines the callback for when the scrollable will start dragging.\n\n This event is triggered when the scrollable will start dragging. \\n\n When the event callback occurs, the union type in the {@link ArkUI_NodeEvent} object is\n {@link ArkUI_NodeComponentEvent}. \\n\n {@link ArkUI_NodeComponentEvent} contains no parameters: \\n\n @since 21"]
+#[cfg(feature = "api-21")]
 pub const ArkUI_NodeEventType_NODE_SCROLL_EVENT_ON_WILL_START_DRAGGING: ArkUI_NodeEventType =
     1002013;
-#[cfg(feature = "api-21")]
 #[doc = " @brief Defines the callback for when the scrollable did end dragging.\n\n This event is triggered when the scrollable did end dragging. \\n\n When the event callback occurs, the union type in the {@link ArkUI_NodeEvent} object is\n {@link ArkUI_NodeComponentEvent}. \\n\n {@link ArkUI_NodeComponentEvent} contains one parameter: \\n\n <b>ArkUI_NodeComponentEvent.data[0].i32</b>: whether start fling animation. \\n\n\n @since 21"]
+#[cfg(feature = "api-21")]
 pub const ArkUI_NodeEventType_NODE_SCROLL_EVENT_ON_DID_STOP_DRAGGING: ArkUI_NodeEventType = 1002014;
-#[cfg(feature = "api-21")]
 #[doc = " @brief Defines the callback for when the scrollable will start fling.\n\n This event is triggered when the scrollable will start fling. \\n\n When the event callback occurs, the union type in the {@link ArkUI_NodeEvent} object is\n {@link ArkUI_NodeComponentEvent}. \\n\n {@link ArkUI_NodeComponentEvent} contains no parameters: \\n\n @since 21"]
-pub const ArkUI_NodeEventType_NODE_SCROLL_EVENT_ON_WILL_START_FLING: ArkUI_NodeEventType = 1002015;
 #[cfg(feature = "api-21")]
+pub const ArkUI_NodeEventType_NODE_SCROLL_EVENT_ON_WILL_START_FLING: ArkUI_NodeEventType = 1002015;
 #[doc = " @brief Defines the callback for when the scrollable did end fling.\n\n This event is triggered when the scrollable did end fling. \\n\n When the event callback occurs, the union type in the {@link ArkUI_NodeEvent} object is\n {@link ArkUI_NodeComponentEvent}. \\n\n {@link ArkUI_NodeComponentEvent} contains no parameters: \\n\n @since 21"]
+#[cfg(feature = "api-21")]
 pub const ArkUI_NodeEventType_NODE_SCROLL_EVENT_ON_DID_STOP_FLING: ArkUI_NodeEventType = 1002016;
 #[doc = " @brief Defines the enumerated values of the event triggered, \\n\n when a subcomponent of ARKUI_NODE_LIST is moved into or out of the list display area. \\n\n Condition for triggering the event: \\n\n This method is triggered once during list initialization. \\n\n It is triggered when the index value of the first or last subcomponent in the list display area changes. \\n\n When the event callback occurs, the union type in the {@Link ArkUI_NodeEvent} object is\n {@Link ArkUI_NodeComponentEvent}. \\n\n {@Link ArkUI_NodeComponentEvent} contains three parameters: \\n\n ArkUI_NodeComponentEvent.data[0].i32: List Displays the index value of \\n\n the first child component in the region. \\n\n ArkUI_NodeComponentEvent.data[1].i32: List Displays the index value of \\n\n the last child component in the region. \\n\n ArkUI_NodeComponentEvent.data[2].i32: List Displays the index value of \\n\n the subcomponent in the middle of the area. \\n"]
 pub const ArkUI_NodeEventType_NODE_LIST_ON_SCROLL_INDEX: ArkUI_NodeEventType = 1003000;
@@ -10264,8 +10264,8 @@ pub const ArkUI_NodeEventType_NODE_LIST_ON_SCROLL_INDEX: ArkUI_NodeEventType = 1
 pub const ArkUI_NodeEventType_NODE_LIST_ON_WILL_SCROLL: ArkUI_NodeEventType = 1003001;
 #[doc = " @brief Define the enumerated values of the event triggered when the ARKUI_NODE_LIST component is flicked.\n Condition for triggering the event: \\n\n This event is triggered when the scrolling component triggers scrolling. \\n\n Other inputs that trigger scrolling, such as keyboard and mouse operations, can be set. \\n\n Called through the scroll controller API. \\n\n Out-of-bounds rebound. \\n\n When the event callback occurs, the union type in the {@Link ArkUI_NodeEvent} object is \\n\n {@Link ArkUI_NodeComponentEvent}. \\n\n {@Link ArkUI_NodeComponentEvent} contains two parameters:\\n\n ArkUI_NodeComponentEvent.data[0].f32: offset of each frame scrolling. \\n\n The offset is positive when the list content is scrolled up and \\n\n is negative when the list content is scrolled down. \\n\n ArkUI_NodeComponentEvent.data[1].i32: Current sliding state. \\n"]
 pub const ArkUI_NodeEventType_NODE_LIST_ON_DID_SCROLL: ArkUI_NodeEventType = 1003002;
-#[cfg(feature = "api-15")]
 #[doc = " @brief Defines the event triggered when the currently displayed content of the <b>ARKUI_NODE_LIST</b> changes.\n\n Notes for triggering the event:\\n\n This event is triggered once when the list is initialized and when the index of the first child component or the\n next child component in the list display area changes.\n During index calculation, the list item, header of the list item group, and footer of the list item group each\n are counted as a child component. \\n\n When the event callback occurs, the union type in the {@link ArkUI_NodeEvent} object is\n {@link ArkUI_NodeComponentEvent}. \\n\n {@link ArkUI_NodeComponentEvent} contains three parameters: \\n\n <b>ArkUI_NodeComponentEvent.data[0].i32</b>: index of the first child component in the list display area. \\n\n <b>ArkUI_NodeComponentEvent.data[1].i32</b>: area in the list item group where the list display area starts.\n The type is {@link ArkUI_ListItemGroupArea}. \\n\n <b>ArkUI_NodeComponentEvent.data[2].i32</b>: index of the list item at the start of the list display area\n in the list item group.\n If the start of the list display area is not on a list item, the value is <b>-1</b>. \\n\n <b>ArkUI_NodeComponentEvent.data[3].i32</b>: index of the last child component in the list display area. \\n\n <b>ArkUI_NodeComponentEvent.data[4].i32</b>: area in the list item group where the list display area ends.\n The type is {@link ArkUI_ListItemGroupArea}. \\n\n <b>ArkUI_NodeComponentEvent.data[5].i32</b>: index of the list item at the end of the list display area in the\n list item group.\n If the end of the list display area is not on a list item, the value is <b>-1</b>. \\n\n\n @since 15"]
+#[cfg(feature = "api-15")]
 pub const ArkUI_NodeEventType_NODE_LIST_ON_SCROLL_VISIBLE_CONTENT_CHANGE: ArkUI_NodeEventType =
     1003003;
 #[doc = " @brief Defines the event triggered when the refresh state of the <b>ARKUI_NODE_REFRESH</b> object changes.\n\n When the event callback occurs, the union type in the {@link ArkUI_NodeEvent} object is\n {@link ArkUI_NodeComponentEvent}. \\n\n {@link ArkUI_NodeComponentEvent} contains one parameter:\\n\n <b>ArkUI_NodeComponentEvent.data[0].i32</b>: refresh state. \\n"]
@@ -10280,17 +10280,17 @@ pub const ArkUI_NodeEventType_NODE_ON_WILL_SCROLL: ArkUI_NodeEventType = 1010000
 pub const ArkUI_NodeEventType_NODE_WATER_FLOW_ON_DID_SCROLL: ArkUI_NodeEventType = 1010001;
 #[doc = " @brief Defines the enumerated values of the event triggered,\n when the subcomponent of the start position or end position displayed in the current waterfall changes.\n Condition for triggering the event: \\n\n This event is triggered when the index value of the \\n\n first or last subcomponent in the waterfall display area changes. \\n\n When the event callback occurs, the union type in the {@Link ArkUI_NodeEvent} object is \\n\n {@Link ArkUI_NodeComponentEvent}. \\n\n {@Link ArkUI_NodeComponentEvent} contains three parameters: \\n\n ArkUI_NodeComponentEvent.data[0].i32: The index value of the \\n\n start position of the currently displayed WaterFlow. \\n\n ArkUI_NodeComponentEvent.data[1].i32: The index value of \\n\n the end position of the currently displayed waterfall. \\n"]
 pub const ArkUI_NodeEventType_NODE_WATER_FLOW_ON_SCROLL_INDEX: ArkUI_NodeEventType = 1010002;
-#[cfg(feature = "api-22")]
 #[doc = " @brief Defines the event triggered when a child component enters or leaves the grid display area.\n\n Notes for triggering the event:\\n\n This event is triggered once when the grid is initialized and when the index of the first or \\n\n last child component in the grid display area changes. \\n\n When the event callback occurs, the union type in the {@link ArkUI_NodeEvent} object is \\n\n {@link ArkUI_NodeComponentEvent}. \\n\n {@link ArkUI_NodeComponentEvent} contains two parameters:\\n\n <b>ArkUI_NodeComponentEvent.data[0].i32</b>: index of the first child component in the grid display area. \\n\n <b>ArkUI_NodeComponentEvent.data[1].i32</b>: index of the last child component in the grid display area. \\n\n\n @since 22"]
+#[cfg(feature = "api-22")]
 pub const ArkUI_NodeEventType_NODE_GRID_ON_SCROLL_INDEX: ArkUI_NodeEventType = 1013000;
-#[cfg(feature = "api-22")]
 #[doc = " @brief Defines the event triggered when the grid is about to scroll.\n\n Notes for triggering the event:\\n\n 1. This event is triggered when scrolling is started by the scrollable component or other input settings,\n such as keyboard and mouse operations. \\n\n 2. Scrolling can be initiated by calling the controller API. \\n\n 3. The out-of-bounds bounce effect is supported. \\n\n When the event callback occurs, the union type in the {@link ArkUI_NodeEvent} object is\n {@link ArkUI_NodeComponentEvent}. \\n\n {@link ArkUI_NodeComponentEvent} contains three parameters:\\n\n <b>ArkUI_NodeComponentEvent.data[0].f32</b>:\n Scroll offset of each frame. A positive offset indicates content scrolling upward, \\n\n and a negative offset indicates content scrolling downward. \\n\n <b>ArkUI_NodeComponentEvent.data[1].i32</b>: current scroll state. The parameter type is\n {@link ArkUI_ScrollState}. \\n\n <b>ArkUI_NodeComponentEvent.data[2].i32</b>: scroll source. The parameter type is {@link ArkUI_ScrollSource}. \\n\n @return Returns one or no number to indicate the actual amount by which the scroll component scrolls.\n\n @since 22"]
+#[cfg(feature = "api-22")]
 pub const ArkUI_NodeEventType_NODE_GRID_ON_WILL_SCROLL: ArkUI_NodeEventType = 1013001;
-#[cfg(feature = "api-22")]
 #[doc = " @brief Defines the event triggered when the grid scrolls.\n\n Notes for triggering the event:\\n\n 1. This event is triggered when scrolling is started by the scrollable component or other input settings,\n such as keyboard and mouse operations. \\n\n 2. Scrolling can be initiated by calling the controller API. \\n\n 3. The out-of-bounds bounce effect is supported. \\n\n When the event callback occurs, the union type in the {@link ArkUI_NodeEvent} object is\n {@link ArkUI_NodeComponentEvent}. \\n\n {@link ArkUI_NodeComponentEvent} contains two parameters:\\n\n <b>ArkUI_NodeComponentEvent.data[0].f32</b>:\n Scroll offset of each frame. A positive offset indicates content scrolling upward, \\n\n and a negative offset indicates content scrolling downward. \\n\n <b>ArkUI_NodeComponentEvent.data[1].i32</b>: current scroll state. \\n\n\n @since 22"]
-pub const ArkUI_NodeEventType_NODE_GRID_ON_DID_SCROLL: ArkUI_NodeEventType = 1013002;
 #[cfg(feature = "api-22")]
+pub const ArkUI_NodeEventType_NODE_GRID_ON_DID_SCROLL: ArkUI_NodeEventType = 1013002;
 #[doc = " @brief Defines the event triggered at the end of each frame layout of the <b>ARKUI_NODE_GRID</b> component,\n which is used to set the position and length of the scrollbar.\n\n The event parameter is {@link ArkUI_NodeEvent}. \\n\n value.i32 at index 0:offset of the first visible grid item,\n obtained using <b>OH_ArkUI_NodeEvent_GetNumberValue</b>. \\n\n value.f32 at index 1: offset of the first visible item relative to the grid's display starting position, in vp,\n obtained using <b>OH_ArkUI_NodeEvent_GetNumberValue</b>. \\n\n @return Information about the scrollbar position and length. \\n\n You can set the return value using <b>OH_ArkUI_NodeEvent_SetReturnNumberValue</b>. \\n\n value.f32 at index 0: total offset of the grid content relative to the display area, in px. \\n\n value.f32 at index 1: total length of the grid content, in px. \\n\n\n @since 22"]
+#[cfg(feature = "api-22")]
 pub const ArkUI_NodeEventType_NODE_GRID_ON_SCROLL_BAR_UPDATE: ArkUI_NodeEventType = 1013003;
 #[doc = " @brief Enumerates the event types supported by the NativeNode component.\n\n @since 12"]
 pub type ArkUI_NodeEventType = u32;
@@ -10324,8 +10324,8 @@ extern "C" {
     ) -> *mut ArkUI_StringAsyncEvent;
 }
 extern "C" {
-    #[cfg(feature = "api-15")]
     #[doc = " @brief Obtains the ArkUI_TextChangeEvent data from a component event.\n\n @param event Pointer to a component event. It cannot be null.\n @return Returns the pointer to the <b>ArkUI_TextChangeEvent</b> object.\n @since 15"]
+    #[cfg(feature = "api-15")]
     pub fn OH_ArkUI_NodeEvent_GetTextChangeEvent(
         event: *mut ArkUI_NodeEvent,
     ) -> *mut ArkUI_TextChangeEvent;
@@ -10362,8 +10362,8 @@ extern "C" {
     ) -> i32;
 }
 extern "C" {
-    #[cfg(feature = "api-22")]
     #[doc = " @brief Obtains a <b>ArkUI_TouchTestInfo</b> object from the specified <b>ArkUI_NodeEvent</b> object.\n\n @param {pointer} nodeEvent Indicates the pointer to an <b>ArkUI_NodeEvent</b> object.\n @return Returns the pointer to an <b>ArkUI_TouchTestInfo</b> object.\n         Returns <b>null</b> if the parameter passed in is invalid or is not a touch test info.\n @since 22"]
+    #[cfg(feature = "api-22")]
     pub fn OH_ArkUI_NodeEvent_GetTouchTestInfo(
         nodeEvent: *mut ArkUI_NodeEvent,
     ) -> *mut ArkUI_TouchTestInfo;
@@ -10390,12 +10390,12 @@ pub const ArkUI_NodeCustomEventType_ARKUI_NODE_CUSTOM_EVENT_ON_FOREGROUND_DRAW:
 #[doc = " Overlay type."]
 pub const ArkUI_NodeCustomEventType_ARKUI_NODE_CUSTOM_EVENT_ON_OVERLAY_DRAW:
     ArkUI_NodeCustomEventType = 16;
-#[cfg(feature = "api-20")]
 #[doc = " Draw front type.\n @since 20"]
+#[cfg(feature = "api-20")]
 pub const ArkUI_NodeCustomEventType_ARKUI_NODE_CUSTOM_EVENT_ON_DRAW_FRONT:
     ArkUI_NodeCustomEventType = 32;
-#[cfg(feature = "api-20")]
 #[doc = " Draw behind type.\n @since 20"]
+#[cfg(feature = "api-20")]
 pub const ArkUI_NodeCustomEventType_ARKUI_NODE_CUSTOM_EVENT_ON_DRAW_BEHIND:
     ArkUI_NodeCustomEventType = 64;
 #[doc = " @brief Defines the custom component event type.\n\n @since 12"]
@@ -10822,16 +10822,16 @@ pub const ArkUI_NodeContentEventType_NODE_CONTENT_EVENT_ON_DETACH_FROM_WINDOW:
     ArkUI_NodeContentEventType = 1;
 #[doc = " @brief Defines the node content event type.\n\n @since 12"]
 pub type ArkUI_NodeContentEventType = u32;
-#[cfg(feature = "api-15")]
 #[doc = " @error Success."]
+#[cfg(feature = "api-15")]
 pub const ArkUI_InspectorErrorCode_ARKUI_INSPECTOR_NATIVE_RESULT_SUCCESSFUL:
     ArkUI_InspectorErrorCode = 0;
-#[cfg(feature = "api-15")]
 #[doc = " @error Invalid parameter."]
+#[cfg(feature = "api-15")]
 pub const ArkUI_InspectorErrorCode_ARKUI_INSPECTOR_NATIVE_RESULT_BAD_PARAMETER:
     ArkUI_InspectorErrorCode = -1;
-#[cfg(feature = "api-15")]
 #[doc = " @brief Enumerates the inspector error codes.\n @since 15"]
+#[cfg(feature = "api-15")]
 pub type ArkUI_InspectorErrorCode = i32;
 #[repr(C)]
 #[derive(Debug, Copy, Clone)]
@@ -10924,8 +10924,8 @@ extern "C" {
     ) -> i32;
 }
 extern "C" {
-    #[cfg(feature = "api-20")]
     #[doc = " @brief Obtains the offset of a component relative to the global display.\n The relative position does not count in transformation attributes, such as translate.\n\n @param node Pointer to the <b>ArkUI_NodeHandle</b> representing the component.\n @param offset Offset of the component relative to the global display, in px.\n @return Result code.\n         {@link ARKUI_ERROR_CODE_NO_ERROR} if the operation is successful.\n         {@link ARKUI_ERROR_CODE_PARAM_INVALID} if a parameter error occurs.\n @since 20"]
+    #[cfg(feature = "api-20")]
     pub fn OH_ArkUI_NodeUtils_GetLayoutPositionInGlobalDisplay(
         node: ArkUI_NodeHandle,
         offset: *mut ArkUI_IntOffset,
@@ -10946,8 +10946,8 @@ extern "C" {
     ) -> i32;
 }
 extern "C" {
-    #[cfg(feature = "api-13")]
     #[doc = " @brief Add the custom property of the component. This interface only works on the main thread.\n\n @param node ArkUI_NodeHandle pointer.\n @param name The name of the custom property. Passing null pointers is not allowed.\n @param value The value of the custom property. Passing null pointers is not allowed.\n @since 13"]
+    #[cfg(feature = "api-13")]
     pub fn OH_ArkUI_NodeUtils_AddCustomProperty(
         node: ArkUI_NodeHandle,
         name: *const ::std::os::raw::c_char,
@@ -10955,16 +10955,16 @@ extern "C" {
     );
 }
 extern "C" {
-    #[cfg(feature = "api-13")]
     #[doc = " @brief Remove the custom property of the component.\n\n @param node ArkUI_NodeHandle pointer.\n @param name The name of the custom property.\n @since 13"]
+    #[cfg(feature = "api-13")]
     pub fn OH_ArkUI_NodeUtils_RemoveCustomProperty(
         node: ArkUI_NodeHandle,
         name: *const ::std::os::raw::c_char,
     );
 }
 extern "C" {
-    #[cfg(feature = "api-14")]
     #[doc = " @brief Get the value of the custom property of the component.\n\n @param node ArkUI-NodeHandle pointer.\n @param name The name of the custom attribute.\n @param handle The structure of the custom attribute corresponding to the key parameter name obtained.\n @return Error code.\n         {@link ARKUI_ERROR_CODE_NO_ERROR} success.\n         {@link ARKUI_ERROR_CODE_PARAM_INVALID} Function parameter exception.\n @since 14"]
+    #[cfg(feature = "api-14")]
     pub fn OH_ArkUI_NodeUtils_GetCustomProperty(
         node: ArkUI_NodeHandle,
         name: *const ::std::os::raw::c_char,
@@ -10972,60 +10972,60 @@ extern "C" {
     ) -> i32;
 }
 extern "C" {
-    #[cfg(feature = "api-14")]
     #[doc = " @brief Get the parent node to obtain the component nodes created by ArkTs.\n\n @param node Target node object.\n @return Return the pointer of the component.\n @since 14"]
+    #[cfg(feature = "api-14")]
     pub fn OH_ArkUI_NodeUtils_GetParentInPageTree(node: ArkUI_NodeHandle) -> ArkUI_NodeHandle;
 }
 extern "C" {
-    #[cfg(feature = "api-14")]
     #[doc = " @brief Retrieve all active child nodes of a node. Span will not be counted in the children.\n\n @param head Pass in the node that needs to be obtained.\n @param handle The structure corresponding to the sub node information of the head node.\n @return Error code.\n         {@link ARKUI_ERROR_CODE_NO_ERROR} success.\n         {@link ARKUI_ERROR_CODE_PARAM_INVALID} Function parameter exception.\n @since 14"]
+    #[cfg(feature = "api-14")]
     pub fn OH_ArkUI_NodeUtils_GetActiveChildrenInfo(
         head: ArkUI_NodeHandle,
         handle: *mut *mut ArkUI_ActiveChildrenInfo,
     ) -> i32;
 }
 extern "C" {
-    #[cfg(feature = "api-14")]
     #[doc = " @brief Retrieve the root node of the current page.\n\n @param node Target node object.\n @return Return the pointer of the component.\n @since 14"]
+    #[cfg(feature = "api-14")]
     pub fn OH_ArkUI_NodeUtils_GetCurrentPageRootNode(node: ArkUI_NodeHandle) -> ArkUI_NodeHandle;
 }
 extern "C" {
-    #[cfg(feature = "api-14")]
     #[doc = " @brief Retrieve whether the component is labeled by C-API.\n\n @param node Target node object.\n @return Return whether the node is a Tag created by C-API,\n         true represents created by C-API, false represents not created by C-API.\n @since 14"]
+    #[cfg(feature = "api-14")]
     pub fn OH_ArkUI_NodeUtils_IsCreatedByNDK(node: ArkUI_NodeHandle) -> bool;
 }
 extern "C" {
-    #[cfg(feature = "api-14")]
     #[doc = " @brief Get the type of node.\n\n @param node Target node object.\n @return Return the type of the node.\n         For specific open types, refer to {@link ArkUI_NodeType}. For unopened nodes, return -1.\n @since 14"]
+    #[cfg(feature = "api-14")]
     pub fn OH_ArkUI_NodeUtils_GetNodeType(node: ArkUI_NodeHandle) -> i32;
 }
 extern "C" {
-    #[cfg(feature = "api-15")]
     #[doc = " @brief Get info of the window to which the node belongs.\n\n @param node Target node object.\n @param info Window info. Use {@link OH_ArkUI_HostWindowInfo_Destroy} to release memory.\n @return Error code.\n         {@link ARKUI_ERROR_CODE_NO_ERROR} success.\n         {@link ARKUI_ERROR_CODE_PARAM_INVALID} Function parameter exception.\n         {@link ARKUI_ERROR_CODE_NODE_NOT_ON_MAIN_TREE} The node is not mounted.\n @since 15"]
+    #[cfg(feature = "api-15")]
     pub fn OH_ArkUI_NodeUtils_GetWindowInfo(
         node: ArkUI_NodeHandle,
         info: *mut *mut ArkUI_HostWindowInfo,
     ) -> i32;
 }
 extern "C" {
-    #[cfg(feature = "api-15")]
     #[doc = " @brief Obtains the index of the current FrameNode's first child node which is on the tree.\n\n @param node Indicates the target node.\n @param index The index of the subnode.\n @return Error code.\n         {@link ARKUI_ERROR_CODE_NO_ERROR} success.\n         {@link ARKUI_ERROR_CODE_PARAM_INVALID} Function parameter exception.\n @since 15"]
+    #[cfg(feature = "api-15")]
     pub fn OH_ArkUI_NodeUtils_GetFirstChildIndexWithoutExpand(
         node: ArkUI_NodeHandle,
         index: *mut u32,
     ) -> i32;
 }
 extern "C" {
-    #[cfg(feature = "api-15")]
     #[doc = " @brief Obtains the index of the current FrameNode's last child node which is on the tree.\n\n @param node Indicates the target node.\n @param index the index of the subnode.\n @return Error code.\n         {@link ARKUI_ERROR_CODE_NO_ERROR} success.\n         {@link ARKUI_ERROR_CODE_PARAM_INVALID} Function parameter exception.\n @since 15"]
+    #[cfg(feature = "api-15")]
     pub fn OH_ArkUI_NodeUtils_GetLastChildIndexWithoutExpand(
         node: ArkUI_NodeHandle,
         index: *mut u32,
     ) -> i32;
 }
 extern "C" {
-    #[cfg(feature = "api-15")]
     #[doc = " @brief Obtains a subnode by position with the expand mode.\n\n @param node Indicates the target node.\n @param position Indicates the position of the subnode.\n @param subnode The pointer to the subnode.\n @param expandMode Indicates the expand mode. {@link ArkUI_ExpandMode}.\n @return Error code.\n         {@link ARKUI_ERROR_CODE_NO_ERROR} success.\n         {@link ARKUI_ERROR_CODE_PARAM_INVALID} Function parameter exception.\n @since 15"]
+    #[cfg(feature = "api-15")]
     pub fn OH_ArkUI_NodeUtils_GetChildWithExpandMode(
         node: ArkUI_NodeHandle,
         position: i32,
@@ -11094,8 +11094,8 @@ extern "C" {
     ) -> f32;
 }
 extern "C" {
-    #[cfg(feature = "api-18")]
     #[doc = " @brief Move the node handle to target parent node as child.\n\n @param node The node handle of the node to move.\n @param target_parent The node handle of target parent.\n @param index Indicates the index which the node is moved to. If the value is a nagative number of invalid, the\n              node is moved to the end of the target parent node.\n @return Error code.\n         {@link ARKUI_ERROR_CODE_NO_ERROR} success.\n         {@link ARKUI_ERROR_CODE_PARAM_INVALID} Function parameter exception.\n         {@link ARKUI_ERROR_CODE_CAPI_INIT_ERROR} if the CAPI init error.\n         {@link ARKUI_ERROR_CODE_NODE_IS_ADOPTED} if the node has already been adopted. add since api 22.\n @since 18"]
+    #[cfg(feature = "api-18")]
     pub fn OH_ArkUI_NodeUtils_MoveTo(
         node: ArkUI_NodeHandle,
         target_parent: ArkUI_NodeHandle,
@@ -11103,29 +11103,29 @@ extern "C" {
     ) -> i32;
 }
 extern "C" {
-    #[cfg(feature = "api-21")]
     #[doc = " @brief Triggers node updates in the current frame.\n When node attributes are modified after the current frame's build phase (i.e., after\n the unified processing of dirty nodes), the node updates will be deferred to the next\n frame. This function forces immediate node updates within the current frame to\n ensure rendering effects are applied synchronously.\n\n @param node ArkUI_NodeHandle pointer.\n @return Error code.\n         {@link ARKUI_ERROR_CODE_NO_ERROR} Success.\n         {@link ARKUI_ERROR_CODE_PARAM_INVALID} Function parameter exception.\n @since 21"]
+    #[cfg(feature = "api-21")]
     pub fn OH_ArkUI_NativeModule_InvalidateAttributes(node: ArkUI_NodeHandle) -> i32;
 }
 extern "C" {
-    #[cfg(feature = "api-15")]
     #[doc = " @brief Set the cross-language option of the target node handle.\n\n @param node The target node handle.\n @param option The cross-language option {@link ArkUI_CrossLanguageOption}.\n @return Error code.\n         {@link ARKUI_ERROR_CODE_NO_ERROR} success.\n         {@link ARKUI_ERROR_CODE_PARAM_INVALID} Function parameter exception.\n @since 15"]
+    #[cfg(feature = "api-15")]
     pub fn OH_ArkUI_NodeUtils_SetCrossLanguageOption(
         node: ArkUI_NodeHandle,
         option: *mut ArkUI_CrossLanguageOption,
     ) -> i32;
 }
 extern "C" {
-    #[cfg(feature = "api-15")]
     #[doc = " @brief Get the cross-language option of the target node handle.\n\n @param node The target node handle.\n @param option The cross-language option {@link ArkUI_CrossLanguageOption}.\n @return Error code.\n         {@link ARKUI_ERROR_CODE_NO_ERROR} success.\n         {@link ARKUI_ERROR_CODE_PARAM_INVALID} Function parameter exception.\n @since 15"]
+    #[cfg(feature = "api-15")]
     pub fn OH_ArkUI_NodeUtils_GetCrossLanguageOption(
         node: ArkUI_NodeHandle,
         option: *mut ArkUI_CrossLanguageOption,
     ) -> i32;
 }
 extern "C" {
-    #[cfg(feature = "api-15")]
     #[doc = " @brief Registers a callback for node when layout is completed.\n\n @param node Indicates the target node.\n @param userData Indicates the custom data used in onLayoutCompleted callback function.\n @param onLayoutCompleted Indicates the function when layout completed is callback.\n @return error code\n         {@link ARKUI_ERROR_CODE_NO_ERROR} if the operation is successful.\n         {@link ARKUI_ERROR_CODE_PARAM_INVALID} if a parameter is incorrect.\n @since 15"]
+    #[cfg(feature = "api-15")]
     pub fn OH_ArkUI_RegisterLayoutCallbackOnNodeHandle(
         node: ArkUI_NodeHandle,
         userData: *mut ::std::os::raw::c_void,
@@ -11135,8 +11135,8 @@ extern "C" {
     ) -> i32;
 }
 extern "C" {
-    #[cfg(feature = "api-15")]
     #[doc = " @brief Registers a callback for node when draw is completed.\n\n @param node Indicates the target node.\n @param userData Indicates the custom data used in onDrawCompleted callback function.\n @param onDrawCompleted Indicates the function when draw completed is callback.\n @return error code\n         {@link ARKUI_ERROR_CODE_NO_ERROR} if the operation is successful.\n         {@link ARKUI_ERROR_CODE_PARAM_INVALID} if a parameter is incorrect.\n @since 15"]
+    #[cfg(feature = "api-15")]
     pub fn OH_ArkUI_RegisterDrawCallbackOnNodeHandle(
         node: ArkUI_NodeHandle,
         userData: *mut ::std::os::raw::c_void,
@@ -11146,26 +11146,26 @@ extern "C" {
     ) -> i32;
 }
 extern "C" {
-    #[cfg(feature = "api-15")]
     #[doc = " @brief Unregisters the layout completed callback for node.\n\n @param node Indicates the target node.\n @return error code\n         {@link ARKUI_ERROR_CODE_NO_ERROR} if the operation is successful.\n         {@link ARKUI_ERROR_CODE_PARAM_INVALID} if a parameter is incorrect.\n @since 15"]
+    #[cfg(feature = "api-15")]
     pub fn OH_ArkUI_UnregisterLayoutCallbackOnNodeHandle(node: ArkUI_NodeHandle) -> i32;
 }
 extern "C" {
-    #[cfg(feature = "api-15")]
     #[doc = " @brief Unregisters the draw completed callback for node.\n\n @param node Indicates the target node.\n @return error code\n         {@link ARKUI_ERROR_CODE_NO_ERROR} if the operation is successful.\n         {@link ARKUI_ERROR_CODE_PARAM_INVALID} if a parameter is incorrect.\n @since 15"]
+    #[cfg(feature = "api-15")]
     pub fn OH_ArkUI_UnregisterDrawCallbackOnNodeHandle(node: ArkUI_NodeHandle) -> i32;
 }
 extern "C" {
-    #[cfg(feature = "api-15")]
     #[doc = " @brief Get the node handle by id.\n\n @param id The id of the target node handle.\n @param node The handle of target node handle.\n @return Error code.\n         {@link ARKUI_ERROR_CODE_NO_ERROR} success.\n         {@link ARKUI_ERROR_CODE_PARAM_INVALID} Function parameter exception.\n @since 15"]
+    #[cfg(feature = "api-15")]
     pub fn OH_ArkUI_NodeUtils_GetAttachedNodeHandleById(
         id: *const ::std::os::raw::c_char,
         node: *mut ArkUI_NodeHandle,
     ) -> i32;
 }
 extern "C" {
-    #[cfg(feature = "api-15")]
     #[doc = " @brief Get the snapshot pixelmap for the given node synchronously, will get error if the node is not on the\n tree or is not rendered yet.\n Note: the pixelmap should be released through OH_PixelmapNative_Release when it's not used any more.\n\n @param node Indicates the target node.\n @param snapshotOptions the given configuration for taking snapshot, can be null for using default.\n @param pixelmap Pixelmap pointer created by system, it's the out result.\n @return Returns the result code.\n         Returns {@link ARKUI_ERROR_CODE_NO_ERROR} if the operation is successful.\n         Returns {@link ARKUI_ERROR_CODE_PARAM_INVALID} if a parameter error occurs.\n         Returns {@link ARKUI_ERROR_CODE_INTERNAL_ERROR} if the snapshot taking failed will null pixelmap returned.\n         Returns {@link ARKUI_ERROR_CODE_COMPONENT_SNAPSHOT_TIMEOUT} if the snapshot taking is timeout.\n @since 15"]
+    #[cfg(feature = "api-15")]
     pub fn OH_ArkUI_GetNodeSnapshot(
         node: ArkUI_NodeHandle,
         snapshotOptions: *mut ArkUI_SnapshotOptions,
@@ -11173,16 +11173,16 @@ extern "C" {
     ) -> i32;
 }
 extern "C" {
-    #[cfg(feature = "api-15")]
     #[doc = " @brief Obtains the offset of a specific node relative to its parent node.\n\n @param node Target node.\n @param globalOffset Offset of the target node relative to its parent node, in px.\n @return Returns the result code.\n         Returns {@link ARKUI_ERROR_CODE_NO_ERROR} if the operation is successful.\n         Returns {@link ARKUI_ERROR_CODE_PARAM_INVALID} if a parameter error occurs.\n @since 15"]
+    #[cfg(feature = "api-15")]
     pub fn OH_ArkUI_NodeUtils_GetPositionToParent(
         node: ArkUI_NodeHandle,
         globalOffset: *mut ArkUI_IntOffset,
     ) -> i32;
 }
 extern "C" {
-    #[cfg(feature = "api-20")]
     #[doc = " @brief Adds the UI state style supported by the component. To handle states change efficiently, need to specify the\n states of interest and the corresponding handler. When a state of interest occurs, the handler will be executed.\n  - You can adjust the UI style based on the current state within the callback. If this API is called multiple\n times on the same node, the last set of states and handler will take precedence.\n  - Some component types have default system handling for certain states. For example, the <b>Button</b>\n component has a default style effect for the PRESSED state. When custom state handling is implemented on such\n components, the default style effect will be applied first, followed by the custom style changes, resulting in\n a combined effect. To disable the default style effects, set <b>excludeInner</b> to <b>true</b>, if this is allowed\n by the system implementation.\n  - And when this API is called, the provided handler function will be executed immediately.\n  - There is no need to explicitly register a listener for the NORMAL state. Once a non-NORMAL state is registered,\n the system will automatically notify your application when the state changes back to NORMAL.\n\n @param node Target node.\n @param uiStates Target UI states to be handled on the node.\n        The combined result of all target UI states can be calculated using the <b>|</b> operator.\n        Example: <b>targetUIStates = ArkUI_UIState::PRESSED | ArkUI_UIState::FOCUSED</b>.\n @param statesChangeHandler Handler for UI state changes.\n        It rturns the current UI status. The value is the result of combining all current state enum values using the\n        <b>|</b> operator. You can determine the state using the <b>&</b> operator.\n        Example: <b>if (currentStates & ArkUI_UIState::PRESSED == ArkUI_UIState::PRESSED)</b>.\n        However, for checking the normal state, use the equality operator directly.\n        Example: <b>if (currentStates == ArkUI_UIState::NORMAL)</b>.\n @param excludeInner Whether to disable the default state styles.\n @param userData Custom data used in the <b>statesChangeHandler</b> callback.\n @return Returns the result code.\n         Returns {@link ARKUI_ERROR_CODE_NO_ERROR} if the operation is successful.\n         Returns {@link ARKUI_ERROR_CODE_PARAM_INVALID} if a parameter error occurs.\n @since 20"]
+    #[cfg(feature = "api-20")]
     pub fn OH_ArkUI_AddSupportedUIStates(
         node: ArkUI_NodeHandle,
         uiStates: i32,
@@ -11194,16 +11194,16 @@ extern "C" {
     ) -> ArkUI_ErrorCode;
 }
 extern "C" {
-    #[cfg(feature = "api-20")]
     #[doc = " @brief Removes registered UI states. When all states registered using <b>OH_ArkUI_AddSupportedUIStates</b>\n are removed, the registered <b>stateChangeHandler</b> will no longer be executed.\n\n @param node Target node.\n @param uiStates Target UI states to be removed.\n @return Returns the result code.\n         Returns {@link ARKUI_ERROR_CODE_NO_ERROR} if the operation is successful.\n         Returns {@link ARKUI_ERROR_CODE_PARAM_INVALID} if a parameter error occurs.\n @since 20"]
+    #[cfg(feature = "api-20")]
     pub fn OH_ArkUI_RemoveSupportedUIStates(
         node: ArkUI_NodeHandle,
         uiStates: i32,
     ) -> ArkUI_ErrorCode;
 }
 extern "C" {
-    #[cfg(feature = "api-20")]
     #[doc = " @brief Run a custom function inside the UIContext scope.\n\n @param uiContext ArkUI_ContextHandle.\n @param userData Indicates the pointer to the custom data.\n @param callback The custom function.\n @return Returns the result code.\n         Returns {@link ARKUI_ERROR_CODE_NO_ERROR} if the operation is successful.\n         Returns {@link ARKUI_ERROR_CODE_CAPI_INIT_ERROR} if the CAPI init error.\n         Returns {@link ARKUI_ERROR_CODE_UI_CONTEXT_INVALID} if the uiContext is invalid.\n         Returns {@link ARKUI_ERROR_CODE_CALLBACK_INVALID} if the callback function is invalid.\n @since 20"]
+    #[cfg(feature = "api-20")]
     pub fn OH_ArkUI_RunTaskInScope(
         uiContext: ArkUI_ContextHandle,
         userData: *mut ::std::os::raw::c_void,
@@ -11213,35 +11213,35 @@ extern "C" {
     ) -> i32;
 }
 extern "C" {
-    #[cfg(feature = "api-20")]
     #[doc = " @brief Get the node handle by uniqueId.\n\n @param uniqueId The uniqueId of the target node handle.\n @param node The handle of target node handle.\n @return Error code.\n         {@link ARKUI_ERROR_CODE_NO_ERROR} success.\n         {@link ARKUI_ERROR_CODE_PARAM_INVALID} Function parameter exception.\n         {@link ARKUI_ERROR_CODE_CAPI_INIT_ERROR} if the CAPI init error.\n @since 20"]
+    #[cfg(feature = "api-20")]
     pub fn OH_ArkUI_NodeUtils_GetNodeHandleByUniqueId(
         uniqueId: u32,
         node: *mut ArkUI_NodeHandle,
     ) -> i32;
 }
 extern "C" {
-    #[cfg(feature = "api-20")]
     #[doc = " @brief Get the uniqueId of the target node handle.\n\n @param node The ArkUI-NodeHandle pointer.\n @param uniqueId The uniqueId of the target node handle, default value is -1.\n @return Error code.\n         {@link ARKUI_ERROR_CODE_NO_ERROR} if the operation is successful.\n         {@link ARKUI_ERROR_CODE_PARAM_INVALID} Function parameter exception.\n         {@link ARKUI_ERROR_CODE_CAPI_INIT_ERROR} if the CAPI init error.\n @since 20"]
+    #[cfg(feature = "api-20")]
     pub fn OH_ArkUI_NodeUtils_GetNodeUniqueId(node: ArkUI_NodeHandle, uniqueId: *mut i32) -> i32;
 }
 extern "C" {
-    #[cfg(feature = "api-22")]
     #[doc = " @brief The current node adopts the target child node. The node being adopted must not have an existing parent node.\n This operation does not actually append it as a child, but only allows it to receive life-cycle\n callbacks as if it were a child.\n\n @param node ArkUI_NodeHandle pointer, the parent node that will adopt the child node.\n @param child ArkUI_NodeHandle pointer, the target node being adopted.\n @return Error code.\n         {@link ARKUI_ERROR_CODE_NO_ERROR} if the operation is successful.\n         {@link ARKUI_ERROR_CODE_CAPI_INIT_ERROR} if the CAPI init error.\n         {@link ARKUI_ERROR_CODE_NODE_HAS_PARENT} The child already has a parent node.\n         {@link ARKUI_ERROR_CODE_NODE_CAN_NOT_BE_ADOPTED} The child can not be adopted.\n         {@link ARKUI_ERROR_CODE_NODE_CAN_NOT_ADOPT_TO} The node can not adopt children.\n @since 22"]
+    #[cfg(feature = "api-22")]
     pub fn OH_ArkUI_NativeModule_AdoptChild(node: ArkUI_NodeHandle, child: ArkUI_NodeHandle)
         -> i32;
 }
 extern "C" {
-    #[cfg(feature = "api-22")]
     #[doc = " @brief Remove the target adopted child node.\n\n @param node ArkUI_NodeHandle pointer, the parent node.\n @param child ArkUI_NodeHandle pointer, the node being removed.\n @return Error code.\n         {@link ARKUI_ERROR_CODE_NO_ERROR} if the operation is successful.\n         {@link ARKUI_ERROR_CODE_CAPI_INIT_ERROR} if the CAPI init error.\n         {@link ARKUI_ERROR_CODE_NODE_IS_NOT_IN_ADOPTED_CHILDREN} This child node is not adopted by the parent node.\n @since 22"]
+    #[cfg(feature = "api-22")]
     pub fn OH_ArkUI_NativeModule_RemoveAdoptedChild(
         node: ArkUI_NodeHandle,
         child: ArkUI_NodeHandle,
     ) -> i32;
 }
 extern "C" {
-    #[cfg(feature = "api-20")]
     #[doc = " @brief Sets the inverse color algorithm for components and instances.\n\n @param uiContext Indicates the context in which the inverse color feature should take effect.\n     If the value is null, the feature applies to the entire application process.\n @param forceDark Indicates whether the inverse color feature is enabled.\n @param nodeType Indicates the component type for which to enable the inverse color feature.\n     If the value is ARKUI_NODE_UNDEFINED, enabling the feature for all components.\n @param colorInvertFunc Indicates the user-defined inverse color algorithm.\n @return Returns the error code.\n         Returns {@link ARKUI_ERROR_CODE_NO_ERROR} if the operation is successful.\n         Returns {@link ARKUI_ERROR_CODE_CAPI_INIT_ERROR} if CAPI init error.\n         Returns {@link ARKUI_ERROR_CODE_FORCE_DARK_CONFIG_INVALID} if force dark config is invalid.\n @since 20"]
+    #[cfg(feature = "api-20")]
     pub fn OH_ArkUI_SetForceDarkConfig(
         uiContext: ArkUI_ContextHandle,
         forceDark: bool,
@@ -11250,8 +11250,8 @@ extern "C" {
     ) -> i32;
 }
 extern "C" {
-    #[cfg(feature = "api-22")]
     #[doc = " @brief Post UI task to background threads.\n\n @param context UIContext pointer of the page where the UI task located.\n @param asyncUITaskData Parameter of asyncUITask and onFinish.\n @param asyncUITask Function executed by a background thread.\n @param onFinish Function executed by UI thread after async UI task is executed.\n @return Returns the result code.\n         Returns {@link ARKUI_ERROR_CODE_NO_ERROR} if the operation is successful.\n         Returns {@link ARKUI_ERROR_CODE_PARAM_INVALID} if context or asyncUITask is nullptr.\n @since 22"]
+    #[cfg(feature = "api-22")]
     pub fn OH_ArkUI_PostAsyncUITask(
         context: ArkUI_ContextHandle,
         asyncUITaskData: *mut ::std::os::raw::c_void,
@@ -11264,8 +11264,8 @@ extern "C" {
     ) -> i32;
 }
 extern "C" {
-    #[cfg(feature = "api-22")]
     #[doc = " @brief Post UI task to UI thread.\n\n @param context UIContext pointer of the page where the UI task located.\n @param taskData Parameter of task.\n @param task Function executed by UI thread.\n @return Returns the result code.\n         Returns {@link ARKUI_ERROR_CODE_NO_ERROR} if the operation is successful.\n         Returns {@link ARKUI_ERROR_CODE_PARAM_INVALID} if context or task is nullptr.\n @since 22"]
+    #[cfg(feature = "api-22")]
     pub fn OH_ArkUI_PostUITask(
         context: ArkUI_ContextHandle,
         taskData: *mut ::std::os::raw::c_void,
@@ -11273,8 +11273,8 @@ extern "C" {
     ) -> i32;
 }
 extern "C" {
-    #[cfg(feature = "api-22")]
     #[doc = " @brief Post UI task to UI thread and wait until UI task finished.\n\n @param context UIContext pointer of the page where the UI task located.\n @param taskData Parameter of task.\n @param task Function executed by UI thread.\n @return Returns the result code.\n         Returns {@link ARKUI_ERROR_CODE_NO_ERROR} if the operation is successful.\n         Returns {@link ARKUI_ERROR_CODE_PARAM_INVALID} if context or task is nullptr.\n @since 22"]
+    #[cfg(feature = "api-22")]
     pub fn OH_ArkUI_PostUITaskAndWait(
         context: ArkUI_ContextHandle,
         taskData: *mut ::std::os::raw::c_void,
@@ -11282,8 +11282,8 @@ extern "C" {
     ) -> i32;
 }
 extern "C" {
-    #[cfg(feature = "api-21")]
     #[doc = " @brief Register common event callback of target node.\n\n @param node The ArkUI-NodeHandle pointer.\n @param eventType Indicates the type of event to set.\n @param userData Indicates the pointer to the custom data.\n @param callback Indicates the event callback function.\n @return Returns the result code.\n         Returns {@link ARKUI_ERROR_CODE_NO_ERROR} if the operation is successful.\n         Returns {@link ARKUI_ERROR_CODE_PARAM_INVALID} Function params is invalid.\n         Returns {@link ARKUI_ERROR_CODE_NODE_UNSUPPORTED_EVENT_TYPE} Function parameter eventType is not supported.\n @since 21"]
+    #[cfg(feature = "api-21")]
     pub fn OH_ArkUI_NativeModule_RegisterCommonEvent(
         node: ArkUI_NodeHandle,
         eventType: ArkUI_NodeEventType,
@@ -11292,16 +11292,16 @@ extern "C" {
     ) -> i32;
 }
 extern "C" {
-    #[cfg(feature = "api-21")]
     #[doc = " @brief Unregister common event callback of target node.\n\n @param node The ArkUI-NodeHandle pointer.\n @param eventType Indicates the type of event to set.\n @return Returns the result code.\n         Returns {@link ARKUI_ERROR_CODE_NO_ERROR} if the operation is successful.\n         Returns {@link ARKUI_ERROR_CODE_PARAM_INVALID} Function params is invalid.\n         Returns {@link ARKUI_ERROR_CODE_NODE_UNSUPPORTED_EVENT_TYPE} Function parameter eventType is not supported.\n @since 21"]
+    #[cfg(feature = "api-21")]
     pub fn OH_ArkUI_NativeModule_UnregisterCommonEvent(
         node: ArkUI_NodeHandle,
         eventType: ArkUI_NodeEventType,
     ) -> i32;
 }
 extern "C" {
-    #[cfg(feature = "api-21")]
     #[doc = " @brief Register common visible area approximate change event callback of target node.\n\n @param node The ArkUI-NodeHandle pointer.\n @param ratios Threshold array representing the visible area of the component.\n @param size The size of the ratios.\n @param expectedUpdateInterval The expected calculation interval for developers.\n @param userData Indicates the pointer to the custom data.\n @param callback Indicates the event callback function.\n @return Returns the result code.\n         Returns {@link ARKUI_ERROR_CODE_NO_ERROR} if the operation is successful.\n         Returns {@link ARKUI_ERROR_CODE_PARAM_INVALID} Function params is invalid.\n @since 21"]
+    #[cfg(feature = "api-21")]
     pub fn OH_ArkUI_NativeModule_RegisterCommonVisibleAreaApproximateChangeEvent(
         node: ArkUI_NodeHandle,
         ratios: *mut f32,
@@ -11312,15 +11312,15 @@ extern "C" {
     ) -> i32;
 }
 extern "C" {
-    #[cfg(feature = "api-21")]
     #[doc = " @brief Unregister common visible area approximate change event callback of target node.\n\n @param node The ArkUI-NodeHandle pointer.\n @return Returns the result code.\n         Returns {@link ARKUI_ERROR_CODE_NO_ERROR} if the operation is successful.\n         Returns {@link ARKUI_ERROR_CODE_PARAM_INVALID} Function params is invalid.\n @since 21"]
+    #[cfg(feature = "api-21")]
     pub fn OH_ArkUI_NativeModule_UnregisterCommonVisibleAreaApproximateChangeEvent(
         node: ArkUI_NodeHandle,
     ) -> i32;
 }
 extern "C" {
-    #[cfg(feature = "api-22")]
     #[doc = " @brief Stop the animation being executed by the Swiper node.\n\n @param node ArkUI_NodeHandle pointer.\n @return Error code.\n         {@link ARKUI_ERROR_CODE_NO_ERROR} Success.\n         {@link ARKUI_ERROR_CODE_PARAM_INVALID} Function parameter exception.\n @since 22"]
+    #[cfg(feature = "api-22")]
     pub fn OH_ArkUI_Swiper_FinishAnimation(node: ArkUI_NodeHandle) -> i32;
 }
 #[doc = " Touching the system-defined Back button or pressing the Esc key."]
@@ -11333,44 +11333,44 @@ pub const ArkUI_DismissReason_DIALOG_DISMISS_CLOSE_BUTTON: ArkUI_DismissReason =
 pub const ArkUI_DismissReason_DIALOG_DISMISS_SLIDE_DOWN: ArkUI_DismissReason = 3;
 #[doc = " @brief Enumerates the actions for triggering closure of the dialog box.\n\n @since 12"]
 pub type ArkUI_DismissReason = u32;
-#[cfg(feature = "api-20")]
 #[doc = " @brief Uninitialized.\n @syscap SystemCapability.ArkUI.ArkUI.Full\n @since 20"]
+#[cfg(feature = "api-20")]
 pub const ArkUI_DialogState_DIALOG_UNINITIALIZED: ArkUI_DialogState = 0;
-#[cfg(feature = "api-20")]
 #[doc = " @brief Initialized.\n @syscap SystemCapability.ArkUI.ArkUI.Full\n @since 20"]
+#[cfg(feature = "api-20")]
 pub const ArkUI_DialogState_DIALOG_INITIALIZED: ArkUI_DialogState = 1;
-#[cfg(feature = "api-20")]
 #[doc = " @brief Appearing.\n @syscap SystemCapability.ArkUI.ArkUI.Full\n @since 20"]
+#[cfg(feature = "api-20")]
 pub const ArkUI_DialogState_DIALOG_APPEARING: ArkUI_DialogState = 2;
-#[cfg(feature = "api-20")]
 #[doc = " @brief Appeared.\n @syscap SystemCapability.ArkUI.ArkUI.Full\n @since 20"]
+#[cfg(feature = "api-20")]
 pub const ArkUI_DialogState_DIALOG_APPEARED: ArkUI_DialogState = 3;
-#[cfg(feature = "api-20")]
 #[doc = " @brief Disappearing.\n @syscap SystemCapability.ArkUI.ArkUI.Full\n @since 20"]
+#[cfg(feature = "api-20")]
 pub const ArkUI_DialogState_DIALOG_DISAPPEARING: ArkUI_DialogState = 4;
-#[cfg(feature = "api-20")]
 #[doc = " @brief Disappeared.\n @syscap SystemCapability.ArkUI.ArkUI.Full\n @since 20"]
-pub const ArkUI_DialogState_DIALOG_DISAPPEARED: ArkUI_DialogState = 5;
 #[cfg(feature = "api-20")]
+pub const ArkUI_DialogState_DIALOG_DISAPPEARED: ArkUI_DialogState = 5;
 #[doc = " @brief Enumerates the state of dialog.\n\n @syscap SystemCapability.ArkUI.ArkUI.Full\n\n @since 20"]
+#[cfg(feature = "api-20")]
 pub type ArkUI_DialogState = u32;
-#[cfg(feature = "api-15")]
 #[doc = " overlay mode."]
+#[cfg(feature = "api-15")]
 pub const ArkUI_LevelMode_ARKUI_LEVEL_MODE_OVERLAY: ArkUI_LevelMode = 0;
-#[cfg(feature = "api-15")]
 #[doc = " embedded mode."]
+#[cfg(feature = "api-15")]
 pub const ArkUI_LevelMode_ARKUI_LEVEL_MODE_EMBEDDED: ArkUI_LevelMode = 1;
-#[cfg(feature = "api-15")]
 #[doc = " @brief Enumerates the level mode.\n\n @since 15"]
+#[cfg(feature = "api-15")]
 pub type ArkUI_LevelMode = u32;
-#[cfg(feature = "api-15")]
 #[doc = " Mask covering the parent node area."]
+#[cfg(feature = "api-15")]
 pub const ArkUI_ImmersiveMode_ARKUI_IMMERSIVE_MODE_DEFAULT: ArkUI_ImmersiveMode = 0;
-#[cfg(feature = "api-15")]
 #[doc = " Mask extend safe area includes status bar and navigation bar."]
-pub const ArkUI_ImmersiveMode_ARKUI_IMMERSIVE_MODE_EXTEND: ArkUI_ImmersiveMode = 1;
 #[cfg(feature = "api-15")]
+pub const ArkUI_ImmersiveMode_ARKUI_IMMERSIVE_MODE_EXTEND: ArkUI_ImmersiveMode = 1;
 #[doc = " @brief Enumerates the immersive mode.\n\n @since 15"]
+#[cfg(feature = "api-15")]
 pub type ArkUI_ImmersiveMode = u32;
 #[doc = " @brief Invoked when the dialog box is closed.\n\n @since 12"]
 pub type ArkUI_OnWillDismissEvent =
@@ -11478,8 +11478,8 @@ pub struct ArkUI_NativeDialogAPI_1 {
         ) -> i32,
     >,
 }
-#[cfg(feature = "api-15")]
 #[doc = " @brief Provides the custom dialog box APIs for the native side.\n\n @version 2\n @since 15"]
+#[cfg(feature = "api-15")]
 #[repr(C)]
 #[derive(Debug, Copy, Clone)]
 pub struct ArkUI_NativeDialogAPI_2 {
@@ -11509,8 +11509,8 @@ pub struct ArkUI_NativeDialogAPI_2 {
         ) -> i32,
     >,
 }
-#[cfg(feature = "api-19")]
 #[doc = " @brief Provides the custom dialog box APIs for the native side.\n\n @version 3\n @since 19"]
+#[cfg(feature = "api-19")]
 #[repr(C)]
 #[derive(Debug, Copy, Clone)]
 pub struct ArkUI_NativeDialogAPI_3 {
@@ -11681,73 +11681,73 @@ extern "C" {
     ) -> i32;
 }
 extern "C" {
-    #[cfg(feature = "api-19")]
     #[doc = " @brief Displays a custom dialog box.\n\n @param options Dialog box parameters.\n @param callback Callback to be invoked when the custom dialog box displays.\n @return Returns the error code.\n         Returns {@link ARKUI_ERROR_CODE_NO_ERROR} if the operation is successful.\n         Returns {@link ARKUI_ERROR_CODE_PARAM_INVALID} if a parameter error occurs.\n @since 19"]
+    #[cfg(feature = "api-19")]
     pub fn OH_ArkUI_CustomDialog_OpenDialog(
         options: *mut ArkUI_CustomDialogOptions,
         callback: ::std::option::Option<unsafe extern "C" fn(dialogId: i32)>,
     ) -> i32;
 }
 extern "C" {
-    #[cfg(feature = "api-19")]
     #[doc = " @brief Updates a custom dialog box.\n\n @param options Dialog box parameters.\n @param callback Callback to be invoked when the custom dialog box updates.\n @return Returns the error code.\n         Returns {@link ARKUI_ERROR_CODE_NO_ERROR} if the operation is successful.\n         Returns {@link ARKUI_ERROR_CODE_PARAM_INVALID} if a parameter error occurs.\n @since 19"]
+    #[cfg(feature = "api-19")]
     pub fn OH_ArkUI_CustomDialog_UpdateDialog(
         options: *mut ArkUI_CustomDialogOptions,
         callback: ::std::option::Option<unsafe extern "C" fn(dialogId: i32)>,
     ) -> i32;
 }
 extern "C" {
-    #[cfg(feature = "api-19")]
     #[doc = " @brief Closes a custom dialog box.\n\n @param dialogId Dialog id.\n @return Returns the error code.\n         Returns {@link ARKUI_ERROR_CODE_NO_ERROR} if the operation is successful.\n         Returns {@link ARKUI_ERROR_CODE_PARAM_INVALID} if a parameter error occurs.\n @since 19"]
+    #[cfg(feature = "api-19")]
     pub fn OH_ArkUI_CustomDialog_CloseDialog(dialogId: i32) -> i32;
 }
 extern "C" {
-    #[cfg(feature = "api-19")]
     #[doc = " @brief Creates custom dialog box options.\n\n @param content Content of the custom dialog box.\n @return Returns the pointer to the custom dialog box options.\n @since 19"]
+    #[cfg(feature = "api-19")]
     pub fn OH_ArkUI_CustomDialog_CreateOptions(
         content: ArkUI_NodeHandle,
     ) -> *mut ArkUI_CustomDialogOptions;
 }
 extern "C" {
-    #[cfg(feature = "api-19")]
     #[doc = " @brief Destroys the custom dialog box options.\n\n @param options The pointer to the custom dialog box options.\n @since 19"]
+    #[cfg(feature = "api-19")]
     pub fn OH_ArkUI_CustomDialog_DisposeOptions(options: *mut ArkUI_CustomDialogOptions);
 }
 extern "C" {
-    #[cfg(feature = "api-19")]
     #[doc = " @brief Sets the level mode for a custom dialog box.\n\n @note This method must be called before the <b>OH_ArkUI_CustomDialog_OpenDialog</b> method.\n @param options Indicates the pointer to the custom dialog options.\n @param levelMode Indicates the level mode. The parameter type is {@link ArkUI_LevelMode}.\n @return Returns the error code.\n         Returns {@link ARKUI_ERROR_CODE_NO_ERROR} if the operation is successful.\n         Returns {@link ARKUI_ERROR_CODE_PARAM_INVALID} if a parameter error occurs.\n @since 19"]
+    #[cfg(feature = "api-19")]
     pub fn OH_ArkUI_CustomDialog_SetLevelMode(
         options: *mut ArkUI_CustomDialogOptions,
         levelMode: ArkUI_LevelMode,
     ) -> i32;
 }
 extern "C" {
-    #[cfg(feature = "api-19")]
     #[doc = " @brief Sets the level uniqueId for a custom dialog box.\n\n @param options Indicates the pointer to the custom dialog options.\n @param uniqueId Indicates the unique id of any nodes in router or navigation pages.\n @return Returns the error code.\n         Returns {@link ARKUI_ERROR_CODE_NO_ERROR} if the operation is successful.\n         Returns {@link ARKUI_ERROR_CODE_PARAM_INVALID} if a parameter error occurs.\n @since 19"]
+    #[cfg(feature = "api-19")]
     pub fn OH_ArkUI_CustomDialog_SetLevelUniqueId(
         options: *mut ArkUI_CustomDialogOptions,
         uniqueId: i32,
     ) -> i32;
 }
 extern "C" {
-    #[cfg(feature = "api-19")]
     #[doc = " @brief Sets the immersive mode for a custom dialog box.\n\n @note This method must be called before the <b>OH_ArkUI_CustomDialog_OpenDialog</b> method.\n @param options Indicates the pointer to the custom dialog options.\n @param immersiveMode Indicates the immersive mode. The parameter type is {@link ArkUI_ImmersiveMode}.\n @return Returns the error code.\n         Returns {@link ARKUI_ERROR_CODE_NO_ERROR} if the operation is successful.\n         Returns {@link ARKUI_ERROR_CODE_PARAM_INVALID} if a parameter error occurs.\n @since 19"]
+    #[cfg(feature = "api-19")]
     pub fn OH_ArkUI_CustomDialog_SetImmersiveMode(
         options: *mut ArkUI_CustomDialogOptions,
         immersiveMode: ArkUI_ImmersiveMode,
     ) -> i32;
 }
 extern "C" {
-    #[cfg(feature = "api-19")]
     #[doc = " @brief Sets the background color of the dialog box.\n\n @param options Dialog box parameters.\n @param backgroundColor Background color of the dialog box.\n @return Returns the error code.\n         Returns {@link ARKUI_ERROR_CODE_NO_ERROR} if the operation is successful.\n         Returns {@link ARKUI_ERROR_CODE_PARAM_INVALID} if a parameter error occurs.\n @since 19"]
+    #[cfg(feature = "api-19")]
     pub fn OH_ArkUI_CustomDialog_SetBackgroundColor(
         options: *mut ArkUI_CustomDialogOptions,
         backgroundColor: u32,
     ) -> i32;
 }
 extern "C" {
-    #[cfg(feature = "api-19")]
     #[doc = " @brief Sets the corner radius for a custom dialog box.\n\n @param options Dialog box parameters.\n @param topLeft Corner radius of the upper left corner.\n @param topRight Corner radius of the upper right corner.\n @param bottomLeft Corner radius of the lower left corner.\n @param bottomRight Corner radius of the lower right corner.\n @return Returns the error code.\n         Returns {@link ARKUI_ERROR_CODE_NO_ERROR} if the operation is successful.\n         Returns {@link ARKUI_ERROR_CODE_PARAM_INVALID} if a parameter error occurs.\n @since 19"]
+    #[cfg(feature = "api-19")]
     pub fn OH_ArkUI_CustomDialog_SetCornerRadius(
         options: *mut ArkUI_CustomDialogOptions,
         topLeft: f32,
@@ -11757,8 +11757,8 @@ extern "C" {
     ) -> i32;
 }
 extern "C" {
-    #[cfg(feature = "api-19")]
     #[doc = " @brief Sets the border width of the dialog box.\n\n @param options Dialog box parameters.\n @param top Width of the top border.\n @param right Width of the right border.\n @param bottom Width of the bottom border.\n @param left Width of the left border.\n @param unit Unit of the width. The default value is vp.\n @return Returns the error code.\n         Returns {@link ARKUI_ERROR_CODE_NO_ERROR} if the operation is successful.\n         Returns {@link ARKUI_ERROR_CODE_PARAM_INVALID} if a parameter error occurs.\n @since 19"]
+    #[cfg(feature = "api-19")]
     pub fn OH_ArkUI_CustomDialog_SetBorderWidth(
         options: *mut ArkUI_CustomDialogOptions,
         top: f32,
@@ -11769,8 +11769,8 @@ extern "C" {
     ) -> i32;
 }
 extern "C" {
-    #[cfg(feature = "api-19")]
     #[doc = " @brief Sets the border color of the dialog box.\n\n @param options Dialog box parameters.\n @param top Color of the top border.\n @param right Color of the right border.\n @param bottom Color of the bottom border.\n @param left Color of the left border.\n @return Returns the error code.\n         Returns {@link ARKUI_ERROR_CODE_NO_ERROR} if the operation is successful.\n         Returns {@link ARKUI_ERROR_CODE_PARAM_INVALID} if a parameter error occurs.\n @since 19"]
+    #[cfg(feature = "api-19")]
     pub fn OH_ArkUI_CustomDialog_SetBorderColor(
         options: *mut ArkUI_CustomDialogOptions,
         top: u32,
@@ -11780,8 +11780,8 @@ extern "C" {
     ) -> i32;
 }
 extern "C" {
-    #[cfg(feature = "api-19")]
     #[doc = " @brief Sets the border style of the dialog box.\n\n @param options Dialog box parameters.\n @param top Style of the top border.\n @param right Style of the right border.\n @param bottom Style of the bottom border.\n @param left Style of the left border.\n @return Returns the error code.\n         Returns {@link ARKUI_ERROR_CODE_NO_ERROR} if the operation is successful.\n         Returns {@link ARKUI_ERROR_CODE_PARAM_INVALID} if a parameter error occurs.\n @since 19"]
+    #[cfg(feature = "api-19")]
     pub fn OH_ArkUI_CustomDialog_SetBorderStyle(
         options: *mut ArkUI_CustomDialogOptions,
         top: i32,
@@ -11791,8 +11791,8 @@ extern "C" {
     ) -> i32;
 }
 extern "C" {
-    #[cfg(feature = "api-19")]
     #[doc = " @brief Sets the width of the dialog box background.\n\n @param options Dialog box parameters.\n @param width Width of the background.\n @param unit Unit of the width. The default value is vp.\n @return Returns the error code.\n         Returns {@link ARKUI_ERROR_CODE_NO_ERROR} if the operation is successful.\n         Returns {@link ARKUI_ERROR_CODE_PARAM_INVALID} if a parameter error occurs.\n @since 19"]
+    #[cfg(feature = "api-19")]
     pub fn OH_ArkUI_CustomDialog_SetWidth(
         options: *mut ArkUI_CustomDialogOptions,
         width: f32,
@@ -11800,8 +11800,8 @@ extern "C" {
     ) -> i32;
 }
 extern "C" {
-    #[cfg(feature = "api-19")]
     #[doc = " @brief Sets the height of the dialog box background.\n\n @param options Dialog box parameters.\n @param height Height of the background.\n @param unit Unit of the height. The default value is vp.\n @return Returns the error code.\n         Returns {@link ARKUI_ERROR_CODE_NO_ERROR} if the operation is successful.\n         Returns {@link ARKUI_ERROR_CODE_PARAM_INVALID} if a parameter error occurs.\n @since 19"]
+    #[cfg(feature = "api-19")]
     pub fn OH_ArkUI_CustomDialog_SetHeight(
         options: *mut ArkUI_CustomDialogOptions,
         height: f32,
@@ -11809,32 +11809,32 @@ extern "C" {
     ) -> i32;
 }
 extern "C" {
-    #[cfg(feature = "api-19")]
     #[doc = " @brief Sets the shadow of the dialog box background.\n\n @param options Dialog box parameters.\n @param shadow Shadow style of the background, specified by an enumerated value.\n @return Returns the error code.\n         Returns {@link ARKUI_ERROR_CODE_NO_ERROR} if the operation is successful.\n         Returns {@link ARKUI_ERROR_CODE_PARAM_INVALID} if a parameter error occurs.\n @since 19"]
+    #[cfg(feature = "api-19")]
     pub fn OH_ArkUI_CustomDialog_SetShadow(
         options: *mut ArkUI_CustomDialogOptions,
         shadow: ArkUI_ShadowStyle,
     ) -> i32;
 }
 extern "C" {
-    #[cfg(feature = "api-19")]
     #[doc = " @brief Sets the custom shadow of the dialog box background.\n\n @param options Dialog box parameters.\n @param customShadow Custom shadow parameter. The format is the same as that of\n the <b>NODE_CUSTOM_SHADOW</b> property.\n @return Returns the error code.\n         Returns {@link ARKUI_ERROR_CODE_NO_ERROR} if the operation is successful.\n         Returns {@link ARKUI_ERROR_CODE_PARAM_INVALID} if a parameter error occurs.\n @since 19"]
+    #[cfg(feature = "api-19")]
     pub fn OH_ArkUI_CustomDialog_SetCustomShadow(
         options: *mut ArkUI_CustomDialogOptions,
         customShadow: *const ArkUI_AttributeItem,
     ) -> i32;
 }
 extern "C" {
-    #[cfg(feature = "api-19")]
     #[doc = " @brief Sets the background blur style of the dialog box.\n\n @param options Dialog box parameters.\n @param blurStyle Background blur style, specified by an enumerated value.\n @return Returns the error code.\n         Returns {@link ARKUI_ERROR_CODE_NO_ERROR} if the operation is successful.\n         Returns {@link ARKUI_ERROR_CODE_PARAM_INVALID} if a parameter error occurs.\n @since 19"]
+    #[cfg(feature = "api-19")]
     pub fn OH_ArkUI_CustomDialog_SetBackgroundBlurStyle(
         options: *mut ArkUI_CustomDialogOptions,
         blurStyle: ArkUI_BlurStyle,
     ) -> i32;
 }
 extern "C" {
-    #[cfg(feature = "api-19")]
     #[doc = " @brief Sets the alignment mode of the dialog box.\n\n @param options Dialog box parameters.\n @param alignment Alignment mode of the dialog box. The parameter type is {@link ArkUI_Alignment}.\n @param offsetX Indicates the horizontal offset of the custom dialog box. The value is a floating point number.\n @param offsetY Indicates the vertical offset of the custom dialog box. The value is a floating point number.\n @return Returns the error code.\n         Returns {@link ARKUI_ERROR_CODE_NO_ERROR} if the operation is successful.\n         Returns {@link ARKUI_ERROR_CODE_PARAM_INVALID} if a parameter error occurs.\n @since 19"]
+    #[cfg(feature = "api-19")]
     pub fn OH_ArkUI_CustomDialog_SetAlignment(
         options: *mut ArkUI_CustomDialogOptions,
         alignment: i32,
@@ -11843,32 +11843,32 @@ extern "C" {
     ) -> i32;
 }
 extern "C" {
-    #[cfg(feature = "api-19")]
     #[doc = " @brief Sets the modal mode for a custom dialog box.\n\n @param options Dialog box parameters.\n @param isModal Whether the dialog box is a modal. A modal dialog box has a mask applied,\n while a non-modal dialog box does not. The value <b>true</b> means that the dialog box is a modal.\n @return Returns the error code.\n         Returns {@link ARKUI_ERROR_CODE_NO_ERROR} if the operation is successful.\n         Returns {@link ARKUI_ERROR_CODE_PARAM_INVALID} if a parameter error occurs.\n @since 19"]
+    #[cfg(feature = "api-19")]
     pub fn OH_ArkUI_CustomDialog_SetModalMode(
         options: *mut ArkUI_CustomDialogOptions,
         isModal: bool,
     ) -> i32;
 }
 extern "C" {
-    #[cfg(feature = "api-19")]
     #[doc = " @brief Specifies whether to allow users to touch the mask to dismiss the custom dialog box.\n\n @param options Dialog box parameters.\n @param autoCancel Specifies whether to allow users to touch the mask to dismiss the dialog box.\n The value <b>true</b> means to allow users to do so, and <b>false</b> means the opposite.\n @return Returns the error code.\n         Returns {@link ARKUI_ERROR_CODE_NO_ERROR} if the operation is successful.\n         Returns {@link ARKUI_ERROR_CODE_PARAM_INVALID} if a parameter error occurs.\n @since 19"]
+    #[cfg(feature = "api-19")]
     pub fn OH_ArkUI_CustomDialog_SetAutoCancel(
         options: *mut ArkUI_CustomDialogOptions,
         autoCancel: bool,
     ) -> i32;
 }
 extern "C" {
-    #[cfg(feature = "api-19")]
     #[doc = " @brief Sets whether to display the dialog box in a subwindow.\n\n @param options Dialog box parameters.\n @param showInSubwindow Whether to display the dialog box in a subwindow when it is not in the main window.\n The default value is <b>false</b>, meaning the dialog box is displayed within the application, not in a\n separate subwindow.\n @return Returns the error code.\n         Returns {@link ARKUI_ERROR_CODE_NO_ERROR} if the operation is successful.\n         Returns {@link ARKUI_ERROR_CODE_PARAM_INVALID} if a parameter error occurs.\n @since 19"]
+    #[cfg(feature = "api-19")]
     pub fn OH_ArkUI_CustomDialog_SetSubwindowMode(
         options: *mut ArkUI_CustomDialogOptions,
         showInSubwindow: bool,
     ) -> i32;
 }
 extern "C" {
-    #[cfg(feature = "api-19")]
     #[doc = " @brief Sets the mask for a custom dialog box.\n\n @param options Dialog box parameters.\n @param maskColor Mask color, in 0xargb format.\n @param maskRect Pointer to the mask area. Events outside the mask area are transparently transmitted,\n and events within the mask area are not. The parameter type is {@link ArkUI_Rect}.\n @return Returns the error code.\n         Returns {@link ARKUI_ERROR_CODE_NO_ERROR} if the operation is successful.\n         Returns {@link ARKUI_ERROR_CODE_PARAM_INVALID} if a parameter error occurs.\n @since 19"]
+    #[cfg(feature = "api-19")]
     pub fn OH_ArkUI_CustomDialog_SetMask(
         options: *mut ArkUI_CustomDialogOptions,
         maskColor: u32,
@@ -11876,32 +11876,32 @@ extern "C" {
     ) -> i32;
 }
 extern "C" {
-    #[cfg(feature = "api-19")]
     #[doc = " @brief Sets the keyboard avoidance mode of the dialog box.\n\n @param options Dialog box parameters.\n @param keyboardAvoidMode Keyboard avoidance mode, specified by an enumerated value.\n @return Returns the error code.\n         Returns {@link ARKUI_ERROR_CODE_NO_ERROR} if the operation is successful.\n         Returns {@link ARKUI_ERROR_CODE_PARAM_INVALID} if a parameter error occurs.\n @since 19"]
+    #[cfg(feature = "api-19")]
     pub fn OH_ArkUI_CustomDialog_SetKeyboardAvoidMode(
         options: *mut ArkUI_CustomDialogOptions,
         keyboardAvoidMode: ArkUI_KeyboardAvoidMode,
     ) -> i32;
 }
 extern "C" {
-    #[cfg(feature = "api-19")]
     #[doc = " @brief Sets whether to enable the hover mode for the dialog box.\n\n @param options Dialog box parameters.\n @param enabled Whether to enable the hover mode. The default value is <b>false</b>.\n @return Returns the error code.\n         Returns {@link ARKUI_ERROR_CODE_NO_ERROR} if the operation is successful.\n         Returns {@link ARKUI_ERROR_CODE_PARAM_INVALID} if a parameter error occurs.\n @since 19"]
+    #[cfg(feature = "api-19")]
     pub fn OH_ArkUI_CustomDialog_SetHoverModeEnabled(
         options: *mut ArkUI_CustomDialogOptions,
         enabled: bool,
     ) -> i32;
 }
 extern "C" {
-    #[cfg(feature = "api-19")]
     #[doc = " @brief Set the default display area of the dialog box in hover mode.\n\n @param options Dialog box parameters.\n @param hoverModeAreaType Display area in hover mode, specified by an enumerated value.\n @return Returns the error code.\n         Returns {@link ARKUI_ERROR_CODE_NO_ERROR} if the operation is successful.\n         Returns {@link ARKUI_ERROR_CODE_PARAM_INVALID} if a parameter error occurs.\n @since 19"]
+    #[cfg(feature = "api-19")]
     pub fn OH_ArkUI_CustomDialog_SetHoverModeArea(
         options: *mut ArkUI_CustomDialogOptions,
         hoverModeAreaType: ArkUI_HoverModeAreaType,
     ) -> i32;
 }
 extern "C" {
-    #[cfg(feature = "api-19")]
     #[doc = " @brief Registers a callback for the dismissal event of the custom dialog box.\n\n @param options Dialog box parameters.\n @param userData Pointer to the user-defined data.\n @param callback Callback for the dismissal event of the custom dialog box.\n @return Returns the error code.\n         Returns {@link ARKUI_ERROR_CODE_NO_ERROR} if the operation is successful.\n         Returns {@link ARKUI_ERROR_CODE_PARAM_INVALID} if a parameter error occurs.\n @since 19"]
+    #[cfg(feature = "api-19")]
     pub fn OH_ArkUI_CustomDialog_RegisterOnWillDismissCallback(
         options: *mut ArkUI_CustomDialogOptions,
         userData: *mut ::std::os::raw::c_void,
@@ -11909,8 +11909,8 @@ extern "C" {
     ) -> i32;
 }
 extern "C" {
-    #[cfg(feature = "api-19")]
     #[doc = " @brief Registers a callback to be invoked when the custom dialog box is about to appear.\n\n @param options Dialog box parameters.\n @param userData Pointer to the user-defined data.\n @param callback Callback to be invoked when the dialog box is about to appear.\n @return Returns the error code.\n         Returns {@link ARKUI_ERROR_CODE_NO_ERROR} if the operation is successful.\n         Returns {@link ARKUI_ERROR_CODE_PARAM_INVALID} if a parameter error occurs.\n @since 19"]
+    #[cfg(feature = "api-19")]
     pub fn OH_ArkUI_CustomDialog_RegisterOnWillAppearCallback(
         options: *mut ArkUI_CustomDialogOptions,
         userData: *mut ::std::os::raw::c_void,
@@ -11920,8 +11920,8 @@ extern "C" {
     ) -> i32;
 }
 extern "C" {
-    #[cfg(feature = "api-19")]
     #[doc = " @brief Registers a callback to be invoked when the custom dialog box appears.\n\n @param options Dialog box parameters.\n @param userData Pointer to the user-defined data.\n @param callback Callback to be invoked when the custom dialog box appears.\n @return Returns the error code.\n         Returns {@link ARKUI_ERROR_CODE_NO_ERROR} if the operation is successful.\n         Returns {@link ARKUI_ERROR_CODE_PARAM_INVALID} if a parameter error occurs.\n @since 19"]
+    #[cfg(feature = "api-19")]
     pub fn OH_ArkUI_CustomDialog_RegisterOnDidAppearCallback(
         options: *mut ArkUI_CustomDialogOptions,
         userData: *mut ::std::os::raw::c_void,
@@ -11931,8 +11931,8 @@ extern "C" {
     ) -> i32;
 }
 extern "C" {
-    #[cfg(feature = "api-19")]
     #[doc = " @brief Registers a callback to be invoked when the custom dialog box is about to disappear.\n\n @param options Dialog box parameters.\n @param userData Pointer to the user-defined data.\n @param callback Callback to be invoked when the dialog box is about to disappear.\n @return Returns the error code.\n         Returns {@link ARKUI_ERROR_CODE_NO_ERROR} if the operation is successful.\n         Returns {@link ARKUI_ERROR_CODE_PARAM_INVALID} if a parameter error occurs.\n @since 19"]
+    #[cfg(feature = "api-19")]
     pub fn OH_ArkUI_CustomDialog_RegisterOnWillDisappearCallback(
         options: *mut ArkUI_CustomDialogOptions,
         userData: *mut ::std::os::raw::c_void,
@@ -11942,8 +11942,8 @@ extern "C" {
     ) -> i32;
 }
 extern "C" {
-    #[cfg(feature = "api-19")]
     #[doc = " @brief Registers a callback to be invoked when the custom dialog box disappears.\n\n @param options Dialog box parameters.\n @param userData Pointer to the user-defined data.\n @param callback Callback to be invoked when the custom dialog box disappears.\n @return Returns the error code.\n         Returns {@link ARKUI_ERROR_CODE_NO_ERROR} if the operation is successful.\n         Returns {@link ARKUI_ERROR_CODE_PARAM_INVALID} if a parameter error occurs.\n @since 19"]
+    #[cfg(feature = "api-19")]
     pub fn OH_ArkUI_CustomDialog_RegisterOnDidDisappearCallback(
         options: *mut ArkUI_CustomDialogOptions,
         userData: *mut ::std::os::raw::c_void,
@@ -11953,24 +11953,24 @@ extern "C" {
     ) -> i32;
 }
 extern "C" {
-    #[cfg(feature = "api-20")]
     #[doc = " @brief Get state of dialog.\n\n @param handle Indicates the pointer to the custom dialog box controller.\n @param state Dialog state object.\n @return Returns the error code.\n         Returns {@link ARKUI_ERROR_CODE_NO_ERROR} if the operation is successful.\n         Returns {@link ARKUI_ERROR_CODE_PARAM_INVALID} if a parameter error occurs.\n @since 20"]
+    #[cfg(feature = "api-20")]
     pub fn OH_ArkUI_CustomDialog_GetState(
         handle: ArkUI_NativeDialogHandle,
         state: *mut ArkUI_DialogState,
     ) -> i32;
 }
 extern "C" {
-    #[cfg(feature = "api-19")]
     #[doc = " @brief Sets the background blur effect for a dialog box.\n\n @param options Dialog box parameters.\n @param backgroundBlurStyleOptions Background blur effect options of the dialog box.\n        Format of the {@link ArkUI_AttributeItem} parameter: \\n\n        .value[0].i32: color mode. The value is an enum of {@link ArkUI_ColorMode}. \\n\n        .value[1]?.i32: adaptive color mode. The value is an enum of {@link ArkUI_AdaptiveColor}. \\n\n        .value[2]?.f32: blur degree. The value range is [0.0, 1.0]. \\n\n        .value[3]?.u32: brightness of black in the grayscale blur. The value range is [0, 127]. \\n\n        .value[4]?.u32: degree of darkening the white color in the grayscale blur. The value range is [0, 127]. \\n\n        .value[5]?.i32: blur activation policy. The value is an enum of {@link ArkUI_BlurStyleActivePolicy}. \\n\n        .value[6]?.u32: background color, in 0xARGB format, of the components within the window after the window loses\n                        focus (in which case, the blur effect on the components within the window is removed). \\n\n @return Returns the result code.\n         Returns {@link ARKUI_ERROR_CODE_NO_ERROR} if the operation is successful.\n         Returns {@link ARKUI_ERROR_CODE_PARAM_INVALID} if a parameter error occurs.\n @since 19"]
+    #[cfg(feature = "api-19")]
     pub fn OH_ArkUI_CustomDialog_SetBackgroundBlurStyleOptions(
         options: *mut ArkUI_CustomDialogOptions,
         backgroundBlurStyleOptions: *const ArkUI_AttributeItem,
     ) -> i32;
 }
 extern "C" {
-    #[cfg(feature = "api-19")]
     #[doc = " @brief Sets the background effect parameters for a dialog box.\n\n @param options Dialog box parameters.\n @param backgroundEffect Background effect of the dialog box.\n        Format of the {@link ArkUI_AttributeItem} parameter: \\n\n        .value[0].f32: blur radius, in vp. \\n\n        .value[1]?.f32: saturation. \\n\n        .value[2]?.f32: brightness. \\n\n        .value[3]?.u32: color, in 0xARGB format. \\n\n        .value[4]?.i32: adaptive color mode. The value is an enum of {@link ArkUI_AdaptiveColor}. \\n\n        .value[5]?.u32: brightness of black in the grayscale blur. The value range is [0, 127]. \\n\n        .value[6]?.u32: degree of darkening the white color in the grayscale blur. The value range is [0, 127]. \\n\n        .value[7]?.i32: blur activation policy. The value is an enum of {@link ArkUI_BlurStyleActivePolicy}. \\n\n        .value[8]?.u32: background color, in 0xARGB format, of the components within the window after the window loses\n                        focus (in which case, the blur effect on the components within the window is removed). \\n\n @return Returns the result code.\n         Returns {@link ARKUI_ERROR_CODE_NO_ERROR} if the operation is successful.\n         Returns {@link ARKUI_ERROR_CODE_PARAM_INVALID} if a parameter error occurs.\n @since 19"]
+    #[cfg(feature = "api-19")]
     pub fn OH_ArkUI_CustomDialog_SetBackgroundEffect(
         options: *mut ArkUI_CustomDialogOptions,
         backgroundEffect: *const ArkUI_AttributeItem,
@@ -12062,11 +12062,11 @@ pub const ArkUI_GestureRecognizerType_ROTATION_GESTURE: ArkUI_GestureRecognizerT
 pub const ArkUI_GestureRecognizerType_SWIPE_GESTURE: ArkUI_GestureRecognizerType = 5;
 #[doc = " A group of gestures."]
 pub const ArkUI_GestureRecognizerType_GROUP_GESTURE: ArkUI_GestureRecognizerType = 6;
-#[cfg(feature = "api-20")]
 #[doc = " The click gesture registed through onClick.\n\n @since 20"]
-pub const ArkUI_GestureRecognizerType_CLICK_GESTURE: ArkUI_GestureRecognizerType = 7;
 #[cfg(feature = "api-20")]
+pub const ArkUI_GestureRecognizerType_CLICK_GESTURE: ArkUI_GestureRecognizerType = 7;
 #[doc = " Drag gesture used for drag and drop.\n\n @since 20"]
+#[cfg(feature = "api-20")]
 pub const ArkUI_GestureRecognizerType_DRAG_DROP: ArkUI_GestureRecognizerType = 8;
 #[doc = " @brief Enumerates gesture types.\n\n @since 12"]
 pub type ArkUI_GestureRecognizerType = u32;
@@ -12117,11 +12117,11 @@ pub struct ArkUI_ParallelInnerGestureEvent {
 pub struct ArkUI_TouchRecognizer {
     _unused: [u8; 0],
 }
-#[cfg(feature = "api-15")]
 #[doc = " @brief Defines a touch recognizer handle.\n\n @since 15"]
-pub type ArkUI_TouchRecognizerHandle = *mut ArkUI_TouchRecognizer;
 #[cfg(feature = "api-15")]
+pub type ArkUI_TouchRecognizerHandle = *mut ArkUI_TouchRecognizer;
 #[doc = " @brief Defines an array of touch recognizer handle.\n\n @since 15"]
+#[cfg(feature = "api-15")]
 pub type ArkUI_TouchRecognizerHandleArray = *mut ArkUI_TouchRecognizerHandle;
 #[doc = " @brief Defines a callback function for notifying gesture recognizer destruction.\n\n @param recognizer Indicates the pointer to a gesture recognizer.\n @param userData Indicates the custom data.\n @since 12"]
 pub type ArkUI_GestureRecognizerDisposeNotifyCallback = ::std::option::Option<
@@ -12155,8 +12155,8 @@ extern "C" {
     ) -> i32;
 }
 extern "C" {
-    #[cfg(feature = "api-15")]
     #[doc = " @brief Get the touch recognizer handles from the gesture interrupt info.\n\n @param info Indicates the pointer to a gesture interrupt info.\n @param recognizers Indicates the pointer to an array of touch recognizer handles.\n @param size Indicates the size of recognizers.\n @return Returns {@link ARKUI_ERROR_CODE_NO_ERROR} if success.\n         Returns {@link ARKUI_ERROR_CODE_PARAM_INVALID} if a parameter exception occurs.\n @since 15"]
+    #[cfg(feature = "api-15")]
     pub fn OH_ArkUI_GestureInterruptInfo_GetTouchRecognizers(
         info: *const ArkUI_GestureInterruptInfo,
         recognizers: *mut ArkUI_TouchRecognizerHandleArray,
@@ -12164,15 +12164,15 @@ extern "C" {
     ) -> i32;
 }
 extern "C" {
-    #[cfg(feature = "api-15")]
     #[doc = " @brief Get component object of the specific touch recognizer.\n\n @param recognizer Indicates the pointer to the TouchRecognizer.\n @return Get component object of the specific touch recognizer.\n @since 15"]
+    #[cfg(feature = "api-15")]
     pub fn OH_ArkUI_TouchRecognizer_GetNodeHandle(
         recognizer: ArkUI_TouchRecognizerHandle,
     ) -> ArkUI_NodeHandle;
 }
 extern "C" {
-    #[cfg(feature = "api-15")]
     #[doc = " @brief Send touch-cancel event to the touch recognizer in a gesture interruption callback.\n\n @param recognizer Indicates the touch recognizer handle.\n @param info Indicates the pointer to a gesture interrupt info.\n @return Returns {@link ARKUI_ERROR_CODE_NO_ERROR} if success.\n         Returns {@link ARKUI_ERROR_CODE_PARAM_INVALID} if a parameter exception occurs.\n @since 15"]
+    #[cfg(feature = "api-15")]
     pub fn OH_ArkUI_TouchRecognizer_CancelTouch(
         recognizer: ArkUI_TouchRecognizerHandle,
         info: *mut ArkUI_GestureInterruptInfo,
@@ -12258,8 +12258,8 @@ extern "C" {
     ) -> i32;
 }
 extern "C" {
-    #[cfg(feature = "api-15")]
     #[doc = " @brief Sets whether to enable strict finger count checking. If this feature is enabled and the actual number of touch\n        fingers does not match the set number, the gesture recognition fails.\n\n @param recognizer Indicates the pointer to a gesture recognizer.\n @param limitFingerCount Indicates whether to enable strict finger count checking.\n @return Returns {@link ARKUI_ERROR_CODE_NO_ERROR} if success.\n         Returns {@link ARKUI_ERROR_CODE_PARAM_INVALID} if a parameter error occurs.\n @since 15"]
+    #[cfg(feature = "api-15")]
     pub fn OH_ArkUI_SetGestureRecognizerLimitFingerCount(
         recognizer: *mut ArkUI_GestureRecognizer,
         limitFingerCount: bool,
@@ -12359,96 +12359,96 @@ extern "C" {
     ) -> i32;
 }
 extern "C" {
-    #[cfg(feature = "api-18")]
     #[doc = " @brief Obtains the swipe direction of a gesture recognizer.\n\n @param recognizer Pointer to a gesture recognizer.\n @param directMask Swipe direction of the gesture recognizer.\n @return Returns the result code.\n         Returns {@link ARKUI_ERROR_CODE_NO_ERROR} if the operation is successful.\n         Returns {@link ARKUI_ERROR_CODE_PARAM_INVALID} if a parameter error occurs.\n @since 18"]
+    #[cfg(feature = "api-18")]
     pub fn OH_ArkUI_GetGestureParam_DirectMask(
         recognizer: *mut ArkUI_GestureRecognizer,
         directMask: *mut ArkUI_GestureDirectionMask,
     ) -> i32;
 }
 extern "C" {
-    #[cfg(feature = "api-18")]
     #[doc = " @brief Obtains the number of fingers used by a gesture recognizer.\n\n @param recognizer Pointer to a gesture recognizer.\n @param finger Number of fingers used by the gesture recognizer.\n @return Returns the result code.\n         Returns {@link ARKUI_ERROR_CODE_NO_ERROR} if the operation is successful.\n         Returns {@link ARKUI_ERROR_CODE_PARAM_INVALID} if a parameter error occurs.\n @since 18"]
+    #[cfg(feature = "api-18")]
     pub fn OH_ArkUI_GetGestureParam_FingerCount(
         recognizer: *mut ArkUI_GestureRecognizer,
         finger: *mut ::std::os::raw::c_int,
     ) -> i32;
 }
 extern "C" {
-    #[cfg(feature = "api-18")]
     #[doc = " @brief Checks whether a gesture recognizer has a finger count limit.\n\n @param recognizer Pointer to a gesture recognizer.\n @param isLimited Whether the gesture recognizer has a finger count limit.\n @return Returns the result code.\n         Returns {@link ARKUI_ERROR_CODE_NO_ERROR} if the operation is successful.\n         Returns {@link ARKUI_ERROR_CODE_PARAM_INVALID} if a parameter error occurs.\n @since 18"]
+    #[cfg(feature = "api-18")]
     pub fn OH_ArkUI_GetGestureParam_limitFingerCount(
         recognizer: *mut ArkUI_GestureRecognizer,
         isLimited: *mut bool,
     ) -> i32;
 }
 extern "C" {
-    #[cfg(feature = "api-18")]
     #[doc = " @brief Checks whether a gesture recognizer supports repeated event callbacks.\n\n @param recognizer Pointer to a gesture recognizer.\n @param isRepeat Whether the gesture recognizer supports repeated event callbacks.\n @return Returns the result code.\n         Returns {@link ARKUI_ERROR_CODE_NO_ERROR} if the operation is successful.\n         Returns {@link ARKUI_ERROR_CODE_RECOGNIZER_TYPE_NOT_SUPPORTED} if the gesture recognizer type is not\n supported.\n @since 18"]
+    #[cfg(feature = "api-18")]
     pub fn OH_ArkUI_GetGestureParam_repeat(
         recognizer: *mut ArkUI_GestureRecognizer,
         isRepeat: *mut bool,
     ) -> i32;
 }
 extern "C" {
-    #[cfg(feature = "api-18")]
     #[doc = " @brief Obtains the allowed movement distance range for a gesture recognizer.\n\n @param recognizer Pointer to a gesture recognizer.\n @param distance Allowed movement distance range of the gesture recognizer.\n @return Returns the result code.\n         Returns {@link ARKUI_ERROR_CODE_NO_ERROR} if the operation is successful.\n         Returns {@link ARKUI_ERROR_CODE_RECOGNIZER_TYPE_NOT_SUPPORTED} if the gesture recognizer type is not\n supported.\n @since 18"]
+    #[cfg(feature = "api-18")]
     pub fn OH_ArkUI_GetGestureParam_distance(
         recognizer: *mut ArkUI_GestureRecognizer,
         distance: *mut f64,
     ) -> i32;
 }
 extern "C" {
-    #[cfg(feature = "api-18")]
     #[doc = " @brief Obtains the minimum swipe speed recognized by a gesture recognizer.\n\n @param recognizer Pointer to a gesture recognizer.\n @param speed Minimum swipe speed recognized by a gesture recognizer.\n @return Returns the result code.\n         Returns {@link ARKUI_ERROR_CODE_NO_ERROR} if the operation is successful.\n         Returns {@link ARKUI_ERROR_CODE_RECOGNIZER_TYPE_NOT_SUPPORTED} if the gesture recognizer type is not\n supported.\n @since 18"]
+    #[cfg(feature = "api-18")]
     pub fn OH_ArkUI_GetGestureParam_speed(
         recognizer: *mut ArkUI_GestureRecognizer,
         speed: *mut f64,
     ) -> i32;
 }
 extern "C" {
-    #[cfg(feature = "api-18")]
     #[doc = " @brief Obtains the minimum duration required to trigger a long press by a gesture recognizer.\n\n @param recognizer Pointer to a gesture recognizer.\n @param duration Minimum duration for a long press.\n @return Returns the result code.\n         Returns {@link ARKUI_ERROR_CODE_NO_ERROR} if the operation is successful.\n         Returns {@link ARKUI_ERROR_CODE_RECOGNIZER_TYPE_NOT_SUPPORTED} if the gesture recognizer type is not\n supported.\n @since 18"]
+    #[cfg(feature = "api-18")]
     pub fn OH_ArkUI_GetGestureParam_duration(
         recognizer: *mut ArkUI_GestureRecognizer,
         duration: *mut ::std::os::raw::c_int,
     ) -> i32;
 }
 extern "C" {
-    #[cfg(feature = "api-18")]
     #[doc = " @brief Obtains the minimum angle change required for a rotation gesture to be recognized by a gesture recognizer.\n\n @param recognizer Pointer to a gesture recognizer.\n @param angle Minimum angle change.\n @return Returns the result code.\n         Returns {@link ARKUI_ERROR_CODE_NO_ERROR} if the operation is successful.\n         Returns {@link ARKUI_ERROR_CODE_RECOGNIZER_TYPE_NOT_SUPPORTED} if the gesture recognizer type is not\n supported.\n @since 18"]
+    #[cfg(feature = "api-18")]
     pub fn OH_ArkUI_GetGestureParam_angle(
         recognizer: *mut ArkUI_GestureRecognizer,
         angle: *mut f64,
     ) -> i32;
 }
 extern "C" {
-    #[cfg(feature = "api-18")]
     #[doc = " @brief Obtains the movement threshold for gestures to be recognized by a gesture recognizer.\n\n @param recognizer Pointer to a gesture recognizer.\n @param distanceThresHold Movement threshold.\n @return Returns the result code.\n         Returns {@link ARKUI_ERROR_CODE_NO_ERROR} if the operation is successful.\n         Returns {@link ARKUI_ERROR_CODE_RECOGNIZER_TYPE_NOT_SUPPORTED} if the gesture recognizer type is not\n supported.\n @since 18"]
+    #[cfg(feature = "api-18")]
     pub fn OH_ArkUI_GetGestureParam_distanceThreshold(
         recognizer: *mut ArkUI_GestureRecognizer,
         distanceThreshold: *mut f64,
     ) -> i32;
 }
 extern "C" {
-    #[cfg(feature = "api-22")]
     #[doc = " @brief Sets the maximum moving distance for gestures to be recognized by a long press gesture recognizer.\n\n @param recognizer Indicates the pointer to a gesture recognizer.\n @param allowableMovement Indicates maximum moving distance.\n @return Returns the result code.\n         Returns {@link ARKUI_ERROR_CODE_NO_ERROR} if the operation is successful.\n         Returns {@link ARKUI_ERROR_CODE_PARAM_INVALID} if a parameter error occurs.\n         Returns {@link ARKUI_ERROR_CODE_RECOGNIZER_TYPE_NOT_SUPPORTED} if the gesture recognizer type is\n                 not supported.\n @since 22"]
+    #[cfg(feature = "api-22")]
     pub fn OH_ArkUI_LongPressGesture_SetAllowableMovement(
         recognizer: *mut ArkUI_GestureRecognizer,
         allowableMovement: f64,
     ) -> ArkUI_ErrorCode;
 }
 extern "C" {
-    #[cfg(feature = "api-22")]
     #[doc = " @brief Obtains the maximum moving distance for gestures to be recognized by a long press gesture recognizer.\n\n @param recognizer Pointer to a gesture recognizer.\n @param allowableMovement Indicates maximum moving distance.\n @return Returns the result code.\n         Returns {@link ARKUI_ERROR_CODE_NO_ERROR} if the operation is successful.\n         Returns {@link ARKUI_ERROR_CODE_PARAM_INVALID} if a parameter error occurs.\n         Returns {@link ARKUI_ERROR_CODE_RECOGNIZER_TYPE_NOT_SUPPORTED} if the gesture recognizer type is not\n supported.\n @since 22"]
+    #[cfg(feature = "api-22")]
     pub fn OH_ArkUI_LongPressGesture_GetAllowableMovement(
         recognizer: *mut ArkUI_GestureRecognizer,
         allowableMovement: *mut f64,
     ) -> ArkUI_ErrorCode;
 }
 extern "C" {
-    #[cfg(feature = "api-19")]
     #[doc = " @brief Sets the minimum movement distance thresholds for gestures to be recognized by a gesture recognizer.\n\n @param recognizer Indicates the pointer to a gesture recognizer.\n @param size Size of the array of minimum movement distance thresholds.\n @param toolTypeArray Pointer to the array of tool types for which thresholds are set.\n @param distanceArray Pointer to the array of minimum movement distances, in px.\n @return Returns the result code.\n         Returns {@link ARKUI_ERROR_CODE_NO_ERROR} if the operation is successful.\n         Returns {@link ARKUI_ERROR_CODE_PARAM_INVALID} if a parameter error occurs.\n         Returns {@link ARKUI_ERROR_CODE_RECOGNIZER_TYPE_NOT_SUPPORTED} if the gesture recognizer type is\n                 not supported.\n @since 19"]
+    #[cfg(feature = "api-19")]
     pub fn OH_ArkUI_PanGesture_SetDistanceMap(
         recognizer: *mut ArkUI_GestureRecognizer,
         size: ::std::os::raw::c_int,
@@ -12457,8 +12457,8 @@ extern "C" {
     ) -> ArkUI_ErrorCode;
 }
 extern "C" {
-    #[cfg(feature = "api-19")]
     #[doc = " @brief Obtains the movement threshold for gestures to be recognized by a gesture recognizer for a specific tool type.\n\n @param recognizer Indicates the pointer to a gesture recognizer.\n @param toolType Tool type for which you want to obtain the threshold.\n @param distance Gesture movement threshold of the gesture recognizer, in px.\n @return Returns the result code.\n         Returns {@link ARKUI_ERROR_CODE_NO_ERROR} if the operation is successful.\n         Returns {@link ARKUI_ERROR_CODE_PARAM_INVALID} if a parameter exception occurs.\n         Returns {@link ARKUI_ERROR_CODE_RECOGNIZER_TYPE_NOT_SUPPORTED} if the gesture recognizer type is\n                 not supported.\n @since 19"]
+    #[cfg(feature = "api-19")]
     pub fn OH_ArkUI_PanGesture_GetDistanceByToolType(
         recognizer: *mut ArkUI_GestureRecognizer,
         toolType: ::std::os::raw::c_int,
@@ -12466,8 +12466,8 @@ extern "C" {
     ) -> ArkUI_ErrorCode;
 }
 extern "C" {
-    #[cfg(feature = "api-20")]
     #[doc = " @brief Registers a callback that is executed after all gesture recognizers are collected.\n When the user begins touching the screen, the system performs hit testing and collects gesture recognizers\n based on the touch location. Subsequently, before processing any move events, the component can use this API\n to determine the gesture recognizers that will participate in and compete for recognition.\n\n @param node Handle to the node on which the callback is to be set.\n @param userData Custom data.\n @param touchTestDone Callback for completion of gesture recognizer collection.\n                      - event: Basic information of the gesture.\n                      - recognizers: Array of gesture recognizers.\n                      - count: Number of gesture recognizers.\n @return Result code.\n         {@link ARKUI_ERROR_CODE_NO_ERROR}: The operation is successful.\n         {@link ARKUI_ERROR_CODE_PARAM_INVALID}: A parameter error occurs.\n @since 20"]
+    #[cfg(feature = "api-20")]
     pub fn OH_ArkUI_SetTouchTestDoneCallback(
         node: ArkUI_NodeHandle,
         userData: *mut ::std::os::raw::c_void,
@@ -12612,8 +12612,8 @@ pub struct ArkUI_NativeGestureAPI_1 {
         ) -> *mut ArkUI_GestureRecognizer,
     >,
 }
-#[cfg(feature = "api-18")]
 #[doc = " @brief Defines the gesture APIs.\n\n @since 18"]
+#[cfg(feature = "api-18")]
 #[repr(C)]
 #[derive(Debug, Copy, Clone)]
 pub struct ArkUI_NativeGestureAPI_2 {
@@ -12633,15 +12633,15 @@ pub struct ArkUI_NativeGestureAPI_2 {
     >,
 }
 extern "C" {
-    #[cfg(feature = "api-18")]
     #[doc = " @brief Obtains the custom data from a gesture interruption event.\n\n @param event Pointer to the gesture interruption information.\n @return Returns the pointer to the custom data.\n @since 18"]
+    #[cfg(feature = "api-18")]
     pub fn OH_ArkUI_GestureInterrupter_GetUserData(
         event: *mut ArkUI_GestureInterruptInfo,
     ) -> *mut ::std::os::raw::c_void;
 }
 extern "C" {
-    #[cfg(feature = "api-20")]
     #[doc = " @brief Prevents a gesture recognizer from participating in the current gesture recognition before all fingers are\n lifted.\n If the system has already determined the result of the gesture recognizer (regardless of success or failure),\n calling this API will be ineffective.\n\n @param recognizer Pointer to a gesture recognizer.\n @return Result code.\n         {@link ARKUI_ERROR_CODE_NO_ERROR}: The operation is successful.\n         {@link ARKUI_ERROR_CODE_PARAM_INVALID}: A parameter error occurs.\n @since 20"]
+    #[cfg(feature = "api-20")]
     pub fn OH_ArkUI_PreventGestureRecognizerBegin(
         recognizer: *mut ArkUI_GestureRecognizer,
     ) -> ArkUI_ErrorCode;
@@ -12654,8 +12654,8 @@ pub const ArkUI_NativeAPIVariantKind_ARKUI_NATIVE_DIALOG: ArkUI_NativeAPIVariant
 pub const ArkUI_NativeAPIVariantKind_ARKUI_NATIVE_GESTURE: ArkUI_NativeAPIVariantKind = 2;
 #[doc = " API related to animations. For details, see the struct definition in <arkui/native_animate.h>."]
 pub const ArkUI_NativeAPIVariantKind_ARKUI_NATIVE_ANIMATE: ArkUI_NativeAPIVariantKind = 3;
-#[cfg(feature = "api-22")]
 #[doc = " API related to supported multi thread UI components.\n For details, see the struct definition in <arkui/native_node.h>.\n @since 22"]
+#[cfg(feature = "api-22")]
 pub const ArkUI_NativeAPIVariantKind_ARKUI_MULTI_THREAD_NATIVE_NODE: ArkUI_NativeAPIVariantKind = 4;
 #[doc = " @brief Defines the native API types.\n\n @since 12"]
 pub type ArkUI_NativeAPIVariantKind = u32;
@@ -12666,629 +12666,629 @@ extern "C" {
         structName: *const ::std::os::raw::c_char,
     ) -> *mut ::std::os::raw::c_void;
 }
-#[cfg(feature = "api-14")]
 #[doc = " Unknown (or unrecognized) key"]
+#[cfg(feature = "api-14")]
 pub const ArkUI_KeyCode_ARKUI_KEYCODE_UNKNOWN: ArkUI_KeyCode = -1;
-#[cfg(feature = "api-14")]
 #[doc = " Function (Fn) key"]
+#[cfg(feature = "api-14")]
 pub const ArkUI_KeyCode_ARKUI_KEYCODE_FN: ArkUI_KeyCode = 0;
-#[cfg(feature = "api-14")]
 #[doc = " Volume Up key"]
+#[cfg(feature = "api-14")]
 pub const ArkUI_KeyCode_ARKUI_KEYCODE_VOLUME_UP: ArkUI_KeyCode = 16;
-#[cfg(feature = "api-14")]
 #[doc = " Volume Down key"]
+#[cfg(feature = "api-14")]
 pub const ArkUI_KeyCode_ARKUI_KEYCODE_VOLUME_DOWN: ArkUI_KeyCode = 17;
-#[cfg(feature = "api-14")]
 #[doc = " Power key"]
+#[cfg(feature = "api-14")]
 pub const ArkUI_KeyCode_ARKUI_KEYCODE_POWER: ArkUI_KeyCode = 18;
-#[cfg(feature = "api-14")]
 #[doc = " Shutter key"]
+#[cfg(feature = "api-14")]
 pub const ArkUI_KeyCode_ARKUI_KEYCODE_CAMERA: ArkUI_KeyCode = 19;
-#[cfg(feature = "api-14")]
 #[doc = " Speaker Mute key"]
+#[cfg(feature = "api-14")]
 pub const ArkUI_KeyCode_ARKUI_KEYCODE_VOLUME_MUTE: ArkUI_KeyCode = 22;
-#[cfg(feature = "api-14")]
 #[doc = " Mute key"]
+#[cfg(feature = "api-14")]
 pub const ArkUI_KeyCode_ARKUI_KEYCODE_MUTE: ArkUI_KeyCode = 23;
-#[cfg(feature = "api-14")]
 #[doc = " Brightness Up key"]
+#[cfg(feature = "api-14")]
 pub const ArkUI_KeyCode_ARKUI_KEYCODE_BRIGHTNESS_UP: ArkUI_KeyCode = 40;
-#[cfg(feature = "api-14")]
 #[doc = " Brightness Down key"]
+#[cfg(feature = "api-14")]
 pub const ArkUI_KeyCode_ARKUI_KEYCODE_BRIGHTNESS_DOWN: ArkUI_KeyCode = 41;
-#[cfg(feature = "api-14")]
 #[doc = " Key 0"]
+#[cfg(feature = "api-14")]
 pub const ArkUI_KeyCode_ARKUI_KEYCODE_0: ArkUI_KeyCode = 2000;
-#[cfg(feature = "api-14")]
 #[doc = " Key 1"]
+#[cfg(feature = "api-14")]
 pub const ArkUI_KeyCode_ARKUI_KEYCODE_1: ArkUI_KeyCode = 2001;
-#[cfg(feature = "api-14")]
 #[doc = " Key 2"]
+#[cfg(feature = "api-14")]
 pub const ArkUI_KeyCode_ARKUI_KEYCODE_2: ArkUI_KeyCode = 2002;
-#[cfg(feature = "api-14")]
 #[doc = " Key 3"]
+#[cfg(feature = "api-14")]
 pub const ArkUI_KeyCode_ARKUI_KEYCODE_3: ArkUI_KeyCode = 2003;
-#[cfg(feature = "api-14")]
 #[doc = " Key 4"]
+#[cfg(feature = "api-14")]
 pub const ArkUI_KeyCode_ARKUI_KEYCODE_4: ArkUI_KeyCode = 2004;
-#[cfg(feature = "api-14")]
 #[doc = " Key 5"]
+#[cfg(feature = "api-14")]
 pub const ArkUI_KeyCode_ARKUI_KEYCODE_5: ArkUI_KeyCode = 2005;
-#[cfg(feature = "api-14")]
 #[doc = " Key 6"]
+#[cfg(feature = "api-14")]
 pub const ArkUI_KeyCode_ARKUI_KEYCODE_6: ArkUI_KeyCode = 2006;
-#[cfg(feature = "api-14")]
 #[doc = " Key 7"]
+#[cfg(feature = "api-14")]
 pub const ArkUI_KeyCode_ARKUI_KEYCODE_7: ArkUI_KeyCode = 2007;
-#[cfg(feature = "api-14")]
 #[doc = " Key 8"]
+#[cfg(feature = "api-14")]
 pub const ArkUI_KeyCode_ARKUI_KEYCODE_8: ArkUI_KeyCode = 2008;
-#[cfg(feature = "api-14")]
 #[doc = " Key 9"]
+#[cfg(feature = "api-14")]
 pub const ArkUI_KeyCode_ARKUI_KEYCODE_9: ArkUI_KeyCode = 2009;
-#[cfg(feature = "api-14")]
 #[doc = " Key +"]
+#[cfg(feature = "api-14")]
 pub const ArkUI_KeyCode_ARKUI_KEYCODE_STAR: ArkUI_KeyCode = 2010;
-#[cfg(feature = "api-14")]
 #[doc = " Key #"]
+#[cfg(feature = "api-14")]
 pub const ArkUI_KeyCode_ARKUI_KEYCODE_POUND: ArkUI_KeyCode = 2011;
-#[cfg(feature = "api-14")]
 #[doc = " Up key on D-pad"]
+#[cfg(feature = "api-14")]
 pub const ArkUI_KeyCode_ARKUI_KEYCODE_DPAD_UP: ArkUI_KeyCode = 2012;
-#[cfg(feature = "api-14")]
 #[doc = " Down key on D-pad"]
+#[cfg(feature = "api-14")]
 pub const ArkUI_KeyCode_ARKUI_KEYCODE_DPAD_DOWN: ArkUI_KeyCode = 2013;
-#[cfg(feature = "api-14")]
 #[doc = " Left key on D-pad"]
+#[cfg(feature = "api-14")]
 pub const ArkUI_KeyCode_ARKUI_KEYCODE_DPAD_LEFT: ArkUI_KeyCode = 2014;
-#[cfg(feature = "api-14")]
 #[doc = " Right key on D-pad"]
+#[cfg(feature = "api-14")]
 pub const ArkUI_KeyCode_ARKUI_KEYCODE_DPAD_RIGHT: ArkUI_KeyCode = 2015;
-#[cfg(feature = "api-14")]
 #[doc = " OK key on D-pad"]
+#[cfg(feature = "api-14")]
 pub const ArkUI_KeyCode_ARKUI_KEYCODE_DPAD_CENTER: ArkUI_KeyCode = 2016;
-#[cfg(feature = "api-14")]
 #[doc = " Key A"]
+#[cfg(feature = "api-14")]
 pub const ArkUI_KeyCode_ARKUI_KEYCODE_A: ArkUI_KeyCode = 2017;
-#[cfg(feature = "api-14")]
 #[doc = " Key B"]
+#[cfg(feature = "api-14")]
 pub const ArkUI_KeyCode_ARKUI_KEYCODE_B: ArkUI_KeyCode = 2018;
-#[cfg(feature = "api-14")]
 #[doc = " Key C"]
+#[cfg(feature = "api-14")]
 pub const ArkUI_KeyCode_ARKUI_KEYCODE_C: ArkUI_KeyCode = 2019;
-#[cfg(feature = "api-14")]
 #[doc = " Key D"]
+#[cfg(feature = "api-14")]
 pub const ArkUI_KeyCode_ARKUI_KEYCODE_D: ArkUI_KeyCode = 2020;
-#[cfg(feature = "api-14")]
 #[doc = " Key E"]
+#[cfg(feature = "api-14")]
 pub const ArkUI_KeyCode_ARKUI_KEYCODE_E: ArkUI_KeyCode = 2021;
-#[cfg(feature = "api-14")]
 #[doc = " Key F"]
+#[cfg(feature = "api-14")]
 pub const ArkUI_KeyCode_ARKUI_KEYCODE_F: ArkUI_KeyCode = 2022;
-#[cfg(feature = "api-14")]
 #[doc = " Key G"]
+#[cfg(feature = "api-14")]
 pub const ArkUI_KeyCode_ARKUI_KEYCODE_G: ArkUI_KeyCode = 2023;
-#[cfg(feature = "api-14")]
 #[doc = " Key H"]
+#[cfg(feature = "api-14")]
 pub const ArkUI_KeyCode_ARKUI_KEYCODE_H: ArkUI_KeyCode = 2024;
-#[cfg(feature = "api-14")]
 #[doc = " Key I"]
+#[cfg(feature = "api-14")]
 pub const ArkUI_KeyCode_ARKUI_KEYCODE_I: ArkUI_KeyCode = 2025;
-#[cfg(feature = "api-14")]
 #[doc = " Key J"]
+#[cfg(feature = "api-14")]
 pub const ArkUI_KeyCode_ARKUI_KEYCODE_J: ArkUI_KeyCode = 2026;
-#[cfg(feature = "api-14")]
 #[doc = " Key K"]
+#[cfg(feature = "api-14")]
 pub const ArkUI_KeyCode_ARKUI_KEYCODE_K: ArkUI_KeyCode = 2027;
-#[cfg(feature = "api-14")]
 #[doc = " Key L"]
+#[cfg(feature = "api-14")]
 pub const ArkUI_KeyCode_ARKUI_KEYCODE_L: ArkUI_KeyCode = 2028;
-#[cfg(feature = "api-14")]
 #[doc = " Key M"]
+#[cfg(feature = "api-14")]
 pub const ArkUI_KeyCode_ARKUI_KEYCODE_M: ArkUI_KeyCode = 2029;
-#[cfg(feature = "api-14")]
 #[doc = " Key N"]
+#[cfg(feature = "api-14")]
 pub const ArkUI_KeyCode_ARKUI_KEYCODE_N: ArkUI_KeyCode = 2030;
-#[cfg(feature = "api-14")]
 #[doc = " Key O"]
+#[cfg(feature = "api-14")]
 pub const ArkUI_KeyCode_ARKUI_KEYCODE_O: ArkUI_KeyCode = 2031;
-#[cfg(feature = "api-14")]
 #[doc = " Key P"]
+#[cfg(feature = "api-14")]
 pub const ArkUI_KeyCode_ARKUI_KEYCODE_P: ArkUI_KeyCode = 2032;
-#[cfg(feature = "api-14")]
 #[doc = " Key R"]
+#[cfg(feature = "api-14")]
 pub const ArkUI_KeyCode_ARKUI_KEYCODE_Q: ArkUI_KeyCode = 2033;
-#[cfg(feature = "api-14")]
 #[doc = " Key R"]
+#[cfg(feature = "api-14")]
 pub const ArkUI_KeyCode_ARKUI_KEYCODE_R: ArkUI_KeyCode = 2034;
-#[cfg(feature = "api-14")]
 #[doc = " Key S"]
+#[cfg(feature = "api-14")]
 pub const ArkUI_KeyCode_ARKUI_KEYCODE_S: ArkUI_KeyCode = 2035;
-#[cfg(feature = "api-14")]
 #[doc = " Key T"]
+#[cfg(feature = "api-14")]
 pub const ArkUI_KeyCode_ARKUI_KEYCODE_T: ArkUI_KeyCode = 2036;
-#[cfg(feature = "api-14")]
 #[doc = " Key U"]
+#[cfg(feature = "api-14")]
 pub const ArkUI_KeyCode_ARKUI_KEYCODE_U: ArkUI_KeyCode = 2037;
-#[cfg(feature = "api-14")]
 #[doc = " Key V"]
+#[cfg(feature = "api-14")]
 pub const ArkUI_KeyCode_ARKUI_KEYCODE_V: ArkUI_KeyCode = 2038;
-#[cfg(feature = "api-14")]
 #[doc = " Key W"]
+#[cfg(feature = "api-14")]
 pub const ArkUI_KeyCode_ARKUI_KEYCODE_W: ArkUI_KeyCode = 2039;
-#[cfg(feature = "api-14")]
 #[doc = " Key X"]
+#[cfg(feature = "api-14")]
 pub const ArkUI_KeyCode_ARKUI_KEYCODE_X: ArkUI_KeyCode = 2040;
-#[cfg(feature = "api-14")]
 #[doc = " Key Y"]
+#[cfg(feature = "api-14")]
 pub const ArkUI_KeyCode_ARKUI_KEYCODE_Y: ArkUI_KeyCode = 2041;
-#[cfg(feature = "api-14")]
 #[doc = " Key Z"]
+#[cfg(feature = "api-14")]
 pub const ArkUI_KeyCode_ARKUI_KEYCODE_Z: ArkUI_KeyCode = 2042;
-#[cfg(feature = "api-14")]
 #[doc = " Key #"]
+#[cfg(feature = "api-14")]
 pub const ArkUI_KeyCode_ARKUI_KEYCODE_COMMA: ArkUI_KeyCode = 2043;
-#[cfg(feature = "api-14")]
 #[doc = " Key #"]
+#[cfg(feature = "api-14")]
 pub const ArkUI_KeyCode_ARKUI_KEYCODE_PERIOD: ArkUI_KeyCode = 2044;
-#[cfg(feature = "api-14")]
 #[doc = " Left Alt key"]
+#[cfg(feature = "api-14")]
 pub const ArkUI_KeyCode_ARKUI_KEYCODE_ALT_LEFT: ArkUI_KeyCode = 2045;
-#[cfg(feature = "api-14")]
 #[doc = " Right Alt key"]
+#[cfg(feature = "api-14")]
 pub const ArkUI_KeyCode_ARKUI_KEYCODE_ALT_RIGHT: ArkUI_KeyCode = 2046;
-#[cfg(feature = "api-14")]
 #[doc = " Left Shift key"]
+#[cfg(feature = "api-14")]
 pub const ArkUI_KeyCode_ARKUI_KEYCODE_SHIFT_LEFT: ArkUI_KeyCode = 2047;
-#[cfg(feature = "api-14")]
 #[doc = " Right Shift key"]
+#[cfg(feature = "api-14")]
 pub const ArkUI_KeyCode_ARKUI_KEYCODE_SHIFT_RIGHT: ArkUI_KeyCode = 2048;
-#[cfg(feature = "api-14")]
 #[doc = " Tab key"]
+#[cfg(feature = "api-14")]
 pub const ArkUI_KeyCode_ARKUI_KEYCODE_TAB: ArkUI_KeyCode = 2049;
-#[cfg(feature = "api-14")]
 #[doc = " Space key"]
+#[cfg(feature = "api-14")]
 pub const ArkUI_KeyCode_ARKUI_KEYCODE_SPACE: ArkUI_KeyCode = 2050;
-#[cfg(feature = "api-14")]
 #[doc = " Symbol key"]
+#[cfg(feature = "api-14")]
 pub const ArkUI_KeyCode_ARKUI_KEYCODE_SYM: ArkUI_KeyCode = 2051;
-#[cfg(feature = "api-14")]
 #[doc = " Explorer key, used to start the explorer application"]
+#[cfg(feature = "api-14")]
 pub const ArkUI_KeyCode_ARKUI_KEYCODE_EXPLORER: ArkUI_KeyCode = 2052;
-#[cfg(feature = "api-14")]
 #[doc = " Email key, used to start the email application"]
+#[cfg(feature = "api-14")]
 pub const ArkUI_KeyCode_ARKUI_KEYCODE_ENVELOPE: ArkUI_KeyCode = 2053;
-#[cfg(feature = "api-14")]
 #[doc = " Enter key"]
+#[cfg(feature = "api-14")]
 pub const ArkUI_KeyCode_ARKUI_KEYCODE_ENTER: ArkUI_KeyCode = 2054;
-#[cfg(feature = "api-14")]
 #[doc = " Backspace key"]
+#[cfg(feature = "api-14")]
 pub const ArkUI_KeyCode_ARKUI_KEYCODE_DEL: ArkUI_KeyCode = 2055;
-#[cfg(feature = "api-14")]
 #[doc = " Key `"]
+#[cfg(feature = "api-14")]
 pub const ArkUI_KeyCode_ARKUI_KEYCODE_GRAVE: ArkUI_KeyCode = 2056;
-#[cfg(feature = "api-14")]
 #[doc = " Key -"]
+#[cfg(feature = "api-14")]
 pub const ArkUI_KeyCode_ARKUI_KEYCODE_MINUS: ArkUI_KeyCode = 2057;
-#[cfg(feature = "api-14")]
 #[doc = " Key ="]
+#[cfg(feature = "api-14")]
 pub const ArkUI_KeyCode_ARKUI_KEYCODE_EQUALS: ArkUI_KeyCode = 2058;
-#[cfg(feature = "api-14")]
 #[doc = " Key ["]
+#[cfg(feature = "api-14")]
 pub const ArkUI_KeyCode_ARKUI_KEYCODE_LEFT_BRACKET: ArkUI_KeyCode = 2059;
-#[cfg(feature = "api-14")]
 #[doc = " Key ]"]
+#[cfg(feature = "api-14")]
 pub const ArkUI_KeyCode_ARKUI_KEYCODE_RIGHT_BRACKET: ArkUI_KeyCode = 2060;
-#[cfg(feature = "api-14")]
 #[doc = " Key \\\\"]
+#[cfg(feature = "api-14")]
 pub const ArkUI_KeyCode_ARKUI_KEYCODE_BACKSLASH: ArkUI_KeyCode = 2061;
-#[cfg(feature = "api-14")]
 #[doc = " Key ;"]
+#[cfg(feature = "api-14")]
 pub const ArkUI_KeyCode_ARKUI_KEYCODE_SEMICOLON: ArkUI_KeyCode = 2062;
-#[cfg(feature = "api-14")]
 #[doc = " Key '"]
+#[cfg(feature = "api-14")]
 pub const ArkUI_KeyCode_ARKUI_KEYCODE_APOSTROPHE: ArkUI_KeyCode = 2063;
-#[cfg(feature = "api-14")]
 #[doc = " Key /"]
+#[cfg(feature = "api-14")]
 pub const ArkUI_KeyCode_ARKUI_KEYCODE_SLASH: ArkUI_KeyCode = 2064;
-#[cfg(feature = "api-14")]
 #[doc = " Key @"]
+#[cfg(feature = "api-14")]
 pub const ArkUI_KeyCode_ARKUI_KEYCODE_AT: ArkUI_KeyCode = 2065;
-#[cfg(feature = "api-14")]
 #[doc = " Key +"]
+#[cfg(feature = "api-14")]
 pub const ArkUI_KeyCode_ARKUI_KEYCODE_PLUS: ArkUI_KeyCode = 2066;
-#[cfg(feature = "api-14")]
 #[doc = " Menu key"]
+#[cfg(feature = "api-14")]
 pub const ArkUI_KeyCode_ARKUI_KEYCODE_MENU: ArkUI_KeyCode = 2067;
-#[cfg(feature = "api-14")]
 #[doc = " Page Up key"]
+#[cfg(feature = "api-14")]
 pub const ArkUI_KeyCode_ARKUI_KEYCODE_PAGE_UP: ArkUI_KeyCode = 2068;
-#[cfg(feature = "api-14")]
 #[doc = " Page Down key"]
+#[cfg(feature = "api-14")]
 pub const ArkUI_KeyCode_ARKUI_KEYCODE_PAGE_DOWN: ArkUI_KeyCode = 2069;
-#[cfg(feature = "api-14")]
 #[doc = " ESC key"]
+#[cfg(feature = "api-14")]
 pub const ArkUI_KeyCode_ARKUI_KEYCODE_ESCAPE: ArkUI_KeyCode = 2070;
-#[cfg(feature = "api-14")]
 #[doc = " Delete key"]
+#[cfg(feature = "api-14")]
 pub const ArkUI_KeyCode_ARKUI_KEYCODE_FORWARD_DEL: ArkUI_KeyCode = 2071;
-#[cfg(feature = "api-14")]
 #[doc = " Left Ctrl key"]
+#[cfg(feature = "api-14")]
 pub const ArkUI_KeyCode_ARKUI_KEYCODE_CTRL_LEFT: ArkUI_KeyCode = 2072;
-#[cfg(feature = "api-14")]
 #[doc = " Right Ctrl key"]
+#[cfg(feature = "api-14")]
 pub const ArkUI_KeyCode_ARKUI_KEYCODE_CTRL_RIGHT: ArkUI_KeyCode = 2073;
-#[cfg(feature = "api-14")]
 #[doc = " Caps Lock key"]
+#[cfg(feature = "api-14")]
 pub const ArkUI_KeyCode_ARKUI_KEYCODE_CAPS_LOCK: ArkUI_KeyCode = 2074;
-#[cfg(feature = "api-14")]
 #[doc = " Scroll Lock key"]
+#[cfg(feature = "api-14")]
 pub const ArkUI_KeyCode_ARKUI_KEYCODE_SCROLL_LOCK: ArkUI_KeyCode = 2075;
-#[cfg(feature = "api-14")]
 #[doc = " Left Meta key"]
+#[cfg(feature = "api-14")]
 pub const ArkUI_KeyCode_ARKUI_KEYCODE_META_LEFT: ArkUI_KeyCode = 2076;
-#[cfg(feature = "api-14")]
 #[doc = " Right Meta key"]
+#[cfg(feature = "api-14")]
 pub const ArkUI_KeyCode_ARKUI_KEYCODE_META_RIGHT: ArkUI_KeyCode = 2077;
-#[cfg(feature = "api-14")]
 #[doc = " Function key"]
+#[cfg(feature = "api-14")]
 pub const ArkUI_KeyCode_ARKUI_KEYCODE_FUNCTION: ArkUI_KeyCode = 2078;
-#[cfg(feature = "api-14")]
 #[doc = " System Request/Print Screen key"]
+#[cfg(feature = "api-14")]
 pub const ArkUI_KeyCode_ARKUI_KEYCODE_SYSRQ: ArkUI_KeyCode = 2079;
-#[cfg(feature = "api-14")]
 #[doc = " Break/Pause key"]
+#[cfg(feature = "api-14")]
 pub const ArkUI_KeyCode_ARKUI_KEYCODE_BREAK: ArkUI_KeyCode = 2080;
-#[cfg(feature = "api-14")]
 #[doc = " Move to Home key"]
+#[cfg(feature = "api-14")]
 pub const ArkUI_KeyCode_ARKUI_KEYCODE_MOVE_HOME: ArkUI_KeyCode = 2081;
-#[cfg(feature = "api-14")]
 #[doc = " Move to End key"]
+#[cfg(feature = "api-14")]
 pub const ArkUI_KeyCode_ARKUI_KEYCODE_MOVE_END: ArkUI_KeyCode = 2082;
-#[cfg(feature = "api-14")]
 #[doc = " Insert key"]
+#[cfg(feature = "api-14")]
 pub const ArkUI_KeyCode_ARKUI_KEYCODE_INSERT: ArkUI_KeyCode = 2083;
-#[cfg(feature = "api-14")]
 #[doc = " Forward key"]
+#[cfg(feature = "api-14")]
 pub const ArkUI_KeyCode_ARKUI_KEYCODE_FORWARD: ArkUI_KeyCode = 2084;
-#[cfg(feature = "api-14")]
 #[doc = " Play key"]
+#[cfg(feature = "api-14")]
 pub const ArkUI_KeyCode_ARKUI_KEYCODE_MEDIA_PLAY: ArkUI_KeyCode = 2085;
-#[cfg(feature = "api-14")]
 #[doc = " Pause key"]
+#[cfg(feature = "api-14")]
 pub const ArkUI_KeyCode_ARKUI_KEYCODE_MEDIA_PAUSE: ArkUI_KeyCode = 2086;
-#[cfg(feature = "api-14")]
 #[doc = " Close key"]
+#[cfg(feature = "api-14")]
 pub const ArkUI_KeyCode_ARKUI_KEYCODE_MEDIA_CLOSE: ArkUI_KeyCode = 2087;
-#[cfg(feature = "api-14")]
 #[doc = " Eject key"]
+#[cfg(feature = "api-14")]
 pub const ArkUI_KeyCode_ARKUI_KEYCODE_MEDIA_EJECT: ArkUI_KeyCode = 2088;
-#[cfg(feature = "api-14")]
 #[doc = " Record key"]
+#[cfg(feature = "api-14")]
 pub const ArkUI_KeyCode_ARKUI_KEYCODE_MEDIA_RECORD: ArkUI_KeyCode = 2089;
-#[cfg(feature = "api-14")]
 #[doc = " F1 key"]
+#[cfg(feature = "api-14")]
 pub const ArkUI_KeyCode_ARKUI_KEYCODE_F1: ArkUI_KeyCode = 2090;
-#[cfg(feature = "api-14")]
 #[doc = " F2 key"]
+#[cfg(feature = "api-14")]
 pub const ArkUI_KeyCode_ARKUI_KEYCODE_F2: ArkUI_KeyCode = 2091;
-#[cfg(feature = "api-14")]
 #[doc = " F3 key"]
+#[cfg(feature = "api-14")]
 pub const ArkUI_KeyCode_ARKUI_KEYCODE_F3: ArkUI_KeyCode = 2092;
-#[cfg(feature = "api-14")]
 #[doc = " F4 key"]
+#[cfg(feature = "api-14")]
 pub const ArkUI_KeyCode_ARKUI_KEYCODE_F4: ArkUI_KeyCode = 2093;
-#[cfg(feature = "api-14")]
 #[doc = " F5 key"]
+#[cfg(feature = "api-14")]
 pub const ArkUI_KeyCode_ARKUI_KEYCODE_F5: ArkUI_KeyCode = 2094;
-#[cfg(feature = "api-14")]
 #[doc = " F6 key"]
+#[cfg(feature = "api-14")]
 pub const ArkUI_KeyCode_ARKUI_KEYCODE_F6: ArkUI_KeyCode = 2095;
-#[cfg(feature = "api-14")]
 #[doc = " F7 key"]
+#[cfg(feature = "api-14")]
 pub const ArkUI_KeyCode_ARKUI_KEYCODE_F7: ArkUI_KeyCode = 2096;
-#[cfg(feature = "api-14")]
 #[doc = " F8 key"]
+#[cfg(feature = "api-14")]
 pub const ArkUI_KeyCode_ARKUI_KEYCODE_F8: ArkUI_KeyCode = 2097;
-#[cfg(feature = "api-14")]
 #[doc = " F9 key"]
+#[cfg(feature = "api-14")]
 pub const ArkUI_KeyCode_ARKUI_KEYCODE_F9: ArkUI_KeyCode = 2098;
-#[cfg(feature = "api-14")]
 #[doc = " F10 key"]
+#[cfg(feature = "api-14")]
 pub const ArkUI_KeyCode_ARKUI_KEYCODE_F10: ArkUI_KeyCode = 2099;
-#[cfg(feature = "api-14")]
 #[doc = " F11 key"]
+#[cfg(feature = "api-14")]
 pub const ArkUI_KeyCode_ARKUI_KEYCODE_F11: ArkUI_KeyCode = 2100;
-#[cfg(feature = "api-14")]
 #[doc = " F12 key"]
+#[cfg(feature = "api-14")]
 pub const ArkUI_KeyCode_ARKUI_KEYCODE_F12: ArkUI_KeyCode = 2101;
-#[cfg(feature = "api-14")]
 #[doc = " Number Lock key on numeric keypad"]
+#[cfg(feature = "api-14")]
 pub const ArkUI_KeyCode_ARKUI_KEYCODE_NUM_LOCK: ArkUI_KeyCode = 2102;
-#[cfg(feature = "api-14")]
 #[doc = " Key 0 on numeric keypad"]
+#[cfg(feature = "api-14")]
 pub const ArkUI_KeyCode_ARKUI_KEYCODE_NUMPAD_0: ArkUI_KeyCode = 2103;
-#[cfg(feature = "api-14")]
 #[doc = " Key 1 on numeric keypad"]
+#[cfg(feature = "api-14")]
 pub const ArkUI_KeyCode_ARKUI_KEYCODE_NUMPAD_1: ArkUI_KeyCode = 2104;
-#[cfg(feature = "api-14")]
 #[doc = " Key 2 on numeric keypad"]
+#[cfg(feature = "api-14")]
 pub const ArkUI_KeyCode_ARKUI_KEYCODE_NUMPAD_2: ArkUI_KeyCode = 2105;
-#[cfg(feature = "api-14")]
 #[doc = " Key 3 on numeric keypad"]
+#[cfg(feature = "api-14")]
 pub const ArkUI_KeyCode_ARKUI_KEYCODE_NUMPAD_3: ArkUI_KeyCode = 2106;
-#[cfg(feature = "api-14")]
 #[doc = " Key 4 on numeric keypad"]
+#[cfg(feature = "api-14")]
 pub const ArkUI_KeyCode_ARKUI_KEYCODE_NUMPAD_4: ArkUI_KeyCode = 2107;
-#[cfg(feature = "api-14")]
 #[doc = " Key 5 on numeric keypad"]
+#[cfg(feature = "api-14")]
 pub const ArkUI_KeyCode_ARKUI_KEYCODE_NUMPAD_5: ArkUI_KeyCode = 2108;
-#[cfg(feature = "api-14")]
 #[doc = " Key 6 on numeric keypad"]
+#[cfg(feature = "api-14")]
 pub const ArkUI_KeyCode_ARKUI_KEYCODE_NUMPAD_6: ArkUI_KeyCode = 2109;
-#[cfg(feature = "api-14")]
 #[doc = " Key 7 on numeric keypad"]
+#[cfg(feature = "api-14")]
 pub const ArkUI_KeyCode_ARKUI_KEYCODE_NUMPAD_7: ArkUI_KeyCode = 2110;
-#[cfg(feature = "api-14")]
 #[doc = " Key 8 on numeric keypad"]
+#[cfg(feature = "api-14")]
 pub const ArkUI_KeyCode_ARKUI_KEYCODE_NUMPAD_8: ArkUI_KeyCode = 2111;
-#[cfg(feature = "api-14")]
 #[doc = " Key 9 on numeric keypad"]
+#[cfg(feature = "api-14")]
 pub const ArkUI_KeyCode_ARKUI_KEYCODE_NUMPAD_9: ArkUI_KeyCode = 2112;
-#[cfg(feature = "api-14")]
 #[doc = " Key / on numeric keypad"]
+#[cfg(feature = "api-14")]
 pub const ArkUI_KeyCode_ARKUI_KEYCODE_NUMPAD_DIVIDE: ArkUI_KeyCode = 2113;
-#[cfg(feature = "api-14")]
 #[doc = " Key ) on numeric keypad"]
+#[cfg(feature = "api-14")]
 pub const ArkUI_KeyCode_ARKUI_KEYCODE_NUMPAD_MULTIPLY: ArkUI_KeyCode = 2114;
-#[cfg(feature = "api-14")]
 #[doc = " Key - on numeric keypad"]
+#[cfg(feature = "api-14")]
 pub const ArkUI_KeyCode_ARKUI_KEYCODE_NUMPAD_SUBTRACT: ArkUI_KeyCode = 2115;
-#[cfg(feature = "api-14")]
 #[doc = " Key + on numeric keypad"]
+#[cfg(feature = "api-14")]
 pub const ArkUI_KeyCode_ARKUI_KEYCODE_NUMPAD_ADD: ArkUI_KeyCode = 2116;
-#[cfg(feature = "api-14")]
 #[doc = " Key . on numeric keypad"]
+#[cfg(feature = "api-14")]
 pub const ArkUI_KeyCode_ARKUI_KEYCODE_NUMPAD_DOT: ArkUI_KeyCode = 2117;
-#[cfg(feature = "api-14")]
 #[doc = " Key , on numeric keypad"]
+#[cfg(feature = "api-14")]
 pub const ArkUI_KeyCode_ARKUI_KEYCODE_NUMPAD_COMMA: ArkUI_KeyCode = 2118;
-#[cfg(feature = "api-14")]
 #[doc = " Enter key on numeric keypad"]
+#[cfg(feature = "api-14")]
 pub const ArkUI_KeyCode_ARKUI_KEYCODE_NUMPAD_ENTER: ArkUI_KeyCode = 2119;
-#[cfg(feature = "api-14")]
 #[doc = " Key = on numeric keypad"]
+#[cfg(feature = "api-14")]
 pub const ArkUI_KeyCode_ARKUI_KEYCODE_NUMPAD_EQUALS: ArkUI_KeyCode = 2120;
-#[cfg(feature = "api-14")]
 #[doc = " Key ( on numeric keypad"]
+#[cfg(feature = "api-14")]
 pub const ArkUI_KeyCode_ARKUI_KEYCODE_NUMPAD_LEFT_PAREN: ArkUI_KeyCode = 2121;
-#[cfg(feature = "api-14")]
 #[doc = " Key ) on numeric keypad"]
+#[cfg(feature = "api-14")]
 pub const ArkUI_KeyCode_ARKUI_KEYCODE_NUMPAD_RIGHT_PAREN: ArkUI_KeyCode = 2122;
-#[cfg(feature = "api-15")]
 #[doc = " Joystick key A\n @since 15"]
+#[cfg(feature = "api-15")]
 pub const ArkUI_KeyCode_ARKUI_KEYCODE_BUTTON_A: ArkUI_KeyCode = 2301;
-#[cfg(feature = "api-15")]
 #[doc = " Joystick key B\n @since 15"]
+#[cfg(feature = "api-15")]
 pub const ArkUI_KeyCode_ARKUI_KEYCODE_BUTTON_B: ArkUI_KeyCode = 2302;
-#[cfg(feature = "api-15")]
 #[doc = " Joystick key X\n @since 15"]
+#[cfg(feature = "api-15")]
 pub const ArkUI_KeyCode_ARKUI_KEYCODE_BUTTON_X: ArkUI_KeyCode = 2304;
-#[cfg(feature = "api-15")]
 #[doc = " Joystick key Y\n @since 15"]
+#[cfg(feature = "api-15")]
 pub const ArkUI_KeyCode_ARKUI_KEYCODE_BUTTON_Y: ArkUI_KeyCode = 2305;
-#[cfg(feature = "api-15")]
 #[doc = " Joystick key L1\n @since 15"]
+#[cfg(feature = "api-15")]
 pub const ArkUI_KeyCode_ARKUI_KEYCODE_BUTTON_L1: ArkUI_KeyCode = 2307;
-#[cfg(feature = "api-15")]
 #[doc = " Joystick key R1\n @since 15"]
+#[cfg(feature = "api-15")]
 pub const ArkUI_KeyCode_ARKUI_KEYCODE_BUTTON_R1: ArkUI_KeyCode = 2308;
-#[cfg(feature = "api-15")]
 #[doc = " Joystick key L2\n @since 15"]
+#[cfg(feature = "api-15")]
 pub const ArkUI_KeyCode_ARKUI_KEYCODE_BUTTON_L2: ArkUI_KeyCode = 2309;
-#[cfg(feature = "api-15")]
 #[doc = " Joystick key R2\n @since 15"]
+#[cfg(feature = "api-15")]
 pub const ArkUI_KeyCode_ARKUI_KEYCODE_BUTTON_R2: ArkUI_KeyCode = 2310;
-#[cfg(feature = "api-15")]
 #[doc = " Joystick key Select\n @since 15"]
+#[cfg(feature = "api-15")]
 pub const ArkUI_KeyCode_ARKUI_KEYCODE_BUTTON_SELECT: ArkUI_KeyCode = 2311;
-#[cfg(feature = "api-15")]
 #[doc = " Joystick key Start\n @since 15"]
+#[cfg(feature = "api-15")]
 pub const ArkUI_KeyCode_ARKUI_KEYCODE_BUTTON_START: ArkUI_KeyCode = 2312;
-#[cfg(feature = "api-15")]
 #[doc = " Joystick key Mode\n @since 15"]
+#[cfg(feature = "api-15")]
 pub const ArkUI_KeyCode_ARKUI_KEYCODE_BUTTON_MODE: ArkUI_KeyCode = 2313;
-#[cfg(feature = "api-15")]
 #[doc = " Joystick key THUMBL\n @since 15"]
+#[cfg(feature = "api-15")]
 pub const ArkUI_KeyCode_ARKUI_KEYCODE_BUTTON_THUMBL: ArkUI_KeyCode = 2314;
-#[cfg(feature = "api-15")]
 #[doc = " Joystick key THUMBR\n @since 15"]
-pub const ArkUI_KeyCode_ARKUI_KEYCODE_BUTTON_THUMBR: ArkUI_KeyCode = 2315;
-#[cfg(feature = "api-14")]
-#[doc = " @brief Defines an enum for the key codes in key events.\n\n @since 14"]
-pub type ArkUI_KeyCode = i32;
-#[cfg(feature = "api-14")]
-#[doc = " Unknown type"]
-pub const ArkUI_KeyEventType_ARKUI_KEY_EVENT_UNKNOWN: ArkUI_KeyEventType = -1;
-#[cfg(feature = "api-14")]
-#[doc = " Pressing of a key"]
-pub const ArkUI_KeyEventType_ARKUI_KEY_EVENT_DOWN: ArkUI_KeyEventType = 0;
-#[cfg(feature = "api-14")]
-#[doc = " Release of a key"]
-pub const ArkUI_KeyEventType_ARKUI_KEY_EVENT_UP: ArkUI_KeyEventType = 1;
-#[cfg(feature = "api-14")]
-#[doc = " Long press of a key"]
-pub const ArkUI_KeyEventType_ARKUI_KEY_EVENT_LONG_PRESS: ArkUI_KeyEventType = 2;
-#[cfg(feature = "api-14")]
-#[doc = " Click of a key"]
-pub const ArkUI_KeyEventType_ARKUI_KEY_EVENT_CLICK: ArkUI_KeyEventType = 3;
-#[cfg(feature = "api-14")]
-#[doc = " @brief Defines an enum for the key event types.\n\n @since 14"]
-pub type ArkUI_KeyEventType = i32;
-#[cfg(feature = "api-14")]
-#[doc = " Unknown type"]
-pub const ArkUI_KeySourceType_ARKUI_KEY_SOURCE_UNKNOWN: ArkUI_KeySourceType = 0;
-#[cfg(feature = "api-14")]
-#[doc = " Mouse"]
-pub const ArkUI_KeySourceType_ARKUI_KEY_SOURCE_TYPE_MOUSE: ArkUI_KeySourceType = 1;
-#[cfg(feature = "api-14")]
-#[doc = " Keyboard"]
-pub const ArkUI_KeySourceType_ARKUI_KEY_SOURCE_TYPE_KEYBOARD: ArkUI_KeySourceType = 4;
 #[cfg(feature = "api-15")]
+pub const ArkUI_KeyCode_ARKUI_KEYCODE_BUTTON_THUMBR: ArkUI_KeyCode = 2315;
+#[doc = " @brief Defines an enum for the key codes in key events.\n\n @since 14"]
+#[cfg(feature = "api-14")]
+pub type ArkUI_KeyCode = i32;
+#[doc = " Unknown type"]
+#[cfg(feature = "api-14")]
+pub const ArkUI_KeyEventType_ARKUI_KEY_EVENT_UNKNOWN: ArkUI_KeyEventType = -1;
+#[doc = " Pressing of a key"]
+#[cfg(feature = "api-14")]
+pub const ArkUI_KeyEventType_ARKUI_KEY_EVENT_DOWN: ArkUI_KeyEventType = 0;
+#[doc = " Release of a key"]
+#[cfg(feature = "api-14")]
+pub const ArkUI_KeyEventType_ARKUI_KEY_EVENT_UP: ArkUI_KeyEventType = 1;
+#[doc = " Long press of a key"]
+#[cfg(feature = "api-14")]
+pub const ArkUI_KeyEventType_ARKUI_KEY_EVENT_LONG_PRESS: ArkUI_KeyEventType = 2;
+#[doc = " Click of a key"]
+#[cfg(feature = "api-14")]
+pub const ArkUI_KeyEventType_ARKUI_KEY_EVENT_CLICK: ArkUI_KeyEventType = 3;
+#[doc = " @brief Defines an enum for the key event types.\n\n @since 14"]
+#[cfg(feature = "api-14")]
+pub type ArkUI_KeyEventType = i32;
+#[doc = " Unknown type"]
+#[cfg(feature = "api-14")]
+pub const ArkUI_KeySourceType_ARKUI_KEY_SOURCE_UNKNOWN: ArkUI_KeySourceType = 0;
+#[doc = " Mouse"]
+#[cfg(feature = "api-14")]
+pub const ArkUI_KeySourceType_ARKUI_KEY_SOURCE_TYPE_MOUSE: ArkUI_KeySourceType = 1;
+#[doc = " Keyboard"]
+#[cfg(feature = "api-14")]
+pub const ArkUI_KeySourceType_ARKUI_KEY_SOURCE_TYPE_KEYBOARD: ArkUI_KeySourceType = 4;
 #[doc = " @brief Joystick.\n\n @since 15"]
+#[cfg(feature = "api-15")]
 pub const ArkUI_KeySourceType_ARKUI_KEY_SOURCE_TYPE_JOYSTICK: ArkUI_KeySourceType = 5;
-#[cfg(feature = "api-14")]
 #[doc = " @brief Defines an enum for the types of devices that trigger a key event.\n\n @since 14"]
+#[cfg(feature = "api-14")]
 pub type ArkUI_KeySourceType = u32;
-#[cfg(feature = "api-14")]
 #[doc = " Unknown intention"]
+#[cfg(feature = "api-14")]
 pub const ArkUI_KeyIntension_ARKUI_KEY_INTENSION_UNKNOWN: ArkUI_KeyIntension = -1;
-#[cfg(feature = "api-14")]
 #[doc = "Upward"]
+#[cfg(feature = "api-14")]
 pub const ArkUI_KeyIntension_ARKUI_KEY_INTENSION_UP: ArkUI_KeyIntension = 1;
-#[cfg(feature = "api-14")]
 #[doc = " Downward"]
+#[cfg(feature = "api-14")]
 pub const ArkUI_KeyIntension_ARKUI_KEY_INTENSION_DOWN: ArkUI_KeyIntension = 2;
-#[cfg(feature = "api-14")]
 #[doc = " Leftward"]
+#[cfg(feature = "api-14")]
 pub const ArkUI_KeyIntension_ARKUI_KEY_INTENSION_LEFT: ArkUI_KeyIntension = 3;
-#[cfg(feature = "api-14")]
 #[doc = " Rightward"]
+#[cfg(feature = "api-14")]
 pub const ArkUI_KeyIntension_ARKUI_KEY_INTENSION_RIGHT: ArkUI_KeyIntension = 4;
-#[cfg(feature = "api-14")]
 #[doc = " Select"]
+#[cfg(feature = "api-14")]
 pub const ArkUI_KeyIntension_ARKUI_KEY_INTENSION_SELECT: ArkUI_KeyIntension = 5;
-#[cfg(feature = "api-14")]
 #[doc = " Escape"]
+#[cfg(feature = "api-14")]
 pub const ArkUI_KeyIntension_ARKUI_KEY_INTENSION_ESCAPE: ArkUI_KeyIntension = 6;
-#[cfg(feature = "api-14")]
 #[doc = " Back"]
+#[cfg(feature = "api-14")]
 pub const ArkUI_KeyIntension_ARKUI_KEY_INTENSION_BACK: ArkUI_KeyIntension = 7;
-#[cfg(feature = "api-14")]
 #[doc = " Forward"]
+#[cfg(feature = "api-14")]
 pub const ArkUI_KeyIntension_ARKUI_KEY_INTENSION_FORWARD: ArkUI_KeyIntension = 8;
-#[cfg(feature = "api-14")]
 #[doc = " Menu"]
+#[cfg(feature = "api-14")]
 pub const ArkUI_KeyIntension_ARKUI_KEY_INTENSION_MENU: ArkUI_KeyIntension = 9;
-#[cfg(feature = "api-14")]
 #[doc = " Home"]
+#[cfg(feature = "api-14")]
 pub const ArkUI_KeyIntension_ARKUI_KEY_INTENSION_HOME: ArkUI_KeyIntension = 10;
-#[cfg(feature = "api-14")]
 #[doc = " Page up"]
+#[cfg(feature = "api-14")]
 pub const ArkUI_KeyIntension_ARKUI_KEY_INTENSION_PAGE_UP: ArkUI_KeyIntension = 11;
-#[cfg(feature = "api-14")]
 #[doc = " Page down"]
+#[cfg(feature = "api-14")]
 pub const ArkUI_KeyIntension_ARKUI_KEY_INTENSION_PAGE_DOWN: ArkUI_KeyIntension = 12;
-#[cfg(feature = "api-14")]
 #[doc = " Zoom out"]
+#[cfg(feature = "api-14")]
 pub const ArkUI_KeyIntension_ARKUI_KEY_INTENSION_ZOOM_OUT: ArkUI_KeyIntension = 13;
-#[cfg(feature = "api-14")]
 #[doc = " Zoom in"]
+#[cfg(feature = "api-14")]
 pub const ArkUI_KeyIntension_ARKUI_KEY_INTENSION_ZOOM_IN: ArkUI_KeyIntension = 14;
-#[cfg(feature = "api-14")]
 #[doc = " Play or pause"]
+#[cfg(feature = "api-14")]
 pub const ArkUI_KeyIntension_ARKUI_KEY_INTENTION_MEDIA_PLAY_PAUSE: ArkUI_KeyIntension = 100;
-#[cfg(feature = "api-14")]
 #[doc = " Fast-forward"]
+#[cfg(feature = "api-14")]
 pub const ArkUI_KeyIntension_ARKUI_KEY_INTENTION_MEDIA_FAST_FORWARD: ArkUI_KeyIntension = 101;
-#[cfg(feature = "api-14")]
 #[doc = " Fast playback"]
+#[cfg(feature = "api-14")]
 pub const ArkUI_KeyIntension_ARKUI_KEY_INTENTION_MEDIA_FAST_PLAYBACK: ArkUI_KeyIntension = 103;
-#[cfg(feature = "api-14")]
 #[doc = " Play next"]
+#[cfg(feature = "api-14")]
 pub const ArkUI_KeyIntension_ARKUI_KEY_INTENTION_MEDIA_NEXT: ArkUI_KeyIntension = 104;
-#[cfg(feature = "api-14")]
 #[doc = " Play previous"]
+#[cfg(feature = "api-14")]
 pub const ArkUI_KeyIntension_ARKUI_KEY_INTENTION_MEDIA_PREVIOUS: ArkUI_KeyIntension = 105;
-#[cfg(feature = "api-14")]
 #[doc = " Mute"]
+#[cfg(feature = "api-14")]
 pub const ArkUI_KeyIntension_ARKUI_KEY_INTENTION_MEDIA_MUTE: ArkUI_KeyIntension = 106;
-#[cfg(feature = "api-14")]
 #[doc = " Volume up"]
+#[cfg(feature = "api-14")]
 pub const ArkUI_KeyIntension_ARKUI_KEY_INTENTION_VOLUME_UP: ArkUI_KeyIntension = 107;
-#[cfg(feature = "api-14")]
 #[doc = " Volume down"]
+#[cfg(feature = "api-14")]
 pub const ArkUI_KeyIntension_ARKUI_KEY_INTENTION_VOLUME_DOWN: ArkUI_KeyIntension = 108;
-#[cfg(feature = "api-14")]
 #[doc = " Answer a call"]
+#[cfg(feature = "api-14")]
 pub const ArkUI_KeyIntension_ARKUI_KEY_INTENTION_CALL: ArkUI_KeyIntension = 200;
-#[cfg(feature = "api-14")]
 #[doc = " Camera"]
-pub const ArkUI_KeyIntension_ARKUI_KEY_INTENTION_CAMERA: ArkUI_KeyIntension = 300;
 #[cfg(feature = "api-14")]
+pub const ArkUI_KeyIntension_ARKUI_KEY_INTENTION_CAMERA: ArkUI_KeyIntension = 300;
 #[doc = " @brief Defines an enum for key intentions.\n\n @since 14"]
+#[cfg(feature = "api-14")]
 pub type ArkUI_KeyIntension = i32;
 extern "C" {
-    #[cfg(feature = "api-14")]
     #[doc = " @brief Obtains the type of a key event.\n\n @param event Pointer to an <b>ArkUI_UIInputEvent</b> object.\n @return Returns the key event type.\n @since 14"]
+    #[cfg(feature = "api-14")]
     pub fn OH_ArkUI_KeyEvent_GetType(event: *const ArkUI_UIInputEvent) -> ArkUI_KeyEventType;
 }
 extern "C" {
-    #[cfg(feature = "api-14")]
     #[doc = " @brief Obtains the key code from a key event.\n\n @param event Pointer to an <b>ArkUI_UIInputEvent</b> object.\n @return Returns the key code.\n @since 14"]
+    #[cfg(feature = "api-14")]
     pub fn OH_ArkUI_KeyEvent_GetKeyCode(event: *const ArkUI_UIInputEvent) -> i32;
 }
 extern "C" {
-    #[cfg(feature = "api-14")]
     #[doc = " @brief Obtains the key value from a key event.\n\n @param event Pointer to an <b>ArkUI_UIInputEvent</b> object.\n @return Returns the key value.\n @since 14"]
+    #[cfg(feature = "api-14")]
     pub fn OH_ArkUI_KeyEvent_GetKeyText(
         event: *const ArkUI_UIInputEvent,
     ) -> *const ::std::os::raw::c_char;
 }
 extern "C" {
-    #[cfg(feature = "api-14")]
     #[doc = " @brief Obtains the type of device that triggers a key event.\n\n @param event Pointer to an <b>ArkUI_UIInputEvent</b> object.\n @return Returns the device type.\n @since 14"]
+    #[cfg(feature = "api-14")]
     pub fn OH_ArkUI_KeyEvent_GetKeySource(event: *const ArkUI_UIInputEvent) -> ArkUI_KeySourceType;
 }
 extern "C" {
-    #[cfg(feature = "api-14")]
     #[doc = " @brief Prevents a key event from bubbling up.\n\n @param event Pointer to an <b>ArkUI_UIInputEvent</b> object.\n @param stopPropagation Whether to stop event propagation.\n @since 14"]
+    #[cfg(feature = "api-14")]
     pub fn OH_ArkUI_KeyEvent_StopPropagation(
         event: *const ArkUI_UIInputEvent,
         stopPropagation: bool,
     );
 }
 extern "C" {
-    #[cfg(feature = "api-14")]
     #[doc = " @brief Obtains the intention code associated with a key event.\n\n @param event Pointer to an <b>ArkUI_UIInputEvent</b> object.\n @return Returns the intention code associated with the key event.\n @since 14"]
+    #[cfg(feature = "api-14")]
     pub fn OH_ArkUI_KeyEvent_GetKeyIntensionCode(
         event: *const ArkUI_UIInputEvent,
     ) -> ArkUI_KeyIntension;
 }
 extern "C" {
-    #[cfg(feature = "api-14")]
     #[doc = " @brief Obtains the Unicode value associated with a key event.\n Non-space basic Latin characters in the 0x0021-0x007E range are supported. Characters with a value of 0 are not\n supported. In the case of key combination, this API returns the Unicode value of the key corresponding to the key\n event.\n\n @param event Pointer to an <b>ArkUI_UIInputEvent</b> object.\n @return Returns the Unicode value.\n @since 14"]
+    #[cfg(feature = "api-14")]
     pub fn OH_ArkUI_KeyEvent_GetUnicode(event: *const ArkUI_UIInputEvent) -> u32;
 }
 extern "C" {
-    #[cfg(feature = "api-14")]
     #[doc = " @brief Sets whether a key event is consumed in the key event callback.\n\n @param event Pointer to an <b>ArkUI_UIInputEvent</b> object.\n @param isConsumed Whether the event is consumed.\n @since 14"]
+    #[cfg(feature = "api-14")]
     pub fn OH_ArkUI_KeyEvent_SetConsumed(event: *const ArkUI_UIInputEvent, isConsumed: bool);
 }
 extern "C" {
-    #[cfg(feature = "api-15")]
     #[doc = " @brief Dispatch key event to a specific component node.\n\n @param node Indicates the pointer to a component node.\n @param event Pointer to an <b>ArkUI_UIInputEvent</b> object.\n @since 15"]
+    #[cfg(feature = "api-15")]
     pub fn OH_ArkUI_KeyEvent_Dispatch(node: ArkUI_NodeHandle, event: *const ArkUI_UIInputEvent);
 }
 extern "C" {
-    #[cfg(feature = "api-19")]
     #[doc = " @brief Get the Num Lock state of the key event.\n\n @param event Pointer to an <b>ArkUI_UIInputEvent</b> object.\n @param state Return whether the Num Lock is on.\n @return Returns the result code.\n         Returns {@link ARKUI_ERROR_CODE_NO_ERROR} if the operation is successful.\n         Returns {@link ARKUI_ERROR_CODE_PARAM_INVALID} if a parameter error occurs.\n @since 19"]
+    #[cfg(feature = "api-19")]
     pub fn OH_ArkUI_KeyEvent_IsNumLockOn(
         event: *const ArkUI_UIInputEvent,
         state: *mut bool,
     ) -> ArkUI_ErrorCode;
 }
 extern "C" {
-    #[cfg(feature = "api-19")]
     #[doc = " @brief Get the Caps Lock state of the key event.\n\n @param event Pointer to an <b>ArkUI_UIInputEvent</b> object.\n @param state Return whether the Caps Lock is on.\n @return Returns the result code.\n         Returns {@link ARKUI_ERROR_CODE_NO_ERROR} if the operation is successful.\n         Returns {@link ARKUI_ERROR_CODE_PARAM_INVALID} if a parameter error occurs.\n @since 19"]
+    #[cfg(feature = "api-19")]
     pub fn OH_ArkUI_KeyEvent_IsCapsLockOn(
         event: *const ArkUI_UIInputEvent,
         state: *mut bool,
     ) -> ArkUI_ErrorCode;
 }
 extern "C" {
-    #[cfg(feature = "api-19")]
     #[doc = " @brief Get the Scroll Lock state of the key event.\n\n @param event Pointer to an <b>ArkUI_UIInputEvent</b> object.\n @param state Return whether the Scroll Lock is on.\n @return Returns the result code.\n         Returns {@link ARKUI_ERROR_CODE_NO_ERROR} if the operation is successful.\n         Returns {@link ARKUI_ERROR_CODE_PARAM_INVALID} if a parameter error occurs.\n @since 19"]
+    #[cfg(feature = "api-19")]
     pub fn OH_ArkUI_KeyEvent_IsScrollLockOn(
         event: *const ArkUI_UIInputEvent,
         state: *mut bool,
@@ -13432,8 +13432,8 @@ extern "C" {
     ) -> ArkUI_ErrorCode;
 }
 extern "C" {
-    #[cfg(feature = "api-18")]
     #[doc = " @brief Register a callback to be executed when rendering in the next frame. Cannot be called on\n        the non-UI thread. Checking for non-UI thread calls will abort.\n\n @param uiContext ArkUI_ContextHandle.\n @param userData Indicates the custom data to be saved.\n @param callback Custom callback function.\n @param nanoTimestamp Timestamp of frame signal.\n @param frameCount Frame count.\n @return Returns the result code.\n         Returns {@link ARKUI_ERROR_CODE_NO_ERROR} if the operation is successful.\n         Returns {@link ARKUI_ERROR_CODE_CAPI_INIT_ERROR} if the CAPI init error.\n         Returns {@link ARKUI_ERROR_CODE_UI_CONTEXT_INVALID} if the uiContext is invalid.\n         Returns {@link ARKUI_ERROR_CODE_CALLBACK_INVALID} if the callback function is invalid.\n @since 18"]
+    #[cfg(feature = "api-18")]
     pub fn OH_ArkUI_PostFrameCallback(
         uiContext: ArkUI_ContextHandle,
         userData: *mut ::std::os::raw::c_void,
@@ -13447,18 +13447,18 @@ extern "C" {
     ) -> i32;
 }
 extern "C" {
-    #[cfg(feature = "api-20")]
     #[doc = " @brief Initialize the ArkTS method for the specified env environment. Cannot be called on\n        the non-UI thread. Checking for non-UI thread calls will abort.\n\n @param env napi environment pointer.\n @return The error code.\n         {@link ARKUI_ERROR_CODE_NO_ERROR} if the operation is successful.\n         {@link ARKUI_ERROR_CODE_PARAM_INVALID} if env is null or failed to set the whitelist.\n         {@link ARKUI_ERROR_CODE_CAPI_INIT_ERROR} if the CAPI init error.\n @since 20"]
+    #[cfg(feature = "api-20")]
     pub fn OH_ArkUI_InitModuleForArkTSEnv(env: napi_env) -> ArkUI_ErrorCode;
 }
 extern "C" {
-    #[cfg(feature = "api-20")]
     #[doc = " @brief Notify the specified env environment is invalid. Cannot be called on\n        the non-UI thread. Checking for non-UI thread calls will abort.\n\n @param env napi environment pointer.\n @since 20"]
+    #[cfg(feature = "api-20")]
     pub fn OH_ArkUI_NotifyArkTSEnvDestroy(env: napi_env);
 }
 extern "C" {
-    #[cfg(feature = "api-20")]
     #[doc = " @brief Register a callback to be executed at the end of the next idle frame.\n        If there is no next frame, will request one automatically.\n\n @param uiContext ArkUI_ContextHandle.\n @param userData Indicates the custom data to be saved.\n @param callback Custom callback function.\n @param nanoTimeLeft Time remaining until the end of the current frame.\n @param frameCount Frame count.\n @return Returns the result code.\n         Returns {@link ARKUI_ERROR_CODE_NO_ERROR} if the operation is successful.\n         Returns {@link ARKUI_ERROR_CODE_CAPI_INIT_ERROR} if the CAPI init error.\n         Returns {@link ARKUI_ERROR_CODE_UI_CONTEXT_INVALID} if the uiContext is invalid.\n         Returns {@link ARKUI_ERROR_CODE_CALLBACK_INVALID} if the callback function is invalid.\n @since 20"]
+    #[cfg(feature = "api-20")]
     pub fn OH_ArkUI_PostIdleCallback(
         uiContext: ArkUI_ContextHandle,
         userData: *mut ::std::os::raw::c_void,
@@ -13555,15 +13555,15 @@ pub const OH_Drawing_ErrorCode_OH_DRAWING_ERROR_INVALID_PARAMETER: OH_Drawing_Er
 #[doc = " @error The parameter is not in the valid range."]
 pub const OH_Drawing_ErrorCode_OH_DRAWING_ERROR_PARAMETER_OUT_OF_RANGE: OH_Drawing_ErrorCode =
     26200001;
-#[cfg(feature = "api-13")]
 #[doc = " @error mem allocate failed.\n @since 13"]
+#[cfg(feature = "api-13")]
 pub const OH_Drawing_ErrorCode_OH_DRAWING_ERROR_ALLOCATION_FAILED: OH_Drawing_ErrorCode = 26200002;
-#[cfg(feature = "api-21")]
 #[doc = " @error The attribute id is not recognized or supported.\n @since 21"]
+#[cfg(feature = "api-21")]
 pub const OH_Drawing_ErrorCode_OH_DRAWING_ERROR_ATTRIBUTE_ID_MISMATCH: OH_Drawing_ErrorCode =
     26200003;
-#[cfg(feature = "api-22")]
 #[doc = " @error incorrect input parameter. The possible cause is that the provided pointer is null.\n @since 22"]
+#[cfg(feature = "api-22")]
 pub const OH_Drawing_ErrorCode_OH_DRAWING_ERROR_INCORRECT_PARAMETER: OH_Drawing_ErrorCode =
     26200004;
 #[doc = " @brief Enumerates error codes of drawing.\n @since 12"]
@@ -13573,8 +13573,8 @@ extern "C" {
     pub fn OH_Drawing_ErrorCodeGet() -> OH_Drawing_ErrorCode;
 }
 extern "C" {
-    #[cfg(feature = "api-18")]
     #[doc = " @brief Resets the error code of the drawing module to OH_DRAWING_SUCCESS.\n\n @syscap SystemCapability.Graphic.Graphic2D.NativeDrawing\n @since 18\n @version 1.0"]
+    #[cfg(feature = "api-18")]
     pub fn OH_Drawing_ErrorCodeReset();
 }
 #[repr(C)]
@@ -13856,8 +13856,8 @@ pub struct OH_Drawing_RectStyle_Info {
     #[doc = " radius in left bottom of rectstyle"]
     pub leftBottomRadius: f64,
 }
-#[cfg(feature = "api-14")]
 #[doc = " @brief Defines the string information struct.\n\n @since 14\n @version 1.0"]
+#[cfg(feature = "api-14")]
 #[repr(C)]
 #[derive(Debug, Copy, Clone)]
 pub struct OH_Drawing_String {
@@ -13923,8 +13923,8 @@ extern "C" {
     ) -> *mut OH_Drawing_SamplingOptions;
 }
 extern "C" {
-    #[cfg(feature = "api-20")]
     #[doc = " @brief Creates an <b>OH_Drawing_SamplingOptions</b> copy object.\n\n @syscap SystemCapability.Graphic.Graphic2D.NativeDrawing\n @param samplingOptions Indicates the pointer to an <b>OH_Drawing_SamplingOptions</b> object.\n @return Returns the pointer to the <b>OH_Drawing_SamplingOptions</b> object created.\n @since 20\n @version 1.0"]
+    #[cfg(feature = "api-20")]
     pub fn OH_Drawing_SamplingOptionsCopy(
         samplingOptions: *mut OH_Drawing_SamplingOptions,
     ) -> *mut OH_Drawing_SamplingOptions;
@@ -13944,8 +13944,8 @@ extern "C" {
     pub fn OH_Drawing_CanvasCreate() -> *mut OH_Drawing_Canvas;
 }
 extern "C" {
-    #[cfg(feature = "api-20")]
     #[doc = " @brief Creates an <b>OH_Drawing_Canvas</b> object from <b>OH_Drawing_PixelMap</b>.\n The OH_Drawing_PixelMap should be dissolved by OH_Drawing_PixelMapDissolve after the OH_Drawing_Canvas is destroyed.\n\n @syscap SystemCapability.Graphic.Graphic2D.NativeDrawing\n @param pixelMap Indicates the pointer to an <b>OH_Drawing_PixelMap</b> object.\n @return Returns the pointer to the <b>OH_Drawing_Canvas</b> object created.\n         If nullptr is returned, the creation fails.\n         The possible cause of the failure is that the available memory is empty or pixelMap is nullptr.\n @since 20\n @version 1.0"]
+    #[cfg(feature = "api-20")]
     pub fn OH_Drawing_CanvasCreateWithPixelMap(
         pixelMap: *mut OH_Drawing_PixelMap,
     ) -> *mut OH_Drawing_Canvas;
@@ -14016,8 +14016,8 @@ extern "C" {
     pub fn OH_Drawing_CanvasDrawPath(canvas: *mut OH_Drawing_Canvas, path: *const OH_Drawing_Path);
 }
 extern "C" {
-    #[cfg(feature = "api-18")]
     #[doc = " @brief Divides the pixelmap into a grid with nine sections: four sides, four corners, and the center.\n Draws the specified section of the pixelmap onto the canvas, corners are unmodified or scaled down if they exceed\n the destination rectangle, center and four sides are scaled to fit remaining space.\n\n @syscap SystemCapability.Graphic.Graphic2D.NativeDrawing\n @param canvas Indicates the pointer to an <b>OH_Drawing_Canvas</b> object.\n @param pixelMap Indicates the pointer to an <b>OH_Drawing_PixelMap</b> object.\n @param center Divides the pixelmap into nine sections: four sides, four corners, and the center.\n @param dst The area of destination canvas.\n @param mode Filter mode.\n @return Returns the error code.\n         Returns {@link OH_DRAWING_SUCCESS} if the operation is successful.\n         Returns {@link OH_DRAWING_ERROR_INVALID_PARAMETER} if any of canvas, pixelMap\n                 and dst is nullptr.\n @since 18\n @version 1.0"]
+    #[cfg(feature = "api-18")]
     pub fn OH_Drawing_CanvasDrawPixelMapNine(
         canvas: *mut OH_Drawing_Canvas,
         pixelMap: *mut OH_Drawing_PixelMap,
@@ -14037,8 +14037,8 @@ extern "C" {
     );
 }
 extern "C" {
-    #[cfg(feature = "api-20")]
     #[doc = " @brief Draw the specified area of the Media::PixelMap to the specified area of the canvas.\n\n @syscap SystemCapability.Graphic.Graphic2D.NativeDrawing\n @param canvas Indicates the pointer to an <b>OH_Drawing_Canvas</b> object.\n @param pixelMap Indicates the pointer to an <b>OH_Drawing_PixelMap</b> object.\n @param src Indicates the area of source pixelmap.\n @param dst Indicates the area of destination canvas.\n @param samplingOptions Indicates the sampling mode.\n @param constraint Indicates constraint type.\n @return Returns the error code.\n         Returns {@link OH_DRAWING_SUCCESS} if the operation is successful.\n         Returns {@link OH_DRAWING_ERROR_INVALID_PARAMETER} if any of canvas, pixelMap\n                 and dst is nullptr.\n @since 20\n @version 1.0"]
+    #[cfg(feature = "api-20")]
     pub fn OH_Drawing_CanvasDrawPixelMapRectConstraint(
         canvas: *mut OH_Drawing_Canvas,
         pixelMap: *mut OH_Drawing_PixelMap,
@@ -14139,8 +14139,8 @@ extern "C" {
     );
 }
 extern "C" {
-    #[cfg(feature = "api-18")]
     #[doc = " @brief Draws an arc with use center.\n\n @syscap SystemCapability.Graphic.Graphic2D.NativeDrawing\n @param canvas Indicates the pointer to an <b>OH_Drawing_Canvas</b> object.\n @param rect Indicates the pointer to an <b>OH_Drawing_Rect</b> object.\n @param startAngle Indicates the startAngle of the arc.\n @param sweepAngle Indicates the sweepAngle of the arc.\n @param useCenter If true, include the center of the oval in the arc, and close it if it is being stroked.\n @return Returns the error code.\n         Returns {@link OH_DRAWING_SUCCESS} if the operation is successful.\n         Returns {@link OH_DRAWING_ERROR_INVALID_PARAMETER} if canvas or rect is nullptr.\n @since 18\n @version 1.0"]
+    #[cfg(feature = "api-18")]
     pub fn OH_Drawing_CanvasDrawArcWithCenter(
         canvas: *mut OH_Drawing_Canvas,
         rect: *const OH_Drawing_Rect,
@@ -14157,8 +14157,8 @@ extern "C" {
     );
 }
 extern "C" {
-    #[cfg(feature = "api-18")]
     #[doc = " @brief Draw two nested rounded rectangles.\n\n @syscap SystemCapability.Graphic.Graphic2D.NativeDrawing\n @param canvas Indicates the pointer to an <b>OH_Drawing_Canvas</b> object.\n @param outer Rounded rectangle object, representing the outer rounded rectangle boundary.\n @param inner Rounded rectangle object, representing the internal rounded rectangle boundary.\n @return Returns the error code.\n         Returns {@link OH_DRAWING_SUCCESS} if the operation is successful.\n         Returns {@link OH_DRAWING_ERROR_INVALID_PARAMETER} if any of canvas, outer\n                 and inner is nullptr.\n @since 18\n @version 1.0"]
+    #[cfg(feature = "api-18")]
     pub fn OH_Drawing_CanvasDrawNestedRoundRect(
         canvas: *mut OH_Drawing_Canvas,
         outer: *const OH_Drawing_RoundRect,
@@ -14176,8 +14176,8 @@ extern "C" {
     ) -> OH_Drawing_ErrorCode;
 }
 extern "C" {
-    #[cfg(feature = "api-20")]
     #[doc = " @brief Draws a single character with font features.\n\n @syscap SystemCapability.Graphic.Graphic2D.NativeDrawing\n @param canvas Indicates the pointer to an <b>OH_Drawing_Canvas</b> object.\n @param str Indicates the single character encoded in UTF-8.\n @param font Indicates the pointer to an <b>OH_Drawing_Font</b> object.\n @param x Indicates the horizontal offset applied to the single character.\n @param y Indicates the vertical offset applied to the single character.\n @param fontFeatures Indicates the pointer to an <b>OH_Drawing_FontFeatures</b> object.\n @return Returns the error code.\n         Returns {@link OH_DRAWING_SUCCESS} if the operation is successful.\n         Returns {@link OH_DRAWING_ERROR_INVALID_PARAMETER} if any of canvas, str, font\n                 or fontFeatures is nullptr, or if strlen(str) is 0.\n @since 20\n @version 1.0"]
+    #[cfg(feature = "api-20")]
     pub fn OH_Drawing_CanvasDrawSingleCharacterWithFeatures(
         canvas: *mut OH_Drawing_Canvas,
         str_: *const ::std::os::raw::c_char,
@@ -14399,24 +14399,24 @@ extern "C" {
     ) -> OH_Drawing_ErrorCode;
 }
 extern "C" {
-    #[cfg(feature = "api-13")]
     #[doc = " @brief Replay drawing command.\n\n @syscap SystemCapability.Graphic.Graphic2D.NativeDrawing\n @param canvas Indicates the pointer to an <b>OH_Drawing_Canvas</b> object.\n @param recordCmd Indicates the pointer to an <b>OH_Drawing_RecordCmd</b> object.\n @return Returns the error code.\n         Returns {@link OH_DRAWING_SUCCESS} if the operation is successful.\n         Returns {@link OH_DRAWING_ERROR_INVALID_PARAMETER} if canvas or recordCmd is nullptr.\n @since 13\n @version 1.0"]
+    #[cfg(feature = "api-13")]
     pub fn OH_Drawing_CanvasDrawRecordCmd(
         canvas: *mut OH_Drawing_Canvas,
         recordCmd: *mut OH_Drawing_RecordCmd,
     ) -> OH_Drawing_ErrorCode;
 }
 extern "C" {
-    #[cfg(feature = "api-19")]
     #[doc = " @brief Replay drawing command.\n\n @syscap SystemCapability.Graphic.Graphic2D.NativeDrawing\n @param canvas Indicates the pointer to an <b>OH_Drawing_Canvas</b> object.\n @param recordCmd Indicates the pointer to an <b>OH_Drawing_RecordCmd</b> object.\n @return Returns the error code.\n         Returns {@link OH_DRAWING_SUCCESS} if the operation is successful.\n         Returns {@link OH_DRAWING_ERROR_INVALID_PARAMETER} if canvas or recordCmd is nullptr.\n @since 19\n @version 1.0"]
+    #[cfg(feature = "api-19")]
     pub fn OH_Drawing_CanvasDrawRecordCmdNesting(
         canvas: *mut OH_Drawing_Canvas,
         recordCmd: *mut OH_Drawing_RecordCmd,
     ) -> OH_Drawing_ErrorCode;
 }
 extern "C" {
-    #[cfg(feature = "api-18")]
     #[doc = " @brief Checks if the path has been cut off.\n\n @syscap SystemCapability.Graphic.Graphic2D.NativeDrawing\n @param canvas Indicates the pointer to an <b>OH_Drawing_Canvas</b> object.\n @param path Indicates the pointer to an <b>OH_Drawing_Paht</b> object.\n @param quickReject Indicates if the path has been cut off.\n @return Returns the error code.\n         Returns {@link OH_DRAWING_SUCCESS} if the operation is successful.\n         Returns {@link OH_DRAWING_ERROR_INVALID_PARAMETER} if canvas or path is nullptr,\n                  or quickReject is nullptr.\n @since 18\n @version 1.0"]
+    #[cfg(feature = "api-18")]
     pub fn OH_Drawing_CanvasQuickRejectPath(
         canvas: *mut OH_Drawing_Canvas,
         path: *const OH_Drawing_Path,
@@ -14424,8 +14424,8 @@ extern "C" {
     ) -> OH_Drawing_ErrorCode;
 }
 extern "C" {
-    #[cfg(feature = "api-18")]
     #[doc = " @brief Checks if the rect has been cut off.\n\n @syscap SystemCapability.Graphic.Graphic2D.NativeDrawing\n @param canvas Indicates the pointer to an <b>OH_Drawing_Canvas</b> object.\n @param rect Indicates the pointer to an <b>OH_Drawing_Rect</b> object.\n @param quickReject Indicates if the rect has been cut off.\n @return Returns the error code.\n         Returns {@link OH_DRAWING_SUCCESS} if the operation is successful.\n         Returns {@link OH_DRAWING_ERROR_INVALID_PARAMETER} if canvas or rect is nullptr,\n                  or quickReject is nullptr.\n @since 18\n @version 1.0"]
+    #[cfg(feature = "api-18")]
     pub fn OH_Drawing_CanvasQuickRejectRect(
         canvas: *mut OH_Drawing_Canvas,
         rect: *const OH_Drawing_Rect,
@@ -14539,8 +14539,8 @@ extern "C" {
     ) -> OH_Drawing_ErrorCode;
 }
 extern "C" {
-    #[cfg(feature = "api-20")]
     #[doc = " @brief Measures the width of a single character with font features.\n\n @syscap SystemCapability.Graphic.Graphic2D.NativeDrawing\n @param font Indicates the pointer to an <b>OH_Drawing_Font</b> object.\n @param str Indicates the single character encoded in UTF-8.\n @param fontFeatures Indicates the pointer to an <b>OH_Drawing_FontFeatures</b> object.\n @param textWidth Indicates the width of the single character.\n @return Returns the error code.\n         Returns {@link OH_DRAWING_SUCCESS} if the operation is successful.\n         Returns {@link OH_DRAWING_ERROR_INVALID_PARAMETER} if any of font, str\n                 fontFeatures or textWidth is nullptr, or if strlen(str) is 0.\n @since 20\n @version 1.0"]
+    #[cfg(feature = "api-20")]
     pub fn OH_Drawing_FontMeasureSingleCharacterWithFeatures(
         font: *const OH_Drawing_Font,
         str_: *const ::std::os::raw::c_char,
@@ -14560,8 +14560,8 @@ extern "C" {
     ) -> OH_Drawing_ErrorCode;
 }
 extern "C" {
-    #[cfg(feature = "api-19")]
     #[doc = " @brief Measures the width of text with brush or pen.\n\n @syscap SystemCapability.Graphic.Graphic2D.NativeDrawing\n @param font Indicates the pointer to an <b>OH_Drawing_Font</b> object.\n @param text Indicates the character storage encoded with text encoding.\n @param byteLength Indicates the text length in bytes.\n @param encoding Indicates the text encoding.\n @param brush Indicates the pointer to an <b>OH_Drawing_Brush</b> object.\n @param pen Indicates the pointer to an <b>OH_Drawing_Pen</b> object.\n @param bounds Gets the bounding box relative to (0, 0) if not nullptr.\n @param textWidth Indicates the width of text.\n @return Returns the error code.\n         Returns {@link OH_DRAWING_SUCCESS} if the operation is successful.\n         Returns {@link OH_DRAWING_ERROR_INVALID_PARAMETER} if any of font, text\n                 and textWidth is nullptr or byteLength is 0 or brush and pen are both not empty.\n @since 19\n @version 1.0"]
+    #[cfg(feature = "api-19")]
     pub fn OH_Drawing_FontMeasureTextWithBrushOrPen(
         font: *const OH_Drawing_Font,
         text: *const ::std::os::raw::c_void,
@@ -14574,8 +14574,8 @@ extern "C" {
     ) -> OH_Drawing_ErrorCode;
 }
 extern "C" {
-    #[cfg(feature = "api-19")]
     #[doc = " @brief Retrieves the advance and bounding box for each glyph in glyphs.\n\n @syscap SystemCapability.Graphic.Graphic2D.NativeDrawing\n @param font Indicates the pointer to an <b>OH_Drawing_Font</b> object.\n @param glyphs Indicates the array of glyph indices to be measured.\n @param count Indicates the number of glyphs.\n @param brush Indicates the pointer to an <b>OH_Drawing_Brush</b> object.\n @param pen Indicates the pointer to an <b>OH_Drawing_Pen</b> object.\n @param widths Indicates the text advances for each glyph returned to the caller.\n @param bounds Indicates the text bounding box for each glyph returned to the caller.\n @return Returns the error code.\n         Returns {@link OH_DRAWING_SUCCESS} if the operation is successful.\n         Returns {@link OH_DRAWING_ERROR_INVALID_PARAMETER} if any of font and glyphs is nullptr\n                 or count is no larger than 0 or brush and pen are both not empty.\n @since 19\n @version 1.0"]
+    #[cfg(feature = "api-19")]
     pub fn OH_Drawing_FontGetWidthsBounds(
         font: *const OH_Drawing_Font,
         glyphs: *const u16,
@@ -14587,8 +14587,8 @@ extern "C" {
     ) -> OH_Drawing_ErrorCode;
 }
 extern "C" {
-    #[cfg(feature = "api-19")]
     #[doc = " @brief Retrieves the positions for each glyph, beginning at the specified origin.\n\n @syscap SystemCapability.Graphic.Graphic2D.NativeDrawing\n @param font Indicates the pointer to an <b>OH_Drawing_Font</b> object.\n @param glyphs Indicates the array of glyph indices to be measured.\n @param count Indicates the number of glyphs.\n @param origin Indicates the location of the first glyph.\n @param points Indicates the relative position for each glyph returned to the caller.\n @return Returns the error code.\n         Returns {@link OH_DRAWING_SUCCESS} if the operation is successful.\n         Returns {@link OH_DRAWING_ERROR_INVALID_PARAMETER} if any of font, glyphs and points is nullptr or\n                 count is no larger than 0.\n @since 19\n @version 1.0"]
+    #[cfg(feature = "api-19")]
     pub fn OH_Drawing_FontGetPos(
         font: *const OH_Drawing_Font,
         glyphs: *const u16,
@@ -14598,8 +14598,8 @@ extern "C" {
     ) -> OH_Drawing_ErrorCode;
 }
 extern "C" {
-    #[cfg(feature = "api-19")]
     #[doc = " @brief Returns the recommended spacing between lines.\n\n @syscap SystemCapability.Graphic.Graphic2D.NativeDrawing\n @param font Indicates the pointer to an <b>OH_Drawing_Font</b> object.\n @param spacing Indicates the recommended spacing between lines.\n @return Returns the error code.\n         Returns {@link OH_DRAWING_SUCCESS} if the operation is successful.\n         Returns {@link OH_DRAWING_ERROR_INVALID_PARAMETER} if any of font and spacing is nullptr.\n @since 19\n @version 1.0"]
+    #[cfg(feature = "api-19")]
     pub fn OH_Drawing_FontGetSpacing(
         font: *const OH_Drawing_Font,
         spacing: *mut f32,
@@ -14713,8 +14713,8 @@ extern "C" {
     ) -> f32;
 }
 extern "C" {
-    #[cfg(feature = "api-18")]
     #[doc = " @brief Retrieves the bound rect for each glyph in glyph array.\n\n @syscap SystemCapability.Graphic.Graphic2D.NativeDrawing\n @param font Indicates the pointer to an <b>OH_Drawing_Font</b> object.\n @param glyphs Indicates the array of glyph indices to be measured.\n @param count Indicates the number of glyphs.\n @param bounds The bound rect array for each glyph, returned to the caller.\n @return Returns the error code.\n         Returns {@link OH_DRAWING_SUCCESS} if the operation is successful.\n         Returns {@link OH_DRAWING_ERROR_INVALID_PARAMETER} if any of font, glyphs\n                 and bounds is nullptr or count is 0.\n @since 18\n @version 1.0"]
+    #[cfg(feature = "api-18")]
     pub fn OH_Drawing_FontGetBounds(
         font: *const OH_Drawing_Font,
         glyphs: *const u16,
@@ -14723,8 +14723,8 @@ extern "C" {
     ) -> OH_Drawing_ErrorCode;
 }
 extern "C" {
-    #[cfg(feature = "api-18")]
     #[doc = " @brief Retrieves the path for specified Glyph.\n\n @syscap SystemCapability.Graphic.Graphic2D.NativeDrawing\n @param font Indicates the pointer to an <b>OH_Drawing_Font</b> object.\n @param glyph glyph index to be obtained.\n @param path The path object, returned to the caller.\n @return Returns the error code.\n         Returns {@link OH_DRAWING_SUCCESS} if the operation is successful.\n         Returns {@link OH_DRAWING_ERROR_INVALID_PARAMETER} if any of font, path\n                 is nullptr or glyph not exist.\n @since 18\n @version 1.0"]
+    #[cfg(feature = "api-18")]
     pub fn OH_Drawing_FontGetPathForGlyph(
         font: *const OH_Drawing_Font,
         glyph: u16,
@@ -14732,8 +14732,8 @@ extern "C" {
     ) -> OH_Drawing_ErrorCode;
 }
 extern "C" {
-    #[cfg(feature = "api-18")]
     #[doc = " @brief Get the text outline path.\n\n @syscap SystemCapability.Graphic.Graphic2D.NativeDrawing\n @param font Indicates the pointer to an <b>OH_Drawing_Font</b> object.\n @param text Indicates the character storage encoded with text encoding.\n @param byteLength Indicates to get the byte length of the corresponding text path. If this byte length is greater\n than the byte length of the text string, undefined behavior will occur.\n @param encoding <b>OH_Drawing_TextEncoding</b> Indicates the text encoding.\n @param x Indicates x coordinates of the text.\n @param y Indicates y coordinates of the text.\n @param path <b>OH_Drawing_Path</b> The path object, returned to the caller.\n @return Returns the error code.\n         Returns {@link OH_DRAWING_SUCCESS} if the operation is successful.\n         Returns {@link OH_DRAWING_ERROR_INVALID_PARAMETER} if any of font, text or path is nullptr.\n @since 18"]
+    #[cfg(feature = "api-18")]
     pub fn OH_Drawing_FontGetTextPath(
         font: *const OH_Drawing_Font,
         text: *const ::std::os::raw::c_void,
@@ -14745,13 +14745,13 @@ extern "C" {
     ) -> OH_Drawing_ErrorCode;
 }
 extern "C" {
-    #[cfg(feature = "api-20")]
     #[doc = " @brief Creates an <b>OH_Drawing_FontFeatures</b> object.\n\n @syscap SystemCapability.Graphic.Graphic2D.NativeDrawing\n @return Returns the pointer to the <b>OH_Drawing_FontFeatures</b> object created.\n         If nullptr is returned, the creation fails.\n         The possible cause of the failure is that the available memory is empty.\n @since 20\n @version 1.0"]
+    #[cfg(feature = "api-20")]
     pub fn OH_Drawing_FontFeaturesCreate() -> *mut OH_Drawing_FontFeatures;
 }
 extern "C" {
-    #[cfg(feature = "api-20")]
     #[doc = " @brief Adds a font feature for an <b>OH_Drawing_FontFeatures</b> object.\n\n @syscap SystemCapability.Graphic.Graphic2D.NativeDrawing\n @param fontFeatures Indicates the pointer to an <b>OH_Drawing_FontFeatures</b> object.\n @param name Indicates the feature name.\n @param value Indicates the value of the feature.\n @return Returns the error code.\n         Returns {@link OH_DRAWING_SUCCESS} if the operation is successful.\n         Returns {@link OH_DRAWING_ERROR_INVALID_PARAMETER} if either fontFeatures or name is nullptr.\n @since 20\n @version 1.0"]
+    #[cfg(feature = "api-20")]
     pub fn OH_Drawing_FontFeaturesAddFeature(
         fontFeatures: *mut OH_Drawing_FontFeatures,
         name: *const ::std::os::raw::c_char,
@@ -14759,23 +14759,23 @@ extern "C" {
     ) -> OH_Drawing_ErrorCode;
 }
 extern "C" {
-    #[cfg(feature = "api-20")]
     #[doc = " @brief Destroys an <b>OH_Drawing_FontFeatures</b> object and reclaims the memory occupied by the object.\n\n @syscap SystemCapability.Graphic.Graphic2D.NativeDrawing\n @param fontFeatures Indicates the pointer to an <b>OH_Drawing_FontFeatures</b> object.\n @return Returns the error code.\n         Returns {@link OH_DRAWING_SUCCESS} if the operation is successful.\n         Returns {@link OH_DRAWING_ERROR_INVALID_PARAMETER} if fontFeatures is nullptr.\n @since 20\n @version 1.0"]
+    #[cfg(feature = "api-20")]
     pub fn OH_Drawing_FontFeaturesDestroy(
         fontFeatures: *mut OH_Drawing_FontFeatures,
     ) -> OH_Drawing_ErrorCode;
 }
 extern "C" {
-    #[cfg(feature = "api-15")]
     #[doc = " @brief Sets whether to follow the theme font. If the value is true, the theme font is used when typeface is not set.\n\n @syscap SystemCapability.Graphic.Graphic2D.NativeDrawing\n @param font Indicates the pointer to an <b>OH_Drawing_Font</b> object.\n @param followed Indicates whether to follow the theme font.\n @return Returns the error code.\n         Returns {@link OH_DRAWING_SUCCESS} if the operation is successful.\n         Returns {@link OH_DRAWING_ERROR_INVALID_PARAMETER} if font is nullptr.\n @since 15"]
+    #[cfg(feature = "api-15")]
     pub fn OH_Drawing_FontSetThemeFontFollowed(
         font: *mut OH_Drawing_Font,
         followed: bool,
     ) -> OH_Drawing_ErrorCode;
 }
 extern "C" {
-    #[cfg(feature = "api-15")]
     #[doc = " @brief Gets whether to follow the theme font.\n\n @syscap SystemCapability.Graphic.Graphic2D.NativeDrawing\n @param font Indicates the pointer to an <b>OH_Drawing_Font</b> object.\n @param followed Indicates whether to follow the theme font.\n @return Returns the error code.\n         Returns {@link OH_DRAWING_SUCCESS} if the operation is successful.\n         Returns {@link OH_DRAWING_ERROR_INVALID_PARAMETER} if font or followed is nullptr.\n @since 15"]
+    #[cfg(feature = "api-15")]
     pub fn OH_Drawing_FontIsThemeFontFollowed(
         font: *const OH_Drawing_Font,
         followed: *mut bool,
@@ -14863,8 +14863,8 @@ pub const OH_Drawing_PlaceholderVerticalAlignment_ALIGNMENT_BOTTOM_OF_ROW_BOX:
 #[doc = " Center of Row Box"]
 pub const OH_Drawing_PlaceholderVerticalAlignment_ALIGNMENT_CENTER_OF_ROW_BOX:
     OH_Drawing_PlaceholderVerticalAlignment = 5;
-#[cfg(feature = "api-20")]
 #[doc = " Follow paragraph setting\n @since 20"]
+#[cfg(feature = "api-20")]
 pub const OH_Drawing_PlaceholderVerticalAlignment_ALIGNMENT_FOLLOW_PARAGRAPH:
     OH_Drawing_PlaceholderVerticalAlignment = 6;
 #[doc = " @brief Enumerates placeholder vertical alignment.\n\n @since 11\n @version 1.0"]
@@ -14923,8 +14923,8 @@ pub const OH_Drawing_WordBreakType_WORD_BREAK_TYPE_NORMAL: OH_Drawing_WordBreakT
 pub const OH_Drawing_WordBreakType_WORD_BREAK_TYPE_BREAK_ALL: OH_Drawing_WordBreakType = 1;
 #[doc = " Break Word type"]
 pub const OH_Drawing_WordBreakType_WORD_BREAK_TYPE_BREAK_WORD: OH_Drawing_WordBreakType = 2;
-#[cfg(feature = "api-18")]
 #[doc = " Break word with hyphens\n @since 18"]
+#[cfg(feature = "api-18")]
 pub const OH_Drawing_WordBreakType_WORD_BREAK_TYPE_BREAK_HYPHEN: OH_Drawing_WordBreakType = 3;
 #[doc = " @brief Enumerates word break type.\n\n @since 11\n @version 1.0"]
 pub type OH_Drawing_WordBreakType = u32;
@@ -15133,61 +15133,61 @@ pub const OH_Drawing_FontWidth_FONT_WIDTH_EXTRA_EXPANDED: OH_Drawing_FontWidth =
 pub const OH_Drawing_FontWidth_FONT_WIDTH_ULTRA_EXPANDED: OH_Drawing_FontWidth = 9;
 #[doc = " @brief Enumerates font width.\n\n @since 12\n @version 1.0"]
 pub type OH_Drawing_FontWidth = u32;
-#[cfg(feature = "api-21")]
 #[doc = " Line height maximum"]
+#[cfg(feature = "api-21")]
 pub const OH_Drawing_TextStyleAttributeId_TEXT_STYLE_ATTR_D_LINE_HEIGHT_MAXIMUM:
     OH_Drawing_TextStyleAttributeId = 0;
-#[cfg(feature = "api-21")]
 #[doc = " Line height minimum"]
+#[cfg(feature = "api-21")]
 pub const OH_Drawing_TextStyleAttributeId_TEXT_STYLE_ATTR_D_LINE_HEIGHT_MINIMUM:
     OH_Drawing_TextStyleAttributeId = 1;
-#[cfg(feature = "api-21")]
 #[doc = " Line height style"]
+#[cfg(feature = "api-21")]
 pub const OH_Drawing_TextStyleAttributeId_TEXT_STYLE_ATTR_I_LINE_HEIGHT_STYLE:
     OH_Drawing_TextStyleAttributeId = 2;
-#[cfg(feature = "api-21")]
 #[doc = " Font width"]
+#[cfg(feature = "api-21")]
 pub const OH_Drawing_TextStyleAttributeId_TEXT_STYLE_ATTR_I_FONT_WIDTH:
     OH_Drawing_TextStyleAttributeId = 3;
-#[cfg(feature = "api-21")]
 #[doc = " @brief Enumerates text style attribute.\n\n @since 21"]
+#[cfg(feature = "api-21")]
 pub type OH_Drawing_TextStyleAttributeId = u32;
-#[cfg(feature = "api-21")]
 #[doc = " Use the font size as the scale factor for line height scaling"]
-pub const OH_Drawing_LineHeightStyle_TEXT_LINE_HEIGHT_BY_FONT_SIZE: OH_Drawing_LineHeightStyle = 0;
 #[cfg(feature = "api-21")]
+pub const OH_Drawing_LineHeightStyle_TEXT_LINE_HEIGHT_BY_FONT_SIZE: OH_Drawing_LineHeightStyle = 0;
 #[doc = " Use the text height after shaping as the scale factor for line height scaling"]
+#[cfg(feature = "api-21")]
 pub const OH_Drawing_LineHeightStyle_TEXT_LINE_HEIGHT_BY_FONT_HEIGHT: OH_Drawing_LineHeightStyle =
     1;
-#[cfg(feature = "api-21")]
 #[doc = " @brief Enumerates line height's scaling type.\n\n @since 21"]
-pub type OH_Drawing_LineHeightStyle = u32;
 #[cfg(feature = "api-21")]
+pub type OH_Drawing_LineHeightStyle = u32;
 #[doc = " Line height maximum"]
+#[cfg(feature = "api-21")]
 pub const OH_Drawing_TypographyStyleAttributeId_TYPOGRAPHY_STYLE_ATTR_D_LINE_HEIGHT_MAXIMUM:
     OH_Drawing_TypographyStyleAttributeId = 0;
-#[cfg(feature = "api-21")]
 #[doc = " Line height minimum"]
+#[cfg(feature = "api-21")]
 pub const OH_Drawing_TypographyStyleAttributeId_TYPOGRAPHY_STYLE_ATTR_D_LINE_HEIGHT_MINIMUM:
     OH_Drawing_TypographyStyleAttributeId = 1;
-#[cfg(feature = "api-21")]
 #[doc = " Line spacing"]
+#[cfg(feature = "api-21")]
 pub const OH_Drawing_TypographyStyleAttributeId_TYPOGRAPHY_STYLE_ATTR_D_LINE_SPACING:
     OH_Drawing_TypographyStyleAttributeId = 2;
-#[cfg(feature = "api-21")]
 #[doc = " Line height style"]
+#[cfg(feature = "api-21")]
 pub const OH_Drawing_TypographyStyleAttributeId_TYPOGRAPHY_STYLE_ATTR_I_LINE_HEIGHT_STYLE:
     OH_Drawing_TypographyStyleAttributeId = 3;
-#[cfg(feature = "api-21")]
 #[doc = " Font width"]
+#[cfg(feature = "api-21")]
 pub const OH_Drawing_TypographyStyleAttributeId_TYPOGRAPHY_STYLE_ATTR_I_FONT_WIDTH:
     OH_Drawing_TypographyStyleAttributeId = 4;
-#[cfg(feature = "api-21")]
 #[doc = " @brief Enumerates typography style attribute.\n\n @since 21"]
+#[cfg(feature = "api-21")]
 pub type OH_Drawing_TypographyStyleAttributeId = u32;
 extern "C" {
-    #[cfg(feature = "api-21")]
     #[doc = " @brief Sets double value to the text style attribute.\n\n @param style Indicates the pointer to an <b>OH_Drawing_TextStyle</b> object.\n @param id Indicates the attribute id.\n @param value Indicates the value to set.\n @return Returns the error code.\n         Returns {@link OH_DRAWING_SUCCESS} if the operation is successful.\n         Returns {@link OH_DRAWING_ERROR_INVALID_PARAMETER} if the style is nullptr.\n         Returns {@link OH_DRAWING_ERROR_ATTRIBUTE_ID_MISMATCH} if the attribute id is not recognized or supported.\n         Returns {@link OH_DRAWING_ERROR_PARAMETER_OUT_OF_RANGE} if the value corresponding to the attribute id\n                  exceeds the allowable range.\n @since 21"]
+    #[cfg(feature = "api-21")]
     pub fn OH_Drawing_SetTextStyleAttributeDouble(
         style: *mut OH_Drawing_TextStyle,
         id: OH_Drawing_TextStyleAttributeId,
@@ -15195,8 +15195,8 @@ extern "C" {
     ) -> OH_Drawing_ErrorCode;
 }
 extern "C" {
-    #[cfg(feature = "api-21")]
     #[doc = " @brief Gets the double type property's value from the text style.\n\n @param style Indicates the pointer to an <b>OH_Drawing_TextStyle</b> object.\n @param id Indicates the attribute id.\n @param value Indicates the return value of the interface.\n @return Returns the error code.\n         Returns {@link OH_DRAWING_SUCCESS} if the operation is successful.\n         Returns {@link OH_DRAWING_ERROR_INVALID_PARAMETER} if the style is nullptr.\n         Returns {@link OH_DRAWING_ERROR_ATTRIBUTE_ID_MISMATCH} if the attribute id is not recognized or supported.\n @since 21"]
+    #[cfg(feature = "api-21")]
     pub fn OH_Drawing_GetTextStyleAttributeDouble(
         style: *mut OH_Drawing_TextStyle,
         id: OH_Drawing_TextStyleAttributeId,
@@ -15204,8 +15204,8 @@ extern "C" {
     ) -> OH_Drawing_ErrorCode;
 }
 extern "C" {
-    #[cfg(feature = "api-21")]
     #[doc = " @brief Sets int value to the text style attribute.\n\n @param style Indicates the pointer to an <b>OH_Drawing_TextStyle</b> object.\n @param id Indicates the attribute id.\n @param value Indicates the value to set.\n @return Returns the error code.\n         Returns {@link OH_DRAWING_SUCCESS} if the operation is successful.\n         Returns {@link OH_DRAWING_ERROR_INVALID_PARAMETER} if the style is nullptr.\n         Returns {@link OH_DRAWING_ERROR_ATTRIBUTE_ID_MISMATCH} if the attribute id is not recognized or supported.\n         Returns {@link OH_DRAWING_ERROR_PARAMETER_OUT_OF_RANGE} if the value corresponding to the attribute id\n                  exceeds the allowable range.\n @since 21"]
+    #[cfg(feature = "api-21")]
     pub fn OH_Drawing_SetTextStyleAttributeInt(
         style: *mut OH_Drawing_TextStyle,
         id: OH_Drawing_TextStyleAttributeId,
@@ -15213,8 +15213,8 @@ extern "C" {
     ) -> OH_Drawing_ErrorCode;
 }
 extern "C" {
-    #[cfg(feature = "api-21")]
     #[doc = " @brief Gets the int type property's value from the text style.\n\n @param style Indicates the pointer to an <b>OH_Drawing_TextStyle</b> object.\n @param id Indicates the attribute id.\n @param value Indicates the return value of the interface.\n @return Returns the error code.\n         Returns {@link OH_DRAWING_SUCCESS} if the operation is successful.\n         Returns {@link OH_DRAWING_ERROR_INVALID_PARAMETER} if the style is nullptr.\n         Returns {@link OH_DRAWING_ERROR_ATTRIBUTE_ID_MISMATCH} if the attribute id is not recognized or supported.\n @since 21"]
+    #[cfg(feature = "api-21")]
     pub fn OH_Drawing_GetTextStyleAttributeInt(
         style: *mut OH_Drawing_TextStyle,
         id: OH_Drawing_TextStyleAttributeId,
@@ -15222,8 +15222,8 @@ extern "C" {
     ) -> OH_Drawing_ErrorCode;
 }
 extern "C" {
-    #[cfg(feature = "api-21")]
     #[doc = " @brief Sets double value to the typography style attribute.\n\n @param style Indicates the pointer to an <b>OH_Drawing_TypographyStyle</b> object.\n @param id Indicates the attribute id.\n @param value Indicates the value to set.\n @return Returns the error code.\n         Returns {@link OH_DRAWING_SUCCESS} if the operation is successful.\n         Returns {@link OH_DRAWING_ERROR_INVALID_PARAMETER} if the style is nullptr.\n         Returns {@link OH_DRAWING_ERROR_ATTRIBUTE_ID_MISMATCH} if the attribute id is not recognized or supported.\n         Returns {@link OH_DRAWING_ERROR_PARAMETER_OUT_OF_RANGE} if the value corresponding to the attribute id\n                  exceeds the allowable range.\n @since 21"]
+    #[cfg(feature = "api-21")]
     pub fn OH_Drawing_SetTypographyStyleAttributeDouble(
         style: *mut OH_Drawing_TypographyStyle,
         id: OH_Drawing_TypographyStyleAttributeId,
@@ -15231,8 +15231,8 @@ extern "C" {
     ) -> OH_Drawing_ErrorCode;
 }
 extern "C" {
-    #[cfg(feature = "api-21")]
     #[doc = " @brief Gets the double type property's value from the typography style.\n\n @param style Indicates the pointer to an <b>OH_Drawing_TypographyStyle</b> object.\n @param id Indicates the attribute id.\n @param value Indicates the return value of the interface.\n @return Returns the error code.\n         Returns {@link OH_DRAWING_SUCCESS} if the operation is successful.\n         Returns {@link OH_DRAWING_ERROR_INVALID_PARAMETER} if the style is nullptr.\n         Returns {@link OH_DRAWING_ERROR_ATTRIBUTE_ID_MISMATCH} if the attribute id is not recognized or supported.\n @since 21"]
+    #[cfg(feature = "api-21")]
     pub fn OH_Drawing_GetTypographyStyleAttributeDouble(
         style: *mut OH_Drawing_TypographyStyle,
         id: OH_Drawing_TypographyStyleAttributeId,
@@ -15240,8 +15240,8 @@ extern "C" {
     ) -> OH_Drawing_ErrorCode;
 }
 extern "C" {
-    #[cfg(feature = "api-21")]
     #[doc = " @brief Sets int value to the typography style attribute.\n\n @param style Indicates the pointer to an <b>OH_Drawing_TypographyStyle</b> object.\n @param id Indicates the attribute id.\n @param value Indicates the value to set.\n @return Returns the error code.\n         Returns {@link OH_DRAWING_SUCCESS} if the operation is successful.\n         Returns {@link OH_DRAWING_ERROR_INVALID_PARAMETER} if the style is nullptr.\n         Returns {@link OH_DRAWING_ERROR_ATTRIBUTE_ID_MISMATCH} if the attribute id is not recognized or supported.\n         Returns {@link OH_DRAWING_ERROR_PARAMETER_OUT_OF_RANGE} if the value corresponding to the attribute id\n                  exceeds the allowable range.\n @since 21"]
+    #[cfg(feature = "api-21")]
     pub fn OH_Drawing_SetTypographyStyleAttributeInt(
         style: *mut OH_Drawing_TypographyStyle,
         id: OH_Drawing_TypographyStyleAttributeId,
@@ -15249,44 +15249,44 @@ extern "C" {
     ) -> OH_Drawing_ErrorCode;
 }
 extern "C" {
-    #[cfg(feature = "api-21")]
     #[doc = " @brief Gets the int type property's value from the typography style.\n\n @param style Indicates the pointer to an <b>OH_Drawing_TypographyStyle</b> object.\n @param id Indicates the attribute id.\n @param value Indicates the return value of the interface.\n @return Returns the error code.\n         Returns {@link OH_DRAWING_SUCCESS} if the operation is successful.\n         Returns {@link OH_DRAWING_ERROR_INVALID_PARAMETER} if the style is nullptr.\n         Returns {@link OH_DRAWING_ERROR_ATTRIBUTE_ID_MISMATCH} if the attribute id is not recognized or supported.\n @since 21"]
+    #[cfg(feature = "api-21")]
     pub fn OH_Drawing_GetTypographyStyleAttributeInt(
         style: *mut OH_Drawing_TypographyStyle,
         id: OH_Drawing_TypographyStyleAttributeId,
         value: *mut ::std::os::raw::c_int,
     ) -> OH_Drawing_ErrorCode;
 }
-#[cfg(feature = "api-20")]
 #[doc = " No badge"]
+#[cfg(feature = "api-20")]
 pub const OH_Drawing_TextBadgeType_TEXT_BADGE_NONE: OH_Drawing_TextBadgeType = 0;
-#[cfg(feature = "api-20")]
 #[doc = " Superscript"]
+#[cfg(feature = "api-20")]
 pub const OH_Drawing_TextBadgeType_TEXT_SUPERSCRIPT: OH_Drawing_TextBadgeType = 1;
-#[cfg(feature = "api-20")]
 #[doc = " Subscript"]
+#[cfg(feature = "api-20")]
 pub const OH_Drawing_TextBadgeType_TEXT_SUBSCRIPT: OH_Drawing_TextBadgeType = 2;
-#[cfg(feature = "api-20")]
 #[doc = " @brief Type of badge.\n\n @since 20\n @version 1.0"]
-pub type OH_Drawing_TextBadgeType = u32;
 #[cfg(feature = "api-20")]
+pub type OH_Drawing_TextBadgeType = u32;
 #[doc = " Baseline of text line"]
+#[cfg(feature = "api-20")]
 pub const OH_Drawing_TextVerticalAlignment_TEXT_VERTICAL_ALIGNMENT_BASELINE:
     OH_Drawing_TextVerticalAlignment = 0;
-#[cfg(feature = "api-20")]
 #[doc = " Bottom of text line"]
+#[cfg(feature = "api-20")]
 pub const OH_Drawing_TextVerticalAlignment_TEXT_VERTICAL_ALIGNMENT_BOTTOM:
     OH_Drawing_TextVerticalAlignment = 1;
-#[cfg(feature = "api-20")]
 #[doc = " Center of text line"]
+#[cfg(feature = "api-20")]
 pub const OH_Drawing_TextVerticalAlignment_TEXT_VERTICAL_ALIGNMENT_CENTER:
     OH_Drawing_TextVerticalAlignment = 2;
-#[cfg(feature = "api-20")]
 #[doc = " Top of text line"]
+#[cfg(feature = "api-20")]
 pub const OH_Drawing_TextVerticalAlignment_TEXT_VERTICAL_ALIGNMENT_TOP:
     OH_Drawing_TextVerticalAlignment = 3;
-#[cfg(feature = "api-20")]
 #[doc = " @brief Type of vertical alignment.\n\n @since 20\n @version 1.0"]
+#[cfg(feature = "api-20")]
 pub type OH_Drawing_TextVerticalAlignment = u32;
 #[doc = " @brief Defines the font style struct.\n\n @since 12\n @version 1.0"]
 #[repr(C)]
@@ -15400,16 +15400,16 @@ extern "C" {
     );
 }
 extern "C" {
-    #[cfg(feature = "api-18")]
     #[doc = " @brief Add the text decoration.\n\n @syscap SystemCapability.Graphic.Graphic2D.NativeDrawing\n @param style Indicates the pointer to an <b>OH_Drawing_TextStyle</b> object.\n @param decoration Indicates the text decoration to add. For details, see the enum <b>OH_Drawing_TextDecoration</b>.\n @since 18\n @version 1.0"]
+    #[cfg(feature = "api-18")]
     pub fn OH_Drawing_AddTextStyleDecoration(
         style: *mut OH_Drawing_TextStyle,
         decoration: ::std::os::raw::c_int,
     );
 }
 extern "C" {
-    #[cfg(feature = "api-18")]
     #[doc = " @brief Remove the text decoration.\n\n @syscap SystemCapability.Graphic.Graphic2D.NativeDrawing\n @param style Indicates the pointer to an <b>OH_Drawing_TextStyle</b> object.\n @param decoration Indicates the text decoration to remove, shoud be match existing text decorations.\n For details, see the enum <b>OH_Drawing_TextDecoration</b>.\n @since 18\n @version 1.0"]
+    #[cfg(feature = "api-18")]
     pub fn OH_Drawing_RemoveTextStyleDecoration(
         style: *mut OH_Drawing_TextStyle,
         decoration: ::std::os::raw::c_int,
@@ -15576,8 +15576,8 @@ extern "C" {
     pub fn OH_Drawing_TypographyGetLongestLine(typography: *mut OH_Drawing_Typography) -> f64;
 }
 extern "C" {
-    #[cfg(feature = "api-13")]
     #[doc = " @brief Obtains the width of the longest line with indent. You are advised to\n round up the return value in actual use. When the text content is empty, the\n minimum float value, that is, 0.0, is returned.\n\n @syscap SystemCapability.Graphic.Graphic2D.NativeDrawing\n @param typography Pointer to an <b>OH_Drawing_Typography</b> object, which is obtained by\n {@link OH_Drawing_CreateTypography}.\n @return Returns the width of the longest line with indent.\n @since 13\n @version 1.1"]
+    #[cfg(feature = "api-13")]
     pub fn OH_Drawing_TypographyGetLongestLineWithIndent(
         typography: *mut OH_Drawing_Typography,
     ) -> f64;
@@ -16224,8 +16224,8 @@ extern "C" {
     pub fn OH_Drawing_TextStyleGetHalfLeading(style: *mut OH_Drawing_TextStyle) -> bool;
 }
 extern "C" {
-    #[cfg(feature = "api-20")]
     #[doc = " @brief Sets the typography vertical alignment mode.\n\n @syscap SystemCapability.Graphic.Graphic2D.NativeDrawing\n @param style Indicates the pointer to an <b>OH_Drawing_TypographyStyle</b> object.\n @param align Indicates the typography vertical alignment mode. For details,\n see the enum <b>OH_Drawing_TextVerticalAlignment</b>.\n @since 20\n @version 1.0"]
+    #[cfg(feature = "api-20")]
     pub fn OH_Drawing_SetTypographyVerticalAlignment(
         style: *mut OH_Drawing_TypographyStyle,
         align: OH_Drawing_TextVerticalAlignment,
@@ -16238,8 +16238,8 @@ extern "C" {
     ) -> *const ::std::os::raw::c_char;
 }
 extern "C" {
-    #[cfg(feature = "api-20")]
     #[doc = " @brief Sets whether to use superscript or subscript in text layout.\n\n @syscap SystemCapability.Graphic.Graphic2D.NativeDrawing\n @param style Pointer to an OH_Drawing_TextStyle object.\n @param textBadgeType Superscript or subscript to use.\n @since 20"]
+    #[cfg(feature = "api-20")]
     pub fn OH_Drawing_SetTextStyleBadgeType(
         style: *mut OH_Drawing_TextStyle,
         textBadgeType: OH_Drawing_TextBadgeType,
@@ -16386,37 +16386,37 @@ extern "C" {
     );
 }
 extern "C" {
-    #[cfg(feature = "api-20")]
     #[doc = " @brief Update the font color of the typography\n\n @syscap SystemCapability.Graphic.Graphic2D.NativeDrawing\n @param typography Indicates the pointer to the text <b>OH_Drawing_Typography</b> object.\n @param color Indicates the color to update.\n @since 20\n @version 1.0"]
+    #[cfg(feature = "api-20")]
     pub fn OH_Drawing_TypographyUpdateFontColor(typography: *mut OH_Drawing_Typography, color: u32);
 }
 extern "C" {
-    #[cfg(feature = "api-20")]
     #[doc = " @brief Update the decoration of the typography.\n\n @syscap SystemCapability.Graphic.Graphic2D.NativeDrawing\n @param typography Indicates the pointer to the text <b>OH_Drawing_Typography</b> object.\n @param decoration Indicates the text decoration to update. For details, see the enum\n <b>OH_Drawing_TextDecoration</b>.\n @since 20\n @version 1.0"]
+    #[cfg(feature = "api-20")]
     pub fn OH_Drawing_TypographyUpdateDecoration(
         typography: *mut OH_Drawing_Typography,
         decoration: OH_Drawing_TextDecoration,
     );
 }
 extern "C" {
-    #[cfg(feature = "api-20")]
     #[doc = " @brief Update the decoration thickness scale of the typography.\n\n @syscap SystemCapability.Graphic.Graphic2D.NativeDrawing\n @param typography Indicates the pointer to the text <b>OH_Drawing_Typography</b> object.\n @param decorationThicknessScale Indicates the thickness scale of the text decoration to update.\n @since 20\n @version 1.0"]
+    #[cfg(feature = "api-20")]
     pub fn OH_Drawing_TypographyUpdateDecorationThicknessScale(
         typography: *mut OH_Drawing_Typography,
         decorationThicknessScale: f64,
     );
 }
 extern "C" {
-    #[cfg(feature = "api-20")]
     #[doc = " @brief Update the decoration style of typography.\n\n @syscap SystemCapability.Graphic.Graphic2D.NativeDrawing\n @param typography Indicates the pointer to the text <b>OH_Drawing_Typography</b> object.\n @param decorationStyle Indicates the text decoration style to update.\n For details, see the enum <b>OH_Drawing_TextDecorationStyle</b>.\n @since 20\n @version 1.0"]
+    #[cfg(feature = "api-20")]
     pub fn OH_Drawing_TypographyUpdateDecorationStyle(
         typography: *mut OH_Drawing_Typography,
         decorationStyle: OH_Drawing_TextDecorationStyle,
     );
 }
 extern "C" {
-    #[cfg(feature = "api-20")]
     #[doc = " @brief Updates the decoration color of the paragraph.\n\n @syscap SystemCapability.Graphic.Graphic2D.NativeDrawing\n @param typography Indicates the pointer to the text <b>OH_Drawing_Typography</b> object.\n @param color Indicates the text decoration color to update.\n @since 20\n @version 1.0"]
+    #[cfg(feature = "api-20")]
     pub fn OH_Drawing_TypographyUpdateDecorationColor(
         typography: *mut OH_Drawing_Typography,
         color: u32,
@@ -16535,52 +16535,52 @@ extern "C" {
     );
 }
 extern "C" {
-    #[cfg(feature = "api-18")]
     #[doc = " @brief Creates an <b>OH_Drawing_TextTab</b> object.\n\n @syscap SystemCapability.Graphic.Graphic2D.NativeDrawing\n @param alignment Indicates enumerates text tab alignment modes. TAB alignment, Support left alignment\n right alignment center alignment, other enumeration values are left alignment effect.\n @param location Indicates location of text tab.\n @return Returns the pointer to the <b>OH_Drawing_TextTab</b> object created. If the object returns NULL,\n the creation failed. The possible cause of the failure is that the application address space is used up.\n As a result, space cannot be allocated.\n @since 18\n @version 1.0"]
+    #[cfg(feature = "api-18")]
     pub fn OH_Drawing_CreateTextTab(
         alignment: OH_Drawing_TextAlign,
         location: f32,
     ) -> *mut OH_Drawing_TextTab;
 }
 extern "C" {
-    #[cfg(feature = "api-18")]
     #[doc = " @brief Releases the memory occupied by an <b>OH_Drawing_TextTab</b> object.\n\n @syscap SystemCapability.Graphic.Graphic2D.NativeDrawing\n @param tab Indicates the pointer to an <b>OH_Drawing_TextTab</b> object.\n @since 18\n @version 1.0"]
+    #[cfg(feature = "api-18")]
     pub fn OH_Drawing_DestroyTextTab(tab: *mut OH_Drawing_TextTab);
 }
 extern "C" {
-    #[cfg(feature = "api-18")]
     #[doc = " @brief Get alignment of an <b>OH_Drawing_TextTab</b> object.\n\n @syscap SystemCapability.Graphic.Graphic2D.NativeDrawing\n @param tab Indicates the pointer to an <b>OH_Drawing_TextTab</b> object.\n @return Returns align of an <b>OH_Drawing_TextTab</b> object.\n @since 18\n @version 1.0"]
+    #[cfg(feature = "api-18")]
     pub fn OH_Drawing_GetTextTabAlignment(tab: *mut OH_Drawing_TextTab) -> OH_Drawing_TextAlign;
 }
 extern "C" {
-    #[cfg(feature = "api-18")]
     #[doc = " @brief Get location of an <b>OH_Drawing_TextTab</b> object.\n\n @syscap SystemCapability.Graphic.Graphic2D.NativeDrawing\n @param tab Indicates the pointer to an <b>OH_Drawing_TextTab</b> object.\n @return Returns location of an <b>OH_Drawing_TextTab</b> object.\n @since 18\n @version 1.0"]
+    #[cfg(feature = "api-18")]
     pub fn OH_Drawing_GetTextTabLocation(tab: *mut OH_Drawing_TextTab) -> f32;
 }
 extern "C" {
-    #[cfg(feature = "api-18")]
     #[doc = " @brief Sets the text tab of <b>OH_Drawing_TypographyStyle</b> object.\n Tab alignment does not take effect when text alignment is also set, Or when the ellipsis style is configured.\n When the tab is not set or the tab's location property is less than or equal to 0, it is the default space effect.\n And all tabs in the paragraph after the setting are aligned according to this tab effect.\n\n @syscap SystemCapability.Graphic.Graphic2D.NativeDrawing\n @param style Indicates the pointer to an <b>OH_Drawing_TypographyStyle</b> object.\n @param tab Indicates the pointer to an <b>OH_Drawing_TextTab</b> object.\n @since 18\n @version 1.0"]
+    #[cfg(feature = "api-18")]
     pub fn OH_Drawing_SetTypographyTextTab(
         style: *mut OH_Drawing_TypographyStyle,
         tab: *mut OH_Drawing_TextTab,
     );
 }
 extern "C" {
-    #[cfg(feature = "api-14")]
     #[doc = " @brief Get DrawingArray size.\n\n @syscap SystemCapability.Graphic.Graphic2D.NativeDrawing\n @param drawingArray Indicates the pointer to the array object <b>OH_Drawing_Array</b>.\n @return Size of array.\n @since 14\n @version 1.0"]
+    #[cfg(feature = "api-14")]
     pub fn OH_Drawing_GetDrawingArraySize(drawingArray: *mut OH_Drawing_Array) -> usize;
 }
 extern "C" {
-    #[cfg(feature = "api-20")]
     #[doc = " @brief Sets whether to optimize whitespace at the end of each line for text typography.\n\n @syscap SystemCapability.Graphic.Graphic2D.NativeDrawing\n @param style Indicates the pointer to an <b>OH_Drawing_TypographyStyle</b> object.\n @param trailingSpaceOptimized Boolean value indicating whether to optimize whitespace at the end of each line\n for text typography to set.\n @since 20\n @version 1.0"]
+    #[cfg(feature = "api-20")]
     pub fn OH_Drawing_SetTypographyTextTrailingSpaceOptimized(
         style: *mut OH_Drawing_TypographyStyle,
         trailingSpaceOptimized: bool,
     );
 }
 extern "C" {
-    #[cfg(feature = "api-20")]
     #[doc = " @brief Sets the text content. The content supports UTF-8, UTF-16, and UTF-32 formats.\n\n @syscap SystemCapability.Graphic.Graphic2D.NativeDrawing\n @param handler Indicates the pointer to an <b>OH_Drawing_TypographyCreate</b> object.\n @param text Indicates the pointer to the text content to set.\n @param byteLength Set the byte length of the text content.\n @param textEncodingType Indicates the text encoding type <b>OH_Drawing_TextEncoding</b>.\n @since 20\n @version 1.0"]
+    #[cfg(feature = "api-20")]
     pub fn OH_Drawing_TypographyHandlerAddEncodedText(
         handler: *mut OH_Drawing_TypographyCreate,
         text: *const ::std::os::raw::c_void,
@@ -16589,28 +16589,28 @@ extern "C" {
     );
 }
 extern "C" {
-    #[cfg(feature = "api-20")]
     #[doc = " @brief Set whether to enable automatic spacing between Chinese and English for paragraph.\n\n @syscap SystemCapability.Graphic.Graphic2D.NativeDrawing\n @param style Indicates the pointer to an <b>OH_Drawing_TypographyStyle</b> object.\n @param enableAutoSpace Indicates Whether to enable automatic spacing between Chinese and English.\n @since 20"]
+    #[cfg(feature = "api-20")]
     pub fn OH_Drawing_SetTypographyTextAutoSpace(
         style: *mut OH_Drawing_TypographyStyle,
         enableAutoSpace: bool,
     );
 }
 extern "C" {
-    #[cfg(feature = "api-20")]
     #[doc = " @brief Copy a typography style object.\n\n @syscap SystemCapability.Graphic.Graphic2D.NativeDrawing\n @param style Indicates the pointer to an <b>OH_Drawing_TypographyStyle</b> object.\n @return Returns the pointer to the copied <b>OH_Drawing_TypographyStyle</b> object.\n @since 20\n @version 1.0"]
+    #[cfg(feature = "api-20")]
     pub fn OH_Drawing_CopyTypographyStyle(
         style: *mut OH_Drawing_TypographyStyle,
     ) -> *mut OH_Drawing_TypographyStyle;
 }
 extern "C" {
-    #[cfg(feature = "api-20")]
     #[doc = " @brief Copy a text style object.\n\n @syscap SystemCapability.Graphic.Graphic2D.NativeDrawing\n @param style Indicates the pointer to an <b>OH_Drawing_TextStyle</b> object.\n @return Returns the pointer to the copied <b>OH_Drawing_TextStyle</b> object.\n @since 20\n @version 1.0"]
+    #[cfg(feature = "api-20")]
     pub fn OH_Drawing_CopyTextStyle(style: *mut OH_Drawing_TextStyle) -> *mut OH_Drawing_TextStyle;
 }
 extern "C" {
-    #[cfg(feature = "api-20")]
     #[doc = " @brief Copy a text shadow object.\n\n @syscap SystemCapability.Graphic.Graphic2D.NativeDrawing\n @param shadow Indicates the pointer to an <b>OH_Drawing_TextShadow</b> object.\n @return Returns the pointer to the copied <b>OH_Drawing_TextShadow</b> object.\n @since 20\n @version 1.0"]
+    #[cfg(feature = "api-20")]
     pub fn OH_Drawing_CopyTextShadow(
         shadow: *mut OH_Drawing_TextShadow,
     ) -> *mut OH_Drawing_TextShadow;
@@ -16663,25 +16663,25 @@ extern "C" {
     );
 }
 extern "C" {
-    #[cfg(feature = "api-14")]
     #[doc = " @brief Creates an <b>ArkUI_StyledString_Descriptor</b> object.\n\n @return Returns the pointer to the <b>ArkUI_StyledString_Descriptor</b> object created.\n @since 14"]
+    #[cfg(feature = "api-14")]
     pub fn OH_ArkUI_StyledString_Descriptor_Create() -> *mut ArkUI_StyledString_Descriptor;
 }
 extern "C" {
-    #[cfg(feature = "api-14")]
     #[doc = " @brief Destroys an <b>ArkUI_StyledString_Descriptor</b> object and reclaims the memory occupied by the object.\n\n @param descriptor Pointer to an <b>ArkUI_StyledString_Descriptor</b> object.\n @since 14"]
+    #[cfg(feature = "api-14")]
     pub fn OH_ArkUI_StyledString_Descriptor_Destroy(descriptor: *mut ArkUI_StyledString_Descriptor);
 }
 extern "C" {
-    #[cfg(feature = "api-14")]
     #[doc = " @brief Converts styled string information into HTML.\n\n @param descriptor Pointer to an <b>ArkUI_StyledString_Descriptor</b> object.\n @return Returns the pointer to the resulting HTML string. This pointer is managed internally and should be destroyed\n         by calling <b>OH_ArkUI_StyledString_Descriptor_Destroy()</b> when no longer needed to free the memory.\n @since 14"]
+    #[cfg(feature = "api-14")]
     pub fn OH_ArkUI_ConvertToHtml(
         descriptor: *mut ArkUI_StyledString_Descriptor,
     ) -> *const ::std::os::raw::c_char;
 }
 extern "C" {
-    #[cfg(feature = "api-14")]
     #[doc = " @brief Deserializes a byte array containing styled string information into a styled string.\n\n @param buffer Byte array to be deserialized.\n @param bufferSize Length of the byte array.\n @param descriptor Pointer to an <b>ArkUI_StyledString_Descriptor</b> object.\n @return Returns the result code.\n         Returns {@link ARKUI_ERROR_CODE_NO_ERROR} if the operation is successful.\n         Returns {@link ARKUI_ERROR_CODE_PARAM_INVALID} if a parameter error occurs.\n @since 14"]
+    #[cfg(feature = "api-14")]
     pub fn OH_ArkUI_UnmarshallStyledStringDescriptor(
         buffer: *mut u8,
         bufferSize: usize,
@@ -16689,8 +16689,8 @@ extern "C" {
     ) -> i32;
 }
 extern "C" {
-    #[cfg(feature = "api-14")]
     #[doc = " @brief Serializes the styled string information into a byte array.\n\n @param buffer Byte array where the serialized data will be stored.\n @param bufferSize Length of the byte array.\n @param descriptor Pointer to an <b>ArkUI_StyledString_Descriptor</b> object.\n @param resultSize Actual length of the byte array.\n @return Returns the result code.\n         Returns {@link ARKUI_ERROR_CODE_NO_ERROR} if the operation is successful.\n         Returns {@link ARKUI_ERROR_CODE_PARAM_INVALID} if a parameter error occurs.\n         Returns {@link ARKUI_ERROR_CODE_INVALID_STYLED_STRING} if the styled string is invalid.\n @since 14"]
+    #[cfg(feature = "api-14")]
     pub fn OH_ArkUI_MarshallStyledStringDescriptor(
         buffer: *mut u8,
         bufferSize: usize,
@@ -16704,21 +16704,21 @@ pub struct ArkUI_TextLayoutManager {
     _unused: [u8; 0],
 }
 extern "C" {
-    #[cfg(feature = "api-22")]
     #[doc = " @brief Dispose an object of the text layout manager.\n\n @param layoutManager Pointer to the ArkUI_TextLayoutManager object to be disposed.\n @since 22"]
+    #[cfg(feature = "api-22")]
     pub fn OH_ArkUI_TextLayoutManager_Dispose(layoutManager: *mut ArkUI_TextLayoutManager);
 }
 extern "C" {
-    #[cfg(feature = "api-22")]
     #[doc = " @brief Gets the line count.\n\n @param layoutManager Indicates the pointer to an <b>ArkUI_TextLayoutManager</b> object.\n @param outLineCount Returns the line count.\n @return Returns the result code.\n         Returns {@link ARKUI_ERROR_CODE_NO_ERROR} if the operation is successful.\n         Returns {@link ARKUI_ERROR_CODE_PARAM_INVALID} if a parameter exception occurs.\n @since 22"]
+    #[cfg(feature = "api-22")]
     pub fn OH_ArkUI_TextLayoutManager_GetLineCount(
         layoutManager: *mut ArkUI_TextLayoutManager,
         outLineCount: *mut i32,
     ) -> ArkUI_ErrorCode;
 }
 extern "C" {
-    #[cfg(feature = "api-22")]
     #[doc = " @brief Gets the rects for range.\n\n @param layoutManager Indicates the pointer to an <b>ArkUI_TextLayoutManager</b> object.\n @param start Indicates the start of range to set.\n @param end Indicates the end of range to set.\n @param widthStyle Indicates the width style to set.\n     For details, see the enum <b>OH_Drawing_RectWidthStyle</b>.\n @param heightStyle Indicates the height style to set.\n     For details, see the enum <b>OH_Drawing_RectHeightStyle</b>.\n @param outTextBoxes Returns the array of rects for range.\n @return Returns the result code.\n         Returns {@link ARKUI_ERROR_CODE_NO_ERROR} if the operation is successful.\n         Returns {@link ARKUI_ERROR_CODE_PARAM_INVALID} if a parameter exception occurs.\n @since 22"]
+    #[cfg(feature = "api-22")]
     pub fn OH_ArkUI_TextLayoutManager_GetRectsForRange(
         layoutManager: *mut ArkUI_TextLayoutManager,
         start: i32,
@@ -16729,8 +16729,8 @@ extern "C" {
     ) -> ArkUI_ErrorCode;
 }
 extern "C" {
-    #[cfg(feature = "api-22")]
     #[doc = " @brief Gets the glyph position at coordinate.\n\n @param layoutManager Indicates the pointer to an <b>ArkUI_TextLayoutManager</b> object.\n @param dx Indicates the positionX of typography to set.\n @param dy Indicates the positionY of typography to set.\n @param outPos Returns the glyph position at coordinate.\n @return Returns the result code.\n         Returns {@link ARKUI_ERROR_CODE_NO_ERROR} if the operation is successful.\n         Returns {@link ARKUI_ERROR_CODE_PARAM_INVALID} if a parameter exception occurs.\n @since 22"]
+    #[cfg(feature = "api-22")]
     pub fn OH_ArkUI_TextLayoutManager_GetGlyphPositionAtCoordinate(
         layoutManager: *mut ArkUI_TextLayoutManager,
         dx: f64,
@@ -16739,8 +16739,8 @@ extern "C" {
     ) -> ArkUI_ErrorCode;
 }
 extern "C" {
-    #[cfg(feature = "api-22")]
     #[doc = " @brief Get line metrics information.\n\n @param layoutManager Indicates the pointer to a typography object <b>ArkUI_TextLayoutManager</b>.\n @param lineNumber Indicates the number of line.\n @param outMetrics Indicates the pointer to a line metrics object <b>OH_Drawing_LineMetrics</b>.\n @return Returns the result code.\n         Returns {@link ARKUI_ERROR_CODE_NO_ERROR} if the operation is successful.\n         Returns {@link ARKUI_ERROR_CODE_PARAM_INVALID} if a parameter exception occurs.\n @since 22"]
+    #[cfg(feature = "api-22")]
     pub fn OH_ArkUI_TextLayoutManager_GetLineMetrics(
         layoutManager: *mut ArkUI_TextLayoutManager,
         lineNumber: i32,
