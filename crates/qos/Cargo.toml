@@ -1,0 +1,26 @@
+[package]
+name        = "ohos-qos-binding"
+version     = "0.1.0"
+edition     = "2021"
+license     = "MIT OR Apache-2.0"
+description = "OpenHarmony's qos binding for rust"
+
+[dependencies]
+ohos-qos-sys    = { workspace = true }
+ohos_enum_macro = { workspace = true }
+
+[features]
+default = []
+api-13  = ["ohos-qos-sys/api-13"]
+api-14  = ["api-13", "ohos-qos-sys/api-14"]
+api-15  = ["api-14", "ohos-qos-sys/api-15"]
+api-16  = ["api-15", "ohos-qos-sys/api-16"]
+api-17  = ["api-16", "ohos-qos-sys/api-17"]
+api-18  = ["api-17", "ohos-qos-sys/api-18"]
+api-19  = ["api-18", "ohos-qos-sys/api-19"]
+api-20  = ["api-19", "ohos-qos-sys/api-20"]
+api-21  = ["api-20", "ohos-qos-sys/api-21"]
+api-22  = ["api-21", "ohos-qos-sys/api-22"]
+
+[lints]
+workspace = true

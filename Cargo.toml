@@ -25,6 +25,7 @@ ohos-sensor-binding                 = { version = "0.1.0", path = "crates/sensor
 ohos-vibrator-binding               = { version = "0.1.0", path = "crates/vibrator" }
 ohos-fileuri-binding                = { version = "0.1.0", path = "crates/fileuri" }
 ohos-fileshare-binding              = { version = "0.1.0", path = "crates/fileshare" }
+ohos-qos-binding                    = { version = "0.1.0", path = "crates/qos" }
 
 ohos-bundle-sys                 = { version = "0.0.2", path = "sys/ohos-bundle-sys" }
 ohos-init-sys                   = { version = "0.0.2", path = "sys/ohos-init-sys" }
@@ -49,12 +50,12 @@ ohos-image-native-sys           = { version = "0.0.1", path = "sys/ohos-image-na
 ohos-web-sys                    = { version = "0.0.1", path = "sys/ohos-web-sys" }
 ohos-sensor-sys                 = { version = "0.1.0", path = "sys/ohos-sensor-sys" }
 ohos-vibrator-sys               = { version = "0.1.0", path = "sys/ohos-vibrator-sys" }
-ohos-qos-sys                    = { version = "0.0.1", path = "sys/ohos-qos-sys" }
+ohos-qos-sys                    = { version = "0.1.0", path = "sys/ohos-qos-sys" }
 ohos-audio-sys                  = { version = "0.0.1", path = "sys/ohos-audio-sys" }
 ohos-fileuri-sys                = { version = "0.1.0", path = "sys/ohos-fileuri-sys" }
 ohos-fileshare-sys              = { version = "0.1.0", path = "sys/ohos-fileshare-sys" }
 
-ohos_enum_macro = { version = "0.0.2", path = "crates/enum_macro" }
+ohos_enum_macro = { version = "0.1.0", path = "crates/enum_macro" }
 
 napi-sys-ohos    = { version = "1.1.3", features = ["napi8"] }
 napi-ohos        = { version = "1.1.3" }

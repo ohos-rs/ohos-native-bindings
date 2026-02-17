@@ -22,8 +22,9 @@ A set of HarmonyNext native module bindings for rust.
 | ohos-web-binding                    | ![Crates.io Version](https://img.shields.io/crates/v/ohos-web-binding)                    | [arkweb](https://developer.huawei.com/consumer/cn/doc/harmonyos-references-V5/_web-V5) binding                                    |
 | ohos-sensor-binding                 | ![Crates.io Version](https://img.shields.io/crates/v/ohos-sensor-binding)                 | [sensor](https://developer.huawei.com/consumer/cn/doc/harmonyos-references/_sensor) binding                                       |
 | ohos-vibrator-binding               | ![Crates.io Version](https://img.shields.io/crates/v/ohos-vibrator-binding)               | [vibrator](https://developer.huawei.com/consumer/cn/doc/harmonyos-references/_vibrator) binding                                   |
-| ohos-fileuri-binding                | ![Crates.io Version](https://img.shields.io/crates/v/ohos-fileuri-binding)                | [FileUri](https://developer.huawei.com/consumer/cn/doc/harmonyos-references/capi-fileuri)                                         |
-| ohos-fileshare-binding              | ![Crates.io Version](https://img.shields.io/crates/v/ohos-fileshare-binding)              | [FileShare](https://developer.huawei.com/consumer/cn/doc/harmonyos-references/capi-fileshare)                                     |
+| ohos-fileuri-binding                | ![Crates.io Version](https://img.shields.io/crates/v/ohos-fileuri-binding)                | [FileUri](https://developer.huawei.com/consumer/cn/doc/harmonyos-references/capi-fileuri) binding                                 |
+| ohos-fileshare-binding              | ![Crates.io Version](https://img.shields.io/crates/v/ohos-fileshare-binding)              | [FileShare](https://developer.huawei.com/consumer/cn/doc/harmonyos-references/capi-fileshare) binding                             |
+| ohos-qos-binding                    | ![Crates.io Version](https://img.shields.io/crates/v/ohos-qos-binding)                    | [qos](https://developer.huawei.com/consumer/cn/doc/harmonyos-references/capi-qos) binding                                         |
 
 ## Contribution
 
