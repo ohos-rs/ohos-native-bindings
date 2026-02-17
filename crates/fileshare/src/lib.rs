@@ -1,5 +1,5 @@
+mod error;
 mod fileshare;
-mod fileuri;
 
+pub use error::*;
 pub use fileshare::*;
-pub use fileuri::*;

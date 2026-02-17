@@ -304,35 +304,6 @@ extern "C" {
     #[doc = " @brief Unlocks the memory of the <b>NativePixelMap</b> object data.\n This function is used with {@link OH_PixelMap_AccessPixels} in pairs.\n\n @param native Indicates the pointer to a <b>NativePixelMap</b> object.\n @return Returns {@link IRNdkErrCode} IMAGE_RESULT_SUCCESS - if the operation is successful.\n returns {@link IRNdkErrCode} IMAGE_RESULT_BAD_PARAMETER - if bad parameter.\n returns {@link IRNdkErrCode} IMAGE_RESULT_JNI_ENV_ABNORMAL - if Abnormal JNI environment.\n returns {@link IRNdkErrCode} IMAGE_RESULT_INVALID_PARAMETER - if invalid parameter.\n returns {@link IRNdkErrCode} IMAGE_RESULT_GET_DATA_ABNORMAL - if image get data error.\n returns {@link IRNdkErrCode} IMAGE_RESULT_DECODE_FAILED - if decode fail.\n returns {@link IRNdkErrCode} IMAGE_RESULT_CHECK_FORMAT_ERROR - if check format failed.\n returns {@link IRNdkErrCode} IMAGE_RESULT_THIRDPART_SKIA_ERROR - if skia error.\n returns {@link IRNdkErrCode} IMAGE_RESULT_DATA_ABNORMAL - if image input data error.\n returns {@link IRNdkErrCode} IMAGE_RESULT_ERR_SHAMEM_NOT_EXIST - if sharememory error.\n returns {@link IRNdkErrCode} IMAGE_RESULT_ERR_SHAMEM_DATA_ABNORMAL - if sharememory data abnormal.\n returns {@link IRNdkErrCode} IMAGE_RESULT_MALLOC_ABNORMAL - if image malloc error.\n returns {@link IRNdkErrCode} IMAGE_RESULT_DATA_UNSUPPORT - if image init error.\n returns {@link IRNdkErrCode} IMAGE_RESULT_CROP - if crop error.\n returns {@link IRNdkErrCode} IMAGE_RESULT_UNKNOWN_FORMAT - if image unknown format.\n returns {@link IRNdkErrCode} IMAGE_RESULT_PLUGIN_REGISTER_FAILED - if register plugin fail.\n returns {@link IRNdkErrCode} IMAGE_RESULT_PLUGIN_CREATE_FAILED - if create plugin fail.\n returns {@link IRNdkErrCode} IMAGE_RESULT_INDEX_INVALID - if invalid index.\n returns {@link IRNdkErrCode} IMAGE_RESULT_ALPHA_TYPE_ERROR - if hard decode failed.\n returns {@link IRNdkErrCode} IMAGE_RESULT_ALLOCATER_TYPE_ERROR - if hard decode failed.\n @see AccessPixels\n @since 10\n @version 2.0"]
     pub fn OH_PixelMap_UnAccessPixels(native: *const NativePixelMap) -> i32;
 }
-#[doc = " @brief Defines the pixel map information.\n\n @deprecated since 10\n @since 8\n @version 1.0"]
-#[repr(C)]
-#[derive(Debug, Copy, Clone)]
-pub struct OhosPixelMapInfo {
-    #[doc = " Image width, in pixels."]
-    pub width: u32,
-    #[doc = " Image height, in pixels."]
-    pub height: u32,
-    #[doc = " Number of bytes per row."]
-    pub rowSize: u32,
-    #[doc = " Pixel format."]
-    pub pixelFormat: i32,
-}
-extern "C" {
-    #[doc = " @brief Obtains the information about a <b>PixelMap</b> object\n and stores the information to the {@link OhosPixelMapInfo} struct.\n\n @deprecated since 10\n @param env Indicates the NAPI environment pointer.\n @param value Indicates the <b>PixelMap</b> object at the application layer.\n @param info Indicates the pointer to the object that stores the information obtained.\n For details, see {@link OhosPixelMapInfo}.\n @return Returns <b>0</b> if the information is obtained and stored successfully; returns an error code otherwise.\n @see OhosPixelMapInfo\n @since 8\n @version 1.0"]
-    pub fn OH_GetImageInfo(env: napi_env, value: napi_value, info: *mut OhosPixelMapInfo) -> i32;
-}
-extern "C" {
-    #[doc = " @brief Obtains the memory address of a <b>PixelMap</b> object and locks the memory.\n\n After the function is executed successfully, <b>*addrPtr</b> is the memory address to be accessed.\n After the access operation is complete, you must use {@link OH_UnAccessPixels} to unlock the memory.\n Otherwise, the resources in the memory cannot be released.\n After the memory is unlocked, its address cannot be accessed or operated.\n\n @deprecated since 10\n @param env Indicates the NAPI environment pointer.\n @param value Indicates the <b>PixelMap</b> object at the application layer.\n @param addrPtr Indicates the double pointer to the memory address.\n @see UnAccessPixels\n @return Returns {@link OHOS_IMAGE_RESULT_SUCCESS} if the operation is successful; returns an error code otherwise.\n @since 8\n @version 1.0"]
-    pub fn OH_AccessPixels(
-        env: napi_env,
-        value: napi_value,
-        addrPtr: *mut *mut ::std::os::raw::c_void,
-    ) -> i32;
-}
-extern "C" {
-    #[doc = " @brief Unlocks the memory of a <b>PixelMap</b> object. This function is used with {@link OH_AccessPixels} in pairs.\n\n @deprecated since 10\n @param env Indicates the NAPI environment pointer.\n @param value Indicates the <b>PixelMap</b> object at the application layer.\n @return Returns {@link OHOS_IMAGE_RESULT_SUCCESS} if the operation is successful; returns an error code otherwise.\n @see AccessPixels\n @since 8\n @version 1.0"]
-    pub fn OH_UnAccessPixels(env: napi_env, value: napi_value) -> i32;
-}
 #[doc = " @brief Defines an <b>ImageReceiver</b> object at the native layer.\n\n @since 10\n @version 2.0"]
 #[repr(C)]
 #[derive(Debug, Copy, Clone)]

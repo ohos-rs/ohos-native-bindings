@@ -23,6 +23,32 @@ pub struct Image_Region {
     #[doc = " Height of the region, in pixels."]
     pub height: u32,
 }
+#[doc = " @brief Defines the area of the image pixels to read or write.\n\n @since 22"]
+#[cfg(feature = "api-22")]
+#[repr(C)]
+#[derive(Debug, Copy, Clone)]
+pub struct Image_PositionArea {
+    #[doc = " Image pixels data that will be read or written."]
+    pub pixels: *mut u8,
+    #[doc = " Length of the image pixels data."]
+    pub pixelsSize: usize,
+    #[doc = " Offset for data reading or writing."]
+    pub offset: u32,
+    #[doc = " Number of bytes per row of the region."]
+    pub stride: u32,
+    #[doc = " Region to read or write."]
+    pub region: Image_Region,
+}
+#[doc = " @brief Defines the image scale ratio.\n\n @since 22"]
+#[cfg(feature = "api-22")]
+#[repr(C)]
+#[derive(Debug, Copy, Clone)]
+pub struct Image_Scale {
+    #[doc = " Scale ratio on the x-axis."]
+    pub x: f32,
+    #[doc = " Scale ratio on the y-axis."]
+    pub y: f32,
+}
 #[doc = " @brief Defines the region of the image source to decode.\n\n @since 12"]
 #[repr(C)]
 #[derive(Debug, Copy, Clone)]
@@ -32,8 +58,8 @@ pub struct Image_String {
     #[doc = " data lenth for string type"]
     pub size: usize,
 }
-#[cfg(feature = "api-13")]
 #[doc = " @brief Define a PictureMetadata struct type, used for picture metadata.\n\n @since 13"]
+#[cfg(feature = "api-13")]
 #[repr(C)]
 #[derive(Debug, Copy, Clone)]
 pub struct OH_PictureMetadata {
@@ -61,51 +87,60 @@ pub const Image_ErrorCode_IMAGE_UNSUPPORTED_METADATA: Image_ErrorCode = 7600202;
 pub const Image_ErrorCode_IMAGE_UNSUPPORTED_CONVERSION: Image_ErrorCode = 7600203;
 #[doc = " invalid region"]
 pub const Image_ErrorCode_IMAGE_INVALID_REGION: Image_ErrorCode = 7600204;
-#[cfg(feature = "api-13")]
 #[doc = "  @error unsupported memory format\n  @since 13"]
+#[cfg(feature = "api-13")]
 pub const Image_ErrorCode_IMAGE_UNSUPPORTED_MEMORY_FORMAT: Image_ErrorCode = 7600205;
-#[cfg(feature = "api-19")]
 #[doc = " @error Invalid parameter.\n @since 19"]
+#[cfg(feature = "api-19")]
 pub const Image_ErrorCode_IMAGE_INVALID_PARAMETER: Image_ErrorCode = 7600206;
+#[doc = " @error Unsupported data format\n @since 22"]
+#[cfg(feature = "api-22")]
+pub const Image_ErrorCode_IMAGE_UNSUPPORTED_DATA_FORMAT: Image_ErrorCode = 7600207;
 #[doc = " failed to allocate memory"]
 pub const Image_ErrorCode_IMAGE_ALLOC_FAILED: Image_ErrorCode = 7600301;
 #[doc = " memory copy failed"]
 pub const Image_ErrorCode_IMAGE_COPY_FAILED: Image_ErrorCode = 7600302;
-#[cfg(feature = "api-15")]
 #[doc = " @error memory lock or unlock failed\n @since 15"]
+#[cfg(feature = "api-15")]
 pub const Image_ErrorCode_IMAGE_LOCK_UNLOCK_FAILED: Image_ErrorCode = 7600303;
-#[cfg(feature = "api-20")]
+#[doc = " @error Initialization failed\n @since 22"]
+#[cfg(feature = "api-22")]
+pub const Image_ErrorCode_IMAGE_INIT_FAILED: Image_ErrorCode = 7600304;
+#[doc = " @error Create PixelMap failed\n @since 22"]
+#[cfg(feature = "api-22")]
+pub const Image_ErrorCode_IMAGE_CREATE_PIXELMAP_FAILED: Image_ErrorCode = 7600305;
 #[doc = " @error unsupported allocator mode, e.g., use share memory to create a HDR image as only\n DMA supported hdr metadata.\n @since 20"]
+#[cfg(feature = "api-20")]
 pub const Image_ErrorCode_IMAGE_ALLOCATOR_MODE_UNSUPPORTED: Image_ErrorCode = 7600501;
 #[doc = " unknown error"]
 pub const Image_ErrorCode_IMAGE_UNKNOWN_ERROR: Image_ErrorCode = 7600901;
 #[doc = " decode data source exception"]
 pub const Image_ErrorCode_IMAGE_BAD_SOURCE: Image_ErrorCode = 7700101;
-#[cfg(feature = "api-15")]
 #[doc = " @error unsupported mime type\n @since 15"]
+#[cfg(feature = "api-15")]
 pub const Image_ErrorCode_IMAGE_SOURCE_UNSUPPORTED_MIME_TYPE: Image_ErrorCode = 7700102;
-#[cfg(feature = "api-15")]
 #[doc = " @error image to large\n @since 15"]
-pub const Image_ErrorCode_IMAGE_SOURCE_TOO_LARGE: Image_ErrorCode = 7700103;
 #[cfg(feature = "api-15")]
+pub const Image_ErrorCode_IMAGE_SOURCE_TOO_LARGE: Image_ErrorCode = 7700103;
 #[doc = " @error unsupported allocator type, e.g., use share memory to decode a HDR image as only\n DMA supported hdr metadata.\n @since 15"]
+#[cfg(feature = "api-15")]
 pub const Image_ErrorCode_IMAGE_SOURCE_UNSUPPORTED_ALLOCATOR_TYPE: Image_ErrorCode = 7700201;
 pub const Image_ErrorCode_IMAGE_SOURCE_UNSUPPORTED_OPTIONS: Image_ErrorCode = 7700203;
-#[cfg(feature = "api-19")]
 #[doc = " @error Invalid parameter.\n @since 19"]
+#[cfg(feature = "api-19")]
 pub const Image_ErrorCode_IMAGE_SOURCE_INVALID_PARAMETER: Image_ErrorCode = 7700204;
 #[doc = " decode failed"]
 pub const Image_ErrorCode_IMAGE_DECODE_FAILED: Image_ErrorCode = 7700301;
-#[cfg(feature = "api-15")]
 #[doc = " @error memory allocation failed\n @since 15"]
+#[cfg(feature = "api-15")]
 pub const Image_ErrorCode_IMAGE_SOURCE_ALLOC_FAILED: Image_ErrorCode = 7700302;
-#[cfg(feature = "api-19")]
 #[doc = " @error Invalid parameter for ImagePacker.\n @since 19"]
+#[cfg(feature = "api-19")]
 pub const Image_ErrorCode_IMAGE_PACKER_INVALID_PARAMETER: Image_ErrorCode = 7800202;
 #[doc = " encode failed"]
 pub const Image_ErrorCode_IMAGE_ENCODE_FAILED: Image_ErrorCode = 7800301;
-#[cfg(feature = "api-20")]
 #[doc = " @error Invalid parameter for ImageReceiver.\n @since 20"]
+#[cfg(feature = "api-20")]
 pub const Image_ErrorCode_IMAGE_RECEIVER_INVALID_PARAMETER: Image_ErrorCode = 7900201;
 #[doc = " @brief Enumerates the return values that may be used by the interface.\n\n @since 12"]
 pub type Image_ErrorCode = u32;
@@ -115,35 +150,35 @@ pub const Image_MetadataType_EXIF_METADATA: Image_MetadataType = 1;
 #[doc = " Fragment metadata."]
 #[cfg(feature = "api-13")]
 pub const Image_MetadataType_FRAGMENT_METADATA: Image_MetadataType = 2;
-#[cfg(feature = "api-20")]
 #[doc = " Metadata of a GIF image.\n\n @since 20"]
+#[cfg(feature = "api-20")]
 pub const Image_MetadataType_GIF_METADATA: Image_MetadataType = 5;
-#[cfg(feature = "api-13")]
 #[doc = " @brief Define the metadata type.\n\n @since 13"]
+#[cfg(feature = "api-13")]
 pub type Image_MetadataType = u32;
-#[cfg(feature = "api-20")]
 #[doc = " The system determines which memory to use to create the PixelMap.\n\n @since 20"]
+#[cfg(feature = "api-20")]
 pub const IMAGE_ALLOCATOR_MODE_IMAGE_ALLOCATOR_MODE_AUTO: IMAGE_ALLOCATOR_MODE = 0;
-#[cfg(feature = "api-20")]
 #[doc = " Use DMA buffer to create the PixelMap.\n\n @since 20"]
+#[cfg(feature = "api-20")]
 pub const IMAGE_ALLOCATOR_MODE_IMAGE_ALLOCATOR_MODE_DMA: IMAGE_ALLOCATOR_MODE = 1;
-#[cfg(feature = "api-20")]
 #[doc = " Use share memory to create the PixelMap.\n\n @since 20"]
-pub const IMAGE_ALLOCATOR_MODE_IMAGE_ALLOCATOR_MODE_SHARED_MEMORY: IMAGE_ALLOCATOR_MODE = 2;
 #[cfg(feature = "api-20")]
+pub const IMAGE_ALLOCATOR_MODE_IMAGE_ALLOCATOR_MODE_SHARED_MEMORY: IMAGE_ALLOCATOR_MODE = 2;
 #[doc = " @brief Type of allocator used to allocate memory of a PixelMap.\n\n @since 20"]
+#[cfg(feature = "api-20")]
 pub type IMAGE_ALLOCATOR_MODE = u32;
 extern "C" {
-    #[cfg(feature = "api-13")]
     #[doc = " @brief Creates a <b>PictureMetadata</b> object.\n\n @param metadataType The type of metadata.\n @param metadata The PictureMetadata pointer will be operated.\n @return Image functions result code.\n         {@link IMAGE_SUCCESS} if the execution is successful.\n         {@link IMAGE_BAD_PARAMETER} metadata is nullptr.\n @since 13"]
+    #[cfg(feature = "api-13")]
     pub fn OH_PictureMetadata_Create(
         metadataType: Image_MetadataType,
         metadata: *mut *mut OH_PictureMetadata,
     ) -> Image_ErrorCode;
 }
 extern "C" {
-    #[cfg(feature = "api-13")]
     #[doc = " @brief Obtains the property of picture metadata.\n\n @param metadata The PictureMetadata pointer will be operated.\n @param key The property's key.\n @param value The property's value.\n @return Image functions result code.\n         {@link IMAGE_SUCCESS} if the execution is successful.\n         {@link IMAGE_BAD_PARAMETER} metadata is nullptr, or key is nullptr, or value is nullptr.\n         {@link IMAGE_UNSUPPORTED_METADATA} unsupported metadata type, or the metadata type does not match the\n         auxiliary picture type.\n @since 13"]
+    #[cfg(feature = "api-13")]
     pub fn OH_PictureMetadata_GetProperty(
         metadata: *mut OH_PictureMetadata,
         key: *mut Image_String,
@@ -151,8 +186,8 @@ extern "C" {
     ) -> Image_ErrorCode;
 }
 extern "C" {
-    #[cfg(feature = "api-13")]
     #[doc = " @brief Set picture metadata property.\n\n @param metadata The PictureMetadata pointer will be operated.\n @param key The property's key.\n @param value The property's value.\n @return Image functions result code.\n         {@link IMAGE_SUCCESS} if the execution is successful.\n         {@link IMAGE_BAD_PARAMETER} metadata is nullptr, or key is nullptr, or value is nullptr.\n         {@link IMAGE_UNSUPPORTED_METADATA} unsupported metadata type, or the metadata type does not match the\n         auxiliary picture type.\n @since 13"]
+    #[cfg(feature = "api-13")]
     pub fn OH_PictureMetadata_SetProperty(
         metadata: *mut OH_PictureMetadata,
         key: *mut Image_String,
@@ -160,8 +195,8 @@ extern "C" {
     ) -> Image_ErrorCode;
 }
 extern "C" {
-    #[cfg(feature = "api-19")]
     #[doc = " @brief Obtains the property of picture metadata. The output value.data is null-terminated.\n\n @param metadata Pointer to OH_PictureMetadata.\n @param key Pointer to property's key.\n @param value Pointer to property's value. Output parameter.\n @return Image functions result code.\n         {@link IMAGE_SUCCESS} if the execution is successful.\n         {@link IMAGE_INVALID_PARAMETER} metadata is nullptr, or key is nullptr, or value is nullptr.\n         {@link IMAGE_UNSUPPORTED_METADATA} unsupported metadata type, or the metadata type does not match the\n         auxiliary picture type.\n @since 19"]
+    #[cfg(feature = "api-19")]
     pub fn OH_PictureMetadata_GetPropertyWithNull(
         metadata: *mut OH_PictureMetadata,
         key: *mut Image_String,
@@ -169,13 +204,13 @@ extern "C" {
     ) -> Image_ErrorCode;
 }
 extern "C" {
-    #[cfg(feature = "api-13")]
     #[doc = " @brief Releases this PictureMetadata object.\n\n @param metadata The PictureMetadata pointer will be operated.\n @return Image functions result code.\n         {@link IMAGE_SUCCESS} if the execution is successful.\n         {@link IMAGE_BAD_PARAMETER} metadata is nullptr.\n @since 13"]
+    #[cfg(feature = "api-13")]
     pub fn OH_PictureMetadata_Release(metadata: *mut OH_PictureMetadata) -> Image_ErrorCode;
 }
 extern "C" {
-    #[cfg(feature = "api-13")]
     #[doc = " @brief Obtains a clone of metadata.\n\n @param oldMetadata The PictureMetadata pointer will be operated.\n @param newMetadata The PictureMetadata pointer will be cloned.\n @return Image functions result code.\n         {@link IMAGE_SUCCESS} if the execution is successful.\n         {@link IMAGE_BAD_PARAMETER} metadata is nullptr.\n         {@link IMAGE_ALLOC_FAILED} memory alloc failed.\n         {@link IMAGE_COPY_FAILED} memory copy failed.\n @since 13"]
+    #[cfg(feature = "api-13")]
     pub fn OH_PictureMetadata_Clone(
         oldMetadata: *mut OH_PictureMetadata,
         newMetadata: *mut *mut OH_PictureMetadata,
@@ -411,16 +446,16 @@ extern "C" {
     ) -> Image_ErrorCode;
 }
 extern "C" {
-    #[cfg(feature = "api-18")]
     #[doc = " @brief Get editable for InitializationOptions struct.\n\n @param options The InitializationOptions pointer will be operated.\n @param editable The boolean value representing the editable status.\n @return Returns {@link Image_ErrorCode} IMAGE_SUCCESS - if the operation is successful.\n returns {@link Image_ErrorCode} IMAGE_BAD_PARAMETER - if options or editable is invalid.\n @since 18"]
+    #[cfg(feature = "api-18")]
     pub fn OH_PixelmapInitializationOptions_GetEditable(
         options: *mut OH_Pixelmap_InitializationOptions,
         editable: *mut bool,
     ) -> Image_ErrorCode;
 }
 extern "C" {
-    #[cfg(feature = "api-18")]
     #[doc = " @brief Set editable for InitializationOptions struct.\n\n @param options The InitializationOptions pointer will be operated.\n @param editable The boolean value representing the editable status.\n @return Returns {@link Image_ErrorCode} IMAGE_SUCCESS - if the operation is successful.\n returns {@link Image_ErrorCode} IMAGE_BAD_PARAMETER - if options is invalid.\n @since 18"]
+    #[cfg(feature = "api-18")]
     pub fn OH_PixelmapInitializationOptions_SetEditable(
         options: *mut OH_Pixelmap_InitializationOptions,
         editable: bool,
@@ -457,8 +492,8 @@ extern "C" {
     ) -> Image_ErrorCode;
 }
 extern "C" {
-    #[cfg(feature = "api-20")]
     #[doc = " @brief Get alphaMode number for imageinfo struct.\n\n @param info The imageinfo pointer will be operated.\n @param alphaMode The number of imageinfo alphaMode.\n @return Image functions result code.\n     {@link IMAGE_SUCCESS} if the execution is successful.\n     {@link IMAGE_BAD_PARAMETER} info is nullptr, or alphaMode is nullptr.\n @since 20"]
+    #[cfg(feature = "api-20")]
     pub fn OH_PixelmapImageInfo_GetAlphaMode(
         info: *mut OH_Pixelmap_ImageInfo,
         alphaMode: *mut i32,
@@ -506,8 +541,8 @@ extern "C" {
     ) -> Image_ErrorCode;
 }
 extern "C" {
-    #[cfg(feature = "api-20")]
     #[doc = " @brief Creates a pixelmap based on options {@link OH_Pixelmap_InitializationOptions}, the memory type used by the\n pixelmap can be specified by allocatorType {@link IMAGE_ALLOCATOR_MODE}. By default, the system selects the memory\n type based on the image type, image size, platform capability, etc. When processing the pixelmap returned by this\n interface, please always consider the impact of stride.\n\n @param data Input color buffer in BGRA_8888 format by default.\n @param dataLength Length of input buffer in bytes.\n @param options Pixelmap initialization properties including size, pixel format, alpha type, and editable flags.\n @param allocator Indicate which memory type will be used by the returned pixelmap.\n @param pixelmap Output parameter receiving the created pixelmap object pointer.\n @return Function result code:\n         {@link IMAGE_SUCCESS} If the operation is successful.\n         {@link IMAGE_BAD_PARAMETER} If the param is nullptr or invalid.\n         {@link IMAGE_TOO_LARGE} too large data or image.\n         {@link IMAGE_UNSUPPORTED_OPERATION} unsupported operations.\n         {@link IMAGE_DMA_OPERATION_FAILED} DMA operation failed.\n         {@link IMAGE_ALLOCATOR_MODE_UNSUPPORTED} unsupported allocator mode, e.g.,\n         use share memory to create a HDR image as only DMA supported hdr metadata.\n @since 20"]
+    #[cfg(feature = "api-20")]
     pub fn OH_PixelmapNative_CreatePixelmapUsingAllocator(
         data: *mut u8,
         dataLength: usize,
@@ -549,8 +584,24 @@ extern "C" {
     ) -> Image_ErrorCode;
 }
 extern "C" {
-    #[cfg(feature = "api-13")]
+    #[doc = " @brief Reads data from a certain area of the PixelMap to a buffer. The resulting data will be in BGRA_8888 format.\n\n @param pixelmap The PixelMap to be read.\n @param area Area of the PixelMap to read the data. Data will be read and copied into area->pixels.\n @return Function result code:\n         {@link IMAGE_SUCCESS} If the operation is successful.\n         {@link IMAGE_BAD_PARAMETER} If any parameter is invalid, e.g. pixelmap or area is incorrect.\n         {@link IMAGE_UNKNOWN_ERROR} Internal unknown error, e.g. unsupported pixel format.\n @see OH_PixelmapNative\n @since 22"]
+    #[cfg(feature = "api-22")]
+    pub fn OH_PixelmapNative_ReadPixelsFromArea(
+        pixelmap: *mut OH_PixelmapNative,
+        area: *mut Image_PositionArea,
+    ) -> Image_ErrorCode;
+}
+extern "C" {
+    #[doc = " @brief Writes data from a buffer to a certain area of the PixelMap. The source data should be in BGRA_8888 format.\n\n @param pixelmap The PixelMap to be written.\n @param area Area of the PixelMap to write the data.\n @return Function result code:\n         {@link IMAGE_SUCCESS} If the operation is successful.\n         {@link IMAGE_BAD_PARAMETER} If any parameter is invalid, e.g. pixelmap or area is incorrect.\n         {@link IMAGE_UNSUPPORTED_OPERATION} If the PixelMap is not editable.\n         {@link IMAGE_UNKNOWN_ERROR} Internal unknown error, e.g. unsupported pixel format.\n @see OH_PixelmapNative\n @since 22"]
+    #[cfg(feature = "api-22")]
+    pub fn OH_PixelmapNative_WritePixelsToArea(
+        pixelmap: *mut OH_PixelmapNative,
+        area: *mut Image_PositionArea,
+    ) -> Image_ErrorCode;
+}
+extern "C" {
     #[doc = " @brief Get argb pixel buffer from pixelmap.\n\n @param pixelmap The Pixelmap pointer to be operated.\n @param destination Buffer to which the image pixel map data will be written.\n @param bufferSize Buffer size to which the image pixel map data will be written.\n @return Function result code:\n         {@link IMAGE_SUCCESS} If the operation is successful.\n         {@link IMAGE_BAD_PARAMETER} If invalid parameter, destination and bufferSize are incorrect.\n         {@link IMAGE_UNSUPPORTED_CONVERSION} If format does not support conversion to argb or conversion failed.\n         {@link IMAGE_ALLOC_FAILED} If device has no memory.\n         {@link IMAGE_COPY_FAILED} If memory copy failed.\n @see OH_PixelmapNative\n @since 13"]
+    #[cfg(feature = "api-13")]
     pub fn OH_PixelmapNative_GetArgbPixels(
         pixelmap: *mut OH_PixelmapNative,
         destination: *mut u8,
@@ -593,8 +644,8 @@ extern "C" {
     ) -> Image_ErrorCode;
 }
 extern "C" {
-    #[cfg(feature = "api-18")]
     #[doc = " @brief Create a scaled pixelmap based on the source pixelmap and the input width and height.\n\n @param srcPixelmap The source native pixelmap.\n @param dstPixelmap The destination native pixelmap for create.\n @param scaleX Scaling ratio of the width.\n @param scaleY Scaling ratio of the height.\n @return Function result code:\n         {@link IMAGE_SUCCESS} If the execution is successful.\n         {@link IMAGE_BAD_PARAMETER} If the param is nullptr or invalid.\n @see OH_PixelmapNative\n @since 18"]
+    #[cfg(feature = "api-18")]
     pub fn OH_PixelmapNative_CreateScaledPixelMap(
         srcPixelmap: *mut OH_PixelmapNative,
         dstPixelmap: *mut *mut OH_PixelmapNative,
@@ -603,8 +654,8 @@ extern "C" {
     ) -> Image_ErrorCode;
 }
 extern "C" {
-    #[cfg(feature = "api-18")]
     #[doc = " @brief Create a scaled pixelmap based on the source pixelmap and the input width and height with anti-aliasing.\n\n @param srcPixelmap The source native pixelmap.\n @param dstPixelmap The destination native pixelmap for create.\n @param scaleX Scaling ratio of the width.\n @param scaleY Scaling ratio of the height.\n @param level The anti-aliasing algorithm to be used.\n @return Function result code:\n         {@link IMAGE_SUCCESS} If the execution is successful.\n         {@link IMAGE_BAD_PARAMETER} If the param is nullptr or invalid.\n         {@link IMAGE_TOO_LARGE} If image is too large.\n         {@link IMAGE_ALLOC_FAILED} If device has no memory.\n @see OH_PixelmapNative\n @since 18"]
+    #[cfg(feature = "api-18")]
     pub fn OH_PixelmapNative_CreateScaledPixelMapWithAntiAliasing(
         srcPixelmap: *mut OH_PixelmapNative,
         dstPixelmap: *mut *mut OH_PixelmapNative,
@@ -619,6 +670,33 @@ extern "C" {
         pixelmap: *mut OH_PixelmapNative,
         x: f32,
         y: f32,
+    ) -> Image_ErrorCode;
+}
+extern "C" {
+    #[doc = " @brief Creates a PixelMap with only alpha channel from the source PixelMap.\n\n @param srcPixelmap The source PixelMap.\n @param dstPixelmap The target PixelMap to be created.\n @return Function result code:\n         {@link IMAGE_SUCCESS} If the operation is successful.\n         {@link IMAGE_BAD_PARAMETER} If any parameter is invalid, e.g. srcPixelmap or dstPixelmap is incorrect.\n @see OH_PixelmapNative\n @since 22"]
+    #[cfg(feature = "api-22")]
+    pub fn OH_PixelmapNative_CreateAlphaPixelmap(
+        srcPixelmap: *mut OH_PixelmapNative,
+        dstPixelmap: *mut *mut OH_PixelmapNative,
+    ) -> Image_ErrorCode;
+}
+extern "C" {
+    #[doc = " @brief Clones a PixelMap from the source PixelMap.\n\n @param srcPixelmap The source PixelMap to be cloned.\n @param dstPixelmap The target PixelMap to be created.\n @return Function result code:\n         {@link IMAGE_SUCCESS} If the operation is successful.\n         {@link IMAGE_BAD_PARAMETER} If any parameter is invalid, e.g. srcPixelmap or dstPixelmap is incorrect.\n         {@link IMAGE_UNSUPPORTED_DATA_FORMAT} If the pixel format is unsupported.\n         {@link IMAGE_TOO_LARGE} If the PixelMap size is too large.\n         {@link IMAGE_INIT_FAILED} If the PixelMap initialization failed.\n         {@link IMAGE_ALLOC_FAILED} If the copying of PixelMap data failed.\n @see OH_PixelmapNative\n @since 22"]
+    #[cfg(feature = "api-22")]
+    pub fn OH_PixelmapNative_Clone(
+        srcPixelmap: *mut OH_PixelmapNative,
+        dstPixelmap: *mut *mut OH_PixelmapNative,
+    ) -> Image_ErrorCode;
+}
+extern "C" {
+    #[doc = " @brief Creates a cropped and then scaled PixelMap based on the source PixelMap.\n\n @param srcPixelmap The source PixelMap.\n @param region The crop region.\n @param scale The scale ratio of width and height.\n @param level The anti-aliasing algorithm to be used.\n @param dstPixelmap The target PixelMap to be created.\n @return Function result code:\n         {@link IMAGE_SUCCESS} If the operation is successful.\n         {@link IMAGE_BAD_PARAMETER} If any parameter is invalid, e.g. srcPixelmap, region, scale, or dstPixelmap is\n                                     incorrect.\n         {@link IMAGE_UNSUPPORTED_DATA_FORMAT} If the pixel format is unsupported.\n         {@link IMAGE_TOO_LARGE} If the PixelMap size is too large.\n         {@link IMAGE_INIT_FAILED} If the PixelMap initialization failed.\n         {@link IMAGE_ALLOC_FAILED} If the copying of PixelMap data failed.\n @see OH_PixelmapNative\n @since 22"]
+    #[cfg(feature = "api-22")]
+    pub fn OH_PixelmapNative_CreateCroppedAndScaledPixelMap(
+        srcPixelmap: *mut OH_PixelmapNative,
+        region: *mut Image_Region,
+        scale: *mut Image_Scale,
+        level: OH_PixelmapNative_AntiAliasingLevel,
+        dstPixelmap: *mut *mut OH_PixelmapNative,
     ) -> Image_ErrorCode;
 }
 extern "C" {
@@ -648,8 +726,8 @@ extern "C" {
     pub fn OH_PixelmapNative_Release(pixelmap: *mut OH_PixelmapNative) -> Image_ErrorCode;
 }
 extern "C" {
-    #[cfg(feature = "api-18")]
     #[doc = " @brief Destroys an <b>OH_PixelmapNative</b> object and deallocates its resources.\n\n @param pixelmap A pointer to the OH_PixelmapNative pointer to destroy.\n @return Returns {@link Image_ErrorCode} IMAGE_SUCCESS - if the operation is successful.\n returns {@link Image_ErrorCode} IMAGE_BAD_PARAMETER - if pixelmap is null or *pixelmap is null.\n @since 18"]
+    #[cfg(feature = "api-18")]
     pub fn OH_PixelmapNative_Destroy(pixelmap: *mut *mut OH_PixelmapNative) -> Image_ErrorCode;
 }
 extern "C" {
@@ -668,11 +746,28 @@ extern "C" {
     ) -> Image_ErrorCode;
 }
 extern "C" {
-    #[cfg(feature = "api-20")]
     #[doc = " @brief Creates a empty pixelmap based on options {@link OH_Pixelmap_InitializationOptions}, the memory type used\n by the pixelmap can be specified by allocatorType {@link IMAGE_ALLOCATOR_MODE}. By default,\n the system selects the memory type based on the image type, image size, platform capability, etc. When processing\n the pixelmap returned by this interface, please always consider the impact of stride.\n\n @param options Pixelmap initialization properties including size, pixel format, alpha type, and editable flags.\n @param allocator Indicate which memory type will be used by the returned pixelmap.\n @param pixelmap Output parameter receiving the created pixelmap object pointer.\n @return Function result code:\n         {@link IMAGE_SUCCESS} If the operation is successful.\n         {@link IMAGE_BAD_PARAMETER} If the param is nullptr or invalid.\n         {@link IMAGE_TOO_LARGE} too large data or image.\n         {@link IMAGE_UNSUPPORTED_OPERATION} unsupported operations.\n         {@link IMAGE_ALLOCATOR_MODE_UNSUPPORTED} unsupported allocator mode, e.g., use\n         share memory to create a HDR image as only DMA supported hdr metadata.\n @since 20"]
+    #[cfg(feature = "api-20")]
     pub fn OH_PixelmapNative_CreateEmptyPixelmapUsingAllocator(
         options: *mut OH_Pixelmap_InitializationOptions,
         allocator: IMAGE_ALLOCATOR_MODE,
+        pixelmap: *mut *mut OH_PixelmapNative,
+    ) -> Image_ErrorCode;
+}
+extern "C" {
+    #[doc = " @brief Creates a PixelMap from a Surface with the Surface ID.\n\n @param surfaceId The Surface ID.\n @param length Length of the Surface ID.\n @param pixelmap The PixelMap to be created.\n @return Function result code:\n         {@link IMAGE_SUCCESS} If the operation is successful.\n         {@link IMAGE_BAD_PARAMETER} If any parameter is invalid, e.g. surfaceId or pixelmap is incorrect.\n         {@link IMAGE_CREATE_PIXELMAP_FAILED} If the PixelMap creation failed.\n @see OH_PixelmapNative\n @since 22"]
+    #[cfg(feature = "api-22")]
+    pub fn OH_PixelmapNative_CreatePixelmapFromSurface(
+        surfaceId: *const ::std::os::raw::c_char,
+        length: usize,
+        pixelmap: *mut *mut OH_PixelmapNative,
+    ) -> Image_ErrorCode;
+}
+extern "C" {
+    #[doc = " @brief Creates a PixelMap from a native buffer.\n\n @param nativeBuffer The native buffer.\n @param pixelmap The PixelMap to be created.\n @return Function result code:\n         {@link IMAGE_SUCCESS} If the operation is successful.\n         {@link IMAGE_BAD_PARAMETER} If any parameter is invalid, e.g. nativeBuffer or pixelmap is incorrect.\n         {@link IMAGE_CREATE_PIXELMAP_FAILED} If the PixelMap creation failed.\n @see OH_PixelmapNative\n @since 22"]
+    #[cfg(feature = "api-22")]
+    pub fn OH_PixelmapNative_CreatePixelmapFromNativeBuffer(
+        nativeBuffer: *mut OH_NativeBuffer,
         pixelmap: *mut *mut OH_PixelmapNative,
     ) -> Image_ErrorCode;
 }
@@ -700,24 +795,24 @@ extern "C" {
     ) -> Image_ErrorCode;
 }
 extern "C" {
-    #[cfg(feature = "api-13")]
     #[doc = " @brief Get the native colorspace from the PixelMap.\n\n @param pixelmap The native pixelmap to get the native colorspace from.\n @param colorSpaceNative The native colorspace to retrieve.\n @return Function result code:\n         {@link IMAGE_SUCCESS} If the execution is successful.\n         {@link IMAGE_BAD_PARAMETER} The param of pixelmap or colorSpaceNative is nullptr or invalid.\n @see OH_PixelmapNative\n @since 13"]
+    #[cfg(feature = "api-13")]
     pub fn OH_PixelmapNative_GetColorSpaceNative(
         pixelmap: *mut OH_PixelmapNative,
         colorSpaceNative: *mut *mut OH_NativeColorSpaceManager,
     ) -> Image_ErrorCode;
 }
 extern "C" {
-    #[cfg(feature = "api-13")]
     #[doc = " @brief Set the native colorspace for the PixelMap.\n\n @param pixelmap The native pixelmap to set the native colorspace for.\n @param colorSpaceNative The native colorspace to set.\n @return Function result code:\n         {@link IMAGE_SUCCESS} If the execution is successful.\n         {@link IMAGE_BAD_PARAMETER} The param of pixelmap or colorSpaceNative is nullptr or invalid.\n @see OH_PixelmapNative\n @since 13"]
+    #[cfg(feature = "api-13")]
     pub fn OH_PixelmapNative_SetColorSpaceNative(
         pixelmap: *mut OH_PixelmapNative,
         colorSpaceNative: *mut OH_NativeColorSpaceManager,
     ) -> Image_ErrorCode;
 }
 extern "C" {
-    #[cfg(feature = "api-13")]
     #[doc = " @brief Set pixelmap memory name.\n\n @param pixelmap The Pixelmap pointer to be operated.\n @param name The pointer of name that needs to be set.\n @param size The size of name size that needs to be set.\n @return Function result code:\n         {@link IMAGE_SUCCESS} If the operation is successful.\n         {@link IMAGE_BAD_PARAMETER} If invalid parameter, name and size are incorrect.\n         {@link IMAGE_UNSUPPORTED_MEMORY_FORMAT} If memory format is unsupported.\n @see OH_PixelmapNative\n @since 13"]
+    #[cfg(feature = "api-13")]
     pub fn OH_PixelmapNative_SetMemoryName(
         pixelmap: *mut OH_PixelmapNative,
         name: *mut ::std::os::raw::c_char,
@@ -725,49 +820,65 @@ extern "C" {
     ) -> Image_ErrorCode;
 }
 extern "C" {
-    #[cfg(feature = "api-18")]
     #[doc = " @brief Get the total number of bytes occupied by all pixels in the Pixelmap, without any padding.\n\n @param pixelmap The Pixelmap pointer to be operated.\n @param byteCount The total number of bytes to be retrieved.\n @return Function result code:\n         {@link IMAGE_SUCCESS} If the operation is successful.\n         {@link IMAGE_BAD_PARAMETER} If invalid parameter, pixelmap or byteCount are invalid.\n @see OH_PixelmapNative\n @since 18"]
+    #[cfg(feature = "api-18")]
     pub fn OH_PixelmapNative_GetByteCount(
         pixelmap: *mut OH_PixelmapNative,
         byteCount: *mut u32,
     ) -> Image_ErrorCode;
 }
 extern "C" {
-    #[cfg(feature = "api-18")]
     #[doc = " @brief Get the size of the allocated memory used to store this pixelmap's pixels.\n\n @param pixelmap The Pixelmap pointer to be operated.\n @param allocationByteCount The size of the allocated memory.\n @return Function result code:\n         {@link IMAGE_SUCCESS} If the operation is successful.\n         {@link IMAGE_BAD_PARAMETER} If invalid parameter, pixelmap or allocationByteCount are invalid.\n @see OH_PixelmapNative\n @since 18"]
+    #[cfg(feature = "api-18")]
     pub fn OH_PixelmapNative_GetAllocationByteCount(
         pixelmap: *mut OH_PixelmapNative,
         allocationByteCount: *mut u32,
     ) -> Image_ErrorCode;
 }
 extern "C" {
-    #[cfg(feature = "api-15")]
     #[doc = " @brief Obtains the memory address of a PixelMap and locks the memory.\n        When the memory is locked, any operation that modifies or releases the PixelMap will fail and return\n        {@link IMAGE_BAD_PARAMETER}.\n\n @param pixelmap The PixelMap pointer to be operated.\n @param addr The double pointer to the memory address of the PixelMap.\n @return Function result code:\n         {@link IMAGE_SUCCESS} If the operation is successful.\n         {@link IMAGE_BAD_PARAMETER} If invalid parameter, pixelmap or addr are invalid.\n         {@link IMAGE_LOCK_UNLOCK_FAILED} If memory failed to be locked.\n @see OH_PixelmapNative\n @since 15"]
+    #[cfg(feature = "api-15")]
     pub fn OH_PixelmapNative_AccessPixels(
         pixelmap: *mut OH_PixelmapNative,
         addr: *mut *mut ::std::os::raw::c_void,
     ) -> Image_ErrorCode;
 }
 extern "C" {
-    #[cfg(feature = "api-15")]
     #[doc = " @brief Unlocks the memory of the PixelMap data.\n        This function is used with {@link OH_PixelmapNative_AccessPixels} in pairs.\n\n @param pixelmap The PixelMap pointer to be operated.\n @return Function result code:\n         {@link IMAGE_SUCCESS} If the operation is successful.\n         {@link IMAGE_BAD_PARAMETER} If invalid parameter, pixelmap is invalid.\n         {@link IMAGE_LOCK_UNLOCK_FAILED} If memory failed to be unlocked.\n @see OH_PixelmapNative\n @since 15"]
+    #[cfg(feature = "api-15")]
     pub fn OH_PixelmapNative_UnaccessPixels(pixelmap: *mut OH_PixelmapNative) -> Image_ErrorCode;
+}
+extern "C" {
+    #[doc = " @brief Gets the unique ID of a PixelMap.\n\n @param pixelmap The PixelMap to retrieve the unique ID.\n @param uniqueId The resulting unique ID.\n @return Function result code:\n         {@link IMAGE_SUCCESS} If the operation is successful.\n         {@link IMAGE_BAD_PARAMETER} If any parameter is invalid, e.g. pixelmap or uniqueId is incorrect.\n @see OH_PixelmapNative\n @since 22"]
+    #[cfg(feature = "api-22")]
+    pub fn OH_PixelmapNative_GetUniqueId(
+        pixelmap: *mut OH_PixelmapNative,
+        uniqueId: *mut u32,
+    ) -> Image_ErrorCode;
+}
+extern "C" {
+    #[doc = " @brief Checks whether the PixelMap has been released.\n\n @param pixelmap The PixelMap to check.\n @param released The resulting release status.\n @return Function result code:\n         {@link IMAGE_SUCCESS} If the operation is successful.\n         {@link IMAGE_BAD_PARAMETER} If any parameter is invalid, e.g. pixelmap or released is incorrect.\n @see OH_PixelmapNative\n @since 22"]
+    #[cfg(feature = "api-22")]
+    pub fn OH_PixelmapNative_IsReleased(
+        pixelmap: *mut OH_PixelmapNative,
+        released: *mut bool,
+    ) -> Image_ErrorCode;
 }
 #[doc = " @brief The intention is drag."]
 pub const Udmf_Intention_UDMF_INTENTION_DRAG: Udmf_Intention = 0;
 #[doc = " @brief The intention is pasteboard."]
 pub const Udmf_Intention_UDMF_INTENTION_PASTEBOARD: Udmf_Intention = 1;
-#[cfg(feature = "api-20")]
 #[doc = " @brief The intention is data hub.\n\n @since 20"]
+#[cfg(feature = "api-20")]
 pub const Udmf_Intention_UDMF_INTENTION_DATA_HUB: Udmf_Intention = 2;
-#[cfg(feature = "api-20")]
 #[doc = " @brief The intention is system share.\n\n @since 20"]
+#[cfg(feature = "api-20")]
 pub const Udmf_Intention_UDMF_INTENTION_SYSTEM_SHARE: Udmf_Intention = 3;
-#[cfg(feature = "api-20")]
 #[doc = " @brief The intention is picker.\n\n @since 20"]
-pub const Udmf_Intention_UDMF_INTENTION_PICKER: Udmf_Intention = 4;
 #[cfg(feature = "api-20")]
+pub const Udmf_Intention_UDMF_INTENTION_PICKER: Udmf_Intention = 4;
 #[doc = " @brief The intention is menu.\n\n @since 20"]
+#[cfg(feature = "api-20")]
 pub const Udmf_Intention_UDMF_INTENTION_MENU: Udmf_Intention = 5;
 #[doc = " @brief Describe the intention type of the udmf.\n\n @since 12"]
 pub type Udmf_Intention = u32;
@@ -785,8 +896,8 @@ pub const Udmf_FileConflictOptions_UDMF_OVERWRITE: Udmf_FileConflictOptions = 0;
 #[doc = " @brief Skip when dest uri has file with same name."]
 #[cfg(feature = "api-15")]
 pub const Udmf_FileConflictOptions_UDMF_SKIP: Udmf_FileConflictOptions = 1;
-#[cfg(feature = "api-15")]
 #[doc = " @brief Describe the types of file conflict options when getting data from the udmf.\n\n @since 15"]
+#[cfg(feature = "api-15")]
 pub type Udmf_FileConflictOptions = u32;
 #[doc = " @brief Getting data without system default progress indicator."]
 #[cfg(feature = "api-15")]
@@ -794,8 +905,8 @@ pub const Udmf_ProgressIndicator_UDMF_NONE: Udmf_ProgressIndicator = 0;
 #[doc = " @brief Getting data with system default progress indicator."]
 #[cfg(feature = "api-15")]
 pub const Udmf_ProgressIndicator_UDMF_DEFAULT: Udmf_ProgressIndicator = 1;
-#[cfg(feature = "api-15")]
 #[doc = " @brief Describe the types of progress indicator when getting data from the udmf.\n\n @since 15"]
+#[cfg(feature = "api-15")]
 pub type Udmf_ProgressIndicator = u32;
 #[doc = " @brief The visibility level that specifies that any hap or native can be obtained."]
 #[cfg(feature = "api-20")]
@@ -803,21 +914,29 @@ pub const Udmf_Visibility_UDMF_ALL: Udmf_Visibility = 0;
 #[doc = " @brief The visibility level that specifies that only data providers can be obtained."]
 #[cfg(feature = "api-20")]
 pub const Udmf_Visibility_UDMF_OWN_PROCESS: Udmf_Visibility = 1;
-#[cfg(feature = "api-20")]
 #[doc = " @brief Describe the visibility range of data\n\n @since 20"]
+#[cfg(feature = "api-20")]
 pub type Udmf_Visibility = u32;
-#[cfg(feature = "api-13")]
 #[doc = " @brief Defines the callback function used free the context.\n @param context Pointer to the context which is to be free.\n @since 13"]
+#[cfg(feature = "api-13")]
 pub type UdmfData_Finalize =
     ::std::option::Option<unsafe extern "C" fn(context: *mut ::std::os::raw::c_void)>;
+extern "C" {
+    #[doc = " @brief Gets the pointer to the element at the specified index from the input array.\n\n @param dataArray A pointer to an array of {@link OH_UdmfData} pointers.\n @param index The index of the desired element. Note that the input index should not exceed the array range.\n @return A pointer to the {@link OH_UdmfData} element at the specified index; returns NULL if the array is NULL.\n @see OH_UdmfData\n @since 22"]
+    #[cfg(feature = "api-22")]
+    pub fn OH_UDMF_GetDataElementAt(
+        dataArray: *mut *mut OH_UdmfData,
+        index: ::std::os::raw::c_uint,
+    ) -> *mut OH_UdmfData;
+}
 #[doc = " @brief Change of the Pasteboard data in the local device."]
 #[cfg(feature = "api-13")]
 pub const Pasteboard_NotifyType_NOTIFY_LOCAL_DATA_CHANGE: Pasteboard_NotifyType = 1;
 #[doc = " @brief Change of the Pasteboard data in the remote devices."]
 #[cfg(feature = "api-13")]
 pub const Pasteboard_NotifyType_NOTIFY_REMOTE_DATA_CHANGE: Pasteboard_NotifyType = 2;
-#[cfg(feature = "api-13")]
 #[doc = " @brief Enumerates the types of data changes that can be observed.\n\n @since 13"]
+#[cfg(feature = "api-13")]
 pub type Pasteboard_NotifyType = u32;
 #[doc = " @brief Overwrite when destUir has file with same name."]
 #[cfg(feature = "api-15")]
@@ -825,8 +944,8 @@ pub const Pasteboard_FileConflictOptions_PASTEBOARD_OVERWRITE: Pasteboard_FileCo
 #[doc = " @brief Skip when destUir has file with same name."]
 #[cfg(feature = "api-15")]
 pub const Pasteboard_FileConflictOptions_PASTEBOARD_SKIP: Pasteboard_FileConflictOptions = 1;
-#[cfg(feature = "api-15")]
 #[doc = " @brief Enumerates the types of file confilct options when getting data from the Pastedboard.\n\n @since 15"]
+#[cfg(feature = "api-15")]
 pub type Pasteboard_FileConflictOptions = u32;
 #[doc = " @brief Getting data without system default progress indicator."]
 #[cfg(feature = "api-15")]
@@ -834,16 +953,16 @@ pub const Pasteboard_ProgressIndicator_PASTEBOARD_NONE: Pasteboard_ProgressIndic
 #[doc = " @brief Getting data with system default progress indicator."]
 #[cfg(feature = "api-15")]
 pub const Pasteboard_ProgressIndicator_PASTEBOARD_DEFAULT: Pasteboard_ProgressIndicator = 1;
-#[cfg(feature = "api-15")]
 #[doc = " @brief Enumerates the types of progress indicator when getting data from the Pastedboard.\n\n @since 15"]
+#[cfg(feature = "api-15")]
 pub type Pasteboard_ProgressIndicator = u32;
 #[repr(C)]
 #[derive(Debug, Copy, Clone)]
 pub struct Pasteboard_ProgressInfo {
     _unused: [u8; 0],
 }
-#[cfg(feature = "api-15")]
 #[doc = " @brief Defines the callback function used to return the progress information when getting PasteData.\n\n @param progressInfo The progress information notified to Application.\n @since 15"]
+#[cfg(feature = "api-15")]
 pub type OH_Pasteboard_ProgressListener =
     ::std::option::Option<unsafe extern "C" fn(progressInfo: *mut Pasteboard_ProgressInfo)>;
 #[repr(C)]
@@ -851,13 +970,13 @@ pub type OH_Pasteboard_ProgressListener =
 pub struct Pasteboard_GetDataParams {
     _unused: [u8; 0],
 }
-#[cfg(feature = "api-13")]
 #[doc = " @brief Defines the callback function used to return the Pasteboard data changed.\n\n @param context The context set by {@link OH_PasteboardObserver_SetData} function.\n @param type The types of data changes. For details, see {@link Pasteboard_NotifyType}.\n @since 13"]
+#[cfg(feature = "api-13")]
 pub type Pasteboard_Notify = ::std::option::Option<
     unsafe extern "C" fn(context: *mut ::std::os::raw::c_void, type_: Pasteboard_NotifyType),
 >;
-#[cfg(feature = "api-13")]
 #[doc = " @brief Defines the callback function used free the context.\n @param context Pointer to the context which is to be free.\n @since 13"]
+#[cfg(feature = "api-13")]
 pub type Pasteboard_Finalize =
     ::std::option::Option<unsafe extern "C" fn(context: *mut ::std::os::raw::c_void)>;
 #[repr(C)]
@@ -866,20 +985,20 @@ pub struct OH_PasteboardObserver {
     _unused: [u8; 0],
 }
 extern "C" {
-    #[cfg(feature = "api-13")]
     #[doc = " @brief Creates a {@link OH_PasteboardObserver} instance.\n\n @return Returns the pointer to the {@link OH_PasteboardObserver} instance created if the operation is successful.\n Returns nullptr if the operation is failed.\n @see OH_PasteboardObserver.\n @since 13"]
+    #[cfg(feature = "api-13")]
     pub fn OH_PasteboardObserver_Create() -> *mut OH_PasteboardObserver;
 }
 extern "C" {
-    #[cfg(feature = "api-13")]
     #[doc = " @brief Destroy a {@link OH_PasteboardObserver} instance.\n\n @param observer Pointer to the {@link OH_PasteboardObserver} instance to destroy.\n @return Returns the status code of the execution. For details, see {@link PASTEBOARD_ErrCode}.\n         Returns {@link ERR_OK} if the operation is successful.\n         Returns {@link ERR_INVALID_PARAMETER} if invalid args are detected.\n @see OH_PasteboardObserver PASTEBOARD_ErrCode.\n @since 13"]
+    #[cfg(feature = "api-13")]
     pub fn OH_PasteboardObserver_Destroy(
         observer: *mut OH_PasteboardObserver,
     ) -> ::std::os::raw::c_int;
 }
 extern "C" {
-    #[cfg(feature = "api-13")]
     #[doc = " @brief Sets a callback function to return the Pasteboard data changed.\n\n @param observer Pointer to the {@link OH_PasteboardObserver} instance.\n @param context Pointer to the context set, which is the first parameter in Pasteboard_Notify.\n @param callback Callback to set. For details, see {@link Pasteboard_Notify}.\n @param finalize Optional callback that can free context when destroy observer.\n         For details, see {@link Pasteboard_Finalize}.\n @return Returns the status code of the execution. For details, see {@link PASTEBOARD_ErrCode}.\n         Returns {@link ERR_OK} if the operation is successful.\n         Returns {@link ERR_INVALID_PARAMETER} if invalid args are detected.\n @see OH_PasteboardObserver Pasteboard_Notify PASTEBOARD_ErrCode.\n @since 13"]
+    #[cfg(feature = "api-13")]
     pub fn OH_PasteboardObserver_SetData(
         observer: *mut OH_PasteboardObserver,
         context: *mut ::std::os::raw::c_void,
@@ -893,18 +1012,18 @@ pub struct OH_Pasteboard {
     _unused: [u8; 0],
 }
 extern "C" {
-    #[cfg(feature = "api-13")]
     #[doc = " @brief Creates a {@link OH_Pasteboard} instance.\n\n @return Returns the pointer to the {@link OH_Pasteboard} instance created if the operation is successful.\n Returns nullptr if the memory is not enough.\n @see OH_Pasteboard.\n @since 13"]
+    #[cfg(feature = "api-13")]
     pub fn OH_Pasteboard_Create() -> *mut OH_Pasteboard;
 }
 extern "C" {
-    #[cfg(feature = "api-13")]
     #[doc = " @brief Destroy a {@link OH_Pasteboard} instance.\n\n @param pasteboard Pointer to the {@link OH_Pasteboard} instance to destroy.\n @see OH_Pasteboard.\n @since 13"]
+    #[cfg(feature = "api-13")]
     pub fn OH_Pasteboard_Destroy(pasteboard: *mut OH_Pasteboard);
 }
 extern "C" {
-    #[cfg(feature = "api-13")]
     #[doc = " @brief Subscribes to the Pasteboard data change.\n\n @param pasteboard Pointer to the {@link OH_Pasteboard} instance.\n @param type Event type to subscribe to report the pasteboard data change.\n         For details, see {@link Pasteboard_NotifyType}.\n @param observer - Pointer to the observer information, which specifies the callback used to\n reporting the pasteboard data change. For details, see {@link OH_PasteboardObserver}.\n @return Returns the status code of the execution. For details, {@link PASTEBOARD_ErrCode}.\n         Returns {@link ERR_OK} if the operation is successful.\n         Returns {@link ERR_INVALID_PARAMETER} if invalid args are detected.\n @see OH_Pasteboard OH_PasteboardObserver Pasteboard_NotifyType PASTEBOARD_ErrCode.\n @since 13"]
+    #[cfg(feature = "api-13")]
     pub fn OH_Pasteboard_Subscribe(
         pasteboard: *mut OH_Pasteboard,
         type_: ::std::os::raw::c_int,
@@ -912,8 +1031,8 @@ extern "C" {
     ) -> ::std::os::raw::c_int;
 }
 extern "C" {
-    #[cfg(feature = "api-13")]
     #[doc = " @brief Unsubscribes from the Pasteboard data change.\n\n @param pasteboard Pointer to the {@link OH_Pasteboard} instance.\n @param type Event type to subscribe to report the pasteboard data change.\n         For details, see {@link Pasteboard_NotifyType}.\n @param observer - Pointer to the observer information, which specifies the callback used to\n reporting the pasteboard data change. For details, see {@link OH_PasteboardObserver}.\n @return Returns the status code of the execution. For details, {@link PASTEBOARD_ErrCode}.\n         Returns {@link ERR_OK} if the operation is successful.\n         Returns {@link ERR_INVALID_PARAMETER} if invalid args are detected.\n @see OH_Pasteboard OH_PasteboardObserver Pasteboard_NotifyType PASTEBOARD_ErrCode.\n @since 13"]
+    #[cfg(feature = "api-13")]
     pub fn OH_Pasteboard_Unsubscribe(
         pasteboard: *mut OH_Pasteboard,
         type_: ::std::os::raw::c_int,
@@ -921,13 +1040,13 @@ extern "C" {
     ) -> ::std::os::raw::c_int;
 }
 extern "C" {
-    #[cfg(feature = "api-13")]
     #[doc = " @brief Checks whether the Pasteboard data is from a remote device.\n\n @param pasteboard Pointer to the {@link OH_Pasteboard} instance.\n @return Returns a boolean value, which indicates whether the the data is from a remote device.\n         The value {@code false} means Pasteboard data is not from a remote device.\n         The value {@code true} means the opposite.\n @see OH_Pasteboard.\n @since 13"]
+    #[cfg(feature = "api-13")]
     pub fn OH_Pasteboard_IsRemoteData(pasteboard: *mut OH_Pasteboard) -> bool;
 }
 extern "C" {
-    #[cfg(feature = "api-13")]
     #[doc = " @brief Obtains the source of Pasteboard data.\n\n @param pasteboard Pointer to the {@link OH_Pasteboard} instance.\n @param source Pointer to the source data.\n @param len Length of the source data.\n @return Returns the status code of the execution. For details, see {@link PASTEBOARD_ErrCode}.\n         Returns {@link ERR_OK} if the operation is successful.\n         Returns {@link ERR_INVALID_PARAMETER} if invalid args are detected.\n @see OH_Pasteboard PASTEBOARD_ErrCode.\n @since 13"]
+    #[cfg(feature = "api-13")]
     pub fn OH_Pasteboard_GetDataSource(
         pasteboard: *mut OH_Pasteboard,
         source: *mut ::std::os::raw::c_char,
@@ -935,73 +1054,73 @@ extern "C" {
     ) -> ::std::os::raw::c_int;
 }
 extern "C" {
-    #[cfg(feature = "api-13")]
     #[doc = " @brief Checks whether the Pasteboard has the specified type of data.\n\n @param pasteboard Pointer to the {@link OH_Pasteboard} instance.\n @param type Poniter to the type of data to check.\n @return Returns a boolean value, which indicates whether the Pasteboard has the specified type of data.\n         The value {@code true} means the Pasteboard has the specified type of data.\n         The value {@code false} means the opposite.\n @see OH_Pasteboard.\n @since 13"]
+    #[cfg(feature = "api-13")]
     pub fn OH_Pasteboard_HasType(
         pasteboard: *mut OH_Pasteboard,
         type_: *const ::std::os::raw::c_char,
     ) -> bool;
 }
 extern "C" {
-    #[cfg(feature = "api-13")]
     #[doc = " @brief Checks whether there is data in the Pasteboard.\n\n @param pasteboard Pointer to the {@link OH_Pasteboard} instance.\n @return Returns a boolean value, which indicates whether there is data in the Pasteboard.\n         The value {@code true} means there is data in Pasteboard.\n         The value {@code false} means the opposite.\n @see OH_Pasteboard.\n @since 13"]
+    #[cfg(feature = "api-13")]
     pub fn OH_Pasteboard_HasData(pasteboard: *mut OH_Pasteboard) -> bool;
 }
 extern "C" {
-    #[cfg(feature = "api-13")]
     #[doc = " @brief Obtains data from the Pasteboard.\n\n @param pasteboard Pointer to the {@link OH_Pasteboard} instance.\n @param status The status code of the execution. For details, see {@link PASTEBOARD_ErrCode}.\n @return Returns the pointer to the {@link OH_UdmfData} instance.\n @see OH_Pasteboard OH_UdmfData PASTEBOARD_ErrCode.\n @since 13"]
+    #[cfg(feature = "api-13")]
     pub fn OH_Pasteboard_GetData(
         pasteboard: *mut OH_Pasteboard,
         status: *mut ::std::os::raw::c_int,
     ) -> *mut OH_UdmfData;
 }
 extern "C" {
-    #[cfg(feature = "api-13")]
     #[doc = " @brief Writes data to the Pasteboard.\n\n @param pasteboard Pointer to the {@link OH_Pasteboard} instance.\n @param data Pointer to the {@link OH_UdmfData} instance.\n @return Returns the status code of the execution. For details, see {@link PASTEBOARD_ErrCode}.\n         Returns {@link ERR_OK} if the operation is successful.\n         Returns {@link ERR_INVALID_PARAMETER} if invalid args are detected.\n @see OH_Pasteboard OH_UdmfData PASTEBOARD_ErrCode.\n @since 13"]
+    #[cfg(feature = "api-13")]
     pub fn OH_Pasteboard_SetData(
         pasteboard: *mut OH_Pasteboard,
         data: *mut OH_UdmfData,
     ) -> ::std::os::raw::c_int;
 }
 extern "C" {
-    #[cfg(feature = "api-13")]
     #[doc = " @brief Clears the data in the Pastedboard.\n\n @param pasteboard Pointer to the {@link OH_Pasteboard} instance.\n @return Returns the status code of the execution. For details, see {@link PASTEBOARD_ErrCode}.\n         Returns {@link ERR_OK} if the operation is successful.\n         Returns {@link ERR_INVALID_PARAMETER} if invalid args are detected.\n @see OH_Pasteboard PASTEBOARD_ErrCode.\n @since 13"]
+    #[cfg(feature = "api-13")]
     pub fn OH_Pasteboard_ClearData(pasteboard: *mut OH_Pasteboard) -> ::std::os::raw::c_int;
 }
 extern "C" {
-    #[cfg(feature = "api-14")]
     #[doc = " @brief Obtains all MIME types of Pasteboard data.\n\n @param pasteboard Pointer to the {@link OH_Pasteboard} instance.\n @param count Poniter to the count of MIME types.\n @return Returns char array of MIME types in the Pasteboard.\n Returns nullptr if the operation is failed.\n @see OH_Pasteboard.\n @since 14"]
+    #[cfg(feature = "api-14")]
     pub fn OH_Pasteboard_GetMimeTypes(
         pasteboard: *mut OH_Pasteboard,
         count: *mut ::std::os::raw::c_uint,
     ) -> *mut *mut ::std::os::raw::c_char;
 }
 extern "C" {
-    #[cfg(feature = "api-18")]
     #[doc = " @brief Gets the number of Pasteboard data changes.\n\n @param pasteboard Pointer to the {@link OH_Pasteboard} instance.\n @return the number of Pasteboard data changes.\n Returns 0 means initial value or invalid value.In this case, no action is required.\n @since 18"]
+    #[cfg(feature = "api-18")]
     pub fn OH_Pasteboard_GetChangeCount(pasteboard: *mut OH_Pasteboard) -> u32;
 }
 extern "C" {
-    #[cfg(feature = "api-15")]
     #[doc = " @brief Create a pointer to the instance of the {@link Pasteboard_GetDataParams}.\n\n @return If the operation is successful, a pointer to the instance of the {@link Pasteboard_GetDataParams}\n structure is returned. If the operation is failed, nullptr is returned.\n @see Pasteboard_GetDataParams.\n @since 15"]
+    #[cfg(feature = "api-15")]
     pub fn OH_Pasteboard_GetDataParams_Create() -> *mut Pasteboard_GetDataParams;
 }
 extern "C" {
-    #[cfg(feature = "api-15")]
     #[doc = " @brief Destroy a pointer that points to an instance of {@link Pasteboard_GetDataParams}.\n\n @param params Represents a pointer to an instance of {@link Pasteboard_GetDataParams}.\n @see Pasteboard_GetDataParams.\n @since 15"]
+    #[cfg(feature = "api-15")]
     pub fn OH_Pasteboard_GetDataParams_Destroy(params: *mut Pasteboard_GetDataParams);
 }
 extern "C" {
-    #[cfg(feature = "api-15")]
     #[doc = " @brief Set the progress indicator to the {@link Pasteboard_GetDataParams}.\n\n @param params Represents a pointer to an instance of {@link Pasteboard_GetDataParams}.\n @param progressIndicator Represents to the progress indicator.\n @see Pasteboard_GetDataParams Pasteboard_ProgressIndicator.\n @since 15"]
+    #[cfg(feature = "api-15")]
     pub fn OH_Pasteboard_GetDataParams_SetProgressIndicator(
         params: *mut Pasteboard_GetDataParams,
         progressIndicator: Pasteboard_ProgressIndicator,
     );
 }
 extern "C" {
-    #[cfg(feature = "api-15")]
     #[doc = " @brief Set the destination uri to the {@link Pasteboard_GetDataParams}.\n\n @param params Represents a pointer to an instance of {@link Pasteboard_GetDataParams}.\n @param destUri Pointer to a destination uri.\n @param destUriLen Indicates the length of destination uri.\n @see Pasteboard_GetDataParams.\n @since 15"]
+    #[cfg(feature = "api-15")]
     pub fn OH_Pasteboard_GetDataParams_SetDestUri(
         params: *mut Pasteboard_GetDataParams,
         destUri: *const ::std::os::raw::c_char,
@@ -1009,39 +1128,47 @@ extern "C" {
     );
 }
 extern "C" {
-    #[cfg(feature = "api-15")]
     #[doc = " @brief Set the file conflict options to the {@link Pasteboard_GetDataParams}.\n\n @param params Represents a pointer to an instance of {@link Pasteboard_GetDataParams}.\n @param option Represents to the file conflict options.\n @see Pasteboard_GetDataParams Pasteboard_FileConflictOptions.\n @since 15"]
+    #[cfg(feature = "api-15")]
     pub fn OH_Pasteboard_GetDataParams_SetFileConflictOptions(
         params: *mut Pasteboard_GetDataParams,
         option: Pasteboard_FileConflictOptions,
     );
 }
 extern "C" {
-    #[cfg(feature = "api-15")]
     #[doc = " @brief Set the progress indicator to the {@link Pasteboard_GetDataParams}.\n\n @param params Represents a pointer to an instance of {@link Pasteboard_GetDataParams}.\n @param listener Represents to the data progress listener.\n @see Pasteboard_GetDataParams OH_Pasteboard_ProgressListener.\n @since 15"]
+    #[cfg(feature = "api-15")]
     pub fn OH_Pasteboard_GetDataParams_SetProgressListener(
         params: *mut Pasteboard_GetDataParams,
         listener: OH_Pasteboard_ProgressListener,
     );
 }
 extern "C" {
-    #[cfg(feature = "api-15")]
     #[doc = " @brief Get the progress from the {@link Pasteboard_ProgressInfo}.\n\n @param progressInfo Represents a pointer to an instance of {@link Pasteboard_ProgressInfo}.\n @return Returns the progress.\n @see Pasteboard_ProgressInfo.\n @since 15"]
+    #[cfg(feature = "api-15")]
     pub fn OH_Pasteboard_ProgressInfo_GetProgress(
         progressInfo: *mut Pasteboard_ProgressInfo,
     ) -> ::std::os::raw::c_int;
 }
 extern "C" {
-    #[cfg(feature = "api-15")]
     #[doc = " @brief Defines the cancel function used to cancel the progress when getting PasteData.\n\n @param params Pointer to indicates the {@link Pasteboard_GetDataParams}.\n @see Pasteboard_GetDataParams.\n @since 15"]
+    #[cfg(feature = "api-15")]
     pub fn OH_Pasteboard_ProgressCancel(params: *mut Pasteboard_GetDataParams);
 }
 extern "C" {
-    #[cfg(feature = "api-15")]
     #[doc = " @brief Obtains data from the Pasteboard with system progress indicator.\n\n @permission ohos.permission.READ_PASTEBOARD\n @param pasteboard Pointer to the {@link OH_Pasteboard} instance.\n @param params Pointer to indicates the  {@link OH_Pasteboard_GetDataParams}.\n @param status The status code of the execution. For details, see {@link PASTEBOARD_Errcode}.\n @return Returns the pointer to the {@link OH_PasteData} instance.\n @see OH_Pasteboard OH_PasteData PASTEBOARD_ErrCode.\n @since 15"]
+    #[cfg(feature = "api-15")]
     pub fn OH_Pasteboard_GetDataWithProgress(
         pasteboard: *mut OH_Pasteboard,
         params: *mut Pasteboard_GetDataParams,
         status: *mut ::std::os::raw::c_int,
     ) -> *mut OH_UdmfData;
+}
+extern "C" {
+    #[doc = " @brief Notifies the system pasteboard to synchronize all time-lapse paste data from application.\n\n @param pasteboard Pointer to the {@link OH_Pasteboard} instance.\n @param callback Indicates the pointer to the callback that is called after the synchronize is finished.\n @since 21"]
+    #[cfg(feature = "api-21")]
+    pub fn OH_Pasteboard_SyncDelayedDataAsync(
+        pasteboard: *mut OH_Pasteboard,
+        callback: ::std::option::Option<unsafe extern "C" fn(errorCode: ::std::os::raw::c_int)>,
+    );
 }

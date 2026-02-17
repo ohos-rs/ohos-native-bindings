@@ -75,14 +75,14 @@ pub const Asset_Tag_ASSET_TAG_CONFLICT_RESOLUTION: Asset_Tag = 536870980;
 pub const Asset_Tag_ASSET_TAG_UPDATE_TIME: Asset_Tag = 805306437;
 #[doc = " A tag whose value is the uint32 type indicating the additional action.\n\n @since 12"]
 pub const Asset_Tag_ASSET_TAG_OPERATION_TYPE: Asset_Tag = 536870982;
-#[cfg(feature = "api-14")]
 #[doc = " A tag whose value is a bool indicating whether the attributes of an asset are required to be encrypted.\n\n @since 14"]
+#[cfg(feature = "api-14")]
 pub const Asset_Tag_ASSET_TAG_REQUIRE_ATTR_ENCRYPTED: Asset_Tag = 268435527;
-#[cfg(feature = "api-18")]
 #[doc = " A tag whose value is a byte array indicating the group id an asset belongs to.\n\n @since 18"]
-pub const Asset_Tag_ASSET_TAG_GROUP_ID: Asset_Tag = 805306440;
 #[cfg(feature = "api-18")]
+pub const Asset_Tag_ASSET_TAG_GROUP_ID: Asset_Tag = 805306440;
 #[doc = " A tag whose value is a 32-bit unsigned integer indicating the type of Asset encapsulation.\n\n @since 18"]
+#[cfg(feature = "api-18")]
 pub const Asset_Tag_ASSET_TAG_WRAP_TYPE: Asset_Tag = 536870985;
 #[doc = " @brief Enumerates the asset attribute tags.\n\n @since 11"]
 pub type Asset_Tag = u32;
@@ -126,8 +126,8 @@ pub const Asset_ResultCode_ASSET_GET_SYSTEM_TIME_ERROR: Asset_ResultCode = 24000
 pub const Asset_ResultCode_ASSET_LIMIT_EXCEEDED: Asset_ResultCode = 24000016;
 #[doc = " @error The capability is not supported."]
 pub const Asset_ResultCode_ASSET_UNSUPPORTED: Asset_ResultCode = 24000017;
-#[cfg(feature = "api-20")]
 #[doc = " @error Parameter verification failed.\n\n @since 20"]
+#[cfg(feature = "api-20")]
 pub const Asset_ResultCode_ASSET_PARAM_VERIFICATION_FAILED: Asset_ResultCode = 24000018;
 #[doc = " @brief Enumerates the result codes used in the ASSET APIs.\n\n @since 11"]
 pub type Asset_ResultCode = u32;
@@ -161,8 +161,8 @@ pub const Asset_WrapType_ASSET_WRAP_TYPE_NEVER: Asset_WrapType = 0;
 #[doc = " An Asset with this attribute value can only be wrapped or unwrapped on devices logged in with trusted accounts."]
 #[cfg(feature = "api-18")]
 pub const Asset_WrapType_ASSET_WRAP_TYPE_TRUSTED_ACCOUNT: Asset_WrapType = 1;
-#[cfg(feature = "api-18")]
 #[doc = " @brief An enum type indicates the type of Asset encapsulation.\n\n @since 18"]
+#[cfg(feature = "api-18")]
 pub type Asset_WrapType = u32;
 #[doc = " Overwrite the existing asset."]
 pub const Asset_ConflictResolution_ASSET_CONFLICT_OVERWRITE: Asset_ConflictResolution = 0;
@@ -229,8 +229,8 @@ pub struct Asset_ResultSet {
     #[doc = " Pointer to the array of the assets."]
     pub results: *mut Asset_Result,
 }
-#[cfg(feature = "api-20")]
 #[doc = " @brief Represents information about the synchronization result.\n\n @since 20"]
+#[cfg(feature = "api-20")]
 #[repr(C)]
 #[derive(Debug, Copy, Clone)]
 pub struct Asset_SyncResult {
@@ -279,8 +279,8 @@ extern "C" {
     pub fn OH_Asset_PostQuery(handle: *const Asset_Attr, handleCnt: u32) -> i32;
 }
 extern "C" {
-    #[cfg(feature = "api-20")]
     #[doc = " @brief Query the result of synchronization.\n\n @param query Pointer to the search criteria.\n @param queryCnt Number of the search criteria.\n @param syncResult Pointer to the synchronization result obtained.\n @return {@link ASSET_SUCCESS} 0 - The operation is successful.\n     {@link ASSET_SERVICE_UNAVAILABLE} 24000001 - The ASSET service is unavailable.\n     {@link ASSET_OUT_OF_MEMORY} 24000006 - Insufficient memory.\n     {@link ASSET_IPC_ERROR} 24000010 - IPC failed.\n     {@link ASSET_BMS_ERROR} 24000011 - Calling the Bundle Manager service failed.\n     {@link ASSET_ACCOUNT_ERROR} 24000012 - Calling the OS Account service failed.\n     {@link ASSET_ACCESS_TOKEN_ERROR} 24000013 - Calling the Access Token service failed.\n     {@link ASSET_FILE_OPERATION_ERROR} 24000014 - The file operation failed.\n     {@link ASSET_PARAM_VERIFICATION_FAILED} 24000018 - Parameter verification failed.\n @since 20"]
+    #[cfg(feature = "api-20")]
     pub fn OH_Asset_QuerySyncResult(
         query: *const Asset_Attr,
         queryCnt: u32,

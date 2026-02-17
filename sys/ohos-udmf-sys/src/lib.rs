@@ -21,6 +21,32 @@ pub struct Image_Region {
     #[doc = " Height of the region, in pixels."]
     pub height: u32,
 }
+#[doc = " @brief Defines the area of the image pixels to read or write.\n\n @since 22"]
+#[cfg(feature = "api-22")]
+#[repr(C)]
+#[derive(Debug, Copy, Clone)]
+pub struct Image_PositionArea {
+    #[doc = " Image pixels data that will be read or written."]
+    pub pixels: *mut u8,
+    #[doc = " Length of the image pixels data."]
+    pub pixelsSize: usize,
+    #[doc = " Offset for data reading or writing."]
+    pub offset: u32,
+    #[doc = " Number of bytes per row of the region."]
+    pub stride: u32,
+    #[doc = " Region to read or write."]
+    pub region: Image_Region,
+}
+#[doc = " @brief Defines the image scale ratio.\n\n @since 22"]
+#[cfg(feature = "api-22")]
+#[repr(C)]
+#[derive(Debug, Copy, Clone)]
+pub struct Image_Scale {
+    #[doc = " Scale ratio on the x-axis."]
+    pub x: f32,
+    #[doc = " Scale ratio on the y-axis."]
+    pub y: f32,
+}
 #[doc = " @brief Defines the region of the image source to decode.\n\n @since 12"]
 #[repr(C)]
 #[derive(Debug, Copy, Clone)]
@@ -30,8 +56,8 @@ pub struct Image_String {
     #[doc = " data lenth for string type"]
     pub size: usize,
 }
-#[cfg(feature = "api-13")]
 #[doc = " @brief Define a PictureMetadata struct type, used for picture metadata.\n\n @since 13"]
+#[cfg(feature = "api-13")]
 #[repr(C)]
 #[derive(Debug, Copy, Clone)]
 pub struct OH_PictureMetadata {
@@ -59,51 +85,60 @@ pub const Image_ErrorCode_IMAGE_UNSUPPORTED_METADATA: Image_ErrorCode = 7600202;
 pub const Image_ErrorCode_IMAGE_UNSUPPORTED_CONVERSION: Image_ErrorCode = 7600203;
 #[doc = " invalid region"]
 pub const Image_ErrorCode_IMAGE_INVALID_REGION: Image_ErrorCode = 7600204;
-#[cfg(feature = "api-13")]
 #[doc = "  @error unsupported memory format\n  @since 13"]
+#[cfg(feature = "api-13")]
 pub const Image_ErrorCode_IMAGE_UNSUPPORTED_MEMORY_FORMAT: Image_ErrorCode = 7600205;
-#[cfg(feature = "api-19")]
 #[doc = " @error Invalid parameter.\n @since 19"]
+#[cfg(feature = "api-19")]
 pub const Image_ErrorCode_IMAGE_INVALID_PARAMETER: Image_ErrorCode = 7600206;
+#[doc = " @error Unsupported data format\n @since 22"]
+#[cfg(feature = "api-22")]
+pub const Image_ErrorCode_IMAGE_UNSUPPORTED_DATA_FORMAT: Image_ErrorCode = 7600207;
 #[doc = " failed to allocate memory"]
 pub const Image_ErrorCode_IMAGE_ALLOC_FAILED: Image_ErrorCode = 7600301;
 #[doc = " memory copy failed"]
 pub const Image_ErrorCode_IMAGE_COPY_FAILED: Image_ErrorCode = 7600302;
-#[cfg(feature = "api-15")]
 #[doc = " @error memory lock or unlock failed\n @since 15"]
+#[cfg(feature = "api-15")]
 pub const Image_ErrorCode_IMAGE_LOCK_UNLOCK_FAILED: Image_ErrorCode = 7600303;
-#[cfg(feature = "api-20")]
+#[doc = " @error Initialization failed\n @since 22"]
+#[cfg(feature = "api-22")]
+pub const Image_ErrorCode_IMAGE_INIT_FAILED: Image_ErrorCode = 7600304;
+#[doc = " @error Create PixelMap failed\n @since 22"]
+#[cfg(feature = "api-22")]
+pub const Image_ErrorCode_IMAGE_CREATE_PIXELMAP_FAILED: Image_ErrorCode = 7600305;
 #[doc = " @error unsupported allocator mode, e.g., use share memory to create a HDR image as only\n DMA supported hdr metadata.\n @since 20"]
+#[cfg(feature = "api-20")]
 pub const Image_ErrorCode_IMAGE_ALLOCATOR_MODE_UNSUPPORTED: Image_ErrorCode = 7600501;
 #[doc = " unknown error"]
 pub const Image_ErrorCode_IMAGE_UNKNOWN_ERROR: Image_ErrorCode = 7600901;
 #[doc = " decode data source exception"]
 pub const Image_ErrorCode_IMAGE_BAD_SOURCE: Image_ErrorCode = 7700101;
-#[cfg(feature = "api-15")]
 #[doc = " @error unsupported mime type\n @since 15"]
+#[cfg(feature = "api-15")]
 pub const Image_ErrorCode_IMAGE_SOURCE_UNSUPPORTED_MIME_TYPE: Image_ErrorCode = 7700102;
-#[cfg(feature = "api-15")]
 #[doc = " @error image to large\n @since 15"]
-pub const Image_ErrorCode_IMAGE_SOURCE_TOO_LARGE: Image_ErrorCode = 7700103;
 #[cfg(feature = "api-15")]
+pub const Image_ErrorCode_IMAGE_SOURCE_TOO_LARGE: Image_ErrorCode = 7700103;
 #[doc = " @error unsupported allocator type, e.g., use share memory to decode a HDR image as only\n DMA supported hdr metadata.\n @since 15"]
+#[cfg(feature = "api-15")]
 pub const Image_ErrorCode_IMAGE_SOURCE_UNSUPPORTED_ALLOCATOR_TYPE: Image_ErrorCode = 7700201;
 pub const Image_ErrorCode_IMAGE_SOURCE_UNSUPPORTED_OPTIONS: Image_ErrorCode = 7700203;
-#[cfg(feature = "api-19")]
 #[doc = " @error Invalid parameter.\n @since 19"]
+#[cfg(feature = "api-19")]
 pub const Image_ErrorCode_IMAGE_SOURCE_INVALID_PARAMETER: Image_ErrorCode = 7700204;
 #[doc = " decode failed"]
 pub const Image_ErrorCode_IMAGE_DECODE_FAILED: Image_ErrorCode = 7700301;
-#[cfg(feature = "api-15")]
 #[doc = " @error memory allocation failed\n @since 15"]
+#[cfg(feature = "api-15")]
 pub const Image_ErrorCode_IMAGE_SOURCE_ALLOC_FAILED: Image_ErrorCode = 7700302;
-#[cfg(feature = "api-19")]
 #[doc = " @error Invalid parameter for ImagePacker.\n @since 19"]
+#[cfg(feature = "api-19")]
 pub const Image_ErrorCode_IMAGE_PACKER_INVALID_PARAMETER: Image_ErrorCode = 7800202;
 #[doc = " encode failed"]
 pub const Image_ErrorCode_IMAGE_ENCODE_FAILED: Image_ErrorCode = 7800301;
-#[cfg(feature = "api-20")]
 #[doc = " @error Invalid parameter for ImageReceiver.\n @since 20"]
+#[cfg(feature = "api-20")]
 pub const Image_ErrorCode_IMAGE_RECEIVER_INVALID_PARAMETER: Image_ErrorCode = 7900201;
 #[doc = " @brief Enumerates the return values that may be used by the interface.\n\n @since 12"]
 pub type Image_ErrorCode = u32;
@@ -113,35 +148,35 @@ pub const Image_MetadataType_EXIF_METADATA: Image_MetadataType = 1;
 #[doc = " Fragment metadata."]
 #[cfg(feature = "api-13")]
 pub const Image_MetadataType_FRAGMENT_METADATA: Image_MetadataType = 2;
-#[cfg(feature = "api-20")]
 #[doc = " Metadata of a GIF image.\n\n @since 20"]
+#[cfg(feature = "api-20")]
 pub const Image_MetadataType_GIF_METADATA: Image_MetadataType = 5;
-#[cfg(feature = "api-13")]
 #[doc = " @brief Define the metadata type.\n\n @since 13"]
+#[cfg(feature = "api-13")]
 pub type Image_MetadataType = u32;
-#[cfg(feature = "api-20")]
 #[doc = " The system determines which memory to use to create the PixelMap.\n\n @since 20"]
+#[cfg(feature = "api-20")]
 pub const IMAGE_ALLOCATOR_MODE_IMAGE_ALLOCATOR_MODE_AUTO: IMAGE_ALLOCATOR_MODE = 0;
-#[cfg(feature = "api-20")]
 #[doc = " Use DMA buffer to create the PixelMap.\n\n @since 20"]
+#[cfg(feature = "api-20")]
 pub const IMAGE_ALLOCATOR_MODE_IMAGE_ALLOCATOR_MODE_DMA: IMAGE_ALLOCATOR_MODE = 1;
-#[cfg(feature = "api-20")]
 #[doc = " Use share memory to create the PixelMap.\n\n @since 20"]
-pub const IMAGE_ALLOCATOR_MODE_IMAGE_ALLOCATOR_MODE_SHARED_MEMORY: IMAGE_ALLOCATOR_MODE = 2;
 #[cfg(feature = "api-20")]
+pub const IMAGE_ALLOCATOR_MODE_IMAGE_ALLOCATOR_MODE_SHARED_MEMORY: IMAGE_ALLOCATOR_MODE = 2;
 #[doc = " @brief Type of allocator used to allocate memory of a PixelMap.\n\n @since 20"]
+#[cfg(feature = "api-20")]
 pub type IMAGE_ALLOCATOR_MODE = u32;
 extern "C" {
-    #[cfg(feature = "api-13")]
     #[doc = " @brief Creates a <b>PictureMetadata</b> object.\n\n @param metadataType The type of metadata.\n @param metadata The PictureMetadata pointer will be operated.\n @return Image functions result code.\n         {@link IMAGE_SUCCESS} if the execution is successful.\n         {@link IMAGE_BAD_PARAMETER} metadata is nullptr.\n @since 13"]
+    #[cfg(feature = "api-13")]
     pub fn OH_PictureMetadata_Create(
         metadataType: Image_MetadataType,
         metadata: *mut *mut OH_PictureMetadata,
     ) -> Image_ErrorCode;
 }
 extern "C" {
-    #[cfg(feature = "api-13")]
     #[doc = " @brief Obtains the property of picture metadata.\n\n @param metadata The PictureMetadata pointer will be operated.\n @param key The property's key.\n @param value The property's value.\n @return Image functions result code.\n         {@link IMAGE_SUCCESS} if the execution is successful.\n         {@link IMAGE_BAD_PARAMETER} metadata is nullptr, or key is nullptr, or value is nullptr.\n         {@link IMAGE_UNSUPPORTED_METADATA} unsupported metadata type, or the metadata type does not match the\n         auxiliary picture type.\n @since 13"]
+    #[cfg(feature = "api-13")]
     pub fn OH_PictureMetadata_GetProperty(
         metadata: *mut OH_PictureMetadata,
         key: *mut Image_String,
@@ -149,8 +184,8 @@ extern "C" {
     ) -> Image_ErrorCode;
 }
 extern "C" {
-    #[cfg(feature = "api-13")]
     #[doc = " @brief Set picture metadata property.\n\n @param metadata The PictureMetadata pointer will be operated.\n @param key The property's key.\n @param value The property's value.\n @return Image functions result code.\n         {@link IMAGE_SUCCESS} if the execution is successful.\n         {@link IMAGE_BAD_PARAMETER} metadata is nullptr, or key is nullptr, or value is nullptr.\n         {@link IMAGE_UNSUPPORTED_METADATA} unsupported metadata type, or the metadata type does not match the\n         auxiliary picture type.\n @since 13"]
+    #[cfg(feature = "api-13")]
     pub fn OH_PictureMetadata_SetProperty(
         metadata: *mut OH_PictureMetadata,
         key: *mut Image_String,
@@ -158,8 +193,8 @@ extern "C" {
     ) -> Image_ErrorCode;
 }
 extern "C" {
-    #[cfg(feature = "api-19")]
     #[doc = " @brief Obtains the property of picture metadata. The output value.data is null-terminated.\n\n @param metadata Pointer to OH_PictureMetadata.\n @param key Pointer to property's key.\n @param value Pointer to property's value. Output parameter.\n @return Image functions result code.\n         {@link IMAGE_SUCCESS} if the execution is successful.\n         {@link IMAGE_INVALID_PARAMETER} metadata is nullptr, or key is nullptr, or value is nullptr.\n         {@link IMAGE_UNSUPPORTED_METADATA} unsupported metadata type, or the metadata type does not match the\n         auxiliary picture type.\n @since 19"]
+    #[cfg(feature = "api-19")]
     pub fn OH_PictureMetadata_GetPropertyWithNull(
         metadata: *mut OH_PictureMetadata,
         key: *mut Image_String,
@@ -167,13 +202,13 @@ extern "C" {
     ) -> Image_ErrorCode;
 }
 extern "C" {
-    #[cfg(feature = "api-13")]
     #[doc = " @brief Releases this PictureMetadata object.\n\n @param metadata The PictureMetadata pointer will be operated.\n @return Image functions result code.\n         {@link IMAGE_SUCCESS} if the execution is successful.\n         {@link IMAGE_BAD_PARAMETER} metadata is nullptr.\n @since 13"]
+    #[cfg(feature = "api-13")]
     pub fn OH_PictureMetadata_Release(metadata: *mut OH_PictureMetadata) -> Image_ErrorCode;
 }
 extern "C" {
-    #[cfg(feature = "api-13")]
     #[doc = " @brief Obtains a clone of metadata.\n\n @param oldMetadata The PictureMetadata pointer will be operated.\n @param newMetadata The PictureMetadata pointer will be cloned.\n @return Image functions result code.\n         {@link IMAGE_SUCCESS} if the execution is successful.\n         {@link IMAGE_BAD_PARAMETER} metadata is nullptr.\n         {@link IMAGE_ALLOC_FAILED} memory alloc failed.\n         {@link IMAGE_COPY_FAILED} memory copy failed.\n @since 13"]
+    #[cfg(feature = "api-13")]
     pub fn OH_PictureMetadata_Clone(
         oldMetadata: *mut OH_PictureMetadata,
         newMetadata: *mut *mut OH_PictureMetadata,
@@ -409,16 +444,16 @@ extern "C" {
     ) -> Image_ErrorCode;
 }
 extern "C" {
-    #[cfg(feature = "api-18")]
     #[doc = " @brief Get editable for InitializationOptions struct.\n\n @param options The InitializationOptions pointer will be operated.\n @param editable The boolean value representing the editable status.\n @return Returns {@link Image_ErrorCode} IMAGE_SUCCESS - if the operation is successful.\n returns {@link Image_ErrorCode} IMAGE_BAD_PARAMETER - if options or editable is invalid.\n @since 18"]
+    #[cfg(feature = "api-18")]
     pub fn OH_PixelmapInitializationOptions_GetEditable(
         options: *mut OH_Pixelmap_InitializationOptions,
         editable: *mut bool,
     ) -> Image_ErrorCode;
 }
 extern "C" {
-    #[cfg(feature = "api-18")]
     #[doc = " @brief Set editable for InitializationOptions struct.\n\n @param options The InitializationOptions pointer will be operated.\n @param editable The boolean value representing the editable status.\n @return Returns {@link Image_ErrorCode} IMAGE_SUCCESS - if the operation is successful.\n returns {@link Image_ErrorCode} IMAGE_BAD_PARAMETER - if options is invalid.\n @since 18"]
+    #[cfg(feature = "api-18")]
     pub fn OH_PixelmapInitializationOptions_SetEditable(
         options: *mut OH_Pixelmap_InitializationOptions,
         editable: bool,
@@ -455,8 +490,8 @@ extern "C" {
     ) -> Image_ErrorCode;
 }
 extern "C" {
-    #[cfg(feature = "api-20")]
     #[doc = " @brief Get alphaMode number for imageinfo struct.\n\n @param info The imageinfo pointer will be operated.\n @param alphaMode The number of imageinfo alphaMode.\n @return Image functions result code.\n     {@link IMAGE_SUCCESS} if the execution is successful.\n     {@link IMAGE_BAD_PARAMETER} info is nullptr, or alphaMode is nullptr.\n @since 20"]
+    #[cfg(feature = "api-20")]
     pub fn OH_PixelmapImageInfo_GetAlphaMode(
         info: *mut OH_Pixelmap_ImageInfo,
         alphaMode: *mut i32,
@@ -504,8 +539,8 @@ extern "C" {
     ) -> Image_ErrorCode;
 }
 extern "C" {
-    #[cfg(feature = "api-20")]
     #[doc = " @brief Creates a pixelmap based on options {@link OH_Pixelmap_InitializationOptions}, the memory type used by the\n pixelmap can be specified by allocatorType {@link IMAGE_ALLOCATOR_MODE}. By default, the system selects the memory\n type based on the image type, image size, platform capability, etc. When processing the pixelmap returned by this\n interface, please always consider the impact of stride.\n\n @param data Input color buffer in BGRA_8888 format by default.\n @param dataLength Length of input buffer in bytes.\n @param options Pixelmap initialization properties including size, pixel format, alpha type, and editable flags.\n @param allocator Indicate which memory type will be used by the returned pixelmap.\n @param pixelmap Output parameter receiving the created pixelmap object pointer.\n @return Function result code:\n         {@link IMAGE_SUCCESS} If the operation is successful.\n         {@link IMAGE_BAD_PARAMETER} If the param is nullptr or invalid.\n         {@link IMAGE_TOO_LARGE} too large data or image.\n         {@link IMAGE_UNSUPPORTED_OPERATION} unsupported operations.\n         {@link IMAGE_DMA_OPERATION_FAILED} DMA operation failed.\n         {@link IMAGE_ALLOCATOR_MODE_UNSUPPORTED} unsupported allocator mode, e.g.,\n         use share memory to create a HDR image as only DMA supported hdr metadata.\n @since 20"]
+    #[cfg(feature = "api-20")]
     pub fn OH_PixelmapNative_CreatePixelmapUsingAllocator(
         data: *mut u8,
         dataLength: usize,
@@ -547,8 +582,24 @@ extern "C" {
     ) -> Image_ErrorCode;
 }
 extern "C" {
-    #[cfg(feature = "api-13")]
+    #[doc = " @brief Reads data from a certain area of the PixelMap to a buffer. The resulting data will be in BGRA_8888 format.\n\n @param pixelmap The PixelMap to be read.\n @param area Area of the PixelMap to read the data. Data will be read and copied into area->pixels.\n @return Function result code:\n         {@link IMAGE_SUCCESS} If the operation is successful.\n         {@link IMAGE_BAD_PARAMETER} If any parameter is invalid, e.g. pixelmap or area is incorrect.\n         {@link IMAGE_UNKNOWN_ERROR} Internal unknown error, e.g. unsupported pixel format.\n @see OH_PixelmapNative\n @since 22"]
+    #[cfg(feature = "api-22")]
+    pub fn OH_PixelmapNative_ReadPixelsFromArea(
+        pixelmap: *mut OH_PixelmapNative,
+        area: *mut Image_PositionArea,
+    ) -> Image_ErrorCode;
+}
+extern "C" {
+    #[doc = " @brief Writes data from a buffer to a certain area of the PixelMap. The source data should be in BGRA_8888 format.\n\n @param pixelmap The PixelMap to be written.\n @param area Area of the PixelMap to write the data.\n @return Function result code:\n         {@link IMAGE_SUCCESS} If the operation is successful.\n         {@link IMAGE_BAD_PARAMETER} If any parameter is invalid, e.g. pixelmap or area is incorrect.\n         {@link IMAGE_UNSUPPORTED_OPERATION} If the PixelMap is not editable.\n         {@link IMAGE_UNKNOWN_ERROR} Internal unknown error, e.g. unsupported pixel format.\n @see OH_PixelmapNative\n @since 22"]
+    #[cfg(feature = "api-22")]
+    pub fn OH_PixelmapNative_WritePixelsToArea(
+        pixelmap: *mut OH_PixelmapNative,
+        area: *mut Image_PositionArea,
+    ) -> Image_ErrorCode;
+}
+extern "C" {
     #[doc = " @brief Get argb pixel buffer from pixelmap.\n\n @param pixelmap The Pixelmap pointer to be operated.\n @param destination Buffer to which the image pixel map data will be written.\n @param bufferSize Buffer size to which the image pixel map data will be written.\n @return Function result code:\n         {@link IMAGE_SUCCESS} If the operation is successful.\n         {@link IMAGE_BAD_PARAMETER} If invalid parameter, destination and bufferSize are incorrect.\n         {@link IMAGE_UNSUPPORTED_CONVERSION} If format does not support conversion to argb or conversion failed.\n         {@link IMAGE_ALLOC_FAILED} If device has no memory.\n         {@link IMAGE_COPY_FAILED} If memory copy failed.\n @see OH_PixelmapNative\n @since 13"]
+    #[cfg(feature = "api-13")]
     pub fn OH_PixelmapNative_GetArgbPixels(
         pixelmap: *mut OH_PixelmapNative,
         destination: *mut u8,
@@ -591,8 +642,8 @@ extern "C" {
     ) -> Image_ErrorCode;
 }
 extern "C" {
-    #[cfg(feature = "api-18")]
     #[doc = " @brief Create a scaled pixelmap based on the source pixelmap and the input width and height.\n\n @param srcPixelmap The source native pixelmap.\n @param dstPixelmap The destination native pixelmap for create.\n @param scaleX Scaling ratio of the width.\n @param scaleY Scaling ratio of the height.\n @return Function result code:\n         {@link IMAGE_SUCCESS} If the execution is successful.\n         {@link IMAGE_BAD_PARAMETER} If the param is nullptr or invalid.\n @see OH_PixelmapNative\n @since 18"]
+    #[cfg(feature = "api-18")]
     pub fn OH_PixelmapNative_CreateScaledPixelMap(
         srcPixelmap: *mut OH_PixelmapNative,
         dstPixelmap: *mut *mut OH_PixelmapNative,
@@ -601,8 +652,8 @@ extern "C" {
     ) -> Image_ErrorCode;
 }
 extern "C" {
-    #[cfg(feature = "api-18")]
     #[doc = " @brief Create a scaled pixelmap based on the source pixelmap and the input width and height with anti-aliasing.\n\n @param srcPixelmap The source native pixelmap.\n @param dstPixelmap The destination native pixelmap for create.\n @param scaleX Scaling ratio of the width.\n @param scaleY Scaling ratio of the height.\n @param level The anti-aliasing algorithm to be used.\n @return Function result code:\n         {@link IMAGE_SUCCESS} If the execution is successful.\n         {@link IMAGE_BAD_PARAMETER} If the param is nullptr or invalid.\n         {@link IMAGE_TOO_LARGE} If image is too large.\n         {@link IMAGE_ALLOC_FAILED} If device has no memory.\n @see OH_PixelmapNative\n @since 18"]
+    #[cfg(feature = "api-18")]
     pub fn OH_PixelmapNative_CreateScaledPixelMapWithAntiAliasing(
         srcPixelmap: *mut OH_PixelmapNative,
         dstPixelmap: *mut *mut OH_PixelmapNative,
@@ -617,6 +668,33 @@ extern "C" {
         pixelmap: *mut OH_PixelmapNative,
         x: f32,
         y: f32,
+    ) -> Image_ErrorCode;
+}
+extern "C" {
+    #[doc = " @brief Creates a PixelMap with only alpha channel from the source PixelMap.\n\n @param srcPixelmap The source PixelMap.\n @param dstPixelmap The target PixelMap to be created.\n @return Function result code:\n         {@link IMAGE_SUCCESS} If the operation is successful.\n         {@link IMAGE_BAD_PARAMETER} If any parameter is invalid, e.g. srcPixelmap or dstPixelmap is incorrect.\n @see OH_PixelmapNative\n @since 22"]
+    #[cfg(feature = "api-22")]
+    pub fn OH_PixelmapNative_CreateAlphaPixelmap(
+        srcPixelmap: *mut OH_PixelmapNative,
+        dstPixelmap: *mut *mut OH_PixelmapNative,
+    ) -> Image_ErrorCode;
+}
+extern "C" {
+    #[doc = " @brief Clones a PixelMap from the source PixelMap.\n\n @param srcPixelmap The source PixelMap to be cloned.\n @param dstPixelmap The target PixelMap to be created.\n @return Function result code:\n         {@link IMAGE_SUCCESS} If the operation is successful.\n         {@link IMAGE_BAD_PARAMETER} If any parameter is invalid, e.g. srcPixelmap or dstPixelmap is incorrect.\n         {@link IMAGE_UNSUPPORTED_DATA_FORMAT} If the pixel format is unsupported.\n         {@link IMAGE_TOO_LARGE} If the PixelMap size is too large.\n         {@link IMAGE_INIT_FAILED} If the PixelMap initialization failed.\n         {@link IMAGE_ALLOC_FAILED} If the copying of PixelMap data failed.\n @see OH_PixelmapNative\n @since 22"]
+    #[cfg(feature = "api-22")]
+    pub fn OH_PixelmapNative_Clone(
+        srcPixelmap: *mut OH_PixelmapNative,
+        dstPixelmap: *mut *mut OH_PixelmapNative,
+    ) -> Image_ErrorCode;
+}
+extern "C" {
+    #[doc = " @brief Creates a cropped and then scaled PixelMap based on the source PixelMap.\n\n @param srcPixelmap The source PixelMap.\n @param region The crop region.\n @param scale The scale ratio of width and height.\n @param level The anti-aliasing algorithm to be used.\n @param dstPixelmap The target PixelMap to be created.\n @return Function result code:\n         {@link IMAGE_SUCCESS} If the operation is successful.\n         {@link IMAGE_BAD_PARAMETER} If any parameter is invalid, e.g. srcPixelmap, region, scale, or dstPixelmap is\n                                     incorrect.\n         {@link IMAGE_UNSUPPORTED_DATA_FORMAT} If the pixel format is unsupported.\n         {@link IMAGE_TOO_LARGE} If the PixelMap size is too large.\n         {@link IMAGE_INIT_FAILED} If the PixelMap initialization failed.\n         {@link IMAGE_ALLOC_FAILED} If the copying of PixelMap data failed.\n @see OH_PixelmapNative\n @since 22"]
+    #[cfg(feature = "api-22")]
+    pub fn OH_PixelmapNative_CreateCroppedAndScaledPixelMap(
+        srcPixelmap: *mut OH_PixelmapNative,
+        region: *mut Image_Region,
+        scale: *mut Image_Scale,
+        level: OH_PixelmapNative_AntiAliasingLevel,
+        dstPixelmap: *mut *mut OH_PixelmapNative,
     ) -> Image_ErrorCode;
 }
 extern "C" {
@@ -646,8 +724,8 @@ extern "C" {
     pub fn OH_PixelmapNative_Release(pixelmap: *mut OH_PixelmapNative) -> Image_ErrorCode;
 }
 extern "C" {
-    #[cfg(feature = "api-18")]
     #[doc = " @brief Destroys an <b>OH_PixelmapNative</b> object and deallocates its resources.\n\n @param pixelmap A pointer to the OH_PixelmapNative pointer to destroy.\n @return Returns {@link Image_ErrorCode} IMAGE_SUCCESS - if the operation is successful.\n returns {@link Image_ErrorCode} IMAGE_BAD_PARAMETER - if pixelmap is null or *pixelmap is null.\n @since 18"]
+    #[cfg(feature = "api-18")]
     pub fn OH_PixelmapNative_Destroy(pixelmap: *mut *mut OH_PixelmapNative) -> Image_ErrorCode;
 }
 extern "C" {
@@ -666,11 +744,28 @@ extern "C" {
     ) -> Image_ErrorCode;
 }
 extern "C" {
-    #[cfg(feature = "api-20")]
     #[doc = " @brief Creates a empty pixelmap based on options {@link OH_Pixelmap_InitializationOptions}, the memory type used\n by the pixelmap can be specified by allocatorType {@link IMAGE_ALLOCATOR_MODE}. By default,\n the system selects the memory type based on the image type, image size, platform capability, etc. When processing\n the pixelmap returned by this interface, please always consider the impact of stride.\n\n @param options Pixelmap initialization properties including size, pixel format, alpha type, and editable flags.\n @param allocator Indicate which memory type will be used by the returned pixelmap.\n @param pixelmap Output parameter receiving the created pixelmap object pointer.\n @return Function result code:\n         {@link IMAGE_SUCCESS} If the operation is successful.\n         {@link IMAGE_BAD_PARAMETER} If the param is nullptr or invalid.\n         {@link IMAGE_TOO_LARGE} too large data or image.\n         {@link IMAGE_UNSUPPORTED_OPERATION} unsupported operations.\n         {@link IMAGE_ALLOCATOR_MODE_UNSUPPORTED} unsupported allocator mode, e.g., use\n         share memory to create a HDR image as only DMA supported hdr metadata.\n @since 20"]
+    #[cfg(feature = "api-20")]
     pub fn OH_PixelmapNative_CreateEmptyPixelmapUsingAllocator(
         options: *mut OH_Pixelmap_InitializationOptions,
         allocator: IMAGE_ALLOCATOR_MODE,
+        pixelmap: *mut *mut OH_PixelmapNative,
+    ) -> Image_ErrorCode;
+}
+extern "C" {
+    #[doc = " @brief Creates a PixelMap from a Surface with the Surface ID.\n\n @param surfaceId The Surface ID.\n @param length Length of the Surface ID.\n @param pixelmap The PixelMap to be created.\n @return Function result code:\n         {@link IMAGE_SUCCESS} If the operation is successful.\n         {@link IMAGE_BAD_PARAMETER} If any parameter is invalid, e.g. surfaceId or pixelmap is incorrect.\n         {@link IMAGE_CREATE_PIXELMAP_FAILED} If the PixelMap creation failed.\n @see OH_PixelmapNative\n @since 22"]
+    #[cfg(feature = "api-22")]
+    pub fn OH_PixelmapNative_CreatePixelmapFromSurface(
+        surfaceId: *const ::std::os::raw::c_char,
+        length: usize,
+        pixelmap: *mut *mut OH_PixelmapNative,
+    ) -> Image_ErrorCode;
+}
+extern "C" {
+    #[doc = " @brief Creates a PixelMap from a native buffer.\n\n @param nativeBuffer The native buffer.\n @param pixelmap The PixelMap to be created.\n @return Function result code:\n         {@link IMAGE_SUCCESS} If the operation is successful.\n         {@link IMAGE_BAD_PARAMETER} If any parameter is invalid, e.g. nativeBuffer or pixelmap is incorrect.\n         {@link IMAGE_CREATE_PIXELMAP_FAILED} If the PixelMap creation failed.\n @see OH_PixelmapNative\n @since 22"]
+    #[cfg(feature = "api-22")]
+    pub fn OH_PixelmapNative_CreatePixelmapFromNativeBuffer(
+        nativeBuffer: *mut OH_NativeBuffer,
         pixelmap: *mut *mut OH_PixelmapNative,
     ) -> Image_ErrorCode;
 }
@@ -698,24 +793,24 @@ extern "C" {
     ) -> Image_ErrorCode;
 }
 extern "C" {
-    #[cfg(feature = "api-13")]
     #[doc = " @brief Get the native colorspace from the PixelMap.\n\n @param pixelmap The native pixelmap to get the native colorspace from.\n @param colorSpaceNative The native colorspace to retrieve.\n @return Function result code:\n         {@link IMAGE_SUCCESS} If the execution is successful.\n         {@link IMAGE_BAD_PARAMETER} The param of pixelmap or colorSpaceNative is nullptr or invalid.\n @see OH_PixelmapNative\n @since 13"]
+    #[cfg(feature = "api-13")]
     pub fn OH_PixelmapNative_GetColorSpaceNative(
         pixelmap: *mut OH_PixelmapNative,
         colorSpaceNative: *mut *mut OH_NativeColorSpaceManager,
     ) -> Image_ErrorCode;
 }
 extern "C" {
-    #[cfg(feature = "api-13")]
     #[doc = " @brief Set the native colorspace for the PixelMap.\n\n @param pixelmap The native pixelmap to set the native colorspace for.\n @param colorSpaceNative The native colorspace to set.\n @return Function result code:\n         {@link IMAGE_SUCCESS} If the execution is successful.\n         {@link IMAGE_BAD_PARAMETER} The param of pixelmap or colorSpaceNative is nullptr or invalid.\n @see OH_PixelmapNative\n @since 13"]
+    #[cfg(feature = "api-13")]
     pub fn OH_PixelmapNative_SetColorSpaceNative(
         pixelmap: *mut OH_PixelmapNative,
         colorSpaceNative: *mut OH_NativeColorSpaceManager,
     ) -> Image_ErrorCode;
 }
 extern "C" {
-    #[cfg(feature = "api-13")]
     #[doc = " @brief Set pixelmap memory name.\n\n @param pixelmap The Pixelmap pointer to be operated.\n @param name The pointer of name that needs to be set.\n @param size The size of name size that needs to be set.\n @return Function result code:\n         {@link IMAGE_SUCCESS} If the operation is successful.\n         {@link IMAGE_BAD_PARAMETER} If invalid parameter, name and size are incorrect.\n         {@link IMAGE_UNSUPPORTED_MEMORY_FORMAT} If memory format is unsupported.\n @see OH_PixelmapNative\n @since 13"]
+    #[cfg(feature = "api-13")]
     pub fn OH_PixelmapNative_SetMemoryName(
         pixelmap: *mut OH_PixelmapNative,
         name: *mut ::std::os::raw::c_char,
@@ -723,33 +818,49 @@ extern "C" {
     ) -> Image_ErrorCode;
 }
 extern "C" {
-    #[cfg(feature = "api-18")]
     #[doc = " @brief Get the total number of bytes occupied by all pixels in the Pixelmap, without any padding.\n\n @param pixelmap The Pixelmap pointer to be operated.\n @param byteCount The total number of bytes to be retrieved.\n @return Function result code:\n         {@link IMAGE_SUCCESS} If the operation is successful.\n         {@link IMAGE_BAD_PARAMETER} If invalid parameter, pixelmap or byteCount are invalid.\n @see OH_PixelmapNative\n @since 18"]
+    #[cfg(feature = "api-18")]
     pub fn OH_PixelmapNative_GetByteCount(
         pixelmap: *mut OH_PixelmapNative,
         byteCount: *mut u32,
     ) -> Image_ErrorCode;
 }
 extern "C" {
-    #[cfg(feature = "api-18")]
     #[doc = " @brief Get the size of the allocated memory used to store this pixelmap's pixels.\n\n @param pixelmap The Pixelmap pointer to be operated.\n @param allocationByteCount The size of the allocated memory.\n @return Function result code:\n         {@link IMAGE_SUCCESS} If the operation is successful.\n         {@link IMAGE_BAD_PARAMETER} If invalid parameter, pixelmap or allocationByteCount are invalid.\n @see OH_PixelmapNative\n @since 18"]
+    #[cfg(feature = "api-18")]
     pub fn OH_PixelmapNative_GetAllocationByteCount(
         pixelmap: *mut OH_PixelmapNative,
         allocationByteCount: *mut u32,
     ) -> Image_ErrorCode;
 }
 extern "C" {
-    #[cfg(feature = "api-15")]
     #[doc = " @brief Obtains the memory address of a PixelMap and locks the memory.\n        When the memory is locked, any operation that modifies or releases the PixelMap will fail and return\n        {@link IMAGE_BAD_PARAMETER}.\n\n @param pixelmap The PixelMap pointer to be operated.\n @param addr The double pointer to the memory address of the PixelMap.\n @return Function result code:\n         {@link IMAGE_SUCCESS} If the operation is successful.\n         {@link IMAGE_BAD_PARAMETER} If invalid parameter, pixelmap or addr are invalid.\n         {@link IMAGE_LOCK_UNLOCK_FAILED} If memory failed to be locked.\n @see OH_PixelmapNative\n @since 15"]
+    #[cfg(feature = "api-15")]
     pub fn OH_PixelmapNative_AccessPixels(
         pixelmap: *mut OH_PixelmapNative,
         addr: *mut *mut ::std::os::raw::c_void,
     ) -> Image_ErrorCode;
 }
 extern "C" {
-    #[cfg(feature = "api-15")]
     #[doc = " @brief Unlocks the memory of the PixelMap data.\n        This function is used with {@link OH_PixelmapNative_AccessPixels} in pairs.\n\n @param pixelmap The PixelMap pointer to be operated.\n @return Function result code:\n         {@link IMAGE_SUCCESS} If the operation is successful.\n         {@link IMAGE_BAD_PARAMETER} If invalid parameter, pixelmap is invalid.\n         {@link IMAGE_LOCK_UNLOCK_FAILED} If memory failed to be unlocked.\n @see OH_PixelmapNative\n @since 15"]
+    #[cfg(feature = "api-15")]
     pub fn OH_PixelmapNative_UnaccessPixels(pixelmap: *mut OH_PixelmapNative) -> Image_ErrorCode;
+}
+extern "C" {
+    #[doc = " @brief Gets the unique ID of a PixelMap.\n\n @param pixelmap The PixelMap to retrieve the unique ID.\n @param uniqueId The resulting unique ID.\n @return Function result code:\n         {@link IMAGE_SUCCESS} If the operation is successful.\n         {@link IMAGE_BAD_PARAMETER} If any parameter is invalid, e.g. pixelmap or uniqueId is incorrect.\n @see OH_PixelmapNative\n @since 22"]
+    #[cfg(feature = "api-22")]
+    pub fn OH_PixelmapNative_GetUniqueId(
+        pixelmap: *mut OH_PixelmapNative,
+        uniqueId: *mut u32,
+    ) -> Image_ErrorCode;
+}
+extern "C" {
+    #[doc = " @brief Checks whether the PixelMap has been released.\n\n @param pixelmap The PixelMap to check.\n @param released The resulting release status.\n @return Function result code:\n         {@link IMAGE_SUCCESS} If the operation is successful.\n         {@link IMAGE_BAD_PARAMETER} If any parameter is invalid, e.g. pixelmap or released is incorrect.\n @see OH_PixelmapNative\n @since 22"]
+    #[cfg(feature = "api-22")]
+    pub fn OH_PixelmapNative_IsReleased(
+        pixelmap: *mut OH_PixelmapNative,
+        released: *mut bool,
+    ) -> Image_ErrorCode;
 }
 #[repr(C)]
 #[derive(Debug, Copy, Clone)]
@@ -791,6 +902,11 @@ pub struct OH_UdsContentForm {
 pub struct OH_UdsArrayBuffer {
     _unused: [u8; 0],
 }
+#[repr(C)]
+#[derive(Debug, Copy, Clone)]
+pub struct OH_UdsDetails {
+    _unused: [u8; 0],
+}
 extern "C" {
     #[doc = " @brief Creation a pointer to the instance of the {@link OH_UdsPlainText}.\n\n @return If the operation is successful, a pointer to the instance of the {@link OH_UdsPlainText}\n structure is returned. If the operation is failed, nullptr is returned.\n @see OH_UdsPlainText\n @since 12"]
     pub fn OH_UdsPlainText_Create() -> *mut OH_UdsPlainText;
@@ -815,6 +931,14 @@ extern "C" {
     ) -> *const ::std::os::raw::c_char;
 }
 extern "C" {
+    #[doc = " @brief Get details from the {@link OH_UdsPlainText}.\n\n @param pThis Represents a pointer to an instance of {@link OH_UdsPlainText}.\n @param details Represents a pointer to an instance of {@link OH_UdsDetails}. The pointer cannot be null.\n @return Returns the status code of the execution. See {@link Udmf_ErrCode}.\n         {@link UDMF_E_OK} success.\n         {@link UDMF_E_INVALID_PARAM} The error code for common invalid args.\n @see OH_UdsPlainText OH_UdsDetails Udmf_ErrCode\n @since 22"]
+    #[cfg(feature = "api-22")]
+    pub fn OH_UdsPlainText_GetDetails(
+        pThis: *mut OH_UdsPlainText,
+        details: *mut OH_UdsDetails,
+    ) -> ::std::os::raw::c_int;
+}
+extern "C" {
     #[doc = " @brief Set content to the {@link OH_UdsPlainText}.\n\n @param pThis Represents a pointer to an instance of {@link OH_UdsPlainText}.\n @param content Represents a new content string.\n @return Returns the status code of the execution. See {@link Udmf_ErrCode}.\n         {@link UDMF_E_OK} success.\n         {@link UDMF_E_INVALID_PARAM} The error code for common invalid args.\n @see OH_UdsPlainText Udmf_ErrCode\n @since 12"]
     pub fn OH_UdsPlainText_SetContent(
         pThis: *mut OH_UdsPlainText,
@@ -826,6 +950,14 @@ extern "C" {
     pub fn OH_UdsPlainText_SetAbstract(
         pThis: *mut OH_UdsPlainText,
         abstract_: *const ::std::os::raw::c_char,
+    ) -> ::std::os::raw::c_int;
+}
+extern "C" {
+    #[doc = " @brief Set details to the {@link OH_UdsPlainText}.\n\n @param pThis Represents a pointer to an instance of {@link OH_UdsPlainText}.\n @param details Represents a pointer to an instance of {@link OH_UdsDetails}. The pointer cannot be null.\n @return Returns the status code of the execution. See {@link Udmf_ErrCode}.\n         {@link UDMF_E_OK} success.\n         {@link UDMF_E_INVALID_PARAM} The error code for common invalid args.\n @see OH_UdsPlainText OH_UdsDetails Udmf_ErrCode\n @since 22"]
+    #[cfg(feature = "api-22")]
+    pub fn OH_UdsPlainText_SetDetails(
+        pThis: *mut OH_UdsPlainText,
+        details: *const OH_UdsDetails,
     ) -> ::std::os::raw::c_int;
 }
 extern "C" {
@@ -851,6 +983,14 @@ extern "C" {
     ) -> *const ::std::os::raw::c_char;
 }
 extern "C" {
+    #[doc = " @brief Get details from the {@link OH_UdsHyperlink}.\n\n @param pThis Represents a pointer to an instance of {@link OH_UdsHyperlink}.\n @param details Represents a pointer to an instance of {@link OH_UdsDetails}. The pointer cannot be null.\n @return Returns the status code of the execution. See {@link Udmf_ErrCode}.\n         {@link UDMF_E_OK} success.\n         {@link UDMF_E_INVALID_PARAM} The error code for common invalid args.\n @see OH_UdsHyperlink OH_UdsDetails Udmf_ErrCode\n @since 22"]
+    #[cfg(feature = "api-22")]
+    pub fn OH_UdsHyperlink_GetDetails(
+        pThis: *mut OH_UdsHyperlink,
+        details: *mut OH_UdsDetails,
+    ) -> ::std::os::raw::c_int;
+}
+extern "C" {
     #[doc = " @brief Set url to the {@link OH_UdsHyperlink}.\n\n @param pThis Represents a pointer to an instance of {@link OH_UdsHyperlink}.\n @param url Represents a new string value.\n @return Returns the status code of the execution. See {@link Udmf_ErrCode}.\n         {@link UDMF_E_OK} success.\n         {@link UDMF_E_INVALID_PARAM} The error code for common invalid args.\n @see OH_UdsHyperlink Udmf_ErrCode\n @since 12"]
     pub fn OH_UdsHyperlink_SetUrl(
         pThis: *mut OH_UdsHyperlink,
@@ -862,6 +1002,14 @@ extern "C" {
     pub fn OH_UdsHyperlink_SetDescription(
         pThis: *mut OH_UdsHyperlink,
         description: *const ::std::os::raw::c_char,
+    ) -> ::std::os::raw::c_int;
+}
+extern "C" {
+    #[doc = " @brief Set details to the {@link OH_UdsHyperlink}.\n\n @param pThis Represents a pointer to an instance of {@link OH_UdsHyperlink}.\n @param details Represents a pointer to an instance of {@link OH_UdsDetails}. The pointer cannot be null.\n @return Returns the status code of the execution. See {@link Udmf_ErrCode}.\n         {@link UDMF_E_OK} success.\n         {@link UDMF_E_INVALID_PARAM} The error code for common invalid args.\n @since 22\n @see OH_UdsHyperlink OH_UdsDetails Udmf_ErrCode"]
+    #[cfg(feature = "api-22")]
+    pub fn OH_UdsHyperlink_SetDetails(
+        pThis: *mut OH_UdsHyperlink,
+        details: *const OH_UdsDetails,
     ) -> ::std::os::raw::c_int;
 }
 extern "C" {
@@ -885,6 +1033,14 @@ extern "C" {
     pub fn OH_UdsHtml_GetPlainContent(pThis: *mut OH_UdsHtml) -> *const ::std::os::raw::c_char;
 }
 extern "C" {
+    #[doc = " @brief Get details from the {@link OH_UdsHtml}.\n\n @param pThis Represents a pointer to an instance of {@link OH_UdsHtml}.\n @param details Represents a pointer to an instance of {@link OH_UdsDetails}. The pointer cannot be null.\n @return Returns the status code of the execution. See {@link Udmf_ErrCode}.\n         {@link UDMF_E_OK} success.\n         {@link UDMF_E_INVALID_PARAM} The error code for common invalid args.\n @since 22\n @see OH_UdsHtml OH_UdsDetails Udmf_ErrCode"]
+    #[cfg(feature = "api-22")]
+    pub fn OH_UdsHtml_GetDetails(
+        pThis: *mut OH_UdsHtml,
+        details: *mut OH_UdsDetails,
+    ) -> ::std::os::raw::c_int;
+}
+extern "C" {
     #[doc = " @brief Set content to the {@link OH_UdsHtml}.\n\n @param pThis Represents a pointer to an instance of {@link OH_UdsHtml}.\n @param content Represents a new string value.\n @return Returns the status code of the execution. See {@link Udmf_ErrCode}.\n         {@link UDMF_E_OK} success.\n         {@link UDMF_E_INVALID_PARAM} The error code for common invalid args.\n @see OH_UdsHtml Udmf_ErrCode\n @since 12"]
     pub fn OH_UdsHtml_SetContent(
         pThis: *mut OH_UdsHtml,
@@ -896,6 +1052,14 @@ extern "C" {
     pub fn OH_UdsHtml_SetPlainContent(
         pThis: *mut OH_UdsHtml,
         plainContent: *const ::std::os::raw::c_char,
+    ) -> ::std::os::raw::c_int;
+}
+extern "C" {
+    #[doc = " @brief Set details to the {@link OH_UdsHtml}.\n\n @param pThis Represents a pointer to an instance of {@link OH_UdsHtml}.\n @param details Represents a pointer to an instance of {@link OH_UdsDetails}. The pointer cannot be null.\n @return Returns the status code of the execution. See {@link Udmf_ErrCode}.\n         {@link UDMF_E_OK} success.\n         {@link UDMF_E_INVALID_PARAM} The error code for common invalid args.\n @since 22\n @see OH_UdsHtml OH_UdsDetails Udmf_ErrCode"]
+    #[cfg(feature = "api-22")]
+    pub fn OH_UdsHtml_SetDetails(
+        pThis: *mut OH_UdsHtml,
+        details: *const OH_UdsDetails,
     ) -> ::std::os::raw::c_int;
 }
 extern "C" {
@@ -934,6 +1098,14 @@ extern "C" {
     #[doc = " @brief Get ability name from the {@link OH_UdsAppItem}.\n\n @param pThis Represents a pointer to an instance {@link OH_UdsAppItem}.\n @return Returns a pointer of the value string when input args normally, otherwise return nullptr.\n @see OH_UdsAppItem\n @since 12"]
     pub fn OH_UdsAppItem_GetAbilityName(pThis: *mut OH_UdsAppItem)
         -> *const ::std::os::raw::c_char;
+}
+extern "C" {
+    #[doc = " @brief Get details from the {@link OH_UdsAppItem}.\n\n @param pThis Represents a pointer to an instance of {@link OH_UdsAppItem}.\n @param details Represents a pointer to an instance of {@link OH_UdsDetails}. The pointer cannot be null.\n @return Returns the status code of the execution. See {@link Udmf_ErrCode}.\n         {@link UDMF_E_OK} success.\n         {@link UDMF_E_INVALID_PARAM} The error code for common invalid args.\n @since 22\n @see OH_UdsAppItem OH_UdsDetails Udmf_ErrCode"]
+    #[cfg(feature = "api-22")]
+    pub fn OH_UdsAppItem_GetDetails(
+        pThis: *mut OH_UdsAppItem,
+        details: *mut OH_UdsDetails,
+    ) -> ::std::os::raw::c_int;
 }
 extern "C" {
     #[doc = " @brief Set application id to the {@link OH_UdsAppItem}.\n\n @param pThis Represents a pointer to an instance of {@link OH_UdsAppItem}.\n @param appId Represents a new string value.\n @return Returns the status code of the execution. See {@link Udmf_ErrCode}.\n         {@link UDMF_E_OK} success.\n         {@link UDMF_E_INVALID_PARAM} The error code for common invalid args.\n @see OH_UdsAppItem Udmf_ErrCode\n @since 12"]
@@ -978,90 +1150,130 @@ extern "C" {
     ) -> ::std::os::raw::c_int;
 }
 extern "C" {
-    #[cfg(feature = "api-13")]
+    #[doc = " @brief Set details to the {@link OH_UdsAppItem}.\n\n @param pThis Represents a pointer to an instance of {@link OH_UdsAppItem}.\n @param details Represents a pointer to an instance of {@link OH_UdsDetails}. The pointer cannot be null.\n @return Returns the status code of the execution. See {@link Udmf_ErrCode}.\n         {@link UDMF_E_OK} success.\n         {@link UDMF_E_INVALID_PARAM} The error code for common invalid args.\n @see OH_UdsAppItem OH_UdsDetails Udmf_ErrCode\n @since 22"]
+    #[cfg(feature = "api-22")]
+    pub fn OH_UdsAppItem_SetDetails(
+        pThis: *mut OH_UdsAppItem,
+        details: *const OH_UdsDetails,
+    ) -> ::std::os::raw::c_int;
+}
+extern "C" {
     #[doc = " @brief Creation a pointer to the instance of the {@link OH_UdsFileUri}.\n\n @return If the operation is successful, a pointer to the instance of the {@link OH_UdsFileUri}\n structure is returned. If the memory is not enough, nullptr is returned.\n @see OH_UdsFileUri\n @since 13"]
+    #[cfg(feature = "api-13")]
     pub fn OH_UdsFileUri_Create() -> *mut OH_UdsFileUri;
 }
 extern "C" {
-    #[cfg(feature = "api-13")]
     #[doc = " @brief Destroy a pointer that points to the {@link OH_UdsFileUri} instance.\n\n @param pThis Represents a pointer to an instance of {@link OH_UdsFileUri}.\n @see OH_UdsFileUri\n @since 13"]
+    #[cfg(feature = "api-13")]
     pub fn OH_UdsFileUri_Destroy(pThis: *mut OH_UdsFileUri);
 }
 extern "C" {
-    #[cfg(feature = "api-13")]
     #[doc = " @brief Get type id from the {@link OH_UdsFileUri}.\n\n @param pThis Represents a pointer to an instance of {@link OH_UdsFileUri}.\n @return Returns a pointer of the value string when input args normally, otherwise return nullptr.\n @see OH_UdsFileUri\n @since 13"]
+    #[cfg(feature = "api-13")]
     pub fn OH_UdsFileUri_GetType(pThis: *mut OH_UdsFileUri) -> *const ::std::os::raw::c_char;
 }
 extern "C" {
-    #[cfg(feature = "api-13")]
     #[doc = " @brief Get file uri from the {@link OH_UdsFileUri}.\n\n @param pThis Represents a pointer to an instance of {@link OH_UdsFileUri}.\n @return Returns a pointer of the value string when input args normally, otherwise return nullptr.\n @see OH_UdsFileUri\n @since 13"]
+    #[cfg(feature = "api-13")]
     pub fn OH_UdsFileUri_GetFileUri(pThis: *mut OH_UdsFileUri) -> *const ::std::os::raw::c_char;
 }
 extern "C" {
-    #[cfg(feature = "api-13")]
     #[doc = " @brief Get file type from the {@link OH_UdsFileUri}.\n\n @param pThis Represents a pointer to an instance of {@link OH_UdsFileUri}.\n @return Returns a pointer of the value string when input args normally, otherwise return nullptr.\n @see OH_UdsFileUri\n @since 13"]
+    #[cfg(feature = "api-13")]
     pub fn OH_UdsFileUri_GetFileType(pThis: *mut OH_UdsFileUri) -> *const ::std::os::raw::c_char;
 }
 extern "C" {
-    #[cfg(feature = "api-13")]
+    #[doc = " @brief Get details from the {@link OH_UdsFileUri}.\n\n @param pThis Represents a pointer to an instance of {@link OH_UdsFileUri}.\n @param details Represents a pointer to an instance of {@link OH_UdsDetails}. The pointer cannot be null.\n @return Returns the status code of the execution. See {@link Udmf_ErrCode}.\n         {@link UDMF_E_OK} success.\n         {@link UDMF_E_INVALID_PARAM} The error code for common invalid args.\n @since 22\n @see OH_UdsFileUri OH_UdsDetails Udmf_ErrCode"]
+    #[cfg(feature = "api-22")]
+    pub fn OH_UdsFileUri_GetDetails(
+        pThis: *mut OH_UdsFileUri,
+        details: *mut OH_UdsDetails,
+    ) -> ::std::os::raw::c_int;
+}
+extern "C" {
     #[doc = " @brief Set file uri to the {@link OH_UdsFileUri}.\n\n @param pThis Represents a pointer to an instance of {@link OH_UdsFileUri}.\n @param fileUri Represents a new file uri string.\n @return Returns the status code of the execution. See {@link Udmf_ErrCode}.\n         {@link UDMF_E_OK} success.\n         {@link UDMF_E_INVALID_PARAM} The error code for common invalid args.\n @see OH_UdsFileUri Udmf_ErrCode\n @since 13"]
+    #[cfg(feature = "api-13")]
     pub fn OH_UdsFileUri_SetFileUri(
         pThis: *mut OH_UdsFileUri,
         fileUri: *const ::std::os::raw::c_char,
     ) -> ::std::os::raw::c_int;
 }
 extern "C" {
-    #[cfg(feature = "api-13")]
     #[doc = " @brief Set file type to the {@link OH_UdsFileUri}.\n\n @param pThis Represents a pointer to an instance of {@link OH_UdsFileUri}.\n @param fileType Represents a new file type string.\n @return Returns the status code of the execution. See {@link Udmf_ErrCode}.\n         {@link UDMF_E_OK} success.\n         {@link UDMF_E_INVALID_PARAM} The error code for common invalid args.\n @see OH_UdsFileUri Udmf_ErrCode\n @since 13"]
+    #[cfg(feature = "api-13")]
     pub fn OH_UdsFileUri_SetFileType(
         pThis: *mut OH_UdsFileUri,
         fileType: *const ::std::os::raw::c_char,
     ) -> ::std::os::raw::c_int;
 }
 extern "C" {
-    #[cfg(feature = "api-13")]
+    #[doc = " @brief Set details to the {@link OH_UdsFileUri}.\n\n @param pThis Represents a pointer to an instance of {@link OH_UdsFileUri}.\n @param details Represents a pointer to an instance of {@link OH_UdsDetails}. The pointer cannot be null.\n @return Returns the status code of the execution. See {@link Udmf_ErrCode}.\n         {@link UDMF_E_OK} success.\n         {@link UDMF_E_INVALID_PARAM} The error code for common invalid args.\n @see OH_UdsFileUri OH_UdsDetails Udmf_ErrCode\n @since 22"]
+    #[cfg(feature = "api-22")]
+    pub fn OH_UdsFileUri_SetDetails(
+        pThis: *mut OH_UdsFileUri,
+        details: *const OH_UdsDetails,
+    ) -> ::std::os::raw::c_int;
+}
+extern "C" {
     #[doc = " @brief Creation a pointer to the instance of the {@link OH_UdsPixelMap}.\n\n @return If the operation is successful, a pointer to the instance of the {@link OH_UdsPixelMap}\n structure is returned. If the memory is not enough, nullptr is returned.\n @see OH_UdsPixelMap\n @since 13"]
+    #[cfg(feature = "api-13")]
     pub fn OH_UdsPixelMap_Create() -> *mut OH_UdsPixelMap;
 }
 extern "C" {
-    #[cfg(feature = "api-13")]
     #[doc = " @brief Destroy a pointer that points to the {@link OH_UdsPixelMap} instance.\n\n @param pThis Represents a pointer to an instance of {@link OH_UdsPixelMap}.\n @see OH_UdsPixelMap\n @since 13"]
+    #[cfg(feature = "api-13")]
     pub fn OH_UdsPixelMap_Destroy(pThis: *mut OH_UdsPixelMap);
 }
 extern "C" {
-    #[cfg(feature = "api-13")]
     #[doc = " @brief Get type id from the {@link OH_UdsPixelMap}.\n\n @param pThis Represents a pointer to an instance of {@link OH_UdsPixelMap}.\n @return Returns a pointer of the value string when input args normally, otherwise return nullptr.\n @see OH_UdsPixelMap\n @since 13"]
+    #[cfg(feature = "api-13")]
     pub fn OH_UdsPixelMap_GetType(pThis: *mut OH_UdsPixelMap) -> *const ::std::os::raw::c_char;
 }
 extern "C" {
-    #[cfg(feature = "api-13")]
     #[doc = " @brief Get pixel map from the {@link OH_UdsPixelMap}.\n\n @param pThis Represents a pointer to an instance of {@link OH_UdsPixelMap}.\n @param pixelmapNative Represents output params of {@link OH_PixelmapNative}.\n @see OH_UdsPixelMap\n @since 13"]
+    #[cfg(feature = "api-13")]
     pub fn OH_UdsPixelMap_GetPixelMap(
         pThis: *mut OH_UdsPixelMap,
         pixelmapNative: *mut OH_PixelmapNative,
     );
 }
 extern "C" {
-    #[cfg(feature = "api-13")]
+    #[doc = " @brief Get details from the {@link OH_UdsPixelMap}.\n\n @param pThis Represents a pointer to an instance of {@link OH_UdsPixelMap}.\n @param details Represents a pointer to an instance of {@link OH_UdsDetails}. The pointer cannot be null.\n @return Returns the status code of the execution. See {@link Udmf_ErrCode}.\n         {@link UDMF_E_OK} success.\n         {@link UDMF_E_INVALID_PARAM} The error code for common invalid args.\n @since 22\n @see OH_UdsPixelMap OH_UdsDetails Udmf_ErrCode"]
+    #[cfg(feature = "api-22")]
+    pub fn OH_UdsPixelMap_GetDetails(
+        pThis: *mut OH_UdsPixelMap,
+        details: *mut OH_UdsDetails,
+    ) -> ::std::os::raw::c_int;
+}
+extern "C" {
     #[doc = " @brief Set pixel map to the {@link OH_UdsPixelMap}.\n\n @param pThis Represents a pointer to an instance of {@link OH_UdsPixelMap}.\n @param pixelmapNative Represents a new {@link OH_PixelmapNative}.\n @return Returns the status code of the execution. See {@link Udmf_ErrCode}.\n         {@link UDMF_E_OK} success.\n         {@link UDMF_E_INVALID_PARAM} The error code for common invalid args.\n @see OH_UdsPixelMap Udmf_ErrCode\n @since 13"]
+    #[cfg(feature = "api-13")]
     pub fn OH_UdsPixelMap_SetPixelMap(
         pThis: *mut OH_UdsPixelMap,
         pixelmapNative: *mut OH_PixelmapNative,
     ) -> ::std::os::raw::c_int;
 }
 extern "C" {
-    #[cfg(feature = "api-13")]
+    #[doc = " @brief Set details to the {@link OH_UdsPixelMap}.\n\n @param pThis Represents a pointer to an instance of {@link OH_UdsPixelMap}.\n @param details Represents a pointer to an instance of {@link OH_UdsDetails}. The pointer cannot be null.\n @return Returns the status code of the execution. See {@link Udmf_ErrCode}.\n         {@link UDMF_E_OK} success.\n         {@link UDMF_E_INVALID_PARAM} The error code for common invalid args.\n @since 22\n @see OH_UdsPixelMap OH_UdsDetails Udmf_ErrCode"]
+    #[cfg(feature = "api-22")]
+    pub fn OH_UdsPixelMap_SetDetails(
+        pThis: *mut OH_UdsPixelMap,
+        details: *const OH_UdsDetails,
+    ) -> ::std::os::raw::c_int;
+}
+extern "C" {
     #[doc = " @brief Creation a pointer to the instance of the {@link OH_UdsArrayBuffer}.\n\n @return If the operation is successful, a pointer to the instance of the {@link OH_UdsArrayBuffer}\n structure is returned. If the memory is not enough, nullptr is returned.\n @see OH_UdsArrayBuffer\n @since 13"]
+    #[cfg(feature = "api-13")]
     pub fn OH_UdsArrayBuffer_Create() -> *mut OH_UdsArrayBuffer;
 }
 extern "C" {
-    #[cfg(feature = "api-13")]
     #[doc = " @brief Destroy a pointer that points to the {@link OH_UdsArrayBuffer} instance.\n\n @param buffer Represents a pointer to an instance of {@link OH_UdsArrayBuffer}.\n @return Returns the status code of the execution. See {@link Udmf_ErrCode}.\n         {@link UDMF_E_OK} success.\n         {@link UDMF_E_INVALID_PARAM} The error code for common invalid args.\n @see OH_UdsArrayBuffer Udmf_ErrCode\n @since 13"]
+    #[cfg(feature = "api-13")]
     pub fn OH_UdsArrayBuffer_Destroy(buffer: *mut OH_UdsArrayBuffer) -> ::std::os::raw::c_int;
 }
 extern "C" {
-    #[cfg(feature = "api-13")]
     #[doc = " @brief Set array buffer data to the {@link OH_UdsArrayBuffer}.\n\n @param buffer Represents a pointer to an instance of {@link OH_UdsArrayBuffer}.\n @param data Represents the array buffer data.\n @param len Represents the length of data param.\n @return Returns the status code of the execution. See {@link Udmf_ErrCode}.\n         {@link UDMF_E_OK} success.\n         {@link UDMF_E_INVALID_PARAM} The error code for common invalid args.\n @see OH_UdsArrayBuffer Udmf_ErrCode\n @since 13"]
+    #[cfg(feature = "api-13")]
     pub fn OH_UdsArrayBuffer_SetData(
         buffer: *mut OH_UdsArrayBuffer,
         data: *mut ::std::os::raw::c_uchar,
@@ -1069,8 +1281,8 @@ extern "C" {
     ) -> ::std::os::raw::c_int;
 }
 extern "C" {
-    #[cfg(feature = "api-13")]
     #[doc = " @brief Get array buffer data from the {@link OH_UdsArrayBuffer}.\n\n @param buffer Represents a pointer to an instance of {@link OH_UdsArrayBuffer}.\n @param data Represents a pointer to array buffer data that is a output param.\n @param len Represents the array buffer data length that is a output param.\n @return Returns the status code of the execution. See {@link Udmf_ErrCode}.\n         {@link UDMF_E_OK} success.\n         {@link UDMF_E_INVALID_PARAM} The error code for common invalid args.\n @see OH_UdsArrayBuffer Udmf_ErrCode\n @since 13"]
+    #[cfg(feature = "api-13")]
     pub fn OH_UdsArrayBuffer_GetData(
         buffer: *mut OH_UdsArrayBuffer,
         data: *mut *mut ::std::os::raw::c_uchar,
@@ -1078,25 +1290,25 @@ extern "C" {
     ) -> ::std::os::raw::c_int;
 }
 extern "C" {
-    #[cfg(feature = "api-14")]
     #[doc = " @brief Creation a pointer to the instance of the {@link OH_UdsContentForm}.\n\n @return If the operation is successful, a pointer to the instance of the {@link OH_UdsContentForm}\n structure is returned. If the operation is failed, nullptr is returned.\n @see OH_UdsContentForm\n @since 14"]
+    #[cfg(feature = "api-14")]
     pub fn OH_UdsContentForm_Create() -> *mut OH_UdsContentForm;
 }
 extern "C" {
-    #[cfg(feature = "api-14")]
     #[doc = " @brief Destroy a pointer that points to the {@link OH_UdsContentForm} instance.\n\n @param pThis Represents a pointer to an instance of {@link OH_UdsContentForm}.\n @see OH_UdsContentForm\n @since 14"]
+    #[cfg(feature = "api-14")]
     pub fn OH_UdsContentForm_Destroy(pThis: *mut OH_UdsContentForm);
 }
 extern "C" {
-    #[cfg(feature = "api-14")]
     #[doc = " @brief Get type id from the {@link OH_UdsContentForm}.\n\n @param pThis Represents a pointer to an instance of {@link OH_UdsContentForm}.\n @return Returns a pointer of the value string when input args normally, otherwise return nullptr.\n @see OH_UdsContentForm\n @since 14"]
+    #[cfg(feature = "api-14")]
     pub fn OH_UdsContentForm_GetType(
         pThis: *mut OH_UdsContentForm,
     ) -> *const ::std::os::raw::c_char;
 }
 extern "C" {
-    #[cfg(feature = "api-14")]
     #[doc = " @brief Get thumb data from the {@link OH_UdsContentForm}.\n\n @param pThis Represents a pointer to an instance of {@link OH_UdsContentForm}.\n @param thumbData Represents a pointer to thumb data that is a output param.\n @param len Represents the thumb data length that is a output param.\n @return Returns the status code of the execution. See {@link Udmf_ErrCode}.\n         {@link UDMF_E_OK} success.\n         {@link UDMF_E_INVALID_PARAM} The error code for common invalid args.\n         {@link UDMF_ERR} Internal data error.\n @see OH_UdsContentForm Udmf_ErrCode\n @since 14"]
+    #[cfg(feature = "api-14")]
     pub fn OH_UdsContentForm_GetThumbData(
         pThis: *mut OH_UdsContentForm,
         thumbData: *mut *mut ::std::os::raw::c_uchar,
@@ -1104,22 +1316,22 @@ extern "C" {
     ) -> ::std::os::raw::c_int;
 }
 extern "C" {
-    #[cfg(feature = "api-14")]
     #[doc = " @brief Get description from the {@link OH_UdsContentForm}.\n\n @param pThis Represents a pointer to an instance of {@link OH_UdsContentForm}.\n @return Returns a pointer of the value string when input args normally, otherwise return nullptr.\n @see OH_UdsContentForm\n @since 14"]
+    #[cfg(feature = "api-14")]
     pub fn OH_UdsContentForm_GetDescription(
         pThis: *mut OH_UdsContentForm,
     ) -> *const ::std::os::raw::c_char;
 }
 extern "C" {
-    #[cfg(feature = "api-14")]
     #[doc = " @brief Get title from the {@link OH_UdsContentForm}.\n\n @param pThis Represents a pointer to an instance of {@link OH_UdsContentForm}.\n @return Returns a pointer of the value string when input args normally, otherwise return nullptr.\n @see OH_UdsContentForm\n @since 14"]
+    #[cfg(feature = "api-14")]
     pub fn OH_UdsContentForm_GetTitle(
         pThis: *mut OH_UdsContentForm,
     ) -> *const ::std::os::raw::c_char;
 }
 extern "C" {
-    #[cfg(feature = "api-14")]
     #[doc = " @brief Get thumb data from the {@link OH_UdsContentForm}.\n\n @param pThis Represents a pointer to an instance of {@link OH_UdsContentForm}.\n @param appIcon Represents a pointer to app icon that is a output param.\n @param len Represents the app icon length that is a output param.\n @return Returns the status code of the execution. See {@link Udmf_ErrCode}.\n         {@link UDMF_E_OK} success.\n         {@link UDMF_E_INVALID_PARAM} The error code for common invalid args.\n         {@link UDMF_ERR} Internal data error.\n @see OH_UdsContentForm Udmf_ErrCode\n @since 14"]
+    #[cfg(feature = "api-14")]
     pub fn OH_UdsContentForm_GetAppIcon(
         pThis: *mut OH_UdsContentForm,
         appIcon: *mut *mut ::std::os::raw::c_uchar,
@@ -1127,22 +1339,22 @@ extern "C" {
     ) -> ::std::os::raw::c_int;
 }
 extern "C" {
-    #[cfg(feature = "api-14")]
     #[doc = " @brief Get app name from the {@link OH_UdsContentForm}.\n\n @param pThis Represents a pointer to an instance of {@link OH_UdsContentForm}.\n @return Returns a pointer of the value string when input args normally, otherwise return nullptr.\n @see OH_UdsContentForm\n @since 14"]
+    #[cfg(feature = "api-14")]
     pub fn OH_UdsContentForm_GetAppName(
         pThis: *mut OH_UdsContentForm,
     ) -> *const ::std::os::raw::c_char;
 }
 extern "C" {
-    #[cfg(feature = "api-14")]
     #[doc = " @brief Get link url from the {@link OH_UdsContentForm}.\n\n @param pThis Represents a pointer to an instance of {@link OH_UdsContentForm}.\n @return Returns a pointer of the value string when input args normally, otherwise return nullptr.\n @see OH_UdsContentForm\n @since 14"]
+    #[cfg(feature = "api-14")]
     pub fn OH_UdsContentForm_GetLinkUri(
         pThis: *mut OH_UdsContentForm,
     ) -> *const ::std::os::raw::c_char;
 }
 extern "C" {
-    #[cfg(feature = "api-14")]
     #[doc = " @brief Set thumb data to the {@link OH_UdsContentForm}.\n\n @param pThis Represents a pointer to an instance of {@link OH_UdsContentForm}.\n @param thumbData Represents the thumb data.\n @param len Represents the length of thumb data param.\n @return Returns the status code of the execution. See {@link Udmf_ErrCode}.\n         {@link UDMF_E_OK} success.\n         {@link UDMF_E_INVALID_PARAM} The error code for common invalid args.\n @see OH_UdsContentForm Udmf_ErrCode\n @since 14"]
+    #[cfg(feature = "api-14")]
     pub fn OH_UdsContentForm_SetThumbData(
         pThis: *mut OH_UdsContentForm,
         thumbData: *const ::std::os::raw::c_uchar,
@@ -1150,24 +1362,24 @@ extern "C" {
     ) -> ::std::os::raw::c_int;
 }
 extern "C" {
-    #[cfg(feature = "api-14")]
     #[doc = " @brief Set description to the {@link OH_UdsContentForm}.\n\n @param pThis Represents a pointer to an instance of {@link OH_UdsContentForm}.\n @param description Represents a description string.\n @return Returns the status code of the execution. See {@link Udmf_ErrCode}.\n         {@link UDMF_E_OK} success.\n         {@link UDMF_E_INVALID_PARAM} The error code for common invalid args.\n @see OH_UdsContentForm Udmf_ErrCode\n @since 14"]
+    #[cfg(feature = "api-14")]
     pub fn OH_UdsContentForm_SetDescription(
         pThis: *mut OH_UdsContentForm,
         description: *const ::std::os::raw::c_char,
     ) -> ::std::os::raw::c_int;
 }
 extern "C" {
-    #[cfg(feature = "api-14")]
     #[doc = " @brief Set title to the {@link OH_UdsContentForm}.\n\n @param pThis Represents a pointer to an instance of {@link OH_UdsContentForm}.\n @param title Represents a title string.\n @return Returns the status code of the execution. See {@link Udmf_ErrCode}.\n         {@link UDMF_E_OK} success.\n         {@link UDMF_E_INVALID_PARAM} The error code for common invalid args.\n @see OH_UdsContentForm Udmf_ErrCode\n @since 14"]
+    #[cfg(feature = "api-14")]
     pub fn OH_UdsContentForm_SetTitle(
         pThis: *mut OH_UdsContentForm,
         title: *const ::std::os::raw::c_char,
     ) -> ::std::os::raw::c_int;
 }
 extern "C" {
-    #[cfg(feature = "api-14")]
     #[doc = " @brief Set thumb data to the {@link OH_UdsContentForm}.\n\n @param pThis Represents a pointer to an instance of {@link OH_UdsContentForm}.\n @param appIcon Represents the app icon.\n @param len Represents the length of app icon param.\n @return Returns the status code of the execution. See {@link Udmf_ErrCode}.\n         {@link UDMF_E_OK} success.\n         {@link UDMF_E_INVALID_PARAM} The error code for common invalid args.\n @see OH_UdsContentForm Udmf_ErrCode\n @since 14"]
+    #[cfg(feature = "api-14")]
     pub fn OH_UdsContentForm_SetAppIcon(
         pThis: *mut OH_UdsContentForm,
         appIcon: *const ::std::os::raw::c_uchar,
@@ -1175,36 +1387,92 @@ extern "C" {
     ) -> ::std::os::raw::c_int;
 }
 extern "C" {
-    #[cfg(feature = "api-14")]
     #[doc = " @brief Set app name to the {@link OH_UdsContentForm}.\n\n @param pThis Represents a pointer to an instance of {@link OH_UdsContentForm}.\n @param appName Represents a app name string.\n @return Returns the status code of the execution. See {@link Udmf_ErrCode}.\n         {@link UDMF_E_OK} success.\n         {@link UDMF_E_INVALID_PARAM} The error code for common invalid args.\n @see OH_UdsContentForm Udmf_ErrCode\n @since 14"]
+    #[cfg(feature = "api-14")]
     pub fn OH_UdsContentForm_SetAppName(
         pThis: *mut OH_UdsContentForm,
         appName: *const ::std::os::raw::c_char,
     ) -> ::std::os::raw::c_int;
 }
 extern "C" {
-    #[cfg(feature = "api-14")]
     #[doc = " @brief Set link uri to the {@link OH_UdsContentForm}.\n\n @param pThis Represents a pointer to an instance of {@link OH_UdsContentForm}.\n @param linkUri Represents a link uri string.\n @return Returns the status code of the execution. See {@link Udmf_ErrCode}.\n         {@link UDMF_E_OK} success.\n         {@link UDMF_E_INVALID_PARAM} The error code for common invalid args.\n @see OH_UdsContentForm Udmf_ErrCode\n @since 14"]
+    #[cfg(feature = "api-14")]
     pub fn OH_UdsContentForm_SetLinkUri(
         pThis: *mut OH_UdsContentForm,
         linkUri: *const ::std::os::raw::c_char,
     ) -> ::std::os::raw::c_int;
 }
+extern "C" {
+    #[doc = " @brief Creation a pointer to the instance of the {@link OH_UdsDetails}.\n\n @return If the operation is successful, a pointer to the instance of the {@link OH_UdsDetails}\n structure is returned. If the operation is failed, nullptr is returned.\n @since 22\n @see OH_UdsDetails"]
+    #[cfg(feature = "api-22")]
+    pub fn OH_UdsDetails_Create() -> *mut OH_UdsDetails;
+}
+extern "C" {
+    #[doc = " @brief Destroy a pointer that points to the {@link OH_UdsDetails} instance.\n\n @param pThis Represents a pointer to an instance of {@link OH_UdsDetails}.\n @since 22\n @see OH_UdsDetails"]
+    #[cfg(feature = "api-22")]
+    pub fn OH_UdsDetails_Destroy(pThis: *mut OH_UdsDetails);
+}
+extern "C" {
+    #[doc = " @brief Determine whether the {@link OH_UdsDetails} contain the specified key.\n\n @param pThis Represents a pointer to an instance of the {@link OH_UdsDetails}.\n @param key Represents key in the details.\n @return Returns the status code of the execution.\n         {@code false} Represents The details do not contain the key.\n         {@code true} Represents The details contain the key.\n @see OH_UdsDetails\n @since 22"]
+    #[cfg(feature = "api-22")]
+    pub fn OH_UdsDetails_HasKey(
+        pThis: *const OH_UdsDetails,
+        key: *const ::std::os::raw::c_char,
+    ) -> bool;
+}
+extern "C" {
+    #[doc = " @brief Remove the value corresponding to this key from the {@link OH_UdsDetails}.\n\n @param pThis Represents a pointer to an instance of {@link OH_UdsDetails}.\n @param key Represents key in the details.\n @return Returns the status code of the execution. See {@link Udmf_ErrCode}.\n         {@link UDMF_E_OK} success.\n         {@link UDMF_E_INVALID_PARAM} The error code for common invalid args.\n @since 22\n @see OH_UdsDetails Udmf_ErrCode"]
+    #[cfg(feature = "api-22")]
+    pub fn OH_UdsDetails_Remove(
+        pThis: *mut OH_UdsDetails,
+        key: *const ::std::os::raw::c_char,
+    ) -> ::std::os::raw::c_int;
+}
+extern "C" {
+    #[doc = " @brief Clear all data in the {@link OH_UdsDetails}.\n\n @param pThis Represents a pointer to an instance of {@link OH_UdsDetails}.\n @return Returns the status code of the execution. See {@link Udmf_ErrCode}.\n         {@link UDMF_E_OK} success.\n         {@link UDMF_E_INVALID_PARAM} The error code for common invalid args.\n @since 22\n @see OH_UdsDetails Udmf_ErrCode"]
+    #[cfg(feature = "api-22")]
+    pub fn OH_UdsDetails_Clear(pThis: *mut OH_UdsDetails) -> ::std::os::raw::c_int;
+}
+extern "C" {
+    #[doc = " @brief Set key-value data to the {@link OH_UdsDetails}.\n\n @param pThis Represents a pointer to an instance of {@link OH_UdsDetails}.\n @param key Represents the key data to be written.\n @param value Represents the value data to be written.\n @return Returns the status code of the execution. See {@link Udmf_ErrCode}.\n         {@link UDMF_E_OK} success.\n         {@link UDMF_E_INVALID_PARAM} The error code for common invalid args.\n @since 22\n @see OH_UdsDetails Udmf_ErrCode"]
+    #[cfg(feature = "api-22")]
+    pub fn OH_UdsDetails_SetValue(
+        pThis: *mut OH_UdsDetails,
+        key: *const ::std::os::raw::c_char,
+        value: *const ::std::os::raw::c_char,
+    ) -> ::std::os::raw::c_int;
+}
+extern "C" {
+    #[doc = " @brief Get the value from the {@link OH_UdsDetails} using the key.\n\n @param pThis Represents a pointer to an instance of {@link OH_UdsDetails}.\n @param key Represents key in the details.\n @return Returns a string pointer when input args normally, otherwise return nullptr.\n @since 22\n @see OH_UdsDetails"]
+    #[cfg(feature = "api-22")]
+    pub fn OH_UdsDetails_GetValue(
+        pThis: *const OH_UdsDetails,
+        key: *const ::std::os::raw::c_char,
+    ) -> *const ::std::os::raw::c_char;
+}
+extern "C" {
+    #[doc = " @brief Get the all keys from the {@link OH_UdsDetails}.\n\n @param pThis Represents a pointer to an instance of {@link OH_UdsDetails}.\n @param count Represents the keys count.\n @return Returns string list of keys. Memory will be released after calling the OH_UdsDetails_Destroy function.\n @since 22\n @see OH_UdsDetails"]
+    #[cfg(feature = "api-22")]
+    pub fn OH_UdsDetails_GetAllKeys(
+        pThis: *mut OH_UdsDetails,
+        count: *mut ::std::os::raw::c_uint,
+    ) -> *mut *mut ::std::os::raw::c_char;
+}
 #[doc = " @brief The intention is drag."]
 pub const Udmf_Intention_UDMF_INTENTION_DRAG: Udmf_Intention = 0;
 #[doc = " @brief The intention is pasteboard."]
 pub const Udmf_Intention_UDMF_INTENTION_PASTEBOARD: Udmf_Intention = 1;
-#[cfg(feature = "api-20")]
 #[doc = " @brief The intention is data hub.\n\n @since 20"]
+#[cfg(feature = "api-20")]
 pub const Udmf_Intention_UDMF_INTENTION_DATA_HUB: Udmf_Intention = 2;
-#[cfg(feature = "api-20")]
 #[doc = " @brief The intention is system share.\n\n @since 20"]
+#[cfg(feature = "api-20")]
 pub const Udmf_Intention_UDMF_INTENTION_SYSTEM_SHARE: Udmf_Intention = 3;
-#[cfg(feature = "api-20")]
 #[doc = " @brief The intention is picker.\n\n @since 20"]
-pub const Udmf_Intention_UDMF_INTENTION_PICKER: Udmf_Intention = 4;
 #[cfg(feature = "api-20")]
+pub const Udmf_Intention_UDMF_INTENTION_PICKER: Udmf_Intention = 4;
 #[doc = " @brief The intention is menu.\n\n @since 20"]
+#[cfg(feature = "api-20")]
 pub const Udmf_Intention_UDMF_INTENTION_MENU: Udmf_Intention = 5;
 #[doc = " @brief Describe the intention type of the udmf.\n\n @since 12"]
 pub type Udmf_Intention = u32;
@@ -1222,8 +1490,8 @@ pub const Udmf_FileConflictOptions_UDMF_OVERWRITE: Udmf_FileConflictOptions = 0;
 #[doc = " @brief Skip when dest uri has file with same name."]
 #[cfg(feature = "api-15")]
 pub const Udmf_FileConflictOptions_UDMF_SKIP: Udmf_FileConflictOptions = 1;
-#[cfg(feature = "api-15")]
 #[doc = " @brief Describe the types of file conflict options when getting data from the udmf.\n\n @since 15"]
+#[cfg(feature = "api-15")]
 pub type Udmf_FileConflictOptions = u32;
 #[doc = " @brief Getting data without system default progress indicator."]
 #[cfg(feature = "api-15")]
@@ -1231,8 +1499,8 @@ pub const Udmf_ProgressIndicator_UDMF_NONE: Udmf_ProgressIndicator = 0;
 #[doc = " @brief Getting data with system default progress indicator."]
 #[cfg(feature = "api-15")]
 pub const Udmf_ProgressIndicator_UDMF_DEFAULT: Udmf_ProgressIndicator = 1;
-#[cfg(feature = "api-15")]
 #[doc = " @brief Describe the types of progress indicator when getting data from the udmf.\n\n @since 15"]
+#[cfg(feature = "api-15")]
 pub type Udmf_ProgressIndicator = u32;
 #[doc = " @brief The visibility level that specifies that any hap or native can be obtained."]
 #[cfg(feature = "api-20")]
@@ -1240,8 +1508,8 @@ pub const Udmf_Visibility_UDMF_ALL: Udmf_Visibility = 0;
 #[doc = " @brief The visibility level that specifies that only data providers can be obtained."]
 #[cfg(feature = "api-20")]
 pub const Udmf_Visibility_UDMF_OWN_PROCESS: Udmf_Visibility = 1;
-#[cfg(feature = "api-20")]
 #[doc = " @brief Describe the visibility range of data\n\n @since 20"]
+#[cfg(feature = "api-20")]
 pub type Udmf_Visibility = u32;
 #[repr(C)]
 #[derive(Debug, Copy, Clone)]
@@ -1273,8 +1541,8 @@ pub struct OH_Udmf_ProgressInfo {
 pub struct OH_UdmfGetDataParams {
     _unused: [u8; 0],
 }
-#[cfg(feature = "api-15")]
 #[doc = " @brief Defines the callback function used to return the progress information and data.\n\n @param progressInfo The progress information notified to Application.\n @param data Represents the unified data.\n @since 15"]
+#[cfg(feature = "api-15")]
 pub type OH_Udmf_DataProgressListener = ::std::option::Option<
     unsafe extern "C" fn(progressInfo: *mut OH_Udmf_ProgressInfo, data: *mut OH_UdmfData),
 >;
@@ -1293,8 +1561,8 @@ pub struct OH_UdmfDataLoadParams {
 pub struct OH_UdmfDataLoadInfo {
     _unused: [u8; 0],
 }
-#[cfg(feature = "api-20")]
 #[doc = " @brief Indicates the callback function for loading data.\n\n @param acceptableInfo Indicates the type and number of data that can be accepted by the receiver.\n @return Returns the data to be loaded.\n @since 20"]
+#[cfg(feature = "api-20")]
 pub type OH_Udmf_DataLoadHandler = ::std::option::Option<
     unsafe extern "C" fn(acceptableInfo: *mut OH_UdmfDataLoadInfo) -> *mut OH_UdmfData,
 >;
@@ -1334,24 +1602,24 @@ extern "C" {
         count: *mut ::std::os::raw::c_uint,
     ) -> *mut *mut OH_UdmfRecord;
 }
-#[cfg(feature = "api-13")]
 #[doc = " @brief Defines the callback function used free the context.\n @param context Pointer to the context which is to be free.\n @since 13"]
+#[cfg(feature = "api-13")]
 pub type UdmfData_Finalize =
     ::std::option::Option<unsafe extern "C" fn(context: *mut ::std::os::raw::c_void)>;
 extern "C" {
-    #[cfg(feature = "api-13")]
     #[doc = " @brief Creates an {@link OH_UdmfRecordProvider} instance.\n\n @return Returns the pointer to the {@link OH_UdmfRecordProvider} instance created if the operation is successful.\n Returns nullptr if the memory is not enough.\n @see OH_UdmfRecordProvider.\n @since 13"]
+    #[cfg(feature = "api-13")]
     pub fn OH_UdmfRecordProvider_Create() -> *mut OH_UdmfRecordProvider;
 }
 extern "C" {
-    #[cfg(feature = "api-13")]
     #[doc = " @brief Destroy an {@link OH_UdmfRecordProvider} instance.\n\n @param provider Pointer to the {@link OH_UdmfRecordProvider} instance to destroy.\n @return Returns the status code of the execution. For details, see {@link Udmf_ErrCode}.\n         Returns {@link UDMF_E_OK} if the operation is successful.\n         Returns {@link UDMF_E_INVALID_PARAM} if invalid args are detected.\n @see OH_UdmfRecordProvider Udmf_ErrCode.\n @since 13"]
+    #[cfg(feature = "api-13")]
     pub fn OH_UdmfRecordProvider_Destroy(
         provider: *mut OH_UdmfRecordProvider,
     ) -> ::std::os::raw::c_int;
 }
-#[cfg(feature = "api-13")]
 #[doc = " @brief Defines a callback function used to obtain data by type.\n\n @param context Pointer to the context set by {@link OH_UdmfRecordProvider_SetData}.\n @param type Pointer to the type of data to obtain. For details, see {@link udmf_meta.h}.\n @return Returns the data content.\n @since 13"]
+#[cfg(feature = "api-13")]
 pub type OH_UdmfRecordProvider_GetData = ::std::option::Option<
     unsafe extern "C" fn(
         context: *mut ::std::os::raw::c_void,
@@ -1359,8 +1627,8 @@ pub type OH_UdmfRecordProvider_GetData = ::std::option::Option<
     ) -> *mut ::std::os::raw::c_void,
 >;
 extern "C" {
-    #[cfg(feature = "api-13")]
     #[doc = " @brief Sets a callback function to obtain data.\n\n @param provider Pointer to the {@link OH_UdmfRecordProvider} instance.\n @param context Pointer to the context set, which is the first parameter in OH_UdmfRecordProvider_GetData.\n @param callback Callback to set. For details, see {@link OH_UdmfRecordProvider_GetData}.\n @param finalize Optional callback that can free context when destroy provider.\n         For details, see {@link UdmfData_Finalize}.\n @return Returns the status code of the execution. For details, see {@link Udmf_ErrCode}.\n         Returns {@link UDMF_E_OK} if the operation is successful.\n         Returns {@link UDMF_E_INVALID_PARAM} if invalid args are detected.\n @see OH_UdmfRecordProvider OH_UdmfRecordProvider_GetData UdmfData_Finalize Udmf_ErrCode.\n @since 13"]
+    #[cfg(feature = "api-13")]
     pub fn OH_UdmfRecordProvider_SetData(
         provider: *mut OH_UdmfRecordProvider,
         context: *mut ::std::os::raw::c_void,
@@ -1414,24 +1682,24 @@ extern "C" {
     ) -> ::std::os::raw::c_int;
 }
 extern "C" {
-    #[cfg(feature = "api-13")]
     #[doc = " @brief Add one {OH_UdsFileUri} data to the {@link OH_UdmfRecord} record.\n\n @param pThis Represents a pointer to an instance of {@link OH_UdmfRecord}.\n @param fileUri Represents a pointer to an instance of {@link OH_UdsFileUri}.\n @return Returns the status code of the execution. See {@link Udmf_ErrCode}.\n         {@link UDMF_E_OK} success.\n         {@link UDMF_E_INVALID_PARAM} The error code for common invalid args.\n @see OH_UdmfRecord OH_UdsFileUri Udmf_ErrCode.\n @since 13"]
+    #[cfg(feature = "api-13")]
     pub fn OH_UdmfRecord_AddFileUri(
         pThis: *mut OH_UdmfRecord,
         fileUri: *mut OH_UdsFileUri,
     ) -> ::std::os::raw::c_int;
 }
 extern "C" {
-    #[cfg(feature = "api-13")]
     #[doc = " @brief Add one {OH_UdsPixelMap} data to the {@link OH_UdmfRecord} record.\n\n @param pThis Represents a pointer to an instance of {@link OH_UdmfRecord}.\n @param pixelMap Represents a pointer to an instance of {@link OH_UdsPixelMap}.\n @return Returns the status code of the execution. See {@link Udmf_ErrCode}.\n         {@link UDMF_E_OK} success.\n         {@link UDMF_E_INVALID_PARAM} The error code for common invalid args.\n @see OH_UdmfRecord OH_UdsPixelMap Udmf_ErrCode.\n @since 13"]
+    #[cfg(feature = "api-13")]
     pub fn OH_UdmfRecord_AddPixelMap(
         pThis: *mut OH_UdmfRecord,
         pixelMap: *mut OH_UdsPixelMap,
     ) -> ::std::os::raw::c_int;
 }
 extern "C" {
-    #[cfg(feature = "api-13")]
     #[doc = " @brief Add one {@link OH_UdsArrayBuffer} data to the {@link OH_UdmfRecord} record.\n\n @param record Represents a pointer to an instance of {@link OH_UdmfRecord}.\n @param type Represents record type, reference udmf_meta.h.\n @param buffer Represents a pointer to an instance of {@link OH_UdsArrayBuffer}.\n @return Returns the status code of the execution. See {@link Udmf_ErrCode}.\n         {@link UDMF_E_OK} success.\n         {@link UDMF_E_INVALID_PARAM} The error code for common invalid args.\n @see OH_UdmfRecord OH_UdsArrayBuffer Udmf_ErrCode.\n @since 13"]
+    #[cfg(feature = "api-13")]
     pub fn OH_UdmfRecord_AddArrayBuffer(
         record: *mut OH_UdmfRecord,
         type_: *const ::std::os::raw::c_char,
@@ -1439,8 +1707,8 @@ extern "C" {
     ) -> ::std::os::raw::c_int;
 }
 extern "C" {
-    #[cfg(feature = "api-14")]
     #[doc = " @brief Add one {@link OH_UdsContentForm} data to the {@link OH_UdmfRecord} record.\n\n @param pThis Represents a pointer to an instance of {@link OH_UdmfRecord}.\n @param contentForm Represents a pointer to an instance of {@link OH_UdsContentForm}.\n @return Returns the status code of the execution. See {@link Udmf_ErrCode}.\n         {@link UDMF_E_OK} success.\n         {@link UDMF_E_INVALID_PARAM} The error code for common invalid args.\n @see OH_UdmfRecord OH_UdsContentForm Udmf_ErrCode.\n @since 14"]
+    #[cfg(feature = "api-14")]
     pub fn OH_UdmfRecord_AddContentForm(
         pThis: *mut OH_UdmfRecord,
         contentForm: *mut OH_UdsContentForm,
@@ -1491,24 +1759,24 @@ extern "C" {
     ) -> ::std::os::raw::c_int;
 }
 extern "C" {
-    #[cfg(feature = "api-13")]
     #[doc = " @brief Get one {OH_UdsFileUri} data from the {@link OH_UdmfRecord} record.\n\n @param pThis Represents a pointer to an instance of {@link OH_UdmfRecord}.\n @param fileUri Represents a pointer to an instance of {@link OH_UdsFileUri}.\n @return Returns the status code of the execution. See {@link Udmf_ErrCode}.\n         {@link UDMF_E_OK} success.\n         {@link UDMF_E_INVALID_PARAM} The error code for common invalid args.\n @see OH_UdmfRecord OH_UdsFileUri Udmf_ErrCode.\n @since 13"]
+    #[cfg(feature = "api-13")]
     pub fn OH_UdmfRecord_GetFileUri(
         pThis: *mut OH_UdmfRecord,
         fileUri: *mut OH_UdsFileUri,
     ) -> ::std::os::raw::c_int;
 }
 extern "C" {
-    #[cfg(feature = "api-13")]
     #[doc = " @brief Get one {OH_UdsPixelMap} data from the {@link OH_UdmfRecord} record.\n\n @param pThis Represents a pointer to an instance of {@link OH_UdmfRecord}.\n @param pixelMap Represents a pointer to an instance of {@link OH_UdsPixelMap}.\n @return Returns the status code of the execution. See {@link Udmf_ErrCode}.\n         {@link UDMF_E_OK} success.\n         {@link UDMF_E_INVALID_PARAM} The error code for common invalid args.\n @see OH_UdmfRecord OH_UdsPixelMap Udmf_ErrCode.\n @since 13"]
+    #[cfg(feature = "api-13")]
     pub fn OH_UdmfRecord_GetPixelMap(
         pThis: *mut OH_UdmfRecord,
         pixelMap: *mut OH_UdsPixelMap,
     ) -> ::std::os::raw::c_int;
 }
 extern "C" {
-    #[cfg(feature = "api-13")]
     #[doc = " @brief Set the data provider of the types.\n\n @param pThis Represents a pointer to an instance of {@link OH_UdmfRecord}.\n @param types Represents a pointer to a group of data types;\n @param count Represents the number of data types;\n @param provider Represents a pointer an instance of {@link OH_UdmfRecordProvider}.\n @return Returns the status code of the execution. See {@link Udmf_ErrCode}.\n         {@link UDMF_E_OK} success.\n         {@link UDMF_E_INVALID_PARAM} The error code for common invalid args.\n @see OH_UdmfRecord OH_UdmfRecordProvider Udmf_ErrCode.\n @since 13"]
+    #[cfg(feature = "api-13")]
     pub fn OH_UdmfRecord_SetProvider(
         pThis: *mut OH_UdmfRecord,
         types: *const *const ::std::os::raw::c_char,
@@ -1517,8 +1785,8 @@ extern "C" {
     ) -> ::std::os::raw::c_int;
 }
 extern "C" {
-    #[cfg(feature = "api-13")]
     #[doc = " @brief Get one {@link OH_UdsArrayBuffer} data from the {@link OH_UdmfRecord} record.\n\n @param record Represents a pointer to an instance of {@link OH_UdmfRecord}.\n @param type Represents record type, reference udmf_meta.h.\n @param buffer Represents a pointer to an instance of {@link OH_UdsArrayBuffer}.\n @return Returns the status code of the execution. See {@link Udmf_ErrCode}.\n         {@link UDMF_E_OK} success.\n         {@link UDMF_E_INVALID_PARAM} The error code for common invalid args.\n @see OH_UdmfRecord OH_UdsArrayBuffer Udmf_ErrCode.\n @since 13"]
+    #[cfg(feature = "api-13")]
     pub fn OH_UdmfRecord_GetArrayBuffer(
         record: *mut OH_UdmfRecord,
         type_: *const ::std::os::raw::c_char,
@@ -1526,45 +1794,45 @@ extern "C" {
     ) -> ::std::os::raw::c_int;
 }
 extern "C" {
-    #[cfg(feature = "api-14")]
     #[doc = " @brief Get one {@link OH_UdsContentForm} data from the {@link OH_UdmfRecord} record.\n\n @param pThis Represents a pointer to an instance of {@link OH_UdmfRecord}.\n @param contentForm Represents a pointer to an instance of {@link OH_UdsContentForm}.\n @return Returns the status code of the execution. See {@link Udmf_ErrCode}.\n         {@link UDMF_E_OK} success.\n         {@link UDMF_E_INVALID_PARAM} The error code for common invalid args.\n @see OH_UdmfRecord OH_UdsContentForm Udmf_ErrCode.\n @since 14"]
+    #[cfg(feature = "api-14")]
     pub fn OH_UdmfRecord_GetContentForm(
         pThis: *mut OH_UdmfRecord,
         contentForm: *mut OH_UdsContentForm,
     ) -> ::std::os::raw::c_int;
 }
 extern "C" {
-    #[cfg(feature = "api-13")]
     #[doc = " @brief Get primary {@link OH_UdsPlainText} data from the {@link OH_UdmfData}.\n\n @param data Represents a pointer to an instance of {@link OH_UdmfData}.\n @param plainText Represents a pointer to an instance of {@link OH_UdsPlainText}.\n @return Returns the status code of the execution. See {@link Udmf_ErrCode}.\n         {@link UDMF_E_OK} success.\n         {@link UDMF_E_INVALID_PARAM} The error code for common invalid args.\n @see OH_UdmfData OH_UdsPlainText Udmf_ErrCode.\n @since 13"]
+    #[cfg(feature = "api-13")]
     pub fn OH_UdmfData_GetPrimaryPlainText(
         data: *mut OH_UdmfData,
         plainText: *mut OH_UdsPlainText,
     ) -> ::std::os::raw::c_int;
 }
 extern "C" {
-    #[cfg(feature = "api-13")]
     #[doc = " @brief Get one {@link OH_UdsHtml} data from the {@link OH_UdmfData}.\n\n @param data Represents a pointer to an instance of {@link OH_UdmfData}.\n @param html Represents a pointer to an instance of {@link OH_UdsHtml}.\n @return Returns the status code of the execution. See {@link Udmf_ErrCode}.\n         {@link UDMF_E_OK} success.\n         {@link UDMF_E_INVALID_PARAM} The error code for common invalid args.\n @see OH_UdmfData OH_UdsHtml Udmf_ErrCode.\n @since 13"]
+    #[cfg(feature = "api-13")]
     pub fn OH_UdmfData_GetPrimaryHtml(
         data: *mut OH_UdmfData,
         html: *mut OH_UdsHtml,
     ) -> ::std::os::raw::c_int;
 }
 extern "C" {
-    #[cfg(feature = "api-13")]
     #[doc = " @brief Get the count of {@link OH_UdmfRecord} in the {@link OH_UdmfData}.\n\n @param data Represents a pointer to an instance of {@link OH_UdmfData}.\n @return Returns the count of {@link OH_UdmfRecord}\n @see OH_UdmfData.\n @since 13"]
+    #[cfg(feature = "api-13")]
     pub fn OH_UdmfData_GetRecordCount(data: *mut OH_UdmfData) -> ::std::os::raw::c_int;
 }
 extern "C" {
-    #[cfg(feature = "api-13")]
     #[doc = " @brief Get the record of the specified index from the {@link OH_UdmfData}.\n\n @param data Represents a pointer to an instance of {@link OH_UdmfData}.\n @param index Represents the index of {@link OH_UdmfRecord} in the {@link OH_UdmfData}.\n @return Returns {@link OH_UdmfRecord} pointer when input parameters valid, otherwise return nullptr.\n @see OH_UdmfData.\n @since 13"]
+    #[cfg(feature = "api-13")]
     pub fn OH_UdmfData_GetRecord(
         data: *mut OH_UdmfData,
         index: ::std::os::raw::c_uint,
     ) -> *mut OH_UdmfRecord;
 }
 extern "C" {
-    #[cfg(feature = "api-13")]
     #[doc = " @brief Checks whether the UDMF data is from a local device.\n\n @param data Represents a pointer to an instance of {@link OH_UdmfData}.\n @return Returns a boolean value, which indicates whether the UDMF data is from a local device.\n         The value {@code true} means the data is from a local device.\n         The value {@code false} means the opposite.\n @see OH_UdmfData.\n @since 13"]
+    #[cfg(feature = "api-13")]
     pub fn OH_UdmfData_IsLocal(data: *mut OH_UdmfData) -> bool;
 }
 extern "C" {
@@ -1633,61 +1901,61 @@ extern "C" {
     ) -> ::std::os::raw::c_int;
 }
 extern "C" {
-    #[cfg(feature = "api-20")]
     #[doc = " @brief Creation a pointer to the instance of the {@link OH_UdmfOptions}.\n\n @return If the operation is successful, a pointer to the instance of the {@link OH_UdmfOptions}\n structure is returned. If the operation is failed, nullptr is returned.\n @see OH_UdmfOptions.\n @since 20"]
+    #[cfg(feature = "api-20")]
     pub fn OH_UdmfOptions_Create() -> *mut OH_UdmfOptions;
 }
 extern "C" {
-    #[cfg(feature = "api-20")]
     #[doc = " @brief Destroy the heap memory pointed to by the pointer of {@link OH_UdmfOptions}.\n Note that this function cannot be called repeatedly for the same pointer.\n\n @param pThis Represents a pointer to an instance of {@link OH_UdmfOptions}.\n @see OH_UdmfOptions.\n @since 20"]
+    #[cfg(feature = "api-20")]
     pub fn OH_UdmfOptions_Destroy(pThis: *mut OH_UdmfOptions);
 }
 extern "C" {
-    #[cfg(feature = "api-20")]
     #[doc = " @brief Get key from the {@link OH_UdmfOptions}.\n\n @param pThis Represents a pointer to an instance of {@link OH_UdmfOptions}.\n @return Returns a pointer of the value string when input args normally, otherwise return nullptr.\n @see OH_UdmfOptions\n @since 20"]
+    #[cfg(feature = "api-20")]
     pub fn OH_UdmfOptions_GetKey(pThis: *mut OH_UdmfOptions) -> *const ::std::os::raw::c_char;
 }
 extern "C" {
-    #[cfg(feature = "api-20")]
     #[doc = " @brief Set the key to the {@link OH_UdmfOptions}.\n\n @param pThis Represents a pointer to an instance of {@link OH_UdmfOptions}.\n @param key Represents a new string value of the key.\n @return Returns the status code of the execution. See {@link Udmf_ErrCode}.\n         {@link UDMF_E_OK} success.\n         {@link UDMF_E_INVALID_PARAM} The error code for common invalid args.\n @see OH_UdmfOptions Udmf_ErrCode\n @since 20"]
+    #[cfg(feature = "api-20")]
     pub fn OH_UdmfOptions_SetKey(
         pThis: *mut OH_UdmfOptions,
         key: *const ::std::os::raw::c_char,
     ) -> ::std::os::raw::c_int;
 }
 extern "C" {
-    #[cfg(feature = "api-20")]
     #[doc = " @brief Get intention from the {@link OH_UdmfOptions}.\n\n @param pThis Represents a pointer to an instance of {@link OH_UdmfOptions}.\n @return Returns {@link Udmf_Intention} value.\n @see OH_UdmfOptions Udmf_Intention\n @since 20"]
+    #[cfg(feature = "api-20")]
     pub fn OH_UdmfOptions_GetIntention(pThis: *mut OH_UdmfOptions) -> Udmf_Intention;
 }
 extern "C" {
-    #[cfg(feature = "api-20")]
     #[doc = " @brief Set intention value to {@link OH_UdmfOptions}.\n\n @param pThis Represents a pointer to an instance of {@link OH_UdmfOptions}.\n @param intention Represents new {@link Udmf_Intention} param.\n @return Returns the status code of the execution. See {@link Udmf_ErrCode}.\n         {@link UDMF_E_OK} success.\n         {@link UDMF_E_INVALID_PARAM} The error code for common invalid args.\n @see OH_UdmfOptions Udmf_Intention Udmf_ErrCode.\n @since 20"]
+    #[cfg(feature = "api-20")]
     pub fn OH_UdmfOptions_SetIntention(
         pThis: *mut OH_UdmfOptions,
         intention: Udmf_Intention,
     ) -> ::std::os::raw::c_int;
 }
 extern "C" {
-    #[cfg(feature = "api-20")]
     #[doc = " @brief Reset {@link OH_UdmfOptions} to default.\n\n @param pThis Represents a pointer to an instance of {@link OH_UdmfOptions}.\n @return Returns the status code of the execution. See {@link Udmf_ErrCode}.\n         {@link UDMF_E_OK} success.\n         {@link UDMF_E_INVALID_PARAM} The error code for common invalid args.\n @see OH_UdmfOptions Udmf_ErrCode.\n @since 20"]
+    #[cfg(feature = "api-20")]
     pub fn OH_UdmfOptions_Reset(pThis: *mut OH_UdmfOptions) -> ::std::os::raw::c_int;
 }
 extern "C" {
-    #[cfg(feature = "api-20")]
     #[doc = " @brief Get visibility from the {@link OH_UdmfOptions}.\n\n @param pThis Represents a pointer to an instance of {@link OH_UdmfOptions}.\n @return Returns {@link Udmf_Visibility} value.\n @see OH_UdmfOptions Udmf_Visibility\n @since 20"]
+    #[cfg(feature = "api-20")]
     pub fn OH_UdmfOptions_GetVisibility(pThis: *mut OH_UdmfOptions) -> Udmf_Visibility;
 }
 extern "C" {
-    #[cfg(feature = "api-20")]
     #[doc = " @brief Set visibility value to {@link OH_UdmfOptions}.\n\n @param pThis Represents a pointer to an instance of {@link OH_UdmfOptions}.\n @param visibility Represents new {@link Udmf_Visibility} param.\n @return Returns the status code of the execution. See {@link Udmf_ErrCode}.\n         {@link UDMF_E_OK} success.\n         {@link UDMF_E_INVALID_PARAM} The error code for common invalid args.\n @see OH_UdmfOptions Udmf_Visibility Udmf_ErrCode.\n @since 20"]
+    #[cfg(feature = "api-20")]
     pub fn OH_UdmfOptions_SetVisibility(
         pThis: *mut OH_UdmfOptions,
         visibility: Udmf_Visibility,
     ) -> ::std::os::raw::c_int;
 }
 extern "C" {
-    #[doc = " @brief Get {@link OH_UdmfData} data from udmf database.\n\n @param key Represents database store's key value.\n @param intention Represents data type {@link Udmf_Intention}\n @param unifiedData Represents output params of {@link OH_UdmfData};\n @return Returns the status code of the execution. See {@link Udmf_ErrCode}.\n         {@link UDMF_E_OK} success.\n         {@link UDMF_E_INVALID_PARAM} The error code for common invalid args.\n         {@link UDMF_ERR} Internal data error.\n @see OH_UdmfProperty Udmf_Intention Udmf_ErrCode.\n @since 12"]
+    #[doc = " @brief Get {@link OH_UdmfData} data from udmf database.\n\n @param key Represents database store's key value.\n @param intention Represents data type {@link Udmf_Intention}\n @param unifiedData Represents output params of {@link OH_UdmfData};\n @return Returns the status code of the execution. See {@link Udmf_ErrCode}.\n         {@link UDMF_E_OK} success.\n         {@link UDMF_E_INVALID_PARAM} The error code for common invalid args.\n         {@link UDMF_ERR} Internal data error. The potential reason is server malfunction or insufficient memory.\n @see OH_UdmfProperty Udmf_Intention Udmf_ErrCode.\n @since 12"]
     pub fn OH_Udmf_GetUnifiedData(
         key: *const ::std::os::raw::c_char,
         intention: Udmf_Intention,
@@ -1695,8 +1963,8 @@ extern "C" {
     ) -> ::std::os::raw::c_int;
 }
 extern "C" {
+    #[doc = " @brief Get {@link OH_UdmfData} data array from udmf database by intention.\n\n @param options Represents a pointer to an instance of {@link OH_UdmfOptions}.\n @param dataArray Represents output params of {@link OH_UdmfData}.\n     It should be accessed using {@link OH_UDMF_GetDataElementAt} to retrieve elements by index.\n     This pointer needs to be released using the {@link OH_Udmf_DestroyDataArray} function.\n @param dataSize Represents the data count of output params.\n @return Returns the status code of the execution. See {@link Udmf_ErrCode}.\n         {@link UDMF_E_OK} success.\n         {@link UDMF_E_INVALID_PARAM} The error code for common invalid args.\n         {@link UDMF_ERR} Internal data error. The potential reason is server malfunction or insufficient memory.\n @see OH_UdmfData Udmf_Intention Udmf_ErrCode.\n @since 20"]
     #[cfg(feature = "api-20")]
-    #[doc = " @brief Get {@link OH_UdmfData} data array from udmf database by intention.\n\n @param options Represents a pointer to an instance of {@link OH_UdmfOptions}.\n @param dataArray Represents output params of {@link OH_UdmfData}.\n This pointer needs to be released using the {@link OH_Udmf_DestroyDataArray} function.\n @param dataSize Represents the data count of output params.\n @return Returns the status code of the execution. See {@link Udmf_ErrCode}.\n         {@link UDMF_E_OK} success.\n         {@link UDMF_E_INVALID_PARAM} The error code for common invalid args.\n         {@link UDMF_ERR} Internal data error.\n @see OH_UdmfData Udmf_Intention Udmf_ErrCode.\n @since 20"]
     pub fn OH_Udmf_GetUnifiedDataByOptions(
         options: *mut OH_UdmfOptions,
         dataArray: *mut *mut OH_UdmfData,
@@ -1704,7 +1972,7 @@ extern "C" {
     ) -> ::std::os::raw::c_int;
 }
 extern "C" {
-    #[doc = " @brief Set {@link OH_UdmfData} data to database.\n\n @param intention Represents data type {@link Udmf_Intention}.\n @param unifiedData Represents a pointer to an instance of {@link OH_UdmfData}.\n @param key Represents return value after set data to database successfully,\n it's memory size not less than {@link UDMF_KEY_BUFFER_LEN}.\n @param keyLen Represents size of key param.\n @return Returns the status code of the execution. See {@link Udmf_ErrCode}.\n         {@link UDMF_E_OK} success.\n         {@link UDMF_E_INVALID_PARAM} The error code for common invalid args.\n         {@link UDMF_ERR} Internal data error.\n @see OH_UdmfProperty Udmf_Intention Udmf_ErrCode.\n @since 12"]
+    #[doc = " @brief Set {@link OH_UdmfData} data to database.\n\n @param intention Represents data type {@link Udmf_Intention}.\n @param unifiedData Represents a pointer to an instance of {@link OH_UdmfData}.\n @param key Represents return value after set data to database successfully,\n it's memory size not less than {@link UDMF_KEY_BUFFER_LEN}.\n @param keyLen Represents size of key param.\n @return Returns the status code of the execution. See {@link Udmf_ErrCode}.\n         {@link UDMF_E_OK} success.\n         {@link UDMF_E_INVALID_PARAM} The error code for common invalid args.\n         {@link UDMF_ERR} Internal data error. The potential reason is server malfunction or insufficient memory.\n @see OH_UdmfProperty Udmf_Intention Udmf_ErrCode.\n @since 12"]
     pub fn OH_Udmf_SetUnifiedData(
         intention: Udmf_Intention,
         unifiedData: *mut OH_UdmfData,
@@ -1713,8 +1981,8 @@ extern "C" {
     ) -> ::std::os::raw::c_int;
 }
 extern "C" {
+    #[doc = " @brief Set {@link OH_UdmfData} data to database with options.\n\n @param options Represents a pointer to an instance of {@link OH_UdmfOptions}.\n @param unifiedData Represents a pointer to an instance of {@link OH_UdmfData}.\n @param key Represents return value after set data to database successfully,\n it's memory size not less than {@link UDMF_KEY_BUFFER_LEN}.\n @param keyLen Represents size of key param.\n @return Returns the status code of the execution. See {@link Udmf_ErrCode}.\n         {@link UDMF_E_OK} success.\n         {@link UDMF_E_INVALID_PARAM} The error code for common invalid args.\n         {@link UDMF_ERR} Internal data error. The potential reason is server malfunction or insufficient memory.\n @see OH_UdmfOptions OH_UdmfData Udmf_ErrCode.\n @since 20"]
     #[cfg(feature = "api-20")]
-    #[doc = " @brief Set {@link OH_UdmfData} data to database with options.\n\n @param options Represents a pointer to an instance of {@link OH_UdmfOptions}.\n @param unifiedData Represents a pointer to an instance of {@link OH_UdmfData}.\n @param key Represents return value after set data to database successfully,\n it's memory size not less than {@link UDMF_KEY_BUFFER_LEN}.\n @param keyLen Represents size of key param.\n @return Returns the status code of the execution. See {@link Udmf_ErrCode}.\n         {@link UDMF_E_OK} success.\n         {@link UDMF_E_INVALID_PARAM} The error code for common invalid args.\n         {@link UDMF_ERR} Internal data error.\n @see OH_UdmfOptions OH_UdmfData Udmf_ErrCode.\n @since 20"]
     pub fn OH_Udmf_SetUnifiedDataByOptions(
         options: *mut OH_UdmfOptions,
         unifiedData: *mut OH_UdmfData,
@@ -1723,16 +1991,16 @@ extern "C" {
     ) -> ::std::os::raw::c_int;
 }
 extern "C" {
+    #[doc = " @brief Update {@link OH_UdmfData} data to database with options.\n\n @param options Represents a pointer to an instance of {@link OH_UdmfOptions}.\n @param unifiedData Represents a pointer to an instance of {@link OH_UdmfData}.\n @return Returns the status code of the execution. See {@link Udmf_ErrCode}.\n         {@link UDMF_E_OK} success.\n         {@link UDMF_E_INVALID_PARAM} The error code for common invalid args.\n         {@link UDMF_ERR} Internal data error. The potential reason is server malfunction or insufficient memory.\n @see OH_UdmfOptions OH_UdmfData Udmf_ErrCode.\n @since 20"]
     #[cfg(feature = "api-20")]
-    #[doc = " @brief Update {@link OH_UdmfData} data to database with options.\n\n @param options Represents a pointer to an instance of {@link OH_UdmfOptions}.\n @param unifiedData Represents a pointer to an instance of {@link OH_UdmfData}.\n @return Returns the status code of the execution. See {@link Udmf_ErrCode}.\n         {@link UDMF_E_OK} success.\n         {@link UDMF_E_INVALID_PARAM} The error code for common invalid args.\n         {@link UDMF_ERR} Internal data error.\n @see OH_UdmfOptions OH_UdmfData Udmf_ErrCode.\n @since 20"]
     pub fn OH_Udmf_UpdateUnifiedData(
         options: *mut OH_UdmfOptions,
         unifiedData: *mut OH_UdmfData,
     ) -> ::std::os::raw::c_int;
 }
 extern "C" {
+    #[doc = " @brief Delete {@link OH_UdmfData} data of database with options.\n\n @param options Represents a pointer to an instance of {@link OH_UdmfOptions}.\n @param dataArray Represents output params of {@link OH_UdmfData}.\n     It should be accessed using {@link OH_UDMF_GetDataElementAt} to retrieve elements by index.\n     This pointer needs to be released using the {@link OH_Udmf_DestroyDataArray} function.\n @param dataSize Represents the data count of output params.\n @return Returns the status code of the execution. See {@link Udmf_ErrCode}.\n         {@link UDMF_E_OK} success.\n         {@link UDMF_E_INVALID_PARAM} The error code for common invalid args.\n         {@link UDMF_ERR} Internal data error. The potential reason is server malfunction or insufficient memory.\n @see OH_UdmfData Udmf_Intention Udmf_ErrCode.\n @since 20"]
     #[cfg(feature = "api-20")]
-    #[doc = " @brief Delete {@link OH_UdmfData} data of database with options.\n\n @param options Represents a pointer to an instance of {@link OH_UdmfOptions}.\n @param dataArray Represents output params of {@link OH_UdmfData}.\n This pointer needs to be released using the {@link OH_Udmf_DestroyDataArray} function.\n @param dataSize Represents the data count of output params.\n @return Returns the status code of the execution. See {@link Udmf_ErrCode}.\n         {@link UDMF_E_OK} success.\n         {@link UDMF_E_INVALID_PARAM} The error code for common invalid args.\n         {@link UDMF_ERR} Internal data error.\n @see OH_UdmfData Udmf_Intention Udmf_ErrCode.\n @since 20"]
     pub fn OH_Udmf_DeleteUnifiedData(
         options: *mut OH_UdmfOptions,
         dataArray: *mut *mut OH_UdmfData,
@@ -1740,139 +2008,147 @@ extern "C" {
     ) -> ::std::os::raw::c_int;
 }
 extern "C" {
-    #[cfg(feature = "api-20")]
+    #[doc = " @brief Gets the pointer to the element at the specified index from the input array.\n\n @param dataArray A pointer to an array of {@link OH_UdmfData} pointers.\n @param index The index of the desired element. Note that the input index should not exceed the array range.\n @return A pointer to the {@link OH_UdmfData} element at the specified index; returns NULL if the array is NULL.\n @see OH_UdmfData\n @since 22"]
+    #[cfg(feature = "api-22")]
+    pub fn OH_UDMF_GetDataElementAt(
+        dataArray: *mut *mut OH_UdmfData,
+        index: ::std::os::raw::c_uint,
+    ) -> *mut OH_UdmfData;
+}
+extern "C" {
     #[doc = " @brief Destroy data array memory.\n\n @param dataArray Represents a point to {@link OH_UdmfData}.\n @param dataSize Represents data size in list.\n @see OH_UdmfData\n @since 20"]
+    #[cfg(feature = "api-20")]
     pub fn OH_Udmf_DestroyDataArray(
         dataArray: *mut *mut OH_UdmfData,
         dataSize: ::std::os::raw::c_uint,
     );
 }
 extern "C" {
-    #[cfg(feature = "api-15")]
     #[doc = " @brief Gets the progress from the {@OH_Udmf_ProgressInfo}.\n\n @param progressInfo Represents a pointer to an instance of {@link OH_Udmf_ProgressInfo}.\n @return Returns the progress.\n @see OH_Udmf_ProgressInfo\n @since 15"]
+    #[cfg(feature = "api-15")]
     pub fn OH_UdmfProgressInfo_GetProgress(
         progressInfo: *mut OH_Udmf_ProgressInfo,
     ) -> ::std::os::raw::c_int;
 }
 extern "C" {
-    #[cfg(feature = "api-15")]
     #[doc = " @brief Gets the status from the {@OH_Udmf_ProgressInfo}.\n\n @param progressInfo Represents a pointer to an instance of {@link OH_Udmf_ProgressInfo}.\n @return Returns the status code. See {@link Udmf_ListenerStatus}.\n @see OH_Udmf_ProgressInfo Udmf_ListenerStatus\n @since 15"]
+    #[cfg(feature = "api-15")]
     pub fn OH_UdmfProgressInfo_GetStatus(
         progressInfo: *mut OH_Udmf_ProgressInfo,
     ) -> ::std::os::raw::c_int;
 }
 extern "C" {
-    #[cfg(feature = "api-15")]
     #[doc = " @brief Creation a pointer to the instance of the {@link OH_UdmfGetDataParams}.\n\n @return If the operation is successful, a pointer to the instance of the {@link OH_UdmfGetDataParams}\n structure is returned. If the operation is failed, nullptr is returned.\n @see OH_UdmfGetDataParams\n @since 15"]
+    #[cfg(feature = "api-15")]
     pub fn OH_UdmfGetDataParams_Create() -> *mut OH_UdmfGetDataParams;
 }
 extern "C" {
-    #[cfg(feature = "api-15")]
     #[doc = " @brief Destroy a pointer that points to an instance of {@link OH_UdmfGetDataParams}.\n\n @param pThis Represents a pointer to an instance of {@link OH_UdmfGetDataParams}.\n @see OH_UdmfGetDataParams\n @since 15"]
+    #[cfg(feature = "api-15")]
     pub fn OH_UdmfGetDataParams_Destroy(pThis: *mut OH_UdmfGetDataParams);
 }
 extern "C" {
-    #[cfg(feature = "api-15")]
     #[doc = " @brief Sets the destination uri to the {@OH_UdmfGetDataParams}.\n\n @param params Represents a pointer to an instance of {@link OH_UdmfGetDataParams}.\n @param destUri Pointer to a destination uri.\n @see OH_UdmfGetDataParams\n @since 15"]
+    #[cfg(feature = "api-15")]
     pub fn OH_UdmfGetDataParams_SetDestUri(
         params: *mut OH_UdmfGetDataParams,
         destUri: *const ::std::os::raw::c_char,
     );
 }
 extern "C" {
-    #[cfg(feature = "api-15")]
     #[doc = " @brief Sets the file conflict options to the {@OH_UdmfGetDataParams}.\n\n @param params Represents a pointer to an instance of {@link OH_UdmfGetDataParams}.\n @param options Represents to the file conflict options.\n @see OH_UdmfGetDataParams Udmf_FileConflictOptions\n @since 15"]
+    #[cfg(feature = "api-15")]
     pub fn OH_UdmfGetDataParams_SetFileConflictOptions(
         params: *mut OH_UdmfGetDataParams,
         options: Udmf_FileConflictOptions,
     );
 }
 extern "C" {
-    #[cfg(feature = "api-15")]
     #[doc = " @brief Sets the progress indicator to the {@OH_UdmfGetDataParams}.\n\n @param params Represents a pointer to an instance of {@link OH_UdmfGetDataParams}.\n @param progressIndicator Represents to the progress indicator.\n @see OH_UdmfGetDataParams Udmf_ProgressIndicator\n @since 15"]
+    #[cfg(feature = "api-15")]
     pub fn OH_UdmfGetDataParams_SetProgressIndicator(
         params: *mut OH_UdmfGetDataParams,
         progressIndicator: Udmf_ProgressIndicator,
     );
 }
 extern "C" {
-    #[cfg(feature = "api-15")]
     #[doc = " @brief Sets the progress indicator to the {@OH_UdmfGetDataParams}.\n\n @param params Represents a pointer to an instance of {@link OH_UdmfGetDataParams}.\n @param dataProgressListener Represents to the data progress listener.\n @see OH_UdmfGetDataParams OH_Udmf_DataProgressListener\n @since 15"]
+    #[cfg(feature = "api-15")]
     pub fn OH_UdmfGetDataParams_SetDataProgressListener(
         params: *mut OH_UdmfGetDataParams,
         dataProgressListener: OH_Udmf_DataProgressListener,
     );
 }
 extern "C" {
-    #[cfg(feature = "api-20")]
     #[doc = " @brief Sets the acceptable info to the {@OH_UdmfGetDataParams}.\n\n @param params Represents a pointer to an instance of {@link OH_UdmfGetDataParams}.\n @param acceptableInfo Represents a pointer to an instance of {@link OH_UdmfDataLoadInfo}.\n @see OH_UdmfGetDataParams OH_UdmfDataLoadInfo\n @since 20"]
+    #[cfg(feature = "api-20")]
     pub fn OH_UdmfGetDataParams_SetAcceptableInfo(
         params: *mut OH_UdmfGetDataParams,
         acceptableInfo: *mut OH_UdmfDataLoadInfo,
     );
 }
 extern "C" {
-    #[cfg(feature = "api-20")]
     #[doc = " @brief Creation a pointer to the instance of the {@link OH_UdmfDataLoadParams}.\n\n @return If the operation is successful, a pointer to the instance of the {@link OH_UdmfDataLoadParams}\n structure is returned. If the operation is failed, nullptr is returned.\n @see OH_UdmfDataLoadParams\n @since 20"]
+    #[cfg(feature = "api-20")]
     pub fn OH_UdmfDataLoadParams_Create() -> *mut OH_UdmfDataLoadParams;
 }
 extern "C" {
-    #[cfg(feature = "api-20")]
     #[doc = " @brief Destroy a pointer that points to an instance of {@link OH_UdmfDataLoadParams}.\n\n @param pThis Represents a pointer to an instance of {@link OH_UdmfDataLoadParams}.\n @see OH_UdmfDataLoadParams\n @since 20"]
+    #[cfg(feature = "api-20")]
     pub fn OH_UdmfDataLoadParams_Destroy(pThis: *mut OH_UdmfDataLoadParams);
 }
 extern "C" {
-    #[cfg(feature = "api-20")]
     #[doc = " @brief Sets the data load handler to the {@OH_UdmfDataLoadParams}.\n\n @param params Represents a pointer to an instance of {@link OH_UdmfDataLoadParams}.\n @param dataLoadHandler Represents to the data load handler.\n @see OH_UdmfDataLoadParams OH_Udmf_DataLoadHandler\n @since 20"]
+    #[cfg(feature = "api-20")]
     pub fn OH_UdmfDataLoadParams_SetLoadHandler(
         params: *mut OH_UdmfDataLoadParams,
         dataLoadHandler: OH_Udmf_DataLoadHandler,
     );
 }
 extern "C" {
-    #[cfg(feature = "api-20")]
     #[doc = " @brief Sets the data load info to the {@OH_UdmfDataLoadParams}.\n\n @param params Represents a pointer to an instance of {@link OH_UdmfDataLoadParams}.\n @param dataLoadInfo Represents a pointer to an instance of {@link OH_UdmfDataLoadInfo}.\n @see OH_UdmfDataLoadParams OH_UdmfDataLoadInfo\n @since 20"]
+    #[cfg(feature = "api-20")]
     pub fn OH_UdmfDataLoadParams_SetDataLoadInfo(
         params: *mut OH_UdmfDataLoadParams,
         dataLoadInfo: *mut OH_UdmfDataLoadInfo,
     );
 }
 extern "C" {
-    #[cfg(feature = "api-20")]
     #[doc = " @brief Creation a pointer to the instance of the {@link OH_UdmfDataLoadInfo}.\n\n @return If the operation is successful, a pointer to the instance of the {@link OH_UdmfDataLoadInfo}\n structure is returned. If the operation is failed, nullptr is returned.\n @see OH_UdmfDataLoadInfo\n @since 20"]
+    #[cfg(feature = "api-20")]
     pub fn OH_UdmfDataLoadInfo_Create() -> *mut OH_UdmfDataLoadInfo;
 }
 extern "C" {
-    #[cfg(feature = "api-20")]
     #[doc = " @brief Destroy the heap memory pointed to by the pointer of {@link OH_UdmfDataLoadInfo}.\n Note that this function cannot be called repeatedly for the same pointer.\n\n @param dataLoadInfo Represents a pointer to an instance of {@link OH_UdmfDataLoadInfo}.\n @see OH_UdmfDataLoadInfo\n @since 20"]
+    #[cfg(feature = "api-20")]
     pub fn OH_UdmfDataLoadInfo_Destroy(dataLoadInfo: *mut OH_UdmfDataLoadInfo);
 }
 extern "C" {
-    #[cfg(feature = "api-20")]
     #[doc = " @brief Gets the types from the {@OH_UdmfDataLoadInfo}.\n\n @param dataLoadInfo Represents a pointer to an instance of {@link OH_UdmfDataLoadInfo}.\n @param count the types count of data.\n @return Returns the types of data.\n @see OH_UdmfDataLoadInfo\n @since 20"]
+    #[cfg(feature = "api-20")]
     pub fn OH_UdmfDataLoadInfo_GetTypes(
         dataLoadInfo: *mut OH_UdmfDataLoadInfo,
         count: *mut ::std::os::raw::c_uint,
     ) -> *mut *mut ::std::os::raw::c_char;
 }
 extern "C" {
-    #[cfg(feature = "api-20")]
     #[doc = " @brief Sets the data load info to the {@OH_UdmfDataLoadInfo}.\n\n @param dataLoadInfo Represents a pointer to an instance of {@link OH_UdmfDataLoadInfo}.\n @param type Represents the type of data.\n @see OH_UdmfDataLoadInfo\n @since 20"]
+    #[cfg(feature = "api-20")]
     pub fn OH_UdmfDataLoadInfo_SetType(
         dataLoadInfo: *mut OH_UdmfDataLoadInfo,
         type_: *const ::std::os::raw::c_char,
     );
 }
 extern "C" {
-    #[cfg(feature = "api-20")]
     #[doc = " @brief Gets the record count from the {@OH_UdmfDataLoadInfo}.\n\n @param dataLoadInfo Represents a pointer to an instance of {@link OH_UdmfDataLoadInfo}.\n @return Returns the record count.\n @see OH_UdmfDataLoadInfo\n @since 20"]
+    #[cfg(feature = "api-20")]
     pub fn OH_UdmfDataLoadInfo_GetRecordCount(
         dataLoadInfo: *mut OH_UdmfDataLoadInfo,
     ) -> ::std::os::raw::c_int;
 }
 extern "C" {
-    #[cfg(feature = "api-20")]
     #[doc = " @brief Sets the record count to the {@OH_UdmfDataLoadInfo}.\n\n @param dataLoadInfo Represents a pointer to an instance of {@link OH_UdmfDataLoadInfo}.\n @param recordCount Represents the types of data.\n @see OH_UdmfDataLoadInfo\n @since 20"]
+    #[cfg(feature = "api-20")]
     pub fn OH_UdmfDataLoadInfo_SetRecordCount(
         dataLoadInfo: *mut OH_UdmfDataLoadInfo,
         recordCount: ::std::os::raw::c_uint,
