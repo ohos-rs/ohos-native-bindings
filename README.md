@@ -25,6 +25,7 @@ A set of HarmonyNext native module bindings for rust.
 | ohos-fileuri-binding                | ![Crates.io Version](https://img.shields.io/crates/v/ohos-fileuri-binding)                | [FileUri](https://developer.huawei.com/consumer/cn/doc/harmonyos-references/capi-fileuri) binding                                 |
 | ohos-fileshare-binding              | ![Crates.io Version](https://img.shields.io/crates/v/ohos-fileshare-binding)              | [FileShare](https://developer.huawei.com/consumer/cn/doc/harmonyos-references/capi-fileshare) binding                             |
 | ohos-qos-binding                    | ![Crates.io Version](https://img.shields.io/crates/v/ohos-qos-binding)                    | [qos](https://developer.huawei.com/consumer/cn/doc/harmonyos-references/capi-qos) binding                                         |
+| ohos-drawing-binding                | ![Crates.io Version](https://img.shields.io/crates/v/ohos-drawing-binding)                | [Drawing](https://developer.huawei.com/consumer/cn/doc/harmonyos-references/capi-drawing)                                         |
 
 ## Contribution
 
