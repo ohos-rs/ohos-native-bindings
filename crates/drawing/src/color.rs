@@ -1,4 +1,4 @@
-use ohos_drawing_sys::OH_Drawing_ColorSetArgb;
+use ohos_native_drawing_sys::OH_Drawing_ColorSetArgb;
 
 pub type Color = u32;
 

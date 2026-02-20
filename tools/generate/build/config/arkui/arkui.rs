@@ -20,5 +20,5 @@ pub const ARKUI: Lazy<SysConfig> = Lazy::new(|| SysConfig {
     white_list: vec!["ArkUI_.*", "ARKUI_.*", "OH_.*"],
     block_list: vec!["napi_.*", "OH_Drawing_.*"],
     dynamic_library: vec!["ace_ndk.z"],
-    extra: "\n\nuse napi_sys_ohos::*;\nuse ohos_drawing_sys::*;",
+    extra: "\n\nuse napi_sys_ohos::*;\nuse ohos_native_drawing_sys::*;",
 });

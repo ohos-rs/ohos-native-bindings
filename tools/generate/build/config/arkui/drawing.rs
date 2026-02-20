@@ -3,7 +3,7 @@ use once_cell::sync::Lazy;
 use crate::SysConfig;
 
 pub const DRAWING: Lazy<SysConfig> = Lazy::new(|| SysConfig {
-    name: "ohos-drawing-sys",
+    name: "ohos-native-drawing-sys",
     headers: vec![
         "native_drawing/drawing_bitmap.h",
         "native_drawing/drawing_brush.h",

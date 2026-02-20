@@ -6,7 +6,7 @@
 #![allow(clippy::missing_safety_doc)]
 
 use napi_sys_ohos::*;
-use ohos_drawing_sys::*;
+use ohos_native_drawing_sys::*;
 
 #[link(name = "ace_ndk.z")]
 unsafe extern "C" {}

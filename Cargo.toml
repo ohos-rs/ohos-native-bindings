@@ -41,7 +41,7 @@ ohos-display-soloist-sys        = { version = "0.0.1", path = "sys/ohos-display-
 ohos-input-sys                  = { version = "0.0.1", path = "sys/ohos-input-sys" }
 ohos-input-method-sys           = { version = "0.1.0", path = "sys/ohos-input-method-sys" }
 ohos-display-sys                = { version = "0.0.1", path = "sys/ohos-display-sys" }
-ohos-drawing-sys                = { version = "0.1.0", path = "sys/ohos-drawing-sys" }
+ohos-native-drawing-sys         = { version = "0.1.0", path = "sys/ohos-native-drawing-sys" }
 ohos-accessibility-sys          = { version = "0.0.1", path = "sys/ohos-accessibility-sys" }
 ohos-native-window-sys          = { version = "0.0.1", path = "sys/ohos-native-window-sys" }
 ohos-native-buffer-sys          = { version = "0.0.1", path = "sys/ohos-native-buffer-sys" }

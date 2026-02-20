@@ -1,10 +1,10 @@
 use std::{ffi::CString, ptr::NonNull};
 
 #[cfg(feature = "api-14")]
-use ohos_drawing_sys::OH_Drawing_GetFontCollectionGlobalInstance;
+use ohos_native_drawing_sys::OH_Drawing_GetFontCollectionGlobalInstance;
 #[cfg(feature = "api-20")]
-use ohos_drawing_sys::OH_Drawing_UnregisterFont;
-use ohos_drawing_sys::{
+use ohos_native_drawing_sys::OH_Drawing_UnregisterFont;
+use ohos_native_drawing_sys::{
     OH_Drawing_ClearFontCaches, OH_Drawing_CreateFontCollection,
     OH_Drawing_CreateSharedFontCollection, OH_Drawing_CreateTextStyle, OH_Drawing_CreateTypography,
     OH_Drawing_CreateTypographyHandler, OH_Drawing_CreateTypographyStyle,

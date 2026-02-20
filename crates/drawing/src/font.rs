@@ -1,6 +1,6 @@
 use std::{ffi::CString, ptr::NonNull};
 
-use ohos_drawing_sys::{
+use ohos_native_drawing_sys::{
     OH_Drawing_Font, OH_Drawing_FontCountText, OH_Drawing_FontCreate, OH_Drawing_FontDestroy,
     OH_Drawing_FontGetTextSize, OH_Drawing_FontMeasureText, OH_Drawing_FontSetTextSize,
     OH_Drawing_TextEncoding,
@@ -75,7 +75,7 @@ impl Font {
         let c = CString::new(ch).expect("character contains interior NUL");
         let mut width = 0.0;
         let code = unsafe {
-            ohos_drawing_sys::OH_Drawing_FontMeasureSingleCharacter(
+            ohos_native_drawing_sys::OH_Drawing_FontMeasureSingleCharacter(
                 self.raw.as_ptr(),
                 c.as_ptr(),
                 &mut width,

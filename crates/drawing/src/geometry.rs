@@ -1,6 +1,6 @@
 use std::ptr::NonNull;
 
-use ohos_drawing_sys::{
+use ohos_native_drawing_sys::{
     OH_Drawing_Point, OH_Drawing_PointCreate, OH_Drawing_PointDestroy, OH_Drawing_PointGetX,
     OH_Drawing_PointGetY, OH_Drawing_PointSet, OH_Drawing_Rect, OH_Drawing_RectCreate,
     OH_Drawing_RectDestroy, OH_Drawing_RectGetBottom, OH_Drawing_RectGetHeight,

@@ -1,6 +1,6 @@
 use std::ptr::NonNull;
 
-use ohos_drawing_sys::{
+use ohos_native_drawing_sys::{
     OH_Drawing_BlendMode, OH_Drawing_Pen, OH_Drawing_PenCopy, OH_Drawing_PenCreate,
     OH_Drawing_PenDestroy, OH_Drawing_PenGetAlpha, OH_Drawing_PenGetColor, OH_Drawing_PenGetWidth,
     OH_Drawing_PenIsAntiAlias, OH_Drawing_PenReset, OH_Drawing_PenSetAlpha,

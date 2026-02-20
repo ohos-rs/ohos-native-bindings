@@ -1,6 +1,6 @@
 use std::ptr::NonNull;
 
-use ohos_drawing_sys::{
+use ohos_native_drawing_sys::{
     OH_Drawing_BlendMode, OH_Drawing_Canvas, OH_Drawing_CanvasAttachBrush,
     OH_Drawing_CanvasAttachPen, OH_Drawing_CanvasClear, OH_Drawing_CanvasCreate,
     OH_Drawing_CanvasDestroy, OH_Drawing_CanvasDetachBrush, OH_Drawing_CanvasDetachPen,

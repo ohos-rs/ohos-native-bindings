@@ -1,8 +1,8 @@
 use std::fmt::{Display, Formatter};
 
 #[cfg(feature = "api-18")]
-use ohos_drawing_sys::OH_Drawing_ErrorCodeReset;
-use ohos_drawing_sys::{
+use ohos_native_drawing_sys::OH_Drawing_ErrorCodeReset;
+use ohos_native_drawing_sys::{
     OH_Drawing_ErrorCode, OH_Drawing_ErrorCodeGet, OH_Drawing_ErrorCode_OH_DRAWING_SUCCESS,
 };
 

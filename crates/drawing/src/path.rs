@@ -1,6 +1,6 @@
 use std::{ffi::CString, ptr::NonNull};
 
-use ohos_drawing_sys::{
+use ohos_native_drawing_sys::{
     OH_Drawing_Path, OH_Drawing_PathAddCircle, OH_Drawing_PathAddRect, OH_Drawing_PathArcTo,
     OH_Drawing_PathBuildFromSvgString, OH_Drawing_PathClose, OH_Drawing_PathContains,
     OH_Drawing_PathCopy, OH_Drawing_PathCreate, OH_Drawing_PathDestroy, OH_Drawing_PathDirection,
