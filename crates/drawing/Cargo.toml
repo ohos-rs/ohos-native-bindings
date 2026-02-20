@@ -1,13 +1,16 @@
 [package]
-name        = "ohos-arkui-sys"
-version     = "0.0.1"
+name        = "ohos-drawing-binding"
+version     = "0.1.0"
 edition     = "2021"
 license     = "MIT OR Apache-2.0"
-description = "OpenHarmony's arkui binding for rust"
+description = "OpenHarmony's drawing binding for rust"
 
 [dependencies]
-napi-sys-ohos           = { workspace = true }
 ohos-native-drawing-sys = { workspace = true }
+ohos_enum_macro         = { workspace = true }
+
+[lints]
+workspace = true
 
 [features]
 default = []

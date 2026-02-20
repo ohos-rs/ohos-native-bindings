@@ -16,6 +16,7 @@ ohos-display-soloist-binding        = { version = "0.1.0", path = "crates/native
 ohos-input-binding                  = { version = "0.0.1", path = "crates/input" }
 ohos-ime-binding                    = { version = "0.1.0", path = "crates/ime" }
 ohos-display-binding                = { version = "0.0.1", path = "crates/display" }
+ohos-drawing-binding                = { version = "0.1.0", path = "crates/drawing" }
 ohos-native-window-binding          = { version = "0.1.1", path = "crates/native_window" }
 ohos-native-buffer-binding          = { version = "0.1.0", path = "crates/native_buffer" }
 ohos-udmf-binding                   = { version = "0.0.1", path = "crates/udmf" }
@@ -40,6 +41,7 @@ ohos-display-soloist-sys        = { version = "0.0.1", path = "sys/ohos-display-
 ohos-input-sys                  = { version = "0.0.1", path = "sys/ohos-input-sys" }
 ohos-input-method-sys           = { version = "0.1.0", path = "sys/ohos-input-method-sys" }
 ohos-display-sys                = { version = "0.0.1", path = "sys/ohos-display-sys" }
+ohos-native-drawing-sys         = { version = "0.1.0", path = "sys/ohos-native-drawing-sys" }
 ohos-accessibility-sys          = { version = "0.0.1", path = "sys/ohos-accessibility-sys" }
 ohos-native-window-sys          = { version = "0.0.1", path = "sys/ohos-native-window-sys" }
 ohos-native-buffer-sys          = { version = "0.0.1", path = "sys/ohos-native-buffer-sys" }
