@@ -39,7 +39,7 @@ ohos-arkui-sys                  = { version = "0.0.1", path = "sys/ohos-arkui-sy
 ohos-native-vsync-sys           = { version = "0.0.1", path = "sys/ohos-native-vsync-sys" }
 ohos-display-soloist-sys        = { version = "0.0.1", path = "sys/ohos-display-soloist-sys" }
 ohos-input-sys                  = { version = "0.0.1", path = "sys/ohos-input-sys" }
-ohos-input-method-sys           = { version = "0.1.0", path = "sys/ohos-input-method-sys" }
+ohos-input-method-sys           = { version = "0.1.1", path = "sys/ohos-input-method-sys" }
 ohos-display-sys                = { version = "0.0.1", path = "sys/ohos-display-sys" }
 ohos-native-drawing-sys         = { version = "0.1.0", path = "sys/ohos-native-drawing-sys" }
 ohos-accessibility-sys          = { version = "0.0.1", path = "sys/ohos-accessibility-sys" }
