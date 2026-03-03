@@ -105,15 +105,11 @@ impl IME {
         guard.delete_backward = Some(cb);
     }
 
-    pub fn show_keyboard(&self) {
-        if let Some(ime_proxy) = *self.raw.borrow() {
-            unsafe {
-                let ret = OH_InputMethodProxy_ShowKeyboard(ime_proxy.as_ptr());
-                #[cfg(debug_assertions)]
-                assert!(ret == 0, "OH_InputMethodProxy_ShowKeyboard failed");
-            }
+    pub fn attach(&self) {
+        if self.raw.borrow().is_some() {
             return;
         }
+
         let editor = TextEditor::new();
         unsafe {
             let mut raw: *mut InputMethod_InputMethodProxy = ptr::null_mut();
@@ -122,10 +118,25 @@ impl IME {
                 self.option.raw,
                 &mut raw as *mut *mut InputMethod_InputMethodProxy,
             );
-            self.text_editor.replace(Some(editor));
-            self.raw.replace(Some(NonNull::new_unchecked(raw)));
             #[cfg(debug_assertions)]
             assert!(ret == 0, "OH_InputMethodController_Attach failed");
+
+            if let Some(raw) = NonNull::new(raw) {
+                self.text_editor.replace(Some(editor));
+                self.raw.replace(Some(raw));
+            }
+        }
+    }
+
+    pub fn show_keyboard(&self) {
+        self.attach();
+
+        if let Some(ime_proxy) = *self.raw.borrow() {
+            unsafe {
+                let ret = OH_InputMethodProxy_ShowKeyboard(ime_proxy.as_ptr());
+                #[cfg(debug_assertions)]
+                assert!(ret == 0, "OH_InputMethodProxy_ShowKeyboard failed");
+            }
         }
     }
 
@@ -189,25 +200,32 @@ impl IME {
     }
 
     pub fn hide_keyboard(&self) {
-        unsafe {
-            if let Some(raw) = *self.raw.borrow() {
+        if let Some(raw) = *self.raw.borrow() {
+            unsafe {
                 let ret = OH_InputMethodProxy_HideKeyboard(raw.as_ptr());
 
                 #[cfg(debug_assertions)]
                 assert!(ret == 0, "OH_InputMethodProxy_HideKeyboard failed");
             }
         }
+        self.detach();
     }
-}
 
-impl Drop for IME {
-    fn drop(&mut self) {
-        if let Some(raw) = *self.raw.borrow() {
+    pub fn detach(&self) {
+        let raw = self.raw.borrow_mut().take();
+        if let Some(raw) = raw {
             unsafe {
                 let ret = OH_InputMethodController_Detach(raw.as_ptr());
                 #[cfg(debug_assertions)]
                 assert!(ret == 0, "OH_InputMethodController_Detach failed");
             }
         }
+        self.text_editor.borrow_mut().take();
+    }
+}
+
+impl Drop for IME {
+    fn drop(&mut self) {
+        self.detach();
     }
 }

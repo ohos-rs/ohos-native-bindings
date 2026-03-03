@@ -23,3 +23,27 @@ pub fn show() {
         ime.show_keyboard();
     }
 }
+
+#[napi]
+pub fn detach() {
+    let mut guard = IME_INSTANCE.lock().unwrap();
+    if let Some(ime) = guard.as_mut() {
+        ime.detach();
+    }
+}
+
+#[napi]
+pub fn attach() {
+    let mut guard = IME_INSTANCE.lock().unwrap();
+    if let Some(ime) = guard.as_mut() {
+        ime.attach();
+    }
+}
+
+#[napi]
+pub fn hide() {
+    let mut guard = IME_INSTANCE.lock().unwrap();
+    if let Some(ime) = guard.as_mut() {
+        ime.hide_keyboard();
+    }
+}
