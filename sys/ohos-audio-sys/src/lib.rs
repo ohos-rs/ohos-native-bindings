@@ -589,6 +589,47 @@ pub const OH_AudioStream_VolumeMode_AUDIOSTREAM_VOLUMEMODE_APP_INDIVIDUAL:
 #[doc = " @brief Define the audio stream volume mode.\n\n @since 19"]
 #[cfg(feature = "api-19")]
 pub type OH_AudioStream_VolumeMode = u32;
+#[doc = " Type to get latency of all audio processing units, including software and hardware.\n\n @since 23"]
+#[cfg(feature = "api-23")]
+pub const OH_AudioStream_LatencyType_AUDIOSTREAM_LATENCY_TYPE_ALL: OH_AudioStream_LatencyType = 0;
+#[doc = " Type to get latency of software part, including audio effects in software.\n\n @since 23"]
+#[cfg(feature = "api-23")]
+pub const OH_AudioStream_LatencyType_AUDIOSTREAM_LATENCY_TYPE_SOFTWARE: OH_AudioStream_LatencyType =
+    1;
+#[doc = " Type to get latency of hardware part, including audio effects in hal, driver and hardware.\n\n @since 23"]
+#[cfg(feature = "api-23")]
+pub const OH_AudioStream_LatencyType_AUDIOSTREAM_LATENCY_TYPE_HARDWARE: OH_AudioStream_LatencyType =
+    2;
+#[doc = " @brief Defines audio latency types.\n\n @since 23"]
+#[cfg(feature = "api-23")]
+pub type OH_AudioStream_LatencyType = u32;
+#[doc = " Default mode. Capture most of the audio streams, except tone streams and privacy streams.\n @since 23"]
+#[cfg(feature = "api-23")]
+pub const OH_AudioStream_PlaybackCaptureMode_AUDIOSTREAM_PLAYBACKCAPTURE_MODE_DEFAULT:
+    OH_AudioStream_PlaybackCaptureMode = 0;
+#[doc = " Media mode. Capture media, voice message and also unknown streams.\n @since 23"]
+#[cfg(feature = "api-23")]
+pub const OH_AudioStream_PlaybackCaptureMode_AUDIOSTREAM_PLAYBACKCAPTURE_MODE_MEDIA:
+    OH_AudioStream_PlaybackCaptureMode = 1;
+#[doc = " Excluding self mode. Capture streams excluding the audio played by application itself.\n @since 23"]
+#[cfg(feature = "api-23")]
+pub const OH_AudioStream_PlaybackCaptureMode_AUDIOSTREAM_PLAYBACKCAPTURE_MODE_EXCLUDING_SELF:
+    OH_AudioStream_PlaybackCaptureMode = 32768;
+#[doc = " @brief Defines mode for playback capture, each mode means different target\n streams to capture.\n\n @since 23"]
+#[cfg(feature = "api-23")]
+pub type OH_AudioStream_PlaybackCaptureMode = u32;
+#[doc = " Start playback capture success state.\n @since 23"]
+#[cfg(feature = "api-23")]
+pub const OH_AudioStream_PlaybackCaptureStartState_AUDIOSTREAM_PLAYBACKCAPTURE_START_STATE_SUCCESS : OH_AudioStream_PlaybackCaptureStartState = 0 ;
+#[doc = " Start playback capture failed state, because the request for interrupt is denied\n or meet system internal error.\n @since 23"]
+#[cfg(feature = "api-23")]
+pub const OH_AudioStream_PlaybackCaptureStartState_AUDIOSTREAM_PLAYBACKCAPTURE_START_STATE_FAILED : OH_AudioStream_PlaybackCaptureStartState = 1 ;
+#[doc = " Start playback capture but user not authorized state.\n @since 23"]
+#[cfg(feature = "api-23")]
+pub const OH_AudioStream_PlaybackCaptureStartState_AUDIOSTREAM_PLAYBACKCAPTURE_START_STATE_NOT_AUTHORIZED : OH_AudioStream_PlaybackCaptureStartState = 2 ;
+#[doc = " @brief Defines the playback capture start state, which is returned asynchronously\n after calling {@link #OH_AudioCapturer_RequestPlaybackCaptureStart} function.\n\n @since 23"]
+#[cfg(feature = "api-23")]
+pub type OH_AudioStream_PlaybackCaptureStartState = u32;
 #[doc = " @error The call was successful."]
 pub const OH_AudioCommon_Result_AUDIOCOMMON_RESULT_SUCCESS: OH_AudioCommon_Result = 0;
 #[doc = " @error This means that the input parameter is invalid."]
@@ -964,6 +1005,24 @@ pub type OH_AudioCapturer_OnFastStatusChange = ::std::option::Option<
         status: OH_AudioStream_FastStatus,
     ),
 >;
+#[doc = " @brief Callback function to get playback capture start result.\n\n @param capturer Pointer to the AudioCapturer instance that triggers the callback.\n @param userData Pointer to the user data passed when setting the callback via\n     {@link #OH_AudioCapturer_RequestPlaybackCaptureStart}.\n @param state The final state to describe whether start request is successful.\n @since 23"]
+#[cfg(feature = "api-23")]
+pub type OH_AudioCapturer_OnPlaybackCaptureStartCallback = ::std::option::Option<
+    unsafe extern "C" fn(
+        capturer: *mut OH_AudioCapturer,
+        userData: *mut ::std::os::raw::c_void,
+        state: OH_AudioStream_PlaybackCaptureStartState,
+    ),
+>;
+extern "C" {
+    #[doc = " Asynchronously request to start the playback capture stream.\n This function is non-blocking, which means system will continue to process user authorization and\n stream starting when receiving the start request. And the final result will be returned by callback.\n @param capturer reference created by {@link #OH_AudioStreamBuilder_GenerateCapturer}\n @param callback Callback function used to receive the final result of start request.\n @param userData Pointer to an application data structure that will be passed to the callback functions.\n @return Function result code:\n     {@link #AUDIOSTREAM_SUCCESS} If the execution is successful.\n     {@link #AUDIOSTREAM_ERROR_INVALID_PARAM} The param of capturer is nullptr or callback is invalid.\n     {@link #AUDIOSTREAM_ERROR_ILLEGAL_STATE} Running and released are illegal states.\n     {@link #AUDIOSTREAM_ERROR_SYSTEM} System internal error, like audio service error.\n @since 23"]
+    #[cfg(feature = "api-23")]
+    pub fn OH_AudioCapturer_RequestPlaybackCaptureStart(
+        capturer: *mut OH_AudioCapturer,
+        callback: OH_AudioCapturer_OnPlaybackCaptureStartCallback,
+        userData: *mut ::std::os::raw::c_void,
+    ) -> OH_AudioStream_Result;
+}
 extern "C" {
     #[doc = " Request to release the renderer stream.\n\n @since 10\n\n @param renderer Reference created by OH_AudioStreamBuilder_GenerateRenderer()\n @return Function result code:\n         {@link AUDIOSTREAM_SUCCESS} If the execution is successful.\n         {@link AUDIOSTREAM_ERROR_INVALID_PARAM} The param of renderer is nullptr.\n         {@link AUDIOSTREAM_ERROR_ILLEGAL_STATE} Execution status exception."]
     pub fn OH_AudioRenderer_Release(renderer: *mut OH_AudioRenderer) -> OH_AudioStream_Result;
@@ -1240,6 +1299,15 @@ pub type OH_AudioRenderer_OnWriteDataCallbackAdvanced = ::std::option::Option<
     ) -> i32,
 >;
 extern "C" {
+    #[doc = " @brief Gets the estimated audio latency in milliseconds for current audio route. For wireless connection\n audio devices cases, the latency result may not be very accurate, system just provides it for reference only.\n The real-time buffer status is also not taken into consideration, so it is recommended to get it only at the\n beginning of audio playback, and do not call th function very frequently because it may be blocked by route\n change.\n Applications should still use {@link #OH_AudioRenderer_GetAudioTimestampInfo} to handle A/V sync after audio\n data has been output to hardware.\n\n @param renderer AudioRenderer created by OH_AudioStreamBuilder_GenerateRenderer().\n @param type Type of audio latency to get.\n @param latencyMs Pointer to a variable to receive the latency in milliseconds.\n @return Function result code:\n         {@link #AUDIOSTREAM_SUCCESS} If the execution is successful.\n         {@link #AUDIOSTREAM_ERROR_INVALID_PARAM}\n             1.The param of renderer is nullptr.\n             2.The param of latencyMs is nullptr.\n             3.The param of type is invalid value.\n         {@link #AUDIOSTREAM_ERROR_SYSTEM} System internal error, like audio service error.\n @since 23"]
+    #[cfg(feature = "api-23")]
+    pub fn OH_AudioRenderer_GetLatency(
+        renderer: *mut OH_AudioRenderer,
+        type_: OH_AudioStream_LatencyType,
+        latencyMs: *mut i32,
+    ) -> OH_AudioStream_Result;
+}
+extern "C" {
     #[doc = " Create a stremBuilder can be used to open a renderer or capturer client.\n\n OH_AudioStreamBuilder_Destroy() must be called when you are done using the builder.\n\n @since 10\n\n @param builder The builder reference to the created result.\n @param type The stream type to be created. {@link #AUDIOSTREAM_TYPE_RENDERER} or {@link #AUDIOSTREAM_TYPE_CAPTURER}\n @return Function result code:\n         {@link AUDIOSTREAM_SUCCESS} If the execution is successful."]
     pub fn OH_AudioStreamBuilder_Create(
         builder: *mut *mut OH_AudioStreamBuilder,
@@ -1478,6 +1546,14 @@ extern "C" {
         builder: *mut OH_AudioStreamBuilder,
         callback: OH_AudioCapturer_OnFastStatusChange,
         userData: *mut ::std::os::raw::c_void,
+    ) -> OH_AudioStream_Result;
+}
+extern "C" {
+    #[doc = " Sets target mode when using playback capture. Mode will decide what kind of streams to capture.\n This function is only available for {@link #AUDIOSTREAM_TYPE_CAPTURER} type.\n After setting playback capture mode, the {@link #OH_AudioStream_SourceType} will be ignored, so\n caller do not need to use {@link #OH_AudioStreamBuilder_SetCapturerInfo} if you only want to capture\n playback streams.\n Note that playback capture is only available for specific system applications currently, others do\n not have authorization.\n\n @param builder Reference provided by OH_AudioStreamBuilder_Create().\n @param mode The playback capture mode to set. This can be a combination of the available\n     {@link #OH_AudioStream_PlaybackCaptureMode}.\n @return Function result code:\n     {@link #AUDIOSTREAM_SUCCESS} If the execution is successful.\n     {@link #AUDIOSTREAM_ERROR_INVALID_PARAM} 1.The param of builder is nullptr;\n                                             2.The param of mode is invalid.\n @since 23"]
+    #[cfg(feature = "api-23")]
+    pub fn OH_AudioStreamBuilder_SetPlaybackCaptureMode(
+        builder: *mut OH_AudioStreamBuilder,
+        mode: u32,
     ) -> OH_AudioStream_Result;
 }
 #[repr(C)]
@@ -1734,6 +1810,14 @@ pub const OH_AudioSession_StateChangeHint_AUDIO_SESSION_STATE_CHANGE_HINT_DUCK:
 #[cfg(feature = "api-20")]
 pub const OH_AudioSession_StateChangeHint_AUDIO_SESSION_STATE_CHANGE_HINT_UNDUCK:
     OH_AudioSession_StateChangeHint = 5;
+#[doc = " @brief Suggests to mute the playback because there is another application begin to play nonmixable\n audio, application can decide whether to mute.\n If interrupt strategy is duck, {@link #AUDIO_SESSION_STATE_CHANGE_HINT_DUCK} will replace mute suggestion event,\n but application can still decide to mute when receive hint duck.\n\n @since 23"]
+#[cfg(feature = "api-23")]
+pub const OH_AudioSession_StateChangeHint_AUDIO_SESSION_STATE_CHANGE_HINT_MUTE_SUGGESTION:
+    OH_AudioSession_StateChangeHint = 6;
+#[doc = " @brief Suggest to unmute the playback because another application's nonmixable audio ends,\n application can decide whether to mute.\n If interrupt strategy is unduck, {@link #AUDIO_SESSION_STATE_CHANGE_HINT_UNDUCK} will replace unmute\n suggestion event, but application can still decide to unmute when receive hint unduck.\n\n @since 23"]
+#[cfg(feature = "api-23")]
+pub const OH_AudioSession_StateChangeHint_AUDIO_SESSION_STATE_CHANGE_HINT_UNMUTE_SUGGESTION:
+    OH_AudioSession_StateChangeHint = 7;
 #[doc = " @brief Declare the audio session state change hints.\n\n @since 20"]
 #[cfg(feature = "api-20")]
 pub type OH_AudioSession_StateChangeHint = u32;
@@ -2012,6 +2096,21 @@ extern "C" {
         audioSessionManager: *mut OH_AudioSessionManager,
         audioDeviceDescriptor: *mut OH_AudioDeviceDescriptor,
     ) -> OH_AudioCommon_Result;
+}
+extern "C" {
+    #[doc = " @brief Enables mute suggestion callback function when using {@link #CONCURRENCY_MIX_WITH_OTHERS} mode.\n Usually when using mix mode, application won't receive state change event when there is another audio playing\n simultaneously. But in some scenarios, like game or radio, the application may intend to mute its audio to\n achieve better user experience.\n If enabled, the mute and unmute suggestion hint will be sent by {@link #OH_AudioSession_StateChangedCallback}\n registered by {@link #OH_AudioSessionManager_RegisterStateChangeCallback}. Mute suggestion means there is\n another application starting non-mixable audio.\n This function only supports audio session with {@link #OH_AudioSession_Scene} set and activated with\n {@link #CONCURRENCY_MIX_WITH_OTHERS} mode. And it takes effect only once during activation, so application\n need to enable it every time before activation.\n\n @param audioSessionManager the {@link #OH_AudioSessionManager}\n     returned by the {@link #OH_AudioManager_GetAudioSessionManager}.\n @param enable Sets true to enable mute suggestion while registering session state change event callback.\n @return {@link #AUDIOCOMMON_RESULT_SUCCESS} If the execution is successful.\n     or {@link #AUDIOCOMMON_RESULT_ERROR_INVALID_PARAM} Parameter validation fails.\n     or {@link #AUDIOCOMMON_RESULT_ERROR_ILLEGAL_STATE} Function is called without setting\n     {@link #OH_AudioSession_Scene} or called after audio session activation.\n     or {@link #AUDIOCOMMON_RESULT_ERROR_SYSTEM} Audio client call audio service error, system internal error.\n @since 23"]
+    #[cfg(feature = "api-23")]
+    pub fn OH_AudioSessionManager_EnableMuteSuggestionWhenMixWithOthers(
+        audioSessionManager: *mut OH_AudioSessionManager,
+        enable: bool,
+    ) -> OH_AudioCommon_Result;
+}
+extern "C" {
+    #[doc = " @brief Returns if there is any other application playing audio in media usage, including media session activated.\n\n @param audioSessionManager the {@link #OH_AudioSessionManager}\n     returned by the {@link #OH_AudioManager_GetAudioSessionManager}.\n @return True if there is other application playing audio in media usage.\n @since 23"]
+    #[cfg(feature = "api-23")]
+    pub fn OH_AudioSessionManager_IsOtherMediaPlaying(
+        audioSessionManager: *mut OH_AudioSessionManager,
+    ) -> bool;
 }
 #[repr(C)]
 #[derive(Debug, Copy, Clone)]
