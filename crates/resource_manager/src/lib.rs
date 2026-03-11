@@ -263,6 +263,9 @@ impl ResourceManager {
     }
 }
 
+unsafe impl Send for ResourceManager {}
+unsafe impl Sync for ResourceManager {}
+
 impl Drop for ResourceManager {
     fn drop(&mut self) {
         unsafe {
