@@ -169,13 +169,16 @@ impl RawFile {
         unsafe { OH_ResourceManager_GetRawFileOffset(self.raw.as_ptr()) as _ }
     }
 
-    pub fn read(&self, len: usize) -> (&str, i32) {
-        let mut ret = Vec::with_capacity(len as _);
-        let buf_ptr = ret.as_mut_ptr();
-        let offset = unsafe {
-            OH_ResourceManager_ReadRawFile(self.raw.as_ptr(), buf_ptr as *mut c_void, len as _)
+    pub fn read(&self, len: usize) -> Vec<u8> {
+        let mut ret = vec![0; len];
+        let _ = unsafe {
+            OH_ResourceManager_ReadRawFile(
+                self.raw.as_ptr(),
+                ret.as_mut_ptr() as *mut c_void,
+                len as _,
+            )
         };
-        unsafe { (CStr::from_ptr(buf_ptr).to_str().unwrap_or(""), offset) }
+        ret
     }
 
     pub fn remain(&self) -> i32 {
@@ -236,13 +239,16 @@ impl RawFile64 {
         unsafe { OH_ResourceManager_GetRawFileOffset64(self.raw.as_ptr()) }
     }
 
-    pub fn read(&self, len: i64) -> (&str, i64) {
-        let mut ret = Vec::with_capacity(len as usize);
-        let buf_ptr = ret.as_mut_ptr();
-        let offset = unsafe {
-            OH_ResourceManager_ReadRawFile64(self.raw.as_ptr(), buf_ptr as *mut c_void, len)
+    pub fn read(&self, len: i64) -> Vec<u8> {
+        let mut ret = vec![0; len as usize];
+        let _ = unsafe {
+            OH_ResourceManager_ReadRawFile64(
+                self.raw.as_ptr(),
+                ret.as_mut_ptr() as *mut c_void,
+                len,
+            )
         };
-        unsafe { (CStr::from_ptr(buf_ptr).to_str().unwrap_or(""), offset) }
+        ret
     }
 
     pub fn remain(&self) -> i64 {
