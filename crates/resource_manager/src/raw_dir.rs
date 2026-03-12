@@ -170,10 +170,13 @@ impl RawFile {
     }
 
     pub fn read(&self, len: usize) -> Vec<u8> {
-        let mut ret = Vec::with_capacity(len as _);
-        let buf_ptr = ret.as_mut_ptr();
+        let mut ret = vec![0; len];
         let _ = unsafe {
-            OH_ResourceManager_ReadRawFile(self.raw.as_ptr(), buf_ptr as *mut c_void, len as _)
+            OH_ResourceManager_ReadRawFile(
+                self.raw.as_ptr(),
+                ret.as_mut_ptr() as *mut c_void,
+                len as _,
+            )
         };
         ret
     }
@@ -237,10 +240,13 @@ impl RawFile64 {
     }
 
     pub fn read(&self, len: i64) -> Vec<u8> {
-        let mut ret = Vec::with_capacity(len as usize);
-        let buf_ptr = ret.as_mut_ptr();
+        let mut ret = vec![0; len as usize];
         let _ = unsafe {
-            OH_ResourceManager_ReadRawFile64(self.raw.as_ptr(), buf_ptr as *mut c_void, len)
+            OH_ResourceManager_ReadRawFile64(
+                self.raw.as_ptr(),
+                ret.as_mut_ptr() as *mut c_void,
+                len,
+            )
         };
         ret
     }
