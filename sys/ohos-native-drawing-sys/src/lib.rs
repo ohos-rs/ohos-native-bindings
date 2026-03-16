@@ -422,6 +422,14 @@ pub const OH_Drawing_ErrorCode_OH_DRAWING_ERROR_PARAMETER_OUT_OF_RANGE: OH_Drawi
 #[doc = " @error mem allocate failed.\n @since 13"]
 #[cfg(feature = "api-13")]
 pub const OH_Drawing_ErrorCode_OH_DRAWING_ERROR_ALLOCATION_FAILED: OH_Drawing_ErrorCode = 26200002;
+#[doc = " @error The attribute id is not recognized or supported.\n @since 21"]
+#[cfg(feature = "api-21")]
+pub const OH_Drawing_ErrorCode_OH_DRAWING_ERROR_ATTRIBUTE_ID_MISMATCH: OH_Drawing_ErrorCode =
+    26200003;
+#[doc = " @error incorrect input parameter. The possible cause is that the provided pointer is null.\n @since 22"]
+#[cfg(feature = "api-22")]
+pub const OH_Drawing_ErrorCode_OH_DRAWING_ERROR_INCORRECT_PARAMETER: OH_Drawing_ErrorCode =
+    26200004;
 #[doc = " @brief Enumerates error codes of drawing.\n @since 12"]
 pub type OH_Drawing_ErrorCode = u32;
 extern "C" {
@@ -1591,6 +1599,11 @@ pub struct OH_Drawing_TextLine {
 pub struct OH_Drawing_Run {
     _unused: [u8; 0],
 }
+#[repr(C)]
+#[derive(Debug, Copy, Clone)]
+pub struct OH_Drawing_FontFullDescriptor {
+    _unused: [u8; 0],
+}
 extern "C" {
     #[doc = " @brief Creates an <b>OH_Drawing_FontCollection</b> object.\n\n @syscap SystemCapability.Graphic.Graphic2D.NativeDrawing\n @return Returns the pointer to the <b>OH_Drawing_FontCollection</b> object created.\n @since 8\n @version 1.0"]
     pub fn OH_Drawing_CreateFontCollection() -> *mut OH_Drawing_FontCollection;
@@ -1974,6 +1987,130 @@ pub const OH_Drawing_FontWidth_FONT_WIDTH_EXTRA_EXPANDED: OH_Drawing_FontWidth =
 pub const OH_Drawing_FontWidth_FONT_WIDTH_ULTRA_EXPANDED: OH_Drawing_FontWidth = 9;
 #[doc = " @brief Enumerates font width.\n\n @since 12\n @version 1.0"]
 pub type OH_Drawing_FontWidth = u32;
+#[doc = " Line height maximum"]
+#[cfg(feature = "api-21")]
+pub const OH_Drawing_TextStyleAttributeId_TEXT_STYLE_ATTR_D_LINE_HEIGHT_MAXIMUM:
+    OH_Drawing_TextStyleAttributeId = 0;
+#[doc = " Line height minimum"]
+#[cfg(feature = "api-21")]
+pub const OH_Drawing_TextStyleAttributeId_TEXT_STYLE_ATTR_D_LINE_HEIGHT_MINIMUM:
+    OH_Drawing_TextStyleAttributeId = 1;
+#[doc = " Line height style"]
+#[cfg(feature = "api-21")]
+pub const OH_Drawing_TextStyleAttributeId_TEXT_STYLE_ATTR_I_LINE_HEIGHT_STYLE:
+    OH_Drawing_TextStyleAttributeId = 2;
+#[doc = " Font width"]
+#[cfg(feature = "api-21")]
+pub const OH_Drawing_TextStyleAttributeId_TEXT_STYLE_ATTR_I_FONT_WIDTH:
+    OH_Drawing_TextStyleAttributeId = 3;
+#[doc = " @brief Enumerates text style attribute.\n\n @since 21"]
+#[cfg(feature = "api-21")]
+pub type OH_Drawing_TextStyleAttributeId = u32;
+#[doc = " Use the font size as the scale factor for line height scaling"]
+#[cfg(feature = "api-21")]
+pub const OH_Drawing_LineHeightStyle_TEXT_LINE_HEIGHT_BY_FONT_SIZE: OH_Drawing_LineHeightStyle = 0;
+#[doc = " Use the text height after shaping as the scale factor for line height scaling"]
+#[cfg(feature = "api-21")]
+pub const OH_Drawing_LineHeightStyle_TEXT_LINE_HEIGHT_BY_FONT_HEIGHT: OH_Drawing_LineHeightStyle =
+    1;
+#[doc = " @brief Enumerates line height's scaling type.\n\n @since 21"]
+#[cfg(feature = "api-21")]
+pub type OH_Drawing_LineHeightStyle = u32;
+#[doc = " Line height maximum"]
+#[cfg(feature = "api-21")]
+pub const OH_Drawing_TypographyStyleAttributeId_TYPOGRAPHY_STYLE_ATTR_D_LINE_HEIGHT_MAXIMUM:
+    OH_Drawing_TypographyStyleAttributeId = 0;
+#[doc = " Line height minimum"]
+#[cfg(feature = "api-21")]
+pub const OH_Drawing_TypographyStyleAttributeId_TYPOGRAPHY_STYLE_ATTR_D_LINE_HEIGHT_MINIMUM:
+    OH_Drawing_TypographyStyleAttributeId = 1;
+#[doc = " Line spacing"]
+#[cfg(feature = "api-21")]
+pub const OH_Drawing_TypographyStyleAttributeId_TYPOGRAPHY_STYLE_ATTR_D_LINE_SPACING:
+    OH_Drawing_TypographyStyleAttributeId = 2;
+#[doc = " Line height style"]
+#[cfg(feature = "api-21")]
+pub const OH_Drawing_TypographyStyleAttributeId_TYPOGRAPHY_STYLE_ATTR_I_LINE_HEIGHT_STYLE:
+    OH_Drawing_TypographyStyleAttributeId = 3;
+#[doc = " Font width"]
+#[cfg(feature = "api-21")]
+pub const OH_Drawing_TypographyStyleAttributeId_TYPOGRAPHY_STYLE_ATTR_I_FONT_WIDTH:
+    OH_Drawing_TypographyStyleAttributeId = 4;
+#[doc = " @brief Enumerates typography style attribute.\n\n @since 21"]
+#[cfg(feature = "api-21")]
+pub type OH_Drawing_TypographyStyleAttributeId = u32;
+extern "C" {
+    #[doc = " @brief Sets double value to the text style attribute.\n\n @param style Indicates the pointer to an <b>OH_Drawing_TextStyle</b> object.\n @param id Indicates the attribute id.\n @param value Indicates the value to set.\n @return Returns the error code.\n         Returns {@link OH_DRAWING_SUCCESS} if the operation is successful.\n         Returns {@link OH_DRAWING_ERROR_INVALID_PARAMETER} if the style is nullptr.\n         Returns {@link OH_DRAWING_ERROR_ATTRIBUTE_ID_MISMATCH} if the attribute id is not recognized or supported.\n         Returns {@link OH_DRAWING_ERROR_PARAMETER_OUT_OF_RANGE} if the value corresponding to the attribute id\n                  exceeds the allowable range.\n @since 21"]
+    #[cfg(feature = "api-21")]
+    pub fn OH_Drawing_SetTextStyleAttributeDouble(
+        style: *mut OH_Drawing_TextStyle,
+        id: OH_Drawing_TextStyleAttributeId,
+        value: f64,
+    ) -> OH_Drawing_ErrorCode;
+}
+extern "C" {
+    #[doc = " @brief Gets the double type property's value from the text style.\n\n @param style Indicates the pointer to an <b>OH_Drawing_TextStyle</b> object.\n @param id Indicates the attribute id.\n @param value Indicates the return value of the interface.\n @return Returns the error code.\n         Returns {@link OH_DRAWING_SUCCESS} if the operation is successful.\n         Returns {@link OH_DRAWING_ERROR_INVALID_PARAMETER} if the style is nullptr.\n         Returns {@link OH_DRAWING_ERROR_ATTRIBUTE_ID_MISMATCH} if the attribute id is not recognized or supported.\n @since 21"]
+    #[cfg(feature = "api-21")]
+    pub fn OH_Drawing_GetTextStyleAttributeDouble(
+        style: *mut OH_Drawing_TextStyle,
+        id: OH_Drawing_TextStyleAttributeId,
+        value: *mut f64,
+    ) -> OH_Drawing_ErrorCode;
+}
+extern "C" {
+    #[doc = " @brief Sets int value to the text style attribute.\n\n @param style Indicates the pointer to an <b>OH_Drawing_TextStyle</b> object.\n @param id Indicates the attribute id.\n @param value Indicates the value to set.\n @return Returns the error code.\n         Returns {@link OH_DRAWING_SUCCESS} if the operation is successful.\n         Returns {@link OH_DRAWING_ERROR_INVALID_PARAMETER} if the style is nullptr.\n         Returns {@link OH_DRAWING_ERROR_ATTRIBUTE_ID_MISMATCH} if the attribute id is not recognized or supported.\n         Returns {@link OH_DRAWING_ERROR_PARAMETER_OUT_OF_RANGE} if the value corresponding to the attribute id\n                  exceeds the allowable range.\n @since 21"]
+    #[cfg(feature = "api-21")]
+    pub fn OH_Drawing_SetTextStyleAttributeInt(
+        style: *mut OH_Drawing_TextStyle,
+        id: OH_Drawing_TextStyleAttributeId,
+        value: ::std::os::raw::c_int,
+    ) -> OH_Drawing_ErrorCode;
+}
+extern "C" {
+    #[doc = " @brief Gets the int type property's value from the text style.\n\n @param style Indicates the pointer to an <b>OH_Drawing_TextStyle</b> object.\n @param id Indicates the attribute id.\n @param value Indicates the return value of the interface.\n @return Returns the error code.\n         Returns {@link OH_DRAWING_SUCCESS} if the operation is successful.\n         Returns {@link OH_DRAWING_ERROR_INVALID_PARAMETER} if the style is nullptr.\n         Returns {@link OH_DRAWING_ERROR_ATTRIBUTE_ID_MISMATCH} if the attribute id is not recognized or supported.\n @since 21"]
+    #[cfg(feature = "api-21")]
+    pub fn OH_Drawing_GetTextStyleAttributeInt(
+        style: *mut OH_Drawing_TextStyle,
+        id: OH_Drawing_TextStyleAttributeId,
+        value: *mut ::std::os::raw::c_int,
+    ) -> OH_Drawing_ErrorCode;
+}
+extern "C" {
+    #[doc = " @brief Sets double value to the typography style attribute.\n\n @param style Indicates the pointer to an <b>OH_Drawing_TypographyStyle</b> object.\n @param id Indicates the attribute id.\n @param value Indicates the value to set.\n @return Returns the error code.\n         Returns {@link OH_DRAWING_SUCCESS} if the operation is successful.\n         Returns {@link OH_DRAWING_ERROR_INVALID_PARAMETER} if the style is nullptr.\n         Returns {@link OH_DRAWING_ERROR_ATTRIBUTE_ID_MISMATCH} if the attribute id is not recognized or supported.\n         Returns {@link OH_DRAWING_ERROR_PARAMETER_OUT_OF_RANGE} if the value corresponding to the attribute id\n                  exceeds the allowable range.\n @since 21"]
+    #[cfg(feature = "api-21")]
+    pub fn OH_Drawing_SetTypographyStyleAttributeDouble(
+        style: *mut OH_Drawing_TypographyStyle,
+        id: OH_Drawing_TypographyStyleAttributeId,
+        value: f64,
+    ) -> OH_Drawing_ErrorCode;
+}
+extern "C" {
+    #[doc = " @brief Gets the double type property's value from the typography style.\n\n @param style Indicates the pointer to an <b>OH_Drawing_TypographyStyle</b> object.\n @param id Indicates the attribute id.\n @param value Indicates the return value of the interface.\n @return Returns the error code.\n         Returns {@link OH_DRAWING_SUCCESS} if the operation is successful.\n         Returns {@link OH_DRAWING_ERROR_INVALID_PARAMETER} if the style is nullptr.\n         Returns {@link OH_DRAWING_ERROR_ATTRIBUTE_ID_MISMATCH} if the attribute id is not recognized or supported.\n @since 21"]
+    #[cfg(feature = "api-21")]
+    pub fn OH_Drawing_GetTypographyStyleAttributeDouble(
+        style: *mut OH_Drawing_TypographyStyle,
+        id: OH_Drawing_TypographyStyleAttributeId,
+        value: *mut f64,
+    ) -> OH_Drawing_ErrorCode;
+}
+extern "C" {
+    #[doc = " @brief Sets int value to the typography style attribute.\n\n @param style Indicates the pointer to an <b>OH_Drawing_TypographyStyle</b> object.\n @param id Indicates the attribute id.\n @param value Indicates the value to set.\n @return Returns the error code.\n         Returns {@link OH_DRAWING_SUCCESS} if the operation is successful.\n         Returns {@link OH_DRAWING_ERROR_INVALID_PARAMETER} if the style is nullptr.\n         Returns {@link OH_DRAWING_ERROR_ATTRIBUTE_ID_MISMATCH} if the attribute id is not recognized or supported.\n         Returns {@link OH_DRAWING_ERROR_PARAMETER_OUT_OF_RANGE} if the value corresponding to the attribute id\n                  exceeds the allowable range.\n @since 21"]
+    #[cfg(feature = "api-21")]
+    pub fn OH_Drawing_SetTypographyStyleAttributeInt(
+        style: *mut OH_Drawing_TypographyStyle,
+        id: OH_Drawing_TypographyStyleAttributeId,
+        value: ::std::os::raw::c_int,
+    ) -> OH_Drawing_ErrorCode;
+}
+extern "C" {
+    #[doc = " @brief Gets the int type property's value from the typography style.\n\n @param style Indicates the pointer to an <b>OH_Drawing_TypographyStyle</b> object.\n @param id Indicates the attribute id.\n @param value Indicates the return value of the interface.\n @return Returns the error code.\n         Returns {@link OH_DRAWING_SUCCESS} if the operation is successful.\n         Returns {@link OH_DRAWING_ERROR_INVALID_PARAMETER} if the style is nullptr.\n         Returns {@link OH_DRAWING_ERROR_ATTRIBUTE_ID_MISMATCH} if the attribute id is not recognized or supported.\n @since 21"]
+    #[cfg(feature = "api-21")]
+    pub fn OH_Drawing_GetTypographyStyleAttributeInt(
+        style: *mut OH_Drawing_TypographyStyle,
+        id: OH_Drawing_TypographyStyleAttributeId,
+        value: *mut ::std::os::raw::c_int,
+    ) -> OH_Drawing_ErrorCode;
+}
 #[doc = " No badge"]
 #[cfg(feature = "api-20")]
 pub const OH_Drawing_TextBadgeType_TEXT_BADGE_NONE: OH_Drawing_TextBadgeType = 0;
@@ -3803,6 +3940,14 @@ extern "C" {
     ) -> OH_Drawing_ErrorCode;
 }
 extern "C" {
+    #[doc = " @brief Matrix a left-multiplied by matrix b.\n       Given:\n                    | A B C |          | J K L |\n                a = | D E F |,     b = | M N O |\n                    | G H I |          | P Q R |\n       Get:\n                   | J K L |     | A B C |     | AJ+DK+GL BJ+EK+HL CJ+FK+IL |\n           b * a = | M N O |  *  | D E F |  =  | AM+DN+GO BM+EN+HO CM+FN+IO |\n                   | P Q R |     | G H I |     | AP+DQ+GR BP+EQ+HR CP+FQ+IR |\n @param a Indicates the pointer to an <b>OH_Drawing_Matrix</b> object.\n @param b Indicates the pointer to an <b>OH_Drawing_Matrix</b> object.\n @return Returns the error code.\n         Returns {@link OH_DRAWING_SUCCESS} if the operation is successful.\n         Returns {@link OH_DRAWING_ERROR_INCORRECT_PARAMETER} if a or b is nullptr.\n @since 22\n @version 1.0"]
+    #[cfg(feature = "api-22")]
+    pub fn OH_Drawing_MatrixPreConcat(
+        a: *mut OH_Drawing_Matrix,
+        b: *mut OH_Drawing_Matrix,
+    ) -> OH_Drawing_ErrorCode;
+}
+extern "C" {
     #[doc = " @brief Get one matrix value. Index is between the range of 0-8.\n @syscap SystemCapability.Graphic.Graphic2D.NativeDrawing\n @param matrix Indicates the pointer to an <b>OH_Drawing_Matrix</b> object.\n @param index one of 0-8.\n @return Returns value corresponding to index.Returns 0 if out of range.\n @since 12\n @version 1.0"]
     pub fn OH_Drawing_MatrixGetValue(
         matrix: *mut OH_Drawing_Matrix,
@@ -4734,6 +4879,26 @@ extern "C" {
     #[cfg(feature = "api-18")]
     pub fn OH_Drawing_RectDestroyArray(rectArray: *mut OH_Drawing_Array) -> OH_Drawing_ErrorCode;
 }
+extern "C" {
+    #[doc = " @brief Determine whether one <b>OH_Drawing_Rect</b> object totally contains another <b>OH_Drawing_Rect</b> object.\n\n @param rect Indicates the pointer to an <b>OH_Drawing_Rect</b> object.\n @param other Indicates the pointer to an <b>OH_Drawing_Rect</b> object.\n @param isContains Indicates whether rect totally contains other.\n @return Returns the error code.\n         Returns {@link OH_DRAWING_SUCCESS} if the operation is successful.\n         Returns {@link OH_DRAWING_ERROR_INCORRECT_PARAMETER} if rect, other or isContains is nullptr.\n @since 22\n @version 1.0"]
+    #[cfg(feature = "api-22")]
+    pub fn OH_Drawing_RectContains(
+        rect: *mut OH_Drawing_Rect,
+        other: *const OH_Drawing_Rect,
+        isContains: *mut bool,
+    ) -> OH_Drawing_ErrorCode;
+}
+extern "C" {
+    #[doc = " @brief Add the specified values to the left and top boundaried of an <b>OH_Drawing_Rect</b> object.\n\n @param rect Indicates the pointer to an <b>OH_Drawing_Rect</b> object.\n @param left Indicates the value added to the left boundary of an <b>OH_Drawing_Rect</b> object.\n @param top Indicates the value added to the top boundary of an <b>OH_Drawing_Rect</b> object.\n @param right Indicates the value added to the right boundary of an <b>OH_Drawing_Rect</b> object.\n @param bottom Indicates the value added to the bottom boundary of an <b>OH_Drawing_Rect</b> object.\n @return Returns the error code.\n         Returns {@link OH_DRAWING_SUCCESS} if the operation is successful.\n         Returns {@link OH_DRAWING_ERROR_INCORRECT_PARAMETER} if rect is nullptr.\n @since 22\n @version 1.0"]
+    #[cfg(feature = "api-22")]
+    pub fn OH_Drawing_RectInset(
+        rect: *mut OH_Drawing_Rect,
+        left: f32,
+        top: f32,
+        right: f32,
+        bottom: f32,
+    ) -> OH_Drawing_ErrorCode;
+}
 #[doc = " Difference operation."]
 pub const OH_Drawing_RegionOpMode_REGION_OP_MODE_DIFFERENCE: OH_Drawing_RegionOpMode = 0;
 #[doc = " Intersect operation."]
@@ -4787,6 +4952,11 @@ extern "C" {
 extern "C" {
     #[doc = " @brief Destroys an <b>OH_Drawing_Region</b> object and reclaims the memory occupied by the object.\n\n @syscap SystemCapability.Graphic.Graphic2D.NativeDrawing\n @param region Indicates the pointer to an <b>OH_Drawing_Region</b> object.\n @since 12\n @version 1.0"]
     pub fn OH_Drawing_RegionDestroy(region: *mut OH_Drawing_Region);
+}
+extern "C" {
+    #[doc = " @brief Set an <b>OH_Drawing_Region</b> empty.\n\n @param region Indicates the pointer to an <b>OH_Drawing_Region</b> object.\n @return Returns the error code.\n         Returns {@link OH_DRAWING_SUCCESS} if the operation is successful.\n         Returns {@link OH_DRAWING_ERROR_INCORRECT_PARAMETER} if region is nullptr.\n @since 22\n @version 1.0"]
+    #[cfg(feature = "api-22")]
+    pub fn OH_Drawing_RegionEmpty(region: *mut OH_Drawing_Region) -> OH_Drawing_ErrorCode;
 }
 extern "C" {
     #[doc = " @brief Defines an <b>OH_Drawing_RegisterFont</b>, which is used to register a customized font in the FontManager.\n\n @syscap SystemCapability.Graphic.Graphic2D.NativeDrawing\n @param OH_Drawing_FontCollection Indicates the pointer to an <b>OH_Drawing_FontCollection</b> object.\n @param fontFamily Indicates the family-name of the font which need to register.\n @param familySrc Indicates the path of the font file which need to register.\n @return error code.\n @since 11\n @version 1.0"]
@@ -5004,6 +5174,49 @@ pub const OH_Drawing_SystemFontType_CUSTOMIZED: OH_Drawing_SystemFontType = 16;
 #[doc = " @brief An enumeration of system font types.\n\n @since 14"]
 #[cfg(feature = "api-14")]
 pub type OH_Drawing_SystemFontType = u32;
+#[doc = " The file path of the font"]
+#[cfg(feature = "api-22")]
+pub const OH_Drawing_FontFullDescriptorAttributeId_FULL_DESCRIPTOR_ATTR_S_PATH:
+    OH_Drawing_FontFullDescriptorAttributeId = 0;
+#[doc = " A name that uniquely identifies the font"]
+#[cfg(feature = "api-22")]
+pub const OH_Drawing_FontFullDescriptorAttributeId_FULL_DESCRIPTOR_ATTR_S_POSTSCRIPT_NAME:
+    OH_Drawing_FontFullDescriptorAttributeId = 1;
+#[doc = " The full name of the font"]
+#[cfg(feature = "api-22")]
+pub const OH_Drawing_FontFullDescriptorAttributeId_FULL_DESCRIPTOR_ATTR_S_FULL_NAME:
+    OH_Drawing_FontFullDescriptorAttributeId = 2;
+#[doc = " The family name of the font"]
+#[cfg(feature = "api-22")]
+pub const OH_Drawing_FontFullDescriptorAttributeId_FULL_DESCRIPTOR_ATTR_S_FAMILY_NAME:
+    OH_Drawing_FontFullDescriptorAttributeId = 3;
+#[doc = " The subfont family of the font"]
+#[cfg(feature = "api-22")]
+pub const OH_Drawing_FontFullDescriptorAttributeId_FULL_DESCRIPTOR_ATTR_S_SUB_FAMILY_NAME:
+    OH_Drawing_FontFullDescriptorAttributeId = 4;
+#[doc = " The weight of the font"]
+#[cfg(feature = "api-22")]
+pub const OH_Drawing_FontFullDescriptorAttributeId_FULL_DESCRIPTOR_ATTR_I_WEIGHT:
+    OH_Drawing_FontFullDescriptorAttributeId = 5;
+#[doc = " The width of the font"]
+#[cfg(feature = "api-22")]
+pub const OH_Drawing_FontFullDescriptorAttributeId_FULL_DESCRIPTOR_ATTR_I_WIDTH:
+    OH_Drawing_FontFullDescriptorAttributeId = 6;
+#[doc = " Whether the font is tilted"]
+#[cfg(feature = "api-22")]
+pub const OH_Drawing_FontFullDescriptorAttributeId_FULL_DESCRIPTOR_ATTR_I_ITALIC:
+    OH_Drawing_FontFullDescriptorAttributeId = 7;
+#[doc = " Whether the font is monospaced"]
+#[cfg(feature = "api-22")]
+pub const OH_Drawing_FontFullDescriptorAttributeId_FULL_DESCRIPTOR_ATTR_B_MONO:
+    OH_Drawing_FontFullDescriptorAttributeId = 8;
+#[doc = " whether symbolic fonts are supported"]
+#[cfg(feature = "api-22")]
+pub const OH_Drawing_FontFullDescriptorAttributeId_FULL_DESCRIPTOR_ATTR_B_SYMBOLIC:
+    OH_Drawing_FontFullDescriptorAttributeId = 9;
+#[doc = " @brief An enumeration of font full descriptor attribute.\n\n @since 22"]
+#[cfg(feature = "api-22")]
+pub type OH_Drawing_FontFullDescriptorAttributeId = u32;
 extern "C" {
     #[doc = " @brief Obtain all system font descriptive symbols that match the specified font descriptor. Where the 'path'\n fields are not considered as valid matching values, It takes effect when the remaining fields are not\n default values, If all the fields of the parameters <b>OH_Drawing_FontDescriptor</b> are default, obtain all system\n font descriptors. If the match fails, return nullptr.\n\n @syscap SystemCapability.Graphic.Graphic2D.NativeDrawing\n @param desc The pointer to the <b>OH_Drawing_FontDescriptor</b> object. It is recommended to\n use <b>OH_Drawing_CreateFontDescriptor</b> to obtain a valid <b>OH_Drawing_FontDescriptor</b> instance.\n If you create your own <b>OH_Drawing_FontDescriptor</b> object, ensure that fields not intended for matching are\n set to their default values.\n @param num Indicates the count of obtained <b>OH_Drawing_FontDescriptor</b>.\n @return Returns an array of <b>OH_Drawing_FontDescriptor</b>. Released through the\n <b>OH_Drawing_DestroyFontDescriptors</b> interface after use.\n @since 18"]
     #[cfg(feature = "api-18")]
@@ -5047,6 +5260,61 @@ extern "C" {
     #[doc = " @brief Releases the memory occupied by an array of font full names.\n\n @syscap SystemCapability.Graphic.Graphic2D.NativeDrawing\n @param fullNameArray Indicates an array of full name object <b>OH_Drawing_Array</b>.\n @since 14"]
     #[cfg(feature = "api-14")]
     pub fn OH_Drawing_DestroySystemFontFullNames(fullNameArray: *mut OH_Drawing_Array);
+}
+extern "C" {
+    #[doc = " @brief Retrieves an array of font full descriptors from raw binary data.\n\n @param data Pointer to the raw binary font data buffer.\n @param size Size of the font data buffer in bytes.\n @return Returns a pointer to <b>OH_Drawing_Array</b> containing font full descriptors.\n         Returns <b>NULL</b> if the operation fails due to invalid data format or parsing errors.\n @since 22"]
+    #[cfg(feature = "api-22")]
+    pub fn OH_Drawing_GetFontFullDescriptorsFromStream(
+        data: *const ::std::os::raw::c_void,
+        size: usize,
+    ) -> *mut OH_Drawing_Array;
+}
+extern "C" {
+    #[doc = " @brief Obtains an array of font full descriptors from font file path.\n\n @param path The font file path.\n @return Returns a pointer to <b>OH_Drawing_Array</b> structure containing font full descriptors.\n         Returns <b>NULL</b> if no fonts are found, invalid path, no permission, or non-font file.\n @since 22"]
+    #[cfg(feature = "api-22")]
+    pub fn OH_Drawing_GetFontFullDescriptorsFromPath(
+        path: *const ::std::os::raw::c_char,
+    ) -> *mut OH_Drawing_Array;
+}
+extern "C" {
+    #[doc = " @brief Retrieves a font full descriptor from an array by index.\n\n @param descriptorArray Pointer to the array of font full descriptors <b>OH_Drawing_Array</b>.\n @param index Zero-based index position of the descriptor to retrieve.\n @return Returns a pointer to <b>OH_Drawing_FontFullDescriptor</b> at the specified index.\n         Returns <b>NULL</b> if the index is out of bounds or the array is invalid.\n @since 22"]
+    #[cfg(feature = "api-22")]
+    pub fn OH_Drawing_GetFontFullDescriptorByIndex(
+        descriptorArray: *mut OH_Drawing_Array,
+        index: usize,
+    ) -> *const OH_Drawing_FontFullDescriptor;
+}
+extern "C" {
+    #[doc = " @brief Releases the memory occupied by an array of font full descriptors.\n\n @param descriptorArray Pointer to the array of font full descriptors <b>OH_Drawing_Array</b>.\n @since 22"]
+    #[cfg(feature = "api-22")]
+    pub fn OH_Drawing_DestroyFontFullDescriptors(descriptorArray: *mut OH_Drawing_Array);
+}
+extern "C" {
+    #[doc = " @brief Retrieves an integer attribute value from a font full descriptor.\n\n @param descriptor Pointer to the font full descriptor <b>OH_Drawing_FontFullDescriptor</b>.\n @param id Attribute identifier from <b>OH_Drawing_FontFullDescriptorAttributeId</b> enumeration.\n @param value Output parameter to receive the requested integer attribute value.\n @return Returns the error code.\n         Returns <b>OH_DRAWING_SUCCESS</b> if the operation is successful.\n         Returns <b>OH_DRAWING_ERROR_INCORRECT_PARAMETER</b> if the descriptor or value is NULL.\n         Returns <b>OH_DRAWING_ERROR_ATTRIBUTE_ID_MISMATCH</b> if the attribute id is not recognized or supported.\n @since 22"]
+    #[cfg(feature = "api-22")]
+    pub fn OH_Drawing_GetFontFullDescriptorAttributeInt(
+        descriptor: *const OH_Drawing_FontFullDescriptor,
+        id: OH_Drawing_FontFullDescriptorAttributeId,
+        value: *mut ::std::os::raw::c_int,
+    ) -> OH_Drawing_ErrorCode;
+}
+extern "C" {
+    #[doc = " @brief Retrieves a boolean attribute value from a font full descriptor.\n\n @param descriptor Pointer to the font full descriptor <b>OH_Drawing_FontFullDescriptor</b>.\n @param id Attribute identifier from <b>OH_Drawing_FontFullDescriptorAttributeId</b> enumeration.\n @param value Output parameter to receive the requested boolean attribute value.\n @return Returns the error code.\n         Returns <b>OH_DRAWING_SUCCESS</b> if the operation is successful.\n         Returns <b>OH_DRAWING_ERROR_INCORRECT_PARAMETER</b> if the descriptor or value is NULL.\n         Returns <b>OH_DRAWING_ERROR_ATTRIBUTE_ID_MISMATCH</b> if the attribute id is not recognized or supported.\n @since 22"]
+    #[cfg(feature = "api-22")]
+    pub fn OH_Drawing_GetFontFullDescriptorAttributeBool(
+        descriptor: *const OH_Drawing_FontFullDescriptor,
+        id: OH_Drawing_FontFullDescriptorAttributeId,
+        value: *mut bool,
+    ) -> OH_Drawing_ErrorCode;
+}
+extern "C" {
+    #[doc = " @brief Retrieves a string attribute value from a font full descriptor.\n\n @note The caller is responsible for manually releasing the internal <b>strData</b> member of the\n       <b>OH_Drawing_String</b> structure when it is no longer needed.\n\n @param descriptor Pointer to the font full descriptor <b>OH_Drawing_FontFullDescriptor</b>.\n @param id Attribute identifier from <b>OH_Drawing_FontFullDescriptorAttributeId</b> enumeration.\n @param str Output parameter to receive pointer to the requested string attribute value.\n @return Returns the error code.\n         Returns <b>OH_DRAWING_SUCCESS</b> if the operation is successful.\n         Returns <b>OH_DRAWING_ERROR_INCORRECT_PARAMETER</b> if the descriptor or str is NULL.\n         Returns <b>OH_DRAWING_ERROR_ATTRIBUTE_ID_MISMATCH</b> if the attribute id is not recognized or supported.\n @since 22"]
+    #[cfg(feature = "api-22")]
+    pub fn OH_Drawing_GetFontFullDescriptorAttributeString(
+        descriptor: *const OH_Drawing_FontFullDescriptor,
+        id: OH_Drawing_FontFullDescriptorAttributeId,
+        str_: *mut OH_Drawing_String,
+    ) -> OH_Drawing_ErrorCode;
 }
 #[doc = " Follow system's high contrast settings for text rendering"]
 #[cfg(feature = "api-20")]

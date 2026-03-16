@@ -1118,7 +1118,7 @@ pub type ArkWeb_HttpBodyStreamReadCallback = ::std::option::Option<
         bytesRead: ::std::os::raw::c_int,
     ),
 >;
-#[doc = " @brief Callback when the read operation done.\n @param httpBodyStream The ArkWeb_HttpBodyStream.\n @param buffer The buffer to receive data.\n @param bytesRead Callback after OH_ArkWebHttpBodyStream_AsyncRead. bytesRead greater than 0 means that\n                  the buffer is filled with data of bytesRead size. Caller can read from the buffer, and if\n                  OH_ArkWebHttpBodyStream_IsEOF is false, caller can continue to read the remaining data.\n\n @syscap SystemCapability.Web.Webview.Core\n @since 20"]
+#[doc = " @brief Callback when the read operation done.\n @param httpBodyStream The ArkWeb_HttpBodyStream.\n @param buffer The buffer to receive data.\n @param bytesRead Callback after OH_ArkWebHttpBodyStream_AsyncRead. bytesRead greater than 0 means that\n                  the buffer is filled with data of bytesRead size. Caller can read from the buffer, and if\n                  OH_ArkWebHttpBodyStream_IsEOF is false, caller can continue to read the remaining data.\n\n @since 20"]
 #[cfg(feature = "api-20")]
 pub type ArkWeb_HttpBodyStreamAsyncReadCallback = ::std::option::Option<
     unsafe extern "C" fn(
@@ -1224,7 +1224,7 @@ extern "C" {
     ) -> i32;
 }
 extern "C" {
-    #[doc = " @brief Set the callback for OH_ArkWebHttpBodyStream_AsyncRead.\n\n The result of OH_ArkWebHttpBodyStream_AsyncRead will be notified to caller through the\\n\n readCallback. The callback will runs in the ArkWeb worker thread.\\n\n\n @param httpBodyStream The ArkWeb_HttpBodyStream.\n @param readCallback The callback of read function.\n @return {@link ARKWEB_NET_OK} 0 - Success.\n {@link ARKWEB_INVALID_PARAM} 17100101 - Invalid param.\n\n @syscap SystemCapability.Web.Webview.Core\n @since 20"]
+    #[doc = " @brief Set the callback for OH_ArkWebHttpBodyStream_AsyncRead.\n\n The result of OH_ArkWebHttpBodyStream_AsyncRead will be notified to caller through the\\n\n readCallback. The callback will runs in the ArkWeb worker thread.\\n\n\n @param httpBodyStream The ArkWeb_HttpBodyStream.\n @param readCallback The callback of read function.\n @return {@link ARKWEB_NET_OK} 0 - Success.\n {@link ARKWEB_INVALID_PARAM} 17100101 - Invalid param.\n\n @since 20"]
     #[cfg(feature = "api-20")]
     pub fn OH_ArkWebHttpBodyStream_SetAsyncReadCallback(
         httpBodyStream: *mut ArkWeb_HttpBodyStream,
@@ -1247,7 +1247,7 @@ extern "C" {
     );
 }
 extern "C" {
-    #[doc = " @brief Read the http body to the buffer.\n\n The buffer must be larger than the bufLen. We will read data from a worker thread to the buffer,\\n\n so should not use the buffer in other threads before the callback to avoid concurrency issues.\\n\n\n @param httpBodyStream The ArkWeb_HttpBodyStream.\n @param buffer The buffer to receive data.\n @param bufLen The size of bytes to read.\n\n @syscap SystemCapability.Web.Webview.Core\n @since 20"]
+    #[doc = " @brief Read the http body to the buffer.\n\n The buffer must be larger than the bufLen. We will read data from a worker thread to the buffer,\\n\n so should not use the buffer in other threads before the callback to avoid concurrency issues.\\n\n\n @param httpBodyStream The ArkWeb_HttpBodyStream.\n @param buffer The buffer to receive data.\n @param bufLen The size of bytes to read.\n\n @since 20"]
     #[cfg(feature = "api-20")]
     pub fn OH_ArkWebHttpBodyStream_AsyncRead(
         httpBodyStream: *const ArkWeb_HttpBodyStream,
@@ -1696,4 +1696,9 @@ extern "C" {
     #[doc = " Get currently active ArkWeb engine version.\n @return { ArkWebEngineVersion } Active ArkWeb Engine version as defined by ArkWebEngineVersion\n @since 20"]
     #[cfg(feature = "api-20")]
     pub fn OH_NativeArkWeb_GetActiveWebEngineVersion() -> ArkWebEngineVersion;
+}
+extern "C" {
+    #[doc = " Delays the initialization of the web engine. By default, the web engine is initialized when the CookieManager\n interface is called. By setting the 'lazy' parameter to true, the web engine will not be initialized when the\n CookieManager interface is called. Instead, the web engine will be initialized either when the web component is\n created or when initializeWebEngine is called.\n @param { bool } lazy - Controls whether to delay the initialization of the web engine.\n @since 22"]
+    #[cfg(feature = "api-22")]
+    pub fn OH_NativeArkWeb_LazyInitializeWebEngineInCookieManager(lazy: bool);
 }

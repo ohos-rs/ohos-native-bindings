@@ -54,7 +54,10 @@ static CONFIG: Lazy<Vec<Lazy<SysConfig>>> = Lazy::new(|| {
 /// Adds `#[cfg(feature = "api-XX")]` attributes based on `@since XX` annotations in doc comments.
 /// Only adds feature gates for API versions > BASELINE_API_VERSION.
 /// Returns the processed content and a set of API versions found (> baseline).
-fn add_feature_gates(content: &str) -> (String, BTreeSet<u32>) {
+fn add_feature_gates(
+    content: &str,
+    global_symbol_usage_min: Option<&HashMap<String, u32>>,
+) -> (String, BTreeSet<u32>, HashMap<String, u32>) {
     let fn_re = Regex::new(r"^pub fn\s+([A-Za-z_]\w*)\s*\(").unwrap();
     let const_re = Regex::new(r"^pub const\s+([A-Za-z_]\w*)\b").unwrap();
     let const_with_type_re =
@@ -160,6 +163,15 @@ fn add_feature_gates(content: &str) -> (String, BTreeSet<u32>) {
         &ident_re,
         &["type:", "enum:", "struct:"],
     );
+    if let Some(global_usage_min) = global_symbol_usage_min {
+        apply_global_symbol_usage_min_to_symbols(&mut min_since_by_key, global_usage_min);
+        relax_min_since_by_references(
+            &declaration_infos,
+            &mut min_since_by_key,
+            &ident_re,
+            &["type:", "enum:", "struct:"],
+        );
+    }
     let symbol_usage_min =
         collect_symbol_usage_min_since(&declaration_infos, &min_since_by_key, &ident_re);
 
@@ -248,7 +260,16 @@ fn add_feature_gates(content: &str) -> (String, BTreeSet<u32>) {
                 .or_else(|| key.strip_prefix("enum:"))
                 .or_else(|| key.strip_prefix("struct:"))
             {
-                if let Some(usage_min) = symbol_usage_min.get(name).copied() {
+                let local_usage_min = symbol_usage_min.get(name).copied();
+                let cross_file_usage_min =
+                    global_symbol_usage_min.and_then(|map| map.get(name).copied());
+                let usage_min = match (local_usage_min, cross_file_usage_min) {
+                    (Some(a), Some(b)) => Some(a.min(b)),
+                    (Some(a), None) => Some(a),
+                    (None, Some(b)) => Some(b),
+                    (None, None) => None,
+                };
+                if let Some(usage_min) = usage_min {
                     grouped_since = Some(match grouped_since {
                         Some(existing) => existing.min(usage_min),
                         None => usage_min,
@@ -352,7 +373,7 @@ fn add_feature_gates(content: &str) -> (String, BTreeSet<u32>) {
     }
 
     let normalized = normalize_cfg_lines(result);
-    (normalized.join("\n"), api_versions)
+    (normalized.join("\n"), api_versions, symbol_usage_min)
 }
 
 struct PendingConst {
@@ -626,6 +647,26 @@ fn collect_symbol_usage_min_since(
     usage_min
 }
 
+fn apply_global_symbol_usage_min_to_symbols(
+    min_since_by_key: &mut HashMap<String, u32>,
+    global_symbol_usage_min: &HashMap<String, u32>,
+) {
+    for (symbol, usage_min) in global_symbol_usage_min {
+        for prefix in ["type:", "enum:", "struct:"] {
+            let key = format!("{prefix}{symbol}");
+            if min_since_by_key.contains_key(&key) {
+                upsert_min(min_since_by_key, &key, *usage_min);
+            }
+        }
+    }
+}
+
+fn merge_symbol_usage_min(target: &mut HashMap<String, u32>, source: &HashMap<String, u32>) {
+    for (symbol, usage_min) in source {
+        upsert_min(target, symbol, *usage_min);
+    }
+}
+
 fn normalize_cfg_lines(lines: Vec<String>) -> Vec<String> {
     let cfg_api_re = Regex::new(r#"^\s*#\[cfg\(feature = "api-(\d+)"\)\]\s*$"#).unwrap();
     let mut deduped = Vec::with_capacity(lines.len());
@@ -797,7 +838,7 @@ fn brace_delta(trimmed: &str) -> i32 {
     opens - closes
 }
 
-fn generate_code(config: &SysConfig) -> anyhow::Result<()> {
+fn generate_code(config: &SysConfig) -> anyhow::Result<std::path::PathBuf> {
     let pwd = env::current_dir()?;
     let basic_folder = pwd
         .parent()
@@ -882,26 +923,43 @@ unsafe extern "C" {{}}"#,
     // Write to file first, then read and process to add feature gates
     bindings.write_to_file(&output_file)?;
 
-    // Read the generated content
-    let content = fs::read_to_string(&output_file)?;
-
-    // Add feature gates based on @since annotations
-    let (processed_content, _) = add_feature_gates(&content);
-
-    // Write the processed content back
-    fs::write(&output_file, processed_content)?;
-
-    Ok(())
+    Ok(output_file)
 }
 
 fn main() {
     let mut failed_configs = Vec::new();
-    CONFIG.iter().for_each(|i| {
-        if let Err(e) = generate_code(i) {
+    let mut generated_files = Vec::new();
+    CONFIG.iter().for_each(|i| match generate_code(i) {
+        Ok(output_file) => generated_files.push((i.name, output_file)),
+        Err(e) => {
             eprintln!("Failed to generate code for {}: {}", i.name, e);
             failed_configs.push(i.name);
         }
     });
+
+    let mut global_symbol_usage_min = HashMap::new();
+    let mut raw_outputs = Vec::new();
+    for (name, output_file) in generated_files {
+        match fs::read_to_string(&output_file) {
+            Ok(content) => {
+                let (_, _, local_usage_min) = add_feature_gates(&content, None);
+                merge_symbol_usage_min(&mut global_symbol_usage_min, &local_usage_min);
+                raw_outputs.push((name, output_file, content));
+            }
+            Err(e) => {
+                eprintln!("Failed to read generated code for {}: {}", name, e);
+                failed_configs.push(name);
+            }
+        }
+    }
+
+    for (name, output_file, content) in raw_outputs {
+        let (processed_content, _, _) = add_feature_gates(&content, Some(&global_symbol_usage_min));
+        if let Err(e) = fs::write(&output_file, processed_content) {
+            eprintln!("Failed to write generated code for {}: {}", name, e);
+            failed_configs.push(name);
+        }
+    }
 
     if !failed_configs.is_empty() {
         eprintln!("\nWarning: Failed to generate code for the following configs:");

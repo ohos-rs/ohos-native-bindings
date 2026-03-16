@@ -393,3 +393,9 @@ extern "C" {
     #[cfg(feature = "api-19")]
     pub fn OH_NativeWindow_CleanCache(window: *mut OHNativeWindow) -> i32;
 }
+extern "C" {
+    #[doc = " @brief PreAlloc <b>OHNativeWindowBuffer</b> of this <b>OHNativeWindow</b>\n This interface is a non-thread-safe type interface.\\n\n\n @syscap SystemCapability.Graphic.Graphic2D.NativeWindow\n @param window Indicates the pointer to a <b>OHNativeWindow</b> instance.\n @param allocBufferCnt Indicates the count of <b>OHNativeWindowBuffers</b>.\n @return Returns an error code, 0 is success, otherwise, failed.\n @since 22\n @version 1.0"]
+    #[cfg(feature = "api-22")]
+    pub fn OH_NativeWindow_PreAllocBuffers(window: *mut OHNativeWindow, allocBufferCnt: u32)
+        -> i32;
+}

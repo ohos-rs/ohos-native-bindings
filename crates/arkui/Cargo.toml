@@ -34,3 +34,5 @@ api-17 = ["api-16", "ohos-arkui-sys/api-17", "ohos-xcomponent-binding/api-17", "
 api-18 = ["api-17", "ohos-arkui-sys/api-18", "ohos-xcomponent-binding/api-18", "ohos-arkui-input-binding/api-18"]
 api-19 = ["api-18", "ohos-arkui-sys/api-19", "ohos-xcomponent-binding/api-19", "ohos-arkui-input-binding/api-19"]
 api-20 = ["api-19", "ohos-arkui-sys/api-20", "ohos-xcomponent-binding/api-20", "ohos-arkui-input-binding/api-20"]
+api-21 = ["api-20", "ohos-arkui-sys/api-21", "ohos-xcomponent-binding/api-21", "ohos-arkui-input-binding/api-21"]
+api-22 = ["api-21", "ohos-arkui-sys/api-22", "ohos-xcomponent-binding/api-22", "ohos-arkui-input-binding/api-22"]
