@@ -17,7 +17,7 @@ pub enum UIInputEvent {
 }
 
 #[derive(Debug, Clone, Copy, PartialEq, Eq, EnumFrom)]
-#[enum_from_config(_bindgen_ty_1, "UI_TOUCH_EVENT_ACTION_")]
+#[enum_from_config(UI_TOUCH_EVENT_ACTION, "UI_TOUCH_EVENT_ACTION_")]
 pub enum UIInputAction {
     Cancel,
     Down,
@@ -26,7 +26,7 @@ pub enum UIInputAction {
 }
 
 #[derive(Debug, Clone, Copy, PartialEq, Eq, EnumFrom)]
-#[enum_from_config(_bindgen_ty_2, "UI_INPUT_EVENT_TOOL_TYPE_")]
+#[enum_from_config(UI_INPUT_EVENT_TOOL_TYPE, "UI_INPUT_EVENT_TOOL_TYPE_")]
 pub enum UIInputToolType {
     Unknown,
     Finger,
@@ -37,7 +37,7 @@ pub enum UIInputToolType {
 }
 
 #[derive(Debug, Clone, Copy, PartialEq, Eq, EnumFrom)]
-#[enum_from_config(_bindgen_ty_3, "UI_INPUT_EVENT_SOURCE_TYPE_")]
+#[enum_from_config(UI_INPUT_EVENT_SOURCE_TYPE, "UI_INPUT_EVENT_SOURCE_TYPE_")]
 pub enum UIInputSourceType {
     Unknown,
     Mouse,
@@ -45,7 +45,7 @@ pub enum UIInputSourceType {
 }
 
 #[derive(Debug, Clone, Copy, PartialEq, Eq, EnumFrom)]
-#[enum_from_config(_bindgen_ty_4, "UI_MOUSE_EVENT_ACTION_")]
+#[enum_from_config(UI_MOUSE_EVENT_ACTION, "UI_MOUSE_EVENT_ACTION_")]
 pub enum UIMouseEventAction {
     Unknown,
     Press,
@@ -56,7 +56,7 @@ pub enum UIMouseEventAction {
 }
 
 #[derive(Debug, Clone, Copy, PartialEq, Eq, EnumFrom)]
-#[enum_from_config(_bindgen_ty_5, "UI_MOUSE_EVENT_BUTTON_")]
+#[enum_from_config(UI_MOUSE_EVENT_BUTTON, "UI_MOUSE_EVENT_BUTTON_")]
 pub enum UIMouseEventButton {
     None,
     Left,
@@ -68,7 +68,7 @@ pub enum UIMouseEventButton {
 
 #[cfg(feature = "api-15")]
 #[derive(Debug, Clone, Copy, PartialEq, Eq, EnumFrom)]
-#[enum_from_config(_bindgen_ty_6, "UI_FOCUS_AXIS_EVENT_ABS_")]
+#[enum_from_config(UI_FOCUS_AXIS_EVENT_ABS, "UI_FOCUS_AXIS_EVENT_ABS_")]
 pub enum UIFocusAxisEventAbs {
     X,
     Y,
@@ -81,7 +81,7 @@ pub enum UIFocusAxisEventAbs {
 
 #[cfg(feature = "api-15")]
 #[derive(Debug, Clone, Copy, PartialEq, Eq, EnumFrom)]
-#[enum_from_config(_bindgen_ty_7, "UI_AXIS_EVENT_ACTION_")]
+#[enum_from_config(UI_AXIS_EVENT_ACTION, "UI_AXIS_EVENT_ACTION_")]
 pub enum UIAxisEventAction {
     None,
     Begin,

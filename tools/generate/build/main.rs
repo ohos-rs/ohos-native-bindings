@@ -6,7 +6,7 @@ use crate::config::SysConfig;
 use anyhow::Error;
 use once_cell::sync::Lazy;
 use regex::Regex;
-use std::collections::{BTreeSet, HashMap};
+use std::collections::{BTreeSet, HashMap, HashSet};
 use std::env;
 use std::fs;
 use std::process::Command;
@@ -373,6 +373,7 @@ fn add_feature_gates(
     }
 
     let normalized = normalize_cfg_lines(result);
+    let normalized = insert_stable_aliases_for_bindgen_types(normalized);
     (normalized.join("\n"), api_versions, symbol_usage_min)
 }
 
@@ -664,6 +665,116 @@ fn apply_global_symbol_usage_min_to_symbols(
 fn merge_symbol_usage_min(target: &mut HashMap<String, u32>, source: &HashMap<String, u32>) {
     for (symbol, usage_min) in source {
         upsert_min(target, symbol, *usage_min);
+    }
+}
+
+fn insert_stable_aliases_for_bindgen_types(lines: Vec<String>) -> Vec<String> {
+    let bindgen_alias_re = Regex::new(r"^pub type (_bindgen_ty_\d+)\s*=\s*.+;$").unwrap();
+    let const_bindgen_alias_re =
+        Regex::new(r"^pub const ([A-Za-z_]\w*)\s*:\s*(_bindgen_ty_\d+)\s*=").unwrap();
+    let type_decl_re = Regex::new(r"^pub type ([A-Za-z_]\w*)\b").unwrap();
+
+    let mut existing_type_names = HashSet::new();
+    let mut alias_to_const_names: HashMap<String, Vec<String>> = HashMap::new();
+    for line in &lines {
+        let trimmed = line.trim();
+        if let Some(cap) = type_decl_re.captures(trimmed) {
+            existing_type_names.insert(cap[1].to_string());
+        }
+        if let Some(cap) = const_bindgen_alias_re.captures(trimmed) {
+            alias_to_const_names
+                .entry(cap[2].to_string())
+                .or_default()
+                .push(cap[1].to_string());
+        }
+    }
+
+    let mut alias_to_stable_name = HashMap::new();
+    for (alias, const_names) in alias_to_const_names {
+        let Some(common_prefix) = longest_common_prefix(&const_names) else {
+            continue;
+        };
+        let Some(pos) = common_prefix.rfind('_') else {
+            continue;
+        };
+        let base = common_prefix[..pos].trim_end_matches('_');
+        if base.is_empty() {
+            continue;
+        }
+        let stable_name = choose_unique_type_alias_name(base, &mut existing_type_names);
+        alias_to_stable_name.insert(alias, stable_name);
+    }
+    let mut result = Vec::with_capacity(lines.len() + alias_to_stable_name.len() * 2);
+    let mut pending_attrs: Vec<String> = Vec::new();
+    for line in lines {
+        let trimmed = line.trim();
+        if trimmed.starts_with("#[") {
+            pending_attrs.push(line);
+            continue;
+        }
+
+        let cfg_attrs: Vec<String> = pending_attrs
+            .iter()
+            .filter(|attr| attr.trim_start().starts_with("#[cfg"))
+            .cloned()
+            .collect();
+
+        result.extend(pending_attrs.drain(..));
+        result.push(line.clone());
+
+        if let Some(cap) = bindgen_alias_re.captures(trimmed) {
+            let alias = &cap[1];
+            if let Some(stable_name) = alias_to_stable_name.get(alias) {
+                let indent = line.len() - trimmed.len();
+                let indent_str = &line[..indent];
+                result.extend(cfg_attrs);
+                result.push(format!("{indent_str}pub type {stable_name} = {alias};"));
+            }
+        }
+    }
+
+    if !pending_attrs.is_empty() {
+        result.extend(pending_attrs);
+    }
+
+    result
+}
+
+fn longest_common_prefix(values: &[String]) -> Option<String> {
+    let first = values.first()?.clone();
+    let mut prefix = first;
+    for value in values.iter().skip(1) {
+        let bytes_a = prefix.as_bytes();
+        let bytes_b = value.as_bytes();
+        let mut idx = 0;
+        while idx < bytes_a.len() && idx < bytes_b.len() && bytes_a[idx] == bytes_b[idx] {
+            idx += 1;
+        }
+        prefix.truncate(idx);
+        if prefix.is_empty() {
+            break;
+        }
+    }
+    if prefix.is_empty() {
+        None
+    } else {
+        Some(prefix)
+    }
+}
+
+fn choose_unique_type_alias_name(base: &str, existing_type_names: &mut HashSet<String>) -> String {
+    let mut candidate = base.to_string();
+    if existing_type_names.insert(candidate.clone()) {
+        return candidate;
+    }
+
+    let mut index = 1;
+    loop {
+        candidate = format!("{base}_TYPE_{index}");
+        if existing_type_names.insert(candidate.clone()) {
+            return candidate;
+        }
+        index += 1;
     }
 }
 
