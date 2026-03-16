@@ -23,6 +23,8 @@ api-17 = ["api-16", "ohos-xcomponent-sys/api-17", "ohos-arkui-input-binding/api-
 api-18 = ["api-17", "ohos-xcomponent-sys/api-18", "ohos-arkui-input-binding/api-18"]
 api-19 = ["api-18", "ohos-xcomponent-sys/api-19", "ohos-arkui-input-binding/api-19"]
 api-20 = ["api-19", "ohos-xcomponent-sys/api-20", "ohos-arkui-input-binding/api-20"]
+api-21 = ["api-20", "ohos-xcomponent-sys/api-21", "ohos-arkui-input-binding/api-21"]
+api-22 = ["api-21", "ohos-xcomponent-sys/api-22", "ohos-arkui-input-binding/api-22"]
 
 [dependencies]
 napi-sys-ohos            = { workspace = true }
