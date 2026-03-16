@@ -1,9 +1,7 @@
 use std::os::raw::c_void;
 
-use crate::{
-    check_arkui_status, ArkUIError, ArkUIErrorCode, ArkUINode, ArkUIResult,
-    ARK_UI_NATIVE_NODE_API_1,
-};
+use crate::{check_arkui_status, ArkUIError, ArkUINode, ArkUIResult, ARK_UI_NATIVE_NODE_API_1};
+use ohos_arkui_input_binding::ArkUIErrorCode;
 use ohos_arkui_sys::{OH_ArkUI_NodeContent_AddNode, OH_ArkUI_NodeContent_RemoveNode};
 
 #[cfg(not(feature = "napi"))]

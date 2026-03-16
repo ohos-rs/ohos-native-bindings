@@ -134,14 +134,12 @@ pub struct OH_PixelmapNative {
 #[doc = " @brief Defines the pointer to OH_PixelmapNative.\n\n @since 12"]
 pub type OH_PixelmapNativeHandle = *mut OH_PixelmapNative;
 #[doc = " @brief Defines the ArkUI native component object.\n\n @since 22"]
-#[cfg(feature = "api-22")]
 #[repr(C)]
 #[derive(Debug, Copy, Clone)]
 pub struct ArkUI_Node {
     _unused: [u8; 0],
 }
 #[doc = " @brief Defines the pointer to the ArkUI native component object.\n\n @since 22"]
-#[cfg(feature = "api-22")]
 pub type ArkUI_NodeHandle = *mut ArkUI_Node;
 #[repr(C)]
 #[derive(Debug, Copy, Clone)]

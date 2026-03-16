@@ -1,24 +1,6 @@
 #[cfg(feature = "napi")]
 use napi_ohos::{Error, Result};
-use ohos_arkui_sys::*;
-use ohos_enum_macro::EnumFrom;
-
-#[derive(Debug, EnumFrom)]
-#[enum_from_config(ArkUI_ErrorCode, "ArkUI_ErrorCode_ARKUI_ERROR_CODE_")]
-pub enum ArkUIErrorCode {
-    ParamInvalid,
-    AttributeOrEventNotSupported,
-    ArkTSNodeNotSupported,
-    AdapterNotBound,
-    AdapterExist,
-    ChildNodeExist,
-    NodeEventParamIndexOutOfRange,
-    NodeEventParamInvalid,
-    NodeIndexInvalid,
-    BufferSizeError,
-    NonScrollableContainer,
-    BufferSizeNotEnough,
-}
+use ohos_arkui_input_binding::ArkUIErrorCode;
 
 #[cfg(not(feature = "napi"))]
 pub struct ArkUIError {
@@ -50,25 +32,6 @@ impl ArkUIError {
     }
 }
 
-impl AsRef<str> for ArkUIErrorCode {
-    fn as_ref(&self) -> &str {
-        match self {
-            ArkUIErrorCode::AdapterExist => "AdapterExist",
-            ArkUIErrorCode::AdapterNotBound => "AdapterNotBound",
-            ArkUIErrorCode::ArkTSNodeNotSupported => "ArkTSNodeNotSupported",
-            ArkUIErrorCode::AttributeOrEventNotSupported => "AttributeOrEventNotSupported",
-            ArkUIErrorCode::BufferSizeError => "BufferSizeError",
-            ArkUIErrorCode::BufferSizeNotEnough => "BufferSizeNotEnough",
-            ArkUIErrorCode::ChildNodeExist => "ChildNodeExist",
-            ArkUIErrorCode::NonScrollableContainer => "NonScrollableContainer",
-            ArkUIErrorCode::NodeEventParamIndexOutOfRange => "NodeEventParamIndexOutOfRange",
-            ArkUIErrorCode::NodeEventParamInvalid => "NodeEventParamInvalid",
-            ArkUIErrorCode::NodeIndexInvalid => "NodeIndexInvalid",
-            ArkUIErrorCode::ParamInvalid => "ParamInvalid",
-        }
-    }
-}
-
 #[cfg(not(feature = "napi"))]
 /// This type is used for ArkUI result.
 pub type ArkUIResult<T> = Result<T, ArkUIError>;
@@ -85,7 +48,7 @@ macro_rules! check_arkui_status {
   ($code:expr) => {{
     let c = $code as u32;
     match c {
-      ohos_arkui_sys::ArkUI_ErrorCode_ARKUI_ERROR_CODE_NO_ERROR => Ok(()),
+      ohos_arkui_input_binding::sys::ArkUI_ErrorCode_ARKUI_ERROR_CODE_NO_ERROR => Ok(()),
       _ => Err($crate::ArkUIError::new(c.into(), "".to_owned())),
     }
   }};
@@ -93,7 +56,7 @@ macro_rules! check_arkui_status {
   ($code:expr, $($msg:tt)*) => {{
     let c = $code as u32;
     match c {
-      ohos_arkui_sys::ArkUI_ErrorCode_ARKUI_ERROR_CODE_NO_ERROR => Ok(()),
+        ohos_arkui_input_binding::sys::ArkUI_ErrorCode_ARKUI_ERROR_CODE_NO_ERROR => Ok(()),
       _ => Err($crate::ArkUIError::new(c.into(), format!($($msg)*))),
     }
   }};

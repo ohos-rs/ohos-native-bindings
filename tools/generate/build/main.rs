@@ -6,7 +6,7 @@ use crate::config::SysConfig;
 use anyhow::Error;
 use once_cell::sync::Lazy;
 use regex::Regex;
-use std::collections::{BTreeSet, HashMap};
+use std::collections::{BTreeSet, HashMap, HashSet};
 use std::env;
 use std::fs;
 use std::process::Command;
@@ -47,13 +47,17 @@ static CONFIG: Lazy<Vec<Lazy<SysConfig>>> = Lazy::new(|| {
         config::FILEURI,
         config::FILESHARE,
         config::DRAWING,
+        config::ARKUI_INPUT,
     ]
 });
 
 /// Adds `#[cfg(feature = "api-XX")]` attributes based on `@since XX` annotations in doc comments.
 /// Only adds feature gates for API versions > BASELINE_API_VERSION.
 /// Returns the processed content and a set of API versions found (> baseline).
-fn add_feature_gates(content: &str) -> (String, BTreeSet<u32>) {
+fn add_feature_gates(
+    content: &str,
+    global_symbol_usage_min: Option<&HashMap<String, u32>>,
+) -> (String, BTreeSet<u32>, HashMap<String, u32>) {
     let fn_re = Regex::new(r"^pub fn\s+([A-Za-z_]\w*)\s*\(").unwrap();
     let const_re = Regex::new(r"^pub const\s+([A-Za-z_]\w*)\b").unwrap();
     let const_with_type_re =
@@ -159,6 +163,15 @@ fn add_feature_gates(content: &str) -> (String, BTreeSet<u32>) {
         &ident_re,
         &["type:", "enum:", "struct:"],
     );
+    if let Some(global_usage_min) = global_symbol_usage_min {
+        apply_global_symbol_usage_min_to_symbols(&mut min_since_by_key, global_usage_min);
+        relax_min_since_by_references(
+            &declaration_infos,
+            &mut min_since_by_key,
+            &ident_re,
+            &["type:", "enum:", "struct:"],
+        );
+    }
     let symbol_usage_min =
         collect_symbol_usage_min_since(&declaration_infos, &min_since_by_key, &ident_re);
 
@@ -247,7 +260,16 @@ fn add_feature_gates(content: &str) -> (String, BTreeSet<u32>) {
                 .or_else(|| key.strip_prefix("enum:"))
                 .or_else(|| key.strip_prefix("struct:"))
             {
-                if let Some(usage_min) = symbol_usage_min.get(name).copied() {
+                let local_usage_min = symbol_usage_min.get(name).copied();
+                let cross_file_usage_min =
+                    global_symbol_usage_min.and_then(|map| map.get(name).copied());
+                let usage_min = match (local_usage_min, cross_file_usage_min) {
+                    (Some(a), Some(b)) => Some(a.min(b)),
+                    (Some(a), None) => Some(a),
+                    (None, Some(b)) => Some(b),
+                    (None, None) => None,
+                };
+                if let Some(usage_min) = usage_min {
                     grouped_since = Some(match grouped_since {
                         Some(existing) => existing.min(usage_min),
                         None => usage_min,
@@ -351,7 +373,8 @@ fn add_feature_gates(content: &str) -> (String, BTreeSet<u32>) {
     }
 
     let normalized = normalize_cfg_lines(result);
-    (normalized.join("\n"), api_versions)
+    let normalized = insert_stable_aliases_for_bindgen_types(normalized);
+    (normalized.join("\n"), api_versions, symbol_usage_min)
 }
 
 struct PendingConst {
@@ -625,6 +648,136 @@ fn collect_symbol_usage_min_since(
     usage_min
 }
 
+fn apply_global_symbol_usage_min_to_symbols(
+    min_since_by_key: &mut HashMap<String, u32>,
+    global_symbol_usage_min: &HashMap<String, u32>,
+) {
+    for (symbol, usage_min) in global_symbol_usage_min {
+        for prefix in ["type:", "enum:", "struct:"] {
+            let key = format!("{prefix}{symbol}");
+            if min_since_by_key.contains_key(&key) {
+                upsert_min(min_since_by_key, &key, *usage_min);
+            }
+        }
+    }
+}
+
+fn merge_symbol_usage_min(target: &mut HashMap<String, u32>, source: &HashMap<String, u32>) {
+    for (symbol, usage_min) in source {
+        upsert_min(target, symbol, *usage_min);
+    }
+}
+
+fn insert_stable_aliases_for_bindgen_types(lines: Vec<String>) -> Vec<String> {
+    let bindgen_alias_re = Regex::new(r"^pub type (_bindgen_ty_\d+)\s*=\s*.+;$").unwrap();
+    let const_bindgen_alias_re =
+        Regex::new(r"^pub const ([A-Za-z_]\w*)\s*:\s*(_bindgen_ty_\d+)\s*=").unwrap();
+    let type_decl_re = Regex::new(r"^pub type ([A-Za-z_]\w*)\b").unwrap();
+
+    let mut existing_type_names = HashSet::new();
+    let mut alias_to_const_names: HashMap<String, Vec<String>> = HashMap::new();
+    for line in &lines {
+        let trimmed = line.trim();
+        if let Some(cap) = type_decl_re.captures(trimmed) {
+            existing_type_names.insert(cap[1].to_string());
+        }
+        if let Some(cap) = const_bindgen_alias_re.captures(trimmed) {
+            alias_to_const_names
+                .entry(cap[2].to_string())
+                .or_default()
+                .push(cap[1].to_string());
+        }
+    }
+
+    let mut alias_to_stable_name = HashMap::new();
+    for (alias, const_names) in alias_to_const_names {
+        let Some(common_prefix) = longest_common_prefix(&const_names) else {
+            continue;
+        };
+        let Some(pos) = common_prefix.rfind('_') else {
+            continue;
+        };
+        let base = common_prefix[..pos].trim_end_matches('_');
+        if base.is_empty() {
+            continue;
+        }
+        let stable_name = choose_unique_type_alias_name(base, &mut existing_type_names);
+        alias_to_stable_name.insert(alias, stable_name);
+    }
+    let mut result = Vec::with_capacity(lines.len() + alias_to_stable_name.len() * 2);
+    let mut pending_attrs: Vec<String> = Vec::new();
+    for line in lines {
+        let trimmed = line.trim();
+        if trimmed.starts_with("#[") {
+            pending_attrs.push(line);
+            continue;
+        }
+
+        let cfg_attrs: Vec<String> = pending_attrs
+            .iter()
+            .filter(|attr| attr.trim_start().starts_with("#[cfg"))
+            .cloned()
+            .collect();
+
+        result.extend(pending_attrs.drain(..));
+        result.push(line.clone());
+
+        if let Some(cap) = bindgen_alias_re.captures(trimmed) {
+            let alias = &cap[1];
+            if let Some(stable_name) = alias_to_stable_name.get(alias) {
+                let indent = line.len() - trimmed.len();
+                let indent_str = &line[..indent];
+                result.extend(cfg_attrs);
+                result.push(format!("{indent_str}pub type {stable_name} = {alias};"));
+            }
+        }
+    }
+
+    if !pending_attrs.is_empty() {
+        result.extend(pending_attrs);
+    }
+
+    result
+}
+
+fn longest_common_prefix(values: &[String]) -> Option<String> {
+    let first = values.first()?.clone();
+    let mut prefix = first;
+    for value in values.iter().skip(1) {
+        let bytes_a = prefix.as_bytes();
+        let bytes_b = value.as_bytes();
+        let mut idx = 0;
+        while idx < bytes_a.len() && idx < bytes_b.len() && bytes_a[idx] == bytes_b[idx] {
+            idx += 1;
+        }
+        prefix.truncate(idx);
+        if prefix.is_empty() {
+            break;
+        }
+    }
+    if prefix.is_empty() {
+        None
+    } else {
+        Some(prefix)
+    }
+}
+
+fn choose_unique_type_alias_name(base: &str, existing_type_names: &mut HashSet<String>) -> String {
+    let mut candidate = base.to_string();
+    if existing_type_names.insert(candidate.clone()) {
+        return candidate;
+    }
+
+    let mut index = 1;
+    loop {
+        candidate = format!("{base}_TYPE_{index}");
+        if existing_type_names.insert(candidate.clone()) {
+            return candidate;
+        }
+        index += 1;
+    }
+}
+
 fn normalize_cfg_lines(lines: Vec<String>) -> Vec<String> {
     let cfg_api_re = Regex::new(r#"^\s*#\[cfg\(feature = "api-(\d+)"\)\]\s*$"#).unwrap();
     let mut deduped = Vec::with_capacity(lines.len());
@@ -796,7 +949,7 @@ fn brace_delta(trimmed: &str) -> i32 {
     opens - closes
 }
 
-fn generate_code(config: &SysConfig) -> anyhow::Result<()> {
+fn generate_code(config: &SysConfig) -> anyhow::Result<std::path::PathBuf> {
     let pwd = env::current_dir()?;
     let basic_folder = pwd
         .parent()
@@ -881,26 +1034,43 @@ unsafe extern "C" {{}}"#,
     // Write to file first, then read and process to add feature gates
     bindings.write_to_file(&output_file)?;
 
-    // Read the generated content
-    let content = fs::read_to_string(&output_file)?;
-
-    // Add feature gates based on @since annotations
-    let (processed_content, _) = add_feature_gates(&content);
-
-    // Write the processed content back
-    fs::write(&output_file, processed_content)?;
-
-    Ok(())
+    Ok(output_file)
 }
 
 fn main() {
     let mut failed_configs = Vec::new();
-    CONFIG.iter().for_each(|i| {
-        if let Err(e) = generate_code(i) {
+    let mut generated_files = Vec::new();
+    CONFIG.iter().for_each(|i| match generate_code(i) {
+        Ok(output_file) => generated_files.push((i.name, output_file)),
+        Err(e) => {
             eprintln!("Failed to generate code for {}: {}", i.name, e);
             failed_configs.push(i.name);
         }
     });
+
+    let mut global_symbol_usage_min = HashMap::new();
+    let mut raw_outputs = Vec::new();
+    for (name, output_file) in generated_files {
+        match fs::read_to_string(&output_file) {
+            Ok(content) => {
+                let (_, _, local_usage_min) = add_feature_gates(&content, None);
+                merge_symbol_usage_min(&mut global_symbol_usage_min, &local_usage_min);
+                raw_outputs.push((name, output_file, content));
+            }
+            Err(e) => {
+                eprintln!("Failed to read generated code for {}: {}", name, e);
+                failed_configs.push(name);
+            }
+        }
+    }
+
+    for (name, output_file, content) in raw_outputs {
+        let (processed_content, _, _) = add_feature_gates(&content, Some(&global_symbol_usage_min));
+        if let Err(e) = fs::write(&output_file, processed_content) {
+            eprintln!("Failed to write generated code for {}: {}", name, e);
+            failed_configs.push(name);
+        }
+    }
 
     if !failed_configs.is_empty() {
         eprintln!("\nWarning: Failed to generate code for the following configs:");
