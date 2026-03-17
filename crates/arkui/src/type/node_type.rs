@@ -24,6 +24,10 @@ pub enum ArkUINodeType {
     Slider,
     Radio,
     ImageAnimator,
+    #[cfg(feature = "api-18")]
+    XComponentTexture,
+    #[cfg(feature = "api-15")]
+    CheckboxGroup,
     Stack,
     Swiper,
     Scroll,
@@ -40,4 +44,8 @@ pub enum ArkUINodeType {
     Grid,
     GridItem,
     CustomSpan,
+    #[cfg(feature = "api-20")]
+    EmbeddedComponent,
+    #[cfg(feature = "api-20")]
+    Undefined,
 }

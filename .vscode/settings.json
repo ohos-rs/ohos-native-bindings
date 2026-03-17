@@ -1,3 +1,14 @@
 {
-    "rust-analyzer.cargo.target": "aarch64-unknown-linux-ohos"
+    "rust-analyzer.cargo.target": "aarch64-unknown-linux-ohos",
+    "editor.gotoLocation.alternativeDeclarationCommand": "editor.action.revealDefinition",
+    "editor.gotoLocation.alternativeDefinitionCommand": "editor.action.revealDefinition",
+    "editor.gotoLocation.alternativeTypeDefinitionCommand": "editor.action.revealDefinition",
+    "editor.selectionHighlight": false,
+    "files.autoSave": "onFocusChange",
+    "editor.suggest.snippetsPreventQuickSuggestions": false,
+    "editor.quickSuggestions": {
+        "other": "on",
+        "comments": "off",
+        "strings": "on"
+    }
 }

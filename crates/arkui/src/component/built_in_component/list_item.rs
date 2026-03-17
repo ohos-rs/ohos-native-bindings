@@ -1,38 +1,21 @@
-use crate::{
-    ArkUIAttributeBasic, ArkUICommonAttribute, ArkUIEvent, ArkUIGesture, ArkUINode, ArkUINodeType,
-    ArkUIResult, ARK_UI_NATIVE_NODE_API_1,
-};
+// BEGIN_GENERATED_COMPONENT_METHODS_ListItem
+impl super::ListItem {
+    pub fn set_list_item_swipe_action<T: Into<crate::ArkUINodeAttributeItem>>(
+        &self,
+        value: T,
+    ) -> crate::ArkUIResult<()> {
+        <Self as crate::ArkUICommonAttribute>::set_attribute(
+            self,
+            crate::ArkUINodeAttributeType::ListItemSwipeAction,
+            value.into(),
+        )
+    }
 
-pub struct ListItem(ArkUINode);
-
-impl ListItem {
-    pub fn new() -> ArkUIResult<Self> {
-        let list_item =
-            ARK_UI_NATIVE_NODE_API_1.with(|api| api.create_node(ArkUINodeType::ListItem))?;
-        Ok(Self(ArkUINode {
-            raw: list_item,
-            tag: ArkUINodeType::ListItem,
-            ..Default::default()
-        }))
+    pub fn get_list_item_swipe_action(&self) -> crate::ArkUIResult<crate::ArkUINodeAttributeItem> {
+        <Self as crate::ArkUICommonAttribute>::get_attribute(
+            self,
+            crate::ArkUINodeAttributeType::ListItemSwipeAction,
+        )
     }
 }
-
-impl From<ListItem> for ArkUINode {
-    fn from(list_item: ListItem) -> Self {
-        list_item.0
-    }
-}
-
-impl ArkUIAttributeBasic for ListItem {
-    fn raw(&self) -> &ArkUINode {
-        &self.0
-    }
-
-    fn borrow_mut(&mut self) -> &mut ArkUINode {
-        &mut self.0
-    }
-}
-
-impl ArkUICommonAttribute for ListItem {}
-impl ArkUIEvent for ListItem {}
-impl ArkUIGesture for ListItem {}
+// END_GENERATED_COMPONENT_METHODS_ListItem

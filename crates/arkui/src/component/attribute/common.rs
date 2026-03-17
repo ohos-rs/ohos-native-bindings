@@ -1,8 +1,8 @@
 use std::{cell::RefCell, os::raw::c_void, rc::Rc};
 
 use crate::{
-    ArkUINode, ArkUINodeAttributeItem, ArkUINodeAttributeNumber, ArkUIResult,
-    ARK_UI_NATIVE_NODE_API_1,
+    ArkUINode, ArkUINodeAttributeItem, ArkUINodeAttributeNumber, ArkUINodeAttributeType,
+    ArkUIResult, ARK_UI_NATIVE_NODE_API_1,
 };
 
 pub trait ArkUIAttributeBasic {
@@ -15,74 +15,104 @@ pub trait ArkUIAttributeBasic {
 /// This trait is used to set common attribute for node.
 /// Every node should implement this trait, include the custom node.
 pub trait ArkUICommonAttribute: ArkUIAttributeBasic {
+    fn set_attribute(
+        &self,
+        attribute: ArkUINodeAttributeType,
+        value: ArkUINodeAttributeItem,
+    ) -> ArkUIResult<()> {
+        ARK_UI_NATIVE_NODE_API_1.with(|api| api.set_attribute(self.raw(), attribute, value))
+    }
+
+    fn get_attribute(
+        &self,
+        attribute: ArkUINodeAttributeType,
+    ) -> ArkUIResult<ArkUINodeAttributeItem> {
+        ARK_UI_NATIVE_NODE_API_1.with(|api| api.get_attribute(self.raw(), attribute))
+    }
+
+    fn set_number_attribute(
+        &self,
+        attribute: ArkUINodeAttributeType,
+        values: Vec<ArkUINodeAttributeNumber>,
+    ) -> ArkUIResult<()> {
+        self.set_attribute(attribute, ArkUINodeAttributeItem::NumberValue(values))
+    }
+
+    fn set_i32_attribute(&self, attribute: ArkUINodeAttributeType, value: i32) -> ArkUIResult<()> {
+        self.set_number_attribute(attribute, vec![ArkUINodeAttributeNumber::Int(value)])
+    }
+
+    fn set_u32_attribute(&self, attribute: ArkUINodeAttributeType, value: u32) -> ArkUIResult<()> {
+        self.set_number_attribute(attribute, vec![ArkUINodeAttributeNumber::Uint(value)])
+    }
+
+    fn set_f32_attribute(&self, attribute: ArkUINodeAttributeType, value: f32) -> ArkUIResult<()> {
+        self.set_number_attribute(attribute, vec![ArkUINodeAttributeNumber::Float(value)])
+    }
+
+    fn set_bool_attribute(
+        &self,
+        attribute: ArkUINodeAttributeType,
+        value: bool,
+    ) -> ArkUIResult<()> {
+        self.set_i32_attribute(attribute, if value { 1 } else { 0 })
+    }
+
+    fn set_string_attribute<T: Into<String>>(
+        &self,
+        attribute: ArkUINodeAttributeType,
+        value: T,
+    ) -> ArkUIResult<()> {
+        self.set_attribute(attribute, ArkUINodeAttributeItem::String(value.into()))
+    }
+
+    fn set_object_attribute(
+        &self,
+        attribute: ArkUINodeAttributeType,
+        value: *mut ::std::os::raw::c_void,
+    ) -> ArkUIResult<()> {
+        self.set_attribute(attribute, ArkUINodeAttributeItem::Object(value))
+    }
+
     /// Set node height
     fn width(&self, width: f32) -> ArkUIResult<()> {
-        let width_property: ArkUINodeAttributeItem =
-            ArkUINodeAttributeItem::NumberValue(vec![ArkUINodeAttributeNumber::Float(width)]);
-        ARK_UI_NATIVE_NODE_API_1.with(|api| {
-            api.set_attribute(
-                self.raw(),
-                crate::ArkUINodeAttributeType::Width,
-                width_property,
-            )
-        })?;
-        Ok(())
+        self.set_f32_attribute(crate::ArkUINodeAttributeType::Width, width)
     }
 
     /// Set node height
     fn height(&self, height: f32) -> ArkUIResult<()> {
-        let height_property =
-            ArkUINodeAttributeItem::NumberValue(vec![ArkUINodeAttributeNumber::Float(height)]);
-        ARK_UI_NATIVE_NODE_API_1.with(|api| {
-            api.set_attribute(
-                self.raw(),
-                crate::ArkUINodeAttributeType::Height,
-                height_property,
-            )
-        })?;
-        Ok(())
+        self.set_f32_attribute(crate::ArkUINodeAttributeType::Height, height)
     }
 
     /// Set percent width
     fn percent_width(&self, width: f32) -> ArkUIResult<()> {
-        let percent_width_property =
-            ArkUINodeAttributeItem::NumberValue(vec![ArkUINodeAttributeNumber::Float(width)]);
-        ARK_UI_NATIVE_NODE_API_1.with(|api| {
-            api.set_attribute(
-                self.raw(),
-                crate::ArkUINodeAttributeType::WidthPercent,
-                percent_width_property,
-            )
-        })?;
-        Ok(())
+        self.set_f32_attribute(crate::ArkUINodeAttributeType::WidthPercent, width)
     }
 
     /// Set percent height
     fn percent_height(&self, height: f32) -> ArkUIResult<()> {
-        let percent_height_property =
-            ArkUINodeAttributeItem::NumberValue(vec![ArkUINodeAttributeNumber::Float(height)]);
-        ARK_UI_NATIVE_NODE_API_1.with(|api| {
-            api.set_attribute(
-                self.raw(),
-                crate::ArkUINodeAttributeType::HeightPercent,
-                percent_height_property,
-            )
-        })?;
-        Ok(())
+        self.set_f32_attribute(crate::ArkUINodeAttributeType::HeightPercent, height)
     }
 
     /// Set background-color
     fn background_color(&self, color: u32) -> ArkUIResult<()> {
-        let background_color_property =
-            ArkUINodeAttributeItem::NumberValue(vec![ArkUINodeAttributeNumber::Uint(color)]);
-        ARK_UI_NATIVE_NODE_API_1.with(|api| {
-            api.set_attribute(
-                self.raw(),
-                crate::ArkUINodeAttributeType::BackgroundColor,
-                background_color_property,
-            )
-        })?;
-        Ok(())
+        self.set_u32_attribute(crate::ArkUINodeAttributeType::BackgroundColor, color)
+    }
+
+    fn opacity(&self, opacity: f32) -> ArkUIResult<()> {
+        self.set_f32_attribute(crate::ArkUINodeAttributeType::Opacity, opacity)
+    }
+
+    fn enabled(&self, enabled: bool) -> ArkUIResult<()> {
+        self.set_bool_attribute(crate::ArkUINodeAttributeType::Enabled, enabled)
+    }
+
+    fn id<T: Into<String>>(&self, id: T) -> ArkUIResult<()> {
+        self.set_string_attribute(crate::ArkUINodeAttributeType::Id, id)
+    }
+
+    fn z_index(&self, z_index: i32) -> ArkUIResult<()> {
+        self.set_i32_attribute(crate::ArkUINodeAttributeType::ZIndex, z_index)
     }
 
     /// Remove child node

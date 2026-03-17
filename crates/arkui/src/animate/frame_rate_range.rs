@@ -18,6 +18,10 @@ impl AnimationFrameRateRange {
         inner.to_owned()
     }
 
+    pub fn from_raw(raw: ArkUI_ExpectedFrameRateRange) -> Self {
+        Self(Rc::new(RefCell::new(raw)))
+    }
+
     pub fn min(&self, min: u32) {
         let mut inner = self.0.borrow_mut();
         inner.min = min;

@@ -21,6 +21,97 @@ pub enum ArkUINodeAttributeItem {
     Object(*mut ::std::os::raw::c_void),
 }
 
+impl From<ArkUINodeAttributeNumber> for ArkUINodeAttributeItem {
+    fn from(value: ArkUINodeAttributeNumber) -> Self {
+        Self::NumberValue(vec![value])
+    }
+}
+
+impl From<Vec<ArkUINodeAttributeNumber>> for ArkUINodeAttributeItem {
+    fn from(value: Vec<ArkUINodeAttributeNumber>) -> Self {
+        Self::NumberValue(value)
+    }
+}
+
+impl From<f32> for ArkUINodeAttributeItem {
+    fn from(value: f32) -> Self {
+        Self::NumberValue(vec![ArkUINodeAttributeNumber::Float(value)])
+    }
+}
+
+impl From<i32> for ArkUINodeAttributeItem {
+    fn from(value: i32) -> Self {
+        Self::NumberValue(vec![ArkUINodeAttributeNumber::Int(value)])
+    }
+}
+
+impl From<u32> for ArkUINodeAttributeItem {
+    fn from(value: u32) -> Self {
+        Self::NumberValue(vec![ArkUINodeAttributeNumber::Uint(value)])
+    }
+}
+
+impl From<bool> for ArkUINodeAttributeItem {
+    fn from(value: bool) -> Self {
+        Self::NumberValue(vec![ArkUINodeAttributeNumber::Int(if value {
+            1
+        } else {
+            0
+        })])
+    }
+}
+
+impl From<Vec<f32>> for ArkUINodeAttributeItem {
+    fn from(value: Vec<f32>) -> Self {
+        Self::NumberValue(
+            value
+                .into_iter()
+                .map(ArkUINodeAttributeNumber::Float)
+                .collect(),
+        )
+    }
+}
+
+impl From<Vec<i32>> for ArkUINodeAttributeItem {
+    fn from(value: Vec<i32>) -> Self {
+        Self::NumberValue(
+            value
+                .into_iter()
+                .map(ArkUINodeAttributeNumber::Int)
+                .collect(),
+        )
+    }
+}
+
+impl From<Vec<u32>> for ArkUINodeAttributeItem {
+    fn from(value: Vec<u32>) -> Self {
+        Self::NumberValue(
+            value
+                .into_iter()
+                .map(ArkUINodeAttributeNumber::Uint)
+                .collect(),
+        )
+    }
+}
+
+impl From<&str> for ArkUINodeAttributeItem {
+    fn from(value: &str) -> Self {
+        Self::String(value.to_string())
+    }
+}
+
+impl From<String> for ArkUINodeAttributeItem {
+    fn from(value: String) -> Self {
+        Self::String(value)
+    }
+}
+
+impl From<*mut ::std::os::raw::c_void> for ArkUINodeAttributeItem {
+    fn from(value: *mut ::std::os::raw::c_void) -> Self {
+        Self::Object(value)
+    }
+}
+
 impl From<ArkUINodeAttributeItem> for ArkUI_AttributeItem {
     fn from(value: ArkUINodeAttributeItem) -> Self {
         match value {

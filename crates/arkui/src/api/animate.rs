@@ -3,8 +3,8 @@ use std::{cell::LazyCell, ffi::CString};
 use ohos_arkui_input_binding::ArkUIErrorCode;
 use ohos_arkui_sys::{
     ArkUI_AnimateCompleteCallback, ArkUI_AnimateOption, ArkUI_ContextCallback, ArkUI_ContextHandle,
-    ArkUI_NativeAPIVariantKind_ARKUI_NATIVE_ANIMATE, ArkUI_NativeAnimateAPI_1,
-    OH_ArkUI_QueryModuleInterfaceByName,
+    ArkUI_KeyframeAnimateOption, ArkUI_NativeAPIVariantKind_ARKUI_NATIVE_ANIMATE,
+    ArkUI_NativeAnimateAPI_1, OH_ArkUI_QueryModuleInterfaceByName,
 };
 
 use crate::{
@@ -57,6 +57,23 @@ impl ArkUINativeAnimateAPI1 {
                 Err(ArkUIError::new(
                     ArkUIErrorCode::AttributeOrEventNotSupported,
                     "ArkUI_NativeAnimateAPI_1::animateTo is None",
+                ))
+            }
+        }
+    }
+
+    pub fn keyframe_animate_to(
+        &self,
+        ctx: ArkUI_ContextHandle,
+        option: *mut ArkUI_KeyframeAnimateOption,
+    ) -> ArkUIResult<()> {
+        unsafe {
+            if let Some(keyframe_animate_to_func) = (*self.0).keyframeAnimateTo {
+                check_arkui_status!(keyframe_animate_to_func(ctx, option))
+            } else {
+                Err(ArkUIError::new(
+                    ArkUIErrorCode::AttributeOrEventNotSupported,
+                    "ArkUI_NativeAnimateAPI_1::keyframeAnimateTo is None",
                 ))
             }
         }
