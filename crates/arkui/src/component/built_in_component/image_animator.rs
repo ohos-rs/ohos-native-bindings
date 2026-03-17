@@ -133,3 +133,45 @@ impl super::ImageAnimator {
     }
 }
 // END_GENERATED_COMPONENT_METHODS_ImageAnimator
+
+impl super::ImageAnimator {
+    pub fn on_image_animator_start<T: Fn() + 'static>(&mut self, cb: T) {
+        crate::ArkUIEvent::on_event_no_param(
+            self,
+            crate::NodeEventType::ImageAnimatorEventOnStart,
+            cb,
+        );
+    }
+
+    pub fn on_image_animator_pause<T: Fn() + 'static>(&mut self, cb: T) {
+        crate::ArkUIEvent::on_event_no_param(
+            self,
+            crate::NodeEventType::ImageAnimatorEventOnPause,
+            cb,
+        );
+    }
+
+    pub fn on_image_animator_repeat<T: Fn() + 'static>(&mut self, cb: T) {
+        crate::ArkUIEvent::on_event_no_param(
+            self,
+            crate::NodeEventType::ImageAnimatorEventOnRepeat,
+            cb,
+        );
+    }
+
+    pub fn on_image_animator_cancel<T: Fn() + 'static>(&mut self, cb: T) {
+        crate::ArkUIEvent::on_event_no_param(
+            self,
+            crate::NodeEventType::ImageAnimatorEventOnCancel,
+            cb,
+        );
+    }
+
+    pub fn on_image_animator_finish<T: Fn() + 'static>(&mut self, cb: T) {
+        crate::ArkUIEvent::on_event_no_param(
+            self,
+            crate::NodeEventType::ImageAnimatorEventOnFinish,
+            cb,
+        );
+    }
+}

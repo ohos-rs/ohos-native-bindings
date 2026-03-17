@@ -717,3 +717,167 @@ impl super::TextArea {
     }
 }
 // END_GENERATED_COMPONENT_METHODS_TextArea
+
+impl super::TextArea {
+    pub fn on_text_area_change<T: Fn(String) + 'static>(&mut self, cb: T) {
+        crate::ArkUIEvent::on_event(self, crate::NodeEventType::TextAreaOnChange, move |event| {
+            cb(event.async_string().unwrap_or_default());
+        });
+    }
+
+    pub fn on_text_area_paste<T: Fn(String) + 'static>(&mut self, cb: T) {
+        crate::ArkUIEvent::on_event(self, crate::NodeEventType::TextAreaOnPaste, move |event| {
+            cb(event.async_string().unwrap_or_default());
+        });
+    }
+
+    pub fn on_text_area_selection_change<T: Fn(i32, i32) + 'static>(&mut self, cb: T) {
+        crate::ArkUIEvent::on_event(
+            self,
+            crate::NodeEventType::TextAreaOnTextSelectionChange,
+            move |event| {
+                cb(
+                    event.i32_value(0).unwrap_or_default(),
+                    event.i32_value(1).unwrap_or_default(),
+                );
+            },
+        );
+    }
+
+    pub fn on_text_area_input_filter_error<T: Fn(String) + 'static>(&mut self, cb: T) {
+        crate::ArkUIEvent::on_event(
+            self,
+            crate::NodeEventType::TextAreaOnInputFilterError,
+            move |event| {
+                cb(event.async_string().unwrap_or_default());
+            },
+        );
+    }
+
+    pub fn on_text_area_content_scroll<T: Fn(i32, i32) + 'static>(&mut self, cb: T) {
+        crate::ArkUIEvent::on_event(
+            self,
+            crate::NodeEventType::TextAreaOnContentScroll,
+            move |event| {
+                cb(
+                    event.i32_value(0).unwrap_or_default(),
+                    event.i32_value(1).unwrap_or_default(),
+                );
+            },
+        );
+    }
+
+    pub fn on_text_area_edit_change<T: Fn(bool) + 'static>(&mut self, cb: T) {
+        crate::ArkUIEvent::on_event(
+            self,
+            crate::NodeEventType::TextAreaOnEditChange,
+            move |event| {
+                cb(event.i32_value(0).unwrap_or_default() != 0);
+            },
+        );
+    }
+
+    pub fn on_text_area_submit<T: Fn(i32) + 'static>(&mut self, cb: T) {
+        crate::ArkUIEvent::on_event(self, crate::NodeEventType::TextAreaOnSubmit, move |event| {
+            cb(event.i32_value(0).unwrap_or_default());
+        });
+    }
+
+    pub fn on_text_area_content_size_change<T: Fn(f32, f32) + 'static>(&mut self, cb: T) {
+        crate::ArkUIEvent::on_event(
+            self,
+            crate::NodeEventType::TextAreaOnContentSizeChange,
+            move |event| {
+                cb(
+                    event.f32_value(0).unwrap_or_default(),
+                    event.f32_value(1).unwrap_or_default(),
+                );
+            },
+        );
+    }
+
+    pub fn on_text_area_will_insert<T: Fn(f32, String) -> bool + 'static>(&mut self, cb: T) {
+        crate::ArkUIEvent::on_event(
+            self,
+            crate::NodeEventType::TextAreaOnWillInsert,
+            move |event| {
+                let should_insert = cb(
+                    event.f32_value(0).unwrap_or_default(),
+                    event.string_value(0).unwrap_or_default(),
+                );
+                let _ = event.set_return_bool(should_insert);
+            },
+        );
+    }
+
+    pub fn on_text_area_did_insert<T: Fn(f32, String) + 'static>(&mut self, cb: T) {
+        crate::ArkUIEvent::on_event(
+            self,
+            crate::NodeEventType::TextAreaOnDidInsert,
+            move |event| {
+                cb(
+                    event.f32_value(0).unwrap_or_default(),
+                    event.string_value(0).unwrap_or_default(),
+                );
+            },
+        );
+    }
+
+    pub fn on_text_area_will_delete<T: Fn(f32, i32, String) -> bool + 'static>(&mut self, cb: T) {
+        crate::ArkUIEvent::on_event(
+            self,
+            crate::NodeEventType::TextAreaOnWillDelete,
+            move |event| {
+                let should_delete = cb(
+                    event.f32_value(0).unwrap_or_default(),
+                    event.i32_value(1).unwrap_or_default(),
+                    event.string_value(0).unwrap_or_default(),
+                );
+                let _ = event.set_return_bool(should_delete);
+            },
+        );
+    }
+
+    pub fn on_text_area_did_delete<T: Fn(f32, i32, String) + 'static>(&mut self, cb: T) {
+        crate::ArkUIEvent::on_event(
+            self,
+            crate::NodeEventType::TextAreaOnDidDelete,
+            move |event| {
+                cb(
+                    event.f32_value(0).unwrap_or_default(),
+                    event.i32_value(1).unwrap_or_default(),
+                    event.string_value(0).unwrap_or_default(),
+                );
+            },
+        );
+    }
+
+    #[cfg(feature = "api-15")]
+    pub fn on_text_area_change_with_preview_text<T: Fn(crate::TextChangeEventData) + 'static>(
+        &mut self,
+        cb: T,
+    ) {
+        crate::ArkUIEvent::on_event(
+            self,
+            crate::NodeEventType::TextAreaOnChangeWithPreviewText,
+            move |event| {
+                if let Some(data) = event.text_change() {
+                    cb(data);
+                }
+            },
+        );
+    }
+
+    #[cfg(feature = "api-20")]
+    pub fn on_text_area_will_change<T: Fn(crate::TextChangeEventData) + 'static>(&mut self, cb: T) {
+        crate::ArkUIEvent::on_event(
+            self,
+            crate::NodeEventType::TextAreaOnWillChange,
+            move |event| {
+                if let Some(data) = event.text_change() {
+                    cb(data);
+                }
+            },
+        );
+    }
+}

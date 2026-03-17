@@ -73,3 +73,15 @@ impl super::Radio {
     }
 }
 // END_GENERATED_COMPONENT_METHODS_Radio
+
+impl super::Radio {
+    pub fn on_radio_change<T: Fn(bool) + 'static>(&mut self, cb: T) {
+        crate::ArkUIEvent::on_event(
+            self,
+            crate::NodeEventType::RadioEventOnChange,
+            move |event| {
+                cb(event.i32_value(0).unwrap_or_default() != 0);
+            },
+        );
+    }
+}

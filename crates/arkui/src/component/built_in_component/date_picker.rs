@@ -326,3 +326,26 @@ impl super::DatePicker {
     }
 }
 // END_GENERATED_COMPONENT_METHODS_DatePicker
+
+#[derive(Clone, Copy, Debug, PartialEq, Eq)]
+pub struct DatePickerChangeEvent {
+    pub year: i32,
+    pub month: i32,
+    pub day: i32,
+}
+
+impl super::DatePicker {
+    pub fn on_date_picker_change<T: Fn(DatePickerChangeEvent) + 'static>(&mut self, cb: T) {
+        crate::ArkUIEvent::on_event(
+            self,
+            crate::NodeEventType::DatePickerEventOnDateChange,
+            move |event| {
+                cb(DatePickerChangeEvent {
+                    year: event.i32_value(0).unwrap_or_default(),
+                    month: event.i32_value(1).unwrap_or_default(),
+                    day: event.i32_value(2).unwrap_or_default(),
+                });
+            },
+        );
+    }
+}

@@ -389,3 +389,96 @@ impl super::List {
     }
 }
 // END_GENERATED_COMPONENT_METHODS_List
+
+#[derive(Clone, Copy, Debug, PartialEq, Eq)]
+pub struct ListScrollIndexEvent {
+    pub first_index: i32,
+    pub last_index: i32,
+    pub center_index: i32,
+}
+
+#[derive(Clone, Copy, Debug, PartialEq)]
+pub struct ListWillScrollEvent {
+    pub offset: f32,
+    pub state: i32,
+    pub source: i32,
+}
+
+#[derive(Clone, Copy, Debug, PartialEq)]
+pub struct ListDidScrollEvent {
+    pub offset: f32,
+    pub state: i32,
+}
+
+#[cfg(feature = "api-15")]
+#[derive(Clone, Copy, Debug, PartialEq, Eq)]
+pub struct ListVisibleContentChangeEvent {
+    pub first_index: i32,
+    pub start_area: i32,
+    pub start_item_index: i32,
+    pub last_index: i32,
+    pub end_area: i32,
+    pub end_item_index: i32,
+}
+
+impl super::List {
+    pub fn on_list_scroll_index<T: Fn(ListScrollIndexEvent) + 'static>(&mut self, cb: T) {
+        crate::ArkUIEvent::on_event(
+            self,
+            crate::NodeEventType::ListOnScrollIndex,
+            move |event| {
+                cb(ListScrollIndexEvent {
+                    first_index: event.i32_value(0).unwrap_or_default(),
+                    last_index: event.i32_value(1).unwrap_or_default(),
+                    center_index: event.i32_value(2).unwrap_or_default(),
+                });
+            },
+        );
+    }
+
+    pub fn on_list_will_scroll<T: Fn(ListWillScrollEvent) -> Option<f32> + 'static>(
+        &mut self,
+        cb: T,
+    ) {
+        crate::ArkUIEvent::on_event(self, crate::NodeEventType::ListOnWillScroll, move |event| {
+            let data = ListWillScrollEvent {
+                offset: event.f32_value(0).unwrap_or_default(),
+                state: event.i32_value(1).unwrap_or_default(),
+                source: event.i32_value(2).unwrap_or_default(),
+            };
+            if let Some(value) = cb(data) {
+                let _ = event.set_return_f32(value);
+            }
+        });
+    }
+
+    pub fn on_list_did_scroll<T: Fn(ListDidScrollEvent) + 'static>(&mut self, cb: T) {
+        crate::ArkUIEvent::on_event(self, crate::NodeEventType::ListOnDidScroll, move |event| {
+            cb(ListDidScrollEvent {
+                offset: event.f32_value(0).unwrap_or_default(),
+                state: event.i32_value(1).unwrap_or_default(),
+            });
+        });
+    }
+
+    #[cfg(feature = "api-15")]
+    pub fn on_list_scroll_visible_content_change<T: Fn(ListVisibleContentChangeEvent) + 'static>(
+        &mut self,
+        cb: T,
+    ) {
+        crate::ArkUIEvent::on_event(
+            self,
+            crate::NodeEventType::ListOnScrollVisibleContentChange,
+            move |event| {
+                cb(ListVisibleContentChangeEvent {
+                    first_index: event.i32_value(0).unwrap_or_default(),
+                    start_area: event.i32_value(1).unwrap_or_default(),
+                    start_item_index: event.i32_value(2).unwrap_or_default(),
+                    last_index: event.i32_value(3).unwrap_or_default(),
+                    end_area: event.i32_value(4).unwrap_or_default(),
+                    end_item_index: event.i32_value(5).unwrap_or_default(),
+                });
+            },
+        );
+    }
+}

@@ -231,3 +231,26 @@ impl super::CalendarPicker {
     }
 }
 // END_GENERATED_COMPONENT_METHODS_CalendarPicker
+
+#[derive(Clone, Copy, Debug, PartialEq, Eq)]
+pub struct CalendarPickerChangeEvent {
+    pub year: u32,
+    pub month: u32,
+    pub day: u32,
+}
+
+impl super::CalendarPicker {
+    pub fn on_calendar_picker_change<T: Fn(CalendarPickerChangeEvent) + 'static>(&mut self, cb: T) {
+        crate::ArkUIEvent::on_event(
+            self,
+            crate::NodeEventType::CalendarPickerEventOnChange,
+            move |event| {
+                cb(CalendarPickerChangeEvent {
+                    year: event.u32_value(0).unwrap_or_default(),
+                    month: event.u32_value(1).unwrap_or_default(),
+                    day: event.u32_value(2).unwrap_or_default(),
+                });
+            },
+        );
+    }
+}

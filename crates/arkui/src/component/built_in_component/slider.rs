@@ -363,3 +363,24 @@ impl super::Slider {
     }
 }
 // END_GENERATED_COMPONENT_METHODS_Slider
+
+#[derive(Clone, Copy, Debug, PartialEq)]
+pub struct SliderChangeEvent {
+    pub value: f32,
+    pub mode: i32,
+}
+
+impl super::Slider {
+    pub fn on_slider_change<T: Fn(SliderChangeEvent) + 'static>(&mut self, cb: T) {
+        crate::ArkUIEvent::on_event(
+            self,
+            crate::NodeEventType::SliderEventOnChange,
+            move |event| {
+                cb(SliderChangeEvent {
+                    value: event.f32_value(0).unwrap_or_default(),
+                    mode: event.i32_value(1).unwrap_or_default(),
+                });
+            },
+        );
+    }
+}

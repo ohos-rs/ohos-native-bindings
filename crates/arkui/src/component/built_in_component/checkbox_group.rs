@@ -148,3 +148,16 @@ impl super::CheckboxGroup {
     }
 }
 // END_GENERATED_COMPONENT_METHODS_CheckboxGroup
+
+#[cfg(feature = "api-15")]
+impl super::CheckboxGroup {
+    pub fn on_checkbox_group_change<T: Fn(String) + 'static>(&mut self, cb: T) {
+        crate::ArkUIEvent::on_event(
+            self,
+            crate::NodeEventType::CheckboxGroupEventOnChange,
+            move |event| {
+                cb(event.async_string().unwrap_or_default());
+            },
+        );
+    }
+}

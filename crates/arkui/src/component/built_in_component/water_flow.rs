@@ -271,3 +271,46 @@ impl super::WaterFlow {
     }
 }
 // END_GENERATED_COMPONENT_METHODS_WaterFlow
+
+#[derive(Clone, Copy, Debug, PartialEq)]
+pub struct WaterFlowDidScrollEvent {
+    pub offset: f32,
+    pub state: i32,
+}
+
+#[derive(Clone, Copy, Debug, PartialEq, Eq)]
+pub struct WaterFlowScrollIndexEvent {
+    pub start_index: i32,
+    pub end_index: i32,
+}
+
+impl super::WaterFlow {
+    pub fn on_water_flow_did_scroll<T: Fn(WaterFlowDidScrollEvent) + 'static>(&mut self, cb: T) {
+        crate::ArkUIEvent::on_event(
+            self,
+            crate::NodeEventType::WaterFlowOnDidScroll,
+            move |event| {
+                cb(WaterFlowDidScrollEvent {
+                    offset: event.f32_value(0).unwrap_or_default(),
+                    state: event.i32_value(1).unwrap_or_default(),
+                });
+            },
+        );
+    }
+
+    pub fn on_water_flow_scroll_index<T: Fn(WaterFlowScrollIndexEvent) + 'static>(
+        &mut self,
+        cb: T,
+    ) {
+        crate::ArkUIEvent::on_event(
+            self,
+            crate::NodeEventType::WaterFlowOnScrollIndex,
+            move |event| {
+                cb(WaterFlowScrollIndexEvent {
+                    start_index: event.i32_value(0).unwrap_or_default(),
+                    end_index: event.i32_value(1).unwrap_or_default(),
+                });
+            },
+        );
+    }
+}

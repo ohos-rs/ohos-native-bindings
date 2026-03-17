@@ -376,3 +376,40 @@ impl super::TextPicker {
     }
 }
 // END_GENERATED_COMPONENT_METHODS_TextPicker
+
+impl super::TextPicker {
+    pub fn on_text_picker_change<T: Fn(Vec<i32>) + 'static>(&mut self, cb: T) {
+        crate::ArkUIEvent::on_event(
+            self,
+            crate::NodeEventType::TextPickerEventOnChange,
+            move |event| {
+                let mut values = Vec::new();
+                for i in 0..12 {
+                    let Some(value) = event.i32_value(i) else {
+                        break;
+                    };
+                    values.push(value);
+                }
+                cb(values);
+            },
+        );
+    }
+
+    #[cfg(feature = "api-14")]
+    pub fn on_text_picker_scroll_stop<T: Fn(Vec<i32>) + 'static>(&mut self, cb: T) {
+        crate::ArkUIEvent::on_event(
+            self,
+            crate::NodeEventType::TextPickerEventOnScrollStop,
+            move |event| {
+                let mut values = Vec::new();
+                for i in 0..12 {
+                    let Some(value) = event.i32_value(i) else {
+                        break;
+                    };
+                    values.push(value);
+                }
+                cb(values);
+            },
+        );
+    }
+}

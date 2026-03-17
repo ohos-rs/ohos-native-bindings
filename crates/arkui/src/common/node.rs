@@ -40,7 +40,7 @@ impl ArkUINode {
     /// We can't use drop impl, because it will be called when the object is dropped.
     pub fn dispose(&mut self) -> ArkUIResult<()> {
         let handle = &self.event_handle;
-        if let Some(_cb) = handle.click.as_ref() {
+        if handle.has_callback() {
             ARK_UI_NATIVE_NODE_API_1.with(|api| api.remove_event_receiver(self))?;
         }
         ARK_UI_NATIVE_NODE_API_1.with(|api| api.dispose(self))?;

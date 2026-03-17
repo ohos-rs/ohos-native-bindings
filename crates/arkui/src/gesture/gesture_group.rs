@@ -25,4 +25,34 @@ impl GestureGroup {
         ARK_UI_NATIVE_GESTURE_API_1.with(|api| api.add_child_gesture(self.raw, child_raw))?;
         Ok(())
     }
+
+    pub fn remove_gesture(&mut self, index: usize) -> ArkUIResult<Option<Gesture>> {
+        if index >= self.gestures.len() {
+            return Ok(None);
+        }
+        let gesture = self.gestures.remove(index);
+        let child_raw = *gesture.raw.borrow();
+        ARK_UI_NATIVE_GESTURE_API_1.with(|api| api.remove_child_gesture(self.raw, child_raw))?;
+        Ok(Some(gesture))
+    }
+
+    pub fn dispose(&mut self) -> ArkUIResult<()> {
+        if self.raw.is_null() {
+            self.gestures.clear();
+            return Ok(());
+        }
+
+        for gesture in self.gestures.iter() {
+            let child_raw = *gesture.raw.borrow();
+            if !child_raw.is_null() {
+                ARK_UI_NATIVE_GESTURE_API_1
+                    .with(|api| api.remove_child_gesture(self.raw, child_raw))?;
+            }
+        }
+        self.gestures.clear();
+
+        ARK_UI_NATIVE_GESTURE_API_1.with(|api| api.dispose_gesture(self.raw))?;
+        self.raw = std::ptr::null_mut();
+        Ok(())
+    }
 }

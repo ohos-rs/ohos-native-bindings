@@ -292,3 +292,24 @@ impl super::TimePicker {
     }
 }
 // END_GENERATED_COMPONENT_METHODS_TimePicker
+
+#[derive(Clone, Copy, Debug, PartialEq, Eq)]
+pub struct TimePickerChangeEvent {
+    pub hour: i32,
+    pub minute: i32,
+}
+
+impl super::TimePicker {
+    pub fn on_time_picker_change<T: Fn(TimePickerChangeEvent) + 'static>(&mut self, cb: T) {
+        crate::ArkUIEvent::on_event(
+            self,
+            crate::NodeEventType::TimePickerEventOnChange,
+            move |event| {
+                cb(TimePickerChangeEvent {
+                    hour: event.i32_value(0).unwrap_or_default(),
+                    minute: event.i32_value(1).unwrap_or_default(),
+                });
+            },
+        );
+    }
+}

@@ -113,3 +113,29 @@ impl super::Refresh {
     }
 }
 // END_GENERATED_COMPONENT_METHODS_Refresh
+
+impl super::Refresh {
+    pub fn on_refresh<T: Fn() + 'static>(&mut self, cb: T) {
+        crate::ArkUIEvent::on_event_no_param(self, crate::NodeEventType::RefreshOnRefresh, cb);
+    }
+
+    pub fn on_refresh_state_change<T: Fn(i32) + 'static>(&mut self, cb: T) {
+        crate::ArkUIEvent::on_event(
+            self,
+            crate::NodeEventType::RefreshStateChange,
+            move |event| {
+                cb(event.i32_value(0).unwrap_or_default());
+            },
+        );
+    }
+
+    pub fn on_refresh_offset_change<T: Fn(f32) + 'static>(&mut self, cb: T) {
+        crate::ArkUIEvent::on_event(
+            self,
+            crate::NodeEventType::RefreshOnOffsetChange,
+            move |event| {
+                cb(event.f32_value(0).unwrap_or_default());
+            },
+        );
+    }
+}

@@ -8,16 +8,18 @@ use std::{
 use ohos_arkui_input_binding::sys::ArkUI_NodeHandle;
 use ohos_arkui_input_binding::ArkUIErrorCode;
 use ohos_arkui_sys::{
-    ArkUI_GestureEvent, ArkUI_GestureEventActionTypeMask, ArkUI_GestureMask, ArkUI_GesturePriority,
-    ArkUI_GestureRecognizerHandle, ArkUI_GroupGestureMode,
+    ArkUI_GestureEvent, ArkUI_GestureEventActionTypeMask, ArkUI_GestureInterruptInfo,
+    ArkUI_GestureInterruptResult, ArkUI_GestureMask, ArkUI_GesturePriority,
+    ArkUI_GestureRecognizer, ArkUI_GestureRecognizerHandle, ArkUI_GroupGestureMode,
     ArkUI_NativeAPIVariantKind_ARKUI_NATIVE_GESTURE, ArkUI_NativeGestureAPI_1,
-    OH_ArkUI_GestureEvent_GetActionType, OH_ArkUI_LongPress_GetRepeatCount,
-    OH_ArkUI_PanGesture_GetOffsetX, OH_ArkUI_PanGesture_GetOffsetY,
-    OH_ArkUI_PanGesture_GetVelocity, OH_ArkUI_PanGesture_GetVelocityX,
-    OH_ArkUI_PanGesture_GetVelocityY, OH_ArkUI_PinchGesture_GetCenterX,
-    OH_ArkUI_PinchGesture_GetCenterY, OH_ArkUI_PinchGesture_GetScale,
-    OH_ArkUI_QueryModuleInterfaceByName, OH_ArkUI_RotationGesture_GetAngle,
-    OH_ArkUI_SwipeGesture_GetAngle, OH_ArkUI_SwipeGesture_GetVelocity,
+    ArkUI_ParallelInnerGestureEvent, OH_ArkUI_GestureEvent_GetActionType,
+    OH_ArkUI_LongPress_GetRepeatCount, OH_ArkUI_PanGesture_GetOffsetX,
+    OH_ArkUI_PanGesture_GetOffsetY, OH_ArkUI_PanGesture_GetVelocity,
+    OH_ArkUI_PanGesture_GetVelocityX, OH_ArkUI_PanGesture_GetVelocityY,
+    OH_ArkUI_PinchGesture_GetCenterX, OH_ArkUI_PinchGesture_GetCenterY,
+    OH_ArkUI_PinchGesture_GetScale, OH_ArkUI_QueryModuleInterfaceByName,
+    OH_ArkUI_RotationGesture_GetAngle, OH_ArkUI_SwipeGesture_GetAngle,
+    OH_ArkUI_SwipeGesture_GetVelocity,
 };
 
 use crate::{
@@ -103,6 +105,32 @@ impl ArkUINativeGestureAPI1 {
                 Err(ArkUIError::new(
                     ArkUIErrorCode::AttributeOrEventNotSupported,
                     "ArkUINativeGestureAPI1::createTapGesture is None",
+                ))
+            }
+        }
+    }
+
+    pub fn create_tap_gesture_with_distance_threshold(
+        &self,
+        count: i32,
+        finger: i32,
+        distance_threshold: f64,
+    ) -> ArkUIResult<ArkUI_GestureRecognizerHandle> {
+        unsafe {
+            if let Some(create_tap_gesture) = (*self.0).createTapGestureWithDistanceThreshold {
+                let ret = create_tap_gesture(count, finger, distance_threshold);
+                if ret.is_null() {
+                    Err(ArkUIError::new(
+                        ArkUIErrorCode::AttributeOrEventNotSupported,
+                        "ArkUINativeGestureAPI1::createTapGestureWithDistanceThreshold is None",
+                    ))
+                } else {
+                    Ok(ret)
+                }
+            } else {
+                Err(ArkUIError::new(
+                    ArkUIErrorCode::AttributeOrEventNotSupported,
+                    "ArkUINativeGestureAPI1::createTapGestureWithDistanceThreshold is None",
                 ))
             }
         }
@@ -251,6 +279,23 @@ impl ArkUINativeGestureAPI1 {
         }
     }
 
+    pub fn remove_child_gesture(
+        &self,
+        group: ArkUI_GestureRecognizerHandle,
+        child: ArkUI_GestureRecognizerHandle,
+    ) -> ArkUIResult<()> {
+        unsafe {
+            if let Some(remove_child_gesture) = (*self.0).removeChildGesture {
+                check_arkui_status!(remove_child_gesture(group, child))
+            } else {
+                Err(ArkUIError::new(
+                    ArkUIErrorCode::AttributeOrEventNotSupported,
+                    "ArkUINativeGestureAPI1::removeChildGesture is None",
+                ))
+            }
+        }
+    }
+
     pub fn add_gesture(
         &self,
         gesture: ArkUI_GestureRecognizerHandle,
@@ -265,6 +310,100 @@ impl ArkUINativeGestureAPI1 {
                 Err(ArkUIError::new(
                     ArkUIErrorCode::AttributeOrEventNotSupported,
                     "ArkUINativeGestureAPI1::addGestureToNode is None",
+                ))
+            }
+        }
+    }
+
+    pub fn remove_gesture(
+        &self,
+        gesture: ArkUI_GestureRecognizerHandle,
+        node: ArkUI_NodeHandle,
+    ) -> ArkUIResult<()> {
+        unsafe {
+            if let Some(remove_gesture_from_node) = (*self.0).removeGestureFromNode {
+                check_arkui_status!(remove_gesture_from_node(node, gesture))
+            } else {
+                Err(ArkUIError::new(
+                    ArkUIErrorCode::AttributeOrEventNotSupported,
+                    "ArkUINativeGestureAPI1::removeGestureFromNode is None",
+                ))
+            }
+        }
+    }
+
+    pub fn dispose_gesture(&self, gesture: ArkUI_GestureRecognizerHandle) -> ArkUIResult<()> {
+        unsafe {
+            if let Some(dispose) = (*self.0).dispose {
+                dispose(gesture);
+                Ok(())
+            } else {
+                Err(ArkUIError::new(
+                    ArkUIErrorCode::AttributeOrEventNotSupported,
+                    "ArkUINativeGestureAPI1::dispose is None",
+                ))
+            }
+        }
+    }
+
+    pub fn get_gesture_type(
+        &self,
+        gesture: ArkUI_GestureRecognizerHandle,
+    ) -> ArkUIResult<GestureRecognizerType> {
+        unsafe {
+            if let Some(get_gesture_type) = (*self.0).getGestureType {
+                Ok(get_gesture_type(gesture).into())
+            } else {
+                Err(ArkUIError::new(
+                    ArkUIErrorCode::AttributeOrEventNotSupported,
+                    "ArkUINativeGestureAPI1::getGestureType is None",
+                ))
+            }
+        }
+    }
+
+    pub fn set_gesture_interrupter_to_node(
+        &self,
+        node: ArkUI_NodeHandle,
+        interrupter: Option<
+            unsafe extern "C" fn(
+                info: *mut ArkUI_GestureInterruptInfo,
+            ) -> ArkUI_GestureInterruptResult,
+        >,
+    ) -> ArkUIResult<()> {
+        unsafe {
+            if let Some(set_gesture_interrupter_to_node) = (*self.0).setGestureInterrupterToNode {
+                check_arkui_status!(set_gesture_interrupter_to_node(node, interrupter))
+            } else {
+                Err(ArkUIError::new(
+                    ArkUIErrorCode::AttributeOrEventNotSupported,
+                    "ArkUINativeGestureAPI1::setGestureInterrupterToNode is None",
+                ))
+            }
+        }
+    }
+
+    pub fn set_inner_gesture_parallel_to(
+        &self,
+        node: ArkUI_NodeHandle,
+        user_data: *mut c_void,
+        parallel_inner_gesture: Option<
+            unsafe extern "C" fn(
+                event: *mut ArkUI_ParallelInnerGestureEvent,
+            ) -> *mut ArkUI_GestureRecognizer,
+        >,
+    ) -> ArkUIResult<()> {
+        unsafe {
+            if let Some(set_inner_gesture_parallel_to) = (*self.0).setInnerGestureParallelTo {
+                check_arkui_status!(set_inner_gesture_parallel_to(
+                    node,
+                    user_data,
+                    parallel_inner_gesture
+                ))
+            } else {
+                Err(ArkUIError::new(
+                    ArkUIErrorCode::AttributeOrEventNotSupported,
+                    "ArkUINativeGestureAPI1::setInnerGestureParallelTo is None",
                 ))
             }
         }

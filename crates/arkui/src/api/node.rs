@@ -11,7 +11,7 @@ use ohos_arkui_sys::{
     OH_ArkUI_QueryModuleInterfaceByName,
 };
 
-use crate::{check_arkui_status, ArkUINodeAttributeType, ArkUINodeType, NodeEventType};
+use crate::{check_arkui_status, ArkUINodeAttributeType, ArkUINodeType, Event, NodeEventType};
 
 use crate::common::{ArkUIError, ArkUINode, ArkUINodeAttributeItem, ArkUIResult};
 
@@ -258,17 +258,13 @@ unsafe extern "C" fn node_event_receiver(event: *mut ArkUI_NodeEvent) {
 
     let node = user_data_rc.borrow();
 
-    let event_type = OH_ArkUI_NodeEvent_GetEventType(event);
-    let event_type = NodeEventType::from(event_type);
+    let raw_event_type = OH_ArkUI_NodeEvent_GetEventType(event);
+    let Some(event_type) = NodeEventType::try_from_raw(raw_event_type) else {
+        return;
+    };
 
-    // TODO: handle other event types
-    #[allow(clippy::single_match)]
-    match event_type {
-        NodeEventType::OnClick => {
-            if let Some(cb) = node.event_handle.click.as_ref() {
-                cb.borrow()();
-            }
-        }
-        _ => {}
+    if let Some(cb) = node.event_handle.get_event_callback(event_type) {
+        let node_event = Event::new(event);
+        cb.borrow()(&node_event);
     }
 }

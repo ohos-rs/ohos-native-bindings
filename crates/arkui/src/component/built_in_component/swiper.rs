@@ -465,3 +465,157 @@ impl super::Swiper {
     }
 }
 // END_GENERATED_COMPONENT_METHODS_Swiper
+
+#[derive(Clone, Copy, Debug, PartialEq)]
+pub struct SwiperAnimationStartEvent {
+    pub current_index: i32,
+    pub target_index: i32,
+    pub current_offset: f32,
+    pub target_offset: f32,
+    pub velocity: f32,
+}
+
+#[derive(Clone, Copy, Debug, PartialEq)]
+pub struct SwiperAnimationEndEvent {
+    pub index: i32,
+    pub offset: f32,
+}
+
+#[derive(Clone, Copy, Debug, PartialEq)]
+pub struct SwiperContentDidScrollEvent {
+    pub selected_index: i32,
+    pub page_index: i32,
+    pub position: f32,
+    pub page_length: f32,
+}
+
+#[cfg(feature = "api-15")]
+#[derive(Clone, Copy, Debug, PartialEq)]
+pub struct SwiperContentWillScrollEvent {
+    pub current_index: i32,
+    pub target_index: i32,
+    pub offset: f32,
+}
+
+impl super::Swiper {
+    pub fn on_swiper_change<T: Fn(i32) + 'static>(&mut self, cb: T) {
+        crate::ArkUIEvent::on_event(
+            self,
+            crate::NodeEventType::SwiperEventOnChange,
+            move |event| {
+                cb(event.i32_value(0).unwrap_or_default());
+            },
+        );
+    }
+
+    pub fn on_swiper_animation_start<T: Fn(SwiperAnimationStartEvent) + 'static>(&mut self, cb: T) {
+        crate::ArkUIEvent::on_event(
+            self,
+            crate::NodeEventType::SwiperEventOnAnimationStart,
+            move |event| {
+                cb(SwiperAnimationStartEvent {
+                    current_index: event.i32_value(0).unwrap_or_default(),
+                    target_index: event.i32_value(1).unwrap_or_default(),
+                    current_offset: event.f32_value(2).unwrap_or_default(),
+                    target_offset: event.f32_value(3).unwrap_or_default(),
+                    velocity: event.f32_value(4).unwrap_or_default(),
+                });
+            },
+        );
+    }
+
+    pub fn on_swiper_animation_end<T: Fn(SwiperAnimationEndEvent) + 'static>(&mut self, cb: T) {
+        crate::ArkUIEvent::on_event(
+            self,
+            crate::NodeEventType::SwiperEventOnAnimationEnd,
+            move |event| {
+                cb(SwiperAnimationEndEvent {
+                    index: event.i32_value(0).unwrap_or_default(),
+                    offset: event.f32_value(1).unwrap_or_default(),
+                });
+            },
+        );
+    }
+
+    pub fn on_swiper_gesture_swipe<T: Fn(SwiperAnimationEndEvent) + 'static>(&mut self, cb: T) {
+        crate::ArkUIEvent::on_event(
+            self,
+            crate::NodeEventType::SwiperEventOnGestureSwipe,
+            move |event| {
+                cb(SwiperAnimationEndEvent {
+                    index: event.i32_value(0).unwrap_or_default(),
+                    offset: event.f32_value(1).unwrap_or_default(),
+                });
+            },
+        );
+    }
+
+    pub fn on_swiper_content_did_scroll<T: Fn(SwiperContentDidScrollEvent) + 'static>(
+        &mut self,
+        cb: T,
+    ) {
+        crate::ArkUIEvent::on_event(
+            self,
+            crate::NodeEventType::SwiperEventOnContentDidScroll,
+            move |event| {
+                cb(SwiperContentDidScrollEvent {
+                    selected_index: event.i32_value(0).unwrap_or_default(),
+                    page_index: event.i32_value(1).unwrap_or_default(),
+                    position: event.f32_value(2).unwrap_or_default(),
+                    page_length: event.f32_value(3).unwrap_or_default(),
+                });
+            },
+        );
+    }
+
+    #[cfg(feature = "api-15")]
+    pub fn on_swiper_content_will_scroll<T: Fn(SwiperContentWillScrollEvent) + 'static>(
+        &mut self,
+        cb: T,
+    ) {
+        crate::ArkUIEvent::on_event(
+            self,
+            crate::NodeEventType::SwiperEventOnContentWillScroll,
+            move |event| {
+                cb(SwiperContentWillScrollEvent {
+                    current_index: event.i32_value(0).unwrap_or_default(),
+                    target_index: event.i32_value(1).unwrap_or_default(),
+                    offset: event.f32_value(2).unwrap_or_default(),
+                });
+            },
+        );
+    }
+
+    #[cfg(feature = "api-18")]
+    pub fn on_swiper_selected<T: Fn(i32) + 'static>(&mut self, cb: T) {
+        crate::ArkUIEvent::on_event(
+            self,
+            crate::NodeEventType::SwiperEventOnSelected,
+            move |event| {
+                cb(event.i32_value(0).unwrap_or_default());
+            },
+        );
+    }
+
+    #[cfg(feature = "api-18")]
+    pub fn on_swiper_unselected<T: Fn(i32) + 'static>(&mut self, cb: T) {
+        crate::ArkUIEvent::on_event(
+            self,
+            crate::NodeEventType::SwiperEventOnUnselected,
+            move |event| {
+                cb(event.i32_value(0).unwrap_or_default());
+            },
+        );
+    }
+
+    #[cfg(feature = "api-20")]
+    pub fn on_swiper_scroll_state_changed<T: Fn(i32) + 'static>(&mut self, cb: T) {
+        crate::ArkUIEvent::on_event(
+            self,
+            crate::NodeEventType::SwiperEventOnScrollStateChanged,
+            move |event| {
+                cb(event.i32_value(0).unwrap_or_default());
+            },
+        );
+    }
+}
