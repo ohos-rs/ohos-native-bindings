@@ -15,17 +15,21 @@ struct CustomCurveCallbackContext {
     callback: Box<dyn Fn(f32) -> f32>,
 }
 
+type CustomCurveInterpolateCallback =
+    unsafe extern "C" fn(input: f32, user_data: *mut c_void) -> f32;
+
 pub(crate) struct CustomCurve {
     raw: NonNull<ArkUI_Curve>,
-    callback: Option<*mut CustomCurveCallbackContext>,
+    callback: Option<NonNull<CustomCurveCallbackContext>>,
 }
 
 impl CustomCurve {
     pub(crate) fn new<T: Fn(f32) -> f32 + 'static>(interpolate: T) -> ArkUIResult<Self> {
-        let callback = Box::into_raw(Box::new(CustomCurveCallbackContext {
+        let callback = NonNull::new(Box::into_raw(Box::new(CustomCurveCallbackContext {
             callback: Box::new(interpolate),
-        }));
-        let curve = create_custom_curve_raw(callback.cast(), Some(custom_curve_trampoline));
+        })))
+        .expect("CustomCurveCallbackContext pointer is null");
+        let curve = create_custom_curve_raw(callback.as_ptr().cast());
         match curve {
             Ok(raw) => Ok(Self {
                 raw,
@@ -33,7 +37,7 @@ impl CustomCurve {
             }),
             Err(err) => {
                 unsafe {
-                    drop(Box::from_raw(callback));
+                    drop(Box::from_raw(callback.as_ptr()));
                 }
                 Err(err)
             }
@@ -47,7 +51,7 @@ impl CustomCurve {
     pub(crate) fn dispose(mut self) {
         if let Some(callback) = self.callback.take() {
             unsafe {
-                drop(Box::from_raw(callback));
+                drop(Box::from_raw(callback.as_ptr()));
             }
         }
         dispose_curve(self.raw);
@@ -134,11 +138,13 @@ unsafe extern "C" fn custom_curve_trampoline(input: f32, user_data: *mut c_void)
     (callback.callback)(input)
 }
 
-fn create_custom_curve_raw(
-    user_data: *mut c_void,
-    interpolate: Option<unsafe extern "C" fn(f32, *mut c_void) -> f32>,
-) -> ArkUIResult<NonNull<ArkUI_Curve>> {
-    let handle = unsafe { OH_ArkUI_Curve_CreateCustomCurve(user_data, interpolate) };
+fn create_custom_curve_raw(user_data: *mut c_void) -> ArkUIResult<NonNull<ArkUI_Curve>> {
+    let handle = unsafe {
+        OH_ArkUI_Curve_CreateCustomCurve(
+            user_data,
+            Some(custom_curve_trampoline as CustomCurveInterpolateCallback),
+        )
+    };
     handle_or_error(handle, "OH_ArkUI_Curve_CreateCustomCurve")
 }
 

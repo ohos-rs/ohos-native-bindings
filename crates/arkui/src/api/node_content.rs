@@ -1,11 +1,11 @@
 use std::{os::raw::c_void, ptr::NonNull};
 
 use ohos_arkui_sys::{
-    ArkUI_NodeContentCallback, ArkUI_NodeContentEvent, ArkUI_NodeContentHandle,
-    OH_ArkUI_NodeContentEvent_GetEventType, OH_ArkUI_NodeContentEvent_GetNodeContentHandle,
-    OH_ArkUI_NodeContent_AddNode, OH_ArkUI_NodeContent_GetUserData,
-    OH_ArkUI_NodeContent_InsertNode, OH_ArkUI_NodeContent_RegisterCallback,
-    OH_ArkUI_NodeContent_RemoveNode, OH_ArkUI_NodeContent_SetUserData,
+    ArkUI_NodeContentEvent, ArkUI_NodeContentHandle, OH_ArkUI_NodeContentEvent_GetEventType,
+    OH_ArkUI_NodeContentEvent_GetNodeContentHandle, OH_ArkUI_NodeContent_AddNode,
+    OH_ArkUI_NodeContent_GetUserData, OH_ArkUI_NodeContent_InsertNode,
+    OH_ArkUI_NodeContent_RegisterCallback, OH_ArkUI_NodeContent_RemoveNode,
+    OH_ArkUI_NodeContent_SetUserData,
 };
 
 use crate::{check_arkui_status, ArkUINode, ArkUIResult};
@@ -121,10 +121,7 @@ impl NodeContent {
             }
             return Err(err);
         }
-        let register_result = node_content_register_callback_raw(
-            self.handle.raw(),
-            Some(node_content_callback_trampoline),
-        );
+        let register_result = register_node_content_callback_raw(self.handle.raw());
         if let Err(err) = register_result {
             let _ = node_content_set_user_data_raw(self.handle.raw(), std::ptr::null_mut());
             unsafe {
@@ -137,7 +134,7 @@ impl NodeContent {
     }
 
     pub fn clear_callback(&mut self) -> ArkUIResult<()> {
-        let unregister_result = node_content_register_callback_raw(self.handle.raw(), None);
+        let unregister_result = clear_node_content_callback_raw(self.handle.raw());
         let clear_data_result =
             node_content_set_user_data_raw(self.handle.raw(), std::ptr::null_mut());
 
@@ -170,11 +167,17 @@ unsafe extern "C" fn node_content_callback_trampoline(event: *mut ArkUI_NodeCont
     (callback.callback)(&mut event);
 }
 
-fn node_content_register_callback_raw(
-    content: ArkUI_NodeContentHandle,
-    callback: ArkUI_NodeContentCallback,
-) -> ArkUIResult<()> {
-    unsafe { check_arkui_status!(OH_ArkUI_NodeContent_RegisterCallback(content, callback)) }
+fn register_node_content_callback_raw(content: ArkUI_NodeContentHandle) -> ArkUIResult<()> {
+    unsafe {
+        check_arkui_status!(OH_ArkUI_NodeContent_RegisterCallback(
+            content,
+            Some(node_content_callback_trampoline)
+        ))
+    }
+}
+
+fn clear_node_content_callback_raw(content: ArkUI_NodeContentHandle) -> ArkUIResult<()> {
+    unsafe { check_arkui_status!(OH_ArkUI_NodeContent_RegisterCallback(content, None)) }
 }
 
 fn node_content_set_user_data_raw(

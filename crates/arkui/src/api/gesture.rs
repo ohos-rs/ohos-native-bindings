@@ -884,7 +884,7 @@ impl GestureEventRef {
         NonNull::new(raw).map(|raw| Self { raw })
     }
 
-    pub fn from_const_raw(raw: *const ArkUI_GestureEvent) -> Option<Self> {
+    pub(crate) fn from_const_raw(raw: *const ArkUI_GestureEvent) -> Option<Self> {
         Self::from_raw(raw.cast_mut())
     }
 
@@ -946,11 +946,11 @@ pub struct GestureRecognizerRef {
 }
 
 impl GestureRecognizerRef {
-    pub fn from_raw(raw: *mut ArkUI_GestureRecognizer) -> Option<Self> {
+    pub(crate) fn from_raw(raw: *mut ArkUI_GestureRecognizer) -> Option<Self> {
         NonNull::new(raw).map(|raw| Self { raw })
     }
 
-    pub fn from_handle(handle: ArkUI_GestureRecognizerHandle) -> Option<Self> {
+    pub(crate) fn from_handle(handle: ArkUI_GestureRecognizerHandle) -> Option<Self> {
         Self::from_raw(handle)
     }
 
@@ -1246,11 +1246,11 @@ pub struct GestureInterruptInfoRef {
 }
 
 impl GestureInterruptInfoRef {
-    pub fn from_raw(raw: *mut ArkUI_GestureInterruptInfo) -> Option<Self> {
+    pub(crate) fn from_raw(raw: *mut ArkUI_GestureInterruptInfo) -> Option<Self> {
         NonNull::new(raw).map(|raw| Self { raw })
     }
 
-    pub fn from_const_raw(raw: *const ArkUI_GestureInterruptInfo) -> Option<Self> {
+    pub(crate) fn from_const_raw(raw: *const ArkUI_GestureInterruptInfo) -> Option<Self> {
         Self::from_raw(raw.cast_mut())
     }
 
@@ -1329,7 +1329,7 @@ pub struct TouchRecognizerRef {
 
 #[cfg(feature = "api-15")]
 impl TouchRecognizerRef {
-    pub fn from_handle(handle: ArkUI_TouchRecognizerHandle) -> Option<Self> {
+    pub(crate) fn from_handle(handle: ArkUI_TouchRecognizerHandle) -> Option<Self> {
         NonNull::new(handle.cast()).map(|raw| Self { raw })
     }
 
@@ -1353,7 +1353,7 @@ pub struct ParallelInnerGestureEventRef {
 }
 
 impl ParallelInnerGestureEventRef {
-    pub fn from_raw(raw: *mut ArkUI_ParallelInnerGestureEvent) -> Option<Self> {
+    pub(crate) fn from_raw(raw: *mut ArkUI_ParallelInnerGestureEvent) -> Option<Self> {
         NonNull::new(raw).map(|raw| Self { raw })
     }
 

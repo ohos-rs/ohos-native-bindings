@@ -36,6 +36,14 @@ struct AnimatorEventCallbackContext {
     callback: Box<dyn Fn()>,
 }
 
+type AnimatorOnFrameCallback = unsafe extern "C" fn(event: *mut ArkUI_AnimatorOnFrameEvent);
+type AnimatorEventCallback = unsafe extern "C" fn(event: *mut ArkUI_AnimatorEvent);
+type AnimatorEventRegisterCallback = unsafe extern "C" fn(
+    option: *mut ArkUI_AnimatorOption,
+    user_data: *mut c_void,
+    callback: Option<AnimatorEventCallback>,
+) -> i32;
+
 pub(crate) struct AnimatorHandle {
     raw: NonNull<ArkUI_Animator>,
 }
@@ -88,10 +96,10 @@ impl AnimatorHandle {
 
 pub(crate) struct AnimatorOptions {
     raw: NonNull<ArkUI_AnimatorOption>,
-    on_frame_callback: Option<*mut AnimatorFrameCallbackContext>,
-    on_finish_callback: Option<*mut AnimatorEventCallbackContext>,
-    on_cancel_callback: Option<*mut AnimatorEventCallbackContext>,
-    on_repeat_callback: Option<*mut AnimatorEventCallbackContext>,
+    on_frame_callback: Option<NonNull<AnimatorFrameCallbackContext>>,
+    on_finish_callback: Option<NonNull<AnimatorEventCallbackContext>>,
+    on_cancel_callback: Option<NonNull<AnimatorEventCallbackContext>>,
+    on_repeat_callback: Option<NonNull<AnimatorEventCallbackContext>>,
 }
 
 impl AnimatorOptions {
@@ -268,17 +276,14 @@ impl AnimatorOptions {
         callback: T,
     ) -> ArkUIResult<()> {
         self.clear_on_frame_callback()?;
-        let callback = Box::into_raw(Box::new(AnimatorFrameCallbackContext {
+        let callback = NonNull::new(Box::into_raw(Box::new(AnimatorFrameCallbackContext {
             callback: Box::new(callback),
-        }));
-        let result = register_on_frame_callback_raw(
-            self.raw.as_ptr(),
-            callback.cast(),
-            Some(animator_frame_callback_trampoline),
-        );
+        })))
+        .expect("AnimatorFrameCallbackContext pointer is null");
+        let result = register_on_frame_callback_raw(self.raw.as_ptr(), callback.as_ptr().cast());
         if let Err(err) = result {
             unsafe {
-                drop(Box::from_raw(callback));
+                drop(Box::from_raw(callback.as_ptr()));
             }
             return Err(err);
         }
@@ -287,10 +292,10 @@ impl AnimatorOptions {
     }
 
     pub(crate) fn clear_on_frame_callback(&mut self) -> ArkUIResult<()> {
-        register_on_frame_callback_raw(self.raw.as_ptr(), std::ptr::null_mut(), None)?;
+        clear_on_frame_callback_raw(self.raw.as_ptr())?;
         if let Some(callback) = self.on_frame_callback.take() {
             unsafe {
-                drop(Box::from_raw(callback));
+                drop(Box::from_raw(callback.as_ptr()));
             }
         }
         Ok(())
@@ -301,18 +306,18 @@ impl AnimatorOptions {
         callback: T,
     ) -> ArkUIResult<()> {
         self.clear_on_finish_callback()?;
-        let callback = Box::into_raw(Box::new(AnimatorEventCallbackContext {
+        let callback = NonNull::new(Box::into_raw(Box::new(AnimatorEventCallbackContext {
             callback: Box::new(callback),
-        }));
+        })))
+        .expect("AnimatorEventCallbackContext pointer is null");
         let result = register_on_event_callback_raw(
             self.raw.as_ptr(),
-            callback.cast(),
-            Some(animator_event_callback_trampoline),
+            callback.as_ptr().cast(),
             OH_ArkUI_AnimatorOption_RegisterOnFinishCallback,
         );
         if let Err(err) = result {
             unsafe {
-                drop(Box::from_raw(callback));
+                drop(Box::from_raw(callback.as_ptr()));
             }
             return Err(err);
         }
@@ -321,15 +326,13 @@ impl AnimatorOptions {
     }
 
     pub(crate) fn clear_on_finish_callback(&mut self) -> ArkUIResult<()> {
-        register_on_event_callback_raw(
+        clear_on_event_callback_raw(
             self.raw.as_ptr(),
-            std::ptr::null_mut(),
-            None,
             OH_ArkUI_AnimatorOption_RegisterOnFinishCallback,
         )?;
         if let Some(callback) = self.on_finish_callback.take() {
             unsafe {
-                drop(Box::from_raw(callback));
+                drop(Box::from_raw(callback.as_ptr()));
             }
         }
         Ok(())
@@ -340,18 +343,18 @@ impl AnimatorOptions {
         callback: T,
     ) -> ArkUIResult<()> {
         self.clear_on_cancel_callback()?;
-        let callback = Box::into_raw(Box::new(AnimatorEventCallbackContext {
+        let callback = NonNull::new(Box::into_raw(Box::new(AnimatorEventCallbackContext {
             callback: Box::new(callback),
-        }));
+        })))
+        .expect("AnimatorEventCallbackContext pointer is null");
         let result = register_on_event_callback_raw(
             self.raw.as_ptr(),
-            callback.cast(),
-            Some(animator_event_callback_trampoline),
+            callback.as_ptr().cast(),
             OH_ArkUI_AnimatorOption_RegisterOnCancelCallback,
         );
         if let Err(err) = result {
             unsafe {
-                drop(Box::from_raw(callback));
+                drop(Box::from_raw(callback.as_ptr()));
             }
             return Err(err);
         }
@@ -360,15 +363,13 @@ impl AnimatorOptions {
     }
 
     pub(crate) fn clear_on_cancel_callback(&mut self) -> ArkUIResult<()> {
-        register_on_event_callback_raw(
+        clear_on_event_callback_raw(
             self.raw.as_ptr(),
-            std::ptr::null_mut(),
-            None,
             OH_ArkUI_AnimatorOption_RegisterOnCancelCallback,
         )?;
         if let Some(callback) = self.on_cancel_callback.take() {
             unsafe {
-                drop(Box::from_raw(callback));
+                drop(Box::from_raw(callback.as_ptr()));
             }
         }
         Ok(())
@@ -379,18 +380,18 @@ impl AnimatorOptions {
         callback: T,
     ) -> ArkUIResult<()> {
         self.clear_on_repeat_callback()?;
-        let callback = Box::into_raw(Box::new(AnimatorEventCallbackContext {
+        let callback = NonNull::new(Box::into_raw(Box::new(AnimatorEventCallbackContext {
             callback: Box::new(callback),
-        }));
+        })))
+        .expect("AnimatorEventCallbackContext pointer is null");
         let result = register_on_event_callback_raw(
             self.raw.as_ptr(),
-            callback.cast(),
-            Some(animator_event_callback_trampoline),
+            callback.as_ptr().cast(),
             OH_ArkUI_AnimatorOption_RegisterOnRepeatCallback,
         );
         if let Err(err) = result {
             unsafe {
-                drop(Box::from_raw(callback));
+                drop(Box::from_raw(callback.as_ptr()));
             }
             return Err(err);
         }
@@ -399,15 +400,13 @@ impl AnimatorOptions {
     }
 
     pub(crate) fn clear_on_repeat_callback(&mut self) -> ArkUIResult<()> {
-        register_on_event_callback_raw(
+        clear_on_event_callback_raw(
             self.raw.as_ptr(),
-            std::ptr::null_mut(),
-            None,
             OH_ArkUI_AnimatorOption_RegisterOnRepeatCallback,
         )?;
         if let Some(callback) = self.on_repeat_callback.take() {
             unsafe {
-                drop(Box::from_raw(callback));
+                drop(Box::from_raw(callback.as_ptr()));
             }
         }
         Ok(())
@@ -460,26 +459,43 @@ unsafe extern "C" fn animator_event_callback_trampoline(event: *mut ArkUI_Animat
 fn register_on_frame_callback_raw(
     option: *mut ArkUI_AnimatorOption,
     user_data: *mut c_void,
-    callback: Option<unsafe extern "C" fn(event: *mut ArkUI_AnimatorOnFrameEvent)>,
 ) -> ArkUIResult<()> {
     unsafe {
         check_arkui_status!(OH_ArkUI_AnimatorOption_RegisterOnFrameCallback(
-            option, user_data, callback
+            option,
+            user_data,
+            Some(animator_frame_callback_trampoline)
         ))
     }
 }
 
-type AnimatorEventRegisterCallback = unsafe extern "C" fn(
-    option: *mut ArkUI_AnimatorOption,
-    user_data: *mut c_void,
-    callback: Option<unsafe extern "C" fn(event: *mut ArkUI_AnimatorEvent)>,
-) -> i32;
+fn clear_on_frame_callback_raw(option: *mut ArkUI_AnimatorOption) -> ArkUIResult<()> {
+    unsafe {
+        check_arkui_status!(OH_ArkUI_AnimatorOption_RegisterOnFrameCallback(
+            option,
+            std::ptr::null_mut(),
+            None
+        ))
+    }
+}
 
 fn register_on_event_callback_raw(
     option: *mut ArkUI_AnimatorOption,
     user_data: *mut c_void,
-    callback: Option<unsafe extern "C" fn(event: *mut ArkUI_AnimatorEvent)>,
     register: AnimatorEventRegisterCallback,
 ) -> ArkUIResult<()> {
-    unsafe { check_arkui_status!(register(option, user_data, callback)) }
+    unsafe {
+        check_arkui_status!(register(
+            option,
+            user_data,
+            Some(animator_event_callback_trampoline)
+        ))
+    }
+}
+
+fn clear_on_event_callback_raw(
+    option: *mut ArkUI_AnimatorOption,
+    register: AnimatorEventRegisterCallback,
+) -> ArkUIResult<()> {
+    unsafe { check_arkui_status!(register(option, std::ptr::null_mut(), None)) }
 }

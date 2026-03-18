@@ -501,7 +501,7 @@ impl SystemFontStyleEventRef {
         NonNull::new(raw).map(|raw| Self { raw })
     }
 
-    pub fn from_const_raw(raw: *const ArkUI_SystemFontStyleEvent) -> Option<Self> {
+    pub(crate) fn from_const_raw(raw: *const ArkUI_SystemFontStyleEvent) -> Option<Self> {
         Self::from_raw(raw.cast_mut())
     }
 
