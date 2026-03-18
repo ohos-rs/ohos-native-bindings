@@ -61,3 +61,10 @@ impl super::Span {
     }
 }
 // END_GENERATED_COMPONENT_METHODS_Span
+
+impl super::Span {
+    #[cfg(feature = "api-20")]
+    pub fn on_text_span_long_press<T: Fn(&crate::Event) + 'static>(&mut self, cb: T) {
+        crate::ArkUIEvent::on_event(self, crate::NodeEventType::TextSpanOnLongPress, cb);
+    }
+}

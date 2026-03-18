@@ -165,3 +165,15 @@ pub enum NodeEventType {
     #[cfg(feature = "api-22")]
     GridOnScrollBarUpdate,
 }
+
+#[cfg(feature = "api-22")]
+#[derive(Debug, Clone, Copy, PartialEq, Eq, EnumFrom)]
+#[enum_from_config(
+    ArkUI_TouchTestStrategy,
+    "ArkUI_TouchTestStrategy_ARKUI_TOUCH_TEST_STRATEGY_"
+)]
+pub enum TouchTestStrategy {
+    Default,
+    ForwardCompetition,
+    Forward,
+}

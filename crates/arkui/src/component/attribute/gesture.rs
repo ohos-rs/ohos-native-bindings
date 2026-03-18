@@ -1,11 +1,10 @@
-use std::os::raw::c_void;
-
-use ohos_arkui_sys::{
-    ArkUI_GestureInterruptInfo, ArkUI_GestureInterruptResult, ArkUI_GestureMask,
-    ArkUI_GesturePriority, ArkUI_GestureRecognizer, ArkUI_ParallelInnerGestureEvent,
+#[cfg(feature = "api-18")]
+use crate::ARK_UI_NATIVE_GESTURE_API_2;
+use crate::{
+    ArkUIResult, Gesture, GestureInterruptInfoRef, GestureInterruptResult, GestureMask,
+    GesturePriority, GestureRecognizerRef, ParallelInnerGestureEventRef,
+    ARK_UI_NATIVE_GESTURE_API_1,
 };
-
-use crate::{ArkUIResult, Gesture, GestureMask, GesturePriority, ARK_UI_NATIVE_GESTURE_API_1};
 
 use super::ArkUIAttributeBasic;
 
@@ -25,8 +24,8 @@ pub trait ArkUIGesture: ArkUIAttributeBasic {
         mode: Option<GesturePriority>,
         mask: Option<GestureMask>,
     ) -> ArkUIResult<()> {
-        let mode: ArkUI_GesturePriority = mode.unwrap_or(GesturePriority::Parallel).into();
-        let mask: ArkUI_GestureMask = mask.unwrap_or(GestureMask::NormalGestureMask).into();
+        let mode = mode.unwrap_or(GesturePriority::Parallel);
+        let mask = mask.unwrap_or(GestureMask::NormalGestureMask);
         let raw = *gesture.raw.borrow();
         ARK_UI_NATIVE_GESTURE_API_1
             .with(|api| api.add_gesture(raw, self.raw().raw(), mode, mask))?;
@@ -39,31 +38,46 @@ pub trait ArkUIGesture: ArkUIAttributeBasic {
         Ok(())
     }
 
-    fn set_gesture_interrupter(
+    fn set_gesture_interrupter<
+        T: Fn(GestureInterruptInfoRef) -> GestureInterruptResult + 'static,
+    >(
         &self,
-        interrupter: Option<
-            unsafe extern "C" fn(
-                info: *mut ArkUI_GestureInterruptInfo,
-            ) -> ArkUI_GestureInterruptResult,
-        >,
+        interrupter: T,
     ) -> ArkUIResult<()> {
+        #[cfg(feature = "api-18")]
+        ARK_UI_NATIVE_GESTURE_API_2
+            .with(|api| api.set_gesture_interrupter_to_node(self.raw().raw(), interrupter))?;
+        #[cfg(not(feature = "api-18"))]
         ARK_UI_NATIVE_GESTURE_API_1
             .with(|api| api.set_gesture_interrupter_to_node(self.raw().raw(), interrupter))?;
         Ok(())
     }
 
-    fn set_inner_gesture_parallel_to(
+    fn clear_gesture_interrupter(&self) -> ArkUIResult<()> {
+        #[cfg(feature = "api-18")]
+        ARK_UI_NATIVE_GESTURE_API_2
+            .with(|api| api.clear_gesture_interrupter_to_node(self.raw().raw()))?;
+        #[cfg(not(feature = "api-18"))]
+        ARK_UI_NATIVE_GESTURE_API_1
+            .with(|api| api.clear_gesture_interrupter_to_node(self.raw().raw()))?;
+        Ok(())
+    }
+
+    fn set_inner_gesture_parallel_to<
+        T: Fn(ParallelInnerGestureEventRef) -> Option<GestureRecognizerRef> + 'static,
+    >(
         &self,
-        user_data: *mut c_void,
-        parallel_inner_gesture: Option<
-            unsafe extern "C" fn(
-                event: *mut ArkUI_ParallelInnerGestureEvent,
-            ) -> *mut ArkUI_GestureRecognizer,
-        >,
+        parallel_inner_gesture: T,
     ) -> ArkUIResult<()> {
         ARK_UI_NATIVE_GESTURE_API_1.with(|api| {
-            api.set_inner_gesture_parallel_to(self.raw().raw(), user_data, parallel_inner_gesture)
+            api.set_inner_gesture_parallel_to(self.raw().raw(), parallel_inner_gesture)
         })?;
+        Ok(())
+    }
+
+    fn clear_inner_gesture_parallel_to(&self) -> ArkUIResult<()> {
+        ARK_UI_NATIVE_GESTURE_API_1
+            .with(|api| api.clear_inner_gesture_parallel_to(self.raw().raw()))?;
         Ok(())
     }
 }

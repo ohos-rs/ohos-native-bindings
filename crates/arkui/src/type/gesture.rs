@@ -13,3 +13,13 @@ pub enum GestureRecognizerType {
     SwipeGesture,
     GroupGesture,
 }
+
+#[derive(Debug, Clone, Copy, PartialEq, Eq, EnumFrom)]
+#[enum_from_config(
+    ArkUI_GestureInterruptResult,
+    "ArkUI_GestureInterruptResult_GESTURE_INTERRUPT_RESULT_"
+)]
+pub enum GestureInterruptResult {
+    Continue,
+    Reject,
+}

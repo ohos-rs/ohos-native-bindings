@@ -11,7 +11,7 @@ pub struct ArkUIContext {
 }
 
 impl ArkUIContext {
-    pub fn raw(&self) -> ArkUI_ContextHandle {
+    pub(crate) fn raw(&self) -> ArkUI_ContextHandle {
         self.raw
     }
 }

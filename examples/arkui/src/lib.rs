@@ -117,7 +117,7 @@ impl MyApp {
         animation_test.mode(AnimationMode::Normal);
 
         let input = self.input.borrow_mut().clone();
-        animation_test.update(std::ptr::null_mut(), move |_| {
+        animation_test.update(move || {
             if let Some(input) = input.as_ref() {
                 input.width(200.0).unwrap();
                 input.height(200.0).unwrap();

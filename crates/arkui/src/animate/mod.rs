@@ -1,11 +1,10 @@
-mod animate_option;
-mod finish;
-mod frame_rate_range;
-mod keyframe_animate_option;
-mod update;
+mod animator;
+mod context;
+mod curve;
+mod options;
+mod transition;
 
-pub use animate_option::*;
-pub use finish::*;
-pub use frame_rate_range::*;
-pub use keyframe_animate_option::*;
-pub use update::*;
+pub use animator::*;
+pub use curve::*;
+pub use options::*;
+pub use transition::*;

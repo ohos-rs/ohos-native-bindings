@@ -1,4 +1,4 @@
-use std::{cell::LazyCell, ffi::CString};
+use std::{cell::LazyCell, ffi::CString, ptr::NonNull};
 
 use ohos_arkui_input_binding::ArkUIErrorCode;
 use ohos_arkui_sys::{
@@ -15,21 +15,19 @@ use crate::{
 thread_local! {
     /// ArkUI_NativeNodeAPI_1 struct.
     /// Only can be used in main thread
-    pub static ARK_UI_NATIVE_ANIMATE_API_1: LazyCell<ArkUINativeAnimateAPI1> =
+    pub(crate) static ARK_UI_NATIVE_ANIMATE_API_1: LazyCell<ArkUINativeAnimateAPI1> =
     LazyCell::new(ArkUINativeAnimateAPI1::new);
 }
 
-pub struct ArkUINativeAnimateAPI1(pub(crate) *mut ArkUI_NativeAnimateAPI_1);
+pub(crate) struct ArkUINativeAnimateAPI1(pub(crate) NonNull<ArkUI_NativeAnimateAPI_1>);
 
 impl ArkUINativeAnimateAPI1 {
     /// allow us to get the pointer of ArkUI_NativeAnimateAPI_1 and use it directly
-    pub fn raw(&self) -> *mut ArkUI_NativeAnimateAPI_1 {
-        self.0
+    pub(crate) fn raw(&self) -> *mut ArkUI_NativeAnimateAPI_1 {
+        self.0.as_ptr()
     }
 
-    pub fn new() -> Self {
-        #[allow(unused_assignments)]
-        let mut api: *mut ArkUI_NativeAnimateAPI_1 = std::ptr::null_mut();
+    pub(crate) fn new() -> Self {
         let struct_name = CString::new("ArkUI_NativeAnimateAPI_1").unwrap();
         let raw_ptr = unsafe {
             OH_ArkUI_QueryModuleInterfaceByName(
@@ -37,13 +35,12 @@ impl ArkUINativeAnimateAPI1 {
                 struct_name.as_ptr().cast(),
             )
         };
-        #[cfg(debug_assertions)]
-        assert!(!raw_ptr.is_null(), "ArkUI_NativeAnimateAPI_1 is NULL");
-        api = raw_ptr.cast();
+        let api = NonNull::new(raw_ptr.cast())
+            .unwrap_or_else(|| panic!("ArkUI_NativeAnimateAPI_1 is NULL"));
         Self(api)
     }
 
-    pub fn animate_to(
+    pub(crate) fn animate_to(
         &self,
         ctx: ArkUI_ContextHandle,
         option: *mut ArkUI_AnimateOption,
@@ -51,7 +48,7 @@ impl ArkUINativeAnimateAPI1 {
         finish: *mut ArkUI_AnimateCompleteCallback,
     ) -> ArkUIResult<()> {
         unsafe {
-            if let Some(animate_to_func) = (*self.0).animateTo {
+            if let Some(animate_to_func) = (*self.raw()).animateTo {
                 check_arkui_status!(animate_to_func(ctx, option, update, finish))
             } else {
                 Err(ArkUIError::new(
@@ -62,13 +59,13 @@ impl ArkUINativeAnimateAPI1 {
         }
     }
 
-    pub fn keyframe_animate_to(
+    pub(crate) fn keyframe_animate_to(
         &self,
         ctx: ArkUI_ContextHandle,
         option: *mut ArkUI_KeyframeAnimateOption,
     ) -> ArkUIResult<()> {
         unsafe {
-            if let Some(keyframe_animate_to_func) = (*self.0).keyframeAnimateTo {
+            if let Some(keyframe_animate_to_func) = (*self.raw()).keyframeAnimateTo {
                 check_arkui_status!(keyframe_animate_to_func(ctx, option))
             } else {
                 Err(ArkUIError::new(

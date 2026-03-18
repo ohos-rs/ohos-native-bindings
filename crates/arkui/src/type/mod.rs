@@ -1,3 +1,4 @@
+mod advanced;
 mod alignment;
 mod animation_finish_type;
 mod animation_mode;
@@ -16,6 +17,7 @@ mod node_type;
 mod scroll;
 mod text_alignment;
 
+pub use advanced::*;
 pub use alignment::*;
 pub use animation_finish_type::*;
 pub use animation_mode::*;

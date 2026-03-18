@@ -1,4 +1,4 @@
-use ohos_arkui_sys::{ArkUI_GestureRecognizerHandle, ArkUI_GroupGestureMode};
+use ohos_arkui_sys::ArkUI_GestureRecognizerHandle;
 
 use crate::{ArkUIResult, GestureGroupMode, ARK_UI_NATIVE_GESTURE_API_1};
 
@@ -11,7 +11,6 @@ pub struct GestureGroup {
 
 impl GestureGroup {
     pub fn new(mode: GestureGroupMode) -> ArkUIResult<Self> {
-        let mode: ArkUI_GroupGestureMode = mode.into();
         let handle = ARK_UI_NATIVE_GESTURE_API_1.with(|api| api.create_gesture_group(mode))?;
         Ok(GestureGroup {
             raw: handle,

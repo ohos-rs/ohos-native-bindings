@@ -4,9 +4,6 @@ use crate::{check_arkui_status, ArkUIError, ArkUINode, ArkUIResult, ARK_UI_NATIV
 use ohos_arkui_input_binding::ArkUIErrorCode;
 use ohos_arkui_sys::{OH_ArkUI_NodeContent_AddNode, OH_ArkUI_NodeContent_RemoveNode};
 
-#[cfg(not(feature = "napi"))]
-use ohos_arkui_sys::ArkUI_NodeContentHandle;
-
 #[cfg(feature = "napi")]
 use crate::ArkUIHandle;
 
@@ -20,7 +17,7 @@ pub struct RootNode {
     #[cfg(feature = "napi")]
     handle: ArkUIHandle,
     #[cfg(not(feature = "napi"))]
-    raw: ArkUI_NodeContentHandle,
+    raw: crate::NodeContentHandle,
 }
 
 impl RootNode {
@@ -30,7 +27,7 @@ impl RootNode {
     }
 
     #[cfg(not(feature = "napi"))]
-    pub fn new(handle: ArkUI_NodeContentHandle) -> Self {
+    pub fn new(handle: crate::NodeContentHandle) -> Self {
         RootNode {
             base: None,
             raw: handle,
@@ -43,7 +40,7 @@ impl RootNode {
     }
 
     #[cfg(not(feature = "napi"))]
-    pub fn handle(&self) -> &ArkUI_NodeContentHandle {
+    pub fn handle(&self) -> &crate::NodeContentHandle {
         &self.raw
     }
 
@@ -55,7 +52,7 @@ impl RootNode {
             let raw = self.handle.raw();
 
             #[cfg(not(feature = "napi"))]
-            let raw = self.raw;
+            let raw = self.raw.raw();
 
             ARK_UI_NATIVE_NODE_API_1.with(|api| {
                 api.set_user_data(base, Box::into_raw(Box::new(base)) as *mut c_void)
@@ -84,7 +81,7 @@ impl RootNode {
             let raw = self.handle.raw();
 
             #[cfg(not(feature = "napi"))]
-            let raw = self.raw;
+            let raw = self.raw.raw();
             unsafe {
                 check_arkui_status!(
                     OH_ArkUI_NodeContent_RemoveNode(raw, base.raw()),
@@ -105,7 +102,7 @@ impl Drop for RootNode {
             let raw = self.handle.raw();
 
             #[cfg(not(feature = "napi"))]
-            let raw = self.raw;
+            let raw = self.raw.raw();
             unsafe { OH_ArkUI_NodeContent_RemoveNode(raw, base.raw()) };
             base.children_mut().clear();
             self.base = None;

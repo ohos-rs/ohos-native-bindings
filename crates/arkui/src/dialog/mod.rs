@@ -1,6 +1,7 @@
 use std::{cell::RefCell, os::raw::c_void, rc::Rc};
 
-use crate::{Alignment, ArkUINode, ArkUIResult, DismissReason, ARK_UI_NATIVE_DIALOG_API_1};
+use crate::api::ARK_UI_NATIVE_DIALOG_API_1;
+use crate::{Alignment, ArkUINode, ArkUIResult, DismissReason};
 
 use ohos_arkui_sys::ArkUI_NativeDialogHandle;
 

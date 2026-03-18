@@ -11,7 +11,7 @@ pub struct ArkUIHandle {
 }
 
 impl ArkUIHandle {
-    pub fn raw(&self) -> ArkUI_NodeContentHandle {
+    pub(crate) fn raw(&self) -> ArkUI_NodeContentHandle {
         self.raw
     }
 }

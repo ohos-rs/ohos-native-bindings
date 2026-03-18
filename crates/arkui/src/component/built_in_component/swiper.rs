@@ -466,6 +466,13 @@ impl super::Swiper {
 }
 // END_GENERATED_COMPONENT_METHODS_Swiper
 
+#[cfg(feature = "api-22")]
+impl super::Swiper {
+    pub fn finish_animation(&self) -> crate::ArkUIResult<()> {
+        crate::swiper_finish_animation(crate::ArkUIAttributeBasic::raw(self).raw())
+    }
+}
+
 #[derive(Clone, Copy, Debug, PartialEq)]
 pub struct SwiperAnimationStartEvent {
     pub current_index: i32,

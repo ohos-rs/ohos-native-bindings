@@ -483,3 +483,57 @@ impl super::Image {
     }
 }
 // END_GENERATED_COMPONENT_METHODS_Image
+
+#[derive(Clone, Copy, Debug, PartialEq)]
+pub struct ImageCompleteEvent {
+    pub loading_status: i32,
+    pub width: f32,
+    pub height: f32,
+    pub component_width: f32,
+    pub component_height: f32,
+    pub content_offset_x: f32,
+    pub content_offset_y: f32,
+    pub content_width: f32,
+    pub content_height: f32,
+}
+
+impl super::Image {
+    pub fn on_image_complete<T: Fn(ImageCompleteEvent) + 'static>(&mut self, cb: T) {
+        crate::ArkUIEvent::on_event(self, crate::NodeEventType::ImageOnComplete, move |event| {
+            cb(ImageCompleteEvent {
+                loading_status: event.i32_value(0).unwrap_or_default(),
+                width: event.f32_value(1).unwrap_or_default(),
+                height: event.f32_value(2).unwrap_or_default(),
+                component_width: event.f32_value(3).unwrap_or_default(),
+                component_height: event.f32_value(4).unwrap_or_default(),
+                content_offset_x: event.f32_value(5).unwrap_or_default(),
+                content_offset_y: event.f32_value(6).unwrap_or_default(),
+                content_width: event.f32_value(7).unwrap_or_default(),
+                content_height: event.f32_value(8).unwrap_or_default(),
+            });
+        });
+    }
+
+    pub fn on_image_error<T: Fn(i32) + 'static>(&mut self, cb: T) {
+        crate::ArkUIEvent::on_event(self, crate::NodeEventType::ImageOnError, move |event| {
+            cb(event.i32_value(0).unwrap_or_default());
+        });
+    }
+
+    pub fn on_image_svg_play_finish<T: Fn() + 'static>(&mut self, cb: T) {
+        crate::ArkUIEvent::on_event_no_param(self, crate::NodeEventType::ImageOnSvgPlayFinish, cb);
+    }
+
+    pub fn on_image_download_progress<T: Fn(u32, u32) + 'static>(&mut self, cb: T) {
+        crate::ArkUIEvent::on_event(
+            self,
+            crate::NodeEventType::ImageOnDownloadProgress,
+            move |event| {
+                cb(
+                    event.u32_value(0).unwrap_or_default(),
+                    event.u32_value(1).unwrap_or_default(),
+                );
+            },
+        );
+    }
+}

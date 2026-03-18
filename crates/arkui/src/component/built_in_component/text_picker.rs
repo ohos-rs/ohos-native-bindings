@@ -129,6 +129,30 @@ impl super::TextPicker {
             _ => Ok(None),
         }
     }
+
+    #[cfg(feature = "api-19")]
+    pub fn set_text_picker_option_range_array(
+        &self,
+        range: &crate::TextPickerRangeContentArray,
+    ) -> crate::ArkUIResult<()> {
+        <Self as crate::ArkUICommonAttribute>::set_attribute(
+            self,
+            crate::ArkUINodeAttributeType::TextPickerOptionRange,
+            crate::ArkUINodeAttributeItem::Object(range.raw().cast()),
+        )
+    }
+
+    #[cfg(feature = "api-19")]
+    pub fn set_text_picker_option_range_cascade_array(
+        &self,
+        range: &crate::TextCascadePickerRangeContentArray,
+    ) -> crate::ArkUIResult<()> {
+        <Self as crate::ArkUICommonAttribute>::set_attribute(
+            self,
+            crate::ArkUINodeAttributeType::TextPickerOptionRange,
+            crate::ArkUINodeAttributeItem::Object(range.raw().cast()),
+        )
+    }
 }
 
 // BEGIN_GENERATED_COMPONENT_METHODS_TextPicker

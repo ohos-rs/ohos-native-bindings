@@ -767,3 +767,118 @@ impl super::Text {
     }
 }
 // END_GENERATED_COMPONENT_METHODS_Text
+
+impl super::Text {
+    pub fn set_text_content_with_styled_string_object(
+        &self,
+        styled_string: &crate::StyledString,
+    ) -> crate::ArkUIResult<()> {
+        <Self as crate::ArkUICommonAttribute>::set_attribute(
+            self,
+            crate::ArkUINodeAttributeType::TextContentWithStyledString,
+            crate::ArkUINodeAttributeItem::Object(styled_string.raw().cast()),
+        )
+    }
+
+    pub fn get_text_content_with_styled_string_object(
+        &self,
+    ) -> crate::ArkUIResult<Option<crate::StyledString>> {
+        match <Self as crate::ArkUICommonAttribute>::get_attribute(
+            self,
+            crate::ArkUINodeAttributeType::TextContentWithStyledString,
+        )? {
+            crate::ArkUINodeAttributeItem::Object(ptr) => {
+                Ok(Some(crate::StyledString::from_raw(ptr.cast())))
+            }
+            _ => Ok(None),
+        }
+    }
+
+    pub fn on_text_detect_result_update<T: Fn(Option<String>) + 'static>(&mut self, cb: T) {
+        crate::ArkUIEvent::on_event(
+            self,
+            crate::NodeEventType::TextOnDetectResultUpdate,
+            move |event| {
+                cb(event.async_string());
+            },
+        );
+    }
+}
+
+#[cfg(feature = "api-22")]
+impl super::Text {
+    pub fn set_text_bind_selection_menu_object(
+        &self,
+        options: &crate::TextSelectionMenuOptions,
+    ) -> crate::ArkUIResult<()> {
+        <Self as crate::ArkUICommonAttribute>::set_attribute(
+            self,
+            crate::ArkUINodeAttributeType::TextBindSelectionMenu,
+            crate::ArkUINodeAttributeItem::Object(options.raw().cast()),
+        )
+    }
+
+    pub fn get_text_bind_selection_menu_object(
+        &self,
+    ) -> crate::ArkUIResult<Option<crate::TextSelectionMenuOptions>> {
+        match <Self as crate::ArkUICommonAttribute>::get_attribute(
+            self,
+            crate::ArkUINodeAttributeType::TextBindSelectionMenu,
+        )? {
+            crate::ArkUINodeAttributeItem::Object(ptr) => {
+                Ok(Some(crate::TextSelectionMenuOptions::from_raw(ptr.cast())))
+            }
+            _ => Ok(None),
+        }
+    }
+
+    pub fn set_text_edit_menu_options_object(
+        &self,
+        options: &crate::TextEditMenuOptions,
+    ) -> crate::ArkUIResult<()> {
+        <Self as crate::ArkUICommonAttribute>::set_attribute(
+            self,
+            crate::ArkUINodeAttributeType::TextEditMenuOptions,
+            crate::ArkUINodeAttributeItem::Object(options.raw().cast()),
+        )
+    }
+
+    pub fn get_text_edit_menu_options_object(
+        &self,
+    ) -> crate::ArkUIResult<Option<crate::TextEditMenuOptions>> {
+        match <Self as crate::ArkUICommonAttribute>::get_attribute(
+            self,
+            crate::ArkUINodeAttributeType::TextEditMenuOptions,
+        )? {
+            crate::ArkUINodeAttributeItem::Object(ptr) => {
+                Ok(Some(crate::TextEditMenuOptions::from_raw(ptr.cast())))
+            }
+            _ => Ok(None),
+        }
+    }
+
+    pub fn set_text_layout_manager_object(
+        &self,
+        manager: &crate::TextLayoutManager,
+    ) -> crate::ArkUIResult<()> {
+        <Self as crate::ArkUICommonAttribute>::set_attribute(
+            self,
+            crate::ArkUINodeAttributeType::TextLayoutManager,
+            crate::ArkUINodeAttributeItem::Object(manager.raw().cast()),
+        )
+    }
+
+    pub fn get_text_layout_manager_object(
+        &self,
+    ) -> crate::ArkUIResult<Option<crate::TextLayoutManager>> {
+        match <Self as crate::ArkUICommonAttribute>::get_attribute(
+            self,
+            crate::ArkUINodeAttributeType::TextLayoutManager,
+        )? {
+            crate::ArkUINodeAttributeItem::Object(ptr) => {
+                Ok(Some(crate::TextLayoutManager::from_raw(ptr.cast())))
+            }
+            _ => Ok(None),
+        }
+    }
+}

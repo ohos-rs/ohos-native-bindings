@@ -112,6 +112,65 @@ impl From<*mut ::std::os::raw::c_void> for ArkUINodeAttributeItem {
     }
 }
 
+macro_rules! impl_from_object_wrapper {
+    ($(#[$meta:meta])* $wrapper:ty) => {
+        $(#[$meta])*
+        impl From<&$wrapper> for ArkUINodeAttributeItem {
+            fn from(value: &$wrapper) -> Self {
+                Self::Object(value.raw().cast())
+            }
+        }
+    };
+}
+
+impl_from_object_wrapper!(crate::LayoutConstraint);
+impl_from_object_wrapper!(crate::AlignmentRuleOption);
+impl_from_object_wrapper!(crate::AccessibilityValue);
+impl_from_object_wrapper!(crate::WaterFlowSectionOption);
+impl_from_object_wrapper!(crate::DrawableDescriptor);
+impl_from_object_wrapper!(crate::SwiperIndicator);
+impl_from_object_wrapper!(crate::ImageAnimatorFrameInfo);
+impl_from_object_wrapper!(crate::ListItemSwipeActionItem);
+impl_from_object_wrapper!(crate::ListItemSwipeActionOption);
+impl_from_object_wrapper!(crate::ListChildrenMainSize);
+impl_from_object_wrapper!(crate::AccessibilityState);
+impl_from_object_wrapper!(crate::GuidelineOption);
+impl_from_object_wrapper!(crate::BarrierOption);
+impl_from_object_wrapper!(crate::StyledString);
+impl_from_object_wrapper!(crate::NodeAdapter);
+impl_from_object_wrapper!(crate::TransitionEffect);
+
+#[cfg(feature = "api-15")]
+impl_from_object_wrapper!(crate::ProgressLinearStyleOption);
+#[cfg(feature = "api-17")]
+impl_from_object_wrapper!(crate::VisibleAreaEventOptions);
+#[cfg(feature = "api-19")]
+impl_from_object_wrapper!(crate::SwiperDigitIndicator);
+#[cfg(feature = "api-19")]
+impl_from_object_wrapper!(crate::SwiperArrowStyle);
+#[cfg(feature = "api-19")]
+impl_from_object_wrapper!(crate::TextPickerRangeContentArray);
+#[cfg(feature = "api-19")]
+impl_from_object_wrapper!(crate::TextCascadePickerRangeContentArray);
+#[cfg(feature = "api-20")]
+impl_from_object_wrapper!(crate::EmbeddedComponentOption);
+#[cfg(feature = "api-21")]
+impl_from_object_wrapper!(crate::PositionEdges);
+#[cfg(feature = "api-21")]
+impl_from_object_wrapper!(crate::PixelRoundPolicy);
+#[cfg(feature = "api-21")]
+impl_from_object_wrapper!(crate::ContentTransitionEffect);
+#[cfg(feature = "api-22")]
+impl_from_object_wrapper!(crate::GridLayoutOptions);
+#[cfg(feature = "api-22")]
+impl_from_object_wrapper!(crate::ShowCounterConfig);
+#[cfg(feature = "api-22")]
+impl_from_object_wrapper!(crate::TextEditMenuOptions);
+#[cfg(feature = "api-22")]
+impl_from_object_wrapper!(crate::TextSelectionMenuOptions);
+#[cfg(feature = "api-22")]
+impl_from_object_wrapper!(crate::TextLayoutManager);
+
 impl From<ArkUINodeAttributeItem> for ArkUI_AttributeItem {
     fn from(value: ArkUINodeAttributeItem) -> Self {
         match value {

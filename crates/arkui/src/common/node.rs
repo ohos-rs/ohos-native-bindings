@@ -32,8 +32,21 @@ impl ArkUINode {
         self.children.as_mut()
     }
 
-    pub fn raw(&self) -> ArkUI_NodeHandle {
+    pub(crate) fn raw(&self) -> ArkUI_NodeHandle {
         self.raw
+    }
+
+    pub(crate) fn from_raw_handle(raw: ArkUI_NodeHandle) -> Option<Self> {
+        if raw.is_null() {
+            return None;
+        }
+
+        Some(Self {
+            raw,
+            tag: ArkUINodeType::Custom,
+            children: vec![],
+            event_handle: Default::default(),
+        })
     }
 
     /// Clear dom

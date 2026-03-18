@@ -1,10 +1,10 @@
 use std::{cell::RefCell, os::raw::c_void, rc::Rc};
 
 use ohos_arkui_input_binding::ArkUIErrorCode;
-use ohos_arkui_sys::{
-    ArkUI_GestureDirectionMask, ArkUI_GestureEventActionType, ArkUI_GestureRecognizerHandle,
-};
+use ohos_arkui_sys::{ArkUI_GestureEventActionType, ArkUI_GestureRecognizerHandle};
 
+#[cfg(any(feature = "api-19", feature = "api-22"))]
+use crate::GestureRecognizerRef;
 use crate::{
     ArkUIError, ArkUIResult, GestureDirection, GestureEventAction, GestureRecognizerType,
     ARK_UI_NATIVE_GESTURE_API_1,
@@ -55,7 +55,6 @@ impl Gesture {
         direction: GestureDirection,
         distance: f64,
     ) -> ArkUIResult<Self> {
-        let direction: ArkUI_GestureDirectionMask = direction.into();
         let handle = ARK_UI_NATIVE_GESTURE_API_1
             .with(|api| api.create_pan_gesture(finger, direction, distance))?;
         Ok(Self {
@@ -130,7 +129,6 @@ impl Gesture {
         direction: GestureDirection,
         speed: f64,
     ) -> ArkUIResult<Self> {
-        let direction: ArkUI_GestureDirectionMask = direction.into();
         let handle = ARK_UI_NATIVE_GESTURE_API_1
             .with(|api| api.create_swipe_gesture(finger, direction, speed))?;
         Ok(Self {
@@ -182,6 +180,84 @@ impl Gesture {
     pub fn gesture_type(&self) -> ArkUIResult<GestureRecognizerType> {
         let raw = self.raw_handle()?;
         ARK_UI_NATIVE_GESTURE_API_1.with(|api| api.get_gesture_type(raw))
+    }
+
+    #[cfg(feature = "api-19")]
+    pub fn set_distance_map(
+        &self,
+        tool_type_array: &mut [i32],
+        distance_array: &mut [f64],
+    ) -> ArkUIResult<()> {
+        if self.inner_gesture_data.borrow().gesture_type != GestureRecognizerType::PanGesture {
+            return Err(ArkUIError::new(
+                ArkUIErrorCode::ParamInvalid,
+                "set_distance_map is only available for pan gesture",
+            ));
+        }
+        let raw = self.raw_handle()?;
+        let recognizer = GestureRecognizerRef::from_handle(raw).ok_or_else(|| {
+            ArkUIError::new(
+                ArkUIErrorCode::ParamInvalid,
+                "Gesture recognizer handle is null",
+            )
+        })?;
+        recognizer.set_distance_map(tool_type_array, distance_array)
+    }
+
+    #[cfg(feature = "api-19")]
+    pub fn distance_by_tool_type(&self, tool_type: i32) -> ArkUIResult<f64> {
+        if self.inner_gesture_data.borrow().gesture_type != GestureRecognizerType::PanGesture {
+            return Err(ArkUIError::new(
+                ArkUIErrorCode::ParamInvalid,
+                "distance_by_tool_type is only available for pan gesture",
+            ));
+        }
+        let raw = self.raw_handle()?;
+        let recognizer = GestureRecognizerRef::from_handle(raw).ok_or_else(|| {
+            ArkUIError::new(
+                ArkUIErrorCode::ParamInvalid,
+                "Gesture recognizer handle is null",
+            )
+        })?;
+        recognizer.distance_by_tool_type(tool_type)
+    }
+
+    #[cfg(feature = "api-22")]
+    pub fn set_allowable_movement(&self, allowable_movement: f64) -> ArkUIResult<()> {
+        if self.inner_gesture_data.borrow().gesture_type != GestureRecognizerType::LongPressGesture
+        {
+            return Err(ArkUIError::new(
+                ArkUIErrorCode::ParamInvalid,
+                "set_allowable_movement is only available for long press gesture",
+            ));
+        }
+        let raw = self.raw_handle()?;
+        let recognizer = GestureRecognizerRef::from_handle(raw).ok_or_else(|| {
+            ArkUIError::new(
+                ArkUIErrorCode::ParamInvalid,
+                "Gesture recognizer handle is null",
+            )
+        })?;
+        recognizer.set_allowable_movement(allowable_movement)
+    }
+
+    #[cfg(feature = "api-22")]
+    pub fn allowable_movement(&self) -> ArkUIResult<f64> {
+        if self.inner_gesture_data.borrow().gesture_type != GestureRecognizerType::LongPressGesture
+        {
+            return Err(ArkUIError::new(
+                ArkUIErrorCode::ParamInvalid,
+                "allowable_movement is only available for long press gesture",
+            ));
+        }
+        let raw = self.raw_handle()?;
+        let recognizer = GestureRecognizerRef::from_handle(raw).ok_or_else(|| {
+            ArkUIError::new(
+                ArkUIErrorCode::ParamInvalid,
+                "Gesture recognizer handle is null",
+            )
+        })?;
+        recognizer.allowable_movement()
     }
 
     pub fn dispose(&self) -> ArkUIResult<()> {

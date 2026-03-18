@@ -44,3 +44,31 @@ impl super::EmbeddedComponent {
     }
 }
 // END_GENERATED_COMPONENT_METHODS_EmbeddedComponent
+
+#[cfg(feature = "api-20")]
+impl super::EmbeddedComponent {
+    pub fn set_embedded_component_option_object(
+        &self,
+        option: &crate::EmbeddedComponentOption,
+    ) -> crate::ArkUIResult<()> {
+        <Self as crate::ArkUICommonAttribute>::set_attribute(
+            self,
+            crate::ArkUINodeAttributeType::EmbeddedComponentOption,
+            crate::ArkUINodeAttributeItem::Object(option.raw().cast()),
+        )
+    }
+
+    pub fn get_embedded_component_option_object(
+        &self,
+    ) -> crate::ArkUIResult<Option<crate::EmbeddedComponentOption>> {
+        match <Self as crate::ArkUICommonAttribute>::get_attribute(
+            self,
+            crate::ArkUINodeAttributeType::EmbeddedComponentOption,
+        )? {
+            crate::ArkUINodeAttributeItem::Object(ptr) => {
+                Ok(Some(crate::EmbeddedComponentOption::from_raw(ptr.cast())))
+            }
+            _ => Ok(None),
+        }
+    }
+}
