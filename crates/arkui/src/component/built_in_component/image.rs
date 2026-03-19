@@ -1,3 +1,5 @@
+//! Module component::built_in_component::image wrappers and related types.
+
 // BEGIN_GENERATED_COMPONENT_METHODS_Image
 impl super::Image {
     pub fn set_image_src<T: Into<crate::ArkUINodeAttributeItem>>(
@@ -485,6 +487,7 @@ impl super::Image {
 // END_GENERATED_COMPONENT_METHODS_Image
 
 #[derive(Clone, Copy, Debug, PartialEq)]
+/// Event payload emitted when image loading/decoding completes.
 pub struct ImageCompleteEvent {
     pub loading_status: i32,
     pub width: f32,

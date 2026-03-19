@@ -1,3 +1,5 @@
+//! Module type::gesture_direction wrappers and related types.
+
 use bitflags::bitflags;
 use ohos_arkui_sys::{
     ArkUI_GestureDirection, ArkUI_GestureDirectionMask,

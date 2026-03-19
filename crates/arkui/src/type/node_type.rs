@@ -1,8 +1,11 @@
+//! Module type::node_type wrappers and related types.
+
 use ohos_arkui_sys::*;
 use ohos_enum_macro::EnumFrom;
 
 #[derive(Debug, Clone, Copy, PartialEq, Eq, EnumFrom)]
 #[enum_from_config(ArkUI_NodeType, "ArkUI_NodeType_ARKUI_NODE_")]
+/// Built-in ArkUI node kinds.
 pub enum ArkUINodeType {
     Custom,
     Text,

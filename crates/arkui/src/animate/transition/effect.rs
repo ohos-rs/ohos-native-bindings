@@ -1,3 +1,5 @@
+//! Module animate::transition::effect wrappers and related types.
+
 use std::ptr::NonNull;
 
 use ohos_arkui_input_binding::ArkUIErrorCode;
@@ -16,36 +18,80 @@ use crate::{check_arkui_status, Animation, ArkUIError, ArkUIResult, TransitionEd
 
 use super::{RotationOptions, ScaleOptions, TranslationOptions};
 
+/// Transition effect wrapper for enter/exit animations.
 pub struct TransitionEffect {
     raw: NonNull<ArkUI_TransitionEffect>,
 }
 
 impl TransitionEffect {
     pub fn opacity(opacity: f32) -> ArkUIResult<Self> {
-        create_opacity_transition_effect(opacity).map(Self::from_non_null)
+        let effect = unsafe { OH_ArkUI_CreateOpacityTransitionEffect(opacity) };
+        let effect = NonNull::new(effect).ok_or_else(|| {
+            ArkUIError::new(
+                ArkUIErrorCode::ParamInvalid,
+                "OH_ArkUI_CreateOpacityTransitionEffect returned null",
+            )
+        })?;
+        Ok(Self::from_non_null(effect))
     }
 
     pub fn translation(mut options: TranslationOptions) -> ArkUIResult<Self> {
-        create_translation_transition_effect(options.raw_mut()).map(Self::from_non_null)
+        let effect = unsafe { OH_ArkUI_CreateTranslationTransitionEffect(options.raw_mut()) };
+        let effect = NonNull::new(effect).ok_or_else(|| {
+            ArkUIError::new(
+                ArkUIErrorCode::ParamInvalid,
+                "OH_ArkUI_CreateTranslationTransitionEffect returned null",
+            )
+        })?;
+        Ok(Self::from_non_null(effect))
     }
 
     pub fn scale(mut options: ScaleOptions) -> ArkUIResult<Self> {
-        create_scale_transition_effect(options.raw_mut()).map(Self::from_non_null)
+        let effect = unsafe { OH_ArkUI_CreateScaleTransitionEffect(options.raw_mut()) };
+        let effect = NonNull::new(effect).ok_or_else(|| {
+            ArkUIError::new(
+                ArkUIErrorCode::ParamInvalid,
+                "OH_ArkUI_CreateScaleTransitionEffect returned null",
+            )
+        })?;
+        Ok(Self::from_non_null(effect))
     }
 
     pub fn rotation(mut options: RotationOptions) -> ArkUIResult<Self> {
-        create_rotation_transition_effect(options.raw_mut()).map(Self::from_non_null)
+        let effect = unsafe { OH_ArkUI_CreateRotationTransitionEffect(options.raw_mut()) };
+        let effect = NonNull::new(effect).ok_or_else(|| {
+            ArkUIError::new(
+                ArkUIErrorCode::ParamInvalid,
+                "OH_ArkUI_CreateRotationTransitionEffect returned null",
+            )
+        })?;
+        Ok(Self::from_non_null(effect))
     }
 
     pub fn movement(edge: TransitionEdge) -> ArkUIResult<Self> {
-        create_movement_transition_effect(edge).map(Self::from_non_null)
+        let effect = unsafe { OH_ArkUI_CreateMovementTransitionEffect(edge.into()) };
+        let effect = NonNull::new(effect).ok_or_else(|| {
+            ArkUIError::new(
+                ArkUIErrorCode::ParamInvalid,
+                "OH_ArkUI_CreateMovementTransitionEffect returned null",
+            )
+        })?;
+        Ok(Self::from_non_null(effect))
     }
 
     pub fn asymmetric(
         appear: &TransitionEffect,
         disappear: &TransitionEffect,
     ) -> ArkUIResult<Self> {
-        create_asymmetric_transition_effect(appear.raw(), disappear.raw()).map(Self::from_non_null)
+        let effect =
+            unsafe { OH_ArkUI_CreateAsymmetricTransitionEffect(appear.raw(), disappear.raw()) };
+        let effect = NonNull::new(effect).ok_or_else(|| {
+            ArkUIError::new(
+                ArkUIErrorCode::ParamInvalid,
+                "OH_ArkUI_CreateAsymmetricTransitionEffect returned null",
+            )
+        })?;
+        Ok(Self::from_non_null(effect))
     }
 
     pub fn combine(&mut self, effect: &TransitionEffect) -> ArkUIResult<&mut Self> {
@@ -79,6 +125,7 @@ impl TransitionEffect {
 }
 
 #[cfg(feature = "api-21")]
+/// Content transition effect wrapper available on `api-21+`.
 pub struct ContentTransitionEffect {
     raw: NonNull<ArkUI_ContentTransitionEffect>,
 }
@@ -86,7 +133,14 @@ pub struct ContentTransitionEffect {
 #[cfg(feature = "api-21")]
 impl ContentTransitionEffect {
     pub fn new(type_: i32) -> ArkUIResult<Self> {
-        content_transition_effect_create(type_).map(Self::from_non_null)
+        let effect = unsafe { OH_ArkUI_ContentTransitionEffect_Create(type_) };
+        let effect = NonNull::new(effect).ok_or_else(|| {
+            ArkUIError::new(
+                ArkUIErrorCode::ParamInvalid,
+                "OH_ArkUI_ContentTransitionEffect_Create returned null",
+            )
+        })?;
+        Ok(Self::from_non_null(effect))
     }
 
     pub(crate) fn from_non_null(raw: NonNull<ArkUI_ContentTransitionEffect>) -> Self {
@@ -95,75 +149,5 @@ impl ContentTransitionEffect {
 
     pub(crate) fn raw(&self) -> *mut ArkUI_ContentTransitionEffect {
         self.raw.as_ptr()
-    }
-}
-
-fn transition_effect_or_error(
-    effect: *mut ArkUI_TransitionEffect,
-    func: &'static str,
-) -> ArkUIResult<NonNull<ArkUI_TransitionEffect>> {
-    if let Some(effect) = NonNull::new(effect) {
-        Ok(effect)
-    } else {
-        Err(ArkUIError::new(
-            ArkUIErrorCode::ParamInvalid,
-            format!("{func} returned null"),
-        ))
-    }
-}
-
-fn create_opacity_transition_effect(opacity: f32) -> ArkUIResult<NonNull<ArkUI_TransitionEffect>> {
-    let effect = unsafe { OH_ArkUI_CreateOpacityTransitionEffect(opacity) };
-    transition_effect_or_error(effect, "OH_ArkUI_CreateOpacityTransitionEffect")
-}
-
-fn create_translation_transition_effect(
-    translate: *mut ohos_arkui_sys::ArkUI_TranslationOptions,
-) -> ArkUIResult<NonNull<ArkUI_TransitionEffect>> {
-    let effect = unsafe { OH_ArkUI_CreateTranslationTransitionEffect(translate) };
-    transition_effect_or_error(effect, "OH_ArkUI_CreateTranslationTransitionEffect")
-}
-
-fn create_scale_transition_effect(
-    scale: *mut ohos_arkui_sys::ArkUI_ScaleOptions,
-) -> ArkUIResult<NonNull<ArkUI_TransitionEffect>> {
-    let effect = unsafe { OH_ArkUI_CreateScaleTransitionEffect(scale) };
-    transition_effect_or_error(effect, "OH_ArkUI_CreateScaleTransitionEffect")
-}
-
-fn create_rotation_transition_effect(
-    rotate: *mut ohos_arkui_sys::ArkUI_RotationOptions,
-) -> ArkUIResult<NonNull<ArkUI_TransitionEffect>> {
-    let effect = unsafe { OH_ArkUI_CreateRotationTransitionEffect(rotate) };
-    transition_effect_or_error(effect, "OH_ArkUI_CreateRotationTransitionEffect")
-}
-
-fn create_movement_transition_effect(
-    edge: TransitionEdge,
-) -> ArkUIResult<NonNull<ArkUI_TransitionEffect>> {
-    let effect = unsafe { OH_ArkUI_CreateMovementTransitionEffect(edge.into()) };
-    transition_effect_or_error(effect, "OH_ArkUI_CreateMovementTransitionEffect")
-}
-
-fn create_asymmetric_transition_effect(
-    appear: *mut ArkUI_TransitionEffect,
-    disappear: *mut ArkUI_TransitionEffect,
-) -> ArkUIResult<NonNull<ArkUI_TransitionEffect>> {
-    let effect = unsafe { OH_ArkUI_CreateAsymmetricTransitionEffect(appear, disappear) };
-    transition_effect_or_error(effect, "OH_ArkUI_CreateAsymmetricTransitionEffect")
-}
-
-#[cfg(feature = "api-21")]
-fn content_transition_effect_create(
-    type_: i32,
-) -> ArkUIResult<NonNull<ArkUI_ContentTransitionEffect>> {
-    let effect = unsafe { OH_ArkUI_ContentTransitionEffect_Create(type_) };
-    if let Some(effect) = NonNull::new(effect) {
-        Ok(effect)
-    } else {
-        Err(ArkUIError::new(
-            ArkUIErrorCode::ParamInvalid,
-            "OH_ArkUI_ContentTransitionEffect_Create returned null",
-        ))
     }
 }

@@ -1,3 +1,5 @@
+//! Module component::built_in_component::list wrappers and related types.
+
 use crate::{
     ArkUIAttributeBasic, ArkUINodeAttributeItem, ArkUINodeAttributeNumber, ArkUIResult,
     ScrollBarDisplayMode, ARK_UI_NATIVE_NODE_API_1,
@@ -391,6 +393,7 @@ impl super::List {
 // END_GENERATED_COMPONENT_METHODS_List
 
 #[derive(Clone, Copy, Debug, PartialEq, Eq)]
+/// Event payload describing list scroll index range.
 pub struct ListScrollIndexEvent {
     pub first_index: i32,
     pub last_index: i32,
@@ -398,6 +401,7 @@ pub struct ListScrollIndexEvent {
 }
 
 #[derive(Clone, Copy, Debug, PartialEq)]
+/// Event payload emitted before list scroll position changes.
 pub struct ListWillScrollEvent {
     pub offset: f32,
     pub state: i32,
@@ -405,6 +409,7 @@ pub struct ListWillScrollEvent {
 }
 
 #[derive(Clone, Copy, Debug, PartialEq)]
+/// Event payload emitted after list scroll position changes.
 pub struct ListDidScrollEvent {
     pub offset: f32,
     pub state: i32,
@@ -412,6 +417,7 @@ pub struct ListDidScrollEvent {
 
 #[cfg(feature = "api-15")]
 #[derive(Clone, Copy, Debug, PartialEq, Eq)]
+/// Event payload for list visible-content change notifications.
 pub struct ListVisibleContentChangeEvent {
     pub first_index: i32,
     pub start_area: i32,

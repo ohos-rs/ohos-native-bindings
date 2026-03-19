@@ -1,3 +1,5 @@
+//! Module component::built_in_component::swiper wrappers and related types.
+
 // BEGIN_GENERATED_COMPONENT_METHODS_Swiper
 impl super::Swiper {
     pub fn set_swiper_loop<T: Into<crate::ArkUINodeAttributeItem>>(
@@ -469,11 +471,16 @@ impl super::Swiper {
 #[cfg(feature = "api-22")]
 impl super::Swiper {
     pub fn finish_animation(&self) -> crate::ArkUIResult<()> {
-        crate::swiper_finish_animation(crate::ArkUIAttributeBasic::raw(self).raw())
+        unsafe {
+            crate::check_arkui_status!(ohos_arkui_sys::OH_ArkUI_Swiper_FinishAnimation(
+                crate::ArkUIAttributeBasic::raw(self).raw()
+            ))
+        }
     }
 }
 
 #[derive(Clone, Copy, Debug, PartialEq)]
+/// Event payload emitted when swiper animation starts.
 pub struct SwiperAnimationStartEvent {
     pub current_index: i32,
     pub target_index: i32,
@@ -483,12 +490,14 @@ pub struct SwiperAnimationStartEvent {
 }
 
 #[derive(Clone, Copy, Debug, PartialEq)]
+/// Event payload emitted when swiper animation ends.
 pub struct SwiperAnimationEndEvent {
     pub index: i32,
     pub offset: f32,
 }
 
 #[derive(Clone, Copy, Debug, PartialEq)]
+/// Event payload emitted after swiper content scrolls.
 pub struct SwiperContentDidScrollEvent {
     pub selected_index: i32,
     pub page_index: i32,
@@ -498,6 +507,7 @@ pub struct SwiperContentDidScrollEvent {
 
 #[cfg(feature = "api-15")]
 #[derive(Clone, Copy, Debug, PartialEq)]
+/// Event payload emitted before swiper content scrolls.
 pub struct SwiperContentWillScrollEvent {
     pub current_index: i32,
     pub target_index: i32,

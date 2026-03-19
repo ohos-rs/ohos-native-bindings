@@ -1,3 +1,5 @@
+//! Module component::built_in_component::relative_container wrappers and related types.
+
 // BEGIN_GENERATED_COMPONENT_METHODS_RelativeContainer
 impl super::RelativeContainer {
     pub fn set_relative_container_guide_line<T: Into<crate::ArkUINodeAttributeItem>>(

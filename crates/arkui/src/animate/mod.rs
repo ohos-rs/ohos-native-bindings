@@ -1,10 +1,14 @@
-mod animator;
-mod context;
-mod curve;
-mod options;
-mod transition;
+//! Animation related wrappers, options and transition effects.
 
-pub use animator::*;
-pub use curve::*;
-pub use options::*;
-pub use transition::*;
+pub mod animator;
+pub(crate) mod context;
+pub mod curve;
+pub mod options;
+pub mod transition;
+
+#[allow(unused_imports)]
+pub(crate) use animator::*;
+#[allow(unused_imports)]
+pub(crate) use curve::*;
+pub(crate) use options::*;
+pub(crate) use transition::*;

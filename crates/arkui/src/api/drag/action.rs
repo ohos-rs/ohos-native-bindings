@@ -1,5 +1,8 @@
+//! Module api::drag::action wrappers and related types.
+
 use std::{os::raw::c_void, ptr::NonNull};
 
+use ohos_arkui_input_binding::ArkUIErrorCode;
 use ohos_arkui_sys::{
     ArkUI_DragAction, ArkUI_DragAndDropInfo, OH_ArkUI_CreateDragActionWithContext,
     OH_ArkUI_CreateDragActionWithNode, OH_ArkUI_DragAction_Dispose,
@@ -10,9 +13,9 @@ use ohos_arkui_sys::{
     OH_ArkUI_StartDrag, OH_PixelmapNative, OH_UdmfData,
 };
 
-use crate::{check_arkui_status, ArkUIResult};
+use crate::{check_arkui_status, ArkUIError, ArkUIHandle, ArkUIResult};
 
-use super::{helper::non_null_or_error, DragAndDropInfo, DragPreviewOption};
+use super::{DragAndDropInfo, DragPreviewOption};
 
 struct DragStatusListenerCallbackContext {
     callback: Box<dyn Fn(&DragAndDropInfo)>,
@@ -26,12 +29,24 @@ pub(crate) struct DragAction {
 impl DragAction {
     pub(crate) fn new_with_node(node: &crate::ArkUINode) -> ArkUIResult<Self> {
         let action = unsafe { OH_ArkUI_CreateDragActionWithNode(node.raw()) };
-        non_null_or_error(action, "OH_ArkUI_CreateDragActionWithNode").map(Self::from_non_null)
+        let action = NonNull::new(action).ok_or_else(|| {
+            ArkUIError::new(
+                ArkUIErrorCode::ParamInvalid,
+                "OH_ArkUI_CreateDragActionWithNode returned null",
+            )
+        })?;
+        Ok(Self::from_non_null(action))
     }
 
     pub(crate) fn new_with_context(ui_context: crate::ArkUIContext) -> ArkUIResult<Self> {
         let action = unsafe { OH_ArkUI_CreateDragActionWithContext(ui_context.raw()) };
-        non_null_or_error(action, "OH_ArkUI_CreateDragActionWithContext").map(Self::from_non_null)
+        let action = NonNull::new(action).ok_or_else(|| {
+            ArkUIError::new(
+                ArkUIErrorCode::ParamInvalid,
+                "OH_ArkUI_CreateDragActionWithContext returned null",
+            )
+        })?;
+        Ok(Self::from_non_null(action))
     }
 
     pub(crate) fn raw(&self) -> *mut ArkUI_DragAction {
@@ -39,7 +54,10 @@ impl DragAction {
     }
 
     pub(crate) fn from_raw(raw: *mut ArkUI_DragAction) -> ArkUIResult<Self> {
-        non_null_or_error(raw, "ArkUI_DragAction").map(Self::from_non_null)
+        let raw = NonNull::new(raw).ok_or_else(|| {
+            ArkUIError::new(ArkUIErrorCode::ParamInvalid, "ArkUI_DragAction is null")
+        })?;
+        Ok(Self::from_non_null(raw))
     }
 
     pub(crate) fn from_non_null(raw: NonNull<ArkUI_DragAction>) -> Self {
@@ -152,6 +170,24 @@ impl DragAction {
 
     pub(crate) fn start_drag(&self) -> ArkUIResult<()> {
         unsafe { check_arkui_status!(OH_ArkUI_StartDrag(self.raw())) }
+    }
+}
+
+impl ArkUIHandle {
+    pub(crate) fn create_drag_action_with_node(
+        &self,
+        node: &crate::ArkUINode,
+    ) -> ArkUIResult<DragAction> {
+        let _ = self.raw();
+        DragAction::new_with_node(node)
+    }
+
+    pub(crate) fn create_drag_action_with_context(
+        &self,
+        ui_context: crate::ArkUIContext,
+    ) -> ArkUIResult<DragAction> {
+        let _ = self.raw();
+        DragAction::new_with_context(ui_context)
     }
 }
 

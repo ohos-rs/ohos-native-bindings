@@ -1,3 +1,5 @@
+//! Module component::built_in_component::refresh wrappers and related types.
+
 // BEGIN_GENERATED_COMPONENT_METHODS_Refresh
 impl super::Refresh {
     pub fn set_refresh_refreshing<T: Into<crate::ArkUINodeAttributeItem>>(

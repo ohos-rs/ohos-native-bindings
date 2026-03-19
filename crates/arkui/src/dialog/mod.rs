@@ -1,3 +1,5 @@
+//! Dialog builder and lifecycle callback wrappers.
+
 use std::{cell::RefCell, os::raw::c_void, rc::Rc};
 
 use crate::api::ARK_UI_NATIVE_DIALOG_API_1;
@@ -18,12 +20,14 @@ pub struct DialogDismissData {
     pub data: Option<*mut c_void>,
 }
 
+/// High-level dialog wrapper for creating and controlling native dialogs.
 pub struct Dialog {
     pub(crate) raw: ArkUI_NativeDialogHandle,
     pub(crate) inner_dismiss_data: Rc<RefCell<InnerDialogDismissData>>,
 }
 
 impl Dialog {
+    /// Create a new dialog controller.
     pub fn new() -> ArkUIResult<Self> {
         let dialog_controller = ARK_UI_NATIVE_DIALOG_API_1.with(|api| api.create())?;
         Ok(Dialog {
@@ -35,22 +39,26 @@ impl Dialog {
         })
     }
 
+    /// Set dialog content node.
     pub fn content<T: Into<ArkUINode>>(&self, content: T) -> ArkUIResult<()> {
         let node: ArkUINode = content.into();
         ARK_UI_NATIVE_DIALOG_API_1.with(|api| api.set_content(self.raw, node.raw()))?;
         Ok(())
     }
 
+    /// Show the dialog in current window.
     pub fn show(&self) -> ArkUIResult<()> {
         ARK_UI_NATIVE_DIALOG_API_1.with(|api| api.show(self.raw, false))?;
         Ok(())
     }
 
+    /// Show the dialog in sub-window mode.
     pub fn show_with_sub_window(&self) -> ArkUIResult<()> {
         ARK_UI_NATIVE_DIALOG_API_1.with(|api| api.show(self.raw, true))?;
         Ok(())
     }
 
+    /// Close the dialog.
     pub fn close(&self) -> ArkUIResult<()> {
         ARK_UI_NATIVE_DIALOG_API_1.with(|api| api.close(self.raw))?;
         Ok(())

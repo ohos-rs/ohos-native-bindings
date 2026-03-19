@@ -1,3 +1,5 @@
+//! Module api::attribute_option::text_and_style wrappers and related types.
+
 use std::{os::raw::c_void, ptr::NonNull};
 
 #[cfg(feature = "api-22")]
@@ -6,7 +8,7 @@ use std::{ffi::CString, os::raw::c_char};
 use ohos_arkui_input_binding::ArkUIErrorCode;
 use ohos_arkui_sys::*;
 
-use super::base::{non_null_or_panic, ptr_or_error, with_cstring};
+use super::base::{non_null_or_panic, with_cstring};
 use crate::{ArkUIError, ArkUIResult};
 
 #[cfg(any(feature = "api-20", feature = "api-22"))]
@@ -15,6 +17,7 @@ use super::base::c_char_ptr_to_string;
 use crate::check_arkui_status;
 
 #[cfg(feature = "api-22")]
+/// Single text menu item descriptor.
 pub struct TextMenuItem {
     raw: NonNull<ArkUI_TextMenuItem>,
 }
@@ -23,7 +26,14 @@ pub struct TextMenuItem {
 impl TextMenuItem {
     pub fn new() -> ArkUIResult<Self> {
         let item = unsafe { OH_ArkUI_TextMenuItem_Create() };
-        ptr_or_error(item, "OH_ArkUI_TextMenuItem_Create").map(Self::from_raw)
+        NonNull::new(item)
+            .map(|raw| Self::from_raw(raw.as_ptr()))
+            .ok_or_else(|| {
+                ArkUIError::new(
+                    ArkUIErrorCode::ParamInvalid,
+                    "OH_ArkUI_TextMenuItem_Create returned null",
+                )
+            })
     }
 
     pub(crate) fn raw(&self) -> *mut ArkUI_TextMenuItem {
@@ -114,6 +124,7 @@ impl TextMenuItem {
 }
 
 #[cfg(feature = "api-22")]
+/// Owned array wrapper for text menu items.
 pub struct TextMenuItemArray {
     raw: NonNull<ArkUI_TextMenuItemArray>,
 }
@@ -149,7 +160,14 @@ impl TextMenuItemArray {
                 &mut item
             ))
         }?;
-        ptr_or_error(item, "OH_ArkUI_TextMenuItemArray_GetItem").map(TextMenuItem::from_raw)
+        NonNull::new(item)
+            .map(|raw| TextMenuItem::from_raw(raw.as_ptr()))
+            .ok_or_else(|| {
+                ArkUIError::new(
+                    ArkUIErrorCode::ParamInvalid,
+                    "OH_ArkUI_TextMenuItemArray_GetItem returned null",
+                )
+            })
     }
 
     pub fn insert(&mut self, item: &TextMenuItem, index: i32) -> ArkUIResult<()> {
@@ -217,6 +235,7 @@ struct TextEditMenuItemClickCallbackContext {
 }
 
 #[cfg(feature = "api-22")]
+/// Options for configuring text edit context menus.
 pub struct TextEditMenuOptions {
     raw: NonNull<ArkUI_TextEditMenuOptions>,
     on_create_menu_callback: Option<*mut TextEditMenuCreateCallbackContext>,
@@ -228,7 +247,14 @@ pub struct TextEditMenuOptions {
 impl TextEditMenuOptions {
     pub fn new() -> ArkUIResult<Self> {
         let option = unsafe { OH_ArkUI_TextEditMenuOptions_Create() };
-        ptr_or_error(option, "OH_ArkUI_TextEditMenuOptions_Create").map(Self::from_raw)
+        NonNull::new(option)
+            .map(|raw| Self::from_raw(raw.as_ptr()))
+            .ok_or_else(|| {
+                ArkUIError::new(
+                    ArkUIErrorCode::ParamInvalid,
+                    "OH_ArkUI_TextEditMenuOptions_Create returned null",
+                )
+            })
     }
 
     pub(crate) fn raw(&self) -> *mut ArkUI_TextEditMenuOptions {
@@ -435,6 +461,7 @@ struct TextSelectionMenuCallbackContext {
 }
 
 #[cfg(feature = "api-22")]
+/// Options for configuring text selection menus.
 pub struct TextSelectionMenuOptions {
     raw: NonNull<ArkUI_TextSelectionMenuOptions>,
     on_menu_show_callback: Option<*mut TextSelectionMenuCallbackContext>,
@@ -445,7 +472,14 @@ pub struct TextSelectionMenuOptions {
 impl TextSelectionMenuOptions {
     pub fn new() -> ArkUIResult<Self> {
         let option = unsafe { OH_ArkUI_TextSelectionMenuOptions_Create() };
-        ptr_or_error(option, "OH_ArkUI_TextSelectionMenuOptions_Create").map(Self::from_raw)
+        NonNull::new(option)
+            .map(|raw| Self::from_raw(raw.as_ptr()))
+            .ok_or_else(|| {
+                ArkUIError::new(
+                    ArkUIErrorCode::ParamInvalid,
+                    "OH_ArkUI_TextSelectionMenuOptions_Create returned null",
+                )
+            })
     }
 
     pub(crate) fn raw(&self) -> *mut ArkUI_TextSelectionMenuOptions {
@@ -634,11 +668,13 @@ unsafe extern "C" fn text_selection_menu_callback_trampoline(
     (callback.callback)(start, end);
 }
 
+/// Wrapper for native styled-string object.
 pub struct StyledString {
     raw: NonNull<ArkUI_StyledString>,
 }
 
 #[derive(Clone, Copy, Debug, PartialEq, Eq)]
+/// Wrapper for drawing typography style object.
 pub struct DrawingTypographyStyle {
     raw: NonNull<c_void>,
 }
@@ -660,6 +696,7 @@ impl DrawingTypographyStyle {
 }
 
 #[derive(Clone, Copy, Debug, PartialEq, Eq)]
+/// Wrapper for drawing font collection object.
 pub struct DrawingFontCollection {
     raw: NonNull<c_void>,
 }
@@ -681,6 +718,7 @@ impl DrawingFontCollection {
 }
 
 #[derive(Clone, Copy, Debug, PartialEq, Eq)]
+/// Wrapper for drawing text style object.
 pub struct DrawingTextStyle {
     raw: NonNull<c_void>,
 }
@@ -702,6 +740,7 @@ impl DrawingTextStyle {
 }
 
 #[derive(Clone, Copy, Debug, PartialEq, Eq)]
+/// Wrapper for drawing placeholder span object.
 pub struct DrawingPlaceholderSpan {
     raw: NonNull<c_void>,
 }
@@ -723,6 +762,7 @@ impl DrawingPlaceholderSpan {
 }
 
 #[derive(Clone, Copy, Debug, PartialEq, Eq)]
+/// Wrapper for drawing typography object.
 pub struct DrawingTypography {
     raw: NonNull<c_void>,
 }
@@ -749,6 +789,7 @@ impl DrawingTypography {
 }
 
 #[derive(Clone, Copy, Debug, PartialEq, Eq)]
+/// Wrapper for drawing text box object.
 pub struct DrawingTextBox {
     raw: NonNull<c_void>,
 }
@@ -771,6 +812,7 @@ impl DrawingTextBox {
 }
 
 #[derive(Clone, Copy, Debug, PartialEq, Eq)]
+/// Wrapper for text position-and-affinity object.
 pub struct DrawingPositionAndAffinity {
     raw: NonNull<c_void>,
 }
@@ -793,6 +835,7 @@ impl DrawingPositionAndAffinity {
 }
 
 #[derive(Debug, Clone, Copy, PartialEq)]
+/// Wrapper for drawing font metrics object.
 pub struct DrawingFontMetrics {
     pub flags: u32,
     pub top: f32,
@@ -836,6 +879,7 @@ impl From<OH_Drawing_Font_Metrics> for DrawingFontMetrics {
 }
 
 #[derive(Debug, Clone, Copy, PartialEq)]
+/// Wrapper for drawing line metrics object.
 pub struct DrawingLineMetrics {
     pub ascender: f64,
     pub descender: f64,
@@ -869,6 +913,7 @@ impl From<OH_Drawing_LineMetrics> for DrawingLineMetrics {
 }
 
 #[derive(Debug, Clone, Copy, PartialEq, Eq)]
+/// Width policy used when querying text rects.
 pub enum TextRectWidthStyle {
     Tight,
     Max,
@@ -884,6 +929,7 @@ impl From<TextRectWidthStyle> for OH_Drawing_RectWidthStyle {
 }
 
 #[derive(Debug, Clone, Copy, PartialEq, Eq)]
+/// Height policy used when querying text rects.
 pub enum TextRectHeightStyle {
     Tight,
     Max,
@@ -918,7 +964,14 @@ impl StyledString {
         collection: &DrawingFontCollection,
     ) -> ArkUIResult<Self> {
         let handle = unsafe { OH_ArkUI_StyledString_Create(style.raw(), collection.raw()) };
-        ptr_or_error(handle, "OH_ArkUI_StyledString_Create").map(Self::from_raw)
+        NonNull::new(handle)
+            .map(|raw| Self::from_raw(raw.as_ptr()))
+            .ok_or_else(|| {
+                ArkUIError::new(
+                    ArkUIErrorCode::ParamInvalid,
+                    "OH_ArkUI_StyledString_Create returned null",
+                )
+            })
     }
 
     pub(crate) fn raw(&self) -> *mut ArkUI_StyledString {
@@ -955,8 +1008,14 @@ impl StyledString {
 
     pub fn create_typography(&self) -> ArkUIResult<DrawingTypography> {
         let typography = unsafe { OH_ArkUI_StyledString_CreateTypography(self.raw()) };
-        ptr_or_error(typography, "OH_ArkUI_StyledString_CreateTypography")
-            .and_then(DrawingTypography::from_raw)
+        NonNull::new(typography)
+            .ok_or_else(|| {
+                ArkUIError::new(
+                    ArkUIErrorCode::ParamInvalid,
+                    "OH_ArkUI_StyledString_CreateTypography returned null",
+                )
+            })
+            .and_then(|raw| DrawingTypography::from_raw(raw.as_ptr()))
     }
 
     pub fn add_placeholder(&mut self, placeholder: &DrawingPlaceholderSpan) {
@@ -965,6 +1024,7 @@ impl StyledString {
 }
 
 #[cfg(feature = "api-14")]
+/// Wrapper for styled-string descriptor object.
 pub struct StyledStringDescriptor {
     raw: NonNull<ArkUI_StyledString_Descriptor>,
 }
@@ -973,7 +1033,14 @@ pub struct StyledStringDescriptor {
 impl StyledStringDescriptor {
     pub fn new() -> ArkUIResult<Self> {
         let descriptor = unsafe { OH_ArkUI_StyledString_Descriptor_Create() };
-        ptr_or_error(descriptor, "OH_ArkUI_StyledString_Descriptor_Create").map(Self::from_raw)
+        NonNull::new(descriptor)
+            .map(|raw| Self::from_raw(raw.as_ptr()))
+            .ok_or_else(|| {
+                ArkUIError::new(
+                    ArkUIErrorCode::ParamInvalid,
+                    "OH_ArkUI_StyledString_Descriptor_Create returned null",
+                )
+            })
     }
 
     pub(crate) fn raw(&self) -> *mut ArkUI_StyledString_Descriptor {
@@ -1037,6 +1104,7 @@ impl StyledStringDescriptor {
 }
 
 #[cfg(feature = "api-22")]
+/// Wrapper for text layout manager object.
 pub struct TextLayoutManager {
     raw: NonNull<ArkUI_TextLayoutManager>,
 }

@@ -1,3 +1,5 @@
+//! Module component::built_in_component::progress wrappers and related types.
+
 // BEGIN_GENERATED_COMPONENT_METHODS_Progress
 impl super::Progress {
     pub fn set_progress_value<T: Into<crate::ArkUINodeAttributeItem>>(

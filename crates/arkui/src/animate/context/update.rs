@@ -1,3 +1,5 @@
+//! Module animate::context::update wrappers and related types.
+
 use std::{cell::RefCell, os::raw::c_void};
 
 use ohos_arkui_sys::ArkUI_ContextCallback;
@@ -6,6 +8,7 @@ struct UpdateCallbackContext {
     callback: Option<Box<dyn Fn()>>,
 }
 
+/// Callback context used for animation update execution.
 pub struct AnimationUpdateContext {
     callback_context: Box<RefCell<UpdateCallbackContext>>,
     raw: RefCell<ArkUI_ContextCallback>,
@@ -32,10 +35,12 @@ impl AnimationUpdateContext {
         self.raw.as_ptr()
     }
 
+    /// Registers update callback closure.
     pub fn callback<T: Fn() + 'static>(&self, callback: T) {
         self.callback_context.borrow_mut().callback = Some(Box::new(callback));
     }
 
+    /// Clears previously registered update callback.
     pub fn clear_callback(&self) {
         self.callback_context.borrow_mut().callback = None;
     }

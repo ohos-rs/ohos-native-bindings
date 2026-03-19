@@ -1,3 +1,5 @@
+//! Module api::attribute_option::mod wrappers and related types.
+
 mod base;
 mod list_and_layout;
 mod text_and_style;

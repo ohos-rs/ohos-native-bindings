@@ -1,3 +1,5 @@
+//! Module animate::context::finish wrappers and related types.
+
 use std::{cell::RefCell, os::raw::c_void};
 
 use ohos_arkui_sys::ArkUI_AnimateCompleteCallback;
@@ -8,20 +10,24 @@ struct FinishCallbackContext {
     callback: Option<Box<dyn Fn()>>,
 }
 
+/// Callback context used for animation finish notifications.
 pub struct AnimationFinishContext {
     callback_context: Box<RefCell<FinishCallbackContext>>,
     raw: RefCell<ArkUI_AnimateCompleteCallback>,
 }
 
 impl AnimationFinishContext {
+    /// Registers finish callback closure.
     pub fn callback<T: Fn() + 'static>(&self, callback: T) {
         self.callback_context.borrow_mut().callback = Some(Box::new(callback));
     }
 
+    /// Clears previously registered finish callback.
     pub fn clear_callback(&self) {
         self.callback_context.borrow_mut().callback = None;
     }
 
+    /// Sets the finish callback type consumed by ArkUI.
     pub fn callback_type(&self, callback_type: AnimationFinishCallbackType) {
         self.raw.borrow_mut().type_ = callback_type.into();
     }

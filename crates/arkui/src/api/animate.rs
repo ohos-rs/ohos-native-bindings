@@ -1,3 +1,5 @@
+//! Module api::animate wrappers and related types.
+
 use std::{cell::LazyCell, ffi::CString, ptr::NonNull};
 
 use ohos_arkui_input_binding::ArkUIErrorCode;

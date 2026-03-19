@@ -1,23 +1,27 @@
-mod animate;
-mod attribute_option;
+//! Thin wrappers around ArkUI C APIs.
+
+pub(crate) mod animate;
+pub mod attribute_option;
 #[cfg(feature = "api-19")]
-mod custom_dialog;
-mod dialog;
-mod drag;
-mod gesture;
-mod node;
-mod node_content;
-mod node_custom_event;
-mod node_utils;
+pub mod custom_dialog;
+pub(crate) mod dialog;
+pub(crate) mod drag;
+pub mod gesture;
+pub(crate) mod node;
+pub mod node_content;
+pub mod node_custom_event;
+pub(crate) mod node_utils;
 
 pub(crate) use animate::*;
-pub use attribute_option::*;
+pub(crate) use attribute_option::*;
 #[cfg(feature = "api-19")]
-pub use custom_dialog::*;
+#[allow(unused_imports)]
+pub(crate) use custom_dialog::*;
 pub(crate) use dialog::*;
-pub use gesture::*;
+pub(crate) use gesture::*;
 pub(crate) use node::*;
-pub use node_content::*;
-pub use node_custom_event::*;
+#[allow(unused_imports)]
+pub(crate) use node_content::*;
+pub(crate) use node_custom_event::*;
 #[allow(unused_imports)]
 pub(crate) use node_utils::*;

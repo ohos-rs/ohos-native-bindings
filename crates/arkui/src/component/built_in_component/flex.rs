@@ -1,3 +1,5 @@
+//! Module component::built_in_component::flex wrappers and related types.
+
 // BEGIN_GENERATED_COMPONENT_METHODS_Flex
 impl super::Flex {
     pub fn set_flex_grow<T: Into<crate::ArkUINodeAttributeItem>>(

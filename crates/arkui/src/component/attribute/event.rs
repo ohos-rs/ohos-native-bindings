@@ -1,3 +1,5 @@
+//! Module component::attribute::event wrappers and related types.
+
 use std::{cell::RefCell, rc::Rc};
 
 #[cfg(feature = "api-22")]
@@ -6,6 +8,7 @@ use crate::{Event, NodeEventType, ARK_UI_NATIVE_NODE_API_1};
 
 use super::ArkUIAttributeBasic;
 
+/// Event registration helpers shared by components.
 pub trait ArkUIEvent: ArkUIAttributeBasic {
     fn on_event<T: Fn(&Event) + 'static>(&mut self, event_type: NodeEventType, cb: T) {
         let node = self.borrow_mut();

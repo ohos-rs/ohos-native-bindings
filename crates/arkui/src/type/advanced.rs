@@ -1,3 +1,5 @@
+//! Module type::advanced wrappers and related types.
+
 use ohos_arkui_sys::*;
 
 use ohos_enum_macro::EnumFrom;
@@ -8,6 +10,7 @@ use ohos_enum_macro::EnumFrom;
     "ArkUI_ListItemSwipeActionDirection_ARKUI_LIST_ITEM_SWIPE_ACTION_DIRECTION_"
 )]
 #[cfg(feature = "api-21")]
+/// Swipe direction used by list-item swipe actions.
 pub enum ListItemSwipeActionDirection {
     Start,
     End,
@@ -18,6 +21,7 @@ pub enum ListItemSwipeActionDirection {
     ArkUI_GestureRecognizerState,
     "ArkUI_GestureRecognizerState_ARKUI_GESTURE_RECOGNIZER_STATE_"
 )]
+/// State of a gesture recognizer lifecycle.
 pub enum GestureRecognizerState {
     Ready,
     Detecting,
@@ -30,6 +34,7 @@ pub enum GestureRecognizerState {
 #[derive(Debug, Clone, Copy, PartialEq, Eq, EnumFrom)]
 #[enum_from_config(ArkUI_TextSpanType, "ArkUI_TextSpanType_ARKUI_TEXT_SPAN_TYPE_")]
 #[cfg(feature = "api-22")]
+/// Span type contained in rich text.
 pub enum TextSpanType {
     Text,
     Image,
@@ -43,6 +48,7 @@ pub enum TextSpanType {
     "ArkUI_TextResponseType_ARKUI_TEXT_RESPONSE_TYPE_"
 )]
 #[cfg(feature = "api-22")]
+/// Trigger type that produced a text response.
 pub enum TextResponseType {
     RightClick,
     LongPress,
@@ -55,6 +61,7 @@ pub enum TextResponseType {
     ArkUI_NavDestinationState,
     "ArkUI_NavDestinationState_ARKUI_NAV_DESTINATION_STATE_"
 )]
+/// Lifecycle states for navigation destinations.
 pub enum NavDestinationState {
     OnShow,
     OnHide,
@@ -72,6 +79,7 @@ pub enum NavDestinationState {
     ArkUI_RouterPageState,
     "ArkUI_RouterPageState_ARKUI_ROUTER_PAGE_STATE_"
 )]
+/// Lifecycle states for router pages.
 pub enum RouterPageState {
     AboutToAppear,
     AboutToDisappear,
@@ -85,6 +93,7 @@ pub enum RouterPageState {
     ArkUI_HorizontalAlignment,
     "ArkUI_HorizontalAlignment_ARKUI_HORIZONTAL_ALIGNMENT_"
 )]
+/// Horizontal alignment values for layout options.
 pub enum HorizontalAlignment {
     Start,
     Center,
@@ -96,6 +105,7 @@ pub enum HorizontalAlignment {
     ArkUI_VerticalAlignment,
     "ArkUI_VerticalAlignment_ARKUI_VERTICAL_ALIGNMENT_"
 )]
+/// Vertical alignment values for layout options.
 pub enum VerticalAlignment {
     Top,
     Center,
@@ -104,6 +114,7 @@ pub enum VerticalAlignment {
 
 #[derive(Debug, Clone, Copy, PartialEq, Eq, EnumFrom)]
 #[enum_from_config(ArkUI_Axis, "ArkUI_Axis_ARKUI_AXIS_")]
+/// Direction axis used by scrolling and layout APIs.
 pub enum Axis {
     Vertical,
     Horizontal,
@@ -114,6 +125,7 @@ pub enum Axis {
     ArkUI_BarrierDirection,
     "ArkUI_BarrierDirection_ARKUI_BARRIER_DIRECTION_"
 )]
+/// Direction used by relative-layout barriers.
 pub enum BarrierDirection {
     Start,
     End,
@@ -126,12 +138,14 @@ pub enum BarrierDirection {
     ArkUI_SwiperIndicatorType,
     "ArkUI_SwiperIndicatorType_ARKUI_SWIPER_INDICATOR_TYPE_"
 )]
+/// Indicator style used by swiper components.
 pub enum SwiperIndicatorType {
     Dot,
     Digit,
 }
 
 #[derive(Debug, Clone, Copy, PartialEq, Eq)]
+/// Font-weight values mapped to ArkUI constants.
 pub enum FontWeight {
     W100,
     W200,
@@ -215,6 +229,7 @@ impl From<FontWeight> for ArkUI_FontWeight {
     ArkUI_ListItemSwipeEdgeEffect,
     "ArkUI_ListItemSwipeEdgeEffect_ARKUI_LIST_ITEM_SWIPE_EDGE_EFFECT_"
 )]
+/// Edge behavior when list-item swipe reaches bounds.
 pub enum ListItemSwipeEdgeEffect {
     Spring,
     None,
@@ -225,6 +240,7 @@ pub enum ListItemSwipeEdgeEffect {
     ArkUI_ListItemSwipeActionState,
     "ArkUI_ListItemSwipeActionState_ARKUI_LIST_ITEM_SWIPE_ACTION_STATE_"
 )]
+/// State of list-item swipe action animation.
 pub enum ListItemSwipeActionState {
     Collapsed,
     Expanded,
@@ -236,6 +252,7 @@ pub enum ListItemSwipeActionState {
     ArkUI_NodeAdapterEventType,
     "ArkUI_NodeAdapterEventType_NODE_ADAPTER_EVENT_"
 )]
+/// Event types emitted by node-adapter callbacks.
 pub enum NodeAdapterEventType {
     WillAttachToNode,
     WillDetachFromNode,
@@ -250,6 +267,7 @@ pub enum NodeAdapterEventType {
     "ArkUI_PixelRoundCalcPolicy_ARKUI_PIXELROUNDCALCPOLICY_"
 )]
 #[cfg(feature = "api-21")]
+/// Policy controlling pixel-rounding calculations.
 pub enum PixelRoundCalcPolicy {
     Noforceround,
     Forceceil,
@@ -259,6 +277,7 @@ pub enum PixelRoundCalcPolicy {
 #[derive(Debug, Clone, Copy, PartialEq, Eq, EnumFrom)]
 #[enum_from_config(ArkUI_DialogState, "ArkUI_DialogState_DIALOG_")]
 #[cfg(feature = "api-19")]
+/// Runtime state of native/custom dialogs.
 pub enum DialogState {
     Uninitialized,
     Initialized,
@@ -273,6 +292,7 @@ pub enum DialogState {
     ArkUI_NodeContentEventType,
     "ArkUI_NodeContentEventType_NODE_CONTENT_EVENT_"
 )]
+/// Event types emitted by `NodeContent`.
 pub enum NodeContentEventType {
     OnAttachToWindow,
     OnDetachFromWindow,
@@ -283,6 +303,7 @@ pub enum NodeContentEventType {
     ArkUI_AnimationFillMode,
     "ArkUI_AnimationFillMode_ARKUI_ANIMATION_FILL_MODE_"
 )]
+/// Fill behavior outside keyframe/animation active range.
 pub enum AnimationFillMode {
     None,
     Forwards,
@@ -295,6 +316,7 @@ pub enum AnimationFillMode {
     ArkUI_AnimationDirection,
     "ArkUI_AnimationDirection_ARKUI_ANIMATION_DIRECTION_"
 )]
+/// Direction behavior for keyframe animations.
 pub enum AnimationDirection {
     Normal,
     Reverse,
@@ -304,6 +326,7 @@ pub enum AnimationDirection {
 
 #[derive(Debug, Clone, Copy, PartialEq, Eq, EnumFrom)]
 #[enum_from_config(ArkUI_NodeDirtyFlag, "ArkUI_NodeDirtyFlag_NODE_")]
+/// Dirty flags describing what changed in a node.
 pub enum NodeDirtyFlag {
     NeedMeasure,
     NeedLayout,
@@ -316,6 +339,7 @@ pub enum NodeDirtyFlag {
     "ArkUI_CoastingAxisEventPhase_ARKUI_COASTING_AXIS_EVENT_PHASE_"
 )]
 #[cfg(feature = "api-22")]
+/// Phase of coasting-axis events.
 pub enum CoastingAxisEventPhase {
     None,
     Begin,
@@ -326,6 +350,7 @@ pub enum CoastingAxisEventPhase {
 #[derive(Debug, Clone, Copy, PartialEq, Eq, EnumFrom)]
 #[enum_from_config(ArkUI_KeyEventType, "ArkUI_KeyEventType_ARKUI_KEY_EVENT_")]
 #[cfg(feature = "api-14")]
+/// Key event action type.
 pub enum KeyEventType {
     Unknown,
     Down,
@@ -337,6 +362,7 @@ pub enum KeyEventType {
 #[derive(Debug, Clone, Copy, PartialEq, Eq, EnumFrom)]
 #[enum_from_config(ArkUI_KeySourceType, "ArkUI_KeySourceType_ARKUI_KEY_SOURCE_")]
 #[cfg(feature = "api-14")]
+/// Input source that generated a key event.
 pub enum KeySourceType {
     Unknown,
     TypeMouse,
@@ -346,6 +372,7 @@ pub enum KeySourceType {
 
 #[derive(Debug, Clone, Copy, PartialEq, Eq)]
 #[cfg(feature = "api-14")]
+/// Key intention semantic mapped by ArkUI.
 pub enum KeyIntension {
     Unknown,
     Up,
@@ -470,6 +497,7 @@ impl From<KeyIntension> for ArkUI_KeyIntension {
 
 #[derive(Debug, Clone, Copy, PartialEq, Eq, EnumFrom)]
 #[enum_from_config(ArkUI_TransitionEdge, "ArkUI_TransitionEdge_ARKUI_TRANSITION_EDGE_")]
+/// Edge used by movement transition effects.
 pub enum TransitionEdge {
     Top,
     Bottom,
@@ -482,6 +510,7 @@ pub enum TransitionEdge {
     ArkUI_NodeCustomEventType,
     "ArkUI_NodeCustomEventType_ARKUI_NODE_CUSTOM_EVENT_"
 )]
+/// Event types emitted by custom node callbacks.
 pub enum NodeCustomEventType {
     OnMeasure,
     OnLayout,
@@ -499,6 +528,7 @@ pub enum NodeCustomEventType {
     ArkUI_LengthMetricUnit,
     "ArkUI_LengthMetricUnit_ARKUI_LENGTH_METRIC_UNIT_"
 )]
+/// Length units supported by metric-based APIs.
 pub enum LengthMetricUnit {
     Default,
     Px,
@@ -508,6 +538,7 @@ pub enum LengthMetricUnit {
 
 #[derive(Debug, Clone, Copy, PartialEq, Eq, EnumFrom)]
 #[enum_from_config(ArkUI_DragStatus, "ArkUI_DragStatus_ARKUI_DRAG_STATUS_")]
+/// Real-time drag status in drag lifecycle events.
 pub enum DragStatus {
     Unknown,
     Started,
@@ -519,6 +550,7 @@ pub enum DragStatus {
     ArkUI_DragPreviewScaleMode,
     "ArkUI_DragPreviewScaleMode_ARKUI_DRAG_PREVIEW_SCALE_"
 )]
+/// Scaling mode for drag preview rendering.
 pub enum DragPreviewScaleMode {
     Auto,
     Disabled,
@@ -527,6 +559,7 @@ pub enum DragPreviewScaleMode {
 #[derive(Debug, Clone, Copy, PartialEq, Eq, EnumFrom)]
 #[enum_from_config(ArkUI_LevelMode, "ArkUI_LevelMode_ARKUI_LEVEL_MODE_")]
 #[cfg(feature = "api-19")]
+/// Level mode used by ArkUI rendering/effect APIs.
 pub enum LevelMode {
     Overlay,
     Embedded,
@@ -535,6 +568,7 @@ pub enum LevelMode {
 #[derive(Debug, Clone, Copy, PartialEq, Eq, EnumFrom)]
 #[enum_from_config(ArkUI_ImmersiveMode, "ArkUI_ImmersiveMode_ARKUI_IMMERSIVE_MODE_")]
 #[cfg(feature = "api-19")]
+/// Immersive mode behavior for system UI overlays.
 pub enum ImmersiveMode {
     Default,
     Extend,
@@ -543,6 +577,7 @@ pub enum ImmersiveMode {
 #[derive(Debug, Clone, Copy, PartialEq, Eq, EnumFrom)]
 #[enum_from_config(ArkUI_ShadowStyle, "ArkUI_ShadowStyle_ARKUI_SHADOW_STYLE_")]
 #[cfg(feature = "api-19")]
+/// Predefined shadow style presets.
 pub enum ShadowStyle {
     OuterDefaultXs,
     OuterDefaultSm,
@@ -555,6 +590,7 @@ pub enum ShadowStyle {
 #[derive(Debug, Clone, Copy, PartialEq, Eq, EnumFrom)]
 #[enum_from_config(ArkUI_BlurStyle, "ArkUI_BlurStyle_ARKUI_BLUR_STYLE_")]
 #[cfg(feature = "api-19")]
+/// Blur style presets for background/foreground blur.
 pub enum BlurStyle {
     Thin,
     Regular,
@@ -577,6 +613,7 @@ pub enum BlurStyle {
     "ArkUI_KeyboardAvoidMode_ARKUI_KEYBOARD_AVOID_MODE_"
 )]
 #[cfg(feature = "api-19")]
+/// Keyboard avoidance behavior for focused content.
 pub enum KeyboardAvoidMode {
     Default,
     None,
@@ -588,6 +625,7 @@ pub enum KeyboardAvoidMode {
     "ArkUI_HoverModeAreaType_ARKUI_HOVER_MODE_AREA_TYPE_"
 )]
 #[cfg(feature = "api-19")]
+/// Area type used by hover-mode APIs.
 pub enum HoverModeAreaType {
     Top,
     Bottom,

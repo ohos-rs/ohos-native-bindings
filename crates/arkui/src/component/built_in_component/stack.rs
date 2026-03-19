@@ -1,3 +1,5 @@
+//! Module component::built_in_component::stack wrappers and related types.
+
 // BEGIN_GENERATED_COMPONENT_METHODS_Stack
 impl super::Stack {
     pub fn set_stack_align_content<T: Into<crate::ArkUINodeAttributeItem>>(

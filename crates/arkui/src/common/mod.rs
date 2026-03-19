@@ -1,15 +1,15 @@
-mod attribute;
-mod error;
-#[cfg(feature = "napi")]
-mod handle;
-mod node;
-#[cfg(feature = "napi")]
-mod ui_context;
+//! Shared foundational types used across ArkUI wrappers.
 
-pub use attribute::*;
-pub use error::*;
+pub mod attribute;
+pub mod error;
+pub mod handle;
+pub mod node;
 #[cfg(feature = "napi")]
-pub use handle::*;
-pub use node::*;
+pub mod ui_context;
+
+pub(crate) use attribute::*;
+pub(crate) use error::*;
+pub(crate) use handle::*;
+pub(crate) use node::*;
 #[cfg(feature = "napi")]
-pub use ui_context::*;
+pub(crate) use ui_context::*;

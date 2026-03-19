@@ -1,3 +1,5 @@
+//! Module component::built_in_component::checkbox_group wrappers and related types.
+
 // BEGIN_GENERATED_COMPONENT_METHODS_CheckboxGroup
 #[cfg(feature = "api-15")]
 impl super::CheckboxGroup {

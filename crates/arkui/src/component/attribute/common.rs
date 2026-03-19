@@ -1,3 +1,5 @@
+//! Module component::attribute::common wrappers and related types.
+
 use std::{cell::RefCell, os::raw::c_void, rc::Rc};
 
 use crate::{
@@ -5,6 +7,7 @@ use crate::{
     ArkUIResult, ARK_UI_NATIVE_NODE_API_1,
 };
 
+/// Minimal node access required by all attribute traits.
 pub trait ArkUIAttributeBasic {
     /// Make sure every node can get ArkUINode for built-in method with current trait
     fn raw(&self) -> &ArkUINode;

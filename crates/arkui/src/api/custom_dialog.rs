@@ -1,4 +1,5 @@
 #![cfg(feature = "api-19")]
+//! Module api::custom_dialog wrappers and related types.
 
 use std::{
     os::raw::c_void,
@@ -16,6 +17,7 @@ fn non_null_or_panic<T>(ptr: *mut T, name: &'static str) -> NonNull<T> {
 }
 
 #[derive(Clone, Copy, Debug, PartialEq)]
+/// Rectangle used as custom-dialog mask region.
 pub struct CustomDialogMaskRect {
     pub x: f32,
     pub y: f32,
@@ -35,6 +37,7 @@ impl From<CustomDialogMaskRect> for ArkUI_Rect {
 }
 
 #[derive(Clone, Copy, Debug, PartialEq, Eq)]
+/// Border line style used by custom-dialog border edges.
 pub enum CustomDialogBorderLineStyle {
     Solid,
     Dashed,
@@ -56,6 +59,7 @@ impl From<CustomDialogBorderLineStyle> for i32 {
 }
 
 #[derive(Clone, Copy, Debug, PartialEq, Eq)]
+/// Per-edge border style configuration for custom dialogs.
 pub struct CustomDialogBorderStyle {
     pub top: CustomDialogBorderLineStyle,
     pub right: CustomDialogBorderLineStyle,
@@ -64,6 +68,7 @@ pub struct CustomDialogBorderStyle {
 }
 
 impl CustomDialogBorderStyle {
+    /// Creates a border style with the same value on all sides.
     pub fn uniform(style: CustomDialogBorderLineStyle) -> Self {
         Self {
             top: style,
@@ -75,11 +80,13 @@ impl CustomDialogBorderStyle {
 }
 
 #[derive(Clone, Copy, Debug, PartialEq, Eq)]
+/// Borrowed handle to a native custom-dialog instance.
 pub struct NativeDialogHandle {
     raw: NonNull<c_void>,
 }
 
 impl NativeDialogHandle {
+    /// Converts from a high-level [`crate::Dialog`] wrapper.
     pub fn from_dialog(dialog: &crate::Dialog) -> Option<Self> {
         Self::from_raw(dialog.raw)
     }
@@ -92,6 +99,7 @@ impl NativeDialogHandle {
         self.raw.as_ptr().cast()
     }
 
+    /// Returns current dialog state.
     pub fn state(&self) -> ArkUIResult<crate::DialogState> {
         let mut state = ArkUI_DialogState_DIALOG_UNINITIALIZED;
         unsafe { check_arkui_status!(OH_ArkUI_CustomDialog_GetState(self.raw(), &mut state)) }?;
@@ -99,6 +107,7 @@ impl NativeDialogHandle {
     }
 }
 
+/// Dismiss event object used by custom-dialog lifecycle callbacks.
 pub struct CustomDialogDismissEvent {
     raw: NonNull<ArkUI_DialogDismissEvent>,
 }
@@ -112,11 +121,13 @@ impl CustomDialogDismissEvent {
         self.raw.as_ptr()
     }
 
+    /// Returns dismiss reason reported by ArkUI.
     pub fn dismiss_reason(&self) -> DismissReason {
         let reason = unsafe { OH_ArkUI_DialogDismissEvent_GetDismissReason(self.raw()) } as u32;
         reason.into()
     }
 
+    /// Controls whether this dismiss operation should be blocked.
     pub fn set_should_block_dismiss(&mut self, block: bool) {
         unsafe { OH_ArkUI_DialogDismissEvent_SetShouldBlockDismiss(self.raw(), block) }
     }
@@ -148,6 +159,7 @@ fn custom_dialog_id_callback_slots() -> &'static Mutex<CustomDialogIdCallbackSlo
         .get_or_init(|| Mutex::new([None; CUSTOM_DIALOG_ID_CALLBACK_SLOT_COUNT]))
 }
 
+/// Builder-style options wrapper for creating and operating custom dialogs.
 pub struct CustomDialogOptions {
     raw: NonNull<ArkUI_CustomDialogOptions>,
     on_will_dismiss_callback: Option<NonNull<CustomDialogDismissCallbackContext>>,
@@ -158,6 +170,7 @@ pub struct CustomDialogOptions {
 }
 
 impl CustomDialogOptions {
+    /// Creates options from a dialog content node.
     pub fn new(content: &crate::ArkUINode) -> ArkUIResult<Self> {
         if content.raw().is_null() {
             return Err(ArkUIError::new(
@@ -167,7 +180,13 @@ impl CustomDialogOptions {
         }
 
         let options = unsafe { OH_ArkUI_CustomDialog_CreateOptions(content.raw()) };
-        options_or_error(options).map(Self::from_non_null)
+        let options = NonNull::new(options).ok_or_else(|| {
+            ArkUIError::new(
+                ArkUIErrorCode::ParamInvalid,
+                "OH_ArkUI_CustomDialog_CreateOptions returned null",
+            )
+        })?;
+        Ok(Self::from_non_null(options))
     }
 
     pub fn new_from_node(node: &crate::ArkUINode) -> ArkUIResult<Self> {
@@ -197,6 +216,7 @@ impl CustomDialogOptions {
         self.raw.as_ptr()
     }
 
+    /// Disposes options and clears all registered callbacks.
     pub fn dispose(mut self) {
         let _ = self.clear_on_will_dismiss_callback();
         let _ = self.clear_on_will_appear_callback();
@@ -206,18 +226,22 @@ impl CustomDialogOptions {
         unsafe { OH_ArkUI_CustomDialog_DisposeOptions(self.raw()) }
     }
 
+    /// Opens a custom dialog using these options.
     pub fn open(&self) -> ArkUIResult<()> {
         custom_dialog_open_dialog_raw(self.raw(), None)
     }
 
+    /// Opens a custom dialog and returns dialog id through callback.
     pub fn open_with_callback<T: Fn(i32) + 'static>(&self, callback: T) -> ArkUIResult<()> {
         self.run_with_dialog_id_callback(callback, custom_dialog_open_dialog_raw)
     }
 
+    /// Updates an existing custom dialog.
     pub fn update(&self) -> ArkUIResult<()> {
         custom_dialog_update_dialog_raw(self.raw(), None)
     }
 
+    /// Updates an existing dialog and returns dialog id through callback.
     pub fn update_with_callback<T: Fn(i32) + 'static>(&self, callback: T) -> ArkUIResult<()> {
         self.run_with_dialog_id_callback(callback, custom_dialog_update_dialog_raw)
     }
@@ -813,17 +837,6 @@ unsafe extern "C" fn custom_dialog_void_callback_trampoline(user_data: *mut c_vo
     }
     let callback = unsafe { &*(user_data as *mut CustomDialogVoidCallbackContext) };
     (callback.callback)();
-}
-
-fn options_or_error(
-    options: *mut ArkUI_CustomDialogOptions,
-) -> ArkUIResult<NonNull<ArkUI_CustomDialogOptions>> {
-    NonNull::new(options).ok_or_else(|| {
-        ArkUIError::new(
-            ArkUIErrorCode::ParamInvalid,
-            "OH_ArkUI_CustomDialog_CreateOptions returned null",
-        )
-    })
 }
 
 fn register_on_will_dismiss_callback_raw(

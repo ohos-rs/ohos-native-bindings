@@ -1,3 +1,5 @@
+//! Module type::gesture_event wrappers and related types.
+
 use bitflags::bitflags;
 use ohos_arkui_sys::{
     ArkUI_GestureEventActionType, ArkUI_GestureEventActionType_GESTURE_EVENT_ACTION_ACCEPT,

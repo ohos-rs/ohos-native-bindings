@@ -1,3 +1,5 @@
+//! Module common::node wrappers and related types.
+
 #[cfg(feature = "napi")]
 use napi_ohos::bindgen_prelude::{check_status, FromNapiValue, TypeName, ValidateNapiValue};
 #[cfg(feature = "napi")]
@@ -16,18 +18,25 @@ use crate::{ArkUINodeType, EventHandle, ARK_UI_NATIVE_NODE_API_1};
 use super::ArkUIResult;
 
 #[derive(Clone)]
+/// High-level ArkUI node wrapper used by component APIs.
 pub struct ArkUINode {
+    /// Underlying native ArkUI node handle.
     pub(crate) raw: ArkUI_NodeHandle,
+    /// Node type tag.
     pub(crate) tag: ArkUINodeType,
+    /// Child nodes owned by this node in wrapper layer.
     pub(crate) children: Vec<Rc<RefCell<ArkUINode>>>,
+    /// Event callbacks bound to this node.
     pub(crate) event_handle: EventHandle,
 }
 
 impl ArkUINode {
+    /// Immutable children view.
     pub fn children(&self) -> &[Rc<RefCell<ArkUINode>>] {
         self.children.as_slice()
     }
 
+    /// Mutable children view.
     pub fn children_mut(&mut self) -> &mut Vec<Rc<RefCell<ArkUINode>>> {
         self.children.as_mut()
     }
@@ -82,8 +91,11 @@ impl Default for ArkUINode {
 #[cfg(feature = "napi")]
 /// Convert ArkUI node to native node
 pub struct ArkUINodeRaw {
+    /// N-API environment.
     pub(crate) env: sys::napi_env,
+    /// N-API value.
     pub(crate) value: sys::napi_value,
+    /// Native ArkUI handle.
     pub raw: ArkUI_NodeHandle,
 }
 

@@ -1,4 +1,7 @@
+//! Module component::built_in_component::date_picker wrappers and related types.
+
 #[derive(Clone, Debug, PartialEq)]
+/// Text style object used by date-picker style attributes.
 pub struct DatePickerTextStyleObject {
     pub font_color: String,
     pub font_size: f32,
@@ -328,6 +331,7 @@ impl super::DatePicker {
 // END_GENERATED_COMPONENT_METHODS_DatePicker
 
 #[derive(Clone, Copy, Debug, PartialEq, Eq)]
+/// Event payload emitted when date-picker value changes.
 pub struct DatePickerChangeEvent {
     pub year: i32,
     pub month: i32,

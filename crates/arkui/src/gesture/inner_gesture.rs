@@ -1,3 +1,5 @@
+//! Module gesture::inner_gesture wrappers and related types.
+
 use std::{cell::RefCell, os::raw::c_void, rc::Rc};
 
 use ohos_arkui_input_binding::ArkUIErrorCode;
@@ -18,6 +20,7 @@ pub(crate) struct InnerGestureData {
     pub user_data: Option<*mut c_void>,
 }
 
+/// High-level wrapper for a native gesture recognizer.
 pub struct Gesture {
     pub(crate) raw: Rc<RefCell<ArkUI_GestureRecognizerHandle>>,
     pub(crate) inner_gesture_data: Rc<RefCell<InnerGestureData>>,

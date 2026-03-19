@@ -1,3 +1,5 @@
+//! Module component::built_in_component::scroll wrappers and related types.
+
 // BEGIN_GENERATED_COMPONENT_METHODS_Scroll
 impl super::Scroll {
     pub fn set_scroll_bar_display_mode<T: Into<crate::ArkUINodeAttributeItem>>(
@@ -525,18 +527,21 @@ impl super::Scroll {
 // END_GENERATED_COMPONENT_METHODS_Scroll
 
 #[derive(Clone, Copy, Debug, PartialEq)]
+/// Event payload for scroll offset updates.
 pub struct ScrollOffsetEvent {
     pub offset_x: f32,
     pub offset_y: f32,
 }
 
 #[derive(Clone, Copy, Debug, PartialEq)]
+/// Event payload for frame-begin scroll adjustment.
 pub struct ScrollFrameBeginEvent {
     pub offset: f32,
     pub state: i32,
 }
 
 #[derive(Clone, Copy, Debug, PartialEq)]
+/// Event payload emitted before scroll offset changes.
 pub struct ScrollWillScrollEvent {
     pub offset_x: f32,
     pub offset_y: f32,
@@ -545,6 +550,7 @@ pub struct ScrollWillScrollEvent {
 }
 
 #[derive(Clone, Copy, Debug, PartialEq)]
+/// Event payload emitted after scroll offset changes.
 pub struct ScrollDidScrollEvent {
     pub offset_x: f32,
     pub offset_y: f32,

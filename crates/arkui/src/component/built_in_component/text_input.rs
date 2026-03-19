@@ -1,3 +1,5 @@
+//! Module component::built_in_component::text_input wrappers and related types.
+
 use crate::ArkUICommonFontAttribute;
 
 impl Clone for super::TextInput {

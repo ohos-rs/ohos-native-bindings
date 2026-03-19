@@ -1,3 +1,5 @@
+//! Module animate::options::animate_option wrappers and related types.
+
 use std::{cell::RefCell, ptr::NonNull, rc::Rc};
 
 use ohos_arkui_sys::{
@@ -19,6 +21,7 @@ use super::AnimationFrameRateRange;
 use crate::animate::context::{AnimationFinishContext, AnimationUpdateContext};
 use crate::animate::curve::CurveHandle;
 
+/// High-level wrapper for `ArkUI_AnimateOption`.
 pub struct Animation {
     pub(crate) raw: Rc<RefCell<NonNull<ArkUI_AnimateOption>>>,
     pub(crate) update_ctx: Rc<RefCell<AnimationUpdateContext>>,
@@ -26,6 +29,7 @@ pub struct Animation {
 }
 
 impl Animation {
+    /// Creates default animation options.
     pub fn new() -> Self {
         let raw = unsafe { OH_ArkUI_AnimateOption_Create() };
         let raw = NonNull::new(raw).unwrap_or_else(|| {
@@ -38,6 +42,7 @@ impl Animation {
         }
     }
 
+    /// Sets animation duration in milliseconds.
     pub fn duration(&self, duration: i32) {
         unsafe { OH_ArkUI_AnimateOption_SetDuration(self.raw(), duration) };
     }
@@ -46,6 +51,7 @@ impl Animation {
         unsafe { OH_ArkUI_AnimateOption_GetDuration(self.raw()) }
     }
 
+    /// Sets playback speed multiplier.
     pub fn tempo(&self, tempo: f32) {
         unsafe { OH_ArkUI_AnimateOption_SetTempo(self.raw(), tempo) };
     }
@@ -54,6 +60,7 @@ impl Animation {
         unsafe { OH_ArkUI_AnimateOption_GetTempo(self.raw()) }
     }
 
+    /// Sets start delay in milliseconds.
     pub fn delay(&self, delay: i32) {
         unsafe { OH_ArkUI_AnimateOption_SetDelay(self.raw(), delay) };
     }
@@ -62,6 +69,7 @@ impl Animation {
         unsafe { OH_ArkUI_AnimateOption_GetDelay(self.raw()) }
     }
 
+    /// Sets iteration count (`-1` for infinite).
     pub fn iterations(&self, iterations: i32) {
         unsafe { OH_ArkUI_AnimateOption_SetIterations(self.raw(), iterations) };
     }
@@ -70,6 +78,7 @@ impl Animation {
         unsafe { OH_ArkUI_AnimateOption_GetIterations(self.raw()) }
     }
 
+    /// Selects built-in easing curve.
     pub fn curve(&self, curve: Curve) {
         unsafe { OH_ArkUI_AnimateOption_SetCurve(self.raw(), curve.into()) };
     }
@@ -79,6 +88,7 @@ impl Animation {
         Curve::try_from_raw(curve)
     }
 
+    /// Selects custom curve handle.
     pub fn i_curve(&self, curve: &CurveHandle) {
         unsafe { OH_ArkUI_AnimateOption_SetICurve(self.raw(), curve.as_raw()) };
     }
@@ -88,6 +98,7 @@ impl Animation {
         CurveHandle::from_raw_borrowed(curve)
     }
 
+    /// Sets animation play mode.
     pub fn mode(&self, mode: AnimationMode) {
         unsafe { OH_ArkUI_AnimateOption_SetPlayMode(self.raw(), mode.into()) };
     }
@@ -97,6 +108,7 @@ impl Animation {
         AnimationMode::try_from_raw(mode)
     }
 
+    /// Sets expected frame-rate range.
     pub fn rate_range(&self, range: AnimationFrameRateRange) {
         let mut raw_range = range.raw();
         unsafe { OH_ArkUI_AnimateOption_SetExpectedFrameRateRange(self.raw(), &mut raw_range) };
@@ -116,11 +128,13 @@ impl Animation {
         self.raw.borrow().as_ptr()
     }
 
+    /// Registers update callback.
     pub fn update<T: Fn() + 'static>(&self, callback: T) {
         let ctx = self.update_ctx.borrow();
         ctx.callback(callback);
     }
 
+    /// Registers finish callback with callback-type selector.
     pub fn finish<T: Fn() + 'static>(
         &self,
         callback_type: AnimationFinishCallbackType,

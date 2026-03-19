@@ -1,15 +1,21 @@
+//! Module common::error wrappers and related types.
+
 #[cfg(feature = "napi")]
 use napi_ohos::{Error, Result};
 use ohos_arkui_input_binding::ArkUIErrorCode;
 
 #[cfg(not(feature = "napi"))]
+/// Error type returned by ArkUI wrapper APIs.
 pub struct ArkUIError {
+    /// ArkUI status code.
     pub code: ArkUIErrorCode,
+    /// Optional detailed message.
     pub message: Option<String>,
 }
 
 #[cfg(not(feature = "napi"))]
 impl ArkUIError {
+    /// Create an error with explicit status code and message.
     pub fn new<T: AsRef<str>>(code: ArkUIErrorCode, message: T) -> Self {
         Self {
             code,
@@ -17,6 +23,7 @@ impl ArkUIError {
         }
     }
 
+    /// Create an error from a status code without message.
     pub fn from_status(code: ArkUIErrorCode) -> Self {
         Self {
             code,
@@ -24,6 +31,7 @@ impl ArkUIError {
         }
     }
 
+    /// Create an invalid-parameter error with a reason message.
     pub fn from_reason<T: AsRef<str>>(message: T) -> Self {
         Self {
             code: ArkUIErrorCode::ParamInvalid,
@@ -37,9 +45,11 @@ impl ArkUIError {
 pub type ArkUIResult<T> = Result<T, ArkUIError>;
 
 #[cfg(feature = "napi")]
+/// Result type when built with `napi` feature.
 pub type ArkUIResult<T> = Result<T, ArkUIErrorCode>;
 
 #[cfg(feature = "napi")]
+/// Error type when built with `napi` feature.
 pub type ArkUIError = Error<ArkUIErrorCode>;
 
 #[doc(hidden)]

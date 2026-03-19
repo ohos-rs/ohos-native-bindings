@@ -1,4 +1,7 @@
+//! Module component::built_in_component::text_picker wrappers and related types.
+
 #[derive(Clone, Debug, PartialEq)]
+/// Text style object used by text-picker style attributes.
 pub struct TextPickerTextStyleObject {
     pub font_color: String,
     pub font_size: f32,

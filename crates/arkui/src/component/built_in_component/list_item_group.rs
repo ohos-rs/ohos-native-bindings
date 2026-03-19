@@ -1,3 +1,5 @@
+//! Module component::built_in_component::list_item_group wrappers and related types.
+
 // BEGIN_GENERATED_COMPONENT_METHODS_ListItemGroup
 impl super::ListItemGroup {
     pub fn set_list_item_group_set_header<T: Into<crate::ArkUINodeAttributeItem>>(

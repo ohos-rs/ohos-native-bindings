@@ -1,9 +1,12 @@
+//! Module type::event wrappers and related types.
+
 use ohos_arkui_sys::*;
 
 use ohos_enum_macro::EnumFrom;
 
 #[derive(Debug, Clone, Copy, PartialEq, Eq, EnumFrom)]
 #[enum_from_config(ArkUI_NodeEventType, "ArkUI_NodeEventType_NODE_")]
+/// Event identifiers that can be registered on a node.
 pub enum NodeEventType {
     TouchEvent,
     EventOnAppear,
@@ -172,6 +175,7 @@ pub enum NodeEventType {
     ArkUI_TouchTestStrategy,
     "ArkUI_TouchTestStrategy_ARKUI_TOUCH_TEST_STRATEGY_"
 )]
+/// Dispatch strategy for child touch-test callbacks.
 pub enum TouchTestStrategy {
     Default,
     ForwardCompetition,

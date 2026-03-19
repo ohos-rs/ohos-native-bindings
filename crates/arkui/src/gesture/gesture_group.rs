@@ -1,15 +1,19 @@
+//! Module gesture::gesture_group wrappers and related types.
+
 use ohos_arkui_sys::ArkUI_GestureRecognizerHandle;
 
 use crate::{ArkUIResult, GestureGroupMode, ARK_UI_NATIVE_GESTURE_API_1};
 
 use super::Gesture;
 
+/// Group of gestures combined with a [`GestureGroupMode`].
 pub struct GestureGroup {
     pub(crate) raw: ArkUI_GestureRecognizerHandle,
     pub(crate) gestures: Vec<Gesture>,
 }
 
 impl GestureGroup {
+    /// Create a new gesture group.
     pub fn new(mode: GestureGroupMode) -> ArkUIResult<Self> {
         let handle = ARK_UI_NATIVE_GESTURE_API_1.with(|api| api.create_gesture_group(mode))?;
         Ok(GestureGroup {
@@ -18,6 +22,7 @@ impl GestureGroup {
         })
     }
 
+    /// Add a child gesture to the group.
     pub fn add_gesture(&mut self, gesture: Gesture) -> ArkUIResult<()> {
         let child_raw = *gesture.raw.borrow();
         self.gestures.push(gesture);
@@ -25,6 +30,7 @@ impl GestureGroup {
         Ok(())
     }
 
+    /// Remove child gesture by index.
     pub fn remove_gesture(&mut self, index: usize) -> ArkUIResult<Option<Gesture>> {
         if index >= self.gestures.len() {
             return Ok(None);
@@ -35,6 +41,7 @@ impl GestureGroup {
         Ok(Some(gesture))
     }
 
+    /// Dispose the native gesture group and detach all child gestures.
     pub fn dispose(&mut self) -> ArkUIResult<()> {
         if self.raw.is_null() {
             self.gestures.clear();

@@ -1,11 +1,9 @@
+//! Module component::root wrappers and related types.
+
 use std::os::raw::c_void;
 
-use crate::{check_arkui_status, ArkUIError, ArkUINode, ArkUIResult, ARK_UI_NATIVE_NODE_API_1};
+use crate::{ArkUIError, ArkUIHandle, ArkUINode, ArkUIResult, ARK_UI_NATIVE_NODE_API_1};
 use ohos_arkui_input_binding::ArkUIErrorCode;
-use ohos_arkui_sys::{OH_ArkUI_NodeContent_AddNode, OH_ArkUI_NodeContent_RemoveNode};
-
-#[cfg(feature = "napi")]
-use crate::ArkUIHandle;
 
 /// root node for arkui   
 /// ```rust
@@ -14,58 +12,29 @@ use crate::ArkUIHandle;
 /// ```
 pub struct RootNode {
     base: Option<ArkUINode>,
-    #[cfg(feature = "napi")]
     handle: ArkUIHandle,
-    #[cfg(not(feature = "napi"))]
-    raw: crate::NodeContentHandle,
 }
 
 impl RootNode {
-    #[cfg(feature = "napi")]
     pub fn new(handle: ArkUIHandle) -> Self {
         RootNode { base: None, handle }
     }
 
-    #[cfg(not(feature = "napi"))]
-    pub fn new(handle: crate::NodeContentHandle) -> Self {
-        RootNode {
-            base: None,
-            raw: handle,
-        }
-    }
-
-    #[cfg(feature = "napi")]
     pub fn handle(&self) -> &ArkUIHandle {
         &self.handle
-    }
-
-    #[cfg(not(feature = "napi"))]
-    pub fn handle(&self) -> &crate::NodeContentHandle {
-        &self.raw
     }
 
     pub fn mount<T: Into<ArkUINode>>(&mut self, node: T) -> ArkUIResult<()> {
         let node_raw = node.into();
         self.base = Some(node_raw.clone());
         if let Some(base) = self.base.as_ref() {
-            #[cfg(feature = "napi")]
-            let raw = self.handle.raw();
-
-            #[cfg(not(feature = "napi"))]
-            let raw = self.raw.raw();
-
             ARK_UI_NATIVE_NODE_API_1.with(|api| {
                 api.set_user_data(base, Box::into_raw(Box::new(base)) as *mut c_void)
             })?;
 
             // Node will be mounted, we can think it as a event receiver.
             ARK_UI_NATIVE_NODE_API_1.with(|api| api.add_event_receiver(base))?;
-            unsafe {
-                check_arkui_status!(
-                    OH_ArkUI_NodeContent_AddNode(raw, base.raw()),
-                    "Mount root node failed"
-                )
-            }
+            self.handle.add_node(base)
         } else {
             Err(ArkUIError::new(
                 ArkUIErrorCode::ChildNodeExist,
@@ -77,17 +46,7 @@ impl RootNode {
     pub fn unmount(&mut self) -> ArkUIResult<()> {
         // If root node is empty, just ignore it.
         if let Some(base) = self.base.as_mut() {
-            #[cfg(feature = "napi")]
-            let raw = self.handle.raw();
-
-            #[cfg(not(feature = "napi"))]
-            let raw = self.raw.raw();
-            unsafe {
-                check_arkui_status!(
-                    OH_ArkUI_NodeContent_RemoveNode(raw, base.raw()),
-                    "Mount root node failed"
-                )
-            }?;
+            self.handle.remove_node(base)?;
             base.dispose()?;
             self.base = None;
         }
@@ -98,12 +57,7 @@ impl RootNode {
 impl Drop for RootNode {
     fn drop(&mut self) {
         if let Some(base) = self.base.as_mut() {
-            #[cfg(feature = "napi")]
-            let raw = self.handle.raw();
-
-            #[cfg(not(feature = "napi"))]
-            let raw = self.raw.raw();
-            unsafe { OH_ArkUI_NodeContent_RemoveNode(raw, base.raw()) };
+            let _ = self.handle.remove_node(base);
             base.children_mut().clear();
             self.base = None;
         }

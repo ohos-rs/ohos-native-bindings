@@ -1,3 +1,5 @@
+//! Module api::gesture wrappers and related types.
+
 use std::{
     cell::{LazyCell, RefCell},
     collections::HashMap,
@@ -875,6 +877,7 @@ fn collect_gesture_recognizers(
 }
 
 #[derive(Clone, Copy, Debug)]
+/// Borrowed wrapper around `ArkUI_GestureEvent`.
 pub struct GestureEventRef {
     raw: NonNull<ArkUI_GestureEvent>,
 }
@@ -910,6 +913,7 @@ impl GestureEventRef {
 }
 
 #[derive(Clone, Copy, Debug)]
+/// Borrowed wrapper around `ArkUI_GestureEventTargetInfo`.
 pub struct GestureEventTargetInfoRef {
     raw: NonNull<ArkUI_GestureEventTargetInfo>,
 }
@@ -919,7 +923,7 @@ impl GestureEventTargetInfoRef {
         NonNull::new(raw).map(|raw| Self { raw })
     }
 
-    pub fn raw(&self) -> *mut ArkUI_GestureEventTargetInfo {
+    fn raw(&self) -> *mut ArkUI_GestureEventTargetInfo {
         self.raw.as_ptr()
     }
 
@@ -941,6 +945,7 @@ impl GestureEventTargetInfoRef {
 }
 
 #[derive(Clone, Copy, Debug)]
+/// Borrowed wrapper around `ArkUI_GestureRecognizer`.
 pub struct GestureRecognizerRef {
     raw: NonNull<ArkUI_GestureRecognizer>,
 }
@@ -954,11 +959,11 @@ impl GestureRecognizerRef {
         Self::from_raw(handle)
     }
 
-    pub fn raw(&self) -> *mut ArkUI_GestureRecognizer {
+    pub(crate) fn raw(&self) -> *mut ArkUI_GestureRecognizer {
         self.raw.as_ptr()
     }
 
-    pub fn as_handle(&self) -> ArkUI_GestureRecognizerHandle {
+    pub(crate) fn as_handle(&self) -> ArkUI_GestureRecognizerHandle {
         self.raw()
     }
 
@@ -1241,6 +1246,7 @@ impl GestureRecognizerRef {
 }
 
 #[derive(Clone, Copy, Debug)]
+/// Borrowed wrapper around `ArkUI_GestureInterruptInfo`.
 pub struct GestureInterruptInfoRef {
     raw: NonNull<ArkUI_GestureInterruptInfo>,
 }
@@ -1323,6 +1329,7 @@ impl GestureInterruptInfoRef {
 
 #[cfg(feature = "api-15")]
 #[derive(Clone, Copy, Debug)]
+/// Borrowed wrapper around `ArkUI_TouchRecognizerHandle`.
 pub struct TouchRecognizerRef {
     raw: NonNull<c_void>,
 }
@@ -1348,6 +1355,7 @@ impl TouchRecognizerRef {
 }
 
 #[derive(Clone, Copy, Debug)]
+/// Borrowed wrapper around `ArkUI_ParallelInnerGestureEvent`.
 pub struct ParallelInnerGestureEventRef {
     raw: NonNull<ArkUI_ParallelInnerGestureEvent>,
 }
@@ -1387,7 +1395,7 @@ impl ParallelInnerGestureEventRef {
 
 #[cfg(feature = "api-20")]
 fn set_touch_test_done_callback_raw(
-    node: ArkUI_NodeHandle,
+    node: &crate::ArkUINode,
     user_data: *mut c_void,
     touch_test_done: Option<
         unsafe extern "C" fn(
@@ -1400,57 +1408,67 @@ fn set_touch_test_done_callback_raw(
 ) -> ArkUIResult<()> {
     unsafe {
         check_arkui_status!(ohos_arkui_sys::OH_ArkUI_SetTouchTestDoneCallback(
-            node,
+            node.raw(),
             user_data,
             touch_test_done
         ))
     }
 }
 
-#[cfg(feature = "api-20")]
-pub fn set_touch_test_done_callback<T: Fn(GestureEventRef, Vec<GestureRecognizerRef>) + 'static>(
-    node: ArkUI_NodeHandle,
-    touch_test_done: T,
-) -> ArkUIResult<()> {
-    let callback = Box::into_raw(Box::new(TouchTestDoneCallbackContext {
-        callback: Box::new(touch_test_done),
-    }));
-    let result = set_touch_test_done_callback_raw(
-        node,
-        callback.cast(),
-        Some(touch_test_done_callback_trampoline),
-    );
-    if let Err(err) = result {
-        unsafe {
-            drop(Box::from_raw(callback));
+impl crate::ArkUIHandle {
+    #[cfg(feature = "api-20")]
+    pub fn set_touch_test_done_callback<
+        T: Fn(GestureEventRef, Vec<GestureRecognizerRef>) + 'static,
+    >(
+        &self,
+        node: &crate::ArkUINode,
+        touch_test_done: T,
+    ) -> ArkUIResult<()> {
+        let _ = self.raw();
+        let callback = Box::into_raw(Box::new(TouchTestDoneCallbackContext {
+            callback: Box::new(touch_test_done),
+        }));
+        let result = set_touch_test_done_callback_raw(
+            node,
+            callback.cast(),
+            Some(touch_test_done_callback_trampoline),
+        );
+        if let Err(err) = result {
+            unsafe {
+                drop(Box::from_raw(callback));
+            }
+            return Err(err);
         }
-        return Err(err);
-    }
-    let mut callbacks = match touch_test_done_callback_contexts().lock() {
-        Ok(callbacks) => callbacks,
-        Err(poisoned) => poisoned.into_inner(),
-    };
-    if let Some(old) = callbacks.insert(node as usize, callback as usize) {
-        unsafe {
-            drop(Box::from_raw(old as *mut TouchTestDoneCallbackContext));
+        let mut callbacks = match touch_test_done_callback_contexts().lock() {
+            Ok(callbacks) => callbacks,
+            Err(poisoned) => poisoned.into_inner(),
+        };
+        if let Some(old) = callbacks.insert(node.raw() as usize, callback as usize) {
+            unsafe {
+                drop(Box::from_raw(old as *mut TouchTestDoneCallbackContext));
+            }
         }
+        Ok(())
     }
-    Ok(())
-}
 
-#[cfg(feature = "api-20")]
-pub(crate) fn clear_touch_test_done_callback(node: ArkUI_NodeHandle) -> ArkUIResult<()> {
-    set_touch_test_done_callback_raw(node, std::ptr::null_mut(), None)?;
-    let mut callbacks = match touch_test_done_callback_contexts().lock() {
-        Ok(callbacks) => callbacks,
-        Err(poisoned) => poisoned.into_inner(),
-    };
-    if let Some(callback) = callbacks.remove(&(node as usize)) {
-        unsafe {
-            drop(Box::from_raw(callback as *mut TouchTestDoneCallbackContext));
+    #[cfg(feature = "api-20")]
+    pub(crate) fn clear_touch_test_done_callback(
+        &self,
+        node: &crate::ArkUINode,
+    ) -> ArkUIResult<()> {
+        let _ = self.raw();
+        set_touch_test_done_callback_raw(node, std::ptr::null_mut(), None)?;
+        let mut callbacks = match touch_test_done_callback_contexts().lock() {
+            Ok(callbacks) => callbacks,
+            Err(poisoned) => poisoned.into_inner(),
+        };
+        if let Some(callback) = callbacks.remove(&(node.raw() as usize)) {
+            unsafe {
+                drop(Box::from_raw(callback as *mut TouchTestDoneCallbackContext));
+            }
         }
+        Ok(())
     }
-    Ok(())
 }
 
 unsafe extern "C" fn inner_gesture_parallel_callback_trampoline(

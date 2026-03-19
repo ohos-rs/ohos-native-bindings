@@ -1,11 +1,15 @@
+//! Module animate::options::frame_rate_range wrappers and related types.
+
 use ohos_arkui_sys::ArkUI_ExpectedFrameRateRange;
 
 #[derive(Debug, Clone, Copy)]
+/// Wrapper for expected frame-rate range used by animation options.
 pub struct AnimationFrameRateRange {
     raw: ArkUI_ExpectedFrameRateRange,
 }
 
 impl AnimationFrameRateRange {
+    /// Creates a default frame-rate range.
     pub fn new() -> Self {
         Self::default()
     }

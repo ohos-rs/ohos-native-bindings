@@ -1,3 +1,5 @@
+//! Module api::attribute_option::list_and_layout wrappers and related types.
+
 use std::{os::raw::c_void, ptr::NonNull};
 
 #[cfg(feature = "api-20")]
@@ -5,14 +7,11 @@ use std::os::raw::c_char;
 #[cfg(feature = "api-20")]
 use std::sync::{Mutex, OnceLock};
 
-#[cfg(feature = "api-20")]
 use ohos_arkui_input_binding::ArkUIErrorCode;
 use ohos_arkui_sys::*;
 
-use super::base::{c_char_ptr_to_string, non_null_or_panic, ptr_or_error, with_cstring};
-#[cfg(feature = "api-20")]
-use crate::ArkUIError;
-use crate::{check_arkui_status, ArkUIResult};
+use super::base::{c_char_ptr_to_string, non_null_or_panic, with_cstring};
+use crate::{check_arkui_status, ArkUIError, ArkUIResult};
 
 struct ListItemSwipeActionVoidCallbackContext {
     callback: Box<dyn Fn()>,
@@ -30,6 +29,7 @@ struct ListItemSwipeActionItemCallbacks {
     on_state_change: Option<*mut ListItemSwipeActionStateCallbackContext>,
 }
 
+/// List-item swipe action item descriptor.
 pub struct ListItemSwipeActionItem {
     raw: NonNull<ArkUI_ListItemSwipeActionItem>,
     callbacks: ListItemSwipeActionItemCallbacks,
@@ -38,7 +38,14 @@ pub struct ListItemSwipeActionItem {
 impl ListItemSwipeActionItem {
     pub fn new() -> ArkUIResult<Self> {
         let item = unsafe { OH_ArkUI_ListItemSwipeActionItem_Create() };
-        ptr_or_error(item, "OH_ArkUI_ListItemSwipeActionItem_Create").map(Self::from_raw)
+        NonNull::new(item)
+            .map(|raw| Self::from_raw(raw.as_ptr()))
+            .ok_or_else(|| {
+                ArkUIError::new(
+                    ArkUIErrorCode::ParamInvalid,
+                    "OH_ArkUI_ListItemSwipeActionItem_Create returned null",
+                )
+            })
     }
 
     pub(crate) fn raw(&self) -> *mut ArkUI_ListItemSwipeActionItem {
@@ -225,6 +232,7 @@ struct NodeAdapterEventReceiverCallbackContext {
     callback: Box<dyn Fn(&mut NodeAdapterEvent)>,
 }
 
+/// Node-adapter callback event wrapper.
 pub struct NodeAdapterEvent {
     raw: NonNull<ArkUI_NodeAdapterEvent>,
 }
@@ -269,6 +277,7 @@ impl NodeAdapterEvent {
     }
 }
 
+/// Node-adapter wrapper for lazy data-driven list/grid.
 pub struct NodeAdapter {
     raw: NonNull<ArkUI_NodeAdapter>,
     event_receiver: Option<*mut NodeAdapterEventReceiverCallbackContext>,
@@ -277,7 +286,14 @@ pub struct NodeAdapter {
 impl NodeAdapter {
     pub fn new() -> ArkUIResult<Self> {
         let handle = unsafe { OH_ArkUI_NodeAdapter_Create() };
-        ptr_or_error(handle, "OH_ArkUI_NodeAdapter_Create").map(Self::from_raw)
+        NonNull::new(handle)
+            .map(|raw| Self::from_raw(raw.as_ptr()))
+            .ok_or_else(|| {
+                ArkUIError::new(
+                    ArkUIErrorCode::ParamInvalid,
+                    "OH_ArkUI_NodeAdapter_Create returned null",
+                )
+            })
     }
 
     pub(crate) fn raw(&self) -> ArkUI_NodeAdapterHandle {
@@ -421,6 +437,7 @@ struct ListItemSwipeOffsetCallbackContext {
     callback: Box<dyn Fn(f32)>,
 }
 
+/// List-item swipe action option wrapper.
 pub struct ListItemSwipeActionOption {
     raw: NonNull<ArkUI_ListItemSwipeActionOption>,
     on_offset_change: Option<*mut ListItemSwipeOffsetCallbackContext>,
@@ -429,7 +446,14 @@ pub struct ListItemSwipeActionOption {
 impl ListItemSwipeActionOption {
     pub fn new() -> ArkUIResult<Self> {
         let option = unsafe { OH_ArkUI_ListItemSwipeActionOption_Create() };
-        ptr_or_error(option, "OH_ArkUI_ListItemSwipeActionOption_Create").map(Self::from_raw)
+        NonNull::new(option)
+            .map(|raw| Self::from_raw(raw.as_ptr()))
+            .ok_or_else(|| {
+                ArkUIError::new(
+                    ArkUIErrorCode::ParamInvalid,
+                    "OH_ArkUI_ListItemSwipeActionOption_Create returned null",
+                )
+            })
     }
 
     pub(crate) fn raw(&self) -> *mut ArkUI_ListItemSwipeActionOption {
@@ -511,6 +535,7 @@ unsafe extern "C" fn list_item_swipe_action_option_offset_callback_trampoline(
     (callback.callback)(offset);
 }
 
+/// Main-axis size array wrapper for list children.
 pub struct ListChildrenMainSize {
     raw: NonNull<ArkUI_ListChildrenMainSize>,
 }
@@ -518,7 +543,14 @@ pub struct ListChildrenMainSize {
 impl ListChildrenMainSize {
     pub fn new() -> ArkUIResult<Self> {
         let option = unsafe { OH_ArkUI_ListChildrenMainSizeOption_Create() };
-        ptr_or_error(option, "OH_ArkUI_ListChildrenMainSizeOption_Create").map(Self::from_raw)
+        NonNull::new(option)
+            .map(|raw| Self::from_raw(raw.as_ptr()))
+            .ok_or_else(|| {
+                ArkUIError::new(
+                    ArkUIErrorCode::ParamInvalid,
+                    "OH_ArkUI_ListChildrenMainSizeOption_Create returned null",
+                )
+            })
     }
 
     pub(crate) fn raw(&self) -> *mut ArkUI_ListChildrenMainSize {
@@ -582,6 +614,7 @@ impl ListChildrenMainSize {
     }
 }
 
+/// Accessibility state wrapper.
 pub struct AccessibilityState {
     raw: NonNull<ArkUI_AccessibilityState>,
 }
@@ -589,7 +622,14 @@ pub struct AccessibilityState {
 impl AccessibilityState {
     pub fn new() -> ArkUIResult<Self> {
         let state = unsafe { OH_ArkUI_AccessibilityState_Create() };
-        ptr_or_error(state, "OH_ArkUI_AccessibilityState_Create").map(Self::from_raw)
+        NonNull::new(state)
+            .map(|raw| Self::from_raw(raw.as_ptr()))
+            .ok_or_else(|| {
+                ArkUIError::new(
+                    ArkUIErrorCode::ParamInvalid,
+                    "OH_ArkUI_AccessibilityState_Create returned null",
+                )
+            })
     }
 
     pub(crate) fn raw(&self) -> *mut ArkUI_AccessibilityState {
@@ -635,6 +675,7 @@ impl AccessibilityState {
     }
 }
 
+/// Guideline option wrapper for relative layout.
 pub struct GuidelineOption {
     raw: NonNull<ArkUI_GuidelineOption>,
 }
@@ -642,7 +683,14 @@ pub struct GuidelineOption {
 impl GuidelineOption {
     pub fn new(size: i32) -> ArkUIResult<Self> {
         let option = unsafe { OH_ArkUI_GuidelineOption_Create(size) };
-        ptr_or_error(option, "OH_ArkUI_GuidelineOption_Create").map(Self::from_raw)
+        NonNull::new(option)
+            .map(|raw| Self::from_raw(raw.as_ptr()))
+            .ok_or_else(|| {
+                ArkUIError::new(
+                    ArkUIErrorCode::ParamInvalid,
+                    "OH_ArkUI_GuidelineOption_Create returned null",
+                )
+            })
     }
 
     pub(crate) fn raw(&self) -> *mut ArkUI_GuidelineOption {
@@ -698,6 +746,7 @@ impl GuidelineOption {
     }
 }
 
+/// Barrier option wrapper for relative layout.
 pub struct BarrierOption {
     raw: NonNull<ArkUI_BarrierOption>,
 }
@@ -705,7 +754,14 @@ pub struct BarrierOption {
 impl BarrierOption {
     pub fn new(size: i32) -> ArkUIResult<Self> {
         let option = unsafe { OH_ArkUI_BarrierOption_Create(size) };
-        ptr_or_error(option, "OH_ArkUI_BarrierOption_Create").map(Self::from_raw)
+        NonNull::new(option)
+            .map(|raw| Self::from_raw(raw.as_ptr()))
+            .ok_or_else(|| {
+                ArkUIError::new(
+                    ArkUIErrorCode::ParamInvalid,
+                    "OH_ArkUI_BarrierOption_Create returned null",
+                )
+            })
     }
 
     pub(crate) fn raw(&self) -> *mut ArkUI_BarrierOption {
@@ -762,6 +818,7 @@ impl BarrierOption {
 }
 
 #[cfg(feature = "api-15")]
+/// Linear-progress style option wrapper.
 pub struct ProgressLinearStyleOption {
     raw: NonNull<ArkUI_ProgressLinearStyleOption>,
 }
@@ -770,7 +827,14 @@ pub struct ProgressLinearStyleOption {
 impl ProgressLinearStyleOption {
     pub fn new() -> ArkUIResult<Self> {
         let option = unsafe { OH_ArkUI_ProgressLinearStyleOption_Create() };
-        ptr_or_error(option, "OH_ArkUI_ProgressLinearStyleOption_Create").map(Self::from_raw)
+        NonNull::new(option)
+            .map(|raw| Self::from_raw(raw.as_ptr()))
+            .ok_or_else(|| {
+                ArkUIError::new(
+                    ArkUIErrorCode::ParamInvalid,
+                    "OH_ArkUI_ProgressLinearStyleOption_Create returned null",
+                )
+            })
     }
 
     pub(crate) fn raw(&self) -> *mut ArkUI_ProgressLinearStyleOption {
@@ -825,6 +889,7 @@ impl ProgressLinearStyleOption {
 }
 
 #[cfg(feature = "api-21")]
+/// Position edge values used by side/edge-based APIs.
 pub struct PositionEdges {
     raw: NonNull<ArkUI_PositionEdges>,
 }
@@ -833,12 +898,26 @@ pub struct PositionEdges {
 impl PositionEdges {
     pub fn new() -> ArkUIResult<Self> {
         let edges = unsafe { OH_ArkUI_PositionEdges_Create() };
-        ptr_or_error(edges, "OH_ArkUI_PositionEdges_Create").map(Self::from_raw)
+        NonNull::new(edges)
+            .map(|raw| Self::from_raw(raw.as_ptr()))
+            .ok_or_else(|| {
+                ArkUIError::new(
+                    ArkUIErrorCode::ParamInvalid,
+                    "OH_ArkUI_PositionEdges_Create returned null",
+                )
+            })
     }
 
     pub fn copy(&self) -> ArkUIResult<Self> {
         let copied = unsafe { OH_ArkUI_PositionEdges_Copy(self.raw()) };
-        ptr_or_error(copied, "OH_ArkUI_PositionEdges_Copy").map(Self::from_raw)
+        NonNull::new(copied)
+            .map(|raw| Self::from_raw(raw.as_ptr()))
+            .ok_or_else(|| {
+                ArkUIError::new(
+                    ArkUIErrorCode::ParamInvalid,
+                    "OH_ArkUI_PositionEdges_Copy returned null",
+                )
+            })
     }
 
     pub(crate) fn raw(&self) -> *mut ArkUI_PositionEdges {
@@ -901,6 +980,7 @@ impl PositionEdges {
 }
 
 #[cfg(feature = "api-21")]
+/// Pixel round-policy wrapper.
 pub struct PixelRoundPolicy {
     raw: NonNull<ArkUI_PixelRoundPolicy>,
 }
@@ -909,7 +989,14 @@ pub struct PixelRoundPolicy {
 impl PixelRoundPolicy {
     pub fn new() -> ArkUIResult<Self> {
         let policy = unsafe { OH_ArkUI_PixelRoundPolicy_Create() };
-        ptr_or_error(policy, "OH_ArkUI_PixelRoundPolicy_Create").map(Self::from_raw)
+        NonNull::new(policy)
+            .map(|raw| Self::from_raw(raw.as_ptr()))
+            .ok_or_else(|| {
+                ArkUIError::new(
+                    ArkUIErrorCode::ParamInvalid,
+                    "OH_ArkUI_PixelRoundPolicy_Create returned null",
+                )
+            })
     }
 
     pub(crate) fn raw(&self) -> *mut ArkUI_PixelRoundPolicy {
@@ -975,6 +1062,7 @@ impl PixelRoundPolicy {
 
 #[cfg(feature = "api-22")]
 #[derive(Debug, Clone, Copy, PartialEq, Eq)]
+/// Grid item size value object.
 pub struct GridItemSize {
     pub row_span: u32,
     pub column_span: u32,
@@ -1002,6 +1090,7 @@ impl From<GridItemSize> for ArkUI_GridItemSize {
 
 #[cfg(feature = "api-22")]
 #[derive(Debug, Clone, Copy, PartialEq, Eq)]
+/// Grid item rectangle value object.
 pub struct GridItemRect {
     pub row_start: u32,
     pub column_start: u32,
@@ -1044,6 +1133,7 @@ struct GridLayoutRectCallbackContext {
 }
 
 #[cfg(feature = "api-22")]
+/// Grid layout options wrapper.
 pub struct GridLayoutOptions {
     raw: NonNull<ArkUI_GridLayoutOptions>,
     irregular_size_callback: Option<*mut GridLayoutIrregularSizeCallbackContext>,
@@ -1054,7 +1144,14 @@ pub struct GridLayoutOptions {
 impl GridLayoutOptions {
     pub fn new() -> ArkUIResult<Self> {
         let option = unsafe { OH_ArkUI_GridLayoutOptions_Create() };
-        ptr_or_error(option, "OH_ArkUI_GridLayoutOptions_Create").map(Self::from_raw)
+        NonNull::new(option)
+            .map(|raw| Self::from_raw(raw.as_ptr()))
+            .ok_or_else(|| {
+                ArkUIError::new(
+                    ArkUIErrorCode::ParamInvalid,
+                    "OH_ArkUI_GridLayoutOptions_Create returned null",
+                )
+            })
     }
 
     pub(crate) fn raw(&self) -> *mut ArkUI_GridLayoutOptions {
@@ -1195,6 +1292,7 @@ unsafe extern "C" fn grid_layout_rect_callback_trampoline(
 }
 
 #[cfg(feature = "api-22")]
+/// Counter display configuration for text input/area.
 pub struct ShowCounterConfig {
     raw: NonNull<ArkUI_ShowCounterConfig>,
 }
@@ -1203,7 +1301,14 @@ pub struct ShowCounterConfig {
 impl ShowCounterConfig {
     pub fn new() -> ArkUIResult<Self> {
         let config = unsafe { OH_ArkUI_ShowCounterConfig_Create() };
-        ptr_or_error(config, "OH_ArkUI_ShowCounterConfig_Create").map(Self::from_raw)
+        NonNull::new(config)
+            .map(|raw| Self::from_raw(raw.as_ptr()))
+            .ok_or_else(|| {
+                ArkUIError::new(
+                    ArkUIErrorCode::ParamInvalid,
+                    "OH_ArkUI_ShowCounterConfig_Create returned null",
+                )
+            })
     }
 
     pub(crate) fn raw(&self) -> *mut ArkUI_ShowCounterConfig {
@@ -1242,6 +1347,7 @@ impl ShowCounterConfig {
 }
 
 #[cfg(feature = "api-17")]
+/// Options for visible-area change event registration.
 pub struct VisibleAreaEventOptions {
     raw: NonNull<ArkUI_VisibleAreaEventOptions>,
 }
@@ -1250,7 +1356,14 @@ pub struct VisibleAreaEventOptions {
 impl VisibleAreaEventOptions {
     pub fn new() -> ArkUIResult<Self> {
         let option = unsafe { OH_ArkUI_VisibleAreaEventOptions_Create() };
-        ptr_or_error(option, "OH_ArkUI_VisibleAreaEventOptions_Create").map(Self::from_raw)
+        NonNull::new(option)
+            .map(|raw| Self::from_raw(raw.as_ptr()))
+            .ok_or_else(|| {
+                ArkUIError::new(
+                    ArkUIErrorCode::ParamInvalid,
+                    "OH_ArkUI_VisibleAreaEventOptions_Create returned null",
+                )
+            })
     }
 
     pub(crate) fn raw(&self) -> *mut ArkUI_VisibleAreaEventOptions {
@@ -1323,6 +1436,7 @@ impl VisibleAreaEventOptions {
 }
 
 #[cfg(feature = "api-19")]
+/// Range-content array wrapper for text picker.
 pub struct TextPickerRangeContentArray {
     raw: NonNull<ArkUI_TextPickerRangeContentArray>,
 }
@@ -1331,7 +1445,14 @@ pub struct TextPickerRangeContentArray {
 impl TextPickerRangeContentArray {
     pub fn new(length: i32) -> ArkUIResult<Self> {
         let handle = unsafe { OH_ArkUI_TextPickerRangeContentArray_Create(length) };
-        ptr_or_error(handle, "OH_ArkUI_TextPickerRangeContentArray_Create").map(Self::from_raw)
+        NonNull::new(handle)
+            .map(|raw| Self::from_raw(raw.as_ptr()))
+            .ok_or_else(|| {
+                ArkUIError::new(
+                    ArkUIErrorCode::ParamInvalid,
+                    "OH_ArkUI_TextPickerRangeContentArray_Create returned null",
+                )
+            })
     }
 
     pub(crate) fn raw(&self) -> *mut ArkUI_TextPickerRangeContentArray {
@@ -1374,6 +1495,7 @@ impl TextPickerRangeContentArray {
 }
 
 #[cfg(feature = "api-19")]
+/// Range-content array wrapper for cascade text picker.
 pub struct TextCascadePickerRangeContentArray {
     raw: NonNull<ArkUI_TextCascadePickerRangeContentArray>,
 }
@@ -1382,8 +1504,14 @@ pub struct TextCascadePickerRangeContentArray {
 impl TextCascadePickerRangeContentArray {
     pub fn new(length: i32) -> ArkUIResult<Self> {
         let handle = unsafe { OH_ArkUI_TextCascadePickerRangeContentArray_Create(length) };
-        ptr_or_error(handle, "OH_ArkUI_TextCascadePickerRangeContentArray_Create")
-            .map(Self::from_raw)
+        NonNull::new(handle)
+            .map(|raw| Self::from_raw(raw.as_ptr()))
+            .ok_or_else(|| {
+                ArkUIError::new(
+                    ArkUIErrorCode::ParamInvalid,
+                    "OH_ArkUI_TextCascadePickerRangeContentArray_Create returned null",
+                )
+            })
     }
 
     pub(crate) fn raw(&self) -> *mut ArkUI_TextCascadePickerRangeContentArray {
@@ -1426,6 +1554,7 @@ impl TextCascadePickerRangeContentArray {
 }
 
 #[cfg(feature = "api-20")]
+/// Embedded component option wrapper.
 pub struct EmbeddedComponentOption {
     raw: NonNull<ArkUI_EmbeddedComponentOption>,
     on_error_callback: Option<EmbeddedComponentOnErrorCallbackRegistration>,
@@ -1436,7 +1565,14 @@ pub struct EmbeddedComponentOption {
 impl EmbeddedComponentOption {
     pub fn new() -> ArkUIResult<Self> {
         let option = unsafe { OH_ArkUI_EmbeddedComponentOption_Create() };
-        ptr_or_error(option, "OH_ArkUI_EmbeddedComponentOption_Create").map(Self::from_raw)
+        NonNull::new(option)
+            .map(|raw| Self::from_raw(raw.as_ptr()))
+            .ok_or_else(|| {
+                ArkUIError::new(
+                    ArkUIErrorCode::ParamInvalid,
+                    "OH_ArkUI_EmbeddedComponentOption_Create returned null",
+                )
+            })
     }
 
     pub(crate) fn raw(&self) -> *mut ArkUI_EmbeddedComponentOption {
@@ -1574,6 +1710,7 @@ impl EmbeddedComponentOption {
 
 #[cfg(feature = "api-20")]
 #[derive(Clone, Copy, Debug)]
+/// Borrowed reference wrapper for embedded component want object.
 pub struct EmbeddedComponentWantRef {
     raw: NonNull<AbilityBase_Want>,
 }

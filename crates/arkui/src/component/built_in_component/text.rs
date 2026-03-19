@@ -1,3 +1,5 @@
+//! Module component::built_in_component::text wrappers and related types.
+
 use crate::{
     ArkUIAttributeBasic, ArkUICommonFontAttribute, ArkUINodeAttributeItem,
     ArkUINodeAttributeNumber, ArkUIResult, TextAlignment, ARK_UI_NATIVE_NODE_API_1,

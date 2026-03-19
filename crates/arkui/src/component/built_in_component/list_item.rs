@@ -1,3 +1,5 @@
+//! Module component::built_in_component::list_item wrappers and related types.
+
 #[cfg(feature = "api-21")]
 use crate::check_arkui_status;
 #[cfg(feature = "api-21")]

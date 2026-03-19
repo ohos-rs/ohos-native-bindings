@@ -1,9 +1,12 @@
+//! Module component::attribute::font wrappers and related types.
+
 use crate::{
     ArkUINodeAttributeItem, ArkUINodeAttributeNumber, ArkUIResult, ARK_UI_NATIVE_NODE_API_1,
 };
 
 use super::ArkUIAttributeBasic;
 
+/// Font-related attribute helpers shared by text-capable components.
 pub trait ArkUICommonFontAttribute: ArkUIAttributeBasic {
     fn font_size(&self, font_size: f32) -> ArkUIResult<()> {
         let font_size_property =

@@ -1,3 +1,5 @@
+//! Module api::drag::event wrappers and related types.
+
 use std::{os::raw::c_char, ptr::NonNull};
 
 use ohos_arkui_input_binding::ArkUIErrorCode;

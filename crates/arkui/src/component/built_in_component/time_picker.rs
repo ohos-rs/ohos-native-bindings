@@ -1,4 +1,7 @@
+//! Module component::built_in_component::time_picker wrappers and related types.
+
 #[derive(Clone, Debug, PartialEq)]
+/// Text style object used by time-picker style attributes.
 pub struct TimePickerTextStyleObject {
     pub font_color: String,
     pub font_size: f32,
@@ -294,6 +297,7 @@ impl super::TimePicker {
 // END_GENERATED_COMPONENT_METHODS_TimePicker
 
 #[derive(Clone, Copy, Debug, PartialEq, Eq)]
+/// Event payload emitted when time-picker value changes.
 pub struct TimePickerChangeEvent {
     pub hour: i32,
     pub minute: i32,

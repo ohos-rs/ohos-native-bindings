@@ -1,3 +1,6 @@
+//! Module animate::animator::event wrappers and related types.
+
+/// Marker payload for animator lifecycle callbacks.
 #[derive(Clone, Copy, Debug, Default)]
 pub struct AnimatorEvent;
 
@@ -7,6 +10,7 @@ impl AnimatorEvent {
     }
 }
 
+/// Frame callback payload carrying interpolated value.
 #[derive(Clone, Copy, Debug)]
 pub struct AnimatorFrameEvent {
     value: f32,

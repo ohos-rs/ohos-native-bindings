@@ -1,14 +1,18 @@
+//! Module animate::animator::animator wrappers and related types.
+
 use crate::{ArkUIContext, ArkUIResult};
 
 use super::{native, AnimatorOption};
 
+/// Runtime animator instance backed by native ArkUI animator.
 pub struct Animator {
     handle: native::AnimatorHandle,
 }
 
 impl Animator {
+    /// Create an animator from context and options.
     pub fn create(ctx: ArkUIContext, option: &AnimatorOption) -> ArkUIResult<Self> {
-        let handle = native::create_animator(ctx.raw(), option.inner()?)?;
+        let handle = native::AnimatorHandle::create(ctx.raw(), option.inner()?)?;
         Ok(Self { handle })
     }
 
@@ -43,6 +47,7 @@ impl Drop for Animator {
     }
 }
 
+/// Convenience controller that owns both animator and mutable options.
 pub struct AnimatorController {
     option: AnimatorOption,
     animator: Animator,

@@ -1,3 +1,5 @@
+//! Node event wrappers and utility event payload types.
+
 use ohos_arkui_sys::{
     ArkUI_NodeEvent, ArkUI_NumberValue, OH_ArkUI_NodeEvent_GetDragEvent,
     OH_ArkUI_NodeEvent_GetEventType, OH_ArkUI_NodeEvent_GetInputEvent,
@@ -25,13 +27,18 @@ use ohos_arkui_sys::{
     OH_ArkUI_TouchTestInfo_SetTouchResultId, OH_ArkUI_TouchTestInfo_SetTouchResultStrategy,
 };
 
+/// Wrapper around `ArkUI_NodeEvent`.
 pub struct Event(NonNull<c_void>);
 
 #[cfg(feature = "api-15")]
 #[derive(Debug, Clone)]
+/// Text-change payload returned by text related events.
 pub struct TextChangeEventData {
+    /// Main text content.
     pub text: String,
+    /// Extended text content.
     pub extend_text: String,
+    /// Extra numeric value from native event.
     pub number: i32,
 }
 
@@ -218,9 +225,11 @@ impl Event {
     }
 }
 
+/// Callback type used by [`EventHandle`].
 pub type EventClause = Rc<RefCell<dyn Fn(&Event)>>;
 
 #[derive(Default, Clone)]
+/// Per-node event callback registry.
 pub struct EventHandle {
     pub(crate) callbacks: Vec<(NodeEventType, EventClause)>,
 }
@@ -257,10 +266,15 @@ fn is_arkui_ok(status: u32) -> bool {
 
 #[cfg(feature = "api-22")]
 #[derive(Debug, Clone, Copy, PartialEq)]
+/// Rectangle used by touch test results.
 pub struct TouchTestRect {
+    /// X origin.
     pub x: f32,
+    /// Y origin.
     pub y: f32,
+    /// Width.
     pub width: f32,
+    /// Height.
     pub height: f32,
 }
 
@@ -278,6 +292,7 @@ impl From<ArkUI_Rect> for TouchTestRect {
 
 #[cfg(feature = "api-22")]
 #[derive(Clone, Copy, Debug)]
+/// Touch test result wrapper.
 pub struct TouchTestInfo {
     raw: NonNull<ArkUI_TouchTestInfo>,
 }
@@ -325,6 +340,7 @@ impl TouchTestInfo {
 
 #[cfg(feature = "api-22")]
 #[derive(Clone, Copy, Debug)]
+/// Single item inside a [`TouchTestInfo`] list.
 pub struct TouchTestInfoItem {
     raw: NonNull<ArkUI_TouchTestInfoItem>,
 }

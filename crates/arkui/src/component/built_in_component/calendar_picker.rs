@@ -1,6 +1,9 @@
+//! Module component::built_in_component::calendar_picker wrappers and related types.
+
 use crate::ArkUINodeAttributeNumber;
 
 #[derive(Clone, Copy, Debug, PartialEq)]
+/// Text style object used by calendar-picker style attributes.
 pub struct CalendarPickerTextStyleObject {
     pub font_color: u32,
     pub font_size: f32,
@@ -233,6 +236,7 @@ impl super::CalendarPicker {
 // END_GENERATED_COMPONENT_METHODS_CalendarPicker
 
 #[derive(Clone, Copy, Debug, PartialEq, Eq)]
+/// Event payload emitted when calendar-picker value changes.
 pub struct CalendarPickerChangeEvent {
     pub year: u32,
     pub month: u32,

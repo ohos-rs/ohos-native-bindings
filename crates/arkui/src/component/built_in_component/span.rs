@@ -1,3 +1,5 @@
+//! Module component::built_in_component::span wrappers and related types.
+
 use crate::ArkUICommonFontAttribute;
 
 impl ArkUICommonFontAttribute for super::Span {}

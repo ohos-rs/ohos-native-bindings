@@ -1,3 +1,5 @@
+//! Module component::built_in_component::grid wrappers and related types.
+
 // BEGIN_GENERATED_COMPONENT_METHODS_Grid
 impl super::Grid {
     pub fn set_grid_column_template<T: Into<crate::ArkUINodeAttributeItem>>(
@@ -234,6 +236,7 @@ impl super::Grid {
 
 #[cfg(feature = "api-22")]
 #[derive(Clone, Copy, Debug, PartialEq, Eq)]
+/// Event payload describing grid scroll index range.
 pub struct GridScrollIndexEvent {
     pub first_index: i32,
     pub last_index: i32,
@@ -241,6 +244,7 @@ pub struct GridScrollIndexEvent {
 
 #[cfg(feature = "api-22")]
 #[derive(Clone, Copy, Debug, PartialEq)]
+/// Event payload emitted before grid scroll position changes.
 pub struct GridWillScrollEvent {
     pub offset: f32,
     pub state: i32,
@@ -249,6 +253,7 @@ pub struct GridWillScrollEvent {
 
 #[cfg(feature = "api-22")]
 #[derive(Clone, Copy, Debug, PartialEq)]
+/// Event payload emitted after grid scroll position changes.
 pub struct GridDidScrollEvent {
     pub offset: f32,
     pub state: i32,
@@ -256,6 +261,7 @@ pub struct GridDidScrollEvent {
 
 #[cfg(feature = "api-22")]
 #[derive(Clone, Copy, Debug, PartialEq)]
+/// Event payload emitted when grid scrollbar position updates.
 pub struct GridScrollBarUpdateEvent {
     pub first_visible_item_index: i32,
     pub first_visible_item_offset: f32,

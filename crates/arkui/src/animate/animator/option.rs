@@ -1,3 +1,5 @@
+//! Module animate::animator::option wrappers and related types.
+
 use ohos_arkui_input_binding::ArkUIErrorCode;
 
 use crate::animate::curve::CurveHandle;
@@ -7,6 +9,7 @@ use crate::{AnimationDirection, AnimationFillMode, ArkUIError, ArkUIResult};
 use super::native::AnimatorOptions;
 use super::{AnimatorEvent, AnimatorFrameEvent};
 
+/// Builder-style option wrapper for animator configuration.
 pub struct AnimatorOption {
     inner: Option<AnimatorOptions>,
 }

@@ -1,3 +1,5 @@
+//! Module api::dialog wrappers and related types.
+
 use std::{
     cell::{LazyCell, RefCell},
     ffi::CString,

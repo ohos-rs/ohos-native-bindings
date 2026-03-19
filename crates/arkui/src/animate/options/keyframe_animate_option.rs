@@ -1,3 +1,5 @@
+//! Module animate::options::keyframe_animate_option wrappers and related types.
+
 use std::{cell::RefCell, collections::HashMap, os::raw::c_void, ptr::NonNull, rc::Rc};
 
 use ohos_arkui_input_binding::ArkUIErrorCode;
@@ -25,6 +27,7 @@ use crate::{check_arkui_status, ArkUIContext, ArkUIError, ArkUIResult};
 #[cfg(feature = "api-19")]
 use super::AnimationFrameRateRange;
 
+/// High-level wrapper for `ArkUI_KeyframeAnimateOption`.
 pub struct KeyframeAnimation {
     raw: Rc<RefCell<NonNull<ArkUI_KeyframeAnimateOption>>>,
     finish_callback: RefCell<Option<*mut KeyframeCallbackContext>>,
@@ -36,6 +39,7 @@ struct KeyframeCallbackContext {
 }
 
 impl KeyframeAnimation {
+    /// Creates keyframe animation options with the given keyframe count.
     pub fn new(size: i32) -> ArkUIResult<Self> {
         let option = unsafe { OH_ArkUI_KeyframeAnimateOption_Create(size) };
         let option = NonNull::new(option).ok_or_else(|| {
@@ -74,6 +78,7 @@ impl KeyframeAnimation {
         unsafe { OH_ArkUI_KeyframeAnimateOption_GetIterations(self.raw()) }
     }
 
+    /// Registers finish callback for keyframe animation.
     pub fn on_finish_callback<T: Fn() + 'static>(&self, on_finish: T) -> ArkUIResult<()> {
         let callback = Box::into_raw(Box::new(KeyframeCallbackContext {
             callback: Box::new(on_finish),
@@ -102,6 +107,7 @@ impl KeyframeAnimation {
         Ok(())
     }
 
+    /// Clears finish callback.
     pub fn clear_on_finish_callback(&self) -> ArkUIResult<()> {
         check_arkui_status!(unsafe {
             OH_ArkUI_KeyframeAnimateOption_RegisterOnFinishCallback(
@@ -120,6 +126,7 @@ impl KeyframeAnimation {
         Ok(())
     }
 
+    /// Registers event callback for keyframe at `index`.
     pub fn on_event_callback<T: Fn() + 'static>(&self, index: i32, event: T) -> ArkUIResult<()> {
         let callback = Box::into_raw(Box::new(KeyframeCallbackContext {
             callback: Box::new(event),
@@ -149,6 +156,7 @@ impl KeyframeAnimation {
         Ok(())
     }
 
+    /// Clears event callback for keyframe at `index`.
     pub fn clear_on_event_callback(&self, index: i32) -> ArkUIResult<()> {
         check_arkui_status!(unsafe {
             OH_ArkUI_KeyframeAnimateOption_RegisterOnEventCallback(
@@ -168,6 +176,7 @@ impl KeyframeAnimation {
         Ok(())
     }
 
+    /// Sets keyframe duration for the specified index.
     pub fn duration(&self, duration: i32, index: i32) -> ArkUIResult<()> {
         check_arkui_status!(unsafe {
             OH_ArkUI_KeyframeAnimateOption_SetDuration(self.raw(), duration, index)
@@ -178,6 +187,7 @@ impl KeyframeAnimation {
         unsafe { OH_ArkUI_KeyframeAnimateOption_GetDuration(self.raw(), index) }
     }
 
+    /// Sets keyframe curve for the specified index.
     pub fn curve(&self, curve: &CurveHandle, index: i32) -> ArkUIResult<()> {
         check_arkui_status!(unsafe {
             OH_ArkUI_KeyframeAnimateOption_SetCurve(self.raw(), curve.as_raw(), index)

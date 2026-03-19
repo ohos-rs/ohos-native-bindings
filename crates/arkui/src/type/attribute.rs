@@ -1,9 +1,12 @@
+//! Module type::attribute wrappers and related types.
+
 use ohos_arkui_sys::*;
 
 use ohos_enum_macro::EnumFrom;
 
 #[derive(Debug, Clone, Copy, PartialEq, Eq, EnumFrom)]
 #[enum_from_config(ArkUI_NodeAttributeType, "ArkUI_NodeAttributeType_NODE_")]
+/// ArkUI node attribute identifiers used by `set_attribute`/`get_attribute`.
 pub enum ArkUINodeAttributeType {
     Width,
     Height,

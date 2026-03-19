@@ -1,3 +1,5 @@
+//! Module component::built_in_component::water_flow wrappers and related types.
+
 // BEGIN_GENERATED_COMPONENT_METHODS_WaterFlow
 impl super::WaterFlow {
     pub fn set_water_flow_layout_direction<T: Into<crate::ArkUINodeAttributeItem>>(
@@ -273,12 +275,14 @@ impl super::WaterFlow {
 // END_GENERATED_COMPONENT_METHODS_WaterFlow
 
 #[derive(Clone, Copy, Debug, PartialEq)]
+/// Event payload emitted after water-flow scrolling.
 pub struct WaterFlowDidScrollEvent {
     pub offset: f32,
     pub state: i32,
 }
 
 #[derive(Clone, Copy, Debug, PartialEq, Eq)]
+/// Event payload describing current first/last visible index of water-flow.
 pub struct WaterFlowScrollIndexEvent {
     pub start_index: i32,
     pub end_index: i32,

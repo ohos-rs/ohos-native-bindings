@@ -1,3 +1,5 @@
+//! Module component::built_in_component::slider wrappers and related types.
+
 // BEGIN_GENERATED_COMPONENT_METHODS_Slider
 impl super::Slider {
     pub fn set_slider_block_color<T: Into<crate::ArkUINodeAttributeItem>>(
@@ -365,6 +367,7 @@ impl super::Slider {
 // END_GENERATED_COMPONENT_METHODS_Slider
 
 #[derive(Clone, Copy, Debug, PartialEq)]
+/// Event payload emitted when slider value changes.
 pub struct SliderChangeEvent {
     pub value: f32,
     pub mode: i32,

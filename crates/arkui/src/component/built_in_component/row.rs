@@ -1,3 +1,5 @@
+//! Module component::built_in_component::row wrappers and related types.
+
 // BEGIN_GENERATED_COMPONENT_METHODS_Row
 impl super::Row {
     pub fn set_row_align_items<T: Into<crate::ArkUINodeAttributeItem>>(

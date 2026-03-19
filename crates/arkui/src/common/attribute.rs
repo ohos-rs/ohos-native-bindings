@@ -1,23 +1,29 @@
+//! Module common::attribute wrappers and related types.
+
 use std::ffi::{CStr, CString};
 
 use ohos_arkui_sys::{ArkUI_AttributeItem, ArkUI_NumberValue};
 
 #[derive(Clone, Copy, PartialEq)]
+/// Numeric value used in ArkUI attribute arrays.
 pub enum ArkUINodeAttributeNumber {
+    /// 32-bit float.
     Float(f32),
+    /// 32-bit signed integer.
     Int(i32),
+    /// 32-bit unsigned integer.
     Uint(u32),
 }
 
+/// Generic attribute payload accepted by ArkUI node attribute APIs.
 pub enum ArkUINodeAttributeItem {
-    /// Accept number array
+    /// Numeric array payload.
     NumberValue(Vec<ArkUINodeAttributeNumber>),
-    /// Accept string   
-    /// value and size will be set to null and 0
+    /// String payload.
+    /// `value` and `size` are set to null and zero in native struct.
     String(String),
-    /// Accept object   
-    /// value and size and string will be set to null and 0 and null
-    /// TODO: we need to check the type of object
+    /// Opaque object pointer payload.
+    /// `value`, `size` and `string` are empty in native struct.
     Object(*mut ::std::os::raw::c_void),
 }
 

@@ -1,3 +1,5 @@
+//! Module component::built_in_component::embedded_component wrappers and related types.
+
 // BEGIN_GENERATED_COMPONENT_METHODS_EmbeddedComponent
 #[cfg(feature = "api-20")]
 impl super::EmbeddedComponent {

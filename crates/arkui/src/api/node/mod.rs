@@ -1,8 +1,8 @@
-use std::cell::RefCell;
+//! Module api::node::mod wrappers and related types.
+
 use std::collections::HashMap;
 use std::os::raw::c_void;
 use std::ptr::NonNull;
-use std::rc::Rc;
 use std::sync::{Mutex, OnceLock};
 use std::{cell::LazyCell, ffi::CString};
 
@@ -10,14 +10,15 @@ use ohos_arkui_input_binding::sys::ArkUI_NodeHandle;
 use ohos_arkui_input_binding::ArkUIErrorCode;
 use ohos_arkui_sys::{
     ArkUI_IntOffset, ArkUI_IntSize, ArkUI_LayoutConstraint,
-    ArkUI_NativeAPIVariantKind_ARKUI_NATIVE_NODE, ArkUI_NativeNodeAPI_1, ArkUI_NodeCustomEvent,
-    ArkUI_NodeEvent, ArkUI_NodeEventType, OH_ArkUI_NodeEvent_GetEventType,
-    OH_ArkUI_NodeEvent_GetNodeHandle, OH_ArkUI_QueryModuleInterfaceByName,
+    ArkUI_NativeAPIVariantKind_ARKUI_NATIVE_NODE, ArkUI_NativeNodeAPI_1, ArkUI_NodeEventType,
+    OH_ArkUI_QueryModuleInterfaceByName,
 };
 
-use crate::{check_arkui_status, ArkUINodeAttributeType, ArkUINodeType, Event, NodeEventType};
+use crate::{check_arkui_status, ArkUINodeAttributeType, ArkUINodeType, NodeEventType};
 
 use crate::common::{ArkUIError, ArkUINode, ArkUINodeAttributeItem, ArkUIResult};
+
+mod receiver;
 
 thread_local! {
     /// ArkUI_NativeNodeAPI_1 struct
@@ -292,7 +293,7 @@ impl ArkUINativeNodeAPI1 {
             if let Some(add_node_event_receiver) = (*self.raw()).addNodeEventReceiver {
                 check_arkui_status!(add_node_event_receiver(
                     node.raw(),
-                    Some(node_event_receiver)
+                    Some(receiver::node_event_receiver)
                 ))
             } else {
                 Err(ArkUIError::new(
@@ -308,7 +309,7 @@ impl ArkUINativeNodeAPI1 {
             if let Some(remove_node_event_receiver) = (*self.raw()).removeNodeEventReceiver {
                 check_arkui_status!(remove_node_event_receiver(
                     node.raw(),
-                    Some(node_event_receiver)
+                    Some(receiver::node_event_receiver)
                 ))
             } else {
                 Err(ArkUIError::new(
@@ -330,7 +331,7 @@ impl ArkUINativeNodeAPI1 {
     fn register_node_event_receiver_raw(&self) -> ArkUIResult<()> {
         unsafe {
             if let Some(register_node_event_receiver) = (*self.raw()).registerNodeEventReceiver {
-                register_node_event_receiver(Some(node_event_receiver));
+                register_node_event_receiver(Some(receiver::node_event_receiver));
                 Ok(())
             } else {
                 Err(ArkUIError::new(
@@ -669,7 +670,7 @@ impl ArkUINativeNodeAPI1 {
             if let Some(register_node_custom_event_receiver) =
                 (*self.raw()).registerNodeCustomEventReceiver
             {
-                register_node_custom_event_receiver(Some(node_custom_event_receiver));
+                register_node_custom_event_receiver(Some(receiver::node_custom_event_receiver));
                 Ok(())
             } else {
                 Err(ArkUIError::new(
@@ -822,7 +823,7 @@ impl ArkUINativeNodeAPI1 {
             if let Some(add_node_custom_event_receiver) = (*self.raw()).addNodeCustomEventReceiver {
                 check_arkui_status!(add_node_custom_event_receiver(
                     node.raw(),
-                    Some(node_custom_event_receiver)
+                    Some(receiver::node_custom_event_receiver)
                 ))
             } else {
                 Err(ArkUIError::new(
@@ -844,7 +845,7 @@ impl ArkUINativeNodeAPI1 {
             {
                 check_arkui_status!(remove_node_custom_event_receiver(
                     node.raw(),
-                    Some(node_custom_event_receiver)
+                    Some(receiver::node_custom_event_receiver)
                 ))
             } else {
                 Err(ArkUIError::new(
@@ -945,55 +946,4 @@ impl Default for ArkUINativeNodeAPI1 {
     fn default() -> Self {
         Self::new()
     }
-}
-
-unsafe extern "C" fn node_event_receiver(event: *mut ArkUI_NodeEvent) {
-    if event.is_null() {
-        return;
-    }
-    let handle = OH_ArkUI_NodeEvent_GetNodeHandle(event);
-    let Some(user_data) = ARK_UI_NATIVE_NODE_API_1
-        .with(|api| api.get_user_data(handle))
-        .ok()
-        .flatten()
-    else {
-        return;
-    };
-
-    let user_data_rc: &Rc<RefCell<ArkUINode>> =
-        &*(user_data.as_ptr() as *const Rc<RefCell<ArkUINode>>);
-
-    let node = user_data_rc.borrow();
-
-    let raw_event_type = OH_ArkUI_NodeEvent_GetEventType(event);
-    let Some(event_type) = NodeEventType::try_from_raw(raw_event_type) else {
-        return;
-    };
-
-    if let Some(cb) = node.event_handle.get_event_callback(event_type) {
-        let node_event = Event::new(event);
-        cb.borrow()(&node_event);
-    }
-}
-
-unsafe extern "C" fn node_custom_event_receiver(event: *mut ArkUI_NodeCustomEvent) {
-    let Some(event) = crate::NodeCustomEvent::from_raw(event) else {
-        return;
-    };
-    let Some(node) = event.node_handle() else {
-        return;
-    };
-    let key = node_custom_event_map_key(node.raw(), event.event_type());
-    let callback = {
-        let callbacks = match node_custom_event_callback_contexts().lock() {
-            Ok(callbacks) => callbacks,
-            Err(poisoned) => poisoned.into_inner(),
-        };
-        callbacks.get(&key).copied()
-    };
-    let Some(callback) = callback else {
-        return;
-    };
-    let callback = unsafe { &*(callback as *const NodeCustomEventCallbackContext) };
-    (callback.callback)(&event);
 }

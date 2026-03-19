@@ -1,3 +1,5 @@
+//! Module component::built_in_component::loading_progress wrappers and related types.
+
 // BEGIN_GENERATED_COMPONENT_METHODS_LoadingProgress
 impl super::LoadingProgress {
     pub fn set_loading_progress_color<T: Into<crate::ArkUINodeAttributeItem>>(

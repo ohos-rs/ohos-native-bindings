@@ -1,3 +1,5 @@
+//! Runtime contexts passed to animation callbacks.
+
 mod finish;
 mod update;
 

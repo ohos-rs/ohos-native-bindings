@@ -1,5 +1,8 @@
+//! Module api::drag::preview_option wrappers and related types.
+
 use std::ptr::NonNull;
 
+use ohos_arkui_input_binding::ArkUIErrorCode;
 use ohos_arkui_sys::{
     ArkUI_DragPreviewOption, OH_ArkUI_CreateDragPreviewOption, OH_ArkUI_DragPreviewOption_Dispose,
     OH_ArkUI_DragPreviewOption_SetBadgeNumber,
@@ -9,9 +12,7 @@ use ohos_arkui_sys::{
     OH_ArkUI_DragPreviewOption_SetNumberBadgeEnabled, OH_ArkUI_DragPreviewOption_SetScaleMode,
 };
 
-use crate::{check_arkui_status, ArkUIResult};
-
-use super::helper::non_null_or_error;
+use crate::{check_arkui_status, ArkUIError, ArkUIResult};
 
 pub(crate) struct DragPreviewOption {
     raw: NonNull<ArkUI_DragPreviewOption>,
@@ -20,11 +21,23 @@ pub(crate) struct DragPreviewOption {
 impl DragPreviewOption {
     pub(crate) fn new() -> ArkUIResult<Self> {
         let option = unsafe { OH_ArkUI_CreateDragPreviewOption() };
-        non_null_or_error(option, "OH_ArkUI_CreateDragPreviewOption").map(Self::from_non_null)
+        let option = NonNull::new(option).ok_or_else(|| {
+            ArkUIError::new(
+                ArkUIErrorCode::ParamInvalid,
+                "OH_ArkUI_CreateDragPreviewOption returned null",
+            )
+        })?;
+        Ok(Self::from_non_null(option))
     }
 
     pub(crate) fn from_raw(raw: *mut ArkUI_DragPreviewOption) -> ArkUIResult<Self> {
-        non_null_or_error(raw, "ArkUI_DragPreviewOption").map(Self::from_non_null)
+        let raw = NonNull::new(raw).ok_or_else(|| {
+            ArkUIError::new(
+                ArkUIErrorCode::ParamInvalid,
+                "ArkUI_DragPreviewOption is null",
+            )
+        })?;
+        Ok(Self::from_non_null(raw))
     }
 
     pub(crate) fn from_non_null(raw: NonNull<ArkUI_DragPreviewOption>) -> Self {

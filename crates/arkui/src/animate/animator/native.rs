@@ -1,3 +1,5 @@
+//! Module animate::animator::native wrappers and related types.
+
 use std::{os::raw::c_void, ptr::NonNull};
 
 use ohos_arkui_input_binding::ArkUIErrorCode;
@@ -49,6 +51,27 @@ pub(crate) struct AnimatorHandle {
 }
 
 impl AnimatorHandle {
+    pub(crate) fn create(ctx: ArkUI_ContextHandle, option: &AnimatorOptions) -> ArkUIResult<Self> {
+        ARK_UI_NATIVE_ANIMATE_API_1.with(|api| unsafe {
+            if let Some(create_animator_func) = (*api.raw()).createAnimator {
+                let animator = create_animator_func(ctx, option.raw.as_ptr());
+                if let Some(animator) = NonNull::new(animator) {
+                    Ok(Self { raw: animator })
+                } else {
+                    Err(ArkUIError::new(
+                        ArkUIErrorCode::ParamInvalid,
+                        "ArkUI_NativeAnimateAPI_1::createAnimator returned null",
+                    ))
+                }
+            } else {
+                Err(ArkUIError::new(
+                    ArkUIErrorCode::AttributeOrEventNotSupported,
+                    "ArkUI_NativeAnimateAPI_1::createAnimator is None",
+                ))
+            }
+        })
+    }
+
     pub(crate) fn play(&self) -> ArkUIResult<()> {
         unsafe { check_arkui_status!(OH_ArkUI_Animator_Play(self.raw.as_ptr())) }
     }
@@ -411,30 +434,6 @@ impl AnimatorOptions {
         }
         Ok(())
     }
-}
-
-pub(crate) fn create_animator(
-    ctx: ArkUI_ContextHandle,
-    option: &AnimatorOptions,
-) -> ArkUIResult<AnimatorHandle> {
-    ARK_UI_NATIVE_ANIMATE_API_1.with(|api| unsafe {
-        if let Some(create_animator_func) = (*api.raw()).createAnimator {
-            let animator = create_animator_func(ctx, option.raw.as_ptr());
-            if let Some(animator) = NonNull::new(animator) {
-                Ok(AnimatorHandle { raw: animator })
-            } else {
-                Err(ArkUIError::new(
-                    ArkUIErrorCode::ParamInvalid,
-                    "ArkUI_NativeAnimateAPI_1::createAnimator returned null",
-                ))
-            }
-        } else {
-            Err(ArkUIError::new(
-                ArkUIErrorCode::AttributeOrEventNotSupported,
-                "ArkUI_NativeAnimateAPI_1::createAnimator is None",
-            ))
-        }
-    })
 }
 
 unsafe extern "C" fn animator_frame_callback_trampoline(event: *mut ArkUI_AnimatorOnFrameEvent) {

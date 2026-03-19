@@ -1,3 +1,5 @@
+//! Module api::attribute_option::base wrappers and related types.
+
 use std::{
     collections::HashMap,
     ffi::{CStr, CString},
@@ -11,19 +13,25 @@ use ohos_arkui_sys::*;
 use crate::check_arkui_status;
 use crate::{ArkUIError, ArkUIResult};
 
-pub(crate) fn c_char_ptr_to_string(ptr: *const c_char) -> Option<String> {
+pub(in crate::api::attribute_option) fn non_null_or_panic<T>(
+    ptr: *mut T,
+    name: &'static str,
+) -> NonNull<T> {
+    NonNull::new(ptr).unwrap_or_else(|| panic!("{name} pointer is null"))
+}
+
+pub(in crate::api::attribute_option) fn c_char_ptr_to_string(ptr: *const c_char) -> Option<String> {
     if ptr.is_null() {
         None
     } else {
-        Some(
-            unsafe { CStr::from_ptr(ptr) }
-                .to_string_lossy()
-                .into_owned(),
-        )
+        Some(unsafe { CStr::from_ptr(ptr).to_string_lossy().into_owned() })
     }
 }
 
-pub(crate) fn with_optional_cstring<F>(value: Option<&str>, f: F) -> ArkUIResult<()>
+pub(in crate::api::attribute_option) fn with_optional_cstring<F>(
+    value: Option<&str>,
+    f: F,
+) -> ArkUIResult<()>
 where
     F: FnOnce(*const c_char),
 {
@@ -44,7 +52,7 @@ where
     Ok(())
 }
 
-pub(crate) fn with_cstring<F>(value: &str, f: F) -> ArkUIResult<()>
+pub(in crate::api::attribute_option) fn with_cstring<F>(value: &str, f: F) -> ArkUIResult<()>
 where
     F: FnOnce(*const c_char),
 {
@@ -58,22 +66,8 @@ where
     Ok(())
 }
 
-pub(crate) fn ptr_or_error<T>(ptr: *mut T, func: &'static str) -> ArkUIResult<*mut T> {
-    if ptr.is_null() {
-        Err(ArkUIError::new(
-            ArkUIErrorCode::ParamInvalid,
-            format!("{func} returned null"),
-        ))
-    } else {
-        Ok(ptr)
-    }
-}
-
-pub(crate) fn non_null_or_panic<T>(ptr: *mut T, name: &'static str) -> NonNull<T> {
-    NonNull::new(ptr).unwrap_or_else(|| panic!("{name} pointer is null"))
-}
-
 #[derive(Clone, Copy, Debug, Default, PartialEq)]
+/// Margin value object used by layout-related attributes.
 pub struct Margin {
     pub top: f32,
     pub right: f32,
@@ -103,6 +97,7 @@ impl From<Margin> for ArkUI_Margin {
     }
 }
 
+/// Layout constraint wrapper for max/min size rules.
 pub struct LayoutConstraint {
     raw: NonNull<ArkUI_LayoutConstraint>,
 }
@@ -110,12 +105,26 @@ pub struct LayoutConstraint {
 impl LayoutConstraint {
     pub fn new() -> ArkUIResult<Self> {
         let constraint = unsafe { OH_ArkUI_LayoutConstraint_Create() };
-        ptr_or_error(constraint, "OH_ArkUI_LayoutConstraint_Create").map(Self::from_raw)
+        NonNull::new(constraint)
+            .map(|raw| Self::from_raw(raw.as_ptr()))
+            .ok_or_else(|| {
+                ArkUIError::new(
+                    ArkUIErrorCode::ParamInvalid,
+                    "OH_ArkUI_LayoutConstraint_Create returned null",
+                )
+            })
     }
 
     pub fn copy(&self) -> ArkUIResult<Self> {
         let copied = unsafe { OH_ArkUI_LayoutConstraint_Copy(self.raw()) };
-        ptr_or_error(copied, "OH_ArkUI_LayoutConstraint_Copy").map(Self::from_raw)
+        NonNull::new(copied)
+            .map(|raw| Self::from_raw(raw.as_ptr()))
+            .ok_or_else(|| {
+                ArkUIError::new(
+                    ArkUIErrorCode::ParamInvalid,
+                    "OH_ArkUI_LayoutConstraint_Copy returned null",
+                )
+            })
     }
 
     pub(crate) fn raw(&self) -> *mut ArkUI_LayoutConstraint {
@@ -185,6 +194,7 @@ impl LayoutConstraint {
     }
 }
 
+/// Alignment-rule option wrapper for relative container layout.
 pub struct AlignmentRuleOption {
     raw: NonNull<ArkUI_AlignmentRuleOption>,
 }
@@ -192,7 +202,14 @@ pub struct AlignmentRuleOption {
 impl AlignmentRuleOption {
     pub fn new() -> ArkUIResult<Self> {
         let option = unsafe { OH_ArkUI_AlignmentRuleOption_Create() };
-        ptr_or_error(option, "OH_ArkUI_AlignmentRuleOption_Create").map(Self::from_raw)
+        NonNull::new(option)
+            .map(|raw| Self::from_raw(raw.as_ptr()))
+            .ok_or_else(|| {
+                ArkUIError::new(
+                    ArkUIErrorCode::ParamInvalid,
+                    "OH_ArkUI_AlignmentRuleOption_Create returned null",
+                )
+            })
     }
 
     pub(crate) fn raw(&self) -> *mut ArkUI_AlignmentRuleOption {
@@ -342,6 +359,7 @@ impl AlignmentRuleOption {
     }
 }
 
+/// Accessibility value wrapper exposed by ArkUI attributes.
 pub struct AccessibilityValue {
     raw: NonNull<ArkUI_AccessibilityValue>,
 }
@@ -349,7 +367,14 @@ pub struct AccessibilityValue {
 impl AccessibilityValue {
     pub fn new() -> ArkUIResult<Self> {
         let value = unsafe { OH_ArkUI_AccessibilityValue_Create() };
-        ptr_or_error(value, "OH_ArkUI_AccessibilityValue_Create").map(Self::from_raw)
+        NonNull::new(value)
+            .map(|raw| Self::from_raw(raw.as_ptr()))
+            .ok_or_else(|| {
+                ArkUIError::new(
+                    ArkUIErrorCode::ParamInvalid,
+                    "OH_ArkUI_AccessibilityValue_Create returned null",
+                )
+            })
     }
 
     pub(crate) fn raw(&self) -> *mut ArkUI_AccessibilityValue {
@@ -439,6 +464,7 @@ struct WaterFlowMainSizeCallbackContext {
     callback: Box<dyn Fn(i32) -> f32>,
 }
 
+/// Section option wrapper for water-flow components.
 pub struct WaterFlowSectionOption {
     raw: NonNull<ArkUI_WaterFlowSectionOption>,
     main_size_callbacks: HashMap<i32, *mut WaterFlowMainSizeCallbackContext>,
@@ -447,7 +473,14 @@ pub struct WaterFlowSectionOption {
 impl WaterFlowSectionOption {
     pub fn new() -> ArkUIResult<Self> {
         let option = unsafe { OH_ArkUI_WaterFlowSectionOption_Create() };
-        ptr_or_error(option, "OH_ArkUI_WaterFlowSectionOption_Create").map(Self::from_raw)
+        NonNull::new(option)
+            .map(|raw| Self::from_raw(raw.as_ptr()))
+            .ok_or_else(|| {
+                ArkUIError::new(
+                    ArkUIErrorCode::ParamInvalid,
+                    "OH_ArkUI_WaterFlowSectionOption_Create returned null",
+                )
+            })
     }
 
     pub(crate) fn raw(&self) -> *mut ArkUI_WaterFlowSectionOption {
@@ -590,6 +623,7 @@ unsafe extern "C" fn water_flow_main_size_callback_trampoline(
     (callback.callback)(item_index)
 }
 
+/// Wrapper for drawable descriptor handles.
 pub struct DrawableDescriptor {
     raw: NonNull<ArkUI_DrawableDescriptor>,
 }
@@ -597,8 +631,14 @@ pub struct DrawableDescriptor {
 impl DrawableDescriptor {
     pub fn from_pixel_map(pixel_map: OH_PixelmapNativeHandle) -> ArkUIResult<Self> {
         let descriptor = unsafe { OH_ArkUI_DrawableDescriptor_CreateFromPixelMap(pixel_map) };
-        ptr_or_error(descriptor, "OH_ArkUI_DrawableDescriptor_CreateFromPixelMap")
-            .map(Self::from_raw)
+        NonNull::new(descriptor)
+            .map(|raw| Self::from_raw(raw.as_ptr()))
+            .ok_or_else(|| {
+                ArkUIError::new(
+                    ArkUIErrorCode::ParamInvalid,
+                    "OH_ArkUI_DrawableDescriptor_CreateFromPixelMap returned null",
+                )
+            })
     }
 
     pub fn from_animated_pixel_map(
@@ -615,11 +655,14 @@ impl DrawableDescriptor {
                 pixel_map_array.len() as i32,
             )
         };
-        ptr_or_error(
-            descriptor,
-            "OH_ArkUI_DrawableDescriptor_CreateFromAnimatedPixelMap",
-        )
-        .map(Self::from_raw)
+        NonNull::new(descriptor)
+            .map(|raw| Self::from_raw(raw.as_ptr()))
+            .ok_or_else(|| {
+                ArkUIError::new(
+                    ArkUIErrorCode::ParamInvalid,
+                    "OH_ArkUI_DrawableDescriptor_CreateFromAnimatedPixelMap returned null",
+                )
+            })
     }
 
     pub(crate) fn raw(&self) -> *mut ArkUI_DrawableDescriptor {
@@ -736,15 +779,19 @@ impl DrawableDescriptor {
                 &mut controller
             ))
         }?;
-        ptr_or_error(
-            controller,
-            "OH_ArkUI_DrawableDescriptor_CreateAnimationController",
-        )
-        .map(DrawableDescriptorAnimationController::from_raw)
+        NonNull::new(controller)
+            .map(|raw| DrawableDescriptorAnimationController::from_raw(raw.as_ptr()))
+            .ok_or_else(|| {
+                ArkUIError::new(
+                    ArkUIErrorCode::ParamInvalid,
+                    "OH_ArkUI_DrawableDescriptor_CreateAnimationController returned null",
+                )
+            })
     }
 }
 
 #[cfg(feature = "api-22")]
+/// Controller wrapper for drawable descriptor animations.
 pub struct DrawableDescriptorAnimationController {
     raw: NonNull<ArkUI_DrawableDescriptor_AnimationController>,
 }
@@ -798,6 +845,7 @@ impl DrawableDescriptorAnimationController {
     }
 }
 
+/// Swiper indicator option wrapper.
 pub struct SwiperIndicator {
     raw: NonNull<ArkUI_SwiperIndicator>,
 }
@@ -805,7 +853,14 @@ pub struct SwiperIndicator {
 impl SwiperIndicator {
     pub fn new(type_: crate::SwiperIndicatorType) -> ArkUIResult<Self> {
         let indicator = unsafe { OH_ArkUI_SwiperIndicator_Create(type_.into()) };
-        ptr_or_error(indicator, "OH_ArkUI_SwiperIndicator_Create").map(Self::from_raw)
+        NonNull::new(indicator)
+            .map(|raw| Self::from_raw(raw.as_ptr()))
+            .ok_or_else(|| {
+                ArkUIError::new(
+                    ArkUIErrorCode::ParamInvalid,
+                    "OH_ArkUI_SwiperIndicator_Create returned null",
+                )
+            })
     }
 
     pub(crate) fn raw(&self) -> *mut ArkUI_SwiperIndicator {
@@ -949,6 +1004,7 @@ impl SwiperIndicator {
 }
 
 #[cfg(feature = "api-19")]
+/// Digit-style swiper indicator option wrapper.
 pub struct SwiperDigitIndicator {
     raw: NonNull<ArkUI_SwiperDigitIndicator>,
 }
@@ -957,7 +1013,14 @@ pub struct SwiperDigitIndicator {
 impl SwiperDigitIndicator {
     pub fn new() -> ArkUIResult<Self> {
         let indicator = unsafe { OH_ArkUI_SwiperDigitIndicator_Create() };
-        ptr_or_error(indicator, "OH_ArkUI_SwiperDigitIndicator_Create").map(Self::from_raw)
+        NonNull::new(indicator)
+            .map(|raw| Self::from_raw(raw.as_ptr()))
+            .ok_or_else(|| {
+                ArkUIError::new(
+                    ArkUIErrorCode::ParamInvalid,
+                    "OH_ArkUI_SwiperDigitIndicator_Create returned null",
+                )
+            })
     }
 
     pub(crate) fn raw(&self) -> *mut ArkUI_SwiperDigitIndicator {
@@ -1068,6 +1131,7 @@ impl SwiperDigitIndicator {
 }
 
 #[cfg(feature = "api-19")]
+/// Arrow style option wrapper for swiper controls.
 pub struct SwiperArrowStyle {
     raw: NonNull<ArkUI_SwiperArrowStyle>,
 }
@@ -1076,7 +1140,14 @@ pub struct SwiperArrowStyle {
 impl SwiperArrowStyle {
     pub fn new() -> ArkUIResult<Self> {
         let style = unsafe { OH_ArkUI_SwiperArrowStyle_Create() };
-        ptr_or_error(style, "OH_ArkUI_SwiperArrowStyle_Create").map(Self::from_raw)
+        NonNull::new(style)
+            .map(|raw| Self::from_raw(raw.as_ptr()))
+            .ok_or_else(|| {
+                ArkUIError::new(
+                    ArkUIErrorCode::ParamInvalid,
+                    "OH_ArkUI_SwiperArrowStyle_Create returned null",
+                )
+            })
     }
 
     pub(crate) fn raw(&self) -> *mut ArkUI_SwiperArrowStyle {
@@ -1146,6 +1217,7 @@ impl SwiperArrowStyle {
     }
 }
 
+/// Frame descriptor used by image animator options.
 pub struct ImageAnimatorFrameInfo {
     raw: NonNull<ArkUI_ImageAnimatorFrameInfo>,
 }
@@ -1161,17 +1233,27 @@ impl ImageAnimatorFrameInfo {
         let info = unsafe {
             OH_ArkUI_ImageAnimatorFrameInfo_CreateFromString(src.as_ptr() as *mut c_char)
         };
-        ptr_or_error(info, "OH_ArkUI_ImageAnimatorFrameInfo_CreateFromString").map(Self::from_raw)
+        NonNull::new(info)
+            .map(|raw| Self::from_raw(raw.as_ptr()))
+            .ok_or_else(|| {
+                ArkUIError::new(
+                    ArkUIErrorCode::ParamInvalid,
+                    "OH_ArkUI_ImageAnimatorFrameInfo_CreateFromString returned null",
+                )
+            })
     }
 
     pub fn from_drawable_descriptor(drawable: &DrawableDescriptor) -> ArkUIResult<Self> {
         let info =
             unsafe { OH_ArkUI_ImageAnimatorFrameInfo_CreateFromDrawableDescriptor(drawable.raw()) };
-        ptr_or_error(
-            info,
-            "OH_ArkUI_ImageAnimatorFrameInfo_CreateFromDrawableDescriptor",
-        )
-        .map(Self::from_raw)
+        NonNull::new(info)
+            .map(|raw| Self::from_raw(raw.as_ptr()))
+            .ok_or_else(|| {
+                ArkUIError::new(
+                    ArkUIErrorCode::ParamInvalid,
+                    "OH_ArkUI_ImageAnimatorFrameInfo_CreateFromDrawableDescriptor returned null",
+                )
+            })
     }
 
     pub(crate) fn raw(&self) -> *mut ArkUI_ImageAnimatorFrameInfo {

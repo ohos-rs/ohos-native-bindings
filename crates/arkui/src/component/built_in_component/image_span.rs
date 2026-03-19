@@ -1,3 +1,5 @@
+//! Module component::built_in_component::image_span wrappers and related types.
+
 // BEGIN_GENERATED_COMPONENT_METHODS_ImageSpan
 impl super::ImageSpan {
     pub fn set_image_span_src<T: Into<crate::ArkUINodeAttributeItem>>(

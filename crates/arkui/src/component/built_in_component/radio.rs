@@ -1,3 +1,5 @@
+//! Module component::built_in_component::radio wrappers and related types.
+
 // BEGIN_GENERATED_COMPONENT_METHODS_Radio
 impl super::Radio {
     pub fn set_radio_checked<T: Into<crate::ArkUINodeAttributeItem>>(

@@ -1,3 +1,5 @@
+//! Module component::built_in_component::image_animator wrappers and related types.
+
 // BEGIN_GENERATED_COMPONENT_METHODS_ImageAnimator
 impl super::ImageAnimator {
     pub fn set_image_animator_images<T: Into<crate::ArkUINodeAttributeItem>>(

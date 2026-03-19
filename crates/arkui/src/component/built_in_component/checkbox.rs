@@ -1,3 +1,5 @@
+//! Module component::built_in_component::checkbox wrappers and related types.
+
 // BEGIN_GENERATED_COMPONENT_METHODS_Checkbox
 impl super::Checkbox {
     pub fn set_checkbox_select<T: Into<crate::ArkUINodeAttributeItem>>(

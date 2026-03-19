@@ -1,3 +1,5 @@
+//! Module component::built_in_component::toggle wrappers and related types.
+
 // BEGIN_GENERATED_COMPONENT_METHODS_Toggle
 impl super::Toggle {
     pub fn set_toggle_selected_color<T: Into<crate::ArkUINodeAttributeItem>>(

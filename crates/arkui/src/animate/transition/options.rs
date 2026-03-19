@@ -1,11 +1,15 @@
+//! Module animate::transition::options wrappers and related types.
+
 use ohos_arkui_sys::{ArkUI_RotationOptions, ArkUI_ScaleOptions, ArkUI_TranslationOptions};
 
 #[derive(Debug, Clone, Copy)]
+/// Translation transition parameters.
 pub struct TranslationOptions {
     raw: ArkUI_TranslationOptions,
 }
 
 impl TranslationOptions {
+    /// Creates translation options from xyz offsets.
     pub fn new(x: f32, y: f32, z: f32) -> Self {
         Self {
             raw: ArkUI_TranslationOptions { x, y, z },
@@ -51,11 +55,13 @@ impl Default for TranslationOptions {
 }
 
 #[derive(Debug, Clone, Copy)]
+/// Scale transition parameters.
 pub struct ScaleOptions {
     raw: ArkUI_ScaleOptions,
 }
 
 impl ScaleOptions {
+    /// Creates scale options with center point.
     pub fn new(x: f32, y: f32, z: f32, center_x: f32, center_y: f32) -> Self {
         Self {
             raw: ArkUI_ScaleOptions {
@@ -125,6 +131,7 @@ impl Default for ScaleOptions {
 }
 
 #[derive(Debug, Clone, Copy)]
+/// Rotation transition parameters.
 pub struct RotationOptions {
     raw: ArkUI_RotationOptions,
 }

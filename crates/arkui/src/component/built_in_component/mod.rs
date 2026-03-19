@@ -1,3 +1,5 @@
+//! Built-in ArkUI component wrappers.
+
 mod button;
 mod calendar_picker;
 mod checkbox;

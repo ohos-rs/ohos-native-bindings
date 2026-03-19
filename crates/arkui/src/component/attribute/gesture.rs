@@ -1,3 +1,5 @@
+//! Module component::attribute::gesture wrappers and related types.
+
 #[cfg(feature = "api-18")]
 use crate::ARK_UI_NATIVE_GESTURE_API_2;
 use crate::{
@@ -8,6 +10,7 @@ use crate::{
 
 use super::ArkUIAttributeBasic;
 
+/// Gesture composition helpers shared by components.
 pub trait ArkUIGesture: ArkUIAttributeBasic {
     fn add_gesture(
         &self,

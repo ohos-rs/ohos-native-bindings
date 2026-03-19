@@ -1,3 +1,5 @@
+//! Module component::built_in_component::column wrappers and related types.
+
 // BEGIN_GENERATED_COMPONENT_METHODS_Column
 impl super::Column {
     pub fn set_column_align_items<T: Into<crate::ArkUINodeAttributeItem>>(
