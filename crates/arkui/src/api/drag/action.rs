@@ -10,8 +10,9 @@ use ohos_arkui_sys::{
     OH_ArkUI_DragAction_SetDragPreviewOption, OH_ArkUI_DragAction_SetPixelMaps,
     OH_ArkUI_DragAction_SetPointerId, OH_ArkUI_DragAction_SetTouchPointX,
     OH_ArkUI_DragAction_SetTouchPointY, OH_ArkUI_DragAction_UnregisterStatusListener,
-    OH_ArkUI_StartDrag, OH_PixelmapNative, OH_UdmfData,
+    OH_ArkUI_StartDrag, OH_UdmfData,
 };
+use ohos_image_native_binding::PixelMapNativeHandle;
 
 use crate::{check_arkui_status, ArkUIError, ArkUIHandle, ArkUIResult};
 
@@ -82,13 +83,17 @@ impl DragAction {
 
     pub(crate) fn set_pixel_maps(
         &mut self,
-        pixelmap_array: &mut [*mut OH_PixelmapNative],
+        pixelmap_array: &[PixelMapNativeHandle],
     ) -> ArkUIResult<()> {
+        let mut raw_pixelmap_array: Vec<*mut _> = pixelmap_array
+            .iter()
+            .map(|pixel_map| pixel_map.as_raw().cast())
+            .collect();
         unsafe {
             check_arkui_status!(OH_ArkUI_DragAction_SetPixelMaps(
                 self.raw(),
-                pixelmap_array.as_mut_ptr(),
-                pixelmap_array.len() as i32
+                raw_pixelmap_array.as_mut_ptr(),
+                raw_pixelmap_array.len() as i32
             ))
         }
     }

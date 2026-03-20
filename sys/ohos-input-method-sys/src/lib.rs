@@ -879,9 +879,6338 @@ extern "C" {
         size: usize,
     ) -> InputMethod_ErrorCode;
 }
+#[repr(C)]
+#[derive(Debug, Copy, Clone)]
+pub struct ArkUI_DrawableDescriptor {
+    _unused: [u8; 0],
+}
+#[doc = " @brief Introduces the native pixel map information defined by Image Kit.\n\n @since 12"]
+#[repr(C)]
+#[derive(Debug, Copy, Clone)]
+pub struct OH_PixelmapNative {
+    _unused: [u8; 0],
+}
+#[doc = " @brief Defines the pointer to OH_PixelmapNative.\n\n @since 12"]
+pub type OH_PixelmapNativeHandle = *mut OH_PixelmapNative;
+#[doc = " @brief Defines the ArkUI native component object.\n\n @since 22"]
+#[repr(C)]
+#[derive(Debug, Copy, Clone)]
+pub struct ArkUI_Node {
+    _unused: [u8; 0],
+}
+#[doc = " @brief Defines the pointer to the ArkUI native component object.\n\n @since 22"]
+pub type ArkUI_NodeHandle = *mut ArkUI_Node;
+#[repr(C)]
+#[derive(Debug, Copy, Clone)]
+pub struct ArkUI_DrawableDescriptor_AnimationController {
+    _unused: [u8; 0],
+}
+#[doc = " animation is initial."]
+#[cfg(feature = "api-22")]
+pub const DrawableDescriptor_AnimationStatus_DRAWABLE_DESCRIPTOR_ANIMATION_STATUS_INITIAL:
+    DrawableDescriptor_AnimationStatus = 0;
+#[doc = " animation is playing."]
+#[cfg(feature = "api-22")]
+pub const DrawableDescriptor_AnimationStatus_DRAWABLE_DESCRIPTOR_ANIMATION_STATUS_RUNNING:
+    DrawableDescriptor_AnimationStatus = 1;
+#[doc = " animation is paused."]
+#[cfg(feature = "api-22")]
+pub const DrawableDescriptor_AnimationStatus_DRAWABLE_DESCRIPTOR_ANIMATION_STATUS_PAUSED:
+    DrawableDescriptor_AnimationStatus = 2;
+#[doc = " animation is stopped."]
+#[cfg(feature = "api-22")]
+pub const DrawableDescriptor_AnimationStatus_DRAWABLE_DESCRIPTOR_ANIMATION_STATUS_STOPPED:
+    DrawableDescriptor_AnimationStatus = 3;
+#[doc = " @brief Defines the animation status of the drawable descriptor.\n\n @since 22"]
+#[cfg(feature = "api-22")]
+pub type DrawableDescriptor_AnimationStatus = u32;
 extern "C" {
-    #[doc = " @brief Attach application to the input method service.\n\n @param textEditorProxy Represents a pointer to an {@link InputMethod_TextEditorProxy} instance.\n     The caller needs to manage the lifecycle of textEditorProxy.\n     If the call succeeds, caller cannot release textEditorProxy until the next attach or detach call.\n @param options Represents a pointer to an {@link InputMethod_AttachOptions} instance.\n     The options when attaching input method.\n @param inputMethodProxy Represents a pointer to an {@link InputMethod_InputMethodProxy} instance.\n     Lifecycle is mantianed until the next attach or detach call.\n @return Returns a specific error code.\n     {@link IME_ERR_OK} - success.\n     {@link IME_ERR_PARAMCHECK} - parameter check failed.\n     {@link IME_ERR_IMCLIENT} - input method client error.\n     {@link IME_ERR_IMMS} - input method manager service error.\n     {@link IME_ERR_NULL_POINTER} - unexpected null pointer.\n Specific error codes can be referenced {@link InputMethod_ErrorCode}.\n @since 12"]
+    #[doc = " @brief Creates a DrawableDescriptor from a Pixelmap.\n\n @param pixelMap Indicates the pointer to a Pixelmap\n @return Returns the pointer to the drawableDescriptor.\n @since 12"]
+    pub fn OH_ArkUI_DrawableDescriptor_CreateFromPixelMap(
+        pixelMap: OH_PixelmapNativeHandle,
+    ) -> *mut ArkUI_DrawableDescriptor;
+}
+extern "C" {
+    #[doc = " @brief Creates a DrawableDescriptor from a Pixelmap array.\n\n @param array Indicates the pointer to a Pixelmap array.\n @param size Indicates the size of the Pixelmap array.\n @return Returns the pointer to the drawableDescriptor.\n @since 12"]
+    pub fn OH_ArkUI_DrawableDescriptor_CreateFromAnimatedPixelMap(
+        array: *mut OH_PixelmapNativeHandle,
+        size: i32,
+    ) -> *mut ArkUI_DrawableDescriptor;
+}
+extern "C" {
+    #[doc = " @brief Destroys the pointer to the drawableDescriptor.\n\n @param drawableDescriptor Indicates the pointer to the drawableDescriptor.\n @since 12"]
+    pub fn OH_ArkUI_DrawableDescriptor_Dispose(drawableDescriptor: *mut ArkUI_DrawableDescriptor);
+}
+extern "C" {
+    #[doc = " @brief Obtains the Pixelmap object.\n\n @param drawableDescriptor Indicates the pointer to the drawableDescriptor.\n @return Returns the pointer to the PixelMap.\n @since 12"]
+    pub fn OH_ArkUI_DrawableDescriptor_GetStaticPixelMap(
+        drawableDescriptor: *mut ArkUI_DrawableDescriptor,
+    ) -> OH_PixelmapNativeHandle;
+}
+extern "C" {
+    #[doc = " @brief Obtains the Pixelmap array used to play the animation.\n\n @param drawableDescriptor Indicates the pointer to the drawableDescriptor.\n @return Returns the pointer to the PixelMap array.\n @since 12"]
+    pub fn OH_ArkUI_DrawableDescriptor_GetAnimatedPixelMapArray(
+        drawableDescriptor: *mut ArkUI_DrawableDescriptor,
+    ) -> *mut OH_PixelmapNativeHandle;
+}
+extern "C" {
+    #[doc = " @brief Obtains the size of the Pixelmap array used to play the animation.\n\n @param drawableDescriptor Indicates the pointer to the drawableDescriptor.\n @return Returns the size of the Pixelmap array.\n @since 12"]
+    pub fn OH_ArkUI_DrawableDescriptor_GetAnimatedPixelMapArraySize(
+        drawableDescriptor: *mut ArkUI_DrawableDescriptor,
+    ) -> i32;
+}
+extern "C" {
+    #[doc = " @brief Sets the total playback duration.\n\n @param drawableDescriptor Indicates the pointer to the drawableDescriptor.\n @param duration Indicates the total playback duration. The unit is millisecond.\n @since 12"]
+    pub fn OH_ArkUI_DrawableDescriptor_SetAnimationDuration(
+        drawableDescriptor: *mut ArkUI_DrawableDescriptor,
+        duration: i32,
+    );
+}
+extern "C" {
+    #[doc = " @brief Obtains the total playback duration.\n\n @param drawableDescriptor Indicates the pointer to the drawableDescriptor.\n @return Return the total playback duration. The unit is millisecond.\n @since 12"]
+    pub fn OH_ArkUI_DrawableDescriptor_GetAnimationDuration(
+        drawableDescriptor: *mut ArkUI_DrawableDescriptor,
+    ) -> i32;
+}
+extern "C" {
+    #[doc = " @brief Sets the number of playback times.\n\n @param drawableDescriptor Indicates the pointer to the drawableDescriptor.\n @param iteration Indicates the number of playback times.\n @since 12"]
+    pub fn OH_ArkUI_DrawableDescriptor_SetAnimationIteration(
+        drawableDescriptor: *mut ArkUI_DrawableDescriptor,
+        iteration: i32,
+    );
+}
+extern "C" {
+    #[doc = " @brief Obtains the number of playback times.\n\n @param drawableDescriptor Indicates the pointer to the drawableDescriptor.\n @return Returns the number of playback times.\n @since 12"]
+    pub fn OH_ArkUI_DrawableDescriptor_GetAnimationIteration(
+        drawableDescriptor: *mut ArkUI_DrawableDescriptor,
+    ) -> i32;
+}
+extern "C" {
+    #[doc = " @brief Sets the frame duration array.\n\n @param drawableDescriptor Indicates the pointer to the drawableDescriptor.\n @param durations Indicates the pointer to the frame duration array.\n @param size Indicates the size of the frame duration array.\n @return Returns {@link ARKUI_ERROR_CODE_NO_ERROR} if the operation is successful;\n         Returns {@link ARKUI_ERROR_CODE_PARAM_INVALID} if a parameter error occurs.\n @since 22"]
+    #[cfg(feature = "api-22")]
+    pub fn OH_ArkUI_DrawableDescriptor_SetAnimationFrameDurations(
+        drawableDescriptor: *mut ArkUI_DrawableDescriptor,
+        durations: *mut u32,
+        size: usize,
+    ) -> i32;
+}
+extern "C" {
+    #[doc = " @brief Obtains the frame duration array.\n\n @param drawableDescriptor Indicates the pointer to the drawableDescriptor.\n @param durations Indicates the pointer to the frame duration array.\n @param size Indicates the size of the frame duration array.\n @return Returns {@link ARKUI_ERROR_CODE_NO_ERROR} if the operation is successful;\n         Returns {@link ARKUI_ERROR_CODE_PARAM_INVALID} if a parameter error occurs.\n @since 22"]
+    #[cfg(feature = "api-22")]
+    pub fn OH_ArkUI_DrawableDescriptor_GetAnimationFrameDurations(
+        drawableDescriptor: *mut ArkUI_DrawableDescriptor,
+        durations: *mut u32,
+        size: *mut usize,
+    ) -> i32;
+}
+extern "C" {
+    #[doc = " @brief Sets whether to play the animation automatically.\n\n @param drawableDescriptor Indicates the pointer to the drawableDescriptor.\n @param autoPlay Indicates whether to play the animation automatically.\n                 default value is 1, which means to play the animation automatically.\n                 value 0 means not to play the animation automatically.\n @return Returns {@link ARKUI_ERROR_CODE_NO_ERROR} if the operation is successful;\n         Returns {@link ARKUI_ERROR_CODE_PARAM_INVALID} if a parameter error occurs.\n @since 22"]
+    #[cfg(feature = "api-22")]
+    pub fn OH_ArkUI_DrawableDescriptor_SetAnimationAutoPlay(
+        drawableDescriptor: *mut ArkUI_DrawableDescriptor,
+        autoPlay: u32,
+    ) -> i32;
+}
+extern "C" {
+    #[doc = " @brief Obtains whether to play the animation automatically.\n\n @param drawableDescriptor Indicates the pointer to the drawableDescriptor.\n @param autoPlay Indicates whether to play the animation automatically.\n @return Returns {@link ARKUI_ERROR_CODE_NO_ERROR} if the operation is successful;\n         Returns {@link ARKUI_ERROR_CODE_PARAM_INVALID} if a parameter error occurs.\n @since 22"]
+    #[cfg(feature = "api-22")]
+    pub fn OH_ArkUI_DrawableDescriptor_GetAnimationAutoPlay(
+        drawableDescriptor: *mut ArkUI_DrawableDescriptor,
+        autoPlay: *mut u32,
+    ) -> i32;
+}
+extern "C" {
+    #[doc = " @brief Obtains the animation controller.\n\n @param drawableDescriptor Indicates the pointer to the drawableDescriptor.\n @param node Indicates the node handle.\n @param controller Indicates the pointer to the animation controller.\n @return Returns {@link ARKUI_ERROR_CODE_NO_ERROR} if the operation is successful;\n         Returns {@link ARKUI_ERROR_CODE_PARAM_INVALID} if a parameter error occurs.\n @since 22"]
+    #[cfg(feature = "api-22")]
+    pub fn OH_ArkUI_DrawableDescriptor_CreateAnimationController(
+        drawableDescriptor: *mut ArkUI_DrawableDescriptor,
+        node: ArkUI_NodeHandle,
+        controller: *mut *mut ArkUI_DrawableDescriptor_AnimationController,
+    ) -> i32;
+}
+extern "C" {
+    #[doc = " @brief Releases the animation controller.\n\n @param controller Indicates the pointer to the animation controller.\n @since 22"]
+    #[cfg(feature = "api-22")]
+    pub fn OH_ArkUI_DrawableDescriptor_DisposeAnimationController(
+        controller: *mut ArkUI_DrawableDescriptor_AnimationController,
+    );
+}
+extern "C" {
+    #[doc = " @brief Starts the animation from first frame.\n\n @param controller Indicates the pointer to the animation controller.\n @return Returns {@link ARKUI_ERROR_CODE_NO_ERROR} if the operation is successful;\n         Returns {@link ARKUI_ERROR_CODE_PARAM_INVALID} if a parameter error occurs.\n @since 22"]
+    #[cfg(feature = "api-22")]
+    pub fn OH_ArkUI_DrawableDescriptor_StartAnimation(
+        controller: *mut ArkUI_DrawableDescriptor_AnimationController,
+    ) -> i32;
+}
+extern "C" {
+    #[doc = " @brief Stops the animation and back to first frame.\n\n @param controller Indicates the pointer to the animation controller.\n @return Returns {@link ARKUI_ERROR_CODE_NO_ERROR} if the operation is successful;\n         Returns {@link ARKUI_ERROR_CODE_PARAM_INVALID} if a parameter error occurs.\n @since 22"]
+    #[cfg(feature = "api-22")]
+    pub fn OH_ArkUI_DrawableDescriptor_StopAnimation(
+        controller: *mut ArkUI_DrawableDescriptor_AnimationController,
+    ) -> i32;
+}
+extern "C" {
+    #[doc = " @brief Resumes the animation at the current frame.\n\n @param controller Indicates the pointer to the animation controller.\n @return Returns {@link ARKUI_ERROR_CODE_NO_ERROR} if the operation is successful;\n         Returns {@link ARKUI_ERROR_CODE_PARAM_INVALID} if a parameter error occurs.\n @since 22"]
+    #[cfg(feature = "api-22")]
+    pub fn OH_ArkUI_DrawableDescriptor_ResumeAnimation(
+        controller: *mut ArkUI_DrawableDescriptor_AnimationController,
+    ) -> i32;
+}
+extern "C" {
+    #[doc = " @brief Pauses the animation at the current frame.\n\n @param controller Indicates the pointer to the animation controller.\n @return Returns {@link ARKUI_ERROR_CODE_NO_ERROR} if the operation is successful;\n         Returns {@link ARKUI_ERROR_CODE_PARAM_INVALID} if a parameter error occurs.\n @since 22"]
+    #[cfg(feature = "api-22")]
+    pub fn OH_ArkUI_DrawableDescriptor_PauseAnimation(
+        controller: *mut ArkUI_DrawableDescriptor_AnimationController,
+    ) -> i32;
+}
+extern "C" {
+    #[doc = " @brief Obtains the animation playback status.\n\n @param controller Indicates the pointer to the animation controller.\n @param status Indicates the pointer to the animation playback status.\n @return Returns {@link ARKUI_ERROR_CODE_NO_ERROR} if the operation is successful;\n         Returns {@link ARKUI_ERROR_CODE_PARAM_INVALID} if a parameter error occurs.\n @since 22"]
+    #[cfg(feature = "api-22")]
+    pub fn OH_ArkUI_DrawableDescriptor_GetAnimationStatus(
+        controller: *mut ArkUI_DrawableDescriptor_AnimationController,
+        status: *mut DrawableDescriptor_AnimationStatus,
+    ) -> i32;
+}
+#[repr(C)]
+#[derive(Debug, Copy, Clone)]
+pub struct ArkUI_LayoutConstraint {
+    _unused: [u8; 0],
+}
+#[repr(C)]
+#[derive(Debug, Copy, Clone)]
+pub struct ArkUI_DrawContext {
+    _unused: [u8; 0],
+}
+#[doc = " @brief Defines the return value structure for the <b>onGetIrregularSizeByIndex</b> callback\n in <b>Grid</b> layout options.\n\n @since 22"]
+#[cfg(feature = "api-22")]
+#[repr(C)]
+#[derive(Debug, Copy, Clone)]
+pub struct ArkUI_GridItemSize {
+    #[doc = " Number of rows occupied by the <b>GridItem</b> component."]
+    pub rowSpan: u32,
+    #[doc = " Number of columns occupied by the <b>GridItem</b> component."]
+    pub columnSpan: u32,
+}
+#[doc = " @brief Defines the return value structure for the <b>onGetRectByIndex</b> callback in <b>Grid</b> layout options.\n\n @since 22"]
+#[cfg(feature = "api-22")]
+#[repr(C)]
+#[derive(Debug, Copy, Clone)]
+pub struct ArkUI_GridItemRect {
+    #[doc = " Starting row position of the <b>GridItem</b> component."]
+    pub rowStart: u32,
+    #[doc = " Starting column position of the <b>GridItem</b> component."]
+    pub columnStart: u32,
+    #[doc = " Number of rows occupied by the <b>GridItem</b> component."]
+    pub rowSpan: u32,
+    #[doc = " Number of columns occupied by the <b>GridItem</b> component."]
+    pub columnSpan: u32,
+}
+#[doc = " background."]
+#[cfg(feature = "api-23")]
+pub const ArkUI_PickerIndicatorType_ARKUI_PICKER_INDICATOR_BACKGROUND: ArkUI_PickerIndicatorType =
+    0;
+#[doc = " divider."]
+#[cfg(feature = "api-23")]
+pub const ArkUI_PickerIndicatorType_ARKUI_PICKER_INDICATOR_DIVIDER: ArkUI_PickerIndicatorType = 1;
+#[doc = " @brief Enumerates the selected indicator type of picker.\n\n @since 23"]
+#[cfg(feature = "api-23")]
+pub type ArkUI_PickerIndicatorType = u32;
+#[doc = " @brief Style parameters of background indicator.\n\n @since 23"]
+#[cfg(feature = "api-23")]
+#[repr(C)]
+#[derive(Debug, Copy, Clone)]
+pub struct ArkUI_PickerIndicatorBackground {
+    #[doc = "  background color, 0xARGB format for example <b>0xFF1122FF</b>"]
+    pub backgroundColor: u32,
+    #[doc = " radius of the top left corner."]
+    pub topLeftRadius: f32,
+    #[doc = " radius of the top right corner"]
+    pub topRightRadius: f32,
+    #[doc = " radius of the bottom left corner"]
+    pub bottomLeftRadius: f32,
+    #[doc = " radius of the bottom right corner."]
+    pub bottomRightRadius: f32,
+}
+#[doc = " @brief Style parameters of divider indicator.\n\n @since 23"]
+#[cfg(feature = "api-23")]
+#[repr(C)]
+#[derive(Debug, Copy, Clone)]
+pub struct ArkUI_PickerIndicatorDivider {
+    #[doc = " stroke width"]
+    pub strokeWidth: f32,
+    #[doc = " divider color, 0xARGB format for example <b>0xFF1122FF</b>"]
+    pub dividerColor: u32,
+    #[doc = " the distance between the divider and the beginning of the side of the picker (unit: vp)."]
+    pub startMargin: f32,
+    #[doc = " the distance between the divider and the end of the side of the picker (unit: vp)."]
+    pub endMargin: f32,
+}
+#[repr(C)]
+#[derive(Debug, Copy, Clone)]
+pub struct ArkUI_PickerIndicatorStyle {
+    _unused: [u8; 0],
+}
+#[repr(C)]
+#[derive(Debug, Copy, Clone)]
+pub struct ArkUI_GridLayoutOptions {
+    _unused: [u8; 0],
+}
+#[repr(C)]
+#[derive(Debug, Copy, Clone)]
+pub struct ArkUI_WaterFlowSectionOption {
+    _unused: [u8; 0],
+}
+#[repr(C)]
+#[derive(Debug, Copy, Clone)]
+pub struct ArkUI_ListItemSwipeActionItem {
+    _unused: [u8; 0],
+}
+#[repr(C)]
+#[derive(Debug, Copy, Clone)]
+pub struct ArkUI_ListItemSwipeActionOption {
+    _unused: [u8; 0],
+}
+#[doc = " @brief Defines the ArkUI native context object.\n\n @since 12"]
+#[repr(C)]
+#[derive(Debug, Copy, Clone)]
+pub struct ArkUI_Context {
+    _unused: [u8; 0],
+}
+#[doc = " @brief Defines the pointer to the context instance object pointer definition of ArkUI on the native side.\n\n @since 12"]
+pub type ArkUI_ContextHandle = *mut ArkUI_Context;
+#[repr(C)]
+#[derive(Debug, Copy, Clone)]
+pub struct ArkUI_SwiperIndicator {
+    _unused: [u8; 0],
+}
+#[repr(C)]
+#[derive(Debug, Copy, Clone)]
+pub struct ArkUI_SwiperDigitIndicator {
+    _unused: [u8; 0],
+}
+#[repr(C)]
+#[derive(Debug, Copy, Clone)]
+pub struct ArkUI_SwiperArrowStyle {
+    _unused: [u8; 0],
+}
+#[repr(C)]
+#[derive(Debug, Copy, Clone)]
+pub struct ArkUI_AlignmentRuleOption {
+    _unused: [u8; 0],
+}
+#[repr(C)]
+#[derive(Debug, Copy, Clone)]
+pub struct ArkUI_GuidelineOption {
+    _unused: [u8; 0],
+}
+#[repr(C)]
+#[derive(Debug, Copy, Clone)]
+pub struct ArkUI_BarrierOption {
+    _unused: [u8; 0],
+}
+#[repr(C)]
+#[derive(Debug, Copy, Clone)]
+pub struct ArkUI_ListChildrenMainSize {
+    _unused: [u8; 0],
+}
+#[repr(C)]
+#[derive(Debug, Copy, Clone)]
+pub struct ArkUI_ImageAnimatorFrameInfo {
+    _unused: [u8; 0],
+}
+#[repr(C)]
+#[derive(Debug, Copy, Clone)]
+pub struct ArkUI_AccessibilityState {
+    _unused: [u8; 0],
+}
+#[repr(C)]
+#[derive(Debug, Copy, Clone)]
+pub struct ArkUI_AccessibilityValue {
+    _unused: [u8; 0],
+}
+#[repr(C)]
+#[derive(Debug, Copy, Clone)]
+pub struct ArkUI_CustomProperty {
+    _unused: [u8; 0],
+}
+#[repr(C)]
+#[derive(Debug, Copy, Clone)]
+pub struct ArkUI_HostWindowInfo {
+    _unused: [u8; 0],
+}
+#[repr(C)]
+#[derive(Debug, Copy, Clone)]
+pub struct ArkUI_ActiveChildrenInfo {
+    _unused: [u8; 0],
+}
+#[repr(C)]
+#[derive(Debug, Copy, Clone)]
+pub struct ArkUI_ProgressLinearStyleOption {
+    _unused: [u8; 0],
+}
+#[repr(C)]
+#[derive(Debug, Copy, Clone)]
+pub struct ArkUI_CrossLanguageOption {
+    _unused: [u8; 0],
+}
+#[repr(C)]
+#[derive(Debug, Copy, Clone)]
+pub struct AbilityBase_Want {
+    _unused: [u8; 0],
+}
+#[repr(C)]
+#[derive(Debug, Copy, Clone)]
+pub struct ArkUI_EmbeddedComponentOption {
+    _unused: [u8; 0],
+}
+#[repr(C)]
+#[derive(Debug, Copy, Clone)]
+pub struct ArkUI_PositionEdges {
+    _unused: [u8; 0],
+}
+#[repr(C)]
+#[derive(Debug, Copy, Clone)]
+pub struct ArkUI_PixelRoundPolicy {
+    _unused: [u8; 0],
+}
+#[repr(C)]
+#[derive(Debug, Copy, Clone)]
+pub struct ArkUI_ShowCounterConfig {
+    _unused: [u8; 0],
+}
+#[repr(C)]
+#[derive(Debug, Copy, Clone)]
+pub struct ArkUI_TextContentBaseController {
+    _unused: [u8; 0],
+}
+#[repr(C)]
+#[derive(Debug, Copy, Clone)]
+pub struct ArkUI_SelectedDragPreviewStyle {
+    _unused: [u8; 0],
+}
+#[doc = " 100"]
+pub const ArkUI_FontWeight_ARKUI_FONT_WEIGHT_W100: ArkUI_FontWeight = 0;
+#[doc = " 200"]
+pub const ArkUI_FontWeight_ARKUI_FONT_WEIGHT_W200: ArkUI_FontWeight = 1;
+#[doc = " 300"]
+pub const ArkUI_FontWeight_ARKUI_FONT_WEIGHT_W300: ArkUI_FontWeight = 2;
+#[doc = " 400"]
+pub const ArkUI_FontWeight_ARKUI_FONT_WEIGHT_W400: ArkUI_FontWeight = 3;
+#[doc = " 500"]
+pub const ArkUI_FontWeight_ARKUI_FONT_WEIGHT_W500: ArkUI_FontWeight = 4;
+#[doc = " 600"]
+pub const ArkUI_FontWeight_ARKUI_FONT_WEIGHT_W600: ArkUI_FontWeight = 5;
+#[doc = " 700"]
+pub const ArkUI_FontWeight_ARKUI_FONT_WEIGHT_W700: ArkUI_FontWeight = 6;
+#[doc = " 800"]
+pub const ArkUI_FontWeight_ARKUI_FONT_WEIGHT_W800: ArkUI_FontWeight = 7;
+#[doc = " 900"]
+pub const ArkUI_FontWeight_ARKUI_FONT_WEIGHT_W900: ArkUI_FontWeight = 8;
+#[doc = " The font weight is bold."]
+pub const ArkUI_FontWeight_ARKUI_FONT_WEIGHT_BOLD: ArkUI_FontWeight = 9;
+#[doc = " The font weight is normal."]
+pub const ArkUI_FontWeight_ARKUI_FONT_WEIGHT_NORMAL: ArkUI_FontWeight = 10;
+#[doc = " The font weight is bolder."]
+pub const ArkUI_FontWeight_ARKUI_FONT_WEIGHT_BOLDER: ArkUI_FontWeight = 11;
+#[doc = " The font weight is lighter."]
+pub const ArkUI_FontWeight_ARKUI_FONT_WEIGHT_LIGHTER: ArkUI_FontWeight = 12;
+#[doc = " The font weight is medium."]
+pub const ArkUI_FontWeight_ARKUI_FONT_WEIGHT_MEDIUM: ArkUI_FontWeight = 13;
+#[doc = " The font weight is normal."]
+pub const ArkUI_FontWeight_ARKUI_FONT_WEIGHT_REGULAR: ArkUI_FontWeight = 14;
+#[doc = " @brief Enumerates the font weights.\n\n @since 12"]
+pub type ArkUI_FontWeight = u32;
+#[doc = " Only vertical scrolling is supported."]
+pub const ArkUI_Axis_ARKUI_AXIS_VERTICAL: ArkUI_Axis = 0;
+#[doc = " Only horizontal scrolling is supported."]
+pub const ArkUI_Axis_ARKUI_AXIS_HORIZONTAL: ArkUI_Axis = 1;
+#[doc = " @brief Enumerates the scroll directions for the <b><List></b> component.\n\n @since 12"]
+pub type ArkUI_Axis = u32;
+#[doc = " Top aligned."]
+pub const ArkUI_VerticalAlignment_ARKUI_VERTICAL_ALIGNMENT_TOP: ArkUI_VerticalAlignment = 0;
+#[doc = " Center aligned. This is the default alignment mode."]
+pub const ArkUI_VerticalAlignment_ARKUI_VERTICAL_ALIGNMENT_CENTER: ArkUI_VerticalAlignment = 1;
+#[doc = " Bottom aligned."]
+pub const ArkUI_VerticalAlignment_ARKUI_VERTICAL_ALIGNMENT_BOTTOM: ArkUI_VerticalAlignment = 2;
+#[doc = " @brief Enumerates the vertical alignment modes.\n\n @since 12"]
+pub type ArkUI_VerticalAlignment = u32;
+#[doc = " Aligned with the start edge in the same direction as the language in use."]
+pub const ArkUI_HorizontalAlignment_ARKUI_HORIZONTAL_ALIGNMENT_START: ArkUI_HorizontalAlignment = 0;
+#[doc = " Center aligned. This is the default alignment mode."]
+pub const ArkUI_HorizontalAlignment_ARKUI_HORIZONTAL_ALIGNMENT_CENTER: ArkUI_HorizontalAlignment =
+    1;
+#[doc = " Aligned with the end edge in the same direction as the language in use."]
+pub const ArkUI_HorizontalAlignment_ARKUI_HORIZONTAL_ALIGNMENT_END: ArkUI_HorizontalAlignment = 2;
+#[doc = " @brief Enumerates the alignment mode in the horizontal direction.\n\n @since 12"]
+pub type ArkUI_HorizontalAlignment = u32;
+#[doc = " @brief Describes the width and height of a component.\n\n @since 12"]
+#[repr(C)]
+#[derive(Debug, Copy, Clone)]
+pub struct ArkUI_IntSize {
+    #[doc = " Width, in px."]
+    pub width: i32,
+    #[doc = " Height, in px."]
+    pub height: i32,
+}
+#[doc = " The barrier is the leftmost of all its referencedIds."]
+pub const ArkUI_BarrierDirection_ARKUI_BARRIER_DIRECTION_START: ArkUI_BarrierDirection = 0;
+#[doc = " The barrier is on the rightmost side of all its referencedIds."]
+pub const ArkUI_BarrierDirection_ARKUI_BARRIER_DIRECTION_END: ArkUI_BarrierDirection = 1;
+#[doc = " The barrier is at the top of all its referencedIds."]
+pub const ArkUI_BarrierDirection_ARKUI_BARRIER_DIRECTION_TOP: ArkUI_BarrierDirection = 2;
+#[doc = " The barrier is at the bottom of all its referencedIds."]
+pub const ArkUI_BarrierDirection_ARKUI_BARRIER_DIRECTION_BOTTOM: ArkUI_BarrierDirection = 3;
+#[doc = " @brief defines the direction of the barrier line.\n\n @since 12"]
+pub type ArkUI_BarrierDirection = u32;
+#[doc = " @brief Describes the margins of a component.\n\n @since 12"]
+#[repr(C)]
+#[derive(Debug, Copy, Clone)]
+pub struct ArkUI_Margin {
+    #[doc = " Top margin, in vp."]
+    pub top: f32,
+    #[doc = " Right margin, in vp."]
+    pub right: f32,
+    #[doc = " Bottom margin, in vp."]
+    pub bottom: f32,
+    #[doc = " Left margin, in vp."]
+    pub left: f32,
+}
+#[doc = " dot type."]
+pub const ArkUI_SwiperIndicatorType_ARKUI_SWIPER_INDICATOR_TYPE_DOT: ArkUI_SwiperIndicatorType = 0;
+#[doc = " digit type."]
+pub const ArkUI_SwiperIndicatorType_ARKUI_SWIPER_INDICATOR_TYPE_DIGIT: ArkUI_SwiperIndicatorType =
+    1;
+#[doc = " @brief Define the navigation indicator type of the swiper.\n\n @since 12"]
+pub type ArkUI_SwiperIndicatorType = u32;
+#[doc = " In the folded state, when the ListItem slides in the opposite direction to the main axis,\n the operation item is hidden."]
+pub const ArkUI_ListItemSwipeActionState_ARKUI_LIST_ITEM_SWIPE_ACTION_STATE_COLLAPSED:
+    ArkUI_ListItemSwipeActionState = 0;
+#[doc = " In the folded state, when the ListItem slides in the opposite direction to the spindle,\n the operation item is displayed."]
+pub const ArkUI_ListItemSwipeActionState_ARKUI_LIST_ITEM_SWIPE_ACTION_STATE_EXPANDED:
+    ArkUI_ListItemSwipeActionState = 1;
+#[doc = " Long distance state, the state of deleting a ListItem after it enters the long distance deletion area."]
+pub const ArkUI_ListItemSwipeActionState_ARKUI_LIST_ITEM_SWIPE_ACTION_STATE_ACTIONING:
+    ArkUI_ListItemSwipeActionState = 2;
+#[doc = " @brief Define the pattern of element arrangement in the main axis direction of the Swiper component.\n\n @since 12"]
+pub type ArkUI_ListItemSwipeActionState = u32;
+#[doc = " The ListItem can continue to be scratched after the distance exceeds the size of the scratched component."]
+pub const ArkUI_ListItemSwipeEdgeEffect_ARKUI_LIST_ITEM_SWIPE_EDGE_EFFECT_SPRING:
+    ArkUI_ListItemSwipeEdgeEffect = 0;
+#[doc = " The sliding distance of the ListItem cannot exceed the size of the scratched component."]
+pub const ArkUI_ListItemSwipeEdgeEffect_ARKUI_LIST_ITEM_SWIPE_EDGE_EFFECT_NONE:
+    ArkUI_ListItemSwipeEdgeEffect = 1;
+#[doc = " @brief Define the explicit and implicit mode of the SwipeAction method for the Listitem component.\n\n @since 12"]
+pub type ArkUI_ListItemSwipeEdgeEffect = u32;
+#[doc = " @error No errors."]
+pub const ArkUI_ErrorCode_ARKUI_ERROR_CODE_NO_ERROR: ArkUI_ErrorCode = 0;
+#[doc = " @error Parameter error."]
+pub const ArkUI_ErrorCode_ARKUI_ERROR_CODE_PARAM_INVALID: ArkUI_ErrorCode = 401;
+#[doc = " @error CAPI init error.\n @since 18"]
+#[cfg(feature = "api-18")]
+pub const ArkUI_ErrorCode_ARKUI_ERROR_CODE_CAPI_INIT_ERROR: ArkUI_ErrorCode = 500;
+#[doc = " @error Internal error occurs, such as failure occurs because of the internal environment error,\n or operation failed because of the internal execution failed.\n @since 15"]
+#[cfg(feature = "api-15")]
+pub const ArkUI_ErrorCode_ARKUI_ERROR_CODE_INTERNAL_ERROR: ArkUI_ErrorCode = 100001;
+#[doc = " @error The XComponent is in invalid state.\n @since 19"]
+#[cfg(feature = "api-19")]
+pub const ArkUI_ErrorCode_ARKUI_ERROR_CODE_XCOMPONENT_STATE_INVALID: ArkUI_ErrorCode = 103501;
+#[doc = " @error The component does not support specific properties or events."]
+pub const ArkUI_ErrorCode_ARKUI_ERROR_CODE_ATTRIBUTE_OR_EVENT_NOT_SUPPORTED: ArkUI_ErrorCode =
+    106102;
+#[doc = " @error The corresponding operation does not support nodes created by ArkTS."]
+pub const ArkUI_ErrorCode_ARKUI_ERROR_CODE_ARKTS_NODE_NOT_SUPPORTED: ArkUI_ErrorCode = 106103;
+#[doc = " @error The lazy loading adapter is not bound to the component."]
+pub const ArkUI_ErrorCode_ARKUI_ERROR_CODE_ADAPTER_NOT_BOUND: ArkUI_ErrorCode = 106104;
+#[doc = " @error The adapter already exists."]
+pub const ArkUI_ErrorCode_ARKUI_ERROR_CODE_ADAPTER_EXIST: ArkUI_ErrorCode = 106105;
+#[doc = " @error The corresponding node already has a child node and cannot add an adapter."]
+pub const ArkUI_ErrorCode_ARKUI_ERROR_CODE_CHILD_NODE_EXIST: ArkUI_ErrorCode = 106106;
+#[doc = " The parameter length in the parameter event exceeds the limit."]
+pub const ArkUI_ErrorCode_ARKUI_ERROR_CODE_NODE_EVENT_PARAM_INDEX_OUT_OF_RANGE: ArkUI_ErrorCode =
+    106107;
+#[doc = " The data does not exist in the component event."]
+pub const ArkUI_ErrorCode_ARKUI_ERROR_CODE_NODE_EVENT_PARAM_INVALID: ArkUI_ErrorCode = 106108;
+#[doc = " The component event does not support return values."]
+pub const ArkUI_ErrorCode_ARKUI_ERROR_CODE_NODE_EVENT_NO_RETURN: ArkUI_ErrorCode = 106109;
+#[doc = " @error The event type is not supported by the node.\n @since 21"]
+#[cfg(feature = "api-21")]
+pub const ArkUI_ErrorCode_ARKUI_ERROR_CODE_NODE_UNSUPPORTED_EVENT_TYPE: ArkUI_ErrorCode = 106110;
+#[doc = " The index value is invalid."]
+pub const ArkUI_ErrorCode_ARKUI_ERROR_CODE_NODE_INDEX_INVALID: ArkUI_ErrorCode = 106200;
+#[doc = "  Failed to query route navigation information."]
+pub const ArkUI_ErrorCode_ARKUI_ERROR_CODE_GET_INFO_FAILED: ArkUI_ErrorCode = 106201;
+#[doc = " The buffer size is not large enough."]
+pub const ArkUI_ErrorCode_ARKUI_ERROR_CODE_BUFFER_SIZE_ERROR: ArkUI_ErrorCode = 106202;
+#[doc = " @error The node is not on main tree.\n @since 15"]
+#[cfg(feature = "api-15")]
+pub const ArkUI_ErrorCode_ARKUI_ERROR_CODE_NODE_NOT_ON_MAIN_TREE: ArkUI_ErrorCode = 106203;
+#[doc = " @error The node is running on invalid thread.\n @since 22"]
+#[cfg(feature = "api-22")]
+pub const ArkUI_ErrorCode_ARKUI_ERROR_CODE_NODE_ON_INVALID_THREAD: ArkUI_ErrorCode = 106204;
+#[doc = " @error Force dark config is invalid.\n @since 20"]
+#[cfg(feature = "api-20")]
+pub const ArkUI_ErrorCode_ARKUI_ERROR_CODE_FORCE_DARK_CONFIG_INVALID: ArkUI_ErrorCode = 106205;
+#[doc = " @error The node has already been adopted.\n @since 22"]
+#[cfg(feature = "api-22")]
+pub const ArkUI_ErrorCode_ARKUI_ERROR_CODE_NODE_IS_ADOPTED: ArkUI_ErrorCode = 106206;
+#[doc = " @error This node already has a parent node.\n @since 22"]
+#[cfg(feature = "api-22")]
+pub const ArkUI_ErrorCode_ARKUI_ERROR_CODE_NODE_HAS_PARENT: ArkUI_ErrorCode = 106207;
+#[doc = " @error The node cannot be adopted.\n @since 22"]
+#[cfg(feature = "api-22")]
+pub const ArkUI_ErrorCode_ARKUI_ERROR_CODE_NODE_CAN_NOT_BE_ADOPTED: ArkUI_ErrorCode = 106208;
+#[doc = " @error The node cannot adopt children.\n @since 22"]
+#[cfg(feature = "api-22")]
+pub const ArkUI_ErrorCode_ARKUI_ERROR_CODE_NODE_CAN_NOT_ADOPT_TO: ArkUI_ErrorCode = 106209;
+#[doc = " @error This child node is not adopted by the parent node.\n @since 22"]
+#[cfg(feature = "api-22")]
+pub const ArkUI_ErrorCode_ARKUI_ERROR_CODE_NODE_IS_NOT_IN_ADOPTED_CHILDREN: ArkUI_ErrorCode =
+    106210;
+#[doc = " @error The node type is not custom node.\n @since 20"]
+#[cfg(feature = "api-20")]
+pub const ArkUI_ErrorCode_ARKUI_ERROR_CODE_NOT_CUSTOM_NODE: ArkUI_ErrorCode = 106401;
+#[doc = " @error Node already has children.\n @since 20"]
+#[cfg(feature = "api-20")]
+pub const ArkUI_ErrorCode_ARKUI_ERROR_CODE_CHILD_EXISTED: ArkUI_ErrorCode = 106402;
+#[doc = " @error RenderNode parent is existed.\n @since 20"]
+#[cfg(feature = "api-20")]
+pub const ArkUI_ErrorCode_ARKUI_ERROR_CODE_RENDER_PARENT_EXISTED: ArkUI_ErrorCode = 106403;
+#[doc = " @error RenderNode child is not exist.\n @since 20"]
+#[cfg(feature = "api-20")]
+pub const ArkUI_ErrorCode_ARKUI_ERROR_CODE_RENDER_CHILD_NOT_EXIST: ArkUI_ErrorCode = 106404;
+#[doc = " @error Param is out of range.\n @since 20"]
+#[cfg(feature = "api-20")]
+pub const ArkUI_ErrorCode_ARKUI_ERROR_CODE_PARAM_OUT_OF_RANGE: ArkUI_ErrorCode = 106405;
+#[doc = " @error The RenderNode is obtained from a FrameNode.\n @since 22"]
+#[cfg(feature = "api-22")]
+pub const ArkUI_ErrorCode_ARKUI_ERROR_CODE_RENDER_IS_FROM_FRAME_NODE: ArkUI_ErrorCode = 106406;
+#[doc = " @error The RenderNode is obtained from a FrameNode,\n and its corresponding FrameNode is no longer in the adopted state.\n @since 22"]
+#[cfg(feature = "api-22")]
+pub const ArkUI_ErrorCode_ARKUI_ERROR_CODE_RENDER_HAS_INVALID_FRAME_NODE: ArkUI_ErrorCode = 106407;
+#[doc = " @error The node is not adopted.\n @since 22"]
+#[cfg(feature = "api-22")]
+pub const ArkUI_ErrorCode_ARKUI_ERROR_CODE_RENDER_NOT_ADOPTED_NODE: ArkUI_ErrorCode = 106408;
+#[doc = " @error The node requesting focus is not focusable.\n @since 15"]
+#[cfg(feature = "api-15")]
+pub const ArkUI_ErrorCode_ARKUI_ERROR_CODE_FOCUS_NON_FOCUSABLE: ArkUI_ErrorCode = 150001;
+#[doc = " @error The node requesting focus has unfocusable ancestor.\n @since 15"]
+#[cfg(feature = "api-15")]
+pub const ArkUI_ErrorCode_ARKUI_ERROR_CODE_FOCUS_NON_FOCUSABLE_ANCESTOR: ArkUI_ErrorCode = 150002;
+#[doc = " @error The node requesting focus does not exists.\n @since 15"]
+#[cfg(feature = "api-15")]
+pub const ArkUI_ErrorCode_ARKUI_ERROR_CODE_FOCUS_NON_EXISTENT: ArkUI_ErrorCode = 150003;
+#[doc = " @error The snapshot taking is timeout.\n @since 15"]
+#[cfg(feature = "api-15")]
+pub const ArkUI_ErrorCode_ARKUI_ERROR_CODE_COMPONENT_SNAPSHOT_TIMEOUT: ArkUI_ErrorCode = 160002;
+#[doc = " @error The provided color space or dynamic range mode is not supported. For details about the error codes,\n see [Snapshot Error Codes](../apis-arkui/errorcode-snapshot.md).\n @since 23"]
+#[cfg(feature = "api-23")]
+pub const ArkUI_ErrorCode_ARKUI_ERROR_CODE_COMPONENT_SNAPSHOT_MODE_NOT_SUPPORTED: ArkUI_ErrorCode =
+    160003;
+#[doc = " @error The isAuto parameter of the color space or dynamic range mode is set to true for offscreen node snapshot.\n For details about the error codes, see [Snapshot Error Codes](../apis-arkui/errorcode-snapshot.md).\n @since 23"]
+#[cfg(feature = "api-23")]
+pub const ArkUI_ErrorCode_ARKUI_ERROR_CODE_COMPONENT_SNAPSHOT_AUTO_NOT_SUPPORTED: ArkUI_ErrorCode =
+    160004;
+#[doc = " The component is not a scroll container."]
+pub const ArkUI_ErrorCode_ARKUI_ERROR_CODE_NON_SCROLLABLE_CONTAINER: ArkUI_ErrorCode = 180001;
+#[doc = " The buffer is not large enough."]
+pub const ArkUI_ErrorCode_ARKUI_ERROR_CODE_BUFFER_SIZE_NOT_ENOUGH: ArkUI_ErrorCode = 180002;
+#[doc = " @error The event is not a clone event.\n @since 15"]
+#[cfg(feature = "api-15")]
+pub const ArkUI_ErrorCode_ARKUI_ERROR_CODE_NOT_CLONED_POINTER_EVENT: ArkUI_ErrorCode = 180003;
+#[doc = " @error The component status is abnormal.\n @since 15"]
+#[cfg(feature = "api-15")]
+pub const ArkUI_ErrorCode_ARKUI_ERROR_CODE_POST_CLONED_COMPONENT_STATUS_ABNORMAL: ArkUI_ErrorCode =
+    180004;
+#[doc = " @error No component hit to respond to the event.\n @since 15"]
+#[cfg(feature = "api-15")]
+pub const ArkUI_ErrorCode_ARKUI_ERROR_CODE_POST_CLONED_NO_COMPONENT_HIT_TO_RESPOND_TO_THE_EVENT:
+    ArkUI_ErrorCode = 180005;
+#[doc = " @error Input event type not supported.\n @since 20"]
+#[cfg(feature = "api-20")]
+pub const ArkUI_ErrorCode_ARKUI_ERROR_INPUT_EVENT_TYPE_NOT_SUPPORTED: ArkUI_ErrorCode = 180006;
+#[doc = " @error invalid styled string.\n @since 14"]
+#[cfg(feature = "api-14")]
+pub const ArkUI_ErrorCode_ARKUI_ERROR_CODE_INVALID_STYLED_STRING: ArkUI_ErrorCode = 180101;
+#[doc = " @error The gesture recognizer type is not supported.\n @since 18"]
+#[cfg(feature = "api-18")]
+pub const ArkUI_ErrorCode_ARKUI_ERROR_CODE_RECOGNIZER_TYPE_NOT_SUPPORTED: ArkUI_ErrorCode = 180102;
+#[doc = " @error The uiContext is invalid.\n @since 18"]
+#[cfg(feature = "api-18")]
+pub const ArkUI_ErrorCode_ARKUI_ERROR_CODE_UI_CONTEXT_INVALID: ArkUI_ErrorCode = 190001;
+#[doc = " @error The callback function is invalid.\n @since 18"]
+#[cfg(feature = "api-18")]
+pub const ArkUI_ErrorCode_ARKUI_ERROR_CODE_CALLBACK_INVALID: ArkUI_ErrorCode = 190002;
+#[doc = " @error operation is not allowed for current drag drop pharse.\n @since 19"]
+#[cfg(feature = "api-19")]
+pub const ArkUI_ErrorCode_ARKUI_ERROR_CODE_DRAG_DROP_OPERATION_NOT_ALLOWED: ArkUI_ErrorCode =
+    190004;
+#[doc = " @error Parameter error.\n @since 21"]
+#[cfg(feature = "api-21")]
+pub const ArkUI_ErrorCode_ARKUI_ERROR_CODE_PARAM_ERROR: ArkUI_ErrorCode = 100023;
+#[doc = " @brief Define error code enumeration values.\n\n @since 12"]
+pub type ArkUI_ErrorCode = u32;
+#[repr(C)]
+#[derive(Debug, Copy, Clone)]
+pub struct ArkUI_CustomSpanMeasureInfo {
+    _unused: [u8; 0],
+}
+#[repr(C)]
+#[derive(Debug, Copy, Clone)]
+pub struct ArkUI_CustomSpanMetrics {
+    _unused: [u8; 0],
+}
+#[repr(C)]
+#[derive(Debug, Copy, Clone)]
+pub struct ArkUI_CustomSpanDrawInfo {
+    _unused: [u8; 0],
+}
+#[doc = " No Force round the component boundary coordinates to integer pixel."]
+#[cfg(feature = "api-21")]
+pub const ArkUI_PixelRoundCalcPolicy_ARKUI_PIXELROUNDCALCPOLICY_NOFORCEROUND:
+    ArkUI_PixelRoundCalcPolicy = 0;
+#[doc = " Force ceil the component boundary coordinates to integer pixel."]
+#[cfg(feature = "api-21")]
+pub const ArkUI_PixelRoundCalcPolicy_ARKUI_PIXELROUNDCALCPOLICY_FORCECEIL:
+    ArkUI_PixelRoundCalcPolicy = 1;
+#[doc = " Force floor the component boundary coordinates to integer pixel."]
+#[cfg(feature = "api-21")]
+pub const ArkUI_PixelRoundCalcPolicy_ARKUI_PIXELROUNDCALCPOLICY_FORCEFLOOR:
+    ArkUI_PixelRoundCalcPolicy = 2;
+#[doc = " @brief Enumerates the PixelRoundPolicy.\n\n @since 21"]
+#[cfg(feature = "api-21")]
+pub type ArkUI_PixelRoundCalcPolicy = u32;
+#[doc = " Determine whether to pop up the menu according to the underlying default logic."]
+#[cfg(feature = "api-23")]
+pub const ArkUI_MenuPolicy_ARKUI_MENU_POLICY_DEFAULT: ArkUI_MenuPolicy = 0;
+#[doc = " Never pop up the menu."]
+#[cfg(feature = "api-23")]
+pub const ArkUI_MenuPolicy_ARKUI_MENU_POLICY_HIDE: ArkUI_MenuPolicy = 1;
+#[doc = " Always pop up the menu."]
+#[cfg(feature = "api-23")]
+pub const ArkUI_MenuPolicy_ARKUI_MENU_POLICY_SHOW: ArkUI_MenuPolicy = 2;
+#[doc = " @brief Menu pop-up strategy.\n\n @since 23"]
+#[cfg(feature = "api-23")]
+pub type ArkUI_MenuPolicy = u32;
+#[doc = " When the List direction is vertical, it indicates the left in LTR mode and right in RTL mode.\n When the List direction is horizontal, it indicates the top."]
+#[cfg(feature = "api-21")]
+pub const ArkUI_ListItemSwipeActionDirection_ARKUI_LIST_ITEM_SWIPE_ACTION_DIRECTION_START:
+    ArkUI_ListItemSwipeActionDirection = 0;
+#[doc = " When the List direction is vertical, it indicates the right in LTR mode and left in RTL mode.\n When the List direction is horizontal, it indicates the bottom."]
+#[cfg(feature = "api-21")]
+pub const ArkUI_ListItemSwipeActionDirection_ARKUI_LIST_ITEM_SWIPE_ACTION_DIRECTION_END:
+    ArkUI_ListItemSwipeActionDirection = 1;
+#[doc = " @brief Define the direction to expand the swipe action.\n\n @since 21"]
+#[cfg(feature = "api-21")]
+pub type ArkUI_ListItemSwipeActionDirection = u32;
+#[repr(C)]
+#[derive(Debug, Copy, Clone)]
+pub struct ArkUI_SnapshotOptions {
+    _unused: [u8; 0],
+}
+#[repr(C)]
+#[derive(Debug, Copy, Clone)]
+pub struct ArkUI_TextPickerRangeContentArray {
+    _unused: [u8; 0],
+}
+#[repr(C)]
+#[derive(Debug, Copy, Clone)]
+pub struct ArkUI_TextCascadePickerRangeContentArray {
+    _unused: [u8; 0],
+}
+#[repr(C)]
+#[derive(Debug, Copy, Clone)]
+pub struct ArkUI_SelectionOptions {
+    _unused: [u8; 0],
+}
+extern "C" {
+    #[doc = " @brief Creates a size constraint.\n\n @since 12"]
+    pub fn OH_ArkUI_LayoutConstraint_Create() -> *mut ArkUI_LayoutConstraint;
+}
+extern "C" {
+    #[doc = " @brief Creates a deep copy of a size constraint.\n\n @param Constraint Indicates the pointer to the size constraint.\n @return Returns the pointer to the new size constraint.\n @since 12"]
+    pub fn OH_ArkUI_LayoutConstraint_Copy(
+        Constraint: *const ArkUI_LayoutConstraint,
+    ) -> *mut ArkUI_LayoutConstraint;
+}
+extern "C" {
+    #[doc = " @brief Destroys the pointer to a size constraint.\n\n @param Constraint Indicates the pointer to the size constraint.\n @since 12"]
+    pub fn OH_ArkUI_LayoutConstraint_Dispose(
+        Constraint: *mut ArkUI_LayoutConstraint,
+    ) -> *mut ::std::os::raw::c_void;
+}
+extern "C" {
+    #[doc = " @brief Obtains the maximum width for a size constraint, in px.\n\n @param Constraint Indicates the pointer to the size constraint.\n @return Returns the maximum width.\n @since 12"]
+    pub fn OH_ArkUI_LayoutConstraint_GetMaxWidth(Constraint: *const ArkUI_LayoutConstraint) -> i32;
+}
+extern "C" {
+    #[doc = " @brief Obtains the minimum width for a size constraint, in px.\n\n @param Constraint Indicates the pointer to the size constraint.\n @return Returns the minimum width.\n @since 12"]
+    pub fn OH_ArkUI_LayoutConstraint_GetMinWidth(Constraint: *const ArkUI_LayoutConstraint) -> i32;
+}
+extern "C" {
+    #[doc = " @brief Obtains the maximum height for a size constraint, in px.\n\n @param Constraint Indicates the pointer to the size constraint.\n @return Returns the maximum height.\n @since 12"]
+    pub fn OH_ArkUI_LayoutConstraint_GetMaxHeight(Constraint: *const ArkUI_LayoutConstraint)
+        -> i32;
+}
+extern "C" {
+    #[doc = " @brief Obtains the minimum height for a size constraint, in px.\n\n @param Constraint Indicates the pointer to the size constraint.\n @return Returns the minimum height.\n @since 12"]
+    pub fn OH_ArkUI_LayoutConstraint_GetMinHeight(Constraint: *const ArkUI_LayoutConstraint)
+        -> i32;
+}
+extern "C" {
+    #[doc = " @brief Obtains the width percentage reference for a size constraint, in px.\n\n @param Constraint Indicates the pointer to the size constraint.\n @return Returns the width percentage reference.\n @since 12"]
+    pub fn OH_ArkUI_LayoutConstraint_GetPercentReferenceWidth(
+        Constraint: *const ArkUI_LayoutConstraint,
+    ) -> i32;
+}
+extern "C" {
+    #[doc = " @brief Obtains the height percentage reference for a size constraint, in px.\n\n @param Constraint Indicates the pointer to the size constraint.\n @return Returns the height percentage reference.\n @since 12"]
+    pub fn OH_ArkUI_LayoutConstraint_GetPercentReferenceHeight(
+        Constraint: *const ArkUI_LayoutConstraint,
+    ) -> i32;
+}
+extern "C" {
+    #[doc = " @brief Sets the maximum width.\n\n @param Constraint Indicates the pointer to the size constraint.\n @param value Indicates the maximum width, in px.\n @since 12"]
+    pub fn OH_ArkUI_LayoutConstraint_SetMaxWidth(
+        Constraint: *mut ArkUI_LayoutConstraint,
+        value: i32,
+    );
+}
+extern "C" {
+    #[doc = " @brief Sets the minimum width.\n\n @param Constraint Indicates the pointer to the size constraint.\n @param value Indicates the minimum width, in px.\n @since 12"]
+    pub fn OH_ArkUI_LayoutConstraint_SetMinWidth(
+        Constraint: *mut ArkUI_LayoutConstraint,
+        value: i32,
+    );
+}
+extern "C" {
+    #[doc = " @brief Sets the maximum height.\n\n @param Constraint Indicates the pointer to the size constraint.\n @param value Indicates the maximum height, in px.\n @since 12"]
+    pub fn OH_ArkUI_LayoutConstraint_SetMaxHeight(
+        Constraint: *mut ArkUI_LayoutConstraint,
+        value: i32,
+    );
+}
+extern "C" {
+    #[doc = " @brief Sets the minimum height.\n\n @param Constraint Indicates the pointer to the size constraint.\n @param value Indicates the minimum height, in px.\n @since 12"]
+    pub fn OH_ArkUI_LayoutConstraint_SetMinHeight(
+        Constraint: *mut ArkUI_LayoutConstraint,
+        value: i32,
+    );
+}
+extern "C" {
+    #[doc = " @brief Sets the width percentage reference.\n\n @param Constraint Indicates the pointer to the size constraint.\n @param value Indicates the width percentage reference, in px.\n @since 12"]
+    pub fn OH_ArkUI_LayoutConstraint_SetPercentReferenceWidth(
+        Constraint: *mut ArkUI_LayoutConstraint,
+        value: i32,
+    );
+}
+extern "C" {
+    #[doc = " @brief Sets the height percentage reference.\n\n @param Constraint Indicates the pointer to the size constraint.\n @param value Indicates the height percentage reference, in px.\n @since 12"]
+    pub fn OH_ArkUI_LayoutConstraint_SetPercentReferenceHeight(
+        Constraint: *mut ArkUI_LayoutConstraint,
+        value: i32,
+    );
+}
+extern "C" {
+    #[doc = " @brief Obtains the pointer to a canvas for drawing, which can be converted into the <b>OH_Drawing_Canvas</b> pointer\n in the <b>Drawing</b> module.\n\n @param context Indicates the pointer to the drawing context.\n @return Returns the pointer to the canvas for drawing.\n @since 12"]
+    pub fn OH_ArkUI_DrawContext_GetCanvas(
+        context: *mut ArkUI_DrawContext,
+    ) -> *mut ::std::os::raw::c_void;
+}
+extern "C" {
+    #[doc = " @brief Obtains the size of a drawing area.\n\n @param context Indicates the pointer to the drawing context.\n @return Returns the size of the drawing area.\n @since 12"]
+    pub fn OH_ArkUI_DrawContext_GetSize(context: *mut ArkUI_DrawContext) -> ArkUI_IntSize;
+}
+extern "C" {
+    #[doc = " @brief Creates <b>Grid</b> layout options.\n\n @return <b>Grid</b> layout options created.\n @since 22"]
+    #[cfg(feature = "api-22")]
+    pub fn OH_ArkUI_GridLayoutOptions_Create() -> *mut ArkUI_GridLayoutOptions;
+}
+extern "C" {
+    #[doc = " @brief Disposes of <b>Grid</b> layout options.\n\n @param option <b>Grid</b> layout options.\n @since 22"]
+    #[cfg(feature = "api-22")]
+    pub fn OH_ArkUI_GridLayoutOptions_Dispose(option: *mut ArkUI_GridLayoutOptions);
+}
+extern "C" {
+    #[doc = " @brief Sets the irregular grid item index array for the grid layout.\n\n @param option <b>Grid</b> layout options.\n @param irregularIndexes Array of irregular grid item indexes.\n @param size Size of the index array.\n @return Returns the result code.\n         Returns {@link ARKUI_ERROR_CODE_NO_ERROR} if the operation is successful.\n         Returns {@link ARKUI_ERROR_CODE_PARAM_INVALID} if a parameter error occurs.\n         If an error code is returned, it may be due to a failure in parameter validation;\n         the parameter must not be null.\n @since 22"]
+    #[cfg(feature = "api-22")]
+    pub fn OH_ArkUI_GridLayoutOptions_SetIrregularIndexes(
+        option: *mut ArkUI_GridLayoutOptions,
+        irregularIndexes: *mut u32,
+        size: i32,
+    ) -> i32;
+}
+extern "C" {
+    #[doc = " @brief Obtains the irregular grid item index array for the grid layout.\n When <b>OH_ArkUI_GridLayoutOptions_RegisterGetIrregularSizeByIndexCallback</b> is not set,\n the grid item specified in <b>irregularIndexes</b> occupies an entire row of the grid that scrolls vertically or\n an entire column of the grid that scrolls horizontally.\n\n @param option <b>Grid</b> layout options.\n @param irregularIndexes Array of irregular grid item indexes.\n @param size Size of the index array.\n @return Returns the result code.\n         Returns {@link ARKUI_ERROR_CODE_NO_ERROR} if the operation is successful.\n         Returns {@link ARKUI_ERROR_CODE_PARAM_INVALID} if a parameter error occurs.\n         Returns {@link ARKUI_ERROR_CODE_BUFFER_SIZE_ERROR} if the provided buffer size is insufficient.\n         If an error code is returned, it may be due to a failure in parameter validation;\n         the parameter must not be null.\n @since 22"]
+    #[cfg(feature = "api-22")]
+    pub fn OH_ArkUI_GridLayoutOptions_GetIrregularIndexes(
+        option: *mut ArkUI_GridLayoutOptions,
+        irregularIndexes: *mut u32,
+        size: *mut i32,
+    ) -> i32;
+}
+extern "C" {
+    #[doc = " @brief Registers a callback to obtain the row and column span for the grid item at the specified index.\n\n @param option <b>Grid</b> layout options.\n @param userData Indicates the custom data.\n @param callback Callback that returns the row and column span for the grid item at the specified index.\n        itemIndex: grid item index, which must be within the range set by\n        {@link OH_ArkUI_GridLayoutOptions_SetIrregularIndexes}.\n @since 22"]
+    #[cfg(feature = "api-22")]
+    pub fn OH_ArkUI_GridLayoutOptions_RegisterGetIrregularSizeByIndexCallback(
+        option: *mut ArkUI_GridLayoutOptions,
+        userData: *mut ::std::os::raw::c_void,
+        callback: ::std::option::Option<
+            unsafe extern "C" fn(
+                itemIndex: i32,
+                userData: *mut ::std::os::raw::c_void,
+            ) -> ArkUI_GridItemSize,
+        >,
+    );
+}
+extern "C" {
+    #[doc = " @brief Registers a callback to obtain the starting row, starting column, row span,\n and column span for the grid item at the specified index.\n\n @param option <b>Grid</b> layout options.\n @param userData Indicates the custom data.\n @param callback Callback that returns the starting row, starting column, row span,\n        and column span for the grid item at the specified index.\n        itemIndex: grid item index.\n @since 22"]
+    #[cfg(feature = "api-22")]
+    pub fn OH_ArkUI_GridLayoutOptions_RegisterGetRectByIndexCallback(
+        option: *mut ArkUI_GridLayoutOptions,
+        userData: *mut ::std::os::raw::c_void,
+        callback: ::std::option::Option<
+            unsafe extern "C" fn(
+                itemIndex: i32,
+                userData: *mut ::std::os::raw::c_void,
+            ) -> ArkUI_GridItemRect,
+        >,
+    );
+}
+extern "C" {
+    #[doc = " @brief Creates water flow section configuration.\n\n @return Returns the water flow section configuration.\n @since 12"]
+    pub fn OH_ArkUI_WaterFlowSectionOption_Create() -> *mut ArkUI_WaterFlowSectionOption;
+}
+extern "C" {
+    #[doc = " @brief Destroys the pointer to a water flow section configuration.\n\n @param option Indicates the pointer to a water flow section configuration.\n @since 12"]
+    pub fn OH_ArkUI_WaterFlowSectionOption_Dispose(option: *mut ArkUI_WaterFlowSectionOption);
+}
+extern "C" {
+    #[doc = " @brief Sets the FlowItem block configuration information array length.\n\n @param option FlowItem Indicates the packet configuration.\n @param size Array Length.\n @since 12"]
+    pub fn OH_ArkUI_WaterFlowSectionOption_SetSize(
+        option: *mut ArkUI_WaterFlowSectionOption,
+        size: i32,
+    );
+}
+extern "C" {
+    #[doc = " @brief Gets the FlowItem grouping configuration information array length.\n\n @param option FlowItem Indicates the packet configuration.\n @return Array size. If -1 is returned, the return fails.\n         The possible cause of the failure is that the option parameter is abnormal, such as a null pointer.\n @since 12"]
+    pub fn OH_ArkUI_WaterFlowSectionOption_GetSize(
+        option: *mut ArkUI_WaterFlowSectionOption,
+    ) -> i32;
+}
+extern "C" {
+    #[doc = " @brief Sets the number of items in a water flow section.\n\n @param option Indicates the pointer to a water flow section configuration.\n @param index Indicates the index of the target water flow section.\n @param itemCount Indicates the number of items in the water flow section.\n @since 12"]
+    pub fn OH_ArkUI_WaterFlowSectionOption_SetItemCount(
+        option: *mut ArkUI_WaterFlowSectionOption,
+        index: i32,
+        itemCount: i32,
+    );
+}
+extern "C" {
+    #[doc = " @brief Obtains the number of items in the water flow section that matches the specified index.\n\n @param option Indicates the pointer to a water flow section configuration.\n @param index Indicates the index of the target water flow section.\n @return Returns the number of items in the water flow section.\n @since 12"]
+    pub fn OH_ArkUI_WaterFlowSectionOption_GetItemCount(
+        option: *mut ArkUI_WaterFlowSectionOption,
+        index: i32,
+    ) -> i32;
+}
+extern "C" {
+    #[doc = " @brief The FlowItem grouping configuration information getsthe spindle size of\n the specified Item based on flowItemIndex.\n\n @param option Indicates the pointer to a water flow section configuration.\n @param index Indicates the index of the target water flow section.\n @param callback Gets the spindle size of the specified Item based on index.\n @since 12"]
+    pub fn OH_ArkUI_WaterFlowSectionOption_RegisterGetItemMainSizeCallbackByIndex(
+        option: *mut ArkUI_WaterFlowSectionOption,
+        index: i32,
+        callback: ::std::option::Option<unsafe extern "C" fn(itemIndex: i32) -> f32>,
+    );
+}
+extern "C" {
+    #[doc = " @brief The FlowItem grouping configuration information getsthe spindle size of\n the specified Item based on flowItemIndex.\n\n @param option Indicates the pointer to a water flow section configuration.\n @param index Indicates the index of the target water flow section.\n @param userData FlowItem Custom data.\n @param callback Gets the spindle size of the specified Item based on index.\n @since 12"]
+    pub fn OH_ArkUI_WaterFlowSectionOption_RegisterGetItemMainSizeCallbackByIndexWithUserData(
+        option: *mut ArkUI_WaterFlowSectionOption,
+        index: i32,
+        userData: *mut ::std::os::raw::c_void,
+        callback: ::std::option::Option<
+            unsafe extern "C" fn(itemIndex: i32, userData: *mut ::std::os::raw::c_void) -> f32,
+        >,
+    );
+}
+extern "C" {
+    #[doc = " @brief Sets the number of columns (in a vertical layout) or rows (in a horizontal layout) of a water flow.\n\n @param option Indicates the pointer to a water flow section configuration.\n @param index Indicates the index of the target water flow section.\n @param crossCount Indicates the number of columns or rows, depending on the layout direction.\n @since 12"]
+    pub fn OH_ArkUI_WaterFlowSectionOption_SetCrossCount(
+        option: *mut ArkUI_WaterFlowSectionOption,
+        index: i32,
+        crossCount: i32,
+    );
+}
+extern "C" {
+    #[doc = " @brief Obtains the number of columns (in a vertical layout) or rows (in a horizontal layout) in the water flow section\n that matches the specified index.\n\n @param option Indicates the pointer to a water flow section configuration.\n @param index Indicates the index of the target water flow section.\n @return Returns the number of columns or rows.\n @since 12"]
+    pub fn OH_ArkUI_WaterFlowSectionOption_GetCrossCount(
+        option: *mut ArkUI_WaterFlowSectionOption,
+        index: i32,
+    ) -> i32;
+}
+extern "C" {
+    #[doc = " @brief Sets the gap between columns in the specified water flow section.\n\n @param option Indicates the pointer to a water flow section configuration.\n @param index Indicates the index of the target water flow section.\n @param columnGap Indicates the gap between columns to set.\n @since 12"]
+    pub fn OH_ArkUI_WaterFlowSectionOption_SetColumnGap(
+        option: *mut ArkUI_WaterFlowSectionOption,
+        index: i32,
+        columnGap: f32,
+    );
+}
+extern "C" {
+    #[doc = " @brief Obtains the gap between columns in the water flow section that matches the specified index.\n\n @param option Indicates the pointer to a water flow section configuration.\n @param index Indicates the index of the target water flow section.\n @return Returns the gap between columns.\n @since 12"]
+    pub fn OH_ArkUI_WaterFlowSectionOption_GetColumnGap(
+        option: *mut ArkUI_WaterFlowSectionOption,
+        index: i32,
+    ) -> f32;
+}
+extern "C" {
+    #[doc = " @brief Sets the gap between rows in the specified water flow section.\n\n @param option Indicates the pointer to a water flow section configuration.\n @param index Indicates the index of the target water flow section.\n @param rowGap Indicates the gap between rows to set.\n @since 12"]
+    pub fn OH_ArkUI_WaterFlowSectionOption_SetRowGap(
+        option: *mut ArkUI_WaterFlowSectionOption,
+        index: i32,
+        rowGap: f32,
+    );
+}
+extern "C" {
+    #[doc = " @brief Obtains the gap between rows in the water flow section that matches the specified index.\n\n @param option Indicates the pointer to a water flow section configuration.\n @param index Indicates the index of the target water flow section.\n @return Returns the gap between rows.\n @since 12"]
+    pub fn OH_ArkUI_WaterFlowSectionOption_GetRowGap(
+        option: *mut ArkUI_WaterFlowSectionOption,
+        index: i32,
+    ) -> f32;
+}
+extern "C" {
+    #[doc = " @brief Sets the margins for the specified water flow section.\n\n @param option Indicates the pointer to a water flow section configuration.\n @param index Indicates the index of the target water flow section.\n @param marginTop Indicates the top margin of the water flow section.\n @param marginRight Indicates the right margin of the water flow section.\n @param marginBottom Indicates the bottom margin of the water flow section.\n @param marginLeft Indicates the left margin of the water flow section.\n @since 12"]
+    pub fn OH_ArkUI_WaterFlowSectionOption_SetMargin(
+        option: *mut ArkUI_WaterFlowSectionOption,
+        index: i32,
+        marginTop: f32,
+        marginRight: f32,
+        marginBottom: f32,
+        marginLeft: f32,
+    );
+}
+extern "C" {
+    #[doc = " @brief Obtains the margins of the water flow section that matches the specified index.\n\n @param option Indicates the pointer to a water flow section configuration.\n @param index Indicates the index of the target water flow section.\n @return Returns the margins.\n @since 12"]
+    pub fn OH_ArkUI_WaterFlowSectionOption_GetMargin(
+        option: *mut ArkUI_WaterFlowSectionOption,
+        index: i32,
+    ) -> ArkUI_Margin;
+}
+extern "C" {
+    #[doc = " @brief Creates a navigation indicator.\n\n @param type Indicates the type of the indicator.\n @return Returns the pointer to the new indicator.\n @since 12"]
+    pub fn OH_ArkUI_SwiperIndicator_Create(
+        type_: ArkUI_SwiperIndicatorType,
+    ) -> *mut ArkUI_SwiperIndicator;
+}
+extern "C" {
+    #[doc = " @brief Destroys the pointer to the indicator.\n\n @param indicator Indicates the pointer to the indicator.\n @since 12"]
+    pub fn OH_ArkUI_SwiperIndicator_Dispose(indicator: *mut ArkUI_SwiperIndicator);
+}
+extern "C" {
+    #[doc = " @brief Sets the distance between the navigation point and the start of the swiper.\n\n @param indicator Indicates the pointer to the indicator.\n @param value Indicates the distance between the navigation point and the start of the swiper.\n @since 12"]
+    pub fn OH_ArkUI_SwiperIndicator_SetStartPosition(
+        indicator: *mut ArkUI_SwiperIndicator,
+        value: f32,
+    );
+}
+extern "C" {
+    #[doc = " @brief Obtains the distance between the navigation point and the start of the swiper.\n\n @param indicator Indicates the pointer to the indicator.\n @return Returns the distance between the navigation point and the start of the swiper.\n @since 12"]
+    pub fn OH_ArkUI_SwiperIndicator_GetStartPosition(indicator: *mut ArkUI_SwiperIndicator) -> f32;
+}
+extern "C" {
+    #[doc = " @brief Sets the distance between the navigation point and the top of the swiper.\n\n @param indicator Indicates the pointer to the indicator.\n @param value Indicates the distance between the navigation point and the top of the swiper.\n @since 12"]
+    pub fn OH_ArkUI_SwiperIndicator_SetTopPosition(
+        indicator: *mut ArkUI_SwiperIndicator,
+        value: f32,
+    );
+}
+extern "C" {
+    #[doc = " @brief Obtains the distance between the navigation point and the top of the swiper.\n\n @param indicator Indicates the pointer to the indicator.\n @return Returns the distance between the navigation point and the top of the swiper.\n @since 12"]
+    pub fn OH_ArkUI_SwiperIndicator_GetTopPosition(indicator: *mut ArkUI_SwiperIndicator) -> f32;
+}
+extern "C" {
+    #[doc = " @brief Sets the distance between the navigation point and the right of the swiper.\n\n @param indicator Indicates the pointer to the indicator.\n @param value Indicates the distance between the navigation point and the right of the swiper.\n @since 12"]
+    pub fn OH_ArkUI_SwiperIndicator_SetEndPosition(
+        indicator: *mut ArkUI_SwiperIndicator,
+        value: f32,
+    );
+}
+extern "C" {
+    #[doc = " @brief Obtains the distance between the navigation point and the end of the swiper.\n\n @param indicator Indicates the pointer to the indicator.\n @return Returns the distance between the navigation point and the end of the swiper.\n @since 12"]
+    pub fn OH_ArkUI_SwiperIndicator_GetEndPosition(indicator: *mut ArkUI_SwiperIndicator) -> f32;
+}
+extern "C" {
+    #[doc = " @brief Sets the distance between the navigation point and the bottom of the swiper.\n\n @param indicator Indicates the pointer to the indicator.\n @param value Indicates the distance between the navigation point and the bottom of the swiper.\n @since 12"]
+    pub fn OH_ArkUI_SwiperIndicator_SetBottomPosition(
+        indicator: *mut ArkUI_SwiperIndicator,
+        value: f32,
+    );
+}
+extern "C" {
+    #[doc = " @brief Obtains the distance between the navigation point and the bottom of the swiper.\n\n @param indicator Indicates the pointer to the indicator.\n @return Returns the distance between the navigation point and the bottom of the swiper.\n @since 12"]
+    pub fn OH_ArkUI_SwiperIndicator_GetBottomPosition(indicator: *mut ArkUI_SwiperIndicator)
+        -> f32;
+}
+extern "C" {
+    #[doc = " @brief Sets the width of the dot for the dot indicator.\n\n @param indicator Indicates the pointer to the indicator.\n @param value Indicates the width of the dot for the dot indicator.\n @since 12"]
+    pub fn OH_ArkUI_SwiperIndicator_SetItemWidth(indicator: *mut ArkUI_SwiperIndicator, value: f32);
+}
+extern "C" {
+    #[doc = " @brief Obtains the width of the dot for the dot indicator.\n\n @param indicator Indicates the pointer to the indicator.\n @return Returns the width of the dot for the dot indicator.\n @since 12"]
+    pub fn OH_ArkUI_SwiperIndicator_GetItemWidth(indicator: *mut ArkUI_SwiperIndicator) -> f32;
+}
+extern "C" {
+    #[doc = " @brief Sets the height of the dot for the dot indicator.\n\n @param indicator Indicates the pointer to the indicator.\n @param value Indicates the height of the dot for the dot indicator.\n @since 12"]
+    pub fn OH_ArkUI_SwiperIndicator_SetItemHeight(
+        indicator: *mut ArkUI_SwiperIndicator,
+        value: f32,
+    );
+}
+extern "C" {
+    #[doc = " @brief  Obtains the height of the dot for the dot indicator.\n\n @param indicator Indicates the pointer to the indicator.\n @return Returns the height of the dot for the dot indicator.\n @since 12"]
+    pub fn OH_ArkUI_SwiperIndicator_GetItemHeight(indicator: *mut ArkUI_SwiperIndicator) -> f32;
+}
+extern "C" {
+    #[doc = " @brief Sets the width of the selected dot for the dot indicator.\n\n @param indicator Indicates the pointer to the indicator.\n @param value Indicates the width of the selected dot for the dot indicator.\n @since 12"]
+    pub fn OH_ArkUI_SwiperIndicator_SetSelectedItemWidth(
+        indicator: *mut ArkUI_SwiperIndicator,
+        value: f32,
+    );
+}
+extern "C" {
+    #[doc = " @brief  Obtains the width of the selected dot for the dot indicator.\n\n @param indicator Indicates the pointer to the indicator.\n @return Returns the width of the selected dot for the dot indicator.\n @since 12"]
+    pub fn OH_ArkUI_SwiperIndicator_GetSelectedItemWidth(
+        indicator: *mut ArkUI_SwiperIndicator,
+    ) -> f32;
+}
+extern "C" {
+    #[doc = " @brief Sets the height of the selected dot for the dot indicator.\n\n @param indicator Indicates the pointer to the indicator.\n @param value Indicates the height of the selected dot for the dot indicator.\n @since 12"]
+    pub fn OH_ArkUI_SwiperIndicator_SetSelectedItemHeight(
+        indicator: *mut ArkUI_SwiperIndicator,
+        value: f32,
+    );
+}
+extern "C" {
+    #[doc = " @brief  Obtains the height of the selected dot for the dot indicator.\n\n @param indicator Indicates the pointer to the indicator.\n @return Returns the height of the selected dot for the dot indicator.\n @since 12"]
+    pub fn OH_ArkUI_SwiperIndicator_GetSelectedItemHeight(
+        indicator: *mut ArkUI_SwiperIndicator,
+    ) -> f32;
+}
+extern "C" {
+    #[doc = " @brief Sets whether to display the mask style of the dot navigation indicator.\n\n @param indicator Indicates the pointer to the indicator.\n @param mask Whether to display the mask style. True means to display.\n @since 12"]
+    pub fn OH_ArkUI_SwiperIndicator_SetMask(indicator: *mut ArkUI_SwiperIndicator, mask: i32);
+}
+extern "C" {
+    #[doc = " @brief Obtains whether to display the mask style of the dot navigation indicator.\n\n @param indicator Indicates the pointer to the indicator.\n @return Returns whether to display the mask style. True means to display.\n @since 12"]
+    pub fn OH_ArkUI_SwiperIndicator_GetMask(indicator: *mut ArkUI_SwiperIndicator) -> i32;
+}
+extern "C" {
+    #[doc = " @brief Sets the color of the dot navigation indicator.\n\n @param indicator Indicates the pointer to the indicator.\n @param color the color of the dot navigation indicator, in 0xARGB format.\n @since 12"]
+    pub fn OH_ArkUI_SwiperIndicator_SetColor(indicator: *mut ArkUI_SwiperIndicator, color: u32);
+}
+extern "C" {
+    #[doc = " @brief Obtains the color of the dot navigation indicator.\n\n @param indicator Indicates the pointer to the indicator.\n @return Returns the color of the dot navigation indicator, in 0xARGB format.\n @since 12"]
+    pub fn OH_ArkUI_SwiperIndicator_GetColor(indicator: *mut ArkUI_SwiperIndicator) -> u32;
+}
+extern "C" {
+    #[doc = " @brief Sets the color of the selected dot for the navigation indicator.\n\n @param indicator Indicates the pointer to the indicator.\n @param selectedColor the color of the selected dot, in 0xARGB format.\n @since 12"]
+    pub fn OH_ArkUI_SwiperIndicator_SetSelectedColor(
+        indicator: *mut ArkUI_SwiperIndicator,
+        selectedColor: u32,
+    );
+}
+extern "C" {
+    #[doc = " @brief Obtains the color of the selected dot for the dot navigation indicator.\n\n @param indicator Indicates the pointer to the indicator.\n @return Returns the color of the selected dot, in 0xARGB format.\n @since 12"]
+    pub fn OH_ArkUI_SwiperIndicator_GetSelectedColor(indicator: *mut ArkUI_SwiperIndicator) -> u32;
+}
+extern "C" {
+    #[doc = " @brief Sets the number of maxDisplayCount for the dot navigation indicator.\n\n @param indicator Indicates the pointer to the indicator.\n @param maxDisplayCount the maxDisplayCount of the navigation dot, span is 6-9.\n @return {@link ARKUI_ERROR_CODE_NO_ERROR} Success.\n         {@link ARKUI_ERROR_CODE_PARAM_INVALID} indicator is null or maxDisplayCount less then 6 or\n         maxDisplayCount more then 9\n @since 12"]
+    pub fn OH_ArkUI_SwiperIndicator_SetMaxDisplayCount(
+        indicator: *mut ArkUI_SwiperIndicator,
+        maxDisplayCount: i32,
+    ) -> i32;
+}
+extern "C" {
+    #[doc = " @brief Obtains the number of maxDisplayCount for the dot navigation indicator.\n\n @param indicator Indicates the pointer to the indicator.\n @return Returns the number of the maxDisplayCount, span is 6-9.\n         0 - indicator is null\n @since 12"]
+    pub fn OH_ArkUI_SwiperIndicator_GetMaxDisplayCount(
+        indicator: *mut ArkUI_SwiperIndicator,
+    ) -> i32;
+}
+extern "C" {
+    #[doc = " @brief Sets whether to ignore the size of the indicator for {@link OH_ArkUI_SwiperIndicator_SetBottomPosition}.\n\n @param indicator Indicates the pointer to the indicator.\n @param ignoreSize Whether to ignore the size of the indicator. The value 1 means to ignore, and 0 means the opposite.\n The default value is 0.\n @since 19"]
+    #[cfg(feature = "api-19")]
+    pub fn OH_ArkUI_SwiperIndicator_SetIgnoreSizeOfBottom(
+        indicator: *mut ArkUI_SwiperIndicator,
+        ignoreSize: i32,
+    );
+}
+extern "C" {
+    #[doc = " @brief Obtains whether to ignore the size of the indicator for {@link OH_ArkUI_SwiperIndicator_SetBottomPosition}.\n\n @param indicator Indicates the pointer to the indicator.\n @return Returns whether to ignore the size of the indicator.\n @since 19"]
+    #[cfg(feature = "api-19")]
+    pub fn OH_ArkUI_SwiperIndicator_GetIgnoreSizeOfBottom(
+        indicator: *mut ArkUI_SwiperIndicator,
+    ) -> i32;
+}
+extern "C" {
+    #[doc = " @brief Sets the space between the dots of the navigation indicator.\n\n @param indicator Indicates the pointer to the indicator.\n @param space the space between the dots of the navigation indicator, the default value is 8vp.\n @since 19"]
+    #[cfg(feature = "api-19")]
+    pub fn OH_ArkUI_SwiperIndicator_SetSpace(indicator: *mut ArkUI_SwiperIndicator, space: f32);
+}
+extern "C" {
+    #[doc = " @brief Obtains the space between the dots of the navigation indicator.\n\n @param indicator Indicates the pointer to the indicator.\n @return the space between the dots of the navigation indicator\n @since 19"]
+    #[cfg(feature = "api-19")]
+    pub fn OH_ArkUI_SwiperIndicator_GetSpace(indicator: *mut ArkUI_SwiperIndicator) -> f32;
+}
+extern "C" {
+    #[doc = " @brief Creates a digital indicator.\n\n @return Returns the pointer to the new indicator.\n @since 19"]
+    #[cfg(feature = "api-19")]
+    pub fn OH_ArkUI_SwiperDigitIndicator_Create() -> *mut ArkUI_SwiperDigitIndicator;
+}
+extern "C" {
+    #[doc = " @brief Sets the distance between the digital indicator and the start of the swiper.\n\n @param indicator The pointer to the digital indicator.\n @param value Indicates the distance between the digital indicator and the start of the swiper.\n @since 19"]
+    #[cfg(feature = "api-19")]
+    pub fn OH_ArkUI_SwiperDigitIndicator_SetStartPosition(
+        indicator: *mut ArkUI_SwiperDigitIndicator,
+        value: f32,
+    );
+}
+extern "C" {
+    #[doc = " @brief Gets the distance between the digital indicator and the start of the swiper.\n\n @param indicator The pointer to the digital indicator.\n @return Returns the distance between the digital indicator and the start of the swiper.\n @since 19"]
+    #[cfg(feature = "api-19")]
+    pub fn OH_ArkUI_SwiperDigitIndicator_GetStartPosition(
+        indicator: *mut ArkUI_SwiperDigitIndicator,
+    ) -> f32;
+}
+extern "C" {
+    #[doc = " @brief Sets the distance between the digital indicator and the top of the swiper.\n\n @param indicator The pointer to the digital indicator.\n @param value Indicates the distance between the digital indicator and the top of the swiper.\n @since 19"]
+    #[cfg(feature = "api-19")]
+    pub fn OH_ArkUI_SwiperDigitIndicator_SetTopPosition(
+        indicator: *mut ArkUI_SwiperDigitIndicator,
+        value: f32,
+    );
+}
+extern "C" {
+    #[doc = " @brief Gets the distance between the digital indicator and the top of the swiper.\n\n @param indicator The pointer to the digital indicator.\n @return Returns the distance between the digital indicator and the top of the swiper.\n @since 19"]
+    #[cfg(feature = "api-19")]
+    pub fn OH_ArkUI_SwiperDigitIndicator_GetTopPosition(
+        indicator: *mut ArkUI_SwiperDigitIndicator,
+    ) -> f32;
+}
+extern "C" {
+    #[doc = " @brief Sets the distance between the digital indicator and the end of the swiper.\n\n @param indicator The pointer to the digital indicator.\n @param value Indicates the distance between the digital indicator and the end of the swiper.\n @since 19"]
+    #[cfg(feature = "api-19")]
+    pub fn OH_ArkUI_SwiperDigitIndicator_SetEndPosition(
+        indicator: *mut ArkUI_SwiperDigitIndicator,
+        value: f32,
+    );
+}
+extern "C" {
+    #[doc = " @brief Gets the distance between the digital indicator and the end of the swiper.\n\n @param indicator The pointer to the digital indicator.\n @return Returns the distance between the digital indicator and the end of the swiper.\n @since 19"]
+    #[cfg(feature = "api-19")]
+    pub fn OH_ArkUI_SwiperDigitIndicator_GetEndPosition(
+        indicator: *mut ArkUI_SwiperDigitIndicator,
+    ) -> f32;
+}
+extern "C" {
+    #[doc = " @brief Sets the distance between the digital indicator and the bottom of the swiper.\n\n @param indicator The pointer to the digital indicator.\n @param value Returns the distance between the digital indicator and the bottom of the swiper.\n @since 19"]
+    #[cfg(feature = "api-19")]
+    pub fn OH_ArkUI_SwiperDigitIndicator_SetBottomPosition(
+        indicator: *mut ArkUI_SwiperDigitIndicator,
+        value: f32,
+    );
+}
+extern "C" {
+    #[doc = " @brief Gets the distance between the digital indicator and the bottom of the swiper.\n\n @param indicator The pointer to the digital indicator.\n @return Returns the distance between the digital indicator and the bottom of the swiper.\n @since 19"]
+    #[cfg(feature = "api-19")]
+    pub fn OH_ArkUI_SwiperDigitIndicator_GetBottomPosition(
+        indicator: *mut ArkUI_SwiperDigitIndicator,
+    ) -> f32;
+}
+extern "C" {
+    #[doc = " @brief Sets the font color of total count in the digital indicator.\n\n @param indicator The pointer to the digital indicator.\n @param color font color, in 0xARGB format. Default value: 0xFF182431.\n @since 19"]
+    #[cfg(feature = "api-19")]
+    pub fn OH_ArkUI_SwiperDigitIndicator_SetFontColor(
+        indicator: *mut ArkUI_SwiperDigitIndicator,
+        color: u32,
+    );
+}
+extern "C" {
+    #[doc = " @brief Gets the font color of total count in the digital indicator.\n\n @param indicator The pointer to the digital indicator.\n @return font color, in 0xARGB format.\n @since 19"]
+    #[cfg(feature = "api-19")]
+    pub fn OH_ArkUI_SwiperDigitIndicator_GetFontColor(
+        indicator: *mut ArkUI_SwiperDigitIndicator,
+    ) -> u32;
+}
+extern "C" {
+    #[doc = " @brief Sets the font color of selected index in the digital indicator.\n\n @param indicator The pointer to the digital indicator.\n @param selectedColor font color, in 0xARGB format. Default value: 0xFF182431.\n @since 19"]
+    #[cfg(feature = "api-19")]
+    pub fn OH_ArkUI_SwiperDigitIndicator_SetSelectedFontColor(
+        indicator: *mut ArkUI_SwiperDigitIndicator,
+        selectedColor: u32,
+    );
+}
+extern "C" {
+    #[doc = " @brief Gets the font color of selected index in the digital indicator.\n\n @param indicator The pointer to the digital indicator.\n @return font color, in 0xARGB format.\n @since 19"]
+    #[cfg(feature = "api-19")]
+    pub fn OH_ArkUI_SwiperDigitIndicator_GetSelectedFontColor(
+        indicator: *mut ArkUI_SwiperDigitIndicator,
+    ) -> u32;
+}
+extern "C" {
+    #[doc = " @brief Sets the font size of total count in the digital indicator.\n\n @param indicator The pointer to the digital indicator.\n @param size font size, in fp.\n @since 19"]
+    #[cfg(feature = "api-19")]
+    pub fn OH_ArkUI_SwiperDigitIndicator_SetFontSize(
+        indicator: *mut ArkUI_SwiperDigitIndicator,
+        size: f32,
+    );
+}
+extern "C" {
+    #[doc = " @brief Gets the font size of total count in the digital indicator.\n\n @param indicator The pointer to the digital indicator.\n @return font size, in fp.\n @since 19"]
+    #[cfg(feature = "api-19")]
+    pub fn OH_ArkUI_SwiperDigitIndicator_GetFontSize(
+        indicator: *mut ArkUI_SwiperDigitIndicator,
+    ) -> f32;
+}
+extern "C" {
+    #[doc = " @brief Sets the font size of selected index in the digital indicator.\n\n @param indicator The pointer to the digital indicator.\n @param size font size, in fp.\n @since 19"]
+    #[cfg(feature = "api-19")]
+    pub fn OH_ArkUI_SwiperDigitIndicator_SetSelectedFontSize(
+        indicator: *mut ArkUI_SwiperDigitIndicator,
+        size: f32,
+    );
+}
+extern "C" {
+    #[doc = " @brief Gets the font size of selected index in the digital indicator.\n\n @param indicator The pointer to the digital indicator.\n @return font size, in fp.\n @since 19"]
+    #[cfg(feature = "api-19")]
+    pub fn OH_ArkUI_SwiperDigitIndicator_GetSelectedFontSize(
+        indicator: *mut ArkUI_SwiperDigitIndicator,
+    ) -> f32;
+}
+extern "C" {
+    #[doc = " @brief Sets the font weight of total count in the digital indicator.\n\n @param indicator The pointer to the digital indicator.\n @param fontWeight font weight {@link ArkUI_FontWeight}. The default value is <b>ARKUI_FONT_WEIGHT_NORMAL</b>.\n @since 19"]
+    #[cfg(feature = "api-19")]
+    pub fn OH_ArkUI_SwiperDigitIndicator_SetFontWeight(
+        indicator: *mut ArkUI_SwiperDigitIndicator,
+        fontWeight: ArkUI_FontWeight,
+    );
+}
+extern "C" {
+    #[doc = " @brief Gets the font weight of total count in the digital indicator.\n\n @param indicator The pointer to the digital indicator.\n @return font weight {@link ArkUI_FontWeight}.\n @since 19"]
+    #[cfg(feature = "api-19")]
+    pub fn OH_ArkUI_SwiperDigitIndicator_GetFontWeight(
+        indicator: *mut ArkUI_SwiperDigitIndicator,
+    ) -> ArkUI_FontWeight;
+}
+extern "C" {
+    #[doc = " @brief Sets the font weight of selected index in the digital indicator.\n\n @param indicator The pointer to the digital indicator.\n @param selectedFontWeight font weight {@link ArkUI_FontWeight}. The default value is <b>ARKUI_FONT_WEIGHT_NORMAL</b>.\n @since 19"]
+    #[cfg(feature = "api-19")]
+    pub fn OH_ArkUI_SwiperDigitIndicator_SetSelectedFontWeight(
+        indicator: *mut ArkUI_SwiperDigitIndicator,
+        selectedFontWeight: ArkUI_FontWeight,
+    );
+}
+extern "C" {
+    #[doc = " @brief Gets the font weight of selected index in the digital indicator.\n\n @param indicator The pointer to the digital indicator.\n @return font weight {@link ArkUI_FontWeight}.\n @since 19"]
+    #[cfg(feature = "api-19")]
+    pub fn OH_ArkUI_SwiperDigitIndicator_GetSelectedFontWeight(
+        indicator: *mut ArkUI_SwiperDigitIndicator,
+    ) -> ArkUI_FontWeight;
+}
+extern "C" {
+    #[doc = " @brief Destroys the digital indicator.\n\n @param indicator The pointer to the digital indicator.\n @since 19"]
+    #[cfg(feature = "api-19")]
+    pub fn OH_ArkUI_SwiperDigitIndicator_Destroy(indicator: *mut ArkUI_SwiperDigitIndicator);
+}
+extern "C" {
+    #[doc = " @brief Sets whether to ignore the size of the indicator for {@link OH_ArkUI_SwiperDigitIndicator_SetBottomPosition}.\n\n @param indicator The pointer to the digital indicator.\n @param ignoreSize Whether to ignore the size of the indicator. The value 1 means to ignore, and 0 means the opposite.\n The default value is 0.\n @since 19"]
+    #[cfg(feature = "api-19")]
+    pub fn OH_ArkUI_SwiperDigitIndicator_SetIgnoreSizeOfBottom(
+        indicator: *mut ArkUI_SwiperDigitIndicator,
+        ignoreSize: i32,
+    );
+}
+extern "C" {
+    #[doc = " @brief Obtains whether to ignore the size of the indicator for {@link OH_ArkUI_SwiperDigitIndicator_SetBottomPosition}.\n\n @param indicator The pointer to the digital indicator.\n @return Returns whether to ignore the size of the indicator.\n @since 19"]
+    #[cfg(feature = "api-19")]
+    pub fn OH_ArkUI_SwiperDigitIndicator_GetIgnoreSizeOfBottom(
+        indicator: *mut ArkUI_SwiperDigitIndicator,
+    ) -> i32;
+}
+extern "C" {
+    #[doc = " @brief Creates a arrow style for swiper.\n\n @return Returns the pointer to the new arrow style.\n @since 19"]
+    #[cfg(feature = "api-19")]
+    pub fn OH_ArkUI_SwiperArrowStyle_Create() -> *mut ArkUI_SwiperArrowStyle;
+}
+extern "C" {
+    #[doc = " @brief Sets whether to show the background for the arrow.\n\n @param arrowStyle The pointer to the arrow style.\n @param showBackground whether to show the background for the arrow.\n        The value <b>1</b> means to show the background, and <b>0</b> means the opposite.\n        The default value is <b>0</b>.\n @since 19"]
+    #[cfg(feature = "api-19")]
+    pub fn OH_ArkUI_SwiperArrowStyle_SetShowBackground(
+        arrowStyle: *mut ArkUI_SwiperArrowStyle,
+        showBackground: i32,
+    );
+}
+extern "C" {
+    #[doc = " @brief Gets whether to show the background for the arrow.\n\n @param arrowStyle The pointer to the arrow style.\n @return whether to show the background for the arrow.\n         The value <b>1</b> means to show the background, and <b>0</b> means the opposite.\n @since 19"]
+    #[cfg(feature = "api-19")]
+    pub fn OH_ArkUI_SwiperArrowStyle_GetShowBackground(
+        arrowStyle: *mut ArkUI_SwiperArrowStyle,
+    ) -> i32;
+}
+extern "C" {
+    #[doc = " @brief Sets the display position of the arrow.\n\n @param arrowStyle The pointer to the arrow style.\n @param showSidebarMiddle the display position of the arrow.\n        The value <b>1</b> means to display on boths sides of the swiper,\n        and <b>0</b> means display on boths sides of the swiper indicator.\n        The default value is <b>0</b>.\n @since 19"]
+    #[cfg(feature = "api-19")]
+    pub fn OH_ArkUI_SwiperArrowStyle_SetShowSidebarMiddle(
+        arrowStyle: *mut ArkUI_SwiperArrowStyle,
+        showSidebarMiddle: i32,
+    );
+}
+extern "C" {
+    #[doc = " @brief Gets the display position of the arrow.\n\n @param arrowStyle The pointer to the arrow style.\n @return the display position of the arrow. The value <b>1</b> means to display on boths sides of the swiper,\n         and <b>0</b> means display on boths sides of the swiper indicator.\n @since 19"]
+    #[cfg(feature = "api-19")]
+    pub fn OH_ArkUI_SwiperArrowStyle_GetShowSidebarMiddle(
+        arrowStyle: *mut ArkUI_SwiperArrowStyle,
+    ) -> i32;
+}
+extern "C" {
+    #[doc = " @brief Sets the background size of the arrow.\n\n @param arrowStyle The pointer to the arrow style.\n @param backgroundSize the background size of the arrow. The unit is vp.\n        The default value is <b>24</b> when the arrow displays on both sides of the swiper indicator.\n        The default value is <b>32</b> when the arrow displays on both sides of the swiper.\n @since 19"]
+    #[cfg(feature = "api-19")]
+    pub fn OH_ArkUI_SwiperArrowStyle_SetBackgroundSize(
+        arrowStyle: *mut ArkUI_SwiperArrowStyle,
+        backgroundSize: f32,
+    );
+}
+extern "C" {
+    #[doc = " @brief Gets the background size of the arrow.\n\n @param arrowStyle The pointer to the arrow style.\n @return Returns the background size of the arrow. The unit is vp.\n @since 19"]
+    #[cfg(feature = "api-19")]
+    pub fn OH_ArkUI_SwiperArrowStyle_GetBackgroundSize(
+        arrowStyle: *mut ArkUI_SwiperArrowStyle,
+    ) -> f32;
+}
+extern "C" {
+    #[doc = " @brief Destroys the arrow style.\n\n @param arrowStyle The pointer to the arrow style.\n @since 19"]
+    #[cfg(feature = "api-19")]
+    pub fn OH_ArkUI_SwiperArrowStyle_Destroy(arrowStyle: *mut ArkUI_SwiperArrowStyle);
+}
+extern "C" {
+    #[doc = " @brief Sets the background color of the arrow.\n\n @param arrowStyle The pointer to the arrow style.\n @param backgroundColor the background color of the arrow, in 0xARGB format.\n        The default value is <b>0x00000000</b> when the arrow displays on both sides of the swiper indicator.\n        The default value is <b>0x19182431</b> when the arrow displays on both sides of the swiper.\n @since 19"]
+    #[cfg(feature = "api-19")]
+    pub fn OH_ArkUI_SwiperArrowStyle_SetBackgroundColor(
+        arrowStyle: *mut ArkUI_SwiperArrowStyle,
+        backgroundColor: u32,
+    );
+}
+extern "C" {
+    #[doc = " @brief Gets the background color of the arrow.\n\n @param arrowStyle The pointer to the arrow style.\n @return Returns the background color of the arrow, in 0xARGB format.\n @since 19"]
+    #[cfg(feature = "api-19")]
+    pub fn OH_ArkUI_SwiperArrowStyle_GetBackgroundColor(
+        arrowStyle: *mut ArkUI_SwiperArrowStyle,
+    ) -> u32;
+}
+extern "C" {
+    #[doc = " @brief Sets the size of the arrow.\n\n @param arrowStyle The pointer to the arrow style.\n @param arrowSize the size of the arrow. The unit is vp.\n        The default value is <b>18</b> when the arrow displays on both sides of the swiper indicator.\n        The default value is <b>24</b> when the arrow displays on both sides of the swiper.\n        The arrow size is fixed to 3/4 of the background size when the background is shown.\n @since 19"]
+    #[cfg(feature = "api-19")]
+    pub fn OH_ArkUI_SwiperArrowStyle_SetArrowSize(
+        arrowStyle: *mut ArkUI_SwiperArrowStyle,
+        arrowSize: f32,
+    );
+}
+extern "C" {
+    #[doc = " @brief Gets the size of the arrow.\n\n @param arrowStyle The pointer to the arrow style.\n @return the size of the arrow. The unit is vp.\n @since 19"]
+    #[cfg(feature = "api-19")]
+    pub fn OH_ArkUI_SwiperArrowStyle_GetArrowSize(arrowStyle: *mut ArkUI_SwiperArrowStyle) -> f32;
+}
+extern "C" {
+    #[doc = " @brief Sets the color of the arrow.\n\n @param arrowStyle The pointer to the arrow style.\n @param arrowColor the color of the arrow, in 0xARGB format. The default value is <b>0x00182431</b>.\n @since 19"]
+    #[cfg(feature = "api-19")]
+    pub fn OH_ArkUI_SwiperArrowStyle_SetArrowColor(
+        arrowStyle: *mut ArkUI_SwiperArrowStyle,
+        arrowColor: u32,
+    );
+}
+extern "C" {
+    #[doc = " @brief Gets the color of the arrow.\n\n @param arrowStyle The pointer to the arrow style.\n @return Returns the color of the arrow, in 0xARGB format.\n @since 19"]
+    #[cfg(feature = "api-19")]
+    pub fn OH_ArkUI_SwiperArrowStyle_GetArrowColor(arrowStyle: *mut ArkUI_SwiperArrowStyle) -> u32;
+}
+extern "C" {
+    #[doc = " @brief Create auxiliary line information in the RelativeContaine container.\n\n @param size The number of auxiliary lines.\n @return auxiliary line information.\n @since 12"]
+    pub fn OH_ArkUI_GuidelineOption_Create(size: i32) -> *mut ArkUI_GuidelineOption;
+}
+extern "C" {
+    #[doc = " @brief Destroy auxiliary line information.\n\n @param guideline auxiliary line information.\n @since 12"]
+    pub fn OH_ArkUI_GuidelineOption_Dispose(guideline: *mut ArkUI_GuidelineOption);
+}
+extern "C" {
+    #[doc = " @brief Set the Id of the auxiliary line.\n\n @param guideline auxiliary line information.\n @param value id, must be unique and cannot have the same name as the component in the container.\n @param index auxiliary line index value.\n @since 12"]
+    pub fn OH_ArkUI_GuidelineOption_SetId(
+        guideline: *mut ArkUI_GuidelineOption,
+        value: *const ::std::os::raw::c_char,
+        index: i32,
+    );
+}
+extern "C" {
+    #[doc = " @brief Set the direction of the auxiliary line.\n\n @param guideline auxiliary line information.\n @param value direction.\n @param index auxiliary line index value.\n @since 12"]
+    pub fn OH_ArkUI_GuidelineOption_SetDirection(
+        guideline: *mut ArkUI_GuidelineOption,
+        value: ArkUI_Axis,
+        index: i32,
+    );
+}
+extern "C" {
+    #[doc = " @brief Set the distance from the left or top of the container.\n\n @param guideline auxiliary line information.\n @param value The distance from the left or top of the container.\n @param index auxiliary line index value.\n @since 12"]
+    pub fn OH_ArkUI_GuidelineOption_SetPositionStart(
+        guideline: *mut ArkUI_GuidelineOption,
+        value: f32,
+        index: i32,
+    );
+}
+extern "C" {
+    #[doc = " @brief Set the distance from the right or bottom of the container.\n\n @param guideline auxiliary line information.\n @param value The distance from the right side or bottom of the container.\n @param index auxiliary line index value.\n @since 12"]
+    pub fn OH_ArkUI_GuidelineOption_SetPositionEnd(
+        guideline: *mut ArkUI_GuidelineOption,
+        value: f32,
+        index: i32,
+    );
+}
+extern "C" {
+    #[doc = " @brief Get the Id of the auxiliary line.\n\n @param guideline auxiliary line information.\n @param index auxiliary line index value.\n @return Id.\n @since 12"]
+    pub fn OH_ArkUI_GuidelineOption_GetId(
+        guideline: *mut ArkUI_GuidelineOption,
+        index: i32,
+    ) -> *const ::std::os::raw::c_char;
+}
+extern "C" {
+    #[doc = " @brief Get the direction of the auxiliary line.\n\n @param guideline auxiliary line information.\n @param index auxiliary line index value.\n @return direction.\n @since 12"]
+    pub fn OH_ArkUI_GuidelineOption_GetDirection(
+        guideline: *mut ArkUI_GuidelineOption,
+        index: i32,
+    ) -> ArkUI_Axis;
+}
+extern "C" {
+    #[doc = " @brief Get the distance from the left or top of the container.\n\n @param guideline auxiliary line information.\n @param index auxiliary line index value.\n @return The distance from the left or top of the container.\n @since 12"]
+    pub fn OH_ArkUI_GuidelineOption_GetPositionStart(
+        guideline: *mut ArkUI_GuidelineOption,
+        index: i32,
+    ) -> f32;
+}
+extern "C" {
+    #[doc = " @brief Get the distance from the right side or bottom of the container.\n\n @param guideline auxiliary line information.\n @param index auxiliary line index value.\n @return The distance from the right side or bottom of the container.\n @since 12"]
+    pub fn OH_ArkUI_GuidelineOption_GetPositionEnd(
+        guideline: *mut ArkUI_GuidelineOption,
+        index: i32,
+    ) -> f32;
+}
+extern "C" {
+    #[doc = " @brief creates barrier information within the RelativeContaine container.\n\n @param size Number of barriers.\n @return barrier information.\n @since 12"]
+    pub fn OH_ArkUI_BarrierOption_Create(size: i32) -> *mut ArkUI_BarrierOption;
+}
+extern "C" {
+    #[doc = " @brief Destroy barrier information.\n\n @param barrierStyle barrier information.\n @since 12"]
+    pub fn OH_ArkUI_BarrierOption_Dispose(barrierStyle: *mut ArkUI_BarrierOption);
+}
+extern "C" {
+    #[doc = " @brief Set the Id of the barrier.\n\n @param barrierStyle barrier information.\n @param value id, must be unique and cannot have the same name as the component in the container.\n @param index Barrier index value.\n @since 12"]
+    pub fn OH_ArkUI_BarrierOption_SetId(
+        barrierStyle: *mut ArkUI_BarrierOption,
+        value: *const ::std::os::raw::c_char,
+        index: i32,
+    );
+}
+extern "C" {
+    #[doc = " @brief Set the direction of the barrier.\n\n @param barrierStyle barrier information.\n @param value direction.\n @param index Barrier index value.\n @since 12"]
+    pub fn OH_ArkUI_BarrierOption_SetDirection(
+        barrierStyle: *mut ArkUI_BarrierOption,
+        value: ArkUI_BarrierDirection,
+        index: i32,
+    );
+}
+extern "C" {
+    #[doc = " @brief Sets the dependent component of the barrier.\n\n @param barrierStyle barrier information.\n @param value The ID of the dependent component.\n @param index Barrier index value.\n @since 12"]
+    pub fn OH_ArkUI_BarrierOption_SetReferencedId(
+        barrierStyle: *mut ArkUI_BarrierOption,
+        value: *const ::std::os::raw::c_char,
+        index: i32,
+    );
+}
+extern "C" {
+    #[doc = " @brief Get the Id of the barrier.\n\n @param barrierStyle auxiliary line information.\n @param index auxiliary line index value.\n @return The Id of the barrier.\n @since 12"]
+    pub fn OH_ArkUI_BarrierOption_GetId(
+        barrierStyle: *mut ArkUI_BarrierOption,
+        index: i32,
+    ) -> *const ::std::os::raw::c_char;
+}
+extern "C" {
+    #[doc = " @brief Gets the direction of the barrier.\n\n @param barrierStyle auxiliary line information.\n @param index auxiliary line index value.\n @return The direction of the barrier.\n @since 12"]
+    pub fn OH_ArkUI_BarrierOption_GetDirection(
+        barrierStyle: *mut ArkUI_BarrierOption,
+        index: i32,
+    ) -> ArkUI_BarrierDirection;
+}
+extern "C" {
+    #[doc = " @brief Get the dependent components of the barrier.\n\n @param barrierStyle auxiliary line information.\n @param index auxiliary line index value.\n @param referencedIndex dependent component Id index value.\n @return The barrier's dependent components.\n @since 12"]
+    pub fn OH_ArkUI_BarrierOption_GetReferencedId(
+        barrierStyle: *mut ArkUI_BarrierOption,
+        index: i32,
+        referencedIndex: i32,
+    ) -> *const ::std::os::raw::c_char;
+}
+extern "C" {
+    #[doc = " @brief Gets the number of dependent components of the barrier.\n\n @param barrierStyle auxiliary line information.\n @param index auxiliary line index value.\n @return The number of dependent components of the barrier.\n @since 12"]
+    pub fn OH_ArkUI_BarrierOption_GetReferencedIdSize(
+        barrierStyle: *mut ArkUI_BarrierOption,
+        index: i32,
+    ) -> i32;
+}
+#[repr(C)]
+#[derive(Debug, Copy, Clone)]
+pub struct ArkUI_ContentTransitionEffect {
+    _unused: [u8; 0],
+}
+extern "C" {
+    #[doc = " @brief creates content switching animation effects.\n\n @param type content transition type: 0-identity, 1-opacity.\n @return content transition effect.\n @since 21"]
+    #[cfg(feature = "api-21")]
+    pub fn OH_ArkUI_ContentTransitionEffect_Create(
+        type_: i32,
+    ) -> *mut ArkUI_ContentTransitionEffect;
+}
+extern "C" {
+    #[doc = " @brief creates alignment rule information for subcomponents in relative containers.\n\n @return Alignment rule information.\n @since 12"]
+    pub fn OH_ArkUI_AlignmentRuleOption_Create() -> *mut ArkUI_AlignmentRuleOption;
+}
+extern "C" {
+    #[doc = " @brief Destroys the alignment rule information of subcomponents in relative containers.\n\n @param option Alignment rule information of subcomponents in the relative container.\n @since 12"]
+    pub fn OH_ArkUI_AlignmentRuleOption_Dispose(option: *mut ArkUI_AlignmentRuleOption);
+}
+extern "C" {
+    #[doc = " @brief Set the start alignment parameter.\n\n @param option Alignment rule information of subcomponents in the relative container.\n @param id The id value of the anchor component.\n @param alignment Alignment relative to the anchor component.\n @since 12"]
+    pub fn OH_ArkUI_AlignmentRuleOption_SetStart(
+        option: *mut ArkUI_AlignmentRuleOption,
+        id: *const ::std::os::raw::c_char,
+        alignment: ArkUI_HorizontalAlignment,
+    );
+}
+extern "C" {
+    #[doc = " @brief Set the end alignment parameter.\n\n @param option Alignment rule information of subcomponents in the relative container.\n @param id The id value of the anchor component.\n @param alignment Alignment relative to the anchor component.\n @since 12"]
+    pub fn OH_ArkUI_AlignmentRuleOption_SetEnd(
+        option: *mut ArkUI_AlignmentRuleOption,
+        id: *const ::std::os::raw::c_char,
+        alignment: ArkUI_HorizontalAlignment,
+    );
+}
+extern "C" {
+    #[doc = " @brief Set the parameters for horizontal center alignment.\n\n @param option Alignment rule information of subcomponents in the relative container.\n @param id The id value of the anchor component.\n @param alignment Alignment relative to anchor component\n @since 12"]
+    pub fn OH_ArkUI_AlignmentRuleOption_SetCenterHorizontal(
+        option: *mut ArkUI_AlignmentRuleOption,
+        id: *const ::std::os::raw::c_char,
+        alignment: ArkUI_HorizontalAlignment,
+    );
+}
+extern "C" {
+    #[doc = " @brief Set the parameters for top alignment.\n\n @param option Alignment rule information of subcomponents in the relative container.\n @param id The id value of the anchor component.\n @param alignment Alignment relative to anchor component\n @since 12"]
+    pub fn OH_ArkUI_AlignmentRuleOption_SetTop(
+        option: *mut ArkUI_AlignmentRuleOption,
+        id: *const ::std::os::raw::c_char,
+        alignment: ArkUI_VerticalAlignment,
+    );
+}
+extern "C" {
+    #[doc = " @brief Set the bottom alignment parameters.\n\n @param option Alignment rule information of subcomponents in the relative container.\n @param id The id value of the anchor component.\n @param alignment Alignment relative to anchor component\n @since 12"]
+    pub fn OH_ArkUI_AlignmentRuleOption_SetBottom(
+        option: *mut ArkUI_AlignmentRuleOption,
+        id: *const ::std::os::raw::c_char,
+        alignment: ArkUI_VerticalAlignment,
+    );
+}
+extern "C" {
+    #[doc = " @brief Set the parameters for vertical center alignment.\n\n @param option Alignment rule information of subcomponents in the relative container.\n @param id The id value of the anchor component.\n @param alignment Alignment relative to the anchor component.\n @since 12"]
+    pub fn OH_ArkUI_AlignmentRuleOption_SetCenterVertical(
+        option: *mut ArkUI_AlignmentRuleOption,
+        id: *const ::std::os::raw::c_char,
+        alignment: ArkUI_VerticalAlignment,
+    );
+}
+extern "C" {
+    #[doc = " @brief Sets the horizontal offset parameter of the component under the anchor point constraint.\n\n @param option Alignment rule information of subcomponents in the relative container.\n @param horizontal bias value in the horizontal direction.\n @since 12"]
+    pub fn OH_ArkUI_AlignmentRuleOption_SetBiasHorizontal(
+        option: *mut ArkUI_AlignmentRuleOption,
+        horizontal: f32,
+    );
+}
+extern "C" {
+    #[doc = " @brief Set the vertical offset parameter of the component under the anchor point constraint.\n\n @param option Alignment rule information of subcomponents in the relative container.\n @param vertical bias value in the vertical direction.\n @since 12"]
+    pub fn OH_ArkUI_AlignmentRuleOption_SetBiasVertical(
+        option: *mut ArkUI_AlignmentRuleOption,
+        vertical: f32,
+    );
+}
+extern "C" {
+    #[doc = " @brief Get the Id of the start-aligned parameter.\n\n @param option Alignment rule information of subcomponents in the relative container.\n @return The id value of the anchor component.\n @since 12"]
+    pub fn OH_ArkUI_AlignmentRuleOption_GetStartId(
+        option: *mut ArkUI_AlignmentRuleOption,
+    ) -> *const ::std::os::raw::c_char;
+}
+extern "C" {
+    #[doc = " @brief Gets the alignment of the start-aligned parameter.\n\n @param option Alignment rule information of subcomponents in the relative container.\n @return The alignment of the parameters.\n @since 12"]
+    pub fn OH_ArkUI_AlignmentRuleOption_GetStartAlignment(
+        option: *mut ArkUI_AlignmentRuleOption,
+    ) -> ArkUI_HorizontalAlignment;
+}
+extern "C" {
+    #[doc = " @brief Get the end alignment parameter.\n\n @param option Alignment rule information of subcomponents in the relative container.\n @return End-aligned parameter id.\n @since 12"]
+    pub fn OH_ArkUI_AlignmentRuleOption_GetEndId(
+        option: *mut ArkUI_AlignmentRuleOption,
+    ) -> *const ::std::os::raw::c_char;
+}
+extern "C" {
+    #[doc = " @brief Get the end alignment parameter.\n\n @param option Alignment rule information of subcomponents in the relative container.\n @return The alignment of the end-aligned parameter.\n @since 12"]
+    pub fn OH_ArkUI_AlignmentRuleOption_GetEndAlignment(
+        option: *mut ArkUI_AlignmentRuleOption,
+    ) -> ArkUI_HorizontalAlignment;
+}
+extern "C" {
+    #[doc = " @brief Gets the parameters of horizontal center alignment.\n\n @param option Alignment rule information of subcomponents in the relative container.\n @return The id of the parameter of horizontal center alignment.\n @since 12"]
+    pub fn OH_ArkUI_AlignmentRuleOption_GetCenterIdHorizontal(
+        option: *mut ArkUI_AlignmentRuleOption,
+    ) -> *const ::std::os::raw::c_char;
+}
+extern "C" {
+    #[doc = " @brief Gets the parameters of horizontal center alignment.\n\n @param option Alignment rule information of subcomponents in the relative container.\n @return The alignment of the horizontally centered alignment parameter.\n @since 12"]
+    pub fn OH_ArkUI_AlignmentRuleOption_GetCenterAlignmentHorizontal(
+        option: *mut ArkUI_AlignmentRuleOption,
+    ) -> ArkUI_HorizontalAlignment;
+}
+extern "C" {
+    #[doc = " @brief Get the top-aligned parameters.\n\n @param option Alignment rule information of subcomponents in the relative container.\n @return Top aligned parameter id.\n @since 12"]
+    pub fn OH_ArkUI_AlignmentRuleOption_GetTopId(
+        option: *mut ArkUI_AlignmentRuleOption,
+    ) -> *const ::std::os::raw::c_char;
+}
+extern "C" {
+    #[doc = " @brief Get the top-aligned parameters.\n\n @param option Alignment rule information of subcomponents in the relative container.\n @return The alignment of the top-aligned parameter.\n @since 12"]
+    pub fn OH_ArkUI_AlignmentRuleOption_GetTopAlignment(
+        option: *mut ArkUI_AlignmentRuleOption,
+    ) -> ArkUI_VerticalAlignment;
+}
+extern "C" {
+    #[doc = " @brief Get the bottom alignment parameters.\n\n @param option Alignment rule information of subcomponents in the relative container.\n @return The id of the bottom-aligned parameter.\n @since 12"]
+    pub fn OH_ArkUI_AlignmentRuleOption_GetBottomId(
+        option: *mut ArkUI_AlignmentRuleOption,
+    ) -> *const ::std::os::raw::c_char;
+}
+extern "C" {
+    #[doc = " @brief Get the bottom alignment parameters.\n\n @param option Alignment rule information of subcomponents in the relative container.\n @return The alignment of the bottom-aligned parameter.\n @since 12"]
+    pub fn OH_ArkUI_AlignmentRuleOption_GetBottomAlignment(
+        option: *mut ArkUI_AlignmentRuleOption,
+    ) -> ArkUI_VerticalAlignment;
+}
+extern "C" {
+    #[doc = " @brief Gets the parameters of vertical center alignment.\n\n @param option Alignment rule information of subcomponents in the relative container.\n @return The id of the vertical center alignment parameter.\n @since 12"]
+    pub fn OH_ArkUI_AlignmentRuleOption_GetCenterIdVertical(
+        option: *mut ArkUI_AlignmentRuleOption,
+    ) -> *const ::std::os::raw::c_char;
+}
+extern "C" {
+    #[doc = " @brief Gets the parameters of vertical center alignment.\n\n @param option Alignment rule information of subcomponents in the relative container.\n @return The alignment of the vertical center alignment parameter.\n @since 12"]
+    pub fn OH_ArkUI_AlignmentRuleOption_GetCenterAlignmentVertical(
+        option: *mut ArkUI_AlignmentRuleOption,
+    ) -> ArkUI_VerticalAlignment;
+}
+extern "C" {
+    #[doc = " @brief Get the bias value in the horizontal direction.\n\n @param option Alignment rule information of subcomponents in the relative container.\n @return The bias value in the horizontal direction.\n @since 12"]
+    pub fn OH_ArkUI_AlignmentRuleOption_GetBiasHorizontal(
+        option: *mut ArkUI_AlignmentRuleOption,
+    ) -> f32;
+}
+extern "C" {
+    #[doc = " @brief Get the bias value in the vertical direction.\n\n @param option Alignment rule information of subcomponents in the relative container.\n @return bias value in vertical direction.\n @since 12"]
+    pub fn OH_ArkUI_AlignmentRuleOption_GetBiasVertical(
+        option: *mut ArkUI_AlignmentRuleOption,
+    ) -> f32;
+}
+extern "C" {
+    #[doc = " @brief Create a configuration item for the ListitemSwipeActionItem interface settings.\n\n @return List Item SwipeActionItem configuration item instance. If the object returns a null pointer,\n         it indicates creation failure, and the reason for the failure may be that the address space is full.\n @since 12"]
+    pub fn OH_ArkUI_ListItemSwipeActionItem_Create() -> *mut ArkUI_ListItemSwipeActionItem;
+}
+extern "C" {
+    #[doc = " @brief Destroy the ListitemSwipeActionItem instance.\n\n @param item List Item SwipeActionItem instance to be destroyed.\n @since 12"]
+    pub fn OH_ArkUI_ListItemSwipeActionItem_Dispose(item: *mut ArkUI_ListItemSwipeActionItem);
+}
+extern "C" {
+    #[doc = " @brief Set the layout content of ListItem SwipeActionItem.\n\n @param item List Item SwipeActionItem instance.\n @param node Layout information.\n @since 12"]
+    pub fn OH_ArkUI_ListItemSwipeActionItem_SetContent(
+        item: *mut ArkUI_ListItemSwipeActionItem,
+        node: ArkUI_NodeHandle,
+    );
+}
+extern "C" {
+    #[doc = " @brief Set the threshold for long-distance sliding deletion distance of components.\n\n @param item List Item SwipeActionItem instance.\n @param distance Component long-distance sliding deletion distance threshold.\n @since 12"]
+    pub fn OH_ArkUI_ListItemSwipeActionItem_SetActionAreaDistance(
+        item: *mut ArkUI_ListItemSwipeActionItem,
+        distance: f32,
+    );
+}
+extern "C" {
+    #[doc = " @brief Obtain the threshold for long-distance sliding deletion distance of components.\n\n @param item List Item SwipeActionItem instance.\n @return Component long-distance sliding deletion distance threshold. If -1.0f is returned, the return fails.\n         The possible cause of the failure is that the item parameter is abnormal, such as a null pointer.\n @since 12"]
+    pub fn OH_ArkUI_ListItemSwipeActionItem_GetActionAreaDistance(
+        item: *mut ArkUI_ListItemSwipeActionItem,
+    ) -> f32;
+}
+extern "C" {
+    #[doc = " @brief Set the event to be called when a sliding entry enters the deletion area.\n\n @param item List Item SwipeActionItem instance.\n @param callback Callback Events.\n @since 12"]
+    pub fn OH_ArkUI_ListItemSwipeActionItem_SetOnEnterActionArea(
+        item: *mut ArkUI_ListItemSwipeActionItem,
+        callback: ::std::option::Option<unsafe extern "C" fn()>,
+    );
+}
+extern "C" {
+    #[doc = " @brief Set the event triggered when a sliding entry enters the deletion area.\n\n @param item List Item SwipeActionItem instance.\n @param userData User defined data.\n @param callback Callback Events.\n @since 12"]
+    pub fn OH_ArkUI_ListItemSwipeActionItem_SetOnEnterActionAreaWithUserData(
+        item: *mut ArkUI_ListItemSwipeActionItem,
+        userData: *mut ::std::os::raw::c_void,
+        callback: ::std::option::Option<
+            unsafe extern "C" fn(userData: *mut ::std::os::raw::c_void),
+        >,
+    );
+}
+extern "C" {
+    #[doc = " @brief Set the event to be called when a component enters the long-range deletion area and deletes a ListItem.\n\n @param item List Item SwipeActionItem instance.\n @param callback Callback Events.\n @since 12"]
+    pub fn OH_ArkUI_ListItemSwipeActionItem_SetOnAction(
+        item: *mut ArkUI_ListItemSwipeActionItem,
+        callback: ::std::option::Option<unsafe extern "C" fn()>,
+    );
+}
+extern "C" {
+    #[doc = " @brief Set the event triggered when a component enters the long-range deletion area and deletes a ListItem.\n\n @param item List Item SwipeActionItem instance.\n @param userData User defined data.\n @param callback Callback Events.\n @since 12"]
+    pub fn OH_ArkUI_ListItemSwipeActionItem_SetOnActionWithUserData(
+        item: *mut ArkUI_ListItemSwipeActionItem,
+        userData: *mut ::std::os::raw::c_void,
+        callback: ::std::option::Option<
+            unsafe extern "C" fn(userData: *mut ::std::os::raw::c_void),
+        >,
+    );
+}
+extern "C" {
+    #[doc = " @brief Set the event to be called when a sliding entry exits the deletion area.\n\n @param item List Item SwipeActionItem instance.\n @param callback Callback Events.\n @since 12"]
+    pub fn OH_ArkUI_ListItemSwipeActionItem_SetOnExitActionArea(
+        item: *mut ArkUI_ListItemSwipeActionItem,
+        callback: ::std::option::Option<unsafe extern "C" fn()>,
+    );
+}
+extern "C" {
+    #[doc = " @brief Set the event triggered when a sliding entry exits the deletion area.\n\n @param item List Item SwipeActionItem instance.\n @param userData User defined data.\n @param callback Callback Events.\n @since 12"]
+    pub fn OH_ArkUI_ListItemSwipeActionItem_SetOnExitActionAreaWithUserData(
+        item: *mut ArkUI_ListItemSwipeActionItem,
+        userData: *mut ::std::os::raw::c_void,
+        callback: ::std::option::Option<
+            unsafe extern "C" fn(userData: *mut ::std::os::raw::c_void),
+        >,
+    );
+}
+extern "C" {
+    #[doc = " @brief Set the event triggered when the sliding state of a list item changes.\n\n @param item List Item SwipeActionItem instance.\n @param callback Callback Events.\n        swipeActionState The changed state.\n @since 12"]
+    pub fn OH_ArkUI_ListItemSwipeActionItem_SetOnStateChange(
+        item: *mut ArkUI_ListItemSwipeActionItem,
+        callback: ::std::option::Option<
+            unsafe extern "C" fn(swipeActionState: ArkUI_ListItemSwipeActionState),
+        >,
+    );
+}
+extern "C" {
+    #[doc = " @brief Set the event triggered when the sliding state of a list item changes.\n\n @param item List Item SwipeActionItem instance.\n @param userData User defined data.\n @param callback Callback Events.\n        swipeActionState The changed state.\n @since 12"]
+    pub fn OH_ArkUI_ListItemSwipeActionItem_SetOnStateChangeWithUserData(
+        item: *mut ArkUI_ListItemSwipeActionItem,
+        userData: *mut ::std::os::raw::c_void,
+        callback: ::std::option::Option<
+            unsafe extern "C" fn(
+                swipeActionState: ArkUI_ListItemSwipeActionState,
+                userData: *mut ::std::os::raw::c_void,
+            ),
+        >,
+    );
+}
+extern "C" {
+    #[doc = " @brief Create a configuration item for the ListitemSwipeActionOption interface settings.\n\n @return List Item SwipeActionOption configuration item instance.If the object returns a null pointer,\n         it indicates a creation failure, and the reason for the failure may be that the address space is full.\n @since 12"]
+    pub fn OH_ArkUI_ListItemSwipeActionOption_Create() -> *mut ArkUI_ListItemSwipeActionOption;
+}
+extern "C" {
+    #[doc = " @brief Destroy the ListitemSwipeActionOption instance.\n\n @param option List Item SwipeActionOption instance to be destroyed.\n @since 12"]
+    pub fn OH_ArkUI_ListItemSwipeActionOption_Dispose(option: *mut ArkUI_ListItemSwipeActionOption);
+}
+extern "C" {
+    #[doc = " @brief Set the layout content on the left (vertical layout) or top (horizontal layout)\n of the ListItem SwipeActionItem.\n\n @param option List Item SwipeActionItem instance.\n @param item Layout information.\n @since 12"]
+    pub fn OH_ArkUI_ListItemSwipeActionOption_SetStart(
+        option: *mut ArkUI_ListItemSwipeActionOption,
+        item: *mut ArkUI_ListItemSwipeActionItem,
+    );
+}
+extern "C" {
+    #[doc = " @brief Set the layout content on the right (vertical layout) or bottom (horizontal layout)\n of the ListItem SwipeActionItem.\n\n @param option List Item SwipeActionItem instance.\n @param item Layout information.\n @since 12"]
+    pub fn OH_ArkUI_ListItemSwipeActionOption_SetEnd(
+        option: *mut ArkUI_ListItemSwipeActionOption,
+        item: *mut ArkUI_ListItemSwipeActionItem,
+    );
+}
+extern "C" {
+    #[doc = " @brief Set the sliding effect.\n\n @param option List Item SwipeActionItem instance.\n @param edgeEffect Sliding effect.\n @since 12"]
+    pub fn OH_ArkUI_ListItemSwipeActionOption_SetEdgeEffect(
+        option: *mut ArkUI_ListItemSwipeActionOption,
+        edgeEffect: ArkUI_ListItemSwipeEdgeEffect,
+    );
+}
+extern "C" {
+    #[doc = " @brief Get the sliding effect.\n\n @param option List Item SwipeActionItem instance.\n @return Sliding effect. The default return value is 0. If -1 is returned, the return fails.\n         The possible cause of the failure is that the option parameter is abnormal, such as a null pointer.\n @since 12"]
+    pub fn OH_ArkUI_ListItemSwipeActionOption_GetEdgeEffect(
+        option: *mut ArkUI_ListItemSwipeActionOption,
+    ) -> i32;
+}
+extern "C" {
+    #[doc = " @brief The event called when the sliding operation offset changes.\n\n @param option List Item SwipeActionItem instance.\n @param callback Callback Events.\n        offset Slide offset.\n @since 12"]
+    pub fn OH_ArkUI_ListItemSwipeActionOption_SetOnOffsetChange(
+        option: *mut ArkUI_ListItemSwipeActionOption,
+        callback: ::std::option::Option<unsafe extern "C" fn(offset: f32)>,
+    );
+}
+extern "C" {
+    #[doc = " @brief Set the event triggered when the sliding operation offset changes.\n\n @param option List Item SwipeActionItem instance.\n @param userData User defined data.\n @param callback Callback Events.\n        offset Slide offset.\n @since 12"]
+    pub fn OH_ArkUI_ListItemSwipeActionOption_SetOnOffsetChangeWithUserData(
+        option: *mut ArkUI_ListItemSwipeActionOption,
+        userData: *mut ::std::os::raw::c_void,
+        callback: ::std::option::Option<
+            unsafe extern "C" fn(offset: f32, userData: *mut ::std::os::raw::c_void),
+        >,
+    );
+}
+extern "C" {
+    #[doc = " @brief Create configuration items for the ListChildrenMainSize interface settings.\n\n @return ListChildrenMainSize configuration item instance.If the object returns a null pointer,\n         it indicates a creation failure, and the reason for the failure may be that the address space is full.\n @since 12"]
+    pub fn OH_ArkUI_ListChildrenMainSizeOption_Create() -> *mut ArkUI_ListChildrenMainSize;
+}
+extern "C" {
+    #[doc = " @brief Destroy the ListChildrenMainSize instance.\n\n @param option The ListChildrenMainSize instance to be destroyed.\n @since 12"]
+    pub fn OH_ArkUI_ListChildrenMainSizeOption_Dispose(option: *mut ArkUI_ListChildrenMainSize);
+}
+extern "C" {
+    #[doc = " @brief Set the default size of ChildrenMainSizeOption for the List component.\n\n @param option ListChildrenMainSize instance.\n @param defaultMainSize The default size of the ListItem under the List, measured in vp.\n @return 0 represents success. If defaultMainSize is less than 0 or option is a null pointer, return 401.\n @since 12"]
+    pub fn OH_ArkUI_ListChildrenMainSizeOption_SetDefaultMainSize(
+        option: *mut ArkUI_ListChildrenMainSize,
+        defaultMainSize: f32,
+    ) -> i32;
+}
+extern "C" {
+    #[doc = " @brief Get the default size of ChildrenMainSizeOption for the List component.\n\n @param option ListChildrenMainSize instance.\n @return The default size of the ListItem under the List is 0, measured in vp.\n         When the option is a null pointer, it returns -1.\n @since 12"]
+    pub fn OH_ArkUI_ListChildrenMainSizeOption_GetDefaultMainSize(
+        option: *mut ArkUI_ListChildrenMainSize,
+    ) -> f32;
+}
+extern "C" {
+    #[doc = " @brief Reset the array size of ChildrenMainSizeOption for the List component.\n\n @param option ListChildrenMainSize instance.\n @param totalSize Array size.\n @since 12"]
+    pub fn OH_ArkUI_ListChildrenMainSizeOption_Resize(
+        option: *mut ArkUI_ListChildrenMainSize,
+        totalSize: i32,
+    );
+}
+extern "C" {
+    #[doc = " @brief Resize the ChildrenMainSizeOption array operation on the List component.\n\n @param option ListChildrenMainSize instance.\n @param index To modify the starting position of the MainSize array.\n @param deleteCount The number of MainSize arrays to be deleted starting from index.\n @param addCount The number of MainSize arrays to be added starting from index.\n @return 0 represents success. If the function parameter is abnormal, return 401.\n @since 12"]
+    pub fn OH_ArkUI_ListChildrenMainSizeOption_Splice(
+        option: *mut ArkUI_ListChildrenMainSize,
+        index: i32,
+        deleteCount: i32,
+        addCount: i32,
+    ) -> i32;
+}
+extern "C" {
+    #[doc = " @brief Update the value of the ChildrenMainSizeOption array in the List component.\n\n @param option ListChildrenMainSize instance.\n @param index To modify the starting position of the MainSize array.\n @param mainSize The actual modified value.\n @return 0 represents success. If the function parameter is abnormal, return 401.\n @since 12"]
+    pub fn OH_ArkUI_ListChildrenMainSizeOption_UpdateSize(
+        option: *mut ArkUI_ListChildrenMainSize,
+        index: i32,
+        mainSize: f32,
+    ) -> i32;
+}
+extern "C" {
+    #[doc = " @brief Get the value of the ChildrenMainSizeOption array for the List component.\n\n @param option ListChildrenMainSize instance.\n @param index The index position of the value to be obtained.\n @return The value of the specific position of the array. If the function parameter is abnormal, return -1.\n @since 12"]
+    pub fn OH_ArkUI_ListChildrenMainSizeOption_GetMainSize(
+        option: *mut ArkUI_ListChildrenMainSize,
+        index: i32,
+    ) -> f32;
+}
+extern "C" {
+    #[doc = " @brief Creates measurement information for this custom span.\n\n @return Returns a <b>CustomSpanMeasureInfo</b> instance.\n <br> If the result returns nullptr, there may be out of memory.\n @since 12"]
+    pub fn OH_ArkUI_CustomSpanMeasureInfo_Create() -> *mut ArkUI_CustomSpanMeasureInfo;
+}
+extern "C" {
+    #[doc = " @brief Disposes of measurement information of this custom span.\n\n @param info The CustomSpanMeasureInfo instance to be destroyed.\n @since 12"]
+    pub fn OH_ArkUI_CustomSpanMeasureInfo_Dispose(info: *mut ArkUI_CustomSpanMeasureInfo);
+}
+extern "C" {
+    #[doc = " @brief Obtains the font size of a custom span.\n\n @param info Indicates the pointer to the measurement information of a custom span.\n @return Returns the font size. If a parameter error occurs, <b>0.0f</b> is returned.\n <br> Possible causes: Parameter verification failed, the parameter should not be nullptr.\n @since 12"]
+    pub fn OH_ArkUI_CustomSpanMeasureInfo_GetFontSize(
+        info: *mut ArkUI_CustomSpanMeasureInfo,
+    ) -> f32;
+}
+extern "C" {
+    #[doc = " @brief Creates measurement metrics for this custom span.\n\n @return Returns a <b>CustomSpanMetrics</b> instance.\n <br> If the result returns nullptr, there may be out of memory.\n @since 12"]
+    pub fn OH_ArkUI_CustomSpanMetrics_Create() -> *mut ArkUI_CustomSpanMetrics;
+}
+extern "C" {
+    #[doc = " @brief Disposes of measurement metrics of this custom span.\n\n @param metrics The CustomSpanMetrics instance to be destroyed.\n @since 12"]
+    pub fn OH_ArkUI_CustomSpanMetrics_Dispose(metrics: *mut ArkUI_CustomSpanMetrics);
+}
+extern "C" {
+    #[doc = " @brief Sets the width for a custom span.\n\n @param metrics Indicates the pointer to a <b>CustomSpanMetrics</b> instance.\n @param width Indicates the width, in px. The width should be greater than 0.\n @return Returns the result code.\n         Returns {@link ARKUI_ERROR_CODE_NO_ERROR} if the operation is successful.\n         Returns {@link ARKUI_ERROR_CODE_PARAM_INVALID} if a parameter error occurs.\n         <br> Possible causes: Parameter verification failed, the parameter should not be nullptr.\n @since 12"]
+    pub fn OH_ArkUI_CustomSpanMetrics_SetWidth(
+        metrics: *mut ArkUI_CustomSpanMetrics,
+        width: f32,
+    ) -> i32;
+}
+extern "C" {
+    #[doc = " @brief Sets the height for a custom span.\n\n @param metrics Indicates the pointer to a <b>CustomSpanMetrics</b> instance.\n @param width Indicates the height, in px. The width should be greater than 0.\n @return Returns the result code.\n         Returns {@link ARKUI_ERROR_CODE_NO_ERROR} if the operation is successful.\n         Returns {@link ARKUI_ERROR_CODE_PARAM_INVALID} if a parameter error occurs.\n         <br> Possible causes: Parameter verification failed, the parameter should not be nullptr.\n @since 12"]
+    pub fn OH_ArkUI_CustomSpanMetrics_SetHeight(
+        metrics: *mut ArkUI_CustomSpanMetrics,
+        height: f32,
+    ) -> i32;
+}
+extern "C" {
+    #[doc = " @brief Creates drawing information for this custom span.\n\n @return Returns a <b>CustomSpanDrawInfo</b> instance.\n <br> If the result returns nullptr, there may be out of memory.\n @since 12"]
+    pub fn OH_ArkUI_CustomSpanDrawInfo_Create() -> *mut ArkUI_CustomSpanDrawInfo;
+}
+extern "C" {
+    #[doc = " @brief Disposes of drawing information for this custom span.\n\n @param info The CustomSpanDrawInfo instance to be destroyed.\n @since 12"]
+    pub fn OH_ArkUI_CustomSpanDrawInfo_Dispose(info: *mut ArkUI_CustomSpanDrawInfo);
+}
+extern "C" {
+    #[doc = " @brief Obtains the x-axis offset of the custom span relative to the mounted component.\n\n @param info Indicates the pointer to the drawing information of a custom span.\n @return Returns the x-axis offset. If a parameter error occurs, <b>0.0f</b> is returned.\n <br> Possible causes: Parameter verification failed, the parameter should not be nullptr.\n @since 12"]
+    pub fn OH_ArkUI_CustomSpanDrawInfo_GetXOffset(info: *mut ArkUI_CustomSpanDrawInfo) -> f32;
+}
+extern "C" {
+    #[doc = " @brief Obtains the top margin of the custom span relative to the mounted component.\n\n @param info Indicates the pointer to the drawing information of a custom span.\n @return Returns the top margin. If a parameter error occurs, <b>0.0f</b> is returned.\n <br> Possible causes: Parameter verification failed, the parameter should not be nullptr.\n @since 12"]
+    pub fn OH_ArkUI_CustomSpanDrawInfo_GetLineTop(info: *mut ArkUI_CustomSpanDrawInfo) -> f32;
+}
+extern "C" {
+    #[doc = " @brief Obtains the bottom margin of the custom span relative to the mounted component.\n\n @param info Indicates the pointer to the drawing information of a custom span.\n @return Returns the bottom margin. If a parameter error occurs, <b>0.0f</b> is returned.\n <br> Possible causes: Parameter verification failed, the parameter should not be nullptr.\n @since 12"]
+    pub fn OH_ArkUI_CustomSpanDrawInfo_GetLineBottom(info: *mut ArkUI_CustomSpanDrawInfo) -> f32;
+}
+extern "C" {
+    #[doc = " @brief Obtains the baseline offset of the custom span relative to the mounted component.\n\n @param info Indicates the pointer to the drawing information of a custom span.\n @return Returns the baseline offset. If a parameter error occurs, <b>0.0f</b> is returned.\n <br> Possible causes: Parameter verification failed, the parameter should not be nullptr.\n @since 12"]
+    pub fn OH_ArkUI_CustomSpanDrawInfo_GetBaseline(info: *mut ArkUI_CustomSpanDrawInfo) -> f32;
+}
+extern "C" {
+    #[doc = " @brief Create a image frame from the image path.\n @param src Indicates the image path.\n @return Returns the pointer to the image frame object.\n If a null pointer is returned, the object fails to be created. The possible cause is that\n the src parameter is abnormal, for example, the pointer is null.\n @since 12"]
+    pub fn OH_ArkUI_ImageAnimatorFrameInfo_CreateFromString(
+        src: *mut ::std::os::raw::c_char,
+    ) -> *mut ArkUI_ImageAnimatorFrameInfo;
+}
+extern "C" {
+    #[doc = " @brief Create a image frame from the drawable descriptor.\n\n @param drawable Indicates the pointer to the drawable descriptor.\n @return Returns the pointer to the image frame object.\n If a null pointer is returned, the object fails to be created. The possible cause is that\n the drawable parameter is abnormal, for example, the pointer is null.\n @since 12"]
+    pub fn OH_ArkUI_ImageAnimatorFrameInfo_CreateFromDrawableDescriptor(
+        drawable: *mut ArkUI_DrawableDescriptor,
+    ) -> *mut ArkUI_ImageAnimatorFrameInfo;
+}
+extern "C" {
+    #[doc = " @brief Destroy the pointer to the image frame.\n\n @param imageInfo Indicates the pointer to the image frame.\n @since 12"]
+    pub fn OH_ArkUI_ImageAnimatorFrameInfo_Dispose(imageInfo: *mut ArkUI_ImageAnimatorFrameInfo);
+}
+extern "C" {
+    #[doc = " @brief Set the width of the image frame.\n\n @param imageInfo Indicates the pointer to the image frame.\n @param width Indicates the width of the image frame, and the unit is PX.\n @since 12"]
+    pub fn OH_ArkUI_ImageAnimatorFrameInfo_SetWidth(
+        imageInfo: *mut ArkUI_ImageAnimatorFrameInfo,
+        width: i32,
+    );
+}
+extern "C" {
+    #[doc = " @brief Get the width of the image frame.\n\n @param imageInfo Indicates the pointer to the image frame.\n @return Return the width of the image frame, and the unit is PX. Return 0 when the imageInfo is null.\n @since 12"]
+    pub fn OH_ArkUI_ImageAnimatorFrameInfo_GetWidth(
+        imageInfo: *mut ArkUI_ImageAnimatorFrameInfo,
+    ) -> i32;
+}
+extern "C" {
+    #[doc = " @brief Set the height of the image frame.\n\n @param imageInfo Indicates the pointer to the image frame.\n @param height Indicates the height of the image frame, and the unit is PX.\n @since 12"]
+    pub fn OH_ArkUI_ImageAnimatorFrameInfo_SetHeight(
+        imageInfo: *mut ArkUI_ImageAnimatorFrameInfo,
+        height: i32,
+    );
+}
+extern "C" {
+    #[doc = " @brief Get the height of the image frame.\n\n @param imageInfo Indicates the pointer to the image frame.\n @return Return the height of the image frame, and the unit is PX. Return 0 when the imageInfo is null.\n @since 12"]
+    pub fn OH_ArkUI_ImageAnimatorFrameInfo_GetHeight(
+        imageInfo: *mut ArkUI_ImageAnimatorFrameInfo,
+    ) -> i32;
+}
+extern "C" {
+    #[doc = " @brief Set the vertical coordinate of the image relative to the upper left corner of the widget.\n\n @param imageInfo Indicates the pointer to the image frame.\n @param top Indicates the vertical coordinate of the image relative to the upper left corner of the widget,\n and the unit is PX.\n @since 12"]
+    pub fn OH_ArkUI_ImageAnimatorFrameInfo_SetTop(
+        imageInfo: *mut ArkUI_ImageAnimatorFrameInfo,
+        top: i32,
+    );
+}
+extern "C" {
+    #[doc = " @brief Get the vertical coordinate of the image relative to the upper left corner of the widget.\n\n @param imageInfo Indicates the pointer to the image frame.\n @return Returns the vertical coordinate of the image relative to the upper left corner of the widget,\n and the unit is PX. Return 0 when the imageInfo is null.\n @since 12"]
+    pub fn OH_ArkUI_ImageAnimatorFrameInfo_GetTop(
+        imageInfo: *mut ArkUI_ImageAnimatorFrameInfo,
+    ) -> i32;
+}
+extern "C" {
+    #[doc = " @brief Set the horizontal coordinate of the image relative to the upper left corner of the widget.\n\n @param imageInfo Indicates the pointer to the image frame.\n @param left Indicates the horizontal coordinate of the image relative to the upper left corner of the widget,\n and the unit is PX.\n @since 12"]
+    pub fn OH_ArkUI_ImageAnimatorFrameInfo_SetLeft(
+        imageInfo: *mut ArkUI_ImageAnimatorFrameInfo,
+        left: i32,
+    );
+}
+extern "C" {
+    #[doc = " @brief Get the horizontal coordinate of the image relative to the upper left corner of the widget.\n\n @param imageInfo Indicates the pointer to the image frame.\n @return Returns the horizontal coordinate of the image relative to the upper left corner of the widget,\n and the unit is PX. Return 0 when the imageInfo is null.\n @since 12"]
+    pub fn OH_ArkUI_ImageAnimatorFrameInfo_GetLeft(
+        imageInfo: *mut ArkUI_ImageAnimatorFrameInfo,
+    ) -> i32;
+}
+extern "C" {
+    #[doc = " @brief Set the playback duration of the image frame.\n\n @param imageInfo Indicates the pointer to the image frame.\n @param duration Indicates the playback duration of each image frame, and the unit is milliseconds.\n @since 12"]
+    pub fn OH_ArkUI_ImageAnimatorFrameInfo_SetDuration(
+        imageInfo: *mut ArkUI_ImageAnimatorFrameInfo,
+        duration: i32,
+    );
+}
+extern "C" {
+    #[doc = " @brief Get the playback duration of the image frame.\n\n @param imageInfo Indicates the pointer to the image frame.\n @return Returns the playback duration of the image frame, and the unit is milliseconds.\n Return 0 when the imageInfo is null.\n @since 12"]
+    pub fn OH_ArkUI_ImageAnimatorFrameInfo_GetDuration(
+        imageInfo: *mut ArkUI_ImageAnimatorFrameInfo,
+    ) -> i32;
+}
+extern "C" {
+    #[doc = " @brief Create accessibility state.\n\n @return Returns the pointer to the accessibility state object.\n If a null pointer is returned, the object fails to be created. The possible cause is that the address space is full.\n @since 12"]
+    pub fn OH_ArkUI_AccessibilityState_Create() -> *mut ArkUI_AccessibilityState;
+}
+extern "C" {
+    #[doc = " @brief Dispose accessibility state.\n\n @param state accessibility state object.\n @since 12"]
+    pub fn OH_ArkUI_AccessibilityState_Dispose(state: *mut ArkUI_AccessibilityState);
+}
+extern "C" {
+    #[doc = " @brief Set accessibility state disabled.\n\n @param state accessibility state object.\n @param isDisabled accessibility state disabled, Value 1 indicates disabled and 0 indicates enbled.\n @since 12"]
+    pub fn OH_ArkUI_AccessibilityState_SetDisabled(
+        state: *mut ArkUI_AccessibilityState,
+        isDisabled: i32,
+    );
+}
+extern "C" {
+    #[doc = " @brief Get accessibility state disabled.\n\n @param state accessibility state object.\n @return accessibility state disabled, Value 1 indicates disabled and 0 indicates enbled. The default value is 0.\n         If the function parameter is abnormal, return the default value.\n @since 12"]
+    pub fn OH_ArkUI_AccessibilityState_IsDisabled(state: *mut ArkUI_AccessibilityState) -> i32;
+}
+extern "C" {
+    #[doc = " @brief Set accessibility state selected.\n\n @param state accessibility state object.\n @param isSelected accessibility state selected, Value 1 indicates selected, and 0 indicates not selected.\n        The default value is 0.\n @since 12"]
+    pub fn OH_ArkUI_AccessibilityState_SetSelected(
+        state: *mut ArkUI_AccessibilityState,
+        isSelected: i32,
+    );
+}
+extern "C" {
+    #[doc = " @brief Get accessibility state selected.\n\n @param state accessibility state object.\n @return accessibility state selected, Value 1 indicates selected, and 0 indicates not selected.\n         The default value is 0.\n         If the function parameter is abnormal, return the default value.\n @since 12"]
+    pub fn OH_ArkUI_AccessibilityState_IsSelected(state: *mut ArkUI_AccessibilityState) -> i32;
+}
+extern "C" {
+    #[doc = " @brief Set accessibility checked state.\n\n @param state accessibility state object.\n @param checkedState checked state, and uses the {@link ArkUI_AccessibilityCheckedState} enumeration value,\n        The default value is ARKUI_ACCESSIBILITY_UNCHECKED.\n @since 12"]
+    pub fn OH_ArkUI_AccessibilityState_SetCheckedState(
+        state: *mut ArkUI_AccessibilityState,
+        checkedState: i32,
+    );
+}
+extern "C" {
+    #[doc = " @brief Get accessibility checked state.\n\n @param state accessibility state object.\n @return checked state, and uses the {@link ArkUI_AccessibilityCheckedState} enumeration value,\n         The default value is ARKUI_ACCESSIBILITY_UNCHECKED.\n         If the function parameter is abnormal, return the default value.\n @since 12"]
+    pub fn OH_ArkUI_AccessibilityState_GetCheckedState(state: *mut ArkUI_AccessibilityState)
+        -> i32;
+}
+extern "C" {
+    #[doc = " @brief Create accessibility value.\n\n @return Returns the pointer to the accessibility state object.\n If a null pointer is returned, the object fails to be created. The possible cause is that the address space is full.\n @since 12"]
+    pub fn OH_ArkUI_AccessibilityValue_Create() -> *mut ArkUI_AccessibilityValue;
+}
+extern "C" {
+    #[doc = " @brief Dispose accessibility value.\n\n @param value accessibility value object.\n @since 12"]
+    pub fn OH_ArkUI_AccessibilityValue_Dispose(value: *mut ArkUI_AccessibilityValue);
+}
+extern "C" {
+    #[doc = " @brief Set accessibility minimum value.\n\n @param value accessibility value object.\n @param min minimum value based on range components, The default value is -1.\n @since 12"]
+    pub fn OH_ArkUI_AccessibilityValue_SetMin(value: *mut ArkUI_AccessibilityValue, min: i32);
+}
+extern "C" {
+    #[doc = " @brief Get accessibility minimum value.\n\n @param value accessibility value object.\n @return minimum value based on range components, The default value is -1.\n         If the function parameter is abnormal, return -1.\n @since 12"]
+    pub fn OH_ArkUI_AccessibilityValue_GetMin(value: *mut ArkUI_AccessibilityValue) -> i32;
+}
+extern "C" {
+    #[doc = " @brief Set accessibility minimum value.\n\n @param value accessibility value object.\n @param max maximum value based on range components, The default value is -1.\n @since 12"]
+    pub fn OH_ArkUI_AccessibilityValue_SetMax(value: *mut ArkUI_AccessibilityValue, max: i32);
+}
+extern "C" {
+    #[doc = " @brief Get accessibility minimum value.\n\n @param value accessibility value object.\n @return maximum value based on range components, The default value is -1.\n         If the function parameter is abnormal, return -1.\n @since 12"]
+    pub fn OH_ArkUI_AccessibilityValue_GetMax(value: *mut ArkUI_AccessibilityValue) -> i32;
+}
+extern "C" {
+    #[doc = " @brief Set accessibility current value.\n\n @param value accessibility value object.\n @param current value based on range components, The default value is -1.\n @since 12"]
+    pub fn OH_ArkUI_AccessibilityValue_SetCurrent(
+        value: *mut ArkUI_AccessibilityValue,
+        current: i32,
+    );
+}
+extern "C" {
+    #[doc = " @brief Get accessibility current value.\n\n @param value accessibility value object.\n @return current value based on range components, The default value is -1.\n         If the function parameter is abnormal, return -1.\n @since 12"]
+    pub fn OH_ArkUI_AccessibilityValue_GetCurrent(value: *mut ArkUI_AccessibilityValue) -> i32;
+}
+extern "C" {
+    #[doc = " @brief Set accessibility minimum value.\n\n @param value accessibility value object.\n @param rangeMin minimum value based on range components, The default value is -1.\n @since 18"]
+    #[cfg(feature = "api-18")]
+    pub fn OH_ArkUI_AccessibilityValue_SetRangeMin(
+        value: *mut ArkUI_AccessibilityValue,
+        rangeMin: i32,
+    );
+}
+extern "C" {
+    #[doc = " @brief Get accessibility minimum value.\n\n @param value accessibility value object.\n @return minimum value based on range components, The default value is -1.\n         If the function parameter is abnormal, return -1.\n @since 18"]
+    #[cfg(feature = "api-18")]
+    pub fn OH_ArkUI_AccessibilityValue_GetRangeMin(value: *mut ArkUI_AccessibilityValue) -> i32;
+}
+extern "C" {
+    #[doc = " @brief Set accessibility maximum value.\n\n @param value accessibility value object.\n @param rangeMax maximum value based on range components, The default value is -1.\n @since 18"]
+    #[cfg(feature = "api-18")]
+    pub fn OH_ArkUI_AccessibilityValue_SetRangeMax(
+        value: *mut ArkUI_AccessibilityValue,
+        rangeMax: i32,
+    );
+}
+extern "C" {
+    #[doc = " @brief Get accessibility maximum value.\n\n @param value accessibility value object.\n @return maximum value based on range components, The default value is -1.\n         If the function parameter is abnormal, return -1.\n @since 18"]
+    #[cfg(feature = "api-18")]
+    pub fn OH_ArkUI_AccessibilityValue_GetRangeMax(value: *mut ArkUI_AccessibilityValue) -> i32;
+}
+extern "C" {
+    #[doc = " @brief Set accessibility current value.\n\n @param value accessibility value object.\n @param rangeCurrent value based on range components, The default value is -1.\n @since 18"]
+    #[cfg(feature = "api-18")]
+    pub fn OH_ArkUI_AccessibilityValue_SetRangeCurrent(
+        value: *mut ArkUI_AccessibilityValue,
+        rangeCurrent: i32,
+    );
+}
+extern "C" {
+    #[doc = " @brief Get accessibility current value.\n\n @param value accessibility value object.\n @return current value based on range components, The default value is -1.\n         If the function parameter is abnormal, return -1.\n @since 18"]
+    #[cfg(feature = "api-18")]
+    pub fn OH_ArkUI_AccessibilityValue_GetRangeCurrent(value: *mut ArkUI_AccessibilityValue)
+        -> i32;
+}
+extern "C" {
+    #[doc = " @brief Set accessibility text value.\n\n @param value accessibility value object.\n @param text The textual description information of the component, which defaults to an empty string.\n @since 12"]
+    pub fn OH_ArkUI_AccessibilityValue_SetText(
+        value: *mut ArkUI_AccessibilityValue,
+        text: *const ::std::os::raw::c_char,
+    );
+}
+extern "C" {
+    #[doc = " @brief Get accessibility text value.\n\n @param value accessibility value object.\n @return The textual description information of the component, which defaults to an empty string;\n         If the function parameter is abnormal, return null.\n @since 12"]
+    pub fn OH_ArkUI_AccessibilityValue_GetText(
+        value: *mut ArkUI_AccessibilityValue,
+    ) -> *const ::std::os::raw::c_char;
+}
+extern "C" {
+    #[doc = " @brief Destroy the instance of Customs Property.\n\n @param handle The instance of Customs Property to be destroyed.\n @since 14"]
+    #[cfg(feature = "api-14")]
+    pub fn OH_ArkUI_CustomProperty_Destroy(handle: *mut ArkUI_CustomProperty);
+}
+extern "C" {
+    #[doc = " @brief Get custom attribute value information.\n\n @param handle Custom attribute object pointer.\n @return Customize the value information within the attribute structure.\n @since 14"]
+    #[cfg(feature = "api-14")]
+    pub fn OH_ArkUI_CustomProperty_GetStringValue(
+        handle: *mut ArkUI_CustomProperty,
+    ) -> *const ::std::os::raw::c_char;
+}
+extern "C" {
+    #[doc = " @brief Get window name from HostWindowInfo.\n\n @param info HostWindowInfo object pointer.\n @return Window name in HostWindowInfo.\n @since 15"]
+    #[cfg(feature = "api-15")]
+    pub fn OH_ArkUI_HostWindowInfo_GetName(
+        info: *mut ArkUI_HostWindowInfo,
+    ) -> *const ::std::os::raw::c_char;
+}
+extern "C" {
+    #[doc = " @brief Destroy the instance of HostWindowInfo.\n\n @param info Instance of HostWindowInfo to be destroyed.\n @since 15"]
+    #[cfg(feature = "api-15")]
+    pub fn OH_ArkUI_HostWindowInfo_Destroy(info: *mut ArkUI_HostWindowInfo);
+}
+extern "C" {
+    #[doc = " @brief Destroy ActiveChildenInfo instance.\n\n @param handle ActiveChild instance to be destroyed.\n @since 14"]
+    #[cfg(feature = "api-14")]
+    pub fn OH_ArkUI_ActiveChildrenInfo_Destroy(handle: *mut ArkUI_ActiveChildrenInfo);
+}
+extern "C" {
+    #[doc = " @brief Retrieve the child nodes of ActiveChildenInfo with the structure index.\n\n @param handle The ActiveChildenInfo instance for obtaining information.\n @param index The index of child nodes.\n @return The child node pointer corresponding to the index. Return nullptr in case of exception.\n @since 14"]
+    #[cfg(feature = "api-14")]
+    pub fn OH_ArkUI_ActiveChildrenInfo_GetNodeByIndex(
+        handle: *mut ArkUI_ActiveChildrenInfo,
+        index: i32,
+    ) -> ArkUI_NodeHandle;
+}
+extern "C" {
+    #[doc = " @brief Retrieve the number of nodes within the structure of ActiveChildenInfo.\n\n @param handle The ActiveChildenInfo instance for obtaining information.\n @return Number of child nodes. Default value: 0.\n @since 14"]
+    #[cfg(feature = "api-14")]
+    pub fn OH_ArkUI_ActiveChildrenInfo_GetCount(handle: *mut ArkUI_ActiveChildrenInfo) -> i32;
+}
+extern "C" {
+    #[doc = " @brief Create linear progress indicator style information.\n\n @return Returns a <b>ProgressLinearStyleOption</b> instance.\n <br> If the result returns nullptr, there may be out of memory.\n @since 15"]
+    #[cfg(feature = "api-15")]
+    pub fn OH_ArkUI_ProgressLinearStyleOption_Create() -> *mut ArkUI_ProgressLinearStyleOption;
+}
+extern "C" {
+    #[doc = " @brief Destroy linear progress indicator style information.\n\n @param option Linear progress indicator style information.\n @since 15"]
+    #[cfg(feature = "api-15")]
+    pub fn OH_ArkUI_ProgressLinearStyleOption_Destroy(option: *mut ArkUI_ProgressLinearStyleOption);
+}
+extern "C" {
+    #[doc = " @brief Set whether the scan effect is enabled.\n\n @param option Linear progress indicator style information.\n @param enabled Whether to enable the scan effect. Default value: false.\n @since 15"]
+    #[cfg(feature = "api-15")]
+    pub fn OH_ArkUI_ProgressLinearStyleOption_SetScanEffectEnabled(
+        option: *mut ArkUI_ProgressLinearStyleOption,
+        enabled: bool,
+    );
+}
+extern "C" {
+    #[doc = " @brief Set whether smoothing effect is enabled.\n\n @param option Linear progress indicator style information.\n @param enabled Whether to enable the smooth effect. When this effect is enabled, the progress change to\n the set value takes place gradually. Otherwise, it takes place immediately. Default value: true.\n @since 15"]
+    #[cfg(feature = "api-15")]
+    pub fn OH_ArkUI_ProgressLinearStyleOption_SetSmoothEffectEnabled(
+        option: *mut ArkUI_ProgressLinearStyleOption,
+        enabled: bool,
+    );
+}
+extern "C" {
+    #[doc = " @brief Set linear progress indicator stroke width.\n\n @param option Linear progress indicator style information.\n @param strokeWidth Stroke width of the progress indicator. It cannot be set in percentage.\n Default value: 4.0vp.\n @since 15"]
+    #[cfg(feature = "api-15")]
+    pub fn OH_ArkUI_ProgressLinearStyleOption_SetStrokeWidth(
+        option: *mut ArkUI_ProgressLinearStyleOption,
+        strokeWidth: f32,
+    );
+}
+extern "C" {
+    #[doc = " @brief Set linear progress indicator stroke radius.\n\n @param option Linear progress indicator style information.\n @param strokeRadius Rounded corner radius of the progress indicator. Value range: [0, strokeWidth/2].\n Default value: strokeWidth/2.\n @since 15"]
+    #[cfg(feature = "api-15")]
+    pub fn OH_ArkUI_ProgressLinearStyleOption_SetStrokeRadius(
+        option: *mut ArkUI_ProgressLinearStyleOption,
+        strokeRadius: f32,
+    );
+}
+extern "C" {
+    #[doc = " @brief Get whether scan effect is enable.\n\n @param option Linear progress indicator style information.\n @return Whether to enable the scan effect.\n @since 15"]
+    #[cfg(feature = "api-15")]
+    pub fn OH_ArkUI_ProgressLinearStyleOption_GetScanEffectEnabled(
+        option: *mut ArkUI_ProgressLinearStyleOption,
+    ) -> bool;
+}
+extern "C" {
+    #[doc = " @brief Get whether smoothing effect is enabled.\n\n @param option Linear progress indicator style information.\n @return Whether to enable the smooth effect.\n @since 15"]
+    #[cfg(feature = "api-15")]
+    pub fn OH_ArkUI_ProgressLinearStyleOption_GetSmoothEffectEnabled(
+        option: *mut ArkUI_ProgressLinearStyleOption,
+    ) -> bool;
+}
+extern "C" {
+    #[doc = " @brief Get linear progress indicator stroke width.\n\n @param option Linear progress indicator style information.\n @return Stroke width of the progress indicator.\n @since 15"]
+    #[cfg(feature = "api-15")]
+    pub fn OH_ArkUI_ProgressLinearStyleOption_GetStrokeWidth(
+        option: *mut ArkUI_ProgressLinearStyleOption,
+    ) -> f32;
+}
+extern "C" {
+    #[doc = " @brief Get linear progress indicator stroke radius.\n\n @param option Linear progress indicator style information.\n @return Rounded corner radius of the progress indicator.\n @since 15"]
+    #[cfg(feature = "api-15")]
+    pub fn OH_ArkUI_ProgressLinearStyleOption_GetStrokeRadius(
+        option: *mut ArkUI_ProgressLinearStyleOption,
+    ) -> f32;
+}
+extern "C" {
+    #[doc = " @brief Create a cross-language option instance.\n\n @return Returns a cross-language option instance. If the result is a null pointer, it may be out of memory.\n @since 15"]
+    #[cfg(feature = "api-15")]
+    pub fn OH_ArkUI_CrossLanguageOption_Create() -> *mut ArkUI_CrossLanguageOption;
+}
+extern "C" {
+    #[doc = " @brief Destroy the cross-language option instance.\n\n @param option The cross-language option instance.\n @since 15"]
+    #[cfg(feature = "api-15")]
+    pub fn OH_ArkUI_CrossLanguageOption_Destroy(option: *mut ArkUI_CrossLanguageOption);
+}
+extern "C" {
+    #[doc = " @brief Enable the attribute setting in the cross-language option.\n\n @param option The cross-language option.\n @param enabled The attribute setting in the cross-language option.\n Default value: false.\n @since 15"]
+    #[cfg(feature = "api-15")]
+    pub fn OH_ArkUI_CrossLanguageOption_SetAttributeSettingStatus(
+        option: *mut ArkUI_CrossLanguageOption,
+        enabled: bool,
+    );
+}
+extern "C" {
+    #[doc = " @brief Get the attribute setting enable of the cross-language option.\n\n @param option The cross-language option.\n @return The attribute setting enable of the cross-language option.\n @since 15"]
+    #[cfg(feature = "api-15")]
+    pub fn OH_ArkUI_CrossLanguageOption_GetAttributeSettingStatus(
+        option: *mut ArkUI_CrossLanguageOption,
+    ) -> bool;
+}
+extern "C" {
+    #[doc = " @brief Creates an option for taking snapshot, the returned value must be released through\n        {@link OH_ArkUI_DestroySnapshotOptions} when it's not used anymore.\n\n @return Returns the pointer to the created snapshot options object.If the object returns a null pointer,\n         it indicates a creation failure, and the reason for the failure may be that the address space is full.\n @since 15"]
+    #[cfg(feature = "api-15")]
+    pub fn OH_ArkUI_CreateSnapshotOptions() -> *mut ArkUI_SnapshotOptions;
+}
+extern "C" {
+    #[doc = " @brief Dispose a snapshot option object.\n\n @param snapshotOptions Indicates the pointer to the snapshot option.\n @since 15"]
+    #[cfg(feature = "api-15")]
+    pub fn OH_ArkUI_DestroySnapshotOptions(snapshotOptions: *mut ArkUI_SnapshotOptions);
+}
+extern "C" {
+    #[doc = " @brief Config the snapshot option with scale.\n\n @param snapshotOptions Indicates the pointer to the snapshot option.\n @param scale Indicates the scale property to take the snapshot.\n @return Returns {@link ARKUI_ERROR_CODE_NO_ERROR} if the operation is successful.\n         Returns {@link ARKUI_ERROR_CODE_PARAM_INVALID} if a parameter error occurs.\n @since 15"]
+    #[cfg(feature = "api-15")]
+    pub fn OH_ArkUI_SnapshotOptions_SetScale(
+        snapshotOptions: *mut ArkUI_SnapshotOptions,
+        scale: f32,
+    ) -> i32;
+}
+extern "C" {
+    #[doc = " @brief Sets the color mode for snapshot capture.\n By default, snapshots are captured in SRGB mode, which may lose visual effects for components using wide color\n gamut display modes.\n If the target component's color space is known, specify it through <b>colorSpace</b> and set <b>isAuto</b> to\n <b>false</b> to achieve optimal snapshot quality.\n Since determining the exact color space used by a component is often difficult, set <b>isAuto</b> to <b>true</b>\n to let the system automatically select the appropriate color space.\n If <b>isAuto</b> is set to <b>true</b>, the <b>colorSpace</b> parameter value is ignored.\n\n @param snapshotOptions Pointer to the target snapshot configuration options.\n @param colorSpace Target color space. Supported values: <b>3</b> (DISPLAY_P3), <b>4</b> (SRGB), <b>27</b>\n                   (DISPLAY_BT2020_SRGB).\n @param isAuto Whether to auto-detect the color space.\n               <b>true</b>: ignores the <b>colorSpace</b> parameter value and auto-detects the color space.\n               <b>false</b>: uses the color space specified by <b>colorSpace</b>.\n @return Returns the result code.\n         Returns {@link ARKUI_ERROR_CODE_NO_ERROR} if the operation is successful.\n         Returns {@link ARKUI_ERROR_CODE_PARAM_INVALID} if a parameter error occurs.\n @since 23"]
+    #[cfg(feature = "api-23")]
+    pub fn OH_ArkUI_SnapshotOptions_SetColorMode(
+        snapshotOptions: *mut ArkUI_SnapshotOptions,
+        colorSpace: i32,
+        isAuto: bool,
+    ) -> i32;
+}
+extern "C" {
+    #[doc = " @brief Sets the dynamic range mode for snapshot capture.\n By default, the system captures snapshots in {@link ARKUI_DYNAMIC_RANGE_MODE_STANDARD} mode.\n To use a specific mode, specify it via the <b>dynamicRangeMode</b> parameter and set <b>isAuto</b> to <b>false</b>.\n Alternatively, set <b>isAuto</b> to <b>true</b> to let the system auto-detect the appropriate dynamic range mode.\n If <b>isAuto</b> is set to <b>true</b>, the <b>dynamicRangeMode</b> parameter value is ignored.\n\n @param snapshotOptions Pointer to the target snapshot configuration options.\n @param dynamicRangeMode Target dynamic range mode, specified using {@link ArkUI_DynamicRangeMode}.\n @param isAuto Whether to auto-detect the dynamic range mode.\n               <b>true</b>: ignores the <b>dynamicRangeMode</b> parameter value and auto-detects the dynamic range\n                            mode.\n               <b>false</b>: uses the dynamic range mode specified by <b>dynamicRangeMode</b>.\n @return Returns the result code.\n         Returns {@link ARKUI_ERROR_CODE_NO_ERROR} if the operation is successful.\n         Returns {@link ARKUI_ERROR_CODE_PARAM_INVALID} if a parameter error occurs.\n @since 23"]
+    #[cfg(feature = "api-23")]
+    pub fn OH_ArkUI_SnapshotOptions_SetDynamicRangeMode(
+        snapshotOptions: *mut ArkUI_SnapshotOptions,
+        dynamicRangeMode: i32,
+        isAuto: bool,
+    ) -> i32;
+}
+#[repr(C)]
+#[derive(Debug, Copy, Clone)]
+pub struct ArkUI_VisibleAreaEventOptions {
+    _unused: [u8; 0],
+}
+extern "C" {
+    #[doc = " @brief Creates an instance of visible area change event parameters\n\n @return Returns the created instance of visible area change event parameters.\n @since 17"]
+    #[cfg(feature = "api-17")]
+    pub fn OH_ArkUI_VisibleAreaEventOptions_Create() -> *mut ArkUI_VisibleAreaEventOptions;
+}
+extern "C" {
+    #[doc = " @brief Disposes of an instance of visible area change event parameters.\n\n @param option Instance to be destroyed.\n @since 17"]
+    #[cfg(feature = "api-17")]
+    pub fn OH_ArkUI_VisibleAreaEventOptions_Dispose(option: *mut ArkUI_VisibleAreaEventOptions);
+}
+extern "C" {
+    #[doc = " @brief Sets the threshold ratios for visible area changes.\n\n @param option Instance of visible area change event parameters.\n @param value Array of threshold ratios. Each element represents the ratio of the visible area of a component to\n its total area. The visible area is calculated within the parent component's bounds; any area outside the parent\n component is not considered. Each value must be within the [0.0, 1.0] range.\n Values outside this range will be handled as 0.0 or 1.0.\n @param size Size of the threshold array.\n @return Returns the result code.\n         Returns {@link ARKUI_ERROR_CODE_NO_ERROR} if the operation is successful.\n         Returns {@link ARKUI_ERROR_CODE_PARAM_INVALID} if a parameter error occurs.\n         If an error code is returned, it may be due to a failure in parameter validation;\n         the parameter must not be null.\n @since 17"]
+    #[cfg(feature = "api-17")]
+    pub fn OH_ArkUI_VisibleAreaEventOptions_SetRatios(
+        option: *mut ArkUI_VisibleAreaEventOptions,
+        value: *mut f32,
+        size: i32,
+    ) -> i32;
+}
+extern "C" {
+    #[doc = " @brief Sets the expected update interval for visible area changes.\n\n @param option Instance of visible area change event parameters.\n @param value Expected update interval, in ms.  Default value: <b>1000</b>.\n @return Returns the result code.\n         Returns {@link ARKUI_ERROR_CODE_NO_ERROR} if the operation is successful.\n         Returns {@link ARKUI_ERROR_CODE_PARAM_INVALID} if a parameter error occurs.\n         If an error code is returned, it may be due to a failure in parameter validation;\n         the parameter must not be null.\n @since 17"]
+    #[cfg(feature = "api-17")]
+    pub fn OH_ArkUI_VisibleAreaEventOptions_SetExpectedUpdateInterval(
+        option: *mut ArkUI_VisibleAreaEventOptions,
+        value: i32,
+    ) -> i32;
+}
+extern "C" {
+    #[doc = " @brief Sets the flag for controlling if the child components can exceed the parent's bounds.\n if set to false, the part that exceeds the parent's bounds will be considered as invisible area,\n set to true to allow the exceeding, the part that exceeds will be considered as visible area.\n\n Please note that if the parent component set clip(true), the measureFromViewport configuration\n will be ignored.\n\n @param option Instance of visible area change event parameters.\n @param measureFromViewport When this parameter is set to true, the parts of the component\n    that exceed the parent component's area will also be included in the visible area calculation. However, this\n    only applies if the parent component does not explicitly set the clip property to true. If the parent component\n    sets clip to true, regardless of the value of this parameter, the parts that exceed the parent component's area\n    will still be treated as invisible in the visible area calculation.\n Default measureFromViewport: <b>false</b>.\n @return Returns the result code.\n         Returns {@link ARKUI_ERROR_CODE_NO_ERROR} if the operation is successful.\n         Returns {@link ARKUI_ERROR_CODE_PARAM_INVALID} if a parameter error occurs.\n         If an error code is returned, it may be due to a failure in parameter validation;\n         the parameter must not be null.\n @since 22"]
+    #[cfg(feature = "api-22")]
+    pub fn OH_ArkUI_VisibleAreaEventOptions_SetMeasureFromViewport(
+        option: *mut ArkUI_VisibleAreaEventOptions,
+        measureFromViewport: bool,
+    ) -> i32;
+}
+extern "C" {
+    #[doc = " @brief Obtains the threshold ratios for visible area changes.\n\n @param option Instance of visible area change event parameters.\n @param value Array of threshold ratios.\n @param size Size of the threshold array.\n @return Returns the result code.\n         Returns {@link ARKUI_ERROR_CODE_NO_ERROR} if the operation is successful.\n         Returns {@link ARKUI_ERROR_CODE_PARAM_INVALID} if a parameter error occurs.\n         Returns {@link ARKUI_ERROR_CODE_BUFFER_SIZE_ERROR} if the provided buffer size is insufficient.\n         If an error code is returned, it may be due to a failure in parameter validation;\n         the parameter must not be null.\n @since 17"]
+    #[cfg(feature = "api-17")]
+    pub fn OH_ArkUI_VisibleAreaEventOptions_GetRatios(
+        option: *mut ArkUI_VisibleAreaEventOptions,
+        value: *mut f32,
+        size: *mut i32,
+    ) -> i32;
+}
+extern "C" {
+    #[doc = " @brief Obtains the expected update interval for visible area changes.\n\n @param option Instance of visible area change event parameters.\n @return Returns the expected update interval, in ms.  Default value: <b>1000</b>.\n @since 17"]
+    #[cfg(feature = "api-17")]
+    pub fn OH_ArkUI_VisibleAreaEventOptions_GetExpectedUpdateInterval(
+        option: *mut ArkUI_VisibleAreaEventOptions,
+    ) -> i32;
+}
+extern "C" {
+    #[doc = " @brief Obtains the value set through {@link OH_ArkUI_VisibleAreaEventOptions_SetMeasureFromViewport} .\n\n @param option Instance of visible area change event parameters.\n @return Returns the flag for controlling of the visible area calculation. Default value: <b>false</b>.\n\n @since 22"]
+    #[cfg(feature = "api-22")]
+    pub fn OH_ArkUI_VisibleAreaEventOptions_GetMeasureFromViewport(
+        option: *mut ArkUI_VisibleAreaEventOptions,
+    ) -> bool;
+}
+extern "C" {
+    #[doc = "@brief Creates a TextPickerRangeContent instance.\n\n@param length The length of the picker array.\n@return Returns a <b>TextPickerRangeContent</b> instance.\n@since 19"]
+    #[cfg(feature = "api-19")]
+    pub fn OH_ArkUI_TextPickerRangeContentArray_Create(
+        length: i32,
+    ) -> *mut ArkUI_TextPickerRangeContentArray;
+}
+extern "C" {
+    #[doc = "@brief Sets the icon of items in a text picker ranges.\n\n@param handle The TextPickerRangeContent instance for obtaining information.\n@param icon Icon addreass.\n@param index The index position of the value to be obtained.\n@since 19"]
+    #[cfg(feature = "api-19")]
+    pub fn OH_ArkUI_TextPickerRangeContentArray_SetIconAtIndex(
+        handle: *mut ArkUI_TextPickerRangeContentArray,
+        icon: *mut ::std::os::raw::c_char,
+        index: i32,
+    );
+}
+extern "C" {
+    #[doc = "@brief Sets the text of items in a text picker ranges\n\n@param handle The TextPickerRangeContent instance for obtaining information.\n@param text Text content\n@param index The index position of the value to be obtained.\n@since 19"]
+    #[cfg(feature = "api-19")]
+    pub fn OH_ArkUI_TextPickerRangeContentArray_SetTextAtIndex(
+        handle: *mut ArkUI_TextPickerRangeContentArray,
+        text: *mut ::std::os::raw::c_char,
+        index: i32,
+    );
+}
+extern "C" {
+    #[doc = "@brief Destroy the TextPickerRangeContent instance.\n\n@param handle The TextPickerRangeContent instance for obtaining information.\n@since 19"]
+    #[cfg(feature = "api-19")]
+    pub fn OH_ArkUI_TextPickerRangeContentArray_Destroy(
+        handle: *mut ArkUI_TextPickerRangeContentArray,
+    );
+}
+extern "C" {
+    #[doc = "@brief Creates a TextCascadePickerRangeContent instance.\n\n@param length The length of the picker array.\n@return Returns a <b>TextCascadePickerRangeContent</b> instance.\n@since 19"]
+    #[cfg(feature = "api-19")]
+    pub fn OH_ArkUI_TextCascadePickerRangeContentArray_Create(
+        length: i32,
+    ) -> *mut ArkUI_TextCascadePickerRangeContentArray;
+}
+extern "C" {
+    #[doc = "@brief Sets the text of items in a multi text picker ranges.\n\n@param handle The TextCascadePickerRangeContent instance for obtaining information.\n@param text text content\n@param index The index position of the value to be obtained.\n@since 19"]
+    #[cfg(feature = "api-19")]
+    pub fn OH_ArkUI_TextCascadePickerRangeContentArray_SetTextAtIndex(
+        handle: *mut ArkUI_TextCascadePickerRangeContentArray,
+        text: *mut ::std::os::raw::c_char,
+        index: i32,
+    );
+}
+extern "C" {
+    #[doc = "@brief Sets the childs info of items in a multi text picker ranges.\n\n@param handle The TextCascadePickerRangeContent instance for obtaining information.\n@param child The child instance.\n@param index The index position of the value to be obtained.\n@since 19"]
+    #[cfg(feature = "api-19")]
+    pub fn OH_ArkUI_TextCascadePickerRangeContentArray_SetChildAtIndex(
+        handle: *mut ArkUI_TextCascadePickerRangeContentArray,
+        child: *mut ArkUI_TextCascadePickerRangeContentArray,
+        index: i32,
+    );
+}
+extern "C" {
+    #[doc = "@brief Destroy the TextCascadePickerRangeContent instance.\n\n@param handle The TextCascadePickerRangeContent instance for obtaining information.\n@since 19"]
+    #[cfg(feature = "api-19")]
+    pub fn OH_ArkUI_TextCascadePickerRangeContentArray_Destroy(
+        handle: *mut ArkUI_TextCascadePickerRangeContentArray,
+    );
+}
+extern "C" {
+    #[doc = " @brief Create an object for the EmbeddedComponent option.\n\n @return A pointer to the object of the EmbeddedComponent option.\n @since 20"]
+    #[cfg(feature = "api-20")]
+    pub fn OH_ArkUI_EmbeddedComponentOption_Create() -> *mut ArkUI_EmbeddedComponentOption;
+}
+extern "C" {
+    #[doc = " @brief Destroy the object by EmbeddedComponent option.\n\n @param option Pointer to the object by the EmbeddeComponent to be destroyed.\n @since 20"]
+    #[cfg(feature = "api-20")]
+    pub fn OH_ArkUI_EmbeddedComponentOption_Dispose(option: *mut ArkUI_EmbeddedComponentOption);
+}
+extern "C" {
+    #[doc = " @brief Set the onError of EmbeddedComponent.\n\n @param option Pointer to the object option by the EmbeddedComponent.\n @param code Common error information about the API invoking failure.\n @param name Common error name information about the API invoking failure.\n @param message Common error message information about the API invoking failure.\n @since 20"]
+    #[cfg(feature = "api-20")]
+    pub fn OH_ArkUI_EmbeddedComponentOption_SetOnError(
+        option: *mut ArkUI_EmbeddedComponentOption,
+        callback: ::std::option::Option<
+            unsafe extern "C" fn(
+                code: i32,
+                name: *const ::std::os::raw::c_char,
+                message: *const ::std::os::raw::c_char,
+            ),
+        >,
+    );
+}
+extern "C" {
+    #[doc = " @brief Set the onTerminated of EmbeddedComponent.\n\n @param option Pointer to the object option by the EmbeddedComponent.\n @param code Result code returned when the EmbeddedUIExtensionAbility exits.\n @param want Data returned when the EmbeddedUIExtensionAbility exits.\n @since 20"]
+    #[cfg(feature = "api-20")]
+    pub fn OH_ArkUI_EmbeddedComponentOption_SetOnTerminated(
+        option: *mut ArkUI_EmbeddedComponentOption,
+        callback: ::std::option::Option<
+            unsafe extern "C" fn(code: i32, want: *mut AbilityBase_Want),
+        >,
+    );
+}
+extern "C" {
+    #[doc = " @brief Expand the swipe action.\n\n @param node List Item node.\n @param direction expand direction of swipeAction.\n @return Error code.\n         {@link ARKUI_ERROR_CODE_NO_ERROR} success.\n         {@link ARKUI_ERROR_CODE_PARAM_ERROR} The component type of the node is incorrect.\n         {@link ARKUI_ERROR_CODE_NODE_NOT_ON_MAIN_TREE} The node not mounted to component tree.\n @since 21"]
+    #[cfg(feature = "api-21")]
+    pub fn OH_ArkUI_ListItemSwipeAction_Expand(
+        node: ArkUI_NodeHandle,
+        direction: ArkUI_ListItemSwipeActionDirection,
+    ) -> i32;
+}
+extern "C" {
+    #[doc = " @brief Collapse the swipe action.\n\n @param node List Item node.\n @return Error code.\n         {@link ARKUI_ERROR_CODE_NO_ERROR} success.\n         {@link ARKUI_ERROR_CODE_PARAM_ERROR} The component type of the node is incorrect.\n         {@link ARKUI_ERROR_CODE_NODE_NOT_ON_MAIN_TREE} The node not mounted to component tree.\n @since 21"]
+    #[cfg(feature = "api-21")]
+    pub fn OH_ArkUI_ListItemSwipeAction_Collapse(node: ArkUI_NodeHandle) -> i32;
+}
+extern "C" {
+    #[doc = " @brief Create an edge object for position attribute.\n\n @return A pointer to the edge object.\n @since 21"]
+    #[cfg(feature = "api-21")]
+    pub fn OH_ArkUI_PositionEdges_Create() -> *mut ArkUI_PositionEdges;
+}
+extern "C" {
+    #[doc = " @brief Creates a deep copy of an edge object for position attribute.\n\n @param edges A pointer to an edge object.\n @return A pointer to the new edge object.\n @since 21"]
+    #[cfg(feature = "api-21")]
+    pub fn OH_ArkUI_PositionEdges_Copy(
+        edges: *const ArkUI_PositionEdges,
+    ) -> *mut ArkUI_PositionEdges;
+}
+extern "C" {
+    #[doc = " @brief Dispose an edge object for position attribute.\n\n @param edges Pointer to the edge object to be disposed.\n @since 21"]
+    #[cfg(feature = "api-21")]
+    pub fn OH_ArkUI_PositionEdges_Dispose(edges: *mut ArkUI_PositionEdges);
+}
+extern "C" {
+    #[doc = " @brief Sets the top edge of an edge object for position attribute.\n\n @param edges Pointer to the edge object.\n @param value The distance of top edge to the corresponding edge of parent container, in vp.\n @since 21"]
+    #[cfg(feature = "api-21")]
+    pub fn OH_ArkUI_PositionEdges_SetTop(edges: *mut ArkUI_PositionEdges, value: f32);
+}
+extern "C" {
+    #[doc = " @brief Gets the top edge of an edge object for position attribute.\n\n @param edges Pointer to the edge object.\n @param value The distance of top edge to the corresponding edge of parent container, in vp.\n @return Returns the result code.\n      Returns {@link ARKUI_ERROR_CODE_NO_ERROR} if the operation is successful.\n      Returns {@link ARKUI_ERROR_CODE_PARAM_INVALID} if the parameter is invalid.\n @since 21"]
+    #[cfg(feature = "api-21")]
+    pub fn OH_ArkUI_PositionEdges_GetTop(edges: *mut ArkUI_PositionEdges, value: *mut f32) -> i32;
+}
+extern "C" {
+    #[doc = " @brief Sets the left edge of an edge object for position attribute.\n\n @param edges Pointer to the edge object.\n @param value The distance of left edge to the corresponding edge of parent container, in vp.\n @since 21"]
+    #[cfg(feature = "api-21")]
+    pub fn OH_ArkUI_PositionEdges_SetLeft(edges: *mut ArkUI_PositionEdges, value: f32);
+}
+extern "C" {
+    #[doc = " @brief Gets the left edge of an edge object for position attribute.\n\n @param edges Pointer to the edge object.\n @param value The distance of left edge to the corresponding edge of parent container, in vp.\n @return Returns the result code.\n      Returns {@link ARKUI_ERROR_CODE_NO_ERROR} if the operation is successful.\n      Returns {@link ARKUI_ERROR_CODE_PARAM_INVALID} if the parameter is invalid.\n @since 21"]
+    #[cfg(feature = "api-21")]
+    pub fn OH_ArkUI_PositionEdges_GetLeft(edges: *mut ArkUI_PositionEdges, value: *mut f32) -> i32;
+}
+extern "C" {
+    #[doc = " @brief Sets the bottom edge of an edge object for position attribute.\n\n @param edges Pointer to the edge object.\n @param value The distance of bottom edge to the corresponding edge of parent container, in vp.\n @since 21"]
+    #[cfg(feature = "api-21")]
+    pub fn OH_ArkUI_PositionEdges_SetBottom(edges: *mut ArkUI_PositionEdges, value: f32);
+}
+extern "C" {
+    #[doc = " @brief Gets the bottom edge of an edge object for position attribute.\n\n @param edges Pointer to the edge object.\n @param value The distance of bottom edge to the corresponding edge of parent container, in vp.\n @return Returns the result code.\n      Returns {@link ARKUI_ERROR_CODE_NO_ERROR} if the operation is successful.\n      Returns {@link ARKUI_ERROR_CODE_PARAM_INVALID} if the parameter is invalid.\n @since 21"]
+    #[cfg(feature = "api-21")]
+    pub fn OH_ArkUI_PositionEdges_GetBottom(
+        edges: *mut ArkUI_PositionEdges,
+        value: *mut f32,
+    ) -> i32;
+}
+extern "C" {
+    #[doc = " @brief Sets the right edge of an edge object for position attribute.\n\n @param edges Pointer to the edge object.\n @param value The distance of right edge to the corresponding edge of parent container, in vp.\n @since 21"]
+    #[cfg(feature = "api-21")]
+    pub fn OH_ArkUI_PositionEdges_SetRight(edges: *mut ArkUI_PositionEdges, value: f32);
+}
+extern "C" {
+    #[doc = " @brief Gets the right edge of an edge object for position attribute.\n\n @param edges Pointer to the edge object.\n @param value The distance of right edge to the corresponding edge of parent container, in vp.\n @return Returns the result code.\n      Returns {@link ARKUI_ERROR_CODE_NO_ERROR} if the operation is successful.\n      Returns {@link ARKUI_ERROR_CODE_PARAM_INVALID} if the parameter is invalid.\n @since 21"]
+    #[cfg(feature = "api-21")]
+    pub fn OH_ArkUI_PositionEdges_GetRight(edges: *mut ArkUI_PositionEdges, value: *mut f32)
+        -> i32;
+}
+extern "C" {
+    #[doc = " @brief Create a policy object for PixelRound attribute.\n\n @return A pointer to the policy object.\n @since 21"]
+    #[cfg(feature = "api-21")]
+    pub fn OH_ArkUI_PixelRoundPolicy_Create() -> *mut ArkUI_PixelRoundPolicy;
+}
+extern "C" {
+    #[doc = " @brief Dispose a policy object for PixelRound attribute.\n\n @param policy Pointer to the policy object to be disposed.\n @since 21"]
+    #[cfg(feature = "api-21")]
+    pub fn OH_ArkUI_PixelRoundPolicy_Dispose(policy: *mut ArkUI_PixelRoundPolicy);
+}
+extern "C" {
+    #[doc = " @brief Sets the top edge of a policy object for PixelRound attribute.\n\n @param policy Pointer to the policy object.\n @param value The CalcPolicy of top edge.\n @since 21"]
+    #[cfg(feature = "api-21")]
+    pub fn OH_ArkUI_PixelRoundPolicy_SetTop(
+        policy: *mut ArkUI_PixelRoundPolicy,
+        value: ArkUI_PixelRoundCalcPolicy,
+    );
+}
+extern "C" {
+    #[doc = " @brief Gets the top edge of a policy object for PixelRound attribute.\n\n @param policy Pointer to the policy object.\n @param value The CalcPolicy of top edge.\n @return Returns the result code.\n      Returns {@link ARKUI_ERROR_CODE_NO_ERROR} if the operation is successful.\n      Returns {@link ARKUI_ERROR_CODE_PARAM_INVALID} if the parameter is invalid.\n @since 21"]
+    #[cfg(feature = "api-21")]
+    pub fn OH_ArkUI_PixelRoundPolicy_GetTop(
+        policy: *mut ArkUI_PixelRoundPolicy,
+        value: *mut ArkUI_PixelRoundCalcPolicy,
+    ) -> i32;
+}
+extern "C" {
+    #[doc = " @brief Sets the start edge of a policy object for PixelRound attribute.\n\n @param policy Pointer to the policy object.\n @param value The CalcPolicy of start edge.\n @since 21"]
+    #[cfg(feature = "api-21")]
+    pub fn OH_ArkUI_PixelRoundPolicy_SetStart(
+        policy: *mut ArkUI_PixelRoundPolicy,
+        value: ArkUI_PixelRoundCalcPolicy,
+    );
+}
+extern "C" {
+    #[doc = " @brief Gets the start edge of a policy object for PixelRound attribute.\n\n @param policy Pointer to the policy object.\n @param value The CalcPolicy of start edge.\n @return Returns the result code.\n      Returns {@link ARKUI_ERROR_CODE_NO_ERROR} if the operation is successful.\n      Returns {@link ARKUI_ERROR_CODE_PARAM_INVALID} if the parameter is invalid.\n @since 21"]
+    #[cfg(feature = "api-21")]
+    pub fn OH_ArkUI_PixelRoundPolicy_GetStart(
+        policy: *mut ArkUI_PixelRoundPolicy,
+        value: *mut ArkUI_PixelRoundCalcPolicy,
+    ) -> i32;
+}
+extern "C" {
+    #[doc = " @brief Sets the bottom edge of a policy object for PixelRound attribute.\n\n @param policy Pointer to the policy object.\n @param value The CalcPolicy of bottom edge.\n @since 21"]
+    #[cfg(feature = "api-21")]
+    pub fn OH_ArkUI_PixelRoundPolicy_SetBottom(
+        policy: *mut ArkUI_PixelRoundPolicy,
+        value: ArkUI_PixelRoundCalcPolicy,
+    );
+}
+extern "C" {
+    #[doc = " @brief Gets the bottom edge of a policy object for PixelRound attribute.\n\n @param policy Pointer to the policy object.\n @param value The CalcPolicy of bottom edge.\n @return Returns the result code.\n      Returns {@link ARKUI_ERROR_CODE_NO_ERROR} if the operation is successful.\n      Returns {@link ARKUI_ERROR_CODE_PARAM_INVALID} if the parameter is invalid.\n @since 21"]
+    #[cfg(feature = "api-21")]
+    pub fn OH_ArkUI_PixelRoundPolicy_GetBottom(
+        policy: *mut ArkUI_PixelRoundPolicy,
+        value: *mut ArkUI_PixelRoundCalcPolicy,
+    ) -> i32;
+}
+extern "C" {
+    #[doc = " @brief Sets the end edge of a policy object for PixelRound attribute.\n\n @param policy Pointer to the policy object.\n @param value The CalcPolicy of end edge.\n @since 21"]
+    #[cfg(feature = "api-21")]
+    pub fn OH_ArkUI_PixelRoundPolicy_SetEnd(
+        policy: *mut ArkUI_PixelRoundPolicy,
+        value: ArkUI_PixelRoundCalcPolicy,
+    );
+}
+extern "C" {
+    #[doc = " @brief Gets the end edge of a policy object for PixelRound attribute.\n\n @param policy Pointer to the policy object.\n @param value The CalcPolicy of end edge.\n @return Returns the result code.\n      Returns {@link ARKUI_ERROR_CODE_NO_ERROR} if the operation is successful.\n      Returns {@link ARKUI_ERROR_CODE_PARAM_INVALID} if the parameter is invalid.\n @since 21"]
+    #[cfg(feature = "api-21")]
+    pub fn OH_ArkUI_PixelRoundPolicy_GetEnd(
+        policy: *mut ArkUI_PixelRoundPolicy,
+        value: *mut ArkUI_PixelRoundCalcPolicy,
+    ) -> i32;
+}
+extern "C" {
+    #[doc = " @brief Creates a configuration object for textField's counter.\n\n @return A pointer to the configuration object.\n @since 22"]
+    #[cfg(feature = "api-22")]
+    pub fn OH_ArkUI_ShowCounterConfig_Create() -> *mut ArkUI_ShowCounterConfig;
+}
+extern "C" {
+    #[doc = " @brief Disposes a configuration object for textField's counter.\n\n @param config Pointer to the configuration object to be disposed.\n @since 22"]
+    #[cfg(feature = "api-22")]
+    pub fn OH_ArkUI_ShowCounterConfig_Dispose(config: *mut ArkUI_ShowCounterConfig);
+}
+extern "C" {
+    #[doc = " @brief Sets the color of counter when textField hasn't wanted to exceed the maximum character count.\n\n @param config Pointer to the configuration object to be modified.\n @param color The color of the counter when textField hasn't wanted to exceed the maximum character count, in 0xARGB format.\n @since 22"]
+    #[cfg(feature = "api-22")]
+    pub fn OH_ArkUI_ShowCounterConfig_SetCounterTextColor(
+        config: *mut ArkUI_ShowCounterConfig,
+        color: u32,
+    );
+}
+extern "C" {
+    #[doc = " @brief Sets the color of counter when textField wants to exceed the maximum character count.\n\n @param config Pointer to the configuration object to be modified.\n @param color The color of the counter when textField wants to exceed the maximum character count, in 0xARGB format.\n @since 22"]
+    #[cfg(feature = "api-22")]
+    pub fn OH_ArkUI_ShowCounterConfig_SetCounterTextOverflowColor(
+        config: *mut ArkUI_ShowCounterConfig,
+        color: u32,
+    );
+}
+extern "C" {
+    #[doc = " @brief Gets the color of counter when textField hasn't wanted to exceed the maximum character count.\n\n @param config Pointer to the configuration object.\n @return Returns the color of the counter when textField hasn't wanted to exceed the maximum character count, in 0xARGB format.\n @since 22"]
+    #[cfg(feature = "api-22")]
+    pub fn OH_ArkUI_ShowCounterConfig_GetCounterTextColor(
+        config: *mut ArkUI_ShowCounterConfig,
+    ) -> u32;
+}
+extern "C" {
+    #[doc = " @brief Gets the color of counter when textField wants to exceed the maximum character count.\n\n @param config Pointer to the configuration object.\n @return Returns the color of the counter when textField wants to exceed the maximum character count, in 0xARGB format.\n @since 22"]
+    #[cfg(feature = "api-22")]
+    pub fn OH_ArkUI_ShowCounterConfig_GetCounterTextOverflowColor(
+        config: *mut ArkUI_ShowCounterConfig,
+    ) -> u32;
+}
+#[repr(C)]
+#[derive(Debug, Copy, Clone)]
+pub struct ArkUI_TextMenuItem {
+    _unused: [u8; 0],
+}
+extern "C" {
+    #[doc = " @brief Create an object of the text edit menu item.\n\n @return A pointer to the ArkUI_TextMenuItem.\n @since 22"]
+    #[cfg(feature = "api-22")]
+    pub fn OH_ArkUI_TextMenuItem_Create() -> *mut ArkUI_TextMenuItem;
+}
+extern "C" {
+    #[doc = " @brief Dispose an object of the text edit menu options.\n\n @param textMenuItem Pointer to the ArkUI_TextMenuItem object to be disposed.\n @since 22"]
+    #[cfg(feature = "api-22")]
+    pub fn OH_ArkUI_TextMenuItem_Dispose(textMenuItem: *mut ArkUI_TextMenuItem);
+}
+extern "C" {
+    #[doc = " @brief Set text menu item title.\n\n @param item The text menu item.\n @param content The name of the text menu item, which defaults to an empty string. The string will copy to framework.\n @return Returns the result code.\n         Returns {@link ARKUI_ERROR_CODE_NO_ERROR} if the operation is successful.\n         Returns {@link ARKUI_ERROR_CODE_PARAM_INVALID} if a parameter exception occurs.\n @since 22"]
+    #[cfg(feature = "api-22")]
+    pub fn OH_ArkUI_TextMenuItem_SetContent(
+        item: *mut ArkUI_TextMenuItem,
+        content: *const ::std::os::raw::c_char,
+    ) -> ArkUI_ErrorCode;
+}
+extern "C" {
+    #[doc = " @brief Get text menu item title.\n\n @param item The text menu item object.\n @param buffer The buffer of the text menu content, memory space needs to be allocated by the developer.\n @param bufferSize The name of the text menu item, which defaults to an empty string;\n @param writeLength Indicates the string length actually written to the buffer\n                    when returning {@link ARKUI_ERROR_CODE_NO_ERROR}.\n                    Indicates the minimum buffer size that can accommodate the target\n                    when {@link ARKUI_ERROR_CODE_BUFFER_SIZE_ERROR} is returned.\n\n @return The error code.\n         {@link ARKUI_ERROR_CODE_NO_ERROR} if the operation is successful.\n         {@link ARKUI_ERROR_CODE_PARAM_INVALID} if the node, buffer or writeLength is null.\n         {@link ARKUI_ERROR_CODE_BUFFER_SIZE_ERROR} If the buffer size is less than the minimum buffer size.\n @since 22"]
+    #[cfg(feature = "api-22")]
+    pub fn OH_ArkUI_TextMenuItem_GetContent(
+        item: *const ArkUI_TextMenuItem,
+        buffer: *mut ::std::os::raw::c_char,
+        bufferSize: i32,
+        writeLength: *mut i32,
+    ) -> ArkUI_ErrorCode;
+}
+extern "C" {
+    #[doc = " @brief Set text menu item icon.\n\n @param item The text menu item.\n @param icon The text menu item icon resource, which defaults to an empty string. The string will copy to framework.\n @return Returns the result code.\n         Returns {@link ARKUI_ERROR_CODE_NO_ERROR} if the operation is successful.\n         Returns {@link ARKUI_ERROR_CODE_PARAM_INVALID} if a parameter exception occurs.\n @since 22"]
+    #[cfg(feature = "api-22")]
+    pub fn OH_ArkUI_TextMenuItem_SetIcon(
+        item: *mut ArkUI_TextMenuItem,
+        icon: *const ::std::os::raw::c_char,
+    ) -> ArkUI_ErrorCode;
+}
+extern "C" {
+    #[doc = " @brief Get text menu item icon.\n\n @param item The text menu item object\n @param buffer The buffer of the text menu content, memory space needs to be allocated by the developer.\n @param bufferSize The icon of the text menu item, which defaults to an empty string;\n @param writeLength Indicates the string length actually written to the buffer\n                    when returning {@link ARKUI_ERROR_CODE_NO_ERROR}.\n                    Indicates the minimum buffer size that can accommodate the target\n                    when {@link ARKUI_ERROR_CODE_BUFFER_SIZE_ERROR} is returned.\n\n @return The error code.\n         {@link ARKUI_ERROR_CODE_NO_ERROR} if the operation is successful.\n         {@link ARKUI_ERROR_CODE_PARAM_INVALID} if the node, buffer or writeLength is null.\n         {@link ARKUI_ERROR_CODE_BUFFER_SIZE_ERROR} If the buffer size is less than the minimum buffer size.\n @since 22"]
+    #[cfg(feature = "api-22")]
+    pub fn OH_ArkUI_TextMenuItem_GetIcon(
+        item: *const ArkUI_TextMenuItem,
+        buffer: *mut ::std::os::raw::c_char,
+        bufferSize: i32,
+        writeLength: *mut i32,
+    ) -> ArkUI_ErrorCode;
+}
+extern "C" {
+    #[doc = " @brief Set text menu item label info for keyboard shortcut.\n\n @param item The text menu item.\n @param labelInfo The text menu item shortcut displays, which defaults to an empty string.\n      The string will copy to framework.\n @return Returns the result code.\n         Returns {@link ARKUI_ERROR_CODE_NO_ERROR} if the operation is successful.\n         Returns {@link ARKUI_ERROR_CODE_PARAM_INVALID} if a parameter exception occurs.\n @since 22"]
+    #[cfg(feature = "api-22")]
+    pub fn OH_ArkUI_TextMenuItem_SetLabelInfo(
+        item: *mut ArkUI_TextMenuItem,
+        labelInfo: *const ::std::os::raw::c_char,
+    ) -> ArkUI_ErrorCode;
+}
+extern "C" {
+    #[doc = " @brief Get text menu item label info for keyboard shortcut..\n\n @param item The text menu item object\n @param buffer The buffer of the text menu content, memory space needs to be allocated by the developer.\n @param bufferSize The shortcuts of the text menu item, which defaults to an empty string;\n @param writeLength Indicates the string length actually written to the buffer\n                    when returning {@link ARKUI_ERROR_CODE_NO_ERROR}.\n                    Indicates the minimum buffer size that can accommodate the target\n                    when {@link ARKUI_ERROR_CODE_BUFFER_SIZE_ERROR} is returned.\n\n @return The error code.\n         {@link ARKUI_ERROR_CODE_NO_ERROR} if the operation is successful.\n         {@link ARKUI_ERROR_CODE_PARAM_INVALID} if the node, buffer or writeLength is null.\n         {@link ARKUI_ERROR_CODE_BUFFER_SIZE_ERROR} If the buffer size is less than the minimum buffer size.\n @since 22"]
+    #[cfg(feature = "api-22")]
+    pub fn OH_ArkUI_TextMenuItem_GetLabelInfo(
+        item: *const ArkUI_TextMenuItem,
+        buffer: *mut ::std::os::raw::c_char,
+        bufferSize: i32,
+        writeLength: *mut i32,
+    ) -> ArkUI_ErrorCode;
+}
+extern "C" {
+    #[doc = " @brief Set text menu item id.\n\n @param item The text menu item.\n @param id The text menu id.\n @return Returns the result code.\n         Returns {@link ARKUI_ERROR_CODE_NO_ERROR} if the operation is successful.\n         Returns {@link ARKUI_ERROR_CODE_PARAM_INVALID} if a parameter exception occurs.\n @since 22"]
+    #[cfg(feature = "api-22")]
+    pub fn OH_ArkUI_TextMenuItem_SetId(item: *mut ArkUI_TextMenuItem, id: i32) -> ArkUI_ErrorCode;
+}
+extern "C" {
+    #[doc = " @brief Get text menu item id.\n\n @param item The text menu item object\n @param id The text menu item id;\n @return Returns the result code.\n         Returns {@link ARKUI_ERROR_CODE_NO_ERROR} if the operation is successful.\n         Returns {@link ARKUI_ERROR_CODE_PARAM_INVALID} if a parameter exception occurs.\n @since 22"]
+    #[cfg(feature = "api-22")]
+    pub fn OH_ArkUI_TextMenuItem_GetId(
+        item: *const ArkUI_TextMenuItem,
+        id: *mut i32,
+    ) -> ArkUI_ErrorCode;
+}
+#[repr(C)]
+#[derive(Debug, Copy, Clone)]
+pub struct ArkUI_TextMenuItemArray {
+    _unused: [u8; 0],
+}
+extern "C" {
+    #[doc = " @brief Get the size of text menu items.\n\n @param items The text menu items.\n @param size The size of text menu items.\n @return Returns the result code.\n         Returns {@link ARKUI_ERROR_CODE_NO_ERROR} if the operation is successful.\n         Returns {@link ARKUI_ERROR_CODE_PARAM_INVALID} if a parameter exception occurs.\n @since 22"]
+    #[cfg(feature = "api-22")]
+    pub fn OH_ArkUI_TextMenuItemArray_GetSize(
+        items: *mut ArkUI_TextMenuItemArray,
+        size: *mut i32,
+    ) -> ArkUI_ErrorCode;
+}
+extern "C" {
+    #[doc = " @brief Get text menu item at index.\n\n @param items The text menu items.\n @param index The index of text menu items.\n @param item The text menu item at index of array.\n @return Returns the result code.\n         Returns {@link ARKUI_ERROR_CODE_NO_ERROR} if the operation is successful.\n         Returns {@link ARKUI_ERROR_CODE_PARAM_INVALID} if a parameter exception occurs.\n @since 22"]
+    #[cfg(feature = "api-22")]
+    pub fn OH_ArkUI_TextMenuItemArray_GetItem(
+        items: *mut ArkUI_TextMenuItemArray,
+        index: i32,
+        item: *mut *mut ArkUI_TextMenuItem,
+    ) -> ArkUI_ErrorCode;
+}
+extern "C" {
+    #[doc = " @brief Insert text menu item at index.\n\n @param items The text menu items.\n @param item The text menu item at index of array. The item will copy by framework.\n @param index The index of text menu items.\n @return Returns the result code.\n         Returns {@link ARKUI_ERROR_CODE_NO_ERROR} if the operation is successful.\n         Returns {@link ARKUI_ERROR_CODE_PARAM_INVALID} if a parameter exception occurs.\n @since 22"]
+    #[cfg(feature = "api-22")]
+    pub fn OH_ArkUI_TextMenuItemArray_Insert(
+        items: *mut ArkUI_TextMenuItemArray,
+        item: *mut ArkUI_TextMenuItem,
+        index: i32,
+    ) -> ArkUI_ErrorCode;
+}
+extern "C" {
+    #[doc = " @brief Erase text menu item at index.\n\n @param items The text menu items.\n @param index The index of text menu items.\n @return Returns the result code.\n         Returns {@link ARKUI_ERROR_CODE_NO_ERROR} if the operation is successful.\n         Returns {@link ARKUI_ERROR_CODE_PARAM_INVALID} if a parameter exception occurs.\n @since 22"]
+    #[cfg(feature = "api-22")]
+    pub fn OH_ArkUI_TextMenuItemArray_Erase(
+        items: *mut ArkUI_TextMenuItemArray,
+        index: i32,
+    ) -> ArkUI_ErrorCode;
+}
+extern "C" {
+    #[doc = " @brief Clear all the items.\n\n @param items The text menu items.\n @return Returns the result code.\n         Returns {@link ARKUI_ERROR_CODE_NO_ERROR} if the operation is successful.\n         Returns {@link ARKUI_ERROR_CODE_PARAM_INVALID} if a parameter exception occurs.\n @since 22"]
+    #[cfg(feature = "api-22")]
+    pub fn OH_ArkUI_TextMenuItemArray_Clear(items: *mut ArkUI_TextMenuItemArray)
+        -> ArkUI_ErrorCode;
+}
+#[repr(C)]
+#[derive(Debug, Copy, Clone)]
+pub struct ArkUI_TextEditMenuOptions {
+    _unused: [u8; 0],
+}
+extern "C" {
+    #[doc = " @brief Create an object of the text edit menu options.\n\n @return A pointer to the ArkUI_TextEditMenuOptions.\n @since 22"]
+    #[cfg(feature = "api-22")]
+    pub fn OH_ArkUI_TextEditMenuOptions_Create() -> *mut ArkUI_TextEditMenuOptions;
+}
+extern "C" {
+    #[doc = " @brief Dispose an object of the text edit menu options.\n\n @param editMenuOptions Pointer to the ArkUI_TextEditMenuOptions object to be disposed.\n @since 22"]
+    #[cfg(feature = "api-22")]
+    pub fn OH_ArkUI_TextEditMenuOptions_Dispose(editMenuOptions: *mut ArkUI_TextEditMenuOptions);
+}
+#[doc = " The text menu create callback function.\n\n @param items The framework creates and owns the array.\n     In callback: the developer can modify the array by calling {@link OH_ArkUI_TextMenuItemArray_Insert},\n     {@link OH_ArkUI_TextMenuItemArray_Erase}, or similar APIs.\n     The developer must not free the array instance.\n @param userData User defined data.\n @since 22"]
+#[cfg(feature = "api-22")]
+pub type ArkUI_TextCreateMenuCallback = ::std::option::Option<
+    unsafe extern "C" fn(
+        items: *mut ArkUI_TextMenuItemArray,
+        userData: *mut ::std::os::raw::c_void,
+    ),
+>;
+#[doc = " The text menu prepare callback function.\n\n @param items The framework creates and owns the array.\n     In callback: the developer can modify the array by calling {@link OH_ArkUI_TextMenuItemArray_Insert},\n     {@link OH_ArkUI_TextMenuItemArray_Erase}, or similar APIs.\n     The developer must not free the array instance.\n @param userData User defined data.\n @since 22"]
+#[cfg(feature = "api-22")]
+pub type ArkUI_TextPrepareMenuCallback = ::std::option::Option<
+    unsafe extern "C" fn(
+        items: *mut ArkUI_TextMenuItemArray,
+        userData: *mut ::std::os::raw::c_void,
+    ),
+>;
+#[doc = " The text menu item click callback function.\n\n @param item The menu item click.\n @param start The start offset of the selected content.\n @param end The end offset of the selected content.\n @param userData The user data.\n @return bool Return True, the event is consumed, false otherwise.\n @since 22"]
+#[cfg(feature = "api-22")]
+pub type ArkUI_TextMenuItemClickCallback = ::std::option::Option<
+    unsafe extern "C" fn(
+        item: *const ArkUI_TextMenuItem,
+        start: i32,
+        end: i32,
+        userData: *mut ::std::os::raw::c_void,
+    ) -> bool,
+>;
+extern "C" {
+    #[doc = " @brief Set the event to be called when text menu create.\n\n @param editMenuOptions Pointer to the ArkUI_TextEditMenuOptions object.\n @param userData The user data.\n @param cb The create callback function.\n @return Returns the result code.\n         Returns {@link ARKUI_ERROR_CODE_NO_ERROR} if the operation is successful.\n         Returns {@link ARKUI_ERROR_CODE_PARAM_INVALID} if a parameter exception occurs.\n @since 22"]
+    #[cfg(feature = "api-22")]
+    pub fn OH_ArkUI_TextEditMenuOptions_RegisterOnCreateMenuCallback(
+        editMenuOptions: *mut ArkUI_TextEditMenuOptions,
+        userData: *mut ::std::os::raw::c_void,
+        cb: ArkUI_TextCreateMenuCallback,
+    ) -> ArkUI_ErrorCode;
+}
+extern "C" {
+    #[doc = " @brief Set the event to be called when menu prepare.\n\n @param editMenuOptions Pointer to the ArkUI_TextEditMenuOptions object.\n @param userData The user data.\n @param cb The prepare callback function.\n @return Returns the result code.\n         Returns {@link ARKUI_ERROR_CODE_NO_ERROR} if the operation is successful.\n         Returns {@link ARKUI_ERROR_CODE_PARAM_INVALID} if a parameter exception occurs.\n @since 22"]
+    #[cfg(feature = "api-22")]
+    pub fn OH_ArkUI_TextEditMenuOptions_RegisterOnPrepareMenuCallback(
+        editMenuOptions: *mut ArkUI_TextEditMenuOptions,
+        userData: *mut ::std::os::raw::c_void,
+        cb: ArkUI_TextPrepareMenuCallback,
+    ) -> ArkUI_ErrorCode;
+}
+extern "C" {
+    #[doc = " @brief Set the event to be called when menu item click.\n\n @param editMenuOptions Pointer to the ArkUI_TextEditMenuOptions object.\n @param userData The user data.\n @param cb The menu item click callback function.\n @return Returns the result code.\n         Returns {@link ARKUI_ERROR_CODE_NO_ERROR} if the operation is successful.\n         Returns {@link ARKUI_ERROR_CODE_PARAM_INVALID} if a parameter exception occurs.\n @since 22"]
+    #[cfg(feature = "api-22")]
+    pub fn OH_ArkUI_TextEditMenuOptions_RegisterOnMenuItemClickCallback(
+        editMenuOptions: *mut ArkUI_TextEditMenuOptions,
+        userData: *mut ::std::os::raw::c_void,
+        cb: ArkUI_TextMenuItemClickCallback,
+    ) -> ArkUI_ErrorCode;
+}
+#[repr(C)]
+#[derive(Debug, Copy, Clone)]
+pub struct ArkUI_TextSelectionMenuOptions {
+    _unused: [u8; 0],
+}
+#[doc = " The span type only contains text."]
+#[cfg(feature = "api-22")]
+pub const ArkUI_TextSpanType_ARKUI_TEXT_SPAN_TYPE_TEXT: ArkUI_TextSpanType = 0;
+#[doc = " The span type only contains image."]
+#[cfg(feature = "api-22")]
+pub const ArkUI_TextSpanType_ARKUI_TEXT_SPAN_TYPE_IMAGE: ArkUI_TextSpanType = 1;
+#[doc = " The span type contains both text and image."]
+#[cfg(feature = "api-22")]
+pub const ArkUI_TextSpanType_ARKUI_TEXT_SPAN_TYPE_MIXED: ArkUI_TextSpanType = 2;
+#[doc = " When no other types are explicitly specified, this type will be matched.\n When this type is registered but TEXT, IMAGE, or MIXED types are not registered,\n this type will be triggered and displayed for those registered types."]
+#[cfg(feature = "api-22")]
+pub const ArkUI_TextSpanType_ARKUI_TEXT_SPAN_TYPE_DEFAULT: ArkUI_TextSpanType = 3;
+#[doc = " @brief Enumerates the text span type.\n\n @since 22"]
+#[cfg(feature = "api-22")]
+pub type ArkUI_TextSpanType = u32;
+#[doc = " The response type of right click."]
+#[cfg(feature = "api-22")]
+pub const ArkUI_TextResponseType_ARKUI_TEXT_RESPONSE_TYPE_RIGHT_CLICK: ArkUI_TextResponseType = 0;
+#[doc = " The response type of long press."]
+#[cfg(feature = "api-22")]
+pub const ArkUI_TextResponseType_ARKUI_TEXT_RESPONSE_TYPE_LONG_PRESS: ArkUI_TextResponseType = 1;
+#[doc = " The response type of select by mouse."]
+#[cfg(feature = "api-22")]
+pub const ArkUI_TextResponseType_ARKUI_TEXT_RESPONSE_TYPE_SELECT: ArkUI_TextResponseType = 2;
+#[doc = " When no other types are explicitly specified, this type will be matched.\n When this type is registered but RIGHT_CLICK, LONG_PRESS, or SELECT types are not registered,\n this type will be triggered and displayed for right-click, long press, and mouse selection actions."]
+#[cfg(feature = "api-22")]
+pub const ArkUI_TextResponseType_ARKUI_TEXT_RESPONSE_TYPE_DEFAULT: ArkUI_TextResponseType = 3;
+#[doc = " @brief Enumerates the text response type.\n\n @since 22"]
+#[cfg(feature = "api-22")]
+pub type ArkUI_TextResponseType = u32;
+extern "C" {
+    #[doc = " @brief Create an object of the text selection menu options.\n\n @return A pointer to the ArkUI_TextSelectionMenuOptions.\n @since 22"]
+    #[cfg(feature = "api-22")]
+    pub fn OH_ArkUI_TextSelectionMenuOptions_Create() -> *mut ArkUI_TextSelectionMenuOptions;
+}
+extern "C" {
+    #[doc = " @brief Dispose an object of the text selection menu options.\n\n @param selectionMenuOptions Pointer to the ArkUI_TextSelectionMenuOptions object to be disposed.\n @since 22"]
+    #[cfg(feature = "api-22")]
+    pub fn OH_ArkUI_TextSelectionMenuOptions_Dispose(
+        selectionMenuOptions: *mut ArkUI_TextSelectionMenuOptions,
+    );
+}
+extern "C" {
+    #[doc = " @brief Sets the recognition types of a configuration object for selected text recognition.\n\n @param selectionMenuOptions Pointer to the ArkUI_TextSelectionMenuOptions object.\n @param textSpanType The span type of {@link ArkUI_TextSpanType}.\n @return Returns the result code.\n         Returns {@link ARKUI_ERROR_CODE_NO_ERROR} if the operation is successful.\n         Returns {@link ARKUI_ERROR_CODE_PARAM_INVALID} if a parameter exception occurs.\n @since 22"]
+    #[cfg(feature = "api-22")]
+    pub fn OH_ArkUI_TextSelectionMenuOptions_SetSpanType(
+        selectionMenuOptions: *mut ArkUI_TextSelectionMenuOptions,
+        textSpanType: ArkUI_TextSpanType,
+    ) -> ArkUI_ErrorCode;
+}
+extern "C" {
+    #[doc = " @brief Gets the span type select menu options.\n\n @param selectionMenuOptions Pointer to the ArkUI_TextSelectionMenuOptions object.\n @param spanType the text span type {@link ArkUI_TextSpanType}.\n @return Returns the result code.\n         Returns {@link ARKUI_ERROR_CODE_NO_ERROR} if the operation is successful.\n         Returns {@link ARKUI_ERROR_CODE_PARAM_INVALID} if a parameter exception occurs.\n @since 22"]
+    #[cfg(feature = "api-22")]
+    pub fn OH_ArkUI_TextSelectionMenuOptions_GetSpanType(
+        selectionMenuOptions: *mut ArkUI_TextSelectionMenuOptions,
+        spanType: *mut ArkUI_TextSpanType,
+    ) -> ArkUI_ErrorCode;
+}
+extern "C" {
+    #[doc = " @brief Set custom text menu node of text.\n\n @param selectionMenuOptions Pointer to the ArkUI_TextSelectionMenuOptions object.\n @param node The custom menu node.\n @return Returns the result code.\n         Returns {@link ARKUI_ERROR_CODE_NO_ERROR} if the operation is successful.\n         Returns {@link ARKUI_ERROR_CODE_PARAM_INVALID} if a parameter exception occurs.\n @since 22"]
+    #[cfg(feature = "api-22")]
+    pub fn OH_ArkUI_TextSelectionMenuOptions_SetContentNode(
+        selectionMenuOptions: *mut ArkUI_TextSelectionMenuOptions,
+        node: ArkUI_NodeHandle,
+    ) -> ArkUI_ErrorCode;
+}
+extern "C" {
+    #[doc = " @brief Get custom text menu node of text.\n\n @param selectionMenuOptions Pointer to the ArkUI_TextSelectionMenuOptions object.\n @param node The custom menu node.\n @return Returns the result code.\n         Returns {@link ARKUI_ERROR_CODE_NO_ERROR} if the operation is successful.\n         Returns {@link ARKUI_ERROR_CODE_PARAM_INVALID} if a parameter exception occurs.\n @since 22"]
+    #[cfg(feature = "api-22")]
+    pub fn OH_ArkUI_TextSelectionMenuOptions_GetContentNode(
+        selectionMenuOptions: *mut ArkUI_TextSelectionMenuOptions,
+        node: *mut ArkUI_NodeHandle,
+    ) -> ArkUI_ErrorCode;
+}
+extern "C" {
+    #[doc = " @brief Sets the recognition types of a configuration object for selected text recognition.\n\n @param selectionMenuOptions Pointer to the ArkUI_TextSelectionMenuOptions object.\n @param responseType The response type of {@link ArkUI_TextResponseType}.\n @return Returns the result code.\n         Returns {@link ARKUI_ERROR_CODE_NO_ERROR} if the operation is successful.\n         Returns {@link ARKUI_ERROR_CODE_PARAM_INVALID} if a parameter exception occurs.\n @since 22"]
+    #[cfg(feature = "api-22")]
+    pub fn OH_ArkUI_TextSelectionMenuOptions_SetResponseType(
+        selectionMenuOptions: *mut ArkUI_TextSelectionMenuOptions,
+        responseType: ArkUI_TextResponseType,
+    ) -> ArkUI_ErrorCode;
+}
+extern "C" {
+    #[doc = " @brief Gets the response type select menu options.\n\n @param selectionMenuOptions Pointer to the ArkUI_TextSelectionMenuOptions object.\n @param responseType The text response type {@link ArkUI_TextResponseType}.\n @return Returns the result code.\n         Returns {@link ARKUI_ERROR_CODE_NO_ERROR} if the operation is successful.\n         Returns {@link ARKUI_ERROR_CODE_PARAM_INVALID} if a parameter exception occurs.\n @since 22"]
+    #[cfg(feature = "api-22")]
+    pub fn OH_ArkUI_TextSelectionMenuOptions_GetResponseType(
+        selectionMenuOptions: *mut ArkUI_TextSelectionMenuOptions,
+        responseType: *mut ArkUI_TextResponseType,
+    ) -> ArkUI_ErrorCode;
+}
+extern "C" {
+    #[doc = " @brief Set the event to be called when selection menu show.\n\n @param selectionMenuOptions Pointer to the ArkUI_TextSelectionMenuOptions object.\n @param userData The user data.\n @param callback The callback function of menu show.\n     start The start offset of the selected content.\n     end The end offset of the selected content.\n     userData The user data.\n @return Returns the result code.\n         Returns {@link ARKUI_ERROR_CODE_NO_ERROR} if the operation is successful.\n         Returns {@link ARKUI_ERROR_CODE_PARAM_INVALID} if a parameter exception occurs.\n @since 22"]
+    #[cfg(feature = "api-22")]
+    pub fn OH_ArkUI_TextSelectionMenuOptions_RegisterOnMenuShowCallback(
+        selectionMenuOptions: *mut ArkUI_TextSelectionMenuOptions,
+        userData: *mut ::std::os::raw::c_void,
+        callback: ::std::option::Option<
+            unsafe extern "C" fn(start: i32, end: i32, userData: *mut ::std::os::raw::c_void),
+        >,
+    ) -> ArkUI_ErrorCode;
+}
+extern "C" {
+    #[doc = " @brief Set the event to be called when selection menu hide.\n\n @param selectionMenuOptions Pointer to the ArkUI_TextSelectionMenuOptions object.\n @param userData The user data.\n @param callback The callback function of menu hide.\n     start The start offset of the selected content.\n     end The end offset of the selected content.\n     userData The user data.\n @return Returns the result code.\n         Returns {@link ARKUI_ERROR_CODE_NO_ERROR} if the operation is successful.\n         Returns {@link ARKUI_ERROR_CODE_PARAM_INVALID} if a parameter exception occurs.\n @since 22"]
+    #[cfg(feature = "api-22")]
+    pub fn OH_ArkUI_TextSelectionMenuOptions_RegisterOnMenuHideCallback(
+        selectionMenuOptions: *mut ArkUI_TextSelectionMenuOptions,
+        userData: *mut ::std::os::raw::c_void,
+        callback: ::std::option::Option<
+            unsafe extern "C" fn(start: i32, end: i32, userData: *mut ::std::os::raw::c_void),
+        >,
+    ) -> ArkUI_ErrorCode;
+}
+extern "C" {
+    #[doc = " @brief Create selection options.\n\n @return A pointer to the selection options object.\n @since 23"]
+    #[cfg(feature = "api-23")]
+    pub fn OH_ArkUI_SelectionOptions_Create() -> *mut ArkUI_SelectionOptions;
+}
+extern "C" {
+    #[doc = " @brief Dispose selection options object.\n\n @param {ArkUI_SelectionOptions*} options Pointer to the selection options object. to be disposed.\n @since 23"]
+    #[cfg(feature = "api-23")]
+    pub fn OH_ArkUI_SelectionOptions_Dispose(options: *mut ArkUI_SelectionOptions);
+}
+extern "C" {
+    #[doc = " @brief Sets the menu policy for selection options.\n\n @param {ArkUI_SelectionOptions*} options Pointer to the selection options.\n @param {ArkUI_MenuPolicy} menuPolicy The menu policy.\n @since 23"]
+    #[cfg(feature = "api-23")]
+    pub fn OH_ArkUI_SelectionOptions_SetMenuPolicy(
+        options: *mut ArkUI_SelectionOptions,
+        menuPolicy: ArkUI_MenuPolicy,
+    );
+}
+extern "C" {
+    #[doc = " @brief Gets the menu policy of selection options.\n\n @param {ArkUI_SelectionOptions*} options Pointer to the selection options object.\n @return Returns the menu policy.\n @since 23"]
+    #[cfg(feature = "api-23")]
+    pub fn OH_ArkUI_SelectionOptions_GetMenuPolicy(
+        options: *mut ArkUI_SelectionOptions,
+    ) -> ArkUI_MenuPolicy;
+}
+extern "C" {
+    #[doc = " @brief Create an object of the text content base controller.\n\n @return A pointer to the controller object.\n @since 23"]
+    #[cfg(feature = "api-23")]
+    pub fn OH_ArkUI_TextContentBaseController_Create() -> *mut ArkUI_TextContentBaseController;
+}
+extern "C" {
+    #[doc = " @brief Dispose an object of the text content base controller.\n\n @param {ArkUI_TextContentBaseController*} controller Pointer to the controller object to be disposed.\n @since 23"]
+    #[cfg(feature = "api-23")]
+    pub fn OH_ArkUI_TextContentBaseController_Dispose(
+        controller: *mut ArkUI_TextContentBaseController,
+    );
+}
+extern "C" {
+    #[doc = " @brief Delete the character before the caret of the input field component in editing state.\n        Otherwise, delete the last character of the input field component.\n\n @param {ArkUI_TextContentBaseController*} controller Pointer to the configuration object to be modified.\n @since 23"]
+    #[cfg(feature = "api-23")]
+    pub fn OH_ArkUI_TextContentBaseController_DeleteBackward(
+        controller: *mut ArkUI_TextContentBaseController,
+    );
+}
+extern "C" {
+    #[doc = " @brief Scroll the input field component to make the specified content visible.\n\n @param {ArkUI_TextContentBaseController*} controller Pointer to the\n configuration object to be modified.\n @param {int32_t} start The start offset of the content to be made visible.\n @param {int32_t} end The end offset of the content to be made visible\n @since 23"]
+    #[cfg(feature = "api-23")]
+    pub fn OH_ArkUI_TextContentBaseController_ScrollToVisible(
+        controller: *mut ArkUI_TextContentBaseController,
+        start: i32,
+        end: i32,
+    );
+}
+#[repr(C)]
+#[derive(Debug, Copy, Clone)]
+pub struct ArkUI_MotionPathOptions {
+    _unused: [u8; 0],
+}
+extern "C" {
+    #[doc = " @brief Create an object of the motion path options for path animation.\n        In the newly created ArkUI_MotionPathOptions, the \"path\" value is an empty string, the \"from\" value is 0,\n        the \"to\" value is 1, and the \"rotatable\" value is false.\n\n @return A pointer to the ArkUI_MotionPathOptions.\n @since 23"]
+    #[cfg(feature = "api-23")]
+    pub fn OH_ArkUI_MotionPathOptions_Create() -> *mut ArkUI_MotionPathOptions;
+}
+extern "C" {
+    #[doc = " @brief Dispose the ArkUI_MotionPathOptions object.\n\n @param options Pointer to the ArkUI_MotionPathOptions object to be disposed.\n @since 23"]
+    #[cfg(feature = "api-23")]
+    pub fn OH_ArkUI_MotionPathOptions_Dispose(options: *mut ArkUI_MotionPathOptions);
+}
+extern "C" {
+    #[doc = " @brief Sets the the motion path for the animation using an SVG path string. The path supports using \"start\" and\n        \"end\" as placeholders for the starting and ending points, for example:\n        \"Mstart.x start.y L50 50 Lend.x end.y Z\". Refer to the SVG path format for the path string.\n        When set to an empty string, it is equivalent to not setting a path animation.\n\n @param options Pointer to the ArkUI_MotionPathOptions object.\n @param svgPath The motion path for the path animation.\n @return Returns the result code.\n         Returns {@link ARKUI_ERROR_CODE_NO_ERROR} if the operation is successful.\n         Returns {@link ARKUI_ERROR_CODE_PARAM_INVALID} if a parameter exception occurs.\n @since 23"]
+    #[cfg(feature = "api-23")]
+    pub fn OH_ArkUI_MotionPathOptions_SetPath(
+        options: *mut ArkUI_MotionPathOptions,
+        svgPath: *const ::std::os::raw::c_char,
+    ) -> ArkUI_ErrorCode;
+}
+extern "C" {
+    #[doc = " @brief Gets the motion path string in the ArkUI_MotionPathOptions object.\n\n @param options Pointer to the ArkUI_MotionPathOptions object.\n @param svgPathBuffer Buffer pointer to the motion path string.\n @param bufferSize The buffer size of the svgPathBuffer parameter.\n @param writeLength Indicates the string length actually written to the buffer\n                    when returning {@link ARKUI_ERROR_CODE_NO_ERROR}.\n                    Indicates the minimum buffer size that can accommodate the target\n                    when {@link ARKUI_ERROR_CODE_BUFFER_SIZE_ERROR} is returned.\n @return Returns the result code.\n         Returns {@link ARKUI_ERROR_CODE_NO_ERROR} if the operation is successful.\n         Returns {@link ARKUI_ERROR_CODE_PARAM_INVALID} if a parameter exception occurs.\n         Returns {@link ARKUI_ERROR_CODE_BUFFER_SIZE_ERROR} if the buffer size is less than the minimum buffer size.\n @since 23"]
+    #[cfg(feature = "api-23")]
+    pub fn OH_ArkUI_MotionPathOptions_GetPath(
+        options: *const ArkUI_MotionPathOptions,
+        svgPathBuffer: *mut ::std::os::raw::c_char,
+        bufferSize: i32,
+        writeLength: *mut i32,
+    ) -> ArkUI_ErrorCode;
+}
+extern "C" {
+    #[doc = " @brief Sets the starting progress in the ArkUI_MotionPathOptions. Progress refers to the ratio of the length of the\n        path that has been traveled to the total length of the entire path. The value range is [0.0, 1.0], and the\n        \"from\" value should be less than or equal to the \"to\" value; otherwise, an ARKUI_ERROR_CODE_PARAM_OUT_OF_RANGE\n        error code will be returned.\n\n @param options Pointer to the ArkUI_MotionPathOptions object.\n @param from The starting progress in the ArkUI_MotionPathOptions.\n @return Returns the result code.\n         Returns {@link ARKUI_ERROR_CODE_NO_ERROR} if the operation is successful.\n         Returns {@link ARKUI_ERROR_CODE_PARAM_INVALID} if a parameter exception occurs.\n         Returns {@link ARKUI_ERROR_CODE_PARAM_OUT_OF_RANGE} if the \"from\" value is out of range or the \"from\" value\n                 is greater than the \"to\" value.\n @since 23"]
+    #[cfg(feature = "api-23")]
+    pub fn OH_ArkUI_MotionPathOptions_SetFrom(
+        options: *mut ArkUI_MotionPathOptions,
+        from: f32,
+    ) -> ArkUI_ErrorCode;
+}
+extern "C" {
+    #[doc = " @brief Gets the starting progress in the ArkUI_MotionPathOptions object.\n\n @param options Pointer to the ArkUI_MotionPathOptions object.\n @param from The starting progress in the ArkUI_MotionPathOptions.\n @return Returns the result code.\n         Returns {@link ARKUI_ERROR_CODE_NO_ERROR} if the operation is successful.\n         Returns {@link ARKUI_ERROR_CODE_PARAM_INVALID} if a parameter exception occurs.\n @since 23"]
+    #[cfg(feature = "api-23")]
+    pub fn OH_ArkUI_MotionPathOptions_GetFrom(
+        options: *const ArkUI_MotionPathOptions,
+        from: *mut f32,
+    ) -> ArkUI_ErrorCode;
+}
+extern "C" {
+    #[doc = " @brief Sets the endpoint progress in the ArkUI_MotionPathOptions. Progress refers to the ratio of the length of the\n        path that has been traveled to the total length of the entire path. The value range is [0.0, 1.0], and the\n        \"from\" value should be less than or equal to the \"to\" value; otherwise, an ARKUI_ERROR_CODE_PARAM_OUT_OF_RANGE\n        error code will be returned.\n\n @param options Pointer to the ArkUI_MotionPathOptions object.\n @param to The endpoint progress in the ArkUI_MotionPathOptions.\n @return Returns the result code.\n         Returns {@link ARKUI_ERROR_CODE_NO_ERROR} if the operation is successful.\n         Returns {@link ARKUI_ERROR_CODE_PARAM_INVALID} if a parameter exception occurs.\n         Returns {@link ARKUI_ERROR_CODE_PARAM_OUT_OF_RANGE} if the \"to\" value is out of range or the \"to\" value\n                 is less than the \"from\" value.\n @since 23"]
+    #[cfg(feature = "api-23")]
+    pub fn OH_ArkUI_MotionPathOptions_SetTo(
+        options: *mut ArkUI_MotionPathOptions,
+        to: f32,
+    ) -> ArkUI_ErrorCode;
+}
+extern "C" {
+    #[doc = " @brief Gets the endpoint progress in the ArkUI_MotionPathOptions object.\n\n @param options Pointer to the ArkUI_MotionPathOptions object.\n @param to The endpoint progress in the ArkUI_MotionPathOptions.\n @return Returns the result code.\n         Returns {@link ARKUI_ERROR_CODE_NO_ERROR} if the operation is successful.\n         Returns {@link ARKUI_ERROR_CODE_PARAM_INVALID} if a parameter exception occurs.\n @since 23"]
+    #[cfg(feature = "api-23")]
+    pub fn OH_ArkUI_MotionPathOptions_GetTo(
+        options: *const ArkUI_MotionPathOptions,
+        to: *mut f32,
+    ) -> ArkUI_ErrorCode;
+}
+extern "C" {
+    #[doc = " @brief Sets the rotatable parameter in the ArkUI_MotionPathOptions. It indicates whether to rotate along the path.\n        True means rotating along the path, while false means not rotating along the path.\n\n @param options Pointer to the ArkUI_MotionPathOptions object.\n @param rotatable The rotatable parameter in the ArkUI_MotionPathOptions.\n @return Returns the result code.\n         Returns {@link ARKUI_ERROR_CODE_NO_ERROR} if the operation is successful.\n         Returns {@link ARKUI_ERROR_CODE_PARAM_INVALID} if a parameter exception occurs.\n @since 23"]
+    #[cfg(feature = "api-23")]
+    pub fn OH_ArkUI_MotionPathOptions_SetRotatable(
+        options: *mut ArkUI_MotionPathOptions,
+        rotatable: bool,
+    ) -> ArkUI_ErrorCode;
+}
+extern "C" {
+    #[doc = " @brief Gets the rotatable parameter in the ArkUI_MotionPathOptions.\n\n @param options Pointer to the ArkUI_MotionPathOptions object.\n @param rotatable The rotatable parameter in the ArkUI_MotionPathOptions.\n @return Returns the result code.\n         Returns {@link ARKUI_ERROR_CODE_NO_ERROR} if the operation is successful.\n         Returns {@link ARKUI_ERROR_CODE_PARAM_INVALID} if a parameter exception occurs.\n @since 23"]
+    #[cfg(feature = "api-23")]
+    pub fn OH_ArkUI_MotionPathOptions_GetRotatable(
+        options: *const ArkUI_MotionPathOptions,
+        rotatable: *mut bool,
+    ) -> ArkUI_ErrorCode;
+}
+#[doc = " Start marquee in any case. This is the default policy."]
+#[cfg(feature = "api-23")]
+pub const ArkUI_MarqueeStartPolicy_ARKUI_MARQUEESTARTPOLICY_DEFAULT: ArkUI_MarqueeStartPolicy = 0;
+#[doc = " Start marquee only when get focus."]
+#[cfg(feature = "api-23")]
+pub const ArkUI_MarqueeStartPolicy_ARKUI_MARQUEESTARTPOLICY_ONFOCUS: ArkUI_MarqueeStartPolicy = 1;
+#[doc = " @brief Enumerates the MarqueeStartPolicy.\n\n @since 23"]
+#[cfg(feature = "api-23")]
+pub type ArkUI_MarqueeStartPolicy = u32;
+#[doc = " Reset scroll position and restart scroll."]
+#[cfg(feature = "api-23")]
+pub const ArkUI_MarqueeUpdatePolicy_ARKUI_MARQUEEUPDATEPOLICY_DEFAULT: ArkUI_MarqueeUpdatePolicy =
+    0;
+#[doc = " Preserve scroll position, just change to new text."]
+#[cfg(feature = "api-23")]
+pub const ArkUI_MarqueeUpdatePolicy_ARKUI_MARQUEEUPDATEPOLICY_PRESERVEPOSITION:
+    ArkUI_MarqueeUpdatePolicy = 1;
+#[doc = " @brief Enumerates the MarqueeUpdatePolicy.\n\n @since 23"]
+#[cfg(feature = "api-23")]
+pub type ArkUI_MarqueeUpdatePolicy = u32;
+#[repr(C)]
+#[derive(Debug, Copy, Clone)]
+pub struct ArkUI_TextMarqueeOptions {
+    _unused: [u8; 0],
+}
+extern "C" {
+    #[doc = " @brief Create an option object for marquee animation of text.\n\n @return A pointer to the option object.\n @since 23"]
+    #[cfg(feature = "api-23")]
+    pub fn OH_ArkUI_TextMarqueeOptions_Create() -> *mut ArkUI_TextMarqueeOptions;
+}
+extern "C" {
+    #[doc = " @brief Dispose the option object for marquee animation of text.\n\n @param option Pointer to the option object to be disposed.\n @since 23"]
+    #[cfg(feature = "api-23")]
+    pub fn OH_ArkUI_TextMarqueeOptions_Dispose(option: *mut ArkUI_TextMarqueeOptions);
+}
+extern "C" {
+    #[doc = " @brief Sets the start flag of the option object for marquee animation of text.\n\n @param option Pointer to the option object to be modified.\n @param start Flag of is need to start marquee. True means start marquee, false means stop marquee.\n @since 23"]
+    #[cfg(feature = "api-23")]
+    pub fn OH_ArkUI_TextMarqueeOptions_SetStart(option: *mut ArkUI_TextMarqueeOptions, start: bool);
+}
+extern "C" {
+    #[doc = " @brief Gets the start flag of the option object for marquee animation of text.\n\n @param option Pointer to the option object.\n @return Returns the start flag.\n @since 23"]
+    #[cfg(feature = "api-23")]
+    pub fn OH_ArkUI_TextMarqueeOptions_GetStart(option: *mut ArkUI_TextMarqueeOptions) -> bool;
+}
+extern "C" {
+    #[doc = " @brief Sets the step size of the option object for marquee animation of text.\n\n @param option Pointer to the option object to be modified.\n @param step The step size of the marquee. The unit is vp.\n @since 23"]
+    #[cfg(feature = "api-23")]
+    pub fn OH_ArkUI_TextMarqueeOptions_SetStep(option: *mut ArkUI_TextMarqueeOptions, step: f32);
+}
+extern "C" {
+    #[doc = " @brief Gets the step size of the option object for marquee animation of text.\n\n @param option Pointer to the option object.\n @return Returns the step size of the marquee. The unit is vp.\n @since 23"]
+    #[cfg(feature = "api-23")]
+    pub fn OH_ArkUI_TextMarqueeOptions_GetStep(option: *mut ArkUI_TextMarqueeOptions) -> f32;
+}
+extern "C" {
+    #[doc = " @brief Sets the spacing between two rounds of the option object for marquee animation of text.\n\n @param option Pointer to the option object to be modified.\n @param spacing The spacing between two rounds of marquee. The unit is vp.\n @since 23"]
+    #[cfg(feature = "api-23")]
+    pub fn OH_ArkUI_TextMarqueeOptions_SetSpacing(
+        option: *mut ArkUI_TextMarqueeOptions,
+        spacing: f32,
+    );
+}
+extern "C" {
+    #[doc = " @brief Gets the spacing between two rounds of the option object for marquee animation of text.\n\n @param option Pointer to the option object.\n @return Returns the spacing between two rounds of marquee. The unit is vp.\n @since 23"]
+    #[cfg(feature = "api-23")]
+    pub fn OH_ArkUI_TextMarqueeOptions_GetSpacing(option: *mut ArkUI_TextMarqueeOptions) -> f32;
+}
+extern "C" {
+    #[doc = " @brief Sets the rounds of the option object for marquee animation of text.\n\n @param option Pointer to the option object to be modified.\n @param loop The rounds of the marquee.\n @since 23"]
+    #[cfg(feature = "api-23")]
+    pub fn OH_ArkUI_TextMarqueeOptions_SetLoop(option: *mut ArkUI_TextMarqueeOptions, loop_: i32);
+}
+extern "C" {
+    #[doc = " @brief Gets the rounds of the option object for marquee animation of text.\n\n @param option Pointer to the option object.\n @return Returns the rounds of the marquee.\n @since 23"]
+    #[cfg(feature = "api-23")]
+    pub fn OH_ArkUI_TextMarqueeOptions_GetLoop(option: *mut ArkUI_TextMarqueeOptions) -> i32;
+}
+extern "C" {
+    #[doc = " @brief Sets the fromStart flag of the option object for marquee animation of text.\n\n @param option Pointer to the option object to be modified.\n @param fromStart The running direction of the marquee, true means running from start.\n @since 23"]
+    #[cfg(feature = "api-23")]
+    pub fn OH_ArkUI_TextMarqueeOptions_SetFromStart(
+        option: *mut ArkUI_TextMarqueeOptions,
+        fromStart: bool,
+    );
+}
+extern "C" {
+    #[doc = " @brief Gets the fromStart flag of the option object for marquee animation of text.\n\n @param option Pointer to the option object.\n @return Returns the fromStart flag.\n @since 23"]
+    #[cfg(feature = "api-23")]
+    pub fn OH_ArkUI_TextMarqueeOptions_GetFromStart(option: *mut ArkUI_TextMarqueeOptions) -> bool;
+}
+extern "C" {
+    #[doc = " @brief Sets the delay time between each round of the option object for marquee animation of text.\n\n @param option Pointer to the option object to be modified.\n @param delay The delay time between each round of the marquee.\n @since 23"]
+    #[cfg(feature = "api-23")]
+    pub fn OH_ArkUI_TextMarqueeOptions_SetDelay(option: *mut ArkUI_TextMarqueeOptions, delay: i32);
+}
+extern "C" {
+    #[doc = " @brief Gets the delay time between each round of the option object for marquee animation of text.\n\n @param option Pointer to the option object.\n @return Returns the delay time between each round of the marquee.\n @since 23"]
+    #[cfg(feature = "api-23")]
+    pub fn OH_ArkUI_TextMarqueeOptions_GetDelay(option: *mut ArkUI_TextMarqueeOptions) -> i32;
+}
+extern "C" {
+    #[doc = " @brief Sets the fadeout flag of the option object for marquee animation of text.\n\n @param option Pointer to the option object to be modified.\n @param fadeout The flag of whether the text is faded out.\n @since 23"]
+    #[cfg(feature = "api-23")]
+    pub fn OH_ArkUI_TextMarqueeOptions_SetFadeout(
+        option: *mut ArkUI_TextMarqueeOptions,
+        fadeout: bool,
+    );
+}
+extern "C" {
+    #[doc = " @brief Gets the fadeout flag of the option object for marquee animation of text.\n\n @param option Pointer to the option object.\n @return Returns the fadeout flag.\n @since 23"]
+    #[cfg(feature = "api-23")]
+    pub fn OH_ArkUI_TextMarqueeOptions_GetFadeout(option: *mut ArkUI_TextMarqueeOptions) -> bool;
+}
+extern "C" {
+    #[doc = " @brief Sets the start policy of the option object for marquee animation of text.\n\n @param option Pointer to the option object to be modified.\n @param startPolicy The start policy for marquee.\n @since 23"]
+    #[cfg(feature = "api-23")]
+    pub fn OH_ArkUI_TextMarqueeOptions_SetStartPolicy(
+        option: *mut ArkUI_TextMarqueeOptions,
+        startPolicy: ArkUI_MarqueeStartPolicy,
+    );
+}
+extern "C" {
+    #[doc = " @brief Gets the start policy of the option object for marquee animation of text.\n\n @param option Pointer to the option object.\n @return Returns the start policy for marquee.\n @since 23"]
+    #[cfg(feature = "api-23")]
+    pub fn OH_ArkUI_TextMarqueeOptions_GetStartPolicy(
+        option: *mut ArkUI_TextMarqueeOptions,
+    ) -> ArkUI_MarqueeStartPolicy;
+}
+extern "C" {
+    #[doc = " @brief Sets the update policy of the option object for marquee animation of text.\n\n @param option Pointer to the option object to be modified.\n @param updatePolicy The update policy for marquee.\n @since 23"]
+    #[cfg(feature = "api-23")]
+    pub fn OH_ArkUI_TextMarqueeOptions_SetUpdatePolicy(
+        option: *mut ArkUI_TextMarqueeOptions,
+        updatePolicy: ArkUI_MarqueeUpdatePolicy,
+    );
+}
+extern "C" {
+    #[doc = " @brief Gets the update policy of the option object for marquee animation of text.\n\n @param option Pointer to the option object.\n @return Returns the update policy for marquee.\n @since 23"]
+    #[cfg(feature = "api-23")]
+    pub fn OH_ArkUI_TextMarqueeOptions_GetUpdatePolicy(
+        option: *mut ArkUI_TextMarqueeOptions,
+    ) -> ArkUI_MarqueeUpdatePolicy;
+}
+extern "C" {
+    #[doc = " @brief Create a configuration object for selected drag preview style.\n @return A pointer to the configuration object.\n @since 23"]
+    #[cfg(feature = "api-23")]
+    pub fn OH_ArkUI_SelectedDragPreviewStyle_Create() -> *mut ArkUI_SelectedDragPreviewStyle;
+}
+extern "C" {
+    #[doc = " @brief Dispose a configuration object for selected drag preview style.\n @param config Pointer to the configuration object to be disposed.\n @since 23"]
+    #[cfg(feature = "api-23")]
+    pub fn OH_ArkUI_SelectedDragPreviewStyle_Dispose(config: *mut ArkUI_SelectedDragPreviewStyle);
+}
+extern "C" {
+    #[doc = " @brief Sets the color of background for selected drag preview style.\n @param config Pointer to the configuration object to be modified.\n @param color Background color.\n @since 23"]
+    #[cfg(feature = "api-23")]
+    pub fn OH_ArkUI_SelectedDragPreviewStyle_SetColor(
+        config: *mut ArkUI_SelectedDragPreviewStyle,
+        color: u32,
+    );
+}
+extern "C" {
+    #[doc = " @brief Gets the color of background for selected drag preview style.\n @param config Pointer to the configuration object.\n @return Returns the background color.\n @since 23"]
+    #[cfg(feature = "api-23")]
+    pub fn OH_ArkUI_SelectedDragPreviewStyle_GetColor(
+        config: *mut ArkUI_SelectedDragPreviewStyle,
+    ) -> u32;
+}
+extern "C" {
+    #[doc = " @brief Create the ArkUI_PickerIndicatorStyle instance.\n\n @param type The picker selection indicator enumeration type.\n @return  ArkUI_PickerIndicatorStyle instance. If the instance returns a null pointer,\n         it indicates creation failure, and the reason for the failure may be that the address space is full or\n         the type not supported.\n @since 23"]
+    #[cfg(feature = "api-23")]
+    pub fn OH_ArkUI_PickerIndicatorStyle_Create(
+        type_: ArkUI_PickerIndicatorType,
+    ) -> *mut ArkUI_PickerIndicatorStyle;
+}
+extern "C" {
+    #[doc = " @brief Destroy the ArkUI_PickerIndicatorStyle instance.\n\n @param style The ArkUI_PickerIndicatorStyle instance to be destroyed.\n @since 23"]
+    #[cfg(feature = "api-23")]
+    pub fn OH_ArkUI_PickerIndicatorStyle_Dispose(style: *mut ArkUI_PickerIndicatorStyle);
+}
+extern "C" {
+    #[doc = " @brief Set the parameters of background style.\n\n @param style The ArkUI_PickerIndicatorStyle instance.\n @param background The parameters of background style.\n @return Returns {@link ARKUI_ERROR_CODE_NO_ERROR} if success.\n         Returns {@link ARKUI_ERROR_CODE_PARAM_INVALID} The parameters set need to be consistent with\n         the type of the created instance. If they are not consistent, this error code will be returned.\n         This interface only takes effect when the type is \"background\".\n @since 23"]
+    #[cfg(feature = "api-23")]
+    pub fn OH_ArkUI_PickerIndicatorStyle_ConfigureBackground(
+        style: *mut ArkUI_PickerIndicatorStyle,
+        background: *mut ArkUI_PickerIndicatorBackground,
+    ) -> ArkUI_ErrorCode;
+}
+extern "C" {
+    #[doc = " @brief Set the parameters of divider style.\n\n @param style The ArkUI_PickerIndicatorStyle instance.\n @param divider The parameters of divider style.\n @return Returns {@link ARKUI_ERROR_CODE_NO_ERROR} if success.\n         Returns {@link ARKUI_ERROR_CODE_PARAM_INVALID} The parameters set need to be consistent with\n         the type of the created instance. If they are not consistent, this error code will be returned.\n         This interface only takes effect when the type is \"divider\".\n @since 23"]
+    #[cfg(feature = "api-23")]
+    pub fn OH_ArkUI_PickerIndicatorStyle_ConfigureDivider(
+        style: *mut ArkUI_PickerIndicatorStyle,
+        divider: *mut ArkUI_PickerIndicatorDivider,
+    ) -> ArkUI_ErrorCode;
+}
+#[doc = " @brief Defines the region of the image source to decode.\n\n @since 12"]
+#[repr(C)]
+#[derive(Debug, Copy, Clone)]
+pub struct Image_Region {
+    #[doc = " X coordinate of the start point, in pixels."]
+    pub x: u32,
+    #[doc = " Y coordinate of the start point, in pixels."]
+    pub y: u32,
+    #[doc = " Width of the region, in pixels."]
+    pub width: u32,
+    #[doc = " Height of the region, in pixels."]
+    pub height: u32,
+}
+#[doc = " @brief Defines the area of the image pixels to read or write.\n\n @since 22"]
+#[cfg(feature = "api-22")]
+#[repr(C)]
+#[derive(Debug, Copy, Clone)]
+pub struct Image_PositionArea {
+    #[doc = " Image pixels data that will be read or written."]
+    pub pixels: *mut u8,
+    #[doc = " Length of the image pixels data."]
+    pub pixelsSize: usize,
+    #[doc = " Offset for data reading or writing."]
+    pub offset: u32,
+    #[doc = " Number of bytes per row of the region."]
+    pub stride: u32,
+    #[doc = " Region to read or write."]
+    pub region: Image_Region,
+}
+#[doc = " @brief Defines the image scale ratio.\n\n @since 22"]
+#[cfg(feature = "api-22")]
+#[repr(C)]
+#[derive(Debug, Copy, Clone)]
+pub struct Image_Scale {
+    #[doc = " Scale ratio on the x-axis."]
+    pub x: f32,
+    #[doc = " Scale ratio on the y-axis."]
+    pub y: f32,
+}
+#[doc = " @brief Defines the region of the image source to decode.\n\n @since 12"]
+#[repr(C)]
+#[derive(Debug, Copy, Clone)]
+pub struct Image_String {
+    #[doc = " data for string type"]
+    pub data: *mut ::std::os::raw::c_char,
+    #[doc = " data lenth for string type"]
+    pub size: usize,
+}
+#[doc = " @brief Define a PictureMetadata struct type, used for picture metadata.\n\n @since 13"]
+#[cfg(feature = "api-13")]
+#[repr(C)]
+#[derive(Debug, Copy, Clone)]
+pub struct OH_PictureMetadata {
+    _unused: [u8; 0],
+}
+#[doc = " operation success"]
+pub const Image_ErrorCode_IMAGE_SUCCESS: Image_ErrorCode = 0;
+#[doc = " invalid parameter"]
+pub const Image_ErrorCode_IMAGE_BAD_PARAMETER: Image_ErrorCode = 401;
+#[doc = " unsupported mime type"]
+pub const Image_ErrorCode_IMAGE_UNSUPPORTED_MIME_TYPE: Image_ErrorCode = 7600101;
+#[doc = " unknown mime type"]
+pub const Image_ErrorCode_IMAGE_UNKNOWN_MIME_TYPE: Image_ErrorCode = 7600102;
+#[doc = " too large data or image"]
+pub const Image_ErrorCode_IMAGE_TOO_LARGE: Image_ErrorCode = 7600103;
+#[doc = " @error Failed to get image data.\n @since 23"]
+#[cfg(feature = "api-23")]
+pub const Image_ErrorCode_IMAGE_GET_IMAGE_DATA_FAILED: Image_ErrorCode = 7600104;
+#[doc = " @error DMA memory does not exist"]
+pub const Image_ErrorCode_IMAGE_DMA_NOT_EXIST: Image_ErrorCode = 7600173;
+#[doc = " @error DMA operation failed"]
+pub const Image_ErrorCode_IMAGE_DMA_OPERATION_FAILED: Image_ErrorCode = 7600174;
+#[doc = " unsupported operations"]
+pub const Image_ErrorCode_IMAGE_UNSUPPORTED_OPERATION: Image_ErrorCode = 7600201;
+#[doc = " unsupported metadata"]
+pub const Image_ErrorCode_IMAGE_UNSUPPORTED_METADATA: Image_ErrorCode = 7600202;
+#[doc = " unsupported conversion"]
+pub const Image_ErrorCode_IMAGE_UNSUPPORTED_CONVERSION: Image_ErrorCode = 7600203;
+#[doc = " invalid region"]
+pub const Image_ErrorCode_IMAGE_INVALID_REGION: Image_ErrorCode = 7600204;
+#[doc = " @error unsupported memory format\n @since 13"]
+#[cfg(feature = "api-13")]
+pub const Image_ErrorCode_IMAGE_UNSUPPORTED_MEMORY_FORMAT: Image_ErrorCode = 7600205;
+#[doc = " @error Invalid parameter.\n @since 19"]
+#[cfg(feature = "api-19")]
+pub const Image_ErrorCode_IMAGE_INVALID_PARAMETER: Image_ErrorCode = 7600206;
+#[doc = " @error Unsupported data format\n @since 22"]
+#[cfg(feature = "api-22")]
+pub const Image_ErrorCode_IMAGE_UNSUPPORTED_DATA_FORMAT: Image_ErrorCode = 7600207;
+#[doc = " failed to allocate memory"]
+pub const Image_ErrorCode_IMAGE_ALLOC_FAILED: Image_ErrorCode = 7600301;
+#[doc = " memory copy failed"]
+pub const Image_ErrorCode_IMAGE_COPY_FAILED: Image_ErrorCode = 7600302;
+#[doc = " @error memory lock or unlock failed\n @since 15"]
+#[cfg(feature = "api-15")]
+pub const Image_ErrorCode_IMAGE_LOCK_UNLOCK_FAILED: Image_ErrorCode = 7600303;
+#[doc = " @error Initialization failed\n @since 22"]
+#[cfg(feature = "api-22")]
+pub const Image_ErrorCode_IMAGE_INIT_FAILED: Image_ErrorCode = 7600304;
+#[doc = " @error Create PixelMap failed\n @since 22"]
+#[cfg(feature = "api-22")]
+pub const Image_ErrorCode_IMAGE_CREATE_PIXELMAP_FAILED: Image_ErrorCode = 7600305;
+#[doc = " @error unsupported allocator mode, e.g., use share memory to create a HDR image as only\n DMA supported hdr metadata.\n @since 20"]
+#[cfg(feature = "api-20")]
+pub const Image_ErrorCode_IMAGE_ALLOCATOR_MODE_UNSUPPORTED: Image_ErrorCode = 7600501;
+#[doc = " unknown error"]
+pub const Image_ErrorCode_IMAGE_UNKNOWN_ERROR: Image_ErrorCode = 7600901;
+#[doc = " decode data source exception"]
+pub const Image_ErrorCode_IMAGE_BAD_SOURCE: Image_ErrorCode = 7700101;
+#[doc = " @error unsupported mime type\n @since 15"]
+#[cfg(feature = "api-15")]
+pub const Image_ErrorCode_IMAGE_SOURCE_UNSUPPORTED_MIME_TYPE: Image_ErrorCode = 7700102;
+#[doc = " @error image to large\n @since 15"]
+#[cfg(feature = "api-15")]
+pub const Image_ErrorCode_IMAGE_SOURCE_TOO_LARGE: Image_ErrorCode = 7700103;
+#[doc = " @error unsupported allocator type, e.g., use share memory to decode a HDR image as only\n DMA supported hdr metadata.\n @since 15"]
+#[cfg(feature = "api-15")]
+pub const Image_ErrorCode_IMAGE_SOURCE_UNSUPPORTED_ALLOCATOR_TYPE: Image_ErrorCode = 7700201;
+#[doc = " @error Unsupported metadata. For example, the property key is not supported,\n     or the property value is invalid.\n @since 23"]
+#[cfg(feature = "api-23")]
+pub const Image_ErrorCode_IMAGE_SOURCE_UNSUPPORTED_METADATA: Image_ErrorCode = 7700202;
+pub const Image_ErrorCode_IMAGE_SOURCE_UNSUPPORTED_OPTIONS: Image_ErrorCode = 7700203;
+#[doc = " @error Invalid parameter.\n @since 19"]
+#[cfg(feature = "api-19")]
+pub const Image_ErrorCode_IMAGE_SOURCE_INVALID_PARAMETER: Image_ErrorCode = 7700204;
+#[doc = " decode failed"]
+pub const Image_ErrorCode_IMAGE_DECODE_FAILED: Image_ErrorCode = 7700301;
+#[doc = " @error memory allocation failed\n @since 15"]
+#[cfg(feature = "api-15")]
+pub const Image_ErrorCode_IMAGE_SOURCE_ALLOC_FAILED: Image_ErrorCode = 7700302;
+#[doc = " @error Invalid parameter for ImagePacker.\n @since 19"]
+#[cfg(feature = "api-19")]
+pub const Image_ErrorCode_IMAGE_PACKER_INVALID_PARAMETER: Image_ErrorCode = 7800202;
+#[doc = " encode failed"]
+pub const Image_ErrorCode_IMAGE_ENCODE_FAILED: Image_ErrorCode = 7800301;
+#[doc = " @error Invalid parameter for ImageReceiver.\n @since 20"]
+#[cfg(feature = "api-20")]
+pub const Image_ErrorCode_IMAGE_RECEIVER_INVALID_PARAMETER: Image_ErrorCode = 7900201;
+#[doc = " @brief Enumerates the return values that may be used by the interface.\n\n @since 12"]
+pub type Image_ErrorCode = u32;
+#[doc = " EXIF metadata."]
+#[cfg(feature = "api-13")]
+pub const Image_MetadataType_EXIF_METADATA: Image_MetadataType = 1;
+#[doc = " Fragment metadata."]
+#[cfg(feature = "api-13")]
+pub const Image_MetadataType_FRAGMENT_METADATA: Image_MetadataType = 2;
+#[doc = " Metadata of a GIF image.\n\n @since 20"]
+#[cfg(feature = "api-20")]
+pub const Image_MetadataType_GIF_METADATA: Image_MetadataType = 5;
+#[doc = " @brief Define the metadata type.\n\n @since 13"]
+#[cfg(feature = "api-13")]
+pub type Image_MetadataType = u32;
+#[doc = " The system determines which memory to use to create the PixelMap.\n\n @since 20"]
+#[cfg(feature = "api-20")]
+pub const IMAGE_ALLOCATOR_MODE_IMAGE_ALLOCATOR_MODE_AUTO: IMAGE_ALLOCATOR_MODE = 0;
+#[doc = " Use DMA buffer to create the PixelMap.\n\n @since 20"]
+#[cfg(feature = "api-20")]
+pub const IMAGE_ALLOCATOR_MODE_IMAGE_ALLOCATOR_MODE_DMA: IMAGE_ALLOCATOR_MODE = 1;
+#[doc = " Use share memory to create the PixelMap.\n\n @since 20"]
+#[cfg(feature = "api-20")]
+pub const IMAGE_ALLOCATOR_MODE_IMAGE_ALLOCATOR_MODE_SHARED_MEMORY: IMAGE_ALLOCATOR_MODE = 2;
+#[doc = " @brief Type of allocator used to allocate memory of a PixelMap.\n\n @since 20"]
+#[cfg(feature = "api-20")]
+pub type IMAGE_ALLOCATOR_MODE = u32;
+extern "C" {
+    #[doc = " @brief Creates a <b>PictureMetadata</b> object.\n\n @param metadataType The type of metadata.\n @param metadata The PictureMetadata pointer will be operated.\n @return Image functions result code.\n         {@link IMAGE_SUCCESS} if the execution is successful.\n         {@link IMAGE_BAD_PARAMETER} metadata is nullptr.\n @since 13"]
+    #[cfg(feature = "api-13")]
+    pub fn OH_PictureMetadata_Create(
+        metadataType: Image_MetadataType,
+        metadata: *mut *mut OH_PictureMetadata,
+    ) -> Image_ErrorCode;
+}
+extern "C" {
+    #[doc = " @brief Obtains the property of picture metadata.\n\n @param metadata The PictureMetadata pointer will be operated.\n @param key The property's key.\n @param value The property's value.\n @return Image functions result code.\n         {@link IMAGE_SUCCESS} if the execution is successful.\n         {@link IMAGE_BAD_PARAMETER} metadata is nullptr, or key is nullptr, or value is nullptr.\n         {@link IMAGE_UNSUPPORTED_METADATA} unsupported metadata type, or the metadata type does not match the\n         auxiliary picture type.\n @since 13"]
+    #[cfg(feature = "api-13")]
+    pub fn OH_PictureMetadata_GetProperty(
+        metadata: *mut OH_PictureMetadata,
+        key: *mut Image_String,
+        value: *mut Image_String,
+    ) -> Image_ErrorCode;
+}
+extern "C" {
+    #[doc = " @brief Set picture metadata property.\n\n @param metadata The PictureMetadata pointer will be operated.\n @param key The property's key.\n @param value The property's value.\n @return Image functions result code.\n         {@link IMAGE_SUCCESS} if the execution is successful.\n         {@link IMAGE_BAD_PARAMETER} metadata is nullptr, or key is nullptr, or value is nullptr.\n         {@link IMAGE_UNSUPPORTED_METADATA} unsupported metadata type, or the metadata type does not match the\n         auxiliary picture type.\n @since 13"]
+    #[cfg(feature = "api-13")]
+    pub fn OH_PictureMetadata_SetProperty(
+        metadata: *mut OH_PictureMetadata,
+        key: *mut Image_String,
+        value: *mut Image_String,
+    ) -> Image_ErrorCode;
+}
+extern "C" {
+    #[doc = " @brief Obtains the property of picture metadata. The output value.data is null-terminated.\n\n @param metadata Pointer to OH_PictureMetadata.\n @param key Pointer to property's key.\n @param value Pointer to property's value. Output parameter.\n @return Image functions result code.\n         {@link IMAGE_SUCCESS} if the execution is successful.\n         {@link IMAGE_INVALID_PARAMETER} metadata is nullptr, or key is nullptr, or value is nullptr.\n         {@link IMAGE_UNSUPPORTED_METADATA} unsupported metadata type, or the metadata type does not match the\n         auxiliary picture type.\n @since 19"]
+    #[cfg(feature = "api-19")]
+    pub fn OH_PictureMetadata_GetPropertyWithNull(
+        metadata: *mut OH_PictureMetadata,
+        key: *mut Image_String,
+        value: *mut Image_String,
+    ) -> Image_ErrorCode;
+}
+extern "C" {
+    #[doc = " @brief Releases this PictureMetadata object.\n\n @param metadata The PictureMetadata pointer will be operated.\n @return Image functions result code.\n         {@link IMAGE_SUCCESS} if the execution is successful.\n         {@link IMAGE_BAD_PARAMETER} metadata is nullptr.\n @since 13"]
+    #[cfg(feature = "api-13")]
+    pub fn OH_PictureMetadata_Release(metadata: *mut OH_PictureMetadata) -> Image_ErrorCode;
+}
+extern "C" {
+    #[doc = " @brief Obtains a clone of metadata.\n\n @param oldMetadata The PictureMetadata pointer will be operated.\n @param newMetadata The PictureMetadata pointer will be cloned.\n @return Image functions result code.\n         {@link IMAGE_SUCCESS} if the execution is successful.\n         {@link IMAGE_BAD_PARAMETER} metadata is nullptr.\n         {@link IMAGE_ALLOC_FAILED} memory alloc failed.\n         {@link IMAGE_COPY_FAILED} memory copy failed.\n @since 13"]
+    #[cfg(feature = "api-13")]
+    pub fn OH_PictureMetadata_Clone(
+        oldMetadata: *mut OH_PictureMetadata,
+        newMetadata: *mut *mut OH_PictureMetadata,
+    ) -> Image_ErrorCode;
+}
+#[doc = " @brief Defines a pointer to bits per sample, one of the image properties.\n It is used in {@link OH_ImageSource_GetImageProperty} and {@link OH_ImageSource_ModifyImageProperty}.\n\n @since 12"]
+pub const OHOS_IMAGE_PROPERTY_BITS_PER_SAMPLE: &[u8; 14usize] = b"BitsPerSample\0";
+#[doc = " @brief Defines a pointer to the orientation, one of the image properties.\n It is used in {@link OH_ImageSource_GetImageProperty} and {@link OH_ImageSource_ModifyImageProperty}.\n\n @since 12"]
+pub const OHOS_IMAGE_PROPERTY_ORIENTATION: &[u8; 12usize] = b"Orientation\0";
+#[doc = " @brief Defines a pointer to the image length, one of the image properties.\n It is used in {@link OH_ImageSource_GetImageProperty} and {@link OH_ImageSource_ModifyImageProperty}.\n\n @since 12"]
+pub const OHOS_IMAGE_PROPERTY_IMAGE_LENGTH: &[u8; 12usize] = b"ImageLength\0";
+#[doc = " @brief Defines a pointer to the image width, one of the image properties.\n It is used in {@link OH_ImageSource_GetImageProperty} and {@link OH_ImageSource_ModifyImageProperty}.\n\n @since 12"]
+pub const OHOS_IMAGE_PROPERTY_IMAGE_WIDTH: &[u8; 11usize] = b"ImageWidth\0";
+#[doc = " @brief Defines a pointer to the GPS latitude, one of the image properties.\n It is used in {@link OH_ImageSource_GetImageProperty} and {@link OH_ImageSource_ModifyImageProperty}.\n\n @since 12"]
+pub const OHOS_IMAGE_PROPERTY_GPS_LATITUDE: &[u8; 12usize] = b"GPSLatitude\0";
+#[doc = " @brief Defines a pointer to the GPS longitude, one of the image properties.\n It is used in {@link OH_ImageSource_GetImageProperty} and {@link OH_ImageSource_ModifyImageProperty}.\n\n @since 12"]
+pub const OHOS_IMAGE_PROPERTY_GPS_LONGITUDE: &[u8; 13usize] = b"GPSLongitude\0";
+#[doc = " @brief Defines a pointer to the GPS latitude reference information, one of the image properties.\n It is used in {@link OH_ImageSource_GetImageProperty} and {@link OH_ImageSource_ModifyImageProperty}.\n\n @since 12"]
+pub const OHOS_IMAGE_PROPERTY_GPS_LATITUDE_REF: &[u8; 15usize] = b"GPSLatitudeRef\0";
+#[doc = " @brief Defines a pointer to the GPS longitude reference information, one of the image properties.\n It is used in {@link OH_ImageSource_GetImageProperty} and {@link OH_ImageSource_ModifyImageProperty}.\n\n @since 12"]
+pub const OHOS_IMAGE_PROPERTY_GPS_LONGITUDE_REF: &[u8; 16usize] = b"GPSLongitudeRef\0";
+#[doc = " @brief Defines a pointer to the created date and time, one of the image properties.\n It is used in {@link OH_ImageSource_GetImageProperty} and {@link OH_ImageSource_ModifyImageProperty}.\n\n @since 12"]
+pub const OHOS_IMAGE_PROPERTY_DATE_TIME_ORIGINAL: &[u8; 17usize] = b"DateTimeOriginal\0";
+#[doc = " @brief Defines a pointer to the exposure time, one of the image properties.\n It is used in {@link OH_ImageSource_GetImageProperty} and {@link OH_ImageSource_ModifyImageProperty}.\n\n @since 12"]
+pub const OHOS_IMAGE_PROPERTY_EXPOSURE_TIME: &[u8; 13usize] = b"ExposureTime\0";
+#[doc = " @brief Defines a pointer to the scene type, one of the image properties.\n It is used in {@link OH_ImageSource_GetImageProperty} and {@link OH_ImageSource_ModifyImageProperty}.\n\n @since 12"]
+pub const OHOS_IMAGE_PROPERTY_SCENE_TYPE: &[u8; 10usize] = b"SceneType\0";
+#[doc = " @brief Defines a pointer to the ISO speed ratings, one of the image properties.\n It is used in {@link OH_ImageSource_GetImageProperty} and {@link OH_ImageSource_ModifyImageProperty}.\n\n @since 12"]
+pub const OHOS_IMAGE_PROPERTY_ISO_SPEED_RATINGS: &[u8; 16usize] = b"ISOSpeedRatings\0";
+#[doc = " @brief Defines a pointer to the f-number of the image, one of the image properties.\n It is used in {@link OH_ImageSource_GetImageProperty} and {@link OH_ImageSource_ModifyImageProperty}.\n\n @since 12"]
+pub const OHOS_IMAGE_PROPERTY_F_NUMBER: &[u8; 8usize] = b"FNumber\0";
+#[doc = " @brief Defines a pointer to the compressed bits per pixel, one of the image properties.\n It is used in {@link OH_ImageSource_GetImageProperty} and {@link OH_ImageSource_ModifyImageProperty}.\n\n @since 12"]
+pub const OHOS_IMAGE_PROPERTY_COMPRESSED_BITS_PER_PIXEL: &[u8; 23usize] =
+    b"CompressedBitsPerPixel\0";
+#[doc = " @brief The scheme used for image compression.\n Used in {@link OH_ImageSource_GetImageProperty} and {@link OH_ImageSource_ModifyImageProperty}.\n\n @since 12"]
+pub const OHOS_IMAGE_PROPERTY_COMPRESSION: &[u8; 12usize] = b"Compression\0";
+#[doc = " @brief Pixel composition, such as RGB or YCbCr.\n Used in {@link OH_ImageSource_GetImageProperty} and {@link OH_ImageSource_ModifyImageProperty}.\n\n @since 12"]
+pub const OHOS_IMAGE_PROPERTY_PHOTOMETRIC_INTERPRETATION: &[u8; 26usize] =
+    b"PhotometricInterpretation\0";
+#[doc = " @brief For each strip, the byte offset of that strip.\n Used in {@link OH_ImageSource_GetImageProperty} and {@link OH_ImageSource_ModifyImageProperty}.\n\n @since 12"]
+pub const OHOS_IMAGE_PROPERTY_STRIP_OFFSETS: &[u8; 13usize] = b"StripOffsets\0";
+#[doc = " @brief The number of components per pixel.\n Used in {@link OH_ImageSource_GetImageProperty} and {@link OH_ImageSource_ModifyImageProperty}.\n\n @since 12"]
+pub const OHOS_IMAGE_PROPERTY_SAMPLES_PER_PIXEL: &[u8; 16usize] = b"SamplesPerPixel\0";
+#[doc = " @brief The number of rows per strip of image data.\n Used in {@link OH_ImageSource_GetImageProperty} and {@link OH_ImageSource_ModifyImageProperty}.\n\n @since 12"]
+pub const OHOS_IMAGE_PROPERTY_ROWS_PER_STRIP: &[u8; 13usize] = b"RowsPerStrip\0";
+#[doc = " @brief The total number of bytes in each strip of image data.\n Used in {@link OH_ImageSource_GetImageProperty} and {@link OH_ImageSource_ModifyImageProperty}.\n\n @since 12"]
+pub const OHOS_IMAGE_PROPERTY_STRIP_BYTE_COUNTS: &[u8; 16usize] = b"StripByteCounts\0";
+#[doc = " @brief The image resolution in the width direction.\n Used in {@link OH_ImageSource_GetImageProperty} and {@link OH_ImageSource_ModifyImageProperty}.\n\n @since 12"]
+pub const OHOS_IMAGE_PROPERTY_X_RESOLUTION: &[u8; 12usize] = b"XResolution\0";
+#[doc = " @brief The image resolution in the height direction.\n Used in {@link OH_ImageSource_GetImageProperty} and {@link OH_ImageSource_ModifyImageProperty}.\n\n @since 12"]
+pub const OHOS_IMAGE_PROPERTY_Y_RESOLUTION: &[u8; 12usize] = b"YResolution\0";
+#[doc = " @brief Indicates whether pixel components are recorded in a chunky or planar format.\n Used in {@link OH_ImageSource_GetImageProperty} and {@link OH_ImageSource_ModifyImageProperty}.\n\n @since 12"]
+pub const OHOS_IMAGE_PROPERTY_PLANAR_CONFIGURATION: &[u8; 20usize] = b"PlanarConfiguration\0";
+#[doc = " @brief The unit used to measure XResolution and YResolution.\n Used in {@link OH_ImageSource_GetImageProperty} and {@link OH_ImageSource_ModifyImageProperty}.\n\n @since 12"]
+pub const OHOS_IMAGE_PROPERTY_RESOLUTION_UNIT: &[u8; 15usize] = b"ResolutionUnit\0";
+#[doc = " @brief The transfer function for the image, typically used for color correction.\n Used in {@link OH_ImageSource_GetImageProperty} and {@link OH_ImageSource_ModifyImageProperty}.\n\n @since 12"]
+pub const OHOS_IMAGE_PROPERTY_TRANSFER_FUNCTION: &[u8; 17usize] = b"TransferFunction\0";
+#[doc = " @brief The name and version of the software used to generate the image.\n Used in {@link OH_ImageSource_GetImageProperty} and {@link OH_ImageSource_ModifyImageProperty}.\n\n @since 12"]
+pub const OHOS_IMAGE_PROPERTY_SOFTWARE: &[u8; 9usize] = b"Software\0";
+#[doc = " @brief The name of the person who created the image.\n Used in {@link OH_ImageSource_GetImageProperty} and {@link OH_ImageSource_ModifyImageProperty}.\n\n @since 12"]
+pub const OHOS_IMAGE_PROPERTY_ARTIST: &[u8; 7usize] = b"Artist\0";
+#[doc = " @brief The chromaticity of the white point of the image.\n Used in {@link OH_ImageSource_GetImageProperty} and {@link OH_ImageSource_ModifyImageProperty}.\n\n @since 12"]
+pub const OHOS_IMAGE_PROPERTY_WHITE_POINT: &[u8; 11usize] = b"WhitePoint\0";
+#[doc = " @brief The chromaticity of the primary colors of the image.\n Used in {@link OH_ImageSource_GetImageProperty} and {@link OH_ImageSource_ModifyImageProperty}.\n\n @since 12"]
+pub const OHOS_IMAGE_PROPERTY_PRIMARY_CHROMATICITIES: &[u8; 22usize] = b"PrimaryChromaticities\0";
+#[doc = " @brief The matrix coefficients for transformation from RGB to YCbCr image data.\n Used in {@link OH_ImageSource_GetImageProperty} and {@link OH_ImageSource_ModifyImageProperty}.\n\n @since 12"]
+pub const OHOS_IMAGE_PROPERTY_YCBCR_COEFFICIENTS: &[u8; 18usize] = b"YCbCrCoefficients\0";
+#[doc = " @brief The sampling ratio of chrominance components to the luminance component.\n Used in {@link OH_ImageSource_GetImageProperty} and {@link OH_ImageSource_ModifyImageProperty}.\n\n @since 12"]
+pub const OHOS_IMAGE_PROPERTY_YCBCR_SUB_SAMPLING: &[u8; 17usize] = b"YCbCrSubSampling\0";
+#[doc = " @brief The position of chrominance components in relation to the luminance component.\n Used in {@link OH_ImageSource_GetImageProperty} and {@link OH_ImageSource_ModifyImageProperty}.\n\n @since 12"]
+pub const OHOS_IMAGE_PROPERTY_YCBCR_POSITIONING: &[u8; 17usize] = b"YCbCrPositioning\0";
+#[doc = " @brief The reference black point value and reference white point value.\n Used in {@link OH_ImageSource_GetImageProperty} and {@link OH_ImageSource_ModifyImageProperty}.\n\n @since 12"]
+pub const OHOS_IMAGE_PROPERTY_REFERENCE_BLACK_WHITE: &[u8; 20usize] = b"ReferenceBlackWhite\0";
+#[doc = " @brief Copyright information for the image.\n Used in {@link OH_ImageSource_GetImageProperty} and {@link OH_ImageSource_ModifyImageProperty}.\n\n @since 12"]
+pub const OHOS_IMAGE_PROPERTY_COPYRIGHT: &[u8; 10usize] = b"Copyright\0";
+#[doc = " @brief The offset to the start byte (SOI) of JPEG compressed thumbnail data.\n Used in {@link OH_ImageSource_GetImageProperty} and {@link OH_ImageSource_ModifyImageProperty}.\n\n @since 12"]
+pub const OHOS_IMAGE_PROPERTY_JPEG_INTERCHANGE_FORMAT: &[u8; 22usize] = b"JPEGInterchangeFormat\0";
+#[doc = " @brief The number of bytes of JPEG compressed thumbnail data.\n Used in {@link OH_ImageSource_GetImageProperty} and {@link OH_ImageSource_ModifyImageProperty}.\n\n @since 12"]
+pub const OHOS_IMAGE_PROPERTY_JPEG_INTERCHANGE_FORMAT_LENGTH: &[u8; 28usize] =
+    b"JPEGInterchangeFormatLength\0";
+#[doc = " @brief The class of the program used by the camera to set exposure when the picture is taken.\n Used in {@link OH_ImageSource_GetImageProperty} and {@link OH_ImageSource_ModifyImageProperty}.\n\n @since 12"]
+pub const OHOS_IMAGE_PROPERTY_EXPOSURE_PROGRAM: &[u8; 16usize] = b"ExposureProgram\0";
+#[doc = " @brief Indicates the spectral sensitivity of each channel of the camera used.\n Used in {@link OH_ImageSource_GetImageProperty} and {@link OH_ImageSource_ModifyImageProperty}.\n\n @since 12"]
+pub const OHOS_IMAGE_PROPERTY_SPECTRAL_SENSITIVITY: &[u8; 20usize] = b"SpectralSensitivity\0";
+#[doc = " @brief Indicates the Opto-Electric Conversion Function (OECF) specified in ISO 14524.\n Used in {@link OH_ImageSource_GetImageProperty} and {@link OH_ImageSource_ModifyImageProperty}.\n\n @since 12"]
+pub const OHOS_IMAGE_PROPERTY_OECF: &[u8; 5usize] = b"OECF\0";
+#[doc = " @brief The version of the Exif standard supported.\n Used in {@link OH_ImageSource_GetImageProperty} and {@link OH_ImageSource_ModifyImageProperty}.\n\n @since 12"]
+pub const OHOS_IMAGE_PROPERTY_EXIF_VERSION: &[u8; 12usize] = b"ExifVersion\0";
+#[doc = " @brief The date and time when the image was stored as digital data.\n Used in {@link OH_ImageSource_GetImageProperty} and {@link OH_ImageSource_ModifyImageProperty}.\n\n @since 12"]
+pub const OHOS_IMAGE_PROPERTY_DATE_TIME_DIGITIZED: &[u8; 18usize] = b"DateTimeDigitized\0";
+#[doc = " @brief Information specific to compressed data.\n Used in {@link OH_ImageSource_GetImageProperty} and {@link OH_ImageSource_ModifyImageProperty}.\n\n @since 12"]
+pub const OHOS_IMAGE_PROPERTY_COMPONENTS_CONFIGURATION: &[u8; 24usize] =
+    b"ComponentsConfiguration\0";
+#[doc = " @brief The shutter speed, expressed as an APEX (Additive System of Photographic Exposure) value.\n Used in {@link OH_ImageSource_GetImageProperty} and {@link OH_ImageSource_ModifyImageProperty}.\n\n @since 12"]
+pub const OHOS_IMAGE_PROPERTY_SHUTTER_SPEED_VALUE: &[u8; 18usize] = b"ShutterSpeedValue\0";
+#[doc = " @brief The brightness value of the image, in APEX units.\n It is used in {@link OH_ImageSource_GetImageProperty} and {@link OH_ImageSource_ModifyImageProperty}.\n\n @since 12"]
+pub const OHOS_IMAGE_PROPERTY_BRIGHTNESS_VALUE: &[u8; 16usize] = b"BrightnessValue\0";
+#[doc = " @brief The smallest F number of lens.\n It is used in {@link OH_ImageSource_GetImageProperty} and {@link OH_ImageSource_ModifyImageProperty}.\n\n @since 12"]
+pub const OHOS_IMAGE_PROPERTY_MAX_APERTURE_VALUE: &[u8; 17usize] = b"MaxApertureValue\0";
+#[doc = " @brief The distance to the subject, measured in meters.\n It is used in {@link OH_ImageSource_GetImageProperty} and {@link OH_ImageSource_ModifyImageProperty}.\n\n @since 12"]
+pub const OHOS_IMAGE_PROPERTY_SUBJECT_DISTANCE: &[u8; 16usize] = b"SubjectDistance\0";
+#[doc = " @brief This tag indicate the location and area of the main subject in the overall scene.\n It is used in {@link OH_ImageSource_GetImageProperty} and {@link OH_ImageSource_ModifyImageProperty}.\n\n @since 12"]
+pub const OHOS_IMAGE_PROPERTY_SUBJECT_AREA: &[u8; 12usize] = b"SubjectArea\0";
+#[doc = " @brief A tag for manufacturers of Exif/DCF writers to record any desired infomation.\n It is used in {@link OH_ImageSource_GetImageProperty} and {@link OH_ImageSource_ModifyImageProperty}.\n\n @since 12"]
+pub const OHOS_IMAGE_PROPERTY_MAKER_NOTE: &[u8; 10usize] = b"MakerNote\0";
+#[doc = " @brief A tag for record fractions of seconds for the DateTime tag.\n It is used in {@link OH_ImageSource_GetImageProperty} and {@link OH_ImageSource_ModifyImageProperty}.\n\n @since 12"]
+pub const OHOS_IMAGE_PROPERTY_SUBSEC_TIME: &[u8; 11usize] = b"SubsecTime\0";
+#[doc = " @brief A tag used to record fractions of seconds for the DateTimeOriginal tag.\n It is used in {@link OH_ImageSource_GetImageProperty} and {@link OH_ImageSource_ModifyImageProperty}.\n\n @since 12"]
+pub const OHOS_IMAGE_PROPERTY_SUBSEC_TIME_ORIGINAL: &[u8; 19usize] = b"SubsecTimeOriginal\0";
+#[doc = " @brief A tag used to record fractions of seconds for the DateTimeDigitized tag.\n It is used in {@link OH_ImageSource_GetImageProperty} and {@link OH_ImageSource_ModifyImageProperty}.\n\n @since 12"]
+pub const OHOS_IMAGE_PROPERTY_SUBSEC_TIME_DIGITIZED: &[u8; 20usize] = b"SubsecTimeDigitized\0";
+#[doc = " @brief This tag denotes the Flashpix format version supported by an FPXR file, enhancing device compatibility.\n It is used in {@link OH_ImageSource_GetImageProperty} and {@link OH_ImageSource_ModifyImageProperty}.\n\n @since 12"]
+pub const OHOS_IMAGE_PROPERTY_FLASHPIX_VERSION: &[u8; 16usize] = b"FlashpixVersion\0";
+#[doc = " @brief The color space information tag, often recorded as the color space specifier.\n Used in {@link OH_ImageSource_GetImageProperty} and {@link OH_ImageSource_ModifyImageProperty}.\n\n @since 12"]
+pub const OHOS_IMAGE_PROPERTY_COLOR_SPACE: &[u8; 11usize] = b"ColorSpace\0";
+#[doc = " @brief The name of an audio file related to the image data.\n Used in {@link OH_ImageSource_GetImageProperty} and {@link OH_ImageSource_ModifyImageProperty}.\n\n @since 12"]
+pub const OHOS_IMAGE_PROPERTY_RELATED_SOUND_FILE: &[u8; 17usize] = b"RelatedSoundFile\0";
+#[doc = " @brief Strobe energy at image capture, in BCPS.\n It is used in {@link OH_ImageSource_GetImageProperty} and {@link OH_ImageSource_ModifyImageProperty}.\n\n @since 12"]
+pub const OHOS_IMAGE_PROPERTY_FLASH_ENERGY: &[u8; 12usize] = b"FlashEnergy\0";
+#[doc = " @brief Camera or input device spatial frequency table.\n It is used in {@link OH_ImageSource_GetImageProperty} and {@link OH_ImageSource_ModifyImageProperty}.\n\n @since 12"]
+pub const OHOS_IMAGE_PROPERTY_SPATIAL_FREQUENCY_RESPONSE: &[u8; 25usize] =
+    b"SpatialFrequencyResponse\0";
+#[doc = " @brief Pixels per FocalPlaneResolutionUnit in the image width.\n It is used in {@link OH_ImageSource_GetImageProperty} and {@link OH_ImageSource_ModifyImageProperty}.\n\n @since 12"]
+pub const OHOS_IMAGE_PROPERTY_FOCAL_PLANE_X_RESOLUTION: &[u8; 22usize] = b"FocalPlaneXResolution\0";
+#[doc = " @brief Pixels per FocalPlaneResolutionUnit in the image height.\n It is used in {@link OH_ImageSource_GetImageProperty} and {@link OH_ImageSource_ModifyImageProperty}.\n\n @since 12"]
+pub const OHOS_IMAGE_PROPERTY_FOCAL_PLANE_Y_RESOLUTION: &[u8; 22usize] = b"FocalPlaneYResolution\0";
+#[doc = " @brief Unit for measuring FocalPlaneXResolution and FocalPlaneYResolution.\n It is used in {@link OH_ImageSource_GetImageProperty} and {@link OH_ImageSource_ModifyImageProperty}.\n\n @since 12"]
+pub const OHOS_IMAGE_PROPERTY_FOCAL_PLANE_RESOLUTION_UNIT: &[u8; 25usize] =
+    b"FocalPlaneResolutionUnit\0";
+#[doc = " @brief Location of the main subject, relative to the left edge.\n It is used in {@link OH_ImageSource_GetImageProperty} and {@link OH_ImageSource_ModifyImageProperty}.\n\n @since 12"]
+pub const OHOS_IMAGE_PROPERTY_SUBJECT_LOCATION: &[u8; 16usize] = b"SubjectLocation\0";
+#[doc = " @brief Selected exposure index at capture.\n It is used in {@link OH_ImageSource_GetImageProperty} and {@link OH_ImageSource_ModifyImageProperty}.\n\n @since 12"]
+pub const OHOS_IMAGE_PROPERTY_EXPOSURE_INDEX: &[u8; 14usize] = b"ExposureIndex\0";
+#[doc = " @brief Image sensor type on the camera.\n It is used in {@link OH_ImageSource_GetImageProperty} and {@link OH_ImageSource_ModifyImageProperty}.\n\n @since 12"]
+pub const OHOS_IMAGE_PROPERTY_SENSING_METHOD: &[u8; 14usize] = b"SensingMethod\0";
+#[doc = " @brief Indicates the image source.\n Used in {@link OH_ImageSource_GetImageProperty} and {@link OH_ImageSource_ModifyImageProperty}.\n\n @since 12"]
+pub const OHOS_IMAGE_PROPERTY_FILE_SOURCE: &[u8; 11usize] = b"FileSource\0";
+#[doc = " @brief Color filter array (CFA) geometric pattern of the image sensor.\n Used in {@link OH_ImageSource_GetImageProperty} and {@link OH_ImageSource_ModifyImageProperty}.\n\n @since 12"]
+pub const OHOS_IMAGE_PROPERTY_CFA_PATTERN: &[u8; 11usize] = b"CFAPattern\0";
+#[doc = " @brief Indicates special processing on image data.\n Used in {@link OH_ImageSource_GetImageProperty} and {@link OH_ImageSource_ModifyImageProperty}.\n\n @since 12"]
+pub const OHOS_IMAGE_PROPERTY_CUSTOM_RENDERED: &[u8; 15usize] = b"CustomRendered\0";
+#[doc = " @brief Exposure mode set when the image was shot.\n Used in {@link OH_ImageSource_GetImageProperty} and {@link OH_ImageSource_ModifyImageProperty}.\n\n @since 12"]
+pub const OHOS_IMAGE_PROPERTY_EXPOSURE_MODE: &[u8; 13usize] = b"ExposureMode\0";
+#[doc = " @brief Digital zoom ratio at the time of capture.\n Used in {@link OH_ImageSource_GetImageProperty} and {@link OH_ImageSource_ModifyImageProperty}.\n\n @since 12"]
+pub const OHOS_IMAGE_PROPERTY_DIGITAL_ZOOM_RATIO: &[u8; 17usize] = b"DigitalZoomRatio\0";
+#[doc = " @brief Type of scene captured.\n Used in {@link OH_ImageSource_GetImageProperty} and {@link OH_ImageSource_ModifyImageProperty}.\n\n @since 12"]
+pub const OHOS_IMAGE_PROPERTY_SCENE_CAPTURE_TYPE: &[u8; 17usize] = b"SceneCaptureType\0";
+#[doc = " @brief Degree of overall image gain adjustment.\n It is used in {@link OH_ImageSource_GetImageProperty} and {@link OH_ImageSource_ModifyImageProperty}.\n\n @since 12"]
+pub const OHOS_IMAGE_PROPERTY_GAIN_CONTROL: &[u8; 12usize] = b"GainControl\0";
+#[doc = " @brief Direction of contrast processing applied by the camera.\n It is used in {@link OH_ImageSource_GetImageProperty} and {@link OH_ImageSource_ModifyImageProperty}.\n\n @since 12"]
+pub const OHOS_IMAGE_PROPERTY_CONTRAST: &[u8; 9usize] = b"Contrast\0";
+#[doc = " @brief Direction of saturation processing applied by the camera.\n It is used in {@link OH_ImageSource_GetImageProperty} and {@link OH_ImageSource_ModifyImageProperty}.\n\n @since 12"]
+pub const OHOS_IMAGE_PROPERTY_SATURATION: &[u8; 11usize] = b"Saturation\0";
+#[doc = " @brief The direction of sharpness processing applied by the camera.\n It is used in {@link OH_ImageSource_GetImageProperty} and {@link OH_ImageSource_ModifyImageProperty}.\n\n @since 12"]
+pub const OHOS_IMAGE_PROPERTY_SHARPNESS: &[u8; 10usize] = b"Sharpness\0";
+#[doc = " @brief Information on picture-taking conditions for a specific camera model.\n Used in {@link OH_ImageSource_GetImageProperty} and {@link OH_ImageSource_ModifyImageProperty}.\n\n @since 12"]
+pub const OHOS_IMAGE_PROPERTY_DEVICE_SETTING_DESCRIPTION: &[u8; 25usize] =
+    b"DeviceSettingDescription\0";
+#[doc = " @brief Indicates the distance range to the subject.\n Used in {@link OH_ImageSource_GetImageProperty} and {@link OH_ImageSource_ModifyImageProperty}.\n\n @since 12"]
+pub const OHOS_IMAGE_PROPERTY_SUBJECT_DISTANCE_RANGE: &[u8; 21usize] = b"SubjectDistanceRange\0";
+#[doc = " @brief An identifier uniquely assigned to each image.\n Used in {@link OH_ImageSource_GetImageProperty} and {@link OH_ImageSource_ModifyImageProperty}.\n\n @since 12"]
+pub const OHOS_IMAGE_PROPERTY_IMAGE_UNIQUE_ID: &[u8; 14usize] = b"ImageUniqueID\0";
+#[doc = " @brief The version of the GPSInfoIFD.\n Used in {@link OH_ImageSource_GetImageProperty} and {@link OH_ImageSource_ModifyImageProperty}.\n\n @since 12"]
+pub const OHOS_IMAGE_PROPERTY_GPS_VERSION_ID: &[u8; 13usize] = b"GPSVersionID\0";
+#[doc = " @brief Reference altitude used for GPS altitude.\n Used in {@link OH_ImageSource_GetImageProperty} and {@link OH_ImageSource_ModifyImageProperty}.\n\n @since 12"]
+pub const OHOS_IMAGE_PROPERTY_GPS_ALTITUDE_REF: &[u8; 15usize] = b"GPSAltitudeRef\0";
+#[doc = " @brief The altitude based on the reference in GPSAltitudeRef.\n Used in {@link OH_ImageSource_GetImageProperty} and {@link OH_ImageSource_ModifyImageProperty}.\n\n @since 12"]
+pub const OHOS_IMAGE_PROPERTY_GPS_ALTITUDE: &[u8; 12usize] = b"GPSAltitude\0";
+#[doc = " @brief The GPS satellites used for measurements.\n Used in {@link OH_ImageSource_GetImageProperty} and {@link OH_ImageSource_ModifyImageProperty}.\n\n @since 12"]
+pub const OHOS_IMAGE_PROPERTY_GPS_SATELLITES: &[u8; 14usize] = b"GPSSatellites\0";
+#[doc = " @brief The status of the GPS receiver when the image is recorded.\n It is used in {@link OH_ImageSource_GetImageProperty} and {@link OH_ImageSource_ModifyImageProperty}.\n\n @since 12"]
+pub const OHOS_IMAGE_PROPERTY_GPS_STATUS: &[u8; 10usize] = b"GPSStatus\0";
+#[doc = " @brief The GPS measurement mode.\n It is used in {@link OH_ImageSource_GetImageProperty} and {@link OH_ImageSource_ModifyImageProperty}.\n\n @since 12"]
+pub const OHOS_IMAGE_PROPERTY_GPS_MEASURE_MODE: &[u8; 15usize] = b"GPSMeasureMode\0";
+#[doc = " @brief The GPS DOP (data degree of precision).\n It is used in {@link OH_ImageSource_GetImageProperty} and {@link OH_ImageSource_ModifyImageProperty}.\n\n @since 12"]
+pub const OHOS_IMAGE_PROPERTY_GPS_DOP: &[u8; 7usize] = b"GPSDOP\0";
+#[doc = " @brief The unit used to express the GPS receiver speed of movement.\n It is used in {@link OH_ImageSource_GetImageProperty} and {@link OH_ImageSource_ModifyImageProperty}.\n\n @since 12"]
+pub const OHOS_IMAGE_PROPERTY_GPS_SPEED_REF: &[u8; 12usize] = b"GPSSpeedRef\0";
+#[doc = " @brief The speed of GPS receiver movement.\n It is used in {@link OH_ImageSource_GetImageProperty} and {@link OH_ImageSource_ModifyImageProperty}.\n\n @since 12"]
+pub const OHOS_IMAGE_PROPERTY_GPS_SPEED: &[u8; 9usize] = b"GPSSpeed\0";
+#[doc = " @brief The reference for giving the direction of GPS receiver movement.\n It is used in {@link OH_ImageSource_GetImageProperty} and {@link OH_ImageSource_ModifyImageProperty}.\n\n @since 12"]
+pub const OHOS_IMAGE_PROPERTY_GPS_TRACK_REF: &[u8; 12usize] = b"GPSTrackRef\0";
+#[doc = " @brief The direction of GPS receiver movement.\n It is used in {@link OH_ImageSource_GetImageProperty} and {@link OH_ImageSource_ModifyImageProperty}.\n\n @since 12"]
+pub const OHOS_IMAGE_PROPERTY_GPS_TRACK: &[u8; 9usize] = b"GPSTrack\0";
+#[doc = " @brief The reference for the image's direction.\n It is used in {@link OH_ImageSource_GetImageProperty} and {@link OH_ImageSource_ModifyImageProperty}.\n\n @since 12"]
+pub const OHOS_IMAGE_PROPERTY_GPS_IMG_DIRECTION_REF: &[u8; 19usize] = b"GPSImgDirectionRef\0";
+#[doc = " @brief The direction of the image when captured.\n It is used in {@link OH_ImageSource_GetImageProperty} and {@link OH_ImageSource_ModifyImageProperty}.\n\n @since 12"]
+pub const OHOS_IMAGE_PROPERTY_GPS_IMG_DIRECTION: &[u8; 16usize] = b"GPSImgDirection\0";
+#[doc = " @brief Geodetic survey data used by the GPS receiver.\n It is used in {@link OH_ImageSource_GetImageProperty} and {@link OH_ImageSource_ModifyImageProperty}.\n\n @since 12"]
+pub const OHOS_IMAGE_PROPERTY_GPS_MAP_DATUM: &[u8; 12usize] = b"GPSMapDatum\0";
+#[doc = " @brief Indicates the latitude reference of the destination point.\n It is used in {@link OH_ImageSource_GetImageProperty} and {@link OH_ImageSource_ModifyImageProperty}.\n\n @since 12"]
+pub const OHOS_IMAGE_PROPERTY_GPS_DEST_LATITUDE_REF: &[u8; 19usize] = b"GPSDestLatitudeRef\0";
+#[doc = " @brief The latitude of the destination point.\n It is used in {@link OH_ImageSource_GetImageProperty} and {@link OH_ImageSource_ModifyImageProperty}.\n\n @since 12"]
+pub const OHOS_IMAGE_PROPERTY_GPS_DEST_LATITUDE: &[u8; 16usize] = b"GPSDestLatitude\0";
+#[doc = " @brief Indicates the longitude reference of the destination point.\n It is used in {@link OH_ImageSource_GetImageProperty} and {@link OH_ImageSource_ModifyImageProperty}.\n\n @since 12"]
+pub const OHOS_IMAGE_PROPERTY_GPS_DEST_LONGITUDE_REF: &[u8; 20usize] = b"GPSDestLongitudeRef\0";
+#[doc = " @brief A character string recording the name of the method used for location finding.\n It is used in {@link OH_ImageSource_GetImageProperty} and {@link OH_ImageSource_ModifyImageProperty}.\n\n @since 12"]
+pub const OHOS_IMAGE_PROPERTY_GPS_PROCESSING_METHOD: &[u8; 20usize] = b"GPSProcessingMethod\0";
+#[doc = " @brief A character string recording the name of the GPS area.\n It is used in {@link OH_ImageSource_GetImageProperty} and {@link OH_ImageSource_ModifyImageProperty}.\n\n @since 12"]
+pub const OHOS_IMAGE_PROPERTY_GPS_AREA_INFORMATION: &[u8; 19usize] = b"GPSAreaInformation\0";
+#[doc = " @brief This field denotes if differential correction was applied to GPS data, crucial for precise location accuracy.\n It is used in {@link OH_ImageSource_GetImageProperty} and {@link OH_ImageSource_ModifyImageProperty}.\n\n @since 12"]
+pub const OHOS_IMAGE_PROPERTY_GPS_DIFFERENTIAL: &[u8; 16usize] = b"GPSDifferential\0";
+#[doc = " @brief The serial number of the camera body.\n It is used in {@link OH_ImageSource_GetImageProperty} and {@link OH_ImageSource_ModifyImageProperty}.\n\n @since 12"]
+pub const OHOS_IMAGE_PROPERTY_BODY_SERIAL_NUMBER: &[u8; 17usize] = b"BodySerialNumber\0";
+#[doc = " @brief The name of the camera owner.\n It is used in {@link OH_ImageSource_GetImageProperty} and {@link OH_ImageSource_ModifyImageProperty}.\n\n @since 12"]
+pub const OHOS_IMAGE_PROPERTY_CAMERA_OWNER_NAME: &[u8; 16usize] = b"CameraOwnerName\0";
+#[doc = " @brief The name of the camera owner.\n It is used in {@link OH_ImageSource_GetImageProperty} and {@link OH_ImageSource_ModifyImageProperty}.\n\n @since 12"]
+pub const OHOS_IMAGE_PROPERTY_COMPOSITE_IMAGE: &[u8; 15usize] = b"CompositeImage\0";
+#[doc = " @brief The DNGVersion tag encodes the four-tier version number for DNG specification compliance.\n It is used in {@link OH_ImageSource_GetImageProperty} and {@link OH_ImageSource_ModifyImageProperty}.\n\n @since 12"]
+pub const OHOS_IMAGE_PROPERTY_DNG_VERSION: &[u8; 11usize] = b"DNGVersion\0";
+#[doc = " @brief The longitude of the destination point.\n It is used in {@link OH_ImageSource_GetImageProperty} and {@link OH_ImageSource_ModifyImageProperty}.\n\n @since 12"]
+pub const OHOS_IMAGE_PROPERTY_GPS_DEST_LONGITUDE: &[u8; 17usize] = b"GPSDestLongitude\0";
+#[doc = " @brief The reference for the bearing to the destination point.\n It is used in {@link OH_ImageSource_GetImageProperty} and {@link OH_ImageSource_ModifyImageProperty}.\n\n @since 12"]
+pub const OHOS_IMAGE_PROPERTY_GPS_DEST_BEARING_REF: &[u8; 18usize] = b"GPSDestBearingRef\0";
+#[doc = " @brief The bearing to the destination point.\n It is used in {@link OH_ImageSource_GetImageProperty} and {@link OH_ImageSource_ModifyImageProperty}.\n\n @since 12"]
+pub const OHOS_IMAGE_PROPERTY_GPS_DEST_BEARING: &[u8; 15usize] = b"GPSDestBearing\0";
+#[doc = " @brief The measurement unit for the distance to the target point.\n It is used in {@link OH_ImageSource_GetImageProperty} and {@link OH_ImageSource_ModifyImageProperty}.\n\n @since 12"]
+pub const OHOS_IMAGE_PROPERTY_GPS_DEST_DISTANCE_REF: &[u8; 19usize] = b"GPSDestDistanceRef\0";
+#[doc = " @brief The distance to the destination point.\n It is used in {@link OH_ImageSource_GetImageProperty} and {@link OH_ImageSource_ModifyImageProperty}.\n\n @since 12"]
+pub const OHOS_IMAGE_PROPERTY_GPS_DEST_DISTANCE: &[u8; 16usize] = b"GPSDestDistance\0";
+#[doc = " @brief DefaultCropSize specifies the final image size in raw coordinates, accounting for extra edge pixels.\n It is used in {@link OH_ImageSource_GetImageProperty} and {@link OH_ImageSource_ModifyImageProperty}.\n\n @since 12"]
+pub const OHOS_IMAGE_PROPERTY_DEFAULT_CROP_SIZE: &[u8; 16usize] = b"DefaultCropSize\0";
+#[doc = " @brief Indicates the value of coefficient gamma.\n It is used in {@link OH_ImageSource_GetImageProperty} and {@link OH_ImageSource_ModifyImageProperty}.\n\n @since 12"]
+pub const OHOS_IMAGE_PROPERTY_GAMMA: &[u8; 6usize] = b"Gamma\0";
+#[doc = " @brief The tag indicate the ISO speed latitude yyy value of the camera or input device that is defined in ISO 12232.\n It is used in {@link OH_ImageSource_GetImageProperty} and {@link OH_ImageSource_ModifyImageProperty}.\n\n @since 12"]
+pub const OHOS_IMAGE_PROPERTY_ISO_SPEED_LATITUDEYYY: &[u8; 20usize] = b"ISOSpeedLatitudeyyy\0";
+#[doc = " @brief The tag indicate the ISO speed latitude zzz value of the camera or input device that is defined in ISO 12232.\n It is used in {@link OH_ImageSource_GetImageProperty} and {@link OH_ImageSource_ModifyImageProperty}.\n\n @since 12"]
+pub const OHOS_IMAGE_PROPERTY_ISO_SPEED_LATITUDEZZZ: &[u8; 20usize] = b"ISOSpeedLatitudezzz\0";
+#[doc = " @brief The manufacturer of the lens.\n It is used in {@link OH_ImageSource_GetImageProperty} and {@link OH_ImageSource_ModifyImageProperty}.\n\n @since 12"]
+pub const OHOS_IMAGE_PROPERTY_LENS_MAKE: &[u8; 9usize] = b"LensMake\0";
+#[doc = " @brief The model name of the lens.\n It is used in {@link OH_ImageSource_GetImageProperty} and {@link OH_ImageSource_ModifyImageProperty}.\n\n @since 12"]
+pub const OHOS_IMAGE_PROPERTY_LENS_MODEL: &[u8; 10usize] = b"LensModel\0";
+#[doc = " @brief The serial number of the lens.\n It is used in {@link OH_ImageSource_GetImageProperty} and {@link OH_ImageSource_ModifyImageProperty}.\n\n @since 12"]
+pub const OHOS_IMAGE_PROPERTY_LENS_SERIAL_NUMBER: &[u8; 17usize] = b"LensSerialNumber\0";
+#[doc = " @brief Specifications of the lens used.\n It is used in {@link OH_ImageSource_GetImageProperty} and {@link OH_ImageSource_ModifyImageProperty}.\n\n @since 12"]
+pub const OHOS_IMAGE_PROPERTY_LENS_SPECIFICATION: &[u8; 18usize] = b"LensSpecification\0";
+#[doc = " @brief This tag provides a broad description of the data type in this subfile.\n It is used in {@link OH_ImageSource_GetImageProperty} and {@link OH_ImageSource_ModifyImageProperty}.\n\n @since 12"]
+pub const OHOS_IMAGE_PROPERTY_NEW_SUBFILE_TYPE: &[u8; 15usize] = b"NewSubfileType\0";
+#[doc = " @brief This tag records the UTC offset for the DateTime tag, ensuring accurate timestamps regardless of location.\n It is used in {@link OH_ImageSource_GetImageProperty} and {@link OH_ImageSource_ModifyImageProperty}.\n\n @since 12"]
+pub const OHOS_IMAGE_PROPERTY_OFFSET_TIME: &[u8; 11usize] = b"OffsetTime\0";
+#[doc = " @brief This tag logs the UTC offset when the image was digitized, aiding in accurate timestamp adjustment.\n It is used in {@link OH_ImageSource_GetImageProperty} and {@link OH_ImageSource_ModifyImageProperty}.\n\n @since 12"]
+pub const OHOS_IMAGE_PROPERTY_OFFSET_TIME_DIGITIZED: &[u8; 20usize] = b"OffsetTimeDigitized\0";
+#[doc = " @brief This tag records the UTC offset when the original image was created, crucial for time-sensitive applications.\n It is used in {@link OH_ImageSource_GetImageProperty} and {@link OH_ImageSource_ModifyImageProperty}.\n\n @since 12"]
+pub const OHOS_IMAGE_PROPERTY_OFFSET_TIME_ORIGINAL: &[u8; 19usize] = b"OffsetTimeOriginal\0";
+#[doc = " @brief Exposure times of source images for a composite image.\n It is used in {@link OH_ImageSource_GetImageProperty} and {@link OH_ImageSource_ModifyImageProperty}.\n\n @since 12"]
+pub const OHOS_IMAGE_PROPERTY_SOURCE_EXPOSURE_TIMES_OF_COMPOSITE_IMAGE: &[u8; 36usize] =
+    b"SourceExposureTimesOfCompositeImage\0";
+#[doc = " @brief The number of source images used for a composite image.\n It is used in {@link OH_ImageSource_GetImageProperty} and {@link OH_ImageSource_ModifyImageProperty}.\n\n @since 12"]
+pub const OHOS_IMAGE_PROPERTY_SOURCE_IMAGE_NUMBER_OF_COMPOSITE_IMAGE: &[u8; 34usize] =
+    b"SourceImageNumberOfCompositeImage\0";
+#[doc = " @brief This deprecated field signifies the type of data in this subfile. Use the NewSubfileType field instead.\n It is used in {@link OH_ImageSource_GetImageProperty} and {@link OH_ImageSource_ModifyImageProperty}.\n\n @since 12"]
+pub const OHOS_IMAGE_PROPERTY_SUBFILE_TYPE: &[u8; 12usize] = b"SubfileType\0";
+#[doc = " @brief This tag indicates horizontal positioning errors in meters.\n It is used in {@link OH_ImageSource_GetImageProperty} and {@link OH_ImageSource_ModifyImageProperty}.\n\n @since 12"]
+pub const OHOS_IMAGE_PROPERTY_GPS_H_POSITIONING_ERROR: &[u8; 21usize] = b"GPSHPositioningError\0";
+#[doc = " @brief This tag indicates the sensitivity of the camera or input device when the image was shot.\n It is used in {@link OH_ImageSource_GetImageProperty} and {@link OH_ImageSource_ModifyImageProperty}.\n\n @since 12"]
+pub const OHOS_IMAGE_PROPERTY_PHOTOGRAPHIC_SENSITIVITY: &[u8; 24usize] =
+    b"PhotographicSensitivity\0";
+#[doc = " @brief Burst Number\n It is used in {@link OH_ImageSource_GetImageProperty} and {@link OH_ImageSource_ModifyImageProperty}.\n\n @since 12"]
+pub const OHOS_IMAGE_PROPERTY_BURST_NUMBER: &[u8; 19usize] = b"HwMnoteBurstNumber\0";
+#[doc = " @brief Face Conf\n It is used in {@link OH_ImageSource_GetImageProperty} and {@link OH_ImageSource_ModifyImageProperty}.\n\n @since 12"]
+pub const OHOS_IMAGE_PROPERTY_FACE_CONF: &[u8; 16usize] = b"HwMnoteFaceConf\0";
+#[doc = " @brief Face Leye Center\n It is used in {@link OH_ImageSource_GetImageProperty} and {@link OH_ImageSource_ModifyImageProperty}.\n\n @since 12"]
+pub const OHOS_IMAGE_PROPERTY_FACE_LEYE_CENTER: &[u8; 22usize] = b"HwMnoteFaceLeyeCenter\0";
+#[doc = " @brief Face Mouth Center\n It is used in {@link OH_ImageSource_GetImageProperty} and {@link OH_ImageSource_ModifyImageProperty}.\n\n @since 12"]
+pub const OHOS_IMAGE_PROPERTY_FACE_MOUTH_CENTER: &[u8; 23usize] = b"HwMnoteFaceMouthCenter\0";
+#[doc = " @brief Face Pointer\n It is used in {@link OH_ImageSource_GetImageProperty} and {@link OH_ImageSource_ModifyImageProperty}.\n\n @since 12"]
+pub const OHOS_IMAGE_PROPERTY_FACE_POINTER: &[u8; 19usize] = b"HwMnoteFacePointer\0";
+#[doc = " @brief Face Rect\n It is used in {@link OH_ImageSource_GetImageProperty} and {@link OH_ImageSource_ModifyImageProperty}.\n\n @since 12"]
+pub const OHOS_IMAGE_PROPERTY_FACE_RECT: &[u8; 16usize] = b"HwMnoteFaceRect\0";
+#[doc = " @brief Face Reye Center\n It is used in {@link OH_ImageSource_GetImageProperty} and {@link OH_ImageSource_ModifyImageProperty}.\n\n @since 12"]
+pub const OHOS_IMAGE_PROPERTY_FACE_REYE_CENTER: &[u8; 22usize] = b"HwMnoteFaceReyeCenter\0";
+#[doc = " @brief Face Smile Score\n It is used in {@link OH_ImageSource_GetImageProperty} and {@link OH_ImageSource_ModifyImageProperty}.\n\n @since 12"]
+pub const OHOS_IMAGE_PROPERTY_FACE_SMILE_SCORE: &[u8; 22usize] = b"HwMnoteFaceSmileScore\0";
+#[doc = " @brief Face Version\n It is used in {@link OH_ImageSource_GetImageProperty} and {@link OH_ImageSource_ModifyImageProperty}.\n\n @since 12"]
+pub const OHOS_IMAGE_PROPERTY_FACE_VERSION: &[u8; 19usize] = b"HwMnoteFaceVersion\0";
+#[doc = " @brief Front Camera\n It is used in {@link OH_ImageSource_GetImageProperty} and {@link OH_ImageSource_ModifyImageProperty}.\n\n @since 12"]
+pub const OHOS_IMAGE_PROPERTY_FRONT_CAMERA: &[u8; 19usize] = b"HwMnoteFrontCamera\0";
+#[doc = " @brief Scene Pointer\n It is used in {@link OH_ImageSource_GetImageProperty} and {@link OH_ImageSource_ModifyImageProperty}.\n\n @since 12"]
+pub const OHOS_IMAGE_PROPERTY_SCENE_POINTER: &[u8; 20usize] = b"HwMnoteScenePointer\0";
+#[doc = " @brief Scene Version\n It is used in {@link OH_ImageSource_GetImageProperty} and {@link OH_ImageSource_ModifyImageProperty}.\n\n @since 12"]
+pub const OHOS_IMAGE_PROPERTY_SCENE_VERSION: &[u8; 20usize] = b"HwMnoteSceneVersion\0";
+#[doc = " @brief Is Xmage Supported\n It is used in {@link OH_ImageSource_GetImageProperty} and {@link OH_ImageSource_ModifyImageProperty}.\n\n @since 12"]
+pub const OHOS_IMAGE_PROPERTY_IS_XMAGE_SUPPORTED: &[u8; 24usize] = b"HwMnoteIsXmageSupported\0";
+#[doc = " @brief Xmage Mode\n It is used in {@link OH_ImageSource_GetImageProperty} and {@link OH_ImageSource_ModifyImageProperty}.\n\n @since 12"]
+pub const OHOS_IMAGE_PROPERTY_XMAGE_MODE: &[u8; 17usize] = b"HwMnoteXmageMode\0";
+#[doc = " @brief Xmage X1 Coordinate\n It is used in {@link OH_ImageSource_GetImageProperty} and {@link OH_ImageSource_ModifyImageProperty}.\n\n @since 12"]
+pub const OHOS_IMAGE_PROPERTY_XMAGE_LEFT: &[u8; 17usize] = b"HwMnoteXmageLeft\0";
+#[doc = " @brief Xmage Y1 Coordinate\n It is used in {@link OH_ImageSource_GetImageProperty} and {@link OH_ImageSource_ModifyImageProperty}.\n\n @since 12"]
+pub const OHOS_IMAGE_PROPERTY_XMAGE_TOP: &[u8; 16usize] = b"HwMnoteXmageTop\0";
+#[doc = " @brief Xmage X2 Coordinate\n It is used in {@link OH_ImageSource_GetImageProperty} and {@link OH_ImageSource_ModifyImageProperty}.\n\n @since 12"]
+pub const OHOS_IMAGE_PROPERTY_XMAGE_RIGHT: &[u8; 18usize] = b"HwMnoteXmageRight\0";
+#[doc = " @brief Xmage Y2 Coordinate\n It is used in {@link OH_ImageSource_GetImageProperty} and {@link OH_ImageSource_ModifyImageProperty}.\n\n @since 12"]
+pub const OHOS_IMAGE_PROPERTY_XMAGE_BOTTOM: &[u8; 19usize] = b"HwMnoteXmageBottom\0";
+#[doc = " @brief Cloud Enhancement Mode\n It is used in {@link OH_ImageSource_GetImageProperty} and {@link OH_ImageSource_ModifyImageProperty}.\n\n @since 12"]
+pub const OHOS_IMAGE_PROPERTY_CLOUD_ENHANCEMENT_MODE: &[u8; 28usize] =
+    b"HwMnoteCloudEnhancementMode\0";
+#[doc = " @brief Wind Snapshot Mode\n It is used in {@link OH_ImageSource_GetImageProperty} and {@link OH_ImageSource_ModifyImageProperty}.\n\n @since 12"]
+pub const OHOS_IMAGE_PROPERTY_WIND_SNAPSHOT_MODE: &[u8; 24usize] = b"HwMnoteWindSnapshotMode\0";
+#[doc = " @brief Gif Loop Count\n It is used in {@link OH_ImageSource_GetImageProperty}.\n If infinite loop returns 0, other values represent the number of loops\n\n @since 12"]
+pub const OHOS_IMAGE_PROPERTY_GIF_LOOP_COUNT: &[u8; 13usize] = b"GIFLoopCount\0";
+#[doc = " @brief X in original\n It is used in {@link OH_ImageSource_GetImageProperty}.\n The top left corner of the fragment image is at the X-coordinate of the original image\n\n @since 13"]
+pub const OHOS_IMAGE_PROPERTY_X_IN_ORIGINAL: &[u8; 12usize] = b"XInOriginal\0";
+#[doc = " @brief Y in original\n It is used in {@link OH_ImageSource_GetImageProperty}.\n The top left corner of the fragment image is at the Y-coordinate of the original image\n\n @since 13"]
+pub const OHOS_IMAGE_PROPERTY_Y_IN_ORIGINAL: &[u8; 12usize] = b"YInOriginal\0";
+#[doc = " @brief Fragment map width\n It is used in {@link OH_ImageSource_GetImageProperty}.\n The width of the fragment image\n\n @since 13"]
+pub const OHOS_IMAGE_PROPERTY_FRAGMENT_WIDTH: &[u8; 19usize] = b"FragmentImageWidth\0";
+#[doc = " @brief Fragment map height\n It is used in {@link OH_ImageSource_GetImageProperty}.\n The height of the fragment image\n\n @since 13"]
+pub const OHOS_IMAGE_PROPERTY_FRAGMENT_HEIGHT: &[u8; 20usize] = b"FragmentImageHeight\0";
+#[repr(C)]
+#[derive(Debug, Copy, Clone)]
+pub struct napi_env__ {
+    _unused: [u8; 0],
+}
+pub type napi_env = *mut napi_env__;
+#[repr(C)]
+#[derive(Debug, Copy, Clone)]
+pub struct napi_value__ {
+    _unused: [u8; 0],
+}
+pub type napi_value = *mut napi_value__;
+#[doc = " @brief Define a native buffer type, used for retrieving a native buffer.\n\n @since 12"]
+#[repr(C)]
+#[derive(Debug, Copy, Clone)]
+pub struct OH_NativeBuffer {
+    _unused: [u8; 0],
+}
+#[repr(C)]
+#[derive(Debug, Copy, Clone)]
+pub struct OH_NativeColorSpaceManager {
+    _unused: [u8; 0],
+}
+#[doc = " Nearest-neighbor interpolation algorithm"]
+pub const OH_PixelmapNative_AntiAliasingLevel_OH_PixelmapNative_AntiAliasing_NONE:
+    OH_PixelmapNative_AntiAliasingLevel = 0;
+#[doc = " Bilinear interpolation algorithm"]
+pub const OH_PixelmapNative_AntiAliasingLevel_OH_PixelmapNative_AntiAliasing_LOW:
+    OH_PixelmapNative_AntiAliasingLevel = 1;
+#[doc = " Bilinear interpolation algorithm with mipmap linear filtering"]
+pub const OH_PixelmapNative_AntiAliasingLevel_OH_PixelmapNative_AntiAliasing_MEDIUM:
+    OH_PixelmapNative_AntiAliasingLevel = 2;
+#[doc = " Cubic interpolation algorithm"]
+pub const OH_PixelmapNative_AntiAliasingLevel_OH_PixelmapNative_AntiAliasing_HIGH:
+    OH_PixelmapNative_AntiAliasingLevel = 3;
+#[doc = " @brief Defines the anti-aliasing level.\n\n @since 12"]
+pub type OH_PixelmapNative_AntiAliasingLevel = u32;
+#[doc = " Indicate the types of metadata that image needs to use."]
+pub const OH_Pixelmap_HdrMetadataKey_HDR_METADATA_TYPE: OH_Pixelmap_HdrMetadataKey = 0;
+#[doc = " Static metadata key."]
+pub const OH_Pixelmap_HdrMetadataKey_HDR_STATIC_METADATA: OH_Pixelmap_HdrMetadataKey = 1;
+#[doc = " Dynamic metadata key."]
+pub const OH_Pixelmap_HdrMetadataKey_HDR_DYNAMIC_METADATA: OH_Pixelmap_HdrMetadataKey = 2;
+#[doc = " Gainmap metadata key."]
+pub const OH_Pixelmap_HdrMetadataKey_HDR_GAINMAP_METADATA: OH_Pixelmap_HdrMetadataKey = 3;
+#[doc = " @brief Enumerates the HDR metadata types that need to be stored in Pixelmap.\n\n @since 12"]
+pub type OH_Pixelmap_HdrMetadataKey = u32;
+#[doc = " No metadata."]
+pub const OH_Pixelmap_HdrMetadataType_HDR_METADATA_TYPE_NONE: OH_Pixelmap_HdrMetadataType = 0;
+#[doc = " Indicates that metadata will be used for the base image."]
+pub const OH_Pixelmap_HdrMetadataType_HDR_METADATA_TYPE_BASE: OH_Pixelmap_HdrMetadataType = 1;
+#[doc = " Indicates that metadata will be used for the gainmap image."]
+pub const OH_Pixelmap_HdrMetadataType_HDR_METADATA_TYPE_GAINMAP: OH_Pixelmap_HdrMetadataType = 2;
+#[doc = " Indicates that metadata will be used for the alternate image."]
+pub const OH_Pixelmap_HdrMetadataType_HDR_METADATA_TYPE_ALTERNATE: OH_Pixelmap_HdrMetadataType = 3;
+#[doc = " @brief Value for HDR_METADATA_TYPE.\n\n @since 12"]
+pub type OH_Pixelmap_HdrMetadataType = u32;
+#[doc = " @brief Value for HDR_STATIC_METADATA.\n\n @since 12"]
+#[repr(C)]
+#[derive(Debug, Copy, Clone)]
+pub struct OH_Pixelmap_HdrStaticMetadata {
+    #[doc = " The X-coordinate of the primary colors. The length of the array is three. Store in the order of r, g, b."]
+    pub displayPrimariesX: [f32; 3usize],
+    #[doc = " The Y-coordinate of the primary colors. The length of the array is three. Store in the order of r, g, b."]
+    pub displayPrimariesY: [f32; 3usize],
+    #[doc = " The X-coordinate of the white point value."]
+    pub whitePointX: f32,
+    #[doc = " The Y-coordinate of the white point value."]
+    pub whitePointY: f32,
+    #[doc = " Max luminance."]
+    pub maxLuminance: f32,
+    #[doc = " Min luminance."]
+    pub minLuminance: f32,
+    #[doc = " Maximum brightness of displayed content."]
+    pub maxContentLightLevel: f32,
+    #[doc = " Maximum average brightness of displayed content."]
+    pub maxFrameAverageLightLevel: f32,
+}
+#[doc = " @brief Value for HDR_DYNAMIC_METADATA.\n\n @since 12"]
+#[repr(C)]
+#[derive(Debug, Copy, Clone)]
+pub struct OH_Pixelmap_HdrDynamicMetadata {
+    #[doc = " The value of dynamic metadata."]
+    pub data: *mut u8,
+    #[doc = " The length of dynamic metadata."]
+    pub length: u32,
+}
+#[doc = " @brief Value for HDR_GAINMAP_METADATA.\n\n @since 12"]
+#[repr(C)]
+#[derive(Debug, Copy, Clone)]
+pub struct OH_Pixelmap_HdrGainmapMetadata {
+    #[doc = " The version used by the writer."]
+    pub writerVersion: u16,
+    #[doc = " The minimum version a parser needs to understand."]
+    pub miniVersion: u16,
+    #[doc = " The number of gain map channels, with a value of 1 or 3."]
+    pub gainmapChannelNum: u8,
+    #[doc = " Indicate whether to use the color space of the base image."]
+    pub useBaseColorFlag: bool,
+    #[doc = " The baseline hdr headroom."]
+    pub baseHeadroom: f32,
+    #[doc = " The alternate hdr headroom."]
+    pub alternateHeadroom: f32,
+    #[doc = " The per-component max gain map values."]
+    pub gainmapMax: [f32; 3usize],
+    #[doc = " The per-component min gain map values."]
+    pub gainmapMin: [f32; 3usize],
+    #[doc = " The per-component gamma values."]
+    pub gamma: [f32; 3usize],
+    #[doc = " The per-component baseline offset."]
+    pub baselineOffset: [f32; 3usize],
+    #[doc = " The per-component alternate offset."]
+    pub alternateOffset: [f32; 3usize],
+}
+#[doc = " @brief Value for HDR_METADATA_KEY. Corresponding relationship with HDR_METADATA_KEY.\n\n @since 12"]
+#[repr(C)]
+#[derive(Debug, Copy, Clone)]
+pub struct OH_Pixelmap_HdrMetadataValue {
+    #[doc = " The value corresponding to the HDR_METADATA_TYPE key"]
+    pub type_: OH_Pixelmap_HdrMetadataType,
+    #[doc = " The value corresponding to the HDR_STATIC_METADATA key"]
+    pub staticMetadata: OH_Pixelmap_HdrStaticMetadata,
+    #[doc = " The value corresponding to the HDR_DYNAMIC_METADATA key"]
+    pub dynamicMetadata: OH_Pixelmap_HdrDynamicMetadata,
+    #[doc = " The value corresponding to the HDR_GAINMAP_METADATA key"]
+    pub gainmapMetadata: OH_Pixelmap_HdrGainmapMetadata,
+}
+#[doc = " @brief Defines the options used for creating a pixel map.\n\n @since 12"]
+#[repr(C)]
+#[derive(Debug, Copy, Clone)]
+pub struct OH_Pixelmap_InitializationOptions {
+    _unused: [u8; 0],
+}
+extern "C" {
+    #[doc = " @brief Create a for InitializationOtions struct.\n\n @param options The InitializationOtions pointer will be operated.\n @return Function result code:\n         {@link IMAGE_SUCCESS} - if the operation is successful.\n         {@link IMAGE_BAD_PARAMETER} - Parameter is nullptr or\n         create OH_Pixelmap_InitializationOptions object failed.\n @since 12"]
+    pub fn OH_PixelmapInitializationOptions_Create(
+        options: *mut *mut OH_Pixelmap_InitializationOptions,
+    ) -> Image_ErrorCode;
+}
+extern "C" {
+    #[doc = " @brief Get width number for InitializationOtions struct.\n\n @param options The InitializationOtions pointer will be operated.\n @param width the number of image width.\n @return Function result code:\n         {@link IMAGE_SUCCESS} - if the operation is successful.\n         {@link IMAGE_BAD_PARAMETER} - if options or width is null.\n @since 12"]
+    pub fn OH_PixelmapInitializationOptions_GetWidth(
+        options: *mut OH_Pixelmap_InitializationOptions,
+        width: *mut u32,
+    ) -> Image_ErrorCode;
+}
+extern "C" {
+    #[doc = " @brief Set width number for InitializationOtions struct.\n\n @param options The InitializationOtions pointer will be operated.\n @param width the number of image width.\n @return Function result code:\n         {@link IMAGE_SUCCESS} - if the operation is successful.\n         {@link IMAGE_BAD_PARAMETER} - if options is null.\n @since 12"]
+    pub fn OH_PixelmapInitializationOptions_SetWidth(
+        options: *mut OH_Pixelmap_InitializationOptions,
+        width: u32,
+    ) -> Image_ErrorCode;
+}
+extern "C" {
+    #[doc = " @brief Get height number for InitializationOtions struct.\n\n @param options The InitializationOtions pointer will be operated.\n @param height the number of image height.\n @return Function result code:\n         {@link IMAGE_SUCCESS} - if the operation is successful.\n         {@link IMAGE_BAD_PARAMETER} - if options or height is null.\n @since 12"]
+    pub fn OH_PixelmapInitializationOptions_GetHeight(
+        options: *mut OH_Pixelmap_InitializationOptions,
+        height: *mut u32,
+    ) -> Image_ErrorCode;
+}
+extern "C" {
+    #[doc = " @brief Set height number for InitializationOtions struct.\n\n @param options The InitializationOtions pointer will be operated.\n @param height the number of image height.\n @return Function result code:\n         {@link IMAGE_SUCCESS} - if the operation is successful.\n         {@link IMAGE_BAD_PARAMETER} - if options is null.\n @since 12"]
+    pub fn OH_PixelmapInitializationOptions_SetHeight(
+        options: *mut OH_Pixelmap_InitializationOptions,
+        height: u32,
+    ) -> Image_ErrorCode;
+}
+extern "C" {
+    #[doc = " @brief Get pixelFormat number for InitializationOtions struct.\n\n @param options The InitializationOtions pointer will be operated.\n @param pixelFormat the number of image pixelFormat.\n @return Function result code:\n         {@link IMAGE_SUCCESS} - if the operation is successful.\n         {@link IMAGE_BAD_PARAMETER} - if options or pixelFormat is null.\n @since 12"]
+    pub fn OH_PixelmapInitializationOptions_GetPixelFormat(
+        options: *mut OH_Pixelmap_InitializationOptions,
+        pixelFormat: *mut i32,
+    ) -> Image_ErrorCode;
+}
+extern "C" {
+    #[doc = " @brief Set pixelFormat number for InitializationOptions struct.\n\n @param options The InitializationOptions pointer will be operated.\n @param pixelFormat the number of image pixelFormat.\n @return Function result code:\n         {@link IMAGE_SUCCESS} - if the operation is successful.\n         {@link IMAGE_BAD_PARAMETER} - if options is null.\n @since 12"]
+    pub fn OH_PixelmapInitializationOptions_SetPixelFormat(
+        options: *mut OH_Pixelmap_InitializationOptions,
+        pixelFormat: i32,
+    ) -> Image_ErrorCode;
+}
+extern "C" {
+    #[doc = " @brief Get pixelFormat number for InitializationOptions struct.\n\n @param options The InitializationOptions pointer will be operated.\n @param srcpixelFormat the number of image srcpixelFormat.\n @return Function result code:\n         {@link IMAGE_SUCCESS} - if the operation is successful.\n         {@link IMAGE_BAD_PARAMETER} - if options or srcpixelFormat is null.\n @since 12"]
+    pub fn OH_PixelmapInitializationOptions_GetSrcPixelFormat(
+        options: *mut OH_Pixelmap_InitializationOptions,
+        srcpixelFormat: *mut i32,
+    ) -> Image_ErrorCode;
+}
+extern "C" {
+    #[doc = " @brief Set pixelFormat number for InitializationOptions struct.\n\n @param options The InitializationOptions pointer will be operated.\n @param srcpixelFormat the number of image srcpixelFormat.\n @return Function result code:\n         {@link IMAGE_SUCCESS} - if the operation is successful.\n         {@link IMAGE_BAD_PARAMETER} - if options is null.\n @since 12"]
+    pub fn OH_PixelmapInitializationOptions_SetSrcPixelFormat(
+        options: *mut OH_Pixelmap_InitializationOptions,
+        srcpixelFormat: i32,
+    ) -> Image_ErrorCode;
+}
+extern "C" {
+    #[doc = " @brief Get rowStride for InitializationOptions struct.\n\n @param options The InitializationOptions pointer will be operated.\n @param rowStride the rowStride of image buffer.\n @return Returns {@link Image_ErrorCode} IMAGE_SUCCESS - if the operation is successful.\n returns {@link Image_ErrorCode} IMAGE_BAD_PARAMETER - if rowStride is null.\n returns {@link Image_ErrorCode} IMAGE_UNKNOWN_ERROR - inner unknown error, maybe options is released.\n @since 12"]
+    pub fn OH_PixelmapInitializationOptions_GetRowStride(
+        options: *mut OH_Pixelmap_InitializationOptions,
+        rowStride: *mut i32,
+    ) -> Image_ErrorCode;
+}
+extern "C" {
+    #[doc = " @brief Set rowStride number for InitializationOptions struct.\n\n @param options The InitializationOptions pointer will be operated.\n @param rowStride the rowStride of image buffer.\n @return Returns {@link Image_ErrorCode} IMAGE_SUCCESS - if the operation is successful.\n returns {@link Image_ErrorCode} IMAGE_BAD_PARAMETER - if rowStride does not match width.\n returns {@link Image_ErrorCode} IMAGE_UNKNOWN_ERROR - inner unknown error, maybe options is released.\n @since 12"]
+    pub fn OH_PixelmapInitializationOptions_SetRowStride(
+        options: *mut OH_Pixelmap_InitializationOptions,
+        rowStride: i32,
+    ) -> Image_ErrorCode;
+}
+extern "C" {
+    #[doc = " @brief Get alphaType number for InitializationOtions struct.\n\n @param options The InitializationOptions pointer will be operated.\n @param alphaType the number of image alphaType.\n @return Function result code:\n         {@link IMAGE_SUCCESS} - if the operation is successful.\n         {@link IMAGE_BAD_PARAMETER} - if options or alphaType is null.\n @since 12"]
+    pub fn OH_PixelmapInitializationOptions_GetAlphaType(
+        options: *mut OH_Pixelmap_InitializationOptions,
+        alphaType: *mut i32,
+    ) -> Image_ErrorCode;
+}
+extern "C" {
+    #[doc = " @brief Set alphaType number for InitializationOtions struct.\n\n @param options The InitializationOtions pointer will be operated.\n @param alphaType the number of image alphaType.\n @return Function result code:\n         {@link IMAGE_SUCCESS} - if the operation is successful.\n         {@link IMAGE_BAD_PARAMETER} - if options is null.\n @since 12"]
+    pub fn OH_PixelmapInitializationOptions_SetAlphaType(
+        options: *mut OH_Pixelmap_InitializationOptions,
+        alphaType: i32,
+    ) -> Image_ErrorCode;
+}
+extern "C" {
+    #[doc = " @brief Get editable for InitializationOptions struct.\n\n @param options The InitializationOptions pointer will be operated.\n @param editable The boolean value representing the editable status.\n @return Returns {@link Image_ErrorCode} IMAGE_SUCCESS - if the operation is successful.\n returns {@link Image_ErrorCode} IMAGE_BAD_PARAMETER - if options or editable is invalid.\n @since 18"]
+    #[cfg(feature = "api-18")]
+    pub fn OH_PixelmapInitializationOptions_GetEditable(
+        options: *mut OH_Pixelmap_InitializationOptions,
+        editable: *mut bool,
+    ) -> Image_ErrorCode;
+}
+extern "C" {
+    #[doc = " @brief Set editable for InitializationOptions struct.\n\n @param options The InitializationOptions pointer will be operated.\n @param editable The boolean value representing the editable status.\n @return Returns {@link Image_ErrorCode} IMAGE_SUCCESS - if the operation is successful.\n returns {@link Image_ErrorCode} IMAGE_BAD_PARAMETER - if options is invalid.\n @since 18"]
+    #[cfg(feature = "api-18")]
+    pub fn OH_PixelmapInitializationOptions_SetEditable(
+        options: *mut OH_Pixelmap_InitializationOptions,
+        editable: bool,
+    ) -> Image_ErrorCode;
+}
+extern "C" {
+    #[doc = " @brief delete InitializationOtions pointer.\n\n @param options The InitializationOtions pointer will be operated.\n @return Function result code:\n         {@link IMAGE_SUCCESS} - if the operation is successful.\n         {@link IMAGE_BAD_PARAMETER} - if options is null.\n @since 12"]
+    pub fn OH_PixelmapInitializationOptions_Release(
+        options: *mut OH_Pixelmap_InitializationOptions,
+    ) -> Image_ErrorCode;
+}
+#[doc = " @brief Defines the pixel map information.\n\n @since 12"]
+#[repr(C)]
+#[derive(Debug, Copy, Clone)]
+pub struct OH_Pixelmap_ImageInfo {
+    _unused: [u8; 0],
+}
+extern "C" {
+    #[doc = " @brief Create imageinfo struct  .\n\n @param info The imageinfo pointer will be operated.\n @return Function result code:\n         {@link IMAGE_SUCCESS} - if the operation is successful.\n         {@link IMAGE_BAD_PARAMETER} - Parameter is nullptr or\n         create OH_Pixelmap_ImageInfo object failed.\n @since 12"]
+    pub fn OH_PixelmapImageInfo_Create(info: *mut *mut OH_Pixelmap_ImageInfo) -> Image_ErrorCode;
+}
+extern "C" {
+    #[doc = " @brief Get width number for imageinfo struct.\n\n @param info The imageinfo pointer will be operated.\n @param width The number of imageinfo width.\n @return Function result code:\n         {@link IMAGE_SUCCESS} - if the operation is successful.\n         {@link IMAGE_BAD_PARAMETER} - if info or width is null.\n @since 12"]
+    pub fn OH_PixelmapImageInfo_GetWidth(
+        info: *mut OH_Pixelmap_ImageInfo,
+        width: *mut u32,
+    ) -> Image_ErrorCode;
+}
+extern "C" {
+    #[doc = " @brief Get height number for imageinfo struct.\n\n @param info The imageinfo pointer will be operated.\n @param height The number of imageinfo height.\n @return Function result code:\n         {@link IMAGE_SUCCESS} - if the operation is successful.\n         {@link IMAGE_BAD_PARAMETER} - if info or height is null.\n @since 12"]
+    pub fn OH_PixelmapImageInfo_GetHeight(
+        info: *mut OH_Pixelmap_ImageInfo,
+        height: *mut u32,
+    ) -> Image_ErrorCode;
+}
+extern "C" {
+    #[doc = " @brief Get alphaMode number for imageinfo struct.\n\n @param info The imageinfo pointer will be operated.\n @param alphaMode The number of imageinfo alphaMode.\n @return Image functions result code.\n     {@link IMAGE_SUCCESS} if the execution is successful.\n     {@link IMAGE_BAD_PARAMETER} info is nullptr, or alphaMode is nullptr.\n @since 20"]
+    #[cfg(feature = "api-20")]
+    pub fn OH_PixelmapImageInfo_GetAlphaMode(
+        info: *mut OH_Pixelmap_ImageInfo,
+        alphaMode: *mut i32,
+    ) -> Image_ErrorCode;
+}
+extern "C" {
+    #[doc = " @brief Get rowStride number for imageinfo struct.\n\n @param info The imageinfo pointer will be operated.\n @param rowStride The number of imageinfo rowStride.\n @return Function result code:\n         {@link IMAGE_SUCCESS} - if the operation is successful.\n         {@link IMAGE_BAD_PARAMETER} - if info or rowStride is null.\n @since 12"]
+    pub fn OH_PixelmapImageInfo_GetRowStride(
+        info: *mut OH_Pixelmap_ImageInfo,
+        rowStride: *mut u32,
+    ) -> Image_ErrorCode;
+}
+extern "C" {
+    #[doc = " @brief Get pixelFormat number for imageinfo struct.\n\n @param info The imageinfo pointer will be operated.\n @param pixelFormat The number of imageinfo pixelFormat.\n @return Function result code:\n         {@link IMAGE_SUCCESS} - if the operation is successful.\n         {@link IMAGE_BAD_PARAMETER} - if info or pixelFormat is null.\n @since 12"]
+    pub fn OH_PixelmapImageInfo_GetPixelFormat(
+        info: *mut OH_Pixelmap_ImageInfo,
+        pixelFormat: *mut i32,
+    ) -> Image_ErrorCode;
+}
+extern "C" {
+    #[doc = " @brief Get alphaType number for imageinfo struct.\n\n @param info The imageinfo pointer will be operated.\n @param alphaType The number of imageinfo alphaType.\n @return Function result code:\n         {@link IMAGE_SUCCESS} - if the operation is successful.\n         {@link IMAGE_BAD_PARAMETER} - if info or alphaType is null.\n @since 12"]
+    pub fn OH_PixelmapImageInfo_GetAlphaType(
+        info: *mut OH_Pixelmap_ImageInfo,
+        alphaType: *mut i32,
+    ) -> Image_ErrorCode;
+}
+extern "C" {
+    #[doc = " @brief Get isHdr boolean for imageinfo struct.\n\n @param info The imageinfo pointer will be operated. Pointer connot be null.\n @param isHdr Whether the image has a high dynamic range.\n @return Function result code:\n         {@link IMAGE_SUCCESS} - if the operation is successful.\n         {@link IMAGE_BAD_PARAMETER} - if info or isHdr is null.\n @since 12"]
+    pub fn OH_PixelmapImageInfo_GetDynamicRange(
+        info: *mut OH_Pixelmap_ImageInfo,
+        isHdr: *mut bool,
+    ) -> Image_ErrorCode;
+}
+extern "C" {
+    #[doc = " @brief Delete imageinfo struct pointer.\n\n @param info The imageinfo pointer will be operated.\n @return Function result code:\n         {@link IMAGE_SUCCESS} - if the operation is successful.\n         {@link IMAGE_BAD_PARAMETER} - if info is null.\n @since 12"]
+    pub fn OH_PixelmapImageInfo_Release(info: *mut OH_Pixelmap_ImageInfo) -> Image_ErrorCode;
+}
+extern "C" {
+    #[doc = " @brief Creates a <b>PixelMap</b> object.\n\n @param data Color buffer in BGRA_8888 format.\n @param dataLength Color buffer size in BGRA_8888 format.\n @param options IPixel properties, including the alpha type, size, pixel format, and editable.\n @param pixelmap Pixelmap pointer for created.\n @return Function result code:\n         {@link IMAGE_SUCCESS} - if the operation is successful.\n         {@link IMAGE_BAD_PARAMETER} - Possible causes:\n         if data or options is null or failed to create pixelmap due to invalid options.\n @since 12"]
+    pub fn OH_PixelmapNative_CreatePixelmap(
+        data: *mut u8,
+        dataLength: usize,
+        options: *mut OH_Pixelmap_InitializationOptions,
+        pixelmap: *mut *mut OH_PixelmapNative,
+    ) -> Image_ErrorCode;
+}
+extern "C" {
+    #[doc = " @brief Creates a pixelmap based on options {@link OH_Pixelmap_InitializationOptions}, the memory type used by the\n pixelmap can be specified by allocatorType {@link IMAGE_ALLOCATOR_MODE}. By default, the system selects the memory\n type based on the image type, image size, platform capability, etc. When processing the pixelmap returned by this\n interface, please always consider the impact of stride.\n\n @param data Input color buffer in BGRA_8888 format by default.\n @param dataLength Length of input buffer in bytes.\n @param options Pixelmap initialization properties including size, pixel format, alpha type, and editable flags.\n @param allocator Indicate which memory type will be used by the returned pixelmap.\n @param pixelmap Output parameter receiving the created pixelmap object pointer.\n @return Function result code:\n         {@link IMAGE_SUCCESS} If the operation is successful.\n         {@link IMAGE_BAD_PARAMETER} If the param is nullptr or invalid.\n         {@link IMAGE_TOO_LARGE} too large data or image.\n         {@link IMAGE_UNSUPPORTED_OPERATION} unsupported operations.\n         {@link IMAGE_DMA_OPERATION_FAILED} DMA operation failed.\n         {@link IMAGE_ALLOCATOR_MODE_UNSUPPORTED} unsupported allocator mode, e.g.,\n         use share memory to create a HDR image as only DMA supported hdr metadata.\n @since 20"]
+    #[cfg(feature = "api-20")]
+    pub fn OH_PixelmapNative_CreatePixelmapUsingAllocator(
+        data: *mut u8,
+        dataLength: usize,
+        options: *mut OH_Pixelmap_InitializationOptions,
+        allocator: IMAGE_ALLOCATOR_MODE,
+        pixelmap: *mut *mut OH_PixelmapNative,
+    ) -> Image_ErrorCode;
+}
+extern "C" {
+    #[doc = " @brief Convert a native <b>PixelMap</b> object to <b>PixelMap</b> napi object.\n\n @param env Indicates the NAPI environment pointer.\n @param pixelmapNative Indicates a pointer to the <b>PixelMap</b> object created at the native layer.\n @param pixelmapNapi the <b>PixelMap</b> pointer will be converted.\n @return Image functions result code.\n     {@link IMAGE_SUCCESS} if the execution is successful.\n     {@link IMAGE_BAD_PARAMETER} pixelmapNative is nullptr\n @since 12"]
+    pub fn OH_PixelmapNative_ConvertPixelmapNativeToNapi(
+        env: napi_env,
+        pixelmapNative: *mut OH_PixelmapNative,
+        pixelmapNapi: *mut napi_value,
+    ) -> Image_ErrorCode;
+}
+extern "C" {
+    #[doc = " @brief Convert a <b>PixelMap</b> napi object to native <b>PixelMap</b> object.\n\n @param env Indicates the NAPI environment pointer.\n @param pixelmapNapi Indicates napi <b>PixelMap</b> object.\n @param pixelmapNative Indicates native <b>PixelMap</b> pointer to created.\n @return Image functions result code.\n     {@link IMAGE_SUCCESS} if the execution is successful.\n     {@link IMAGE_BAD_PARAMETER} pixelmapNative is nullptr, or pixelmapNapi is not a PixelMap\n @since 12"]
+    pub fn OH_PixelmapNative_ConvertPixelmapNativeFromNapi(
+        env: napi_env,
+        pixelmapNapi: napi_value,
+        pixelmapNative: *mut *mut OH_PixelmapNative,
+    ) -> Image_ErrorCode;
+}
+extern "C" {
+    #[doc = " @brief Reads data of this pixel map to an Buffer. If this pixel map is created in the BGRA_8888 format,\n the data read is the same as the original data.\n\n @param pixelmap The Pixelmap pointer will be operated.\n @param destination Buffer to which the image pixel map data will be written.\n @param bufferSize Buffer size to which the image pixel map data will be written.\n @return Function result code:\n         {@link IMAGE_SUCCESS} if the execution is successful.\n         {@link IMAGE_BAD_PARAMETER} Parameter error. Possible causes:\n         1.Parameter is nullptr\n         2.pixelmap's inner pixelmap is nullptr.\n         3.Parameter bufferSize is less than the actual data size.\n         {@link IMAGE_UNKNOWN_ERROR} Internal unknown error, e.g.\n         memory copy failed or pixelmap's attributes are incorrect.\n @since 12"]
+    pub fn OH_PixelmapNative_ReadPixels(
+        pixelmap: *mut OH_PixelmapNative,
+        destination: *mut u8,
+        bufferSize: *mut usize,
+    ) -> Image_ErrorCode;
+}
+extern "C" {
+    #[doc = " @brief Reads image data in an Buffer and writes the data to a Pixelmap object.\n\n @param pixelmap The Pixelmap pointer will be operated.\n @param source Buffer from which the image data will be read.\n @param bufferSize Buffer size from which the image data will be read.\n @return Function result code:\n         {@link IMAGE_SUCCESS} if the execution is successful.\n         {@link IMAGE_BAD_PARAMETER} Parameter error. Possible causes:\n         1.Parameter is nullptr\n         2.pixelmap's inner pixelmap is nullptr.\n         3.Parameter bufferSize is less than the actual data size.\n         {@link IMAGE_UNSUPPORTED_OPERATION} If the pixelmap is not editable.\n         {@link IMAGE_UNKNOWN_ERROR} Internal unknown error, e.g.\n         memory copy failed or pixelmap's attributes are incorrect.\n @since 12"]
+    pub fn OH_PixelmapNative_WritePixels(
+        pixelmap: *mut OH_PixelmapNative,
+        source: *mut u8,
+        bufferSize: usize,
+    ) -> Image_ErrorCode;
+}
+extern "C" {
+    #[doc = " @brief Reads data from a certain area of the PixelMap to a buffer. The resulting data will be in BGRA_8888 format.\n\n @param pixelmap The PixelMap to be read.\n @param area Area of the PixelMap to read the data. Data will be read and copied into area->pixels.\n @return Function result code:\n         {@link IMAGE_SUCCESS} If the operation is successful.\n         {@link IMAGE_BAD_PARAMETER} If any parameter is invalid, e.g. pixelmap or area is incorrect.\n         {@link IMAGE_UNKNOWN_ERROR} Internal unknown error, e.g. unsupported pixel format.\n @see OH_PixelmapNative\n @since 22"]
+    #[cfg(feature = "api-22")]
+    pub fn OH_PixelmapNative_ReadPixelsFromArea(
+        pixelmap: *mut OH_PixelmapNative,
+        area: *mut Image_PositionArea,
+    ) -> Image_ErrorCode;
+}
+extern "C" {
+    #[doc = " @brief Writes data from a buffer to a certain area of the PixelMap. The source data should be in BGRA_8888 format.\n\n @param pixelmap The PixelMap to be written.\n @param area Area of the PixelMap to write the data.\n @return Function result code:\n         {@link IMAGE_SUCCESS} If the operation is successful.\n         {@link IMAGE_BAD_PARAMETER} If any parameter is invalid, e.g. pixelmap or area is incorrect.\n         {@link IMAGE_UNSUPPORTED_OPERATION} If the PixelMap is not editable.\n         {@link IMAGE_UNKNOWN_ERROR} Internal unknown error, e.g. unsupported pixel format.\n @see OH_PixelmapNative\n @since 22"]
+    #[cfg(feature = "api-22")]
+    pub fn OH_PixelmapNative_WritePixelsToArea(
+        pixelmap: *mut OH_PixelmapNative,
+        area: *mut Image_PositionArea,
+    ) -> Image_ErrorCode;
+}
+extern "C" {
+    #[doc = " @brief Get argb pixel buffer from pixelmap.\n\n @param pixelmap The Pixelmap pointer to be operated.\n @param destination Buffer to which the image pixel map data will be written.\n @param bufferSize Buffer size to which the image pixel map data will be written.\n @return Function result code:\n         {@link IMAGE_SUCCESS} If the operation is successful.\n         {@link IMAGE_BAD_PARAMETER} If invalid parameter, destination and bufferSize are incorrect.\n         {@link IMAGE_UNSUPPORTED_CONVERSION} If format does not support conversion to argb or conversion failed.\n         {@link IMAGE_ALLOC_FAILED} If device has no memory.\n         {@link IMAGE_COPY_FAILED} If memory copy failed.\n @see OH_PixelmapNative\n @since 13"]
+    #[cfg(feature = "api-13")]
+    pub fn OH_PixelmapNative_GetArgbPixels(
+        pixelmap: *mut OH_PixelmapNative,
+        destination: *mut u8,
+        bufferSize: *mut usize,
+    ) -> Image_ErrorCode;
+}
+extern "C" {
+    #[doc = " @brief Convert {@link OH_PixelmapNative} to standard dynamic range.\n\n @param pixelmap The Pixelmap pointer will be operated. Pointer connot be null.\n @return Returns {@link Image_ErrorCode} IMAGE_SUCCESS - The operation is successful.\n returns {@link Image_ErrorCode} IMAGE_BAD_PARAMETER - Parameter error.Possible causes:Parameter verification failed.\n returns {@link Image_ErrorCode} IMAGE_UNSUPPORTED_OPERATION - Unsupported operation.Pixelmap can't be converted.\n @since 12"]
+    pub fn OH_PixelmapNative_ToSdr(pixelmap: *mut OH_PixelmapNative) -> Image_ErrorCode;
+}
+extern "C" {
+    #[doc = " @brief Obtains pixel map information of this image.\n\n @param pixelmap The Pixelmap pointer will be operated.\n @param imageInfo Indicates the pointer to the image information.\n @return Function result code:\n         {@link IMAGE_SUCCESS} - The operation is successful.\n         {@link IMAGE_BAD_PARAMETER} - Parameter error.Possible causes:\n         1.pixelmap is nullptr.\n         2.pixelmap's inner pixelmap is nullptr.\n         3.imageInfo is nullptr.\n @since 12"]
+    pub fn OH_PixelmapNative_GetImageInfo(
+        pixelmap: *mut OH_PixelmapNative,
+        imageInfo: *mut OH_Pixelmap_ImageInfo,
+    ) -> Image_ErrorCode;
+}
+extern "C" {
+    #[doc = " @brief Sets an opacity rate for this image pixel map.\n\n @param pixelmap The Pixelmap pointer will be operated.\n @param rate Opacity rate to set. The value ranges from 0 to 1.\n @return Function result code:\n         {@link IMAGE_SUCCESS} - The operation is successful.\n         {@link IMAGE_BAD_PARAMETER} - Parameter error.Possible causes:\n         1.pixelmap is nullptr.\n         2.pixelmap's inner pixelmap is nullptr.\n @since 12"]
+    pub fn OH_PixelmapNative_Opacity(
+        pixelmap: *mut OH_PixelmapNative,
+        rate: f32,
+    ) -> Image_ErrorCode;
+}
+extern "C" {
+    #[doc = " @brief Scales this image based on the input width and height.\n\n @param pixelmap The Pixelmap pointer will be operated.\n @param scaleX Scaling ratio of the width.\n @param scaleY Scaling ratio of the height.\n @return Function result code:\n         {@link IMAGE_SUCCESS} - The operation is successful.\n         {@link IMAGE_BAD_PARAMETER} - Parameter error.Possible causes:\n         1.pixelmap is nullptr.\n         2.pixelmap's inner pixelmap is nullptr.\n @since 12"]
+    pub fn OH_PixelmapNative_Scale(
+        pixelmap: *mut OH_PixelmapNative,
+        scaleX: f32,
+        scaleY: f32,
+    ) -> Image_ErrorCode;
+}
+extern "C" {
+    #[doc = " @brief Scales this image based on the input width and height with anti-aliasing.\n\n @param pixelmap The Pixelmap pointer will be operated.\n @param scaleX Scaling ratio of the width.\n @param scaleY Scaling ratio of the height.\n @param level The anti-aliasing algorithm to be used.\n @return Returns {@link Image_ErrorCode} IMAGE_SUCCESS - if the operation is successful.\n returns {@link Image_ErrorCode} IMAGE_BAD_PARAMETER - if invalid parameter, x and y are incorrect.\n returns {@link Image_ErrorCode} IMAGE_TOO_LARGE - if image is too large.\n returns {@link Image_ErrorCode} IMAGE_ALLOC_FAILED - if device has no memory.\n returns {@link Image_ErrorCode} IMAGE_UNKNOWN_ERROR - inner unknown error, maybe source pixelmap is released.\n @see OH_PixelmapNative\n @since 12"]
+    pub fn OH_PixelmapNative_ScaleWithAntiAliasing(
+        pixelmap: *mut OH_PixelmapNative,
+        scaleX: f32,
+        scaleY: f32,
+        level: OH_PixelmapNative_AntiAliasingLevel,
+    ) -> Image_ErrorCode;
+}
+extern "C" {
+    #[doc = " @brief Create a scaled pixelmap based on the source pixelmap and the input width and height.\n\n @param srcPixelmap The source native pixelmap.\n @param dstPixelmap The destination native pixelmap for create.\n @param scaleX Scaling ratio of the width.\n @param scaleY Scaling ratio of the height.\n @return Function result code:\n         {@link IMAGE_SUCCESS} If the execution is successful.\n         {@link IMAGE_BAD_PARAMETER} If the param is nullptr or invalid.\n @see OH_PixelmapNative\n @since 18"]
+    #[cfg(feature = "api-18")]
+    pub fn OH_PixelmapNative_CreateScaledPixelMap(
+        srcPixelmap: *mut OH_PixelmapNative,
+        dstPixelmap: *mut *mut OH_PixelmapNative,
+        scaleX: f32,
+        scaleY: f32,
+    ) -> Image_ErrorCode;
+}
+extern "C" {
+    #[doc = " @brief Create a scaled pixelmap based on the source pixelmap and the input width and height with anti-aliasing.\n\n @param srcPixelmap The source native pixelmap.\n @param dstPixelmap The destination native pixelmap for create.\n @param scaleX Scaling ratio of the width.\n @param scaleY Scaling ratio of the height.\n @param level The anti-aliasing algorithm to be used.\n @return Function result code:\n         {@link IMAGE_SUCCESS} If the execution is successful.\n         {@link IMAGE_BAD_PARAMETER} If the param is nullptr or invalid.\n         {@link IMAGE_TOO_LARGE} If image is too large.\n         {@link IMAGE_ALLOC_FAILED} If device has no memory.\n @see OH_PixelmapNative\n @since 18"]
+    #[cfg(feature = "api-18")]
+    pub fn OH_PixelmapNative_CreateScaledPixelMapWithAntiAliasing(
+        srcPixelmap: *mut OH_PixelmapNative,
+        dstPixelmap: *mut *mut OH_PixelmapNative,
+        scaleX: f32,
+        scaleY: f32,
+        level: OH_PixelmapNative_AntiAliasingLevel,
+    ) -> Image_ErrorCode;
+}
+extern "C" {
+    #[doc = " @brief Translates this image based on the input coordinates.\n\n @param pixelmap The Pixelmap pointer will be operated.\n @param x The distance to be translate in the X direction.\n @param y The distance to be translate in the Y direction.\n @return Function result code:\n         {@link IMAGE_SUCCESS} - The operation is successful.\n         {@link IMAGE_BAD_PARAMETER} - Parameter error.Possible causes:\n         1.pixelmap is nullptr.\n         2.pixelmap's inner pixelmap is nullptr.\n @since 12"]
+    pub fn OH_PixelmapNative_Translate(
+        pixelmap: *mut OH_PixelmapNative,
+        x: f32,
+        y: f32,
+    ) -> Image_ErrorCode;
+}
+extern "C" {
+    #[doc = " @brief Creates a PixelMap with only alpha channel from the source PixelMap.\n\n @param srcPixelmap The source PixelMap.\n @param dstPixelmap The target PixelMap to be created.\n @return Function result code:\n         {@link IMAGE_SUCCESS} If the operation is successful.\n         {@link IMAGE_BAD_PARAMETER} If any parameter is invalid, e.g. srcPixelmap or dstPixelmap is incorrect.\n @see OH_PixelmapNative\n @since 22"]
+    #[cfg(feature = "api-22")]
+    pub fn OH_PixelmapNative_CreateAlphaPixelmap(
+        srcPixelmap: *mut OH_PixelmapNative,
+        dstPixelmap: *mut *mut OH_PixelmapNative,
+    ) -> Image_ErrorCode;
+}
+extern "C" {
+    #[doc = " @brief Clones a PixelMap from the source PixelMap.\n\n @param srcPixelmap The source PixelMap to be cloned.\n @param dstPixelmap The target PixelMap to be created.\n @return Function result code:\n         {@link IMAGE_SUCCESS} If the operation is successful.\n         {@link IMAGE_BAD_PARAMETER} If any parameter is invalid, e.g. srcPixelmap or dstPixelmap is incorrect.\n         {@link IMAGE_UNSUPPORTED_DATA_FORMAT} If the pixel format is unsupported.\n         {@link IMAGE_TOO_LARGE} If the PixelMap size is too large.\n         {@link IMAGE_INIT_FAILED} If the PixelMap initialization failed.\n         {@link IMAGE_ALLOC_FAILED} If the copying of PixelMap data failed.\n @see OH_PixelmapNative\n @since 22"]
+    #[cfg(feature = "api-22")]
+    pub fn OH_PixelmapNative_Clone(
+        srcPixelmap: *mut OH_PixelmapNative,
+        dstPixelmap: *mut *mut OH_PixelmapNative,
+    ) -> Image_ErrorCode;
+}
+extern "C" {
+    #[doc = " @brief Creates a cropped and then scaled PixelMap based on the source PixelMap.\n\n @param srcPixelmap The source PixelMap.\n @param region The crop region.\n @param scale The scale ratio of width and height.\n @param level The anti-aliasing algorithm to be used.\n @param dstPixelmap The target PixelMap to be created.\n @return Function result code:\n         {@link IMAGE_SUCCESS} If the operation is successful.\n         {@link IMAGE_BAD_PARAMETER} If any parameter is invalid, e.g. srcPixelmap, region, scale, or dstPixelmap is\n                                     incorrect.\n         {@link IMAGE_UNSUPPORTED_DATA_FORMAT} If the pixel format is unsupported.\n         {@link IMAGE_TOO_LARGE} If the PixelMap size is too large.\n         {@link IMAGE_INIT_FAILED} If the PixelMap initialization failed.\n         {@link IMAGE_ALLOC_FAILED} If the copying of PixelMap data failed.\n @see OH_PixelmapNative\n @since 22"]
+    #[cfg(feature = "api-22")]
+    pub fn OH_PixelmapNative_CreateCroppedAndScaledPixelMap(
+        srcPixelmap: *mut OH_PixelmapNative,
+        region: *mut Image_Region,
+        scale: *mut Image_Scale,
+        level: OH_PixelmapNative_AntiAliasingLevel,
+        dstPixelmap: *mut *mut OH_PixelmapNative,
+    ) -> Image_ErrorCode;
+}
+extern "C" {
+    #[doc = " @brief Rotates this image based on the input angle.\n\n @param pixelmap The Pixelmap pointer will be operated.\n @param angle Angle to rotate.\n @return Function result code:\n         {@link IMAGE_SUCCESS} - The operation is successful.\n         {@link IMAGE_BAD_PARAMETER} - Parameter error.Possible causes:\n         1.pixelmap is nullptr.\n         2.pixelmap's inner pixelmap is nullptr.\n @since 12"]
+    pub fn OH_PixelmapNative_Rotate(
+        pixelmap: *mut OH_PixelmapNative,
+        angle: f32,
+    ) -> Image_ErrorCode;
+}
+extern "C" {
+    #[doc = " @brief Flips this image horizontally or vertically, or both.\n\n @param pixelmap The Pixelmap pointer will be operated.\n @param shouldFlipHorizontally Whether to flip the image horizontally.\n @param shouldFlipVertically Whether to flip the image vertically.\n @return Function result code:\n         {@link IMAGE_SUCCESS} - The operation is successful.\n         {@link IMAGE_BAD_PARAMETER} - Parameter error.Possible causes:\n         1.pixelmap is nullptr.\n         2.pixelmap's inner pixelmap is nullptr.\n @since 12"]
+    pub fn OH_PixelmapNative_Flip(
+        pixelmap: *mut OH_PixelmapNative,
+        shouldFlipHorizontally: bool,
+        shouldFlipVertically: bool,
+    ) -> Image_ErrorCode;
+}
+extern "C" {
+    #[doc = " @brief Crops this image based on the input size.\n\n @param pixelmap The Pixelmap pointer will be operated.\n @param region Area size, read according to area.\n @return Function result code:\n         {@link IMAGE_SUCCESS} - The operation is successful.\n         {@link IMAGE_BAD_PARAMETER}  - Parameter error.Possible causes:\n         1.pixelmap is nullptr.\n         2.region is nullptr.\n         3.pixelmap's inner pixelmap is nullptr.\n @since 12"]
+    pub fn OH_PixelmapNative_Crop(
+        pixelmap: *mut OH_PixelmapNative,
+        region: *mut Image_Region,
+    ) -> Image_ErrorCode;
+}
+extern "C" {
+    #[doc = " @brief Releases an <b>OH_Pixelmap</b> object.\n\n @param pixelmap The Pixelmap pointer will be operated.\n @return Function result code:\n         {@link IMAGE_SUCCESS} - if the operation is successful.\n         {@link IMAGE_BAD_PARAMETER} - if either:\n         1.Pixelmap is nullptr.\n         2.It's inner pixelmap is nullptr.\n         3.Pixelmap is not allowed to release.\n @since 12"]
+    pub fn OH_PixelmapNative_Release(pixelmap: *mut OH_PixelmapNative) -> Image_ErrorCode;
+}
+extern "C" {
+    #[doc = " @brief Destroys an <b>OH_PixelmapNative</b> object and deallocates its resources.\n\n @param pixelmap A pointer to the OH_PixelmapNative pointer to destroy.\n @return Returns {@link Image_ErrorCode} IMAGE_SUCCESS - if the operation is successful.\n returns {@link Image_ErrorCode} IMAGE_BAD_PARAMETER - if pixelmap is null or *pixelmap is null.\n @since 18"]
+    #[cfg(feature = "api-18")]
+    pub fn OH_PixelmapNative_Destroy(pixelmap: *mut *mut OH_PixelmapNative) -> Image_ErrorCode;
+}
+extern "C" {
+    #[doc = " @brief Converting images to alpha format\n\n @param srcpixelmap The source pixel map pointer will be operated.\n @param dstpixelmap The destination pixel map pointer will be operated.\n @param isPremul Whether it is pre-multiplied, true for prediction, false for non-pre-multiplied.\n @return Function result code:\n         {@link IMAGE_SUCCESS} - if the operation is successful.\n         {@link IMAGE_BAD_PARAMETER} - if either:\n         1.srcpixelmap or dstpixelmap is null pointer.\n         2.Their inner pixelmap structures are unavailable.\n @since 12"]
+    pub fn OH_PixelmapNative_ConvertAlphaFormat(
+        srcpixelmap: *mut OH_PixelmapNative,
+        dstpixelmap: *mut OH_PixelmapNative,
+        isPremul: bool,
+    ) -> Image_ErrorCode;
+}
+extern "C" {
+    #[doc = " @brief Create a empty <b>PixelMap</b> object.\n\n @param options IPixel properties, including the alpha type, size, pixel format, and editable.\n @param pixelmap Pixelmap pointer for created.\n @return Function result code:\n         {@link IMAGE_SUCCESS} - if the operation is successful.\n         {@link IMAGE_BAD_PARAMETER} - if options is null or\n         failed to create pixelmap due to invalid options.\n @since 12"]
+    pub fn OH_PixelmapNative_CreateEmptyPixelmap(
+        options: *mut OH_Pixelmap_InitializationOptions,
+        pixelmap: *mut *mut OH_PixelmapNative,
+    ) -> Image_ErrorCode;
+}
+extern "C" {
+    #[doc = " @brief Creates a empty pixelmap based on options {@link OH_Pixelmap_InitializationOptions}, the memory type used\n by the pixelmap can be specified by allocatorType {@link IMAGE_ALLOCATOR_MODE}. By default,\n the system selects the memory type based on the image type, image size, platform capability, etc. When processing\n the pixelmap returned by this interface, please always consider the impact of stride.\n\n @param options Pixelmap initialization properties including size, pixel format, alpha type, and editable flags.\n @param allocator Indicate which memory type will be used by the returned pixelmap.\n @param pixelmap Output parameter receiving the created pixelmap object pointer.\n @return Function result code:\n         {@link IMAGE_SUCCESS} If the operation is successful.\n         {@link IMAGE_BAD_PARAMETER} If the param is nullptr or invalid.\n         {@link IMAGE_TOO_LARGE} too large data or image.\n         {@link IMAGE_UNSUPPORTED_OPERATION} unsupported operations.\n         {@link IMAGE_ALLOCATOR_MODE_UNSUPPORTED} unsupported allocator mode, e.g., use\n         share memory to create a HDR image as only DMA supported hdr metadata.\n @since 20"]
+    #[cfg(feature = "api-20")]
+    pub fn OH_PixelmapNative_CreateEmptyPixelmapUsingAllocator(
+        options: *mut OH_Pixelmap_InitializationOptions,
+        allocator: IMAGE_ALLOCATOR_MODE,
+        pixelmap: *mut *mut OH_PixelmapNative,
+    ) -> Image_ErrorCode;
+}
+extern "C" {
+    #[doc = " @brief Creates a PixelMap from a Surface with the Surface ID.\n\n @param surfaceId The Surface ID.\n @param length Length of the Surface ID.\n @param pixelmap The PixelMap to be created.\n @return Function result code:\n         {@link IMAGE_SUCCESS} If the operation is successful.\n         {@link IMAGE_BAD_PARAMETER} If any parameter is invalid, e.g. surfaceId or pixelmap is incorrect.\n         {@link IMAGE_CREATE_PIXELMAP_FAILED} If the PixelMap creation failed.\n @see OH_PixelmapNative\n @since 22"]
+    #[cfg(feature = "api-22")]
+    pub fn OH_PixelmapNative_CreatePixelmapFromSurface(
+        surfaceId: *const ::std::os::raw::c_char,
+        length: usize,
+        pixelmap: *mut *mut OH_PixelmapNative,
+    ) -> Image_ErrorCode;
+}
+extern "C" {
+    #[doc = " @brief Creates a PixelMap object based on the ID of a Surface with transformation.\n\n @param surfaceId ID of the Surface.\n @param length Length of the Surface ID.\n @param transformEnabled Whether to inverse transform the PixelMap to cancel out the transformation from the Surface.\n     If true, the PixelMap will be transformed by the same amount from the Surface but in a reversed direction;\n     if false, the PixelMap will not be transformed.\n @param pixelmap The PixelMap to be created.\n @return Function result code:\n         {@link IMAGE_SUCCESS} Operation is successful.\n         {@link IMAGE_INVALID_PARAMETER} Invalid parameter, e.g. surfaceId or pixelmap is incorrect.\n         {@link IMAGE_UNSUPPORTED_OPERATION} Unsupported operation, e.g. on cross-platform.\n         {@link IMAGE_GET_IMAGE_DATA_FAILED} Failed to get the data from Surface.\n         {@link IMAGE_CREATE_PIXELMAP_FAILED} Failed to create the PixelMap.\n @see OH_PixelmapNative\n @since 23"]
+    #[cfg(feature = "api-23")]
+    pub fn OH_PixelmapNative_CreatePixelmapFromSurfaceWithTransformation(
+        surfaceId: *const ::std::os::raw::c_char,
+        length: usize,
+        transformEnabled: bool,
+        pixelmap: *mut *mut OH_PixelmapNative,
+    ) -> Image_ErrorCode;
+}
+extern "C" {
+    #[doc = " @brief Creates a PixelMap from a native buffer.\n\n @param nativeBuffer The native buffer.\n @param pixelmap The PixelMap to be created.\n @return Function result code:\n         {@link IMAGE_SUCCESS} If the operation is successful.\n         {@link IMAGE_BAD_PARAMETER} If any parameter is invalid, e.g. nativeBuffer or pixelmap is incorrect.\n         {@link IMAGE_CREATE_PIXELMAP_FAILED} If the PixelMap creation failed.\n @see OH_PixelmapNative\n @since 22"]
+    #[cfg(feature = "api-22")]
+    pub fn OH_PixelmapNative_CreatePixelmapFromNativeBuffer(
+        nativeBuffer: *mut OH_NativeBuffer,
+        pixelmap: *mut *mut OH_PixelmapNative,
+    ) -> Image_ErrorCode;
+}
+extern "C" {
+    #[doc = " @brief Get metadata.\n\n @param pixelmap The Pixelmap pointer to be operated.\n @param key Type of metadata.\n @param value Value of metadata.\n @return Returns {@link Image_ErrorCode} IMAGE_SUCCESS - if the operation is successful.\n returns {@link Image_ErrorCode} IMAGE_BAD_PARAMETER - if invalid parameter, key and value are incorrect.\n returns {@link Image_ErrorCode} IMAGE_DMA_NOT_EXIST - if DMA memory does not exist.\n returns {@link Image_ErrorCode} IMAGE_COPY_FAILED - if memory copy failed.\n @see OH_PixelmapNative\n @since 12"]
+    pub fn OH_PixelmapNative_GetMetadata(
+        pixelmap: *mut OH_PixelmapNative,
+        key: OH_Pixelmap_HdrMetadataKey,
+        value: *mut *mut OH_Pixelmap_HdrMetadataValue,
+    ) -> Image_ErrorCode;
+}
+extern "C" {
+    #[doc = " @brief Set metadata.\n\n @param pixelmap The Pixelmap pointer to be operated.\n @param key Type of metadata.\n @param value Value of metadata.\n @return Returns {@link Image_ErrorCode} IMAGE_SUCCESS - if the operation is successful.\n returns {@link Image_ErrorCode} IMAGE_BAD_PARAMETER - if invalid parameter, key and value are incorrect.\n returns {@link Image_ErrorCode} IMAGE_DMA_NOT_EXIST - if DMA memory does not exist.\n returns {@link Image_ErrorCode} IMAGE_COPY_FAILED - if memory copy failed.\n @see OH_PixelmapNative\n @since 12"]
+    pub fn OH_PixelmapNative_SetMetadata(
+        pixelmap: *mut OH_PixelmapNative,
+        key: OH_Pixelmap_HdrMetadataKey,
+        value: *mut OH_Pixelmap_HdrMetadataValue,
+    ) -> Image_ErrorCode;
+}
+extern "C" {
+    #[doc = " @brief Get the native buffer from the PixelMap.\n\n @param pixelmap The PixelMap to get the native buffer from.\n @param nativeBuffer The native buffer to retrieve.\n @return Returns {@link Image_ErrorCode} IMAGE_RESULT_SUCCESS - if the operation is successful.\n returns {@link Image_ErrorCode} IMAGE_BAD_PARAMETER - if invalid parameter, pixelmap or nativeBuffer is null.\n returns {@link Image_ErrorCode} IMAGE_DMA_NOT_EXIST - if DMA memory dose not exist.\n returns {@link Image_ErrorCode} IMAGE_DMA_OPERATION_FAILED - if operations related to DMA memory has failed.\n @see OH_PixelmapNative\n @since 12"]
+    pub fn OH_PixelmapNative_GetNativeBuffer(
+        pixelmap: *mut OH_PixelmapNative,
+        nativeBuffer: *mut *mut OH_NativeBuffer,
+    ) -> Image_ErrorCode;
+}
+extern "C" {
+    #[doc = " @brief Get the native colorspace from the PixelMap.\n\n @param pixelmap The native pixelmap to get the native colorspace from.\n @param colorSpaceNative The native colorspace to retrieve.\n @return Function result code:\n         {@link IMAGE_SUCCESS} If the execution is successful.\n         {@link IMAGE_BAD_PARAMETER} The param of pixelmap or colorSpaceNative is nullptr or invalid.\n @see OH_PixelmapNative\n @since 13"]
+    #[cfg(feature = "api-13")]
+    pub fn OH_PixelmapNative_GetColorSpaceNative(
+        pixelmap: *mut OH_PixelmapNative,
+        colorSpaceNative: *mut *mut OH_NativeColorSpaceManager,
+    ) -> Image_ErrorCode;
+}
+extern "C" {
+    #[doc = " @brief Set the native colorspace for the PixelMap.\n\n @param pixelmap The native pixelmap to set the native colorspace for.\n @param colorSpaceNative The native colorspace to set.\n @return Function result code:\n         {@link IMAGE_SUCCESS} If the execution is successful.\n         {@link IMAGE_BAD_PARAMETER} The param of pixelmap or colorSpaceNative is nullptr or invalid.\n @see OH_PixelmapNative\n @since 13"]
+    #[cfg(feature = "api-13")]
+    pub fn OH_PixelmapNative_SetColorSpaceNative(
+        pixelmap: *mut OH_PixelmapNative,
+        colorSpaceNative: *mut OH_NativeColorSpaceManager,
+    ) -> Image_ErrorCode;
+}
+extern "C" {
+    #[doc = " @brief Set pixelmap memory name.\n\n @param pixelmap The Pixelmap pointer to be operated.\n @param name The pointer of name that needs to be set.\n @param size The size of name size that needs to be set.\n @return Function result code:\n         {@link IMAGE_SUCCESS} If the operation is successful.\n         {@link IMAGE_BAD_PARAMETER} If invalid parameter, name and size are incorrect.\n         {@link IMAGE_UNSUPPORTED_MEMORY_FORMAT} If memory format is unsupported.\n @see OH_PixelmapNative\n @since 13"]
+    #[cfg(feature = "api-13")]
+    pub fn OH_PixelmapNative_SetMemoryName(
+        pixelmap: *mut OH_PixelmapNative,
+        name: *mut ::std::os::raw::c_char,
+        size: *mut usize,
+    ) -> Image_ErrorCode;
+}
+extern "C" {
+    #[doc = " @brief Get the total number of bytes occupied by all pixels in the Pixelmap, without any padding.\n\n @param pixelmap The Pixelmap pointer to be operated.\n @param byteCount The total number of bytes to be retrieved.\n @return Function result code:\n         {@link IMAGE_SUCCESS} If the operation is successful.\n         {@link IMAGE_BAD_PARAMETER} If invalid parameter, pixelmap or byteCount are invalid.\n @see OH_PixelmapNative\n @since 18"]
+    #[cfg(feature = "api-18")]
+    pub fn OH_PixelmapNative_GetByteCount(
+        pixelmap: *mut OH_PixelmapNative,
+        byteCount: *mut u32,
+    ) -> Image_ErrorCode;
+}
+extern "C" {
+    #[doc = " @brief Get the size of the allocated memory used to store this pixelmap's pixels.\n\n @param pixelmap The Pixelmap pointer to be operated.\n @param allocationByteCount The size of the allocated memory.\n @return Function result code:\n         {@link IMAGE_SUCCESS} If the operation is successful.\n         {@link IMAGE_BAD_PARAMETER} If invalid parameter, pixelmap or allocationByteCount are invalid.\n @see OH_PixelmapNative\n @since 18"]
+    #[cfg(feature = "api-18")]
+    pub fn OH_PixelmapNative_GetAllocationByteCount(
+        pixelmap: *mut OH_PixelmapNative,
+        allocationByteCount: *mut u32,
+    ) -> Image_ErrorCode;
+}
+extern "C" {
+    #[doc = " @brief Obtains the memory address of a PixelMap and locks the memory.\n        When the memory is locked, any operation that modifies or releases the PixelMap will fail and return\n        {@link IMAGE_BAD_PARAMETER}.\n\n @param pixelmap The PixelMap pointer to be operated.\n @param addr The double pointer to the memory address of the PixelMap.\n @return Function result code:\n         {@link IMAGE_SUCCESS} If the operation is successful.\n         {@link IMAGE_BAD_PARAMETER} If invalid parameter, pixelmap or addr are invalid.\n         {@link IMAGE_LOCK_UNLOCK_FAILED} If memory failed to be locked.\n @see OH_PixelmapNative\n @since 15"]
+    #[cfg(feature = "api-15")]
+    pub fn OH_PixelmapNative_AccessPixels(
+        pixelmap: *mut OH_PixelmapNative,
+        addr: *mut *mut ::std::os::raw::c_void,
+    ) -> Image_ErrorCode;
+}
+extern "C" {
+    #[doc = " @brief Unlocks the memory of the PixelMap data.\n        This function is used with {@link OH_PixelmapNative_AccessPixels} in pairs.\n\n @param pixelmap The PixelMap pointer to be operated.\n @return Function result code:\n         {@link IMAGE_SUCCESS} If the operation is successful.\n         {@link IMAGE_BAD_PARAMETER} If invalid parameter, pixelmap is invalid.\n         {@link IMAGE_LOCK_UNLOCK_FAILED} If memory failed to be unlocked.\n @see OH_PixelmapNative\n @since 15"]
+    #[cfg(feature = "api-15")]
+    pub fn OH_PixelmapNative_UnaccessPixels(pixelmap: *mut OH_PixelmapNative) -> Image_ErrorCode;
+}
+extern "C" {
+    #[doc = " @brief Gets the unique ID of a PixelMap.\n\n @param pixelmap The PixelMap to retrieve the unique ID.\n @param uniqueId The resulting unique ID.\n @return Function result code:\n         {@link IMAGE_SUCCESS} If the operation is successful.\n         {@link IMAGE_BAD_PARAMETER} If any parameter is invalid, e.g. pixelmap or uniqueId is incorrect.\n @see OH_PixelmapNative\n @since 22"]
+    #[cfg(feature = "api-22")]
+    pub fn OH_PixelmapNative_GetUniqueId(
+        pixelmap: *mut OH_PixelmapNative,
+        uniqueId: *mut u32,
+    ) -> Image_ErrorCode;
+}
+extern "C" {
+    #[doc = " @brief Checks whether the PixelMap has been released.\n\n @param pixelmap The PixelMap to check.\n @param released The resulting release status.\n @return Function result code:\n         {@link IMAGE_SUCCESS} If the operation is successful.\n         {@link IMAGE_BAD_PARAMETER} If any parameter is invalid, e.g. pixelmap or released is incorrect.\n @see OH_PixelmapNative\n @since 22"]
+    #[cfg(feature = "api-22")]
+    pub fn OH_PixelmapNative_IsReleased(
+        pixelmap: *mut OH_PixelmapNative,
+        released: *mut bool,
+    ) -> Image_ErrorCode;
+}
+#[repr(C)]
+#[derive(Debug, Copy, Clone)]
+pub struct OH_UdsPlainText {
+    _unused: [u8; 0],
+}
+#[repr(C)]
+#[derive(Debug, Copy, Clone)]
+pub struct OH_UdsHyperlink {
+    _unused: [u8; 0],
+}
+#[repr(C)]
+#[derive(Debug, Copy, Clone)]
+pub struct OH_UdsHtml {
+    _unused: [u8; 0],
+}
+#[repr(C)]
+#[derive(Debug, Copy, Clone)]
+pub struct OH_UdsAppItem {
+    _unused: [u8; 0],
+}
+#[repr(C)]
+#[derive(Debug, Copy, Clone)]
+pub struct OH_UdsFileUri {
+    _unused: [u8; 0],
+}
+#[repr(C)]
+#[derive(Debug, Copy, Clone)]
+pub struct OH_UdsPixelMap {
+    _unused: [u8; 0],
+}
+#[repr(C)]
+#[derive(Debug, Copy, Clone)]
+pub struct OH_UdsContentForm {
+    _unused: [u8; 0],
+}
+#[repr(C)]
+#[derive(Debug, Copy, Clone)]
+pub struct OH_UdsArrayBuffer {
+    _unused: [u8; 0],
+}
+#[repr(C)]
+#[derive(Debug, Copy, Clone)]
+pub struct OH_UdsDetails {
+    _unused: [u8; 0],
+}
+extern "C" {
+    #[doc = " @brief Creation a pointer to the instance of the {@link OH_UdsPlainText}.\n\n @return If the operation is successful, a pointer to the instance of the {@link OH_UdsPlainText}\n structure is returned. If the operation is failed, nullptr is returned.\n @see OH_UdsPlainText\n @since 12"]
+    pub fn OH_UdsPlainText_Create() -> *mut OH_UdsPlainText;
+}
+extern "C" {
+    #[doc = " @brief Destroy a pointer that points to the {@link OH_UdsPlainText} instance.\n\n @param pThis Represents a pointer to an instance of {@link OH_UdsPlainText}.\n @see OH_UdsPlainText\n @since 12"]
+    pub fn OH_UdsPlainText_Destroy(pThis: *mut OH_UdsPlainText);
+}
+extern "C" {
+    #[doc = " @brief Get type id from the {@link OH_UdsPlainText}.\n\n @param pThis Represents a pointer to an instance of {@link OH_UdsPlainText}.\n @return Returns a pointer of the value string when input args normally, otherwise return nullptr.\n @see OH_UdsPlainText\n @since 12"]
+    pub fn OH_UdsPlainText_GetType(pThis: *mut OH_UdsPlainText) -> *const ::std::os::raw::c_char;
+}
+extern "C" {
+    #[doc = " @brief Get content from the {@link OH_UdsPlainText}.\n\n @param pThis Represents a pointer to an instance of {@link OH_UdsPlainText}.\n @return Returns a pointer of the value string when input args normally, otherwise return nullptr.\n @see OH_UdsPlainText\n @since 12"]
+    pub fn OH_UdsPlainText_GetContent(pThis: *mut OH_UdsPlainText)
+        -> *const ::std::os::raw::c_char;
+}
+extern "C" {
+    #[doc = " @brief Get abstract from the {@link OH_UdsPlainText}.\n\n @param pThis Represents a pointer to an instance of {@link OH_UdsPlainText}.\n @return Returns a pointer of the value string when input args normally, otherwise return nullptr.\n @see OH_UdsPlainText\n @since 12"]
+    pub fn OH_UdsPlainText_GetAbstract(
+        pThis: *mut OH_UdsPlainText,
+    ) -> *const ::std::os::raw::c_char;
+}
+extern "C" {
+    #[doc = " @brief Get details from the {@link OH_UdsPlainText}.\n\n @param pThis Represents a pointer to an instance of {@link OH_UdsPlainText}.\n @param details Represents a pointer to an instance of {@link OH_UdsDetails}. The pointer cannot be null.\n @return Returns the status code of the execution. See {@link Udmf_ErrCode}.\n         {@link UDMF_E_OK} success.\n         {@link UDMF_E_INVALID_PARAM} The error code for common invalid args.\n @see OH_UdsPlainText OH_UdsDetails Udmf_ErrCode\n @since 22"]
+    #[cfg(feature = "api-22")]
+    pub fn OH_UdsPlainText_GetDetails(
+        pThis: *mut OH_UdsPlainText,
+        details: *mut OH_UdsDetails,
+    ) -> ::std::os::raw::c_int;
+}
+extern "C" {
+    #[doc = " @brief Set content to the {@link OH_UdsPlainText}.\n\n @param pThis Represents a pointer to an instance of {@link OH_UdsPlainText}.\n @param content Represents a new content string.\n @return Returns the status code of the execution. See {@link Udmf_ErrCode}.\n         {@link UDMF_E_OK} success.\n         {@link UDMF_E_INVALID_PARAM} The error code for common invalid args.\n @see OH_UdsPlainText Udmf_ErrCode\n @since 12"]
+    pub fn OH_UdsPlainText_SetContent(
+        pThis: *mut OH_UdsPlainText,
+        content: *const ::std::os::raw::c_char,
+    ) -> ::std::os::raw::c_int;
+}
+extern "C" {
+    #[doc = " @brief Set abstract to the {@link OH_UdsPlainText}.\n\n @param pThis Represents a pointer to an instance of {@link OH_UdsPlainText}.\n @param abstract Represents a new string value.\n @return Returns the status code of the execution. See {@link Udmf_ErrCode}.\n         {@link UDMF_E_OK} success.\n         {@link UDMF_E_INVALID_PARAM} The error code for common invalid args.\n @see OH_UdsPlainText Udmf_ErrCode\n @since 12"]
+    pub fn OH_UdsPlainText_SetAbstract(
+        pThis: *mut OH_UdsPlainText,
+        abstract_: *const ::std::os::raw::c_char,
+    ) -> ::std::os::raw::c_int;
+}
+extern "C" {
+    #[doc = " @brief Set details to the {@link OH_UdsPlainText}.\n\n @param pThis Represents a pointer to an instance of {@link OH_UdsPlainText}.\n @param details Represents a pointer to an instance of {@link OH_UdsDetails}. The pointer cannot be null.\n @return Returns the status code of the execution. See {@link Udmf_ErrCode}.\n         {@link UDMF_E_OK} success.\n         {@link UDMF_E_INVALID_PARAM} The error code for common invalid args.\n @see OH_UdsPlainText OH_UdsDetails Udmf_ErrCode\n @since 22"]
+    #[cfg(feature = "api-22")]
+    pub fn OH_UdsPlainText_SetDetails(
+        pThis: *mut OH_UdsPlainText,
+        details: *const OH_UdsDetails,
+    ) -> ::std::os::raw::c_int;
+}
+extern "C" {
+    #[doc = " @brief Creation a pointer to the instance of the {@link OH_UdsHyperlink}.\n\n @return If the operation is successful, a pointer to the instance of {@link OH_UdsHyperlink}\n structure is returned. If the operation is failed, nullptr is returned.\n @see OH_UdsHyperlink\n @since 12"]
+    pub fn OH_UdsHyperlink_Create() -> *mut OH_UdsHyperlink;
+}
+extern "C" {
+    #[doc = " @brief Destroy a pointer that points to the {@link OH_UdsHyperlink} instance.\n\n @param pThis Represents a pointer to an  instance of {@link OH_UdsHyperlink}.\n @see OH_UdsHyperlink\n @since 12"]
+    pub fn OH_UdsHyperlink_Destroy(pThis: *mut OH_UdsHyperlink);
+}
+extern "C" {
+    #[doc = " @brief Get type from the {@link OH_UdsHyperlink}.\n\n @param pThis Represents a pointer to an instance of {@link OH_UdsHyperlink}.\n @return Returns a pointer of the value string when input args normally, otherwise return nullptr.\n @see OH_UdsHyperlink\n @since 12"]
+    pub fn OH_UdsHyperlink_GetType(pThis: *mut OH_UdsHyperlink) -> *const ::std::os::raw::c_char;
+}
+extern "C" {
+    #[doc = " @brief Get url from the {@link OH_UdsHyperlink}.\n\n @param pThis Represents a pointer to an instance of {@link OH_UdsHyperlink}.\n @return Returns a pointer of the value string when input args normally, otherwise return nullptr.\n @see OH_UdsHyperlink\n @since 12"]
+    pub fn OH_UdsHyperlink_GetUrl(pThis: *mut OH_UdsHyperlink) -> *const ::std::os::raw::c_char;
+}
+extern "C" {
+    #[doc = " @brief Get description from the {@link OH_UdsHyperlink}.\n\n @param pThis Represents a pointer to an instance of {@link OH_UdsHyperlink}.\n @return Returns a pointer of the value string when input args normally, otherwise return nullptr.\n @see OH_UdsHyperlink\n @since 12"]
+    pub fn OH_UdsHyperlink_GetDescription(
+        pThis: *mut OH_UdsHyperlink,
+    ) -> *const ::std::os::raw::c_char;
+}
+extern "C" {
+    #[doc = " @brief Get details from the {@link OH_UdsHyperlink}.\n\n @param pThis Represents a pointer to an instance of {@link OH_UdsHyperlink}.\n @param details Represents a pointer to an instance of {@link OH_UdsDetails}. The pointer cannot be null.\n @return Returns the status code of the execution. See {@link Udmf_ErrCode}.\n         {@link UDMF_E_OK} success.\n         {@link UDMF_E_INVALID_PARAM} The error code for common invalid args.\n @see OH_UdsHyperlink OH_UdsDetails Udmf_ErrCode\n @since 22"]
+    #[cfg(feature = "api-22")]
+    pub fn OH_UdsHyperlink_GetDetails(
+        pThis: *mut OH_UdsHyperlink,
+        details: *mut OH_UdsDetails,
+    ) -> ::std::os::raw::c_int;
+}
+extern "C" {
+    #[doc = " @brief Set url to the {@link OH_UdsHyperlink}.\n\n @param pThis Represents a pointer to an instance of {@link OH_UdsHyperlink}.\n @param url Represents a new string value.\n @return Returns the status code of the execution. See {@link Udmf_ErrCode}.\n         {@link UDMF_E_OK} success.\n         {@link UDMF_E_INVALID_PARAM} The error code for common invalid args.\n @see OH_UdsHyperlink Udmf_ErrCode\n @since 12"]
+    pub fn OH_UdsHyperlink_SetUrl(
+        pThis: *mut OH_UdsHyperlink,
+        url: *const ::std::os::raw::c_char,
+    ) -> ::std::os::raw::c_int;
+}
+extern "C" {
+    #[doc = " @brief Set description to the {@link OH_UdsHyperlink}.\n\n @param pThis Represents a pointer to an instance of {@link OH_UdsHyperlink}.\n @param description Represents a new string value.\n @return Returns the status code of the execution. See {@link Udmf_ErrCode}.\n         {@link UDMF_E_OK} success.\n         {@link UDMF_E_INVALID_PARAM} The error code for common invalid args.\n @see OH_UdsHyperlink Udmf_ErrCode\n @since 12"]
+    pub fn OH_UdsHyperlink_SetDescription(
+        pThis: *mut OH_UdsHyperlink,
+        description: *const ::std::os::raw::c_char,
+    ) -> ::std::os::raw::c_int;
+}
+extern "C" {
+    #[doc = " @brief Set details to the {@link OH_UdsHyperlink}.\n\n @param pThis Represents a pointer to an instance of {@link OH_UdsHyperlink}.\n @param details Represents a pointer to an instance of {@link OH_UdsDetails}. The pointer cannot be null.\n @return Returns the status code of the execution. See {@link Udmf_ErrCode}.\n         {@link UDMF_E_OK} success.\n         {@link UDMF_E_INVALID_PARAM} The error code for common invalid args.\n @since 22\n @see OH_UdsHyperlink OH_UdsDetails Udmf_ErrCode"]
+    #[cfg(feature = "api-22")]
+    pub fn OH_UdsHyperlink_SetDetails(
+        pThis: *mut OH_UdsHyperlink,
+        details: *const OH_UdsDetails,
+    ) -> ::std::os::raw::c_int;
+}
+extern "C" {
+    #[doc = " @brief Creation a pointer to the instance of the {@link OH_UdsHtml}.\n\n @return If the operation is successful, a pointer to the instance of the {@link OH_UdsHtml}\n structure is returned. If the operation is failed, nullptr is returned.\n @see OH_UdsHtml\n @since 12"]
+    pub fn OH_UdsHtml_Create() -> *mut OH_UdsHtml;
+}
+extern "C" {
+    #[doc = " @brief Destroy a pointer that points to the {@link OH_UdsHtml} instance.\n\n @param pThis Represents a pointer to an instance of {@link OH_UdsHtml}.\n @see OH_UdsHtml\n @since 12"]
+    pub fn OH_UdsHtml_Destroy(pThis: *mut OH_UdsHtml);
+}
+extern "C" {
+    #[doc = " @brief Get html from the {@link OH_UdsHtml}.\n\n @param pThis Represents a pointer to an instance of {@link OH_UdsHtml}.\n @return Returns a pointer of the value string when input args normally, otherwise return nullptr.\n @see OH_UdsHtml\n @since 12"]
+    pub fn OH_UdsHtml_GetType(pThis: *mut OH_UdsHtml) -> *const ::std::os::raw::c_char;
+}
+extern "C" {
+    #[doc = " @brief Get content from the {@link OH_UdsHtml}.\n\n @param pThis Represents a pointer to an instance of {@link OH_UdsHtml}.\n @return Returns a pointer of the value string when input args normally, otherwise return nullptr.\n @see OH_UdsHtml\n @since 12"]
+    pub fn OH_UdsHtml_GetContent(pThis: *mut OH_UdsHtml) -> *const ::std::os::raw::c_char;
+}
+extern "C" {
+    #[doc = " @brief Get plain content from the {@link OH_UdsHtml}.\n\n @param pThis Represents a pointer to an instance of {@link OH_UdsHtml}.\n @return Returns a pointer of the value string when input args normally, otherwise return nullptr.\n @see OH_UdsHtml\n @since 12"]
+    pub fn OH_UdsHtml_GetPlainContent(pThis: *mut OH_UdsHtml) -> *const ::std::os::raw::c_char;
+}
+extern "C" {
+    #[doc = " @brief Get details from the {@link OH_UdsHtml}.\n\n @param pThis Represents a pointer to an instance of {@link OH_UdsHtml}.\n @param details Represents a pointer to an instance of {@link OH_UdsDetails}. The pointer cannot be null.\n @return Returns the status code of the execution. See {@link Udmf_ErrCode}.\n         {@link UDMF_E_OK} success.\n         {@link UDMF_E_INVALID_PARAM} The error code for common invalid args.\n @since 22\n @see OH_UdsHtml OH_UdsDetails Udmf_ErrCode"]
+    #[cfg(feature = "api-22")]
+    pub fn OH_UdsHtml_GetDetails(
+        pThis: *mut OH_UdsHtml,
+        details: *mut OH_UdsDetails,
+    ) -> ::std::os::raw::c_int;
+}
+extern "C" {
+    #[doc = " @brief Set content to the {@link OH_UdsHtml}.\n\n @param pThis Represents a pointer to an instance of {@link OH_UdsHtml}.\n @param content Represents a new string value.\n @return Returns the status code of the execution. See {@link Udmf_ErrCode}.\n         {@link UDMF_E_OK} success.\n         {@link UDMF_E_INVALID_PARAM} The error code for common invalid args.\n @see OH_UdsHtml Udmf_ErrCode\n @since 12"]
+    pub fn OH_UdsHtml_SetContent(
+        pThis: *mut OH_UdsHtml,
+        content: *const ::std::os::raw::c_char,
+    ) -> ::std::os::raw::c_int;
+}
+extern "C" {
+    #[doc = " @brief Set plain content to the {@link OH_UdsHtml}.\n\n @param pThis Represents a pointer to an instance of {@link OH_UdsHtml}.\n @param plainContent Represents a new string value.\n @return Returns the status code of the execution. See {@link Udmf_ErrCode}.\n         {@link UDMF_E_OK} success.\n         {@link UDMF_E_INVALID_PARAM} The error code for common invalid args.\n @see OH_UdsHtml Udmf_ErrCode\n @since 12"]
+    pub fn OH_UdsHtml_SetPlainContent(
+        pThis: *mut OH_UdsHtml,
+        plainContent: *const ::std::os::raw::c_char,
+    ) -> ::std::os::raw::c_int;
+}
+extern "C" {
+    #[doc = " @brief Set details to the {@link OH_UdsHtml}.\n\n @param pThis Represents a pointer to an instance of {@link OH_UdsHtml}.\n @param details Represents a pointer to an instance of {@link OH_UdsDetails}. The pointer cannot be null.\n @return Returns the status code of the execution. See {@link Udmf_ErrCode}.\n         {@link UDMF_E_OK} success.\n         {@link UDMF_E_INVALID_PARAM} The error code for common invalid args.\n @since 22\n @see OH_UdsHtml OH_UdsDetails Udmf_ErrCode"]
+    #[cfg(feature = "api-22")]
+    pub fn OH_UdsHtml_SetDetails(
+        pThis: *mut OH_UdsHtml,
+        details: *const OH_UdsDetails,
+    ) -> ::std::os::raw::c_int;
+}
+extern "C" {
+    #[doc = " @brief Creation a pointer to the instance of the {@link OH_UdsAppItem}.\n\n @return If the operation is successful, a pointer to the instance of the {@link OH_UdsAppItem}\n structure is returned. sIf the operation is failed, nullptr is returned.\n @see OH_UdsAppItem\n @since 12"]
+    pub fn OH_UdsAppItem_Create() -> *mut OH_UdsAppItem;
+}
+extern "C" {
+    #[doc = " @brief Destroy a pointer that points to the {@link OH_UdsAppItem} instance.\n\n @param pThis Represents a pointer to an instance of {@link OH_UdsAppItem}.\n @see OH_UdsAppItem\n @since 12"]
+    pub fn OH_UdsAppItem_Destroy(pThis: *mut OH_UdsAppItem);
+}
+extern "C" {
+    #[doc = " @brief Get type from the {@link OH_UdsAppItem}.\n\n @param pThis Represents a pointer to an instance of {@link OH_UdsAppItem}.\n @return Returns a pointer of the value string when input args normally, otherwise return nullptr.\n @see OH_UdsAppItem\n @since 12"]
+    pub fn OH_UdsAppItem_GetType(pThis: *mut OH_UdsAppItem) -> *const ::std::os::raw::c_char;
+}
+extern "C" {
+    #[doc = " @brief Get app id from the {@link OH_UdsAppItem}.\n\n @param pThis Represents a pointer to an instance of {@link OH_UdsAppItem}.\n @return Returns a pointer of the value string when input args normally, otherwise return nullptr.\n @see OH_UdsAppItem\n @since 12"]
+    pub fn OH_UdsAppItem_GetId(pThis: *mut OH_UdsAppItem) -> *const ::std::os::raw::c_char;
+}
+extern "C" {
+    #[doc = " @brief Get app name from the {@link OH_UdsAppItem}.\n\n @param pThis Represents a pointer to an instance of {@link OH_UdsAppItem}.\n @return Returns a pointer of the value string when input args normally, otherwise return nullptr.\n @see OH_UdsAppItem\n @since 12"]
+    pub fn OH_UdsAppItem_GetName(pThis: *mut OH_UdsAppItem) -> *const ::std::os::raw::c_char;
+}
+extern "C" {
+    #[doc = " @brief Get app icon id from the {@link OH_UdsAppItem}.\n\n @param pThis Represents a pointer to an instance of {@link OH_UdsAppItem}.\n @return Returns a pointer of the value string when input args normally, otherwise return nullptr.\n @see OH_UdsAppItem\n @since 12"]
+    pub fn OH_UdsAppItem_GetIconId(pThis: *mut OH_UdsAppItem) -> *const ::std::os::raw::c_char;
+}
+extern "C" {
+    #[doc = " @brief Get app label id from the {@link OH_UdsAppItem}.\n\n @param pThis Represents a pointer to an instance of {@link OH_UdsAppItem}.\n @return Returns a pointer of the value string when input args normally, otherwise return nullptr.\n @see OH_UdsAppItem\n @since 12"]
+    pub fn OH_UdsAppItem_GetLabelId(pThis: *mut OH_UdsAppItem) -> *const ::std::os::raw::c_char;
+}
+extern "C" {
+    #[doc = " @brief Get bundle name from the {@link OH_UdsAppItem}.\n\n @param pThis Represents a pointer to an instance of {@link OH_UdsAppItem}.\n @return Returns a pointer of the value string when input args normally, otherwise return nullptr.\n @see OH_UdsAppItem\n @since 12"]
+    pub fn OH_UdsAppItem_GetBundleName(pThis: *mut OH_UdsAppItem) -> *const ::std::os::raw::c_char;
+}
+extern "C" {
+    #[doc = " @brief Get ability name from the {@link OH_UdsAppItem}.\n\n @param pThis Represents a pointer to an instance {@link OH_UdsAppItem}.\n @return Returns a pointer of the value string when input args normally, otherwise return nullptr.\n @see OH_UdsAppItem\n @since 12"]
+    pub fn OH_UdsAppItem_GetAbilityName(pThis: *mut OH_UdsAppItem)
+        -> *const ::std::os::raw::c_char;
+}
+extern "C" {
+    #[doc = " @brief Get details from the {@link OH_UdsAppItem}.\n\n @param pThis Represents a pointer to an instance of {@link OH_UdsAppItem}.\n @param details Represents a pointer to an instance of {@link OH_UdsDetails}. The pointer cannot be null.\n @return Returns the status code of the execution. See {@link Udmf_ErrCode}.\n         {@link UDMF_E_OK} success.\n         {@link UDMF_E_INVALID_PARAM} The error code for common invalid args.\n @since 22\n @see OH_UdsAppItem OH_UdsDetails Udmf_ErrCode"]
+    #[cfg(feature = "api-22")]
+    pub fn OH_UdsAppItem_GetDetails(
+        pThis: *mut OH_UdsAppItem,
+        details: *mut OH_UdsDetails,
+    ) -> ::std::os::raw::c_int;
+}
+extern "C" {
+    #[doc = " @brief Set application id to the {@link OH_UdsAppItem}.\n\n @param pThis Represents a pointer to an instance of {@link OH_UdsAppItem}.\n @param appId Represents a new string value.\n @return Returns the status code of the execution. See {@link Udmf_ErrCode}.\n         {@link UDMF_E_OK} success.\n         {@link UDMF_E_INVALID_PARAM} The error code for common invalid args.\n @see OH_UdsAppItem Udmf_ErrCode\n @since 12"]
+    pub fn OH_UdsAppItem_SetId(
+        pThis: *mut OH_UdsAppItem,
+        appId: *const ::std::os::raw::c_char,
+    ) -> ::std::os::raw::c_int;
+}
+extern "C" {
+    #[doc = " @brief Set application name to the {@link OH_UdsAppItem}.\n\n @param pThis Represents a pointer to an instance of {@link OH_UdsAppItem}.\n @param appName Represents a new string value.\n @return Returns the status code of the execution. See {@link Udmf_ErrCode}.\n         {@link UDMF_E_OK} success.\n         {@link UDMF_E_INVALID_PARAM} The error code for common invalid args.\n @see OH_UdsAppItem Udmf_ErrCode\n @since 12"]
+    pub fn OH_UdsAppItem_SetName(
+        pThis: *mut OH_UdsAppItem,
+        appName: *const ::std::os::raw::c_char,
+    ) -> ::std::os::raw::c_int;
+}
+extern "C" {
+    #[doc = " @brief Set application icon id to the {@link OH_UdsAppItem}.\n\n @param pThis Represents a pointer to an instance of {@link OH_UdsAppItem}.\n @param appIconId Represents a new string value.\n @return Returns the status code of the execution. See {@link Udmf_ErrCode}.\n         {@link UDMF_E_OK} success.\n         {@link UDMF_E_INVALID_PARAM} The error code for common invalid args.\n @see OH_UdsAppItem Udmf_ErrCode\n @since 12"]
+    pub fn OH_UdsAppItem_SetIconId(
+        pThis: *mut OH_UdsAppItem,
+        appIconId: *const ::std::os::raw::c_char,
+    ) -> ::std::os::raw::c_int;
+}
+extern "C" {
+    #[doc = " @brief Set application label id to the {@link OH_UdsAppItem}.\n\n @param pThis Represents a pointer to an instance of {@link OH_UdsAppItem}.\n @param appLabelId Represents a new string value.\n @return Returns the status code of the execution. See {@link Udmf_ErrCode}.\n         {@link UDMF_E_OK} success.\n         {@link UDMF_E_INVALID_PARAM} The error code for common invalid args.\n @see OH_UdsAppItem Udmf_ErrCode\n @since 12"]
+    pub fn OH_UdsAppItem_SetLabelId(
+        pThis: *mut OH_UdsAppItem,
+        appLabelId: *const ::std::os::raw::c_char,
+    ) -> ::std::os::raw::c_int;
+}
+extern "C" {
+    #[doc = " @brief Set bundle name to the {@link OH_UdsAppItem}.\n\n @param pThis Represents a pointer to an instance of {@link OH_UdsAppItem}.\n @param bundleName Represents a new string value.\n @return Returns the status code of the execution. See {@link Udmf_ErrCode}.\n         {@link UDMF_E_OK} success.\n         {@link UDMF_E_INVALID_PARAM} The error code for common invalid args.\n @see OH_UdsAppItem Udmf_ErrCode\n @since 12"]
+    pub fn OH_UdsAppItem_SetBundleName(
+        pThis: *mut OH_UdsAppItem,
+        bundleName: *const ::std::os::raw::c_char,
+    ) -> ::std::os::raw::c_int;
+}
+extern "C" {
+    #[doc = " @brief Set ability name to the {@link OH_UdsAppItem}.\n\n @param pThis Represents a pointer to an instance of {@link OH_UdsAppItem}.\n @param abilityName Represents a new string value.\n @return Returns the status code of the execution. See {@link Udmf_ErrCode}.\n         {@link UDMF_E_OK} success.\n         {@link UDMF_E_INVALID_PARAM} The error code for common invalid args.\n @see OH_UdsAppItem Udmf_ErrCode\n @since 12"]
+    pub fn OH_UdsAppItem_SetAbilityName(
+        pThis: *mut OH_UdsAppItem,
+        abilityName: *const ::std::os::raw::c_char,
+    ) -> ::std::os::raw::c_int;
+}
+extern "C" {
+    #[doc = " @brief Set details to the {@link OH_UdsAppItem}.\n\n @param pThis Represents a pointer to an instance of {@link OH_UdsAppItem}.\n @param details Represents a pointer to an instance of {@link OH_UdsDetails}. The pointer cannot be null.\n @return Returns the status code of the execution. See {@link Udmf_ErrCode}.\n         {@link UDMF_E_OK} success.\n         {@link UDMF_E_INVALID_PARAM} The error code for common invalid args.\n @see OH_UdsAppItem OH_UdsDetails Udmf_ErrCode\n @since 22"]
+    #[cfg(feature = "api-22")]
+    pub fn OH_UdsAppItem_SetDetails(
+        pThis: *mut OH_UdsAppItem,
+        details: *const OH_UdsDetails,
+    ) -> ::std::os::raw::c_int;
+}
+extern "C" {
+    #[doc = " @brief Creation a pointer to the instance of the {@link OH_UdsFileUri}.\n\n @return If the operation is successful, a pointer to the instance of the {@link OH_UdsFileUri}\n structure is returned. If the memory is not enough, nullptr is returned.\n @see OH_UdsFileUri\n @since 13"]
+    #[cfg(feature = "api-13")]
+    pub fn OH_UdsFileUri_Create() -> *mut OH_UdsFileUri;
+}
+extern "C" {
+    #[doc = " @brief Destroy a pointer that points to the {@link OH_UdsFileUri} instance.\n\n @param pThis Represents a pointer to an instance of {@link OH_UdsFileUri}.\n @see OH_UdsFileUri\n @since 13"]
+    #[cfg(feature = "api-13")]
+    pub fn OH_UdsFileUri_Destroy(pThis: *mut OH_UdsFileUri);
+}
+extern "C" {
+    #[doc = " @brief Get type id from the {@link OH_UdsFileUri}.\n\n @param pThis Represents a pointer to an instance of {@link OH_UdsFileUri}.\n @return Returns a pointer of the value string when input args normally, otherwise return nullptr.\n @see OH_UdsFileUri\n @since 13"]
+    #[cfg(feature = "api-13")]
+    pub fn OH_UdsFileUri_GetType(pThis: *mut OH_UdsFileUri) -> *const ::std::os::raw::c_char;
+}
+extern "C" {
+    #[doc = " @brief Get file uri from the {@link OH_UdsFileUri}.\n\n @param pThis Represents a pointer to an instance of {@link OH_UdsFileUri}.\n @return Returns a pointer of the value string when input args normally, otherwise return nullptr.\n @see OH_UdsFileUri\n @since 13"]
+    #[cfg(feature = "api-13")]
+    pub fn OH_UdsFileUri_GetFileUri(pThis: *mut OH_UdsFileUri) -> *const ::std::os::raw::c_char;
+}
+extern "C" {
+    #[doc = " @brief Get file type from the {@link OH_UdsFileUri}.\n\n @param pThis Represents a pointer to an instance of {@link OH_UdsFileUri}.\n @return Returns a pointer of the value string when input args normally, otherwise return nullptr.\n @see OH_UdsFileUri\n @since 13"]
+    #[cfg(feature = "api-13")]
+    pub fn OH_UdsFileUri_GetFileType(pThis: *mut OH_UdsFileUri) -> *const ::std::os::raw::c_char;
+}
+extern "C" {
+    #[doc = " @brief Get details from the {@link OH_UdsFileUri}.\n\n @param pThis Represents a pointer to an instance of {@link OH_UdsFileUri}.\n @param details Represents a pointer to an instance of {@link OH_UdsDetails}. The pointer cannot be null.\n @return Returns the status code of the execution. See {@link Udmf_ErrCode}.\n         {@link UDMF_E_OK} success.\n         {@link UDMF_E_INVALID_PARAM} The error code for common invalid args.\n @since 22\n @see OH_UdsFileUri OH_UdsDetails Udmf_ErrCode"]
+    #[cfg(feature = "api-22")]
+    pub fn OH_UdsFileUri_GetDetails(
+        pThis: *mut OH_UdsFileUri,
+        details: *mut OH_UdsDetails,
+    ) -> ::std::os::raw::c_int;
+}
+extern "C" {
+    #[doc = " @brief Set file uri to the {@link OH_UdsFileUri}.\n\n @param pThis Represents a pointer to an instance of {@link OH_UdsFileUri}.\n @param fileUri Represents a new file uri string.\n @return Returns the status code of the execution. See {@link Udmf_ErrCode}.\n         {@link UDMF_E_OK} success.\n         {@link UDMF_E_INVALID_PARAM} The error code for common invalid args.\n @see OH_UdsFileUri Udmf_ErrCode\n @since 13"]
+    #[cfg(feature = "api-13")]
+    pub fn OH_UdsFileUri_SetFileUri(
+        pThis: *mut OH_UdsFileUri,
+        fileUri: *const ::std::os::raw::c_char,
+    ) -> ::std::os::raw::c_int;
+}
+extern "C" {
+    #[doc = " @brief Set file type to the {@link OH_UdsFileUri}.\n\n @param pThis Represents a pointer to an instance of {@link OH_UdsFileUri}.\n @param fileType Represents a new file type string.\n @return Returns the status code of the execution. See {@link Udmf_ErrCode}.\n         {@link UDMF_E_OK} success.\n         {@link UDMF_E_INVALID_PARAM} The error code for common invalid args.\n @see OH_UdsFileUri Udmf_ErrCode\n @since 13"]
+    #[cfg(feature = "api-13")]
+    pub fn OH_UdsFileUri_SetFileType(
+        pThis: *mut OH_UdsFileUri,
+        fileType: *const ::std::os::raw::c_char,
+    ) -> ::std::os::raw::c_int;
+}
+extern "C" {
+    #[doc = " @brief Set details to the {@link OH_UdsFileUri}.\n\n @param pThis Represents a pointer to an instance of {@link OH_UdsFileUri}.\n @param details Represents a pointer to an instance of {@link OH_UdsDetails}. The pointer cannot be null.\n @return Returns the status code of the execution. See {@link Udmf_ErrCode}.\n         {@link UDMF_E_OK} success.\n         {@link UDMF_E_INVALID_PARAM} The error code for common invalid args.\n @see OH_UdsFileUri OH_UdsDetails Udmf_ErrCode\n @since 22"]
+    #[cfg(feature = "api-22")]
+    pub fn OH_UdsFileUri_SetDetails(
+        pThis: *mut OH_UdsFileUri,
+        details: *const OH_UdsDetails,
+    ) -> ::std::os::raw::c_int;
+}
+extern "C" {
+    #[doc = " @brief Creation a pointer to the instance of the {@link OH_UdsPixelMap}.\n\n @return If the operation is successful, a pointer to the instance of the {@link OH_UdsPixelMap}\n structure is returned. If the memory is not enough, nullptr is returned.\n @see OH_UdsPixelMap\n @since 13"]
+    #[cfg(feature = "api-13")]
+    pub fn OH_UdsPixelMap_Create() -> *mut OH_UdsPixelMap;
+}
+extern "C" {
+    #[doc = " @brief Destroy a pointer that points to the {@link OH_UdsPixelMap} instance.\n\n @param pThis Represents a pointer to an instance of {@link OH_UdsPixelMap}.\n @see OH_UdsPixelMap\n @since 13"]
+    #[cfg(feature = "api-13")]
+    pub fn OH_UdsPixelMap_Destroy(pThis: *mut OH_UdsPixelMap);
+}
+extern "C" {
+    #[doc = " @brief Get type id from the {@link OH_UdsPixelMap}.\n\n @param pThis Represents a pointer to an instance of {@link OH_UdsPixelMap}.\n @return Returns a pointer of the value string when input args normally, otherwise return nullptr.\n @see OH_UdsPixelMap\n @since 13"]
+    #[cfg(feature = "api-13")]
+    pub fn OH_UdsPixelMap_GetType(pThis: *mut OH_UdsPixelMap) -> *const ::std::os::raw::c_char;
+}
+extern "C" {
+    #[doc = " @brief Get pixel map from the {@link OH_UdsPixelMap}.\n\n @param pThis Represents a pointer to an instance of {@link OH_UdsPixelMap}.\n @param pixelmapNative Represents output params of {@link OH_PixelmapNative}.\n @see OH_UdsPixelMap\n @since 13"]
+    #[cfg(feature = "api-13")]
+    pub fn OH_UdsPixelMap_GetPixelMap(
+        pThis: *mut OH_UdsPixelMap,
+        pixelmapNative: *mut OH_PixelmapNative,
+    );
+}
+extern "C" {
+    #[doc = " @brief Get details from the {@link OH_UdsPixelMap}.\n\n @param pThis Represents a pointer to an instance of {@link OH_UdsPixelMap}.\n @param details Represents a pointer to an instance of {@link OH_UdsDetails}. The pointer cannot be null.\n @return Returns the status code of the execution. See {@link Udmf_ErrCode}.\n         {@link UDMF_E_OK} success.\n         {@link UDMF_E_INVALID_PARAM} The error code for common invalid args.\n @since 22\n @see OH_UdsPixelMap OH_UdsDetails Udmf_ErrCode"]
+    #[cfg(feature = "api-22")]
+    pub fn OH_UdsPixelMap_GetDetails(
+        pThis: *mut OH_UdsPixelMap,
+        details: *mut OH_UdsDetails,
+    ) -> ::std::os::raw::c_int;
+}
+extern "C" {
+    #[doc = " @brief Set pixel map to the {@link OH_UdsPixelMap}.\n\n @param pThis Represents a pointer to an instance of {@link OH_UdsPixelMap}.\n @param pixelmapNative Represents a new {@link OH_PixelmapNative}.\n @return Returns the status code of the execution. See {@link Udmf_ErrCode}.\n         {@link UDMF_E_OK} success.\n         {@link UDMF_E_INVALID_PARAM} The error code for common invalid args.\n @see OH_UdsPixelMap Udmf_ErrCode\n @since 13"]
+    #[cfg(feature = "api-13")]
+    pub fn OH_UdsPixelMap_SetPixelMap(
+        pThis: *mut OH_UdsPixelMap,
+        pixelmapNative: *mut OH_PixelmapNative,
+    ) -> ::std::os::raw::c_int;
+}
+extern "C" {
+    #[doc = " @brief Set details to the {@link OH_UdsPixelMap}.\n\n @param pThis Represents a pointer to an instance of {@link OH_UdsPixelMap}.\n @param details Represents a pointer to an instance of {@link OH_UdsDetails}. The pointer cannot be null.\n @return Returns the status code of the execution. See {@link Udmf_ErrCode}.\n         {@link UDMF_E_OK} success.\n         {@link UDMF_E_INVALID_PARAM} The error code for common invalid args.\n @since 22\n @see OH_UdsPixelMap OH_UdsDetails Udmf_ErrCode"]
+    #[cfg(feature = "api-22")]
+    pub fn OH_UdsPixelMap_SetDetails(
+        pThis: *mut OH_UdsPixelMap,
+        details: *const OH_UdsDetails,
+    ) -> ::std::os::raw::c_int;
+}
+extern "C" {
+    #[doc = " @brief Creation a pointer to the instance of the {@link OH_UdsArrayBuffer}.\n\n @return If the operation is successful, a pointer to the instance of the {@link OH_UdsArrayBuffer}\n structure is returned. If the memory is not enough, nullptr is returned.\n @see OH_UdsArrayBuffer\n @since 13"]
+    #[cfg(feature = "api-13")]
+    pub fn OH_UdsArrayBuffer_Create() -> *mut OH_UdsArrayBuffer;
+}
+extern "C" {
+    #[doc = " @brief Destroy a pointer that points to the {@link OH_UdsArrayBuffer} instance.\n\n @param buffer Represents a pointer to an instance of {@link OH_UdsArrayBuffer}.\n @return Returns the status code of the execution. See {@link Udmf_ErrCode}.\n         {@link UDMF_E_OK} success.\n         {@link UDMF_E_INVALID_PARAM} The error code for common invalid args.\n @see OH_UdsArrayBuffer Udmf_ErrCode\n @since 13"]
+    #[cfg(feature = "api-13")]
+    pub fn OH_UdsArrayBuffer_Destroy(buffer: *mut OH_UdsArrayBuffer) -> ::std::os::raw::c_int;
+}
+extern "C" {
+    #[doc = " @brief Set array buffer data to the {@link OH_UdsArrayBuffer}.\n\n @param buffer Represents a pointer to an instance of {@link OH_UdsArrayBuffer}.\n @param data Represents the array buffer data.\n @param len Represents the length of data param.\n @return Returns the status code of the execution. See {@link Udmf_ErrCode}.\n         {@link UDMF_E_OK} success.\n         {@link UDMF_E_INVALID_PARAM} The error code for common invalid args.\n @see OH_UdsArrayBuffer Udmf_ErrCode\n @since 13"]
+    #[cfg(feature = "api-13")]
+    pub fn OH_UdsArrayBuffer_SetData(
+        buffer: *mut OH_UdsArrayBuffer,
+        data: *mut ::std::os::raw::c_uchar,
+        len: ::std::os::raw::c_uint,
+    ) -> ::std::os::raw::c_int;
+}
+extern "C" {
+    #[doc = " @brief Get array buffer data from the {@link OH_UdsArrayBuffer}.\n\n @param buffer Represents a pointer to an instance of {@link OH_UdsArrayBuffer}.\n @param data Represents a pointer to array buffer data that is a output param.\n @param len Represents the array buffer data length that is a output param.\n @return Returns the status code of the execution. See {@link Udmf_ErrCode}.\n         {@link UDMF_E_OK} success.\n         {@link UDMF_E_INVALID_PARAM} The error code for common invalid args.\n @see OH_UdsArrayBuffer Udmf_ErrCode\n @since 13"]
+    #[cfg(feature = "api-13")]
+    pub fn OH_UdsArrayBuffer_GetData(
+        buffer: *mut OH_UdsArrayBuffer,
+        data: *mut *mut ::std::os::raw::c_uchar,
+        len: *mut ::std::os::raw::c_uint,
+    ) -> ::std::os::raw::c_int;
+}
+extern "C" {
+    #[doc = " @brief Creation a pointer to the instance of the {@link OH_UdsContentForm}.\n\n @return If the operation is successful, a pointer to the instance of the {@link OH_UdsContentForm}\n structure is returned. If the operation is failed, nullptr is returned.\n @see OH_UdsContentForm\n @since 14"]
+    #[cfg(feature = "api-14")]
+    pub fn OH_UdsContentForm_Create() -> *mut OH_UdsContentForm;
+}
+extern "C" {
+    #[doc = " @brief Destroy a pointer that points to the {@link OH_UdsContentForm} instance.\n\n @param pThis Represents a pointer to an instance of {@link OH_UdsContentForm}.\n @see OH_UdsContentForm\n @since 14"]
+    #[cfg(feature = "api-14")]
+    pub fn OH_UdsContentForm_Destroy(pThis: *mut OH_UdsContentForm);
+}
+extern "C" {
+    #[doc = " @brief Get type id from the {@link OH_UdsContentForm}.\n\n @param pThis Represents a pointer to an instance of {@link OH_UdsContentForm}.\n @return Returns a pointer of the value string when input args normally, otherwise return nullptr.\n @see OH_UdsContentForm\n @since 14"]
+    #[cfg(feature = "api-14")]
+    pub fn OH_UdsContentForm_GetType(
+        pThis: *mut OH_UdsContentForm,
+    ) -> *const ::std::os::raw::c_char;
+}
+extern "C" {
+    #[doc = " @brief Get thumb data from the {@link OH_UdsContentForm}.\n\n @param pThis Represents a pointer to an instance of {@link OH_UdsContentForm}.\n @param thumbData Represents a pointer to thumb data that is a output param.\n @param len Represents the thumb data length that is a output param.\n @return Returns the status code of the execution. See {@link Udmf_ErrCode}.\n         {@link UDMF_E_OK} success.\n         {@link UDMF_E_INVALID_PARAM} The error code for common invalid args.\n         {@link UDMF_ERR} Internal data error.\n @see OH_UdsContentForm Udmf_ErrCode\n @since 14"]
+    #[cfg(feature = "api-14")]
+    pub fn OH_UdsContentForm_GetThumbData(
+        pThis: *mut OH_UdsContentForm,
+        thumbData: *mut *mut ::std::os::raw::c_uchar,
+        len: *mut ::std::os::raw::c_uint,
+    ) -> ::std::os::raw::c_int;
+}
+extern "C" {
+    #[doc = " @brief Get description from the {@link OH_UdsContentForm}.\n\n @param pThis Represents a pointer to an instance of {@link OH_UdsContentForm}.\n @return Returns a pointer of the value string when input args normally, otherwise return nullptr.\n @see OH_UdsContentForm\n @since 14"]
+    #[cfg(feature = "api-14")]
+    pub fn OH_UdsContentForm_GetDescription(
+        pThis: *mut OH_UdsContentForm,
+    ) -> *const ::std::os::raw::c_char;
+}
+extern "C" {
+    #[doc = " @brief Get title from the {@link OH_UdsContentForm}.\n\n @param pThis Represents a pointer to an instance of {@link OH_UdsContentForm}.\n @return Returns a pointer of the value string when input args normally, otherwise return nullptr.\n @see OH_UdsContentForm\n @since 14"]
+    #[cfg(feature = "api-14")]
+    pub fn OH_UdsContentForm_GetTitle(
+        pThis: *mut OH_UdsContentForm,
+    ) -> *const ::std::os::raw::c_char;
+}
+extern "C" {
+    #[doc = " @brief Get thumb data from the {@link OH_UdsContentForm}.\n\n @param pThis Represents a pointer to an instance of {@link OH_UdsContentForm}.\n @param appIcon Represents a pointer to app icon that is a output param.\n @param len Represents the app icon length that is a output param.\n @return Returns the status code of the execution. See {@link Udmf_ErrCode}.\n         {@link UDMF_E_OK} success.\n         {@link UDMF_E_INVALID_PARAM} The error code for common invalid args.\n         {@link UDMF_ERR} Internal data error.\n @see OH_UdsContentForm Udmf_ErrCode\n @since 14"]
+    #[cfg(feature = "api-14")]
+    pub fn OH_UdsContentForm_GetAppIcon(
+        pThis: *mut OH_UdsContentForm,
+        appIcon: *mut *mut ::std::os::raw::c_uchar,
+        len: *mut ::std::os::raw::c_uint,
+    ) -> ::std::os::raw::c_int;
+}
+extern "C" {
+    #[doc = " @brief Get app name from the {@link OH_UdsContentForm}.\n\n @param pThis Represents a pointer to an instance of {@link OH_UdsContentForm}.\n @return Returns a pointer of the value string when input args normally, otherwise return nullptr.\n @see OH_UdsContentForm\n @since 14"]
+    #[cfg(feature = "api-14")]
+    pub fn OH_UdsContentForm_GetAppName(
+        pThis: *mut OH_UdsContentForm,
+    ) -> *const ::std::os::raw::c_char;
+}
+extern "C" {
+    #[doc = " @brief Get link url from the {@link OH_UdsContentForm}.\n\n @param pThis Represents a pointer to an instance of {@link OH_UdsContentForm}.\n @return Returns a pointer of the value string when input args normally, otherwise return nullptr.\n @see OH_UdsContentForm\n @since 14"]
+    #[cfg(feature = "api-14")]
+    pub fn OH_UdsContentForm_GetLinkUri(
+        pThis: *mut OH_UdsContentForm,
+    ) -> *const ::std::os::raw::c_char;
+}
+extern "C" {
+    #[doc = " @brief Set thumb data to the {@link OH_UdsContentForm}.\n\n @param pThis Represents a pointer to an instance of {@link OH_UdsContentForm}.\n @param thumbData Represents the thumb data.\n @param len Represents the length of thumb data param.\n @return Returns the status code of the execution. See {@link Udmf_ErrCode}.\n         {@link UDMF_E_OK} success.\n         {@link UDMF_E_INVALID_PARAM} The error code for common invalid args.\n @see OH_UdsContentForm Udmf_ErrCode\n @since 14"]
+    #[cfg(feature = "api-14")]
+    pub fn OH_UdsContentForm_SetThumbData(
+        pThis: *mut OH_UdsContentForm,
+        thumbData: *const ::std::os::raw::c_uchar,
+        len: ::std::os::raw::c_uint,
+    ) -> ::std::os::raw::c_int;
+}
+extern "C" {
+    #[doc = " @brief Set description to the {@link OH_UdsContentForm}.\n\n @param pThis Represents a pointer to an instance of {@link OH_UdsContentForm}.\n @param description Represents a description string.\n @return Returns the status code of the execution. See {@link Udmf_ErrCode}.\n         {@link UDMF_E_OK} success.\n         {@link UDMF_E_INVALID_PARAM} The error code for common invalid args.\n @see OH_UdsContentForm Udmf_ErrCode\n @since 14"]
+    #[cfg(feature = "api-14")]
+    pub fn OH_UdsContentForm_SetDescription(
+        pThis: *mut OH_UdsContentForm,
+        description: *const ::std::os::raw::c_char,
+    ) -> ::std::os::raw::c_int;
+}
+extern "C" {
+    #[doc = " @brief Set title to the {@link OH_UdsContentForm}.\n\n @param pThis Represents a pointer to an instance of {@link OH_UdsContentForm}.\n @param title Represents a title string.\n @return Returns the status code of the execution. See {@link Udmf_ErrCode}.\n         {@link UDMF_E_OK} success.\n         {@link UDMF_E_INVALID_PARAM} The error code for common invalid args.\n @see OH_UdsContentForm Udmf_ErrCode\n @since 14"]
+    #[cfg(feature = "api-14")]
+    pub fn OH_UdsContentForm_SetTitle(
+        pThis: *mut OH_UdsContentForm,
+        title: *const ::std::os::raw::c_char,
+    ) -> ::std::os::raw::c_int;
+}
+extern "C" {
+    #[doc = " @brief Set thumb data to the {@link OH_UdsContentForm}.\n\n @param pThis Represents a pointer to an instance of {@link OH_UdsContentForm}.\n @param appIcon Represents the app icon.\n @param len Represents the length of app icon param.\n @return Returns the status code of the execution. See {@link Udmf_ErrCode}.\n         {@link UDMF_E_OK} success.\n         {@link UDMF_E_INVALID_PARAM} The error code for common invalid args.\n @see OH_UdsContentForm Udmf_ErrCode\n @since 14"]
+    #[cfg(feature = "api-14")]
+    pub fn OH_UdsContentForm_SetAppIcon(
+        pThis: *mut OH_UdsContentForm,
+        appIcon: *const ::std::os::raw::c_uchar,
+        len: ::std::os::raw::c_uint,
+    ) -> ::std::os::raw::c_int;
+}
+extern "C" {
+    #[doc = " @brief Set app name to the {@link OH_UdsContentForm}.\n\n @param pThis Represents a pointer to an instance of {@link OH_UdsContentForm}.\n @param appName Represents a app name string.\n @return Returns the status code of the execution. See {@link Udmf_ErrCode}.\n         {@link UDMF_E_OK} success.\n         {@link UDMF_E_INVALID_PARAM} The error code for common invalid args.\n @see OH_UdsContentForm Udmf_ErrCode\n @since 14"]
+    #[cfg(feature = "api-14")]
+    pub fn OH_UdsContentForm_SetAppName(
+        pThis: *mut OH_UdsContentForm,
+        appName: *const ::std::os::raw::c_char,
+    ) -> ::std::os::raw::c_int;
+}
+extern "C" {
+    #[doc = " @brief Set link uri to the {@link OH_UdsContentForm}.\n\n @param pThis Represents a pointer to an instance of {@link OH_UdsContentForm}.\n @param linkUri Represents a link uri string.\n @return Returns the status code of the execution. See {@link Udmf_ErrCode}.\n         {@link UDMF_E_OK} success.\n         {@link UDMF_E_INVALID_PARAM} The error code for common invalid args.\n @see OH_UdsContentForm Udmf_ErrCode\n @since 14"]
+    #[cfg(feature = "api-14")]
+    pub fn OH_UdsContentForm_SetLinkUri(
+        pThis: *mut OH_UdsContentForm,
+        linkUri: *const ::std::os::raw::c_char,
+    ) -> ::std::os::raw::c_int;
+}
+extern "C" {
+    #[doc = " @brief Creation a pointer to the instance of the {@link OH_UdsDetails}.\n\n @return If the operation is successful, a pointer to the instance of the {@link OH_UdsDetails}\n structure is returned. If the operation is failed, nullptr is returned.\n @since 22\n @see OH_UdsDetails"]
+    #[cfg(feature = "api-22")]
+    pub fn OH_UdsDetails_Create() -> *mut OH_UdsDetails;
+}
+extern "C" {
+    #[doc = " @brief Destroy a pointer that points to the {@link OH_UdsDetails} instance.\n\n @param pThis Represents a pointer to an instance of {@link OH_UdsDetails}.\n @since 22\n @see OH_UdsDetails"]
+    #[cfg(feature = "api-22")]
+    pub fn OH_UdsDetails_Destroy(pThis: *mut OH_UdsDetails);
+}
+extern "C" {
+    #[doc = " @brief Determine whether the {@link OH_UdsDetails} contain the specified key.\n\n @param pThis Represents a pointer to an instance of the {@link OH_UdsDetails}.\n @param key Represents key in the details.\n @return Returns the status code of the execution.\n         {@code false} Represents The details do not contain the key.\n         {@code true} Represents The details contain the key.\n @see OH_UdsDetails\n @since 22"]
+    #[cfg(feature = "api-22")]
+    pub fn OH_UdsDetails_HasKey(
+        pThis: *const OH_UdsDetails,
+        key: *const ::std::os::raw::c_char,
+    ) -> bool;
+}
+extern "C" {
+    #[doc = " @brief Remove the value corresponding to this key from the {@link OH_UdsDetails}.\n\n @param pThis Represents a pointer to an instance of {@link OH_UdsDetails}.\n @param key Represents key in the details.\n @return Returns the status code of the execution. See {@link Udmf_ErrCode}.\n         {@link UDMF_E_OK} success.\n         {@link UDMF_E_INVALID_PARAM} The error code for common invalid args.\n @since 22\n @see OH_UdsDetails Udmf_ErrCode"]
+    #[cfg(feature = "api-22")]
+    pub fn OH_UdsDetails_Remove(
+        pThis: *mut OH_UdsDetails,
+        key: *const ::std::os::raw::c_char,
+    ) -> ::std::os::raw::c_int;
+}
+extern "C" {
+    #[doc = " @brief Clear all data in the {@link OH_UdsDetails}.\n\n @param pThis Represents a pointer to an instance of {@link OH_UdsDetails}.\n @return Returns the status code of the execution. See {@link Udmf_ErrCode}.\n         {@link UDMF_E_OK} success.\n         {@link UDMF_E_INVALID_PARAM} The error code for common invalid args.\n @since 22\n @see OH_UdsDetails Udmf_ErrCode"]
+    #[cfg(feature = "api-22")]
+    pub fn OH_UdsDetails_Clear(pThis: *mut OH_UdsDetails) -> ::std::os::raw::c_int;
+}
+extern "C" {
+    #[doc = " @brief Set key-value data to the {@link OH_UdsDetails}.\n\n @param pThis Represents a pointer to an instance of {@link OH_UdsDetails}.\n @param key Represents the key data to be written.\n @param value Represents the value data to be written.\n @return Returns the status code of the execution. See {@link Udmf_ErrCode}.\n         {@link UDMF_E_OK} success.\n         {@link UDMF_E_INVALID_PARAM} The error code for common invalid args.\n @since 22\n @see OH_UdsDetails Udmf_ErrCode"]
+    #[cfg(feature = "api-22")]
+    pub fn OH_UdsDetails_SetValue(
+        pThis: *mut OH_UdsDetails,
+        key: *const ::std::os::raw::c_char,
+        value: *const ::std::os::raw::c_char,
+    ) -> ::std::os::raw::c_int;
+}
+extern "C" {
+    #[doc = " @brief Get the value from the {@link OH_UdsDetails} using the key.\n\n @param pThis Represents a pointer to an instance of {@link OH_UdsDetails}.\n @param key Represents key in the details.\n @return Returns a string pointer when input args normally, otherwise return nullptr.\n @since 22\n @see OH_UdsDetails"]
+    #[cfg(feature = "api-22")]
+    pub fn OH_UdsDetails_GetValue(
+        pThis: *const OH_UdsDetails,
+        key: *const ::std::os::raw::c_char,
+    ) -> *const ::std::os::raw::c_char;
+}
+extern "C" {
+    #[doc = " @brief Get the all keys from the {@link OH_UdsDetails}.\n\n @param pThis Represents a pointer to an instance of {@link OH_UdsDetails}.\n @param count Represents the keys count.\n @return Returns string list of keys. Memory will be released after calling the OH_UdsDetails_Destroy function.\n @since 22\n @see OH_UdsDetails"]
+    #[cfg(feature = "api-22")]
+    pub fn OH_UdsDetails_GetAllKeys(
+        pThis: *mut OH_UdsDetails,
+        count: *mut ::std::os::raw::c_uint,
+    ) -> *mut *mut ::std::os::raw::c_char;
+}
+#[doc = " @brief The intention is drag."]
+pub const Udmf_Intention_UDMF_INTENTION_DRAG: Udmf_Intention = 0;
+#[doc = " @brief The intention is pasteboard."]
+pub const Udmf_Intention_UDMF_INTENTION_PASTEBOARD: Udmf_Intention = 1;
+#[doc = " @brief The intention is data hub.\n\n @since 20"]
+#[cfg(feature = "api-20")]
+pub const Udmf_Intention_UDMF_INTENTION_DATA_HUB: Udmf_Intention = 2;
+#[doc = " @brief The intention is system share.\n\n @since 20"]
+#[cfg(feature = "api-20")]
+pub const Udmf_Intention_UDMF_INTENTION_SYSTEM_SHARE: Udmf_Intention = 3;
+#[doc = " @brief The intention is picker.\n\n @since 20"]
+#[cfg(feature = "api-20")]
+pub const Udmf_Intention_UDMF_INTENTION_PICKER: Udmf_Intention = 4;
+#[doc = " @brief The intention is menu.\n\n @since 20"]
+#[cfg(feature = "api-20")]
+pub const Udmf_Intention_UDMF_INTENTION_MENU: Udmf_Intention = 5;
+#[doc = " @brief Describe the intention type of the udmf.\n\n @since 12"]
+pub type Udmf_Intention = u32;
+#[doc = " @brief Invalid share option."]
+pub const Udmf_ShareOption_SHARE_OPTIONS_INVALID: Udmf_ShareOption = 0;
+#[doc = " @brief Allowed to be used in the same application on this device."]
+pub const Udmf_ShareOption_SHARE_OPTIONS_IN_APP: Udmf_ShareOption = 1;
+#[doc = " @brief Allowed to be used in the cross application on this device."]
+pub const Udmf_ShareOption_SHARE_OPTIONS_CROSS_APP: Udmf_ShareOption = 2;
+#[doc = " @brief Describe intra-device usage range type enumeration.\n\n @since 12"]
+pub type Udmf_ShareOption = u32;
+#[doc = " @brief Overwrite when dest uri has file with same name."]
+#[cfg(feature = "api-15")]
+pub const Udmf_FileConflictOptions_UDMF_OVERWRITE: Udmf_FileConflictOptions = 0;
+#[doc = " @brief Skip when dest uri has file with same name."]
+#[cfg(feature = "api-15")]
+pub const Udmf_FileConflictOptions_UDMF_SKIP: Udmf_FileConflictOptions = 1;
+#[doc = " @brief Describe the types of file conflict options when getting data from the udmf.\n\n @since 15"]
+#[cfg(feature = "api-15")]
+pub type Udmf_FileConflictOptions = u32;
+#[doc = " @brief Getting data without system default progress indicator."]
+#[cfg(feature = "api-15")]
+pub const Udmf_ProgressIndicator_UDMF_NONE: Udmf_ProgressIndicator = 0;
+#[doc = " @brief Getting data with system default progress indicator."]
+#[cfg(feature = "api-15")]
+pub const Udmf_ProgressIndicator_UDMF_DEFAULT: Udmf_ProgressIndicator = 1;
+#[doc = " @brief Describe the types of progress indicator when getting data from the udmf.\n\n @since 15"]
+#[cfg(feature = "api-15")]
+pub type Udmf_ProgressIndicator = u32;
+#[doc = " @brief The visibility level that specifies that any hap or native can be obtained."]
+#[cfg(feature = "api-20")]
+pub const Udmf_Visibility_UDMF_ALL: Udmf_Visibility = 0;
+#[doc = " @brief The visibility level that specifies that only data providers can be obtained."]
+#[cfg(feature = "api-20")]
+pub const Udmf_Visibility_UDMF_OWN_PROCESS: Udmf_Visibility = 1;
+#[doc = " @brief Describe the visibility range of data\n\n @since 20"]
+#[cfg(feature = "api-20")]
+pub type Udmf_Visibility = u32;
+#[repr(C)]
+#[derive(Debug, Copy, Clone)]
+pub struct OH_UdmfData {
+    _unused: [u8; 0],
+}
+#[repr(C)]
+#[derive(Debug, Copy, Clone)]
+pub struct OH_UdmfRecord {
+    _unused: [u8; 0],
+}
+#[repr(C)]
+#[derive(Debug, Copy, Clone)]
+pub struct OH_UdmfRecordProvider {
+    _unused: [u8; 0],
+}
+#[repr(C)]
+#[derive(Debug, Copy, Clone)]
+pub struct OH_UdmfProperty {
+    _unused: [u8; 0],
+}
+#[repr(C)]
+#[derive(Debug, Copy, Clone)]
+pub struct OH_Udmf_ProgressInfo {
+    _unused: [u8; 0],
+}
+#[repr(C)]
+#[derive(Debug, Copy, Clone)]
+pub struct OH_UdmfGetDataParams {
+    _unused: [u8; 0],
+}
+#[doc = " @brief Defines the callback function used to return the progress information and data.\n\n @param progressInfo The progress information notified to Application.\n @param data Represents the unified data.\n @since 15"]
+#[cfg(feature = "api-15")]
+pub type OH_Udmf_DataProgressListener = ::std::option::Option<
+    unsafe extern "C" fn(progressInfo: *mut OH_Udmf_ProgressInfo, data: *mut OH_UdmfData),
+>;
+#[repr(C)]
+#[derive(Debug, Copy, Clone)]
+pub struct OH_UdmfOptions {
+    _unused: [u8; 0],
+}
+#[repr(C)]
+#[derive(Debug, Copy, Clone)]
+pub struct OH_UdmfDataLoadParams {
+    _unused: [u8; 0],
+}
+#[repr(C)]
+#[derive(Debug, Copy, Clone)]
+pub struct OH_UdmfDataLoadInfo {
+    _unused: [u8; 0],
+}
+#[doc = " @brief Indicates the callback function for loading data.\n\n @param acceptableInfo Indicates the type and number of data that can be accepted by the receiver.\n @return Returns the data to be loaded.\n @since 20"]
+#[cfg(feature = "api-20")]
+pub type OH_Udmf_DataLoadHandler = ::std::option::Option<
+    unsafe extern "C" fn(acceptableInfo: *mut OH_UdmfDataLoadInfo) -> *mut OH_UdmfData,
+>;
+extern "C" {
+    #[doc = " @brief Creation a pointer to the instance of the {@link OH_UdmfData}.\n\n @return If the operation is successful, a pointer to the instance of the {@link OH_UdmfData}\n structure is returned. If the operation is failed, nullptr is returned.\n @see OH_UdmfData.\n @since 12"]
+    pub fn OH_UdmfData_Create() -> *mut OH_UdmfData;
+}
+extern "C" {
+    #[doc = " @brief Destroy a pointer that points to the {@link OH_UdmfData} instance.\n\n @param pThis Represents a pointer to an instance of {@link OH_UdmfData}.\n @see OH_UdmfData.\n @since 12"]
+    pub fn OH_UdmfData_Destroy(pThis: *mut OH_UdmfData);
+}
+extern "C" {
+    #[doc = " @brief Add one {OH_UdmfRecord} record to the {@link OH_UdmfData} data.\n\n @param pThis Represents a pointer to an instance of {@link OH_UdmfData}.\n @param record Represents a pointer to an instance of {@link OH_UdmfRecord}.\n @return Returns the status code of the execution. See {@link Udmf_ErrCode}.\n         {@link UDMF_E_OK} success.\n         {@link UDMF_E_INVALID_PARAM} The error code for common invalid args.\n @see OH_UdmfData Udmf_ErrCode.\n @since 12"]
+    pub fn OH_UdmfData_AddRecord(
+        pThis: *mut OH_UdmfData,
+        record: *mut OH_UdmfRecord,
+    ) -> ::std::os::raw::c_int;
+}
+extern "C" {
+    #[doc = " @brief Check whether the type exists in the {@link OH_UdmfData} data.\n\n @param pThis Represents a pointer to an instance of {@link OH_UdmfData}.\n @param type Represents a string pointer of the type.\n @return Returns the status of finding type.\n         {@code false} is not existed.\n         {@code true} is existed.\n @see OH_UdmfData.\n @since 12"]
+    pub fn OH_UdmfData_HasType(
+        pThis: *mut OH_UdmfData,
+        type_: *const ::std::os::raw::c_char,
+    ) -> bool;
+}
+extern "C" {
+    #[doc = " @brief Get all types in the {@link OH_UdmfData} data.\n\n @param pThis Represents a pointer to an instance of {@link OH_UdmfData}.\n @param count Represents the types count that is a output param.\n @return Returns string array that in {@link OH_UdmfData} when input parameters valid,\n otherwise return nullptr.\n @see OH_UdmfData.\n @since 12"]
+    pub fn OH_UdmfData_GetTypes(
+        pThis: *mut OH_UdmfData,
+        count: *mut ::std::os::raw::c_uint,
+    ) -> *mut *mut ::std::os::raw::c_char;
+}
+extern "C" {
+    #[doc = " @brief Get all records in the {@link OH_UdmfData} data.\n\n @param pThis Represents a pointer to an instance of {@link OH_UdmfData}.\n @param count Represents the records count that is a output param.\n @return Returns {@link OH_UdmfRecord} pointer array when input parameters valid, otherwise return nullptr.\n @see OH_UdmfData OH_UdmfRecord.\n @since 12"]
+    pub fn OH_UdmfData_GetRecords(
+        pThis: *mut OH_UdmfData,
+        count: *mut ::std::os::raw::c_uint,
+    ) -> *mut *mut OH_UdmfRecord;
+}
+#[doc = " @brief Defines the callback function used free the context.\n @param context Pointer to the context which is to be free.\n @since 13"]
+#[cfg(feature = "api-13")]
+pub type UdmfData_Finalize =
+    ::std::option::Option<unsafe extern "C" fn(context: *mut ::std::os::raw::c_void)>;
+extern "C" {
+    #[doc = " @brief Creates an {@link OH_UdmfRecordProvider} instance.\n\n @return Returns the pointer to the {@link OH_UdmfRecordProvider} instance created if the operation is successful.\n Returns nullptr if the memory is not enough.\n @see OH_UdmfRecordProvider.\n @since 13"]
+    #[cfg(feature = "api-13")]
+    pub fn OH_UdmfRecordProvider_Create() -> *mut OH_UdmfRecordProvider;
+}
+extern "C" {
+    #[doc = " @brief Destroy an {@link OH_UdmfRecordProvider} instance.\n\n @param provider Pointer to the {@link OH_UdmfRecordProvider} instance to destroy.\n @return Returns the status code of the execution. For details, see {@link Udmf_ErrCode}.\n         Returns {@link UDMF_E_OK} if the operation is successful.\n         Returns {@link UDMF_E_INVALID_PARAM} if invalid args are detected.\n @see OH_UdmfRecordProvider Udmf_ErrCode.\n @since 13"]
+    #[cfg(feature = "api-13")]
+    pub fn OH_UdmfRecordProvider_Destroy(
+        provider: *mut OH_UdmfRecordProvider,
+    ) -> ::std::os::raw::c_int;
+}
+#[doc = " @brief Defines a callback function used to obtain data by type.\n\n @param context Pointer to the context set by {@link OH_UdmfRecordProvider_SetData}.\n @param type Pointer to the type of data to obtain. For details, see {@link udmf_meta.h}.\n @return Returns the data content.\n @since 13"]
+#[cfg(feature = "api-13")]
+pub type OH_UdmfRecordProvider_GetData = ::std::option::Option<
+    unsafe extern "C" fn(
+        context: *mut ::std::os::raw::c_void,
+        type_: *const ::std::os::raw::c_char,
+    ) -> *mut ::std::os::raw::c_void,
+>;
+extern "C" {
+    #[doc = " @brief Sets a callback function to obtain data.\n\n @param provider Pointer to the {@link OH_UdmfRecordProvider} instance.\n @param context Pointer to the context set, which is the first parameter in OH_UdmfRecordProvider_GetData.\n @param callback Callback to set. For details, see {@link OH_UdmfRecordProvider_GetData}.\n @param finalize Optional callback that can free context when destroy provider.\n         For details, see {@link UdmfData_Finalize}.\n @return Returns the status code of the execution. For details, see {@link Udmf_ErrCode}.\n         Returns {@link UDMF_E_OK} if the operation is successful.\n         Returns {@link UDMF_E_INVALID_PARAM} if invalid args are detected.\n @see OH_UdmfRecordProvider OH_UdmfRecordProvider_GetData UdmfData_Finalize Udmf_ErrCode.\n @since 13"]
+    #[cfg(feature = "api-13")]
+    pub fn OH_UdmfRecordProvider_SetData(
+        provider: *mut OH_UdmfRecordProvider,
+        context: *mut ::std::os::raw::c_void,
+        callback: OH_UdmfRecordProvider_GetData,
+        finalize: UdmfData_Finalize,
+    ) -> ::std::os::raw::c_int;
+}
+extern "C" {
+    #[doc = " @brief Creation a pointer to the instance of the {@link OH_UdmfRecord}, it's relate with UDS data.\n\n @return If the operation is successful, a pointer to the instance of the {@link OH_UdmfRecord}\n structure is returned. If the operation is failed, nullptr is returned.\n @see OH_UdmfRecord.\n @since 12"]
+    pub fn OH_UdmfRecord_Create() -> *mut OH_UdmfRecord;
+}
+extern "C" {
+    #[doc = " @brief Destroy a pointer that points to an instance of {@link OH_UdmfRecord}.\n\n @param pThis Represents a pointer to an instance of {@link OH_UdmfRecord}.\n @see OH_UdmfRecord.\n @since 12"]
+    pub fn OH_UdmfRecord_Destroy(pThis: *mut OH_UdmfRecord);
+}
+extern "C" {
+    #[doc = " @brief Add one custom data to the {@link OH_UdmfRecord} record.\n\n @param pThis Represents a pointer to an instance of {@link OH_UdmfRecord}.\n @param typeId Represents record type, reference udmf_meta.h.\n @param entry Represents custom data.\n @param count Represents the size of data param.\n @return Returns the status code of the execution. See {@link Udmf_ErrCode}.\n         {@link UDMF_E_OK} success.\n         {@link UDMF_E_INVALID_PARAM} The error code for common invalid args.\n @see OH_UdmfRecord Udmf_ErrCode.\n @since 12"]
+    pub fn OH_UdmfRecord_AddGeneralEntry(
+        pThis: *mut OH_UdmfRecord,
+        typeId: *const ::std::os::raw::c_char,
+        entry: *mut ::std::os::raw::c_uchar,
+        count: ::std::os::raw::c_uint,
+    ) -> ::std::os::raw::c_int;
+}
+extern "C" {
+    #[doc = " @brief Add one {OH_UdsPlainText} data to the {@link OH_UdmfRecord} record.\n\n @param pThis Represents a pointer to an instance of {@link OH_UdmfRecord}.\n @param plainText Represents a pointer to an instance of {@link OH_UdsPlainText}.\n @return Returns the status code of the execution. See {@link Udmf_ErrCode}.\n         {@link UDMF_E_OK} success.\n         {@link UDMF_E_INVALID_PARAM} The error code for common invalid args.\n @see OH_UdmfRecord OH_UdsPlainText Udmf_ErrCode.\n @since 12"]
+    pub fn OH_UdmfRecord_AddPlainText(
+        pThis: *mut OH_UdmfRecord,
+        plainText: *mut OH_UdsPlainText,
+    ) -> ::std::os::raw::c_int;
+}
+extern "C" {
+    #[doc = " @brief Add one {OH_UdsHyperlink} data to the {@link OH_UdmfRecord} record.\n\n @param pThis Represents a pointer to an instance of {@link OH_UdmfRecord}.\n @param hyperlink Represents a pointer to an instance of {@link OH_UdsHyperlink}.\n @return Returns the status code of the execution. See {@link Udmf_ErrCode}.\n         {@link UDMF_E_OK} success.\n         {@link UDMF_E_INVALID_PARAM} The error code for common invalid args.\n @see OH_UdmfRecord OH_UdsHyperlink Udmf_ErrCode.\n @since 12"]
+    pub fn OH_UdmfRecord_AddHyperlink(
+        pThis: *mut OH_UdmfRecord,
+        hyperlink: *mut OH_UdsHyperlink,
+    ) -> ::std::os::raw::c_int;
+}
+extern "C" {
+    #[doc = " @brief Add one {OH_UdsHtml} data to the {@link OH_UdmfRecord} record.\n\n @param pThis Represents a pointer to an instance of {@link OH_UdmfRecord}.\n @param html Represents a pointer to an instance of {@link OH_UdsHtml}.\n @return Returns the status code of the execution. See {@link Udmf_ErrCode}.\n         {@link UDMF_E_OK} success.\n         {@link UDMF_E_INVALID_PARAM} The error code for common invalid args.\n @see OH_UdmfRecord OH_UdsHtml Udmf_ErrCode.\n @since 12"]
+    pub fn OH_UdmfRecord_AddHtml(
+        pThis: *mut OH_UdmfRecord,
+        html: *mut OH_UdsHtml,
+    ) -> ::std::os::raw::c_int;
+}
+extern "C" {
+    #[doc = " @brief Add one {OH_UdsAppItem} data to the {@link OH_UdmfRecord} record.\n\n @param pThis Represents a pointer to an instance of {@link OH_UdmfRecord}.\n @param appItem Represents a pointer to an instance of {@link OH_UdsAppItem}.\n @return Returns the status code of the execution. See {@link Udmf_ErrCode}.\n         {@link UDMF_E_OK} success.\n         {@link UDMF_E_INVALID_PARAM} The error code for common invalid args.\n @see OH_UdmfRecord OH_UdsAppItem Udmf_ErrCode.\n @since 12"]
+    pub fn OH_UdmfRecord_AddAppItem(
+        pThis: *mut OH_UdmfRecord,
+        appItem: *mut OH_UdsAppItem,
+    ) -> ::std::os::raw::c_int;
+}
+extern "C" {
+    #[doc = " @brief Add one {OH_UdsFileUri} data to the {@link OH_UdmfRecord} record.\n\n @param pThis Represents a pointer to an instance of {@link OH_UdmfRecord}.\n @param fileUri Represents a pointer to an instance of {@link OH_UdsFileUri}.\n @return Returns the status code of the execution. See {@link Udmf_ErrCode}.\n         {@link UDMF_E_OK} success.\n         {@link UDMF_E_INVALID_PARAM} The error code for common invalid args.\n @see OH_UdmfRecord OH_UdsFileUri Udmf_ErrCode.\n @since 13"]
+    #[cfg(feature = "api-13")]
+    pub fn OH_UdmfRecord_AddFileUri(
+        pThis: *mut OH_UdmfRecord,
+        fileUri: *mut OH_UdsFileUri,
+    ) -> ::std::os::raw::c_int;
+}
+extern "C" {
+    #[doc = " @brief Add one {OH_UdsPixelMap} data to the {@link OH_UdmfRecord} record.\n\n @param pThis Represents a pointer to an instance of {@link OH_UdmfRecord}.\n @param pixelMap Represents a pointer to an instance of {@link OH_UdsPixelMap}.\n @return Returns the status code of the execution. See {@link Udmf_ErrCode}.\n         {@link UDMF_E_OK} success.\n         {@link UDMF_E_INVALID_PARAM} The error code for common invalid args.\n @see OH_UdmfRecord OH_UdsPixelMap Udmf_ErrCode.\n @since 13"]
+    #[cfg(feature = "api-13")]
+    pub fn OH_UdmfRecord_AddPixelMap(
+        pThis: *mut OH_UdmfRecord,
+        pixelMap: *mut OH_UdsPixelMap,
+    ) -> ::std::os::raw::c_int;
+}
+extern "C" {
+    #[doc = " @brief Add one {@link OH_UdsArrayBuffer} data to the {@link OH_UdmfRecord} record.\n\n @param record Represents a pointer to an instance of {@link OH_UdmfRecord}.\n @param type Represents record type, reference udmf_meta.h.\n @param buffer Represents a pointer to an instance of {@link OH_UdsArrayBuffer}.\n @return Returns the status code of the execution. See {@link Udmf_ErrCode}.\n         {@link UDMF_E_OK} success.\n         {@link UDMF_E_INVALID_PARAM} The error code for common invalid args.\n @see OH_UdmfRecord OH_UdsArrayBuffer Udmf_ErrCode.\n @since 13"]
+    #[cfg(feature = "api-13")]
+    pub fn OH_UdmfRecord_AddArrayBuffer(
+        record: *mut OH_UdmfRecord,
+        type_: *const ::std::os::raw::c_char,
+        buffer: *mut OH_UdsArrayBuffer,
+    ) -> ::std::os::raw::c_int;
+}
+extern "C" {
+    #[doc = " @brief Add one {@link OH_UdsContentForm} data to the {@link OH_UdmfRecord} record.\n\n @param pThis Represents a pointer to an instance of {@link OH_UdmfRecord}.\n @param contentForm Represents a pointer to an instance of {@link OH_UdsContentForm}.\n @return Returns the status code of the execution. See {@link Udmf_ErrCode}.\n         {@link UDMF_E_OK} success.\n         {@link UDMF_E_INVALID_PARAM} The error code for common invalid args.\n @see OH_UdmfRecord OH_UdsContentForm Udmf_ErrCode.\n @since 14"]
+    #[cfg(feature = "api-14")]
+    pub fn OH_UdmfRecord_AddContentForm(
+        pThis: *mut OH_UdmfRecord,
+        contentForm: *mut OH_UdsContentForm,
+    ) -> ::std::os::raw::c_int;
+}
+extern "C" {
+    #[doc = " @brief Get all types in the {@link OH_UdmfRecord} record.\n\n @param pThis Represents a pointer to an instance of {@link OH_UdmfRecord}.\n @param count Represents the types count that is a output param.\n @return Returns string array that in {@link OH_UdmfRecord} when input parameters valid,\n otherwise return nullptr.\n @see OH_UdmfRecord.\n @since 12"]
+    pub fn OH_UdmfRecord_GetTypes(
+        pThis: *mut OH_UdmfRecord,
+        count: *mut ::std::os::raw::c_uint,
+    ) -> *mut *mut ::std::os::raw::c_char;
+}
+extern "C" {
+    #[doc = " @brief Get one entry data from the {@link OH_UdmfRecord} record.\n\n @param pThis Represents a pointer to an instance of {@link OH_UdmfRecord}.\n @param typeId Represents record type, reference udmf_meta.h.\n @param entry Represents a pointer to entry data that is a output param.\n @param count Represents the entry data length that is a output param.\n @return Returns the status code of the execution. See {@link Udmf_ErrCode}.\n         {@link UDMF_E_OK} success.\n         {@link UDMF_E_INVALID_PARAM} The error code for common invalid args.\n         {@link UDMF_ERR} Internal data error.\n @see OH_UdmfRecord Udmf_ErrCode.\n @since 12"]
+    pub fn OH_UdmfRecord_GetGeneralEntry(
+        pThis: *mut OH_UdmfRecord,
+        typeId: *const ::std::os::raw::c_char,
+        entry: *mut *mut ::std::os::raw::c_uchar,
+        count: *mut ::std::os::raw::c_uint,
+    ) -> ::std::os::raw::c_int;
+}
+extern "C" {
+    #[doc = " @brief Get one {OH_UdsPlainText} data from the {@link OH_UdmfRecord} record.\n\n @param pThis Represents a pointer to an instance of {@link OH_UdmfRecord}.\n @param plainText Represents a pointer to an instance of {@link OH_UdsPlainText}.\n @return Returns the status code of the execution. See {@link Udmf_ErrCode}.\n         {@link UDMF_E_OK} success.\n         {@link UDMF_E_INVALID_PARAM} The error code for common invalid args.\n         {@link UDMF_ERR} Internal data error.\n @see OH_UdmfRecord OH_UdsPlainText Udmf_ErrCode.\n @since 12"]
+    pub fn OH_UdmfRecord_GetPlainText(
+        pThis: *mut OH_UdmfRecord,
+        plainText: *mut OH_UdsPlainText,
+    ) -> ::std::os::raw::c_int;
+}
+extern "C" {
+    #[doc = " @brief Get one {OH_UdsHyperlink} data from the {@link OH_UdmfRecord} record.\n\n @param pThis Represents a pointer to an instance of {@link OH_UdmfRecord}.\n @param hyperlink Represents a pointer to an instance of {@link OH_UdsHyperlink}.\n @return Returns the status code of the execution. See {@link Udmf_ErrCode}.\n         {@link UDMF_E_OK} success.\n         {@link UDMF_E_INVALID_PARAM} The error code for common invalid args.\n         {@link UDMF_ERR} Internal data error.\n @see OH_UdmfRecord OH_UdsHyperlink Udmf_ErrCode.\n @since 12"]
+    pub fn OH_UdmfRecord_GetHyperlink(
+        pThis: *mut OH_UdmfRecord,
+        hyperlink: *mut OH_UdsHyperlink,
+    ) -> ::std::os::raw::c_int;
+}
+extern "C" {
+    #[doc = " @brief Get one {OH_UdsHtml} data from the {@link OH_UdmfRecord} record.\n\n @param pThis Represents a pointer to an instance of {@link OH_UdmfRecord}.\n @param html Represents a pointer to an instance of {@link OH_UdsHtml}.\n @return Returns the status code of the execution. See {@link Udmf_ErrCode}.\n         {@link UDMF_E_OK} success.\n         {@link UDMF_E_INVALID_PARAM} The error code for common invalid args.\n         {@link UDMF_ERR} Internal data error.\n @see OH_UdmfRecord OH_UdsHtml Udmf_ErrCode.\n @since 12"]
+    pub fn OH_UdmfRecord_GetHtml(
+        pThis: *mut OH_UdmfRecord,
+        html: *mut OH_UdsHtml,
+    ) -> ::std::os::raw::c_int;
+}
+extern "C" {
+    #[doc = " @brief Get one {OH_UdsAppItem} data from the {@link OH_UdmfRecord} record.\n\n @param pThis Represents a pointer to an instance of {@link OH_UdmfRecord}.\n @param appItem Represents a pointer to an instance of {@link OH_UdsAppItem}.\n @return Returns the status code of the execution. See {@link Udmf_ErrCode}.\n         {@link UDMF_E_OK} success.\n         {@link UDMF_E_INVALID_PARAM} The error code for common invalid args.\n         {@link UDMF_ERR} Internal data error.\n @see OH_UdmfRecord OH_UdsAppItem Udmf_ErrCode.\n @since 12"]
+    pub fn OH_UdmfRecord_GetAppItem(
+        pThis: *mut OH_UdmfRecord,
+        appItem: *mut OH_UdsAppItem,
+    ) -> ::std::os::raw::c_int;
+}
+extern "C" {
+    #[doc = " @brief Get one {OH_UdsFileUri} data from the {@link OH_UdmfRecord} record.\n\n @param pThis Represents a pointer to an instance of {@link OH_UdmfRecord}.\n @param fileUri Represents a pointer to an instance of {@link OH_UdsFileUri}.\n @return Returns the status code of the execution. See {@link Udmf_ErrCode}.\n         {@link UDMF_E_OK} success.\n         {@link UDMF_E_INVALID_PARAM} The error code for common invalid args.\n @see OH_UdmfRecord OH_UdsFileUri Udmf_ErrCode.\n @since 13"]
+    #[cfg(feature = "api-13")]
+    pub fn OH_UdmfRecord_GetFileUri(
+        pThis: *mut OH_UdmfRecord,
+        fileUri: *mut OH_UdsFileUri,
+    ) -> ::std::os::raw::c_int;
+}
+extern "C" {
+    #[doc = " @brief Get one {OH_UdsPixelMap} data from the {@link OH_UdmfRecord} record.\n\n @param pThis Represents a pointer to an instance of {@link OH_UdmfRecord}.\n @param pixelMap Represents a pointer to an instance of {@link OH_UdsPixelMap}.\n @return Returns the status code of the execution. See {@link Udmf_ErrCode}.\n         {@link UDMF_E_OK} success.\n         {@link UDMF_E_INVALID_PARAM} The error code for common invalid args.\n @see OH_UdmfRecord OH_UdsPixelMap Udmf_ErrCode.\n @since 13"]
+    #[cfg(feature = "api-13")]
+    pub fn OH_UdmfRecord_GetPixelMap(
+        pThis: *mut OH_UdmfRecord,
+        pixelMap: *mut OH_UdsPixelMap,
+    ) -> ::std::os::raw::c_int;
+}
+extern "C" {
+    #[doc = " @brief Set the data provider of the types.\n\n @param pThis Represents a pointer to an instance of {@link OH_UdmfRecord}.\n @param types Represents a pointer to a group of data types;\n @param count Represents the number of data types;\n @param provider Represents a pointer an instance of {@link OH_UdmfRecordProvider}.\n @return Returns the status code of the execution. See {@link Udmf_ErrCode}.\n         {@link UDMF_E_OK} success.\n         {@link UDMF_E_INVALID_PARAM} The error code for common invalid args.\n @see OH_UdmfRecord OH_UdmfRecordProvider Udmf_ErrCode.\n @since 13"]
+    #[cfg(feature = "api-13")]
+    pub fn OH_UdmfRecord_SetProvider(
+        pThis: *mut OH_UdmfRecord,
+        types: *const *const ::std::os::raw::c_char,
+        count: ::std::os::raw::c_uint,
+        provider: *mut OH_UdmfRecordProvider,
+    ) -> ::std::os::raw::c_int;
+}
+extern "C" {
+    #[doc = " @brief Get one {@link OH_UdsArrayBuffer} data from the {@link OH_UdmfRecord} record.\n\n @param record Represents a pointer to an instance of {@link OH_UdmfRecord}.\n @param type Represents record type, reference udmf_meta.h.\n @param buffer Represents a pointer to an instance of {@link OH_UdsArrayBuffer}.\n @return Returns the status code of the execution. See {@link Udmf_ErrCode}.\n         {@link UDMF_E_OK} success.\n         {@link UDMF_E_INVALID_PARAM} The error code for common invalid args.\n @see OH_UdmfRecord OH_UdsArrayBuffer Udmf_ErrCode.\n @since 13"]
+    #[cfg(feature = "api-13")]
+    pub fn OH_UdmfRecord_GetArrayBuffer(
+        record: *mut OH_UdmfRecord,
+        type_: *const ::std::os::raw::c_char,
+        buffer: *mut OH_UdsArrayBuffer,
+    ) -> ::std::os::raw::c_int;
+}
+extern "C" {
+    #[doc = " @brief Get one {@link OH_UdsContentForm} data from the {@link OH_UdmfRecord} record.\n\n @param pThis Represents a pointer to an instance of {@link OH_UdmfRecord}.\n @param contentForm Represents a pointer to an instance of {@link OH_UdsContentForm}.\n @return Returns the status code of the execution. See {@link Udmf_ErrCode}.\n         {@link UDMF_E_OK} success.\n         {@link UDMF_E_INVALID_PARAM} The error code for common invalid args.\n @see OH_UdmfRecord OH_UdsContentForm Udmf_ErrCode.\n @since 14"]
+    #[cfg(feature = "api-14")]
+    pub fn OH_UdmfRecord_GetContentForm(
+        pThis: *mut OH_UdmfRecord,
+        contentForm: *mut OH_UdsContentForm,
+    ) -> ::std::os::raw::c_int;
+}
+extern "C" {
+    #[doc = " @brief Get primary {@link OH_UdsPlainText} data from the {@link OH_UdmfData}.\n\n @param data Represents a pointer to an instance of {@link OH_UdmfData}.\n @param plainText Represents a pointer to an instance of {@link OH_UdsPlainText}.\n @return Returns the status code of the execution. See {@link Udmf_ErrCode}.\n         {@link UDMF_E_OK} success.\n         {@link UDMF_E_INVALID_PARAM} The error code for common invalid args.\n @see OH_UdmfData OH_UdsPlainText Udmf_ErrCode.\n @since 13"]
+    #[cfg(feature = "api-13")]
+    pub fn OH_UdmfData_GetPrimaryPlainText(
+        data: *mut OH_UdmfData,
+        plainText: *mut OH_UdsPlainText,
+    ) -> ::std::os::raw::c_int;
+}
+extern "C" {
+    #[doc = " @brief Get one {@link OH_UdsHtml} data from the {@link OH_UdmfData}.\n\n @param data Represents a pointer to an instance of {@link OH_UdmfData}.\n @param html Represents a pointer to an instance of {@link OH_UdsHtml}.\n @return Returns the status code of the execution. See {@link Udmf_ErrCode}.\n         {@link UDMF_E_OK} success.\n         {@link UDMF_E_INVALID_PARAM} The error code for common invalid args.\n @see OH_UdmfData OH_UdsHtml Udmf_ErrCode.\n @since 13"]
+    #[cfg(feature = "api-13")]
+    pub fn OH_UdmfData_GetPrimaryHtml(
+        data: *mut OH_UdmfData,
+        html: *mut OH_UdsHtml,
+    ) -> ::std::os::raw::c_int;
+}
+extern "C" {
+    #[doc = " @brief Get the count of {@link OH_UdmfRecord} in the {@link OH_UdmfData}.\n\n @param data Represents a pointer to an instance of {@link OH_UdmfData}.\n @return Returns the count of {@link OH_UdmfRecord}\n @see OH_UdmfData.\n @since 13"]
+    #[cfg(feature = "api-13")]
+    pub fn OH_UdmfData_GetRecordCount(data: *mut OH_UdmfData) -> ::std::os::raw::c_int;
+}
+extern "C" {
+    #[doc = " @brief Get the record of the specified index from the {@link OH_UdmfData}.\n\n @param data Represents a pointer to an instance of {@link OH_UdmfData}.\n @param index Represents the index of {@link OH_UdmfRecord} in the {@link OH_UdmfData}.\n @return Returns {@link OH_UdmfRecord} pointer when input parameters valid, otherwise return nullptr.\n @see OH_UdmfData.\n @since 13"]
+    #[cfg(feature = "api-13")]
+    pub fn OH_UdmfData_GetRecord(
+        data: *mut OH_UdmfData,
+        index: ::std::os::raw::c_uint,
+    ) -> *mut OH_UdmfRecord;
+}
+extern "C" {
+    #[doc = " @brief Checks whether the UDMF data is from a local device.\n\n @param data Represents a pointer to an instance of {@link OH_UdmfData}.\n @return Returns a boolean value, which indicates whether the UDMF data is from a local device.\n         The value {@code true} means the data is from a local device.\n         The value {@code false} means the opposite.\n @see OH_UdmfData.\n @since 13"]
+    #[cfg(feature = "api-13")]
+    pub fn OH_UdmfData_IsLocal(data: *mut OH_UdmfData) -> bool;
+}
+extern "C" {
+    #[doc = " @brief Creation a pointer to the instance of the {@link OH_UdmfProperty}\n from a {@link OH_UdmfData} data.\n\n @param unifiedData Represents a pointer to an instance of {@link OH_UdmfData}.\n @return If the operation is successful, a pointer to the instance of the {@link OH_UdmfProperty}\n structure is returned. If the operation is failed, nullptr is returned.\n @see OH_UdmfData OH_UdmfProperty.\n @since 12"]
+    pub fn OH_UdmfProperty_Create(unifiedData: *mut OH_UdmfData) -> *mut OH_UdmfProperty;
+}
+extern "C" {
+    #[doc = " @brief Destroy a pointer that points to the {@link OH_UdmfProperty} instance.\n\n @param pThis Represents a pointer to an instance of {@link OH_UdmfProperty}.\n @see OH_UdmfProperty.\n @since 12"]
+    pub fn OH_UdmfProperty_Destroy(pThis: *mut OH_UdmfProperty);
+}
+extern "C" {
+    #[doc = " @brief Get tag value from the {@link OH_UdmfProperty}.\n\n @param pThis Represents a pointer to an instance of {@link OH_UdmfProperty}.\n @return Returns a pointer of the tag value string when input parameters valid, otherwise return nullptr.\n @see OH_UdmfProperty.\n @since 12"]
+    pub fn OH_UdmfProperty_GetTag(pThis: *mut OH_UdmfProperty) -> *const ::std::os::raw::c_char;
+}
+extern "C" {
+    #[doc = " @brief Get timestamp value from the {@link OH_UdmfProperty}.\n\n @param pThis Represents a pointer to an instance of {@link OH_UdmfProperty}.\n @return Returns timestamp value.\n @see OH_UdmfProperty\n @since 12"]
+    pub fn OH_UdmfProperty_GetTimestamp(pThis: *mut OH_UdmfProperty) -> i64;
+}
+extern "C" {
+    #[doc = " @brief Get share option value from the {@link OH_UdmfProperty}.\n\n @param pThis Represents a pointer to an instance of {@link OH_UdmfProperty}.\n @return Returns {@link Udmf_ShareOption} value.\n @see OH_UdmfProperty Udmf_ShareOption\n @since 12"]
+    pub fn OH_UdmfProperty_GetShareOption(pThis: *mut OH_UdmfProperty) -> Udmf_ShareOption;
+}
+extern "C" {
+    #[doc = " @brief Get integer value by key from the {@link OH_UdmfProperty}.\n\n @param pThis Represents a pointer to an instance of {@link OH_UdmfProperty}.\n @param key Represents key-value pair's key\n @param defaultValue Represents when get value failure.\n @return Returns value associated with the key in successfully, otherwise return defaultValue.\n @see OH_UdmfProperty.\n @since 12"]
+    pub fn OH_UdmfProperty_GetExtrasIntParam(
+        pThis: *mut OH_UdmfProperty,
+        key: *const ::std::os::raw::c_char,
+        defaultValue: ::std::os::raw::c_int,
+    ) -> ::std::os::raw::c_int;
+}
+extern "C" {
+    #[doc = " @brief Get tag value from the {@link OH_UdmfProperty}.\n\n @param pThis Represents a pointer to an instance of {@link OH_UdmfProperty}.\n @param key Represents key-value pair's key.\n @return Returns a pointer of the key value string when input parameters valid, otherwise return nullptr.\n @see OH_UdmfProperty\n @since 12"]
+    pub fn OH_UdmfProperty_GetExtrasStringParam(
+        pThis: *mut OH_UdmfProperty,
+        key: *const ::std::os::raw::c_char,
+    ) -> *const ::std::os::raw::c_char;
+}
+extern "C" {
+    #[doc = " @brief Set tag value to {@link OH_UdmfProperty} .\n\n @param pThis Represents a pointer to an instance of {@link OH_UdmfProperty}.\n @param tag Represents new tag param.\n @return Returns the status code of the execution. See {@link Udmf_ErrCode}.\n         {@link UDMF_E_OK} success.\n         {@link UDMF_E_INVALID_PARAM} The error code for common invalid args.\n @see OH_UdmfProperty Udmf_ErrCode.\n @since 12"]
+    pub fn OH_UdmfProperty_SetTag(
+        pThis: *mut OH_UdmfProperty,
+        tag: *const ::std::os::raw::c_char,
+    ) -> ::std::os::raw::c_int;
+}
+extern "C" {
+    #[doc = " @brief Set Udmf_ShareOption value to {@link OH_UdmfProperty}.\n\n @param pThis Represents a pointer to an instance of {@link OH_UdmfProperty}.\n @param option Represents new {@link Udmf_ShareOption} param.\n @return Returns the status code of the execution. See {@link Udmf_ErrCode}.\n         {@link UDMF_E_OK} success.\n         {@link UDMF_E_INVALID_PARAM} The error code for common invalid args.\n @see OH_UdmfProperty Udmf_ShareOption Udmf_ErrCode.\n @since 12"]
+    pub fn OH_UdmfProperty_SetShareOption(
+        pThis: *mut OH_UdmfProperty,
+        option: Udmf_ShareOption,
+    ) -> ::std::os::raw::c_int;
+}
+extern "C" {
+    #[doc = " @brief Set extras param to {@link OH_UdmfProperty}.\n\n @param pThis Represents a pointer to an instance of {@link OH_UdmfProperty}.\n @param key Represents extras param's key value.\n @param param Represents value of k-v pairs.\n @return Returns the status code of the execution. See {@link Udmf_ErrCode}.\n         {@link UDMF_E_OK} success.\n         {@link UDMF_E_INVALID_PARAM} The error code for common invalid args.\n @see OH_UdmfProperty Udmf_ErrCode.\n @since 12"]
+    pub fn OH_UdmfProperty_SetExtrasIntParam(
+        pThis: *mut OH_UdmfProperty,
+        key: *const ::std::os::raw::c_char,
+        param: ::std::os::raw::c_int,
+    ) -> ::std::os::raw::c_int;
+}
+extern "C" {
+    #[doc = " @brief Set extras param to {@link OH_UdmfProperty}.\n\n @param pThis Represents a pointer to an instance of {@link OH_UdmfProperty}.\n @param key Represents extras param's key value.\n @param param Represents value of k-v pairs.\n @return Returns the status code of the execution. See {@link Udmf_ErrCode}.\n         {@link UDMF_E_OK} success.\n         {@link UDMF_E_INVALID_PARAM} The error code for common invalid args.\n @see OH_UdmfProperty Udmf_ErrCode.\n @since 12"]
+    pub fn OH_UdmfProperty_SetExtrasStringParam(
+        pThis: *mut OH_UdmfProperty,
+        key: *const ::std::os::raw::c_char,
+        param: *const ::std::os::raw::c_char,
+    ) -> ::std::os::raw::c_int;
+}
+extern "C" {
+    #[doc = " @brief Creation a pointer to the instance of the {@link OH_UdmfOptions}.\n\n @return If the operation is successful, a pointer to the instance of the {@link OH_UdmfOptions}\n structure is returned. If the operation is failed, nullptr is returned.\n @see OH_UdmfOptions.\n @since 20"]
+    #[cfg(feature = "api-20")]
+    pub fn OH_UdmfOptions_Create() -> *mut OH_UdmfOptions;
+}
+extern "C" {
+    #[doc = " @brief Destroy the heap memory pointed to by the pointer of {@link OH_UdmfOptions}.\n Note that this function cannot be called repeatedly for the same pointer.\n\n @param pThis Represents a pointer to an instance of {@link OH_UdmfOptions}.\n @see OH_UdmfOptions.\n @since 20"]
+    #[cfg(feature = "api-20")]
+    pub fn OH_UdmfOptions_Destroy(pThis: *mut OH_UdmfOptions);
+}
+extern "C" {
+    #[doc = " @brief Get key from the {@link OH_UdmfOptions}.\n\n @param pThis Represents a pointer to an instance of {@link OH_UdmfOptions}.\n @return Returns a pointer of the value string when input args normally, otherwise return nullptr.\n @see OH_UdmfOptions\n @since 20"]
+    #[cfg(feature = "api-20")]
+    pub fn OH_UdmfOptions_GetKey(pThis: *mut OH_UdmfOptions) -> *const ::std::os::raw::c_char;
+}
+extern "C" {
+    #[doc = " @brief Set the key to the {@link OH_UdmfOptions}.\n\n @param pThis Represents a pointer to an instance of {@link OH_UdmfOptions}.\n @param key Represents a new string value of the key.\n @return Returns the status code of the execution. See {@link Udmf_ErrCode}.\n         {@link UDMF_E_OK} success.\n         {@link UDMF_E_INVALID_PARAM} The error code for common invalid args.\n @see OH_UdmfOptions Udmf_ErrCode\n @since 20"]
+    #[cfg(feature = "api-20")]
+    pub fn OH_UdmfOptions_SetKey(
+        pThis: *mut OH_UdmfOptions,
+        key: *const ::std::os::raw::c_char,
+    ) -> ::std::os::raw::c_int;
+}
+extern "C" {
+    #[doc = " @brief Get intention from the {@link OH_UdmfOptions}.\n\n @param pThis Represents a pointer to an instance of {@link OH_UdmfOptions}.\n @return Returns {@link Udmf_Intention} value.\n @see OH_UdmfOptions Udmf_Intention\n @since 20"]
+    #[cfg(feature = "api-20")]
+    pub fn OH_UdmfOptions_GetIntention(pThis: *mut OH_UdmfOptions) -> Udmf_Intention;
+}
+extern "C" {
+    #[doc = " @brief Set intention value to {@link OH_UdmfOptions}.\n\n @param pThis Represents a pointer to an instance of {@link OH_UdmfOptions}.\n @param intention Represents new {@link Udmf_Intention} param.\n @return Returns the status code of the execution. See {@link Udmf_ErrCode}.\n         {@link UDMF_E_OK} success.\n         {@link UDMF_E_INVALID_PARAM} The error code for common invalid args.\n @see OH_UdmfOptions Udmf_Intention Udmf_ErrCode.\n @since 20"]
+    #[cfg(feature = "api-20")]
+    pub fn OH_UdmfOptions_SetIntention(
+        pThis: *mut OH_UdmfOptions,
+        intention: Udmf_Intention,
+    ) -> ::std::os::raw::c_int;
+}
+extern "C" {
+    #[doc = " @brief Reset {@link OH_UdmfOptions} to default.\n\n @param pThis Represents a pointer to an instance of {@link OH_UdmfOptions}.\n @return Returns the status code of the execution. See {@link Udmf_ErrCode}.\n         {@link UDMF_E_OK} success.\n         {@link UDMF_E_INVALID_PARAM} The error code for common invalid args.\n @see OH_UdmfOptions Udmf_ErrCode.\n @since 20"]
+    #[cfg(feature = "api-20")]
+    pub fn OH_UdmfOptions_Reset(pThis: *mut OH_UdmfOptions) -> ::std::os::raw::c_int;
+}
+extern "C" {
+    #[doc = " @brief Get visibility from the {@link OH_UdmfOptions}.\n\n @param pThis Represents a pointer to an instance of {@link OH_UdmfOptions}.\n @return Returns {@link Udmf_Visibility} value.\n @see OH_UdmfOptions Udmf_Visibility\n @since 20"]
+    #[cfg(feature = "api-20")]
+    pub fn OH_UdmfOptions_GetVisibility(pThis: *mut OH_UdmfOptions) -> Udmf_Visibility;
+}
+extern "C" {
+    #[doc = " @brief Set visibility value to {@link OH_UdmfOptions}.\n\n @param pThis Represents a pointer to an instance of {@link OH_UdmfOptions}.\n @param visibility Represents new {@link Udmf_Visibility} param.\n @return Returns the status code of the execution. See {@link Udmf_ErrCode}.\n         {@link UDMF_E_OK} success.\n         {@link UDMF_E_INVALID_PARAM} The error code for common invalid args.\n @see OH_UdmfOptions Udmf_Visibility Udmf_ErrCode.\n @since 20"]
+    #[cfg(feature = "api-20")]
+    pub fn OH_UdmfOptions_SetVisibility(
+        pThis: *mut OH_UdmfOptions,
+        visibility: Udmf_Visibility,
+    ) -> ::std::os::raw::c_int;
+}
+extern "C" {
+    #[doc = " @brief Get {@link OH_UdmfData} data from udmf database.\n\n @param key Represents database store's key value.\n @param intention Represents data type {@link Udmf_Intention}\n @param unifiedData Represents output params of {@link OH_UdmfData};\n @return Returns the status code of the execution. See {@link Udmf_ErrCode}.\n         {@link UDMF_E_OK} success.\n         {@link UDMF_E_INVALID_PARAM} The error code for common invalid args.\n         {@link UDMF_ERR} Internal data error.\n             The possible cause is that the server is faulty or the memory is insufficient.\n @see OH_UdmfProperty Udmf_Intention Udmf_ErrCode.\n @since 12"]
+    pub fn OH_Udmf_GetUnifiedData(
+        key: *const ::std::os::raw::c_char,
+        intention: Udmf_Intention,
+        unifiedData: *mut OH_UdmfData,
+    ) -> ::std::os::raw::c_int;
+}
+extern "C" {
+    #[doc = " @brief Get {@link OH_UdmfData} data array from udmf database by intention.\n\n @param options Represents a pointer to an instance of {@link OH_UdmfOptions}.\n @param dataArray Represents output params of {@link OH_UdmfData}.\n     It should be accessed using {@link OH_UDMF_GetDataElementAt} to retrieve elements by index.\n     This pointer needs to be released using the {@link OH_Udmf_DestroyDataArray} function.\n @param dataSize Represents the data count of output params.\n @return Returns the status code of the execution. See {@link Udmf_ErrCode}.\n         {@link UDMF_E_OK} success.\n         {@link UDMF_E_INVALID_PARAM} The error code for common invalid args.\n         {@link UDMF_ERR} Internal data error.\n             The possible cause is that the server is faulty or the memory is insufficient.\n @see OH_UdmfData Udmf_Intention Udmf_ErrCode.\n @since 20"]
+    #[cfg(feature = "api-20")]
+    pub fn OH_Udmf_GetUnifiedDataByOptions(
+        options: *mut OH_UdmfOptions,
+        dataArray: *mut *mut OH_UdmfData,
+        dataSize: *mut ::std::os::raw::c_uint,
+    ) -> ::std::os::raw::c_int;
+}
+extern "C" {
+    #[doc = " @brief Set {@link OH_UdmfData} data to database.\n\n @param intention Represents data type {@link Udmf_Intention}.\n @param unifiedData Represents a pointer to an instance of {@link OH_UdmfData}.\n @param key Represents return value after set data to database successfully,\n it's memory size not less than {@link UDMF_KEY_BUFFER_LEN}.\n @param keyLen Represents size of key param.\n @return Returns the status code of the execution. See {@link Udmf_ErrCode}.\n         {@link UDMF_E_OK} success.\n         {@link UDMF_E_INVALID_PARAM} The error code for common invalid args.\n         {@link UDMF_ERR} Internal data error.\n             The possible cause is that the server is faulty or the memory is insufficient.\n @see OH_UdmfProperty Udmf_Intention Udmf_ErrCode.\n @since 12"]
+    pub fn OH_Udmf_SetUnifiedData(
+        intention: Udmf_Intention,
+        unifiedData: *mut OH_UdmfData,
+        key: *mut ::std::os::raw::c_char,
+        keyLen: ::std::os::raw::c_uint,
+    ) -> ::std::os::raw::c_int;
+}
+extern "C" {
+    #[doc = " @brief Set {@link OH_UdmfData} data to database with options.\n\n @param options Represents a pointer to an instance of {@link OH_UdmfOptions}.\n @param unifiedData Represents a pointer to an instance of {@link OH_UdmfData}.\n @param key Represents return value after set data to database successfully,\n it's memory size not less than {@link UDMF_KEY_BUFFER_LEN}.\n @param keyLen Represents size of key param.\n @return Returns the status code of the execution. See {@link Udmf_ErrCode}.\n         {@link UDMF_E_OK} success.\n         {@link UDMF_E_INVALID_PARAM} The error code for common invalid args.\n         {@link UDMF_ERR} Internal data error.\n             The possible cause is that the server is faulty or the memory is insufficient.\n @see OH_UdmfOptions OH_UdmfData Udmf_ErrCode.\n @since 20"]
+    #[cfg(feature = "api-20")]
+    pub fn OH_Udmf_SetUnifiedDataByOptions(
+        options: *mut OH_UdmfOptions,
+        unifiedData: *mut OH_UdmfData,
+        key: *mut ::std::os::raw::c_char,
+        keyLen: ::std::os::raw::c_uint,
+    ) -> ::std::os::raw::c_int;
+}
+extern "C" {
+    #[doc = " @brief Update {@link OH_UdmfData} data to database with options.\n\n @param options Represents a pointer to an instance of {@link OH_UdmfOptions}.\n @param unifiedData Represents a pointer to an instance of {@link OH_UdmfData}.\n @return Returns the status code of the execution. See {@link Udmf_ErrCode}.\n         {@link UDMF_E_OK} success.\n         {@link UDMF_E_INVALID_PARAM} The error code for common invalid args.\n         {@link UDMF_ERR} Internal data error.\n             The possible cause is that the server is faulty or the memory is insufficient.\n @see OH_UdmfOptions OH_UdmfData Udmf_ErrCode.\n @since 20"]
+    #[cfg(feature = "api-20")]
+    pub fn OH_Udmf_UpdateUnifiedData(
+        options: *mut OH_UdmfOptions,
+        unifiedData: *mut OH_UdmfData,
+    ) -> ::std::os::raw::c_int;
+}
+extern "C" {
+    #[doc = " @brief Delete {@link OH_UdmfData} data of database with options.\n\n @param options Represents a pointer to an instance of {@link OH_UdmfOptions}.\n @param dataArray Represents output params of {@link OH_UdmfData}.\n     It should be accessed using {@link OH_UDMF_GetDataElementAt} to retrieve elements by index.\n     This pointer needs to be released using the {@link OH_Udmf_DestroyDataArray} function.\n @param dataSize Represents the data count of output params.\n @return Returns the status code of the execution. See {@link Udmf_ErrCode}.\n         {@link UDMF_E_OK} success.\n         {@link UDMF_E_INVALID_PARAM} The error code for common invalid args.\n         {@link UDMF_ERR} Internal data error.\n             The possible cause is that the server is faulty or the memory is insufficient.\n @see OH_UdmfData Udmf_Intention Udmf_ErrCode.\n @since 20"]
+    #[cfg(feature = "api-20")]
+    pub fn OH_Udmf_DeleteUnifiedData(
+        options: *mut OH_UdmfOptions,
+        dataArray: *mut *mut OH_UdmfData,
+        dataSize: *mut ::std::os::raw::c_uint,
+    ) -> ::std::os::raw::c_int;
+}
+extern "C" {
+    #[doc = " @brief Gets the pointer to the element at the specified index from the input array.\n\n @param dataArray A pointer to an array of {@link OH_UdmfData} pointers.\n @param index The index of the desired element. Note that the input index should not exceed the array range.\n @return A pointer to the {@link OH_UdmfData} element at the specified index; returns NULL if the array is NULL.\n @see OH_UdmfData\n @since 22"]
+    #[cfg(feature = "api-22")]
+    pub fn OH_UDMF_GetDataElementAt(
+        dataArray: *mut *mut OH_UdmfData,
+        index: ::std::os::raw::c_uint,
+    ) -> *mut OH_UdmfData;
+}
+extern "C" {
+    #[doc = " @brief Destroy data array memory.\n\n @param dataArray Represents a point to {@link OH_UdmfData}.\n @param dataSize Represents data size in list.\n @see OH_UdmfData\n @since 20"]
+    #[cfg(feature = "api-20")]
+    pub fn OH_Udmf_DestroyDataArray(
+        dataArray: *mut *mut OH_UdmfData,
+        dataSize: ::std::os::raw::c_uint,
+    );
+}
+extern "C" {
+    #[doc = " @brief Gets the progress from the {@OH_Udmf_ProgressInfo}.\n\n @param progressInfo Represents a pointer to an instance of {@link OH_Udmf_ProgressInfo}.\n @return Returns the progress.\n @see OH_Udmf_ProgressInfo\n @since 15"]
+    #[cfg(feature = "api-15")]
+    pub fn OH_UdmfProgressInfo_GetProgress(
+        progressInfo: *mut OH_Udmf_ProgressInfo,
+    ) -> ::std::os::raw::c_int;
+}
+extern "C" {
+    #[doc = " @brief Gets the status from the {@OH_Udmf_ProgressInfo}.\n\n @param progressInfo Represents a pointer to an instance of {@link OH_Udmf_ProgressInfo}.\n @return Returns the status code. See {@link Udmf_ListenerStatus}.\n @see OH_Udmf_ProgressInfo Udmf_ListenerStatus\n @since 15"]
+    #[cfg(feature = "api-15")]
+    pub fn OH_UdmfProgressInfo_GetStatus(
+        progressInfo: *mut OH_Udmf_ProgressInfo,
+    ) -> ::std::os::raw::c_int;
+}
+extern "C" {
+    #[doc = " @brief Creation a pointer to the instance of the {@link OH_UdmfGetDataParams}.\n\n @return If the operation is successful, a pointer to the instance of the {@link OH_UdmfGetDataParams}\n structure is returned. If the operation is failed, nullptr is returned.\n @see OH_UdmfGetDataParams\n @since 15"]
+    #[cfg(feature = "api-15")]
+    pub fn OH_UdmfGetDataParams_Create() -> *mut OH_UdmfGetDataParams;
+}
+extern "C" {
+    #[doc = " @brief Destroy a pointer that points to an instance of {@link OH_UdmfGetDataParams}.\n\n @param pThis Represents a pointer to an instance of {@link OH_UdmfGetDataParams}.\n @see OH_UdmfGetDataParams\n @since 15"]
+    #[cfg(feature = "api-15")]
+    pub fn OH_UdmfGetDataParams_Destroy(pThis: *mut OH_UdmfGetDataParams);
+}
+extern "C" {
+    #[doc = " @brief Sets the destination uri to the {@OH_UdmfGetDataParams}.\n\n @param params Represents a pointer to an instance of {@link OH_UdmfGetDataParams}.\n @param destUri Pointer to a destination uri.\n @see OH_UdmfGetDataParams\n @since 15"]
+    #[cfg(feature = "api-15")]
+    pub fn OH_UdmfGetDataParams_SetDestUri(
+        params: *mut OH_UdmfGetDataParams,
+        destUri: *const ::std::os::raw::c_char,
+    );
+}
+extern "C" {
+    #[doc = " @brief Sets the file conflict options to the {@OH_UdmfGetDataParams}.\n\n @param params Represents a pointer to an instance of {@link OH_UdmfGetDataParams}.\n @param options Represents to the file conflict options.\n @see OH_UdmfGetDataParams Udmf_FileConflictOptions\n @since 15"]
+    #[cfg(feature = "api-15")]
+    pub fn OH_UdmfGetDataParams_SetFileConflictOptions(
+        params: *mut OH_UdmfGetDataParams,
+        options: Udmf_FileConflictOptions,
+    );
+}
+extern "C" {
+    #[doc = " @brief Sets the progress indicator to the {@OH_UdmfGetDataParams}.\n\n @param params Represents a pointer to an instance of {@link OH_UdmfGetDataParams}.\n @param progressIndicator Represents to the progress indicator.\n @see OH_UdmfGetDataParams Udmf_ProgressIndicator\n @since 15"]
+    #[cfg(feature = "api-15")]
+    pub fn OH_UdmfGetDataParams_SetProgressIndicator(
+        params: *mut OH_UdmfGetDataParams,
+        progressIndicator: Udmf_ProgressIndicator,
+    );
+}
+extern "C" {
+    #[doc = " @brief Sets the progress indicator to the {@OH_UdmfGetDataParams}.\n\n @param params Represents a pointer to an instance of {@link OH_UdmfGetDataParams}.\n @param dataProgressListener Represents to the data progress listener.\n @see OH_UdmfGetDataParams OH_Udmf_DataProgressListener\n @since 15"]
+    #[cfg(feature = "api-15")]
+    pub fn OH_UdmfGetDataParams_SetDataProgressListener(
+        params: *mut OH_UdmfGetDataParams,
+        dataProgressListener: OH_Udmf_DataProgressListener,
+    );
+}
+extern "C" {
+    #[doc = " @brief Sets the acceptable info to the {@OH_UdmfGetDataParams}.\n\n @param params Represents a pointer to an instance of {@link OH_UdmfGetDataParams}.\n @param acceptableInfo Represents a pointer to an instance of {@link OH_UdmfDataLoadInfo}.\n @see OH_UdmfGetDataParams OH_UdmfDataLoadInfo\n @since 20"]
+    #[cfg(feature = "api-20")]
+    pub fn OH_UdmfGetDataParams_SetAcceptableInfo(
+        params: *mut OH_UdmfGetDataParams,
+        acceptableInfo: *mut OH_UdmfDataLoadInfo,
+    );
+}
+extern "C" {
+    #[doc = " @brief Creation a pointer to the instance of the {@link OH_UdmfDataLoadParams}.\n\n @return If the operation is successful, a pointer to the instance of the {@link OH_UdmfDataLoadParams}\n structure is returned. If the operation is failed, nullptr is returned.\n @see OH_UdmfDataLoadParams\n @since 20"]
+    #[cfg(feature = "api-20")]
+    pub fn OH_UdmfDataLoadParams_Create() -> *mut OH_UdmfDataLoadParams;
+}
+extern "C" {
+    #[doc = " @brief Destroy a pointer that points to an instance of {@link OH_UdmfDataLoadParams}.\n\n @param pThis Represents a pointer to an instance of {@link OH_UdmfDataLoadParams}.\n @see OH_UdmfDataLoadParams\n @since 20"]
+    #[cfg(feature = "api-20")]
+    pub fn OH_UdmfDataLoadParams_Destroy(pThis: *mut OH_UdmfDataLoadParams);
+}
+extern "C" {
+    #[doc = " @brief Sets the data load handler to the {@OH_UdmfDataLoadParams}.\n\n @param params Represents a pointer to an instance of {@link OH_UdmfDataLoadParams}.\n @param dataLoadHandler Represents to the data load handler.\n @see OH_UdmfDataLoadParams OH_Udmf_DataLoadHandler\n @since 20"]
+    #[cfg(feature = "api-20")]
+    pub fn OH_UdmfDataLoadParams_SetLoadHandler(
+        params: *mut OH_UdmfDataLoadParams,
+        dataLoadHandler: OH_Udmf_DataLoadHandler,
+    );
+}
+extern "C" {
+    #[doc = " @brief Sets the data load info to the {@OH_UdmfDataLoadParams}.\n\n @param params Represents a pointer to an instance of {@link OH_UdmfDataLoadParams}.\n @param dataLoadInfo Represents a pointer to an instance of {@link OH_UdmfDataLoadInfo}.\n @see OH_UdmfDataLoadParams OH_UdmfDataLoadInfo\n @since 20"]
+    #[cfg(feature = "api-20")]
+    pub fn OH_UdmfDataLoadParams_SetDataLoadInfo(
+        params: *mut OH_UdmfDataLoadParams,
+        dataLoadInfo: *mut OH_UdmfDataLoadInfo,
+    );
+}
+extern "C" {
+    #[doc = " @brief Creation a pointer to the instance of the {@link OH_UdmfDataLoadInfo}.\n\n @return If the operation is successful, a pointer to the instance of the {@link OH_UdmfDataLoadInfo}\n structure is returned. If the operation is failed, nullptr is returned.\n @see OH_UdmfDataLoadInfo\n @since 20"]
+    #[cfg(feature = "api-20")]
+    pub fn OH_UdmfDataLoadInfo_Create() -> *mut OH_UdmfDataLoadInfo;
+}
+extern "C" {
+    #[doc = " @brief Destroy the heap memory pointed to by the pointer of {@link OH_UdmfDataLoadInfo}.\n Note that this function cannot be called repeatedly for the same pointer.\n\n @param dataLoadInfo Represents a pointer to an instance of {@link OH_UdmfDataLoadInfo}.\n @see OH_UdmfDataLoadInfo\n @since 20"]
+    #[cfg(feature = "api-20")]
+    pub fn OH_UdmfDataLoadInfo_Destroy(dataLoadInfo: *mut OH_UdmfDataLoadInfo);
+}
+extern "C" {
+    #[doc = " @brief Gets the types from the {@OH_UdmfDataLoadInfo}.\n\n @param dataLoadInfo Represents a pointer to an instance of {@link OH_UdmfDataLoadInfo}.\n @param count the types count of data.\n @return Returns the types of data.\n @see OH_UdmfDataLoadInfo\n @since 20"]
+    #[cfg(feature = "api-20")]
+    pub fn OH_UdmfDataLoadInfo_GetTypes(
+        dataLoadInfo: *mut OH_UdmfDataLoadInfo,
+        count: *mut ::std::os::raw::c_uint,
+    ) -> *mut *mut ::std::os::raw::c_char;
+}
+extern "C" {
+    #[doc = " @brief Sets the data load info to the {@OH_UdmfDataLoadInfo}.\n\n @param dataLoadInfo Represents a pointer to an instance of {@link OH_UdmfDataLoadInfo}.\n @param type Represents the type of data.\n @see OH_UdmfDataLoadInfo\n @since 20"]
+    #[cfg(feature = "api-20")]
+    pub fn OH_UdmfDataLoadInfo_SetType(
+        dataLoadInfo: *mut OH_UdmfDataLoadInfo,
+        type_: *const ::std::os::raw::c_char,
+    );
+}
+extern "C" {
+    #[doc = " @brief Gets the record count from the {@OH_UdmfDataLoadInfo}.\n\n @param dataLoadInfo Represents a pointer to an instance of {@link OH_UdmfDataLoadInfo}.\n @return Returns the record count.\n @see OH_UdmfDataLoadInfo\n @since 20"]
+    #[cfg(feature = "api-20")]
+    pub fn OH_UdmfDataLoadInfo_GetRecordCount(
+        dataLoadInfo: *mut OH_UdmfDataLoadInfo,
+    ) -> ::std::os::raw::c_int;
+}
+extern "C" {
+    #[doc = " @brief Sets the record count to the {@OH_UdmfDataLoadInfo}.\n\n @param dataLoadInfo Represents a pointer to an instance of {@link OH_UdmfDataLoadInfo}.\n @param recordCount Represents the types of data.\n @see OH_UdmfDataLoadInfo\n @since 20"]
+    #[cfg(feature = "api-20")]
+    pub fn OH_UdmfDataLoadInfo_SetRecordCount(
+        dataLoadInfo: *mut OH_UdmfDataLoadInfo,
+        recordCount: ::std::os::raw::c_uint,
+    );
+}
+#[doc = " The drag and drop operation succeeded."]
+pub const ArkUI_DragResult_ARKUI_DRAG_RESULT_SUCCESSFUL: ArkUI_DragResult = 0;
+#[doc = " The drag and drop operation failed."]
+pub const ArkUI_DragResult_ARKUI_DRAG_RESULT_FAILED: ArkUI_DragResult = 1;
+#[doc = " The drag and drop operation was canceled."]
+pub const ArkUI_DragResult_ARKUI_DRAG_RESULT_CANCELED: ArkUI_DragResult = 2;
+#[doc = " @brief Defines an enum for drag results, which are set by the data receiver and transferred by the system to the\n        drag source so that the drag source is aware of the data processing result of the receiver.\n\n @since 12"]
+pub type ArkUI_DragResult = u32;
+#[doc = " Copy."]
+pub const ArkUI_DropOperation_ARKUI_DROP_OPERATION_COPY: ArkUI_DropOperation = 0;
+#[doc = " Cut."]
+pub const ArkUI_DropOperation_ARKUI_DROP_OPERATION_MOVE: ArkUI_DropOperation = 1;
+#[doc = " @brief Defines an enum for data processing modes used when data is dropped, which affects the display of the badge.\n\n @since 12"]
+pub type ArkUI_DropOperation = u32;
+#[doc = " Unknown."]
+pub const ArkUI_PreDragStatus_ARKUI_PRE_DRAG_STATUS_UNKNOWN: ArkUI_PreDragStatus = -1;
+#[doc = " A drag gesture is being detected."]
+pub const ArkUI_PreDragStatus_ARKUI_PRE_DRAG_STATUS_ACTION_DETECTING: ArkUI_PreDragStatus = 0;
+#[doc = " The component is ready to be dragged."]
+pub const ArkUI_PreDragStatus_ARKUI_PRE_DRAG_STATUS_READY_TO_TRIGGER_DRAG: ArkUI_PreDragStatus = 1;
+#[doc = " A lift animation is started."]
+pub const ArkUI_PreDragStatus_ARKUI_PRE_DRAG_STATUS_PREVIEW_LIFT_STARTED: ArkUI_PreDragStatus = 2;
+#[doc = " A lift animation is finished."]
+pub const ArkUI_PreDragStatus_ARKUI_PRE_DRAG_STATUS_PREVIEW_LIFT_FINISHED: ArkUI_PreDragStatus = 3;
+#[doc = " A drop animation is started."]
+pub const ArkUI_PreDragStatus_ARKUI_PRE_DRAG_STATUS_PREVIEW_LANDING_STARTED: ArkUI_PreDragStatus =
+    4;
+#[doc = " A drop animation is finished."]
+pub const ArkUI_PreDragStatus_ARKUI_PRE_DRAG_STATUS_PREVIEW_LANDING_FINISHED: ArkUI_PreDragStatus =
+    5;
+#[doc = " A drop animation is terminated."]
+pub const ArkUI_PreDragStatus_ARKUI_PRE_DRAG_STATUS_CANCELED_BEFORE_DRAG: ArkUI_PreDragStatus = 6;
+#[doc = " @brief Defines an enum for interaction states prior to a drop and drop operation.\n\n @since 12"]
+pub type ArkUI_PreDragStatus = i32;
+#[doc = " The system automatically changes the position of the dragged point based on the scenario and\n scales the drag preview based on set rules."]
+pub const ArkUI_DragPreviewScaleMode_ARKUI_DRAG_PREVIEW_SCALE_AUTO: ArkUI_DragPreviewScaleMode = 0;
+#[doc = " The system does not scale the drag preview."]
+pub const ArkUI_DragPreviewScaleMode_ARKUI_DRAG_PREVIEW_SCALE_DISABLED: ArkUI_DragPreviewScaleMode =
+    1;
+#[doc = " @brief Defines an enum for drag preview scale modes.\n\n @since 12"]
+pub type ArkUI_DragPreviewScaleMode = u32;
+#[doc = " Unknown."]
+pub const ArkUI_DragStatus_ARKUI_DRAG_STATUS_UNKNOWN: ArkUI_DragStatus = -1;
+#[doc = " Started."]
+pub const ArkUI_DragStatus_ARKUI_DRAG_STATUS_STARTED: ArkUI_DragStatus = 0;
+#[doc = " Ended."]
+pub const ArkUI_DragStatus_ARKUI_DRAG_STATUS_ENDED: ArkUI_DragStatus = 1;
+#[doc = " @brief Defines an enum for drag states.\n\n @since 12"]
+pub type ArkUI_DragStatus = i32;
+#[repr(C)]
+#[derive(Debug, Copy, Clone)]
+pub struct ArkUI_NodeEvent {
+    _unused: [u8; 0],
+}
+#[repr(C)]
+#[derive(Debug, Copy, Clone)]
+pub struct ArkUI_DragEvent {
+    _unused: [u8; 0],
+}
+#[repr(C)]
+#[derive(Debug, Copy, Clone)]
+pub struct ArkUI_DragPreviewOption {
+    _unused: [u8; 0],
+}
+#[repr(C)]
+#[derive(Debug, Copy, Clone)]
+pub struct ArkUI_DragAction {
+    _unused: [u8; 0],
+}
+#[repr(C)]
+#[derive(Debug, Copy, Clone)]
+pub struct ArkUI_DragAndDropInfo {
+    _unused: [u8; 0],
+}
+extern "C" {
+    #[doc = " @brief Obtains a <b>ArkUI_DragEvent</b> object from the specified <b>ArkUI_NodeEvent</b> object.\n\n @param nodeEvent Indicates the pointer to an <b>ArkUI_NodeEvent</b> object.\n @return Returns the pointer to an <b>ArkUI_DragEvent</b> object.\n         Returns <b>null</b> if the parameter passed in is invalid or is not a drag-related event.\n @since 12"]
+    pub fn OH_ArkUI_NodeEvent_GetDragEvent(nodeEvent: *mut ArkUI_NodeEvent)
+        -> *mut ArkUI_DragEvent;
+}
+extern "C" {
+    #[doc = " @brief Obtains the interaction state prior to a drop and drop operation.\n\n @param nodeEvent Indicates the pointer to an <b>ArkUI_NodeEvent</b> object.\n @return Returns the interaction state prior to the drop and drop operation.\n @since 12"]
+    pub fn OH_ArkUI_NodeEvent_GetPreDragStatus(
+        nodeEvent: *mut ArkUI_NodeEvent,
+    ) -> ArkUI_PreDragStatus;
+}
+extern "C" {
+    #[doc = " @brief Sets whether to disable the default drop animation.\n The default drop animation is enabled by default and can be disabled to apply a custom drop animation.\n\n @param event Indicates the pointer to an <b>ArkUI_DragEvent</b> object.\n @param disable Indicates whether to disable the default drop animation.\n The value <b>true</b> means to disable the default drop animation, and <b>false</b> means the opposite.\n @return Returns the result code.\n         Returns {@link ARKUI_ERROR_CODE_NO_ERROR} if the operation is successful.\n         Returns {@link ARKUI_ERROR_CODE_PARAM_INVALID} if a parameter error occurs.\n @since 12"]
+    pub fn OH_ArkUI_DragEvent_DisableDefaultDropAnimation(
+        event: *mut ArkUI_DragEvent,
+        disable: bool,
+    ) -> i32;
+}
+extern "C" {
+    #[doc = " @brief Sets the data processing mode.\n\n @param event Indicates the pointer to an <b>ArkUI_DragEvent</b> object.\n @param dropOperation Indicates the data processing mode.\n @return Returns the result code.\n         Returns {@link ARKUI_ERROR_CODE_NO_ERROR} if the operation is successful.\n         Returns {@link ARKUI_ERROR_CODE_PARAM_INVALID} if a parameter error occurs.\n @since 12"]
+    pub fn OH_ArkUI_DragEvent_SetSuggestedDropOperation(
+        event: *mut ArkUI_DragEvent,
+        dropOperation: ArkUI_DropOperation,
+    ) -> i32;
+}
+extern "C" {
+    #[doc = " @brief Sets the result for a drag event.\n\n @param event Indicates the pointer to an <b>ArkUI_DragEvent</b> object.\n @param result Indicates the drag result.\n @return Returns the result code.\n         Returns {@link ARKUI_ERROR_CODE_NO_ERROR} if the operation is successful.\n         Returns {@link ARKUI_ERROR_CODE_PARAM_INVALID} if a parameter error occurs.\n @since 12"]
+    pub fn OH_ArkUI_DragEvent_SetDragResult(
+        event: *mut ArkUI_DragEvent,
+        result: ArkUI_DragResult,
+    ) -> i32;
+}
+extern "C" {
+    #[doc = " @brief Set drag data for a drag event.\n\n @param event Indicates the pointer to an <b>ArkUI_DragEvent</b> object.\n @param data Indicates the drag data.\n @return Returns the result code.\n         Returns {@link ARKUI_ERROR_CODE_NO_ERROR} if the operation is successful.\n         Returns {@link ARKUI_ERROR_CODE_PARAM_INVALID} if a parameter error occurs.\n @since 12"]
+    pub fn OH_ArkUI_DragEvent_SetData(event: *mut ArkUI_DragEvent, data: *mut OH_UdmfData) -> i32;
+}
+extern "C" {
+    #[doc = " @brief Use this method to provide a data loading parameter to the system instead of providing\n a complete data object directly. When the user drags and drops to the target application,\n the system will use this parameter to request data from you. This can greatly improve the efficiency\n of the dragging operation for large amounts of data and the effectiveness of the drop data handling\n in the target application.\n\n This method should be always prioritized over using {@link OH_ArkUI_DragEvent_SetData}.\n See {@link OH_UdmfDataLoadParams_Create} in <b>udmf.h</b> for how to create and prepare the data loading parameter.\n\n [Note]: Please be awared this method is conflict with {@link OH_ArkUI_DragEvent_SetData}, and the system always use\n the last called method as the final result.\n\n @param event Indicates the pointer to an <b>ArkUI_DragEvent</b> object.\n @param dataLoadParams Indicates the data loading parameters which will be used when dropping.\n @return Returns the result code.\n         Returns {@link ARKUI_ERROR_CODE_NO_ERROR} if the operation is successful.\n         Returns {@link ARKUI_ERROR_CODE_PARAM_INVALID} if a parameter error occurs.\n @since 20"]
+    #[cfg(feature = "api-20")]
+    pub fn OH_ArkUI_DragEvent_SetDataLoadParams(
+        event: *mut ArkUI_DragEvent,
+        dataLoadParams: *mut OH_UdmfDataLoadParams,
+    ) -> ArkUI_ErrorCode;
+}
+extern "C" {
+    #[doc = " @brief Obtains the default drag data from a drag event.\n\n @param event Indicates the pointer to an <b>ArkUI_DragEvent</b> object.\n @param data Indicates the pointer to an <b>OH_UdmfData</b> object. The application needs to create a pointer\n             for receiving data by using the {@link OH_UdmfData_Create} method.\n @return Returns the result code.\n         Returns {@link ARKUI_ERROR_CODE_NO_ERROR} if the operation is successful.\n         Returns {@link ARKUI_ERROR_CODE_PARAM_INVALID} if a parameter error occurs.\n @since 12"]
+    pub fn OH_ArkUI_DragEvent_GetUdmfData(
+        event: *mut ArkUI_DragEvent,
+        data: *mut OH_UdmfData,
+    ) -> i32;
+}
+extern "C" {
+    #[doc = " @brief Obtains the number of drag data types from a drag event.\n\n @param event Indicates the pointer to an <b>ArkUI_DragEvent</b> object.\n @param count Indicates the number of drag data types returned.\n @return Returns the result code.\n         Returns {@link ARKUI_ERROR_CODE_NO_ERROR} if the operation is successful.\n         Returns {@link ARKUI_ERROR_CODE_PARAM_INVALID} if a parameter error occurs.\n @since 12"]
+    pub fn OH_ArkUI_DragEvent_GetDataTypeCount(event: *mut ArkUI_DragEvent, count: *mut i32)
+        -> i32;
+}
+extern "C" {
+    #[doc = " @brief Obtains the list of drag data types from a drag event.\n\n @param event Indicates the pointer to an <b>ArkUI_DragEvent</b> object.\n @param eventTypeArray Indicates the list of the drag data types. You need to create a string array first.\n @param length Indicates the total length of the list array. It must be greater than or equal to the number obtained\n        by using {@link OH_ArkUI_DragEvent_GetDataTypeCount}.\n @param maxStrLen Indicates the max string length of drag data types.\n @return Returns the result code.\n         Returns {@link ARKUI_ERROR_CODE_NO_ERROR} if the operation is successful.\n         Returns {@link ARKUI_ERROR_CODE_PARAM_INVALID} if a parameter error occurs.\n         Returns {@link ARKUI_ERROR_CODE_BUFFER_SIZE_ERROR} if the giving buffer is not enough for string copy.\n @since 12"]
+    pub fn OH_ArkUI_DragEvent_GetDataTypes(
+        event: *mut ArkUI_DragEvent,
+        eventTypeArray: *mut *mut ::std::os::raw::c_char,
+        length: i32,
+        maxStrLen: i32,
+    ) -> i32;
+}
+extern "C" {
+    #[doc = " @brief Obtains the drag result from a drag event.\n\n @param event Indicates the pointer to an <b>ArkUI_DragEvent</b> object.\n @param result Indicates the drag result returned.\n @return Returns the result code.\n         Returns {@link ARKUI_ERROR_CODE_NO_ERROR} if the operation is successful.\n         Returns {@link ARKUI_ERROR_CODE_PARAM_INVALID} if a parameter error occurs.\n @since 12"]
+    pub fn OH_ArkUI_DragEvent_GetDragResult(
+        event: *mut ArkUI_DragEvent,
+        result: *mut ArkUI_DragResult,
+    ) -> i32;
+}
+extern "C" {
+    #[doc = " @brief Obtains the drop operation from a drag event.\n\n @param event Indicates the pointer to an <b>ArkUI_DragEvent</b> object.\n @param operation Indicates the drop operation which the data receiver set.\n @return Returns the result code.\n         Returns {@link ARKUI_ERROR_CODE_NO_ERROR} if the operation is successful.\n         Returns {@link ARKUI_ERROR_CODE_PARAM_INVALID} if a parameter error occurs.\n                 Possible causes: 1. The given parameters are null or the given event is not a valid DragEvent.\n @since 12"]
+    pub fn OH_ArkUI_DragEvent_GetDropOperation(
+        event: *mut ArkUI_DragEvent,
+        operation: *mut ArkUI_DropOperation,
+    ) -> i32;
+}
+extern "C" {
+    #[doc = " @brief Obtains the X coordinate of the touch point for a drag preview from a drag event.\n\n @param event Indicates the pointer to an <b>ArkUI_DragEvent</b> object.\n @return Returns the X coordinate of the touch point, in px.\n         Returns the default value <b>0</b> if the input parameter is invalid.\n @since 12"]
+    pub fn OH_ArkUI_DragEvent_GetPreviewTouchPointX(event: *mut ArkUI_DragEvent) -> f32;
+}
+extern "C" {
+    #[doc = " @brief Obtains the Y coordinate of the touch point for a drag preview from a drag event.\n\n @param event Indicates the pointer to an <b>ArkUI_DragEvent</b> object.\n @return Returns the Y coordinate of the touch point, in px.\n         Returns the default value <b>0</b> if the input parameter is invalid.\n @since 12"]
+    pub fn OH_ArkUI_DragEvent_GetPreviewTouchPointY(event: *mut ArkUI_DragEvent) -> f32;
+}
+extern "C" {
+    #[doc = " @brief Obtains the width of a drag preview from a drag event.\n\n @param event Indicates the pointer to an <b>ArkUI_DragEvent</b> object.\n @return Returns the width of the drag preview, in px.\n         Returns the default value <b>0</b> if the input parameter is invalid.\n @since 12"]
+    pub fn OH_ArkUI_DragEvent_GetPreviewRectWidth(event: *mut ArkUI_DragEvent) -> f32;
+}
+extern "C" {
+    #[doc = " @brief Obtains the height of a drag preview from a drag event.\n\n @param event Indicates the pointer to an <b>ArkUI_DragEvent</b> object.\n @return Returns the height of the drag preview, in px.\n         Returns the default value <b>0</b> if the input parameter is invalid.\n @since 12"]
+    pub fn OH_ArkUI_DragEvent_GetPreviewRectHeight(event: *mut ArkUI_DragEvent) -> f32;
+}
+extern "C" {
+    #[doc = " @brief Obtains the X coordinate of the touch point relative to the window from a drag event.\n\n @param event Indicates the pointer to an <b>ArkUI_DragEvent</b> object.\n @return Returns the X coordinate of the touch point relative to the window, in px.\n         Returns the default value <b>0</b> if the input parameter is invalid.\n @since 12"]
+    pub fn OH_ArkUI_DragEvent_GetTouchPointXToWindow(event: *mut ArkUI_DragEvent) -> f32;
+}
+extern "C" {
+    #[doc = " @brief Obtains the Y coordinate of the touch point relative to the window from a drag event.\n\n @param event Indicates the pointer to an <b>ArkUI_DragEvent</b> object.\n @return Returns the Y coordinate of the touch point relative to the window, in px.\n         Returns the default value <b>0</b> if the input parameter is invalid.\n @since 12"]
+    pub fn OH_ArkUI_DragEvent_GetTouchPointYToWindow(event: *mut ArkUI_DragEvent) -> f32;
+}
+extern "C" {
+    #[doc = " @brief Obtains the X coordinate of the touch point relative to the current display from a drag event.\n\n @param event Indicates the pointer to an <b>ArkUI_DragEvent</b> object.\n @return Returns the X coordinate of the touch point relative to the current display, in px.\n         Returns the default value <b>0</b> if the input parameter is invalid.\n @since 12"]
+    pub fn OH_ArkUI_DragEvent_GetTouchPointXToDisplay(event: *mut ArkUI_DragEvent) -> f32;
+}
+extern "C" {
+    #[doc = " @brief Obtains the Y coordinate of the touch point relative to the current display from a drag event.\n\n @param event Indicates the pointer to an <b>ArkUI_DragEvent</b> object.\n @return Returns the Y coordinate of the touch point relative to the current display, in px.\n         Returns the default value <b>0</b> if the input parameter is invalid.\n @since 12"]
+    pub fn OH_ArkUI_DragEvent_GetTouchPointYToDisplay(event: *mut ArkUI_DragEvent) -> f32;
+}
+extern "C" {
+    #[doc = " @brief Obtains the global display X coordinate of the touch point from an <b>ArkUI_DragEvent</b> object.\n\n @param event Pointer to an <b>ArkUI_DragEvent</b> object.\n @return float Global display X coordinate of the touch point, in px.\n         If the input parameter is invalid, the default value <b>0</b> is returned.\n @since 20"]
+    #[cfg(feature = "api-20")]
+    pub fn OH_ArkUI_DragEvent_GetTouchPointXToGlobalDisplay(event: *mut ArkUI_DragEvent) -> f32;
+}
+extern "C" {
+    #[doc = " @brief Obtains the global display Y coordinate of the touch point from an <b>ArkUI_DragEvent</b> object.\n\n @param event Pointer to an <b>ArkUI_DragEvent</b> object.\n @return float Global display Y coordinate of the touch point, in px.\n         If the input parameter is invalid, the default value <b>0</b> is returned.\n @since 20"]
+    #[cfg(feature = "api-20")]
+    pub fn OH_ArkUI_DragEvent_GetTouchPointYToGlobalDisplay(event: *mut ArkUI_DragEvent) -> f32;
+}
+extern "C" {
+    #[doc = " @brief Obtains the dragging velocity along the x-axis.\n\n @param event Indicates the pointer to an <b>ArkUI_DragEvent</b> object.\n @return Returns the dragging velocity along the x-axis, in px.\n         Returns the default value <b>0</b> if the input parameter is invalid.\n @since 12"]
+    pub fn OH_ArkUI_DragEvent_GetVelocityX(event: *mut ArkUI_DragEvent) -> f32;
+}
+extern "C" {
+    #[doc = " @brief Obtains the dragging velocity along the y-axis.\n\n @param event Indicates the pointer to an <b>ArkUI_DragEvent</b> object.\n @return Returns the dragging velocity along the y-axis, in px.\n         Returns the default value <b>0</b> if the input parameter is invalid.\n @since 12"]
+    pub fn OH_ArkUI_DragEvent_GetVelocityY(event: *mut ArkUI_DragEvent) -> f32;
+}
+extern "C" {
+    #[doc = " @brief Obtains the dragging velocity along the main axis.\n\n @param event Indicates the pointer to an <b>ArkUI_DragEvent</b> object.\n @return Returns the dragging velocity along the main axis, in px.\n         Returns the default value <b>0</b> if the input parameter is invalid.\n @since 12"]
+    pub fn OH_ArkUI_DragEvent_GetVelocity(event: *mut ArkUI_DragEvent) -> f32;
+}
+extern "C" {
+    #[doc = " @brief Obtains the pressed status of modifier keys from a drag event.\n\n @param event Indicates the pointer to an <b>ArkUI_DragEvent</b> object.\n @param keys {@link ArkUI_ModifierKeyName} Indicates the returned combination of modifier keys that are\n             currently pressed. The application can determine the pressed modifier keys through bitwise operations.\n @return Returns the result code.\n         Returns {@link ARKUI_ERROR_CODE_NO_ERROR} if the operation is successful.\n         Returns {@link ARKUI_ERROR_CODE_PARAM_INVALID} if a parameter error occurs.\n @since 12"]
+    pub fn OH_ArkUI_DragEvent_GetModifierKeyStates(
+        event: *mut ArkUI_DragEvent,
+        keys: *mut u64,
+    ) -> i32;
+}
+extern "C" {
+    #[doc = " @brief Obtains the display ID of the screen for the specified drag event.\n\n @param event Pointer to an <b>ArkUI_DragEvent</b> object.\n @param displayId Display ID of the event occurs in.\n @return Returns the result code.\n         Returns {@link ARKUI_ERROR_CODE_NO_ERROR} if the operation is successful.\n         Returns {@link ARKUI_ERROR_CODE_PARAM_INVALID} if a parameter error occurs.\n @since 20"]
+    #[cfg(feature = "api-20")]
+    pub fn OH_ArkUI_DragEvent_GetDisplayId(
+        event: *mut ArkUI_DragEvent,
+        displayId: *mut i32,
+    ) -> ArkUI_ErrorCode;
+}
+extern "C" {
+    #[doc = " @brief Request to start the data sync process with the sync option.\n\n @param event Indicates the pointer to an <b>ArkUI_DragEvent</b> object.\n @param options Indicates the pointer to an <b>OH_UdmfGetDataParams</b> object.\n @param key Represents return value after set data to database successfully, it should be not\n            less than {@link UDMF_KEY_BUFFER_LEN}.\n @param keyLen Represents the length of key string.\n @return Returns the result code.\n         Returns {@link ARKUI_ERROR_CODE_NO_ERROR} if the operation is successful.\n         Returns {@link ARKUI_ERROR_CODE_PARAM_INVALID} if a parameter error occurs.\n @since 15"]
+    #[cfg(feature = "api-15")]
+    pub fn OH_ArkUI_DragEvent_StartDataLoading(
+        event: *mut ArkUI_DragEvent,
+        options: *mut OH_UdmfGetDataParams,
+        key: *mut ::std::os::raw::c_char,
+        keyLen: ::std::os::raw::c_uint,
+    ) -> i32;
+}
+extern "C" {
+    #[doc = " @brief Cancel the data sync process.\n\n @param uiContext Indicates the pointer to a UI instance.\n @param key Represents the data key returned by {@link OH_ArkUI_DragEvent_StartDataLoading}.\n @return Returns the result code.\n         Returns {@link ARKUI_ERROR_CODE_NO_ERROR} if the operation is successful.\n         Returns {@link ARKUI_ERROR_CODE_PARAM_INVALID} if a parameter error occurs.\n @since 15"]
+    #[cfg(feature = "api-15")]
+    pub fn OH_ArkUI_CancelDataLoading(
+        uiContext: ArkUI_ContextHandle,
+        key: *const ::std::os::raw::c_char,
+    ) -> i32;
+}
+extern "C" {
+    #[doc = " @brief Sets whether to disable data prefetch process before the onDrop callback executing.\n        The system will retry to getting data until the max time limit (2.4s for now) reaches,\n        this's useful for the cross device draging operation, as the system helps to eliminate\n        the communication instability, but it's redundant for {@link OH_ArkUI_DragEvent_StartDataLoading}\n        method, as it will take care the data fetching with asynchronous mechanism, so must set this\n        field to true if using {@link OH_ArkUI_DragEvent_StartDataLoading} in onDrop to avoid the data is\n        fetched before onDrop executing unexpectedly.\n\n @param node Indicates the pointer to a component node.\n @param disabled Indicates whether to disable the data pre-fetch process, true for disable, false for not.\n @return Returns the result code.\n         Returns {@link ARKUI_ERROR_CODE_NO_ERROR} if the operation is successful.\n         Returns {@link ARKUI_ERROR_CODE_PARAM_INVALID} if a parameter error occurs.\n @since 15"]
+    #[cfg(feature = "api-15")]
+    pub fn OH_ArkUI_DisableDropDataPrefetchOnNode(node: ArkUI_NodeHandle, disabled: bool) -> i32;
+}
+extern "C" {
+    #[doc = " @brief Sets whether to enable strict reporting on drag events.\n        This feature is disabled by default, and you are advised to enable it.\n        If this feature is disabled, the parent component is not notified when an item in it is dragged over its child\n        component. If this feature is enabled, the component is notified of the dragged item's leaving, and the chil\n        component to which the dragged item is dropped is notified of the item's entering. This configuration is\n        related to a specific UI instance. You can pass in a specific component node on the current UI instance\n        for association.\n\n @param node Indicates the pointer to a component node.\n @param enabled Indicates whether to enable strict reporting on drag events.\n @return Returns the result code.\n         Returns {@link ARKUI_ERROR_CODE_NO_ERROR} if the operation is successful.\n         Returns {@link ARKUI_ERROR_CODE_PARAM_INVALID} if a parameter error occurs.\n @since 12"]
+    pub fn OH_ArkUI_SetDragEventStrictReportWithNode(node: ArkUI_NodeHandle, enabled: bool) -> i32;
+}
+extern "C" {
+    #[doc = " @brief Sets whether to enable strict reporting on drag events.\n        This feature is disabled by default, and you are advised to enable it.\n        If this feature is disabled, the parent component is not notified when an item in it is dragged over its child\n        component. If this feature is enabled, the component is notified of the dragged item's leaving, and the child\n        component to which the dragged item is dropped is notified of the item's entering. This configuration is\n        related to a specific UI instance. You can pass in a specific UI instance for association.\n\n @param uiContext Indicates the pointer to a UI instance.\n @param enabled Indicates whether to enable strict reporting on drag events.\n @return Returns the result code.\n         Returns {@link ARKUI_ERROR_CODE_NO_ERROR} if the operation is successful.\n         Returns {@link ARKUI_ERROR_CODE_PARAM_INVALID} if a parameter error occurs.\n @since 12"]
+    pub fn OH_ArkUI_SetDragEventStrictReportWithContext(
+        uiContext: ArkUI_ContextHandle,
+        enabled: bool,
+    ) -> i32;
+}
+extern "C" {
+    #[doc = " @brief Sets the types of data that can be dropped to the specified component. This API resets the settings configured\n        through {@link OH_ArkUI_DisallowNodeAnyDropDataTypes} and {@link OH_ArkUI_AllowNodeAllDropDataTypes}.\n\n @param node Indicates the pointer to a component node.\n @param typesArray Indicates the array of types of data that can be dropped.\n @param count Indicates length of an array.\n @return Returns the result code.\n         Returns {@link ARKUI_ERROR_CODE_NO_ERROR} if the operation is successful.\n         Returns {@link ARKUI_ERROR_CODE_PARAM_INVALID} if a parameter error occurs.\n @since 12"]
+    pub fn OH_ArkUI_SetNodeAllowedDropDataTypes(
+        node: ArkUI_NodeHandle,
+        typesArray: *mut *const ::std::os::raw::c_char,
+        count: i32,
+    ) -> i32;
+}
+extern "C" {
+    #[doc = " @brief Configures the specified component to disallow any data types. This API resets the settings configured through\n        {@link OH_ArkUI_SetNodeAllowedDropDataTypes}.\n\n @param node Indicates the pointer to a component node.\n @return Returns the result code.\n         Returns {@link ARKUI_ERROR_CODE_NO_ERROR} if the operation is successful.\n         Returns {@link ARKUI_ERROR_CODE_PARAM_INVALID} if a parameter error occurs.\n @since 12"]
+    pub fn OH_ArkUI_DisallowNodeAnyDropDataTypes(node: ArkUI_NodeHandle) -> i32;
+}
+extern "C" {
+    #[doc = " @brief Configures the specified component to allow any data types. This API resets the settings configured through\n        {@link OH_ArkUI_SetNodeAllowedDropDataTypes}.\n\n @param node Indicates the pointer to a component node.\n @return Returns the result code.\n         Returns {@link ARKUI_ERROR_CODE_NO_ERROR} if the operation is successful.\n         Returns {@link ARKUI_ERROR_CODE_PARAM_INVALID} if a parameter error occurs.\n @since 12"]
+    pub fn OH_ArkUI_AllowNodeAllDropDataTypes(node: ArkUI_NodeHandle) -> i32;
+}
+extern "C" {
+    #[doc = " @brief Sets whether the specified component is draggable.\n\n @param node Indicates the pointer to a component node.\n @param enabled Indicates whether the component is draggable.\n @return Returns the result code.\n         Returns {@link ARKUI_ERROR_CODE_NO_ERROR} if the operation is successful.\n         Returns {@link ARKUI_ERROR_CODE_PARAM_INVALID} if a parameter error occurs.\n @since 12"]
+    pub fn OH_ArkUI_SetNodeDraggable(node: ArkUI_NodeHandle, enabled: bool) -> i32;
+}
+extern "C" {
+    #[doc = " @brief Sets a custom drag preview for the specified component.\n\n @param node Indicates the pointer to a component node.\n @param preview Indicates the custom drag preview, which is a pixel map.\n @return Returns the result code.\n         Returns {@link ARKUI_ERROR_CODE_NO_ERROR} if the operation is successful.\n         Returns {@link ARKUI_ERROR_CODE_PARAM_INVALID} if a parameter error occurs.\n @since 12"]
+    pub fn OH_ArkUI_SetNodeDragPreview(
+        node: ArkUI_NodeHandle,
+        preview: *mut OH_PixelmapNative,
+    ) -> i32;
+}
+extern "C" {
+    #[doc = " @brief Creates an <b>ArkUI_DragPreviewOption</b> object.\n\n @return Returns the created <b>ArkUI_DragPreviewOption</b> object.\n @since 12"]
+    pub fn OH_ArkUI_CreateDragPreviewOption() -> *mut ArkUI_DragPreviewOption;
+}
+extern "C" {
+    #[doc = " @brief Disposes of a <b>ArkUI_DragPreviewOption</b> object.\n\n @param option Indicates the pointer to an <b>ArkUI_DragPreviewOption</b> object.\n @since 12"]
+    pub fn OH_ArkUI_DragPreviewOption_Dispose(option: *mut ArkUI_DragPreviewOption);
+}
+extern "C" {
+    #[doc = " @brief Sets the scale mode for an <b>ArkUI_DragPreviewOption</b> object.\n\n @param option Indicates the pointer to an <b>ArkUI_DragPreviewOption</b> object.\n @param scaleMode Indicates the scale mode.\n @return Returns the result code.\n         Returns {@link ARKUI_ERROR_CODE_NO_ERROR} if the operation is successful.\n         Returns {@link ARKUI_ERROR_CODE_PARAM_INVALID} if a parameter error occurs.\n @since 12"]
+    pub fn OH_ArkUI_DragPreviewOption_SetScaleMode(
+        option: *mut ArkUI_DragPreviewOption,
+        scaleMode: ArkUI_DragPreviewScaleMode,
+    ) -> i32;
+}
+extern "C" {
+    #[doc = " @brief Sets whether to enable the shadow effect for an <b>ArkUI_DragPreviewOption</b> object.\n        The shadow effect is enabled by default.\n\n @param option Indicates the pointer to an <b>ArkUI_DragPreviewOption</b> object.\n @param enabled Indicates whether to enable the shadow effect.\n @return Returns the result code.\n         Returns {@link ARKUI_ERROR_CODE_NO_ERROR} if the operation is successful.\n         Returns {@link ARKUI_ERROR_CODE_PARAM_INVALID} if a parameter error occurs.\n @since 12"]
+    pub fn OH_ArkUI_DragPreviewOption_SetDefaultShadowEnabled(
+        option: *mut ArkUI_DragPreviewOption,
+        enabled: bool,
+    ) -> i32;
+}
+extern "C" {
+    #[doc = " @brief Sets whether to enable the rounded corner effect for an <b>ArkUI_DragPreviewOption</b> object.\n        The rounded corner effect is enabled by default.\n\n @param option Indicates the pointer to an <b>ArkUI_DragPreviewOption</b> object.\n @param enabled Indicates whether to enable the rounded corner effect.\n @return Returns the result code.\n         Returns {@link ARKUI_ERROR_CODE_NO_ERROR} if the operation is successful.\n         Returns {@link ARKUI_ERROR_CODE_PARAM_INVALID} if a parameter error occurs.\n @since 12"]
+    pub fn OH_ArkUI_DragPreviewOption_SetDefaultRadiusEnabled(
+        option: *mut ArkUI_DragPreviewOption,
+        enabled: bool,
+    ) -> i32;
+}
+extern "C" {
+    #[doc = " @brief Sets whether to enable the badge for an <b>ArkUI_DragPreviewOption</b> object.\n        If this feature is enabled, a badge that contains the number of dragged items is displayed.\n\n @param option Indicates the pointer to an <b>ArkUI_DragPreviewOption</b> object.\n @param enabled Indicates whether to enable badge.\n @return Returns the result code.\n         Returns {@link ARKUI_ERROR_CODE_NO_ERROR} if the operation is successful.\n         Returns {@link ARKUI_ERROR_CODE_PARAM_INVALID} if a parameter error occurs.\n @since 12"]
+    pub fn OH_ArkUI_DragPreviewOption_SetNumberBadgeEnabled(
+        option: *mut ArkUI_DragPreviewOption,
+        enabled: bool,
+    ) -> i32;
+}
+extern "C" {
+    #[doc = " @brief Sets the count on the badge.\n        The settings will overwrite the value in the <b>SetDragPreviewNumberBadgeEnabled</b> API.\n\n @param option Indicates the pointer to an <b>ArkUI_DragPreviewOption</b> object.\n @param forcedNumber Indicates the count on the badge.\n @return Returns the result code.\n         Returns {@link ARKUI_ERROR_CODE_NO_ERROR} if the operation is successful.\n         Returns {@link ARKUI_ERROR_CODE_PARAM_INVALID} if a parameter error occurs.\n @since 12"]
+    pub fn OH_ArkUI_DragPreviewOption_SetBadgeNumber(
+        option: *mut ArkUI_DragPreviewOption,
+        forcedNumber: u32,
+    ) -> i32;
+}
+extern "C" {
+    #[doc = " @brief Sets whether to enable the default animation on a click or touch, it's not used in drag action.\n\n @param option Indicates the pointer to an <b>ArkUI_DragPreviewOption</b> object.\n @param enabled Indicates whether to enable the default animation on a click or touch.\n @return Returns the result code.\n         Returns {@link ARKUI_ERROR_CODE_NO_ERROR} if the operation is successful.\n         Returns {@link ARKUI_ERROR_CODE_PARAM_INVALID} if a parameter error occurs.\n @since 12"]
+    pub fn OH_ArkUI_DragPreviewOption_SetDefaultAnimationBeforeLiftingEnabled(
+        option: *mut ArkUI_DragPreviewOption,
+        enabled: bool,
+    ) -> i32;
+}
+extern "C" {
+    #[doc = " @brief Sets an <b>ArkUI_DragPreviewOption</b> object for the specified component.\n\n @param node Indicates the pointer to a component node.\n @param option Indicates the pointer to an <b>ArkUI_DragPreviewOption</b> object.\n @return Returns the result code.\n         Returns {@link ARKUI_ERROR_CODE_NO_ERROR} if the operation is successful.\n         Returns {@link ARKUI_ERROR_CODE_PARAM_INVALID} if a parameter error occurs.\n @since 12"]
+    pub fn OH_ArkUI_SetNodeDragPreviewOption(
+        node: ArkUI_NodeHandle,
+        option: *mut ArkUI_DragPreviewOption,
+    ) -> i32;
+}
+extern "C" {
+    #[doc = " @brief Creates a drag action object for a UI instance based on the specified component node of the current\n        UI instance.\n\n @param node Indicates the pointer to a component node.\n @return Returns the pointer to the created drag action object; returns null if the operation fails.\n @since 12"]
+    pub fn OH_ArkUI_CreateDragActionWithNode(node: ArkUI_NodeHandle) -> *mut ArkUI_DragAction;
+}
+extern "C" {
+    #[doc = " @brief Creates a drag action object for the specified UI instance.\n\n @param uiContext Indicates the pointer to a UI instance.\n @return Returns the pointer to the created drag action object; returns null if the operation fails.\n @since 12"]
+    pub fn OH_ArkUI_CreateDragActionWithContext(
+        uiContext: ArkUI_ContextHandle,
+    ) -> *mut ArkUI_DragAction;
+}
+extern "C" {
+    #[doc = " @brief Disposes of a drag action object.\n\n @param dragAction Indicates the pointer to the target drag action object.\n @since 12"]
+    pub fn OH_ArkUI_DragAction_Dispose(dragAction: *mut ArkUI_DragAction);
+}
+extern "C" {
+    #[doc = " @brief Sets the pointer ID. If only one finger is operating on the screen, the pointer ID is 0.\n        In general cases, you can set the pointer ID to 0.\n\n @param dragAction Indicates the pointer to the target drag action object.\n @param pointer Indicates the pointer ID. The value ranges from 0 to 9.\n @return Returns the result code.\n         Returns {@link ARKUI_ERROR_CODE_NO_ERROR} if the operation is successful.\n         Returns {@link ARKUI_ERROR_CODE_PARAM_INVALID} if a parameter error occurs.\n @since 12"]
+    pub fn OH_ArkUI_DragAction_SetPointerId(dragAction: *mut ArkUI_DragAction, pointer: i32)
+        -> i32;
+}
+extern "C" {
+    #[doc = " @brief Sets the drag previews for a drag action.\n\n @param dragAction Indicates the pointer to the target drag action object.\n @param pixelmapArray Indicates the array of the drag previews to set, which must be pixel maps.\n @param size Indicates the size of the drag preview array.\n @return Returns the result code.\n         Returns {@link ARKUI_ERROR_CODE_NO_ERROR} if the operation is successful.\n         Returns {@link ARKUI_ERROR_CODE_PARAM_INVALID} if a parameter error occurs.\n @since 12"]
+    pub fn OH_ArkUI_DragAction_SetPixelMaps(
+        dragAction: *mut ArkUI_DragAction,
+        pixelmapArray: *mut *mut OH_PixelmapNative,
+        size: i32,
+    ) -> i32;
+}
+extern "C" {
+    #[doc = " @brief Sets the touch point relative to the upper left corner of the first drag preview (pixel map).\n\n @param dragAction Indicates the pointer to the target drag action object.\n @param x Indicates the X coordinate of the touch point.\n @return Returns the result code.\n         Returns {@link ARKUI_ERROR_CODE_NO_ERROR} if the operation is successful.\n         Returns {@link ARKUI_ERROR_CODE_PARAM_INVALID} if a parameter error occurs.\n @since 12"]
+    pub fn OH_ArkUI_DragAction_SetTouchPointX(dragAction: *mut ArkUI_DragAction, x: f32) -> i32;
+}
+extern "C" {
+    #[doc = " @brief Sets the touch point relative to the upper left corner of the first drag preview (pixel map).\n\n @param dragAction Indicates the pointer to the target drag action object.\n @param y Indicates the Y coordinate of the touch point.\n @return Returns the result code.\n         Returns {@link ARKUI_ERROR_CODE_NO_ERROR} if the operation is successful.\n         Returns {@link ARKUI_ERROR_CODE_PARAM_INVALID} if a parameter error occurs.\n @since 12"]
+    pub fn OH_ArkUI_DragAction_SetTouchPointY(dragAction: *mut ArkUI_DragAction, y: f32) -> i32;
+}
+extern "C" {
+    #[doc = " @brief Sets the drag data.\n\n @param dragAction Indicates the pointer to the target drag action object.\n @param data Indicates the drag data.\n @return Returns the result code.\n         Returns {@link ARKUI_ERROR_CODE_NO_ERROR} if the operation is successful.\n         Returns {@link ARKUI_ERROR_CODE_PARAM_INVALID} if a parameter error occurs.\n @since 12"]
+    pub fn OH_ArkUI_DragAction_SetData(
+        dragAction: *mut ArkUI_DragAction,
+        data: *mut OH_UdmfData,
+    ) -> i32;
+}
+extern "C" {
+    #[doc = " @brief Use this method to provide a data loading parameter to the system instead of providing\n a complete data object directly. When the user drags and drops to the target application,\n the system will use this parameter to request data from you. This can greatly improve the efficiency\n of the dragging operation for large amounts of data and the effectiveness of the drop data handling\n in the target application.\n\n It's recommanded to use this method instead of using {@link OH_ArkUI_DragAction_SetData}.\n See {@link OH_UdmfDataLoadParams_Create} in <b>udmf.h</b> for how to create and prepare the data loading parameter.\n\n [Note]: Please be awared this method is conflict with {@link OH_ArkUI_DragAction_SetData}, and the system always use\n the last called method as the final result.\n\n @param dragAction Indicates the pointer to the target drag action object.\n @param dataLoadParams Indicates the data loading parameters which will be used when dropping.\n @return Returns the result code.\n         Returns {@link ARKUI_ERROR_CODE_NO_ERROR} if the operation is successful.\n         Returns {@link ARKUI_ERROR_CODE_PARAM_INVALID} if a parameter error occurs.\n @since 20"]
+    #[cfg(feature = "api-20")]
+    pub fn OH_ArkUI_DragAction_SetDataLoadParams(
+        dragAction: *mut ArkUI_DragAction,
+        dataLoadParams: *mut OH_UdmfDataLoadParams,
+    ) -> ArkUI_ErrorCode;
+}
+extern "C" {
+    #[doc = " @brief Sets an <b>ArkUI_DragPreviewOption</b> object for the specified drag action object.\n\n @param dragAction Indicates the pointer to the target drag action object.\n @param option Indicates the pointer to an <b>ArkUI_DragPreviewOption</b> object.\n @return Returns the result code.\n         Returns {@link ARKUI_ERROR_CODE_NO_ERROR} if the operation is successful.\n         Returns {@link ARKUI_ERROR_CODE_PARAM_INVALID} if a parameter error occurs.\n @since 12"]
+    pub fn OH_ArkUI_DragAction_SetDragPreviewOption(
+        dragAction: *mut ArkUI_DragAction,
+        option: *mut ArkUI_DragPreviewOption,
+    ) -> i32;
+}
+extern "C" {
+    #[doc = " @brief Registers a drag status listener.\n        This listener can be used to check whether the data is successfully  received and processed.\n\n @param dragAction Indicates the pointer to the target drag action object.\n @param userData Indicates the custom user data.\n @param listener\n Indicates the listener to register. When the callback is invoked, the system returns a pointer to the drag status\n object. The pointer is destroyed after the callback is complete and the application should not hold it anymore.\n @return Returns the result code.\n         Returns {@link ARKUI_ERROR_CODE_NO_ERROR} if the operation is successful.\n         Returns {@link ARKUI_ERROR_CODE_PARAM_INVALID} if a parameter error occurs.\n @since 12"]
+    pub fn OH_ArkUI_DragAction_RegisterStatusListener(
+        dragAction: *mut ArkUI_DragAction,
+        userData: *mut ::std::os::raw::c_void,
+        listener: ::std::option::Option<
+            unsafe extern "C" fn(
+                dragAndDropInfo: *mut ArkUI_DragAndDropInfo,
+                userData: *mut ::std::os::raw::c_void,
+            ),
+        >,
+    ) -> i32;
+}
+extern "C" {
+    #[doc = " @brief Unregisters a drag status listener.\n\n @param dragAction Indicates the pointer to the target drag action object.\n @since 12"]
+    pub fn OH_ArkUI_DragAction_UnregisterStatusListener(dragAction: *mut ArkUI_DragAction);
+}
+extern "C" {
+    #[doc = " @brief Obtains the drag status of a drag action.\n\n @param dragAndDropInfo Indicates the drag and drop information returned by the drag status listener.\n @return Returns an <b>ArkUI_DragStatus</b> object; returns <b>ArkUI_DRAG_STATUS_UNKNOWN</b> if an error occurs.\n @since 12"]
+    pub fn OH_ArkUI_DragAndDropInfo_GetDragStatus(
+        dragAndDropInfo: *mut ArkUI_DragAndDropInfo,
+    ) -> ArkUI_DragStatus;
+}
+extern "C" {
+    #[doc = " @brief Obtains a drag event based on the specified drag and drop information.\n        The drag event can then be used to obtain the drag result and the drag behavior, please note\n        other info is not included in such a drag event.\n\n @param dragAndDropInfo Indicates the drag and drop information returned by the drag status listener.\n @return Returns an <b>ArkUI_DragEvent</b> object; returns null if an error occurs.\n @since 12"]
+    pub fn OH_ArkUI_DragAndDropInfo_GetDragEvent(
+        dragAndDropInfo: *mut ArkUI_DragAndDropInfo,
+    ) -> *mut ArkUI_DragEvent;
+}
+extern "C" {
+    #[doc = " @brief Initiates a drag action through the specified drag action object.\n\n @param dragAction Indicates a drag action object.\n @return Returns the result code.\n         Returns {@link ARKUI_ERROR_CODE_NO_ERROR} if the operation is successful.\n         Returns {@link ARKUI_ERROR_CODE_PARAM_INVALID} if a parameter error occurs.\n @since 12"]
+    pub fn OH_ArkUI_StartDrag(dragAction: *mut ArkUI_DragAction) -> i32;
+}
+extern "C" {
+    #[doc = " @brief Request to delay the drop end handling for a while to wait until the process result\n        is really conformed by application, the result need to be notified back to system through\n        {@link OH_ArkUI_NotifyDragResult} interface. And when all the handling done, the\n        {@link OH_ArkUI_NotifyDragEndPendingDone} should be called.\n        Please be aware, the maximum pending time is 2 seconds;\n\n @param event Indicates the pointer to an <b>ArkUI_DragEvent</b> object.\n @param requestIdentify Indicates the Identify for the request initiated by this method, it's a number generated\nby system automatically, and it's an out parameter too, so one valid address needed.\n @return Returns the result code.\n         Returns {@link ARKUI_ERROR_CODE_NO_ERROR} if the operation is successful.\n         Returns {@link ARKUI_ERROR_CODE_PARAM_INVALID} if a parameter error occurs.\n         Returns {@link ARKUI_ERROR_CODE_DRAG_DROP_OPERATION_NOT_ALLOWED} if current is not during the drop handing.\n @since 19"]
+    #[cfg(feature = "api-19")]
+    pub fn OH_ArkUI_DragEvent_RequestDragEndPending(
+        event: *mut ArkUI_DragEvent,
+        requestIdentify: *mut i32,
+    ) -> i32;
+}
+extern "C" {
+    #[doc = " @brief Notify the system final drag result, the request identify will be checked, it should be the same\n        as the one returned by {@link OH_ArkUI_DragEvent_RequestDragEndPending} interface, if it's not,\n        the calling will be ignored.\n\n @param requestIdentify The identify returned by {@link OH_ArkUI_DragEvent_RequestDragEndPending} interface.\n @param result Indicates the drag result.\n @return Returns the result code.\n         Returns {@link ARKUI_ERROR_CODE_NO_ERROR} if the operation is successful.\n         Returns {@link ARKUI_ERROR_CODE_PARAM_INVALID} if a parameter error occurs.\n         Returns {@link ARKUI_ERROR_CODE_DRAG_DROP_OPERATION_NOT_ALLOWED} if current is not during the drop handing.\n @since 19"]
+    #[cfg(feature = "api-19")]
+    pub fn OH_ArkUI_NotifyDragResult(requestIdentify: i32, result: ArkUI_DragResult) -> i32;
+}
+extern "C" {
+    #[doc = " @brief Notify the system all handling done, the drag end pending can be finished.\n\n @param requestIdentify The identify returned by {@link OH_ArkUI_DragEvent_RequestDragEndPending} interface.\n @return Returns the result code.\n         Returns {@link ARKUI_ERROR_CODE_NO_ERROR} if the operation is successful.\n         Returns {@link ARKUI_ERROR_CODE_PARAM_INVALID} if a parameter error occurs.\n         Returns {@link ARKUI_ERROR_CODE_DRAG_DROP_OPERATION_NOT_ALLOWED} if current is not during the drop handing.\n @since 19"]
+    #[cfg(feature = "api-19")]
+    pub fn OH_ArkUI_NotifyDragEndPendingDone(requestIdentify: i32) -> i32;
+}
+extern "C" {
+    #[doc = " @brief Use this method to obtain the application bundle name of the drag-and-drop initiator, you need\n  to pass a character array for receiving the string and explicitly specify the array length. It is\n  recommended that the array length be no less than 128 characters. If the length cannot accommodate\n  the actual bundle name length, the ERROR result will be returned.\n @param event Indicates the pointer to an <b>ArkUI_DragEvent</b> object.\n @param bundleName A string array used to receive the source application's bundle name.\n @param length Use this to explicitly specify the length of the incoming string array.\n  It is recommended to be bigger than 128.\n @return Returns the result code.\n         Returns {@link ARKUI_ERROR_CODE_NO_ERROR} if the operation is successful.\n         Returns {@link ARKUI_ERROR_CODE_PARAM_INVALID} if a parameter error occurs.\n @since 20"]
+    #[cfg(feature = "api-20")]
+    pub fn OH_ArkUI_DragEvent_GetDragSource(
+        event: *mut ArkUI_DragEvent,
+        bundleName: *mut ::std::os::raw::c_char,
+        length: i32,
+    ) -> ArkUI_ErrorCode;
+}
+extern "C" {
+    #[doc = " @brief Call this method to determine whether the current drag and drop operation is cross-device.\n\n @param event Indicates the pointer to an <b>ArkUI_DragEvent</b> object.\n @param isRemote Boolean pointer to receive the result.\n @return Returns the result code.\n         Returns {@link ARKUI_ERROR_CODE_NO_ERROR} if the operation is successful.\n         Returns {@link ARKUI_ERROR_CODE_PARAM_INVALID} if a parameter error occurs.\n @since 20"]
+    #[cfg(feature = "api-20")]
+    pub fn OH_ArkUI_DragEvent_IsRemote(
+        event: *mut ArkUI_DragEvent,
+        isRemote: *mut bool,
+    ) -> ArkUI_ErrorCode;
+}
+extern "C" {
+    #[doc = " @brief Sets whether to enable the display of a disallow status icon.\n\n Typically, when a component can receive or process data dragged by the user, or when it declares to the\n system that data should be processed in COPY way by setting ARKUI_DROP_OPERATION_COPY through\n {@link OH_ArkUI_DragEvent_SetSuggestedDropOperation}, the system will display\n a plus sign together with the data number on the upper-left corner of the dragged object; if setting\n ARKUI_DROP_OPERATION_MOVE to the system to declare that data should be processed in CUT way, the system will only\n display the data number on the upper-left corner of the dragged object.\n\n In some cases, when the system determines or the component explicitly declares that it cannot handle the\n data that the user is dragging, the system displays a badge icon in the same way as it does for DragBehavior.MOVE.\n So if you want to show the more clearly status, you can call this method on the UI instance in advance to force\n the system to display a clear prohibition icon on the upper left corner in such cases, and the user can clearly\n know that data cannot be dropped here.\n\n @param uiContext Pointer to a UI instance.\n @param enabled Whether to enable the display of the disallow badge icon.\n @return Returns the result code.\n         Returns {@link ARKUI_ERROR_CODE_NO_ERROR} if the operation is successful.\n         Returns {@link ARKUI_ERROR_CODE_PARAM_INVALID} if a parameter error occurs.\n @since 20"]
+    #[cfg(feature = "api-20")]
+    pub fn OH_ArkUI_EnableDropDisallowedBadge(
+        uiContext: ArkUI_ContextHandle,
+        enabled: bool,
+    ) -> ArkUI_ErrorCode;
+}
+extern "C" {
+    #[doc = " @brief Attach application to the input method service.\n\n @param textEditorProxy Represents a pointer to an {@link InputMethod_TextEditorProxy} instance.\n     The caller needs to manage the lifecycle of textEditorProxy.\n     If the call succeeds, caller cannot release textEditorProxy until the next attach or detach call.\n @param options Represents a pointer to an {@link InputMethod_AttachOptions} instance.\n     The options when attaching input method.\n @param inputMethodProxy Represents a pointer to an {@link InputMethod_InputMethodProxy} instance.\n     Lifecycle is maintained until the next attach or detach call.\n @return Returns a specific error code.\n     {@link IME_ERR_OK} - success.\n     {@link IME_ERR_PARAMCHECK} - parameter check failed.\n     {@link IME_ERR_IMCLIENT} - input method client error.\n     {@link IME_ERR_IMMS} - input method manager service error.\n     {@link IME_ERR_NULL_POINTER} - unexpected null pointer.\n Specific error codes can be referenced {@link InputMethod_ErrorCode}.\n @since 12"]
     pub fn OH_InputMethodController_Attach(
+        textEditorProxy: *mut InputMethod_TextEditorProxy,
+        options: *mut InputMethod_AttachOptions,
+        inputMethodProxy: *mut *mut InputMethod_InputMethodProxy,
+    ) -> InputMethod_ErrorCode;
+}
+extern "C" {
+    #[doc = " @brief Attach application to the input method service.\n\n @param context UIContext pointer of the page where the attach will be performed.\n @param textEditorProxy Represents a pointer to an {@link InputMethod_TextEditorProxy} instance.\n     The caller needs to manage the lifecycle of textEditorProxy.\n     If the call succeeds, caller cannot release textEditorProxy until the next attach or detach call.\n @param options Represents a pointer to an {@link InputMethod_AttachOptions} instance.\n     The options when attaching input method.\n @param inputMethodProxy Represents a pointer to an {@link InputMethod_InputMethodProxy} instance.\n     Lifecycle is maintained until the next attach or detach call.\n @return Returns a specific error code.\n     {@link IME_ERR_OK} - success.\n     {@link IME_ERR_PARAMCHECK} - parameter check failed.\n     {@link IME_ERR_IMCLIENT} - input method client error.\n     {@link IME_ERR_IMMS} - input method manager service error.\n     {@link IME_ERR_NULL_POINTER} - unexpected null pointer.\n Specific error codes can be referenced {@link InputMethod_ErrorCode}.\n @since 23"]
+    #[cfg(feature = "api-23")]
+    pub fn OH_InputMethodController_AttachWithUIContext(
+        context: ArkUI_ContextHandle,
         textEditorProxy: *mut InputMethod_TextEditorProxy,
         options: *mut InputMethod_AttachOptions,
         inputMethodProxy: *mut *mut InputMethod_InputMethodProxy,

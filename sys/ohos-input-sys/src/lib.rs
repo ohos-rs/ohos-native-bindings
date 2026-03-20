@@ -2157,6 +2157,64 @@ extern "C" {
     ) -> Input_Result;
 }
 extern "C" {
+    #[doc = " @brief Creates a cursor info object.\n\n @return Returns an {@link Input_CursorInfo} cursor object if the operation is successful.\n         Otherwise, a null cursor is returned. The possible cause is memory allocation failure.\n @since 22"]
+    #[cfg(feature = "api-22")]
+    pub fn OH_Input_CursorInfo_Create() -> *mut Input_CursorInfo;
+}
+extern "C" {
+    #[doc = " @brief Destroys a cursor info object.\n\n @param cursorInfo Cursor info object.\n @since 22"]
+    #[cfg(feature = "api-22")]
+    pub fn OH_Input_CursorInfo_Destroy(cursorInfo: *mut *mut Input_CursorInfo);
+}
+extern "C" {
+    #[doc = " @brief Obtains the cursor visibility of the cursorInfo.\n\n @param cursorInfo Cursor info object.\n @param visible Visibility of the cursorInfo.\n @return OH_Input_CursorInfo_IsVisible function api result code\n         {@link INPUT_SUCCESS} if the operation is successful;\n         {@link INPUT_PARAMETER_ERROR} if parameter is a null cursor;\n @since 22"]
+    #[cfg(feature = "api-22")]
+    pub fn OH_Input_CursorInfo_IsVisible(
+        cursorInfo: *mut Input_CursorInfo,
+        visible: *mut bool,
+    ) -> Input_Result;
+}
+extern "C" {
+    #[doc = " @brief Obtains the cursor style of the cursorInfo.\n\n @param cursorInfo Cursor info object.\n @param style Cursor style of the cursorInfo.\n @return OH_Input_CursorInfo_GetStyle function api result code\n         {@link INPUT_SUCCESS} if the operation is successful;\n         {@link INPUT_PARAMETER_ERROR} if parameter is a null cursor or the cursor is invisible;\n @since 22"]
+    #[cfg(feature = "api-22")]
+    pub fn OH_Input_CursorInfo_GetStyle(
+        cursorInfo: *mut Input_CursorInfo,
+        style: *mut Input_PointerStyle,
+    ) -> Input_Result;
+}
+extern "C" {
+    #[doc = " @brief Obtains the cursor sizeLevel of the cursorInfo.\n\n @param cursorInfo Cursor info object.\n @param sizeLevel Cursor size level of the cursorInfo.\n @return OH_Input_CursorInfo_GetSizeLevel function api result code\n         {@link INPUT_SUCCESS} if the operation is successful;\n         {@link INPUT_PARAMETER_ERROR} if parameter is a null cursor or the cursor is invisible;\n @since 22"]
+    #[cfg(feature = "api-22")]
+    pub fn OH_Input_CursorInfo_GetSizeLevel(
+        cursorInfo: *mut Input_CursorInfo,
+        sizeLevel: *mut i32,
+    ) -> Input_Result;
+}
+extern "C" {
+    #[doc = " @brief Obtains the cursor color of the cursorInfo represented as a 32-bit ARGB integer.\n\n @param cursorInfo Cursor info object.\n @param color Cursor color of the cursorInfo represented as a 32-bit ARGB integer.\n @return OH_Input_CursorInfo_GetColor function api result code\n         {@link INPUT_SUCCESS} if the operation is successful;\n         {@link INPUT_PARAMETER_ERROR} if parameter is a null cursor or the cursor is invisible;\n @since 22"]
+    #[cfg(feature = "api-22")]
+    pub fn OH_Input_CursorInfo_GetColor(
+        cursorInfo: *mut Input_CursorInfo,
+        color: *mut u32,
+    ) -> Input_Result;
+}
+extern "C" {
+    #[doc = " @brief Get cursor info of the mouseEvent.\n\n @param mouseEvent The received mouseEvent.\n @param cursorInfo The object to receive the cursor info.\n @return OH_Input_GetMouseEventCursorInfo function api result code\n         {@link INPUT_SUCCESS} if the operation is successful;\n         {@link INPUT_PARAMETER_ERROR} if parameter is a null cursor;\n @since 22"]
+    #[cfg(feature = "api-22")]
+    pub fn OH_Input_GetMouseEventCursorInfo(
+        mouseEvent: *const Input_MouseEvent,
+        cursorInfo: *mut Input_CursorInfo,
+    ) -> Input_Result;
+}
+extern "C" {
+    #[doc = " @brief Retrieves cursor information. If the pixelmap parameter is specified, and the cursor is user-defined type\n currently, the cursor's pixelmap will be returned along with it.\n\n @param cursorInfo The object to receive the cursor info.\n @param pixelmap The object to receive the cursor pixelmap, null value will be ignored.\n @return OH_Input_GetCursorInfo function api result code\n         {@link INPUT_SUCCESS} if the operation is successful;\n         {@link INPUT_PARAMETER_ERROR} if parameter is a null cursor;\n         {@link INPUT_SERVICE_EXCEPTION} if the service is exception.\n @since 22"]
+    #[cfg(feature = "api-22")]
+    pub fn OH_Input_GetCursorInfo(
+        cursorInfo: *mut Input_CursorInfo,
+        pixelmap: *mut *mut OH_PixelmapNative,
+    ) -> Input_Result;
+}
+extern "C" {
     #[doc = " @brief Sets the visible status of the mouse pointer.\n\n @param visible Whether the mouse pointer is visible. The value true indicates that the pointer\n @return OH_Input_SetPointerVisible function api result code\n         {@link INPUT_SUCCESS} if the operation is successful;\n         {@link INPUT_DEVICE_NOT_SUPPORTED} if the device is not supported.\n         {@link INPUT_SERVICE_EXCEPTION} if the service is exception.\n @since 22"]
     #[cfg(feature = "api-22")]
     pub fn OH_Input_SetPointerVisible(visible: bool) -> Input_Result;
@@ -2227,63 +2285,5 @@ extern "C" {
         windowId: i32,
         customCursor: *mut Input_CustomCursor,
         cursorConfig: *mut Input_CursorConfig,
-    ) -> Input_Result;
-}
-extern "C" {
-    #[doc = " @brief Creates a cursor info object.\n\n @return Returns an {@link Input_CursorInfo} cursor object if the operation is successful.\n         Otherwise, a null cursor is returned. The possible cause is memory allocation failure.\n @since 22"]
-    #[cfg(feature = "api-22")]
-    pub fn OH_Input_CursorInfo_Create() -> *mut Input_CursorInfo;
-}
-extern "C" {
-    #[doc = " @brief Destroys a cursor info object.\n\n @param cursorInfo Cursor info object.\n @since 22"]
-    #[cfg(feature = "api-22")]
-    pub fn OH_Input_CursorInfo_Destroy(cursorInfo: *mut *mut Input_CursorInfo);
-}
-extern "C" {
-    #[doc = " @brief Obtains the cursor visibility of the cursorInfo.\n\n @param cursorInfo Cursor info object.\n @param visible Visibility of the cursorInfo.\n @return OH_Input_CursorInfo_IsVisible function api result code\n         {@link INPUT_SUCCESS} if the operation is successful;\n         {@link INPUT_PARAMETER_ERROR} if parameter is a null cursor;\n @since 22"]
-    #[cfg(feature = "api-22")]
-    pub fn OH_Input_CursorInfo_IsVisible(
-        cursorInfo: *mut Input_CursorInfo,
-        visible: *mut bool,
-    ) -> Input_Result;
-}
-extern "C" {
-    #[doc = " @brief Obtains the cursor style of the cursorInfo.\n\n @param cursorInfo Cursor info object.\n @param style Cursor style of the cursorInfo.\n @return OH_Input_CursorInfo_GetStyle function api result code\n         {@link INPUT_SUCCESS} if the operation is successful;\n         {@link INPUT_PARAMETER_ERROR} if parameter is a null cursor or the cursor is invisible;\n @since 22"]
-    #[cfg(feature = "api-22")]
-    pub fn OH_Input_CursorInfo_GetStyle(
-        cursorInfo: *mut Input_CursorInfo,
-        style: *mut Input_PointerStyle,
-    ) -> Input_Result;
-}
-extern "C" {
-    #[doc = " @brief Obtains the cursor sizeLevel of the cursorInfo.\n\n @param cursorInfo Cursor info object.\n @param sizeLevel Cursor size level of the cursorInfo.\n @return OH_Input_CursorInfo_GetSizeLevel function api result code\n         {@link INPUT_SUCCESS} if the operation is successful;\n         {@link INPUT_PARAMETER_ERROR} if parameter is a null cursor or the cursor is invisible;\n @since 22"]
-    #[cfg(feature = "api-22")]
-    pub fn OH_Input_CursorInfo_GetSizeLevel(
-        cursorInfo: *mut Input_CursorInfo,
-        sizeLevel: *mut i32,
-    ) -> Input_Result;
-}
-extern "C" {
-    #[doc = " @brief Obtains the cursor color of the cursorInfo represented as a 32-bit ARGB integer.\n\n @param cursorInfo Cursor info object.\n @param color Cursor color of the cursorInfo represented as a 32-bit ARGB integer.\n @return OH_Input_CursorInfo_GetColor function api result code\n         {@link INPUT_SUCCESS} if the operation is successful;\n         {@link INPUT_PARAMETER_ERROR} if parameter is a null cursor or the cursor is invisible;\n @since 22"]
-    #[cfg(feature = "api-22")]
-    pub fn OH_Input_CursorInfo_GetColor(
-        cursorInfo: *mut Input_CursorInfo,
-        color: *mut u32,
-    ) -> Input_Result;
-}
-extern "C" {
-    #[doc = " @brief Get cursor info of the mouseEvent.\n\n @param mouseEvent The received mouseEvent.\n @param cursorInfo The object to receive the cursor info.\n @return OH_Input_GetMouseEventCursorInfo function api result code\n         {@link INPUT_SUCCESS} if the operation is successful;\n         {@link INPUT_PARAMETER_ERROR} if parameter is a null cursor;\n @since 22"]
-    #[cfg(feature = "api-22")]
-    pub fn OH_Input_GetMouseEventCursorInfo(
-        mouseEvent: *const Input_MouseEvent,
-        cursorInfo: *mut Input_CursorInfo,
-    ) -> Input_Result;
-}
-extern "C" {
-    #[doc = " @brief Retrieves cursor information. If the pixelmap parameter is specified, and the cursor is user-defined type\n currently, the cursor's pixelmap will be returned along with it.\n\n @param cursorInfo The object to receive the cursor info.\n @param pixelmap The object to receive the cursor pixelmap, null value will be ignored.\n @return OH_Input_GetCursorInfo function api result code\n         {@link INPUT_SUCCESS} if the operation is successful;\n         {@link INPUT_PARAMETER_ERROR} if parameter is a null cursor;\n         {@link INPUT_SERVICE_EXCEPTION} if the service is exception.\n @since 22"]
-    #[cfg(feature = "api-22")]
-    pub fn OH_Input_GetCursorInfo(
-        cursorInfo: *mut Input_CursorInfo,
-        pixelmap: *mut *mut OH_PixelmapNative,
     ) -> Input_Result;
 }

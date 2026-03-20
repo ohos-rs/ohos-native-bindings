@@ -623,14 +623,17 @@ unsafe extern "C" fn water_flow_main_size_callback_trampoline(
     (callback.callback)(item_index)
 }
 
+pub use ohos_image_native_binding::PixelMapNativeHandle;
+
 /// Wrapper for drawable descriptor handles.
 pub struct DrawableDescriptor {
     raw: NonNull<ArkUI_DrawableDescriptor>,
 }
 
 impl DrawableDescriptor {
-    pub fn from_pixel_map(pixel_map: OH_PixelmapNativeHandle) -> ArkUIResult<Self> {
-        let descriptor = unsafe { OH_ArkUI_DrawableDescriptor_CreateFromPixelMap(pixel_map) };
+    pub fn from_pixel_map(pixel_map: PixelMapNativeHandle) -> ArkUIResult<Self> {
+        let descriptor =
+            unsafe { OH_ArkUI_DrawableDescriptor_CreateFromPixelMap(pixel_map.as_raw().cast()) };
         NonNull::new(descriptor)
             .map(|raw| Self::from_raw(raw.as_ptr()))
             .ok_or_else(|| {
@@ -641,18 +644,20 @@ impl DrawableDescriptor {
             })
     }
 
-    pub fn from_animated_pixel_map(
-        pixel_map_array: &mut [OH_PixelmapNativeHandle],
-    ) -> ArkUIResult<Self> {
-        let array_ptr = if pixel_map_array.is_empty() {
+    pub fn from_animated_pixel_map(pixel_map_array: &[PixelMapNativeHandle]) -> ArkUIResult<Self> {
+        let mut raw_pixel_map_array: Vec<OH_PixelmapNativeHandle> = pixel_map_array
+            .iter()
+            .map(|pixel_map| pixel_map.as_raw().cast())
+            .collect();
+        let array_ptr = if raw_pixel_map_array.is_empty() {
             std::ptr::null_mut()
         } else {
-            pixel_map_array.as_mut_ptr()
+            raw_pixel_map_array.as_mut_ptr()
         };
         let descriptor = unsafe {
             OH_ArkUI_DrawableDescriptor_CreateFromAnimatedPixelMap(
                 array_ptr,
-                pixel_map_array.len() as i32,
+                raw_pixel_map_array.len() as i32,
             )
         };
         NonNull::new(descriptor)
@@ -683,11 +688,13 @@ impl DrawableDescriptor {
         unsafe { OH_ArkUI_DrawableDescriptor_Dispose(self.raw()) }
     }
 
-    pub fn get_static_pixel_map(&self) -> OH_PixelmapNativeHandle {
-        unsafe { OH_ArkUI_DrawableDescriptor_GetStaticPixelMap(self.raw()) }
+    pub fn get_static_pixel_map(&self) -> Option<PixelMapNativeHandle> {
+        PixelMapNativeHandle::from_raw(
+            unsafe { OH_ArkUI_DrawableDescriptor_GetStaticPixelMap(self.raw()) }.cast(),
+        )
     }
 
-    pub fn get_animated_pixel_maps(&self) -> Vec<OH_PixelmapNativeHandle> {
+    pub fn get_animated_pixel_maps(&self) -> Vec<PixelMapNativeHandle> {
         let size = self.get_animated_pixel_map_array_size();
         if size <= 0 {
             return Vec::new();
@@ -697,7 +704,10 @@ impl DrawableDescriptor {
             return Vec::new();
         }
         let size = size as usize;
-        unsafe { std::slice::from_raw_parts(ptr, size).to_vec() }
+        unsafe { std::slice::from_raw_parts(ptr, size) }
+            .iter()
+            .filter_map(|pixel_map| PixelMapNativeHandle::from_raw((*pixel_map).cast()))
+            .collect()
     }
 
     pub fn get_animated_pixel_map_array_size(&self) -> i32 {

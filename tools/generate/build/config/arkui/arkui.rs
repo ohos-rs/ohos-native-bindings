@@ -2,7 +2,8 @@ use once_cell::sync::Lazy;
 
 use crate::config::SysConfig;
 
-pub const ARKUI: Lazy<SysConfig> = Lazy::new(|| SysConfig {
+pub const ARKUI: Lazy<SysConfig> = Lazy::new(|| {
+    SysConfig {
     name: "ohos-arkui-sys",
     headers: vec![
         "arkui/drag_and_drop.h",
@@ -24,7 +25,10 @@ pub const ARKUI: Lazy<SysConfig> = Lazy::new(|| SysConfig {
         ".*UIInputEvent.*",
         "ArkUI_NodeHandle",
         "ArkUI_Node",
+        "OH_NativeBuffer",
+        "OH_PixelmapNative",
     ],
     dynamic_library: vec!["ace_ndk.z"],
-    extra: "\n\nuse napi_sys_ohos::*;\nuse ohos_arkui_input_sys::*;",
+    extra: "\n\nuse napi_sys_ohos::*;\nuse ohos_arkui_input_sys::*;\nuse ohos_native_buffer_sys::*;\nuse ohos_image_native_sys::*;",
+}
 });

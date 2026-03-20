@@ -6,16 +6,18 @@ license     = "MIT OR Apache-2.0"
 description = "OpenHarmony's accessibility binding for rust"
 
 [dependencies]
+ohos-arkui-input-sys = { workspace = true }
 
 [features]
 default = []
-api-13  = []
-api-14  = ["api-13"]
-api-15  = ["api-14"]
-api-16  = ["api-15"]
-api-17  = ["api-16"]
-api-18  = ["api-17"]
-api-19  = ["api-18"]
-api-20  = ["api-19"]
-api-21  = ["api-20"]
-api-22  = ["api-21"]
+api-13  = ["ohos-arkui-input-sys/api-13"]
+api-14  = ["api-13", "ohos-arkui-input-sys/api-14"]
+api-15  = ["api-14", "ohos-arkui-input-sys/api-15"]
+api-16  = ["api-15", "ohos-arkui-input-sys/api-16"]
+api-17  = ["api-16", "ohos-arkui-input-sys/api-17"]
+api-18  = ["api-17", "ohos-arkui-input-sys/api-18"]
+api-19  = ["api-18", "ohos-arkui-input-sys/api-19"]
+api-20  = ["api-19", "ohos-arkui-input-sys/api-20"]
+api-21  = ["api-20", "ohos-arkui-input-sys/api-21"]
+api-22  = ["api-21", "ohos-arkui-input-sys/api-22"]
+api-23  = ["api-22", "ohos-arkui-input-sys/api-23"]

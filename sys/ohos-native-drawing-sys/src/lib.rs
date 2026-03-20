@@ -35,6 +35,16 @@ pub struct OH_Drawing_Path {
 }
 #[repr(C)]
 #[derive(Debug, Copy, Clone)]
+pub struct OH_Drawing_PathIterator {
+    _unused: [u8; 0],
+}
+#[repr(C)]
+#[derive(Debug, Copy, Clone)]
+pub struct OH_Drawing_Lattice {
+    _unused: [u8; 0],
+}
+#[repr(C)]
+#[derive(Debug, Copy, Clone)]
 pub struct OH_Drawing_Bitmap {
     _unused: [u8; 0],
 }
@@ -430,6 +440,28 @@ pub const OH_Drawing_ErrorCode_OH_DRAWING_ERROR_ATTRIBUTE_ID_MISMATCH: OH_Drawin
 #[cfg(feature = "api-22")]
 pub const OH_Drawing_ErrorCode_OH_DRAWING_ERROR_INCORRECT_PARAMETER: OH_Drawing_ErrorCode =
     26200004;
+#[doc = " @error File not found. The specified file does not exist or the path is incorrect..\n @since 23"]
+#[cfg(feature = "api-23")]
+pub const OH_Drawing_ErrorCode_OH_DRAWING_ERROR_FILE_NOT_FOUND: OH_Drawing_ErrorCode = 26200005;
+#[doc = " @error Failed to open the file. The file cannot be opened due to permission or I/O issues.\n @since 23"]
+#[cfg(feature = "api-23")]
+pub const OH_Drawing_ErrorCode_OH_DRAWING_ERROR_OPEN_FILE_FAILED: OH_Drawing_ErrorCode = 26200006;
+#[doc = " @error File seek failed. The system failed to reposition the file read pointer..\n @since 23"]
+#[cfg(feature = "api-23")]
+pub const OH_Drawing_ErrorCode_OH_DRAWING_ERROR_FILE_SEEK_FAILED: OH_Drawing_ErrorCode = 26200007;
+#[doc = " @error Failed to get the file size. The system was unable to obtain the file size information.\n @since 23"]
+#[cfg(feature = "api-23")]
+pub const OH_Drawing_ErrorCode_OH_DRAWING_ERROR_GET_FILE_SIZE_FAILED: OH_Drawing_ErrorCode =
+    26200008;
+#[doc = " @error Failed to read the file. The file could not be read completely or contains unreadable data.\n @since 23"]
+#[cfg(feature = "api-23")]
+pub const OH_Drawing_ErrorCode_OH_DRAWING_ERROR_READ_FILE_FAILED: OH_Drawing_ErrorCode = 26200009;
+#[doc = " @error Empty file. The specified file is empty and contains no valid data.\n @since 23"]
+#[cfg(feature = "api-23")]
+pub const OH_Drawing_ErrorCode_OH_DRAWING_ERROR_EMPTY_FILE: OH_Drawing_ErrorCode = 26200010;
+#[doc = " @error Corrupted file. The file content is invalid or damaged and cannot be parsed.\n @since 23"]
+#[cfg(feature = "api-23")]
+pub const OH_Drawing_ErrorCode_OH_DRAWING_ERROR_FILE_CORRUPTED: OH_Drawing_ErrorCode = 26200011;
 #[doc = " @brief Enumerates error codes of drawing.\n @since 12"]
 pub type OH_Drawing_ErrorCode = u32;
 extern "C" {
@@ -672,6 +704,22 @@ extern "C" {
 extern "C" {
     #[doc = " @brief Draws a path.\n\n @syscap SystemCapability.Graphic.Graphic2D.NativeDrawing\n @param canvas Indicates the pointer to an <b>OH_Drawing_Canvas</b> object.\n @param path Indicates the pointer to an <b>OH_Drawing_Path</b> object.\n @since 8\n @version 1.0"]
     pub fn OH_Drawing_CanvasDrawPath(canvas: *mut OH_Drawing_Canvas, path: *const OH_Drawing_Path);
+}
+extern "C" {
+    #[doc = " @brief Draw a pixel map on the grid, with the grid evenly distributed over the pixel map.\n\n @param cCanvas Indicates the pointer to an OH_Drawing_Canvas object.\n @param pixelMap Indicates the pointer to an OH_Drawing_PixelMap.\n @param meshWidth The number of columns in the mesh.\n @param meshHeight The number of rows in the mesh.\n @param vertices Indicates the vertex array that specifies the drawing positions of the mesh.\n @param verticesSize The size of vertices.\n @param vertOffset The number of vert elements to skip before drawing.\n @param colors Indicates the color array that specifies a color at each vertex.\n @param colorsSize The size of colors.\n @param colorOffset The number of color elements to skip before drawing.\n @return Returns the error code.\n         Returns {@link OH_DRAWING_SUCCESS} if the operation is successful.\n         Returns {@link OH_DRAWING_ERROR_INCORRECT_PARAMETER} if any of canvas, pixelMap\n                 and dst is nullptr.\n @since 23\n @version 1.0"]
+    #[cfg(feature = "api-23")]
+    pub fn OH_Drawing_CanvasDrawPixelMapMesh(
+        cCanvas: *mut OH_Drawing_Canvas,
+        pixelMap: *mut OH_Drawing_PixelMap,
+        meshWidth: u32,
+        meshHeight: u32,
+        vertices: *const f32,
+        verticesSize: u32,
+        vertOffset: u32,
+        colors: *const u32,
+        colorsSize: u32,
+        colorOffset: u32,
+    ) -> OH_Drawing_ErrorCode;
 }
 extern "C" {
     #[doc = " @brief Divides the pixelmap into a grid with nine sections: four sides, four corners, and the center.\n Draws the specified section of the pixelmap onto the canvas, corners are unmodified or scaled down if they exceed\n the destination rectangle, center and four sides are scaled to fit remaining space.\n\n @syscap SystemCapability.Graphic.Graphic2D.NativeDrawing\n @param canvas Indicates the pointer to an <b>OH_Drawing_Canvas</b> object.\n @param pixelMap Indicates the pointer to an <b>OH_Drawing_PixelMap</b> object.\n @param center Divides the pixelmap into nine sections: four sides, four corners, and the center.\n @param dst The area of destination canvas.\n @param mode Filter mode.\n @return Returns the error code.\n         Returns {@link OH_DRAWING_SUCCESS} if the operation is successful.\n         Returns {@link OH_DRAWING_ERROR_INVALID_PARAMETER} if any of canvas, pixelMap\n                 and dst is nullptr.\n @since 18\n @version 1.0"]
@@ -2036,6 +2084,17 @@ pub const OH_Drawing_TypographyStyleAttributeId_TYPOGRAPHY_STYLE_ATTR_I_LINE_HEI
 #[cfg(feature = "api-21")]
 pub const OH_Drawing_TypographyStyleAttributeId_TYPOGRAPHY_STYLE_ATTR_I_FONT_WIDTH:
     OH_Drawing_TypographyStyleAttributeId = 4;
+#[doc = " Compress head punctuation\n @since 23"]
+#[cfg(feature = "api-23")]
+pub const OH_Drawing_TypographyStyleAttributeId_TYPOGRAPHY_STYLE_ATTR_B_COMPRESS_HEAD_PUNCTUATION : OH_Drawing_TypographyStyleAttributeId = 5 ;
+#[doc = " Font padding\n @since 23"]
+#[cfg(feature = "api-23")]
+pub const OH_Drawing_TypographyStyleAttributeId_TYPOGRAPHY_STYLE_ATTR_B_INCLUDE_FONT_PADDING:
+    OH_Drawing_TypographyStyleAttributeId = 6;
+#[doc = " Fallback line spacing\n @since 23"]
+#[cfg(feature = "api-23")]
+pub const OH_Drawing_TypographyStyleAttributeId_TYPOGRAPHY_STYLE_ATTR_B_FALLBACK_LINE_SPACING:
+    OH_Drawing_TypographyStyleAttributeId = 7;
 #[doc = " @brief Enumerates typography style attribute.\n\n @since 21"]
 #[cfg(feature = "api-21")]
 pub type OH_Drawing_TypographyStyleAttributeId = u32;
@@ -2109,6 +2168,24 @@ extern "C" {
         style: *mut OH_Drawing_TypographyStyle,
         id: OH_Drawing_TypographyStyleAttributeId,
         value: *mut ::std::os::raw::c_int,
+    ) -> OH_Drawing_ErrorCode;
+}
+extern "C" {
+    #[doc = " @brief Sets bool value to the typography style attribute.\n\n @param style Indicates the pointer to an <b>OH_Drawing_TypographyStyle</b> object.\n @param id Indicates the attribute id.\n @param value Indicates the value to set.\n @return Returns the error code.\n         Returns {@link OH_DRAWING_SUCCESS} if the operation is successful.\n         Returns {@link OH_DRAWING_ERROR_INCORRECT_PARAMETER} if the style is nullptr.\n         Returns {@link OH_DRAWING_ERROR_ATTRIBUTE_ID_MISMATCH} if the attribute id is not recognized or supported.\n @since 23"]
+    #[cfg(feature = "api-23")]
+    pub fn OH_Drawing_SetTypographyStyleAttributeBool(
+        style: *mut OH_Drawing_TypographyStyle,
+        id: OH_Drawing_TypographyStyleAttributeId,
+        value: bool,
+    ) -> OH_Drawing_ErrorCode;
+}
+extern "C" {
+    #[doc = " @brief Gets the bool type property's value from the typography style.\n\n @param style Indicates the pointer to an <b>OH_Drawing_TypographyStyle</b> object.\n @param id Indicates the attribute id.\n @param value Indicates the return value of the interface.\n @return Returns the error code.\n         Returns {@link OH_DRAWING_SUCCESS} if the operation is successful.\n         Returns {@link OH_DRAWING_ERROR_INCORRECT_PARAMETER} if the style or value is nullptr.\n         Returns {@link OH_DRAWING_ERROR_ATTRIBUTE_ID_MISMATCH} if the attribute id is not recognized or supported.\n @since 23"]
+    #[cfg(feature = "api-23")]
+    pub fn OH_Drawing_GetTypographyStyleAttributeBool(
+        style: *mut OH_Drawing_TypographyStyle,
+        id: OH_Drawing_TypographyStyleAttributeId,
+        value: *mut bool,
     ) -> OH_Drawing_ErrorCode;
 }
 #[doc = " No badge"]
@@ -3240,7 +3317,7 @@ extern "C" {
     );
 }
 extern "C" {
-    #[doc = " @brief Update the font color of the typography\n\n @syscap SystemCapability.Graphic.Graphic2D.NativeDrawing\n @param typography Indicates the pointer to the text <b>OH_Drawing_Typography</b> object.\n @param color Indicates the color to update.\n @since 20\n @version 1.0"]
+    #[doc = " @brief Update the font color of the typography.\n\n @syscap SystemCapability.Graphic.Graphic2D.NativeDrawing\n @param typography Indicates the pointer to the text <b>OH_Drawing_Typography</b> object.\n @param color Indicates the color to update.\n @since 20\n @version 1.0"]
     #[cfg(feature = "api-20")]
     pub fn OH_Drawing_TypographyUpdateFontColor(typography: *mut OH_Drawing_Typography, color: u32);
 }
@@ -3261,7 +3338,7 @@ extern "C" {
     );
 }
 extern "C" {
-    #[doc = " @brief Update the decoration style of typography.\n\n @syscap SystemCapability.Graphic.Graphic2D.NativeDrawing\n @param typography Indicates the pointer to the text <b>OH_Drawing_Typography</b> object.\n @param decorationStyle Indicates the text decoration style to update.\n For details, see the enum <b>OH_Drawing_TextDecorationStyle</b>.\n @since 20\n @version 1.0"]
+    #[doc = " @brief Update the decoration style of the typography.\n\n @syscap SystemCapability.Graphic.Graphic2D.NativeDrawing\n @param typography Indicates the pointer to the text <b>OH_Drawing_Typography</b> object.\n @param decorationStyle Indicates the text decoration style to update.\n For details, see the enum <b>OH_Drawing_TextDecorationStyle</b>.\n @since 20\n @version 1.0"]
     #[cfg(feature = "api-20")]
     pub fn OH_Drawing_TypographyUpdateDecorationStyle(
         typography: *mut OH_Drawing_Typography,
@@ -3468,6 +3545,13 @@ extern "C" {
     pub fn OH_Drawing_CopyTextShadow(
         shadow: *mut OH_Drawing_TextShadow,
     ) -> *mut OH_Drawing_TextShadow;
+}
+extern "C" {
+    #[doc = " @brief Releases the memory occupied by an <b>OH_Drawing_PositionAndAffinity</b> object.\n\n @param positionAndAffinity Indicates the pointer to an <b>OH_Drawing_PositionAndAffinity</b> object.\n @since 23"]
+    #[cfg(feature = "api-23")]
+    pub fn OH_Drawing_DestroyPositionAndAffinity(
+        positionAndAffinity: *mut OH_Drawing_PositionAndAffinity,
+    );
 }
 extern "C" {
     #[doc = " @brief Creates an <b>OH_Drawing_FontMgr</b> object.\n\n @syscap SystemCapability.Graphic.Graphic2D.NativeDrawing\n @return Returns the pointer to the <b>OH_Drawing_FontMgr</b> object created.\n @since 12\n @version 1.0"]
@@ -4017,6 +4101,44 @@ extern "C" {
     pub fn OH_Drawing_MatrixIsIdentity(matrix: *mut OH_Drawing_Matrix) -> bool;
 }
 extern "C" {
+    #[doc = " @brief Checks if the matrix is affine. An affine matrix preserves straight lines and has no perspective.\n\n @param matrix Indicates the pointer to an <b>OH_Drawing_Matrix</b> object.\n @param isAffine Indicates if the matrix is affine.\n @return Returns the error code.\n         Returns {@link OH_DRAWING_SUCCESS} if the operation is successful.\n         Returns {@link OH_DRAWING_ERROR_INCORRECT_PARAMETER} if matrix or isAffine is nullptr.\n @since 23"]
+    #[cfg(feature = "api-23")]
+    pub fn OH_Drawing_MatrixIsAffine(
+        matrix: *const OH_Drawing_Matrix,
+        isAffine: *mut bool,
+    ) -> OH_Drawing_ErrorCode;
+}
+extern "C" {
+    #[doc = " @brief Sets matrix to matrix multiplied by matrix constructed from skewing by (kx, ky) about pivot point (px, py).\n\n @param matrix Indicates the pointer to an <b>OH_Drawing_Matrix</b> object.\n @param kx Indicates the horizontal skew factor.\n @param ky Indicates the vertical skew factor.\n @param px Indicates the pivot on x-axis.\n @param py Indicates the pivot on y-axis.\n @return Returns the error code.\n         Returns {@link OH_DRAWING_SUCCESS} if the operation is successful.\n         Returns {@link OH_DRAWING_ERROR_INCORRECT_PARAMETER} if matrix is nullptr.\n @since 23"]
+    #[cfg(feature = "api-23")]
+    pub fn OH_Drawing_MatrixPreSkew(
+        matrix: *mut OH_Drawing_Matrix,
+        kx: f32,
+        ky: f32,
+        px: f32,
+        py: f32,
+    ) -> OH_Drawing_ErrorCode;
+}
+extern "C" {
+    #[doc = " @brief Checks if a rectangle will map to another rectangle after applying this matrix.\n\n @param matrix Indicates the pointer to an <b>OH_Drawing_Matrix</b> object.\n @param isRectStaysRect Indicates if the transformation keeps rectangles as rectangles.\n @return Returns the error code.\n         Returns {@link OH_DRAWING_SUCCESS} if the operation is successful.\n         Returns {@link OH_DRAWING_ERROR_INCORRECT_PARAMETER} if matrix or isRectStaysRect is nullptr.\n @since 23"]
+    #[cfg(feature = "api-23")]
+    pub fn OH_Drawing_MatrixRectStaysRect(
+        matrix: *const OH_Drawing_Matrix,
+        isRectStaysRect: *mut bool,
+    ) -> OH_Drawing_ErrorCode;
+}
+extern "C" {
+    #[doc = " @brief Sets the sine and cosine values for a rotation transformation around a point.\n\n @param matrix Indicates the pointer to an <b>OH_Drawing_Matrix</b> object.\n @param sinValue Indicates the sine of the angle of rotation.\n @param cosValue Indicates the cosine of the angle of rotation.\n @param px Indicates the x-coordinate of the point around which to rotate.\n @param py Indicates the y-coordinate of the point around which to rotate.\n @return Returns the error code.\n         Returns {@link OH_DRAWING_SUCCESS} if the operation is successful.\n         Returns {@link OH_DRAWING_ERROR_INCORRECT_PARAMETER} if matrix is nullptr.\n @since 23"]
+    #[cfg(feature = "api-23")]
+    pub fn OH_Drawing_MatrixSetSinCos(
+        matrix: *mut OH_Drawing_Matrix,
+        sinValue: f32,
+        cosValue: f32,
+        px: f32,
+        py: f32,
+    ) -> OH_Drawing_ErrorCode;
+}
+extern "C" {
     #[doc = " @brief Destroys an <b>OH_Drawing_Matrix</b> object and reclaims the memory occupied by the object.\n\n @syscap SystemCapability.Graphic.Graphic2D.NativeDrawing\n @param matrix Indicates the pointer to an <b>OH_Drawing_Matrix</b> object.\n @since 11\n @version 1.0"]
     pub fn OH_Drawing_MatrixDestroy(matrix: *mut OH_Drawing_Matrix);
 }
@@ -4454,6 +4576,20 @@ extern "C" {
         other: *mut OH_Drawing_Path,
         result: *mut bool,
     ) -> OH_Drawing_ErrorCode;
+}
+extern "C" {
+    #[doc = " @brief Checks if the fill type is one of the INVERSE variants.\n\n @param path Indicates the pointer to an <b>OH_Drawing_Path</b> object.\n @param isInverse Indicates if the filltype is one of the INVERSE variants.\n @return Returns the error code.\n         Returns {@link OH_DRAWING_SUCCESS} if the operation is successful.\n         Returns {@link OH_DRAWING_ERROR_INCORRECT_PARAMETER} if path or isInverse is nullptr.\n @since 23\n @version 1.0"]
+    #[cfg(feature = "api-23")]
+    pub fn OH_Drawing_PathIsInverseFillType(
+        path: *const OH_Drawing_Path,
+        isInverse: *mut bool,
+    ) -> OH_Drawing_ErrorCode;
+}
+extern "C" {
+    #[doc = " @brief Toggles the INVERSE state of the filltype.\n\n @param path Indicates the pointer to an <b>OH_Drawing_Path</b> object.\n @return Returns the error code.\n         Returns {@link OH_DRAWING_SUCCESS} if the operation is successful.\n         Returns {@link OH_DRAWING_ERROR_INCORRECT_PARAMETER} if path is nullptr.\n @since 23\n @version 1.0"]
+    #[cfg(feature = "api-23")]
+    pub fn OH_Drawing_PathToggleInverseFillType(path: *mut OH_Drawing_Path)
+        -> OH_Drawing_ErrorCode;
 }
 #[doc = " Indicates translation effect."]
 #[cfg(feature = "api-18")]
@@ -4899,6 +5035,50 @@ extern "C" {
         bottom: f32,
     ) -> OH_Drawing_ErrorCode;
 }
+extern "C" {
+    #[doc = " @brief Checks if rect is empty.\n\n @param rect Indicates the pointer to an <b>OH_Drawing_Rect</b> object.\n @param isEmpty Indicates whether rect is empty.\n @return Returns the error code.\n         Returns {@link OH_DRAWING_SUCCESS} if the operation is successful.\n         Returns {@link OH_DRAWING_ERROR_INCORRECT_PARAMETER} if rect or isEmpty is nullptr.\n @since 23"]
+    #[cfg(feature = "api-23")]
+    pub fn OH_Drawing_RectIsEmpty(
+        rect: *const OH_Drawing_Rect,
+        isEmpty: *mut bool,
+    ) -> OH_Drawing_ErrorCode;
+}
+extern "C" {
+    #[doc = " @brief Offsets rect by adding dx to its left and right coordinates, and adding dy to its top and bottom\n coordinates.\n\n @param rect Indicates the pointer to an <b>OH_Drawing_Rect</b> object.\n @param dx Indicates the distance to offset on the x-axis in pixels.\n @param dy Indicates the distance to offset on the y-axis in pixels.\n @return Returns the error code.\n         Returns {@link OH_DRAWING_SUCCESS} if the operation is successful.\n         Returns {@link OH_DRAWING_ERROR_INCORRECT_PARAMETER} if rect is nullptr.\n @since 23"]
+    #[cfg(feature = "api-23")]
+    pub fn OH_Drawing_RectOffset(
+        rect: *mut OH_Drawing_Rect,
+        dx: f32,
+        dy: f32,
+    ) -> OH_Drawing_ErrorCode;
+}
+extern "C" {
+    #[doc = " @brief Offsets rect to a specific position and keeps the width and height unchanged.\n\n @param rect Indicates the pointer to an <b>OH_Drawing_Rect</b> object.\n @param newLeft Indicates the new left coordinate.\n @param newTop Indicates the new top coordinate.\n @return Returns the error code.\n         Returns {@link OH_DRAWING_SUCCESS} if the operation is successful.\n         Returns {@link OH_DRAWING_ERROR_INCORRECT_PARAMETER} if rect is nullptr.\n @since 23"]
+    #[cfg(feature = "api-23")]
+    pub fn OH_Drawing_RectOffsetTo(
+        rect: *mut OH_Drawing_Rect,
+        newLeft: f32,
+        newTop: f32,
+    ) -> OH_Drawing_ErrorCode;
+}
+extern "C" {
+    #[doc = " @brief Sets the boundary coordinates of rect to zero.\n\n @param rect Indicates the pointer to an <b>OH_Drawing_Rect</b> object.\n @return Returns the error code.\n         Returns {@link OH_DRAWING_SUCCESS} if the operation is successful.\n         Returns {@link OH_DRAWING_ERROR_INCORRECT_PARAMETER} if rect is nullptr.\n @since 23"]
+    #[cfg(feature = "api-23")]
+    pub fn OH_Drawing_RectSetEmpty(rect: *mut OH_Drawing_Rect) -> OH_Drawing_ErrorCode;
+}
+extern "C" {
+    #[doc = " @brief Swaps the left and right if the left is greater than right; and swaps top and bottom if the top is greater\n than bottom. If the edges are already valid, then nothing is done.\n\n @param rect Indicates the pointer to an <b>OH_Drawing_Rect</b> object.\n @return Returns the error code.\n         Returns {@link OH_DRAWING_SUCCESS} if the operation is successful.\n         Returns {@link OH_DRAWING_ERROR_INCORRECT_PARAMETER} if rect is nullptr.\n @since 23"]
+    #[cfg(feature = "api-23")]
+    pub fn OH_Drawing_RectSort(rect: *mut OH_Drawing_Rect) -> OH_Drawing_ErrorCode;
+}
+extern "C" {
+    #[doc = " @brief Sets rect to the union of itself and another.\n\n @param rect Indicates the pointer to an <b>OH_Drawing_Rect</b> object.\n @param other Indicates the pointer to an <b>OH_Drawing_Rect</b> object.\n @return Returns the error code.\n         Returns {@link OH_DRAWING_SUCCESS} if the operation is successful.\n         Returns {@link OH_DRAWING_ERROR_INCORRECT_PARAMETER} if rect or other is nullptr.\n @since 23"]
+    #[cfg(feature = "api-23")]
+    pub fn OH_Drawing_RectUnion(
+        rect: *mut OH_Drawing_Rect,
+        other: *const OH_Drawing_Rect,
+    ) -> OH_Drawing_ErrorCode;
+}
 #[doc = " Difference operation."]
 pub const OH_Drawing_RegionOpMode_REGION_OP_MODE_DIFFERENCE: OH_Drawing_RegionOpMode = 0;
 #[doc = " Intersect operation."]
@@ -4959,6 +5139,79 @@ extern "C" {
     pub fn OH_Drawing_RegionEmpty(region: *mut OH_Drawing_Region) -> OH_Drawing_ErrorCode;
 }
 extern "C" {
+    #[doc = " @brief Set the path to the boundary of the region. If the region is empty, the path will also be empty.\n\n @param region Indicates the pointer to an <b>OH_Drawing_Region</b> object.\n @param path Indicates the pointer to an <b>OH_Drawing_Path</b> object.\n @return Returns the error code.\n         Returns {@link OH_DRAWING_SUCCESS} if the operation is successful.\n         Returns {@link OH_DRAWING_ERROR_INCORRECT_PARAMETER} if region or path is nullptr.\n @since 23"]
+    #[cfg(feature = "api-23")]
+    pub fn OH_Drawing_RegionGetBoundaryPath(
+        region: *const OH_Drawing_Region,
+        path: *mut OH_Drawing_Path,
+    ) -> OH_Drawing_ErrorCode;
+}
+extern "C" {
+    #[doc = " @brief Obtains the minimum bounding rectangle that encloses this path.\n\n @param region Indicates the pointer to an <b>OH_Drawing_Region</b> object.\n @param rect Indicates the pointer to an <b>OH_Drawing_Rect</b> object.\n @return Returns the error code.\n         Returns {@link OH_DRAWING_SUCCESS} if the operation is successful.\n         Returns {@link OH_DRAWING_ERROR_INCORRECT_PARAMETER} if region or rect is nullptr.\n @since 23"]
+    #[cfg(feature = "api-23")]
+    pub fn OH_Drawing_RegionGetBounds(
+        region: *const OH_Drawing_Region,
+        rect: *mut OH_Drawing_Rect,
+    ) -> OH_Drawing_ErrorCode;
+}
+extern "C" {
+    #[doc = " @brief Checks if the region contains more than one rectangle.\n\n @param region Indicates the pointer to an <b>OH_Drawing_Region</b> object.\n @param isComplex Indicates if the region is complex.\n @return Returns the error code.\n         Returns {@link OH_DRAWING_SUCCESS} if the operation is successful.\n         Returns {@link OH_DRAWING_ERROR_INCORRECT_PARAMETER} if region or isComplex is nullptr.\n @since 23"]
+    #[cfg(feature = "api-23")]
+    pub fn OH_Drawing_RegionIsComplex(
+        region: *const OH_Drawing_Region,
+        isComplex: *mut bool,
+    ) -> OH_Drawing_ErrorCode;
+}
+extern "C" {
+    #[doc = " @brief Checks if the region is empty.\n\n @param region Indicates the pointer to an <b>OH_Drawing_Region</b> object.\n @param isEmpty Indicates if the region is empty.\n @return Returns the error code.\n         Returns {@link OH_DRAWING_SUCCESS} if the operation is successful.\n         Returns {@link OH_DRAWING_ERROR_INCORRECT_PARAMETER} if region or isEmpty is nullptr.\n @since 23"]
+    #[cfg(feature = "api-23")]
+    pub fn OH_Drawing_RegionIsEmpty(
+        region: *const OH_Drawing_Region,
+        isEmpty: *mut bool,
+    ) -> OH_Drawing_ErrorCode;
+}
+extern "C" {
+    #[doc = " @brief Checks if the region is equivalent to a single rectangle.\n\n @param region Indicates the pointer to an <b>OH_Drawing_Region</b> object.\n @param isRect Indicates if the region contains a single rectangle.\n @return Returns the error code.\n         Returns {@link OH_DRAWING_SUCCESS} if the operation is successful.\n         Returns {@link OH_DRAWING_ERROR_INCORRECT_PARAMETER} if region or isRect is nullptr.\n @since 23"]
+    #[cfg(feature = "api-23")]
+    pub fn OH_Drawing_RegionIsRect(
+        region: *const OH_Drawing_Region,
+        isRect: *mut bool,
+    ) -> OH_Drawing_ErrorCode;
+}
+extern "C" {
+    #[doc = " @brief Checks if the region is equivalent to a single rectangle and it contains the specified rectangle.\n A false indicates that the region is not equivalent to a single rectangle or the rectangle is not contained by\n this region. A true is a guarantee that the rectangle is contained by this region.\n\n @param region Indicates the pointer to an <b>OH_Drawing_Region</b> object.\n @param left Indicates the left position of the rect.\n @param top Indicates the top position of the rect.\n @param right Indicates the right position of the rect.\n @param bottom Indicates the bottom position of the rect.\n @param isContained Indicates if the specified rectangle is contained in the region.\n @return Returns the error code.\n         Returns {@link OH_DRAWING_SUCCESS} if the operation is successful.\n         Returns {@link OH_DRAWING_ERROR_INCORRECT_PARAMETER} if region or isContained is nullptr.\n @since 23"]
+    #[cfg(feature = "api-23")]
+    pub fn OH_Drawing_RegionQuickContains(
+        region: *const OH_Drawing_Region,
+        left: i32,
+        top: i32,
+        right: i32,
+        bottom: i32,
+        isContained: *mut bool,
+    ) -> OH_Drawing_ErrorCode;
+}
+extern "C" {
+    #[doc = " @brief Checks if the region is empty, or if the specified rectangle does not intersect the region.\n\n @param region Indicates the pointer to an <b>OH_Drawing_Region</b> object.\n @param left Indicates the left position of the rect.\n @param top Indicates the top position of the rect.\n @param right Indicates the right position of the rect.\n @param bottom Indicates the bottom position of the rect.\n @param isReject Indicates if the specified rectangle does not intersect the region.\n @return Returns the error code.\n         Returns {@link OH_DRAWING_SUCCESS} if the operation is successful.\n         Returns {@link OH_DRAWING_ERROR_INCORRECT_PARAMETER} if region or isReject is nullptr.\n @since 23"]
+    #[cfg(feature = "api-23")]
+    pub fn OH_Drawing_RegionQuickReject(
+        region: *const OH_Drawing_Region,
+        left: i32,
+        top: i32,
+        right: i32,
+        bottom: i32,
+        isReject: *mut bool,
+    ) -> OH_Drawing_ErrorCode;
+}
+extern "C" {
+    #[doc = " @brief Translates the region by dx, dy. If the region is empty, do nothing.\n\n @param region Indicates the pointer to an <b>OH_Drawing_Region</b> object.\n @param dx Indicates the distance to translate on x-axis in pixels.\n @param dy Indicates the distance to translate on y-axis in pixels.\n @return Returns the error code.\n         Returns {@link OH_DRAWING_SUCCESS} if the operation is successful.\n         Returns {@link OH_DRAWING_ERROR_INCORRECT_PARAMETER} if region is nullptr.\n @since 23"]
+    #[cfg(feature = "api-23")]
+    pub fn OH_Drawing_RegionTranslate(
+        region: *mut OH_Drawing_Region,
+        dx: i32,
+        dy: i32,
+    ) -> OH_Drawing_ErrorCode;
+}
+extern "C" {
     #[doc = " @brief Defines an <b>OH_Drawing_RegisterFont</b>, which is used to register a customized font in the FontManager.\n\n @syscap SystemCapability.Graphic.Graphic2D.NativeDrawing\n @param OH_Drawing_FontCollection Indicates the pointer to an <b>OH_Drawing_FontCollection</b> object.\n @param fontFamily Indicates the family-name of the font which need to register.\n @param familySrc Indicates the path of the font file which need to register.\n @return error code.\n @since 11\n @version 1.0"]
     pub fn OH_Drawing_RegisterFont(
         arg1: *mut OH_Drawing_FontCollection,
@@ -4976,12 +5229,43 @@ extern "C" {
     ) -> u32;
 }
 extern "C" {
+    #[doc = " @brief Defines an <b>OH_Drawing_RegisterFontByIndex</b>, which is used to register font from ttc file.\n\n @param fontCollection Indicates the pointer to an <b>OH_Drawing_FontCollection</b> object.\n @param fontFamily Indicates the family name of the font which need to register.\n @param familySrc Indicates the path of the font file which need to register.\n @param index Indicates the index of the font data in the ttc file.\n @return error code.\n @since 23"]
+    #[cfg(feature = "api-23")]
+    pub fn OH_Drawing_RegisterFontByIndex(
+        fontCollection: *mut OH_Drawing_FontCollection,
+        fontFamily: *const ::std::os::raw::c_char,
+        familySrc: *const ::std::os::raw::c_char,
+        index: u32,
+    ) -> u32;
+}
+extern "C" {
+    #[doc = " @brief Defines an <b>OH_Drawing_RegisterFontBufferByIndex</b>, which is used to register font from ttc buffer.\n\n @param fontCollection Indicates the pointer to an <b>OH_Drawing_FontCollection</b> object.\n @param fontFamily Indicates the family name of the font which need to register.\n @param fontBuffer Indicates the font data which need to register.\n @param length Indicates the font data length.\n @param index Indicates the index of the font data in the ttc file.\n @return error code.\n @since 23"]
+    #[cfg(feature = "api-23")]
+    pub fn OH_Drawing_RegisterFontBufferByIndex(
+        fontCollection: *mut OH_Drawing_FontCollection,
+        fontFamily: *const ::std::os::raw::c_char,
+        fontBuffer: *mut u8,
+        length: usize,
+        index: u32,
+    ) -> u32;
+}
+extern "C" {
     #[doc = " @brief Unregister a customized font by the font family.\n Unregistering a font that is currently in use by UI components may lead to text rendering anomalies,\n including garbled characters or missing glyphs.\n All typography using the unregistered font family should be destroyed and re-created.\n\n @syscap SystemCapability.Graphic.Graphic2D.NativeDrawing\n @param fontCollection Indicates the pointer to an <b>OH_Drawing_FontCollection</b> object.\n @param fontFamily Indicates the family-name of the font which need to be unregistered.\n @return error code.\n @since 20"]
     #[cfg(feature = "api-20")]
     pub fn OH_Drawing_UnregisterFont(
         fontCollection: *mut OH_Drawing_FontCollection,
         fontFamily: *const ::std::os::raw::c_char,
     ) -> u32;
+}
+extern "C" {
+    #[doc = " @brief Checks whether the font format specified by the path is supported.\n\n @param path The absolute path to the font file.\n @return Returns true if the font is supported; otherwise, returns false.\n @since 23"]
+    #[cfg(feature = "api-23")]
+    pub fn OH_Drawing_IsFontSupportedFromPath(path: *const ::std::os::raw::c_char) -> bool;
+}
+extern "C" {
+    #[doc = " @brief Checks whether the font format specified by the buffer is supported.\n\n @param data A pointer to the memory buffer containing font data.\n @param dataLength The size of the font data in bytes.\n @return Returns true if the font is supported; otherwise, returns false.\n @since 23"]
+    #[cfg(feature = "api-23")]
+    pub fn OH_Drawing_IsFontSupportedFromBuffer(data: *mut u8, dataLength: usize) -> bool;
 }
 #[doc = " Index of top-left corner radii."]
 pub const OH_Drawing_CornerPos_CORNER_POS_TOP_LEFT: OH_Drawing_CornerPos = 0;
@@ -5214,6 +5498,46 @@ pub const OH_Drawing_FontFullDescriptorAttributeId_FULL_DESCRIPTOR_ATTR_B_MONO:
 #[cfg(feature = "api-22")]
 pub const OH_Drawing_FontFullDescriptorAttributeId_FULL_DESCRIPTOR_ATTR_B_SYMBOLIC:
     OH_Drawing_FontFullDescriptorAttributeId = 9;
+#[doc = " The local postscript name of the font\n @since 23"]
+#[cfg(feature = "api-23")]
+pub const OH_Drawing_FontFullDescriptorAttributeId_FULL_DESCRIPTOR_ATTR_S_LOCAL_POSTSCRIPT_NAME:
+    OH_Drawing_FontFullDescriptorAttributeId = 10;
+#[doc = " The local full name of the font\n @since 23"]
+#[cfg(feature = "api-23")]
+pub const OH_Drawing_FontFullDescriptorAttributeId_FULL_DESCRIPTOR_ATTR_S_LOCAL_FULL_NAME:
+    OH_Drawing_FontFullDescriptorAttributeId = 11;
+#[doc = " The local family name of the font\n @since 23"]
+#[cfg(feature = "api-23")]
+pub const OH_Drawing_FontFullDescriptorAttributeId_FULL_DESCRIPTOR_ATTR_S_LOCAL_FAMILY_NAME:
+    OH_Drawing_FontFullDescriptorAttributeId = 12;
+#[doc = " The local sub family name of the font\n @since 23"]
+#[cfg(feature = "api-23")]
+pub const OH_Drawing_FontFullDescriptorAttributeId_FULL_DESCRIPTOR_ATTR_S_LOCAL_SUB_FAMILY_NAME:
+    OH_Drawing_FontFullDescriptorAttributeId = 13;
+#[doc = " The version of the font\n @since 23"]
+#[cfg(feature = "api-23")]
+pub const OH_Drawing_FontFullDescriptorAttributeId_FULL_DESCRIPTOR_ATTR_S_VERSION:
+    OH_Drawing_FontFullDescriptorAttributeId = 14;
+#[doc = " The manufacture of the font\n @since 23"]
+#[cfg(feature = "api-23")]
+pub const OH_Drawing_FontFullDescriptorAttributeId_FULL_DESCRIPTOR_ATTR_S_MANUFACTURE:
+    OH_Drawing_FontFullDescriptorAttributeId = 15;
+#[doc = " The copyright of the font\n @since 23"]
+#[cfg(feature = "api-23")]
+pub const OH_Drawing_FontFullDescriptorAttributeId_FULL_DESCRIPTOR_ATTR_S_COPYRIGHT:
+    OH_Drawing_FontFullDescriptorAttributeId = 16;
+#[doc = " The trademark of the font\n @since 23"]
+#[cfg(feature = "api-23")]
+pub const OH_Drawing_FontFullDescriptorAttributeId_FULL_DESCRIPTOR_ATTR_S_TRADEMARK:
+    OH_Drawing_FontFullDescriptorAttributeId = 17;
+#[doc = " The license of the font\n @since 23"]
+#[cfg(feature = "api-23")]
+pub const OH_Drawing_FontFullDescriptorAttributeId_FULL_DESCRIPTOR_ATTR_S_LICENSE:
+    OH_Drawing_FontFullDescriptorAttributeId = 18;
+#[doc = " The font index in ttc file\n @since 23"]
+#[cfg(feature = "api-23")]
+pub const OH_Drawing_FontFullDescriptorAttributeId_FULL_DESCRIPTOR_ATTR_I_INDEX:
+    OH_Drawing_FontFullDescriptorAttributeId = 21;
 #[doc = " @brief An enumeration of font full descriptor attribute.\n\n @since 22"]
 #[cfg(feature = "api-22")]
 pub type OH_Drawing_FontFullDescriptorAttributeId = u32;
@@ -5290,6 +5614,27 @@ extern "C" {
     pub fn OH_Drawing_DestroyFontFullDescriptors(descriptorArray: *mut OH_Drawing_Array);
 }
 extern "C" {
+    #[doc = " @brief Defines an <b>OH_Drawing_GetFontUnicodeArrayFromFile</b>, which is used to get unicode from font file.\n\n @param fontSrc Indicates the path of the font file.\n @param index Indicates the index of the font data in the ttc file.\n @param unicodeArray Output parameter to receive unicode, When no longer needed, use 'free()' to release.\n @param arrayLength Output parameter to receive the length of the unicode array.\n @return error code.\n         Returns <b>OH_DRAWING_SUCCESS</b> if the operation is successful.\n         Returns <b>OH_DRAWING_ERROR_INCORRECT_PARAMETER</b> if the fontSrc is invalid or non-font file.\n @since 23"]
+    #[cfg(feature = "api-23")]
+    pub fn OH_Drawing_GetFontUnicodeArrayFromFile(
+        fontSrc: *const ::std::os::raw::c_char,
+        index: u32,
+        unicodeArray: *mut *mut i32,
+        arrayLength: *mut i32,
+    ) -> OH_Drawing_ErrorCode;
+}
+extern "C" {
+    #[doc = " @brief Defines an <b>OH_Drawing_GetFontUnicodeArrayFromBuffer</b>, which is used to get unicode from font buffer.\n\n @param fontBuffer Indicates the font data.\n @param length Indicates the font data length.\n @param index Indicates the index of the font data in the ttc file.\n @param unicodeArray Output parameter to receive unicode, When no longer needed, use 'free()' to release.\n @param arrayLength Output parameter to receive the length of the unicode array.\n @return error code.\n         Returns <b>OH_DRAWING_SUCCESS</b> if the operation is successful.\n         Returns <b>OH_DRAWING_ERROR_INCORRECT_PARAMETER</b> if the fontBuffer is invalid or non-font buffer.\n @since 23"]
+    #[cfg(feature = "api-23")]
+    pub fn OH_Drawing_GetFontUnicodeArrayFromBuffer(
+        fontBuffer: *mut u8,
+        length: usize,
+        index: u32,
+        unicodeArray: *mut *mut i32,
+        arrayLength: *mut i32,
+    ) -> OH_Drawing_ErrorCode;
+}
+extern "C" {
     #[doc = " @brief Retrieves an integer attribute value from a font full descriptor.\n\n @param descriptor Pointer to the font full descriptor <b>OH_Drawing_FontFullDescriptor</b>.\n @param id Attribute identifier from <b>OH_Drawing_FontFullDescriptorAttributeId</b> enumeration.\n @param value Output parameter to receive the requested integer attribute value.\n @return Returns the error code.\n         Returns <b>OH_DRAWING_SUCCESS</b> if the operation is successful.\n         Returns <b>OH_DRAWING_ERROR_INCORRECT_PARAMETER</b> if the descriptor or value is NULL.\n         Returns <b>OH_DRAWING_ERROR_ATTRIBUTE_ID_MISMATCH</b> if the attribute id is not recognized or supported.\n @since 22"]
     #[cfg(feature = "api-22")]
     pub fn OH_Drawing_GetFontFullDescriptorAttributeInt(
@@ -5315,6 +5660,24 @@ extern "C" {
         id: OH_Drawing_FontFullDescriptorAttributeId,
         str_: *mut OH_Drawing_String,
     ) -> OH_Drawing_ErrorCode;
+}
+extern "C" {
+    #[doc = " @brief Defines an <b>OH_Drawing_GetFontCountFromFile</b>, which is used to get font count from font file.\n\n @param fontSrc Indicates the path of the font file.\n @return font count.\n @since 23"]
+    #[cfg(feature = "api-23")]
+    pub fn OH_Drawing_GetFontCountFromFile(fontSrc: *const ::std::os::raw::c_char) -> u32;
+}
+extern "C" {
+    #[doc = " @brief Defines an <b>OH_Drawing_GetFontCountFromBuffer</b>, which is used to get font count from font buffer.\n\n @param fontBuffer Indicates the font data.\n @param length Indicates the font data length.\n @return font count.\n @since 23"]
+    #[cfg(feature = "api-23")]
+    pub fn OH_Drawing_GetFontCountFromBuffer(fontBuffer: *mut u8, length: usize) -> u32;
+}
+extern "C" {
+    #[doc = " @brief Get the font path list.\n @param fontType Indicates enumerates of system font type object <b>OH_Drawing_SystemFontType</b>.\n @param pathCount The count of return path list.\n @return Returns a font path object <b>OH_Drawing_String</b> list.\n @since 23"]
+    #[cfg(feature = "api-23")]
+    pub fn OH_Drawing_GetFontPathsByType(
+        fontType: OH_Drawing_SystemFontType,
+        pathCount: *mut usize,
+    ) -> *mut OH_Drawing_String;
 }
 #[doc = " Follow system's high contrast settings for text rendering"]
 #[cfg(feature = "api-20")]
@@ -5717,5 +6080,21 @@ extern "C" {
     #[cfg(feature = "api-13")]
     pub fn OH_Drawing_FontArgumentsDestroy(
         fontArguments: *mut OH_Drawing_FontArguments,
+    ) -> OH_Drawing_ErrorCode;
+}
+extern "C" {
+    #[doc = " @brief Checks if the typeface is bold.\n\n @param typeface Indicates the pointer to an <b>OH_Drawing_Typeface</b> object.\n @param isBold Indicates if the typeface is bold.\n @return Returns the error code.\n         Returns {@link OH_DRAWING_SUCCESS} if the operation is successful.\n         Returns {@link OH_DRAWING_ERROR_INCORRECT_PARAMETER} if typeface or isBold is nullptr.\n @since 23\n @version 1.0"]
+    #[cfg(feature = "api-23")]
+    pub fn OH_Drawing_TypefaceIsBold(
+        typeface: *const OH_Drawing_Typeface,
+        isBold: *mut bool,
+    ) -> OH_Drawing_ErrorCode;
+}
+extern "C" {
+    #[doc = " @brief Checks if the typeface is italic.\n\n @param typeface Indicates the pointer to an <b>OH_Drawing_Typeface</b> object.\n @param isItalic Indicates if the typeface is italic.\n @return Returns the error code.\n         Returns {@link OH_DRAWING_SUCCESS} if the operation is successful.\n         Returns {@link OH_DRAWING_ERROR_INCORRECT_PARAMETER} if typeface or italic is nullptr.\n @since 23\n @version 1.0"]
+    #[cfg(feature = "api-23")]
+    pub fn OH_Drawing_TypefaceIsItalic(
+        typeface: *const OH_Drawing_Typeface,
+        isItalic: *mut bool,
     ) -> OH_Drawing_ErrorCode;
 }

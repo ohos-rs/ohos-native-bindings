@@ -49,7 +49,6 @@ use ohos_arkui_sys::{
     OH_ArkUI_NodeUtils_GetWindowInfo, OH_ArkUI_NodeUtils_SetCrossLanguageOption,
     OH_ArkUI_RegisterDrawCallbackOnNodeHandle, OH_ArkUI_RegisterLayoutCallbackOnNodeHandle,
     OH_ArkUI_UnregisterDrawCallbackOnNodeHandle, OH_ArkUI_UnregisterLayoutCallbackOnNodeHandle,
-    OH_PixelmapNative,
 };
 #[cfg(feature = "api-21")]
 use ohos_arkui_sys::{
@@ -74,6 +73,8 @@ use ohos_arkui_sys::{
 use ohos_arkui_sys::{
     OH_ArkUI_NodeUtils_AddCustomProperty, OH_ArkUI_NodeUtils_RemoveCustomProperty,
 };
+#[cfg(feature = "api-15")]
+use ohos_image_native_binding::PixelMapNativeHandle;
 
 use ohos_arkui_sys::{ArkUI_ContextHandle, ArkUI_SystemColorMode, ArkUI_SystemFontStyleEvent};
 
@@ -1295,7 +1296,7 @@ impl ArkUIHandle {
         &self,
         node: &ArkUINode,
         snapshot_options: Option<&SnapshotOptions>,
-    ) -> ArkUIResult<*mut OH_PixelmapNative> {
+    ) -> ArkUIResult<Option<PixelMapNativeHandle>> {
         let _ = self.raw();
         let mut pixelmap = std::ptr::null_mut();
         let snapshot_options = snapshot_options
@@ -1308,7 +1309,7 @@ impl ArkUIHandle {
                 &mut pixelmap
             ))
         }?;
-        Ok(pixelmap)
+        Ok(PixelMapNativeHandle::from_raw(pixelmap.cast()))
     }
 
     #[cfg(feature = "api-20")]

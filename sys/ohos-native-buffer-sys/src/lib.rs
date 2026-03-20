@@ -121,6 +121,12 @@ pub const OH_NativeBuffer_MetadataType_OH_IMAGE_HDR_VIVID_DUAL: OH_NativeBuffer_
 #[doc = " HDR IMAGE SINGLE.\n @since 22"]
 #[cfg(feature = "api-22")]
 pub const OH_NativeBuffer_MetadataType_OH_IMAGE_HDR_VIVID_SINGLE: OH_NativeBuffer_MetadataType = 4;
+#[doc = " HDR IMAGE ISO DUAL.\n @since 23"]
+#[cfg(feature = "api-23")]
+pub const OH_NativeBuffer_MetadataType_OH_IMAGE_HDR_ISO_DUAL: OH_NativeBuffer_MetadataType = 5;
+#[doc = " HDR IMAGE ISO SINGLE.\n @since 23"]
+#[cfg(feature = "api-23")]
+pub const OH_NativeBuffer_MetadataType_OH_IMAGE_HDR_ISO_SINGLE: OH_NativeBuffer_MetadataType = 6;
 #[doc = " NONE Metadata\n @since 13"]
 #[cfg(feature = "api-13")]
 pub const OH_NativeBuffer_MetadataType_OH_VIDEO_NONE: OH_NativeBuffer_MetadataType = -1;
@@ -382,7 +388,7 @@ pub const OHScalingMode_OH_SCALING_MODE_SCALE_TO_WINDOW: OHScalingMode = 1;
 pub const OHScalingMode_OH_SCALING_MODE_SCALE_CROP: OHScalingMode = 2;
 #[doc = " the window is clipped to the size of the buffer's clipping rectangle\n pixels outside the clipping rectangle are considered fully transparent."]
 pub const OHScalingMode_OH_SCALING_MODE_NO_SCALE_CROP: OHScalingMode = 3;
-#[doc = " @brief Indicates Scaling Mode.\n @since 9\n @deprecated(since = \"10\")\n @useinstead OHScalingModeV2"]
+#[doc = " @brief Indicates Scaling Mode.\n @since 9\n @deprecated since 10\n @useinstead OHScalingModeV2"]
 pub type OHScalingMode = u32;
 #[doc = " the window content is not updated until a buffer of\n the window size is received"]
 pub const OHScalingModeV2_OH_SCALING_MODE_FREEZE_V2: OHScalingModeV2 = 0;
@@ -410,16 +416,16 @@ pub const OHHDRMetadataKey_OH_METAKEY_MAX_CONTENT_LIGHT_LEVEL: OHHDRMetadataKey 
 pub const OHHDRMetadataKey_OH_METAKEY_MAX_FRAME_AVERAGE_LIGHT_LEVEL: OHHDRMetadataKey = 11;
 pub const OHHDRMetadataKey_OH_METAKEY_HDR10_PLUS: OHHDRMetadataKey = 12;
 pub const OHHDRMetadataKey_OH_METAKEY_HDR_VIVID: OHHDRMetadataKey = 13;
-#[doc = " @brief Enumerates the HDR metadata keys.\n @since 9\n @deprecated(since = \"10\")"]
+#[doc = " @brief Enumerates the HDR metadata keys.\n @since 9\n @deprecated since 10"]
 pub type OHHDRMetadataKey = u32;
-#[doc = " @brief Defines the HDR metadata.\n @since 9\n @deprecated(since = \"10\")"]
+#[doc = " @brief Defines the HDR metadata.\n @since 9\n @deprecated since 10"]
 #[repr(C)]
 #[derive(Debug, Copy, Clone)]
 pub struct OHHDRMetaData {
     pub key: OHHDRMetadataKey,
     pub value: f32,
 }
-#[doc = " @brief Defines the ExtData Handle\n @since 9\n @deprecated(since = \"10\")"]
+#[doc = " @brief Defines the ExtData Handle\n @since 9\n @deprecated since 10"]
 #[repr(C)]
 #[derive(Debug)]
 pub struct OHExtDataHandle {
@@ -435,14 +441,13 @@ pub const OH_NativeBuffer_Usage_NATIVEBUFFER_USAGE_MEM_DMA: OH_NativeBuffer_Usag
 #[doc = " < Direct memory access (DMA) buffer */\n**\n* MMZ with cache\n* @since 20\n*/"]
 #[cfg(feature = "api-20")]
 pub const OH_NativeBuffer_Usage_NATIVEBUFFER_USAGE_MEM_MMZ_CACHE: OH_NativeBuffer_Usage = 32;
-#[doc = " < Direct memory access (DMA) buffer */\n**\n* MMZ with cache\n* @since 20\n*/"]
-#[cfg(feature = "api-20")]
+#[doc = " @since 12"]
 pub const OH_NativeBuffer_Usage_NATIVEBUFFER_USAGE_HW_RENDER: OH_NativeBuffer_Usage = 256;
-#[doc = " < For GPU write case */"]
+#[doc = " < For GPU write case */\n**\n* @since 12\n*/"]
 pub const OH_NativeBuffer_Usage_NATIVEBUFFER_USAGE_HW_TEXTURE: OH_NativeBuffer_Usage = 512;
-#[doc = " < For GPU read case */"]
+#[doc = " < For GPU read case */\n**\n* @since 12\n*/"]
 pub const OH_NativeBuffer_Usage_NATIVEBUFFER_USAGE_CPU_READ_OFTEN: OH_NativeBuffer_Usage = 65536;
-#[doc = " < Often be mapped for direct CPU reads */"]
+#[doc = " < Often be mapped for direct CPU reads */\n**\n* @since 12\n*/"]
 pub const OH_NativeBuffer_Usage_NATIVEBUFFER_USAGE_ALIGNMENT_512: OH_NativeBuffer_Usage = 262144;
 #[doc = " @brief Indicates the usage of a native buffer.\n\n @syscap SystemCapability.Graphic.Graphic2D.NativeBuffer\n @since 10\n @version 1.0"]
 pub type OH_NativeBuffer_Usage = u32;
@@ -594,5 +599,47 @@ extern "C" {
         metadataKey: OH_NativeBuffer_MetadataKey,
         size: *mut i32,
         metadata: *mut *mut u8,
+    ) -> i32;
+}
+extern "C" {
+    #[doc = " @brief Provide direct cpu access to the OH_NativeBuffer in the process's address space and wait fence.\\n\n If the interface returns OK, fenceFd does not need to be closed by the developer,\n Otherwise, the developer needs to close the fenceFd.\\n\n This interface is a non-thread-safe type interface.\n\n @syscap SystemCapability.Graphic.Graphic2D.NativeBuffer\n @param buffer Indicates the pointer to a <b>OH_NativeBuffer</b> instance.\n @param fenceFd Indicates the pointer to a file descriptor handle.\n @param virAddr Indicates the address of the <b>OH_NativeBuffer</b> in virtual memory.\n @return {@link NATIVE_ERROR_OK} 0 - Success.\n {@link NATIVE_ERROR_INVALID_ARGUMENTS} 40001000 - buffer or virAddr is NULL or invalid fenceFd.\n {@link NATIVE_ERROR_UNKNOWN} 50002000 - map failed.\n @since 23\n @version 1.0"]
+    #[cfg(feature = "api-23")]
+    pub fn OH_NativeBuffer_MapWaitFence(
+        buffer: *mut OH_NativeBuffer,
+        fenceFd: i32,
+        virAddr: *mut *mut ::std::os::raw::c_void,
+    ) -> i32;
+}
+extern "C" {
+    #[doc = " @brief Serialize <b>OH_NativeBuffer</b> object to the serialized <b>OHIPCParcel</b> object.\\n\n This interface is a non-thread-safe type interface.\n\n @syscap SystemCapability.Graphic.Graphic2D.NativeBuffer\n @param buffer Indicates the pointer to a <b>OH_NativeBuffer</b> instance.\n @param parcel Indicates the serialized <b>OHIPCParcel</b> object.\n @return {@link NATIVE_ERROR_OK} 0 - Success.\n {@link NATIVE_ERROR_INVALID_ARGUMENTS} 40001000 - buffer or parcel is NULL.\n {@link SURFACE_ERROR_BINDER_ERROR} 50401000 - ipc send failed.\n @since 23\n @version 1.0"]
+    #[cfg(feature = "api-23")]
+    pub fn OH_NativeBuffer_WriteToParcel(
+        buffer: *mut OH_NativeBuffer,
+        parcel: *mut OHIPCParcel,
+    ) -> i32;
+}
+extern "C" {
+    #[doc = " @brief Deserialize data from the serialized <b>OHIPCParcel</b> object and rebuild <b>OH_NativeBuffer</b> object.\n This interface will cause an increase in the reference count of the <b>OH_NativeBuffer</b> instance.\n This interface needs to be used in conjunction with <b>OH_NativeBuffer_Unreference</b>,\\n\n otherwise memory leaks will occur.\n This interface is a non-thread-safe type interface.\n\n @syscap SystemCapability.Graphic.Graphic2D.NativeBuffer\n @param parcel Indicates the serialized <b>OHIPCParcel</b> object.\n @param buffer Indicates the pointer to a <b>OH_NativeBuffer</b> pointer.\n @return {@link NATIVE_ERROR_OK} 0 - Success.\n {@link NATIVE_ERROR_INVALID_ARGUMENTS} 40001000 - parcel or buffer is NULL.\n {@link NATIVE_ERROR_UNKNOWN} 50002000 - deserialize failed.\n @since 23\n @version 1.0"]
+    #[cfg(feature = "api-23")]
+    pub fn OH_NativeBuffer_ReadFromParcel(
+        parcel: *mut OHIPCParcel,
+        buffer: *mut *mut OH_NativeBuffer,
+    ) -> i32;
+}
+extern "C" {
+    #[doc = " @brief Check whether the system supports the <b>NativeBufferConfig</b>.\\n\n This interface is a non-thread-safe type interface.\n\n @syscap SystemCapability.Graphic.Graphic2D.NativeBuffer\n @param config Indicates the config of the <b>OH_NativeBuffer</b>.\n @param isSupported Indicates whether the system supports the <b>NativeBufferConfig</b>.\n @return {@link NATIVE_ERROR_OK} 0 - Success.\n {@link NATIVE_ERROR_INVALID_ARGUMENTS} 40001000 - isSupported is NULL.\n @since 23\n @version 1.0"]
+    #[cfg(feature = "api-23")]
+    pub fn OH_NativeBuffer_IsSupported(
+        config: OH_NativeBuffer_Config,
+        isSupported: *mut bool,
+    ) -> i32;
+}
+extern "C" {
+    #[doc = " @brief Provide direct cpu access to the <b>OH_NativeBuffer</b> in the process's address space,\\n\n and return a <b>NativeBufferConfig<b> of the <b>OH_NativeBuffer</b>.\n This interface is a non-thread-safe type interface.\n\n @syscap SystemCapability.Graphic.Graphic2D.NativeBuffer\n @param buffer Indicates the pointer to a <b>OH_NativeBuffer</b> instance.\n @param virAddr Indicates the address of the <b>OH_NativeBuffer</b> in virtual memory.\n @param config Indicates the pointer to the <b>NativeBufferConfig</b> of the buffer.\n @return {@link NATIVE_ERROR_OK} 0 - Success.\n {@link NATIVE_ERROR_INVALID_ARGUMENTS} 40001000 - buffer or virAddr or config is NULL or invalid fenceFd.\n {@link NATIVE_ERROR_UNKNOWN} 50002000 - map failed.\n @since 23\n @version 1.0"]
+    #[cfg(feature = "api-23")]
+    pub fn OH_NativeBuffer_MapAndGetConfig(
+        buffer: *mut OH_NativeBuffer,
+        virAddr: *mut *mut ::std::os::raw::c_void,
+        config: *mut OH_NativeBuffer_Config,
     ) -> i32;
 }

@@ -5,6 +5,8 @@
 #![allow(non_camel_case_types)]
 #![allow(clippy::missing_safety_doc)]
 
+use ohos_arkui_input_sys::*;
+
 #[link(name = "ace_ndk.z")]
 unsafe extern "C" {}
 
@@ -861,5 +863,13 @@ extern "C" {
         arguments: *mut ArkUI_AccessibilityActionArguments,
         key: *const ::std::os::raw::c_char,
         value: *mut *mut ::std::os::raw::c_char,
+    ) -> i32;
+}
+extern "C" {
+    #[doc = " @brief Obtains the pointer to the <b> ArkUI_AccessibilityProvider</b>\n instance of this <b>ArkUI_NodeHandle</b> instance.\n\n @param node Indicates the pointer to the <b>ArkUI_NodeHandle</b> instance.\n @param provider Indicates the pointer to the <b>ArkUI_AccessibilityProvider</b> instance.\n @return Returns the result code.\n @return Returns <b>ARKUI_ERROR_CODE_NO_ERROR<b> if the operation is successful.\n         Returns <b>ARKUI_ERROR_CODE_PARAM_INVALID<b> if a parameter error occurs:1. node or\n         provider is nullptr. 2. the type of node is not ARKUI_NODE_CUSTOM.\n @since 23"]
+    #[cfg(feature = "api-23")]
+    pub fn OH_ArkUI_NativeModule_GetNativeAccessibilityProvider(
+        node: *mut ArkUI_NodeHandle,
+        provider: *mut *mut ArkUI_AccessibilityProvider,
     ) -> i32;
 }

@@ -19,7 +19,6 @@ mod config;
 static CONFIG: Lazy<Vec<Lazy<SysConfig>>> = Lazy::new(|| {
     vec![
         config::ARKUI,
-        config::EVENT,
         config::XCOMPONENT,
         config::RESOURCE_MANAGER,
         config::ABILITY,

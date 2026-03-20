@@ -8,18 +8,24 @@ description = "OpenHarmony's image binding for rust"
 [lints]
 workspace = true
 
-# See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
-
 [dependencies]
-napi-sys-ohos = "0.0.1"
+napi-sys-ohos             = { workspace = true }
+napi-ohos                 = { workspace = true, optional = true }
+ohos-image-sys            = { workspace = true }
+ohos-resource-manager-sys = { workspace = true }
+ohos_enum_macro           = { workspace = true }
 
 [features]
-default = []
-api-13  = []
-api-14  = ["api-13"]
-api-15  = ["api-14"]
-api-16  = ["api-15"]
-api-17  = ["api-16"]
-api-18  = ["api-17"]
-api-19  = ["api-18"]
-api-20  = ["api-19"]
+default = ["napi"]
+napi    = ["dep:napi-ohos"]
+api-13  = ["ohos-image-sys/api-13", "ohos-resource-manager-sys/api-13"]
+api-14  = ["api-13", "ohos-image-sys/api-14", "ohos-resource-manager-sys/api-14"]
+api-15  = ["api-14", "ohos-image-sys/api-15", "ohos-resource-manager-sys/api-15"]
+api-16  = ["api-15", "ohos-image-sys/api-16", "ohos-resource-manager-sys/api-16"]
+api-17  = ["api-16", "ohos-image-sys/api-17", "ohos-resource-manager-sys/api-17"]
+api-18  = ["api-17", "ohos-image-sys/api-18", "ohos-resource-manager-sys/api-18"]
+api-19  = ["api-18", "ohos-image-sys/api-19", "ohos-resource-manager-sys/api-19"]
+api-20  = ["api-19", "ohos-image-sys/api-20", "ohos-resource-manager-sys/api-20"]
+api-21  = ["api-20", "ohos-image-sys/api-21", "ohos-resource-manager-sys/api-21"]
+api-22  = ["api-21", "ohos-image-sys/api-22", "ohos-resource-manager-sys/api-22"]
+api-23  = ["api-22", "ohos-resource-manager-sys/api-23"]

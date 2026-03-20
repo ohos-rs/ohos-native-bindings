@@ -1,0 +1,32 @@
+[package]
+name        = "ohos-image-native-binding"
+version     = "0.0.1"
+edition     = "2021"
+license     = "MIT OR Apache-2.0"
+description = "OpenHarmony's image native binding for rust"
+
+[lints]
+workspace = true
+
+[dependencies]
+napi-sys-ohos              = { workspace = true }
+libc                       = { workspace = true }
+ohos-image-native-sys      = { workspace = true }
+ohos-native-buffer-sys     = { workspace = true }
+ohos-native-buffer-binding = { workspace = true }
+ohos-resource-manager-sys  = { workspace = true }
+ohos_enum_macro            = { workspace = true }
+
+[features]
+default = []
+api-13  = ["ohos-image-native-sys/api-13", "ohos-native-buffer-sys/api-13", "ohos-resource-manager-sys/api-13"]
+api-14  = ["api-13", "ohos-image-native-sys/api-14", "ohos-native-buffer-sys/api-14", "ohos-resource-manager-sys/api-14"]
+api-15  = ["api-14", "ohos-image-native-sys/api-15", "ohos-native-buffer-sys/api-15", "ohos-resource-manager-sys/api-15"]
+api-16  = ["api-15", "ohos-image-native-sys/api-16", "ohos-native-buffer-sys/api-16", "ohos-resource-manager-sys/api-16"]
+api-17  = ["api-16", "ohos-image-native-sys/api-17", "ohos-native-buffer-sys/api-17", "ohos-resource-manager-sys/api-17"]
+api-18  = ["api-17", "ohos-image-native-sys/api-18", "ohos-native-buffer-sys/api-18", "ohos-resource-manager-sys/api-18"]
+api-19  = ["api-18", "ohos-image-native-sys/api-19", "ohos-native-buffer-sys/api-19", "ohos-resource-manager-sys/api-19"]
+api-20  = ["api-19", "ohos-image-native-sys/api-20", "ohos-native-buffer-sys/api-20", "ohos-resource-manager-sys/api-20"]
+api-21  = ["api-20", "ohos-image-native-sys/api-21", "ohos-native-buffer-sys/api-21", "ohos-resource-manager-sys/api-21"]
+api-22  = ["api-21", "ohos-image-native-sys/api-22", "ohos-native-buffer-sys/api-22", "ohos-resource-manager-sys/api-22"]
+api-23  = ["api-22", "ohos-image-native-sys/api-23", "ohos-native-buffer-sys/api-23", "ohos-resource-manager-sys/api-23"]

@@ -26,6 +26,11 @@ pub use r#type as types;
 
 /// Re-export of the low-level arkui input binding crate.
 pub use ohos_arkui_input_binding as arkui_input_binding;
+/// Re-export of the image binding crate.
+#[cfg(feature = "image")]
+pub use ohos_image_binding as image_binding;
+/// Re-export of the image-native binding crate.
+pub use ohos_image_native_binding as image_native_binding;
 
 // Internal compatibility re-exports for in-crate paths.
 pub(crate) use animate::*;

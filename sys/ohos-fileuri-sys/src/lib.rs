@@ -27,7 +27,7 @@ pub const FileManagement_ErrCode_ERR_UNKNOWN: FileManagement_ErrCode = 13900042;
 #[doc = " @brief error codes of file management\n @since 12"]
 pub type FileManagement_ErrCode = u32;
 extern "C" {
-    #[doc = " @brief Get uri From path.\n\n @param path Input a pointer to the path string.\n @param length The length of the input path.\n @param result Output a pointer to a uri string. Please use free() to clear the resource.\n @return Returns the status code of the execution.\n         {@link ERR_PARAMS}  401 - Invalid input parameter.\n         {@link ERR_UNKNOWN} 13900042 - Unknow error. The length of the output uri string is 0.\n         {@link ERR_ENOMEM}  13900011 - Failed to apply for memory or failed to copy memory.\n         {@link ERR_OK} 0 - This operation was successfully executed.\n @syscap SystemCapability.FileManagement.AppFileService\n @since 12"]
+    #[doc = " @brief Get uri From path.\n\n @param path Input a pointer to the path string.\n @param length The length of the input path.\n @param result Output a pointer to a uri string. Please use free() to clear the resource.\n @return Returns the status code of the execution.\n         {@link ERR_INVALID_PARAMETER}  401 - Invalid input parameter.\n         {@link ERR_UNKNOWN} 13900042 - Unknow error. The length of the output uri string is 0.\n         {@link ERR_ENOMEM}  13900011 - Failed to apply for memory or failed to copy memory.\n         {@link ERR_OK} 0 - This operation was successfully executed.\n @syscap SystemCapability.FileManagement.AppFileService\n @since 12"]
     pub fn OH_FileUri_GetUriFromPath(
         path: *const ::std::os::raw::c_char,
         length: ::std::os::raw::c_uint,
@@ -35,7 +35,7 @@ extern "C" {
     ) -> FileManagement_ErrCode;
 }
 extern "C" {
-    #[doc = " @brief Get path From uri.\n\n @param uri Input a pointer to the uri string.\n @param length The length of the input uri.\n @param result Output a pointer to a path string. Please use free() to clear the resource.\n @return Returns the status code of the execution.\n         {@link ERR_PARAMS} 401 - Invalid input parameter.\n         {@link ERR_UNKNOWN} 13900042 - Unknow error. The length of the output path string is 0.\n         {@link ERR_ENOMEM} 13900011 - Failed to apply for memory or failed to copy memory.\n         {@link ERR_OK} 0 - This operation was successfully executed.\n @syscap SystemCapability.FileManagement.AppFileService\n @since 12"]
+    #[doc = " @brief Get path From uri.\n\n @param uri Input a pointer to the uri string.\n @param length The length of the input uri.\n @param result Output a pointer to a path string. Please use free() to clear the resource.\n @return Returns the status code of the execution.\n         {@link ERR_INVALID_PARAMETER} 401 - Invalid input parameter.\n         {@link ERR_UNKNOWN} 13900042 - Unknow error. The length of the output path string is 0.\n         {@link ERR_ENOMEM} 13900011 - Failed to apply for memory or failed to copy memory.\n         {@link ERR_OK} 0 - This operation was successfully executed.\n @syscap SystemCapability.FileManagement.AppFileService\n @since 12"]
     pub fn OH_FileUri_GetPathFromUri(
         uri: *const ::std::os::raw::c_char,
         length: ::std::os::raw::c_uint,
@@ -43,7 +43,7 @@ extern "C" {
     ) -> FileManagement_ErrCode;
 }
 extern "C" {
-    #[doc = " @brief Gets the uri of the path or directory where the uri is located.\n\n @param uri Input a pointer to the uri string.\n @param length  The length of the input uri.\n @param result Output a pointer to a uri string. Please use free() to clear the resource.\n @return Returns the status code of the execution.\n         {@link ERR_PARAMS} 401 - Invalid input parameter.\n         {@link ERR_ENOMEM} 13900011 - Failed to apply for memory or failed to copy memory.\n         {@link ERR_ENOENT} 13900002 - No such file or directory.\n         {@link ERR_UNKNOWN} - Unknow error. The length of the output path string is 0.\n         {@link ERR_OK} 0 - This operation was successfully executed.\n @syscap SystemCapability.FileManagement.AppFileService\n @since 12"]
+    #[doc = " @brief Gets the uri of the path or directory where the uri is located.\n\n @param uri Input a pointer to the uri string.\n @param length  The length of the input uri.\n @param result Output a pointer to a uri string. Please use free() to clear the resource.\n @return Returns the status code of the execution.\n         {@link ERR_INVALID_PARAMETER} 401 - Invalid input parameter.\n         {@link ERR_ENOMEM} 13900011 - Failed to apply for memory or failed to copy memory.\n         {@link ERR_ENOENT} 13900002 - No such file or directory.\n         {@link ERR_UNKNOWN} 13900042 - Unknow error. The length of the output path string is 0.\n         {@link ERR_OK} 0 - This operation was successfully executed.\n @syscap SystemCapability.FileManagement.AppFileService\n @since 12"]
     pub fn OH_FileUri_GetFullDirectoryUri(
         uri: *const ::std::os::raw::c_char,
         length: ::std::os::raw::c_uint,
@@ -58,7 +58,7 @@ extern "C" {
     ) -> bool;
 }
 extern "C" {
-    #[doc = " @brief Gets the fileName From uri.\n This function obtains that the last segment of the URI string is the return value of the function,\n and the URI of the media type is not supported\n @param uri Input a pointer to the uri string.\n @param length  The length of the input uri.\n @param result Output a pointer to a FileName string. Please use free() to clear the resource.\n @return Returns the status code of the execution.\n         {@link ERR_PARAMS} 401 - Invalid input parameter.\n         {@link ERR_ENOMEM} 13900011 - Failed to apply for memory or failed to copy memory.\n         {@link ERR_OK} 0 - This operation was successfully executed.\n @syscap SystemCapability.FileManagement.AppFileService\n @since 13"]
+    #[doc = " @brief Gets the fileName From uri.\n This function obtains that the last segment of the URI string is the return value of the function,\n and the URI of the media type is not supported\n @param uri Input a pointer to the uri string.\n @param length  The length of the input uri.\n @param result Output a pointer to a FileName string. Please use free() to clear the resource.\n @return Returns the status code of the execution.\n         {@link ERR_INVALID_PARAMETER} 401 - Invalid input parameter.\n         {@link ERR_ENOMEM} 13900011 - Failed to apply for memory or failed to copy memory.\n         {@link ERR_OK} 0 - This operation was successfully executed.\n @syscap SystemCapability.FileManagement.AppFileService\n @since 13"]
     #[cfg(feature = "api-13")]
     pub fn OH_FileUri_GetFileName(
         uri: *const ::std::os::raw::c_char,
