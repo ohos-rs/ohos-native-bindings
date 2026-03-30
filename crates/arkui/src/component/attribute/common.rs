@@ -33,6 +33,10 @@ pub trait ArkUICommonAttribute: ArkUIAttributeBasic {
         ARK_UI_NATIVE_NODE_API_1.with(|api| api.get_attribute(self.raw(), attribute))
     }
 
+    fn reset_attribute(&self, attribute: ArkUINodeAttributeType) -> ArkUIResult<()> {
+        ARK_UI_NATIVE_NODE_API_1.with(|api| api.reset_attribute(self.raw(), attribute))
+    }
+
     fn set_number_attribute(
         &self,
         attribute: ArkUINodeAttributeType,
@@ -435,6 +439,10 @@ pub trait ArkUICommonAttribute: ArkUIAttributeBasic {
 
     fn get_overlay(&self) -> ArkUIResult<ArkUINodeAttributeItem> {
         self.get_attribute(crate::ArkUINodeAttributeType::Overlay)
+    }
+
+    fn reset_overlay(&self) -> ArkUIResult<()> {
+        self.reset_attribute(crate::ArkUINodeAttributeType::Overlay)
     }
 
     fn set_sweep_gradient<T: Into<ArkUINodeAttributeItem>>(&self, value: T) -> ArkUIResult<()> {

@@ -4,16 +4,27 @@
 use napi_ohos::bindgen_prelude::{check_status, FromNapiValue, TypeName, ValidateNapiValue};
 #[cfg(feature = "napi")]
 use napi_sys_ohos as sys;
-use ohos_arkui_input_binding::sys::ArkUI_NodeHandle;
+use ohos_arkui_input_binding::{sys::ArkUI_NodeHandle, ArkUIErrorCode};
+use ohos_arkui_sys::{
+    ArkUI_IntOffset, ArkUI_IntSize, OH_ArkUI_GetContextByNode,
+    OH_ArkUI_NodeUtils_GetLayoutPositionInWindow, OH_ArkUI_NodeUtils_GetLayoutSize,
+    OH_ArkUI_NodeUtils_GetPositionWithTranslateInWindow,
+};
 
 #[cfg(feature = "napi")]
 use ohos_arkui_sys::OH_ArkUI_GetNodeHandleFromNapiValue;
 #[cfg(feature = "napi")]
 use std::ptr;
 
-use std::{borrow::BorrowMut, cell::RefCell, rc::Rc};
+use std::{cell::RefCell, rc::Rc};
 
-use crate::{ArkUINodeType, EventHandle, ARK_UI_NATIVE_NODE_API_1};
+use crate::{
+    animate::options::Animation,
+    api::node_custom_event::{IntOffset, IntSize},
+    api::ARK_UI_NATIVE_ANIMATE_API_1,
+    check_arkui_status, ArkUIAttributeBasic, ArkUICommonAttribute, ArkUIError, ArkUINodeType,
+    EventHandle, ARK_UI_NATIVE_NODE_API_1,
+};
 
 use super::ArkUIResult;
 
@@ -31,6 +42,11 @@ pub struct ArkUINode {
 }
 
 impl ArkUINode {
+    /// Returns the native ArkUI node handle.
+    pub fn raw_handle(&self) -> ArkUI_NodeHandle {
+        self.raw
+    }
+
     /// Immutable children view.
     pub fn children(&self) -> &[Rc<RefCell<ArkUINode>>] {
         self.children.as_slice()
@@ -65,15 +81,72 @@ impl ArkUINode {
         if handle.has_callback() {
             ARK_UI_NATIVE_NODE_API_1.with(|api| api.remove_event_receiver(self))?;
         }
+        // `disposeNode` tears down the native subtree. Disposing wrapper children again will
+        // double free the descendant handles during patch/remount flows.
         ARK_UI_NATIVE_NODE_API_1.with(|api| api.dispose(self))?;
-        for mut child in self.children.iter() {
-            let child_ref = child.borrow_mut();
-            child_ref.take().dispose()?;
-        }
         self.children.clear();
         Ok(())
     }
+
+    /// Runs an explicit ArkUI animation update against this node.
+    pub fn animate_to(&self, animation: &Animation) -> ArkUIResult<()> {
+        let context = unsafe { OH_ArkUI_GetContextByNode(self.raw()) };
+        if context.is_null() {
+            return Err(ArkUIError::new(
+                ArkUIErrorCode::ParamInvalid,
+                "OH_ArkUI_GetContextByNode returned null",
+            ));
+        }
+
+        let update_ctx_raw = animation.update_ctx.borrow().raw();
+        let finish_ctx_raw = animation.finish_ctx.borrow().raw();
+        ARK_UI_NATIVE_ANIMATE_API_1
+            .with(|api| api.animate_to(context, animation.raw(), update_ctx_raw, finish_ctx_raw))
+    }
+
+    /// Returns the layout size measured for this node.
+    pub fn layout_size(&self) -> ArkUIResult<IntSize> {
+        let mut size: ArkUI_IntSize = unsafe { std::mem::zeroed() };
+        unsafe { check_arkui_status!(OH_ArkUI_NodeUtils_GetLayoutSize(self.raw(), &mut size)) }?;
+        Ok(size.into())
+    }
+
+    /// Returns this node's layout position in the current window.
+    pub fn layout_position_in_window(&self) -> ArkUIResult<IntOffset> {
+        let mut offset: ArkUI_IntOffset = unsafe { std::mem::zeroed() };
+        unsafe {
+            check_arkui_status!(OH_ArkUI_NodeUtils_GetLayoutPositionInWindow(
+                self.raw(),
+                &mut offset
+            ))
+        }?;
+        Ok(offset.into())
+    }
+
+    /// Returns this node's translated position in the current window.
+    pub fn position_with_translate_in_window(&self) -> ArkUIResult<IntOffset> {
+        let mut offset: ArkUI_IntOffset = unsafe { std::mem::zeroed() };
+        unsafe {
+            check_arkui_status!(OH_ArkUI_NodeUtils_GetPositionWithTranslateInWindow(
+                self.raw(),
+                &mut offset
+            ))
+        }?;
+        Ok(offset.into())
+    }
 }
+
+impl ArkUIAttributeBasic for ArkUINode {
+    fn raw(&self) -> &ArkUINode {
+        self
+    }
+
+    fn borrow_mut(&mut self) -> &mut ArkUINode {
+        self
+    }
+}
+
+impl ArkUICommonAttribute for ArkUINode {}
 
 /// This implementation just for event and animation to use it.
 /// When you need to create a new node, you should add raw and tag at the same time.

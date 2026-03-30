@@ -6,6 +6,7 @@ pub mod animation_finish_type;
 pub mod animation_mode;
 pub mod attribute;
 pub mod curve;
+pub mod direction;
 pub mod dismiss_reason;
 pub mod drag;
 pub mod event;
@@ -16,6 +17,7 @@ pub mod gesture_group_mode;
 pub mod gesture_mask;
 pub mod gesture_priority;
 pub mod node_type;
+pub mod overlay;
 pub mod scroll;
 pub mod text_alignment;
 
