@@ -412,19 +412,6 @@ fn remove_force_dark_callback_registration(
     }
 }
 
-#[cfg(feature = "api-18")]
-unsafe extern "C" fn node_frame_callback_trampoline(
-    nano_timestamp: u64,
-    frame_count: u32,
-    user_data: *mut c_void,
-) {
-    if user_data.is_null() {
-        return;
-    }
-    let callback = unsafe { Box::from_raw(user_data as *mut NodeTimestampFrameCallbackContext) };
-    (callback.callback)(nano_timestamp, frame_count);
-}
-
 #[cfg(feature = "api-20")]
 unsafe extern "C" fn node_idle_callback_trampoline(
     nano_time_left: u64,
@@ -436,6 +423,19 @@ unsafe extern "C" fn node_idle_callback_trampoline(
     }
     let callback = unsafe { Box::from_raw(user_data as *mut NodeTimestampFrameCallbackContext) };
     (callback.callback)(nano_time_left, frame_count);
+}
+
+#[cfg(feature = "api-18")]
+unsafe extern "C" fn node_frame_callback_trampoline(
+    nano_timestamp: u64,
+    frame_count: u32,
+    user_data: *mut c_void,
+) {
+    if user_data.is_null() {
+        return;
+    }
+    let callback = unsafe { Box::from_raw(user_data as *mut NodeTimestampFrameCallbackContext) };
+    (callback.callback)(nano_timestamp, frame_count);
 }
 
 #[cfg(feature = "api-22")]
@@ -1889,32 +1889,6 @@ impl ArkUIHandle {
         })
     }
 
-    #[cfg(feature = "api-18")]
-    pub(crate) fn post_frame_callback<T: Fn(u64, u32) + 'static>(
-        &self,
-        node: &ArkUINode,
-        callback: T,
-    ) -> ArkUIResult<()> {
-        let context = self.context_by_node(node)?;
-        let callback = Box::into_raw(Box::new(NodeTimestampFrameCallbackContext {
-            callback: Box::new(callback),
-        }));
-        let result = unsafe {
-            check_arkui_status!(ohos_arkui_sys::OH_ArkUI_PostFrameCallback(
-                context,
-                callback.cast(),
-                Some(node_frame_callback_trampoline)
-            ))
-        };
-        if let Err(err) = result {
-            unsafe {
-                drop(Box::from_raw(callback));
-            }
-            return Err(err);
-        }
-        Ok(())
-    }
-
     #[cfg(feature = "api-20")]
     pub(crate) fn post_idle_callback<T: Fn(u64, u32) + 'static>(
         &self,
@@ -1945,6 +1919,149 @@ impl ArkUIHandle {
     pub(crate) fn swiper_finish_animation(&self, node: &ArkUINode) -> ArkUIResult<()> {
         let _ = self.raw();
         unsafe { check_arkui_status!(ohos_arkui_sys::OH_ArkUI_Swiper_FinishAnimation(node.raw())) }
+    }
+}
+
+#[cfg(feature = "api-21")]
+impl ArkUINode {
+    /// Force ArkUI to invalidate the attribute cache for this node.
+    pub fn invalidate_attributes(&self) -> ArkUIResult<()> {
+        unsafe { check_arkui_status!(OH_ArkUI_NativeModule_InvalidateAttributes(self.raw())) }
+    }
+}
+
+#[cfg(feature = "api-18")]
+impl ArkUINode {
+    /// Register a one-shot callback during the next ArkUI frame for this node's UI context.
+    pub fn post_frame_callback<T: Fn(u64, u32) + 'static>(&self, callback: T) -> ArkUIResult<()> {
+        let context = unsafe { OH_ArkUI_GetContextByNode(self.raw()) };
+        if context.is_null() {
+            return Err(ArkUIError::new(
+                ArkUIErrorCode::ParamInvalid,
+                "OH_ArkUI_GetContextByNode returned null",
+            ));
+        }
+
+        let callback = Box::into_raw(Box::new(NodeTimestampFrameCallbackContext {
+            callback: Box::new(callback),
+        }));
+        let result = unsafe {
+            check_arkui_status!(ohos_arkui_sys::OH_ArkUI_PostFrameCallback(
+                context,
+                callback.cast(),
+                Some(node_frame_callback_trampoline)
+            ))
+        };
+        if let Err(err) = result {
+            unsafe {
+                drop(Box::from_raw(callback));
+            }
+            return Err(err);
+        }
+        Ok(())
+    }
+}
+
+#[cfg(feature = "api-20")]
+impl ArkUINode {
+    /// Register a one-shot callback at the end of the next idle frame for this node's UI context.
+    pub fn post_idle_callback<T: Fn(u64, u32) + 'static>(&self, callback: T) -> ArkUIResult<()> {
+        let context = unsafe { OH_ArkUI_GetContextByNode(self.raw()) };
+        if context.is_null() {
+            return Err(ArkUIError::new(
+                ArkUIErrorCode::ParamInvalid,
+                "OH_ArkUI_GetContextByNode returned null",
+            ));
+        }
+
+        let callback = Box::into_raw(Box::new(NodeTimestampFrameCallbackContext {
+            callback: Box::new(callback),
+        }));
+        let result = unsafe {
+            check_arkui_status!(ohos_arkui_sys::OH_ArkUI_PostIdleCallback(
+                context,
+                callback.cast(),
+                Some(node_idle_callback_trampoline)
+            ))
+        };
+        if let Err(err) = result {
+            unsafe {
+                drop(Box::from_raw(callback));
+            }
+            return Err(err);
+        }
+        Ok(())
+    }
+
+    /// Add supported UI state tracking for this node.
+    pub fn add_supported_ui_states<T: Fn(i32) + 'static>(
+        &self,
+        ui_states: i32,
+        states_change_handler: T,
+        exclude_inner: bool,
+    ) -> ArkUIResult<()> {
+        let callback = Box::into_raw(Box::new(NodeSupportedUIStatesCallbackContext {
+            callback: Box::new(states_change_handler),
+        }));
+        let result = unsafe {
+            check_arkui_status!(OH_ArkUI_AddSupportedUIStates(
+                self.raw(),
+                ui_states,
+                Some(node_supported_ui_states_callback_trampoline),
+                exclude_inner,
+                callback.cast()
+            ))
+        };
+        if let Err(err) = result {
+            unsafe {
+                drop(Box::from_raw(callback));
+            }
+            return Err(err);
+        }
+        let mut callbacks = match supported_ui_states_callback_contexts().lock() {
+            Ok(callbacks) => callbacks,
+            Err(poisoned) => poisoned.into_inner(),
+        };
+        if let Some(old) = callbacks.insert(
+            self.raw() as usize,
+            NodeSupportedUIStateRegistration {
+                callback: callback as usize,
+                ui_states,
+            },
+        ) {
+            unsafe {
+                drop(Box::from_raw(
+                    old.callback as *mut NodeSupportedUIStatesCallbackContext,
+                ));
+            }
+        }
+        Ok(())
+    }
+
+    /// Remove supported UI state tracking from this node.
+    pub fn remove_supported_ui_states(&self, ui_states: i32) -> ArkUIResult<()> {
+        unsafe { check_arkui_status!(OH_ArkUI_RemoveSupportedUIStates(self.raw(), ui_states)) }?;
+        let key = self.raw() as usize;
+        let mut callbacks = match supported_ui_states_callback_contexts().lock() {
+            Ok(callbacks) => callbacks,
+            Err(poisoned) => poisoned.into_inner(),
+        };
+        let should_remove = if let Some(registration) = callbacks.get_mut(&key) {
+            registration.ui_states &= !ui_states;
+            registration.ui_states == 0
+        } else {
+            false
+        };
+        if should_remove {
+            if let Some(registration) = callbacks.remove(&key) {
+                unsafe {
+                    drop(Box::from_raw(
+                        registration.callback as *mut NodeSupportedUIStatesCallbackContext,
+                    ));
+                }
+            }
+        }
+        Ok(())
     }
 }
 

@@ -1,5 +1,6 @@
 //! Module component::built_in_component::xcomponent wrappers and related types.
 
+#[cfg(feature = "xcomponent")]
 use crate::{
     ArkUIAttributeBasic, ArkUINodeAttributeItem, ArkUINodeAttributeType, ARK_UI_NATIVE_NODE_API_1,
 };

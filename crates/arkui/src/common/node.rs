@@ -23,7 +23,7 @@ use crate::{
     api::node_custom_event::{IntOffset, IntSize},
     api::ARK_UI_NATIVE_ANIMATE_API_1,
     check_arkui_status, ArkUIAttributeBasic, ArkUICommonAttribute, ArkUIError, ArkUINodeType,
-    EventHandle, ARK_UI_NATIVE_NODE_API_1,
+    EventHandle, NodeDirtyFlag, ARK_UI_NATIVE_NODE_API_1,
 };
 
 use super::ArkUIResult;
@@ -133,6 +133,11 @@ impl ArkUINode {
             ))
         }?;
         Ok(offset.into())
+    }
+
+    /// Mark this node dirty so ArkUI recomputes the requested render pipeline stage.
+    pub fn mark_dirty(&self, dirty_flag: NodeDirtyFlag) -> ArkUIResult<()> {
+        ARK_UI_NATIVE_NODE_API_1.with(|api| api.mark_dirty(self, dirty_flag))
     }
 }
 

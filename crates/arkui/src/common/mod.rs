@@ -9,7 +9,6 @@ pub mod ui_context;
 
 pub(crate) use attribute::*;
 pub(crate) use error::*;
-pub(crate) use handle::*;
 pub(crate) use node::*;
 #[cfg(feature = "napi")]
 pub(crate) use ui_context::*;

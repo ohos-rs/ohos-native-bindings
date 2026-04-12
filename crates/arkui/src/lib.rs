@@ -32,6 +32,10 @@ pub use ohos_image_binding as image_binding;
 /// Re-export of the image-native binding crate.
 pub use ohos_image_native_binding as image_native_binding;
 
+pub use common::handle::ArkUIHandle;
+pub use component::built_in_component::XComponent;
+pub use component::root::RootNode;
+
 // Internal compatibility re-exports for in-crate paths.
 pub(crate) use animate::*;
 pub(crate) use api::*;
