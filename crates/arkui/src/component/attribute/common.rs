@@ -1130,6 +1130,15 @@ pub trait ArkUICommonAttribute: ArkUIAttributeBasic {
 
     fn insert_child<T: Into<ArkUINode>>(&mut self, child: T, index: usize) -> ArkUIResult<()> {
         let child_handle: Rc<RefCell<ArkUINode>> = Rc::new(RefCell::new(child.into()));
+        let child_handle_clone = child_handle.clone();
+
+        ARK_UI_NATIVE_NODE_API_1.with(|api| {
+            api.set_user_data(
+                &child_handle.borrow(),
+                Box::into_raw(Box::new(child_handle_clone)) as *mut c_void,
+            )
+        })?;
+        ARK_UI_NATIVE_NODE_API_1.with(|api| api.add_event_receiver(&child_handle.borrow()))?;
         ARK_UI_NATIVE_NODE_API_1
             .with(|api| api.insert_child(self.raw(), &child_handle.borrow(), index as i32))?;
         self.borrow_mut()
