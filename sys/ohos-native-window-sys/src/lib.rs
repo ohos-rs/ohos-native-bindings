@@ -133,7 +133,7 @@ pub const OHScalingMode_OH_SCALING_MODE_SCALE_TO_WINDOW: OHScalingMode = 1;
 pub const OHScalingMode_OH_SCALING_MODE_SCALE_CROP: OHScalingMode = 2;
 #[doc = " the window is clipped to the size of the buffer's clipping rectangle\n pixels outside the clipping rectangle are considered fully transparent."]
 pub const OHScalingMode_OH_SCALING_MODE_NO_SCALE_CROP: OHScalingMode = 3;
-#[doc = " @brief Indicates Scaling Mode.\n @since 9\n @deprecated(since = \"10\")\n @useinstead OHScalingModeV2"]
+#[doc = " @brief Indicates Scaling Mode.\n @since 9\n @deprecated since 10\n @useinstead OHScalingModeV2"]
 pub type OHScalingMode = u32;
 #[doc = " the window content is not updated until a buffer of\n the window size is received"]
 pub const OHScalingModeV2_OH_SCALING_MODE_FREEZE_V2: OHScalingModeV2 = 0;
@@ -161,16 +161,16 @@ pub const OHHDRMetadataKey_OH_METAKEY_MAX_CONTENT_LIGHT_LEVEL: OHHDRMetadataKey 
 pub const OHHDRMetadataKey_OH_METAKEY_MAX_FRAME_AVERAGE_LIGHT_LEVEL: OHHDRMetadataKey = 11;
 pub const OHHDRMetadataKey_OH_METAKEY_HDR10_PLUS: OHHDRMetadataKey = 12;
 pub const OHHDRMetadataKey_OH_METAKEY_HDR_VIVID: OHHDRMetadataKey = 13;
-#[doc = " @brief Enumerates the HDR metadata keys.\n @since 9\n @deprecated(since = \"10\")"]
+#[doc = " @brief Enumerates the HDR metadata keys.\n @since 9\n @deprecated since 10"]
 pub type OHHDRMetadataKey = u32;
-#[doc = " @brief Defines the HDR metadata.\n @since 9\n @deprecated(since = \"10\")"]
+#[doc = " @brief Defines the HDR metadata.\n @since 9\n @deprecated since 10"]
 #[repr(C)]
 #[derive(Debug, Copy, Clone)]
 pub struct OHHDRMetaData {
     pub key: OHHDRMetadataKey,
     pub value: f32,
 }
-#[doc = " @brief Defines the ExtData Handle\n @since 9\n @deprecated(since = \"10\")"]
+#[doc = " @brief Defines the ExtData Handle\n @since 9\n @deprecated since 10"]
 #[repr(C)]
 #[derive(Debug)]
 pub struct OHExtDataHandle {
@@ -264,7 +264,7 @@ extern "C" {
     pub fn OH_NativeWindow_GetNativeObjectMagic(obj: *mut ::std::os::raw::c_void) -> i32;
 }
 extern "C" {
-    #[doc = " @brief Sets scalingMode of a native window.\n\n @syscap SystemCapability.Graphic.Graphic2D.NativeWindow\n @param window Indicates the pointer to a <b>OHNativeWindow</b> instance.\n @param sequence Indicates the sequence to a produce buffer.\n @param scalingMode Indicates the enum value to <b>OHScalingMode</b>\n @return Returns an error code, 0 is success, otherwise, failed.\n @since 9\n @version 1.0\n @deprecated(since = \"10\")\n @useinstead OH_NativeWindow_NativeWindowSetScalingModeV2"]
+    #[doc = " @brief Sets scalingMode of a native window.\n\n @syscap SystemCapability.Graphic.Graphic2D.NativeWindow\n @param window Indicates the pointer to a <b>OHNativeWindow</b> instance.\n @param sequence Indicates the sequence to a produce buffer.\n @param scalingMode Indicates the enum value to <b>OHScalingMode</b>\n @return Returns an error code, 0 is success, otherwise, failed.\n @since 9\n @version 1.0\n @deprecated since 10\n @useinstead OH_NativeWindow_NativeWindowSetScalingModeV2"]
     pub fn OH_NativeWindow_NativeWindowSetScalingMode(
         window: *mut OHNativeWindow,
         sequence: u32,
@@ -272,7 +272,7 @@ extern "C" {
     ) -> i32;
 }
 extern "C" {
-    #[doc = " @brief Sets metaData of a native window.\n\n @syscap SystemCapability.Graphic.Graphic2D.NativeWindow\n @param window Indicates the pointer to a <b>OHNativeWindow</b> instance.\n @param sequence Indicates the sequence to a produce buffer.\n @param size Indicates the size of a <b>OHHDRMetaData</b> vector.\n @param metaDate Indicates the pointer to a <b>OHHDRMetaData</b> vector.\n @return Returns an error code, 0 is success, otherwise, failed.\n @since 9\n @version 1.0\n @deprecated(since = \"10\")"]
+    #[doc = " @brief Sets metaData of a native window.\n\n @syscap SystemCapability.Graphic.Graphic2D.NativeWindow\n @param window Indicates the pointer to a <b>OHNativeWindow</b> instance.\n @param sequence Indicates the sequence to a produce buffer.\n @param size Indicates the size of a <b>OHHDRMetaData</b> vector.\n @param metaDate Indicates the pointer to a <b>OHHDRMetaData</b> vector.\n @return Returns an error code, 0 is success, otherwise, failed.\n @since 9\n @version 1.0\n @deprecated since 10"]
     pub fn OH_NativeWindow_NativeWindowSetMetaData(
         window: *mut OHNativeWindow,
         sequence: u32,
@@ -281,7 +281,7 @@ extern "C" {
     ) -> i32;
 }
 extern "C" {
-    #[doc = " @brief Sets metaDataSet of a native window.\n\n @syscap SystemCapability.Graphic.Graphic2D.NativeWindow\n @param window Indicates the pointer to a <b>OHNativeWindow</b> instance.\n @param sequence Indicates the sequence to a produce buffer.\n @param key Indicates the enum value to <b>OHHDRMetadataKey</b>\n @param size Indicates the size of a uint8_t vector.\n @param metaDate Indicates the pointer to a uint8_t vector.\n @return Returns an error code, 0 is success, otherwise, failed.\n @since 9\n @version 1.0\n @deprecated(since = \"10\")"]
+    #[doc = " @brief Sets metaDataSet of a native window.\n\n @syscap SystemCapability.Graphic.Graphic2D.NativeWindow\n @param window Indicates the pointer to a <b>OHNativeWindow</b> instance.\n @param sequence Indicates the sequence to a produce buffer.\n @param key Indicates the enum value to <b>OHHDRMetadataKey</b>\n @param size Indicates the size of a uint8_t vector.\n @param metaDate Indicates the pointer to a uint8_t vector.\n @return Returns an error code, 0 is success, otherwise, failed.\n @since 9\n @version 1.0\n @deprecated since 10"]
     pub fn OH_NativeWindow_NativeWindowSetMetaDataSet(
         window: *mut OHNativeWindow,
         sequence: u32,
@@ -291,7 +291,7 @@ extern "C" {
     ) -> i32;
 }
 extern "C" {
-    #[doc = " @brief Sets tunnel handle of a native window.\n\n @syscap SystemCapability.Graphic.Graphic2D.NativeWindow\n @param window Indicates the pointer to a <b>OHNativeWindow</b> instance.\n @param handle Indicates the pointer to a <b>OHExtDataHandle</b>.\n @return Returns an error code, 0 is success, otherwise, failed.\n @since 9\n @version 1.0\n @deprecated(since = \"10\")"]
+    #[doc = " @brief Sets tunnel handle of a native window.\n\n @syscap SystemCapability.Graphic.Graphic2D.NativeWindow\n @param window Indicates the pointer to a <b>OHNativeWindow</b> instance.\n @param handle Indicates the pointer to a <b>OHExtDataHandle</b>.\n @return Returns an error code, 0 is success, otherwise, failed.\n @since 9\n @version 1.0\n @deprecated since 10"]
     pub fn OH_NativeWindow_NativeWindowSetTunnelHandle(
         window: *mut OHNativeWindow,
         handle: *const OHExtDataHandle,
@@ -398,4 +398,18 @@ extern "C" {
     #[cfg(feature = "api-22")]
     pub fn OH_NativeWindow_PreAllocBuffers(window: *mut OHNativeWindow, allocBufferCnt: u32)
         -> i32;
+}
+extern "C" {
+    #[doc = " @brief Requests an <b>OHNativeWindowBuffer</b> through an <b>OHNativeWindow</b> instance for content production,\\n\n and lock the <b>OHNativeWindowBuffer</b>, the interface needs to be paired with\\n\n <b>OH_NativeWindow_UnlockAndFlushBuffer</b> for use, after lock, it must be unlocked in order to relock,\\n\n repeatedly lock or unlock will return an illegal operation error code, the interface supports rendering images\\n\n directly through memory read and write on the CPU.\n This interface is a non-thread-safe type interface.\\n\n\n @syscap SystemCapability.Graphic.Graphic2D.NativeWindow\n @param window Indicates the pointer to a <b>OHNativeWindow</b> instance.\n @param region Indicates the info of the dirty region.\n @param buffer Indicates the pointer to an <b>OHNativeWindowBuffer</b> pointer.\n @return {@link NATIVE_ERROR_OK} 0 - Success.\n     {@link NATIVE_ERROR_INVALID_ARGUMENTS} 40001000 - window or buffer is NULL.\n     {@link NATIVE_ERROR_UNKNOWN} 50002000 - surface of window is NULL.\n @since 23\n @version 1.0"]
+    #[cfg(feature = "api-23")]
+    pub fn OH_NativeWindow_LockBuffer(
+        window: *mut OHNativeWindow,
+        region: Region,
+        buffer: *mut *mut OHNativeWindowBuffer,
+    ) -> i32;
+}
+extern "C" {
+    #[doc = " @brief Flushes the <b>OHNativeWindowBuffer</b> filled with the content to the buffer queue through an \\n\n <b>OHNativeWindow</b> instance for content consumption, and unlock the <b>OHNativeWindowBuffer</b>.\n This interface is a non-thread-safe type interface.\\n\n\n @syscap SystemCapability.Graphic.Graphic2D.NativeWindow\n @param window Indicates the pointer to a <b>OHNativeWindow</b> instance.\n @return {@link NATIVE_ERROR_OK} 0 - Success.\n     {@link NATIVE_ERROR_INVALID_ARGUMENTS} 40001000 - window is NULL.\n     {@link NATIVE_ERROR_UNKNOWN} 50002000 - surface of window is NULL.\n @since 23\n @version 1.0"]
+    #[cfg(feature = "api-23")]
+    pub fn OH_NativeWindow_UnlockAndFlushBuffer(window: *mut OHNativeWindow) -> i32;
 }
