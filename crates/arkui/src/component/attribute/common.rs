@@ -1128,6 +1128,18 @@ pub trait ArkUICommonAttribute: ArkUIAttributeBasic {
         Ok(())
     }
 
+    /// Add an externally-owned child node without installing native event receiver state.
+    ///
+    /// This is intended for nodes created outside the Rust wrapper layer, such as ArkTS
+    /// `FrameNode` handles bridged into native code. Registering wrapper user data and event
+    /// receivers on those nodes can interfere with their original input pipeline.
+    fn add_existing_child<T: Into<ArkUINode>>(&mut self, child: T) -> ArkUIResult<()> {
+        let child_handle: Rc<RefCell<ArkUINode>> = Rc::new(RefCell::new(child.into()));
+        ARK_UI_NATIVE_NODE_API_1.with(|api| api.add_child(self.raw(), &child_handle.borrow()))?;
+        self.borrow_mut().children_mut().push(child_handle);
+        Ok(())
+    }
+
     fn insert_child<T: Into<ArkUINode>>(&mut self, child: T, index: usize) -> ArkUIResult<()> {
         let child_handle: Rc<RefCell<ArkUINode>> = Rc::new(RefCell::new(child.into()));
         let child_handle_clone = child_handle.clone();
@@ -1139,6 +1151,21 @@ pub trait ArkUICommonAttribute: ArkUIAttributeBasic {
             )
         })?;
         ARK_UI_NATIVE_NODE_API_1.with(|api| api.add_event_receiver(&child_handle.borrow()))?;
+        ARK_UI_NATIVE_NODE_API_1
+            .with(|api| api.insert_child(self.raw(), &child_handle.borrow(), index as i32))?;
+        self.borrow_mut()
+            .children_mut()
+            .insert(index, child_handle.clone());
+        Ok(())
+    }
+
+    /// Insert an externally-owned child node without installing native event receiver state.
+    fn insert_existing_child<T: Into<ArkUINode>>(
+        &mut self,
+        child: T,
+        index: usize,
+    ) -> ArkUIResult<()> {
+        let child_handle: Rc<RefCell<ArkUINode>> = Rc::new(RefCell::new(child.into()));
         ARK_UI_NATIVE_NODE_API_1
             .with(|api| api.insert_child(self.raw(), &child_handle.borrow(), index as i32))?;
         self.borrow_mut()

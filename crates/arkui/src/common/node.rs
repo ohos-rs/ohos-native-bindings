@@ -61,7 +61,7 @@ impl ArkUINode {
         self.raw
     }
 
-    pub(crate) fn from_raw_handle(raw: ArkUI_NodeHandle) -> Option<Self> {
+    pub fn from_raw_handle(raw: ArkUI_NodeHandle) -> Option<Self> {
         if raw.is_null() {
             return None;
         }

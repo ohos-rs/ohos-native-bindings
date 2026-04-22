@@ -14,6 +14,8 @@ use ohos_resource_manager_sys::*;
 #[link(name = "pixelmap_ndk.z")]
 #[link(name = "image_receiver_ndk.z")]
 #[link(name = "image_source_ndk.z")]
+#[link(name = "image_source")]
+#[link(name = "pixelmap")]
 unsafe extern "C" {}
 
 #[repr(C)]
