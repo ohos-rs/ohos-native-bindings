@@ -177,6 +177,7 @@ impl_from_object_wrapper!(crate::LayoutConstraint);
 impl_from_object_wrapper!(crate::AlignmentRuleOption);
 impl_from_object_wrapper!(crate::AccessibilityValue);
 impl_from_object_wrapper!(crate::WaterFlowSectionOption);
+#[cfg(feature = "image")]
 impl_from_object_wrapper!(crate::DrawableDescriptor);
 impl_from_object_wrapper!(crate::SwiperIndicator);
 impl_from_object_wrapper!(crate::ImageAnimatorFrameInfo);
@@ -186,6 +187,7 @@ impl_from_object_wrapper!(crate::ListChildrenMainSize);
 impl_from_object_wrapper!(crate::AccessibilityState);
 impl_from_object_wrapper!(crate::GuidelineOption);
 impl_from_object_wrapper!(crate::BarrierOption);
+#[cfg(feature = "drawing")]
 impl_from_object_wrapper!(crate::StyledString);
 impl_from_object_wrapper!(crate::NodeAdapter);
 impl_from_object_wrapper!(crate::TransitionEffect);
@@ -218,7 +220,7 @@ impl_from_object_wrapper!(crate::ShowCounterConfig);
 impl_from_object_wrapper!(crate::TextEditMenuOptions);
 #[cfg(feature = "api-22")]
 impl_from_object_wrapper!(crate::TextSelectionMenuOptions);
-#[cfg(feature = "api-22")]
+#[cfg(all(feature = "api-22", feature = "drawing"))]
 impl_from_object_wrapper!(crate::TextLayoutManager);
 
 impl From<ArkUINodeAttributeItem> for ArkUI_AttributeItem {

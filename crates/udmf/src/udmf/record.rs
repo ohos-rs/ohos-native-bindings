@@ -5,6 +5,9 @@ use ohos_udmf_sys::{
     OH_UdmfRecord_Destroy,
 };
 
+#[cfg(feature = "api-13")]
+use ohos_udmf_sys::OH_UdmfRecord_AddPixelMap;
+
 use crate::{UdmfError, Uds};
 
 pub struct UdmfRecord {
@@ -36,6 +39,14 @@ impl UdmfRecord {
             }
             Uds::Html(html) => {
                 let ret = unsafe { OH_UdmfRecord_AddHtml(self.raw.as_ptr(), html.raw.as_ptr()) };
+                if ret != 0 {
+                    return Err(UdmfError::InternalError(ret));
+                }
+            }
+            #[cfg(feature = "api-13")]
+            Uds::PixelMap(pixel_map) => {
+                let ret =
+                    unsafe { OH_UdmfRecord_AddPixelMap(self.raw.as_ptr(), pixel_map.raw.as_ptr()) };
                 if ret != 0 {
                     return Err(UdmfError::InternalError(ret));
                 }

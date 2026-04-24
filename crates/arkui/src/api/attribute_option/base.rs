@@ -623,13 +623,16 @@ unsafe extern "C" fn water_flow_main_size_callback_trampoline(
     (callback.callback)(item_index)
 }
 
+#[cfg(feature = "image")]
 pub use ohos_image_native_binding::PixelMapNativeHandle;
 
 /// Wrapper for drawable descriptor handles.
+#[cfg(feature = "image")]
 pub struct DrawableDescriptor {
     raw: NonNull<ArkUI_DrawableDescriptor>,
 }
 
+#[cfg(feature = "image")]
 impl DrawableDescriptor {
     pub fn from_pixel_map(pixel_map: PixelMapNativeHandle) -> ArkUIResult<Self> {
         let descriptor =
@@ -645,7 +648,7 @@ impl DrawableDescriptor {
     }
 
     pub fn from_animated_pixel_map(pixel_map_array: &[PixelMapNativeHandle]) -> ArkUIResult<Self> {
-        let mut raw_pixel_map_array: Vec<OH_PixelmapNativeHandle> = pixel_map_array
+        let mut raw_pixel_map_array: Vec<_> = pixel_map_array
             .iter()
             .map(|pixel_map| pixel_map.as_raw().cast())
             .collect();
@@ -800,13 +803,13 @@ impl DrawableDescriptor {
     }
 }
 
-#[cfg(feature = "api-22")]
+#[cfg(all(feature = "api-22", feature = "image"))]
 /// Controller wrapper for drawable descriptor animations.
 pub struct DrawableDescriptorAnimationController {
     raw: NonNull<ArkUI_DrawableDescriptor_AnimationController>,
 }
 
-#[cfg(feature = "api-22")]
+#[cfg(all(feature = "api-22", feature = "image"))]
 impl DrawableDescriptorAnimationController {
     pub(crate) fn raw(&self) -> *mut ArkUI_DrawableDescriptor_AnimationController {
         self.raw.as_ptr()
@@ -1253,6 +1256,7 @@ impl ImageAnimatorFrameInfo {
             })
     }
 
+    #[cfg(feature = "image")]
     pub fn from_drawable_descriptor(drawable: &DrawableDescriptor) -> ArkUIResult<Self> {
         let info =
             unsafe { OH_ArkUI_ImageAnimatorFrameInfo_CreateFromDrawableDescriptor(drawable.raw()) };

@@ -5,6 +5,10 @@
 #![allow(non_camel_case_types)]
 #![allow(clippy::missing_safety_doc)]
 
+#[allow(unused_imports)]
+use ohos_image_native_sys::*;
+use ohos_image_sys::*;
+
 #[link(name = "native_drawing")]
 unsafe extern "C" {}
 
@@ -472,11 +476,6 @@ extern "C" {
     #[doc = " @brief Resets the error code of the drawing module to OH_DRAWING_SUCCESS.\n\n @syscap SystemCapability.Graphic.Graphic2D.NativeDrawing\n @since 18\n @version 1.0"]
     #[cfg(feature = "api-18")]
     pub fn OH_Drawing_ErrorCodeReset();
-}
-#[repr(C)]
-#[derive(Debug, Copy, Clone)]
-pub struct OH_NativeColorSpaceManager {
-    _unused: [u8; 0],
 }
 extern "C" {
     #[doc = " @brief Creates an <b>OH_Drawing_Brush</b> object.\n\n @syscap SystemCapability.Graphic.Graphic2D.NativeDrawing\n @return Returns the pointer to the <b>OH_Drawing_Brush</b> object created.\n @since 8\n @version 1.0"]
@@ -4826,16 +4825,6 @@ extern "C" {
 extern "C" {
     #[doc = " @brief Resets all pen contents to their initial values.\n\n @syscap SystemCapability.Graphic.Graphic2D.NativeDrawing\n @param pen Indicates the pointer to an <b>OH_Drawing_Pen</b> object.\n @since 12\n @version 1.0"]
     pub fn OH_Drawing_PenReset(pen: *mut OH_Drawing_Pen);
-}
-#[repr(C)]
-#[derive(Debug, Copy, Clone)]
-pub struct NativePixelMap_ {
-    _unused: [u8; 0],
-}
-#[repr(C)]
-#[derive(Debug, Copy, Clone)]
-pub struct OH_PixelmapNative {
-    _unused: [u8; 0],
 }
 extern "C" {
     #[doc = " @brief Gets an <b>OH_Drawing_PixelMap</b> object.\n\n @syscap SystemCapability.Graphic.Graphic2D.NativeDrawing\n @param nativePixelMap Indicates a pointer to an native pixelmap supported by image framework.\n @return Returns the pointer to the <b>OH_Drawing_PixelMap</b> object.\n @since 12\n @version 1.0"]

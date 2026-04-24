@@ -5,7 +5,10 @@ use std::{
 
 use ohos_udmf_sys::*;
 
-use crate::{UdmfError, UdmfIntention, UdsHtml, UdsPlainText};
+use crate::{UdmfError, UdmfIntention};
+
+#[cfg(feature = "api-13")]
+use crate::{UdsHtml, UdsPlainText};
 
 use super::UdmfRecord;
 

@@ -4,6 +4,7 @@ use std::{ffi::CString, os::raw::c_char, ptr};
 
 use ohos_arkui_input_binding::ArkUIErrorCode;
 use ohos_arkui_sys::*;
+#[cfg(feature = "image")]
 use ohos_image_native_binding::PixelMapNativeHandle;
 
 use crate::{check_arkui_status, ArkUIError, ArkUIHandle, ArkUINode, ArkUIResult};
@@ -120,6 +121,7 @@ impl ArkUIHandle {
         unsafe { check_arkui_status!(OH_ArkUI_SetNodeDraggable(node.raw(), enabled)) }
     }
 
+    #[cfg(feature = "image")]
     pub(crate) fn set_node_drag_preview(
         &self,
         node: &ArkUINode,

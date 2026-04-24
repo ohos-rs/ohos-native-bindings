@@ -30,6 +30,7 @@ pub use ohos_arkui_input_binding as arkui_input_binding;
 #[cfg(feature = "image")]
 pub use ohos_image_binding as image_binding;
 /// Re-export of the image-native binding crate.
+#[cfg(feature = "image")]
 pub use ohos_image_native_binding as image_native_binding;
 
 pub use common::handle::ArkUIHandle;

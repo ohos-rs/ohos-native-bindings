@@ -4,6 +4,13 @@ use std::{os::raw::c_char, ptr::NonNull};
 
 use ohos_arkui_input_binding::ArkUIErrorCode;
 use ohos_arkui_sys::*;
+#[cfg(feature = "udmf")]
+use ohos_udmf_binding::UdmfData;
+
+#[cfg(all(feature = "api-20", feature = "udmf"))]
+use ohos_udmf_binding::UdmfDataLoadParams;
+#[cfg(all(feature = "api-15", feature = "udmf"))]
+use ohos_udmf_binding::UdmfGetDataParams;
 
 use crate::{check_arkui_status, ArkUIError, ArkUIResult, DragResult, DropOperation};
 
@@ -70,25 +77,32 @@ impl DragEvent {
         unsafe { check_arkui_status!(OH_ArkUI_DragEvent_SetDragResult(self.raw(), result.into())) }
     }
 
-    pub(crate) fn set_data(&self, data: *mut OH_UdmfData) -> ArkUIResult<()> {
-        unsafe { check_arkui_status!(OH_ArkUI_DragEvent_SetData(self.raw(), data)) }
+    #[cfg(feature = "udmf")]
+    pub(crate) fn set_data(&self, data: &UdmfData) -> ArkUIResult<()> {
+        unsafe { check_arkui_status!(OH_ArkUI_DragEvent_SetData(self.raw(), data.raw().as_ptr())) }
     }
 
-    #[cfg(feature = "api-20")]
+    #[cfg(all(feature = "api-20", feature = "udmf"))]
     pub(crate) fn set_data_load_params(
         &self,
-        data_load_params: *mut OH_UdmfDataLoadParams,
+        data_load_params: &UdmfDataLoadParams,
     ) -> ArkUIResult<()> {
         unsafe {
             check_arkui_status!(OH_ArkUI_DragEvent_SetDataLoadParams(
                 self.raw(),
-                data_load_params
+                data_load_params.as_raw()
             ))
         }
     }
 
-    pub(crate) fn get_udmf_data(&self, data: *mut OH_UdmfData) -> ArkUIResult<()> {
-        unsafe { check_arkui_status!(OH_ArkUI_DragEvent_GetUdmfData(self.raw(), data)) }
+    #[cfg(feature = "udmf")]
+    pub(crate) fn get_udmf_data(&self, data: &UdmfData) -> ArkUIResult<()> {
+        unsafe {
+            check_arkui_status!(OH_ArkUI_DragEvent_GetUdmfData(
+                self.raw(),
+                data.raw().as_ptr()
+            ))
+        }
     }
 
     pub(crate) fn data_type_count(&self) -> ArkUIResult<i32> {
@@ -226,10 +240,10 @@ impl DragEvent {
         Ok(display_id)
     }
 
-    #[cfg(feature = "api-15")]
+    #[cfg(all(feature = "api-15", feature = "udmf"))]
     pub(crate) fn start_data_loading(
         &self,
-        options: *mut OH_UdmfGetDataParams,
+        options: &UdmfGetDataParams,
         key_len: u32,
     ) -> ArkUIResult<String> {
         if key_len == 0 {
@@ -242,7 +256,7 @@ impl DragEvent {
         unsafe {
             check_arkui_status!(OH_ArkUI_DragEvent_StartDataLoading(
                 self.raw(),
-                options,
+                options.as_raw(),
                 key.as_mut_ptr().cast(),
                 key_len
             ))

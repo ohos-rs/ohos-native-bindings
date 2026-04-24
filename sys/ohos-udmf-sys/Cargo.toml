@@ -6,16 +6,18 @@ license     = "MIT OR Apache-2.0"
 description = "OpenHarmony's udmf binding for rust"
 
 [dependencies]
+ohos-image-native-sys = { workspace = true }
 
 [features]
 default = []
-api-13  = []
-api-14  = ["api-13"]
-api-15  = ["api-14"]
-api-16  = ["api-15"]
-api-17  = ["api-16"]
-api-18  = ["api-17"]
-api-19  = ["api-18"]
-api-20  = ["api-19"]
-api-21  = ["api-20"]
-api-22  = ["api-21"]
+api-13  = ["ohos-image-native-sys/api-13"]
+api-14  = ["api-13", "ohos-image-native-sys/api-14"]
+api-15  = ["api-14", "ohos-image-native-sys/api-15"]
+api-16  = ["api-15", "ohos-image-native-sys/api-16"]
+api-17  = ["api-16", "ohos-image-native-sys/api-17"]
+api-18  = ["api-17", "ohos-image-native-sys/api-18"]
+api-19  = ["api-18", "ohos-image-native-sys/api-19"]
+api-20  = ["api-19", "ohos-image-native-sys/api-20"]
+api-21  = ["api-20", "ohos-image-native-sys/api-21"]
+api-22  = ["api-21", "ohos-image-native-sys/api-22"]
+api-23  = ["api-22", "ohos-image-native-sys/api-23"]

@@ -1,14 +1,29 @@
 //! Module api::attribute_option::text_and_style wrappers and related types.
 
-use std::{os::raw::c_void, ptr::NonNull};
+use std::ptr::NonNull;
 
 #[cfg(feature = "api-22")]
-use std::{ffi::CString, os::raw::c_char};
+use std::{
+    ffi::CString,
+    os::raw::{c_char, c_void},
+};
 
 use ohos_arkui_input_binding::ArkUIErrorCode;
 use ohos_arkui_sys::*;
+#[cfg(feature = "drawing")]
+use ohos_drawing_binding::{
+    DrawingFontCollection, DrawingPlaceholderSpan, DrawingTextStyle, DrawingTypography,
+    DrawingTypographyStyle,
+};
+#[cfg(all(feature = "api-22", feature = "drawing"))]
+use ohos_drawing_binding::{
+    DrawingLineMetrics, DrawingLineMetricsRaw, DrawingTextBox, TextRectHeightStyle,
+    TextRectWidthStyle,
+};
 
-use super::base::{non_null_or_panic, with_cstring};
+use super::base::non_null_or_panic;
+#[cfg(feature = "drawing")]
+use super::base::with_cstring;
 use crate::{ArkUIError, ArkUIResult};
 
 #[cfg(any(feature = "api-20", feature = "api-22"))]
@@ -669,295 +684,12 @@ unsafe extern "C" fn text_selection_menu_callback_trampoline(
 }
 
 /// Wrapper for native styled-string object.
+#[cfg(feature = "drawing")]
 pub struct StyledString {
     raw: NonNull<ArkUI_StyledString>,
 }
 
-#[derive(Clone, Copy, Debug, PartialEq, Eq)]
-/// Wrapper for drawing typography style object.
-pub struct DrawingTypographyStyle {
-    raw: NonNull<c_void>,
-}
-
-impl DrawingTypographyStyle {
-    /// # Safety
-    /// The pointer must be a valid `OH_Drawing_TypographyStyle`.
-    pub unsafe fn from_raw(raw: *mut c_void) -> Option<Self> {
-        NonNull::new(raw).map(|raw| Self { raw })
-    }
-
-    pub fn as_raw(&self) -> NonNull<c_void> {
-        self.raw
-    }
-
-    pub(crate) fn raw(&self) -> *mut OH_Drawing_TypographyStyle {
-        self.raw.as_ptr().cast()
-    }
-}
-
-#[derive(Clone, Copy, Debug, PartialEq, Eq)]
-/// Wrapper for drawing font collection object.
-pub struct DrawingFontCollection {
-    raw: NonNull<c_void>,
-}
-
-impl DrawingFontCollection {
-    /// # Safety
-    /// The pointer must be a valid `OH_Drawing_FontCollection`.
-    pub unsafe fn from_raw(raw: *mut c_void) -> Option<Self> {
-        NonNull::new(raw).map(|raw| Self { raw })
-    }
-
-    pub fn as_raw(&self) -> NonNull<c_void> {
-        self.raw
-    }
-
-    pub(crate) fn raw(&self) -> *mut OH_Drawing_FontCollection {
-        self.raw.as_ptr().cast()
-    }
-}
-
-#[derive(Clone, Copy, Debug, PartialEq, Eq)]
-/// Wrapper for drawing text style object.
-pub struct DrawingTextStyle {
-    raw: NonNull<c_void>,
-}
-
-impl DrawingTextStyle {
-    /// # Safety
-    /// The pointer must be a valid `OH_Drawing_TextStyle`.
-    pub unsafe fn from_raw(raw: *mut c_void) -> Option<Self> {
-        NonNull::new(raw).map(|raw| Self { raw })
-    }
-
-    pub fn as_raw(&self) -> NonNull<c_void> {
-        self.raw
-    }
-
-    pub(crate) fn raw(&self) -> *mut OH_Drawing_TextStyle {
-        self.raw.as_ptr().cast()
-    }
-}
-
-#[derive(Clone, Copy, Debug, PartialEq, Eq)]
-/// Wrapper for drawing placeholder span object.
-pub struct DrawingPlaceholderSpan {
-    raw: NonNull<c_void>,
-}
-
-impl DrawingPlaceholderSpan {
-    /// # Safety
-    /// The pointer must be a valid `OH_Drawing_PlaceholderSpan`.
-    pub unsafe fn from_raw(raw: *mut c_void) -> Option<Self> {
-        NonNull::new(raw).map(|raw| Self { raw })
-    }
-
-    pub fn as_raw(&self) -> NonNull<c_void> {
-        self.raw
-    }
-
-    pub(crate) fn raw(&self) -> *mut OH_Drawing_PlaceholderSpan {
-        self.raw.as_ptr().cast()
-    }
-}
-
-#[derive(Clone, Copy, Debug, PartialEq, Eq)]
-/// Wrapper for drawing typography object.
-pub struct DrawingTypography {
-    raw: NonNull<c_void>,
-}
-
-impl DrawingTypography {
-    pub(crate) fn from_raw(raw: *mut OH_Drawing_Typography) -> ArkUIResult<Self> {
-        NonNull::new(raw.cast())
-            .map(|raw| Self { raw })
-            .ok_or_else(|| {
-                ArkUIError::new(
-                    ArkUIErrorCode::ParamInvalid,
-                    "OH_ArkUI_StyledString_CreateTypography returned null",
-                )
-            })
-    }
-
-    pub fn as_raw(&self) -> NonNull<c_void> {
-        self.raw
-    }
-
-    pub(crate) fn raw(&self) -> *mut OH_Drawing_Typography {
-        self.raw.as_ptr().cast()
-    }
-}
-
-#[derive(Clone, Copy, Debug, PartialEq, Eq)]
-/// Wrapper for drawing text box object.
-pub struct DrawingTextBox {
-    raw: NonNull<c_void>,
-}
-
-impl DrawingTextBox {
-    pub(crate) fn from_raw(raw: *mut OH_Drawing_TextBox) -> ArkUIResult<Self> {
-        NonNull::new(raw.cast())
-            .map(|raw| Self { raw })
-            .ok_or_else(|| {
-                ArkUIError::new(
-                    ArkUIErrorCode::ParamInvalid,
-                    "OH_ArkUI_TextLayoutManager_GetRectsForRange returned null",
-                )
-            })
-    }
-
-    pub fn as_raw(&self) -> NonNull<c_void> {
-        self.raw
-    }
-}
-
-#[derive(Clone, Copy, Debug, PartialEq, Eq)]
-/// Wrapper for text position-and-affinity object.
-pub struct DrawingPositionAndAffinity {
-    raw: NonNull<c_void>,
-}
-
-impl DrawingPositionAndAffinity {
-    pub(crate) fn from_raw(raw: *mut OH_Drawing_PositionAndAffinity) -> ArkUIResult<Self> {
-        NonNull::new(raw.cast())
-            .map(|raw| Self { raw })
-            .ok_or_else(|| {
-                ArkUIError::new(
-                    ArkUIErrorCode::ParamInvalid,
-                    "OH_ArkUI_TextLayoutManager_GetGlyphPositionAtCoordinate returned null",
-                )
-            })
-    }
-
-    pub fn as_raw(&self) -> NonNull<c_void> {
-        self.raw
-    }
-}
-
-#[derive(Debug, Clone, Copy, PartialEq)]
-/// Wrapper for drawing font metrics object.
-pub struct DrawingFontMetrics {
-    pub flags: u32,
-    pub top: f32,
-    pub ascent: f32,
-    pub descent: f32,
-    pub bottom: f32,
-    pub leading: f32,
-    pub avg_char_width: f32,
-    pub max_char_width: f32,
-    pub x_min: f32,
-    pub x_max: f32,
-    pub x_height: f32,
-    pub cap_height: f32,
-    pub underline_thickness: f32,
-    pub underline_position: f32,
-    pub strikeout_thickness: f32,
-    pub strikeout_position: f32,
-}
-
-impl From<OH_Drawing_Font_Metrics> for DrawingFontMetrics {
-    fn from(value: OH_Drawing_Font_Metrics) -> Self {
-        Self {
-            flags: value.flags,
-            top: value.top,
-            ascent: value.ascent,
-            descent: value.descent,
-            bottom: value.bottom,
-            leading: value.leading,
-            avg_char_width: value.avgCharWidth,
-            max_char_width: value.maxCharWidth,
-            x_min: value.xMin,
-            x_max: value.xMax,
-            x_height: value.xHeight,
-            cap_height: value.capHeight,
-            underline_thickness: value.underlineThickness,
-            underline_position: value.underlinePosition,
-            strikeout_thickness: value.strikeoutThickness,
-            strikeout_position: value.strikeoutPosition,
-        }
-    }
-}
-
-#[derive(Debug, Clone, Copy, PartialEq)]
-/// Wrapper for drawing line metrics object.
-pub struct DrawingLineMetrics {
-    pub ascender: f64,
-    pub descender: f64,
-    pub cap_height: f64,
-    pub x_height: f64,
-    pub width: f64,
-    pub height: f64,
-    pub x: f64,
-    pub y: f64,
-    pub start_index: usize,
-    pub end_index: usize,
-    pub first_char_metrics: DrawingFontMetrics,
-}
-
-impl From<OH_Drawing_LineMetrics> for DrawingLineMetrics {
-    fn from(value: OH_Drawing_LineMetrics) -> Self {
-        Self {
-            ascender: value.ascender,
-            descender: value.descender,
-            cap_height: value.capHeight,
-            x_height: value.xHeight,
-            width: value.width,
-            height: value.height,
-            x: value.x,
-            y: value.y,
-            start_index: value.startIndex,
-            end_index: value.endIndex,
-            first_char_metrics: value.firstCharMetrics.into(),
-        }
-    }
-}
-
-#[derive(Debug, Clone, Copy, PartialEq, Eq)]
-/// Width policy used when querying text rects.
-pub enum TextRectWidthStyle {
-    Tight,
-    Max,
-}
-
-impl From<TextRectWidthStyle> for OH_Drawing_RectWidthStyle {
-    fn from(value: TextRectWidthStyle) -> Self {
-        match value {
-            TextRectWidthStyle::Tight => OH_Drawing_RectWidthStyle_RECT_WIDTH_STYLE_TIGHT,
-            TextRectWidthStyle::Max => OH_Drawing_RectWidthStyle_RECT_WIDTH_STYLE_MAX,
-        }
-    }
-}
-
-#[derive(Debug, Clone, Copy, PartialEq, Eq)]
-/// Height policy used when querying text rects.
-pub enum TextRectHeightStyle {
-    Tight,
-    Max,
-    IncludeLineSpaceMiddle,
-    IncludeLineSpaceTop,
-    IncludeLineSpaceBottom,
-    Struct,
-}
-
-impl From<TextRectHeightStyle> for OH_Drawing_RectHeightStyle {
-    fn from(value: TextRectHeightStyle) -> Self {
-        match value {
-            TextRectHeightStyle::Tight => OH_Drawing_RectHeightStyle_RECT_HEIGHT_STYLE_TIGHT,
-            TextRectHeightStyle::Max => OH_Drawing_RectHeightStyle_RECT_HEIGHT_STYLE_MAX,
-            TextRectHeightStyle::IncludeLineSpaceMiddle => {
-                OH_Drawing_RectHeightStyle_RECT_HEIGHT_STYLE_INCLUDELINESPACEMIDDLE
-            }
-            TextRectHeightStyle::IncludeLineSpaceTop => {
-                OH_Drawing_RectHeightStyle_RECT_HEIGHT_STYLE_INCLUDELINESPACETOP
-            }
-            TextRectHeightStyle::IncludeLineSpaceBottom => {
-                OH_Drawing_RectHeightStyle_RECT_HEIGHT_STYLE_INCLUDELINESPACEBOTTOM
-            }
-            TextRectHeightStyle::Struct => OH_Drawing_RectHeightStyle_RECT_HEIGHT_STYLE_STRUCT,
-        }
-    }
-}
-
+#[cfg(feature = "drawing")]
 impl StyledString {
     pub fn new(
         style: &DrawingTypographyStyle,
@@ -1015,7 +747,14 @@ impl StyledString {
                     "OH_ArkUI_StyledString_CreateTypography returned null",
                 )
             })
-            .and_then(|raw| DrawingTypography::from_raw(raw.as_ptr()))
+            .and_then(|raw| {
+                unsafe { DrawingTypography::from_raw(raw.as_ptr()) }.ok_or_else(|| {
+                    ArkUIError::new(
+                        ArkUIErrorCode::ParamInvalid,
+                        "OH_ArkUI_StyledString_CreateTypography returned null",
+                    )
+                })
+            })
     }
 
     pub fn add_placeholder(&mut self, placeholder: &DrawingPlaceholderSpan) {
@@ -1103,13 +842,13 @@ impl StyledStringDescriptor {
     }
 }
 
-#[cfg(feature = "api-22")]
+#[cfg(all(feature = "api-22", feature = "drawing"))]
 /// Wrapper for text layout manager object.
 pub struct TextLayoutManager {
     raw: NonNull<ArkUI_TextLayoutManager>,
 }
 
-#[cfg(feature = "api-22")]
+#[cfg(all(feature = "api-22", feature = "drawing"))]
 impl TextLayoutManager {
     pub(crate) fn raw(&self) -> *mut ArkUI_TextLayoutManager {
         self.raw.as_ptr()
@@ -1158,14 +897,19 @@ impl TextLayoutManager {
                 &mut text_boxes
             ))
         }?;
-        DrawingTextBox::from_raw(text_boxes)
+        unsafe { DrawingTextBox::from_raw(text_boxes) }.ok_or_else(|| {
+            ArkUIError::new(
+                ArkUIErrorCode::ParamInvalid,
+                "OH_ArkUI_TextLayoutManager_GetRectsForRange returned null",
+            )
+        })
     }
 
     pub fn get_glyph_position_at_coordinate(
         &self,
         dx: f64,
         dy: f64,
-    ) -> ArkUIResult<DrawingPositionAndAffinity> {
+    ) -> ArkUIResult<ohos_drawing_binding::PositionAndAffinity> {
         let mut position = std::ptr::null_mut();
         unsafe {
             check_arkui_status!(OH_ArkUI_TextLayoutManager_GetGlyphPositionAtCoordinate(
@@ -1175,11 +919,17 @@ impl TextLayoutManager {
                 &mut position
             ))
         }?;
-        DrawingPositionAndAffinity::from_raw(position)
+        unsafe { ohos_drawing_binding::PositionAndAffinity::from_raw_borrowed(position) }
+            .ok_or_else(|| {
+                ArkUIError::new(
+                    ArkUIErrorCode::ParamInvalid,
+                    "OH_ArkUI_TextLayoutManager_GetGlyphPositionAtCoordinate returned null",
+                )
+            })
     }
 
     pub fn get_line_metrics(&self, line_number: i32) -> ArkUIResult<DrawingLineMetrics> {
-        let mut metrics = std::mem::MaybeUninit::<OH_Drawing_LineMetrics>::uninit();
+        let mut metrics = std::mem::MaybeUninit::<DrawingLineMetricsRaw>::uninit();
         unsafe {
             check_arkui_status!(OH_ArkUI_TextLayoutManager_GetLineMetrics(
                 self.raw(),

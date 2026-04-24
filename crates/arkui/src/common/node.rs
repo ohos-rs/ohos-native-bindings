@@ -74,6 +74,16 @@ impl ArkUINode {
         })
     }
 
+    #[cfg(all(feature = "api-22", feature = "drawing"))]
+    pub fn text_layout_manager(&self) -> ArkUIResult<Option<crate::TextLayoutManager>> {
+        match self.get_attribute(crate::ArkUINodeAttributeType::TextLayoutManager)? {
+            crate::ArkUINodeAttributeItem::Object(ptr) => {
+                Ok(Some(crate::TextLayoutManager::from_raw(ptr.cast())))
+            }
+            _ => Ok(None),
+        }
+    }
+
     /// Clear dom
     /// We can't use drop impl, because it will be called when the object is dropped.
     pub fn dispose(&mut self) -> ArkUIResult<()> {

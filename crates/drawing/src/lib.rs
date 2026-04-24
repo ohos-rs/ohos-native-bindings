@@ -18,4 +18,9 @@ pub use font::{Font, TextMeasure};
 pub use geometry::{Point, Rect};
 pub use path::Path;
 pub use pen::Pen;
-pub use text::{FontCollection, TextStyle, Typography, TypographyBuilder, TypographyStyle};
+pub use text::{
+    DrawingFontCollection, DrawingFontMetrics, DrawingLineMetrics, DrawingLineMetricsRaw,
+    DrawingPlaceholderSpan, DrawingTextBox, DrawingTextStyle, DrawingTypography,
+    DrawingTypographyStyle, FontCollection, PositionAndAffinity, TextRectHeightStyle,
+    TextRectWidthStyle, TextStyle, Typography, TypographyBuilder, TypographyStyle,
+};

@@ -3,16 +3,25 @@
 use std::{os::raw::c_void, ptr::NonNull};
 
 use ohos_arkui_input_binding::ArkUIErrorCode;
+#[cfg(feature = "udmf")]
+use ohos_arkui_sys::OH_ArkUI_DragAction_SetData;
+#[cfg(feature = "image")]
+use ohos_arkui_sys::OH_ArkUI_DragAction_SetPixelMaps;
 use ohos_arkui_sys::{
     ArkUI_DragAction, ArkUI_DragAndDropInfo, OH_ArkUI_CreateDragActionWithContext,
     OH_ArkUI_CreateDragActionWithNode, OH_ArkUI_DragAction_Dispose,
-    OH_ArkUI_DragAction_RegisterStatusListener, OH_ArkUI_DragAction_SetData,
-    OH_ArkUI_DragAction_SetDragPreviewOption, OH_ArkUI_DragAction_SetPixelMaps,
+    OH_ArkUI_DragAction_RegisterStatusListener, OH_ArkUI_DragAction_SetDragPreviewOption,
     OH_ArkUI_DragAction_SetPointerId, OH_ArkUI_DragAction_SetTouchPointX,
     OH_ArkUI_DragAction_SetTouchPointY, OH_ArkUI_DragAction_UnregisterStatusListener,
-    OH_ArkUI_StartDrag, OH_UdmfData,
+    OH_ArkUI_StartDrag,
 };
+#[cfg(feature = "image")]
 use ohos_image_native_binding::PixelMapNativeHandle;
+#[cfg(feature = "udmf")]
+use ohos_udmf_binding::UdmfData;
+
+#[cfg(all(feature = "api-20", feature = "udmf"))]
+use ohos_udmf_binding::UdmfDataLoadParams;
 
 use crate::{check_arkui_status, ArkUIError, ArkUIHandle, ArkUIResult};
 
@@ -81,6 +90,7 @@ impl DragAction {
         unsafe { check_arkui_status!(OH_ArkUI_DragAction_SetPointerId(self.raw(), pointer)) }
     }
 
+    #[cfg(feature = "image")]
     pub(crate) fn set_pixel_maps(
         &mut self,
         pixelmap_array: &[PixelMapNativeHandle],
@@ -106,19 +116,20 @@ impl DragAction {
         unsafe { check_arkui_status!(OH_ArkUI_DragAction_SetTouchPointY(self.raw(), y)) }
     }
 
-    pub(crate) fn set_data(&mut self, data: *mut OH_UdmfData) -> ArkUIResult<()> {
-        unsafe { check_arkui_status!(OH_ArkUI_DragAction_SetData(self.raw(), data)) }
+    #[cfg(feature = "udmf")]
+    pub(crate) fn set_data(&mut self, data: &UdmfData) -> ArkUIResult<()> {
+        unsafe { check_arkui_status!(OH_ArkUI_DragAction_SetData(self.raw(), data.raw().as_ptr())) }
     }
 
-    #[cfg(feature = "api-20")]
+    #[cfg(all(feature = "api-20", feature = "udmf"))]
     pub(crate) fn set_data_load_params(
         &mut self,
-        data_load_params: *mut ohos_arkui_sys::OH_UdmfDataLoadParams,
+        data_load_params: &UdmfDataLoadParams,
     ) -> ArkUIResult<()> {
         unsafe {
             check_arkui_status!(ohos_arkui_sys::OH_ArkUI_DragAction_SetDataLoadParams(
                 self.raw(),
-                data_load_params
+                data_load_params.as_raw()
             ))
         }
     }

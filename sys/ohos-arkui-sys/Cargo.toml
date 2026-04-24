@@ -6,24 +6,90 @@ license     = "MIT OR Apache-2.0"
 description = "OpenHarmony's arkui binding for rust"
 
 [dependencies]
-napi-sys-ohos          = { workspace = true }
-ohos-arkui-input-sys   = { workspace = true }
-ohos-native-buffer-sys = { workspace = true }
-ohos-image-native-sys  = { workspace = true }
+napi-sys-ohos           = { workspace = true }
+ohos-arkui-input-sys    = { workspace = true }
+ohos-image-native-sys   = { workspace = true }
+ohos-native-drawing-sys = { workspace = true }
+ohos-udmf-sys           = { workspace = true }
 
 [lints]
 workspace = true
 
 [features]
 default = []
-api-13  = ["ohos-arkui-input-sys/api-13", "ohos-native-buffer-sys/api-13", "ohos-image-native-sys/api-13"]
-api-14  = ["api-13", "ohos-arkui-input-sys/api-14", "ohos-native-buffer-sys/api-14", "ohos-image-native-sys/api-14"]
-api-15  = ["api-14", "ohos-arkui-input-sys/api-15", "ohos-native-buffer-sys/api-15", "ohos-image-native-sys/api-15"]
-api-16  = ["api-15", "ohos-arkui-input-sys/api-16", "ohos-native-buffer-sys/api-16", "ohos-image-native-sys/api-16"]
-api-17  = ["api-16", "ohos-arkui-input-sys/api-17", "ohos-native-buffer-sys/api-17", "ohos-image-native-sys/api-17"]
-api-18  = ["api-17", "ohos-arkui-input-sys/api-18", "ohos-native-buffer-sys/api-18", "ohos-image-native-sys/api-18"]
-api-19  = ["api-18", "ohos-arkui-input-sys/api-19", "ohos-native-buffer-sys/api-19", "ohos-image-native-sys/api-19"]
-api-20  = ["api-19", "ohos-arkui-input-sys/api-20", "ohos-native-buffer-sys/api-20", "ohos-image-native-sys/api-20"]
-api-21  = ["api-20", "ohos-arkui-input-sys/api-21", "ohos-native-buffer-sys/api-21", "ohos-image-native-sys/api-21"]
-api-22  = ["api-21", "ohos-arkui-input-sys/api-22", "ohos-native-buffer-sys/api-22", "ohos-image-native-sys/api-22"]
-api-23  = ["api-22", "ohos-arkui-input-sys/api-23", "ohos-native-buffer-sys/api-23", "ohos-image-native-sys/api-23"]
+api-13 = [
+  "ohos-arkui-input-sys/api-13",
+  "ohos-image-native-sys/api-13",
+  "ohos-native-drawing-sys/api-13",
+  "ohos-udmf-sys/api-13",
+]
+api-14 = [
+  "api-13",
+  "ohos-arkui-input-sys/api-14",
+  "ohos-image-native-sys/api-14",
+  "ohos-native-drawing-sys/api-14",
+  "ohos-udmf-sys/api-14",
+]
+api-15 = [
+  "api-14",
+  "ohos-arkui-input-sys/api-15",
+  "ohos-image-native-sys/api-15",
+  "ohos-native-drawing-sys/api-15",
+  "ohos-udmf-sys/api-15",
+]
+api-16 = [
+  "api-15",
+  "ohos-arkui-input-sys/api-16",
+  "ohos-image-native-sys/api-16",
+  "ohos-native-drawing-sys/api-16",
+  "ohos-udmf-sys/api-16",
+]
+api-17 = [
+  "api-16",
+  "ohos-arkui-input-sys/api-17",
+  "ohos-image-native-sys/api-17",
+  "ohos-native-drawing-sys/api-17",
+  "ohos-udmf-sys/api-17",
+]
+api-18 = [
+  "api-17",
+  "ohos-arkui-input-sys/api-18",
+  "ohos-image-native-sys/api-18",
+  "ohos-native-drawing-sys/api-18",
+  "ohos-udmf-sys/api-18",
+]
+api-19 = [
+  "api-18",
+  "ohos-arkui-input-sys/api-19",
+  "ohos-image-native-sys/api-19",
+  "ohos-native-drawing-sys/api-19",
+  "ohos-udmf-sys/api-19",
+]
+api-20 = [
+  "api-19",
+  "ohos-arkui-input-sys/api-20",
+  "ohos-image-native-sys/api-20",
+  "ohos-native-drawing-sys/api-20",
+  "ohos-udmf-sys/api-20",
+]
+api-21 = [
+  "api-20",
+  "ohos-arkui-input-sys/api-21",
+  "ohos-image-native-sys/api-21",
+  "ohos-native-drawing-sys/api-21",
+  "ohos-udmf-sys/api-21",
+]
+api-22 = [
+  "api-21",
+  "ohos-arkui-input-sys/api-22",
+  "ohos-image-native-sys/api-22",
+  "ohos-native-drawing-sys/api-22",
+  "ohos-udmf-sys/api-22",
+]
+api-23 = [
+  "api-22",
+  "ohos-arkui-input-sys/api-23",
+  "ohos-image-native-sys/api-23",
+  "ohos-native-drawing-sys/api-23",
+  "ohos-udmf-sys/api-23",
+]

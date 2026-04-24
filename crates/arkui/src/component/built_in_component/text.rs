@@ -771,6 +771,7 @@ impl super::Text {
 // END_GENERATED_COMPONENT_METHODS_Text
 
 impl super::Text {
+    #[cfg(feature = "drawing")]
     pub fn set_text_content_with_styled_string_object(
         &self,
         styled_string: &crate::StyledString,
@@ -782,6 +783,7 @@ impl super::Text {
         )
     }
 
+    #[cfg(feature = "drawing")]
     pub fn get_text_content_with_styled_string_object(
         &self,
     ) -> crate::ArkUIResult<Option<crate::StyledString>> {
@@ -859,6 +861,7 @@ impl super::Text {
         }
     }
 
+    #[cfg(feature = "drawing")]
     pub fn set_text_layout_manager_object(
         &self,
         manager: &crate::TextLayoutManager,
@@ -870,6 +873,7 @@ impl super::Text {
         )
     }
 
+    #[cfg(feature = "drawing")]
     pub fn get_text_layout_manager_object(
         &self,
     ) -> crate::ArkUIResult<Option<crate::TextLayoutManager>> {

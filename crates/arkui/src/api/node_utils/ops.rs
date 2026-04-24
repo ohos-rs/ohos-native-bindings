@@ -25,6 +25,8 @@ use ohos_arkui_sys::{
 #[cfg(any(feature = "api-14", feature = "api-15"))]
 use std::ptr::NonNull;
 
+#[cfg(all(feature = "api-15", feature = "image"))]
+use ohos_arkui_sys::OH_ArkUI_GetNodeSnapshot;
 #[cfg(feature = "api-18")]
 use ohos_arkui_sys::OH_ArkUI_NodeUtils_MoveTo;
 #[cfg(feature = "api-14")]
@@ -41,10 +43,10 @@ use ohos_arkui_sys::{
     ArkUI_CrossLanguageOption, ArkUI_HostWindowInfo, ArkUI_SnapshotOptions,
     OH_ArkUI_CrossLanguageOption_Create, OH_ArkUI_CrossLanguageOption_Destroy,
     OH_ArkUI_CrossLanguageOption_GetAttributeSettingStatus,
-    OH_ArkUI_CrossLanguageOption_SetAttributeSettingStatus, OH_ArkUI_GetNodeSnapshot,
-    OH_ArkUI_HostWindowInfo_Destroy, OH_ArkUI_HostWindowInfo_GetName,
-    OH_ArkUI_NodeUtils_GetAttachedNodeHandleById, OH_ArkUI_NodeUtils_GetChildWithExpandMode,
-    OH_ArkUI_NodeUtils_GetCrossLanguageOption, OH_ArkUI_NodeUtils_GetFirstChildIndexWithoutExpand,
+    OH_ArkUI_CrossLanguageOption_SetAttributeSettingStatus, OH_ArkUI_HostWindowInfo_Destroy,
+    OH_ArkUI_HostWindowInfo_GetName, OH_ArkUI_NodeUtils_GetAttachedNodeHandleById,
+    OH_ArkUI_NodeUtils_GetChildWithExpandMode, OH_ArkUI_NodeUtils_GetCrossLanguageOption,
+    OH_ArkUI_NodeUtils_GetFirstChildIndexWithoutExpand,
     OH_ArkUI_NodeUtils_GetLastChildIndexWithoutExpand, OH_ArkUI_NodeUtils_GetPositionToParent,
     OH_ArkUI_NodeUtils_GetWindowInfo, OH_ArkUI_NodeUtils_SetCrossLanguageOption,
     OH_ArkUI_RegisterDrawCallbackOnNodeHandle, OH_ArkUI_RegisterLayoutCallbackOnNodeHandle,
@@ -73,7 +75,7 @@ use ohos_arkui_sys::{
 use ohos_arkui_sys::{
     OH_ArkUI_NodeUtils_AddCustomProperty, OH_ArkUI_NodeUtils_RemoveCustomProperty,
 };
-#[cfg(feature = "api-15")]
+#[cfg(all(feature = "api-15", feature = "image"))]
 use ohos_image_native_binding::PixelMapNativeHandle;
 
 use ohos_arkui_sys::{ArkUI_ContextHandle, ArkUI_SystemColorMode, ArkUI_SystemFontStyleEvent};
@@ -1291,7 +1293,7 @@ impl ArkUIHandle {
         Ok(ArkUINode::from_raw_handle(node))
     }
 
-    #[cfg(feature = "api-15")]
+    #[cfg(all(feature = "api-15", feature = "image"))]
     pub(crate) fn get_node_snapshot(
         &self,
         node: &ArkUINode,
