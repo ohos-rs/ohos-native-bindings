@@ -226,7 +226,7 @@ pub struct ArkWeb_ProxyObjectWithResult {
     #[doc = " The size of the methodList."]
     pub size: usize,
 }
-#[doc = " @brief Defines the controller API for native ArkWeb.\n Before invoking an API, you are advised to use ARKWEB_MEMBER_MISSING to check\n whether the function structure has a corresponding function pointer to avoid crash\n caused by mismatch between the SDK and the device ROM.\n\n @since 12"]
+#[doc = " @brief Defines the controller API for native ArkWeb.\n Before invoking an API, you are advised to use ARKWEB_MEMBER_MISSING to check\n whether the function structure has a corresponding function pointer to avoid crash\n caused by mismatch between the SDK and the device ROM.\n Use OH_ArkWeb_GetNativeAPI in the UI thread to obtain the Controller-related interface cluster.\n\n @since 12"]
 #[repr(C)]
 #[derive(Debug, Copy, Clone)]
 pub struct ArkWeb_ControllerAPI {
@@ -345,7 +345,7 @@ pub struct ArkWeb_ComponentAPI {
         ),
     >,
 }
-#[doc = " @brief Defines the web message API for native ArkWeb.\n Before invoking an API, you are advised to use ARKWEB_MEMBER_MISSING to check\n whether the function structure has a corresponding function pointer to avoid crash\n caused by mismatch between the SDK and the device ROM.\n\n @since 12"]
+#[doc = " @brief Defines the web message API for native ArkWeb.\n Before invoking an API, you are advised to use ARKWEB_MEMBER_MISSING to check\n whether the function structure has a corresponding function pointer to avoid crash\n caused by mismatch between the SDK and the device ROM.\n Use OH_ArkWeb_GetNativeAPI in the UI thread to obtain the WebMessagePort-related interface cluster.\n\n @since 12"]
 #[repr(C)]
 #[derive(Debug, Copy, Clone)]
 pub struct ArkWeb_WebMessagePortAPI {
@@ -376,7 +376,7 @@ pub struct ArkWeb_WebMessagePortAPI {
         ),
     >,
 }
-#[doc = " @brief Defines the web message data API for native ArkWeb.\n Before invoking an API, you are advised to use ARKWEB_MEMBER_MISSING to check\n whether the function structure has a corresponding function pointer to avoid crash\n caused by mismatch between the SDK and the device ROM.\n\n @since 12"]
+#[doc = " @brief Defines the web message data API for native ArkWeb.\n Before invoking an API, you are advised to use ARKWEB_MEMBER_MISSING to check\n whether the function structure has a corresponding function pointer to avoid crash\n caused by mismatch between the SDK and the device ROM.\n Use OH_ArkWeb_GetNativeAPI in the UI thread to obtain the WebMessage-related interface cluster.\n\n @since 12"]
 #[repr(C)]
 #[derive(Debug, Copy, Clone)]
 pub struct ArkWeb_WebMessageAPI {
@@ -411,7 +411,7 @@ pub struct ArkWeb_WebMessageAPI {
         ) -> *mut ::std::os::raw::c_void,
     >,
 }
-#[doc = " @brief Defines the native CookieManager API for ArkWeb.\n Before invoking an API, you are advised to use ARKWEB_MEMBER_MISSING to check\n whether the function structure has a corresponding function pointer to avoid crash\n caused by mismatch between the SDK and the device ROM.\n\n @since 12"]
+#[doc = " @brief Defines the native CookieManager API for ArkWeb.\n Before invoking an API, you are advised to use ARKWEB_MEMBER_MISSING to check\n whether the function structure has a corresponding function pointer to avoid crash\n caused by mismatch between the SDK and the device ROM.\n Use OH_ArkWeb_GetNativeAPI in the UI thread to obtain the CookieManager-related interface cluster.\n\n @since 12"]
 #[repr(C)]
 #[derive(Debug, Copy, Clone)]
 pub struct ArkWeb_CookieManagerAPI {
@@ -1571,6 +1571,9 @@ pub const ArkWebEngineVersion_ARKWEB_M114: ArkWebEngineVersion = 1;
 #[doc = " ArkWeb M132 version.\n @since 20"]
 #[cfg(feature = "api-20")]
 pub const ArkWebEngineVersion_ARKWEB_M132: ArkWebEngineVersion = 2;
+#[doc = " ArkWeb auto use the newest ArkWeb Engine version.\n Evergreen Web Engine.\n @since 23"]
+#[cfg(feature = "api-23")]
+pub const ArkWebEngineVersion_ARKWEB_EVERGREEN: ArkWebEngineVersion = 99999;
 #[doc = " @brief ArkWeb Engine Version.\n\n <strong>ArkWeb Dual Web Engine Versioning Convention</strong>:\n <p>See [ArkWeb Dual Web Engine Versioning Convention] for switching between Legacy and Evergreen Web Engine.\n\n @since 20"]
 #[cfg(feature = "api-20")]
 pub type ArkWebEngineVersion = u32;
@@ -1648,7 +1651,7 @@ extern "C" {
     );
 }
 extern "C" {
-    #[doc = " @brief Sets whether to enable blankless page loading. This API must be used in pair with the\n OH_NativeArkWeb_GetBlanklessInfoWithKey API.\n\n @param webTag webTag used when the webviewController is created.\n @param key Key value that uniquely identifies the current page. It must be the same as the key value of the\n OH_NativeArkWeb_GetBlanklessInfoWithKey API.\n @param isStarted Whether to enable frame interpolation. The value true indicates to enable frame\n interpolation, and the value false indicates the opposite.\n The default value is false.\n The value can be true or false.\n Action for setting an invalid value: N/A.\n @return Whether the API is successfully called. For details, see ArkWeb_BlanklessErrorCode.\n @since 20"]
+    #[doc = " @brief Sets whether to enable blankless page loading. This API must be used in pair with the\n OH_NativeArkWeb_GetBlanklessInfoWithKey API.\n\n @permission ohos.permission.INTERNET and ohos.permission.GET_NETWORK_INFO\n @param webTag webTag used when the webviewController is created.\n @param key Key value that uniquely identifies the current page. It must be the same as the key value of the\n OH_NativeArkWeb_GetBlanklessInfoWithKey API.\n @param isStarted Whether to enable frame interpolation. The value true indicates to enable frame\n interpolation, and the value false indicates the opposite.\n The default value is false.\n The value can be true or false.\n Action for setting an invalid value: N/A.\n @return Whether the API is successfully called. For details, see ArkWeb_BlanklessErrorCode.\n @since 20"]
     #[cfg(feature = "api-20")]
     pub fn OH_NativeArkWeb_SetBlanklessLoadingWithKey(
         webTag: *const ::std::os::raw::c_char,
@@ -1665,7 +1668,7 @@ extern "C" {
     );
 }
 extern "C" {
-    #[doc = " @brief Obtains the prediction information about the blankless loading solution and enables the generation\n of the transition frame for the current loading. The application determines whether to enable the blankless\n loading solution based on the information.\n This API applies to pages in an applet or web application whose URLs are not fixed or cannot be uniquely\n identified.\n\n @param webTag webTag used when the webviewController is created.\n Default value: N/A.\n The value cannot be empty.\n When an invalid value is set, the error code is returned, and the API does not take effect.\n @param key Key value that uniquely identifies the current page.\n @return Return value of the ArkWeb_BlanklessInfo type.\n @since 20"]
+    #[doc = " @brief Obtains the prediction information about the blankless loading solution and enables the generation\n of the transition frame for the current loading. The application determines whether to enable the blankless\n loading solution based on the information.\n This API applies to pages in an applet or web application whose URLs are not fixed or cannot be uniquely\n identified.\n\n @permission ohos.permission.INTERNET and ohos.permission.GET_NETWORK_INFO\n @param webTag webTag used when the webviewController is created.\n Default value: N/A.\n The value cannot be empty.\n When an invalid value is set, the error code is returned, and the API does not take effect.\n @param key Key value that uniquely identifies the current page.\n @return Return value of the ArkWeb_BlanklessInfo type.\n @since 20"]
     #[cfg(feature = "api-20")]
     pub fn OH_NativeArkWeb_GetBlanklessInfoWithKey(
         webTag: *const ::std::os::raw::c_char,
@@ -1701,4 +1704,9 @@ extern "C" {
     #[doc = " Delays the initialization of the web engine. By default, the web engine is initialized when the CookieManager\n interface is called. By setting the 'lazy' parameter to true, the web engine will not be initialized when the\n CookieManager interface is called. Instead, the web engine will be initialized either when the web component is\n created or when initializeWebEngine is called.\n @param { bool } lazy - Controls whether to delay the initialization of the web engine.\n @since 22"]
     #[cfg(feature = "api-22")]
     pub fn OH_NativeArkWeb_LazyInitializeWebEngineInCookieManager(lazy: bool);
+}
+extern "C" {
+    #[doc = " Check if the currently active ArkWeb engine is Evergreen.\n @return { bool } true means the application is using the Evergreen Web Engine, false means not.\n @since 23"]
+    #[cfg(feature = "api-23")]
+    pub fn OH_NativeArkWeb_IsActiveWebEngineEvergreen() -> bool;
 }

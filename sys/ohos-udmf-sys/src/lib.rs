@@ -5,863 +5,157 @@
 #![allow(non_camel_case_types)]
 #![allow(clippy::missing_safety_doc)]
 
+#[allow(unused_imports)]
+use ohos_image_native_sys::*;
+
 #[link(name = "udmf")]
 unsafe extern "C" {}
 
-#[doc = " @brief Defines the region of the image source to decode.\n\n @since 12"]
-#[repr(C)]
-#[derive(Debug, Copy, Clone)]
-pub struct Image_Region {
-    #[doc = " X coordinate of the start point, in pixels."]
-    pub x: u32,
-    #[doc = " Y coordinate of the start point, in pixels."]
-    pub y: u32,
-    #[doc = " Width of the region, in pixels."]
-    pub width: u32,
-    #[doc = " Height of the region, in pixels."]
-    pub height: u32,
-}
-#[doc = " @brief Defines the area of the image pixels to read or write.\n\n @since 22"]
-#[cfg(feature = "api-22")]
-#[repr(C)]
-#[derive(Debug, Copy, Clone)]
-pub struct Image_PositionArea {
-    #[doc = " Image pixels data that will be read or written."]
-    pub pixels: *mut u8,
-    #[doc = " Length of the image pixels data."]
-    pub pixelsSize: usize,
-    #[doc = " Offset for data reading or writing."]
-    pub offset: u32,
-    #[doc = " Number of bytes per row of the region."]
-    pub stride: u32,
-    #[doc = " Region to read or write."]
-    pub region: Image_Region,
-}
-#[doc = " @brief Defines the image scale ratio.\n\n @since 22"]
-#[cfg(feature = "api-22")]
-#[repr(C)]
-#[derive(Debug, Copy, Clone)]
-pub struct Image_Scale {
-    #[doc = " Scale ratio on the x-axis."]
-    pub x: f32,
-    #[doc = " Scale ratio on the y-axis."]
-    pub y: f32,
-}
-#[doc = " @brief Defines the region of the image source to decode.\n\n @since 12"]
-#[repr(C)]
-#[derive(Debug, Copy, Clone)]
-pub struct Image_String {
-    #[doc = " data for string type"]
-    pub data: *mut ::std::os::raw::c_char,
-    #[doc = " data lenth for string type"]
-    pub size: usize,
-}
-#[doc = " @brief Define a PictureMetadata struct type, used for picture metadata.\n\n @since 13"]
-#[cfg(feature = "api-13")]
-#[repr(C)]
-#[derive(Debug, Copy, Clone)]
-pub struct OH_PictureMetadata {
-    _unused: [u8; 0],
-}
-#[doc = " operation success"]
-pub const Image_ErrorCode_IMAGE_SUCCESS: Image_ErrorCode = 0;
-#[doc = " invalid parameter"]
-pub const Image_ErrorCode_IMAGE_BAD_PARAMETER: Image_ErrorCode = 401;
-#[doc = " unsupported mime type"]
-pub const Image_ErrorCode_IMAGE_UNSUPPORTED_MIME_TYPE: Image_ErrorCode = 7600101;
-#[doc = " unknown mime type"]
-pub const Image_ErrorCode_IMAGE_UNKNOWN_MIME_TYPE: Image_ErrorCode = 7600102;
-#[doc = " too large data or image"]
-pub const Image_ErrorCode_IMAGE_TOO_LARGE: Image_ErrorCode = 7600103;
-#[doc = " @error DMA memory does not exist"]
-pub const Image_ErrorCode_IMAGE_DMA_NOT_EXIST: Image_ErrorCode = 7600173;
-#[doc = " @error DMA operation failed"]
-pub const Image_ErrorCode_IMAGE_DMA_OPERATION_FAILED: Image_ErrorCode = 7600174;
-#[doc = " unsupported operations"]
-pub const Image_ErrorCode_IMAGE_UNSUPPORTED_OPERATION: Image_ErrorCode = 7600201;
-#[doc = " unsupported metadata"]
-pub const Image_ErrorCode_IMAGE_UNSUPPORTED_METADATA: Image_ErrorCode = 7600202;
-#[doc = " unsupported conversion"]
-pub const Image_ErrorCode_IMAGE_UNSUPPORTED_CONVERSION: Image_ErrorCode = 7600203;
-#[doc = " invalid region"]
-pub const Image_ErrorCode_IMAGE_INVALID_REGION: Image_ErrorCode = 7600204;
-#[doc = "  @error unsupported memory format\n  @since 13"]
-#[cfg(feature = "api-13")]
-pub const Image_ErrorCode_IMAGE_UNSUPPORTED_MEMORY_FORMAT: Image_ErrorCode = 7600205;
-#[doc = " @error Invalid parameter.\n @since 19"]
-#[cfg(feature = "api-19")]
-pub const Image_ErrorCode_IMAGE_INVALID_PARAMETER: Image_ErrorCode = 7600206;
-#[doc = " @error Unsupported data format\n @since 22"]
-#[cfg(feature = "api-22")]
-pub const Image_ErrorCode_IMAGE_UNSUPPORTED_DATA_FORMAT: Image_ErrorCode = 7600207;
-#[doc = " failed to allocate memory"]
-pub const Image_ErrorCode_IMAGE_ALLOC_FAILED: Image_ErrorCode = 7600301;
-#[doc = " memory copy failed"]
-pub const Image_ErrorCode_IMAGE_COPY_FAILED: Image_ErrorCode = 7600302;
-#[doc = " @error memory lock or unlock failed\n @since 15"]
-#[cfg(feature = "api-15")]
-pub const Image_ErrorCode_IMAGE_LOCK_UNLOCK_FAILED: Image_ErrorCode = 7600303;
-#[doc = " @error Initialization failed\n @since 22"]
-#[cfg(feature = "api-22")]
-pub const Image_ErrorCode_IMAGE_INIT_FAILED: Image_ErrorCode = 7600304;
-#[doc = " @error Create PixelMap failed\n @since 22"]
-#[cfg(feature = "api-22")]
-pub const Image_ErrorCode_IMAGE_CREATE_PIXELMAP_FAILED: Image_ErrorCode = 7600305;
-#[doc = " @error unsupported allocator mode, e.g., use share memory to create a HDR image as only\n DMA supported hdr metadata.\n @since 20"]
-#[cfg(feature = "api-20")]
-pub const Image_ErrorCode_IMAGE_ALLOCATOR_MODE_UNSUPPORTED: Image_ErrorCode = 7600501;
-#[doc = " unknown error"]
-pub const Image_ErrorCode_IMAGE_UNKNOWN_ERROR: Image_ErrorCode = 7600901;
-#[doc = " decode data source exception"]
-pub const Image_ErrorCode_IMAGE_BAD_SOURCE: Image_ErrorCode = 7700101;
-#[doc = " @error unsupported mime type\n @since 15"]
-#[cfg(feature = "api-15")]
-pub const Image_ErrorCode_IMAGE_SOURCE_UNSUPPORTED_MIME_TYPE: Image_ErrorCode = 7700102;
-#[doc = " @error image to large\n @since 15"]
-#[cfg(feature = "api-15")]
-pub const Image_ErrorCode_IMAGE_SOURCE_TOO_LARGE: Image_ErrorCode = 7700103;
-#[doc = " @error unsupported allocator type, e.g., use share memory to decode a HDR image as only\n DMA supported hdr metadata.\n @since 15"]
-#[cfg(feature = "api-15")]
-pub const Image_ErrorCode_IMAGE_SOURCE_UNSUPPORTED_ALLOCATOR_TYPE: Image_ErrorCode = 7700201;
-pub const Image_ErrorCode_IMAGE_SOURCE_UNSUPPORTED_OPTIONS: Image_ErrorCode = 7700203;
-#[doc = " @error Invalid parameter.\n @since 19"]
-#[cfg(feature = "api-19")]
-pub const Image_ErrorCode_IMAGE_SOURCE_INVALID_PARAMETER: Image_ErrorCode = 7700204;
-#[doc = " decode failed"]
-pub const Image_ErrorCode_IMAGE_DECODE_FAILED: Image_ErrorCode = 7700301;
-#[doc = " @error memory allocation failed\n @since 15"]
-#[cfg(feature = "api-15")]
-pub const Image_ErrorCode_IMAGE_SOURCE_ALLOC_FAILED: Image_ErrorCode = 7700302;
-#[doc = " @error Invalid parameter for ImagePacker.\n @since 19"]
-#[cfg(feature = "api-19")]
-pub const Image_ErrorCode_IMAGE_PACKER_INVALID_PARAMETER: Image_ErrorCode = 7800202;
-#[doc = " encode failed"]
-pub const Image_ErrorCode_IMAGE_ENCODE_FAILED: Image_ErrorCode = 7800301;
-#[doc = " @error Invalid parameter for ImageReceiver.\n @since 20"]
-#[cfg(feature = "api-20")]
-pub const Image_ErrorCode_IMAGE_RECEIVER_INVALID_PARAMETER: Image_ErrorCode = 7900201;
-#[doc = " @brief Enumerates the return values that may be used by the interface.\n\n @since 12"]
-pub type Image_ErrorCode = u32;
-#[doc = " EXIF metadata."]
-#[cfg(feature = "api-13")]
-pub const Image_MetadataType_EXIF_METADATA: Image_MetadataType = 1;
-#[doc = " Fragment metadata."]
-#[cfg(feature = "api-13")]
-pub const Image_MetadataType_FRAGMENT_METADATA: Image_MetadataType = 2;
-#[doc = " Metadata of a GIF image.\n\n @since 20"]
-#[cfg(feature = "api-20")]
-pub const Image_MetadataType_GIF_METADATA: Image_MetadataType = 5;
-#[doc = " @brief Define the metadata type.\n\n @since 13"]
-#[cfg(feature = "api-13")]
-pub type Image_MetadataType = u32;
-#[doc = " The system determines which memory to use to create the PixelMap.\n\n @since 20"]
-#[cfg(feature = "api-20")]
-pub const IMAGE_ALLOCATOR_MODE_IMAGE_ALLOCATOR_MODE_AUTO: IMAGE_ALLOCATOR_MODE = 0;
-#[doc = " Use DMA buffer to create the PixelMap.\n\n @since 20"]
-#[cfg(feature = "api-20")]
-pub const IMAGE_ALLOCATOR_MODE_IMAGE_ALLOCATOR_MODE_DMA: IMAGE_ALLOCATOR_MODE = 1;
-#[doc = " Use share memory to create the PixelMap.\n\n @since 20"]
-#[cfg(feature = "api-20")]
-pub const IMAGE_ALLOCATOR_MODE_IMAGE_ALLOCATOR_MODE_SHARED_MEMORY: IMAGE_ALLOCATOR_MODE = 2;
-#[doc = " @brief Type of allocator used to allocate memory of a PixelMap.\n\n @since 20"]
-#[cfg(feature = "api-20")]
-pub type IMAGE_ALLOCATOR_MODE = u32;
-extern "C" {
-    #[doc = " @brief Creates a <b>PictureMetadata</b> object.\n\n @param metadataType The type of metadata.\n @param metadata The PictureMetadata pointer will be operated.\n @return Image functions result code.\n         {@link IMAGE_SUCCESS} if the execution is successful.\n         {@link IMAGE_BAD_PARAMETER} metadata is nullptr.\n @since 13"]
-    #[cfg(feature = "api-13")]
-    pub fn OH_PictureMetadata_Create(
-        metadataType: Image_MetadataType,
-        metadata: *mut *mut OH_PictureMetadata,
-    ) -> Image_ErrorCode;
-}
-extern "C" {
-    #[doc = " @brief Obtains the property of picture metadata.\n\n @param metadata The PictureMetadata pointer will be operated.\n @param key The property's key.\n @param value The property's value.\n @return Image functions result code.\n         {@link IMAGE_SUCCESS} if the execution is successful.\n         {@link IMAGE_BAD_PARAMETER} metadata is nullptr, or key is nullptr, or value is nullptr.\n         {@link IMAGE_UNSUPPORTED_METADATA} unsupported metadata type, or the metadata type does not match the\n         auxiliary picture type.\n @since 13"]
-    #[cfg(feature = "api-13")]
-    pub fn OH_PictureMetadata_GetProperty(
-        metadata: *mut OH_PictureMetadata,
-        key: *mut Image_String,
-        value: *mut Image_String,
-    ) -> Image_ErrorCode;
-}
-extern "C" {
-    #[doc = " @brief Set picture metadata property.\n\n @param metadata The PictureMetadata pointer will be operated.\n @param key The property's key.\n @param value The property's value.\n @return Image functions result code.\n         {@link IMAGE_SUCCESS} if the execution is successful.\n         {@link IMAGE_BAD_PARAMETER} metadata is nullptr, or key is nullptr, or value is nullptr.\n         {@link IMAGE_UNSUPPORTED_METADATA} unsupported metadata type, or the metadata type does not match the\n         auxiliary picture type.\n @since 13"]
-    #[cfg(feature = "api-13")]
-    pub fn OH_PictureMetadata_SetProperty(
-        metadata: *mut OH_PictureMetadata,
-        key: *mut Image_String,
-        value: *mut Image_String,
-    ) -> Image_ErrorCode;
-}
-extern "C" {
-    #[doc = " @brief Obtains the property of picture metadata. The output value.data is null-terminated.\n\n @param metadata Pointer to OH_PictureMetadata.\n @param key Pointer to property's key.\n @param value Pointer to property's value. Output parameter.\n @return Image functions result code.\n         {@link IMAGE_SUCCESS} if the execution is successful.\n         {@link IMAGE_INVALID_PARAMETER} metadata is nullptr, or key is nullptr, or value is nullptr.\n         {@link IMAGE_UNSUPPORTED_METADATA} unsupported metadata type, or the metadata type does not match the\n         auxiliary picture type.\n @since 19"]
-    #[cfg(feature = "api-19")]
-    pub fn OH_PictureMetadata_GetPropertyWithNull(
-        metadata: *mut OH_PictureMetadata,
-        key: *mut Image_String,
-        value: *mut Image_String,
-    ) -> Image_ErrorCode;
-}
-extern "C" {
-    #[doc = " @brief Releases this PictureMetadata object.\n\n @param metadata The PictureMetadata pointer will be operated.\n @return Image functions result code.\n         {@link IMAGE_SUCCESS} if the execution is successful.\n         {@link IMAGE_BAD_PARAMETER} metadata is nullptr.\n @since 13"]
-    #[cfg(feature = "api-13")]
-    pub fn OH_PictureMetadata_Release(metadata: *mut OH_PictureMetadata) -> Image_ErrorCode;
-}
-extern "C" {
-    #[doc = " @brief Obtains a clone of metadata.\n\n @param oldMetadata The PictureMetadata pointer will be operated.\n @param newMetadata The PictureMetadata pointer will be cloned.\n @return Image functions result code.\n         {@link IMAGE_SUCCESS} if the execution is successful.\n         {@link IMAGE_BAD_PARAMETER} metadata is nullptr.\n         {@link IMAGE_ALLOC_FAILED} memory alloc failed.\n         {@link IMAGE_COPY_FAILED} memory copy failed.\n @since 13"]
-    #[cfg(feature = "api-13")]
-    pub fn OH_PictureMetadata_Clone(
-        oldMetadata: *mut OH_PictureMetadata,
-        newMetadata: *mut *mut OH_PictureMetadata,
-    ) -> Image_ErrorCode;
-}
-#[repr(C)]
-#[derive(Debug, Copy, Clone)]
-pub struct napi_env__ {
-    _unused: [u8; 0],
-}
-pub type napi_env = *mut napi_env__;
-#[repr(C)]
-#[derive(Debug, Copy, Clone)]
-pub struct napi_value__ {
-    _unused: [u8; 0],
-}
-pub type napi_value = *mut napi_value__;
-#[doc = " @brief Define a Pixelmap struct type, used for pixelmap pointer controls.\n\n @since 12"]
-#[repr(C)]
-#[derive(Debug, Copy, Clone)]
-pub struct OH_PixelmapNative {
-    _unused: [u8; 0],
-}
-#[doc = " @brief Define a native buffer type, used for retrieving a native buffer.\n\n @since 12"]
-#[repr(C)]
-#[derive(Debug, Copy, Clone)]
-pub struct OH_NativeBuffer {
-    _unused: [u8; 0],
-}
-#[repr(C)]
-#[derive(Debug, Copy, Clone)]
-pub struct OH_NativeColorSpaceManager {
-    _unused: [u8; 0],
-}
-#[doc = " Nearest-neighbor interpolation algorithm"]
-pub const OH_PixelmapNative_AntiAliasingLevel_OH_PixelmapNative_AntiAliasing_NONE:
-    OH_PixelmapNative_AntiAliasingLevel = 0;
-#[doc = " Bilinear interpolation algorithm"]
-pub const OH_PixelmapNative_AntiAliasingLevel_OH_PixelmapNative_AntiAliasing_LOW:
-    OH_PixelmapNative_AntiAliasingLevel = 1;
-#[doc = " Bilinear interpolation algorithm with mipmap linear filtering"]
-pub const OH_PixelmapNative_AntiAliasingLevel_OH_PixelmapNative_AntiAliasing_MEDIUM:
-    OH_PixelmapNative_AntiAliasingLevel = 2;
-#[doc = " Cubic interpolation algorithm"]
-pub const OH_PixelmapNative_AntiAliasingLevel_OH_PixelmapNative_AntiAliasing_HIGH:
-    OH_PixelmapNative_AntiAliasingLevel = 3;
-#[doc = " @brief Defines the anti-aliasing level.\n\n @since 12"]
-pub type OH_PixelmapNative_AntiAliasingLevel = u32;
-#[doc = " Indicate the types of metadata that image needs to use."]
-pub const OH_Pixelmap_HdrMetadataKey_HDR_METADATA_TYPE: OH_Pixelmap_HdrMetadataKey = 0;
-#[doc = " Static metadata key."]
-pub const OH_Pixelmap_HdrMetadataKey_HDR_STATIC_METADATA: OH_Pixelmap_HdrMetadataKey = 1;
-#[doc = " Dynamic metadata key."]
-pub const OH_Pixelmap_HdrMetadataKey_HDR_DYNAMIC_METADATA: OH_Pixelmap_HdrMetadataKey = 2;
-#[doc = " Gainmap metadata key."]
-pub const OH_Pixelmap_HdrMetadataKey_HDR_GAINMAP_METADATA: OH_Pixelmap_HdrMetadataKey = 3;
-#[doc = " @brief Enumerates the HDR metadata types that need to be stored in Pixelmap.\n\n @since 12"]
-pub type OH_Pixelmap_HdrMetadataKey = u32;
-#[doc = " No metadata."]
-pub const OH_Pixelmap_HdrMetadataType_HDR_METADATA_TYPE_NONE: OH_Pixelmap_HdrMetadataType = 0;
-#[doc = " Indicates that metadata will be used for the base image."]
-pub const OH_Pixelmap_HdrMetadataType_HDR_METADATA_TYPE_BASE: OH_Pixelmap_HdrMetadataType = 1;
-#[doc = " Indicates that metadata will be used for the gainmap image."]
-pub const OH_Pixelmap_HdrMetadataType_HDR_METADATA_TYPE_GAINMAP: OH_Pixelmap_HdrMetadataType = 2;
-#[doc = " Indicates that metadata will be used for the alternate image."]
-pub const OH_Pixelmap_HdrMetadataType_HDR_METADATA_TYPE_ALTERNATE: OH_Pixelmap_HdrMetadataType = 3;
-#[doc = " @brief Value for HDR_METADATA_TYPE.\n\n @since 12"]
-pub type OH_Pixelmap_HdrMetadataType = u32;
-#[doc = " @brief Value for HDR_STATIC_METADATA.\n\n @since 12"]
-#[repr(C)]
-#[derive(Debug, Copy, Clone)]
-pub struct OH_Pixelmap_HdrStaticMetadata {
-    #[doc = " The X-coordinate of the primary colors. The length of the array is three. Store in the order of r, g, b."]
-    pub displayPrimariesX: [f32; 3usize],
-    #[doc = " The Y-coordinate of the primary colors. The length of the array is three. Store in the order of r, g, b."]
-    pub displayPrimariesY: [f32; 3usize],
-    #[doc = " The X-coordinate of the white point value."]
-    pub whitePointX: f32,
-    #[doc = " The Y-coordinate of the white point value."]
-    pub whitePointY: f32,
-    #[doc = " Max luminance."]
-    pub maxLuminance: f32,
-    #[doc = " Min luminance."]
-    pub minLuminance: f32,
-    #[doc = " Maximum brightness of displayed content."]
-    pub maxContentLightLevel: f32,
-    #[doc = " Maximum average brightness of displayed content."]
-    pub maxFrameAverageLightLevel: f32,
-}
-#[doc = " @brief Value for HDR_DYNAMIC_METADATA.\n\n @since 12"]
-#[repr(C)]
-#[derive(Debug, Copy, Clone)]
-pub struct OH_Pixelmap_HdrDynamicMetadata {
-    #[doc = " The value of dynamic metadata."]
-    pub data: *mut u8,
-    #[doc = " The length of dynamic metadata."]
-    pub length: u32,
-}
-#[doc = " @brief Value for HDR_GAINMAP_METADATA.\n\n @since 12"]
-#[repr(C)]
-#[derive(Debug, Copy, Clone)]
-pub struct OH_Pixelmap_HdrGainmapMetadata {
-    #[doc = " The version used by the writer."]
-    pub writerVersion: u16,
-    #[doc = " The minimum version a parser needs to understand."]
-    pub miniVersion: u16,
-    #[doc = " The number of gain map channels, with a value of 1 or 3."]
-    pub gainmapChannelNum: u8,
-    #[doc = " Indicate whether to use the color space of the base image."]
-    pub useBaseColorFlag: bool,
-    #[doc = " The baseline hdr headroom."]
-    pub baseHeadroom: f32,
-    #[doc = " The alternate hdr headroom."]
-    pub alternateHeadroom: f32,
-    #[doc = " The per-component max gain map values."]
-    pub gainmapMax: [f32; 3usize],
-    #[doc = " The per-component min gain map values."]
-    pub gainmapMin: [f32; 3usize],
-    #[doc = " The per-component gamma values."]
-    pub gamma: [f32; 3usize],
-    #[doc = " The per-component baseline offset."]
-    pub baselineOffset: [f32; 3usize],
-    #[doc = " The per-component alternate offset."]
-    pub alternateOffset: [f32; 3usize],
-}
-#[doc = " @brief Value for HDR_METADATA_KEY. Corresponding relationship with HDR_METADATA_KEY.\n\n @since 12"]
-#[repr(C)]
-#[derive(Debug, Copy, Clone)]
-pub struct OH_Pixelmap_HdrMetadataValue {
-    #[doc = " The value corresponding to the HDR_METADATA_TYPE key"]
-    pub type_: OH_Pixelmap_HdrMetadataType,
-    #[doc = " The value corresponding to the HDR_STATIC_METADATA key"]
-    pub staticMetadata: OH_Pixelmap_HdrStaticMetadata,
-    #[doc = " The value corresponding to the HDR_DYNAMIC_METADATA key"]
-    pub dynamicMetadata: OH_Pixelmap_HdrDynamicMetadata,
-    #[doc = " The value corresponding to the HDR_GAINMAP_METADATA key"]
-    pub gainmapMetadata: OH_Pixelmap_HdrGainmapMetadata,
-}
-#[doc = " @brief Defines the options used for creating a pixel map.\n\n @since 12"]
-#[repr(C)]
-#[derive(Debug, Copy, Clone)]
-pub struct OH_Pixelmap_InitializationOptions {
-    _unused: [u8; 0],
-}
-extern "C" {
-    #[doc = " @brief Create a for InitializationOtions struct.\n\n @param options The InitializationOtions pointer will be operated.\n @return Returns {@link Image_ErrorCode}\n @since 12"]
-    pub fn OH_PixelmapInitializationOptions_Create(
-        options: *mut *mut OH_Pixelmap_InitializationOptions,
-    ) -> Image_ErrorCode;
-}
-extern "C" {
-    #[doc = " @brief Get width number for InitializationOtions struct.\n\n @param options The InitializationOtions pointer will be operated.\n @param width the number of image width.\n @return Returns {@link Image_ErrorCode}\n @since 12"]
-    pub fn OH_PixelmapInitializationOptions_GetWidth(
-        options: *mut OH_Pixelmap_InitializationOptions,
-        width: *mut u32,
-    ) -> Image_ErrorCode;
-}
-extern "C" {
-    #[doc = " @brief Set width number for InitializationOtions struct.\n\n @param options The InitializationOtions pointer will be operated.\n @param width the number of image width.\n @return Returns {@link Image_ErrorCode}\n @since 12"]
-    pub fn OH_PixelmapInitializationOptions_SetWidth(
-        options: *mut OH_Pixelmap_InitializationOptions,
-        width: u32,
-    ) -> Image_ErrorCode;
-}
-extern "C" {
-    #[doc = " @brief Get height number for InitializationOtions struct.\n\n @param options The InitializationOtions pointer will be operated.\n @param height the number of image height.\n @return Returns {@link Image_ErrorCode}\n @since 12"]
-    pub fn OH_PixelmapInitializationOptions_GetHeight(
-        options: *mut OH_Pixelmap_InitializationOptions,
-        height: *mut u32,
-    ) -> Image_ErrorCode;
-}
-extern "C" {
-    #[doc = " @brief Set height number for InitializationOtions struct.\n\n @param options The InitializationOtions pointer will be operated.\n @param height the number of image height.\n @return Returns {@link Image_ErrorCode}\n @since 12"]
-    pub fn OH_PixelmapInitializationOptions_SetHeight(
-        options: *mut OH_Pixelmap_InitializationOptions,
-        height: u32,
-    ) -> Image_ErrorCode;
-}
-extern "C" {
-    #[doc = " @brief Get pixelFormat number for InitializationOtions struct.\n\n @param options The InitializationOtions pointer will be operated.\n @param pixelFormat the number of image pixelFormat.\n @return Returns {@link Image_ErrorCode}\n @since 12"]
-    pub fn OH_PixelmapInitializationOptions_GetPixelFormat(
-        options: *mut OH_Pixelmap_InitializationOptions,
-        pixelFormat: *mut i32,
-    ) -> Image_ErrorCode;
-}
-extern "C" {
-    #[doc = " @brief Set pixelFormat number for InitializationOtions struct.\n\n @param options The InitializationOtions pointer will be operated.\n @param pixelFormat the number of image pixelFormat.\n @return Returns {@link Image_ErrorCode}\n @since 12"]
-    pub fn OH_PixelmapInitializationOptions_SetPixelFormat(
-        options: *mut OH_Pixelmap_InitializationOptions,
-        pixelFormat: i32,
-    ) -> Image_ErrorCode;
-}
-extern "C" {
-    #[doc = " @brief Get pixelFormat number for InitializationOtions struct.\n\n @param options The InitializationOtions pointer will be operated.\n @param srcpixelFormat the number of image srcpixelFormat.\n @return Returns {@link Image_ErrorCode}\n @since 12"]
-    pub fn OH_PixelmapInitializationOptions_GetSrcPixelFormat(
-        options: *mut OH_Pixelmap_InitializationOptions,
-        srcpixelFormat: *mut i32,
-    ) -> Image_ErrorCode;
-}
-extern "C" {
-    #[doc = " @brief Set pixelFormat number for InitializationOtions struct.\n\n @param options The InitializationOtions pointer will be operated.\n @param srcpixelFormat the number of image srcpixelFormat.\n @return Returns {@link Image_ErrorCode}\n @since 12"]
-    pub fn OH_PixelmapInitializationOptions_SetSrcPixelFormat(
-        options: *mut OH_Pixelmap_InitializationOptions,
-        srcpixelFormat: i32,
-    ) -> Image_ErrorCode;
-}
-extern "C" {
-    #[doc = " @brief Get rowStride for InitializationOptions struct.\n\n @param options The InitializationOptions pointer will be operated.\n @param rowStride the rowStride of image buffer.\n @return Returns {@link Image_ErrorCode} IMAGE_SUCCESS - if the operation is successful.\n returns {@link Image_ErrorCode} IMAGE_BAD_PARAMETER - if rowStride is null.\n returns {@link Image_ErrorCode} IMAGE_UNKNOWN_ERROR - inner unknown error, maybe options is released.\n @since 12"]
-    pub fn OH_PixelmapInitializationOptions_GetRowStride(
-        options: *mut OH_Pixelmap_InitializationOptions,
-        rowStride: *mut i32,
-    ) -> Image_ErrorCode;
-}
-extern "C" {
-    #[doc = " @brief Set rowStride number for InitializationOptions struct.\n\n @param options The InitializationOptions pointer will be operated.\n @param rowStride the rowStride of image buffer.\n @return Returns {@link Image_ErrorCode} IMAGE_SUCCESS - if the operation is successful.\n returns {@link Image_ErrorCode} IMAGE_BAD_PARAMETER - if rowStride does not match width.\n returns {@link Image_ErrorCode} IMAGE_UNKNOWN_ERROR - inner unknown error, maybe options is released.\n @since 12"]
-    pub fn OH_PixelmapInitializationOptions_SetRowStride(
-        options: *mut OH_Pixelmap_InitializationOptions,
-        rowStride: i32,
-    ) -> Image_ErrorCode;
-}
-extern "C" {
-    #[doc = " @brief Get alphaType number for InitializationOtions struct.\n\n @param options The InitializationOtions pointer will be operated.\n @param alphaType the number of image alphaType.\n @return Returns {@link Image_ErrorCode}\n @since 12"]
-    pub fn OH_PixelmapInitializationOptions_GetAlphaType(
-        options: *mut OH_Pixelmap_InitializationOptions,
-        alphaType: *mut i32,
-    ) -> Image_ErrorCode;
-}
-extern "C" {
-    #[doc = " @brief Set alphaType number for InitializationOtions struct.\n\n @param options The InitializationOtions pointer will be operated.\n @param alphaType the number of image alphaType.\n @return Returns {@link Image_ErrorCode}\n @since 12"]
-    pub fn OH_PixelmapInitializationOptions_SetAlphaType(
-        options: *mut OH_Pixelmap_InitializationOptions,
-        alphaType: i32,
-    ) -> Image_ErrorCode;
-}
-extern "C" {
-    #[doc = " @brief Get editable for InitializationOptions struct.\n\n @param options The InitializationOptions pointer will be operated.\n @param editable The boolean value representing the editable status.\n @return Returns {@link Image_ErrorCode} IMAGE_SUCCESS - if the operation is successful.\n returns {@link Image_ErrorCode} IMAGE_BAD_PARAMETER - if options or editable is invalid.\n @since 18"]
-    #[cfg(feature = "api-18")]
-    pub fn OH_PixelmapInitializationOptions_GetEditable(
-        options: *mut OH_Pixelmap_InitializationOptions,
-        editable: *mut bool,
-    ) -> Image_ErrorCode;
-}
-extern "C" {
-    #[doc = " @brief Set editable for InitializationOptions struct.\n\n @param options The InitializationOptions pointer will be operated.\n @param editable The boolean value representing the editable status.\n @return Returns {@link Image_ErrorCode} IMAGE_SUCCESS - if the operation is successful.\n returns {@link Image_ErrorCode} IMAGE_BAD_PARAMETER - if options is invalid.\n @since 18"]
-    #[cfg(feature = "api-18")]
-    pub fn OH_PixelmapInitializationOptions_SetEditable(
-        options: *mut OH_Pixelmap_InitializationOptions,
-        editable: bool,
-    ) -> Image_ErrorCode;
-}
-extern "C" {
-    #[doc = " @brief delete InitializationOtions pointer.\n\n @param options The InitializationOtions pointer will be operated.\n @return Returns {@link Image_ErrorCode}\n @since 12"]
-    pub fn OH_PixelmapInitializationOptions_Release(
-        options: *mut OH_Pixelmap_InitializationOptions,
-    ) -> Image_ErrorCode;
-}
-#[doc = " @brief Defines the pixel map information.\n\n @since 12"]
-#[repr(C)]
-#[derive(Debug, Copy, Clone)]
-pub struct OH_Pixelmap_ImageInfo {
-    _unused: [u8; 0],
-}
-extern "C" {
-    #[doc = " @brief Create imageinfo struct  .\n\n @param info The imageinfo pointer will be operated.\n @return Returns {@link Image_ErrorCode}\n @since 12"]
-    pub fn OH_PixelmapImageInfo_Create(info: *mut *mut OH_Pixelmap_ImageInfo) -> Image_ErrorCode;
-}
-extern "C" {
-    #[doc = " @brief Get width number for imageinfo struct.\n\n @param info The imageinfo pointer will be operated.\n @param width The number of imageinfo width.\n @return Returns {@link Image_ErrorCode}\n @since 12"]
-    pub fn OH_PixelmapImageInfo_GetWidth(
-        info: *mut OH_Pixelmap_ImageInfo,
-        width: *mut u32,
-    ) -> Image_ErrorCode;
-}
-extern "C" {
-    #[doc = " @brief Get height number for imageinfo struct.\n\n @param info The imageinfo pointer will be operated.\n @param height The number of imageinfo height.\n @return Returns {@link Image_ErrorCode}\n @since 12"]
-    pub fn OH_PixelmapImageInfo_GetHeight(
-        info: *mut OH_Pixelmap_ImageInfo,
-        height: *mut u32,
-    ) -> Image_ErrorCode;
-}
-extern "C" {
-    #[doc = " @brief Get alphaMode number for imageinfo struct.\n\n @param info The imageinfo pointer will be operated.\n @param alphaMode The number of imageinfo alphaMode.\n @return Image functions result code.\n     {@link IMAGE_SUCCESS} if the execution is successful.\n     {@link IMAGE_BAD_PARAMETER} info is nullptr, or alphaMode is nullptr.\n @since 20"]
-    #[cfg(feature = "api-20")]
-    pub fn OH_PixelmapImageInfo_GetAlphaMode(
-        info: *mut OH_Pixelmap_ImageInfo,
-        alphaMode: *mut i32,
-    ) -> Image_ErrorCode;
-}
-extern "C" {
-    #[doc = " @brief Get rowStride number for imageinfo struct.\n\n @param info The imageinfo pointer will be operated.\n @param rowStride The number of imageinfo rowStride.\n @return Returns {@link Image_ErrorCode}\n @since 12"]
-    pub fn OH_PixelmapImageInfo_GetRowStride(
-        info: *mut OH_Pixelmap_ImageInfo,
-        rowStride: *mut u32,
-    ) -> Image_ErrorCode;
-}
-extern "C" {
-    #[doc = " @brief Get pixelFormat number for imageinfo struct.\n\n @param info The imageinfo pointer will be operated.\n @param pixelFormat The number of imageinfo pixelFormat.\n @return Returns {@link Image_ErrorCode}\n @since 12"]
-    pub fn OH_PixelmapImageInfo_GetPixelFormat(
-        info: *mut OH_Pixelmap_ImageInfo,
-        pixelFormat: *mut i32,
-    ) -> Image_ErrorCode;
-}
-extern "C" {
-    #[doc = " @brief Get alphaType number for imageinfo struct.\n\n @param info The imageinfo pointer will be operated.\n @param alphaType The number of imageinfo alphaType.\n @return Returns {@link Image_ErrorCode}\n @since 12"]
-    pub fn OH_PixelmapImageInfo_GetAlphaType(
-        info: *mut OH_Pixelmap_ImageInfo,
-        alphaType: *mut i32,
-    ) -> Image_ErrorCode;
-}
-extern "C" {
-    #[doc = " @brief Get isHdr boolean for imageinfo struct.\n\n @param info The imageinfo pointer will be operated. Pointer connot be null.\n @param isHdr Whether the image has a high dynamic range.\n @return Returns {@link Image_ErrorCode} IMAGE_SUCCESS - The operation is successful.\n returns {@link Image_ErrorCode} IMAGE_BAD_PARAMETER - Parameter error.Possible causes:Parameter verification failed.\n @since 12"]
-    pub fn OH_PixelmapImageInfo_GetDynamicRange(
-        info: *mut OH_Pixelmap_ImageInfo,
-        isHdr: *mut bool,
-    ) -> Image_ErrorCode;
-}
-extern "C" {
-    #[doc = " @brief Delete imageinfo struct pointer.\n\n @param info The imageinfo pointer will be operated.\n @return Returns {@link Image_ErrorCode}\n @since 12"]
-    pub fn OH_PixelmapImageInfo_Release(info: *mut OH_Pixelmap_ImageInfo) -> Image_ErrorCode;
-}
-extern "C" {
-    #[doc = " @brief Creates a <b>PixelMap</b> object.\n\n @param data Color buffer in BGRA_8888 format.\n @param dataLength Color buffer size in BGRA_8888 format.\n @param options IPixel properties, including the alpha type, size, pixel format, and editable.\n @param pixelmap Pixelmap pointer for created.\n @return Returns {@link Image_ErrorCode}\n @since 12"]
-    pub fn OH_PixelmapNative_CreatePixelmap(
-        data: *mut u8,
-        dataLength: usize,
-        options: *mut OH_Pixelmap_InitializationOptions,
-        pixelmap: *mut *mut OH_PixelmapNative,
-    ) -> Image_ErrorCode;
-}
-extern "C" {
-    #[doc = " @brief Creates a pixelmap based on options {@link OH_Pixelmap_InitializationOptions}, the memory type used by the\n pixelmap can be specified by allocatorType {@link IMAGE_ALLOCATOR_MODE}. By default, the system selects the memory\n type based on the image type, image size, platform capability, etc. When processing the pixelmap returned by this\n interface, please always consider the impact of stride.\n\n @param data Input color buffer in BGRA_8888 format by default.\n @param dataLength Length of input buffer in bytes.\n @param options Pixelmap initialization properties including size, pixel format, alpha type, and editable flags.\n @param allocator Indicate which memory type will be used by the returned pixelmap.\n @param pixelmap Output parameter receiving the created pixelmap object pointer.\n @return Function result code:\n         {@link IMAGE_SUCCESS} If the operation is successful.\n         {@link IMAGE_BAD_PARAMETER} If the param is nullptr or invalid.\n         {@link IMAGE_TOO_LARGE} too large data or image.\n         {@link IMAGE_UNSUPPORTED_OPERATION} unsupported operations.\n         {@link IMAGE_DMA_OPERATION_FAILED} DMA operation failed.\n         {@link IMAGE_ALLOCATOR_MODE_UNSUPPORTED} unsupported allocator mode, e.g.,\n         use share memory to create a HDR image as only DMA supported hdr metadata.\n @since 20"]
-    #[cfg(feature = "api-20")]
-    pub fn OH_PixelmapNative_CreatePixelmapUsingAllocator(
-        data: *mut u8,
-        dataLength: usize,
-        options: *mut OH_Pixelmap_InitializationOptions,
-        allocator: IMAGE_ALLOCATOR_MODE,
-        pixelmap: *mut *mut OH_PixelmapNative,
-    ) -> Image_ErrorCode;
-}
-extern "C" {
-    #[doc = " @brief Convert a native <b>PixelMap</b> object to <b>PixelMap</b> napi object.\n\n @param env Indicates the NAPI environment pointer.\n @param pixelmapNative Indicates a pointer to the <b>PixelMap</b> object created at the native layer.\n @param pixelmapNapi the <b>PixelMap</b> pointer will be converted.\n @return Image functions result code.\n     {@link IMAGE_SUCCESS} if the execution is successful.\n     {@link IMAGE_BAD_PARAMETER} pixelmapNative is nullptr\n @since 12"]
-    pub fn OH_PixelmapNative_ConvertPixelmapNativeToNapi(
-        env: napi_env,
-        pixelmapNative: *mut OH_PixelmapNative,
-        pixelmapNapi: *mut napi_value,
-    ) -> Image_ErrorCode;
-}
-extern "C" {
-    #[doc = " @brief Convert a <b>PixelMap</b> napi object to native <b>PixelMap</b> object.\n\n @param env Indicates the NAPI environment pointer.\n @param pixelmapNapi Indicates napi <b>PixelMap</b> object.\n @param pixelmapNative Indicates native <b>PixelMap</b> pointer to created.\n @return Image functions result code.\n     {@link IMAGE_SUCCESS} if the execution is successful.\n     {@link IMAGE_BAD_PARAMETER} pixelmapNative is nullptr, or pixelmapNapi is not a PixelMap\n @since 12"]
-    pub fn OH_PixelmapNative_ConvertPixelmapNativeFromNapi(
-        env: napi_env,
-        pixelmapNapi: napi_value,
-        pixelmapNative: *mut *mut OH_PixelmapNative,
-    ) -> Image_ErrorCode;
-}
-extern "C" {
-    #[doc = " @brief Reads data of this pixel map to an Buffer. If this pixel map is created in the BGRA_8888 format,\n the data read is the same as the original data.\n\n @param pixelmap The Pixelmap pointer will be operated.\n @param destination Buffer to which the image pixel map data will be written.\n @param bufferSize Buffer size to which the image pixel map data will be written.\n @return Returns {@link Image_ErrorCode}\n @since 12"]
-    pub fn OH_PixelmapNative_ReadPixels(
-        pixelmap: *mut OH_PixelmapNative,
-        destination: *mut u8,
-        bufferSize: *mut usize,
-    ) -> Image_ErrorCode;
-}
-extern "C" {
-    #[doc = " @brief Reads image data in an Buffer and writes the data to a Pixelmap object.\n\n @param pixelmap The Pixelmap pointer will be operated.\n @param source Buffer from which the image data will be read.\n @param bufferSize Buffer size from which the image data will be read.\n @return Returns {@link Image_ErrorCode}\n @since 12"]
-    pub fn OH_PixelmapNative_WritePixels(
-        pixelmap: *mut OH_PixelmapNative,
-        source: *mut u8,
-        bufferSize: usize,
-    ) -> Image_ErrorCode;
-}
-extern "C" {
-    #[doc = " @brief Reads data from a certain area of the PixelMap to a buffer. The resulting data will be in BGRA_8888 format.\n\n @param pixelmap The PixelMap to be read.\n @param area Area of the PixelMap to read the data. Data will be read and copied into area->pixels.\n @return Function result code:\n         {@link IMAGE_SUCCESS} If the operation is successful.\n         {@link IMAGE_BAD_PARAMETER} If any parameter is invalid, e.g. pixelmap or area is incorrect.\n         {@link IMAGE_UNKNOWN_ERROR} Internal unknown error, e.g. unsupported pixel format.\n @see OH_PixelmapNative\n @since 22"]
-    #[cfg(feature = "api-22")]
-    pub fn OH_PixelmapNative_ReadPixelsFromArea(
-        pixelmap: *mut OH_PixelmapNative,
-        area: *mut Image_PositionArea,
-    ) -> Image_ErrorCode;
-}
-extern "C" {
-    #[doc = " @brief Writes data from a buffer to a certain area of the PixelMap. The source data should be in BGRA_8888 format.\n\n @param pixelmap The PixelMap to be written.\n @param area Area of the PixelMap to write the data.\n @return Function result code:\n         {@link IMAGE_SUCCESS} If the operation is successful.\n         {@link IMAGE_BAD_PARAMETER} If any parameter is invalid, e.g. pixelmap or area is incorrect.\n         {@link IMAGE_UNSUPPORTED_OPERATION} If the PixelMap is not editable.\n         {@link IMAGE_UNKNOWN_ERROR} Internal unknown error, e.g. unsupported pixel format.\n @see OH_PixelmapNative\n @since 22"]
-    #[cfg(feature = "api-22")]
-    pub fn OH_PixelmapNative_WritePixelsToArea(
-        pixelmap: *mut OH_PixelmapNative,
-        area: *mut Image_PositionArea,
-    ) -> Image_ErrorCode;
-}
-extern "C" {
-    #[doc = " @brief Get argb pixel buffer from pixelmap.\n\n @param pixelmap The Pixelmap pointer to be operated.\n @param destination Buffer to which the image pixel map data will be written.\n @param bufferSize Buffer size to which the image pixel map data will be written.\n @return Function result code:\n         {@link IMAGE_SUCCESS} If the operation is successful.\n         {@link IMAGE_BAD_PARAMETER} If invalid parameter, destination and bufferSize are incorrect.\n         {@link IMAGE_UNSUPPORTED_CONVERSION} If format does not support conversion to argb or conversion failed.\n         {@link IMAGE_ALLOC_FAILED} If device has no memory.\n         {@link IMAGE_COPY_FAILED} If memory copy failed.\n @see OH_PixelmapNative\n @since 13"]
-    #[cfg(feature = "api-13")]
-    pub fn OH_PixelmapNative_GetArgbPixels(
-        pixelmap: *mut OH_PixelmapNative,
-        destination: *mut u8,
-        bufferSize: *mut usize,
-    ) -> Image_ErrorCode;
-}
-extern "C" {
-    #[doc = " @brief Convert {@link OH_PixelmapNative} to standard dynamic range.\n\n @param pixelmap The Pixelmap pointer will be operated. Pointer connot be null.\n @return Returns {@link Image_ErrorCode} IMAGE_SUCCESS - The operation is successful.\n returns {@link Image_ErrorCode} IMAGE_BAD_PARAMETER - Parameter error.Possible causes:Parameter verification failed.\n returns {@link Image_ErrorCode} IMAGE_UNSUPPORTED_OPERATION - Unsupported operation.Pixelmap can't be converted.\n @since 12"]
-    pub fn OH_PixelmapNative_ToSdr(pixelmap: *mut OH_PixelmapNative) -> Image_ErrorCode;
-}
-extern "C" {
-    #[doc = " @brief Obtains pixel map information of this image.\n\n @param pixelmap The Pixelmap pointer will be operated.\n @param imageInfo Indicates the pointer to the image information.\n @return Returns {@link Image_ErrorCode}\n @since 12"]
-    pub fn OH_PixelmapNative_GetImageInfo(
-        pixelmap: *mut OH_PixelmapNative,
-        imageInfo: *mut OH_Pixelmap_ImageInfo,
-    ) -> Image_ErrorCode;
-}
-extern "C" {
-    #[doc = " @brief Sets an opacity rate for this image pixel map.\n\n @param pixelmap The Pixelmap pointer will be operated.\n @param rate Opacity rate to set. The value ranges from 0 to 1.\n @return Returns {@link Image_ErrorCode}\n @since 12"]
-    pub fn OH_PixelmapNative_Opacity(
-        pixelmap: *mut OH_PixelmapNative,
-        rate: f32,
-    ) -> Image_ErrorCode;
-}
-extern "C" {
-    #[doc = " @brief Scales this image based on the input width and height.\n\n @param pixelmap The Pixelmap pointer will be operated.\n @param scaleX Scaling ratio of the width.\n @param scaleY Scaling ratio of the height.\n @return Returns {@link Image_ErrorCode}\n @since 12"]
-    pub fn OH_PixelmapNative_Scale(
-        pixelmap: *mut OH_PixelmapNative,
-        scaleX: f32,
-        scaleY: f32,
-    ) -> Image_ErrorCode;
-}
-extern "C" {
-    #[doc = " @brief Scales this image based on the input width and height with anti-aliasing.\n\n @param pixelmap The Pixelmap pointer will be operated.\n @param scaleX Scaling ratio of the width.\n @param scaleY Scaling ratio of the height.\n @param level The anti-aliasing algorithm to be used.\n @return Returns {@link Image_ErrorCode} IMAGE_SUCCESS - if the operation is successful.\n returns {@link Image_ErrorCode} IMAGE_BAD_PARAMETER - if invalid parameter, x and y are incorrect.\n returns {@link Image_ErrorCode} IMAGE_TOO_LARGE - if image is too large.\n returns {@link Image_ErrorCode} IMAGE_ALLOC_FAILED - if device has no memory.\n returns {@link Image_ErrorCode} IMAGE_UNKNOWN_ERROR - inner unknown error, maybe source pixelmap is released.\n @see OH_PixelmapNative\n @since 12"]
-    pub fn OH_PixelmapNative_ScaleWithAntiAliasing(
-        pixelmap: *mut OH_PixelmapNative,
-        scaleX: f32,
-        scaleY: f32,
-        level: OH_PixelmapNative_AntiAliasingLevel,
-    ) -> Image_ErrorCode;
-}
-extern "C" {
-    #[doc = " @brief Create a scaled pixelmap based on the source pixelmap and the input width and height.\n\n @param srcPixelmap The source native pixelmap.\n @param dstPixelmap The destination native pixelmap for create.\n @param scaleX Scaling ratio of the width.\n @param scaleY Scaling ratio of the height.\n @return Function result code:\n         {@link IMAGE_SUCCESS} If the execution is successful.\n         {@link IMAGE_BAD_PARAMETER} If the param is nullptr or invalid.\n @see OH_PixelmapNative\n @since 18"]
-    #[cfg(feature = "api-18")]
-    pub fn OH_PixelmapNative_CreateScaledPixelMap(
-        srcPixelmap: *mut OH_PixelmapNative,
-        dstPixelmap: *mut *mut OH_PixelmapNative,
-        scaleX: f32,
-        scaleY: f32,
-    ) -> Image_ErrorCode;
-}
-extern "C" {
-    #[doc = " @brief Create a scaled pixelmap based on the source pixelmap and the input width and height with anti-aliasing.\n\n @param srcPixelmap The source native pixelmap.\n @param dstPixelmap The destination native pixelmap for create.\n @param scaleX Scaling ratio of the width.\n @param scaleY Scaling ratio of the height.\n @param level The anti-aliasing algorithm to be used.\n @return Function result code:\n         {@link IMAGE_SUCCESS} If the execution is successful.\n         {@link IMAGE_BAD_PARAMETER} If the param is nullptr or invalid.\n         {@link IMAGE_TOO_LARGE} If image is too large.\n         {@link IMAGE_ALLOC_FAILED} If device has no memory.\n @see OH_PixelmapNative\n @since 18"]
-    #[cfg(feature = "api-18")]
-    pub fn OH_PixelmapNative_CreateScaledPixelMapWithAntiAliasing(
-        srcPixelmap: *mut OH_PixelmapNative,
-        dstPixelmap: *mut *mut OH_PixelmapNative,
-        scaleX: f32,
-        scaleY: f32,
-        level: OH_PixelmapNative_AntiAliasingLevel,
-    ) -> Image_ErrorCode;
-}
-extern "C" {
-    #[doc = " @brief Translates this image based on the input coordinates.\n\n @param pixelmap The Pixelmap pointer will be operated.\n @param x The distance to be translate in the X direction.\n @param y The distance to be translate in the Y direction.\n @return Returns {@link Image_ErrorCode}\n @since 12"]
-    pub fn OH_PixelmapNative_Translate(
-        pixelmap: *mut OH_PixelmapNative,
-        x: f32,
-        y: f32,
-    ) -> Image_ErrorCode;
-}
-extern "C" {
-    #[doc = " @brief Creates a PixelMap with only alpha channel from the source PixelMap.\n\n @param srcPixelmap The source PixelMap.\n @param dstPixelmap The target PixelMap to be created.\n @return Function result code:\n         {@link IMAGE_SUCCESS} If the operation is successful.\n         {@link IMAGE_BAD_PARAMETER} If any parameter is invalid, e.g. srcPixelmap or dstPixelmap is incorrect.\n @see OH_PixelmapNative\n @since 22"]
-    #[cfg(feature = "api-22")]
-    pub fn OH_PixelmapNative_CreateAlphaPixelmap(
-        srcPixelmap: *mut OH_PixelmapNative,
-        dstPixelmap: *mut *mut OH_PixelmapNative,
-    ) -> Image_ErrorCode;
-}
-extern "C" {
-    #[doc = " @brief Clones a PixelMap from the source PixelMap.\n\n @param srcPixelmap The source PixelMap to be cloned.\n @param dstPixelmap The target PixelMap to be created.\n @return Function result code:\n         {@link IMAGE_SUCCESS} If the operation is successful.\n         {@link IMAGE_BAD_PARAMETER} If any parameter is invalid, e.g. srcPixelmap or dstPixelmap is incorrect.\n         {@link IMAGE_UNSUPPORTED_DATA_FORMAT} If the pixel format is unsupported.\n         {@link IMAGE_TOO_LARGE} If the PixelMap size is too large.\n         {@link IMAGE_INIT_FAILED} If the PixelMap initialization failed.\n         {@link IMAGE_ALLOC_FAILED} If the copying of PixelMap data failed.\n @see OH_PixelmapNative\n @since 22"]
-    #[cfg(feature = "api-22")]
-    pub fn OH_PixelmapNative_Clone(
-        srcPixelmap: *mut OH_PixelmapNative,
-        dstPixelmap: *mut *mut OH_PixelmapNative,
-    ) -> Image_ErrorCode;
-}
-extern "C" {
-    #[doc = " @brief Creates a cropped and then scaled PixelMap based on the source PixelMap.\n\n @param srcPixelmap The source PixelMap.\n @param region The crop region.\n @param scale The scale ratio of width and height.\n @param level The anti-aliasing algorithm to be used.\n @param dstPixelmap The target PixelMap to be created.\n @return Function result code:\n         {@link IMAGE_SUCCESS} If the operation is successful.\n         {@link IMAGE_BAD_PARAMETER} If any parameter is invalid, e.g. srcPixelmap, region, scale, or dstPixelmap is\n                                     incorrect.\n         {@link IMAGE_UNSUPPORTED_DATA_FORMAT} If the pixel format is unsupported.\n         {@link IMAGE_TOO_LARGE} If the PixelMap size is too large.\n         {@link IMAGE_INIT_FAILED} If the PixelMap initialization failed.\n         {@link IMAGE_ALLOC_FAILED} If the copying of PixelMap data failed.\n @see OH_PixelmapNative\n @since 22"]
-    #[cfg(feature = "api-22")]
-    pub fn OH_PixelmapNative_CreateCroppedAndScaledPixelMap(
-        srcPixelmap: *mut OH_PixelmapNative,
-        region: *mut Image_Region,
-        scale: *mut Image_Scale,
-        level: OH_PixelmapNative_AntiAliasingLevel,
-        dstPixelmap: *mut *mut OH_PixelmapNative,
-    ) -> Image_ErrorCode;
-}
-extern "C" {
-    #[doc = " @brief Rotates this image based on the input angle.\n\n @param pixelmap The Pixelmap pointer will be operated.\n @param angle Angle to rotate.\n @return Returns {@link Image_ErrorCode}\n @since 12"]
-    pub fn OH_PixelmapNative_Rotate(
-        pixelmap: *mut OH_PixelmapNative,
-        angle: f32,
-    ) -> Image_ErrorCode;
-}
-extern "C" {
-    #[doc = " @brief Flips this image horizontally or vertically, or both.\n\n @param pixelmap The Pixelmap pointer will be operated.\n @param shouldFilpHorizontally Whether to flip the image horizontally.\n @param shouldFilpVertically Whether to flip the image vertically.\n @return Returns {@link Image_ErrorCode}\n @since 12"]
-    pub fn OH_PixelmapNative_Flip(
-        pixelmap: *mut OH_PixelmapNative,
-        shouldFilpHorizontally: bool,
-        shouldFilpVertically: bool,
-    ) -> Image_ErrorCode;
-}
-extern "C" {
-    #[doc = " @brief Crops this image based on the input size.\n\n @param pixelmap The Pixelmap pointer will be operated.\n @param region Area size, read according to area.\n @return Returns {@link Image_ErrorCode}\n @since 12"]
-    pub fn OH_PixelmapNative_Crop(
-        pixelmap: *mut OH_PixelmapNative,
-        region: *mut Image_Region,
-    ) -> Image_ErrorCode;
-}
-extern "C" {
-    #[doc = " @brief Releases an <b>OH_Pixelmap</b> object.\n\n @param pixelmap The Pixelmap pointer will be operated.\n @return Returns {@link Image_ErrorCode}\n @since 12"]
-    pub fn OH_PixelmapNative_Release(pixelmap: *mut OH_PixelmapNative) -> Image_ErrorCode;
-}
-extern "C" {
-    #[doc = " @brief Destroys an <b>OH_PixelmapNative</b> object and deallocates its resources.\n\n @param pixelmap A pointer to the OH_PixelmapNative pointer to destroy.\n @return Returns {@link Image_ErrorCode} IMAGE_SUCCESS - if the operation is successful.\n returns {@link Image_ErrorCode} IMAGE_BAD_PARAMETER - if pixelmap is null or *pixelmap is null.\n @since 18"]
-    #[cfg(feature = "api-18")]
-    pub fn OH_PixelmapNative_Destroy(pixelmap: *mut *mut OH_PixelmapNative) -> Image_ErrorCode;
-}
-extern "C" {
-    #[doc = " @brief Converting images to alpha format\n\n @param srcpixelmap The source pixel map pointer will be operated.\n @param dstpixelmap The destination pixel map pointer will be operated.\n @param isPremul Whether it is pre-multiplied, true for prediction, false for non-pre-multiplied.\n @return Returns {@link Image_ErrorCode}\n @since 12"]
-    pub fn OH_PixelmapNative_ConvertAlphaFormat(
-        srcpixelmap: *mut OH_PixelmapNative,
-        dstpixelmap: *mut OH_PixelmapNative,
-        isPremul: bool,
-    ) -> Image_ErrorCode;
-}
-extern "C" {
-    #[doc = " @brief Create a empty <b>PixelMap</b> object.\n\n @param options IPixel properties, including the alpha type, size, pixel format, and editable.\n @param pixelmap Pixelmap pointer for created.\n @return Returns {@link Image_ErrorCode}\n @since 12"]
-    pub fn OH_PixelmapNative_CreateEmptyPixelmap(
-        options: *mut OH_Pixelmap_InitializationOptions,
-        pixelmap: *mut *mut OH_PixelmapNative,
-    ) -> Image_ErrorCode;
-}
-extern "C" {
-    #[doc = " @brief Creates a empty pixelmap based on options {@link OH_Pixelmap_InitializationOptions}, the memory type used\n by the pixelmap can be specified by allocatorType {@link IMAGE_ALLOCATOR_MODE}. By default,\n the system selects the memory type based on the image type, image size, platform capability, etc. When processing\n the pixelmap returned by this interface, please always consider the impact of stride.\n\n @param options Pixelmap initialization properties including size, pixel format, alpha type, and editable flags.\n @param allocator Indicate which memory type will be used by the returned pixelmap.\n @param pixelmap Output parameter receiving the created pixelmap object pointer.\n @return Function result code:\n         {@link IMAGE_SUCCESS} If the operation is successful.\n         {@link IMAGE_BAD_PARAMETER} If the param is nullptr or invalid.\n         {@link IMAGE_TOO_LARGE} too large data or image.\n         {@link IMAGE_UNSUPPORTED_OPERATION} unsupported operations.\n         {@link IMAGE_ALLOCATOR_MODE_UNSUPPORTED} unsupported allocator mode, e.g., use\n         share memory to create a HDR image as only DMA supported hdr metadata.\n @since 20"]
-    #[cfg(feature = "api-20")]
-    pub fn OH_PixelmapNative_CreateEmptyPixelmapUsingAllocator(
-        options: *mut OH_Pixelmap_InitializationOptions,
-        allocator: IMAGE_ALLOCATOR_MODE,
-        pixelmap: *mut *mut OH_PixelmapNative,
-    ) -> Image_ErrorCode;
-}
-extern "C" {
-    #[doc = " @brief Creates a PixelMap from a Surface with the Surface ID.\n\n @param surfaceId The Surface ID.\n @param length Length of the Surface ID.\n @param pixelmap The PixelMap to be created.\n @return Function result code:\n         {@link IMAGE_SUCCESS} If the operation is successful.\n         {@link IMAGE_BAD_PARAMETER} If any parameter is invalid, e.g. surfaceId or pixelmap is incorrect.\n         {@link IMAGE_CREATE_PIXELMAP_FAILED} If the PixelMap creation failed.\n @see OH_PixelmapNative\n @since 22"]
-    #[cfg(feature = "api-22")]
-    pub fn OH_PixelmapNative_CreatePixelmapFromSurface(
-        surfaceId: *const ::std::os::raw::c_char,
-        length: usize,
-        pixelmap: *mut *mut OH_PixelmapNative,
-    ) -> Image_ErrorCode;
-}
-extern "C" {
-    #[doc = " @brief Creates a PixelMap from a native buffer.\n\n @param nativeBuffer The native buffer.\n @param pixelmap The PixelMap to be created.\n @return Function result code:\n         {@link IMAGE_SUCCESS} If the operation is successful.\n         {@link IMAGE_BAD_PARAMETER} If any parameter is invalid, e.g. nativeBuffer or pixelmap is incorrect.\n         {@link IMAGE_CREATE_PIXELMAP_FAILED} If the PixelMap creation failed.\n @see OH_PixelmapNative\n @since 22"]
-    #[cfg(feature = "api-22")]
-    pub fn OH_PixelmapNative_CreatePixelmapFromNativeBuffer(
-        nativeBuffer: *mut OH_NativeBuffer,
-        pixelmap: *mut *mut OH_PixelmapNative,
-    ) -> Image_ErrorCode;
-}
-extern "C" {
-    #[doc = " @brief Get metadata.\n\n @param pixelmap The Pixelmap pointer to be operated.\n @param key Type of metadata.\n @param value Value of metadata.\n @return Returns {@link Image_ErrorCode} IMAGE_SUCCESS - if the operation is successful.\n returns {@link Image_ErrorCode} IMAGE_BAD_PARAMETER - if invalid parameter, key and value are incorrect.\n returns {@link Image_ErrorCode} IMAGE_DMA_NOT_EXIST - if DMA memory does not exist.\n returns {@link Image_ErrorCode} IMAGE_COPY_FAILED - if memory copy failed.\n @see OH_PixelmapNative\n @since 12"]
-    pub fn OH_PixelmapNative_GetMetadata(
-        pixelmap: *mut OH_PixelmapNative,
-        key: OH_Pixelmap_HdrMetadataKey,
-        value: *mut *mut OH_Pixelmap_HdrMetadataValue,
-    ) -> Image_ErrorCode;
-}
-extern "C" {
-    #[doc = " @brief Set metadata.\n\n @param pixelmap The Pixelmap pointer to be operated.\n @param key Type of metadata.\n @param value Value of metadata.\n @return Returns {@link Image_ErrorCode} IMAGE_SUCCESS - if the operation is successful.\n returns {@link Image_ErrorCode} IMAGE_BAD_PARAMETER - if invalid parameter, key and value are incorrect.\n returns {@link Image_ErrorCode} IMAGE_DMA_NOT_EXIST - if DMA memory does not exist.\n returns {@link Image_ErrorCode} IMAGE_COPY_FAILED - if memory copy failed.\n @see OH_PixelmapNative\n @since 12"]
-    pub fn OH_PixelmapNative_SetMetadata(
-        pixelmap: *mut OH_PixelmapNative,
-        key: OH_Pixelmap_HdrMetadataKey,
-        value: *mut OH_Pixelmap_HdrMetadataValue,
-    ) -> Image_ErrorCode;
-}
-extern "C" {
-    #[doc = " @brief Get the native buffer from the PixelMap.\n\n @param pixelmap The PixelMap to get the native buffer from.\n @param nativeBuffer The native buffer to retrieve.\n @return Returns {@link Image_ErrorCode} IMAGE_RESULT_SUCCESS - if the operation is successful.\n returns {@link Image_ErrorCode} IMAGE_BAD_PARAMETER - if invalid parameter, pixelmap or nativeBuffer is null.\n returns {@link Image_ErrorCode} IMAGE_DMA_NOT_EXIST - if DMA memory dose not exist.\n returns {@link Image_ErrorCode} IMAGE_DMA_OPERATION_FAILED - if operations related to DMA memory has failed.\n @see OH_PixelmapNative\n @since 12"]
-    pub fn OH_PixelmapNative_GetNativeBuffer(
-        pixelmap: *mut OH_PixelmapNative,
-        nativeBuffer: *mut *mut OH_NativeBuffer,
-    ) -> Image_ErrorCode;
-}
-extern "C" {
-    #[doc = " @brief Get the native colorspace from the PixelMap.\n\n @param pixelmap The native pixelmap to get the native colorspace from.\n @param colorSpaceNative The native colorspace to retrieve.\n @return Function result code:\n         {@link IMAGE_SUCCESS} If the execution is successful.\n         {@link IMAGE_BAD_PARAMETER} The param of pixelmap or colorSpaceNative is nullptr or invalid.\n @see OH_PixelmapNative\n @since 13"]
-    #[cfg(feature = "api-13")]
-    pub fn OH_PixelmapNative_GetColorSpaceNative(
-        pixelmap: *mut OH_PixelmapNative,
-        colorSpaceNative: *mut *mut OH_NativeColorSpaceManager,
-    ) -> Image_ErrorCode;
-}
-extern "C" {
-    #[doc = " @brief Set the native colorspace for the PixelMap.\n\n @param pixelmap The native pixelmap to set the native colorspace for.\n @param colorSpaceNative The native colorspace to set.\n @return Function result code:\n         {@link IMAGE_SUCCESS} If the execution is successful.\n         {@link IMAGE_BAD_PARAMETER} The param of pixelmap or colorSpaceNative is nullptr or invalid.\n @see OH_PixelmapNative\n @since 13"]
-    #[cfg(feature = "api-13")]
-    pub fn OH_PixelmapNative_SetColorSpaceNative(
-        pixelmap: *mut OH_PixelmapNative,
-        colorSpaceNative: *mut OH_NativeColorSpaceManager,
-    ) -> Image_ErrorCode;
-}
-extern "C" {
-    #[doc = " @brief Set pixelmap memory name.\n\n @param pixelmap The Pixelmap pointer to be operated.\n @param name The pointer of name that needs to be set.\n @param size The size of name size that needs to be set.\n @return Function result code:\n         {@link IMAGE_SUCCESS} If the operation is successful.\n         {@link IMAGE_BAD_PARAMETER} If invalid parameter, name and size are incorrect.\n         {@link IMAGE_UNSUPPORTED_MEMORY_FORMAT} If memory format is unsupported.\n @see OH_PixelmapNative\n @since 13"]
-    #[cfg(feature = "api-13")]
-    pub fn OH_PixelmapNative_SetMemoryName(
-        pixelmap: *mut OH_PixelmapNative,
-        name: *mut ::std::os::raw::c_char,
-        size: *mut usize,
-    ) -> Image_ErrorCode;
-}
-extern "C" {
-    #[doc = " @brief Get the total number of bytes occupied by all pixels in the Pixelmap, without any padding.\n\n @param pixelmap The Pixelmap pointer to be operated.\n @param byteCount The total number of bytes to be retrieved.\n @return Function result code:\n         {@link IMAGE_SUCCESS} If the operation is successful.\n         {@link IMAGE_BAD_PARAMETER} If invalid parameter, pixelmap or byteCount are invalid.\n @see OH_PixelmapNative\n @since 18"]
-    #[cfg(feature = "api-18")]
-    pub fn OH_PixelmapNative_GetByteCount(
-        pixelmap: *mut OH_PixelmapNative,
-        byteCount: *mut u32,
-    ) -> Image_ErrorCode;
-}
-extern "C" {
-    #[doc = " @brief Get the size of the allocated memory used to store this pixelmap's pixels.\n\n @param pixelmap The Pixelmap pointer to be operated.\n @param allocationByteCount The size of the allocated memory.\n @return Function result code:\n         {@link IMAGE_SUCCESS} If the operation is successful.\n         {@link IMAGE_BAD_PARAMETER} If invalid parameter, pixelmap or allocationByteCount are invalid.\n @see OH_PixelmapNative\n @since 18"]
-    #[cfg(feature = "api-18")]
-    pub fn OH_PixelmapNative_GetAllocationByteCount(
-        pixelmap: *mut OH_PixelmapNative,
-        allocationByteCount: *mut u32,
-    ) -> Image_ErrorCode;
-}
-extern "C" {
-    #[doc = " @brief Obtains the memory address of a PixelMap and locks the memory.\n        When the memory is locked, any operation that modifies or releases the PixelMap will fail and return\n        {@link IMAGE_BAD_PARAMETER}.\n\n @param pixelmap The PixelMap pointer to be operated.\n @param addr The double pointer to the memory address of the PixelMap.\n @return Function result code:\n         {@link IMAGE_SUCCESS} If the operation is successful.\n         {@link IMAGE_BAD_PARAMETER} If invalid parameter, pixelmap or addr are invalid.\n         {@link IMAGE_LOCK_UNLOCK_FAILED} If memory failed to be locked.\n @see OH_PixelmapNative\n @since 15"]
-    #[cfg(feature = "api-15")]
-    pub fn OH_PixelmapNative_AccessPixels(
-        pixelmap: *mut OH_PixelmapNative,
-        addr: *mut *mut ::std::os::raw::c_void,
-    ) -> Image_ErrorCode;
-}
-extern "C" {
-    #[doc = " @brief Unlocks the memory of the PixelMap data.\n        This function is used with {@link OH_PixelmapNative_AccessPixels} in pairs.\n\n @param pixelmap The PixelMap pointer to be operated.\n @return Function result code:\n         {@link IMAGE_SUCCESS} If the operation is successful.\n         {@link IMAGE_BAD_PARAMETER} If invalid parameter, pixelmap is invalid.\n         {@link IMAGE_LOCK_UNLOCK_FAILED} If memory failed to be unlocked.\n @see OH_PixelmapNative\n @since 15"]
-    #[cfg(feature = "api-15")]
-    pub fn OH_PixelmapNative_UnaccessPixels(pixelmap: *mut OH_PixelmapNative) -> Image_ErrorCode;
-}
-extern "C" {
-    #[doc = " @brief Gets the unique ID of a PixelMap.\n\n @param pixelmap The PixelMap to retrieve the unique ID.\n @param uniqueId The resulting unique ID.\n @return Function result code:\n         {@link IMAGE_SUCCESS} If the operation is successful.\n         {@link IMAGE_BAD_PARAMETER} If any parameter is invalid, e.g. pixelmap or uniqueId is incorrect.\n @see OH_PixelmapNative\n @since 22"]
-    #[cfg(feature = "api-22")]
-    pub fn OH_PixelmapNative_GetUniqueId(
-        pixelmap: *mut OH_PixelmapNative,
-        uniqueId: *mut u32,
-    ) -> Image_ErrorCode;
-}
-extern "C" {
-    #[doc = " @brief Checks whether the PixelMap has been released.\n\n @param pixelmap The PixelMap to check.\n @param released The resulting release status.\n @return Function result code:\n         {@link IMAGE_SUCCESS} If the operation is successful.\n         {@link IMAGE_BAD_PARAMETER} If any parameter is invalid, e.g. pixelmap or released is incorrect.\n @see OH_PixelmapNative\n @since 22"]
-    #[cfg(feature = "api-22")]
-    pub fn OH_PixelmapNative_IsReleased(
-        pixelmap: *mut OH_PixelmapNative,
-        released: *mut bool,
-    ) -> Image_ErrorCode;
-}
+pub const UDMF_KEY_BUFFER_LEN: u32 = 512;
+pub const UDMF_META_ENTITY: &[u8; 15usize] = b"general.entity\0";
+pub const UDMF_META_OBJECT: &[u8; 15usize] = b"general.object\0";
+pub const UDMF_META_COMPOSITE_OBJECT: &[u8; 25usize] = b"general.composite-object\0";
+pub const UDMF_META_TEXT: &[u8; 13usize] = b"general.text\0";
+pub const UDMF_META_PLAIN_TEXT: &[u8; 19usize] = b"general.plain-text\0";
+pub const UDMF_META_HTML: &[u8; 13usize] = b"general.html\0";
+pub const UDMF_META_HYPERLINK: &[u8; 18usize] = b"general.hyperlink\0";
+pub const UDMF_META_XML: &[u8; 12usize] = b"general.xml\0";
+pub const UDMF_META_SOURCE_CODE: &[u8; 20usize] = b"general.source-code\0";
+pub const UDMF_META_SCRIPT: &[u8; 15usize] = b"general.script\0";
+pub const UDMF_META_SHELL_SCRIPT: &[u8; 21usize] = b"general.shell-script\0";
+pub const UDMF_META_CSH_SCRIPT: &[u8; 19usize] = b"general.csh-script\0";
+pub const UDMF_META_PERL_SCRIPT: &[u8; 20usize] = b"general.perl-script\0";
+pub const UDMF_META_PHP_SCRIPT: &[u8; 19usize] = b"general.php-script\0";
+pub const UDMF_META_PYTHON_SCRIPT: &[u8; 22usize] = b"general.python-script\0";
+pub const UDMF_META_RUBY_SCRIPT: &[u8; 20usize] = b"general.ruby-script\0";
+pub const UDMF_META_TYPE_SCRIPT: &[u8; 20usize] = b"general.type-script\0";
+pub const UDMF_META_JAVA_SCRIPT: &[u8; 20usize] = b"general.java-script\0";
+pub const UDMF_META_C_HEADER: &[u8; 17usize] = b"general.c-header\0";
+pub const UDMF_META_C_SOURCE: &[u8; 17usize] = b"general.c-source\0";
+pub const UDMF_META_C_PLUS_PLUS_HEADER: &[u8; 27usize] = b"general.c-plus-plus-header\0";
+pub const UDMF_META_C_PLUS_PLUS_SOURCE: &[u8; 27usize] = b"general.c-plus-plus-source\0";
+pub const UDMF_META_JAVA_SOURCE: &[u8; 20usize] = b"general.java-source\0";
+pub const UDMF_META_EBOOK: &[u8; 14usize] = b"general.ebook\0";
+pub const UDMF_META_EPUB: &[u8; 13usize] = b"general.epub\0";
+pub const UDMF_META_AZW: &[u8; 15usize] = b"com.amazon.azw\0";
+pub const UDMF_META_AZW3: &[u8; 16usize] = b"com.amazon.azw3\0";
+pub const UDMF_META_KFX: &[u8; 15usize] = b"com.amazon.kfx\0";
+pub const UDMF_META_MOBI: &[u8; 16usize] = b"com.amazon.mobi\0";
+pub const UDMF_META_MEDIA: &[u8; 14usize] = b"general.media\0";
+pub const UDMF_META_IMAGE: &[u8; 14usize] = b"general.image\0";
+pub const UDMF_META_JPEG: &[u8; 13usize] = b"general.jpeg\0";
+pub const UDMF_META_PNG: &[u8; 12usize] = b"general.png\0";
+pub const UDMF_META_RAW_IMAGE: &[u8; 18usize] = b"general.raw-image\0";
+pub const UDMF_META_TIFF: &[u8; 13usize] = b"general.tiff\0";
+pub const UDMF_META_BMP: &[u8; 18usize] = b"com.microsoft.bmp\0";
+pub const UDMF_META_ICO: &[u8; 18usize] = b"com.microsoft.ico\0";
+pub const UDMF_META_PHOTOSHOP_IMAGE: &[u8; 26usize] = b"com.adobe.photoshop-image\0";
+pub const UDMF_META_AI_IMAGE: &[u8; 31usize] = b"com.adobe.illustrator.ai-image\0";
+pub const UDMF_META_WORD_DOC: &[u8; 23usize] = b"com.microsoft.word.doc\0";
+pub const UDMF_META_EXCEL: &[u8; 24usize] = b"com.microsoft.excel.xls\0";
+pub const UDMF_META_PPT: &[u8; 29usize] = b"com.microsoft.powerpoint.ppt\0";
+pub const UDMF_META_PDF: &[u8; 14usize] = b"com.adobe.pdf\0";
+pub const UDMF_META_POSTSCRIPT: &[u8; 21usize] = b"com.adobe.postscript\0";
+pub const UDMF_META_ENCAPSULATED_POSTSCRIPT: &[u8; 34usize] =
+    b"com.adobe.encapsulated-postscript\0";
+pub const UDMF_META_VIDEO: &[u8; 14usize] = b"general.video\0";
+pub const UDMF_META_AVI: &[u8; 12usize] = b"general.avi\0";
+pub const UDMF_META_MPEG: &[u8; 13usize] = b"general.mpeg\0";
+pub const UDMF_META_MPEG4: &[u8; 15usize] = b"general.mpeg-4\0";
+pub const UDMF_META_VIDEO_3GPP: &[u8; 13usize] = b"general.3gpp\0";
+pub const UDMF_META_VIDEO_3GPP2: &[u8; 14usize] = b"general.3gpp2\0";
+pub const UDMF_META_WINDOWS_MEDIA_WM: &[u8; 31usize] = b"com.microsoft.windows-media-wm\0";
+pub const UDMF_META_WINDOWS_MEDIA_WMV: &[u8; 32usize] = b"com.microsoft.windows-media-wmv\0";
+pub const UDMF_META_WINDOWS_MEDIA_WMP: &[u8; 32usize] = b"com.microsoft.windows-media-wmp\0";
+pub const UDMF_META_AUDIO: &[u8; 14usize] = b"general.audio\0";
+pub const UDMF_META_AAC: &[u8; 12usize] = b"general.aac\0";
+pub const UDMF_META_AIFF: &[u8; 13usize] = b"general.aiff\0";
+pub const UDMF_META_ALAC: &[u8; 13usize] = b"general.alac\0";
+pub const UDMF_META_FLAC: &[u8; 13usize] = b"general.flac\0";
+pub const UDMF_META_MP3: &[u8; 12usize] = b"general.mp3\0";
+pub const UDMF_META_OGG: &[u8; 12usize] = b"general.ogg\0";
+pub const UDMF_META_PCM: &[u8; 12usize] = b"general.pcm\0";
+pub const UDMF_META_WINDOWS_MEDIA_WMA: &[u8; 32usize] = b"com.microsoft.windows-media-wma\0";
+pub const UDMF_META_WAVEFORM_AUDIO: &[u8; 29usize] = b"com.microsoft.waveform-audio\0";
+pub const UDMF_META_WINDOWS_MEDIA_WMX: &[u8; 32usize] = b"com.microsoft.windows-media-wmx\0";
+pub const UDMF_META_WINDOWS_MEDIA_WVX: &[u8; 32usize] = b"com.microsoft.windows-media-wvx\0";
+pub const UDMF_META_WINDOWS_MEDIA_WAX: &[u8; 32usize] = b"com.microsoft.windows-media-wax\0";
+pub const UDMF_META_GENERAL_FILE: &[u8; 13usize] = b"general.file\0";
+pub const UDMF_META_DIRECTORY: &[u8; 18usize] = b"general.directory\0";
+pub const UDMF_META_FOLDER: &[u8; 15usize] = b"general.folder\0";
+pub const UDMF_META_SYMLINK: &[u8; 16usize] = b"general.symlink\0";
+pub const UDMF_META_ARCHIVE: &[u8; 16usize] = b"general.archive\0";
+pub const UDMF_META_BZ2_ARCHIVE: &[u8; 20usize] = b"general.bz2-archive\0";
+pub const UDMF_META_DISK_IMAGE: &[u8; 19usize] = b"general.disk-image\0";
+pub const UDMF_META_TAR_ARCHIVE: &[u8; 20usize] = b"general.tar-archive\0";
+pub const UDMF_META_ZIP_ARCHIVE: &[u8; 20usize] = b"general.zip-archive\0";
+pub const UDMF_META_JAVA_ARCHIVE: &[u8; 21usize] = b"com.sun.java-archive\0";
+pub const UDMF_META_GNU_TAR_ARCHIVE: &[u8; 24usize] = b"org.gnu.gnu-tar-archive\0";
+pub const UDMF_META_GNU_ZIP_ARCHIVE: &[u8; 24usize] = b"org.gnu.gnu-zip-archive\0";
+pub const UDMF_META_GNU_ZIP_TAR_ARCHIVE: &[u8; 28usize] = b"org.gnu.gnu-zip-tar-archive\0";
+pub const UDMF_META_CALENDAR: &[u8; 17usize] = b"general.calendar\0";
+pub const UDMF_META_CONTACT: &[u8; 16usize] = b"general.contact\0";
+pub const UDMF_META_DATABASE: &[u8; 17usize] = b"general.database\0";
+pub const UDMF_META_MESSAGE: &[u8; 16usize] = b"general.message\0";
+pub const UDMF_META_VCARD: &[u8; 14usize] = b"general.vcard\0";
+pub const UDMF_META_NAVIGATION: &[u8; 19usize] = b"general.navigation\0";
+pub const UDMF_META_LOCATION: &[u8; 17usize] = b"general.location\0";
+pub const UDMF_META_OPENHARMONY_FORM: &[u8; 17usize] = b"openharmony.form\0";
+pub const UDMF_META_OPENHARMONY_APP_ITEM: &[u8; 21usize] = b"openharmony.app-item\0";
+pub const UDMF_META_OPENHARMONY_PIXEL_MAP: &[u8; 22usize] = b"openharmony.pixel-map\0";
+pub const UDMF_META_OPENHARMONY_ATOMIC_SERVICE: &[u8; 27usize] = b"openharmony.atomic-service\0";
+pub const UDMF_META_OPENHARMONY_PACKAGE: &[u8; 20usize] = b"openharmony.package\0";
+pub const UDMF_META_OPENHARMONY_HAP: &[u8; 16usize] = b"openharmony.hap\0";
+pub const UDMF_META_SMIL: &[u8; 14usize] = b"com.real.smil\0";
+pub const UDMF_META_MARKDOWN: &[u8; 17usize] = b"general.markdown\0";
+pub const UDMF_META_FAX: &[u8; 12usize] = b"general.fax\0";
+pub const UDMF_META_JFX_FAX: &[u8; 15usize] = b"com.j2.jfx-fax\0";
+pub const UDMF_META_EFX_FAX: &[u8; 15usize] = b"com.js.efx-fax\0";
+pub const UDMF_META_XBITMAP_IMAGE: &[u8; 22usize] = b"general.xbitmap-image\0";
+pub const UDMF_META_TGA_IMAGE: &[u8; 25usize] = b"com.truevision.tga-image\0";
+pub const UDMF_META_SGI_IMAGE: &[u8; 18usize] = b"com.sgi.sgi-image\0";
+pub const UDMF_META_OPENEXR_IMAGE: &[u8; 22usize] = b"com.ilm.openexr-image\0";
+pub const UDMF_META_FLASHPIX_IMAGE: &[u8; 25usize] = b"com.kodak.flashpix.image\0";
+pub const UDMF_META_REALMEDIA: &[u8; 19usize] = b"com.real.realmedia\0";
+pub const UDMF_META_AU_AUDIO: &[u8; 17usize] = b"general.au-audio\0";
+pub const UDMF_META_AIFC_AUDIO: &[u8; 19usize] = b"general.aifc-audio\0";
+pub const UDMF_META_SD2_AUDIO: &[u8; 25usize] = b"com.digidesign.sd2-audio\0";
+pub const UDMF_META_REALAUDIO: &[u8; 19usize] = b"com.real.realaudio\0";
+pub const UDMF_META_OPENXML: &[u8; 27usize] = b"org.openxmlformats.openxml\0";
+pub const UDMF_META_WORDPROCESSINGML_DOCUMENT: &[u8; 45usize] =
+    b"org.openxmlformats.wordprocessingml.document\0";
+pub const UDMF_META_SPREADSHEETML_SHEET: &[u8; 39usize] =
+    b"org.openxmlformats.spreadsheetml.sheet\0";
+pub const UDMF_META_PRESENTATIONML_PRESENTATION: &[u8; 47usize] =
+    b"org.openxmlformats.presentationml.presentation\0";
+pub const UDMF_META_OPENDOCUMENT: &[u8; 23usize] = b"org.oasis.opendocument\0";
+pub const UDMF_META_OPENDOCUMENT_TEXT: &[u8; 28usize] = b"org.oasis.opendocument.text\0";
+pub const UDMF_META_OPENDOCUMENT_SPREADSHEET: &[u8; 35usize] =
+    b"org.oasis.opendocument.spreadsheet\0";
+pub const UDMF_META_OPENDOCUMENT_PRESENTATION: &[u8; 36usize] =
+    b"org.oasis.opendocument.presentation\0";
+pub const UDMF_META_OPENDOCUMENT_GRAPHICS: &[u8; 32usize] = b"org.oasis.opendocument.graphics\0";
+pub const UDMF_META_OPENDOCUMENT_FORMULA: &[u8; 31usize] = b"org.oasis.opendocument.formula\0";
+pub const UDMF_META_STUFFIT_ARCHIVE: &[u8; 27usize] = b"com.allume.stuffit-archive\0";
+pub const UDMF_META_VCS: &[u8; 12usize] = b"general.vcs\0";
+pub const UDMF_META_ICS: &[u8; 12usize] = b"general.ics\0";
+pub const UDMF_META_EXECUTABLE: &[u8; 19usize] = b"general.executable\0";
+pub const UDMF_META_PORTABLE_EXECUTABLE: &[u8; 34usize] = b"com.microsoft.portable-executable\0";
+pub const UDMF_META_SUN_JAVA_CLASS: &[u8; 19usize] = b"com.sun.java-class\0";
+pub const UDMF_META_FONT: &[u8; 13usize] = b"general.font\0";
+pub const UDMF_META_TRUETYPE_FONT: &[u8; 22usize] = b"general.truetype-font\0";
+pub const UDMF_META_TRUETYPE_COLLECTION_FONT: &[u8; 33usize] =
+    b"general.truetype-collection-font\0";
+pub const UDMF_META_OPENTYPE_FONT: &[u8; 22usize] = b"general.opentype-font\0";
+pub const UDMF_META_POSTSCRIPT_FONT: &[u8; 26usize] = b"com.adobe.postscript-font\0";
+pub const UDMF_META_POSTSCRIPT_PFB_FONT: &[u8; 30usize] = b"com.adobe.postscript-pfb-font\0";
+pub const UDMF_META_POSTSCRIPT_PFA_FONT: &[u8; 30usize] = b"com.adobe.postscript-pfa-font\0";
+pub const UDMF_META_OPENHARMONY_HDOC: &[u8; 17usize] = b"openharmony.hdoc\0";
+pub const UDMF_META_OPENHARMONY_HINOTE: &[u8; 19usize] = b"openharmony.hinote\0";
+pub const UDMF_META_OPENHARMONY_STYLED_STRING: &[u8; 26usize] = b"openharmony.styled-string\0";
+pub const UDMF_META_OPENHARMONY_WANT: &[u8; 17usize] = b"openharmony.want\0";
+pub const UDMF_META_GENERAL_FILE_URI: &[u8; 17usize] = b"general.file-uri\0";
+pub const UDMF_METE_GENERAL_CONTENT_FORM: &[u8; 21usize] = b"general.content-form\0";
 #[repr(C)]
 #[derive(Debug, Copy, Clone)]
 pub struct OH_UdsPlainText {
@@ -1955,7 +1249,7 @@ extern "C" {
     ) -> ::std::os::raw::c_int;
 }
 extern "C" {
-    #[doc = " @brief Get {@link OH_UdmfData} data from udmf database.\n\n @param key Represents database store's key value.\n @param intention Represents data type {@link Udmf_Intention}\n @param unifiedData Represents output params of {@link OH_UdmfData};\n @return Returns the status code of the execution. See {@link Udmf_ErrCode}.\n         {@link UDMF_E_OK} success.\n         {@link UDMF_E_INVALID_PARAM} The error code for common invalid args.\n         {@link UDMF_ERR} Internal data error. The potential reason is server malfunction or insufficient memory.\n @see OH_UdmfProperty Udmf_Intention Udmf_ErrCode.\n @since 12"]
+    #[doc = " @brief Get {@link OH_UdmfData} data from udmf database.\n\n @param key Represents database store's key value.\n @param intention Represents data type {@link Udmf_Intention}\n @param unifiedData Represents output params of {@link OH_UdmfData};\n @return Returns the status code of the execution. See {@link Udmf_ErrCode}.\n         {@link UDMF_E_OK} success.\n         {@link UDMF_E_INVALID_PARAM} The error code for common invalid args.\n         {@link UDMF_ERR} Internal data error.\n             The possible cause is that the server is faulty or the memory is insufficient.\n @see OH_UdmfProperty Udmf_Intention Udmf_ErrCode.\n @since 12"]
     pub fn OH_Udmf_GetUnifiedData(
         key: *const ::std::os::raw::c_char,
         intention: Udmf_Intention,
@@ -1963,7 +1257,7 @@ extern "C" {
     ) -> ::std::os::raw::c_int;
 }
 extern "C" {
-    #[doc = " @brief Get {@link OH_UdmfData} data array from udmf database by intention.\n\n @param options Represents a pointer to an instance of {@link OH_UdmfOptions}.\n @param dataArray Represents output params of {@link OH_UdmfData}.\n     It should be accessed using {@link OH_UDMF_GetDataElementAt} to retrieve elements by index.\n     This pointer needs to be released using the {@link OH_Udmf_DestroyDataArray} function.\n @param dataSize Represents the data count of output params.\n @return Returns the status code of the execution. See {@link Udmf_ErrCode}.\n         {@link UDMF_E_OK} success.\n         {@link UDMF_E_INVALID_PARAM} The error code for common invalid args.\n         {@link UDMF_ERR} Internal data error. The potential reason is server malfunction or insufficient memory.\n @see OH_UdmfData Udmf_Intention Udmf_ErrCode.\n @since 20"]
+    #[doc = " @brief Get {@link OH_UdmfData} data array from udmf database by intention.\n\n @param options Represents a pointer to an instance of {@link OH_UdmfOptions}.\n @param dataArray Represents output params of {@link OH_UdmfData}.\n     It should be accessed using {@link OH_UDMF_GetDataElementAt} to retrieve elements by index.\n     This pointer needs to be released using the {@link OH_Udmf_DestroyDataArray} function.\n @param dataSize Represents the data count of output params.\n @return Returns the status code of the execution. See {@link Udmf_ErrCode}.\n         {@link UDMF_E_OK} success.\n         {@link UDMF_E_INVALID_PARAM} The error code for common invalid args.\n         {@link UDMF_ERR} Internal data error.\n             The possible cause is that the server is faulty or the memory is insufficient.\n @see OH_UdmfData Udmf_Intention Udmf_ErrCode.\n @since 20"]
     #[cfg(feature = "api-20")]
     pub fn OH_Udmf_GetUnifiedDataByOptions(
         options: *mut OH_UdmfOptions,
@@ -1972,7 +1266,7 @@ extern "C" {
     ) -> ::std::os::raw::c_int;
 }
 extern "C" {
-    #[doc = " @brief Set {@link OH_UdmfData} data to database.\n\n @param intention Represents data type {@link Udmf_Intention}.\n @param unifiedData Represents a pointer to an instance of {@link OH_UdmfData}.\n @param key Represents return value after set data to database successfully,\n it's memory size not less than {@link UDMF_KEY_BUFFER_LEN}.\n @param keyLen Represents size of key param.\n @return Returns the status code of the execution. See {@link Udmf_ErrCode}.\n         {@link UDMF_E_OK} success.\n         {@link UDMF_E_INVALID_PARAM} The error code for common invalid args.\n         {@link UDMF_ERR} Internal data error. The potential reason is server malfunction or insufficient memory.\n @see OH_UdmfProperty Udmf_Intention Udmf_ErrCode.\n @since 12"]
+    #[doc = " @brief Set {@link OH_UdmfData} data to database.\n\n @param intention Represents data type {@link Udmf_Intention}.\n @param unifiedData Represents a pointer to an instance of {@link OH_UdmfData}.\n @param key Represents return value after set data to database successfully,\n it's memory size not less than {@link UDMF_KEY_BUFFER_LEN}.\n @param keyLen Represents size of key param.\n @return Returns the status code of the execution. See {@link Udmf_ErrCode}.\n         {@link UDMF_E_OK} success.\n         {@link UDMF_E_INVALID_PARAM} The error code for common invalid args.\n         {@link UDMF_ERR} Internal data error.\n             The possible cause is that the server is faulty or the memory is insufficient.\n @see OH_UdmfProperty Udmf_Intention Udmf_ErrCode.\n @since 12"]
     pub fn OH_Udmf_SetUnifiedData(
         intention: Udmf_Intention,
         unifiedData: *mut OH_UdmfData,
@@ -1981,7 +1275,7 @@ extern "C" {
     ) -> ::std::os::raw::c_int;
 }
 extern "C" {
-    #[doc = " @brief Set {@link OH_UdmfData} data to database with options.\n\n @param options Represents a pointer to an instance of {@link OH_UdmfOptions}.\n @param unifiedData Represents a pointer to an instance of {@link OH_UdmfData}.\n @param key Represents return value after set data to database successfully,\n it's memory size not less than {@link UDMF_KEY_BUFFER_LEN}.\n @param keyLen Represents size of key param.\n @return Returns the status code of the execution. See {@link Udmf_ErrCode}.\n         {@link UDMF_E_OK} success.\n         {@link UDMF_E_INVALID_PARAM} The error code for common invalid args.\n         {@link UDMF_ERR} Internal data error. The potential reason is server malfunction or insufficient memory.\n @see OH_UdmfOptions OH_UdmfData Udmf_ErrCode.\n @since 20"]
+    #[doc = " @brief Set {@link OH_UdmfData} data to database with options.\n\n @param options Represents a pointer to an instance of {@link OH_UdmfOptions}.\n @param unifiedData Represents a pointer to an instance of {@link OH_UdmfData}.\n @param key Represents return value after set data to database successfully,\n it's memory size not less than {@link UDMF_KEY_BUFFER_LEN}.\n @param keyLen Represents size of key param.\n @return Returns the status code of the execution. See {@link Udmf_ErrCode}.\n         {@link UDMF_E_OK} success.\n         {@link UDMF_E_INVALID_PARAM} The error code for common invalid args.\n         {@link UDMF_ERR} Internal data error.\n             The possible cause is that the server is faulty or the memory is insufficient.\n @see OH_UdmfOptions OH_UdmfData Udmf_ErrCode.\n @since 20"]
     #[cfg(feature = "api-20")]
     pub fn OH_Udmf_SetUnifiedDataByOptions(
         options: *mut OH_UdmfOptions,
@@ -1991,7 +1285,7 @@ extern "C" {
     ) -> ::std::os::raw::c_int;
 }
 extern "C" {
-    #[doc = " @brief Update {@link OH_UdmfData} data to database with options.\n\n @param options Represents a pointer to an instance of {@link OH_UdmfOptions}.\n @param unifiedData Represents a pointer to an instance of {@link OH_UdmfData}.\n @return Returns the status code of the execution. See {@link Udmf_ErrCode}.\n         {@link UDMF_E_OK} success.\n         {@link UDMF_E_INVALID_PARAM} The error code for common invalid args.\n         {@link UDMF_ERR} Internal data error. The potential reason is server malfunction or insufficient memory.\n @see OH_UdmfOptions OH_UdmfData Udmf_ErrCode.\n @since 20"]
+    #[doc = " @brief Update {@link OH_UdmfData} data to database with options.\n\n @param options Represents a pointer to an instance of {@link OH_UdmfOptions}.\n @param unifiedData Represents a pointer to an instance of {@link OH_UdmfData}.\n @return Returns the status code of the execution. See {@link Udmf_ErrCode}.\n         {@link UDMF_E_OK} success.\n         {@link UDMF_E_INVALID_PARAM} The error code for common invalid args.\n         {@link UDMF_ERR} Internal data error.\n             The possible cause is that the server is faulty or the memory is insufficient.\n @see OH_UdmfOptions OH_UdmfData Udmf_ErrCode.\n @since 20"]
     #[cfg(feature = "api-20")]
     pub fn OH_Udmf_UpdateUnifiedData(
         options: *mut OH_UdmfOptions,
@@ -1999,21 +1293,13 @@ extern "C" {
     ) -> ::std::os::raw::c_int;
 }
 extern "C" {
-    #[doc = " @brief Delete {@link OH_UdmfData} data of database with options.\n\n @param options Represents a pointer to an instance of {@link OH_UdmfOptions}.\n @param dataArray Represents output params of {@link OH_UdmfData}.\n     It should be accessed using {@link OH_UDMF_GetDataElementAt} to retrieve elements by index.\n     This pointer needs to be released using the {@link OH_Udmf_DestroyDataArray} function.\n @param dataSize Represents the data count of output params.\n @return Returns the status code of the execution. See {@link Udmf_ErrCode}.\n         {@link UDMF_E_OK} success.\n         {@link UDMF_E_INVALID_PARAM} The error code for common invalid args.\n         {@link UDMF_ERR} Internal data error. The potential reason is server malfunction or insufficient memory.\n @see OH_UdmfData Udmf_Intention Udmf_ErrCode.\n @since 20"]
+    #[doc = " @brief Delete {@link OH_UdmfData} data of database with options.\n\n @param options Represents a pointer to an instance of {@link OH_UdmfOptions}.\n @param dataArray Represents output params of {@link OH_UdmfData}.\n     It should be accessed using {@link OH_UDMF_GetDataElementAt} to retrieve elements by index.\n     This pointer needs to be released using the {@link OH_Udmf_DestroyDataArray} function.\n @param dataSize Represents the data count of output params.\n @return Returns the status code of the execution. See {@link Udmf_ErrCode}.\n         {@link UDMF_E_OK} success.\n         {@link UDMF_E_INVALID_PARAM} The error code for common invalid args.\n         {@link UDMF_ERR} Internal data error.\n             The possible cause is that the server is faulty or the memory is insufficient.\n @see OH_UdmfData Udmf_Intention Udmf_ErrCode.\n @since 20"]
     #[cfg(feature = "api-20")]
     pub fn OH_Udmf_DeleteUnifiedData(
         options: *mut OH_UdmfOptions,
         dataArray: *mut *mut OH_UdmfData,
         dataSize: *mut ::std::os::raw::c_uint,
     ) -> ::std::os::raw::c_int;
-}
-extern "C" {
-    #[doc = " @brief Gets the pointer to the element at the specified index from the input array.\n\n @param dataArray A pointer to an array of {@link OH_UdmfData} pointers.\n @param index The index of the desired element. Note that the input index should not exceed the array range.\n @return A pointer to the {@link OH_UdmfData} element at the specified index; returns NULL if the array is NULL.\n @see OH_UdmfData\n @since 22"]
-    #[cfg(feature = "api-22")]
-    pub fn OH_UDMF_GetDataElementAt(
-        dataArray: *mut *mut OH_UdmfData,
-        index: ::std::os::raw::c_uint,
-    ) -> *mut OH_UdmfData;
 }
 extern "C" {
     #[doc = " @brief Destroy data array memory.\n\n @param dataArray Represents a point to {@link OH_UdmfData}.\n @param dataSize Represents data size in list.\n @see OH_UdmfData\n @since 20"]
@@ -2154,6 +1440,41 @@ extern "C" {
         recordCount: ::std::os::raw::c_uint,
     );
 }
+#[doc = " The error code in the correct case."]
+pub const Udmf_ErrCode_UDMF_E_OK: Udmf_ErrCode = 0;
+#[doc = " @brief The error code for common exceptions."]
+pub const Udmf_ErrCode_UDMF_ERR: Udmf_ErrCode = 20400000;
+#[doc = " @brief The error code for common invalid args."]
+pub const Udmf_ErrCode_UDMF_E_INVALID_PARAM: Udmf_ErrCode = 20400001;
+#[doc = " @brief Indicates the error code information.\n\n @since 12"]
+pub type Udmf_ErrCode = u32;
+#[doc = " brief Indicates the finished status."]
+#[cfg(feature = "api-15")]
+pub const Udmf_ListenerStatus_UDMF_FINISHED: Udmf_ListenerStatus = 0;
+#[doc = " @brief Indicates that processing is still in progress."]
+#[cfg(feature = "api-15")]
+pub const Udmf_ListenerStatus_UDMF_PROCESSING: Udmf_ListenerStatus = 1;
+#[doc = " @brief Indicates that the process has been canceled."]
+#[cfg(feature = "api-15")]
+pub const Udmf_ListenerStatus_UDMF_CANCELED: Udmf_ListenerStatus = 2;
+#[doc = " @brief Indicates that an internal error has occurred."]
+#[cfg(feature = "api-15")]
+pub const Udmf_ListenerStatus_UDMF_INNER_ERROR: Udmf_ListenerStatus = 200;
+#[doc = " @brief Indicates that the GetDataParams contains invalid parameters."]
+#[cfg(feature = "api-15")]
+pub const Udmf_ListenerStatus_UDMF_INVALID_PARAMETERS: Udmf_ListenerStatus = 201;
+#[doc = " @brief Indicates that no data is obtained."]
+#[cfg(feature = "api-15")]
+pub const Udmf_ListenerStatus_UDMF_DATA_NOT_FOUND: Udmf_ListenerStatus = 202;
+#[doc = " @brief Indicates that an error occurred in the synchronization process."]
+#[cfg(feature = "api-15")]
+pub const Udmf_ListenerStatus_UDMF_SYNC_FAILED: Udmf_ListenerStatus = 203;
+#[doc = " @brief Indicates that an error occurred during file copying."]
+#[cfg(feature = "api-15")]
+pub const Udmf_ListenerStatus_UDMF_COPY_FILE_FAILED: Udmf_ListenerStatus = 204;
+#[doc = " @brief Indicates the error code information.\n\n @since 15"]
+#[cfg(feature = "api-15")]
+pub type Udmf_ListenerStatus = u32;
 #[repr(C)]
 #[derive(Debug, Copy, Clone)]
 pub struct OH_Utd {

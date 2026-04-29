@@ -1,9 +1,12 @@
+//! Module type::alignment wrappers and related types.
+
 use ohos_arkui_sys::*;
 
 use ohos_enum_macro::EnumFrom;
 
 #[derive(Debug, Clone, Copy, PartialEq, Eq, EnumFrom)]
 #[enum_from_config(ArkUI_Alignment, "ArkUI_Alignment_ARKUI_ALIGNMENT_")]
+/// Logical alignment values used by layout and text-related attributes.
 pub enum Alignment {
     TopStart = 0,
     Top,

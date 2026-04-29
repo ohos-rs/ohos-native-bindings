@@ -24,20 +24,7 @@ Use `ohrs` to generate sys crate.
 ohrs build --arch aarch
 ```
 
-**You may get some build errors. You need to fix the origin c header. Make sure all source file's syntax is valid c syntax.**
-
-
-Add `build.rs` file to generated crate folder. And link dynamic library if need.
-
-```rust
-// Here is an example.
-use std::env;
-
-fn main() {
-    let _ndk = env::var("OHOS_NDK_HOME").expect("OHOS_NDK_HOME not set");
-    println!("cargo:rustc-link-lib=dylib=udmf");
-}
-```
+After you ran the command, please run `just fmt`.
 
 ### Generate binding
 

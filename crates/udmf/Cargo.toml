@@ -7,15 +7,19 @@ description = "OpenHarmony's UDMF binding for rust"
 
 [features]
 default = []
-api-13  = ["ohos-udmf-sys/api-13"]
-api-14  = ["api-13", "ohos-udmf-sys/api-14"]
-api-15  = ["api-14", "ohos-udmf-sys/api-15"]
-api-16  = ["api-15", "ohos-udmf-sys/api-16"]
-api-17  = ["api-16", "ohos-udmf-sys/api-17"]
-api-18  = ["api-15", "ohos-udmf-sys/api-18"]
-api-19  = ["api-18", "ohos-udmf-sys/api-19"]
-api-20  = ["api-19", "ohos-udmf-sys/api-20"]
+api-13  = ["ohos-udmf-sys/api-13", "ohos-image-native-binding/api-13"]
+api-14  = ["api-13", "ohos-udmf-sys/api-14", "ohos-image-native-binding/api-14"]
+api-15  = ["api-14", "ohos-udmf-sys/api-15", "ohos-image-native-binding/api-15"]
+api-16  = ["api-15", "ohos-udmf-sys/api-16", "ohos-image-native-binding/api-16"]
+api-17  = ["api-16", "ohos-udmf-sys/api-17", "ohos-image-native-binding/api-17"]
+api-18  = ["api-17", "ohos-udmf-sys/api-18", "ohos-image-native-binding/api-18"]
+api-19  = ["api-18", "ohos-udmf-sys/api-19", "ohos-image-native-binding/api-19"]
+api-20  = ["api-19", "ohos-udmf-sys/api-20", "ohos-image-native-binding/api-20"]
+api-21  = ["api-20", "ohos-udmf-sys/api-21", "ohos-image-native-binding/api-21"]
+api-22  = ["api-21", "ohos-udmf-sys/api-22", "ohos-image-native-binding/api-22"]
+api-23  = ["api-22", "ohos-udmf-sys/api-23", "ohos-image-native-binding/api-23"]
 
 [dependencies]
-ohos-udmf-sys   = { workspace = true }
-ohos_enum_macro = { workspace = true }
+ohos-udmf-sys             = { workspace = true }
+ohos-image-native-binding = { workspace = true }
+ohos_enum_macro           = { workspace = true }

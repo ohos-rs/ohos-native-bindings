@@ -1,3 +1,5 @@
+//! Module type::gesture_direction wrappers and related types.
+
 use bitflags::bitflags;
 use ohos_arkui_sys::{
     ArkUI_GestureDirection, ArkUI_GestureDirectionMask,
@@ -55,17 +57,6 @@ impl From<GestureDirection> for ArkUI_GestureDirectionMask {
 
 impl From<ArkUI_GestureDirection> for GestureDirection {
     fn from(value: ArkUI_GestureDirection) -> Self {
-        match value {
-            #![allow(non_upper_case_globals)]
-            ArkUI_GestureDirection_GESTURE_DIRECTION_ALL => GestureDirection::All,
-            ArkUI_GestureDirection_GESTURE_DIRECTION_HORIZONTAL => GestureDirection::Horizontal,
-            ArkUI_GestureDirection_GESTURE_DIRECTION_VERTICAL => GestureDirection::Vertical,
-            ArkUI_GestureDirection_GESTURE_DIRECTION_LEFT => GestureDirection::Left,
-            ArkUI_GestureDirection_GESTURE_DIRECTION_RIGHT => GestureDirection::Right,
-            ArkUI_GestureDirection_GESTURE_DIRECTION_UP => GestureDirection::Up,
-            ArkUI_GestureDirection_GESTURE_DIRECTION_DOWN => GestureDirection::Down,
-            ArkUI_GestureDirection_GESTURE_DIRECTION_NONE => GestureDirection::None,
-            _ => unreachable!("Invalid GestureDirection value"),
-        }
+        GestureDirection::from_bits_truncate(value)
     }
 }

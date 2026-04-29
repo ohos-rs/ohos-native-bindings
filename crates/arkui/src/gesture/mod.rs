@@ -1,7 +1,10 @@
-mod gesture_data;
-mod gesture_group;
-mod inner_gesture;
+//! Gesture builders and strongly typed gesture payloads.
 
-pub use gesture_data::*;
-pub use gesture_group::*;
-pub use inner_gesture::*;
+pub mod gesture_data;
+pub mod gesture_group;
+pub mod inner_gesture;
+
+pub(crate) use gesture_data::*;
+#[allow(unused_imports)]
+pub(crate) use gesture_group::*;
+pub(crate) use inner_gesture::*;

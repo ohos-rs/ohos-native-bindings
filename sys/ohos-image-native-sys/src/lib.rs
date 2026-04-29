@@ -14,6 +14,8 @@ use ohos_resource_manager_sys::*;
 #[link(name = "pixelmap_ndk.z")]
 #[link(name = "image_receiver_ndk.z")]
 #[link(name = "image_source_ndk.z")]
+#[link(name = "image_source")]
+#[link(name = "pixelmap")]
 unsafe extern "C" {}
 
 #[repr(C)]
@@ -122,6 +124,9 @@ pub const Image_ErrorCode_IMAGE_UNSUPPORTED_MIME_TYPE: Image_ErrorCode = 7600101
 pub const Image_ErrorCode_IMAGE_UNKNOWN_MIME_TYPE: Image_ErrorCode = 7600102;
 #[doc = " too large data or image"]
 pub const Image_ErrorCode_IMAGE_TOO_LARGE: Image_ErrorCode = 7600103;
+#[doc = " @error Failed to get image data.\n @since 23"]
+#[cfg(feature = "api-23")]
+pub const Image_ErrorCode_IMAGE_GET_IMAGE_DATA_FAILED: Image_ErrorCode = 7600104;
 #[doc = " @error DMA memory does not exist"]
 pub const Image_ErrorCode_IMAGE_DMA_NOT_EXIST: Image_ErrorCode = 7600173;
 #[doc = " @error DMA operation failed"]
@@ -134,7 +139,7 @@ pub const Image_ErrorCode_IMAGE_UNSUPPORTED_METADATA: Image_ErrorCode = 7600202;
 pub const Image_ErrorCode_IMAGE_UNSUPPORTED_CONVERSION: Image_ErrorCode = 7600203;
 #[doc = " invalid region"]
 pub const Image_ErrorCode_IMAGE_INVALID_REGION: Image_ErrorCode = 7600204;
-#[doc = "  @error unsupported memory format\n  @since 13"]
+#[doc = " @error unsupported memory format\n @since 13"]
 #[cfg(feature = "api-13")]
 pub const Image_ErrorCode_IMAGE_UNSUPPORTED_MEMORY_FORMAT: Image_ErrorCode = 7600205;
 #[doc = " @error Invalid parameter.\n @since 19"]
@@ -172,6 +177,9 @@ pub const Image_ErrorCode_IMAGE_SOURCE_TOO_LARGE: Image_ErrorCode = 7700103;
 #[doc = " @error unsupported allocator type, e.g., use share memory to decode a HDR image as only\n DMA supported hdr metadata.\n @since 15"]
 #[cfg(feature = "api-15")]
 pub const Image_ErrorCode_IMAGE_SOURCE_UNSUPPORTED_ALLOCATOR_TYPE: Image_ErrorCode = 7700201;
+#[doc = " @error Unsupported metadata. For example, the property key is not supported,\n     or the property value is invalid.\n @since 23"]
+#[cfg(feature = "api-23")]
+pub const Image_ErrorCode_IMAGE_SOURCE_UNSUPPORTED_METADATA: Image_ErrorCode = 7700202;
 pub const Image_ErrorCode_IMAGE_SOURCE_UNSUPPORTED_OPTIONS: Image_ErrorCode = 7700203;
 #[doc = " @error Invalid parameter.\n @since 19"]
 #[cfg(feature = "api-19")]
@@ -285,7 +293,7 @@ pub const OHScalingMode_OH_SCALING_MODE_SCALE_TO_WINDOW: OHScalingMode = 1;
 pub const OHScalingMode_OH_SCALING_MODE_SCALE_CROP: OHScalingMode = 2;
 #[doc = " the window is clipped to the size of the buffer's clipping rectangle\n pixels outside the clipping rectangle are considered fully transparent."]
 pub const OHScalingMode_OH_SCALING_MODE_NO_SCALE_CROP: OHScalingMode = 3;
-#[doc = " @brief Indicates Scaling Mode.\n @since 9\n @deprecated(since = \"10\")\n @useinstead OHScalingModeV2"]
+#[doc = " @brief Indicates Scaling Mode.\n @since 9\n @deprecated since 10\n @useinstead OHScalingModeV2"]
 pub type OHScalingMode = u32;
 #[doc = " the window content is not updated until a buffer of\n the window size is received"]
 pub const OHScalingModeV2_OH_SCALING_MODE_FREEZE_V2: OHScalingModeV2 = 0;
@@ -313,16 +321,16 @@ pub const OHHDRMetadataKey_OH_METAKEY_MAX_CONTENT_LIGHT_LEVEL: OHHDRMetadataKey 
 pub const OHHDRMetadataKey_OH_METAKEY_MAX_FRAME_AVERAGE_LIGHT_LEVEL: OHHDRMetadataKey = 11;
 pub const OHHDRMetadataKey_OH_METAKEY_HDR10_PLUS: OHHDRMetadataKey = 12;
 pub const OHHDRMetadataKey_OH_METAKEY_HDR_VIVID: OHHDRMetadataKey = 13;
-#[doc = " @brief Enumerates the HDR metadata keys.\n @since 9\n @deprecated(since = \"10\")"]
+#[doc = " @brief Enumerates the HDR metadata keys.\n @since 9\n @deprecated since 10"]
 pub type OHHDRMetadataKey = u32;
-#[doc = " @brief Defines the HDR metadata.\n @since 9\n @deprecated(since = \"10\")"]
+#[doc = " @brief Defines the HDR metadata.\n @since 9\n @deprecated since 10"]
 #[repr(C)]
 #[derive(Debug, Copy, Clone)]
 pub struct OHHDRMetaData {
     pub key: OHHDRMetadataKey,
     pub value: f32,
 }
-#[doc = " @brief Defines the ExtData Handle\n @since 9\n @deprecated(since = \"10\")"]
+#[doc = " @brief Defines the ExtData Handle\n @since 9\n @deprecated since 10"]
 #[repr(C)]
 #[derive(Debug)]
 pub struct OHExtDataHandle {
@@ -335,6 +343,22 @@ pub struct OHExtDataHandle {
 #[derive(Debug, Copy, Clone)]
 pub struct OH_ImageNative {
     _unused: [u8; 0],
+}
+#[doc = " @brief Defines the image buffer data.\n\n @since 23"]
+#[cfg(feature = "api-23")]
+#[repr(C)]
+#[derive(Debug, Copy, Clone)]
+pub struct OH_ImageBufferData {
+    #[doc = " rowStride of each component."]
+    pub rowStride: *mut i32,
+    #[doc = " pixelStride of each component."]
+    pub pixelStride: *mut i32,
+    #[doc = " number of strides."]
+    pub numStride: i32,
+    #[doc = " byte length of the buffer"]
+    pub bufferSize: usize,
+    #[doc = " native buffer of the image."]
+    pub nativeBuffer: *mut OH_NativeBuffer,
 }
 extern "C" {
     #[doc = " @brief Obtains {@link Image_Size} of an {@link OH_ImageNative} object.\n\n @param image Indicates the pointer to an {@link OH_ImageNative} object.\n @param size Indicates the pointer to the {@link Image_Size} object obtained.\n @return Returns {@link Image_ErrorCode} IMAGE_SUCCESS - if the operation is successful.\n returns {@link Image_ErrorCode} IMAGE_BAD_PARAMETER - if invalid parameter.\n returns {@link Image_ErrorCode} IMAGE_UNKNOWN_ERROR - inner unknown error.\n @since 12"]
@@ -393,6 +417,30 @@ extern "C" {
 extern "C" {
     #[doc = " @brief Releases an {@link OH_ImageNative} object.\n It is used to release the object {@link OH_ImageNative}.\n\n @param image Indicates the pointer to an {@link OH_ImageNative} object.\n @return Returns {@link Image_ErrorCode} IMAGE_SUCCESS - if the operation is successful.\n returns {@link Image_ErrorCode} IMAGE_BAD_PARAMETER - if bad parameter.\n @since 12"]
     pub fn OH_ImageNative_Release(image: *mut OH_ImageNative) -> Image_ErrorCode;
+}
+extern "C" {
+    #[doc = " @brief Obtains the color space from an {@link OH_ImageNative} object.\n\n @param image Indicates the pointer to an {@link OH_ImageNative} object.\n @param colorSpaceName Indicates the pointer to the obtained color space name, see {@link ColorSpaceName}.\n @return Returns one of the following result codes:\n {@link IMAGE_SUCCESS} if the execution is successful.\n {@link IMAGE_BAD_PARAMETER} if bad parameter.\n @since 23"]
+    #[cfg(feature = "api-23")]
+    pub fn OH_ImageNative_GetColorSpace(
+        image: *mut OH_ImageNative,
+        colorSpaceName: *mut i32,
+    ) -> Image_ErrorCode;
+}
+extern "C" {
+    #[doc = " @brief Obtains the image format from an {@link OH_ImageNative} object.\n\n @param image Indicates the pointer to an {@link OH_ImageNative} object.\n @param format Indicates the pointer to the obtained image format.\n @return Returns one of the following result codes:\n {@link IMAGE_SUCCESS} if the execution is successful.\n {@link IMAGE_BAD_PARAMETER} if bad parameter.\n @since 23"]
+    #[cfg(feature = "api-23")]
+    pub fn OH_ImageNative_GetFormat(
+        image: *mut OH_ImageNative,
+        format: *mut OH_NativeBuffer_Format,
+    ) -> Image_ErrorCode;
+}
+extern "C" {
+    #[doc = " @brief Obtains the image buffer data from an {@link OH_ImageNative} object.\n\n @param image Indicates the pointer to an {@link OH_ImageNative} object.\n @param imageBufferData Indicates the pointer to the obtained image buffer data.\n @return Returns one of the following result codes:\n {@link IMAGE_SUCCESS} if the execution is successful.\n {@link IMAGE_BAD_PARAMETER} if bad parameter.\n @since 23"]
+    #[cfg(feature = "api-23")]
+    pub fn OH_ImageNative_GetBufferData(
+        image: *mut OH_ImageNative,
+        imageBufferData: *mut OH_ImageBufferData,
+    ) -> Image_ErrorCode;
 }
 #[doc = " @brief Define a Pixelmap struct type, used for pixelmap pointer controls.\n\n @since 12"]
 #[repr(C)]
@@ -529,62 +577,62 @@ pub struct OH_Pixelmap_InitializationOptions {
     _unused: [u8; 0],
 }
 extern "C" {
-    #[doc = " @brief Create a for InitializationOtions struct.\n\n @param options The InitializationOtions pointer will be operated.\n @return Returns {@link Image_ErrorCode}\n @since 12"]
+    #[doc = " @brief Create a for InitializationOtions struct.\n\n @param options The InitializationOtions pointer will be operated.\n @return Function result code:\n         {@link IMAGE_SUCCESS} - if the operation is successful.\n         {@link IMAGE_BAD_PARAMETER} - Parameter is nullptr or\n         create OH_Pixelmap_InitializationOptions object failed.\n @since 12"]
     pub fn OH_PixelmapInitializationOptions_Create(
         options: *mut *mut OH_Pixelmap_InitializationOptions,
     ) -> Image_ErrorCode;
 }
 extern "C" {
-    #[doc = " @brief Get width number for InitializationOtions struct.\n\n @param options The InitializationOtions pointer will be operated.\n @param width the number of image width.\n @return Returns {@link Image_ErrorCode}\n @since 12"]
+    #[doc = " @brief Get width number for InitializationOtions struct.\n\n @param options The InitializationOtions pointer will be operated.\n @param width the number of image width.\n @return Function result code:\n         {@link IMAGE_SUCCESS} - if the operation is successful.\n         {@link IMAGE_BAD_PARAMETER} - if options or width is null.\n @since 12"]
     pub fn OH_PixelmapInitializationOptions_GetWidth(
         options: *mut OH_Pixelmap_InitializationOptions,
         width: *mut u32,
     ) -> Image_ErrorCode;
 }
 extern "C" {
-    #[doc = " @brief Set width number for InitializationOtions struct.\n\n @param options The InitializationOtions pointer will be operated.\n @param width the number of image width.\n @return Returns {@link Image_ErrorCode}\n @since 12"]
+    #[doc = " @brief Set width number for InitializationOtions struct.\n\n @param options The InitializationOtions pointer will be operated.\n @param width the number of image width.\n @return Function result code:\n         {@link IMAGE_SUCCESS} - if the operation is successful.\n         {@link IMAGE_BAD_PARAMETER} - if options is null.\n @since 12"]
     pub fn OH_PixelmapInitializationOptions_SetWidth(
         options: *mut OH_Pixelmap_InitializationOptions,
         width: u32,
     ) -> Image_ErrorCode;
 }
 extern "C" {
-    #[doc = " @brief Get height number for InitializationOtions struct.\n\n @param options The InitializationOtions pointer will be operated.\n @param height the number of image height.\n @return Returns {@link Image_ErrorCode}\n @since 12"]
+    #[doc = " @brief Get height number for InitializationOtions struct.\n\n @param options The InitializationOtions pointer will be operated.\n @param height the number of image height.\n @return Function result code:\n         {@link IMAGE_SUCCESS} - if the operation is successful.\n         {@link IMAGE_BAD_PARAMETER} - if options or height is null.\n @since 12"]
     pub fn OH_PixelmapInitializationOptions_GetHeight(
         options: *mut OH_Pixelmap_InitializationOptions,
         height: *mut u32,
     ) -> Image_ErrorCode;
 }
 extern "C" {
-    #[doc = " @brief Set height number for InitializationOtions struct.\n\n @param options The InitializationOtions pointer will be operated.\n @param height the number of image height.\n @return Returns {@link Image_ErrorCode}\n @since 12"]
+    #[doc = " @brief Set height number for InitializationOtions struct.\n\n @param options The InitializationOtions pointer will be operated.\n @param height the number of image height.\n @return Function result code:\n         {@link IMAGE_SUCCESS} - if the operation is successful.\n         {@link IMAGE_BAD_PARAMETER} - if options is null.\n @since 12"]
     pub fn OH_PixelmapInitializationOptions_SetHeight(
         options: *mut OH_Pixelmap_InitializationOptions,
         height: u32,
     ) -> Image_ErrorCode;
 }
 extern "C" {
-    #[doc = " @brief Get pixelFormat number for InitializationOtions struct.\n\n @param options The InitializationOtions pointer will be operated.\n @param pixelFormat the number of image pixelFormat.\n @return Returns {@link Image_ErrorCode}\n @since 12"]
+    #[doc = " @brief Get pixelFormat number for InitializationOtions struct.\n\n @param options The InitializationOtions pointer will be operated.\n @param pixelFormat the number of image pixelFormat.\n @return Function result code:\n         {@link IMAGE_SUCCESS} - if the operation is successful.\n         {@link IMAGE_BAD_PARAMETER} - if options or pixelFormat is null.\n @since 12"]
     pub fn OH_PixelmapInitializationOptions_GetPixelFormat(
         options: *mut OH_Pixelmap_InitializationOptions,
         pixelFormat: *mut i32,
     ) -> Image_ErrorCode;
 }
 extern "C" {
-    #[doc = " @brief Set pixelFormat number for InitializationOtions struct.\n\n @param options The InitializationOtions pointer will be operated.\n @param pixelFormat the number of image pixelFormat.\n @return Returns {@link Image_ErrorCode}\n @since 12"]
+    #[doc = " @brief Set pixelFormat number for InitializationOptions struct.\n\n @param options The InitializationOptions pointer will be operated.\n @param pixelFormat the number of image pixelFormat.\n @return Function result code:\n         {@link IMAGE_SUCCESS} - if the operation is successful.\n         {@link IMAGE_BAD_PARAMETER} - if options is null.\n @since 12"]
     pub fn OH_PixelmapInitializationOptions_SetPixelFormat(
         options: *mut OH_Pixelmap_InitializationOptions,
         pixelFormat: i32,
     ) -> Image_ErrorCode;
 }
 extern "C" {
-    #[doc = " @brief Get pixelFormat number for InitializationOtions struct.\n\n @param options The InitializationOtions pointer will be operated.\n @param srcpixelFormat the number of image srcpixelFormat.\n @return Returns {@link Image_ErrorCode}\n @since 12"]
+    #[doc = " @brief Get pixelFormat number for InitializationOptions struct.\n\n @param options The InitializationOptions pointer will be operated.\n @param srcpixelFormat the number of image srcpixelFormat.\n @return Function result code:\n         {@link IMAGE_SUCCESS} - if the operation is successful.\n         {@link IMAGE_BAD_PARAMETER} - if options or srcpixelFormat is null.\n @since 12"]
     pub fn OH_PixelmapInitializationOptions_GetSrcPixelFormat(
         options: *mut OH_Pixelmap_InitializationOptions,
         srcpixelFormat: *mut i32,
     ) -> Image_ErrorCode;
 }
 extern "C" {
-    #[doc = " @brief Set pixelFormat number for InitializationOtions struct.\n\n @param options The InitializationOtions pointer will be operated.\n @param srcpixelFormat the number of image srcpixelFormat.\n @return Returns {@link Image_ErrorCode}\n @since 12"]
+    #[doc = " @brief Set pixelFormat number for InitializationOptions struct.\n\n @param options The InitializationOptions pointer will be operated.\n @param srcpixelFormat the number of image srcpixelFormat.\n @return Function result code:\n         {@link IMAGE_SUCCESS} - if the operation is successful.\n         {@link IMAGE_BAD_PARAMETER} - if options is null.\n @since 12"]
     pub fn OH_PixelmapInitializationOptions_SetSrcPixelFormat(
         options: *mut OH_Pixelmap_InitializationOptions,
         srcpixelFormat: i32,
@@ -605,14 +653,14 @@ extern "C" {
     ) -> Image_ErrorCode;
 }
 extern "C" {
-    #[doc = " @brief Get alphaType number for InitializationOtions struct.\n\n @param options The InitializationOtions pointer will be operated.\n @param alphaType the number of image alphaType.\n @return Returns {@link Image_ErrorCode}\n @since 12"]
+    #[doc = " @brief Get alphaType number for InitializationOtions struct.\n\n @param options The InitializationOptions pointer will be operated.\n @param alphaType the number of image alphaType.\n @return Function result code:\n         {@link IMAGE_SUCCESS} - if the operation is successful.\n         {@link IMAGE_BAD_PARAMETER} - if options or alphaType is null.\n @since 12"]
     pub fn OH_PixelmapInitializationOptions_GetAlphaType(
         options: *mut OH_Pixelmap_InitializationOptions,
         alphaType: *mut i32,
     ) -> Image_ErrorCode;
 }
 extern "C" {
-    #[doc = " @brief Set alphaType number for InitializationOtions struct.\n\n @param options The InitializationOtions pointer will be operated.\n @param alphaType the number of image alphaType.\n @return Returns {@link Image_ErrorCode}\n @since 12"]
+    #[doc = " @brief Set alphaType number for InitializationOtions struct.\n\n @param options The InitializationOtions pointer will be operated.\n @param alphaType the number of image alphaType.\n @return Function result code:\n         {@link IMAGE_SUCCESS} - if the operation is successful.\n         {@link IMAGE_BAD_PARAMETER} - if options is null.\n @since 12"]
     pub fn OH_PixelmapInitializationOptions_SetAlphaType(
         options: *mut OH_Pixelmap_InitializationOptions,
         alphaType: i32,
@@ -635,7 +683,7 @@ extern "C" {
     ) -> Image_ErrorCode;
 }
 extern "C" {
-    #[doc = " @brief delete InitializationOtions pointer.\n\n @param options The InitializationOtions pointer will be operated.\n @return Returns {@link Image_ErrorCode}\n @since 12"]
+    #[doc = " @brief delete InitializationOtions pointer.\n\n @param options The InitializationOtions pointer will be operated.\n @return Function result code:\n         {@link IMAGE_SUCCESS} - if the operation is successful.\n         {@link IMAGE_BAD_PARAMETER} - if options is null.\n @since 12"]
     pub fn OH_PixelmapInitializationOptions_Release(
         options: *mut OH_Pixelmap_InitializationOptions,
     ) -> Image_ErrorCode;
@@ -647,18 +695,18 @@ pub struct OH_Pixelmap_ImageInfo {
     _unused: [u8; 0],
 }
 extern "C" {
-    #[doc = " @brief Create imageinfo struct  .\n\n @param info The imageinfo pointer will be operated.\n @return Returns {@link Image_ErrorCode}\n @since 12"]
+    #[doc = " @brief Create imageinfo struct  .\n\n @param info The imageinfo pointer will be operated.\n @return Function result code:\n         {@link IMAGE_SUCCESS} - if the operation is successful.\n         {@link IMAGE_BAD_PARAMETER} - Parameter is nullptr or\n         create OH_Pixelmap_ImageInfo object failed.\n @since 12"]
     pub fn OH_PixelmapImageInfo_Create(info: *mut *mut OH_Pixelmap_ImageInfo) -> Image_ErrorCode;
 }
 extern "C" {
-    #[doc = " @brief Get width number for imageinfo struct.\n\n @param info The imageinfo pointer will be operated.\n @param width The number of imageinfo width.\n @return Returns {@link Image_ErrorCode}\n @since 12"]
+    #[doc = " @brief Get width number for imageinfo struct.\n\n @param info The imageinfo pointer will be operated.\n @param width The number of imageinfo width.\n @return Function result code:\n         {@link IMAGE_SUCCESS} - if the operation is successful.\n         {@link IMAGE_BAD_PARAMETER} - if info or width is null.\n @since 12"]
     pub fn OH_PixelmapImageInfo_GetWidth(
         info: *mut OH_Pixelmap_ImageInfo,
         width: *mut u32,
     ) -> Image_ErrorCode;
 }
 extern "C" {
-    #[doc = " @brief Get height number for imageinfo struct.\n\n @param info The imageinfo pointer will be operated.\n @param height The number of imageinfo height.\n @return Returns {@link Image_ErrorCode}\n @since 12"]
+    #[doc = " @brief Get height number for imageinfo struct.\n\n @param info The imageinfo pointer will be operated.\n @param height The number of imageinfo height.\n @return Function result code:\n         {@link IMAGE_SUCCESS} - if the operation is successful.\n         {@link IMAGE_BAD_PARAMETER} - if info or height is null.\n @since 12"]
     pub fn OH_PixelmapImageInfo_GetHeight(
         info: *mut OH_Pixelmap_ImageInfo,
         height: *mut u32,
@@ -673,39 +721,39 @@ extern "C" {
     ) -> Image_ErrorCode;
 }
 extern "C" {
-    #[doc = " @brief Get rowStride number for imageinfo struct.\n\n @param info The imageinfo pointer will be operated.\n @param rowStride The number of imageinfo rowStride.\n @return Returns {@link Image_ErrorCode}\n @since 12"]
+    #[doc = " @brief Get rowStride number for imageinfo struct.\n\n @param info The imageinfo pointer will be operated.\n @param rowStride The number of imageinfo rowStride.\n @return Function result code:\n         {@link IMAGE_SUCCESS} - if the operation is successful.\n         {@link IMAGE_BAD_PARAMETER} - if info or rowStride is null.\n @since 12"]
     pub fn OH_PixelmapImageInfo_GetRowStride(
         info: *mut OH_Pixelmap_ImageInfo,
         rowStride: *mut u32,
     ) -> Image_ErrorCode;
 }
 extern "C" {
-    #[doc = " @brief Get pixelFormat number for imageinfo struct.\n\n @param info The imageinfo pointer will be operated.\n @param pixelFormat The number of imageinfo pixelFormat.\n @return Returns {@link Image_ErrorCode}\n @since 12"]
+    #[doc = " @brief Get pixelFormat number for imageinfo struct.\n\n @param info The imageinfo pointer will be operated.\n @param pixelFormat The number of imageinfo pixelFormat.\n @return Function result code:\n         {@link IMAGE_SUCCESS} - if the operation is successful.\n         {@link IMAGE_BAD_PARAMETER} - if info or pixelFormat is null.\n @since 12"]
     pub fn OH_PixelmapImageInfo_GetPixelFormat(
         info: *mut OH_Pixelmap_ImageInfo,
         pixelFormat: *mut i32,
     ) -> Image_ErrorCode;
 }
 extern "C" {
-    #[doc = " @brief Get alphaType number for imageinfo struct.\n\n @param info The imageinfo pointer will be operated.\n @param alphaType The number of imageinfo alphaType.\n @return Returns {@link Image_ErrorCode}\n @since 12"]
+    #[doc = " @brief Get alphaType number for imageinfo struct.\n\n @param info The imageinfo pointer will be operated.\n @param alphaType The number of imageinfo alphaType.\n @return Function result code:\n         {@link IMAGE_SUCCESS} - if the operation is successful.\n         {@link IMAGE_BAD_PARAMETER} - if info or alphaType is null.\n @since 12"]
     pub fn OH_PixelmapImageInfo_GetAlphaType(
         info: *mut OH_Pixelmap_ImageInfo,
         alphaType: *mut i32,
     ) -> Image_ErrorCode;
 }
 extern "C" {
-    #[doc = " @brief Get isHdr boolean for imageinfo struct.\n\n @param info The imageinfo pointer will be operated. Pointer connot be null.\n @param isHdr Whether the image has a high dynamic range.\n @return Returns {@link Image_ErrorCode} IMAGE_SUCCESS - The operation is successful.\n returns {@link Image_ErrorCode} IMAGE_BAD_PARAMETER - Parameter error.Possible causes:Parameter verification failed.\n @since 12"]
+    #[doc = " @brief Get isHdr boolean for imageinfo struct.\n\n @param info The imageinfo pointer will be operated. Pointer connot be null.\n @param isHdr Whether the image has a high dynamic range.\n @return Function result code:\n         {@link IMAGE_SUCCESS} - if the operation is successful.\n         {@link IMAGE_BAD_PARAMETER} - if info or isHdr is null.\n @since 12"]
     pub fn OH_PixelmapImageInfo_GetDynamicRange(
         info: *mut OH_Pixelmap_ImageInfo,
         isHdr: *mut bool,
     ) -> Image_ErrorCode;
 }
 extern "C" {
-    #[doc = " @brief Delete imageinfo struct pointer.\n\n @param info The imageinfo pointer will be operated.\n @return Returns {@link Image_ErrorCode}\n @since 12"]
+    #[doc = " @brief Delete imageinfo struct pointer.\n\n @param info The imageinfo pointer will be operated.\n @return Function result code:\n         {@link IMAGE_SUCCESS} - if the operation is successful.\n         {@link IMAGE_BAD_PARAMETER} - if info is null.\n @since 12"]
     pub fn OH_PixelmapImageInfo_Release(info: *mut OH_Pixelmap_ImageInfo) -> Image_ErrorCode;
 }
 extern "C" {
-    #[doc = " @brief Creates a <b>PixelMap</b> object.\n\n @param data Color buffer in BGRA_8888 format.\n @param dataLength Color buffer size in BGRA_8888 format.\n @param options IPixel properties, including the alpha type, size, pixel format, and editable.\n @param pixelmap Pixelmap pointer for created.\n @return Returns {@link Image_ErrorCode}\n @since 12"]
+    #[doc = " @brief Creates a <b>PixelMap</b> object.\n\n @param data Color buffer in BGRA_8888 format.\n @param dataLength Color buffer size in BGRA_8888 format.\n @param options IPixel properties, including the alpha type, size, pixel format, and editable.\n @param pixelmap Pixelmap pointer for created.\n @return Function result code:\n         {@link IMAGE_SUCCESS} - if the operation is successful.\n         {@link IMAGE_BAD_PARAMETER} - Possible causes:\n         if data or options is null or failed to create pixelmap due to invalid options.\n @since 12"]
     pub fn OH_PixelmapNative_CreatePixelmap(
         data: *mut u8,
         dataLength: usize,
@@ -741,7 +789,7 @@ extern "C" {
     ) -> Image_ErrorCode;
 }
 extern "C" {
-    #[doc = " @brief Reads data of this pixel map to an Buffer. If this pixel map is created in the BGRA_8888 format,\n the data read is the same as the original data.\n\n @param pixelmap The Pixelmap pointer will be operated.\n @param destination Buffer to which the image pixel map data will be written.\n @param bufferSize Buffer size to which the image pixel map data will be written.\n @return Returns {@link Image_ErrorCode}\n @since 12"]
+    #[doc = " @brief Reads data of this pixel map to an Buffer. If this pixel map is created in the BGRA_8888 format,\n the data read is the same as the original data.\n\n @param pixelmap The Pixelmap pointer will be operated.\n @param destination Buffer to which the image pixel map data will be written.\n @param bufferSize Buffer size to which the image pixel map data will be written.\n @return Function result code:\n         {@link IMAGE_SUCCESS} if the execution is successful.\n         {@link IMAGE_BAD_PARAMETER} Parameter error. Possible causes:\n         1.Parameter is nullptr\n         2.pixelmap's inner pixelmap is nullptr.\n         3.Parameter bufferSize is less than the actual data size.\n         {@link IMAGE_UNKNOWN_ERROR} Internal unknown error, e.g.\n         memory copy failed or pixelmap's attributes are incorrect.\n @since 12"]
     pub fn OH_PixelmapNative_ReadPixels(
         pixelmap: *mut OH_PixelmapNative,
         destination: *mut u8,
@@ -749,7 +797,7 @@ extern "C" {
     ) -> Image_ErrorCode;
 }
 extern "C" {
-    #[doc = " @brief Reads image data in an Buffer and writes the data to a Pixelmap object.\n\n @param pixelmap The Pixelmap pointer will be operated.\n @param source Buffer from which the image data will be read.\n @param bufferSize Buffer size from which the image data will be read.\n @return Returns {@link Image_ErrorCode}\n @since 12"]
+    #[doc = " @brief Reads image data in an Buffer and writes the data to a Pixelmap object.\n\n @param pixelmap The Pixelmap pointer will be operated.\n @param source Buffer from which the image data will be read.\n @param bufferSize Buffer size from which the image data will be read.\n @return Function result code:\n         {@link IMAGE_SUCCESS} if the execution is successful.\n         {@link IMAGE_BAD_PARAMETER} Parameter error. Possible causes:\n         1.Parameter is nullptr\n         2.pixelmap's inner pixelmap is nullptr.\n         3.Parameter bufferSize is less than the actual data size.\n         {@link IMAGE_UNSUPPORTED_OPERATION} If the pixelmap is not editable.\n         {@link IMAGE_UNKNOWN_ERROR} Internal unknown error, e.g.\n         memory copy failed or pixelmap's attributes are incorrect.\n @since 12"]
     pub fn OH_PixelmapNative_WritePixels(
         pixelmap: *mut OH_PixelmapNative,
         source: *mut u8,
@@ -786,21 +834,21 @@ extern "C" {
     pub fn OH_PixelmapNative_ToSdr(pixelmap: *mut OH_PixelmapNative) -> Image_ErrorCode;
 }
 extern "C" {
-    #[doc = " @brief Obtains pixel map information of this image.\n\n @param pixelmap The Pixelmap pointer will be operated.\n @param imageInfo Indicates the pointer to the image information.\n @return Returns {@link Image_ErrorCode}\n @since 12"]
+    #[doc = " @brief Obtains pixel map information of this image.\n\n @param pixelmap The Pixelmap pointer will be operated.\n @param imageInfo Indicates the pointer to the image information.\n @return Function result code:\n         {@link IMAGE_SUCCESS} - The operation is successful.\n         {@link IMAGE_BAD_PARAMETER} - Parameter error.Possible causes:\n         1.pixelmap is nullptr.\n         2.pixelmap's inner pixelmap is nullptr.\n         3.imageInfo is nullptr.\n @since 12"]
     pub fn OH_PixelmapNative_GetImageInfo(
         pixelmap: *mut OH_PixelmapNative,
         imageInfo: *mut OH_Pixelmap_ImageInfo,
     ) -> Image_ErrorCode;
 }
 extern "C" {
-    #[doc = " @brief Sets an opacity rate for this image pixel map.\n\n @param pixelmap The Pixelmap pointer will be operated.\n @param rate Opacity rate to set. The value ranges from 0 to 1.\n @return Returns {@link Image_ErrorCode}\n @since 12"]
+    #[doc = " @brief Sets an opacity rate for this image pixel map.\n\n @param pixelmap The Pixelmap pointer will be operated.\n @param rate Opacity rate to set. The value ranges from 0 to 1.\n @return Function result code:\n         {@link IMAGE_SUCCESS} - The operation is successful.\n         {@link IMAGE_BAD_PARAMETER} - Parameter error.Possible causes:\n         1.pixelmap is nullptr.\n         2.pixelmap's inner pixelmap is nullptr.\n @since 12"]
     pub fn OH_PixelmapNative_Opacity(
         pixelmap: *mut OH_PixelmapNative,
         rate: f32,
     ) -> Image_ErrorCode;
 }
 extern "C" {
-    #[doc = " @brief Scales this image based on the input width and height.\n\n @param pixelmap The Pixelmap pointer will be operated.\n @param scaleX Scaling ratio of the width.\n @param scaleY Scaling ratio of the height.\n @return Returns {@link Image_ErrorCode}\n @since 12"]
+    #[doc = " @brief Scales this image based on the input width and height.\n\n @param pixelmap The Pixelmap pointer will be operated.\n @param scaleX Scaling ratio of the width.\n @param scaleY Scaling ratio of the height.\n @return Function result code:\n         {@link IMAGE_SUCCESS} - The operation is successful.\n         {@link IMAGE_BAD_PARAMETER} - Parameter error.Possible causes:\n         1.pixelmap is nullptr.\n         2.pixelmap's inner pixelmap is nullptr.\n @since 12"]
     pub fn OH_PixelmapNative_Scale(
         pixelmap: *mut OH_PixelmapNative,
         scaleX: f32,
@@ -838,7 +886,7 @@ extern "C" {
     ) -> Image_ErrorCode;
 }
 extern "C" {
-    #[doc = " @brief Translates this image based on the input coordinates.\n\n @param pixelmap The Pixelmap pointer will be operated.\n @param x The distance to be translate in the X direction.\n @param y The distance to be translate in the Y direction.\n @return Returns {@link Image_ErrorCode}\n @since 12"]
+    #[doc = " @brief Translates this image based on the input coordinates.\n\n @param pixelmap The Pixelmap pointer will be operated.\n @param x The distance to be translate in the X direction.\n @param y The distance to be translate in the Y direction.\n @return Function result code:\n         {@link IMAGE_SUCCESS} - The operation is successful.\n         {@link IMAGE_BAD_PARAMETER} - Parameter error.Possible causes:\n         1.pixelmap is nullptr.\n         2.pixelmap's inner pixelmap is nullptr.\n @since 12"]
     pub fn OH_PixelmapNative_Translate(
         pixelmap: *mut OH_PixelmapNative,
         x: f32,
@@ -873,29 +921,29 @@ extern "C" {
     ) -> Image_ErrorCode;
 }
 extern "C" {
-    #[doc = " @brief Rotates this image based on the input angle.\n\n @param pixelmap The Pixelmap pointer will be operated.\n @param angle Angle to rotate.\n @return Returns {@link Image_ErrorCode}\n @since 12"]
+    #[doc = " @brief Rotates this image based on the input angle.\n\n @param pixelmap The Pixelmap pointer will be operated.\n @param angle Angle to rotate.\n @return Function result code:\n         {@link IMAGE_SUCCESS} - The operation is successful.\n         {@link IMAGE_BAD_PARAMETER} - Parameter error.Possible causes:\n         1.pixelmap is nullptr.\n         2.pixelmap's inner pixelmap is nullptr.\n @since 12"]
     pub fn OH_PixelmapNative_Rotate(
         pixelmap: *mut OH_PixelmapNative,
         angle: f32,
     ) -> Image_ErrorCode;
 }
 extern "C" {
-    #[doc = " @brief Flips this image horizontally or vertically, or both.\n\n @param pixelmap The Pixelmap pointer will be operated.\n @param shouldFilpHorizontally Whether to flip the image horizontally.\n @param shouldFilpVertically Whether to flip the image vertically.\n @return Returns {@link Image_ErrorCode}\n @since 12"]
+    #[doc = " @brief Flips this image horizontally or vertically, or both.\n\n @param pixelmap The Pixelmap pointer will be operated.\n @param shouldFlipHorizontally Whether to flip the image horizontally.\n @param shouldFlipVertically Whether to flip the image vertically.\n @return Function result code:\n         {@link IMAGE_SUCCESS} - The operation is successful.\n         {@link IMAGE_BAD_PARAMETER} - Parameter error.Possible causes:\n         1.pixelmap is nullptr.\n         2.pixelmap's inner pixelmap is nullptr.\n @since 12"]
     pub fn OH_PixelmapNative_Flip(
         pixelmap: *mut OH_PixelmapNative,
-        shouldFilpHorizontally: bool,
-        shouldFilpVertically: bool,
+        shouldFlipHorizontally: bool,
+        shouldFlipVertically: bool,
     ) -> Image_ErrorCode;
 }
 extern "C" {
-    #[doc = " @brief Crops this image based on the input size.\n\n @param pixelmap The Pixelmap pointer will be operated.\n @param region Area size, read according to area.\n @return Returns {@link Image_ErrorCode}\n @since 12"]
+    #[doc = " @brief Crops this image based on the input size.\n\n @param pixelmap The Pixelmap pointer will be operated.\n @param region Area size, read according to area.\n @return Function result code:\n         {@link IMAGE_SUCCESS} - The operation is successful.\n         {@link IMAGE_BAD_PARAMETER}  - Parameter error.Possible causes:\n         1.pixelmap is nullptr.\n         2.region is nullptr.\n         3.pixelmap's inner pixelmap is nullptr.\n @since 12"]
     pub fn OH_PixelmapNative_Crop(
         pixelmap: *mut OH_PixelmapNative,
         region: *mut Image_Region,
     ) -> Image_ErrorCode;
 }
 extern "C" {
-    #[doc = " @brief Releases an <b>OH_Pixelmap</b> object.\n\n @param pixelmap The Pixelmap pointer will be operated.\n @return Returns {@link Image_ErrorCode}\n @since 12"]
+    #[doc = " @brief Releases an <b>OH_Pixelmap</b> object.\n\n @param pixelmap The Pixelmap pointer will be operated.\n @return Function result code:\n         {@link IMAGE_SUCCESS} - if the operation is successful.\n         {@link IMAGE_BAD_PARAMETER} - if either:\n         1.Pixelmap is nullptr.\n         2.It's inner pixelmap is nullptr.\n         3.Pixelmap is not allowed to release.\n @since 12"]
     pub fn OH_PixelmapNative_Release(pixelmap: *mut OH_PixelmapNative) -> Image_ErrorCode;
 }
 extern "C" {
@@ -904,7 +952,7 @@ extern "C" {
     pub fn OH_PixelmapNative_Destroy(pixelmap: *mut *mut OH_PixelmapNative) -> Image_ErrorCode;
 }
 extern "C" {
-    #[doc = " @brief Converting images to alpha format\n\n @param srcpixelmap The source pixel map pointer will be operated.\n @param dstpixelmap The destination pixel map pointer will be operated.\n @param isPremul Whether it is pre-multiplied, true for prediction, false for non-pre-multiplied.\n @return Returns {@link Image_ErrorCode}\n @since 12"]
+    #[doc = " @brief Converting images to alpha format\n\n @param srcpixelmap The source pixel map pointer will be operated.\n @param dstpixelmap The destination pixel map pointer will be operated.\n @param isPremul Whether it is pre-multiplied, true for prediction, false for non-pre-multiplied.\n @return Function result code:\n         {@link IMAGE_SUCCESS} - if the operation is successful.\n         {@link IMAGE_BAD_PARAMETER} - if either:\n         1.srcpixelmap or dstpixelmap is null pointer.\n         2.Their inner pixelmap structures are unavailable.\n @since 12"]
     pub fn OH_PixelmapNative_ConvertAlphaFormat(
         srcpixelmap: *mut OH_PixelmapNative,
         dstpixelmap: *mut OH_PixelmapNative,
@@ -912,7 +960,7 @@ extern "C" {
     ) -> Image_ErrorCode;
 }
 extern "C" {
-    #[doc = " @brief Create a empty <b>PixelMap</b> object.\n\n @param options IPixel properties, including the alpha type, size, pixel format, and editable.\n @param pixelmap Pixelmap pointer for created.\n @return Returns {@link Image_ErrorCode}\n @since 12"]
+    #[doc = " @brief Create a empty <b>PixelMap</b> object.\n\n @param options IPixel properties, including the alpha type, size, pixel format, and editable.\n @param pixelmap Pixelmap pointer for created.\n @return Function result code:\n         {@link IMAGE_SUCCESS} - if the operation is successful.\n         {@link IMAGE_BAD_PARAMETER} - if options is null or\n         failed to create pixelmap due to invalid options.\n @since 12"]
     pub fn OH_PixelmapNative_CreateEmptyPixelmap(
         options: *mut OH_Pixelmap_InitializationOptions,
         pixelmap: *mut *mut OH_PixelmapNative,
@@ -933,6 +981,16 @@ extern "C" {
     pub fn OH_PixelmapNative_CreatePixelmapFromSurface(
         surfaceId: *const ::std::os::raw::c_char,
         length: usize,
+        pixelmap: *mut *mut OH_PixelmapNative,
+    ) -> Image_ErrorCode;
+}
+extern "C" {
+    #[doc = " @brief Creates a PixelMap object based on the ID of a Surface with transformation.\n\n @param surfaceId ID of the Surface.\n @param length Length of the Surface ID.\n @param transformEnabled Whether to inverse transform the PixelMap to cancel out the transformation from the Surface.\n     If true, the PixelMap will be transformed by the same amount from the Surface but in a reversed direction;\n     if false, the PixelMap will not be transformed.\n @param pixelmap The PixelMap to be created.\n @return Function result code:\n         {@link IMAGE_SUCCESS} Operation is successful.\n         {@link IMAGE_INVALID_PARAMETER} Invalid parameter, e.g. surfaceId or pixelmap is incorrect.\n         {@link IMAGE_UNSUPPORTED_OPERATION} Unsupported operation, e.g. on cross-platform.\n         {@link IMAGE_GET_IMAGE_DATA_FAILED} Failed to get the data from Surface.\n         {@link IMAGE_CREATE_PIXELMAP_FAILED} Failed to create the PixelMap.\n @see OH_PixelmapNative\n @since 23"]
+    #[cfg(feature = "api-23")]
+    pub fn OH_PixelmapNative_CreatePixelmapFromSurfaceWithTransformation(
+        surfaceId: *const ::std::os::raw::c_char,
+        length: usize,
+        transformEnabled: bool,
         pixelmap: *mut *mut OH_PixelmapNative,
     ) -> Image_ErrorCode;
 }
@@ -1075,6 +1133,37 @@ pub const Image_AuxiliaryPictureType_AUXILIARY_PICTURE_TYPE_FRAGMENT_MAP:
 #[doc = " @brief Define a auxiliary picture type.\n\n @since 13"]
 #[cfg(feature = "api-13")]
 pub type Image_AuxiliaryPictureType = u32;
+#[repr(C)]
+#[derive(Debug, Copy, Clone)]
+pub struct OH_ComposeOptions {
+    _unused: [u8; 0],
+}
+extern "C" {
+    #[doc = " @brief Create a instance for OH_ComposeOptions struct.\n\n @param options The OH_ComposeOptions pointer will be operated.\n @return Image functions result code.\n         {@link IMAGE_SUCCESS} if the execution is successful.\n         {@link IMAGE_BAD_PARAMETER} options is nullptr.\n @since 23"]
+    #[cfg(feature = "api-23")]
+    pub fn OH_ComposeOptions_Create(options: *mut *mut OH_ComposeOptions) -> Image_ErrorCode;
+}
+extern "C" {
+    #[doc = " @brief Set desired pixel format for ComposeOptions.\n\n @param options The OH_ComposeOptions pointer will be operated.\n @param desiredPixelFormat The desired pixel format will be set, RGBA_1010102\\YCBCR_P010\\YCRCB_P010 are supported.\n @return Image functions result code.\n         {@link IMAGE_SUCCESS} if the execution is successful.\n         {@link IMAGE_BAD_PARAMETER} options is nullptr, or desiredPixelFormat is not supported.\n @since 23"]
+    #[cfg(feature = "api-23")]
+    pub fn OH_ComposeOptions_SetDesiredPixelFormat(
+        options: *mut OH_ComposeOptions,
+        desiredPixelFormat: PIXEL_FORMAT,
+    ) -> Image_ErrorCode;
+}
+extern "C" {
+    #[doc = " @brief Get desired pixel format for ComposeOptions.\n\n @param options The OH_ComposeOptions pointer will be operated.\n @param desiredPixelFormat The desired pixel format.\n @return Image functions result code.\n         {@link IMAGE_SUCCESS} if the execution is successful.\n         {@link IMAGE_BAD_PARAMETER} options is nullptr, or desiredPixelFormat is nullptr.\n @since 23"]
+    #[cfg(feature = "api-23")]
+    pub fn OH_ComposeOptions_GetDesiredPixelFormat(
+        options: *mut OH_ComposeOptions,
+        desiredPixelFormat: *mut PIXEL_FORMAT,
+    ) -> Image_ErrorCode;
+}
+extern "C" {
+    #[doc = " @brief Releases an OH_ComposeOptions object.\n\n @param options Indicates a OH_ComposeOptions pointer.\n @return Image functions result code.\n         {@link IMAGE_SUCCESS} if the execution is successful.\n         {@link IMAGE_BAD_PARAMETER} options is nullptr.\n @since 23"]
+    #[cfg(feature = "api-23")]
+    pub fn OH_ComposeOptions_Release(options: *mut OH_ComposeOptions) -> Image_ErrorCode;
+}
 extern "C" {
     #[doc = " @brief Create a <b>Picture</b> object.\n\n @param mainPixelmap The pixel map of the main image.\n @param picture Picture pointer for created.\n @return Image functions result code.\n         {@link IMAGE_SUCCESS} if the execution is successful.\n         {@link IMAGE_BAD_PARAMETER} mainPixelmap is nullptr, or picture is nullptr.\n @since 13"]
     #[cfg(feature = "api-13")]
@@ -1092,10 +1181,19 @@ extern "C" {
     ) -> Image_ErrorCode;
 }
 extern "C" {
-    #[doc = " @brief Obtains the hdr pixel map.\n\n @param picture The Picture pointer will be operated.\n @param hdrPixelmap Hdr pixel map pointer for obtained.\n @return Image functions result code.\n         {@link IMAGE_SUCCESS} if the execution is successful.\n         {@link IMAGE_BAD_PARAMETER} picture is nullptr, or hdrPixelmap is nullptr.\n         {@link IMAGE_UNSUPPORTED_OPERATION} Unsupported operation, e.g. the picture does not has a gainmap\n @since 13"]
+    #[doc = " @brief Obtains the hdr pixel map.\n\n @param picture The Picture pointer will be operated.\n @param hdrPixelmap Hdr pixel map pointer for obtained.\n @return Image functions result code.\n         {@link IMAGE_SUCCESS} if the execution is successful.\n         {@link IMAGE_BAD_PARAMETER} picture is nullptr, or hdrPixelmap is nullptr.\n         {@link IMAGE_UNSUPPORTED_OPERATION} Unsupported operation, e.g. the picture does not has a gainmap.\n @since 13"]
     #[cfg(feature = "api-13")]
     pub fn OH_PictureNative_GetHdrComposedPixelmap(
         picture: *mut OH_PictureNative,
+        hdrPixelmap: *mut *mut OH_PixelmapNative,
+    ) -> Image_ErrorCode;
+}
+extern "C" {
+    #[doc = " @brief Obtains the hdr pixel map with options.\n\n @param picture The Picture pointer will be operated.\n @param options The compose options.\n @param hdrPixelmap Hdr pixel map pointer for obtained.\n @return Image functions result code.\n         {@link IMAGE_SUCCESS} if the execution is successful.\n         {@link IMAGE_BAD_PARAMETER} picture is nullptr, or hdrPixelmap is nullptr.\n         {@link IMAGE_UNSUPPORTED_OPERATION} Unsupported operation, e.g. the picture does not has a gainmap.\n @since 23"]
+    #[cfg(feature = "api-23")]
+    pub fn OH_PictureNative_GetHdrComposedPixelmapWithOptions(
+        picture: *mut OH_PictureNative,
+        options: *mut OH_ComposeOptions,
         hdrPixelmap: *mut *mut OH_PixelmapNative,
     ) -> Image_ErrorCode;
 }
@@ -1510,7 +1608,7 @@ extern "C" {
     ) -> Image_ErrorCode;
 }
 extern "C" {
-    #[doc = " @brief delete OH_DecodingOptions pointer.\n\n @param  options The OH_DecodingOptions pointer will be operated.\n @return Returns one of the following result codes:\n         {@link IMAGE_SUCCESS} if the execution is successful.\n         {@link IMAGE_SOURCE_INVALID_PARAMETER} if options is a null pointer.\n @since 12"]
+    #[doc = " @brief delete OH_DecodingOptions pointer.\n\n @param  options The OH_DecodingOptions pointer will be operated.\n @return Returns one of the following result codes:\n         {@link IMAGE_SUCCESS} if the execution is successful.\n         {@link IMAGE_BAD_PARAMETER} if options is a null pointer.\n @since 12"]
     pub fn OH_DecodingOptions_Release(options: *mut OH_DecodingOptions) -> Image_ErrorCode;
 }
 extern "C" {
@@ -1687,6 +1785,139 @@ extern "C" {
     pub fn OH_ImageSourceNative_GetSupportedFormats(
         supportedFormats: *mut *mut Image_MimeType,
         length: *mut usize,
+    ) -> Image_ErrorCode;
+}
+extern "C" {
+    #[doc = " @brief Obtains the value of an image property as short int type.\n\n @param source ImageSource from which the property is queried.\n @param key The property to be queried.\n @param value Query result. Output Parameter.\n @return Returns One of the following result codes:\n         {@link IMAGE_SUCCESS} if the execution is successful.\n         {@link IMAGE_SOURCE_INVALID_PARAMETER} if source, key or value is nullptr.\n         {@link IMAGE_SOURCE_UNSUPPORTED_MIME_TYPE} if query image property of current mimetype is not supported.\n         {@link IMAGE_SOURCE_UNSUPPORTED_METADATA} if indicated metadata doesn't exist, or is not a short int value.\n @since 23"]
+    #[cfg(feature = "api-23")]
+    pub fn OH_ImageSourceNative_GetImagePropertyShort(
+        source: *mut OH_ImageSourceNative,
+        key: *mut Image_String,
+        value: *mut u16,
+    ) -> Image_ErrorCode;
+}
+extern "C" {
+    #[doc = " @brief Obtains the value of an image property as long int type.\n\n @param source ImageSource from which the property is queried.\n @param key The property to be queried.\n @param value Query result. Output Parameter.\n @return Returns One of the following result codes:\n         {@link IMAGE_SUCCESS} if the execution is successful.\n         {@link IMAGE_SOURCE_INVALID_PARAMETER} if source, key or value is nullptr.\n         {@link IMAGE_SOURCE_UNSUPPORTED_MIME_TYPE} if query image property of current mimetype is not supported.\n         {@link IMAGE_SOURCE_UNSUPPORTED_METADATA} if indicated metadata doesn't exist, or is not a long int value.\n @since 23"]
+    #[cfg(feature = "api-23")]
+    pub fn OH_ImageSourceNative_GetImagePropertyLong(
+        source: *mut OH_ImageSourceNative,
+        key: *mut Image_String,
+        value: *mut u32,
+    ) -> Image_ErrorCode;
+}
+extern "C" {
+    #[doc = " @brief Obtains the value of an image property as double type.\n\n @param source ImageSource from which the property is queried.\n @param key The property to be queried.\n @param value Query result. Output Parameter.\n @return Returns One of the following result codes:\n         {@link IMAGE_SUCCESS} if the execution is successful.\n         {@link IMAGE_SOURCE_INVALID_PARAMETER} if source, key or value is nullptr.\n         {@link IMAGE_SOURCE_UNSUPPORTED_MIME_TYPE} if query image property of current mimetype is not supported.\n         {@link IMAGE_SOURCE_UNSUPPORTED_METADATA} if indicated metadata doesn't exist, or is not a double value.\n @since 23"]
+    #[cfg(feature = "api-23")]
+    pub fn OH_ImageSourceNative_GetImagePropertyDouble(
+        source: *mut OH_ImageSourceNative,
+        key: *mut Image_String,
+        value: *mut f64,
+    ) -> Image_ErrorCode;
+}
+extern "C" {
+    #[doc = " @brief Gets the array length of an array type property or the string length of a string type property.\n\n @param source ImageSource from which the property is queried.\n @param key The property to be queried.\n @param size Array length for an array type property, string length for a string type property. Output Parameter.\n @return Returns One of the following result codes:\n         {@link IMAGE_SUCCESS} if the execution is successful.\n         {@link IMAGE_SOURCE_INVALID_PARAMETER} if source, key or size is nullptr.\n         {@link IMAGE_SOURCE_UNSUPPORTED_MIME_TYPE} if query image property of current mimetype is not supported.\n         {@link IMAGE_SOURCE_UNSUPPORTED_METADATA} if indicated metadata doesn't exist,\n         or is not a array\\string value.\n @since 23"]
+    #[cfg(feature = "api-23")]
+    pub fn OH_ImageSourceNative_GetImagePropertyArraySize(
+        source: *mut OH_ImageSourceNative,
+        key: *mut Image_String,
+        size: *mut usize,
+    ) -> Image_ErrorCode;
+}
+extern "C" {
+    #[doc = " @brief Obtains the value of an image property as string type.\n\n @param source ImageSource from which the property is queried.\n @param key The property to be queried.\n @param value Query result. Output Parameter. The caller needs to manage memory application and release.\n @param size String length.\n @return Returns One of the following result codes:\n         {@link IMAGE_SUCCESS} if the execution is successful.\n         {@link IMAGE_SOURCE_INVALID_PARAMETER} if source, key, value or size is nullptr.\n         {@link IMAGE_SOURCE_UNSUPPORTED_MIME_TYPE} if query image property of current mimetype is not supported.\n         {@link IMAGE_SOURCE_UNSUPPORTED_METADATA} if indicated metadata doesn't exist, or is not a string value.\n @since 23"]
+    #[cfg(feature = "api-23")]
+    pub fn OH_ImageSourceNative_GetImagePropertyString(
+        source: *mut OH_ImageSourceNative,
+        key: *mut Image_String,
+        value: *mut ::std::os::raw::c_char,
+        size: usize,
+    ) -> Image_ErrorCode;
+}
+extern "C" {
+    #[doc = " @brief Obtains the value of an image property as int array.\n\n @param source ImageSource from which the property is queried.\n @param key The property to be queried.\n @param value Query result. Output Parameter. The caller needs to manage memory application and release.\n @param size Array length.\n @return Returns One of the following result codes:\n         {@link IMAGE_SUCCESS} if the execution is successful.\n         {@link IMAGE_SOURCE_INVALID_PARAMETER} if source, key, value or size is nullptr.\n         {@link IMAGE_SOURCE_UNSUPPORTED_MIME_TYPE} if query image property of current mimetype is not supported.\n         {@link IMAGE_SOURCE_UNSUPPORTED_METADATA} if indicated metadata doesn't exist, or is not a int array.\n @since 23"]
+    #[cfg(feature = "api-23")]
+    pub fn OH_ImageSourceNative_GetImagePropertyIntArray(
+        source: *mut OH_ImageSourceNative,
+        key: *mut Image_String,
+        value: *mut i32,
+        size: usize,
+    ) -> Image_ErrorCode;
+}
+extern "C" {
+    #[doc = " @brief Obtains the value of an image property as double array.\n\n @param source ImageSource from which the property is queried.\n @param key The property to be queried.\n @param value Query result. Output Parameter. The caller needs to manage memory application and release.\n @param size Array length.\n @return Returns One of the following result codes:\n         {@link IMAGE_SUCCESS} if the execution is successful.\n         {@link IMAGE_SOURCE_INVALID_PARAMETER} if source, key, value or size is nullptr.\n         {@link IMAGE_SOURCE_UNSUPPORTED_MIME_TYPE} if query image property of current mimetype is not supported.\n         {@link IMAGE_SOURCE_UNSUPPORTED_METADATA} if indicated metadata doesn't exist, or is not a double array.\n @since 23"]
+    #[cfg(feature = "api-23")]
+    pub fn OH_ImageSourceNative_GetImagePropertyDoubleArray(
+        source: *mut OH_ImageSourceNative,
+        key: *mut Image_String,
+        value: *mut f64,
+        size: usize,
+    ) -> Image_ErrorCode;
+}
+extern "C" {
+    #[doc = " @brief Obtains the value of an image property as blob.\n\n @param source ImageSource from which the property is queried.\n @param key The property to be queried.\n @param value Query result. Output Parameter. The caller needs to manage memory application and release.\n @param size Array length.\n @return Returns One of the following result codes:\n         {@link IMAGE_SUCCESS} if the execution is successful.\n         {@link IMAGE_SOURCE_INVALID_PARAMETER} if source, key, value or size is nullptr.\n         {@link IMAGE_SOURCE_UNSUPPORTED_MIME_TYPE} if query image property of current mimetype is not supported.\n         {@link IMAGE_SOURCE_UNSUPPORTED_METADATA} if indicated metadata doesn't exist, or is not a blob.\n @since 23"]
+    #[cfg(feature = "api-23")]
+    pub fn OH_ImageSourceNative_GetImagePropertyBlob(
+        source: *mut OH_ImageSourceNative,
+        key: *mut Image_String,
+        value: *mut ::std::os::raw::c_void,
+        size: usize,
+    ) -> Image_ErrorCode;
+}
+extern "C" {
+    #[doc = " @brief Modify the value of an image property as short int.\n\n @param source ImageSource from which the property is modified.\n @param key The property to be modified.\n @param value The value set to the property.\n @return Returns One of the following result codes:\n         {@link IMAGE_SUCCESS} if the execution is successful.\n         {@link IMAGE_SOURCE_INVALID_PARAMETER} if source, key or value is nullptr.\n         {@link IMAGE_SOURCE_UNSUPPORTED_MIME_TYPE} if query image property of current mimetype is not supported.\n         {@link IMAGE_SOURCE_UNSUPPORTED_METADATA} if indicated metadata doesn't exist, or is not a short int.\n @since 23"]
+    #[cfg(feature = "api-23")]
+    pub fn OH_ImageSourceNative_ModifyImagePropertyShort(
+        source: *mut OH_ImageSourceNative,
+        key: *mut Image_String,
+        value: u16,
+    ) -> Image_ErrorCode;
+}
+extern "C" {
+    #[doc = " @brief Modify the value of an image property as long int.\n\n @param source ImageSource from which the property is modified.\n @param key The property to be modified.\n @param value The value set to the property.\n @return Returns One of the following result codes:\n         {@link IMAGE_SUCCESS} if the execution is successful.\n         {@link IMAGE_SOURCE_INVALID_PARAMETER} if source, key or value is nullptr.\n         {@link IMAGE_SOURCE_UNSUPPORTED_MIME_TYPE} if query image property of current mimetype is not supported.\n         {@link IMAGE_SOURCE_UNSUPPORTED_METADATA} if indicated metadata doesn't exist, or is not a long int.\n @since 23"]
+    #[cfg(feature = "api-23")]
+    pub fn OH_ImageSourceNative_ModifyImagePropertyLong(
+        source: *mut OH_ImageSourceNative,
+        key: *mut Image_String,
+        value: u32,
+    ) -> Image_ErrorCode;
+}
+extern "C" {
+    #[doc = " @brief Modify the value of an image property as double.\n\n @param source ImageSource from which the property is modified.\n @param key The property to be modified.\n @param value The value set to the property.\n @return Returns One of the following result codes:\n         {@link IMAGE_SUCCESS} if the execution is successful.\n         {@link IMAGE_SOURCE_INVALID_PARAMETER} if source, key or value is nullptr.\n         {@link IMAGE_SOURCE_UNSUPPORTED_MIME_TYPE} if query image property of current mimetype is not supported.\n         {@link IMAGE_SOURCE_UNSUPPORTED_METADATA} if indicated metadata doesn't exist, or is not a double.\n @since 23"]
+    #[cfg(feature = "api-23")]
+    pub fn OH_ImageSourceNative_ModifyImagePropertyDouble(
+        source: *mut OH_ImageSourceNative,
+        key: *mut Image_String,
+        value: f64,
+    ) -> Image_ErrorCode;
+}
+extern "C" {
+    #[doc = " @brief Modify the value of an image property as int array.\n\n @param source ImageSource from which the property is modified.\n @param key The property to be modified.\n @param value The value set to the property.\n @param size Array length.\n @return Returns One of the following result codes:\n         {@link IMAGE_SUCCESS} if the execution is successful.\n         {@link IMAGE_SOURCE_INVALID_PARAMETER} if source, key or value is nullptr.\n         {@link IMAGE_SOURCE_UNSUPPORTED_MIME_TYPE} if query image property of current mimetype is not supported.\n         {@link IMAGE_SOURCE_UNSUPPORTED_METADATA} if indicated metadata doesn't exist, or is not an int array.\n @since 23"]
+    #[cfg(feature = "api-23")]
+    pub fn OH_ImageSourceNative_ModifyImagePropertyIntArray(
+        source: *mut OH_ImageSourceNative,
+        key: *mut Image_String,
+        value: *mut i32,
+        size: usize,
+    ) -> Image_ErrorCode;
+}
+extern "C" {
+    #[doc = " @brief Modify the value of an image property as double array.\n\n @param source ImageSource from which the property is modified.\n @param key The property to be modified.\n @param value The value set to the property.\n @param size Array length.\n @return Returns One of the following result codes:\n         {@link IMAGE_SUCCESS} if the execution is successful.\n         {@link IMAGE_SOURCE_INVALID_PARAMETER} if source, key or value is nullptr.\n         {@link IMAGE_SOURCE_UNSUPPORTED_MIME_TYPE} if query image property of current mimetype is not supported.\n         {@link IMAGE_SOURCE_UNSUPPORTED_METADATA} if indicated metadata doesn't exist, or is not a double array.\n @since 23"]
+    #[cfg(feature = "api-23")]
+    pub fn OH_ImageSourceNative_ModifyImagePropertyDoubleArray(
+        source: *mut OH_ImageSourceNative,
+        key: *mut Image_String,
+        value: *mut f64,
+        size: usize,
+    ) -> Image_ErrorCode;
+}
+extern "C" {
+    #[doc = " @brief Modify the value of an image property as blob.\n\n @param source ImageSource from which the property is modified.\n @param key The property to be modified.\n @param value The value set to the property.\n @param size Array length.\n @return Returns One of the following result codes:\n         {@link IMAGE_SUCCESS} if the execution is successful.\n         {@link IMAGE_SOURCE_INVALID_PARAMETER} if source, key or value is nullptr.\n         {@link IMAGE_SOURCE_UNSUPPORTED_MIME_TYPE} if query image property of current mimetype is not supported.\n         {@link IMAGE_SOURCE_UNSUPPORTED_METADATA} if indicated metadata doesn't exist, or is not a blob.\n @since 23"]
+    #[cfg(feature = "api-23")]
+    pub fn OH_ImageSourceNative_ModifyImagePropertyBlob(
+        source: *mut OH_ImageSourceNative,
+        key: *mut Image_String,
+        value: *mut ::std::os::raw::c_void,
+        size: usize,
     ) -> Image_ErrorCode;
 }
 #[doc = " @brief Define a ImagePacker struct type, used for ImagePacker pointer controls.\n\n @since 12"]

@@ -25,6 +25,17 @@ pub enum UIInputAction {
     Up,
 }
 
+impl From<UIInputAction> for i32 {
+    fn from(value: UIInputAction) -> Self {
+        match value {
+            UIInputAction::Cancel => UI_TOUCH_EVENT_ACTION_CANCEL as i32,
+            UIInputAction::Down => UI_TOUCH_EVENT_ACTION_DOWN as i32,
+            UIInputAction::Move => UI_TOUCH_EVENT_ACTION_MOVE as i32,
+            UIInputAction::Up => UI_TOUCH_EVENT_ACTION_UP as i32,
+        }
+    }
+}
+
 #[derive(Debug, Clone, Copy, PartialEq, Eq, EnumFrom)]
 #[enum_from_config(UI_INPUT_EVENT_TOOL_TYPE, "UI_INPUT_EVENT_TOOL_TYPE_")]
 pub enum UIInputToolType {
@@ -88,6 +99,19 @@ pub enum UIAxisEventAction {
     Update,
     End,
     Cancel,
+}
+
+#[cfg(feature = "api-22")]
+#[derive(Debug, Clone, Copy, PartialEq, Eq, EnumFrom)]
+#[enum_from_config(
+    ArkUI_CoastingAxisEventPhase,
+    "ArkUI_CoastingAxisEventPhase_ARKUI_COASTING_AXIS_EVENT_PHASE_"
+)]
+pub enum UICoastingAxisEventPhase {
+    None,
+    Begin,
+    Update,
+    End,
 }
 
 #[derive(Debug, Clone, Copy, PartialEq, Eq, EnumFrom)]

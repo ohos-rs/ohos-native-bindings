@@ -1,3 +1,5 @@
-mod inner_event;
+//! Event wrappers used by ArkUI callbacks.
 
-pub use inner_event::*;
+pub mod inner_event;
+
+pub(crate) use inner_event::*;

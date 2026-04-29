@@ -1,17 +1,22 @@
+//! Module common::ui_context wrappers and related types.
+
 use napi_ohos::bindgen_prelude::{check_status, FromNapiValue, TypeName, ValidateNapiValue};
 use napi_sys_ohos as sys;
 use ohos_arkui_sys::{ArkUI_ContextHandle, OH_ArkUI_GetContextFromNapiValue};
 use std::ptr;
 
 #[derive(Clone, Copy)]
+/// Wrapper around `ArkUI_ContextHandle` obtained from N-API values.
 pub struct ArkUIContext {
+    /// N-API environment.
     pub(crate) env: sys::napi_env,
+    /// N-API UIContext value.
     pub(crate) value: sys::napi_value,
     raw: ArkUI_ContextHandle,
 }
 
 impl ArkUIContext {
-    pub fn raw(&self) -> ArkUI_ContextHandle {
+    pub(crate) fn raw(&self) -> ArkUI_ContextHandle {
         self.raw
     }
 }

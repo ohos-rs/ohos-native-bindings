@@ -1,7 +1,10 @@
+//! Module api::dialog wrappers and related types.
+
 use std::{
     cell::{LazyCell, RefCell},
     ffi::CString,
     os::raw::c_void,
+    ptr::NonNull,
     rc::Rc,
 };
 
@@ -22,21 +25,19 @@ use crate::{
 thread_local! {
     /// ArkUI_NativeNodeAPI_1 struct
     /// Only can be used in main thread
-    pub static ARK_UI_NATIVE_DIALOG_API_1: LazyCell<ArkUINativeDialogAPI1> =
+    pub(crate) static ARK_UI_NATIVE_DIALOG_API_1: LazyCell<ArkUINativeDialogAPI1> =
     LazyCell::new(ArkUINativeDialogAPI1::new);
 }
 
-pub struct ArkUINativeDialogAPI1(pub(crate) *mut ArkUI_NativeDialogAPI_1);
+pub(crate) struct ArkUINativeDialogAPI1(pub(crate) NonNull<ArkUI_NativeDialogAPI_1>);
 
 impl ArkUINativeDialogAPI1 {
     /// allow us to get the pointer of ArkUI_NativeDialogAPI_1 and use it directly
-    pub fn raw(&self) -> *mut ArkUI_NativeDialogAPI_1 {
-        self.0
+    pub(crate) fn raw(&self) -> *mut ArkUI_NativeDialogAPI_1 {
+        self.0.as_ptr()
     }
 
-    pub fn new() -> Self {
-        #[allow(unused_assignments)]
-        let mut api: *mut ArkUI_NativeDialogAPI_1 = std::ptr::null_mut();
+    pub(crate) fn new() -> Self {
         let struct_name = CString::new("ArkUI_NativeDialogAPI_1").unwrap();
         let raw_ptr = unsafe {
             OH_ArkUI_QueryModuleInterfaceByName(
@@ -44,15 +45,14 @@ impl ArkUINativeDialogAPI1 {
                 struct_name.as_ptr().cast(),
             )
         };
-        #[cfg(debug_assertions)]
-        assert!(!raw_ptr.is_null(), "ArkUI_NativeDialogAPI_1 is NULL");
-        api = raw_ptr.cast();
+        let api = NonNull::new(raw_ptr.cast())
+            .unwrap_or_else(|| panic!("ArkUI_NativeDialogAPI_1 is NULL"));
         Self(api)
     }
 
-    pub fn create(&self) -> ArkUIResult<ArkUI_NativeDialogHandle> {
+    pub(crate) fn create(&self) -> ArkUIResult<ArkUI_NativeDialogHandle> {
         unsafe {
-            if let Some(create_dialog_controller) = (*self.0).create {
+            if let Some(create_dialog_controller) = (*self.raw()).create {
                 let ret = create_dialog_controller();
                 Ok(ret)
             } else {
@@ -64,13 +64,13 @@ impl ArkUINativeDialogAPI1 {
         }
     }
 
-    pub fn set_content(
+    pub(crate) fn set_content(
         &self,
         dialog: ArkUI_NativeDialogHandle,
         content: ArkUI_NodeHandle,
     ) -> ArkUIResult<()> {
         unsafe {
-            if let Some(set_content) = (*self.0).setContent {
+            if let Some(set_content) = (*self.raw()).setContent {
                 check_arkui_status!(set_content(dialog, content))
             } else {
                 Err(ArkUIError::new(
@@ -81,7 +81,7 @@ impl ArkUINativeDialogAPI1 {
         }
     }
 
-    pub fn set_content_alignment(
+    pub(crate) fn set_content_alignment(
         &self,
         dialog: ArkUI_NativeDialogHandle,
         alignment: Alignment,
@@ -89,7 +89,7 @@ impl ArkUINativeDialogAPI1 {
         offset_y: f32,
     ) -> ArkUIResult<()> {
         unsafe {
-            if let Some(set_content_alignment) = (*self.0).setContentAlignment {
+            if let Some(set_content_alignment) = (*self.raw()).setContentAlignment {
                 check_arkui_status!(set_content_alignment(
                     dialog,
                     alignment.into(),
@@ -105,13 +105,13 @@ impl ArkUINativeDialogAPI1 {
         }
     }
 
-    pub fn set_background_color(
+    pub(crate) fn set_background_color(
         &self,
         dialog: ArkUI_NativeDialogHandle,
         color: u32,
     ) -> ArkUIResult<()> {
         unsafe {
-            if let Some(set_background_color) = (*self.0).setBackgroundColor {
+            if let Some(set_background_color) = (*self.raw()).setBackgroundColor {
                 check_arkui_status!(set_background_color(dialog, color))
             } else {
                 Err(ArkUIError::new(
@@ -122,7 +122,7 @@ impl ArkUINativeDialogAPI1 {
         }
     }
 
-    pub fn set_corner_radius(
+    pub(crate) fn set_corner_radius(
         &self,
         dialog: ArkUI_NativeDialogHandle,
         top_left_radius: f32,
@@ -131,7 +131,7 @@ impl ArkUINativeDialogAPI1 {
         bottom_right_radius: f32,
     ) -> ArkUIResult<()> {
         unsafe {
-            if let Some(set_corner_radius) = (*self.0).setCornerRadius {
+            if let Some(set_corner_radius) = (*self.raw()).setCornerRadius {
                 check_arkui_status!(set_corner_radius(
                     dialog,
                     top_left_radius,
@@ -148,13 +148,13 @@ impl ArkUINativeDialogAPI1 {
         }
     }
 
-    pub fn set_modal_mode(
+    pub(crate) fn set_modal_mode(
         &self,
         dialog: ArkUI_NativeDialogHandle,
         modal_mode: bool,
     ) -> ArkUIResult<()> {
         unsafe {
-            if let Some(set_modal_mode) = (*self.0).setModalMode {
+            if let Some(set_modal_mode) = (*self.raw()).setModalMode {
                 check_arkui_status!(set_modal_mode(dialog, modal_mode))
             } else {
                 Err(ArkUIError::new(
@@ -165,13 +165,13 @@ impl ArkUINativeDialogAPI1 {
         }
     }
 
-    pub fn set_auto_cancel(
+    pub(crate) fn set_auto_cancel(
         &self,
         dialog: ArkUI_NativeDialogHandle,
         auto_cancel: bool,
     ) -> ArkUIResult<()> {
         unsafe {
-            if let Some(set_auto_cancel) = (*self.0).setAutoCancel {
+            if let Some(set_auto_cancel) = (*self.raw()).setAutoCancel {
                 check_arkui_status!(set_auto_cancel(dialog, auto_cancel))
             } else {
                 Err(ArkUIError::new(
@@ -182,13 +182,13 @@ impl ArkUINativeDialogAPI1 {
         }
     }
 
-    pub fn show(
+    pub(crate) fn show(
         &self,
         dialog: ArkUI_NativeDialogHandle,
         show_in_sub_window: bool,
     ) -> ArkUIResult<()> {
         unsafe {
-            if let Some(show) = (*self.0).show {
+            if let Some(show) = (*self.raw()).show {
                 check_arkui_status!(show(dialog, show_in_sub_window))
             } else {
                 Err(ArkUIError::new(
@@ -199,9 +199,9 @@ impl ArkUINativeDialogAPI1 {
         }
     }
 
-    pub fn close(&self, dialog: ArkUI_NativeDialogHandle) -> ArkUIResult<()> {
+    pub(crate) fn close(&self, dialog: ArkUI_NativeDialogHandle) -> ArkUIResult<()> {
         unsafe {
-            if let Some(close_dialog) = (*self.0).close {
+            if let Some(close_dialog) = (*self.raw()).close {
                 check_arkui_status!(close_dialog(dialog))
             } else {
                 Err(ArkUIError::new(
@@ -212,9 +212,9 @@ impl ArkUINativeDialogAPI1 {
         }
     }
 
-    pub fn dispose(&self, dialog: ArkUI_NativeDialogHandle) -> ArkUIResult<()> {
+    pub(crate) fn dispose(&self, dialog: ArkUI_NativeDialogHandle) -> ArkUIResult<()> {
         unsafe {
-            if let Some(dispose_dialog) = (*self.0).dispose {
+            if let Some(dispose_dialog) = (*self.raw()).dispose {
                 dispose_dialog(dialog);
                 Ok(())
             } else {
@@ -232,7 +232,9 @@ impl ArkUINativeDialogAPI1 {
         data: Rc<RefCell<InnerDialogDismissData>>,
     ) -> ArkUIResult<()> {
         unsafe {
-            if let Some(register_dismiss_with_data) = (*self.0).registerOnWillDismissWithUserData {
+            if let Some(register_dismiss_with_data) =
+                (*self.raw()).registerOnWillDismissWithUserData
+            {
                 check_arkui_status!(register_dismiss_with_data(
                     dialog,
                     Box::into_raw(Box::new(data)) as *mut c_void,

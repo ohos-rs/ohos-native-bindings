@@ -6,9 +6,19 @@ use std::{cell::RefCell, rc::Rc};
 use napi_derive_ohos::napi;
 use napi_ohos::Result;
 use ohos_arkui_binding::{
-    Animation, AnimationMode, ArkUICommonAttribute, ArkUICommonFontAttribute, ArkUIContext,
-    ArkUIEvent, ArkUIGesture, ArkUIHandle, Curve, Dialog, Gesture, GestureEventAction, List,
-    ListItem, RootNode, Text, TextAlignment, TextInput,
+    animate::options::Animation,
+    common::ui_context::ArkUIContext,
+    component::{
+        attribute::{ArkUICommonAttribute, ArkUICommonFontAttribute, ArkUIEvent, ArkUIGesture},
+        built_in_component::{List, ListItem, Text, TextInput},
+    },
+    dialog::Dialog,
+    gesture::inner_gesture::Gesture,
+    types::{
+        animation_mode::AnimationMode, curve::Curve, gesture_event::GestureEventAction,
+        text_alignment::TextAlignment,
+    },
+    ArkUIHandle, RootNode,
 };
 use ohos_arkui_input_binding::ArkUIErrorCode;
 use ohos_hilog_binding::hilog_info;
@@ -117,7 +127,7 @@ impl MyApp {
         animation_test.mode(AnimationMode::Normal);
 
         let input = self.input.borrow_mut().clone();
-        animation_test.update(std::ptr::null_mut(), move |_| {
+        animation_test.update(move || {
             if let Some(input) = input.as_ref() {
                 input.width(200.0).unwrap();
                 input.height(200.0).unwrap();

@@ -1,3 +1,5 @@
+//! Module type::scroll wrappers and related types.
+
 use ohos_arkui_sys::*;
 
 use ohos_enum_macro::EnumFrom;
@@ -7,6 +9,7 @@ use ohos_enum_macro::EnumFrom;
     ArkUI_ScrollBarDisplayMode,
     "ArkUI_ScrollBarDisplayMode_ARKUI_SCROLL_BAR_DISPLAY_MODE_"
 )]
+/// Scrollbar visibility policy for scrollable components.
 pub enum ScrollBarDisplayMode {
     Off = 0,
     Auto,

@@ -1,7 +1,11 @@
 mod html;
+#[cfg(feature = "api-13")]
+mod pixel_map;
 mod plain_text;
 
 pub use html::*;
+#[cfg(feature = "api-13")]
+pub use pixel_map::*;
 pub use plain_text::*;
 
 use crate::{UdmfError, UdmfMeta};
@@ -14,4 +18,6 @@ pub trait UdsValue {
 pub enum Uds {
     PlainText(UdsPlainText),
     Html(UdsHtml),
+    #[cfg(feature = "api-13")]
+    PixelMap(UdsPixelMap),
 }
