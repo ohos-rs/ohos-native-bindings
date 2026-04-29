@@ -1,4 +1,3 @@
-#![cfg(feature = "api-19")]
 //! Module api::custom_dialog wrappers and related types.
 
 use std::{

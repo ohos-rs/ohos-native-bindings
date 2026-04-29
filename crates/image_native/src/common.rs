@@ -37,6 +37,7 @@ impl ImageString {
     }
 
     /// Creates a string from a Rust `&str`.
+    #[allow(clippy::should_implement_trait)]
     pub fn from_str(value: &str) -> ImageNativeResult<Self> {
         let owned = CString::new(value).map_err(|_| ImageNativeError {
             code: sys::Image_ErrorCode_IMAGE_BAD_PARAMETER,
@@ -74,6 +75,14 @@ impl ImageString {
 
     pub(crate) fn mark_free_on_drop(&mut self) {
         self.free_on_drop = !self.raw.data.is_null();
+    }
+}
+
+impl std::str::FromStr for ImageString {
+    type Err = ImageNativeError;
+
+    fn from_str(s: &str) -> Result<Self, Self::Err> {
+        Self::from_str(s)
     }
 }
 

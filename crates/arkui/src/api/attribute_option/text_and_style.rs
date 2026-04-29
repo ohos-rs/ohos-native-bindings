@@ -235,6 +235,9 @@ where
 }
 
 #[cfg(feature = "api-22")]
+type TextEditMenuItemClickCallback = dyn Fn(&TextMenuItem, i32, i32) -> bool;
+
+#[cfg(feature = "api-22")]
 struct TextEditMenuCreateCallbackContext {
     callback: Box<dyn Fn(&mut TextMenuItemArray)>,
 }
@@ -246,7 +249,7 @@ struct TextEditMenuPrepareCallbackContext {
 
 #[cfg(feature = "api-22")]
 struct TextEditMenuItemClickCallbackContext {
-    callback: Box<dyn Fn(&TextMenuItem, i32, i32) -> bool>,
+    callback: Box<TextEditMenuItemClickCallback>,
 }
 
 #[cfg(feature = "api-22")]

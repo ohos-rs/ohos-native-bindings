@@ -1727,8 +1727,11 @@ impl EmbeddedComponentWantRef {
 }
 
 #[cfg(feature = "api-20")]
+type EmbeddedComponentOnErrorHandler = dyn Fn(i32, Option<String>, Option<String>);
+
+#[cfg(feature = "api-20")]
 struct EmbeddedComponentOnErrorCallbackContext {
-    callback: Box<dyn Fn(i32, Option<String>, Option<String>)>,
+    callback: Box<EmbeddedComponentOnErrorHandler>,
 }
 
 #[cfg(feature = "api-20")]

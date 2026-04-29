@@ -1,5 +1,6 @@
 //! Animator abstractions and options.
 
+#[allow(clippy::module_inception)]
 mod animator;
 mod event;
 mod native;

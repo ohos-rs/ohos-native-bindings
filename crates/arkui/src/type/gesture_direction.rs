@@ -57,6 +57,6 @@ impl From<GestureDirection> for ArkUI_GestureDirectionMask {
 
 impl From<ArkUI_GestureDirection> for GestureDirection {
     fn from(value: ArkUI_GestureDirection) -> Self {
-        GestureDirection::from_bits_truncate(value as u32)
+        GestureDirection::from_bits_truncate(value)
     }
 }

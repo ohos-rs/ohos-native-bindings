@@ -486,6 +486,8 @@ pub struct PositionAndAffinity {
 impl PositionAndAffinity {
     /// Wraps a non-owned native position-and-affinity pointer.
     ///
+    /// # Safety
+    ///
     /// The caller must ensure `raw` remains valid for the returned wrapper's lifetime.
     pub unsafe fn from_raw_borrowed(raw: *mut OH_Drawing_PositionAndAffinity) -> Option<Self> {
         NonNull::new(raw).map(|raw| Self { raw })
