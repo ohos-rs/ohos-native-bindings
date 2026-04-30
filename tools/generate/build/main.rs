@@ -47,6 +47,7 @@ static CONFIG: Lazy<Vec<Lazy<SysConfig>>> = Lazy::new(|| {
         config::FILESHARE,
         config::DRAWING,
         config::ARKUI_INPUT,
+        config::JSVM,
     ]
 });
 
@@ -948,6 +949,42 @@ fn brace_delta(trimmed: &str) -> i32 {
     opens - closes
 }
 
+fn sys_crate_manifest(name: &str) -> String {
+    let description = name
+        .trim_start_matches("ohos-")
+        .trim_end_matches("-sys")
+        .replace('-', " ");
+
+    format!(
+        r#"[package]
+name        = "{name}"
+version     = "0.1.0"
+edition     = "2021"
+license     = "MIT OR Apache-2.0"
+description = "OpenHarmony's {description} sys binding for rust"
+
+[dependencies]
+
+[features]
+default = []
+api-13  = []
+api-14  = ["api-13"]
+api-15  = ["api-14"]
+api-16  = ["api-15"]
+api-17  = ["api-16"]
+api-18  = ["api-17"]
+api-19  = ["api-18"]
+api-20  = ["api-19"]
+api-21  = ["api-20"]
+api-22  = ["api-21"]
+api-23  = ["api-22"]
+
+[lints]
+workspace = true
+"#,
+    )
+}
+
 fn generate_code(config: &SysConfig) -> anyhow::Result<std::path::PathBuf> {
     let pwd = env::current_dir()?;
     let basic_folder = pwd
@@ -958,8 +995,9 @@ fn generate_code(config: &SysConfig) -> anyhow::Result<std::path::PathBuf> {
         .join("sys")
         .join(config.name);
 
+    let mut created_new_crate = false;
     if !basic_folder.is_dir() {
-        let _ = Command::new("cargo")
+        let status = Command::new("cargo")
             .current_dir(
                 basic_folder
                     .parent()
@@ -969,7 +1007,24 @@ fn generate_code(config: &SysConfig) -> anyhow::Result<std::path::PathBuf> {
             .arg(config.name)
             .arg("--lib")
             .status()?;
+
+        if !status.success() {
+            return Err(Error::msg(format!(
+                "cargo new failed for {} with status {}",
+                config.name, status
+            )));
+        }
+
+        created_new_crate = true;
     }
+
+    if created_new_crate {
+        fs::write(
+            basic_folder.join("Cargo.toml"),
+            sys_crate_manifest(config.name),
+        )?;
+    }
+
     let header_content = config
         .headers
         .iter()
