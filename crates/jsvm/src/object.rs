@@ -280,8 +280,20 @@ impl Object {
     /// # Safety
     ///
     /// The caller must ensure that this object was wrapped with `T` and that returned references
-    /// do not outlive the JS object or alias another mutable access.
-    pub unsafe fn unwrap<T>(&self, env: &Env) -> Result<&mut T> {
+    /// do not outlive the JS object.
+    pub unsafe fn unwrap<T>(&self, env: &Env) -> Result<&T> {
+        let mut raw = std::ptr::null_mut::<c_void>();
+        check_status_with_env(env, unsafe {
+            sys::OH_JSVM_Unwrap(env.as_raw(), self.value.as_raw(), &mut raw)
+        })?;
+        Ok(unsafe { &*raw.cast::<T>() })
+    }
+
+    /// # Safety
+    ///
+    /// The caller must ensure that this object was wrapped with `T`, that returned references
+    /// do not outlive the JS object, and that no other references alias this mutable access.
+    pub unsafe fn unwrap_mut<T>(&mut self, env: &Env) -> Result<&mut T> {
         let mut raw = std::ptr::null_mut::<c_void>();
         check_status_with_env(env, unsafe {
             sys::OH_JSVM_Unwrap(env.as_raw(), self.value.as_raw(), &mut raw)
