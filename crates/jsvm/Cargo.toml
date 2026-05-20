@@ -1,0 +1,29 @@
+[package]
+name        = "ohos-jsvm-binding"
+version     = "0.1.0"
+edition     = "2021"
+license     = "MIT OR Apache-2.0"
+description = "OpenHarmony's JSVM binding for rust"
+
+[dependencies]
+ohos-jsvm-sys = { workspace = true }
+serde_json    = { version = "1.0", optional = true }
+
+[features]
+default = []
+async   = []
+serde   = ["dep:serde_json"]
+api-13  = ["ohos-jsvm-sys/api-13"]
+api-14  = ["api-13", "ohos-jsvm-sys/api-14"]
+api-15  = ["api-14", "ohos-jsvm-sys/api-15"]
+api-16  = ["api-15", "ohos-jsvm-sys/api-16"]
+api-17  = ["api-16", "ohos-jsvm-sys/api-17"]
+api-18  = ["api-17", "ohos-jsvm-sys/api-18"]
+api-19  = ["api-18", "ohos-jsvm-sys/api-19"]
+api-20  = ["api-19", "ohos-jsvm-sys/api-20"]
+api-21  = ["api-20", "ohos-jsvm-sys/api-21"]
+api-22  = ["api-21", "ohos-jsvm-sys/api-22"]
+api-23  = ["api-22", "ohos-jsvm-sys/api-23"]
+
+[lints]
+workspace = true

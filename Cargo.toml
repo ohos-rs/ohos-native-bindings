@@ -30,6 +30,7 @@ ohos-fileuri-binding                = { version = "0.1.0", path = "crates/fileur
 ohos-fileshare-binding              = { version = "0.1.0", path = "crates/fileshare" }
 ohos-qos-binding                    = { version = "0.1.0", path = "crates/qos" }
 ohos-arkui-input-binding            = { version = "0.1.0", path = "crates/arkui_input" }
+ohos-jsvm-binding                   = { version = "0.1.0", path = "crates/jsvm" }
 
 ohos-bundle-sys                 = { version = "0.0.2", path = "sys/ohos-bundle-sys" }
 ohos-init-sys                   = { version = "0.0.2", path = "sys/ohos-init-sys" }
@@ -60,6 +61,7 @@ ohos-audio-sys                  = { version = "0.0.1", path = "sys/ohos-audio-sy
 ohos-fileuri-sys                = { version = "0.1.0", path = "sys/ohos-fileuri-sys" }
 ohos-fileshare-sys              = { version = "0.1.0", path = "sys/ohos-fileshare-sys" }
 ohos-arkui-input-sys            = { version = "0.1.0", path = "sys/ohos-arkui-input-sys" }
+ohos-jsvm-sys                   = { version = "0.1.0", path = "sys/ohos-jsvm-sys" }
 
 ohos_enum_macro = { version = "0.1.0", path = "crates/enum_macro" }
 
