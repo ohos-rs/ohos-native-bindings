@@ -23,6 +23,8 @@ pub fn get_pac_url() -> Result<String> {
         .iter()
         .position(|item| *item == 0)
         .unwrap_or(pac_url.len());
-    String::from_utf8(pac_url[..len].iter().map(|item| *item as u8).collect())
-        .map_err(|_| NetConnectionError::Conversion)
+    String::from_utf8(
+        unsafe { std::slice::from_raw_parts(pac_url.as_ptr().cast::<u8>(), len) }.to_vec(),
+    )
+    .map_err(|_| NetConnectionError::Conversion)
 }

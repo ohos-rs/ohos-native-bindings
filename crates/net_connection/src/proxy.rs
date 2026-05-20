@@ -34,8 +34,10 @@ impl HttpProxy {
                 .position(|value| *value == 0)
                 .unwrap_or(item.len());
             exclusion_list.push(
-                String::from_utf8(item[..len].iter().map(|value| *value as u8).collect())
-                    .map_err(|_| NetConnectionError::Conversion)?,
+                String::from_utf8(
+                    unsafe { std::slice::from_raw_parts(item.as_ptr().cast::<u8>(), len) }.to_vec(),
+                )
+                .map_err(|_| NetConnectionError::Conversion)?,
             );
         }
         let host_len = value
@@ -44,10 +46,8 @@ impl HttpProxy {
             .position(|item| *item == 0)
             .unwrap_or(value.host.len());
         let host = String::from_utf8(
-            value.host[..host_len]
-                .iter()
-                .map(|item| *item as u8)
-                .collect(),
+            unsafe { std::slice::from_raw_parts(value.host.as_ptr().cast::<u8>(), host_len) }
+                .to_vec(),
         )
         .map_err(|_| NetConnectionError::Conversion)?;
 

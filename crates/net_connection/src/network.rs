@@ -221,10 +221,8 @@ impl NetAddr {
             .position(|item| *item == 0)
             .unwrap_or(value.address.len());
         let address = String::from_utf8(
-            value.address[..address_len]
-                .iter()
-                .map(|item| *item as u8)
-                .collect(),
+            unsafe { std::slice::from_raw_parts(value.address.as_ptr().cast::<u8>(), address_len) }
+                .to_vec(),
         )
         .map_err(|_| NetConnectionError::Conversion)?;
 
@@ -254,10 +252,8 @@ impl Route {
             .position(|item| *item == 0)
             .unwrap_or(value.iface.len());
         let iface = String::from_utf8(
-            value.iface[..iface_len]
-                .iter()
-                .map(|item| *item as u8)
-                .collect(),
+            unsafe { std::slice::from_raw_parts(value.iface.as_ptr().cast::<u8>(), iface_len) }
+                .to_vec(),
         )
         .map_err(|_| NetConnectionError::Conversion)?;
 
@@ -322,10 +318,10 @@ impl ConnectionProperties {
             .position(|item| *item == 0)
             .unwrap_or(value.ifaceName.len());
         let iface_name = String::from_utf8(
-            value.ifaceName[..iface_name_len]
-                .iter()
-                .map(|item| *item as u8)
-                .collect(),
+            unsafe {
+                std::slice::from_raw_parts(value.ifaceName.as_ptr().cast::<u8>(), iface_name_len)
+            }
+            .to_vec(),
         )
         .map_err(|_| NetConnectionError::Conversion)?;
         let domain_len = value
@@ -334,10 +330,8 @@ impl ConnectionProperties {
             .position(|item| *item == 0)
             .unwrap_or(value.domain.len());
         let domain = String::from_utf8(
-            value.domain[..domain_len]
-                .iter()
-                .map(|item| *item as u8)
-                .collect(),
+            unsafe { std::slice::from_raw_parts(value.domain.as_ptr().cast::<u8>(), domain_len) }
+                .to_vec(),
         )
         .map_err(|_| NetConnectionError::Conversion)?;
         let tcp_buffer_sizes_len = value
@@ -346,10 +340,13 @@ impl ConnectionProperties {
             .position(|item| *item == 0)
             .unwrap_or(value.tcpBufferSizes.len());
         let tcp_buffer_sizes = String::from_utf8(
-            value.tcpBufferSizes[..tcp_buffer_sizes_len]
-                .iter()
-                .map(|item| *item as u8)
-                .collect(),
+            unsafe {
+                std::slice::from_raw_parts(
+                    value.tcpBufferSizes.as_ptr().cast::<u8>(),
+                    tcp_buffer_sizes_len,
+                )
+            }
+            .to_vec(),
         )
         .map_err(|_| NetConnectionError::Conversion)?;
 
