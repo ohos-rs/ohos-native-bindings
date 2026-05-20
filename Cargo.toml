@@ -29,6 +29,8 @@ ohos-vibrator-binding               = { version = "0.1.0", path = "crates/vibrat
 ohos-fileuri-binding                = { version = "0.1.0", path = "crates/fileuri" }
 ohos-fileshare-binding              = { version = "0.1.0", path = "crates/fileshare" }
 ohos-qos-binding                    = { version = "0.1.0", path = "crates/qos" }
+ohos-net-connection-binding         = { version = "0.1.0", path = "crates/net_connection" }
+ohos-net-stack-binding              = { version = "0.1.0", path = "crates/net_stack" }
 ohos-arkui-input-binding            = { version = "0.1.0", path = "crates/arkui_input" }
 ohos-jsvm-binding                   = { version = "0.1.0", path = "crates/jsvm" }
 
@@ -57,6 +59,8 @@ ohos-web-sys                    = { version = "0.0.1", path = "sys/ohos-web-sys"
 ohos-sensor-sys                 = { version = "0.1.0", path = "sys/ohos-sensor-sys" }
 ohos-vibrator-sys               = { version = "0.1.0", path = "sys/ohos-vibrator-sys" }
 ohos-qos-sys                    = { version = "0.1.0", path = "sys/ohos-qos-sys" }
+ohos-net-connection-sys         = { version = "0.1.0", path = "sys/ohos-net-connection-sys" }
+ohos-net-stack-sys              = { version = "0.1.0", path = "sys/ohos-net-stack-sys" }
 ohos-audio-sys                  = { version = "0.0.1", path = "sys/ohos-audio-sys" }
 ohos-fileuri-sys                = { version = "0.1.0", path = "sys/ohos-fileuri-sys" }
 ohos-fileshare-sys              = { version = "0.1.0", path = "sys/ohos-fileshare-sys" }

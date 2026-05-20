@@ -1,0 +1,31 @@
+[package]
+name        = "ohos-net-stack-binding"
+version     = "0.1.0"
+edition     = "2021"
+license     = "MIT OR Apache-2.0"
+description = "OpenHarmony's net stack binding for rust"
+
+[dependencies]
+ohos-net-stack-sys = { workspace = true }
+ohos_enum_macro    = { workspace = true }
+
+[features]
+default   = ["http", "interrupt", "ssl", "websocket"]
+http      = ["api-20"]
+interrupt = ["http"]
+ssl       = []
+websocket = []
+api-13    = ["ohos-net-stack-sys/api-13"]
+api-14    = ["api-13", "ohos-net-stack-sys/api-14"]
+api-15    = ["api-14", "ohos-net-stack-sys/api-15"]
+api-16    = ["api-15", "ohos-net-stack-sys/api-16"]
+api-17    = ["api-16", "ohos-net-stack-sys/api-17"]
+api-18    = ["api-17", "ohos-net-stack-sys/api-18"]
+api-19    = ["api-18", "ohos-net-stack-sys/api-19"]
+api-20    = ["api-19", "ohos-net-stack-sys/api-20"]
+api-21    = ["api-20", "ohos-net-stack-sys/api-21"]
+api-22    = ["api-21", "ohos-net-stack-sys/api-22"]
+api-23    = ["api-22", "ohos-net-stack-sys/api-23"]
+
+[lints]
+workspace = true
