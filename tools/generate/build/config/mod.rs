@@ -35,6 +35,7 @@ mod qos;
 mod raw;
 mod sensors;
 mod vsync;
+mod hms_opengtx;
 
 pub use ability::*;
 pub use ark_data::*;
@@ -59,3 +60,4 @@ pub use qos::*;
 pub use raw::*;
 pub use sensors::*;
 pub use vsync::*;
+pub use hms_opengtx::*;
