@@ -1,8 +1,4 @@
-use std::{
-    panic::{catch_unwind, AssertUnwindSafe},
-    ptr::NonNull,
-    sync::{LazyLock, Mutex},
-};
+use std::ptr::NonNull;
 
 use hms_opengtx_sys::*;
 
@@ -14,60 +10,14 @@ pub use types::*;
 
 pub use hms_opengtx_sys as sys;
 
-type DeviceInfoCallback = dyn FnMut(TempLevel) + Send + 'static;
-
-static DEVICE_INFO_CALLBACK: LazyLock<Mutex<CallbackState>> =
-    LazyLock::new(|| Mutex::new(CallbackState::Empty));
-
-enum CallbackState {
-    Empty,
-    Calling,
-    Callback(Box<DeviceInfoCallback>),
-}
-
 pub struct OpenGtxContext {
     raw: NonNull<OpenGTX_Context>,
 }
 
 impl OpenGtxContext {
     pub fn new() -> OpenGtxResult<Self> {
-        Self::create(None, false)
-    }
-
-    pub fn with_device_info_callback<F>(callback: F) -> OpenGtxResult<Self>
-    where
-        F: FnMut(TempLevel) + Send + 'static,
-    {
-        Self::set_device_info_callback(callback);
-        Self::create(Some(device_info_callback), true)
-    }
-
-    pub fn set_device_info_callback<F>(callback: F)
-    where
-        F: FnMut(TempLevel) + Send + 'static,
-    {
-        let mut guard = DEVICE_INFO_CALLBACK
-            .lock()
-            .expect("OpenGTX callback lock poisoned");
-        *guard = CallbackState::Callback(Box::new(callback));
-    }
-
-    pub fn clear_device_info_callback() {
-        let mut guard = DEVICE_INFO_CALLBACK
-            .lock()
-            .expect("OpenGTX callback lock poisoned");
-        *guard = CallbackState::Empty;
-    }
-
-    fn create(
-        callback: OpenGTX_DeviceInfoCallback,
-        clear_callback_on_failure: bool,
-    ) -> OpenGtxResult<Self> {
-        let context = unsafe { HMS_OpenGTX_CreateContext(callback) };
+        let context = unsafe { HMS_OpenGTX_CreateContext() };
         let Some(raw) = NonNull::new(context) else {
-            if clear_callback_on_failure {
-                Self::clear_device_info_callback();
-            }
             return Err(OpenGtxError::CreateContextFailed);
         };
 
@@ -131,33 +81,5 @@ impl Drop for OpenGtxContext {
 
         #[cfg(debug_assertions)]
         debug_assert_eq!(status, OpenGTX_ErrorCode_OPENGTX_SUCCESS);
-    }
-}
-
-unsafe extern "C" fn device_info_callback(temp_level: OpenGTX_TempLevel) {
-    let Some(temp_level) = TempLevel::try_from_raw(temp_level) else {
-        return;
-    };
-
-    let mut callback = {
-        let mut guard = DEVICE_INFO_CALLBACK
-            .lock()
-            .expect("OpenGTX callback lock poisoned");
-        match std::mem::replace(&mut *guard, CallbackState::Calling) {
-            CallbackState::Callback(callback) => callback,
-            state => {
-                *guard = state;
-                return;
-            }
-        }
-    };
-
-    let _ = catch_unwind(AssertUnwindSafe(|| callback(temp_level)));
-
-    let mut guard = DEVICE_INFO_CALLBACK
-        .lock()
-        .expect("OpenGTX callback lock poisoned");
-    if matches!(*guard, CallbackState::Calling) {
-        *guard = CallbackState::Callback(callback);
     }
 }

@@ -52,23 +52,6 @@ impl GameType {
 }
 
 #[derive(Debug, Clone, Copy, PartialEq, Eq, EnumFrom)]
-#[config(OpenGTX_TempLevel, "OpenGTX_TempLevel_")]
-pub enum TempLevel {
-    #[alias("OpenGTX_TempLevel_TEMP_LEVEL1")]
-    TempLevel1,
-    #[alias("OpenGTX_TempLevel_TEMP_LEVEL2")]
-    TempLevel2,
-    #[alias("OpenGTX_TempLevel_TEMP_LEVEL3")]
-    TempLevel3,
-    #[alias("OpenGTX_TempLevel_TEMP_LEVEL4")]
-    TempLevel4,
-    #[alias("OpenGTX_TempLevel_TEMP_LEVEL5")]
-    TempLevel5,
-    #[alias("OpenGTX_TempLevel_TEMP_LEVEL6")]
-    TempLevel6,
-}
-
-#[derive(Debug, Clone, Copy, PartialEq, Eq, EnumFrom)]
 #[config(OpenGTX_SceneID, "OpenGTX_SceneID_")]
 pub enum SceneId {
     Login,
