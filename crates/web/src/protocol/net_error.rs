@@ -1,11 +1,11 @@
 use ohos_web_sys::*;
 
-use ohos_enum_macro::EnumFrom;
+use ohos_enum_derive::EnumFrom;
 
 #[derive(Debug, Clone, Copy, PartialEq, Eq, EnumFrom)]
-#[enum_from_config(ArkWeb_NetError, "ArkWeb_NetError_ARKWEB_ERR_")]
+#[config(ArkWeb_NetError, "ArkWeb_NetError_ARKWEB_ERR_")]
 pub enum NetError {
-    #[enum_prefix("ArkWeb_NetError_ARKWEB_NET_")]
+    #[prefix("ArkWeb_NetError_ARKWEB_NET_")]
     Ok = 0,
     IoPending = -1,
     Failed = -2,
@@ -35,6 +35,7 @@ pub enum NetError {
     BlockedByResponse = -27,
     CleartextNotPermitted = -29,
     BlockedByCsp = -30,
+    #[suffix("H2_OR_QUIC_REQUIRED")]
     H2OrQuicRequired = -31,
     BlockedByOrb = -32,
     ConnectionClosed = -100,
@@ -104,6 +105,7 @@ pub enum NetError {
     SslClientAuthNoCommonAlgorithms = -177,
     EarlyDataRejected = -178,
     WrongVersionOnEarlyData = -179,
+    #[suffix("TLS13_DOWNGRADE_DETECTED")]
     Tls13DowngradeDetected = -180,
     SslKeyUsageIncompatible = -181,
     InvalidEchConfigList = -182,
@@ -149,6 +151,7 @@ pub enum NetError {
     EncodingConversionFailed = -333,
     UnrecognizedFtpDirectoryListingFormat = -334,
     NoSupportedProxies = -336,
+    #[suffix("HTTP2_PROTOCOL_ERROR")]
     Http2ProtocolError = -337,
     InvalidAuthCredentials = -338,
     UnsupportedAuthScheme = -339,
@@ -159,33 +162,48 @@ pub enum NetError {
     UndocumentedSecurityLibraryStatus = -344,
     ResponseBodyTooBigToDrain = -345,
     ResponseHeadersMultipleContentLength = -346,
+    #[suffix("INCOMPLETE_HTTP2_HEADERS")]
     IncompleteHttp2Headers = -347,
     PacNotInDhcp = -348,
     ResponseHeadersMultipleContentDisposition = -349,
     ResponseHeadersMultipleLocation = -350,
+    #[suffix("HTTP2_SERVER_REFUSED_STREAM")]
     Http2ServerRefusedStream = -351,
+    #[suffix("HTTP2_PING_FAILED")]
     Http2PingFailed = -352,
     ContentLengthMismatch = -354,
     IncompleteChunkedEncoding = -355,
     QuicProtocolError = -356,
     ResponseHeadersTruncated = -357,
     QuicHandshakeFailed = -358,
+    #[suffix("HTTP2_INADEQUATE_TRANSPORT_SECURITY")]
     Http2InadequateTransportSecurity = -360,
+    #[suffix("HTTP2_FLOW_CONTROL_ERROR")]
     Http2FlowControlError = -361,
+    #[suffix("HTTP2_FRAME_SIZE_ERROR")]
     Http2FrameSizeError = -362,
+    #[suffix("HTTP2_COMPRESSION_ERROR")]
     Http2CompressionError = -363,
     ProxyAuthRequestedWithNoConnection = -364,
+    #[suffix("HTTP_1_1_REQUIRED")]
     Http11Required = -365,
+    #[suffix("PROXY_HTTP_1_1_REQUIRED")]
     ProxyHttp11Required = -366,
     PacScriptTerminated = -367,
     InvalidHttpResponse = -370,
     ContentDecodingInitFailed = -371,
+    #[suffix("HTTP2_RST_STREAM_NO_ERROR_RECEIVED")]
     Http2RstStreamNoErrorReceived = -372,
+    #[suffix("HTTP2_PUSHED_STREAM_NOT_AVAILABLE")]
     Http2PushedStreamNotAvailable = -373,
+    #[suffix("HTTP2_CLAIMED_PUSHED_STREAM_RESET_BY_SERVER")]
     Http2ClaimedPushedStreamResetByServer = -374,
     TooManyRetries = -375,
+    #[suffix("HTTP2_STREAM_CLOSED")]
     Http2StreamClosed = -376,
+    #[suffix("HTTP2_CLIENT_REFUSED_STREAM")]
     Http2ClientRefusedStream = -377,
+    #[suffix("HTTP2_PUSHED_RESPONSE_DOES_NOT_MATCH")]
     Http2PushedResponseDoesNotMatch = -378,
     HttpResponseCodeFailure = -379,
     QuicUnknownCertRoot = -380,
@@ -221,14 +239,19 @@ pub enum NetError {
     FtpSyntaxError = -605,
     FtpCommandUnsupported = -606,
     FtpBadCommandSequence = -607,
+    #[suffix("PKCS12_IMPORT_BAD_PASSWORD")]
     Pkcs12ImportBadPassword = -701,
+    #[suffix("PKCS12_IMPORT_FAILED")]
     Pkcs12ImportFailed = -702,
     ImportCaCertNotCa = -703,
     ImportCertAlreadyExists = -704,
     ImportCaCertFailed = -705,
     ImportServerCertFailed = -706,
+    #[suffix("PKCS12_IMPORT_INVALID_MAC")]
     Pkcs12ImportInvalidMac = -707,
+    #[suffix("PKCS12_IMPORT_INVALID_FILE")]
     Pkcs12ImportInvalidFile = -708,
+    #[suffix("PKCS12_IMPORT_UNSUPPORTED")]
     Pkcs12ImportUnsupported = -709,
     KeyGenerationFailed = -710,
     PrivateKeyExportFailed = -712,

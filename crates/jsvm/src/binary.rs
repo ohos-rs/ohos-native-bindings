@@ -3,58 +3,47 @@ use std::marker::PhantomData;
 use std::mem;
 use std::slice;
 
+use ohos_enum_derive::EnumFrom;
 use ohos_jsvm_sys as sys;
+use ohos_jsvm_sys::*;
 
 use crate::error::{check_status_with_env, type_mismatch, JsvmError, Result};
 use crate::{Env, ToJsValue, Value};
 
-#[derive(Debug, Clone, Copy, PartialEq, Eq)]
+#[derive(Debug, Clone, Copy, PartialEq, Eq, EnumFrom)]
+#[config(JSVM_TypedarrayType, "JSVM_TypedarrayType_JSVM_")]
 pub enum TypedArrayType {
+    #[suffix("INT8_ARRAY")]
     Int8,
+    #[suffix("UINT8_ARRAY")]
     Uint8,
+    #[suffix("UINT8_CLAMPED_ARRAY")]
     Uint8Clamped,
+    #[suffix("INT16_ARRAY")]
     Int16,
+    #[suffix("UINT16_ARRAY")]
     Uint16,
+    #[suffix("INT32_ARRAY")]
     Int32,
+    #[suffix("UINT32_ARRAY")]
     Uint32,
+    #[suffix("FLOAT32_ARRAY")]
     Float32,
+    #[suffix("FLOAT64_ARRAY")]
     Float64,
+    #[suffix("BIGINT64_ARRAY")]
     BigInt64,
+    #[suffix("BIGUINT64_ARRAY")]
     BigUint64,
 }
 
 impl TypedArrayType {
     pub fn from_raw(raw: sys::JSVM_TypedarrayType) -> Option<Self> {
-        match raw {
-            sys::JSVM_TypedarrayType_JSVM_INT8_ARRAY => Some(Self::Int8),
-            sys::JSVM_TypedarrayType_JSVM_UINT8_ARRAY => Some(Self::Uint8),
-            sys::JSVM_TypedarrayType_JSVM_UINT8_CLAMPED_ARRAY => Some(Self::Uint8Clamped),
-            sys::JSVM_TypedarrayType_JSVM_INT16_ARRAY => Some(Self::Int16),
-            sys::JSVM_TypedarrayType_JSVM_UINT16_ARRAY => Some(Self::Uint16),
-            sys::JSVM_TypedarrayType_JSVM_INT32_ARRAY => Some(Self::Int32),
-            sys::JSVM_TypedarrayType_JSVM_UINT32_ARRAY => Some(Self::Uint32),
-            sys::JSVM_TypedarrayType_JSVM_FLOAT32_ARRAY => Some(Self::Float32),
-            sys::JSVM_TypedarrayType_JSVM_FLOAT64_ARRAY => Some(Self::Float64),
-            sys::JSVM_TypedarrayType_JSVM_BIGINT64_ARRAY => Some(Self::BigInt64),
-            sys::JSVM_TypedarrayType_JSVM_BIGUINT64_ARRAY => Some(Self::BigUint64),
-            _ => None,
-        }
+        Self::try_from_raw(raw)
     }
 
     pub fn as_raw(self) -> sys::JSVM_TypedarrayType {
-        match self {
-            Self::Int8 => sys::JSVM_TypedarrayType_JSVM_INT8_ARRAY,
-            Self::Uint8 => sys::JSVM_TypedarrayType_JSVM_UINT8_ARRAY,
-            Self::Uint8Clamped => sys::JSVM_TypedarrayType_JSVM_UINT8_CLAMPED_ARRAY,
-            Self::Int16 => sys::JSVM_TypedarrayType_JSVM_INT16_ARRAY,
-            Self::Uint16 => sys::JSVM_TypedarrayType_JSVM_UINT16_ARRAY,
-            Self::Int32 => sys::JSVM_TypedarrayType_JSVM_INT32_ARRAY,
-            Self::Uint32 => sys::JSVM_TypedarrayType_JSVM_UINT32_ARRAY,
-            Self::Float32 => sys::JSVM_TypedarrayType_JSVM_FLOAT32_ARRAY,
-            Self::Float64 => sys::JSVM_TypedarrayType_JSVM_FLOAT64_ARRAY,
-            Self::BigInt64 => sys::JSVM_TypedarrayType_JSVM_BIGINT64_ARRAY,
-            Self::BigUint64 => sys::JSVM_TypedarrayType_JSVM_BIGUINT64_ARRAY,
-        }
+        self.into()
     }
 
     pub fn element_size(self) -> usize {

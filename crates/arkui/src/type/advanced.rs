@@ -2,10 +2,10 @@
 
 use ohos_arkui_sys::*;
 
-use ohos_enum_macro::EnumFrom;
+use ohos_enum_derive::EnumFrom;
 
 #[derive(Debug, Clone, Copy, PartialEq, Eq, EnumFrom)]
-#[enum_from_config(
+#[config(
     ArkUI_ListItemSwipeActionDirection,
     "ArkUI_ListItemSwipeActionDirection_ARKUI_LIST_ITEM_SWIPE_ACTION_DIRECTION_"
 )]
@@ -17,7 +17,7 @@ pub enum ListItemSwipeActionDirection {
 }
 
 #[derive(Debug, Clone, Copy, PartialEq, Eq, EnumFrom)]
-#[enum_from_config(
+#[config(
     ArkUI_GestureRecognizerState,
     "ArkUI_GestureRecognizerState_ARKUI_GESTURE_RECOGNIZER_STATE_"
 )]
@@ -32,7 +32,7 @@ pub enum GestureRecognizerState {
 }
 
 #[derive(Debug, Clone, Copy, PartialEq, Eq, EnumFrom)]
-#[enum_from_config(ArkUI_TextSpanType, "ArkUI_TextSpanType_ARKUI_TEXT_SPAN_TYPE_")]
+#[config(ArkUI_TextSpanType, "ArkUI_TextSpanType_ARKUI_TEXT_SPAN_TYPE_")]
 #[cfg(feature = "api-22")]
 /// Span type contained in rich text.
 pub enum TextSpanType {
@@ -43,7 +43,7 @@ pub enum TextSpanType {
 }
 
 #[derive(Debug, Clone, Copy, PartialEq, Eq, EnumFrom)]
-#[enum_from_config(
+#[config(
     ArkUI_TextResponseType,
     "ArkUI_TextResponseType_ARKUI_TEXT_RESPONSE_TYPE_"
 )]
@@ -57,7 +57,7 @@ pub enum TextResponseType {
 }
 
 #[derive(Debug, Clone, Copy, PartialEq, Eq, EnumFrom)]
-#[enum_from_config(
+#[config(
     ArkUI_NavDestinationState,
     "ArkUI_NavDestinationState_ARKUI_NAV_DESTINATION_STATE_"
 )]
@@ -75,7 +75,7 @@ pub enum NavDestinationState {
 }
 
 #[derive(Debug, Clone, Copy, PartialEq, Eq, EnumFrom)]
-#[enum_from_config(
+#[config(
     ArkUI_RouterPageState,
     "ArkUI_RouterPageState_ARKUI_ROUTER_PAGE_STATE_"
 )]
@@ -89,7 +89,7 @@ pub enum RouterPageState {
 }
 
 #[derive(Debug, Clone, Copy, PartialEq, Eq, EnumFrom)]
-#[enum_from_config(
+#[config(
     ArkUI_HorizontalAlignment,
     "ArkUI_HorizontalAlignment_ARKUI_HORIZONTAL_ALIGNMENT_"
 )]
@@ -101,7 +101,7 @@ pub enum HorizontalAlignment {
 }
 
 #[derive(Debug, Clone, Copy, PartialEq, Eq, EnumFrom)]
-#[enum_from_config(
+#[config(
     ArkUI_VerticalAlignment,
     "ArkUI_VerticalAlignment_ARKUI_VERTICAL_ALIGNMENT_"
 )]
@@ -113,7 +113,7 @@ pub enum VerticalAlignment {
 }
 
 #[derive(Debug, Clone, Copy, PartialEq, Eq, EnumFrom)]
-#[enum_from_config(ArkUI_Axis, "ArkUI_Axis_ARKUI_AXIS_")]
+#[config(ArkUI_Axis, "ArkUI_Axis_ARKUI_AXIS_")]
 /// Direction axis used by scrolling and layout APIs.
 pub enum Axis {
     Vertical,
@@ -121,7 +121,7 @@ pub enum Axis {
 }
 
 #[derive(Debug, Clone, Copy, PartialEq, Eq, EnumFrom)]
-#[enum_from_config(
+#[config(
     ArkUI_BarrierDirection,
     "ArkUI_BarrierDirection_ARKUI_BARRIER_DIRECTION_"
 )]
@@ -134,7 +134,7 @@ pub enum BarrierDirection {
 }
 
 #[derive(Debug, Clone, Copy, PartialEq, Eq, EnumFrom)]
-#[enum_from_config(
+#[config(
     ArkUI_SwiperIndicatorType,
     "ArkUI_SwiperIndicatorType_ARKUI_SWIPER_INDICATOR_TYPE_"
 )]
@@ -144,17 +144,27 @@ pub enum SwiperIndicatorType {
     Digit,
 }
 
-#[derive(Debug, Clone, Copy, PartialEq, Eq)]
+#[derive(Debug, Clone, Copy, PartialEq, Eq, EnumFrom)]
+#[config(ArkUI_FontWeight, "ArkUI_FontWeight_ARKUI_FONT_WEIGHT_")]
 /// Font-weight values mapped to ArkUI constants.
 pub enum FontWeight {
+    #[suffix("W100")]
     W100,
+    #[suffix("W200")]
     W200,
+    #[suffix("W300")]
     W300,
+    #[suffix("W400")]
     W400,
+    #[suffix("W500")]
     W500,
+    #[suffix("W600")]
     W600,
+    #[suffix("W700")]
     W700,
+    #[suffix("W800")]
     W800,
+    #[suffix("W900")]
     W900,
     Bold,
     Normal,
@@ -164,68 +174,8 @@ pub enum FontWeight {
     Regular,
 }
 
-impl From<ArkUI_FontWeight> for FontWeight {
-    fn from(value: ArkUI_FontWeight) -> Self {
-        if value == ArkUI_FontWeight_ARKUI_FONT_WEIGHT_W100 {
-            Self::W100
-        } else if value == ArkUI_FontWeight_ARKUI_FONT_WEIGHT_W200 {
-            Self::W200
-        } else if value == ArkUI_FontWeight_ARKUI_FONT_WEIGHT_W300 {
-            Self::W300
-        } else if value == ArkUI_FontWeight_ARKUI_FONT_WEIGHT_W400 {
-            Self::W400
-        } else if value == ArkUI_FontWeight_ARKUI_FONT_WEIGHT_W500 {
-            Self::W500
-        } else if value == ArkUI_FontWeight_ARKUI_FONT_WEIGHT_W600 {
-            Self::W600
-        } else if value == ArkUI_FontWeight_ARKUI_FONT_WEIGHT_W700 {
-            Self::W700
-        } else if value == ArkUI_FontWeight_ARKUI_FONT_WEIGHT_W800 {
-            Self::W800
-        } else if value == ArkUI_FontWeight_ARKUI_FONT_WEIGHT_W900 {
-            Self::W900
-        } else if value == ArkUI_FontWeight_ARKUI_FONT_WEIGHT_BOLD {
-            Self::Bold
-        } else if value == ArkUI_FontWeight_ARKUI_FONT_WEIGHT_NORMAL {
-            Self::Normal
-        } else if value == ArkUI_FontWeight_ARKUI_FONT_WEIGHT_BOLDER {
-            Self::Bolder
-        } else if value == ArkUI_FontWeight_ARKUI_FONT_WEIGHT_LIGHTER {
-            Self::Lighter
-        } else if value == ArkUI_FontWeight_ARKUI_FONT_WEIGHT_MEDIUM {
-            Self::Medium
-        } else if value == ArkUI_FontWeight_ARKUI_FONT_WEIGHT_REGULAR {
-            Self::Regular
-        } else {
-            Self::Normal
-        }
-    }
-}
-
-impl From<FontWeight> for ArkUI_FontWeight {
-    fn from(value: FontWeight) -> Self {
-        match value {
-            FontWeight::W100 => ArkUI_FontWeight_ARKUI_FONT_WEIGHT_W100,
-            FontWeight::W200 => ArkUI_FontWeight_ARKUI_FONT_WEIGHT_W200,
-            FontWeight::W300 => ArkUI_FontWeight_ARKUI_FONT_WEIGHT_W300,
-            FontWeight::W400 => ArkUI_FontWeight_ARKUI_FONT_WEIGHT_W400,
-            FontWeight::W500 => ArkUI_FontWeight_ARKUI_FONT_WEIGHT_W500,
-            FontWeight::W600 => ArkUI_FontWeight_ARKUI_FONT_WEIGHT_W600,
-            FontWeight::W700 => ArkUI_FontWeight_ARKUI_FONT_WEIGHT_W700,
-            FontWeight::W800 => ArkUI_FontWeight_ARKUI_FONT_WEIGHT_W800,
-            FontWeight::W900 => ArkUI_FontWeight_ARKUI_FONT_WEIGHT_W900,
-            FontWeight::Bold => ArkUI_FontWeight_ARKUI_FONT_WEIGHT_BOLD,
-            FontWeight::Normal => ArkUI_FontWeight_ARKUI_FONT_WEIGHT_NORMAL,
-            FontWeight::Bolder => ArkUI_FontWeight_ARKUI_FONT_WEIGHT_BOLDER,
-            FontWeight::Lighter => ArkUI_FontWeight_ARKUI_FONT_WEIGHT_LIGHTER,
-            FontWeight::Medium => ArkUI_FontWeight_ARKUI_FONT_WEIGHT_MEDIUM,
-            FontWeight::Regular => ArkUI_FontWeight_ARKUI_FONT_WEIGHT_REGULAR,
-        }
-    }
-}
-
 #[derive(Debug, Clone, Copy, PartialEq, Eq, EnumFrom)]
-#[enum_from_config(
+#[config(
     ArkUI_ListItemSwipeEdgeEffect,
     "ArkUI_ListItemSwipeEdgeEffect_ARKUI_LIST_ITEM_SWIPE_EDGE_EFFECT_"
 )]
@@ -236,7 +186,7 @@ pub enum ListItemSwipeEdgeEffect {
 }
 
 #[derive(Debug, Clone, Copy, PartialEq, Eq, EnumFrom)]
-#[enum_from_config(
+#[config(
     ArkUI_ListItemSwipeActionState,
     "ArkUI_ListItemSwipeActionState_ARKUI_LIST_ITEM_SWIPE_ACTION_STATE_"
 )]
@@ -248,7 +198,7 @@ pub enum ListItemSwipeActionState {
 }
 
 #[derive(Debug, Clone, Copy, PartialEq, Eq, EnumFrom)]
-#[enum_from_config(
+#[config(
     ArkUI_NodeAdapterEventType,
     "ArkUI_NodeAdapterEventType_NODE_ADAPTER_EVENT_"
 )]
@@ -262,7 +212,7 @@ pub enum NodeAdapterEventType {
 }
 
 #[derive(Debug, Clone, Copy, PartialEq, Eq, EnumFrom)]
-#[enum_from_config(
+#[config(
     ArkUI_PixelRoundCalcPolicy,
     "ArkUI_PixelRoundCalcPolicy_ARKUI_PIXELROUNDCALCPOLICY_"
 )]
@@ -275,7 +225,7 @@ pub enum PixelRoundCalcPolicy {
 }
 
 #[derive(Debug, Clone, Copy, PartialEq, Eq, EnumFrom)]
-#[enum_from_config(ArkUI_DialogState, "ArkUI_DialogState_DIALOG_")]
+#[config(ArkUI_DialogState, "ArkUI_DialogState_DIALOG_")]
 #[cfg(feature = "api-19")]
 /// Runtime state of native/custom dialogs.
 pub enum DialogState {
@@ -288,7 +238,7 @@ pub enum DialogState {
 }
 
 #[derive(Debug, Clone, Copy, PartialEq, Eq, EnumFrom)]
-#[enum_from_config(
+#[config(
     ArkUI_NodeContentEventType,
     "ArkUI_NodeContentEventType_NODE_CONTENT_EVENT_"
 )]
@@ -299,7 +249,7 @@ pub enum NodeContentEventType {
 }
 
 #[derive(Debug, Clone, Copy, PartialEq, Eq, EnumFrom)]
-#[enum_from_config(
+#[config(
     ArkUI_AnimationFillMode,
     "ArkUI_AnimationFillMode_ARKUI_ANIMATION_FILL_MODE_"
 )]
@@ -312,7 +262,7 @@ pub enum AnimationFillMode {
 }
 
 #[derive(Debug, Clone, Copy, PartialEq, Eq, EnumFrom)]
-#[enum_from_config(
+#[config(
     ArkUI_AnimationDirection,
     "ArkUI_AnimationDirection_ARKUI_ANIMATION_DIRECTION_"
 )]
@@ -325,7 +275,7 @@ pub enum AnimationDirection {
 }
 
 #[derive(Debug, Clone, Copy, PartialEq, Eq, EnumFrom)]
-#[enum_from_config(ArkUI_NodeDirtyFlag, "ArkUI_NodeDirtyFlag_NODE_")]
+#[config(ArkUI_NodeDirtyFlag, "ArkUI_NodeDirtyFlag_NODE_")]
 /// Dirty flags describing what changed in a node.
 pub enum NodeDirtyFlag {
     NeedMeasure,
@@ -334,7 +284,7 @@ pub enum NodeDirtyFlag {
 }
 
 #[derive(Debug, Clone, Copy, PartialEq, Eq, EnumFrom)]
-#[enum_from_config(
+#[config(
     ArkUI_CoastingAxisEventPhase,
     "ArkUI_CoastingAxisEventPhase_ARKUI_COASTING_AXIS_EVENT_PHASE_"
 )]
@@ -348,7 +298,7 @@ pub enum CoastingAxisEventPhase {
 }
 
 #[derive(Debug, Clone, Copy, PartialEq, Eq, EnumFrom)]
-#[enum_from_config(ArkUI_KeyEventType, "ArkUI_KeyEventType_ARKUI_KEY_EVENT_")]
+#[config(ArkUI_KeyEventType, "ArkUI_KeyEventType_ARKUI_KEY_EVENT_")]
 #[cfg(feature = "api-14")]
 /// Key event action type.
 pub enum KeyEventType {
@@ -360,7 +310,7 @@ pub enum KeyEventType {
 }
 
 #[derive(Debug, Clone, Copy, PartialEq, Eq, EnumFrom)]
-#[enum_from_config(ArkUI_KeySourceType, "ArkUI_KeySourceType_ARKUI_KEY_SOURCE_")]
+#[config(ArkUI_KeySourceType, "ArkUI_KeySourceType_ARKUI_KEY_SOURCE_")]
 #[cfg(feature = "api-14")]
 /// Input source that generated a key event.
 pub enum KeySourceType {
@@ -370,7 +320,8 @@ pub enum KeySourceType {
     TypeJoystick,
 }
 
-#[derive(Debug, Clone, Copy, PartialEq, Eq)]
+#[derive(Debug, Clone, Copy, PartialEq, Eq, EnumFrom)]
+#[config(ArkUI_KeyIntension, "ArkUI_KeyIntension_ARKUI_KEY_INTENSION_")]
 #[cfg(feature = "api-14")]
 /// Key intention semantic mapped by ArkUI.
 pub enum KeyIntension {
@@ -389,114 +340,30 @@ pub enum KeyIntension {
     PageDown,
     ZoomOut,
     ZoomIn,
+    #[prefix("ArkUI_KeyIntension_ARKUI_KEY_INTENTION_")]
     MediaPlayPause,
+    #[prefix("ArkUI_KeyIntension_ARKUI_KEY_INTENTION_")]
     MediaFastForward,
+    #[prefix("ArkUI_KeyIntension_ARKUI_KEY_INTENTION_")]
     MediaFastPlayback,
+    #[prefix("ArkUI_KeyIntension_ARKUI_KEY_INTENTION_")]
     MediaNext,
+    #[prefix("ArkUI_KeyIntension_ARKUI_KEY_INTENTION_")]
     MediaPrevious,
+    #[prefix("ArkUI_KeyIntension_ARKUI_KEY_INTENTION_")]
     MediaMute,
+    #[prefix("ArkUI_KeyIntension_ARKUI_KEY_INTENTION_")]
     VolumeUp,
+    #[prefix("ArkUI_KeyIntension_ARKUI_KEY_INTENTION_")]
     VolumeDown,
+    #[prefix("ArkUI_KeyIntension_ARKUI_KEY_INTENTION_")]
     Call,
+    #[prefix("ArkUI_KeyIntension_ARKUI_KEY_INTENTION_")]
     Camera,
 }
 
-#[cfg(feature = "api-14")]
-impl From<ArkUI_KeyIntension> for KeyIntension {
-    fn from(value: ArkUI_KeyIntension) -> Self {
-        if value == ArkUI_KeyIntension_ARKUI_KEY_INTENSION_UP {
-            Self::Up
-        } else if value == ArkUI_KeyIntension_ARKUI_KEY_INTENSION_DOWN {
-            Self::Down
-        } else if value == ArkUI_KeyIntension_ARKUI_KEY_INTENSION_LEFT {
-            Self::Left
-        } else if value == ArkUI_KeyIntension_ARKUI_KEY_INTENSION_RIGHT {
-            Self::Right
-        } else if value == ArkUI_KeyIntension_ARKUI_KEY_INTENSION_SELECT {
-            Self::Select
-        } else if value == ArkUI_KeyIntension_ARKUI_KEY_INTENSION_ESCAPE {
-            Self::Escape
-        } else if value == ArkUI_KeyIntension_ARKUI_KEY_INTENSION_BACK {
-            Self::Back
-        } else if value == ArkUI_KeyIntension_ARKUI_KEY_INTENSION_FORWARD {
-            Self::Forward
-        } else if value == ArkUI_KeyIntension_ARKUI_KEY_INTENSION_MENU {
-            Self::Menu
-        } else if value == ArkUI_KeyIntension_ARKUI_KEY_INTENSION_HOME {
-            Self::Home
-        } else if value == ArkUI_KeyIntension_ARKUI_KEY_INTENSION_PAGE_UP {
-            Self::PageUp
-        } else if value == ArkUI_KeyIntension_ARKUI_KEY_INTENSION_PAGE_DOWN {
-            Self::PageDown
-        } else if value == ArkUI_KeyIntension_ARKUI_KEY_INTENSION_ZOOM_OUT {
-            Self::ZoomOut
-        } else if value == ArkUI_KeyIntension_ARKUI_KEY_INTENSION_ZOOM_IN {
-            Self::ZoomIn
-        } else if value == ArkUI_KeyIntension_ARKUI_KEY_INTENTION_MEDIA_PLAY_PAUSE {
-            Self::MediaPlayPause
-        } else if value == ArkUI_KeyIntension_ARKUI_KEY_INTENTION_MEDIA_FAST_FORWARD {
-            Self::MediaFastForward
-        } else if value == ArkUI_KeyIntension_ARKUI_KEY_INTENTION_MEDIA_FAST_PLAYBACK {
-            Self::MediaFastPlayback
-        } else if value == ArkUI_KeyIntension_ARKUI_KEY_INTENTION_MEDIA_NEXT {
-            Self::MediaNext
-        } else if value == ArkUI_KeyIntension_ARKUI_KEY_INTENTION_MEDIA_PREVIOUS {
-            Self::MediaPrevious
-        } else if value == ArkUI_KeyIntension_ARKUI_KEY_INTENTION_MEDIA_MUTE {
-            Self::MediaMute
-        } else if value == ArkUI_KeyIntension_ARKUI_KEY_INTENTION_VOLUME_UP {
-            Self::VolumeUp
-        } else if value == ArkUI_KeyIntension_ARKUI_KEY_INTENTION_VOLUME_DOWN {
-            Self::VolumeDown
-        } else if value == ArkUI_KeyIntension_ARKUI_KEY_INTENTION_CALL {
-            Self::Call
-        } else if value == ArkUI_KeyIntension_ARKUI_KEY_INTENTION_CAMERA {
-            Self::Camera
-        } else {
-            Self::Unknown
-        }
-    }
-}
-
-#[cfg(feature = "api-14")]
-impl From<KeyIntension> for ArkUI_KeyIntension {
-    fn from(value: KeyIntension) -> Self {
-        match value {
-            KeyIntension::Unknown => ArkUI_KeyIntension_ARKUI_KEY_INTENSION_UNKNOWN,
-            KeyIntension::Up => ArkUI_KeyIntension_ARKUI_KEY_INTENSION_UP,
-            KeyIntension::Down => ArkUI_KeyIntension_ARKUI_KEY_INTENSION_DOWN,
-            KeyIntension::Left => ArkUI_KeyIntension_ARKUI_KEY_INTENSION_LEFT,
-            KeyIntension::Right => ArkUI_KeyIntension_ARKUI_KEY_INTENSION_RIGHT,
-            KeyIntension::Select => ArkUI_KeyIntension_ARKUI_KEY_INTENSION_SELECT,
-            KeyIntension::Escape => ArkUI_KeyIntension_ARKUI_KEY_INTENSION_ESCAPE,
-            KeyIntension::Back => ArkUI_KeyIntension_ARKUI_KEY_INTENSION_BACK,
-            KeyIntension::Forward => ArkUI_KeyIntension_ARKUI_KEY_INTENSION_FORWARD,
-            KeyIntension::Menu => ArkUI_KeyIntension_ARKUI_KEY_INTENSION_MENU,
-            KeyIntension::Home => ArkUI_KeyIntension_ARKUI_KEY_INTENSION_HOME,
-            KeyIntension::PageUp => ArkUI_KeyIntension_ARKUI_KEY_INTENSION_PAGE_UP,
-            KeyIntension::PageDown => ArkUI_KeyIntension_ARKUI_KEY_INTENSION_PAGE_DOWN,
-            KeyIntension::ZoomOut => ArkUI_KeyIntension_ARKUI_KEY_INTENSION_ZOOM_OUT,
-            KeyIntension::ZoomIn => ArkUI_KeyIntension_ARKUI_KEY_INTENSION_ZOOM_IN,
-            KeyIntension::MediaPlayPause => ArkUI_KeyIntension_ARKUI_KEY_INTENTION_MEDIA_PLAY_PAUSE,
-            KeyIntension::MediaFastForward => {
-                ArkUI_KeyIntension_ARKUI_KEY_INTENTION_MEDIA_FAST_FORWARD
-            }
-            KeyIntension::MediaFastPlayback => {
-                ArkUI_KeyIntension_ARKUI_KEY_INTENTION_MEDIA_FAST_PLAYBACK
-            }
-            KeyIntension::MediaNext => ArkUI_KeyIntension_ARKUI_KEY_INTENTION_MEDIA_NEXT,
-            KeyIntension::MediaPrevious => ArkUI_KeyIntension_ARKUI_KEY_INTENTION_MEDIA_PREVIOUS,
-            KeyIntension::MediaMute => ArkUI_KeyIntension_ARKUI_KEY_INTENTION_MEDIA_MUTE,
-            KeyIntension::VolumeUp => ArkUI_KeyIntension_ARKUI_KEY_INTENTION_VOLUME_UP,
-            KeyIntension::VolumeDown => ArkUI_KeyIntension_ARKUI_KEY_INTENTION_VOLUME_DOWN,
-            KeyIntension::Call => ArkUI_KeyIntension_ARKUI_KEY_INTENTION_CALL,
-            KeyIntension::Camera => ArkUI_KeyIntension_ARKUI_KEY_INTENTION_CAMERA,
-        }
-    }
-}
-
 #[derive(Debug, Clone, Copy, PartialEq, Eq, EnumFrom)]
-#[enum_from_config(ArkUI_TransitionEdge, "ArkUI_TransitionEdge_ARKUI_TRANSITION_EDGE_")]
+#[config(ArkUI_TransitionEdge, "ArkUI_TransitionEdge_ARKUI_TRANSITION_EDGE_")]
 /// Edge used by movement transition effects.
 pub enum TransitionEdge {
     Top,
@@ -506,7 +373,7 @@ pub enum TransitionEdge {
 }
 
 #[derive(Debug, Clone, Copy, PartialEq, Eq, EnumFrom)]
-#[enum_from_config(
+#[config(
     ArkUI_NodeCustomEventType,
     "ArkUI_NodeCustomEventType_ARKUI_NODE_CUSTOM_EVENT_"
 )]
@@ -524,7 +391,7 @@ pub enum NodeCustomEventType {
 }
 
 #[derive(Debug, Clone, Copy, PartialEq, Eq, EnumFrom)]
-#[enum_from_config(
+#[config(
     ArkUI_LengthMetricUnit,
     "ArkUI_LengthMetricUnit_ARKUI_LENGTH_METRIC_UNIT_"
 )]
@@ -537,7 +404,7 @@ pub enum LengthMetricUnit {
 }
 
 #[derive(Debug, Clone, Copy, PartialEq, Eq, EnumFrom)]
-#[enum_from_config(ArkUI_DragStatus, "ArkUI_DragStatus_ARKUI_DRAG_STATUS_")]
+#[config(ArkUI_DragStatus, "ArkUI_DragStatus_ARKUI_DRAG_STATUS_")]
 /// Real-time drag status in drag lifecycle events.
 pub enum DragStatus {
     Unknown,
@@ -546,7 +413,7 @@ pub enum DragStatus {
 }
 
 #[derive(Debug, Clone, Copy, PartialEq, Eq, EnumFrom)]
-#[enum_from_config(
+#[config(
     ArkUI_DragPreviewScaleMode,
     "ArkUI_DragPreviewScaleMode_ARKUI_DRAG_PREVIEW_SCALE_"
 )]
@@ -557,7 +424,7 @@ pub enum DragPreviewScaleMode {
 }
 
 #[derive(Debug, Clone, Copy, PartialEq, Eq, EnumFrom)]
-#[enum_from_config(ArkUI_LevelMode, "ArkUI_LevelMode_ARKUI_LEVEL_MODE_")]
+#[config(ArkUI_LevelMode, "ArkUI_LevelMode_ARKUI_LEVEL_MODE_")]
 #[cfg(feature = "api-19")]
 /// Level mode used by ArkUI rendering/effect APIs.
 pub enum LevelMode {
@@ -566,7 +433,7 @@ pub enum LevelMode {
 }
 
 #[derive(Debug, Clone, Copy, PartialEq, Eq, EnumFrom)]
-#[enum_from_config(ArkUI_ImmersiveMode, "ArkUI_ImmersiveMode_ARKUI_IMMERSIVE_MODE_")]
+#[config(ArkUI_ImmersiveMode, "ArkUI_ImmersiveMode_ARKUI_IMMERSIVE_MODE_")]
 #[cfg(feature = "api-19")]
 /// Immersive mode behavior for system UI overlays.
 pub enum ImmersiveMode {
@@ -575,7 +442,7 @@ pub enum ImmersiveMode {
 }
 
 #[derive(Debug, Clone, Copy, PartialEq, Eq, EnumFrom)]
-#[enum_from_config(ArkUI_ShadowStyle, "ArkUI_ShadowStyle_ARKUI_SHADOW_STYLE_")]
+#[config(ArkUI_ShadowStyle, "ArkUI_ShadowStyle_ARKUI_SHADOW_STYLE_")]
 #[cfg(feature = "api-19")]
 /// Predefined shadow style presets.
 pub enum ShadowStyle {
@@ -588,7 +455,7 @@ pub enum ShadowStyle {
 }
 
 #[derive(Debug, Clone, Copy, PartialEq, Eq, EnumFrom)]
-#[enum_from_config(ArkUI_BlurStyle, "ArkUI_BlurStyle_ARKUI_BLUR_STYLE_")]
+#[config(ArkUI_BlurStyle, "ArkUI_BlurStyle_ARKUI_BLUR_STYLE_")]
 #[cfg(feature = "api-19")]
 /// Blur style presets for background/foreground blur.
 pub enum BlurStyle {
@@ -608,7 +475,7 @@ pub enum BlurStyle {
 }
 
 #[derive(Debug, Clone, Copy, PartialEq, Eq, EnumFrom)]
-#[enum_from_config(
+#[config(
     ArkUI_KeyboardAvoidMode,
     "ArkUI_KeyboardAvoidMode_ARKUI_KEYBOARD_AVOID_MODE_"
 )]
@@ -620,7 +487,7 @@ pub enum KeyboardAvoidMode {
 }
 
 #[derive(Debug, Clone, Copy, PartialEq, Eq, EnumFrom)]
-#[enum_from_config(
+#[config(
     ArkUI_HoverModeAreaType,
     "ArkUI_HoverModeAreaType_ARKUI_HOVER_MODE_AREA_TYPE_"
 )]

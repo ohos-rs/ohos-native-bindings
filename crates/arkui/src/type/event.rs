@@ -2,10 +2,10 @@
 
 use ohos_arkui_sys::*;
 
-use ohos_enum_macro::EnumFrom;
+use ohos_enum_derive::EnumFrom;
 
 #[derive(Debug, Clone, Copy, PartialEq, Eq, EnumFrom)]
-#[enum_from_config(ArkUI_NodeEventType, "ArkUI_NodeEventType_NODE_")]
+#[config(ArkUI_NodeEventType, "ArkUI_NodeEventType_NODE_")]
 /// Event identifiers that can be registered on a node.
 pub enum NodeEventType {
     TouchEvent,
@@ -171,7 +171,7 @@ pub enum NodeEventType {
 
 #[cfg(feature = "api-22")]
 #[derive(Debug, Clone, Copy, PartialEq, Eq, EnumFrom)]
-#[enum_from_config(
+#[config(
     ArkUI_TouchTestStrategy,
     "ArkUI_TouchTestStrategy_ARKUI_TOUCH_TEST_STRATEGY_"
 )]

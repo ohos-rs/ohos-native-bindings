@@ -1,5 +1,5 @@
 use ohos_arkui_input_sys::*;
-use ohos_enum_macro::EnumFrom;
+use ohos_enum_derive::EnumFrom;
 
 #[derive(Debug, Clone)]
 pub enum ArkUIInputError {
@@ -25,10 +25,11 @@ impl std::fmt::Display for ArkUIInputError {
 impl std::error::Error for ArkUIInputError {}
 
 #[derive(Debug, EnumFrom)]
-#[enum_from_config(ArkUI_ErrorCode, "ArkUI_ErrorCode_ARKUI_ERROR_CODE_")]
+#[config(ArkUI_ErrorCode, "ArkUI_ErrorCode_ARKUI_ERROR_CODE_")]
 pub enum ArkUIErrorCode {
     ParamInvalid,
     AttributeOrEventNotSupported,
+    #[suffix("ARKTS_NODE_NOT_SUPPORTED")]
     ArkTSNodeNotSupported,
     AdapterNotBound,
     AdapterExist,

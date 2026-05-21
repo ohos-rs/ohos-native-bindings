@@ -1,10 +1,10 @@
-use ohos_enum_macro::EnumFrom;
+use ohos_enum_derive::EnumFrom;
 use ohos_native_drawing_sys::*;
 
 #[derive(Debug, Clone, Copy, PartialEq, Eq, EnumFrom)]
-#[enum_from_config(OH_Drawing_ErrorCode, "OH_Drawing_ErrorCode_OH_DRAWING_ERROR_")]
+#[config(OH_Drawing_ErrorCode, "OH_Drawing_ErrorCode_OH_DRAWING_ERROR_")]
 pub enum DrawingErrorCode {
-    #[enum_prefix("OH_Drawing_ErrorCode_OH_DRAWING_")]
+    #[prefix("OH_Drawing_ErrorCode_OH_DRAWING_")]
     Success,
     NoPermission,
     InvalidParameter,

@@ -1,9 +1,9 @@
 use ohos_input_method_sys::*;
 
-use ohos_enum_macro::EnumFrom;
+use ohos_enum_derive::EnumFrom;
 
 #[derive(Debug, Clone, Copy, PartialEq, Eq, EnumFrom)]
-#[enum_from_config(InputMethod_EnterKeyType, "InputMethod_EnterKeyType_IME_ENTER_KEY_")]
+#[config(InputMethod_EnterKeyType, "InputMethod_EnterKeyType_IME_ENTER_KEY_")]
 pub enum EnterKey {
     Unspecified,
     None,

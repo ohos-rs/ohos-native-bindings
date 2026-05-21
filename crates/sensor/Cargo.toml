@@ -20,5 +20,5 @@ api-19  = ["api-18", "ohos-sensor-sys/api-19"]
 api-20  = ["api-19", "ohos-sensor-sys/api-20"]
 
 [dependencies]
-ohos-sensor-sys = { workspace = true }
-ohos_enum_macro = { workspace = true }
+ohos-sensor-sys  = { workspace = true }
+ohos-enum-derive = { workspace = true }

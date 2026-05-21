@@ -1,9 +1,9 @@
 use ohos_xcomponent_sys::*;
 
-use ohos_enum_macro::EnumFrom;
+use ohos_enum_derive::EnumFrom;
 
 #[derive(Debug, Clone, Copy, PartialEq, Eq, EnumFrom)]
-#[enum_from_config(OH_NativeXComponent_KeyCode, "OH_NativeXComponent_KeyCode_KEY_")]
+#[config(OH_NativeXComponent_KeyCode, "OH_NativeXComponent_KeyCode_KEY_", u32)]
 pub enum KeyCode {
     Unknown,
     Fn,
@@ -23,15 +23,25 @@ pub enum KeyCode {
     Mute,
     BrightnessUp,
     BrightnessDown,
+    #[suffix("0")]
     Key0,
+    #[suffix("1")]
     Key1,
+    #[suffix("2")]
     Key2,
+    #[suffix("3")]
     Key3,
+    #[suffix("4")]
     Key4,
+    #[suffix("5")]
     Key5,
+    #[suffix("6")]
     Key6,
+    #[suffix("7")]
     Key7,
+    #[suffix("8")]
     Key8,
+    #[suffix("9")]
     Key9,
     Star,
     Pound,
@@ -102,6 +112,7 @@ pub enum KeyCode {
     MetaLeft,
     MetaRight,
     Function,
+    #[suffix("SYSRQ")]
     SysRq,
     Break,
     MoveHome,
@@ -113,17 +124,29 @@ pub enum KeyCode {
     MediaClose,
     MediaEject,
     MediaRecord,
+    #[suffix("F1")]
     F1,
+    #[suffix("F2")]
     F2,
+    #[suffix("F3")]
     F3,
+    #[suffix("F4")]
     F4,
+    #[suffix("F5")]
     F5,
+    #[suffix("F6")]
     F6,
+    #[suffix("F7")]
     F7,
+    #[suffix("F8")]
     F8,
+    #[suffix("F9")]
     F9,
+    #[suffix("F10")]
     F10,
+    #[suffix("F11")]
     F11,
+    #[suffix("F12")]
     F12,
     NumLock,
     Numpad0,
@@ -149,6 +172,7 @@ pub enum KeyCode {
     VirtualMultitask,
     Sleep,
     ZenkakuHankaku,
+    #[suffix("102ND")]
     Key102nd,
     Ro,
     Katakana,
@@ -156,8 +180,10 @@ pub enum KeyCode {
     Henkan,
     KatakanaHiragana,
     Muhenkan,
+    #[suffix("LINEFEED")]
     LineFeed,
     Macro,
+    #[suffix("NUMPAD_PLUSMINUS")]
     NumpadPlusMinus,
     Scale,
     Hanguel,
@@ -177,29 +203,38 @@ pub enum KeyCode {
     File,
     Bookmarks,
     Next,
+    #[suffix("PLAYPAUSE")]
     PlayPause,
     Previous,
+    #[suffix("STOPCD")]
     StopCD,
     Config,
     Refresh,
     Exit,
     Edit,
+    #[suffix("SCROLLUP")]
     ScrollUp,
+    #[suffix("SCROLLDOWN")]
     ScrollDown,
     New,
     Redo,
     Close,
     Play,
+    #[suffix("BASSBOOST")]
     BassBoost,
     Print,
     Chat,
     Finance,
     Cancel,
+    #[suffix("KBDILLUM_TOGGLE")]
     KeyboardIllumToggle,
+    #[suffix("KBDILLUM_DOWN")]
     KeyboardIllumDown,
+    #[suffix("KBDILLUM_UP")]
     KeyboardIllumUp,
     Send,
     Reply,
+    #[suffix("FORWARDMAIL")]
     ForwardMail,
     Save,
     Documents,
@@ -219,8 +254,10 @@ pub enum KeyCode {
     AspectRatio,
     PC,
     TV,
+    #[suffix("TV2")]
     TV2,
     VCR,
+    #[suffix("VCR2")]
     VCR2,
     Sat,
     CD,
@@ -236,7 +273,9 @@ pub enum KeyCode {
     Green,
     Yellow,
     Blue,
+    #[suffix("CHANNELUP")]
     ChannelUp,
+    #[suffix("CHANNELDOWN")]
     ChannelDown,
     Last,
     Restart,
@@ -244,69 +283,109 @@ pub enum KeyCode {
     Shuffle,
     Videophone,
     Games,
+    #[suffix("ZOOMIN")]
     ZoomIn,
+    #[suffix("ZOOMOUT")]
     ZoomOut,
+    #[suffix("ZOOMRESET")]
     ZoomReset,
+    #[suffix("WORDPROCESSOR")]
     WordProcessor,
     Editor,
     Spreadsheet,
+    #[suffix("GRAPHICSEDITOR")]
     GraphicsEditor,
     Presentation,
     Database,
     News,
     Voicemail,
+    #[suffix("ADDRESSBOOK")]
     AddressBook,
     Messenger,
     BrightnessToggle,
+    #[suffix("SPELLCHECK")]
     SpellCheck,
     Coffee,
     MediaRepeat,
     Images,
+    #[suffix("BUTTONCONFIG")]
     ButtonConfig,
+    #[suffix("TASKMANAGER")]
     TaskManager,
     Journal,
+    #[suffix("CONTROLPANEL")]
     ControlPanel,
+    #[suffix("APPSELECT")]
     AppSelect,
+    #[suffix("SCREENSAVER")]
     ScreenSaver,
     Assistant,
     KbdLayoutNext,
     BrightnessMin,
     BrightnessMax,
+    #[suffix("KBDINPUTASSIST_PREV")]
     KbdInputAssistPrev,
+    #[suffix("KBDINPUTASSIST_NEXT")]
     KbdInputAssistNext,
+    #[suffix("KBDINPUTASSIST_PREVGROUP")]
     KbdInputAssistPrevGroup,
+    #[suffix("KBDINPUTASSIST_NEXTGROUP")]
     KbdInputAssistNextGroup,
+    #[suffix("KBDINPUTASSIST_ACCEPT")]
     KbdInputAssistAccept,
+    #[suffix("KBDINPUTASSIST_CANCEL")]
     KbdInputAssistCancel,
     Front,
     Setup,
     Wakeup,
+    #[suffix("SENDFILE")]
     SendFile,
+    #[suffix("DELETEFILE")]
     DeleteFile,
     Xfer,
+    #[suffix("PROG1")]
     Prog1,
+    #[suffix("PROG2")]
     Prog2,
+    #[suffix("MSDOS")]
     MsDos,
+    #[suffix("SCREENLOCK")]
     ScreenLock,
     DirectionRotateDisplay,
+    #[suffix("CYCLEWINDOWS")]
     CycleWindows,
     Computer,
+    #[suffix("EJECTCLOSECD")]
     EjectCloseCD,
     Iso,
     Move,
+    #[suffix("F13")]
     F13,
+    #[suffix("F14")]
     F14,
+    #[suffix("F15")]
     F15,
+    #[suffix("F16")]
     F16,
+    #[suffix("F17")]
     F17,
+    #[suffix("F18")]
     F18,
+    #[suffix("F19")]
     F19,
+    #[suffix("F20")]
     F20,
+    #[suffix("F21")]
     F21,
+    #[suffix("F22")]
     F22,
+    #[suffix("F23")]
     F23,
+    #[suffix("F24")]
     F24,
+    #[suffix("PROG3")]
     Prog3,
+    #[suffix("PROG4")]
     Prog4,
     Dashboard,
     Suspend,
@@ -316,13 +395,16 @@ pub enum KeyCode {
     Connect,
     Sport,
     Shop,
+    #[suffix("ALTERASE")]
     AltErase,
+    #[suffix("SWITCHVIDEOMODE")]
     SwitchVideoMode,
     Battery,
     Bluetooth,
     Wlan,
     Uwb,
     WwanWimax,
+    #[suffix("RFKILL")]
     RfKill,
     Channel,
     Btn0,
@@ -335,11 +417,4 @@ pub enum KeyCode {
     Btn7,
     Btn8,
     Btn9,
-}
-
-impl From<KeyCode> for u32 {
-    fn from(value: KeyCode) -> Self {
-        let key: OH_NativeXComponent_KeyCode = value.into();
-        key as u32
-    }
 }

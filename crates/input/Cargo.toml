@@ -9,8 +9,8 @@ description = "OpenHarmony's multi modal input binding for rust"
 workspace = true
 
 [dependencies]
-ohos-input-sys  = { workspace = true }
-ohos_enum_macro = { workspace = true }
+ohos-input-sys   = { workspace = true }
+ohos-enum-derive = { workspace = true }
 
 [features]
 default = []
