@@ -1,12 +1,12 @@
 use std::{ffi::CString, os::raw::c_char};
 
 use hms_opengtx_sys::*;
-use ohos_enum_macro::EnumFrom;
+use ohos_enum_derive::EnumFrom;
 
 use crate::{OpenGtxError, OpenGtxResult};
 
 #[derive(Debug, Clone, Copy, PartialEq, Eq, EnumFrom)]
-#[enum_from_config(OpenGTX_LTPO_Mode, "OpenGTX_LTPO_Mode_")]
+#[config(OpenGTX_LTPO_Mode, "OpenGTX_LTPO_Mode_")]
 pub enum LtpoMode {
     SceneMode,
     TouchMode,
@@ -14,7 +14,7 @@ pub enum LtpoMode {
 }
 
 #[derive(Debug, Clone, Copy, PartialEq, Eq, EnumFrom)]
-#[enum_from_config(OpenGTX_EngineType, "OpenGTX_EngineType_")]
+#[config(OpenGTX_EngineType, "OpenGTX_EngineType_")]
 pub enum EngineType {
     Unity,
     Unreal,
@@ -28,7 +28,7 @@ impl EngineType {
 }
 
 #[derive(Debug, Clone, Copy, PartialEq, Eq, EnumFrom)]
-#[enum_from_config(OpenGTX_PictureQualityMaxLevel, "OpenGTX_PictureQualityMaxLevel_")]
+#[config(OpenGTX_PictureQualityMaxLevel, "OpenGTX_PictureQualityMaxLevel_")]
 pub enum PictureQualityMaxLevel {
     Sd,
     Hd,
@@ -38,7 +38,7 @@ pub enum PictureQualityMaxLevel {
 }
 
 #[derive(Debug, Clone, Copy, PartialEq, Eq, EnumFrom)]
-#[enum_from_config(OpenGTX_GameType, "OpenGTX_GameType_")]
+#[config(OpenGTX_GameType, "OpenGTX_GameType_")]
 pub enum GameType {
     Moba,
     Rpg,
@@ -52,24 +52,24 @@ impl GameType {
 }
 
 #[derive(Debug, Clone, Copy, PartialEq, Eq, EnumFrom)]
-#[enum_from_config(OpenGTX_TempLevel, "OpenGTX_TempLevel_")]
+#[config(OpenGTX_TempLevel, "OpenGTX_TempLevel_")]
 pub enum TempLevel {
-    #[enum_alias("OpenGTX_TempLevel_TEMP_LEVEL1")]
+    #[alias("OpenGTX_TempLevel_TEMP_LEVEL1")]
     TempLevel1,
-    #[enum_alias("OpenGTX_TempLevel_TEMP_LEVEL2")]
+    #[alias("OpenGTX_TempLevel_TEMP_LEVEL2")]
     TempLevel2,
-    #[enum_alias("OpenGTX_TempLevel_TEMP_LEVEL3")]
+    #[alias("OpenGTX_TempLevel_TEMP_LEVEL3")]
     TempLevel3,
-    #[enum_alias("OpenGTX_TempLevel_TEMP_LEVEL4")]
+    #[alias("OpenGTX_TempLevel_TEMP_LEVEL4")]
     TempLevel4,
-    #[enum_alias("OpenGTX_TempLevel_TEMP_LEVEL5")]
+    #[alias("OpenGTX_TempLevel_TEMP_LEVEL5")]
     TempLevel5,
-    #[enum_alias("OpenGTX_TempLevel_TEMP_LEVEL6")]
+    #[alias("OpenGTX_TempLevel_TEMP_LEVEL6")]
     TempLevel6,
 }
 
 #[derive(Debug, Clone, Copy, PartialEq, Eq, EnumFrom)]
-#[enum_from_config(OpenGTX_SceneID, "OpenGTX_SceneID_")]
+#[config(OpenGTX_SceneID, "OpenGTX_SceneID_")]
 pub enum SceneId {
     Login,
     GameInterface,

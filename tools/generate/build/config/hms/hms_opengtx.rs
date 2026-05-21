@@ -1,6 +1,6 @@
 use once_cell::sync::Lazy;
 
-use super::SysConfig;
+use super::super::SysConfig;
 
 pub const OPENGTX: Lazy<SysConfig> = Lazy::new(|| SysConfig {
     name: "hms-opengtx-sys",

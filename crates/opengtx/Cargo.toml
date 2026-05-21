@@ -7,7 +7,7 @@ description = "HarmonyOS OpenGTX binding for rust"
 
 [dependencies]
 hms-opengtx-sys = { workspace = true }
-ohos_enum_macro = { workspace = true }
+ohos-enum-derive = { workspace = true }
 
 [features]
 default = []

@@ -1,10 +1,10 @@
 use std::fmt::{Display, Formatter};
 
 use hms_opengtx_sys::*;
-use ohos_enum_macro::EnumFrom;
+use ohos_enum_derive::EnumFrom;
 
 #[derive(Debug, Clone, Copy, PartialEq, Eq, EnumFrom)]
-#[enum_from_config(OpenGTX_ErrorCode, "OpenGTX_ErrorCode_OPENGTX_")]
+#[config(OpenGTX_ErrorCode, "OpenGTX_ErrorCode_OPENGTX_")]
 pub enum OpenGtxErrorCode {
     Success,
     InvalidParameter,
