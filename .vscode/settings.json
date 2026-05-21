@@ -1,5 +1,13 @@
 {
     "rust-analyzer.cargo.target": "aarch64-unknown-linux-ohos",
+    "rust-analyzer.cargo.extraEnv": {
+        "OHOS_NDK_HOME": "${env:OHOS_NDK_HOME}",
+        "OHOS_SDK_HOME": "${env:OHOS_SDK_HOME}"
+    },
+    "rust-analyzer.check.extraEnv": {
+        "OHOS_NDK_HOME": "${env:OHOS_NDK_HOME}",
+        "OHOS_SDK_HOME": "${env:OHOS_SDK_HOME}"
+    },
     "editor.gotoLocation.alternativeDeclarationCommand": "editor.action.revealDefinition",
     "editor.gotoLocation.alternativeDefinitionCommand": "editor.action.revealDefinition",
     "editor.gotoLocation.alternativeTypeDefinitionCommand": "editor.action.revealDefinition",

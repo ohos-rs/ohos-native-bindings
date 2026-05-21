@@ -9,10 +9,10 @@ concurrency:
   cancel-in-progress: true
 
 permissions:
-  pull-requests: write
+  contents: read
 
 jobs:
-  mention:
+  check:
     runs-on: ubuntu-latest
     steps:
       - name: checkout
