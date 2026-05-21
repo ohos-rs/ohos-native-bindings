@@ -30,7 +30,6 @@ fn to_pascal_case(s: &str) -> String {
 }
 
 fn get_variant_prefix(variant: &syn::Variant, default_prefix: &str) -> String {
-    // 查找 enum_prefix 属性
     for attr in &variant.attrs {
         if attr.path().is_ident("enum_prefix") {
             if let Ok(lit_str) = attr.parse_args::<LitStr>() {
@@ -41,7 +40,21 @@ fn get_variant_prefix(variant: &syn::Variant, default_prefix: &str) -> String {
     default_prefix.to_string()
 }
 
-#[proc_macro_derive(EnumFrom, attributes(enum_from_config, enum_prefix))]
+fn get_target_variant(variant: &syn::Variant, default_prefix: &str) -> Ident {
+    for attr in &variant.attrs {
+        if attr.path().is_ident("enum_alias") {
+            if let Ok(lit_str) = attr.parse_args::<LitStr>() {
+                return format_ident!("{}", lit_str.value());
+            }
+        }
+    }
+
+    let variant_prefix = get_variant_prefix(variant, default_prefix);
+    let pascal_case_variant = to_pascal_case(&variant.ident.to_string());
+    format_ident!("{}{}", variant_prefix, pascal_case_variant)
+}
+
+#[proc_macro_derive(EnumFrom, attributes(enum_from_config, enum_prefix, enum_alias))]
 pub fn enum_from(input: TokenStream) -> TokenStream {
     let input = parse_macro_input!(input as DeriveInput);
     let name = &input.ident;
@@ -66,9 +79,7 @@ pub fn enum_from(input: TokenStream) -> TokenStream {
         .iter()
         .map(|v| {
             let variant = &v.ident;
-            let variant_prefix = get_variant_prefix(v, &default_prefix);
-            let pascal_case_variant = to_pascal_case(&variant.to_string());
-            let target_variant = format_ident!("{}{}", variant_prefix, pascal_case_variant);
+            let target_variant = get_target_variant(v, &default_prefix);
             quote! {
                 #name::#variant => #target_variant,
             }
@@ -79,9 +90,7 @@ pub fn enum_from(input: TokenStream) -> TokenStream {
         .iter()
         .map(|v| {
             let variant = &v.ident;
-            let variant_prefix = get_variant_prefix(v, &default_prefix);
-            let pascal_case_variant = to_pascal_case(&variant.to_string());
-            let target_variant = format_ident!("{}{}", variant_prefix, pascal_case_variant);
+            let target_variant = get_target_variant(v, &default_prefix);
             quote! {
                 #target_variant => #name::#variant,
             }
@@ -92,9 +101,7 @@ pub fn enum_from(input: TokenStream) -> TokenStream {
         .iter()
         .map(|v| {
             let variant = &v.ident;
-            let variant_prefix = get_variant_prefix(v, &default_prefix);
-            let pascal_case_variant = to_pascal_case(&variant.to_string());
-            let target_variant = format_ident!("{}{}", variant_prefix, pascal_case_variant);
+            let target_variant = get_target_variant(v, &default_prefix);
             quote! {
                 #target_variant => ::std::option::Option::Some(#name::#variant),
             }
