@@ -1,6 +1,6 @@
 //! Shared image value types.
 
-use ohos_enum_macro::EnumFrom;
+use ohos_enum_derive::EnumFrom;
 use ohos_image_sys::*;
 
 pub use ohos_image_sys::{
@@ -14,7 +14,7 @@ pub use ohos_resource_manager_sys::RawFileDescriptor;
 
 /// Anti-aliasing level for pixel-map scaling.
 #[derive(Clone, Copy, Debug, PartialEq, Eq, EnumFrom)]
-#[enum_from_config(
+#[config(
     OH_PixelMap_AntiAliasingLevel,
     "OH_PixelMap_AntiAliasingLevel_OH_PixelMap_AntiAliasing_"
 )]

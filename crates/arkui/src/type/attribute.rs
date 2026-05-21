@@ -2,10 +2,10 @@
 
 use ohos_arkui_sys::*;
 
-use ohos_enum_macro::EnumFrom;
+use ohos_enum_derive::EnumFrom;
 
 #[derive(Debug, Clone, Copy, PartialEq, Eq, EnumFrom)]
-#[enum_from_config(ArkUI_NodeAttributeType, "ArkUI_NodeAttributeType_NODE_")]
+#[config(ArkUI_NodeAttributeType, "ArkUI_NodeAttributeType_NODE_")]
 /// ArkUI node attribute identifiers used by `set_attribute`/`get_attribute`.
 pub enum ArkUINodeAttributeType {
     Width,
@@ -226,8 +226,11 @@ pub enum ArkUINodeAttributeType {
     CheckboxUnselectColor,
     CheckboxMark,
     CheckboxShape,
+    #[suffix("XCOMPONENT_ID")]
     XComponentId,
+    #[suffix("XCOMPONENT_TYPE")]
     XComponentType,
+    #[suffix("XCOMPONENT_SURFACE_SIZE")]
     XComponentSurfaceSize,
     DatePickerLunar,
     DatePickerStart,
@@ -442,8 +445,10 @@ pub enum ArkUINodeAttributeType {
     #[cfg(feature = "api-22")]
     ImageSpanColorFilter,
     #[cfg(feature = "api-22")]
+    #[suffix("IMAGE_SPAN_SUPPORT_SVG2")]
     ImageSpanSupportSvg2,
     #[cfg(feature = "api-21")]
+    #[suffix("IMAGE_SUPPORT_SVG2")]
     ImageSupportSvg2,
     #[cfg(feature = "api-20")]
     ImageSyncLoad,
@@ -625,7 +630,9 @@ pub enum ArkUINodeAttributeType {
     #[cfg(feature = "api-21")]
     WidthLayoutpolicy,
     #[cfg(feature = "api-18")]
+    #[suffix("XCOMPONENT_ENABLE_ANALYZER")]
     XComponentEnableAnalyzer,
     #[cfg(feature = "api-18")]
+    #[suffix("XCOMPONENT_SURFACE_RECT")]
     XComponentSurfaceRect,
 }

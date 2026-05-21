@@ -1,5 +1,5 @@
 [package]
-name        = "ohos_enum_macro"
+name        = "ohos-enum-derive"
 version     = "0.1.0"
 edition     = "2021"
 license     = "MIT OR Apache-2.0"
@@ -13,4 +13,3 @@ syn          = { workspace = true }
 quote        = { workspace = true }
 proc-macro2  = { workspace = true }
 convert_case = { workspace = true }
-regex        = { workspace = true }

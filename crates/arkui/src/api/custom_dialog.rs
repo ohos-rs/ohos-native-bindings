@@ -8,6 +8,7 @@ use std::{
 
 use ohos_arkui_input_binding::ArkUIErrorCode;
 use ohos_arkui_sys::*;
+use ohos_enum_derive::EnumFrom;
 
 use crate::{check_arkui_status, ArkUIError, ArkUIResult, DismissReason};
 
@@ -35,26 +36,13 @@ impl From<CustomDialogMaskRect> for ArkUI_Rect {
     }
 }
 
-#[derive(Clone, Copy, Debug, PartialEq, Eq)]
+#[derive(Clone, Copy, Debug, PartialEq, Eq, EnumFrom)]
+#[config(ArkUI_BorderStyle, "ArkUI_BorderStyle_ARKUI_BORDER_STYLE_", i32)]
 /// Border line style used by custom-dialog border edges.
 pub enum CustomDialogBorderLineStyle {
     Solid,
     Dashed,
     Dotted,
-}
-
-impl From<CustomDialogBorderLineStyle> for i32 {
-    fn from(value: CustomDialogBorderLineStyle) -> Self {
-        match value {
-            CustomDialogBorderLineStyle::Solid => ArkUI_BorderStyle_ARKUI_BORDER_STYLE_SOLID as i32,
-            CustomDialogBorderLineStyle::Dashed => {
-                ArkUI_BorderStyle_ARKUI_BORDER_STYLE_DASHED as i32
-            }
-            CustomDialogBorderLineStyle::Dotted => {
-                ArkUI_BorderStyle_ARKUI_BORDER_STYLE_DOTTED as i32
-            }
-        }
-    }
 }
 
 #[derive(Clone, Copy, Debug, PartialEq, Eq)]

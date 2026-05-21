@@ -1,9 +1,9 @@
 use ohos_input_method_sys::*;
 
-use ohos_enum_macro::EnumFrom;
+use ohos_enum_derive::EnumFrom;
 
 #[derive(Debug, Clone, Copy, PartialEq, Eq, EnumFrom)]
-#[enum_from_config(
+#[config(
     InputMethod_KeyboardStatus,
     "InputMethod_KeyboardStatus_IME_KEYBOARD_STATUS_"
 )]

@@ -7,10 +7,10 @@ use ohos_display_sys::{
     NativeDisplayManager_FoldDisplayMode_DISPLAY_MANAGER_FOLD_DISPLAY_MODE_UNKNOWN,
 };
 
-use ohos_enum_macro::EnumFrom;
+use ohos_enum_derive::EnumFrom;
 
 #[derive(Debug, Clone, Copy, PartialEq, Eq, EnumFrom)]
-#[enum_from_config(
+#[config(
     NativeDisplayManager_FoldDisplayMode,
     "NativeDisplayManager_FoldDisplayMode_DISPLAY_MANAGER_FOLD_DISPLAY_MODE_"
 )]

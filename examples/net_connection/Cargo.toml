@@ -1,5 +1,5 @@
 [package]
-name = "napi_net_connection"
+name    = "napi_net_connection"
 version = "0.1.0"
 edition = "2021"
 
@@ -9,9 +9,9 @@ crate-type = ["cdylib"]
 [dependencies]
 ohos-net-connection-binding = { workspace = true }
 
-napi-ohos = { workspace = true, default-features = false, features = ["napi8", "async"] }
+napi-ohos        = { workspace = true, default-features = false, features = ["napi8", "async"] }
 napi-derive-ohos = { workspace = true }
-reqwest = { version = "0.12", default-features = false, features = ["blocking"] }
+reqwest          = { version = "0.12", default-features = false, features = ["blocking"] }
 
 [build-dependencies]
 napi-build-ohos = { workspace = true }

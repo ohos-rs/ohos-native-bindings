@@ -4,6 +4,7 @@ use std::{
     ptr::NonNull,
 };
 
+use ohos_enum_derive::EnumFrom;
 #[cfg(feature = "api-14")]
 use ohos_native_drawing_sys::OH_Drawing_GetFontCollectionGlobalInstance;
 #[cfg(feature = "api-20")]
@@ -434,48 +435,31 @@ impl From<OH_Drawing_LineMetrics> for DrawingLineMetrics {
     }
 }
 
-#[derive(Debug, Clone, Copy, PartialEq, Eq)]
+#[derive(Debug, Clone, Copy, PartialEq, Eq, EnumFrom)]
+#[config(
+    OH_Drawing_RectWidthStyle,
+    "OH_Drawing_RectWidthStyle_RECT_WIDTH_STYLE_"
+)]
 pub enum TextRectWidthStyle {
     Tight,
     Max,
 }
 
-impl From<TextRectWidthStyle> for OH_Drawing_RectWidthStyle {
-    fn from(value: TextRectWidthStyle) -> Self {
-        match value {
-            TextRectWidthStyle::Tight => OH_Drawing_RectWidthStyle_RECT_WIDTH_STYLE_TIGHT,
-            TextRectWidthStyle::Max => OH_Drawing_RectWidthStyle_RECT_WIDTH_STYLE_MAX,
-        }
-    }
-}
-
-#[derive(Debug, Clone, Copy, PartialEq, Eq)]
+#[derive(Debug, Clone, Copy, PartialEq, Eq, EnumFrom)]
+#[config(
+    OH_Drawing_RectHeightStyle,
+    "OH_Drawing_RectHeightStyle_RECT_HEIGHT_STYLE_"
+)]
 pub enum TextRectHeightStyle {
     Tight,
     Max,
+    #[suffix("INCLUDELINESPACEMIDDLE")]
     IncludeLineSpaceMiddle,
+    #[suffix("INCLUDELINESPACETOP")]
     IncludeLineSpaceTop,
+    #[suffix("INCLUDELINESPACEBOTTOM")]
     IncludeLineSpaceBottom,
     Struct,
-}
-
-impl From<TextRectHeightStyle> for OH_Drawing_RectHeightStyle {
-    fn from(value: TextRectHeightStyle) -> Self {
-        match value {
-            TextRectHeightStyle::Tight => OH_Drawing_RectHeightStyle_RECT_HEIGHT_STYLE_TIGHT,
-            TextRectHeightStyle::Max => OH_Drawing_RectHeightStyle_RECT_HEIGHT_STYLE_MAX,
-            TextRectHeightStyle::IncludeLineSpaceMiddle => {
-                OH_Drawing_RectHeightStyle_RECT_HEIGHT_STYLE_INCLUDELINESPACEMIDDLE
-            }
-            TextRectHeightStyle::IncludeLineSpaceTop => {
-                OH_Drawing_RectHeightStyle_RECT_HEIGHT_STYLE_INCLUDELINESPACETOP
-            }
-            TextRectHeightStyle::IncludeLineSpaceBottom => {
-                OH_Drawing_RectHeightStyle_RECT_HEIGHT_STYLE_INCLUDELINESPACEBOTTOM
-            }
-            TextRectHeightStyle::Struct => OH_Drawing_RectHeightStyle_RECT_HEIGHT_STYLE_STRUCT,
-        }
-    }
 }
 
 #[derive(Clone, Copy, Debug, PartialEq, Eq)]

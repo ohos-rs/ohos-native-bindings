@@ -1,9 +1,9 @@
 use ohos_xcomponent_sys::*;
 
-use ohos_enum_macro::EnumFrom;
+use ohos_enum_derive::EnumFrom;
 
 #[derive(Debug, Clone, Copy, PartialEq, Eq, EnumFrom)]
-#[enum_from_config(
+#[config(
     OH_NativeXComponent_TouchEventType,
     "OH_NativeXComponent_TouchEventType_OH_NATIVEXCOMPONENT_"
 )]

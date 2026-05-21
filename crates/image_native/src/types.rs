@@ -1,7 +1,7 @@
 //! Shared image-native value types and enums.
 
 use crate::sys::*;
-use ohos_enum_macro::EnumFrom;
+use ohos_enum_derive::EnumFrom;
 
 pub type ImageSize = crate::sys::Image_Size;
 pub type ImageRegion = crate::sys::Image_Region;
@@ -26,7 +26,7 @@ pub use ohos_resource_manager_sys::RawFileDescriptor;
 
 /// Pixel format.
 #[derive(Clone, Copy, Debug, PartialEq, Eq, EnumFrom)]
-#[enum_from_config(PIXEL_FORMAT, "PIXEL_FORMAT_PIXEL_FORMAT_")]
+#[config(PIXEL_FORMAT, "PIXEL_FORMAT_PIXEL_FORMAT_", i32)]
 pub enum PixelFormat {
     Unknown,
     Rgb565,
@@ -34,19 +34,17 @@ pub enum PixelFormat {
     Bgra8888,
     Rgb888,
     Alpha8,
+    #[suffix("RGBA_F16")]
     RgbaF16,
+    #[suffix("NV21")]
     Nv21,
+    #[suffix("NV12")]
     Nv12,
     Rgba1010102,
+    #[suffix("YCBCR_P010")]
     YCbCrP010,
+    #[suffix("YCRCB_P010")]
     YCrCbP010,
-}
-
-impl From<PixelFormat> for i32 {
-    fn from(value: PixelFormat) -> Self {
-        let raw: PIXEL_FORMAT = value.into();
-        raw as i32
-    }
 }
 
 impl PixelFormat {
@@ -65,7 +63,7 @@ impl PixelFormat {
 
 /// Pixel-map anti-aliasing level.
 #[derive(Clone, Copy, Debug, PartialEq, Eq, EnumFrom)]
-#[enum_from_config(
+#[config(
     OH_PixelmapNative_AntiAliasingLevel,
     "OH_PixelmapNative_AntiAliasingLevel_OH_PixelmapNative_AntiAliasing_"
 )]
@@ -78,7 +76,7 @@ pub enum PixelMapAntiAliasingLevel {
 
 /// HDR metadata key.
 #[derive(Clone, Copy, Debug, PartialEq, Eq, EnumFrom)]
-#[enum_from_config(OH_Pixelmap_HdrMetadataKey, "OH_Pixelmap_HdrMetadataKey_HDR_")]
+#[config(OH_Pixelmap_HdrMetadataKey, "OH_Pixelmap_HdrMetadataKey_HDR_")]
 pub enum HdrMetadataKey {
     MetadataType,
     StaticMetadata,
@@ -88,7 +86,7 @@ pub enum HdrMetadataKey {
 
 /// HDR metadata type.
 #[derive(Clone, Copy, Debug, PartialEq, Eq, EnumFrom)]
-#[enum_from_config(
+#[config(
     OH_Pixelmap_HdrMetadataType,
     "OH_Pixelmap_HdrMetadataType_HDR_METADATA_TYPE_"
 )]
@@ -102,7 +100,7 @@ pub enum HdrMetadataType {
 /// Image metadata type.
 #[cfg(feature = "api-13")]
 #[derive(Clone, Copy, Debug, PartialEq, Eq, EnumFrom)]
-#[enum_from_config(Image_MetadataType, "Image_MetadataType_")]
+#[config(Image_MetadataType, "Image_MetadataType_")]
 pub enum MetadataType {
     ExifMetadata,
     FragmentMetadata,
@@ -122,7 +120,7 @@ impl MetadataType {
 /// Pixel-map allocator mode.
 #[cfg(feature = "api-20")]
 #[derive(Clone, Copy, Debug, PartialEq, Eq, EnumFrom)]
-#[enum_from_config(IMAGE_ALLOCATOR_MODE, "IMAGE_ALLOCATOR_MODE_IMAGE_ALLOCATOR_MODE_")]
+#[config(IMAGE_ALLOCATOR_MODE, "IMAGE_ALLOCATOR_MODE_IMAGE_ALLOCATOR_MODE_")]
 pub enum AllocatorMode {
     Auto,
     Dma,
@@ -132,7 +130,7 @@ pub enum AllocatorMode {
 /// Auxiliary picture type.
 #[cfg(feature = "api-13")]
 #[derive(Clone, Copy, Debug, PartialEq, Eq, EnumFrom)]
-#[enum_from_config(
+#[config(
     Image_AuxiliaryPictureType,
     "Image_AuxiliaryPictureType_AUXILIARY_PICTURE_TYPE_"
 )]
@@ -154,7 +152,7 @@ impl AuxiliaryPictureType {
 /// Decoder allocator type.
 #[cfg(feature = "api-15")]
 #[derive(Clone, Copy, Debug, PartialEq, Eq, EnumFrom)]
-#[enum_from_config(IMAGE_ALLOCATOR_TYPE, "IMAGE_ALLOCATOR_TYPE_IMAGE_ALLOCATOR_TYPE_")]
+#[config(IMAGE_ALLOCATOR_TYPE, "IMAGE_ALLOCATOR_TYPE_IMAGE_ALLOCATOR_TYPE_")]
 pub enum AllocatorType {
     Auto,
     Dma,

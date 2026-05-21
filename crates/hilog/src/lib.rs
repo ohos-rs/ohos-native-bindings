@@ -1,8 +1,12 @@
-use ohos_hilogs_sys::OH_LOG_Print;
+use ohos_enum_derive::EnumFrom;
+use ohos_hilogs_sys::*;
 use std::{
     ffi::CString,
     sync::{LazyLock, RwLock},
 };
+
+type RawLogType = ohos_hilogs_sys::LogType;
+type RawLogLevel = ohos_hilogs_sys::LogLevel;
 
 #[cfg(feature = "log")]
 mod openharmony_log;
@@ -19,16 +23,10 @@ use std::{
     os::fd::{FromRawFd as _, RawFd},
 };
 
+#[derive(EnumFrom)]
+#[config(RawLogType, "LogType_")]
 pub enum LogType {
     LogApp,
-}
-
-impl From<LogType> for ohos_hilogs_sys::LogType {
-    fn from(value: LogType) -> Self {
-        match value {
-            LogType::LogApp => ohos_hilogs_sys::LogType_LOG_APP,
-        }
-    }
 }
 
 static GLOBAL_OPTIONS: LazyLock<RwLock<LogOptions>> =
@@ -40,25 +38,14 @@ pub fn set_global_options(options: LogOptions) {
     *global_options = options;
 }
 
-#[derive(Debug, Clone, Copy)]
+#[derive(Debug, Clone, Copy, EnumFrom)]
+#[config(RawLogLevel, "LogLevel_")]
 pub enum LogLevel {
     LogDebug,
     LogInfo,
     LogWarn,
     LogError,
     LogFatal,
-}
-
-impl From<LogLevel> for ohos_hilogs_sys::LogLevel {
-    fn from(value: LogLevel) -> Self {
-        match value {
-            LogLevel::LogDebug => ohos_hilogs_sys::LogLevel_LOG_DEBUG,
-            LogLevel::LogInfo => ohos_hilogs_sys::LogLevel_LOG_INFO,
-            LogLevel::LogWarn => ohos_hilogs_sys::LogLevel_LOG_WARN,
-            LogLevel::LogError => ohos_hilogs_sys::LogLevel_LOG_ERROR,
-            LogLevel::LogFatal => ohos_hilogs_sys::LogLevel_LOG_FATAL,
-        }
-    }
 }
 
 pub struct LogOptions {

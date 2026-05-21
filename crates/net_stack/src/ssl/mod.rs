@@ -6,12 +6,12 @@ use std::slice;
 
 use ohos_net_stack_sys::*;
 
-use ohos_enum_macro::EnumFrom;
+use ohos_enum_derive::EnumFrom;
 
 use crate::{NetStackError, Result};
 
 #[derive(Debug, Clone, Copy, PartialEq, Eq, EnumFrom)]
-#[enum_from_config(NetStack_CertType, "NetStack_CertType_NETSTACK_CERT_TYPE_")]
+#[config(NetStack_CertType, "NetStack_CertType_NETSTACK_CERT_TYPE_")]
 pub enum CertType {
     Pem,
     Der,
@@ -53,13 +53,13 @@ impl CertBlob<'_> {
 }
 
 #[derive(Debug, Clone, Copy, PartialEq, Eq, EnumFrom)]
-#[enum_from_config(NetStack_CertificatePinningKind, "NetStack_CertificatePinningKind_")]
+#[config(NetStack_CertificatePinningKind, "NetStack_CertificatePinningKind_")]
 pub enum CertificatePinningKind {
     PublicKey,
 }
 
 #[derive(Debug, Clone, Copy, PartialEq, Eq, EnumFrom)]
-#[enum_from_config(NetStack_HashAlgorithm, "NetStack_HashAlgorithm_")]
+#[config(NetStack_HashAlgorithm, "NetStack_HashAlgorithm_")]
 pub enum HashAlgorithm {
     Sha256,
 }

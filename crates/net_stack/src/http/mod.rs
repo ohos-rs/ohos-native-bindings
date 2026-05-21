@@ -7,7 +7,7 @@ use std::slice;
 
 use ohos_net_stack_sys::*;
 
-use ohos_enum_macro::EnumFrom;
+use ohos_enum_derive::EnumFrom;
 
 use crate::{NetStackError, Result};
 
@@ -18,38 +18,39 @@ pub type OnHeaderReceiveCallback = Http_OnHeaderReceiveCallback;
 pub type OnVoidCallback = Http_OnVoidCallback;
 
 #[derive(Debug, Clone, Copy, PartialEq, Eq, EnumFrom)]
-#[enum_from_config(Http_HttpProtocol, "Http_HttpProtocol_OH_")]
+#[config(Http_HttpProtocol, "Http_HttpProtocol_OH_")]
 pub enum HttpProtocol {
-    #[enum_alias("Http_HttpProtocol_OH_HTTP_NONE")]
+    #[suffix("HTTP_NONE")]
     None,
-    #[enum_alias("Http_HttpProtocol_OH_HTTP1_1")]
+    #[suffix("HTTP1_1")]
     Http1_1,
+    #[suffix("HTTP2")]
     Http2,
-    #[enum_alias("Http_HttpProtocol_OH_HTTP3")]
+    #[suffix("HTTP3")]
     Http3,
 }
 
 #[derive(Debug, Clone, Copy, PartialEq, Eq, EnumFrom)]
-#[enum_from_config(Http_AddressFamilyType, "Http_AddressFamilyType_HTTP_ADDRESS_FAMILY_")]
+#[config(Http_AddressFamilyType, "Http_AddressFamilyType_HTTP_ADDRESS_FAMILY_")]
 pub enum AddressFamilyType {
     Default,
-    #[enum_alias("Http_AddressFamilyType_HTTP_ADDRESS_FAMILY_ONLY_V4")]
+    #[suffix("ONLY_V4")]
     OnlyV4,
-    #[enum_alias("Http_AddressFamilyType_HTTP_ADDRESS_FAMILY_ONLY_V6")]
+    #[suffix("ONLY_V6")]
     OnlyV6,
 }
 
 #[derive(Debug, Clone, Copy, PartialEq, Eq, EnumFrom)]
-#[enum_from_config(Http_CertType, "Http_CertType_OH_HTTP_")]
+#[config(Http_CertType, "Http_CertType_OH_HTTP_")]
 pub enum CertType {
     Pem,
     Der,
-    #[enum_alias("Http_CertType_OH_HTTP_P12")]
+    #[suffix("P12")]
     P12,
 }
 
 #[derive(Debug, Clone, Copy, PartialEq, Eq, EnumFrom)]
-#[enum_from_config(Http_ProxyType, "Http_ProxyType_HTTP_PROXY_")]
+#[config(Http_ProxyType, "Http_ProxyType_HTTP_PROXY_")]
 enum ProxyType {
     NotUse,
     System,

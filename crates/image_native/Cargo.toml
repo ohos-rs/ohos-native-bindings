@@ -15,7 +15,7 @@ ohos-image-native-sys      = { workspace = true }
 ohos-native-buffer-sys     = { workspace = true }
 ohos-native-buffer-binding = { workspace = true }
 ohos-resource-manager-sys  = { workspace = true }
-ohos_enum_macro            = { workspace = true }
+ohos-enum-derive           = { workspace = true }
 
 [features]
 default = []

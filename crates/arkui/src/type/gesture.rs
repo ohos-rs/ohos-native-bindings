@@ -2,10 +2,10 @@
 
 use ohos_arkui_sys::*;
 
-use ohos_enum_macro::EnumFrom;
+use ohos_enum_derive::EnumFrom;
 
 #[derive(Debug, Clone, Copy, PartialEq, Eq, EnumFrom)]
-#[enum_from_config(ArkUI_GestureRecognizerType, "ArkUI_GestureRecognizerType_")]
+#[config(ArkUI_GestureRecognizerType, "ArkUI_GestureRecognizerType_")]
 /// Recognizer categories supported by ArkUI.
 pub enum GestureRecognizerType {
     TapGesture,
@@ -18,7 +18,7 @@ pub enum GestureRecognizerType {
 }
 
 #[derive(Debug, Clone, Copy, PartialEq, Eq, EnumFrom)]
-#[enum_from_config(
+#[config(
     ArkUI_GestureInterruptResult,
     "ArkUI_GestureInterruptResult_GESTURE_INTERRUPT_RESULT_"
 )]

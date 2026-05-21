@@ -1,11 +1,11 @@
-use ohos_enum_macro::EnumFrom;
+use ohos_enum_derive::EnumFrom;
 use ohos_qos_sys::*;
 
 mod error;
 pub use error::*;
 
 #[derive(Debug, Clone, Copy, PartialEq, Eq, EnumFrom)]
-#[enum_from_config(QoS_Level, "QoS_Level_QOS_")]
+#[config(QoS_Level, "QoS_Level_QOS_")]
 pub enum QosLevel {
     Background,
     Utility,

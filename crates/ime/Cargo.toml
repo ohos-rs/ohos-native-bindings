@@ -10,7 +10,7 @@ workspace = true
 
 [dependencies]
 ohos-input-method-sys = { workspace = true, version = "0.1.1" }
-ohos_enum_macro       = { workspace = true }
+ohos-enum-derive      = { workspace = true }
 
 [features]
 default = []
