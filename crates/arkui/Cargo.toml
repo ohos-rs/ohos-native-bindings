@@ -12,7 +12,7 @@ workspace = true
 ohos-arkui-sys            = { workspace = true }
 napi-sys-ohos             = { workspace = true, optional = true }
 napi-ohos                 = { workspace = true, optional = true }
-ohos_enum_macro           = { workspace = true }
+ohos-enum-derive          = { workspace = true }
 bitflags                  = { workspace = true }
 ohos-xcomponent-binding   = { workspace = true, optional = true }
 ohos-xcomponent-sys       = { workspace = true, optional = true }

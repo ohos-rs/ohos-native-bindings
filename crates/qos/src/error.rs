@@ -1,5 +1,5 @@
 #[cfg(feature = "api-20")]
-use ohos_enum_macro::EnumFrom;
+use ohos_enum_derive::EnumFrom;
 #[cfg(feature = "api-20")]
 use ohos_qos_sys::*;
 
@@ -11,7 +11,7 @@ pub enum QosError {
 
 #[cfg(feature = "api-20")]
 #[derive(Debug, Clone, Copy, PartialEq, Eq, EnumFrom)]
-#[enum_from_config(OH_QoS_GewuErrorCode, "OH_QoS_GewuErrorCode_OH_QOS_GEWU_")]
+#[config(OH_QoS_GewuErrorCode, "OH_QoS_GewuErrorCode_OH_QOS_GEWU_")]
 pub enum GewuErrorCode {
     Ok,
     Noperm,

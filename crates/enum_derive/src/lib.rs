@@ -1,37 +1,47 @@
-use convert::convert_case;
-use convert_case::Case;
+use convert_case::{Case, Casing};
 use proc_macro::TokenStream;
 use quote::{format_ident, quote};
 use syn::{
     parse::Parse, parse::ParseStream, parse_macro_input, Data, DeriveInput, Ident, LitStr, Token,
+    Type,
 };
 
-mod convert;
-
-struct MacroArgs {
+struct ConfigArgs {
     target_type: Ident,
     prefix: LitStr,
+    extra_types: Vec<Type>,
 }
 
-impl Parse for MacroArgs {
+impl Parse for ConfigArgs {
     fn parse(input: ParseStream) -> syn::Result<Self> {
         let target_type: Ident = input.parse()?;
         input.parse::<Token![,]>()?;
         let prefix: LitStr = input.parse()?;
-        Ok(MacroArgs {
+        let mut extra_types = Vec::new();
+        while !input.is_empty() {
+            if input.peek(Token![,]) {
+                input.parse::<Token![,]>()?;
+            }
+            if input.is_empty() {
+                break;
+            }
+            extra_types.push(input.parse()?);
+        }
+        Ok(ConfigArgs {
             target_type,
             prefix,
+            extra_types,
         })
     }
 }
 
-fn to_pascal_case(s: &str) -> String {
-    convert_case(s, Case::UpperSnake)
+fn to_upper_snake_case(s: &str) -> String {
+    s.to_case(Case::UpperSnake)
 }
 
 fn get_variant_prefix(variant: &syn::Variant, default_prefix: &str) -> String {
     for attr in &variant.attrs {
-        if attr.path().is_ident("enum_prefix") {
+        if attr.path().is_ident("prefix") {
             if let Ok(lit_str) = attr.parse_args::<LitStr>() {
                 return lit_str.value();
             }
@@ -42,7 +52,7 @@ fn get_variant_prefix(variant: &syn::Variant, default_prefix: &str) -> String {
 
 fn get_target_variant(variant: &syn::Variant, default_prefix: &str) -> Ident {
     for attr in &variant.attrs {
-        if attr.path().is_ident("enum_alias") {
+        if attr.path().is_ident("alias") {
             if let Ok(lit_str) = attr.parse_args::<LitStr>() {
                 return format_ident!("{}", lit_str.value());
             }
@@ -50,11 +60,19 @@ fn get_target_variant(variant: &syn::Variant, default_prefix: &str) -> Ident {
     }
 
     let variant_prefix = get_variant_prefix(variant, default_prefix);
-    let pascal_case_variant = to_pascal_case(&variant.ident.to_string());
-    format_ident!("{}{}", variant_prefix, pascal_case_variant)
+    for attr in &variant.attrs {
+        if attr.path().is_ident("suffix") {
+            if let Ok(lit_str) = attr.parse_args::<LitStr>() {
+                return format_ident!("{}{}", variant_prefix, lit_str.value());
+            }
+        }
+    }
+
+    let upper_snake_variant = to_upper_snake_case(&variant.ident.to_string());
+    format_ident!("{}{}", variant_prefix, upper_snake_variant)
 }
 
-#[proc_macro_derive(EnumFrom, attributes(enum_from_config, enum_prefix, enum_alias))]
+#[proc_macro_derive(EnumFrom, attributes(config, prefix, suffix, alias))]
 pub fn enum_from(input: TokenStream) -> TokenStream {
     let input = parse_macro_input!(input as DeriveInput);
     let name = &input.ident;
@@ -62,17 +80,18 @@ pub fn enum_from(input: TokenStream) -> TokenStream {
     let args = input
         .attrs
         .iter()
-        .find(|attr| attr.path().is_ident("enum_from_config"))
-        .map(|attr| attr.parse_args::<MacroArgs>())
-        .expect("enum_from_config attribute is required")
-        .expect("Failed to parse enum_from_config attribute");
+        .find(|attr| attr.path().is_ident("config"))
+        .map(|attr| attr.parse_args::<ConfigArgs>())
+        .expect("config attribute is required")
+        .expect("Failed to parse config attribute");
 
     let target_type = args.target_type;
     let default_prefix = args.prefix.value();
+    let extra_types = args.extra_types;
 
     let variants = match &input.data {
         Data::Enum(data_enum) => &data_enum.variants,
-        _ => panic!("AttributeConversion can only be derived for enums"),
+        _ => panic!("EnumFrom can only be derived for enums"),
     };
 
     let from_attribute_type_arms: Vec<_> = variants
@@ -108,6 +127,34 @@ pub fn enum_from(input: TokenStream) -> TokenStream {
         })
         .collect();
 
+    let extra_from_attribute_type_impls: Vec<_> = extra_types
+        .iter()
+        .map(|extra_type| {
+            quote! {
+                impl From<#name> for #extra_type {
+                    fn from(attr: #name) -> Self {
+                        let raw: #target_type = attr.into();
+                        raw as #extra_type
+                    }
+                }
+            }
+        })
+        .collect();
+
+    let extra_from_target_type_impls: Vec<_> = extra_types
+        .iter()
+        .map(|extra_type| {
+            quote! {
+                impl From<#extra_type> for #name {
+                    fn from(attr: #extra_type) -> Self {
+                        let raw = attr as #target_type;
+                        raw.into()
+                    }
+                }
+            }
+        })
+        .collect();
+
     let expanded = quote! {
         impl From<#name> for #target_type {
             fn from(attr: #name) -> Self {
@@ -135,6 +182,10 @@ pub fn enum_from(input: TokenStream) -> TokenStream {
                 }
             }
         }
+
+        #(#extra_from_attribute_type_impls)*
+
+        #(#extra_from_target_type_impls)*
     };
 
     TokenStream::from(expanded)

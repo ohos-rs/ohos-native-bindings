@@ -1,9 +1,9 @@
 use ohos_web_sys::*;
 
-use ohos_enum_macro::EnumFrom;
+use ohos_enum_derive::EnumFrom;
 
 #[derive(Debug, Clone, Copy, PartialEq, Eq, EnumFrom)]
-#[enum_from_config(ArkWeb_ResourceType, "ArkWeb_ResourceType_")]
+#[config(ArkWeb_ResourceType, "ArkWeb_ResourceType_")]
 pub enum ResourceType {
     MainFrame = 0,
     SubFrame = 1,

@@ -9,9 +9,7 @@ pub use coasting::ArkUICoastingAxisEvent;
 pub use pointer::ArkUIInputClonedEvent;
 
 use ohos_arkui_input_sys::{
-    ArkUI_ErrorCode_ARKUI_ERROR_CODE_NO_ERROR, ArkUI_ModifierKeyName_ARKUI_MODIFIER_KEY_ALT,
-    ArkUI_ModifierKeyName_ARKUI_MODIFIER_KEY_CTRL, ArkUI_ModifierKeyName_ARKUI_MODIFIER_KEY_FN,
-    ArkUI_ModifierKeyName_ARKUI_MODIFIER_KEY_SHIFT, ArkUI_UIInputEvent,
+    ArkUI_ErrorCode_ARKUI_ERROR_CODE_NO_ERROR, ArkUI_ModifierKeyName, ArkUI_UIInputEvent,
     OH_ArkUI_PointerEvent_GetPointerCount, OH_ArkUI_PointerEvent_GetPointerId,
     OH_ArkUI_UIInputEvent_GetAction, OH_ArkUI_UIInputEvent_GetEventTime,
     OH_ArkUI_UIInputEvent_GetSourceType, OH_ArkUI_UIInputEvent_GetToolType,
@@ -72,12 +70,8 @@ pub(crate) fn check_status(status: i32) -> Result<(), ArkUIInputError> {
 }
 
 fn modifier_key_mask(key: ModifierKey) -> u64 {
-    match key {
-        ModifierKey::Ctrl => ArkUI_ModifierKeyName_ARKUI_MODIFIER_KEY_CTRL as u64,
-        ModifierKey::Shift => ArkUI_ModifierKeyName_ARKUI_MODIFIER_KEY_SHIFT as u64,
-        ModifierKey::Alt => ArkUI_ModifierKeyName_ARKUI_MODIFIER_KEY_ALT as u64,
-        ModifierKey::Fn => ArkUI_ModifierKeyName_ARKUI_MODIFIER_KEY_FN as u64,
-    }
+    let raw: ArkUI_ModifierKeyName = key.into();
+    raw as u64
 }
 
 impl ArkUIInputEvent {

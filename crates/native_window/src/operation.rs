@@ -1,9 +1,9 @@
 use ohos_native_window_sys::*;
 
-use ohos_enum_macro::EnumFrom;
+use ohos_enum_derive::EnumFrom;
 
 #[derive(Debug, Clone, Copy, PartialEq, Eq, EnumFrom)]
-#[enum_from_config(NativeWindowOperation, "NativeWindowOperation_")]
+#[config(NativeWindowOperation, "NativeWindowOperation_")]
 pub enum Operation {
     SetBufferGeometry,
     GetBufferGeometry,

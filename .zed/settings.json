@@ -1,0 +1,11 @@
+{
+  "lsp": {
+    "rust-analyzer": {
+      "initialization_options": {
+        "cargo": {
+          "target": "aarch64-unknown-linux-ohos",
+        },
+      },
+    },
+  },
+}

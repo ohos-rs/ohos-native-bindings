@@ -9,9 +9,9 @@ description = "OpenHarmony's web binding for rust"
 workspace = true
 
 [dependencies]
-ohos-web-sys    = { workspace = true }
-bitflags        = { workspace = true }
-ohos_enum_macro = { workspace = true }
+ohos-web-sys     = { workspace = true }
+bitflags         = { workspace = true }
+ohos-enum-derive = { workspace = true }
 
 [features]
 default = []

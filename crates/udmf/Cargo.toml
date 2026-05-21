@@ -22,4 +22,4 @@ api-23  = ["api-22", "ohos-udmf-sys/api-23", "ohos-image-native-binding/api-23"]
 [dependencies]
 ohos-udmf-sys             = { workspace = true }
 ohos-image-native-binding = { workspace = true }
-ohos_enum_macro           = { workspace = true }
+ohos-enum-derive          = { workspace = true }

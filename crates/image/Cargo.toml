@@ -13,7 +13,7 @@ napi-sys-ohos             = { workspace = true }
 napi-ohos                 = { workspace = true, optional = true }
 ohos-image-sys            = { workspace = true }
 ohos-resource-manager-sys = { workspace = true }
-ohos_enum_macro           = { workspace = true }
+ohos-enum-derive          = { workspace = true }
 
 [features]
 default = ["napi"]
