@@ -4,16 +4,18 @@
       "initialization_options": {
         "cargo": {
           "target": "aarch64-unknown-linux-ohos",
-          "extraEnv": {
-            "OHOS_NDK_HOME": "${env:OHOS_NDK_HOME}",
-            "OHOS_SDK_HOME": "${env:OHOS_SDK_HOME}",
+          "buildScripts": {
+            "overrideCommand": [
+              "node",
+              "tools/rust-analyzer-ohos-check.mjs",
+            ],
           },
         },
         "check": {
-          "extraEnv": {
-            "OHOS_NDK_HOME": "${env:OHOS_NDK_HOME}",
-            "OHOS_SDK_HOME": "${env:OHOS_SDK_HOME}",
-          },
+          "overrideCommand": [
+            "node",
+            "tools/rust-analyzer-ohos-check.mjs",
+          ],
         },
       },
     },

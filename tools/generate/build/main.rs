@@ -9,6 +9,7 @@ use regex::Regex;
 use std::collections::{BTreeSet, HashMap, HashSet};
 use std::env;
 use std::fs;
+use std::path::Path;
 use std::process::Command;
 
 /// Baseline API version - versions <= this don't need feature gates
@@ -1093,6 +1094,25 @@ unsafe extern "C" {{}}"#,
     Ok(output_file)
 }
 
+fn format_rust_file(path: &Path) -> anyhow::Result<()> {
+    let rustfmt = env::var_os("RUSTFMT").unwrap_or_else(|| "rustfmt".into());
+    let status = Command::new(rustfmt)
+        .arg("--edition")
+        .arg("2021")
+        .arg(path)
+        .status()?;
+
+    if !status.success() {
+        return Err(Error::msg(format!(
+            "rustfmt failed for {} with status {}",
+            path.display(),
+            status
+        )));
+    }
+
+    Ok(())
+}
+
 fn main() {
     let mut failed_configs = Vec::new();
     let mut generated_files = Vec::new();
@@ -1124,6 +1144,9 @@ fn main() {
         let (processed_content, _, _) = add_feature_gates(&content, Some(&global_symbol_usage_min));
         if let Err(e) = fs::write(&output_file, processed_content) {
             eprintln!("Failed to write generated code for {}: {}", name, e);
+            failed_configs.push(name);
+        } else if let Err(e) = format_rust_file(&output_file) {
+            eprintln!("Failed to format generated code for {}: {}", name, e);
             failed_configs.push(name);
         }
     }
