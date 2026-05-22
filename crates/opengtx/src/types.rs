@@ -177,10 +177,10 @@ fn into_mut_c_string_bytes(value: &str) -> OpenGtxResult<Vec<u8>> {
         .map(CString::into_bytes_with_nul)
 }
 
+type ConfigDescriptionType = (OpenGTX_ConfigDescription, Vec<u8>, Vec<u8>, Vec<u8>);
+
 impl ConfigDescription {
-    pub(crate) fn to_raw(
-        &self,
-    ) -> OpenGtxResult<(OpenGTX_ConfigDescription, Vec<u8>, Vec<u8>, Vec<u8>)> {
+    pub(crate) fn to_raw(&self) -> OpenGtxResult<ConfigDescriptionType> {
         let mut package_name = into_mut_c_string_bytes(self.package_name.as_str())?;
         let package_name_ptr = package_name.as_mut_ptr().cast::<c_char>();
         let mut app_version = into_mut_c_string_bytes(self.app_version.as_str())?;
