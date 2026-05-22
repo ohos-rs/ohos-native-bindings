@@ -171,23 +171,31 @@ impl Default for ConfigDescription {
     }
 }
 
-impl ConfigDescription {
-    pub(crate) fn to_raw(&self) -> OpenGtxResult<RawConfigDescription> {
-        let package_name =
-            CString::new(self.package_name.as_str()).map_err(|_| OpenGtxError::InvalidString)?;
-        let app_version =
-            CString::new(self.app_version.as_str()).map_err(|_| OpenGtxError::InvalidString)?;
-        let engine_version =
-            CString::new(self.engine_version.as_str()).map_err(|_| OpenGtxError::InvalidString)?;
+fn into_mut_c_string_bytes(value: &str) -> OpenGtxResult<Vec<u8>> {
+    CString::new(value)
+        .map_err(|_| OpenGtxError::InvalidString)
+        .map(CString::into_bytes_with_nul)
+}
 
-        Ok(RawConfigDescription {
-            raw: OpenGTX_ConfigDescription {
+impl ConfigDescription {
+    pub(crate) fn to_raw(
+        &self,
+    ) -> OpenGtxResult<(OpenGTX_ConfigDescription, Vec<u8>, Vec<u8>, Vec<u8>)> {
+        let mut package_name = into_mut_c_string_bytes(self.package_name.as_str())?;
+        let package_name_ptr = package_name.as_mut_ptr().cast::<c_char>();
+        let mut app_version = into_mut_c_string_bytes(self.app_version.as_str())?;
+        let app_version_ptr = app_version.as_mut_ptr().cast::<c_char>();
+        let mut engine_version = into_mut_c_string_bytes(self.engine_version.as_str())?;
+        let engine_version_ptr = engine_version.as_mut_ptr().cast::<c_char>();
+
+        Ok((
+            OpenGTX_ConfigDescription {
                 mode: self.mode.into(),
                 targetFPS: self.target_fps,
-                packageName: package_name.as_ptr() as *mut c_char,
-                appVersion: app_version.as_ptr() as *mut c_char,
+                packageName: package_name_ptr,
+                appVersion: app_version_ptr,
                 engineType: self.engine_type.into(),
-                engineVersion: engine_version.as_ptr() as *mut c_char,
+                engineVersion: engine_version_ptr,
                 gameType: self.game_type.into(),
                 pictureQualityMaxLevel: self.picture_quality_max_level.into(),
                 resolutionMaxValue: self.resolution_max_value.into(),
@@ -196,23 +204,10 @@ impl ConfigDescription {
                 gameKeyThreadIds: self.game_key_thread_ids,
                 vulkanSupport: self.vulkan_support,
             },
-            _package_name: package_name,
-            _app_version: app_version,
-            _engine_version: engine_version,
-        })
-    }
-}
-
-pub(crate) struct RawConfigDescription {
-    raw: OpenGTX_ConfigDescription,
-    _package_name: CString,
-    _app_version: CString,
-    _engine_version: CString,
-}
-
-impl RawConfigDescription {
-    pub(crate) fn as_ptr(&self) -> *const OpenGTX_ConfigDescription {
-        &self.raw
+            package_name,
+            app_version,
+            engine_version,
+        ))
     }
 }
 
@@ -227,32 +222,21 @@ pub struct GameSceneInfo {
 }
 
 impl GameSceneInfo {
-    pub(crate) fn to_raw(&self) -> OpenGtxResult<RawGameSceneInfo> {
-        let description =
-            CString::new(self.description.as_str()).map_err(|_| OpenGtxError::InvalidString)?;
+    pub(crate) fn to_raw(&self) -> OpenGtxResult<(OpenGTX_GameSceneInfo, Vec<u8>)> {
+        let mut description = into_mut_c_string_bytes(self.description.as_str())?;
+        let description_ptr = description.as_mut_ptr().cast::<c_char>();
 
-        Ok(RawGameSceneInfo {
-            raw: OpenGTX_GameSceneInfo {
+        Ok((
+            OpenGTX_GameSceneInfo {
                 sceneID: self.scene_id.into(),
-                description: description.as_ptr() as *mut c_char,
+                description: description_ptr,
                 recommendFPS: self.recommend_fps,
                 minFPS: self.min_fps,
                 maxFPS: self.max_fps,
                 resolutionCurValue: self.resolution_cur_value.into(),
             },
-            _description: description,
-        })
-    }
-}
-
-pub(crate) struct RawGameSceneInfo {
-    raw: OpenGTX_GameSceneInfo,
-    _description: CString,
-}
-
-impl RawGameSceneInfo {
-    pub(crate) fn as_ptr(&self) -> *const OpenGTX_GameSceneInfo {
-        &self.raw
+            description,
+        ))
     }
 }
 
@@ -280,27 +264,16 @@ pub struct NetworkInfo {
 }
 
 impl NetworkInfo {
-    pub(crate) fn to_raw(&self) -> OpenGtxResult<RawNetworkInfo> {
-        let network_server_ip = CString::new(self.network_server_ip.as_str())
-            .map_err(|_| OpenGtxError::InvalidString)?;
+    pub(crate) fn to_raw(&self) -> OpenGtxResult<(OpenGTX_NetworkInfo, Vec<u8>)> {
+        let mut network_server_ip = into_mut_c_string_bytes(self.network_server_ip.as_str())?;
+        let network_server_ip_ptr = network_server_ip.as_mut_ptr().cast::<c_char>();
 
-        Ok(RawNetworkInfo {
-            raw: OpenGTX_NetworkInfo {
+        Ok((
+            OpenGTX_NetworkInfo {
                 networkLatency: self.network_latency.into(),
-                networkServerIP: network_server_ip.as_ptr() as *mut c_char,
+                networkServerIP: network_server_ip_ptr,
             },
-            _network_server_ip: network_server_ip,
-        })
-    }
-}
-
-pub(crate) struct RawNetworkInfo {
-    raw: OpenGTX_NetworkInfo,
-    _network_server_ip: CString,
-}
-
-impl RawNetworkInfo {
-    pub(crate) fn as_ptr(&self) -> *const OpenGTX_NetworkInfo {
-        &self.raw
+            network_server_ip,
+        ))
     }
 }

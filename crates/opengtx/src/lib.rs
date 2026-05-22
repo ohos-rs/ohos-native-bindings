@@ -29,9 +29,8 @@ impl OpenGtxContext {
     }
 
     pub fn set_configuration(&mut self, config: &ConfigDescription) -> OpenGtxResult<()> {
-        let raw_config = config.to_raw()?;
-        let status =
-            unsafe { HMS_OpenGTX_SetConfiguration(self.raw.as_ptr(), raw_config.as_ptr()) };
+        let (raw_config, _package_name, _app_version, _engine_version) = config.to_raw()?;
+        let status = unsafe { HMS_OpenGTX_SetConfiguration(self.raw.as_ptr(), &raw_config) };
         check_status(status)
     }
 
@@ -58,16 +57,14 @@ impl OpenGtxContext {
         &mut self,
         game_scene_info: &GameSceneInfo,
     ) -> OpenGtxResult<()> {
-        let raw_info = game_scene_info.to_raw()?;
-        let status =
-            unsafe { HMS_OpenGTX_DispatchGameSceneInfo(self.raw.as_ptr(), raw_info.as_ptr()) };
+        let (raw_info, _description) = game_scene_info.to_raw()?;
+        let status = unsafe { HMS_OpenGTX_DispatchGameSceneInfo(self.raw.as_ptr(), &raw_info) };
         check_status(status)
     }
 
     pub fn dispatch_network_info(&mut self, network_info: &NetworkInfo) -> OpenGtxResult<()> {
-        let raw_info = network_info.to_raw()?;
-        let status =
-            unsafe { HMS_OpenGTX_DispatchNetworkInfo(self.raw.as_ptr(), raw_info.as_ptr()) };
+        let (raw_info, _network_server_ip) = network_info.to_raw()?;
+        let status = unsafe { HMS_OpenGTX_DispatchNetworkInfo(self.raw.as_ptr(), &raw_info) };
         check_status(status)
     }
 }
@@ -77,9 +74,9 @@ unsafe impl Send for OpenGtxContext {}
 impl Drop for OpenGtxContext {
     fn drop(&mut self) {
         let mut raw = self.raw.as_ptr();
-        let status = unsafe { HMS_OpenGTX_DestroyContext(&mut raw) };
+        let _status = unsafe { HMS_OpenGTX_DestroyContext(&mut raw) };
 
         #[cfg(debug_assertions)]
-        debug_assert_eq!(status, OpenGTX_ErrorCode_OPENGTX_SUCCESS);
+        debug_assert_eq!(_status, OpenGTX_ErrorCode_OPENGTX_SUCCESS);
     }
 }
