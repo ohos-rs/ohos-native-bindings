@@ -1,0 +1,123 @@
+name: Release
+
+on:
+  push:
+    branches:
+      - master
+  workflow_dispatch:
+    inputs:
+      command:
+        description: "release-plz command to run"
+        required: true
+        type: choice
+        options:
+          - release-pr
+          - release
+        default: release-pr
+      dry_run:
+        description: "Run release without publishing crates or creating tags"
+        required: true
+        type: boolean
+        default: true
+
+permissions:
+  contents: write
+  pull-requests: write
+
+concurrency:
+  group: release-${{ github.ref }}
+  cancel-in-progress: false
+
+jobs:
+  release-plz-release:
+    name: Release crates
+    runs-on: ubuntu-latest
+    if: >-
+      github.repository_owner == 'ohos-rs' &&
+      (github.event_name == 'push' ||
+       (github.event_name == 'workflow_dispatch' && inputs.command == 'release'))
+    permissions:
+      contents: write
+      id-token: write
+    env:
+      CARGO_REGISTRY_TOKEN: ${{ secrets.CARGO_REGISTRY_TOKEN }}
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Setup OpenHarmony SDK
+        uses: openharmony-rs/setup-ohos-sdk@v0.1
+        with:
+          version: '5.0.0'
+
+      - name: Setup Rust
+        uses: dtolnay/rust-toolchain@stable
+
+      - name: Cache cargo
+        uses: actions/cache@v4
+        with:
+          path: |
+            ~/.cargo/registry
+            ~/.cargo/git
+            target
+          key: release-cargo-${{ runner.os }}-${{ hashFiles('**/Cargo.lock') }}
+          restore-keys: |
+            release-cargo-${{ runner.os }}-
+
+      - name: Authenticate to crates.io with trusted publishing
+        if: ${{ vars.CRATES_IO_TRUSTED_PUBLISHING == 'true' }}
+        uses: rust-lang/crates-io-auth-action@v1
+        id: auth
+
+      - name: Run release-plz
+        uses: release-plz/action@v0.5
+        with:
+          command: release
+          dry_run: ${{ github.event_name == 'workflow_dispatch' && inputs.dry_run }}
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          CARGO_REGISTRY_TOKEN: ${{ steps.auth.outputs.token || env.CARGO_REGISTRY_TOKEN }}
+
+  release-plz-pr:
+    name: Prepare release PR
+    runs-on: ubuntu-latest
+    if: >-
+      github.repository_owner == 'ohos-rs' &&
+      (github.event_name == 'push' ||
+       (github.event_name == 'workflow_dispatch' && inputs.command == 'release-pr'))
+    permissions:
+      contents: write
+      pull-requests: write
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Setup OpenHarmony SDK
+        uses: openharmony-rs/setup-ohos-sdk@v0.1
+        with:
+          version: '5.0.0'
+
+      - name: Setup Rust
+        uses: dtolnay/rust-toolchain@stable
+
+      - name: Cache cargo
+        uses: actions/cache@v4
+        with:
+          path: |
+            ~/.cargo/registry
+            ~/.cargo/git
+            target
+          key: release-pr-cargo-${{ runner.os }}-${{ hashFiles('**/Cargo.lock') }}
+          restore-keys: |
+            release-pr-cargo-${{ runner.os }}-
+
+      - name: Run release-plz
+        uses: release-plz/action@v0.5
+        with:
+          command: release-pr
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}

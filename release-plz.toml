@@ -1,0 +1,262 @@
+[workspace]
+release = false
+release_always = false
+changelog_update = false
+dependencies_update = false
+git_tag_name = "{{ package }}-v{{ version }}"
+git_release_name = "{{ package }} v{{ version }}"
+repo_url = "https://github.com/ohos-rs/ohos-native-bindings"
+semver_check = false
+publish_timeout = "30m"
+
+[[package]]
+name = "ohos-ability-access-control-binding"
+release = true
+
+[[package]]
+name = "ohos-ability-access-control-sys"
+release = true
+
+[[package]]
+name = "ohos-accessibility-sys"
+release = true
+
+[[package]]
+name = "ohos-arkui-binding"
+release = true
+
+[[package]]
+name = "ohos-arkui-input-binding"
+release = true
+
+[[package]]
+name = "ohos-arkui-input-sys"
+release = true
+
+[[package]]
+name = "ohos-arkui-sys"
+release = true
+
+[[package]]
+name = "ohos-asset-binding"
+release = true
+
+[[package]]
+name = "ohos-asset-sys"
+release = true
+
+[[package]]
+name = "ohos-audio-sys"
+release = true
+
+[[package]]
+name = "ohos-bundle-binding"
+release = true
+
+[[package]]
+name = "ohos-bundle-sys"
+release = true
+
+[[package]]
+name = "ohos-display-binding"
+release = true
+
+[[package]]
+name = "ohos-display-soloist-binding"
+release = true
+
+[[package]]
+name = "ohos-display-soloist-sys"
+release = true
+
+[[package]]
+name = "ohos-display-sys"
+release = true
+
+[[package]]
+name = "ohos-drawing-binding"
+release = true
+
+[[package]]
+name = "ohos-enum-derive"
+release = true
+
+[[package]]
+name = "ohos-fileshare-binding"
+release = true
+
+[[package]]
+name = "ohos-fileshare-sys"
+release = true
+
+[[package]]
+name = "ohos-fileuri-binding"
+release = true
+
+[[package]]
+name = "ohos-fileuri-sys"
+release = true
+
+[[package]]
+name = "ohos-hilog-binding"
+release = true
+
+[[package]]
+name = "ohos-hilogs-sys"
+release = true
+
+[[package]]
+name = "ohos-image-binding"
+release = true
+
+[[package]]
+name = "ohos-image-native-binding"
+release = true
+
+[[package]]
+name = "ohos-image-native-sys"
+release = true
+
+[[package]]
+name = "ohos-image-sys"
+release = true
+
+[[package]]
+name = "ohos-ime-binding"
+release = true
+
+[[package]]
+name = "ohos-init-binding"
+release = true
+
+[[package]]
+name = "ohos-init-sys"
+release = true
+
+[[package]]
+name = "ohos-input-binding"
+release = true
+
+[[package]]
+name = "ohos-input-method-sys"
+release = true
+
+[[package]]
+name = "ohos-input-sys"
+release = true
+
+[[package]]
+name = "ohos-jsvm-binding"
+release = true
+
+[[package]]
+name = "ohos-jsvm-sys"
+release = true
+
+[[package]]
+name = "ohos-native-buffer-binding"
+release = true
+
+[[package]]
+name = "ohos-native-buffer-sys"
+release = true
+
+[[package]]
+name = "ohos-native-drawing-sys"
+release = true
+
+[[package]]
+name = "ohos-native-vsync-sys"
+release = true
+
+[[package]]
+name = "ohos-native-window-binding"
+release = true
+
+[[package]]
+name = "ohos-native-window-sys"
+release = true
+
+[[package]]
+name = "ohos-net-connection-binding"
+release = true
+
+[[package]]
+name = "ohos-net-connection-sys"
+release = true
+
+[[package]]
+name = "ohos-net-stack-binding"
+release = true
+
+[[package]]
+name = "ohos-net-stack-sys"
+release = true
+
+[[package]]
+name = "ohos-pasteboard-binding"
+release = true
+
+[[package]]
+name = "ohos-pasteboard-sys"
+release = true
+
+[[package]]
+name = "ohos-qos-binding"
+release = true
+
+[[package]]
+name = "ohos-qos-sys"
+release = true
+
+[[package]]
+name = "ohos-resource-manager-binding"
+release = true
+
+[[package]]
+name = "ohos-resource-manager-sys"
+release = true
+
+[[package]]
+name = "ohos-sensor-binding"
+release = true
+
+[[package]]
+name = "ohos-sensor-sys"
+release = true
+
+[[package]]
+name = "ohos-udmf-binding"
+release = true
+
+[[package]]
+name = "ohos-udmf-sys"
+release = true
+
+[[package]]
+name = "ohos-vibrator-binding"
+release = true
+
+[[package]]
+name = "ohos-vibrator-sys"
+release = true
+
+[[package]]
+name = "ohos-vsync-binding"
+release = true
+
+[[package]]
+name = "ohos-web-binding"
+release = true
+
+[[package]]
+name = "ohos-web-sys"
+release = true
+
+[[package]]
+name = "ohos-xcomponent-binding"
+release = true
+
+[[package]]
+name = "ohos-xcomponent-sys"
+release = true
