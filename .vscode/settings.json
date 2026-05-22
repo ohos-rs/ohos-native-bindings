@@ -1,5 +1,13 @@
 {
     "rust-analyzer.cargo.target": "aarch64-unknown-linux-ohos",
+    "rust-analyzer.cargo.buildScripts.overrideCommand": [
+        "node",
+        "tools/rust-analyzer-ohos-check.mjs"
+    ],
+    "rust-analyzer.check.overrideCommand": [
+        "node",
+        "tools/rust-analyzer-ohos-check.mjs"
+    ],
     "editor.gotoLocation.alternativeDeclarationCommand": "editor.action.revealDefinition",
     "editor.gotoLocation.alternativeDefinitionCommand": "editor.action.revealDefinition",
     "editor.gotoLocation.alternativeTypeDefinitionCommand": "editor.action.revealDefinition",

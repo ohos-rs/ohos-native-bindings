@@ -4,6 +4,18 @@
       "initialization_options": {
         "cargo": {
           "target": "aarch64-unknown-linux-ohos",
+          "buildScripts": {
+            "overrideCommand": [
+              "node",
+              "tools/rust-analyzer-ohos-check.mjs",
+            ],
+          },
+        },
+        "check": {
+          "overrideCommand": [
+            "node",
+            "tools/rust-analyzer-ohos-check.mjs",
+          ],
         },
       },
     },
