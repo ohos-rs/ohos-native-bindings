@@ -134,15 +134,7 @@ name = "ohos-init-sys"
 release = true
 
 [[package]]
-name = "ohos-input-binding"
-release = true
-
-[[package]]
 name = "ohos-input-method-sys"
-release = true
-
-[[package]]
-name = "ohos-input-sys"
 release = true
 
 [[package]]
@@ -198,7 +190,7 @@ name = "ohos-pasteboard-binding"
 release = true
 
 [[package]]
-name = "ohos-pasteboard-sys"
+name = "ohos-native-pasteboard-sys"
 release = true
 
 [[package]]
