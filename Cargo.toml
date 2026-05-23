@@ -32,6 +32,7 @@ ohos-net-connection-binding         = { version = "0.1.0", path = "crates/net_co
 ohos-net-stack-binding              = { version = "0.1.0", path = "crates/net_stack" }
 ohos-arkui-input-binding            = { version = "0.1.0", path = "crates/arkui_input" }
 ohos-jsvm-binding                   = { version = "0.1.0", path = "crates/jsvm" }
+hms-opengtx-binding                 = { version = "0.1.0", path = "crates/opengtx" }
 
 ohos-bundle-sys                 = { version = "0.1.0", path = "sys/ohos-bundle-sys" }
 ohos-init-sys                   = { version = "0.1.0", path = "sys/ohos-init-sys" }
@@ -64,6 +65,7 @@ ohos-fileuri-sys                = { version = "0.2.0", path = "sys/ohos-fileuri-
 ohos-fileshare-sys              = { version = "0.2.0", path = "sys/ohos-fileshare-sys" }
 ohos-arkui-input-sys            = { version = "0.1.0", path = "sys/ohos-arkui-input-sys" }
 ohos-jsvm-sys                   = { version = "0.1.0", path = "sys/ohos-jsvm-sys" }
+hms-opengtx-sys                 = { version = "0.1.0", path = "sys/hms-opengtx-sys" }
 
 ohos-enum-derive = { version = "0.1.0", path = "crates/enum_derive" }
 
