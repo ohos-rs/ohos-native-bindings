@@ -12,6 +12,7 @@ publish_timeout = "30m"
 [[package]]
 name = "generate"
 release = false
+publish = false
 
 # examples
 [[package]]
