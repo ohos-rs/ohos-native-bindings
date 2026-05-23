@@ -15,7 +15,6 @@ ohos-xcomponent-binding             = { version = "0.2.0", path = "crates/xcompo
 ohos-arkui-binding                  = { version = "0.1.0", path = "crates/arkui" }
 ohos-vsync-binding                  = { version = "0.1.0", path = "crates/vsync" }
 ohos-display-soloist-binding        = { version = "0.1.0", path = "crates/native_display_soloist" }
-ohos-input-binding                  = { version = "0.0.1", path = "crates/input" }
 ohos-ime-binding                    = { version = "0.1.2", path = "crates/ime" }
 ohos-display-binding                = { version = "0.0.1", path = "crates/display" }
 ohos-drawing-binding                = { version = "0.1.0", path = "crates/drawing" }
@@ -44,7 +43,6 @@ ohos-xcomponent-sys             = { version = "0.0.2", path = "sys/ohos-xcompone
 ohos-arkui-sys                  = { version = "0.0.1", path = "sys/ohos-arkui-sys" }
 ohos-native-vsync-sys           = { version = "0.0.1", path = "sys/ohos-native-vsync-sys" }
 ohos-display-soloist-sys        = { version = "0.0.1", path = "sys/ohos-display-soloist-sys" }
-ohos-input-sys                  = { version = "0.0.1", path = "sys/ohos-input-sys" }
 ohos-input-method-sys           = { version = "0.1.1", path = "sys/ohos-input-method-sys" }
 ohos-display-sys                = { version = "0.0.1", path = "sys/ohos-display-sys" }
 ohos-native-drawing-sys         = { version = "0.1.0", path = "sys/ohos-native-drawing-sys" }
@@ -52,7 +50,7 @@ ohos-accessibility-sys          = { version = "0.0.1", path = "sys/ohos-accessib
 ohos-native-window-sys          = { version = "0.0.1", path = "sys/ohos-native-window-sys" }
 ohos-native-buffer-sys          = { version = "0.0.1", path = "sys/ohos-native-buffer-sys" }
 ohos-udmf-sys                   = { version = "0.0.1", path = "sys/ohos-udmf-sys" }
-ohos-pasteboard-sys             = { version = "0.0.1", path = "sys/ohos-pasteboard-sys" }
+ohos-native-pasteboard-sys      = { version = "0.1.0", path = "sys/ohos-native-pasteboard-sys" }
 ohos-image-sys                  = { version = "0.0.1", path = "sys/ohos-image-sys" }
 ohos-image-native-sys           = { version = "0.0.1", path = "sys/ohos-image-native-sys" }
 ohos-web-sys                    = { version = "0.0.1", path = "sys/ohos-web-sys" }
