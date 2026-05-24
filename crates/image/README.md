@@ -1,9 +1,9 @@
-# image-binding
+# ohos-image-binding
 
 ## Install
 
 ```shell
-cargo add image_binding
+cargo add ohos-image-binding
 ```
 
 ## Usage
@@ -11,8 +11,8 @@ cargo add image_binding
 Rust source code:
 
 ```rust
-use hilog_binding::hilog_info;
-use image_binding::get_pixel_map_info;
+use ohos_hilog_binding::hilog_info;
+use ohos_image_binding::get_pixel_map_info;
 use napi_derive_ohos::{js_function, module_exports};
 use napi_ohos::bindgen_prelude::pre_init;
 use napi_ohos::{module_init, CallContext, JsObject, JsUndefined, NapiRaw, Result};
@@ -89,3 +89,7 @@ struct Tsfn {
   }
 }
 ```
+
+## License
+
+MIT OR Apache-2.0

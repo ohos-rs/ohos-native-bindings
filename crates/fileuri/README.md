@@ -18,14 +18,14 @@ Add this to your `Cargo.toml`:
 
 ```toml
 [dependencies]
-ohos-fileuri-binding = { version = "0.1.0" }
+ohos-fileuri-binding = { version = "0.2.0" }
 ```
 
 For API 13+ features:
 
 ```toml
 [dependencies]
-ohos-fileuri-binding = { version = "0.1.0", features = ["api-13"] }
+ohos-fileuri-binding = { version = "0.2.0", features = ["api-13"] }
 ```
 
 ## Examples
