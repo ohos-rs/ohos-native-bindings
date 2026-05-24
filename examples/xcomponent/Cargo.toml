@@ -1,7 +1,7 @@
 [package]
 name    = "nativerender"
 version = "0.1.0"
-edition = "2021"
+edition.workspace = true
 
 # See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
 
@@ -21,6 +21,3 @@ ohos-hilog-binding      = { workspace = true }
 [build-dependencies]
 napi-build-ohos = { workspace = true }
 gl_generator    = { version = "0.14.0" }
-
-[profile.release]
-lto = true

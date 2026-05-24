@@ -19,12 +19,12 @@ use ohos_arkui_sys::OH_ArkUI_NodeEvent_GetTextChangeEvent;
 #[cfg(feature = "api-22")]
 use ohos_arkui_sys::{
     ArkUI_Rect, ArkUI_TouchTestInfo, ArkUI_TouchTestInfoItem, ArkUI_TouchTestInfoItemArray,
-    OH_ArkUI_NodeEvent_GetTouchTestInfo, OH_ArkUI_TouchTestInfoItem_GetChildId,
-    OH_ArkUI_TouchTestInfoItem_GetChildRect, OH_ArkUI_TouchTestInfoItem_GetWindowX,
-    OH_ArkUI_TouchTestInfoItem_GetWindowY, OH_ArkUI_TouchTestInfoItem_GetX,
-    OH_ArkUI_TouchTestInfoItem_GetXRelativeToParent, OH_ArkUI_TouchTestInfoItem_GetY,
-    OH_ArkUI_TouchTestInfoItem_GetYRelativeToParent, OH_ArkUI_TouchTestInfo_GetTouchTestInfoList,
+    OH_ArkUI_NodeEvent_GetTouchTestInfo, OH_ArkUI_TouchTestInfo_GetTouchTestInfoList,
     OH_ArkUI_TouchTestInfo_SetTouchResultId, OH_ArkUI_TouchTestInfo_SetTouchResultStrategy,
+    OH_ArkUI_TouchTestInfoItem_GetChildId, OH_ArkUI_TouchTestInfoItem_GetChildRect,
+    OH_ArkUI_TouchTestInfoItem_GetWindowX, OH_ArkUI_TouchTestInfoItem_GetWindowY,
+    OH_ArkUI_TouchTestInfoItem_GetX, OH_ArkUI_TouchTestInfoItem_GetXRelativeToParent,
+    OH_ArkUI_TouchTestInfoItem_GetY, OH_ArkUI_TouchTestInfoItem_GetYRelativeToParent,
 };
 
 /// Wrapper around `ArkUI_NodeEvent`.

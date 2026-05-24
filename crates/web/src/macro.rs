@@ -1,6 +1,6 @@
 #[macro_export]
 macro_rules! ark_web_member_exists {
-    ($s:expr, $f:ident) => {{
+    ($s:expr_2021, $f:ident) => {{
         let s_ptr = $s as *const _ as *const u8;
         let f_ptr = &((*$s).$f) as *const _ as *const u8;
         let f_size = std::mem::size_of_val(&((*$s).$f));
@@ -15,7 +15,7 @@ macro_rules! ark_web_member_exists {
 
 #[macro_export]
 macro_rules! ark_web_member_missing {
-    ($s:expr, $f:ident) => {
+    ($s:expr_2021, $f:ident) => {
         (!$crate::ark_web_member_exists!($s, $f) || !((*$s).$f).is_some())
     };
 }

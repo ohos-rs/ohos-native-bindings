@@ -1,5 +1,5 @@
 use std::{
-    ffi::{c_void, CString},
+    ffi::{CString, c_void},
     ptr::NonNull,
     sync::LazyLock,
 };
@@ -10,8 +10,8 @@ use ohos_web_sys::{
 };
 
 use crate::{
-    ark_web_member_missing, on_controller_attach, on_destroy, on_page_begin, on_page_end,
-    ArkWebError,
+    ArkWebError, ark_web_member_missing, on_controller_attach, on_destroy, on_page_begin,
+    on_page_end,
 };
 
 pub struct Component {

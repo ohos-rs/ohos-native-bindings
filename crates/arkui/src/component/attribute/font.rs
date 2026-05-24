@@ -1,7 +1,7 @@
 //! Module component::attribute::font wrappers and related types.
 
 use crate::{
-    ArkUINodeAttributeItem, ArkUINodeAttributeNumber, ArkUIResult, ARK_UI_NATIVE_NODE_API_1,
+    ARK_UI_NATIVE_NODE_API_1, ArkUINodeAttributeItem, ArkUINodeAttributeNumber, ArkUIResult,
 };
 
 use super::ArkUIAttributeBasic;

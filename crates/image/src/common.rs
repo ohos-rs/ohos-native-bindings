@@ -2,13 +2,13 @@ use std::{ffi::CString, ptr::NonNull};
 
 #[cfg(feature = "napi")]
 use napi_ohos::{
-    bindgen_prelude::{Object, Unknown},
     Env, JsValue,
+    bindgen_prelude::{Object, Unknown},
 };
 use napi_sys_ohos::napi_value;
 
 use crate::{
-    error::{check_status, ImageError, ImageResult},
+    error::{ImageError, ImageResult, check_status},
     sys,
 };
 

@@ -6,6 +6,7 @@ use std::{cell::RefCell, rc::Rc};
 use napi_derive_ohos::napi;
 use napi_ohos::Result;
 use ohos_arkui_binding::{
+    ArkUIHandle, RootNode,
     animate::options::Animation,
     common::ui_context::ArkUIContext,
     component::{
@@ -18,7 +19,6 @@ use ohos_arkui_binding::{
         animation_mode::AnimationMode, curve::Curve, gesture_event::GestureEventAction,
         text_alignment::TextAlignment,
     },
-    ArkUIHandle, RootNode,
 };
 use ohos_arkui_input_binding::ArkUIErrorCode;
 use ohos_hilog_binding::hilog_info;

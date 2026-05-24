@@ -241,15 +241,15 @@ pub struct Asset_SyncResult {
     #[doc = " The count of Assets that fail to synchronize."]
     pub failedCount: u32,
 }
-extern "C" {
+unsafe extern "C" {
     #[doc = " @brief Adds an asset. Permission ohos.permission.STORE_PERSISTENT_DATA is required when the Asset needs to be stored\n     persistently by setting {@link ASSET_TAG_IS_PERSISTENT} tag.\n\n @param attributes Pointer to the attributes of the asset to add.\n @param attributes Number of the attributes of the asset to add.\n @return {@link ASSET_SUCCESS} 0 - The operation is successful.\n     {@link ASSET_PERMISSION_DENIED} 201 - The caller doesn't have the permission.\n     {@link ASSET_INVALID_ARGUMENT} 401 - Parameter error. Possible causes:\n         1. Mandatory parameters are left unspecified.\n         2. Incorrect parameter types.\n         3. Parameter verification failed.\n     {@link ASSET_SERVICE_UNAVAILABLE} 24000001 - The ASSET service is unavailable.\n     {@link ASSET_DUPLICATED} 24000003 - The asset already exists.\n     {@link ASSET_STATUS_MISMATCH} 24000005 - The screen lock status does not match.\n     {@link ASSET_OUT_OF_MEMORY} 24000006 - Insufficient memory.\n     {@link ASSET_DATA_CORRUPTED} 24000007 - The asset is corrupted.\n     {@link ASSET_DATABASE_ERROR} 24000008 - The database operation failed.\n     {@link ASSET_CRYPTO_ERROR} 24000009 - The cryptography operation failed.\n     {@link ASSET_IPC_ERROR} 24000010 - IPC failed.\n     {@link ASSET_BMS_ERROR} 24000011 - Calling the Bundle Manager service failed.\n     {@link ASSET_ACCOUNT_ERROR} 24000012 - Calling the OS Account service failed.\n     {@link ASSET_ACCESS_TOKEN_ERROR} 24000013 - Calling the Access Token service failed.\n     {@link ASSET_FILE_OPERATION_ERROR} 24000014 - The file operation failed.\n     {@link ASSET_GET_SYSTEM_TIME_ERROR} 24000015 - Getting the system time failed.\n @since 11"]
     pub fn OH_Asset_Add(attributes: *const Asset_Attr, attrCnt: u32) -> i32;
 }
-extern "C" {
+unsafe extern "C" {
     #[doc = " @brief Removes one or more assets.\n\n @param query Pointer to the conditions for removing the assets.\n @param queryCnt Number of conditions for removing the assets.\n @return {@link ASSET_SUCCESS} 0 - The operation is successful.\n     {@link ASSET_INVALID_ARGUMENT} 401 - Parameter error. Possible causes:\n         1. Incorrect parameter types.\n         2. Parameter verification failed.\n     {@link ASSET_SERVICE_UNAVAILABLE} 24000001 - The ASSET service is unavailable.\n     {@link ASSET_NOT_FOUND} 24000002 - The asset is not found.\n     {@link ASSET_OUT_OF_MEMORY} 24000006 - Insufficient memory.\n     {@link ASSET_DATA_CORRUPTED} 24000007 - The asset is corrupted.\n     {@link ASSET_DATABASE_ERROR} 24000008 - The database operation failed.\n     {@link ASSET_IPC_ERROR} 24000010 - IPC failed.\n     {@link ASSET_BMS_ERROR} 24000011 - Calling the Bundle Manager service failed.\n     {@link ASSET_ACCOUNT_ERROR} 24000012 - Calling the OS Account service failed.\n     {@link ASSET_ACCESS_TOKEN_ERROR} 24000013 - Calling the Access Token service failed.\n     {@link ASSET_GET_SYSTEM_TIME_ERROR} 24000015 - Getting the system time failed.\n @since 11"]
     pub fn OH_Asset_Remove(query: *const Asset_Attr, queryCnt: u32) -> i32;
 }
-extern "C" {
+unsafe extern "C" {
     #[doc = " @brief Updates an asset.\n\n @param query Pointer to the conditions for updating the asset.\n @param queryCnt Number of conditions for updating the asset.\n @param attributes Pointer to the attributes of the asset to update.\n @param attributes Number of the attributes of the asset to update.\n @return {@link ASSET_SUCCESS} 0 - The operation is successful.\n     {@link ASSET_INVALID_ARGUMENT} 401 - Parameter error. Possible causes:\n         1. Mandatory parameters are left unspecified.\n         2. Incorrect parameter types.\n         3. Parameter verification failed.\n     {@link ASSET_SERVICE_UNAVAILABLE} 24000001 - The ASSET service is unavailable.\n     {@link ASSET_NOT_FOUND} 24000002 - The asset is not found.\n     {@link ASSET_STATUS_MISMATCH} 24000005 - The screen lock status does not match.\n     {@link ASSET_OUT_OF_MEMORY} 24000006 - Insufficient memory.\n     {@link ASSET_DATA_CORRUPTED} 24000007 - The asset is corrupted.\n     {@link ASSET_DATABASE_ERROR} 24000008 - The database operation failed.\n     {@link ASSET_CRYPTO_ERROR} 24000009 - The cryptography operation failed.\n     {@link ASSET_IPC_ERROR} 24000010 - IPC failed.\n     {@link ASSET_BMS_ERROR} 24000011 - Calling the Bundle Manager service failed.\n     {@link ASSET_ACCOUNT_ERROR} 24000012 - Calling the OS Account service failed.\n     {@link ASSET_ACCESS_TOKEN_ERROR} 24000013 - Calling the Access Token service failed.\n     {@link ASSET_GET_SYSTEM_TIME_ERROR} 24000015 - Getting the system time failed.\n @since 11"]
     pub fn OH_Asset_Update(
         query: *const Asset_Attr,
@@ -258,7 +258,7 @@ extern "C" {
         updateCnt: u32,
     ) -> i32;
 }
-extern "C" {
+unsafe extern "C" {
     #[doc = " @brief Preprocesses data before querying the asset that can be accessed only after a successful user authentication.\n\n @param query Pointer to the search criteria of the asset.\n @param queryCnt Number of the search criteria.\n @param challenge Pointer to the challenge value to be used when <b>OH_Asset_Query</b> is called.\n @return {@link ASSET_SUCCESS} 0 - The operation is successful.\n     {@link ASSET_INVALID_ARGUMENT} 401 - Parameter error. Possible causes:\n         1. Incorrect parameter types.\n         2. Parameter verification failed.\n     {@link ASSET_SERVICE_UNAVAILABLE} 24000001 - The ASSET service is unavailable.\n     {@link ASSET_NOT_FOUND} 24000002 - The asset is not found.\n     {@link ASSET_STATUS_MISMATCH} 24000005 - The screen lock status does not match.\n     {@link ASSET_OUT_OF_MEMORY} 24000006 - Insufficient memory.\n     {@link ASSET_DATA_CORRUPTED} 24000007 - The asset is corrupted.\n     {@link ASSET_DATABASE_ERROR} 24000008 - The database operation failed.\n     {@link ASSET_CRYPTO_ERROR} 24000009 - The cryptography operation failed.\n     {@link ASSET_IPC_ERROR} 24000010 - IPC failed.\n     {@link ASSET_BMS_ERROR} 24000011 - Calling the Bundle Manager service failed.\n     {@link ASSET_ACCOUNT_ERROR} 24000012 - Calling the OS Account service failed.\n     {@link ASSET_ACCESS_TOKEN_ERROR} 24000013 - Calling the Access Token service failed.\n     {@link ASSET_LIMIT_EXCEEDED} 24000016 - The cache exceeds the limit.\n     {@link ASSET_UNSUPPORTED} 24000017 - The capability is not supported.\n @since 11"]
     pub fn OH_Asset_PreQuery(
         query: *const Asset_Attr,
@@ -266,7 +266,7 @@ extern "C" {
         challenge: *mut Asset_Blob,
     ) -> i32;
 }
-extern "C" {
+unsafe extern "C" {
     #[doc = " @brief Queries assets.\n\n @param query Pointer to the search criteria.\n @param queryCnt Number of the search criteria.\n @param resultSet Pointer to the query result obtained.\n @return {@link ASSET_SUCCESS} 0 - The operation is successful.\n     {@link ASSET_INVALID_ARGUMENT} 401 - Parameter error. Possible causes:\n         1. Incorrect parameter types.\n         2. Parameter verification failed.\n     {@link ASSET_SERVICE_UNAVAILABLE} 24000001 - The ASSET service is unavailable.\n     {@link ASSET_NOT_FOUND} 24000002 - The asset is not found.\n     {@link ASSET_ACCESS_DENIED} 24000004 - Access to the asset is denied.\n     {@link ASSET_STATUS_MISMATCH} 24000005 - The screen lock status does not match.\n     {@link ASSET_OUT_OF_MEMORY} 24000006 - Insufficient memory.\n     {@link ASSET_DATA_CORRUPTED} 24000007 - The asset is corrupted.\n     {@link ASSET_DATABASE_ERROR} 24000008 - The database operation failed.\n     {@link ASSET_CRYPTO_ERROR} 24000009 - The cryptography operation failed.\n     {@link ASSET_IPC_ERROR} 24000010 - IPC failed.\n     {@link ASSET_BMS_ERROR} 24000011 - Calling the Bundle Manager service failed.\n     {@link ASSET_ACCOUNT_ERROR} 24000012 - Calling the OS Account service failed.\n     {@link ASSET_ACCESS_TOKEN_ERROR} 24000013 - Calling the Access Token service failed.\n     {@link ASSET_UNSUPPORTED} 24000017 - The capability is not supported.\n @since 11"]
     pub fn OH_Asset_Query(
         query: *const Asset_Attr,
@@ -274,11 +274,11 @@ extern "C" {
         resultSet: *mut Asset_ResultSet,
     ) -> i32;
 }
-extern "C" {
+unsafe extern "C" {
     #[doc = " @brief Processes data after the query of the asset that requires user authentication.\n\n @param handle Pointer to the handle of the data to process, which includes the challenge value returned by\n     <b>OH_Asset_PreQuery</b>.\n @param handleCnt Number of the elements in the handle attribute set.\n @return {@link ASSET_SUCCESS} 0 - The operation is successful.\n     {@link ASSET_INVALID_ARGUMENT} 401 - Parameter error. Possible causes:\n         1. Mandatory parameters are left unspecified.\n         2. Incorrect parameter types.\n         3. Parameter verification failed.\n     {@link ASSET_SERVICE_UNAVAILABLE} 24000001 - The ASSET service is unavailable.\n     {@link ASSET_OUT_OF_MEMORY} 24000006 - Insufficient memory.\n     {@link ASSET_IPC_ERROR} 24000010 - IPC failed.\n     {@link ASSET_BMS_ERROR} 24000011 - Calling the Bundle Manager service failed.\n     {@link ASSET_ACCOUNT_ERROR} 24000012 - Calling the OS Account service failed.\n     {@link ASSET_ACCESS_TOKEN_ERROR} 24000013 - Calling the Access Token service failed.\n @since 11"]
     pub fn OH_Asset_PostQuery(handle: *const Asset_Attr, handleCnt: u32) -> i32;
 }
-extern "C" {
+unsafe extern "C" {
     #[doc = " @brief Query the result of synchronization.\n\n @param query Pointer to the search criteria.\n @param queryCnt Number of the search criteria.\n @param syncResult Pointer to the synchronization result obtained.\n @return {@link ASSET_SUCCESS} 0 - The operation is successful.\n     {@link ASSET_SERVICE_UNAVAILABLE} 24000001 - The ASSET service is unavailable.\n     {@link ASSET_OUT_OF_MEMORY} 24000006 - Insufficient memory.\n     {@link ASSET_IPC_ERROR} 24000010 - IPC failed.\n     {@link ASSET_BMS_ERROR} 24000011 - Calling the Bundle Manager service failed.\n     {@link ASSET_ACCOUNT_ERROR} 24000012 - Calling the OS Account service failed.\n     {@link ASSET_ACCESS_TOKEN_ERROR} 24000013 - Calling the Access Token service failed.\n     {@link ASSET_FILE_OPERATION_ERROR} 24000014 - The file operation failed.\n     {@link ASSET_PARAM_VERIFICATION_FAILED} 24000018 - Parameter verification failed.\n @since 20"]
     #[cfg(feature = "api-20")]
     pub fn OH_Asset_QuerySyncResult(
@@ -287,15 +287,15 @@ extern "C" {
         syncResult: *mut Asset_SyncResult,
     ) -> i32;
 }
-extern "C" {
+unsafe extern "C" {
     #[doc = " @brief Parses the query result to obtain the specified attribute value.\n\n @param result Pointer to the query result to parse, which is obtained by <b>OH_Asset_Query</b>.\n @param tag Tag of the attribute to obtain.\n @return Returns <b>Asset_Attr</b> obtained if the operation is successful; returns <b>NULL</b> otherwise.\n     The attribute does not need to be released by the service.\n @since 11"]
     pub fn OH_Asset_ParseAttr(result: *const Asset_Result, tag: Asset_Tag) -> *mut Asset_Attr;
 }
-extern "C" {
+unsafe extern "C" {
     #[doc = " @brief Releases the memory occupied by the challenge value.\n\n @param blob Pointer to the challenge value (obtained by <b>OH_Asset_PreQuery</b>) to release.\n @since 11"]
     pub fn OH_Asset_FreeBlob(blob: *mut Asset_Blob);
 }
-extern "C" {
+unsafe extern "C" {
     #[doc = " @brief Releases the memory occupied by the query result.\n\n @param resultSet Pointer to the query result (obtained by <b>OH_Asset_Query</b>) to release.\n @since 11"]
     pub fn OH_Asset_FreeResultSet(resultSet: *mut Asset_ResultSet);
 }

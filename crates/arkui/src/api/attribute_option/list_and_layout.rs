@@ -11,7 +11,7 @@ use ohos_arkui_input_binding::ArkUIErrorCode;
 use ohos_arkui_sys::*;
 
 use super::base::{c_char_ptr_to_string, non_null_or_panic, with_cstring};
-use crate::{check_arkui_status, ArkUIError, ArkUIResult};
+use crate::{ArkUIError, ArkUIResult, check_arkui_status};
 
 struct ListItemSwipeActionVoidCallbackContext {
     callback: Box<dyn Fn()>,
@@ -1772,8 +1772,8 @@ fn embedded_component_on_error_callback_slots() -> &'static Mutex<EmbeddedCompon
 }
 
 #[cfg(feature = "api-20")]
-fn embedded_component_on_terminated_callback_slots(
-) -> &'static Mutex<EmbeddedComponentCallbackSlots> {
+fn embedded_component_on_terminated_callback_slots()
+-> &'static Mutex<EmbeddedComponentCallbackSlots> {
     EMBEDDED_COMPONENT_ON_TERMINATED_CALLBACK_SLOTS
         .get_or_init(|| Mutex::new([None; EMBEDDED_COMPONENT_CALLBACK_SLOT_COUNT]))
 }
@@ -1819,7 +1819,7 @@ type EmbeddedComponentOnTerminatedCallback =
 
 #[cfg(feature = "api-20")]
 macro_rules! define_embedded_component_on_error_trampoline {
-    ($name:ident, $slot:expr) => {
+    ($name:ident, $slot:expr_2021) => {
         unsafe extern "C" fn $name(code: i32, name: *const c_char, message: *const c_char) {
             let callback = {
                 let callbacks = match embedded_component_on_error_callback_slots().lock() {
@@ -1844,7 +1844,7 @@ macro_rules! define_embedded_component_on_error_trampoline {
 
 #[cfg(feature = "api-20")]
 macro_rules! define_embedded_component_on_terminated_trampoline {
-    ($name:ident, $slot:expr) => {
+    ($name:ident, $slot:expr_2021) => {
         unsafe extern "C" fn $name(code: i32, want: *mut AbilityBase_Want) {
             let callback = {
                 let callbacks = match embedded_component_on_terminated_callback_slots().lock() {

@@ -1,8 +1,8 @@
 //! Module component::built_in_component::common_component wrappers and related types.
 
 use crate::{
-    ArkUIAttributeBasic, ArkUICommonAttribute, ArkUIEvent, ArkUIGesture, ArkUINode, ArkUINodeType,
-    ArkUIResult, ARK_UI_NATIVE_NODE_API_1,
+    ARK_UI_NATIVE_NODE_API_1, ArkUIAttributeBasic, ArkUICommonAttribute, ArkUIEvent, ArkUIGesture,
+    ArkUINode, ArkUINodeType, ArkUIResult,
 };
 
 macro_rules! define_common_component {

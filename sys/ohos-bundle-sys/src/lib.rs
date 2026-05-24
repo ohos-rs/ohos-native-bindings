@@ -72,11 +72,11 @@ pub const UINTPTR_MAX: i32 = -1;
 pub const PTRDIFF_MIN: i64 = -9223372036854775808;
 pub const PTRDIFF_MAX: u64 = 9223372036854775807;
 pub const SIZE_MAX: i32 = -1;
-extern "C" {
+unsafe extern "C" {
     #[doc = " @brief Get the target sdk version number of the application.\n @return The target sdk version number."]
     pub fn get_application_target_sdk_version() -> ::std::os::raw::c_int;
 }
-extern "C" {
+unsafe extern "C" {
     #[doc = " @brief Set the target sdk version number of the application.\n @param target The target sdk version number."]
     pub fn set_application_target_sdk_version(target: ::std::os::raw::c_int);
 }
@@ -165,68 +165,68 @@ pub const DrawableDescriptor_AnimationStatus_DRAWABLE_DESCRIPTOR_ANIMATION_STATU
 #[doc = " @brief Defines the animation status of the drawable descriptor.\n\n @since 22"]
 #[cfg(feature = "api-22")]
 pub type DrawableDescriptor_AnimationStatus = u32;
-extern "C" {
+unsafe extern "C" {
     #[doc = " @brief Creates a DrawableDescriptor from a Pixelmap.\n\n @param pixelMap Indicates the pointer to a Pixelmap\n @return Returns the pointer to the drawableDescriptor.\n @since 12"]
     pub fn OH_ArkUI_DrawableDescriptor_CreateFromPixelMap(
         pixelMap: OH_PixelmapNativeHandle,
     ) -> *mut ArkUI_DrawableDescriptor;
 }
-extern "C" {
+unsafe extern "C" {
     #[doc = " @brief Creates a DrawableDescriptor from a Pixelmap array.\n\n @param array Indicates the pointer to a Pixelmap array.\n @param size Indicates the size of the Pixelmap array.\n @return Returns the pointer to the drawableDescriptor.\n @since 12"]
     pub fn OH_ArkUI_DrawableDescriptor_CreateFromAnimatedPixelMap(
         array: *mut OH_PixelmapNativeHandle,
         size: i32,
     ) -> *mut ArkUI_DrawableDescriptor;
 }
-extern "C" {
+unsafe extern "C" {
     #[doc = " @brief Destroys the pointer to the drawableDescriptor.\n\n @param drawableDescriptor Indicates the pointer to the drawableDescriptor.\n @since 12"]
     pub fn OH_ArkUI_DrawableDescriptor_Dispose(drawableDescriptor: *mut ArkUI_DrawableDescriptor);
 }
-extern "C" {
+unsafe extern "C" {
     #[doc = " @brief Obtains the Pixelmap object.\n\n @param drawableDescriptor Indicates the pointer to the drawableDescriptor.\n @return Returns the pointer to the PixelMap.\n @since 12"]
     pub fn OH_ArkUI_DrawableDescriptor_GetStaticPixelMap(
         drawableDescriptor: *mut ArkUI_DrawableDescriptor,
     ) -> OH_PixelmapNativeHandle;
 }
-extern "C" {
+unsafe extern "C" {
     #[doc = " @brief Obtains the Pixelmap array used to play the animation.\n\n @param drawableDescriptor Indicates the pointer to the drawableDescriptor.\n @return Returns the pointer to the PixelMap array.\n @since 12"]
     pub fn OH_ArkUI_DrawableDescriptor_GetAnimatedPixelMapArray(
         drawableDescriptor: *mut ArkUI_DrawableDescriptor,
     ) -> *mut OH_PixelmapNativeHandle;
 }
-extern "C" {
+unsafe extern "C" {
     #[doc = " @brief Obtains the size of the Pixelmap array used to play the animation.\n\n @param drawableDescriptor Indicates the pointer to the drawableDescriptor.\n @return Returns the size of the Pixelmap array.\n @since 12"]
     pub fn OH_ArkUI_DrawableDescriptor_GetAnimatedPixelMapArraySize(
         drawableDescriptor: *mut ArkUI_DrawableDescriptor,
     ) -> i32;
 }
-extern "C" {
+unsafe extern "C" {
     #[doc = " @brief Sets the total playback duration.\n\n @param drawableDescriptor Indicates the pointer to the drawableDescriptor.\n @param duration Indicates the total playback duration. The unit is millisecond.\n @since 12"]
     pub fn OH_ArkUI_DrawableDescriptor_SetAnimationDuration(
         drawableDescriptor: *mut ArkUI_DrawableDescriptor,
         duration: i32,
     );
 }
-extern "C" {
+unsafe extern "C" {
     #[doc = " @brief Obtains the total playback duration.\n\n @param drawableDescriptor Indicates the pointer to the drawableDescriptor.\n @return Return the total playback duration. The unit is millisecond.\n @since 12"]
     pub fn OH_ArkUI_DrawableDescriptor_GetAnimationDuration(
         drawableDescriptor: *mut ArkUI_DrawableDescriptor,
     ) -> i32;
 }
-extern "C" {
+unsafe extern "C" {
     #[doc = " @brief Sets the number of playback times.\n\n @param drawableDescriptor Indicates the pointer to the drawableDescriptor.\n @param iteration Indicates the number of playback times.\n @since 12"]
     pub fn OH_ArkUI_DrawableDescriptor_SetAnimationIteration(
         drawableDescriptor: *mut ArkUI_DrawableDescriptor,
         iteration: i32,
     );
 }
-extern "C" {
+unsafe extern "C" {
     #[doc = " @brief Obtains the number of playback times.\n\n @param drawableDescriptor Indicates the pointer to the drawableDescriptor.\n @return Returns the number of playback times.\n @since 12"]
     pub fn OH_ArkUI_DrawableDescriptor_GetAnimationIteration(
         drawableDescriptor: *mut ArkUI_DrawableDescriptor,
     ) -> i32;
 }
-extern "C" {
+unsafe extern "C" {
     #[doc = " @brief Sets the frame duration array.\n\n @param drawableDescriptor Indicates the pointer to the drawableDescriptor.\n @param durations Indicates the pointer to the frame duration array.\n @param size Indicates the size of the frame duration array.\n @return Returns {@link ARKUI_ERROR_CODE_NO_ERROR} if the operation is successful;\n         Returns {@link ARKUI_ERROR_CODE_PARAM_INVALID} if a parameter error occurs.\n @since 22"]
     #[cfg(feature = "api-22")]
     pub fn OH_ArkUI_DrawableDescriptor_SetAnimationFrameDurations(
@@ -235,7 +235,7 @@ extern "C" {
         size: usize,
     ) -> i32;
 }
-extern "C" {
+unsafe extern "C" {
     #[doc = " @brief Obtains the frame duration array.\n\n @param drawableDescriptor Indicates the pointer to the drawableDescriptor.\n @param durations Indicates the pointer to the frame duration array.\n @param size Indicates the size of the frame duration array.\n @return Returns {@link ARKUI_ERROR_CODE_NO_ERROR} if the operation is successful;\n         Returns {@link ARKUI_ERROR_CODE_PARAM_INVALID} if a parameter error occurs.\n @since 22"]
     #[cfg(feature = "api-22")]
     pub fn OH_ArkUI_DrawableDescriptor_GetAnimationFrameDurations(
@@ -244,7 +244,7 @@ extern "C" {
         size: *mut usize,
     ) -> i32;
 }
-extern "C" {
+unsafe extern "C" {
     #[doc = " @brief Sets whether to play the animation automatically.\n\n @param drawableDescriptor Indicates the pointer to the drawableDescriptor.\n @param autoPlay Indicates whether to play the animation automatically.\n                 default value is 1, which means to play the animation automatically.\n                 value 0 means not to play the animation automatically.\n @return Returns {@link ARKUI_ERROR_CODE_NO_ERROR} if the operation is successful;\n         Returns {@link ARKUI_ERROR_CODE_PARAM_INVALID} if a parameter error occurs.\n @since 22"]
     #[cfg(feature = "api-22")]
     pub fn OH_ArkUI_DrawableDescriptor_SetAnimationAutoPlay(
@@ -252,7 +252,7 @@ extern "C" {
         autoPlay: u32,
     ) -> i32;
 }
-extern "C" {
+unsafe extern "C" {
     #[doc = " @brief Obtains whether to play the animation automatically.\n\n @param drawableDescriptor Indicates the pointer to the drawableDescriptor.\n @param autoPlay Indicates whether to play the animation automatically.\n @return Returns {@link ARKUI_ERROR_CODE_NO_ERROR} if the operation is successful;\n         Returns {@link ARKUI_ERROR_CODE_PARAM_INVALID} if a parameter error occurs.\n @since 22"]
     #[cfg(feature = "api-22")]
     pub fn OH_ArkUI_DrawableDescriptor_GetAnimationAutoPlay(
@@ -260,7 +260,7 @@ extern "C" {
         autoPlay: *mut u32,
     ) -> i32;
 }
-extern "C" {
+unsafe extern "C" {
     #[doc = " @brief Obtains the animation controller.\n\n @param drawableDescriptor Indicates the pointer to the drawableDescriptor.\n @param node Indicates the node handle.\n @param controller Indicates the pointer to the animation controller.\n @return Returns {@link ARKUI_ERROR_CODE_NO_ERROR} if the operation is successful;\n         Returns {@link ARKUI_ERROR_CODE_PARAM_INVALID} if a parameter error occurs.\n @since 22"]
     #[cfg(feature = "api-22")]
     pub fn OH_ArkUI_DrawableDescriptor_CreateAnimationController(
@@ -269,42 +269,42 @@ extern "C" {
         controller: *mut *mut ArkUI_DrawableDescriptor_AnimationController,
     ) -> i32;
 }
-extern "C" {
+unsafe extern "C" {
     #[doc = " @brief Releases the animation controller.\n\n @param controller Indicates the pointer to the animation controller.\n @since 22"]
     #[cfg(feature = "api-22")]
     pub fn OH_ArkUI_DrawableDescriptor_DisposeAnimationController(
         controller: *mut ArkUI_DrawableDescriptor_AnimationController,
     );
 }
-extern "C" {
+unsafe extern "C" {
     #[doc = " @brief Starts the animation from first frame.\n\n @param controller Indicates the pointer to the animation controller.\n @return Returns {@link ARKUI_ERROR_CODE_NO_ERROR} if the operation is successful;\n         Returns {@link ARKUI_ERROR_CODE_PARAM_INVALID} if a parameter error occurs.\n @since 22"]
     #[cfg(feature = "api-22")]
     pub fn OH_ArkUI_DrawableDescriptor_StartAnimation(
         controller: *mut ArkUI_DrawableDescriptor_AnimationController,
     ) -> i32;
 }
-extern "C" {
+unsafe extern "C" {
     #[doc = " @brief Stops the animation and back to first frame.\n\n @param controller Indicates the pointer to the animation controller.\n @return Returns {@link ARKUI_ERROR_CODE_NO_ERROR} if the operation is successful;\n         Returns {@link ARKUI_ERROR_CODE_PARAM_INVALID} if a parameter error occurs.\n @since 22"]
     #[cfg(feature = "api-22")]
     pub fn OH_ArkUI_DrawableDescriptor_StopAnimation(
         controller: *mut ArkUI_DrawableDescriptor_AnimationController,
     ) -> i32;
 }
-extern "C" {
+unsafe extern "C" {
     #[doc = " @brief Resumes the animation at the current frame.\n\n @param controller Indicates the pointer to the animation controller.\n @return Returns {@link ARKUI_ERROR_CODE_NO_ERROR} if the operation is successful;\n         Returns {@link ARKUI_ERROR_CODE_PARAM_INVALID} if a parameter error occurs.\n @since 22"]
     #[cfg(feature = "api-22")]
     pub fn OH_ArkUI_DrawableDescriptor_ResumeAnimation(
         controller: *mut ArkUI_DrawableDescriptor_AnimationController,
     ) -> i32;
 }
-extern "C" {
+unsafe extern "C" {
     #[doc = " @brief Pauses the animation at the current frame.\n\n @param controller Indicates the pointer to the animation controller.\n @return Returns {@link ARKUI_ERROR_CODE_NO_ERROR} if the operation is successful;\n         Returns {@link ARKUI_ERROR_CODE_PARAM_INVALID} if a parameter error occurs.\n @since 22"]
     #[cfg(feature = "api-22")]
     pub fn OH_ArkUI_DrawableDescriptor_PauseAnimation(
         controller: *mut ArkUI_DrawableDescriptor_AnimationController,
     ) -> i32;
 }
-extern "C" {
+unsafe extern "C" {
     #[doc = " @brief Obtains the animation playback status.\n\n @param controller Indicates the pointer to the animation controller.\n @param status Indicates the pointer to the animation playback status.\n @return Returns {@link ARKUI_ERROR_CODE_NO_ERROR} if the operation is successful;\n         Returns {@link ARKUI_ERROR_CODE_PARAM_INVALID} if a parameter error occurs.\n @since 22"]
     #[cfg(feature = "api-22")]
     pub fn OH_ArkUI_DrawableDescriptor_GetAnimationStatus(
@@ -319,7 +319,7 @@ extern "C" {
 pub struct OH_NativeBundle_AbilityResourceInfo {
     _unused: [u8; 0],
 }
-extern "C" {
+unsafe extern "C" {
     #[doc = " @brief Get the bundle name of the abilityResourceInfo.\n\n @param abilityResourceInfo The ability resource info that has been obtained.\n @param bundleName The bundle name obtained from abilityResourceInfo.\n @return The error code.\n         {@link BUNDLE_MANAGER_ERROR_CODE_NO_ERROR} if the operation is successful.\n         {@link BUNDLE_MANAGER_ERROR_CODE_PARAM_INVALID} if the abilityResourceInfo is invalid.\n @since 21"]
     #[cfg(feature = "api-21")]
     pub fn OH_NativeBundle_GetBundleName(
@@ -327,7 +327,7 @@ extern "C" {
         bundleName: *mut *mut ::std::os::raw::c_char,
     ) -> BundleManager_ErrorCode;
 }
-extern "C" {
+unsafe extern "C" {
     #[doc = " @brief Get the module name of the abilityResourceInfo.\n\n @param abilityResourceInfo The ability resource info that has been obtained.\n @param moduleName The module name obtained from abilityResourceInfo.\n @return The error code.\n         {@link BUNDLE_MANAGER_ERROR_CODE_NO_ERROR} if the operation is successful.\n         {@link BUNDLE_MANAGER_ERROR_CODE_PARAM_INVALID} if the abilityResourceInfo is invalid.\n @since 21"]
     #[cfg(feature = "api-21")]
     pub fn OH_NativeBundle_GetModuleName(
@@ -335,7 +335,7 @@ extern "C" {
         moduleName: *mut *mut ::std::os::raw::c_char,
     ) -> BundleManager_ErrorCode;
 }
-extern "C" {
+unsafe extern "C" {
     #[doc = " @brief Get the ability name of the abilityResourceInfo.\n\n @param abilityResourceInfo The ability resource info that has been obtained.\n @param abilityName The ability name obtained from abilityResourceInfo.\n @return The error code.\n         {@link BUNDLE_MANAGER_ERROR_CODE_NO_ERROR} if the operation is successful.\n         {@link BUNDLE_MANAGER_ERROR_CODE_PARAM_INVALID} if the abilityResourceInfo is invalid.\n @since 21"]
     #[cfg(feature = "api-21")]
     pub fn OH_NativeBundle_GetAbilityName(
@@ -343,7 +343,7 @@ extern "C" {
         abilityName: *mut *mut ::std::os::raw::c_char,
     ) -> BundleManager_ErrorCode;
 }
-extern "C" {
+unsafe extern "C" {
     #[doc = " @brief Get the label of the abilityResourceInfo.\n\n @param abilityResourceInfo The ability resource info that has been obtained.\n @param label The label obtained from abilityResourceInfo.\n @return The error code.\n         {@link BUNDLE_MANAGER_ERROR_CODE_NO_ERROR} if the operation is successful.\n         {@link BUNDLE_MANAGER_ERROR_CODE_PARAM_INVALID} if the abilityResourceInfo is invalid.\n @since 21"]
     #[cfg(feature = "api-21")]
     pub fn OH_NativeBundle_GetLabel(
@@ -351,7 +351,7 @@ extern "C" {
         label: *mut *mut ::std::os::raw::c_char,
     ) -> BundleManager_ErrorCode;
 }
-extern "C" {
+unsafe extern "C" {
     #[doc = " @brief Get the appIndex of the abilityResourceInfo.\n\n @param abilityResourceInfo The ability resource info that has been obtained.\n @param appIndex The appIndex obtained from abilityResourceInfo.\n @return The error code.\n         {@link BUNDLE_MANAGER_ERROR_CODE_NO_ERROR} if the operation is successful.\n         {@link BUNDLE_MANAGER_ERROR_CODE_PARAM_INVALID} if the abilityResourceInfo is invalid.\n @since 21"]
     #[cfg(feature = "api-21")]
     pub fn OH_NativeBundle_GetAppIndex(
@@ -359,7 +359,7 @@ extern "C" {
         appIndex: *mut ::std::os::raw::c_int,
     ) -> BundleManager_ErrorCode;
 }
-extern "C" {
+unsafe extern "C" {
     #[doc = " @brief Check whether abilityResourceInfo is the default application.\n\n @param abilityResourceInfo The ability resource info that has been obtained.\n @param isDefault Check whether abilityResourceInfo is the default application.\n @return The error code.\n         {@link BUNDLE_MANAGER_ERROR_CODE_NO_ERROR} if the operation is successful.\n         {@link BUNDLE_MANAGER_ERROR_CODE_PARAM_INVALID} if the abilityResourceInfo is invalid.\n @since 21"]
     #[cfg(feature = "api-21")]
     pub fn OH_NativeBundle_CheckDefaultApp(
@@ -367,7 +367,7 @@ extern "C" {
         isDefault: *mut bool,
     ) -> BundleManager_ErrorCode;
 }
-extern "C" {
+unsafe extern "C" {
     #[doc = " @brief Destroy the ability resource info.\n\n @param abilityResourceInfo The ability resource info to be deleted.\n @param count Indicates the ability resource array size.\n @return The error code.\n         {@link BUNDLE_MANAGER_ERROR_CODE_NO_ERROR} if the operation is successful.\n         {@link BUNDLE_MANAGER_ERROR_CODE_PARAM_INVALID} if the abilityResourceInfo is invalid.\n @since 21"]
     #[cfg(feature = "api-21")]
     pub fn OH_AbilityResourceInfo_Destroy(
@@ -375,12 +375,12 @@ extern "C" {
         count: usize,
     ) -> BundleManager_ErrorCode;
 }
-extern "C" {
+unsafe extern "C" {
     #[doc = " @brief Get the size of ability resource info.\n\n @return The size of ability resource info.\n\n @since 21"]
     #[cfg(feature = "api-21")]
     pub fn OH_NativeBundle_GetSize() -> ::std::os::raw::c_int;
 }
-extern "C" {
+unsafe extern "C" {
     #[doc = " @brief Get the drawable descriptor of the abilityResourceInfo.\n\n @param abilityResourceInfo The ability resource info that has been obtained.\n @param drawableIcon The drawable descriptor obtained from abilityResourceInfo.\n @return The error code.\n         {@link BUNDLE_MANAGER_ERROR_CODE_NO_ERROR} if the operation is successful.\n         {@link BUNDLE_MANAGER_ERROR_CODE_PARAM_INVALID} if the abilityResourceInfo is invalid.\n @since 21"]
     #[cfg(feature = "api-21")]
     pub fn OH_NativeBundle_GetDrawableDescriptor(
@@ -433,41 +433,41 @@ pub struct OH_NativeBundle_ModuleMetadata {
     #[doc = " @brief Indicates the metadata array size of module."]
     pub metadataArraySize: usize,
 }
-extern "C" {
+unsafe extern "C" {
     #[doc = " @brief Obtains the application info based on the The current bundle.\n\n @return Returns the newly created OH_NativeBundle_ApplicationInfo object, if the returned object is NULL,\n it indicates creation failure. The possible cause of failure could be that the application address space is full,\n leading to space allocation failure.\n @since 9\n @version 1.0"]
     pub fn OH_NativeBundle_GetCurrentApplicationInfo() -> OH_NativeBundle_ApplicationInfo;
 }
-extern "C" {
+unsafe extern "C" {
     #[doc = " @brief Obtains the appId of application. AppId indicates the ID of the application to which this bundle belongs\n The application ID uniquely identifies an application. It is determined by the bundle name and signature.\n After utilizing this interface, to prevent memory leaks,\n it is necessary to manually release the pointer returned by the interface.\n\n @return Returns the newly created string that indicates appId information,\n if the returned object is NULL, it indicates creation failure.\n The possible cause of failure could be that the application address space is full,\n leading to space allocation failure.\n @since 11\n @version 1.0"]
     pub fn OH_NativeBundle_GetAppId() -> *mut ::std::os::raw::c_char;
 }
-extern "C" {
+unsafe extern "C" {
     #[doc = " @brief Obtains the appIdentifier of application. AppIdentifier does not change along the application lifecycle,\n including version updates, certificate changes, public and private key changes, and application transfer.\n After utilizing this interface, to prevent memory leaks,\n it is necessary to manually release the pointer returned by the interface.\n\n @return Returns the newly created string that indicates app identifier information,\n if the returned object is NULL, it indicates creation failure.\n The possible cause of failure could be that the application address space is full,\n leading to space allocation failure.\n @since 11\n @version 1.0"]
     pub fn OH_NativeBundle_GetAppIdentifier() -> *mut ::std::os::raw::c_char;
 }
-extern "C" {
+unsafe extern "C" {
     #[doc = " @brief Obtains information of the entry mainElement based on the current application, including bundle name,\n module name, and ability name.\n After utilizing this interface, to prevent memory leaks,\n it is necessary to manually release the pointer returned by the interface.\n\n @return Returns the newly created OH_NativeBundle_ElementName object, if the returned object is NULL,\n it indicates creation failure. The possible cause of failure could be that the application address space is full,\n leading to space allocation failure.\n @since 13"]
     #[cfg(feature = "api-13")]
     pub fn OH_NativeBundle_GetMainElementName() -> OH_NativeBundle_ElementName;
 }
-extern "C" {
+unsafe extern "C" {
     #[doc = " @brief Obtains the compatible device type of the current application.\n After utilizing this interface, to prevent memory leaks,\n it is necessary to manually release the pointer returned by the interface.\n\n @return Returns the newly created string that indicates the compatible device type,\n if the returned object is NULL, it indicates creation failure.\n The possible cause of failure could be that the application address space is full,\n leading to space allocation failure.\n @since 14\n @version 1.0"]
     #[cfg(feature = "api-14")]
     pub fn OH_NativeBundle_GetCompatibleDeviceType() -> *mut ::std::os::raw::c_char;
 }
-extern "C" {
+unsafe extern "C" {
     #[doc = " @brief Obtains the application debug mode.\n\n @param isDebugMode Indicates whether the application is in debug mode.\n @return Returns true if call successful, false otherwise.\n @since 20"]
     #[cfg(feature = "api-20")]
     pub fn OH_NativeBundle_IsDebugMode(isDebugMode: *mut bool) -> bool;
 }
-extern "C" {
+unsafe extern "C" {
     #[doc = " @brief Obtains the module metadata array of the current application.\n After utilizing this interface, to prevent memory leaks,\n it is necessary to manually release the pointer returned by the interface.\n\n @param size Indicates the module metadata array size.\n @return Returns the newly created module metadata array, if the returned object is NULL,\n it indicates creation failure. The possible cause of failure could be that the application address space is full,\n leading to space allocation failure.\n @since 20"]
     #[cfg(feature = "api-20")]
     pub fn OH_NativeBundle_GetModuleMetadata(
         size: *mut usize,
     ) -> *mut OH_NativeBundle_ModuleMetadata;
 }
-extern "C" {
+unsafe extern "C" {
     #[doc = " @brief Obtain a list of ability that support opening files in a certain format.\n\n @permisssion {@code ohos.permission.GET_ABILITY_INFO}.\n @param fileType Indicates the file type.\n @param abilityResourceInfo Indicates the ability resource array.\n @param size Indicates the ability resource array size.\n @return Returns {@link BUNDLE_MANAGER_ERROR_CODE_NO_ERROR} if the call is successful.\n Returns {@link BUNDLE_MANAGER_ERROR_CODE_PERMISSION_DENIED} if the caller has no correct permission.\n @since 21"]
     #[cfg(feature = "api-21")]
     pub fn OH_NativeBundle_GetAbilityResourceInfo(

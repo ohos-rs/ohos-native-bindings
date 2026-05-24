@@ -10,9 +10,9 @@ use std::{
     sync::{Mutex, OnceLock},
 };
 
+use ohos_arkui_input_binding::ArkUIErrorCode;
 #[cfg(any(feature = "api-14", feature = "api-15"))]
 use ohos_arkui_input_binding::sys::ArkUI_NodeHandle;
-use ohos_arkui_input_binding::ArkUIErrorCode;
 use ohos_arkui_sys::{
     ArkUI_IntOffset, ArkUI_IntSize, OH_ArkUI_GetContextByNode, OH_ArkUI_List_CloseAllSwipeActions,
     OH_ArkUI_NodeUtils_GetLayoutPosition, OH_ArkUI_NodeUtils_GetLayoutPositionInScreen,
@@ -81,8 +81,8 @@ use ohos_image_native_binding::PixelMapNativeHandle;
 use ohos_arkui_sys::{ArkUI_ContextHandle, ArkUI_SystemColorMode, ArkUI_SystemFontStyleEvent};
 
 use crate::{
-    check_arkui_status, ArkUIError, ArkUIHandle, ArkUINode, ArkUIResult, NavDestinationState,
-    RouterPageState,
+    ArkUIError, ArkUIHandle, ArkUINode, ArkUIResult, NavDestinationState, RouterPageState,
+    check_arkui_status,
 };
 
 #[cfg(feature = "api-21")]
@@ -300,7 +300,7 @@ fn force_dark_slot_callback(slot: usize, color: u32) -> u32 {
 
 #[cfg(feature = "api-20")]
 macro_rules! define_force_dark_callback_trampoline {
-    ($name:ident, $slot:expr) => {
+    ($name:ident, $slot:expr_2021) => {
         unsafe extern "C" fn $name(color: u32) -> u32 {
             force_dark_slot_callback($slot, color)
         }
@@ -1393,13 +1393,11 @@ impl ArkUIHandle {
         } else {
             false
         };
-        if should_remove {
-            if let Some(registration) = callbacks.remove(&key) {
-                unsafe {
-                    drop(Box::from_raw(
-                        registration.callback as *mut NodeSupportedUIStatesCallbackContext,
-                    ));
-                }
+        if should_remove && let Some(registration) = callbacks.remove(&key) {
+            unsafe {
+                drop(Box::from_raw(
+                    registration.callback as *mut NodeSupportedUIStatesCallbackContext,
+                ));
             }
         }
         Ok(())
@@ -2054,13 +2052,11 @@ impl ArkUINode {
         } else {
             false
         };
-        if should_remove {
-            if let Some(registration) = callbacks.remove(&key) {
-                unsafe {
-                    drop(Box::from_raw(
-                        registration.callback as *mut NodeSupportedUIStatesCallbackContext,
-                    ));
-                }
+        if should_remove && let Some(registration) = callbacks.remove(&key) {
+            unsafe {
+                drop(Box::from_raw(
+                    registration.callback as *mut NodeSupportedUIStatesCallbackContext,
+                ));
             }
         }
         Ok(())

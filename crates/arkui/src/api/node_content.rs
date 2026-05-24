@@ -3,12 +3,12 @@
 use std::{os::raw::c_void, ptr::NonNull};
 
 use ohos_arkui_sys::{
-    ArkUI_NodeContentEvent, ArkUI_NodeContentHandle, OH_ArkUI_NodeContentEvent_GetEventType,
-    OH_ArkUI_NodeContentEvent_GetNodeContentHandle, OH_ArkUI_NodeContent_GetUserData,
+    ArkUI_NodeContentEvent, ArkUI_NodeContentHandle, OH_ArkUI_NodeContent_GetUserData,
     OH_ArkUI_NodeContent_RegisterCallback, OH_ArkUI_NodeContent_SetUserData,
+    OH_ArkUI_NodeContentEvent_GetEventType, OH_ArkUI_NodeContentEvent_GetNodeContentHandle,
 };
 
-use crate::{check_arkui_status, ArkUINode, ArkUIResult};
+use crate::{ArkUINode, ArkUIResult, check_arkui_status};
 
 fn non_null_or_panic<T>(ptr: *mut T, name: &'static str) -> NonNull<T> {
     NonNull::new(ptr).unwrap_or_else(|| panic!("{name} pointer is null"))
@@ -126,11 +126,11 @@ impl NodeContent {
         let unregister_result = self.handle.register_node_content_callback(None);
         let clear_data_result = self.handle.set_node_content_user_data(std::ptr::null_mut());
 
-        if unregister_result.is_ok() || clear_data_result.is_ok() {
-            if let Some(context) = self.callback_context.take() {
-                unsafe {
-                    drop(Box::from_raw(context.as_ptr()));
-                }
+        if (unregister_result.is_ok() || clear_data_result.is_ok())
+            && let Some(context) = self.callback_context.take()
+        {
+            unsafe {
+                drop(Box::from_raw(context.as_ptr()));
             }
         }
 

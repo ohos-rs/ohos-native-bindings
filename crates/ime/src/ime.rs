@@ -8,7 +8,7 @@ use std::{
     rc::Rc,
 };
 
-use crate::{proxy::OHOS_RS_IME_CALLBACKS, AttachOptions, EnterKey, KeyboardStatus, TextEditor};
+use crate::{AttachOptions, EnterKey, KeyboardStatus, TextEditor, proxy::OHOS_RS_IME_CALLBACKS};
 
 unsafe impl Send for IME {}
 unsafe impl Sync for IME {}

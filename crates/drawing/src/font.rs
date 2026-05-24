@@ -6,7 +6,7 @@ use ohos_native_drawing_sys::{
     OH_Drawing_TextEncoding,
 };
 
-use crate::{check_error, Rect, Result};
+use crate::{Rect, Result, check_error};
 
 #[derive(Debug)]
 pub struct Font {

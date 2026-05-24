@@ -1,8 +1,8 @@
 //! Module component::built_in_component::list wrappers and related types.
 
 use crate::{
-    ArkUIAttributeBasic, ArkUINodeAttributeItem, ArkUINodeAttributeNumber, ArkUIResult,
-    ScrollBarDisplayMode, ARK_UI_NATIVE_NODE_API_1,
+    ARK_UI_NATIVE_NODE_API_1, ArkUIAttributeBasic, ArkUINodeAttributeItem,
+    ArkUINodeAttributeNumber, ArkUIResult, ScrollBarDisplayMode,
 };
 
 impl super::List {

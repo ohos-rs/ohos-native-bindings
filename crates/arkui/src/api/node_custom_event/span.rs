@@ -14,7 +14,7 @@ use ohos_arkui_sys::{
     OH_ArkUI_CustomSpanMetrics_SetWidth,
 };
 
-use crate::{check_arkui_status, ArkUIError, ArkUIResult};
+use crate::{ArkUIError, ArkUIResult, check_arkui_status};
 
 /// Measurement input for custom text span callbacks.
 pub struct CustomSpanMeasureInfo {

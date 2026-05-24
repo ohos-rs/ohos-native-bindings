@@ -7,9 +7,9 @@ use napi_sys_ohos::{napi_env, napi_value};
 
 use crate::{
     common::{
-        maybe_non_null, napi_value_or_error, non_null, NativeBufferHandle, PixelMapNativeHandle,
+        NativeBufferHandle, PixelMapNativeHandle, maybe_non_null, napi_value_or_error, non_null,
     },
-    error::{check_status, ImageNativeResult},
+    error::{ImageNativeResult, check_status},
     sys,
     types::{
         HdrMetadataKey, ImageRegion, PixelFormat, PixelMapAntiAliasingLevel,

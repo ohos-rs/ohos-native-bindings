@@ -11,7 +11,7 @@ use ohos_arkui_sys::{
     OH_ArkUI_NodeCustomEvent_GetUserData, OH_ArkUI_NodeCustomEvent_SetCustomSpanMetrics,
 };
 
-use crate::{check_arkui_status, ArkUINode, ArkUIResult};
+use crate::{ArkUINode, ArkUIResult, check_arkui_status};
 
 use super::{
     CustomSpanDrawInfo, CustomSpanMeasureInfo, CustomSpanMetrics, DrawContext, IntOffset,

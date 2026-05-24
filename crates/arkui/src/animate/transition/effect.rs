@@ -14,7 +14,7 @@ use ohos_arkui_sys::{
 #[cfg(feature = "api-21")]
 use ohos_arkui_sys::{ArkUI_ContentTransitionEffect, OH_ArkUI_ContentTransitionEffect_Create};
 
-use crate::{check_arkui_status, Animation, ArkUIError, ArkUIResult, TransitionEdge};
+use crate::{Animation, ArkUIError, ArkUIResult, TransitionEdge, check_arkui_status};
 
 use super::{RotationOptions, ScaleOptions, TranslationOptions};
 

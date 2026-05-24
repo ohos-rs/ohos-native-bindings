@@ -827,27 +827,27 @@ pub const JSVM_DebugOption_JSVM_SCOPE_CHECK: JSVM_DebugOption = 0;
 #[doc = " @brief Debug options.\n\n @since 20"]
 #[cfg(feature = "api-20")]
 pub type JSVM_DebugOption = u32;
-extern "C" {
+unsafe extern "C" {
     #[doc = " @brief Init a JavaScript vm.\n\n @param  options The options for initialize the JavaScript VM.\n @return Returns JSVM funtions result code.\n         {@link JSVM_OK } if the API succeeded. \\n\n         {@link JSVM_GENERIC_FAILURE } If the execution fails, it means that the current process has completed\n                                       JSVM initialization and there is no need to repeat the execution.\\n\n @since 11"]
     pub fn OH_JSVM_Init(options: *const JSVM_InitOptions) -> JSVM_Status;
 }
-extern "C" {
+unsafe extern "C" {
     #[doc = " @brief This API create a new VM instance.\n\n @param options The options for create the VM instance.\n @param result The new VM instance.\n @return Returns JSVM funtions result code.\n         Returns {@link JSVM_OK } If the function executed successfully.\\n\n         Returns {@link JSVM_INVALID_ARG } if the any of the input arguments is NULL. \\n\n @since 11"]
     pub fn OH_JSVM_CreateVM(
         options: *const JSVM_CreateVMOptions,
         result: *mut JSVM_VM,
     ) -> JSVM_Status;
 }
-extern "C" {
+unsafe extern "C" {
     #[doc = " @brief This function controls how Microtasks are invoked of the vm. If the method is not\n called, the default microtask policy of vm is JSVM_MicrotaskPolicy::JSVM_MICROTASK_AUTO.\n\n @param vm The VM instance to set mircrotasks policy.\n @param policy Policy for running microtasks.\n @return Returns JSVM funtions result code.\n         Returns {@link JSVM_OK } If the function executed successfully.\\n\n         Returns {@link JSVM_INVALID_ARG } If `vm` is NULL or `policy` is out of range.\\n\n @since 18"]
     #[cfg(feature = "api-18")]
     pub fn OH_JSVM_SetMicrotaskPolicy(vm: JSVM_VM, policy: JSVM_MicrotaskPolicy) -> JSVM_Status;
 }
-extern "C" {
+unsafe extern "C" {
     #[doc = " @brief Destroys VM instance.\n\n @param vm The VM instance to be Destroyed.\n @return Returns JSVM funtions result code.\n         Returns {@link JSVM_OK } If the function executed successfully.\\n\n         Returns {@link JSVM_INVALID_ARG } If `vm` is NULL.\\n\n @since 11"]
     pub fn OH_JSVM_DestroyVM(vm: JSVM_VM) -> JSVM_Status;
 }
-extern "C" {
+unsafe extern "C" {
     #[doc = " @brief This API allocates a default JavaScript Proxy. It is the equivalent of\n doing new Proxy(target, handler) in JavaScript.\n\n @param env The environment that the API is invoked under.\n @param target A JSVM_Value representing the JavaScript Object which you want to proxy.\n @param handler A JSVM_Value representing the JavaScript Object that defines which\n operations will be intercepted and how to redefine intercepted operations.\n @param result A JSVM_Value representing a JavaScript Proxy.\n @return Returns JSVM functions result code.\n         {@link JSVM_OK } if the API succeeded. \\n\n         {@link JSVM_INVALID_ARG } if the any of the input arguments is NULL. \\n\n         {@link JSVM_OBJECT_EXPECTED} if target or handler is not Javascript Object. \\n\n         {@link JSVM_PENDING_EXCEPTION} if an exception occurs. \\n\n\n @since 18"]
     #[cfg(feature = "api-18")]
     pub fn OH_JSVM_CreateProxy(
@@ -857,12 +857,12 @@ extern "C" {
         result: *mut JSVM_Value,
     ) -> JSVM_Status;
 }
-extern "C" {
+unsafe extern "C" {
     #[doc = " @brief This API checks if the value passed in is a Proxy.\n\n @param env The environment that the API is invoked under.\n @param value The JavaScript value to check.\n @param isProxy Whether the given value is Proxy.\n @return Returns JSVM functions result code.\n         {@link JSVM_OK } if the API succeeded. \\n\n         {@link JSVM_INVALID_ARG } if the any of the input arguments is NULL. \\n\n\n @since 18"]
     #[cfg(feature = "api-18")]
     pub fn OH_JSVM_IsProxy(env: JSVM_Env, value: JSVM_Value, isProxy: *mut bool) -> JSVM_Status;
 }
-extern "C" {
+unsafe extern "C" {
     #[doc = " @brief This API gets target from proxy.\n\n @param env The environment that the API is invoked under.\n @param value JSVM_Value representing JavaScript Proxy whose target to return.\n @param result Target of the given proxy.\n @return Returns JSVM functions result code.\n         {@link JSVM_OK } if the API succeeded. \\n\n         {@link JSVM_INVALID_ARG } if the any of the input arguments is NULL. \\n\n         {@link JSVM_INVALID_TYPE} if value is not a Javascript Proxy. \\n\n\n @since 18"]
     #[cfg(feature = "api-18")]
     pub fn OH_JSVM_ProxyGetTarget(
@@ -871,15 +871,15 @@ extern "C" {
         result: *mut JSVM_Value,
     ) -> JSVM_Status;
 }
-extern "C" {
+unsafe extern "C" {
     #[doc = " @brief This API open a new VM scope for the VM instance.\n\n @param vm The VM instance to open scope for.\n @param result The new VM scope.\n @return Returns JSVM funtions result code.\n         {@link JSVM_OK } If the function executed successfully.\\n\n @since 11"]
     pub fn OH_JSVM_OpenVMScope(vm: JSVM_VM, result: *mut JSVM_VMScope) -> JSVM_Status;
 }
-extern "C" {
+unsafe extern "C" {
     #[doc = " @brief This function close the VM scope for the VM instance.\n\n @param vm The VM instance to close scope for.\n @param scope The VM scope to be closed.\n @return Returns JSVM funtions result code.\n         {@link JSVM_OK } If the function executed successfully.\\n\n @since 11"]
     pub fn OH_JSVM_CloseVMScope(vm: JSVM_VM, scope: JSVM_VMScope) -> JSVM_Status;
 }
-extern "C" {
+unsafe extern "C" {
     #[doc = " @brief This function create a new environment with optional properties for the context of the new environment.\n\n @param vm The VM instance that the env will be created in.\n @param propertyCount The number of elements in the properties array.\n @param properties The array of property descriptor.\n @param result The new environment created.\n @return Returns JSVM funtions result code.\n         {@link JSVM_OK } If the function executed successfully.\\n\n @since 11"]
     pub fn OH_JSVM_CreateEnv(
         vm: JSVM_VM,
@@ -888,7 +888,7 @@ extern "C" {
         result: *mut JSVM_Env,
     ) -> JSVM_Status;
 }
-extern "C" {
+unsafe extern "C" {
     #[doc = " @brief This function create a new environment from the start snapshot of the vm.\n\n @param vm The VM instance that the env will be created in.\n @param index The index of the environment in the snapshot.\n @param result The new environment created.\n @return Returns JSVM funtions result code.\n         Returns {@link JSVM_OK } If the function executed successfully.\\n\n         Returns {@link JSVM_GENERIC_FAILURE } If the snapshot context for `index` could not be created.\\n\n @since 11"]
     pub fn OH_JSVM_CreateEnvFromSnapshot(
         vm: JSVM_VM,
@@ -896,23 +896,23 @@ extern "C" {
         result: *mut JSVM_Env,
     ) -> JSVM_Status;
 }
-extern "C" {
+unsafe extern "C" {
     #[doc = " @brief This function destroys the environment.\n\n @param env The environment to be destroyed.\n @return Returns JSVM funtions result code.\n         {@link JSVM_OK } If the function executed successfully.\\n\n @since 11"]
     pub fn OH_JSVM_DestroyEnv(env: JSVM_Env) -> JSVM_Status;
 }
-extern "C" {
+unsafe extern "C" {
     #[doc = " @brief This function open a new environment scope.\n\n @param env The environment that the JSVM-API call is invoked under.\n @param result The new environment scope.\n @return Returns JSVM funtions result code.\n         {@link JSVM_OK } If the function executed successfully.\\n\n @since 11"]
     pub fn OH_JSVM_OpenEnvScope(env: JSVM_Env, result: *mut JSVM_EnvScope) -> JSVM_Status;
 }
-extern "C" {
+unsafe extern "C" {
     #[doc = " @brief This function closes the environment scope of the environment.\n\n @param env The environment that the JSVM-API call is invoked under.\n @param scope The environment scope to be closed.\n @return Returns JSVM funtions result code.\n         {@link JSVM_OK } If the function executed successfully.\\n\n @since 11"]
     pub fn OH_JSVM_CloseEnvScope(env: JSVM_Env, scope: JSVM_EnvScope) -> JSVM_Status;
 }
-extern "C" {
+unsafe extern "C" {
     #[doc = " @brief This function retrieves the VM instance of the given environment.\n\n @param env The environment that the JSVM-API call is invoked under.\n @param result The VM instance of the environment.\n @return Returns JSVM funtions result code.\n         Returns {@link JSVM_OK } in all cases.\\n\n @since 12"]
     pub fn OH_JSVM_GetVM(env: JSVM_Env, result: *mut JSVM_VM) -> JSVM_Status;
 }
-extern "C" {
+unsafe extern "C" {
     #[doc = " @brief This function compiles a string of JavaScript code and returns the compiled script.\n\n @param env The environment that the JSVM-API call is invoked under.\n @param script A JavaScript string containing the script yo be compiled.\n @param cachedData Optional code cache data for the script.\n @param cacheDataLength The length of cachedData array.\n @param eagerCompile Whether to compile the script eagerly.\n @param cacheRejected Whether the code cache rejected by compilation.\n @param result The compiled script.\n @return Returns JSVM funtions result code.\n         Returns {@link JSVM_OK } If the function executed successfully.\\n\n         Returns {@link JSVM_INVALID_ARG } if the any of the input arguments is NULL. \\n\n         Returns {@link JSVM_STRING_EXPECTED } If `script` is not a string.\\n\n         Returns {@link JSVM_GENERIC_FAILURE } If compilation failed (e.g. compiler returned empty).\\n\n         Returns {@link JSVM_CANNOT_RUN_JS} if an exception occurs. \\n\n         Returns {@link JSVM_PENDING_EXCEPTION} if an exception occurs. \\n\n @since 11"]
     pub fn OH_JSVM_CompileScript(
         env: JSVM_Env,
@@ -924,7 +924,7 @@ extern "C" {
         result: *mut JSVM_Script,
     ) -> JSVM_Status;
 }
-extern "C" {
+unsafe extern "C" {
     #[doc = " @brief This function compiles a string of JavaScript code with the source code information\n and returns the compiled script.\n\n @param env The environment that the JSVM-API call is invoked under.\n @param script A JavaScript string containing the script to be compiled.\n @param cachedData Optional code cache data for the script.\n @param cacheDataLength The length of cachedData array.\n @param eagerCompile Whether to compile the script eagerly.\n @param cacheRejected Whether the code cache rejected by compilation.\n @param origin The information of source code.\n @param result The compiled script.\n @return Returns JSVM funtions result code.\n         Returns {@link JSVM_OK } If the function executed successfully.\\n\n         Returns {@link JSVM_INVALID_ARG } if the any of the input arguments is NULL. \\n\n         Returns {@link JSVM_STRING_EXPECTED } If `script` is not a string.\\n\n         Returns {@link JSVM_GENERIC_FAILURE } If compilation failed.\\n\n         Returns {@link JSVM_CANNOT_RUN_JS} if an exception occurs. \\n\n         Returns {@link JSVM_PENDING_EXCEPTION} if an exception occurs. \\n\n @since 12"]
     pub fn OH_JSVM_CompileScriptWithOrigin(
         env: JSVM_Env,
@@ -937,7 +937,7 @@ extern "C" {
         result: *mut JSVM_Script,
     ) -> JSVM_Status;
 }
-extern "C" {
+unsafe extern "C" {
     #[doc = " @brief This function creates code cache for the compiled script.\n\n @param env The environment that the JSVM-API call is invoked under.\n @param script A compiled script to create code cache for.\n @param data The data of the code cache.\n @param length The length of the code cache data.\n @return Returns JSVM funtions result code.\n         {@link JSVM_OK } If the function executed successfully.\\n\n @since 11"]
     pub fn OH_JSVM_CreateCodeCache(
         env: JSVM_Env,
@@ -946,7 +946,7 @@ extern "C" {
         length: *mut usize,
     ) -> JSVM_Status;
 }
-extern "C" {
+unsafe extern "C" {
     #[doc = " @brief This function executes a string of JavaScript code and returns its result with the following caveats:\n Unlike eval, this function does not allow the script to access the current lexical scope, and therefore also\n does not allow to access the module scope, meaning that pseudo-globals such as require will not be available.\n The script can access the global scope. Function and var declarations in the script will be added to the\n global object. Variable declarations made using let and const will be visible globally, but will not be added\n to the global object.The value of this is global within the script.\n\n @param  env The environment that the API is invoked under.\n @param  script A JavaScript string containing the script to execute.\n @param  result The value resulting from having executed the script.\n @since 11"]
     pub fn OH_JSVM_RunScript(
         env: JSVM_Env,
@@ -954,7 +954,7 @@ extern "C" {
         result: *mut JSVM_Value,
     ) -> JSVM_Status;
 }
-extern "C" {
+unsafe extern "C" {
     #[doc = " @brief This API associates data with the currently running JSVM environment. data can later be retrieved\n using OH_JSVM_GetInstanceData().\n\n @param env The environment that the JSVM-API call is invoked under.\n @param data The data item to make available to bindings of this instance.\n @param finalizeCb The function to call when the environment is being torn down. The function receives\n data so that it might free it. JSVM_Finalize provides more details.\n @param finalizeHint Optional hint to pass to the finalize callback during collection.\n @return Returns JSVM funtions result code.\n         {@link JSVM_OK } If the function executed successfully.\\n\n @since 11"]
     pub fn OH_JSVM_SetInstanceData(
         env: JSVM_Env,
@@ -963,25 +963,25 @@ extern "C" {
         finalizeHint: *mut ::std::os::raw::c_void,
     ) -> JSVM_Status;
 }
-extern "C" {
+unsafe extern "C" {
     #[doc = " @brief This API retrieves data that was previously associated with the currently running JSVM environment\n via OH_JSVM_SetInstanceData(). If no data is set, the call will succeed and data will be set to NULL.\n\n @param env The environment that the JSVM-API call is invoked under.\n @param data The data item that was previously associated with the currently running JSVM environment by\n a call to OH_JSVM_SetInstanceData().\n @return Returns JSVM funtions result code.\n         {@link JSVM_OK } If the function executed successfully.\\n\n @since 11"]
     pub fn OH_JSVM_GetInstanceData(
         env: JSVM_Env,
         data: *mut *mut ::std::os::raw::c_void,
     ) -> JSVM_Status;
 }
-extern "C" {
+unsafe extern "C" {
     #[doc = " @brief This API retrieves a JSVM_ExtendedErrorInfo structure with information about the last error that\n occurred.\n\n @param env The environment that the JSVM-API call is invoked under.\n @param result The JSVM_ExtendedErrorInfo structure with more information about the error.\n @return Returns JSVM funtions result code.\n         {@link JSVM_OK } If the function executed successfully.\\n\n @since 11"]
     pub fn OH_JSVM_GetLastErrorInfo(
         env: JSVM_Env,
         result: *mut *const JSVM_ExtendedErrorInfo,
     ) -> JSVM_Status;
 }
-extern "C" {
+unsafe extern "C" {
     #[doc = " @brief This API throws the JavaScript value provided.\n\n @param env The environment that the API is invoked under.\n @param error The JavaScript value to be thrown.\n @return Returns JSVM funtions result code.\n         {@link JSVM_OK } If the function executed successfully.\\n\n @since 11"]
     pub fn OH_JSVM_Throw(env: JSVM_Env, error: JSVM_Value) -> JSVM_Status;
 }
-extern "C" {
+unsafe extern "C" {
     #[doc = " @brief This API throws a JavaScript Error with the text provided.\n\n @param env The environment that the API is invoked under.\n @param code Optional error code to be set on the error.\n @param msg C string representing the text to be associated with the error.\n @return Returns JSVM funtions result code.\n         {@link JSVM_OK } If the function executed successfully.\\n\n @since 11"]
     pub fn OH_JSVM_ThrowError(
         env: JSVM_Env,
@@ -989,7 +989,7 @@ extern "C" {
         msg: *const ::std::os::raw::c_char,
     ) -> JSVM_Status;
 }
-extern "C" {
+unsafe extern "C" {
     #[doc = " @brief This API throws a JavaScript TypeError with the text provided.\n\n @param env The environment that the API is invoked under.\n @param code Optional error code to be set on the error.\n @param msg C string representing the text to be associated with the error.\n @return Returns JSVM funtions result code.\n         {@link JSVM_OK } If the function executed successfully.\\n\n @since 11"]
     pub fn OH_JSVM_ThrowTypeError(
         env: JSVM_Env,
@@ -997,7 +997,7 @@ extern "C" {
         msg: *const ::std::os::raw::c_char,
     ) -> JSVM_Status;
 }
-extern "C" {
+unsafe extern "C" {
     #[doc = " @brief This API throws a JavaScript RangeError with the text provided.\n\n @param env The environment that the API is invoked under.\n @param code Optional error code to be set on the error.\n @param msg C string representing the text to be associated with the error.\n @return Returns JSVM funtions result code.\n         {@link JSVM_OK } If the function executed successfully.\\n\n @since 11"]
     pub fn OH_JSVM_ThrowRangeError(
         env: JSVM_Env,
@@ -1005,7 +1005,7 @@ extern "C" {
         msg: *const ::std::os::raw::c_char,
     ) -> JSVM_Status;
 }
-extern "C" {
+unsafe extern "C" {
     #[doc = " @brief This API throws a JavaScript SyntaxError with the text provided.\n\n @param env The environment that the API is invoked under.\n @param code Optional error code to be set on the error.\n @param msg C string representing the text to be associated with the error.\n @return Returns JSVM funtions result code.\n         {@link JSVM_OK } If the function executed successfully.\\n\n @since 11"]
     pub fn OH_JSVM_ThrowSyntaxError(
         env: JSVM_Env,
@@ -1013,11 +1013,11 @@ extern "C" {
         msg: *const ::std::os::raw::c_char,
     ) -> JSVM_Status;
 }
-extern "C" {
+unsafe extern "C" {
     #[doc = " @brief This API queries a JSVM_Value to check if it represents an error object.\n\n @param env The environment that the API is invoked under.\n @param value The JSVM_Value to be checked.\n @param result Boolean value that is set to true if JSVM_Value represents an error,\n false otherwise.\n @return Returns JSVM funtions result code.\n         {@link JSVM_OK } If the function executed successfully.\\n\n @since 11"]
     pub fn OH_JSVM_IsError(env: JSVM_Env, value: JSVM_Value, result: *mut bool) -> JSVM_Status;
 }
-extern "C" {
+unsafe extern "C" {
     #[doc = " @brief This API returns a JavaScript Error with the text provided.\n\n @param env The environment that the API is invoked under.\n @param code Optional JSVM_Value with the string for the error code to be associated with the error.\n @param msg JSVM_Value that references a JavaScript string to be used as the message for the Error.\n @param result JSVM_Value representing the error created.\n @return Returns JSVM funtions result code.\n         {@link JSVM_OK } If the function executed successfully.\\n\n @since 11"]
     pub fn OH_JSVM_CreateError(
         env: JSVM_Env,
@@ -1026,7 +1026,7 @@ extern "C" {
         result: *mut JSVM_Value,
     ) -> JSVM_Status;
 }
-extern "C" {
+unsafe extern "C" {
     #[doc = " @brief This API returns a JavaScript TypeError with the text provided.\n\n @param env The environment that the API is invoked under.\n @param code Optional JSVM_Value with the string for the error code to be associated with the error.\n @param msg JSVM_Value that references a JavaScript string to be used as the message for the Error.\n @param result JSVM_Value representing the error created.\n @return Returns JSVM funtions result code.\n         {@link JSVM_OK } If the function executed successfully.\\n\n @since 11"]
     pub fn OH_JSVM_CreateTypeError(
         env: JSVM_Env,
@@ -1035,7 +1035,7 @@ extern "C" {
         result: *mut JSVM_Value,
     ) -> JSVM_Status;
 }
-extern "C" {
+unsafe extern "C" {
     #[doc = " @brief This API returns a JavaScript RangeError with the text provided.\n\n @param env The environment that the API is invoked under.\n @param code Optional JSVM_Value with the string for the error code to be associated with the error.\n @param msg JSVM_Value that references a JavaScript string to be used as the message for the Error.\n @param result JSVM_Value representing the error created.\n @return Returns JSVM funtions result code.\n         {@link JSVM_OK } If the function executed successfully.\\n\n @since 11"]
     pub fn OH_JSVM_CreateRangeError(
         env: JSVM_Env,
@@ -1044,7 +1044,7 @@ extern "C" {
         result: *mut JSVM_Value,
     ) -> JSVM_Status;
 }
-extern "C" {
+unsafe extern "C" {
     #[doc = " @brief This API returns a JavaScript SyntaxError with the text provided.\n\n @param env The environment that the API is invoked under.\n @param code Optional JSVM_Value with the string for the error code to be associated with the error.\n @param msg JSVM_Value that references a JavaScript string to be used as the message for the Error.\n @param result JSVM_Value representing the error created.\n @return Returns JSVM funtions result code.\n         {@link JSVM_OK } If the function executed successfully.\\n\n @since 11"]
     pub fn OH_JSVM_CreateSyntaxError(
         env: JSVM_Env,
@@ -1053,37 +1053,37 @@ extern "C" {
         result: *mut JSVM_Value,
     ) -> JSVM_Status;
 }
-extern "C" {
+unsafe extern "C" {
     #[doc = " @brief This API returns a JavaScript exception if one is pending, NULL otherwise.\n\n @param env The environment that the API is invoked under.\n @param result The exception if one is pending, NULL otherwise.\n @return Returns JSVM funtions result code.\n         {@link JSVM_OK } If the function executed successfully.\\n\n @since 11"]
     pub fn OH_JSVM_GetAndClearLastException(env: JSVM_Env, result: *mut JSVM_Value) -> JSVM_Status;
 }
-extern "C" {
+unsafe extern "C" {
     #[doc = " @brief This API returns true if an exception is pending, false otherwise.\n\n @param env The environment that the API is invoked under.\n @param result Boolean value that is set to true if an exception is pending.\n @return Returns JSVM funtions result code.\n         {@link JSVM_OK } If the function executed successfully.\\n\n @since 11"]
     pub fn OH_JSVM_IsExceptionPending(env: JSVM_Env, result: *mut bool) -> JSVM_Status;
 }
-extern "C" {
+unsafe extern "C" {
     #[doc = " @brief This API opens a new scope.\n\n @param env The environment that the API is invoked under.\n @param result JSVM_Value representing the new scope.\n @return Returns JSVM funtions result code.\n         {@link JSVM_OK } If the function executed successfully.\\n\n @since 11"]
     pub fn OH_JSVM_OpenHandleScope(env: JSVM_Env, result: *mut JSVM_HandleScope) -> JSVM_Status;
 }
-extern "C" {
+unsafe extern "C" {
     #[doc = " @brief This API closes the scope passed in. Scopes must be closed in the reverse\n order from which they were created.\n\n @param env The environment that the API is invoked under.\n @param scope JSVM_Value representing the scope to be closed.\n @return Returns JSVM funtions result code.\n         {@link JSVM_OK } If the function executed successfully.\\n\n @since 11"]
     pub fn OH_JSVM_CloseHandleScope(env: JSVM_Env, scope: JSVM_HandleScope) -> JSVM_Status;
 }
-extern "C" {
+unsafe extern "C" {
     #[doc = " @brief This API opens a new scope from which one object can be promoted to the outer scope.\n\n @param env The environment that the API is invoked under.\n @param result JSVM_Value representing the new scope.\n @return Returns JSVM funtions result code.\n         {@link JSVM_OK } If the function executed successfully.\\n\n @since 11"]
     pub fn OH_JSVM_OpenEscapableHandleScope(
         env: JSVM_Env,
         result: *mut JSVM_EscapableHandleScope,
     ) -> JSVM_Status;
 }
-extern "C" {
+unsafe extern "C" {
     #[doc = " @brief This API closes the scope passed in. Scopes must be closed in the reverse order\n from which they were created.\n\n @param env The environment that the API is invoked under.\n @param scope JSVM_Value representing the scope to be closed.\n @return Returns JSVM funtions result code.\n         {@link JSVM_OK } If the function executed successfully.\\n\n @since 11"]
     pub fn OH_JSVM_CloseEscapableHandleScope(
         env: JSVM_Env,
         scope: JSVM_EscapableHandleScope,
     ) -> JSVM_Status;
 }
-extern "C" {
+unsafe extern "C" {
     #[doc = " @brief This API promotes the handle to the JavaScript object so that it is valid for the lifetime\n of the outer scope. It can only be called once per scope. If it is called more than once an error\n will be returned.\n\n @param env The environment that the API is invoked under.\n @param scope JSVM_Value representing the current scope.\n @param escapee JSVM_Value representing the JavaScript Object to be escaped.\n @param result JSVM_Value representing the handle to the escaped Object in the outer scope.\n @return Returns JSVM funtions result code.\n         {@link JSVM_OK } If the function executed successfully.\\n\n @since 11"]
     pub fn OH_JSVM_EscapeHandle(
         env: JSVM_Env,
@@ -1092,7 +1092,7 @@ extern "C" {
         result: *mut JSVM_Value,
     ) -> JSVM_Status;
 }
-extern "C" {
+unsafe extern "C" {
     #[doc = " @brief This API creates a new reference with the specified reference count to the value passed in.\n\n @param env The environment that the API is invoked under.\n @param value The JSVM_Value for which a reference is being created.\n @param initialRefcount Initial reference count for the new reference.\n @param result JSVM_Ref pointing to the new reference.\n @return Returns JSVM funtions result code.\n         {@link JSVM_OK } If the function executed successfully.\\n\n @since 11"]
     pub fn OH_JSVM_CreateReference(
         env: JSVM_Env,
@@ -1101,19 +1101,19 @@ extern "C" {
         result: *mut JSVM_Ref,
     ) -> JSVM_Status;
 }
-extern "C" {
+unsafe extern "C" {
     #[doc = " @brief his API deletes the reference passed in.\n\n @param env The environment that the API is invoked under.\n @param ref JSVM_Ref to be deleted.\n @return Returns JSVM funtions result code.\n         {@link JSVM_OK } If the function executed successfully.\\n\n @since 11"]
     pub fn OH_JSVM_DeleteReference(env: JSVM_Env, ref_: JSVM_Ref) -> JSVM_Status;
 }
-extern "C" {
+unsafe extern "C" {
     #[doc = " @brief his API increments the reference count for the reference passed in and\n returns the resulting reference count.\n\n @param env The environment that the API is invoked under.\n @param ref JSVM_Ref for which the reference count will be incremented.\n @param result The new reference count.\n @return Returns JSVM funtions result code.\n         {@link JSVM_OK } If the function executed successfully.\\n\n @since 11"]
     pub fn OH_JSVM_ReferenceRef(env: JSVM_Env, ref_: JSVM_Ref, result: *mut u32) -> JSVM_Status;
 }
-extern "C" {
+unsafe extern "C" {
     #[doc = " @brief This API decrements the reference count for the reference passed in and\n returns the resulting reference count.\n\n @param env The environment that the API is invoked under.\n @param ref JSVM_Ref for which the reference count will be decremented.\n @param result The new reference count.\n @return Returns JSVM funtions result code.\n         {@link JSVM_OK } If the function executed successfully.\\n\n @since 11"]
     pub fn OH_JSVM_ReferenceUnref(env: JSVM_Env, ref_: JSVM_Ref, result: *mut u32) -> JSVM_Status;
 }
-extern "C" {
+unsafe extern "C" {
     #[doc = " @brief If still valid, this API returns the JSVM_Value representing the\n JavaScript value associated with the JSVM_Ref. Otherwise, result will be NULL.\n\n @param env The environment that the API is invoked under.\n @param ref The JSVM_Ref for which the corresponding value is being requested.\n @param result The JSVM_Value referenced by the JSVM_Ref.\n @return Returns JSVM funtions result code.\n         {@link JSVM_OK } If the function executed successfully.\\n\n @since 11"]
     pub fn OH_JSVM_GetReferenceValue(
         env: JSVM_Env,
@@ -1121,11 +1121,11 @@ extern "C" {
         result: *mut JSVM_Value,
     ) -> JSVM_Status;
 }
-extern "C" {
+unsafe extern "C" {
     #[doc = " @brief This API returns a JSVM-API value corresponding to a JavaScript Array type.\n\n @param env The environment that the API is invoked under.\n @param result A JSVM_Value representing a JavaScript Array.\n @return Returns JSVM funtions result code.\n         {@link JSVM_OK } If the function executed successfully.\\n\n @since 11"]
     pub fn OH_JSVM_CreateArray(env: JSVM_Env, result: *mut JSVM_Value) -> JSVM_Status;
 }
-extern "C" {
+unsafe extern "C" {
     #[doc = " @brief This API returns a JSVM-API value corresponding to a JavaScript Array type. The Array's length property\n is set to the passed-in length parameter. However, the underlying buffer is not guaranteed to be pre-allocated\n by the VM when the array is created. That behavior is left to the underlying VM implementation.\n\n @param env The environment that the API is invoked under.\n @param length The initial length of the Array.\n @param result A JSVM_Value representing a JavaScript Array.\n @return Returns JSVM funtions result code.\n         {@link JSVM_OK } If the function executed successfully.\\n\n @since 11"]
     pub fn OH_JSVM_CreateArrayWithLength(
         env: JSVM_Env,
@@ -1133,7 +1133,7 @@ extern "C" {
         result: *mut JSVM_Value,
     ) -> JSVM_Status;
 }
-extern "C" {
+unsafe extern "C" {
     #[doc = " @brief This API returns a JSVM-API value corresponding to a JavaScript ArrayBuffer. ArrayBuffers are used to\n represent fixed-length binary data buffers. They are normally used as a backing-buffer for TypedArray objects.\n The ArrayBuffer allocated will have an underlying byte buffer whose size is determined by the length parameter\n that's passed in. The underlying buffer is optionally returned back to the caller in case the caller wants to\n directly manipulate the buffer. This buffer can only be written to directly from native code. To write to this\n buffer from JavaScript, a typed array or DataView object would need to be created.\n\n @param env The environment that the API is invoked under.\n @param byteLength The length in bytes of the array buffer to create.\n @param data Pointer to the underlying byte buffer of the ArrayBuffer.data can optionally be ignored by passing NULL.\n @param result A JSVM_Value representing a JavaScript Array.\n @return Returns JSVM funtions result code.\n         {@link JSVM_OK } If the function executed successfully.\\n\n @since 11"]
     pub fn OH_JSVM_CreateArraybuffer(
         env: JSVM_Env,
@@ -1142,7 +1142,7 @@ extern "C" {
         result: *mut JSVM_Value,
     ) -> JSVM_Status;
 }
-extern "C" {
+unsafe extern "C" {
     #[doc = " @brief This API allocate the memory of array buffer backing store.\n\n @param byteLength size of backing store memory.\n @param initialized initialization status of the backing store memory.\n @param data pointer that recieve the backing store memory pointer.\n @return Returns JSVM funtions result code.\n         Returns {@link JSVM_OK } if allocation succeed.\\n\n         Returns {@link JSVM_INVALID_ARG } if data is null pointer.\\n\n         Returns {@link JSVM_GENERIC_FAILURE } if allocation failed.\\n\n @since 12"]
     pub fn OH_JSVM_AllocateArrayBufferBackingStoreData(
         byteLength: usize,
@@ -1150,13 +1150,13 @@ extern "C" {
         data: *mut *mut ::std::os::raw::c_void,
     ) -> JSVM_Status;
 }
-extern "C" {
+unsafe extern "C" {
     #[doc = " @brief This API release the memory of an array buffer backing store.\n\n @param data pointer to the backing store memory.\n @return Returns JSVM funtions result code.\n         Returns {@link JSVM_OK } if run succeed.\\n\n         Returns {@link JSVM_INVALID_ARG } if data is null pointer.\\n\n @since 12"]
     pub fn OH_JSVM_FreeArrayBufferBackingStoreData(
         data: *mut ::std::os::raw::c_void,
     ) -> JSVM_Status;
 }
-extern "C" {
+unsafe extern "C" {
     #[doc = " @brief This API create an array buffer using the backing store data.\n\n @param env The environment that the API is invoked under.\n @param data pointer to the backing store memory.\n @param backingStoreSize size of backing store memory.\n @param offset start position of the array buffer in the backing store memory.\n @param arrayBufferSize size of the array buffer.\n @param result pointer that recieve the array buffer.\n @return Returns JSVM funtions result code.\n         Returns {@link JSVM_OK } if creation succeed.\\n\n         Returns {@link JSVM_INVALID_ARG } if any of the following condition reached:\\n\n         1. offset + arrayBufferSize > backingStoreSize\\n\n         2. backingStoreSize or arrayBufferSize equals zero\n         3. data or result is null pointer\n @since 12"]
     pub fn OH_JSVM_CreateArrayBufferFromBackingStoreData(
         env: JSVM_Env,
@@ -1167,11 +1167,11 @@ extern "C" {
         result: *mut JSVM_Value,
     ) -> JSVM_Status;
 }
-extern "C" {
+unsafe extern "C" {
     #[doc = " @brief This API does not observe leap seconds; they are ignored, as ECMAScript aligns with POSIX time specification.\n This API allocates a JavaScript Date object.\n\n @param env The environment that the API is invoked under.\n @param time ECMAScript time value in milliseconds since 01 January, 1970 UTC.\n @param result A JSVM_Value representing a JavaScript Date.\n @return Returns JSVM funtions result code.\n         {@link JSVM_OK } If the function executed successfully.\\n\n @since 11"]
     pub fn OH_JSVM_CreateDate(env: JSVM_Env, time: f64, result: *mut JSVM_Value) -> JSVM_Status;
 }
-extern "C" {
+unsafe extern "C" {
     #[doc = " @brief This API allocates a JavaScript value with external data attached to it. This is used to pass external\n data through JavaScript code, so it can be retrieved later by native code using OH_JSVM_GetValueExternal.\n The API adds a JSVM_Finalize callback which will be called when the JavaScript object just created has been garbage\n collected.The created value is not an object, and therefore does not support additional properties. It is considered\n a distinct value type calling OH_JSVM_Typeof() with an external value yields JSVM_EXTERNAL.\n\n @param env The environment that the API is invoked under.\n @param data Raw pointer to the external data.\n @param finalizeCb Optional callback to call when the external value is being collected. JSVM_Finalize provides\n more details.\n @param finalizeHint Optional hint to pass to the finalize callback during collection.\n @param result A JSVM_Value representing an external value.\n @return Returns JSVM funtions result code.\n         {@link JSVM_OK } If the function executed successfully.\\n\n @since 11"]
     pub fn OH_JSVM_CreateExternal(
         env: JSVM_Env,
@@ -1181,11 +1181,11 @@ extern "C" {
         result: *mut JSVM_Value,
     ) -> JSVM_Status;
 }
-extern "C" {
+unsafe extern "C" {
     #[doc = " @brief This API allocates a default JavaScript Object. It is the equivalent of doing new Object() in JavaScript.\n\n @param env The environment that the API is invoked under.\n @param result  A JSVM_Value representing a JavaScript Object.\n @return Returns JSVM funtions result code.\n         {@link JSVM_OK } If the function executed successfully.\\n\n @since 11"]
     pub fn OH_JSVM_CreateObject(env: JSVM_Env, result: *mut JSVM_Value) -> JSVM_Status;
 }
-extern "C" {
+unsafe extern "C" {
     #[doc = " @brief This API creates a JavaScript symbol value from a UTF8-encoded C string.\n\n @param env The environment that the API is invoked under.\n @param description Optional JSVM_Value which refers to a JavaScript string to be set as the description\n for the symbol.\n @param result A JSVM_Value representing a JavaScript symbol.\n @return Returns JSVM funtions result code.\n         {@link JSVM_OK } If the function executed successfully.\\n\n @since 11"]
     pub fn OH_JSVM_CreateSymbol(
         env: JSVM_Env,
@@ -1193,7 +1193,7 @@ extern "C" {
         result: *mut JSVM_Value,
     ) -> JSVM_Status;
 }
-extern "C" {
+unsafe extern "C" {
     #[doc = " @brief This API searches in the global registry for an existing symbol with the given description.\n If the symbol already exists it will be returned, otherwise a new symbol will be created in the registry.\n\n @param env The environment that the API is invoked under.\n @param utf8description UTF-8 C string representing the text to be used as the description for the symbol.\n @param length The length of the description string in bytes, or JSVM_AUTO_LENGTH if it is null-terminated.\n @param result A JSVM_Value representing a JavaScript symbol.\n @return Returns JSVM funtions result code.\n         {@link JSVM_OK } If the function executed successfully.\\n\n @since 11"]
     pub fn OH_JSVM_SymbolFor(
         env: JSVM_Env,
@@ -1202,7 +1202,7 @@ extern "C" {
         result: *mut JSVM_Value,
     ) -> JSVM_Status;
 }
-extern "C" {
+unsafe extern "C" {
     #[doc = " @brief This API creates a JavaScript TypedArray object over an existing ArrayBuffer. TypedArray\n objects provide an array-like view over an underlying data buffer where each element has the\n same underlying binary scalar datatype.It's required that (length * size_of_element) + byte_offset should\n be <= the size in bytes of the array passed in. If not, a RangeError exception is raised.\n\n @param env The environment that the API is invoked under.\n @param type Scalar datatype of the elements within the TypedArray.\n @param length Number of elements in the TypedArray.\n @param arraybuffer ArrayBuffer underlying the typed array.\n @param byteOffset The byte offset within the ArrayBuffer from which to start projecting the TypedArray.\n @param result A JSVM_Value representing a JavaScript TypedArray\n @return Returns JSVM funtions result code.\n         {@link JSVM_OK } If the function executed successfully.\\n\n @since 11"]
     pub fn OH_JSVM_CreateTypedarray(
         env: JSVM_Env,
@@ -1213,7 +1213,7 @@ extern "C" {
         result: *mut JSVM_Value,
     ) -> JSVM_Status;
 }
-extern "C" {
+unsafe extern "C" {
     #[doc = " @brief This API creates a JavaScript DataView object over an existing ArrayBuffer. DataView\n objects provide an array-like view over an underlying data buffer, but one which allows items\n of different size and type in the ArrayBuffer.It is required that byte_length + byte_offset is\n less than or equal to the size in bytes of the array passed in. If not, a RangeError exception\n is raised.\n\n @param env The environment that the API is invoked under.\n @param length Number of elements in the DataView.\n @param arraybuffer ArrayBuffer underlying the DataView.\n @param byteOffset The byte offset within the ArrayBuffer from which to start projecting the DataView.\n @param result A JSVM_Value representing a JavaScript DataView.\n @return Returns JSVM funtions result code.\n         {@link JSVM_OK } If the function executed successfully.\\n\n @since 11"]
     pub fn OH_JSVM_CreateDataview(
         env: JSVM_Env,
@@ -1223,23 +1223,23 @@ extern "C" {
         result: *mut JSVM_Value,
     ) -> JSVM_Status;
 }
-extern "C" {
+unsafe extern "C" {
     #[doc = " @brief This API is used to convert from the C int32_t type to the JavaScript number type.\n\n @param env The environment that the API is invoked under.\n @param value Integer value to be represented in JavaScript.\n @param result A JSVM_Value representing a JavaScript number.\n @return Returns JSVM funtions result code.\n         {@link JSVM_OK } If the function executed successfully.\\n\n @since 11"]
     pub fn OH_JSVM_CreateInt32(env: JSVM_Env, value: i32, result: *mut JSVM_Value) -> JSVM_Status;
 }
-extern "C" {
+unsafe extern "C" {
     #[doc = " @brief This API is used to convert from the C uint32_t type to the JavaScript number type.\n\n @param env The environment that the API is invoked under.\n @param value Unsigned integer value to be represented in JavaScript.\n @param result A JSVM_Value representing a JavaScript number.\n @return Returns JSVM funtions result code.\n         {@link JSVM_OK } If the function executed successfully.\\n\n @since 11"]
     pub fn OH_JSVM_CreateUint32(env: JSVM_Env, value: u32, result: *mut JSVM_Value) -> JSVM_Status;
 }
-extern "C" {
+unsafe extern "C" {
     #[doc = " @brief This API is used to convert from the C int64_t type to the JavaScript number type.\n\n @param env The environment that the API is invoked under.\n @param value Integer value to be represented in JavaScript.\n @param result A JSVM_Value representing a JavaScript number.\n @return Returns JSVM funtions result code.\n         {@link JSVM_OK } If the function executed successfully.\\n\n @since 11"]
     pub fn OH_JSVM_CreateInt64(env: JSVM_Env, value: i64, result: *mut JSVM_Value) -> JSVM_Status;
 }
-extern "C" {
+unsafe extern "C" {
     #[doc = " @brief This API is used to convert from the C double type to the JavaScript number type.\n\n @param env The environment that the API is invoked under.\n @param value Double-precision value to be represented in JavaScript.\n @param result A JSVM_Value representing a JavaScript number.\n @return Returns JSVM funtions result code.\n         {@link JSVM_OK } If the function executed successfully.\\n\n @since 11"]
     pub fn OH_JSVM_CreateDouble(env: JSVM_Env, value: f64, result: *mut JSVM_Value) -> JSVM_Status;
 }
-extern "C" {
+unsafe extern "C" {
     #[doc = " @brief This API converts the C int64_t type to the JavaScript BigInt type.\n\n @param env The environment that the API is invoked under.\n @param value Integer value to be represented in JavaScript.\n @param result A JSVM_Value representing a JavaScript BigInt.\n @return Returns JSVM funtions result code.\n         {@link JSVM_OK } If the function executed successfully.\\n\n @since 11"]
     pub fn OH_JSVM_CreateBigintInt64(
         env: JSVM_Env,
@@ -1247,7 +1247,7 @@ extern "C" {
         result: *mut JSVM_Value,
     ) -> JSVM_Status;
 }
-extern "C" {
+unsafe extern "C" {
     #[doc = " @brief This API converts the C uint64_t type to the JavaScript BigInt type.\n\n @param env The environment that the API is invoked under.\n @param value Unsigned integer value to be represented in JavaScript.\n @param result A JSVM_Value representing a JavaScript BigInt.\n @return Returns JSVM funtions result code.\n         {@link JSVM_OK } If the function executed successfully.\\n\n @since 11"]
     pub fn OH_JSVM_CreateBigintUint64(
         env: JSVM_Env,
@@ -1255,7 +1255,7 @@ extern "C" {
         result: *mut JSVM_Value,
     ) -> JSVM_Status;
 }
-extern "C" {
+unsafe extern "C" {
     #[doc = " @brief This API converts an array of unsigned 64-bit words into a single BigInt value.\n The resulting BigInt is calculated as (–1)sign_bit (words[0] × (264)0 + words[1] × (264)1 + …)\n\n @param env The environment that the API is invoked under.\n @param signBit Determines if the resulting BigInt will be positive or negative.\n @param wordCount The length of the words array.\n @param words An array of uint64_t little-endian 64-bit words.\n @param result A JSVM_Value representing a JavaScript BigInt.\n @return Returns JSVM funtions result code.\n         {@link JSVM_OK } If the function executed successfully.\\n\n @since 11"]
     pub fn OH_JSVM_CreateBigintWords(
         env: JSVM_Env,
@@ -1265,7 +1265,7 @@ extern "C" {
         result: *mut JSVM_Value,
     ) -> JSVM_Status;
 }
-extern "C" {
+unsafe extern "C" {
     #[doc = " @brief This API creates a JavaScript string value from an ISO-8859-1-encoded C\n string. The native string is copied.\n\n @param env The environment that the API is invoked under.\n @param str Character buffer representing an ISO-8859-1-encoded string.\n @param length The length of the string in bytes, or JSVM_AUTO_LENGTH if it is null-terminated.\n @param result A JSVM_Value representing a JavaScript string.\n @return Returns JSVM funtions result code.\n         {@link JSVM_OK } If the function executed successfully.\\n\n @since 11"]
     pub fn OH_JSVM_CreateStringLatin1(
         env: JSVM_Env,
@@ -1274,7 +1274,7 @@ extern "C" {
         result: *mut JSVM_Value,
     ) -> JSVM_Status;
 }
-extern "C" {
+unsafe extern "C" {
     #[doc = " @brief This API creates a JavaScript string value from a UTF16-LE-encoded C\n string. The native string is copied.\n\n @param env The environment that the API is invoked under.\n @param str Character buffer representing a UTF16-LE-encoded string.\n @param length The length of the string in two-byte code units, or JSVM_AUTO_LENGTH\n if it is null-terminated.\n @param result A JSVM_Value representing a JavaScript string.\n @return Returns JSVM funtions result code.\n         {@link JSVM_OK } If the function executed successfully.\\n\n @since 11"]
     pub fn OH_JSVM_CreateStringUtf16(
         env: JSVM_Env,
@@ -1283,7 +1283,7 @@ extern "C" {
         result: *mut JSVM_Value,
     ) -> JSVM_Status;
 }
-extern "C" {
+unsafe extern "C" {
     #[doc = " @brief This API creates a JavaScript string value from a UTF8-encoded C\n string. The native string is copied.\n\n @param env The environment that the API is invoked under.\n @param str Character buffer representing a UTF8-encoded string.\n @param length The length of the string in bytes, or JSVM_AUTO_LENGTH if it is null-terminated.\n @param result A JSVM_Value representing a JavaScript string.\n @return Returns JSVM funtions result code.\n         {@link JSVM_OK } If the function executed successfully.\\n\n @since 11"]
     pub fn OH_JSVM_CreateStringUtf8(
         env: JSVM_Env,
@@ -1292,7 +1292,7 @@ extern "C" {
         result: *mut JSVM_Value,
     ) -> JSVM_Status;
 }
-extern "C" {
+unsafe extern "C" {
     #[doc = " @brief This API returns the length of an array.\n\n @param env The environment that the API is invoked under.\n @param value JSVM_Value representing the JavaScript Array whose length is being queried.\n @param result uint32 representing length of the array.\n @return Returns JSVM funtions result code.\n         {@link JSVM_OK } If the function executed successfully.\\n\n @since 11"]
     pub fn OH_JSVM_GetArrayLength(
         env: JSVM_Env,
@@ -1300,7 +1300,7 @@ extern "C" {
         result: *mut u32,
     ) -> JSVM_Status;
 }
-extern "C" {
+unsafe extern "C" {
     #[doc = " @brief This API is used to retrieve the underlying data buffer of an ArrayBuffer and its length.\n\n @param env The environment that the API is invoked under.\n @param arraybuffer JSVM_Value representing the ArrayBuffer being queried.\n @param data The underlying data buffer of the ArrayBuffer. If byte_length is 0, this may be NULL\n or any other pointer value.\n @param byteLength Length in bytes of the underlying data buffer.\n @return Returns JSVM funtions result code.\n         {@link JSVM_OK } If the function executed successfully.\\n\n @since 11"]
     pub fn OH_JSVM_GetArraybufferInfo(
         env: JSVM_Env,
@@ -1309,7 +1309,7 @@ extern "C" {
         byteLength: *mut usize,
     ) -> JSVM_Status;
 }
-extern "C" {
+unsafe extern "C" {
     #[doc = " @brief This API returns the length of an array.\n\n @param env The environment that the API is invoked under.\n @param object JSVM_Value representing JavaScript Object whose prototype to return. This returns\n the equivalent of Object.getPrototypeOf (which is not the same as the function's prototype property).\n @param result JSVM_Value representing prototype of the given object.\n @return Returns JSVM funtions result code.\n         {@link JSVM_OK } If the function executed successfully.\\n\n @since 11"]
     pub fn OH_JSVM_GetPrototype(
         env: JSVM_Env,
@@ -1317,7 +1317,7 @@ extern "C" {
         result: *mut JSVM_Value,
     ) -> JSVM_Status;
 }
-extern "C" {
+unsafe extern "C" {
     #[doc = " @brief This API returns various properties of a typed array.\n\n @param env The environment that the API is invoked under.\n @param typedarray JSVM_Value representing the TypedArray whose properties to query.\n @param type Scalar datatype of the elements within the TypedArray.\n @param length The number of elements in the TypedArray.\n @param data The data buffer underlying the TypedArray adjusted by the byte_offset value so that it\n points to the first element in the TypedArray. If the length of the array is 0, this may be NULL or\n any other pointer value.\n @param arraybuffer The ArrayBuffer underlying the TypedArray.\n @param byteOffset The byte offset within the underlying native array at which the first element of\n the arrays is located. The value for the data parameter has already been adjusted so that data points\n to the first element in the array. Therefore, the first byte of the native array would be at data - byte_offset.\n @return Returns JSVM funtions result code.\n         {@link JSVM_OK } If the function executed successfully.\\n\n @since 11"]
     pub fn OH_JSVM_GetTypedarrayInfo(
         env: JSVM_Env,
@@ -1329,7 +1329,7 @@ extern "C" {
         byteOffset: *mut usize,
     ) -> JSVM_Status;
 }
-extern "C" {
+unsafe extern "C" {
     #[doc = " @brief Any of the out parameters may be NULL if that property is unneeded.\n This API returns various properties of a DataView.\n\n @param env The environment that the API is invoked under.\n @param dataview JSVM_Value representing the DataView whose properties to query.\n @param bytelength Number of bytes in the DataView.\n @param data The data buffer underlying the DataView.\n If byte_length is 0, this may be NULL or any other pointer value.\n @param arraybuffer ArrayBuffer underlying the DataView.\n @param byteOffset The byte offset within the data buffer from which to start projecting the DataView.\n @return Returns JSVM funtions result code.\n         {@link JSVM_OK } If the function executed successfully.\\n\n @since 11"]
     pub fn OH_JSVM_GetDataviewInfo(
         env: JSVM_Env,
@@ -1340,16 +1340,16 @@ extern "C" {
         byteOffset: *mut usize,
     ) -> JSVM_Status;
 }
-extern "C" {
+unsafe extern "C" {
     #[doc = " @brief Returns JSVM_OK if the function executed successfully. If a non-date JSVM_Value is\n passed in it returns JSVM_date_expected.This API returns the C double\n primitive of time value for the given JavaScript Date.\n\n @param env The environment that the API is invoked under.\n @param value JSVM_Value representing a JavaScript Date.\n @param result Time value as a double represented as milliseconds\n since midnight at the beginning of 01 January, 1970 UTC.\n @return Returns JSVM funtions result code.\n         {@link JSVM_OK } If the function executed successfully.\\n\n         {@link JSVM_DATE_EXPECTED } If a non-date JSVM_Value is passed in it.\\n\n @since 11"]
     pub fn OH_JSVM_GetDateValue(env: JSVM_Env, value: JSVM_Value, result: *mut f64) -> JSVM_Status;
 }
-extern "C" {
+unsafe extern "C" {
     #[doc = " @brief This API returns the C boolean primitive equivalent of the given JavaScript Boolean.\n\n @param env The environment that the API is invoked under.\n @param value JSVM_Value representing JavaScript Boolean.\n @param result C boolean primitive equivalent of the given JavaScript Boolean.\n @return Returns JSVM funtions result code.\n         {@link JSVM_OK } If the function executed successfully.\\n\n         {@link JSVM_BOOLEAN_EXPECTED }If a non-boolean JSVM_Value is passed in it.\\n\n @since 11"]
     pub fn OH_JSVM_GetValueBool(env: JSVM_Env, value: JSVM_Value, result: *mut bool)
-        -> JSVM_Status;
+    -> JSVM_Status;
 }
-extern "C" {
+unsafe extern "C" {
     #[doc = " @brief This API returns the C double primitive equivalent of the given JavaScript number.\n\n @param env The environment that the API is invoked under.\n @param value JSVM_Value representing JavaScript number.\n @param result C double primitive equivalent of the given JavaScript number.\n @return Returns JSVM funtions result code.\n         {@link JSVM_OK } If the function executed successfully.\\n\n         {@link JSVM_NUMBER_EXPECTED } If a non-number JSVM_Value is passed in.\\n\n @since 11"]
     pub fn OH_JSVM_GetValueDouble(
         env: JSVM_Env,
@@ -1357,7 +1357,7 @@ extern "C" {
         result: *mut f64,
     ) -> JSVM_Status;
 }
-extern "C" {
+unsafe extern "C" {
     #[doc = " @brief This API returns the C int64_t primitive equivalent of the given JavaScript BigInt.\n If needed it will truncate the value, setting lossless to false.\n\n @param env The environment that the API is invoked under.\n @param value JSVM_Value representing JavaScript BigInt.\n @param result C int64_t primitive equivalent of the given JavaScript BigInt.\n @param lossless Indicates whether the BigInt value was converted losslessly.\n @return Returns JSVM funtions result code.\n         {@link JSVM_OK } If the function executed successfully.\\n\n         {@link JSVM_BIGINT_EXPECTED } If a non-BigInt is passed in it.\\n\n @since 11"]
     pub fn OH_JSVM_GetValueBigintInt64(
         env: JSVM_Env,
@@ -1366,7 +1366,7 @@ extern "C" {
         lossless: *mut bool,
     ) -> JSVM_Status;
 }
-extern "C" {
+unsafe extern "C" {
     #[doc = " @brief This API returns the C uint64_t primitive equivalent of the given JavaScript BigInt.\n If needed it will truncate the value, setting lossless to false.\n\n @param env The environment that the API is invoked under.\n @param value JSVM_Value representing JavaScript BigInt.\n @param result C uint64_t primitive equivalent of the given JavaScript BigInt.\n @param lossless Indicates whether the BigInt value was converted losslessly.\n @return Returns JSVM funtions result code.\n         {@link JSVM_OK } If the function executed successfully.\\n\n         {@link JSVM_BIGINT_EXPECTED } If a non-BigInt is passed in it.\\n\n @since 11"]
     pub fn OH_JSVM_GetValueBigintUint64(
         env: JSVM_Env,
@@ -1375,7 +1375,7 @@ extern "C" {
         lossless: *mut bool,
     ) -> JSVM_Status;
 }
-extern "C" {
+unsafe extern "C" {
     #[doc = " @brief This API converts a single BigInt value into a sign bit, 64-bit little-endian array, and the number\n of elements in the array. signBit and words may be both set to NULL, in order to get only wordCount.\n\n @param env The environment that the API is invoked under.\n @param value JSVM_Value representing JavaScript BigInt.\n @param signBit Integer representing if the JavaScript BigInt is positive or negative.\n @param wordCount Must be initialized to the length of the words array. Upon return, it will be set to\n the actual number of words that would be needed to store this BigInt.\n @param words Pointer to a pre-allocated 64-bit word array.\n @return Returns JSVM funtions result code.\n         {@link JSVM_OK } If the function executed successfully.\\n\n @since 11"]
     pub fn OH_JSVM_GetValueBigintWords(
         env: JSVM_Env,
@@ -1385,7 +1385,7 @@ extern "C" {
         words: *mut u64,
     ) -> JSVM_Status;
 }
-extern "C" {
+unsafe extern "C" {
     #[doc = " @brief This API retrieves the external data pointer that was previously passed to OH_JSVM_CreateExternal().\n\n @param env The environment that the API is invoked under.\n @param value JSVM_Value representing JavaScript external value.\n @param result Pointer to the data wrapped by the JavaScript external value.\n @return Returns JSVM funtions result code.\n         {@link JSVM_OK } If the function executed successfully.\\n\n         {@link JSVM_INVALID_ARG } If a non-external JSVM_Value is passed in it.\\n\n @since 11"]
     pub fn OH_JSVM_GetValueExternal(
         env: JSVM_Env,
@@ -1393,17 +1393,17 @@ extern "C" {
         result: *mut *mut ::std::os::raw::c_void,
     ) -> JSVM_Status;
 }
-extern "C" {
+unsafe extern "C" {
     #[doc = " @brief This API returns the C int32 primitive equivalent of the given JavaScript number.\n\n @param env The environment that the API is invoked under.\n @param value JSVM_Value representing JavaScript number.\n @param result C int32 primitive equivalent of the given JavaScript number.\n @return Returns JSVM funtions result code.\n         {@link JSVM_OK } If the function executed successfully.\\n\n         {@link JSVM_NUMBER_EXPECTED } If a non-number JSVM_Value is passed in.\\n\n @since 11"]
     pub fn OH_JSVM_GetValueInt32(env: JSVM_Env, value: JSVM_Value, result: *mut i32)
-        -> JSVM_Status;
+    -> JSVM_Status;
 }
-extern "C" {
+unsafe extern "C" {
     #[doc = " @brief This API returns the C int64 primitive equivalent of the given JavaScript number.\n\n @param env The environment that the API is invoked under.\n @param value JSVM_Value representing JavaScript number.\n @param result C int64 primitive equivalent of the given JavaScript number.\n @return Returns JSVM funtions result code.\n         {@link JSVM_OK } If the function executed successfully.\\n\n         {@link JSVM_NUMBER_EXPECTED } If a non-number JSVM_Value is passed in.\\n\n @since 11"]
     pub fn OH_JSVM_GetValueInt64(env: JSVM_Env, value: JSVM_Value, result: *mut i64)
-        -> JSVM_Status;
+    -> JSVM_Status;
 }
-extern "C" {
+unsafe extern "C" {
     #[doc = " @brief This API returns the ISO-8859-1-encoded string corresponding the value passed in.\n\n @param env The environment that the API is invoked under.\n @param value JSVM_Value representing JavaScript string.\n @param buf Buffer to write the ISO-8859-1-encoded string into. If NULL is passed in, the\n length of the string in bytes and excluding the null terminator is returned in result.\n @param bufsize Size of the destination buffer. When this value is insufficient, the returned string\n is truncated and null-terminated.\n @param result Number of bytes copied into the buffer, excluding the null terminator.\n @return Returns JSVM funtions result code.\n         {@link JSVM_OK } If the function executed successfully.\\n\n         {@link JSVM_STRING_EXPECTED } If a non-string JSVM_Value is passed in.\\n\n @since 11"]
     pub fn OH_JSVM_GetValueStringLatin1(
         env: JSVM_Env,
@@ -1413,7 +1413,7 @@ extern "C" {
         result: *mut usize,
     ) -> JSVM_Status;
 }
-extern "C" {
+unsafe extern "C" {
     #[doc = " @brief This API returns the UTF8-encoded string corresponding the value passed in.\n\n @param env The environment that the API is invoked under.\n @param value JSVM_Value representing JavaScript string.\n @param buf Buffer to write the UTF8-encoded string into. If NULL is passed in, the length\n of the string in bytes and excluding the null terminator is returned in result.\n @param bufsize Size of the destination buffer. When this value is insufficient, the returned\n string is truncated and null-terminated.\n @param result Number of bytes copied into the buffer, excluding the null terminator.\n @return Returns JSVM funtions result code.\n         {@link JSVM_OK } If the function executed successfully.\\n\n         {@link JSVM_STRING_EXPECTED } If a non-string JSVM_Value is passed in.\\n\n @since 11"]
     pub fn OH_JSVM_GetValueStringUtf8(
         env: JSVM_Env,
@@ -1423,7 +1423,7 @@ extern "C" {
         result: *mut usize,
     ) -> JSVM_Status;
 }
-extern "C" {
+unsafe extern "C" {
     #[doc = " @brief This API returns the UTF16-encoded string corresponding the value passed in.\n\n @param env The environment that the API is invoked under.\n @param value JSVM_Value representing JavaScript string.\n @param buf Buffer to write the UTF16-LE-encoded string into. If NULL is passed in,\n the length of the string in 2-byte code units and excluding the null terminator is returned.\n @param bufsize Size of the destination buffer. When this value is insufficient,\n the returned string is truncated and null-terminated.\n @param result Number of 2-byte code units copied into the buffer, excluding the null terminator.\n @return Returns JSVM funtions result code.\n         {@link JSVM_OK } If the function executed successfully.\\n\n         {@link JSVM_STRING_EXPECTED } If a non-string JSVM_Value is passed in.\\n\n @since 11"]
     pub fn OH_JSVM_GetValueStringUtf16(
         env: JSVM_Env,
@@ -1433,7 +1433,7 @@ extern "C" {
         result: *mut usize,
     ) -> JSVM_Status;
 }
-extern "C" {
+unsafe extern "C" {
     #[doc = " @brief This API returns the C primitive equivalent of the given JSVM_Value as a uint32_t.\n\n @param env The environment that the API is invoked under.\n @param value JSVM_Value representing JavaScript number.\n @param result C primitive equivalent of the given JSVM_Value as a uint32_t.\n @return Returns JSVM funtions result code.\n         {@link JSVM_OK } If the function executed successfully.\\n\n         {@link JSVM_NUMBER_EXPECTED } If a non-number JSVM_Value is passed in it.\\n\n @since 11"]
     pub fn OH_JSVM_GetValueUint32(
         env: JSVM_Env,
@@ -1441,23 +1441,23 @@ extern "C" {
         result: *mut u32,
     ) -> JSVM_Status;
 }
-extern "C" {
+unsafe extern "C" {
     #[doc = " @brief This API is used to return the JavaScript singleton object that is used to represent the given boolean value.\n\n @param env The environment that the API is invoked under.\n @param value The value of the boolean to retrieve.\n @param result JSVM_Value representing JavaScript Boolean singleton to retrieve.\n @return Returns JSVM funtions result code.\n         {@link JSVM_OK } If the function executed successfully.\\n\n @since 11"]
     pub fn OH_JSVM_GetBoolean(env: JSVM_Env, value: bool, result: *mut JSVM_Value) -> JSVM_Status;
 }
-extern "C" {
+unsafe extern "C" {
     #[doc = " @brief This API returns the global object.\n\n @param env The environment that the API is invoked under.\n @param result JSVM_Value representing JavaScript global object.\n @return Returns JSVM funtions result code.\n         {@link JSVM_OK } If the function executed successfully.\\n\n @since 11"]
     pub fn OH_JSVM_GetGlobal(env: JSVM_Env, result: *mut JSVM_Value) -> JSVM_Status;
 }
-extern "C" {
+unsafe extern "C" {
     #[doc = " @brief This API returns the null object.\n\n @param env The environment that the API is invoked under.\n @param result JSVM_Value representing JavaScript null object.\n @return Returns JSVM funtions result code.\n         {@link JSVM_OK } If the function executed successfully.\\n\n @since 11"]
     pub fn OH_JSVM_GetNull(env: JSVM_Env, result: *mut JSVM_Value) -> JSVM_Status;
 }
-extern "C" {
+unsafe extern "C" {
     #[doc = " @brief This API returns the Undefined object.\n\n @param env The environment that the API is invoked under.\n @param result JSVM_Value representing JavaScript Undefined value.\n @return Returns JSVM funtions result code.\n         {@link JSVM_OK } If the function executed successfully.\\n\n @since 11"]
     pub fn OH_JSVM_GetUndefined(env: JSVM_Env, result: *mut JSVM_Value) -> JSVM_Status;
 }
-extern "C" {
+unsafe extern "C" {
     #[doc = " @brief This API implements the abstract operation ToBoolean()\n\n @param env The environment that the API is invoked under.\n @param value The JavaScript value to coerce.\n @param result JSVM_Value representing the coerced JavaScript Boolean.\n @return Returns JSVM funtions result code.\n         {@link JSVM_OK } If the function executed successfully.\\n\n @since 11"]
     pub fn OH_JSVM_CoerceToBool(
         env: JSVM_Env,
@@ -1465,7 +1465,7 @@ extern "C" {
         result: *mut JSVM_Value,
     ) -> JSVM_Status;
 }
-extern "C" {
+unsafe extern "C" {
     #[doc = " @brief This API implements the abstract operation ToNumber() as defined. This\n function potentially runs JS code if the passed-in value is an object.\n\n @param env The environment that the API is invoked under.\n @param value The JavaScript value to coerce.\n @param result JSVM_Value representing the coerced JavaScript number.\n @return Returns JSVM funtions result code.\n         {@link JSVM_OK } If the function executed successfully.\\n\n @since 11"]
     pub fn OH_JSVM_CoerceToNumber(
         env: JSVM_Env,
@@ -1473,7 +1473,7 @@ extern "C" {
         result: *mut JSVM_Value,
     ) -> JSVM_Status;
 }
-extern "C" {
+unsafe extern "C" {
     #[doc = " @brief This API implements the abstract operation ToObject().\n\n @param env The environment that the API is invoked under.\n @param value The JavaScript value to coerce.\n @param result JSVM_Value representing the coerced JavaScript Object.\n @return Returns JSVM funtions result code.\n         {@link JSVM_OK } If the function executed successfully.\\n\n @since 11"]
     pub fn OH_JSVM_CoerceToObject(
         env: JSVM_Env,
@@ -1481,7 +1481,7 @@ extern "C" {
         result: *mut JSVM_Value,
     ) -> JSVM_Status;
 }
-extern "C" {
+unsafe extern "C" {
     #[doc = " @brief This API implements the abstract operation ToString().This\n function potentially runs JS code if the passed-in value is an object.\n\n @param env The environment that the API is invoked under.\n @param value The JavaScript value to coerce.\n @param result JSVM_Value representing the coerced JavaScript string.\n @return Returns JSVM funtions result code.\n         {@link JSVM_OK } If the function executed successfully.\\n\n @since 11"]
     pub fn OH_JSVM_CoerceToString(
         env: JSVM_Env,
@@ -1489,7 +1489,7 @@ extern "C" {
         result: *mut JSVM_Value,
     ) -> JSVM_Status;
 }
-extern "C" {
+unsafe extern "C" {
     #[doc = " @brief This API represents behavior similar to invoking the typeof Operator\n on the object as defined. However, there are some differences:It has support\n for detecting an External value.It detects null as a separate type, while\n ECMAScript typeof would detect object.If value has a type that is invalid,\n an error is returned.\n\n @param env The environment that the API is invoked under.\n @param value The JavaScript value whose type to query.\n @param result The type of the JavaScript value.\n @return Returns JSVM funtions result code.\n         {@link JSVM_OK } If the function executed successfully.\\n\n @since 11"]
     pub fn OH_JSVM_Typeof(
         env: JSVM_Env,
@@ -1497,7 +1497,7 @@ extern "C" {
         result: *mut JSVM_ValueType,
     ) -> JSVM_Status;
 }
-extern "C" {
+unsafe extern "C" {
     #[doc = " @brief This API represents invoking the instanceof Operator on the object.\n\n @param env The environment that the API is invoked under.\n @param object The JavaScript value to check.\n @param constructor The JavaScript function object of the constructor function\n to check against.\n @param result Boolean that is set to true if object instanceof constructor is true.\n @return Returns JSVM funtions result code.\n         {@link JSVM_OK } If the function executed successfully.\\n\n @since 11"]
     pub fn OH_JSVM_Instanceof(
         env: JSVM_Env,
@@ -1506,11 +1506,11 @@ extern "C" {
         result: *mut bool,
     ) -> JSVM_Status;
 }
-extern "C" {
+unsafe extern "C" {
     #[doc = " @brief This API represents invoking the IsArray operation on the object\n\n @param env The environment that the API is invoked under.\n @param value The JavaScript value to check.\n @param result Whether the given object is an array.\n @return Returns JSVM funtions result code.\n         {@link JSVM_OK } If the function executed successfully.\\n\n @since 11"]
     pub fn OH_JSVM_IsArray(env: JSVM_Env, value: JSVM_Value, result: *mut bool) -> JSVM_Status;
 }
-extern "C" {
+unsafe extern "C" {
     #[doc = " @brief This API checks if the Object passed in is an array buffer.\n\n @param env The environment that the API is invoked under.\n @param value The JavaScript value to check.\n @param result Whether the given object is an ArrayBuffer.\n @return Returns JSVM funtions result code.\n         {@link JSVM_OK } If the function executed successfully.\\n\n @since 11"]
     pub fn OH_JSVM_IsArraybuffer(
         env: JSVM_Env,
@@ -1518,20 +1518,20 @@ extern "C" {
         result: *mut bool,
     ) -> JSVM_Status;
 }
-extern "C" {
+unsafe extern "C" {
     #[doc = " @brief This API checks if the Object passed in is a date.\n\n @param env The environment that the API is invoked under.\n @param value The JavaScript value to check.\n @param isDate Whether the given JSVM_Value represents a JavaScript Date object.\n @return Returns JSVM funtions result code.\n         {@link JSVM_OK } If the function executed successfully.\\n\n @since 11"]
     pub fn OH_JSVM_IsDate(env: JSVM_Env, value: JSVM_Value, isDate: *mut bool) -> JSVM_Status;
 }
-extern "C" {
+unsafe extern "C" {
     #[doc = " @brief This API checks if the Object passed in is a typed array.\n\n @param env The environment that the API is invoked under.\n @param value The JavaScript value to check.\n @param result Whether the given JSVM_Value represents a TypedArray.\n @return Returns JSVM funtions result code.\n         {@link JSVM_OK } If the function executed successfully.\\n\n @since 11"]
     pub fn OH_JSVM_IsTypedarray(env: JSVM_Env, value: JSVM_Value, result: *mut bool)
-        -> JSVM_Status;
+    -> JSVM_Status;
 }
-extern "C" {
+unsafe extern "C" {
     #[doc = " @brief This API checks if the Object passed in is a DataView.\n\n @param env The environment that the API is invoked under.\n @param value The JavaScript value to check.\n @param result Whether the given JSVM_Value represents a DataView.\n @return Returns JSVM funtions result code.\n         {@link JSVM_OK } If the function executed successfully.\\n\n @since 11"]
     pub fn OH_JSVM_IsDataview(env: JSVM_Env, value: JSVM_Value, result: *mut bool) -> JSVM_Status;
 }
-extern "C" {
+unsafe extern "C" {
     #[doc = " @brief This API represents the invocation of the Strict Equality algorithm.\n\n @param env The environment that the API is invoked under.\n @param lhs The JavaScript value to check.\n @param rhs The JavaScript value to check against.\n @param result Whether the two JSVM_Value objects are equal.\n @return Returns JSVM funtions result code.\n         {@link JSVM_OK } If the function executed successfully.\\n\n @since 11"]
     pub fn OH_JSVM_StrictEquals(
         env: JSVM_Env,
@@ -1540,7 +1540,7 @@ extern "C" {
         result: *mut bool,
     ) -> JSVM_Status;
 }
-extern "C" {
+unsafe extern "C" {
     #[doc = " @brief This API represents the invocation of the Relaxed Equality algorithm.\n Returns true as long as the values are equal, regardless of type.\n\n @param env The environment that the API is invoked under.\n @param lhs The JavaScript value to check.\n @param rhs The JavaScript value to check against.\n @param result Whether the two JSVM_Value objects are relaxed equal.\n @return Returns JSVM funtions result code.\n         {@link JSVM_OK } If the function executed successfully.\\n\n @since 12"]
     pub fn OH_JSVM_Equals(
         env: JSVM_Env,
@@ -1549,11 +1549,11 @@ extern "C" {
         result: *mut bool,
     ) -> JSVM_Status;
 }
-extern "C" {
+unsafe extern "C" {
     #[doc = " @brief This API represents the invocation of the ArrayBuffer detach operation.\n\n @param env The environment that the API is invoked under.\n @param arraybuffer The JavaScript ArrayBuffer to be detached.\n @return Returns JSVM funtions result code.\n         {@link JSVM_OK } If the function executed successfully.\\n\n         {@link JSVM_DETACHABLE_ARRAYBUFFER_EXPECTED } If a non-detachable ArrayBuffer is passed in it.\\n\n @since 11"]
     pub fn OH_JSVM_DetachArraybuffer(env: JSVM_Env, arraybuffer: JSVM_Value) -> JSVM_Status;
 }
-extern "C" {
+unsafe extern "C" {
     #[doc = " @brief This API represents the invocation of the ArrayBuffer IsDetachedBuffer operation.\n\n @param env The environment that the API is invoked under.\n @param value The JavaScript ArrayBuffer to be checked.\n @param result Whether the arraybuffer is detached.\n @return Returns JSVM funtions result code.\n         {@link JSVM_OK } If the function executed successfully.\\n\n @since 11"]
     pub fn OH_JSVM_IsDetachedArraybuffer(
         env: JSVM_Env,
@@ -1561,7 +1561,7 @@ extern "C" {
         result: *mut bool,
     ) -> JSVM_Status;
 }
-extern "C" {
+unsafe extern "C" {
     #[doc = " @brief This API returns the names of the enumerable properties of object as an array of\n strings. The properties of object whose key is a symbol will not be included.\n\n @param env The environment that the API is invoked under.\n @param object The object from which to retrieve the properties.\n @param result A JSVM_Value representing an array of JavaScript values that represent\n the property names of the object. The API can be used to iterate over result using\n OH_JSVM_GetArrayLength and OH_JSVM_GetElement.\n @return Returns JSVM funtions result code.\n         {@link JSVM_OK } If the function executed successfully.\\n\n @since 11"]
     pub fn OH_JSVM_GetPropertyNames(
         env: JSVM_Env,
@@ -1569,7 +1569,7 @@ extern "C" {
         result: *mut JSVM_Value,
     ) -> JSVM_Status;
 }
-extern "C" {
+unsafe extern "C" {
     #[doc = " @brief This API returns an array containing the names of the available properties\n of this object.\n\n @param env The environment that the API is invoked under.\n @param object The object from which to retrieve the properties.\n @param keyMode Whether to retrieve prototype properties as well.\n @param keyFilter Which properties to retrieve (enumerable/readable/writable).\n @param keyConversion Whether to convert numbered property keys to strings.\n @param result A JSVM_Value representing an array of JavaScript values\n that represent the property names of the object. OH_JSVM_GetArrayLength and\n OH_JSVM_GetElement can be used to iterate over result.\n @return Returns JSVM funtions result code.\n         {@link JSVM_OK } If the function executed successfully.\\n\n @since 11"]
     pub fn OH_JSVM_GetAllPropertyNames(
         env: JSVM_Env,
@@ -1580,7 +1580,7 @@ extern "C" {
         result: *mut JSVM_Value,
     ) -> JSVM_Status;
 }
-extern "C" {
+unsafe extern "C" {
     #[doc = " @brief This API set a property on the Object passed in.\n\n @param env The environment that the API is invoked under.\n @param object The object on which to set the property.\n @param key The name of the property to set.\n @param value The property value.\n @return Returns JSVM funtions result code.\n         {@link JSVM_OK } If the function executed successfully.\\n\n @since 11"]
     pub fn OH_JSVM_SetProperty(
         env: JSVM_Env,
@@ -1589,7 +1589,7 @@ extern "C" {
         value: JSVM_Value,
     ) -> JSVM_Status;
 }
-extern "C" {
+unsafe extern "C" {
     #[doc = " @brief This API gets the requested property from the Object passed in.\n\n @param env The environment that the API is invoked under.\n @param object The object from which to retrieve the property.\n @param key The name of the property to retrieve.\n @param result The value of the property.\n @return Returns JSVM funtions result code.\n         {@link JSVM_OK } If the function executed successfully.\\n\n @since 11"]
     pub fn OH_JSVM_GetProperty(
         env: JSVM_Env,
@@ -1598,7 +1598,7 @@ extern "C" {
         result: *mut JSVM_Value,
     ) -> JSVM_Status;
 }
-extern "C" {
+unsafe extern "C" {
     #[doc = " @brief This API checks if the Object passed in has the named property.\n\n @param env The environment that the API is invoked under.\n @param object The object to query.\n @param key The name of the property whose existence to check.\n @param result Whether the property exists on the object or not.\n @return Returns JSVM funtions result code.\n         {@link JSVM_OK } If the function executed successfully.\\n\n @since 11"]
     pub fn OH_JSVM_HasProperty(
         env: JSVM_Env,
@@ -1607,7 +1607,7 @@ extern "C" {
         result: *mut bool,
     ) -> JSVM_Status;
 }
-extern "C" {
+unsafe extern "C" {
     #[doc = " @brief This API attempts to delete the key own property from object.\n\n @param env The environment that the API is invoked under.\n @param object The object to query.\n @param key The name of the property to delete.\n @param result Whether the property deletion succeeded or not. result\n can optionally be ignored by passing NULL.\n @return Returns JSVM funtions result code.\n         {@link JSVM_OK } If the function executed successfully.\\n\n @since 11"]
     pub fn OH_JSVM_DeleteProperty(
         env: JSVM_Env,
@@ -1616,7 +1616,7 @@ extern "C" {
         result: *mut bool,
     ) -> JSVM_Status;
 }
-extern "C" {
+unsafe extern "C" {
     #[doc = " @brief This API checks if the Object passed in has the named own property.\n key must be a string or a symbol, or an error will be thrown. JSVM-API will\n not perform any conversion between data types.\n\n @param env The environment that the API is invoked under.\n @param object The object to query.\n @param key The name of the own property whose existence to check.\n @param result  Whether the own property exists on the object or not.\n @return Returns JSVM funtions result code.\n         {@link JSVM_OK } If the function executed successfully.\\n\n @since 11"]
     pub fn OH_JSVM_HasOwnProperty(
         env: JSVM_Env,
@@ -1625,7 +1625,7 @@ extern "C" {
         result: *mut bool,
     ) -> JSVM_Status;
 }
-extern "C" {
+unsafe extern "C" {
     #[doc = " @brief This method is equivalent to calling OH_JSVM_SetProperty with\n a JSVM_Value created from the string passed in as utf8name.\n\n @param env The environment that the API is invoked under.\n @param object The object on which to set the property.\n @param utf8name The name of the property to set.\n @param value The property value.\n @return Returns JSVM funtions result code.\n         {@link JSVM_OK } If the function executed successfully.\\n\n @since 11"]
     pub fn OH_JSVM_SetNamedProperty(
         env: JSVM_Env,
@@ -1634,7 +1634,7 @@ extern "C" {
         value: JSVM_Value,
     ) -> JSVM_Status;
 }
-extern "C" {
+unsafe extern "C" {
     #[doc = " @brief This method is equivalent to calling OH_JSVM_SetProperty with\n a JSVM_Value created from the string passed in as utf8name.\n\n @param env The environment that the API is invoked under.\n @param object The object from which to retrieve the property.\n @param utf8name The name of the property to get.\n @param result The value of the property.\n @return Returns JSVM funtions result code.\n         {@link JSVM_OK } If the function executed successfully.\\n\n @since 11"]
     pub fn OH_JSVM_GetNamedProperty(
         env: JSVM_Env,
@@ -1643,7 +1643,7 @@ extern "C" {
         result: *mut JSVM_Value,
     ) -> JSVM_Status;
 }
-extern "C" {
+unsafe extern "C" {
     #[doc = " @brief This method is equivalent to calling OH_JSVM_SetProperty with\n a JSVM_Value created from the string passed in as utf8name.\n\n @param env The environment that the API is invoked under.\n @param object The object to query.\n @param utf8name The name of the property whose existence to check.\n @param result Whether the property exists on the object or not.\n @return Returns JSVM funtions result code.\n         {@link JSVM_OK } If the function executed successfully.\\n\n @since 11"]
     pub fn OH_JSVM_HasNamedProperty(
         env: JSVM_Env,
@@ -1652,7 +1652,7 @@ extern "C" {
         result: *mut bool,
     ) -> JSVM_Status;
 }
-extern "C" {
+unsafe extern "C" {
     #[doc = " @brief This API sets an element on the Object passed in.\n\n @param env The environment that the API is invoked under.\n @param object The object from which to set the properties.\n @param index The index of the property to set.\n @param value The property value.\n @return Returns JSVM funtions result code.\n         {@link JSVM_OK } If the function executed successfully.\\n\n @since 11"]
     pub fn OH_JSVM_SetElement(
         env: JSVM_Env,
@@ -1661,7 +1661,7 @@ extern "C" {
         value: JSVM_Value,
     ) -> JSVM_Status;
 }
-extern "C" {
+unsafe extern "C" {
     #[doc = " @brief This API gets the element at the requested index.\n\n @param env The environment that the API is invoked under.\n @param object The object from which to retrieve the property.\n @param index The index of the property to get.\n @param result The value of the property.\n @return Returns JSVM funtions result code.\n         {@link JSVM_OK } If the function executed successfully.\\n\n @since 11"]
     pub fn OH_JSVM_GetElement(
         env: JSVM_Env,
@@ -1670,7 +1670,7 @@ extern "C" {
         result: *mut JSVM_Value,
     ) -> JSVM_Status;
 }
-extern "C" {
+unsafe extern "C" {
     #[doc = " @brief This API returns if the Object passed in has an element\n at the requested index.\n\n @param env The environment that the API is invoked under.\n @param object The object to query.\n @param index The index of the property whose existence to check.\n @param result Whether the property exists on the object or not.\n @return Returns JSVM funtions result code.\n         {@link JSVM_OK } If the function executed successfully.\\n\n @since 11"]
     pub fn OH_JSVM_HasElement(
         env: JSVM_Env,
@@ -1679,7 +1679,7 @@ extern "C" {
         result: *mut bool,
     ) -> JSVM_Status;
 }
-extern "C" {
+unsafe extern "C" {
     #[doc = " @brief This API attempts to delete the specified index from object.\n\n @param env The environment that the API is invoked under.\n @param object The object to query.\n @param index The index of the property to delete.\n @param result Whether the element deletion succeeded or not. result\n can optionally be ignored by passing NULL.\n @return Returns JSVM funtions result code.\n         {@link JSVM_OK } If the function executed successfully.\\n\n @since 11"]
     pub fn OH_JSVM_DeleteElement(
         env: JSVM_Env,
@@ -1688,7 +1688,7 @@ extern "C" {
         result: *mut bool,
     ) -> JSVM_Status;
 }
-extern "C" {
+unsafe extern "C" {
     #[doc = " @brief This method allows the efficient definition of multiple properties\n on a given object.  The properties are defined using property descriptors.\n Given an array of such property descriptors, this API will set the properties\n on the object one at a time, as defined by DefineOwnProperty().\n\n @param env The environment that the API is invoked under.\n @param object The object from which to retrieve the properties.\n @param propertyCount The number of elements in the properties array.\n @param properties The array of property descriptors.\n @return Returns JSVM funtions result code.\n         {@link JSVM_OK } If the function executed successfully.\\n\n @since 11"]
     pub fn OH_JSVM_DefineProperties(
         env: JSVM_Env,
@@ -1697,15 +1697,15 @@ extern "C" {
         properties: *const JSVM_PropertyDescriptor,
     ) -> JSVM_Status;
 }
-extern "C" {
+unsafe extern "C" {
     #[doc = " @brief This method freezes a given object. This prevents new properties\n from being added to it, existing properties from being removed, prevents\n changing the enumerability, configurability, or writability of existing\n properties, and prevents the values of existing properties from being changed.\n It also prevents the object's prototype from being changed.\n\n @param env The environment that the API is invoked under.\n @param object The object to freeze.\n @return Returns JSVM funtions result code.\n         {@link JSVM_OK } If the function executed successfully.\\n\n @since 11"]
     pub fn OH_JSVM_ObjectFreeze(env: JSVM_Env, object: JSVM_Value) -> JSVM_Status;
 }
-extern "C" {
+unsafe extern "C" {
     #[doc = " @brief This method seals a given object. This prevents new properties\n from being added to it, as well as marking all existing properties as non-configurable.\n\n @param env The environment that the API is invoked under.\n @param object The object to seal.\n @return Returns JSVM funtions result code.\n         {@link JSVM_OK } If the function executed successfully.\\n\n @since 11"]
     pub fn OH_JSVM_ObjectSeal(env: JSVM_Env, object: JSVM_Value) -> JSVM_Status;
 }
-extern "C" {
+unsafe extern "C" {
     #[doc = " @brief This method allows a JavaScript function object to be called from\n a native add-on. This is the primary mechanism of calling back from the\n add-on's native code into JavaScript.\n\n @param env The environment that the API is invoked under.\n @param recv The this value passed to the called function.\n @param func JSVM_Value representing the JavaScript function to be invoked.\n @param argc The count of elements in the argv array.\n @param argv Array of JSVM_values representing JavaScript values passed in as arguments to the function.\n @param result JSVM_Value representing the JavaScript object returned.\n @return Returns JSVM funtions result code.\n         {@link JSVM_OK } If the function executed successfully.\\n\n @since 11"]
     pub fn OH_JSVM_CallFunction(
         env: JSVM_Env,
@@ -1716,7 +1716,7 @@ extern "C" {
         result: *mut JSVM_Value,
     ) -> JSVM_Status;
 }
-extern "C" {
+unsafe extern "C" {
     #[doc = " @brief This API allows an add-on author to create a function object in native\n code. This is the primary mechanism to allow calling into the add-on's native\n code from JavaScript.The newly created function is not automatically visible\n from script after this call. Instead, a property must be explicitly set on any\n object that is visible to JavaScript, in order for the function to be accessible\n from script.\n\n @param env The environment that the API is invoked under.\n @param utf8name Optional name of the function encoded as UTF8. This is visible\n within JavaScript as the new function object's name property.\n @param length The length of the utf8name in bytes, or JSVM_AUTO_LENGTH if it\n is null-terminated.\n @param cb The native function which should be called when this function\n object is invoked and data. JSVM_Callback provides more details.\n @param result JSVM_Value representing the JavaScript function object for the newly\n created function.\n @return Returns JSVM funtions result code.\n         {@link JSVM_OK } If the function executed successfully.\\n\n @since 11"]
     pub fn OH_JSVM_CreateFunction(
         env: JSVM_Env,
@@ -1726,7 +1726,7 @@ extern "C" {
         result: *mut JSVM_Value,
     ) -> JSVM_Status;
 }
-extern "C" {
+unsafe extern "C" {
     #[doc = " @brief This method is used within a callback function to retrieve details about\n the call like the arguments and the this pointer from a given callback info.\n\n @param env The environment that the API is invoked under.\n @param cbinfo The callback info passed into the callback function.\n @param argc Specifies the length of the provided argv array and receives the\n actual count of arguments. argc can optionally be ignored by passing NULL.\n @param argv C array of JSVM_values to which the arguments will be copied. If\n there are more arguments than the provided count, only the requested number of\n arguments are copied. If there are fewer arguments provided than claimed, the\n rest of argv is filled with JSVM_Value values that represent undefined. argv\n can optionally be ignored by passing NULL.\n @param thisArg Receives the JavaScript this argument for the call. thisArg\n can optionally be ignored by passing NULL.\n @param data Receives the data pointer for the callback. data can optionally\n be ignored by passing NULL.\n @return Returns JSVM funtions result code.\n         {@link JSVM_OK } If the function executed successfully.\\n\n @since 11"]
     pub fn OH_JSVM_GetCbInfo(
         env: JSVM_Env,
@@ -1737,7 +1737,7 @@ extern "C" {
         data: *mut *mut ::std::os::raw::c_void,
     ) -> JSVM_Status;
 }
-extern "C" {
+unsafe extern "C" {
     #[doc = " @brief This API returns the new.target of the constructor call. If the\n current callback is not a constructor call, the result is NULL.\n\n @param env The environment that the API is invoked under.\n @param cbinfo The callback info passed into the callback function.\n @param result The new.target of the constructor call.\n @return Returns JSVM funtions result code.\n         {@link JSVM_OK } If the function executed successfully.\\n\n @since 11"]
     pub fn OH_JSVM_GetNewTarget(
         env: JSVM_Env,
@@ -1745,7 +1745,7 @@ extern "C" {
         result: *mut JSVM_Value,
     ) -> JSVM_Status;
 }
-extern "C" {
+unsafe extern "C" {
     #[doc = " @brief his method is used to instantiate a new JavaScript value using\n a given JSVM_Value that represents the constructor for the object.\n\n @param env The environment that the API is invoked under.\n @param constructor JSVM_Value representing the JavaScript function to be invoked as a constructor.\n @param argc The count of elements in the argv array.\n @param argv Array of JavaScript values as JSVM_Value representing the arguments to\n the constructor. If argc is zero this parameter may be omitted by passing in NULL.\n @param result JSVM_Value representing the JavaScript object returned, which\n in this case is the constructed object.\n @return Returns JSVM funtions result code.\n         {@link JSVM_OK } If the function executed successfully.\\n\n @since 11"]
     pub fn OH_JSVM_NewInstance(
         env: JSVM_Env,
@@ -1755,7 +1755,7 @@ extern "C" {
         result: *mut JSVM_Value,
     ) -> JSVM_Status;
 }
-extern "C" {
+unsafe extern "C" {
     #[doc = " @brief When wrapping a C++ class, the C++ constructor callback passed via constructor\n should be a static method on the class that calls the actual class constructor, then\n wraps the new C++ instance in a JavaScript object, and returns the wrapper object.\n\n @param env The environment that the API is invoked under.\n @param utf8name Name of the JavaScript constructor function. For clarity, it is\n recommended to use the C++ class name when wrapping a C++ class.\n @param length The length of the utf8name in bytes, or JSVM_AUTO_LENGTH if it\n is null-terminated.\n @param constructor Struct include callback function that handles constructing instances of the class.\n When wrapping a C++ class, this method must be a static member with the JSVM_Callback.callback\n signature. A C++ class constructor cannot be used.\n Include Optional data to be passed to the constructor callback as the data\n property of the callback info. JSVM_Callback provides more details.\n @param propertyCount Number of items in the properties array argument.\n @param properties Array of property descriptors describing static and instance data\n properties, accessors, and methods on the class See JSVM_PropertyDescriptor.\n @param result A JSVM_Value representing the constructor function for the class.\n @return Returns JSVM funtions result code.\n         {@link JSVM_OK } If the function executed successfully.\\n\n @since 11"]
     pub fn OH_JSVM_DefineClass(
         env: JSVM_Env,
@@ -1767,7 +1767,7 @@ extern "C" {
         result: *mut JSVM_Value,
     ) -> JSVM_Status;
 }
-extern "C" {
+unsafe extern "C" {
     #[doc = " @brief Wraps a native instance in a JavaScript object.  The native instance can\n be retrieved later using OH_JSVM_Unwrap().\n\n @param env The environment that the API is invoked under.\n @param jsObject The JavaScript object that will be the wrapper for the native object.\n @param nativeObject The native instance that will be wrapped in the JavaScript object.\n @param finalizeCb Optional native callback that can be used to free the native instance\n when the JavaScript object has been garbage-collected.\n @param finalizeHint Optional contextual hint that is passed to the finalize callback.\n properties, accessors, and methods on the class See JSVM_PropertyDescriptor.\n @param result Optional reference to the wrapped object.\n @return Returns JSVM funtions result code.\n         {@link JSVM_OK } If the function executed successfully.\\n\n @since 11"]
     pub fn OH_JSVM_Wrap(
         env: JSVM_Env,
@@ -1778,7 +1778,7 @@ extern "C" {
         result: *mut JSVM_Ref,
     ) -> JSVM_Status;
 }
-extern "C" {
+unsafe extern "C" {
     #[doc = " @brief When JavaScript code invokes a method or property accessor on the class, the corresponding\n JSVM_Callback is invoked. If the callback is for an instance method or accessor, then the this\n argument to the callback is the wrapper object; the wrapped C++ instance that is the target of\n the call can be obtained then by calling OH_JSVM_Unwrap() on the wrapper object.\n\n @param env The environment that the API is invoked under.\n @param jsObject The object associated with the native instance.\n @param result Pointer to the wrapped native instance.\n @return Returns JSVM funtions result code.\n         {@link JSVM_OK } If the function executed successfully.\\n\n @since 11"]
     pub fn OH_JSVM_Unwrap(
         env: JSVM_Env,
@@ -1786,7 +1786,7 @@ extern "C" {
         result: *mut *mut ::std::os::raw::c_void,
     ) -> JSVM_Status;
 }
-extern "C" {
+unsafe extern "C" {
     #[doc = " @brief Retrieves a native instance that was previously wrapped in the JavaScript object jsObject\n using OH_JSVM_Wrap() and removes the wrapping. If a finalize callback was associated with the wrapping,\n it will no longer be called when the JavaScript object becomes garbage-collected.\n\n @param env The environment that the API is invoked under.\n @param jsObject The object associated with the native instance.\n @param result Pointer to the wrapped native instance.\n @return Returns JSVM funtions result code.\n         {@link JSVM_OK } If the function executed successfully.\\n\n @since 11"]
     pub fn OH_JSVM_RemoveWrap(
         env: JSVM_Env,
@@ -1794,7 +1794,7 @@ extern "C" {
         result: *mut *mut ::std::os::raw::c_void,
     ) -> JSVM_Status;
 }
-extern "C" {
+unsafe extern "C" {
     #[doc = " @brief Associates the value of the typeTag pointer with the JavaScript object or external.\n OH_JSVM_CheckObjectTypeTag() can then be used to compare the tag that was attached to the\n object with one owned by the addon to ensure that the object has the right type.\n If the object already has an associated type tag, this API will return JSVM_INVALID_ARG.\n\n @param env The environment that the API is invoked under.\n @param value The JavaScript object or external to be marked.\n @param typeTag The tag with which the object is to be marked.\n @return Returns JSVM funtions result code.\n         {@link JSVM_OK } If the function executed successfully.\\n\n         {@link JSVM_INVALID_ARG } If the object already has an associated type tag.\\n\n @since 11"]
     pub fn OH_JSVM_TypeTagObject(
         env: JSVM_Env,
@@ -1802,7 +1802,7 @@ extern "C" {
         typeTag: *const JSVM_TypeTag,
     ) -> JSVM_Status;
 }
-extern "C" {
+unsafe extern "C" {
     #[doc = " @brief Compares the pointer given as typeTag with any that can be found on js object.\n If no tag is found on js object or, if a tag is found but it does not match typeTag,\n then result is set to false. If a tag is found and it matches typeTag, then result is set to true.\n\n @param env The environment that the API is invoked under.\n @param value The JavaScript object or external whose type tag to examine.\n @param typeTag The tag with which to compare any tag found on the object.\n @param result Whether the type tag given matched the type tag on the object. false is also returned\n if no type tag was found on the object.\n @return Returns JSVM funtions result code.\n         {@link JSVM_OK } If the function executed successfully.\\n\n @since 11"]
     pub fn OH_JSVM_CheckObjectTypeTag(
         env: JSVM_Env,
@@ -1811,7 +1811,7 @@ extern "C" {
         result: *mut bool,
     ) -> JSVM_Status;
 }
-extern "C" {
+unsafe extern "C" {
     #[doc = " @brief This API can be called multiple times on a single JavaScript object.\n\n @param env The environment that the API is invoked under.\n @param jsObject The JavaScript object to which the native data will be attached.\n @param finalizeData Optional data to be passed to finalizeCb.\n @param finalizeCb Native callback that will be used to free the native data when the\n JavaScript object has been garbage-collected. JSVM_Finalize provides more details.\n @param finalizeHint Optional contextual hint that is passed to the finalize callback.\n @param result Optional reference to the JavaScript object.\n @return Returns JSVM funtions result code.\n         {@link JSVM_OK } If the function executed successfully.\\n\n @since 11"]
     pub fn OH_JSVM_AddFinalizer(
         env: JSVM_Env,
@@ -1822,15 +1822,15 @@ extern "C" {
         result: *mut JSVM_Ref,
     ) -> JSVM_Status;
 }
-extern "C" {
+unsafe extern "C" {
     #[doc = " @brief This API returns the highest JSVM-API version supported by the JSVM runtime.\n\n JSVM-API is planned to be additive such that newer releases of JSVM may support additional\n API functions. In order to allow an addon to use a newer function when running with versions\n of JSVM that support it, while providing fallback behavior when running with JSVM\n versions that don't support it.\n @param env The environment that the API is invoked under.\n @param result The highest version of JSVM-API supported.\n @return Returns JSVM funtions result code.\n         {@link JSVM_OK } If the function executed successfully.\\n\n @since 11"]
     pub fn OH_JSVM_GetVersion(env: JSVM_Env, result: *mut u32) -> JSVM_Status;
 }
-extern "C" {
+unsafe extern "C" {
     #[doc = " @brief Return information of the VM.\n\n @param result The information of the VM.\n @return Returns JSVM funtions result code.\n         {@link JSVM_OK } If the function executed successfully.\\n\n @since 11"]
     pub fn OH_JSVM_GetVMInfo(result: *mut JSVM_VMInfo) -> JSVM_Status;
 }
-extern "C" {
+unsafe extern "C" {
     #[doc = " @brief This function gives V8 an indication of the amount of externally\n allocated memory that is kept alive by JavaScript objects (i.e. a JavaScript\n object that points to its own memory allocated by a native addon). Registering\n externally allocated memory will trigger global garbage collections more often\n than it would otherwise.\n\n @param env The environment that the API is invoked under.\n @param changeInBytes The change in externally allocated memory that is kept\n alive by JavaScript objects.\n @param result The adjusted value\n @return Returns JSVM funtions result code.\n         {@link JSVM_OK } If the function executed successfully.\\n\n @since 11"]
     pub fn OH_JSVM_AdjustExternalMemory(
         env: JSVM_Env,
@@ -1838,14 +1838,14 @@ extern "C" {
         result: *mut i64,
     ) -> JSVM_Status;
 }
-extern "C" {
+unsafe extern "C" {
     #[doc = " @brief This function notifies the VM that the system is running low on memory\n and optionally triggers a garbage collection.\n\n @param env The environment that the API is invoked under.\n @param level The memory pressure level set to the current VM.\n @return Returns JSVM funtions result code.\n         {@link JSVM_OK } If the function executed successfully.\\n\n @since 11"]
     pub fn OH_JSVM_MemoryPressureNotification(
         env: JSVM_Env,
         level: JSVM_MemoryPressureLevel,
     ) -> JSVM_Status;
 }
-extern "C" {
+unsafe extern "C" {
     #[doc = " @brief This API creates a deferred object and a JavaScript promise.\n\n @param env The environment that the API is invoked under.\n @param deferred A newly created deferred object which can later be\n passed to OH_JSVM_ResolveDeferred() or OH_JSVM_RejectDeferred() to resolve\n resp. reject the associated promise.\n @param promise The JavaScript promise associated with the deferred object.\n @return Returns JSVM funtions result code.\n         {@link JSVM_OK } If the function executed successfully.\\n\n @since 11"]
     pub fn OH_JSVM_CreatePromise(
         env: JSVM_Env,
@@ -1853,7 +1853,7 @@ extern "C" {
         promise: *mut JSVM_Value,
     ) -> JSVM_Status;
 }
-extern "C" {
+unsafe extern "C" {
     #[doc = " @brief This API resolves a JavaScript promise by way of the deferred object with\n which it is associated. Thus, it can only be used to resolve JavaScript promises\n for which the corresponding deferred object is available. This effectively means\n that the promise must have been created using OH_JSVM_CreatePromise() and the deferred\n object returned from that call must have been retained in order to be passed to this API.\n\n @param env The environment that the API is invoked under.\n @param deferred The deferred object whose associated promise to resolve.\n @param resolution The value with which to resolve the promise.\n @return Returns JSVM funtions result code.\n         {@link JSVM_OK } If the function executed successfully.\\n\n @since 11"]
     pub fn OH_JSVM_ResolveDeferred(
         env: JSVM_Env,
@@ -1861,7 +1861,7 @@ extern "C" {
         resolution: JSVM_Value,
     ) -> JSVM_Status;
 }
-extern "C" {
+unsafe extern "C" {
     #[doc = " @brief This API rejects a JavaScript promise by way of the deferred object with\n which it is associated. Thus, it can only be used to reject JavaScript promises\n for which the corresponding deferred object is available. This effectively means\n that the promise must have been created using OH_JSVM_CreatePromise() and the deferred\n object returned from that call must have been retained in order to be passed to this API.\n\n @param env The environment that the API is invoked under.\n @param deferred The deferred object whose associated promise to resolve.\n @param rejection The value with which to reject the promise.\n @return Returns JSVM funtions result code.\n         {@link JSVM_OK } If the function executed successfully.\\n\n @since 11"]
     pub fn OH_JSVM_RejectDeferred(
         env: JSVM_Env,
@@ -1869,12 +1869,12 @@ extern "C" {
         rejection: JSVM_Value,
     ) -> JSVM_Status;
 }
-extern "C" {
+unsafe extern "C" {
     #[doc = " @brief This API return indicating whether promise is a native promise object.\n @param env The environment that the API is invoked under.\n @param value The value to examine\n @param isPromise Flag indicating whether promise is a native promise object\n @return Returns JSVM funtions result code.\n         {@link JSVM_OK } If the function executed successfully.\\n\n @since 11"]
     pub fn OH_JSVM_IsPromise(env: JSVM_Env, value: JSVM_Value, isPromise: *mut bool)
-        -> JSVM_Status;
+    -> JSVM_Status;
 }
-extern "C" {
+unsafe extern "C" {
     #[doc = " @brief This API register a resolution/rejection handler with a promise.\n @param env The environment that the API is invoked under.\n @param promise The promise to be handled.\n @param onFulfilled The function to be invoked if promise is resolved.\n @param onRejected The function to be invoked if promise is rejected.\n @param result Another promise returned from promise then/catch method.\n @return Returns JSVM functions result code.\n         {@link JSVM_OK } if the API succeeded. \\n\n         {@link JSVM_INVALID_ARG } if the arguments are invalid. \\n\n         {@link JSVM_INVALID_TYPE } if the arguments are invalid Javascript type. \\n\n         {@link JSVM_PENDING_EXCEPTION} if an exception occurs. \\n\n         {@link JSVM_GENERIC_FAILURE} if the API failed. \\n\n\n @since 18"]
     #[cfg(feature = "api-18")]
     pub fn OH_JSVM_PromiseRegisterHandler(
@@ -1885,7 +1885,7 @@ extern "C" {
         result: *mut JSVM_Value,
     ) -> JSVM_Status;
 }
-extern "C" {
+unsafe extern "C" {
     #[doc = " @brief This API parses a JSON string and returns it as value if successful.\n @param env The environment that the API is invoked under.\n @param jsonString The string to parse.\n @param result The parse value if successful.\n @return Returns JSVM funtions result code.\n         {@link JSVM_OK } If the function executed successfully.\\n\n @since 11"]
     pub fn OH_JSVM_JsonParse(
         env: JSVM_Env,
@@ -1893,7 +1893,7 @@ extern "C" {
         result: *mut JSVM_Value,
     ) -> JSVM_Status;
 }
-extern "C" {
+unsafe extern "C" {
     #[doc = " @brief This API stringifies the object and returns it as string if successful.\n @param env The environment that the API is invoked under.\n @param jsonObject The object to stringify.\n @param result The string if successfully stringified.\n @return Returns JSVM funtions result code.\n         {@link JSVM_OK } If the function executed successfully.\\n\n @since 11"]
     pub fn OH_JSVM_JsonStringify(
         env: JSVM_Env,
@@ -1901,7 +1901,7 @@ extern "C" {
         result: *mut JSVM_Value,
     ) -> JSVM_Status;
 }
-extern "C" {
+unsafe extern "C" {
     #[doc = " @brief This API create the startup snapshot of the VM.\n @param vm The environment that the API is invoked under.\n @param contextCount The object to stringify.\n @param contexts The array of contexts to add to the snapshot.\n @param blobData The snapshot data.\n @param blobSize The size of snapshot data.\n @return Returns JSVM funtions result code.\n         {@link JSVM_OK } If the function executed successfully.\\n\n @since 11"]
     pub fn OH_JSVM_CreateSnapshot(
         vm: JSVM_VM,
@@ -1911,15 +1911,15 @@ extern "C" {
         blobSize: *mut usize,
     ) -> JSVM_Status;
 }
-extern "C" {
+unsafe extern "C" {
     #[doc = " @brief This function returns a set of statistics data of the heap of the VM.\n\n @param vm The VM whose heap statistics are returned.\n @param result The heap statistics data.\n @return Returns JSVM funtions result code.\n         Returns {@link JSVM_OK } in all cases.\\n\n @since 12"]
     pub fn OH_JSVM_GetHeapStatistics(vm: JSVM_VM, result: *mut JSVM_HeapStatistics) -> JSVM_Status;
 }
-extern "C" {
+unsafe extern "C" {
     #[doc = " @brief This function creates and starts a CPU profiler.\n\n @param vm The VM to start CPU profiler for.\n @param result The pointer to the CPU profiler.\n @return Returns JSVM funtions result code.\n         Returns {@link JSVM_OK } in all cases.\\n\n @since 12"]
     pub fn OH_JSVM_StartCpuProfiler(vm: JSVM_VM, result: *mut JSVM_CpuProfiler) -> JSVM_Status;
 }
-extern "C" {
+unsafe extern "C" {
     #[doc = " @brief This function stops the CPU profiler and output to the stream.\n\n @param vm THe VM to start CPU profiler for.\n @param profiler The CPU profiler to stop.\n @param stream The output stream callback for receiving the data.\n @param streamData Optional data to be passed to the stream callback.\n @return Returns JSVM funtions result code.\n         Returns {@link JSVM_OK } in all cases.\\n\n @since 12"]
     pub fn OH_JSVM_StopCpuProfiler(
         vm: JSVM_VM,
@@ -1928,7 +1928,7 @@ extern "C" {
         streamData: *mut ::std::os::raw::c_void,
     ) -> JSVM_Status;
 }
-extern "C" {
+unsafe extern "C" {
     #[doc = " @brief This funciton takes the current heap snapshot and output to the stream.\n\n @param vm The VM whose heap snapshot is taken.\n @param stream The output stream callback for receiving the data.\n @param streamData Optional data to be passed to the stream callback.\n @return Returns JSVM funtions result code.\n         Returns {@link JSVM_OK } in all cases.\\n\n @since 12"]
     pub fn OH_JSVM_TakeHeapSnapshot(
         vm: JSVM_VM,
@@ -1936,7 +1936,7 @@ extern "C" {
         streamData: *mut ::std::os::raw::c_void,
     ) -> JSVM_Status;
 }
-extern "C" {
+unsafe extern "C" {
     #[doc = " @brief This functiong activates insepctor on host and port.\n\n @param env The environment that the API is invoked under.\n @param host The host to listen to for inspector connections.\n @param port The port to listen to for inspector connections.\n @return Returns JSVM funtions result code.\n         Returns {@link JSVM_OK } if the function executed successfully.\\n\n         Returns {@link JSVM_PENDING_EXCEPTION } if an exception occurs.\\n\n @since 12"]
     pub fn OH_JSVM_OpenInspector(
         env: JSVM_Env,
@@ -1944,15 +1944,15 @@ extern "C" {
         port: u16,
     ) -> JSVM_Status;
 }
-extern "C" {
+unsafe extern "C" {
     #[doc = " @brief This function attempts to close all remaining inspector connections.\n\n @param env The environment that the API is invoked under.\n @return Returns JSVM funtions result code.\n         Returns {@link JSVM_OK } if the function executed successfully.\\n\n         Returns {@link JSVM_PENDING_EXCEPTION } if an exception occurs.\\n\n @since 12"]
     pub fn OH_JSVM_CloseInspector(env: JSVM_Env) -> JSVM_Status;
 }
-extern "C" {
+unsafe extern "C" {
     #[doc = " @brief This function will block until a client (existing or connected later)\n has sent Runtime.runIfWaitingForDebugger command.\n\n @param env The environment that the API is invoked under.\n @param breakNextLine Whether break on the next line of JavaScript code.\n @return Returns JSVM funtions result code.\n         Returns {@link JSVM_OK } if the function executed successfully.\\n\n         Returns {@link JSVM_PENDING_EXCEPTION } if an exception occurs.\\n\n @since 12"]
     pub fn OH_JSVM_WaitForDebugger(env: JSVM_Env, breakNextLine: bool) -> JSVM_Status;
 }
-extern "C" {
+unsafe extern "C" {
     #[doc = " @brief Define a JavaScript class with given class name, constructor, properties, callback handlers for\n property operations including get, set, delete, enum etc., and call as function callback.\n\n @param env The environment that the API is invoked under.\n @param utf8name Name of the JavaScript constructor function. For clarity, it is\n recommended to use the C++ class name when wrapping a C++ class.\n @param length The length of the utf8name in bytes, or JSVM_AUTO_LENGTH if it\n is null-terminated.\n @param constructor Struct include callback function that handles constructing instances of the class.\n When wrapping a C++ class, this method must be a static member with the JSVM_Callback.callback\n signature. A C++ class constructor cannot be used.\n Include Optional data to be passed to the constructor callback as the data\n property of the callback info. JSVM_Callback provides more details.\n @param propertyCount Number of items in the properties array argument.\n @param properties Array of property descriptors describing static and instance data\n properties, accessors, and methods on the class See JSVM_PropertyDescriptor.\n @param propertyHandlerCfg The instance object triggers the corresponding callback function.\n @param callAsFunctionCallback Calling an instance object as a function will trigger this callback.\n @param result A JSVM_Value representing the constructor function for the class.\n @return Returns JSVM funtions result code.\n         {@link JSVM_OK } If the function executed successfully.\\n\n @since 12"]
     pub fn OH_JSVM_DefineClassWithPropertyHandler(
         env: JSVM_Env,
@@ -1966,27 +1966,27 @@ extern "C" {
         result: *mut JSVM_Value,
     ) -> JSVM_Status;
 }
-extern "C" {
+unsafe extern "C" {
     #[doc = " @brief Determines whether the current thread holds the lock for the specified environment.\n Only threads that hold locks can use the environment.\n\n @param env The environment that the API is invoked under.\n @param isLocked Flag indicating whether the current thread holds the lock for the specified environment.\n @return Returns JSVM funtions result code.\n         {@link JSVM_OK } If the function executed successfully.\\n\n @since 12"]
     pub fn OH_JSVM_IsLocked(env: JSVM_Env, isLocked: *mut bool) -> JSVM_Status;
 }
-extern "C" {
+unsafe extern "C" {
     #[doc = " @brief Acquire the lock for the specified environment. Only threads that hold locks can use the environment.\n\n @param env The environment that the API is invoked under.\n @return Returns JSVM funtions result code.\n         {@link JSVM_OK } If the function executed successfully.\\n\n @since 12"]
     pub fn OH_JSVM_AcquireLock(env: JSVM_Env) -> JSVM_Status;
 }
-extern "C" {
+unsafe extern "C" {
     #[doc = " @brief Release the lock for the specified environment. Only threads that hold locks can use the environment.\n\n @param env The environment that the API is invoked under.\n @return Returns JSVM funtions result code.\n         {@link JSVM_OK } If the function executed successfully.\\n\n @since 12"]
     pub fn OH_JSVM_ReleaseLock(env: JSVM_Env) -> JSVM_Status;
 }
-extern "C" {
+unsafe extern "C" {
     #[doc = " @brief Starts the running of the task queue inside the VM.\n This task queue can be executed by an external event loop.\n\n @param vm The VM instance on which to start the task queue.\n @param result Whether the task queue was successfully started.\n @return Returns JSVM funtions result code.\n         {@link JSVM_OK } If the function executed successfully.\\n\n @since 12"]
     pub fn OH_JSVM_PumpMessageLoop(vm: JSVM_VM, result: *mut bool) -> JSVM_Status;
 }
-extern "C" {
+unsafe extern "C" {
     #[doc = " @brief Check to see if there are any microtasks waiting in the queue, and if there are, execute them.\n\n @param vm The VM instance on which to check microtasks.\n @return Returns JSVM funtions result code.\n         {@link JSVM_OK } If the function executed successfully.\\n\n @since 12"]
     pub fn OH_JSVM_PerformMicrotaskCheckpoint(vm: JSVM_VM) -> JSVM_Status;
 }
-extern "C" {
+unsafe extern "C" {
     #[doc = " @brief This API checks if the value passed in is callable.\n\n @param env The VM instance on which to check microtasks.\n @param value The JavaScript value to check.\n @param isCallable Whether the given value is callable.\n @return Returns JSVM funtions result code.\n         {@link JSVM_OK } If the function executed successfully.\\n\n @since 12"]
     pub fn OH_JSVM_IsCallable(
         env: JSVM_Env,
@@ -1994,7 +1994,7 @@ extern "C" {
         isCallable: *mut bool,
     ) -> JSVM_Status;
 }
-extern "C" {
+unsafe extern "C" {
     #[doc = " @brief This API checks if the value passed in is undefined.\n This equals to `value === undefined` in JS.\n\n @param env The VM instance on which to check microtasks.\n @param value The JavaScript value to check.\n @param isUndefined Whether the given value is Undefined.\n @return Returns JSVM funtions result code.\n         {@link JSVM_OK } This API will not trigger any exception.\\n\n @since 12"]
     pub fn OH_JSVM_IsUndefined(
         env: JSVM_Env,
@@ -2002,11 +2002,11 @@ extern "C" {
         isUndefined: *mut bool,
     ) -> JSVM_Status;
 }
-extern "C" {
+unsafe extern "C" {
     #[doc = " @brief This API checks if the value passed in is a null object.\n This equals to `value === null` in JS.\n\n @param env The VM instance on which to check microtasks.\n @param value The JavaScript value to check.\n @param isNull Whether the given value is Null.\n @return Only returns JSVM funtions result code.\n         {@link JSVM_OK } This API will not trigger any exception.\\n\n @since 12"]
     pub fn OH_JSVM_IsNull(env: JSVM_Env, value: JSVM_Value, isNull: *mut bool) -> JSVM_Status;
 }
-extern "C" {
+unsafe extern "C" {
     #[doc = " @brief This API checks if the value passed in is either a null or an undefined object.\n This is equivalent to `value == null` in JS.\n\n @param env The VM instance on which to check microtasks.\n @param value The JavaScript value to check.\n @param isNullOrUndefined Whether the given value is Null or Undefined.\n @return Only returns JSVM funtions result code.\n         {@link JSVM_OK } This API will not trigger any exception.\\n\n @since 12"]
     pub fn OH_JSVM_IsNullOrUndefined(
         env: JSVM_Env,
@@ -2014,24 +2014,24 @@ extern "C" {
         isNullOrUndefined: *mut bool,
     ) -> JSVM_Status;
 }
-extern "C" {
+unsafe extern "C" {
     #[doc = " @brief This API checks if the value passed in is a boolean.\n This equals to `typeof value === 'boolean'` in JS.\n\n @param env The VM instance on which to check microtasks.\n @param value The JavaScript value to check.\n @param isBoolean Whether the given value is Boolean.\n @return Only returns JSVM funtions result code.\n         {@link JSVM_OK } This API will not trigger any exception.\\n\n @since 12"]
     pub fn OH_JSVM_IsBoolean(env: JSVM_Env, value: JSVM_Value, isBoolean: *mut bool)
-        -> JSVM_Status;
+    -> JSVM_Status;
 }
-extern "C" {
+unsafe extern "C" {
     #[doc = " @brief This API checks if the value passed in is a number.\n This equals to `typeof value === 'number'` in JS.\n\n @param env The VM instance on which to check microtasks.\n @param value The JavaScript value to check.\n @param isNumber Whether the given value is Number.\n @return Only returns JSVM funtions result code.\n         {@link JSVM_OK } This API will not trigger any exception.\\n\n @since 12"]
     pub fn OH_JSVM_IsNumber(env: JSVM_Env, value: JSVM_Value, isNumber: *mut bool) -> JSVM_Status;
 }
-extern "C" {
+unsafe extern "C" {
     #[doc = " @brief This API checks if the value passed in is a string.\n This equals to `typeof value === 'string'` in JS.\n\n @param env The VM instance on which to check microtasks.\n @param value The JavaScript value to check.\n @param isString Whether the given value is String.\n @return Only returns JSVM funtions result code.\n         {@link JSVM_OK } This API will not trigger any exception.\\n\n @since 12"]
     pub fn OH_JSVM_IsString(env: JSVM_Env, value: JSVM_Value, isString: *mut bool) -> JSVM_Status;
 }
-extern "C" {
+unsafe extern "C" {
     #[doc = " @brief This API checks if the value passed in is a symbol.\n This equals to `typeof value === 'symbol'` in JS.\n\n @param env The VM instance on which to check microtasks.\n @param value The JavaScript value to check.\n @param isSymbol Whether the given value is Symbol.\n @return Only returns JSVM funtions result code.\n         {@link JSVM_OK } This API will not trigger any exception.\\n\n @since 12"]
     pub fn OH_JSVM_IsSymbol(env: JSVM_Env, value: JSVM_Value, isSymbol: *mut bool) -> JSVM_Status;
 }
-extern "C" {
+unsafe extern "C" {
     #[doc = " @brief This API checks if the value passed in is a function.\n This equals to `typeof value === 'function'` in JS.\n\n @param env The VM instance on which to check microtasks.\n @param value The JavaScript value to check.\n @param isFunction Whether the given value is Function.\n @return Only returns JSVM funtions result code.\n         {@link JSVM_OK } This API will not trigger any exception.\\n\n @since 12"]
     pub fn OH_JSVM_IsFunction(
         env: JSVM_Env,
@@ -2039,31 +2039,31 @@ extern "C" {
         isFunction: *mut bool,
     ) -> JSVM_Status;
 }
-extern "C" {
+unsafe extern "C" {
     #[doc = " @brief This API checks if the value passed in is an object.\n\n @param env The VM instance on which to check microtasks.\n @param value The JavaScript value to check.\n @param isObject Whether the given value is Object.\n @return Only returns JSVM funtions result code.\n         {@link JSVM_OK } This API will not trigger any exception.\\n\n @since 12"]
     pub fn OH_JSVM_IsObject(env: JSVM_Env, value: JSVM_Value, isObject: *mut bool) -> JSVM_Status;
 }
-extern "C" {
+unsafe extern "C" {
     #[doc = " @brief This API checks if the value passed in is a bigInt.\n This equals to `typeof value === 'bigint'` in JS.\n\n @param env The VM instance on which to check microtasks.\n @param value The JavaScript value to check.\n @param isBigInt Whether the given value is BigInt.\n @return Only returns JSVM funtions result code.\n         {@link JSVM_OK } This API will not trigger any exception.\\n\n @since 12"]
     pub fn OH_JSVM_IsBigInt(env: JSVM_Env, value: JSVM_Value, isBigInt: *mut bool) -> JSVM_Status;
 }
-extern "C" {
+unsafe extern "C" {
     #[doc = " @brief This API returns a JSVM-API value corresponding to a JavaScript Map type.\n\n @param env The environment that the API is invoked under.\n @param result A JSVM_Value representing a JavaScript Map.\n @return Only returns JSVM function's result code.\n         {@link JSVM_OK } If the API succeeded.\\n\n         {@link JSVM_INVALID_ARG } If the input parameter is invalid.\\n\n @since 12"]
     pub fn OH_JSVM_CreateMap(env: JSVM_Env, result: *mut JSVM_Value) -> JSVM_Status;
 }
-extern "C" {
+unsafe extern "C" {
     #[doc = " @brief This API checks if the value passed in is a Map.\n\n @param env The environment that the API is invoked under.\n @param value The JavaScript value to check.\n @param isMap Whether the given value is Map.\n @return Only returns JSVM function's result code.\n         {@link JSVM_OK } If the API succeeded.\\n\n         {@link JSVM_INVALID_ARG } If the input parameter is invalid.\\n\n @since 12"]
     pub fn OH_JSVM_IsMap(env: JSVM_Env, value: JSVM_Value, isMap: *mut bool) -> JSVM_Status;
 }
-extern "C" {
+unsafe extern "C" {
     #[doc = " @brief This API returns a JSVM-API value corresponding to a JavaScript Set type.\n\n @param env The environment that the API is invoked under.\n @param result A JSVM_Value representing a JavaScript Set.\n @return Returns JSVM function's result code.\n         {@link JSVM_OK } If the API succeeded.\\n\n         {@link JSVM_INVALID_ARG } If the input parameter is invalid.\\n\n @since 12"]
     pub fn OH_JSVM_CreateSet(env: JSVM_Env, result: *mut JSVM_Value) -> JSVM_Status;
 }
-extern "C" {
+unsafe extern "C" {
     #[doc = " @brief This API checks if the value passed in is a Set.\n\n @param env The environment that the API is invoked under.\n @param value The JavaScript value to check.\n @param isSet Whether the given value is Set.\n @return Returns JSVM function's result code.\n         {@link JSVM_OK } If the API succeeded.\\n\n         {@link JSVM_INVALID_ARG } If the input parameter is invalid.\\n\n @since 12"]
     pub fn OH_JSVM_IsSet(env: JSVM_Env, value: JSVM_Value, isSet: *mut bool) -> JSVM_Status;
 }
-extern "C" {
+unsafe extern "C" {
     #[doc = " @brief This function compiles a string of JavaScript code with the compile options\n and returns the compiled script.\n\n @param env The environment that the JSVM-API call is invoked under.\n @param script A JavaScript string containing the script to be compiled.\n @param optionCount length of option array.\n @param options Compile options to be passed.\n @param result The compiled script.\n @return Returns JSVM functions result code\n         {@link JSVM_OK } if the API succeeded. \\n\n         {@link JSVM_INVALID_ARG } If the input parameter is invalid.\\n\n         {@link JSVM_STRING_EXPECTED } If there are parameters passed in that are not of type string.\\n\n         {@link JSVM_GENERIC_FAILURE } If there is an unknown reason causing execution failure.\\n\n         {@link JSVM_PENDING_EXCEPTION } If a JS exception occurs during the execution process.\\n\n @since 12"]
     pub fn OH_JSVM_CompileScriptWithOptions(
         env: JSVM_Env,
@@ -2073,7 +2073,7 @@ extern "C" {
         result: *mut JSVM_Script,
     ) -> JSVM_Status;
 }
-extern "C" {
+unsafe extern "C" {
     #[doc = " @brief This API implements the abstract operation ToBigInt().\n\n @param env The environment that the API is invoked under.\n @param value The JavaScript value to coerce.\n @param result JSVM_Value representing the coerced JavaScript BigInt.\n @return Returns JSVM function's result code.\n         {@link JSVM_OK } If the API succeeded.\n         {@link JSVM_INVALID_ARG } If the input parameter is invalid.\\n\n         {@link JSVM_BIGINT_EXPECTED} If the JavaScript value fails to coerce.\\n\n @since 12"]
     pub fn OH_JSVM_CoerceToBigInt(
         env: JSVM_Env,
@@ -2081,11 +2081,11 @@ extern "C" {
         result: *mut JSVM_Value,
     ) -> JSVM_Status;
 }
-extern "C" {
+unsafe extern "C" {
     #[doc = " @brief This API checks if the value passed in is a regExp.\n This equals to `value instanceof RegExp` in JS.\n\n @param env The environment that the API is invoked under.\n @param value The JavaScript value to check.\n @param result Whether the given value is RegExp.\n @return Returns JSVM function's result code.\n         {@link JSVM_OK } If the API succeeded.\\n\n         {@link JSVM_INVALID_ARG } If the input parameter is invalid.\\n\n @since 12"]
     pub fn OH_JSVM_IsRegExp(env: JSVM_Env, value: JSVM_Value, result: *mut bool) -> JSVM_Status;
 }
-extern "C" {
+unsafe extern "C" {
     #[doc = " @brief This API checks if the value passed in is a constructor.\n\n @param env The environment that the API is invoked under.\n @param value The JavaScript value to check.\n @param isConstructor Whether the given value is Constructor.\n @return Only returns JSVM function's result code.\n         {@link JSVM_OK } If the API succeeded.\\n\n         {@link JSVM_INVALID_ARG } If the input parameter is invalid.\\n\n @since 12"]
     pub fn OH_JSVM_IsConstructor(
         env: JSVM_Env,
@@ -2093,7 +2093,7 @@ extern "C" {
         isConstructor: *mut bool,
     ) -> JSVM_Status;
 }
-extern "C" {
+unsafe extern "C" {
     #[doc = " @brief This API returns the JavaScript value of the regular expression\n corresponding to the input.\n The interface may throw an exception.\n\n @param env The environment that the API is invoked under.\n @param value The JavaScript string to convert to a regular expression.\n @param flags Regular expression flag bits.\n @param result A JSVM_Value representing a JavaScript RegExp.\n @return Only returns JSVM function's result code.\n         {@link JSVM_OK } If the API succeeded.\\n\n         {@link JSVM_INVALID_ARG } If the input parameter is invalid.\\n\n         {@link JSVM_STRING_EXPECTED } If the value of 'value' is not a string.\\n\n         {@link JSVM_GENERIC_FAILURE } If create RegExp failed.\\n\n         {@link JSVM_PENDING_EXCEPTION } If the API throws an exception during runtime.\\n\n @since 12"]
     pub fn OH_JSVM_CreateRegExp(
         env: JSVM_Env,
@@ -2102,7 +2102,7 @@ extern "C" {
         result: *mut JSVM_Value,
     ) -> JSVM_Status;
 }
-extern "C" {
+unsafe extern "C" {
     #[doc = " @brief This API returns the Object prototype.\n\n @param env The environment that the API is invoked under.\n @param object JSVM_Value representing JavaScript Object whose prototype to return. This returns\n the equivalent of Object.getPrototypeOf (which is not the same as the function's prototype property).\n @param result JSVM_Value representing prototype of the given object.\n @return Returns JSVM function's result code.\n         {@link JSVM_OK } If the API succeeded.\\n\n         {@link JSVM_INVALID_ARG } If the input parameter is invalid.\\n\n @since 12"]
     pub fn OH_JSVM_ObjectGetPrototypeOf(
         env: JSVM_Env,
@@ -2110,7 +2110,7 @@ extern "C" {
         result: *mut JSVM_Value,
     ) -> JSVM_Status;
 }
-extern "C" {
+unsafe extern "C" {
     #[doc = " @brief This API set the prototype on the Object passed in.\n\n @param env The environment that the API is invoked under.\n @param object The object on which to set the prototype.\n @param prototype The prototype value.\n @return Returns JSVM function's result code.\n         {@link JSVM_OK } If the API succeeded.\\n\n         {@link JSVM_INVALID_ARG } If the input parameter is invalid.\\n\n @since 12"]
     pub fn OH_JSVM_ObjectSetPrototypeOf(
         env: JSVM_Env,
@@ -2118,7 +2118,7 @@ extern "C" {
         prototype: JSVM_Value,
     ) -> JSVM_Status;
 }
-extern "C" {
+unsafe extern "C" {
     #[doc = " @brief Creates a function with a given script as its body.\n\n @param env The environment that the API is invoked under.\n @param funcName A string containing the function's name. Pass NULL to create an anonymous function.\n @param length The length of the funcName in bytes, or JSVM_AUTO_LENGTH if it\n is null-terminated.\n @param argc The count of elements in the argv array.\n @param argv Array of JSVM_Values representing JavaScript strings passed in as arguments to the function.\n @param script A JavaScript string containing the script to use as the function's body.\n @param result JSVM_Value representing the JavaScript function object for the newly\n created function.\n @return  Returns JSVM function's result code.\n          {@link JSVM_OK } If the API succeeded.\n          {@link JSVM_INVALID_ARG } If the input parameter is invalid.\\n\n          {@link JSVM_GENERIC_FAILURE} If the input script fails to be compiled.\\n\n @since 12"]
     pub fn OH_JSVM_CreateFunctionWithScript(
         env: JSVM_Env,
@@ -2130,15 +2130,15 @@ extern "C" {
         result: *mut JSVM_Value,
     ) -> JSVM_Status;
 }
-extern "C" {
+unsafe extern "C" {
     #[doc = " @brief This function keep persistently save a JSVM_Script and extend its lifecycle\n beyond the current scope.\n\n @param env The environment that the API is invoked under.\n @param script A JavaScript string containing the script to be retained.\n @return Returns JSVM functions result code\n         {@link JSVM_OK } if the API succeeded. \\n\n         {@link JSVM_INVALID_ARG } if the script is empty or already retained. \\n\n @since 12"]
     pub fn OH_JSVM_RetainScript(env: JSVM_Env, script: JSVM_Script) -> JSVM_Status;
 }
-extern "C" {
+unsafe extern "C" {
     #[doc = " @brief This function release the script retained by OH_JSVM_RetainScript\n\n @param env The environment that the API is invoked under.\n @param script A JavaScript string containing the script to be retained.\n @return Returns JSVM functions result code\n         {@link JSVM_OK } if the API succeeded. \\n\n         {@link JSVM_INVALID_ARG } if the script is empty or not retained. \\n\n @since 12"]
     pub fn OH_JSVM_ReleaseScript(env: JSVM_Env, script: JSVM_Script) -> JSVM_Status;
 }
-extern "C" {
+unsafe extern "C" {
     #[doc = " @brief This function activates insepctor with pid and alias it.\n\n @param env The environment that the API is invoked under.\n @param pid A process id to identify the inspector connection.\n @param name An alias for the inspector that under a specific pid.\n default name is jsvm if a nullptr is passed in.\n @return Returns JSVM funtions result code.\n         Returns {@link JSVM_OK } if the function executed successfully.\\n\n         Returns {@link JSVM_PENDING_EXCEPTION } if an exception occurs.\\n\n @since 12"]
     pub fn OH_JSVM_OpenInspectorWithName(
         env: JSVM_Env,
@@ -2146,7 +2146,7 @@ extern "C" {
         name: *const ::std::os::raw::c_char,
     ) -> JSVM_Status;
 }
-extern "C" {
+unsafe extern "C" {
     #[doc = " @brief Compile WebAssembly bytecode into a WebAssembly module.\n If WebAssembly cache provided, deserialization will be performed.\n\n @param env The environment that the API is invoked under.\n @param wasmBytecode WebAssembly bytecode.\n @param wasmBytecodeLength WebAssembly bytecode length in byte.\n @param cacheData Optional WebAssembly cache.\n @param cacheDataLength Optional WebAssembly cache length in byte.\n @param cacheRejected Output parameter representing whether the provided cacheData is rejected.\n @param  wasmModule Output parameter representing compiled WebAssembly module.\n @return Returns JSVM funtions result code.\n         Returns {@link JSVM_OK } if the function executed successfully.\\n\n         Returns {@link JSVM_INVALID_ARG } if any of env, wasmBytecode is NULL, or data length is invalid.\\n\n         Returns {@link JSVM_GENERIC_FAILURE } if compile failed.\\n\n         Returns {@link JSVM_PENDING_EXCEPTION } if an exception occurs.\\n\n         Returns {@link JSVM_JIT_MODE_EXPECTED } if run in jitless mode.\\n\n\n @since 12"]
     pub fn OH_JSVM_CompileWasmModule(
         env: JSVM_Env,
@@ -2158,7 +2158,7 @@ extern "C" {
         wasmModule: *mut JSVM_Value,
     ) -> JSVM_Status;
 }
-extern "C" {
+unsafe extern "C" {
     #[doc = " @brief Compile the function with the specified index in the WebAssembly module\n into the specified optimization level.\n\n @param env The environment that the API is invoked under.\n @param wasmModule The WebAssembly module to which the function to compiled belongs.\n @param functionIndex The index of the function to be compiled, should never be out of range.\n @param optLevel Optimization level the function will be compiled with.\n @return Returns JSVM funtions result code.\n         Returns {@link JSVM_OK } if the function executed successfully.\\n\n         Returns {@link JSVM_INVALID_ARG } if env is NULL, or wasmModule is NULL or is not a WebAssembly module.\\n\n         Returns {@link JSVM_GENERIC_FAILURE } if functionIndex out of range or compile failed.\\n\n         Returns {@link JSVM_PENDING_EXCEPTION } if an exception occurs.\\n\n         Returns {@link JSVM_JIT_MODE_EXPECTED } if run in jitless mode.\\n\n\n @since 12"]
     pub fn OH_JSVM_CompileWasmFunction(
         env: JSVM_Env,
@@ -2167,7 +2167,7 @@ extern "C" {
         optLevel: JSVM_WasmOptLevel,
     ) -> JSVM_Status;
 }
-extern "C" {
+unsafe extern "C" {
     #[doc = " @brief Check whether the given JSVM_Value is a WebAssembly module.\n\n @param env The environment that the API is invoked under.\n @param value The JavaScript value to check.\n @param result Whether the given value is a WebAssembly module.\n @return Returns JSVM funtions result code.\n         Returns {@link JSVM_OK } if the function executed successfully.\\n\n         Returns {@link JSVM_INVALID_ARG } if any of the input arguments is NULL.\\n\n\n @since 12"]
     pub fn OH_JSVM_IsWasmModuleObject(
         env: JSVM_Env,
@@ -2175,7 +2175,7 @@ extern "C" {
         result: *mut bool,
     ) -> JSVM_Status;
 }
-extern "C" {
+unsafe extern "C" {
     #[doc = " @brief Create cache for compiled WebAssembly module.\n\n @param env The environment that the API is invoked under.\n @param wasmModule The compiled WebAssembly module.\n @param data Output parameter representing generated WebAssembly module cache.\n @param length Output parameter representing byte length of generated WebAssembly module cache.\n @return Returns JSVM funtions result code.\n         Returns {@link JSVM_OK } if the function executed successfully.\\n\n         Returns {@link JSVM_INVALID_ARG } if any of the input arguments is NULL.\\n\n         Returns {@link JSVM_GENERIC_FAILURE } if create wasm cache failed.\\n\n         Returns {@link JSVM_JIT_MODE_EXPECTED } if run in jitless mode.\\n\n\n @since 12"]
     pub fn OH_JSVM_CreateWasmCache(
         env: JSVM_Env,
@@ -2184,7 +2184,7 @@ extern "C" {
         length: *mut usize,
     ) -> JSVM_Status;
 }
-extern "C" {
+unsafe extern "C" {
     #[doc = " @brief Release cache data with specified cache type.\n\n @param env The environment that the API is invoked under.\n @param cacheData The cache data to be released, double free is undefined behaviors.\n @param cacheType The type of cache data.\n @return Returns JSVM funtions result code.\n         Returns {@link JSVM_OK } if the function executed successfully.\\n\n         Returns {@link JSVM_INVALID_ARG } if any of the pointer arguments is NULL or cacheType is illegal.\\n\n\n @since 12"]
     pub fn OH_JSVM_ReleaseCache(
         env: JSVM_Env,
@@ -2192,7 +2192,7 @@ extern "C" {
         cacheType: JSVM_CacheType,
     ) -> JSVM_Status;
 }
-extern "C" {
+unsafe extern "C" {
     #[doc = " @brief This API creates an external JavaScript string value from an ISO-8859-1-encoded C\n string. The native string is copied when failed to create external string.\n\n @param env The environment that the API is invoked under.\n @param str Character buffer representing an ISO-8859-1-encoded string.\n @param length The length of the string in bytes, or JSVM_AUTO_LENGTH if it is null-terminated.\n @param finalizeCallback Optional callback to call when the external value is being collected.\n JSVM_Finalize provides more details.\n @param finalizeHint Optional hint to pass to the finalize callback during collection.\n @param result A JSVM_Value representing a JavaScript external string.\n @param copied flag indicate whether the external string is successfully created,\n true for faild to create external ones and fall back to non-external strings, false for success.\n @return Returns JSVM funtions result code.\n         {@link JSVM_OK } if the function executed successfully.\\n\n         {@link JSVM_INVALID_ARG } if one of env, str and copied is NULL.\\n\n @since 18"]
     #[cfg(feature = "api-18")]
     pub fn OH_JSVM_CreateExternalStringLatin1(
@@ -2205,7 +2205,7 @@ extern "C" {
         copied: *mut bool,
     ) -> JSVM_Status;
 }
-extern "C" {
+unsafe extern "C" {
     #[doc = " @brief This API creates an external JavaScript string value from an UTF16-LE-encoded C\n string. The native string is copied when failed to create external string.\n\n @param env The environment that the API is invoked under.\n @param str Character buffer representing an UTF16-LE-encoded string.\n @param length The length of the string in bytes, or JSVM_AUTO_LENGTH if it is null-terminated.\n @param finalizeCallback Optional callback to call when the external value is being collected.\n JSVM_Finalize provides more details.\n @param finalizeHint Optional hint to pass to the finalize callback during collection.\n @param result A JSVM_Value representing a JavaScript external string.\n @param copied flag indicate whether the external string is successfully created,\n true for faild to create external ones and fall back to non-external strings, false for success.\n @return Returns JSVM funtions result code.\n         {@link JSVM_OK } if the function executed successfully.\\n\n         {@link JSVM_INVALID_ARG } if one of env, str and copied is NULL.\\n\n @since 18"]
     #[cfg(feature = "api-18")]
     pub fn OH_JSVM_CreateExternalStringUtf16(
@@ -2218,7 +2218,7 @@ extern "C" {
         copied: *mut bool,
     ) -> JSVM_Status;
 }
-extern "C" {
+unsafe extern "C" {
     #[doc = " @brief This API creates a JavaScript private key.\n\n @param env The environment that the API is invoked under.\n @param description Optional JSVM_Value which refers to a JavaScript string to be set as the description\n for the private key.\n @param result A JSVM_Data representing a JavaScript private key.\n @return Returns JSVM funtions result code.\n         {@link JSVM_OK } if the function executed successfully.\\n\n         {@link JSVM_INVALID_ARG } if env or result is NULL.\\n\n         {@link JSVM_STRING_EXPECTED } if the description is not a string.\\n\n @since 18"]
     #[cfg(feature = "api-18")]
     pub fn OH_JSVM_CreatePrivate(
@@ -2227,7 +2227,7 @@ extern "C" {
         result: *mut JSVM_Data,
     ) -> JSVM_Status;
 }
-extern "C" {
+unsafe extern "C" {
     #[doc = " @brief This API set a private property on the Object passed in.\n\n @param env The environment that the API is invoked under.\n @param object The object on which to set the private property.\n @param key The private key of the property.\n @param value The private property value.\n @return Returns JSVM funtions result code.\n         {@link JSVM_OK } if the function executed successfully.\\n\n         {@link JSVM_INVALID_ARG } if any of the arguments is NULL or the key is not a private key.\\n\n         {@link JSVM_OBJECT_EXPECTED } object passed in is not a real object.\\n\n         {@link JSVM_GENERIC_FAILURE } if failed to set the private key but no exception is pending.\\n\n         {@link JSVM_PENDING_EXCPTION } if an exception occurs.\\n\n @since 18"]
     #[cfg(feature = "api-18")]
     pub fn OH_JSVM_SetPrivate(
@@ -2237,7 +2237,7 @@ extern "C" {
         value: JSVM_Value,
     ) -> JSVM_Status;
 }
-extern "C" {
+unsafe extern "C" {
     #[doc = " @brief This API gets the requested private property from the Object passed in.\n\n @param env The environment that the API is invoked under.\n @param object The object from which to retrieve the private property.\n @param key The private key of the property.\n @param result The value of the private property.\n @return Returns JSVM funtions result code.\n         {@link JSVM_OK } if the function executed successfully.\\n\n         {@link JSVM_INVALID_ARG } if any of the arguments is NULL or the key is not a private key.\\n\n         {@link JSVM_OBJECT_EXPECTED } object passed in is not a real object.\\n\n         {@link JSVM_GENERIC_FAILURE } if failed to get the private key but no exception is pending.\\n\n         {@link JSVM_PENDING_EXCPTION } if an exception occurs.\\n\n @since 18"]
     #[cfg(feature = "api-18")]
     pub fn OH_JSVM_GetPrivate(
@@ -2247,12 +2247,12 @@ extern "C" {
         result: *mut JSVM_Value,
     ) -> JSVM_Status;
 }
-extern "C" {
+unsafe extern "C" {
     #[doc = " @brief This API attempts to delete the property of the private key from object.\n\n @param env The environment that the API is invoked under.\n @param object The object to query.\n @param key The private key of the property to delete.\n @return Returns JSVM funtions result code.\n         {@link JSVM_OK } if the function executed successfully.\\n\n         {@link JSVM_INVALID_ARG } if any of the arguments is NULL or the key is not a private key.\\n\n         {@link JSVM_OBJECT_EXPECTED } object passed in is not a real object.\\n\n         {@link JSVM_GENERIC_FAILURE } if failed to delete the private key but no exception is pending.\\n\n         {@link JSVM_PENDING_EXCPTION } if an exception occurs.\\n\n @since 18"]
     #[cfg(feature = "api-18")]
     pub fn OH_JSVM_DeletePrivate(env: JSVM_Env, object: JSVM_Value, key: JSVM_Data) -> JSVM_Status;
 }
-extern "C" {
+unsafe extern "C" {
     #[doc = " @brief This API creates a new reference with the specified reference count to the data passed in.\n\n @param env The environment that the API is invoked under.\n @param data The JSVM_Data for which a reference is being created.\n @param initialRefcount Initial reference count for the new reference.\n @param result JSVM_Ref pointing to the new reference.\n @return Returns JSVM funtions result code.\n         {@link JSVM_OK } if the function executed successfully.\\n\n         {@link JSVM_INVALID_ARG } if any parameter is null or the value of initialRefcount is 0.\\n\n @since 18"]
     #[cfg(feature = "api-18")]
     pub fn OH_JSVM_CreateDataReference(
@@ -2262,7 +2262,7 @@ extern "C" {
         result: *mut JSVM_Ref,
     ) -> JSVM_Status;
 }
-extern "C" {
+unsafe extern "C" {
     #[doc = " @brief If still valid, this API returns the JSVM_Data representing the\n JavaScript data associated with the JSVM_Ref. Otherwise, result will be NULL.\n\n @param env The environment that the API is invoked under.\n @param ref The JSVM_Ref for which the corresponding value is being requested.\n @param result The JSVM_Data referenced by the JSVM_Ref.\n @return Returns JSVM funtions result code.\n         {@link JSVM_OK } if the function executed successfully.\\n\n         {@link JSVM_INVALID_ARG } if any parameter is null or the ref is not a reference to JSVM_Data.\\n\n\n @since 18"]
     #[cfg(feature = "api-18")]
     pub fn OH_JSVM_GetReferenceData(
@@ -2271,7 +2271,7 @@ extern "C" {
         result: *mut JSVM_Data,
     ) -> JSVM_Status;
 }
-extern "C" {
+unsafe extern "C" {
     #[doc = " @brief Check whether the given JSVM_Value is a BigInt Object.\n\n @param env The environment that the API is invoked under.\n @param value The JavaScript value to check.\n @param result Whether the given value is a BigInt Object.\n @return Returns JSVM funtions result code.\n         {@link JSVM_OK } if the function executed successfully.\\n\n         {@link JSVM_INVALID_ARG } if any of the pointer arguments is NULL.\\n\n\n @since 18"]
     #[cfg(feature = "api-18")]
     pub fn OH_JSVM_IsBigIntObject(
@@ -2280,7 +2280,7 @@ extern "C" {
         result: *mut bool,
     ) -> JSVM_Status;
 }
-extern "C" {
+unsafe extern "C" {
     #[doc = " @brief Check whether the given JSVM_Value is a Boolean Object.\n\n @param env The environment that the API is invoked under.\n @param value The JavaScript value to check.\n @param result Whether the given value is a Boolean Object.\n @return Returns JSVM funtions result code.\n         {@link JSVM_OK } if the function executed successfully.\\n\n         {@link JSVM_INVALID_ARG } if any of the pointer arguments is NULL.\\n\n\n @since 18"]
     #[cfg(feature = "api-18")]
     pub fn OH_JSVM_IsBooleanObject(
@@ -2289,7 +2289,7 @@ extern "C" {
         result: *mut bool,
     ) -> JSVM_Status;
 }
-extern "C" {
+unsafe extern "C" {
     #[doc = " @brief Check whether the given JSVM_Value is a String Object.\n\n @param env The environment that the API is invoked under.\n @param value The JavaScript value to check.\n @param result Whether the given value is a String Object.\n @return Returns JSVM funtions result code.\n         {@link JSVM_OK } if the function executed successfully.\\n\n         {@link JSVM_INVALID_ARG } if any of the pointer arguments is NULL.\\n\n\n @since 18"]
     #[cfg(feature = "api-18")]
     pub fn OH_JSVM_IsStringObject(
@@ -2298,7 +2298,7 @@ extern "C" {
         result: *mut bool,
     ) -> JSVM_Status;
 }
-extern "C" {
+unsafe extern "C" {
     #[doc = " @brief Check whether the given JSVM_Value is a Number Object.\n\n @param env The environment that the API is invoked under.\n @param value The JavaScript value to check.\n @param result Whether the given value is a Number Object.\n @return Returns JSVM funtions result code.\n         {@link JSVM_OK } if the function executed successfully.\\n\n         {@link JSVM_INVALID_ARG } if any of the pointer arguments is NULL.\\n\n\n @since 18"]
     #[cfg(feature = "api-18")]
     pub fn OH_JSVM_IsNumberObject(
@@ -2307,7 +2307,7 @@ extern "C" {
         result: *mut bool,
     ) -> JSVM_Status;
 }
-extern "C" {
+unsafe extern "C" {
     #[doc = " @brief Check whether the given JSVM_Value is a Symbol Object.\n\n @param env The environment that the API is invoked under.\n @param value The JavaScript value to check.\n @param result Whether the given value is a Symbol Object.\n @return Returns JSVM funtions result code.\n         {@link JSVM_OK } if the function executed successfully.\\n\n         {@link JSVM_INVALID_ARG } if any of the pointer arguments is NULL.\\n\n\n @since 18"]
     #[cfg(feature = "api-18")]
     pub fn OH_JSVM_IsSymbolObject(
@@ -2316,17 +2316,17 @@ extern "C" {
         result: *mut bool,
     ) -> JSVM_Status;
 }
-extern "C" {
+unsafe extern "C" {
     #[doc = " @brief This API returns the Symbol.asyncIterator of Well-Known Symbols.\n\n @param env The environment that the API is invoked under.\n @param result The Symbol.asyncIterator of Well-Known Symbols.\n @return Returns JSVM funtions result code.\n         {@link JSVM_OK } if the function executed successfully.\\n\n         {@link JSVM_INVALID_ARG } if any of the pointer arguments is NULL.\\n\n\n @since 18"]
     #[cfg(feature = "api-18")]
     pub fn OH_JSVM_GetSymbolAsyncIterator(env: JSVM_Env, result: *mut JSVM_Value) -> JSVM_Status;
 }
-extern "C" {
+unsafe extern "C" {
     #[doc = " @brief This API returns the Symbol.hasInstance of Well-Known Symbols.\n\n @param env The environment that the API is invoked under.\n @param result The Symbol.hasInstance of Well-Known Symbols.\n @return Returns JSVM funtions result code.\n         {@link JSVM_OK } if the function executed successfully.\\n\n         {@link JSVM_INVALID_ARG } if any of the pointer arguments is NULL.\\n\n\n @since 18"]
     #[cfg(feature = "api-18")]
     pub fn OH_JSVM_GetSymbolHasInstance(env: JSVM_Env, result: *mut JSVM_Value) -> JSVM_Status;
 }
-extern "C" {
+unsafe extern "C" {
     #[doc = " @brief This API returns the Symbol.isConcatSpreadable of Well-Known Symbols\n\n @param env The environment that the API is invoked under.\n @param result The Symbol.isConcatSpreadable of Well-Known Symbols.\n @return Returns JSVM funtions result code.\n         {@link JSVM_OK } if the function executed successfully.\\n\n         {@link JSVM_INVALID_ARG } if any of the pointer arguments is NULL.\\n\n\n @since 18"]
     #[cfg(feature = "api-18")]
     pub fn OH_JSVM_GetSymbolIsConcatSpreadable(
@@ -2334,47 +2334,47 @@ extern "C" {
         result: *mut JSVM_Value,
     ) -> JSVM_Status;
 }
-extern "C" {
+unsafe extern "C" {
     #[doc = " @brief This API returns the Symbol.match of Well-Known Symbols\n\n @param env The environment that the API is invoked under.\n @param result The Symbol.match of Well-Known Symbols.\n @return Returns JSVM funtions result code.\n         {@link JSVM_OK } if the function executed successfully.\\n\n         {@link JSVM_INVALID_ARG } if any of the pointer arguments is NULL.\\n\n\n @since 18"]
     #[cfg(feature = "api-18")]
     pub fn OH_JSVM_GetSymbolMatch(env: JSVM_Env, result: *mut JSVM_Value) -> JSVM_Status;
 }
-extern "C" {
+unsafe extern "C" {
     #[doc = " @brief This API returns the Symbol.replace of Well-Known Symbols\n\n @param env The environment that the API is invoked under.\n @param result The Symbol.replace of Well-Known Symbols.\n @return Returns JSVM funtions result code.\n         {@link JSVM_OK } if the function executed successfully.\\n\n         {@link JSVM_INVALID_ARG } if any of the pointer arguments is NULL.\\n\n\n @since 18"]
     #[cfg(feature = "api-18")]
     pub fn OH_JSVM_GetSymbolReplace(env: JSVM_Env, result: *mut JSVM_Value) -> JSVM_Status;
 }
-extern "C" {
+unsafe extern "C" {
     #[doc = " @brief This API returns the Symbol.search of Well-Known Symbols\n\n @param env The environment that the API is invoked under.\n @param result The Symbol.search of Well-Known Symbols.\n @return Returns JSVM funtions result code.\n         {@link JSVM_OK } if the function executed successfully.\\n\n         {@link JSVM_INVALID_ARG } if any of the pointer arguments is NULL.\\n\n\n @since 18"]
     #[cfg(feature = "api-18")]
     pub fn OH_JSVM_GetSymbolSearch(env: JSVM_Env, result: *mut JSVM_Value) -> JSVM_Status;
 }
-extern "C" {
+unsafe extern "C" {
     #[doc = " @brief This API returns the Symbol.split of Well-Known Symbols\n\n @param env The environment that the API is invoked under.\n @param result The Symbol.split of Well-Known Symbols.\n @return Returns JSVM funtions result code.\n         {@link JSVM_OK } if the function executed successfully.\\n\n         {@link JSVM_INVALID_ARG } if any of the pointer arguments is NULL.\\n\n\n @since 18"]
     #[cfg(feature = "api-18")]
     pub fn OH_JSVM_GetSymbolSplit(env: JSVM_Env, result: *mut JSVM_Value) -> JSVM_Status;
 }
-extern "C" {
+unsafe extern "C" {
     #[doc = " @brief This API returns the Symbol.toPrimitive of Well-Known Symbols\n\n @param env The environment that the API is invoked under.\n @param result The Symbol.toPrimitive of Well-Known Symbols.\n @return Returns JSVM funtions result code.\n         {@link JSVM_OK } if the function executed successfully.\\n\n         {@link JSVM_INVALID_ARG } if any of the pointer arguments is NULL.\\n\n\n @since 18"]
     #[cfg(feature = "api-18")]
     pub fn OH_JSVM_GetSymbolToPrimitive(env: JSVM_Env, result: *mut JSVM_Value) -> JSVM_Status;
 }
-extern "C" {
+unsafe extern "C" {
     #[doc = " @brief This API returns the Symbol.unscopables of Well-Known Symbols\n\n @param env The environment that the API is invoked under.\n @param result The Symbol.unscopables of Well-Known Symbols.\n @return Returns JSVM funtions result code.\n         {@link JSVM_OK } if the function executed successfully.\\n\n         {@link JSVM_INVALID_ARG } if any of the pointer arguments is NULL.\\n\n\n @since 18"]
     #[cfg(feature = "api-18")]
     pub fn OH_JSVM_GetSymbolUnscopables(env: JSVM_Env, result: *mut JSVM_Value) -> JSVM_Status;
 }
-extern "C" {
+unsafe extern "C" {
     #[doc = " @brief This API returns the Symbol.toStringTag of Well-Known Symbols\n\n @param env The environment that the API is invoked under.\n @param result The Symbol.toStringTag of Well-Known Symbols.\n @return Returns JSVM funtions result code.\n         {@link JSVM_OK } if the function executed successfully.\\n\n         {@link JSVM_INVALID_ARG } if any of the pointer arguments is NULL.\\n\n\n @since 18"]
     #[cfg(feature = "api-18")]
     pub fn OH_JSVM_GetSymbolToStringTag(env: JSVM_Env, result: *mut JSVM_Value) -> JSVM_Status;
 }
-extern "C" {
+unsafe extern "C" {
     #[doc = " @brief This API returns the Symbol.iterator of Well-Known Symbols\n\n @param env The environment that the API is invoked under.\n @param result The Symbol.iterator of Well-Known Symbols.\n @return Returns JSVM funtions result code.\n         {@link JSVM_OK } if the function executed successfully.\\n\n         {@link JSVM_INVALID_ARG } if any of the pointer arguments is NULL.\\n\n\n @since 18"]
     #[cfg(feature = "api-18")]
     pub fn OH_JSVM_GetSymbolIterator(env: JSVM_Env, result: *mut JSVM_Value) -> JSVM_Status;
 }
-extern "C" {
+unsafe extern "C" {
     #[doc = " @brief Trace start with specified categories for all JSVM VM.(Non-thread-safe)\n\n @param count The count of trace categories.\n @param categories Select internal trace events for tracing by categories.\n @param tag User-defined tag of trace data.\n @param eventsCount Number of trace events.\n @return Returns JSVM funtions result code.\n         {@link JSVM_OK } if the function executed successfully.\\n\n         {@link JSVM_INVALID_ARG } if categories or count is illegal.\\n\n\n @since 18"]
     #[cfg(feature = "api-18")]
     pub fn OH_JSVM_TraceStart(
@@ -2384,7 +2384,7 @@ extern "C" {
         eventsCount: usize,
     ) -> JSVM_Status;
 }
-extern "C" {
+unsafe extern "C" {
     #[doc = " @brief Trace stop for specified categories for all JSVM VM.(Non-thread-safe)\n\n @param stream The output stream callback for receiving the data.\n @param streamData Data passed to the stream callback.\n @return Returns JSVM funtions result code.\n         {@link JSVM_OK } if the function executed successfully.\\n\n         {@link JSVM_INVALID_ARG } if stream or streamData is NULL\\n\n\n @since 18"]
     #[cfg(feature = "api-18")]
     pub fn OH_JSVM_TraceStop(
@@ -2392,7 +2392,7 @@ extern "C" {
         streamData: *mut ::std::os::raw::c_void,
     ) -> JSVM_Status;
 }
-extern "C" {
+unsafe extern "C" {
     #[doc = " @brief Set Handler For OOM Error. If this function is invoked repeatedly,\n only the last time takes effect. When handler is null, the previous setting is canceled.\n\n @param vm The environment that the API is invoked under.\n @param handler The handler for OOM Error.\n @return Returns JSVM funtions result code.\n         {@link JSVM_OK } if the function executed successfully.\\n\n         {@link JSVM_INVALID_ARG } if vm is NULL.\\n\n\n @since 18"]
     #[cfg(feature = "api-18")]
     pub fn OH_JSVM_SetHandlerForOOMError(
@@ -2400,7 +2400,7 @@ extern "C" {
         handler: JSVM_HandlerForOOMError,
     ) -> JSVM_Status;
 }
-extern "C" {
+unsafe extern "C" {
     #[doc = " @brief This API is used to enable/disable the given debug option for a certain JSVM_Env.\n\n @param env The environment that the API is invoked under.\n @param debugOption The debug option to be changed.\n @param isEnabled Whether to enable or disable the debug option.\n @return Returns JSVM funtions result code.\n         {@link JSVM_OK } if the function executed successfully.\\n\n         {@link JSVM_INVALID_ARG } if env is NULL.\\n\n\n @since 20"]
     #[cfg(feature = "api-20")]
     pub fn OH_JSVM_SetDebugOption(
@@ -2409,7 +2409,7 @@ extern "C" {
         isEnabled: bool,
     ) -> JSVM_Status;
 }
-extern "C" {
+unsafe extern "C" {
     #[doc = " @brief Set Handler For Fatal Error. If this function is invoked repeatedly,\n only the last time takes effect. When handler is null, the previous setting is canceled.\n\n @param vm The environment that the API is invoked under.\n @param handler The handler for Fatal Error.\n @return Returns JSVM funtions result code.\n         {@link JSVM_OK } if the function executed successfully.\\n\n         {@link JSVM_INVALID_ARG } if vm is NULL.\\n\n\n @since 18"]
     #[cfg(feature = "api-18")]
     pub fn OH_JSVM_SetHandlerForFatalError(
@@ -2417,7 +2417,7 @@ extern "C" {
         handler: JSVM_HandlerForFatalError,
     ) -> JSVM_Status;
 }
-extern "C" {
+unsafe extern "C" {
     #[doc = " @brief Set Handler For Promise Reject. If this function is invoked repeatedly,\n only the last time takes effect. When handler is null, the previous setting is canceled.\n\n @param vm The environment that the API is invoked under.\n @param handler The handler for Promise Reject.\n @return Returns JSVM funtions result code.\n         {@link JSVM_OK } if the function executed successfully.\\n\n         {@link JSVM_INVALID_ARG } if vm is NULL.\\n\n\n @since 18"]
     #[cfg(feature = "api-18")]
     pub fn OH_JSVM_SetHandlerForPromiseReject(
@@ -2425,7 +2425,7 @@ extern "C" {
         handler: JSVM_HandlerForPromiseReject,
     ) -> JSVM_Status;
 }
-extern "C" {
+unsafe extern "C" {
     #[doc = " @brief When wrapping a C++ class, the C++ constructor callback passed via constructor\n should be a static method on the class that calls the actual class constructor, then\n wraps the new C++ instance in a JavaScript object according to the different Options\n passed in, and returns the wrapper object.\n\n @param env The environment that the API is invoked under.\n @param utf8name Name of the JavaScript constructor function. For clarity, it is\n recommended to use the C++ class name when wrapping a C++ class.\n @param length The length of the utf8name in bytes, or JSVM_AUTO_LENGTH if it\n is null-terminated.\n @param constructor Struct include callback function that handles constructing instances of the class.\n When wrapping a C++ class, this method must be a static member with the JSVM_Callback.callback\n signature. A C++ class constructor cannot be used.\n Include Optional data to be passed to the constructor callback as the data\n property of the callback info. JSVM_Callback provides more details.\n @param propertyCount Number of items in the properties array argument.\n @param properties Array of property descriptors describing static and instance data\n properties, accessors, and methods on the class See JSVM_PropertyDescriptor.\n @param parentClass The parent-class of the currently defined class.\n @param option_count Number of items in an option array argument.\n @param options DefineClass options to be passed.\n @param result A JSVM_Value representing the constructor function for the class.\n @return Returns JSVM functions result code.\n         {@link JSVM_OK } if the function executed successfully. \\n\n         {@link JSVM_INVALID_ARG } if any of the pointer arguments is NULL. \\n\n         {@link JSVM_GENERIC_FAILURE} if the input utf8name | constructor | properties is invalid. \\n\n @since 18"]
     #[cfg(feature = "api-18")]
     pub fn OH_JSVM_DefineClassWithOptions(
@@ -2441,7 +2441,7 @@ extern "C" {
         result: *mut JSVM_Value,
     ) -> JSVM_Status;
 }
-extern "C" {
+unsafe extern "C" {
     #[doc = " @brief Add VM GC Callback.\n\n @param vm The environment that the API is invoked under.\n @param triggerTime The timing of GC callback trigger.\n @param handler When Trigger gc, the callback function will be called.\n @param gcType The type of gc.\n @param userData The native pointer data.\n @return Returns JSVM funtions result code.\n         {@link JSVM_OK } if the function executed successfully.\\n\n         {@link JSVM_INVALID_ARG } if the vm or the handler is NULL or the handler has been added before.\\n\n\n @since 18"]
     #[cfg(feature = "api-18")]
     pub fn OH_JSVM_AddHandlerForGC(
@@ -2452,7 +2452,7 @@ extern "C" {
         userData: *mut ::std::os::raw::c_void,
     ) -> JSVM_Status;
 }
-extern "C" {
+unsafe extern "C" {
     #[doc = " @brief Remove VM GC Callback.\n\n @param vm The environment that the API is invoked under.\n @param triggerTime The timing of GC callback trigger.\n @param handler When Trigger gc, the callback function will be called.\n @param userData The native pointer data.\n @return Returns JSVM funtions result code.\n         {@link JSVM_OK } if the function executed successfully.\\n\n         {@link JSVM_INVALID_ARG } if the vm or the handler is NULL, or the handler has been removed,\n or the handler has never been added.\\n\n\n @since 18"]
     #[cfg(feature = "api-18")]
     pub fn OH_JSVM_RemoveHandlerForGC(

@@ -2,6 +2,9 @@
 members  = ["crates/*", "sys/*", "tools/*", "examples/*"]
 resolver = "2"
 
+[workspace.package]
+edition = "2024"
+
 [workspace.dependencies]
 ohos-bundle-binding                 = { version = "0.1.0", path = "crates/bundle" }
 ohos-init-binding                   = { version = "0.1.0", path = "crates/init" }

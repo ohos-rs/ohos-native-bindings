@@ -1,7 +1,7 @@
 use ohos_jsvm_sys as sys;
 
-use crate::error::{check_status, non_null, JsvmError, Result};
 use crate::Env;
+use crate::error::{JsvmError, Result, check_status, non_null};
 
 #[derive(Debug)]
 pub struct Runtime {

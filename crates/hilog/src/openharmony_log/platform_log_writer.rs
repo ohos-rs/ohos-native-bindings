@@ -1,7 +1,7 @@
 use crate::LogLevel;
 
 use super::arrays::slice_assume_init_ref;
-use super::{openharmony_log, uninit_array, LOGGING_MSG_MAX_LEN};
+use super::{LOGGING_MSG_MAX_LEN, openharmony_log, uninit_array};
 use log::Level;
 use std::ffi::CStr;
 use std::mem::MaybeUninit;
@@ -125,11 +125,7 @@ impl fmt::Write for PlatformLogWriter<'_> {
                 .enumerate()
                 .fold(None, |acc, (i, (output, input))| {
                     output.write(*input);
-                    if *input == b'\n' {
-                        Some(i)
-                    } else {
-                        acc
-                    }
+                    if *input == b'\n' { Some(i) } else { acc }
                 });
 
             // update last \n index

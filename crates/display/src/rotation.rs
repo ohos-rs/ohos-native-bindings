@@ -1,8 +1,8 @@
 use ohos_display_sys::{
     NativeDisplayManager_Rotation, NativeDisplayManager_Rotation_DISPLAY_MANAGER_ROTATION_0,
+    NativeDisplayManager_Rotation_DISPLAY_MANAGER_ROTATION_90,
     NativeDisplayManager_Rotation_DISPLAY_MANAGER_ROTATION_180,
     NativeDisplayManager_Rotation_DISPLAY_MANAGER_ROTATION_270,
-    NativeDisplayManager_Rotation_DISPLAY_MANAGER_ROTATION_90,
 };
 
 use ohos_enum_derive::EnumFrom;

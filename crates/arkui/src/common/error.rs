@@ -55,7 +55,7 @@ pub type ArkUIError = Error<ArkUIErrorCode>;
 #[doc(hidden)]
 #[macro_export]
 macro_rules! check_arkui_status {
-  ($code:expr) => {{
+  ($code:expr_2021) => {{
     let c = $code as u32;
     match c {
       ohos_arkui_input_binding::sys::ArkUI_ErrorCode_ARKUI_ERROR_CODE_NO_ERROR => Ok(()),
@@ -63,7 +63,7 @@ macro_rules! check_arkui_status {
     }
   }};
 
-  ($code:expr, $($msg:tt)*) => {{
+  ($code:expr_2021, $($msg:tt)*) => {{
     let c = $code as u32;
     match c {
         ohos_arkui_input_binding::sys::ArkUI_ErrorCode_ARKUI_ERROR_CODE_NO_ERROR => Ok(()),

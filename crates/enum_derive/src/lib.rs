@@ -2,8 +2,8 @@ use convert_case::{Case, Casing};
 use proc_macro::TokenStream;
 use quote::{format_ident, quote};
 use syn::{
-    parse::Parse, parse::ParseStream, parse_macro_input, Data, DeriveInput, Ident, LitStr, Token,
-    Type,
+    Data, DeriveInput, Ident, LitStr, Token, Type, parse::Parse, parse::ParseStream,
+    parse_macro_input,
 };
 
 struct ConfigArgs {
@@ -41,10 +41,10 @@ fn to_upper_snake_case(s: &str) -> String {
 
 fn get_variant_prefix(variant: &syn::Variant, default_prefix: &str) -> String {
     for attr in &variant.attrs {
-        if attr.path().is_ident("prefix") {
-            if let Ok(lit_str) = attr.parse_args::<LitStr>() {
-                return lit_str.value();
-            }
+        if attr.path().is_ident("prefix")
+            && let Ok(lit_str) = attr.parse_args::<LitStr>()
+        {
+            return lit_str.value();
         }
     }
     default_prefix.to_string()
@@ -52,19 +52,19 @@ fn get_variant_prefix(variant: &syn::Variant, default_prefix: &str) -> String {
 
 fn get_target_variant(variant: &syn::Variant, default_prefix: &str) -> Ident {
     for attr in &variant.attrs {
-        if attr.path().is_ident("alias") {
-            if let Ok(lit_str) = attr.parse_args::<LitStr>() {
-                return format_ident!("{}", lit_str.value());
-            }
+        if attr.path().is_ident("alias")
+            && let Ok(lit_str) = attr.parse_args::<LitStr>()
+        {
+            return format_ident!("{}", lit_str.value());
         }
     }
 
     let variant_prefix = get_variant_prefix(variant, default_prefix);
     for attr in &variant.attrs {
-        if attr.path().is_ident("suffix") {
-            if let Ok(lit_str) = attr.parse_args::<LitStr>() {
-                return format_ident!("{}{}", variant_prefix, lit_str.value());
-            }
+        if attr.path().is_ident("suffix")
+            && let Ok(lit_str) = attr.parse_args::<LitStr>()
+        {
+            return format_ident!("{}{}", variant_prefix, lit_str.value());
         }
     }
 

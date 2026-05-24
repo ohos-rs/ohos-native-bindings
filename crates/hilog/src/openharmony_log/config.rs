@@ -2,7 +2,7 @@ use crate::LogLevel;
 
 use super::FormatFn;
 use log::{Level, LevelFilter, Record};
-use std::ffi::{c_char, CString};
+use std::ffi::{CString, c_char};
 use std::fmt;
 
 /// Filter for android logger.

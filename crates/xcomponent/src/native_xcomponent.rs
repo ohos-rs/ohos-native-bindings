@@ -13,10 +13,10 @@ use ohos_xcomponent_sys::{
 };
 
 use crate::{
-    code::XComponentResultCode, dispatch_touch_event, key_event, on_frame_change, on_hover_event,
-    on_mouse_event, on_surface_changed, on_surface_created, on_surface_destroyed,
-    on_ui_input_event, raw::XComponentRaw, tool::resolve_id, KeyEventData, MouseEventData,
-    RawWindow, TouchEventData, WindowRaw, XComponentOffset, XComponentSize, RAW_WINDOW,
+    KeyEventData, MouseEventData, RAW_WINDOW, RawWindow, TouchEventData, WindowRaw,
+    XComponentOffset, XComponentSize, code::XComponentResultCode, dispatch_touch_event, key_event,
+    on_frame_change, on_hover_event, on_mouse_event, on_surface_changed, on_surface_created,
+    on_surface_destroyed, on_ui_input_event, raw::XComponentRaw, tool::resolve_id,
 };
 
 #[cfg(not(feature = "multi_mode"))]

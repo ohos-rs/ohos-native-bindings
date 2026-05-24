@@ -5,7 +5,7 @@ use std::{
 };
 
 use crate::{
-    error::{check_status, ImageNativeResult},
+    error::{ImageNativeResult, check_status},
     image::Image,
     sys,
     types::ImageSize,

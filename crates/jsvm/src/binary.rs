@@ -7,7 +7,7 @@ use ohos_enum_derive::EnumFrom;
 use ohos_jsvm_sys as sys;
 use ohos_jsvm_sys::*;
 
-use crate::error::{check_status_with_env, type_mismatch, JsvmError, Result};
+use crate::error::{JsvmError, Result, check_status_with_env, type_mismatch};
 use crate::{Env, ToJsValue, Value};
 
 #[derive(Debug, Clone, Copy, PartialEq, Eq, EnumFrom)]
@@ -277,7 +277,7 @@ pub trait TypedArrayElement: Copy + 'static {
 }
 
 macro_rules! impl_typed_array_element {
-    ($ty:ty, $array_type:expr) => {
+    ($ty:ty, $array_type:expr_2021) => {
         impl TypedArrayElement for $ty {
             const ARRAY_TYPE: TypedArrayType = $array_type;
         }

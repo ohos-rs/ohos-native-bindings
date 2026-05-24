@@ -2,7 +2,7 @@
 
 use crate::{ArkUIContext, ArkUIResult};
 
-use super::{native, AnimatorOption};
+use super::{AnimatorOption, native};
 
 /// Runtime animator instance backed by native ArkUI animator.
 pub struct Animator {

@@ -1,8 +1,8 @@
 use std::sync::{LazyLock, RwLock};
 
 use crate::{
-    private_command::PrivateCommand, Action, Direction, EnterKey, KeyboardStatus, Selection,
-    TextConfig,
+    Action, Direction, EnterKey, KeyboardStatus, Selection, TextConfig,
+    private_command::PrivateCommand,
 };
 
 type SetPreviewTextCallback = Box<dyn Fn(String, i32, i32)>;

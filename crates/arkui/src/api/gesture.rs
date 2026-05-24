@@ -10,8 +10,8 @@ use std::{
     sync::{Mutex, OnceLock},
 };
 
-use ohos_arkui_input_binding::sys::ArkUI_NodeHandle;
 use ohos_arkui_input_binding::ArkUIErrorCode;
+use ohos_arkui_input_binding::sys::ArkUI_NodeHandle;
 #[cfg(feature = "api-20")]
 use ohos_arkui_sys::OH_ArkUI_PreventGestureRecognizerBegin;
 use ohos_arkui_sys::{
@@ -19,9 +19,9 @@ use ohos_arkui_sys::{
     ArkUI_GestureInterruptInfo, ArkUI_GestureInterruptResult, ArkUI_GestureRecognizer,
     ArkUI_GestureRecognizerHandle, ArkUI_GestureRecognizerHandleArray,
     ArkUI_NativeAPIVariantKind_ARKUI_NATIVE_GESTURE, ArkUI_NativeGestureAPI_1,
-    ArkUI_ParallelInnerGestureEvent, OH_ArkUI_GestureEventTargetInfo_IsScrollBegin,
-    OH_ArkUI_GestureEventTargetInfo_IsScrollEnd, OH_ArkUI_GestureEvent_GetActionType,
+    ArkUI_ParallelInnerGestureEvent, OH_ArkUI_GestureEvent_GetActionType,
     OH_ArkUI_GestureEvent_GetNode, OH_ArkUI_GestureEvent_GetRawInputEvent,
+    OH_ArkUI_GestureEventTargetInfo_IsScrollBegin, OH_ArkUI_GestureEventTargetInfo_IsScrollEnd,
     OH_ArkUI_GestureInterruptInfo_GetGestureEvent, OH_ArkUI_GestureInterruptInfo_GetRecognizer,
     OH_ArkUI_GestureInterruptInfo_GetSystemFlag,
     OH_ArkUI_GestureInterruptInfo_GetSystemRecognizerType, OH_ArkUI_LongPress_GetRepeatCount,
@@ -59,9 +59,10 @@ use ohos_arkui_sys::{
 };
 
 use crate::{
-    check_arkui_status, ArkUIError, ArkUIResult, GestureData, GestureEventAction, GestureEventData,
+    ArkUIError, ArkUIResult, GestureData, GestureEventAction, GestureEventData,
     GestureInterruptResult, GestureRecognizerState, GestureRecognizerType, InnerGestureData,
     LongPressGestureData, PanGestureData, PinchGestureData, RotationGestureData, SwipeGestureData,
+    check_arkui_status,
 };
 
 thread_local! {
@@ -1577,59 +1578,62 @@ unsafe extern "C" fn gesture_dispose_notify_callback_trampoline(
 }
 
 unsafe extern "C" fn target_receiver(event: *mut ArkUI_GestureEvent, extra_params: *mut c_void) {
-    let user_data: &Rc<RefCell<InnerGestureData>> =
-        &*(extra_params as *const Rc<RefCell<InnerGestureData>>);
+    unsafe {
+        let user_data: &Rc<RefCell<InnerGestureData>> =
+            &*(extra_params as *const Rc<RefCell<InnerGestureData>>);
 
-    let data = user_data.borrow_mut();
-    let event_action_type: GestureEventAction = OH_ArkUI_GestureEvent_GetActionType(event).into();
+        let data = user_data.borrow_mut();
+        let event_action_type: GestureEventAction =
+            OH_ArkUI_GestureEvent_GetActionType(event).into();
 
-    let event_data: GestureData = match data.gesture_type {
-        GestureRecognizerType::LongPressGesture => {
-            let repeat = OH_ArkUI_LongPress_GetRepeatCount(event);
-            GestureData::LongPress(LongPressGestureData { repeat })
-        }
-        GestureRecognizerType::TapGesture => GestureData::Tap,
-        GestureRecognizerType::PanGesture => {
-            let velocity = OH_ArkUI_PanGesture_GetVelocity(event);
-            let velocity_x = OH_ArkUI_PanGesture_GetVelocityX(event);
-            let velocity_y = OH_ArkUI_PanGesture_GetVelocityY(event);
-            let offset_x = OH_ArkUI_PanGesture_GetOffsetX(event);
-            let offset_y = OH_ArkUI_PanGesture_GetOffsetY(event);
-            GestureData::Pan(PanGestureData {
-                velocity,
-                velocity_x,
-                velocity_y,
-                offset_x,
-                offset_y,
-            })
-        }
-        GestureRecognizerType::PinchGesture => {
-            let scale = OH_ArkUI_PinchGesture_GetScale(event);
-            let center_x = OH_ArkUI_PinchGesture_GetCenterX(event);
-            let center_y = OH_ArkUI_PinchGesture_GetCenterY(event);
-            GestureData::Pinch(PinchGestureData {
-                scale,
-                center_x,
-                center_y,
-            })
-        }
-        GestureRecognizerType::RotationGesture => {
-            let angle = OH_ArkUI_RotationGesture_GetAngle(event);
-            GestureData::Rotation(RotationGestureData { angle })
-        }
-        GestureRecognizerType::SwipeGesture => {
-            let angle = OH_ArkUI_SwipeGesture_GetAngle(event);
-            let velocity = OH_ArkUI_SwipeGesture_GetVelocity(event);
-            GestureData::Swipe(SwipeGestureData { angle, velocity })
-        }
-        _ => unreachable!("Invalid gesture type"),
-    };
+        let event_data: GestureData = match data.gesture_type {
+            GestureRecognizerType::LongPressGesture => {
+                let repeat = OH_ArkUI_LongPress_GetRepeatCount(event);
+                GestureData::LongPress(LongPressGestureData { repeat })
+            }
+            GestureRecognizerType::TapGesture => GestureData::Tap,
+            GestureRecognizerType::PanGesture => {
+                let velocity = OH_ArkUI_PanGesture_GetVelocity(event);
+                let velocity_x = OH_ArkUI_PanGesture_GetVelocityX(event);
+                let velocity_y = OH_ArkUI_PanGesture_GetVelocityY(event);
+                let offset_x = OH_ArkUI_PanGesture_GetOffsetX(event);
+                let offset_y = OH_ArkUI_PanGesture_GetOffsetY(event);
+                GestureData::Pan(PanGestureData {
+                    velocity,
+                    velocity_x,
+                    velocity_y,
+                    offset_x,
+                    offset_y,
+                })
+            }
+            GestureRecognizerType::PinchGesture => {
+                let scale = OH_ArkUI_PinchGesture_GetScale(event);
+                let center_x = OH_ArkUI_PinchGesture_GetCenterX(event);
+                let center_y = OH_ArkUI_PinchGesture_GetCenterY(event);
+                GestureData::Pinch(PinchGestureData {
+                    scale,
+                    center_x,
+                    center_y,
+                })
+            }
+            GestureRecognizerType::RotationGesture => {
+                let angle = OH_ArkUI_RotationGesture_GetAngle(event);
+                GestureData::Rotation(RotationGestureData { angle })
+            }
+            GestureRecognizerType::SwipeGesture => {
+                let angle = OH_ArkUI_SwipeGesture_GetAngle(event);
+                let velocity = OH_ArkUI_SwipeGesture_GetVelocity(event);
+                GestureData::Swipe(SwipeGestureData { angle, velocity })
+            }
+            _ => unreachable!("Invalid gesture type"),
+        };
 
-    if let Some(event) = data.gesture_callback.as_ref() {
-        event(GestureEventData {
-            data: data.user_data,
-            event_action_type,
-            event_action_data: event_data,
-        });
+        if let Some(event) = data.gesture_callback.as_ref() {
+            event(GestureEventData {
+                data: data.user_data,
+                event_action_type,
+                event_action_data: event_data,
+            });
+        }
     }
 }

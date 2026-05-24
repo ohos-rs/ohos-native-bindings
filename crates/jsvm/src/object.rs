@@ -1,11 +1,11 @@
-use std::ffi::c_void;
 use std::ffi::CString;
+use std::ffi::c_void;
 
 use ohos_jsvm_sys as sys;
 
 use crate::callback::Callback;
 use crate::convert::{FromJsValue, ToJsValue};
-use crate::error::{check_status_with_env, type_mismatch, JsvmError, Result};
+use crate::error::{JsvmError, Result, check_status_with_env, type_mismatch};
 use crate::external::drop_box_finalize;
 use crate::{Env, Reference, TypeTag, Value, ValueType};
 
