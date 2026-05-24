@@ -6,7 +6,7 @@ license     = "MIT OR Apache-2.0"
 description = "HarmonyOS OpenGTX binding for rust"
 
 [dependencies]
-hms-opengtx-sys = { workspace = true }
+hms-opengtx-sys  = { workspace = true }
 ohos-enum-derive = { workspace = true }
 
 [features]

@@ -33,3 +33,7 @@ pub fn get_pasteboard_data() -> Result<String> {
     Ok(s)
 }
 ```
+
+## License
+
+MIT OR Apache-2.0

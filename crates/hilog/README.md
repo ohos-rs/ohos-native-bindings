@@ -9,7 +9,7 @@ cargo add ohos-hilog-binding
 ## Usage
 
 ```rust
-use hilog_binding::hilog_debug;
+use ohos_hilog_binding::{hilog_debug, LogOptions};
 use napi_derive_ohos::napi;
 
 #[napi]
@@ -83,3 +83,7 @@ pub fn info() {
     error!("this is printed by default");
 }
 ```
+
+## License
+
+MIT OR Apache-2.0
