@@ -1,9 +1,9 @@
 use std::ptr::NonNull;
 
 use ohos_sensor_sys::{
+    OH_Sensor_CreateSubscriptionAttribute, OH_Sensor_DestroySubscriptionAttribute,
     OH_SensorSubscriptionAttribute_GetSamplingInterval,
-    OH_SensorSubscriptionAttribute_SetSamplingInterval, OH_Sensor_CreateSubscriptionAttribute,
-    OH_Sensor_DestroySubscriptionAttribute, Sensor_SubscriptionAttribute,
+    OH_SensorSubscriptionAttribute_SetSamplingInterval, Sensor_SubscriptionAttribute,
 };
 
 use crate::SensorError;

@@ -5,8 +5,8 @@ use ohos_input_method_sys::{
 };
 
 use crate::{
-    private_command::PrivateCommand, Action, Direction, EnterKey, KeyboardStatus, Selection,
-    TextConfig,
+    Action, Direction, EnterKey, KeyboardStatus, Selection, TextConfig,
+    private_command::PrivateCommand,
 };
 
 mod callbacks;
@@ -77,16 +77,18 @@ pub unsafe extern "C" fn get_left_text_of_cursor(
     text: *mut u16,
     len: *mut usize,
 ) {
-    let guard = OHOS_RS_IME_CALLBACKS
-        .read()
-        .expect("Failed to acquire read lock");
-    if let Some(f) = &guard.get_left_text_of_cursor {
-        let s = f(number);
-        let utf16: Vec<u16> = s.encode_utf16().collect();
+    unsafe {
+        let guard = OHOS_RS_IME_CALLBACKS
+            .read()
+            .expect("Failed to acquire read lock");
+        if let Some(f) = &guard.get_left_text_of_cursor {
+            let s = f(number);
+            let utf16: Vec<u16> = s.encode_utf16().collect();
 
-        if !text.is_null() && !len.is_null() && *len >= utf16.len() {
-            std::ptr::copy_nonoverlapping(utf16.as_ptr(), text, utf16.len());
-            *len = utf16.len();
+            if !text.is_null() && !len.is_null() && *len >= utf16.len() {
+                std::ptr::copy_nonoverlapping(utf16.as_ptr(), text, utf16.len());
+                *len = utf16.len();
+            }
         }
     }
 }
@@ -97,16 +99,18 @@ pub unsafe extern "C" fn get_right_text_of_cursor(
     text: *mut u16,
     len: *mut usize,
 ) {
-    let guard = OHOS_RS_IME_CALLBACKS
-        .read()
-        .expect("Failed to acquire read lock");
-    if let Some(f) = &guard.get_right_text_of_cursor {
-        let s = f(number);
-        let utf16: Vec<u16> = s.encode_utf16().collect();
+    unsafe {
+        let guard = OHOS_RS_IME_CALLBACKS
+            .read()
+            .expect("Failed to acquire read lock");
+        if let Some(f) = &guard.get_right_text_of_cursor {
+            let s = f(number);
+            let utf16: Vec<u16> = s.encode_utf16().collect();
 
-        if !text.is_null() && !len.is_null() && *len >= utf16.len() {
-            std::ptr::copy_nonoverlapping(utf16.as_ptr(), text, utf16.len());
-            *len = utf16.len();
+            if !text.is_null() && !len.is_null() && *len >= utf16.len() {
+                std::ptr::copy_nonoverlapping(utf16.as_ptr(), text, utf16.len());
+                *len = utf16.len();
+            }
         }
     }
 }

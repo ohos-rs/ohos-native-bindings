@@ -1,12 +1,12 @@
 use std::{
-    ffi::{c_void, CString},
+    ffi::{CString, c_void},
     ptr::NonNull,
 };
 
 use napi_sys_ohos::napi_value;
 
 use crate::{
-    error::{check_status, ImageNativeError, ImageNativeResult},
+    error::{ImageNativeError, ImageNativeResult, check_status},
     sys,
 };
 

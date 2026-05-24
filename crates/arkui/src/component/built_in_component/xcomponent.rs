@@ -2,7 +2,7 @@
 
 #[cfg(feature = "xcomponent")]
 use crate::{
-    ArkUIAttributeBasic, ArkUINodeAttributeItem, ArkUINodeAttributeType, ARK_UI_NATIVE_NODE_API_1,
+    ARK_UI_NATIVE_NODE_API_1, ArkUIAttributeBasic, ArkUINodeAttributeItem, ArkUINodeAttributeType,
 };
 
 #[cfg(feature = "xcomponent")]

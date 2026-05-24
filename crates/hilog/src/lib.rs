@@ -161,7 +161,7 @@ impl Hilog {
 }
 
 macro_rules! log_factory {
-    ($level: ident,$level_enum: expr) => {
+    ($level: ident,$level_enum: expr_2021) => {
         pub fn $level<T: AsRef<str>>(info: T) {
             let option_result = GLOBAL_OPTIONS.read().unwrap();
             let tag_result = option_result.tag;
@@ -197,7 +197,7 @@ macro_rules! hilog_debug {
     (format!($($arg:tt)*)) => {
         ohos_hilog_binding::debug(format!($($arg)*))
     };
-    ($expr:expr) => {
+    ($expr:expr_2021) => {
         ohos_hilog_binding::debug(format!("{}", $expr))
     }
 }
@@ -210,7 +210,7 @@ macro_rules! hilog_info {
     (format!($($arg:tt)*)) => {
         ohos_hilog_binding::info(format!($($arg)*))
     };
-    ($expr:expr) => {
+    ($expr:expr_2021) => {
         ohos_hilog_binding::info(format!("{}", $expr))
     }
 }
@@ -223,7 +223,7 @@ macro_rules! hilog_warn {
     (format!($($arg:tt)*)) => {
         ohos_hilog_binding::warn(format!($($arg)*))
     };
-    ($expr:expr) => {
+    ($expr:expr_2021) => {
         ohos_hilog_binding::warn(format!("{}", $expr))
     }
 }
@@ -236,7 +236,7 @@ macro_rules! hilog_error {
     (format!($($arg:tt)*)) => {
         ohos_hilog_binding::error(format!($($arg)*))
     };
-    ($expr:expr) => {
+    ($expr:expr_2021) => {
         ohos_hilog_binding::error(format!("{}", $expr))
     }
 }
@@ -249,7 +249,7 @@ macro_rules! hilog_fatal {
     (format!($($arg:tt)*)) => {
         ohos_hilog_binding::fatal(format!($($arg)*))
     };
-    ($expr:expr) => {
+    ($expr:expr_2021) => {
         ohos_hilog_binding::fatal(format!("{}", $expr))
     }
 }
@@ -289,17 +289,21 @@ pub fn forward_stdio_to_hilog() -> std::thread::JoinHandle<Result<()>> {
                 };
                 if len == 0 {
                     break Ok(());
-                } else if let Ok(msg) = CString::new(buffer.clone()) {
-                    unsafe {
-                        OH_LOG_Print(
-                            LogType::LogApp.into(),
-                            LogLevel::LogInfo.into(),
-                            0x0000,
-                            tag.as_ptr().cast(),
-                            msg.as_ptr().cast(),
-                        )
-                    };
                 }
+
+                let Ok(msg) = CString::new(buffer.clone()) else {
+                    continue;
+                };
+
+                unsafe {
+                    OH_LOG_Print(
+                        LogType::LogApp.into(),
+                        LogLevel::LogInfo.into(),
+                        0x0000,
+                        tag.as_ptr().cast(),
+                        msg.as_ptr().cast(),
+                    )
+                };
             }
         })
         .expect("Failed to start stdout/stderr to hilog forwarder thread")

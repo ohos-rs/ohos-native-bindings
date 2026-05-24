@@ -22,7 +22,7 @@ use ohos_arkui_sys::{
 
 use crate::animate::curve::CurveHandle;
 use crate::api::ARK_UI_NATIVE_ANIMATE_API_1;
-use crate::{check_arkui_status, ArkUIContext, ArkUIError, ArkUIResult};
+use crate::{ArkUIContext, ArkUIError, ArkUIResult, check_arkui_status};
 
 #[cfg(feature = "api-19")]
 use super::AnimationFrameRateRange;

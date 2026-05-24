@@ -5,7 +5,9 @@ use std::{os::raw::c_void, ptr::NonNull};
 use ohos_arkui_input_binding::ArkUIErrorCode;
 use ohos_arkui_sys::{
     ArkUI_Animator, ArkUI_AnimatorEvent, ArkUI_AnimatorOnFrameEvent, ArkUI_AnimatorOption,
-    ArkUI_ContextHandle, ArkUI_CurveHandle, ArkUI_ExpectedFrameRateRange,
+    ArkUI_ContextHandle, ArkUI_CurveHandle, ArkUI_ExpectedFrameRateRange, OH_ArkUI_Animator_Cancel,
+    OH_ArkUI_Animator_Finish, OH_ArkUI_Animator_Pause, OH_ArkUI_Animator_Play,
+    OH_ArkUI_Animator_ResetAnimatorOption, OH_ArkUI_Animator_Reverse,
     OH_ArkUI_AnimatorEvent_GetUserData, OH_ArkUI_AnimatorOnFrameEvent_GetUserData,
     OH_ArkUI_AnimatorOnFrameEvent_GetValue, OH_ArkUI_AnimatorOption_Create,
     OH_ArkUI_AnimatorOption_Dispose, OH_ArkUI_AnimatorOption_GetBegin,
@@ -23,12 +25,10 @@ use ohos_arkui_sys::{
     OH_ArkUI_AnimatorOption_SetEnd, OH_ArkUI_AnimatorOption_SetExpectedFrameRateRange,
     OH_ArkUI_AnimatorOption_SetFill, OH_ArkUI_AnimatorOption_SetIterations,
     OH_ArkUI_AnimatorOption_SetKeyframe, OH_ArkUI_AnimatorOption_SetKeyframeCurve,
-    OH_ArkUI_Animator_Cancel, OH_ArkUI_Animator_Finish, OH_ArkUI_Animator_Pause,
-    OH_ArkUI_Animator_Play, OH_ArkUI_Animator_ResetAnimatorOption, OH_ArkUI_Animator_Reverse,
 };
 
 use crate::api::ARK_UI_NATIVE_ANIMATE_API_1;
-use crate::{check_arkui_status, AnimationDirection, AnimationFillMode, ArkUIError, ArkUIResult};
+use crate::{AnimationDirection, AnimationFillMode, ArkUIError, ArkUIResult, check_arkui_status};
 
 struct AnimatorFrameCallbackContext {
     callback: Box<dyn Fn(f32)>,

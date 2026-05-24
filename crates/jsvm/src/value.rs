@@ -4,7 +4,7 @@ use std::slice;
 
 use ohos_jsvm_sys as sys;
 
-use crate::error::{check_status_with_env, non_null, type_mismatch, JsvmError, Result};
+use crate::error::{JsvmError, Result, check_status_with_env, non_null, type_mismatch};
 use crate::{Env, Function, Object, Promise, ValueType};
 
 #[derive(Clone, Copy, PartialEq, Eq)]

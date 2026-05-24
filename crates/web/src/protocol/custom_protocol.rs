@@ -5,9 +5,9 @@ use std::{
 
 use ohos_web_sys::{
     ArkWeb_ResourceHandler, ArkWeb_ResourceRequest, ArkWeb_SchemeHandler,
+    OH_ArkWeb_CreateSchemeHandler, OH_ArkWeb_DestroySchemeHandler,
     OH_ArkWebSchemeHandler_GetUserData, OH_ArkWebSchemeHandler_SetOnRequestStart,
     OH_ArkWebSchemeHandler_SetOnRequestStop, OH_ArkWebSchemeHandler_SetUserData,
-    OH_ArkWeb_CreateSchemeHandler, OH_ArkWeb_DestroySchemeHandler,
 };
 
 use crate::{ResourceHandle, ResourceRequest};

@@ -1,6 +1,6 @@
 use ohos_jsvm_sys as sys;
 
-use crate::error::{check_status_with_env, JsvmError, Result};
+use crate::error::{JsvmError, Result, check_status_with_env};
 use crate::{Env, FromJsValue, ToJsValue, Value};
 
 impl ToJsValue for serde_json::Value {

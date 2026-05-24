@@ -201,30 +201,30 @@ pub struct OH_UdsArrayBuffer {
 pub struct OH_UdsDetails {
     _unused: [u8; 0],
 }
-extern "C" {
+unsafe extern "C" {
     #[doc = " @brief Creation a pointer to the instance of the {@link OH_UdsPlainText}.\n\n @return If the operation is successful, a pointer to the instance of the {@link OH_UdsPlainText}\n structure is returned. If the operation is failed, nullptr is returned.\n @see OH_UdsPlainText\n @since 12"]
     pub fn OH_UdsPlainText_Create() -> *mut OH_UdsPlainText;
 }
-extern "C" {
+unsafe extern "C" {
     #[doc = " @brief Destroy a pointer that points to the {@link OH_UdsPlainText} instance.\n\n @param pThis Represents a pointer to an instance of {@link OH_UdsPlainText}.\n @see OH_UdsPlainText\n @since 12"]
     pub fn OH_UdsPlainText_Destroy(pThis: *mut OH_UdsPlainText);
 }
-extern "C" {
+unsafe extern "C" {
     #[doc = " @brief Get type id from the {@link OH_UdsPlainText}.\n\n @param pThis Represents a pointer to an instance of {@link OH_UdsPlainText}.\n @return Returns a pointer of the value string when input args normally, otherwise return nullptr.\n @see OH_UdsPlainText\n @since 12"]
     pub fn OH_UdsPlainText_GetType(pThis: *mut OH_UdsPlainText) -> *const ::std::os::raw::c_char;
 }
-extern "C" {
+unsafe extern "C" {
     #[doc = " @brief Get content from the {@link OH_UdsPlainText}.\n\n @param pThis Represents a pointer to an instance of {@link OH_UdsPlainText}.\n @return Returns a pointer of the value string when input args normally, otherwise return nullptr.\n @see OH_UdsPlainText\n @since 12"]
     pub fn OH_UdsPlainText_GetContent(pThis: *mut OH_UdsPlainText)
-        -> *const ::std::os::raw::c_char;
+    -> *const ::std::os::raw::c_char;
 }
-extern "C" {
+unsafe extern "C" {
     #[doc = " @brief Get abstract from the {@link OH_UdsPlainText}.\n\n @param pThis Represents a pointer to an instance of {@link OH_UdsPlainText}.\n @return Returns a pointer of the value string when input args normally, otherwise return nullptr.\n @see OH_UdsPlainText\n @since 12"]
     pub fn OH_UdsPlainText_GetAbstract(
         pThis: *mut OH_UdsPlainText,
     ) -> *const ::std::os::raw::c_char;
 }
-extern "C" {
+unsafe extern "C" {
     #[doc = " @brief Get details from the {@link OH_UdsPlainText}.\n\n @param pThis Represents a pointer to an instance of {@link OH_UdsPlainText}.\n @param details Represents a pointer to an instance of {@link OH_UdsDetails}. The pointer cannot be null.\n @return Returns the status code of the execution. See {@link Udmf_ErrCode}.\n         {@link UDMF_E_OK} success.\n         {@link UDMF_E_INVALID_PARAM} The error code for common invalid args.\n @see OH_UdsPlainText OH_UdsDetails Udmf_ErrCode\n @since 22"]
     #[cfg(feature = "api-22")]
     pub fn OH_UdsPlainText_GetDetails(
@@ -232,21 +232,21 @@ extern "C" {
         details: *mut OH_UdsDetails,
     ) -> ::std::os::raw::c_int;
 }
-extern "C" {
+unsafe extern "C" {
     #[doc = " @brief Set content to the {@link OH_UdsPlainText}.\n\n @param pThis Represents a pointer to an instance of {@link OH_UdsPlainText}.\n @param content Represents a new content string.\n @return Returns the status code of the execution. See {@link Udmf_ErrCode}.\n         {@link UDMF_E_OK} success.\n         {@link UDMF_E_INVALID_PARAM} The error code for common invalid args.\n @see OH_UdsPlainText Udmf_ErrCode\n @since 12"]
     pub fn OH_UdsPlainText_SetContent(
         pThis: *mut OH_UdsPlainText,
         content: *const ::std::os::raw::c_char,
     ) -> ::std::os::raw::c_int;
 }
-extern "C" {
+unsafe extern "C" {
     #[doc = " @brief Set abstract to the {@link OH_UdsPlainText}.\n\n @param pThis Represents a pointer to an instance of {@link OH_UdsPlainText}.\n @param abstract Represents a new string value.\n @return Returns the status code of the execution. See {@link Udmf_ErrCode}.\n         {@link UDMF_E_OK} success.\n         {@link UDMF_E_INVALID_PARAM} The error code for common invalid args.\n @see OH_UdsPlainText Udmf_ErrCode\n @since 12"]
     pub fn OH_UdsPlainText_SetAbstract(
         pThis: *mut OH_UdsPlainText,
         abstract_: *const ::std::os::raw::c_char,
     ) -> ::std::os::raw::c_int;
 }
-extern "C" {
+unsafe extern "C" {
     #[doc = " @brief Set details to the {@link OH_UdsPlainText}.\n\n @param pThis Represents a pointer to an instance of {@link OH_UdsPlainText}.\n @param details Represents a pointer to an instance of {@link OH_UdsDetails}. The pointer cannot be null.\n @return Returns the status code of the execution. See {@link Udmf_ErrCode}.\n         {@link UDMF_E_OK} success.\n         {@link UDMF_E_INVALID_PARAM} The error code for common invalid args.\n @see OH_UdsPlainText OH_UdsDetails Udmf_ErrCode\n @since 22"]
     #[cfg(feature = "api-22")]
     pub fn OH_UdsPlainText_SetDetails(
@@ -254,29 +254,29 @@ extern "C" {
         details: *const OH_UdsDetails,
     ) -> ::std::os::raw::c_int;
 }
-extern "C" {
+unsafe extern "C" {
     #[doc = " @brief Creation a pointer to the instance of the {@link OH_UdsHyperlink}.\n\n @return If the operation is successful, a pointer to the instance of {@link OH_UdsHyperlink}\n structure is returned. If the operation is failed, nullptr is returned.\n @see OH_UdsHyperlink\n @since 12"]
     pub fn OH_UdsHyperlink_Create() -> *mut OH_UdsHyperlink;
 }
-extern "C" {
+unsafe extern "C" {
     #[doc = " @brief Destroy a pointer that points to the {@link OH_UdsHyperlink} instance.\n\n @param pThis Represents a pointer to an  instance of {@link OH_UdsHyperlink}.\n @see OH_UdsHyperlink\n @since 12"]
     pub fn OH_UdsHyperlink_Destroy(pThis: *mut OH_UdsHyperlink);
 }
-extern "C" {
+unsafe extern "C" {
     #[doc = " @brief Get type from the {@link OH_UdsHyperlink}.\n\n @param pThis Represents a pointer to an instance of {@link OH_UdsHyperlink}.\n @return Returns a pointer of the value string when input args normally, otherwise return nullptr.\n @see OH_UdsHyperlink\n @since 12"]
     pub fn OH_UdsHyperlink_GetType(pThis: *mut OH_UdsHyperlink) -> *const ::std::os::raw::c_char;
 }
-extern "C" {
+unsafe extern "C" {
     #[doc = " @brief Get url from the {@link OH_UdsHyperlink}.\n\n @param pThis Represents a pointer to an instance of {@link OH_UdsHyperlink}.\n @return Returns a pointer of the value string when input args normally, otherwise return nullptr.\n @see OH_UdsHyperlink\n @since 12"]
     pub fn OH_UdsHyperlink_GetUrl(pThis: *mut OH_UdsHyperlink) -> *const ::std::os::raw::c_char;
 }
-extern "C" {
+unsafe extern "C" {
     #[doc = " @brief Get description from the {@link OH_UdsHyperlink}.\n\n @param pThis Represents a pointer to an instance of {@link OH_UdsHyperlink}.\n @return Returns a pointer of the value string when input args normally, otherwise return nullptr.\n @see OH_UdsHyperlink\n @since 12"]
     pub fn OH_UdsHyperlink_GetDescription(
         pThis: *mut OH_UdsHyperlink,
     ) -> *const ::std::os::raw::c_char;
 }
-extern "C" {
+unsafe extern "C" {
     #[doc = " @brief Get details from the {@link OH_UdsHyperlink}.\n\n @param pThis Represents a pointer to an instance of {@link OH_UdsHyperlink}.\n @param details Represents a pointer to an instance of {@link OH_UdsDetails}. The pointer cannot be null.\n @return Returns the status code of the execution. See {@link Udmf_ErrCode}.\n         {@link UDMF_E_OK} success.\n         {@link UDMF_E_INVALID_PARAM} The error code for common invalid args.\n @see OH_UdsHyperlink OH_UdsDetails Udmf_ErrCode\n @since 22"]
     #[cfg(feature = "api-22")]
     pub fn OH_UdsHyperlink_GetDetails(
@@ -284,21 +284,21 @@ extern "C" {
         details: *mut OH_UdsDetails,
     ) -> ::std::os::raw::c_int;
 }
-extern "C" {
+unsafe extern "C" {
     #[doc = " @brief Set url to the {@link OH_UdsHyperlink}.\n\n @param pThis Represents a pointer to an instance of {@link OH_UdsHyperlink}.\n @param url Represents a new string value.\n @return Returns the status code of the execution. See {@link Udmf_ErrCode}.\n         {@link UDMF_E_OK} success.\n         {@link UDMF_E_INVALID_PARAM} The error code for common invalid args.\n @see OH_UdsHyperlink Udmf_ErrCode\n @since 12"]
     pub fn OH_UdsHyperlink_SetUrl(
         pThis: *mut OH_UdsHyperlink,
         url: *const ::std::os::raw::c_char,
     ) -> ::std::os::raw::c_int;
 }
-extern "C" {
+unsafe extern "C" {
     #[doc = " @brief Set description to the {@link OH_UdsHyperlink}.\n\n @param pThis Represents a pointer to an instance of {@link OH_UdsHyperlink}.\n @param description Represents a new string value.\n @return Returns the status code of the execution. See {@link Udmf_ErrCode}.\n         {@link UDMF_E_OK} success.\n         {@link UDMF_E_INVALID_PARAM} The error code for common invalid args.\n @see OH_UdsHyperlink Udmf_ErrCode\n @since 12"]
     pub fn OH_UdsHyperlink_SetDescription(
         pThis: *mut OH_UdsHyperlink,
         description: *const ::std::os::raw::c_char,
     ) -> ::std::os::raw::c_int;
 }
-extern "C" {
+unsafe extern "C" {
     #[doc = " @brief Set details to the {@link OH_UdsHyperlink}.\n\n @param pThis Represents a pointer to an instance of {@link OH_UdsHyperlink}.\n @param details Represents a pointer to an instance of {@link OH_UdsDetails}. The pointer cannot be null.\n @return Returns the status code of the execution. See {@link Udmf_ErrCode}.\n         {@link UDMF_E_OK} success.\n         {@link UDMF_E_INVALID_PARAM} The error code for common invalid args.\n @since 22\n @see OH_UdsHyperlink OH_UdsDetails Udmf_ErrCode"]
     #[cfg(feature = "api-22")]
     pub fn OH_UdsHyperlink_SetDetails(
@@ -306,27 +306,27 @@ extern "C" {
         details: *const OH_UdsDetails,
     ) -> ::std::os::raw::c_int;
 }
-extern "C" {
+unsafe extern "C" {
     #[doc = " @brief Creation a pointer to the instance of the {@link OH_UdsHtml}.\n\n @return If the operation is successful, a pointer to the instance of the {@link OH_UdsHtml}\n structure is returned. If the operation is failed, nullptr is returned.\n @see OH_UdsHtml\n @since 12"]
     pub fn OH_UdsHtml_Create() -> *mut OH_UdsHtml;
 }
-extern "C" {
+unsafe extern "C" {
     #[doc = " @brief Destroy a pointer that points to the {@link OH_UdsHtml} instance.\n\n @param pThis Represents a pointer to an instance of {@link OH_UdsHtml}.\n @see OH_UdsHtml\n @since 12"]
     pub fn OH_UdsHtml_Destroy(pThis: *mut OH_UdsHtml);
 }
-extern "C" {
+unsafe extern "C" {
     #[doc = " @brief Get html from the {@link OH_UdsHtml}.\n\n @param pThis Represents a pointer to an instance of {@link OH_UdsHtml}.\n @return Returns a pointer of the value string when input args normally, otherwise return nullptr.\n @see OH_UdsHtml\n @since 12"]
     pub fn OH_UdsHtml_GetType(pThis: *mut OH_UdsHtml) -> *const ::std::os::raw::c_char;
 }
-extern "C" {
+unsafe extern "C" {
     #[doc = " @brief Get content from the {@link OH_UdsHtml}.\n\n @param pThis Represents a pointer to an instance of {@link OH_UdsHtml}.\n @return Returns a pointer of the value string when input args normally, otherwise return nullptr.\n @see OH_UdsHtml\n @since 12"]
     pub fn OH_UdsHtml_GetContent(pThis: *mut OH_UdsHtml) -> *const ::std::os::raw::c_char;
 }
-extern "C" {
+unsafe extern "C" {
     #[doc = " @brief Get plain content from the {@link OH_UdsHtml}.\n\n @param pThis Represents a pointer to an instance of {@link OH_UdsHtml}.\n @return Returns a pointer of the value string when input args normally, otherwise return nullptr.\n @see OH_UdsHtml\n @since 12"]
     pub fn OH_UdsHtml_GetPlainContent(pThis: *mut OH_UdsHtml) -> *const ::std::os::raw::c_char;
 }
-extern "C" {
+unsafe extern "C" {
     #[doc = " @brief Get details from the {@link OH_UdsHtml}.\n\n @param pThis Represents a pointer to an instance of {@link OH_UdsHtml}.\n @param details Represents a pointer to an instance of {@link OH_UdsDetails}. The pointer cannot be null.\n @return Returns the status code of the execution. See {@link Udmf_ErrCode}.\n         {@link UDMF_E_OK} success.\n         {@link UDMF_E_INVALID_PARAM} The error code for common invalid args.\n @since 22\n @see OH_UdsHtml OH_UdsDetails Udmf_ErrCode"]
     #[cfg(feature = "api-22")]
     pub fn OH_UdsHtml_GetDetails(
@@ -334,21 +334,21 @@ extern "C" {
         details: *mut OH_UdsDetails,
     ) -> ::std::os::raw::c_int;
 }
-extern "C" {
+unsafe extern "C" {
     #[doc = " @brief Set content to the {@link OH_UdsHtml}.\n\n @param pThis Represents a pointer to an instance of {@link OH_UdsHtml}.\n @param content Represents a new string value.\n @return Returns the status code of the execution. See {@link Udmf_ErrCode}.\n         {@link UDMF_E_OK} success.\n         {@link UDMF_E_INVALID_PARAM} The error code for common invalid args.\n @see OH_UdsHtml Udmf_ErrCode\n @since 12"]
     pub fn OH_UdsHtml_SetContent(
         pThis: *mut OH_UdsHtml,
         content: *const ::std::os::raw::c_char,
     ) -> ::std::os::raw::c_int;
 }
-extern "C" {
+unsafe extern "C" {
     #[doc = " @brief Set plain content to the {@link OH_UdsHtml}.\n\n @param pThis Represents a pointer to an instance of {@link OH_UdsHtml}.\n @param plainContent Represents a new string value.\n @return Returns the status code of the execution. See {@link Udmf_ErrCode}.\n         {@link UDMF_E_OK} success.\n         {@link UDMF_E_INVALID_PARAM} The error code for common invalid args.\n @see OH_UdsHtml Udmf_ErrCode\n @since 12"]
     pub fn OH_UdsHtml_SetPlainContent(
         pThis: *mut OH_UdsHtml,
         plainContent: *const ::std::os::raw::c_char,
     ) -> ::std::os::raw::c_int;
 }
-extern "C" {
+unsafe extern "C" {
     #[doc = " @brief Set details to the {@link OH_UdsHtml}.\n\n @param pThis Represents a pointer to an instance of {@link OH_UdsHtml}.\n @param details Represents a pointer to an instance of {@link OH_UdsDetails}. The pointer cannot be null.\n @return Returns the status code of the execution. See {@link Udmf_ErrCode}.\n         {@link UDMF_E_OK} success.\n         {@link UDMF_E_INVALID_PARAM} The error code for common invalid args.\n @since 22\n @see OH_UdsHtml OH_UdsDetails Udmf_ErrCode"]
     #[cfg(feature = "api-22")]
     pub fn OH_UdsHtml_SetDetails(
@@ -356,44 +356,44 @@ extern "C" {
         details: *const OH_UdsDetails,
     ) -> ::std::os::raw::c_int;
 }
-extern "C" {
+unsafe extern "C" {
     #[doc = " @brief Creation a pointer to the instance of the {@link OH_UdsAppItem}.\n\n @return If the operation is successful, a pointer to the instance of the {@link OH_UdsAppItem}\n structure is returned. sIf the operation is failed, nullptr is returned.\n @see OH_UdsAppItem\n @since 12"]
     pub fn OH_UdsAppItem_Create() -> *mut OH_UdsAppItem;
 }
-extern "C" {
+unsafe extern "C" {
     #[doc = " @brief Destroy a pointer that points to the {@link OH_UdsAppItem} instance.\n\n @param pThis Represents a pointer to an instance of {@link OH_UdsAppItem}.\n @see OH_UdsAppItem\n @since 12"]
     pub fn OH_UdsAppItem_Destroy(pThis: *mut OH_UdsAppItem);
 }
-extern "C" {
+unsafe extern "C" {
     #[doc = " @brief Get type from the {@link OH_UdsAppItem}.\n\n @param pThis Represents a pointer to an instance of {@link OH_UdsAppItem}.\n @return Returns a pointer of the value string when input args normally, otherwise return nullptr.\n @see OH_UdsAppItem\n @since 12"]
     pub fn OH_UdsAppItem_GetType(pThis: *mut OH_UdsAppItem) -> *const ::std::os::raw::c_char;
 }
-extern "C" {
+unsafe extern "C" {
     #[doc = " @brief Get app id from the {@link OH_UdsAppItem}.\n\n @param pThis Represents a pointer to an instance of {@link OH_UdsAppItem}.\n @return Returns a pointer of the value string when input args normally, otherwise return nullptr.\n @see OH_UdsAppItem\n @since 12"]
     pub fn OH_UdsAppItem_GetId(pThis: *mut OH_UdsAppItem) -> *const ::std::os::raw::c_char;
 }
-extern "C" {
+unsafe extern "C" {
     #[doc = " @brief Get app name from the {@link OH_UdsAppItem}.\n\n @param pThis Represents a pointer to an instance of {@link OH_UdsAppItem}.\n @return Returns a pointer of the value string when input args normally, otherwise return nullptr.\n @see OH_UdsAppItem\n @since 12"]
     pub fn OH_UdsAppItem_GetName(pThis: *mut OH_UdsAppItem) -> *const ::std::os::raw::c_char;
 }
-extern "C" {
+unsafe extern "C" {
     #[doc = " @brief Get app icon id from the {@link OH_UdsAppItem}.\n\n @param pThis Represents a pointer to an instance of {@link OH_UdsAppItem}.\n @return Returns a pointer of the value string when input args normally, otherwise return nullptr.\n @see OH_UdsAppItem\n @since 12"]
     pub fn OH_UdsAppItem_GetIconId(pThis: *mut OH_UdsAppItem) -> *const ::std::os::raw::c_char;
 }
-extern "C" {
+unsafe extern "C" {
     #[doc = " @brief Get app label id from the {@link OH_UdsAppItem}.\n\n @param pThis Represents a pointer to an instance of {@link OH_UdsAppItem}.\n @return Returns a pointer of the value string when input args normally, otherwise return nullptr.\n @see OH_UdsAppItem\n @since 12"]
     pub fn OH_UdsAppItem_GetLabelId(pThis: *mut OH_UdsAppItem) -> *const ::std::os::raw::c_char;
 }
-extern "C" {
+unsafe extern "C" {
     #[doc = " @brief Get bundle name from the {@link OH_UdsAppItem}.\n\n @param pThis Represents a pointer to an instance of {@link OH_UdsAppItem}.\n @return Returns a pointer of the value string when input args normally, otherwise return nullptr.\n @see OH_UdsAppItem\n @since 12"]
     pub fn OH_UdsAppItem_GetBundleName(pThis: *mut OH_UdsAppItem) -> *const ::std::os::raw::c_char;
 }
-extern "C" {
+unsafe extern "C" {
     #[doc = " @brief Get ability name from the {@link OH_UdsAppItem}.\n\n @param pThis Represents a pointer to an instance {@link OH_UdsAppItem}.\n @return Returns a pointer of the value string when input args normally, otherwise return nullptr.\n @see OH_UdsAppItem\n @since 12"]
     pub fn OH_UdsAppItem_GetAbilityName(pThis: *mut OH_UdsAppItem)
-        -> *const ::std::os::raw::c_char;
+    -> *const ::std::os::raw::c_char;
 }
-extern "C" {
+unsafe extern "C" {
     #[doc = " @brief Get details from the {@link OH_UdsAppItem}.\n\n @param pThis Represents a pointer to an instance of {@link OH_UdsAppItem}.\n @param details Represents a pointer to an instance of {@link OH_UdsDetails}. The pointer cannot be null.\n @return Returns the status code of the execution. See {@link Udmf_ErrCode}.\n         {@link UDMF_E_OK} success.\n         {@link UDMF_E_INVALID_PARAM} The error code for common invalid args.\n @since 22\n @see OH_UdsAppItem OH_UdsDetails Udmf_ErrCode"]
     #[cfg(feature = "api-22")]
     pub fn OH_UdsAppItem_GetDetails(
@@ -401,49 +401,49 @@ extern "C" {
         details: *mut OH_UdsDetails,
     ) -> ::std::os::raw::c_int;
 }
-extern "C" {
+unsafe extern "C" {
     #[doc = " @brief Set application id to the {@link OH_UdsAppItem}.\n\n @param pThis Represents a pointer to an instance of {@link OH_UdsAppItem}.\n @param appId Represents a new string value.\n @return Returns the status code of the execution. See {@link Udmf_ErrCode}.\n         {@link UDMF_E_OK} success.\n         {@link UDMF_E_INVALID_PARAM} The error code for common invalid args.\n @see OH_UdsAppItem Udmf_ErrCode\n @since 12"]
     pub fn OH_UdsAppItem_SetId(
         pThis: *mut OH_UdsAppItem,
         appId: *const ::std::os::raw::c_char,
     ) -> ::std::os::raw::c_int;
 }
-extern "C" {
+unsafe extern "C" {
     #[doc = " @brief Set application name to the {@link OH_UdsAppItem}.\n\n @param pThis Represents a pointer to an instance of {@link OH_UdsAppItem}.\n @param appName Represents a new string value.\n @return Returns the status code of the execution. See {@link Udmf_ErrCode}.\n         {@link UDMF_E_OK} success.\n         {@link UDMF_E_INVALID_PARAM} The error code for common invalid args.\n @see OH_UdsAppItem Udmf_ErrCode\n @since 12"]
     pub fn OH_UdsAppItem_SetName(
         pThis: *mut OH_UdsAppItem,
         appName: *const ::std::os::raw::c_char,
     ) -> ::std::os::raw::c_int;
 }
-extern "C" {
+unsafe extern "C" {
     #[doc = " @brief Set application icon id to the {@link OH_UdsAppItem}.\n\n @param pThis Represents a pointer to an instance of {@link OH_UdsAppItem}.\n @param appIconId Represents a new string value.\n @return Returns the status code of the execution. See {@link Udmf_ErrCode}.\n         {@link UDMF_E_OK} success.\n         {@link UDMF_E_INVALID_PARAM} The error code for common invalid args.\n @see OH_UdsAppItem Udmf_ErrCode\n @since 12"]
     pub fn OH_UdsAppItem_SetIconId(
         pThis: *mut OH_UdsAppItem,
         appIconId: *const ::std::os::raw::c_char,
     ) -> ::std::os::raw::c_int;
 }
-extern "C" {
+unsafe extern "C" {
     #[doc = " @brief Set application label id to the {@link OH_UdsAppItem}.\n\n @param pThis Represents a pointer to an instance of {@link OH_UdsAppItem}.\n @param appLabelId Represents a new string value.\n @return Returns the status code of the execution. See {@link Udmf_ErrCode}.\n         {@link UDMF_E_OK} success.\n         {@link UDMF_E_INVALID_PARAM} The error code for common invalid args.\n @see OH_UdsAppItem Udmf_ErrCode\n @since 12"]
     pub fn OH_UdsAppItem_SetLabelId(
         pThis: *mut OH_UdsAppItem,
         appLabelId: *const ::std::os::raw::c_char,
     ) -> ::std::os::raw::c_int;
 }
-extern "C" {
+unsafe extern "C" {
     #[doc = " @brief Set bundle name to the {@link OH_UdsAppItem}.\n\n @param pThis Represents a pointer to an instance of {@link OH_UdsAppItem}.\n @param bundleName Represents a new string value.\n @return Returns the status code of the execution. See {@link Udmf_ErrCode}.\n         {@link UDMF_E_OK} success.\n         {@link UDMF_E_INVALID_PARAM} The error code for common invalid args.\n @see OH_UdsAppItem Udmf_ErrCode\n @since 12"]
     pub fn OH_UdsAppItem_SetBundleName(
         pThis: *mut OH_UdsAppItem,
         bundleName: *const ::std::os::raw::c_char,
     ) -> ::std::os::raw::c_int;
 }
-extern "C" {
+unsafe extern "C" {
     #[doc = " @brief Set ability name to the {@link OH_UdsAppItem}.\n\n @param pThis Represents a pointer to an instance of {@link OH_UdsAppItem}.\n @param abilityName Represents a new string value.\n @return Returns the status code of the execution. See {@link Udmf_ErrCode}.\n         {@link UDMF_E_OK} success.\n         {@link UDMF_E_INVALID_PARAM} The error code for common invalid args.\n @see OH_UdsAppItem Udmf_ErrCode\n @since 12"]
     pub fn OH_UdsAppItem_SetAbilityName(
         pThis: *mut OH_UdsAppItem,
         abilityName: *const ::std::os::raw::c_char,
     ) -> ::std::os::raw::c_int;
 }
-extern "C" {
+unsafe extern "C" {
     #[doc = " @brief Set details to the {@link OH_UdsAppItem}.\n\n @param pThis Represents a pointer to an instance of {@link OH_UdsAppItem}.\n @param details Represents a pointer to an instance of {@link OH_UdsDetails}. The pointer cannot be null.\n @return Returns the status code of the execution. See {@link Udmf_ErrCode}.\n         {@link UDMF_E_OK} success.\n         {@link UDMF_E_INVALID_PARAM} The error code for common invalid args.\n @see OH_UdsAppItem OH_UdsDetails Udmf_ErrCode\n @since 22"]
     #[cfg(feature = "api-22")]
     pub fn OH_UdsAppItem_SetDetails(
@@ -451,32 +451,32 @@ extern "C" {
         details: *const OH_UdsDetails,
     ) -> ::std::os::raw::c_int;
 }
-extern "C" {
+unsafe extern "C" {
     #[doc = " @brief Creation a pointer to the instance of the {@link OH_UdsFileUri}.\n\n @return If the operation is successful, a pointer to the instance of the {@link OH_UdsFileUri}\n structure is returned. If the memory is not enough, nullptr is returned.\n @see OH_UdsFileUri\n @since 13"]
     #[cfg(feature = "api-13")]
     pub fn OH_UdsFileUri_Create() -> *mut OH_UdsFileUri;
 }
-extern "C" {
+unsafe extern "C" {
     #[doc = " @brief Destroy a pointer that points to the {@link OH_UdsFileUri} instance.\n\n @param pThis Represents a pointer to an instance of {@link OH_UdsFileUri}.\n @see OH_UdsFileUri\n @since 13"]
     #[cfg(feature = "api-13")]
     pub fn OH_UdsFileUri_Destroy(pThis: *mut OH_UdsFileUri);
 }
-extern "C" {
+unsafe extern "C" {
     #[doc = " @brief Get type id from the {@link OH_UdsFileUri}.\n\n @param pThis Represents a pointer to an instance of {@link OH_UdsFileUri}.\n @return Returns a pointer of the value string when input args normally, otherwise return nullptr.\n @see OH_UdsFileUri\n @since 13"]
     #[cfg(feature = "api-13")]
     pub fn OH_UdsFileUri_GetType(pThis: *mut OH_UdsFileUri) -> *const ::std::os::raw::c_char;
 }
-extern "C" {
+unsafe extern "C" {
     #[doc = " @brief Get file uri from the {@link OH_UdsFileUri}.\n\n @param pThis Represents a pointer to an instance of {@link OH_UdsFileUri}.\n @return Returns a pointer of the value string when input args normally, otherwise return nullptr.\n @see OH_UdsFileUri\n @since 13"]
     #[cfg(feature = "api-13")]
     pub fn OH_UdsFileUri_GetFileUri(pThis: *mut OH_UdsFileUri) -> *const ::std::os::raw::c_char;
 }
-extern "C" {
+unsafe extern "C" {
     #[doc = " @brief Get file type from the {@link OH_UdsFileUri}.\n\n @param pThis Represents a pointer to an instance of {@link OH_UdsFileUri}.\n @return Returns a pointer of the value string when input args normally, otherwise return nullptr.\n @see OH_UdsFileUri\n @since 13"]
     #[cfg(feature = "api-13")]
     pub fn OH_UdsFileUri_GetFileType(pThis: *mut OH_UdsFileUri) -> *const ::std::os::raw::c_char;
 }
-extern "C" {
+unsafe extern "C" {
     #[doc = " @brief Get details from the {@link OH_UdsFileUri}.\n\n @param pThis Represents a pointer to an instance of {@link OH_UdsFileUri}.\n @param details Represents a pointer to an instance of {@link OH_UdsDetails}. The pointer cannot be null.\n @return Returns the status code of the execution. See {@link Udmf_ErrCode}.\n         {@link UDMF_E_OK} success.\n         {@link UDMF_E_INVALID_PARAM} The error code for common invalid args.\n @since 22\n @see OH_UdsFileUri OH_UdsDetails Udmf_ErrCode"]
     #[cfg(feature = "api-22")]
     pub fn OH_UdsFileUri_GetDetails(
@@ -484,7 +484,7 @@ extern "C" {
         details: *mut OH_UdsDetails,
     ) -> ::std::os::raw::c_int;
 }
-extern "C" {
+unsafe extern "C" {
     #[doc = " @brief Set file uri to the {@link OH_UdsFileUri}.\n\n @param pThis Represents a pointer to an instance of {@link OH_UdsFileUri}.\n @param fileUri Represents a new file uri string.\n @return Returns the status code of the execution. See {@link Udmf_ErrCode}.\n         {@link UDMF_E_OK} success.\n         {@link UDMF_E_INVALID_PARAM} The error code for common invalid args.\n @see OH_UdsFileUri Udmf_ErrCode\n @since 13"]
     #[cfg(feature = "api-13")]
     pub fn OH_UdsFileUri_SetFileUri(
@@ -492,7 +492,7 @@ extern "C" {
         fileUri: *const ::std::os::raw::c_char,
     ) -> ::std::os::raw::c_int;
 }
-extern "C" {
+unsafe extern "C" {
     #[doc = " @brief Set file type to the {@link OH_UdsFileUri}.\n\n @param pThis Represents a pointer to an instance of {@link OH_UdsFileUri}.\n @param fileType Represents a new file type string.\n @return Returns the status code of the execution. See {@link Udmf_ErrCode}.\n         {@link UDMF_E_OK} success.\n         {@link UDMF_E_INVALID_PARAM} The error code for common invalid args.\n @see OH_UdsFileUri Udmf_ErrCode\n @since 13"]
     #[cfg(feature = "api-13")]
     pub fn OH_UdsFileUri_SetFileType(
@@ -500,7 +500,7 @@ extern "C" {
         fileType: *const ::std::os::raw::c_char,
     ) -> ::std::os::raw::c_int;
 }
-extern "C" {
+unsafe extern "C" {
     #[doc = " @brief Set details to the {@link OH_UdsFileUri}.\n\n @param pThis Represents a pointer to an instance of {@link OH_UdsFileUri}.\n @param details Represents a pointer to an instance of {@link OH_UdsDetails}. The pointer cannot be null.\n @return Returns the status code of the execution. See {@link Udmf_ErrCode}.\n         {@link UDMF_E_OK} success.\n         {@link UDMF_E_INVALID_PARAM} The error code for common invalid args.\n @see OH_UdsFileUri OH_UdsDetails Udmf_ErrCode\n @since 22"]
     #[cfg(feature = "api-22")]
     pub fn OH_UdsFileUri_SetDetails(
@@ -508,22 +508,22 @@ extern "C" {
         details: *const OH_UdsDetails,
     ) -> ::std::os::raw::c_int;
 }
-extern "C" {
+unsafe extern "C" {
     #[doc = " @brief Creation a pointer to the instance of the {@link OH_UdsPixelMap}.\n\n @return If the operation is successful, a pointer to the instance of the {@link OH_UdsPixelMap}\n structure is returned. If the memory is not enough, nullptr is returned.\n @see OH_UdsPixelMap\n @since 13"]
     #[cfg(feature = "api-13")]
     pub fn OH_UdsPixelMap_Create() -> *mut OH_UdsPixelMap;
 }
-extern "C" {
+unsafe extern "C" {
     #[doc = " @brief Destroy a pointer that points to the {@link OH_UdsPixelMap} instance.\n\n @param pThis Represents a pointer to an instance of {@link OH_UdsPixelMap}.\n @see OH_UdsPixelMap\n @since 13"]
     #[cfg(feature = "api-13")]
     pub fn OH_UdsPixelMap_Destroy(pThis: *mut OH_UdsPixelMap);
 }
-extern "C" {
+unsafe extern "C" {
     #[doc = " @brief Get type id from the {@link OH_UdsPixelMap}.\n\n @param pThis Represents a pointer to an instance of {@link OH_UdsPixelMap}.\n @return Returns a pointer of the value string when input args normally, otherwise return nullptr.\n @see OH_UdsPixelMap\n @since 13"]
     #[cfg(feature = "api-13")]
     pub fn OH_UdsPixelMap_GetType(pThis: *mut OH_UdsPixelMap) -> *const ::std::os::raw::c_char;
 }
-extern "C" {
+unsafe extern "C" {
     #[doc = " @brief Get pixel map from the {@link OH_UdsPixelMap}.\n\n @param pThis Represents a pointer to an instance of {@link OH_UdsPixelMap}.\n @param pixelmapNative Represents output params of {@link OH_PixelmapNative}.\n @see OH_UdsPixelMap\n @since 13"]
     #[cfg(feature = "api-13")]
     pub fn OH_UdsPixelMap_GetPixelMap(
@@ -531,7 +531,7 @@ extern "C" {
         pixelmapNative: *mut OH_PixelmapNative,
     );
 }
-extern "C" {
+unsafe extern "C" {
     #[doc = " @brief Get details from the {@link OH_UdsPixelMap}.\n\n @param pThis Represents a pointer to an instance of {@link OH_UdsPixelMap}.\n @param details Represents a pointer to an instance of {@link OH_UdsDetails}. The pointer cannot be null.\n @return Returns the status code of the execution. See {@link Udmf_ErrCode}.\n         {@link UDMF_E_OK} success.\n         {@link UDMF_E_INVALID_PARAM} The error code for common invalid args.\n @since 22\n @see OH_UdsPixelMap OH_UdsDetails Udmf_ErrCode"]
     #[cfg(feature = "api-22")]
     pub fn OH_UdsPixelMap_GetDetails(
@@ -539,7 +539,7 @@ extern "C" {
         details: *mut OH_UdsDetails,
     ) -> ::std::os::raw::c_int;
 }
-extern "C" {
+unsafe extern "C" {
     #[doc = " @brief Set pixel map to the {@link OH_UdsPixelMap}.\n\n @param pThis Represents a pointer to an instance of {@link OH_UdsPixelMap}.\n @param pixelmapNative Represents a new {@link OH_PixelmapNative}.\n @return Returns the status code of the execution. See {@link Udmf_ErrCode}.\n         {@link UDMF_E_OK} success.\n         {@link UDMF_E_INVALID_PARAM} The error code for common invalid args.\n @see OH_UdsPixelMap Udmf_ErrCode\n @since 13"]
     #[cfg(feature = "api-13")]
     pub fn OH_UdsPixelMap_SetPixelMap(
@@ -547,7 +547,7 @@ extern "C" {
         pixelmapNative: *mut OH_PixelmapNative,
     ) -> ::std::os::raw::c_int;
 }
-extern "C" {
+unsafe extern "C" {
     #[doc = " @brief Set details to the {@link OH_UdsPixelMap}.\n\n @param pThis Represents a pointer to an instance of {@link OH_UdsPixelMap}.\n @param details Represents a pointer to an instance of {@link OH_UdsDetails}. The pointer cannot be null.\n @return Returns the status code of the execution. See {@link Udmf_ErrCode}.\n         {@link UDMF_E_OK} success.\n         {@link UDMF_E_INVALID_PARAM} The error code for common invalid args.\n @since 22\n @see OH_UdsPixelMap OH_UdsDetails Udmf_ErrCode"]
     #[cfg(feature = "api-22")]
     pub fn OH_UdsPixelMap_SetDetails(
@@ -555,17 +555,17 @@ extern "C" {
         details: *const OH_UdsDetails,
     ) -> ::std::os::raw::c_int;
 }
-extern "C" {
+unsafe extern "C" {
     #[doc = " @brief Creation a pointer to the instance of the {@link OH_UdsArrayBuffer}.\n\n @return If the operation is successful, a pointer to the instance of the {@link OH_UdsArrayBuffer}\n structure is returned. If the memory is not enough, nullptr is returned.\n @see OH_UdsArrayBuffer\n @since 13"]
     #[cfg(feature = "api-13")]
     pub fn OH_UdsArrayBuffer_Create() -> *mut OH_UdsArrayBuffer;
 }
-extern "C" {
+unsafe extern "C" {
     #[doc = " @brief Destroy a pointer that points to the {@link OH_UdsArrayBuffer} instance.\n\n @param buffer Represents a pointer to an instance of {@link OH_UdsArrayBuffer}.\n @return Returns the status code of the execution. See {@link Udmf_ErrCode}.\n         {@link UDMF_E_OK} success.\n         {@link UDMF_E_INVALID_PARAM} The error code for common invalid args.\n @see OH_UdsArrayBuffer Udmf_ErrCode\n @since 13"]
     #[cfg(feature = "api-13")]
     pub fn OH_UdsArrayBuffer_Destroy(buffer: *mut OH_UdsArrayBuffer) -> ::std::os::raw::c_int;
 }
-extern "C" {
+unsafe extern "C" {
     #[doc = " @brief Set array buffer data to the {@link OH_UdsArrayBuffer}.\n\n @param buffer Represents a pointer to an instance of {@link OH_UdsArrayBuffer}.\n @param data Represents the array buffer data.\n @param len Represents the length of data param.\n @return Returns the status code of the execution. See {@link Udmf_ErrCode}.\n         {@link UDMF_E_OK} success.\n         {@link UDMF_E_INVALID_PARAM} The error code for common invalid args.\n @see OH_UdsArrayBuffer Udmf_ErrCode\n @since 13"]
     #[cfg(feature = "api-13")]
     pub fn OH_UdsArrayBuffer_SetData(
@@ -574,7 +574,7 @@ extern "C" {
         len: ::std::os::raw::c_uint,
     ) -> ::std::os::raw::c_int;
 }
-extern "C" {
+unsafe extern "C" {
     #[doc = " @brief Get array buffer data from the {@link OH_UdsArrayBuffer}.\n\n @param buffer Represents a pointer to an instance of {@link OH_UdsArrayBuffer}.\n @param data Represents a pointer to array buffer data that is a output param.\n @param len Represents the array buffer data length that is a output param.\n @return Returns the status code of the execution. See {@link Udmf_ErrCode}.\n         {@link UDMF_E_OK} success.\n         {@link UDMF_E_INVALID_PARAM} The error code for common invalid args.\n @see OH_UdsArrayBuffer Udmf_ErrCode\n @since 13"]
     #[cfg(feature = "api-13")]
     pub fn OH_UdsArrayBuffer_GetData(
@@ -583,24 +583,24 @@ extern "C" {
         len: *mut ::std::os::raw::c_uint,
     ) -> ::std::os::raw::c_int;
 }
-extern "C" {
+unsafe extern "C" {
     #[doc = " @brief Creation a pointer to the instance of the {@link OH_UdsContentForm}.\n\n @return If the operation is successful, a pointer to the instance of the {@link OH_UdsContentForm}\n structure is returned. If the operation is failed, nullptr is returned.\n @see OH_UdsContentForm\n @since 14"]
     #[cfg(feature = "api-14")]
     pub fn OH_UdsContentForm_Create() -> *mut OH_UdsContentForm;
 }
-extern "C" {
+unsafe extern "C" {
     #[doc = " @brief Destroy a pointer that points to the {@link OH_UdsContentForm} instance.\n\n @param pThis Represents a pointer to an instance of {@link OH_UdsContentForm}.\n @see OH_UdsContentForm\n @since 14"]
     #[cfg(feature = "api-14")]
     pub fn OH_UdsContentForm_Destroy(pThis: *mut OH_UdsContentForm);
 }
-extern "C" {
+unsafe extern "C" {
     #[doc = " @brief Get type id from the {@link OH_UdsContentForm}.\n\n @param pThis Represents a pointer to an instance of {@link OH_UdsContentForm}.\n @return Returns a pointer of the value string when input args normally, otherwise return nullptr.\n @see OH_UdsContentForm\n @since 14"]
     #[cfg(feature = "api-14")]
     pub fn OH_UdsContentForm_GetType(
         pThis: *mut OH_UdsContentForm,
     ) -> *const ::std::os::raw::c_char;
 }
-extern "C" {
+unsafe extern "C" {
     #[doc = " @brief Get thumb data from the {@link OH_UdsContentForm}.\n\n @param pThis Represents a pointer to an instance of {@link OH_UdsContentForm}.\n @param thumbData Represents a pointer to thumb data that is a output param.\n @param len Represents the thumb data length that is a output param.\n @return Returns the status code of the execution. See {@link Udmf_ErrCode}.\n         {@link UDMF_E_OK} success.\n         {@link UDMF_E_INVALID_PARAM} The error code for common invalid args.\n         {@link UDMF_ERR} Internal data error.\n @see OH_UdsContentForm Udmf_ErrCode\n @since 14"]
     #[cfg(feature = "api-14")]
     pub fn OH_UdsContentForm_GetThumbData(
@@ -609,21 +609,21 @@ extern "C" {
         len: *mut ::std::os::raw::c_uint,
     ) -> ::std::os::raw::c_int;
 }
-extern "C" {
+unsafe extern "C" {
     #[doc = " @brief Get description from the {@link OH_UdsContentForm}.\n\n @param pThis Represents a pointer to an instance of {@link OH_UdsContentForm}.\n @return Returns a pointer of the value string when input args normally, otherwise return nullptr.\n @see OH_UdsContentForm\n @since 14"]
     #[cfg(feature = "api-14")]
     pub fn OH_UdsContentForm_GetDescription(
         pThis: *mut OH_UdsContentForm,
     ) -> *const ::std::os::raw::c_char;
 }
-extern "C" {
+unsafe extern "C" {
     #[doc = " @brief Get title from the {@link OH_UdsContentForm}.\n\n @param pThis Represents a pointer to an instance of {@link OH_UdsContentForm}.\n @return Returns a pointer of the value string when input args normally, otherwise return nullptr.\n @see OH_UdsContentForm\n @since 14"]
     #[cfg(feature = "api-14")]
     pub fn OH_UdsContentForm_GetTitle(
         pThis: *mut OH_UdsContentForm,
     ) -> *const ::std::os::raw::c_char;
 }
-extern "C" {
+unsafe extern "C" {
     #[doc = " @brief Get thumb data from the {@link OH_UdsContentForm}.\n\n @param pThis Represents a pointer to an instance of {@link OH_UdsContentForm}.\n @param appIcon Represents a pointer to app icon that is a output param.\n @param len Represents the app icon length that is a output param.\n @return Returns the status code of the execution. See {@link Udmf_ErrCode}.\n         {@link UDMF_E_OK} success.\n         {@link UDMF_E_INVALID_PARAM} The error code for common invalid args.\n         {@link UDMF_ERR} Internal data error.\n @see OH_UdsContentForm Udmf_ErrCode\n @since 14"]
     #[cfg(feature = "api-14")]
     pub fn OH_UdsContentForm_GetAppIcon(
@@ -632,21 +632,21 @@ extern "C" {
         len: *mut ::std::os::raw::c_uint,
     ) -> ::std::os::raw::c_int;
 }
-extern "C" {
+unsafe extern "C" {
     #[doc = " @brief Get app name from the {@link OH_UdsContentForm}.\n\n @param pThis Represents a pointer to an instance of {@link OH_UdsContentForm}.\n @return Returns a pointer of the value string when input args normally, otherwise return nullptr.\n @see OH_UdsContentForm\n @since 14"]
     #[cfg(feature = "api-14")]
     pub fn OH_UdsContentForm_GetAppName(
         pThis: *mut OH_UdsContentForm,
     ) -> *const ::std::os::raw::c_char;
 }
-extern "C" {
+unsafe extern "C" {
     #[doc = " @brief Get link url from the {@link OH_UdsContentForm}.\n\n @param pThis Represents a pointer to an instance of {@link OH_UdsContentForm}.\n @return Returns a pointer of the value string when input args normally, otherwise return nullptr.\n @see OH_UdsContentForm\n @since 14"]
     #[cfg(feature = "api-14")]
     pub fn OH_UdsContentForm_GetLinkUri(
         pThis: *mut OH_UdsContentForm,
     ) -> *const ::std::os::raw::c_char;
 }
-extern "C" {
+unsafe extern "C" {
     #[doc = " @brief Set thumb data to the {@link OH_UdsContentForm}.\n\n @param pThis Represents a pointer to an instance of {@link OH_UdsContentForm}.\n @param thumbData Represents the thumb data.\n @param len Represents the length of thumb data param.\n @return Returns the status code of the execution. See {@link Udmf_ErrCode}.\n         {@link UDMF_E_OK} success.\n         {@link UDMF_E_INVALID_PARAM} The error code for common invalid args.\n @see OH_UdsContentForm Udmf_ErrCode\n @since 14"]
     #[cfg(feature = "api-14")]
     pub fn OH_UdsContentForm_SetThumbData(
@@ -655,7 +655,7 @@ extern "C" {
         len: ::std::os::raw::c_uint,
     ) -> ::std::os::raw::c_int;
 }
-extern "C" {
+unsafe extern "C" {
     #[doc = " @brief Set description to the {@link OH_UdsContentForm}.\n\n @param pThis Represents a pointer to an instance of {@link OH_UdsContentForm}.\n @param description Represents a description string.\n @return Returns the status code of the execution. See {@link Udmf_ErrCode}.\n         {@link UDMF_E_OK} success.\n         {@link UDMF_E_INVALID_PARAM} The error code for common invalid args.\n @see OH_UdsContentForm Udmf_ErrCode\n @since 14"]
     #[cfg(feature = "api-14")]
     pub fn OH_UdsContentForm_SetDescription(
@@ -663,7 +663,7 @@ extern "C" {
         description: *const ::std::os::raw::c_char,
     ) -> ::std::os::raw::c_int;
 }
-extern "C" {
+unsafe extern "C" {
     #[doc = " @brief Set title to the {@link OH_UdsContentForm}.\n\n @param pThis Represents a pointer to an instance of {@link OH_UdsContentForm}.\n @param title Represents a title string.\n @return Returns the status code of the execution. See {@link Udmf_ErrCode}.\n         {@link UDMF_E_OK} success.\n         {@link UDMF_E_INVALID_PARAM} The error code for common invalid args.\n @see OH_UdsContentForm Udmf_ErrCode\n @since 14"]
     #[cfg(feature = "api-14")]
     pub fn OH_UdsContentForm_SetTitle(
@@ -671,7 +671,7 @@ extern "C" {
         title: *const ::std::os::raw::c_char,
     ) -> ::std::os::raw::c_int;
 }
-extern "C" {
+unsafe extern "C" {
     #[doc = " @brief Set thumb data to the {@link OH_UdsContentForm}.\n\n @param pThis Represents a pointer to an instance of {@link OH_UdsContentForm}.\n @param appIcon Represents the app icon.\n @param len Represents the length of app icon param.\n @return Returns the status code of the execution. See {@link Udmf_ErrCode}.\n         {@link UDMF_E_OK} success.\n         {@link UDMF_E_INVALID_PARAM} The error code for common invalid args.\n @see OH_UdsContentForm Udmf_ErrCode\n @since 14"]
     #[cfg(feature = "api-14")]
     pub fn OH_UdsContentForm_SetAppIcon(
@@ -680,7 +680,7 @@ extern "C" {
         len: ::std::os::raw::c_uint,
     ) -> ::std::os::raw::c_int;
 }
-extern "C" {
+unsafe extern "C" {
     #[doc = " @brief Set app name to the {@link OH_UdsContentForm}.\n\n @param pThis Represents a pointer to an instance of {@link OH_UdsContentForm}.\n @param appName Represents a app name string.\n @return Returns the status code of the execution. See {@link Udmf_ErrCode}.\n         {@link UDMF_E_OK} success.\n         {@link UDMF_E_INVALID_PARAM} The error code for common invalid args.\n @see OH_UdsContentForm Udmf_ErrCode\n @since 14"]
     #[cfg(feature = "api-14")]
     pub fn OH_UdsContentForm_SetAppName(
@@ -688,7 +688,7 @@ extern "C" {
         appName: *const ::std::os::raw::c_char,
     ) -> ::std::os::raw::c_int;
 }
-extern "C" {
+unsafe extern "C" {
     #[doc = " @brief Set link uri to the {@link OH_UdsContentForm}.\n\n @param pThis Represents a pointer to an instance of {@link OH_UdsContentForm}.\n @param linkUri Represents a link uri string.\n @return Returns the status code of the execution. See {@link Udmf_ErrCode}.\n         {@link UDMF_E_OK} success.\n         {@link UDMF_E_INVALID_PARAM} The error code for common invalid args.\n @see OH_UdsContentForm Udmf_ErrCode\n @since 14"]
     #[cfg(feature = "api-14")]
     pub fn OH_UdsContentForm_SetLinkUri(
@@ -696,17 +696,17 @@ extern "C" {
         linkUri: *const ::std::os::raw::c_char,
     ) -> ::std::os::raw::c_int;
 }
-extern "C" {
+unsafe extern "C" {
     #[doc = " @brief Creation a pointer to the instance of the {@link OH_UdsDetails}.\n\n @return If the operation is successful, a pointer to the instance of the {@link OH_UdsDetails}\n structure is returned. If the operation is failed, nullptr is returned.\n @since 22\n @see OH_UdsDetails"]
     #[cfg(feature = "api-22")]
     pub fn OH_UdsDetails_Create() -> *mut OH_UdsDetails;
 }
-extern "C" {
+unsafe extern "C" {
     #[doc = " @brief Destroy a pointer that points to the {@link OH_UdsDetails} instance.\n\n @param pThis Represents a pointer to an instance of {@link OH_UdsDetails}.\n @since 22\n @see OH_UdsDetails"]
     #[cfg(feature = "api-22")]
     pub fn OH_UdsDetails_Destroy(pThis: *mut OH_UdsDetails);
 }
-extern "C" {
+unsafe extern "C" {
     #[doc = " @brief Determine whether the {@link OH_UdsDetails} contain the specified key.\n\n @param pThis Represents a pointer to an instance of the {@link OH_UdsDetails}.\n @param key Represents key in the details.\n @return Returns the status code of the execution.\n         {@code false} Represents The details do not contain the key.\n         {@code true} Represents The details contain the key.\n @see OH_UdsDetails\n @since 22"]
     #[cfg(feature = "api-22")]
     pub fn OH_UdsDetails_HasKey(
@@ -714,7 +714,7 @@ extern "C" {
         key: *const ::std::os::raw::c_char,
     ) -> bool;
 }
-extern "C" {
+unsafe extern "C" {
     #[doc = " @brief Remove the value corresponding to this key from the {@link OH_UdsDetails}.\n\n @param pThis Represents a pointer to an instance of {@link OH_UdsDetails}.\n @param key Represents key in the details.\n @return Returns the status code of the execution. See {@link Udmf_ErrCode}.\n         {@link UDMF_E_OK} success.\n         {@link UDMF_E_INVALID_PARAM} The error code for common invalid args.\n @since 22\n @see OH_UdsDetails Udmf_ErrCode"]
     #[cfg(feature = "api-22")]
     pub fn OH_UdsDetails_Remove(
@@ -722,12 +722,12 @@ extern "C" {
         key: *const ::std::os::raw::c_char,
     ) -> ::std::os::raw::c_int;
 }
-extern "C" {
+unsafe extern "C" {
     #[doc = " @brief Clear all data in the {@link OH_UdsDetails}.\n\n @param pThis Represents a pointer to an instance of {@link OH_UdsDetails}.\n @return Returns the status code of the execution. See {@link Udmf_ErrCode}.\n         {@link UDMF_E_OK} success.\n         {@link UDMF_E_INVALID_PARAM} The error code for common invalid args.\n @since 22\n @see OH_UdsDetails Udmf_ErrCode"]
     #[cfg(feature = "api-22")]
     pub fn OH_UdsDetails_Clear(pThis: *mut OH_UdsDetails) -> ::std::os::raw::c_int;
 }
-extern "C" {
+unsafe extern "C" {
     #[doc = " @brief Set key-value data to the {@link OH_UdsDetails}.\n\n @param pThis Represents a pointer to an instance of {@link OH_UdsDetails}.\n @param key Represents the key data to be written.\n @param value Represents the value data to be written.\n @return Returns the status code of the execution. See {@link Udmf_ErrCode}.\n         {@link UDMF_E_OK} success.\n         {@link UDMF_E_INVALID_PARAM} The error code for common invalid args.\n @since 22\n @see OH_UdsDetails Udmf_ErrCode"]
     #[cfg(feature = "api-22")]
     pub fn OH_UdsDetails_SetValue(
@@ -736,7 +736,7 @@ extern "C" {
         value: *const ::std::os::raw::c_char,
     ) -> ::std::os::raw::c_int;
 }
-extern "C" {
+unsafe extern "C" {
     #[doc = " @brief Get the value from the {@link OH_UdsDetails} using the key.\n\n @param pThis Represents a pointer to an instance of {@link OH_UdsDetails}.\n @param key Represents key in the details.\n @return Returns a string pointer when input args normally, otherwise return nullptr.\n @since 22\n @see OH_UdsDetails"]
     #[cfg(feature = "api-22")]
     pub fn OH_UdsDetails_GetValue(
@@ -744,7 +744,7 @@ extern "C" {
         key: *const ::std::os::raw::c_char,
     ) -> *const ::std::os::raw::c_char;
 }
-extern "C" {
+unsafe extern "C" {
     #[doc = " @brief Get the all keys from the {@link OH_UdsDetails}.\n\n @param pThis Represents a pointer to an instance of {@link OH_UdsDetails}.\n @param count Represents the keys count.\n @return Returns string list of keys. Memory will be released after calling the OH_UdsDetails_Destroy function.\n @since 22\n @see OH_UdsDetails"]
     #[cfg(feature = "api-22")]
     pub fn OH_UdsDetails_GetAllKeys(
@@ -860,36 +860,36 @@ pub struct OH_UdmfDataLoadInfo {
 pub type OH_Udmf_DataLoadHandler = ::std::option::Option<
     unsafe extern "C" fn(acceptableInfo: *mut OH_UdmfDataLoadInfo) -> *mut OH_UdmfData,
 >;
-extern "C" {
+unsafe extern "C" {
     #[doc = " @brief Creation a pointer to the instance of the {@link OH_UdmfData}.\n\n @return If the operation is successful, a pointer to the instance of the {@link OH_UdmfData}\n structure is returned. If the operation is failed, nullptr is returned.\n @see OH_UdmfData.\n @since 12"]
     pub fn OH_UdmfData_Create() -> *mut OH_UdmfData;
 }
-extern "C" {
+unsafe extern "C" {
     #[doc = " @brief Destroy a pointer that points to the {@link OH_UdmfData} instance.\n\n @param pThis Represents a pointer to an instance of {@link OH_UdmfData}.\n @see OH_UdmfData.\n @since 12"]
     pub fn OH_UdmfData_Destroy(pThis: *mut OH_UdmfData);
 }
-extern "C" {
+unsafe extern "C" {
     #[doc = " @brief Add one {OH_UdmfRecord} record to the {@link OH_UdmfData} data.\n\n @param pThis Represents a pointer to an instance of {@link OH_UdmfData}.\n @param record Represents a pointer to an instance of {@link OH_UdmfRecord}.\n @return Returns the status code of the execution. See {@link Udmf_ErrCode}.\n         {@link UDMF_E_OK} success.\n         {@link UDMF_E_INVALID_PARAM} The error code for common invalid args.\n @see OH_UdmfData Udmf_ErrCode.\n @since 12"]
     pub fn OH_UdmfData_AddRecord(
         pThis: *mut OH_UdmfData,
         record: *mut OH_UdmfRecord,
     ) -> ::std::os::raw::c_int;
 }
-extern "C" {
+unsafe extern "C" {
     #[doc = " @brief Check whether the type exists in the {@link OH_UdmfData} data.\n\n @param pThis Represents a pointer to an instance of {@link OH_UdmfData}.\n @param type Represents a string pointer of the type.\n @return Returns the status of finding type.\n         {@code false} is not existed.\n         {@code true} is existed.\n @see OH_UdmfData.\n @since 12"]
     pub fn OH_UdmfData_HasType(
         pThis: *mut OH_UdmfData,
         type_: *const ::std::os::raw::c_char,
     ) -> bool;
 }
-extern "C" {
+unsafe extern "C" {
     #[doc = " @brief Get all types in the {@link OH_UdmfData} data.\n\n @param pThis Represents a pointer to an instance of {@link OH_UdmfData}.\n @param count Represents the types count that is a output param.\n @return Returns string array that in {@link OH_UdmfData} when input parameters valid,\n otherwise return nullptr.\n @see OH_UdmfData.\n @since 12"]
     pub fn OH_UdmfData_GetTypes(
         pThis: *mut OH_UdmfData,
         count: *mut ::std::os::raw::c_uint,
     ) -> *mut *mut ::std::os::raw::c_char;
 }
-extern "C" {
+unsafe extern "C" {
     #[doc = " @brief Get all records in the {@link OH_UdmfData} data.\n\n @param pThis Represents a pointer to an instance of {@link OH_UdmfData}.\n @param count Represents the records count that is a output param.\n @return Returns {@link OH_UdmfRecord} pointer array when input parameters valid, otherwise return nullptr.\n @see OH_UdmfData OH_UdmfRecord.\n @since 12"]
     pub fn OH_UdmfData_GetRecords(
         pThis: *mut OH_UdmfData,
@@ -900,12 +900,12 @@ extern "C" {
 #[cfg(feature = "api-13")]
 pub type UdmfData_Finalize =
     ::std::option::Option<unsafe extern "C" fn(context: *mut ::std::os::raw::c_void)>;
-extern "C" {
+unsafe extern "C" {
     #[doc = " @brief Creates an {@link OH_UdmfRecordProvider} instance.\n\n @return Returns the pointer to the {@link OH_UdmfRecordProvider} instance created if the operation is successful.\n Returns nullptr if the memory is not enough.\n @see OH_UdmfRecordProvider.\n @since 13"]
     #[cfg(feature = "api-13")]
     pub fn OH_UdmfRecordProvider_Create() -> *mut OH_UdmfRecordProvider;
 }
-extern "C" {
+unsafe extern "C" {
     #[doc = " @brief Destroy an {@link OH_UdmfRecordProvider} instance.\n\n @param provider Pointer to the {@link OH_UdmfRecordProvider} instance to destroy.\n @return Returns the status code of the execution. For details, see {@link Udmf_ErrCode}.\n         Returns {@link UDMF_E_OK} if the operation is successful.\n         Returns {@link UDMF_E_INVALID_PARAM} if invalid args are detected.\n @see OH_UdmfRecordProvider Udmf_ErrCode.\n @since 13"]
     #[cfg(feature = "api-13")]
     pub fn OH_UdmfRecordProvider_Destroy(
@@ -920,7 +920,7 @@ pub type OH_UdmfRecordProvider_GetData = ::std::option::Option<
         type_: *const ::std::os::raw::c_char,
     ) -> *mut ::std::os::raw::c_void,
 >;
-extern "C" {
+unsafe extern "C" {
     #[doc = " @brief Sets a callback function to obtain data.\n\n @param provider Pointer to the {@link OH_UdmfRecordProvider} instance.\n @param context Pointer to the context set, which is the first parameter in OH_UdmfRecordProvider_GetData.\n @param callback Callback to set. For details, see {@link OH_UdmfRecordProvider_GetData}.\n @param finalize Optional callback that can free context when destroy provider.\n         For details, see {@link UdmfData_Finalize}.\n @return Returns the status code of the execution. For details, see {@link Udmf_ErrCode}.\n         Returns {@link UDMF_E_OK} if the operation is successful.\n         Returns {@link UDMF_E_INVALID_PARAM} if invalid args are detected.\n @see OH_UdmfRecordProvider OH_UdmfRecordProvider_GetData UdmfData_Finalize Udmf_ErrCode.\n @since 13"]
     #[cfg(feature = "api-13")]
     pub fn OH_UdmfRecordProvider_SetData(
@@ -930,15 +930,15 @@ extern "C" {
         finalize: UdmfData_Finalize,
     ) -> ::std::os::raw::c_int;
 }
-extern "C" {
+unsafe extern "C" {
     #[doc = " @brief Creation a pointer to the instance of the {@link OH_UdmfRecord}, it's relate with UDS data.\n\n @return If the operation is successful, a pointer to the instance of the {@link OH_UdmfRecord}\n structure is returned. If the operation is failed, nullptr is returned.\n @see OH_UdmfRecord.\n @since 12"]
     pub fn OH_UdmfRecord_Create() -> *mut OH_UdmfRecord;
 }
-extern "C" {
+unsafe extern "C" {
     #[doc = " @brief Destroy a pointer that points to an instance of {@link OH_UdmfRecord}.\n\n @param pThis Represents a pointer to an instance of {@link OH_UdmfRecord}.\n @see OH_UdmfRecord.\n @since 12"]
     pub fn OH_UdmfRecord_Destroy(pThis: *mut OH_UdmfRecord);
 }
-extern "C" {
+unsafe extern "C" {
     #[doc = " @brief Add one custom data to the {@link OH_UdmfRecord} record.\n\n @param pThis Represents a pointer to an instance of {@link OH_UdmfRecord}.\n @param typeId Represents record type, reference udmf_meta.h.\n @param entry Represents custom data.\n @param count Represents the size of data param.\n @return Returns the status code of the execution. See {@link Udmf_ErrCode}.\n         {@link UDMF_E_OK} success.\n         {@link UDMF_E_INVALID_PARAM} The error code for common invalid args.\n @see OH_UdmfRecord Udmf_ErrCode.\n @since 12"]
     pub fn OH_UdmfRecord_AddGeneralEntry(
         pThis: *mut OH_UdmfRecord,
@@ -947,35 +947,35 @@ extern "C" {
         count: ::std::os::raw::c_uint,
     ) -> ::std::os::raw::c_int;
 }
-extern "C" {
+unsafe extern "C" {
     #[doc = " @brief Add one {OH_UdsPlainText} data to the {@link OH_UdmfRecord} record.\n\n @param pThis Represents a pointer to an instance of {@link OH_UdmfRecord}.\n @param plainText Represents a pointer to an instance of {@link OH_UdsPlainText}.\n @return Returns the status code of the execution. See {@link Udmf_ErrCode}.\n         {@link UDMF_E_OK} success.\n         {@link UDMF_E_INVALID_PARAM} The error code for common invalid args.\n @see OH_UdmfRecord OH_UdsPlainText Udmf_ErrCode.\n @since 12"]
     pub fn OH_UdmfRecord_AddPlainText(
         pThis: *mut OH_UdmfRecord,
         plainText: *mut OH_UdsPlainText,
     ) -> ::std::os::raw::c_int;
 }
-extern "C" {
+unsafe extern "C" {
     #[doc = " @brief Add one {OH_UdsHyperlink} data to the {@link OH_UdmfRecord} record.\n\n @param pThis Represents a pointer to an instance of {@link OH_UdmfRecord}.\n @param hyperlink Represents a pointer to an instance of {@link OH_UdsHyperlink}.\n @return Returns the status code of the execution. See {@link Udmf_ErrCode}.\n         {@link UDMF_E_OK} success.\n         {@link UDMF_E_INVALID_PARAM} The error code for common invalid args.\n @see OH_UdmfRecord OH_UdsHyperlink Udmf_ErrCode.\n @since 12"]
     pub fn OH_UdmfRecord_AddHyperlink(
         pThis: *mut OH_UdmfRecord,
         hyperlink: *mut OH_UdsHyperlink,
     ) -> ::std::os::raw::c_int;
 }
-extern "C" {
+unsafe extern "C" {
     #[doc = " @brief Add one {OH_UdsHtml} data to the {@link OH_UdmfRecord} record.\n\n @param pThis Represents a pointer to an instance of {@link OH_UdmfRecord}.\n @param html Represents a pointer to an instance of {@link OH_UdsHtml}.\n @return Returns the status code of the execution. See {@link Udmf_ErrCode}.\n         {@link UDMF_E_OK} success.\n         {@link UDMF_E_INVALID_PARAM} The error code for common invalid args.\n @see OH_UdmfRecord OH_UdsHtml Udmf_ErrCode.\n @since 12"]
     pub fn OH_UdmfRecord_AddHtml(
         pThis: *mut OH_UdmfRecord,
         html: *mut OH_UdsHtml,
     ) -> ::std::os::raw::c_int;
 }
-extern "C" {
+unsafe extern "C" {
     #[doc = " @brief Add one {OH_UdsAppItem} data to the {@link OH_UdmfRecord} record.\n\n @param pThis Represents a pointer to an instance of {@link OH_UdmfRecord}.\n @param appItem Represents a pointer to an instance of {@link OH_UdsAppItem}.\n @return Returns the status code of the execution. See {@link Udmf_ErrCode}.\n         {@link UDMF_E_OK} success.\n         {@link UDMF_E_INVALID_PARAM} The error code for common invalid args.\n @see OH_UdmfRecord OH_UdsAppItem Udmf_ErrCode.\n @since 12"]
     pub fn OH_UdmfRecord_AddAppItem(
         pThis: *mut OH_UdmfRecord,
         appItem: *mut OH_UdsAppItem,
     ) -> ::std::os::raw::c_int;
 }
-extern "C" {
+unsafe extern "C" {
     #[doc = " @brief Add one {OH_UdsFileUri} data to the {@link OH_UdmfRecord} record.\n\n @param pThis Represents a pointer to an instance of {@link OH_UdmfRecord}.\n @param fileUri Represents a pointer to an instance of {@link OH_UdsFileUri}.\n @return Returns the status code of the execution. See {@link Udmf_ErrCode}.\n         {@link UDMF_E_OK} success.\n         {@link UDMF_E_INVALID_PARAM} The error code for common invalid args.\n @see OH_UdmfRecord OH_UdsFileUri Udmf_ErrCode.\n @since 13"]
     #[cfg(feature = "api-13")]
     pub fn OH_UdmfRecord_AddFileUri(
@@ -983,7 +983,7 @@ extern "C" {
         fileUri: *mut OH_UdsFileUri,
     ) -> ::std::os::raw::c_int;
 }
-extern "C" {
+unsafe extern "C" {
     #[doc = " @brief Add one {OH_UdsPixelMap} data to the {@link OH_UdmfRecord} record.\n\n @param pThis Represents a pointer to an instance of {@link OH_UdmfRecord}.\n @param pixelMap Represents a pointer to an instance of {@link OH_UdsPixelMap}.\n @return Returns the status code of the execution. See {@link Udmf_ErrCode}.\n         {@link UDMF_E_OK} success.\n         {@link UDMF_E_INVALID_PARAM} The error code for common invalid args.\n @see OH_UdmfRecord OH_UdsPixelMap Udmf_ErrCode.\n @since 13"]
     #[cfg(feature = "api-13")]
     pub fn OH_UdmfRecord_AddPixelMap(
@@ -991,7 +991,7 @@ extern "C" {
         pixelMap: *mut OH_UdsPixelMap,
     ) -> ::std::os::raw::c_int;
 }
-extern "C" {
+unsafe extern "C" {
     #[doc = " @brief Add one {@link OH_UdsArrayBuffer} data to the {@link OH_UdmfRecord} record.\n\n @param record Represents a pointer to an instance of {@link OH_UdmfRecord}.\n @param type Represents record type, reference udmf_meta.h.\n @param buffer Represents a pointer to an instance of {@link OH_UdsArrayBuffer}.\n @return Returns the status code of the execution. See {@link Udmf_ErrCode}.\n         {@link UDMF_E_OK} success.\n         {@link UDMF_E_INVALID_PARAM} The error code for common invalid args.\n @see OH_UdmfRecord OH_UdsArrayBuffer Udmf_ErrCode.\n @since 13"]
     #[cfg(feature = "api-13")]
     pub fn OH_UdmfRecord_AddArrayBuffer(
@@ -1000,7 +1000,7 @@ extern "C" {
         buffer: *mut OH_UdsArrayBuffer,
     ) -> ::std::os::raw::c_int;
 }
-extern "C" {
+unsafe extern "C" {
     #[doc = " @brief Add one {@link OH_UdsContentForm} data to the {@link OH_UdmfRecord} record.\n\n @param pThis Represents a pointer to an instance of {@link OH_UdmfRecord}.\n @param contentForm Represents a pointer to an instance of {@link OH_UdsContentForm}.\n @return Returns the status code of the execution. See {@link Udmf_ErrCode}.\n         {@link UDMF_E_OK} success.\n         {@link UDMF_E_INVALID_PARAM} The error code for common invalid args.\n @see OH_UdmfRecord OH_UdsContentForm Udmf_ErrCode.\n @since 14"]
     #[cfg(feature = "api-14")]
     pub fn OH_UdmfRecord_AddContentForm(
@@ -1008,14 +1008,14 @@ extern "C" {
         contentForm: *mut OH_UdsContentForm,
     ) -> ::std::os::raw::c_int;
 }
-extern "C" {
+unsafe extern "C" {
     #[doc = " @brief Get all types in the {@link OH_UdmfRecord} record.\n\n @param pThis Represents a pointer to an instance of {@link OH_UdmfRecord}.\n @param count Represents the types count that is a output param.\n @return Returns string array that in {@link OH_UdmfRecord} when input parameters valid,\n otherwise return nullptr.\n @see OH_UdmfRecord.\n @since 12"]
     pub fn OH_UdmfRecord_GetTypes(
         pThis: *mut OH_UdmfRecord,
         count: *mut ::std::os::raw::c_uint,
     ) -> *mut *mut ::std::os::raw::c_char;
 }
-extern "C" {
+unsafe extern "C" {
     #[doc = " @brief Get one entry data from the {@link OH_UdmfRecord} record.\n\n @param pThis Represents a pointer to an instance of {@link OH_UdmfRecord}.\n @param typeId Represents record type, reference udmf_meta.h.\n @param entry Represents a pointer to entry data that is a output param.\n @param count Represents the entry data length that is a output param.\n @return Returns the status code of the execution. See {@link Udmf_ErrCode}.\n         {@link UDMF_E_OK} success.\n         {@link UDMF_E_INVALID_PARAM} The error code for common invalid args.\n         {@link UDMF_ERR} Internal data error.\n @see OH_UdmfRecord Udmf_ErrCode.\n @since 12"]
     pub fn OH_UdmfRecord_GetGeneralEntry(
         pThis: *mut OH_UdmfRecord,
@@ -1024,35 +1024,35 @@ extern "C" {
         count: *mut ::std::os::raw::c_uint,
     ) -> ::std::os::raw::c_int;
 }
-extern "C" {
+unsafe extern "C" {
     #[doc = " @brief Get one {OH_UdsPlainText} data from the {@link OH_UdmfRecord} record.\n\n @param pThis Represents a pointer to an instance of {@link OH_UdmfRecord}.\n @param plainText Represents a pointer to an instance of {@link OH_UdsPlainText}.\n @return Returns the status code of the execution. See {@link Udmf_ErrCode}.\n         {@link UDMF_E_OK} success.\n         {@link UDMF_E_INVALID_PARAM} The error code for common invalid args.\n         {@link UDMF_ERR} Internal data error.\n @see OH_UdmfRecord OH_UdsPlainText Udmf_ErrCode.\n @since 12"]
     pub fn OH_UdmfRecord_GetPlainText(
         pThis: *mut OH_UdmfRecord,
         plainText: *mut OH_UdsPlainText,
     ) -> ::std::os::raw::c_int;
 }
-extern "C" {
+unsafe extern "C" {
     #[doc = " @brief Get one {OH_UdsHyperlink} data from the {@link OH_UdmfRecord} record.\n\n @param pThis Represents a pointer to an instance of {@link OH_UdmfRecord}.\n @param hyperlink Represents a pointer to an instance of {@link OH_UdsHyperlink}.\n @return Returns the status code of the execution. See {@link Udmf_ErrCode}.\n         {@link UDMF_E_OK} success.\n         {@link UDMF_E_INVALID_PARAM} The error code for common invalid args.\n         {@link UDMF_ERR} Internal data error.\n @see OH_UdmfRecord OH_UdsHyperlink Udmf_ErrCode.\n @since 12"]
     pub fn OH_UdmfRecord_GetHyperlink(
         pThis: *mut OH_UdmfRecord,
         hyperlink: *mut OH_UdsHyperlink,
     ) -> ::std::os::raw::c_int;
 }
-extern "C" {
+unsafe extern "C" {
     #[doc = " @brief Get one {OH_UdsHtml} data from the {@link OH_UdmfRecord} record.\n\n @param pThis Represents a pointer to an instance of {@link OH_UdmfRecord}.\n @param html Represents a pointer to an instance of {@link OH_UdsHtml}.\n @return Returns the status code of the execution. See {@link Udmf_ErrCode}.\n         {@link UDMF_E_OK} success.\n         {@link UDMF_E_INVALID_PARAM} The error code for common invalid args.\n         {@link UDMF_ERR} Internal data error.\n @see OH_UdmfRecord OH_UdsHtml Udmf_ErrCode.\n @since 12"]
     pub fn OH_UdmfRecord_GetHtml(
         pThis: *mut OH_UdmfRecord,
         html: *mut OH_UdsHtml,
     ) -> ::std::os::raw::c_int;
 }
-extern "C" {
+unsafe extern "C" {
     #[doc = " @brief Get one {OH_UdsAppItem} data from the {@link OH_UdmfRecord} record.\n\n @param pThis Represents a pointer to an instance of {@link OH_UdmfRecord}.\n @param appItem Represents a pointer to an instance of {@link OH_UdsAppItem}.\n @return Returns the status code of the execution. See {@link Udmf_ErrCode}.\n         {@link UDMF_E_OK} success.\n         {@link UDMF_E_INVALID_PARAM} The error code for common invalid args.\n         {@link UDMF_ERR} Internal data error.\n @see OH_UdmfRecord OH_UdsAppItem Udmf_ErrCode.\n @since 12"]
     pub fn OH_UdmfRecord_GetAppItem(
         pThis: *mut OH_UdmfRecord,
         appItem: *mut OH_UdsAppItem,
     ) -> ::std::os::raw::c_int;
 }
-extern "C" {
+unsafe extern "C" {
     #[doc = " @brief Get one {OH_UdsFileUri} data from the {@link OH_UdmfRecord} record.\n\n @param pThis Represents a pointer to an instance of {@link OH_UdmfRecord}.\n @param fileUri Represents a pointer to an instance of {@link OH_UdsFileUri}.\n @return Returns the status code of the execution. See {@link Udmf_ErrCode}.\n         {@link UDMF_E_OK} success.\n         {@link UDMF_E_INVALID_PARAM} The error code for common invalid args.\n @see OH_UdmfRecord OH_UdsFileUri Udmf_ErrCode.\n @since 13"]
     #[cfg(feature = "api-13")]
     pub fn OH_UdmfRecord_GetFileUri(
@@ -1060,7 +1060,7 @@ extern "C" {
         fileUri: *mut OH_UdsFileUri,
     ) -> ::std::os::raw::c_int;
 }
-extern "C" {
+unsafe extern "C" {
     #[doc = " @brief Get one {OH_UdsPixelMap} data from the {@link OH_UdmfRecord} record.\n\n @param pThis Represents a pointer to an instance of {@link OH_UdmfRecord}.\n @param pixelMap Represents a pointer to an instance of {@link OH_UdsPixelMap}.\n @return Returns the status code of the execution. See {@link Udmf_ErrCode}.\n         {@link UDMF_E_OK} success.\n         {@link UDMF_E_INVALID_PARAM} The error code for common invalid args.\n @see OH_UdmfRecord OH_UdsPixelMap Udmf_ErrCode.\n @since 13"]
     #[cfg(feature = "api-13")]
     pub fn OH_UdmfRecord_GetPixelMap(
@@ -1068,7 +1068,7 @@ extern "C" {
         pixelMap: *mut OH_UdsPixelMap,
     ) -> ::std::os::raw::c_int;
 }
-extern "C" {
+unsafe extern "C" {
     #[doc = " @brief Set the data provider of the types.\n\n @param pThis Represents a pointer to an instance of {@link OH_UdmfRecord}.\n @param types Represents a pointer to a group of data types;\n @param count Represents the number of data types;\n @param provider Represents a pointer an instance of {@link OH_UdmfRecordProvider}.\n @return Returns the status code of the execution. See {@link Udmf_ErrCode}.\n         {@link UDMF_E_OK} success.\n         {@link UDMF_E_INVALID_PARAM} The error code for common invalid args.\n @see OH_UdmfRecord OH_UdmfRecordProvider Udmf_ErrCode.\n @since 13"]
     #[cfg(feature = "api-13")]
     pub fn OH_UdmfRecord_SetProvider(
@@ -1078,7 +1078,7 @@ extern "C" {
         provider: *mut OH_UdmfRecordProvider,
     ) -> ::std::os::raw::c_int;
 }
-extern "C" {
+unsafe extern "C" {
     #[doc = " @brief Get one {@link OH_UdsArrayBuffer} data from the {@link OH_UdmfRecord} record.\n\n @param record Represents a pointer to an instance of {@link OH_UdmfRecord}.\n @param type Represents record type, reference udmf_meta.h.\n @param buffer Represents a pointer to an instance of {@link OH_UdsArrayBuffer}.\n @return Returns the status code of the execution. See {@link Udmf_ErrCode}.\n         {@link UDMF_E_OK} success.\n         {@link UDMF_E_INVALID_PARAM} The error code for common invalid args.\n @see OH_UdmfRecord OH_UdsArrayBuffer Udmf_ErrCode.\n @since 13"]
     #[cfg(feature = "api-13")]
     pub fn OH_UdmfRecord_GetArrayBuffer(
@@ -1087,7 +1087,7 @@ extern "C" {
         buffer: *mut OH_UdsArrayBuffer,
     ) -> ::std::os::raw::c_int;
 }
-extern "C" {
+unsafe extern "C" {
     #[doc = " @brief Get one {@link OH_UdsContentForm} data from the {@link OH_UdmfRecord} record.\n\n @param pThis Represents a pointer to an instance of {@link OH_UdmfRecord}.\n @param contentForm Represents a pointer to an instance of {@link OH_UdsContentForm}.\n @return Returns the status code of the execution. See {@link Udmf_ErrCode}.\n         {@link UDMF_E_OK} success.\n         {@link UDMF_E_INVALID_PARAM} The error code for common invalid args.\n @see OH_UdmfRecord OH_UdsContentForm Udmf_ErrCode.\n @since 14"]
     #[cfg(feature = "api-14")]
     pub fn OH_UdmfRecord_GetContentForm(
@@ -1095,7 +1095,7 @@ extern "C" {
         contentForm: *mut OH_UdsContentForm,
     ) -> ::std::os::raw::c_int;
 }
-extern "C" {
+unsafe extern "C" {
     #[doc = " @brief Get primary {@link OH_UdsPlainText} data from the {@link OH_UdmfData}.\n\n @param data Represents a pointer to an instance of {@link OH_UdmfData}.\n @param plainText Represents a pointer to an instance of {@link OH_UdsPlainText}.\n @return Returns the status code of the execution. See {@link Udmf_ErrCode}.\n         {@link UDMF_E_OK} success.\n         {@link UDMF_E_INVALID_PARAM} The error code for common invalid args.\n @see OH_UdmfData OH_UdsPlainText Udmf_ErrCode.\n @since 13"]
     #[cfg(feature = "api-13")]
     pub fn OH_UdmfData_GetPrimaryPlainText(
@@ -1103,7 +1103,7 @@ extern "C" {
         plainText: *mut OH_UdsPlainText,
     ) -> ::std::os::raw::c_int;
 }
-extern "C" {
+unsafe extern "C" {
     #[doc = " @brief Get one {@link OH_UdsHtml} data from the {@link OH_UdmfData}.\n\n @param data Represents a pointer to an instance of {@link OH_UdmfData}.\n @param html Represents a pointer to an instance of {@link OH_UdsHtml}.\n @return Returns the status code of the execution. See {@link Udmf_ErrCode}.\n         {@link UDMF_E_OK} success.\n         {@link UDMF_E_INVALID_PARAM} The error code for common invalid args.\n @see OH_UdmfData OH_UdsHtml Udmf_ErrCode.\n @since 13"]
     #[cfg(feature = "api-13")]
     pub fn OH_UdmfData_GetPrimaryHtml(
@@ -1111,12 +1111,12 @@ extern "C" {
         html: *mut OH_UdsHtml,
     ) -> ::std::os::raw::c_int;
 }
-extern "C" {
+unsafe extern "C" {
     #[doc = " @brief Get the count of {@link OH_UdmfRecord} in the {@link OH_UdmfData}.\n\n @param data Represents a pointer to an instance of {@link OH_UdmfData}.\n @return Returns the count of {@link OH_UdmfRecord}\n @see OH_UdmfData.\n @since 13"]
     #[cfg(feature = "api-13")]
     pub fn OH_UdmfData_GetRecordCount(data: *mut OH_UdmfData) -> ::std::os::raw::c_int;
 }
-extern "C" {
+unsafe extern "C" {
     #[doc = " @brief Get the record of the specified index from the {@link OH_UdmfData}.\n\n @param data Represents a pointer to an instance of {@link OH_UdmfData}.\n @param index Represents the index of {@link OH_UdmfRecord} in the {@link OH_UdmfData}.\n @return Returns {@link OH_UdmfRecord} pointer when input parameters valid, otherwise return nullptr.\n @see OH_UdmfData.\n @since 13"]
     #[cfg(feature = "api-13")]
     pub fn OH_UdmfData_GetRecord(
@@ -1124,32 +1124,32 @@ extern "C" {
         index: ::std::os::raw::c_uint,
     ) -> *mut OH_UdmfRecord;
 }
-extern "C" {
+unsafe extern "C" {
     #[doc = " @brief Checks whether the UDMF data is from a local device.\n\n @param data Represents a pointer to an instance of {@link OH_UdmfData}.\n @return Returns a boolean value, which indicates whether the UDMF data is from a local device.\n         The value {@code true} means the data is from a local device.\n         The value {@code false} means the opposite.\n @see OH_UdmfData.\n @since 13"]
     #[cfg(feature = "api-13")]
     pub fn OH_UdmfData_IsLocal(data: *mut OH_UdmfData) -> bool;
 }
-extern "C" {
+unsafe extern "C" {
     #[doc = " @brief Creation a pointer to the instance of the {@link OH_UdmfProperty}\n from a {@link OH_UdmfData} data.\n\n @param unifiedData Represents a pointer to an instance of {@link OH_UdmfData}.\n @return If the operation is successful, a pointer to the instance of the {@link OH_UdmfProperty}\n structure is returned. If the operation is failed, nullptr is returned.\n @see OH_UdmfData OH_UdmfProperty.\n @since 12"]
     pub fn OH_UdmfProperty_Create(unifiedData: *mut OH_UdmfData) -> *mut OH_UdmfProperty;
 }
-extern "C" {
+unsafe extern "C" {
     #[doc = " @brief Destroy a pointer that points to the {@link OH_UdmfProperty} instance.\n\n @param pThis Represents a pointer to an instance of {@link OH_UdmfProperty}.\n @see OH_UdmfProperty.\n @since 12"]
     pub fn OH_UdmfProperty_Destroy(pThis: *mut OH_UdmfProperty);
 }
-extern "C" {
+unsafe extern "C" {
     #[doc = " @brief Get tag value from the {@link OH_UdmfProperty}.\n\n @param pThis Represents a pointer to an instance of {@link OH_UdmfProperty}.\n @return Returns a pointer of the tag value string when input parameters valid, otherwise return nullptr.\n @see OH_UdmfProperty.\n @since 12"]
     pub fn OH_UdmfProperty_GetTag(pThis: *mut OH_UdmfProperty) -> *const ::std::os::raw::c_char;
 }
-extern "C" {
+unsafe extern "C" {
     #[doc = " @brief Get timestamp value from the {@link OH_UdmfProperty}.\n\n @param pThis Represents a pointer to an instance of {@link OH_UdmfProperty}.\n @return Returns timestamp value.\n @see OH_UdmfProperty\n @since 12"]
     pub fn OH_UdmfProperty_GetTimestamp(pThis: *mut OH_UdmfProperty) -> i64;
 }
-extern "C" {
+unsafe extern "C" {
     #[doc = " @brief Get share option value from the {@link OH_UdmfProperty}.\n\n @param pThis Represents a pointer to an instance of {@link OH_UdmfProperty}.\n @return Returns {@link Udmf_ShareOption} value.\n @see OH_UdmfProperty Udmf_ShareOption\n @since 12"]
     pub fn OH_UdmfProperty_GetShareOption(pThis: *mut OH_UdmfProperty) -> Udmf_ShareOption;
 }
-extern "C" {
+unsafe extern "C" {
     #[doc = " @brief Get integer value by key from the {@link OH_UdmfProperty}.\n\n @param pThis Represents a pointer to an instance of {@link OH_UdmfProperty}.\n @param key Represents key-value pair's key\n @param defaultValue Represents when get value failure.\n @return Returns value associated with the key in successfully, otherwise return defaultValue.\n @see OH_UdmfProperty.\n @since 12"]
     pub fn OH_UdmfProperty_GetExtrasIntParam(
         pThis: *mut OH_UdmfProperty,
@@ -1157,28 +1157,28 @@ extern "C" {
         defaultValue: ::std::os::raw::c_int,
     ) -> ::std::os::raw::c_int;
 }
-extern "C" {
+unsafe extern "C" {
     #[doc = " @brief Get tag value from the {@link OH_UdmfProperty}.\n\n @param pThis Represents a pointer to an instance of {@link OH_UdmfProperty}.\n @param key Represents key-value pair's key.\n @return Returns a pointer of the key value string when input parameters valid, otherwise return nullptr.\n @see OH_UdmfProperty\n @since 12"]
     pub fn OH_UdmfProperty_GetExtrasStringParam(
         pThis: *mut OH_UdmfProperty,
         key: *const ::std::os::raw::c_char,
     ) -> *const ::std::os::raw::c_char;
 }
-extern "C" {
+unsafe extern "C" {
     #[doc = " @brief Set tag value to {@link OH_UdmfProperty} .\n\n @param pThis Represents a pointer to an instance of {@link OH_UdmfProperty}.\n @param tag Represents new tag param.\n @return Returns the status code of the execution. See {@link Udmf_ErrCode}.\n         {@link UDMF_E_OK} success.\n         {@link UDMF_E_INVALID_PARAM} The error code for common invalid args.\n @see OH_UdmfProperty Udmf_ErrCode.\n @since 12"]
     pub fn OH_UdmfProperty_SetTag(
         pThis: *mut OH_UdmfProperty,
         tag: *const ::std::os::raw::c_char,
     ) -> ::std::os::raw::c_int;
 }
-extern "C" {
+unsafe extern "C" {
     #[doc = " @brief Set Udmf_ShareOption value to {@link OH_UdmfProperty}.\n\n @param pThis Represents a pointer to an instance of {@link OH_UdmfProperty}.\n @param option Represents new {@link Udmf_ShareOption} param.\n @return Returns the status code of the execution. See {@link Udmf_ErrCode}.\n         {@link UDMF_E_OK} success.\n         {@link UDMF_E_INVALID_PARAM} The error code for common invalid args.\n @see OH_UdmfProperty Udmf_ShareOption Udmf_ErrCode.\n @since 12"]
     pub fn OH_UdmfProperty_SetShareOption(
         pThis: *mut OH_UdmfProperty,
         option: Udmf_ShareOption,
     ) -> ::std::os::raw::c_int;
 }
-extern "C" {
+unsafe extern "C" {
     #[doc = " @brief Set extras param to {@link OH_UdmfProperty}.\n\n @param pThis Represents a pointer to an instance of {@link OH_UdmfProperty}.\n @param key Represents extras param's key value.\n @param param Represents value of k-v pairs.\n @return Returns the status code of the execution. See {@link Udmf_ErrCode}.\n         {@link UDMF_E_OK} success.\n         {@link UDMF_E_INVALID_PARAM} The error code for common invalid args.\n @see OH_UdmfProperty Udmf_ErrCode.\n @since 12"]
     pub fn OH_UdmfProperty_SetExtrasIntParam(
         pThis: *mut OH_UdmfProperty,
@@ -1186,7 +1186,7 @@ extern "C" {
         param: ::std::os::raw::c_int,
     ) -> ::std::os::raw::c_int;
 }
-extern "C" {
+unsafe extern "C" {
     #[doc = " @brief Set extras param to {@link OH_UdmfProperty}.\n\n @param pThis Represents a pointer to an instance of {@link OH_UdmfProperty}.\n @param key Represents extras param's key value.\n @param param Represents value of k-v pairs.\n @return Returns the status code of the execution. See {@link Udmf_ErrCode}.\n         {@link UDMF_E_OK} success.\n         {@link UDMF_E_INVALID_PARAM} The error code for common invalid args.\n @see OH_UdmfProperty Udmf_ErrCode.\n @since 12"]
     pub fn OH_UdmfProperty_SetExtrasStringParam(
         pThis: *mut OH_UdmfProperty,
@@ -1194,22 +1194,22 @@ extern "C" {
         param: *const ::std::os::raw::c_char,
     ) -> ::std::os::raw::c_int;
 }
-extern "C" {
+unsafe extern "C" {
     #[doc = " @brief Creation a pointer to the instance of the {@link OH_UdmfOptions}.\n\n @return If the operation is successful, a pointer to the instance of the {@link OH_UdmfOptions}\n structure is returned. If the operation is failed, nullptr is returned.\n @see OH_UdmfOptions.\n @since 20"]
     #[cfg(feature = "api-20")]
     pub fn OH_UdmfOptions_Create() -> *mut OH_UdmfOptions;
 }
-extern "C" {
+unsafe extern "C" {
     #[doc = " @brief Destroy the heap memory pointed to by the pointer of {@link OH_UdmfOptions}.\n Note that this function cannot be called repeatedly for the same pointer.\n\n @param pThis Represents a pointer to an instance of {@link OH_UdmfOptions}.\n @see OH_UdmfOptions.\n @since 20"]
     #[cfg(feature = "api-20")]
     pub fn OH_UdmfOptions_Destroy(pThis: *mut OH_UdmfOptions);
 }
-extern "C" {
+unsafe extern "C" {
     #[doc = " @brief Get key from the {@link OH_UdmfOptions}.\n\n @param pThis Represents a pointer to an instance of {@link OH_UdmfOptions}.\n @return Returns a pointer of the value string when input args normally, otherwise return nullptr.\n @see OH_UdmfOptions\n @since 20"]
     #[cfg(feature = "api-20")]
     pub fn OH_UdmfOptions_GetKey(pThis: *mut OH_UdmfOptions) -> *const ::std::os::raw::c_char;
 }
-extern "C" {
+unsafe extern "C" {
     #[doc = " @brief Set the key to the {@link OH_UdmfOptions}.\n\n @param pThis Represents a pointer to an instance of {@link OH_UdmfOptions}.\n @param key Represents a new string value of the key.\n @return Returns the status code of the execution. See {@link Udmf_ErrCode}.\n         {@link UDMF_E_OK} success.\n         {@link UDMF_E_INVALID_PARAM} The error code for common invalid args.\n @see OH_UdmfOptions Udmf_ErrCode\n @since 20"]
     #[cfg(feature = "api-20")]
     pub fn OH_UdmfOptions_SetKey(
@@ -1217,12 +1217,12 @@ extern "C" {
         key: *const ::std::os::raw::c_char,
     ) -> ::std::os::raw::c_int;
 }
-extern "C" {
+unsafe extern "C" {
     #[doc = " @brief Get intention from the {@link OH_UdmfOptions}.\n\n @param pThis Represents a pointer to an instance of {@link OH_UdmfOptions}.\n @return Returns {@link Udmf_Intention} value.\n @see OH_UdmfOptions Udmf_Intention\n @since 20"]
     #[cfg(feature = "api-20")]
     pub fn OH_UdmfOptions_GetIntention(pThis: *mut OH_UdmfOptions) -> Udmf_Intention;
 }
-extern "C" {
+unsafe extern "C" {
     #[doc = " @brief Set intention value to {@link OH_UdmfOptions}.\n\n @param pThis Represents a pointer to an instance of {@link OH_UdmfOptions}.\n @param intention Represents new {@link Udmf_Intention} param.\n @return Returns the status code of the execution. See {@link Udmf_ErrCode}.\n         {@link UDMF_E_OK} success.\n         {@link UDMF_E_INVALID_PARAM} The error code for common invalid args.\n @see OH_UdmfOptions Udmf_Intention Udmf_ErrCode.\n @since 20"]
     #[cfg(feature = "api-20")]
     pub fn OH_UdmfOptions_SetIntention(
@@ -1230,17 +1230,17 @@ extern "C" {
         intention: Udmf_Intention,
     ) -> ::std::os::raw::c_int;
 }
-extern "C" {
+unsafe extern "C" {
     #[doc = " @brief Reset {@link OH_UdmfOptions} to default.\n\n @param pThis Represents a pointer to an instance of {@link OH_UdmfOptions}.\n @return Returns the status code of the execution. See {@link Udmf_ErrCode}.\n         {@link UDMF_E_OK} success.\n         {@link UDMF_E_INVALID_PARAM} The error code for common invalid args.\n @see OH_UdmfOptions Udmf_ErrCode.\n @since 20"]
     #[cfg(feature = "api-20")]
     pub fn OH_UdmfOptions_Reset(pThis: *mut OH_UdmfOptions) -> ::std::os::raw::c_int;
 }
-extern "C" {
+unsafe extern "C" {
     #[doc = " @brief Get visibility from the {@link OH_UdmfOptions}.\n\n @param pThis Represents a pointer to an instance of {@link OH_UdmfOptions}.\n @return Returns {@link Udmf_Visibility} value.\n @see OH_UdmfOptions Udmf_Visibility\n @since 20"]
     #[cfg(feature = "api-20")]
     pub fn OH_UdmfOptions_GetVisibility(pThis: *mut OH_UdmfOptions) -> Udmf_Visibility;
 }
-extern "C" {
+unsafe extern "C" {
     #[doc = " @brief Set visibility value to {@link OH_UdmfOptions}.\n\n @param pThis Represents a pointer to an instance of {@link OH_UdmfOptions}.\n @param visibility Represents new {@link Udmf_Visibility} param.\n @return Returns the status code of the execution. See {@link Udmf_ErrCode}.\n         {@link UDMF_E_OK} success.\n         {@link UDMF_E_INVALID_PARAM} The error code for common invalid args.\n @see OH_UdmfOptions Udmf_Visibility Udmf_ErrCode.\n @since 20"]
     #[cfg(feature = "api-20")]
     pub fn OH_UdmfOptions_SetVisibility(
@@ -1248,7 +1248,7 @@ extern "C" {
         visibility: Udmf_Visibility,
     ) -> ::std::os::raw::c_int;
 }
-extern "C" {
+unsafe extern "C" {
     #[doc = " @brief Get {@link OH_UdmfData} data from udmf database.\n\n @param key Represents database store's key value.\n @param intention Represents data type {@link Udmf_Intention}\n @param unifiedData Represents output params of {@link OH_UdmfData};\n @return Returns the status code of the execution. See {@link Udmf_ErrCode}.\n         {@link UDMF_E_OK} success.\n         {@link UDMF_E_INVALID_PARAM} The error code for common invalid args.\n         {@link UDMF_ERR} Internal data error.\n             The possible cause is that the server is faulty or the memory is insufficient.\n @see OH_UdmfProperty Udmf_Intention Udmf_ErrCode.\n @since 12"]
     pub fn OH_Udmf_GetUnifiedData(
         key: *const ::std::os::raw::c_char,
@@ -1256,7 +1256,7 @@ extern "C" {
         unifiedData: *mut OH_UdmfData,
     ) -> ::std::os::raw::c_int;
 }
-extern "C" {
+unsafe extern "C" {
     #[doc = " @brief Get {@link OH_UdmfData} data array from udmf database by intention.\n\n @param options Represents a pointer to an instance of {@link OH_UdmfOptions}.\n @param dataArray Represents output params of {@link OH_UdmfData}.\n     It should be accessed using {@link OH_UDMF_GetDataElementAt} to retrieve elements by index.\n     This pointer needs to be released using the {@link OH_Udmf_DestroyDataArray} function.\n @param dataSize Represents the data count of output params.\n @return Returns the status code of the execution. See {@link Udmf_ErrCode}.\n         {@link UDMF_E_OK} success.\n         {@link UDMF_E_INVALID_PARAM} The error code for common invalid args.\n         {@link UDMF_ERR} Internal data error.\n             The possible cause is that the server is faulty or the memory is insufficient.\n @see OH_UdmfData Udmf_Intention Udmf_ErrCode.\n @since 20"]
     #[cfg(feature = "api-20")]
     pub fn OH_Udmf_GetUnifiedDataByOptions(
@@ -1265,7 +1265,7 @@ extern "C" {
         dataSize: *mut ::std::os::raw::c_uint,
     ) -> ::std::os::raw::c_int;
 }
-extern "C" {
+unsafe extern "C" {
     #[doc = " @brief Set {@link OH_UdmfData} data to database.\n\n @param intention Represents data type {@link Udmf_Intention}.\n @param unifiedData Represents a pointer to an instance of {@link OH_UdmfData}.\n @param key Represents return value after set data to database successfully,\n it's memory size not less than {@link UDMF_KEY_BUFFER_LEN}.\n @param keyLen Represents size of key param.\n @return Returns the status code of the execution. See {@link Udmf_ErrCode}.\n         {@link UDMF_E_OK} success.\n         {@link UDMF_E_INVALID_PARAM} The error code for common invalid args.\n         {@link UDMF_ERR} Internal data error.\n             The possible cause is that the server is faulty or the memory is insufficient.\n @see OH_UdmfProperty Udmf_Intention Udmf_ErrCode.\n @since 12"]
     pub fn OH_Udmf_SetUnifiedData(
         intention: Udmf_Intention,
@@ -1274,7 +1274,7 @@ extern "C" {
         keyLen: ::std::os::raw::c_uint,
     ) -> ::std::os::raw::c_int;
 }
-extern "C" {
+unsafe extern "C" {
     #[doc = " @brief Set {@link OH_UdmfData} data to database with options.\n\n @param options Represents a pointer to an instance of {@link OH_UdmfOptions}.\n @param unifiedData Represents a pointer to an instance of {@link OH_UdmfData}.\n @param key Represents return value after set data to database successfully,\n it's memory size not less than {@link UDMF_KEY_BUFFER_LEN}.\n @param keyLen Represents size of key param.\n @return Returns the status code of the execution. See {@link Udmf_ErrCode}.\n         {@link UDMF_E_OK} success.\n         {@link UDMF_E_INVALID_PARAM} The error code for common invalid args.\n         {@link UDMF_ERR} Internal data error.\n             The possible cause is that the server is faulty or the memory is insufficient.\n @see OH_UdmfOptions OH_UdmfData Udmf_ErrCode.\n @since 20"]
     #[cfg(feature = "api-20")]
     pub fn OH_Udmf_SetUnifiedDataByOptions(
@@ -1284,7 +1284,7 @@ extern "C" {
         keyLen: ::std::os::raw::c_uint,
     ) -> ::std::os::raw::c_int;
 }
-extern "C" {
+unsafe extern "C" {
     #[doc = " @brief Update {@link OH_UdmfData} data to database with options.\n\n @param options Represents a pointer to an instance of {@link OH_UdmfOptions}.\n @param unifiedData Represents a pointer to an instance of {@link OH_UdmfData}.\n @return Returns the status code of the execution. See {@link Udmf_ErrCode}.\n         {@link UDMF_E_OK} success.\n         {@link UDMF_E_INVALID_PARAM} The error code for common invalid args.\n         {@link UDMF_ERR} Internal data error.\n             The possible cause is that the server is faulty or the memory is insufficient.\n @see OH_UdmfOptions OH_UdmfData Udmf_ErrCode.\n @since 20"]
     #[cfg(feature = "api-20")]
     pub fn OH_Udmf_UpdateUnifiedData(
@@ -1292,7 +1292,7 @@ extern "C" {
         unifiedData: *mut OH_UdmfData,
     ) -> ::std::os::raw::c_int;
 }
-extern "C" {
+unsafe extern "C" {
     #[doc = " @brief Delete {@link OH_UdmfData} data of database with options.\n\n @param options Represents a pointer to an instance of {@link OH_UdmfOptions}.\n @param dataArray Represents output params of {@link OH_UdmfData}.\n     It should be accessed using {@link OH_UDMF_GetDataElementAt} to retrieve elements by index.\n     This pointer needs to be released using the {@link OH_Udmf_DestroyDataArray} function.\n @param dataSize Represents the data count of output params.\n @return Returns the status code of the execution. See {@link Udmf_ErrCode}.\n         {@link UDMF_E_OK} success.\n         {@link UDMF_E_INVALID_PARAM} The error code for common invalid args.\n         {@link UDMF_ERR} Internal data error.\n             The possible cause is that the server is faulty or the memory is insufficient.\n @see OH_UdmfData Udmf_Intention Udmf_ErrCode.\n @since 20"]
     #[cfg(feature = "api-20")]
     pub fn OH_Udmf_DeleteUnifiedData(
@@ -1301,7 +1301,7 @@ extern "C" {
         dataSize: *mut ::std::os::raw::c_uint,
     ) -> ::std::os::raw::c_int;
 }
-extern "C" {
+unsafe extern "C" {
     #[doc = " @brief Destroy data array memory.\n\n @param dataArray Represents a point to {@link OH_UdmfData}.\n @param dataSize Represents data size in list.\n @see OH_UdmfData\n @since 20"]
     #[cfg(feature = "api-20")]
     pub fn OH_Udmf_DestroyDataArray(
@@ -1309,31 +1309,31 @@ extern "C" {
         dataSize: ::std::os::raw::c_uint,
     );
 }
-extern "C" {
+unsafe extern "C" {
     #[doc = " @brief Gets the progress from the {@OH_Udmf_ProgressInfo}.\n\n @param progressInfo Represents a pointer to an instance of {@link OH_Udmf_ProgressInfo}.\n @return Returns the progress.\n @see OH_Udmf_ProgressInfo\n @since 15"]
     #[cfg(feature = "api-15")]
     pub fn OH_UdmfProgressInfo_GetProgress(
         progressInfo: *mut OH_Udmf_ProgressInfo,
     ) -> ::std::os::raw::c_int;
 }
-extern "C" {
+unsafe extern "C" {
     #[doc = " @brief Gets the status from the {@OH_Udmf_ProgressInfo}.\n\n @param progressInfo Represents a pointer to an instance of {@link OH_Udmf_ProgressInfo}.\n @return Returns the status code. See {@link Udmf_ListenerStatus}.\n @see OH_Udmf_ProgressInfo Udmf_ListenerStatus\n @since 15"]
     #[cfg(feature = "api-15")]
     pub fn OH_UdmfProgressInfo_GetStatus(
         progressInfo: *mut OH_Udmf_ProgressInfo,
     ) -> ::std::os::raw::c_int;
 }
-extern "C" {
+unsafe extern "C" {
     #[doc = " @brief Creation a pointer to the instance of the {@link OH_UdmfGetDataParams}.\n\n @return If the operation is successful, a pointer to the instance of the {@link OH_UdmfGetDataParams}\n structure is returned. If the operation is failed, nullptr is returned.\n @see OH_UdmfGetDataParams\n @since 15"]
     #[cfg(feature = "api-15")]
     pub fn OH_UdmfGetDataParams_Create() -> *mut OH_UdmfGetDataParams;
 }
-extern "C" {
+unsafe extern "C" {
     #[doc = " @brief Destroy a pointer that points to an instance of {@link OH_UdmfGetDataParams}.\n\n @param pThis Represents a pointer to an instance of {@link OH_UdmfGetDataParams}.\n @see OH_UdmfGetDataParams\n @since 15"]
     #[cfg(feature = "api-15")]
     pub fn OH_UdmfGetDataParams_Destroy(pThis: *mut OH_UdmfGetDataParams);
 }
-extern "C" {
+unsafe extern "C" {
     #[doc = " @brief Sets the destination uri to the {@OH_UdmfGetDataParams}.\n\n @param params Represents a pointer to an instance of {@link OH_UdmfGetDataParams}.\n @param destUri Pointer to a destination uri.\n @see OH_UdmfGetDataParams\n @since 15"]
     #[cfg(feature = "api-15")]
     pub fn OH_UdmfGetDataParams_SetDestUri(
@@ -1341,7 +1341,7 @@ extern "C" {
         destUri: *const ::std::os::raw::c_char,
     );
 }
-extern "C" {
+unsafe extern "C" {
     #[doc = " @brief Sets the file conflict options to the {@OH_UdmfGetDataParams}.\n\n @param params Represents a pointer to an instance of {@link OH_UdmfGetDataParams}.\n @param options Represents to the file conflict options.\n @see OH_UdmfGetDataParams Udmf_FileConflictOptions\n @since 15"]
     #[cfg(feature = "api-15")]
     pub fn OH_UdmfGetDataParams_SetFileConflictOptions(
@@ -1349,7 +1349,7 @@ extern "C" {
         options: Udmf_FileConflictOptions,
     );
 }
-extern "C" {
+unsafe extern "C" {
     #[doc = " @brief Sets the progress indicator to the {@OH_UdmfGetDataParams}.\n\n @param params Represents a pointer to an instance of {@link OH_UdmfGetDataParams}.\n @param progressIndicator Represents to the progress indicator.\n @see OH_UdmfGetDataParams Udmf_ProgressIndicator\n @since 15"]
     #[cfg(feature = "api-15")]
     pub fn OH_UdmfGetDataParams_SetProgressIndicator(
@@ -1357,7 +1357,7 @@ extern "C" {
         progressIndicator: Udmf_ProgressIndicator,
     );
 }
-extern "C" {
+unsafe extern "C" {
     #[doc = " @brief Sets the progress indicator to the {@OH_UdmfGetDataParams}.\n\n @param params Represents a pointer to an instance of {@link OH_UdmfGetDataParams}.\n @param dataProgressListener Represents to the data progress listener.\n @see OH_UdmfGetDataParams OH_Udmf_DataProgressListener\n @since 15"]
     #[cfg(feature = "api-15")]
     pub fn OH_UdmfGetDataParams_SetDataProgressListener(
@@ -1365,7 +1365,7 @@ extern "C" {
         dataProgressListener: OH_Udmf_DataProgressListener,
     );
 }
-extern "C" {
+unsafe extern "C" {
     #[doc = " @brief Sets the acceptable info to the {@OH_UdmfGetDataParams}.\n\n @param params Represents a pointer to an instance of {@link OH_UdmfGetDataParams}.\n @param acceptableInfo Represents a pointer to an instance of {@link OH_UdmfDataLoadInfo}.\n @see OH_UdmfGetDataParams OH_UdmfDataLoadInfo\n @since 20"]
     #[cfg(feature = "api-20")]
     pub fn OH_UdmfGetDataParams_SetAcceptableInfo(
@@ -1373,17 +1373,17 @@ extern "C" {
         acceptableInfo: *mut OH_UdmfDataLoadInfo,
     );
 }
-extern "C" {
+unsafe extern "C" {
     #[doc = " @brief Creation a pointer to the instance of the {@link OH_UdmfDataLoadParams}.\n\n @return If the operation is successful, a pointer to the instance of the {@link OH_UdmfDataLoadParams}\n structure is returned. If the operation is failed, nullptr is returned.\n @see OH_UdmfDataLoadParams\n @since 20"]
     #[cfg(feature = "api-20")]
     pub fn OH_UdmfDataLoadParams_Create() -> *mut OH_UdmfDataLoadParams;
 }
-extern "C" {
+unsafe extern "C" {
     #[doc = " @brief Destroy a pointer that points to an instance of {@link OH_UdmfDataLoadParams}.\n\n @param pThis Represents a pointer to an instance of {@link OH_UdmfDataLoadParams}.\n @see OH_UdmfDataLoadParams\n @since 20"]
     #[cfg(feature = "api-20")]
     pub fn OH_UdmfDataLoadParams_Destroy(pThis: *mut OH_UdmfDataLoadParams);
 }
-extern "C" {
+unsafe extern "C" {
     #[doc = " @brief Sets the data load handler to the {@OH_UdmfDataLoadParams}.\n\n @param params Represents a pointer to an instance of {@link OH_UdmfDataLoadParams}.\n @param dataLoadHandler Represents to the data load handler.\n @see OH_UdmfDataLoadParams OH_Udmf_DataLoadHandler\n @since 20"]
     #[cfg(feature = "api-20")]
     pub fn OH_UdmfDataLoadParams_SetLoadHandler(
@@ -1391,7 +1391,7 @@ extern "C" {
         dataLoadHandler: OH_Udmf_DataLoadHandler,
     );
 }
-extern "C" {
+unsafe extern "C" {
     #[doc = " @brief Sets the data load info to the {@OH_UdmfDataLoadParams}.\n\n @param params Represents a pointer to an instance of {@link OH_UdmfDataLoadParams}.\n @param dataLoadInfo Represents a pointer to an instance of {@link OH_UdmfDataLoadInfo}.\n @see OH_UdmfDataLoadParams OH_UdmfDataLoadInfo\n @since 20"]
     #[cfg(feature = "api-20")]
     pub fn OH_UdmfDataLoadParams_SetDataLoadInfo(
@@ -1399,17 +1399,17 @@ extern "C" {
         dataLoadInfo: *mut OH_UdmfDataLoadInfo,
     );
 }
-extern "C" {
+unsafe extern "C" {
     #[doc = " @brief Creation a pointer to the instance of the {@link OH_UdmfDataLoadInfo}.\n\n @return If the operation is successful, a pointer to the instance of the {@link OH_UdmfDataLoadInfo}\n structure is returned. If the operation is failed, nullptr is returned.\n @see OH_UdmfDataLoadInfo\n @since 20"]
     #[cfg(feature = "api-20")]
     pub fn OH_UdmfDataLoadInfo_Create() -> *mut OH_UdmfDataLoadInfo;
 }
-extern "C" {
+unsafe extern "C" {
     #[doc = " @brief Destroy the heap memory pointed to by the pointer of {@link OH_UdmfDataLoadInfo}.\n Note that this function cannot be called repeatedly for the same pointer.\n\n @param dataLoadInfo Represents a pointer to an instance of {@link OH_UdmfDataLoadInfo}.\n @see OH_UdmfDataLoadInfo\n @since 20"]
     #[cfg(feature = "api-20")]
     pub fn OH_UdmfDataLoadInfo_Destroy(dataLoadInfo: *mut OH_UdmfDataLoadInfo);
 }
-extern "C" {
+unsafe extern "C" {
     #[doc = " @brief Gets the types from the {@OH_UdmfDataLoadInfo}.\n\n @param dataLoadInfo Represents a pointer to an instance of {@link OH_UdmfDataLoadInfo}.\n @param count the types count of data.\n @return Returns the types of data.\n @see OH_UdmfDataLoadInfo\n @since 20"]
     #[cfg(feature = "api-20")]
     pub fn OH_UdmfDataLoadInfo_GetTypes(
@@ -1417,7 +1417,7 @@ extern "C" {
         count: *mut ::std::os::raw::c_uint,
     ) -> *mut *mut ::std::os::raw::c_char;
 }
-extern "C" {
+unsafe extern "C" {
     #[doc = " @brief Sets the data load info to the {@OH_UdmfDataLoadInfo}.\n\n @param dataLoadInfo Represents a pointer to an instance of {@link OH_UdmfDataLoadInfo}.\n @param type Represents the type of data.\n @see OH_UdmfDataLoadInfo\n @since 20"]
     #[cfg(feature = "api-20")]
     pub fn OH_UdmfDataLoadInfo_SetType(
@@ -1425,14 +1425,14 @@ extern "C" {
         type_: *const ::std::os::raw::c_char,
     );
 }
-extern "C" {
+unsafe extern "C" {
     #[doc = " @brief Gets the record count from the {@OH_UdmfDataLoadInfo}.\n\n @param dataLoadInfo Represents a pointer to an instance of {@link OH_UdmfDataLoadInfo}.\n @return Returns the record count.\n @see OH_UdmfDataLoadInfo\n @since 20"]
     #[cfg(feature = "api-20")]
     pub fn OH_UdmfDataLoadInfo_GetRecordCount(
         dataLoadInfo: *mut OH_UdmfDataLoadInfo,
     ) -> ::std::os::raw::c_int;
 }
-extern "C" {
+unsafe extern "C" {
     #[doc = " @brief Sets the record count to the {@OH_UdmfDataLoadInfo}.\n\n @param dataLoadInfo Represents a pointer to an instance of {@link OH_UdmfDataLoadInfo}.\n @param recordCount Represents the types of data.\n @see OH_UdmfDataLoadInfo\n @since 20"]
     #[cfg(feature = "api-20")]
     pub fn OH_UdmfDataLoadInfo_SetRecordCount(
@@ -1480,91 +1480,91 @@ pub type Udmf_ListenerStatus = u32;
 pub struct OH_Utd {
     _unused: [u8; 0],
 }
-extern "C" {
+unsafe extern "C" {
     #[doc = " @brief Prouct a pointer to the instance of the {@link OH_Utd}.\n\n @param typeId Represents type of UTD, reference udmf_meta.h.\n @return If the operation is successful, a pointer to the instance of the {@link OH_Utd}\n structure is returned.If the operation is failed, nullptr is returned.\n Must be destroyed with {@link OH_Utd_DestroyTypeDescriptor} when not needed.\n @see OH_Utd.\n @since 12"]
     pub fn OH_Utd_Create(typeId: *const ::std::os::raw::c_char) -> *mut OH_Utd;
 }
-extern "C" {
+unsafe extern "C" {
     #[doc = " @brief Destroy a pointer that points to the {@link OH_Utd} instance.\n\n @param pThis Represents a pointer to an instance of {@link OH_Utd}.\n @see OH_Utd.\n @since 12"]
     pub fn OH_Utd_Destroy(pThis: *mut OH_Utd);
 }
-extern "C" {
+unsafe extern "C" {
     #[doc = " @brief Get type id from the {@link OH_Utd}.\n\n @param pThis Represents a pointer to an instance of {@link OH_Utd}.\n @return Returns a string pointer when input args normally, otherwise return nullptr.\n @see OH_Utd.\n @since 12"]
     pub fn OH_Utd_GetTypeId(pThis: *mut OH_Utd) -> *const ::std::os::raw::c_char;
 }
-extern "C" {
+unsafe extern "C" {
     #[doc = " @brief Get description from the {@link OH_Utd}.\n\n @param pThis Represents a pointer to an instance of {@link OH_Utd}.\n @return Returns a string pointer when input args normally, otherwise return nullptr.\n @see OH_Utd.\n @since 12"]
     pub fn OH_Utd_GetDescription(pThis: *mut OH_Utd) -> *const ::std::os::raw::c_char;
 }
-extern "C" {
+unsafe extern "C" {
     #[doc = " @brief Get url from the {@link OH_Utd}.\n\n @param pThis Represents a pointer to an instance of {@link OH_Utd}.\n @return Returns a string pointer when input args normally, otherwise return nullptr.\n @see OH_Utd.\n @since 12"]
     pub fn OH_Utd_GetReferenceUrl(pThis: *mut OH_Utd) -> *const ::std::os::raw::c_char;
 }
-extern "C" {
+unsafe extern "C" {
     #[doc = " @brief Get icon file from the {@link OH_Utd}.\n\n @param pThis Represents a pointer to an instance of {@link OH_Utd}.\n @return Returns a string pointer when input args normally, otherwise return nullptr.\n @see OH_Utd.\n @since 12"]
     pub fn OH_Utd_GetIconFile(pThis: *mut OH_Utd) -> *const ::std::os::raw::c_char;
 }
-extern "C" {
+unsafe extern "C" {
     #[doc = " @brief Get belong to type id of the current {@link OH_Utd}.\n\n @param pThis Represents a pointer to an instance of {@link OH_Utd}.\n @param count Represents the return types count.\n @return Returns string array when input args normally, otherwise return nullptr.\n @see OH_Utd.\n @since 12"]
     pub fn OH_Utd_GetBelongingToTypes(
         pThis: *mut OH_Utd,
         count: *mut ::std::os::raw::c_uint,
     ) -> *mut *const ::std::os::raw::c_char;
 }
-extern "C" {
+unsafe extern "C" {
     #[doc = " @brief Get filename extensions of the current {@link OH_Utd}.\n\n @param pThis Represents a pointer to an instance of {@link OH_Utd}.\n @param count Represents the return file extensions count.\n @return Returns string array when input args normally, otherwise return nullptr.\n @see OH_Utd.\n @since 12"]
     pub fn OH_Utd_GetFilenameExtensions(
         pThis: *mut OH_Utd,
         count: *mut ::std::os::raw::c_uint,
     ) -> *mut *const ::std::os::raw::c_char;
 }
-extern "C" {
+unsafe extern "C" {
     #[doc = " @brief Get mime types of the current {@link OH_Utd}.\n\n @param pThis Represents a pointer to an instance of {@link OH_Utd}.\n @param count Represents the mime types count.\n @return Returns string array when input args normally, otherwise return nullptr.\n @see OH_Utd.\n @since 12"]
     pub fn OH_Utd_GetMimeTypes(
         pThis: *mut OH_Utd,
         count: *mut ::std::os::raw::c_uint,
     ) -> *mut *const ::std::os::raw::c_char;
 }
-extern "C" {
+unsafe extern "C" {
     #[doc = " @brief Get type id by file name extension.\n\n @param extension Represents file name extension.\n @param count Represents the types count.\n @return Returns string list of types. Must be destroyed with {@link OH_Utd_DestroyStringList} when not needed.\n @since 12"]
     pub fn OH_Utd_GetTypesByFilenameExtension(
         extension: *const ::std::os::raw::c_char,
         count: *mut ::std::os::raw::c_uint,
     ) -> *mut *const ::std::os::raw::c_char;
 }
-extern "C" {
+unsafe extern "C" {
     #[doc = " @brief Get type id by mime type.\n\n @param mimeType Represents mime type\n @param count Represents the types count.\n @return Returns string list of types. Must be destroyed with {@link OH_Utd_DestroyStringList} when not needed.\n @since 12"]
     pub fn OH_Utd_GetTypesByMimeType(
         mimeType: *const ::std::os::raw::c_char,
         count: *mut ::std::os::raw::c_uint,
     ) -> *mut *const ::std::os::raw::c_char;
 }
-extern "C" {
+unsafe extern "C" {
     #[doc = " @brief Calculate relationships of two types.\n\n @param srcTypeId Represents source type id.\n @param destTypeId Represents target type id.\n @return Returns the status code of the execution.\n         {@code false} Represents srcTypeId not belongs to destTypeId.\n         {@code true} Represents srcTypeId belongs to destTypeId.\n @since 12"]
     pub fn OH_Utd_BelongsTo(
         srcTypeId: *const ::std::os::raw::c_char,
         destTypeId: *const ::std::os::raw::c_char,
     ) -> bool;
 }
-extern "C" {
+unsafe extern "C" {
     #[doc = " @brief Calculate relationships of two types.\n\n @param srcTypeId Represents source type id.\n @param destTypeId Represents target type id.\n @return Returns the status code of the execution.\n         {@code false} Represents srcTypeId not lower level to destTypeId.\n         {@code true} Represents srcTypeId lower level to destTypeId.\n @since 12"]
     pub fn OH_Utd_IsLower(
         srcTypeId: *const ::std::os::raw::c_char,
         destTypeId: *const ::std::os::raw::c_char,
     ) -> bool;
 }
-extern "C" {
+unsafe extern "C" {
     #[doc = " @brief Calculate relationships of two types.\n\n @param srcTypeId Represents source type id.\n @param destTypeId Represents target type id.\n @return Returns the status code of the execution.\n         {@code false} Represents srcTypeId not higher level to destTypeId.\n         {@code true} Represents srcTypeId higher level to destTypeId.\n @since 12"]
     pub fn OH_Utd_IsHigher(
         srcTypeId: *const ::std::os::raw::c_char,
         destTypeId: *const ::std::os::raw::c_char,
     ) -> bool;
 }
-extern "C" {
+unsafe extern "C" {
     #[doc = " @brief Calculate two {@link OH_Utd}s are equal.\n\n @param utd1 Represents a pointer to {@link OH_Utd} instance.\n @param utd2 Represents a pointer to {@link OH_Utd} instance.\n @return Returns the status code of the execution.\n         {@code false} Represents utd1 and utd2 are not equal.\n         {@code true} Represents utd1 and utd2 are equal.\n @since 12"]
     pub fn OH_Utd_Equals(utd1: *mut OH_Utd, utd2: *mut OH_Utd) -> bool;
 }
-extern "C" {
+unsafe extern "C" {
     #[doc = " @brief Destroy string list memory.\n\n @param list Represents a point to string list.\n @param count Represents string count in list.\n @since 12"]
     pub fn OH_Utd_DestroyStringList(
         list: *mut *const ::std::os::raw::c_char,

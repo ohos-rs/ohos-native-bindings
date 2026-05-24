@@ -3,8 +3,8 @@
 use std::{cell::RefCell, os::raw::c_void, rc::Rc};
 
 use crate::{
-    ArkUINode, ArkUINodeAttributeItem, ArkUINodeAttributeNumber, ArkUINodeAttributeType,
-    ArkUIResult, ARK_UI_NATIVE_NODE_API_1,
+    ARK_UI_NATIVE_NODE_API_1, ArkUINode, ArkUINodeAttributeItem, ArkUINodeAttributeNumber,
+    ArkUINodeAttributeType, ArkUIResult,
 };
 
 /// Minimal node access required by all attribute traits.

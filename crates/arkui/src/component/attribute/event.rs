@@ -4,7 +4,7 @@ use std::{cell::RefCell, rc::Rc};
 
 #[cfg(feature = "api-22")]
 use crate::TouchTestInfo;
-use crate::{Event, NodeEventType, ARK_UI_NATIVE_NODE_API_1};
+use crate::{ARK_UI_NATIVE_NODE_API_1, Event, NodeEventType};
 
 use super::ArkUIAttributeBasic;
 

@@ -5,7 +5,7 @@ use ohos_web_sys::{
     OH_ArkWeb_GetNativeAPI,
 };
 
-use crate::{ark_web_member_missing, ArkWebError};
+use crate::{ArkWebError, ark_web_member_missing};
 
 pub struct Controller {
     raw: NonNull<ArkWeb_ControllerAPI>,

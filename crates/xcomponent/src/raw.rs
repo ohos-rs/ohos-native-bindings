@@ -5,7 +5,7 @@ use ohos_xcomponent_sys::{
 };
 use std::os::raw::c_void;
 
-use crate::{code::XComponentResultCode, XComponentOffset, XComponentSize};
+use crate::{XComponentOffset, XComponentSize, code::XComponentResultCode};
 
 #[repr(transparent)]
 #[derive(Debug, Clone, Copy)]

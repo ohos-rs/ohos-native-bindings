@@ -1,11 +1,11 @@
-use std::ffi::{c_void, CString};
+use std::ffi::{CString, c_void};
 
 use ohos_web_sys::OH_ArkWeb_SetSchemeHandler;
 
 use crate::{
+    ARK_WEB_COMPONENT_API, CustomProtocolHandler,
     callback::{OnControllerAttachContext, OnDestroyContext, OnPageBeginContext, OnPageEndContext},
     error::ArkWebError,
-    CustomProtocolHandler, ARK_WEB_COMPONENT_API,
 };
 
 #[derive(Debug, Clone)]

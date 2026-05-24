@@ -7,7 +7,7 @@ use ohos_arkui_sys::*;
 #[cfg(feature = "image")]
 use ohos_image_native_binding::PixelMapNativeHandle;
 
-use crate::{check_arkui_status, ArkUIError, ArkUIHandle, ArkUINode, ArkUIResult};
+use crate::{ArkUIError, ArkUIHandle, ArkUINode, ArkUIResult, check_arkui_status};
 
 use super::DragPreviewOption;
 

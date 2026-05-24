@@ -2,17 +2,17 @@ use std::ffi::c_void;
 
 use ohos_jsvm_sys as sys;
 
-use crate::callback::Callback;
-use crate::convert::FromJsValue;
-use crate::error::{check_status, check_status_with_env, non_null, Result};
-use crate::external::drop_box_finalize;
-use crate::function::Function;
-use crate::object::Object;
-use crate::promise::{create_promise, Deferred, Promise};
-use crate::thread;
 use crate::Reference;
 use crate::TypedArrayType;
 use crate::Value;
+use crate::callback::Callback;
+use crate::convert::FromJsValue;
+use crate::error::{Result, check_status, check_status_with_env, non_null};
+use crate::external::drop_box_finalize;
+use crate::function::Function;
+use crate::object::Object;
+use crate::promise::{Deferred, Promise, create_promise};
+use crate::thread;
 
 #[derive(Debug)]
 pub struct Env {

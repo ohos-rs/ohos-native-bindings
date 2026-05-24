@@ -15,11 +15,11 @@ use ohos_arkui_input_sys::{
     OH_ArkUI_HoverEvent_IsHovered,
 };
 
-#[cfg(feature = "api-15")]
-use crate::ui_input_data::check_status;
 #[cfg(any(feature = "api-15", feature = "api-17"))]
 use crate::ArkUIInputError;
 use crate::ArkUIInputEvent;
+#[cfg(feature = "api-15")]
+use crate::ui_input_data::check_status;
 #[cfg(feature = "api-15")]
 use crate::{UIAxisEventAction, UIFocusAxisEventAbs};
 

@@ -157,12 +157,14 @@ pub fn native_method_with_data() -> Result<String> {
         raw_env: ohos_jsvm_binding::ohos_jsvm_sys::JSVM_Env,
         raw_info: ohos_jsvm_binding::ohos_jsvm_sys::JSVM_CallbackInfo,
     ) -> ohos_jsvm_binding::ohos_jsvm_sys::JSVM_Value {
-        let env = ohos_jsvm_binding::Env::from_borrowed_raw(raw_env).expect("valid env");
-        let info = CallbackInfo::from_raw(raw_info).expect("valid callback info");
-        let value = info.arg::<String>(&env, 0).unwrap_or_default();
-        env.create_string(&format!("native:{value}"))
-            .map(|value| value.as_raw())
-            .unwrap_or(std::ptr::null_mut())
+        unsafe {
+            let env = ohos_jsvm_binding::Env::from_borrowed_raw(raw_env).expect("valid env");
+            let info = CallbackInfo::from_raw(raw_info).expect("valid callback info");
+            let value = info.arg::<String>(&env, 0).unwrap_or_default();
+            env.create_string(&format!("native:{value}"))
+                .map(|value| value.as_raw())
+                .unwrap_or(std::ptr::null_mut())
+        }
     }
 
     with_jsvm(|env| {

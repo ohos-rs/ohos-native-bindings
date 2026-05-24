@@ -3,7 +3,7 @@ use std::ptr::{self, NonNull};
 
 use ohos_jsvm_sys as sys;
 
-use crate::error::{check_status_with_env, non_null, Result};
+use crate::error::{Result, check_status_with_env, non_null};
 use crate::{Env, FromJsValue, Value};
 
 #[derive(Debug)]

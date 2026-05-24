@@ -27,17 +27,17 @@ pub use binary::{
     TypedArrayInfo, TypedArrayType, TypedArrayValue,
 };
 pub use callback::{Callback, CallbackInfo};
-pub use convert::{to_js_values, FromJsValue, ToJsValue};
+pub use convert::{FromJsValue, ToJsValue, to_js_values};
 pub use date::Date;
 pub use either::{
-    Either, Either10, Either11, Either12, Either13, Either14, Either15, Either16, Either17,
-    Either18, Either19, Either20, Either21, Either22, Either23, Either24, Either25, Either26,
-    Either3, Either4, Either5, Either6, Either7, Either8, Either9,
+    Either, Either3, Either4, Either5, Either6, Either7, Either8, Either9, Either10, Either11,
+    Either12, Either13, Either14, Either15, Either16, Either17, Either18, Either19, Either20,
+    Either21, Either22, Either23, Either24, Either25, Either26,
 };
 pub use env::{Env, EnvScope, HandleScope};
 pub use error::{
-    check_status, check_status_with_env, pending_exception, throw_error, throw_range_error,
-    throw_type_error, throw_value, type_mismatch, JsvmError, Result,
+    JsvmError, Result, check_status, check_status_with_env, pending_exception, throw_error,
+    throw_range_error, throw_type_error, throw_value, type_mismatch,
 };
 pub use external::External;
 pub use function::Function;

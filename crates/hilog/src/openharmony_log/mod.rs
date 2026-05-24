@@ -64,7 +64,7 @@
 //! ```
 
 use log::{Log, Metadata, Record};
-use std::ffi::{c_char, CStr, CString};
+use std::ffi::{CStr, CString, c_char};
 use std::fmt;
 use std::mem::MaybeUninit;
 use std::sync::OnceLock;

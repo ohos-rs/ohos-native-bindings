@@ -203,19 +203,21 @@ impl WebSocketOpenResult {
     ///
     /// Any string pointers inside `value` must come from the WebSocket callback and remain valid for this call.
     pub unsafe fn from_raw(value: WebSocket_OpenResult) -> Result<Self> {
-        Ok(Self {
-            code: value.code,
-            reason: if value.reason.is_null() {
-                None
-            } else {
-                Some(
-                    CStr::from_ptr(value.reason)
-                        .to_str()
-                        .map_err(|_| NetStackError::Conversion)?
-                        .to_owned(),
-                )
-            },
-        })
+        unsafe {
+            Ok(Self {
+                code: value.code,
+                reason: if value.reason.is_null() {
+                    None
+                } else {
+                    Some(
+                        CStr::from_ptr(value.reason)
+                            .to_str()
+                            .map_err(|_| NetStackError::Conversion)?
+                            .to_owned(),
+                    )
+                },
+            })
+        }
     }
 }
 
@@ -232,19 +234,21 @@ impl WebSocketErrorResult {
     ///
     /// Any string pointers inside `value` must come from the WebSocket callback and remain valid for this call.
     pub unsafe fn from_raw(value: WebSocket_ErrorResult) -> Result<Self> {
-        Ok(Self {
-            error_code: value.errorCode,
-            error_message: if value.errorMessage.is_null() {
-                None
-            } else {
-                Some(
-                    CStr::from_ptr(value.errorMessage)
-                        .to_str()
-                        .map_err(|_| NetStackError::Conversion)?
-                        .to_owned(),
-                )
-            },
-        })
+        unsafe {
+            Ok(Self {
+                error_code: value.errorCode,
+                error_message: if value.errorMessage.is_null() {
+                    None
+                } else {
+                    Some(
+                        CStr::from_ptr(value.errorMessage)
+                            .to_str()
+                            .map_err(|_| NetStackError::Conversion)?
+                            .to_owned(),
+                    )
+                },
+            })
+        }
     }
 }
 
@@ -261,18 +265,20 @@ impl WebSocketCloseResult {
     ///
     /// Any string pointers inside `value` must come from the WebSocket callback and remain valid for this call.
     pub unsafe fn from_raw(value: WebSocket_CloseResult) -> Result<Self> {
-        Ok(Self {
-            code: value.code,
-            reason: if value.reason.is_null() {
-                None
-            } else {
-                Some(
-                    CStr::from_ptr(value.reason)
-                        .to_str()
-                        .map_err(|_| NetStackError::Conversion)?
-                        .to_owned(),
-                )
-            },
-        })
+        unsafe {
+            Ok(Self {
+                code: value.code,
+                reason: if value.reason.is_null() {
+                    None
+                } else {
+                    Some(
+                        CStr::from_ptr(value.reason)
+                            .to_str()
+                            .map_err(|_| NetStackError::Conversion)?
+                            .to_owned(),
+                    )
+                },
+            })
+        }
     }
 }

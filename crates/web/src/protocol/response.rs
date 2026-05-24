@@ -4,12 +4,12 @@ use std::{
 };
 
 use ohos_web_sys::{
-    ArkWeb_Response, OH_ArkWebResponse_GetCharset, OH_ArkWebResponse_GetError,
-    OH_ArkWebResponse_GetHeaderByName, OH_ArkWebResponse_GetMimeType, OH_ArkWebResponse_GetStatus,
-    OH_ArkWebResponse_GetStatusText, OH_ArkWebResponse_GetUrl, OH_ArkWebResponse_SetCharset,
-    OH_ArkWebResponse_SetError, OH_ArkWebResponse_SetHeaderByName, OH_ArkWebResponse_SetMimeType,
-    OH_ArkWebResponse_SetStatus, OH_ArkWebResponse_SetStatusText, OH_ArkWebResponse_SetUrl,
-    OH_ArkWeb_CreateResponse,
+    ArkWeb_Response, OH_ArkWeb_CreateResponse, OH_ArkWebResponse_GetCharset,
+    OH_ArkWebResponse_GetError, OH_ArkWebResponse_GetHeaderByName, OH_ArkWebResponse_GetMimeType,
+    OH_ArkWebResponse_GetStatus, OH_ArkWebResponse_GetStatusText, OH_ArkWebResponse_GetUrl,
+    OH_ArkWebResponse_SetCharset, OH_ArkWebResponse_SetError, OH_ArkWebResponse_SetHeaderByName,
+    OH_ArkWebResponse_SetMimeType, OH_ArkWebResponse_SetStatus, OH_ArkWebResponse_SetStatusText,
+    OH_ArkWebResponse_SetUrl,
 };
 
 use crate::{

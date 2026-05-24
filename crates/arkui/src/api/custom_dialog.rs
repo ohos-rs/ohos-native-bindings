@@ -10,7 +10,7 @@ use ohos_arkui_input_binding::ArkUIErrorCode;
 use ohos_arkui_sys::*;
 use ohos_enum_derive::EnumFrom;
 
-use crate::{check_arkui_status, ArkUIError, ArkUIResult, DismissReason};
+use crate::{ArkUIError, ArkUIResult, DismissReason, check_arkui_status};
 
 fn non_null_or_panic<T>(ptr: *mut T, name: &'static str) -> NonNull<T> {
     NonNull::new(ptr).unwrap_or_else(|| panic!("{name} pointer is null"))
@@ -741,7 +741,7 @@ fn take_custom_dialog_id_callback_slot(slot_index: usize) -> Option<usize> {
 }
 
 macro_rules! define_custom_dialog_id_callback_trampoline {
-    ($name:ident, $slot:expr) => {
+    ($name:ident, $slot:expr_2021) => {
         unsafe extern "C" fn $name(dialog_id: i32) {
             let callback = take_custom_dialog_id_callback_slot($slot);
             let Some(callback) = callback else {

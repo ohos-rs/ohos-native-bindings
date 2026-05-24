@@ -451,38 +451,38 @@ pub const ArkUI_TouchTestStrategy_ARKUI_TOUCH_TEST_STRATEGY_FORWARD: ArkUI_Touch
 #[doc = " @brief Define the touch test strategy.\n\n @since 22"]
 #[cfg(feature = "api-22")]
 pub type ArkUI_TouchTestStrategy = u32;
-extern "C" {
+unsafe extern "C" {
     #[doc = " @brief Obtains the type of a UI input event.\n\n Before accessing an <b>ArkUI_UIInputEvent</b> pointer, use this API to determine the type of the input event.\n This API returns a value from the {@link ArkUI_UIInputEvent_Type} enum. It helps ensure compatibility with subsequent\n accessors. For example, if the event is a touch event,\n which is directional, you can use OH_ArkUI_UIInputEvent_GetXXX or OH_ArkUI_PointerEvent_GetXXX for access.\n Using OH_ArkUI_KeyEvent_GetXXX to access the event may produce undefined behavior.\n\n For unsupported event types, this API returns the default value <b>0</b>.\n\n @param event Pointer to the current UI input event.\n @return Returns the type of the current UI input event; returns <b>0</b> if any parameter error occurs.\n @since 12"]
     pub fn OH_ArkUI_UIInputEvent_GetType(event: *const ArkUI_UIInputEvent) -> i32;
 }
-extern "C" {
+unsafe extern "C" {
     #[doc = " @brief Obtains the action type of this UI input event.\n\n The action type defines the phase of a basic event (for example, start or end) and characterizes its behavior,\n such as touch down or touch up Action types are specific to the event category:\n UI_TOUCH_EVENT_ACTION_XXX for touch events and UI_MOUSE_EVENT_ACTION_XXX for mouse events.\n\n @note\n 1. For axis events, use {@link OH_ArkUI_AxisEvent_GetAxisAction} to obtain the action type,\n    which returns UI_AXIS_EVENT_ACTION_XXX.\n 2. For key events, use {@link OH_ArkUI_KeyEvent_GetType} instead.\n\n @param event Pointer to the current UI input event.\n @return Returns the action type of the current UI input event; returns <b>-1</b> if any parameter error occurs.\n @since 12"]
     pub fn OH_ArkUI_UIInputEvent_GetAction(event: *const ArkUI_UIInputEvent) -> i32;
 }
-extern "C" {
+unsafe extern "C" {
     #[doc = " @brief Obtains the source type of a UI input event.\n\n The source represents the physical device, such as a touchscreen or mouse device, that generates the event.\n It is defined by the UI_INPUT_EVENT_SOURCE_TYPE_XXX enum.\n This is different from the input tool, which is the device used to interact with the source, for example,\n a finger or stylus. However, in certain cases, the input source and the input tool can be the same.\n For example, a mouse device acts as both the source and tool for click events.\n\n @note For key events, obtaining the source type is not supported, and in such cases,\n       the API will return an <b>unknown</b> value.\n\n @param event Pointer to the current UI input event.\n @return Returns the source type of the current UI input event.\n @since 12"]
     pub fn OH_ArkUI_UIInputEvent_GetSourceType(event: *const ArkUI_UIInputEvent) -> i32;
 }
-extern "C" {
+unsafe extern "C" {
     #[doc = " @brief Obtains the tool type of a UI input event.\n\n The input tool is the device used to interact with the input source, such as a finger or stylus.\n It is defined by the UI_INPUT_EVENT_TOOL_TYPE_XXX enum.\n These tools do not produce events directly but drive the input source to generate them.\n\n @note For key events, obtaining the tool type is not supported, and in such cases,\n       the API will return an <b>unknown</b> value.\n\n @param event Pointer to the current UI input event.\n @return Returns the tool type of the current UI input event.\n @since 12"]
     pub fn OH_ArkUI_UIInputEvent_GetToolType(event: *const ArkUI_UIInputEvent) -> i32;
 }
-extern "C" {
+unsafe extern "C" {
     #[doc = " @brief Obtains the time when this UI input event occurs.\n\n @param event Indicates the pointer to the current UI input event.\n @return Returns the time when the UI input event occurs; returns <b>0</b> if any parameter error occurs.\n @since 12"]
     pub fn OH_ArkUI_UIInputEvent_GetEventTime(event: *const ArkUI_UIInputEvent) -> i64;
 }
-extern "C" {
+unsafe extern "C" {
     #[doc = " @brief Obtains the number of contact points from a pointer event (such as a touch, mouse, or axis event).\n\n Pointer events are typically events that carry position information, such as touch events,\n where the location of the event can be determined.\n Non-pointer events, such as key events, do not have position information and do not involve contact points,\n so this API is not applicable to key events.\n\n For touch events, this API returns the number of active touch points, for example, fingers on the screen.\n For mouse and axis events, this API always returns <b>1</b>, as they are single-pointer interactions.\n\n @param event Pointer to the current UI input event.\n @return Number of contact points for the current pointer event.\n @since 12"]
     pub fn OH_ArkUI_PointerEvent_GetPointerCount(event: *const ArkUI_UIInputEvent) -> u32;
 }
-extern "C" {
+unsafe extern "C" {
     #[doc = " @brief Obtains the unique ID of a contact point from a pointer event (such as a touch, mouse, or axis event).\n\n The ID distinguishes between multiple contact points from the same input device. The return value itself does not\n have any other meaning beyond identifying the contact point.\n\n @param event Pointer to the current UI input event.\n @param pointerIndex Index of the target contact point in the contact point list.\n @return Unique ID of the specified contact point.\n @since 12"]
     pub fn OH_ArkUI_PointerEvent_GetPointerId(
         event: *const ArkUI_UIInputEvent,
         pointerIndex: u32,
     ) -> i32;
 }
-extern "C" {
+unsafe extern "C" {
     #[doc = " @brief Obtains the ID of the touch pointer that triggers the current touch event.\n\n @param event Indicates the pointer to the current UI input event.\n @param pointerIndex Indicates the index of the target touch point in the multi-touch data list.\n @return Returns the result code.\n         Returns {@link ARKUI_ERROR_CODE_NO_ERROR} if the operation is successful.\n         Returns {@link ARKUI_ERROR_CODE_PARAM_INVALID} if a parameter error occurs.\n @since 15"]
     #[cfg(feature = "api-15")]
     pub fn OH_ArkUI_PointerEvent_GetChangedPointerId(
@@ -490,78 +490,78 @@ extern "C" {
         pointerIndex: *mut u32,
     ) -> i32;
 }
-extern "C" {
+unsafe extern "C" {
     #[doc = " @brief Obtains the X coordinate relative to the upper left corner of the current component from a directional\n input event (such as a touch event, mouse event, or axis event).\n\n @param event Indicates the pointer to the directional input event.\n @return Returns the X coordinate relative to the upper left corner of the current component;\n returns <b>0</b> if any parameter error occurs.\n @since 12"]
     pub fn OH_ArkUI_PointerEvent_GetX(event: *const ArkUI_UIInputEvent) -> f32;
 }
-extern "C" {
+unsafe extern "C" {
     #[doc = " @brief Obtains the X coordinate of a specific contact point relative to the upper left corner of the current\n component from a pointer event (such as a touch, mouse, or axis event).\n For mouse and axis events, this API returns the default value of <b>0.0f</b> if the given index is greater than 0.\n\n @param event Pointer to the current UI input event.\n @param pointerIndex Index of the target contact point in the contact point list.\n @return Returns the X coordinate relative to the upper left corner of the current component;\n returns <b>0.0f</b> if any parameter error occurs.\n @since 12"]
     pub fn OH_ArkUI_PointerEvent_GetXByIndex(
         event: *const ArkUI_UIInputEvent,
         pointerIndex: u32,
     ) -> f32;
 }
-extern "C" {
+unsafe extern "C" {
     #[doc = " @brief Obtains the Y coordinate relative to the upper left corner of the current component from a directional\n input event (such as a touch event, mouse event, or axis event).\n\n @param event Indicates the pointer to the UI input event.\n @return Returns the Y coordinate relative to the upper left corner of the current component;\n returns <b>0.0f</b> if any parameter error occurs.\n @since 12"]
     pub fn OH_ArkUI_PointerEvent_GetY(event: *const ArkUI_UIInputEvent) -> f32;
 }
-extern "C" {
+unsafe extern "C" {
     #[doc = " @brief Obtains the Y coordinate of a specific contact point relative to the upper left corner of the current\n component from a pointer event (such as a touch, mouse, or axis event).\n For mouse and axis events, this API returns the default value of <b>0.0f</b> if the given index is greater than 0.\n\n @param event Pointer to the current UI input event.\n @param pointerIndex Index of the target contact point in the contact point list.\n @return Y coordinate relative to the upper left corner of the current component;\n         <b>0.0f</b> if any parameter error occurs.\n @since 12"]
     pub fn OH_ArkUI_PointerEvent_GetYByIndex(
         event: *const ArkUI_UIInputEvent,
         pointerIndex: u32,
     ) -> f32;
 }
-extern "C" {
+unsafe extern "C" {
     #[doc = " @brief Obtains the X coordinate relative to the upper left corner of the current application window from a\n directional input event (such as a touch event, mouse event, or axis event).\n\n @param event Indicates the pointer to the UI input event.\n @return Returns the X coordinate relative to the upper left corner of the current application window;\n returns <b>0.0f</b> if any parameter error occurs.\n @since 12"]
     pub fn OH_ArkUI_PointerEvent_GetWindowX(event: *const ArkUI_UIInputEvent) -> f32;
 }
-extern "C" {
+unsafe extern "C" {
     #[doc = " @brief Obtains the X coordinate of a specific contact point relative to the upper left corner of the current\n application window from a pointer event (such as a touch, mouse, or axis event).\n For mouse and axis events, this API returns the default value of <b>0.0f</b> if the given index is greater than 0.\n\n @param event Pointer to the current UI input event.\n @param pointerIndex Index of the target contact point in the contact point list.\n @return X coordinate relative to the upper left corner of the current application window;\n         <b>0.0f</b> if any parameter error occurs.\n @since 12"]
     pub fn OH_ArkUI_PointerEvent_GetWindowXByIndex(
         event: *const ArkUI_UIInputEvent,
         pointerIndex: u32,
     ) -> f32;
 }
-extern "C" {
+unsafe extern "C" {
     #[doc = " @brief Obtains the Y coordinate relative to the upper left corner of the current application window from a\n directional input event (such as a touch event, mouse event, or axis event).\n\n @param event Indicates the pointer to the UI input event.\n @return Returns the Y coordinate relative to the upper left corner of the current application window;\n returns <b>0.0f</b> if any parameter error occurs.\n @since 12"]
     pub fn OH_ArkUI_PointerEvent_GetWindowY(event: *const ArkUI_UIInputEvent) -> f32;
 }
-extern "C" {
+unsafe extern "C" {
     #[doc = " @brief Obtains the Y coordinate of a specific contact point relative to the upper left corner of the current\n application window from a pointer event (such as a touch, mouse, or axis event).\n For mouse and axis events, this API returns the default value of <b>0.0f</b> if the given index is greater than 0.\n\n @param event Pointer to the current UI input event.\n @param pointerIndex Index of the target contact point in the contact point list.\n @return Returns the Y coordinate relative to the upper left corner of the current application window;\n returns <b>0.0f</b> if any parameter error occurs.\n @since 12"]
     pub fn OH_ArkUI_PointerEvent_GetWindowYByIndex(
         event: *const ArkUI_UIInputEvent,
         pointerIndex: u32,
     ) -> f32;
 }
-extern "C" {
+unsafe extern "C" {
     #[doc = " @brief Obtains the X coordinate relative to the upper left corner of the current screen from a directional input\n event (such as a touch event, mouse event, or axis event).\n\n @param event Indicates the pointer to the UI input event.\n @return Returns the X coordinate relative to the upper left corner of the current screen;\n returns <b>0.0f</b> if any parameter error occurs.\n @since 12"]
     pub fn OH_ArkUI_PointerEvent_GetDisplayX(event: *const ArkUI_UIInputEvent) -> f32;
 }
-extern "C" {
+unsafe extern "C" {
     #[doc = " @brief Obtains the X coordinate of a specific contact point relative to the upper left corner of the current screen\n from a pointer event (such as a touch, mouse, or axis event).\n For mouse and axis events, this API returns the default value of <b>0.0f</b> if the given index is greater than 0.\n\n @param event Pointer to the current UI input event.\n @param pointerIndex Index of the target contact point in the contact point list.\n @return Returns the X coordinate relative to the upper left corner of the current screen;\n returns <b>0.0f</b> if any parameter error occurs.\n @since 12"]
     pub fn OH_ArkUI_PointerEvent_GetDisplayXByIndex(
         event: *const ArkUI_UIInputEvent,
         pointerIndex: u32,
     ) -> f32;
 }
-extern "C" {
+unsafe extern "C" {
     #[doc = " @brief Obtains the Y coordinate relative to the upper left corner of the current screen from a directional input\n event (such as a touch event, mouse event, or axis event).\n\n @param event Indicates the pointer to the UI input event.\n @return Returns the Y coordinate relative to the upper left corner of the current screen;\n returns <b>0.0f</b> if any parameter error occurs.\n @since 12"]
     pub fn OH_ArkUI_PointerEvent_GetDisplayY(event: *const ArkUI_UIInputEvent) -> f32;
 }
-extern "C" {
+unsafe extern "C" {
     #[doc = " @brief Obtains the Y coordinate of a specific touch point relative to the upper left corner of the current screen\n from a pointer event (such as a touch event, mouse event, or axis event).\n\n @param event Pointer to the current UI input event.\n @param pointerIndex Index of the target contact point in the contact point list.\n @return Returns the Y coordinate relative to the upper left corner of the current screen;\n returns <b>0.0f</b> if any parameter error occurs.\n @since 12"]
     pub fn OH_ArkUI_PointerEvent_GetDisplayYByIndex(
         event: *const ArkUI_UIInputEvent,
         pointerIndex: u32,
     ) -> f32;
 }
-extern "C" {
+unsafe extern "C" {
     #[doc = " @brief Obtains the X coordinate relative to global display from a pointer event (such as a touch, mouse,\n or axis event).\n Position information can only be obtained from UI input events.\n\n @param event Pointer to the current UI input event.\n @return float X coordinate relative to the global display. <b>0</b> is returned if any parameter error occurs\n (for example, if the event does not contain position information).\n @since 20"]
     #[cfg(feature = "api-20")]
     pub fn OH_ArkUI_PointerEvent_GetGlobalDisplayX(event: *const ArkUI_UIInputEvent) -> f32;
 }
-extern "C" {
+unsafe extern "C" {
     #[doc = " @brief Obtains the X coordinate of a specific contact point relative to global display from a pointer event\n (such as a touch, mouse, or axis event).\n Position information can only be obtained from UI input events. For mouse and axis events, if the provided\n <b>pointerIndex</b> is greater than 0, this API always returns the default value <b>0.0f</b>.\n\n @param event Pointer to the current UI input event.\n @param pointerIndex Index of the target touch point in the multi-touch data list.\nValue range: [0, @link OH_ArkUI_PointerEvent_GetPointerCount() - 1]\n @return float X coordinate relative to the global display; <b>0.0f</b> if any parameter error occurs.\n @since 20"]
     #[cfg(feature = "api-20")]
     pub fn OH_ArkUI_PointerEvent_GetGlobalDisplayXByIndex(
@@ -569,12 +569,12 @@ extern "C" {
         pointerIndex: u32,
     ) -> f32;
 }
-extern "C" {
+unsafe extern "C" {
     #[doc = " @brief Obtains the Y coordinate relative to global display from a pointer event (such as a touch, mouse,\n or axis event).\n Position information can only be obtained from pointer-like events.\n\n @param event Pointer to the current UI input event.\n @return float Y coordinate relative to the global display; <b>0</b> if any parameter error occurs\n (for example, if the event does not contain position information).\n @since 20"]
     #[cfg(feature = "api-20")]
     pub fn OH_ArkUI_PointerEvent_GetGlobalDisplayY(event: *const ArkUI_UIInputEvent) -> f32;
 }
-extern "C" {
+unsafe extern "C" {
     #[doc = " @brief Obtains the Y coordinate of a specific contact point relative to global display from a pointer event\n (such as a touch, mouse, or axis event).\n Position information can only be obtained from UI input events. For mouse and axis events, if the provided\n <b>pointerIndex</b> is greater than 0, this API always returns the default value <b>0.0f</b>.\n\n @param event Pointer to the current UI input event.\n @param pointerIndex Index of the target touch point in the multi-touch data list.\nValue range: [0, @link OH_ArkUI_PointerEvent_GetPointerCount() - 1]\n @return float Y coordinate relative to the global display; <b>0.0f</b> if any parameter error occurs.\n @since 20"]
     #[cfg(feature = "api-20")]
     pub fn OH_ArkUI_PointerEvent_GetGlobalDisplayYByIndex(
@@ -582,28 +582,28 @@ extern "C" {
         pointerIndex: u32,
     ) -> f32;
 }
-extern "C" {
+unsafe extern "C" {
     #[doc = " @brief Obtains the pressure applied to the touchscreen from a directional input event (for example, a touch event).\n\n @param event Indicates the pointer to the current UI input event.\n @param pointerIndex Indicates the index of the target touch point in the multi-touch data list.\n @return Returns the pressure applied to the touchscreen; returns <b>0.0f</b> if any parameter error occurs.\n @since 12"]
     pub fn OH_ArkUI_PointerEvent_GetPressure(
         event: *const ArkUI_UIInputEvent,
         pointerIndex: u32,
     ) -> f32;
 }
-extern "C" {
+unsafe extern "C" {
     #[doc = " @brief Obtains the tilt angle relative to the YZ plane from a pointer event.\n The value range is [-90, 90], where positive values indicate a rightward tilt.\n This API is applicable only to stylus-based touch events from devices that support tilt angle reporting.\n\n @param event Pointer to the current UI input event.\n @param pointerIndex Index of the target contact point in the contact point list.\n @return Returns the angle relative to the YZ plane.\n @since 12"]
     pub fn OH_ArkUI_PointerEvent_GetTiltX(
         event: *const ArkUI_UIInputEvent,
         pointerIndex: u32,
     ) -> f32;
 }
-extern "C" {
+unsafe extern "C" {
     #[doc = " @brief Obtains the tilt angle relative to the XZ plane from a pointer event.\n The value range is [-90, 90], where positive values indicate a rightward tilt.\n This API is applicable only to stylus-based touch events from devices that support tilt angle reporting.\n\n @param event Pointer to the current UI input event.\n @param pointerIndex Index of the target contact point in the contact point list.\n @return Returns the angle relative to the XZ plane.\n @since 12"]
     pub fn OH_ArkUI_PointerEvent_GetTiltY(
         event: *const ArkUI_UIInputEvent,
         pointerIndex: u32,
     ) -> f32;
 }
-extern "C" {
+unsafe extern "C" {
     #[doc = " @brief Obtains the rotation angle of the stylus around the z-axis from a UI input event.\n\n @param event Pointer to the UI input event.\n @param rollAngle Rotation angle of the stylus around the z-axis.\n @return Returns the result code.\n         Returns {@link ARKUI_ERROR_CODE_NO_ERROR} if the operation is successful.\n         Returns {@link ARKUI_ERROR_CODE_PARAM_INVALID} if a parameter error occurs.\n @since 17"]
     #[cfg(feature = "api-17")]
     pub fn OH_ArkUI_PointerEvent_GetRollAngle(
@@ -611,21 +611,21 @@ extern "C" {
         rollAngle: *mut f64,
     ) -> i32;
 }
-extern "C" {
+unsafe extern "C" {
     #[doc = " @brief Obtains the width of the contact area for a pointer event. This API is applicable only to finger-based touch\n events, and the return value typically represents the radius of a circular touch area.\n\n @param event Pointer to the current UI input event.\n @param pointerIndex Index of the target contact point in the contact point list.\n @return Returns the width of the touch area.\n @since 12"]
     pub fn OH_ArkUI_PointerEvent_GetTouchAreaWidth(
         event: *const ArkUI_UIInputEvent,
         pointerIndex: u32,
     ) -> f32;
 }
-extern "C" {
+unsafe extern "C" {
     #[doc = " @brief Obtains the height of the contact area for a pointer event. This API is applicable only to finger-based touch\n events, and the return value typically represents the radius of a circular touch area.\n\n @param event Pointer to the current UI input event.\n @param pointerIndex Index of the target contact point in the contact point list.\n @return Returns the height of the touch area.\n @since 12"]
     pub fn OH_ArkUI_PointerEvent_GetTouchAreaHeight(
         event: *const ArkUI_UIInputEvent,
         pointerIndex: u32,
     ) -> f32;
 }
-extern "C" {
+unsafe extern "C" {
     #[doc = " @brief Checks whether an event is triggered by the user's left or right hand.\n This API is only effective on some touch devices.\n\n @note This value cannot be obtained in real time when pressed. Before the\n system completes result inference, it will return <b>NONE</b> by default. Therefore,\n please do not over-rely on the results returned by this interface.\n\n @param event Pointer to the current UI input event.\n @param hand Whether the touch point is from the left or right hand.\n @return Result code.\n         {@link ARKUI_ERROR_CODE_NO_ERROR} if the operation is successful.\n         {@link ARKUI_ERROR_CODE_PARAM_INVALID} if a parameter error occurs.\n @since 15"]
     #[cfg(feature = "api-15")]
     pub fn OH_ArkUI_PointerEvent_GetInteractionHand(
@@ -633,7 +633,7 @@ extern "C" {
         hand: *mut ArkUI_InteractionHand,
     ) -> i32;
 }
-extern "C" {
+unsafe extern "C" {
     #[doc = " @brief Checks whether an event is triggered by the user's left or right hand.\n This API is only effective on some touch devices.\n\n @note This value cannot be obtained in real time when pressed. Before the\n system completes result inference, it will return <b>NONE</b> by default. Therefore,\n please do not over-rely on the results returned by this interface.\n\n @param event Pointer to the current UI input event.\n @param pointerIndex Index of the target touch point in the multi-touch data list.\n @param hand Whether the touch point is from the left or right hand.\n @return Result code.\n         {@link ARKUI_ERROR_CODE_NO_ERROR} if the operation is successful.\n         {@link ARKUI_ERROR_CODE_PARAM_INVALID} if a parameter error occurs.\n @since 15"]
     #[cfg(feature = "api-15")]
     pub fn OH_ArkUI_PointerEvent_GetInteractionHandByIndex(
@@ -642,25 +642,25 @@ extern "C" {
         hand: *mut ArkUI_InteractionHand,
     ) -> i32;
 }
-extern "C" {
+unsafe extern "C" {
     #[doc = " @brief Obtains the number of historical events from a pointer event (such as a touch event).\n Historical events are the raw events that occur between the current event and the previous event.\n This API is applicable only to move events.\n\n @param event Pointer to the current UI input event.\n @return Returns the number of historical events.\n @since 12"]
     pub fn OH_ArkUI_PointerEvent_GetHistorySize(event: *const ArkUI_UIInputEvent) -> u32;
 }
-extern "C" {
+unsafe extern "C" {
     #[doc = " @brief Obtains the occurrence time of a historical event from a directional input event (such as a touch event,\n mouse event, or axis event).\n\n @param event Indicates the pointer to the current UI input event.\n @param historyIndex Indicates the index of the target historical event.\n @return Returns the time when the UI input event occurs; returns <b>0</b> if any parameter error occurs.\n @since 12"]
     pub fn OH_ArkUI_PointerEvent_GetHistoryEventTime(
         event: *const ArkUI_UIInputEvent,
         historyIndex: u32,
     ) -> i64;
 }
-extern "C" {
+unsafe extern "C" {
     #[doc = " @brief Obtains the number of touch points in a specific historical event from a directional input event (such as\n a touch event, mouse event, or axis event).\n\n @param event Indicates the pointer to the current UI input event.\n @param historyIndex Indicates the index of the target historical event.\n @return Returns the number of touch points in the specified historical event\n @since 12"]
     pub fn OH_ArkUI_PointerEvent_GetHistoryPointerCount(
         event: *const ArkUI_UIInputEvent,
         historyIndex: u32,
     ) -> u32;
 }
-extern "C" {
+unsafe extern "C" {
     #[doc = " @brief Obtains the unique ID of a contact point from a historical event of a pointer event (such as a touch event).\n\n The ID distinguishes between multiple contact points from the same input device.\n The return value itself does not have any other meaning beyond identifying the contact point.\n\n @param event Pointer to the current UI input event.\n @param pointerIndex Index of the target contact point in the contact point list.\n @param historyIndex Index of the target historical event.\n @return Returns the ID of the corresponding touch point in the specified historical event.\n @since 12"]
     pub fn OH_ArkUI_PointerEvent_GetHistoryPointerId(
         event: *const ArkUI_UIInputEvent,
@@ -668,7 +668,7 @@ extern "C" {
         historyIndex: u32,
     ) -> i32;
 }
-extern "C" {
+unsafe extern "C" {
     #[doc = " @brief Obtains the X coordinate of a specific touch point in a historical event relative to the upper left corner\n of the current component from a directional input event (such as a touch event, mouse event, or axis event).\n\n @param event Indicates the pointer to the current UI input event.\n @param pointerIndex Indicates the index of the target touch point in the multi-touch data list.\n @param historyIndex Indicates the index of the target historical event.\n @return Returns the X coordinate relative to the upper left corner of the current component;\n returns <b>0.0f</b> if any parameter error occurs.\n @since 12"]
     pub fn OH_ArkUI_PointerEvent_GetHistoryX(
         event: *const ArkUI_UIInputEvent,
@@ -676,7 +676,7 @@ extern "C" {
         historyIndex: u32,
     ) -> f32;
 }
-extern "C" {
+unsafe extern "C" {
     #[doc = " @brief Obtains the Y coordinate of a specific touch point in a historical event relative to the upper left corner\n of the current component from a directional input event (such as a touch event, mouse event, or axis event).\n\n @param event Indicates the pointer to the current UI input event.\n @param pointerIndex Indicates the index of the target touch point in the multi-touch data list.\n @param historyIndex Indicates the index of the target historical event.\n @return Returns the Y coordinate relative to the upper left corner of the current component;\n returns <b>0.0f</b> if any parameter error occurs.\n @since 12"]
     pub fn OH_ArkUI_PointerEvent_GetHistoryY(
         event: *const ArkUI_UIInputEvent,
@@ -684,7 +684,7 @@ extern "C" {
         historyIndex: u32,
     ) -> f32;
 }
-extern "C" {
+unsafe extern "C" {
     #[doc = " @brief Obtains the X coordinate of a specific touch point in a historical event relative to the upper left corner\n of the current application window from a directional input event (such as a touch event, mouse event, or axis event).\n\n @param event Indicates the pointer to the current UI input event.\n @param pointerIndex Indicates the index of the target touch point in the multi-touch data list.\n @param historyIndex Indicates the index of the target historical event.\n @return Returns the X coordinate relative to the upper left corner of the current application window;\n returns <b>0.0f</b> if any parameter error occurs.\n @since 12"]
     pub fn OH_ArkUI_PointerEvent_GetHistoryWindowX(
         event: *const ArkUI_UIInputEvent,
@@ -692,7 +692,7 @@ extern "C" {
         historyIndex: u32,
     ) -> f32;
 }
-extern "C" {
+unsafe extern "C" {
     #[doc = " @brief Obtains the Y coordinate of a specific touch point in a historical event relative to the upper left corner\n of the current application window from a directional input event (such as a touch event, mouse event, or axis event).\n\n @param event Indicates the pointer to the current UI input event.\n @param pointerIndex Indicates the index of the target touch point in the multi-touch data list.\n @param historyIndex Indicates the index of the target historical event.\n @return Returns the Y coordinate relative to the upper left corner of the current application window;\n returns <b>0.0f</b> if any parameter error occurs.\n @since 12"]
     pub fn OH_ArkUI_PointerEvent_GetHistoryWindowY(
         event: *const ArkUI_UIInputEvent,
@@ -700,7 +700,7 @@ extern "C" {
         historyIndex: u32,
     ) -> f32;
 }
-extern "C" {
+unsafe extern "C" {
     #[doc = " @brief Obtains the X coordinate of a specific touch point in a historical event relative to the upper left corner\n of the current screen from a directional input event (such as a touch event, mouse event, or axis event).\n\n @param event Indicates the pointer to the current UI input event.\n @param pointerIndex Indicates the index of the target touch point in the multi-touch data list.\n @param historyIndex Indicates the index of the target historical event.\n @return Returns the X coordinate relative to the upper left corner of the current screen;\n returns <b>0.0f</b> if any parameter error occurs.\n @since 12"]
     pub fn OH_ArkUI_PointerEvent_GetHistoryDisplayX(
         event: *const ArkUI_UIInputEvent,
@@ -708,7 +708,7 @@ extern "C" {
         historyIndex: u32,
     ) -> f32;
 }
-extern "C" {
+unsafe extern "C" {
     #[doc = " @brief Obtains the Y coordinate of a specific touch point in a historical event relative to the upper left corner\n of the current screen from a directional input event (such as a touch event, mouse event, or axis event).\n\n @param event Indicates the pointer to the current UI input event.\n @param pointerIndex Indicates the index of the target touch point in the multi-touch data list.\n @param historyIndex Indicates the index of the target historical event.\n @return Returns the Y coordinate relative to the upper left corner of the current screen;\n returns <b>0.0f</b> if any parameter error occurs.\n @since 12"]
     pub fn OH_ArkUI_PointerEvent_GetHistoryDisplayY(
         event: *const ArkUI_UIInputEvent,
@@ -716,7 +716,7 @@ extern "C" {
         historyIndex: u32,
     ) -> f32;
 }
-extern "C" {
+unsafe extern "C" {
     #[doc = " @brief Obtains the X coordinate relative to the global display for a specific touch point from historical events,\n based on the given pointer index and history index of an input event (such as a touch, mouse, or axis event).\n Position information can only be obtained from UI input events. For mouse and axis events, if the provided\n <b>pointerIndex</b> is greater than 0, this API always returns the default value <b>0.0f</b>.\n\n @param event Pointer to the current UI input event.\n @param pointerIndex Index of the target touch point in the multi-touch data list.\nValue range: [0, @link OH_ArkUI_PointerEvent_GetPointerCount() - 1]\n @param historyIndex Index of the historical value to return. It must be less than\n {@link #OH_ArkUI_PointerEvent_GetHistorySize}.\n @return float X coordinate relative to the global display; <b>0.0f</b> if any parameter error occurs.\n @since 20"]
     #[cfg(feature = "api-20")]
     pub fn OH_ArkUI_PointerEvent_GetHistoryGlobalDisplayX(
@@ -725,7 +725,7 @@ extern "C" {
         historyIndex: u32,
     ) -> f32;
 }
-extern "C" {
+unsafe extern "C" {
     #[doc = " @brief Obtains the Y coordinate relative to the global display for a specific touch point from historical events,\n based on the given pointer index and history index of an input event (such as a touch, mouse, or axis event).\n Position information can only be obtained from UI input events. For mouse and axis events, if the provided\n <b>pointerIndex</b> is greater than 0, this API always returns the default value <b>0.0f</b>.\n\n @param event Pointer to the current UI input event.\n @param pointerIndex Index of the target touch point in the multi-touch data list.\nValue range: [0, @link OH_ArkUI_PointerEvent_GetPointerCount() - 1]\n @param historyIndex Index of the historical value to return. It must be less than\n {@link #OH_ArkUI_PointerEvent_GetHistorySize}.\n @return float Y coordinate relative to the global display; <b>0.0f</b> if any parameter error occurs.\n @since 20"]
     #[cfg(feature = "api-20")]
     pub fn OH_ArkUI_PointerEvent_GetHistoryGlobalDisplayY(
@@ -734,7 +734,7 @@ extern "C" {
         historyIndex: u32,
     ) -> f32;
 }
-extern "C" {
+unsafe extern "C" {
     #[doc = " @brief Obtains the pressure applied to the touchscreen in a specific historical event from a directional input event\n (for example, a touch event)..\n\n @param event Indicates the pointer to the current UI input event.\n @param pointerIndex Indicates the index of the target touch point in the multi-touch data list.\n @param historyIndex Indicates the index of the target historical event.\n @return Returns the pressure applied to the touchscreen; returns <b>0.0f</b> if any parameter error occurs.\n @since 12"]
     pub fn OH_ArkUI_PointerEvent_GetHistoryPressure(
         event: *const ArkUI_UIInputEvent,
@@ -742,7 +742,7 @@ extern "C" {
         historyIndex: u32,
     ) -> f32;
 }
-extern "C" {
+unsafe extern "C" {
     #[doc = " @brief Obtains the angle relative to the YZ plane in a specific historical event from a directional input event\n (for example, a touch event). The value range is [-90, 90]. A positive value indicates a rightward tilt.\n\n @param event Indicates the pointer to the current UI input event.\n @param pointerIndex Indicates the index of the target touch point in the multi-touch data list.\n @param historyIndex Indicates the index of the target historical event.\n @return Returns the angle relative to the YZ plane.\n @since 12"]
     pub fn OH_ArkUI_PointerEvent_GetHistoryTiltX(
         event: *const ArkUI_UIInputEvent,
@@ -750,7 +750,7 @@ extern "C" {
         historyIndex: u32,
     ) -> f32;
 }
-extern "C" {
+unsafe extern "C" {
     #[doc = " @brief Obtains the angle relative to the XZ plane in a specific historical event from a directional input event\n (for example, a touch event). The value range is [-90, 90]. A positive value indicates a downward tilt.\n\n @param event Indicates the pointer to the current UI input event.\n @param pointerIndex Indicates the index of the target touch point in the multi-touch data list.\n @param historyIndex Indicates the index of the target historical event.\n @return Returns the angle relative to the XZ plane.\n @since 12"]
     pub fn OH_ArkUI_PointerEvent_GetHistoryTiltY(
         event: *const ArkUI_UIInputEvent,
@@ -758,7 +758,7 @@ extern "C" {
         historyIndex: u32,
     ) -> f32;
 }
-extern "C" {
+unsafe extern "C" {
     #[doc = " @brief Obtains the width of the touch area in a specific historical event from a directional input event\n (for example, a touch event).\n\n @param event Indicates the pointer to the current UI input event.\n @param pointerIndex Indicates the index of the target touch point in the multi-touch data list.\n @param historyIndex Indicates the index of the target historical event.\n @return Returns the width of the touch area.\n @since 12"]
     pub fn OH_ArkUI_PointerEvent_GetHistoryTouchAreaWidth(
         event: *const ArkUI_UIInputEvent,
@@ -766,7 +766,7 @@ extern "C" {
         historyIndex: u32,
     ) -> f32;
 }
-extern "C" {
+unsafe extern "C" {
     #[doc = " @brief Obtains the height of the touch area in a specific historical event from a directional input event\n (for example, a touch event).\n\n @param event Indicates the pointer to the current UI input event.\n @param pointerIndex Indicates the index of the target touch point in the multi-touch data list.\n @param historyIndex Indicates the index of the target historical event.\n @return Returns the height of the touch area.\n @since 12"]
     pub fn OH_ArkUI_PointerEvent_GetHistoryTouchAreaHeight(
         event: *const ArkUI_UIInputEvent,
@@ -774,56 +774,56 @@ extern "C" {
         historyIndex: u32,
     ) -> f32;
 }
-extern "C" {
+unsafe extern "C" {
     #[doc = " @brief Obtains the value of the vertical scroll axis for this axis event.\n This value is typically generated by mouse wheel scrolling or two-finger vertical swiping on a touchpad.\n\n If the value is generated by mouse wheel scrolling:\n 1. The reported value is in degrees and represents the incremental angle of a single scroll,\n    not the total scroll amount.\n 2. The reported value includes the user's scroll step configuration (see {@link OH_ArkUI_AxisEvent_GetScrollStep}).\n 3. The sign of the value indicates the direction: positive for forward scrolling and negative for backward scrolling.\n\n If the value is generated by two-finger vertical swiping on a touchpad:\n 1. The reported value is in px and represents the incremental scroll amount, not the total scroll amount.\n 2. The reported value does not include the user's scroll step configuration.\n 3. The sign of the value indicates the direction: positive for swiping down and negative for swiping up.\n 4. The direction is affected by the system settings for natural scrolling.\n\n Under normal circumstances, vertical scroll axis events only drive vertical swipe gestures. However,\n if the mouse pointer is over a scrollable area where the scrollable directions are consistent,\n the vertical scroll axis event can drive the swipe gestures in this scrollable area, even if they are defined\n as horizontal.\n\n @param event Pointer to the current UI input event.\n @return Value of the vertical scroll axis of the current axis event; <b>0.0</b> if any parameter error occurs.\n @since 12"]
     pub fn OH_ArkUI_AxisEvent_GetVerticalAxisValue(event: *const ArkUI_UIInputEvent) -> f64;
 }
-extern "C" {
+unsafe extern "C" {
     #[doc = " @brief Obtains the value of the horizontal scroll axis for this axis event.\n This value is generated by two-finger horizontal swiping on a touchpad.\n\n @note\n 1. The reported value is in px and represents the incremental scroll amount, not the total scroll amount.\n 2. The reported value does not include the user's scroll step configuration.\n 3. The sign of the value indicates the direction: positive for swiping right and negative for swiping left.\n 4. The direction is affected by the system settings for natural scrolling.\n\n @param event Pointer to the current UI input event.\n @return Returns the value of the horizontal scroll axis of the current axis event;\n returns <b>0</b> if any parameter error occurs.\n @since 12"]
     pub fn OH_ArkUI_AxisEvent_GetHorizontalAxisValue(event: *const ArkUI_UIInputEvent) -> f64;
 }
-extern "C" {
+unsafe extern "C" {
     #[doc = " This value is generated by a two-finger pinch gesture on a touchpad.\n The reported scale value is relative to the initial state\n\n when the system first detects the pinch gesture, with an initial scale value of 1.0.\n During the pinch operation, the scale value decreases from 1.0 towards 0.0 when the user pinches inward\n and increases from 1.0 when the user spreads fingers outward.\n\n @param event Pointer to the current UI input event.\n @return Scale value of the pinch axis of the current axis event; <b>0.0</b> if any parameter error occurs.\n @since 12"]
     pub fn OH_ArkUI_AxisEvent_GetPinchAxisScaleValue(event: *const ArkUI_UIInputEvent) -> f64;
 }
-extern "C" {
+unsafe extern "C" {
     #[doc = " @brief Obtains the action type of the current axis event.\n\n @param event Indicates the pointer to the current UI input event.\n @return Returns the action type of the current axis event.\n @since 15"]
     #[cfg(feature = "api-15")]
     pub fn OH_ArkUI_AxisEvent_GetAxisAction(event: *const ArkUI_UIInputEvent) -> i32;
 }
-extern "C" {
+unsafe extern "C" {
     #[doc = " @brief Checks whether this axis event contains the specified axis type.\n\n @param event Indicates the pointer to the current UI input event.\n @param axis Axis type of the axis event.\n @return Whether the current axis event contains the specified axis type.\n Returns <b>true</b> if the axis event contains the specified axis type, and <b>false</b> otherwise.\n @since 22"]
     #[cfg(feature = "api-22")]
     pub fn OH_ArkUI_AxisEvent_HasAxis(event: *const ArkUI_UIInputEvent, axis: i32) -> i32;
 }
-extern "C" {
+unsafe extern "C" {
     #[doc = " @brief Sets the hit testing mode, that is, how the component behaves during hit testing.\n This API only applies to scenarios raw input events are received, such as when {@link NODE_ON_TOUCH} is used for\n touch event handling.\n It cannot be used with <b>ArkUI_UIInputEvent</b> objects obtained from gesture events through\n {@link OH_ArkUI_GestureEvent_GetRawInputEvent}.\n\n @param event Pointer to the current UI input event.\n @param mode Hit testing mode, of type {@link HitTestMode}.\n @return Result code.\n @since 12"]
     pub fn OH_ArkUI_PointerEvent_SetInterceptHitTestMode(
         event: *const ArkUI_UIInputEvent,
         mode: HitTestMode,
     ) -> i32;
 }
-extern "C" {
+unsafe extern "C" {
     #[doc = " @brief Get the value of the button type for mouse events.\n\n @param event Represents a pointer to the current UI input event.\n @return Return to the mouse button type, where <b>1</b> is the left button, <b>2</b> is the right button,\n <b>3</b> is the middle button, <b>4</b> is the back button, and <b>5</b> is the forward button.\n @since 12"]
     pub fn OH_ArkUI_MouseEvent_GetMouseButton(event: *const ArkUI_UIInputEvent) -> i32;
 }
-extern "C" {
+unsafe extern "C" {
     #[doc = " @brief Get the value of the mouse action type for mouse events.\n\n @param event Represents a pointer to the current UI input event.\n @return Returns the type of mouse action, where <b>1</b> represents button pressed,\n <b>2</b> represents button released, and <b>3</b> represents mouse movement.\n @since 12"]
     pub fn OH_ArkUI_MouseEvent_GetMouseAction(event: *const ArkUI_UIInputEvent) -> i32;
 }
-extern "C" {
+unsafe extern "C" {
     #[doc = " @brief Sets whether to stop event propagation. This API only applies to scenarios raw input events are received,\n such as when {@link NODE_ON_TOUCH} is used for touch event handling.\n It cannot be used with <b>ArkUI_UIInputEvent</b> objects obtained from gesture events\n through {@link OH_ArkUI_GestureEvent_GetRawInputEvent}.\n\n @param event Pointer to the current UI input event.\n @param stopPropagation Whether to stop event propagation.\n @return Returns the status code of the execution. If 0 is returned, the setting is successful.\n         If 401 is returned, the execution fails.\n         The possible cause of the failure is that the event parameter is abnormal, such as a null pointer.\n @since 12"]
     pub fn OH_ArkUI_PointerEvent_SetStopPropagation(
         event: *const ArkUI_UIInputEvent,
         stopPropagation: bool,
     ) -> i32;
 }
-extern "C" {
+unsafe extern "C" {
     #[doc = " @brief Obtains the ID of device that triggers UI input event.\n\n @param event Pointer to an <b>ArkUI_UIInputEvent</b> object.\n @return Returns the device ID.\n @since 14"]
     #[cfg(feature = "api-14")]
     pub fn OH_ArkUI_UIInputEvent_GetDeviceId(event: *const ArkUI_UIInputEvent) -> i32;
 }
-extern "C" {
+unsafe extern "C" {
     #[doc = " @brief Obtains all keys that are pressed from UI input event. Only supports key events currently.\n\n @param event Pointer to an <b>ArkUI_UIInputEvent</b> object.\n @param pressedKeyCodes Array of all keys that are pressed. You need to allocate the memory space.\n @param length Length of the passed pressedKeyCodes array (when used as an input parameter);\n               number of the keys pressed (when used as an output parameter).\n @return Returns the result code.\n         Returns {@link ARKUI_ERROR_CODE_NO_ERROR} if the operation is successful.\n         Returns {@link ARKUI_ERROR_CODE_BUFFER_SIZE_NOT_ENOUGH} if the giving buffer is not enough.\n         Returns {@link ARKUI_ERROR_CODE_PARAM_INVALID} if a parameter error occurs.\n @since 14"]
     #[cfg(feature = "api-14")]
     pub fn OH_ArkUI_UIInputEvent_GetPressedKeys(
@@ -832,13 +832,13 @@ extern "C" {
         length: *mut i32,
     ) -> i32;
 }
-extern "C" {
+unsafe extern "C" {
     #[doc = " @brief Obtains the axis value of a focus axis event.\n\n @param event Pointer to an <b>ArkUI_UIInputEvent</b> object.\n @param axis Axis type of the focus axis event.\n @return Returns the axis value of the focus axis event; returns <b>0.0</b> if any parameter error occurs.\n @since 15"]
     #[cfg(feature = "api-15")]
     pub fn OH_ArkUI_FocusAxisEvent_GetAxisValue(event: *const ArkUI_UIInputEvent, axis: i32)
-        -> f64;
+    -> f64;
 }
-extern "C" {
+unsafe extern "C" {
     #[doc = " @brief Sets whether to prevent a focus axis event from bubbling up.\n\n @param event Indicates the pointer to the current UI input event.\n @param stopPropagation Indicates whether to stop event propagation.\n @return Returns the result code.\n         Returns {@link ARKUI_ERROR_CODE_NO_ERROR} if the operation is successful.\n         Returns {@link ARKUI_ERROR_CODE_PARAM_INVALID} if a parameter error occurs.\n @since 15"]
     #[cfg(feature = "api-15")]
     pub fn OH_ArkUI_FocusAxisEvent_SetStopPropagation(
@@ -846,46 +846,46 @@ extern "C" {
         stopPropagation: bool,
     ) -> i32;
 }
-extern "C" {
+unsafe extern "C" {
     #[doc = " @brief Obtains the width of the component hit by an event.\n\n @param event Pointer to an <b>ArkUI_UIInputEvent</b> object.\n @return Returns the width of the component hit by the event; returns <b>0.0f</b> if any parameter error occurs.\n @since 17"]
     #[cfg(feature = "api-17")]
     pub fn OH_ArkUI_UIInputEvent_GetEventTargetWidth(event: *const ArkUI_UIInputEvent) -> f32;
 }
-extern "C" {
+unsafe extern "C" {
     #[doc = " @brief Obtains the height of the component hit by an event.\n\n @param event Pointer to an <b>ArkUI_UIInputEvent</b> object.\n @return Returns the height of the component hit by the event; returns <b>0.0f</b> if any parameter error occurs.\n @since 17"]
     #[cfg(feature = "api-17")]
     pub fn OH_ArkUI_UIInputEvent_GetEventTargetHeight(event: *const ArkUI_UIInputEvent) -> f32;
 }
-extern "C" {
+unsafe extern "C" {
     #[doc = " @brief Obtains the X coordinate of the component hit by an event.\n\n @param event Pointer to an <b>ArkUI_UIInputEvent</b> object.\n @return Returns the X coordinate of the component hit by the event; returns <b>0.0f</b> if any parameter error occurs.\n @since 17"]
     #[cfg(feature = "api-17")]
     pub fn OH_ArkUI_UIInputEvent_GetEventTargetPositionX(event: *const ArkUI_UIInputEvent) -> f32;
 }
-extern "C" {
+unsafe extern "C" {
     #[doc = " @brief Obtains the Y coordinate of the component hit by an event.\n\n @param event Pointer to an <b>ArkUI_UIInputEvent</b> object.\n @return Returns the Y coordinate of the component hit by the event;\n         returns <b>0.0f</b> if any parameter error occurs.\n @since 17"]
     #[cfg(feature = "api-17")]
     pub fn OH_ArkUI_UIInputEvent_GetEventTargetPositionY(event: *const ArkUI_UIInputEvent) -> f32;
 }
-extern "C" {
+unsafe extern "C" {
     #[doc = " @brief Obtains the global X coordinate of the component hit by an event.\n\n @param event Pointer to an <b>ArkUI_UIInputEvent</b> object.\n @return Returns the global X coordinate of the component hit by the event;\n         returns <b>0.0f</b> if any parameter error occurs.\n @since 17"]
     #[cfg(feature = "api-17")]
     pub fn OH_ArkUI_UIInputEvent_GetEventTargetGlobalPositionX(
         event: *const ArkUI_UIInputEvent,
     ) -> f32;
 }
-extern "C" {
+unsafe extern "C" {
     #[doc = " @brief Obtains the global Y coordinate of the component hit by an event.\n\n @param event Pointer to an <b>ArkUI_UIInputEvent</b> object.\n @return Returns the global Y coordinate of the component hit by the event;\n         returns <b>0.0f</b> if any parameter error occurs.\n @since 17"]
     #[cfg(feature = "api-17")]
     pub fn OH_ArkUI_UIInputEvent_GetEventTargetGlobalPositionY(
         event: *const ArkUI_UIInputEvent,
     ) -> f32;
 }
-extern "C" {
+unsafe extern "C" {
     #[doc = " @brief Checks whether the cursor is hovering over this component.\n\n @param event Pointer to an <b>ArkUI_UIInputEvent</b> object.\n @return Returns <b>true</b> if the cursor is hovering over the current component.\n         Returns <b>false</b> if the cursor is not hovering over the current component.\n @since 17"]
     #[cfg(feature = "api-17")]
     pub fn OH_ArkUI_HoverEvent_IsHovered(event: *const ArkUI_UIInputEvent) -> bool;
 }
-extern "C" {
+unsafe extern "C" {
     #[doc = " @brief Obtains the modifier key states for a UI input event.\n This API outputs the state of all modifier keys at the time of the event through the <b>keys</b> parameter.\n You can determine which keys are pressed by performing bitwise operations with the modifier key types defined\n in {@link ArkUI_ModifierKeyName}.\n\n @param event Pointer to an <b>ArkUI_UIInputEvent</b> object.\n @param keys Pointer to a variable where the current combination of pressed modifier keys will be returned.\n        The application can use bitwise operations to determine the state of each modifier key.\n @return Result code.\n         {@link ARKUI_ERROR_CODE_NO_ERROR} if the operation is successful.\n         {@link ARKUI_ERROR_CODE_PARAM_INVALID} if a parameter error occurs.\n @since 17"]
     #[cfg(feature = "api-17")]
     pub fn OH_ArkUI_UIInputEvent_GetModifierKeyStates(
@@ -893,7 +893,7 @@ extern "C" {
         keys: *mut u64,
     ) -> i32;
 }
-extern "C" {
+unsafe extern "C" {
     #[doc = " @brief Obtains the press time of a specified touch point. This API is effective only for touch events.\n\n @param event Pointer to an <b>ArkUI_UIInputEvent</b> object.\n @param pointerIndex Index of the target touch point in the multi-touch data list.\n @return Returns the press time of the specific touch point; returns <b>0</b> if any parameter error occurs.\n @since 15"]
     #[cfg(feature = "api-15")]
     pub fn OH_ArkUI_PointerEvent_GetPressedTimeByIndex(
@@ -901,17 +901,17 @@ extern "C" {
         pointerIndex: u32,
     ) -> i64;
 }
-extern "C" {
+unsafe extern "C" {
     #[doc = " @brief Obtains the movement increment of the mouse device along the X-axis in a two-dimensional plane.\n Its value represents the raw movement data from the mouse device, expressed in units of physical\n distance in the real world. The reported value is determined by the hardware itself and does not\n correspond to the physical or logical pixels on the screen.\n\n @param event Pointer to an <b>ArkUI_UIInputEvent</b> object.\n @return Returns the x-axis offset of the mouse position relative to the position in the previously reported\n mouse event; returns <b>0.0f</b> if any parameter error occurs.\n @since 15"]
     #[cfg(feature = "api-15")]
     pub fn OH_ArkUI_MouseEvent_GetRawDeltaX(event: *const ArkUI_UIInputEvent) -> f32;
 }
-extern "C" {
+unsafe extern "C" {
     #[doc = " @brief Obtains the movement increment of the mouse device along the Y-axis in a two-dimensional plane.\n Its value represents the raw movement data from the mouse device, expressed in units of physical\n distance in the real world. The reported value is determined by the hardware itself and does not\n correspond to the physical or logical pixels on the screen.\n\n @param event Pointer to an <b>ArkUI_UIInputEvent</b> object.\n @return Returns the y-axis offset of the mouse position relative to the position in the previously reported\n mouse event; returns <b>0.0f</b> if any parameter error occurs.\n @since 15"]
     #[cfg(feature = "api-15")]
     pub fn OH_ArkUI_MouseEvent_GetRawDeltaY(event: *const ArkUI_UIInputEvent) -> f32;
 }
-extern "C" {
+unsafe extern "C" {
     #[doc = " @brief Obtains the pressed buttons from a mouse event.\n\n @param event Pointer to an <b>ArkUI_UIInputEvent</b> object.\n @param pressedButtons Array of the pressed buttons. An int array must be created beforehand to store the pressed\n                       buttons.\n @param length Length of the passed pressedButtons array (when used as an input parameter);\n               number of the buttons pressed (when used as an output parameter).\n @return Returns the result code.\n          Returns {@link ARKUI_ERROR_CODE_NO_ERROR} if the operation is successful.\n          Returns {@link ARKUI_ERROR_CODE_BUFFER_SIZE_ERROR} if the given buffer size is insufficient.\n @since 15"]
     #[cfg(feature = "api-15")]
     pub fn OH_ArkUI_MouseEvent_GetPressedButtons(
@@ -920,12 +920,12 @@ extern "C" {
         length: *mut i32,
     ) -> i32;
 }
-extern "C" {
+unsafe extern "C" {
     #[doc = " @brief Obtains the ID of the screen where the UI input event occurs.\n\n @param event Pointer to an <b>ArkUI_UIInputEvent</b> object.\n @return Returns the screen ID; returns <b>0</b> if any parameter error occurs.\n @since 15"]
     #[cfg(feature = "api-15")]
     pub fn OH_ArkUI_UIInputEvent_GetTargetDisplayId(event: *const ArkUI_UIInputEvent) -> i32;
 }
-extern "C" {
+unsafe extern "C" {
     #[doc = " @brief Sets whether to enable axis event propagation (bubbling). By default, axis events do not bubble and are\n only sent to the first component that can respond to axis events. You can enable axis event bubbling\n to allow the current event to be passed to the next ancestor component in the response chain\n that can handle axis events.\n This API cannot be used on axis events obtained from gesture events.\n\n @param event Pointer to the UI input event.\n @param propagation Whether to enable event propagation.\n @return Result code.\n         {@link ARKUI_ERROR_CODE_NO_ERROR} if the operation is successful.\n         {@link ARKUI_ERROR_CODE_PARAM_INVALID} if a parameter error occurs.\n @since 17"]
     #[cfg(feature = "api-17")]
     pub fn OH_ArkUI_AxisEvent_SetPropagation(
@@ -933,12 +933,12 @@ extern "C" {
         propagation: bool,
     ) -> i32;
 }
-extern "C" {
+unsafe extern "C" {
     #[doc = " @brief Obtains the scroll step coefficient for a wheel-based axis event.\n This API returns the user-configured scroll scale factor factor.\n\n @param event Pointer to the UI input event.\n @return Scroll step configuration of the mouse wheel axis event.\n @since 17"]
     #[cfg(feature = "api-17")]
     pub fn OH_ArkUI_AxisEvent_GetScrollStep(event: *const ArkUI_UIInputEvent) -> i32;
 }
-extern "C" {
+unsafe extern "C" {
     #[doc = " @brief Creates a cloned event pointer based on an event pointer. This API is effective only for touch events.\n\n @param event Pointer to an <b>ArkUI_UIInputEvent</b> object.\n @param clonedEvent Pointer to the cloned <b>ArkUI_UIInputEvent</b> object.\n @return Result code.\n          {@link ARKUI_ERROR_CODE_NO_ERROR} if the operation is successful.\n          {@link ARKUI_ERROR_CODE_PARAM_INVALID} if a parameter error occurs.\n @since 15"]
     #[cfg(feature = "api-15")]
     pub fn OH_ArkUI_PointerEvent_CreateClonedEvent(
@@ -946,12 +946,12 @@ extern "C" {
         clonedEvent: *mut *mut ArkUI_UIInputEvent,
     ) -> i32;
 }
-extern "C" {
+unsafe extern "C" {
     #[doc = " @brief Destroys a cloned event pointer.\n\n @param event Pointer to an <b>ArkUI_UIInputEvent</b> object.\n @return Returns the result code.\n          Returns {@link ARKUI_ERROR_CODE_NO_ERROR} if the operation is successful.\n          Returns {@link ARKUI_ERROR_CODE_PARAM_INVALID} if a parameter error occurs.\n          Returns {@link ARKUI_ERROR_CODE_NOT_CLONED_POINTER_EVENT} if the input event pointer is not a\n          cloned event pointer.\n @since 15"]
     #[cfg(feature = "api-15")]
     pub fn OH_ArkUI_PointerEvent_DestroyClonedEvent(event: *const ArkUI_UIInputEvent) -> i32;
 }
-extern "C" {
+unsafe extern "C" {
     #[doc = " @brief Sets the X and Y coordinates of a cloned event relative to the upper left corner of the current component.\n\n @param event Pointer to an <b>ArkUI_UIInputEvent</b> object.\n @param x X coordinate of the event relative to the upper left corner of the current component.\n @param y Y coordinate of the event relative to the upper left corner of the current component.\n @return Returns the result code.\n          Returns {@link ARKUI_ERROR_CODE_NO_ERROR} if the operation is successful.\n          Returns {@link ARKUI_ERROR_CODE_PARAM_INVALID} if a parameter error occurs.\n          Returns {@link ARKUI_ERROR_CODE_NOT_CLONED_POINTER_EVENT} if the input event pointer is not a\n          cloned event pointer.\n @since 15"]
     #[cfg(feature = "api-15")]
     pub fn OH_ArkUI_PointerEvent_SetClonedEventLocalPosition(
@@ -960,7 +960,7 @@ extern "C" {
         y: f32,
     ) -> i32;
 }
-extern "C" {
+unsafe extern "C" {
     #[doc = " @brief Sets the X and Y coordinates of a specific contact point of a cloned event relative to the upper left corner\n of the current component.\n\n @param event Pointer to an <b>ArkUI_UIInputEvent</b> object.\n @param x X coordinate of the event relative to the upper left corner of the current component.\n @param y Y coordinate of the event relative to the upper left corner of the current component.\n @param pointerIndex Index of the target touch point in the multi-touch data list.\n @return Returns the result code.\n          Returns {@link ARKUI_ERROR_CODE_NO_ERROR} if the operation is successful.\n          Returns {@link ARKUI_ERROR_CODE_PARAM_INVALID} if a parameter error occurs.\n          Returns {@link ARKUI_ERROR_CODE_NOT_CLONED_POINTER_EVENT} if the input event pointer is not a\n          cloned event pointer.\n @since 15"]
     #[cfg(feature = "api-15")]
     pub fn OH_ArkUI_PointerEvent_SetClonedEventLocalPositionByIndex(
@@ -970,7 +970,7 @@ extern "C" {
         pointerIndex: i32,
     ) -> i32;
 }
-extern "C" {
+unsafe extern "C" {
     #[doc = " @brief Sets the action type of a cloned event.\n\n @param event Pointer to an <b>ArkUI_UIInputEvent</b> object.\n @param actionType Action type of the cloned event.\n @return Returns the result code.\n          Returns {@link ARKUI_ERROR_CODE_NO_ERROR} if the operation is successful.\n          Returns {@link ARKUI_ERROR_CODE_PARAM_INVALID} if a parameter error occurs.\n          Returns {@link ARKUI_ERROR_CODE_NOT_CLONED_POINTER_EVENT} if the input event pointer is not a\n          cloned event pointer.\n @since 15"]
     #[cfg(feature = "api-15")]
     pub fn OH_ArkUI_PointerEvent_SetClonedEventActionType(
@@ -978,7 +978,7 @@ extern "C" {
         actionType: i32,
     ) -> i32;
 }
-extern "C" {
+unsafe extern "C" {
     #[doc = " @brief Sets the touch point ID of a cloned pointer event.\n\n @param event Pointer to an <b>ArkUI_UIInputEvent</b> object.\n @param fingerId ID of the touch point that triggers the event.\n @return Returns the result code.\n          Returns {@link ARKUI_ERROR_CODE_NO_ERROR} if the operation is successful.\n          Returns {@link ARKUI_ERROR_CODE_PARAM_INVALID} if a parameter error occurs.\n          Returns {@link ARKUI_ERROR_CODE_NOT_CLONED_POINTER_EVENT} if the input event pointer is not a\n          cloned event pointer.\n @since 15"]
     #[cfg(feature = "api-15")]
     pub fn OH_ArkUI_PointerEvent_SetClonedEventChangedFingerId(
@@ -986,7 +986,7 @@ extern "C" {
         fingerId: i32,
     ) -> i32;
 }
-extern "C" {
+unsafe extern "C" {
     #[doc = " @brief Sets the touch point ID of a specific contact point of a cloned event.\n\n @param event Pointer to an <b>ArkUI_UIInputEvent</b> object.\n @param fingerId Touch point ID of the specific contact point.\n @param pointerIndex Index of the target touch point in the multi-touch data list.\n @return Returns the result code.\n          Returns {@link ARKUI_ERROR_CODE_NO_ERROR} if the operation is successful.\n          Returns {@link ARKUI_ERROR_CODE_PARAM_INVALID} if a parameter error occurs.\n          Returns {@link ARKUI_ERROR_CODE_NOT_CLONED_POINTER_EVENT} if the input event pointer is not a\n          cloned event pointer.\n @since 15"]
     #[cfg(feature = "api-15")]
     pub fn OH_ArkUI_PointerEvent_SetClonedEventFingerIdByIndex(
@@ -995,7 +995,7 @@ extern "C" {
         pointerIndex: i32,
     ) -> i32;
 }
-extern "C" {
+unsafe extern "C" {
     #[doc = " @brief Posts a cloned event to a specific node.\n\n @param node Target node.\n @param event Pointer to an <b>ArkUI_UIInputEvent</b> object.\n @return Returns the result code.\n         Returns {@link ARKUI_ERROR_CODE_NO_ERROR} if the operation is successful.\n         Returns {@link ARKUI_ERROR_CODE_PARAM_INVALID} if a parameter error occurs.\n         Returns {@link ARKUI_ERROR_CODE_NOT_CLONED_POINTER_EVENT} if the input event pointer is not a\n         cloned event pointer.\n         Returns {@link ARKUI_ERROR_CODE_POST_CLONED_COMPONENT_STATUS_ABNORMAL}\n         if the component status abnormal.\n         Returns {@link ARKUI_ERROR_CODE_POST_CLONED_NO_COMPONENT_HIT_TO_RESPOND_TO_THE_EVENT}\n         if no component hit to response to the event.\n @since 15"]
     #[cfg(feature = "api-15")]
     pub fn OH_ArkUI_PointerEvent_PostClonedEvent(
@@ -1003,41 +1003,41 @@ extern "C" {
         event: *const ArkUI_UIInputEvent,
     ) -> i32;
 }
-extern "C" {
+unsafe extern "C" {
     #[doc = " @brief Use this method to obtain the execution status of the latest UI input related method.\n\n In most cases, this method is unnecessary unless you need to determine if the return value indicates an error.\n Here's an example of usage: For return values like float (where 0.0 doesn't indicate an error), use GetLatestStatus\n to confirm if an error occurred.\n    float x = OH_ArkUI_PointerEvent_GetX(event);\n    if (ARKUI_ERROR_CODE_NO_ERROR != OH_ArkUI_UIInputEvent_GetLatestStatus()) {\n        // error\n        return;\n     }\n Note: The system clears the status of the previous function call each time a UIInput-related function is executed,\n ensuring you always get the latest status.\n\n @return Returns the ArkUI_ErrorCode.\n @since 20"]
     #[cfg(feature = "api-20")]
     pub fn OH_ArkUI_UIInputEvent_GetLatestStatus() -> ArkUI_ErrorCode;
 }
-extern "C" {
+unsafe extern "C" {
     #[doc = " @brief Obtains the coasting axis event from a component event, valid event only can be\n fetched only when user flings on the touchpad with two fingers and any components register\n NODE_ON_COASTING_AXIS_EVENT exist under the pointer location.\n Call this method after the {@link ArkUI_UIInputEvent} object is obtained from the {@link ArkUI_NodeEvent} object.\n\n @param event Indicates the pointer to the UI input event.\n @return Returns the pointer to the coasting axis event, return null if no any coasting axis event occurs.\n @since 22"]
     #[cfg(feature = "api-22")]
     pub fn OH_ArkUI_UIInputEvent_GetCoastingAxisEvent(
         event: *mut ArkUI_UIInputEvent,
     ) -> *mut ArkUI_CoastingAxisEvent;
 }
-extern "C" {
+unsafe extern "C" {
     #[doc = " @brief Obtains the time when this coasting event occurs.\n\n @param event Indicates the pointer to the coasting axis event.\n @return Returns the time when the UI input event occurs; returns <b>0</b> if any parameter error occurs.\n\n @since 22"]
     #[cfg(feature = "api-22")]
     pub fn OH_ArkUI_CoastingAxisEvent_GetEventTime(event: *mut ArkUI_CoastingAxisEvent) -> i64;
 }
-extern "C" {
+unsafe extern "C" {
     #[doc = " @brief Obtains the coasting phase when this coasting event occurs.\n\n @param event Indicates the pointer to the coasting axis event.\n @return Returns the event phase, see {@link ArkUI_CoastingAxisEventPhase};\n     returns <b>ARKUI_COASTING_AXIS_EVENT_PHASE_NONE</b> if any parameter error occurs.\n\n @since 22"]
     #[cfg(feature = "api-22")]
     pub fn OH_ArkUI_CoastingAxisEvent_GetPhase(
         event: *mut ArkUI_CoastingAxisEvent,
     ) -> ArkUI_CoastingAxisEventPhase;
 }
-extern "C" {
+unsafe extern "C" {
     #[doc = " @brief Obtains the horizontal delta value.\n\n @param event Indicates the pointer to the coasting axis event.\n @return Returns delta X value, count in PX; returns <b>0</b> if any parameter error occurs.\n\n @since 22"]
     #[cfg(feature = "api-22")]
     pub fn OH_ArkUI_CoastingAxisEvent_GetDeltaX(event: *mut ArkUI_CoastingAxisEvent) -> f32;
 }
-extern "C" {
+unsafe extern "C" {
     #[doc = " @brief Obtains the vertical delta value.\n\n @param event Indicates the pointer to the coasting axis event.\n @return Returns delta Y value, count in PX; returns <b>0</b> if any parameter error occurs.\n\n @since 22"]
     #[cfg(feature = "api-22")]
     pub fn OH_ArkUI_CoastingAxisEvent_GetDeltaY(event: *mut ArkUI_CoastingAxisEvent) -> f32;
 }
-extern "C" {
+unsafe extern "C" {
     #[doc = " @brief Sets whether to enable coasting axis event propagation.\n\n @param event Pointer to the coasting axis event.\n @param propagation Whether to enable event propagation.\n @return Returns the result code.\n         Returns {@link ARKUI_ERROR_CODE_NO_ERROR} if the operation is successful.\n         Returns {@link ARKUI_ERROR_CODE_PARAM_INVALID} if a parameter error occurs.\n @since 22"]
     #[cfg(feature = "api-22")]
     pub fn OH_ArkUI_CoastingAxisEvent_SetPropagation(
@@ -1045,7 +1045,7 @@ extern "C" {
         propagation: bool,
     ) -> i32;
 }
-extern "C" {
+unsafe extern "C" {
     #[doc = " @brief Obtains touch test info item list in the touch test info.\n\n @param info Indicates the pointer to a touch test info.\n @param array Indicates the pointer to the array of touch test info list.\n @param size Indicates the size of the array of touch test info list.\n @return Returns {@link ARKUI_ERROR_CODE_NO_ERROR} if success.\n         Returns {@link ARKUI_ERROR_CODE_PARAM_INVALID} if a parameter exception occurs.\n @since 22"]
     #[cfg(feature = "api-22")]
     pub fn OH_ArkUI_TouchTestInfo_GetTouchTestInfoList(
@@ -1054,41 +1054,41 @@ extern "C" {
         size: *mut i32,
     ) -> ArkUI_ErrorCode;
 }
-extern "C" {
+unsafe extern "C" {
     #[doc = " @brief Obtains the X coordinate relative to the upper left corner of the child component from the touch test\n info item.\n\n @param info Indicates the pointer to the touch test info item.\n @return Returns the X coordinate relative to the upper left corner of the parent component.\n returns <b>0</b> if any parameter error occurs.\n @since 22"]
     #[cfg(feature = "api-22")]
     pub fn OH_ArkUI_TouchTestInfoItem_GetX(info: *const ArkUI_TouchTestInfoItem) -> f32;
 }
-extern "C" {
+unsafe extern "C" {
     #[doc = " @brief Obtains the Y coordinate relative to the upper left corner of the child component from the touch test\n info item.\n\n @param info Indicates the pointer to the touch test info item.\n @return Returns the Y coordinate relative to the upper left corner of the parent component.\n returns <b>0</b> if any parameter error occurs.\n @since 22"]
     #[cfg(feature = "api-22")]
     pub fn OH_ArkUI_TouchTestInfoItem_GetY(info: *const ArkUI_TouchTestInfoItem) -> f32;
 }
-extern "C" {
+unsafe extern "C" {
     #[doc = " @brief Obtains the X coordinate relative to the upper left corner of the current application window from the touch\n test info item.\n\n @param info Indicates the pointer to the touch test info item.\n @return Returns the X coordinate relative to the upper left corner of the current application window.\n returns <b>0.0f</b> if any parameter error occurs.\n @since 22"]
     #[cfg(feature = "api-22")]
     pub fn OH_ArkUI_TouchTestInfoItem_GetWindowX(info: *const ArkUI_TouchTestInfoItem) -> f32;
 }
-extern "C" {
+unsafe extern "C" {
     #[doc = " @brief Obtains the Y coordinate relative to the upper left corner of the current application window from the touch\n test info item.\n\n @param info Indicates the pointer to the touch test info item.\n @return Returns the Y coordinate relative to the upper left corner of the current application window.\n returns <b>0.0f</b> if any parameter error occurs.\n @since 22"]
     #[cfg(feature = "api-22")]
     pub fn OH_ArkUI_TouchTestInfoItem_GetWindowY(info: *const ArkUI_TouchTestInfoItem) -> f32;
 }
-extern "C" {
+unsafe extern "C" {
     #[doc = " @brief Obtains the X coordinate relative to the upper left corner of the parent component from the touch test\n info item.\n\n @param info Indicates the pointer to the touch test info item.\n @return Returns the X coordinate relative to the upper left corner of the parent component.\n returns <b>0</b> if any parameter error occurs.\n @since 22"]
     #[cfg(feature = "api-22")]
     pub fn OH_ArkUI_TouchTestInfoItem_GetXRelativeToParent(
         info: *const ArkUI_TouchTestInfoItem,
     ) -> f32;
 }
-extern "C" {
+unsafe extern "C" {
     #[doc = " @brief Obtains the Y coordinate relative to the upper left corner of the parent component from the touch test\n info item.\n\n @param info Indicates the pointer to the touch test info item.\n @return Returns the Y coordinate relative to the upper left corner of the parent component.\n returns <b>0</b> if any parameter error occurs.\n @since 22"]
     #[cfg(feature = "api-22")]
     pub fn OH_ArkUI_TouchTestInfoItem_GetYRelativeToParent(
         info: *const ArkUI_TouchTestInfoItem,
     ) -> f32;
 }
-extern "C" {
+unsafe extern "C" {
     #[doc = " @brief Obtains the sub component's frame rect info from the touch test info item.\n\n @param info Indicates the pointer to the touch test info item.\n @param childRect Indicates the pointer to the child frame rect.\n @return Returns {@link ARKUI_ERROR_CODE_NO_ERROR} if success.\n         Returns {@link ARKUI_ERROR_CODE_PARAM_INVALID} if a parameter exception occurs.\n @since 22"]
     #[cfg(feature = "api-22")]
     pub fn OH_ArkUI_TouchTestInfoItem_GetChildRect(
@@ -1096,7 +1096,7 @@ extern "C" {
         childRect: *mut ArkUI_Rect,
     ) -> ArkUI_ErrorCode;
 }
-extern "C" {
+unsafe extern "C" {
     #[doc = " @brief Obtains the sub component's name from the touch test info item.\n\n @param info Indicates the pointer to the touch test info item.\n @param buffer Indicates the buffer.\n @param bufferSize Indicates the buffer size.\n @return Returns {@link ARKUI_ERROR_CODE_NO_ERROR} if success.\n         Returns {@link ARKUI_ERROR_CODE_PARAM_INVALID} if a parameter exception occurs.\n         Returns {@link ARKUI_ERROR_CODE_BUFFER_SIZE_NOT_ENOUGH} if the buffer is not large enough.\n @since 22"]
     #[cfg(feature = "api-22")]
     pub fn OH_ArkUI_TouchTestInfoItem_GetChildId(
@@ -1105,7 +1105,7 @@ extern "C" {
         bufferSize: i32,
     ) -> ArkUI_ErrorCode;
 }
-extern "C" {
+unsafe extern "C" {
     #[doc = " @brief Sets the touch test strategy, that is, how the component and the sub components behave during hit testing.\n\n @param {pointer} info Indicates the pointer to a touch test info.\n @param {ArkUI_TouchTestStrategy} strategy The touch test strategy.\n @return Returns {@link ARKUI_ERROR_CODE_NO_ERROR} if success.\n Returns {@link ARKUI_ERROR_CODE_PARAM_INVALID} if a parameter exception occurs.\n @since 22"]
     #[cfg(feature = "api-22")]
     pub fn OH_ArkUI_TouchTestInfo_SetTouchResultStrategy(
@@ -1113,7 +1113,7 @@ extern "C" {
         strategy: ArkUI_TouchTestStrategy,
     ) -> ArkUI_ErrorCode;
 }
-extern "C" {
+unsafe extern "C" {
     #[doc = " @brief Sets the sub component's name, that is, which sub components need to be effected during hit testing.\n\n @param {pointer} info Indicates the pointer to a touch test info.\n @param {pointer} id The sub component's name.\n @return Returns {@link ARKUI_ERROR_CODE_NO_ERROR} if success.\n Returns {@link ARKUI_ERROR_CODE_PARAM_INVALID} if a parameter exception occurs.\n @since 22"]
     #[cfg(feature = "api-22")]
     pub fn OH_ArkUI_TouchTestInfo_SetTouchResultId(

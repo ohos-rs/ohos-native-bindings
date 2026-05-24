@@ -10,7 +10,7 @@ use ohos_native_drawing_sys::{
     OH_Drawing_CanvasSave, OH_Drawing_CanvasScale, OH_Drawing_CanvasTranslate,
 };
 
-use crate::{check_error, Brush, Point, Rect, Result};
+use crate::{Brush, Point, Rect, Result, check_error};
 use crate::{path::Path, pen::Pen};
 
 #[derive(Debug)]

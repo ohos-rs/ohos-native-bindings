@@ -1,12 +1,12 @@
 use libc::{
-    __errno_location, close, mmap, pollfd, EAGAIN, EINTR, MAP_SHARED, PROT_READ, PROT_WRITE,
+    __errno_location, EAGAIN, EINTR, MAP_SHARED, PROT_READ, PROT_WRITE, close, mmap, pollfd,
 };
 use ohos_native_buffer_sys::BufferHandle as BufferHandleRaw;
 use ohos_native_window_sys::{
-    NativeWindow as NativeWindowRaw, OHNativeWindowBuffer as OHNativeWindowBufferRaw,
-    OH_NativeWindow_GetBufferHandleFromNative, OH_NativeWindow_NativeObjectReference,
-    OH_NativeWindow_NativeObjectUnreference, OH_NativeWindow_NativeWindowFlushBuffer,
-    OH_NativeWindow_NativeWindowHandleOpt, OH_NativeWindow_NativeWindowRequestBuffer,
+    NativeWindow as NativeWindowRaw, OH_NativeWindow_GetBufferHandleFromNative,
+    OH_NativeWindow_NativeObjectReference, OH_NativeWindow_NativeObjectUnreference,
+    OH_NativeWindow_NativeWindowFlushBuffer, OH_NativeWindow_NativeWindowHandleOpt,
+    OH_NativeWindow_NativeWindowRequestBuffer, OHNativeWindowBuffer as OHNativeWindowBufferRaw,
     Region as RegionRaw, Region_Rect,
 };
 use std::{cell::RefCell, mem::MaybeUninit, os::raw::c_void, ptr::NonNull, rc::Rc};
@@ -185,7 +185,7 @@ impl NativeWindowBuffer<'_> {
     ///
     /// See [`bits()`][Self::bits()] and [`bytes()`][Self::bytes()] for contiguous access to the
     /// underlying buffer.
-    pub fn lines(&mut self) -> Option<impl Iterator<Item = &mut [MaybeUninit<u8>]>> {
+    pub fn lines(&mut self) -> Option<impl Iterator<Item = &mut [MaybeUninit<u8>]> + use<'_>> {
         let bpp = self.format().bytes_per_pixel();
         let scanline_bytes = self.stride();
         let width_bytes = bpp * self.width();

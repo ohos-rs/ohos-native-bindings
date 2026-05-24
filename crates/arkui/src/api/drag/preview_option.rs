@@ -12,7 +12,7 @@ use ohos_arkui_sys::{
     OH_ArkUI_DragPreviewOption_SetNumberBadgeEnabled, OH_ArkUI_DragPreviewOption_SetScaleMode,
 };
 
-use crate::{check_arkui_status, ArkUIError, ArkUIResult};
+use crate::{ArkUIError, ArkUIResult, check_arkui_status};
 
 pub(crate) struct DragPreviewOption {
     raw: NonNull<ArkUI_DragPreviewOption>,

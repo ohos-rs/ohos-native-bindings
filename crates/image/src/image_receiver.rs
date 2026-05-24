@@ -2,14 +2,14 @@ use std::{mem::MaybeUninit, ptr::NonNull};
 
 #[cfg(feature = "napi")]
 use napi_ohos::{
-    bindgen_prelude::{Object, Unknown},
     Env,
+    bindgen_prelude::{Object, Unknown},
 };
 use napi_sys_ohos::{napi_env, napi_value};
 
 use crate::{
-    common::{fill_char_buffer, non_null, AsNapiValue, NapiValue},
-    error::{check_status, ImageError, ImageResult},
+    common::{AsNapiValue, NapiValue, fill_char_buffer, non_null},
+    error::{ImageError, ImageResult, check_status},
     image::Image,
     sys,
     types::{OhosImageReceiverInfo, OhosImageSize},

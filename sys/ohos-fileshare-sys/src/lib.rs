@@ -58,7 +58,7 @@ pub struct FileShare_PolicyInfo {
     #[doc = " Indicates the mode of operation for the URI.\n example { FileShare_OperationMode.READ_MODE } or { FileShare_OperationMode.READ_MODE |\n FileShare_OperationMode.WRITE_MODE }."]
     pub operationMode: ::std::os::raw::c_uint,
 }
-extern "C" {
+unsafe extern "C" {
     #[doc = " @brief Set persistent permissions for the URI.\n\n @permission ohos.permission.FILE_ACCESS_PERSIST\n @param policies Input a pointer to an {@link FileShare_PolicyInfo} instance.\n @param policyNum Indicates the size of the policies array.\n @param result Output a pointer to an {@link FileShare_PolicyErrorResult} instance. Please use\n OH_FileShare_ReleasePolicyErrorResult() to clear Resource.\n @param resultNum Output the size of the result array.\n @return Returns the status code of the execution.\n         {@link ERR_INVALID_PARAMETER} 401 - Invalid input parameter.\n         {@link ERR_DEVICE_NOT_SUPPORTED} 801 - Device not supported.\n         {@link ERR_PERMISSION_ERROR} 201 - No permission to perform this operation.\n         {@link ERR_EPERM} 13900001 - operation not permitted.\n         {@link ERR_ENOMEM} 13900011 - Failed to apply for memory or failed to copy memory.\n         {@link ERR_OK} 0 - This operation was successfully executed.\n @since 12"]
     pub fn OH_FileShare_PersistPermission(
         policies: *const FileShare_PolicyInfo,
@@ -67,7 +67,7 @@ extern "C" {
         resultNum: *mut ::std::os::raw::c_uint,
     ) -> FileManagement_ErrCode;
 }
-extern "C" {
+unsafe extern "C" {
     #[doc = " @brief Revoke persistent permissions for the URI.\n\n @permission ohos.permission.FILE_ACCESS_PERSIST\n @param policies Input a pointer to an {@link FileShare_PolicyInfo} instance.\n @param policyNum Indicates the size of the policies array.\n @param result Output a pointer to an {@link FileShare_PolicyErrorResult} instance. Please use\n OH_FileShare_ReleasePolicyErrorResult() to clear Resource.\n @param resultNum Output the size of the result array.\n @return Returns the status code of the execution.\n         {@link ERR_INVALID_PARAMETER} 401 - Invalid input parameter.\n         {@link ERR_DEVICE_NOT_SUPPORTED} 801 - Device not supported.\n         {@link ERR_PERMISSION_ERROR} 201 - No permission to perform this operation.\n         {@link ERR_EPERM} 13900001 - operation not permitted.\n         {@link ERR_ENOMEM} 13900011 - Failed to apply for memory or failed to copy memory.\n         {@link ERR_OK} 0 - This operation was successfully executed.\n @since 12"]
     pub fn OH_FileShare_RevokePermission(
         policies: *const FileShare_PolicyInfo,
@@ -76,7 +76,7 @@ extern "C" {
         resultNum: *mut ::std::os::raw::c_uint,
     ) -> FileManagement_ErrCode;
 }
-extern "C" {
+unsafe extern "C" {
     #[doc = " @brief Enable the URI that have been permanently authorized.\n\n @permission ohos.permission.FILE_ACCESS_PERSIST\n @param policies Input a pointer to an {@link FileShare_PolicyInfo} instance.\n @param policyNum Indicates the size of the policies array.\n @param result Output a pointer to an {@link FileShare_PolicyErrorResult} instance. Please use\n OH_FileShare_ReleasePolicyErrorResult() to clear Resource.\n @param resultNum Output the size of the result array.\n @return Returns the status code of the execution.\n         {@link ERR_INVALID_PARAMETER} 401 - Invalid input parameter.\n         {@link ERR_DEVICE_NOT_SUPPORTED} 801 - Device not supported.\n         {@link ERR_PERMISSION_ERROR} 201 - No permission to perform this operation.\n         {@link ERR_EPERM} 13900001 - operation not permitted.\n         {@link ERR_ENOMEM} 13900011 - Failed to apply for memory or failed to copy memory.\n         {@link ERR_OK} 0 - This operation was successfully executed.\n @since 12"]
     pub fn OH_FileShare_ActivatePermission(
         policies: *const FileShare_PolicyInfo,
@@ -85,7 +85,7 @@ extern "C" {
         resultNum: *mut ::std::os::raw::c_uint,
     ) -> FileManagement_ErrCode;
 }
-extern "C" {
+unsafe extern "C" {
     #[doc = " @brief Stop the authorized URI that has been enabled.\n\n @permission ohos.permission.FILE_ACCESS_PERSIST\n @param policies Input a pointer to an {@link FileShare_PolicyInfo} instance.\n @param policyNum Indicates the size of the policies array.\n @param result Output a pointer to an {@link FileShare_PolicyErrorResult} instance. Please use\n OH_FileShare_ReleasePolicyErrorResult() to clear Resource.\n @param resultNum Output the size of the result array.\n @return Returns the status code of the execution.\n         {@link ERR_INVALID_PARAMETER} 401 - Invalid input parameter.\n         {@link ERR_DEVICE_NOT_SUPPORTED} 801 - Device not supported.\n         {@link ERR_PERMISSION_ERROR} 201 - No permission to perform this operation.\n         {@link ERR_EPERM} 13900001 - operation not permitted.\n         {@link ERR_ENOMEM} 13900011 - Failed to apply for memory or failed to copy memory.\n         {@link ERR_OK} 0 - This operation was successfully executed.\n @since 12"]
     pub fn OH_FileShare_DeactivatePermission(
         policies: *const FileShare_PolicyInfo,
@@ -94,7 +94,7 @@ extern "C" {
         resultNum: *mut ::std::os::raw::c_uint,
     ) -> FileManagement_ErrCode;
 }
-extern "C" {
+unsafe extern "C" {
     #[doc = " @brief Check persistent permissions for the URI.\n\n @permission ohos.permission.FILE_ACCESS_PERSIST\n @param policies Input a pointer to an {@link FileShare_PolicyInfo} instance.\n @param policyNum Indicates the size of the policies array.\n @param result Output a pointer to an bool instance. Please use free() to clear Resource.\n @param resultNum Output the size of the result array.\n @return Returns the status code of the execution.\n         {@link ERR_INVALID_PARAMETER} 401 - Invalid input parameter.\n         {@link ERR_DEVICE_NOT_SUPPORTED} 801 - Device not supported.\n         {@link ERR_PERMISSION_ERROR} 201 - No permission to perform this operation.\n         {@link ERR_EPERM} 13900001 - operation not permitted.\n         {@link ERR_ENOMEM} 13900011 - Failed to apply for memory or failed to copy memory.\n         {@link ERR_OK} 0 - This operation was successfully executed.\n @since 12"]
     pub fn OH_FileShare_CheckPersistentPermission(
         policies: *const FileShare_PolicyInfo,
@@ -103,7 +103,7 @@ extern "C" {
         resultNum: *mut ::std::os::raw::c_uint,
     ) -> FileManagement_ErrCode;
 }
-extern "C" {
+unsafe extern "C" {
     #[doc = " @brief Free FileShare_PolicyErrorResult pointer points to address memory.\n\n @param errorResult Input a pointer to an {@link FileShare_PolicyErrorResult} instance.\n @param resultNum Indicates the size of the errorResult array.\n @since 12"]
     pub fn OH_FileShare_ReleasePolicyErrorResult(
         errorResult: *mut FileShare_PolicyErrorResult,

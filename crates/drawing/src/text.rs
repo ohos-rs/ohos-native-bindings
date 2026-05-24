@@ -16,7 +16,7 @@ use ohos_native_drawing_sys::{
     OH_Drawing_DestroyFontCollection, OH_Drawing_DestroyTextStyle, OH_Drawing_DestroyTypography,
     OH_Drawing_DestroyTypographyHandler, OH_Drawing_DestroyTypographyStyle,
     OH_Drawing_DisableFontCollectionFallback, OH_Drawing_DisableFontCollectionSystemFont,
-    OH_Drawing_FontCollection, OH_Drawing_Font_Metrics,
+    OH_Drawing_Font_Metrics, OH_Drawing_FontCollection,
     OH_Drawing_GetAffinityFromPositionAndAffinity, OH_Drawing_GetPositionFromPositionAndAffinity,
     OH_Drawing_LineMetrics, OH_Drawing_PlaceholderSpan, OH_Drawing_PositionAndAffinity,
     OH_Drawing_RectHeightStyle,
@@ -40,7 +40,7 @@ use ohos_native_drawing_sys::{
     OH_Drawing_TypographyPaint, OH_Drawing_TypographyStyle,
 };
 
-use crate::{check_error, Canvas, Result};
+use crate::{Canvas, Result, check_error};
 
 #[derive(Debug)]
 pub struct FontCollection {
