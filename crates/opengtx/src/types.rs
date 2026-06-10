@@ -68,6 +68,23 @@ impl SceneId {
     pub const OTHERS: Self = Self::OthersScene;
 }
 
+#[derive(Debug, Clone, Copy, PartialEq, Eq, EnumFrom)]
+#[config(OpenGTX_TempLevel, "OpenGTX_TempLevel_TEMP_LEVEL")]
+pub enum TempLevel {
+    #[suffix("1")]
+    Level1,
+    #[suffix("2")]
+    Level2,
+    #[suffix("3")]
+    Level3,
+    #[suffix("4")]
+    Level4,
+    #[suffix("5")]
+    Level5,
+    #[suffix("6")]
+    Level6,
+}
+
 #[derive(Debug, Clone, Copy, Default, PartialEq, Eq)]
 pub struct ResolutionValue {
     pub height: i32,

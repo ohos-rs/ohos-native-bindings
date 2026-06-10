@@ -1,4 +1,4 @@
-use std::ptr::NonNull;
+use std::{ptr::NonNull, sync::RwLock};
 
 use hms_opengtx_sys::*;
 
@@ -10,18 +10,61 @@ pub use types::*;
 
 pub use hms_opengtx_sys as sys;
 
+type DeviceInfoCallback = Box<dyn Fn(TempLevel) + Send + Sync + 'static>;
+
+static DEVICE_INFO_CALLBACK: RwLock<Option<DeviceInfoCallback>> = RwLock::new(None);
+
+fn set_device_info_callback(callback: Option<DeviceInfoCallback>) {
+    let mut guard = DEVICE_INFO_CALLBACK
+        .write()
+        .unwrap_or_else(|poisoned| poisoned.into_inner());
+    *guard = callback;
+}
+
+unsafe extern "C" fn device_info_trampoline(temp_level: OpenGTX_TempLevel) {
+    let Some(level) = TempLevel::try_from_raw(temp_level) else {
+        return;
+    };
+
+    let guard = match DEVICE_INFO_CALLBACK.read() {
+        Ok(guard) => guard,
+        Err(poisoned) => poisoned.into_inner(),
+    };
+    if let Some(callback) = guard.as_ref() {
+        callback(level);
+    }
+}
+
 pub struct OpenGtxContext {
     raw: NonNull<OpenGTX_Context>,
 }
 
 impl OpenGtxContext {
     pub fn new() -> OpenGtxResult<Self> {
-        let context = unsafe { HMS_OpenGTX_CreateContext() };
+        let context = unsafe { HMS_OpenGTX_CreateContext(Some(device_info_trampoline)) };
         let Some(raw) = NonNull::new(context) else {
             return Err(OpenGtxError::CreateContextFailed);
         };
 
         Ok(Self { raw })
+    }
+    pub fn with_temp_callback<F>(callback: F) -> OpenGtxResult<Self>
+    where
+        F: Fn(TempLevel) + Send + Sync + 'static,
+    {
+        Self::set_temp_callback(callback);
+        Self::new()
+    }
+
+    pub fn set_temp_callback<F>(callback: F)
+    where
+        F: Fn(TempLevel) + Send + Sync + 'static,
+    {
+        set_device_info_callback(Some(Box::new(callback)));
+    }
+
+    pub fn clear_temp_callback() {
+        set_device_info_callback(None);
     }
 
     pub fn raw(&self) -> *mut OpenGTX_Context {
