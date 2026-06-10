@@ -1,4 +1,7 @@
-use std::{ptr::NonNull, sync::RwLock};
+use std::{
+    ptr::NonNull,
+    sync::{Arc, RwLock},
+};
 
 use hms_opengtx_sys::*;
 
@@ -10,7 +13,7 @@ pub use types::*;
 
 pub use hms_opengtx_sys as sys;
 
-type DeviceInfoCallback = Box<dyn Fn(TempLevel) + Send + Sync + 'static>;
+type DeviceInfoCallback = Arc<dyn Fn(TempLevel) + Send + Sync + 'static>;
 
 static DEVICE_INFO_CALLBACK: RwLock<Option<DeviceInfoCallback>> = RwLock::new(None);
 
@@ -26,11 +29,14 @@ unsafe extern "C" fn device_info_trampoline(temp_level: OpenGTX_TempLevel) {
         return;
     };
 
-    let guard = match DEVICE_INFO_CALLBACK.read() {
-        Ok(guard) => guard,
-        Err(poisoned) => poisoned.into_inner(),
+    let callback = {
+        let guard = match DEVICE_INFO_CALLBACK.read() {
+            Ok(guard) => guard,
+            Err(poisoned) => poisoned.into_inner(),
+        };
+        guard.as_ref().map(Arc::clone)
     };
-    if let Some(callback) = guard.as_ref() {
+    if let Some(callback) = callback {
         callback(level);
     }
 }
@@ -60,7 +66,7 @@ impl OpenGtxContext {
     where
         F: Fn(TempLevel) + Send + Sync + 'static,
     {
-        set_device_info_callback(Some(Box::new(callback)));
+        set_device_info_callback(Some(Arc::new(callback)));
     }
 
     pub fn clear_temp_callback() {
