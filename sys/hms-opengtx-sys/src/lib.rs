@@ -98,6 +98,20 @@ pub struct OpenGTX_ConfigDescription {
     #[doc = " the flag of support vulkan or not."]
     pub vulkanSupport: bool,
 }
+#[doc = " The temperature of device is normal, game can remain in its current configuration."]
+pub const OpenGTX_TempLevel_TEMP_LEVEL1: OpenGTX_TempLevel = 1;
+#[doc = " The temperature of device increase one level, game should reduce the imperceptible service,\n such as decelerate background update."]
+pub const OpenGTX_TempLevel_TEMP_LEVEL2: OpenGTX_TempLevel = 2;
+#[doc = " The temperature of device increase two level, game should stop the imperceptible service and reduce\n Non-focused service, such as decelerate foreground update."]
+pub const OpenGTX_TempLevel_TEMP_LEVEL3: OpenGTX_TempLevel = 3;
+#[doc = " The temperature of device increase three level, game should reduce the game effects."]
+pub const OpenGTX_TempLevel_TEMP_LEVEL4: OpenGTX_TempLevel = 4;
+#[doc = " The temperature of device increase four level, game should reduce the game scene configuration,\n such as frame resolution、frame rate、quality."]
+pub const OpenGTX_TempLevel_TEMP_LEVEL5: OpenGTX_TempLevel = 5;
+#[doc = " The temperature of device increase five level(too high), game should keep the minimum configuration."]
+pub const OpenGTX_TempLevel_TEMP_LEVEL6: OpenGTX_TempLevel = 6;
+#[doc = " @brief Defines temperature level of device.\n @since 5.0.0(12)"]
+pub type OpenGTX_TempLevel = u32;
 #[doc = " @brief Defines three-dimensional Vector of OpenGTX.\n @since 5.0.0(12)"]
 #[repr(C)]
 #[derive(Debug, Copy, Clone)]
@@ -183,9 +197,14 @@ pub const OpenGTX_ErrorCode_OPENGTX_CONTEXT_NOT_CONFIG: OpenGTX_ErrorCode = 1009
 pub const OpenGTX_ErrorCode_OPENGTX_CONTEXT_NOT_ACTIVE: OpenGTX_ErrorCode = 1009502002;
 #[doc = " @brief Defines error codes for OpenGTX APIs.\n @since 5.0.0(12)"]
 pub type OpenGTX_ErrorCode = u32;
+#[doc = " @ingroup Callbacks\n @brief\n This callback is to device report temperature level to game.\n @since 5.0.0(12)"]
+pub type OpenGTX_DeviceInfoCallback =
+    ::std::option::Option<unsafe extern "C" fn(arg1: OpenGTX_TempLevel)>;
 unsafe extern "C" {
-    #[doc = " @brief Creates a OpenGTX context instance. The context structure is the main object used to interact with\n OpenGTX APIs, and is responsible for the management of the internal resources used by the OpenGTX algorithm.\n\n @return Returns the pointer to a {@link OpenGTX_Context} context instance.\n @since 5.0.0(12)"]
-    pub fn HMS_OpenGTX_CreateContext() -> *mut OpenGTX_Context;
+    #[doc = " @brief Creates a OpenGTX context instance. The context structure is the main object used to interact with\n OpenGTX APIs, and is responsible for the management of the internal resources used by the OpenGTX algorithm.\n\n @param deviceInfoCallback function of device information {@link OpenGTX_DeviceInfoCallback}.\n @return Returns the pointer to a {@link OpenGTX_Context} context instance.\n @since 5.0.0(12)"]
+    pub fn HMS_OpenGTX_CreateContext(
+        deviceInfoCallback: OpenGTX_DeviceInfoCallback,
+    ) -> *mut OpenGTX_Context;
 }
 unsafe extern "C" {
     #[doc = " @brief Configure OpenGTX context instance for initialing. For instance, sets the LTPO's mode to control\n frame rate, sets the target frame rate of game, etc.\n\n @param context Pointer to the {@link OpenGTX_Context} instance. The value can not be null. Otherwise, an error\n code is returned.\n @param config Pointer to the {@link OpenGTX_ConfigDescription} instance. The object specifies the configure\n attributes added to the context instance. The value can not be null. Otherwise, an error code is returned.\n @return Execution result of the function. If the operation is successful, <b>OPENGTX_SUCCESS</b> is returned.\n If the operation fails, an error code is returned. For details, see {@link OpenGTX_ErrorCode}.\n @since 5.0.0(12)"]
