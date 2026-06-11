@@ -1,6 +1,6 @@
 //! Module common::ui_context wrappers and related types.
 
-use napi_ohos::bindgen_prelude::{check_status, FromNapiValue, TypeName, ValidateNapiValue};
+use napi_ohos::bindgen_prelude::{FromNapiValue, TypeName, ValidateNapiValue, check_status};
 use napi_sys_ohos as sys;
 use ohos_arkui_sys::{ArkUI_ContextHandle, OH_ArkUI_GetContextFromNapiValue};
 use std::ptr;

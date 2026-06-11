@@ -1,10 +1,11 @@
 use std::{ffi::CStr, ptr};
 
 use ohos_sensor_sys::{
+    OH_Sensor_CreateInfos, OH_Sensor_DestroyInfos, OH_Sensor_GetInfos,
     OH_SensorInfo_GetMaxSamplingInterval, OH_SensorInfo_GetMinSamplingInterval,
     OH_SensorInfo_GetName, OH_SensorInfo_GetResolution, OH_SensorInfo_GetType,
-    OH_SensorInfo_GetVendorName, OH_Sensor_CreateInfos, OH_Sensor_DestroyInfos, OH_Sensor_GetInfos,
-    Sensor_Result_SENSOR_PARAMETER_ERROR, Sensor_Result_SENSOR_SUCCESS,
+    OH_SensorInfo_GetVendorName, Sensor_Result_SENSOR_PARAMETER_ERROR,
+    Sensor_Result_SENSOR_SUCCESS,
 };
 
 mod accuracy;

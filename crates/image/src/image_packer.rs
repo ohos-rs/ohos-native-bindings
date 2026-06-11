@@ -2,14 +2,14 @@ use std::ptr::NonNull;
 
 #[cfg(feature = "napi")]
 use napi_ohos::{
-    bindgen_prelude::{Object, Unknown},
     Env,
+    bindgen_prelude::{Object, Unknown},
 };
 use napi_sys_ohos::{napi_env, napi_value};
 
 use crate::{
-    common::{non_null, AsNapiValue, NapiValue},
-    error::{check_status, ImageError, ImageResult},
+    common::{AsNapiValue, NapiValue, non_null},
+    error::{ImageError, ImageResult, check_status},
     sys,
     types::ImagePacker_Opts,
 };

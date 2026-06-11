@@ -2,12 +2,12 @@
 
 use bitflags::bitflags;
 use ohos_arkui_sys::{
-    ArkUI_GestureDirection, ArkUI_GestureDirectionMask,
-    ArkUI_GestureDirection_GESTURE_DIRECTION_ALL, ArkUI_GestureDirection_GESTURE_DIRECTION_DOWN,
+    ArkUI_GestureDirection, ArkUI_GestureDirection_GESTURE_DIRECTION_ALL,
+    ArkUI_GestureDirection_GESTURE_DIRECTION_DOWN,
     ArkUI_GestureDirection_GESTURE_DIRECTION_HORIZONTAL,
     ArkUI_GestureDirection_GESTURE_DIRECTION_LEFT, ArkUI_GestureDirection_GESTURE_DIRECTION_NONE,
     ArkUI_GestureDirection_GESTURE_DIRECTION_RIGHT, ArkUI_GestureDirection_GESTURE_DIRECTION_UP,
-    ArkUI_GestureDirection_GESTURE_DIRECTION_VERTICAL,
+    ArkUI_GestureDirection_GESTURE_DIRECTION_VERTICAL, ArkUI_GestureDirectionMask,
 };
 
 bitflags! {

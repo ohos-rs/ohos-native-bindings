@@ -1,7 +1,7 @@
 use ohos_jsvm_sys as sys;
 
 use crate::convert::ToJsValue;
-use crate::error::{check_status_with_env, non_null, type_mismatch, Result};
+use crate::error::{Result, check_status_with_env, non_null, type_mismatch};
 use crate::{Env, Value};
 
 #[derive(Clone, Copy, Debug, PartialEq, Eq)]

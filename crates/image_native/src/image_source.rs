@@ -1,8 +1,8 @@
 use std::ptr::NonNull;
 
 use crate::{
-    common::{non_null, output_string, ImageString},
-    error::{check_status, ImageNativeResult},
+    common::{ImageString, non_null, output_string},
+    error::{ImageNativeResult, check_status},
     pixel_map::PixelMap,
     sys,
     types::{ImageRegion, ImageSize, PixelFormat, RawFileDescriptor},

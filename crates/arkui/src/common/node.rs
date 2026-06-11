@@ -1,10 +1,10 @@
 //! Module common::node wrappers and related types.
 
 #[cfg(feature = "napi")]
-use napi_ohos::bindgen_prelude::{check_status, FromNapiValue, TypeName, ValidateNapiValue};
+use napi_ohos::bindgen_prelude::{FromNapiValue, TypeName, ValidateNapiValue, check_status};
 #[cfg(feature = "napi")]
 use napi_sys_ohos as sys;
-use ohos_arkui_input_binding::{sys::ArkUI_NodeHandle, ArkUIErrorCode};
+use ohos_arkui_input_binding::{ArkUIErrorCode, sys::ArkUI_NodeHandle};
 use ohos_arkui_sys::{
     ArkUI_IntOffset, ArkUI_IntSize, OH_ArkUI_GetContextByNode,
     OH_ArkUI_NodeUtils_GetLayoutPositionInWindow, OH_ArkUI_NodeUtils_GetLayoutSize,
@@ -19,11 +19,12 @@ use std::ptr;
 use std::{cell::RefCell, rc::Rc};
 
 use crate::{
+    ARK_UI_NATIVE_NODE_API_1, ArkUIAttributeBasic, ArkUICommonAttribute, ArkUIError, ArkUINodeType,
+    EventHandle, NodeDirtyFlag,
     animate::options::Animation,
-    api::node_custom_event::{IntOffset, IntSize},
     api::ARK_UI_NATIVE_ANIMATE_API_1,
-    check_arkui_status, ArkUIAttributeBasic, ArkUICommonAttribute, ArkUIError, ArkUINodeType,
-    EventHandle, NodeDirtyFlag, ARK_UI_NATIVE_NODE_API_1,
+    api::node_custom_event::{IntOffset, IntSize},
+    check_arkui_status,
 };
 
 use super::ArkUIResult;

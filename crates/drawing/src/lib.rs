@@ -11,8 +11,8 @@ mod text;
 
 pub use brush::Brush;
 pub use canvas::Canvas;
-pub use color::{argb, Color};
-pub use error::{check_error, DrawingError, Result};
+pub use color::{Color, argb};
+pub use error::{DrawingError, Result, check_error};
 pub use error_code::DrawingErrorCode;
 pub use font::{Font, TextMeasure};
 pub use geometry::{Point, Rect};

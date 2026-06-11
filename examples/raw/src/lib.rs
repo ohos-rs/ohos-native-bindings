@@ -1,7 +1,7 @@
 #![allow(clippy::all)]
 
 use napi_derive_ohos::napi;
-use napi_ohos::{bindgen_prelude::Object, Env, Error, Result};
+use napi_ohos::{Env, Error, Result, bindgen_prelude::Object};
 
 use ohos_hilog_binding::hilog_info;
 use ohos_resource_manager_binding::ResourceManager;

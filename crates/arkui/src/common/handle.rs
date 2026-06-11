@@ -10,11 +10,11 @@ use ohos_arkui_sys::{
 };
 
 #[cfg(feature = "napi")]
-use napi_ohos::bindgen_prelude::{check_status, FromNapiValue, TypeName, ValidateNapiValue};
+use napi_ohos::bindgen_prelude::{FromNapiValue, TypeName, ValidateNapiValue, check_status};
 #[cfg(feature = "napi")]
 use napi_sys_ohos as sys;
 
-use crate::{check_arkui_status, ArkUINode, ArkUIResult};
+use crate::{ArkUINode, ArkUIResult, check_arkui_status};
 
 #[derive(Clone, Copy)]
 /// Opaque handle for ArkUI node content.

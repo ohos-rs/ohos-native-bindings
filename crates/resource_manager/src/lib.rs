@@ -10,7 +10,7 @@ use std::ptr;
 use std::ptr::NonNull;
 
 #[cfg(feature = "napi")]
-use napi_ohos::{bindgen_prelude::Object, Env, JsValue};
+use napi_ohos::{Env, JsValue, bindgen_prelude::Object};
 #[cfg(feature = "napi")]
 use ohos_resource_manager_sys::OH_ResourceManager_InitNativeResourceManager;
 

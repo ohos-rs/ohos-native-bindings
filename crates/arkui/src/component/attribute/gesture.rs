@@ -3,9 +3,9 @@
 #[cfg(feature = "api-18")]
 use crate::ARK_UI_NATIVE_GESTURE_API_2;
 use crate::{
-    ArkUIResult, Gesture, GestureInterruptInfoRef, GestureInterruptResult, GestureMask,
-    GesturePriority, GestureRecognizerRef, ParallelInnerGestureEventRef,
-    ARK_UI_NATIVE_GESTURE_API_1,
+    ARK_UI_NATIVE_GESTURE_API_1, ArkUIResult, Gesture, GestureInterruptInfoRef,
+    GestureInterruptResult, GestureMask, GesturePriority, GestureRecognizerRef,
+    ParallelInnerGestureEventRef,
 };
 
 use super::ArkUIAttributeBasic;

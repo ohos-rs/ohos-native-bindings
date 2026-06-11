@@ -26,11 +26,11 @@ impl<T> __IncompleteArrayField<T> {
     }
     #[inline]
     pub unsafe fn as_slice(&self, len: usize) -> &[T] {
-        ::std::slice::from_raw_parts(self.as_ptr(), len)
+        unsafe { ::std::slice::from_raw_parts(self.as_ptr(), len) }
     }
     #[inline]
     pub unsafe fn as_mut_slice(&mut self, len: usize) -> &mut [T] {
-        ::std::slice::from_raw_parts_mut(self.as_mut_ptr(), len)
+        unsafe { ::std::slice::from_raw_parts_mut(self.as_mut_ptr(), len) }
     }
 }
 impl<T> ::std::fmt::Debug for __IncompleteArrayField<T> {
@@ -520,41 +520,41 @@ pub struct OH_NativeBuffer_Planes {
     #[doc = "< Array of image planes."]
     pub planes: [OH_NativeBuffer_Plane; 4usize],
 }
-extern "C" {
+unsafe extern "C" {
     #[doc = " @brief Alloc a <b>OH_NativeBuffer</b> that matches the passed BufferRequestConfig. \\n\n A new <b>OH_NativeBuffer</b> instance is created each time this function is called.\\n\n This interface needs to be used in conjunction with <b>OH_NativeBuffer_Unreference</b>,\n otherwise memory leaks will occur.\\n\n This interface is a non-thread-safe type interface.\\n\n\n @syscap SystemCapability.Graphic.Graphic2D.NativeBuffer\n @param config Indicates the pointer to a <b>BufferRequestConfig</b> instance.\n @return Returns the pointer to the <b>OH_NativeBuffer</b> instance created if the operation is successful, \\n\n returns <b>NULL</b> otherwise.\n @since 9\n @version 1.0"]
     pub fn OH_NativeBuffer_Alloc(config: *const OH_NativeBuffer_Config) -> *mut OH_NativeBuffer;
 }
-extern "C" {
+unsafe extern "C" {
     #[doc = " @brief Adds the reference count of a OH_NativeBuffer.\\n\n This interface needs to be used in conjunction with <b>OH_NativeBuffer_Unreference</b>,\n otherwise memory leaks will occur.\\n\n This interface is a non-thread-safe type interface.\\n\n\n @syscap SystemCapability.Graphic.Graphic2D.NativeBuffer\n @param buffer Indicates the pointer to a <b>OH_NativeBuffer</b> instance.\n @return Returns an error code, 0 is success, otherwise, failed.\n @since 9\n @version 1.0"]
     pub fn OH_NativeBuffer_Reference(buffer: *mut OH_NativeBuffer) -> i32;
 }
-extern "C" {
+unsafe extern "C" {
     #[doc = " @brief Decreases the reference count of a OH_NativeBuffer and, when the reference count reaches 0,\n destroys this OH_NativeBuffer.\\n\n This interface is a non-thread-safe type interface.\\n\n\n @syscap SystemCapability.Graphic.Graphic2D.NativeBuffer\n @param buffer Indicates the pointer to a <b>OH_NativeBuffer</b> instance.\n @return Returns an error code, 0 is success, otherwise, failed.\n @since 9\n @version 1.0"]
     pub fn OH_NativeBuffer_Unreference(buffer: *mut OH_NativeBuffer) -> i32;
 }
-extern "C" {
+unsafe extern "C" {
     #[doc = " @brief Return a config of the OH_NativeBuffer in the passed OHNativeBufferConfig struct.\\n\n This interface is a non-thread-safe type interface.\\n\n\n @syscap SystemCapability.Graphic.Graphic2D.NativeBuffer\n @param buffer Indicates the pointer to a <b>OH_NativeBuffer</b> instance.\n @param config Indicates the pointer to the <b>NativeBufferConfig</b> of the buffer.\n @return <b>void</b>\n @since 9\n @version 1.0"]
     pub fn OH_NativeBuffer_GetConfig(
         buffer: *mut OH_NativeBuffer,
         config: *mut OH_NativeBuffer_Config,
     );
 }
-extern "C" {
+unsafe extern "C" {
     #[doc = " @brief Provide direct cpu access to the OH_NativeBuffer in the process's address space.\\n\n This interface needs to be used in conjunction with <b>OH_NativeBuffer_Unmap</b>.\\n\n This interface is a non-thread-safe type interface.\\n\n\n @syscap SystemCapability.Graphic.Graphic2D.NativeBuffer\n @param buffer Indicates the pointer to a <b>OH_NativeBuffer</b> instance.\n @param virAddr Indicates the address of the <b>OH_NativeBuffer</b> in virtual memory.\n @return Returns an error code, 0 is success, otherwise, failed.\n @since 9\n @version 1.0"]
     pub fn OH_NativeBuffer_Map(
         buffer: *mut OH_NativeBuffer,
         virAddr: *mut *mut ::std::os::raw::c_void,
     ) -> i32;
 }
-extern "C" {
+unsafe extern "C" {
     #[doc = " @brief Remove direct cpu access ability of the OH_NativeBuffer in the process's address space.\\n\n This interface is a non-thread-safe type interface.\\n\n\n @syscap SystemCapability.Graphic.Graphic2D.NativeBuffer\n @param buffer Indicates the pointer to a <b>OH_NativeBuffer</b> instance.\n @return Returns an error code, 0 is success, otherwise, failed.\n @since 9\n @version 1.0"]
     pub fn OH_NativeBuffer_Unmap(buffer: *mut OH_NativeBuffer) -> i32;
 }
-extern "C" {
+unsafe extern "C" {
     #[doc = " @brief Get the system wide unique sequence number of the OH_NativeBuffer.\\n\n This interface is a non-thread-safe type interface.\\n\n\n @syscap SystemCapability.Graphic.Graphic2D.NativeBuffer\n @param buffer Indicates the pointer to a <b>OH_NativeBuffer</b> instance.\n @return Returns the sequence number, which is unique for each OH_NativeBuffer.\n @since 9\n @version 1.0"]
     pub fn OH_NativeBuffer_GetSeqNum(buffer: *mut OH_NativeBuffer) -> u32;
 }
-extern "C" {
+unsafe extern "C" {
     #[doc = " @brief Provide direct cpu access to the potentially multi-planar OH_NativeBuffer in the process's address space.\\n\n This interface is a non-thread-safe type interface.\\n\n\n @syscap SystemCapability.Graphic.Graphic2D.NativeBuffer\n @param buffer Indicates the pointer to a <b>OH_NativeBuffer</b> instance.\n @param virAddr Indicates the address of the <b>OH_NativeBuffer</b> in virtual memory.\n @param outPlanes Indicates all image planes that contain the pixel data.\n @return Returns an error code, 0 is success, otherwise, failed.\n @since 12\n @version 1.0"]
     pub fn OH_NativeBuffer_MapPlanes(
         buffer: *mut OH_NativeBuffer,
@@ -562,28 +562,28 @@ extern "C" {
         outPlanes: *mut OH_NativeBuffer_Planes,
     ) -> i32;
 }
-extern "C" {
+unsafe extern "C" {
     #[doc = " @brief Converts an <b>OHNativeWindowBuffer</b> instance to an <b>OH_NativeBuffer</b>.\\n\n This interface is a non-thread-safe type interface.\\n\n\n @syscap SystemCapability.Graphic.Graphic2D.NativeBuffer\n @param nativeWindowBuffer Indicates the pointer to a <b>OHNativeWindowBuffer</b> instance.\n @param buffer Indicates the pointer to a <b>OH_NativeBuffer</b> pointer.\n @return Returns an error code, 0 is success, otherwise, failed.\n @since 12\n @version 1.0"]
     pub fn OH_NativeBuffer_FromNativeWindowBuffer(
         nativeWindowBuffer: *mut OHNativeWindowBuffer,
         buffer: *mut *mut OH_NativeBuffer,
     ) -> i32;
 }
-extern "C" {
+unsafe extern "C" {
     #[doc = " @brief Set the color space of the OH_NativeBuffer.\\n\n This interface is a non-thread-safe type interface.\\n\n\n @syscap SystemCapability.Graphic.Graphic2D.NativeBuffer\n @param buffer Indicates the pointer to a <b>OH_NativeBuffer</b> instance.\n @param colorSpace Indicates the color space of native buffer, see <b>OH_NativeBuffer_ColorSpace</b>.\n @return Returns an error code, 0 is success, otherwise, failed.\n @since 11\n @version 1.0"]
     pub fn OH_NativeBuffer_SetColorSpace(
         buffer: *mut OH_NativeBuffer,
         colorSpace: OH_NativeBuffer_ColorSpace,
     ) -> i32;
 }
-extern "C" {
+unsafe extern "C" {
     #[doc = " @brief Get the color space of the OH_NativeBuffer.\\n\n This interface is a non-thread-safe type interface.\\n\n\n @syscap SystemCapability.Graphic.Graphic2D.NativeBuffer\n @param buffer Indicates the pointer to a <b>OH_NativeBuffer</b> instance.\n @param colorSpace Indicates the color space of native buffer, see <b>OH_NativeBuffer_ColorSpace</b>.\n @return {@link NATIVE_ERROR_OK} 0 - Success.\n     {@link NATIVE_ERROR_INVALID_ARGUMENTS} 40001000 - buffer is NULL.\n     {@link NATIVE_ERROR_BUFFER_STATE_INVALID} 41207000 - Incorrect colorSpace state.\n @since 12\n @version 1.0"]
     pub fn OH_NativeBuffer_GetColorSpace(
         buffer: *mut OH_NativeBuffer,
         colorSpace: *mut OH_NativeBuffer_ColorSpace,
     ) -> i32;
 }
-extern "C" {
+unsafe extern "C" {
     #[doc = " @brief Set the metadata type of the OH_NativeBuffer.\\n\n This interface is a non-thread-safe type interface.\\n\n\n @syscap SystemCapability.Graphic.Graphic2D.NativeBuffer\n @param buffer Indicates the pointer to a <b>OH_NativeBuffer</b> instance.\n @param metadataKey Indicates the metadata type of native buffer, see <b>OH_NativeBuffer_MetadataKey</b>.\n @param size Indicates the size of a uint8_t vector.\n @param metadata Indicates the pointer to a uint8_t vector.\n @return {@link NATIVE_ERROR_OK} 0 - Success.\n     {@link NATIVE_ERROR_INVALID_ARGUMENTS} 40001000 - buffer or metadata is NULL.\n     {@link NATIVE_ERROR_BUFFER_STATE_INVALID} 41207000 - Incorrect metadata state.\n     {@link NATIVE_ERROR_UNSUPPORTED} 50102000 - Unsupported metadata key.\n @since 12\n @version 1.0"]
     pub fn OH_NativeBuffer_SetMetadataValue(
         buffer: *mut OH_NativeBuffer,
@@ -592,7 +592,7 @@ extern "C" {
         metadata: *mut u8,
     ) -> i32;
 }
-extern "C" {
+unsafe extern "C" {
     #[doc = " @brief Set the metadata type of the OH_NativeBuffer.\\n\n This interface is a non-thread-safe type interface.\\n\n\n @syscap SystemCapability.Graphic.Graphic2D.NativeBuffer\n @param buffer Indicates the pointer to a <b>OH_NativeBuffer</b> instance.\n @param metadataKey Indicates the metadata type of native buffer, see <b>OH_NativeBuffer_MetadataKey</b>.\n @param size Indicates the size of a uint8_t vector.\n @param metadata Indicates the pointer to a uint8_t vector.\n @return {@link NATIVE_ERROR_OK} 0 - Success.\n     {@link NATIVE_ERROR_INVALID_ARGUMENTS} 40001000 - buffer, metadata, or size is NULL.\n     {@link NATIVE_ERROR_BUFFER_STATE_INVALID} 41207000 - Incorrect metadata state.\n     {@link NATIVE_ERROR_UNSUPPORTED} 50102000 - Unsupported metadata key.\n @since 12\n @version 1.0"]
     pub fn OH_NativeBuffer_GetMetadataValue(
         buffer: *mut OH_NativeBuffer,
@@ -601,7 +601,7 @@ extern "C" {
         metadata: *mut *mut u8,
     ) -> i32;
 }
-extern "C" {
+unsafe extern "C" {
     #[doc = " @brief Provide direct cpu access to the OH_NativeBuffer in the process's address space and wait fence.\\n\n If the interface returns OK, fenceFd does not need to be closed by the developer,\n Otherwise, the developer needs to close the fenceFd.\\n\n This interface is a non-thread-safe type interface.\n\n @syscap SystemCapability.Graphic.Graphic2D.NativeBuffer\n @param buffer Indicates the pointer to a <b>OH_NativeBuffer</b> instance.\n @param fenceFd Indicates the pointer to a file descriptor handle.\n @param virAddr Indicates the address of the <b>OH_NativeBuffer</b> in virtual memory.\n @return {@link NATIVE_ERROR_OK} 0 - Success.\n {@link NATIVE_ERROR_INVALID_ARGUMENTS} 40001000 - buffer or virAddr is NULL or invalid fenceFd.\n {@link NATIVE_ERROR_UNKNOWN} 50002000 - map failed.\n @since 23\n @version 1.0"]
     #[cfg(feature = "api-23")]
     pub fn OH_NativeBuffer_MapWaitFence(
@@ -610,7 +610,7 @@ extern "C" {
         virAddr: *mut *mut ::std::os::raw::c_void,
     ) -> i32;
 }
-extern "C" {
+unsafe extern "C" {
     #[doc = " @brief Serialize <b>OH_NativeBuffer</b> object to the serialized <b>OHIPCParcel</b> object.\\n\n This interface is a non-thread-safe type interface.\n\n @syscap SystemCapability.Graphic.Graphic2D.NativeBuffer\n @param buffer Indicates the pointer to a <b>OH_NativeBuffer</b> instance.\n @param parcel Indicates the serialized <b>OHIPCParcel</b> object.\n @return {@link NATIVE_ERROR_OK} 0 - Success.\n {@link NATIVE_ERROR_INVALID_ARGUMENTS} 40001000 - buffer or parcel is NULL.\n {@link SURFACE_ERROR_BINDER_ERROR} 50401000 - ipc send failed.\n @since 23\n @version 1.0"]
     #[cfg(feature = "api-23")]
     pub fn OH_NativeBuffer_WriteToParcel(
@@ -618,7 +618,7 @@ extern "C" {
         parcel: *mut OHIPCParcel,
     ) -> i32;
 }
-extern "C" {
+unsafe extern "C" {
     #[doc = " @brief Deserialize data from the serialized <b>OHIPCParcel</b> object and rebuild <b>OH_NativeBuffer</b> object.\n This interface will cause an increase in the reference count of the <b>OH_NativeBuffer</b> instance.\n This interface needs to be used in conjunction with <b>OH_NativeBuffer_Unreference</b>,\\n\n otherwise memory leaks will occur.\n This interface is a non-thread-safe type interface.\n\n @syscap SystemCapability.Graphic.Graphic2D.NativeBuffer\n @param parcel Indicates the serialized <b>OHIPCParcel</b> object.\n @param buffer Indicates the pointer to a <b>OH_NativeBuffer</b> pointer.\n @return {@link NATIVE_ERROR_OK} 0 - Success.\n {@link NATIVE_ERROR_INVALID_ARGUMENTS} 40001000 - parcel or buffer is NULL.\n {@link NATIVE_ERROR_UNKNOWN} 50002000 - deserialize failed.\n @since 23\n @version 1.0"]
     #[cfg(feature = "api-23")]
     pub fn OH_NativeBuffer_ReadFromParcel(
@@ -626,7 +626,7 @@ extern "C" {
         buffer: *mut *mut OH_NativeBuffer,
     ) -> i32;
 }
-extern "C" {
+unsafe extern "C" {
     #[doc = " @brief Check whether the system supports the <b>NativeBufferConfig</b>.\\n\n This interface is a non-thread-safe type interface.\n\n @syscap SystemCapability.Graphic.Graphic2D.NativeBuffer\n @param config Indicates the config of the <b>OH_NativeBuffer</b>.\n @param isSupported Indicates whether the system supports the <b>NativeBufferConfig</b>.\n @return {@link NATIVE_ERROR_OK} 0 - Success.\n {@link NATIVE_ERROR_INVALID_ARGUMENTS} 40001000 - isSupported is NULL.\n @since 23\n @version 1.0"]
     #[cfg(feature = "api-23")]
     pub fn OH_NativeBuffer_IsSupported(
@@ -634,7 +634,7 @@ extern "C" {
         isSupported: *mut bool,
     ) -> i32;
 }
-extern "C" {
+unsafe extern "C" {
     #[doc = " @brief Provide direct cpu access to the <b>OH_NativeBuffer</b> in the process's address space,\\n\n and return a <b>NativeBufferConfig<b> of the <b>OH_NativeBuffer</b>.\n This interface is a non-thread-safe type interface.\n\n @syscap SystemCapability.Graphic.Graphic2D.NativeBuffer\n @param buffer Indicates the pointer to a <b>OH_NativeBuffer</b> instance.\n @param virAddr Indicates the address of the <b>OH_NativeBuffer</b> in virtual memory.\n @param config Indicates the pointer to the <b>NativeBufferConfig</b> of the buffer.\n @return {@link NATIVE_ERROR_OK} 0 - Success.\n {@link NATIVE_ERROR_INVALID_ARGUMENTS} 40001000 - buffer or virAddr or config is NULL or invalid fenceFd.\n {@link NATIVE_ERROR_UNKNOWN} 50002000 - map failed.\n @since 23\n @version 1.0"]
     #[cfg(feature = "api-23")]
     pub fn OH_NativeBuffer_MapAndGetConfig(

@@ -23,7 +23,7 @@ use ohos_udmf_binding::UdmfData;
 #[cfg(all(feature = "api-20", feature = "udmf"))]
 use ohos_udmf_binding::UdmfDataLoadParams;
 
-use crate::{check_arkui_status, ArkUIError, ArkUIHandle, ArkUIResult};
+use crate::{ArkUIError, ArkUIHandle, ArkUIResult, check_arkui_status};
 
 use super::{DragAndDropInfo, DragPreviewOption};
 

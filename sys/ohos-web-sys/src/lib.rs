@@ -482,11 +482,11 @@ pub const ArkWeb_NativeAPIVariantKind_ARKWEB_NATIVE_JAVASCRIPT_VALUE: ArkWeb_Nat
     5;
 #[doc = " @brief Defines the native API set type.\n\n @since 12"]
 pub type ArkWeb_NativeAPIVariantKind = u32;
-extern "C" {
+unsafe extern "C" {
     #[doc = " @brief Obtains the native API set of a specified type.\n @param type Indicates the type of the native API set provided by ArkWeb.\n @return Return the pointer to the native API abstract object that carries the size.\n         If the type is incorrect, a null pointer is returned.\n\n @syscap SystemCapability.Web.Webview.Core\n @since 12"]
     pub fn OH_ArkWeb_GetNativeAPI(type_: ArkWeb_NativeAPIVariantKind) -> *mut ArkWeb_AnyNativeAPI;
 }
-extern "C" {
+unsafe extern "C" {
     #[doc = " @brief Register a scrolling event callback.\n @param webTag The name of the web component.\n @param callback The ArkWeb scrolling callback.\n @param userData The data set by user.\n @return Returns whether the registration was successful, false indicates failure.\n\n @syscap SystemCapability.Web.Webview.Core\n @since 18"]
     #[cfg(feature = "api-18")]
     pub fn OH_ArkWeb_RegisterScrollCallback(
@@ -1131,17 +1131,17 @@ pub type ArkWeb_HttpBodyStreamAsyncReadCallback = ::std::option::Option<
 pub type ArkWeb_HttpBodyStreamInitCallback = ::std::option::Option<
     unsafe extern "C" fn(httpBodyStream: *const ArkWeb_HttpBodyStream, result: ArkWeb_NetError),
 >;
-extern "C" {
+unsafe extern "C" {
     #[doc = " @brief Destroy the ArkWeb_RequestHeaderList.\n @param requestHeaderList The ArkWeb_RequestHeaderList to be destroyed.\n\n @syscap SystemCapability.Web.Webview.Core\n @since 12"]
     pub fn OH_ArkWebRequestHeaderList_Destroy(requestHeaderList: *mut ArkWeb_RequestHeaderList);
 }
-extern "C" {
+unsafe extern "C" {
     #[doc = " @brief Get the request headers size.\n @param requestHeaderList The list of request header.\n @return The size of request headers. -1 if requestHeaderList is invalid.\n\n @syscap SystemCapability.Web.Webview.Core\n @since 12"]
     pub fn OH_ArkWebRequestHeaderList_GetSize(
         requestHeaderList: *const ArkWeb_RequestHeaderList,
     ) -> i32;
 }
-extern "C" {
+unsafe extern "C" {
     #[doc = " @brief Get the specified request header.\n @param requestHeaderList The list of request header.\n @param index The index of request header.\n @param key The header key. Caller must release the string by OH_ArkWeb_ReleaseString.\n @param value The header value. Caller must release the string by OH_ArkWeb_ReleaseString.\n\n @syscap SystemCapability.Web.Webview.Core\n @since 12"]
     pub fn OH_ArkWebRequestHeaderList_GetHeader(
         requestHeaderList: *const ArkWeb_RequestHeaderList,
@@ -1150,80 +1150,80 @@ extern "C" {
         value: *mut *mut ::std::os::raw::c_char,
     );
 }
-extern "C" {
+unsafe extern "C" {
     #[doc = " @brief Set a user data to ArkWeb_ResourceRequest.\n @param resourceRequest The ArkWeb_ResourceRequest.\n @param userData The user data to set.\n @return {@link ARKWEB_NET_OK} 0 - Success.\n         {@link ARKWEB_INVALID_PARAM} 17100101 - Invalid param.\n\n @syscap SystemCapability.Web.Webview.Core\n @since 12"]
     pub fn OH_ArkWebResourceRequest_SetUserData(
         resourceRequest: *mut ArkWeb_ResourceRequest,
         userData: *mut ::std::os::raw::c_void,
     ) -> i32;
 }
-extern "C" {
+unsafe extern "C" {
     #[doc = " @brief Get the user data from ArkWeb_ResourceRequest.\n @param resourceRequest The ArkWeb_ResourceRequest.\n @return The set user data.\n\n @syscap SystemCapability.Web.Webview.Core\n @since 12"]
     pub fn OH_ArkWebResourceRequest_GetUserData(
         resourceRequest: *const ArkWeb_ResourceRequest,
     ) -> *mut ::std::os::raw::c_void;
 }
-extern "C" {
+unsafe extern "C" {
     #[doc = " @brief Get the method of request.\n @param resourceRequest The ArkWeb_ResourceRequest.\n @param method The request's http method. This function will allocate memory for the method string and caller must\n               release the string by OH_ArkWeb_ReleaseString.\n\n @syscap SystemCapability.Web.Webview.Core\n @since 12"]
     pub fn OH_ArkWebResourceRequest_GetMethod(
         resourceRequest: *const ArkWeb_ResourceRequest,
         method: *mut *mut ::std::os::raw::c_char,
     );
 }
-extern "C" {
+unsafe extern "C" {
     #[doc = " @brief Get the url of request.\n @param resourceRequest The ArkWeb_ResourceRequest.\n @param url The request's url. This function will allocate memory for the url string and caller must release the\n            string by OH_ArkWeb_ReleaseString.\n\n @syscap SystemCapability.Web.Webview.Core\n @since 12"]
     pub fn OH_ArkWebResourceRequest_GetUrl(
         resourceRequest: *const ArkWeb_ResourceRequest,
         url: *mut *mut ::std::os::raw::c_char,
     );
 }
-extern "C" {
+unsafe extern "C" {
     #[doc = " @brief Create a ArkWeb_HttpBodyStream which used to read the http body.\n @param resourceRequest The ArkWeb_ResourceRequest.\n @param httpBodyStream The request's http body. This function will allocate memory for the http body stream and\n                       caller must release the httpBodyStream by OH_ArkWebResourceRequest_DestroyHttpBodyStream.\n\n @syscap SystemCapability.Web.Webview.Core\n @since 12"]
     pub fn OH_ArkWebResourceRequest_GetHttpBodyStream(
         resourceRequest: *const ArkWeb_ResourceRequest,
         httpBodyStream: *mut *mut ArkWeb_HttpBodyStream,
     );
 }
-extern "C" {
+unsafe extern "C" {
     #[doc = " @brief Destroy the http body stream.\n @param httpBodyStream The httpBodyStream to be destroyed.\n\n @syscap SystemCapability.Web.Webview.Core\n @since 12"]
     pub fn OH_ArkWebResourceRequest_DestroyHttpBodyStream(
         httpBodyStream: *mut ArkWeb_HttpBodyStream,
     );
 }
-extern "C" {
+unsafe extern "C" {
     #[doc = " @brief Get the resource type of request.\n @param resourceRequest The ArkWeb_ResourceRequest.\n @return The resource type of request. -1 if resourceRequest is invalid.\n\n @syscap SystemCapability.Web.Webview.Core\n @since 12"]
     pub fn OH_ArkWebResourceRequest_GetResourceType(
         resourceRequest: *const ArkWeb_ResourceRequest,
     ) -> i32;
 }
-extern "C" {
+unsafe extern "C" {
     #[doc = " @brief Get the url of frame which trigger this request.\n @param resourceRequest The ArkWeb_ResourceRequest.\n @param frameUrl The url of frame which trigger this request. This function will allocate memory for the url string\n            and caller must release the string by OH_ArkWeb_ReleaseString.\n\n @syscap SystemCapability.Web.Webview.Core\n @since 12"]
     pub fn OH_ArkWebResourceRequest_GetFrameUrl(
         resourceRequest: *const ArkWeb_ResourceRequest,
         frameUrl: *mut *mut ::std::os::raw::c_char,
     );
 }
-extern "C" {
+unsafe extern "C" {
     #[doc = " @brief Set a user data to ArkWeb_HttpBodyStream.\n @param httpBodyStream The ArkWeb_HttpBodyStream.\n @param userData The user data to set.\n @return {@link ARKWEB_NET_OK} 0 - Success.\n         {@link ARKWEB_INVALID_PARAM} 17100101 - Invalid param.\n\n @syscap SystemCapability.Web.Webview.Core\n @since 12"]
     pub fn OH_ArkWebHttpBodyStream_SetUserData(
         httpBodyStream: *mut ArkWeb_HttpBodyStream,
         userData: *mut ::std::os::raw::c_void,
     ) -> i32;
 }
-extern "C" {
+unsafe extern "C" {
     #[doc = " @brief Get the user data from ArkWeb_HttpBodyStream.\n @param httpBodyStream The ArkWeb_HttpBodyStream.\n @return The set user data.\n\n @syscap SystemCapability.Web.Webview.Core\n @since 12"]
     pub fn OH_ArkWebHttpBodyStream_GetUserData(
         httpBodyStream: *const ArkWeb_HttpBodyStream,
     ) -> *mut ::std::os::raw::c_void;
 }
-extern "C" {
+unsafe extern "C" {
     #[doc = " @brief Set the callback for OH_ArkWebHttpBodyStream_Read.\n\n The result of OH_ArkWebHttpBodyStream_Read will be notified to caller through the readCallback.\\n\n The callback will run in the same thread as OH_ArkWebHttpBodyStream_Read.\\n\n\n @param httpBodyStream The ArkWeb_HttpBodyStream.\n @param readCallback The callback of read function.\n @return {@link ARKWEB_NET_OK} 0 - Success.\n         {@link ARKWEB_INVALID_PARAM} 17100101 - Invalid param.\n\n @syscap SystemCapability.Web.Webview.Core\n @since 12"]
     pub fn OH_ArkWebHttpBodyStream_SetReadCallback(
         httpBodyStream: *mut ArkWeb_HttpBodyStream,
         readCallback: ArkWeb_HttpBodyStreamReadCallback,
     ) -> i32;
 }
-extern "C" {
+unsafe extern "C" {
     #[doc = " @brief Set the callback for OH_ArkWebHttpBodyStream_AsyncRead.\n\n The result of OH_ArkWebHttpBodyStream_AsyncRead will be notified to caller through the\\n\n readCallback. The callback will runs in the ArkWeb worker thread.\\n\n\n @param httpBodyStream The ArkWeb_HttpBodyStream.\n @param readCallback The callback of read function.\n @return {@link ARKWEB_NET_OK} 0 - Success.\n {@link ARKWEB_INVALID_PARAM} 17100101 - Invalid param.\n\n @since 20"]
     #[cfg(feature = "api-20")]
     pub fn OH_ArkWebHttpBodyStream_SetAsyncReadCallback(
@@ -1231,14 +1231,14 @@ extern "C" {
         readCallback: ArkWeb_HttpBodyStreamAsyncReadCallback,
     ) -> i32;
 }
-extern "C" {
+unsafe extern "C" {
     #[doc = " @brief Init the http body stream.\n\n This function must be called before calling any other functions.\\n\n\n @param httpBodyStream The ArkWeb_HttpBodyStream.\n @param initCallback The callback of init.\n @return {@link ARKWEB_NET_OK} 0 - Success.\n         {@link ARKWEB_INVALID_PARAM} 17100101 - Invalid param.\n\n @syscap SystemCapability.Web.Webview.Core\n @since 12"]
     pub fn OH_ArkWebHttpBodyStream_Init(
         httpBodyStream: *mut ArkWeb_HttpBodyStream,
         initCallback: ArkWeb_HttpBodyStreamInitCallback,
     ) -> i32;
 }
-extern "C" {
+unsafe extern "C" {
     #[doc = " @brief Read the http body to the buffer.\n\n The buffer must be larger than the bufLen. We will be reading data from a worker thread to the buffer,\\n\n so should not use the buffer in other threads before the callback to avoid concurrency issues.\\n\n\n @param httpBodyStream The ArkWeb_HttpBodyStream.\n @param buffer The buffer to receive data.\n @param bufLen The size of bytes to read.\n\n @syscap SystemCapability.Web.Webview.Core\n @since 12"]
     pub fn OH_ArkWebHttpBodyStream_Read(
         httpBodyStream: *const ArkWeb_HttpBodyStream,
@@ -1246,7 +1246,7 @@ extern "C" {
         bufLen: ::std::os::raw::c_int,
     );
 }
-extern "C" {
+unsafe extern "C" {
     #[doc = " @brief Read the http body to the buffer.\n\n The buffer must be larger than the bufLen. We will read data from a worker thread to the buffer,\\n\n so should not use the buffer in other threads before the callback to avoid concurrency issues.\\n\n\n @param httpBodyStream The ArkWeb_HttpBodyStream.\n @param buffer The buffer to receive data.\n @param bufLen The size of bytes to read.\n\n @since 20"]
     #[cfg(feature = "api-20")]
     pub fn OH_ArkWebHttpBodyStream_AsyncRead(
@@ -1255,79 +1255,79 @@ extern "C" {
         bufLen: ::std::os::raw::c_int,
     );
 }
-extern "C" {
+unsafe extern "C" {
     #[doc = " @brief Get the total size of the data stream.\n\n When data is chunked or httpBodyStream is invalid, always return zero.\\n\n\n @param httpBodyStream The ArkWeb_HttpBodyStream.\n @return The size of data stream.\n\n @syscap SystemCapability.Web.Webview.Core\n @since 12"]
     pub fn OH_ArkWebHttpBodyStream_GetSize(httpBodyStream: *const ArkWeb_HttpBodyStream) -> u64;
 }
-extern "C" {
+unsafe extern "C" {
     #[doc = " @brief Get the current position of the data stream.\n @param httpBodyStream The ArkWeb_HttpBodyStream.\n @return The current position of data stream. 0 if httpBodyStream is invalid.\n\n @syscap SystemCapability.Web.Webview.Core\n @since 12"]
     pub fn OH_ArkWebHttpBodyStream_GetPosition(httpBodyStream: *const ArkWeb_HttpBodyStream)
-        -> u64;
+    -> u64;
 }
-extern "C" {
+unsafe extern "C" {
     #[doc = " @brief Get if the data stream is chunked.\n @param httpBodyStream The ArkWeb_HttpBodyStream.\n @return True if is chunked; false otherwise.\n\n @syscap SystemCapability.Web.Webview.Core\n @since 12"]
     pub fn OH_ArkWebHttpBodyStream_IsChunked(httpBodyStream: *const ArkWeb_HttpBodyStream) -> bool;
 }
-extern "C" {
+unsafe extern "C" {
     #[doc = " @brief Returns true if all data has been consumed from this upload data stream.\n\n For chunked uploads, returns false until the first read attempt.\\n\n\n @param httpBodyStream The ArkWeb_HttpBodyStream.\n @return True if all data has been consumed; false otherwise.\n\n @syscap SystemCapability.Web.Webview.Core\n @since 12"]
     pub fn OH_ArkWebHttpBodyStream_IsEof(httpBodyStream: *const ArkWeb_HttpBodyStream) -> bool;
 }
-extern "C" {
+unsafe extern "C" {
     #[doc = " @brief Returns true if the upload data in the stream is entirely in memory,\n        and all read requests will succeed synchronously.\n\n Expected to return false for chunked requests.\\n\n\n @param httpBodyStream The ArkWeb_HttpBodyStream.\n @return True if the upload data is in memory; false otherwise.\n\n @syscap SystemCapability.Web.Webview.Core\n @since 12"]
     pub fn OH_ArkWebHttpBodyStream_IsInMemory(httpBodyStream: *const ArkWeb_HttpBodyStream)
-        -> bool;
+    -> bool;
 }
-extern "C" {
+unsafe extern "C" {
     #[doc = " @brief Destroy the ArkWeb_ResourceRequest.\n @param resourceRequest The ArkWeb_ResourceRequest.\n @return {@link ARKWEB_NET_OK} 0 - Success.\n         {@link ARKWEB_INVALID_PARAM} 17100101 - Invalid param.\n\n @syscap SystemCapability.Web.Webview.Core\n @since 12"]
     pub fn OH_ArkWebResourceRequest_Destroy(resourceRequest: *const ArkWeb_ResourceRequest) -> i32;
 }
-extern "C" {
+unsafe extern "C" {
     #[doc = " @brief Get the referrer of request.\n @param resourceRequest The ArkWeb_ResourceRequest.\n @param referrer The request's referrer. This function will allocate memory for the post data string and caller\n                 must release the string by OH_ArkWeb_ReleaseString.\n\n @syscap SystemCapability.Web.Webview.Core\n @since 12"]
     pub fn OH_ArkWebResourceRequest_GetReferrer(
         resourceRequest: *const ArkWeb_ResourceRequest,
         referrer: *mut *mut ::std::os::raw::c_char,
     );
 }
-extern "C" {
+unsafe extern "C" {
     #[doc = " @brief Get the OH_ArkWeb_RequestHeaderList of the request.\n @param resourceRequest The ArkWeb_ResourceRequest.\n @param requestHeaderList The RequestHeaderList of request.\n\n @syscap SystemCapability.Web.Webview.Core\n @since 12"]
     pub fn OH_ArkWebResourceRequest_GetRequestHeaders(
         resourceRequest: *const ArkWeb_ResourceRequest,
         requestHeaderList: *mut *mut ArkWeb_RequestHeaderList,
     );
 }
-extern "C" {
+unsafe extern "C" {
     #[doc = " @brief Get if this is a redirect request.\n @param resourceRequest The ArkWeb_ResourceRequest.\n @return True if this is a redirect; false otherwise.\n\n @syscap SystemCapability.Web.Webview.Core\n @since 12"]
     pub fn OH_ArkWebResourceRequest_IsRedirect(
         resourceRequest: *const ArkWeb_ResourceRequest,
     ) -> bool;
 }
-extern "C" {
+unsafe extern "C" {
     #[doc = " @brief Get if this is a request from main frame.\n @param resourceRequest The ArkWeb_ResourceRequest.\n @return True if this is from main frame; false otherwise.\n\n @syscap SystemCapability.Web.Webview.Core\n @since 12"]
     pub fn OH_ArkWebResourceRequest_IsMainFrame(
         resourceRequest: *const ArkWeb_ResourceRequest,
     ) -> bool;
 }
-extern "C" {
+unsafe extern "C" {
     #[doc = " @brief Get if this is a request is triggered by user gesutre.\n @param resourceRequest The ArkWeb_ResourceRequest.\n @return True if this is triggered by user gesture; false otherwise.\n\n @syscap SystemCapability.Web.Webview.Core\n @since 12"]
     pub fn OH_ArkWebResourceRequest_HasGesture(
         resourceRequest: *const ArkWeb_ResourceRequest,
     ) -> bool;
 }
-extern "C" {
+unsafe extern "C" {
     #[doc = " @brief Register custom scheme to the ArkWeb.\n\n Should not be called for built-in HTTP, HTTPS, FILE, FTP, ABOUT and DATA schemes.\\n\n This function should be called on main thread.\\n\n\n @param scheme The scheme to regist.\n @param option The configuration of the scheme.\n @return {@link ARKWEB_NET_OK} 0 - Success.\n         {@link ARKWEB_ERROR_UNKNOWN} 17100100 - Unknown error.\n         {@link ARKWEB_INVALID_PARAM} 17100101 - Invalid param.\n         {@link ARKWEB_SCHEME_REGISTER_FAILED} 17100102 - Register custom schemes should be called\n                                                          before create any ArkWeb.\n\n @syscap SystemCapability.Web.Webview.Core\n @since 12"]
     pub fn OH_ArkWeb_RegisterCustomSchemes(
         scheme: *const ::std::os::raw::c_char,
         option: i32,
     ) -> i32;
 }
-extern "C" {
+unsafe extern "C" {
     #[doc = " @brief Set a ArkWeb_SchemeHandler for a specific scheme to intercept requests of that scheme type.\n\n SchemeHandler should be set after the BrowserContext created.\\n\n Use WebviewController.initializeWebEngine to initialize the BrowserContext without create a ArkWeb.\\n\n\n @param scheme Scheme that need to be intercepted.\n @param schemeHandler The SchemeHandler for the scheme. Only requests triggered by ServiceWorker will be notified\n                      through this handler.\n @return Return true if set SchemeHandler for specific scheme successful, return false otherwise.\n\n @syscap SystemCapability.Web.Webview.Core\n @since 12"]
     pub fn OH_ArkWebServiceWorker_SetSchemeHandler(
         scheme: *const ::std::os::raw::c_char,
         schemeHandler: *mut ArkWeb_SchemeHandler,
     ) -> bool;
 }
-extern "C" {
+unsafe extern "C" {
     #[doc = " @brief Set a ArkWeb_SchemeHandler for a specific scheme to intercept requests of that scheme type.\n\n SchemeHandler should be set after the BrowserContext created.\\n\n Use WebviewController.initializeWebEngine to initialize the BrowserContext without create a ArkWeb.\\n\n\n @param scheme Scheme that need to be intercepted.\n @param webTag The name of the web component.\n @param schemeHandler The SchemeHandler for the scheme. Only requests triggered from the specified web will be\n                      notified through this handler.\n @return Return true if set SchemeHandler for specific scheme successful, return false otherwise.\n\n @syscap SystemCapability.Web.Webview.Core\n @since 12"]
     pub fn OH_ArkWeb_SetSchemeHandler(
         scheme: *const ::std::os::raw::c_char,
@@ -1335,136 +1335,136 @@ extern "C" {
         schemeHandler: *mut ArkWeb_SchemeHandler,
     ) -> bool;
 }
-extern "C" {
+unsafe extern "C" {
     #[doc = " @brief Clear the handler registered on the specified web for service worker.\n @return {@link ARKWEB_NET_OK} 0 - Success.\n\n @syscap SystemCapability.Web.Webview.Core\n @since 12"]
     pub fn OH_ArkWebServiceWorker_ClearSchemeHandlers() -> i32;
 }
-extern "C" {
+unsafe extern "C" {
     #[doc = " @brief Clear the handler registered on the specified web.\n @param webTag The name of the web component.\n @return {@link ARKWEB_NET_OK} 0 - Success.\n         {@link ARKWEB_INVALID_PARAM} 17100101 - Invalid param.\n\n @syscap SystemCapability.Web.Webview.Core\n @since 12"]
     pub fn OH_ArkWeb_ClearSchemeHandlers(webTag: *const ::std::os::raw::c_char) -> i32;
 }
-extern "C" {
+unsafe extern "C" {
     #[doc = " @brief Create a SchemeHandler.\n @param schemeHandler Return the created SchemeHandler. Use OH_ArkWeb_DestroySchemeHandler destroy it when donn't\n                      need it.\n\n @syscap SystemCapability.Web.Webview.Core\n @since 12"]
     pub fn OH_ArkWeb_CreateSchemeHandler(schemeHandler: *mut *mut ArkWeb_SchemeHandler);
 }
-extern "C" {
+unsafe extern "C" {
     #[doc = " @brief Destroy a SchemeHandler.\n @param schemeHandler The ArkWeb_SchemeHandler to be destroy.\n\n @syscap SystemCapability.Web.Webview.Core\n @since 12"]
     pub fn OH_ArkWeb_DestroySchemeHandler(schemeHandler: *mut ArkWeb_SchemeHandler);
 }
-extern "C" {
+unsafe extern "C" {
     #[doc = " @brief Set a user data to ArkWeb_SchemeHandler.\n @param schemeHandler The ArkWeb_SchemeHandler.\n @param userData The user data to set.\n @return {@link ARKWEB_NET_OK} 0 - Success.\n         {@link ARKWEB_INVALID_PARAM} 17100101 - Invalid param.\n\n @syscap SystemCapability.Web.Webview.Core\n @since 12"]
     pub fn OH_ArkWebSchemeHandler_SetUserData(
         schemeHandler: *mut ArkWeb_SchemeHandler,
         userData: *mut ::std::os::raw::c_void,
     ) -> i32;
 }
-extern "C" {
+unsafe extern "C" {
     #[doc = " @brief Get the user data from ArkWeb_SchemeHandler.\n @param schemeHandler The ArkWeb_SchemeHandler.\n @return The set user data.\n\n @syscap SystemCapability.Web.Webview.Core\n @since 12"]
     pub fn OH_ArkWebSchemeHandler_GetUserData(
         schemeHandler: *const ArkWeb_SchemeHandler,
     ) -> *mut ::std::os::raw::c_void;
 }
-extern "C" {
+unsafe extern "C" {
     #[doc = " @brief Set the OnRequestStart callback for SchemeHandler.\n @param schemeHandler The SchemeHandler for the scheme.\n @param onRequestStart The OnRequestStart callback.\n @return {@link ARKWEB_NET_OK} 0 - Success.\n         {@link ARKWEB_INVALID_PARAM} 17100101 - Invalid param.\n\n @syscap SystemCapability.Web.Webview.Core\n @since 12"]
     pub fn OH_ArkWebSchemeHandler_SetOnRequestStart(
         schemeHandler: *mut ArkWeb_SchemeHandler,
         onRequestStart: ArkWeb_OnRequestStart,
     ) -> i32;
 }
-extern "C" {
+unsafe extern "C" {
     #[doc = " @brief Set the OnRequestStop callback for SchemeHandler.\n @param schemeHandler The SchemeHandler for the scheme.\n @param onRequestStop The OnRequestStop callback.\n @return {@link ARKWEB_NET_OK} 0 - Success.\n         {@link ARKWEB_INVALID_PARAM} 17100101 - Invalid param.\n\n @syscap SystemCapability.Web.Webview.Core\n @since 12"]
     pub fn OH_ArkWebSchemeHandler_SetOnRequestStop(
         schemeHandler: *mut ArkWeb_SchemeHandler,
         onRequestStop: ArkWeb_OnRequestStop,
     ) -> i32;
 }
-extern "C" {
+unsafe extern "C" {
     #[doc = " @brief Create a Response for a request.\n @param response The created Response. Use OH_ArkWeb_DestroyResponse to destroy when donn't need it.\n\n @syscap SystemCapability.Web.Webview.Core\n @since 12"]
     pub fn OH_ArkWeb_CreateResponse(response: *mut *mut ArkWeb_Response);
 }
-extern "C" {
+unsafe extern "C" {
     #[doc = " @brief Destroy the Reponse.\n @param response The Response needs destroy.\n\n @syscap SystemCapability.Web.Webview.Core\n @since 12"]
     pub fn OH_ArkWeb_DestroyResponse(response: *mut ArkWeb_Response);
 }
-extern "C" {
+unsafe extern "C" {
     #[doc = " @brief Set the resolved URL after redirects or changed as a result of HSTS.\n @param response The ArkWeb_Response.\n @param url The resolved URL.\n @return {@link ARKWEB_NET_OK} 0 - Success.\n         {@link ARKWEB_INVALID_PARAM} 17100101 - Invalid param.\n\n @syscap SystemCapability.Web.Webview.Core\n @since 12"]
     pub fn OH_ArkWebResponse_SetUrl(
         response: *mut ArkWeb_Response,
         url: *const ::std::os::raw::c_char,
     ) -> i32;
 }
-extern "C" {
+unsafe extern "C" {
     #[doc = " @brief Get the resolved URL after redirects or changed as a result of HSTS.\n @param response The ArkWeb_Response.\n @param url The resolved URL.\n\n @syscap SystemCapability.Web.Webview.Core\n @since 12"]
     pub fn OH_ArkWebResponse_GetUrl(
         response: *const ArkWeb_Response,
         url: *mut *mut ::std::os::raw::c_char,
     );
 }
-extern "C" {
+unsafe extern "C" {
     #[doc = " @brief Set a error code to ArkWeb_Response.\n @param response The ArkWeb_Response.\n @param errorCode The error code for the failed request.\n @return {@link ARKWEB_NET_OK} 0 - Success.\n         {@link ARKWEB_INVALID_PARAM} 17100101 - Invalid param.\n\n @syscap SystemCapability.Web.Webview.Core\n @since 12"]
     pub fn OH_ArkWebResponse_SetError(
         response: *mut ArkWeb_Response,
         errorCode: ArkWeb_NetError,
     ) -> i32;
 }
-extern "C" {
+unsafe extern "C" {
     #[doc = " @brief Get the response's error code.\n @param response The ArkWeb_Response.\n @return The response's error code.\n\n @syscap SystemCapability.Web.Webview.Core\n @since 12"]
     pub fn OH_ArkWebResponse_GetError(response: *const ArkWeb_Response) -> ArkWeb_NetError;
 }
-extern "C" {
+unsafe extern "C" {
     #[doc = " @brief Set a status code to ArkWebResponse.\n @param response The ArkWeb_Response.\n @param status The http status code for the request.\n @return {@link ARKWEB_NET_OK} 0 - Success.\n         {@link ARKWEB_INVALID_PARAM} 17100101 - Invalid param.\n\n @syscap SystemCapability.Web.Webview.Core\n @since 12"]
     pub fn OH_ArkWebResponse_SetStatus(
         response: *mut ArkWeb_Response,
         status: ::std::os::raw::c_int,
     ) -> i32;
 }
-extern "C" {
+unsafe extern "C" {
     #[doc = " @brief Get the response's status code.\n @param response The ArkWeb_Response.\n @return The response's http status code. -1 if response is invalid.\n\n @syscap SystemCapability.Web.Webview.Core\n @since 12"]
     pub fn OH_ArkWebResponse_GetStatus(response: *const ArkWeb_Response) -> ::std::os::raw::c_int;
 }
-extern "C" {
+unsafe extern "C" {
     #[doc = " @brief Set a status text to ArkWebResponse.\n @param response The ArkWeb_Response.\n @param statusText The status text for the request.\n @return {@link ARKWEB_NET_OK} 0 - Success.\n         {@link ARKWEB_INVALID_PARAM} 17100101 - Invalid param.\n\n @syscap SystemCapability.Web.Webview.Core\n @since 12"]
     pub fn OH_ArkWebResponse_SetStatusText(
         response: *mut ArkWeb_Response,
         statusText: *const ::std::os::raw::c_char,
     ) -> i32;
 }
-extern "C" {
+unsafe extern "C" {
     #[doc = " @brief Get the response's status text.\n @param response The ArkWeb_Response.\n @param statusText Return the response's statusText. This function will allocate memory for the statusText string and\n                   caller must release the string by OH_ArkWeb_ReleaseString.\n\n @syscap SystemCapability.Web.Webview.Core\n @since 12"]
     pub fn OH_ArkWebResponse_GetStatusText(
         response: *const ArkWeb_Response,
         statusText: *mut *mut ::std::os::raw::c_char,
     );
 }
-extern "C" {
+unsafe extern "C" {
     #[doc = " @brief Set mime type to ArkWebResponse.\n @param response The ArkWeb_Response.\n @param mimeType The mime type for the request.\n @return {@link ARKWEB_NET_OK} 0 - Success.\n         {@link ARKWEB_INVALID_PARAM} 17100101 - Invalid param.\n\n @syscap SystemCapability.Web.Webview.Core\n @since 12"]
     pub fn OH_ArkWebResponse_SetMimeType(
         response: *mut ArkWeb_Response,
         mimeType: *const ::std::os::raw::c_char,
     ) -> i32;
 }
-extern "C" {
+unsafe extern "C" {
     #[doc = " @brief Get the response's mime type.\n @param response The ArkWeb_Response.\n @param mimeType Return the response's mime type. This function will allocate memory for the mime type string and\n                 caller must release the string by OH_ArkWeb_ReleaseString.\n\n @syscap SystemCapability.Web.Webview.Core\n @since 12"]
     pub fn OH_ArkWebResponse_GetMimeType(
         response: *const ArkWeb_Response,
         mimeType: *mut *mut ::std::os::raw::c_char,
     );
 }
-extern "C" {
+unsafe extern "C" {
     #[doc = " @brief Set charset to ArkWeb_Response.\n @param response The ArkWeb_Response.\n @param charset The charset for the request.\n @return {@link ARKWEB_NET_OK} 0 - Success.\n         {@link ARKWEB_INVALID_PARAM} 17100101 - Invalid param.\n\n @syscap SystemCapability.Web.Webview.Core\n @since 12"]
     pub fn OH_ArkWebResponse_SetCharset(
         response: *mut ArkWeb_Response,
         charset: *const ::std::os::raw::c_char,
     ) -> i32;
 }
-extern "C" {
+unsafe extern "C" {
     #[doc = " @brief Get the response's charset.\n @param response The ArkWeb_Response.\n @param charset Return the response's charset. This function will allocate memory for the charset string and caller\n                must release the string by OH_ArkWeb_ReleaseString.\n\n @syscap SystemCapability.Web.Webview.Core\n @since 12"]
     pub fn OH_ArkWebResponse_GetCharset(
         response: *const ArkWeb_Response,
         charset: *mut *mut ::std::os::raw::c_char,
     );
 }
-extern "C" {
+unsafe extern "C" {
     #[doc = " @brief Set a header to ArkWeb_Response.\n @param response The ArkWeb_Response.\n @param name The name of the header.\n @param value The value of the header.\n @param overwirte If true will overwrite the exsits header, if false otherwise.\n @return {@link ARKWEB_NET_OK} 0 - Success.\n         {@link ARKWEB_INVALID_PARAM} 17100101 - Invalid param.\n\n @syscap SystemCapability.Web.Webview.Core\n @since 12"]
     pub fn OH_ArkWebResponse_SetHeaderByName(
         response: *mut ArkWeb_Response,
@@ -1473,7 +1473,7 @@ extern "C" {
         overwrite: bool,
     ) -> i32;
 }
-extern "C" {
+unsafe extern "C" {
     #[doc = " @brief Get the header from the response.\n @param response The ArkWeb_Response.\n @param name The name of the header.\n @param value Return the header's value. This function will allocate memory for the value string and caller must\n              release the string by OH_ArkWeb_ReleaseString.\n\n @syscap SystemCapability.Web.Webview.Core\n @since 12"]
     pub fn OH_ArkWebResponse_GetHeaderByName(
         response: *const ArkWeb_Response,
@@ -1481,18 +1481,18 @@ extern "C" {
         value: *mut *mut ::std::os::raw::c_char,
     );
 }
-extern "C" {
+unsafe extern "C" {
     #[doc = " @brief Destroy the ArkWeb_ResourceHandler.\n @param resourceHandler The ArkWeb_ResourceHandler.\n @return {@link ARKWEB_NET_OK} 0 - Success.\n         {@link ARKWEB_INVALID_PARAM} 17100101 - Invalid param.\n\n @syscap SystemCapability.Web.Webview.Core\n @since 12"]
     pub fn OH_ArkWebResourceHandler_Destroy(resourceHandler: *const ArkWeb_ResourceHandler) -> i32;
 }
-extern "C" {
+unsafe extern "C" {
     #[doc = " @brief Pass response headers to intercepted requests.\n @param resourceHandler The ArkWeb_ResourceHandler for the request.\n @param response The ArkWeb_Response for the intercepting requests.\n @return {@link ARKWEB_NET_OK} 0 - Success.\n         {@link ARKWEB_INVALID_PARAM} 17100101 - Invalid param.\n\n @syscap SystemCapability.Web.Webview.Core\n @since 12"]
     pub fn OH_ArkWebResourceHandler_DidReceiveResponse(
         resourceHandler: *const ArkWeb_ResourceHandler,
         response: *const ArkWeb_Response,
     ) -> i32;
 }
-extern "C" {
+unsafe extern "C" {
     #[doc = " @brief Pass response body data to intercepted requests.\n @param resourceHandler The ArkWeb_ResourceHandler for the request.\n @param buffer Buffer data to send.\n @param bufLen The size of buffer.\n @return {@link ARKWEB_NET_OK} 0 - Success.\n         {@link ARKWEB_INVALID_PARAM} 17100101 - Invalid param.\n\n @syscap SystemCapability.Web.Webview.Core\n @since 12"]
     pub fn OH_ArkWebResourceHandler_DidReceiveData(
         resourceHandler: *const ArkWeb_ResourceHandler,
@@ -1500,20 +1500,20 @@ extern "C" {
         bufLen: i64,
     ) -> i32;
 }
-extern "C" {
+unsafe extern "C" {
     #[doc = " @brief Notify the ArkWeb that this request should be finished and there is no more data available.\n @param resourceHandler The ArkWeb_ResourceHandler for the request.\n @return {@link ARKWEB_NET_OK} 0 - Success.\n         {@link ARKWEB_INVALID_PARAM} 17100101 - Invalid param.\n\n @syscap SystemCapability.Web.Webview.Core\n @since 12"]
     pub fn OH_ArkWebResourceHandler_DidFinish(
         resourceHandler: *const ArkWeb_ResourceHandler,
     ) -> i32;
 }
-extern "C" {
+unsafe extern "C" {
     #[doc = " @brief Notify the ArkWeb that this request should be failed.\n @param resourceHandler The ArkWeb_ResourceHandler for the request.\n @param errorCode The error code for this request. Refer to arkweb_net_error_list.h.\n @return {@link ARKWEB_NET_OK} 0 - Success.\n         {@link ARKWEB_INVALID_PARAM} 17100101 - Invalid param.\n\n @syscap SystemCapability.Web.Webview.Core\n @since 12"]
     pub fn OH_ArkWebResourceHandler_DidFailWithError(
         resourceHandler: *const ArkWeb_ResourceHandler,
         errorCode: ArkWeb_NetError,
     ) -> i32;
 }
-extern "C" {
+unsafe extern "C" {
     #[doc = " @brief Notify the ArkWeb that this request should be failed.\n @param resourceHandler The ArkWeb_ResourceHandler for the request.\n @param errorCode The error code for this request. Refer to arkweb_net_error_list.h.\n @param completeIfNoResponse If completeIfNoResponse is true, when DidFailWithErrorV2 is called,\n        if DidReceiveResponse has not been called,\n        a response is automatically constructed and the current request is terminated.\n @return {@link ARKWEB_NET_OK} 0 - Success.\n         {@link ARKWEB_INVALID_PARAM} 17100101 - Invalid param, the resourceHandler is nullptr.\n @since 20"]
     #[cfg(feature = "api-20")]
     pub fn OH_ArkWebResourceHandler_DidFailWithErrorV2(
@@ -1522,11 +1522,11 @@ extern "C" {
         completeIfNoResponse: bool,
     ) -> i32;
 }
-extern "C" {
+unsafe extern "C" {
     #[doc = " @brief Release the string acquired by native function.\n @param string The string to be released.\n\n @syscap SystemCapability.Web.Webview.Core\n @since 12"]
     pub fn OH_ArkWeb_ReleaseString(string: *mut ::std::os::raw::c_char);
 }
-extern "C" {
+unsafe extern "C" {
     #[doc = " @brief Release the byte array acquired by native function.\n @param byteArray The byte array to be released.\n\n @syscap SystemCapability.Web.Webview.Core\n @since 12"]
     pub fn OH_ArkWeb_ReleaseByteArray(byteArray: *mut u8);
 }
@@ -1577,7 +1577,7 @@ pub const ArkWebEngineVersion_ARKWEB_EVERGREEN: ArkWebEngineVersion = 99999;
 #[doc = " @brief ArkWeb Engine Version.\n\n <strong>ArkWeb Dual Web Engine Versioning Convention</strong>:\n <p>See [ArkWeb Dual Web Engine Versioning Convention] for switching between Legacy and Evergreen Web Engine.\n\n @since 20"]
 #[cfg(feature = "api-20")]
 pub type ArkWebEngineVersion = u32;
-extern "C" {
+unsafe extern "C" {
     #[doc = " @brief Loads a piece of code and execute JS code in the context of the currently displayed page.\n\n @param webTag The name of the web component.\n @param jsCode a piece of javascript code.\n @param callback Callbacks execute JavaScript script results.\n\n @syscap SystemCapability.Web.Webview.Core\n @since 11"]
     pub fn OH_NativeArkWeb_RunJavaScript(
         webTag: *const ::std::os::raw::c_char,
@@ -1585,7 +1585,7 @@ extern "C" {
         callback: NativeArkWeb_OnJavaScriptCallback,
     );
 }
-extern "C" {
+unsafe extern "C" {
     #[doc = " @brief Registers the JavaScript object and method list.\n\n @param webTag The name of the web component.\n @param objName The name of the registered object.\n @param methodList The method of the application side JavaScript object participating in the registration.\n @param callback The callback function registered by developer is called back when HTML side uses.\n @param size The size of the callback.\n @param needRefresh if web need refresh.\n\n @syscap SystemCapability.Web.Webview.Core\n @since 11"]
     pub fn OH_NativeArkWeb_RegisterJavaScriptProxy(
         webTag: *const ::std::os::raw::c_char,
@@ -1596,40 +1596,40 @@ extern "C" {
         needRefresh: bool,
     );
 }
-extern "C" {
+unsafe extern "C" {
     #[doc = " @brief Deletes the registered object which th given name.\n\n @param webTag The name of the web component.\n @param objName The name of the registered object.\n\n @syscap SystemCapability.Web.Webview.Core\n @since 11"]
     pub fn OH_NativeArkWeb_UnregisterJavaScriptProxy(
         webTag: *const ::std::os::raw::c_char,
         objName: *const ::std::os::raw::c_char,
     );
 }
-extern "C" {
+unsafe extern "C" {
     #[doc = " @brief Registers the valid callback.\n\n @param webTag The name of the web component.\n @param callback The callback in which we can register object.\n\n @syscap SystemCapability.Web.Webview.Core\n @since 11"]
     pub fn OH_NativeArkWeb_SetJavaScriptProxyValidCallback(
         webTag: *const ::std::os::raw::c_char,
         callback: NativeArkWeb_OnValidCallback,
     );
 }
-extern "C" {
+unsafe extern "C" {
     #[doc = " @brief Get the valid callback.\n\n @param webTag The name of the web component.\n @return Return the valid callback function registered. If the valid callback function\n         specified by the parameter webTag is not set, a null pointer is returned.\n\n @syscap SystemCapability.Web.Webview.Core\n @since 11"]
     pub fn OH_NativeArkWeb_GetJavaScriptProxyValidCallback(
         webTag: *const ::std::os::raw::c_char,
     ) -> NativeArkWeb_OnValidCallback;
 }
-extern "C" {
+unsafe extern "C" {
     #[doc = " @brief Registers the destroy callback.\n\n @param webTag The name of the web component.\n @param callback the destroy callback.\n\n @syscap SystemCapability.Web.Webview.Core\n @since 11"]
     pub fn OH_NativeArkWeb_SetDestroyCallback(
         webTag: *const ::std::os::raw::c_char,
         callback: NativeArkWeb_OnDestroyCallback,
     );
 }
-extern "C" {
+unsafe extern "C" {
     #[doc = " @brief Get the destroy callback.\n\n @param webTag The name of the web component.\n @return Return the destroy callback function registered. If the destroy callback\n         function specified by the parameter webTag is not set,\n         a null pointer is returned.\n\n @syscap SystemCapability.Web.Webview.Core\n @since 11"]
     pub fn OH_NativeArkWeb_GetDestroyCallback(
         webTag: *const ::std::os::raw::c_char,
     ) -> NativeArkWeb_OnDestroyCallback;
 }
-extern "C" {
+unsafe extern "C" {
     #[doc = " @brief Loads the data or URL.\n        This function should be called on main thread.\n\n @param webTag The name of the web component.\n @param data A string encoded according to \"Base64\" or \"URL\", should not be NULL.\n @param mimeType Media type. For example: \"text/html\", should not be NULL.\n @param encoding Encoding type. For example: \"UTF-8\", should not be NULL.\n @param baseUrl A specified URL path (\"http\"/\"https\"/\"data\" protocol),\n                which is assigned to window.origin by the Web component.\n @param historyUrl History URL. When it is not empty, it can be managed by\n                   history records to realize the back and forth function.\n @return LoadData result code.\n         {@link ARKWEB_SUCCESS} load data success.\n         {@link ARKWEB_INVALID_PARAM} Mandatory parameters are left unspecified or\n                                      Incorrect parameter types or Parameter verification failed.\n         {@link ARKWEB_INIT_ERROR} Initialization error, can't get a valid Web for the webTag.\n         {@link ARKWEB_LIBRARY_OPEN_FAILURE} Failed to open the library.\n         {@link ARKWEB_LIBRARY_SYMBOL_NOT_FOUND} The required symbol was not found in the library.\n\n @syscap SystemCapability.Web.Webview.Core\n @since 15"]
     #[cfg(feature = "api-15")]
     pub fn OH_NativeArkWeb_LoadData(
@@ -1641,7 +1641,7 @@ extern "C" {
         historyUrl: *const ::std::os::raw::c_char,
     ) -> ArkWeb_ErrorCode;
 }
-extern "C" {
+unsafe extern "C" {
     #[doc = " @brief Registers a JavaScript object with callback methods, which may return values. This object will be injected\n        into all frames of the current page, including all iframes, and will be accessible using the specified\n        name in ArkWeb_ProxyObjectWithResult. The object will only be available in JavaScript after the next\n        load or reload.\n        These methods will be executed in the ArkWeb worker thread.\n\n @param webTag Name of the web component.\n @param proxyObject JavaScript object to register, the object has callback functions with return value.\n @param permission Optional JSON string(default is null) for JSBridge permission control,\n                   allowing URL whitelist configuration at object-level and method-level.\n @syscap SystemCapability.Web.Webview.Core\n @since 20"]
     #[cfg(feature = "api-20")]
     pub fn OH_NativeArkWeb_RegisterAsyncThreadJavaScriptProxy(
@@ -1650,7 +1650,7 @@ extern "C" {
         permission: *const ::std::os::raw::c_char,
     );
 }
-extern "C" {
+unsafe extern "C" {
     #[doc = " @brief Sets whether to enable blankless page loading. This API must be used in pair with the\n OH_NativeArkWeb_GetBlanklessInfoWithKey API.\n\n @permission ohos.permission.INTERNET and ohos.permission.GET_NETWORK_INFO\n @param webTag webTag used when the webviewController is created.\n @param key Key value that uniquely identifies the current page. It must be the same as the key value of the\n OH_NativeArkWeb_GetBlanklessInfoWithKey API.\n @param isStarted Whether to enable frame interpolation. The value true indicates to enable frame\n interpolation, and the value false indicates the opposite.\n The default value is false.\n The value can be true or false.\n Action for setting an invalid value: N/A.\n @return Whether the API is successfully called. For details, see ArkWeb_BlanklessErrorCode.\n @since 20"]
     #[cfg(feature = "api-20")]
     pub fn OH_NativeArkWeb_SetBlanklessLoadingWithKey(
@@ -1659,7 +1659,7 @@ extern "C" {
         isStarted: bool,
     ) -> ArkWeb_BlanklessErrorCode;
 }
-extern "C" {
+unsafe extern "C" {
     #[doc = " @brief Clears the blankless loading cache of the page with a specified key value.\n\n @param key The list of key values of pages cached in the blankless loading solution. These key values are\n specified in OH_NativeArkWeb_GetBlanklessInfoWithKey.\n The default value is the list of key values of all pages cached in the blankless loading solution.\n The key length cannot exceed 2048 characters, and the number of keys must be less than or equal to 100. The\n URL is the same as that input to the Web component during page loading.\n When the key length exceeds 2048 characters, the key does not take effect. When the number of keys exceeds\n 100, the first 100 keys are used. If this parameter is set to NULL, the default value is used.\n @param size Size of the key list.\n @since 20"]
     #[cfg(feature = "api-20")]
     pub fn OH_NativeArkWeb_ClearBlanklessLoadingCache(
@@ -1667,7 +1667,7 @@ extern "C" {
         size: u32,
     );
 }
-extern "C" {
+unsafe extern "C" {
     #[doc = " @brief Obtains the prediction information about the blankless loading solution and enables the generation\n of the transition frame for the current loading. The application determines whether to enable the blankless\n loading solution based on the information.\n This API applies to pages in an applet or web application whose URLs are not fixed or cannot be uniquely\n identified.\n\n @permission ohos.permission.INTERNET and ohos.permission.GET_NETWORK_INFO\n @param webTag webTag used when the webviewController is created.\n Default value: N/A.\n The value cannot be empty.\n When an invalid value is set, the error code is returned, and the API does not take effect.\n @param key Key value that uniquely identifies the current page.\n @return Return value of the ArkWeb_BlanklessInfo type.\n @since 20"]
     #[cfg(feature = "api-20")]
     pub fn OH_NativeArkWeb_GetBlanklessInfoWithKey(
@@ -1675,37 +1675,37 @@ extern "C" {
         key: *const ::std::os::raw::c_char,
     ) -> ArkWeb_BlanklessInfo;
 }
-extern "C" {
+unsafe extern "C" {
     #[doc = " @brief Sets the cache capacity of the blankless loading solution and returns the value that takes effect.\n\n @param capacity Cache capacity, in MB. The maximum value is 100 MB.\n The default value is 30 MB.\n The value ranges from 0 to 100. If this parameter is set to 0, no cache capacity is available and the\n functionality is disabled globally.\n When the value is set to a number smaller than 0, the value 0 takes effect. When the value is set to a\n number greater than 100, the value 100 takes effect.\n @return The effective value that ranges from 0 MB to 100 MB.\n @since 20"]
     #[cfg(feature = "api-20")]
     pub fn OH_NativeArkWeb_SetBlanklessLoadingCacheCapacity(capacity: u32) -> u32;
 }
-extern "C" {
+unsafe extern "C" {
     #[doc = " @brief Ensure that all cookies currently accessible via the CookieManager API have been persisted to disk.\n        If you want to use this interface in a non-UI thread, you need to initialize the CookieManager interface\n        using OH_ArkWeb_GetNativeAPI first.\n @return Save cookie result code.\n         {@link ARKWEB_SUCCESS} Save cookie success.\n         {@link ARKWEB_COOKIE_SAVE_FAILED} Save cookie failed.\n         {@link ARKWEB_COOKIE_MANAGER_INITIALIZE_FAILED} The CookieManager initialize failed.\n         {@link ARKWEB_COOKIE_MANAGER_NOT_INITIALIZED} It is not allowed to call on a non-UI thread without\n                                                       initializing the CookieManager interface. please\n   \t\t\t\t\t\t\t\t\t\t\t\t\t initialize the CookieManager interface using\n  \t\t\t\t\t\t\t\t\t\t\t\t\t OH_ArkWeb_GetNativeAPI first.\n @since 20"]
     #[cfg(feature = "api-20")]
     pub fn OH_ArkWebCookieManager_SaveCookieSync() -> ArkWeb_ErrorCode;
 }
-extern "C" {
+unsafe extern "C" {
     #[doc = " @brief Ensure that all cookies currently accessible via the CookieManager API have been persisted to disk.\n        Without initializing the CookieManager interface, this call will automatically be executed on the UI thread.\n @param callback Callback execute when save cookie done.\n @since 20"]
     #[cfg(feature = "api-20")]
     pub fn OH_ArkWebCookieManager_SaveCookieAsync(callback: OH_ArkWeb_OnCookieSaveCallback);
 }
-extern "C" {
+unsafe extern "C" {
     #[doc = " Set active ArkWeb engine version.\n If the system does not support the specified version, it will not take effect.\n\n This is a global static API that must be called before initializeWebEngine, and it will have no effect if any\n Web components are loaded.\n\n <strong>Legacy Web Engine Compatibility Note</strong>:\n <p>When using legacy ArkWeb Engine, some ArkWeb newly created API will not take effect,<br>\n see [Compatible with Legacy Web Engine in release note] for compatibility guidelines.\n </p>\n\n @param { ArkWebEngineVersion } webEngineVersion - the ArkWebEngineVersion\n @since 20"]
     #[cfg(feature = "api-20")]
     pub fn OH_NativeArkWeb_SetActiveWebEngineVersion(webEngineVersion: ArkWebEngineVersion);
 }
-extern "C" {
+unsafe extern "C" {
     #[doc = " Get currently active ArkWeb engine version.\n @return { ArkWebEngineVersion } Active ArkWeb Engine version as defined by ArkWebEngineVersion\n @since 20"]
     #[cfg(feature = "api-20")]
     pub fn OH_NativeArkWeb_GetActiveWebEngineVersion() -> ArkWebEngineVersion;
 }
-extern "C" {
+unsafe extern "C" {
     #[doc = " Delays the initialization of the web engine. By default, the web engine is initialized when the CookieManager\n interface is called. By setting the 'lazy' parameter to true, the web engine will not be initialized when the\n CookieManager interface is called. Instead, the web engine will be initialized either when the web component is\n created or when initializeWebEngine is called.\n @param { bool } lazy - Controls whether to delay the initialization of the web engine.\n @since 22"]
     #[cfg(feature = "api-22")]
     pub fn OH_NativeArkWeb_LazyInitializeWebEngineInCookieManager(lazy: bool);
 }
-extern "C" {
+unsafe extern "C" {
     #[doc = " Check if the currently active ArkWeb engine is Evergreen.\n @return { bool } true means the application is using the Evergreen Web Engine, false means not.\n @since 23"]
     #[cfg(feature = "api-23")]
     pub fn OH_NativeArkWeb_IsActiveWebEngineEvergreen() -> bool;

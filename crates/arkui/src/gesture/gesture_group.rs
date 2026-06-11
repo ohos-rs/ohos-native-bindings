@@ -2,7 +2,7 @@
 
 use ohos_arkui_sys::ArkUI_GestureRecognizerHandle;
 
-use crate::{ArkUIResult, GestureGroupMode, ARK_UI_NATIVE_GESTURE_API_1};
+use crate::{ARK_UI_NATIVE_GESTURE_API_1, ArkUIResult, GestureGroupMode};
 
 use super::Gesture;
 

@@ -136,16 +136,16 @@ fn add_feature_gates(
                 }
             }
 
-            if let Some(terminator) = multiline_terminator_for_key(&key) {
-                if !trimmed.ends_with(terminator) {
-                    declaration_infos.pop();
-                    pending_info = Some(PendingDeclInfo {
-                        key,
-                        local_since: item_since,
-                        lines: vec![(*line).to_string()],
-                        terminator,
-                    });
-                }
+            if let Some(terminator) = multiline_terminator_for_key(&key)
+                && !trimmed.ends_with(terminator)
+            {
+                declaration_infos.pop();
+                pending_info = Some(PendingDeclInfo {
+                    key,
+                    local_since: item_since,
+                    lines: vec![(*line).to_string()],
+                    terminator,
+                });
             }
         }
 
@@ -257,27 +257,26 @@ fn add_feature_gates(
         {
             grouped_since = None;
         }
-        if let Some(key) = item_key.as_deref() {
-            if let Some(name) = key
+        if let Some(key) = item_key.as_deref()
+            && let Some(name) = key
                 .strip_prefix("type:")
                 .or_else(|| key.strip_prefix("enum:"))
                 .or_else(|| key.strip_prefix("struct:"))
-            {
-                let local_usage_min = symbol_usage_min.get(name).copied();
-                let cross_file_usage_min =
-                    global_symbol_usage_min.and_then(|map| map.get(name).copied());
-                let usage_min = match (local_usage_min, cross_file_usage_min) {
-                    (Some(a), Some(b)) => Some(a.min(b)),
-                    (Some(a), None) => Some(a),
-                    (None, Some(b)) => Some(b),
-                    (None, None) => None,
-                };
-                if let Some(usage_min) = usage_min {
-                    grouped_since = Some(match grouped_since {
-                        Some(existing) => existing.min(usage_min),
-                        None => usage_min,
-                    });
-                }
+        {
+            let local_usage_min = symbol_usage_min.get(name).copied();
+            let cross_file_usage_min =
+                global_symbol_usage_min.and_then(|map| map.get(name).copied());
+            let usage_min = match (local_usage_min, cross_file_usage_min) {
+                (Some(a), Some(b)) => Some(a.min(b)),
+                (Some(a), None) => Some(a),
+                (None, Some(b)) => Some(b),
+                (None, None) => None,
+            };
+            if let Some(usage_min) = usage_min {
+                grouped_since = Some(match grouped_since {
+                    Some(existing) => existing.min(usage_min),
+                    None => usage_min,
+                });
             }
         }
         let since_from_docs = match (local_since, grouped_since) {
@@ -289,33 +288,35 @@ fn add_feature_gates(
         let dep_since = infer_since_from_references(trimmed, &symbol_since, &ident_re);
         let target_since = merge_doc_and_dep_since(since_from_docs, dep_since);
 
-        if let Some(key) = item_key.as_deref() {
-            if !key.starts_with("const:") {
-                if let Some(terminator) = multiline_terminator_for_key(key) {
-                    if !trimmed.ends_with(terminator) && !trimmed.ends_with('{') {
-                        let indent = line.len() - trimmed.len();
-                        let indent_str = line[..indent].to_string();
-                        pending_decl = Some(PendingDecl {
-                            attrs: attrs.drain(..).collect(),
-                            lines: vec![(*line).to_string()],
-                            indent: indent_str,
-                            doc_since: since_from_docs,
-                            dep_since,
-                            terminator,
-                        });
-                        composite.update(trimmed, &struct_re, &enum_re);
-                        continue;
-                    }
-                }
+        if let Some(key) = item_key.as_deref()
+            && !key.starts_with("const:")
+        {
+            if let Some(terminator) = multiline_terminator_for_key(key)
+                && !trimmed.ends_with(terminator)
+                && !trimmed.ends_with('{')
+            {
+                let indent = line.len() - trimmed.len();
+                let indent_str = line[..indent].to_string();
+                pending_decl = Some(PendingDecl {
+                    attrs: std::mem::take(&mut attrs),
+                    lines: vec![(*line).to_string()],
+                    indent: indent_str,
+                    doc_since: since_from_docs,
+                    dep_since,
+                    terminator,
+                });
+                composite.update(trimmed, &struct_re, &enum_re);
+                continue;
+            }
 
-                if let Some(version) = target_since {
-                    if version > BASELINE_API_VERSION && !has_api_cfg(&attrs) {
-                        let indent = line.len() - trimmed.len();
-                        let indent_str = &line[..indent];
-                        insert_cfg_after_doc_attrs(&mut attrs, indent_str, version);
-                        api_versions.insert(version);
-                    }
-                }
+            if let Some(version) = target_since
+                && version > BASELINE_API_VERSION
+                && !has_api_cfg(&attrs)
+            {
+                let indent = line.len() - trimmed.len();
+                let indent_str = &line[..indent];
+                insert_cfg_after_doc_attrs(&mut attrs, indent_str, version);
+                api_versions.insert(version);
             }
         }
 
@@ -325,7 +326,7 @@ fn add_feature_gates(
 
             if const_start_re.is_match(trimmed) {
                 pending_const = Some(PendingConst {
-                    attrs: attrs.drain(..).collect(),
+                    attrs: std::mem::take(&mut attrs),
                     line: (*line).to_string(),
                     indent: indent_str,
                     target_since,
@@ -337,7 +338,7 @@ fn add_feature_gates(
             if let Some(cap) = const_with_type_re.captures(trimmed) {
                 let inferred = infer_type_since(&cap[1], &min_since_by_key);
                 let final_since = merge_doc_and_dep_since(target_since, inferred);
-                let const_attrs = attrs.drain(..).collect();
+                let const_attrs = std::mem::take(&mut attrs);
                 emit_with_cfg(
                     &mut result,
                     &mut api_versions,
@@ -351,7 +352,7 @@ fn add_feature_gates(
             }
         }
 
-        result.extend(attrs.drain(..));
+        result.append(&mut attrs);
         result.push((*line).to_string());
         composite.update(trimmed, &struct_re, &enum_re);
     }
@@ -498,11 +499,12 @@ fn emit_with_cfg(
     indent: &str,
     since: Option<u32>,
 ) {
-    if let Some(version) = since {
-        if version > BASELINE_API_VERSION && !has_api_cfg(&attrs) {
-            insert_cfg_after_doc_attrs(&mut attrs, indent, version);
-            api_versions.insert(version);
-        }
+    if let Some(version) = since
+        && version > BASELINE_API_VERSION
+        && !has_api_cfg(&attrs)
+    {
+        insert_cfg_after_doc_attrs(&mut attrs, indent, version);
+        api_versions.insert(version);
     }
     result.extend(attrs);
     result.push(line);
@@ -514,11 +516,12 @@ fn emit_pending_decl(
     mut pending: PendingDecl,
 ) {
     let since = merge_doc_and_dep_since(pending.doc_since, pending.dep_since);
-    if let Some(version) = since {
-        if version > BASELINE_API_VERSION && !has_api_cfg(&pending.attrs) {
-            insert_cfg_after_doc_attrs(&mut pending.attrs, &pending.indent, version);
-            api_versions.insert(version);
-        }
+    if let Some(version) = since
+        && version > BASELINE_API_VERSION
+        && !has_api_cfg(&pending.attrs)
+    {
+        insert_cfg_after_doc_attrs(&mut pending.attrs, &pending.indent, version);
+        api_versions.insert(version);
     }
     result.extend(pending.attrs);
     result.extend(pending.lines);
@@ -603,20 +606,20 @@ fn declaration_effective_since(
         return Some(since);
     }
 
-    if let Some(rest) = key.strip_prefix("field:") {
-        if let Some((container, _field)) = rest.split_once("::") {
-            let struct_key = format!("struct:{container}");
-            let enum_key = format!("enum:{container}");
-            return match (
-                min_since_by_key.get(&struct_key).copied(),
-                min_since_by_key.get(&enum_key).copied(),
-            ) {
-                (Some(a), Some(b)) => Some(a.min(b)),
-                (Some(a), None) => Some(a),
-                (None, Some(b)) => Some(b),
-                (None, None) => None,
-            };
-        }
+    if let Some(rest) = key.strip_prefix("field:")
+        && let Some((container, _field)) = rest.split_once("::")
+    {
+        let struct_key = format!("struct:{container}");
+        let enum_key = format!("enum:{container}");
+        return match (
+            min_since_by_key.get(&struct_key).copied(),
+            min_since_by_key.get(&enum_key).copied(),
+        ) {
+            (Some(a), Some(b)) => Some(a.min(b)),
+            (Some(a), None) => Some(a),
+            (None, Some(b)) => Some(b),
+            (None, None) => None,
+        };
     }
 
     None
@@ -722,7 +725,7 @@ fn insert_stable_aliases_for_bindgen_types(lines: Vec<String>) -> Vec<String> {
             .cloned()
             .collect();
 
-        result.extend(pending_attrs.drain(..));
+        result.append(&mut pending_attrs);
         result.push(line.clone());
 
         if let Some(cap) = bindgen_alias_re.captures(trimmed) {
@@ -851,6 +854,7 @@ fn normalize_cfg_lines(lines: Vec<String>) -> Vec<String> {
     pruned
 }
 
+#[allow(clippy::too_many_arguments)]
 fn declaration_key(
     trimmed: &str,
     current_composite: &Option<String>,
@@ -879,10 +883,10 @@ fn declaration_key(
     if let Some(cap) = struct_re.captures(trimmed) {
         return Some(format!("struct:{}", &cap[1]));
     }
-    if let Some(cap) = field_re.captures(trimmed) {
-        if let Some(container) = current_composite.as_ref() {
-            return Some(format!("field:{container}::{}", &cap[1]));
-        }
+    if let Some(cap) = field_re.captures(trimmed)
+        && let Some(container) = current_composite.as_ref()
+    {
+        return Some(format!("field:{container}::{}", &cap[1]));
     }
     None
 }
@@ -962,7 +966,7 @@ fn sys_crate_manifest(name: &str) -> String {
         r#"[package]
 name        = "{name}"
 version     = "0.1.0"
-edition     = "2021"
+edition.workspace = true
 license     = "MIT OR Apache-2.0"
 description = "OpenHarmony's {description} sys binding for rust"
 
@@ -986,6 +990,22 @@ api-23  = ["api-22"]
 workspace = true
 "#,
     )
+}
+
+fn prepare_bindgen_output_for_rust_2024(content: &str) -> String {
+    content
+        .lines()
+        .map(|line| {
+            let trimmed = line.trim_start();
+            if trimmed == r#"extern "C" {"# {
+                let indent = &line[..line.len() - trimmed.len()];
+                format!(r#"{indent}unsafe extern "C" {{"#)
+            } else {
+                line.to_string()
+            }
+        })
+        .collect::<Vec<_>>()
+        .join("\n")
 }
 
 fn generate_code(config: &SysConfig) -> anyhow::Result<std::path::PathBuf> {
@@ -1062,6 +1082,7 @@ unsafe extern "C" {{}}"#,
         .clang_arg("-fretain-comments-from-system-headers") // keep comments from system headers
         .default_alias_style(bindgen::AliasVariation::TypeAlias)
         .translate_enum_integer_types(true)
+        .wrap_unsafe_ops(true)
         .layout_tests(false);
 
     if !config.white_list.is_empty() {
@@ -1098,7 +1119,7 @@ fn format_rust_file(path: &Path) -> anyhow::Result<()> {
     let rustfmt = env::var_os("RUSTFMT").unwrap_or_else(|| "rustfmt".into());
     let status = Command::new(rustfmt)
         .arg("--edition")
-        .arg("2021")
+        .arg("2024")
         .arg(path)
         .status()?;
 
@@ -1129,6 +1150,7 @@ fn main() {
     for (name, output_file) in generated_files {
         match fs::read_to_string(&output_file) {
             Ok(content) => {
+                let content = prepare_bindgen_output_for_rust_2024(&content);
                 let (_, _, local_usage_min) = add_feature_gates(&content, None);
                 merge_symbol_usage_min(&mut global_symbol_usage_min, &local_usage_min);
                 raw_outputs.push((name, output_file, content));
@@ -1145,9 +1167,12 @@ fn main() {
         if let Err(e) = fs::write(&output_file, processed_content) {
             eprintln!("Failed to write generated code for {}: {}", name, e);
             failed_configs.push(name);
-        } else if let Err(e) = format_rust_file(&output_file) {
-            eprintln!("Failed to format generated code for {}: {}", name, e);
-            failed_configs.push(name);
+        } else {
+            let format_result = format_rust_file(&output_file);
+            if let Err(e) = format_result {
+                eprintln!("Failed to format generated code for {}: {}", name, e);
+                failed_configs.push(name);
+            }
         }
     }
 

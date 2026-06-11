@@ -196,11 +196,7 @@ impl RawFile {
         let ret = unsafe {
             OH_ResourceManager_GetRawFileDescriptorData(self.raw.as_ptr(), &mut file_descriptor)
         };
-        if ret {
-            file_descriptor.fd
-        } else {
-            -1
-        }
+        if ret { file_descriptor.fd } else { -1 }
     }
 }
 
@@ -266,11 +262,7 @@ impl RawFile64 {
         let ret = unsafe {
             OH_ResourceManager_GetRawFileDescriptor64(self.raw.as_ptr(), &mut file_descriptor)
         };
-        if ret {
-            file_descriptor.fd
-        } else {
-            -1
-        }
+        if ret { file_descriptor.fd } else { -1 }
     }
 }
 

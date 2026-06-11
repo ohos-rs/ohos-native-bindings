@@ -12,7 +12,7 @@ use ohos_udmf_binding::UdmfDataLoadParams;
 #[cfg(all(feature = "api-15", feature = "udmf"))]
 use ohos_udmf_binding::UdmfGetDataParams;
 
-use crate::{check_arkui_status, ArkUIError, ArkUIResult, DragResult, DropOperation};
+use crate::{ArkUIError, ArkUIResult, DragResult, DropOperation, check_arkui_status};
 
 #[derive(Clone, Copy)]
 pub(crate) struct DragAndDropInfo {

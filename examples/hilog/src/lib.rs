@@ -1,6 +1,6 @@
 use napi_derive_ohos::napi;
 
-use log::{debug, error, LevelFilter};
+use log::{LevelFilter, debug, error};
 use ohos_hilog_binding::log::Config;
 
 #[napi]

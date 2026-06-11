@@ -2,7 +2,7 @@ use std::{mem::MaybeUninit, ptr::NonNull};
 
 use crate::{
     common::NativeBufferHandle,
-    error::{check_status, ImageNativeResult},
+    error::{ImageNativeResult, check_status},
     sys,
 };
 

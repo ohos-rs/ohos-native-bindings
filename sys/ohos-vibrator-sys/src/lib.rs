@@ -44,18 +44,18 @@ pub struct Vibrator_FileDescription {
     pub offset: i64,
     pub length: i64,
 }
-extern "C" {
+unsafe extern "C" {
     #[doc = " @brief Controls the vibrator to vibrate continuously for a given duration.\n\n @param duration - Vibration duration, in milliseconds.\n @param attribute - Vibration attribute. For details, see {@link Vibrator_Attribute}.\n @return Returns <b>0</b> if the operation is successful; returns the following error code otherwise.\n {@link PERMISSION_DENIED} Permission verification failed.\\n\n {@link PARAMETER_ERROR} Parameter check failed. For example, the parameter is invalid,\n or the parameter type passed in is incorrect.\\n\n {@link UNSUPPORTED} The API is not supported on the device. The device supports the corresponding SysCap,\n but does not support certain APIs in this SysCap.\\n\n {@link DEVICE_OPERATION_FAILED} The operation on the device failed.\\n\n @permission ohos.permission.VIBRATE\n\n @since 11"]
     pub fn OH_Vibrator_PlayVibration(duration: i32, attribute: Vibrator_Attribute) -> i32;
 }
-extern "C" {
+unsafe extern "C" {
     #[doc = " @brief Controls the vibrator to vibrate with the custom sequence.\n\n @param fileDescription - File descriptor of the custom vibration effect.\n For details, see {@link Vibrator_FileDescription}.\n @param vibrateAttribute - Vibration attribute. For details, see {@link Vibrator_Attribute}.\n @return Returns <b>0</b> if the operation is successful; returns the following error code otherwise.\n {@link PERMISSION_DENIED} Permission verification failed.\\n\n {@link PARAMETER_ERROR} Parameter check failed. For example, the parameter is invalid,\n or the parameter type passed in is incorrect.\\n\n {@link UNSUPPORTED} The API is not supported on the device. The device supports the corresponding SysCap,\n but does not support certain APIs in this SysCap.\\n\n {@link DEVICE_OPERATION_FAILED} The operation on the device failed.\\n\n @permission ohos.permission.VIBRATE\n\n @since 11"]
     pub fn OH_Vibrator_PlayVibrationCustom(
         fileDescription: Vibrator_FileDescription,
         vibrateAttribute: Vibrator_Attribute,
     ) -> i32;
 }
-extern "C" {
+unsafe extern "C" {
     #[doc = " @brief Stop the motor vibration according to the input mode.\n\n @permission ohos.permission.VIBRATE\n @return Returns <b>0</b> if the operation is successful; returns the following error code otherwise.\n {@link PERMISSION_DENIED} Permission verification failed.\\n\n {@link UNSUPPORTED} The API is not supported on the device. The device supports the corresponding SysCap,\n but does not support certain APIs in this SysCap.\\n\n {@link DEVICE_OPERATION_FAILED} The operation on the device failed.\\n\n @permission ohos.permission.VIBRATE\n\n @since 11"]
     pub fn OH_Vibrator_Cancel() -> i32;
 }

@@ -1,18 +1,18 @@
 #![allow(clippy::missing_safety_doc)]
 
 use napi_ohos::{
-    bindgen_prelude::{check_status, JsObjectValue, Object},
     Env, JsValue, Result,
+    bindgen_prelude::{JsObjectValue, Object, check_status},
 };
 use napi_sys_ohos as sys;
 use ohos_xcomponent_sys::{
-    OH_NativeXComponent, OH_NativeXComponent_Callback, OH_NATIVE_XCOMPONENT_OBJ,
+    OH_NATIVE_XCOMPONENT_OBJ, OH_NativeXComponent, OH_NativeXComponent_Callback,
 };
 use std::{os::raw::c_void, ptr};
 
 use crate::{
-    native_xcomponent::NativeXComponent, tool::resolve_id, TouchEventData, WindowRaw,
-    XComponentOffset, XComponentRaw, XComponentSize,
+    TouchEventData, WindowRaw, XComponentOffset, XComponentRaw, XComponentSize,
+    native_xcomponent::NativeXComponent, tool::resolve_id,
 };
 
 /// Accept XComponent with env and exports
@@ -88,7 +88,7 @@ impl XComponent {
         &self,
         callbacks: Box<OH_NativeXComponent_Callback>,
     ) -> Result<()> {
-        self.0.register_native_callback(callbacks)
+        unsafe { self.0.register_native_callback(callbacks) }
     }
 
     /// Get current XComponent's size info include width and height.

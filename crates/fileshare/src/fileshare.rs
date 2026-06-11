@@ -4,7 +4,7 @@ use std::ptr;
 
 use ohos_fileshare_sys::*;
 
-use crate::error::{error_from_code, FileShareError, PolicyErrorCode};
+use crate::error::{FileShareError, PolicyErrorCode, error_from_code};
 
 #[derive(Debug, Clone, PartialEq, Eq)]
 pub struct PolicyInfo {

@@ -503,35 +503,37 @@ impl Response {
     ///
     /// The pointer must be provided by the netstack HTTP callback and remain valid for this call.
     pub unsafe fn from_raw(value: *mut Http_Response) -> Result<Self> {
-        if value.is_null() {
-            return Err(NetStackError::NullPointer);
-        }
-        let value = &*value;
-        let body = if value.body.buffer.is_null() || value.body.length == 0 {
-            Vec::new()
-        } else {
-            slice::from_raw_parts(value.body.buffer.cast::<u8>(), value.body.length as usize)
-                .to_vec()
-        };
-        let performance_timing = if value.performanceTiming.is_null() {
-            None
-        } else {
-            Some(PerformanceTiming::from(*value.performanceTiming))
-        };
-        Ok(Self {
-            body,
-            response_code: value.responseCode,
-            cookies: if value.cookies.is_null() {
+        unsafe {
+            if value.is_null() {
+                return Err(NetStackError::NullPointer);
+            }
+            let value = &*value;
+            let body = if value.body.buffer.is_null() || value.body.length == 0 {
+                Vec::new()
+            } else {
+                slice::from_raw_parts(value.body.buffer.cast::<u8>(), value.body.length as usize)
+                    .to_vec()
+            };
+            let performance_timing = if value.performanceTiming.is_null() {
                 None
             } else {
-                Some(
-                    CStr::from_ptr(value.cookies)
-                        .to_str()
-                        .map_err(|_| NetStackError::Conversion)?
-                        .to_owned(),
-                )
-            },
-            performance_timing,
-        })
+                Some(PerformanceTiming::from(*value.performanceTiming))
+            };
+            Ok(Self {
+                body,
+                response_code: value.responseCode,
+                cookies: if value.cookies.is_null() {
+                    None
+                } else {
+                    Some(
+                        CStr::from_ptr(value.cookies)
+                            .to_str()
+                            .map_err(|_| NetStackError::Conversion)?
+                            .to_owned(),
+                    )
+                },
+                performance_timing,
+            })
+        }
     }
 }

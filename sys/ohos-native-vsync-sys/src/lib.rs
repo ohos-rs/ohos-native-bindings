@@ -28,18 +28,18 @@ pub struct OH_NativeVSync_ExpectedRateRange {
     #[doc = "The expected frame rate of dynamical callback rate range."]
     pub expected: i32,
 }
-extern "C" {
+unsafe extern "C" {
     #[doc = " @brief Creates a <b>NativeVsync</b> instance.\\n\n A new <b>NativeVsync</b> instance is created each time this function is called.\n\n @syscap SystemCapability.Graphic.Graphic2D.NativeVsync\n @param name Indicates the vsync connection name.\n @param length Indicates the name's length.\n @return Returns the pointer to the <b>NativeVsync</b> instance created.\n @since 9\n @version 1.0"]
     pub fn OH_NativeVSync_Create(
         name: *const ::std::os::raw::c_char,
         length: ::std::os::raw::c_uint,
     ) -> *mut OH_NativeVSync;
 }
-extern "C" {
+unsafe extern "C" {
     #[doc = " @brief Destroys an <b>OH_NativeVSync</b> instance.\n Once the <b>OH_NativeVSync</b> pointer is destroyed, it must not be used to prevent dangling pointer problems.\n Pay special attention to the management of the <b>OH_NativeVSync</b> pointer in concurrent multithreaded scenarios.\n\n @syscap SystemCapability.Graphic.Graphic2D.NativeVsync\n @param nativeVsync Pointer to an <b>OH_NativeVSync</b> instance.\n @since 9\n @version 1.0"]
     pub fn OH_NativeVSync_Destroy(nativeVsync: *mut OH_NativeVSync);
 }
-extern "C" {
+unsafe extern "C" {
     #[doc = " @brief Creates a <b>NativeVsync</b> instance.\\n\n A new <b>NativeVsync</b> instance is created each time this function is called.\n\n @syscap SystemCapability.Graphic.Graphic2D.NativeVsync\n @param windowID Indicates the id of the associated window.\n @param name Indicates the vsync connection name.\n @param length Indicates the name's length.\n @return Returns the pointer to the <b>NativeVsync</b> instance created.\n @since 14\n @version 1.0"]
     #[cfg(feature = "api-14")]
     pub fn OH_NativeVSync_Create_ForAssociatedWindow(
@@ -48,7 +48,7 @@ extern "C" {
         length: ::std::os::raw::c_uint,
     ) -> *mut OH_NativeVSync;
 }
-extern "C" {
+unsafe extern "C" {
     #[doc = " @brief Request next vsync with callback.\n If you call this interface multiple times in one frame, it will only call the last callback.\n\n @syscap SystemCapability.Graphic.Graphic2D.NativeVsync\n @param nativeVsync Indicates the pointer to a NativeVsync.\n @param callback Indicates the OH_NativeVSync_FrameCallback which will be called when next vsync coming.\n @param data Indicates data which will be used in callback.\n @return {@link NATIVE_ERROR_OK} 0 - Success.\n     {@link NATIVE_ERROR_INVALID_ARGUMENTS} 40001000 - the parameter nativeVsync is NULL or callback is NULL.\n     {@link NATIVE_ERROR_BINDER_ERROR} 50401000 - ipc send failed.\n @since 9\n @version 1.0"]
     pub fn OH_NativeVSync_RequestFrame(
         nativeVsync: *mut OH_NativeVSync,
@@ -56,7 +56,7 @@ extern "C" {
         data: *mut ::std::os::raw::c_void,
     ) -> ::std::os::raw::c_int;
 }
-extern "C" {
+unsafe extern "C" {
     #[doc = " @brief Request next vsync with callback.\n If this function is called multiple times in one vsync period, all these callbacks and dataset will be called.\n\n @syscap SystemCapability.Graphic.Graphic2D.NativeVsync\n @param nativeVsync Indicates the pointer to a NativeVsync.\n @param callback Indicates the OH_NativeVSync_FrameCallback which will be called when next vsync coming.\n @param data Indicates data which will be used in callback.\n @return {@link NATIVE_ERROR_OK} 0 - Success.\n     {@link NATIVE_ERROR_INVALID_ARGUMENTS} 40001000 - the parameter nativeVsync is NULL or callback is NULL.\n     {@link NATIVE_ERROR_BINDER_ERROR} 50401000 - ipc send failed.\n @since 12\n @version 1.0"]
     pub fn OH_NativeVSync_RequestFrameWithMultiCallback(
         nativeVsync: *mut OH_NativeVSync,
@@ -64,14 +64,14 @@ extern "C" {
         data: *mut ::std::os::raw::c_void,
     ) -> ::std::os::raw::c_int;
 }
-extern "C" {
+unsafe extern "C" {
     #[doc = " @brief Obtains the VSync period.\n The VSync period is refreshed only when the <b>OH_NativeVSync_FrameCallback</b> callback is received\n following a request for a VSync signal via <b>OH_NativeVSync_RequestFrame</b>.\n To obtain the VSync period for the first time using this function,\n you need to call <b>OH_NativeVSync_RequestFrame</b> to request a VSync signal.\n Once the <b>OH_NativeVSync_FrameCallback</b> callback is received, the vsync period can be obtained.\n\n @syscap SystemCapability.Graphic.Graphic2D.NativeVsync\n @param nativeVsync Indicates the pointer to a NativeVsync.\n @param period Indicates the vsync period.\n @return Returns int32_t, return value == 0, success, otherwise, failed.\n @since 10\n @version 1.0"]
     pub fn OH_NativeVSync_GetPeriod(
         nativeVsync: *mut OH_NativeVSync,
         period: *mut ::std::os::raw::c_longlong,
     ) -> ::std::os::raw::c_int;
 }
-extern "C" {
+unsafe extern "C" {
     #[doc = " @brief Enables DVSync to improve the smoothness of self-drawing animations.\n DVSync, short for Decoupled VSync, is a frame timing management policy that is decoupled from the hardware's VSync.\n DVSync drives the early rendering of upcoming animation frames by sending VSync signals with future timestamps.\n These frames are stored in a frame buffer queue. This helps DVSync reduce potential frame drop and therefore\n enhances the smoothness of animations.\n DVSync requires free self-drawing frame buffers to store these pre-rendered animation frames.\n Therefore, you must ensure that at least one free frame buffer is available. Otherwise, do not enable DVSync.\n After DVSync is enabled, you must correctly respond to the early VSync signals and request the subsequent VSync\n after the animation frame associated with the previous VSync is complete. In addition, the self-drawing frames must\n carry timestamps that align with VSync.\n After the animation ends, disable DVSync.\n Only phones and tablets support DVSync.\n On a platform that does not support DVSync or if another application has enabled DVSync, the attempt to enable it\n will not take effect, and the application still receives normal VSync signals.\n\n @syscap SystemCapability.Graphic.Graphic2D.NativeVsync\n @param nativeVsync Indicates the pointer to a NativeVsync.\n @param enable Whether to enable DVSync.The value true means to enable DVSync, and false means the opposite.\n @return {@link NATIVE_ERROR_OK} 0 - Success.\n     {@link NATIVE_ERROR_INVALID_ARGUMENTS} 40001000 - the parameter nativeVsync is NULL.\n     {@link NATIVE_ERROR_BINDER_ERROR} 50401000 - ipc send failed.\n @since 14\n @version 1.0"]
     #[cfg(feature = "api-14")]
     pub fn OH_NativeVSync_DVSyncSwitch(
@@ -79,7 +79,7 @@ extern "C" {
         enable: bool,
     ) -> ::std::os::raw::c_int;
 }
-extern "C" {
+unsafe extern "C" {
     #[doc = " @brief Set vsync expected frame rate range.\n\n @syscap SystemCapability.Graphic.Graphic2D.NativeVsync\n @param nativeVsync Indicates the pointer to a NativeVsync.\n @param range Indicates the pointer to an expected rate range.\n @return {@link NATIVE_ERROR_OK} 0 - Success.\n     {@link NATIVE_ERROR_INVALID_ARGUMENTS} 40001000 - the parameter nativeVsync is NULL or range is NULL or Invalid.\n @since 20\n @version 1.0"]
     #[cfg(feature = "api-20")]
     pub fn OH_NativeVSync_SetExpectedFrameRateRange(

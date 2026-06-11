@@ -476,17 +476,17 @@ pub struct Http_EventsHandler {
     #[doc = " Callback function when a request is canceled"]
     pub onCanceled: Http_OnVoidCallback,
 }
-extern "C" {
+unsafe extern "C" {
     #[doc = " @brief Creates headers for a request or response.\n\n @return Http_Headers* Pointer to {@link Http_Headers}.\n @syscap SystemCapability.Communication.NetStack\n @since 20"]
     #[cfg(feature = "api-20")]
     pub fn OH_Http_CreateHeaders() -> *mut Http_Headers;
 }
-extern "C" {
+unsafe extern "C" {
     #[doc = " @brief Destroys the headers of a request or response.\n\n @param headers Pointer to the {@link Http_Headers} to be destroyed, headers ends with null.\n @syscap SystemCapability.Communication.NetStack\n @since 20"]
     #[cfg(feature = "api-20")]
     pub fn OH_Http_DestroyHeaders(headers: *mut *mut Http_Headers);
 }
-extern "C" {
+unsafe extern "C" {
     #[doc = " @brief Sets the key-value pair of the request or response header.\n\n @param headers Pointer to the {@link Http_Headers} to be set.\n @param name Key.\n @param value Value.\n @return uint32_t 0 - success. 401 - Parameter error. 2300027 - Out of memory.\n @syscap SystemCapability.Communication.NetStack\n @since 20"]
     #[cfg(feature = "api-20")]
     pub fn OH_Http_SetHeaderValue(
@@ -495,7 +495,7 @@ extern "C" {
         value: *const ::std::os::raw::c_char,
     ) -> u32;
 }
-extern "C" {
+unsafe extern "C" {
     #[doc = " @brief Obtains the value of a request or response header by key.\n\n @param headers Pointer to {@link Http_Headers}.\n @param name Key.\n @return Http_HeaderValue* Pointer to the obtained {@link Http_HeaderValue}.\n @syscap SystemCapability.Communication.NetStack\n @since 20"]
     #[cfg(feature = "api-20")]
     pub fn OH_Http_GetHeaderValue(
@@ -503,22 +503,22 @@ extern "C" {
         name: *const ::std::os::raw::c_char,
     ) -> *mut Http_HeaderValue;
 }
-extern "C" {
+unsafe extern "C" {
     #[doc = " @brief Obtains all the key-value pairs of a request or response header.\n\n @param headers Pointer to {@link Http_Headersaders}.\n @return Http_HeaderEntry* Pointers to all obtained key-value pairs {@link Http_HeaderEntry}.\n @syscap SystemCapability.Communication.NetStack\n @since 20"]
     #[cfg(feature = "api-20")]
     pub fn OH_Http_GetHeaderEntries(headers: *mut Http_Headers) -> *mut Http_HeaderEntry;
 }
-extern "C" {
+unsafe extern "C" {
     #[doc = " @brief Destroys all key-value pairs obtained in {@link OH_Http_GetHeaderEntries}.\n\n @param headerEntry Pointer to the {@link Http_HeaderEntry} to be destroyed, headerEntry ends with null.\n @syscap SystemCapability.Communication.NetStack\n @since 20"]
     #[cfg(feature = "api-20")]
     pub fn OH_Http_DestroyHeaderEntries(headerEntry: *mut *mut Http_HeaderEntry);
 }
-extern "C" {
+unsafe extern "C" {
     #[doc = " @brief Create a http request.\n\n @param url Http request url.\n @return Pointer of HttpRequest if success; Null otherwise.\n @syscap SystemCapability.Communication.NetStack\n @since 20"]
     #[cfg(feature = "api-20")]
     pub fn OH_Http_CreateRequest(url: *const ::std::os::raw::c_char) -> *mut Http_Request;
 }
-extern "C" {
+unsafe extern "C" {
     #[doc = " @brief Initiates an HTTP request.\n\n @param request Pointer to {@link Http_Request}.\n @param callback Http response info, pointer to {@link Http_ResponseCallback}\n @param handler Callbacks to watch different events, pointer to {@link Http_EventsHandler}.\n @return 0 if success; non-0 otherwise. For details about error codes, see {@link Http_ErrCode}.\n @permission ohos.permission.INTERNET\n @syscap SystemCapability.Communication.NetStack\n @since 20"]
     #[cfg(feature = "api-20")]
     pub fn OH_Http_Request(
@@ -527,7 +527,7 @@ extern "C" {
         handler: Http_EventsHandler,
     ) -> ::std::os::raw::c_int;
 }
-extern "C" {
+unsafe extern "C" {
     #[doc = " @brief Destroy the HTTP request.\n\n @param request Pointer to the http request {@link Http_Request}.\n @syscap SystemCapability.Communication.NetStack\n @since 20"]
     #[cfg(feature = "api-20")]
     pub fn OH_Http_Destroy(request: *mut *mut Http_Request);
@@ -584,37 +584,37 @@ pub struct NetStack_Certificates {
     #[doc = " Number of certificates"]
     pub length: usize,
 }
-extern "C" {
+unsafe extern "C" {
     #[doc = " @brief Provides certificate chain verification APIs for external systems.\n\n @param cert Certificate to be verified.\n @param caCert CA certificate specified by the user. If this parameter is left blank, the preset certificate is used.\n @return 0 - success.\n 2305001 - Unspecified error.\n 2305002 - Unable to get issuer certificate.\n 2305003 - Unable to get certificate revocation list (CRL).\n 2305004 - Unable to decrypt certificate signature.\n 2305005 - Unable to decrypt CRL signature.\n 2305006 - Unable to decode issuer public key.\n 2305007 - Certificate signature failure.\n 2305008 - CRL signature failure.\n 2305009 - Certificate is not yet valid.\n 2305010 - Certificate has expired.\n 2305011 - CRL is not yet valid.\n 2305012 - CRL has expired.\n 2305023 - Certificate has been revoked.\n 2305024 - Invalid certificate authority (CA).\n 2305027 - Certificate is untrusted.\n @syscap SystemCapability.Communication.NetStack\n @since 11\n @version 1.0"]
     pub fn OH_NetStack_CertVerification(
         cert: *const NetStack_CertBlob,
         caCert: *const NetStack_CertBlob,
     ) -> u32;
 }
-extern "C" {
+unsafe extern "C" {
     #[doc = " @brief Gets pin set for hostname.\n\n @param hostname Hostname.\n @param pin Certificate lock information.\n @return 0 - Success.\n         401 - Parameter error.\n         2305999 - Out of memory.\n @syscap SystemCapability.Communication.NetStack\n @since 12\n @version 1.0"]
     pub fn OH_NetStack_GetPinSetForHostName(
         hostname: *const ::std::os::raw::c_char,
         pin: *mut NetStack_CertificatePinning,
     ) -> i32;
 }
-extern "C" {
+unsafe extern "C" {
     #[doc = " @brief Gets certificates for hostname.\n\n @param hostname Hostname.\n @param certs Certificate Information.\n @return 0 - Success.\n         401 - Parameter error.\n         2305999 - Out of memory.\n @syscap SystemCapability.Communication.NetStack\n @since 12\n @version 1.0"]
     pub fn OH_NetStack_GetCertificatesForHostName(
         hostname: *const ::std::os::raw::c_char,
         certs: *mut NetStack_Certificates,
     ) -> i32;
 }
-extern "C" {
+unsafe extern "C" {
     #[doc = " @brief Frees content of the certificates.\n\n @param certs Certificate.\n @syscap SystemCapability.Communication.NetStack\n @since 12\n @version 1.0"]
     pub fn OH_Netstack_DestroyCertificatesContent(certs: *mut NetStack_Certificates);
 }
-extern "C" {
+unsafe extern "C" {
     #[doc = " @brief Checks whether the Cleartext traffic is permitted.\n\n @permission ohos.permission.INTERNET\n @return 0 - Success.\n         201 - Permission denied.\n         401 - Parameter error.\n @param isCleartextPermitted Indicates output parameter,\n        {@code true} if the Cleartext traffic is permitted, {@code false} otherwise.\n @since 18"]
     #[cfg(feature = "api-18")]
     pub fn OH_Netstack_IsCleartextPermitted(isCleartextPermitted: *mut bool) -> i32;
 }
-extern "C" {
+unsafe extern "C" {
     #[doc = " @brief Checks whether the Cleartext traffic for a specified hostname is permitted.\n\n @permission ohos.permission.INTERNET\n @return 0 - Success.\n         201 - Permission denied.\n         401 - Parameter error.\n @param hostname Indicates the host name.\n @param isCleartextPermitted Indicates output parameter,\n        {@code true} if the Cleartext traffic for a specified hostname is permitted, {@code false} otherwise.\n @since 18"]
     #[cfg(feature = "api-18")]
     pub fn OH_Netstack_IsCleartextPermittedByHostName(
@@ -622,7 +622,7 @@ extern "C" {
         isCleartextPermitted: *mut bool,
     ) -> i32;
 }
-extern "C" {
+unsafe extern "C" {
     #[doc = " @brief Checks whether the component is configured for Cleartext traffic interception.\n\n @return 0 - Success.\n         2100001 - Invalid parameter value.\n @param component Indicates the component name.\n @param componentCfg Indicates output parameter,\n        {@code true} if the component is configured for Cleartext traffic interception, {@code false} otherwise.\n @since 20"]
     #[cfg(feature = "api-20")]
     pub fn OH_Netstack_IsCleartextCfgByComponent(
@@ -753,7 +753,7 @@ pub const WebSocket_ErrCode_WEBSOCKET_NO_CONNECTION: WebSocket_ErrCode = 1017;
 #[doc = " @brief The websocket client does not have the connection context."]
 pub const WebSocket_ErrCode_WEBSOCKET_NO_CONNECTION_CONTEXT: WebSocket_ErrCode = 1018;
 pub type WebSocket_ErrCode = u32;
-extern "C" {
+unsafe extern "C" {
     #[doc = " @brief Constructor of websocket.\n\n @param onOpen Callback function invoked when a connection setup message is received.\n @param onMessage Callback function invoked when a message is received.\n @param onError Callback function invoked when a connection error message is received.\n @param onclose Callback function invoked when a connection closing message is closed.\n\n @return Pointer to the websocket client if success; NULL otherwise.\n @syscap SystemCapability.Communication.NetStack\n @since 11\n @version 1.0"]
     pub fn OH_WebSocketClient_Constructor(
         onOpen: WebSocket_OnOpenCallback,
@@ -762,14 +762,14 @@ extern "C" {
         onclose: WebSocket_OnCloseCallback,
     ) -> *mut WebSocket;
 }
-extern "C" {
+unsafe extern "C" {
     #[doc = " @brief Adds the header information to the client request.\n\n @param client Pointer to the websocket client.\n @param header Header information\n @return 0 if success; non-0 otherwise. For details about error codes, see {@link OH_Websocket_ErrCode}.\n @syscap SystemCapability.Communication.NetStack\n @since 11\n @version 1.0"]
     pub fn OH_WebSocketClient_AddHeader(
         client: *mut WebSocket,
         header: WebSocket_Header,
     ) -> ::std::os::raw::c_int;
 }
-extern "C" {
+unsafe extern "C" {
     #[doc = " @brief Connects the client to the server.\n\n @param client Pointer to the websocket client.\n @param url URL for the client to connect to the server.\n @param options Optional parameters.\n @return 0 if success; non-0 otherwise. For details about error codes, see {@link OH_Websocket_ErrCode}.\n @permission ohos.permission.INTERNET\n @syscap SystemCapability.Communication.NetStack\n @since 11\n @version 1.0"]
     pub fn OH_WebSocketClient_Connect(
         client: *mut WebSocket,
@@ -777,7 +777,7 @@ extern "C" {
         options: WebSocket_RequestOptions,
     ) -> ::std::os::raw::c_int;
 }
-extern "C" {
+unsafe extern "C" {
     #[doc = " @brief Sends data from the client to the server.\n\n @param client Pointer to the websocket client.\n @param data Data sent by the client.\n @param length Length of the data sent by the client.\n @return 0 if success; non-0 otherwise. For details about error codes, see {@link OH_Websocket_ErrCode}.\n @permission ohos.permission.INTERNET\n @syscap SystemCapability.Communication.NetStack\n @since 11\n @version 1.0"]
     pub fn OH_WebSocketClient_Send(
         client: *mut WebSocket,
@@ -785,14 +785,14 @@ extern "C" {
         length: usize,
     ) -> ::std::os::raw::c_int;
 }
-extern "C" {
+unsafe extern "C" {
     #[doc = " @brief Closes a webSocket connection.\n\n @param client Pointer to the websocket client.\n @param options Optional parameters.\n @return 0 if success; non-0 otherwise. For details about error codes, see {@link OH_Websocket_ErrCode}.\n @permission ohos.permission.INTERNET\n @syscap SystemCapability.Communication.NetStack\n @since 11\n @version 1.0"]
     pub fn OH_WebSocketClient_Close(
         client: *mut WebSocket,
         options: WebSocket_CloseOption,
     ) -> ::std::os::raw::c_int;
 }
-extern "C" {
+unsafe extern "C" {
     #[doc = " @brief Releases the context and resources of the websocket connection.\n\n @param client Pointer to the websocket client.\n @return 0 if success; non-0 otherwise. For details about error codes, see {@link OH_Websocket_ErrCode}.\n @permission ohos.permission.INTERNET\n @syscap SystemCapability.Communication.NetStack\n @since 11\n @version 1.0"]
     pub fn OH_WebSocketClient_Destroy(client: *mut WebSocket) -> ::std::os::raw::c_int;
 }

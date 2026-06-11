@@ -2,14 +2,14 @@ use std::{mem::MaybeUninit, ptr::NonNull};
 
 #[cfg(feature = "napi")]
 use napi_ohos::{
-    bindgen_prelude::{Object, Unknown},
     Env,
+    bindgen_prelude::{Object, Unknown},
 };
 use napi_sys_ohos::{napi_env, napi_value};
 
 use crate::{
-    common::{image_source_from_uri, non_null, AsNapiValue, NapiValue},
-    error::{check_status, ImageError, ImageResult},
+    common::{AsNapiValue, NapiValue, image_source_from_uri, non_null},
+    error::{ImageError, ImageResult, check_status},
     pixel_map::PixelMap,
     sys,
     types::{

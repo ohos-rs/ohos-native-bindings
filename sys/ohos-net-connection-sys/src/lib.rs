@@ -287,37 +287,37 @@ pub struct NetConn_TraceRouteInfo {
     #[doc = " RTT in micro seconds"]
     pub rtt: [u32; 4usize],
 }
-extern "C" {
+unsafe extern "C" {
     #[doc = " @brief Checks whether a default activated data network is available.\n\n @param hasDefaultNet Pointer to the result that specifies whether a default activated data network is available.\n @return 0 - Success. 201 - Missing permissions.\n         401 - Parameter error. 2100002 - Unable to connect to service.\n         2100003 - Internal error.\n @permission ohos.permission.GET_NETWORK_INFO\n @syscap SystemCapability.Communication.NetManager.Core\n @since 11\n @version 1.0"]
     pub fn OH_NetConn_HasDefaultNet(hasDefaultNet: *mut i32) -> i32;
 }
-extern "C" {
+unsafe extern "C" {
     #[doc = " @brief Obtains the default activated data network.\n\n @param netHandle Pointer to the network handle that contains the network ID.\n @return 0 - Success. 201 - Missing permissions.\n         401 - Parameter error. 2100002 - Unable to connect to service.\n         2100003 - Internal error.\n @permission ohos.permission.GET_NETWORK_INFO\n @syscap SystemCapability.Communication.NetManager.Core\n @since 11\n @version 1.0"]
     pub fn OH_NetConn_GetDefaultNet(netHandle: *mut NetConn_NetHandle) -> i32;
 }
-extern "C" {
+unsafe extern "C" {
     #[doc = " @brief Checks whether metering is enabled for the default data network.\n\n @param isMetered Pointer to the result that specifies whether metering is enabled.\n @return 0 - Success. 201 - Missing permissions.\n         401 - Parameter error. 2100002 - Unable to connect to service.\n         2100003 - Internal error.\n @permission ohos.permission.GET_NETWORK_INFO\n @syscap SystemCapability.Communication.NetManager.Core\n @since 11\n @version 1.0"]
     pub fn OH_NetConn_IsDefaultNetMetered(isMetered: *mut i32) -> i32;
 }
-extern "C" {
+unsafe extern "C" {
     #[doc = " @brief Obtains the connection properties of a data network.\n\n @param netHandle Pointer to the network handle that contains the network ID.\n @param prop Pointer to the connection properties.\n @return 0 - Success. 201 - Missing permissions.\n         401 - Parameter error. 2100002 - Unable to connect to service.\n         2100003 - Internal error.\n @permission ohos.permission.GET_NETWORK_INFO\n @syscap SystemCapability.Communication.NetManager.Core\n @since 11\n @version 1.0"]
     pub fn OH_NetConn_GetConnectionProperties(
         netHandle: *mut NetConn_NetHandle,
         prop: *mut NetConn_ConnectionProperties,
     ) -> i32;
 }
-extern "C" {
+unsafe extern "C" {
     #[doc = " @brief Obtains the capabilities of a data network.\n\n @param netHandle Pointer to the network handle that contains the network ID.\n @param netCapacities Pointer to the network capabilities.\n @return 0 - Success. 201 - Missing permissions.\n         401 - Parameter error. 2100002 - Unable to connect to service.\n         2100003 - Internal error.\n @permission ohos.permission.GET_NETWORK_INFO\n @syscap SystemCapability.Communication.NetManager.Core\n @since 11\n @version 1.0"]
     pub fn OH_NetConn_GetNetCapabilities(
         netHandle: *mut NetConn_NetHandle,
         netCapabilities: *mut NetConn_NetCapabilities,
     ) -> i32;
 }
-extern "C" {
+unsafe extern "C" {
     #[doc = " @brief Obtains the default http proxy.\n\n @param httpProxy Pointer to the HTTP proxy.\n @return 0 - Success. 201 - Missing permissions.\n         401 - Parameter error. 2100002 - Unable to connect to service.\n         2100003 - Internal error.\n @syscap SystemCapability.Communication.NetManager.Core\n @since 11\n @version 1.0"]
     pub fn OH_NetConn_GetDefaultHttpProxy(httpProxy: *mut NetConn_HttpProxy) -> i32;
 }
-extern "C" {
+unsafe extern "C" {
     #[doc = " @brief Get DNS result with netId.\n\n @param host The host name to query.\n @param serv Service name.\n @param hint Pointer to the addrinfo structure.\n @param res Store DNS query results and return them in a linked list format.\n @param netId DNS query netId, 0 is used for default netid query.\n @return 0 - Success. 201 - Missing permissions.\n         401 - Parameter error. 2100002 - Unable to connect to service.\n         2100003 - Internal error.\n @permission ohos.permission.INTERNET\n @syscap SystemCapability.Communication.NetManager.Core\n @since 11\n @version 1.0"]
     pub fn OH_NetConn_GetAddrInfo(
         host: *mut ::std::os::raw::c_char,
@@ -327,44 +327,44 @@ extern "C" {
         netId: i32,
     ) -> i32;
 }
-extern "C" {
+unsafe extern "C" {
     #[doc = " @brief Free DNS result.\n\n @param res DNS query result chain header.\n @return 0 - Success. 201 - Missing permissions.\n         401 - Parameter error. 2100002 - Unable to connect to service.\n         2100003 - Internal error.\n @permission ohos.permission.INTERNET\n @syscap SystemCapability.Communication.NetManager.Core\n @since 11\n @version 1.0"]
     pub fn OH_NetConn_FreeDnsResult(res: *mut addrinfo) -> i32;
 }
-extern "C" {
+unsafe extern "C" {
     #[doc = " @brief Queries all activated data networks.\n\n @param netHandleList Network handle that stores the network ID list.\n @return 0 - Success. 201 - Missing permissions.\n         401 - Parameter error. 2100002 - Unable to connect to service.\n         2100003 - Internal error.\n @permission ohos.permission.GET_NETWORK_INFO\n @syscap SystemCapability.Communication.NetManager.Core\n @since 11\n @version 1.0"]
     pub fn OH_NetConn_GetAllNets(netHandleList: *mut NetConn_NetHandleList) -> i32;
 }
-extern "C" {
+unsafe extern "C" {
     #[doc = " @brief Registers a custom DNS resolver.\n\n @param resolver Pointer to the custom DNS resolver.\n @return Returns the result code.\n         {@link NETMANAGER_EXT_SUCCESS} if the operation is successful.\n         {@link NETMANAGER_ERR_PARAMETER_ERROR} Parameter error. Please enter a correct parameter.\n @syscap SystemCapability.Communication.NetManager.Core\n @since 13\n @version 1.0"]
     #[cfg(feature = "api-13")]
     pub fn OH_NetConn_RegisterDnsResolver(resolver: OH_NetConn_CustomDnsResolver) -> i32;
 }
-extern "C" {
+unsafe extern "C" {
     #[doc = " @brief Unregisters a custom DNS resolver.\n\n @return 0 - Success.\n         2100002 - Unable to connect to service.\n         2100003 - Internal error.\n @syscap SystemCapability.Communication.NetManager.Core\n @since 13\n @version 1.0"]
     #[cfg(feature = "api-13")]
     pub fn OH_NetConn_UnregisterDnsResolver() -> i32;
 }
-extern "C" {
+unsafe extern "C" {
     #[doc = " @brief Binds a socket to the specific network.\n\n @param socketFd Socket constructed by user.\n @param netHandle Pointer to the network handle that contains the network ID.\n @return 0 - Success.\n         401 - Parameter error.\n         2100002 - Unable to connect to service.\n         2100003 - Internal error.\n @syscap SystemCapability.Communication.NetManager.Core\n @since 12\n @version 1.0"]
     pub fn OH_NetConn_BindSocket(socketFd: i32, netHandle: *mut NetConn_NetHandle) -> i32;
 }
-extern "C" {
+unsafe extern "C" {
     #[doc = " @brief Sets http proxy information to current application.\n\n @param httpProxy Information about the proxy that needs to be set.\n @return 0 - Success.\n         401 - Parameter error.\n @syscap SystemCapability.Communication.NetManager.Core\n @since 12\n @version 1.0"]
     pub fn OH_NetConn_SetAppHttpProxy(httpProxy: *mut NetConn_HttpProxy) -> i32;
 }
-extern "C" {
+unsafe extern "C" {
     #[doc = " @brief Registers callback to listen for changes to the application-level http proxy.\n\n @param appHttpProxyChange Callback that need to be registered to listen for changes to the http proxy.\n @param callbackId Callback id returned after registration, associated with a registered callback.\n @return 0 - Success.\n         401 - Parameter error.\n @syscap SystemCapability.Communication.NetManager.Core\n @since 12\n @version 1.0"]
     pub fn OH_NetConn_RegisterAppHttpProxyCallback(
         appHttpProxyChange: OH_NetConn_AppHttpProxyChange,
         callbackId: *mut u32,
     ) -> i32;
 }
-extern "C" {
+unsafe extern "C" {
     #[doc = " @brief Unregisters a callback function that listens for application-level proxy changes.\n\n @param callbackId Id of the callback function that needs to be deregistered.\n @syscap SystemCapability.Communication.NetManager.Core\n @since 12\n @version 1.0"]
     pub fn OH_NetConn_UnregisterAppHttpProxyCallback(callbackId: u32);
 }
-extern "C" {
+unsafe extern "C" {
     #[doc = " @brief Registers callback, used to monitor specific network status.\n\n @param netSpecifier specifier information.\n @param callback The callback needed to be registered.\n @param timeout The timeout period in milliseconds.\n @param callbackId out param, corresponding to a registered callback.\n @return 0 - Success.\n         201 - Permission denied.\n         401 - Parameter error.\n         2100002 - Failed to connect to the service.\n         2100003 - System internal error.\n         2101008 - The callback already exists.\n         2101022 - The number of requests exceeded the maximum allowed.\n @permission ohos.permission.GET_NETWORK_INFO\n @syscap SystemCapability.Communication.NetManager.Core\n @since 12\n @version 1.0"]
     pub fn OH_NetConn_RegisterNetConnCallback(
         specifier: *mut NetConn_NetSpecifier,
@@ -373,28 +373,28 @@ extern "C" {
         callbackId: *mut u32,
     ) -> i32;
 }
-extern "C" {
+unsafe extern "C" {
     #[doc = " @brief Registers a callback to listen default network's status changed.\n\n @param callback The callback needed to be registered.\n @param callbackId out param, corresponding to a registered callback.\n @return 0 - Success.\n         201 - Permission denied.\n         401 - Parameter error.\n         2100002 - Failed to connect to the service.\n         2100003 - System internal error.\n         2101008 - The callback already exists.\n         2101022 - The number of requests exceeded the maximum allowed.\n @permission ohos.permission.GET_NETWORK_INFO\n @syscap SystemCapability.Communication.NetManager.Core\n @since 12\n @version 1.0"]
     pub fn OH_NetConn_RegisterDefaultNetConnCallback(
         netConnCallback: *mut NetConn_NetConnCallback,
         callbackId: *mut u32,
     ) -> i32;
 }
-extern "C" {
+unsafe extern "C" {
     #[doc = " @brief Unregisters network status callback.\n\n @param callBackId the id corresponding to a registered callback.\n @return 0 - Success.\n         201 - Permission denied.\n         401 - Parameter error.\n         2100002 - Failed to connect to the service.\n         2100003 - System internal error.\n         2101007 - The callback does not exists.\n @permission ohos.permission.GET_NETWORK_INFO\n @syscap SystemCapability.Communication.NetManager.Core\n @since 12\n @version 1.0"]
     pub fn OH_NetConn_UnregisterNetConnCallback(callBackId: u32) -> i32;
 }
-extern "C" {
+unsafe extern "C" {
     #[doc = " @brief Sets the URL of the current PAC script.\n\n @param pacUrl the URL of the current PAC script.\n @return the result defines in {@link NetConn_ErrorCode}.\n         {@link NETCONN_SUCCESS} Success.\n         {@link NETCONN_PERMISSION_DENIED} Permission denied.\n         {@link NETCONN_PARAMETER_ERROR} Parameter check failed.\n         {@link NETCONN_OPERATION_FAILED} Failed to connect to the service.\n         {@link NETCONN_INTERNAL_ERROR} System internal error.\n @permission ohos.permission.SET_PAC_URL\n @since 15"]
     #[cfg(feature = "api-15")]
     pub fn OH_NetConn_SetPacUrl(pacUrl: *const ::std::os::raw::c_char) -> NetConn_ErrorCode;
 }
-extern "C" {
+unsafe extern "C" {
     #[doc = " @brief Obtains the URL of the current PAC script.\n\n @param pacUrl the URL of the current PAC script.\n @return the result defines in {@link NetConn_ErrorCode}.\n         {@link NETCONN_SUCCESS} Success.\n         {@link NETCONN_PARAMETER_ERROR} Parameter check failed.\n         {@link NETCONN_OPERATION_FAILED} Failed to connect to the service.\n         {@link NETCONN_INTERNAL_ERROR} System internal error.\n @since 15"]
     #[cfg(feature = "api-15")]
     pub fn OH_NetConn_GetPacUrl(pacUrl: *mut ::std::os::raw::c_char) -> NetConn_ErrorCode;
 }
-extern "C" {
+unsafe extern "C" {
     #[doc = " @brief Query a network probe result.\n\n @param destination Pointer to the destination.\n @param duration probe duration. Unit: second.\n @param probeResultInfo Pointer to probe loss rate and rtt.\n @return 0 - Success.\n         201 - Missing permissions.\n         401 - Parameter error.\n         2100003 - Internal error.\n @permission ohos.permission.INTERNET\n @since 20"]
     #[cfg(feature = "api-20")]
     pub fn OH_NetConn_QueryProbeResult(
@@ -403,7 +403,7 @@ extern "C" {
         probeResultInfo: *mut NetConn_ProbeResultInfo,
     ) -> i32;
 }
-extern "C" {
+unsafe extern "C" {
     #[doc = " @brief Query a network trace route.\n\n @param destination Pointer to the destination.\n @param option Pointer to the trace route option\n @param traceRouteInfo Pointer to trace route result.\n @return 0 - Success.\n         201 - Missing permissions.\n @permission ohos.permission.INTERNET and ohos.permission.LOCATION and ohos.permission.ACCESS_NET_TRACE_INFO\n @since 20"]
     #[cfg(feature = "api-20")]
     pub fn OH_NetConn_QueryTraceRoute(

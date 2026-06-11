@@ -6,11 +6,11 @@ use std::{
 };
 
 use ohos_sensor_sys::{
+    OH_Sensor_CreateSubscriber, OH_Sensor_CreateSubscriptionId, OH_Sensor_DestroySubscriber,
+    OH_Sensor_DestroySubscriptionId, OH_Sensor_Subscribe, OH_Sensor_Unsubscribe,
     OH_SensorEvent_GetAccuracy, OH_SensorEvent_GetData, OH_SensorEvent_GetTimestamp,
     OH_SensorEvent_GetType, OH_SensorSubscriber_SetCallback, OH_SensorSubscriptionId_SetType,
-    OH_Sensor_CreateSubscriber, OH_Sensor_CreateSubscriptionId, OH_Sensor_DestroySubscriber,
-    OH_Sensor_DestroySubscriptionId, OH_Sensor_Subscribe, OH_Sensor_Unsubscribe, Sensor_Event,
-    Sensor_Subscriber, Sensor_SubscriptionId,
+    Sensor_Event, Sensor_Subscriber, Sensor_SubscriptionId,
 };
 
 use crate::{Accuracy, SensorAttribute, SensorError, SensorType};
@@ -152,14 +152,12 @@ impl SensorSubscriber {
 
 impl Drop for SensorSubscriber {
     fn drop(&mut self) {
-        if let Ok(id) = self.id.try_borrow() {
-            if let Some(id) = id.as_ref() {
-                if let Ok(subscriber) = self.subscriber.try_borrow() {
-                    if let Some(subscriber) = subscriber.as_ref() {
-                        unsafe { OH_Sensor_Unsubscribe(id.as_ptr(), subscriber.as_ptr()) };
-                    }
-                }
-            }
+        if let Ok(id) = self.id.try_borrow()
+            && let Some(id) = id.as_ref()
+            && let Ok(subscriber) = self.subscriber.try_borrow()
+            && let Some(subscriber) = subscriber.as_ref()
+        {
+            unsafe { OH_Sensor_Unsubscribe(id.as_ptr(), subscriber.as_ptr()) };
         }
         self.attribute.borrow_mut().take();
 

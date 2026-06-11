@@ -6,15 +6,15 @@ use std::ptr::NonNull;
 use std::sync::{Mutex, OnceLock};
 use std::{cell::LazyCell, ffi::CString};
 
-use ohos_arkui_input_binding::sys::ArkUI_NodeHandle;
 use ohos_arkui_input_binding::ArkUIErrorCode;
+use ohos_arkui_input_binding::sys::ArkUI_NodeHandle;
 use ohos_arkui_sys::{
     ArkUI_IntOffset, ArkUI_IntSize, ArkUI_LayoutConstraint,
     ArkUI_NativeAPIVariantKind_ARKUI_NATIVE_NODE, ArkUI_NativeNodeAPI_1, ArkUI_NodeEventType,
     OH_ArkUI_QueryModuleInterfaceByName,
 };
 
-use crate::{check_arkui_status, ArkUINodeAttributeType, ArkUINodeType, NodeEventType};
+use crate::{ArkUINodeAttributeType, ArkUINodeType, NodeEventType, check_arkui_status};
 
 use crate::common::{ArkUIError, ArkUINode, ArkUINodeAttributeItem, ArkUIResult};
 

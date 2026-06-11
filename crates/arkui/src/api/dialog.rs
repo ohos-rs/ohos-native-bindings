@@ -8,8 +8,8 @@ use std::{
     rc::Rc,
 };
 
-use ohos_arkui_input_binding::sys::ArkUI_NodeHandle;
 use ohos_arkui_input_binding::ArkUIErrorCode;
+use ohos_arkui_input_binding::sys::ArkUI_NodeHandle;
 use ohos_arkui_sys::{
     ArkUI_DialogDismissEvent, ArkUI_NativeAPIVariantKind_ARKUI_NATIVE_DIALOG,
     ArkUI_NativeDialogAPI_1, ArkUI_NativeDialogHandle,
@@ -18,8 +18,8 @@ use ohos_arkui_sys::{
 };
 
 use crate::{
-    check_arkui_status, Alignment, ArkUIError, ArkUIResult, DialogDismissData,
-    InnerDialogDismissData,
+    Alignment, ArkUIError, ArkUIResult, DialogDismissData, InnerDialogDismissData,
+    check_arkui_status,
 };
 
 thread_local! {
@@ -257,25 +257,27 @@ impl Default for ArkUINativeDialogAPI1 {
 }
 
 unsafe extern "C" fn dialog_dismiss_callback(event: *mut ArkUI_DialogDismissEvent) {
-    let user_data = OH_ArkUI_DialogDismissEvent_GetUserData(event);
+    unsafe {
+        let user_data = OH_ArkUI_DialogDismissEvent_GetUserData(event);
 
-    #[cfg(debug_assertions)]
-    assert!(!user_data.is_null(), "user_data is NULL");
+        #[cfg(debug_assertions)]
+        assert!(!user_data.is_null(), "user_data is NULL");
 
-    let user_data_rc: &Rc<RefCell<InnerDialogDismissData>> =
-        &*(user_data as *const Rc<RefCell<InnerDialogDismissData>>);
+        let user_data_rc: &Rc<RefCell<InnerDialogDismissData>> =
+            &*(user_data as *const Rc<RefCell<InnerDialogDismissData>>);
 
-    let data = user_data_rc.borrow_mut();
+        let data = user_data_rc.borrow_mut();
 
-    if let Some(handle) = data.dismiss_handle.as_ref() {
-        let reason = OH_ArkUI_DialogDismissEvent_GetDismissReason(event) as u32;
+        if let Some(handle) = data.dismiss_handle.as_ref() {
+            let reason = OH_ArkUI_DialogDismissEvent_GetDismissReason(event) as u32;
 
-        let ret = handle(DialogDismissData {
-            dismiss_reason: reason.into(),
-            data: data.data,
-        });
-        if let Some(block) = ret {
-            if block {
+            let ret = handle(DialogDismissData {
+                dismiss_reason: reason.into(),
+                data: data.data,
+            });
+            if let Some(block) = ret
+                && block
+            {
                 OH_ArkUI_DialogDismissEvent_SetShouldBlockDismiss(event, block);
             }
         }

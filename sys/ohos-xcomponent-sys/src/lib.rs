@@ -662,7 +662,7 @@ pub struct OH_NativeXComponent_ExpectedRateRange {
     #[doc = " The expected frame rate of dynamical callback rate range."]
     pub expected: i32,
 }
-extern "C" {
+unsafe extern "C" {
     #[doc = " @brief Obtains the ID of the ArkUI XComponent.\n\n @param component Indicates the pointer to this <b>OH_NativeXComponent</b> instance.\n @param id Indicates the char buffer to keep the ID of this <b>OH_NativeXComponent</b> instance.\\n\n        Notice that a null-terminator will be appended to the char buffer, so the size of the\\n\n        char buffer should be at least as large as the size of the real id length plus 1.\\n\n        It is recommended that the size of the char buffer be [OH_XCOMPONENT_ID_LEN_MAX + 1].\n @param size Indicates the pointer to the length of <b>id</b>, which you can receive.\n @return Returns the status code of the execution.\n @since 8\n @version 1.0"]
     pub fn OH_NativeXComponent_GetXComponentId(
         component: *mut OH_NativeXComponent,
@@ -670,7 +670,7 @@ extern "C" {
         size: *mut u64,
     ) -> i32;
 }
-extern "C" {
+unsafe extern "C" {
     #[doc = " @brief Obtains the size of the surface held by the ArkUI XComponent.\n\n @param component Indicates the pointer to this <b>OH_NativeXComponent</b> instance.\n @param window Indicates the native window handler.\n @param width Indicates the pointer to the width of the current surface.\n @param height Indicates the pointer to the height of the current surface.\n @return Returns the status code of the execution.\n @since 8\n @version 1.0"]
     pub fn OH_NativeXComponent_GetXComponentSize(
         component: *mut OH_NativeXComponent,
@@ -679,7 +679,7 @@ extern "C" {
         height: *mut u64,
     ) -> i32;
 }
-extern "C" {
+unsafe extern "C" {
     #[doc = " @brief Obtains the offset of the surface held by the ArkUI XComponent.\n\n @param component Indicates the pointer to this <b>OH_NativeXComponent</b> instance.\n @param window Indicates the native window handler.\n @param x Indicates the pointer to the x coordinate of the current surface.\n @param y Indicates the pointer to the y coordinate of the current surface.\n @return Returns the status code of the execution.\n @since 8\n @version 1.0"]
     pub fn OH_NativeXComponent_GetXComponentOffset(
         component: *mut OH_NativeXComponent,
@@ -688,7 +688,7 @@ extern "C" {
         y: *mut f64,
     ) -> i32;
 }
-extern "C" {
+unsafe extern "C" {
     #[doc = " @brief Obtains the touch event dispatched by the ArkUI XComponent.\n\n @param component Indicates the pointer to this <b>OH_NativeXComponent</b> instance.\n @param window Indicates the native window handler.\n @param touchEvent Indicates the pointer to the current touch event.\n @return Returns the status code of the execution.\n @since 8\n @version 1.0"]
     pub fn OH_NativeXComponent_GetTouchEvent(
         component: *mut OH_NativeXComponent,
@@ -696,7 +696,7 @@ extern "C" {
         touchEvent: *mut OH_NativeXComponent_TouchEvent,
     ) -> i32;
 }
-extern "C" {
+unsafe extern "C" {
     #[doc = " @brief Obtains the touch pointer tool type by the ArkUI XComponent.\n\n @param component Indicates the pointer to this <b>OH_NativeXComponent</b> instance.\n @param pointIndex Indicates the pointer index in the touchPoints.\n @param toolType Indicates the tool Type of the pointer.\n @return Returns the status code of the execution.\n @since 9\n @version 1.0"]
     pub fn OH_NativeXComponent_GetTouchPointToolType(
         component: *mut OH_NativeXComponent,
@@ -704,7 +704,7 @@ extern "C" {
         toolType: *mut OH_NativeXComponent_TouchPointToolType,
     ) -> i32;
 }
-extern "C" {
+unsafe extern "C" {
     #[doc = " @brief Obtains the touch pointer tiltX by the ArkUI XComponent.\n\n @param component Indicates the pointer to this <b>OH_NativeXComponent</b> instance.\n @param pointIndex Indicates the pointer index in the touchPoints.\n @param tiltX Indicates the x tilt of the pointer.\n @return Returns the status code of the execution.\n @since 9\n @version 1.0"]
     pub fn OH_NativeXComponent_GetTouchPointTiltX(
         component: *mut OH_NativeXComponent,
@@ -712,7 +712,7 @@ extern "C" {
         tiltX: *mut f32,
     ) -> i32;
 }
-extern "C" {
+unsafe extern "C" {
     #[doc = " @brief Obtains the touch pointer tiltX by the ArkUI XComponent.\n\n @param component Indicates the pointer to this <b>OH_NativeXComponent</b> instance.\n @param pointIndex Indicates the pointer index in the touchPoints.\n @param tiltY Indicates the y tilt of the pointer.\n @return Returns the status code of the execution.\n @since 9\n @version 1.0"]
     pub fn OH_NativeXComponent_GetTouchPointTiltY(
         component: *mut OH_NativeXComponent,
@@ -720,7 +720,7 @@ extern "C" {
         tiltY: *mut f32,
     ) -> i32;
 }
-extern "C" {
+unsafe extern "C" {
     #[doc = " @brief Obtains the x coordinate of a specific touch point relative to the upper left corner of\\n\n        the current application window from the ArkUI XComponent.\n\n @param component Indicates the pointer to this <b>OH_NativeXComponent</b> instance.\n @param pointIndex Indicates the pointer index in the touchPoints.\n @param windowX Indicates the x coordinate relative to the upper left corner of the current\\n\napplication window.\n @return Returns the status code of the execution.\n         {@link OH_NATIVEXCOMPONENT_RESULT_SUCCESS} get windowX success.\n         {@link OH_NATIVEXCOMPONENT_RESULT_BAD_PARAMETER} component is NULL, windowX is NULL\\n\n         or native XComponent is NULL.\n @since 12\n @version 1.0"]
     pub fn OH_NativeXComponent_GetTouchPointWindowX(
         component: *mut OH_NativeXComponent,
@@ -728,7 +728,7 @@ extern "C" {
         windowX: *mut f32,
     ) -> i32;
 }
-extern "C" {
+unsafe extern "C" {
     #[doc = " @brief Obtains the y coordinate of a specific touch point relative to the upper left corner of\\n\n        the current application window from the ArkUI XComponent.\n\n @param component Indicates the pointer to this <b>OH_NativeXComponent</b> instance.\n @param pointIndex Indicates the pointer index in the touchPoints.\n @param windowY Indicates the y coordinate relative to the upper left corner of the current\\n\napplication window.\n @return Returns the status code of the execution.\n         {@link OH_NATIVEXCOMPONENT_RESULT_SUCCESS} get windowY success.\n         {@link OH_NATIVEXCOMPONENT_RESULT_BAD_PARAMETER} component is NULL, windowY is NULL\\n\n         or native XComponent is NULL.\n @since 12\n @version 1.0"]
     pub fn OH_NativeXComponent_GetTouchPointWindowY(
         component: *mut OH_NativeXComponent,
@@ -736,7 +736,7 @@ extern "C" {
         windowY: *mut f32,
     ) -> i32;
 }
-extern "C" {
+unsafe extern "C" {
     #[doc = " @brief Obtains the x coordinate of a specific touch point relative to the upper left corner of\\n\n        the current screen from the ArkUI XComponent.\n\n @param component Indicates the pointer to this <b>OH_NativeXComponent</b> instance.\n @param pointIndex Indicates the pointer index in the touchPoints.\n @param displayX Indicates the x coordinate relative to the upper left corner of the current\\n\nscreen.\n @return Returns the status code of the execution.\n         {@link OH_NATIVEXCOMPONENT_RESULT_SUCCESS} get displayX success.\n         {@link OH_NATIVEXCOMPONENT_RESULT_BAD_PARAMETER} component is NULL, displayX is NULL\\n\n         or native XComponent is NULL.\n @since 12\n @version 1.0"]
     pub fn OH_NativeXComponent_GetTouchPointDisplayX(
         component: *mut OH_NativeXComponent,
@@ -744,7 +744,7 @@ extern "C" {
         displayX: *mut f32,
     ) -> i32;
 }
-extern "C" {
+unsafe extern "C" {
     #[doc = " @brief Obtains the y coordinate of a specific touch point relative to the upper left corner of\\n\n        the current screen from the ArkUI XComponent.\n\n @param component Indicates the pointer to this <b>OH_NativeXComponent</b> instance.\n @param pointIndex Indicates the pointer index in the touchPoints.\n @param displayY Indicates the y coordinate relative to the upper left corner of the current\\n\nscreen.\n @return Returns the status code of the execution.\n         {@link OH_NATIVEXCOMPONENT_RESULT_SUCCESS} get displayY success.\n         {@link OH_NATIVEXCOMPONENT_RESULT_BAD_PARAMETER} component is NULL, displayY is NULL\\n\n         or native XComponent is NULL.\n @since 12\n @version 1.0"]
     pub fn OH_NativeXComponent_GetTouchPointDisplayY(
         component: *mut OH_NativeXComponent,
@@ -752,7 +752,7 @@ extern "C" {
         displayY: *mut f32,
     ) -> i32;
 }
-extern "C" {
+unsafe extern "C" {
     #[doc = " @brief Obtains the touch event dispatched by the ArkUI XComponent.\n\n @param component Indicates the pointer to this <b>OH_NativeXComponent</b> instance.\n @param window Indicates the native window handler.\n @param size Length of the historical touch point array.\n @param historicalPoints Pointer to the historical touch point array.\n @return Returns the status code of the execution.\n @since 10\n @version 1.0"]
     pub fn OH_NativeXComponent_GetHistoricalPoints(
         component: *mut OH_NativeXComponent,
@@ -761,7 +761,7 @@ extern "C" {
         historicalPoints: *mut *mut OH_NativeXComponent_HistoricalPoint,
     ) -> i32;
 }
-extern "C" {
+unsafe extern "C" {
     #[doc = " @brief Obtains the mouse event dispatched by the ArkUI XComponent.\n\n @param component Indicates the pointer to this <b>OH_NativeXComponent</b> instance.\n @param window Indicates the native window handler.\n @param mouseEvent Indicates the pointer to the current mouse event.\n @return Returns the status code of the execution.\n @since 9\n @version 1.0"]
     pub fn OH_NativeXComponent_GetMouseEvent(
         component: *mut OH_NativeXComponent,
@@ -769,14 +769,14 @@ extern "C" {
         mouseEvent: *mut OH_NativeXComponent_MouseEvent,
     ) -> i32;
 }
-extern "C" {
+unsafe extern "C" {
     #[doc = " @brief Registers a callback for this <b>OH_NativeXComponent</b> instance.\n\n @param component Indicates the pointer to this <b>OH_NativeXComponent</b> instance.\n @param callback Indicates the pointer to a surface lifecycle and touch event callback.\n @return Returns the status code of the execution.\n @since 8\n @version 1.0"]
     pub fn OH_NativeXComponent_RegisterCallback(
         component: *mut OH_NativeXComponent,
         callback: *mut OH_NativeXComponent_Callback,
     ) -> i32;
 }
-extern "C" {
+unsafe extern "C" {
     #[doc = " @brief Registers a callback for this <b>OH_NativeXComponent</b> instance.\n\n @param component Indicates the pointer to this <b>OH_NativeXComponent</b> instance.\n @param callback Indicates the pointer to a mouse event callback.\n @return Returns the status code of the execution.\n @since 9\n @version 1.0"]
     pub fn OH_NativeXComponent_RegisterMouseEventCallback(
         component: *mut OH_NativeXComponent,
@@ -788,7 +788,7 @@ extern "C" {
 pub struct OH_NativeXComponent_ExtraMouseEventInfo {
     _unused: [u8; 0],
 }
-extern "C" {
+unsafe extern "C" {
     #[doc = " @brief Obtains the extra mouse event dispatched by the ArkUI XComponent.\n\n @param component Indicates the pointer to this <b>OH_NativeXComponent</b> instance.\n @param extraMouseEventInfo Indicates the pointer to pointer of <b>OH_NativeXComponent_ExtraMouseEventInfo</b> instance.\n @return Returns the status code of the execution.\n         {@link ARKUI_ERROR_CODE_NO_ERROR} the execution is successful.\n         {@link ARKUI_ERROR_CODE_PARAM_INVALID} if a parameter error occurs.\n @since 20\n @version 1.0"]
     #[cfg(feature = "api-20")]
     pub fn OH_NativeXComponent_GetExtraMouseEventInfo(
@@ -796,7 +796,7 @@ extern "C" {
         extraMouseEventInfo: *mut *mut OH_NativeXComponent_ExtraMouseEventInfo,
     ) -> i32;
 }
-extern "C" {
+unsafe extern "C" {
     #[doc = " @brief Obtains the state of the modifier keys of the mouse event.\n\n @param extraMouseEventInfo Indicates the pointer to this <b>OH_NativeXComponent_ExtraMouseEventInfo</b> instance.\n @param keys Pointer to a variable where the current combination of pressed modifier keys will be returned.\n        The application can use bitwise operations to determine the state of each modifier key.\n        Modifier keys can be referred to {@link ArkUI_ModifierKeyName}.\n @return Returns the result code.\n         Returns {@link ARKUI_ERROR_CODE_NO_ERROR} if the operation is successful.\n         Returns {@link ARKUI_ERROR_CODE_PARAM_INVALID} if a parameter error occurs.\n @since 20\n @version 1.0"]
     #[cfg(feature = "api-20")]
     pub fn OH_NativeXComponent_GetMouseEventModifierKeyStates(
@@ -804,7 +804,7 @@ extern "C" {
         keys: *mut u64,
     ) -> i32;
 }
-extern "C" {
+unsafe extern "C" {
     #[doc = " @brief Registers a callback for this <b>OH_NativeXComponent</b> instance.\n\n @param component Indicates the pointer to this <b>OH_NativeXComponent</b> instance.\n @param callback Indicates the pointer to a focus event callback.\n @return Returns the status code of the execution.\n @since 10\n @version 1.0"]
     pub fn OH_NativeXComponent_RegisterFocusEventCallback(
         component: *mut OH_NativeXComponent,
@@ -816,7 +816,7 @@ extern "C" {
         >,
     ) -> i32;
 }
-extern "C" {
+unsafe extern "C" {
     #[doc = " @brief Registers a callback for this <b>OH_NativeXComponent</b> instance.\n\n @param component Indicates the pointer to this <b>OH_NativeXComponent</b> instance.\n @param callback Indicates the pointer to a key event callback.\n @return Returns the status code of the execution.\n @since 10\n @version 1.0"]
     pub fn OH_NativeXComponent_RegisterKeyEventCallback(
         component: *mut OH_NativeXComponent,
@@ -828,7 +828,7 @@ extern "C" {
         >,
     ) -> i32;
 }
-extern "C" {
+unsafe extern "C" {
     #[doc = " @brief Registers a callback for this <b>OH_NativeXComponent</b> instance.\n\n @param component Indicates the pointer to this <b>OH_NativeXComponent</b> instance.\n @param callback Indicates the pointer to a blur event callback.\n @return Returns the status code of the execution.\n @since 10\n @version 1.0"]
     pub fn OH_NativeXComponent_RegisterBlurEventCallback(
         component: *mut OH_NativeXComponent,
@@ -840,49 +840,49 @@ extern "C" {
         >,
     ) -> i32;
 }
-extern "C" {
+unsafe extern "C" {
     #[doc = " @brief Obtains the key event dispatched by the ArkUI XComponent.\n\n @param component Indicates the pointer to this <b>OH_NativeXComponent</b> instance.\n @param keyEvent Indicates the pointer to pointer of <b>OH_NativeXComponent_KeyEvent</b> instance.\n @return Returns the status code of the execution.\n @since 10\n @version 1.0"]
     pub fn OH_NativeXComponent_GetKeyEvent(
         component: *mut OH_NativeXComponent,
         keyEvent: *mut *mut OH_NativeXComponent_KeyEvent,
     ) -> i32;
 }
-extern "C" {
+unsafe extern "C" {
     #[doc = " @brief Obtains the action of the key event.\n\n @param keyEvent Indicates the pointer to this <b>OH_NativeXComponent_KeyEvent</b> instance.\n @param action Indicates the action of the <b>OH_NativeXComponent_KeyEvent</b> instance.\n @return Returns the status code of the execution.\n @since 10\n @version 1.0"]
     pub fn OH_NativeXComponent_GetKeyEventAction(
         keyEvent: *mut OH_NativeXComponent_KeyEvent,
         action: *mut OH_NativeXComponent_KeyAction,
     ) -> i32;
 }
-extern "C" {
+unsafe extern "C" {
     #[doc = " @brief Obtains the keyCode of the key event.\n\n @param keyEvent Indicates the pointer to this <b>OH_NativeXComponent_KeyEvent</b> instance.\n @param code Indicates the keyCode of the <b>OH_NativeXComponent_KeyEvent</b> instance.\n @return Returns the status code of the execution.\n @since 10\n @version 1.0"]
     pub fn OH_NativeXComponent_GetKeyEventCode(
         keyEvent: *mut OH_NativeXComponent_KeyEvent,
         code: *mut OH_NativeXComponent_KeyCode,
     ) -> i32;
 }
-extern "C" {
+unsafe extern "C" {
     #[doc = " @brief Obtains the sourceType of the key event.\n\n @param keyEvent Indicates the pointer to this <b>OH_NativeXComponent_KeyEvent</b> instance.\n @param sourceType Indicates the sourceType of the <b>OH_NativeXComponent_KeyEvent</b> instance.\n @return Returns the status code of the execution.\n @since 10\n @version 1.0"]
     pub fn OH_NativeXComponent_GetKeyEventSourceType(
         keyEvent: *mut OH_NativeXComponent_KeyEvent,
         sourceType: *mut OH_NativeXComponent_EventSourceType,
     ) -> i32;
 }
-extern "C" {
+unsafe extern "C" {
     #[doc = " @brief Obtains the deviceId of the key event.\n\n @param keyEvent Indicates the pointer to this <b>OH_NativeXComponent_KeyEvent</b> instance.\n @param deviceId Indicates the deviceId of the <b>OH_NativeXComponent_KeyEvent</b> instance.\n @return Returns the status code of the execution.\n @since 10\n @version 1.0"]
     pub fn OH_NativeXComponent_GetKeyEventDeviceId(
         keyEvent: *mut OH_NativeXComponent_KeyEvent,
         deviceId: *mut i64,
     ) -> i32;
 }
-extern "C" {
+unsafe extern "C" {
     #[doc = " @brief Obtains the timestamp of the key event.\n\n @param keyEvent Indicates the pointer to this <b>OH_NativeXComponent_KeyEvent</b> instance.\n @param timestamp Indicates the timestamp of the <b>OH_NativeXComponent_KeyEvent</b> instance.\n @return Returns the status code of the execution.\n @since 10\n @version 1.0"]
     pub fn OH_NativeXComponent_GetKeyEventTimestamp(
         keyEvent: *mut OH_NativeXComponent_KeyEvent,
         timestamp: *mut i64,
     ) -> i32;
 }
-extern "C" {
+unsafe extern "C" {
     #[doc = " @brief Obtains the state of the modifier keys of the key event.\n\n @param keyEvent Indicates the pointer to this <b>OH_NativeXComponent_KeyEvent</b> instance.\n @param keys Pointer to a variable where the current combination of pressed modifier keys will be returned.\n        The application can use bitwise operations to determine the state of each modifier key.\n        Modifier keys can be referred to {@link ArkUI_ModifierKeyName}.\n @return Returns the result code.\n         Returns {@link ARKUI_ERROR_CODE_NO_ERROR} if the operation is successful.\n         Returns {@link ARKUI_ERROR_CODE_PARAM_INVALID} if a parameter error occurs.\n @since 20\n @version 1.0"]
     #[cfg(feature = "api-20")]
     pub fn OH_NativeXComponent_GetKeyEventModifierKeyStates(
@@ -890,7 +890,7 @@ extern "C" {
         keys: *mut u64,
     ) -> i32;
 }
-extern "C" {
+unsafe extern "C" {
     #[doc = " @brief Obtains the Num Lock state of the key event.\n\n @param keyEvent Indicates the pointer to this <b>OH_NativeXComponent_KeyEvent</b> instance.\n @param isNumLockOn Return whether the Num Lock is on.\n @return Returns the result code.\n         Returns {@link ARKUI_ERROR_CODE_NO_ERROR} if the operation is successful.\n         Returns {@link ARKUI_ERROR_CODE_PARAM_INVALID} if a parameter error occurs.\n @since 20\n @version 1.0"]
     #[cfg(feature = "api-20")]
     pub fn OH_NativeXComponent_GetKeyEventNumLockState(
@@ -898,7 +898,7 @@ extern "C" {
         isNumLockOn: *mut bool,
     ) -> i32;
 }
-extern "C" {
+unsafe extern "C" {
     #[doc = " @brief Obtains the Caps Lock state of the key event.\n\n @param keyEvent Indicates the pointer to this <b>OH_NativeXComponent_KeyEvent</b> instance.\n @param isCapsLockOn Return whether the Caps Lock is on.\n @return Returns the result code.\n         Returns {@link ARKUI_ERROR_CODE_NO_ERROR} if the operation is successful.\n         Returns {@link ARKUI_ERROR_CODE_PARAM_INVALID} if a parameter error occurs.\n @since 20\n @version 1.0"]
     #[cfg(feature = "api-20")]
     pub fn OH_NativeXComponent_GetKeyEventCapsLockState(
@@ -906,7 +906,7 @@ extern "C" {
         isCapsLockOn: *mut bool,
     ) -> i32;
 }
-extern "C" {
+unsafe extern "C" {
     #[doc = " @brief Obtains the Scroll Lock state of the key event.\n\n @param keyEvent Indicates the pointer to this <b>OH_NativeXComponent_KeyEvent</b> instance.\n @param isScrollLockOn Return whether the Scroll Lock is on.\n @return Returns the result code.\n         Returns {@link ARKUI_ERROR_CODE_NO_ERROR} if the operation is successful.\n         Returns {@link ARKUI_ERROR_CODE_PARAM_INVALID} if a parameter error occurs.\n @since 20\n @version 1.0"]
     #[cfg(feature = "api-20")]
     pub fn OH_NativeXComponent_GetKeyEventScrollLockState(
@@ -914,14 +914,14 @@ extern "C" {
         isScrollLockOn: *mut bool,
     ) -> i32;
 }
-extern "C" {
+unsafe extern "C" {
     #[doc = " @brief Set the Expected FrameRateRange.\n\n @param component Indicates the pointer to this <b>OH_NativeXComponent</b> instance.\n @param range Indicates the pointer to a expected rate range.\n @return Returns the status code of the execution.\n @since 11\n @version 1.0"]
     pub fn OH_NativeXComponent_SetExpectedFrameRateRange(
         component: *mut OH_NativeXComponent,
         range: *mut OH_NativeXComponent_ExpectedRateRange,
     ) -> i32;
 }
-extern "C" {
+unsafe extern "C" {
     #[doc = " @brief Registers a callback for this <b>OH_NativeXComponent</b> instance.\n\n @param component Indicates the pointer to this <b>OH_NativeXComponent</b> instance.\n @param callback Indicates the pointer to a onFrame callback.\n @return Returns the status code of the execution.\n @since 11\n @version 1.0"]
     pub fn OH_NativeXComponent_RegisterOnFrameCallback(
         component: *mut OH_NativeXComponent,
@@ -934,27 +934,27 @@ extern "C" {
         >,
     ) -> i32;
 }
-extern "C" {
+unsafe extern "C" {
     #[doc = " @brief UnRegister a callback for this <b>OH_NativeXComponent</b> instance.\n\n @param component Indicates the pointer to this <b>OH_NativeXComponent</b> instance.\n @return Returns the status code of the execution.\n @since 11\n @version 1.0"]
     pub fn OH_NativeXComponent_UnregisterOnFrameCallback(
         component: *mut OH_NativeXComponent,
     ) -> i32;
 }
-extern "C" {
+unsafe extern "C" {
     #[doc = " @brief Attaches the UI component created through the native API of ArkUI to this <b>OH_NativeXComponent</b> instance.\n\n @param component Indicates the pointer to the <b>OH_NativeXComponent</b> instance.\n @param root Indicates the pointer to the component instance created by the native API.\n @return Returns the error code.\n         Returns {@link OH_NATIVEXCOMPONENT_RESULT_SUCCESS} if the operation is successful.\n         Returns {@link OH_NATIVEXCOMPONENT_RESULT_BAD_PARAMETER} if a parameter error occurs.\n\n @since 12\n @deprecated since 20\n @useinstead OH_ArkUI_NodeContent_AddNode"]
     pub fn OH_NativeXComponent_AttachNativeRootNode(
         component: *mut OH_NativeXComponent,
         root: ArkUI_NodeHandle,
     ) -> i32;
 }
-extern "C" {
+unsafe extern "C" {
     #[doc = " @brief Detaches the native component of ArkUI from this <b>OH_NativeXComponent</b> instance.\n\n @param component Indicates the pointer to the <b>OH_NativeXComponent</b> instance.\n @param root Indicates the pointer to the component instance created by the native API.\n @return Returns the error code.\n         Returns {@link OH_NATIVEXCOMPONENT_RESULT_SUCCESS} if the operation is successful.\n         Returns {@link OH_NATIVEXCOMPONENT_RESULT_BAD_PARAMETER} if a parameter error occurs.\n\n @since 12\n @deprecated since 20\n @useinstead OH_ArkUI_NodeContent_RemoveNode"]
     pub fn OH_NativeXComponent_DetachNativeRootNode(
         component: *mut OH_NativeXComponent,
         root: ArkUI_NodeHandle,
     ) -> i32;
 }
-extern "C" {
+unsafe extern "C" {
     #[doc = " @brief Registers a callback for this <b>OH_NativeXComponent</b> instance.\n\n @param component Indicates the pointer to this <b>OH_NativeXComponent</b> instance.\n @param callback Indicates the pointer to a surface show event callback.\n @return Returns the status code of the execution.\n @since 12\n @version 1.0"]
     pub fn OH_NativeXComponent_RegisterSurfaceShowCallback(
         component: *mut OH_NativeXComponent,
@@ -966,7 +966,7 @@ extern "C" {
         >,
     ) -> i32;
 }
-extern "C" {
+unsafe extern "C" {
     #[doc = " @brief Registers a callback for this <b>OH_NativeXComponent</b> instance.\n\n @param component Indicates the pointer to this <b>OH_NativeXComponent</b> instance.\n @param callback Indicates the pointer to a surface hide event callback.\n @return Returns the status code of the execution.\n @since 12\n @version 1.0"]
     pub fn OH_NativeXComponent_RegisterSurfaceHideCallback(
         component: *mut OH_NativeXComponent,
@@ -978,7 +978,7 @@ extern "C" {
         >,
     ) -> i32;
 }
-extern "C" {
+unsafe extern "C" {
     #[doc = " @brief Registers a UI input event callback for an <b>OH_NativeXComponent</b> instance and enables the callback to be\n invoked when a UI input event is received. Currently, only axis events are supported.\n\n @param component Indicates the pointer to the <b>OH_NativeXComponent</b> instance.\n @param callback Indicates the pointer to the UI input event callback.\n @param type Indicates the type of the current UI input event.\n @return Returns the error code.\n         Returns {@link ARKUI_ERROR_CODE_NO_ERROR} if the operation is successful.\n         Returns {@link ARKUI_ERROR_CODE_PARAM_INVALID} if a parameter error occurs.\n @since 12"]
     pub fn OH_NativeXComponent_RegisterUIInputEventCallback(
         component: *mut OH_NativeXComponent,
@@ -992,14 +992,14 @@ extern "C" {
         type_: ArkUI_UIInputEvent_Type,
     ) -> i32;
 }
-extern "C" {
+unsafe extern "C" {
     #[doc = " @brief Set whether the <b>OH_NativeXComponent</b> instance needs soft keyboard.\n @param component Indicates the pointer to this <b>OH_NativeXComponent</b> instance.\n @param needSoftKeyboard Indicates whether the <b>OH_NativeXComponent</b> instance needs soft keyboard or not.\n                           Default value is false.\n @return Returns the status code of the execution.\n @since 12\n @version 1.0"]
     pub fn OH_NativeXComponent_SetNeedSoftKeyboard(
         component: *mut OH_NativeXComponent,
         needSoftKeyboard: bool,
     ) -> i32;
 }
-extern "C" {
+unsafe extern "C" {
     #[doc = " @brief Registers a custom event intercept callback for an <b>OH_NativeXComponent</b> instance.\n This enables the specified during hit testing.\n UI input-related operations are not supported on event objects received through this callback.\n For full functionality, use the <b>NODE_ON_TOUCH_INTERCEPT</b> event on native nodes instead.\n\n @param component Indicates the pointer to the <b>OH_NativeXComponent</b> instance.\n @param callback Indicates the pointer to the custom event intercept callback.\n @return Returns the error code.\n         Returns {@link ARKUI_ERROR_CODE_NO_ERROR} if the operation is successful.\n         Returns {@link ARKUI_ERROR_CODE_PARAM_INVALID} if a parameter error occurs.\n @since 12"]
     pub fn OH_NativeXComponent_RegisterOnTouchInterceptCallback(
         component: *mut OH_NativeXComponent,
@@ -1011,7 +1011,7 @@ extern "C" {
         >,
     ) -> i32;
 }
-extern "C" {
+unsafe extern "C" {
     #[doc = " @brief Obtains the touch event's source type dispatched by the ArkUI XComponent.\n\n @param component Indicates the pointer to this <b>OH_NativeXComponent</b> instance.\n @param pointId Indicates the id of the touch point which triggers this touch event.\n @param sourceType Indicates the source type of this touch event.\n @return Returns OH_NATIVEXCOMPONENT_RESULT_SUCCESS if success.\n         Returns OH_NATIVEXCOMPONENT_RESULT_BAD_PARAMETER if a parameter exception occurs.\n         Returns OH_NATIVEXCOMPONENT_RESULT_FAILED if other exceptions occur.\n @since 12\n @version 1.0"]
     pub fn OH_NativeXComponent_GetTouchEventSourceType(
         component: *mut OH_NativeXComponent,
@@ -1019,13 +1019,13 @@ extern "C" {
         sourceType: *mut OH_NativeXComponent_EventSourceType,
     ) -> i32;
 }
-extern "C" {
+unsafe extern "C" {
     #[doc = " @brief Obtains the pointer to an <b>OH_NativeXComponent</b> instance based on the specified component\n instance created by the native API.\n\n @param node Indicates the pointer to the component instance created by the native API.\n @return Returns the pointer to the <b>OH_NativeXComponent</b> instance.\n @since 12\n @version 1.0"]
     pub fn OH_NativeXComponent_GetNativeXComponent(
         node: ArkUI_NodeHandle,
     ) -> *mut OH_NativeXComponent;
 }
-extern "C" {
+unsafe extern "C" {
     #[doc = " @brief Obtains the pointer to the <b> ArkUI_AccessibilityProvider</b>\n instance of this <b>OH_NativeXComponent</b> instance.\n\n @param component Indicates the pointer to the <b>OH_NativeXComponent</b> instance.\n @param handle Indicates the pointer to the <b>ArkUI_AccessibilityProvider</b> instance.\n @return Returns {@link OH_NATIVEXCOMPONENT_RESULT_SUCCESS} if the operation is successful.\n         Returns {@link OH_NATIVEXCOMPONENT_RESULT_BAD_PARAMETER} if a parameter error occurs.\n @since 13"]
     #[cfg(feature = "api-13")]
     pub fn OH_NativeXComponent_GetNativeAccessibilityProvider(
@@ -1033,7 +1033,7 @@ extern "C" {
         handle: *mut *mut ArkUI_AccessibilityProvider,
     ) -> i32;
 }
-extern "C" {
+unsafe extern "C" {
     #[doc = " @brief Registers a callback for this <b>OH_NativeXComponent</b> instance.\n\n @param component Indicates the pointer to this <b>OH_NativeXComponent</b> instance.\n @param callback Indicates the pointer to a key event callback with result.\n @return Returns the status code of the execution.\n         {@link OH_NATIVEXCOMPONENT_RESULT_SUCCESS} the callback function is successfully registered.\\n\n         {@link OH_NATIVEXCOMPONENT_RESULT_BAD_PARAMETER} component is nullptr or callback is nullptr.\\n\n @since 14\n @version 1.0"]
     #[cfg(feature = "api-14")]
     pub fn OH_NativeXComponent_RegisterKeyEventCallbackWithResult(

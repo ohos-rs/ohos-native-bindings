@@ -1,6 +1,6 @@
-use std::ffi::{c_void, CString};
+use std::ffi::{CString, c_void};
 
-use crate::{ArkWebError, JsApiCallbackContext, ARK_WEB_CONTROLLER_API};
+use crate::{ARK_WEB_CONTROLLER_API, ArkWebError, JsApiCallbackContext};
 use ohos_web_sys::{ArkWeb_ProxyMethod, ArkWeb_ProxyObject};
 
 use super::ark_web_proxy_method;
