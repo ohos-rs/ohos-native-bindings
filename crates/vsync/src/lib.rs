@@ -5,6 +5,9 @@ use ohos_native_vsync_sys::{
     OH_NativeVSync_RequestFrame, OH_NativeVSync_RequestFrameWithMultiCallback,
 };
 
+#[cfg(feature = "api-14")]
+use ohos_native_vsync_sys::OH_NativeVSync_Create_ForAssociatedWindow;
+
 #[cfg(feature = "api-20")]
 pub use ohos_native_vsync_sys::OH_NativeVSync_ExpectedRateRange;
 
@@ -28,19 +31,49 @@ struct VsyncData {
 
 impl<'a> Vsync<'a> {
     pub fn new<T: AsRef<str>>(name: T) -> Self {
+        Self::try_new(name).expect("OH_NativeVSync_Create failed")
+    }
+
+    pub fn try_new<T: AsRef<str>>(name: T) -> Option<Self> {
         let name = CString::new(name.as_ref()).expect("CString::new failed");
         let vsync =
             unsafe { OH_NativeVSync_Create(name.as_ptr().cast(), name.to_bytes().len() as u32) };
-        Vsync {
-            raw: NonNull::new(vsync).expect("OH_NativeVSync_Create failed"),
+        Some(Vsync {
+            raw: NonNull::new(vsync)?,
             _phantom: PhantomData,
-        }
+        })
+    }
+
+    #[cfg(feature = "api-14")]
+    pub fn new_for_associated_window<T: AsRef<str>>(window_id: u64, name: T) -> Self {
+        Self::try_new_for_associated_window(window_id, name)
+            .expect("OH_NativeVSync_Create_ForAssociatedWindow failed")
+    }
+
+    #[cfg(feature = "api-14")]
+    pub fn try_new_for_associated_window<T: AsRef<str>>(window_id: u64, name: T) -> Option<Self> {
+        let name = CString::new(name.as_ref()).expect("CString::new failed");
+        let vsync = unsafe {
+            OH_NativeVSync_Create_ForAssociatedWindow(
+                window_id,
+                name.as_ptr().cast(),
+                name.to_bytes().len() as u32,
+            )
+        };
+        Some(Vsync {
+            raw: NonNull::new(vsync)?,
+            _phantom: PhantomData,
+        })
     }
 
     /// This function is used to handle the vsync event.
     ///
     /// The callback function will be called when the vsync event occurs.
-    pub fn on_frame_once<F: FnMut(i64) + 'a>(&self, mut callback: F) {
+    pub fn on_frame_once<F: FnMut(i64) + 'a>(&self, callback: F) {
+        let _ = self.request_frame_once(callback);
+    }
+
+    pub fn request_frame_once<F: FnMut(i64) + 'a>(&self, mut callback: F) -> i32 {
         let callback_with_data = unsafe {
             std::mem::transmute::<Box<dyn FnMut(i64)>, Box<dyn FnMut(i64) + 'static>>(Box::new(
                 |time: i64| {
@@ -54,13 +87,16 @@ impl<'a> Vsync<'a> {
             raw: self.raw,
         });
 
-        unsafe {
-            OH_NativeVSync_RequestFrame(
-                self.raw.as_ptr(),
-                Some(request_frame_callback),
-                Box::into_raw(data) as _,
-            );
+        let data = Box::into_raw(data);
+        let ret = unsafe {
+            OH_NativeVSync_RequestFrame(self.raw.as_ptr(), Some(request_frame_callback), data as _)
+        };
+        if ret != 0 {
+            unsafe {
+                drop(Box::from_raw(data));
+            }
         }
+        ret
     }
 
     /// This function is used to handle the vsync event with multiple callbacks.
