@@ -45,12 +45,6 @@ impl<'a> Vsync<'a> {
     }
 
     #[cfg(feature = "api-14")]
-    pub fn new_for_associated_window<T: AsRef<str>>(window_id: u64, name: T) -> Self {
-        Self::try_new_for_associated_window(window_id, name)
-            .expect("OH_NativeVSync_Create_ForAssociatedWindow failed")
-    }
-
-    #[cfg(feature = "api-14")]
     pub fn try_new_for_associated_window<T: AsRef<str>>(window_id: u64, name: T) -> Option<Self> {
         let name = CString::new(name.as_ref()).expect("CString::new failed");
         let vsync = unsafe {
