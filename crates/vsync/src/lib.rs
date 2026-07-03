@@ -5,6 +5,12 @@ use ohos_native_vsync_sys::{
     OH_NativeVSync_RequestFrame, OH_NativeVSync_RequestFrameWithMultiCallback,
 };
 
+#[cfg(feature = "api-20")]
+pub use ohos_native_vsync_sys::OH_NativeVSync_ExpectedRateRange;
+
+#[cfg(feature = "api-20")]
+use ohos_native_vsync_sys::OH_NativeVSync_SetExpectedFrameRateRange;
+
 use std::marker::PhantomData;
 
 pub struct Vsync<'a> {
@@ -112,6 +118,12 @@ impl<'a> Vsync<'a> {
             OH_NativeVSync_GetPeriod(self.raw.as_ptr(), &mut period);
         }
         period
+    }
+
+    #[cfg(feature = "api-20")]
+    pub fn set_expected_frame_rate_range(&self, range: OH_NativeVSync_ExpectedRateRange) -> i32 {
+        let mut range = range;
+        unsafe { OH_NativeVSync_SetExpectedFrameRateRange(self.raw.as_ptr(), &mut range) }
     }
 }
 
