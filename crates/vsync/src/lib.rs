@@ -83,7 +83,11 @@ impl<'a> Vsync<'a> {
 
         let data = Box::into_raw(data);
         let ret = unsafe {
-            OH_NativeVSync_RequestFrameWithMultiCallback(self.raw.as_ptr(), Some(request_frame_callback), data as _)
+            OH_NativeVSync_RequestFrameWithMultiCallback(
+                self.raw.as_ptr(),
+                Some(request_frame_callback),
+                data as _,
+            )
         };
         if ret != 0 {
             unsafe {
