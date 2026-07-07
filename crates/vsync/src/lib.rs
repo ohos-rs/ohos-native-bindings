@@ -2,7 +2,7 @@ use std::{ffi::CString, os::raw::c_void, ptr::NonNull};
 
 use ohos_native_vsync_sys::{
     OH_NativeVSync, OH_NativeVSync_Create, OH_NativeVSync_Destroy, OH_NativeVSync_GetPeriod,
-    OH_NativeVSync_RequestFrame, OH_NativeVSync_RequestFrameWithMultiCallback,
+    OH_NativeVSync_RequestFrameWithMultiCallback,
 };
 
 #[cfg(feature = "api-14")]
@@ -70,7 +70,7 @@ impl<'a> Vsync<'a> {
     pub fn request_frame_once<F: FnMut(i64) + 'a>(&self, mut callback: F) -> i32 {
         let callback_with_data = unsafe {
             std::mem::transmute::<Box<dyn FnMut(i64)>, Box<dyn FnMut(i64) + 'static>>(Box::new(
-                |time: i64| {
+                move |time: i64| {
                     callback(time);
                 },
             ))
@@ -83,7 +83,7 @@ impl<'a> Vsync<'a> {
 
         let data = Box::into_raw(data);
         let ret = unsafe {
-            OH_NativeVSync_RequestFrame(self.raw.as_ptr(), Some(request_frame_callback), data as _)
+            OH_NativeVSync_RequestFrameWithMultiCallback(self.raw.as_ptr(), Some(request_frame_callback), data as _)
         };
         if ret != 0 {
             unsafe {
@@ -122,7 +122,7 @@ impl<'a> Vsync<'a> {
     pub fn on_frame<F: FnMut(i64) + 'a>(&self, mut callback: F) {
         let callback_with_data = unsafe {
             std::mem::transmute::<Box<dyn FnMut(i64)>, Box<dyn FnMut(i64) + 'static>>(Box::new(
-                |time: i64| {
+                move |time: i64| {
                     callback(time);
                 },
             ))
@@ -134,7 +134,7 @@ impl<'a> Vsync<'a> {
         });
 
         unsafe {
-            OH_NativeVSync_RequestFrame(
+            OH_NativeVSync_RequestFrameWithMultiCallback(
                 self.raw.as_ptr(),
                 Some(request_frame_callback_with_self),
                 Box::into_raw(data) as _,
@@ -167,7 +167,7 @@ extern "C" fn request_frame_callback_with_self(timestamp: i64, data: *mut c_void
     let mut raw_data = unsafe { Box::from_raw(data as *mut VsyncData) };
     // request next frame
     unsafe {
-        OH_NativeVSync_RequestFrame(
+        OH_NativeVSync_RequestFrameWithMultiCallback(
             raw_data.raw.as_ptr(),
             Some(request_frame_callback_with_self),
             data,
