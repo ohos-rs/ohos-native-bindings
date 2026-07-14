@@ -116,7 +116,18 @@ pub fn init(exports: Object, env: Env) -> Result<()> {
         Ok(())
     });
 
+    xcomponent.on_mouse_event(|_xcomponent, _win, data| {
+        hilog_info!(format!("xcomponent_mouse: {:?}", data));
+        Ok(())
+    })?;
+
+    xcomponent.on_hover_event(|_xcomponent, is_hover| {
+        hilog_info!(format!("xcomponent_hover: {}", is_hover));
+        Ok(())
+    })?;
+
     xcomponent.register_callback()?;
+    xcomponent.register_mouse_event_callback()?;
 
     xcomponent.on_frame_callback(|_, _, _| {
         hilog_info!("xcomponent_frame");

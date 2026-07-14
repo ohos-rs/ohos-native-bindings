@@ -4,7 +4,7 @@ use ohos_enum_derive::EnumFrom;
 
 #[derive(Debug, Clone, Copy, PartialEq, Eq, EnumFrom)]
 #[config(
-    OH_NativeXComponent_MouseEventButton,
+    OH_NativeXComponent_MouseEventAction,
     "OH_NativeXComponent_MouseEventAction_OH_NATIVEXCOMPONENT_MOUSE_"
 )]
 pub enum MouseAction {

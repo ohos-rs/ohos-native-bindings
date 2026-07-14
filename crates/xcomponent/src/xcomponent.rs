@@ -11,8 +11,8 @@ use ohos_xcomponent_sys::{
 use std::{os::raw::c_void, ptr};
 
 use crate::{
-    native_xcomponent::NativeXComponent, tool::resolve_id, TouchEventData, WindowRaw,
-    XComponentOffset, XComponentRaw, XComponentSize,
+    native_xcomponent::NativeXComponent, tool::resolve_id, MouseEventData, TouchEventData,
+    WindowRaw, XComponentOffset, XComponentRaw, XComponentSize,
 };
 
 /// Accept XComponent with env and exports
@@ -119,5 +119,22 @@ impl XComponent {
 
     pub fn on_touch_event(&self, cb: fn(XComponentRaw, WindowRaw, TouchEventData) -> Result<()>) {
         self.0.on_touch_event(cb)
+    }
+
+    pub fn on_mouse_event(
+        &self,
+        cb: fn(XComponentRaw, WindowRaw, MouseEventData) -> Result<()>,
+    ) -> Result<()> {
+        self.0.on_mouse_event(cb)
+    }
+
+    pub fn on_hover_event(&self, cb: fn(XComponentRaw, bool) -> Result<()>) -> Result<()> {
+        self.0.on_hover_event(cb)
+    }
+
+    /// Register the mouse and hover callbacks configured with
+    /// [`Self::on_mouse_event`] and [`Self::on_hover_event`].
+    pub fn register_mouse_event_callback(&self) -> Result<()> {
+        self.0.register_mouse_event_callback()
     }
 }
