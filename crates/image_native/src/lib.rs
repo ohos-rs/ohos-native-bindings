@@ -16,14 +16,17 @@ pub use common::{
     ImageString, NativeBufferHandle, NativeColorSpaceManagerHandle, PixelMapNativeHandle,
 };
 pub use error::{ImageNativeError, ImageNativeResult};
-pub use image::{Image, NativeImage};
+pub use image::{Image, ImageRef, NativeImage};
 #[cfg(feature = "api-18")]
 pub use image_packer::PackingOptionsForSequence;
 pub use image_packer::{ImagePacker, PackingOptions};
+#[cfg(feature = "api-20")]
+pub use image_receiver::ImageReceiverRef;
 pub use image_receiver::{ImageReceiver, ImageReceiverOptions};
 #[cfg(feature = "api-13")]
 pub use image_source::DecodingOptionsForPicture;
 pub use image_source::{DecodingOptions, ImageSource, ImageSourceInfo};
+pub use ohos_native_buffer_binding::{NativeBufferMap, NativeBufferRef};
 #[cfg(feature = "api-23")]
 pub use picture::ComposeOptions;
 #[cfg(feature = "api-13")]

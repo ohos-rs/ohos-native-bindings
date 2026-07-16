@@ -1,4 +1,6 @@
-use std::{cell::RefCell, mem::MaybeUninit, os::raw::c_void, ptr::NonNull, rc::Rc};
+use std::{
+    cell::RefCell, marker::PhantomData, mem::MaybeUninit, os::raw::c_void, ptr::NonNull, rc::Rc,
+};
 
 use ohos_native_buffer_sys::{
     OH_NativeBuffer, OH_NativeBuffer_Alloc, OH_NativeBuffer_Config,
@@ -18,6 +20,74 @@ pub use format::*;
 pub struct NativeBuffer {
     buffer: NonNull<OH_NativeBuffer>,
     config: Rc<RefCell<Option<NativeBufferConfig>>>,
+}
+
+/// Borrowed native buffer with a byte length supplied by its owning API.
+pub struct NativeBufferRef<'a> {
+    buffer: NonNull<OH_NativeBuffer>,
+    byte_len: usize,
+    _owner: PhantomData<&'a OH_NativeBuffer>,
+}
+
+impl<'a> NativeBufferRef<'a> {
+    /// Borrow a native buffer whose owner guarantees `byte_len` readable bytes.
+    ///
+    /// # Safety
+    ///
+    /// `buffer` must remain valid for `'a`, and a successful native map must
+    /// expose at least `byte_len` bytes.
+    pub unsafe fn from_raw_parts(buffer: *mut OH_NativeBuffer, byte_len: usize) -> Option<Self> {
+        NonNull::new(buffer).map(|buffer| Self {
+            buffer,
+            byte_len,
+            _owner: PhantomData,
+        })
+    }
+
+    /// Map the borrowed buffer and unmap it automatically when the guard drops.
+    pub fn map(&mut self) -> Result<NativeBufferMap<'_>, NativeBufferError> {
+        let mut address = std::ptr::null_mut();
+        // SAFETY: this borrowed owner keeps the buffer live and the mutable
+        // borrow prevents another map through the same wrapper.
+        let code = unsafe { OH_NativeBuffer_Map(self.buffer.as_ptr(), &mut address) };
+        if code != 0 {
+            return Err(NativeBufferError::InternalError(code));
+        }
+        let Some(address) = NonNull::new(address.cast::<u8>()) else {
+            // SAFETY: a successful map must be paired with an unmap.
+            let _ = unsafe { OH_NativeBuffer_Unmap(self.buffer.as_ptr()) };
+            return Err(NativeBufferError::InternalError(-1));
+        };
+        Ok(NativeBufferMap {
+            buffer: self.buffer,
+            address,
+            byte_len: self.byte_len,
+            _borrow: PhantomData,
+        })
+    }
+}
+
+/// RAII mapping of a borrowed native buffer.
+pub struct NativeBufferMap<'a> {
+    buffer: NonNull<OH_NativeBuffer>,
+    address: NonNull<u8>,
+    byte_len: usize,
+    _borrow: PhantomData<&'a mut NativeBufferRef<'a>>,
+}
+
+impl NativeBufferMap<'_> {
+    pub fn bytes(&self) -> &[u8] {
+        // SAFETY: `NativeBufferRef::from_raw_parts` establishes the readable
+        // length and this guard keeps the successful map alive.
+        unsafe { std::slice::from_raw_parts(self.address.as_ptr(), self.byte_len) }
+    }
+}
+
+impl Drop for NativeBufferMap<'_> {
+    fn drop(&mut self) {
+        // SAFETY: paired with the successful map that created this guard.
+        let _ = unsafe { OH_NativeBuffer_Unmap(self.buffer.as_ptr()) };
+    }
 }
 
 impl NativeBuffer {
