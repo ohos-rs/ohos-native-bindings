@@ -1,11 +1,11 @@
 use std::sync::mpsc::Sender;
 
+use crate::callbacks::CameraInstanceLease;
+use crate::device::CameraDevice;
 #[cfg(feature = "api-14")]
 use crate::CameraQualityPriority;
 #[cfg(feature = "api-20")]
 use crate::CameraWhiteBalanceMode;
-use crate::callbacks::CameraInstanceLease;
-use crate::device::CameraDevice;
 use crate::{
     CameraCapabilities, CameraCaptureOptions, CameraConfiguration, CameraControls, CameraError,
     CameraEvent, CameraExposureMode, CameraFlashMode, CameraFloatRange, CameraFocusMode,
@@ -102,7 +102,7 @@ impl CameraSession {
             CameraTorchMode::Auto => None,
         };
         if let Some(flash_mode) = session_flash_mode
-            && self.controls.supported_flash_modes.contains(&flash_mode)
+            .filter(|flash_mode| self.controls.supported_flash_modes.contains(flash_mode))
         {
             if mode == CameraTorchMode::On && self.controls.torch_mode != CameraTorchMode::On {
                 self.flash_mode_before_torch = self.controls.flash_mode;

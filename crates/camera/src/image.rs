@@ -70,10 +70,10 @@ impl CameraImageReader {
             .map()
             .map_err(|error| CameraError::image("OH_NativeBuffer_Map", error.code() as u32))?;
         let mut bytes = mapped.bytes().to_vec();
-        if bytes.starts_with(&[0xFF, 0xD8])
-            && let Some(end) = bytes.windows(2).rposition(|pair| pair == [0xFF, 0xD9])
-        {
-            bytes.truncate(end + 2);
+        if bytes.starts_with(&[0xFF, 0xD8]) {
+            if let Some(end) = bytes.windows(2).rposition(|pair| pair == [0xFF, 0xD9]) {
+                bytes.truncate(end + 2);
+            }
         }
         Ok(CapturedPhoto::new(bytes, photo_size, timestamp_ns))
     }

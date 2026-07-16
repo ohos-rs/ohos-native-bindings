@@ -2,6 +2,7 @@
 name = "ohos-camera-binding"
 version = "0.1.0"
 edition.workspace = true
+rust-version.workspace = true
 license = "MIT OR Apache-2.0"
 description = "Safe OpenHarmony CameraKit bindings with optional XComponent surface integration"
 

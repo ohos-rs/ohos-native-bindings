@@ -1,5 +1,5 @@
-use std::sync::Mutex;
 use std::sync::mpsc::Sender;
+use std::sync::Mutex;
 
 use ohos_camera_sys as sys;
 

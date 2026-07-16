@@ -3,7 +3,8 @@ members  = ["crates/*", "sys/*", "tools/*", "examples/*"]
 resolver = "2"
 
 [workspace.package]
-edition = "2024"
+edition = "2021"
+rust-version = "1.88"
 
 [workspace.dependencies]
 ohos-bundle-binding                 = { version = "0.1.1", path = "crates/bundle" }

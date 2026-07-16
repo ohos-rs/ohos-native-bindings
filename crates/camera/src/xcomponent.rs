@@ -1,6 +1,6 @@
 use std::sync::mpsc::Sender;
 
-use ohos_native_window_sys::{OH_NativeWindow_GetSurfaceId, OHNativeWindow};
+use ohos_native_window_sys::{OHNativeWindow, OH_NativeWindow_GetSurfaceId};
 use ohos_xcomponent_binding::{NativeXComponent, WindowRaw, XComponentRaw};
 
 use crate::{CameraError, CameraResult, CameraSize, CameraSurface};
