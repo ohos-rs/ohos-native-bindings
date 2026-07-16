@@ -1,10 +1,10 @@
 [package]
-name        = "ohos-camera-sys"
-version     = "0.1.0"
-edition.workspace = true
+name                   = "ohos-camera-sys"
+version                = "0.1.0"
+edition.workspace      = true
 rust-version.workspace = true
-license     = "MIT OR Apache-2.0"
-description = "OpenHarmony's camera sys binding for rust"
+license                = "MIT OR Apache-2.0"
+description            = "OpenHarmony's camera sys binding for rust"
 
 [dependencies]
 ohos-image-native-sys = { workspace = true }
