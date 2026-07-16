@@ -50,6 +50,7 @@ static CONFIG: Lazy<Vec<Lazy<SysConfig>>> = Lazy::new(|| {
         config::DRAWING,
         config::ARKUI_INPUT,
         config::JSVM,
+        config::CAMERA,
         config::OPENGTX,
     ]
 });

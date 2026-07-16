@@ -4,6 +4,9 @@ use std::{
     sync::{Mutex, OnceLock},
 };
 
+#[cfg(feature = "api-20")]
+use std::marker::PhantomData;
+
 use crate::{
     error::{check_status, ImageNativeResult},
     image::Image,
@@ -14,8 +17,13 @@ use crate::{
 #[cfg(feature = "api-20")]
 use std::os::raw::c_void;
 
-struct ReceiverCallbackContext {
+struct LegacyReceiverCallbackContext {
     callback: Box<dyn FnMut() + Send>,
+}
+
+#[cfg(feature = "api-20")]
+struct ImageArriveCallbackContext {
+    callback: Box<dyn for<'a> FnMut(ImageReceiverRef<'a>) + Send>,
 }
 
 fn on_callback_registry() -> &'static Mutex<HashMap<usize, usize>> {
@@ -80,7 +88,29 @@ impl Drop for ImageReceiverOptions {
 pub struct ImageReceiver {
     raw: NonNull<sys::OH_ImageReceiverNative>,
     #[cfg(feature = "api-20")]
-    on_image_arrive_context: Option<NonNull<ReceiverCallbackContext>>,
+    on_image_arrive_context: Option<NonNull<ImageArriveCallbackContext>>,
+}
+
+/// Borrowed receiver supplied by an image-arrive callback.
+#[cfg(feature = "api-20")]
+pub struct ImageReceiverRef<'a> {
+    raw: NonNull<sys::OH_ImageReceiverNative>,
+    _borrow: PhantomData<&'a ImageReceiver>,
+}
+
+#[cfg(feature = "api-20")]
+impl ImageReceiverRef<'_> {
+    pub fn read_latest_image(&self) -> ImageNativeResult<Image> {
+        let mut raw = std::ptr::null_mut();
+        // SAFETY: the callback guarantees that the borrowed receiver remains
+        // alive for this invocation and serializes reads for that receiver.
+        check_status(unsafe {
+            sys::OH_ImageReceiverNative_ReadLatestImage(self.raw.as_ptr(), &mut raw)
+        })?;
+        Image::from_raw(raw).ok_or(crate::ImageNativeError {
+            code: sys::Image_ErrorCode_IMAGE_ALLOC_FAILED,
+        })
+    }
 }
 
 impl ImageReceiver {
@@ -137,7 +167,7 @@ impl ImageReceiver {
         F: FnMut() + Send + 'static,
     {
         self.off()?;
-        let callback = Box::into_raw(Box::new(ReceiverCallbackContext {
+        let callback = Box::into_raw(Box::new(LegacyReceiverCallbackContext {
             callback: Box::new(callback),
         }));
         check_status(unsafe {
@@ -149,7 +179,7 @@ impl ImageReceiver {
         };
         if let Some(old) = registry.insert(self.as_raw() as usize, callback as usize) {
             unsafe {
-                drop(Box::from_raw(old as *mut ReceiverCallbackContext));
+                drop(Box::from_raw(old as *mut LegacyReceiverCallbackContext));
             }
         }
         Ok(())
@@ -164,7 +194,9 @@ impl ImageReceiver {
         };
         if let Some(callback) = registry.remove(&(self.as_raw() as usize)) {
             unsafe {
-                drop(Box::from_raw(callback as *mut ReceiverCallbackContext));
+                drop(Box::from_raw(
+                    callback as *mut LegacyReceiverCallbackContext,
+                ));
             }
         }
         Ok(())
@@ -174,10 +206,10 @@ impl ImageReceiver {
     #[cfg(feature = "api-20")]
     pub fn on_image_arrive<F>(&mut self, callback: F) -> ImageNativeResult<()>
     where
-        F: FnMut() + Send + 'static,
+        F: for<'a> FnMut(ImageReceiverRef<'a>) + Send + 'static,
     {
         self.off_image_arrive()?;
-        let context = NonNull::new(Box::into_raw(Box::new(ReceiverCallbackContext {
+        let context = NonNull::new(Box::into_raw(Box::new(ImageArriveCallbackContext {
             callback: Box::new(callback),
         })))
         .expect("callback context should not be null");
@@ -244,21 +276,27 @@ unsafe extern "C" fn on_trampoline(receiver: *mut sys::OH_ImageReceiverNative) {
         Err(poisoned) => poisoned.into_inner(),
     };
     if let Some(callback) = registry.get(&(receiver as usize)) {
-        let callback = unsafe { &mut *(*callback as *mut ReceiverCallbackContext) };
+        let callback = unsafe { &mut *(*callback as *mut LegacyReceiverCallbackContext) };
         (callback.callback)();
     }
 }
 
 #[cfg(feature = "api-20")]
 unsafe extern "C" fn on_image_arrive_trampoline(
-    _receiver: *mut sys::OH_ImageReceiverNative,
+    receiver: *mut sys::OH_ImageReceiverNative,
     user_data: *mut c_void,
 ) {
-    let Some(context) = NonNull::new(user_data.cast::<ReceiverCallbackContext>()) else {
+    let Some(receiver) = NonNull::new(receiver) else {
+        return;
+    };
+    let Some(context) = NonNull::new(user_data.cast::<ImageArriveCallbackContext>()) else {
         return;
     };
     let callback = unsafe { context.as_ptr().as_mut() };
     if let Some(callback) = callback {
-        (callback.callback)();
+        (callback.callback)(ImageReceiverRef {
+            raw: receiver,
+            _borrow: PhantomData,
+        });
     }
 }

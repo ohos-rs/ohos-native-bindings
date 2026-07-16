@@ -2,6 +2,9 @@
 members  = ["crates/*", "sys/*", "tools/*", "examples/*"]
 resolver = "2"
 
+[workspace.package]
+edition = "2024"
+
 [workspace.dependencies]
 ohos-bundle-binding                 = { version = "0.1.1", path = "crates/bundle" }
 ohos-init-binding                   = { version = "0.1.1", path = "crates/init" }
@@ -33,6 +36,7 @@ ohos-net-stack-binding              = { version = "0.1.1", path = "crates/net_st
 ohos-arkui-input-binding            = { version = "0.1.1", path = "crates/arkui_input" }
 ohos-jsvm-binding                   = { version = "0.1.1", path = "crates/jsvm" }
 hms-opengtx-binding                 = { version = "0.1.1", path = "crates/opengtx" }
+ohos-camera-binding                 = { version = "0.1.0", path = "crates/camera" }
 
 ohos-bundle-sys                 = { version = "0.1.1", path = "sys/ohos-bundle-sys" }
 ohos-init-sys                   = { version = "0.1.1", path = "sys/ohos-init-sys" }
@@ -66,6 +70,7 @@ ohos-fileshare-sys              = { version = "0.2.1", path = "sys/ohos-fileshar
 ohos-arkui-input-sys            = { version = "0.1.1", path = "sys/ohos-arkui-input-sys" }
 ohos-jsvm-sys                   = { version = "0.1.1", path = "sys/ohos-jsvm-sys" }
 hms-opengtx-sys                 = { version = "0.1.1", path = "sys/hms-opengtx-sys" }
+ohos-camera-sys                 = { version = "0.1.0", path = "sys/ohos-camera-sys" }
 
 ohos-enum-derive = { version = "0.1.1", path = "crates/enum_derive" }
 

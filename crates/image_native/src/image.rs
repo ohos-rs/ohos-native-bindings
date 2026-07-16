@@ -1,14 +1,52 @@
-use std::{mem::MaybeUninit, ptr::NonNull};
+use std::{
+    marker::PhantomData,
+    mem::{ManuallyDrop, MaybeUninit},
+    ops::Deref,
+    ptr::NonNull,
+};
 
 use crate::{
-    common::NativeBufferHandle,
     error::{check_status, ImageNativeResult},
     sys,
 };
+use ohos_native_buffer_binding::NativeBufferRef;
 
 /// Owned native image wrapper.
 pub struct Image {
     raw: NonNull<sys::OH_ImageNative>,
+}
+
+/// Borrowed native image owned by another ImageKit object.
+///
+/// Unlike [`Image`], this wrapper does not call `OH_ImageNative_Release` when
+/// dropped. It is intended for APIs such as `OH_PhotoNative_GetMainImage`,
+/// where the containing native object retains ownership of the image.
+pub struct ImageRef<'a> {
+    image: ManuallyDrop<Image>,
+    _owner: PhantomData<&'a sys::OH_ImageNative>,
+}
+
+impl<'a> ImageRef<'a> {
+    /// Creates a borrowed wrapper from a raw image pointer.
+    ///
+    /// # Safety
+    ///
+    /// `raw` must remain valid for `'a`, and its owner must not be released
+    /// while the returned wrapper is alive.
+    pub unsafe fn from_raw(raw: *mut sys::OH_ImageNative) -> Option<Self> {
+        Image::from_raw(raw).map(|image| Self {
+            image: ManuallyDrop::new(image),
+            _owner: PhantomData,
+        })
+    }
+}
+
+impl Deref for ImageRef<'_> {
+    type Target = Image;
+
+    fn deref(&self) -> &Self::Target {
+        &self.image
+    }
 }
 
 impl Image {
@@ -33,28 +71,47 @@ impl Image {
 
     /// Returns supported component types.
     pub fn component_types(&self) -> ImageNativeResult<Vec<u32>> {
-        let mut types = std::ptr::null_mut();
         let mut len = 0;
+        // The native API uses a two-call protocol. Its first `types` argument
+        // must itself be null so ImageKit only reports the required length.
+        // Passing `&mut null_mut()` is not equivalent: some device versions
+        // treat a non-null outer pointer as writable storage and dereference
+        // the null inner pointer.
+        check_status(unsafe {
+            sys::OH_ImageNative_GetComponentTypes(self.as_raw(), std::ptr::null_mut(), &mut len)
+        })?;
+        if len == 0 {
+            return Ok(Vec::new());
+        }
+
+        let mut components = vec![0; len];
+        let mut types = components.as_mut_ptr();
         check_status(unsafe {
             sys::OH_ImageNative_GetComponentTypes(self.as_raw(), &mut types, &mut len)
         })?;
         if types.is_null() || len == 0 {
-            Ok(Vec::new())
-        } else {
-            Ok(unsafe { std::slice::from_raw_parts(types, len) }.to_vec())
+            return Ok(Vec::new());
         }
+
+        // ImageKit normally writes into `components`, as documented. Copying
+        // from the returned pointer also handles implementations that replace
+        // it with native-owned storage on the second call.
+        Ok(unsafe { std::slice::from_raw_parts(types, len) }.to_vec())
     }
 
     /// Returns the native buffer of a component type.
     pub fn byte_buffer(
         &self,
         component_type: u32,
-    ) -> ImageNativeResult<Option<NativeBufferHandle>> {
+    ) -> ImageNativeResult<Option<NativeBufferRef<'_>>> {
         let mut buffer = std::ptr::null_mut();
         check_status(unsafe {
             sys::OH_ImageNative_GetByteBuffer(self.as_raw(), component_type, &mut buffer)
         })?;
-        Ok(NativeBufferHandle::from_raw(buffer))
+        let byte_len = self.buffer_size(component_type)?;
+        // SAFETY: ImageKit owns the returned buffer for `self` and reports its
+        // readable component length through GetBufferSize.
+        Ok(unsafe { NativeBufferRef::from_raw_parts(buffer, byte_len) })
     }
 
     /// Returns buffer size for a component type.
