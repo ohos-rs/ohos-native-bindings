@@ -1,15 +1,18 @@
-use libc::{
-    __errno_location, close, mmap, pollfd, EAGAIN, EINTR, MAP_SHARED, PROT_READ, PROT_WRITE,
-};
-use ohos_native_buffer_sys::BufferHandle as BufferHandleRaw;
+use libc::pollfd;
 use ohos_native_window_sys::{
     NativeWindow as NativeWindowRaw, OHNativeWindowBuffer as OHNativeWindowBufferRaw,
-    OH_NativeWindow_GetBufferHandleFromNative, OH_NativeWindow_NativeObjectReference,
-    OH_NativeWindow_NativeObjectUnreference, OH_NativeWindow_NativeWindowFlushBuffer,
-    OH_NativeWindow_NativeWindowHandleOpt, OH_NativeWindow_NativeWindowRequestBuffer,
-    Region as RegionRaw, Region_Rect,
+    OH_NativeWindow_NativeObjectReference, OH_NativeWindow_NativeObjectUnreference,
+    OH_NativeWindow_NativeWindowAbortBuffer, OH_NativeWindow_NativeWindowFlushBuffer,
+    OH_NativeWindow_NativeWindowHandleOpt, OH_NativeWindow_NativeWindowRequestBuffer, Region_Rect,
 };
-use std::{cell::RefCell, mem::MaybeUninit, os::raw::c_void, ptr::NonNull, rc::Rc};
+use std::{
+    mem::MaybeUninit,
+    os::{
+        fd::{AsRawFd, FromRawFd, OwnedFd},
+        raw::c_void,
+    },
+    ptr::NonNull,
+};
 
 /// flush region
 pub type Region = Region_Rect;
@@ -23,7 +26,6 @@ pub use operation::*;
 
 pub struct NativeWindow {
     window: NonNull<NativeWindowRaw>,
-    region: Rc<RefCell<Option<Region>>>,
 }
 
 impl NativeWindow {
@@ -33,13 +35,11 @@ impl NativeWindow {
         assert!(!window.is_null(), "The window pointer must not be null.");
 
         let ret = unsafe { OH_NativeWindow_NativeObjectReference(window) };
-        #[cfg(debug_assertions)]
-        assert!(ret == 0, "OH_NativeWindow_NativeObjectReference failed");
+        assert_eq!(ret, 0, "OH_NativeWindow_NativeObjectReference failed");
 
         unsafe {
             NativeWindow {
                 window: NonNull::new_unchecked(window as *mut NativeWindowRaw),
-                region: Rc::new(RefCell::new(None)),
             }
         }
     }
@@ -63,7 +63,6 @@ impl NativeWindow {
         &self,
         region: Option<Region>,
     ) -> Result<NativeWindowBuffer<'_>, NativeWindowError> {
-        self.region.replace(region);
         let mut window_buf = std::ptr::null_mut();
         let mut release_fd = -1;
         let ret = unsafe {
@@ -76,46 +75,55 @@ impl NativeWindow {
         if ret != 0 {
             return Err(NativeWindowError::InternalError(ret));
         }
-
-        unsafe {
-            let handle = OH_NativeWindow_GetBufferHandleFromNative(window_buf);
-
-            let addr = mmap(
-                (*handle).virAddr,
-                (*handle).size as _,
-                PROT_READ | PROT_WRITE,
-                MAP_SHARED,
-                (*handle).fd,
-                0,
-            );
-
-            if addr == libc::MAP_FAILED {
-                return Err(NativeWindowError::InternalError(-1));
-            }
-
-            if release_fd != -1 {
-                let mut ret_code = -1;
-                let mut fds = pollfd {
-                    fd: release_fd,
-                    events: libc::POLLIN,
-                    revents: 0,
-                };
-                while ret_code == -1
-                    && (*__errno_location() == EINTR || *__errno_location() == EAGAIN)
-                {
-                    ret_code = libc::poll(&mut fds, 1, 3000);
-                }
-                close(release_fd);
-            }
-
-            Ok(NativeWindowBuffer {
-                window: self,
-                raw_buf: NonNull::new_unchecked(window_buf),
-                handle: NonNull::new_unchecked(handle),
-                release_fd,
-                window_buffer: NonNull::new_unchecked(addr),
-            })
+        let Some(raw_buf) = NonNull::new(window_buf) else {
+            return Err(NativeWindowError::InternalError(-1));
+        };
+        if let Err(error) = wait_for_release_fence(release_fd) {
+            self.abort_buffer(raw_buf);
+            return Err(error);
         }
+        let native_buffer = match NativeBuffer::try_from_window_buffer_ptr(raw_buf.as_ptr()) {
+            Ok(buffer) => buffer,
+            Err(error) => {
+                self.abort_buffer(raw_buf);
+                return Err(NativeWindowError::InternalError(error.code()));
+            }
+        };
+        let config = native_buffer.config();
+        let format = NativeBufferFormat::from(config.format);
+        let bytes_per_pixel = format.bytes_per_pixel();
+        let geometry = validate_geometry(config, bytes_per_pixel);
+        let (width, height, stride, stride_bytes) = match geometry {
+            Ok(geometry) => geometry,
+            Err(error) => {
+                self.abort_buffer(raw_buf);
+                return Err(error);
+            }
+        };
+        let mapped = match native_buffer.map_owned() {
+            Ok(mapped) => mapped,
+            Err(error) => {
+                self.abort_buffer(raw_buf);
+                return Err(NativeWindowError::InternalError(error.code()));
+            }
+        };
+        Ok(NativeWindowBuffer {
+            window: self,
+            raw_buf,
+            mapped: Some(mapped),
+            region,
+            width,
+            height,
+            stride,
+            stride_bytes,
+            format,
+        })
+    }
+
+    fn abort_buffer(&self, buffer: NonNull<OHNativeWindowBufferRaw>) {
+        let _ = unsafe {
+            OH_NativeWindow_NativeWindowAbortBuffer(self.window.as_ptr(), buffer.as_ptr())
+        };
     }
 }
 
@@ -123,12 +131,14 @@ unsafe impl Send for NativeWindow {}
 
 pub struct NativeWindowBuffer<'a> {
     window: &'a NativeWindow,
-    // can be operate memory directly
-    window_buffer: NonNull<c_void>,
     raw_buf: NonNull<OHNativeWindowBufferRaw>,
-    handle: NonNull<BufferHandleRaw>,
-    #[allow(dead_code)]
-    release_fd: i32,
+    mapped: Option<MappedNativeBuffer>,
+    region: Option<Region>,
+    width: usize,
+    height: usize,
+    stride: usize,
+    stride_bytes: usize,
+    format: NativeBufferFormat,
 }
 
 /// create native window buffer allow you to flush
@@ -137,27 +147,23 @@ pub struct NativeWindowBuffer<'a> {
 impl NativeWindowBuffer<'_> {
     /// The number of pixels that are shown horizontally.
     pub fn width(&self) -> usize {
-        let width = unsafe { (*self.handle.as_ptr()).width };
-        usize::try_from(width).unwrap()
+        self.width
     }
 
     // The number of pixels that are shown vertically.
     pub fn height(&self) -> usize {
-        let height = unsafe { (*self.handle.as_ptr()).height };
-        usize::try_from(height).unwrap()
+        self.height
     }
 
     /// The number of _pixels_ that a line in the buffer takes in memory.
     ///
     /// This may be `>= width`.
     pub fn stride(&self) -> usize {
-        let stride = unsafe { (*self.handle.as_ptr()).stride };
-        usize::try_from(stride).unwrap()
+        self.stride
     }
 
     pub fn format(&self) -> NativeBufferFormat {
-        let format = unsafe { (*self.handle.as_ptr()).format };
-        NativeBufferFormat::from(format)
+        self.format
     }
 
     /// The actual bits.
@@ -170,14 +176,22 @@ impl NativeWindowBuffer<'_> {
     ///
     /// See [`bytes()`][Self::bytes()] for safe access to these bytes.
     pub fn bits(&mut self) -> *mut c_void {
-        self.window_buffer.as_ptr()
+        self.mapped
+            .as_mut()
+            .expect("native window buffer is mapped")
+            .bytes_mut()
+            .as_mut_ptr()
+            .cast()
     }
 
     /// Safe write access to likely uninitialized pixel buffer data.
     pub fn bytes(&mut self) -> Option<&mut [MaybeUninit<u8>]> {
-        let num_pixels = self.height() * self.stride();
-        let bytes_nums = num_pixels * self.format().bytes_per_pixel();
-        Some(unsafe { std::slice::from_raw_parts_mut(self.bits().cast(), bytes_nums) })
+        let bytes = self
+            .mapped
+            .as_mut()
+            .expect("native window buffer is mapped")
+            .bytes_mut();
+        Some(unsafe { std::slice::from_raw_parts_mut(bytes.as_mut_ptr().cast(), bytes.len()) })
     }
 
     /// Returns a slice of bytes for each line of visible pixels in the buffer, ignoring any
@@ -187,7 +201,7 @@ impl NativeWindowBuffer<'_> {
     /// underlying buffer.
     pub fn lines(&mut self) -> Option<impl Iterator<Item = &mut [MaybeUninit<u8>]>> {
         let bpp = self.format().bytes_per_pixel();
-        let scanline_bytes = self.stride();
+        let scanline_bytes = self.stride_bytes;
         let width_bytes = bpp * self.width();
         let bytes = self.bytes()?;
 
@@ -201,13 +215,13 @@ impl NativeWindowBuffer<'_> {
 
 impl<'a> Drop for NativeWindowBuffer<'a> {
     fn drop(&mut self) {
-        let r = self.window.region.borrow();
-        let mut region = RegionRaw {
+        self.mapped.take();
+        let mut region = ohos_native_window_sys::Region {
             rectNumber: 0,
             rects: std::ptr::null_mut(),
         };
-        if let Some(r) = r.as_ref() {
-            region = RegionRaw {
+        if let Some(r) = self.region.as_ref() {
+            region = ohos_native_window_sys::Region {
                 rectNumber: 1,
                 rects: r as *const _ as *mut _,
             };
@@ -217,27 +231,68 @@ impl<'a> Drop for NativeWindowBuffer<'a> {
             OH_NativeWindow_NativeWindowFlushBuffer(
                 self.window.window.as_ptr(),
                 self.raw_buf.as_ptr(),
-                self.release_fd,
+                -1,
                 region,
             )
         };
         #[cfg(debug_assertions)]
         assert!(ret == 0, "OH_NativeWindow_NativeWindowFlushBuffer failed");
+        let _ = ret;
+    }
+}
 
-        // self.buffer.un_mmap();
-        unsafe {
-            libc::munmap(
-                self.window_buffer.as_ptr(),
-                (*self.handle.as_ptr()).size as _,
-            );
+fn wait_for_release_fence(fd: i32) -> Result<(), NativeWindowError> {
+    if fd < 0 {
+        return Ok(());
+    }
+    let fence = unsafe { OwnedFd::from_raw_fd(fd) };
+    let mut descriptor = pollfd {
+        fd: fence.as_raw_fd(),
+        events: libc::POLLIN,
+        revents: 0,
+    };
+    loop {
+        let result = unsafe { libc::poll(&mut descriptor, 1, 3000) };
+        if result > 0 {
+            return Ok(());
+        }
+        if result == 0 {
+            return Err(NativeWindowError::InternalError(libc::ETIMEDOUT));
+        }
+        let error = std::io::Error::last_os_error();
+        if error.kind() != std::io::ErrorKind::Interrupted {
+            return Err(NativeWindowError::InternalError(
+                error.raw_os_error().unwrap_or(-1),
+            ));
         }
     }
 }
 
+fn validate_geometry(
+    config: NativeBufferConfig,
+    bytes_per_pixel: usize,
+) -> Result<(usize, usize, usize, usize), NativeWindowError> {
+    let width = positive_usize(config.width)?;
+    let height = positive_usize(config.height)?;
+    let stride_bytes = positive_usize(config.stride)?;
+    if bytes_per_pixel == 0
+        || stride_bytes % bytes_per_pixel != 0
+        || stride_bytes < width.saturating_mul(bytes_per_pixel)
+    {
+        return Err(NativeWindowError::InternalError(-1));
+    }
+    Ok((width, height, stride_bytes / bytes_per_pixel, stride_bytes))
+}
+
+fn positive_usize(value: i32) -> Result<usize, NativeWindowError> {
+    usize::try_from(value)
+        .ok()
+        .filter(|value| *value > 0)
+        .ok_or(NativeWindowError::InternalError(-1))
+}
+
 impl Drop for NativeWindow {
     fn drop(&mut self) {
-        let ret = unsafe { OH_NativeWindow_NativeObjectUnreference(self.window.as_ptr().cast()) };
-        #[cfg(debug_assertions)]
-        assert!(ret == 0, "OH_NativeWindow_NativeObjectUnreference failed");
+        let _ = unsafe { OH_NativeWindow_NativeObjectUnreference(self.window.as_ptr().cast()) };
     }
 }

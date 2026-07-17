@@ -22,6 +22,16 @@ pub struct NativeBuffer {
     config: Rc<RefCell<Option<NativeBufferConfig>>>,
 }
 
+/// Owned CPU mapping of a native buffer.
+///
+/// The mapping is released before the underlying [`NativeBuffer`] reference,
+/// so consumers cannot accidentally retain a raw address after unmapping.
+pub struct MappedNativeBuffer {
+    buffer: NativeBuffer,
+    address: NonNull<u8>,
+    byte_len: usize,
+}
+
 /// Borrowed native buffer with a byte length supplied by its owning API.
 pub struct NativeBufferRef<'a> {
     buffer: NonNull<OH_NativeBuffer>,
@@ -108,15 +118,38 @@ impl NativeBuffer {
 
     /// create NativeBuffer from OHNativeWindowBuffer
     pub fn from_window_buffer_ptr(buffer: *mut OHNativeWindowBuffer) -> Self {
+        Self::try_from_window_buffer_ptr(buffer)
+            .expect("OH_NativeBuffer_FromNativeWindowBuffer failed")
+    }
+
+    /// Create a native buffer from an OHNativeWindowBuffer.
+    pub fn try_from_window_buffer_ptr(
+        buffer: *mut OHNativeWindowBuffer,
+    ) -> Result<Self, NativeBufferError> {
+        if buffer.is_null() {
+            return Err(NativeBufferError::InternalError(-1));
+        }
         let mut buf = std::ptr::null_mut();
         let ret = unsafe { OH_NativeBuffer_FromNativeWindowBuffer(buffer, &mut buf) };
-        #[cfg(debug_assertions)]
-        assert!(ret == 0, "OH_NativeBuffer_FromNativeWindowBuffer failed");
-
-        Self {
-            buffer: NonNull::new(buf).expect("OHNativeWindowBuffer is null"),
-            config: Rc::new(RefCell::new(None)),
+        if ret != 0 {
+            return Err(NativeBufferError::InternalError(ret));
         }
+
+        let buffer = NonNull::new(buf).ok_or(NativeBufferError::InternalError(-1))?;
+        // `OH_NativeBuffer_FromNativeWindowBuffer` only exposes the native
+        // buffer owned by the dequeued window buffer; unlike allocation and
+        // parcel deserialization, it does not acquire a reference for the
+        // caller. Acquire one here so this owning wrapper can always balance
+        // its Drop without invalidating the window buffer before it is flushed.
+        let ret = unsafe { OH_NativeBuffer_Reference(buffer.as_ptr()) };
+        if ret != 0 {
+            return Err(NativeBufferError::InternalError(ret));
+        }
+
+        Ok(Self {
+            buffer,
+            config: Rc::new(RefCell::new(None)),
+        })
     }
 
     /// Get current buffer config
@@ -140,24 +173,75 @@ impl NativeBuffer {
     pub fn mmap(&self) -> NonNull<c_void> {
         let mut ptr = std::ptr::null_mut();
         let ret = unsafe { OH_NativeBuffer_Map(self.buffer.as_ptr(), &mut ptr) };
-        #[cfg(debug_assertions)]
-        assert!(ret == 0, "OH_NativeBuffer_Map failed");
+        assert_eq!(ret, 0, "OH_NativeBuffer_Map failed");
         NonNull::new(ptr).expect("OH_NativeBuffer_Map failed")
     }
 
     /// Unmap ION memory from process space
     pub fn un_mmap(&self) {
         let ret = unsafe { OH_NativeBuffer_Unmap(self.buffer.as_ptr()) };
-        #[cfg(debug_assertions)]
-        assert!(ret == 0, "OH_NativeBuffer_Unmap failed");
+        assert_eq!(ret, 0, "OH_NativeBuffer_Unmap failed");
     }
+
+    /// Map this buffer for CPU access and transfer ownership into an RAII
+    /// mapping guard.
+    pub fn map_owned(self) -> Result<MappedNativeBuffer, NativeBufferError> {
+        let byte_len = mapped_byte_len(self.config())?;
+        let mut address = std::ptr::null_mut();
+        let code = unsafe { OH_NativeBuffer_Map(self.buffer.as_ptr(), &mut address) };
+        if code != 0 {
+            return Err(NativeBufferError::InternalError(code));
+        }
+        let Some(address) = NonNull::new(address.cast::<u8>()) else {
+            let _ = unsafe { OH_NativeBuffer_Unmap(self.buffer.as_ptr()) };
+            return Err(NativeBufferError::InternalError(-1));
+        };
+        Ok(MappedNativeBuffer {
+            buffer: self,
+            address,
+            byte_len,
+        })
+    }
+}
+
+impl MappedNativeBuffer {
+    pub fn config(&self) -> NativeBufferConfig {
+        self.buffer.config()
+    }
+
+    pub fn bytes(&self) -> &[u8] {
+        unsafe { std::slice::from_raw_parts(self.address.as_ptr(), self.byte_len) }
+    }
+
+    pub fn bytes_mut(&mut self) -> &mut [u8] {
+        unsafe { std::slice::from_raw_parts_mut(self.address.as_ptr(), self.byte_len) }
+    }
+}
+
+impl Drop for MappedNativeBuffer {
+    fn drop(&mut self) {
+        let _ = unsafe { OH_NativeBuffer_Unmap(self.buffer.buffer.as_ptr()) };
+    }
+}
+
+fn mapped_byte_len(config: NativeBufferConfig) -> Result<usize, NativeBufferError> {
+    let height = usize::try_from(config.height)
+        .ok()
+        .filter(|height| *height > 0)
+        .ok_or(NativeBufferError::InternalError(-1))?;
+    let stride = usize::try_from(config.stride)
+        .ok()
+        .filter(|stride| *stride > 0)
+        .ok_or(NativeBufferError::InternalError(-1))?;
+    stride
+        .checked_mul(height)
+        .ok_or(NativeBufferError::InternalError(-1))
 }
 
 impl Clone for NativeBuffer {
     fn clone(&self) -> Self {
         let ret = unsafe { OH_NativeBuffer_Reference(self.buffer.as_ptr()) };
-        #[cfg(debug_assertions)]
-        assert!(ret == 0, "OH_NativeBuffer_Reference failed");
+        assert_eq!(ret, 0, "OH_NativeBuffer_Reference failed");
         Self {
             buffer: self.buffer,
             config: self.config.clone(),
@@ -167,8 +251,6 @@ impl Clone for NativeBuffer {
 
 impl Drop for NativeBuffer {
     fn drop(&mut self) {
-        let ret = unsafe { OH_NativeBuffer_Unreference(self.buffer.as_ptr()) };
-        #[cfg(debug_assertions)]
-        assert!(ret == 0, "OH_NativeBuffer_Release failed");
+        let _ = unsafe { OH_NativeBuffer_Unreference(self.buffer.as_ptr()) };
     }
 }
