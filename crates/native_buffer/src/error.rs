@@ -19,3 +19,5 @@ impl std::fmt::Display for NativeBufferError {
         }
     }
 }
+
+impl std::error::Error for NativeBufferError {}

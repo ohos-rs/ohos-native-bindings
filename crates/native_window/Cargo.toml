@@ -19,7 +19,6 @@ api-20  = ["api-19", "ohos-native-window-sys/api-20", "ohos-native-buffer-bindin
 
 [dependencies]
 ohos-native-window-sys     = { workspace = true }
-ohos-native-buffer-sys     = { workspace = true }
 ohos-enum-derive           = { workspace = true }
 ohos-native-buffer-binding = { workspace = true }
 libc                       = { workspace = true }
