@@ -65,6 +65,9 @@ jobs:
 
   release-plz-pr:
     name: Prepare release PR
+    # Wait until the merged release PR has been published and tagged. Otherwise,
+    # release-plz can treat its version bumps as changes for another release.
+    needs: release-plz-release
     runs-on: ubuntu-latest
     if: >-
       github.repository_owner == 'ohos-rs' &&
