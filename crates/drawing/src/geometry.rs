@@ -6,8 +6,12 @@ use ohos_native_drawing_sys::{
     OH_Drawing_RectDestroy, OH_Drawing_RectGetBottom, OH_Drawing_RectGetHeight,
     OH_Drawing_RectGetLeft, OH_Drawing_RectGetRight, OH_Drawing_RectGetTop,
     OH_Drawing_RectGetWidth, OH_Drawing_RectSetBottom, OH_Drawing_RectSetLeft,
-    OH_Drawing_RectSetRight, OH_Drawing_RectSetTop,
+    OH_Drawing_RectSetRight, OH_Drawing_RectSetTop, OH_Drawing_RoundRect,
+    OH_Drawing_RoundRectCreate, OH_Drawing_RoundRectDestroy, OH_Drawing_RoundRectGetCorner,
+    OH_Drawing_RoundRectSetCorner,
 };
+
+use crate::CornerPosition;
 
 #[derive(Debug)]
 pub struct Point {
@@ -22,7 +26,7 @@ impl Point {
         }
     }
 
-    pub fn as_ptr(&self) -> *mut OH_Drawing_Point {
+    pub(crate) fn as_ptr(&self) -> *mut OH_Drawing_Point {
         self.raw.as_ptr()
     }
 
@@ -62,7 +66,7 @@ impl Rect {
         }
     }
 
-    pub fn as_ptr(&self) -> *mut OH_Drawing_Rect {
+    pub(crate) fn as_ptr(&self) -> *mut OH_Drawing_Rect {
         self.raw.as_ptr()
     }
 
@@ -110,5 +114,47 @@ impl Rect {
 impl Drop for Rect {
     fn drop(&mut self) {
         unsafe { OH_Drawing_RectDestroy(self.raw.as_ptr()) };
+    }
+}
+
+#[derive(Debug)]
+pub struct RoundRect {
+    raw: NonNull<OH_Drawing_RoundRect>,
+}
+
+impl RoundRect {
+    pub fn new(rect: &Rect, radius_x: f32, radius_y: f32) -> Self {
+        let raw = unsafe { OH_Drawing_RoundRectCreate(rect.as_ptr(), radius_x, radius_y) };
+        Self {
+            raw: NonNull::new(raw).expect("OH_Drawing_RoundRectCreate returned null"),
+        }
+    }
+
+    pub fn set_corner(&mut self, position: CornerPosition, radius_x: f32, radius_y: f32) {
+        unsafe {
+            OH_Drawing_RoundRectSetCorner(
+                self.raw.as_ptr(),
+                position.into(),
+                ohos_native_drawing_sys::OH_Drawing_Corner_Radii {
+                    x: radius_x,
+                    y: radius_y,
+                },
+            )
+        };
+    }
+
+    pub fn corner(&self, position: CornerPosition) -> (f32, f32) {
+        let radii = unsafe { OH_Drawing_RoundRectGetCorner(self.raw.as_ptr(), position.into()) };
+        (radii.x, radii.y)
+    }
+
+    pub(crate) fn as_ptr(&self) -> *mut OH_Drawing_RoundRect {
+        self.raw.as_ptr()
+    }
+}
+
+impl Drop for RoundRect {
+    fn drop(&mut self) {
+        unsafe { OH_Drawing_RoundRectDestroy(self.raw.as_ptr()) };
     }
 }

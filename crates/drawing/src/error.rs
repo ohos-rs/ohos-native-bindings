@@ -3,7 +3,9 @@ use std::fmt::{Display, Formatter};
 #[cfg(feature = "api-18")]
 use ohos_native_drawing_sys::OH_Drawing_ErrorCodeReset;
 use ohos_native_drawing_sys::{
-    OH_Drawing_ErrorCode, OH_Drawing_ErrorCodeGet, OH_Drawing_ErrorCode_OH_DRAWING_SUCCESS,
+    OH_Drawing_ErrorCode, OH_Drawing_ErrorCodeGet,
+    OH_Drawing_ErrorCode_OH_DRAWING_ERROR_INVALID_PARAMETER,
+    OH_Drawing_ErrorCode_OH_DRAWING_SUCCESS,
 };
 
 use crate::DrawingErrorCode;
@@ -15,6 +17,13 @@ pub struct DrawingError {
 }
 
 impl DrawingError {
+    pub const fn invalid_parameter() -> Self {
+        Self {
+            raw_code: OH_Drawing_ErrorCode_OH_DRAWING_ERROR_INVALID_PARAMETER,
+            code: Some(DrawingErrorCode::InvalidParameter),
+        }
+    }
+
     pub fn from_last_error() -> Self {
         let raw_code = unsafe { OH_Drawing_ErrorCodeGet() };
         Self {

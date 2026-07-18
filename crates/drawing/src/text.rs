@@ -7,8 +7,8 @@ use std::{
 use ohos_enum_derive::EnumFrom;
 #[cfg(feature = "api-14")]
 use ohos_native_drawing_sys::OH_Drawing_GetFontCollectionGlobalInstance;
-#[cfg(feature = "api-20")]
-use ohos_native_drawing_sys::OH_Drawing_UnregisterFont;
+#[cfg(not(feature = "api-20"))]
+use ohos_native_drawing_sys::OH_Drawing_TypographyHandlerAddText;
 use ohos_native_drawing_sys::{
     OH_Drawing_ClearFontCaches, OH_Drawing_CreateFontCollection,
     OH_Drawing_CreateSharedFontCollection, OH_Drawing_CreateTextStyle, OH_Drawing_CreateTypography,
@@ -30,17 +30,26 @@ use ohos_native_drawing_sys::{
     OH_Drawing_RectWidthStyle_RECT_WIDTH_STYLE_TIGHT, OH_Drawing_RegisterFont,
     OH_Drawing_RegisterFontBuffer, OH_Drawing_SetTextStyleColor,
     OH_Drawing_SetTextStyleFontFamilies, OH_Drawing_SetTextStyleFontSize,
-    OH_Drawing_SetTextStyleFontStyle, OH_Drawing_SetTextStyleFontWeight,
+    OH_Drawing_SetTextStyleFontStyleStruct, OH_Drawing_SetTextStyleForegroundBrush,
+    OH_Drawing_SetTextStyleForegroundPen, OH_Drawing_SetTextStyleLetterSpacing,
+    OH_Drawing_SetTextStyleLocale, OH_Drawing_SetTextStyleWordSpacing,
     OH_Drawing_SetTypographyTextAlign, OH_Drawing_SetTypographyTextDirection,
     OH_Drawing_SetTypographyTextMaxLines, OH_Drawing_TextBox, OH_Drawing_TextStyle,
+    OH_Drawing_TextStyleAddFontFeature, OH_Drawing_TextStyleAddFontVariation,
     OH_Drawing_Typography, OH_Drawing_TypographyCreate, OH_Drawing_TypographyGetHeight,
-    OH_Drawing_TypographyGetLongestLine, OH_Drawing_TypographyGetMaxWidth,
-    OH_Drawing_TypographyHandlerAddText, OH_Drawing_TypographyHandlerPopTextStyle,
+    OH_Drawing_TypographyGetLineMetricsAt, OH_Drawing_TypographyGetLongestLine,
+    OH_Drawing_TypographyGetMaxWidth, OH_Drawing_TypographyHandlerPopTextStyle,
     OH_Drawing_TypographyHandlerPushTextStyle, OH_Drawing_TypographyLayout,
     OH_Drawing_TypographyPaint, OH_Drawing_TypographyStyle,
 };
+#[cfg(feature = "api-20")]
+use ohos_native_drawing_sys::{
+    OH_Drawing_TypographyHandlerAddEncodedText, OH_Drawing_UnregisterFont,
+};
 
-use crate::{check_error, Canvas, Result};
+#[cfg(feature = "api-20")]
+use crate::TextEncoding;
+use crate::{check_error, Brush, Canvas, FontStyle, Pen, Result, TextAlign, TextDirection};
 
 #[derive(Debug)]
 pub struct FontCollection {
@@ -149,12 +158,14 @@ impl TypographyStyle {
         self.raw.as_ptr()
     }
 
-    pub fn set_text_align(&mut self, align: i32) {
-        unsafe { OH_Drawing_SetTypographyTextAlign(self.raw.as_ptr(), align) };
+    pub fn set_text_align(&mut self, align: TextAlign) {
+        unsafe { OH_Drawing_SetTypographyTextAlign(self.raw.as_ptr(), u32::from(align) as i32) };
     }
 
-    pub fn set_text_direction(&mut self, direction: i32) {
-        unsafe { OH_Drawing_SetTypographyTextDirection(self.raw.as_ptr(), direction) };
+    pub fn set_text_direction(&mut self, direction: TextDirection) {
+        unsafe {
+            OH_Drawing_SetTypographyTextDirection(self.raw.as_ptr(), u32::from(direction) as i32)
+        };
     }
 
     pub fn set_max_lines(&mut self, line_number: i32) {
@@ -199,12 +210,8 @@ impl TextStyle {
         unsafe { OH_Drawing_SetTextStyleFontSize(self.raw.as_ptr(), font_size) };
     }
 
-    pub fn set_font_weight(&mut self, weight: i32) {
-        unsafe { OH_Drawing_SetTextStyleFontWeight(self.raw.as_ptr(), weight) };
-    }
-
-    pub fn set_font_style(&mut self, style: i32) {
-        unsafe { OH_Drawing_SetTextStyleFontStyle(self.raw.as_ptr(), style) };
+    pub fn set_font_style(&mut self, style: FontStyle) {
+        unsafe { OH_Drawing_SetTextStyleFontStyleStruct(self.raw.as_ptr(), style.into_raw()) };
     }
 
     pub fn set_font_families(&mut self, families: &[&str]) {
@@ -220,6 +227,44 @@ impl TextStyle {
                 ptrs.as_mut_ptr(),
             );
         }
+    }
+
+    pub fn set_letter_spacing(&mut self, spacing: f64) {
+        unsafe { OH_Drawing_SetTextStyleLetterSpacing(self.raw.as_ptr(), spacing) };
+    }
+
+    pub fn set_word_spacing(&mut self, spacing: f64) {
+        unsafe { OH_Drawing_SetTextStyleWordSpacing(self.raw.as_ptr(), spacing) };
+    }
+
+    pub fn set_locale(&mut self, locale: &str) {
+        if let Ok(locale) = CString::new(locale) {
+            unsafe { OH_Drawing_SetTextStyleLocale(self.raw.as_ptr(), locale.as_ptr()) };
+        }
+    }
+
+    pub fn add_font_feature(&mut self, tag: &str, value: i32) -> bool {
+        let Ok(tag) = CString::new(tag) else {
+            return false;
+        };
+        unsafe { OH_Drawing_TextStyleAddFontFeature(self.raw.as_ptr(), tag.as_ptr(), value) };
+        true
+    }
+
+    pub fn add_font_variation(&mut self, axis: &str, value: f32) -> bool {
+        let Ok(axis) = CString::new(axis) else {
+            return false;
+        };
+        unsafe { OH_Drawing_TextStyleAddFontVariation(self.raw.as_ptr(), axis.as_ptr(), value) };
+        true
+    }
+
+    pub fn set_foreground_brush(&mut self, brush: &Brush) {
+        unsafe { OH_Drawing_SetTextStyleForegroundBrush(self.raw.as_ptr(), brush.as_ptr()) };
+    }
+
+    pub fn set_foreground_pen(&mut self, pen: &Pen) {
+        unsafe { OH_Drawing_SetTextStyleForegroundPen(self.raw.as_ptr(), pen.as_ptr()) };
     }
 }
 
@@ -512,8 +557,21 @@ impl TypographyBuilder {
     }
 
     pub fn add_text(&mut self, text: &str) {
-        let text = CString::new(text).expect("text contains interior NUL");
-        unsafe { OH_Drawing_TypographyHandlerAddText(self.raw.as_ptr(), text.as_ptr()) };
+        #[cfg(feature = "api-20")]
+        unsafe {
+            OH_Drawing_TypographyHandlerAddEncodedText(
+                self.raw.as_ptr(),
+                text.as_ptr().cast(),
+                text.len(),
+                TextEncoding::Utf8.into(),
+            );
+        }
+
+        #[cfg(not(feature = "api-20"))]
+        {
+            let text = CString::new(text).expect("text contains interior NUL");
+            unsafe { OH_Drawing_TypographyHandlerAddText(self.raw.as_ptr(), text.as_ptr()) };
+        }
     }
 
     pub fn build(self) -> Typography {
@@ -558,6 +616,14 @@ impl Typography {
 
     pub fn longest_line(&self) -> f64 {
         unsafe { OH_Drawing_TypographyGetLongestLine(self.raw.as_ptr()) }
+    }
+
+    pub fn line_metrics(&self, line: i32) -> Option<DrawingLineMetrics> {
+        let mut metrics = std::mem::MaybeUninit::<OH_Drawing_LineMetrics>::uninit();
+        unsafe {
+            OH_Drawing_TypographyGetLineMetricsAt(self.raw.as_ptr(), line, metrics.as_mut_ptr())
+                .then(|| metrics.assume_init().into())
+        }
     }
 }
 
