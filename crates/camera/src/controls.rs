@@ -373,7 +373,7 @@ mod tests {
     fn generated_control_enum_conversion_rejects_unknown_raw_values() {
         assert_eq!(CameraFlashMode::try_from_raw(u32::MAX), None);
         assert_eq!(CameraTorchMode::try_from_raw(u32::MAX), None);
-        assert_eq!(CameraExposureMode::try_from_raw(u32::MAX), None);
+        assert_eq!(CameraExposureMode::try_from_raw(i32::MAX), None);
         assert_eq!(CameraFocusMode::try_from_raw(u32::MAX), None);
         assert_eq!(CameraStabilizationMode::try_from_raw(u32::MAX), None);
         assert_eq!(CameraPhotoQuality::try_from_raw(u32::MAX), None);
