@@ -41,4 +41,6 @@ pub use types::AuxiliaryPictureType;
 #[cfg(feature = "api-13")]
 pub use types::MetadataType;
 pub use types::NativeBufferFormat;
-pub use types::{HdrMetadataKey, HdrMetadataType, PixelFormat, PixelMapAntiAliasingLevel};
+pub use types::{
+    HdrMetadataKey, HdrMetadataType, PixelFormat, PixelMapAlphaType, PixelMapAntiAliasingLevel,
+};

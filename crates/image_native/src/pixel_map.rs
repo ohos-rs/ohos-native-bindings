@@ -12,7 +12,7 @@ use crate::{
     error::{check_status, ImageNativeResult},
     sys,
     types::{
-        HdrMetadataKey, ImageRegion, PixelFormat, PixelMapAntiAliasingLevel,
+        HdrMetadataKey, ImageRegion, PixelFormat, PixelMapAlphaType, PixelMapAntiAliasingLevel,
         PixelMapHdrMetadataValue,
     },
 };
@@ -117,17 +117,17 @@ impl PixelMapInitializationOptions {
         })
     }
 
-    pub fn alpha_type(&self) -> ImageNativeResult<i32> {
+    pub fn alpha_type(&self) -> ImageNativeResult<PixelMapAlphaType> {
         let mut value = 0;
         check_status(unsafe {
             sys::OH_PixelmapInitializationOptions_GetAlphaType(self.as_raw(), &mut value)
         })?;
-        Ok(value)
+        Ok(PixelMapAlphaType::from_i32_or_unknown(value))
     }
 
-    pub fn set_alpha_type(&mut self, value: i32) -> ImageNativeResult<()> {
+    pub fn set_alpha_type(&mut self, value: PixelMapAlphaType) -> ImageNativeResult<()> {
         check_status(unsafe {
-            sys::OH_PixelmapInitializationOptions_SetAlphaType(self.as_raw(), value)
+            sys::OH_PixelmapInitializationOptions_SetAlphaType(self.as_raw(), value.into())
         })
     }
 
@@ -205,10 +205,10 @@ impl PixelMapImageInfo {
         Ok(PixelFormat::from_i32_or_unknown(value))
     }
 
-    pub fn alpha_type(&self) -> ImageNativeResult<i32> {
+    pub fn alpha_type(&self) -> ImageNativeResult<PixelMapAlphaType> {
         let mut value = 0;
         check_status(unsafe { sys::OH_PixelmapImageInfo_GetAlphaType(self.as_raw(), &mut value) })?;
-        Ok(value)
+        Ok(PixelMapAlphaType::from_i32_or_unknown(value))
     }
 
     pub fn dynamic_range(&self) -> ImageNativeResult<bool> {

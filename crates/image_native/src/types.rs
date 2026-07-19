@@ -47,6 +47,25 @@ pub enum PixelFormat {
     YCrCbP010,
 }
 
+/// Pixel-map alpha representation.
+#[derive(Clone, Copy, Debug, PartialEq, Eq, EnumFrom)]
+#[config(PIXELMAP_ALPHA_TYPE, "PIXELMAP_ALPHA_TYPE_PIXELMAP_ALPHA_TYPE_", i32)]
+pub enum PixelMapAlphaType {
+    Unknown,
+    Opaque,
+    Premultiplied,
+    Unpremultiplied,
+}
+
+impl PixelMapAlphaType {
+    pub(crate) fn from_i32_or_unknown(value: i32) -> Self {
+        u32::try_from(value)
+            .ok()
+            .and_then(Self::try_from_raw)
+            .unwrap_or(Self::Unknown)
+    }
+}
+
 impl PixelFormat {
     pub(crate) fn from_raw(value: PIXEL_FORMAT) -> Option<Self> {
         Self::try_from_raw(value)

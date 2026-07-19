@@ -1,4 +1,4 @@
-use std::{ffi::CString, ptr::NonNull};
+use std::{ffi::CString, path::Path, ptr::NonNull, rc::Rc};
 
 use ohos_native_drawing_sys::{
     OH_Drawing_Font, OH_Drawing_FontCountText, OH_Drawing_FontCreate, OH_Drawing_FontDestroy,
@@ -8,7 +8,8 @@ use ohos_native_drawing_sys::{
     OH_Drawing_FontSetFakeBoldText, OH_Drawing_FontSetHinting, OH_Drawing_FontSetLinearText,
     OH_Drawing_FontSetScaleX, OH_Drawing_FontSetSubpixel, OH_Drawing_FontSetTextSize,
     OH_Drawing_FontSetTextSkewX, OH_Drawing_FontSetTypeface, OH_Drawing_Font_Metrics,
-    OH_Drawing_Typeface, OH_Drawing_TypefaceDestroy,
+    OH_Drawing_MemoryStreamCreate, OH_Drawing_Typeface, OH_Drawing_TypefaceCreateFromFile,
+    OH_Drawing_TypefaceCreateFromStream, OH_Drawing_TypefaceDestroy,
 };
 #[cfg(feature = "api-20")]
 use ohos_native_drawing_sys::{
@@ -24,6 +25,34 @@ pub struct Typeface {
 }
 
 impl Typeface {
+    /// Loads a typeface from a font file.
+    pub fn from_file(path: &Path, index: i32) -> Result<Self> {
+        let path = path
+            .to_str()
+            .ok_or_else(crate::DrawingError::invalid_parameter)?;
+        let path = CString::new(path).map_err(|_| crate::DrawingError::invalid_parameter())?;
+        let raw = unsafe { OH_Drawing_TypefaceCreateFromFile(path.as_ptr(), index) };
+        NonNull::new(raw)
+            .map(|raw| Self { raw })
+            .ok_or_else(crate::DrawingError::from_last_error)
+    }
+
+    /// Loads a typeface from copied in-memory font data.
+    pub fn from_data(data: &[u8], index: i32) -> Result<Self> {
+        if data.is_empty() {
+            return Err(crate::DrawingError::invalid_parameter());
+        }
+        let stream =
+            unsafe { OH_Drawing_MemoryStreamCreate(data.as_ptr().cast(), data.len(), true) };
+        let stream = NonNull::new(stream).ok_or_else(crate::DrawingError::from_last_error)?;
+        // The native typeface constructor takes ownership of the stream on
+        // both success and failure, so it must not be destroyed here.
+        let raw = unsafe { OH_Drawing_TypefaceCreateFromStream(stream.as_ptr(), index) };
+        NonNull::new(raw)
+            .map(|raw| Self { raw })
+            .ok_or_else(crate::DrawingError::from_last_error)
+    }
+
     pub(crate) fn as_ptr(&self) -> *mut OH_Drawing_Typeface {
         self.raw.as_ptr()
     }
@@ -114,7 +143,8 @@ impl Drop for FontManager {
 pub struct Font {
     raw: NonNull<OH_Drawing_Font>,
     // The native font only borrows this pointer, so keep the owner alive with the font.
-    _typeface: Option<Typeface>,
+    _owned_typeface: Option<Typeface>,
+    _shared_typeface: Option<Rc<Typeface>>,
 }
 
 #[derive(Debug)]
@@ -143,7 +173,8 @@ impl Font {
         let raw = unsafe { OH_Drawing_FontCreate() };
         Self {
             raw: NonNull::new(raw).expect("OH_Drawing_FontCreate returned null"),
-            _typeface: None,
+            _owned_typeface: None,
+            _shared_typeface: None,
         }
     }
 
@@ -165,7 +196,15 @@ impl Font {
 
     pub fn set_typeface(&mut self, typeface: Typeface) {
         unsafe { OH_Drawing_FontSetTypeface(self.raw.as_ptr(), typeface.as_ptr()) };
-        self._typeface = Some(typeface);
+        self._shared_typeface = None;
+        self._owned_typeface = Some(typeface);
+    }
+
+    /// Uses a shared typeface while retaining it for the lifetime of this font.
+    pub fn set_shared_typeface(&mut self, typeface: Rc<Typeface>) {
+        unsafe { OH_Drawing_FontSetTypeface(self.raw.as_ptr(), typeface.as_ptr()) };
+        self._owned_typeface = None;
+        self._shared_typeface = Some(typeface);
     }
 
     pub fn set_scale_x(&mut self, scale_x: f32) {
