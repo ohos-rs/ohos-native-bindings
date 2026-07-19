@@ -60,7 +60,7 @@ pub const Camera_SceneMode_NORMAL_PHOTO: Camera_SceneMode = 1;
 pub const Camera_SceneMode_NORMAL_VIDEO: Camera_SceneMode = 2;
 #[doc = " Secure photo mode."]
 pub const Camera_SceneMode_SECURE_PHOTO: Camera_SceneMode = 12;
-#[doc = " @brief Enum for scence mode.\n\n @since 12\n @version 1.0"]
+#[doc = " @brief Enum for scene mode.\n\n @since 12\n @version 1.0"]
 pub type Camera_SceneMode = u32;
 #[doc = " Unspecified position."]
 pub const Camera_Position_CAMERA_POSITION_UNSPECIFIED: Camera_Position = 0;
@@ -104,8 +104,30 @@ pub struct Camera_DeviceQueryInfo {
     #[doc = " Camera connection type attribute."]
     pub connectionType: Camera_Connection,
 }
+#[doc = " Blue-Green-Green-Red (BGGR) filter arrangement.\n @since 24"]
+#[cfg(feature = "api-24")]
+pub const OH_Camera_SensorColorFilterArrangement_OH_CAMERA_SENSOR_CFA_BGGR:
+    OH_Camera_SensorColorFilterArrangement = 0;
+#[doc = " Green-Blue-Red-Green (GBRG) filter arrangement.\n @since 24"]
+#[cfg(feature = "api-24")]
+pub const OH_Camera_SensorColorFilterArrangement_OH_CAMERA_SENSOR_CFA_GBRG:
+    OH_Camera_SensorColorFilterArrangement = 1;
+#[doc = " Green-Red-Green-Blue (GRBG) filter arrangement.\n @since 24"]
+#[cfg(feature = "api-24")]
+pub const OH_Camera_SensorColorFilterArrangement_OH_CAMERA_SENSOR_CFA_GRBG:
+    OH_Camera_SensorColorFilterArrangement = 2;
+#[doc = " Red-Green-Green-Blue (RGGB) filter arrangement.\n @since 24"]
+#[cfg(feature = "api-24")]
+pub const OH_Camera_SensorColorFilterArrangement_OH_CAMERA_SENSOR_CFA_RGGB:
+    OH_Camera_SensorColorFilterArrangement = 3;
+#[doc = " @brief Sensor color filter arrangement.\n\n @since 24"]
+#[cfg(feature = "api-24")]
+pub type OH_Camera_SensorColorFilterArrangement = u32;
 #[doc = " RGBA 8888 Format."]
 pub const Camera_Format_CAMERA_FORMAT_RGBA_8888: Camera_Format = 3;
+#[doc = " DNG Format.\n @since 24"]
+#[cfg(feature = "api-24")]
+pub const Camera_Format_CAMERA_FORMAT_DNG: Camera_Format = 4;
 #[doc = " YUV 420 Format."]
 pub const Camera_Format_CAMERA_FORMAT_YUV_420_SP: Camera_Format = 1003;
 #[doc = " JPEG Format."]
@@ -129,14 +151,47 @@ pub const Camera_FlashMode_FLASH_MODE_AUTO: Camera_FlashMode = 2;
 pub const Camera_FlashMode_FLASH_MODE_ALWAYS_OPEN: Camera_FlashMode = 3;
 #[doc = " @brief Enum for flash mode.\n\n @since 11\n @version 1.0"]
 pub type Camera_FlashMode = u32;
+#[doc = " Flash is unavailable, default value.\n @since 24"]
+#[cfg(feature = "api-24")]
+pub const OH_Camera_FlashState_OH_CAMERA_FLASH_STATE_UNAVAILABLE: OH_Camera_FlashState = 0;
+#[doc = " This status indicates that the flash is available.\n @since 24"]
+#[cfg(feature = "api-24")]
+pub const OH_Camera_FlashState_OH_CAMERA_FLASH_STATE_READY: OH_Camera_FlashState = 1;
+#[doc = " This status indicates that flashing can be performed.\n @since 24"]
+#[cfg(feature = "api-24")]
+pub const OH_Camera_FlashState_OH_CAMERA_FLASH_STATE_FLASHING: OH_Camera_FlashState = 2;
+#[doc = " @brief Enum for flash state.\n\n @since 24"]
+#[cfg(feature = "api-24")]
+pub type OH_Camera_FlashState = u32;
+#[doc = " Unspecified exposure mode.\n @since 24"]
+#[cfg(feature = "api-24")]
+pub const Camera_ExposureMode_EXPOSURE_MODE_UNSPECIFIED: Camera_ExposureMode = -1;
 #[doc = " Lock exposure mode."]
 pub const Camera_ExposureMode_EXPOSURE_MODE_LOCKED: Camera_ExposureMode = 0;
 #[doc = " Auto exposure mode."]
 pub const Camera_ExposureMode_EXPOSURE_MODE_AUTO: Camera_ExposureMode = 1;
 #[doc = " Continuous automatic exposure."]
 pub const Camera_ExposureMode_EXPOSURE_MODE_CONTINUOUS_AUTO: Camera_ExposureMode = 2;
+#[doc = " Manual exposure mode.\n @since 24"]
+#[cfg(feature = "api-24")]
+pub const Camera_ExposureMode_EXPOSURE_MODE_MANUAL: Camera_ExposureMode = 3;
 #[doc = " @brief Enum for exposure mode.\n\n @since 11\n @version 1.0"]
-pub type Camera_ExposureMode = u32;
+pub type Camera_ExposureMode = i32;
+#[doc = " Matrix metering mode: Measures the light in the whole frame, ideal for shooting natural landscapes.\n @since 24"]
+#[cfg(feature = "api-24")]
+pub const OH_Camera_ExposureMeteringMode_OH_CAMERA_EXPOSURE_METERING_MODE_MATRIX:
+    OH_Camera_ExposureMeteringMode = 0;
+#[doc = " Center metering mode: Focuses in on light near the center of the screen, ideal for shooting portraits.\n @since 24"]
+#[cfg(feature = "api-24")]
+pub const OH_Camera_ExposureMeteringMode_OH_CAMERA_EXPOSURE_METERING_MODE_CENTER:
+    OH_Camera_ExposureMeteringMode = 1;
+#[doc = " Spot metering mode: Focuses in on light from a specific tiny region, such as a subject's eyes.\n @since 24"]
+#[cfg(feature = "api-24")]
+pub const OH_Camera_ExposureMeteringMode_OH_CAMERA_EXPOSURE_METERING_MODE_SPOT:
+    OH_Camera_ExposureMeteringMode = 2;
+#[doc = " @brief Enum for exposure metering mode.\n\n @since 24"]
+#[cfg(feature = "api-24")]
+pub type OH_Camera_ExposureMeteringMode = u32;
 #[doc = " Manual mode."]
 pub const Camera_FocusMode_FOCUS_MODE_MANUAL: Camera_FocusMode = 0;
 #[doc = " Continuous auto mode."]
@@ -155,7 +210,7 @@ pub const Camera_FocusState_FOCUS_STATE_FOCUSED: Camera_FocusState = 1;
 pub const Camera_FocusState_FOCUS_STATE_UNFOCUSED: Camera_FocusState = 2;
 #[doc = " @brief Enum for focus state.\n\n @since 11\n @version 1.0"]
 pub type Camera_FocusState = u32;
-#[doc = " Turn off video stablization."]
+#[doc = " Turn off video stabilization."]
 pub const Camera_VideoStabilizationMode_STABILIZATION_MODE_OFF: Camera_VideoStabilizationMode = 0;
 #[doc = " LOW mode provides basic stabilization effect."]
 pub const Camera_VideoStabilizationMode_STABILIZATION_MODE_LOW: Camera_VideoStabilizationMode = 1;
@@ -595,6 +650,10 @@ pub const Camera_ControlCenterEffectType_CONTROL_CENTER_EFFECT_TYPE_BEAUTY:
 #[cfg(feature = "api-20")]
 pub const Camera_ControlCenterEffectType_CONTROL_CENTER_EFFECT_TYPE_PORTRAIT:
     Camera_ControlCenterEffectType = 1;
+#[doc = " Applies a auto-framing effect.\n @since 24"]
+#[cfg(feature = "api-24")]
+pub const Camera_ControlCenterEffectType_CONTROL_CENTER_EFFECT_TYPE_AUTO_FRAMING:
+    Camera_ControlCenterEffectType = 2;
 #[doc = " @brief Enumerates the control center effect types.\n\n @since 20\n @version 1.0"]
 #[cfg(feature = "api-20")]
 pub type Camera_ControlCenterEffectType = u32;
@@ -629,6 +688,49 @@ pub struct Camera_OcclusionDetectionResult {
     #[doc = " Check whether camera lens is dirty."]
     pub isCameraLensDirty: bool,
 }
+#[doc = " @brief Describes the zoom range configuration.\n @since 24"]
+#[cfg(feature = "api-24")]
+#[repr(C)]
+#[derive(Debug, Copy, Clone)]
+pub struct OH_Camera_ZoomRange {
+    #[doc = " Minimum zoom value.\n @since 24"]
+    pub minZoom: f32,
+    #[doc = " Maximum zoom value.\n @since 24"]
+    pub maxZoom: f32,
+}
+#[doc = " @brief Describes the physical aperture configuration.\n @since 24"]
+#[cfg(feature = "api-24")]
+#[repr(C)]
+#[derive(Debug, Copy, Clone)]
+pub struct OH_Camera_PhysicalAperture {
+    #[doc = " Zoom range specification.\n @since 24"]
+    pub zoomRange: OH_Camera_ZoomRange,
+    #[doc = " Array of supported aperture values.\n @since 24"]
+    pub apertures: *mut f32,
+    #[doc = " Number of aperture values.\n @since 24"]
+    pub apertureCount: usize,
+}
+#[doc = " OIS is disabled.\n @since 24"]
+#[cfg(feature = "api-24")]
+pub const OH_Camera_OISMode_OH_CAMERA_OIS_MODE_OFF: OH_Camera_OISMode = 0;
+#[doc = " OIS is controlled automatically.\n @since 24"]
+#[cfg(feature = "api-24")]
+pub const OH_Camera_OISMode_OH_CAMERA_OIS_MODE_AUTO: OH_Camera_OISMode = 1;
+#[doc = " OIS is controlled by the application.\n @since 24"]
+#[cfg(feature = "api-24")]
+pub const OH_Camera_OISMode_OH_CAMERA_OIS_MODE_CUSTOM: OH_Camera_OISMode = 2;
+#[doc = " @brief Enum for OIS (Optical Image Stabilization) mode.\n\n @since 24\n @version 1.0"]
+#[cfg(feature = "api-24")]
+pub type OH_Camera_OISMode = u32;
+#[doc = " Pitch axis: up-and-down rotation of the camera body.\n Rotation around the horizontal axis through the lens.\n @since 24"]
+#[cfg(feature = "api-24")]
+pub const OH_Camera_OISAxes_OH_CAMERA_OIS_AXES_PITCH: OH_Camera_OISAxes = 0;
+#[doc = " Yaw axis: side-to-side rotation of the camera body.\n Rotation around the vertical axis.\n @since 24"]
+#[cfg(feature = "api-24")]
+pub const OH_Camera_OISAxes_OH_CAMERA_OIS_AXES_YAW: OH_Camera_OISAxes = 1;
+#[doc = " @brief Enum for OIS (Optical Image Stabilization) axes.\n\n @since 24\n @version 1.0"]
+#[cfg(feature = "api-24")]
+pub type OH_Camera_OISAxes = u32;
 #[repr(C)]
 #[derive(Debug, Copy, Clone)]
 pub struct Camera_Input {
@@ -780,7 +882,7 @@ extern "C" {
     pub fn OH_PreviewOutput_Start(previewOutput: *mut Camera_PreviewOutput) -> Camera_ErrorCode;
 }
 extern "C" {
-    #[doc = " @brief Stop preview output.\n\n @param previewOutput the {@link Camera_PreviewOutput} instance to be stoped.\n @return {@link #CAMERA_OK} if the method call succeeds.\n         {@link #INVALID_ARGUMENT} if parameter missing or parameter type incorrect.\n         {@link #CAMERA_SERVICE_FATAL_ERROR} if camera service fatal error.\n @since 11"]
+    #[doc = " @brief Stop preview output.\n\n @param previewOutput the {@link Camera_PreviewOutput} instance to be stopped.\n @return {@link #CAMERA_OK} if the method call succeeds.\n         {@link #INVALID_ARGUMENT} if parameter missing or parameter type incorrect.\n         {@link #CAMERA_SERVICE_FATAL_ERROR} if camera service fatal error.\n @since 11"]
     pub fn OH_PreviewOutput_Stop(previewOutput: *mut Camera_PreviewOutput) -> Camera_ErrorCode;
 }
 extern "C" {
@@ -795,7 +897,7 @@ extern "C" {
     ) -> Camera_ErrorCode;
 }
 extern "C" {
-    #[doc = " @brief Delete preview profile instance.\n\n @param profile the {@link Camera_Profile} instance to deleted.\n @return {@link #CAMERA_OK} if the method call succeeds.\n         {@link #CAMERA_INVALID_ARGUMENT} if parameter missing or parameter type incorrect.\n @since 12"]
+    #[doc = " @brief Delete preview profile instance.\n\n @param profile the {@link Camera_Profile} instance to be deleted.\n @return {@link #CAMERA_OK} if the method call succeeds.\n         {@link #CAMERA_INVALID_ARGUMENT} if parameter missing or parameter type incorrect.\n @since 12"]
     pub fn OH_PreviewOutput_DeleteProfile(profile: *mut Camera_Profile) -> Camera_ErrorCode;
 }
 extern "C" {
@@ -866,6 +968,14 @@ extern "C" {
     pub fn OH_PreviewOutput_EnableBandwidthCompression(
         previewOutput: *mut Camera_PreviewOutput,
         enabled: bool,
+    ) -> Camera_ErrorCode;
+}
+extern "C" {
+    #[doc = " @brief add surface for preview output.\n\n @param previewOutput the {@link Camera_PreviewOutput} instance to add surfaceId.\n @param surfaceId the which use to create {@link Camera_PreviewOutput}.\n @return {@link #CAMERA_OK} if the method call succeeds.\n         {@link #CAMERA_INVALID_ARGUMENT} if parameter is incorrect.\n @since 24"]
+    #[cfg(feature = "api-24")]
+    pub fn OH_PreviewOutput_AddDeferredSurface(
+        previewOutput: *const Camera_PreviewOutput,
+        surfaceId: *const ::std::os::raw::c_char,
     ) -> Camera_ErrorCode;
 }
 #[doc = " None color space"]
@@ -992,11 +1102,11 @@ pub type OH_PhotoOutput_OnError = ::std::option::Option<
 pub type OH_PhotoOutput_CaptureEnd = ::std::option::Option<
     unsafe extern "C" fn(photoOutput: *mut Camera_PhotoOutput, frameCount: i32),
 >;
-#[doc = " @brief Photo output capture start with infomation callback.\n\n @param photoOutput the {@link Camera_PhotoOutput} which deliver the callback.\n @param Info the {@link Camera_CaptureStartInfo} which is delivered by the callback..\n @since 12"]
+#[doc = " @brief Photo output capture start with information callback.\n\n @param photoOutput the {@link Camera_PhotoOutput} which deliver the callback.\n @param info the {@link Camera_CaptureStartInfo} which is delivered by the callback.\n @since 12"]
 pub type OH_PhotoOutput_CaptureStartWithInfo = ::std::option::Option<
     unsafe extern "C" fn(photoOutput: *mut Camera_PhotoOutput, Info: *mut Camera_CaptureStartInfo),
 >;
-#[doc = " @brief Photo output eframe shutter end callback.\n\n @param photoOutput the {@link Camera_PhotoOutput} which deliver the callback.\n @param Info the {@link Camera_CaptureStartInfo} which is delivered by the callback.\n @since 12"]
+#[doc = " @brief Photo output frame shutter end callback.\n\n @param photoOutput the {@link Camera_PhotoOutput} which deliver the callback.\n @param info the {@link Camera_CaptureStartInfo} which is delivered by the callback.\n @since 12"]
 pub type OH_PhotoOutput_OnFrameShutterEnd = ::std::option::Option<
     unsafe extern "C" fn(photoOutput: *mut Camera_PhotoOutput, Info: *mut Camera_FrameShutterInfo),
 >;
@@ -1136,7 +1246,7 @@ extern "C" {
     ) -> Camera_ErrorCode;
 }
 extern "C" {
-    #[doc = " @brief Unregister photo output photo available callback.\n\n @param photoOutput the {@link Camera_PhotoOutput} instance.\n @param callback the {@link PhotoOutput_Callbacks} to be unregistered.\n @return {@link #CAMERA_OK} if the method call succeeds.\n         {@link #INVALID_ARGUMENT} if parameter missing or parameter type incorrect.\n @since 12"]
+    #[doc = " @brief Unregister photo output photo available callback.\n\n @param photoOutput the {@link Camera_PhotoOutput} instance.\n @param callback the {@link OH_PhotoOutput_PhotoAvailable} to be unregistered.\n @return {@link #CAMERA_OK} if the method call succeeds.\n         {@link #INVALID_ARGUMENT} if parameter missing or parameter type incorrect.\n @since 12"]
     pub fn OH_PhotoOutput_UnregisterPhotoAvailableCallback(
         photoOutput: *mut Camera_PhotoOutput,
         callback: OH_PhotoOutput_PhotoAvailable,
@@ -1161,14 +1271,14 @@ extern "C" {
     pub fn OH_PhotoOutput_Capture(photoOutput: *mut Camera_PhotoOutput) -> Camera_ErrorCode;
 }
 extern "C" {
-    #[doc = " @brief Capture photo with capture setting.\n\n @param photoOutput the {@link Camera_PhotoOutput} instance which used to capture photo.\n @param setting the {@link Camera_PhotoCaptureSetting} to used to capture photo.\n @return {@link #CAMERA_OK} if the method call succeeds.\n         {@link #INVALID_ARGUMENT} if parameter missing or parameter type incorrect.\n         {@link #CAMERA_SESSION_NOT_RUNNING} if the capture session not running.\n         {@link #CAMERA_SERVICE_FATAL_ERROR} if camera service fatal error.\n @since 11"]
+    #[doc = " @brief Capture photo with capture setting.\n\n @param photoOutput the {@link Camera_PhotoOutput} instance which used to capture photo.\n @param setting the {@link Camera_PhotoCaptureSetting} to be used to capture photo.\n @return {@link #CAMERA_OK} if the method call succeeds.\n         {@link #INVALID_ARGUMENT} if parameter missing or parameter type incorrect.\n         {@link #CAMERA_SESSION_NOT_RUNNING} if the capture session not running.\n         {@link #CAMERA_SERVICE_FATAL_ERROR} if camera service fatal error.\n @since 11"]
     pub fn OH_PhotoOutput_Capture_WithCaptureSetting(
         photoOutput: *mut Camera_PhotoOutput,
         setting: Camera_PhotoCaptureSetting,
     ) -> Camera_ErrorCode;
 }
 extern "C" {
-    #[doc = " @brief Release photo output.\n\n @param photoOutput the {@link Camera_PhotoOutput} instance to released.\n @return {@link #CAMERA_OK} if the method call succeeds.\n         {@link #INVALID_ARGUMENT} if parameter missing or parameter type incorrect.\n         {@link #CAMERA_SERVICE_FATAL_ERROR} if camera service fatal error.\n @since 11"]
+    #[doc = " @brief Release photo output.\n\n @param photoOutput the {@link Camera_PhotoOutput} instance to be released.\n @return {@link #CAMERA_OK} if the method call succeeds.\n         {@link #INVALID_ARGUMENT} if parameter missing or parameter type incorrect.\n         {@link #CAMERA_SERVICE_FATAL_ERROR} if camera service fatal error.\n @since 11"]
     pub fn OH_PhotoOutput_Release(photoOutput: *mut Camera_PhotoOutput) -> Camera_ErrorCode;
 }
 extern "C" {
@@ -1194,7 +1304,7 @@ extern "C" {
     ) -> Camera_ErrorCode;
 }
 extern "C" {
-    #[doc = " @brief Delete photo profile instance.\n\n @param profile the {@link Camera_Profile} instance to deleted.\n @return {@link #CAMERA_OK} if the method call succeeds.\n         {@link #CAMERA_INVALID_ARGUMENT} if parameter missing or parameter type incorrect.\n @since 12"]
+    #[doc = " @brief Delete photo profile instance.\n\n @param profile the {@link Camera_Profile} instance to be deleted.\n @return {@link #CAMERA_OK} if the method call succeeds.\n         {@link #CAMERA_INVALID_ARGUMENT} if parameter missing or parameter type incorrect.\n @since 12"]
     pub fn OH_PhotoOutput_DeleteProfile(profile: *mut Camera_Profile) -> Camera_ErrorCode;
 }
 extern "C" {
@@ -1408,11 +1518,11 @@ extern "C" {
     pub fn OH_CaptureSession_Start(session: *mut Camera_CaptureSession) -> Camera_ErrorCode;
 }
 extern "C" {
-    #[doc = " @brief Stop capture session.\n\n @param session the {@link Camera_CaptureSession} instance to be stoped.\n @return {@link #CAMERA_OK} if the method call succeeds.\n         {@link #INVALID_ARGUMENT} if parameter missing or parameter type incorrect.\n         {@link #CAMERA_SERVICE_FATAL_ERROR} if camera service fatal error.\n @since 11"]
+    #[doc = " @brief Stop capture session.\n\n @param session the {@link Camera_CaptureSession} instance to be stopped.\n @return {@link #CAMERA_OK} if the method call succeeds.\n         {@link #INVALID_ARGUMENT} if parameter missing or parameter type incorrect.\n         {@link #CAMERA_SERVICE_FATAL_ERROR} if camera service fatal error.\n @since 11"]
     pub fn OH_CaptureSession_Stop(session: *mut Camera_CaptureSession) -> Camera_ErrorCode;
 }
 extern "C" {
-    #[doc = " @brief Release capture session.\n\n @param session the {@link Camera_CaptureSession} instance to be release.\n @return {@link #CAMERA_OK} if the method call succeeds.\n         {@link #INVALID_ARGUMENT} if parameter missing or parameter type incorrect.\n         {@link #CAMERA_SERVICE_FATAL_ERROR} if camera service fatal error.\n @since 11"]
+    #[doc = " @brief Release capture session.\n\n @param session the {@link Camera_CaptureSession} instance to be released.\n @return {@link #CAMERA_OK} if the method call succeeds.\n         {@link #INVALID_ARGUMENT} if parameter missing or parameter type incorrect.\n         {@link #CAMERA_SERVICE_FATAL_ERROR} if camera service fatal error.\n @since 11"]
     pub fn OH_CaptureSession_Release(session: *mut Camera_CaptureSession) -> Camera_ErrorCode;
 }
 extern "C" {
@@ -1442,6 +1552,27 @@ extern "C" {
     pub fn OH_CaptureSession_SetFlashMode(
         session: *mut Camera_CaptureSession,
         flashMode: Camera_FlashMode,
+    ) -> Camera_ErrorCode;
+}
+#[doc = " @brief Capture session flash state change callback.\n\n @param session Pointer to the {@link Camera_CaptureSession} which deliver the callback.\n @param flashState The {@link OH_Camera_FlashState} which delivered by the callback.\n @since 24"]
+#[cfg(feature = "api-24")]
+pub type OH_CaptureSession_OnFlashStateChange = ::std::option::Option<
+    unsafe extern "C" fn(session: *const Camera_CaptureSession, flashState: OH_Camera_FlashState),
+>;
+extern "C" {
+    #[doc = " @brief Register flash state change event callback.\n\n @param session Pointer to the {@link Camera_CaptureSession} instance.\n @param flashStateChange The {@link OH_CaptureSession_OnFlashStateChange} to be registered.\n @return {@link #CAMERA_OK} if the method call succeeds.\n         {@link #CAMERA_INVALID_ARGUMENT} if parameter missing or parameter type incorrect.\n @since 24"]
+    #[cfg(feature = "api-24")]
+    pub fn OH_CaptureSession_RegisterFlashStateChangeCallback(
+        session: *const Camera_CaptureSession,
+        flashStateChange: OH_CaptureSession_OnFlashStateChange,
+    ) -> Camera_ErrorCode;
+}
+extern "C" {
+    #[doc = " @brief Unregister flash state change callback.\n\n @param session Pointer to the {@link Camera_CaptureSession} instance.\n @param flashStateChange The {@link OH_CaptureSession_OnFlashStateChange} to be unregistered.\n @return {@link #CAMERA_OK} if the method call succeeds.\n         {@link #CAMERA_INVALID_ARGUMENT} if parameter missing or parameter type incorrect.\n @since 24"]
+    #[cfg(feature = "api-24")]
+    pub fn OH_CaptureSession_UnregisterFlashStateChangeCallback(
+        session: *const Camera_CaptureSession,
+        flashStateChange: OH_CaptureSession_OnFlashStateChange,
     ) -> Camera_ErrorCode;
 }
 extern "C" {
@@ -1481,6 +1612,90 @@ extern "C" {
     ) -> Camera_ErrorCode;
 }
 extern "C" {
+    #[doc = " @brief Check whether a specified exposure metering mode is supported.\n\n @param session Pointer to the {@link Camera_CaptureSession} instance.\n @param exposureMeteringMode The {@link OH_Camera_ExposureMeteringMode} to be checked.\n @param isSupported Pointer to the result of whether exposure mode supported.\n @return {@link #CAMERA_OK} if the method call succeeds.\n         {@link #CAMERA_INVALID_ARGUMENT} if parameter missing or parameter type incorrect.\n         {@link #CAMERA_SESSION_NOT_CONFIG} if the capture session not config.\n @since 24"]
+    #[cfg(feature = "api-24")]
+    pub fn OH_CaptureSession_IsExposureMeteringModeSupported(
+        session: *const Camera_CaptureSession,
+        exposureMeteringMode: OH_Camera_ExposureMeteringMode,
+        isSupported: *mut bool,
+    ) -> Camera_ErrorCode;
+}
+extern "C" {
+    #[doc = " @brief Get current exposure metering mode.\n\n @param session Pointer to the {@link Camera_CaptureSession} instance.\n @param exposureMeteringMode Pointer to the {@link OH_Camera_ExposureMeteringMode} instance.\n @return {@link #CAMERA_OK} if the method call succeeds.\n         {@link #CAMERA_INVALID_ARGUMENT} if parameter missing or parameter type incorrect.\n         {@link #CAMERA_OPERATION_NOT_ALLOWED} if operation not allowed, session or inputdevice maybe abnormal.\n         {@link #CAMERA_SESSION_NOT_CONFIG} if the capture session not config.\n @since 24"]
+    #[cfg(feature = "api-24")]
+    pub fn OH_CaptureSession_GetExposureMeteringMode(
+        session: *const Camera_CaptureSession,
+        exposureMeteringMode: *mut OH_Camera_ExposureMeteringMode,
+    ) -> Camera_ErrorCode;
+}
+extern "C" {
+    #[doc = " @brief Set exposure metering mode.\n\n @param session Pointer to the {@link Camera_CaptureSession} instance.\n @param exposureMeteringMode The target {@link OH_Camera_ExposureMeteringMode} to set.\n @return {@link #CAMERA_OK} if the method call succeeds.\n         {@link #CAMERA_INVALID_ARGUMENT} if parameter missing or parameter type incorrect.\n         {@link #CAMERA_OPERATION_NOT_ALLOWED} if operation not allowed, session or inputdevice maybe abnormal.\n         {@link #CAMERA_SESSION_NOT_CONFIG} if the capture session not config.\n @since 24"]
+    #[cfg(feature = "api-24")]
+    pub fn OH_CaptureSession_SetExposureMeteringMode(
+        session: *const Camera_CaptureSession,
+        exposureMeteringMode: OH_Camera_ExposureMeteringMode,
+    ) -> Camera_ErrorCode;
+}
+extern "C" {
+    #[doc = " @brief Query the iso range.\n\n @param session the {@link Camera_CaptureSession} instance.\n @param minIsoValue the minimum of iso value.\n @param maxIsoValue the Maximum of iso value.\n @return {@link #CAMERA_OK} if the method call succeeds.\n         {@link #CAMERA_INVALID_ARGUMENT} if parameter missing or parameter type incorrect.\n         {@link #CAMERA_OPERATION_NOT_ALLOWED} if operation not allowed, session or inputdevice maybe abnormal.\n         {@link #CAMERA_SESSION_NOT_CONFIG} if the capture session not config.\n @since 24"]
+    #[cfg(feature = "api-24")]
+    pub fn OH_CaptureSession_GetSupportedISORange(
+        session: *const Camera_CaptureSession,
+        minIsoValue: *mut i32,
+        maxIsoValue: *mut i32,
+    ) -> Camera_ErrorCode;
+}
+extern "C" {
+    #[doc = " @brief Get current iso sensitivity value, as defined in ISO 12232:2006.\n\n @param session Pointer to the {@link Camera_CaptureSession} instance.\n @param isoValue Pointer to the current iso sensitivity value.\n @return {@link #CAMERA_OK} if the method call succeeds.\n         {@link #CAMERA_INVALID_ARGUMENT} if parameter missing or parameter type incorrect.\n         {@link #CAMERA_OPERATION_NOT_ALLOWED} if operation not allowed, session or inputdevice maybe abnormal.\n         {@link #CAMERA_SESSION_NOT_CONFIG} if the capture session not config.\n @since 24"]
+    #[cfg(feature = "api-24")]
+    pub fn OH_CaptureSession_GetIso(
+        session: *const Camera_CaptureSession,
+        isoValue: *mut i32,
+    ) -> Camera_ErrorCode;
+}
+extern "C" {
+    #[doc = " @brief Sets ISO sensitivity value, within the range of getSupportedIsoRange. This control is only effective if\n ExposureMode is set to EXPOSURE_MODE_LOCKED.\n @param session Pointer to the {@link Camera_CaptureSession} instance.\n @param isoValue Indicates target iso value to set.\n @return {@link #CAMERA_OK} if the method call succeeds.\n         {@link #INVALID_ARGUMENT} if parameter missing or parameter type incorrect.\n         {@link #CAMERA_OPERATION_NOT_ALLOWED} if operation not allowed, session or inputdevice maybe abnormal.\n         {@link #CAMERA_SESSION_NOT_CONFIG} if the capture session not config.\n @since 24"]
+    #[cfg(feature = "api-24")]
+    pub fn OH_CaptureSession_SetIso(
+        session: *const Camera_CaptureSession,
+        isoValue: i32,
+    ) -> Camera_ErrorCode;
+}
+extern "C" {
+    #[doc = " @brief Gets the supported physical apertures list.\n Release the physical apertures memory by calling {@link OH_CaptureSession_DeletePhysicalApertures}.\n\n @param session the {@link Camera_CaptureSession} instance\n @param apertures pointer to an array for storing physical aperture values\n @param size the size of physical apertures.\n @return {@link #CAMERA_OK} success\n         {@link #CAMERA_INVALID_ARGUMENT} if parameter missing or parameter type incorrect.\n         {@link #CAMERA_OPERATION_NOT_ALLOWED} if operation not allowed, session or inputdevice maybe abnormal.\n         {@link #CAMERA_SESSION_NOT_CONFIG} if the capture session not config.\n @since 24"]
+    #[cfg(feature = "api-24")]
+    pub fn OH_CaptureSession_GetSupportedPhysicalApertures(
+        session: *const Camera_CaptureSession,
+        apertures: *mut *mut OH_Camera_PhysicalAperture,
+        size: *mut u32,
+    ) -> Camera_ErrorCode;
+}
+extern "C" {
+    #[doc = " @brief Delete the physical apertures.\n\n @param session the {@link Camera_CaptureSession} instance.\n @param apertures pointer to an array for storing physical aperture values\n @param size the array size of the physical apertures.\n @return {@link #CAMERA_OK} if the method call succeeds.\n         {@link #CAMERA_INVALID_ARGUMENT} if parameter missing or parameter type incorrect.\n @since 24"]
+    #[cfg(feature = "api-24")]
+    pub fn OH_CaptureSession_DeletePhysicalApertures(
+        session: *const Camera_CaptureSession,
+        apertures: *mut OH_Camera_PhysicalAperture,
+        size: u32,
+    ) -> Camera_ErrorCode;
+}
+extern "C" {
+    #[doc = " @brief Gets the current physical aperture value\n\n @param session the {@link Camera_CaptureSession} instance\n @param aperture returned current aperture value\n @return {@link #CAMERA_OK} success\n         {@link #CAMERA_INVALID_ARGUMENT} if parameter missing or parameter type incorrect.\n         {@link #CAMERA_OPERATION_NOT_ALLOWED} if operation not allowed, session or inputdevice maybe abnormal.\n         {@link #CAMERA_SESSION_NOT_CONFIG} if the capture session not config.\n @since 24"]
+    #[cfg(feature = "api-24")]
+    pub fn OH_CaptureSession_GetPhysicalAperture(
+        session: *const Camera_CaptureSession,
+        aperture: *mut f64,
+    ) -> Camera_ErrorCode;
+}
+extern "C" {
+    #[doc = " @brief Set physical aperture value.\n\n @param session the {@link Camera_CaptureSession} instance\n @param aperture the aperture value to set\n @return {@link #CAMERA_OK} success\n         {@link #CAMERA_INVALID_ARGUMENT} if parameter missing or parameter type incorrect.\n         {@link #CAMERA_OPERATION_NOT_ALLOWED} if operation not allowed, session or inputdevice maybe abnormal.\n         {@link #CAMERA_SESSION_NOT_CONFIG} if the capture session not config.\n @since 24"]
+    #[cfg(feature = "api-24")]
+    pub fn OH_CaptureSession_SetPhysicalAperture(
+        session: *const Camera_CaptureSession,
+        aperture: f64,
+    ) -> Camera_ErrorCode;
+}
+extern "C" {
     #[doc = " @brief Query the exposure compensation range.\n\n @param session the {@link Camera_CaptureSession} instance.\n @param minExposureBias the minimum of exposure compensation.\n @param maxExposureBias the Maximum of exposure compensation.\n @param step the step of exposure compensation between each level.\n @return {@link #CAMERA_OK} if the method call succeeds.\n         {@link #INVALID_ARGUMENT} if parameter missing or parameter type incorrect.\n         {@link #CAMERA_SESSION_NOT_CONFIG} if the capture session not config.\n @since 11"]
     pub fn OH_CaptureSession_GetExposureBiasRange(
         session: *mut Camera_CaptureSession,
@@ -1501,6 +1716,52 @@ extern "C" {
     pub fn OH_CaptureSession_GetExposureBias(
         session: *mut Camera_CaptureSession,
         exposureBias: *mut f32,
+    ) -> Camera_ErrorCode;
+}
+extern "C" {
+    #[doc = " @brief Get the supported range of exposure durations. Units: Microseconds.\n\n @param session Pointer to the {@link Camera_CaptureSession} instance.\n @param minExposureDuration Pointer to the minimum of exposure duration.\n @param maxExposureDuration Pointer to the maximum of exposure duration.\n @return {@link #CAMERA_OK} if the method call succeeds.\n         {@link #CAMERA_INVALID_ARGUMENT} if parameter missing or parameter type incorrect.\n         {@link #CAMERA_OPERATION_NOT_ALLOWED} if operation not allowed, session or inputdevice maybe abnormal.\n         {@link #CAMERA_SESSION_NOT_CONFIG} if the capture session not config.\n @since 24"]
+    #[cfg(feature = "api-24")]
+    pub fn OH_CaptureSession_GetSupportedExposureDurationRange(
+        session: *const Camera_CaptureSession,
+        minExposureDuration: *mut i32,
+        maxExposureDuration: *mut i32,
+    ) -> Camera_ErrorCode;
+}
+extern "C" {
+    #[doc = " @brief Set exposure duration. Units: Microseconds.\n If the sensor can't expose this duration exactly,\n     it will shorten the duration to the nearest supported value, which is\n reporeted by Callback {@link OH_CaptureSession_OnExposureDurationChange}.\n\n @param session Pointer to the {@link Camera_CaptureSession} instance.\n @param exposureDuration the target exposure duration to set.\n @return {@link #CAMERA_OK} if the method call succeeds.\n         {@link #CAMERA_INVALID_ARGUMENT} if parameter missing or parameter type incorrect.\n         {@link #CAMERA_OPERATION_NOT_ALLOWED} if operation not allowed, session or inputdevice maybe abnormal.\n         {@link #CAMERA_SESSION_NOT_CONFIG} if the capture session not config.\n @since 24"]
+    #[cfg(feature = "api-24")]
+    pub fn OH_CaptureSession_SetExposureDuration(
+        session: *const Camera_CaptureSession,
+        exposureDuration: i32,
+    ) -> Camera_ErrorCode;
+}
+extern "C" {
+    #[doc = " @brief Get current exposure duration. Units: Microseconds.\n\n @param session Pointer to the {@link Camera_CaptureSession} instance.\n @param exposureDuration Pointer to the current exposure duration.\n @return {@link #CAMERA_OK} if the method call succeeds.\n         {@link #CAMERA_INVALID_ARGUMENT} if parameter missing or parameter type incorrect.\n         {@link #CAMERA_OPERATION_NOT_ALLOWED} if operation not allowed, session or inputdevice maybe abnormal.\n         {@link #CAMERA_SESSION_NOT_CONFIG} if the capture session not config.\n @since 24"]
+    #[cfg(feature = "api-24")]
+    pub fn OH_CaptureSession_GetExposureDuration(
+        session: *const Camera_CaptureSession,
+        exposureDuration: *mut i32,
+    ) -> Camera_ErrorCode;
+}
+#[doc = " @brief Capture session exposure duration change callback.\n\n @param session Pointer to the {@link Camera_CaptureSession} which deliver the callback.\n @param exposureDuration The exposure duration which delivered by the callback.\n @since 24"]
+#[cfg(feature = "api-24")]
+pub type OH_CaptureSession_OnExposureDurationChange = ::std::option::Option<
+    unsafe extern "C" fn(session: *const Camera_CaptureSession, exposureDuration: i32),
+>;
+extern "C" {
+    #[doc = " @brief Register exposure info change event callback.\n    After exposure parameters are changed, the system will returns the updated exposure infos.\n\n @param session Pointer to the {@link Camera_CaptureSession} instance.\n @param exposureDurationChange The {@link OH_CaptureSession_OnExposureDurationChange} to be registered.\n @return {@link #CAMERA_OK} if the method call succeeds.\n {@link #CAMERA_INVALID_ARGUMENT} if parameter missing or parameter type incorrect.\n @since 24"]
+    #[cfg(feature = "api-24")]
+    pub fn OH_CaptureSession_RegisterExposureInfoChangeCallback(
+        session: *const Camera_CaptureSession,
+        exposureDurationChange: OH_CaptureSession_OnExposureDurationChange,
+    ) -> Camera_ErrorCode;
+}
+extern "C" {
+    #[doc = " @brief Unregister exposure info change callback.Invoke this method after finishing camera operations.\n\n @param session Pointer to the {@link Camera_CaptureSession} instance.\n @param exposureDurationChange The {@link OH_CaptureSession_OnExposureDurationChange} to be unregistered.\n @return {@link #CAMERA_OK} if the method call succeeds.\n {@link #CAMERA_INVALID_ARGUMENT} if parameter missing or parameter type incorrect.\n @since 24"]
+    #[cfg(feature = "api-24")]
+    pub fn OH_CaptureSession_UnregisterExposureInfoChangeCallback(
+        session: *const Camera_CaptureSession,
+        exposureDurationChange: OH_CaptureSession_OnExposureDurationChange,
     ) -> Camera_ErrorCode;
 }
 extern "C" {
@@ -1659,6 +1920,30 @@ extern "C" {
     pub fn OH_CaptureSession_GetFocalLength(
         session: *mut Camera_CaptureSession,
         focalLength: *mut f32,
+    ) -> Camera_ErrorCode;
+}
+extern "C" {
+    #[doc = " @brief Get current focus distance, ranging from 0.0 to 1.0, with 0.0 being shortest\n distance at which the lens can focus and 1.0 the furthest. The default value is 1.0.\n\n @param session Pointer to the {@link Camera_CaptureSession} instance.\n @param focusDistance Pointer to the current focus distance.\n @return {@link #CAMERA_OK} if the method call succeeds.\n         {@link #CAMERA_INVALID_ARGUMENT} if parameter missing or parameter type incorrect.\n         {@link #CAMERA_OPERATION_NOT_ALLOWED} if operation not allowed, session or inputdevice maybe abnormal.\n         {@link #CAMERA_SESSION_NOT_CONFIG} if the capture session not config.\n @since 24"]
+    #[cfg(feature = "api-24")]
+    pub fn OH_CaptureSession_GetFocusDistance(
+        session: *const Camera_CaptureSession,
+        focusDistance: *mut f32,
+    ) -> Camera_ErrorCode;
+}
+extern "C" {
+    #[doc = " @brief Sets focus distance. Possible distance values range from 0.0 to 1.0, with 0.0 being shortest\n distance at which the lens can focus and 1.0 the furthest. The default value is 1.0.\n\n @param session Pointer to the {@link Camera_CaptureSession} instance.\n @param focusDistance The focus distance to be set.\n @return {@link #CAMERA_OK} if the method call succeeds.\n         {@link #INVALID_ARGUMENT} if parameter missing or parameter type incorrect.\n         {@link #CAMERA_OPERATION_NOT_ALLOWED} if operation not allowed, session or inputdevice maybe abnormal.\n         {@link #CAMERA_SESSION_NOT_CONFIG} if the capture session not config.\n @since 24"]
+    #[cfg(feature = "api-24")]
+    pub fn OH_CaptureSession_SetFocusDistance(
+        session: *const Camera_CaptureSession,
+        focusDistance: f32,
+    ) -> Camera_ErrorCode;
+}
+extern "C" {
+    #[doc = " @brief Check whether focus distance is supported.\n\n @param session Pointer to the {@link Camera_CaptureSession} instance.\n @param isSupported Pointer to the result of whether focus distance is supported.\n @return {@link #CAMERA_OK} if the method call succeeds.\n         {@link #CAMERA_INVALID_ARGUMENT} if parameter missing or parameter type incorrect.\n         {@link #CAMERA_SESSION_NOT_CONFIG} if the capture session not config.\n @since 24"]
+    #[cfg(feature = "api-24")]
+    pub fn OH_CaptureSession_IsFocusDistanceSupported(
+        session: *const Camera_CaptureSession,
+        isSupported: *mut bool,
     ) -> Camera_ErrorCode;
 }
 extern "C" {
@@ -1919,6 +2204,69 @@ extern "C" {
         isoChange: OH_CaptureSession_OnIsoChange,
     ) -> Camera_ErrorCode;
 }
+extern "C" {
+    #[doc = " @brief Query the raw zoom range.\n\n @param session the {@link Camera_CaptureSession} instance.\n @param minZoom the minimum of zoom value.\n @param maxZoom the Maximum of zoom value.\n @return {@link #CAMERA_OK} if the method call succeeds.\n         {@link #INVALID_ARGUMENT} if parameter missing or parameter type incorrect.\n          {@link #CAMERA_OPERATION_NOT_ALLOWED} if operation not allowed, session or inputdevice maybe abnormal.\n         {@link #CAMERA_SESSION_NOT_CONFIG} if the capture session not config.\n @since 24"]
+    #[cfg(feature = "api-24")]
+    pub fn OH_CaptureSession_GetRAWCaptureZoomRatioRange(
+        session: *const Camera_CaptureSession,
+        minZoom: *mut f32,
+        maxZoom: *mut f32,
+    ) -> Camera_ErrorCode;
+}
+extern "C" {
+    #[doc = " @brief Checks if the specified OIS mode is supported.\n\n @param session Pointer to a session.\n @param oisMode The OIS mode {@link OH_Camera_OISMode} to check.\n @param isSupported Output parameter indicating support status.\n @return {@link #CAMERA_OK} if the method call succeeds.\n         {@link #CAMERA_INVALID_ARGUMENT} if parameters are invalid.\n         {@link #CAMERA_OPERATION_NOT_ALLOWED} if operation is not allowed.\n         {@link #CAMERA_SESSION_NOT_CONFIG} if the capture session not config.\n @since 24"]
+    #[cfg(feature = "api-24")]
+    pub fn OH_CaptureSession_IsOISModeSupported(
+        session: *const Camera_CaptureSession,
+        oisMode: OH_Camera_OISMode,
+        isSupported: *mut bool,
+    ) -> Camera_ErrorCode;
+}
+extern "C" {
+    #[doc = " @brief Gets the supported bias range for the specified OIS axis.\n\n @param session Pointer to a session.\n @param oisAxis The OIS axis {@link OH_Camera_OISAxes}\n @param minBias Output parameter for minimum bias value.\n @param maxBias Output parameter for maximum bias value.\n @param step Output parameter for bias step value.\n @return {@link #CAMERA_OK} if the method call succeeds.\n         {@link #CAMERA_INVALID_ARGUMENT} if parameters are invalid.\n         {@link #CAMERA_OPERATION_NOT_ALLOWED} if operation is not allowed.\n         {@link #CAMERA_SESSION_NOT_CONFIG} if the capture session not config.\n @since 24"]
+    #[cfg(feature = "api-24")]
+    pub fn OH_CaptureSession_GetSupportedOISBiasRange(
+        session: *const Camera_CaptureSession,
+        oisAxis: OH_Camera_OISAxes,
+        minBias: *mut f32,
+        maxBias: *mut f32,
+        step: *mut f32,
+    ) -> Camera_ErrorCode;
+}
+extern "C" {
+    #[doc = " @brief Gets the current OIS mode.\n\n @param session Pointer to a session.\n @param oisMode Output parameter for current OIS mode {@link OH_Camera_OISMode}.\n @return {@link #CAMERA_OK} if the method call succeeds.\n         {@link #CAMERA_INVALID_ARGUMENT} if parameters are invalid.\n         {@link #CAMERA_OPERATION_NOT_ALLOWED} if operation is not allowed.\n         {@link #CAMERA_SESSION_NOT_CONFIG} if the capture session not config.\n @since 24"]
+    #[cfg(feature = "api-24")]
+    pub fn OH_CaptureSession_GetCurrentOISMode(
+        session: *const Camera_CaptureSession,
+        oisMode: *mut OH_Camera_OISMode,
+    ) -> Camera_ErrorCode;
+}
+extern "C" {
+    #[doc = " @brief Gets the current custom bias values for all OIS axes.\n\n @param session Pointer to a session.\n @param pitchBias Output parameter for pitch axis bias value.\n @param yawBias Output parameter for yaw axis bias value.\n @return {@link #CAMERA_OK} if the method call succeeds.\n         {@link #CAMERA_INVALID_ARGUMENT} if parameters are invalid.\n         {@link #CAMERA_OPERATION_NOT_ALLOWED} if operation is not allowed.\n         {@link #CAMERA_SESSION_NOT_CONFIG} if the capture session not config.\n @since 24"]
+    #[cfg(feature = "api-24")]
+    pub fn OH_CaptureSession_GetCurrentCustomOISBias(
+        session: *const Camera_CaptureSession,
+        pitchBias: *mut f32,
+        yawBias: *mut f32,
+    ) -> Camera_ErrorCode;
+}
+extern "C" {
+    #[doc = " @brief Sets the OIS mode.\n\n @param session Pointer to a session.\n @param oisMode The OIS mode {@link OH_Camera_OISMode} to set.\n @return {@link #CAMERA_OK} if the method call succeeds.\n         {@link #CAMERA_INVALID_ARGUMENT} if parameters are invalid.\n         {@link #CAMERA_OPERATION_NOT_ALLOWED} if operation is not allowed.\n         {@link #CAMERA_SESSION_NOT_CONFIG} if the capture session not config.\n @since 24"]
+    #[cfg(feature = "api-24")]
+    pub fn OH_CaptureSession_SetOISMode(
+        session: *const Camera_CaptureSession,
+        oisMode: OH_Camera_OISMode,
+    ) -> Camera_ErrorCode;
+}
+extern "C" {
+    #[doc = " @brief Sets custom OIS bias values for all axes.\n\n @param session Pointer to a session.\n @param pitchBias Bias value for pitch axis.\n @param yawBias Bias value for yaw axis.\n @return {@link #CAMERA_OK} if the method call succeeds.\n         {@link #CAMERA_INVALID_ARGUMENT} if parameters are invalid.\n         {@link #CAMERA_OPERATION_NOT_ALLOWED} if operation is not allowed.\n         {@link #CAMERA_SESSION_NOT_CONFIG} if the capture session not config.\n @since 24"]
+    #[cfg(feature = "api-24")]
+    pub fn OH_CaptureSession_SetOISModeCustom(
+        session: *const Camera_CaptureSession,
+        pitchBias: f32,
+        yawBias: f32,
+    ) -> Camera_ErrorCode;
+}
 #[doc = " @brief Camera manager status callback to be called in {@link CameraManager_Callbacks}.\n\n @param cameraManager the {@link Camera_Manager} which deliver the callback.\n @param status the {@link Camera_StatusInfo} of each camera device.\n @since 11"]
 pub type OH_CameraManager_StatusCallback = ::std::option::Option<
     unsafe extern "C" fn(cameraManager: *mut Camera_Manager, status: *mut Camera_StatusInfo),
@@ -2011,7 +2359,7 @@ extern "C" {
     ) -> Camera_ErrorCode;
 }
 extern "C" {
-    #[doc = " @brief Gets supported output capability for specific camera and specific sceneMode.\n\n @param cameraManager the {@link Camera_Manager} instance.\n @param camera the {@link Camera_Device} to be queryed.\n @param sceneMode the {@link Camera_SceneMode} to be queryed.\n @param cameraOutputCapability the supported {@link Camera_OutputCapability} will be filled\n        if the method call succeeds.\n @return {@link #CAMERA_OK} if the method call succeeds.\n         {@link #CAMERA_INVALID_ARGUMENT} if parameter missing or parameter type incorrect.\n         {@link #CAMERA_SERVICE_FATAL_ERROR} if camera service fatal error.\n @since 12"]
+    #[doc = " @brief Gets supported output capability for specific camera and specific sceneMode.\n\n @param cameraManager the {@link Camera_Manager} instance.\n @param camera the {@link Camera_Device} to be queried.\n @param sceneMode the {@link Camera_SceneMode} to be queried.\n @param cameraOutputCapability the supported {@link Camera_OutputCapability} will be filled\n        if the method call succeeds.\n @return {@link #CAMERA_OK} if the method call succeeds.\n         {@link #CAMERA_INVALID_ARGUMENT} if parameter missing or parameter type incorrect.\n         {@link #CAMERA_SERVICE_FATAL_ERROR} if camera service fatal error.\n @since 12"]
     pub fn OH_CameraManager_GetSupportedCameraOutputCapabilityWithSceneMode(
         cameraManager: *mut Camera_Manager,
         camera: *const Camera_Device,
@@ -2068,7 +2416,7 @@ extern "C" {
     ) -> Camera_ErrorCode;
 }
 extern "C" {
-    #[doc = " @brief Create a preview output instance.\n\n @param cameraManager the {@link Camera_Manager} instance.\n @param profile the {@link Camera_Profile} to create {@link Camera_PreviewOutput}.\n @param surfaceId the which use to create {@link Camera_PreviewOutput}.\n @param previewOutput the {@link Camera_PreviewOutput} will be created if the method call succeeds.\n @return {@link #CAMERA_OK} if the method call succeeds.\n         {@link #INVALID_ARGUMENT} if parameter missing or parameter type incorrect.\n         {@link #CAMERA_SERVICE_FATAL_ERROR} if camera service fatal error.\n @since 11"]
+    #[doc = " @brief Create a preview output instance.\n\n @param cameraManager the {@link Camera_Manager} instance.\n @param profile the {@link Camera_Profile} to create {@link Camera_PreviewOutput}.\n @param surfaceId the identifier used to create {@link Camera_PreviewOutput}.\n @param previewOutput the {@link Camera_PreviewOutput} will be created if the method call succeeds.\n @return {@link #CAMERA_OK} if the method call succeeds.\n         {@link #INVALID_ARGUMENT} if parameter missing or parameter type incorrect.\n         {@link #CAMERA_SERVICE_FATAL_ERROR} if camera service fatal error.\n @since 11"]
     pub fn OH_CameraManager_CreatePreviewOutput(
         cameraManager: *mut Camera_Manager,
         profile: *const Camera_Profile,
@@ -2077,7 +2425,16 @@ extern "C" {
     ) -> Camera_ErrorCode;
 }
 extern "C" {
-    #[doc = " @brief Create a preview output instance used in preconfig.\n\n @param cameraManager the {@link Camera_Manager} instance.\n @param surfaceId the which use to create {@link Camera_PreviewOutput}.\n @param previewOutput the {@link Camera_PreviewOutput} will be created if the method call succeeds.\n @return {@link #CAMERA_OK} if the method call succeeds.\n         {@link #CAMERA_INVALID_ARGUMENT} if parameter missing or parameter type incorrect.\n         {@link #CAMERA_SERVICE_FATAL_ERROR} if camera service fatal error.\n @since 12"]
+    #[doc = " @brief Create a defer preview output instance.The caller must call {@link OH_PreviewOutput_Release}\n     to free the memory of the output.\n\n @param cameraManager the {@link Camera_Manager} instance.\n @param profile the {@link Camera_Profile} to create {@link Camera_PreviewOutput}.\n @param previewOutput the {@link Camera_PreviewOutput} will be created if the method call succeeds.\n @return {@link #CAMERA_OK} if the method call succeeds.\n         {@link #CAMERA_INVALID_ARGUMENT} if parameter missing or parameter type incorrect.\n         {@link #CAMERA_SERVICE_FATAL_ERROR} if camera service fatal error.\n @since 24"]
+    #[cfg(feature = "api-24")]
+    pub fn OH_CameraManager_CreateDeferredPreviewOutput(
+        cameraManager: *const Camera_Manager,
+        profile: *const Camera_Profile,
+        previewOutput: *mut *mut Camera_PreviewOutput,
+    ) -> Camera_ErrorCode;
+}
+extern "C" {
+    #[doc = " @brief Create a preview output instance used in preconfig.\n\n @param cameraManager the {@link Camera_Manager} instance.\n @param surfaceId the identifier used to create {@link Camera_PreviewOutput}.\n @param previewOutput the {@link Camera_PreviewOutput} will be created if the method call succeeds.\n @return {@link #CAMERA_OK} if the method call succeeds.\n         {@link #CAMERA_INVALID_ARGUMENT} if parameter missing or parameter type incorrect.\n         {@link #CAMERA_SERVICE_FATAL_ERROR} if camera service fatal error.\n @since 12"]
     pub fn OH_CameraManager_CreatePreviewOutputUsedInPreconfig(
         cameraManager: *mut Camera_Manager,
         surfaceId: *const ::std::os::raw::c_char,
@@ -2085,7 +2442,7 @@ extern "C" {
     ) -> Camera_ErrorCode;
 }
 extern "C" {
-    #[doc = " @brief Create a photo output instance.\n\n @param cameraManager the {@link Camera_Manager} instance.\n @param profile the {@link Camera_Profile} to create {@link Camera_PhotoOutput}.\n @param surfaceId the which use to create {@link Camera_PhotoOutput}.\n @param photoOutput the {@link Camera_PhotoOutput} will be created if the method call succeeds.\n @return {@link #CAMERA_OK} if the method call succeeds.\n         {@link #INVALID_ARGUMENT} if parameter missing or parameter type incorrect.\n         {@link #CAMERA_SERVICE_FATAL_ERROR} if camera service fatal error.\n @since 11"]
+    #[doc = " @brief Create a photo output instance.\n\n @param cameraManager the {@link Camera_Manager} instance.\n @param profile the {@link Camera_Profile} to create {@link Camera_PhotoOutput}.\n @param surfaceId the identifier used to create {@link Camera_PhotoOutput}.\n @param photoOutput the {@link Camera_PhotoOutput} will be created if the method call succeeds.\n @return {@link #CAMERA_OK} if the method call succeeds.\n         {@link #INVALID_ARGUMENT} if parameter missing or parameter type incorrect.\n         {@link #CAMERA_SERVICE_FATAL_ERROR} if camera service fatal error.\n @since 11"]
     pub fn OH_CameraManager_CreatePhotoOutput(
         cameraManager: *mut Camera_Manager,
         profile: *const Camera_Profile,
@@ -2094,7 +2451,7 @@ extern "C" {
     ) -> Camera_ErrorCode;
 }
 extern "C" {
-    #[doc = " @brief Create a photo output instance used in preconfig.\n\n @param cameraManager the {@link Camera_Manager} instance.\n @param surfaceId the which use to create {@link Camera_PhotoOutput}.\n @param photoOutput the {@link Camera_PhotoOutput} will be created if the method call succeeds.\n @return {@link #CAMERA_OK} if the method call succeeds.\n         {@link #CAMERA_INVALID_ARGUMENT} if parameter missing or parameter type incorrect.\n         {@link #CAMERA_SERVICE_FATAL_ERROR} if camera service fatal error.\n @since 12"]
+    #[doc = " @brief Create a photo output instance used in preconfig.\n\n @param cameraManager the {@link Camera_Manager} instance.\n @param surfaceId the identifier used to create {@link Camera_PhotoOutput}.\n @param photoOutput the {@link Camera_PhotoOutput} will be created if the method call succeeds.\n @return {@link #CAMERA_OK} if the method call succeeds.\n         {@link #CAMERA_INVALID_ARGUMENT} if parameter missing or parameter type incorrect.\n         {@link #CAMERA_SERVICE_FATAL_ERROR} if camera service fatal error.\n @since 12"]
     pub fn OH_CameraManager_CreatePhotoOutputUsedInPreconfig(
         cameraManager: *mut Camera_Manager,
         surfaceId: *const ::std::os::raw::c_char,
@@ -2110,7 +2467,7 @@ extern "C" {
     ) -> Camera_ErrorCode;
 }
 extern "C" {
-    #[doc = " @brief Create a video output instance.\n\n @param cameraManager the {@link Camera_Manager} instance.\n @param profile the {@link Camera_VideoProfile} to create {@link Camera_VideoOutput}.\n @param surfaceId the which use to create {@link Camera_VideoOutput}.\n @param videoOutput the {@link Camera_VideoOutput} will be created if the method call succeeds.\n @return {@link #CAMERA_OK} if the method call succeeds.\n         {@link #INVALID_ARGUMENT} if parameter missing or parameter type incorrect.\n         {@link #CAMERA_SERVICE_FATAL_ERROR} if camera service fatal error.\n @since 11"]
+    #[doc = " @brief Create a video output instance.\n\n @param cameraManager the {@link Camera_Manager} instance.\n @param profile the {@link Camera_VideoProfile} to create {@link Camera_VideoOutput}.\n @param surfaceId the identifier used to create {@link Camera_VideoOutput}.\n @param videoOutput the {@link Camera_VideoOutput} will be created if the method call succeeds.\n @return {@link #CAMERA_OK} if the method call succeeds.\n         {@link #INVALID_ARGUMENT} if parameter missing or parameter type incorrect.\n         {@link #CAMERA_SERVICE_FATAL_ERROR} if camera service fatal error.\n @since 11"]
     pub fn OH_CameraManager_CreateVideoOutput(
         cameraManager: *mut Camera_Manager,
         profile: *const Camera_VideoProfile,
@@ -2119,7 +2476,7 @@ extern "C" {
     ) -> Camera_ErrorCode;
 }
 extern "C" {
-    #[doc = " @brief Create a video output instance used in preconfig.\n\n @param cameraManager the {@link Camera_Manager} instance.\n @param surfaceId the which use to create {@link Camera_VideoOutput}.\n @param videoOutput the {@link Camera_VideoOutput} will be created if the method call succeeds.\n @return {@link #CAMERA_OK} if the method call succeeds.\n         {@link #CAMERA_INVALID_ARGUMENT} if parameter missing or parameter type incorrect.\n         {@link #CAMERA_SERVICE_FATAL_ERROR} if camera service fatal error.\n @since 12"]
+    #[doc = " @brief Create a video output instance used in preconfig.\n\n @param cameraManager the {@link Camera_Manager} instance.\n @param surfaceId the identifier used to create {@link Camera_VideoOutput}.\n @param videoOutput the {@link Camera_VideoOutput} will be created if the method call succeeds.\n @return {@link #CAMERA_OK} if the method call succeeds.\n         {@link #CAMERA_INVALID_ARGUMENT} if parameter missing or parameter type incorrect.\n         {@link #CAMERA_SERVICE_FATAL_ERROR} if camera service fatal error.\n @since 12"]
     pub fn OH_CameraManager_CreateVideoOutputUsedInPreconfig(
         cameraManager: *mut Camera_Manager,
         surfaceId: *const ::std::os::raw::c_char,
@@ -2145,7 +2502,7 @@ extern "C" {
     ) -> Camera_ErrorCode;
 }
 extern "C" {
-    #[doc = " @brief Gets supported scene mode for specific camera.\n\n @param camera the {@link Camera_Device} to be queryed.\n @param sceneModes the supported {@link Camera_SceneMode} will be filled if the method call succeeds.\n @param size the size of supported {@link Camera_SceneMode} list will be filled if the method call succeeds.\n @return {@link #CAMERA_OK} if the method call succeeds.\n         {@link #CAMERA_INVALID_ARGUMENT} if parameter missing or parameter type incorrect.\n         {@link #CAMERA_SERVICE_FATAL_ERROR} if camera service fatal error.\n @since 12"]
+    #[doc = " @brief Gets supported scene mode for specific camera.\n\n @param camera the {@link Camera_Device} to be queried.\n @param sceneModes the supported {@link Camera_SceneMode} will be filled if the method call succeeds.\n @param size the size of supported {@link Camera_SceneMode} list will be filled if the method call succeeds.\n @return {@link #CAMERA_OK} if the method call succeeds.\n         {@link #CAMERA_INVALID_ARGUMENT} if parameter missing or parameter type incorrect.\n         {@link #CAMERA_SERVICE_FATAL_ERROR} if camera service fatal error.\n @since 12"]
     pub fn OH_CameraManager_GetSupportedSceneModes(
         camera: *mut Camera_Device,
         sceneModes: *mut *mut Camera_SceneMode,

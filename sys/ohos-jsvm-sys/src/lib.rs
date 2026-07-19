@@ -308,6 +308,12 @@ pub const JSVM_CompileOptionId_JSVM_COMPILE_SCRIPT_ORIGIN: JSVM_CompileOptionId 
 pub const JSVM_CompileOptionId_JSVM_COMPILE_COMPILE_PROFILE: JSVM_CompileOptionId = 3;
 #[doc = " switch for source map support."]
 pub const JSVM_CompileOptionId_JSVM_COMPILE_ENABLE_SOURCE_MAP: JSVM_CompileOptionId = 4;
+#[doc = " background deserialize code cache result.\n @since 24"]
+#[cfg(feature = "api-24")]
+pub const JSVM_CompileOptionId_JSVM_COMPILE_BACKGROUND_DESERIALIZE_RESULT: JSVM_CompileOptionId = 5;
+#[doc = " whether the code cache is rejected.\n @since 24"]
+#[cfg(feature = "api-24")]
+pub const JSVM_CompileOptionId_JSVM_COMPILE_CODE_CACHE_REJECTED: JSVM_CompileOptionId = 6;
 #[doc = " @brief Compile option id\n\n @since 12"]
 pub type JSVM_CompileOptionId = u32;
 #[doc = " @brief Heap statisics.\n\n @since 12"]
@@ -827,6 +833,14 @@ pub const JSVM_DebugOption_JSVM_SCOPE_CHECK: JSVM_DebugOption = 0;
 #[doc = " @brief Debug options.\n\n @since 20"]
 #[cfg(feature = "api-20")]
 pub type JSVM_DebugOption = u32;
+#[repr(C)]
+#[derive(Debug, Copy, Clone)]
+pub struct JSVM_DeserializeResult__ {
+    _unused: [u8; 0],
+}
+#[doc = " @brief To represent a JavaScript background deserialize result.\n\n @since 24"]
+#[cfg(feature = "api-24")]
+pub type JSVM_DeserializeResult = *mut JSVM_DeserializeResult__;
 extern "C" {
     #[doc = " @brief Init a JavaScript vm.\n\n @param  options The options for initialize the JavaScript VM.\n @return Returns JSVM funtions result code.\n         {@link JSVM_OK } if the API succeeded. \\n\n         {@link JSVM_GENERIC_FAILURE } If the execution fails, it means that the current process has completed\n                                       JSVM initialization and there is no need to repeat the execution.\\n\n @since 11"]
     pub fn OH_JSVM_Init(options: *const JSVM_InitOptions) -> JSVM_Status;
@@ -2461,4 +2475,18 @@ extern "C" {
         handler: JSVM_HandlerForGC,
         userData: *mut ::std::os::raw::c_void,
     ) -> JSVM_Status;
+}
+extern "C" {
+    #[doc = " @brief Deserialize JavaScript code cache in thread pool, and release\n JSVM_DeserializeResult with OH_JSVM_ReleaseDeserializeResult.\n\n @param vm The VM instance where background deserialize will be performed.\n @param cacheData Code cache data to be deserialized.\n @param result The result of background deserialize.\n @return Returns JSVM funtions result code.\n         {@link JSVM_OK } if the function executed successfully.\\n\n         {@link JSVM_INVALID_ARG } if any of the pointer arguments is NULL.\\n\n @since 24"]
+    #[cfg(feature = "api-24")]
+    pub fn OH_JSVM_BackgroundDeserialize(
+        vm: JSVM_VM,
+        cacheData: JSVM_CodeCache,
+        result: *mut JSVM_DeserializeResult,
+    ) -> JSVM_Status;
+}
+extern "C" {
+    #[doc = " @brief Release deserialize result.\n\n @param result The background deserialize result to be release.\n @return Returns JSVM funtions result code.\n         {@link JSVM_OK } if the function executed successfully.\\n\n         {@link JSVM_INVALID_ARG } if any of the pointer arguments is NULL.\\n\n @since 24"]
+    #[cfg(feature = "api-24")]
+    pub fn OH_JSVM_ReleaseDeserializeResult(result: JSVM_DeserializeResult) -> JSVM_Status;
 }

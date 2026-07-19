@@ -982,6 +982,7 @@ api-20  = ["api-19"]
 api-21  = ["api-20"]
 api-22  = ["api-21"]
 api-23  = ["api-22"]
+api-24  = ["api-23"]
 
 [lints]
 workspace = true
@@ -989,15 +990,95 @@ workspace = true
     )
 }
 
-fn generate_code(config: &SysConfig) -> anyhow::Result<std::path::PathBuf> {
+fn max_manifest_api_feature(content: &str) -> Option<u32> {
+    let api_feature_re = Regex::new(r"(?m)^api-(\d+)\s*=").unwrap();
+    api_feature_re
+        .captures_iter(content)
+        .filter_map(|capture| capture[1].parse::<u32>().ok())
+        .max()
+}
+
+fn manifest_feature_entry(content: &str, version: u32) -> Option<(usize, usize)> {
+    let feature_re = Regex::new(&format!(r"(?m)^api-{version}\s*=")).unwrap();
+    let start = feature_re.find(content)?.start();
+    let mut end = start;
+    let mut bracket_depth = 0_i32;
+    let mut saw_bracket = false;
+
+    for line in content[start..].split_inclusive('\n') {
+        for ch in line.chars() {
+            match ch {
+                '[' => {
+                    saw_bracket = true;
+                    bracket_depth += 1;
+                }
+                ']' => bracket_depth -= 1,
+                _ => {}
+            }
+        }
+        end += line.len();
+        if saw_bracket && bracket_depth == 0 {
+            return Some((start, end));
+        }
+    }
+
+    (saw_bracket && bracket_depth == 0).then_some((start, end))
+}
+
+fn sync_manifest_api_features(path: &Path, target_version: u32) -> anyhow::Result<()> {
+    let mut content = fs::read_to_string(path)?;
+    let original = content.clone();
+
+    loop {
+        let current_version = max_manifest_api_feature(&content).ok_or_else(|| {
+            Error::msg(format!(
+                "No API feature entries found in {}",
+                path.display()
+            ))
+        })?;
+        if current_version >= target_version {
+            break;
+        }
+
+        let (start, end) = manifest_feature_entry(&content, current_version).ok_or_else(|| {
+            Error::msg(format!(
+                "Could not locate api-{current_version} feature entry in {}",
+                path.display()
+            ))
+        })?;
+        let next_version = current_version + 1;
+        let mut next_entry = content[start..end].replace(
+            &format!("api-{current_version}"),
+            &format!("api-{next_version}"),
+        );
+        if current_version > BASELINE_API_VERSION + 1 {
+            next_entry = next_entry.replace(
+                &format!("\"api-{}\"", current_version - 1),
+                &format!("\"api-{current_version}\""),
+            );
+        }
+        content.insert_str(end, &next_entry);
+    }
+
+    if content != original {
+        fs::write(path, content)?;
+    }
+    Ok(())
+}
+
+fn sys_crate_folder(config: &SysConfig) -> anyhow::Result<std::path::PathBuf> {
     let pwd = env::current_dir()?;
-    let basic_folder = pwd
+    Ok(pwd
         .parent()
         .ok_or(Error::msg("Get parent path failed"))?
         .parent()
         .ok_or(Error::msg("Get parent path failed"))?
         .join("sys")
-        .join(config.name);
+        .join(config.name))
+}
+
+fn generate_code(config: &SysConfig) -> anyhow::Result<std::path::PathBuf> {
+    let basic_folder = sys_crate_folder(config)?;
 
     let mut created_new_crate = false;
     if !basic_folder.is_dir() {
@@ -1141,14 +1222,41 @@ fn main() {
         }
     }
 
+    let mut max_generated_api_version = BASELINE_API_VERSION;
     for (name, output_file, content) in raw_outputs {
-        let (processed_content, _, _) = add_feature_gates(&content, Some(&global_symbol_usage_min));
+        let (processed_content, api_versions, _) =
+            add_feature_gates(&content, Some(&global_symbol_usage_min));
+        if let Some(version) = api_versions.last() {
+            max_generated_api_version = max_generated_api_version.max(*version);
+        }
         if let Err(e) = fs::write(&output_file, processed_content) {
             eprintln!("Failed to write generated code for {}: {}", name, e);
             failed_configs.push(name);
         } else if let Err(e) = format_rust_file(&output_file) {
             eprintln!("Failed to format generated code for {}: {}", name, e);
             failed_configs.push(name);
+        }
+    }
+
+    for config in CONFIG.iter() {
+        let manifest_path = match sys_crate_folder(config) {
+            Ok(crate_dir) => crate_dir.join("Cargo.toml"),
+            Err(e) => {
+                eprintln!(
+                    "Failed to locate manifest for {} while synchronizing API features: {}",
+                    config.name, e
+                );
+                failed_configs.push(config.name);
+                continue;
+            }
+        };
+        if let Err(e) = sync_manifest_api_features(&manifest_path, max_generated_api_version) {
+            eprintln!(
+                "Failed to synchronize API features for {}: {}",
+                manifest_path.display(),
+                e
+            );
+            failed_configs.push(config.name);
         }
     }
 

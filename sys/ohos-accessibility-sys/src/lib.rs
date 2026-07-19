@@ -873,3 +873,11 @@ extern "C" {
         provider: *mut *mut ArkUI_AccessibilityProvider,
     ) -> i32;
 }
+extern "C" {
+    #[doc = " @brief Sets the component identifier for an <b>ArkUI_AccessibilityElementInfo</b> object.\n\n @param elementInfo Indicates the pointer to an <b>ArkUI_AccessibilityElementInfo</b> object.\n @param identifier Indicates the component identifier. A string up to 1024 bytes.\n @return Returns {@link ARKUI_ACCESSIBILITY_NATIVE_RESULT_SUCCESSFUL} if the operation is successful.\n         Returns {@link ARKUI_ACCESSIBILITY_NATIVE_RESULT_BAD_PARAMETER} if a parameter is incorrect.\n @since 24"]
+    #[cfg(feature = "api-24")]
+    pub fn OH_ArkUI_AccessibilityElementInfoSetComponentIdentifier(
+        elementInfo: *mut ArkUI_AccessibilityElementInfo,
+        identifier: *const ::std::os::raw::c_char,
+    ) -> i32;
+}

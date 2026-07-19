@@ -18,5 +18,6 @@ api-20  = ["api-19"]
 api-21  = ["api-20"]
 api-22  = ["api-21"]
 api-23  = ["api-22"]
+api-24  = ["api-23"]
 
 [dependencies]

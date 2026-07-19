@@ -19,10 +19,10 @@ pub const ResourceManager_ErrorCode_ERROR_CODE_INVALID_INPUT_PARAMETER: Resource
 #[doc = " @error Invalid resource ID"]
 pub const ResourceManager_ErrorCode_ERROR_CODE_RES_ID_NOT_FOUND: ResourceManager_ErrorCode =
     9001001;
-#[doc = " @error Invalid resource name"]
+#[doc = " @error No matching resource is found based on the resource ID"]
 pub const ResourceManager_ErrorCode_ERROR_CODE_RES_NOT_FOUND_BY_ID: ResourceManager_ErrorCode =
     9001002;
-#[doc = " @error No matching resource is found based on the resource ID"]
+#[doc = " @error Invalid resource name"]
 pub const ResourceManager_ErrorCode_ERROR_CODE_RES_NAME_NOT_FOUND: ResourceManager_ErrorCode =
     9001003;
 #[doc = " @error No matching resource is found based on the resource name"]
@@ -277,7 +277,7 @@ pub struct NativeResourceManager {
     _unused: [u8; 0],
 }
 extern "C" {
-    #[doc = " @brief Obtains the native resource manager based on the JavaScipt resource manager.\n\n You need to obtain the resource manager to process raw files as required.\n\n @param env Indicates the pointer to the JavaScipt Native Interface (napi) environment.\n @param jsResMgr Indicates the JavaScipt resource manager.\n @return Returns the pointer to {@link NativeResourceManager}. If failed returns nullptr.\n @since 8\n @version 1.0"]
+    #[doc = " @brief Obtains the native resource manager based on the JavaScript resource manager.\n\n You need to obtain the resource manager to process raw files as required.\n\n @param env Indicates the pointer to the JavaScript Native Interface (napi) environment.\n @param jsResMgr Indicates the JavaScript resource manager.\n @return Returns the pointer to {@link NativeResourceManager}. If failed returns nullptr.\n @since 8\n @version 1.0"]
     pub fn OH_ResourceManager_InitNativeResourceManager(
         env: napi_env,
         jsResMgr: napi_value,
