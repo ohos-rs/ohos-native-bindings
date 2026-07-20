@@ -52,6 +52,7 @@ static CONFIG: Lazy<Vec<Lazy<SysConfig>>> = Lazy::new(|| {
         config::JSVM,
         config::CAMERA,
         config::OPENGTX,
+        config::HUKS,
     ]
 });
 

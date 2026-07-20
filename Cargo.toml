@@ -38,6 +38,7 @@ ohos-arkui-input-binding            = { version = "0.1.1", path = "crates/arkui_
 ohos-jsvm-binding                   = { version = "0.1.1", path = "crates/jsvm" }
 hms-opengtx-binding                 = { version = "0.1.1", path = "crates/opengtx" }
 ohos-camera-binding                 = { version = "0.1.1", path = "crates/camera" }
+ohos-huks-binding                   = { version = "0.1.0", path = "crates/huks" }
 
 ohos-bundle-sys                 = { version = "0.1.1", path = "sys/ohos-bundle-sys" }
 ohos-init-sys                   = { version = "0.1.1", path = "sys/ohos-init-sys" }
@@ -72,6 +73,7 @@ ohos-arkui-input-sys            = { version = "0.1.1", path = "sys/ohos-arkui-in
 ohos-jsvm-sys                   = { version = "0.1.1", path = "sys/ohos-jsvm-sys" }
 hms-opengtx-sys                 = { version = "0.1.1", path = "sys/hms-opengtx-sys" }
 ohos-camera-sys                 = { version = "0.1.0", path = "sys/ohos-camera-sys" }
+ohos-huks-sys                   = { version = "0.1.0", path = "sys/ohos-huks-sys" }
 
 ohos-enum-derive = { version = "0.1.1", path = "crates/enum_derive" }
 
