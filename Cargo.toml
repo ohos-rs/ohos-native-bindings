@@ -74,6 +74,7 @@ ohos-jsvm-sys                   = { version = "0.1.1", path = "sys/ohos-jsvm-sys
 hms-opengtx-sys                 = { version = "0.1.1", path = "sys/hms-opengtx-sys" }
 ohos-camera-sys                 = { version = "0.1.0", path = "sys/ohos-camera-sys" }
 ohos-huks-sys                   = { version = "0.1.0", path = "sys/ohos-huks-sys" }
+ohos-hicollie-sys               = { version = "0.1.0", path = "sys/ohos-hicollie-sys" }
 
 ohos-enum-derive = { version = "0.1.1", path = "crates/enum_derive" }
 
