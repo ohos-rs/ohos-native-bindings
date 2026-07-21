@@ -79,7 +79,7 @@ fn add_feature_gates(
     let static_re = Regex::new(r"^pub static (?:mut )?([A-Za-z_]\w*)\s*:").unwrap();
     let self_alias_re = Regex::new(r"^pub use self::([A-Za-z_]\w*) as ([A-Za-z_]\w*);").unwrap();
     // `impl X {` and `impl Trait for X {` both anchor on the implementing type X.
-    let impl_re = Regex::new(r"^impl\s+(?:.+\s+for\s+)?(?P<ty>[A-Za-z_]\w*)").unwrap();
+    let impl_re = Regex::new(r"^impl\s+(?:.+\s+for\s+)?(?P<ty>[A-Za-z_]\w*)\b").unwrap();
     let ident_re = Regex::new(r"\b([A-Za-z_]\w*)\b").unwrap();
 
     let lines: Vec<&str> = content.lines().collect();
