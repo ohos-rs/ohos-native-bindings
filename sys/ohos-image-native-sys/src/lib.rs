@@ -453,6 +453,12 @@ pub struct OH_PixelmapNative {
 pub struct OH_NativeColorSpaceManager {
     _unused: [u8; 0],
 }
+pub const PIXELMAP_ALPHA_TYPE_PIXELMAP_ALPHA_TYPE_UNKNOWN: PIXELMAP_ALPHA_TYPE = 0;
+pub const PIXELMAP_ALPHA_TYPE_PIXELMAP_ALPHA_TYPE_OPAQUE: PIXELMAP_ALPHA_TYPE = 1;
+pub const PIXELMAP_ALPHA_TYPE_PIXELMAP_ALPHA_TYPE_PREMULTIPLIED: PIXELMAP_ALPHA_TYPE = 2;
+pub const PIXELMAP_ALPHA_TYPE_PIXELMAP_ALPHA_TYPE_UNPREMULTIPLIED: PIXELMAP_ALPHA_TYPE = 3;
+#[doc = " @brief Define a pixelmap alpha type.\n\n @since 12"]
+pub type PIXELMAP_ALPHA_TYPE = u32;
 pub const PIXEL_FORMAT_PIXEL_FORMAT_UNKNOWN: PIXEL_FORMAT = 0;
 pub const PIXEL_FORMAT_PIXEL_FORMAT_RGB_565: PIXEL_FORMAT = 2;
 pub const PIXEL_FORMAT_PIXEL_FORMAT_RGBA_8888: PIXEL_FORMAT = 3;
@@ -1918,6 +1924,45 @@ extern "C" {
         key: *mut Image_String,
         value: *mut ::std::os::raw::c_void,
         size: usize,
+    ) -> Image_ErrorCode;
+}
+#[doc = " @brief Defines raw data in an image.\n It is used in {@link OH_ImageSourceNative_CreateImageRawData}.\n\n @since 24"]
+#[cfg(feature = "api-24")]
+#[repr(C)]
+#[derive(Debug, Copy, Clone)]
+pub struct OH_ImageRawData {
+    _unused: [u8; 0],
+}
+extern "C" {
+    #[doc = " @brief Obtains rawData object from an image.\n         The rawData object usually occupies a large amount of memory because it contains\n         raw data from the camera. When the rawData object and the data it contains are not used, call the\n         {@link OH_ImageSourceNative_DestroyImageRawData} method to destroy them in a timely manner.\n\n @param source Pointer to the image source.\n @param rawData Double pointer to the rawData object obtained after decoding.\n @return Returns One of the following result codes:\n         {@link IMAGE_SUCCESS} if the execution is successful.\n         {@link IMAGE_BAD_SOURCE} Bad source.\n         {@link IMAGE_SOURCE_INVALID_PARAMETER} if the rawData object is invalid.\n         {@link IMAGE_SOURCE_UNSUPPORTED_MIME_TYPE} Unsupported MIME type.\n @since 24"]
+    #[cfg(feature = "api-24")]
+    pub fn OH_ImageSourceNative_CreateImageRawData(
+        source: *const OH_ImageSourceNative,
+        rawData: *mut *mut OH_ImageRawData,
+    ) -> Image_ErrorCode;
+}
+extern "C" {
+    #[doc = " @brief Gets binary data from the rawData object.\n\n @param rawData Pointer to the rawData object.\n @param data Pointer to the binary buffer data.\n @param length Pointer to the length of data obtained.\n @return Returns One of the following result codes:\n         {@link IMAGE_SUCCESS} if the execution is successful.\n         {@link IMAGE_SOURCE_INVALID_PARAMETER} if the rawData object is invalid.\n @since 24"]
+    #[cfg(feature = "api-24")]
+    pub fn OH_ImageSourceNative_GetBufferFromRawData(
+        rawData: *const OH_ImageRawData,
+        data: *mut *mut u8,
+        length: *mut usize,
+    ) -> Image_ErrorCode;
+}
+extern "C" {
+    #[doc = " @brief Gets number of bits that each pixel actually occupies in the buffer data.\n\n @param rawData Pointer to the rawData object.\n @param bitsPerPixel Pointer to the bitsPerPixel obtained.\n @return Returns One of the following result codes:\n         {@link IMAGE_SUCCESS} if the execution is successful.\n         {@link IMAGE_SOURCE_INVALID_PARAMETER} if the rawData object is invalid.\n @since 24"]
+    #[cfg(feature = "api-24")]
+    pub fn OH_ImageSourceNative_GetBitsPerPixelFromRawData(
+        rawData: *const OH_ImageRawData,
+        bitsPerPixel: *mut u8,
+    ) -> Image_ErrorCode;
+}
+extern "C" {
+    #[doc = " @brief Destroys the rawData object.\n\n @param rawData Pointer to the rawData object.\n @return Returns One of the following result codes:\n         {@link IMAGE_SUCCESS} if the execution is successful.\n         {@link IMAGE_SOURCE_INVALID_PARAMETER} if the rawData object is invalid.\n @since 24"]
+    #[cfg(feature = "api-24")]
+    pub fn OH_ImageSourceNative_DestroyImageRawData(
+        rawData: *mut OH_ImageRawData,
     ) -> Image_ErrorCode;
 }
 #[doc = " @brief Define a ImagePacker struct type, used for ImagePacker pointer controls.\n\n @since 12"]

@@ -14,7 +14,9 @@ pub const IMAGE_NATIVE: Lazy<SysConfig> = Lazy::new(|| {
         "multimedia/image_framework/image/picture_native.h",
         "multimedia/image_framework/image/pixelmap_native.h",
     ],
-    white_list: vec!["OH_.*"],
+    // `PIXELMAP_ALPHA_TYPE` is used through `int32_t` in the native API, so
+    // bindgen cannot discover it recursively from the allowlisted functions.
+    white_list: vec!["OH_.*", "PIXELMAP_ALPHA_TYPE"],
     block_list: vec![
         "napi_.*",
         "OH_NativeBuffer.*",

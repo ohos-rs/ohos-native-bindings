@@ -24,10 +24,10 @@ pub const ArkWeb_ErrorCode_ARKWEB_INVALID_URL: ArkWeb_ErrorCode = 17100103;
 pub const ArkWeb_ErrorCode_ARKWEB_INVALID_COOKIE_VALUE: ArkWeb_ErrorCode = 17100104;
 pub const ArkWeb_ErrorCode_ARKWEB_LIBRARY_OPEN_FAILURE: ArkWeb_ErrorCode = 17100105;
 pub const ArkWeb_ErrorCode_ARKWEB_LIBRARY_SYMBOL_NOT_FOUND: ArkWeb_ErrorCode = 17100106;
-#[doc = " @brief The CookieManager not initialized.\n\n @since 20"]
+#[doc = " @brief The CookieManager is not initialized.\n\n @since 20"]
 #[cfg(feature = "api-20")]
 pub const ArkWeb_ErrorCode_ARKWEB_COOKIE_MANAGER_NOT_INITIALIZED: ArkWeb_ErrorCode = 17100107;
-#[doc = " @brief The CookieManager initialize failed.\n\n @since 20"]
+#[doc = " @brief The CookieManager initialization failed.\n\n @since 20"]
 #[cfg(feature = "api-20")]
 pub const ArkWeb_ErrorCode_ARKWEB_COOKIE_MANAGER_INITIALIZE_FAILED: ArkWeb_ErrorCode = 17100108;
 #[doc = " @brief Save cookie failed.\n\n @since 20"]
@@ -78,7 +78,7 @@ pub const ArkWeb_WebMessageType_ARKWEB_NONE: ArkWeb_WebMessageType = 0;
 pub const ArkWeb_WebMessageType_ARKWEB_STRING: ArkWeb_WebMessageType = 1;
 #[doc = " The data carried in the ArkWeb_WebMessage is buffer(uint8_t)."]
 pub const ArkWeb_WebMessageType_ARKWEB_BUFFER: ArkWeb_WebMessageType = 2;
-#[doc = " @brief Defines the data type carried in a ArkWeb_WebMessage.\n\n @since 12"]
+#[doc = " @brief Defines the data type carried in an ArkWeb_WebMessage.\n\n @since 12"]
 pub type ArkWeb_WebMessageType = u32;
 #[doc = " Represent error data"]
 #[cfg(feature = "api-18")]
@@ -89,7 +89,7 @@ pub const ArkWeb_JavaScriptValueType_ARKWEB_JAVASCRIPT_STRING: ArkWeb_JavaScript
 #[doc = " The data carried in the ArkWeb_JavaScriptValue is bool."]
 #[cfg(feature = "api-18")]
 pub const ArkWeb_JavaScriptValueType_ARKWEB_JAVASCRIPT_BOOL: ArkWeb_JavaScriptValueType = 2;
-#[doc = " @brief Defines the data type carried in a ArkWeb_JavaScriptValue.\n\n @since 18"]
+#[doc = " @brief Defines the data type carried in an ArkWeb_JavaScriptValue.\n\n @since 18"]
 #[cfg(feature = "api-18")]
 pub type ArkWeb_JavaScriptValueType = u32;
 #[repr(C)]
@@ -246,7 +246,7 @@ pub struct ArkWeb_ControllerAPI {
             proxyObject: *const ArkWeb_ProxyObject,
         ),
     >,
-    #[doc = " Deletes the registered object which th given name."]
+    #[doc = " Deletes the registered object which the given name."]
     pub deleteJavaScriptRegister: ::std::option::Option<
         unsafe extern "C" fn(
             webTag: *const ::std::os::raw::c_char,
@@ -283,7 +283,7 @@ pub struct ArkWeb_ControllerAPI {
             url: *const ::std::os::raw::c_char,
         ) -> ArkWeb_ErrorCode,
     >,
-    #[doc = " @brief Get the url of the last frame that calls the JavaScriptProxy.\n        This should be call on the thread which JavaScriptProxy called.\n\n @return The url of the last frame that calls the JavaScriptProxy.\n @since 14"]
+    #[doc = " @brief Get the url of the last frame that calls the JavaScriptProxy.\n        This should be called on the thread which JavaScriptProxy called.\n\n @return The url of the last frame that calls the JavaScriptProxy.\n @since 14"]
     #[cfg(feature = "api-14")]
     pub getLastJavascriptProxyCallingFrameUrl:
         ::std::option::Option<unsafe extern "C" fn() -> *const ::std::os::raw::c_char>,
@@ -1103,7 +1103,7 @@ pub type ArkWeb_OnRequestStart = ::std::option::Option<
         intercept: *mut bool,
     ),
 >;
-#[doc = " @brief Callback when the request is completed.\n\n This will be called on the IO thread.\\n\n Should destory the resourceRequest by ArkWeb_ResourceRequest_Destroy and use ArkWeb_ResourceHandler_Destroy\\n\n destroy the ArkWeb_ResourceHandler received in ArkWeb_OnRequestStart.\\n\n\n @param schemeHandler The ArkWeb_SchemeHandler.\n @param resourceRequest The ArkWeb_ResourceRequest.\n\n @syscap SystemCapability.Web.Webview.Core\n @since 12"]
+#[doc = " @brief Callback when the request is completed.\n\n This will be called on the IO thread.\\n\n Should destroy the resourceRequest by ArkWeb_ResourceRequest_Destroy and use ArkWeb_ResourceHandler_Destroy\\n\n destroy the ArkWeb_ResourceHandler received in ArkWeb_OnRequestStart.\\n\n\n @param schemeHandler The ArkWeb_SchemeHandler.\n @param resourceRequest The ArkWeb_ResourceRequest.\n\n @since 12"]
 pub type ArkWeb_OnRequestStop = ::std::option::Option<
     unsafe extern "C" fn(
         schemeHandler: *const ArkWeb_SchemeHandler,
@@ -1308,7 +1308,7 @@ extern "C" {
     ) -> bool;
 }
 extern "C" {
-    #[doc = " @brief Get if this is a request is triggered by user gesutre.\n @param resourceRequest The ArkWeb_ResourceRequest.\n @return True if this is triggered by user gesture; false otherwise.\n\n @syscap SystemCapability.Web.Webview.Core\n @since 12"]
+    #[doc = " @brief Get if this is a request is triggered by user gesture.\n @param resourceRequest The ArkWeb_ResourceRequest.\n @return True if this is triggered by user gesture; false otherwise.\n\n @since 12"]
     pub fn OH_ArkWebResourceRequest_HasGesture(
         resourceRequest: *const ArkWeb_ResourceRequest,
     ) -> bool;
@@ -1344,7 +1344,7 @@ extern "C" {
     pub fn OH_ArkWeb_ClearSchemeHandlers(webTag: *const ::std::os::raw::c_char) -> i32;
 }
 extern "C" {
-    #[doc = " @brief Create a SchemeHandler.\n @param schemeHandler Return the created SchemeHandler. Use OH_ArkWeb_DestroySchemeHandler destroy it when donn't\n                      need it.\n\n @syscap SystemCapability.Web.Webview.Core\n @since 12"]
+    #[doc = " @brief Create a SchemeHandler.\n @param schemeHandler Return the created SchemeHandler. Use OH_ArkWeb_DestroySchemeHandler destroy it when don't\n                      need it.\n\n @since 12"]
     pub fn OH_ArkWeb_CreateSchemeHandler(schemeHandler: *mut *mut ArkWeb_SchemeHandler);
 }
 extern "C" {
@@ -1379,7 +1379,7 @@ extern "C" {
     ) -> i32;
 }
 extern "C" {
-    #[doc = " @brief Create a Response for a request.\n @param response The created Response. Use OH_ArkWeb_DestroyResponse to destroy when donn't need it.\n\n @syscap SystemCapability.Web.Webview.Core\n @since 12"]
+    #[doc = " @brief Create a Response for a request.\n @param response The created Response. Use OH_ArkWeb_DestroyResponse to destroy when don't need it.\n\n @since 12"]
     pub fn OH_ArkWeb_CreateResponse(response: *mut *mut ArkWeb_Response);
 }
 extern "C" {

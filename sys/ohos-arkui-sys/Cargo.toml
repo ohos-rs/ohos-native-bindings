@@ -93,3 +93,10 @@ api-23 = [
   "ohos-native-drawing-sys/api-23",
   "ohos-udmf-sys/api-23",
 ]
+api-24 = [
+  "api-23",
+  "ohos-arkui-input-sys/api-24",
+  "ohos-image-native-sys/api-24",
+  "ohos-native-drawing-sys/api-24",
+  "ohos-udmf-sys/api-24",
+]

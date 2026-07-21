@@ -227,6 +227,10 @@ pub const ArkUI_UIInputEvent_Type_ARKUI_UIINPUTEVENT_TYPE_MOUSE: ArkUI_UIInputEv
 #[doc = " @brief key event.\n\n @since 20"]
 #[cfg(feature = "api-20")]
 pub const ArkUI_UIInputEvent_Type_ARKUI_UIINPUTEVENT_TYPE_KEY: ArkUI_UIInputEvent_Type = 4;
+#[doc = " @brief Crown event.\n\n @since 24"]
+#[cfg(feature = "api-24")]
+pub const ArkUI_UIInputEvent_Type_ARKUI_UIINPUTEVENT_TYPE_DIGITAL_CROWN: ArkUI_UIInputEvent_Type =
+    5;
 #[doc = " @brief Enumerates the UI input event types.\n\n @since 12"]
 pub type ArkUI_UIInputEvent_Type = u32;
 #[doc = " Idle phase, indicating no-coasting phase."]
@@ -248,6 +252,17 @@ pub const ArkUI_CoastingAxisEventPhase_ARKUI_COASTING_AXIS_EVENT_PHASE_END:
 #[doc = " @brief Enumerates the coasting axis event phases.\n\n @since 22"]
 #[cfg(feature = "api-22")]
 pub type ArkUI_CoastingAxisEventPhase = u32;
+#[doc = " No competition strategy.\n The injected event does not compete with any existing gestures.\n Both the injected event and existing gestures can be processed independently and in parallel."]
+#[cfg(feature = "api-24")]
+pub const ArkUI_CompetitionStrategy_ARKUI_COMPETITION_STRATEGY_DEFAULT: ArkUI_CompetitionStrategy =
+    0;
+#[doc = " Competition strategy.\n The gesture recognition result from the event injector will compete with those from the target component's own\n recognizers."]
+#[cfg(feature = "api-24")]
+pub const ArkUI_CompetitionStrategy_ARKUI_COMPETITION_STRATEGY_COMPETITION:
+    ArkUI_CompetitionStrategy = 1;
+#[doc = " @brief Defines whether a competition for gesture recognition results should occur between the event injector and the\n gesture recognizers of the target component.\n This strategy determines how the injected input event interacts with the target component's own gesture\n handling logic.\n\n @since 24"]
+#[cfg(feature = "api-24")]
+pub type ArkUI_CompetitionStrategy = u32;
 #[doc = " Cancellation of touch."]
 pub const UI_TOUCH_EVENT_ACTION_CANCEL: _bindgen_ty_1 = 0;
 #[doc = " Pressing of a touch point."]
@@ -804,7 +819,7 @@ extern "C" {
     ) -> i32;
 }
 extern "C" {
-    #[doc = " @brief Get the value of the button type for mouse events.\n\n @param event Represents a pointer to the current UI input event.\n @return Return to the mouse button type, where <b>1</b> is the left button, <b>2</b> is the right button,\n <b>3</b> is the middle button, <b>4</b> is the back button, and <b>5</b> is the forward button.\n @since 12"]
+    #[doc = " @brief Gets the value of the button type for mouse events.\n\n @param event Represents a pointer to the current UI input event.\n @return Return to the mouse button type, where <b>1</b> is the left button, <b>2</b> is the right button,\n <b>3</b> is the middle button, <b>4</b> is the back button, and <b>5</b> is the forward button.\n @since 12"]
     pub fn OH_ArkUI_MouseEvent_GetMouseButton(event: *const ArkUI_UIInputEvent) -> i32;
 }
 extern "C" {
@@ -994,6 +1009,38 @@ extern "C" {
         fingerId: i32,
         pointerIndex: i32,
     ) -> i32;
+}
+extern "C" {
+    #[doc = " @brief Creates a cloned event pointer based on an event pointer. This API is effective for touch events, mouse\n events and axis events.\n\n @param event Pointer to an <b>ArkUI_UIInputEvent</b> object.\n @param clonedEvent Pointer to the cloned <b>ArkUI_UIInputEvent</b> object.\n @return Result code.\n          {@link ARKUI_ERROR_CODE_NO_ERROR} if the operation is successful.\n          {@link ARKUI_ERROR_CODE_PARAM_INVALID} if a parameter error occurs.\n @since 24"]
+    #[cfg(feature = "api-24")]
+    pub fn OH_ArkUI_PointerEvent_CreateClonedPointerEvent(
+        event: *const ArkUI_UIInputEvent,
+        clonedEvent: *mut *mut ArkUI_UIInputEvent,
+    ) -> ArkUI_ErrorCode;
+}
+extern "C" {
+    #[doc = " @brief Creates a new event from scratch without cloning an existing event. This API is effective for touch events,\n mouse events and axis events.\n\n @param event Pointer to the new <b>ArkUI_UIInputEvent</b> object.\n @param type The event type of <b>ArkUI_UIInputEvent</b>. Support <b>ARKUI_UIINPUTEVENT_TYPE_TOUCH</b>,\n     <b>ARKUI_UIINPUTEVENT_TYPE_AXIS</b> and <b>ARKUI_UIINPUTEVENT_TYPE_MOUSE</b>.\n @return Result code.\n          {@link ARKUI_ERROR_CODE_NO_ERROR} if the operation is successful.\n          {@link ARKUI_ERROR_CODE_PARAM_INVALID} if a parameter error occurs.\n @since 24"]
+    #[cfg(feature = "api-24")]
+    pub fn OH_ArkUI_PointerEvent_CreatePointerEvent(
+        event: *mut *mut ArkUI_UIInputEvent,
+        type_: ArkUI_UIInputEvent_Type,
+    ) -> ArkUI_ErrorCode;
+}
+extern "C" {
+    #[doc = " @brief Destroys a cloned pointer event pointer. This API is effective for touch events, mouse events and axis\n events. Only <b>ArkUI_UIInputEvent</b> objects created through the\n <b>OH_ArkUI_PointerEvent_CreateClonedPointerEvent</b> and <b>OH_ArkUI_PointerEvent_CreatePointerEvent</b>\n interfaces can use this interface.\n\n @param event Pointer to an <b>ArkUI_UIInputEvent</b> object.\n @return Returns the result code.\n          Returns {@link ARKUI_ERROR_CODE_NO_ERROR} if the operation is successful.\n          Returns {@link ARKUI_ERROR_CODE_PARAM_INVALID} if a parameter error occurs.\n          Returns {@link ARKUI_ERROR_CODE_NOT_CLONED_POINTER_EVENT} if the input event pointer is not a\n          cloned event pointer.\n @since 24"]
+    #[cfg(feature = "api-24")]
+    pub fn OH_ArkUI_PointerEvent_DestroyClonedPointerEvent(
+        event: *const ArkUI_UIInputEvent,
+    ) -> ArkUI_ErrorCode;
+}
+extern "C" {
+    #[doc = " @brief Posts a cloned event to a specific node with competition strategy.\n Only <b>ArkUI_UIInputEvent</b> objects created through the <b>OH_ArkUI_PointerEvent_CreateClonedPointerEvent</b> and\n <b>OH_ArkUI_PointerEvent_CreatePointerEvent</b> interfaces can use this interface.\n\n @param node Target node.\n @param event Pointer to an <b>ArkUI_UIInputEvent</b> object.\n @param strategy The competition strategy.\n @return Returns the result code.\n         Returns {@link ARKUI_ERROR_CODE_NO_ERROR} if the operation is successful.\n         Returns {@link ARKUI_ERROR_CODE_PARAM_INVALID} if a parameter error occurs.\n         Returns {@link ARKUI_ERROR_CODE_NOT_CLONED_POINTER_EVENT} if the input event pointer is not a\n         cloned event pointer.\n         Returns {@link ARKUI_ERROR_CODE_POST_CLONED_COMPONENT_STATUS_ABNORMAL}\n         if the component status abnormal.\n         Returns {@link ARKUI_ERROR_CODE_POST_CLONED_NO_COMPONENT_HIT_TO_RESPOND_TO_THE_EVENT}\n         if no component hit to response to the event.\n @since 24"]
+    #[cfg(feature = "api-24")]
+    pub fn OH_ArkUI_PointerEvent_PostClonedEventWithStrategy(
+        node: ArkUI_NodeHandle,
+        event: *const ArkUI_UIInputEvent,
+        strategy: ArkUI_CompetitionStrategy,
+    ) -> ArkUI_ErrorCode;
 }
 extern "C" {
     #[doc = " @brief Posts a cloned event to a specific node.\n\n @param node Target node.\n @param event Pointer to an <b>ArkUI_UIInputEvent</b> object.\n @return Returns the result code.\n         Returns {@link ARKUI_ERROR_CODE_NO_ERROR} if the operation is successful.\n         Returns {@link ARKUI_ERROR_CODE_PARAM_INVALID} if a parameter error occurs.\n         Returns {@link ARKUI_ERROR_CODE_NOT_CLONED_POINTER_EVENT} if the input event pointer is not a\n         cloned event pointer.\n         Returns {@link ARKUI_ERROR_CODE_POST_CLONED_COMPONENT_STATUS_ABNORMAL}\n         if the component status abnormal.\n         Returns {@link ARKUI_ERROR_CODE_POST_CLONED_NO_COMPONENT_HIT_TO_RESPOND_TO_THE_EVENT}\n         if no component hit to response to the event.\n @since 15"]

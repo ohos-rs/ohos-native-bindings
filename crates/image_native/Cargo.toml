@@ -30,3 +30,4 @@ api-20  = ["api-19", "ohos-image-native-sys/api-20", "ohos-native-buffer-sys/api
 api-21  = ["api-20", "ohos-image-native-sys/api-21", "ohos-native-buffer-sys/api-21", "ohos-resource-manager-sys/api-21"]
 api-22  = ["api-21", "ohos-image-native-sys/api-22", "ohos-native-buffer-sys/api-22", "ohos-resource-manager-sys/api-22"]
 api-23  = ["api-22", "ohos-image-native-sys/api-23", "ohos-native-buffer-sys/api-23", "ohos-resource-manager-sys/api-23"]
+api-24  = ["api-23", "ohos-image-native-sys/api-24", "ohos-native-buffer-sys/api-24", "ohos-resource-manager-sys/api-24"]

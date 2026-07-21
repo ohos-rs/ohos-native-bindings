@@ -280,12 +280,22 @@ impl Drop for DecodingOptionsForPicture {
 /// Owned native image source wrapper.
 pub struct ImageSource {
     raw: NonNull<sys::OH_ImageSourceNative>,
+    // API 20's user-buffer constructor borrows its input for the complete
+    // native source lifetime. Keep owned storage adjacent to that owner.
+    _user_buffer: Option<Box<[u8]>>,
 }
 
 impl ImageSource {
     /// Creates a wrapper from a raw image-source pointer.
     pub fn from_raw(raw: *mut sys::OH_ImageSourceNative) -> Option<Self> {
-        NonNull::new(raw).map(|raw| Self { raw })
+        NonNull::new(raw).map(Self::from_non_null)
+    }
+
+    fn from_non_null(raw: NonNull<sys::OH_ImageSourceNative>) -> Self {
+        Self {
+            raw,
+            _user_buffer: None,
+        }
     }
 
     pub fn as_raw(&self) -> *mut sys::OH_ImageSourceNative {
@@ -302,28 +312,36 @@ impl ImageSource {
                 &mut raw,
             )
         })?;
-        non_null(raw, sys::Image_ErrorCode_IMAGE_BAD_PARAMETER).map(|raw| Self { raw })
+        non_null(raw, sys::Image_ErrorCode_IMAGE_BAD_PARAMETER).map(Self::from_non_null)
     }
 
     /// Creates an image source from a file descriptor.
     pub fn create_from_fd(fd: i32) -> ImageNativeResult<Self> {
         let mut raw = std::ptr::null_mut();
         check_status(unsafe { sys::OH_ImageSourceNative_CreateFromFd(fd, &mut raw) })?;
-        non_null(raw, sys::Image_ErrorCode_IMAGE_BAD_PARAMETER).map(|raw| Self { raw })
+        non_null(raw, sys::Image_ErrorCode_IMAGE_BAD_PARAMETER).map(Self::from_non_null)
     }
 
     /// Creates an image source from in-memory data.
-    pub fn create_from_data(data: &mut [u8]) -> ImageNativeResult<Self> {
+    pub fn create_from_data(data: &[u8]) -> ImageNativeResult<Self> {
         let mut raw = std::ptr::null_mut();
         check_status(unsafe {
-            sys::OH_ImageSourceNative_CreateFromData(data.as_mut_ptr(), data.len(), &mut raw)
+            sys::OH_ImageSourceNative_CreateFromData(data.as_ptr().cast_mut(), data.len(), &mut raw)
         })?;
-        non_null(raw, sys::Image_ErrorCode_IMAGE_BAD_PARAMETER).map(|raw| Self { raw })
+        non_null(raw, sys::Image_ErrorCode_IMAGE_BAD_PARAMETER).map(Self::from_non_null)
     }
 
     /// Creates an image source from in-memory data using a user buffer.
     #[cfg(feature = "api-20")]
-    pub fn create_from_data_with_user_buffer(data: &mut [u8]) -> ImageNativeResult<Self> {
+    pub fn create_from_data_with_user_buffer(
+        data: impl Into<Box<[u8]>>,
+    ) -> ImageNativeResult<Self> {
+        let mut data = data.into();
+        if data.is_empty() {
+            return Err(crate::ImageNativeError {
+                code: sys::Image_ErrorCode_IMAGE_BAD_PARAMETER,
+            });
+        }
         let mut raw = std::ptr::null_mut();
         check_status(unsafe {
             sys::OH_ImageSourceNative_CreateFromDataWithUserBuffer(
@@ -332,14 +350,17 @@ impl ImageSource {
                 &mut raw,
             )
         })?;
-        non_null(raw, sys::Image_ErrorCode_IMAGE_BAD_PARAMETER).map(|raw| Self { raw })
+        non_null(raw, sys::Image_ErrorCode_IMAGE_BAD_PARAMETER).map(|raw| Self {
+            raw,
+            _user_buffer: Some(data),
+        })
     }
 
     /// Creates an image source from a raw file descriptor.
     pub fn create_from_raw_file(raw_file: &mut RawFileDescriptor) -> ImageNativeResult<Self> {
         let mut raw = std::ptr::null_mut();
         check_status(unsafe { sys::OH_ImageSourceNative_CreateFromRawFile(raw_file, &mut raw) })?;
-        non_null(raw, sys::Image_ErrorCode_IMAGE_BAD_PARAMETER).map(|raw| Self { raw })
+        non_null(raw, sys::Image_ErrorCode_IMAGE_BAD_PARAMETER).map(Self::from_non_null)
     }
 
     /// Decodes a pixel-map from the image source.

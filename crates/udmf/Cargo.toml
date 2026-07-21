@@ -18,6 +18,7 @@ api-20  = ["api-19", "ohos-udmf-sys/api-20", "ohos-image-native-binding/api-20"]
 api-21  = ["api-20", "ohos-udmf-sys/api-21", "ohos-image-native-binding/api-21"]
 api-22  = ["api-21", "ohos-udmf-sys/api-22", "ohos-image-native-binding/api-22"]
 api-23  = ["api-22", "ohos-udmf-sys/api-23", "ohos-image-native-binding/api-23"]
+api-24  = ["api-23", "ohos-udmf-sys/api-24", "ohos-image-native-binding/api-24"]
 
 [dependencies]
 ohos-udmf-sys             = { workspace = true }

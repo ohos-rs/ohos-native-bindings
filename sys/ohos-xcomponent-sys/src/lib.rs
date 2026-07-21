@@ -400,7 +400,7 @@ pub const OH_NativeXComponent_TouchPointToolType_OH_NATIVEXCOMPONENT_TOOL_TYPE_F
 #[doc = " Indicates a stylus."]
 pub const OH_NativeXComponent_TouchPointToolType_OH_NATIVEXCOMPONENT_TOOL_TYPE_PEN:
     OH_NativeXComponent_TouchPointToolType = 2;
-#[doc = " Indicates a eraser."]
+#[doc = " Indicates an eraser."]
 pub const OH_NativeXComponent_TouchPointToolType_OH_NATIVEXCOMPONENT_TOOL_TYPE_RUBBER:
     OH_NativeXComponent_TouchPointToolType = 3;
 #[doc = " Indicates a brush."]
@@ -512,9 +512,9 @@ pub struct OH_NativeXComponent_HistoricalPoint {
     pub force: f32,
     #[doc = " Timestamp of the current touch event."]
     pub timeStamp: i64,
-    #[doc = " The angle betweenprojection on plane-X-Y and axis-Z of the current touch event."]
+    #[doc = " The angle between projection on plane-X-Y and axis-Z of the current touch event."]
     pub titlX: f32,
-    #[doc = " The angle betweenprojection on plane-Y-Z and axis-Z of the current touch event."]
+    #[doc = " The angle between projection on plane-Y-Z and axis-Z of the current touch event."]
     pub titlY: f32,
     #[doc = " The sourceTool of the current touch event."]
     pub sourceTool: OH_NativeXComponent_TouchEvent_SourceTool,

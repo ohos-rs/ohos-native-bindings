@@ -1083,6 +1083,11 @@ extern "C" {
     pub fn OH_Pasteboard_HasData(pasteboard: *mut OH_Pasteboard) -> bool;
 }
 extern "C" {
+    #[doc = " @brief Checks whether the paste data is in a remote device.\n\n @param pasteboard Pointer to the {@link OH_Pasteboard} instance.\n @return Returns a boolean value, which indicates whether the paste data is in a remote device.\n         The value {@code true} means the paste data is in a remote device.\n         The value {@code false} means the opposite.\n @see OH_Pasteboard.\n @since 24"]
+    #[cfg(feature = "api-24")]
+    pub fn OH_Pasteboard_HasRemoteData(pasteboard: *mut OH_Pasteboard) -> bool;
+}
+extern "C" {
     #[doc = " @brief Obtains data from the Pasteboard.\n\n @permission ohos.permission.READ_PASTEBOARD\n @param pasteboard Pointer to the {@link OH_Pasteboard} instance.\n @param status The status code of the execution. For details, see {@link PASTEBOARD_ErrCode}.\n @return Returns the pointer to the {@link OH_UdmfData} instance.\n @see OH_Pasteboard OH_UdmfData PASTEBOARD_ErrCode.\n @since 13"]
     #[cfg(feature = "api-13")]
     pub fn OH_Pasteboard_GetData(

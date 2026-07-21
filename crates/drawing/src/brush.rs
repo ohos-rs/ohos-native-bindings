@@ -1,11 +1,14 @@
 use std::ptr::NonNull;
 
 use ohos_native_drawing_sys::{
-    OH_Drawing_BlendMode, OH_Drawing_Brush, OH_Drawing_BrushCopy, OH_Drawing_BrushCreate,
-    OH_Drawing_BrushDestroy, OH_Drawing_BrushGetAlpha, OH_Drawing_BrushGetColor,
-    OH_Drawing_BrushIsAntiAlias, OH_Drawing_BrushReset, OH_Drawing_BrushSetAlpha,
-    OH_Drawing_BrushSetAntiAlias, OH_Drawing_BrushSetBlendMode, OH_Drawing_BrushSetColor,
+    OH_Drawing_Brush, OH_Drawing_BrushCopy, OH_Drawing_BrushCreate, OH_Drawing_BrushDestroy,
+    OH_Drawing_BrushGetAlpha, OH_Drawing_BrushGetColor, OH_Drawing_BrushIsAntiAlias,
+    OH_Drawing_BrushReset, OH_Drawing_BrushSetAlpha, OH_Drawing_BrushSetAntiAlias,
+    OH_Drawing_BrushSetBlendMode, OH_Drawing_BrushSetColor, OH_Drawing_BrushSetFilter,
+    OH_Drawing_BrushSetShaderEffect, OH_Drawing_BrushSetShadowLayer,
 };
+
+use crate::{BlendMode, Filter, ShaderEffect, ShadowLayer};
 
 #[derive(Debug)]
 pub struct Brush {
@@ -27,7 +30,7 @@ impl Brush {
         }
     }
 
-    pub fn as_ptr(&self) -> *mut OH_Drawing_Brush {
+    pub(crate) fn as_ptr(&self) -> *mut OH_Drawing_Brush {
         self.raw.as_ptr()
     }
 
@@ -55,8 +58,35 @@ impl Brush {
         unsafe { OH_Drawing_BrushSetAlpha(self.raw.as_ptr(), alpha) };
     }
 
-    pub fn set_blend_mode(&mut self, blend_mode: OH_Drawing_BlendMode) {
-        unsafe { OH_Drawing_BrushSetBlendMode(self.raw.as_ptr(), blend_mode) };
+    pub fn set_blend_mode(&mut self, blend_mode: BlendMode) {
+        unsafe { OH_Drawing_BrushSetBlendMode(self.raw.as_ptr(), blend_mode.into()) };
+    }
+
+    pub fn set_shader_effect(&mut self, shader: Option<&ShaderEffect>) {
+        unsafe {
+            OH_Drawing_BrushSetShaderEffect(
+                self.raw.as_ptr(),
+                shader.map_or(std::ptr::null_mut(), ShaderEffect::as_ptr),
+            )
+        };
+    }
+
+    pub fn set_shadow_layer(&mut self, shadow: Option<&ShadowLayer>) {
+        unsafe {
+            OH_Drawing_BrushSetShadowLayer(
+                self.raw.as_ptr(),
+                shadow.map_or(std::ptr::null_mut(), ShadowLayer::as_ptr),
+            )
+        };
+    }
+
+    pub fn set_filter(&mut self, filter: Option<&Filter>) {
+        unsafe {
+            OH_Drawing_BrushSetFilter(
+                self.raw.as_ptr(),
+                filter.map_or(std::ptr::null_mut(), Filter::as_ptr),
+            )
+        };
     }
 
     pub fn reset(&mut self) {

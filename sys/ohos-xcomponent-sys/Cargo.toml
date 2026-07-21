@@ -23,3 +23,4 @@ api-20  = ["api-19", "ohos-arkui-sys/api-20", "ohos-arkui-input-sys/api-20", "oh
 api-21  = ["api-20", "ohos-arkui-sys/api-21", "ohos-arkui-input-sys/api-21", "ohos-accessibility-sys/api-21"]
 api-22  = ["api-21", "ohos-arkui-sys/api-22", "ohos-arkui-input-sys/api-22", "ohos-accessibility-sys/api-22"]
 api-23  = ["api-22", "ohos-arkui-sys/api-23", "ohos-arkui-input-sys/api-23", "ohos-accessibility-sys/api-23"]
+api-24  = ["api-23", "ohos-arkui-sys/api-24", "ohos-arkui-input-sys/api-24", "ohos-accessibility-sys/api-24"]
