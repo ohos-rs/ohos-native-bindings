@@ -1,5 +1,5 @@
 use crate::error::{check, Result};
-use crate::key::blob_in;
+use crate::key::{blob_in, HuksAlias};
 use crate::param::ParamSet;
 use ohos_huks_sys::*;
 
@@ -22,8 +22,8 @@ pub struct Session {
 
 /// Start a session for the key under `alias` with the given operation parameters
 /// (purpose, algorithm, digest, padding, block mode, IV, ...).
-pub fn init_session(alias: &[u8], params: &ParamSet) -> Result<Session> {
-    let alias = blob_in(alias);
+pub fn init_session(alias: HuksAlias<'_>, params: &ParamSet) -> Result<Session> {
+    let alias = blob_in(alias.as_bytes());
     let mut handle = vec![0u8; HANDLE_CAP];
     let mut token = vec![0u8; TOKEN_CAP];
     let mut handle_blob = OH_Huks_Blob {

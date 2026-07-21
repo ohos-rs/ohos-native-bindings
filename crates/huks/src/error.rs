@@ -33,6 +33,15 @@ impl HuksError {
         }
     }
 
+    /// A failure detected before reaching HUKS, reported with the native
+    /// illegal-argument code.
+    pub(crate) fn illegal_argument(message: impl Into<String>) -> Self {
+        HuksError {
+            code: OH_Huks_ErrCode_OH_HUKS_ERR_CODE_ILLEGAL_ARGUMENT as i32,
+            message: Some(message.into()),
+        }
+    }
+
     /// The raw HUKS error code (`OH_Huks_ErrCode`).
     pub fn code(&self) -> i32 {
         self.code

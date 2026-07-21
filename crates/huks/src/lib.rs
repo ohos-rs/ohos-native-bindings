@@ -12,7 +12,7 @@
 //!
 //! ```no_run
 //! use ohos_huks_binding as huks;
-//! use huks::{HuksKeyAlg, HuksKeyDigest, HuksKeyPadding, HuksKeyPurpose, ParamSet};
+//! use huks::{HuksAlias, HuksKeyAlg, HuksKeyDigest, HuksKeyPadding, HuksKeyPurpose, ParamSet};
 //!
 //! // Generate an RSA-2048 sign/verify key.
 //! let params = ParamSet::builder()
@@ -23,9 +23,10 @@
 //!     .padding(HuksKeyPadding::Pss)
 //!     .build()?;
 //!
-//! huks::generate_key(b"my_key", &params)?;
-//! assert!(huks::key_exists(b"my_key")?);
-//! huks::delete_key(b"my_key")?;
+//! let alias = HuksAlias::new(b"my_key")?;
+//! huks::generate_key(alias, &params)?;
+//! assert!(huks::key_exists(alias)?);
+//! huks::delete_key(alias)?;
 //! # Ok::<(), huks::HuksError>(())
 //! ```
 
@@ -38,7 +39,7 @@ mod session;
 mod r#type;
 
 pub use error::{describe, HuksError, Result};
-pub use key::{delete_key, export_public_key, generate_key, import_key, key_exists};
-pub use param::{ParamSet, ParamSetBuilder};
+pub use key::{delete_key, export_public_key, generate_key, import_key, key_exists, HuksAlias};
+pub use param::{HuksValue, IntoHuksValue, ParamSet, ParamSetBuilder};
 pub use r#type::*;
 pub use session::{init_session, Session};

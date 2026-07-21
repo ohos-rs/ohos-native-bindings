@@ -263,3 +263,30 @@ pub enum HuksTag {
     #[suffix("OH_HUKS_TAG_ASYMMETRIC_PRIVATE_KEY_DATA")]
     AsymmetricPrivateKeyData,
 }
+
+/// The value type a [`HuksTag`] declares, encoded in the tag's top bits.
+#[derive(Debug, Clone, Copy, PartialEq, Eq)]
+pub enum HuksTagType {
+    Invalid,
+    Int,
+    Uint,
+    Ulong,
+    Bool,
+    Bytes,
+}
+
+impl HuksTag {
+    /// The value type this tag expects. HUKS encodes it in the tag's top bits, so
+    /// a parameter's type is fixed by its tag rather than chosen by the caller.
+    pub fn value_type(self) -> HuksTagType {
+        const MASK: u32 = 0xF << 28;
+        match u32::from(self) & MASK {
+            ohos_huks_sys::OH_Huks_TagType_OH_HUKS_TAG_TYPE_INT => HuksTagType::Int,
+            ohos_huks_sys::OH_Huks_TagType_OH_HUKS_TAG_TYPE_UINT => HuksTagType::Uint,
+            ohos_huks_sys::OH_Huks_TagType_OH_HUKS_TAG_TYPE_ULONG => HuksTagType::Ulong,
+            ohos_huks_sys::OH_Huks_TagType_OH_HUKS_TAG_TYPE_BOOL => HuksTagType::Bool,
+            ohos_huks_sys::OH_Huks_TagType_OH_HUKS_TAG_TYPE_BYTES => HuksTagType::Bytes,
+            _ => HuksTagType::Invalid,
+        }
+    }
+}
