@@ -29,9 +29,9 @@ let params = ParamSet::builder()
     .build()?;
 
 let alias = HuksAlias::new(b"my_key")?;
-huks::generate_key(alias, &params)?;
-assert!(huks::key_exists(alias)?);
-huks::delete_key(alias)?;
+alias.generate(&params)?;
+assert!(alias.exists()?);
+alias.delete()?;
 ```
 
 The raw bindings are re-exported as `huks::sys` for anything not yet covered by
@@ -39,15 +39,15 @@ the safe layer.
 
 ## Coverage
 
-- Key management: `generate_key`, `import_key`, `export_public_key`,
-  `delete_key`, `key_exists`.
-- Crypto sessions: `init_session` → `Session::update` → `Session::finish` /
+- Key management: `HuksAlias::generate`, `import`, `export_public_key`, `delete`,
+  `exists`.
+- Crypto sessions: `HuksAlias::init_session` → `Session::update` → `Session::finish` /
   `Session::abort` (sign / verify / encrypt / decrypt / mac / derive), with the
   auth token from `init` available via `Session::token`.
 - Parameter building: `ParamSet` / `ParamSetBuilder`, with a single `add` keyed by
   `HuksTag` plus named setters for the common ones. HUKS encodes a parameter's type
   in its tag, so a value that does not match its tag is rejected.
-- Types: `HuksAlias` for key names, and `EnumFrom`-derived enums (`HuksKeyAlg`,
+- Types: `HuksBlob` for borrowed byte inputs, `HuksAlias` for key names, and `EnumFrom`-derived enums (`HuksKeyAlg`,
   `HuksKeyPurpose`, `HuksKeyDigest`, `HuksKeyPadding`, `HuksCipherMode`, `HuksTag`).
 
 ## License

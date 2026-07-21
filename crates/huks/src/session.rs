@@ -1,5 +1,5 @@
 use crate::error::{check, Result};
-use crate::key::{blob_in, HuksAlias};
+use crate::key::{HuksAlias, HuksBlob};
 use crate::param::ParamSet;
 use ohos_huks_sys::*;
 
@@ -10,7 +10,7 @@ const TOKEN_CAP: usize = 64;
 /// A three-stage HUKS crypto session: `init` → `update`* → `finish`.
 ///
 /// Used for sign / verify / encrypt / decrypt / mac / derive operations. Create
-/// one with [`init_session`].
+/// one with [`HuksAlias::init_session`].
 ///
 /// Concurrent sessions are limited, so a session dropped without `finish` or
 /// `abort` is aborted on a best-effort basis to release the slot.
@@ -20,36 +20,38 @@ pub struct Session {
     done: bool,
 }
 
-/// Start a session for the key under `alias` with the given operation parameters
-/// (purpose, algorithm, digest, padding, block mode, IV, ...).
-pub fn init_session(alias: HuksAlias<'_>, params: &ParamSet) -> Result<Session> {
-    let alias = blob_in(alias.as_bytes());
-    let mut handle = vec![0u8; HANDLE_CAP];
-    let mut token = vec![0u8; TOKEN_CAP];
-    let mut handle_blob = OH_Huks_Blob {
-        size: handle.len() as u32,
-        data: handle.as_mut_ptr(),
-    };
-    let mut token_blob = OH_Huks_Blob {
-        size: token.len() as u32,
-        data: token.as_mut_ptr(),
-    };
-    // SAFETY: handle/token blobs point at owned buffers of the stated size.
-    unsafe {
-        check(OH_Huks_InitSession(
-            &alias,
-            params.as_ptr(),
-            &mut handle_blob,
-            &mut token_blob,
-        ))?;
+impl HuksAlias<'_> {
+    /// Start a session for the key under this alias with the given operation
+    /// parameters (purpose, algorithm, digest, padding, block mode, IV, ...).
+    pub fn init_session(self, params: &ParamSet) -> Result<Session> {
+        let alias = self.to_raw()?;
+        let mut handle = vec![0u8; HANDLE_CAP];
+        let mut token = vec![0u8; TOKEN_CAP];
+        let mut handle_blob = OH_Huks_Blob {
+            size: handle.len() as u32,
+            data: handle.as_mut_ptr(),
+        };
+        let mut token_blob = OH_Huks_Blob {
+            size: token.len() as u32,
+            data: token.as_mut_ptr(),
+        };
+        // SAFETY: handle/token blobs point at owned buffers of the stated size.
+        unsafe {
+            check(OH_Huks_InitSession(
+                &alias,
+                params.as_ptr(),
+                &mut handle_blob,
+                &mut token_blob,
+            ))?;
+        }
+        handle.truncate(handle_blob.size as usize);
+        token.truncate(token_blob.size as usize);
+        Ok(Session {
+            handle,
+            token,
+            done: false,
+        })
     }
-    handle.truncate(handle_blob.size as usize);
-    token.truncate(token_blob.size as usize);
-    Ok(Session {
-        handle,
-        token,
-        done: false,
-    })
 }
 
 impl Session {
@@ -65,8 +67,8 @@ impl Session {
 
     /// Feed a chunk of input; returns any output produced so far.
     pub fn update(&mut self, params: &ParamSet, input: &[u8]) -> Result<Vec<u8>> {
-        let handle = blob_in(&self.handle);
-        let input_blob = blob_in(input);
+        let handle = HuksBlob::new(&self.handle).to_raw()?;
+        let input_blob = HuksBlob::new(input).to_raw()?;
         let mut buf = Self::out_buf(input.len() + 64);
         let mut out = OH_Huks_Blob {
             size: buf.len() as u32,
@@ -89,8 +91,8 @@ impl Session {
     /// (ciphertext / plaintext / signature / mac). Consumes the session.
     pub fn finish(mut self, params: &ParamSet, input: &[u8]) -> Result<Vec<u8>> {
         self.done = true;
-        let handle = blob_in(&self.handle);
-        let input_blob = blob_in(input);
+        let handle = HuksBlob::new(&self.handle).to_raw()?;
+        let input_blob = HuksBlob::new(input).to_raw()?;
         let mut buf = Self::out_buf(input.len() + 64);
         let mut out = OH_Huks_Blob {
             size: buf.len() as u32,
@@ -112,7 +114,7 @@ impl Session {
     /// Abort the session without producing output. Consumes the session.
     pub fn abort(mut self, params: &ParamSet) -> Result<()> {
         self.done = true;
-        let handle = blob_in(&self.handle);
+        let handle = HuksBlob::new(&self.handle).to_raw()?;
         // SAFETY: handle is valid for the call.
         unsafe { check(OH_Huks_AbortSession(&handle, params.as_ptr())) }
     }
@@ -123,8 +125,8 @@ impl Drop for Session {
         if self.done {
             return;
         }
-        if let Ok(params) = ParamSet::empty() {
-            let handle = blob_in(&self.handle);
+        if let (Ok(params), Ok(handle)) = (ParamSet::empty(), HuksBlob::new(&self.handle).to_raw())
+        {
             // SAFETY: handle and the empty param set are valid for the call.
             unsafe { OH_Huks_AbortSession(&handle, params.as_ptr()) };
         }

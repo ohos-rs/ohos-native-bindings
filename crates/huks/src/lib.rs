@@ -24,9 +24,9 @@
 //!     .build()?;
 //!
 //! let alias = HuksAlias::new(b"my_key")?;
-//! huks::generate_key(alias, &params)?;
-//! assert!(huks::key_exists(alias)?);
-//! huks::delete_key(alias)?;
+//! alias.generate(&params)?;
+//! assert!(alias.exists()?);
+//! alias.delete()?;
 //! # Ok::<(), huks::HuksError>(())
 //! ```
 
@@ -39,7 +39,7 @@ mod session;
 mod r#type;
 
 pub use error::{describe, HuksError, Result};
-pub use key::{delete_key, export_public_key, generate_key, import_key, key_exists, HuksAlias};
+pub use key::{HuksAlias, HuksBlob};
 pub use param::{HuksValue, IntoHuksValue, ParamSet, ParamSetBuilder};
 pub use r#type::*;
-pub use session::{init_session, Session};
+pub use session::Session;
