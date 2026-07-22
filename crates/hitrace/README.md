@@ -42,8 +42,9 @@ by the safe layer.
 - Trace chain: `begin_chain`, `current_id`, `set_current_id`, `clear_current_id`,
   `create_span`, and the `TraceId` value type with its chain / span / parent span
   ids, `TraceFlags`, and `TraceId::tracepoint`.
-- Trace switch listeners (`api-22`): `register_trace_listener` and
-  `TraceListenerId::unregister`.
+- Trace switch listeners (`api-22`): `register_trace_listener` returns a
+  `TraceListener` guard that unregisters on drop, or on `TraceListener::unregister`
+  when the failure has to be reported.
 
 The synchronous slice guard and the chain guard are `!Send`: both are matched
 against per-thread state, so they must be dropped on the thread that created

@@ -232,16 +232,42 @@ mod listener {
     /// carried into it; only plain function pointers can be registered.
     pub type TraceEventListener = unsafe extern "C" fn(trace_status: bool);
 
-    /// Handle to a registered [`TraceEventListener`].
-    #[derive(Debug, Clone, Copy, PartialEq, Eq)]
-    #[must_use = "the listener stays registered until TraceListenerId::unregister is called"]
-    pub struct TraceListenerId(i32);
+    /// A registered [`TraceEventListener`], unregistered when dropped.
+    ///
+    /// Listener slots are a scarce process-wide resource — at most 10 exist —
+    /// and a slot freed by an unregistration is handed to the next
+    /// registration, so the guard both releases the slot and makes sure the
+    /// index is used exactly once.
+    ///
+    /// A listener meant to stay for the lifetime of the process is kept by
+    /// [`std::mem::forget`]ing the guard, or by holding it in a `static`.
+    #[derive(Debug)]
+    #[must_use = "the listener is unregistered as soon as the guard is dropped"]
+    pub struct TraceListener {
+        index: i32,
+        unregistered: bool,
+    }
 
-    impl TraceListenerId {
-        /// Unregister this listener.
-        pub fn unregister(self) -> Result<()> {
-            // SAFETY: `self` can only be obtained from a successful registration.
-            let status = unsafe { OH_HiTrace_UnregisterTraceListener(self.0) };
+    impl TraceListener {
+        /// The index the runtime assigned to this listener.
+        pub fn index(&self) -> i32 {
+            self.index
+        }
+
+        /// Unregister this listener, reporting the failure instead of
+        /// swallowing it as [`Drop`] does.
+        pub fn unregister(mut self) -> Result<()> {
+            self.unregister_inner()
+        }
+
+        fn unregister_inner(&mut self) -> Result<()> {
+            if self.unregistered {
+                return Ok(());
+            }
+            self.unregistered = true;
+            // SAFETY: the index comes from a successful registration and is
+            // unregistered exactly once, here.
+            let status = unsafe { OH_HiTrace_UnregisterTraceListener(self.index) };
             if status == 0 {
                 Ok(())
             } else {
@@ -250,22 +276,29 @@ mod listener {
         }
     }
 
+    impl Drop for TraceListener {
+        fn drop(&mut self) {
+            let _ = self.unregister_inner();
+        }
+    }
+
     /// Register a trace switch listener. At most 10 may be registered at once.
-    ///
-    /// Registration is not RAII: the returned id owns no memory, and listeners are
-    /// normally kept for the lifetime of the process.
     ///
     /// # Safety
     ///
     /// `listener` may be invoked from any thread at any point until it is
     /// unregistered, so it must be sound to call concurrently with the rest of the
-    /// program.
-    pub unsafe fn register_trace_listener(listener: TraceEventListener) -> Result<TraceListenerId> {
+    /// program. It must also stay sound until the returned guard is dropped,
+    /// which is what ends the registration.
+    pub unsafe fn register_trace_listener(listener: TraceEventListener) -> Result<TraceListener> {
         let index = unsafe { OH_HiTrace_RegisterTraceListener(Some(listener)) };
         match index {
             -1 => Err(HiTraceError::ListenerLimit),
             index if index < 0 => Err(HiTraceError::InvalidListener),
-            index => Ok(TraceListenerId(index)),
+            index => Ok(TraceListener {
+                index,
+                unregistered: false,
+            }),
         }
     }
 }
