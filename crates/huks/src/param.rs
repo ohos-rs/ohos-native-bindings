@@ -138,8 +138,14 @@ impl ParamSetBuilder {
             HuksValue::Ulong(v) => param.__bindgen_anon_1.uint64Param = v,
             HuksValue::Bytes(bytes) => {
                 let mut owned = bytes;
+                let Ok(size) = u32::try_from(owned.len()) else {
+                    self.error = Some(HuksError::illegal_argument(
+                        "blob length does not fit in OH_Huks_Blob::size",
+                    ));
+                    return self;
+                };
                 param.__bindgen_anon_1.blob = OH_Huks_Blob {
-                    size: owned.len() as u32,
+                    size,
                     data: owned.as_mut_ptr(),
                 };
                 // Moving `owned` into the Vec keeps its heap buffer address stable, so

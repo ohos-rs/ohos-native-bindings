@@ -79,9 +79,13 @@ impl<'a> HuksAlias<'a> {
     }
 
     /// Import raw key material under this alias.
-    pub fn import(self, params: &ParamSet, key_material: &[u8]) -> Result<()> {
+    pub fn import<'m>(
+        self,
+        params: &ParamSet,
+        key_material: impl Into<HuksBlob<'m>>,
+    ) -> Result<()> {
         let alias = self.to_raw()?;
-        let key = HuksBlob::new(key_material).to_raw()?;
+        let key = key_material.into().to_raw()?;
         // SAFETY: all three blobs are valid for the duration of the call.
         unsafe { check(OH_Huks_ImportKeyItem(&alias, params.as_ptr(), &key)) }
     }
