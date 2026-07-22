@@ -36,34 +36,6 @@ pub const BATTERY_INFO: Lazy<SysConfig> = Lazy::new(|| SysConfig {
     extra: "",
 });
 
-pub const PRINT: Lazy<SysConfig> = Lazy::new(|| SysConfig {
-    name: "ohos-print-sys",
-    headers: vec!["BasicServicesKit/ohprint.h"],
-    white_list: vec![
-        "OH_Print_.*",
-        "OH_PRINT_.*",
-        "Print_.*",
-        "PRINT_.*",
-        "PRINTER_.*",
-        "COLOR_MODE_.*",
-        "DUPLEX_MODE_.*",
-        "ORIENTATION_MODE_.*",
-        "DOCUMENT_FORMAT_.*",
-    ],
-    block_list: vec![],
-    dynamic_library: vec!["ohprint"],
-    extra: "",
-});
-
-pub const SCAN: Lazy<SysConfig> = Lazy::new(|| SysConfig {
-    name: "ohos-scan-sys",
-    headers: vec!["BasicServicesKit/ohscan.h"],
-    white_list: vec!["OH_Scan_.*", "Scan_.*", "SCAN_ERROR_.*"],
-    block_list: vec![],
-    dynamic_library: vec!["ohscan"],
-    extra: "",
-});
-
 pub const OS_ACCOUNT: Lazy<SysConfig> = Lazy::new(|| SysConfig {
     name: "ohos-os-account-sys",
     headers: vec![
