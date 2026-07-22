@@ -66,10 +66,15 @@ impl Session {
     }
 
     /// Feed a chunk of input; returns any output produced so far.
-    pub fn update(&mut self, params: &ParamSet, input: &[u8]) -> Result<Vec<u8>> {
+    pub fn update<'i>(
+        &mut self,
+        params: &ParamSet,
+        input: impl Into<HuksBlob<'i>>,
+    ) -> Result<Vec<u8>> {
+        let input = input.into();
         let handle = HuksBlob::new(&self.handle).to_raw()?;
-        let input_blob = HuksBlob::new(input).to_raw()?;
-        let mut buf = Self::out_buf(input.len() + 64);
+        let input_blob = input.to_raw()?;
+        let mut buf = Self::out_buf(input.as_bytes().len() + 64);
         let mut out = OH_Huks_Blob {
             size: buf.len() as u32,
             data: buf.as_mut_ptr(),
@@ -89,11 +94,18 @@ impl Session {
 
     /// Finish the session with a final input chunk; returns the final output
     /// (ciphertext / plaintext / signature / mac). Consumes the session.
-    pub fn finish(mut self, params: &ParamSet, input: &[u8]) -> Result<Vec<u8>> {
-        self.done = true;
+    pub fn finish<'i>(
+        mut self,
+        params: &ParamSet,
+        input: impl Into<HuksBlob<'i>>,
+    ) -> Result<Vec<u8>> {
+        let input = input.into();
         let handle = HuksBlob::new(&self.handle).to_raw()?;
-        let input_blob = HuksBlob::new(input).to_raw()?;
-        let mut buf = Self::out_buf(input.len() + 64);
+        let input_blob = input.to_raw()?;
+        // Only now that nothing can fail before the call: the native side ends the
+        // session whether or not it succeeds, so Drop must not abort it again.
+        self.done = true;
+        let mut buf = Self::out_buf(input.as_bytes().len() + 64);
         let mut out = OH_Huks_Blob {
             size: buf.len() as u32,
             data: buf.as_mut_ptr(),
