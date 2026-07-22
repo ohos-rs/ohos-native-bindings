@@ -1,0 +1,27 @@
+[package]
+name        = "ohos-background-process-manager-binding"
+version     = "0.1.0"
+edition     = "2021"
+license     = "MIT OR Apache-2.0"
+description = "OpenHarmony's background process manager binding for rust"
+
+[dependencies]
+ohos-background-process-manager-sys = { workspace = true }
+
+[features]
+default = []
+api-13 = ["ohos-background-process-manager-sys/api-13"]
+api-14 = ["api-13", "ohos-background-process-manager-sys/api-14"]
+api-15 = ["api-14", "ohos-background-process-manager-sys/api-15"]
+api-16 = ["api-15", "ohos-background-process-manager-sys/api-16"]
+api-17 = ["api-16", "ohos-background-process-manager-sys/api-17"]
+api-18 = ["api-17", "ohos-background-process-manager-sys/api-18"]
+api-19 = ["api-18", "ohos-background-process-manager-sys/api-19"]
+api-20 = ["api-19", "ohos-background-process-manager-sys/api-20"]
+api-21 = ["api-20", "ohos-background-process-manager-sys/api-21"]
+api-22 = ["api-21", "ohos-background-process-manager-sys/api-22"]
+api-23 = ["api-22", "ohos-background-process-manager-sys/api-23"]
+api-24 = ["api-23", "ohos-background-process-manager-sys/api-24"]
+
+[lints]
+workspace = true
