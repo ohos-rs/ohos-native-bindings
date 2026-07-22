@@ -33,6 +33,44 @@ impl<'a> From<&'a [u8]> for HuksBlob<'a> {
     }
 }
 
+/// Head room added on top of an input length when sizing an output buffer.
+///
+/// A single call never expands its input by more than one cipher block, one
+/// padding block, one AEAD tag or one signature, all of which are bounded by
+/// `OH_HUKS_MAX_KEY_SIZE`. Allowing that much on top of the input therefore
+/// leaves the buffer strictly larger than any output HUKS can write into it,
+/// which is what makes [`take_output`] able to recognise an untouched length.
+pub(crate) const OUT_HEAD_ROOM: usize = OH_HUKS_MAX_KEY_SIZE as usize;
+
+/// An output buffer for a call that consumes `input_len` bytes.
+pub(crate) fn out_buf(input_len: usize) -> Vec<u8> {
+    vec![0u8; input_len + OUT_HEAD_ROOM]
+}
+
+/// Cut an output buffer down to what HUKS actually wrote into it.
+///
+/// `OH_Huks_Blob::size` is an in/out field: the caller states the capacity
+/// available, and HUKS overwrites it with the length it produced — but only when
+/// it produces output at all. Sign, verify, mac and derive sessions absorb their
+/// input during `update` and emit everything at `finish`, and for those stages
+/// the field comes back still holding the capacity that was passed in. Reading
+/// it as a length there would hand out the whole zero-filled buffer as if it
+/// were real output.
+///
+/// The capacity is picked so no genuine output can reach it (see
+/// [`OUT_HEAD_ROOM`]), so a reported length that does means "nothing written"
+/// and yields an empty slice. A caller can tell the two apart: an empty result
+/// is a stage that produced nothing.
+pub(crate) fn take_output(mut buf: Vec<u8>, reported: u32) -> Vec<u8> {
+    let capacity = buf.len();
+    if reported as usize >= capacity {
+        buf.clear();
+    } else {
+        buf.truncate(reported as usize);
+    }
+    buf
+}
+
 /// The name a key is stored under.
 ///
 /// Checked on construction so an over-long alias fails here rather than as an
@@ -93,7 +131,7 @@ impl<'a> HuksAlias<'a> {
     /// Export the public part of the asymmetric key stored under this alias.
     pub fn export_public_key(self, params: &ParamSet) -> Result<Vec<u8>> {
         let alias = self.to_raw()?;
-        let mut buf = vec![0u8; OH_HUKS_MAX_KEY_SIZE as usize];
+        let mut buf = out_buf(0);
         let mut out = OH_Huks_Blob {
             size: buf.len() as u32,
             data: buf.as_mut_ptr(),
@@ -107,8 +145,7 @@ impl<'a> HuksAlias<'a> {
                 &mut out,
             ))?;
         }
-        buf.truncate(out.size as usize);
-        Ok(buf)
+        Ok(take_output(buf, out.size))
     }
 
     /// Delete the key stored under this alias.

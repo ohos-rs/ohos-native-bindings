@@ -1,5 +1,5 @@
 use crate::error::{check, Result};
-use crate::key::{HuksAlias, HuksBlob};
+use crate::key::{out_buf, take_output, HuksAlias, HuksBlob};
 use crate::param::ParamSet;
 use ohos_huks_sys::*;
 
@@ -55,10 +55,6 @@ impl HuksAlias<'_> {
 }
 
 impl Session {
-    fn out_buf(hint: usize) -> Vec<u8> {
-        vec![0u8; hint.max(OH_HUKS_MAX_KEY_SIZE as usize)]
-    }
-
     /// The auth token produced by `init`, for key access control flows that
     /// require user authentication. Empty when no authentication is needed.
     pub fn token(&self) -> &[u8] {
@@ -66,6 +62,9 @@ impl Session {
     }
 
     /// Feed a chunk of input; returns any output produced so far.
+    ///
+    /// Empty when the stage produces none — a sign, verify, mac or derive
+    /// session only absorbs input here and emits everything at `finish`.
     pub fn update<'i>(
         &mut self,
         params: &ParamSet,
@@ -74,7 +73,7 @@ impl Session {
         let input = input.into();
         let handle = HuksBlob::new(&self.handle).to_raw()?;
         let input_blob = input.to_raw()?;
-        let mut buf = Self::out_buf(input.as_bytes().len() + 64);
+        let mut buf = out_buf(input.as_bytes().len());
         let mut out = OH_Huks_Blob {
             size: buf.len() as u32,
             data: buf.as_mut_ptr(),
@@ -88,12 +87,12 @@ impl Session {
                 &mut out,
             ))?;
         }
-        buf.truncate(out.size as usize);
-        Ok(buf)
+        Ok(take_output(buf, out.size))
     }
 
     /// Finish the session with a final input chunk; returns the final output
-    /// (ciphertext / plaintext / signature / mac). Consumes the session.
+    /// (ciphertext / plaintext / signature / mac), which is empty for an
+    /// operation that produces none, such as verify. Consumes the session.
     pub fn finish<'i>(
         mut self,
         params: &ParamSet,
@@ -105,7 +104,7 @@ impl Session {
         // Only now that nothing can fail before the call: the native side ends the
         // session whether or not it succeeds, so Drop must not abort it again.
         self.done = true;
-        let mut buf = Self::out_buf(input.as_bytes().len() + 64);
+        let mut buf = out_buf(input.as_bytes().len());
         let mut out = OH_Huks_Blob {
             size: buf.len() as u32,
             data: buf.as_mut_ptr(),
@@ -119,8 +118,7 @@ impl Session {
                 &mut out,
             ))?;
         }
-        buf.truncate(out.size as usize);
-        Ok(buf)
+        Ok(take_output(buf, out.size))
     }
 
     /// Abort the session without producing output. Consumes the session.

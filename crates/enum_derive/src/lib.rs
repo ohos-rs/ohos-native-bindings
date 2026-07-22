@@ -72,6 +72,27 @@ fn get_target_variant(variant: &syn::Variant, default_prefix: &str) -> Ident {
     format_ident!("{}{}", variant_prefix, upper_snake_variant)
 }
 
+/// Derive conversions between a Rust enum and the native FFI enum it mirrors.
+///
+/// Each variant is mapped to the native constant named by its `#[suffix(...)]` /
+/// `#[alias(...)]` attribute (or by its upper-snake-case name), and the derive
+/// emits `From` in both directions plus `try_from_raw`.
+///
+/// # Never cast a derived enum with `as`
+///
+/// The derive only generates conversions; it does **not** give the Rust enum
+/// explicit discriminants. `MyEnum::Variant as u32` therefore yields the
+/// variant's position in the declaration, which has nothing to do with the
+/// native constant — the two agree only by accident, when a native enum happens
+/// to number from zero without gaps. Passing such a value across FFI silently
+/// selects a different, still-valid setting rather than failing.
+///
+/// Always go through the generated conversion instead:
+///
+/// ```ignore
+/// let raw = u32::from(MyEnum::Variant); // correct: the native constant
+/// let bad = MyEnum::Variant as u32;     // wrong: the declaration index
+/// ```
 #[proc_macro_derive(EnumFrom, attributes(config, prefix, suffix, alias))]
 pub fn enum_from(input: TokenStream) -> TokenStream {
     let input = parse_macro_input!(input as DeriveInput);
