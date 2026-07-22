@@ -1,0 +1,28 @@
+[package]
+name        = "ohos-ability-runtime-sys"
+version     = "0.1.0"
+edition     = "2021"
+license     = "MIT OR Apache-2.0"
+description = "OpenHarmony's ability runtime sys binding for rust"
+
+[dependencies]
+ohos-ability-base-sys     = { workspace = true }
+ohos-image-native-sys     = { workspace = true }
+
+[features]
+default = []
+api-13  = ["ohos-ability-base-sys/api-13", "ohos-image-native-sys/api-13"]
+api-14  = ["api-13", "ohos-ability-base-sys/api-14", "ohos-image-native-sys/api-14"]
+api-15  = ["api-14", "ohos-ability-base-sys/api-15", "ohos-image-native-sys/api-15"]
+api-16  = ["api-15", "ohos-ability-base-sys/api-16", "ohos-image-native-sys/api-16"]
+api-17  = ["api-16", "ohos-ability-base-sys/api-17", "ohos-image-native-sys/api-17"]
+api-18  = ["api-17", "ohos-ability-base-sys/api-18", "ohos-image-native-sys/api-18"]
+api-19  = ["api-18", "ohos-ability-base-sys/api-19", "ohos-image-native-sys/api-19"]
+api-20  = ["api-19", "ohos-ability-base-sys/api-20", "ohos-image-native-sys/api-20"]
+api-21  = ["api-20", "ohos-ability-base-sys/api-21", "ohos-image-native-sys/api-21"]
+api-22  = ["api-21", "ohos-ability-base-sys/api-22", "ohos-image-native-sys/api-22"]
+api-23  = ["api-22", "ohos-ability-base-sys/api-23", "ohos-image-native-sys/api-23"]
+api-24  = ["api-23", "ohos-ability-base-sys/api-24", "ohos-image-native-sys/api-24"]
+
+[lints]
+workspace = true

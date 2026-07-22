@@ -1,0 +1,28 @@
+[package]
+name        = "ohos-usb-serial-binding"
+version     = "0.1.0"
+edition     = "2021"
+license     = "MIT OR Apache-2.0"
+description = "OpenHarmony's USB Serial DDK binding for rust"
+
+[dependencies]
+ohos-usb-serial-sys = { workspace = true }
+ohos-enum-derive    = { workspace = true }
+
+[features]
+default = []
+api-13  = ["ohos-usb-serial-sys/api-13"]
+api-14  = ["api-13", "ohos-usb-serial-sys/api-14"]
+api-15  = ["api-14", "ohos-usb-serial-sys/api-15"]
+api-16  = ["api-15", "ohos-usb-serial-sys/api-16"]
+api-17  = ["api-16", "ohos-usb-serial-sys/api-17"]
+api-18  = ["api-17", "ohos-usb-serial-sys/api-18"]
+api-19  = ["api-18", "ohos-usb-serial-sys/api-19"]
+api-20  = ["api-19", "ohos-usb-serial-sys/api-20"]
+api-21  = ["api-20", "ohos-usb-serial-sys/api-21"]
+api-22  = ["api-21", "ohos-usb-serial-sys/api-22"]
+api-23  = ["api-22", "ohos-usb-serial-sys/api-23"]
+api-24  = ["api-23", "ohos-usb-serial-sys/api-24"]
+
+[lints]
+workspace = true
