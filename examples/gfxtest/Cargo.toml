@@ -1,0 +1,21 @@
+[package]
+name    = "rust-gfxtest"
+version = "0.1.0"
+edition = "2021"
+
+[lib]
+crate-type = ["cdylib"]
+
+[dependencies]
+napi-ohos                  = { workspace = true }
+napi-derive-ohos           = { workspace = true }
+ohos-hilog-binding         = { workspace = true, features = ["redirect", "log"] }
+ohos-image-native-binding  = { workspace = true }
+ohos-native-effect-binding = { workspace = true, features = ["api-14"] }
+ohos-native-fence-binding  = { workspace = true, features = ["api-20"] }
+
+[build-dependencies]
+napi-build-ohos = { workspace = true }
+
+[profile.release]
+lto = true

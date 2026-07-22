@@ -1,0 +1,19 @@
+[package]
+name    = "rust-hukstest"
+version = "0.1.0"
+edition = "2021"
+
+[lib]
+crate-type = ["cdylib"]
+
+[dependencies]
+napi-ohos          = { workspace = true }
+napi-derive-ohos   = { workspace = true }
+ohos-huks-binding  = { workspace = true, features = ["api-23"] }
+ohos-hilog-binding = { workspace = true, features = ["redirect", "log"] }
+
+[build-dependencies]
+napi-build-ohos = { workspace = true }
+
+[profile.release]
+lto = true

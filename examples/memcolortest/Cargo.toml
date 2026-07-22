@@ -1,0 +1,20 @@
+[package]
+name    = "rust-memcolortest"
+version = "0.1.0"
+edition = "2021"
+
+[lib]
+crate-type = ["cdylib"]
+
+[dependencies]
+napi-ohos                              = { workspace = true }
+napi-derive-ohos                       = { workspace = true }
+ohos-hilog-binding                     = { workspace = true, features = ["redirect", "log"] }
+ohos-purgeable-memory-binding          = { workspace = true }
+ohos-native-color-space-manager-binding = { workspace = true, features = ["api-13"] }
+
+[build-dependencies]
+napi-build-ohos = { workspace = true }
+
+[profile.release]
+lto = true
