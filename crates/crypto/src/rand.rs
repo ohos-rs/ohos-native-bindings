@@ -1,4 +1,4 @@
-use crate::blob::{blob_in, borrow_cstr, OutBlob};
+use crate::blob::{borrow_cstr, CryptoDataBlob, OwnedCryptoDataBlob};
 use crate::error::{check, checked_len, CryptoError, Result};
 use ohos_crypto_sys::*;
 use std::ptr::{self, NonNull};
@@ -22,15 +22,15 @@ impl Rand {
     /// Generate `len` random bytes.
     pub fn generate(&mut self, len: usize) -> Result<Vec<u8>> {
         let len = checked_len(len)?;
-        let mut out = OutBlob::new();
+        let mut out = OwnedCryptoDataBlob::new();
         // SAFETY: `out` is a zeroed blob the framework fills in.
         check(unsafe { OH_CryptoRand_GenerateRandom(self.raw.as_ptr(), len, out.as_mut_ptr()) })?;
         Ok(out.to_vec())
     }
 
     /// Mix additional entropy into the generator.
-    pub fn set_seed(&mut self, seed: &[u8]) -> Result<()> {
-        let mut seed = blob_in(seed);
+    pub fn set_seed<'s>(&mut self, seed: impl Into<CryptoDataBlob<'s>>) -> Result<()> {
+        let mut seed = seed.into().to_raw();
         // SAFETY: `seed` borrows the caller's slice for the duration of the call.
         unsafe { check(OH_CryptoRand_SetSeed(self.raw.as_ptr(), &mut seed)) }
     }

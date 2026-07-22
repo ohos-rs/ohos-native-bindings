@@ -8,8 +8,11 @@
 //! agreement, asymmetric ciphers and random number generation behind the
 //! `api-20` feature.
 //!
-//! Output buffers are allocated by the framework; the safe layer copies them out
-//! and releases them, so every operation returns a plain `Vec<u8>`.
+//! Byte input is taken as [`CryptoDataBlob`], a borrowing wrapper every
+//! operation accepts through `impl Into<CryptoDataBlob>`, so slices, arrays and
+//! `Vec`s can be passed directly. Output buffers are allocated by the framework;
+//! the safe layer copies them out and releases them on drop, so every operation
+//! returns a plain `Vec<u8>`.
 //!
 //! The raw bindings are re-exported as [`sys`] for anything not yet covered.
 //!
@@ -55,6 +58,7 @@ mod mac;
 mod rand;
 
 pub use asym::{AsymKeyGenerator, KeyPair, PubKey};
+pub use blob::CryptoDataBlob;
 pub use digest::Digest;
 pub use error::{describe, CryptoError, Result};
 pub use r#type::*;

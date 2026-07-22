@@ -1,4 +1,6 @@
-use crate::blob::{blob_in, borrow_cstr, c_string, OptionalBlob, OutBlob};
+use crate::blob::{
+    borrow_cstr, c_string, CryptoDataBlob, OptionalCryptoDataBlob, OwnedCryptoDataBlob,
+};
 use crate::error::{check, CryptoError, Result};
 use crate::r#type::{CryptoCipherMode, CryptoSymCipherParamsType};
 use crate::value::IntoCryptoValue;
@@ -34,8 +36,8 @@ impl SymKeyGenerator {
     }
 
     /// Build a key from existing key material.
-    pub fn convert(&self, key_data: &[u8]) -> Result<SymKey> {
-        let data = blob_in(key_data);
+    pub fn convert<'k>(&self, key_data: impl Into<CryptoDataBlob<'k>>) -> Result<SymKey> {
+        let data = key_data.into().to_raw();
         let mut raw = ptr::null_mut();
         // SAFETY: `data` borrows `key_data` for the duration of the call.
         check(unsafe { OH_CryptoSymKeyGenerator_Convert(self.raw.as_ptr(), &data, &mut raw) })?;
@@ -67,7 +69,7 @@ pub struct SymKey {
 impl SymKey {
     /// Export the raw key material.
     pub fn key_data(&self) -> Result<Vec<u8>> {
-        let mut out = OutBlob::new();
+        let mut out = OwnedCryptoDataBlob::new();
         // SAFETY: the key is live and `out` is a zeroed blob the framework fills in.
         check(unsafe { OH_CryptoSymKey_GetKeyData(self.raw.as_ptr(), out.as_mut_ptr()) })?;
         Ok(out.to_vec())
@@ -118,11 +120,8 @@ impl SymCipherParams {
         params_type: CryptoSymCipherParamsType,
         value: impl IntoCryptoValue,
     ) -> Result<()> {
-        let mut owned = value.into_crypto_value();
-        let mut blob = Crypto_DataBlob {
-            data: owned.as_mut_ptr(),
-            len: owned.len(),
-        };
+        let owned = value.into_crypto_value();
+        let mut blob = CryptoDataBlob::new(&owned).to_raw();
         // SAFETY: `blob` points at `owned`, whose heap buffer is kept alive below.
         check(unsafe {
             OH_CryptoSymCipherParams_SetParam(self.raw.as_ptr(), params_type.into(), &mut blob)
@@ -180,9 +179,9 @@ impl SymCipher {
     }
 
     /// Feed a chunk of input; returns whatever output is ready.
-    pub fn update(&mut self, input: &[u8]) -> Result<Vec<u8>> {
-        let mut input = blob_in(input);
-        let mut out = OutBlob::new();
+    pub fn update<'i>(&mut self, input: impl Into<CryptoDataBlob<'i>>) -> Result<Vec<u8>> {
+        let mut input = input.into().to_raw();
+        let mut out = OwnedCryptoDataBlob::new();
         // SAFETY: `input` borrows the caller's slice for the call; `out` is filled in
         // by the framework.
         check(unsafe {
@@ -195,9 +194,9 @@ impl SymCipher {
     /// authentication tag is appended to the returned output; for GCM
     /// decryption the tag is verified against the one set on the
     /// [`SymCipherParams`] before [`init`](Self::init).
-    pub fn finish(&mut self, input: Option<&[u8]>) -> Result<Vec<u8>> {
-        let mut input = OptionalBlob::new(input);
-        let mut out = OutBlob::new();
+    pub fn finish(&mut self, input: Option<CryptoDataBlob<'_>>) -> Result<Vec<u8>> {
+        let mut input = OptionalCryptoDataBlob::new(input);
+        let mut out = OwnedCryptoDataBlob::new();
         // SAFETY: `input` borrows the caller's slice for the call; `out` is filled in
         // by the framework.
         check(unsafe {

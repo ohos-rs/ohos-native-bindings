@@ -1,5 +1,7 @@
 use crate::asym::PubKey;
-use crate::blob::{blob_in, borrow_cstr, c_string, OptionalBlob, OutBlob};
+use crate::blob::{
+    borrow_cstr, c_string, CryptoDataBlob, OptionalCryptoDataBlob, OwnedCryptoDataBlob,
+};
 use crate::error::{check, CryptoError, Result};
 use crate::r#type::CryptoSignatureParamType;
 use crate::value::IntoCryptoValue;
@@ -41,11 +43,8 @@ impl Verify {
         param_type: CryptoSignatureParamType,
         value: impl IntoCryptoValue,
     ) -> Result<()> {
-        let mut owned = value.into_crypto_value();
-        let mut blob = Crypto_DataBlob {
-            data: owned.as_mut_ptr(),
-            len: owned.len(),
-        };
+        let owned = value.into_crypto_value();
+        let mut blob = CryptoDataBlob::new(&owned).to_raw();
         // SAFETY: `blob` points at `owned`, whose heap buffer is kept alive below.
         check(unsafe {
             OH_CryptoVerify_SetParam(self.raw.as_ptr(), param_type.into(), &mut blob)
@@ -56,7 +55,7 @@ impl Verify {
 
     /// Read a parameter back.
     pub fn param(&self, param_type: CryptoSignatureParamType) -> Result<Vec<u8>> {
-        let mut out = OutBlob::new();
+        let mut out = OwnedCryptoDataBlob::new();
         // SAFETY: the context is live; `out` is filled in by the framework.
         check(unsafe {
             OH_CryptoVerify_GetParam(self.raw.as_ptr(), param_type.into(), out.as_mut_ptr())
@@ -76,8 +75,8 @@ impl Verify {
     }
 
     /// Feed a chunk of the signed message.
-    pub fn update(&mut self, input: &[u8]) -> Result<()> {
-        let mut input = blob_in(input);
+    pub fn update<'i>(&mut self, input: impl Into<CryptoDataBlob<'i>>) -> Result<()> {
+        let mut input = input.into().to_raw();
         // SAFETY: `input` borrows the caller's slice for the duration of the call.
         unsafe { check(OH_CryptoVerify_Update(self.raw.as_ptr(), &mut input)) }
     }
@@ -86,17 +85,21 @@ impl Verify {
     ///
     /// The C API reports the outcome as a plain `bool`, so a rejected signature
     /// and a failed call are indistinguishable.
-    pub fn verify(&mut self, input: Option<&[u8]>, signature: &[u8]) -> bool {
-        let mut input = OptionalBlob::new(input);
-        let mut signature = blob_in(signature);
+    pub fn verify<'s>(
+        &mut self,
+        input: Option<CryptoDataBlob<'_>>,
+        signature: impl Into<CryptoDataBlob<'s>>,
+    ) -> bool {
+        let mut input = OptionalCryptoDataBlob::new(input);
+        let mut signature = signature.into().to_raw();
         // SAFETY: both blobs borrow the caller's slices for the duration of the call.
         unsafe { OH_CryptoVerify_Final(self.raw.as_ptr(), input.as_mut_ptr(), &mut signature) }
     }
 
     /// Recover the message embedded in a signature, for schemes that support it.
-    pub fn recover(&mut self, signature: &[u8]) -> Result<Vec<u8>> {
-        let mut signature = blob_in(signature);
-        let mut out = OutBlob::new();
+    pub fn recover<'s>(&mut self, signature: impl Into<CryptoDataBlob<'s>>) -> Result<Vec<u8>> {
+        let mut signature = signature.into().to_raw();
+        let mut out = OwnedCryptoDataBlob::new();
         // SAFETY: `signature` borrows the caller's slice; `out` is filled in by the
         // framework.
         check(unsafe {
@@ -150,11 +153,8 @@ impl Sign {
         param_type: CryptoSignatureParamType,
         value: impl IntoCryptoValue,
     ) -> Result<()> {
-        let mut owned = value.into_crypto_value();
-        let blob = Crypto_DataBlob {
-            data: owned.as_mut_ptr(),
-            len: owned.len(),
-        };
+        let owned = value.into_crypto_value();
+        let blob = CryptoDataBlob::new(&owned).to_raw();
         // SAFETY: `blob` points at `owned`, whose heap buffer is kept alive below.
         check(unsafe { OH_CryptoSign_SetParam(self.raw.as_ptr(), param_type.into(), &blob) })?;
         self.values.push(owned);
@@ -163,7 +163,7 @@ impl Sign {
 
     /// Read a parameter back.
     pub fn param(&self, param_type: CryptoSignatureParamType) -> Result<Vec<u8>> {
-        let mut out = OutBlob::new();
+        let mut out = OwnedCryptoDataBlob::new();
         // SAFETY: the context is live; `out` is filled in by the framework.
         check(unsafe {
             OH_CryptoSign_GetParam(self.raw.as_ptr(), param_type.into(), out.as_mut_ptr())
@@ -178,16 +178,16 @@ impl Sign {
     }
 
     /// Feed a chunk of the message to sign.
-    pub fn update(&mut self, input: &[u8]) -> Result<()> {
-        let input = blob_in(input);
+    pub fn update<'i>(&mut self, input: impl Into<CryptoDataBlob<'i>>) -> Result<()> {
+        let input = input.into().to_raw();
         // SAFETY: `input` borrows the caller's slice for the duration of the call.
         unsafe { check(OH_CryptoSign_Update(self.raw.as_ptr(), &input)) }
     }
 
     /// Produce the signature, optionally over a last chunk of message.
-    pub fn finish(&mut self, input: Option<&[u8]>) -> Result<Vec<u8>> {
-        let mut input = OptionalBlob::new(input);
-        let mut out = OutBlob::new();
+    pub fn finish(&mut self, input: Option<CryptoDataBlob<'_>>) -> Result<Vec<u8>> {
+        let mut input = OptionalCryptoDataBlob::new(input);
+        let mut out = OwnedCryptoDataBlob::new();
         // SAFETY: `input` borrows the caller's slice; `out` is filled in by the
         // framework.
         check(unsafe {

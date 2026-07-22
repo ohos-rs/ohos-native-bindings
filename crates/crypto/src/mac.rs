@@ -1,4 +1,4 @@
-use crate::blob::{blob_in, c_string, OutBlob};
+use crate::blob::{c_string, CryptoDataBlob, OwnedCryptoDataBlob};
 use crate::error::{check, CryptoError, Result};
 use crate::r#type::CryptoMacParamType;
 use crate::sym::SymKey;
@@ -38,11 +38,8 @@ impl Mac {
         param_type: CryptoMacParamType,
         value: impl IntoCryptoValue,
     ) -> Result<()> {
-        let mut owned = value.into_crypto_value();
-        let blob = Crypto_DataBlob {
-            data: owned.as_mut_ptr(),
-            len: owned.len(),
-        };
+        let owned = value.into_crypto_value();
+        let blob = CryptoDataBlob::new(&owned).to_raw();
         // SAFETY: `blob` points at `owned`, whose heap buffer is kept alive below.
         check(unsafe { OH_CryptoMac_SetParam(self.raw.as_ptr(), param_type.into(), &blob) })?;
         self.values.push(owned);
@@ -56,15 +53,15 @@ impl Mac {
     }
 
     /// Feed a chunk of input.
-    pub fn update(&mut self, input: &[u8]) -> Result<()> {
-        let input = blob_in(input);
+    pub fn update<'i>(&mut self, input: impl Into<CryptoDataBlob<'i>>) -> Result<()> {
+        let input = input.into().to_raw();
         // SAFETY: `input` borrows the caller's slice for the duration of the call.
         unsafe { check(OH_CryptoMac_Update(self.raw.as_ptr(), &input)) }
     }
 
     /// Produce the MAC.
     pub fn finish(&mut self) -> Result<Vec<u8>> {
-        let mut out = OutBlob::new();
+        let mut out = OwnedCryptoDataBlob::new();
         // SAFETY: `out` is a zeroed blob the framework fills in.
         check(unsafe { OH_CryptoMac_Final(self.raw.as_ptr(), out.as_mut_ptr()) })?;
         Ok(out.to_vec())

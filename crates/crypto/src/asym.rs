@@ -1,4 +1,6 @@
-use crate::blob::{borrow_cstr, c_string, OptionalBlob, OutBlob};
+use crate::blob::{
+    borrow_cstr, c_string, CryptoDataBlob, OptionalCryptoDataBlob, OwnedCryptoDataBlob,
+};
 use crate::error::{check, CryptoError, Result};
 use crate::r#type::{CryptoAsymKeyParamType, CryptoEncodingType};
 use ohos_crypto_sys::*;
@@ -37,11 +39,11 @@ impl AsymKeyGenerator {
     pub fn convert(
         &self,
         encoding: CryptoEncodingType,
-        pub_key: Option<&[u8]>,
-        priv_key: Option<&[u8]>,
+        pub_key: Option<CryptoDataBlob<'_>>,
+        priv_key: Option<CryptoDataBlob<'_>>,
     ) -> Result<KeyPair> {
-        let mut pub_key = OptionalBlob::new(pub_key);
-        let mut priv_key = OptionalBlob::new(priv_key);
+        let mut pub_key = OptionalCryptoDataBlob::new(pub_key);
+        let mut priv_key = OptionalCryptoDataBlob::new(priv_key);
         let mut raw = ptr::null_mut();
         // SAFETY: both blobs borrow the caller's slices for the duration of the call.
         check(unsafe {
@@ -61,13 +63,15 @@ impl AsymKeyGenerator {
     /// Set the password used to decrypt an encrypted private key passed to
     /// [`convert`](Self::convert).
     #[cfg(feature = "api-20")]
-    pub fn set_password(&mut self, password: &[u8]) -> Result<()> {
-        let len = crate::error::checked_u32(password.len())?;
+    pub fn set_password<'p>(&mut self, password: impl Into<CryptoDataBlob<'p>>) -> Result<()> {
+        // This call takes a bare pointer and length rather than a blob.
+        let password = password.into();
+        let len = crate::error::checked_u32(password.as_bytes().len())?;
         // SAFETY: the pointer and length describe `password` for the duration of the call.
         unsafe {
             check(OH_CryptoAsymKeyGenerator_SetPassword(
                 self.raw.as_ptr(),
-                password.as_ptr(),
+                password.as_bytes().as_ptr(),
                 len,
             ))
         }
@@ -137,7 +141,7 @@ impl PubKey<'_> {
     pub fn encode(&self, encoding: CryptoEncodingType, standard: Option<&str>) -> Result<Vec<u8>> {
         let standard = standard.map(c_string).transpose()?;
         let standard = standard.as_ref().map_or(ptr::null(), |s| s.as_ptr());
-        let mut out = OutBlob::new();
+        let mut out = OwnedCryptoDataBlob::new();
         // SAFETY: the owning key pair is alive; `out` is filled in by the framework.
         check(unsafe {
             OH_CryptoPubKey_Encode(
@@ -152,7 +156,7 @@ impl PubKey<'_> {
 
     /// Read a single key component, e.g. the RSA modulus or an EC coordinate.
     pub fn param(&self, item: CryptoAsymKeyParamType) -> Result<Vec<u8>> {
-        let mut out = OutBlob::new();
+        let mut out = OwnedCryptoDataBlob::new();
         // SAFETY: the owning key pair is alive; `out` is filled in by the framework.
         check(unsafe {
             OH_CryptoPubKey_GetParam(self.raw.as_ptr(), item.into(), out.as_mut_ptr())
@@ -180,7 +184,7 @@ impl PrivKey<'_> {
     pub fn encode(&self, encoding: CryptoEncodingType, standard: Option<&str>) -> Result<Vec<u8>> {
         let standard = standard.map(c_string).transpose()?;
         let standard = standard.as_ref().map_or(ptr::null(), |s| s.as_ptr());
-        let mut out = OutBlob::new();
+        let mut out = OwnedCryptoDataBlob::new();
         // SAFETY: the owning key pair is alive; a null params pointer selects
         // unencrypted output.
         check(unsafe {
@@ -197,7 +201,7 @@ impl PrivKey<'_> {
 
     /// Read a single key component, e.g. the RSA private exponent.
     pub fn param(&self, item: CryptoAsymKeyParamType) -> Result<Vec<u8>> {
-        let mut out = OutBlob::new();
+        let mut out = OwnedCryptoDataBlob::new();
         // SAFETY: the owning key pair is alive; `out` is filled in by the framework.
         check(unsafe {
             OH_CryptoPrivKey_GetParam(self.raw.as_ptr(), item.into(), out.as_mut_ptr())

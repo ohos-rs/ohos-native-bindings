@@ -7,8 +7,11 @@ the application process and can be imported and exported, which is what sets it
 apart from HUKS. This crate wraps the native `libohcrypto` C API with RAII
 contexts and `Result`-based error handling.
 
-Output buffers are allocated by the framework; the safe layer copies them out
-and releases them, so every operation returns a plain `Vec<u8>`.
+Byte input is taken as `CryptoDataBlob`, a borrowing wrapper every operation
+accepts through `impl Into<CryptoDataBlob>`, so slices, arrays and `Vec`s can be
+passed directly. Output buffers are allocated by the framework; the safe layer
+copies them out and releases them on drop, so every operation returns a plain
+`Vec<u8>`.
 
 ## Install
 
@@ -41,6 +44,7 @@ by the safe layer.
 
 Available with the default features (API 12):
 
+- Byte input for every operation: `CryptoDataBlob`.
 - Symmetric crypto: `SymKeyGenerator`, `SymKey`, `SymCipherParams`, `SymCipher`.
 - Message digests: `Digest`.
 - Asymmetric keys: `AsymKeyGenerator`, `KeyPair`, `PubKey`.

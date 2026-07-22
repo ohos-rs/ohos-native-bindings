@@ -1,4 +1,4 @@
-use crate::blob::{c_string, OutBlob};
+use crate::blob::{c_string, CryptoDataBlob, OwnedCryptoDataBlob};
 use crate::error::{check, checked_len, CryptoError, Result};
 use crate::r#type::CryptoKdfParamType;
 use crate::value::IntoCryptoValue;
@@ -38,11 +38,8 @@ impl KdfParams {
         param_type: CryptoKdfParamType,
         value: impl IntoCryptoValue,
     ) -> Result<()> {
-        let mut owned = value.into_crypto_value();
-        let mut blob = Crypto_DataBlob {
-            data: owned.as_mut_ptr(),
-            len: owned.len(),
-        };
+        let owned = value.into_crypto_value();
+        let mut blob = CryptoDataBlob::new(&owned).to_raw();
         // SAFETY: `blob` points at `owned`, whose heap buffer is kept alive below.
         check(unsafe {
             OH_CryptoKdfParams_SetParam(self.raw.as_ptr(), param_type.into(), &mut blob)
@@ -79,7 +76,7 @@ impl Kdf {
     /// Derive `key_len` bytes of key material.
     pub fn derive(&mut self, params: &KdfParams, key_len: usize) -> Result<Vec<u8>> {
         let key_len = checked_len(key_len)?;
-        let mut out = OutBlob::new();
+        let mut out = OwnedCryptoDataBlob::new();
         // SAFETY: `params` outlives the call; `out` is filled in by the framework.
         check(unsafe {
             OH_CryptoKdf_Derive(

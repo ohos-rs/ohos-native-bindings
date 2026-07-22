@@ -1,5 +1,5 @@
 use crate::asym::{PrivKey, PubKey};
-use crate::blob::{c_string, OutBlob};
+use crate::blob::{c_string, OwnedCryptoDataBlob};
 use crate::error::{check, CryptoError, Result};
 use ohos_crypto_sys::*;
 use std::ptr::{self, NonNull};
@@ -29,7 +29,7 @@ impl KeyAgreement {
         priv_key: &PrivKey<'_>,
         pub_key: &PubKey<'_>,
     ) -> Result<Vec<u8>> {
-        let mut out = OutBlob::new();
+        let mut out = OwnedCryptoDataBlob::new();
         // SAFETY: both keys are valid for the call; `out` is filled in by the framework.
         check(unsafe {
             OH_CryptoKeyAgreement_GenerateSecret(

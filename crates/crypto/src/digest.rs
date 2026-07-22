@@ -1,4 +1,4 @@
-use crate::blob::{blob_in, borrow_cstr, c_string, OutBlob};
+use crate::blob::{borrow_cstr, c_string, CryptoDataBlob, OwnedCryptoDataBlob};
 use crate::error::{check, CryptoError, Result};
 use ohos_crypto_sys::*;
 use std::ptr::{self, NonNull};
@@ -23,15 +23,15 @@ impl Digest {
     }
 
     /// Feed a chunk of input.
-    pub fn update(&mut self, input: &[u8]) -> Result<()> {
-        let mut input = blob_in(input);
+    pub fn update<'i>(&mut self, input: impl Into<CryptoDataBlob<'i>>) -> Result<()> {
+        let mut input = input.into().to_raw();
         // SAFETY: `input` borrows the caller's slice for the duration of the call.
         unsafe { check(OH_CryptoDigest_Update(self.raw.as_ptr(), &mut input)) }
     }
 
     /// Produce the digest.
     pub fn finish(&mut self) -> Result<Vec<u8>> {
-        let mut out = OutBlob::new();
+        let mut out = OwnedCryptoDataBlob::new();
         // SAFETY: `out` is a zeroed blob the framework fills in.
         check(unsafe { OH_CryptoDigest_Final(self.raw.as_ptr(), out.as_mut_ptr()) })?;
         Ok(out.to_vec())

@@ -1,5 +1,5 @@
 use crate::asym::KeyPair;
-use crate::blob::{blob_in, c_string, OutBlob};
+use crate::blob::{c_string, CryptoDataBlob, OwnedCryptoDataBlob};
 use crate::error::{check, CryptoError, Result};
 use crate::r#type::CryptoCipherMode;
 use ohos_crypto_sys::*;
@@ -39,9 +39,9 @@ impl AsymCipher {
     }
 
     /// Transform `input` in one shot.
-    pub fn finish(&mut self, input: &[u8]) -> Result<Vec<u8>> {
-        let input = blob_in(input);
-        let mut out = OutBlob::new();
+    pub fn finish<'i>(&mut self, input: impl Into<CryptoDataBlob<'i>>) -> Result<Vec<u8>> {
+        let input = input.into().to_raw();
+        let mut out = OwnedCryptoDataBlob::new();
         // SAFETY: `input` borrows the caller's slice; `out` is filled in by the
         // framework.
         check(unsafe { OH_CryptoAsymCipher_Final(self.raw.as_ptr(), &input, out.as_mut_ptr()) })?;
