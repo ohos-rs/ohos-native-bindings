@@ -1,0 +1,14 @@
+[package]
+name        = "ohos-ashmem-binding"
+version     = "0.1.0"
+edition     = "2021"
+license     = "MIT OR Apache-2.0"
+description = "OpenHarmony anonymous shared memory binding for Rust"
+repository  = "https://github.com/ohos-rs/ohos-native-bindings"
+
+[dependencies]
+bitflags = { workspace = true }
+libc     = { workspace = true }
+
+[lints]
+workspace = true
