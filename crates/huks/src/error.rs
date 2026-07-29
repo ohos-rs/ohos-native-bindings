@@ -1,4 +1,4 @@
-use ohos_huks_sys::*;
+use ohos_native_huks_sys::*;
 use std::ffi::CStr;
 use std::fmt;
 

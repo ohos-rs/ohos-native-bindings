@@ -1,7 +1,7 @@
 use crate::error::{check, Result};
 use crate::key::{HuksAlias, HuksBlob};
 use crate::param::ParamSet;
-use ohos_huks_sys::*;
+use ohos_native_huks_sys::*;
 
 // Generous fixed buffers for the session handle / auth token returned by init.
 const HANDLE_CAP: usize = 64;

@@ -1,6 +1,6 @@
 use crate::error::{check, HuksError, Result};
 use crate::param::ParamSet;
-use ohos_huks_sys::*;
+use ohos_native_huks_sys::*;
 
 /// Borrowed bytes passed to HUKS as an `OH_Huks_Blob`.
 #[derive(Debug, Clone, Copy, PartialEq, Eq)]
