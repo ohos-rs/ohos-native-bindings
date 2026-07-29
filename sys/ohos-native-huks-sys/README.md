@@ -1,11 +1,11 @@
-# ohos-huks-sys
+# ohos-native-huks-sys
 
 This crate provides low-level sys bindings for the HUKS (Universal Keystore) module in OpenHarmony.
 
 ## Install
 
 ```shell
-cargo add ohos-huks-sys
+cargo add ohos-native-huks-sys
 ```
 
 ## Usage
@@ -13,7 +13,7 @@ cargo add ohos-huks-sys
 Add this crate to your native module and import it from Rust code:
 
 ```rust
-use ohos_huks_sys as sys;
+use ohos_native_huks_sys as sys;
 
 unsafe {
     // Call the raw FFI functions exposed by `sys` after checking

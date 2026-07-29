@@ -1,5 +1,5 @@
 use ohos_enum_derive::EnumFrom;
-use ohos_huks_sys::*;
+use ohos_native_huks_sys::*;
 
 /// Key algorithms.
 #[derive(Debug, Clone, Copy, PartialEq, Eq, EnumFrom)]
@@ -281,11 +281,11 @@ impl HuksTag {
     pub fn value_type(self) -> HuksTagType {
         const MASK: u32 = 0xF << 28;
         match u32::from(self) & MASK {
-            ohos_huks_sys::OH_Huks_TagType_OH_HUKS_TAG_TYPE_INT => HuksTagType::Int,
-            ohos_huks_sys::OH_Huks_TagType_OH_HUKS_TAG_TYPE_UINT => HuksTagType::Uint,
-            ohos_huks_sys::OH_Huks_TagType_OH_HUKS_TAG_TYPE_ULONG => HuksTagType::Ulong,
-            ohos_huks_sys::OH_Huks_TagType_OH_HUKS_TAG_TYPE_BOOL => HuksTagType::Bool,
-            ohos_huks_sys::OH_Huks_TagType_OH_HUKS_TAG_TYPE_BYTES => HuksTagType::Bytes,
+            ohos_native_huks_sys::OH_Huks_TagType_OH_HUKS_TAG_TYPE_INT => HuksTagType::Int,
+            ohos_native_huks_sys::OH_Huks_TagType_OH_HUKS_TAG_TYPE_UINT => HuksTagType::Uint,
+            ohos_native_huks_sys::OH_Huks_TagType_OH_HUKS_TAG_TYPE_ULONG => HuksTagType::Ulong,
+            ohos_native_huks_sys::OH_Huks_TagType_OH_HUKS_TAG_TYPE_BOOL => HuksTagType::Bool,
+            ohos_native_huks_sys::OH_Huks_TagType_OH_HUKS_TAG_TYPE_BYTES => HuksTagType::Bytes,
             _ => HuksTagType::Invalid,
         }
     }

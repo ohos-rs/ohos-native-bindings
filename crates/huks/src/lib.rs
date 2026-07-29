@@ -30,7 +30,7 @@
 //! # Ok::<(), huks::HuksError>(())
 //! ```
 
-pub use ohos_huks_sys as sys;
+pub use ohos_native_huks_sys as sys;
 
 mod error;
 mod key;

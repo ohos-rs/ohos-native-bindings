@@ -2,7 +2,7 @@ use crate::error::{check, HuksError, Result};
 use crate::r#type::{
     HuksCipherMode, HuksKeyAlg, HuksKeyDigest, HuksKeyPadding, HuksKeyPurpose, HuksTag, HuksTagType,
 };
-use ohos_huks_sys::*;
+use ohos_native_huks_sys::*;
 use std::ptr::NonNull;
 
 /// A value carried by a HUKS parameter.
