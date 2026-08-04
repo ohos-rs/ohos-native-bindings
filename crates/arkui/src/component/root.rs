@@ -52,6 +52,16 @@ impl RootNode {
         }
         Ok(())
     }
+
+    /// Drop this root without touching the native slot.
+    ///
+    /// Use when the underlying `NodeContent` (or its subtree) has already been
+    /// destroyed outside this wrapper: `remove_node` on a dead handle would be
+    /// a use-after-free. Rust-side state is released; the native handle is
+    /// deliberately abandoned.
+    pub fn into_inert(mut self) {
+        self.base = None;
+    }
 }
 
 impl Drop for RootNode {

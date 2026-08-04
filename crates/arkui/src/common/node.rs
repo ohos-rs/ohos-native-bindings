@@ -89,13 +89,19 @@ impl ArkUINode {
     pub fn dispose(&mut self) -> ArkUIResult<()> {
         let handle = &self.event_handle;
         if handle.has_callback() {
-            ARK_UI_NATIVE_NODE_API_1.with(|api| api.remove_event_receiver(self))?;
+            // A failed receiver removal must not block `disposeNode`: the node
+            // would leak natively while the Rust wrapper is already dropped.
+            let _ = ARK_UI_NATIVE_NODE_API_1.with(|api| api.remove_event_receiver(self));
         }
         // `disposeNode` tears down the native subtree. Disposing wrapper children again will
         // double free the descendant handles during patch/remount flows.
-        ARK_UI_NATIVE_NODE_API_1.with(|api| api.dispose(self))?;
+        let result = ARK_UI_NATIVE_NODE_API_1.with(|api| api.dispose(self));
+        // Release the event-dispatch user data box owned by this wrapper layer
+        // regardless of `disposeNode` outcome so a failed dispose cannot keep
+        // the Rust wrapper (and its native handle) alive forever.
+        crate::common::user_data::release_wrapper_user_data(self);
         self.children.clear();
-        Ok(())
+        result
     }
 
     /// Runs an explicit ArkUI animation update against this node.
