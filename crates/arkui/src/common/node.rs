@@ -91,10 +91,7 @@ impl ArkUINode {
         if handle.has_callback() {
             // A failed receiver removal must not block `disposeNode`: the node
             // would leak natively while the Rust wrapper is already dropped.
-            if let Err(error) = ARK_UI_NATIVE_NODE_API_1.with(|api| api.remove_event_receiver(self))
-            {
-                crate::log_arkui_error("dispose remove_event_receiver", &error);
-            }
+            let _ = ARK_UI_NATIVE_NODE_API_1.with(|api| api.remove_event_receiver(self));
         }
         // `disposeNode` tears down the native subtree. Disposing wrapper children again will
         // double free the descendant handles during patch/remount flows.

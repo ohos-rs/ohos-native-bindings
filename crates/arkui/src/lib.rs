@@ -46,10 +46,3 @@ pub(crate) use dialog::*;
 pub(crate) use event::*;
 pub(crate) use gesture::*;
 pub(crate) use r#type::*;
-
-/// Best-effort diagnostics for non-fatal native failures that must not unwind
-/// or abort the caller. Kept dependency-free: this crate has no logging
-/// binding, so failures land on stderr.
-pub(crate) fn log_arkui_error(context: &str, error: &impl std::fmt::Display) {
-    eprintln!("ohos-arkui-binding: {context} failed: {error}");
-}
