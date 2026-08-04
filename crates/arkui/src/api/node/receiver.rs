@@ -1,7 +1,5 @@
 //! Module api::node::receiver wrappers and related types.
 
-use std::{cell::RefCell, rc::Rc};
-
 use ohos_arkui_sys::{
     ArkUI_NodeCustomEvent, ArkUI_NodeEvent, OH_ArkUI_NodeEvent_GetEventType,
     OH_ArkUI_NodeEvent_GetNodeHandle,
@@ -22,8 +20,14 @@ pub(super) unsafe extern "C" fn node_event_receiver(event: *mut ArkUI_NodeEvent)
         return;
     };
 
-    let user_data_rc: &Rc<RefCell<crate::ArkUINode>> =
-        &*(user_data.as_ptr() as *const Rc<RefCell<crate::ArkUINode>>);
+    // Only wrapper-installed pointers carry the magic header; foreign
+    // user_data (e.g. ArkTS bridges) is never dereferenced as a wrapper.
+    if unsafe { *(user_data.as_ptr() as *const u32) } != crate::common::user_data::USER_DATA_MAGIC {
+        return;
+    }
+    let user_data_box: &crate::common::user_data::UserDataBox =
+        &*(user_data.as_ptr() as *const crate::common::user_data::UserDataBox);
+    let user_data_rc = &user_data_box.wrapper;
 
     let node = user_data_rc.borrow();
 

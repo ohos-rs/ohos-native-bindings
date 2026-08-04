@@ -3,27 +3,48 @@
 //! ArkUI's `setUserData`/`getUserData` pair stores an opaque pointer on a
 //! native node. The wrapper layer uses it to route native events back to the
 //! Rust `Rc<RefCell<ArkUINode>>` wrapper (see `api::node::receiver`). Every
-//! `add_child`/`insert_child` call installs a fresh `Box<Rc<...>>`; native
+//! `add_child`/`insert_child` call installs a fresh wrapper box; native
 //! handles are long-lived and can be re-attached many times, so a naive
 //! overwrite leaks the previous box and a `dispose` that ignores the pointer
 //! leaks it permanently.
 //!
-//! Ownership is tracked here by pointer address so cleanup can release only
-//! pointers this layer actually installed. External owners (ArkTS `FrameNode`
-//! bridges, `RootNode`'s base) never enter the registry and are never
-//! dereferenced as wrapper types.
+//! Ownership is encoded in the pointer itself instead of a global registry:
+//! every pointer installed by this layer points at a [`UserDataBox`] whose
+//! header carries a magic value. Cleanup checks the magic before reclaiming,
+//! so pointers owned by external code (ArkTS `FrameNode` bridges, `RootNode`'s
+//! base) are recognized and left untouched. This keeps the hot
+//! `add_child`/`insert_child` path lock-free and free of global state.
 
 use std::cell::RefCell;
-use std::collections::HashSet;
 use std::os::raw::c_void;
 use std::rc::Rc;
-use std::sync::{LazyLock, Mutex};
 
 use crate::common::node::ArkUINode;
 use crate::ArkUIResult;
 
-static WRAPPER_USER_DATA: LazyLock<Mutex<HashSet<usize>>> =
-    LazyLock::new(|| Mutex::new(HashSet::new()));
+/// Magic value stamped on every pointer installed by this module. Also read by
+/// `api::node::receiver` to classify event-dispatch user data before
+/// dereferencing it as a wrapper box.
+pub(crate) const USER_DATA_MAGIC: u32 = 0x5752_4150; // "WRAP"
+
+/// Heap layout of a wrapper-installed `user_data` pointer.
+///
+/// `#[repr(C)]` so the magic lives at offset 0: ownership checks only need to
+/// read the first word, which also means a stale or foreign pointer can be
+/// classified without touching (and possibly faulting on) the rest.
+#[repr(C)]
+pub(crate) struct UserDataBox {
+    magic: u32,
+    /// The wrapper routed to by native event callbacks. Read by
+    /// `api::node::receiver`; nothing else touches the box's interior.
+    pub(crate) wrapper: Rc<RefCell<ArkUINode>>,
+}
+
+/// Whether `pointer` was installed by this module (points at a live
+/// [`UserDataBox`] with a valid magic).
+unsafe fn is_wrapper_user_data(pointer: *mut c_void) -> bool {
+    !pointer.is_null() && unsafe { *(pointer as *const u32) } == USER_DATA_MAGIC
+}
 
 /// Install `wrapper` as the native node's event-dispatch user data, releasing
 /// any previously wrapper-owned pointer in the process.
@@ -38,21 +59,20 @@ pub(crate) fn install_wrapper_user_data(
 ) -> ArkUIResult<()> {
     let previous =
         crate::ARK_UI_NATIVE_NODE_API_1.with(|api| api.get_user_data(node.raw_handle()))?;
-    let new_ptr = Box::into_raw(Box::new(wrapper)) as *mut c_void;
+    let new_ptr = Box::into_raw(Box::new(UserDataBox {
+        magic: USER_DATA_MAGIC,
+        wrapper,
+    })) as *mut c_void;
     crate::ARK_UI_NATIVE_NODE_API_1.with(|api| api.set_user_data(node, new_ptr))?;
 
-    let mut owned = WRAPPER_USER_DATA
-        .lock()
-        .unwrap_or_else(|poisoned| poisoned.into_inner());
     if let Some(previous) = previous {
-        if owned.remove(&(previous.as_ptr() as usize)) {
-            // SAFETY: the pointer was installed by this module's
-            // `install_wrapper_user_data` (it is in the ownership registry),
-            // so it is a `Box<Rc<RefCell<ArkUINode>>>` and is still live.
-            drop(unsafe { Box::from_raw(previous.as_ptr() as *mut Rc<RefCell<ArkUINode>>) });
+        if unsafe { is_wrapper_user_data(previous.as_ptr()) } {
+            // SAFETY: the magic proves the pointer was installed by this
+            // module, so it is a live `Box<UserDataBox>` that the node no
+            // longer references (the new pointer is already live).
+            drop(unsafe { Box::from_raw(previous.as_ptr() as *mut UserDataBox) });
         }
     }
-    owned.insert(new_ptr as usize);
     Ok(())
 }
 
@@ -69,17 +89,12 @@ pub(crate) fn release_wrapper_user_data(node: &ArkUINode) {
     else {
         return;
     };
-    let address = previous.as_ptr() as usize;
-    if !WRAPPER_USER_DATA
-        .lock()
-        .unwrap_or_else(|poisoned| poisoned.into_inner())
-        .remove(&address)
-    {
+    if !unsafe { is_wrapper_user_data(previous.as_ptr()) } {
         return;
     }
     // SAFETY: same ownership guarantee as `install_wrapper_user_data`:
-    // the pointer is registered here, hence a live `Box<Rc<...>>`.
-    drop(unsafe { Box::from_raw(previous.as_ptr() as *mut Rc<RefCell<ArkUINode>>) });
+    // the magic proves a live `Box<UserDataBox>` installed by this module.
+    drop(unsafe { Box::from_raw(previous.as_ptr() as *mut UserDataBox) });
     let _ =
         crate::ARK_UI_NATIVE_NODE_API_1.with(|api| api.set_user_data(node, std::ptr::null_mut()));
 }
