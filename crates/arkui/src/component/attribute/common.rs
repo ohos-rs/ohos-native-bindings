@@ -1,6 +1,6 @@
 //! Module component::attribute::common wrappers and related types.
 
-use std::{cell::RefCell, os::raw::c_void, rc::Rc};
+use std::{cell::RefCell, rc::Rc};
 
 use crate::{
     ArkUINode, ArkUINodeAttributeItem, ArkUINodeAttributeNumber, ArkUINodeAttributeType,
@@ -1113,14 +1113,13 @@ pub trait ArkUICommonAttribute: ArkUIAttributeBasic {
     fn add_child<T: Into<ArkUINode>>(&mut self, child: T) -> ArkUIResult<()> {
         let child_handle: Rc<RefCell<ArkUINode>> = Rc::new(RefCell::new(child.into()));
 
-        let child_handle_clone = child_handle.clone();
-        // save self ArkUINode to custom user data for event dispatch
-        ARK_UI_NATIVE_NODE_API_1.with(|api| {
-            api.set_user_data(
-                &child_handle.borrow(),
-                Box::into_raw(Box::new(child_handle_clone)) as *mut c_void,
-            )
-        })?;
+        // Save self ArkUINode to custom user data for event dispatch. The
+        // wrapper layer owns that pointer: re-attaching the same native handle
+        // replaces (and releases) the previous box instead of leaking it.
+        crate::common::user_data::install_wrapper_user_data(
+            &child_handle.borrow(),
+            child_handle.clone(),
+        )?;
         ARK_UI_NATIVE_NODE_API_1.with(|api| api.add_event_receiver(&child_handle.borrow()))?;
 
         ARK_UI_NATIVE_NODE_API_1.with(|api| api.add_child(self.raw(), &child_handle.borrow()))?;
@@ -1142,14 +1141,11 @@ pub trait ArkUICommonAttribute: ArkUIAttributeBasic {
 
     fn insert_child<T: Into<ArkUINode>>(&mut self, child: T, index: usize) -> ArkUIResult<()> {
         let child_handle: Rc<RefCell<ArkUINode>> = Rc::new(RefCell::new(child.into()));
-        let child_handle_clone = child_handle.clone();
 
-        ARK_UI_NATIVE_NODE_API_1.with(|api| {
-            api.set_user_data(
-                &child_handle.borrow(),
-                Box::into_raw(Box::new(child_handle_clone)) as *mut c_void,
-            )
-        })?;
+        crate::common::user_data::install_wrapper_user_data(
+            &child_handle.borrow(),
+            child_handle.clone(),
+        )?;
         ARK_UI_NATIVE_NODE_API_1.with(|api| api.add_event_receiver(&child_handle.borrow()))?;
         ARK_UI_NATIVE_NODE_API_1
             .with(|api| api.insert_child(self.raw(), &child_handle.borrow(), index as i32))?;
