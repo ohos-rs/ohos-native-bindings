@@ -1,4 +1,10 @@
-//! Module api::node::receiver wrappers and related types.
+//! `extern "C"` entry points for node event dispatch.
+//!
+//! Panic policy: Rust (>= 1.81) aborts the process when a panic reaches an
+//! `extern "C"` boundary, so a panicking user callback is a defined,
+//! deliberate process failure — the consumer's panic hook still runs first.
+//! These entry points therefore avoid *avoidable* panic sources themselves:
+//! no `unwrap`, and no `RefCell` borrow held across the user callback.
 
 use ohos_arkui_sys::{
     ArkUI_NodeCustomEvent, ArkUI_NodeEvent, OH_ArkUI_NodeEvent_GetEventType,
@@ -20,25 +26,35 @@ pub(super) unsafe extern "C" fn node_event_receiver(event: *mut ArkUI_NodeEvent)
         return;
     };
 
-    // Only wrapper-installed pointers carry the magic header; foreign
-    // user_data (e.g. ArkTS bridges) is never dereferenced as a wrapper.
-    if unsafe { *(user_data.as_ptr() as *const u32) } != crate::common::user_data::USER_DATA_MAGIC {
+    // Only wrapper-installed pointers carry the magic + self-address header;
+    // foreign user_data (e.g. ArkTS bridges) is never dereferenced as a
+    // wrapper. SAFETY: the pointer came from a live node's user_data slot.
+    let Some(user_data_box) =
+        (unsafe { crate::common::user_data::classify_wrapper_user_data(user_data.as_ptr()) })
+    else {
         return;
-    }
-    let user_data_box: &crate::common::user_data::UserDataBox =
-        &*(user_data.as_ptr() as *const crate::common::user_data::UserDataBox);
-    let user_data_rc = &user_data_box.wrapper;
-
-    let node = user_data_rc.borrow();
+    };
 
     let raw_event_type = OH_ArkUI_NodeEvent_GetEventType(event);
     let Some(event_type) = NodeEventType::try_from_raw(raw_event_type) else {
         return;
     };
 
-    if let Some(cb) = node.event_handle.get_event_callback(event_type) {
+    // Clone the callback out and end the wrapper borrow before invoking it:
+    // a callback that touches its own node (set attributes, replace its
+    // handler) must not trip a reentrant `RefCell` borrow.
+    let callback = {
+        let Ok(node) = user_data_box.wrapper.try_borrow() else {
+            // The wrapper is mutably borrowed further up the stack (native
+            // code invoked us synchronously mid-mutation). Delivering the
+            // event would alias that borrow; drop it instead.
+            return;
+        };
+        node.event_handle.get_event_callback(event_type).cloned()
+    };
+    if let Some(callback) = callback {
         let node_event = Event::new(event);
-        cb.borrow()(&node_event);
+        (callback.borrow())(&node_event);
     }
 }
 
@@ -50,16 +66,12 @@ pub(super) unsafe extern "C" fn node_custom_event_receiver(event: *mut ArkUI_Nod
         return;
     };
     let key = super::node_custom_event_map_key(node.raw(), event.event_type());
-    let callback = {
-        let callbacks = match super::node_custom_event_callback_contexts().lock() {
-            Ok(callbacks) => callbacks,
-            Err(poisoned) => poisoned.into_inner(),
-        };
-        callbacks.get(&key).copied()
-    };
+    // Clone the `Rc` out of the registry before invoking: the callback stays
+    // alive for the duration of the call even if it unregisters itself.
+    let callback =
+        super::NODE_CUSTOM_EVENT_CALLBACKS.with(|callbacks| callbacks.borrow().get(&key).cloned());
     let Some(callback) = callback else {
         return;
     };
-    let callback = &*(callback as *const super::NodeCustomEventCallbackContext);
     (callback.callback)(&event);
 }

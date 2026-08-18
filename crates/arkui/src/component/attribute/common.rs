@@ -1110,20 +1110,19 @@ pub trait ArkUICommonAttribute: ArkUIAttributeBasic {
         }
     }
 
-    fn add_child<T: Into<ArkUINode>>(&mut self, child: T) -> ArkUIResult<()> {
-        let child_handle: Rc<RefCell<ArkUINode>> = Rc::new(RefCell::new(child.into()));
+    /// Mount a wrapper-owned child, preserving its `Rc` identity.
+    ///
+    /// The passed `Rc` **is** the mounted node: event callbacks registered on
+    /// it — before or after mounting — dispatch through it, and the caller can
+    /// keep using the same handle for later mutations. Re-mounting the same
+    /// native handle replaces (and releases) the previously installed
+    /// event-dispatch box instead of leaking it.
+    fn add_child(&mut self, child: Rc<RefCell<ArkUINode>>) -> ArkUIResult<()> {
+        crate::common::user_data::install_wrapper_user_data(&child.borrow(), child.clone())?;
+        ARK_UI_NATIVE_NODE_API_1.with(|api| api.add_event_receiver(&child.borrow()))?;
 
-        // Save self ArkUINode to custom user data for event dispatch. The
-        // wrapper layer owns that pointer: re-attaching the same native handle
-        // replaces (and releases) the previous box instead of leaking it.
-        crate::common::user_data::install_wrapper_user_data(
-            &child_handle.borrow(),
-            child_handle.clone(),
-        )?;
-        ARK_UI_NATIVE_NODE_API_1.with(|api| api.add_event_receiver(&child_handle.borrow()))?;
-
-        ARK_UI_NATIVE_NODE_API_1.with(|api| api.add_child(self.raw(), &child_handle.borrow()))?;
-        self.borrow_mut().children_mut().push(child_handle);
+        ARK_UI_NATIVE_NODE_API_1.with(|api| api.add_child(self.raw(), &child.borrow()))?;
+        self.borrow_mut().children_mut().push(child);
         Ok(())
     }
 
@@ -1139,19 +1138,15 @@ pub trait ArkUICommonAttribute: ArkUIAttributeBasic {
         Ok(())
     }
 
-    fn insert_child<T: Into<ArkUINode>>(&mut self, child: T, index: usize) -> ArkUIResult<()> {
-        let child_handle: Rc<RefCell<ArkUINode>> = Rc::new(RefCell::new(child.into()));
-
-        crate::common::user_data::install_wrapper_user_data(
-            &child_handle.borrow(),
-            child_handle.clone(),
-        )?;
-        ARK_UI_NATIVE_NODE_API_1.with(|api| api.add_event_receiver(&child_handle.borrow()))?;
+    /// Mount a wrapper-owned child at `index`, preserving its `Rc` identity.
+    ///
+    /// See [`Self::add_child`] for the identity contract.
+    fn insert_child(&mut self, child: Rc<RefCell<ArkUINode>>, index: usize) -> ArkUIResult<()> {
+        crate::common::user_data::install_wrapper_user_data(&child.borrow(), child.clone())?;
+        ARK_UI_NATIVE_NODE_API_1.with(|api| api.add_event_receiver(&child.borrow()))?;
         ARK_UI_NATIVE_NODE_API_1
-            .with(|api| api.insert_child(self.raw(), &child_handle.borrow(), index as i32))?;
-        self.borrow_mut()
-            .children_mut()
-            .insert(index, child_handle.clone());
+            .with(|api| api.insert_child(self.raw(), &child.borrow(), index as i32))?;
+        self.borrow_mut().children_mut().insert(index, child);
         Ok(())
     }
 

@@ -70,11 +70,11 @@ impl MyApp {
             text.background_color(0xFFfffacd)?;
             text.alignment(TextAlignment::Center)?;
 
-            list_item.add_child(text)?;
+            list_item.add_child(text.into_node())?;
 
             list_item.on_click(move || hilog_info!(format!("ohos-rs: click event {i}")));
 
-            list.add_child(list_item)?;
+            list.add_child(list_item.into_node())?;
         }
 
         self.root.mount(list)?;

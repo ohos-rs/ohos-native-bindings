@@ -3,8 +3,11 @@
 use std::collections::HashMap;
 use std::os::raw::c_void;
 use std::ptr::NonNull;
-use std::sync::{Mutex, OnceLock};
-use std::{cell::LazyCell, ffi::CString};
+use std::rc::Rc;
+use std::{
+    cell::{LazyCell, RefCell},
+    ffi::CString,
+};
 
 use ohos_arkui_input_binding::sys::ArkUI_NodeHandle;
 use ohos_arkui_input_binding::ArkUIErrorCode;
@@ -27,17 +30,21 @@ thread_local! {
     LazyCell::new(ArkUINativeNodeAPI1::new);
 }
 
-struct NodeCustomEventCallbackContext {
-    callback: Box<dyn Fn(&crate::NodeCustomEvent)>,
+pub(super) struct NodeCustomEventCallbackContext {
+    pub(super) callback: Box<dyn Fn(&crate::NodeCustomEvent)>,
 }
 
-type NodeCustomEventCallbackMap = HashMap<(usize, usize), usize>;
+type NodeCustomEventCallbackMap = HashMap<(usize, usize), Rc<NodeCustomEventCallbackContext>>;
 
-static NODE_CUSTOM_EVENT_CALLBACK_CONTEXTS: OnceLock<Mutex<NodeCustomEventCallbackMap>> =
-    OnceLock::new();
-
-fn node_custom_event_callback_contexts() -> &'static Mutex<NodeCustomEventCallbackMap> {
-    NODE_CUSTOM_EVENT_CALLBACK_CONTEXTS.get_or_init(|| Mutex::new(HashMap::new()))
+thread_local! {
+    /// Custom-event callback registry. Thread-local like the node API itself:
+    /// registration, dispatch and cleanup all run on the UI thread, so the
+    /// registry needs neither locking nor `Send` claims for its `!Send`
+    /// callbacks. `Rc` entries let the receiver clone a callback out and call
+    /// it after the registry borrow ends, so a callback that unregisters
+    /// itself stays alive for the duration of its own invocation.
+    pub(super) static NODE_CUSTOM_EVENT_CALLBACKS: RefCell<NodeCustomEventCallbackMap> =
+        RefCell::new(HashMap::new());
 }
 
 fn node_custom_event_map_key(
@@ -576,41 +583,26 @@ impl ArkUINativeNodeAPI1 {
         target_id: i32,
         callback: T,
     ) -> ArkUIResult<()> {
-        let callback = Box::into_raw(Box::new(NodeCustomEventCallbackContext {
-            callback: Box::new(callback),
-        }));
-        let result = self.register_node_custom_event(node, event_type, target_id, callback.cast());
-        if let Err(err) = result {
-            unsafe {
-                drop(Box::from_raw(callback));
-            }
-            return Err(err);
-        }
+        // The receiver resolves callbacks through the thread-local registry
+        // keyed by (handle, event type); the native user_data slot stays
+        // untouched so it cannot dangle into registry-owned memory.
+        self.register_node_custom_event(node, event_type, target_id, std::ptr::null_mut())?;
         if let Err(err) = self.add_node_custom_event_receiver(node) {
             let _ = self.unregister_node_custom_event(node, event_type);
-            unsafe {
-                drop(Box::from_raw(callback));
-            }
             return Err(err);
         }
         if let Err(err) = self.register_node_custom_event_receiver() {
             let _ = self.remove_node_custom_event_receiver(node);
             let _ = self.unregister_node_custom_event(node, event_type);
-            unsafe {
-                drop(Box::from_raw(callback));
-            }
             return Err(err);
         }
-        let mut callbacks = match node_custom_event_callback_contexts().lock() {
-            Ok(callbacks) => callbacks,
-            Err(poisoned) => poisoned.into_inner(),
-        };
         let key = node_custom_event_map_key(node.raw(), event_type);
-        if let Some(old) = callbacks.insert(key, callback as usize) {
-            unsafe {
-                drop(Box::from_raw(old as *mut NodeCustomEventCallbackContext));
-            }
-        }
+        let context = Rc::new(NodeCustomEventCallbackContext {
+            callback: Box::new(callback),
+        });
+        NODE_CUSTOM_EVENT_CALLBACKS.with(|callbacks| {
+            callbacks.borrow_mut().insert(key, context);
+        });
         Ok(())
     }
 
@@ -629,40 +621,20 @@ impl ArkUINativeNodeAPI1 {
         node_handle: ArkUI_NodeHandle,
         event_type: crate::NodeCustomEventType,
     ) {
-        let mut callbacks = match node_custom_event_callback_contexts().lock() {
-            Ok(callbacks) => callbacks,
-            Err(poisoned) => poisoned.into_inner(),
-        };
         let key = node_custom_event_map_key(node_handle, event_type);
-        if let Some(callback) = callbacks.remove(&key) {
-            unsafe {
-                drop(Box::from_raw(
-                    callback as *mut NodeCustomEventCallbackContext,
-                ));
-            }
-        }
+        // Dropping the `Rc` frees the context unless the receiver is
+        // currently running it (its clone keeps it alive until the call ends).
+        NODE_CUSTOM_EVENT_CALLBACKS.with(|callbacks| {
+            callbacks.borrow_mut().remove(&key);
+        });
     }
 
     fn clear_node_custom_event_callbacks_for_node(&self, node_handle: ArkUI_NodeHandle) {
-        let mut callbacks = match node_custom_event_callback_contexts().lock() {
-            Ok(callbacks) => callbacks,
-            Err(poisoned) => poisoned.into_inner(),
-        };
-        let mut keys = Vec::new();
-        for key in callbacks.keys() {
-            if key.0 == node_handle as usize {
-                keys.push(*key);
-            }
-        }
-        for key in keys {
-            if let Some(callback) = callbacks.remove(&key) {
-                unsafe {
-                    drop(Box::from_raw(
-                        callback as *mut NodeCustomEventCallbackContext,
-                    ));
-                }
-            }
-        }
+        NODE_CUSTOM_EVENT_CALLBACKS.with(|callbacks| {
+            callbacks
+                .borrow_mut()
+                .retain(|key, _| key.0 != node_handle as usize);
+        });
     }
 
     fn register_node_custom_event_receiver_raw(&self) -> ArkUIResult<()> {

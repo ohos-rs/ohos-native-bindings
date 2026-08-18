@@ -13,10 +13,10 @@ use ohos_xcomponent_sys::{
 };
 
 use crate::{
-    code::XComponentResultCode, dispatch_touch_event, key_event, on_frame_change, on_hover_event,
-    on_mouse_event, on_surface_changed, on_surface_created, on_surface_destroyed,
-    on_ui_input_event, raw::XComponentRaw, tool::resolve_id, KeyEventData, MouseEventData,
-    RawWindow, TouchEventData, WindowRaw, XComponentOffset, XComponentSize, RAW_WINDOW,
+    code::XComponentResultCode, dispatch_touch_event, events::lookup_raw_window, key_event,
+    on_frame_change, on_hover_event, on_mouse_event, on_surface_changed, on_surface_created,
+    on_surface_destroyed, on_ui_input_event, raw::XComponentRaw, tool::resolve_id, KeyEventData,
+    MouseEventData, RawWindow, TouchEventData, WindowRaw, XComponentOffset, XComponentSize,
 };
 
 #[cfg(not(feature = "multi_mode"))]
@@ -57,15 +57,10 @@ impl NativeXComponent {
         self.raw.0
     }
 
+    /// The live native window of **this** XComponent instance, if its surface
+    /// is currently created.
     pub fn native_window(&self) -> Option<RawWindow> {
-        let guard = (*RAW_WINDOW).read();
-        if let Ok(guard) = guard {
-            if let Some(win) = &*guard {
-                return Some(RawWindow::new(win.raw()));
-            }
-            return None;
-        }
-        None
+        lookup_raw_window(self.raw().cast())
     }
 
     /// Register callbacks   
@@ -74,19 +69,46 @@ impl NativeXComponent {
     /// You can disable feature with `callbacks` and use `register_native_callback`   
     #[cfg(feature = "callbacks")]
     pub fn register_callback(&self) -> Result<()> {
-        let cbs = Box::new(OH_NativeXComponent_Callback {
-            OnSurfaceCreated: Some(on_surface_created),
-            OnSurfaceChanged: Some(on_surface_changed),
-            OnSurfaceDestroyed: Some(on_surface_destroyed),
-            DispatchTouchEvent: Some(dispatch_touch_event),
-        });
-        let ret: XComponentResultCode = unsafe {
-            OH_NativeXComponent_RegisterCallback(self.raw(), Box::leak(cbs) as *mut _).into()
-        };
+        // The callback table is identical for every registration, so one
+        // process-wide allocation serves all instances instead of leaking a
+        // fresh box per call.
+        static CALLBACK_TABLE: std::sync::OnceLock<usize> = std::sync::OnceLock::new();
+        let table = *CALLBACK_TABLE.get_or_init(|| {
+            Box::into_raw(Box::new(OH_NativeXComponent_Callback {
+                OnSurfaceCreated: Some(on_surface_created),
+                OnSurfaceChanged: Some(on_surface_changed),
+                OnSurfaceDestroyed: Some(on_surface_destroyed),
+                DispatchTouchEvent: Some(dispatch_touch_event),
+            })) as usize
+        }) as *mut OH_NativeXComponent_Callback;
+        let ret: XComponentResultCode =
+            unsafe { OH_NativeXComponent_RegisterCallback(self.raw(), table).into() };
         if ret != XComponentResultCode::Success {
             return Err(Error::from_reason("XComponent register callbacks failed"));
         }
         Ok(())
+    }
+
+    /// Drop every closure registered for this instance.
+    ///
+    /// Native surface callbacks may still arrive after the consumer's owner
+    /// is gone (ArkUI does not guarantee `OnSurfaceDestroyed` ordering versus
+    /// consumer teardown); after this call they find no closure and are
+    /// dropped, and captured state (channels, contexts) is released instead
+    /// of living in the registry forever.
+    #[cfg(feature = "callbacks")]
+    pub fn unregister_callbacks(&self) {
+        #[cfg(not(feature = "multi_mode"))]
+        X_COMPONENT_CALLBACKS.with_borrow_mut(|f| {
+            *f = Default::default();
+        });
+
+        #[cfg(feature = "multi_mode")]
+        if let Ok(id) = self.id() {
+            X_COMPONENT_CALLBACKS_MAP.with_borrow_mut(|f| {
+                f.remove(&id);
+            });
+        }
     }
 
     pub fn on_surface_changed<T: Fn(XComponentRaw, WindowRaw) -> Result<()> + 'static>(
@@ -295,17 +317,16 @@ impl NativeXComponent {
     }
 
     pub fn register_mouse_event_callback(&self) -> Result<()> {
-        let callback = Box::new(OH_NativeXComponent_MouseEvent_Callback {
-            DispatchMouseEvent: Some(on_mouse_event),
-            DispatchHoverEvent: Some(on_hover_event),
-        });
-        let ret: XComponentResultCode = unsafe {
-            OH_NativeXComponent_RegisterMouseEventCallback(
-                self.raw(),
-                Box::leak(callback) as *mut _,
-            )
-            .into()
-        };
+        // Same table-sharing rationale as `register_callback`.
+        static MOUSE_CALLBACK_TABLE: std::sync::OnceLock<usize> = std::sync::OnceLock::new();
+        let table = *MOUSE_CALLBACK_TABLE.get_or_init(|| {
+            Box::into_raw(Box::new(OH_NativeXComponent_MouseEvent_Callback {
+                DispatchMouseEvent: Some(on_mouse_event),
+                DispatchHoverEvent: Some(on_hover_event),
+            })) as usize
+        }) as *mut OH_NativeXComponent_MouseEvent_Callback;
+        let ret: XComponentResultCode =
+            unsafe { OH_NativeXComponent_RegisterMouseEventCallback(self.raw(), table).into() };
         if ret != XComponentResultCode::Success {
             return Err(Error::from_reason(
                 "XComponent register mouse event callback failed",
