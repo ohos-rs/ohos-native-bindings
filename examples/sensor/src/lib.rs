@@ -5,8 +5,7 @@ use napi_ohos::{Error, Result};
 use ohos_hilog_binding::hilog_info;
 use ohos_sensor_binding::{SensorSubscriber, SensorType};
 
-static SUBSCRIBER: LazyLock<Mutex<Option<SensorSubscriber>>> =
-    LazyLock::new(|| Mutex::new(None));
+static SUBSCRIBER: LazyLock<Mutex<Option<SensorSubscriber>>> = LazyLock::new(|| Mutex::new(None));
 
 #[napi]
 pub fn sensor_test() {
@@ -20,8 +19,8 @@ pub fn sensor_test() {
 /// List all sensors available on this device.
 #[napi]
 pub fn sensor_list() -> Result<String> {
-    let list = ohos_sensor_binding::get_sensor_list()
-        .map_err(|e| Error::from_reason(e.to_string()))?;
+    let list =
+        ohos_sensor_binding::get_sensor_list().map_err(|e| Error::from_reason(e.to_string()))?;
     let mut out = String::new();
     for info in list {
         out.push_str(&format!(

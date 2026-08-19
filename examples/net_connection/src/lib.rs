@@ -3,8 +3,7 @@ use std::time::Duration;
 use napi_derive_ohos::napi;
 use napi_ohos::{Error, Result};
 use ohos_net_connection_binding::{
-    get_addr_info, get_all_nets, get_default_http_proxy, get_default_net,
-    is_default_net_metered,
+    get_addr_info, get_all_nets, get_default_http_proxy, get_default_net, is_default_net_metered,
 };
 
 const GOOGLE_PROBE_URL: &str = "http://www.google.com/robots.txt";

@@ -65,25 +65,22 @@ pub fn watch_lifecycle(web_tag: String) -> Result<()> {
     .map_err(|e| Error::from_reason(e.to_string()))?;
 
     let web2 = Web::new(web_tag.clone());
-    web2
-        .on_page_begin(move || {
-            hilog_info!("web on_page_begin");
-        })
-        .map_err(|e| Error::from_reason(e.to_string()))?;
+    web2.on_page_begin(move || {
+        hilog_info!("web on_page_begin");
+    })
+    .map_err(|e| Error::from_reason(e.to_string()))?;
 
     let web3 = Web::new(web_tag.clone());
-    web3
-        .on_page_end(move || {
-            hilog_info!("web on_page_end");
-        })
-        .map_err(|e| Error::from_reason(e.to_string()))?;
+    web3.on_page_end(move || {
+        hilog_info!("web on_page_end");
+    })
+    .map_err(|e| Error::from_reason(e.to_string()))?;
 
     let web4 = Web::new(web_tag);
-    web4
-        .on_destroy(move || {
-            hilog_info!("web on_destroy");
-        })
-        .map_err(|e| Error::from_reason(e.to_string()))?;
+    web4.on_destroy(move || {
+        hilog_info!("web on_destroy");
+    })
+    .map_err(|e| Error::from_reason(e.to_string()))?;
     Ok(())
 }
 

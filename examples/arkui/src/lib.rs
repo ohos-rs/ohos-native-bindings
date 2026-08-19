@@ -190,8 +190,9 @@ impl MyApp {
             pan.on_gesture(
                 GestureEventAction::Accept | GestureEventAction::Update | GestureEventAction::End,
                 |_| {
-                hilog_info!("ohos-rs: pan gesture on slider");
-            })?;
+                    hilog_info!("ohos-rs: pan gesture on slider");
+                },
+            )?;
             slider.add_gesture(pan, None, None)?;
             item.add_child(slider.into_node())?;
             list.add_child(item.into_node())?;
@@ -254,8 +255,9 @@ impl MyApp {
             swipe.on_gesture(
                 GestureEventAction::Accept | GestureEventAction::Update | GestureEventAction::End,
                 |_| {
-                hilog_info!("ohos-rs: swipe gesture on swiper");
-            })?;
+                    hilog_info!("ohos-rs: swipe gesture on swiper");
+                },
+            )?;
             swiper.add_gesture(swipe, None, None)?;
             item.add_child(swiper.into_node())?;
             list.add_child(item.into_node())?;
@@ -271,15 +273,17 @@ impl MyApp {
             pin.on_gesture(
                 GestureEventAction::Accept | GestureEventAction::Update | GestureEventAction::End,
                 |_| {
-                hilog_info!("ohos-rs: pinch gesture on stack");
-            })?;
+                    hilog_info!("ohos-rs: pinch gesture on stack");
+                },
+            )?;
             stack.add_gesture(pin, None, None)?;
             let rot = Gesture::create_rotation_gesture(2, 1.0)?;
             rot.on_gesture(
                 GestureEventAction::Accept | GestureEventAction::Update | GestureEventAction::End,
                 |_| {
-                hilog_info!("ohos-rs: rotation gesture on stack");
-            })?;
+                    hilog_info!("ohos-rs: rotation gesture on stack");
+                },
+            )?;
             stack.add_gesture(rot, None, None)?;
 
             let text = Text::new()?;

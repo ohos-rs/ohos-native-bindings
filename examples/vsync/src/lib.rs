@@ -52,6 +52,12 @@ pub struct VsyncController {
     inner: Mutex<Option<Vsync>>,
 }
 
+impl Default for VsyncController {
+    fn default() -> Self {
+        Self::new()
+    }
+}
+
 #[napi]
 impl VsyncController {
     #[napi(constructor)]

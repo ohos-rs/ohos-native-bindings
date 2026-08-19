@@ -51,9 +51,7 @@ pub fn read_raw_file<'a>(
     let size = file.file_size();
     let contents = file.read(size as usize);
     let preview: String = String::from_utf8_lossy(&contents[..contents.len().min(64)]).into_owned();
-    Ok(format!(
-        "size: {size} bytes, preview: {preview:?}"
-    ))
+    Ok(format!("size: {size} bytes, preview: {preview:?}"))
 }
 
 /// Seek around in a rawfile to demonstrate offset/remain APIs.
@@ -76,6 +74,8 @@ pub fn seek_raw_file<'a>(
     let preview: String = String::from_utf8_lossy(&tail[..tail.len().min(32)]).into_owned();
     Ok(format!(
         "size: {size}, seek(to {}) -> offset {}, remain {}, tail preview: {preview:?}",
-        size / 2, offset_after_seek, remain
+        size / 2,
+        offset_after_seek,
+        remain
     ))
 }
