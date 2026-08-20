@@ -4,6 +4,9 @@
 #![allow(non_upper_case_globals)]
 #![allow(non_camel_case_types)]
 #![allow(clippy::missing_safety_doc)]
+// bindgen's bitfield accessors transmute/cast between identical types.
+#![allow(clippy::useless_transmute)]
+#![allow(clippy::unnecessary_cast)]
 
 use ohos_native_buffer_sys::*;
 

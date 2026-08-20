@@ -4,6 +4,9 @@
 #![allow(non_upper_case_globals)]
 #![allow(non_camel_case_types)]
 #![allow(clippy::missing_safety_doc)]
+// bindgen's bitfield accessors transmute/cast between identical types.
+#![allow(clippy::useless_transmute)]
+#![allow(clippy::unnecessary_cast)]
 
 #[link(name = "bundle_ndk.z")]
 unsafe extern "C" {}
@@ -183,7 +186,7 @@ extern "C" {
     ) -> *mut OH_NativeBundle_ModuleMetadata;
 }
 extern "C" {
-    #[doc = " @brief Obtain a list of ability that support opening files in a certain format.\n\n @permission ohos.permission.GET_ABILITY_INFO\n @param fileType Indicates the file type.\n @param abilityResourceInfo Indicates the ability resource array.\n @param size Indicates the ability resource array size.\n @return Returns {@link BUNDLE_MANAGER_ERROR_CODE_NO_ERROR} if the call is successful.\n Returns {@link BUNDLE_MANAGER_ERROR_CODE_PERMISSION_DENIED} if the caller has no correct permission.\n @since 21"]
+    #[doc = " @brief Obtain a list of ability that support opening files in a certain format.\n\n @permisssion {@code ohos.permission.GET_ABILITY_INFO}.\n @param fileType Indicates the file type.\n @param abilityResourceInfo Indicates the ability resource array.\n @param size Indicates the ability resource array size.\n @return Returns {@link BUNDLE_MANAGER_ERROR_CODE_NO_ERROR} if the call is successful.\n Returns {@link BUNDLE_MANAGER_ERROR_CODE_PERMISSION_DENIED} if the caller has no correct permission.\n @since 21"]
     #[cfg(feature = "api-21")]
     pub fn OH_NativeBundle_GetAbilityResourceInfo(
         fileType: *mut ::std::os::raw::c_char,

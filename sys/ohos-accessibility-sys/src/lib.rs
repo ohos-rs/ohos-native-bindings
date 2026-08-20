@@ -4,6 +4,9 @@
 #![allow(non_upper_case_globals)]
 #![allow(non_camel_case_types)]
 #![allow(clippy::missing_safety_doc)]
+// bindgen's bitfield accessors transmute/cast between identical types.
+#![allow(clippy::useless_transmute)]
+#![allow(clippy::unnecessary_cast)]
 
 use ohos_arkui_input_sys::*;
 
@@ -871,13 +874,5 @@ extern "C" {
     pub fn OH_ArkUI_NativeModule_GetNativeAccessibilityProvider(
         node: *mut ArkUI_NodeHandle,
         provider: *mut *mut ArkUI_AccessibilityProvider,
-    ) -> i32;
-}
-extern "C" {
-    #[doc = " @brief Sets the component identifier for an <b>ArkUI_AccessibilityElementInfo</b> object.\n\n @param elementInfo Indicates the pointer to an <b>ArkUI_AccessibilityElementInfo</b> object.\n @param identifier Indicates the component identifier. A string up to 1024 bytes.\n @return Returns {@link ARKUI_ACCESSIBILITY_NATIVE_RESULT_SUCCESSFUL} if the operation is successful.\n         Returns {@link ARKUI_ACCESSIBILITY_NATIVE_RESULT_BAD_PARAMETER} if a parameter is incorrect.\n @since 24"]
-    #[cfg(feature = "api-24")]
-    pub fn OH_ArkUI_AccessibilityElementInfoSetComponentIdentifier(
-        elementInfo: *mut ArkUI_AccessibilityElementInfo,
-        identifier: *const ::std::os::raw::c_char,
     ) -> i32;
 }
