@@ -1,10 +1,10 @@
-use std::{ffi::CStr, ptr};
+use std::ptr;
 
 use ohos_sensor_sys::{
     OH_SensorInfo_GetMaxSamplingInterval, OH_SensorInfo_GetMinSamplingInterval,
     OH_SensorInfo_GetName, OH_SensorInfo_GetResolution, OH_SensorInfo_GetType,
     OH_SensorInfo_GetVendorName, OH_Sensor_CreateInfos, OH_Sensor_DestroyInfos, OH_Sensor_GetInfos,
-    Sensor_Result_SENSOR_PARAMETER_ERROR, Sensor_Result_SENSOR_SUCCESS,
+    Sensor_Info, Sensor_Result_SENSOR_PARAMETER_ERROR, Sensor_Result_SENSOR_SUCCESS,
 };
 
 mod accuracy;
@@ -21,14 +21,20 @@ pub use info::*;
 pub use sensor_type::*;
 pub use sub::*;
 
+/// Size of the buffers used for the sensor name / vendor name strings.
+const NAME_BUF_LEN: u32 = 128;
+
 /// Get the list of sensors
 pub fn get_sensor_list() -> Result<Vec<SensorInfo>, SensorError> {
-    let mut count = 0;
+    let mut count: u32 = 0;
+    // First call with a null array: the sensor count is written to `count`.
     let ret = unsafe { OH_Sensor_GetInfos(ptr::null_mut(), &mut count) };
     if ret != Sensor_Result_SENSOR_SUCCESS {
         return Err(SensorError::InternalError(ret as _));
     }
-    let origin_infos = unsafe { OH_Sensor_CreateInfos(count as _) };
+    // `OH_Sensor_CreateInfos` returns an array of `Sensor_Info` pointers
+    // (double pointer) owned by the sensor SDK.
+    let origin_infos = unsafe { OH_Sensor_CreateInfos(count) };
     if origin_infos.is_null() {
         return Err(SensorError::InternalError(
             Sensor_Result_SENSOR_PARAMETER_ERROR as _,
@@ -36,69 +42,97 @@ pub fn get_sensor_list() -> Result<Vec<SensorInfo>, SensorError> {
     }
     let ret = unsafe { OH_Sensor_GetInfos(origin_infos, &mut count) };
     if ret != Sensor_Result_SENSOR_SUCCESS {
+        unsafe { OH_Sensor_DestroyInfos(origin_infos, count) };
         return Err(SensorError::InternalError(ret as _));
     }
-    let infos = unsafe { Vec::from_raw_parts(origin_infos, count as usize, count as usize) };
 
-    let human_infos = infos
-        .iter()
-        .map(|info| {
-            let name = ptr::null_mut();
-
-            let ret = unsafe { OH_SensorInfo_GetName(*info, name, 128 as _) };
-            if ret != 0 {
-                return Err(SensorError::InternalError(ret as _));
+    let mut human_infos = Vec::with_capacity(count as usize);
+    let mut result = Ok(());
+    for i in 0..count as usize {
+        // SAFETY: `origin_infos` is a valid array of `count` pointers filled
+        // by the previous `OH_Sensor_GetInfos` call.
+        let info = unsafe { *origin_infos.add(i) };
+        match unsafe { read_sensor_info(info) } {
+            Ok(info) => human_infos.push(info),
+            Err(e) => {
+                result = Err(e);
+                break;
             }
-            let name = unsafe { CStr::from_ptr(name).to_str().unwrap_or("") };
+        }
+    }
 
-            let vendor_name = ptr::null_mut();
-            let ret = unsafe { OH_SensorInfo_GetVendorName(*info, vendor_name, 128 as _) };
-            if ret != 0 {
-                return Err(SensorError::InternalError(ret as _));
-            }
-            let vendor_name = unsafe { CStr::from_ptr(vendor_name).to_str().unwrap_or("") };
+    // The array belongs to the sensor SDK: destroy it exactly once. Never
+    // wrap it in a `Vec` (that would hand the pointer to the Rust allocator
+    // and double-free it here).
+    unsafe { OH_Sensor_DestroyInfos(origin_infos, count) };
+    result?;
 
-            let mut resolution = 0.0;
-            let ret = unsafe { OH_SensorInfo_GetResolution(*info, &mut resolution as _) };
-            if ret != 0 {
-                return Err(SensorError::InternalError(ret as _));
-            }
-            let mut min_sampling_interval = 0;
-            let ret = unsafe {
-                OH_SensorInfo_GetMinSamplingInterval(*info, &mut min_sampling_interval as _)
-            };
-            if ret != 0 {
-                return Err(SensorError::InternalError(ret as _));
-            }
-            let mut max_sampling_interval = 0;
-            let ret = unsafe {
-                OH_SensorInfo_GetMaxSamplingInterval(*info, &mut max_sampling_interval as _)
-            };
-            if ret != 0 {
-                return Err(SensorError::InternalError(ret as _));
-            }
+    Ok(human_infos)
+}
 
-            let mut sensor_type = 0;
-            let ret = unsafe { OH_SensorInfo_GetType(*info, &mut sensor_type as _) };
-            if ret != 0 {
-                return Err(SensorError::InternalError(ret as _));
-            }
+/// # Safety
+///
+/// `info` must be a valid `Sensor_Info` pointer produced by
+/// `OH_Sensor_CreateInfos`.
+unsafe fn read_sensor_info(info: *mut Sensor_Info) -> Result<SensorInfo, SensorError> {
+    let name = read_string_attr(info, OH_SensorInfo_GetName)?;
+    let vendor_name = read_string_attr(info, OH_SensorInfo_GetVendorName)?;
 
-            Ok(SensorInfo {
-                sensor_type: SensorType::from(sensor_type),
-                sensor_name: name.to_string(),
-                sensor_vendor_name: vendor_name.to_string(),
-                sensor_resolution: resolution,
-                sensor_min_sampling_interval: min_sampling_interval,
-                sensor_max_sampling_interval: max_sampling_interval,
-            })
-        })
-        .collect::<Result<Vec<SensorInfo>, SensorError>>()?;
-
-    let ret = unsafe { OH_Sensor_DestroyInfos(origin_infos, count as _) };
+    let mut resolution = 0.0;
+    let ret = unsafe { OH_SensorInfo_GetResolution(info, &mut resolution) };
     if ret != 0 {
         return Err(SensorError::InternalError(ret as _));
     }
 
-    Ok(human_infos)
+    let mut min_sampling_interval = 0;
+    let ret = unsafe { OH_SensorInfo_GetMinSamplingInterval(info, &mut min_sampling_interval) };
+    if ret != 0 {
+        return Err(SensorError::InternalError(ret as _));
+    }
+
+    let mut max_sampling_interval = 0;
+    let ret = unsafe { OH_SensorInfo_GetMaxSamplingInterval(info, &mut max_sampling_interval) };
+    if ret != 0 {
+        return Err(SensorError::InternalError(ret as _));
+    }
+
+    let mut sensor_type = 0;
+    let ret = unsafe { OH_SensorInfo_GetType(info, &mut sensor_type) };
+    if ret != 0 {
+        return Err(SensorError::InternalError(ret as _));
+    }
+
+    Ok(SensorInfo {
+        sensor_type: SensorType::from(sensor_type),
+        sensor_name: name,
+        sensor_vendor_name: vendor_name,
+        sensor_resolution: resolution,
+        sensor_min_sampling_interval: min_sampling_interval,
+        sensor_max_sampling_interval: max_sampling_interval,
+    })
+}
+
+/// Read one of the string attributes. `length` is in/out: the buffer size
+/// goes in, the actual string length comes back.
+///
+/// # Safety
+///
+/// `info` must be a valid `Sensor_Info` pointer produced by
+/// `OH_Sensor_CreateInfos`.
+unsafe fn read_string_attr(
+    info: *mut Sensor_Info,
+    getter: unsafe extern "C" fn(*mut Sensor_Info, *mut std::os::raw::c_char, *mut u32) -> i32,
+) -> Result<String, SensorError> {
+    let mut buf = vec![0u8; NAME_BUF_LEN as usize];
+    let mut length = NAME_BUF_LEN;
+    let ret = unsafe { getter(info, buf.as_mut_ptr().cast(), &mut length) };
+    if ret != 0 {
+        return Err(SensorError::InternalError(ret as _));
+    }
+    let written = (length as usize).min(buf.len());
+    let end = buf[..written]
+        .iter()
+        .position(|&b| b == 0)
+        .unwrap_or(written);
+    Ok(String::from_utf8_lossy(&buf[..end]).into_owned())
 }
