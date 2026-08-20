@@ -4,6 +4,9 @@
 #![allow(non_upper_case_globals)]
 #![allow(non_camel_case_types)]
 #![allow(clippy::missing_safety_doc)]
+// bindgen's bitfield accessors transmute/cast between identical types.
+#![allow(clippy::useless_transmute)]
+#![allow(clippy::unnecessary_cast)]
 
 #[link(name = "opengtx")]
 unsafe extern "C" {}
@@ -200,46 +203,46 @@ pub type OpenGTX_ErrorCode = u32;
 #[doc = " @ingroup Callbacks\n @brief\n This callback is to device report temperature level to game.\n @since 5.0.0(12)"]
 pub type OpenGTX_DeviceInfoCallback =
     ::std::option::Option<unsafe extern "C" fn(arg1: OpenGTX_TempLevel)>;
-unsafe extern "C" {
+extern "C" {
     #[doc = " @brief Creates a OpenGTX context instance. The context structure is the main object used to interact with\n OpenGTX APIs, and is responsible for the management of the internal resources used by the OpenGTX algorithm.\n\n @param deviceInfoCallback function of device information {@link OpenGTX_DeviceInfoCallback}.\n @return Returns the pointer to a {@link OpenGTX_Context} context instance.\n @since 5.0.0(12)"]
     pub fn HMS_OpenGTX_CreateContext(
         deviceInfoCallback: OpenGTX_DeviceInfoCallback,
     ) -> *mut OpenGTX_Context;
 }
-unsafe extern "C" {
+extern "C" {
     #[doc = " @brief Configure OpenGTX context instance for initialing. For instance, sets the LTPO's mode to control\n frame rate, sets the target frame rate of game, etc.\n\n @param context Pointer to the {@link OpenGTX_Context} instance. The value can not be null. Otherwise, an error\n code is returned.\n @param config Pointer to the {@link OpenGTX_ConfigDescription} instance. The object specifies the configure\n attributes added to the context instance. The value can not be null. Otherwise, an error code is returned.\n @return Execution result of the function. If the operation is successful, <b>OPENGTX_SUCCESS</b> is returned.\n If the operation fails, an error code is returned. For details, see {@link OpenGTX_ErrorCode}.\n @since 5.0.0(12)"]
     pub fn HMS_OpenGTX_SetConfiguration(
         context: *mut OpenGTX_Context,
         config: *const OpenGTX_ConfigDescription,
     ) -> OpenGTX_ErrorCode;
 }
-unsafe extern "C" {
+extern "C" {
     #[doc = " @brief Destroy OpenGTX instance and memory resource reclamation.\n\n @param context Level-2 pointer to the {@link OpenGTX_Context} instance to destroy.\n @return Execution result of the function. If the operation is successful, <b>OPENGTX_SUCCESS</b> is returned.\n If the operation fails, an error code is returned. For details, see {@link OpenGTX_ErrorCode}.\n @since 5.0.0(12)"]
     pub fn HMS_OpenGTX_DestroyContext(context: *mut *mut OpenGTX_Context) -> OpenGTX_ErrorCode;
 }
-unsafe extern "C" {
+extern "C" {
     #[doc = " @brief Activate OpenGTX algorithm. An \"activated\" instance is ready to draw frames.\n In order to activate it, {@link HMS_OpenGTX_SetConfiguration} must be called. In case of any errors,\n the instance is considered to be inactive.\n\n @param context Pointer to the {@link OpenGTX_Context} instance. The value cannot be null.\n Otherwise, an error code is returned.\n @return Execution result of the function. If the operation is successful, <b>OPENGTX_SUCCESS</b> is returned.\n If the operation fails, an error code is returned. For details, see {@link OpenGTX_ErrorCode}.\n @since 5.0.0(12)"]
     pub fn HMS_OpenGTX_Activate(context: *mut OpenGTX_Context) -> OpenGTX_ErrorCode;
 }
-unsafe extern "C" {
+extern "C" {
     #[doc = " @brief Deactivate OpenGTX algorithm.\n\n @param context Pointer to the {@link OpenGTX_Context} instance. The value cannot be null.\n Otherwise, an error code is returned.\n @return Execution result of the function. If the operation is successful, <b>OPENGTX_SUCCESS</b> is returned.\n If the operation fails, an error code is returned. For details, see {@link OpenGTX_ErrorCode}.\n @since 5.0.0(12)"]
     pub fn HMS_OpenGTX_Deactivate(context: *mut OpenGTX_Context) -> OpenGTX_ErrorCode;
 }
-unsafe extern "C" {
+extern "C" {
     #[doc = " @brief Set all required data of frame rendering for OpenGTX algorithm to reduce device load, such as LTPO.\n\n @param context Pointer to the {@link OpenGTX_Context} instance. The value can not be null.\n @param frameRenderInfo Pointer to the {@link OpenGTX_FrameRenderInfo}. The object specifies the dispatch attributes\n used by OpenGTX algorithm per frame. The value can not be null.\n @return Function execution result. If the operation is successful, OPENGTX_SUCCESS is returned.\n If the operation fails, an error code is returned. For details about the error codes, see {@link OpenGTX_ErrorCode}.\n @since 5.0.0(12)"]
     pub fn HMS_OpenGTX_DispatchFrameRenderInfo(
         context: *mut OpenGTX_Context,
         frameRenderInfo: *const OpenGTX_FrameRenderInfo,
     ) -> OpenGTX_ErrorCode;
 }
-unsafe extern "C" {
+extern "C" {
     #[doc = " @brief Set all required data of game scene for OpenGTX algorithm to reduce device load.\n\n @param context Pointer to the {@link OpenGTX_Context} instance. The value can not be null.\n @param gameSceneInfo Pointer to the {@link OpenGTX_GameSceneInfo}. The object specifies the dispatch attributes\n used by OpenGTX algorithm per scene. The value can not be null.\n @return Function execution result. If the operation is successful, OPENGTX_SUCCESS is returned.\n If the operation fails, an error code is returned. For details about the error codes, see {@link OpenGTX_ErrorCode}.\n @since 5.0.0(12)"]
     pub fn HMS_OpenGTX_DispatchGameSceneInfo(
         context: *mut OpenGTX_Context,
         gameSceneInfo: *const OpenGTX_GameSceneInfo,
     ) -> OpenGTX_ErrorCode;
 }
-unsafe extern "C" {
+extern "C" {
     #[doc = " @brief Set all required data of network for OpenGTX algorithm to reduce device load.\n\n @param context Pointer to the {@link OpenGTX_Context} instance. The value can not be null.\n @param networkInfo Pointer to the {@link OpenGTX_NetworkInfo}. The object specifies the dispatch attributes\n used by OpenGTX algorithm when total latency changes. The value can not be null.\n @return Function execution result. If the operation is successful, OPENGTX_SUCCESS is returned.\n If the operation fails, an error code is returned. For details about the error codes, see {@link OpenGTX_ErrorCode}.\n @since 5.0.0(12)"]
     pub fn HMS_OpenGTX_DispatchNetworkInfo(
         context: *mut OpenGTX_Context,

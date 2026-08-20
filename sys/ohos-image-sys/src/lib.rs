@@ -11,9 +11,6 @@
 use napi_sys_ohos::*;
 use ohos_resource_manager_sys::*;
 
-// The old names (ohimage/image_packer/image_receiver/image_source/pixelmap)
-// only resolve against NDK stubs; on device the symbols live in the
-// *_ndk.z.so SDK libraries, so link both — matching ohos-image-native-sys.
 #[link(name = "ohimage")]
 #[link(name = "image_packer")]
 #[link(name = "picture")]
