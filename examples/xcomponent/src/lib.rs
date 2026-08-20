@@ -48,7 +48,16 @@ unsafe impl Sync for Render {}
 
 #[napi(module_exports)]
 pub fn init(exports: Object, env: Env) -> Result<()> {
-    let xcomponent = XComponent::init(env, exports)?;
+    // Outside an XComponent host (e.g. imported by a test runner without a
+    // native surface) there is no __NATIVE_XCOMPONENT_OBJ__ in exports; skip
+    // binding instead of failing module registration.
+    let xcomponent = match XComponent::init(env, exports) {
+        Ok(xc) => xc,
+        Err(e) => {
+            hilog_info!("no XComponent surface, skip init: {e}");
+            return Ok(());
+        }
+    };
     *XC_RAW.lock().unwrap() = Some(RawHandle(ohos_xcomponent_binding::XComponentRaw(
         xcomponent.raw(),
     )));

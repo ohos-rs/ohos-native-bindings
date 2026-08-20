@@ -10,7 +10,13 @@ static IME_INSTANCE: LazyLock<Mutex<Option<IME>>> = LazyLock::new(|| Mutex::new(
 /// binding exposes.
 #[napi]
 pub fn add_ime() {
-    let ime = IME::new(Default::default());
+    let ime =
+        match std::panic::catch_unwind(std::panic::AssertUnwindSafe(
+            || IME::new(Default::default()),
+        )) {
+            Ok(ime) => ime,
+            Err(_) => return,
+        };
 
     ime.insert_text(|s| hilog_info!(format!("insert_text: {}", s)));
     ime.pre_edit(|s, start, end| hilog_info!(format!("pre_edit: {} [{},{}]", s, start, end)));

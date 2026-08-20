@@ -1,5 +1,5 @@
 [package]
-name    = "nativerender"
+name    = "xcomponent_test"
 version = "0.1.0"
 edition = "2021"
 

@@ -13,7 +13,7 @@ struct Index {
     xComponentAttrs: XComponentAttrs = {
         id: 'xcomponentId',
         type: XComponentType.SURFACE,
-        libraryname: 'nativerender'
+        libraryname: 'xcomponent_test'
     }
 
     build() {
@@ -50,6 +50,6 @@ interface XComponentAttrs {
 ohrs build
 ```
 
-3. Copy `libnativerender.so` file to your harmony project which is in `dist/arm64-v8a` or `dist/x86_64`.
+3. Copy `libxcomponent_test.so` file to your harmony project which is in `dist/arm64-v8a` or `dist/x86_64`.
 
 4. Have fun it!

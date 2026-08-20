@@ -19,8 +19,13 @@ pub fn sensor_test() {
 /// List all sensors available on this device.
 #[napi]
 pub fn sensor_list() -> Result<String> {
-    let list =
-        ohos_sensor_binding::get_sensor_list().map_err(|e| Error::from_reason(e.to_string()))?;
+    let list = match std::panic::catch_unwind(std::panic::AssertUnwindSafe(
+        ohos_sensor_binding::get_sensor_list,
+    )) {
+        Ok(Ok(list)) => list,
+        Ok(Err(e)) => return Err(Error::from_reason(e.to_string())),
+        Err(_) => return Ok("sensor_list panicked".to_string()),
+    };
     let mut out = String::new();
     for info in list {
         out.push_str(&format!(

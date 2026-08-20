@@ -1,5 +1,5 @@
 [package]
-name    = "pasteboard-test"
+name    = "pasteboard_test"
 version = "0.1.0"
 edition = "2021"
 
@@ -9,7 +9,7 @@ edition = "2021"
 crate-type = ["cdylib"]
 
 [dependencies]
-napi-ohos               = { workspace = true, default-features = false, features = ["napi8", "async"] }
+napi-ohos               = { workspace = true, default-features = false, features = ["napi8"] }
 napi-derive-ohos        = { workspace = true }
 ohos-pasteboard-binding = { workspace = true, features = ["api-13"] }
 ohos-udmf-binding       = { workspace = true }

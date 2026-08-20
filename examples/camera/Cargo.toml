@@ -1,0 +1,20 @@
+[package]
+name    = "camera_test"
+version = "0.1.0"
+edition = "2021"
+
+[lib]
+crate-type = ["cdylib"]
+
+[dependencies]
+napi-ohos               = { workspace = true }
+napi-derive-ohos        = { workspace = true }
+ohos-camera-binding     = { workspace = true, features = ["xcomponent"] }
+ohos-xcomponent-binding = { workspace = true }
+ohos-hilog-binding      = { workspace = true }
+
+[build-dependencies]
+napi-build-ohos = { workspace = true }
+
+[profile.release]
+lto = true

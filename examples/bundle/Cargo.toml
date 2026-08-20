@@ -1,0 +1,18 @@
+[package]
+name    = "bundle_test"
+version = "0.1.0"
+edition = "2021"
+
+[lib]
+crate-type = ["cdylib"]
+
+[dependencies]
+napi-ohos           = { workspace = true }
+napi-derive-ohos    = { workspace = true }
+ohos-bundle-binding = { workspace = true, features = ["api-14"] }
+
+[build-dependencies]
+napi-build-ohos = { workspace = true }
+
+[profile.release]
+lto = true
