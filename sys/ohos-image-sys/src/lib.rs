@@ -4,16 +4,27 @@
 #![allow(non_upper_case_globals)]
 #![allow(non_camel_case_types)]
 #![allow(clippy::missing_safety_doc)]
+// bindgen's bitfield accessors transmute/cast between identical types.
+#![allow(clippy::useless_transmute)]
+#![allow(clippy::unnecessary_cast)]
 
 use napi_sys_ohos::*;
 use ohos_resource_manager_sys::*;
 
+// The old names (ohimage/image_packer/image_receiver/image_source/pixelmap)
+// only resolve against NDK stubs; on device the symbols live in the
+// *_ndk.z.so SDK libraries, so link both — matching ohos-image-native-sys.
 #[link(name = "ohimage")]
 #[link(name = "image_packer")]
 #[link(name = "picture")]
 #[link(name = "image_receiver")]
 #[link(name = "image_source")]
 #[link(name = "pixelmap")]
+#[link(name = "image_ndk.z")]
+#[link(name = "image_packer_ndk.z")]
+#[link(name = "image_receiver_ndk.z")]
+#[link(name = "image_source_ndk.z")]
+#[link(name = "pixelmap_ndk.z")]
 unsafe extern "C" {}
 
 #[doc = " @brief Defines the image size.\n\n @since 10\n @version 2.0"]
