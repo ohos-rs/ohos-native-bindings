@@ -1,9 +1,11 @@
+mod blob;
 mod data;
 mod r#error;
 mod r#type;
 
 use std::ptr;
 
+pub use blob::*;
 pub use data::*;
 pub use r#error::*;
 pub use r#type::*;

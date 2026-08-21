@@ -1,14 +1,4 @@
-use std::mem::ManuallyDrop;
-
-use crate::AssetTag;
-
-pub type AssetBlob = Vec<u8>;
-
-pub enum AssetValue {
-    Boolean(bool),
-    U32IntT(u32),
-    Blob(ManuallyDrop<AssetBlob>),
-}
+use crate::{copy_asset_blob, AssetTag, AssetValue};
 
 pub struct AssetAttr {
     pub tag: AssetTag,
@@ -67,9 +57,7 @@ impl From<*mut ohos_asset_sys::Asset_Result> for AssetResult {
                         }
                         ohos_asset_sys::Asset_TagType_ASSET_TYPE_BYTES => {
                             let blob = raw_attr.value.blob;
-                            let data_slice =
-                                std::slice::from_raw_parts(blob.data, blob.size as usize);
-                            AssetValue::Blob(ManuallyDrop::new(data_slice.to_vec()))
+                            AssetValue::Blob(copy_asset_blob(blob.data, blob.size))
                         }
                         _ => unimplemented!(),
                     },
@@ -114,9 +102,7 @@ impl From<*mut ohos_asset_sys::Asset_ResultSet> for AssetResultSet {
                         }
                         ohos_asset_sys::Asset_TagType_ASSET_TYPE_BYTES => {
                             let blob = raw_attr.value.blob;
-                            let data_slice =
-                                std::slice::from_raw_parts(blob.data, blob.size as usize);
-                            AssetValue::Blob(ManuallyDrop::new(data_slice.to_vec()))
+                            AssetValue::Blob(copy_asset_blob(blob.data, blob.size))
                         }
                         _ => unimplemented!(),
                     };
