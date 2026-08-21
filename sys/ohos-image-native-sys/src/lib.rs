@@ -20,6 +20,8 @@ use ohos_resource_manager_sys::*;
 #[link(name = "image_source")]
 #[link(name = "image_receiver")]
 #[link(name = "pixelmap")]
+// OH_ImageNative_* lives in libohimage.so on device.
+#[link(name = "ohimage")]
 unsafe extern "C" {}
 
 #[repr(C)]

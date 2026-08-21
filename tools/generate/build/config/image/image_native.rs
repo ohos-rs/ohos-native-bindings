@@ -41,6 +41,7 @@ pub const IMAGE_NATIVE: Lazy<SysConfig> = Lazy::new(|| {
         "image_source",
         "image_receiver",
         "pixelmap",
+        "ohimage",
     ],
     extra: "\n\nuse napi_sys_ohos::*;\nuse ohos_native_buffer_sys::*;\nuse ohos_resource_manager_sys::*;",
 }
