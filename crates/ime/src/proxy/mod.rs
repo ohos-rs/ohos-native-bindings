@@ -10,8 +10,10 @@ use crate::{
 };
 
 mod callbacks;
+mod private_command_array;
 
 pub use callbacks::*;
+use private_command_array::collect_private_commands;
 
 fn char16_ptr_to_string(ptr: *const u16, length: usize) -> String {
     let mut result = String::new();
@@ -182,14 +184,8 @@ pub unsafe extern "C" fn receive_private_command(
         .expect("Failed to acquire read lock");
     if let Some(f) = &guard.receive_private_command {
         unsafe {
-            let slice = std::slice::from_raw_parts_mut(command, len);
-
-            let mut manual_array = Vec::new();
-            for (i, command) in manual_array.iter_mut().enumerate().take(len) {
-                *command = PrivateCommand {
-                    raw: *slice.get_unchecked(i),
-                };
-            }
+            let slice = std::slice::from_raw_parts(command, len);
+            let manual_array = collect_private_commands(slice, |raw| PrivateCommand { raw });
             f(manual_array);
         }
     }
