@@ -5,29 +5,13 @@ use ohos_input_method_sys::{
 };
 
 use crate::{
-    private_command::PrivateCommand, Action, Direction, EnterKey, KeyboardStatus, Selection,
-    TextConfig,
+    private_command::PrivateCommand, utf16::char16_ptr_to_string, Action, Direction, EnterKey,
+    KeyboardStatus, Selection, TextConfig,
 };
 
 mod callbacks;
 
 pub use callbacks::*;
-
-fn char16_ptr_to_string(ptr: *const u16, length: usize) -> String {
-    let mut result = String::new();
-
-    unsafe {
-        let slice = std::slice::from_raw_parts(ptr, length);
-
-        for &unit in slice.iter() {
-            if let Some(Ok(c)) = char::decode_utf16(std::iter::once(unit)).next() {
-                result.push(c);
-            }
-        }
-    }
-
-    result
-}
 
 pub unsafe extern "C" fn delete_backward(_text_editor: *mut InputMethod_TextEditorProxy, len: i32) {
     let guard = OHOS_RS_IME_CALLBACKS

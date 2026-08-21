@@ -6,6 +6,7 @@ mod private_command;
 mod proxy;
 mod text_config;
 mod text_editor;
+mod utf16;
 
 pub use attach::*;
 pub use cursor::*;
