@@ -5,6 +5,7 @@ use ohos_resource_manager_sys::{
     OH_ResourceManager_GetMediaByName, ResourceManager_ErrorCode_SUCCESS,
 };
 use std::ffi::CString;
+use std::os::raw::c_char;
 use std::ptr;
 
 use std::ptr::NonNull;
@@ -21,11 +22,14 @@ use ohos_resource_manager_sys::{
 
 mod error;
 mod info;
+mod media_buffer;
 mod raw_dir;
 
 pub use error::*;
 pub use info::*;
 pub use raw_dir::*;
+
+use media_buffer::adopt_ndk_media_buffer;
 
 /// Resource Manager
 pub struct ResourceManager {
@@ -155,20 +159,20 @@ impl ResourceManager {
         res_id: u32,
         density: Option<ScreenDensity>,
     ) -> Result<Vec<u8>, RawFileError> {
-        let mut ret: Vec<u8> = Vec::new();
-        let mut len = 0;
+        let mut ptr: *mut u8 = ptr::null_mut();
+        let mut len = 0u64;
         let use_density = density.unwrap_or_default();
         let code = unsafe {
             OH_ResourceManager_GetMedia(
                 self.resource_manager.as_ptr(),
                 res_id,
-                ret.as_mut_ptr().cast(),
+                &mut ptr,
                 &mut len,
                 use_density.into(),
             )
         };
         if code == ResourceManager_ErrorCode_SUCCESS {
-            Ok(ret)
+            Ok(unsafe { take_ndk_media_buffer(ptr, len) })
         } else {
             Err(RawFileError::FfiInnerError(format!(
                 "Media failed: {}",
@@ -182,20 +186,20 @@ impl ResourceManager {
         res_id: u32,
         density: Option<ScreenDensity>,
     ) -> Result<Vec<u8>, RawFileError> {
-        let mut ret: Vec<u8> = Vec::new();
-        let mut len = 0;
+        let mut ptr: *mut c_char = ptr::null_mut();
+        let mut len = 0u64;
         let use_density = density.unwrap_or_default();
         let code = unsafe {
             OH_ResourceManager_GetMediaBase64(
                 self.resource_manager.as_ptr(),
                 res_id,
-                ret.as_mut_ptr().cast(),
+                &mut ptr,
                 &mut len,
                 use_density.into(),
             )
         };
         if code == ResourceManager_ErrorCode_SUCCESS {
-            Ok(ret)
+            Ok(unsafe { take_ndk_media_buffer(ptr.cast(), len) })
         } else {
             Err(RawFileError::FfiInnerError(format!(
                 "Media base64 failed: {}",
@@ -209,8 +213,8 @@ impl ResourceManager {
         name: String,
         density: Option<ScreenDensity>,
     ) -> Result<Vec<u8>, RawFileError> {
-        let mut ret: Vec<u8> = Vec::new();
-        let mut len = 0;
+        let mut ptr: *mut u8 = ptr::null_mut();
+        let mut len = 0u64;
         let use_density = density.unwrap_or_default();
         let use_name = CString::new(name).expect("Create CString failed");
 
@@ -218,13 +222,13 @@ impl ResourceManager {
             OH_ResourceManager_GetMediaByName(
                 self.resource_manager.as_ptr(),
                 use_name.as_ptr().cast(),
-                ret.as_mut_ptr().cast(),
+                &mut ptr,
                 &mut len,
                 use_density.into(),
             )
         };
         if code == ResourceManager_ErrorCode_SUCCESS {
-            Ok(ret)
+            Ok(unsafe { take_ndk_media_buffer(ptr, len) })
         } else {
             Err(RawFileError::FfiInnerError(format!(
                 "Media by name failed: {}",
@@ -238,8 +242,8 @@ impl ResourceManager {
         name: String,
         density: Option<ScreenDensity>,
     ) -> Result<Vec<u8>, RawFileError> {
-        let mut ret: Vec<u8> = Vec::new();
-        let mut len = 0;
+        let mut ptr: *mut c_char = ptr::null_mut();
+        let mut len = 0u64;
         let use_density = density.unwrap_or_default();
         let use_name = CString::new(name).expect("Create CString failed");
 
@@ -247,13 +251,13 @@ impl ResourceManager {
             OH_ResourceManager_GetMediaBase64ByName(
                 self.resource_manager.as_ptr(),
                 use_name.as_ptr().cast(),
-                ret.as_mut_ptr().cast(),
+                &mut ptr,
                 &mut len,
                 use_density.into(),
             )
         };
         if code == ResourceManager_ErrorCode_SUCCESS {
-            Ok(ret)
+            Ok(unsafe { take_ndk_media_buffer(ptr.cast(), len) })
         } else {
             Err(RawFileError::FfiInnerError(format!(
                 "Media base64 by name failed: {}",
@@ -261,6 +265,16 @@ impl ResourceManager {
             )))
         }
     }
+}
+
+/// Adopt an NDK-allocated media buffer: copy into a Rust `Vec`, then free
+/// the malloc'd pointer. Do not use `Vec::from_raw_parts` (allocator mismatch).
+unsafe fn take_ndk_media_buffer(ptr: *mut u8, len: u64) -> Vec<u8> {
+    let bytes = adopt_ndk_media_buffer(ptr, len);
+    if !ptr.is_null() {
+        libc::free(ptr.cast());
+    }
+    bytes
 }
 
 unsafe impl Send for ResourceManager {}

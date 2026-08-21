@@ -27,3 +27,4 @@ api-20 = ["api-19", "ohos-resource-manager-sys/api-20"]
 [dependencies]
 ohos-resource-manager-sys = { workspace = true }
 napi-ohos                 = { workspace = true, optional = true }
+libc                      = { workspace = true }
