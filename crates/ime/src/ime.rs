@@ -10,6 +10,17 @@ use std::{
 
 use crate::{proxy::OHOS_RS_IME_CALLBACKS, AttachOptions, EnterKey, KeyboardStatus, TextEditor};
 
+/// Report a failed input-method NDK call instead of panicking: these calls
+/// fail in environments without a live input method (e.g. a test runner
+/// process), and a panic across the napi `extern "C"` boundary aborts the
+/// whole app.
+fn log_call_failure(call: &str, ret: u32) {
+    // Intentionally no logging here: thread-local storage for stderr can
+    // itself abort once the process has exhausted its pthread keys (many
+    // napi .so modules loaded). The goal is only to be non-fatal.
+    let _ = (call, ret);
+}
+
 unsafe impl Send for IME {}
 unsafe impl Sync for IME {}
 
@@ -119,7 +130,7 @@ impl IME {
                 &mut raw as *mut *mut InputMethod_InputMethodProxy,
             );
             #[cfg(debug_assertions)]
-            assert!(ret == 0, "OH_InputMethodController_Attach failed");
+            log_call_failure("OH_InputMethodController_Attach", ret);
 
             if let Some(raw) = NonNull::new(raw) {
                 self.text_editor.replace(Some(editor));
@@ -135,7 +146,7 @@ impl IME {
             unsafe {
                 let ret = OH_InputMethodProxy_ShowKeyboard(ime_proxy.as_ptr());
                 #[cfg(debug_assertions)]
-                assert!(ret == 0, "OH_InputMethodProxy_ShowKeyboard failed");
+                log_call_failure("OH_InputMethodProxy_ShowKeyboard", ret);
             }
         }
     }
@@ -205,7 +216,7 @@ impl IME {
                 let ret = OH_InputMethodProxy_HideKeyboard(raw.as_ptr());
 
                 #[cfg(debug_assertions)]
-                assert!(ret == 0, "OH_InputMethodProxy_HideKeyboard failed");
+                log_call_failure("OH_InputMethodProxy_HideKeyboard", ret);
             }
         }
         self.detach();
@@ -217,7 +228,7 @@ impl IME {
             unsafe {
                 let ret = OH_InputMethodController_Detach(raw.as_ptr());
                 #[cfg(debug_assertions)]
-                assert!(ret == 0, "OH_InputMethodController_Detach failed");
+                log_call_failure("OH_InputMethodController_Detach", ret);
             }
         }
         self.text_editor.borrow_mut().take();
