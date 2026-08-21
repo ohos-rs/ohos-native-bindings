@@ -1,4 +1,4 @@
-use std::{ffi::c_void, mem::ManuallyDrop, ptr::NonNull};
+use std::ptr::NonNull;
 
 use ohos_web_sys::{
     ArkWeb_HttpBodyStream, OH_ArkWebHttpBodyStream_GetSize, OH_ArkWebHttpBodyStream_GetUserData,
@@ -7,12 +7,13 @@ use ohos_web_sys::{
     OH_ArkWebHttpBodyStream_SetReadCallback, OH_ArkWebHttpBodyStream_SetUserData,
 };
 
+#[path = "read_buffer.rs"]
+mod read_buffer;
+
+use read_buffer::{finish_read_callback, ReadCallbackContext};
+
 pub struct HttpBodyStream {
     raw: NonNull<ArkWeb_HttpBodyStream>,
-}
-
-struct ReadCallbackContext {
-    callback: Box<dyn FnMut(Vec<u8>)>,
 }
 
 impl HttpBodyStream {
@@ -41,9 +42,6 @@ impl HttpBodyStream {
     where
         F: FnMut(Vec<u8>),
     {
-        let mut buf: Vec<u8> = Vec::with_capacity(size);
-        let buf_ptr = buf.as_mut_ptr();
-
         let static_callback = unsafe {
             std::mem::transmute::<Box<dyn FnMut(Vec<u8>)>, Box<dyn FnMut(Vec<u8>) + 'static>>(
                 Box::new(move |buf| {
@@ -52,10 +50,8 @@ impl HttpBodyStream {
             )
         };
 
-        let ctx = ReadCallbackContext {
-            callback: static_callback,
-        };
-        let ctx_ptr = Box::into_raw(Box::new(ctx)) as *mut c_void;
+        let ctx = ReadCallbackContext::new(size, static_callback);
+        let (ctx_ptr, buf_ptr) = ctx.into_raw_with_buffer();
 
         unsafe {
             OH_ArkWebHttpBodyStream_SetUserData(self.raw.as_ptr(), ctx_ptr);
@@ -71,13 +67,11 @@ impl HttpBodyStream {
 
 extern "C" fn read_callback(
     http_body_stream: *const ArkWeb_HttpBodyStream,
-    buffer: *mut u8,
+    _buffer: *mut u8,
     bytes_read: i32,
 ) {
     unsafe {
         let user_data_ptr = OH_ArkWebHttpBodyStream_GetUserData(http_body_stream);
-        let mut ctx = ManuallyDrop::new(Box::from_raw(user_data_ptr as *mut ReadCallbackContext));
-        let data = std::slice::from_raw_parts(buffer, bytes_read as usize).to_vec();
-        (ctx.callback)(data);
+        finish_read_callback(user_data_ptr, bytes_read);
     }
 }
