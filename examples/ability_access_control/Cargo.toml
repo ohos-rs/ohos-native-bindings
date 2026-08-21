@@ -13,6 +13,3 @@ ohos-ability-access-control-binding = { workspace = true }
 
 [build-dependencies]
 napi-build-ohos = { workspace = true }
-
-[profile.release]
-lto = true

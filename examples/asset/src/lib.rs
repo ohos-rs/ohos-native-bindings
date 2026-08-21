@@ -77,7 +77,7 @@ pub fn remove_secret() -> String {
 
 #[napi]
 pub fn smoke() -> String {
-    catch_str(|| smoke_inner())
+    catch_str(smoke_inner)
 }
 
 fn smoke_inner() -> String {

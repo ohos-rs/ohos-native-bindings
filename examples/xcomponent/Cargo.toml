@@ -21,6 +21,3 @@ ohos-hilog-binding      = { workspace = true }
 [build-dependencies]
 napi-build-ohos = { workspace = true }
 gl_generator    = { version = "0.14.0" }
-
-[profile.release]
-lto = true

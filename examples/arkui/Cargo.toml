@@ -19,9 +19,6 @@ ohos-arkui-input-binding = { workspace = true }
 [build-dependencies]
 napi-build-ohos = { workspace = true }
 
-[profile.release]
-lto = true
-
 
 [package.metadata.template]
 header = "import { NodeContent, UIContext } from '@kit.ArkUI';\n"

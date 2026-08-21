@@ -58,8 +58,8 @@ pub fn init(exports: Object, env: Env) -> Result<()> {
             return Ok(());
         }
     };
-    xcomponent.on_surface_created(|xc, win| fill_window(xc, win));
-    xcomponent.on_surface_changed(|xc, win| fill_window(xc, win));
+    xcomponent.on_surface_created(fill_window);
+    xcomponent.on_surface_changed(fill_window);
     xcomponent.on_surface_destroyed(|_, _| {
         set_last("surface destroyed");
         Ok(())

@@ -17,8 +17,5 @@ ohos-hilog-binding            = { workspace = true }
 [build-dependencies]
 napi-build-ohos = { workspace = true }
 
-[profile.release]
-lto = true
-
 [package.metadata.template]
 header = "import resourceManager from '@ohos.resourceManager';\n"
