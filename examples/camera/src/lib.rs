@@ -16,7 +16,14 @@ enum Command {
     Surface(CameraXComponentEvent),
     Info(Sender<String>),
     Capture(Sender<String>),
-    Flash { on: bool, reply: Sender<String> },
+    Flash {
+        on: bool,
+        reply: Sender<String>,
+    },
+    /// Explicit lifecycle control for the E2E suite: drop the session and
+    /// reopen it against the last seen surface.
+    Reopen(Sender<String>),
+    Close(Sender<String>),
 }
 
 static LAST: Mutex<String> = Mutex::new(String::new());
@@ -47,9 +54,11 @@ fn request(cmd_fn: impl FnOnce(Sender<String>) -> Command) -> Result<String> {
 
 fn worker(rx: mpsc::Receiver<Command>, events: Sender<CameraEvent>) {
     let mut session: Option<CameraSession> = None;
+    let mut last_surface: Option<CameraSurface> = None;
     while let Ok(command) = rx.recv() {
         match command {
             Command::Surface(CameraXComponentEvent::Surface(surface)) => {
+                last_surface = Some(surface);
                 open_session(surface, events.clone(), &mut session);
             }
             Command::Surface(CameraXComponentEvent::SurfaceLost) => {
@@ -83,6 +92,34 @@ fn worker(rx: mpsc::Receiver<Command>, events: Sender<CameraEvent>) {
                     None => "camera session is not open".to_string(),
                 };
                 let _ = reply.send(msg);
+            }
+            Command::Reopen(reply) => {
+                let msg = match last_surface {
+                    Some(surface) => {
+                        // Drop the old session first: the CameraInstanceLease
+                        // inside is what serializes camera access, so a full
+                        // close-then-open cycle is the lifecycle under test.
+                        session = None;
+                        open_session(surface, events.clone(), &mut session);
+                        if session.is_some() {
+                            "reopened".to_string()
+                        } else {
+                            "reopen failed".to_string()
+                        }
+                    }
+                    None => "no surface seen yet".to_string(),
+                };
+                let _ = reply.send(msg);
+            }
+            Command::Close(reply) => {
+                let had = session.is_some();
+                session = None;
+                set_last("session closed");
+                let _ = reply.send(if had {
+                    "closed".to_string()
+                } else {
+                    "was not open".to_string()
+                });
             }
         }
     }
@@ -217,4 +254,19 @@ pub fn capture() -> Result<String> {
 #[napi]
 pub fn switch_flash(on: bool) -> Result<String> {
     request(|reply| Command::Flash { on, reply })
+}
+
+/// Drop the camera session and reopen it against the current surface. The
+/// binding's CameraInstanceLease serializes camera access, so this exercises
+/// the full close -> reopen lifecycle in one process.
+#[napi]
+pub fn reopen_session() -> Result<String> {
+    request(Command::Reopen)
+}
+
+/// Explicitly drop the camera session (the surface stays alive; the next
+/// reopen_session brings it back).
+#[napi]
+pub fn close_session() -> Result<String> {
+    request(Command::Close)
 }

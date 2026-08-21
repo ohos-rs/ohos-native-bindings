@@ -24,6 +24,26 @@ use raw_window_handle::{
 
 static GL_CTX: LazyLock<Mutex<Option<Render>>> = LazyLock::new(|| Mutex::new(None));
 
+/// Observable surface lifecycle state for the E2E suite: how many
+/// OnSurfaceCreated events arrived and the size of the latest one. With two
+/// XComponents loading this same library, the single global callback slot
+/// receives events from both — this counter is how the test observes that
+/// interplay (and that the GL_CTX/XC_RAW singletons track the latest
+/// surface).
+static SURFACE_EVENTS: LazyLock<Mutex<SurfaceEvents>> = LazyLock::new(|| {
+    Mutex::new(SurfaceEvents {
+        created_count: 0,
+        destroyed_count: 0,
+        last_size: (0, 0),
+    })
+});
+
+struct SurfaceEvents {
+    created_count: u32,
+    destroyed_count: u32,
+    last_size: (u64, u64),
+}
+
 /// Raw handle of the live XComponent so napi functions can reach it later
 /// (frame-rate control). The framework keeps the native object alive for the
 /// component's lifetime; the pointer is only used on the UI thread where the
@@ -65,6 +85,11 @@ pub fn init(exports: Object, env: Env) -> Result<()> {
     xcomponent.on_surface_created(|xcomponent, win| {
         hilog_info!("xcomponent_create");
         let size = xcomponent.size(win)?;
+        {
+            let mut events = SURFACE_EVENTS.lock().unwrap();
+            events.created_count += 1;
+            events.last_size = (size.width, size.height);
+        }
 
         let raw_handle =
             RawWindowHandle::OhosNdk(OhosNdkWindowHandle::new(NonNull::new(win.0).unwrap()));
@@ -137,6 +162,7 @@ pub fn init(exports: Object, env: Env) -> Result<()> {
 
     xcomponent.on_surface_destroyed(|_xcomponent, _win| {
         hilog_info!("xcomponent_destroy");
+        SURFACE_EVENTS.lock().unwrap().destroyed_count += 1;
         Ok(())
     });
 
@@ -205,4 +231,17 @@ pub fn draw_xcomponent() {
         }
         None => {}
     }
+}
+
+/// Surface lifecycle counters for the E2E suite (see SURFACE_EVENTS).
+/// `created`/`destroyed` count OnSurfaceCreated/OnSurfaceDestroyed events
+/// across every XComponent instance bound to this library; `lastW`/`lastH`
+/// are the pixel size of the most recent created surface.
+#[napi]
+pub fn surface_events() -> String {
+    let events = SURFACE_EVENTS.lock().unwrap();
+    format!(
+        "created={} destroyed={} last={}x{}",
+        events.created_count, events.destroyed_count, events.last_size.0, events.last_size.1
+    )
 }
