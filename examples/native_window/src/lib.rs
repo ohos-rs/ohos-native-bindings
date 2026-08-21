@@ -31,7 +31,7 @@ fn fill_window(xc: XComponentRaw, win: WindowRaw) -> Result<()> {
     let stride = buffer.stride();
     let format = format!("{:?}", buffer.format());
     if let Some(bytes) = buffer.bytes() {
-        for pixel in bytes.chunks_exact_mut(4) {
+        for pixel in bytes.as_chunks_mut::<4>().0 {
             pixel[0] = MaybeUninit::new(40);
             pixel[1] = MaybeUninit::new(120);
             pixel[2] = MaybeUninit::new(220);

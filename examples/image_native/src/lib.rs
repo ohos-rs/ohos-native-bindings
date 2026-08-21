@@ -20,7 +20,7 @@ fn make_pixel_map() -> Result<PixelMap> {
         .map_err(to_err)?;
     options.set_editable(true).map_err(to_err)?;
     let mut data = vec![0u8; 8 * 8 * 4];
-    for (i, chunk) in data.chunks_exact_mut(4).enumerate() {
+    for (i, chunk) in data.as_chunks_mut::<4>().0.iter_mut().enumerate() {
         chunk[0] = (i * 3) as u8;
         chunk[1] = 80;
         chunk[2] = 160;
