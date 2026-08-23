@@ -1,0 +1,26 @@
+[package]
+name    = "rust-sysquery"
+version = "0.1.0"
+edition = "2021"
+
+[lib]
+crate-type = ["cdylib"]
+
+[dependencies]
+napi-ohos                   = { workspace = true }
+napi-derive-ohos            = { workspace = true }
+ohos-hilog-binding          = { workspace = true, features = ["redirect", "log"] }
+ohos-battery-info-binding   = { workspace = true, features = ["api-13"] }
+ohos-bluetooth-binding      = { workspace = true, features = ["api-13"] }
+ohos-dlp-permission-binding = { workspace = true, features = ["api-14"] }
+ohos-location-binding       = { workspace = true, features = ["api-13"] }
+ohos-notification-binding   = { workspace = true, features = ["api-13"] }
+ohos-os-account-binding     = { workspace = true }
+ohos-time-service-binding   = { workspace = true }
+ohos-wifi-binding           = { workspace = true, features = ["api-13"] }
+
+[build-dependencies]
+napi-build-ohos = { workspace = true }
+
+[profile.release]
+lto = true

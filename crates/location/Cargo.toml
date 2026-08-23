@@ -1,0 +1,27 @@
+[package]
+name        = "ohos-location-binding"
+version     = "0.1.0"
+edition     = "2021"
+license     = "MIT OR Apache-2.0"
+description = "OpenHarmony's location binding for rust"
+
+[dependencies]
+ohos-location-sys = { workspace = true }
+
+[features]
+default = []
+api-13 = ["ohos-location-sys/api-13"]
+api-14 = ["api-13", "ohos-location-sys/api-14"]
+api-15 = ["api-14", "ohos-location-sys/api-15"]
+api-16 = ["api-15", "ohos-location-sys/api-16"]
+api-17 = ["api-16", "ohos-location-sys/api-17"]
+api-18 = ["api-17", "ohos-location-sys/api-18"]
+api-19 = ["api-18", "ohos-location-sys/api-19"]
+api-20 = ["api-19", "ohos-location-sys/api-20"]
+api-21 = ["api-20", "ohos-location-sys/api-21"]
+api-22 = ["api-21", "ohos-location-sys/api-22"]
+api-23 = ["api-22", "ohos-location-sys/api-23"]
+api-24 = ["api-23", "ohos-location-sys/api-24"]
+
+[lints]
+workspace = true

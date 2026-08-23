@@ -1,0 +1,28 @@
+[package]
+name        = "ohos-hiappevent-binding"
+version     = "0.1.0"
+edition     = "2021"
+license     = "MIT OR Apache-2.0"
+description = "OpenHarmony's HiAppEvent (application event logging) binding for rust"
+
+[dependencies]
+ohos-hiappevent-sys = { workspace = true }
+ohos-enum-derive    = { workspace = true }
+
+[features]
+default = []
+api-13  = ["ohos-hiappevent-sys/api-13"]
+api-14  = ["api-13", "ohos-hiappevent-sys/api-14"]
+api-15  = ["api-14", "ohos-hiappevent-sys/api-15"]
+api-16  = ["api-15", "ohos-hiappevent-sys/api-16"]
+api-17  = ["api-16", "ohos-hiappevent-sys/api-17"]
+api-18  = ["api-17", "ohos-hiappevent-sys/api-18"]
+api-19  = ["api-18", "ohos-hiappevent-sys/api-19"]
+api-20  = ["api-19", "ohos-hiappevent-sys/api-20"]
+api-21  = ["api-20", "ohos-hiappevent-sys/api-21"]
+api-22  = ["api-21", "ohos-hiappevent-sys/api-22"]
+api-23  = ["api-22", "ohos-hiappevent-sys/api-23"]
+api-24  = ["api-23", "ohos-hiappevent-sys/api-24"]
+
+[lints]
+workspace = true

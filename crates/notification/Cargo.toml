@@ -1,0 +1,27 @@
+[package]
+name        = "ohos-notification-binding"
+version     = "0.1.0"
+edition     = "2021"
+license     = "MIT OR Apache-2.0"
+description = "OpenHarmony's notification binding for rust"
+
+[dependencies]
+ohos-notification-sys = { workspace = true }
+
+[features]
+default = []
+api-13 = ["ohos-notification-sys/api-13"]
+api-14 = ["api-13", "ohos-notification-sys/api-14"]
+api-15 = ["api-14", "ohos-notification-sys/api-15"]
+api-16 = ["api-15", "ohos-notification-sys/api-16"]
+api-17 = ["api-16", "ohos-notification-sys/api-17"]
+api-18 = ["api-17", "ohos-notification-sys/api-18"]
+api-19 = ["api-18", "ohos-notification-sys/api-19"]
+api-20 = ["api-19", "ohos-notification-sys/api-20"]
+api-21 = ["api-20", "ohos-notification-sys/api-21"]
+api-22 = ["api-21", "ohos-notification-sys/api-22"]
+api-23 = ["api-22", "ohos-notification-sys/api-23"]
+api-24 = ["api-23", "ohos-notification-sys/api-24"]
+
+[lints]
+workspace = true

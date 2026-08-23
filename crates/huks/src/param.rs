@@ -51,11 +51,30 @@ into_huks_value! {
     u32 => Uint,
     u64 => Ulong,
     Vec<u8> => Bytes,
-    HuksKeyAlg => Uint as u32,
-    HuksKeyDigest => Uint as u32,
-    HuksKeyPadding => Uint as u32,
-    HuksCipherMode => Uint as u32,
-    HuksKeyPurpose => Uint as u32,
+}
+
+/// Same, for the `EnumFrom` enums.
+///
+/// These carry no explicit discriminants, so an `as u32` cast would yield the
+/// variant's declaration index rather than the constant its `#[suffix(...)]`
+/// names. The number HUKS expects only comes out of the generated `From` impl,
+/// which is built from the header constants — so that is what is used here.
+macro_rules! into_huks_value_via_from {
+    ($($ty:ty),* $(,)?) => {
+        $(impl IntoHuksValue for $ty {
+            fn into_huks_value(self) -> HuksValue {
+                HuksValue::Uint(u32::from(self))
+            }
+        })*
+    };
+}
+
+into_huks_value_via_from! {
+    HuksKeyAlg,
+    HuksKeyDigest,
+    HuksKeyPadding,
+    HuksCipherMode,
+    HuksKeyPurpose,
 }
 
 impl IntoHuksValue for &[u8] {

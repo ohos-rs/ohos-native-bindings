@@ -1,0 +1,19 @@
+[package]
+name    = "rust-usbserialtest"
+version = "0.1.0"
+edition = "2021"
+
+[lib]
+crate-type = ["cdylib"]
+
+[dependencies]
+napi-ohos                = { workspace = true }
+napi-derive-ohos         = { workspace = true }
+ohos-usb-serial-binding  = { workspace = true, features = ["api-18"] }
+ohos-hilog-binding       = { workspace = true, features = ["redirect", "log"] }
+
+[build-dependencies]
+napi-build-ohos = { workspace = true }
+
+[profile.release]
+lto = true
