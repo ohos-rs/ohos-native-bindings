@@ -19,6 +19,16 @@ macro_rules! define_common_component {
                     ..Default::default()
                 }))
             }
+
+            /// Convert into the identity-stable wrapper handle used for
+            /// mounting (`add_child`/`insert_child`).
+            ///
+            /// The returned `Rc` **is** the mounted node: event callbacks
+            /// registered on this component stay attached, and the same
+            /// handle remains valid for mutations after mounting.
+            pub fn into_node(self) -> std::rc::Rc<std::cell::RefCell<ArkUINode>> {
+                std::rc::Rc::new(std::cell::RefCell::new(self.0))
+            }
         }
 
         impl From<$name> for ArkUINode {

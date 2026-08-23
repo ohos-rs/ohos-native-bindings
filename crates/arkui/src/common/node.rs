@@ -93,13 +93,16 @@ impl ArkUINode {
             // would leak natively while the Rust wrapper is already dropped.
             let _ = ARK_UI_NATIVE_NODE_API_1.with(|api| api.remove_event_receiver(self));
         }
+        // Reclaim the wrapper-owned user data of this node and every
+        // descendant wrapper while all native handles are still alive.
+        // `disposeNode` below destroys the whole native subtree, after which
+        // touching any descendant's user_data would be a use-after-free and
+        // the boxes (each holding an `Rc` to its wrapper) would leak the
+        // entire Rust-side subtree.
+        crate::common::user_data::release_wrapper_user_data_recursive(self);
         // `disposeNode` tears down the native subtree. Disposing wrapper children again will
         // double free the descendant handles during patch/remount flows.
         let result = ARK_UI_NATIVE_NODE_API_1.with(|api| api.dispose(self));
-        // Release the event-dispatch user data box owned by this wrapper layer
-        // regardless of `disposeNode` outcome so a failed dispose cannot keep
-        // the Rust wrapper (and its native handle) alive forever.
-        crate::common::user_data::release_wrapper_user_data(self);
         self.children.clear();
         result
     }

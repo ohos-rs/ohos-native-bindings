@@ -14,55 +14,135 @@ name = "generate"
 release = false
 publish = false
 
-# examples
+# examples (all renamed to <demo>_test; none are released)
 [[package]]
-name = "example"
+name = "ability_access_control_test"
 release = false
 
 [[package]]
-name = "ark_web"
+name = "ark_web_test"
 release = false
 
 [[package]]
-name = "display_soloist"
+name = "arkui_input_test"
 release = false
 
 [[package]]
-name = "ime"
+name = "arkui_test"
 release = false
 
 [[package]]
-name = "jsvm-example"
+name = "ashmem_test"
 release = false
 
 [[package]]
-name = "napi_net_connection"
+name = "asset_test"
 release = false
 
 [[package]]
-name = "nativerender"
+name = "bundle_test"
 release = false
 
 [[package]]
-name = "pasteboard-test"
+name = "camera_test"
 release = false
 
 [[package]]
-name = "raw-test"
+name = "display_soloist_test"
 release = false
 
 [[package]]
-name = "rust-hilog"
+name = "display_test"
 release = false
 
 [[package]]
-name = "sensor"
+name = "drawing_test"
 release = false
 
 [[package]]
-name = "vibrator"
+name = "fileshare_test"
 release = false
 
 [[package]]
-name = "vsync"
+name = "fileuri_test"
+release = false
+
+[[package]]
+name = "hilog_test"
+release = false
+
+[[package]]
+name = "huks_test"
+release = false
+
+[[package]]
+name = "image_native_test"
+release = false
+
+[[package]]
+name = "image_test"
+release = false
+
+[[package]]
+name = "ime_test"
+release = false
+
+[[package]]
+name = "init_test"
+release = false
+
+[[package]]
+name = "jsvm_test"
+release = false
+
+[[package]]
+name = "native_buffer_test"
+release = false
+
+[[package]]
+name = "native_window_test"
+release = false
+
+[[package]]
+name = "net_connection_test"
+release = false
+
+[[package]]
+name = "net_stack_test"
+release = false
+
+[[package]]
+name = "opengtx_test"
+release = false
+
+[[package]]
+name = "pasteboard_test"
+release = false
+
+[[package]]
+name = "qos_test"
+release = false
+
+[[package]]
+name = "raw_test"
+release = false
+
+[[package]]
+name = "sensor_test"
+release = false
+
+[[package]]
+name = "udmf_test"
+release = false
+
+[[package]]
+name = "vibrator_test"
+release = false
+
+[[package]]
+name = "vsync_test"
+release = false
+
+[[package]]
+name = "xcomponent_test"
 release = false

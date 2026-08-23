@@ -4,6 +4,9 @@
 #![allow(non_upper_case_globals)]
 #![allow(non_camel_case_types)]
 #![allow(clippy::missing_safety_doc)]
+// bindgen's bitfield accessors transmute/cast between identical types.
+#![allow(clippy::useless_transmute)]
+#![allow(clippy::unnecessary_cast)]
 
 #[link(name = "jsvm")]
 unsafe extern "C" {}
@@ -730,6 +733,7 @@ pub struct JSVM_DefineClassOptions {
     pub content: JSVM_DefineClassOptions__bindgen_ty_1,
 }
 #[doc = " option content."]
+#[cfg(feature = "api-18")]
 #[repr(C)]
 #[derive(Copy, Clone)]
 pub union JSVM_DefineClassOptions__bindgen_ty_1 {

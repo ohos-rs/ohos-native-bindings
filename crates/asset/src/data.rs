@@ -56,8 +56,13 @@ impl From<*mut ohos_asset_sys::Asset_Result> for AssetResult {
             let mut attrs = Vec::with_capacity(raw_result.count as usize);
             for i in 0..raw_result.count as isize {
                 let raw_attr = &*raw_result.attrs.offset(i);
+                let Some(tag) = AssetTag::try_from_raw(raw_attr.tag) else {
+                    // Skip attribute tags this binding does not model yet
+                    // instead of panicking on unknown values.
+                    continue;
+                };
                 attrs.push(AssetAttr {
-                    tag: raw_attr.tag.into(),
+                    tag,
                     value: match raw_attr.tag & ohos_asset_sys::ASSET_TAG_TYPE_MASK {
                         ohos_asset_sys::Asset_TagType_ASSET_TYPE_BOOL => {
                             AssetValue::Boolean(raw_attr.value.boolean)
@@ -67,11 +72,16 @@ impl From<*mut ohos_asset_sys::Asset_Result> for AssetResult {
                         }
                         ohos_asset_sys::Asset_TagType_ASSET_TYPE_BYTES => {
                             let blob = raw_attr.value.blob;
-                            let data_slice =
-                                std::slice::from_raw_parts(blob.data, blob.size as usize);
+                            let data_slice = if blob.data.is_null() || blob.size == 0 {
+                                &[]
+                            } else {
+                                std::slice::from_raw_parts(blob.data, blob.size as usize)
+                            };
                             AssetValue::Blob(ManuallyDrop::new(data_slice.to_vec()))
                         }
-                        _ => unimplemented!(),
+                        // Unknown tag type: keep the attr without a
+                        // meaningful value instead of panicking.
+                        _ => AssetValue::Boolean(false),
                     },
                 });
             }
@@ -114,16 +124,23 @@ impl From<*mut ohos_asset_sys::Asset_ResultSet> for AssetResultSet {
                         }
                         ohos_asset_sys::Asset_TagType_ASSET_TYPE_BYTES => {
                             let blob = raw_attr.value.blob;
-                            let data_slice =
-                                std::slice::from_raw_parts(blob.data, blob.size as usize);
+                            let data_slice = if blob.data.is_null() || blob.size == 0 {
+                                &[]
+                            } else {
+                                std::slice::from_raw_parts(blob.data, blob.size as usize)
+                            };
                             AssetValue::Blob(ManuallyDrop::new(data_slice.to_vec()))
                         }
-                        _ => unimplemented!(),
+                        // Unknown tag type: keep the attr without a
+                        // meaningful value instead of panicking.
+                        _ => AssetValue::Boolean(false),
                     };
-                    attrs.push(AssetAttr {
-                        tag: raw_attr.tag.into(),
-                        value,
-                    });
+                    let Some(tag) = AssetTag::try_from_raw(raw_attr.tag) else {
+                        // Skip attribute tags this binding does not model
+                        // yet instead of panicking on unknown values.
+                        continue;
+                    };
+                    attrs.push(AssetAttr { tag, value });
                 }
                 results.push(AssetResult {
                     count: raw_result.count,

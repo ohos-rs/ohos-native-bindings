@@ -24,6 +24,39 @@ use raw_window_handle::{
 
 static GL_CTX: LazyLock<Mutex<Option<Render>>> = LazyLock::new(|| Mutex::new(None));
 
+/// Observable surface lifecycle state for the E2E suite: how many
+/// OnSurfaceCreated events arrived and the size of the latest one. With two
+/// XComponents loading this same library, the single global callback slot
+/// receives events from both — this counter is how the test observes that
+/// interplay (and that the GL_CTX/XC_RAW singletons track the latest
+/// surface).
+static SURFACE_EVENTS: LazyLock<Mutex<SurfaceEvents>> = LazyLock::new(|| {
+    Mutex::new(SurfaceEvents {
+        created_count: 0,
+        destroyed_count: 0,
+        last_size: (0, 0),
+    })
+});
+
+struct SurfaceEvents {
+    created_count: u32,
+    destroyed_count: u32,
+    last_size: (u64, u64),
+}
+
+/// Raw handle of the live XComponent so napi functions can reach it later
+/// (frame-rate control). The framework keeps the native object alive for the
+/// component's lifetime; the pointer is only used on the UI thread where the
+/// napi entry points run.
+#[derive(Clone, Copy)]
+struct RawHandle(ohos_xcomponent_binding::XComponentRaw);
+
+// Safety: the wrapped pointer is only dereferenced on the thread that
+// received it and the native component outlives the module.
+unsafe impl Send for RawHandle {}
+
+static XC_RAW: LazyLock<Mutex<Option<RawHandle>>> = LazyLock::new(|| Mutex::new(None));
+
 struct Render {
     display: Display,
     pub ctx: PossiblyCurrentContext,
@@ -35,12 +68,28 @@ unsafe impl Sync for Render {}
 
 #[napi(module_exports)]
 pub fn init(exports: Object, env: Env) -> Result<()> {
-    let xcomponent = XComponent::init(env, exports)?;
+    // Outside an XComponent host (e.g. imported by a test runner without a
+    // native surface) there is no __NATIVE_XCOMPONENT_OBJ__ in exports; skip
+    // binding instead of failing module registration.
+    let xcomponent = match XComponent::init(env, exports) {
+        Ok(xc) => xc,
+        Err(e) => {
+            hilog_info!("no XComponent surface, skip init: {e}");
+            return Ok(());
+        }
+    };
+    *XC_RAW.lock().unwrap() = Some(RawHandle(ohos_xcomponent_binding::XComponentRaw(
+        xcomponent.raw(),
+    )));
 
     xcomponent.on_surface_created(|xcomponent, win| {
         hilog_info!("xcomponent_create");
-
         let size = xcomponent.size(win)?;
+        {
+            let mut events = SURFACE_EVENTS.lock().unwrap();
+            events.created_count += 1;
+            events.last_size = (size.width, size.height);
+        }
 
         let raw_handle =
             RawWindowHandle::OhosNdk(OhosNdkWindowHandle::new(NonNull::new(win.0).unwrap()));
@@ -100,13 +149,20 @@ pub fn init(exports: Object, env: Env) -> Result<()> {
         Ok(())
     });
 
-    xcomponent.on_surface_changed(|_xcomponent, _win| {
+    xcomponent.on_surface_changed(|xcomponent, win| {
         hilog_info!("xcomponent_changed");
+        let size = xcomponent.size(win)?;
+        let offset = xcomponent.offset(win)?;
+        hilog_info!(format!(
+            "xcomponent_changed: size {}x{} offset ({}, {})",
+            size.width, size.height, offset.x, offset.y
+        ));
         Ok(())
     });
 
     xcomponent.on_surface_destroyed(|_xcomponent, _win| {
         hilog_info!("xcomponent_destroy");
+        SURFACE_EVENTS.lock().unwrap().destroyed_count += 1;
         Ok(())
     });
 
@@ -134,7 +190,32 @@ pub fn init(exports: Object, env: Env) -> Result<()> {
         Ok(())
     })?;
 
+    // Key events (hardware keyboard / dpad) on the focused component.
+    xcomponent.on_key_event(|_xcomponent, _win, data| {
+        hilog_info!(format!("xcomponent_key: {:?}", data));
+        Ok(())
+    })?;
+
+    // UI input events (axis/rotate events) through ArkUI input.
+    xcomponent.on_ui_input_event(|_xcomponent, event| {
+        hilog_info!(format!("xcomponent_ui_input: {:?}", event));
+        Ok(())
+    })?;
+
     Ok(())
+}
+
+/// Constrain the expected frame rate range of the surface's frame callbacks.
+#[napi]
+pub fn set_frame_rate(min: i32, max: i32, expected: i32) -> Result<()> {
+    let raw = XC_RAW
+        .lock()
+        .unwrap()
+        .ok_or_else(|| Error::from_reason("xcomponent not initialized"))?;
+    let native = ohos_xcomponent_binding::NativeXComponent::new(raw.0);
+    native
+        .set_frame_rate(min, max, expected)
+        .map_err(|e| Error::from_reason(e.to_string()))
 }
 
 #[napi]
@@ -150,4 +231,17 @@ pub fn draw_xcomponent() {
         }
         None => {}
     }
+}
+
+/// Surface lifecycle counters for the E2E suite (see SURFACE_EVENTS).
+/// `created`/`destroyed` count OnSurfaceCreated/OnSurfaceDestroyed events
+/// across every XComponent instance bound to this library; `lastW`/`lastH`
+/// are the pixel size of the most recent created surface.
+#[napi]
+pub fn surface_events() -> String {
+    let events = SURFACE_EVENTS.lock().unwrap();
+    format!(
+        "created={} destroyed={} last={}x{}",
+        events.created_count, events.destroyed_count, events.last_size.0, events.last_size.1
+    )
 }

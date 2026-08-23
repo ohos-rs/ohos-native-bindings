@@ -1,5 +1,5 @@
 [package]
-name    = "example"
+name    = "arkui_test"
 version = "0.1.0"
 edition = "2021"
 
@@ -9,7 +9,7 @@ edition = "2021"
 crate-type = ["cdylib"]
 
 [dependencies]
-napi-ohos                = { workspace = true, default-features = false, features = ["napi8", "async"] }
+napi-ohos                = { workspace = true, default-features = false, features = ["napi8"] }
 napi-derive-ohos         = { workspace = true }
 ohos-arkui-binding       = { workspace = true, features = ["napi"] }
 ohos-arkui-sys           = { workspace = true }
@@ -18,9 +18,6 @@ ohos-arkui-input-binding = { workspace = true }
 
 [build-dependencies]
 napi-build-ohos = { workspace = true }
-
-[profile.release]
-lto = true
 
 
 [package.metadata.template]

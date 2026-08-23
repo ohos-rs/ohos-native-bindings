@@ -1,5 +1,5 @@
 [package]
-name    = "raw-test"
+name    = "raw_test"
 version = "0.1.0"
 edition = "2021"
 
@@ -16,9 +16,6 @@ ohos-hilog-binding            = { workspace = true }
 
 [build-dependencies]
 napi-build-ohos = { workspace = true }
-
-[profile.release]
-lto = true
 
 [package.metadata.template]
 header = "import resourceManager from '@ohos.resourceManager';\n"

@@ -9,7 +9,7 @@ description = "OpenHarmony's input method binding for rust"
 workspace = true
 
 [dependencies]
-ohos-input-method-sys = { workspace = true, version = "0.2.0" }
+ohos-input-method-sys = { workspace = true }
 ohos-enum-derive      = { workspace = true }
 
 [features]

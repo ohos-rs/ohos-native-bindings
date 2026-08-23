@@ -28,6 +28,10 @@ pub const IMAGE_NATIVE: Lazy<SysConfig> = Lazy::new(|| {
         "NativeWindow.*",
         "Region",
     ],
+    // Link both old and new library names: the OH_ImageReceiverNative_* /
+    // OH_PixelMapNative_* families live in the old-named libs on device
+    // (libimage_receiver.so / libpixelmap.so); the *_ndk.z.so libs only
+    // carry the renamed OH_Image_Receiver_* / OH_PixelMap_* APIs.
     dynamic_library: vec![
         "image_ndk.z",
         "image_packer_ndk.z",
@@ -35,7 +39,9 @@ pub const IMAGE_NATIVE: Lazy<SysConfig> = Lazy::new(|| {
         "image_receiver_ndk.z",
         "image_source_ndk.z",
         "image_source",
+        "image_receiver",
         "pixelmap",
+        "ohimage",
     ],
     extra: "\n\nuse napi_sys_ohos::*;\nuse ohos_native_buffer_sys::*;\nuse ohos_resource_manager_sys::*;",
 }

@@ -1,5 +1,5 @@
 [package]
-name    = "rust-hilog"
+name    = "hilog_test"
 version = "0.1.0"
 edition = "2021"
 
@@ -16,6 +16,3 @@ log                = { version = "*" }
 
 [build-dependencies]
 napi-build-ohos = { workspace = true }
-
-[profile.release]
-lto = true

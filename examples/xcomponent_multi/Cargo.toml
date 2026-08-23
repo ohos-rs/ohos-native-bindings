@@ -1,0 +1,16 @@
+[package]
+name    = "xcomponent_multi_test"
+version = "0.1.0"
+edition = "2021"
+
+[lib]
+crate-type = ["cdylib"]
+
+[dependencies]
+ohos-xcomponent-binding = { workspace = true, features = ["multi_mode", "log"] }
+ohos-hilog-binding      = { workspace = true }
+napi-ohos               = { workspace = true }
+napi-derive-ohos        = { workspace = true }
+
+[build-dependencies]
+napi-build-ohos = { workspace = true }

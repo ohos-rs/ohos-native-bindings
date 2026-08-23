@@ -11,9 +11,11 @@ use ohos_xcomponent_sys::{
 use std::{os::raw::c_void, ptr};
 
 use crate::{
-    native_xcomponent::NativeXComponent, tool::resolve_id, MouseEventData, TouchEventData,
-    WindowRaw, XComponentOffset, XComponentRaw, XComponentSize,
+    native_xcomponent::NativeXComponent, tool::resolve_id, KeyEventData, MouseEventData,
+    TouchEventData, WindowRaw, XComponentOffset, XComponentRaw, XComponentSize,
 };
+
+use ohos_arkui_input_binding::ArkUIInputEvent;
 
 /// Accept XComponent with env and exports
 /// ### Example
@@ -136,5 +138,22 @@ impl XComponent {
     /// [`Self::on_mouse_event`] and [`Self::on_hover_event`].
     pub fn register_mouse_event_callback(&self) -> Result<()> {
         self.0.register_mouse_event_callback()
+    }
+
+    /// Register a key event callback (hardware keyboard / dpad) and start
+    /// key event delivery to this component.
+    pub fn on_key_event<T: Fn(XComponentRaw, WindowRaw, KeyEventData) -> Result<()> + 'static>(
+        &self,
+        cb: T,
+    ) -> Result<()> {
+        self.0.on_key_event(cb)
+    }
+
+    /// Register a UI input event callback (axis events via ArkUI input).
+    pub fn on_ui_input_event<T: Fn(XComponentRaw, ArkUIInputEvent) -> Result<()> + 'static>(
+        &self,
+        cb: T,
+    ) -> Result<()> {
+        self.0.on_ui_input_event(cb)
     }
 }

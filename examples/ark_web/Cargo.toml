@@ -1,5 +1,5 @@
 [package]
-name    = "ark_web"
+name    = "ark_web_test"
 version = "0.1.0"
 edition = "2021"
 
@@ -9,13 +9,10 @@ edition = "2021"
 crate-type = ["cdylib"]
 
 [dependencies]
-napi-ohos          = { workspace = true, default-features = false, features = ["napi8", "async"] }
+napi-ohos          = { workspace = true, default-features = false, features = ["napi8"] }
 napi-derive-ohos   = { workspace = true }
 ohos-web-binding   = { workspace = true }
 ohos-hilog-binding = { workspace = true }
 
 [build-dependencies]
 napi-build-ohos = { workspace = true }
-
-[profile.release]
-lto = true
