@@ -119,7 +119,12 @@ impl XComponent {
         self.0.on_surface_destroyed(cb)
     }
 
-    pub fn on_touch_event(&self, cb: fn(XComponentRaw, WindowRaw, TouchEventData) -> Result<()>) {
+    pub fn on_touch_event<
+        T: Fn(XComponentRaw, WindowRaw, TouchEventData) -> Result<()> + 'static,
+    >(
+        &self,
+        cb: T,
+    ) {
         self.0.on_touch_event(cb)
     }
 

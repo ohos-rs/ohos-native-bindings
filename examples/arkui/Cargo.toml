@@ -15,6 +15,7 @@ ohos-arkui-binding       = { workspace = true, features = ["napi"] }
 ohos-arkui-sys           = { workspace = true }
 ohos-hilog-binding       = { workspace = true }
 ohos-arkui-input-binding = { workspace = true }
+ohos-xcomponent-binding  = { workspace = true }
 
 [build-dependencies]
 napi-build-ohos = { workspace = true }

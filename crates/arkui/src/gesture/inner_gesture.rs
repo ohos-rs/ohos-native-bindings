@@ -16,7 +16,7 @@ use super::GestureEventData;
 
 pub(crate) struct InnerGestureData {
     pub gesture_type: GestureRecognizerType,
-    pub gesture_callback: Option<fn(GestureEventData) -> ()>,
+    pub gesture_callback: Option<Rc<dyn Fn(GestureEventData)>>,
     pub user_data: Option<*mut c_void>,
 }
 
@@ -144,12 +144,12 @@ impl Gesture {
         })
     }
 
-    pub fn on_gesture(
+    pub fn on_gesture<T: Fn(GestureEventData) + 'static>(
         &self,
         action_type: GestureEventAction,
-        callback: fn(GestureEventData) -> (),
+        callback: T,
     ) -> ArkUIResult<()> {
-        self.inner_gesture_data.borrow_mut().gesture_callback = Some(callback);
+        self.inner_gesture_data.borrow_mut().gesture_callback = Some(Rc::new(callback));
         self.inner_gesture_data.borrow_mut().user_data = None;
 
         let event_action_type: ArkUI_GestureEventActionType = action_type.into();
@@ -162,13 +162,13 @@ impl Gesture {
         Ok(())
     }
 
-    pub fn on_gesture_with_data(
+    pub fn on_gesture_with_data<T: Fn(GestureEventData) + 'static>(
         &self,
         action_type: GestureEventAction,
         data: *mut c_void,
-        callback: fn(GestureEventData) -> (),
+        callback: T,
     ) -> ArkUIResult<()> {
-        self.inner_gesture_data.borrow_mut().gesture_callback = Some(callback);
+        self.inner_gesture_data.borrow_mut().gesture_callback = Some(Rc::new(callback));
         self.inner_gesture_data.borrow_mut().user_data = Some(data);
 
         let raw = self.raw_handle()?;

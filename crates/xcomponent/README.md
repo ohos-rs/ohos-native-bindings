@@ -18,6 +18,11 @@ use ohos_xcomponent_binding as xcomponent;
 // Use the safe Rust APIs exposed by `ohos-xcomponent-binding` from your native module.
 ```
 
+`ohos-xcomponent-binding` exposes the original native touch event stream through
+`on_touch_event`. For semantic tap, pan, or swipe recognition, create the
+XComponent as an ArkUI native node and attach the system recognizers provided by
+`ohos-arkui-binding`; see that crate's XComponent gesture example.
+
 ## License
 
 MIT OR Apache-2.0

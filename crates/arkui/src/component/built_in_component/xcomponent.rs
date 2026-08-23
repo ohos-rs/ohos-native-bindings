@@ -1,5 +1,9 @@
 //! Module component::built_in_component::xcomponent wrappers and related types.
 
+use crate::{
+    ArkUIGesture, ArkUIResult, Gesture, GestureDirection, GestureEventAction, GestureEventData,
+};
+
 #[cfg(feature = "xcomponent")]
 use crate::{
     ArkUIAttributeBasic, ArkUINodeAttributeItem, ArkUINodeAttributeType, ARK_UI_NATIVE_NODE_API_1,
@@ -36,6 +40,79 @@ impl super::XComponent {
             Some(id) => XC::with_id(XComponentRaw(handle), id),
             None => XC::new(XComponentRaw(handle)),
         }
+    }
+
+    /// Create and attach a one- or multi-tap recognizer to this XComponent.
+    ///
+    /// The returned handle can later be passed to [`ArkUIGesture::remove_gesture`]
+    /// and explicitly disposed with [`Gesture::dispose`]. The gesture is added
+    /// in parallel so native XComponent touch delivery remains available.
+    pub fn on_tap_gesture<T: Fn(GestureEventData) + 'static>(
+        &self,
+        finger: i32,
+        count: i32,
+        callback: T,
+    ) -> ArkUIResult<Gesture> {
+        let gesture = Gesture::create_tap_gesture(finger, count)?;
+        self.bind_gesture(gesture, GestureEventAction::Accept, callback)
+    }
+
+    /// Create and attach a pan recognizer to this XComponent.
+    ///
+    /// Use pan for continuous press-and-drag interaction. The callback receives
+    /// accept, update, end, and cancel phases.
+    pub fn on_pan_gesture<T: Fn(GestureEventData) + 'static>(
+        &self,
+        finger: i32,
+        direction: GestureDirection,
+        distance: f64,
+        callback: T,
+    ) -> ArkUIResult<Gesture> {
+        let gesture = Gesture::create_pan_gesture(finger, direction, distance)?;
+        self.bind_gesture(
+            gesture,
+            GestureEventAction::Accept
+                | GestureEventAction::Update
+                | GestureEventAction::End
+                | GestureEventAction::Cancel,
+            callback,
+        )
+    }
+
+    /// Create and attach a fast-swipe recognizer to this XComponent.
+    pub fn on_swipe_gesture<T: Fn(GestureEventData) + 'static>(
+        &self,
+        finger: i32,
+        direction: GestureDirection,
+        speed: f64,
+        callback: T,
+    ) -> ArkUIResult<Gesture> {
+        let gesture = Gesture::create_swipe_gesture(finger, direction, speed)?;
+        self.bind_gesture(
+            gesture,
+            GestureEventAction::Accept
+                | GestureEventAction::Update
+                | GestureEventAction::End
+                | GestureEventAction::Cancel,
+            callback,
+        )
+    }
+
+    fn bind_gesture<T: Fn(GestureEventData) + 'static>(
+        &self,
+        gesture: Gesture,
+        actions: GestureEventAction,
+        callback: T,
+    ) -> ArkUIResult<Gesture> {
+        if let Err(error) = gesture.on_gesture(actions, callback) {
+            let _ = gesture.dispose();
+            return Err(error);
+        }
+        if let Err(error) = self.add_gesture_ref(&gesture, None, None) {
+            let _ = gesture.dispose();
+            return Err(error);
+        }
+        Ok(gesture)
     }
 }
 

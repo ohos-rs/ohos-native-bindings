@@ -17,13 +17,15 @@ struct Index {
     }
 
     build() {
-    Row() {
+    Column() {
         Button("draw").onClick(() => {
           this.xComponentContext!.drawXcomponent();
         })
         // ...
         // 在xxx.ets 中定义 XComponent
         XComponent(this.xComponentAttrs)
+            .width('100%')
+            .layoutWeight(1)
             .focusable(true) // 可响应键盘事件
             .onLoad((xComponentContext) => {
             this.xComponentContext = xComponentContext;
@@ -43,6 +45,11 @@ interface XComponentAttrs {
     libraryname: string;
 }
 ```
+
+The native module receives the original XComponent down, move, up, and cancel
+events through `on_touch_event`. Applications that need semantic gestures
+should create an ArkUI native XComponent node and attach ArkUI system gesture
+recognizers instead of deriving gestures from this raw stream.
 
 2. Use ohrs to build this crate.
 
