@@ -13,9 +13,10 @@ cargo add ohos-native-window-binding
 Add this crate to your native module and import it from Rust code:
 
 ```rust
-use ohos_native_window_binding as native_window;
+use ohos_native_window_binding::NativeWindow;
 
-// Use the safe Rust APIs exposed by `ohos-native-window-binding` from your native module.
+let window = NativeWindow::clone_from_ptr(raw_window);
+let surface_id = window.surface_id()?;
 ```
 
 ## License

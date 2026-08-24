@@ -20,6 +20,9 @@ fn set_last(msg: impl Into<String>) {
 fn fill_window(xc: XComponentRaw, win: WindowRaw) -> Result<()> {
     let size = xc.size(win)?;
     let window = NativeWindow::clone_from_ptr(win.0);
+    let surface_id = window
+        .surface_id()
+        .map_err(|e| Error::from_reason(e.to_string()))?;
     window
         .set_buffer_geometry(size.width as i32, size.height as i32)
         .map_err(|e| Error::from_reason(e.to_string()))?;
@@ -40,7 +43,7 @@ fn fill_window(xc: XComponentRaw, win: WindowRaw) -> Result<()> {
     }
     drop(buffer);
     set_last(format!(
-        "surface {}x{} buffer {width}x{height} stride={stride} format={format} filled",
+        "surface id={surface_id} {}x{} buffer {width}x{height} stride={stride} format={format} filled",
         size.width, size.height
     ));
     Ok(())

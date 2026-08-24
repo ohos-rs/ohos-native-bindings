@@ -52,7 +52,7 @@ unsafe impl Send for Vsync {}
 unsafe impl Sync for Vsync {}
 
 struct VsyncData {
-    callback: Box<dyn FnMut(i64) + 'static>,
+    callback: Box<dyn FnMut(i64) + Send + 'static>,
     core: Arc<VsyncCore>,
 }
 
@@ -94,16 +94,19 @@ impl Vsync {
     /// This function is used to handle the vsync event.
     ///
     /// The callback function will be called when the vsync event occurs.
-    pub fn on_frame_once<F: FnMut(i64) + 'static>(&self, callback: F) {
+    pub fn on_frame_once<F: FnMut(i64) + Send + 'static>(&self, callback: F) {
         let _ = self.request_frame_once(callback);
     }
 
-    pub fn request_frame_once<F: FnMut(i64) + 'static>(&self, callback: F) -> i32 {
+    pub fn request_frame_once<F: FnMut(i64) + Send + 'static>(&self, callback: F) -> i32 {
         self.request_frame_raw(callback, request_frame_callback)
     }
 
     /// This function is used to handle the vsync event with multiple callbacks.
-    pub fn on_frame_once_with_multi_callback<F: FnMut(i64) + 'static>(&self, callback: F) -> i32 {
+    pub fn on_frame_once_with_multi_callback<F: FnMut(i64) + Send + 'static>(
+        &self,
+        callback: F,
+    ) -> i32 {
         self.request_frame_once(callback)
     }
 
@@ -112,11 +115,11 @@ impl Vsync {
     /// The callback function will be called every frame by repeatedly requesting the next frame
     /// with `OH_NativeVSync_RequestFrameWithMultiCallback`. The chain stops on
     /// its own once this `Vsync` is dropped.
-    pub fn on_frame<F: FnMut(i64) + 'static>(&self, callback: F) -> i32 {
+    pub fn on_frame<F: FnMut(i64) + Send + 'static>(&self, callback: F) -> i32 {
         self.request_frame_raw(callback, request_frame_callback_with_self)
     }
 
-    fn request_frame_raw<F: FnMut(i64) + 'static>(
+    fn request_frame_raw<F: FnMut(i64) + Send + 'static>(
         &self,
         callback: F,
         native_callback: extern "C" fn(i64, *mut c_void),

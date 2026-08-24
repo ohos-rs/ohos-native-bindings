@@ -13,9 +13,13 @@ cargo add ohos-vsync-binding
 Add this crate to your native module and import it from Rust code:
 
 ```rust
-use ohos_vsync_binding as vsync;
+use ohos_vsync_binding::Vsync;
 
-// Use the safe Rust APIs exposed by `ohos-vsync-binding` from your native module.
+let vsync = Vsync::try_new_for_associated_window(surface_id, "renderer")
+    .expect("failed to create window-associated VSync");
+vsync.request_frame_once(move |timestamp| {
+    frame_sender.send(timestamp).ok();
+});
 ```
 
 ## License
