@@ -21,19 +21,22 @@ fn log_call_failure(call: &str, ret: u32) {
     let _ = (call, ret);
 }
 
-unsafe impl Send for IME {}
-unsafe impl Sync for IME {}
-
 #[derive(Clone)]
 pub struct IME {
-    raw: Rc<RefCell<Option<NonNull<InputMethod_InputMethodProxy>>>>,
+    inner: Rc<IMEInner>,
+}
+
+struct IMEInner {
+    raw: RefCell<Option<NonNull<InputMethod_InputMethodProxy>>>,
     option: AttachOptions,
-    text_editor: Rc<RefCell<Option<TextEditor>>>,
+    text_editor: RefCell<Option<TextEditor>>,
+    #[cfg(feature = "api-22")]
+    callbacks_in_main_thread: bool,
 }
 
 impl PartialEq for IME {
     fn eq(&self, other: &Self) -> bool {
-        self.raw == other.raw
+        Rc::ptr_eq(&self.inner, &other.inner)
     }
 }
 
@@ -41,16 +44,33 @@ impl Eq for IME {}
 
 impl std::hash::Hash for IME {
     fn hash<H: std::hash::Hasher>(&self, state: &mut H) {
-        self.option.hash(state);
+        std::ptr::hash(Rc::as_ptr(&self.inner), state);
     }
 }
 
 impl IME {
     pub fn new(option: AttachOptions) -> Self {
+        Self::with_callback_thread(option, false)
+    }
+
+    /// Create an IME whose TextEditor callbacks are dispatched on the main
+    /// thread instead of the platform-default IPC thread.
+    #[cfg(feature = "api-22")]
+    pub fn new_with_main_thread_callbacks(option: AttachOptions) -> Self {
+        Self::with_callback_thread(option, true)
+    }
+
+    fn with_callback_thread(option: AttachOptions, callbacks_in_main_thread: bool) -> Self {
+        #[cfg(not(feature = "api-22"))]
+        let _ = callbacks_in_main_thread;
         IME {
-            raw: Rc::new(RefCell::new(None)),
-            text_editor: Rc::new(RefCell::new(None)),
-            option,
+            inner: Rc::new(IMEInner {
+                raw: RefCell::new(None),
+                text_editor: RefCell::new(None),
+                option,
+                #[cfg(feature = "api-22")]
+                callbacks_in_main_thread,
+            }),
         }
     }
 
@@ -117,24 +137,28 @@ impl IME {
     }
 
     pub fn attach(&self) {
-        if self.raw.borrow().is_some() {
+        if self.inner.raw.borrow().is_some() {
             return;
         }
 
         let editor = TextEditor::new();
+        #[cfg(feature = "api-22")]
+        if self.inner.callbacks_in_main_thread && !editor.set_callback_in_main_thread(true) {
+            return;
+        }
         unsafe {
             let mut raw: *mut InputMethod_InputMethodProxy = ptr::null_mut();
             let ret = OH_InputMethodController_Attach(
                 editor.raw,
-                self.option.raw,
+                self.inner.option.raw,
                 &mut raw as *mut *mut InputMethod_InputMethodProxy,
             );
             #[cfg(debug_assertions)]
             log_call_failure("OH_InputMethodController_Attach", ret);
 
             if let Some(raw) = NonNull::new(raw) {
-                self.text_editor.replace(Some(editor));
-                self.raw.replace(Some(raw));
+                self.inner.text_editor.replace(Some(editor));
+                self.inner.raw.replace(Some(raw));
             }
         }
     }
@@ -142,7 +166,11 @@ impl IME {
     pub fn show_keyboard(&self) {
         self.attach();
 
-        if let Some(ime_proxy) = *self.raw.borrow() {
+        // Drop the RefCell borrow before entering native code. The platform
+        // may synchronously invoke a callback which requests another IME
+        // operation.
+        let ime_proxy = *self.inner.raw.borrow();
+        if let Some(ime_proxy) = ime_proxy {
             unsafe {
                 let ret = OH_InputMethodProxy_ShowKeyboard(ime_proxy.as_ptr());
                 #[cfg(debug_assertions)]
@@ -211,7 +239,8 @@ impl IME {
     }
 
     pub fn hide_keyboard(&self) {
-        if let Some(raw) = *self.raw.borrow() {
+        let raw = *self.inner.raw.borrow();
+        if let Some(raw) = raw {
             unsafe {
                 let ret = OH_InputMethodProxy_HideKeyboard(raw.as_ptr());
 
@@ -219,11 +248,10 @@ impl IME {
                 log_call_failure("OH_InputMethodProxy_HideKeyboard", ret);
             }
         }
-        self.detach();
     }
 
     pub fn detach(&self) {
-        let raw = self.raw.borrow_mut().take();
+        let raw = self.inner.raw.borrow_mut().take();
         if let Some(raw) = raw {
             unsafe {
                 let ret = OH_InputMethodController_Detach(raw.as_ptr());
@@ -231,12 +259,20 @@ impl IME {
                 log_call_failure("OH_InputMethodController_Detach", ret);
             }
         }
-        self.text_editor.borrow_mut().take();
+        self.inner.text_editor.borrow_mut().take();
     }
 }
 
-impl Drop for IME {
+impl Drop for IMEInner {
     fn drop(&mut self) {
-        self.detach();
+        let raw = self.raw.get_mut().take();
+        if let Some(raw) = raw {
+            unsafe {
+                let ret = OH_InputMethodController_Detach(raw.as_ptr());
+                #[cfg(debug_assertions)]
+                log_call_failure("OH_InputMethodController_Detach", ret);
+            }
+        }
+        self.text_editor.get_mut().take();
     }
 }

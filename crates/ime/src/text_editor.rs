@@ -1,3 +1,5 @@
+#[cfg(feature = "api-22")]
+use ohos_input_method_sys::OH_TextEditorProxy_SetCallbackInMainThread;
 use ohos_input_method_sys::{
     InputMethod_TextEditorProxy, OH_TextEditorProxy_Create, OH_TextEditorProxy_Destroy,
     OH_TextEditorProxy_SetDeleteBackwardFunc, OH_TextEditorProxy_SetDeleteForwardFunc,
@@ -17,7 +19,7 @@ use crate::proxy::{
     send_keyboard_status, set_preview_text,
 };
 
-#[derive(Clone, PartialEq, Eq, Hash)]
+#[derive(PartialEq, Eq, Hash)]
 pub struct TextEditor {
     pub(crate) raw: *mut InputMethod_TextEditorProxy,
 }
@@ -108,6 +110,15 @@ impl TextEditor {
 
             TextEditor { raw }
         }
+    }
+
+    /// Select whether TextEditor callbacks run on the main thread.
+    ///
+    /// The platform default is the IPC thread. Call this before attaching the
+    /// editor when callbacks need to interact with main-thread-only state.
+    #[cfg(feature = "api-22")]
+    pub fn set_callback_in_main_thread(&self, enabled: bool) -> bool {
+        unsafe { OH_TextEditorProxy_SetCallbackInMainThread(self.raw, enabled) == 0 }
     }
 }
 

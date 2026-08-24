@@ -11,7 +11,7 @@ crate-type = ["cdylib"]
 [dependencies]
 napi-ohos          = { workspace = true, default-features = false, features = ["napi8"] }
 napi-derive-ohos   = { workspace = true }
-ohos-ime-binding   = { workspace = true }
+ohos-ime-binding   = { workspace = true, features = ["api-22"] }
 ohos-hilog-binding = { workspace = true }
 
 [build-dependencies]

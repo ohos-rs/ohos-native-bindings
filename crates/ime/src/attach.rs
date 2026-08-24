@@ -29,7 +29,10 @@ impl Default for AttachOptions {
 
 impl Clone for AttachOptions {
     fn clone(&self) -> Self {
-        Self { raw: self.raw }
+        // The native options object has unique ownership. Copying its pointer
+        // makes both Rust values destroy the same allocation and leaves the
+        // surviving value dangling. Recreate the native object instead.
+        Self::new(self.is_showing_keyboard())
     }
 }
 
