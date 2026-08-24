@@ -90,21 +90,24 @@ jobs:
         shell: bash
         run: |
           set -euo pipefail
-          if ! find "$HOME/.ohos-qemu" -path '*/launch/linux.sh' -type f -print -quit | grep -q .; then
+          launcher="$(
+            find "$HOME/.ohos-qemu" -path '*/launch/linux.sh' -type f -print -quit 2>/dev/null \
+              || true
+          )"
+          if [ -z "$launcher" ]; then
             curl --fail --show-error --silent --location \
               "https://raw.githubusercontent.com/harmony-contrib/ohos-qemu/${OHOS_QEMU_RELEASE_TAG}/scripts/install.sh" \
               | bash -s -- \
                 --release "$OHOS_QEMU_RELEASE_TAG" \
                 --arch x86_64 \
-                --device-type phone \
-                --without-hap-signer
+                --device-type phone
           fi
 
       - name: Start OpenHarmony QEMU
         shell: bash
         run: |
           set -euo pipefail
-          launcher="$(find "$HOME/.ohos-qemu" -path '*/launch/linux.sh' -type f -print -quit)"
+          launcher="$(find "$HOME/.ohos-qemu" -path '*/launch/linux.sh' -type f -print -quit 2>/dev/null || true)"
           test -n "$launcher"
           nohup "$launcher" \
             --headless \
