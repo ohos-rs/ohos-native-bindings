@@ -17,9 +17,11 @@ jobs:
     runs-on: ubuntu-22.04
     timeout-minutes: 90
     env:
+      GUEST_FATAL_PATTERN: 'Kernel panic - not syncing|critical service crashed|ExecReboot panic|sysrq: Trigger a crash|(composer_host|render_service).*exit with signal[[:space:]]*:[[:space:]]*11'
       GITHUB_TOKEN: ${{ github.token }}
       HDC_TARGET: 127.0.0.1:5555
       OHOS_QEMU_RELEASE_TAG: v20260809
+      QEMU_ACCEL: auto
 
     steps:
       - name: Checkout
@@ -70,21 +72,22 @@ jobs:
         run: |
           set -euo pipefail
           sudo apt-get update
-          sudo apt-get install -y --no-install-recommends jq qemu-system-x86
+          sudo apt-get install -y --no-install-recommends qemu-system-x86
 
-          accel=tcg
-          if [ -c /dev/kvm ]; then
-            echo 'KERNEL=="kvm", GROUP="kvm", MODE="0666", OPTIONS+="static_node=kvm"' \
-              | sudo tee /etc/udev/rules.d/99-kvm4all.rules
-            sudo udevadm control --reload-rules
-            sudo udevadm trigger --name-match=kvm || true
-            if [ -r /dev/kvm ] && [ -w /dev/kvm ] \
-              && qemu-system-x86_64 -accel help | grep -qw kvm; then
-              accel=kvm
-            fi
+          echo 'KERNEL=="kvm", GROUP="kvm", MODE="0666", OPTIONS+="static_node=kvm"' \
+            | sudo tee /etc/udev/rules.d/99-kvm4all.rules
+          sudo udevadm control --reload-rules
+          sudo udevadm trigger --name-match=kvm || true
+
+          if [ ! -c /dev/kvm ]; then
+            echo "::error::This runner does not expose /dev/kvm; the full system E2E must not fall back to TCG."
+            exit 1
           fi
-          echo "QEMU_ACCEL=$accel" | tee -a "$GITHUB_ENV"
-          qemu-system-x86_64 --version
+          test -r /dev/kvm
+          test -w /dev/kvm
+          qemu-system-x86_64 -accel help | tee "$RUNNER_TEMP/qemu-accelerators.txt"
+          grep -qw kvm "$RUNNER_TEMP/qemu-accelerators.txt"
+          ls -l /dev/kvm
 
       - name: Install OpenHarmony QEMU image
         shell: bash
@@ -109,21 +112,49 @@ jobs:
           set -euo pipefail
           launcher="$(find "$HOME/.ohos-qemu" -path '*/launch/linux.sh' -type f -print -quit 2>/dev/null || true)"
           test -n "$launcher"
-          nohup "$launcher" \
-            --headless \
-            --accel "$QEMU_ACCEL" \
-            --hdc-port 5555 \
-            >"$RUNNER_TEMP/ohos-qemu.log" 2>&1 &
-          echo "$!" >"$RUNNER_TEMP/ohos-qemu.pid"
+          nohup env \
+            QEMU_DISPLAY=none \
+            QEMU_ACCEL="$QEMU_ACCEL" \
+            QEMU_HDC_HOST_PORT=5555 \
+            "$launcher" >"$RUNNER_TEMP/ohos-qemu.log" 2>&1 </dev/null &
+          qemu_pid=$!
+          echo "$qemu_pid" >"$RUNNER_TEMP/ohos-qemu.pid"
+          echo "QEMU PID: $qemu_pid"
+
+          sleep 1
+          if ! kill -0 "$qemu_pid" 2>/dev/null; then
+            echo "QEMU exited immediately" >&2
+            tail -200 "$RUNNER_TEMP/ohos-qemu.log" >&2 || true
+            exit 1
+          fi
+
+          kvm_verified=false
+          for attempt in $(seq 1 20); do
+            for fd in "/proc/$qemu_pid/fd/"*; do
+              [ -e "$fd" ] || continue
+              if [ "$(readlink "$fd" 2>/dev/null || true)" = /dev/kvm ]; then
+                kvm_verified=true
+                break 2
+              fi
+            done
+            if ! kill -0 "$qemu_pid" 2>/dev/null; then
+              break
+            fi
+            sleep 0.5
+          done
+          if [ "$kvm_verified" != true ]; then
+            echo "QEMU did not open /dev/kvm; refusing an implicit TCG fallback" >&2
+            tail -200 "$RUNNER_TEMP/ohos-qemu.log" >&2 || true
+            exit 1
+          fi
+          echo "KVM acceleration verified from QEMU file descriptors."
 
       - name: Wait for OpenHarmony services
         shell: bash
         run: |
           set -euo pipefail
           attempts=300
-          if [ "$QEMU_ACCEL" = tcg ]; then
-            attempts=600
-          fi
+          hdc start || true
 
           for attempt in $(seq 1 "$attempts"); do
             hdc tconn "$HDC_TARGET" >/dev/null 2>&1 || true
@@ -144,8 +175,14 @@ jobs:
               tail -200 "$RUNNER_TEMP/ohos-qemu.log" >&2 || true
               exit 1
             fi
+            if grep -aiEq "$GUEST_FATAL_PATTERN" "$RUNNER_TEMP/ohos-qemu.log"; then
+              echo "OpenHarmony guest hit a fatal error before becoming ready" >&2
+              grep -ainE "$GUEST_FATAL_PATTERN" "$RUNNER_TEMP/ohos-qemu.log" | tail -20 >&2 || true
+              tail -200 "$RUNNER_TEMP/ohos-qemu.log" >&2 || true
+              exit 1
+            fi
             if ((attempt % 20 == 0)); then
-              echo "Still waiting for OpenHarmony services ($attempt/$attempts, accel=$QEMU_ACCEL)"
+              echo "Still waiting for OpenHarmony services ($attempt/$attempts)"
               tail -40 "$RUNNER_TEMP/ohos-qemu.log" || true
             fi
             sleep 3
@@ -157,6 +194,20 @@ jobs:
       - name: Run XComponent E2E
         run: pnpm run test:ui:xcomponent
 
+      - name: Verify OpenHarmony guest health
+        shell: bash
+        run: |
+          set -euo pipefail
+          if ! kill -0 "$(cat "$RUNNER_TEMP/ohos-qemu.pid")" 2>/dev/null; then
+            echo "QEMU exited during XComponent E2E" >&2
+            exit 1
+          fi
+          if grep -aiEq "$GUEST_FATAL_PATTERN" "$RUNNER_TEMP/ohos-qemu.log"; then
+            echo "OpenHarmony guest hit a fatal error during XComponent E2E" >&2
+            grep -ainE "$GUEST_FATAL_PATTERN" "$RUNNER_TEMP/ohos-qemu.log" | tail -20 >&2 || true
+            exit 1
+          fi
+
       - name: Collect guest diagnostics
         if: ${{ always() }}
         shell: bash
@@ -164,6 +215,8 @@ jobs:
           mkdir -p "$RUNNER_TEMP/ohos-qemu-diagnostics"
           cp "$RUNNER_TEMP/ohos-qemu.log" \
             "$RUNNER_TEMP/ohos-qemu-diagnostics/qemu.log" 2>/dev/null || true
+          grep -ainE "$GUEST_FATAL_PATTERN" "$RUNNER_TEMP/ohos-qemu.log" \
+            >"$RUNNER_TEMP/ohos-qemu-diagnostics/guest-fatal.log" 2>/dev/null || true
           hdc -t "$HDC_TARGET" shell \
             'param get bootevent.account.ready; bm dump -a; hilog -x | tail -1000' \
             >"$RUNNER_TEMP/ohos-qemu-diagnostics/guest.log" 2>&1 || true
