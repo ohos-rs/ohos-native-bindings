@@ -1,0 +1,12 @@
+{
+  "string": [
+    { "name": "module_desc", "value": "ohos-native-bindings demos host" },
+    { "name": "EntryAbility_desc", "value": "ohos-native-bindings demos host" },
+    { "name": "EntryAbility_label", "value": "ohos-rs demos" },
+    { "name": "app_name", "value": "ohos-rs demos" },
+    {
+      "name": "camera_reason",
+      "value": "Used by the camera binding demo to show a preview and capture a photo."
+    }
+  ]
+}

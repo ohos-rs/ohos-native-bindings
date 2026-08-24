@@ -1,0 +1,25 @@
+{
+  "name": "@ohos-rs/examples-ui",
+  "version": "0.1.0",
+  "private": true,
+  "description": "ArkTS UI host app for the ohos-native-bindings Rust examples",
+  "scripts": {
+    "sync:rust": "./scripts/sync-rust.sh",
+    "build:hap": "./scripts/build-hap.sh main",
+    "build:test": "./scripts/build-hap.sh test",
+    "install:hap": "hdc install -r entry/build/default/outputs/default/entry-default-signed.hap",
+    "install:test": "hdc install -r entry/build/default/outputs/ohosTest/entry-ohosTest-signed.hap",
+    "start": "hdc shell \"aa start -a EntryAbility -b com.richerfu.h_openconnect\"",
+    "test": "./scripts/run-ohostest.sh",
+    "run:device": "pnpm run sync:rust && pnpm run build:hap && pnpm run install:hap && pnpm run start",
+    "format": "oxk format entry/",
+    "lint": "oxk lint entry/",
+    "clean": "rimraf entry/build .hvigor oh_modules entry/oh_modules node_modules",
+    "test:qemu:xcomponent": "./scripts/run-qemu-xcomponent-gestures.sh"
+  },
+  "devDependencies": {
+    "@ohos-rs/arkdown": "0.0.1-beta.11",
+    "@ohos-rs/oxk": "^0.7.0",
+    "rimraf": "^6.0.1"
+  }
+}

@@ -1,0 +1,15 @@
+{
+  "app": {
+    // NOTE: bundleName must match the signing profile (.p7b). The current
+    // material is a DevEco auto-sign debug profile bound to this bundle name.
+    // To ship under com.richerfu.native_binding_demo, generate material for
+    // that name in DevEco Studio (auto-sign) and update this field together
+    // with build-profile.json5. See README.md "Signing".
+    "bundleName": "com.richerfu.h_openconnect",
+    "vendor": "ohos-rs",
+    "versionCode": 1000000,
+    "versionName": "1.0.0",
+    "icon": "$media:layered_image",
+    "label": "$string:app_name"
+  }
+}

@@ -1,0 +1,60 @@
+{
+  "MetaData": {
+    "Create": "2023-01-09",
+    "Description": "a haptic case",
+    "Version": 1.0,
+    "ChannelNumber": 1
+  },
+  "Channels": [
+    {
+      "Parameters": {
+        "Index": 0
+      },
+      "Pattern": [
+        {
+          "Event": {
+            "Type": "transient",
+            "StartTime": 0,
+            "Parameters": {
+              "Frequency": 31,
+              "Intensity": 100
+            }
+          }
+        },
+        {
+          "Event": {
+            "Type": "continuous",
+            "StartTime": 40,
+            "Duration": 54,
+            "Parameters": {
+              "Frequency": 30,
+              "Intensity": 38,
+              "Curve": [
+                {
+                  "Time": 0,
+                  "Frequency": 0,
+                  "Intensity": 0
+                },
+                {
+                  "Time": 1,
+                  "Frequency": 15,
+                  "Intensity": 0.5
+                },
+                {
+                  "Time": 40,
+                  "Frequency": -8,
+                  "Intensity": 1.0
+                },
+                {
+                  "Time": 54,
+                  "Frequency": 0,
+                  "Intensity": 0
+                }
+              ]
+            }
+          }
+        }
+      ]
+    }
+  ]
+}

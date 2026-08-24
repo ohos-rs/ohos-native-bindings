@@ -5,4 +5,11 @@ target/
 
 Cargo.lock
 
+# pnpm workspace
+node_modules/
+
+# Local test and signing outputs
+.tools/
+ohostest-*.log
+
 dist

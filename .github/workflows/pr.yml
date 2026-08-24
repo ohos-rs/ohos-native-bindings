@@ -30,6 +30,26 @@ jobs:
           toolchain: "stable"
           components: "clippy"
 
+      - name: Setup pnpm
+        uses: pnpm/action-setup@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: "22"
+          cache: "pnpm"
+
+      - name: Install workspace tools
+        run: pnpm install --frozen-lockfile
+
+      - name: Check workspace configuration and UI
+        run: |
+          pnpm run prek:validate
+          pnpm run format:toml:check
+          pnpm run format:ui
+          git diff --exit-code
+          pnpm run lint:ui
+
       - name: Check
         run: |
           cargo fmt --check

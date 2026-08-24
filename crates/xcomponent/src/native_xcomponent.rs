@@ -63,10 +63,10 @@ impl NativeXComponent {
         lookup_raw_window(self.raw().cast())
     }
 
-    /// Register callbacks   
-    /// For multi-mode, it will use hashmap to store all of your callbacks closure.   
-    /// This may cause xcomponent being slower, if you want to avoid this.    
-    /// You can disable feature with `callbacks` and use `register_native_callback`   
+    /// Register callbacks
+    /// For multi-mode, it will use hashmap to store all of your callbacks closure.
+    /// This may cause xcomponent being slower, if you want to avoid this.
+    /// You can disable feature with `callbacks` and use `register_native_callback`
     #[cfg(feature = "callbacks")]
     pub fn register_callback(&self) -> Result<()> {
         // The callback table is identical for every registration, so one

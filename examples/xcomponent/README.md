@@ -38,7 +38,7 @@ struct Index {
         .height('100%')
     }
 }
-    
+
 interface XComponentAttrs {
     id: string;
     type: number;

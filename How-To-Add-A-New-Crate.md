@@ -24,7 +24,7 @@ Use `ohrs` to generate sys crate.
 ohrs build --arch aarch
 ```
 
-After you ran the command, please run `just fmt`.
+After you ran the command, please run `pnpm run format`.
 
 ### Generate binding
 
