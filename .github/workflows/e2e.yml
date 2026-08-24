@@ -20,7 +20,7 @@ jobs:
       GUEST_FATAL_PATTERN: 'Kernel panic - not syncing|critical service crashed|ExecReboot panic|sysrq: Trigger a crash|(composer_host|render_service).*exit with signal[[:space:]]*:[[:space:]]*11'
       GITHUB_TOKEN: ${{ github.token }}
       HDC_TARGET: 127.0.0.1:5555
-      OHOS_QEMU_RELEASE_TAG: v20260809
+      OHOS_QEMU_RELEASE_TAG: v20260818
       QEMU_ACCEL: auto
 
     steps:
@@ -103,7 +103,8 @@ jobs:
               | bash -s -- \
                 --release "$OHOS_QEMU_RELEASE_TAG" \
                 --arch x86_64 \
-                --device-type phone
+                --device-type phone \
+                --without-hap-signer
           fi
 
       - name: Start OpenHarmony QEMU
