@@ -1,10 +1,11 @@
-name: PR Check
+name: PR CI
 
 on:
   pull_request:
     types: [opened, reopened, synchronize]
 
 concurrency:
+  # A new commit cancels the previous run for the same pull request.
   group: pr-${{ github.event.pull_request.number }}
   cancel-in-progress: true
 
@@ -56,3 +57,162 @@ jobs:
           cargo clippy --workspace --exclude generate --target aarch64-unknown-linux-ohos --all-targets --all-features -- -D warnings
           cargo clippy --workspace --exclude generate --target armv7-unknown-linux-ohos --all-targets --all-features -- -D warnings
           cargo clippy --workspace --exclude generate --target x86_64-unknown-linux-ohos --all-targets --all-features -- -D warnings
+
+  e2e:
+    name: XComponent QEMU E2E
+    needs: check
+    runs-on: ubuntu-22.04
+    timeout-minutes: 60
+    env:
+      GITHUB_TOKEN: ${{ github.token }}
+      HDC_TARGET: 127.0.0.1:5555
+      OHOS_QEMU_RELEASE_TAG: v20260809
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup OpenHarmony SDK
+        uses: openharmony-rs/setup-ohos-sdk@v0.1
+        with:
+          version: "5.0.0"
+
+      - name: Setup Rust
+        uses: dtolnay/rust-toolchain@master
+        with:
+          toolchain: stable
+          targets: x86_64-unknown-linux-ohos
+
+      - name: Setup pnpm
+        uses: pnpm/action-setup@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: "22"
+          cache: pnpm
+
+      - name: Cache E2E tools and QEMU image
+        uses: actions/cache@v4
+        with:
+          path: |
+            ~/.cargo/bin/ohrs
+            ~/.cargo/registry
+            ~/.cargo/git
+            ~/.ohos-qemu
+            examples-ui/.tools
+          key: e2e-${{ runner.os }}-x86_64-${{ env.OHOS_QEMU_RELEASE_TAG }}-${{ hashFiles('pnpm-lock.yaml', 'examples-ui/scripts/build-hap.sh') }}
+
+      - name: Install workspace and Rust build tools
+        shell: bash
+        run: |
+          set -euo pipefail
+          pnpm install --frozen-lockfile
+          if ! command -v ohrs >/dev/null 2>&1; then
+            cargo install ohrs --version 1.5.0 --locked
+          fi
+
+      - name: Install host QEMU
+        shell: bash
+        run: |
+          set -euo pipefail
+          sudo apt-get update
+          sudo apt-get install -y --no-install-recommends jq qemu-system-x86
+          echo 'KERNEL=="kvm", GROUP="kvm", MODE="0666", OPTIONS+="static_node=kvm"' \
+            | sudo tee /etc/udev/rules.d/99-kvm4all.rules
+          sudo udevadm control --reload-rules
+          sudo udevadm trigger --name-match=kvm || true
+          test -r /dev/kvm
+          test -w /dev/kvm
+          qemu-system-x86_64 -accel help | grep -qw kvm
+
+      - name: Install OpenHarmony QEMU image
+        shell: bash
+        run: |
+          set -euo pipefail
+          if ! find "$HOME/.ohos-qemu" -path '*/launch/linux.sh' -type f -print -quit | grep -q .; then
+            curl --fail --show-error --silent --location \
+              "https://raw.githubusercontent.com/harmony-contrib/ohos-qemu/${OHOS_QEMU_RELEASE_TAG}/scripts/install.sh" \
+              | bash -s -- \
+                --release "$OHOS_QEMU_RELEASE_TAG" \
+                --arch x86_64 \
+                --device-type phone \
+                --without-hap-signer
+          fi
+
+      - name: Start OpenHarmony QEMU
+        shell: bash
+        run: |
+          set -euo pipefail
+          launcher="$(find "$HOME/.ohos-qemu" -path '*/launch/linux.sh' -type f -print -quit)"
+          test -n "$launcher"
+          nohup "$launcher" \
+            --headless \
+            --accel kvm \
+            --hdc-port 5555 \
+            >"$RUNNER_TEMP/ohos-qemu.log" 2>&1 &
+          echo "$!" >"$RUNNER_TEMP/ohos-qemu.pid"
+
+      - name: Wait for OpenHarmony services
+        shell: bash
+        run: |
+          set -euo pipefail
+          for attempt in $(seq 1 300); do
+            hdc tconn "$HDC_TARGET" >/dev/null 2>&1 || true
+            state="$(
+              hdc -t "$HDC_TARGET" shell '
+                echo "account.ready=$(param get bootevent.account.ready)"
+                hidumper -s AccountMgr -a "-os_account_infos"
+              ' 2>/dev/null | tr -d '\r' || true
+            )"
+            if grep -Eq 'account\.ready=(true|"true")' <<<"$state" \
+              && grep -Eq 'ID:[[:space:]]*100([^0-9]|$)' <<<"$state" \
+              && grep -Eq 'isForeground:[[:space:]]*(1|true)([^[:alnum:]]|$)' <<<"$state"; then
+              echo "$state"
+              exit 0
+            fi
+            if ! kill -0 "$(cat "$RUNNER_TEMP/ohos-qemu.pid")" 2>/dev/null; then
+              echo "QEMU exited before OpenHarmony became ready" >&2
+              tail -200 "$RUNNER_TEMP/ohos-qemu.log" >&2 || true
+              exit 1
+            fi
+            if ((attempt % 20 == 0)); then
+              echo "Still waiting for OpenHarmony services ($attempt/300)"
+              tail -40 "$RUNNER_TEMP/ohos-qemu.log" || true
+            fi
+            sleep 3
+          done
+          echo "OpenHarmony services did not become ready" >&2
+          tail -200 "$RUNNER_TEMP/ohos-qemu.log" >&2 || true
+          exit 1
+
+      - name: Run XComponent E2E
+        run: pnpm run test:ui:xcomponent
+
+      - name: Collect guest diagnostics
+        if: ${{ always() }}
+        shell: bash
+        run: |
+          mkdir -p "$RUNNER_TEMP/ohos-qemu-diagnostics"
+          cp "$RUNNER_TEMP/ohos-qemu.log" \
+            "$RUNNER_TEMP/ohos-qemu-diagnostics/qemu.log" 2>/dev/null || true
+          hdc -t "$HDC_TARGET" shell \
+            'param get bootevent.account.ready; bm dump -a; hilog -x | tail -1000' \
+            >"$RUNNER_TEMP/ohos-qemu-diagnostics/guest.log" 2>&1 || true
+
+      - name: Stop QEMU
+        if: ${{ always() }}
+        shell: bash
+        run: |
+          if [ -f "$RUNNER_TEMP/ohos-qemu.pid" ]; then
+            kill "$(cat "$RUNNER_TEMP/ohos-qemu.pid")" 2>/dev/null || true
+          fi
+
+      - name: Upload QEMU diagnostics
+        if: ${{ always() }}
+        uses: actions/upload-artifact@v4
+        with:
+          name: xcomponent-qemu-e2e-${{ github.run_attempt }}
+          if-no-files-found: warn
+          retention-days: 7
+          path: ${{ runner.temp }}/ohos-qemu-diagnostics
