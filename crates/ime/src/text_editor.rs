@@ -18,6 +18,8 @@ use crate::proxy::{
     handle_set_selection, insert_text, move_cursor, receive_private_command, send_enter_key,
     send_keyboard_status, set_preview_text,
 };
+#[cfg(feature = "api-22")]
+use crate::{ImeError, ImeResult};
 
 #[derive(PartialEq, Eq, Hash)]
 pub struct TextEditor {
@@ -117,8 +119,13 @@ impl TextEditor {
     /// The platform default is the IPC thread. Call this before attaching the
     /// editor when callbacks need to interact with main-thread-only state.
     #[cfg(feature = "api-22")]
-    pub fn set_callback_in_main_thread(&self, enabled: bool) -> bool {
-        unsafe { OH_TextEditorProxy_SetCallbackInMainThread(self.raw, enabled) == 0 }
+    pub fn set_callback_in_main_thread(&self, enabled: bool) -> ImeResult<()> {
+        let code = unsafe { OH_TextEditorProxy_SetCallbackInMainThread(self.raw, enabled) };
+        if code == 0 {
+            Ok(())
+        } else {
+            Err(ImeError::new("set-callback-in-main-thread", code))
+        }
     }
 }
 

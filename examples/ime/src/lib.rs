@@ -81,6 +81,20 @@ pub fn show_hide_show() {
     });
 }
 
+/// Regression probe for callback routing and active-session handoff between
+/// two independent native editors.
+#[napi]
+pub fn switch_sessions() {
+    let first = IME::new(AttachOptions::new(false));
+    first.insert_text(|text| hilog_info!(format!("first insert_text: {}", text)));
+    let second = IME::new(AttachOptions::new(false));
+    second.insert_text(|text| hilog_info!(format!("second insert_text: {}", text)));
+
+    let _ = first.try_show_keyboard();
+    let _ = second.try_show_keyboard();
+    let _ = first.try_show_keyboard();
+}
+
 fn with_ime(callback: impl FnOnce(&IME)) {
     IME_INSTANCE.with(|instance| {
         if let Some(ime) = instance.borrow().as_ref() {

@@ -33,6 +33,18 @@ let ime = IME::new_with_main_thread_callbacks(AttachOptions::new(false));
 
 `IME::new` preserves the platform default callback thread.
 
+Each `IME` owns an independent callback set. Activating one session safely
+replaces the previously active native editor, and a later activation repairs a
+proxy invalidated by another ArkUI input or an application lifecycle change.
+Use the `try_*` methods when the caller needs the HarmonyOS error code:
+
+```rust
+ime.try_show_keyboard()?;
+ime.try_hide_keyboard()?;
+ime.try_detach()?;
+# Ok::<(), ohos_ime_binding::ImeError>(())
+```
+
 ## License
 
 MIT OR Apache-2.0
