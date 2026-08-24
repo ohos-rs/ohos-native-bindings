@@ -1,39 +1,39 @@
+use std::cell::RefCell;
+use std::ptr::{self, NonNull};
+use std::rc::Rc;
+use std::sync::atomic::{AtomicU64, Ordering};
+use std::sync::{Arc, RwLock};
+
 use ohos_input_method_sys::{
-    InputMethod_InputMethodProxy, OH_InputMethodController_Attach, OH_InputMethodController_Detach,
+    InputMethod_ErrorCode_IME_ERR_NULL_POINTER, InputMethod_InputMethodProxy,
+    OH_InputMethodController_Attach, OH_InputMethodController_Detach,
     OH_InputMethodProxy_HideKeyboard, OH_InputMethodProxy_ShowKeyboard,
 };
-use std::{
-    cell::RefCell,
-    ptr::{self, NonNull},
-    rc::Rc,
-};
 
-use crate::{proxy::OHOS_RS_IME_CALLBACKS, AttachOptions, EnterKey, KeyboardStatus, TextEditor};
+use crate::proxy::{register_callbacks, unregister_callbacks, IMECallbacks, SharedCallbacks};
+use crate::{AttachOptions, EnterKey, ImeError, ImeResult, KeyboardStatus, TextEditor};
 
-/// Report a failed input-method NDK call instead of panicking: these calls
-/// fail in environments without a live input method (e.g. a test runner
-/// process), and a panic across the napi `extern "C"` boundary aborts the
-/// whole app.
-fn log_call_failure(call: &str, ret: u32) {
-    // Intentionally no logging here: thread-local storage for stderr can
-    // itself abort once the process has exhausted its pthread keys (many
-    // napi .so modules loaded). The goal is only to be non-fatal.
-    let _ = (call, ret);
-}
-
-unsafe impl Send for IME {}
-unsafe impl Sync for IME {}
+static NEXT_SESSION_ID: AtomicU64 = AtomicU64::new(1);
+static ACTIVE_SESSION_ID: AtomicU64 = AtomicU64::new(0);
 
 #[derive(Clone)]
 pub struct IME {
-    raw: Rc<RefCell<Option<NonNull<InputMethod_InputMethodProxy>>>>,
+    inner: Rc<IMEInner>,
+}
+
+struct IMEInner {
+    id: u64,
+    raw: RefCell<Option<NonNull<InputMethod_InputMethodProxy>>>,
     option: AttachOptions,
-    text_editor: Rc<RefCell<Option<TextEditor>>>,
+    text_editor: RefCell<Option<TextEditor>>,
+    callbacks: SharedCallbacks,
+    #[cfg(feature = "api-22")]
+    callbacks_in_main_thread: bool,
 }
 
 impl PartialEq for IME {
     fn eq(&self, other: &Self) -> bool {
-        self.raw == other.raw
+        Rc::ptr_eq(&self.inner, &other.inner)
     }
 }
 
@@ -41,202 +41,293 @@ impl Eq for IME {}
 
 impl std::hash::Hash for IME {
     fn hash<H: std::hash::Hasher>(&self, state: &mut H) {
-        self.option.hash(state);
+        std::ptr::hash(Rc::as_ptr(&self.inner), state);
     }
 }
 
 impl IME {
     pub fn new(option: AttachOptions) -> Self {
-        IME {
-            raw: Rc::new(RefCell::new(None)),
-            text_editor: Rc::new(RefCell::new(None)),
-            option,
+        Self::with_callback_thread(option, false)
+    }
+
+    /// Create an IME whose TextEditor callbacks are dispatched on the main
+    /// thread instead of the platform-default IPC thread.
+    #[cfg(feature = "api-22")]
+    pub fn new_with_main_thread_callbacks(option: AttachOptions) -> Self {
+        Self::with_callback_thread(option, true)
+    }
+
+    fn with_callback_thread(option: AttachOptions, callbacks_in_main_thread: bool) -> Self {
+        #[cfg(not(feature = "api-22"))]
+        let _ = callbacks_in_main_thread;
+        Self {
+            inner: Rc::new(IMEInner {
+                id: next_session_id(),
+                raw: RefCell::new(None),
+                option,
+                text_editor: RefCell::new(None),
+                callbacks: Arc::new(RwLock::new(IMECallbacks::default())),
+                #[cfg(feature = "api-22")]
+                callbacks_in_main_thread,
+            }),
         }
     }
 
-    pub fn insert_text<'a, T>(&self, callback: T)
+    pub fn insert_text<T>(&self, callback: T)
     where
-        T: Fn(String) + 'a,
+        T: Fn(String) + Send + Sync + 'static,
     {
-        let mut guard = OHOS_RS_IME_CALLBACKS
-            .write()
-            .expect("OHOS_RS_IME_CALLBACKS write failed");
-        let cb = unsafe {
-            std::mem::transmute::<Box<dyn Fn(String) + 'a>, Box<dyn Fn(String) + 'static>>(
-                Box::new(callback),
-            )
-        };
-        guard.insert_text = Some(cb);
+        self.update_callbacks(|callbacks| callbacks.insert_text = Some(Arc::new(callback)));
     }
 
-    pub fn pre_edit<'a, T>(&self, callback: T)
+    pub fn pre_edit<T>(&self, callback: T)
     where
-        T: Fn(String, i32, i32) + 'a,
+        T: Fn(String, i32, i32) + Send + Sync + 'static,
     {
-        let mut guard = OHOS_RS_IME_CALLBACKS
-            .write()
-            .expect("OHOS_RS_IME_CALLBACKS write failed");
-        let cb = unsafe {
-            std::mem::transmute::<
-                Box<dyn Fn(String, i32, i32) + 'a>,
-                Box<dyn Fn(String, i32, i32) + 'static>,
-            >(Box::new(callback))
-        };
-        guard.set_preview_text = Some(cb);
+        self.update_callbacks(|callbacks| callbacks.set_preview_text = Some(Arc::new(callback)));
     }
 
-    pub fn on_status_change<'a, T>(&self, callback: T)
+    pub fn on_status_change<T>(&self, callback: T)
     where
-        T: Fn(KeyboardStatus) + 'a,
+        T: Fn(KeyboardStatus) + Send + Sync + 'static,
     {
-        let mut guard = OHOS_RS_IME_CALLBACKS
-            .write()
-            .expect("OHOS_RS_IME_CALLBACKS write failed");
-        let cb = unsafe {
-            std::mem::transmute::<
-                Box<dyn Fn(KeyboardStatus) + 'a>,
-                Box<dyn Fn(KeyboardStatus) + 'static>,
-            >(Box::new(callback))
-        };
-        guard.send_keyboard_status = Some(cb);
+        self.update_callbacks(|callbacks| {
+            callbacks.send_keyboard_status = Some(Arc::new(callback));
+        });
     }
 
-    pub fn on_delete<'a, T>(&self, callback: T)
+    pub fn on_delete<T>(&self, callback: T)
     where
-        T: Fn(i32) + 'a,
+        T: Fn(i32) + Send + Sync + 'static,
     {
-        let mut guard = OHOS_RS_IME_CALLBACKS
-            .write()
-            .expect("OHOS_RS_IME_CALLBACKS write failed");
-        let cb = unsafe {
-            std::mem::transmute::<Box<dyn Fn(i32) + 'a>, Box<dyn Fn(i32) + 'static>>(Box::new(
-                callback,
-            ))
-        };
-        guard.delete_backward = Some(cb);
+        self.update_callbacks(|callbacks| callbacks.delete_backward = Some(Arc::new(callback)));
     }
 
-    pub fn attach(&self) {
-        if self.raw.borrow().is_some() {
-            return;
+    pub fn on_backspace<T>(&self, callback: T)
+    where
+        T: Fn(i32) + Send + Sync + 'static,
+    {
+        self.on_delete(callback);
+    }
+
+    pub fn on_enter<T>(&self, callback: T)
+    where
+        T: Fn(EnterKey) + Send + Sync + 'static,
+    {
+        self.update_callbacks(|callbacks| callbacks.send_enter_key = Some(Arc::new(callback)));
+    }
+
+    pub fn on_preview<T>(&self, callback: T)
+    where
+        T: Fn(String, i32, i32) + Send + Sync + 'static,
+    {
+        self.pre_edit(callback);
+    }
+
+    pub fn on_finish_preview<T>(&self, callback: T)
+    where
+        T: Fn() + Send + Sync + 'static,
+    {
+        self.update_callbacks(|callbacks| {
+            callbacks.finish_text_preview = Some(Arc::new(callback));
+        });
+    }
+
+    /// Attach this editor, replacing any other `IME` session previously
+    /// attached through this binding.
+    pub fn try_attach(&self) -> ImeResult<()> {
+        if ACTIVE_SESSION_ID.load(Ordering::Acquire) == self.inner.id
+            && self.inner.raw.borrow().is_some()
+        {
+            return Ok(());
+        }
+
+        // A later binding session may already have invalidated this proxy.
+        // The NDK contract ends its lifetime at the next attach, so it must be
+        // discarded locally without detaching the currently active editor.
+        if self.inner.raw.borrow().is_some() {
+            self.discard_local_session();
         }
 
         let editor = TextEditor::new();
-        unsafe {
-            let mut raw: *mut InputMethod_InputMethodProxy = ptr::null_mut();
-            let ret = OH_InputMethodController_Attach(
-                editor.raw,
-                self.option.raw,
-                &mut raw as *mut *mut InputMethod_InputMethodProxy,
-            );
-            #[cfg(debug_assertions)]
-            log_call_failure("OH_InputMethodController_Attach", ret);
+        #[cfg(feature = "api-22")]
+        if self.inner.callbacks_in_main_thread {
+            editor.set_callback_in_main_thread(true)?;
+        }
+        register_callbacks(editor.raw, self.inner.callbacks.clone());
 
-            if let Some(raw) = NonNull::new(raw) {
-                self.text_editor.replace(Some(editor));
-                self.raw.replace(Some(raw));
+        let mut raw: *mut InputMethod_InputMethodProxy = ptr::null_mut();
+        let code = unsafe {
+            OH_InputMethodController_Attach(
+                editor.raw,
+                self.inner.option.raw,
+                &mut raw as *mut *mut InputMethod_InputMethodProxy,
+            )
+        };
+        if code != 0 {
+            unregister_callbacks(editor.raw);
+            return Err(ImeError::new("attach", code));
+        }
+        let Some(raw) = NonNull::new(raw) else {
+            unregister_callbacks(editor.raw);
+            return Err(ImeError::new(
+                "attach",
+                InputMethod_ErrorCode_IME_ERR_NULL_POINTER,
+            ));
+        };
+
+        self.inner.text_editor.replace(Some(editor));
+        self.inner.raw.replace(Some(raw));
+        ACTIVE_SESSION_ID.store(self.inner.id, Ordering::Release);
+        Ok(())
+    }
+
+    pub fn attach(&self) {
+        let _ = self.try_attach();
+    }
+
+    /// Show the keyboard, recovering once if HarmonyOS invalidated the proxy
+    /// because another editor was attached or the Ability left foreground.
+    pub fn try_show_keyboard(&self) -> ImeResult<()> {
+        self.try_attach()?;
+        match self.show_attached() {
+            Ok(()) => Ok(()),
+            Err(error) if error.is_stale_session() => {
+                self.discard_local_session();
+                self.clear_active_session();
+                self.try_attach()?;
+                let result = self.show_attached();
+                if result.as_ref().is_err_and(|error| error.is_stale_session()) {
+                    self.discard_local_session();
+                    self.clear_active_session();
+                }
+                result
             }
+            Err(error) => Err(error),
         }
     }
 
     pub fn show_keyboard(&self) {
-        self.attach();
+        let _ = self.try_show_keyboard();
+    }
 
-        if let Some(ime_proxy) = *self.raw.borrow() {
-            unsafe {
-                let ret = OH_InputMethodProxy_ShowKeyboard(ime_proxy.as_ptr());
-                #[cfg(debug_assertions)]
-                log_call_failure("OH_InputMethodProxy_ShowKeyboard", ret);
+    /// Hide the keyboard without ending this editor session.
+    pub fn try_hide_keyboard(&self) -> ImeResult<()> {
+        let Some(raw) = *self.inner.raw.borrow() else {
+            return Ok(());
+        };
+        let code = unsafe { OH_InputMethodProxy_HideKeyboard(raw.as_ptr()) };
+        if code == 0 {
+            Ok(())
+        } else {
+            let error = ImeError::new("hide-keyboard", code);
+            if error.is_stale_session() {
+                self.discard_local_session();
+                self.clear_active_session();
             }
+            Err(error)
         }
-    }
-
-    pub fn on_backspace<'a, T>(&self, callback: T)
-    where
-        T: Fn(i32) + 'a,
-    {
-        let mut guard = OHOS_RS_IME_CALLBACKS
-            .write()
-            .expect("OHOS_RS_IME_CALLBACKS write failed");
-        let cb = unsafe {
-            std::mem::transmute::<Box<dyn Fn(i32) + 'a>, Box<dyn Fn(i32) + 'static>>(Box::new(
-                callback,
-            ))
-        };
-        guard.delete_backward = Some(cb);
-    }
-
-    pub fn on_enter<'a, T>(&self, callback: T)
-    where
-        T: Fn(EnterKey) + 'a,
-    {
-        let mut guard = OHOS_RS_IME_CALLBACKS
-            .write()
-            .expect("OHOS_RS_IME_CALLBACKS write failed");
-        let cb = unsafe {
-            std::mem::transmute::<Box<dyn Fn(EnterKey) + 'a>, Box<dyn Fn(EnterKey) + 'static>>(
-                Box::new(callback),
-            )
-        };
-        guard.send_enter_key = Some(cb);
-    }
-
-    pub fn on_preview<'a, T>(&self, callback: T)
-    where
-        T: Fn(String, i32, i32) + 'a,
-    {
-        let mut guard = OHOS_RS_IME_CALLBACKS
-            .write()
-            .expect("OHOS_RS_IME_CALLBACKS write failed");
-        let cb = unsafe {
-            std::mem::transmute::<
-                Box<dyn Fn(String, i32, i32) + 'a>,
-                Box<dyn Fn(String, i32, i32) + 'static>,
-            >(Box::new(callback))
-        };
-        guard.set_preview_text = Some(cb);
-    }
-
-    pub fn on_finish_preview<'a, T>(&self, callback: T)
-    where
-        T: Fn() + 'a,
-    {
-        let mut guard = OHOS_RS_IME_CALLBACKS
-            .write()
-            .expect("OHOS_RS_IME_CALLBACKS write failed");
-        let cb = unsafe {
-            std::mem::transmute::<Box<dyn Fn() + 'a>, Box<dyn Fn() + 'static>>(Box::new(callback))
-        };
-        guard.finish_text_preview = Some(cb);
     }
 
     pub fn hide_keyboard(&self) {
-        if let Some(raw) = *self.raw.borrow() {
-            unsafe {
-                let ret = OH_InputMethodProxy_HideKeyboard(raw.as_ptr());
+        let _ = self.try_hide_keyboard();
+    }
 
-                #[cfg(debug_assertions)]
-                log_call_failure("OH_InputMethodProxy_HideKeyboard", ret);
-            }
-        }
-        self.detach();
+    /// Explicitly end this editor session. Stale sessions are only discarded
+    /// locally so they cannot detach another editor which replaced them.
+    pub fn try_detach(&self) -> ImeResult<()> {
+        let is_active = ACTIVE_SESSION_ID
+            .compare_exchange(self.inner.id, 0, Ordering::AcqRel, Ordering::Acquire)
+            .is_ok();
+        let raw = self.inner.raw.borrow_mut().take();
+        let result = if is_active {
+            raw.map_or(Ok(()), |raw| {
+                let code = unsafe { OH_InputMethodController_Detach(raw.as_ptr()) };
+                if code == 0 {
+                    Ok(())
+                } else {
+                    Err(ImeError::new("detach", code))
+                }
+            })
+        } else {
+            Ok(())
+        };
+        self.drop_text_editor();
+        result
     }
 
     pub fn detach(&self) {
-        let raw = self.raw.borrow_mut().take();
-        if let Some(raw) = raw {
-            unsafe {
-                let ret = OH_InputMethodController_Detach(raw.as_ptr());
-                #[cfg(debug_assertions)]
-                log_call_failure("OH_InputMethodController_Detach", ret);
-            }
+        let _ = self.try_detach();
+    }
+
+    fn show_attached(&self) -> ImeResult<()> {
+        let Some(raw) = *self.inner.raw.borrow() else {
+            return Err(ImeError::new(
+                "show-keyboard",
+                InputMethod_ErrorCode_IME_ERR_NULL_POINTER,
+            ));
+        };
+        let code = unsafe { OH_InputMethodProxy_ShowKeyboard(raw.as_ptr()) };
+        if code == 0 {
+            Ok(())
+        } else {
+            Err(ImeError::new("show-keyboard", code))
         }
-        self.text_editor.borrow_mut().take();
+    }
+
+    fn update_callbacks(&self, update: impl FnOnce(&mut IMECallbacks)) {
+        let mut callbacks = self
+            .inner
+            .callbacks
+            .write()
+            .unwrap_or_else(std::sync::PoisonError::into_inner);
+        update(&mut callbacks);
+    }
+
+    fn discard_local_session(&self) {
+        self.inner.raw.borrow_mut().take();
+        self.drop_text_editor();
+    }
+
+    fn drop_text_editor(&self) {
+        if let Some(editor) = self.inner.text_editor.borrow_mut().take() {
+            unregister_callbacks(editor.raw);
+        }
+    }
+
+    fn clear_active_session(&self) {
+        let _ = ACTIVE_SESSION_ID.compare_exchange(
+            self.inner.id,
+            0,
+            Ordering::AcqRel,
+            Ordering::Acquire,
+        );
     }
 }
 
-impl Drop for IME {
+impl Drop for IMEInner {
     fn drop(&mut self) {
-        self.detach();
+        let is_active = ACTIVE_SESSION_ID
+            .compare_exchange(self.id, 0, Ordering::AcqRel, Ordering::Acquire)
+            .is_ok();
+        if is_active {
+            if let Some(raw) = self.raw.get_mut().take() {
+                unsafe {
+                    OH_InputMethodController_Detach(raw.as_ptr());
+                }
+            }
+        }
+        if let Some(editor) = self.text_editor.get_mut().take() {
+            unregister_callbacks(editor.raw);
+        }
+    }
+}
+
+fn next_session_id() -> u64 {
+    loop {
+        let id = NEXT_SESSION_ID.fetch_add(1, Ordering::Relaxed);
+        if id != 0 {
+            return id;
+        }
     }
 }

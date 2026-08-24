@@ -11,7 +11,18 @@ use crate::{
 
 mod callbacks;
 
-pub use callbacks::*;
+pub(crate) use callbacks::{
+    callbacks_for, register_callbacks, unregister_callbacks, IMECallbacks, SharedCallbacks,
+};
+
+macro_rules! editor_callback {
+    ($editor:expr, $field:ident) => {
+        callbacks_for($editor).and_then(|callbacks| {
+            let guard = callbacks.read().ok()?;
+            guard.$field.clone()
+        })
+    };
+}
 
 fn char16_ptr_to_string(ptr: *const u16, length: usize) -> String {
     let mut result = String::new();
@@ -19,7 +30,7 @@ fn char16_ptr_to_string(ptr: *const u16, length: usize) -> String {
     unsafe {
         let slice = std::slice::from_raw_parts(ptr, length);
 
-        for &unit in slice.iter() {
+        for &unit in slice {
             if let Some(Ok(c)) = char::decode_utf16(std::iter::once(unit)).next() {
                 result.push(c);
             }
@@ -29,210 +40,151 @@ fn char16_ptr_to_string(ptr: *const u16, length: usize) -> String {
     result
 }
 
-pub unsafe extern "C" fn delete_backward(_text_editor: *mut InputMethod_TextEditorProxy, len: i32) {
-    let guard = OHOS_RS_IME_CALLBACKS
-        .read()
-        .expect("Failed to acquire read lock");
-    if let Some(f) = &guard.delete_backward {
-        f(len);
+pub unsafe extern "C" fn delete_backward(editor: *mut InputMethod_TextEditorProxy, len: i32) {
+    if let Some(callback) = editor_callback!(editor, delete_backward) {
+        callback(len);
     }
 }
 
 pub unsafe extern "C" fn insert_text(
-    _text_editor: *mut InputMethod_TextEditorProxy,
+    editor: *mut InputMethod_TextEditorProxy,
     text: *const u16,
     len: usize,
 ) {
-    let guard = OHOS_RS_IME_CALLBACKS
-        .read()
-        .expect("Failed to acquire read lock");
-    if let Some(f) = &guard.insert_text {
-        let ret = char16_ptr_to_string(text, len);
-        f(ret);
+    if let Some(callback) = editor_callback!(editor, insert_text) {
+        callback(char16_ptr_to_string(text, len));
     }
 }
 
-pub unsafe extern "C" fn delete_forward(_text_editor: *mut InputMethod_TextEditorProxy, len: i32) {
-    let guard = OHOS_RS_IME_CALLBACKS
-        .read()
-        .expect("Failed to acquire read lock");
-
-    if let Some(f) = &guard.delete_forward {
-        f(len);
+pub unsafe extern "C" fn delete_forward(editor: *mut InputMethod_TextEditorProxy, len: i32) {
+    if let Some(callback) = editor_callback!(editor, delete_forward) {
+        callback(len);
     }
 }
 
-pub unsafe extern "C" fn finish_text_preview(_text_editor: *mut InputMethod_TextEditorProxy) {
-    let guard = OHOS_RS_IME_CALLBACKS
-        .read()
-        .expect("Failed to acquire read lock");
-    if let Some(f) = &guard.finish_text_preview {
-        f();
+pub unsafe extern "C" fn finish_text_preview(editor: *mut InputMethod_TextEditorProxy) {
+    if let Some(callback) = editor_callback!(editor, finish_text_preview) {
+        callback();
     }
 }
 
 pub unsafe extern "C" fn get_left_text_of_cursor(
-    _text_editor: *mut InputMethod_TextEditorProxy,
+    editor: *mut InputMethod_TextEditorProxy,
     number: i32,
     text: *mut u16,
     len: *mut usize,
 ) {
-    let guard = OHOS_RS_IME_CALLBACKS
-        .read()
-        .expect("Failed to acquire read lock");
-    if let Some(f) = &guard.get_left_text_of_cursor {
-        let s = f(number);
-        let utf16: Vec<u16> = s.encode_utf16().collect();
-
-        if !text.is_null() && !len.is_null() && *len >= utf16.len() {
-            std::ptr::copy_nonoverlapping(utf16.as_ptr(), text, utf16.len());
-            *len = utf16.len();
-        }
+    let Some(callback) = editor_callback!(editor, get_left_text_of_cursor) else {
+        return;
+    };
+    let utf16: Vec<u16> = callback(number).encode_utf16().collect();
+    if !text.is_null() && !len.is_null() && *len >= utf16.len() {
+        std::ptr::copy_nonoverlapping(utf16.as_ptr(), text, utf16.len());
+        *len = utf16.len();
     }
 }
 
 pub unsafe extern "C" fn get_right_text_of_cursor(
-    _text_editor: *mut InputMethod_TextEditorProxy,
+    editor: *mut InputMethod_TextEditorProxy,
     number: i32,
     text: *mut u16,
     len: *mut usize,
 ) {
-    let guard = OHOS_RS_IME_CALLBACKS
-        .read()
-        .expect("Failed to acquire read lock");
-    if let Some(f) = &guard.get_right_text_of_cursor {
-        let s = f(number);
-        let utf16: Vec<u16> = s.encode_utf16().collect();
-
-        if !text.is_null() && !len.is_null() && *len >= utf16.len() {
-            std::ptr::copy_nonoverlapping(utf16.as_ptr(), text, utf16.len());
-            *len = utf16.len();
-        }
+    let Some(callback) = editor_callback!(editor, get_right_text_of_cursor) else {
+        return;
+    };
+    let utf16: Vec<u16> = callback(number).encode_utf16().collect();
+    if !text.is_null() && !len.is_null() && *len >= utf16.len() {
+        std::ptr::copy_nonoverlapping(utf16.as_ptr(), text, utf16.len());
+        *len = utf16.len();
     }
 }
 
 pub unsafe extern "C" fn get_text_config(
-    _text_editor: *mut InputMethod_TextEditorProxy,
+    editor: *mut InputMethod_TextEditorProxy,
     config: *mut InputMethod_TextConfig,
 ) {
-    let guard = OHOS_RS_IME_CALLBACKS
-        .read()
-        .expect("Failed to acquire read lock");
-    if let Some(f) = &guard.get_text_config {
-        f(TextConfig { raw: config });
+    if let Some(callback) = editor_callback!(editor, get_text_config) {
+        callback(TextConfig { raw: config });
     }
 }
 
-pub unsafe extern "C" fn get_text_index_at_cursor(
-    _text_editor: *mut InputMethod_TextEditorProxy,
-) -> i32 {
-    let guard = OHOS_RS_IME_CALLBACKS
-        .read()
-        .expect("Failed to acquire read lock");
-    match &guard.get_text_index_at_cursor {
-        Some(f) => f(),
-        None => 0,
-    }
+pub unsafe extern "C" fn get_text_index_at_cursor(editor: *mut InputMethod_TextEditorProxy) -> i32 {
+    editor_callback!(editor, get_text_index_at_cursor).map_or(0, |callback| callback())
 }
 
 pub unsafe extern "C" fn handle_extend_action(
-    _text_editor: *mut InputMethod_TextEditorProxy,
+    editor: *mut InputMethod_TextEditorProxy,
     action: InputMethod_ExtendAction,
 ) {
-    let guard = OHOS_RS_IME_CALLBACKS
-        .read()
-        .expect("Failed to acquire read lock");
-    if let Some(f) = &guard.handle_extend_action {
-        f(Action::from(action));
+    if let Some(callback) = editor_callback!(editor, handle_extend_action) {
+        callback(Action::from(action));
     }
 }
 
 pub unsafe extern "C" fn handle_set_selection(
-    _text_editor: *mut InputMethod_TextEditorProxy,
+    editor: *mut InputMethod_TextEditorProxy,
     start: i32,
     end: i32,
 ) {
-    let guard = OHOS_RS_IME_CALLBACKS
-        .read()
-        .expect("Failed to acquire read lock");
-    if let Some(f) = &guard.handle_set_selection {
-        f(Selection { start, end });
+    if let Some(callback) = editor_callback!(editor, handle_set_selection) {
+        callback(Selection { start, end });
     }
 }
 
 pub unsafe extern "C" fn move_cursor(
-    _text_editor: *mut InputMethod_TextEditorProxy,
+    editor: *mut InputMethod_TextEditorProxy,
     direction: InputMethod_Direction,
 ) {
-    let guard = OHOS_RS_IME_CALLBACKS
-        .read()
-        .expect("Failed to acquire read lock");
-    if let Some(f) = &guard.move_cursor {
-        f(Direction::from(direction));
+    if let Some(callback) = editor_callback!(editor, move_cursor) {
+        callback(Direction::from(direction));
     }
 }
 
 pub unsafe extern "C" fn receive_private_command(
-    _text_editor: *mut InputMethod_TextEditorProxy,
+    editor: *mut InputMethod_TextEditorProxy,
     command: *mut *mut InputMethod_PrivateCommand,
     len: usize,
 ) -> i32 {
-    let guard = OHOS_RS_IME_CALLBACKS
-        .read()
-        .expect("Failed to acquire read lock");
-    if let Some(f) = &guard.receive_private_command {
-        unsafe {
-            let slice = std::slice::from_raw_parts_mut(command, len);
-
-            let mut manual_array = Vec::new();
-            for (i, command) in manual_array.iter_mut().enumerate().take(len) {
-                *command = PrivateCommand {
-                    raw: *slice.get_unchecked(i),
-                };
-            }
-            f(manual_array);
-        }
-    }
+    let Some(callback) = editor_callback!(editor, receive_private_command) else {
+        return 0;
+    };
+    let commands = std::slice::from_raw_parts(command, len)
+        .iter()
+        .copied()
+        .map(|raw| PrivateCommand { raw })
+        .collect();
+    callback(commands);
     0
 }
 
 pub unsafe extern "C" fn send_enter_key(
-    _text_editor: *mut InputMethod_TextEditorProxy,
+    editor: *mut InputMethod_TextEditorProxy,
     enter_key_type: InputMethod_EnterKeyType,
 ) {
-    let guard = OHOS_RS_IME_CALLBACKS
-        .read()
-        .expect("Failed to acquire read lock");
-    if let Some(f) = &guard.send_enter_key {
-        f(EnterKey::from(enter_key_type));
+    if let Some(callback) = editor_callback!(editor, send_enter_key) {
+        callback(EnterKey::from(enter_key_type));
     }
 }
 
 pub unsafe extern "C" fn send_keyboard_status(
-    _text_editor: *mut InputMethod_TextEditorProxy,
+    editor: *mut InputMethod_TextEditorProxy,
     keyboard_status: InputMethod_KeyboardStatus,
 ) {
-    let guard = OHOS_RS_IME_CALLBACKS
-        .read()
-        .expect("Failed to acquire read lock");
-    if let Some(f) = &guard.send_keyboard_status {
-        f(KeyboardStatus::from(keyboard_status));
+    if let Some(callback) = editor_callback!(editor, send_keyboard_status) {
+        callback(KeyboardStatus::from(keyboard_status));
     }
 }
 
 pub unsafe extern "C" fn set_preview_text(
-    _text_editor: *mut InputMethod_TextEditorProxy,
+    editor: *mut InputMethod_TextEditorProxy,
     text: *const u16,
     length: usize,
     start: i32,
     end: i32,
 ) -> i32 {
-    let guard = OHOS_RS_IME_CALLBACKS
-        .read()
-        .expect("Failed to acquire read lock");
-    if let Some(f) = &guard.set_preview_text {
-        let ret = char16_ptr_to_string(text, length);
-        f(ret, start, end);
+    if let Some(callback) = editor_callback!(editor, set_preview_text) {
+        callback(char16_ptr_to_string(text, length), start, end);
     }
     0
 }

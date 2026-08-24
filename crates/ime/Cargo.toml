@@ -11,6 +11,7 @@ workspace = true
 [dependencies]
 ohos-input-method-sys = { workspace = true }
 ohos-enum-derive      = { workspace = true }
+rustc-hash            = { workspace = true }
 
 [features]
 default = []

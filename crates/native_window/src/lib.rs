@@ -1,9 +1,10 @@
 use libc::pollfd;
 use ohos_native_window_sys::{
     NativeWindow as NativeWindowRaw, OHNativeWindowBuffer as OHNativeWindowBufferRaw,
-    OH_NativeWindow_NativeObjectReference, OH_NativeWindow_NativeObjectUnreference,
-    OH_NativeWindow_NativeWindowAbortBuffer, OH_NativeWindow_NativeWindowFlushBuffer,
-    OH_NativeWindow_NativeWindowHandleOpt, OH_NativeWindow_NativeWindowRequestBuffer, Region_Rect,
+    OH_NativeWindow_GetSurfaceId, OH_NativeWindow_NativeObjectReference,
+    OH_NativeWindow_NativeObjectUnreference, OH_NativeWindow_NativeWindowAbortBuffer,
+    OH_NativeWindow_NativeWindowFlushBuffer, OH_NativeWindow_NativeWindowHandleOpt,
+    OH_NativeWindow_NativeWindowRequestBuffer, Region_Rect,
 };
 use std::{
     mem::MaybeUninit,
@@ -42,6 +43,22 @@ impl NativeWindow {
                 window: NonNull::new_unchecked(window as *mut NativeWindowRaw),
             }
         }
+    }
+
+    /// Returns the surface ID associated with this native window.
+    ///
+    /// The returned ID can be passed to APIs that associate work with this
+    /// window, such as `OH_NativeVSync_Create_ForAssociatedWindow`.
+    pub fn surface_id(&self) -> Result<u64, NativeWindowError> {
+        let mut surface_id = 0_u64;
+        let ret = unsafe { OH_NativeWindow_GetSurfaceId(self.window.as_ptr(), &mut surface_id) };
+        if ret != 0 {
+            return Err(NativeWindowError::InternalError(ret));
+        }
+        if surface_id == 0 {
+            return Err(NativeWindowError::InternalError(-1));
+        }
+        Ok(surface_id)
     }
 
     pub fn set_buffer_geometry(&self, width: i32, height: i32) -> Result<(), NativeWindowError> {
