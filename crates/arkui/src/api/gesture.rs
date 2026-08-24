@@ -97,6 +97,7 @@ struct GestureDisposeNotifyCallbackContext {
 }
 
 type InnerGestureParallelCallbackMap = HashMap<usize, usize>;
+type InnerGestureEventTargetCallbackMap = HashMap<usize, usize>;
 type GestureEventTargetCallbackMap = HashMap<usize, usize>;
 type GestureInterrupterCallbackMap = HashMap<usize, usize>;
 #[cfg(feature = "api-20")]
@@ -105,6 +106,9 @@ type GestureDisposeNotifyCallbackMap = HashMap<usize, usize>;
 
 static INNER_GESTURE_PARALLEL_CALLBACK_CONTEXTS: OnceLock<Mutex<InnerGestureParallelCallbackMap>> =
     OnceLock::new();
+static INNER_GESTURE_EVENT_TARGET_CALLBACK_CONTEXTS: OnceLock<
+    Mutex<InnerGestureEventTargetCallbackMap>,
+> = OnceLock::new();
 static GESTURE_EVENT_TARGET_CALLBACK_CONTEXTS: OnceLock<Mutex<GestureEventTargetCallbackMap>> =
     OnceLock::new();
 static GESTURE_INTERRUPTER_CALLBACK_CONTEXTS: OnceLock<Mutex<GestureInterrupterCallbackMap>> =
@@ -117,6 +121,11 @@ static GESTURE_DISPOSE_NOTIFY_CALLBACK_CONTEXTS: OnceLock<Mutex<GestureDisposeNo
 
 fn inner_gesture_parallel_callback_contexts() -> &'static Mutex<InnerGestureParallelCallbackMap> {
     INNER_GESTURE_PARALLEL_CALLBACK_CONTEXTS.get_or_init(|| Mutex::new(HashMap::new()))
+}
+
+fn inner_gesture_event_target_callback_contexts(
+) -> &'static Mutex<InnerGestureEventTargetCallbackMap> {
+    INNER_GESTURE_EVENT_TARGET_CALLBACK_CONTEXTS.get_or_init(|| Mutex::new(HashMap::new()))
 }
 
 fn gesture_event_target_callback_contexts() -> &'static Mutex<GestureEventTargetCallbackMap> {
@@ -437,6 +446,15 @@ impl ArkUINativeGestureAPI1 {
         unsafe {
             if let Some(dispose) = (*self.raw()).dispose {
                 dispose(gesture);
+                let mut callbacks = match inner_gesture_event_target_callback_contexts().lock() {
+                    Ok(callbacks) => callbacks,
+                    Err(poisoned) => poisoned.into_inner(),
+                };
+                if let Some(callback) = callbacks.remove(&(gesture as usize)) {
+                    drop(Box::from_raw(
+                        callback as *mut Rc<RefCell<InnerGestureData>>,
+                    ));
+                }
                 Ok(())
             } else {
                 Err(ArkUIError::new(
@@ -630,12 +648,30 @@ impl ArkUINativeGestureAPI1 {
         action_type: ArkUI_GestureEventActionTypeMask,
         extra_params: Rc<RefCell<InnerGestureData>>,
     ) -> ArkUIResult<()> {
-        self.set_gesture_event_target_raw(
+        let callback = Box::into_raw(Box::new(extra_params));
+        let result = self.set_gesture_event_target_raw(
             gesture,
             action_type,
-            Box::into_raw(Box::new(extra_params)) as *mut c_void,
+            callback.cast(),
             Some(target_receiver),
-        )
+        );
+        if let Err(error) = result {
+            unsafe {
+                drop(Box::from_raw(callback));
+            }
+            return Err(error);
+        }
+
+        let mut callbacks = match inner_gesture_event_target_callback_contexts().lock() {
+            Ok(callbacks) => callbacks,
+            Err(poisoned) => poisoned.into_inner(),
+        };
+        if let Some(old) = callbacks.insert(gesture as usize, callback as usize) {
+            unsafe {
+                drop(Box::from_raw(old as *mut Rc<RefCell<InnerGestureData>>));
+            }
+        }
+        Ok(())
     }
 
     fn set_gesture_event_target_raw(
@@ -1580,7 +1616,7 @@ unsafe extern "C" fn target_receiver(event: *mut ArkUI_GestureEvent, extra_param
     let user_data: &Rc<RefCell<InnerGestureData>> =
         &*(extra_params as *const Rc<RefCell<InnerGestureData>>);
 
-    let data = user_data.borrow_mut();
+    let data = user_data.borrow();
     let event_action_type: GestureEventAction = OH_ArkUI_GestureEvent_GetActionType(event).into();
 
     let event_data: GestureData = match data.gesture_type {
@@ -1625,9 +1661,13 @@ unsafe extern "C" fn target_receiver(event: *mut ArkUI_GestureEvent, extra_param
         _ => unreachable!("Invalid gesture type"),
     };
 
-    if let Some(event) = data.gesture_callback.as_ref() {
+    let callback = data.gesture_callback.clone();
+    let callback_data = data.user_data;
+    drop(data);
+
+    if let Some(event) = callback {
         event(GestureEventData {
-            data: data.user_data,
+            data: callback_data,
             event_action_type,
             event_action_data: event_data,
         });

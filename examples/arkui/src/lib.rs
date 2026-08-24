@@ -1,10 +1,14 @@
 #![allow(clippy::all)]
 #![allow(dead_code)]
 
-use std::{cell::RefCell, rc::Rc};
+use std::{
+    cell::RefCell,
+    rc::Rc,
+    sync::{LazyLock, Mutex},
+};
 
 use napi_derive_ohos::napi;
-use napi_ohos::Result;
+use napi_ohos::{Error, Result};
 use ohos_arkui_binding::{
     animate::options::Animation,
     common::ui_context::ArkUIContext,
@@ -12,11 +16,11 @@ use ohos_arkui_binding::{
         attribute::{ArkUICommonAttribute, ArkUICommonFontAttribute, ArkUIEvent, ArkUIGesture},
         built_in_component::{
             Button, Checkbox, List, ListItem, Progress, Radio, Slider, Stack, Swiper, Text,
-            TextInput, Toggle,
+            TextInput, Toggle, XComponent,
         },
     },
     dialog::Dialog,
-    gesture::inner_gesture::Gesture,
+    gesture::{gesture_data::GestureData, inner_gesture::Gesture},
     types::{
         animation_mode::AnimationMode, curve::Curve, gesture_direction::GestureDirection,
         gesture_event::GestureEventAction, text_alignment::TextAlignment,
@@ -25,13 +29,34 @@ use ohos_arkui_binding::{
 };
 use ohos_arkui_input_binding::ArkUIErrorCode;
 use ohos_hilog_binding::hilog_info;
+use ohos_xcomponent_binding::TouchEvent;
 
 #[napi]
 struct MyApp {
     root: RootNode,
     dialog: Option<Dialog>,
     input: Rc<RefCell<Option<TextInput>>>,
+    xcomponent_gesture_node: Option<XComponent>,
+    xcomponent_gesture_handles: Vec<Gesture>,
 }
+
+#[derive(Default)]
+struct XComponentGestureEvents {
+    raw_downs: u32,
+    raw_moves: u32,
+    raw_ups: u32,
+    raw_cancels: u32,
+    taps: u32,
+    pan_accepts: u32,
+    pan_updates: u32,
+    pan_ends: u32,
+    pan_cancels: u32,
+    swipes: u32,
+    last: String,
+}
+
+static XCOMPONENT_GESTURE_EVENTS: LazyLock<Mutex<XComponentGestureEvents>> =
+    LazyLock::new(|| Mutex::new(XComponentGestureEvents::default()));
 
 #[napi]
 impl MyApp {
@@ -41,6 +66,8 @@ impl MyApp {
             root: RootNode::new(slot),
             dialog: None,
             input: Rc::new(RefCell::new(None)),
+            xcomponent_gesture_node: None,
+            xcomponent_gesture_handles: Vec::new(),
         }
     }
 
@@ -144,7 +171,20 @@ impl MyApp {
 
     #[napi]
     pub fn destroy_native_node(&mut self) -> Result<(), ArkUIErrorCode> {
+        self.release_xcomponent_gestures();
         self.root.unmount()?;
+        Ok(())
+    }
+
+    /// Mount one ArkUI-native XComponent input surface.
+    ///
+    /// The same node exposes the original NativeXComponent touch stream and
+    /// uses ArkUI's system gesture recognizers.
+    #[napi]
+    pub fn create_xcomponent_gesture_demo(&mut self) -> Result<(), ArkUIErrorCode> {
+        let xcomponent = XComponent::new()?;
+        self.configure_xcomponent_gestures(&xcomponent)?;
+        self.root.mount(xcomponent)?;
         Ok(())
     }
 
@@ -154,6 +194,8 @@ impl MyApp {
     /// appear events.
     #[napi]
     pub fn create_gallery(&mut self) -> Result<(), ArkUIErrorCode> {
+        reset_xcomponent_gesture_events();
+
         let mut list = List::new()?;
         list.percent_width(1.0)?;
         list.percent_height(1.0)?;
@@ -299,7 +341,151 @@ impl MyApp {
             list.add_child(item.into_node())?;
         }
 
+        // --- section: native input + system gestures on one XComponent ----
+        {
+            let mut item = ListItem::new()?;
+            let xcomponent = XComponent::new()?;
+            self.configure_xcomponent_gestures(&xcomponent)?;
+            item.add_child(xcomponent.into_node())?;
+            list.add_child(item.into_node())?;
+        }
+
         self.root.mount(list)?;
         Ok(())
     }
+
+    /// Read the raw touch and ArkUI system gesture state from ArkTS/E2E.
+    #[napi]
+    pub fn xcomponent_gesture_events(&self) -> String {
+        xcomponent_gesture_events()
+    }
+
+    /// Clear the raw touch and ArkUI system gesture counters.
+    #[napi]
+    pub fn reset_xcomponent_gesture_events(&self) {
+        reset_xcomponent_gesture_events();
+    }
+}
+
+impl MyApp {
+    fn configure_xcomponent_gestures(
+        &mut self,
+        xcomponent: &XComponent,
+    ) -> Result<(), ArkUIErrorCode> {
+        reset_xcomponent_gesture_events();
+
+        xcomponent.set_x_component_id("arkui-xcomponent-gesture-demo")?;
+        xcomponent.percent_width(1.0)?;
+        xcomponent.height(180.0)?;
+        xcomponent.background_color(0xFFd9edf7)?;
+
+        // This is the same construction used by openharmony-ability: build an
+        // ArkUI XComponent node, obtain its native handle, then keep both the
+        // raw touch callback and ArkUI recognizers attached to that one node.
+        let native = xcomponent.native_xcomponent();
+        native.on_touch_event(move |_xcomponent, _window, event| {
+            let mut state = XCOMPONENT_GESTURE_EVENTS.lock().unwrap();
+            match event.event_type {
+                TouchEvent::Down => state.raw_downs += 1,
+                TouchEvent::Move => state.raw_moves += 1,
+                TouchEvent::Up => state.raw_ups += 1,
+                TouchEvent::Cancel => state.raw_cancels += 1,
+                TouchEvent::Unknown => {}
+            }
+            hilog_info!(format!(
+                "ohos-rs: native XComponent touch {:?}",
+                event.event_type
+            ));
+            Ok(())
+        });
+        native.register_callback().map_err(|error| {
+            Error::new(
+                ArkUIErrorCode::AttributeOrEventNotSupported,
+                error.to_string(),
+            )
+        })?;
+
+        let tap = xcomponent.on_tap_gesture(1, 1, move |event| {
+            let mut state = XCOMPONENT_GESTURE_EVENTS.lock().unwrap();
+            state.taps += 1;
+            state.last = if matches!(event.event_action_data, GestureData::Tap) {
+                "tap".to_string()
+            } else {
+                "tap:unexpected-payload".to_string()
+            };
+            hilog_info!("ohos-rs: ArkUI XComponent tap");
+        })?;
+
+        let pan = xcomponent.on_pan_gesture(1, GestureDirection::All, 8.0, move |event| {
+            let mut state = XCOMPONENT_GESTURE_EVENTS.lock().unwrap();
+            if event.event_action_type.contains(GestureEventAction::Accept) {
+                state.pan_accepts += 1;
+            } else if event.event_action_type.contains(GestureEventAction::Update) {
+                state.pan_updates += 1;
+            } else if event.event_action_type.contains(GestureEventAction::End) {
+                state.pan_ends += 1;
+            } else if event.event_action_type.contains(GestureEventAction::Cancel) {
+                state.pan_cancels += 1;
+            }
+            if let GestureData::Pan(pan) = event.event_action_data {
+                state.last = format!("pan@{:.1},{:.1}", pan.offset_x, pan.offset_y);
+            }
+            hilog_info!("ohos-rs: ArkUI XComponent pan");
+        })?;
+
+        let swipe = xcomponent.on_swipe_gesture(1, GestureDirection::All, 800.0, move |event| {
+            let mut state = XCOMPONENT_GESTURE_EVENTS.lock().unwrap();
+            state.swipes += 1;
+            if let GestureData::Swipe(swipe) = event.event_action_data {
+                state.last = format!("swipe@{:.1}/{:.1}", swipe.angle, swipe.velocity);
+            }
+            hilog_info!("ohos-rs: ArkUI XComponent swipe");
+        })?;
+
+        self.xcomponent_gesture_node = Some(xcomponent.clone());
+        self.xcomponent_gesture_handles = vec![tap, pan, swipe];
+        Ok(())
+    }
+
+    fn release_xcomponent_gestures(&mut self) {
+        // Detach recognizers while the XComponent node is still alive, then
+        // release their callback contexts before disposing the node tree.
+        if let Some(xcomponent) = self.xcomponent_gesture_node.take() {
+            xcomponent.native_xcomponent().unregister_callbacks();
+            for gesture in self.xcomponent_gesture_handles.drain(..) {
+                if let Err(error) = xcomponent.remove_gesture(&gesture) {
+                    hilog_info!("ohos-rs: remove XComponent gesture failed: {error}");
+                }
+                if let Err(error) = gesture.dispose() {
+                    hilog_info!("ohos-rs: dispose XComponent gesture failed: {error}");
+                }
+            }
+        }
+    }
+}
+
+/// Raw native touch and ArkUI system gesture counters for UI/E2E runners.
+#[napi]
+pub fn xcomponent_gesture_events() -> String {
+    let events = XCOMPONENT_GESTURE_EVENTS.lock().unwrap();
+    format!(
+        "rawDown={} rawMove={} rawUp={} rawCancel={} tap={} panAccept={} panUpdate={} panEnd={} panCancel={} swipe={} last={}",
+        events.raw_downs,
+        events.raw_moves,
+        events.raw_ups,
+        events.raw_cancels,
+        events.taps,
+        events.pan_accepts,
+        events.pan_updates,
+        events.pan_ends,
+        events.pan_cancels,
+        events.swipes,
+        events.last
+    )
+}
+
+/// Reset the raw native touch and ArkUI system gesture counters.
+#[napi]
+pub fn reset_xcomponent_gesture_events() {
+    *XCOMPONENT_GESTURE_EVENTS.lock().unwrap() = XComponentGestureEvents::default();
 }
