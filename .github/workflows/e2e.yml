@@ -15,7 +15,7 @@ jobs:
   xcomponent-qemu:
     name: XComponent QEMU E2E
     runs-on: ubuntu-22.04
-    timeout-minutes: 90
+    timeout-minutes: 60
     env:
       GUEST_FATAL_PATTERN: 'Kernel panic - not syncing|critical service crashed|ExecReboot panic|sysrq: Trigger a crash|(composer_host|render_service).*exit with signal[[:space:]]*:[[:space:]]*11'
       GITHUB_TOKEN: ${{ github.token }}
@@ -193,17 +193,66 @@ jobs:
           fi
           echo "KVM acceleration verified from QEMU file descriptors."
 
-      - name: Wait for OpenHarmony services
+      - name: Wait for HDC device
+        timeout-minutes: 5
         shell: bash
         run: |
           set -euo pipefail
-          attempts=300
-          "$HDC_BIN" start || true
+          deadline=$((SECONDS + 240))
+          attempt=0
+          timeout 10s "$HDC_BIN" start || true
 
-          for attempt in $(seq 1 "$attempts"); do
-            "$HDC_BIN" tconn "$HDC_TARGET" >/dev/null 2>&1 || true
+          while ((SECONDS < deadline)); do
+            attempt=$((attempt + 1))
+            timeout 10s "$HDC_BIN" tconn "$HDC_TARGET" >/dev/null 2>&1 || true
+            targets="$(timeout 10s "$HDC_BIN" list targets -v 2>/dev/null || true)"
+            if awk -v target="$HDC_TARGET" '
+              $1 == target {
+                for (field = 2; field <= NF; field++) {
+                  if ($field == "Connected") found = 1
+                }
+              }
+              END { exit found ? 0 : 1 }
+            ' <<<"$targets"; then
+              echo "$targets"
+              exit 0
+            fi
+
+            if ! kill -0 "$(cat "$RUNNER_TEMP/ohos-qemu.pid")" 2>/dev/null; then
+              echo "QEMU exited before HDC became available" >&2
+              tail -200 "$RUNNER_TEMP/ohos-qemu.log" >&2 || true
+              exit 1
+            fi
+            if grep -aiEq "$GUEST_FATAL_PATTERN" "$RUNNER_TEMP/ohos-qemu.log"; then
+              echo "OpenHarmony guest hit a fatal error before HDC became available" >&2
+              grep -ainE "$GUEST_FATAL_PATTERN" "$RUNNER_TEMP/ohos-qemu.log" | tail -20 >&2 || true
+              tail -200 "$RUNNER_TEMP/ohos-qemu.log" >&2 || true
+              exit 1
+            fi
+            if ((attempt % 10 == 0)); then
+              echo "Still waiting for $HDC_TARGET to connect (elapsed=${SECONDS}s)"
+              echo "$targets"
+              tail -40 "$RUNNER_TEMP/ohos-qemu.log" || true
+            fi
+            sleep 3
+          done
+          echo "HDC target $HDC_TARGET did not connect within 240 seconds" >&2
+          timeout 10s "$HDC_BIN" list targets -v >&2 || true
+          tail -200 "$RUNNER_TEMP/ohos-qemu.log" >&2 || true
+          exit 1
+
+      - name: Wait for OpenHarmony account services
+        timeout-minutes: 5
+        shell: bash
+        run: |
+          set -euo pipefail
+          deadline=$((SECONDS + 240))
+          attempt=0
+
+          while ((SECONDS < deadline)); do
+            attempt=$((attempt + 1))
             state="$(
-              "$HDC_BIN" -t "$HDC_TARGET" shell '
+              timeout 10s "$HDC_BIN" -t "$HDC_TARGET" shell '
                 echo "account.ready=$(param get bootevent.account.ready)"
                 hidumper -s AccountMgr -a "-os_account_infos"
               ' 2>/dev/null | tr -d '\r' || true
@@ -225,17 +274,18 @@ jobs:
               tail -200 "$RUNNER_TEMP/ohos-qemu.log" >&2 || true
               exit 1
             fi
-            if ((attempt % 20 == 0)); then
-              echo "Still waiting for OpenHarmony services ($attempt/$attempts)"
+            if ((attempt % 10 == 0)); then
+              echo "Still waiting for AccountMgr and foreground user 100 (elapsed=${SECONDS}s)"
               tail -40 "$RUNNER_TEMP/ohos-qemu.log" || true
             fi
             sleep 3
           done
-          echo "OpenHarmony services did not become ready" >&2
+          echo "OpenHarmony account services did not become ready within 240 seconds" >&2
           tail -200 "$RUNNER_TEMP/ohos-qemu.log" >&2 || true
           exit 1
 
       - name: Run XComponent E2E
+        timeout-minutes: 30
         run: pnpm run test:ui:xcomponent
 
       - name: Verify OpenHarmony guest health
