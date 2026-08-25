@@ -22,7 +22,7 @@ fi
 ROOT="$(cd "$(dirname "$0")/.." && pwd)"
 cd "$ROOT"
 
-BUNDLE="com.richerfu.h_openconnect"
+BUNDLE="com.richerfu.ohos_example"
 DIAGNOSTICS_DIR="${E2E_DIAGNOSTICS_DIR:-$ROOT/.tools/e2e-diagnostics}"
 MAIN_HAP="$ROOT/entry/build/default/outputs/default/entry-default-signed.hap"
 TEST_HAP="$ROOT/entry/build/default/outputs/ohosTest/entry-ohosTest-signed.hap"

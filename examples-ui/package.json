@@ -9,7 +9,7 @@
     "build:test": "./scripts/build-hap.sh test",
     "install:hap": "hdc install -r entry/build/default/outputs/default/entry-default-signed.hap",
     "install:test": "hdc install -r entry/build/default/outputs/ohosTest/entry-ohosTest-signed.hap",
-    "start": "hdc shell \"aa start -a EntryAbility -b com.richerfu.h_openconnect\"",
+    "start": "hdc shell \"aa start -a EntryAbility -b com.richerfu.ohos_example\"",
     "test": "./scripts/run-ohostest.sh",
     "run:device": "pnpm run sync:rust && pnpm run build:hap && pnpm run install:hap && pnpm run start",
     "format": "oxk format entry/",

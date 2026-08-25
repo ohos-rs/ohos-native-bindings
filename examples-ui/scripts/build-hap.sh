@@ -5,7 +5,7 @@ set -euo pipefail
 
 ROOT="$(cd "$(dirname "$0")/.." && pwd)"
 BUILD_KIND="${1:-main}"
-BUNDLE="com.richerfu.h_openconnect"
+BUNDLE="com.richerfu.ohos_example"
 HAP_SIGN_VERSION="0.2.0"
 OHPM_RS_VERSION="0.2.0"
 

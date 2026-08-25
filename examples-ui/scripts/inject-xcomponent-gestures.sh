@@ -4,7 +4,7 @@
 # gesture callbacks.
 set -euo pipefail
 
-BUNDLE="com.richerfu.h_openconnect"
+BUNDLE="com.richerfu.ohos_example"
 DIAGNOSTICS_DIR="${E2E_DIAGNOSTICS_DIR:-$(cd "$(dirname "$0")/.." && pwd)/.tools/e2e-diagnostics}"
 LAYOUT_PATH="/data/local/tmp/xcomponent-gesture-layout.json"
 HDC=(hdc)
@@ -54,7 +54,7 @@ wait_until_ready() {
   done
   printf '%s\n' "$layout" >"$DIAGNOSTICS_DIR/gesture-layout-last.json"
   hdc_run shell \
-    'hilog -x | grep -iE "GestureTestAbility|XComponentGestureHost|h_openconnect|arkui_test|render_service" | tail -400' \
+    'hilog -x | grep -iE "GestureTestAbility|XComponentGestureHost|ohos_example|arkui_test|render_service" | tail -400' \
     >"$DIAGNOSTICS_DIR/gesture-host-hilog.log" 2>&1 || true
   fail "GestureTestAbility did not become ready"
 }
