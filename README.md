@@ -45,6 +45,25 @@ A set of HarmonyNext native module bindings for Rust.
 
 Low-level `*-sys` crates and the `ohos-enum-derive` helper crate are published separately. Each package directory contains a README with install and usage notes.
 
+## Development
+
+The ArkTS host app and its ohosTest/QEMU automation live in
+[`examples-ui`](./examples-ui) as a regular workspace package. No submodule
+initialization is required.
+
+```sh
+pnpm install
+pnpm run init
+
+pnpm run ready                 # format, hooks, cargo check, and lint
+pnpm run test:ui               # on-device ohosTest suite
+pnpm run test:ui:xcomponent    # automated XComponent gesture test on QEMU
+```
+
+The root `package.json` replaces the former `justfile`; pnpm manages tools,
+prek manages Git hooks, and oxk formats/lints ArkTS. See
+[`examples-ui/README.md`](./examples-ui/README.md) for device setup and test details.
+
 ## Contribution
 
 ![contribution](https://img.shields.io/badge/PR-welcome-green)

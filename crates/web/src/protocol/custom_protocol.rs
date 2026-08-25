@@ -59,7 +59,7 @@ impl CustomProtocolHandler {
     /// * `true` if the request should be intercepted, `false` otherwise.
     ///
     /// # Example
-    /// ```ignore   
+    /// ```ignore
     /// let handler = CustomProtocolHandler::new();
     /// handler.on_request_start(|request, handle| {
     ///     handle.receive_data("Hello, world!");

@@ -17,7 +17,7 @@ fn demo_config() -> ConfigDescription {
     ConfigDescription {
         mode: LtpoMode::AdaptiveMode,
         target_fps: 60,
-        package_name: "com.richerfu.h_openconnect".to_string(),
+        package_name: "com.richerfu.ohos_example".to_string(),
         app_version: "1.0.0".to_string(),
         engine_type: EngineType::OTHERS,
         engine_version: "0.0.0".to_string(),

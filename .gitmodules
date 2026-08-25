@@ -1,4 +1,0 @@
-[submodule "examples-ui"]
-	path = examples-ui
-	url = https://github.com/ohos-rs/ohos-native-binding-demo.git
-	branch = main

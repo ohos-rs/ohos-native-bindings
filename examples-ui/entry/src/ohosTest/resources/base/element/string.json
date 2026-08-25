@@ -1,0 +1,8 @@
+{
+  "string": [
+    { "name": "module_test_desc", "value": "ohos-native-bindings ohosTest" },
+    { "name": "TestAbility_desc", "value": "Hypium runner for native binding napi tests" },
+    { "name": "TestAbility_label", "value": "bindings-ohosTest" },
+    { "name": "camera_reason", "value": "camera binding ohosTest" }
+  ]
+}

@@ -1,0 +1,67 @@
+{
+  module: {
+    name: 'entry',
+    type: 'entry',
+    description: '$string:module_desc',
+    mainElement: 'EntryAbility',
+    deviceTypes: ['phone'],
+    deliveryWithInstall: true,
+    installationFree: false,
+    pages: '$profile:main_pages',
+    requestPermissions: [
+      {
+        // vibrator demo (normal level, granted at install)
+        "name": 'ohos.permission.VIBRATE',
+      },
+      {
+        // sensor demo (accelerometer)
+        "name": 'ohos.permission.ACCELEROMETER',
+      },
+      {
+        // net_connection / net_stack demos
+        "name": 'ohos.permission.INTERNET',
+      },
+      {
+        // sensor demo (gyroscope button)
+        "name": 'ohos.permission.GYROSCOPE',
+      },
+      {
+        // camera demo
+        "name": 'ohos.permission.CAMERA',
+        "reason": '$string:camera_reason',
+        "usedScene": {
+          "abilities": ['EntryAbility'],
+          "when": 'inuse',
+        },
+      },
+    ],
+    abilities: [
+      {
+        name: 'EntryAbility',
+        srcEntry: './ets/entryability/EntryAbility.ets',
+        description: '$string:EntryAbility_desc',
+        icon: '$media:layered_image',
+        label: '$string:EntryAbility_label',
+        exported: true,
+        startWindowIcon: '$media:startIcon',
+        startWindowBackground: '$color:start_window_background',
+        skills: [
+          {
+            entities: ['entity.system.home'],
+            actions: ['ohos.want.action.home'],
+          },
+        ],
+      },
+      {
+        name: 'GestureTestAbility',
+        srcEntry: './ets/entryability/GestureTestAbility.ets',
+        description: '$string:EntryAbility_desc',
+        icon: '$media:layered_image',
+        label: '$string:EntryAbility_label',
+        exported: true,
+        startWindowIcon: '$media:startIcon',
+        startWindowBackground: '$color:start_window_background',
+      },
+    ],
+  },
+}

@@ -17,7 +17,7 @@ env_filter = { version = "0.1", default-features = false, optional = true }
 
 [features]
 default = []
-# Allow redirect stdout/stderr to hilog. 
+# Allow redirect stdout/stderr to hilog.
 redirect = ["dep:libc"]
 
 # Allow log

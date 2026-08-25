@@ -6,7 +6,7 @@ use std::rc::Rc;
 use crate::{ArkUIError, ArkUIHandle, ArkUINode, ArkUIResult, ARK_UI_NATIVE_NODE_API_1};
 use ohos_arkui_input_binding::ArkUIErrorCode;
 
-/// root node for arkui   
+/// root node for arkui
 /// ```rust
 /// let mut root = RootNode::new();
 ///

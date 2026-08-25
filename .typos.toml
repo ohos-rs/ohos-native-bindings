@@ -1,1 +1,12 @@
+[files]
+extend-exclude = [
+  "sys/**/src/lib.rs",
+  "crates/xcomponent/src/data/key.rs",
+  "examples-ui/entry/src/ohosTest/ets/types/*.d.ts",
+]
 
+# These misspellings are part of upstream OpenHarmony C identifiers and must
+# remain byte-for-byte compatible with the generated bindings.
+[default.extend-words]
+Connetion = "Connetion"
+IAMGE     = "IAMGE"

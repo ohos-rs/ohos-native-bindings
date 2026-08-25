@@ -1,0 +1,10 @@
+{
+  "modelVersion": '6.0.0',
+  "name": 'entry',
+  "version": '1.0.0',
+  "description": 'Test entry module',
+  "main": '',
+  "author": '',
+  "license": '',
+  "dependencies": {},
+}

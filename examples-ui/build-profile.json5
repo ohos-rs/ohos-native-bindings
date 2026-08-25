@@ -1,0 +1,46 @@
+{
+  app: {
+    products: [
+      {
+        name: "default",
+        targetSdkVersion: "5.0.5(17)",
+        compatibleSdkVersion: "5.0.5(17)",
+        runtimeOS: "HarmonyOS",
+        buildOption: {
+          strictMode: {
+            caseSensitiveCheck: false,
+            useNormalizedOHMUrl: false
+          }
+        }
+      }
+    ],
+    buildModeSet: [
+      {
+        name: "debug"
+      },
+      {
+        name: "release"
+      }
+    ]
+  },
+  modules: [
+    {
+      name: "entry",
+      srcPath: "./entry",
+      targets: [
+        {
+          name: "default",
+          applyToProducts: [
+            "default"
+          ]
+        },
+        {
+          name: "ohosTest",
+          applyToProducts: [
+            "default"
+          ]
+        }
+      ]
+    }
+  ]
+}

@@ -1,0 +1,47 @@
+{
+  "module": {
+    "name": 'entry_test',
+    "type": 'feature',
+    "description": '$string:module_test_desc',
+    "mainElement": 'TestAbility',
+    "deviceTypes": ['phone'],
+    "pages": '$profile:test_pages',
+    "deliveryWithInstall": true,
+    "installationFree": false,
+    "requestPermissions": [
+      { "name": 'ohos.permission.VIBRATE' },
+      { "name": 'ohos.permission.ACCELEROMETER' },
+      { "name": 'ohos.permission.INTERNET' },
+      { "name": 'ohos.permission.GYROSCOPE' },
+      { "name": 'ohos.permission.GET_NETWORK_INFO' },
+      {
+        "name": 'ohos.permission.CAMERA',
+        "reason": '$string:camera_reason',
+        "usedScene": {
+          "abilities": ['TestAbility'],
+          "when": 'inuse',
+        },
+      },
+    ],
+    "abilities": [
+      {
+        "name": 'TestAbility',
+        "srcEntry": './ets/testability/TestAbility.ets',
+        "description": '$string:TestAbility_desc',
+        "icon": '$media:startIcon',
+        "label": '$string:TestAbility_label',
+        "exported": true,
+        "showWhenLocked": true,
+        "turnScreenOn": true,
+        "startWindowIcon": '$media:startIcon',
+        "startWindowBackground": '$color:start_window_background',
+        "skills": [
+          {
+            "actions": ['ohos.want.action.home'],
+            "entities": ['entity.system.home'],
+          },
+        ],
+      },
+    ],
+  },
+}

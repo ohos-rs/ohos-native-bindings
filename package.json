@@ -1,0 +1,41 @@
+{
+  "name": "ohos-native-bindings-workspace",
+  "version": "0.1.0",
+  "private": true,
+  "description": "Rust bindings, HarmonyOS UI demos, and end-to-end tests",
+  "scripts": {
+    "init": "pnpm run prek:validate && pnpm run prek:install",
+    "ready": "pnpm run format && pnpm run prek:check && pnpm run check && pnpm run lint && git status --short",
+    "check": "pnpm run check:rust",
+    "check:rust": "cargo check --workspace --exclude generate --target aarch64-unknown-linux-ohos",
+    "format": "pnpm run format:rust && pnpm run format:toml && pnpm run format:ui",
+    "format:check": "pnpm run format:rust:check && pnpm run format:toml:check",
+    "format:rust": "cargo fmt --all",
+    "format:rust:check": "cargo fmt --all -- --check",
+    "format:toml": "taplo format",
+    "format:toml:check": "taplo format --check",
+    "format:ui": "pnpm --filter @ohos-rs/examples-ui run format",
+    "lint": "pnpm run lint:rust && pnpm run lint:ui",
+    "lint:rust": "cargo clippy --workspace --exclude generate --target aarch64-unknown-linux-ohos --all-targets --all-features -- -D warnings",
+    "lint:ui": "pnpm --filter @ohos-rs/examples-ui run lint",
+    "test:ui": "pnpm --filter @ohos-rs/examples-ui run test",
+    "test:ui:xcomponent": "pnpm --filter @ohos-rs/examples-ui run test:qemu:xcomponent",
+    "ui:build": "pnpm --filter @ohos-rs/examples-ui run build:hap",
+    "ui:clean": "pnpm --filter @ohos-rs/examples-ui run clean",
+    "ui:install": "pnpm --filter @ohos-rs/examples-ui run install:hap",
+    "ui:run": "pnpm --filter @ohos-rs/examples-ui run run:device",
+    "ui:start": "pnpm --filter @ohos-rs/examples-ui run start",
+    "ui:sync": "pnpm --filter @ohos-rs/examples-ui run sync:rust",
+    "prek:check": "prek run --all-files --show-diff-on-failure",
+    "prek:install": "prek install --config prek.toml --hook-type pre-commit --prepare-hooks --overwrite",
+    "prek:validate": "prek validate-config prek.toml"
+  },
+  "devDependencies": {
+    "@j178/prek": "^0.4.14",
+    "@taplo/cli": "^0.7.0"
+  },
+  "engines": {
+    "node": ">=20.19.0"
+  },
+  "packageManager": "pnpm@10.34.5"
+}

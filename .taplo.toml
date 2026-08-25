@@ -5,6 +5,7 @@ include = [
   "sys/**/*.toml",
   ".taplo.toml",
   ".typos.toml",
+  "prek.toml",
   "examples/**/*.toml",
 ]
 

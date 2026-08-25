@@ -1,0 +1,329 @@
+name: PR E2E
+
+on:
+  pull_request:
+    types: [opened, reopened, synchronize]
+
+concurrency:
+  group: pr-e2e-${{ github.event.pull_request.number }}
+  cancel-in-progress: true
+
+permissions:
+  contents: read
+
+jobs:
+  xcomponent-qemu:
+    name: XComponent QEMU E2E
+    runs-on: ubuntu-22.04
+    timeout-minutes: 60
+    env:
+      GUEST_FATAL_PATTERN: 'Kernel panic - not syncing|critical service crashed|ExecReboot panic|sysrq: Trigger a crash|(composer_host|render_service).*exit with signal[[:space:]]*:[[:space:]]*11'
+      GITHUB_TOKEN: ${{ github.token }}
+      HDC_TARGET: 127.0.0.1:5555
+      OHOS_QEMU_RELEASE_TAG: v20260818
+      QEMU_ACCEL: auto
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup OpenHarmony SDK
+        uses: openharmony-rs/setup-ohos-sdk@v1.0.1
+        with:
+          version: "6.1"
+          cache: true
+          mirror: true
+
+      - name: Configure OpenHarmony SDK tools
+        shell: bash
+        run: |
+          set -euo pipefail
+          diagnostics_dir="$RUNNER_TEMP/ohos-qemu-diagnostics/e2e"
+          mkdir -p "$diagnostics_dir"
+          echo "E2E_DIAGNOSTICS_DIR=$diagnostics_dir" >> "$GITHUB_ENV"
+
+          if [ ! -d "${OHOS_BASE_SDK_HOME:?}/ets" ]; then
+            echo "::error::The OpenHarmony ETS SDK component is missing under $OHOS_BASE_SDK_HOME."
+            exit 1
+          fi
+          hdc_bin="$(
+            find "$OHOS_BASE_SDK_HOME" -path '*/toolchains/hdc' -type f -perm -111 -print -quit \
+              2>/dev/null || true
+          )"
+          if [ -z "$hdc_bin" ]; then
+            echo "::error::hdc was not found under OHOS_BASE_SDK_HOME=$OHOS_BASE_SDK_HOME"
+            find "$OHOS_BASE_SDK_HOME" -maxdepth 3 -type d -print | sort
+            exit 1
+          fi
+          echo "HDC_BIN=$hdc_bin" >> "$GITHUB_ENV"
+          dirname "$hdc_bin" >> "$GITHUB_PATH"
+          echo "Using hdc: $hdc_bin"
+
+      - name: Setup Rust
+        uses: dtolnay/rust-toolchain@master
+        with:
+          toolchain: stable
+          targets: x86_64-unknown-linux-ohos
+
+      - name: Setup pnpm
+        uses: pnpm/action-setup@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: "22"
+          cache: pnpm
+
+      - name: Cache E2E tools and QEMU image
+        uses: actions/cache@v4
+        with:
+          path: |
+            ~/.cargo/bin/ohrs
+            ~/.cargo/registry
+            ~/.cargo/git
+            ~/.ohos-qemu
+            examples-ui/.tools
+          key: e2e-${{ runner.os }}-x86_64-${{ env.OHOS_QEMU_RELEASE_TAG }}-${{ hashFiles('pnpm-lock.yaml', 'examples-ui/scripts/build-hap.sh') }}
+
+      - name: Install workspace and Rust build tools
+        shell: bash
+        run: |
+          set -euo pipefail
+          pnpm install --frozen-lockfile
+          if ! command -v ohrs >/dev/null 2>&1; then
+            cargo install ohrs --version 1.5.0 --locked
+          fi
+
+      - name: Install host QEMU
+        shell: bash
+        run: |
+          set -euo pipefail
+          diagnostics_dir="$RUNNER_TEMP/ohos-qemu-diagnostics"
+          mkdir -p "$diagnostics_dir"
+
+          if ! sudo apt-get -o Acquire::Retries=3 update; then
+            echo "::error::Failed to update apt package indexes."
+            exit 1
+          fi
+          if ! sudo apt-get -o Acquire::Retries=3 install -y --no-install-recommends qemu-system-x86; then
+            echo "::error::Failed to install qemu-system-x86."
+            exit 1
+          fi
+
+          echo 'KERNEL=="kvm", GROUP="kvm", MODE="0666", OPTIONS+="static_node=kvm"' \
+            | sudo tee /etc/udev/rules.d/99-kvm4all.rules
+          sudo udevadm control --reload-rules || true
+          sudo udevadm trigger --name-match=kvm || true
+
+          if [ ! -c /dev/kvm ]; then
+            echo "::error::This runner does not expose /dev/kvm; the full system E2E must not fall back to TCG."
+            exit 1
+          fi
+          if ! sudo chmod 666 /dev/kvm; then
+            echo "::error::Failed to update /dev/kvm permissions."
+            exit 1
+          fi
+          ls -l /dev/kvm | tee "$diagnostics_dir/kvm.log"
+          if [ ! -r /dev/kvm ] || [ ! -w /dev/kvm ]; then
+            echo "::error::The runner user cannot read and write /dev/kvm after applying permissions."
+            exit 1
+          fi
+          if ! qemu-system-x86_64 -accel help 2>&1 \
+            | tee "$diagnostics_dir/qemu-accelerators.log"; then
+            echo "::error::Failed to query qemu-system-x86_64 accelerators."
+            exit 1
+          fi
+          if ! grep -qw kvm "$diagnostics_dir/qemu-accelerators.log"; then
+            echo "::error::qemu-system-x86_64 does not provide the KVM accelerator."
+            exit 1
+          fi
+          qemu-system-x86_64 --version | tee "$diagnostics_dir/qemu-version.log"
+
+      - name: Install OpenHarmony QEMU image
+        shell: bash
+        run: |
+          set -euo pipefail
+          launcher="$(
+            find "$HOME/.ohos-qemu" -path '*/launch/linux.sh' -type f -print -quit 2>/dev/null \
+              || true
+          )"
+          if [ -z "$launcher" ]; then
+            curl --fail --show-error --silent --location \
+              "https://raw.githubusercontent.com/harmony-contrib/ohos-qemu/${OHOS_QEMU_RELEASE_TAG}/scripts/install.sh" \
+              | bash -s -- \
+                --release "$OHOS_QEMU_RELEASE_TAG" \
+                --arch x86_64 \
+                --device-type phone \
+                --without-hap-signer
+          fi
+
+      - name: Start OpenHarmony QEMU
+        shell: bash
+        run: |
+          set -euo pipefail
+          launcher="$(find "$HOME/.ohos-qemu" -path '*/launch/linux.sh' -type f -print -quit 2>/dev/null || true)"
+          test -n "$launcher"
+          nohup env \
+            QEMU_DISPLAY=none \
+            QEMU_ACCEL="$QEMU_ACCEL" \
+            QEMU_HDC_HOST_PORT=5555 \
+            "$launcher" >"$RUNNER_TEMP/ohos-qemu.log" 2>&1 </dev/null &
+          qemu_pid=$!
+          echo "$qemu_pid" >"$RUNNER_TEMP/ohos-qemu.pid"
+          echo "QEMU PID: $qemu_pid"
+
+          sleep 1
+          if ! kill -0 "$qemu_pid" 2>/dev/null; then
+            echo "QEMU exited immediately" >&2
+            tail -200 "$RUNNER_TEMP/ohos-qemu.log" >&2 || true
+            exit 1
+          fi
+
+          kvm_verified=false
+          for attempt in $(seq 1 20); do
+            for fd in "/proc/$qemu_pid/fd/"*; do
+              [ -e "$fd" ] || continue
+              if [ "$(readlink "$fd" 2>/dev/null || true)" = /dev/kvm ]; then
+                kvm_verified=true
+                break 2
+              fi
+            done
+            if ! kill -0 "$qemu_pid" 2>/dev/null; then
+              break
+            fi
+            sleep 0.5
+          done
+          if [ "$kvm_verified" != true ]; then
+            echo "QEMU did not open /dev/kvm; refusing an implicit TCG fallback" >&2
+            tail -200 "$RUNNER_TEMP/ohos-qemu.log" >&2 || true
+            exit 1
+          fi
+          echo "KVM acceleration verified from QEMU file descriptors."
+
+      - name: Wait for HDC device
+        timeout-minutes: 5
+        shell: bash
+        run: |
+          set -euo pipefail
+          deadline=$((SECONDS + 240))
+          attempt=0
+          diagnostics_dir="$RUNNER_TEMP/ohos-qemu-diagnostics"
+          tconn_log="$diagnostics_dir/hdc-tconn.log"
+          mkdir -p "$diagnostics_dir"
+          timeout 10s "$HDC_BIN" start || true
+
+          while ((SECONDS < deadline)); do
+            attempt=$((attempt + 1))
+            timeout 10s "$HDC_BIN" tconn "$HDC_TARGET" >"$tconn_log" 2>&1 || true
+            targets="$(timeout 10s "$HDC_BIN" list targets -v 2>/dev/null || true)"
+            if awk -v target="$HDC_TARGET" '
+              $1 == target {
+                for (field = 2; field <= NF; field++) {
+                  if ($field == "Connected") found = 1
+                }
+              }
+              END { exit found ? 0 : 1 }
+            ' <<<"$targets"; then
+              echo "$targets"
+              exit 0
+            fi
+
+            if ! kill -0 "$(cat "$RUNNER_TEMP/ohos-qemu.pid")" 2>/dev/null; then
+              echo "QEMU exited before HDC became available" >&2
+              tail -200 "$RUNNER_TEMP/ohos-qemu.log" >&2 || true
+              exit 1
+            fi
+            if grep -aiEq "$GUEST_FATAL_PATTERN" "$RUNNER_TEMP/ohos-qemu.log"; then
+              echo "OpenHarmony guest hit a fatal error before HDC became available" >&2
+              grep -ainE "$GUEST_FATAL_PATTERN" "$RUNNER_TEMP/ohos-qemu.log" | tail -20 >&2 || true
+              tail -200 "$RUNNER_TEMP/ohos-qemu.log" >&2 || true
+              exit 1
+            fi
+            if ((attempt % 10 == 0)); then
+              echo "Still waiting for $HDC_TARGET to connect (elapsed=${SECONDS}s)"
+              cat "$tconn_log" || true
+              echo "$targets"
+              if (echo >"/dev/tcp/127.0.0.1/${HDC_TARGET##*:}") 2>/dev/null; then
+                echo "TCP port $HDC_TARGET is open"
+              else
+                echo "TCP port $HDC_TARGET is not open"
+              fi
+              tail -40 "$RUNNER_TEMP/ohos-qemu.log" || true
+            fi
+            sleep 3
+          done
+          echo "HDC target $HDC_TARGET did not connect within 240 seconds" >&2
+          cat "$tconn_log" >&2 || true
+          timeout 10s "$HDC_BIN" list targets -v >&2 || true
+          tail -200 "$RUNNER_TEMP/ohos-qemu.log" >&2 || true
+          exit 1
+
+      - name: Wait for OpenHarmony account services
+        timeout-minutes: 5
+        shell: bash
+        run: |
+          set -euo pipefail
+          deadline=$((SECONDS + 240))
+          attempt=0
+
+          while ((SECONDS < deadline)); do
+            attempt=$((attempt + 1))
+            state="$(
+              timeout 10s "$HDC_BIN" -t "$HDC_TARGET" shell '
+                echo "account.ready=$(param get bootevent.account.ready)"
+                hidumper -s AccountMgr -a "-os_account_infos"
+              ' 2>/dev/null | tr -d '\r' || true
+            )"
+            if grep -Eq 'account\.ready=(true|"true")' <<<"$state" \
+              && grep -Eq 'ID:[[:space:]]*100([^0-9]|$)' <<<"$state" \
+              && grep -Eq 'isForeground:[[:space:]]*(1|true)([^[:alnum:]]|$)' <<<"$state"; then
+              echo "$state"
+              exit 0
+            fi
+            if ! kill -0 "$(cat "$RUNNER_TEMP/ohos-qemu.pid")" 2>/dev/null; then
+              echo "QEMU exited before OpenHarmony became ready" >&2
+              tail -200 "$RUNNER_TEMP/ohos-qemu.log" >&2 || true
+              exit 1
+            fi
+            if grep -aiEq "$GUEST_FATAL_PATTERN" "$RUNNER_TEMP/ohos-qemu.log"; then
+              echo "OpenHarmony guest hit a fatal error before becoming ready" >&2
+              grep -ainE "$GUEST_FATAL_PATTERN" "$RUNNER_TEMP/ohos-qemu.log" | tail -20 >&2 || true
+              tail -200 "$RUNNER_TEMP/ohos-qemu.log" >&2 || true
+              exit 1
+            fi
+            if ((attempt % 10 == 0)); then
+              echo "Still waiting for AccountMgr and foreground user 100 (elapsed=${SECONDS}s)"
+              tail -40 "$RUNNER_TEMP/ohos-qemu.log" || true
+            fi
+            sleep 3
+          done
+          echo "OpenHarmony account services did not become ready within 240 seconds" >&2
+          tail -200 "$RUNNER_TEMP/ohos-qemu.log" >&2 || true
+          exit 1
+
+      - name: Run XComponent E2E
+        timeout-minutes: 30
+        run: pnpm run test:ui:xcomponent
+
+      - name: Verify OpenHarmony guest health
+        if: ${{ !cancelled() }}
+        shell: bash
+        run: |
+          set -euo pipefail
+          if ! kill -0 "$(cat "$RUNNER_TEMP/ohos-qemu.pid")" 2>/dev/null; then
+            echo "QEMU exited during XComponent E2E" >&2
+            exit 1
+          fi
+          if grep -aiEq "$GUEST_FATAL_PATTERN" "$RUNNER_TEMP/ohos-qemu.log"; then
+            echo "OpenHarmony guest hit a fatal error during XComponent E2E" >&2
+            grep -ainE "$GUEST_FATAL_PATTERN" "$RUNNER_TEMP/ohos-qemu.log" | tail -20 >&2 || true
+            exit 1
+          fi
+
+      - name: Stop QEMU
+        if: ${{ always() }}
+        shell: bash
+        run: |
+          if [ -f "$RUNNER_TEMP/ohos-qemu.pid" ]; then
+            kill "$(cat "$RUNNER_TEMP/ohos-qemu.pid")" 2>/dev/null || true
+          fi

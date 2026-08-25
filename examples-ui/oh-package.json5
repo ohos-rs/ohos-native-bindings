@@ -1,0 +1,8 @@
+{
+  "modelVersion": "6.0.0",
+  "description": "Minimal OHOS HAP fixture for arkdown integration tests.",
+  "dependencies": {},
+  "devDependencies": {
+    "@ohos/hypium": "1.0.24"
+  }
+}

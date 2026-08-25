@@ -1,11 +1,11 @@
-name: PR Check
+name: PR Lint and Format
 
 on:
   pull_request:
     types: [opened, reopened, synchronize]
 
 concurrency:
-  group: pr-${{ github.event.pull_request.number }}
+  group: pr-lint-format-${{ github.event.pull_request.number }}
   cancel-in-progress: true
 
 permissions:
@@ -15,22 +15,41 @@ jobs:
   check:
     runs-on: ubuntu-latest
     steps:
-      - name: checkout
+      - name: Checkout
         uses: actions/checkout@v4
 
       - name: Setup OpenHarmony SDK
         uses: openharmony-rs/setup-ohos-sdk@v0.1
-        id: setup-ohos
         with:
-          version: '5.0.0'
+          version: "5.0.0"
 
-      - name: setup Rust
+      - name: Setup Rust
         uses: dtolnay/rust-toolchain@master
         with:
-          toolchain: "stable"
-          components: "clippy"
+          toolchain: stable
+          components: clippy
 
-      - name: Check
+      - name: Setup pnpm
+        uses: pnpm/action-setup@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: "22"
+          cache: pnpm
+
+      - name: Install workspace tools
+        run: pnpm install --frozen-lockfile
+
+      - name: Check workspace configuration and UI
+        run: |
+          pnpm run prek:validate
+          pnpm run format:toml:check
+          pnpm run format:ui
+          git diff --exit-code
+          pnpm run lint:ui
+
+      - name: Check Rust
         run: |
           cargo fmt --check
           cargo clippy --workspace --exclude generate --target aarch64-unknown-linux-ohos --all-targets --all-features -- -D warnings
