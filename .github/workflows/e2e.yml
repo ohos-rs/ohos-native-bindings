@@ -31,16 +31,19 @@ jobs:
         uses: openharmony-rs/setup-ohos-sdk@v1.0.1
         with:
           version: "6.1"
-          components: "native;toolchains"
           cache: true
           mirror: true
 
-      - name: Configure HDC
+      - name: Configure OpenHarmony SDK tools
         shell: bash
         run: |
           set -euo pipefail
+          if [ ! -d "${OHOS_BASE_SDK_HOME:?}/ets" ]; then
+            echo "::error::The OpenHarmony ETS SDK component is missing under $OHOS_BASE_SDK_HOME."
+            exit 1
+          fi
           hdc_bin="$(
-            find "${OHOS_BASE_SDK_HOME:?}" -path '*/toolchains/hdc' -type f -perm -111 -print -quit \
+            find "$OHOS_BASE_SDK_HOME" -path '*/toolchains/hdc' -type f -perm -111 -print -quit \
               2>/dev/null || true
           )"
           if [ -z "$hdc_bin" ]; then
