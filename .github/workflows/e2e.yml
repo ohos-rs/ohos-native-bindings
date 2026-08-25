@@ -30,7 +30,7 @@ jobs:
       - name: Setup OpenHarmony SDK
         uses: openharmony-rs/setup-ohos-sdk@v1.0.1
         with:
-          version: "5.0.0"
+          version: "6.1"
           components: "native;toolchains"
           cache: true
           mirror: true
@@ -200,11 +200,14 @@ jobs:
           set -euo pipefail
           deadline=$((SECONDS + 240))
           attempt=0
+          diagnostics_dir="$RUNNER_TEMP/ohos-qemu-diagnostics"
+          tconn_log="$diagnostics_dir/hdc-tconn.log"
+          mkdir -p "$diagnostics_dir"
           timeout 10s "$HDC_BIN" start || true
 
           while ((SECONDS < deadline)); do
             attempt=$((attempt + 1))
-            timeout 10s "$HDC_BIN" tconn "$HDC_TARGET" >/dev/null 2>&1 || true
+            timeout 10s "$HDC_BIN" tconn "$HDC_TARGET" >"$tconn_log" 2>&1 || true
             targets="$(timeout 10s "$HDC_BIN" list targets -v 2>/dev/null || true)"
             if awk -v target="$HDC_TARGET" '
               $1 == target {
@@ -231,12 +234,19 @@ jobs:
             fi
             if ((attempt % 10 == 0)); then
               echo "Still waiting for $HDC_TARGET to connect (elapsed=${SECONDS}s)"
+              cat "$tconn_log" || true
               echo "$targets"
+              if (echo >"/dev/tcp/127.0.0.1/${HDC_TARGET##*:}") 2>/dev/null; then
+                echo "TCP port $HDC_TARGET is open"
+              else
+                echo "TCP port $HDC_TARGET is not open"
+              fi
               tail -40 "$RUNNER_TEMP/ohos-qemu.log" || true
             fi
             sleep 3
           done
           echo "HDC target $HDC_TARGET did not connect within 240 seconds" >&2
+          cat "$tconn_log" >&2 || true
           timeout 10s "$HDC_BIN" list targets -v >&2 || true
           tail -200 "$RUNNER_TEMP/ohos-qemu.log" >&2 || true
           exit 1
