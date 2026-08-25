@@ -59,27 +59,41 @@ install_haps() {
 start_gesture_host() {
   local label="$1"
   local start_log="$DIAGNOSTICS_DIR/start-$label.log"
+  local attempt_log
+  local attempt
   local status
 
-  # Building and reinstalling the per-module test HAP can outlive the default
-  # screen timeout on a software-emulated QEMU guest. Wake it immediately
-  # before starting the UI host so `aa start` does not fail on the lock screen.
-  if "${HDC[@]}" shell "power-shell timeout -o 86400000" >/dev/null 2>&1; then
-    screen_timeout_overridden=1
-  fi
-  "${HDC[@]}" shell "power-shell wakeup" >/dev/null 2>&1 || true
+  # Wake immediately before each launch as a second guard after the timeout
+  # override applied before the potentially long native and HAP builds.
+  : >"$start_log"
 
-  set +e
-  "${HDC[@]}" shell "aa start -a GestureTestAbility -b $BUNDLE" >"$start_log" 2>&1
-  status=$?
-  set -e
-  cat "$start_log"
-  if [ "$status" -ne 0 ] \
-    || grep -Eqi '(^|[[:space:]])error:|failed to start|does not exist|not installed' "$start_log"; then
-    echo "::error::GestureTestAbility failed to start during $label"
-    echo "GestureTestAbility failed to start during $label" >&2
-    return 1
-  fi
+  for attempt in 1 2 3; do
+    attempt_log="$DIAGNOSTICS_DIR/start-$label-attempt-$attempt.log"
+    "${HDC[@]}" shell "power-shell wakeup" >/dev/null 2>&1 || true
+    if [ "$attempt" -gt 1 ]; then
+      sleep 5
+    fi
+
+    set +e
+    "${HDC[@]}" shell "aa start -a GestureTestAbility -b $BUNDLE" >"$attempt_log" 2>&1
+    status=$?
+    set -e
+    cat "$attempt_log" | tee -a "$start_log"
+    if [ "$status" -eq 0 ] \
+      && ! grep -Eqi '(^|[[:space:]])error:|failed to start|does not exist|not installed' "$attempt_log"; then
+      return 0
+    fi
+    if ! grep -Eqi 'screen is locked|unlock screen failed' "$attempt_log"; then
+      break
+    fi
+    if [ "$attempt" -lt 3 ]; then
+      echo "    screen is still locked; retrying ability start ($attempt/3)"
+    fi
+  done
+
+  echo "::error::GestureTestAbility failed to start during $label"
+  echo "GestureTestAbility failed to start during $label" >&2
+  return 1
 }
 
 # module dir name -> test file stem (AbilityAccessControl.test.ets etc.)
@@ -128,6 +142,34 @@ restore_list() {
 }
 
 screen_timeout_overridden=0
+prepare_gesture_device() {
+  if "${HDC[@]}" shell "power-shell timeout -o 86400000" >/dev/null 2>&1; then
+    screen_timeout_overridden=1
+  fi
+  "${HDC[@]}" shell "power-shell wakeup" >/dev/null 2>&1 || true
+}
+
+verify_gesture_libraries() {
+  local hap="$1"
+  local abi_dir
+  local entries
+  local library
+
+  case "${OHOS_ARCH:-arm64}" in
+    arm64|aarch) abi_dir="arm64-v8a" ;;
+    x86_64|x64) abi_dir="x86_64" ;;
+    *) echo "error: unsupported OHOS_ARCH=${OHOS_ARCH:-}" >&2; return 1 ;;
+  esac
+  entries="$(unzip -Z1 "$hap")"
+  for library in libarkui_test.so libxcomponent_test.so libxcomponent_multi_test.so; do
+    if ! grep -Fxq "libs/$abi_dir/$library" <<<"$entries"; then
+      echo "::error::$hap does not contain libs/$abi_dir/$library"
+      echo "missing libs/$abi_dir/$library in $hap" >&2
+      return 1
+    fi
+  done
+}
+
 cleanup() {
   restore_list
   if [ "$screen_timeout_overridden" -eq 1 ]; then
@@ -161,6 +203,10 @@ for m in "${selected[@]}"; do
   esac
 done
 if [ "$needs_gesture_host" -eq 1 ]; then
+  # Building and reinstalling the per-module HAPs can outlive the default
+  # screen timeout. Apply the override before any build begins, while a fresh
+  # QEMU guest is still unlocked.
+  prepare_gesture_device
   echo "==> building main HAP for automatic gesture host"
   pnpm --silent run build:hap
   # Start from a clean signer/provision state. The SDK-supplied OpenHarmony
@@ -171,6 +217,10 @@ fi
 # Make sure the latest ohosTest HAP (with the full List) is installed once.
 echo "==> building ohosTest HAP (full List)"
 pnpm --silent run build:test
+if [ "$needs_gesture_host" -eq 1 ]; then
+  verify_gesture_libraries "$MAIN_HAP"
+  verify_gesture_libraries "$TEST_HAP"
+fi
 install_haps full
 
 total_pass=0

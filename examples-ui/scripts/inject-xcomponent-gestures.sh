@@ -86,7 +86,7 @@ exercise_surface() {
   echo "    injecting tap / slow pan / fast swipe / multi-touch into $node_id"
   hdc_run shell uitest uiInput click "$POINT_X1" "$POINT_Y" >/dev/null
   hdc_run shell uinput -T -m "$POINT_X1" "$POINT_Y" "$POINT_X2" "$POINT_Y" 1000 >/dev/null
-  hdc_run shell uitest uiInput swipe "$POINT_X1" "$POINT_Y" "$POINT_X2" "$POINT_Y" 4000 >/dev/null
+  hdc_run shell uitest uiInput fling "$POINT_X1" "$POINT_Y" "$POINT_X2" "$POINT_Y" 4000 >/dev/null
   hdc_run shell uinput -T -m \
     "$POINT_X1" "$POINT_Y" "$POINT_X2" "$POINT_Y" \
     "$POINT_X2" "$POINT_Y2" "$POINT_X1" "$POINT_Y2" 500 >/dev/null
