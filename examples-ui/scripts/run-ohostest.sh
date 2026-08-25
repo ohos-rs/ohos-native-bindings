@@ -61,6 +61,14 @@ start_gesture_host() {
   local start_log="$DIAGNOSTICS_DIR/start-$label.log"
   local status
 
+  # Building and reinstalling the per-module test HAP can outlive the default
+  # screen timeout on a software-emulated QEMU guest. Wake it immediately
+  # before starting the UI host so `aa start` does not fail on the lock screen.
+  if "${HDC[@]}" shell "power-shell timeout -o 86400000" >/dev/null 2>&1; then
+    screen_timeout_overridden=1
+  fi
+  "${HDC[@]}" shell "power-shell wakeup" >/dev/null 2>&1 || true
+
   set +e
   "${HDC[@]}" shell "aa start -a GestureTestAbility -b $BUNDLE" >"$start_log" 2>&1
   status=$?
@@ -118,7 +126,15 @@ fi
 restore_list() {
   cp "$LIST_BACKUP" "$LIST"
 }
-trap restore_list EXIT
+
+screen_timeout_overridden=0
+cleanup() {
+  restore_list
+  if [ "$screen_timeout_overridden" -eq 1 ]; then
+    "${HDC[@]}" shell "power-shell timeout -r" >/dev/null 2>&1 || true
+  fi
+}
+trap cleanup EXIT
 
 selected=()
 if [ $# -gt 0 ]; then
@@ -232,7 +248,7 @@ EOF
 done
 
 # Restore the full List so the repo stays pristine.
-restore_list
+cleanup
 trap - EXIT
 
 echo
