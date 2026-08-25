@@ -28,9 +28,29 @@ jobs:
         uses: actions/checkout@v4
 
       - name: Setup OpenHarmony SDK
-        uses: openharmony-rs/setup-ohos-sdk@v0.1
+        uses: openharmony-rs/setup-ohos-sdk@v1.0.1
         with:
           version: "5.0.0"
+          components: "native;toolchains"
+          cache: true
+          mirror: true
+
+      - name: Configure HDC
+        shell: bash
+        run: |
+          set -euo pipefail
+          hdc_bin="$(
+            find "${OHOS_BASE_SDK_HOME:?}" -path '*/toolchains/hdc' -type f -perm -111 -print -quit \
+              2>/dev/null || true
+          )"
+          if [ -z "$hdc_bin" ]; then
+            echo "::error::hdc was not found under OHOS_BASE_SDK_HOME=$OHOS_BASE_SDK_HOME"
+            find "$OHOS_BASE_SDK_HOME" -maxdepth 3 -type d -print | sort
+            exit 1
+          fi
+          echo "HDC_BIN=$hdc_bin" >> "$GITHUB_ENV"
+          dirname "$hdc_bin" >> "$GITHUB_PATH"
+          echo "Using hdc: $hdc_bin"
 
       - name: Setup Rust
         uses: dtolnay/rust-toolchain@master
@@ -178,12 +198,12 @@ jobs:
         run: |
           set -euo pipefail
           attempts=300
-          hdc start || true
+          "$HDC_BIN" start || true
 
           for attempt in $(seq 1 "$attempts"); do
-            hdc tconn "$HDC_TARGET" >/dev/null 2>&1 || true
+            "$HDC_BIN" tconn "$HDC_TARGET" >/dev/null 2>&1 || true
             state="$(
-              hdc -t "$HDC_TARGET" shell '
+              "$HDC_BIN" -t "$HDC_TARGET" shell '
                 echo "account.ready=$(param get bootevent.account.ready)"
                 hidumper -s AccountMgr -a "-os_account_infos"
               ' 2>/dev/null | tr -d '\r' || true
@@ -241,9 +261,11 @@ jobs:
             "$RUNNER_TEMP/ohos-qemu-diagnostics/qemu.log" 2>/dev/null || true
           grep -ainE "$GUEST_FATAL_PATTERN" "$RUNNER_TEMP/ohos-qemu.log" \
             >"$RUNNER_TEMP/ohos-qemu-diagnostics/guest-fatal.log" 2>/dev/null || true
-          hdc -t "$HDC_TARGET" shell \
-            'param get bootevent.account.ready; bm dump -a; hilog -x | tail -1000' \
-            >"$RUNNER_TEMP/ohos-qemu-diagnostics/guest.log" 2>&1 || true
+          if [ -n "${HDC_BIN:-}" ] && [ -x "$HDC_BIN" ]; then
+            "$HDC_BIN" -t "$HDC_TARGET" shell \
+              'param get bootevent.account.ready; bm dump -a; hilog -x | tail -1000' \
+              >"$RUNNER_TEMP/ohos-qemu-diagnostics/guest.log" 2>&1 || true
+          fi
 
       - name: Stop QEMU
         if: ${{ always() }}
