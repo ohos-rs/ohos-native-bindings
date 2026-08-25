@@ -5,11 +5,13 @@
 set -euo pipefail
 
 BUNDLE="com.richerfu.h_openconnect"
+DIAGNOSTICS_DIR="${E2E_DIAGNOSTICS_DIR:-$(cd "$(dirname "$0")/.." && pwd)/.tools/e2e-diagnostics}"
 LAYOUT_PATH="/data/local/tmp/xcomponent-gesture-layout.json"
 HDC=(hdc)
 if [ -n "${HDC_TARGET:-}" ]; then
   HDC=(hdc -t "${HDC_TARGET}")
 fi
+mkdir -p "$DIAGNOSTICS_DIR"
 
 fail() {
   echo "gesture injection failed: $*" >&2
@@ -41,6 +43,7 @@ wait_until_ready() {
     readiness="$(layout_attribute "$layout" gesture-test-readiness text 2>/dev/null || true)"
     if [ "$readiness" = "gesture-test-ready" ]; then
       INITIAL_LAYOUT="$layout"
+      printf '%s\n' "$layout" >"$DIAGNOSTICS_DIR/gesture-layout-ready.json"
       return 0
     fi
     case "$readiness" in
@@ -48,6 +51,10 @@ wait_until_ready() {
     esac
     sleep 1
   done
+  printf '%s\n' "$layout" >"$DIAGNOSTICS_DIR/gesture-layout-last.json"
+  hdc_run shell \
+    'hilog -x | grep -iE "GestureTestAbility|XComponentGestureHost|h_openconnect|arkui_test|render_service" | tail -400' \
+    >"$DIAGNOSTICS_DIR/gesture-host-hilog.log" 2>&1 || true
   fail "GestureTestAbility did not become ready"
 }
 
@@ -98,6 +105,7 @@ assert_results() {
   sleep 1
   local layout input_result
   layout="$(dump_layout)"
+  printf '%s\n' "$layout" >"$DIAGNOSTICS_DIR/gesture-layout-result.json"
   input_result="$(layout_attribute "$layout" xcomponent-input-result text)"
 
   assert_counter_at_least "$input_result" rawDown 3

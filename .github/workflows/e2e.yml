@@ -20,6 +20,7 @@ jobs:
       GUEST_FATAL_PATTERN: 'Kernel panic - not syncing|critical service crashed|ExecReboot panic|sysrq: Trigger a crash|(composer_host|render_service).*exit with signal[[:space:]]*:[[:space:]]*11'
       GITHUB_TOKEN: ${{ github.token }}
       HDC_TARGET: 127.0.0.1:5555
+      E2E_DIAGNOSTICS_DIR: ${{ runner.temp }}/ohos-qemu-diagnostics/e2e
       OHOS_QEMU_RELEASE_TAG: v20260818
       QEMU_ACCEL: auto
 
