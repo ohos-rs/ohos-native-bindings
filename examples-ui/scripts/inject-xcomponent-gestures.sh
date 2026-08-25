@@ -14,6 +14,7 @@ fi
 mkdir -p "$DIAGNOSTICS_DIR"
 
 fail() {
+  echo "::error::XComponent gesture injection failed: $*"
   echo "gesture injection failed: $*" >&2
   exit 1
 }

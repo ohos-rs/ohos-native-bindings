@@ -306,6 +306,7 @@ jobs:
         run: pnpm run test:ui:xcomponent
 
       - name: Verify OpenHarmony guest health
+        if: ${{ !cancelled() }}
         shell: bash
         run: |
           set -euo pipefail

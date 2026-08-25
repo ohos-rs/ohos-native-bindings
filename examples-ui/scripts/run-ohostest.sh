@@ -38,6 +38,7 @@ mkdir -p "$DIAGNOSTICS_DIR"
 install_haps() {
   local label="$1"
   local install_log="$DIAGNOSTICS_DIR/install-$label.log"
+  local summary
   local status
 
   set +e
@@ -48,6 +49,8 @@ install_haps() {
   if [ "$status" -ne 0 ] \
     || grep -Eqi '\[Fail\]|(^|[[:space:]])error:|failed to install' "$install_log" \
     || ! grep -Eqi 'success|successfully' "$install_log"; then
+    summary="$(grep -Ei '\[Fail\]|(^|[[:space:]])error:|failed to install' "$install_log" | tail -1 || true)"
+    echo "::error::HAP installation failed during $label: ${summary:-no success marker returned by hdc}"
     echo "HAP installation failed during $label" >&2
     return 1
   fi
@@ -65,6 +68,7 @@ start_gesture_host() {
   cat "$start_log"
   if [ "$status" -ne 0 ] \
     || grep -Eqi '(^|[[:space:]])error:|failed to start|does not exist|not installed' "$start_log"; then
+    echo "::error::GestureTestAbility failed to start during $label"
     echo "GestureTestAbility failed to start during $label" >&2
     return 1
   fi
@@ -182,6 +186,7 @@ EOF
   build_log="$DIAGNOSTICS_DIR/build-test-$name.log"
   if ! pnpm --silent run build:test >"$build_log" 2>&1; then
     tail -200 "$build_log" >&2 || true
+    echo "::error::ohosTest HAP build failed for $name"
     echo "    BUILD FAILED for $name" >&2
     total_fail=$((total_fail + 1))
     failed_modules+=("$name(build)")
@@ -233,6 +238,7 @@ trap - EXIT
 echo
 echo "==== ohosTest summary: pass=$total_pass fail=$total_fail modules=${#selected[@]} ===="
 if [ ${#failed_modules[@]} -gt 0 ]; then
+  echo "::error::Failed E2E modules: ${failed_modules[*]}"
   echo "FAILED modules: ${failed_modules[*]}" >&2
   exit 1
 fi
