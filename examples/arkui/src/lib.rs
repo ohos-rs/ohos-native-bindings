@@ -194,7 +194,7 @@ impl MyApp {
     /// appear events.
     #[napi]
     pub fn create_gallery(&mut self) -> Result<(), ArkUIErrorCode> {
-        reset_xcomponent_gesture_events();
+        reset_xcomponent_gesture_event_counters();
 
         let mut list = List::new()?;
         list.percent_width(1.0)?;
@@ -357,13 +357,13 @@ impl MyApp {
     /// Read the raw touch and ArkUI system gesture state from ArkTS/E2E.
     #[napi]
     pub fn xcomponent_gesture_events(&self) -> String {
-        xcomponent_gesture_events()
+        current_xcomponent_gesture_events()
     }
 
     /// Clear the raw touch and ArkUI system gesture counters.
     #[napi]
     pub fn reset_xcomponent_gesture_events(&self) {
-        reset_xcomponent_gesture_events();
+        reset_xcomponent_gesture_event_counters();
     }
 }
 
@@ -372,7 +372,7 @@ impl MyApp {
         &mut self,
         xcomponent: &XComponent,
     ) -> Result<(), ArkUIErrorCode> {
-        reset_xcomponent_gesture_events();
+        reset_xcomponent_gesture_event_counters();
 
         xcomponent.set_x_component_id("arkui-xcomponent-gesture-demo")?;
         xcomponent.percent_width(1.0)?;
@@ -465,8 +465,7 @@ impl MyApp {
 }
 
 /// Raw native touch and ArkUI system gesture counters for UI/E2E runners.
-#[napi]
-pub fn xcomponent_gesture_events() -> String {
+fn current_xcomponent_gesture_events() -> String {
     let events = XCOMPONENT_GESTURE_EVENTS.lock().unwrap();
     format!(
         "rawDown={} rawMove={} rawUp={} rawCancel={} tap={} panAccept={} panUpdate={} panEnd={} panCancel={} swipe={} last={}",
@@ -485,7 +484,6 @@ pub fn xcomponent_gesture_events() -> String {
 }
 
 /// Reset the raw native touch and ArkUI system gesture counters.
-#[napi]
-pub fn reset_xcomponent_gesture_events() {
+fn reset_xcomponent_gesture_event_counters() {
     *XCOMPONENT_GESTURE_EVENTS.lock().unwrap() = XComponentGestureEvents::default();
 }

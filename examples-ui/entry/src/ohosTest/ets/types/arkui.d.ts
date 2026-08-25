@@ -2,12 +2,6 @@
 /* eslint-disable */
 
 import { NodeContent, UIContext } from "@kit.ArkUI";
-/** Reset the raw native touch and ArkUI system gesture counters. */
-export declare function resetXcomponentGestureEvents(): void;
-
-/** Raw native touch and ArkUI system gesture counters for UI/E2E runners. */
-export declare function xcomponentGestureEvents(): string;
-
 export declare class MyApp {
   constructor(slot: NodeContent);
   createNativeNode(): void;

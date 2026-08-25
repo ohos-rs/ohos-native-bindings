@@ -1,5 +1,5 @@
 import { NodeContent } from "@kit.ArkUI";
-import { MyApp, resetXcomponentGestureEvents, xcomponentGestureEvents } from "libarkui_test.so";
+import { MyApp } from "libarkui_test.so";
 
 /**
  * Startup-driven host for one ArkUI-native XComponent node.
@@ -21,7 +21,7 @@ struct XComponentGestureHost {
     try {
       this.arkuiApp = new MyApp(this.arkuiSlot);
       this.arkuiApp.createXcomponentGestureDemo();
-      resetXcomponentGestureEvents();
+      this.arkuiApp.resetXcomponentGestureEvents();
     } catch (error) {
       this.readiness = `gesture-test-error:${error}`;
     }
@@ -43,10 +43,12 @@ struct XComponentGestureHost {
 
   private refreshResults(): void {
     try {
-      this.inputResult = `xcomponent:${xcomponentGestureEvents()}`;
-      if (this.arkuiApp !== undefined) {
-        this.readiness = "gesture-test-ready";
+      const app: MyApp | undefined = this.arkuiApp;
+      if (app === undefined) {
+        return;
       }
+      this.inputResult = `xcomponent:${app.xcomponentGestureEvents()}`;
+      this.readiness = "gesture-test-ready";
     } catch (error) {
       this.readiness = `gesture-test-error:${error}`;
     }
