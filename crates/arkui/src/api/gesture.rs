@@ -60,8 +60,9 @@ use ohos_arkui_sys::{
 
 use crate::{
     check_arkui_status, ArkUIError, ArkUIResult, GestureData, GestureEventAction, GestureEventData,
-    GestureInterruptResult, GestureRecognizerState, GestureRecognizerType, InnerGestureData,
-    LongPressGestureData, PanGestureData, PinchGestureData, RotationGestureData, SwipeGestureData,
+    GestureInputData, GestureInterruptResult, GestureRecognizerState, GestureRecognizerType,
+    InnerGestureData, LongPressGestureData, PanGestureData, PinchGestureData, RotationGestureData,
+    SwipeGestureData,
 };
 
 thread_local! {
@@ -1618,6 +1619,26 @@ unsafe extern "C" fn target_receiver(event: *mut ArkUI_GestureEvent, extra_param
 
     let data = user_data.borrow();
     let event_action_type: GestureEventAction = OH_ArkUI_GestureEvent_GetActionType(event).into();
+    let input = GestureEventRef::from_raw(event)
+        .and_then(|event| event.raw_input_event())
+        .map(|input| {
+            let pointer_count = input.pointer_count();
+            GestureInputData {
+                event_type: input.event_type,
+                action: input.action,
+                source_type: input.source_type,
+                tool_type: input.tool_type,
+                x: input.pointer_x(),
+                y: input.pointer_y(),
+                window_x: input.pointer_window_x(),
+                window_y: input.pointer_window_y(),
+                display_x: input.pointer_display_x(),
+                display_y: input.pointer_display_y(),
+                timestamp: input.event_time(),
+                pointer_count,
+                pointer_id: (pointer_count > 0).then(|| input.pointer_id(0)),
+            }
+        });
 
     let event_data: GestureData = match data.gesture_type {
         GestureRecognizerType::LongPressGesture => {
@@ -1670,6 +1691,7 @@ unsafe extern "C" fn target_receiver(event: *mut ArkUI_GestureEvent, extra_param
             data: callback_data,
             event_action_type,
             event_action_data: event_data,
+            input,
         });
     }
 }
