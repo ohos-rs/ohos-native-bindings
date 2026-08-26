@@ -146,3 +146,7 @@ release = false
 [[package]]
 name = "xcomponent_test"
 release = false
+
+[[package]]
+name = "xcomponent_multi_test"
+release = false
