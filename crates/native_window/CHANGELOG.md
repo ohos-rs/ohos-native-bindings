@@ -7,7 +7,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
-## [0.2.5](https://github.com/ohos-rs/ohos-native-bindings/compare/ohos-native-window-binding-v0.2.4...ohos-native-window-binding-v0.2.5) - 2026-08-26
+## [0.3.0](https://github.com/ohos-rs/ohos-native-bindings/compare/ohos-native-window-binding-v0.2.4...ohos-native-window-binding-v0.3.0) - 2026-08-26
 
 ### Fixed
 
