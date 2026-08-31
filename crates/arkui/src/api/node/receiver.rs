@@ -18,20 +18,7 @@ pub(super) unsafe extern "C" fn node_event_receiver(event: *mut ArkUI_NodeEvent)
         return;
     }
     let handle = OH_ArkUI_NodeEvent_GetNodeHandle(event);
-    let Some(user_data) = super::ARK_UI_NATIVE_NODE_API_1
-        .with(|api| api.get_user_data(handle))
-        .ok()
-        .flatten()
-    else {
-        return;
-    };
-
-    // Only wrapper-installed pointers carry the magic + self-address header;
-    // foreign user_data (e.g. ArkTS bridges) is never dereferenced as a
-    // wrapper. SAFETY: the pointer came from a live node's user_data slot.
-    let Some(user_data_box) =
-        (unsafe { crate::common::user_data::classify_wrapper_user_data(user_data.as_ptr()) })
-    else {
+    let Some(wrapper) = crate::common::node_registry::resolve(handle) else {
         return;
     };
 
@@ -44,7 +31,7 @@ pub(super) unsafe extern "C" fn node_event_receiver(event: *mut ArkUI_NodeEvent)
     // a callback that touches its own node (set attributes, replace its
     // handler) must not trip a reentrant `RefCell` borrow.
     let callback = {
-        let Ok(node) = user_data_box.wrapper.try_borrow() else {
+        let Ok(node) = wrapper.try_borrow() else {
             // The wrapper is mutably borrowed further up the stack (native
             // code invoked us synchronously mid-mutation). Delivering the
             // event would alias that borrow; drop it instead.

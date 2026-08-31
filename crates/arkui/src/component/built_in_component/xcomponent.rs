@@ -16,7 +16,7 @@ use ohos_xcomponent_sys::OH_NativeXComponent_GetNativeXComponent;
 
 impl Clone for super::XComponent {
     fn clone(&self) -> Self {
-        Self(self.0.clone())
+        Self(self.0.borrowed_clone())
     }
 }
 

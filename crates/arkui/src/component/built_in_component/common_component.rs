@@ -16,6 +16,7 @@ macro_rules! define_common_component {
                 Ok(Self(ArkUINode {
                     raw: node,
                     tag: ArkUINodeType::$tag,
+                    owns_raw: true,
                     ..Default::default()
                 }))
             }
