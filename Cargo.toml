@@ -7,6 +7,7 @@ edition      = "2021"
 rust-version = "1.88"
 
 [workspace.dependencies]
+ohos-accessibility-binding           = { version = "0.1.0", path = "crates/accessibility" }
 ohos-ashmem-binding                 = { version = "0.1.0", path = "crates/ashmem" }
 ohos-bundle-binding                 = { version = "0.1.3", path = "crates/bundle" }
 ohos-init-binding                   = { version = "0.1.3", path = "crates/init" }

@@ -9,18 +9,19 @@ description = "OpenHarmony's arkui binding for rust"
 workspace = true
 
 [dependencies]
-ohos-arkui-sys            = { workspace = true }
-napi-sys-ohos             = { workspace = true, optional = true }
-napi-ohos                 = { workspace = true, optional = true }
-ohos-enum-derive          = { workspace = true }
-bitflags                  = { workspace = true }
-ohos-xcomponent-binding   = { workspace = true, optional = true }
-ohos-xcomponent-sys       = { workspace = true, optional = true }
-ohos-arkui-input-binding  = { workspace = true }
-ohos-image-binding        = { workspace = true, optional = true }
-ohos-image-native-binding = { workspace = true, optional = true }
-ohos-drawing-binding      = { workspace = true, optional = true }
-ohos-udmf-binding         = { workspace = true, optional = true }
+ohos-arkui-sys             = { workspace = true }
+napi-sys-ohos              = { workspace = true, optional = true }
+napi-ohos                  = { workspace = true, optional = true }
+ohos-enum-derive           = { workspace = true }
+bitflags                   = { workspace = true }
+ohos-xcomponent-binding    = { workspace = true, optional = true }
+ohos-xcomponent-sys        = { workspace = true, optional = true }
+ohos-arkui-input-binding   = { workspace = true }
+ohos-accessibility-binding = { workspace = true }
+ohos-image-binding         = { workspace = true, optional = true }
+ohos-image-native-binding  = { workspace = true, optional = true }
+ohos-drawing-binding       = { workspace = true, optional = true }
+ohos-udmf-binding          = { workspace = true, optional = true }
 
 [features]
 default    = ["napi", "xcomponent"]
@@ -35,6 +36,7 @@ xcomponent_multi_mode = ["ohos-xcomponent-binding/multi_mode"]
 
 api-13 = [
   "ohos-arkui-sys/api-13",
+  "ohos-accessibility-binding/api-13",
   "ohos-drawing-binding?/api-13",
   "ohos-xcomponent-binding/api-13",
   "ohos-arkui-input-binding/api-13",
@@ -45,6 +47,7 @@ api-13 = [
 api-14 = [
   "api-13",
   "ohos-arkui-sys/api-14",
+  "ohos-accessibility-binding/api-14",
   "ohos-drawing-binding?/api-14",
   "ohos-xcomponent-binding/api-14",
   "ohos-arkui-input-binding/api-14",
@@ -55,6 +58,7 @@ api-14 = [
 api-15 = [
   "api-14",
   "ohos-arkui-sys/api-15",
+  "ohos-accessibility-binding/api-15",
   "ohos-drawing-binding?/api-15",
   "ohos-xcomponent-binding/api-15",
   "ohos-arkui-input-binding/api-15",
@@ -65,6 +69,7 @@ api-15 = [
 api-16 = [
   "api-15",
   "ohos-arkui-sys/api-16",
+  "ohos-accessibility-binding/api-16",
   "ohos-drawing-binding?/api-16",
   "ohos-xcomponent-binding/api-16",
   "ohos-arkui-input-binding/api-16",
@@ -75,6 +80,7 @@ api-16 = [
 api-17 = [
   "api-16",
   "ohos-arkui-sys/api-17",
+  "ohos-accessibility-binding/api-17",
   "ohos-drawing-binding?/api-17",
   "ohos-xcomponent-binding/api-17",
   "ohos-arkui-input-binding/api-17",
@@ -85,6 +91,7 @@ api-17 = [
 api-18 = [
   "api-17",
   "ohos-arkui-sys/api-18",
+  "ohos-accessibility-binding/api-18",
   "ohos-drawing-binding?/api-18",
   "ohos-xcomponent-binding/api-18",
   "ohos-arkui-input-binding/api-18",
@@ -95,6 +102,7 @@ api-18 = [
 api-19 = [
   "api-18",
   "ohos-arkui-sys/api-19",
+  "ohos-accessibility-binding/api-19",
   "ohos-drawing-binding?/api-19",
   "ohos-xcomponent-binding/api-19",
   "ohos-arkui-input-binding/api-19",
@@ -105,6 +113,7 @@ api-19 = [
 api-20 = [
   "api-19",
   "ohos-arkui-sys/api-20",
+  "ohos-accessibility-binding/api-20",
   "ohos-drawing-binding?/api-20",
   "ohos-xcomponent-binding/api-20",
   "ohos-arkui-input-binding/api-20",
@@ -115,6 +124,7 @@ api-20 = [
 api-21 = [
   "api-20",
   "ohos-arkui-sys/api-21",
+  "ohos-accessibility-binding/api-21",
   "ohos-drawing-binding?/api-21",
   "ohos-xcomponent-binding/api-21",
   "ohos-arkui-input-binding/api-21",
@@ -125,6 +135,7 @@ api-21 = [
 api-22 = [
   "api-21",
   "ohos-arkui-sys/api-22",
+  "ohos-accessibility-binding/api-22",
   "ohos-drawing-binding?/api-22",
   "ohos-xcomponent-binding/api-22",
   "ohos-arkui-input-binding/api-22",
@@ -135,6 +146,7 @@ api-22 = [
 api-23 = [
   "api-22",
   "ohos-arkui-sys/api-23",
+  "ohos-accessibility-binding/api-23",
   "ohos-drawing-binding?/api-23",
   "ohos-xcomponent-binding/api-23",
   "ohos-arkui-input-binding/api-23",
@@ -145,6 +157,7 @@ api-23 = [
 api-24 = [
   "api-23",
   "ohos-arkui-sys/api-24",
+  "ohos-accessibility-binding/api-24",
   "ohos-drawing-binding?/api-24",
   "ohos-xcomponent-binding/api-24",
   "ohos-arkui-input-binding/api-24",
