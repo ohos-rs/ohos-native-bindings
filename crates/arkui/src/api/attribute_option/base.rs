@@ -684,11 +684,13 @@ impl DrawableDescriptor {
     }
 
     pub(crate) fn into_raw(self) -> *mut ArkUI_DrawableDescriptor {
-        self.raw.as_ptr()
+        let raw = self.raw.as_ptr();
+        std::mem::forget(self);
+        raw
     }
 
     pub fn dispose(self) {
-        unsafe { OH_ArkUI_DrawableDescriptor_Dispose(self.raw()) }
+        unsafe { OH_ArkUI_DrawableDescriptor_Dispose(self.into_raw()) }
     }
 
     pub fn get_static_pixel_map(&self) -> Option<PixelMapNativeHandle> {
@@ -800,6 +802,13 @@ impl DrawableDescriptor {
                     "OH_ArkUI_DrawableDescriptor_CreateAnimationController returned null",
                 )
             })
+    }
+}
+
+#[cfg(feature = "image")]
+impl Drop for DrawableDescriptor {
+    fn drop(&mut self) {
+        unsafe { OH_ArkUI_DrawableDescriptor_Dispose(self.raw()) }
     }
 }
 

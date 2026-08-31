@@ -4,7 +4,7 @@ use crate::ArkUICommonFontAttribute;
 
 impl Clone for super::TextInput {
     fn clone(&self) -> Self {
-        Self(self.0.clone())
+        Self(self.0.borrowed_clone())
     }
 }
 

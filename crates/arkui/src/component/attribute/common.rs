@@ -3,9 +3,10 @@
 use std::{cell::RefCell, rc::Rc};
 
 use crate::{
-    ArkUINode, ArkUINodeAttributeItem, ArkUINodeAttributeNumber, ArkUINodeAttributeType,
-    ArkUIResult, ARK_UI_NATIVE_NODE_API_1,
+    ArkUIError, ArkUINode, ArkUINodeAttributeItem, ArkUINodeAttributeNumber,
+    ArkUINodeAttributeType, ArkUIResult, ARK_UI_NATIVE_NODE_API_1,
 };
+use ohos_arkui_input_binding::ArkUIErrorCode;
 
 /// Minimal node access required by all attribute traits.
 pub trait ArkUIAttributeBasic {
@@ -1099,29 +1100,50 @@ pub trait ArkUICommonAttribute: ArkUIAttributeBasic {
     // END_GENERATED_COMMON_ATTRIBUTE_METHODS
     /// Remove child node
     fn remove_child(&mut self, index: usize) -> ArkUIResult<Option<Rc<RefCell<ArkUINode>>>> {
-        let children = self.borrow_mut();
-        if index < children.children().len() {
-            let removed_node = children.children_mut().remove(index);
-            ARK_UI_NATIVE_NODE_API_1
-                .with(|api| api.remove_child(self.raw(), &removed_node.borrow()))?;
-            Ok(Some(removed_node))
-        } else {
-            Ok(None)
-        }
+        let Some(removed_node) = self.borrow_mut().children().get(index).cloned() else {
+            return Ok(None);
+        };
+        // Commit the native mutation first. If it fails, the wrapper tree must
+        // remain unchanged so a later retry still addresses the same child.
+        ARK_UI_NATIVE_NODE_API_1
+            .with(|api| api.remove_child(self.raw(), &removed_node.borrow()))?;
+        // A detached node cannot deliver UI events. Keep its registered
+        // callbacks for a possible reattach, but remove the native receiver
+        // and its identity route until that happens.
+        let _ =
+            ARK_UI_NATIVE_NODE_API_1.with(|api| api.remove_event_receiver(&removed_node.borrow()));
+        crate::common::node_registry::unregister(&removed_node.borrow());
+        Ok(Some(self.borrow_mut().children_mut().remove(index)))
     }
 
     /// Mount a wrapper-owned child, preserving its `Rc` identity.
     ///
     /// The passed `Rc` **is** the mounted node: event callbacks registered on
     /// it — before or after mounting — dispatch through it, and the caller can
-    /// keep using the same handle for later mutations. Re-mounting the same
-    /// native handle replaces (and releases) the previously installed
-    /// event-dispatch box instead of leaking it.
+    /// keep using the same handle for later mutations. The event registry
+    /// accepts only that identity for the native handle, preventing split
+    /// wrapper state without becoming another node owner.
     fn add_child(&mut self, child: Rc<RefCell<ArkUINode>>) -> ArkUIResult<()> {
-        crate::common::user_data::install_wrapper_user_data(&child.borrow(), child.clone())?;
-        ARK_UI_NATIVE_NODE_API_1.with(|api| api.add_event_receiver(&child.borrow()))?;
-
+        if !child.borrow().owns_raw {
+            return Err(ArkUIError::new(
+                ArkUIErrorCode::ParamInvalid,
+                "add_child requires a wrapper-owned node",
+            ));
+        }
         ARK_UI_NATIVE_NODE_API_1.with(|api| api.add_child(self.raw(), &child.borrow()))?;
+        if let Err(error) = crate::common::node_registry::register(&child.borrow(), child.clone()) {
+            let _ =
+                ARK_UI_NATIVE_NODE_API_1.with(|api| api.remove_child(self.raw(), &child.borrow()));
+            return Err(error);
+        }
+        if let Err(error) =
+            ARK_UI_NATIVE_NODE_API_1.with(|api| api.add_event_receiver(&child.borrow()))
+        {
+            crate::common::node_registry::unregister(&child.borrow());
+            let _ =
+                ARK_UI_NATIVE_NODE_API_1.with(|api| api.remove_child(self.raw(), &child.borrow()));
+            return Err(error);
+        }
         self.borrow_mut().children_mut().push(child);
         Ok(())
     }
@@ -1142,10 +1164,27 @@ pub trait ArkUICommonAttribute: ArkUIAttributeBasic {
     ///
     /// See [`Self::add_child`] for the identity contract.
     fn insert_child(&mut self, child: Rc<RefCell<ArkUINode>>, index: usize) -> ArkUIResult<()> {
-        crate::common::user_data::install_wrapper_user_data(&child.borrow(), child.clone())?;
-        ARK_UI_NATIVE_NODE_API_1.with(|api| api.add_event_receiver(&child.borrow()))?;
+        if !child.borrow().owns_raw {
+            return Err(ArkUIError::new(
+                ArkUIErrorCode::ParamInvalid,
+                "insert_child requires a wrapper-owned node",
+            ));
+        }
         ARK_UI_NATIVE_NODE_API_1
             .with(|api| api.insert_child(self.raw(), &child.borrow(), index as i32))?;
+        if let Err(error) = crate::common::node_registry::register(&child.borrow(), child.clone()) {
+            let _ =
+                ARK_UI_NATIVE_NODE_API_1.with(|api| api.remove_child(self.raw(), &child.borrow()));
+            return Err(error);
+        }
+        if let Err(error) =
+            ARK_UI_NATIVE_NODE_API_1.with(|api| api.add_event_receiver(&child.borrow()))
+        {
+            crate::common::node_registry::unregister(&child.borrow());
+            let _ =
+                ARK_UI_NATIVE_NODE_API_1.with(|api| api.remove_child(self.raw(), &child.borrow()));
+            return Err(error);
+        }
         self.borrow_mut().children_mut().insert(index, child);
         Ok(())
     }

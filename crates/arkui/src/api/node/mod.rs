@@ -102,16 +102,16 @@ impl ArkUINativeNodeAPI1 {
         attr: ArkUINodeAttributeType,
         value: ArkUINodeAttributeItem,
     ) -> ArkUIResult<()> {
-        unsafe {
+        value.with_raw(|value| unsafe {
             if let Some(set_attribute) = (*self.raw()).setAttribute {
-                check_arkui_status!(set_attribute(node.raw(), attr.into(), &value.into()))
+                check_arkui_status!(set_attribute(node.raw(), attr.into(), value))
             } else {
                 Err(ArkUIError::new(
                     ArkUIErrorCode::AttributeOrEventNotSupported,
                     "ArkUI_NativeNodeAPI_1::setAttribute is None",
                 ))
             }
-        }
+        })
     }
 
     pub(crate) fn get_attribute(
@@ -224,12 +224,20 @@ impl ArkUINativeNodeAPI1 {
         }
     }
 
-    pub(crate) fn dispose(&self, node: &ArkUINode) -> ArkUIResult<()> {
+    pub(crate) fn prepare_dispose(&self, node: &ArkUINode) {
         self.clear_node_custom_event_callbacks_for_node(node.raw());
         let _ = self.remove_node_custom_event_receiver(node);
+    }
+
+    pub(crate) fn dispose(&self, node: &ArkUINode) -> ArkUIResult<()> {
+        self.prepare_dispose(node);
+        self.dispose_raw(node.raw())
+    }
+
+    pub(crate) fn dispose_raw(&self, node: ArkUI_NodeHandle) -> ArkUIResult<()> {
         unsafe {
             if let Some(dispose_node) = (*self.raw()).disposeNode {
-                dispose_node(node.raw());
+                dispose_node(node);
                 Ok(())
             } else {
                 Err(ArkUIError::new(

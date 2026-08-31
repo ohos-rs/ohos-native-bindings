@@ -28,7 +28,6 @@ use crate::{
 
 use super::ArkUIResult;
 
-#[derive(Clone)]
 /// High-level ArkUI node wrapper used by component APIs.
 pub struct ArkUINode {
     /// Underlying native ArkUI node handle.
@@ -39,6 +38,10 @@ pub struct ArkUINode {
     pub(crate) children: Vec<Rc<RefCell<ArkUINode>>>,
     /// Event callbacks bound to this node.
     pub(crate) event_handle: EventHandle,
+    /// Whether this wrapper owns the reference acquired by `createNode`.
+    /// Nodes obtained from query APIs are borrowed and must never decrement
+    /// the native reference count.
+    pub(crate) owns_raw: bool,
 }
 
 impl ArkUINode {
@@ -57,8 +60,28 @@ impl ArkUINode {
         self.children.as_mut()
     }
 
+    /// Whether this wrapper owns the reference returned by `createNode`.
+    pub fn is_owned(&self) -> bool {
+        self.owns_raw
+    }
+
     pub(crate) fn raw(&self) -> ArkUI_NodeHandle {
         self.raw
+    }
+
+    /// Create a non-owning view of the same native handle.
+    ///
+    /// Compatibility wrappers such as `XComponent` use this for read/mutate
+    /// access from multiple application handles. The returned view can never
+    /// release the `createNode` reference; ownership stays with `self`.
+    pub(crate) fn borrowed_clone(&self) -> Self {
+        Self {
+            raw: self.raw,
+            tag: self.tag,
+            children: self.children.clone(),
+            event_handle: self.event_handle.clone(),
+            owns_raw: false,
+        }
     }
 
     pub fn from_raw_handle(raw: ArkUI_NodeHandle) -> Option<Self> {
@@ -71,6 +94,7 @@ impl ArkUINode {
             tag: ArkUINodeType::Custom,
             children: vec![],
             event_handle: Default::default(),
+            owns_raw: false,
         })
     }
 
@@ -84,27 +108,59 @@ impl ArkUINode {
         }
     }
 
-    /// Clear dom
-    /// We can't use drop impl, because it will be called when the object is dropped.
+    fn invalidate_owned_handle(&mut self) {
+        self.owns_raw = false;
+        self.raw = std::ptr::null_mut();
+        self.event_handle = Default::default();
+    }
+
+    /// Release this wrapper-owned native subtree using ArkUI's documented
+    /// child-before-parent lifecycle.
+    ///
+    /// The root must already be detached from its external parent. Each direct
+    /// child edge is removed before that child is recursively disposed; only
+    /// then is this node's own `createNode` reference released. Borrowed
+    /// children are detached but never disposed by this wrapper.
     pub fn dispose(&mut self) -> ArkUIResult<()> {
-        let handle = &self.event_handle;
-        if handle.has_callback() {
-            // A failed receiver removal must not block `disposeNode`: the node
-            // would leak natively while the Rust wrapper is already dropped.
-            let _ = ARK_UI_NATIVE_NODE_API_1.with(|api| api.remove_event_receiver(self));
+        if !self.owns_raw {
+            return Err(ArkUIError::new(
+                ArkUIErrorCode::ParamInvalid,
+                "cannot dispose a borrowed or already disposed ArkUI node",
+            ));
         }
-        // Reclaim the wrapper-owned user data of this node and every
-        // descendant wrapper while all native handles are still alive.
-        // `disposeNode` below destroys the whole native subtree, after which
-        // touching any descendant's user_data would be a use-after-free and
-        // the boxes (each holding an `Rc` to its wrapper) would leak the
-        // entire Rust-side subtree.
-        crate::common::user_data::release_wrapper_user_data_recursive(self);
-        // `disposeNode` tears down the native subtree. Disposing wrapper children again will
-        // double free the descendant handles during patch/remount flows.
-        let result = ARK_UI_NATIVE_NODE_API_1.with(|api| api.dispose(self));
-        self.children.clear();
-        result
+        if ARK_UI_NATIVE_NODE_API_1
+            .with(|api| api.get_parent(self))?
+            .is_some()
+        {
+            return Err(ArkUIError::new(
+                ArkUIErrorCode::ParamInvalid,
+                "cannot dispose an ArkUI node before removing it from its parent",
+            ));
+        }
+
+        while let Some(child) = self.children.last().cloned() {
+            ARK_UI_NATIVE_NODE_API_1.with(|api| api.remove_child(self, &child.borrow()))?;
+            self.children.pop();
+            if child.borrow().is_owned() {
+                child.borrow_mut().dispose()?;
+            }
+        }
+
+        let registered_events = self
+            .event_handle
+            .callbacks
+            .iter()
+            .map(|(event_type, _)| *event_type)
+            .collect::<Vec<_>>();
+        for event_type in registered_events {
+            let _ =
+                ARK_UI_NATIVE_NODE_API_1.with(|api| api.unregister_node_event(self, event_type));
+        }
+        let _ = ARK_UI_NATIVE_NODE_API_1.with(|api| api.remove_event_receiver(self));
+        crate::common::node_registry::unregister(self);
+        ARK_UI_NATIVE_NODE_API_1.with(|api| api.dispose(self))?;
+        self.invalidate_owned_handle();
+        Ok(())
     }
 
     /// Runs an explicit ArkUI animation update against this node.
@@ -181,6 +237,7 @@ impl Default for ArkUINode {
             tag: ArkUINodeType::Custom,
             children: vec![],
             event_handle: Default::default(),
+            owns_raw: false,
         }
     }
 }
@@ -227,5 +284,41 @@ impl FromNapiValue for ArkUINodeRaw {
             value: napi_val,
             raw: slot,
         })
+    }
+}
+
+#[cfg(test)]
+mod tests {
+    use super::*;
+
+    fn fake_node(id: usize, owns_raw: bool) -> ArkUINode {
+        ArkUINode {
+            raw: id as ArkUI_NodeHandle,
+            tag: ArkUINodeType::Custom,
+            children: Vec::new(),
+            event_handle: Default::default(),
+            owns_raw,
+        }
+    }
+
+    #[test]
+    fn invalidating_an_owned_handle_is_local() {
+        let child = Rc::new(RefCell::new(fake_node(2, true)));
+        let mut root = fake_node(1, true);
+        root.children.push(child.clone());
+
+        root.invalidate_owned_handle();
+
+        assert!(root.raw_handle().is_null());
+        assert!(!root.is_owned());
+        assert_eq!(child.borrow().raw_handle() as usize, 2);
+        assert!(child.borrow().is_owned());
+    }
+
+    #[test]
+    fn borrowed_node_cannot_release_a_foreign_handle() {
+        let mut node = fake_node(7, false);
+        assert!(node.dispose().is_err());
+        assert_eq!(node.raw_handle() as usize, 7);
     }
 }

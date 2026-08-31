@@ -3,7 +3,10 @@
 use std::ffi::{CStr, CString};
 use std::os::raw::c_void;
 
+use ohos_arkui_input_binding::ArkUIErrorCode;
 use ohos_arkui_sys::{ArkUI_AttributeItem, ArkUI_NumberValue};
+
+use super::error::{ArkUIError, ArkUIResult};
 
 #[derive(Debug, Clone, Copy, PartialEq)]
 /// Numeric value used in ArkUI attribute arrays.
@@ -223,20 +226,51 @@ impl_from_object_wrapper!(crate::TextSelectionMenuOptions);
 #[cfg(all(feature = "api-22", feature = "drawing"))]
 impl_from_object_wrapper!(crate::TextLayoutManager);
 
-impl From<ArkUINodeAttributeItem> for ArkUI_AttributeItem {
-    fn from(value: ArkUINodeAttributeItem) -> Self {
-        match value {
-            ArkUINodeAttributeItem::NumberValue(value) => {
-                composite_to_raw(ArkUINodeCompositeAttributeItem::new().with_number_values(value))
+impl ArkUINodeAttributeItem {
+    /// Borrow a native attribute view for exactly one synchronous ArkUI call.
+    ///
+    /// `ArkUI_AttributeItem` contains borrowed pointers. Keeping the backing
+    /// number array and C string in this scope makes their lifetime explicit
+    /// and prevents either leaking them or letting a raw item escape after its
+    /// storage has been freed.
+    pub(crate) fn with_raw<R>(
+        self,
+        call: impl FnOnce(&ArkUI_AttributeItem) -> ArkUIResult<R>,
+    ) -> ArkUIResult<R> {
+        let value = match self {
+            Self::NumberValue(number_values) => {
+                ArkUINodeCompositeAttributeItem::new().with_number_values(number_values)
             }
-            ArkUINodeAttributeItem::Object(obj) => {
-                composite_to_raw(ArkUINodeCompositeAttributeItem::new().with_object(obj))
-            }
-            ArkUINodeAttributeItem::String(s) => {
-                composite_to_raw(ArkUINodeCompositeAttributeItem::new().with_string(s))
-            }
-            ArkUINodeAttributeItem::Composite(value) => composite_to_raw(value),
-        }
+            Self::Object(object) => ArkUINodeCompositeAttributeItem::new().with_object(object),
+            Self::String(string) => ArkUINodeCompositeAttributeItem::new().with_string(string),
+            Self::Composite(value) => value,
+        };
+
+        let number_values = value
+            .number_values
+            .iter()
+            .map(raw_number_value)
+            .collect::<Vec<_>>();
+        let string = value.string.map(CString::new).transpose().map_err(|_| {
+            ArkUIError::new(
+                ArkUIErrorCode::ParamInvalid,
+                "attribute string contains interior NUL bytes",
+            )
+        })?;
+        let raw = ArkUI_AttributeItem {
+            value: if number_values.is_empty() {
+                std::ptr::null()
+            } else {
+                number_values.as_ptr()
+            },
+            size: number_values.len() as i32,
+            string: string
+                .as_ref()
+                .map_or(std::ptr::null(), |value| value.as_ptr()),
+            object: value.object.unwrap_or(std::ptr::null_mut()),
+        };
+
+        call(&raw)
     }
 }
 
@@ -300,29 +334,6 @@ impl TryFrom<*const ArkUI_AttributeItem> for ArkUINodeAttributeItem {
     }
 }
 
-fn composite_to_raw(value: ArkUINodeCompositeAttributeItem) -> ArkUI_AttributeItem {
-    let mut number_values: Vec<ArkUI_NumberValue> =
-        value.number_values.iter().map(raw_number_value).collect();
-    let value_ptr = if number_values.is_empty() {
-        std::ptr::null_mut()
-    } else {
-        let ptr = number_values.as_mut_ptr();
-        std::mem::forget(number_values);
-        ptr
-    };
-    let string_ptr = value
-        .string
-        .map(|string| CString::new(string).unwrap().into_raw())
-        .unwrap_or(std::ptr::null_mut());
-
-    ArkUI_AttributeItem {
-        value: value_ptr,
-        size: value.number_values.len() as i32,
-        string: string_ptr,
-        object: value.object.unwrap_or(std::ptr::null_mut()),
-    }
-}
-
 fn raw_number_value(value: &ArkUINodeAttributeNumber) -> ArkUI_NumberValue {
     match value {
         ArkUINodeAttributeNumber::Float(f) => ArkUI_NumberValue { f32_: *f },
@@ -340,5 +351,40 @@ fn number_value_from_raw(value: &ArkUI_NumberValue) -> ArkUINodeAttributeNumber 
         } else {
             ArkUINodeAttributeNumber::Uint(value.u32_)
         }
+    }
+}
+
+#[cfg(test)]
+mod tests {
+    use super::*;
+
+    #[test]
+    fn raw_view_keeps_all_backing_storage_scoped_to_the_call() {
+        let object = 0x1234usize as *mut c_void;
+        let item = ArkUINodeCompositeAttributeItem::new()
+            .with_number_values(vec![
+                ArkUINodeAttributeNumber::Float(1.5),
+                ArkUINodeAttributeNumber::Int(-3),
+            ])
+            .with_string("value")
+            .with_object(object);
+
+        ArkUINodeAttributeItem::Composite(item)
+            .with_raw(|raw| {
+                assert_eq!(raw.size, 2);
+                assert!(!raw.value.is_null());
+                assert_eq!(unsafe { (*raw.value).f32_ }, 1.5);
+                assert_eq!(unsafe { (*raw.value.add(1)).i32_ }, -3);
+                assert_eq!(unsafe { CStr::from_ptr(raw.string) }.to_bytes(), b"value");
+                assert_eq!(raw.object, object);
+                Ok(())
+            })
+            .expect("scoped raw conversion");
+    }
+
+    #[test]
+    fn raw_view_rejects_interior_nul_instead_of_panicking() {
+        let result = ArkUINodeAttributeItem::String("bad\0value".into()).with_raw(|_| Ok(()));
+        assert!(result.is_err());
     }
 }

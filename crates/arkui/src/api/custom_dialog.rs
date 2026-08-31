@@ -413,13 +413,12 @@ impl CustomDialogOptions {
         &mut self,
         custom_shadow: crate::ArkUINodeAttributeItem,
     ) -> ArkUIResult<()> {
-        let custom_shadow: ArkUI_AttributeItem = custom_shadow.into();
-        unsafe {
+        custom_shadow.with_raw(|custom_shadow| unsafe {
             check_arkui_status!(OH_ArkUI_CustomDialog_SetCustomShadow(
                 self.raw(),
-                &custom_shadow
+                custom_shadow
             ))
-        }
+        })
     }
 
     pub fn set_background_blur_style(&mut self, blur_style: crate::BlurStyle) -> ArkUIResult<()> {
@@ -519,26 +518,24 @@ impl CustomDialogOptions {
         &mut self,
         options: crate::ArkUINodeAttributeItem,
     ) -> ArkUIResult<()> {
-        let options: ArkUI_AttributeItem = options.into();
-        unsafe {
+        options.with_raw(|options| unsafe {
             check_arkui_status!(OH_ArkUI_CustomDialog_SetBackgroundBlurStyleOptions(
                 self.raw(),
-                &options
+                options
             ))
-        }
+        })
     }
 
     pub fn set_background_effect(
         &mut self,
         effect: crate::ArkUINodeAttributeItem,
     ) -> ArkUIResult<()> {
-        let effect: ArkUI_AttributeItem = effect.into();
-        unsafe {
+        effect.with_raw(|effect| unsafe {
             check_arkui_status!(OH_ArkUI_CustomDialog_SetBackgroundEffect(
                 self.raw(),
-                &effect
+                effect
             ))
-        }
+        })
     }
 
     pub fn register_on_will_dismiss_callback<T: Fn(&mut CustomDialogDismissEvent) + 'static>(
