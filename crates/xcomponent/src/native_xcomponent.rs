@@ -3,7 +3,7 @@
 use std::rc::Rc;
 
 use napi_ohos::{Error, Result};
-#[cfg(feature = "api-13")]
+#[cfg(all(feature = "accessibility", feature = "api-13"))]
 use ohos_accessibility_binding::{AccessibilityError, Provider};
 use ohos_arkui_input_binding::ArkUIInputEvent;
 use ohos_xcomponent_sys::{
@@ -14,7 +14,7 @@ use ohos_xcomponent_sys::{
     OH_NativeXComponent_SetExpectedFrameRateRange,
 };
 
-#[cfg(feature = "api-13")]
+#[cfg(all(feature = "accessibility", feature = "api-13"))]
 use ohos_xcomponent_sys::OH_NativeXComponent_GetNativeAccessibilityProvider;
 
 use crate::{
@@ -63,7 +63,7 @@ impl NativeXComponent {
     }
 
     /// Obtain the ArkUI accessibility provider owned by this XComponent.
-    #[cfg(feature = "api-13")]
+    #[cfg(all(feature = "accessibility", feature = "api-13"))]
     pub fn accessibility_provider(&self) -> ohos_accessibility_binding::Result<Provider<'_>> {
         let mut provider = std::ptr::null_mut();
         let result = unsafe {

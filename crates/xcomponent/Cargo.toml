@@ -12,75 +12,77 @@ log = ["dep:ohos-hilog-binding"]
 multi_mode = []
 # allow use closure to define callbacks
 callbacks = []
+# expose the ArkUI native accessibility provider
+accessibility = ["dep:ohos-accessibility-binding"]
 
 default = ["callbacks"]
 
-api-13 = ["ohos-xcomponent-sys/api-13", "ohos-arkui-input-binding/api-13", "ohos-accessibility-binding/api-13"]
+api-13 = ["ohos-xcomponent-sys/api-13", "ohos-arkui-input-binding/api-13", "ohos-accessibility-binding?/api-13"]
 api-14 = [
   "api-13",
   "ohos-xcomponent-sys/api-14",
   "ohos-arkui-input-binding/api-14",
-  "ohos-accessibility-binding/api-14",
+  "ohos-accessibility-binding?/api-14",
 ]
 api-15 = [
   "api-14",
   "ohos-xcomponent-sys/api-15",
   "ohos-arkui-input-binding/api-15",
-  "ohos-accessibility-binding/api-15",
+  "ohos-accessibility-binding?/api-15",
 ]
 api-16 = [
   "api-15",
   "ohos-xcomponent-sys/api-16",
   "ohos-arkui-input-binding/api-16",
-  "ohos-accessibility-binding/api-16",
+  "ohos-accessibility-binding?/api-16",
 ]
 api-17 = [
   "api-16",
   "ohos-xcomponent-sys/api-17",
   "ohos-arkui-input-binding/api-17",
-  "ohos-accessibility-binding/api-17",
+  "ohos-accessibility-binding?/api-17",
 ]
 api-18 = [
   "api-17",
   "ohos-xcomponent-sys/api-18",
   "ohos-arkui-input-binding/api-18",
-  "ohos-accessibility-binding/api-18",
+  "ohos-accessibility-binding?/api-18",
 ]
 api-19 = [
   "api-18",
   "ohos-xcomponent-sys/api-19",
   "ohos-arkui-input-binding/api-19",
-  "ohos-accessibility-binding/api-19",
+  "ohos-accessibility-binding?/api-19",
 ]
 api-20 = [
   "api-19",
   "ohos-xcomponent-sys/api-20",
   "ohos-arkui-input-binding/api-20",
-  "ohos-accessibility-binding/api-20",
+  "ohos-accessibility-binding?/api-20",
 ]
 api-21 = [
   "api-20",
   "ohos-xcomponent-sys/api-21",
   "ohos-arkui-input-binding/api-21",
-  "ohos-accessibility-binding/api-21",
+  "ohos-accessibility-binding?/api-21",
 ]
 api-22 = [
   "api-21",
   "ohos-xcomponent-sys/api-22",
   "ohos-arkui-input-binding/api-22",
-  "ohos-accessibility-binding/api-22",
+  "ohos-accessibility-binding?/api-22",
 ]
 api-23 = [
   "api-22",
   "ohos-xcomponent-sys/api-23",
   "ohos-arkui-input-binding/api-23",
-  "ohos-accessibility-binding/api-23",
+  "ohos-accessibility-binding?/api-23",
 ]
 api-24 = [
   "api-23",
   "ohos-xcomponent-sys/api-24",
   "ohos-arkui-input-binding/api-24",
-  "ohos-accessibility-binding/api-24",
+  "ohos-accessibility-binding?/api-24",
 ]
 
 [dependencies]
@@ -91,6 +93,6 @@ napi-derive-ohos           = { workspace = true }
 ohos-enum-derive           = { workspace = true }
 raw-window-handle          = { workspace = true }
 ohos-arkui-input-binding   = { workspace = true }
-ohos-accessibility-binding = { workspace = true }
+ohos-accessibility-binding = { workspace = true, optional = true }
 
 ohos-hilog-binding = { workspace = true, optional = true }
