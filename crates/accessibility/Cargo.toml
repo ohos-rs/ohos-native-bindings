@@ -9,6 +9,7 @@ description = "OpenHarmony's ArkUI native accessibility binding for Rust"
 bitflags               = { workspace = true }
 ohos-accessibility-sys = { workspace = true }
 ohos-arkui-input-sys   = { workspace = true }
+ohos-enum-derive       = { workspace = true }
 
 [features]
 default = []

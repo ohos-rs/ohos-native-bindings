@@ -105,7 +105,7 @@ impl ElementInfo<'_> {
             .iter()
             .zip(&descriptions)
             .map(|((action, _), description)| ArkUI_AccessibleAction {
-                actionType: action.as_raw(),
+                actionType: (*action).into(),
                 description: description.as_ptr(),
             })
             .collect::<Vec<_>>();
@@ -357,7 +357,7 @@ impl EventInfo {
     }
 
     pub fn set_event_type(&mut self, value: EventType) -> Result<&mut Self> {
-        check(unsafe { OH_ArkUI_AccessibilityEventSetEventType(self.as_raw(), value.as_raw()) })?;
+        check(unsafe { OH_ArkUI_AccessibilityEventSetEventType(self.as_raw(), value.into()) })?;
         Ok(self)
     }
 

@@ -448,7 +448,8 @@ unsafe extern "C" fn single_find_focused(
 ) -> i32 {
     invoke(|| {
         let handler = single_handler()?;
-        let focus_type = FocusType::from_raw(focus_type).ok_or(AccessibilityError::BadParameter)?;
+        let focus_type =
+            FocusType::try_from_raw(focus_type).ok_or(AccessibilityError::BadParameter)?;
         let mut element = unsafe { ElementInfo::from_borrowed(element)? };
         handler.find_focused_node(element_id, focus_type, request_id, &mut element)
     })
@@ -463,7 +464,7 @@ unsafe extern "C" fn single_find_next_focus(
     invoke(|| {
         let handler = single_handler()?;
         let direction =
-            FocusMoveDirection::from_raw(direction).ok_or(AccessibilityError::BadParameter)?;
+            FocusMoveDirection::try_from_raw(direction).ok_or(AccessibilityError::BadParameter)?;
         let mut element = unsafe { ElementInfo::from_borrowed(element)? };
         handler.find_next_focus_node(element_id, direction, request_id, &mut element)
     })
@@ -477,7 +478,7 @@ unsafe extern "C" fn single_execute_action(
 ) -> i32 {
     invoke(|| {
         let handler = single_handler()?;
-        let action = ActionType::from_raw(action).ok_or(AccessibilityError::BadParameter)?;
+        let action = ActionType::try_from_raw(action).ok_or(AccessibilityError::BadParameter)?;
         let arguments = unsafe { ActionArguments::from_raw(arguments) };
         handler.execute_action(element_id, action, &arguments, request_id)
     })
@@ -551,7 +552,8 @@ unsafe extern "C" fn instance_find_focused(
 ) -> i32 {
     invoke(|| {
         let handler = unsafe { instance_handler(instance_id)? };
-        let focus_type = FocusType::from_raw(focus_type).ok_or(AccessibilityError::BadParameter)?;
+        let focus_type =
+            FocusType::try_from_raw(focus_type).ok_or(AccessibilityError::BadParameter)?;
         let mut element = unsafe { ElementInfo::from_borrowed(element)? };
         handler.find_focused_node(element_id, focus_type, request_id, &mut element)
     })
@@ -568,7 +570,7 @@ unsafe extern "C" fn instance_find_next_focus(
     invoke(|| {
         let handler = unsafe { instance_handler(instance_id)? };
         let direction =
-            FocusMoveDirection::from_raw(direction).ok_or(AccessibilityError::BadParameter)?;
+            FocusMoveDirection::try_from_raw(direction).ok_or(AccessibilityError::BadParameter)?;
         let mut element = unsafe { ElementInfo::from_borrowed(element)? };
         handler.find_next_focus_node(element_id, direction, request_id, &mut element)
     })
@@ -584,7 +586,7 @@ unsafe extern "C" fn instance_execute_action(
 ) -> i32 {
     invoke(|| {
         let handler = unsafe { instance_handler(instance_id)? };
-        let action = ActionType::from_raw(action).ok_or(AccessibilityError::BadParameter)?;
+        let action = ActionType::try_from_raw(action).ok_or(AccessibilityError::BadParameter)?;
         let arguments = unsafe { ActionArguments::from_raw(arguments) };
         handler.execute_action(element_id, action, &arguments, request_id)
     })
