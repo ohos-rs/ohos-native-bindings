@@ -379,6 +379,7 @@ jobs:
             kill "$(cat "$RUNNER_TEMP/ohos-qemu.pid")" 2>/dev/null || true
           fi
 
+  # Intentionally independent: enqueue the device E2E as soon as the workflow starts.
   accessibility-device:
     name: Accessibility device E2E
     runs-on: [self-hosted, linux, ohos-accessibility]
