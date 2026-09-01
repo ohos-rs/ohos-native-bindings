@@ -16,6 +16,10 @@ publish = false
 
 # examples (all renamed to <demo>_test; none are released)
 [[package]]
+name = "accessibility_test"
+release = false
+
+[[package]]
 name = "ability_access_control_test"
 release = false
 
@@ -150,3 +154,4 @@ release = false
 [[package]]
 name = "xcomponent_multi_test"
 release = false
+publish = false
