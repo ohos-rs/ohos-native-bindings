@@ -12,10 +12,10 @@ permissions:
   contents: read
 
 jobs:
-  xcomponent-qemu:
-    name: XComponent QEMU E2E
+  bindings-qemu:
+    name: All bindings QEMU E2E
     runs-on: ubuntu-22.04
-    timeout-minutes: 60
+    timeout-minutes: 180
     env:
       GUEST_FATAL_PATTERN: 'Kernel panic - not syncing|critical service crashed|ExecReboot panic|sysrq: Trigger a crash|(composer_host|render_service).*exit with signal[[:space:]]*:[[:space:]]*11'
       GITHUB_TOKEN: ${{ github.token }}
@@ -83,7 +83,7 @@ jobs:
             ~/.cargo/git
             ~/.ohos-qemu
             examples-ui/.tools
-          key: e2e-${{ runner.os }}-x86_64-${{ env.OHOS_QEMU_RELEASE_TAG }}-${{ hashFiles('pnpm-lock.yaml', 'examples-ui/scripts/build-hap.sh') }}
+          key: e2e-${{ runner.os }}-x86_64-${{ env.OHOS_QEMU_RELEASE_TAG }}-${{ hashFiles('pnpm-lock.yaml', 'examples-ui/scripts/build-hap.sh', 'examples-ui/scripts/sync-rust.sh', 'examples-ui/scripts/run-ohostest.sh') }}
 
       - name: Install workspace and Rust build tools
         shell: bash
@@ -301,9 +301,13 @@ jobs:
           tail -200 "$RUNNER_TEMP/ohos-qemu.log" >&2 || true
           exit 1
 
-      - name: Run XComponent E2E
-        timeout-minutes: 30
-        run: pnpm run test:ui:xcomponent
+      - name: Build all Rust examples
+        timeout-minutes: 45
+        run: pnpm run ui:sync
+
+      - name: Run all binding E2E
+        timeout-minutes: 120
+        run: pnpm run test:ui
 
       - name: Verify OpenHarmony guest health
         if: ${{ !cancelled() }}
@@ -311,14 +315,26 @@ jobs:
         run: |
           set -euo pipefail
           if ! kill -0 "$(cat "$RUNNER_TEMP/ohos-qemu.pid")" 2>/dev/null; then
-            echo "QEMU exited during XComponent E2E" >&2
+            echo "QEMU exited during binding E2E" >&2
             exit 1
           fi
           if grep -aiEq "$GUEST_FATAL_PATTERN" "$RUNNER_TEMP/ohos-qemu.log"; then
-            echo "OpenHarmony guest hit a fatal error during XComponent E2E" >&2
+            echo "OpenHarmony guest hit a fatal error during binding E2E" >&2
             grep -ainE "$GUEST_FATAL_PATTERN" "$RUNNER_TEMP/ohos-qemu.log" | tail -20 >&2 || true
             exit 1
           fi
+
+      - name: Upload binding E2E diagnostics
+        if: ${{ always() }}
+        uses: actions/upload-artifact@v4
+        with:
+          name: binding-e2e-${{ github.run_id }}-${{ github.run_attempt }}
+          if-no-files-found: ignore
+          retention-days: 7
+          path: |
+            ${{ env.E2E_DIAGNOSTICS_DIR }}
+            ${{ runner.temp }}/ohos-qemu.log
+            examples-ui/ohostest-*.log
 
       - name: Stop QEMU
         if: ${{ always() }}
@@ -327,3 +343,102 @@ jobs:
           if [ -f "$RUNNER_TEMP/ohos-qemu.pid" ]; then
             kill "$(cat "$RUNNER_TEMP/ohos-qemu.pid")" 2>/dev/null || true
           fi
+
+  accessibility-device:
+    name: Accessibility device E2E
+    runs-on: [self-hosted, linux, ohos-accessibility]
+    timeout-minutes: 60
+    env:
+      HDC_TARGET: ${{ vars.OHOS_ACCESSIBILITY_HDC_TARGET }}
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup OpenHarmony SDK
+        uses: openharmony-rs/setup-ohos-sdk@v1.0.1
+        with:
+          version: "6.1"
+          cache: true
+          mirror: true
+
+      - name: Configure OpenHarmony SDK tools
+        shell: bash
+        run: |
+          set -euo pipefail
+          hdc_bin="$(
+            find "$OHOS_BASE_SDK_HOME" -path '*/toolchains/hdc' -type f -perm -111 -print -quit \
+              2>/dev/null || true
+          )"
+          if [ -z "$hdc_bin" ]; then
+            echo "::error::hdc was not found under OHOS_BASE_SDK_HOME=$OHOS_BASE_SDK_HOME"
+            exit 1
+          fi
+          dirname "$hdc_bin" >> "$GITHUB_PATH"
+          diagnostics_dir="$RUNNER_TEMP/accessibility-e2e"
+          mkdir -p "$diagnostics_dir"
+          echo "E2E_DIAGNOSTICS_DIR=$diagnostics_dir" >> "$GITHUB_ENV"
+
+      - name: Setup Rust
+        uses: dtolnay/rust-toolchain@master
+        with:
+          toolchain: stable
+          targets: aarch64-unknown-linux-ohos
+
+      - name: Setup pnpm
+        uses: pnpm/action-setup@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: "22"
+          cache: pnpm
+
+      - name: Cache Rust build tools
+        uses: actions/cache@v4
+        with:
+          path: |
+            ~/.cargo/bin/ohrs
+            ~/.cargo/registry
+            ~/.cargo/git
+          key: accessibility-e2e-${{ runner.os }}-${{ hashFiles('pnpm-lock.yaml', 'examples/accessibility/Cargo.toml', 'examples-ui/scripts/run-device-accessibility-e2e.sh') }}
+
+      - name: Install workspace and Rust build tools
+        shell: bash
+        run: |
+          set -euo pipefail
+          pnpm install --frozen-lockfile
+          if ! command -v ohrs >/dev/null 2>&1; then
+            cargo install ohrs --version 1.5.0 --locked
+          fi
+
+      - name: Verify accessibility device
+        shell: bash
+        run: |
+          set -euo pipefail
+          hdc_args=()
+          if [ -n "${HDC_TARGET:-}" ]; then
+            hdc_args=(-t "$HDC_TARGET")
+          fi
+          hdc "${hdc_args[@]}" shell param get const.product.cpu.abilist
+          state="$(hdc "${hdc_args[@]}" shell hidumper -s AccessibilityManagerService -a -u)"
+          printf '%s\n' "$state" | tee "$E2E_DIAGNOSTICS_DIR/accessibility-manager-state-before.log"
+          grep -Eq 'accessible:[[:space:]]+1' <<<"$state" || {
+            echo "::error::The ohos-accessibility runner must keep a screen reader enabled."
+            exit 1
+          }
+
+      - name: Run Accessibility E2E with unsigned HAP
+        timeout-minutes: 45
+        env:
+          ACCESSIBILITY_E2E_HAP: ""
+        run: pnpm run test:ui:accessibility
+
+      - name: Upload Accessibility E2E diagnostics
+        if: ${{ always() }}
+        uses: actions/upload-artifact@v4
+        with:
+          name: accessibility-e2e-${{ github.run_id }}-${{ github.run_attempt }}
+          if-no-files-found: ignore
+          retention-days: 7
+          path: ${{ env.E2E_DIAGNOSTICS_DIR }}
