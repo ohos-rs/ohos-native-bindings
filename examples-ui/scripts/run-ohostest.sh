@@ -9,15 +9,51 @@
 # usage tiny while still covering every binding.
 #
 # Usage:
-#   scripts/run-ohostest.sh            # run every module
-#   scripts/run-ohostest.sh sensor vsync  # run only the given modules
+#   scripts/run-ohostest.sh                         # run every module for arm64
+#   scripts/run-ohostest.sh --arch x64              # run every module for x64
+#   scripts/run-ohostest.sh --arch x64 sensor vsync # run selected modules for x64
+#   scripts/run-ohostest.sh --fail-fast sensor vsync # stop after the first failed module
 set -euo pipefail
 
 # pnpm forwards the conventional argument separator to nested workspace
 # scripts; do not treat it as a test module name.
-if [ "${1:-}" = "--" ]; then
-  shift
-fi
+OHOS_ARCH="${OHOS_ARCH:-arm64}"
+FAIL_FAST=0
+while [ $# -gt 0 ]; do
+  case "$1" in
+    --)
+      shift
+      ;;
+    --arch)
+      if [ $# -lt 2 ]; then
+        echo "error: --arch requires a value" >&2
+        exit 2
+      fi
+      OHOS_ARCH="$2"
+      shift 2
+      ;;
+    --arch=*)
+      OHOS_ARCH="${1#--arch=}"
+      shift
+      ;;
+    --fail-fast)
+      FAIL_FAST=1
+      shift
+      ;;
+    --*)
+      echo "error: unsupported option '$1'" >&2
+      exit 2
+      ;;
+    *)
+      break
+      ;;
+  esac
+done
+case "$OHOS_ARCH" in
+  arm64|aarch) OHOS_ARCH="arm64" ;;
+  x86_64|x64) OHOS_ARCH="x64" ;;
+  *) echo "error: unsupported architecture '$OHOS_ARCH' (expected arm64 or x64)" >&2; exit 2 ;;
+esac
 
 ROOT="$(cd "$(dirname "$0")/.." && pwd)"
 cd "$ROOT"
@@ -155,10 +191,10 @@ verify_gesture_libraries() {
   local entries
   local library
 
-  case "${OHOS_ARCH:-arm64}" in
+  case "$OHOS_ARCH" in
     arm64|aarch) abi_dir="arm64-v8a" ;;
     x86_64|x64) abi_dir="x86_64" ;;
-    *) echo "error: unsupported OHOS_ARCH=${OHOS_ARCH:-}" >&2; return 1 ;;
+    *) echo "error: unsupported architecture '$OHOS_ARCH'" >&2; return 1 ;;
   esac
   entries="$(unzip -Z1 "$hap")"
   for library in libarkui_test.so libxcomponent_test.so libxcomponent_multi_test.so; do
@@ -207,12 +243,15 @@ if [ "$needs_gesture_host" -eq 1 ]; then
   # screen timeout. Apply the override before any build begins, while a fresh
   # QEMU guest is still unlocked.
   prepare_gesture_device
-  echo "==> building main HAP for automatic gesture host"
-  pnpm --silent run build:hap
-  # Start from a clean signer/provision state. The SDK-supplied OpenHarmony
-  # certificate cache may have been regenerated since an older test install.
-  "${HDC[@]}" uninstall "$BUNDLE" >/dev/null 2>&1 || true
 fi
+
+# Every ohosTest HAP is associated with the entry module, so a fresh QEMU
+# runner must build and install the main HAP even when no gesture host is used.
+echo "==> building main HAP"
+pnpm --silent run build:hap
+# Start from a clean signer/provision state. The SDK-supplied OpenHarmony
+# certificate cache may have been regenerated since an older test install.
+"${HDC[@]}" uninstall "$BUNDLE" >/dev/null 2>&1 || true
 
 # Make sure the latest ohosTest HAP (with the full List) is installed once.
 echo "==> building ohosTest HAP (full List)"
@@ -256,11 +295,17 @@ EOF
     echo "    BUILD FAILED for $name" >&2
     total_fail=$((total_fail + 1))
     failed_modules+=("$name(build)")
+    if [ "$FAIL_FAST" -eq 1 ]; then
+      break
+    fi
     continue
   fi
   if ! install_haps "$name"; then
     total_fail=$((total_fail + 1))
     failed_modules+=("$name(install)")
+    if [ "$FAIL_FAST" -eq 1 ]; then
+      break
+    fi
     continue
   fi
   "${HDC[@]}" shell "aa force-stop $BUNDLE" >/dev/null 2>&1 || true
@@ -271,6 +316,9 @@ EOF
       if ! start_gesture_host "$name"; then
         total_fail=$((total_fail + 1))
         failed_modules+=("$name(start)")
+        if [ "$FAIL_FAST" -eq 1 ]; then
+          break
+        fi
         continue
       fi
       HDC_TARGET="${HDC_TARGET:-}" "$ROOT/scripts/inject-xcomponent-gestures.sh"
@@ -293,6 +341,10 @@ EOF
   if [ "$fail" -gt 0 ] || ! grep -q "TestFinished" "$log"; then
     failed_modules+=("$name")
     cp "$log" "$ROOT/ohostest-$name.log"
+    if [ "$FAIL_FAST" -eq 1 ]; then
+      rm -f "$log"
+      break
+    fi
   fi
   rm -f "$log"
 done

@@ -1,0 +1,19 @@
+[package]
+name    = "accessibility_test"
+version = "0.1.0"
+edition = "2021"
+
+[lib]
+crate-type = ["cdylib"]
+
+[dependencies]
+accesskit                  = { workspace = true }
+accesskit_ohos             = { workspace = true, features = ["api-24"] }
+napi-ohos                  = { workspace = true }
+napi-derive-ohos           = { workspace = true }
+ohos-accessibility-binding = { workspace = true, features = ["api-24"] }
+ohos-arkui-binding         = { workspace = true, features = ["accessibility", "api-24", "napi"] }
+ohos-xcomponent-binding    = { workspace = true, features = ["accessibility", "api-24", "multi_mode"] }
+
+[build-dependencies]
+napi-build-ohos = { workspace = true }

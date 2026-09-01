@@ -6,6 +6,7 @@ A set of HarmonyNext native module bindings for Rust.
 
 | Module | Version | Description |
 | --- | --- | --- |
+| [ohos-accessibility-binding](./crates/accessibility) | ![Crates.io Version](https://img.shields.io/crates/v/ohos-accessibility-binding) | ArkUI native accessibility provider binding |
 | [ohos-ability-access-control-binding](./crates/ability_access_control) | ![Crates.io Version](https://img.shields.io/crates/v/ohos-ability-access-control-binding) | [ability-access-control](https://developer.huawei.com/consumer/cn/doc/harmonyos-references-V5/_ability_access_control-V5) binding |
 | [ohos-arkui-binding](./crates/arkui) | ![Crates.io Version](https://img.shields.io/crates/v/ohos-arkui-binding) | [arkui](https://developer.huawei.com/consumer/cn/doc/harmonyos-references-V5/_ark_u_i___native_module-V5) binding |
 | [ohos-arkui-input-binding](./crates/arkui_input) | ![Crates.io Version](https://img.shields.io/crates/v/ohos-arkui-input-binding) | [arkui input](https://developer.huawei.com/consumer/cn/doc/harmonyos-references-V5/_ark_u_i___native_module-V5) binding |

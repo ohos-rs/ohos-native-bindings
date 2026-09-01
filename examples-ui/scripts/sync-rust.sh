@@ -3,25 +3,60 @@
 # .so / index.d.ts artifacts into this ArkTS host project.
 #
 # Usage:
-#   scripts/sync-rust.sh              # build every demo
-#   scripts/sync-rust.sh arkui vsync  # build only the given example dirs
+#   scripts/sync-rust.sh                         # build every demo for arm64
+#   scripts/sync-rust.sh --arch x64              # build every demo for x64
+#   scripts/sync-rust.sh --arch x64 arkui vsync  # build selected demos for x64
+#   scripts/sync-rust.sh --fail-fast arkui vsync # stop after the first failed demo
 #
 # The bindings repo is the parent of examples-ui in the monorepo. Set
 # $OHOS_NATIVE_BINDINGS only when intentionally testing another checkout.
 set -euo pipefail
 
-# pnpm forwards the conventional argument separator to nested workspace
-# scripts; do not treat it as an example name.
-if [ "${1:-}" = "--" ]; then
-  shift
-fi
-
 DEMO_ROOT="$(cd "$(dirname "$0")/.." && pwd)"
 OHOS_ARCH="${OHOS_ARCH:-arm64}"
+FAIL_FAST=0
+# pnpm forwards the conventional argument separator to nested workspace
+# scripts; do not treat it as an example name.
+while [ $# -gt 0 ]; do
+  case "$1" in
+    --)
+      shift
+      ;;
+    --arch)
+      if [ $# -lt 2 ]; then
+        echo "error: --arch requires a value" >&2
+        exit 2
+      fi
+      OHOS_ARCH="$2"
+      shift 2
+      ;;
+    --arch=*)
+      OHOS_ARCH="${1#--arch=}"
+      shift
+      ;;
+    --fail-fast)
+      FAIL_FAST=1
+      shift
+      ;;
+    --*)
+      echo "error: unsupported option '$1'" >&2
+      exit 2
+      ;;
+    *)
+      break
+      ;;
+  esac
+done
 case "$OHOS_ARCH" in
-  arm64|aarch) ABI_DIR="arm64-v8a" ;;
-  x86_64|x64) ABI_DIR="x86_64" ;;
-  *) echo "error: unsupported OHOS_ARCH=$OHOS_ARCH" >&2; exit 2 ;;
+  arm64|aarch)
+    OHOS_ARCH="arm64"
+    ABI_DIR="arm64-v8a"
+    ;;
+  x86_64|x64)
+    OHOS_ARCH="x64"
+    ABI_DIR="x86_64"
+    ;;
+  *) echo "error: unsupported architecture '$OHOS_ARCH' (expected arm64 or x64)" >&2; exit 2 ;;
 esac
 LIBS_DIR="$DEMO_ROOT/entry/libs/$ABI_DIR"
 TYPES_DIR="$DEMO_ROOT/entry/src/main/ets/types"
@@ -64,7 +99,7 @@ normalize_dts_eof() {
 
 # --- pick demos ----------------------------------------------------------------
 ALL_DEMOS=(
-  ability_access_control ark_web arkui arkui_input ashmem asset bundle camera
+  ability_access_control accessibility ark_web arkui arkui_input ashmem asset bundle camera
   display display_soloist drawing fileshare fileuri hilog huks ime image
   image_native init jsvm native_buffer native_window net_connection net_stack
   pasteboard qos raw sensor udmf vibrator vsync xcomponent xcomponent_multi
@@ -91,6 +126,9 @@ for demo in "${DEMOS[@]}"; do
   if [ ! -d "$example_dir" ]; then
     echo "error: no such example: $demo ($example_dir missing)" >&2
     failed+=("$demo")
+    if [ "$FAIL_FAST" -eq 1 ]; then
+      break
+    fi
     continue
   fi
 
@@ -98,6 +136,9 @@ for demo in "${DEMOS[@]}"; do
   if ! (cd "$example_dir" && ohrs build -a "$OHOS_ARCH" >/dev/null); then
     echo "error: ohrs build failed for $demo" >&2
     failed+=("$demo")
+    if [ "$FAIL_FAST" -eq 1 ]; then
+      break
+    fi
     continue
   fi
 
@@ -111,6 +152,9 @@ for demo in "${DEMOS[@]}"; do
   if [ ! -f "$so_file" ]; then
     echo "error: $so_name not produced for $demo in $example_dir/dist/$ABI_DIR" >&2
     failed+=("$demo")
+    if [ "$FAIL_FAST" -eq 1 ]; then
+      break
+    fi
     continue
   fi
 

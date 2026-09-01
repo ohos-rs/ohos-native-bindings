@@ -23,12 +23,17 @@ pnpm run init
 
 pnpm run ui:sync                    # 构建并同步全部 Rust example
 pnpm run ui:sync -- arkui vsync     # 只同步指定 example
+pnpm run ui:sync -- --arch x64      # 显式构建 x64，默认 arm64
+pnpm run ui:sync -- --fail-fast     # 首个构建失败后立即结束
 pnpm run ui:build                   # 构建并签名主 HAP
 pnpm run ui:run                     # sync -> build -> install -> start
 
 pnpm run test:ui                    # 分模块执行全部 ohosTest
 pnpm run test:ui -- sensor vsync    # 只执行指定模块
-pnpm run test:ui:xcomponent         # QEMU XComponent 手势 E2E
+pnpm run test:ui -- --arch x64      # 在 x64 设备执行全部 ohosTest
+pnpm run test:ui -- --fail-fast     # 首个失败模块出现后立即结束
+pnpm run test:ui:xcomponent -- --arch x64 # QEMU XComponent 手势 E2E
+pnpm run test:ui:accessibility -- --arch x64 # QEMU/设备 AccessKit E2E
 
 pnpm run format:ui
 pnpm run lint:ui
@@ -40,8 +45,9 @@ pnpm run prek:check
 - `entry/src/ohosTest/ets/test/modules/`：每个 binding 一个 Hypium 用例。
 - `scripts/run-ohostest.sh`：每个 binding 使用独立 `aa test` 进程，避免多个 napi
   模块耗尽单进程 pthread TLS key。
-- `scripts/run-qemu-xcomponent-gestures.sh`：识别 QEMU ABI，构建 `arkui`、
-  `xcomponent`、`xcomponent_multi`，自动注入并验证 Tap、Pan、Swipe 和多点触控。
+- `scripts/run-qemu-xcomponent-gestures.sh`：按 `--arch` 指定的架构（默认 `arm64`）
+  构建 `arkui`、`xcomponent`、`xcomponent_multi`，自动注入并验证 Tap、Pan、
+  Swipe 和多点触控。
 - `entry/libs/`、`entry/src/main/ets/types/`、`.tools/` 均为本地生成内容，不提交。
 
 `scripts/sync-rust.sh` 默认使用父目录的 bindings workspace；仅在验证其他 checkout

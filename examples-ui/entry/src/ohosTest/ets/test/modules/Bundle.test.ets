@@ -17,7 +17,11 @@ export default function bundleTest(): void {
       expect(appId().length > 0).assertTrue();
     });
     it("appIdentifier", 0, () => {
-      expect(appIdentifier().length > 0).assertTrue();
+      // Unsigned and locally test-signed HAPs do not have an appIdentifier.
+      // The native API still succeeds and returns a stable string.
+      const identifier: string = appIdentifier();
+      expect(typeof identifier === "string").assertTrue();
+      expect(appIdentifier()).assertEqual(identifier);
     });
     it("mainElementName", 0, () => {
       expect(mainElementName()).assertContain("EntryAbility");

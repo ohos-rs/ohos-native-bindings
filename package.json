@@ -19,6 +19,7 @@
     "lint:rust": "cargo clippy --workspace --exclude generate --target aarch64-unknown-linux-ohos --all-targets --all-features -- -D warnings",
     "lint:ui": "pnpm --filter @ohos-rs/examples-ui run lint",
     "test:ui": "pnpm --filter @ohos-rs/examples-ui run test",
+    "test:ui:accessibility": "pnpm --filter @ohos-rs/examples-ui run test:device:accessibility",
     "test:ui:xcomponent": "pnpm --filter @ohos-rs/examples-ui run test:qemu:xcomponent",
     "ui:build": "pnpm --filter @ohos-rs/examples-ui run build:hap",
     "ui:clean": "pnpm --filter @ohos-rs/examples-ui run clean",

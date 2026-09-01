@@ -4,6 +4,8 @@
 use napi_ohos::bindgen_prelude::{check_status, FromNapiValue, TypeName, ValidateNapiValue};
 #[cfg(feature = "napi")]
 use napi_sys_ohos as sys;
+#[cfg(all(feature = "accessibility", feature = "api-23"))]
+use ohos_accessibility_binding::Provider;
 use ohos_arkui_input_binding::{sys::ArkUI_NodeHandle, ArkUIErrorCode};
 use ohos_arkui_sys::{
     ArkUI_IntOffset, ArkUI_IntSize, OH_ArkUI_GetContextByNode,
@@ -48,6 +50,15 @@ impl ArkUINode {
     /// Returns the native ArkUI node handle.
     pub fn raw_handle(&self) -> ArkUI_NodeHandle {
         self.raw
+    }
+
+    /// Obtain the accessibility provider associated with this custom node.
+    ///
+    /// ArkUI only supports this operation for `ARKUI_NODE_CUSTOM` nodes.
+    #[cfg(all(feature = "accessibility", feature = "api-23"))]
+    pub fn accessibility_provider(&self) -> ohos_accessibility_binding::Result<Provider<'_>> {
+        let mut raw = self.raw;
+        unsafe { Provider::from_node_handle(&mut raw) }
     }
 
     /// Immutable children view.

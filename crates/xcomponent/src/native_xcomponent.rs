@@ -3,6 +3,8 @@
 use std::rc::Rc;
 
 use napi_ohos::{Error, Result};
+#[cfg(all(feature = "accessibility", feature = "api-13"))]
+use ohos_accessibility_binding::{AccessibilityError, Provider};
 use ohos_arkui_input_binding::ArkUIInputEvent;
 use ohos_xcomponent_sys::{
     OH_NativeXComponent, OH_NativeXComponent_Callback, OH_NativeXComponent_ExpectedRateRange,
@@ -11,6 +13,9 @@ use ohos_xcomponent_sys::{
     OH_NativeXComponent_RegisterOnFrameCallback, OH_NativeXComponent_RegisterUIInputEventCallback,
     OH_NativeXComponent_SetExpectedFrameRateRange,
 };
+
+#[cfg(all(feature = "accessibility", feature = "api-13"))]
+use ohos_xcomponent_sys::OH_NativeXComponent_GetNativeAccessibilityProvider;
 
 use crate::{
     code::XComponentResultCode, dispatch_touch_event, events::lookup_raw_window, key_event,
@@ -55,6 +60,19 @@ impl NativeXComponent {
     /// get raw point
     pub fn raw(&self) -> *mut OH_NativeXComponent {
         self.raw.0
+    }
+
+    /// Obtain the ArkUI accessibility provider owned by this XComponent.
+    #[cfg(all(feature = "accessibility", feature = "api-13"))]
+    pub fn accessibility_provider(&self) -> ohos_accessibility_binding::Result<Provider<'_>> {
+        let mut provider = std::ptr::null_mut();
+        let result = unsafe {
+            OH_NativeXComponent_GetNativeAccessibilityProvider(self.raw(), &mut provider)
+        };
+        if result != 0 {
+            return Err(AccessibilityError::UnknownCode(result));
+        }
+        unsafe { Provider::from_raw(provider) }
     }
 
     /// The live native window of **this** XComponent instance, if its surface
