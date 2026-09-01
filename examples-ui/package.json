@@ -11,6 +11,7 @@
     "install:test": "hdc install -r entry/build/default/outputs/ohosTest/entry-ohosTest-signed.hap",
     "start": "hdc shell \"aa start -a EntryAbility -b com.richerfu.ohos_example\"",
     "test": "./scripts/run-ohostest.sh",
+    "test:device:accessibility": "./scripts/run-device-accessibility-e2e.sh",
     "run:device": "pnpm run sync:rust && pnpm run build:hap && pnpm run install:hap && pnpm run start",
     "format": "oxk format entry/",
     "lint": "oxk lint entry/",
