@@ -8,7 +8,7 @@ crate-type = ["cdylib"]
 
 [dependencies]
 accesskit                  = { workspace = true }
-accesskit_ohos             = { workspace = true }
+accesskit_ohos             = { workspace = true, features = ["api-24"] }
 napi-ohos                  = { workspace = true }
 napi-derive-ohos           = { workspace = true }
 ohos-accessibility-binding = { workspace = true, features = ["api-24"] }
