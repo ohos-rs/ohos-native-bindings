@@ -103,7 +103,7 @@ jobs:
             ~/.cargo/git
             ~/.ohos-qemu
             examples-ui/.tools
-          key: e2e-${{ runner.os }}-x86_64-${{ env.OHOS_QEMU_RELEASE_TAG }}-${{ hashFiles('pnpm-lock.yaml', 'examples-ui/scripts/build-hap.sh', 'examples-ui/scripts/sync-rust.sh', 'examples-ui/scripts/run-ohostest.sh', 'examples-ui/scripts/run-device-accessibility-e2e.sh') }}
+          key: e2e-${{ runner.os }}-x86_64-${{ env.OHOS_QEMU_RELEASE_TAG }}-${{ hashFiles('pnpm-lock.yaml', 'examples-ui/scripts/build-hap.sh', 'examples-ui/scripts/sync-rust.sh', 'examples-ui/scripts/run-ohostest.sh', 'examples-ui/scripts/run-device-accessibility-e2e.sh', 'examples-ui/scripts/accessibility-cli-token.c') }}
 
       - name: Install workspace and Rust build tools
         shell: bash
@@ -323,7 +323,7 @@ jobs:
 
       - name: Enable QEMU screen reader
         if: ${{ matrix.suite == 'accessibility' }}
-        timeout-minutes: 2
+        timeout-minutes: 5
         shell: bash
         run: |
           set -euo pipefail
@@ -342,8 +342,48 @@ jobs:
           fi
 
           if ! grep -Eq '"enabled":[[:space:]]*true' "$state_log"; then
+            smode_log="$E2E_DIAGNOSTICS_DIR/hdc-smode.log"
             set +e
-            "$HDC_BIN" -t "$HDC_TARGET" shell "$a11y_cli ability-enable-screen-reader" >"$enable_log" 2>&1
+            "$HDC_BIN" -t "$HDC_TARGET" smode >"$smode_log" 2>&1
+            smode_status=$?
+            set -e
+            cat "$smode_log"
+            if [ "$smode_status" -ne 0 ] || grep -Eqi '\[Fail\]|cannot set root' "$smode_log"; then
+              echo "::error::The accessibility QEMU guest must support HDC root mode."
+              exit 1
+            fi
+
+            root_ready=false
+            for attempt in $(seq 1 30); do
+              timeout 10s "$HDC_BIN" tconn "$HDC_TARGET" >/dev/null 2>&1 || true
+              root_uid="$(timeout 10s "$HDC_BIN" -t "$HDC_TARGET" shell id -u 2>/dev/null | tr -d '\r' || true)"
+              if [ "$root_uid" = "0" ]; then
+                root_ready=true
+                break
+              fi
+              sleep 2
+            done
+            if [ "$root_ready" != true ]; then
+              echo "::error::HDC did not reconnect in QEMU root mode."
+              exit 1
+            fi
+
+            clang_bin="$(find "$OHOS_BASE_SDK_HOME" -path '*/native/llvm/bin/clang' -type f -perm -111 -print -quit 2>/dev/null || true)"
+            native_sysroot="$(find "$OHOS_BASE_SDK_HOME" -path '*/native/sysroot' -type d -print -quit 2>/dev/null || true)"
+            if [ -z "$clang_bin" ] || [ -z "$native_sysroot" ]; then
+              echo "::error::The OpenHarmony native compiler or sysroot is missing."
+              exit 1
+            fi
+
+            token_helper="$RUNNER_TEMP/accessibility-cli-token"
+            "$clang_bin" --target=x86_64-unknown-linux-ohos --sysroot="$native_sysroot" -std=c11 -Wall -Wextra -Werror -O2 -fPIE -pie examples-ui/scripts/accessibility-cli-token.c -ldl -o "$token_helper"
+            token_helper_device=/data/local/tmp/accessibility-cli-token
+            "$HDC_BIN" -t "$HDC_TARGET" file send "$token_helper" "$token_helper_device"
+            "$HDC_BIN" -t "$HDC_TARGET" shell "chmod 755 $token_helper_device"
+            "$HDC_BIN" -t "$HDC_TARGET" shell "ls -l /system/lib64/lib*token*.so" >"$E2E_DIAGNOSTICS_DIR/access-token-libraries.log" 2>&1 || true
+
+            set +e
+            "$HDC_BIN" -t "$HDC_TARGET" shell "$token_helper_device $a11y_cli ability-enable-screen-reader" >"$enable_log" 2>&1
             enable_status=$?
             set -e
             cat "$enable_log"
