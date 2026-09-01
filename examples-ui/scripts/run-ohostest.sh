@@ -243,12 +243,15 @@ if [ "$needs_gesture_host" -eq 1 ]; then
   # screen timeout. Apply the override before any build begins, while a fresh
   # QEMU guest is still unlocked.
   prepare_gesture_device
-  echo "==> building main HAP for automatic gesture host"
-  pnpm --silent run build:hap
-  # Start from a clean signer/provision state. The SDK-supplied OpenHarmony
-  # certificate cache may have been regenerated since an older test install.
-  "${HDC[@]}" uninstall "$BUNDLE" >/dev/null 2>&1 || true
 fi
+
+# Every ohosTest HAP is associated with the entry module, so a fresh QEMU
+# runner must build and install the main HAP even when no gesture host is used.
+echo "==> building main HAP"
+pnpm --silent run build:hap
+# Start from a clean signer/provision state. The SDK-supplied OpenHarmony
+# certificate cache may have been regenerated since an older test install.
+"${HDC[@]}" uninstall "$BUNDLE" >/dev/null 2>&1 || true
 
 # Make sure the latest ohosTest HAP (with the full List) is installed once.
 echo "==> building ohosTest HAP (full List)"
