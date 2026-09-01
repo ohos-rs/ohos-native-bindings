@@ -22,11 +22,19 @@ jobs:
         include:
           - name: Non-UI bindings
             suite: bindings
-            modules: >-
+            # Keep unavailable QEMU capabilities in the x64 build coverage.
+            # The public image has no libjsvm.so, QoS scheduling support, or
+            # vibrator device, so those modules cannot execute on this guest.
+            build_modules: >-
               ability_access_control ark_web arkui_input ashmem asset bundle camera display
               display_soloist drawing fileshare fileuri hilog huks image image_native ime init
               jsvm native_buffer native_window net_connection net_stack pasteboard qos raw sensor
               udmf vibrator vsync
+            modules: >-
+              ability_access_control ark_web arkui_input ashmem asset bundle camera display
+              display_soloist drawing fileshare fileuri hilog huks image image_native ime init
+              native_buffer native_window net_connection net_stack pasteboard raw sensor udmf vsync
+            unsupported_modules: jsvm qos vibrator
           - name: ArkUI
             suite: arkui
             modules: arkui
@@ -406,7 +414,7 @@ jobs:
         timeout-minutes: 45
         shell: bash
         env:
-          E2E_MODULES: ${{ matrix.modules }}
+          E2E_MODULES: ${{ matrix.build_modules || matrix.modules }}
           E2E_SUITE: ${{ matrix.suite }}
         run: |
           set -euo pipefail
@@ -417,6 +425,14 @@ jobs:
               ;;
           esac
           pnpm run ui:sync -- --arch x64 --fail-fast "${examples[@]}"
+
+      - name: Report unavailable QEMU capabilities
+        if: ${{ matrix.unsupported_modules }}
+        shell: bash
+        env:
+          UNSUPPORTED_MODULES: ${{ matrix.unsupported_modules }}
+        run: |
+          echo "::notice::Built but not executed on this public QEMU image: $UNSUPPORTED_MODULES"
 
       - name: Run binding E2E
         if: ${{ matrix.suite != 'accessibility' }}
