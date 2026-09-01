@@ -64,7 +64,7 @@ normalize_dts_eof() {
 
 # --- pick demos ----------------------------------------------------------------
 ALL_DEMOS=(
-  ability_access_control ark_web arkui arkui_input ashmem asset bundle camera
+  ability_access_control accessibility ark_web arkui arkui_input ashmem asset bundle camera
   display display_soloist drawing fileshare fileuri hilog huks ime image
   image_native init jsvm native_buffer native_window net_connection net_stack
   pasteboard qos raw sensor udmf vibrator vsync xcomponent xcomponent_multi

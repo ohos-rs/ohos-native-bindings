@@ -72,6 +72,14 @@ impl XComponent {
         self.0.raw()
     }
 
+    /// Obtain the ArkUI accessibility provider owned by this XComponent.
+    #[cfg(all(feature = "accessibility", feature = "api-13"))]
+    pub fn accessibility_provider(
+        &self,
+    ) -> ohos_accessibility_binding::Result<ohos_accessibility_binding::Provider<'_>> {
+        self.0.accessibility_provider()
+    }
+
     pub fn set_frame_rate(&self, min: i32, max: i32, expected: i32) -> Result<()> {
         self.0.set_frame_rate(min, max, expected)
     }

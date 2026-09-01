@@ -1,5 +1,7 @@
 {
   "src": [
+    "pages/AccessibilityArkUiTestHost",
+    "pages/AccessibilityXComponentTestHost",
     "pages/OhosTestHost",
     "pages/XComponentGestureHost",
     "pages/Index",
