@@ -14,7 +14,7 @@ permissions:
 jobs:
   bindings-qemu:
     name: ${{ matrix.name }} QEMU E2E
-    runs-on: ubuntu-22.04
+    runs-on: ubuntu-24.04
     timeout-minutes: 180
     strategy:
       fail-fast: true
@@ -48,6 +48,7 @@ jobs:
         uses: actions/checkout@v4
 
       - name: Setup OpenHarmony SDK
+        id: ohos_sdk
         uses: openharmony-rs/setup-ohos-sdk@v1.0.1
         with:
           version: "6.1"
@@ -103,7 +104,7 @@ jobs:
             ~/.cargo/git
             ~/.ohos-qemu
             examples-ui/.tools
-          key: e2e-${{ runner.os }}-x86_64-${{ env.OHOS_QEMU_RELEASE_TAG }}-${{ hashFiles('pnpm-lock.yaml', 'examples-ui/scripts/build-hap.sh', 'examples-ui/scripts/sync-rust.sh', 'examples-ui/scripts/run-ohostest.sh', 'examples-ui/scripts/run-device-accessibility-e2e.sh', 'examples-ui/scripts/accessibility-cli-token.c') }}
+          key: e2e-${{ runner.os }}-x86_64-${{ env.OHOS_QEMU_RELEASE_TAG }}-${{ hashFiles('pnpm-lock.yaml', 'examples-ui/scripts/build-hap.sh', 'examples-ui/scripts/sync-rust.sh', 'examples-ui/scripts/run-ohostest.sh', 'examples-ui/scripts/run-device-accessibility-e2e.sh', 'examples-ui/scripts/accessibility-enable.cpp', 'examples-ui/scripts/qemu-multitouch.py') }}
 
       - name: Install workspace and Rust build tools
         shell: bash
@@ -158,6 +159,14 @@ jobs:
             exit 1
           fi
           qemu-system-x86_64 --version | tee "$diagnostics_dir/qemu-version.log"
+          qemu_version="$(qemu-system-x86_64 --version | sed -n '1s/.*version \([0-9][0-9]*\)\.\([0-9][0-9]*\).*/\1 \2/p')"
+          read -r qemu_major qemu_minor <<<"$qemu_version"
+          if [ -z "${qemu_major:-}" ] \
+            || [ "$qemu_major" -lt 8 ] \
+            || { [ "$qemu_major" -eq 8 ] && [ "${qemu_minor:-0}" -lt 1 ]; }; then
+            echo "::error::QEMU 8.1 or newer is required for virtio-multitouch QMP input."
+            exit 1
+          fi
 
       - name: Install OpenHarmony QEMU image
         shell: bash
@@ -183,10 +192,14 @@ jobs:
           set -euo pipefail
           launcher="$(find "$HOME/.ohos-qemu" -path '*/launch/linux.sh' -type f -print -quit 2>/dev/null || true)"
           test -n "$launcher"
+          qmp_socket="$RUNNER_TEMP/ohos-qemu-qmp.sock"
+          rm -f "$qmp_socket"
+          echo "QEMU_QMP_SOCKET=$qmp_socket" >> "$GITHUB_ENV"
           nohup env \
             QEMU_DISPLAY=none \
             QEMU_ACCEL="$QEMU_ACCEL" \
             QEMU_HDC_HOST_PORT=5555 \
+            QEMU_EXTRA_ARGS="-device virtio-multitouch-pci -qmp unix:$qmp_socket,server=on,wait=off" \
             "$launcher" >"$RUNNER_TEMP/ohos-qemu.log" 2>&1 </dev/null &
           qemu_pid=$!
           echo "$qemu_pid" >"$RUNNER_TEMP/ohos-qemu.pid"
@@ -321,95 +334,73 @@ jobs:
           tail -200 "$RUNNER_TEMP/ohos-qemu.log" >&2 || true
           exit 1
 
-      - name: Enable QEMU screen reader
+      - name: Prepare QEMU accessibility controls
         if: ${{ matrix.suite == 'accessibility' }}
         timeout-minutes: 5
         shell: bash
+        env:
+          OHOS_NATIVE_SDK_OUTPUT: ${{ steps.ohos_sdk.outputs.ohos_sdk_native }}
         run: |
           set -euo pipefail
-          a11y_cli=/system/bin/cli_tool/executable/ohos-a11yManager
-          state_log="$E2E_DIAGNOSTICS_DIR/screen-reader-state-before.log"
-          enable_log="$E2E_DIAGNOSTICS_DIR/screen-reader-enable.log"
-
-          set +e
-          "$HDC_BIN" -t "$HDC_TARGET" shell "$a11y_cli state-is-screen-reader-enabled" >"$state_log" 2>&1
-          state_status=$?
-          set -e
-          cat "$state_log"
-          if [ "$state_status" -ne 0 ] || grep -Eqi 'not found|no such file|\[Fail\]' "$state_log"; then
-            echo "::error::The QEMU image does not provide $a11y_cli."
+          test -S "$QEMU_QMP_SOCKET"
+          devices_log="$E2E_DIAGNOSTICS_DIR/input-devices.log"
+          "$HDC_BIN" -t "$HDC_TARGET" shell "cat /proc/bus/input/devices" >"$devices_log"
+          if ! grep -q 'QEMU Virtio MultiTouch' "$devices_log"; then
+            cat "$devices_log"
+            echo "::error::The QEMU guest did not register the virtio-multitouch device."
             exit 1
           fi
 
-          if ! grep -Eq '"enabled":[[:space:]]*true' "$state_log"; then
-            smode_log="$E2E_DIAGNOSTICS_DIR/hdc-smode.log"
-            set +e
-            "$HDC_BIN" -t "$HDC_TARGET" smode >"$smode_log" 2>&1
-            smode_status=$?
-            set -e
-            cat "$smode_log"
-            if [ "$smode_status" -ne 0 ] || grep -Eqi '\[Fail\]|cannot set root' "$smode_log"; then
-              echo "::error::The accessibility QEMU guest must support HDC root mode."
-              exit 1
-            fi
-
-            root_ready=false
-            for attempt in $(seq 1 30); do
-              timeout 10s "$HDC_BIN" tconn "$HDC_TARGET" >/dev/null 2>&1 || true
-              root_uid="$(timeout 10s "$HDC_BIN" -t "$HDC_TARGET" shell id -u 2>/dev/null | tr -d '\r' || true)"
-              if [ "$root_uid" = "0" ]; then
-                root_ready=true
-                break
-              fi
-              sleep 2
-            done
-            if [ "$root_ready" != true ]; then
-              echo "::error::HDC did not reconnect in QEMU root mode."
-              exit 1
-            fi
-
-            clang_bin="$(find "$OHOS_BASE_SDK_HOME" -path '*/native/llvm/bin/clang' -type f -perm -111 -print -quit 2>/dev/null || true)"
-            native_sysroot="$(find "$OHOS_BASE_SDK_HOME" -path '*/native/sysroot' -type d -print -quit 2>/dev/null || true)"
-            if [ -z "$clang_bin" ] || [ -z "$native_sysroot" ]; then
-              echo "::error::The OpenHarmony native compiler or sysroot is missing."
-              exit 1
-            fi
-
-            token_helper="$RUNNER_TEMP/accessibility-cli-token"
-            "$clang_bin" --target=x86_64-unknown-linux-ohos --sysroot="$native_sysroot" -std=c11 -Wall -Wextra -Werror -O2 -fPIE -pie examples-ui/scripts/accessibility-cli-token.c -ldl -o "$token_helper"
-            token_helper_device=/data/local/tmp/accessibility-cli-token
-            "$HDC_BIN" -t "$HDC_TARGET" file send "$token_helper" "$token_helper_device"
-            "$HDC_BIN" -t "$HDC_TARGET" shell "chmod 755 $token_helper_device"
-            "$HDC_BIN" -t "$HDC_TARGET" shell "ls -l /system/lib64/lib*token*.so" >"$E2E_DIAGNOSTICS_DIR/access-token-libraries.log" 2>&1 || true
-
-            set +e
-            "$HDC_BIN" -t "$HDC_TARGET" shell "$token_helper_device $a11y_cli ability-enable-screen-reader" >"$enable_log" 2>&1
-            enable_status=$?
-            set -e
-            cat "$enable_log"
-            if [ "$enable_status" -ne 0 ] && ! grep -Eqi 'already enabled' "$enable_log"; then
-              echo "::error::Failed to enable the QEMU screen reader."
-              exit 1
-            fi
+          smode_log="$E2E_DIAGNOSTICS_DIR/hdc-smode.log"
+          set +e
+          "$HDC_BIN" -t "$HDC_TARGET" smode >"$smode_log" 2>&1
+          smode_status=$?
+          set -e
+          cat "$smode_log"
+          if [ "$smode_status" -ne 0 ] || grep -Eqi '\[Fail\]|cannot set root' "$smode_log"; then
+            echo "::error::The accessibility QEMU guest must support HDC root mode."
+            exit 1
           fi
 
-          "$HDC_BIN" -t "$HDC_TARGET" shell "power-shell timeout -o 86400000" >/dev/null 2>&1 || true
-          "$HDC_BIN" -t "$HDC_TARGET" shell "power-shell wakeup" >/dev/null 2>&1 || true
-
-          deadline=$((SECONDS + 60))
-          while ((SECONDS < deadline)); do
-            state="$("$HDC_BIN" -t "$HDC_TARGET" shell "hidumper -s AccessibilityManagerService -a -u" 2>/dev/null | tr -d '\r' || true)"
-            if grep -Eq 'accessible:[[:space:]]+1' <<<"$state"; then
-              printf '%s\n' "$state" | tee "$E2E_DIAGNOSTICS_DIR/accessibility-manager-state-before.log"
-              exit 0
+          root_ready=false
+          for attempt in $(seq 1 30); do
+            timeout 10s "$HDC_BIN" tconn "$HDC_TARGET" >/dev/null 2>&1 || true
+            root_uid="$(timeout 10s "$HDC_BIN" -t "$HDC_TARGET" shell id -u 2>/dev/null | tr -d '\r' || true)"
+            if [ "$root_uid" = "0" ]; then
+              root_ready=true
+              break
             fi
             sleep 2
           done
+          if [ "$root_ready" != true ]; then
+            echo "::error::HDC did not reconnect in QEMU root mode."
+            exit 1
+          fi
 
-          "$HDC_BIN" -t "$HDC_TARGET" shell "bm dump -n com.ohos.screenreader" >"$E2E_DIAGNOSTICS_DIR/screen-reader-bundle.log" 2>&1 || true
-          "$HDC_BIN" -t "$HDC_TARGET" shell "hidumper -s AccessibilityManagerService -a -u" >"$E2E_DIAGNOSTICS_DIR/accessibility-manager-state-timeout.log" 2>&1 || true
-          echo "::error::QEMU screen reader did not become accessible within 60 seconds."
-          exit 1
+          native_sdk="${OHOS_NATIVE_SDK_OUTPUT:-${OHOS_SDK_NATIVE:-${OHOS_BASE_SDK_HOME:?}/native}}"
+          clang_bin="$native_sdk/llvm/bin/clang++"
+          native_sysroot="$native_sdk/sysroot"
+          if [ -z "$native_sdk" ] || [ ! -x "$clang_bin" ] || [ ! -d "$native_sysroot" ]; then
+            echo "::error::The OpenHarmony native compiler or sysroot is missing under OHOS_SDK_NATIVE=$native_sdk."
+            exit 1
+          fi
+
+          enable_helper="$RUNNER_TEMP/accessibility-enable"
+          "$clang_bin" \
+            --target=x86_64-unknown-linux-ohos \
+            --sysroot="$native_sysroot" \
+            -std=c++17 -Wall -Wextra -Werror -O2 -fPIE -pie \
+            examples-ui/scripts/accessibility-enable.cpp \
+            -ldl \
+            -o "$enable_helper"
+          enable_helper_device=/data/local/tmp/accessibility-enable
+          "$HDC_BIN" -t "$HDC_TARGET" file send "$enable_helper" "$enable_helper_device"
+          "$HDC_BIN" -t "$HDC_TARGET" shell "chmod 755 $enable_helper_device"
+          "$HDC_BIN" -t "$HDC_TARGET" shell \
+            "find /system/lib64/platformsdk -name '*nativetoken*' -o -name '*tokensetproc*' -o -name '*accessibilityconfig*'" \
+            >"$E2E_DIAGNOSTICS_DIR/accessibility-platform-libraries.log" 2>&1 || true
+          echo "ACCESSIBILITY_E2E_ENABLE_COMMAND=$enable_helper_device com.richerfu.ohos_example/AccessibilityE2ETestExtension" \
+            >> "$GITHUB_ENV"
 
       - name: Build Rust examples
         timeout-minutes: 45

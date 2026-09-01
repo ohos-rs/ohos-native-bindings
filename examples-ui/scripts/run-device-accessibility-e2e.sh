@@ -2,10 +2,11 @@
 # Exercise AccessKit through ArkUI CustomNode, XComponent, and the API 15
 # multi-instance callback contract on an OpenHarmony device or QEMU guest.
 #
-# A screen reader must already be enabled; CI enables the system screen reader
-# in its QEMU guest before invoking this script. Single-instance surfaces run
-# in fresh app processes because their callback table is process-wide. The
-# multi-instance surface deliberately keeps two providers in one process.
+# A screen reader must already be enabled, or the caller must provide a command
+# that enables the bundled E2E accessibility extension after HAP installation.
+# Single-instance surfaces run in fresh app processes because their callback
+# table is process-wide. The multi-instance surface deliberately keeps two
+# providers in one process.
 set -euo pipefail
 
 OHOS_ARCH="${OHOS_ARCH:-arm64}"
@@ -47,6 +48,11 @@ HDC=(hdc)
 if [ -n "${HDC_TARGET:-}" ]; then
   HDC=(hdc -t "$HDC_TARGET")
 fi
+QEMU_QMP_SOCKET="${QEMU_QMP_SOCKET:-}"
+QEMU_TOUCH_DRIVER="$ROOT/scripts/qemu-multitouch.py"
+ACCESSIBILITY_E2E_ENABLE_COMMAND="${ACCESSIBILITY_E2E_ENABLE_COMMAND:-}"
+ACTIVE_TOUCH_X=0
+ACTIVE_TOUCH_Y=0
 
 mkdir -p "$DIAGNOSTICS_DIR"
 
@@ -104,6 +110,14 @@ counter() {
   printf '%s\n' "$value"
 }
 
+counter_or_zero() {
+  local status="$1"
+  local name="$2"
+  local value
+  value="$(sed -n "s/.*${name}=\([0-9][0-9]*\).*/\1/p" <<<"$status")"
+  printf '%s\n' "${value:-0}"
+}
+
 virtual_button_count() {
   local layout_file="$1"
   local host_id="$2"
@@ -117,6 +131,42 @@ virtual_button_count() {
   ' "$layout_file" | head -n 1
 }
 
+virtual_button_bounds() {
+  local layout_file="$1"
+  local host_id="$2"
+  jq -r --arg id "$host_id" '
+    first(.. | objects | select(.attributes?.id == $id)) |
+    first(.. | objects |
+      select(.attributes?.type == "button" and
+             .attributes?.clickable == "true" and
+             .attributes?.visible == "true" and
+             .attributes?.enabled == "true")) |
+    .attributes.bounds
+  ' "$layout_file"
+}
+
+screen_dimensions() {
+  local bounds left top right bottom
+  bounds="$(jq -r 'first(.. | objects | select(.attributes?.bounds != null) | .attributes.bounds)' "$HOST_LAYOUT")"
+  read -r left top right bottom < <(
+    sed -n 's/^\[\([0-9][0-9]*\),\([0-9][0-9]*\)\]\[\([0-9][0-9]*\),\([0-9][0-9]*\)\]$/\1 \2 \3 \4/p' <<<"$bounds"
+  )
+  [ -n "${bottom:-}" ] || fail "invalid screen bounds: $bounds"
+  printf '%s %s\n' "$((right - left))" "$((bottom - top))"
+}
+
+qemu_touch() {
+  local width height
+  [ -n "$QEMU_QMP_SOCKET" ] || fail "QEMU_QMP_SOCKET is required for QEMU touch input"
+  [ -S "$QEMU_QMP_SOCKET" ] || fail "QMP socket is unavailable: $QEMU_QMP_SOCKET"
+  read -r width height < <(screen_dimensions)
+  python3 "$QEMU_TOUCH_DRIVER" \
+    --socket "$QEMU_QMP_SOCKET" \
+    --width "$width" \
+    --height "$height" \
+    "$@"
+}
+
 click_layout_node() {
   local node_id="$1"
   local bounds left top right bottom x y
@@ -128,13 +178,36 @@ click_layout_node() {
   [ -n "${bottom:-}" ] || fail "invalid bounds for $node_id: $bounds"
   x=$(((left + right) / 2))
   y=$(((top + bottom) / 2))
-  hdc_run shell uinput -T -c "$x" "$y" 50 >/dev/null
+  ACTIVE_TOUCH_X="$x"
+  ACTIVE_TOUCH_Y="$y"
+  if [ -n "$QEMU_QMP_SOCKET" ]; then
+    qemu_touch tap "$x" "$y"
+  else
+    hdc_run shell uinput -T -c "$x" "$y" 50 >/dev/null
+  fi
 }
 
 screen_reader_enabled() {
   local state_log="$DIAGNOSTICS_DIR/accessibility-manager-state.log"
   hdc_run shell hidumper -s AccessibilityManagerService -a -u >"$state_log" 2>&1
   grep -Eq 'accessible:[[:space:]]+1' "$state_log"
+}
+
+READER_ENABLE_ATTEMPT=0
+enable_test_reader() {
+  local enable_log attempt
+  [ -n "$ACCESSIBILITY_E2E_ENABLE_COMMAND" ] || return 0
+  READER_ENABLE_ATTEMPT=$((READER_ENABLE_ATTEMPT + 1))
+  enable_log="$DIAGNOSTICS_DIR/test-reader-enable-${READER_ENABLE_ATTEMPT}.log"
+  hdc_run shell "$ACCESSIBILITY_E2E_ENABLE_COMMAND" >"$enable_log" 2>&1 || true
+  cat "$enable_log"
+  for attempt in $(seq 1 20); do
+    if screen_reader_enabled; then
+      return 0
+    fi
+    sleep 1
+  done
+  fail "test accessibility extension did not become active"
 }
 
 screen_timeout_overridden=0
@@ -175,12 +248,12 @@ wait_for_tree() {
   local activation_name="$4"
   local attempt readiness status buttons activations
 
-  for attempt in $(seq 1 30); do
+  for attempt in $(seq 1 90); do
     dump_layout 2>/dev/null || true
     readiness="$(layout_attribute "$HOST_LAYOUT" accessibility-test-readiness text 2>/dev/null || true)"
     status="$(layout_attribute "$HOST_LAYOUT" accessibility-test-status text 2>/dev/null || true)"
     buttons="$(virtual_button_count "$HOST_LAYOUT" "$host_id" 2>/dev/null || true)"
-    activations="$(counter "$status" "$activation_name" 2>/dev/null || true)"
+    activations="$(counter_or_zero "$status" "$activation_name")"
     if [ "$readiness" = "$ready_text" ] && [ "${buttons:-0}" -ge 1 ] \
       && [ "${activations:-0}" -ge 1 ]; then
       READY_STATUS="$status"
@@ -203,8 +276,29 @@ screen_reader_swipe_forward() {
   hdc_run shell uitest uiInput swipe "$swipe_x1" "$swipe_y1" "$swipe_x2" "$swipe_y2" 3000 >/dev/null
 }
 
-screen_reader_double_tap() {
+screen_reader_focus_virtual_button() {
+  local host_id="$1"
+  local bounds left top right bottom
+  if [ -z "$QEMU_QMP_SOCKET" ]; then
+    screen_reader_swipe_forward
+    return
+  fi
+  bounds="$(virtual_button_bounds "$HOST_LAYOUT" "$host_id")"
+  read -r left top right bottom < <(
+    sed -n 's/^\[\([0-9][0-9]*\),\([0-9][0-9]*\)\]\[\([0-9][0-9]*\),\([0-9][0-9]*\)\]$/\1 \2 \3 \4/p' <<<"$bounds"
+  )
+  [ -n "${bottom:-}" ] || fail "invalid virtual button bounds for $host_id: $bounds"
+  ACTIVE_TOUCH_X=$(((left + right) / 2))
+  ACTIVE_TOUCH_Y=$(((top + bottom) / 2))
+  qemu_touch tap "$ACTIVE_TOUCH_X" "$ACTIVE_TOUCH_Y"
+}
+
+screen_reader_activate() {
   local swipe_x1 swipe_y1 swipe_x2 swipe_y2 tap_x tap_y
+  if [ -n "$QEMU_QMP_SOCKET" ]; then
+    qemu_touch double-tap "$ACTIVE_TOUCH_X" "$ACTIVE_TOUCH_Y"
+    return
+  fi
   read -r swipe_x1 swipe_y1 swipe_x2 swipe_y2 tap_x tap_y < <(gesture_coordinates)
   # Two separate low-level touch injections are recognized by the system screen
   # reader as one double-tap gesture. uitest's high-level doubleClick is not.
@@ -214,15 +308,16 @@ screen_reader_double_tap() {
 
 exercise_action() {
   local surface="$1"
-  local action_name="$2"
-  local update_name="$3"
+  local host_id="$2"
+  local action_name="$3"
+  local update_name="$4"
   local attempt status actions updates
 
   for attempt in $(seq 1 8); do
-    screen_reader_swipe_forward
+    screen_reader_focus_virtual_button "$host_id"
     # Let the screen reader finish focus movement and speech before activation.
-    sleep 4
-    screen_reader_double_tap
+    sleep 2
+    screen_reader_activate
     sleep 2
     dump_layout
     status="$(layout_attribute "$HOST_LAYOUT" accessibility-test-status text)"
@@ -241,6 +336,26 @@ exercise_action() {
   fail "$surface virtual button did not handle Click and publish its tree update"
 }
 
+start_test_ability() {
+  local ability="$1"
+  local attempt start_log start_status
+  start_log="$DIAGNOSTICS_DIR/start-${ability}.log"
+  for attempt in 1 2 3; do
+    set +e
+    hdc_run shell aa start -a "$ability" -b "$BUNDLE" >"$start_log" 2>&1
+    start_status=$?
+    set -e
+    if [ "$start_status" -eq 0 ] \
+      && grep -Eqi 'start ability successfully' "$start_log" \
+      && ! grep -Eqi 'Connect server failed|\[Fail\]|failed to start ability' "$start_log"; then
+      return 0
+    fi
+    sleep 1
+  done
+  cat "$start_log" >&2 || true
+  fail "failed to start $ability"
+}
+
 run_surface() {
   local surface="$1"
   local ability="$2"
@@ -253,25 +368,26 @@ run_surface() {
   echo "==> [$surface] starting $ability"
   hdc_run shell "power-shell wakeup" >/dev/null 2>&1 || true
   hdc_run shell aa force-stop "$BUNDLE" >/dev/null 2>&1 || true
-  hdc_run shell aa start -a "$ability" -b "$BUNDLE" >/dev/null
+  enable_test_reader
+  start_test_ability "$ability"
   wait_for_tree "$surface" "$ready_text" "$host_id" "$activation_name"
   echo "    virtual tree: $READY_STATUS"
-  exercise_action "$surface" "$action_name" "$update_name"
+  exercise_action "$surface" "$host_id" "$action_name" "$update_name"
   hdc_run shell aa force-stop "$BUNDLE" >/dev/null 2>&1 || true
 }
 
 wait_for_multi_tree() {
   local attempt readiness status buttons_a buttons_b activations_a activations_b registered_a
 
-  for attempt in $(seq 1 30); do
+  for attempt in $(seq 1 90); do
     dump_layout 2>/dev/null || true
     readiness="$(layout_attribute "$HOST_LAYOUT" accessibility-test-readiness text 2>/dev/null || true)"
     status="$(layout_attribute "$HOST_LAYOUT" accessibility-test-status text 2>/dev/null || true)"
     buttons_a="$(virtual_button_count "$HOST_LAYOUT" accesskit-multi-a-host 2>/dev/null || true)"
     buttons_b="$(virtual_button_count "$HOST_LAYOUT" accesskit-multi-b-host 2>/dev/null || true)"
-    activations_a="$(counter "$status" multiAActivated 2>/dev/null || true)"
-    activations_b="$(counter "$status" multiBActivated 2>/dev/null || true)"
-    registered_a="$(counter "$status" multiARegistered 2>/dev/null || true)"
+    activations_a="$(counter_or_zero "$status" multiAActivated)"
+    activations_b="$(counter_or_zero "$status" multiBActivated)"
+    registered_a="$(counter_or_zero "$status" multiARegistered)"
     if [ "$readiness" = "accessibility-multi-ready" ] \
       && [ "${buttons_a:-0}" -eq 1 ] && [ "${buttons_b:-0}" -eq 1 ] \
       && [ "${activations_a:-0}" -ge 1 ] && [ "${activations_b:-0}" -ge 1 ] \
@@ -294,9 +410,17 @@ exercise_multi_actions() {
   local attempt status actions_a actions_b updates_a updates_b
 
   for attempt in $(seq 1 12); do
-    screen_reader_swipe_forward
-    sleep 4
-    screen_reader_double_tap
+    if [ -n "$QEMU_QMP_SOCKET" ]; then
+      if [ "${actions_a:-0}" -lt 1 ]; then
+        screen_reader_focus_virtual_button accesskit-multi-a-host
+      else
+        screen_reader_focus_virtual_button accesskit-multi-b-host
+      fi
+    else
+      screen_reader_swipe_forward
+    fi
+    sleep 2
+    screen_reader_activate
     sleep 2
     dump_layout
     status="$(layout_attribute "$HOST_LAYOUT" accessibility-test-status text)"
@@ -322,7 +446,7 @@ release_multi_a() {
   dump_layout
   click_layout_node accessibility-multi-release-a
   sleep 2
-  screen_reader_double_tap
+  screen_reader_activate
   for attempt in $(seq 1 15); do
     sleep 1
     dump_layout
@@ -350,9 +474,9 @@ exercise_multi_b_after_release() {
   baseline_b="$(counter "$RELEASE_STATUS" multiBActions)"
 
   for attempt in $(seq 1 12); do
-    screen_reader_swipe_forward
-    sleep 4
-    screen_reader_double_tap
+    screen_reader_focus_virtual_button accesskit-multi-b-host
+    sleep 2
+    screen_reader_activate
     sleep 2
     dump_layout
     status="$(layout_attribute "$HOST_LAYOUT" accessibility-test-status text)"
@@ -375,7 +499,8 @@ run_multi_surface() {
   echo "==> [multi] starting AccessibilityMultiInstanceTestAbility"
   hdc_run shell "power-shell wakeup" >/dev/null 2>&1 || true
   hdc_run shell aa force-stop "$BUNDLE" >/dev/null 2>&1 || true
-  hdc_run shell aa start -a AccessibilityMultiInstanceTestAbility -b "$BUNDLE" >/dev/null
+  enable_test_reader
+  start_test_ability AccessibilityMultiInstanceTestAbility
   wait_for_multi_tree
   echo "    virtual trees: $READY_STATUS"
   exercise_multi_actions
@@ -387,6 +512,10 @@ run_multi_surface() {
 
 command -v jq >/dev/null 2>&1 || fail "jq is required"
 command -v hdc >/dev/null 2>&1 || fail "hdc is required"
+if [ -n "$QEMU_QMP_SOCKET" ]; then
+  command -v python3 >/dev/null 2>&1 || fail "python3 is required for QEMU touch input"
+  [ -f "$QEMU_TOUCH_DRIVER" ] || fail "QEMU touch driver is missing: $QEMU_TOUCH_DRIVER"
+fi
 ensure_device
 prepare_device
 trap cleanup EXIT
@@ -415,6 +544,7 @@ if [ "${ACCESSIBILITY_E2E_SKIP_INSTALL:-0}" != "1" ]; then
   fi
 fi
 
+enable_test_reader
 screen_reader_enabled || fail \
   "enable a screen reader before running this test (AccessibilityManagerService accessible=1)"
 

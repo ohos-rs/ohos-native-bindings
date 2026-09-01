@@ -93,5 +93,20 @@
         startWindowBackground: '$color:start_window_background',
       },
     ],
+    extensionAbilities: [
+      {
+        name: 'AccessibilityE2ETestExtension',
+        srcEntry: './ets/entryability/AccessibilityE2ETestExtension.ets',
+        label: '$string:EntryAbility_label',
+        description: '$string:EntryAbility_desc',
+        type: 'accessibility',
+        metadata: [
+          {
+            name: 'ohos.accessibleability',
+            resource: '$profile:accessibility_e2e_config',
+          },
+        ],
+      },
+    ],
   },
 }
