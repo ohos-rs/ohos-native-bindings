@@ -13,9 +13,26 @@ permissions:
 
 jobs:
   bindings-qemu:
-    name: All bindings QEMU E2E
+    name: ${{ matrix.name }} QEMU E2E
     runs-on: ubuntu-22.04
     timeout-minutes: 180
+    strategy:
+      fail-fast: true
+      matrix:
+        include:
+          - name: Non-UI bindings
+            suite: bindings
+            modules: >-
+              ability_access_control ark_web arkui_input ashmem asset bundle camera display
+              display_soloist drawing fileshare fileuri hilog huks image image_native ime init
+              jsvm native_buffer native_window net_connection net_stack pasteboard qos raw sensor
+              udmf vibrator vsync
+          - name: ArkUI
+            suite: arkui
+            modules: arkui
+          - name: XComponent
+            suite: xcomponent
+            modules: xcomponent
     env:
       GUEST_FATAL_PATTERN: 'Kernel panic - not syncing|critical service crashed|ExecReboot panic|sysrq: Trigger a crash|(composer_host|render_service).*exit with signal[[:space:]]*:[[:space:]]*11'
       GITHUB_TOKEN: ${{ github.token }}
@@ -301,13 +318,31 @@ jobs:
           tail -200 "$RUNNER_TEMP/ohos-qemu.log" >&2 || true
           exit 1
 
-      - name: Build all Rust examples
+      - name: Build Rust examples
         timeout-minutes: 45
-        run: pnpm run ui:sync
+        shell: bash
+        env:
+          E2E_MODULES: ${{ matrix.modules }}
+          E2E_SUITE: ${{ matrix.suite }}
+        run: |
+          set -euo pipefail
+          read -r -a examples <<<"$E2E_MODULES"
+          case "$E2E_SUITE" in
+            arkui|xcomponent)
+              examples=(arkui xcomponent xcomponent_multi)
+              ;;
+          esac
+          pnpm run ui:sync -- --arch x64 --fail-fast "${examples[@]}"
 
-      - name: Run all binding E2E
+      - name: Run binding E2E
         timeout-minutes: 120
-        run: pnpm run test:ui
+        shell: bash
+        env:
+          E2E_MODULES: ${{ matrix.modules }}
+        run: |
+          set -euo pipefail
+          read -r -a modules <<<"$E2E_MODULES"
+          pnpm run test:ui -- --arch x64 --fail-fast "${modules[@]}"
 
       - name: Verify OpenHarmony guest health
         if: ${{ !cancelled() }}
@@ -315,11 +350,11 @@ jobs:
         run: |
           set -euo pipefail
           if ! kill -0 "$(cat "$RUNNER_TEMP/ohos-qemu.pid")" 2>/dev/null; then
-            echo "QEMU exited during binding E2E" >&2
+            echo "QEMU exited during ${{ matrix.name }} E2E" >&2
             exit 1
           fi
           if grep -aiEq "$GUEST_FATAL_PATTERN" "$RUNNER_TEMP/ohos-qemu.log"; then
-            echo "OpenHarmony guest hit a fatal error during binding E2E" >&2
+            echo "OpenHarmony guest hit a fatal error during ${{ matrix.name }} E2E" >&2
             grep -ainE "$GUEST_FATAL_PATTERN" "$RUNNER_TEMP/ohos-qemu.log" | tail -20 >&2 || true
             exit 1
           fi
@@ -328,7 +363,7 @@ jobs:
         if: ${{ always() }}
         uses: actions/upload-artifact@v4
         with:
-          name: binding-e2e-${{ github.run_id }}-${{ github.run_attempt }}
+          name: binding-e2e-${{ matrix.suite }}-${{ github.run_id }}-${{ github.run_attempt }}
           if-no-files-found: ignore
           retention-days: 7
           path: |
