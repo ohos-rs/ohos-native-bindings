@@ -82,6 +82,16 @@
         startWindowIcon: '$media:startIcon',
         startWindowBackground: '$color:start_window_background',
       },
+      {
+        name: 'AccessibilityMultiInstanceTestAbility',
+        srcEntry: './ets/entryability/AccessibilityMultiInstanceTestAbility.ets',
+        description: '$string:EntryAbility_desc',
+        icon: '$media:layered_image',
+        label: '$string:EntryAbility_label',
+        exported: true,
+        startWindowIcon: '$media:startIcon',
+        startWindowBackground: '$color:start_window_background',
+      },
     ],
   },
 }

@@ -3,7 +3,11 @@
 
 export declare function accessibilityStatus(): string
 
+export declare function multiInstancesExercised(): boolean
+
 export declare function refreshAccessibilityTrees(): void
+
+export declare function releaseMultiInstanceA(): boolean
 
 export declare class ArkUiAccessibilityApp {
   constructor(slot: NodeContent)

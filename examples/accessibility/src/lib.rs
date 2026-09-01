@@ -2,6 +2,7 @@
 
 use std::{
     cell::RefCell,
+    collections::BTreeMap,
     sync::atomic::{AtomicU32, Ordering},
 };
 
@@ -24,6 +25,8 @@ use ohos_xcomponent_binding::XComponent;
 
 const ROOT_ID: NodeId = NodeId(0);
 const BUTTON_ID: NodeId = NodeId(1);
+const MULTI_A_ID: &str = "accesskit_multi_a";
+const MULTI_B_ID: &str = "accesskit_multi_b";
 
 static ARKUI_ACTIVATIONS: AtomicU32 = AtomicU32::new(0);
 static ARKUI_ACTIONS: AtomicU32 = AtomicU32::new(0);
@@ -31,16 +34,31 @@ static ARKUI_UPDATES: AtomicU32 = AtomicU32::new(0);
 static XCOMPONENT_ACTIVATIONS: AtomicU32 = AtomicU32::new(0);
 static XCOMPONENT_ACTIONS: AtomicU32 = AtomicU32::new(0);
 static XCOMPONENT_UPDATES: AtomicU32 = AtomicU32::new(0);
+static MULTI_A_ACTIVATIONS: AtomicU32 = AtomicU32::new(0);
+static MULTI_A_ACTIONS: AtomicU32 = AtomicU32::new(0);
+static MULTI_A_UPDATES: AtomicU32 = AtomicU32::new(0);
+static MULTI_B_ACTIVATIONS: AtomicU32 = AtomicU32::new(0);
+static MULTI_B_ACTIONS: AtomicU32 = AtomicU32::new(0);
+static MULTI_B_UPDATES: AtomicU32 = AtomicU32::new(0);
 
 thread_local! {
     static ARKUI_ADAPTER: RefCell<Option<Adapter<'static>>> = const { RefCell::new(None) };
-    static XCOMPONENT_ADAPTER: RefCell<Option<Adapter<'static>>> = const { RefCell::new(None) };
+    static XCOMPONENT_ADAPTERS: RefCell<BTreeMap<String, XComponentAdapter>> = const {
+        RefCell::new(BTreeMap::new())
+    };
+}
+
+struct XComponentAdapter {
+    adapter: Adapter<'static>,
+    kind: SurfaceKind,
 }
 
 #[derive(Clone, Copy)]
 enum SurfaceKind {
     ArkUi,
     XComponent,
+    MultiA,
+    MultiB,
 }
 
 impl SurfaceKind {
@@ -48,6 +66,8 @@ impl SurfaceKind {
         let owner = match self {
             Self::ArkUi => "ArkUI",
             Self::XComponent => "XComponent",
+            Self::MultiA => "Multi A",
+            Self::MultiB => "Multi B",
         };
         if actions == 0 {
             format!("{owner} AccessKit Button")
@@ -60,6 +80,8 @@ impl SurfaceKind {
         match self {
             Self::ArkUi => &ARKUI_ACTIVATIONS,
             Self::XComponent => &XCOMPONENT_ACTIVATIONS,
+            Self::MultiA => &MULTI_A_ACTIVATIONS,
+            Self::MultiB => &MULTI_B_ACTIVATIONS,
         }
     }
 
@@ -67,6 +89,8 @@ impl SurfaceKind {
         match self {
             Self::ArkUi => &ARKUI_ACTIONS,
             Self::XComponent => &XCOMPONENT_ACTIONS,
+            Self::MultiA => &MULTI_A_ACTIONS,
+            Self::MultiB => &MULTI_B_ACTIONS,
         }
     }
 
@@ -74,6 +98,24 @@ impl SurfaceKind {
         match self {
             Self::ArkUi => &ARKUI_UPDATES,
             Self::XComponent => &XCOMPONENT_UPDATES,
+            Self::MultiA => &MULTI_A_UPDATES,
+            Self::MultiB => &MULTI_B_UPDATES,
+        }
+    }
+
+    fn for_xcomponent_id(id: &str) -> Self {
+        match id {
+            MULTI_A_ID => Self::MultiA,
+            MULTI_B_ID => Self::MultiB,
+            _ => Self::XComponent,
+        }
+    }
+
+    fn instance_id(self) -> Option<&'static str> {
+        match self {
+            Self::MultiA => Some(MULTI_A_ID),
+            Self::MultiB => Some(MULTI_B_ID),
+            Self::ArkUi | Self::XComponent => None,
         }
     }
 }
@@ -142,21 +184,24 @@ unsafe fn provider_for_owned_host(provider: Provider<'_>) -> Result<Provider<'st
 }
 
 fn make_adapter(provider: Provider<'static>, kind: SurfaceKind) -> Result<Adapter<'static>> {
-    Adapter::new(
-        provider,
-        ExampleActivationHandler { kind },
-        ExampleActionHandler { kind },
-    )
+    let activation_handler = ExampleActivationHandler { kind };
+    let action_handler = ExampleActionHandler { kind };
+    match kind.instance_id() {
+        Some(instance_id) => {
+            Adapter::new_with_instance(provider, instance_id, activation_handler, action_handler)
+        }
+        None => Adapter::new(provider, activation_handler, action_handler),
+    }
     .map_err(to_napi_error)
 }
 
-fn refresh_adapter(adapter: &RefCell<Option<Adapter<'static>>>, kind: SurfaceKind) -> Result<()> {
+fn refresh_adapter(adapter: Option<&Adapter<'static>>, kind: SurfaceKind) -> Result<()> {
     let actions = kind.action_counter().load(Ordering::Relaxed);
     let updates = kind.update_counter().load(Ordering::Relaxed);
     if actions <= updates {
         return Ok(());
     }
-    if let Some(adapter) = adapter.borrow().as_ref() {
+    if let Some(adapter) = adapter {
         adapter
             .update_if_active(|| button_update(kind))
             .map_err(to_napi_error)?;
@@ -223,38 +268,71 @@ impl Drop for ArkUiAccessibilityApp {
 
 #[napi(module_exports)]
 pub fn init(exports: Object<'_>, env: Env) -> Result<()> {
-    if XCOMPONENT_ADAPTER.with(|slot| slot.borrow().is_some()) {
-        return Ok(());
-    }
     let xcomponent = match XComponent::init(env, exports) {
         Ok(value) => value,
         Err(_) => return Ok(()),
     };
+    let id = xcomponent.id()?;
+    if XCOMPONENT_ADAPTERS.with(|adapters| adapters.borrow().contains_key(&id)) {
+        return Ok(());
+    }
+    let kind = SurfaceKind::for_xcomponent_id(&id);
     let provider = xcomponent.accessibility_provider().map_err(to_napi_error)?;
     // Safety: ArkUI owns this XComponent for the native module lifetime. The
     // adapter is thread-local and is dropped when that UI thread exits.
     let provider = unsafe { provider_for_owned_host(provider)? };
-    let adapter = make_adapter(provider, SurfaceKind::XComponent)?;
-    XCOMPONENT_ADAPTER.with(|slot| *slot.borrow_mut() = Some(adapter));
+    let adapter = make_adapter(provider, kind)?;
+    XCOMPONENT_ADAPTERS.with(|adapters| {
+        adapters
+            .borrow_mut()
+            .insert(id, XComponentAdapter { adapter, kind });
+    });
     Ok(())
 }
 
 #[napi]
 pub fn refresh_accessibility_trees() -> Result<()> {
-    ARKUI_ADAPTER.with(|adapter| refresh_adapter(adapter, SurfaceKind::ArkUi))?;
-    XCOMPONENT_ADAPTER.with(|adapter| refresh_adapter(adapter, SurfaceKind::XComponent))?;
+    ARKUI_ADAPTER.with(|adapter| {
+        let adapter = adapter.borrow();
+        refresh_adapter(adapter.as_ref(), SurfaceKind::ArkUi)
+    })?;
+    XCOMPONENT_ADAPTERS.with(|adapters| {
+        for entry in adapters.borrow().values() {
+            refresh_adapter(Some(&entry.adapter), entry.kind)?;
+        }
+        Ok::<(), Error>(())
+    })?;
     Ok(())
 }
 
 #[napi]
+pub fn release_multi_instance_a() -> bool {
+    XCOMPONENT_ADAPTERS.with(|adapters| adapters.borrow_mut().remove(MULTI_A_ID).is_some())
+}
+
+#[napi]
+pub fn multi_instances_exercised() -> bool {
+    MULTI_A_ACTIONS.load(Ordering::Relaxed) > 0 && MULTI_B_ACTIONS.load(Ordering::Relaxed) > 0
+}
+
+#[napi]
 pub fn accessibility_status() -> String {
+    let multi_a_registered =
+        XCOMPONENT_ADAPTERS.with(|adapters| adapters.borrow().contains_key(MULTI_A_ID));
     format!(
-        "arkuiActivated={} arkuiActions={} arkuiUpdates={} xcomponentActivated={} xcomponentActions={} xcomponentUpdates={}",
+        "arkuiActivated={} arkuiActions={} arkuiUpdates={} xcomponentActivated={} xcomponentActions={} xcomponentUpdates={} multiAActivated={} multiAActions={} multiAUpdates={} multiBActivated={} multiBActions={} multiBUpdates={} multiARegistered={}",
         ARKUI_ACTIVATIONS.load(Ordering::Relaxed),
         ARKUI_ACTIONS.load(Ordering::Relaxed),
         ARKUI_UPDATES.load(Ordering::Relaxed),
         XCOMPONENT_ACTIVATIONS.load(Ordering::Relaxed),
         XCOMPONENT_ACTIONS.load(Ordering::Relaxed),
         XCOMPONENT_UPDATES.load(Ordering::Relaxed),
+        MULTI_A_ACTIVATIONS.load(Ordering::Relaxed),
+        MULTI_A_ACTIONS.load(Ordering::Relaxed),
+        MULTI_A_UPDATES.load(Ordering::Relaxed),
+        MULTI_B_ACTIVATIONS.load(Ordering::Relaxed),
+        MULTI_B_ACTIONS.load(Ordering::Relaxed),
+        MULTI_B_UPDATES.load(Ordering::Relaxed),
+        u8::from(multi_a_registered),
     )
 }

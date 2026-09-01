@@ -1,8 +1,10 @@
 #!/usr/bin/env bash
-# Exercise AccessKit through ArkUI CustomNode and XComponent on a real device.
+# Exercise AccessKit through ArkUI CustomNode, XComponent, and the API 15
+# multi-instance callback contract on a real device.
 #
-# A screen reader must already be enabled. Each surface runs in a fresh app
-# process because the official single-instance callback table is process-wide.
+# A screen reader must already be enabled. Single-instance surfaces run in
+# fresh app processes because their callback table is process-wide. The
+# multi-instance surface deliberately keeps two providers in one process.
 set -euo pipefail
 
 ROOT="$(cd "$(dirname "$0")/.." && pwd)"
@@ -84,6 +86,20 @@ virtual_button_count() {
              .attributes?.visible == "true" and
              .attributes?.enabled == "true")] | length
   ' "$layout_file" | head -n 1
+}
+
+click_layout_node() {
+  local node_id="$1"
+  local bounds left top right bottom x y
+  bounds="$(layout_attribute "$HOST_LAYOUT" "$node_id" bounds)"
+  read -r left top right bottom < <(
+    sed -n 's/^\[\([0-9][0-9]*\),\([0-9][0-9]*\)\]\[\([0-9][0-9]*\),\([0-9][0-9]*\)\]$/\1 \2 \3 \4/p' \
+      <<<"$bounds"
+  )
+  [ -n "${bottom:-}" ] || fail "invalid bounds for $node_id: $bounds"
+  x=$(((left + right) / 2))
+  y=$(((top + bottom) / 2))
+  hdc_run shell uinput -T -c "$x" "$y" 50 >/dev/null
 }
 
 screen_reader_enabled() {
@@ -179,14 +195,142 @@ run_surface() {
   hdc_run shell aa force-stop "$BUNDLE" >/dev/null 2>&1 || true
 }
 
+wait_for_multi_tree() {
+  local attempt readiness status buttons_a buttons_b activations_a activations_b registered_a
+
+  for attempt in $(seq 1 30); do
+    dump_layout 2>/dev/null || true
+    readiness="$(layout_attribute "$HOST_LAYOUT" accessibility-test-readiness text 2>/dev/null || true)"
+    status="$(layout_attribute "$HOST_LAYOUT" accessibility-test-status text 2>/dev/null || true)"
+    buttons_a="$(virtual_button_count "$HOST_LAYOUT" accesskit-multi-a-host 2>/dev/null || true)"
+    buttons_b="$(virtual_button_count "$HOST_LAYOUT" accesskit-multi-b-host 2>/dev/null || true)"
+    activations_a="$(counter "$status" multiAActivated 2>/dev/null || true)"
+    activations_b="$(counter "$status" multiBActivated 2>/dev/null || true)"
+    registered_a="$(counter "$status" multiARegistered 2>/dev/null || true)"
+    if [ "$readiness" = "accessibility-multi-ready" ] \
+      && [ "${buttons_a:-0}" -eq 1 ] && [ "${buttons_b:-0}" -eq 1 ] \
+      && [ "${activations_a:-0}" -ge 1 ] && [ "${activations_b:-0}" -ge 1 ] \
+      && [ "${registered_a:-0}" -eq 1 ]; then
+      READY_STATUS="$status"
+      cp "$HOST_LAYOUT" "$DIAGNOSTICS_DIR/multi-tree.json"
+      return 0
+    fi
+    case "$readiness" in
+      accessibility-*-error:*) fail "multi-instance host reported $readiness" ;;
+    esac
+    sleep 1
+  done
+
+  cp "$HOST_LAYOUT" "$DIAGNOSTICS_DIR/multi-tree-last.json" 2>/dev/null || true
+  fail "multi-instance providers did not expose two independently activated trees"
+}
+
+exercise_multi_actions() {
+  local attempt status actions_a actions_b updates_a updates_b
+
+  for attempt in $(seq 1 12); do
+    screen_reader_swipe_forward
+    sleep 4
+    screen_reader_double_tap
+    sleep 2
+    dump_layout
+    status="$(layout_attribute "$HOST_LAYOUT" accessibility-test-status text)"
+    actions_a="$(counter "$status" multiAActions)"
+    actions_b="$(counter "$status" multiBActions)"
+    updates_a="$(counter "$status" multiAUpdates)"
+    updates_b="$(counter "$status" multiBUpdates)"
+    if [ "$actions_a" -ge 1 ] && [ "$actions_b" -ge 1 ] \
+      && [ "$updates_a" -ge "$actions_a" ] && [ "$updates_b" -ge "$actions_b" ]; then
+      cp "$HOST_LAYOUT" "$DIAGNOSTICS_DIR/multi-actions.json"
+      echo "    $status"
+      return 0
+    fi
+  done
+
+  cp "$HOST_LAYOUT" "$DIAGNOSTICS_DIR/multi-actions-last.json"
+  fail "multi-instance buttons did not route Click and tree updates to both instance IDs"
+}
+
+release_multi_a() {
+  local attempt readiness status registered_a buttons_b
+
+  dump_layout
+  click_layout_node accessibility-multi-release-a
+  sleep 2
+  screen_reader_double_tap
+  for attempt in $(seq 1 15); do
+    sleep 1
+    dump_layout
+    readiness="$(layout_attribute "$HOST_LAYOUT" accessibility-test-readiness text)"
+    status="$(layout_attribute "$HOST_LAYOUT" accessibility-test-status text)"
+    registered_a="$(counter "$status" multiARegistered)"
+    buttons_b="$(virtual_button_count "$HOST_LAYOUT" accesskit-multi-b-host)"
+    if [ "$readiness" = "accessibility-multi-a-released" ] \
+      && [ "$registered_a" -eq 0 ] && [ "$buttons_b" -eq 1 ]; then
+      RELEASE_STATUS="$status"
+      cp "$HOST_LAYOUT" "$DIAGNOSTICS_DIR/multi-release-a.json"
+      return 0
+    fi
+    case "$readiness" in
+      accessibility-multi-release-error:*|accessibility-multi-a-release-missed)
+        fail "multi-instance release reported $readiness"
+        ;;
+    esac
+  done
+  fail "instance A registration was not released while instance B stayed available"
+}
+
+exercise_multi_b_after_release() {
+  local baseline_b attempt status actions_b updates_b registered_a
+  baseline_b="$(counter "$RELEASE_STATUS" multiBActions)"
+
+  for attempt in $(seq 1 12); do
+    screen_reader_swipe_forward
+    sleep 4
+    screen_reader_double_tap
+    sleep 2
+    dump_layout
+    status="$(layout_attribute "$HOST_LAYOUT" accessibility-test-status text)"
+    actions_b="$(counter "$status" multiBActions)"
+    updates_b="$(counter "$status" multiBUpdates)"
+    registered_a="$(counter "$status" multiARegistered)"
+    if [ "$actions_b" -gt "$baseline_b" ] && [ "$updates_b" -ge "$actions_b" ] \
+      && [ "$registered_a" -eq 0 ]; then
+      cp "$HOST_LAYOUT" "$DIAGNOSTICS_DIR/multi-after-release.json"
+      echo "    $status"
+      return 0
+    fi
+  done
+
+  cp "$HOST_LAYOUT" "$DIAGNOSTICS_DIR/multi-after-release-last.json"
+  fail "instance B stopped routing actions after instance A was released"
+}
+
+run_multi_surface() {
+  echo "==> [multi] starting AccessibilityMultiInstanceTestAbility"
+  hdc_run shell aa force-stop "$BUNDLE" >/dev/null 2>&1 || true
+  hdc_run shell aa start -a AccessibilityMultiInstanceTestAbility -b "$BUNDLE" >/dev/null
+  wait_for_multi_tree
+  echo "    virtual trees: $READY_STATUS"
+  exercise_multi_actions
+  release_multi_a
+  echo "    released A: $RELEASE_STATUS"
+  exercise_multi_b_after_release
+  hdc_run shell aa force-stop "$BUNDLE" >/dev/null 2>&1 || true
+}
+
 command -v jq >/dev/null 2>&1 || fail "jq is required"
 command -v hdc >/dev/null 2>&1 || fail "hdc is required"
 ensure_device
 
 if [ "${ACCESSIBILITY_E2E_SKIP_INSTALL:-0}" != "1" ]; then
   if [ ! -f "$HAP" ] && [ -z "${ACCESSIBILITY_E2E_HAP:-}" ]; then
-    echo "==> building unsigned CI HAP"
-    (cd "$ROOT" && pnpm exec arkdown build --project . --target hap --mode debug)
+    echo "==> building accessibility example and unsigned CI HAP"
+    (
+      cd "$ROOT"
+      ./scripts/sync-rust.sh accessibility
+      pnpm exec arkdown build --project . --target hap --mode debug --no-cache
+    )
   fi
   [ -f "$HAP" ] || fail "HAP not found: $HAP"
   echo "==> installing $HAP"
@@ -224,4 +368,6 @@ run_surface \
   xcomponentActions \
   xcomponentUpdates
 
-echo "==== Accessibility E2E passed: ArkUI CustomNode + XComponent ===="
+run_multi_surface
+
+echo "==== Accessibility E2E passed: ArkUI CustomNode + XComponent + multi-instance ===="
