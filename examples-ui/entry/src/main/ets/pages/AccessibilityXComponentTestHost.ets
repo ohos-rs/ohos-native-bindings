@@ -1,7 +1,4 @@
-import {
-  accessibilityStatus,
-  refreshAccessibilityTrees,
-} from "libaccessibility_test.so";
+import { accessibilityStatus, refreshAccessibilityTrees } from "libaccessibility_test.so";
 
 interface XComponentAttrs {
   id: string;
@@ -48,8 +45,7 @@ struct AccessibilityXComponentTestHost {
       Text(this.status)
         .id("accessibility-test-status")
         .fontSize(12)
-      Text("XComponent AccessKit provider")
-        .fontSize(16)
+      Text("XComponent AccessKit provider").fontSize(16)
       XComponent(this.attrs)
         .id("accesskit-xcomponent-host")
         .width(360)

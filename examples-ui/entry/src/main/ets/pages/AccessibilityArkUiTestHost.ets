@@ -52,8 +52,7 @@ struct AccessibilityArkUiTestHost {
       Text(this.status)
         .id("accessibility-test-status")
         .fontSize(12)
-      Text("ArkUI custom-node AccessKit provider")
-        .fontSize(16)
+      Text("ArkUI custom-node AccessKit provider").fontSize(16)
       Column() {
         ContentSlot(this.slot)
       }
