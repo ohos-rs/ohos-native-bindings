@@ -1,11 +1,40 @@
 #!/usr/bin/env bash
 # Exercise AccessKit through ArkUI CustomNode, XComponent, and the API 15
-# multi-instance callback contract on a real device.
+# multi-instance callback contract on an OpenHarmony device or QEMU guest.
 #
-# A screen reader must already be enabled. Single-instance surfaces run in
-# fresh app processes because their callback table is process-wide. The
+# A screen reader must already be enabled; CI enables the system screen reader
+# in its QEMU guest before invoking this script. Single-instance surfaces run
+# in fresh app processes because their callback table is process-wide. The
 # multi-instance surface deliberately keeps two providers in one process.
 set -euo pipefail
+
+OHOS_ARCH="${OHOS_ARCH:-arm64}"
+if [ "${1:-}" = "--" ]; then
+  shift
+fi
+case "${1:-}" in
+  --arch)
+    if [ $# -lt 2 ]; then
+      echo "error: --arch requires a value" >&2
+      exit 2
+    fi
+    OHOS_ARCH="$2"
+    shift 2
+    ;;
+  --arch=*)
+    OHOS_ARCH="${1#--arch=}"
+    shift
+    ;;
+esac
+case "$OHOS_ARCH" in
+  arm64|aarch) OHOS_ARCH="arm64" ;;
+  x86_64|x64) OHOS_ARCH="x64" ;;
+  *) echo "error: unsupported architecture '$OHOS_ARCH' (expected arm64 or x64)" >&2; exit 2 ;;
+esac
+if [ $# -gt 0 ]; then
+  echo "error: unexpected argument '$1'" >&2
+  exit 2
+fi
 
 ROOT="$(cd "$(dirname "$0")/.." && pwd)"
 BUNDLE="${ACCESSIBILITY_E2E_BUNDLE:-com.richerfu.ohos_example}"
@@ -108,6 +137,37 @@ screen_reader_enabled() {
   grep -Eq 'accessible:[[:space:]]+1' "$state_log"
 }
 
+screen_timeout_overridden=0
+prepare_device() {
+  if hdc_run shell "power-shell timeout -o 86400000" >/dev/null 2>&1; then
+    screen_timeout_overridden=1
+  fi
+  hdc_run shell "power-shell wakeup" >/dev/null 2>&1 || true
+}
+
+cleanup() {
+  if [ "$screen_timeout_overridden" -eq 1 ]; then
+    hdc_run shell "power-shell timeout -r" >/dev/null 2>&1 || true
+  fi
+}
+
+gesture_coordinates() {
+  local bounds left top right bottom width height swipe_x1 swipe_x2 gesture_y tap_x
+  bounds="$(jq -r 'first(.. | objects | select(.attributes?.bounds != null) | .attributes.bounds)' "$HOST_LAYOUT")"
+  read -r left top right bottom < <(
+    sed -n 's/^\[\([0-9][0-9]*\),\([0-9][0-9]*\)\]\[\([0-9][0-9]*\),\([0-9][0-9]*\)\]$/\1 \2 \3 \4/p' <<<"$bounds"
+  )
+  [ -n "${bottom:-}" ] || fail "invalid screen bounds: $bounds"
+  width=$((right - left))
+  height=$((bottom - top))
+  [ "$width" -gt 0 ] && [ "$height" -gt 0 ] || fail "empty screen bounds: $bounds"
+  swipe_x1=$((left + width / 6))
+  swipe_x2=$((left + width * 5 / 6))
+  gesture_y=$((top + height * 4 / 5))
+  tap_x=$((left + width / 2))
+  printf '%s %s %s %s %s %s\n' "$swipe_x1" "$gesture_y" "$swipe_x2" "$gesture_y" "$tap_x" "$gesture_y"
+}
+
 wait_for_tree() {
   local surface="$1"
   local ready_text="$2"
@@ -138,14 +198,18 @@ wait_for_tree() {
 }
 
 screen_reader_swipe_forward() {
-  hdc_run shell uitest uiInput swipe 200 1800 1000 1800 3000 >/dev/null
+  local swipe_x1 swipe_y1 swipe_x2 swipe_y2 tap_x tap_y
+  read -r swipe_x1 swipe_y1 swipe_x2 swipe_y2 tap_x tap_y < <(gesture_coordinates)
+  hdc_run shell uitest uiInput swipe "$swipe_x1" "$swipe_y1" "$swipe_x2" "$swipe_y2" 3000 >/dev/null
 }
 
 screen_reader_double_tap() {
-  # Two separate low-level touch injections are recognized by the real screen
+  local swipe_x1 swipe_y1 swipe_x2 swipe_y2 tap_x tap_y
+  read -r swipe_x1 swipe_y1 swipe_x2 swipe_y2 tap_x tap_y < <(gesture_coordinates)
+  # Two separate low-level touch injections are recognized by the system screen
   # reader as one double-tap gesture. uitest's high-level doubleClick is not.
   hdc_run shell \
-    "uinput -T -c 600 1800 50 >/dev/null; uinput -T -c 600 1800 50 >/dev/null"
+    "uinput -T -c $tap_x $tap_y 50 >/dev/null; uinput -T -c $tap_x $tap_y 50 >/dev/null"
 }
 
 exercise_action() {
@@ -187,6 +251,7 @@ run_surface() {
   local update_name="$7"
 
   echo "==> [$surface] starting $ability"
+  hdc_run shell "power-shell wakeup" >/dev/null 2>&1 || true
   hdc_run shell aa force-stop "$BUNDLE" >/dev/null 2>&1 || true
   hdc_run shell aa start -a "$ability" -b "$BUNDLE" >/dev/null
   wait_for_tree "$surface" "$ready_text" "$host_id" "$activation_name"
@@ -308,6 +373,7 @@ exercise_multi_b_after_release() {
 
 run_multi_surface() {
   echo "==> [multi] starting AccessibilityMultiInstanceTestAbility"
+  hdc_run shell "power-shell wakeup" >/dev/null 2>&1 || true
   hdc_run shell aa force-stop "$BUNDLE" >/dev/null 2>&1 || true
   hdc_run shell aa start -a AccessibilityMultiInstanceTestAbility -b "$BUNDLE" >/dev/null
   wait_for_multi_tree
@@ -322,13 +388,15 @@ run_multi_surface() {
 command -v jq >/dev/null 2>&1 || fail "jq is required"
 command -v hdc >/dev/null 2>&1 || fail "hdc is required"
 ensure_device
+prepare_device
+trap cleanup EXIT
 
 if [ "${ACCESSIBILITY_E2E_SKIP_INSTALL:-0}" != "1" ]; then
   if [ ! -f "$HAP" ] && [ -z "${ACCESSIBILITY_E2E_HAP:-}" ]; then
     echo "==> building accessibility example and unsigned CI HAP"
     (
       cd "$ROOT"
-      ./scripts/sync-rust.sh accessibility
+      ./scripts/sync-rust.sh --arch "$OHOS_ARCH" --fail-fast accessibility
       pnpm exec arkdown build --project . --target hap --mode debug --no-cache
     )
   fi

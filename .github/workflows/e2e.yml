@@ -33,6 +33,9 @@ jobs:
           - name: XComponent
             suite: xcomponent
             modules: xcomponent
+          - name: Accessibility
+            suite: accessibility
+            modules: accessibility
     env:
       GUEST_FATAL_PATTERN: 'Kernel panic - not syncing|critical service crashed|ExecReboot panic|sysrq: Trigger a crash|(composer_host|render_service).*exit with signal[[:space:]]*:[[:space:]]*11'
       GITHUB_TOKEN: ${{ github.token }}
@@ -100,7 +103,7 @@ jobs:
             ~/.cargo/git
             ~/.ohos-qemu
             examples-ui/.tools
-          key: e2e-${{ runner.os }}-x86_64-${{ env.OHOS_QEMU_RELEASE_TAG }}-${{ hashFiles('pnpm-lock.yaml', 'examples-ui/scripts/build-hap.sh', 'examples-ui/scripts/sync-rust.sh', 'examples-ui/scripts/run-ohostest.sh') }}
+          key: e2e-${{ runner.os }}-x86_64-${{ env.OHOS_QEMU_RELEASE_TAG }}-${{ hashFiles('pnpm-lock.yaml', 'examples-ui/scripts/build-hap.sh', 'examples-ui/scripts/sync-rust.sh', 'examples-ui/scripts/run-ohostest.sh', 'examples-ui/scripts/run-device-accessibility-e2e.sh') }}
 
       - name: Install workspace and Rust build tools
         shell: bash
@@ -122,8 +125,8 @@ jobs:
             echo "::error::Failed to update apt package indexes."
             exit 1
           fi
-          if ! sudo apt-get -o Acquire::Retries=3 install -y --no-install-recommends qemu-system-x86; then
-            echo "::error::Failed to install qemu-system-x86."
+          if ! sudo apt-get -o Acquire::Retries=3 install -y --no-install-recommends qemu-system-x86 jq; then
+            echo "::error::Failed to install QEMU and E2E host tools."
             exit 1
           fi
 
@@ -318,6 +321,56 @@ jobs:
           tail -200 "$RUNNER_TEMP/ohos-qemu.log" >&2 || true
           exit 1
 
+      - name: Enable QEMU screen reader
+        if: ${{ matrix.suite == 'accessibility' }}
+        timeout-minutes: 2
+        shell: bash
+        run: |
+          set -euo pipefail
+          a11y_cli=/system/bin/cli_tool/executable/ohos-a11yManager
+          state_log="$E2E_DIAGNOSTICS_DIR/screen-reader-state-before.log"
+          enable_log="$E2E_DIAGNOSTICS_DIR/screen-reader-enable.log"
+
+          set +e
+          "$HDC_BIN" -t "$HDC_TARGET" shell "$a11y_cli state-is-screen-reader-enabled" >"$state_log" 2>&1
+          state_status=$?
+          set -e
+          cat "$state_log"
+          if [ "$state_status" -ne 0 ] || grep -Eqi 'not found|no such file|\[Fail\]' "$state_log"; then
+            echo "::error::The QEMU image does not provide $a11y_cli."
+            exit 1
+          fi
+
+          if ! grep -Eq '"enabled":[[:space:]]*true' "$state_log"; then
+            set +e
+            "$HDC_BIN" -t "$HDC_TARGET" shell "$a11y_cli ability-enable-screen-reader" >"$enable_log" 2>&1
+            enable_status=$?
+            set -e
+            cat "$enable_log"
+            if [ "$enable_status" -ne 0 ] && ! grep -Eqi 'already enabled' "$enable_log"; then
+              echo "::error::Failed to enable the QEMU screen reader."
+              exit 1
+            fi
+          fi
+
+          "$HDC_BIN" -t "$HDC_TARGET" shell "power-shell timeout -o 86400000" >/dev/null 2>&1 || true
+          "$HDC_BIN" -t "$HDC_TARGET" shell "power-shell wakeup" >/dev/null 2>&1 || true
+
+          deadline=$((SECONDS + 60))
+          while ((SECONDS < deadline)); do
+            state="$("$HDC_BIN" -t "$HDC_TARGET" shell "hidumper -s AccessibilityManagerService -a -u" 2>/dev/null | tr -d '\r' || true)"
+            if grep -Eq 'accessible:[[:space:]]+1' <<<"$state"; then
+              printf '%s\n' "$state" | tee "$E2E_DIAGNOSTICS_DIR/accessibility-manager-state-before.log"
+              exit 0
+            fi
+            sleep 2
+          done
+
+          "$HDC_BIN" -t "$HDC_TARGET" shell "bm dump -n com.ohos.screenreader" >"$E2E_DIAGNOSTICS_DIR/screen-reader-bundle.log" 2>&1 || true
+          "$HDC_BIN" -t "$HDC_TARGET" shell "hidumper -s AccessibilityManagerService -a -u" >"$E2E_DIAGNOSTICS_DIR/accessibility-manager-state-timeout.log" 2>&1 || true
+          echo "::error::QEMU screen reader did not become accessible within 60 seconds."
+          exit 1
+
       - name: Build Rust examples
         timeout-minutes: 45
         shell: bash
@@ -335,6 +388,7 @@ jobs:
           pnpm run ui:sync -- --arch x64 --fail-fast "${examples[@]}"
 
       - name: Run binding E2E
+        if: ${{ matrix.suite != 'accessibility' }}
         timeout-minutes: 120
         shell: bash
         env:
@@ -343,6 +397,15 @@ jobs:
           set -euo pipefail
           read -r -a modules <<<"$E2E_MODULES"
           pnpm run test:ui -- --arch x64 --fail-fast "${modules[@]}"
+
+      - name: Run Accessibility E2E
+        if: ${{ matrix.suite == 'accessibility' }}
+        timeout-minutes: 45
+        env:
+          ACCESSIBILITY_E2E_HAP: ${{ github.workspace }}/examples-ui/entry/build/default/outputs/default/entry-default-signed.hap
+        run: |
+          pnpm run ui:build
+          pnpm run test:ui:accessibility -- --arch x64
 
       - name: Verify OpenHarmony guest health
         if: ${{ !cancelled() }}
@@ -378,103 +441,3 @@ jobs:
           if [ -f "$RUNNER_TEMP/ohos-qemu.pid" ]; then
             kill "$(cat "$RUNNER_TEMP/ohos-qemu.pid")" 2>/dev/null || true
           fi
-
-  # Intentionally independent: enqueue the device E2E as soon as the workflow starts.
-  accessibility-device:
-    name: Accessibility device E2E
-    runs-on: [self-hosted, linux, ohos-accessibility]
-    timeout-minutes: 60
-    env:
-      HDC_TARGET: ${{ vars.OHOS_ACCESSIBILITY_HDC_TARGET }}
-
-    steps:
-      - name: Checkout
-        uses: actions/checkout@v4
-
-      - name: Setup OpenHarmony SDK
-        uses: openharmony-rs/setup-ohos-sdk@v1.0.1
-        with:
-          version: "6.1"
-          cache: true
-          mirror: true
-
-      - name: Configure OpenHarmony SDK tools
-        shell: bash
-        run: |
-          set -euo pipefail
-          hdc_bin="$(
-            find "$OHOS_BASE_SDK_HOME" -path '*/toolchains/hdc' -type f -perm -111 -print -quit \
-              2>/dev/null || true
-          )"
-          if [ -z "$hdc_bin" ]; then
-            echo "::error::hdc was not found under OHOS_BASE_SDK_HOME=$OHOS_BASE_SDK_HOME"
-            exit 1
-          fi
-          dirname "$hdc_bin" >> "$GITHUB_PATH"
-          diagnostics_dir="$RUNNER_TEMP/accessibility-e2e"
-          mkdir -p "$diagnostics_dir"
-          echo "E2E_DIAGNOSTICS_DIR=$diagnostics_dir" >> "$GITHUB_ENV"
-
-      - name: Setup Rust
-        uses: dtolnay/rust-toolchain@master
-        with:
-          toolchain: stable
-          targets: aarch64-unknown-linux-ohos
-
-      - name: Setup pnpm
-        uses: pnpm/action-setup@v4
-
-      - name: Setup Node.js
-        uses: actions/setup-node@v4
-        with:
-          node-version: "22"
-          cache: pnpm
-
-      - name: Cache Rust build tools
-        uses: actions/cache@v4
-        with:
-          path: |
-            ~/.cargo/bin/ohrs
-            ~/.cargo/registry
-            ~/.cargo/git
-          key: accessibility-e2e-${{ runner.os }}-${{ hashFiles('pnpm-lock.yaml', 'examples/accessibility/Cargo.toml', 'examples-ui/scripts/run-device-accessibility-e2e.sh') }}
-
-      - name: Install workspace and Rust build tools
-        shell: bash
-        run: |
-          set -euo pipefail
-          pnpm install --frozen-lockfile
-          if ! command -v ohrs >/dev/null 2>&1; then
-            cargo install ohrs --version 1.5.0 --locked
-          fi
-
-      - name: Verify accessibility device
-        shell: bash
-        run: |
-          set -euo pipefail
-          hdc_args=()
-          if [ -n "${HDC_TARGET:-}" ]; then
-            hdc_args=(-t "$HDC_TARGET")
-          fi
-          hdc "${hdc_args[@]}" shell param get const.product.cpu.abilist
-          state="$(hdc "${hdc_args[@]}" shell hidumper -s AccessibilityManagerService -a -u)"
-          printf '%s\n' "$state" | tee "$E2E_DIAGNOSTICS_DIR/accessibility-manager-state-before.log"
-          grep -Eq 'accessible:[[:space:]]+1' <<<"$state" || {
-            echo "::error::The ohos-accessibility runner must keep a screen reader enabled."
-            exit 1
-          }
-
-      - name: Run Accessibility E2E with unsigned HAP
-        timeout-minutes: 45
-        env:
-          ACCESSIBILITY_E2E_HAP: ""
-        run: pnpm run test:ui:accessibility
-
-      - name: Upload Accessibility E2E diagnostics
-        if: ${{ always() }}
-        uses: actions/upload-artifact@v4
-        with:
-          name: accessibility-e2e-${{ github.run_id }}-${{ github.run_attempt }}
-          if-no-files-found: ignore
-          retention-days: 7
-          path: ${{ env.E2E_DIAGNOSTICS_DIR }}

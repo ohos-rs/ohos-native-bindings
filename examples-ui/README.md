@@ -33,6 +33,7 @@ pnpm run test:ui -- sensor vsync    # 只执行指定模块
 pnpm run test:ui -- --arch x64      # 在 x64 设备执行全部 ohosTest
 pnpm run test:ui -- --fail-fast     # 首个失败模块出现后立即结束
 pnpm run test:ui:xcomponent -- --arch x64 # QEMU XComponent 手势 E2E
+pnpm run test:ui:accessibility -- --arch x64 # QEMU/设备 AccessKit E2E
 
 pnpm run format:ui
 pnpm run lint:ui
