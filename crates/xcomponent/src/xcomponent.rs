@@ -84,10 +84,10 @@ impl XComponent {
         self.0.set_frame_rate(min, max, expected)
     }
 
-    /// Register callbacks
-    /// For multi-mode, it will use hashmap to store all of your callbacks closure.
-    /// This may cause xcomponent being slower, if you want to avoid this.
-    /// You can disable feature with `callbacks` and use `register_native_callback`
+    /// Register callbacks.
+    ///
+    /// With `multi_mode`, closures are routed by native XComponent instance,
+    /// so reused or duplicate application-level IDs remain isolated.
     #[cfg(feature = "callbacks")]
     pub fn register_callback(&self) -> Result<()> {
         self.0.register_callback()
