@@ -1,10 +1,14 @@
 use libc::pollfd;
 use ohos_native_window_sys::{
     NativeWindow as NativeWindowRaw, OHNativeWindowBuffer as OHNativeWindowBufferRaw,
-    OH_NativeWindow_GetSurfaceId, OH_NativeWindow_NativeObjectReference,
-    OH_NativeWindow_NativeObjectUnreference, OH_NativeWindow_NativeWindowAbortBuffer,
-    OH_NativeWindow_NativeWindowFlushBuffer, OH_NativeWindow_NativeWindowHandleOpt,
-    OH_NativeWindow_NativeWindowRequestBuffer, Region_Rect,
+    OHScalingModeV2, OHScalingModeV2_OH_SCALING_MODE_FREEZE_V2,
+    OHScalingModeV2_OH_SCALING_MODE_NO_SCALE_CROP_V2,
+    OHScalingModeV2_OH_SCALING_MODE_SCALE_CROP_V2, OHScalingModeV2_OH_SCALING_MODE_SCALE_FIT_V2,
+    OHScalingModeV2_OH_SCALING_MODE_SCALE_TO_WINDOW_V2, OH_NativeWindow_GetSurfaceId,
+    OH_NativeWindow_NativeObjectReference, OH_NativeWindow_NativeObjectUnreference,
+    OH_NativeWindow_NativeWindowAbortBuffer, OH_NativeWindow_NativeWindowFlushBuffer,
+    OH_NativeWindow_NativeWindowHandleOpt, OH_NativeWindow_NativeWindowRequestBuffer,
+    OH_NativeWindow_NativeWindowSetScalingModeV2, Region_Rect,
 };
 use std::{
     mem::MaybeUninit,
@@ -25,8 +29,37 @@ pub use error::*;
 pub use ohos_native_buffer_binding::*;
 pub use operation::*;
 
+#[derive(Debug, Clone, Copy, Default, PartialEq, Eq, Hash)]
+#[non_exhaustive]
+pub enum NativeWindowScalingMode {
+    Freeze,
+    Stretch,
+    Crop,
+    NoScaleCrop,
+    #[default]
+    Fit,
+}
+
+impl NativeWindowScalingMode {
+    fn raw(self) -> OHScalingModeV2 {
+        match self {
+            Self::Freeze => OHScalingModeV2_OH_SCALING_MODE_FREEZE_V2,
+            Self::Stretch => OHScalingModeV2_OH_SCALING_MODE_SCALE_TO_WINDOW_V2,
+            Self::Crop => OHScalingModeV2_OH_SCALING_MODE_SCALE_CROP_V2,
+            Self::NoScaleCrop => OHScalingModeV2_OH_SCALING_MODE_NO_SCALE_CROP_V2,
+            Self::Fit => OHScalingModeV2_OH_SCALING_MODE_SCALE_FIT_V2,
+        }
+    }
+}
+
 pub struct NativeWindow {
     window: NonNull<NativeWindowRaw>,
+}
+
+impl Clone for NativeWindow {
+    fn clone(&self) -> Self {
+        Self::clone_from_ptr(self.window.as_ptr().cast())
+    }
 }
 
 impl NativeWindow {
@@ -61,6 +94,14 @@ impl NativeWindow {
         Ok(surface_id)
     }
 
+    /// Borrow the underlying native window pointer.
+    ///
+    /// The pointer remains valid for the lifetime of this owner. Consumers
+    /// must not unreference or destroy it.
+    pub fn as_ptr(&self) -> *mut ohos_native_window_sys::OHNativeWindow {
+        self.window.as_ptr().cast()
+    }
+
     pub fn set_buffer_geometry(&self, width: i32, height: i32) -> Result<(), NativeWindowError> {
         let ret = unsafe {
             OH_NativeWindow_NativeWindowHandleOpt(
@@ -69,6 +110,17 @@ impl NativeWindow {
                 width,
                 height,
             )
+        };
+        if ret != 0 {
+            return Err(NativeWindowError::InternalError(ret));
+        }
+        Ok(())
+    }
+
+    /// Select how producer frames are scaled into this output window.
+    pub fn set_scaling_mode(&self, mode: NativeWindowScalingMode) -> Result<(), NativeWindowError> {
+        let ret = unsafe {
+            OH_NativeWindow_NativeWindowSetScalingModeV2(self.window.as_ptr(), mode.raw())
         };
         if ret != 0 {
             return Err(NativeWindowError::InternalError(ret));

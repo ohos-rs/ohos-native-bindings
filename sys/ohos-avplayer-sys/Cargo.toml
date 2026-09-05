@@ -1,0 +1,29 @@
+[package]
+name                   = "ohos-avplayer-sys"
+version                = "0.1.0"
+edition.workspace      = true
+rust-version.workspace = true
+license                = "MIT OR Apache-2.0"
+description = "OpenHarmony's avplayer sys binding for rust"
+
+[dependencies]
+ohos-audio-sys.workspace = true
+ohos-native-window-sys.workspace = true
+
+[features]
+default = []
+api-13  = ["ohos-audio-sys/api-13", "ohos-native-window-sys/api-13"]
+api-14  = ["api-13", "ohos-audio-sys/api-14", "ohos-native-window-sys/api-14"]
+api-15  = ["api-14", "ohos-audio-sys/api-15", "ohos-native-window-sys/api-15"]
+api-16  = ["api-15", "ohos-audio-sys/api-16", "ohos-native-window-sys/api-16"]
+api-17  = ["api-16", "ohos-audio-sys/api-17", "ohos-native-window-sys/api-17"]
+api-18  = ["api-17", "ohos-audio-sys/api-18", "ohos-native-window-sys/api-18"]
+api-19  = ["api-18", "ohos-audio-sys/api-19", "ohos-native-window-sys/api-19"]
+api-20  = ["api-19", "ohos-audio-sys/api-20", "ohos-native-window-sys/api-20"]
+api-21  = ["api-20", "ohos-audio-sys/api-21", "ohos-native-window-sys/api-21"]
+api-22  = ["api-21", "ohos-audio-sys/api-22", "ohos-native-window-sys/api-22"]
+api-23  = ["api-22", "ohos-audio-sys/api-23", "ohos-native-window-sys/api-23"]
+api-24  = ["api-23", "ohos-audio-sys/api-24", "ohos-native-window-sys/api-24"]
+
+[lints]
+workspace = true
