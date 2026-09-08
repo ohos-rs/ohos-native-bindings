@@ -265,7 +265,10 @@ impl ArkUIInputEvent {
     }
 
     pub fn mouse_action(&self) -> UIMouseEventAction {
-        UIMouseEventAction::from(unsafe { OH_ArkUI_MouseEvent_GetMouseAction(self.raw()) } as u32)
+        UIMouseEventAction::try_from_raw(
+            unsafe { OH_ArkUI_MouseEvent_GetMouseAction(self.raw()) } as u32
+        )
+        .unwrap_or(UIMouseEventAction::Unknown)
     }
 
     pub fn pointer_set_stop_propagation(

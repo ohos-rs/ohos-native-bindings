@@ -17,7 +17,8 @@ use ohos_arkui_input_sys::{
 };
 #[cfg(feature = "api-15")]
 use ohos_arkui_input_sys::{
-    OH_ArkUI_PointerEvent_GetChangedPointerId, OH_ArkUI_UIInputEvent_GetTargetDisplayId,
+    OH_ArkUI_AxisEvent_GetAxisAction, OH_ArkUI_PointerEvent_GetChangedPointerId,
+    OH_ArkUI_UIInputEvent_GetTargetDisplayId,
 };
 #[cfg(feature = "api-14")]
 use ohos_arkui_input_sys::{
@@ -86,16 +87,26 @@ impl ArkUIInputEvent {
 
     pub fn from_raw(event: *const ArkUI_UIInputEvent) -> Self {
         let event = NonNull::new(event.cast_mut()).expect("ArkUI_UIInputEvent pointer is null");
-        let event_type = unsafe { OH_ArkUI_UIInputEvent_GetType(event.as_ptr()) };
-        let action = unsafe { OH_ArkUI_UIInputEvent_GetAction(event.as_ptr()) };
+        let raw_event_type = unsafe { OH_ArkUI_UIInputEvent_GetType(event.as_ptr()) };
+        let event_type =
+            UIInputEvent::try_from_raw(raw_event_type as u32).unwrap_or(UIInputEvent::Unknown);
+        let action = match event_type {
+            // The generic action getter explicitly excludes axis events. Use
+            // the category-specific API whenever the target SDK exposes it.
+            #[cfg(feature = "api-15")]
+            UIInputEvent::Axis => unsafe { OH_ArkUI_AxisEvent_GetAxisAction(event.as_ptr()) },
+            _ => unsafe { OH_ArkUI_UIInputEvent_GetAction(event.as_ptr()) },
+        };
         let source_type = unsafe { OH_ArkUI_UIInputEvent_GetSourceType(event.as_ptr()) };
         let tool_type = unsafe { OH_ArkUI_UIInputEvent_GetToolType(event.as_ptr()) };
         Self {
             event,
-            event_type: UIInputEvent::from(event_type as u32),
-            action: UIInputAction::from(action as u32),
-            source_type: UIInputSourceType::from(source_type as u32),
-            tool_type: UIInputToolType::from(tool_type as u32),
+            event_type,
+            action: normalized_action(event_type, action),
+            source_type: UIInputSourceType::try_from_raw(source_type as u32)
+                .unwrap_or(UIInputSourceType::Unknown),
+            tool_type: UIInputToolType::try_from_raw(tool_type as u32)
+                .unwrap_or(UIInputToolType::Unknown),
         }
     }
 
@@ -207,5 +218,120 @@ impl ArkUIInputEvent {
         let mut keys = 0u64;
         check_status(unsafe { OH_ArkUI_UIInputEvent_GetModifierKeyStates(self.raw(), &mut keys) })?;
         Ok(ModifierKeyStates(keys))
+    }
+}
+
+/// Converts category-specific ArkUI action codes into the touch-style action
+/// semantics exposed by the existing public API.
+///
+/// ArkUI reuses numeric values differently for touch, axis, and mouse events.
+/// Keep this conversion total because native accessors may also return `-1`
+/// for invalid input or values introduced by a newer SDK.
+fn normalized_action(event_type: UIInputEvent, action: i32) -> UIInputAction {
+    match event_type {
+        UIInputEvent::Touch => match action {
+            1 => UIInputAction::Down,
+            2 => UIInputAction::Move,
+            3 => UIInputAction::Up,
+            0 => UIInputAction::Cancel,
+            _ => UIInputAction::Cancel,
+        },
+        UIInputEvent::Axis => match action {
+            // UI_AXIS_EVENT_ACTION_BEGIN / UPDATE / END / CANCEL
+            1 => UIInputAction::Down,
+            2 => UIInputAction::Move,
+            3 => UIInputAction::Up,
+            0 | 4 => UIInputAction::Cancel,
+            _ => UIInputAction::Cancel,
+        },
+        UIInputEvent::Mouse => match action {
+            // UI_MOUSE_EVENT_ACTION_PRESS / RELEASE / MOVE / CANCEL
+            1 => UIInputAction::Down,
+            2 => UIInputAction::Up,
+            3 => UIInputAction::Move,
+            0 | 13 => UIInputAction::Cancel,
+            _ => UIInputAction::Cancel,
+        },
+        _ => UIInputAction::Cancel,
+    }
+}
+
+#[cfg(test)]
+mod tests {
+    use super::*;
+
+    #[test]
+    fn normalizes_touch_actions() {
+        assert_eq!(
+            normalized_action(UIInputEvent::Touch, 0),
+            UIInputAction::Cancel
+        );
+        assert_eq!(
+            normalized_action(UIInputEvent::Touch, 1),
+            UIInputAction::Down
+        );
+        assert_eq!(
+            normalized_action(UIInputEvent::Touch, 2),
+            UIInputAction::Move
+        );
+        assert_eq!(normalized_action(UIInputEvent::Touch, 3), UIInputAction::Up);
+    }
+
+    #[test]
+    fn normalizes_axis_actions_without_panicking_on_cancel() {
+        assert_eq!(
+            normalized_action(UIInputEvent::Axis, 0),
+            UIInputAction::Cancel
+        );
+        assert_eq!(
+            normalized_action(UIInputEvent::Axis, 1),
+            UIInputAction::Down
+        );
+        assert_eq!(
+            normalized_action(UIInputEvent::Axis, 2),
+            UIInputAction::Move
+        );
+        assert_eq!(normalized_action(UIInputEvent::Axis, 3), UIInputAction::Up);
+        assert_eq!(
+            normalized_action(UIInputEvent::Axis, 4),
+            UIInputAction::Cancel
+        );
+    }
+
+    #[test]
+    fn normalizes_mouse_actions_by_mouse_semantics() {
+        assert_eq!(
+            normalized_action(UIInputEvent::Mouse, 0),
+            UIInputAction::Cancel
+        );
+        assert_eq!(
+            normalized_action(UIInputEvent::Mouse, 1),
+            UIInputAction::Down
+        );
+        assert_eq!(normalized_action(UIInputEvent::Mouse, 2), UIInputAction::Up);
+        assert_eq!(
+            normalized_action(UIInputEvent::Mouse, 3),
+            UIInputAction::Move
+        );
+        assert_eq!(
+            normalized_action(UIInputEvent::Mouse, 13),
+            UIInputAction::Cancel
+        );
+    }
+
+    #[test]
+    fn invalid_and_future_values_fall_back_to_cancel() {
+        assert_eq!(
+            normalized_action(UIInputEvent::Touch, -1),
+            UIInputAction::Cancel
+        );
+        assert_eq!(
+            normalized_action(UIInputEvent::Axis, 99),
+            UIInputAction::Cancel
+        );
+        assert_eq!(
+            normalized_action(UIInputEvent::Unknown, 5),
+            UIInputAction::Cancel
+        );
     }
 }
