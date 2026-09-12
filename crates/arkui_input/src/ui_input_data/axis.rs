@@ -38,7 +38,10 @@ impl ArkUIInputEvent {
 
     #[cfg(feature = "api-15")]
     pub fn axis_action(&self) -> UIAxisEventAction {
-        UIAxisEventAction::from(unsafe { OH_ArkUI_AxisEvent_GetAxisAction(self.raw()) } as u32)
+        UIAxisEventAction::try_from_raw(
+            unsafe { OH_ArkUI_AxisEvent_GetAxisAction(self.raw()) } as u32
+        )
+        .unwrap_or(UIAxisEventAction::None)
     }
 
     #[cfg(feature = "api-22")]
