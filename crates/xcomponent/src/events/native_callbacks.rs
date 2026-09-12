@@ -26,9 +26,7 @@ use super::{remove_raw_window, store_raw_window, RawWindow, TouchEventData, XCom
 use super::X_COMPONENT_CALLBACKS;
 
 #[cfg(feature = "multi_mode")]
-use super::X_COMPONENT_CALLBACKS_MAP;
-#[cfg(feature = "multi_mode")]
-use crate::tool::resolve_id;
+use super::{callback_key, X_COMPONENT_CALLBACKS_MAP};
 
 /// Resolve the callback set registered for `xcomponent`, if any.
 fn callbacks_for(xcomponent: *mut OH_NativeXComponent) -> Option<XComponentCallbacks> {
@@ -40,8 +38,7 @@ fn callbacks_for(xcomponent: *mut OH_NativeXComponent) -> Option<XComponentCallb
 
     #[cfg(feature = "multi_mode")]
     {
-        let id = resolve_id(xcomponent)?;
-        X_COMPONENT_CALLBACKS_MAP.with_borrow(|cb| cb.get(&id).cloned())
+        X_COMPONENT_CALLBACKS_MAP.with_borrow(|cb| cb.get(&callback_key(xcomponent)).cloned())
     }
 }
 

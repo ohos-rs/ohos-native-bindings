@@ -1,0 +1,29 @@
+[package]
+name                   = "ohos-avplayer-binding"
+version                = "0.1.0"
+edition.workspace      = true
+rust-version.workspace = true
+license                = "MIT OR Apache-2.0"
+description            = "Safe OpenHarmony AVPlayer bindings"
+
+[lints]
+workspace = true
+
+[features]
+default = []
+api-13 = ["ohos-avplayer-sys/api-13", "ohos-native-window-binding/api-13"]
+api-14 = ["api-13", "ohos-avplayer-sys/api-14", "ohos-native-window-binding/api-14"]
+api-15 = ["api-14", "ohos-avplayer-sys/api-15", "ohos-native-window-binding/api-15"]
+api-16 = ["api-15", "ohos-avplayer-sys/api-16"]
+api-17 = ["api-16", "ohos-avplayer-sys/api-17"]
+api-18 = ["api-17", "ohos-avplayer-sys/api-18", "ohos-native-window-binding/api-18"]
+api-19 = ["api-18", "ohos-avplayer-sys/api-19", "ohos-native-window-binding/api-19"]
+api-20 = ["api-19", "ohos-avplayer-sys/api-20", "ohos-native-window-binding/api-20"]
+api-21 = ["api-20", "ohos-avplayer-sys/api-21"]
+api-22 = ["api-21", "ohos-avplayer-sys/api-22"]
+api-23 = ["api-22", "ohos-avplayer-sys/api-23"]
+api-24 = ["api-23", "ohos-avplayer-sys/api-24"]
+
+[dependencies]
+ohos-avplayer-sys.workspace = true
+ohos-native-window-binding.workspace = true

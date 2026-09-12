@@ -28,7 +28,7 @@ use crate::{
 use crate::X_COMPONENT_CALLBACKS;
 
 #[cfg(feature = "multi_mode")]
-use crate::X_COMPONENT_CALLBACKS_MAP;
+use crate::{events::callback_key, X_COMPONENT_CALLBACKS_MAP};
 
 #[derive(Debug, Clone)]
 pub struct NativeXComponent {
@@ -81,10 +81,10 @@ impl NativeXComponent {
         lookup_raw_window(self.raw().cast())
     }
 
-    /// Register callbacks
-    /// For multi-mode, it will use hashmap to store all of your callbacks closure.
-    /// This may cause xcomponent being slower, if you want to avoid this.
-    /// You can disable feature with `callbacks` and use `register_native_callback`
+    /// Register callbacks.
+    ///
+    /// With `multi_mode`, closures are routed by native XComponent instance,
+    /// so reused or duplicate application-level IDs remain isolated.
     #[cfg(feature = "callbacks")]
     pub fn register_callback(&self) -> Result<()> {
         // The callback table is identical for every registration, so one
@@ -122,11 +122,9 @@ impl NativeXComponent {
         });
 
         #[cfg(feature = "multi_mode")]
-        if let Ok(id) = self.id() {
-            X_COMPONENT_CALLBACKS_MAP.with_borrow_mut(|f| {
-                f.remove(&id);
-            });
-        }
+        X_COMPONENT_CALLBACKS_MAP.with_borrow_mut(|f| {
+            f.remove(&callback_key(self.raw()));
+        });
     }
 
     pub fn on_surface_changed<T: Fn(XComponentRaw, WindowRaw) -> Result<()> + 'static>(
@@ -140,9 +138,10 @@ impl NativeXComponent {
 
         #[cfg(feature = "multi_mode")]
         {
-            let id = self.id().unwrap();
             X_COMPONENT_CALLBACKS_MAP.with_borrow_mut(|f| {
-                f.entry(id).or_default().on_surface_changed = Some(Rc::new(cb));
+                f.entry(callback_key(self.raw()))
+                    .or_default()
+                    .on_surface_changed = Some(Rc::new(cb));
             });
         }
     }
@@ -158,9 +157,10 @@ impl NativeXComponent {
 
         #[cfg(feature = "multi_mode")]
         {
-            let id = self.id().unwrap();
             X_COMPONENT_CALLBACKS_MAP.with_borrow_mut(|f| {
-                f.entry(id).or_default().on_surface_created = Some(Rc::new(cb));
+                f.entry(callback_key(self.raw()))
+                    .or_default()
+                    .on_surface_created = Some(Rc::new(cb));
             });
         }
     }
@@ -176,9 +176,10 @@ impl NativeXComponent {
 
         #[cfg(feature = "multi_mode")]
         {
-            let id = self.id().unwrap();
             X_COMPONENT_CALLBACKS_MAP.with_borrow_mut(|f| {
-                f.entry(id).or_default().on_surface_destroyed = Some(Rc::new(cb));
+                f.entry(callback_key(self.raw()))
+                    .or_default()
+                    .on_surface_destroyed = Some(Rc::new(cb));
             });
         }
     }
@@ -196,9 +197,10 @@ impl NativeXComponent {
 
         #[cfg(feature = "multi_mode")]
         {
-            let id = self.id().unwrap();
             X_COMPONENT_CALLBACKS_MAP.with_borrow_mut(|f| {
-                f.entry(id).or_default().dispatch_touch_event = Some(Rc::new(cb));
+                f.entry(callback_key(self.raw()))
+                    .or_default()
+                    .dispatch_touch_event = Some(Rc::new(cb));
             });
         }
     }
@@ -249,9 +251,10 @@ impl NativeXComponent {
 
         #[cfg(feature = "multi_mode")]
         {
-            let id = self.id().unwrap();
             X_COMPONENT_CALLBACKS_MAP.with_borrow_mut(|f| {
-                f.entry(id).or_default().on_frame_change = Some(Rc::new(cb));
+                f.entry(callback_key(self.raw()))
+                    .or_default()
+                    .on_frame_change = Some(Rc::new(cb));
             });
         }
 
@@ -277,9 +280,8 @@ impl NativeXComponent {
 
         #[cfg(feature = "multi_mode")]
         {
-            let id = self.id().unwrap();
             X_COMPONENT_CALLBACKS_MAP.with_borrow_mut(|f| {
-                f.entry(id).or_default().on_key_event = Some(Rc::new(cb));
+                f.entry(callback_key(self.raw())).or_default().on_key_event = Some(Rc::new(cb));
             });
         }
 
@@ -305,9 +307,10 @@ impl NativeXComponent {
 
         #[cfg(feature = "multi_mode")]
         {
-            let id = self.id().unwrap();
             X_COMPONENT_CALLBACKS_MAP.with_borrow_mut(|f| {
-                f.entry(id).or_default().on_hover_event = Some(Rc::new(cb));
+                f.entry(callback_key(self.raw()))
+                    .or_default()
+                    .on_hover_event = Some(Rc::new(cb));
             });
         }
         Ok(())
@@ -326,9 +329,10 @@ impl NativeXComponent {
 
         #[cfg(feature = "multi_mode")]
         {
-            let id = self.id().unwrap();
             X_COMPONENT_CALLBACKS_MAP.with_borrow_mut(|f| {
-                f.entry(id).or_default().on_mouse_event = Some(Rc::new(cb));
+                f.entry(callback_key(self.raw()))
+                    .or_default()
+                    .on_mouse_event = Some(Rc::new(cb));
             });
         }
         Ok(())
@@ -364,9 +368,10 @@ impl NativeXComponent {
 
         #[cfg(feature = "multi_mode")]
         {
-            let id = self.id().unwrap();
             X_COMPONENT_CALLBACKS_MAP.with_borrow_mut(|f| {
-                f.entry(id).or_default().on_ui_input_event = Some(Rc::new(cb));
+                f.entry(callback_key(self.raw()))
+                    .or_default()
+                    .on_ui_input_event = Some(Rc::new(cb));
             });
         }
         let ret: XComponentResultCode = unsafe {
