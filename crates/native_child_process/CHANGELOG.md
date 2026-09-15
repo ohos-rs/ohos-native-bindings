@@ -2,10 +2,11 @@
 
 ## Unreleased 0.1.0
 
-- Add typed extended-child entry/args/options/configs/identity wrappers.
-- Own CLOEXEC launch duplicates and entry-scoped single FD adoption.
-- Route API20 exit events through a bounded process-global dispatcher with
-  early-exit/generation/PID-reuse safeguards and panic containment.
-- Gate current args, kill and support query at API17/API22/API26 respectively.
-- Add host pure tests and a normal-mode, two-FD NAPI worker example.
-- Independent source and real-device acceptance remain pending; not published.
+- Design bindings directly around the official Native child-process API.
+- Expose synchronous entry starts returning PID and asynchronous IPC creation.
+- Own argument strings, borrow launch FDs, and prepare stable C list storage per call.
+- Provide borrowed native argument views and an entry ABI macro with panic containment.
+- Own native configs with RAII and forward setter validation to the platform.
+- Expose explicit process-wide exit callback registration and unregistration.
+- Preserve native error codes without mapping individual values.
+- Follow native API availability from API12 through API26; re-export generated sys APIs.

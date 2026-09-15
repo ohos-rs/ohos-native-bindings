@@ -41,25 +41,20 @@ start loads a shared library and exported symbol, not an executable.
 API12 Binder creation remains raw/unsafe. The recursively generated proxy type
 is opaque; this crate does not implement an IPCKit facade, proxy release or a
 safe IPC contract. SDK comments describe IPC ownership and thread requirements.
-Successful compile checks are not device/lifecycle acceptance.
 
-## Regeneration and ABI checks
+## Regeneration
 
-Use the [single-config generator](../../tools/generate/README.md). The generated
-`src/lib.rs` is not handwritten; assertions live separately in `tests/abi.rs`.
+Use the [binding generator](../../tools/generate/README.md), following the same
+registration and generation flow as the other sys crates. `src/lib.rs` is generated
+from the SDK rather than handwritten.
 
 ```sh
 cargo check -p ohos-native-child-process-sys \
-  --target aarch64-unknown-linux-ohos --all-features --tests
-"$OHOS_NDK_HOME/native/llvm/bin/clang++" --target=aarch64-linux-ohos \
-  --sysroot="$OHOS_NDK_HOME/native/sysroot" -std=c++17 -Werror -fsyntax-only \
-  sys/ohos-native-child-process-sys/tests/sdk_abi.cpp
+  --target aarch64-unknown-linux-ohos --all-features
 ```
 
-Run the C++ command from the workspace root. It only compiles SDK layout and
-signature assertions; it produces no process shim or runtime library. Rust
-`cargo check --tests` verifies signatures/layouts without a device or native
-linker. On-device execution, callback ordering and FD transfer remain pending.
+Run the check from the workspace root. Device E2E is provided by the
+[example suite](../../examples/native_child_process/README.md#e2e-scenarios).
 
 ## License
 

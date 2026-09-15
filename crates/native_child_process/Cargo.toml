@@ -4,12 +4,9 @@ version                = "0.1.0"
 edition.workspace      = true
 rust-version.workspace = true
 license                = "MIT OR Apache-2.0"
-description            = "Typed AbilityKit extended Native child-process bindings"
+description            = "Rust bindings for AbilityKit native child processes"
 
 [dependencies]
-libc = { workspace = true }
-
-[target.'cfg(target_env = "ohos")'.dependencies]
 ohos-native-child-process-sys = { workspace = true }
 
 [features]
@@ -28,7 +25,6 @@ api-23  = ["api-22", "ohos-native-child-process-sys/api-23"]
 api-24  = ["api-23", "ohos-native-child-process-sys/api-24"]
 api-25  = ["api-24", "ohos-native-child-process-sys/api-25"]
 api-26  = ["api-25", "ohos-native-child-process-sys/api-26"]
-raw-ipc = []
 
 [lints]
 workspace = true

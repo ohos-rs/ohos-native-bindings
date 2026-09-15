@@ -1,71 +1,91 @@
-# Normal Native child two-FD probe
+# Extended Native child-process example
 
-Unpublished, bindings-owned source example. No application/engine dependency,
-shell executable, signing material, independent-process configuration or
-isolated child mode is used. Device results are pending.
+This example tests extended Native children through separate FD and IPC fixtures.
+Native sandbox and UID isolation do not select independent UIAbility/HAP
+processes; those require component startup and lifecycle tests.
 
-## Build and run entry
+All blocking parent work runs on NAPI workers. `runProbe(forced)` and
+`runConfiguredProbe(forced)` exchange named FDs and observe normal exit or kill.
+`runBindingProbe(scenario)` exercises the binding API and real IPCKit requests.
+`runInteropProbe(pid, kind)` checks children started from ArkTS.
+`armParentExitProbe()` keeps four children alive for the parent-exit host test.
 
-With the repository's pinned OHOS toolchain and SDK configured:
+## Build and run
+
+The default example enables API26, including the support query. Package the
+shared library in an application allowed to create Native children.
 
 ```sh
-cd examples/native_child_process
 ohrs build --arch aarch
 ```
 
-This builds an API22-feature parent/child library:
-`dist/arm64-v8a/libnative_child_process_example.so`, exporting
-`BindingProbeMain` with the binding entry macro. The same packaged library is
-loaded in the parent as a NAPI module and in a distinct child by AbilityKit.
-Generated `dist/index.d.ts` exposes `runProbe(forced: boolean): Promise<string>`.
-All synchronous start/socket/exit work executes on a NAPI libuv worker, not UI.
-
-For a separate API26 capability-query probe (never substitute this artifact for
-API22 compatibility evidence):
+From the repository root, with SDK 7.0 and hdc configured:
 
 ```sh
-ohrs build --arch aarch --dist dist/api26 -- --no-default-features --features api-26
+pnpm run ui:sync -- native_child_process
+pnpm run test:ui -- native_child_process
 ```
 
-After independent source review, a device-probe task must package the exact
-library/type declaration in an explicitly selected, signed feasibility HAP.
-The HAP must declare the supported device type/API and include the library in
-its `arm64-v8a` native directory; protected local signing is injected outside
-tracked files. Do not add Ability/module `process`, `isolationProcess` or
-independent `isolationMode` configuration. Call from the signed parent:
+## E2E scenarios
 
-```ts
-import probe from 'libnative_child_process_example.so';
-const graceful = await probe.runProbe(false);
-const forced = await probe.runProbe(true);
-```
+The suite exercises every public binding operation using actual process data,
+FD communication, IPC requests and exit notifications.
 
-Phone is the next selected target; an API26 Phone result alone does not prove
-API22 compatibility, Tablet or 2-in-1 support. No HAP/device execution is claimed
-by this source change. Do not launch the .so as a shell executable.
+| Binding surface | Coverage |
+| --- | --- |
+| `ChildProcessArgs`, `ChildProcessArgsRef`, `ChildProcessFd` | Empty/Unicode/150 KiB parameters, owned strings and moved args, zero/two/16 named FDs, 20-byte names, borrowed FD lifetime, capacity and NUL errors |
+| `ChildProcessOptions`, `IsolationMode` | Normal/Isolated sandbox access and TCP communication |
+| `ChildProcessConfigs` | Native defaults, all setters, UID isolation, process-name lifetime and limits, failed setter preservation, reuse and Drop |
+| `start`, `start_with_configs` | PID, argument/FD transfer, concurrent and repeated launches, normal exit, kill, missing library/export and nested creation rejection |
+| `create`, `create_with_configs` | Official OnConnect/MainProc exports, startup callback thread, Unicode IPC reply, proxy release, death notification, sandbox/UID configs, kill and startup errors |
+| `current_args` | None in the parent and IPC-only child; entry and thread queries must match FD-child arguments |
+| Exit callback registration/unregistration | Duplicate registration, multiple functions, selective removal, no delivery after unregister, missing callback and re-registration |
+| `kill` | Native FD/IPC and ArkTS APP_SPAWN_FORK children, wrong/nonchild/stale PID rejection, SELF_FORK rejection |
+| `is_supported` | API26 support query in the actual 2in1 application |
+| `native_child_entry!` | Normal return, handler error, contained panic and panicking payload destructor, child SIGABRT without losing the parent |
+| `NativeChildProcessError` | Preserved native codes, string conversion source, FD capacity error and borrowed FDs remaining open after failure |
+| Parent lifetime | Four live children from all creation APIs; host sends SIGKILL only to the parent and requires all five PIDs to disappear within five seconds |
 
-## What each call exercises
+The runner executes 47 ordinary cases in `native_child_process_extended`, then
+runs `native_child_process_parent_exit` separately. The parent-exit result is
+recorded in `parent-exit-result.json` and included in the host summary.
+Native allocation failure, service outage, startup timeout and resource
+exhaustion need separate fault injection; they are not forced by this suite.
 
-The parent creates two Unix socket pairs and passes child-side launch duplicates
-as `probe.control` and `probe.echo`, with `binding-probe-v1` entry parameters.
-Start uses only `OH_Ability_StartNativeChildProcess` and Normal options through
-the safe binding. The builder duplicates/keeps strings/nodes/FDs through start;
-the parent closes its original child endpoints immediately after return.
+FD startup success returns a PID before loading the entry: a missing library or
+export subsequently closes the transport and delivers exit. IPC loading errors
+arrive through the startup callback with code 16010007 and a null proxy;
+OnConnect returning null produces code 16010008 and a null proxy.
 
-The child verifies params and exactly two FDs, takes each once, sends Ready with
-its PID, echoes a bounded nonce on the second FD, then either returns normally
-after Shutdown/Goodbye or waits after Hold/Holding for explicit API22 kill.
-The parent checks the returned/announced PID against a distinct parent PID,
-matched echo, control EOF and the generation-aware exit callback. IO and exit
-waits have ten-second bounds. Probe failure attempts explicit kill cleanup;
-identity Drop itself never kills.
+## QEMU CI
 
-Successful output records PIDs, generation, two-FD/params/echo/EOF, force branch,
-raw SDK exit signal and Normal mode. It is runtime output, not prefilled PASS
-evidence. Save the signed HAP hash, exact library hash, device/model/API/ABI,
-source digest, device logs and raw call errors in the separate device report.
+[Native child-process 2in1 E2E](../../.github/workflows/native-child-process-e2e.yml)
+runs independently of phone E2E. Both use the shared
+[QEMU runner](../../.github/workflows/qemu-e2e.yml), SDK 7.0 and release tag
+`v20260913`, with separate concurrency groups and device/version cache keys.
+CI builds API26 x64 examples and requires KVM.
 
-Full bindings acceptance still needs invalid entry, zero/one/many FDs, unexpected
-crash, Busy/maximum-process, 100 cycles, FD count and parent termination cases.
-This source example implements the bounded two-FD happy/kill branches only; it
-does not waive those cases or the separate storage/engine gates.
+The Native workflow prepares a private image with
+`persist.sys.abilityms.multi_process_model=true` and
+`const.max_native_child_process=50` in `appfwk.para` before boot, then checks
+these values and `deviceType=2in1`. The cached release image remains unchanged.
+HAPs are signed for the actual target UDID. Hypium results, parent-exit results
+and Native process logs are uploaded as diagnostics; failures fail the workflow.
+
+## Known image issues
+
+The `v20260913` full 2in1 image, OpenHarmony-7.0.0.39/API26, was tested locally
+with SDK 7.0 on arm64/HVF: **45 passed, 3 failed, 48 total**. All four creation
+APIs passed parent-exit cleanup. This local run does not establish x64/KVM success.
+
+| Failing case | Observed result |
+| --- | --- |
+| Current arguments in the FD child entry | None, although entry arguments and FD communication work |
+| Current arguments from another FD child thread | None |
+| Full 150 KiB parameter boundary | Native start returns 16010003; AppMS logs `Write param request failed` before reaching the entry |
+
+None in the parent or IPC-only child is expected. None in the documented
+FD-child query path remains a failing assertion, without an argument fallback.
+The full parameter-boundary assertion also remains active.
+
+[Official Native child guide](https://github.com/openharmony/docs/blob/master/zh-cn/application-dev/application-models/capi-nativechildprocess-development-guideline.md)

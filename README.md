@@ -6,7 +6,7 @@ A set of HarmonyNext native module bindings for Rust.
 
 | Module | Version | Description |
 | --- | --- | --- |
-| [ohos-native-child-process-binding](./crates/native_child_process) | Unpublished 0.1.0; acceptance pending | Typed AbilityKit extended Native child-process binding, API13..API26; [normal two-FD example](./examples/native_child_process) |
+| [ohos-native-child-process-binding](./crates/native_child_process) | Unpublished 0.1.0 | AbilityKit extended Native child-process binding, API12..API26; [FD/IPC example and E2E](./examples/native_child_process) |
 | [ohos-accessibility-binding](./crates/accessibility) | ![Crates.io Version](https://img.shields.io/crates/v/ohos-accessibility-binding) | ArkUI native accessibility provider binding |
 | [ohos-ability-access-control-binding](./crates/ability_access_control) | ![Crates.io Version](https://img.shields.io/crates/v/ohos-ability-access-control-binding) | [ability-access-control](https://developer.huawei.com/consumer/cn/doc/harmonyos-references-V5/_ability_access_control-V5) binding |
 | [ohos-arkui-binding](./crates/arkui) | ![Crates.io Version](https://img.shields.io/crates/v/ohos-arkui-binding) | [arkui](https://developer.huawei.com/consumer/cn/doc/harmonyos-references-V5/_ark_u_i___native_module-V5) binding |
@@ -41,11 +41,6 @@ A set of HarmonyNext native module bindings for Rust.
 | [ohos-web-binding](./crates/web) | ![Crates.io Version](https://img.shields.io/crates/v/ohos-web-binding) | [arkweb](https://developer.huawei.com/consumer/cn/doc/harmonyos-references-V5/_web-V5) binding |
 | [ohos-xcomponent-binding](./crates/xcomponent) | ![Crates.io Version](https://img.shields.io/crates/v/ohos-xcomponent-binding) | [xcomponent](https://developer.huawei.com/consumer/cn/doc/harmonyos-references-V5/_o_h___native_x_component-V5) binding |
 
-The unpublished [Native child-process safe binding](./crates/native_child_process)
-and [normal two-FD example](./examples/native_child_process) are source handoffs
-with independent/device acceptance pending. They use extended Native child
-start, not executable spawn or independent-process configuration.
-
 ## HMS Bindings
 
 | Module | Version | Description |
@@ -56,7 +51,7 @@ Low-level `*-sys` crates and the `ohos-enum-derive` helper crate are published s
 
 | Raw module | Status | Description |
 | --- | --- | --- |
-| [ohos-native-child-process-sys](./sys/ohos-native-child-process-sys) | Raw ABI; device acceptance pending | AbilityKit Native child-process APIs, API12 baseline through API26; links `child_process`. No safe IPC or lifetime facade is provided by this crate. |
+| [ohos-native-child-process-sys](./sys/ohos-native-child-process-sys) | Unpublished 0.1.0 | Raw AbilityKit Native child-process bindings, API12..API26 |
 
 ## Development
 

@@ -10,16 +10,15 @@ crate-type = ["cdylib", "rlib"]
 
 [dependencies]
 ohos-native-child-process-binding = { workspace = true }
-
-[target.'cfg(target_env = "ohos")'.dependencies]
-napi-ohos        = { workspace = true }
-napi-derive-ohos = { workspace = true }
+napi-ohos                         = { workspace = true }
+napi-derive-ohos                  = { workspace = true }
+libc                              = { workspace = true }
 
 [build-dependencies]
 napi-build-ohos = { workspace = true }
 
 [features]
-default = ["api-22"]
+default = ["api-26"]
 api-22  = ["ohos-native-child-process-binding/api-22"]
 api-26  = ["api-22", "ohos-native-child-process-binding/api-26"]
 

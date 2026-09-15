@@ -1,141 +1,119 @@
-# Native child-process binding
+# ohos-native-child-process-binding
 
-Unpublished `0.1.0` source handoff. Independent source and device acceptance are
-pending. This crate owns AbilityKit extended Native child-process access; it
-does not spawn executables or configure independent processes.
+Rust bindings for `AbilityKit/native_child_process.h`, linked to `libchild_process.so`.
+Enable the API feature matching the application's minimum supported OHOS runtime.
 
-## Features and dependency boundary
+## APIs
 
-Default features are empty (API12). Enable `api-13` for typed start/entry/args,
-`api-17` for current-child args, `api-20` for configs/exit subscriptions,
-`api-21` for the configs UID flag, `api-22` for explicit kill, and `api-26` for
-support query. Every intermediate feature forwards the chained sys feature.
-The build SDK does not raise the runtime API minimum automatically.
+| Rust API | Native API | Since |
+| --- | --- | --- |
+| `NativeChildProcess::create` | `OH_Ability_CreateNativeChildProcess` | 12 |
+| `NativeChildProcess::start` | `OH_Ability_StartNativeChildProcess` | 13 |
+| `NativeChildProcess::current_args` | `OH_Ability_GetCurrentChildProcessArgs` | 17 |
+| `ChildProcessConfigs::new` / Drop | Create / DestroyChildProcessConfigs | 20 |
+| `ChildProcessConfigs::set_isolation_mode` | ChildProcessConfigs_SetIsolationMode | 20 |
+| `ChildProcessConfigs::set_process_name` | ChildProcessConfigs_SetProcessName | 20 |
+| `NativeChildProcess::start_with_configs` | StartNativeChildProcessWithConfigs | 20 |
+| `NativeChildProcess::create_with_configs` | CreateNativeChildProcessWithConfigs | 20 |
+| `NativeChildProcess::register_exit_callback` | RegisterNativeChildProcessExitCallback | 20 |
+| `NativeChildProcess::unregister_exit_callback` | UnregisterNativeChildProcessExitCallback | 20 |
+| `ChildProcessConfigs::set_isolation_uid` | ChildProcessConfigs_SetIsolationUid | 21 |
+| `NativeChildProcess::kill` | OH_Ability_KillChildProcess | 22 |
+| `NativeChildProcess::is_supported` | OH_Ability_IsNativeChildProcessSupported | 26 |
 
-```toml
-[dependencies]
-ohos-native-child-process-binding = { version = "0.1.0", features = ["api-22"] }
-```
+The complete generated API is available through `sys`.
 
-The OHOS target alone depends on the generated sys crate; a Unix host can run
-pure tests without linking `child_process`. Host platform operations return
-`HostUnsupported`, never a simulated process result. Production dependencies
-are only `libc` and, on OHOS, the sys crate. Versions live in the root workspace.
+## Process scenarios
 
-## Typed launch
+This crate implements extended Native child processes (扩展子进程). `start` and
+`start_with_configs` load a shared-library entry and transfer arguments/FDs;
+`create` and `create_with_configs` establish an IPC channel. A child exits when
+its entry returns and follows its parent's lifetime.
 
-```rust,ignore
-use std::{os::fd::AsFd, path::Path};
+Independent processes (独立进程) host application components. They are selected
+by UIAbility `process`, `isolationProcess` with `AbilityStage.onNewProcessRequest`,
+or HAP-level `isolationMode`. Their tests must launch components and observe
+component lifecycle, process allocation and reuse through the component APIs.
+
+`IsolationMode::Normal` / `Isolated` here control a Native child's data sandbox
+and network sharing. `set_isolation_uid` controls UID isolation in isolated mode.
+Neither selects the independent component-process scenario. See the official
+[Native child guide](https://github.com/openharmony/docs/blob/master/zh-cn/application-dev/application-models/capi-nativechildprocess-development-guideline.md)
+and [independent-process guide](https://developer.huawei.com/consumer/cn/doc/harmonyos-guides/isolation-process-development-guideline).
+
+## Start a child entry
+
+```rust,no_run
+use std::{os::fd::AsFd, os::unix::net::UnixStream};
 use ohos_native_child_process_binding::{
-    ChildFdName, ChildProcessArgsBuilder, ChildProcessEntry,
-    ChildProcessOptions, IsolationMode, NativeChildProcessManager,
+    ChildProcessArgs, ChildProcessOptions, NativeChildProcess,
 };
 
-let entry = ChildProcessEntry::new(Path::new("libchild.so"), "ChildMain")?;
-let args = ChildProcessArgsBuilder::new()
-    .entry_params("protocol-v1")?
-    .named_fd(ChildFdName::new("probe.control")?, child_socket.as_fd())?;
-let child = NativeChildProcessManager::new().start(
-    &entry, args, ChildProcessOptions::new(IsolationMode::Normal),
-)?;
-// Original parent sockets remain parent-owned. Drop every original child-side
-// socket after start so control EOF is observable. Handle Drop never kills.
+let (parent, child) = UnixStream::pair()?;
+let mut args = ChildProcessArgs::new();
+args.set_entry_params("protocol-v1")?.add_fd("control", child.as_fd())?;
+let pid = NativeChildProcess::start("libchild.so:Main", &args, ChildProcessOptions::default())?;
+drop(args);
+drop(child);
+# Ok::<(), Box<dyn std::error::Error>>(())
 ```
 
-Entry libraries are application-packaged ASCII `lib*.so` basenames, not absolute
-or relative paths; symbols are C identifiers. Binding validation limits are
-255 bytes per entry component, 64 ASCII bytes per FD name, 16 named FDs and
-64 KiB parameter bytes. These conservative binding limits are not represented
-as measured SDK/AppSpawn limits. Duplicate names and interior NULs fail before
-FFI. Invalid borrowed FDs cannot be constructed by safe Rust; duplication
-failures still retain exact errno before FFI.
-
-Each named FD is duplicated with `F_DUPFD_CLOEXEC` (EINTR retried). The builder
-owns those `OwnedFd`s, C strings and fixed-address linked nodes until start
-returns. Both successful and failed calls drop all launch duplicates. Device
-acceptance must prove that AbilityKit finishes the transfer before that return
-and accepts CLOEXEC; host tests prove only Rust-side ownership/close behavior.
+`entry` is the official `library:function` string, not a filesystem path.
+Native validates the library and symbol. Rust rejects interior NUL bytes before
+FFI; it adds no library-prefix, symbol-identifier or entry-length restrictions.
+Launch arguments own strings and borrow parent descriptors. The C list is built
+for the synchronous call, which must stay off the application's UI thread.
+The documented FD list limit is 16; other parameter validation remains native.
 
 ## Child entry
 
-```rust,ignore
-use ohos_native_child_process_binding::{
-    ChildFdName, ChildLaunchArgs, NativeChildProcessError, native_child_entry,
-};
-fn child_main(mut args: ChildLaunchArgs<'_>) -> Result<(), NativeChildProcessError> {
-    let control = args.take_fd(&ChildFdName::new("probe.control")?)?;
-    // Run child work synchronously. Return ends the child process.
-    Ok(())
+```rust,no_run
+use ohos_native_child_process_binding::{ChildProcessArgsRef, native_child_entry};
+
+fn child_main(args: ChildProcessArgsRef<'_>) {
+    for descriptor in args.fds() {
+        // descriptor.name is &CStr; descriptor.fd is BorrowedFd.
+        // Clone it to create an independent Rust FD owner when needed.
+    }
 }
-native_child_entry!(ChildMain, child_main);
+native_child_entry!(Main, child_main);
 ```
 
-The macro emits the exact generated ABI and contains all decode/handler/drop
-panics. It never performs fallible logging outside containment. Handler errors
-return from the entry; report any application protocol failure inside the
-handler before return. User panic payloads are intentionally forgotten so a
-panicking payload destructor cannot cause a second unwind over C.
+Argument views borrow native storage and descriptors; they never free or close
+native resources. The macro contains handler failures and panics and returns to
+AbilityKit; returning ends the child. Keep work alive inside the entry.
+`current_args` returns an optional system-owned pointer. Creating an argument
+view from it is unsafe: uphold the documented storage and FD lifetime contract.
 
-One process-global atomic claim prevents the adapter and API17 `with_current`
-alternative from decoding the same transferred FDs twice. Borrowed strings
-stay invocation-scoped; `named_fd` borrows its owner's FD and `take_fd` returns
-an `OwnedFd` once. Untaken/adopted descriptors close on return/error/panic.
-Readable SDK pointers cannot be established from arbitrary forged addresses;
-the hidden unsafe adapter documents this platform-call contract. Mixing raw
-argument/FD consumers with the safe adapter violates that contract.
+## Configs, callbacks and IPC
 
-## Exit observation and identity
+`ChildProcessConfigs` owns one opaque native object and destroys it on Drop.
+Its setters return native validation errors. UID isolation takes effect only
+with isolated mode.
 
-The API20 trampoline is registered before the first binding-managed start and
-remains registered for process lifetime. Its dispatcher state is process-global
-and never deallocated while the callback is installed; no raw caller may
-unregister it. Per-handle subscriptions are one-shot RAII owners and remove
-their registry slot exactly once. Drop does not join a callback already in
-flight. No handle Drop terminates a child.
+Exit callbacks use the official `extern "C" fn(pid, signal)` signature. Register
+and unregister the same function explicitly. Registration is process-wide;
+launching does not change it. Callbacks execute on a native thread, must keep work
+short and must not unwind. `kill(pid)` performs the official explicit termination
+request; success does not mean the exit callback has already arrived.
 
-The system callback attempts a bounded 128-event non-blocking send, performs no
-user work and takes no registry lock. The worker routes by PID and monotonically
-allocated launch generation, releases all locks, then invokes subscribers with
-panic containment. Cached terminal events replay outside locks on the caller's
-thread. Callbacks should enqueue short work, not perform long synchronous IO.
+IPC creation is asynchronous. `create` success acknowledges the request, while
+the startup callback reports the actual result. Both creation methods are unsafe:
+the callback must synchronize its state, contain panics and release received
+remote proxies through IPCKit. The library must implement the official
+`NativeChildProcess_OnConnect` and `NativeChildProcess_MainProc` exports.
 
-Early events are bounded to 64 with a five-second stale window. Old captured
-events cannot attach to a later generation. Recent PID reuse, queue loss or
-late dispatcher observation produces `ObservationLost`, not a fabricated exit
-signal. The SDK callback has no generation token, so arbitrarily delayed OS
-notifications cannot be proven unambiguous from PID alone: control EOF and
-the child handshake remain mandatory device/consumer evidence. The registry
-holds at most 64 live Rust observations and 64 subscribers per observation.
+Native failures return `NativeChildProcessError::InternalError(u32)` containing
+the original code. String conversion, FD-list capacity and null configs allocation
+have separate Rust errors.
 
-API22 `kill` is explicit, validates the current generation and rejects stale or
-ambiguous identity. Success acknowledges the platform request, not observed
-exit. Repeated calls may return `InvalidPid`; no automatic retry/idempotency
-success is invented. Graceful control shutdown precedes forced termination.
+[Official API reference](https://github.com/openharmony/docs/blob/master/zh-cn/application-dev/reference/apis-ability-kit/capi-native-child-process-h.md)
 
-## Configs and raw IPC
+## Device E2E
 
-API20 configs use a non-null, unique RAII owner, no Clone or Send/Sync promise,
-and exactly one platform destroy attempt. Process suffixes are a typed
-`ChildProcessName` matching the header's 1..64 letters/digits/underscores rule.
-The UID flag is gated at API21. Destruction errors cannot be returned by Drop
-and need device investigation. Generic isolation options faithfully mirror the
-SDK; the example always selects Normal.
-
-`raw-ipc` exposes only visibly unsafe generated API12 Binder declarations (and
-its API20 configs variant) on OHOS. It is not a safe IPC facade and does not own
-remote proxies or provide IPCKit destruction. Product consumers must not use
-this family. No independent-process capability or manifest is supplied.
-
-## Verification
-
-```sh
-cargo test -p ohos-native-child-process-binding --all-features
-cargo check -p ohos-native-child-process-binding \
-  --target aarch64-unknown-linux-ohos --all-features --all-targets
-cargo clippy -p ohos-native-child-process-binding \
-  --target aarch64-unknown-linux-ohos --all-features --all-targets -- -D warnings
-```
-
-See [the two-FD example](../../examples/native_child_process) and
-[B2 source evidence](../../docs/evidence/b2-native-child-process.md). No device
-or API22 compatibility result is inferred from host tests or target compilation.
+The [example suite](../../examples/native_child_process/README.md#e2e-scenarios)
+exercises every public binding operation on the full 2in1 QEMU image, including
+separate FD and IPC fixtures, sandbox/UID checks, callback lifetimes, argument
+boundaries, native entry errors/panics and ArkTS termination interoperability.
+The default E2E build enables `api-26`. Known image failures are listed in the
+example documentation.

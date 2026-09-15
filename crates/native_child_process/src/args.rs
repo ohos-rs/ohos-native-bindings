@@ -1,203 +1,190 @@
 use std::{
-    ffi::CString,
-    marker::PhantomData,
-    os::fd::{AsRawFd, BorrowedFd, FromRawFd, OwnedFd},
+    ffi::{CStr, CString},
+    os::fd::{AsRawFd, BorrowedFd},
+    ptr,
 };
 
-use crate::{
-    types::{MAX_FDS, MAX_PARAMS},
-    ChildFdName, NativeChildProcessError as Error,
-};
+use crate::{sys, NativeChildProcessError as Error, Result};
 
-pub(crate) struct LaunchFd {
-    pub(crate) name: ChildFdName,
-    // A host facade never launches, but must still retain/close its duplicates.
-    #[cfg_attr(not(target_env = "ohos"), allow(dead_code))]
-    pub(crate) fd: OwnedFd,
+/// Parent-side launch arguments. Strings are owned; descriptors are borrowed
+/// until the synchronous start call finishes. Native transfers the descriptors
+/// to the child; this wrapper neither duplicates nor closes the parent's FDs.
+#[derive(Debug, Default)]
+pub struct ChildProcessArgs<'fd> {
+    params: CString,
+    fds: Vec<(CString, BorrowedFd<'fd>)>,
 }
 
-/// Retains C strings, launch duplicates and borrow provenance through the
-/// synchronous start. Every duplicate has CLOEXEC; originals stay parent-owned.
-/// Binding limits (not SDK guarantees): 16 FDs and 64 KiB parameter bytes.
-pub struct ChildProcessArgsBuilder<'fd> {
-    pub(crate) params: CString,
-    pub(crate) fds: Vec<LaunchFd>,
-    borrow: PhantomData<BorrowedFd<'fd>>,
-}
-
-impl<'fd> Default for ChildProcessArgsBuilder<'fd> {
-    fn default() -> Self {
-        Self::new()
-    }
-}
-
-impl<'fd> ChildProcessArgsBuilder<'fd> {
+impl<'fd> ChildProcessArgs<'fd> {
     pub fn new() -> Self {
-        Self {
-            params: CString::default(),
-            fds: Vec::new(),
-            borrow: PhantomData,
-        }
+        Self::default()
     }
-    pub fn entry_params(mut self, params: &str) -> Result<Self, Error> {
-        if params.len() > MAX_PARAMS {
-            return Err(Error::LimitExceeded {
-                field: "entry params",
-                limit: MAX_PARAMS,
-            });
-        }
-        self.params = CString::new(params).map_err(|_| Error::InteriorNul {
-            field: "entry params",
-        })?;
+
+    pub fn set_entry_params(&mut self, params: &str) -> Result<&mut Self> {
+        self.params = CString::new(params)?;
         Ok(self)
     }
-    pub fn named_fd(mut self, name: ChildFdName, fd: BorrowedFd<'fd>) -> Result<Self, Error> {
-        if self.fds.len() == MAX_FDS {
-            return Err(Error::LimitExceeded {
-                field: "FD count",
-                limit: MAX_FDS,
-            });
+
+    /// Adds a named FD. Native validates names; the documented list limit is 16.
+    pub fn add_fd(&mut self, name: &str, fd: BorrowedFd<'fd>) -> Result<&mut Self> {
+        if self.fds.len() == 16 {
+            return Err(Error::TooManyFileDescriptors);
         }
-        if self.fds.iter().any(|item| item.name == name) {
-            return Err(Error::DuplicateFdName);
-        }
-        self.fds.push(LaunchFd::new(name, fd)?);
+        self.fds.push((CString::new(name)?, fd));
         Ok(self)
     }
-}
 
-impl LaunchFd {
-    fn new(name: ChildFdName, fd: BorrowedFd<'_>) -> Result<Self, Error> {
-        loop {
-            // SAFETY: BorrowedFd guarantees a live descriptor; fcntl duplicates it
-            // without consuming the original. A successful result is a new owner.
-            let duplicate = unsafe { libc::fcntl(fd.as_raw_fd(), libc::F_DUPFD_CLOEXEC, 0) };
-            if duplicate >= 0 {
-                // SAFETY: This fresh fcntl descriptor has no other Rust owner.
-                return Ok(Self {
-                    name,
-                    fd: unsafe { OwnedFd::from_raw_fd(duplicate) },
-                });
-            }
-            let error = Error::last_io("duplicate launch FD");
-            if matches!(
-                error,
-                Error::Io {
-                    code: libc::EINTR,
-                    ..
-                }
-            ) {
-                continue;
-            }
-            return Err(error);
-        }
+    pub fn entry_params(&self) -> &CStr {
+        &self.params
+    }
+
+    pub fn fd_count(&self) -> usize {
+        self.fds.len()
     }
 }
 
-#[cfg(target_env = "ohos")]
-pub(crate) struct PreparedArgs<'fd> {
-    builder: ChildProcessArgsBuilder<'fd>,
-    nodes: crate::list::LinkedNodes<ohos_native_child_process_sys::NativeChildProcess_Fd>,
+// Prepare the C list only for the call. Nodes live in one Vec allocation and
+// are linked after allocation completes, so moving this owner preserves links.
+pub(crate) struct PreparedArgs<'args, 'fd> {
+    args: &'args ChildProcessArgs<'fd>,
+    nodes: Vec<sys::NativeChildProcess_Fd>,
 }
 
-#[cfg(target_env = "ohos")]
-impl<'fd> PreparedArgs<'fd> {
-    pub(crate) fn new(builder: ChildProcessArgsBuilder<'fd>) -> Self {
-        use ohos_native_child_process_sys::NativeChildProcess_Fd;
-        let nodes = builder
+impl<'args, 'fd> PreparedArgs<'args, 'fd> {
+    pub(crate) fn new(args: &'args ChildProcessArgs<'fd>) -> Self {
+        let mut nodes: Vec<_> = args
             .fds
             .iter()
-            .map(|item| NativeChildProcess_Fd {
-                fdName: item.name.as_c_str().as_ptr().cast_mut(),
-                fd: item.fd.as_raw_fd(),
-                next: std::ptr::null_mut(),
+            .map(|(name, fd)| sys::NativeChildProcess_Fd {
+                fdName: name.as_ptr().cast_mut(),
+                fd: fd.as_raw_fd(),
+                next: ptr::null_mut(),
             })
             .collect();
-        let nodes = crate::list::LinkedNodes::new(nodes, |node, next| node.next = next);
-        Self { builder, nodes }
+        let base = nodes.as_mut_ptr();
+        for index in 0..nodes.len().saturating_sub(1) {
+            // SAFETY: Both indices are in the fully allocated Vec. Linking
+            // through its raw base avoids mutable slice reborrows invalidating
+            // previously stored node pointers. The Vec is never resized.
+            unsafe { (*base.add(index)).next = base.add(index + 1) };
+        }
+        Self { args, nodes }
     }
-    pub(crate) fn raw(&mut self) -> ohos_native_child_process_sys::NativeChildProcess_Args {
-        ohos_native_child_process_sys::NativeChildProcess_Args {
-            entryParams: self.builder.params.as_ptr().cast_mut(),
-            fdList: ohos_native_child_process_sys::NativeChildProcess_FdList {
-                head: self.nodes.head(),
+
+    pub(crate) fn raw(&mut self) -> sys::NativeChildProcess_Args {
+        sys::NativeChildProcess_Args {
+            entryParams: self.args.params.as_ptr().cast_mut(),
+            fdList: sys::NativeChildProcess_FdList {
+                head: if self.nodes.is_empty() {
+                    ptr::null_mut()
+                } else {
+                    self.nodes.as_mut_ptr()
+                },
             },
         }
+    }
+}
+
+/// A named descriptor borrowed from native child arguments.
+#[derive(Debug, Clone, Copy)]
+pub struct ChildProcessFd<'a> {
+    pub name: &'a CStr,
+    pub fd: BorrowedFd<'a>,
+}
+
+/// Read-only view of system-owned arguments. Clone a borrowed FD to obtain an
+/// independent owner; this view never adopts or closes native descriptors.
+#[derive(Debug, Clone, Copy)]
+pub struct ChildProcessArgsRef<'a> {
+    raw: &'a sys::NativeChildProcess_Args,
+}
+
+impl<'a> ChildProcessArgsRef<'a> {
+    /// Borrows argument storage supplied by the native runtime.
+    ///
+    /// # Safety
+    /// For `'a`, all non-null pointers must refer to valid, immutable native
+    /// storage. Strings must be NUL-terminated, the FD list finite and acyclic,
+    /// FD names non-null, and every FD valid and kept open. The caller must not
+    /// free or modify the argument storage or close its FDs during that borrow.
+    pub unsafe fn from_raw(raw: &'a sys::NativeChildProcess_Args) -> Self {
+        Self { raw }
+    }
+
+    pub fn entry_params(&self) -> Option<&'a CStr> {
+        if self.raw.entryParams.is_null() {
+            None
+        } else {
+            // SAFETY: The constructor guarantees the string's lifetime and format.
+            Some(unsafe { CStr::from_ptr(self.raw.entryParams) })
+        }
+    }
+
+    pub fn fds(&self) -> impl Iterator<Item = ChildProcessFd<'a>> + 'a {
+        let mut next = self.raw.fdList.head;
+        std::iter::from_fn(move || {
+            if next.is_null() {
+                return None;
+            }
+            // SAFETY: The constructor guarantees valid immutable list nodes,
+            // names and live descriptors for the entire view lifetime.
+            let node = unsafe { &*next };
+            next = node.next;
+            Some(ChildProcessFd {
+                name: unsafe { CStr::from_ptr(node.fdName) },
+                fd: unsafe { BorrowedFd::borrow_raw(node.fd) },
+            })
+        })
     }
 }
 
 #[cfg(test)]
 mod tests {
     use super::*;
-    use std::{os::fd::AsFd, os::unix::net::UnixStream};
+    use std::{fs::File, os::fd::AsFd};
 
     #[test]
-    fn launch_duplicates_close_but_originals_survive() {
-        let _serial = crate::FD_TEST_LOCK.lock().unwrap();
-        let (original, _peer) = UnixStream::pair().unwrap();
-        let args = ChildProcessArgsBuilder::new()
-            .entry_params("v1")
+    fn prepared_list_survives_move_and_borrows_original_descriptors() {
+        let file = File::open("/dev/null").unwrap();
+        let original = file.as_raw_fd();
+        let mut args = ChildProcessArgs::new();
+        args.set_entry_params("payload")
             .unwrap()
-            .named_fd(ChildFdName::new("one").unwrap(), original.as_fd())
+            .add_fd("first", file.as_fd())
             .unwrap()
-            .named_fd(ChildFdName::new("two").unwrap(), original.as_fd())
+            .add_fd("second", file.as_fd())
             .unwrap();
-        let duplicate = args.fds[0].fd.as_raw_fd();
-        assert_ne!(duplicate, original.as_raw_fd());
-        // SAFETY: fcntl F_GETFD only queries a descriptor.
-        assert_ne!(
-            unsafe { libc::fcntl(duplicate, libc::F_GETFD) } & libc::FD_CLOEXEC,
-            0
-        );
-        drop(args);
-        // SAFETY: These fcntl operations only query descriptor liveness.
-        assert_eq!(unsafe { libc::fcntl(duplicate, libc::F_GETFD) }, -1);
-        // SAFETY: The original socket is still owned and live.
-        assert!(unsafe { libc::fcntl(original.as_raw_fd(), libc::F_GETFD) } >= 0);
-    }
-    #[test]
-    fn rejects_duplicate_names_nuls_and_limits() {
-        let _serial = crate::FD_TEST_LOCK.lock().unwrap();
-        let (fd, _) = UnixStream::pair().unwrap();
-        let args = ChildProcessArgsBuilder::new()
-            .named_fd(ChildFdName::new("one").unwrap(), fd.as_fd())
-            .unwrap();
-        assert!(matches!(
-            args.named_fd(ChildFdName::new("one").unwrap(), fd.as_fd()),
-            Err(Error::DuplicateFdName)
-        ));
-        assert!(ChildProcessArgsBuilder::new().entry_params("a\0b").is_err());
-        assert!(ChildProcessArgsBuilder::new()
-            .entry_params(&"a".repeat(MAX_PARAMS + 1))
-            .is_err());
-        let mut args = ChildProcessArgsBuilder::new();
-        for index in 0..MAX_FDS {
-            args = args
-                .named_fd(ChildFdName::new(&format!("fd{index}")).unwrap(), fd.as_fd())
-                .unwrap();
+        let mut prepared = PreparedArgs::new(&args);
+        let first = prepared.raw().fdList.head;
+        let mut moved = prepared;
+        let raw = moved.raw();
+        assert_eq!(raw.fdList.head, first);
+        {
+            // SAFETY: Prepared storage and the original descriptor remain live
+            // for all uses of the view and the descriptors collected from it.
+            let view = unsafe { ChildProcessArgsRef::from_raw(&raw) };
+            assert_eq!(view.entry_params(), Some(c"payload"));
+            let fds: Vec<_> = view.fds().collect();
+            assert_eq!(fds.len(), 2);
+            assert_eq!(fds[0].name, c"first");
+            assert_eq!(fds[1].name, c"second");
+            assert_eq!(fds[0].fd.as_raw_fd(), original);
+            assert_eq!(fds[1].fd.as_raw_fd(), original);
         }
-        assert!(args
-            .named_fd(ChildFdName::new("extra").unwrap(), fd.as_fd())
-            .is_err());
+        drop(moved);
+        drop(args);
+        assert_eq!(file.metadata().unwrap().len(), 0);
     }
+
     #[test]
-    #[cfg(not(target_env = "ohos"))]
-    fn host_platform_failure_still_closes_launch_duplicates() {
-        let _serial = crate::FD_TEST_LOCK.lock().unwrap();
-        let (original, _peer) = UnixStream::pair().unwrap();
-        let args = ChildProcessArgsBuilder::new()
-            .named_fd(ChildFdName::new("control").unwrap(), original.as_fd())
-            .unwrap();
-        let raw = args.fds[0].fd.as_raw_fd();
-        let result = crate::NativeChildProcessManager::new().start(
-            &crate::ChildProcessEntry::try_from("libchild.so:Main").unwrap(),
-            args,
-            crate::ChildProcessOptions::default(),
-        );
-        assert!(matches!(result, Err(Error::HostUnsupported)));
-        // SAFETY: F_GETFD is a non-mutating liveness query.
-        assert_eq!(unsafe { libc::fcntl(raw, libc::F_GETFD) }, -1);
-        // SAFETY: The parent-owned socket remains live after failed launch.
-        assert!(unsafe { libc::fcntl(original.as_raw_fd(), libc::F_GETFD) } >= 0);
+    fn empty_arguments_have_a_terminated_string_and_null_list() {
+        let args = ChildProcessArgs::new();
+        let mut prepared = PreparedArgs::new(&args);
+        let raw = prepared.raw();
+        assert!(raw.fdList.head.is_null());
+        // SAFETY: Prepared storage stays live while viewed.
+        let view = unsafe { ChildProcessArgsRef::from_raw(&raw) };
+        assert_eq!(view.entry_params(), Some(c""));
+        assert_eq!(view.fds().count(), 0);
     }
 }
