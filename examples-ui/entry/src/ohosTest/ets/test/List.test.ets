@@ -19,6 +19,7 @@ import imeTest from "./modules/Ime.test";
 import initTest from "./modules/Init.test";
 import jsvmTest from "./modules/Jsvm.test";
 import nativeBufferTest from "./modules/NativeBuffer.test";
+import nativeChildProcessTest from "./modules/NativeChildProcess.test";
 import nativeWindowTest from "./modules/NativeWindow.test";
 import netConnectionTest from "./modules/NetConnection.test";
 import netStackTest from "./modules/NetStack.test";
@@ -53,6 +54,7 @@ export default function testsuite(): void {
   initTest();
   jsvmTest();
   nativeBufferTest();
+  nativeChildProcessTest();
   nativeWindowTest();
   netConnectionTest();
   netStackTest();

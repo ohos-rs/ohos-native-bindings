@@ -30,6 +30,7 @@ pnpm run ui:run                     # sync -> build -> install -> start
 
 pnpm run test:ui                    # 分模块执行全部 ohosTest
 pnpm run test:ui -- sensor vsync    # 只执行指定模块
+pnpm run test:ui -- native_child_process # API26+ 扩展 Native 子进程 E2E
 pnpm run test:ui -- --arch x64      # 在 x64 设备执行全部 ohosTest
 pnpm run test:ui -- --fail-fast     # 首个失败模块出现后立即结束
 pnpm run test:ui:xcomponent -- --arch x64 # QEMU XComponent 手势 E2E
@@ -49,6 +50,19 @@ pnpm run prek:check
   构建 `arkui`、`xcomponent`、`xcomponent_multi`，自动注入并验证 Tap、Pan、
   Swipe 和多点触控。
 - `entry/libs/`、`entry/src/main/ets/types/`、`.tools/` 均为本地生成内容，不提交。
+
+扩展 Native 子进程使用默认 API26 示例，先运行
+`pnpm run ui:sync -- native_child_process`。覆盖范围和已知镜像问题见
+[example 文档](../examples/native_child_process/README.md#e2e-scenarios)。
+独立 UIAbility/HAP 进程不属于这套测试。
+子进程由独立的
+[Native child-process 2in1 E2E](../.github/workflows/native-child-process-e2e.yml)
+流水线使用 SDK 7.0 和完整 2in1 QEMU 镜像执行。
+`run-ohostest.sh` 先运行普通 Hypium 用例，再通过 Python 3 host 检查父进程
+退出后的子进程清理；结果写入 `parent-exit-result.json` 并计入总结果。
+
+`run-ohostest.sh` 读取目标设备 UDID，交给 `build-hap.sh` 签入两个 HAP 的
+debug profile；也可通过 `HAP_SIGN_DEVICE_ID` 显式指定。
 
 `scripts/sync-rust.sh` 默认使用父目录的 bindings workspace；仅在验证其他 checkout
 时设置 `OHOS_NATIVE_BINDINGS=<path>`。HMS OpenGTX 需要 HMS SDK，可单独执行：

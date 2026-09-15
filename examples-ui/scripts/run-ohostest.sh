@@ -66,6 +66,16 @@ HDC=(hdc)
 if [ -n "${HDC_TARGET:-}" ]; then
   HDC=(hdc -t "${HDC_TARGET}")
 fi
+# Debug profiles must authorize the device on which these HAPs will run.
+if [ -z "${HAP_SIGN_DEVICE_ID:-}" ]; then
+  HAP_SIGN_DEVICE_ID="$("${HDC[@]}" shell 'bm get --udid' | tr -d '\r' \
+    | sed -nE 's/^[[:space:]]*([[:xdigit:]]{64})[[:space:]]*$/\1/p')"
+fi
+if [[ ! "$HAP_SIGN_DEVICE_ID" =~ ^[[:xdigit:]]{64}$ ]]; then
+  echo "error: could not resolve the target device UDID for HAP signing" >&2
+  exit 1
+fi
+export HAP_SIGN_DEVICE_ID
 TESTDIR="$ROOT/entry/src/ohosTest/ets/test"
 LIST="$TESTDIR/List.test.ets"
 LIST_BACKUP="$TESTDIR/.List.full.bak"
@@ -155,6 +165,7 @@ declare -a MODULES=(
   init:Init
   jsvm:Jsvm
   native_buffer:NativeBuffer
+  native_child_process:NativeChildProcess
   native_window:NativeWindow
   net_connection:NetConnection
   net_stack:NetStack
@@ -327,7 +338,11 @@ EOF
 
   echo "==> [$name] aa test"
   log="$(mktemp)"
-  if ! "${HDC[@]}" shell "aa test -b $BUNDLE -m entry_test -s unittest OpenHarmonyTestRunner -s timeout 120000" >"$log" 2>&1; then
+  class_filter=""
+  if [ "$name" = native_child_process ]; then
+    class_filter="-s class native_child_process_extended"
+  fi
+  if ! "${HDC[@]}" shell "aa test -b $BUNDLE -m entry_test -s unittest OpenHarmonyTestRunner -s timeout 120000 $class_filter" >"$log" 2>&1; then
     :
   fi
   cp "$log" "$DIAGNOSTICS_DIR/ohostest-$name.log"
@@ -335,6 +350,15 @@ EOF
   fail=$(grep -cE 'OHOS_REPORT_STATUS_CODE: (-1|-2)' "$log" || true)
   pass=${pass:-0}
   fail=${fail:-0}
+  if [ "$name" = native_child_process ]; then
+    echo "==> [$name] parent-exit E2E (host observes all four creation APIs)"
+    if python3 "$ROOT/scripts/native-child-process-parent-exit.py" \
+      --target "${HDC_TARGET:-}" --bundle "$BUNDLE" --diagnostics-dir "$DIAGNOSTICS_DIR"; then
+      pass=$((pass + 1))
+    else
+      fail=$((fail + 1))
+    fi
+  fi
   echo "    pass=$pass fail=$fail"
   total_pass=$((total_pass + pass))
   total_fail=$((total_fail + fail))
