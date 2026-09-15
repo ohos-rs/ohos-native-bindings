@@ -6,7 +6,7 @@ publish = false
 build   = "build/main.rs"
 
 [build-dependencies]
-bindgen   = "0.65.1"
-once_cell = "1"
-anyhow    = "1"
-regex     = "1"
+bindgen   = { workspace = true }
+once_cell = { workspace = true }
+anyhow    = { workspace = true }
+regex     = { workspace = true }

@@ -23,6 +23,7 @@ static CONFIG: Lazy<Vec<Lazy<SysConfig>>> = Lazy::new(|| {
         config::XCOMPONENT,
         config::RESOURCE_MANAGER,
         config::ABILITY,
+        config::NATIVE_CHILD_PROCESS,
         config::ASSET,
         config::BUNDLE,
         config::HILOG,
@@ -81,6 +82,15 @@ fn add_feature_gates(
     // `impl X {` and `impl Trait for X {` both anchor on the implementing type X.
     let impl_re = Regex::new(r"^impl\s+(?:.+\s+for\s+)?(?P<ty>[A-Za-z_]\w*)\b").unwrap();
     let ident_re = Regex::new(r"\b([A-Za-z_]\w*)\b").unwrap();
+
+    // bindgen 0.65 drops comments on forward-declared opaque records. Their
+    // earliest documented use must determine availability, not an API12 default.
+    let opaque_re =
+        Regex::new(r"pub struct ([A-Za-z_]\w*)\s*\{\s*_unused:\s*\[u8;\s*0\],?\s*\}").unwrap();
+    let opaque_names: HashSet<_> = opaque_re
+        .captures_iter(content)
+        .map(|capture| capture[1].to_owned())
+        .collect();
 
     let lines: Vec<&str> = content.lines().collect();
     // `pub use self::X as Y;` aliases inherit X's gate; see below.
@@ -153,6 +163,11 @@ fn add_feature_gates(
                 // own. They exist only as members of their parent, so they inherit its gate
                 // rather than falling back to the baseline - which would otherwise drag the
                 // member types they reference down to the baseline as well.
+            } else if key
+                .strip_prefix("struct:")
+                .is_some_and(|name| opaque_names.contains(name))
+            {
+                // `relax_min_since_by_references` inherits documented callers.
             } else if key.starts_with("type:")
                 || key.starts_with("struct:")
                 || key.starts_with("enum:")

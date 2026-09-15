@@ -38,6 +38,7 @@ ohos-fileshare-binding              = { version = "0.2.3", path = "crates/filesh
 ohos-qos-binding                    = { version = "0.2.3", path = "crates/qos" }
 ohos-net-connection-binding         = { version = "0.1.3", path = "crates/net_connection" }
 ohos-net-stack-binding              = { version = "0.1.3", path = "crates/net_stack" }
+ohos-native-child-process-binding   = { version = "0.1.0", path = "crates/native_child_process" }
 ohos-arkui-input-binding            = { version = "0.1.3", path = "crates/arkui_input" }
 ohos-jsvm-binding                   = { version = "0.1.3", path = "crates/jsvm" }
 hms-opengtx-binding                 = { version = "0.1.3", path = "crates/opengtx" }
@@ -59,6 +60,7 @@ ohos-display-sys                = { version = "0.1.3", path = "sys/ohos-display-
 ohos-native-drawing-sys         = { version = "0.2.3", path = "sys/ohos-native-drawing-sys" }
 ohos-accessibility-sys          = { version = "0.0.4", path = "sys/ohos-accessibility-sys" }
 ohos-native-window-sys          = { version = "0.1.3", path = "sys/ohos-native-window-sys" }
+ohos-native-child-process-sys   = { version = "0.1.0", path = "sys/ohos-native-child-process-sys" }
 ohos-native-buffer-sys          = { version = "0.1.3", path = "sys/ohos-native-buffer-sys" }
 ohos-udmf-sys                   = { version = "0.0.4", path = "sys/ohos-udmf-sys" }
 ohos-native-pasteboard-sys      = { version = "0.1.3", path = "sys/ohos-native-pasteboard-sys" }
@@ -96,6 +98,9 @@ regex             = { version = "1.0" }
 bitflags          = { version = "2.6" }
 raw-window-handle = { version = "0.6" }
 rustc-hash        = { version = "2.1" }
+bindgen           = { version = "0.65.1" }
+once_cell         = { version = "1" }
+anyhow            = { version = "1" }
 
 
 [workspace.lints.clippy]

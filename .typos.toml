@@ -5,8 +5,8 @@ extend-exclude = [
   "examples-ui/entry/src/ohosTest/ets/types/*.d.ts",
 ]
 
-# These misspellings are part of upstream OpenHarmony C identifiers and must
-# remain byte-for-byte compatible with the generated bindings.
+# These spellings are part of upstream OpenHarmony identifiers and terminology.
 [default.extend-words]
 Connetion = "Connetion"
 IAMGE     = "IAMGE"
+UDID      = "UDID"

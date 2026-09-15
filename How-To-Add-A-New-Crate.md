@@ -18,9 +18,10 @@ static CONFIG: Lazy<Vec<Lazy<SysConfig>>> = Lazy::new(|| {
 
 ### Generate sys binding
 
-Use `ohrs` to generate sys crate.
+Run `ohrs` from the generator directory to generate the registered sys crates.
 
 ```bash
+cd tools/generate
 ohrs build --arch aarch
 ```
 
