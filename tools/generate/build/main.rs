@@ -2,7 +2,7 @@
 #![allow(clippy::borrow_interior_mutable_const)]
 #![allow(clippy::module_inception)]
 
-use crate::config::SysConfig;
+pub(crate) use self::config::SysConfig;
 use anyhow::Error;
 use once_cell::sync::Lazy;
 use regex::Regex;
@@ -15,7 +15,8 @@ use std::process::Command;
 /// Baseline API version - versions <= this don't need feature gates
 const BASELINE_API_VERSION: u32 = 12;
 
-mod config;
+pub(crate) mod config;
+mod selection;
 
 static CONFIG: Lazy<Vec<Lazy<SysConfig>>> = Lazy::new(|| {
     vec![
@@ -23,6 +24,7 @@ static CONFIG: Lazy<Vec<Lazy<SysConfig>>> = Lazy::new(|| {
         config::XCOMPONENT,
         config::RESOURCE_MANAGER,
         config::ABILITY,
+        config::NATIVE_CHILD_PROCESS,
         config::ASSET,
         config::BUNDLE,
         config::HILOG,
@@ -81,6 +83,14 @@ fn add_feature_gates(
     // `impl X {` and `impl Trait for X {` both anchor on the implementing type X.
     let impl_re = Regex::new(r"^impl\s+(?:.+\s+for\s+)?(?P<ty>[A-Za-z_]\w*)\b").unwrap();
     let ident_re = Regex::new(r"\b([A-Za-z_]\w*)\b").unwrap();
+    // bindgen 0.65 drops comments on forward-declared opaque records. Their
+    // earliest documented use must determine availability, not an API12 default.
+    let opaque_re =
+        Regex::new(r"pub struct ([A-Za-z_]\w*)\s*\{\s*_unused:\s*\[u8;\s*0\],?\s*\}").unwrap();
+    let opaque_names: HashSet<_> = opaque_re
+        .captures_iter(content)
+        .map(|capture| capture[1].to_owned())
+        .collect();
 
     let lines: Vec<&str> = content.lines().collect();
     // `pub use self::X as Y;` aliases inherit X's gate; see below.
@@ -153,6 +163,11 @@ fn add_feature_gates(
                 // own. They exist only as members of their parent, so they inherit its gate
                 // rather than falling back to the baseline - which would otherwise drag the
                 // member types they reference down to the baseline as well.
+            } else if key
+                .strip_prefix("struct:")
+                .is_some_and(|name| opaque_names.contains(name))
+            {
+                // `relax_min_since_by_references` inherits documented callers.
             } else if key.starts_with("type:")
                 || key.starts_with("struct:")
                 || key.starts_with("enum:")
@@ -1334,15 +1349,26 @@ fn format_rust_file(path: &Path) -> anyhow::Result<()> {
 }
 
 fn main() {
+    println!("cargo:rerun-if-env-changed={}", selection::CONFIG_ENV);
+    println!("cargo:rerun-if-env-changed=BINDGEN_EXTRA_CLANG_ARGS");
+    println!("cargo:rerun-if-changed=build");
+    let selector_value = env::var_os(selection::CONFIG_ENV);
+    let names: Vec<_> = CONFIG.iter().map(|config| config.name).collect();
+    let indices = selection::ConfigSelector::new(&names)
+        .select(selector_value.as_deref())
+        .unwrap_or_else(|error| panic!("{error}"));
+    let selected_configs: Vec<_> = indices.iter().map(|index| &CONFIG[*index]).collect();
     let mut failed_configs = Vec::new();
     let mut generated_files = Vec::new();
-    CONFIG.iter().for_each(|i| match generate_code(i) {
-        Ok(output_file) => generated_files.push((i.name, output_file)),
-        Err(e) => {
-            eprintln!("Failed to generate code for {}: {}", i.name, e);
-            failed_configs.push(i.name);
-        }
-    });
+    selected_configs
+        .iter()
+        .for_each(|i| match generate_code(i) {
+            Ok(output_file) => generated_files.push((i.name, output_file)),
+            Err(e) => {
+                eprintln!("Failed to generate code for {}: {}", i.name, e);
+                failed_configs.push(i.name);
+            }
+        });
 
     let mut global_symbol_usage_min = HashMap::new();
     let mut raw_outputs = Vec::new();
@@ -1376,7 +1402,7 @@ fn main() {
         }
     }
 
-    for config in CONFIG.iter() {
+    for config in selected_configs {
         let manifest_path = match sys_crate_folder(config) {
             Ok(crate_dir) => crate_dir.join("Cargo.toml"),
             Err(e) => {
@@ -1406,6 +1432,96 @@ fn main() {
         eprintln!(
             "\nNote: Some header files may have syntax errors that need to be fixed manually."
         );
-        // Don't exit with error code to allow other configs to succeed
+        if selector_value.is_some() {
+            panic!("Selected config generation failed; see diagnostics above");
+        }
+        // Preserve the legacy best-effort full-registry mode.
+    }
+}
+
+#[cfg(test)]
+mod tests {
+    use super::{add_feature_gates, selection::ConfigSelector, CONFIG};
+    use std::ffi::OsStr;
+
+    #[test]
+    fn child_selector_resolves_the_registered_sdk_config_only() {
+        let names: Vec<_> = CONFIG.iter().map(|config| config.name).collect();
+        let indices = ConfigSelector::new(&names)
+            .select(Some(OsStr::new("ohos-native-child-process-sys")))
+            .unwrap();
+        assert_eq!(indices.len(), 1);
+        let config = &CONFIG[indices[0]];
+        assert_eq!(config.name, "ohos-native-child-process-sys");
+        assert_eq!(config.headers, ["AbilityKit/native_child_process.h"]);
+        assert_eq!(config.dynamic_library, ["child_process"]);
+        assert!(config.block_list.is_empty());
+        assert_eq!(names.iter().filter(|name| **name == config.name).count(), 1);
+    }
+
+    #[test]
+    fn preserves_api12_baseline_and_child_process_availability_through26() {
+        let raw = r#"
+#[doc = " @since 12"]
+pub type Ability_NativeChildProcess_ErrCode = ::std::os::raw::c_uint;
+#[doc = " @since 12"]
+pub const NCP_NO_ERROR: Ability_NativeChildProcess_ErrCode = 0;
+#[doc = " @since 20"]
+pub const NCP_ERR_CALLBACK_NOT_EXIST: Ability_NativeChildProcess_ErrCode = 16010009;
+#[doc = " @since 22"]
+pub const NCP_ERR_INVALID_PID: Ability_NativeChildProcess_ErrCode = 16010010;
+#[doc = " @since 13"]
+pub type NativeChildProcess_IsolationMode = ::std::os::raw::c_uint;
+extern "C" {
+    #[doc = " @since 12"]
+    pub fn OH_Ability_CreateNativeChildProcess() -> ::std::os::raw::c_int;
+    #[doc = " @since 26.0.0"]
+    pub fn OH_Ability_IsNativeChildProcessSupported() -> bool;
+}
+"#;
+        let (gated, versions, _) = add_feature_gates(raw, None);
+        assert_eq!(versions.into_iter().collect::<Vec<_>>(), [13, 20, 22, 26]);
+        for (name, version) in [
+            ("NCP_ERR_CALLBACK_NOT_EXIST", 20),
+            ("NCP_ERR_INVALID_PID", 22),
+            ("NativeChildProcess_IsolationMode", 13),
+            ("OH_Ability_IsNativeChildProcessSupported", 26),
+        ] {
+            let declaration = gated
+                .lines()
+                .position(|line| line.contains(name) && !line.trim().starts_with("#[doc"))
+                .unwrap();
+            assert!(
+                gated
+                    .lines()
+                    .nth(declaration - 1)
+                    .unwrap()
+                    .contains(&format!("feature = \"api-{version}\"")),
+                "{name}"
+            );
+        }
+        assert!(!gated.contains("feature = \"api-12\""));
+        let (again, _, _) = add_feature_gates(&gated, None);
+        assert_eq!(again, gated);
+    }
+
+    #[test]
+    fn undocumented_forward_declaration_inherits_earliest_documented_use() {
+        let raw = r#"
+#[repr(C)]
+#[derive(Debug, Copy, Clone)]
+pub struct Ability_ChildProcessConfigs {
+    _unused: [u8; 0],
+}
+extern "C" {
+    #[doc = " @since 20"]
+    pub fn OH_Ability_CreateChildProcessConfigs() -> *mut Ability_ChildProcessConfigs;
+    #[doc = " @since 21"]
+    pub fn OH_Ability_ChildProcessConfigs_SetIsolationUid(configs: *mut Ability_ChildProcessConfigs, value: bool) -> u32;
+}
+"#;
+        let (gated, _, _) = add_feature_gates(raw, None);
+        assert!(gated.contains("#[cfg(feature = \"api-20\")]\n#[repr(C)]"));
+        assert!(gated.contains("#[cfg(feature = \"api-21\")]\n    pub fn OH_Ability_ChildProcessConfigs_SetIsolationUid"));
     }
 }

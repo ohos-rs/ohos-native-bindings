@@ -5,8 +5,18 @@ edition = "2021"
 publish = false
 build   = "build/main.rs"
 
+[[test]]
+name = "generator_contract"
+path = "tests/generator_contract.rs"
+
 [build-dependencies]
-bindgen   = "0.65.1"
-once_cell = "1"
-anyhow    = "1"
-regex     = "1"
+bindgen   = { workspace = true }
+once_cell = { workspace = true }
+anyhow    = { workspace = true }
+regex     = { workspace = true }
+
+[dev-dependencies]
+bindgen   = { workspace = true }
+once_cell = { workspace = true }
+anyhow    = { workspace = true }
+regex     = { workspace = true }

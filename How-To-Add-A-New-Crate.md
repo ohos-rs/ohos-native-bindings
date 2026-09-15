@@ -18,13 +18,22 @@ static CONFIG: Lazy<Vec<Lazy<SysConfig>>> = Lazy::new(|| {
 
 ### Generate sys binding
 
-Use `ohrs` to generate sys crate.
+Use `ohrs` from `tools/generate` to generate only the new sys crate. The selector
+is one exact registered crate name; it is not a module alias, pattern or list.
 
 ```bash
-ohrs build --arch aarch
+cd tools/generate
+OHOS_BINDINGS_GENERATE_CONFIG=ohos-native-child-process-sys ohrs build --arch aarch
 ```
 
 After you ran the command, please run `pnpm run format`.
+
+Compare `git status --short` and `git diff --name-only` with the task's explicit
+path allowlist. The selected mode generates and synchronizes API features only
+for that crate. An unset selector retains the legacy full-registry generation
+mode and can rewrite unrelated modules; do not use it for a bounded new-crate
+change. See [generator documentation](./tools/generate/README.md) for testing and
+SDK setup.
 
 ### Generate binding
 
