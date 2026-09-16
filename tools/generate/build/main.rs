@@ -45,6 +45,7 @@ static CONFIG: Lazy<Vec<Lazy<SysConfig>>> = Lazy::new(|| {
         config::NET_CONNECTION,
         config::NET_STACK,
         config::OHAUDIO,
+        config::OHAUDIO_SUITE,
         config::FILEURI,
         config::FILESHARE,
         config::DRAWING,
