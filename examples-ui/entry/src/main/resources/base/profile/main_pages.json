@@ -38,7 +38,6 @@
     "pages/Vibrator",
     "pages/Vsync",
     "pages/WindowManager",
-    "pages/WindowManagerTestHost",
     "pages/XComp"
   ]
 }
