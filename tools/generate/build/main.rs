@@ -31,6 +31,7 @@ static CONFIG: Lazy<Vec<Lazy<SysConfig>>> = Lazy::new(|| {
         config::NATIVE_DISPLAY_SOLOIST,
         config::INPUT_METHOD,
         config::DISPLAY,
+        config::WINDOW_MANAGER,
         config::NATIVE_WINDOW,
         config::ACCESSIBILITY,
         config::NATIVE_BUFFER,

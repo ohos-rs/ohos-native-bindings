@@ -1,0 +1,31 @@
+[package]
+name        = "ohos-window-manager-binding"
+version     = "0.1.0"
+edition     = "2021"
+license     = "MIT OR Apache-2.0"
+description = "Safe OpenHarmony window manager bindings for Rust"
+
+[dependencies]
+ohos-enum-derive         = { workspace = true }
+ohos-image-native-binding = { workspace = true }
+ohos-window-manager-sys  = { workspace = true }
+
+[features]
+default = []
+api-13  = ["ohos-window-manager-sys/api-13"]
+api-14  = ["api-13", "ohos-window-manager-sys/api-14"]
+api-15  = ["api-14", "ohos-window-manager-sys/api-15"]
+api-16  = ["api-15", "ohos-window-manager-sys/api-16"]
+api-17  = ["api-16", "ohos-window-manager-sys/api-17"]
+api-18  = ["api-17", "ohos-window-manager-sys/api-18"]
+api-19  = ["api-18", "ohos-window-manager-sys/api-19"]
+api-20  = ["api-19", "ohos-window-manager-sys/api-20"]
+api-21  = ["api-20", "ohos-window-manager-sys/api-21"]
+api-22  = ["api-21", "ohos-window-manager-sys/api-22"]
+api-23  = ["api-22", "ohos-window-manager-sys/api-23"]
+api-24  = ["api-23", "ohos-window-manager-sys/api-24"]
+api-25  = ["api-24", "ohos-window-manager-sys/api-25"]
+api-26  = ["api-25", "ohos-window-manager-sys/api-26"]
+
+[lints]
+workspace = true

@@ -29,11 +29,12 @@ jobs:
               ability_access_control ark_web arkui_input ashmem asset bundle camera display
               display_soloist drawing fileshare fileuri hilog huks image image_native ime init
               jsvm native_buffer native_window net_connection net_stack pasteboard qos raw sensor
-              udmf vibrator vsync
+              udmf vibrator vsync window_manager
             modules: >-
               ability_access_control ark_web arkui_input ashmem asset bundle camera display
               display_soloist drawing fileshare fileuri hilog huks image image_native ime init
               native_buffer native_window net_connection net_stack pasteboard raw sensor udmf vsync
+              window_manager
             unsupported_modules: jsvm qos vibrator
           - name: ArkUI
             suite: arkui
