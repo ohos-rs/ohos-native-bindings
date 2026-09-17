@@ -7,6 +7,11 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+### Changed
+
+- Re-export shared audio channel layout types from `ohos-audio-base-sys`.
+- Cover all OHAudio headers provided by the current HarmonyOS SDK.
+
 ## [0.1.3](https://github.com/ohos-rs/ohos-native-bindings/compare/ohos-audio-sys-v0.1.2...ohos-audio-sys-v0.1.3) - 2026-08-26
 
 ### Fixed

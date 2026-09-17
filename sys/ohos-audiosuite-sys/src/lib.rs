@@ -8,198 +8,12 @@
 #![allow(clippy::useless_transmute)]
 #![allow(clippy::unnecessary_cast)]
 
+pub use ohos_audio_base_sys::*;
+
 #[link(name = "ohaudiosuite")]
 unsafe extern "C" {}
 
 pub const OH_PURE_VOICE_DEFAULT_PITCH: f64 = 0.0;
-#[doc = " Front left channel.\n\n @since 11"]
-pub const OH_AudioChannelSet_CH_SET_FRONT_LEFT: OH_AudioChannelSet = 1;
-#[doc = " Front right channel.\n\n @since 11"]
-pub const OH_AudioChannelSet_CH_SET_FRONT_RIGHT: OH_AudioChannelSet = 2;
-#[doc = " Front center channel.\n\n @since 11"]
-pub const OH_AudioChannelSet_CH_SET_FRONT_CENTER: OH_AudioChannelSet = 4;
-#[doc = " Low-frequency channel.\n\n @since 11"]
-pub const OH_AudioChannelSet_CH_SET_LOW_FREQUENCY: OH_AudioChannelSet = 8;
-#[doc = " Rear left channel.\n\n @since 11"]
-pub const OH_AudioChannelSet_CH_SET_BACK_LEFT: OH_AudioChannelSet = 16;
-#[doc = " Rear right channel.\n\n @since 11"]
-pub const OH_AudioChannelSet_CH_SET_BACK_RIGHT: OH_AudioChannelSet = 32;
-#[doc = " Front left center channel.\n\n @since 11"]
-pub const OH_AudioChannelSet_CH_SET_FRONT_LEFT_OF_CENTER: OH_AudioChannelSet = 64;
-#[doc = " Front right center channel.\n\n @since 11"]
-pub const OH_AudioChannelSet_CH_SET_FRONT_RIGHT_OF_CENTER: OH_AudioChannelSet = 128;
-#[doc = " Rear center channel.\n\n @since 11"]
-pub const OH_AudioChannelSet_CH_SET_BACK_CENTER: OH_AudioChannelSet = 256;
-#[doc = " Left channel.\n\n @since 11"]
-pub const OH_AudioChannelSet_CH_SET_SIDE_LEFT: OH_AudioChannelSet = 512;
-#[doc = " Right channel.\n\n @since 11"]
-pub const OH_AudioChannelSet_CH_SET_SIDE_RIGHT: OH_AudioChannelSet = 1024;
-#[doc = " Top center channel.\n\n @since 11"]
-pub const OH_AudioChannelSet_CH_SET_TOP_CENTER: OH_AudioChannelSet = 2048;
-#[doc = " Top left front channel.\n\n @since 11"]
-pub const OH_AudioChannelSet_CH_SET_TOP_FRONT_LEFT: OH_AudioChannelSet = 4096;
-#[doc = " Top center front channel.\n\n @since 11"]
-pub const OH_AudioChannelSet_CH_SET_TOP_FRONT_CENTER: OH_AudioChannelSet = 8192;
-#[doc = " Top right front channel.\n\n @since 11"]
-pub const OH_AudioChannelSet_CH_SET_TOP_FRONT_RIGHT: OH_AudioChannelSet = 16384;
-#[doc = " Top left rear channel.\n\n @since 11"]
-pub const OH_AudioChannelSet_CH_SET_TOP_BACK_LEFT: OH_AudioChannelSet = 32768;
-#[doc = " Top center rear channel.\n\n @since 11"]
-pub const OH_AudioChannelSet_CH_SET_TOP_BACK_CENTER: OH_AudioChannelSet = 65536;
-#[doc = " Top right rear channel.\n\n @since 11"]
-pub const OH_AudioChannelSet_CH_SET_TOP_BACK_RIGHT: OH_AudioChannelSet = 131072;
-#[doc = " Stereo left channel.\n\n @since 11"]
-pub const OH_AudioChannelSet_CH_SET_STEREO_LEFT: OH_AudioChannelSet = 536870912;
-#[doc = " Stereo right channel.\n\n @since 11"]
-pub const OH_AudioChannelSet_CH_SET_STEREO_RIGHT: OH_AudioChannelSet = 1073741824;
-#[doc = " Wide left channel.\n\n @since 11"]
-pub const OH_AudioChannelSet_CH_SET_WIDE_LEFT: OH_AudioChannelSet = 2147483648;
-#[doc = " Wide right channel.\n\n @since 11"]
-pub const OH_AudioChannelSet_CH_SET_WIDE_RIGHT: OH_AudioChannelSet = 4294967296;
-#[doc = " Left surround channel.\n\n @since 11"]
-pub const OH_AudioChannelSet_CH_SET_SURROUND_DIRECT_LEFT: OH_AudioChannelSet = 8589934592;
-#[doc = " Right surround channel.\n\n @since 11"]
-pub const OH_AudioChannelSet_CH_SET_SURROUND_DIRECT_RIGHT: OH_AudioChannelSet = 17179869184;
-#[doc = " Low-frequency channel 2.\n\n @since 11"]
-pub const OH_AudioChannelSet_CH_SET_LOW_FREQUENCY_2: OH_AudioChannelSet = 34359738368;
-#[doc = " Top left channel.\n\n @since 11"]
-pub const OH_AudioChannelSet_CH_SET_TOP_SIDE_LEFT: OH_AudioChannelSet = 68719476736;
-#[doc = " Top right channel.\n\n @since 11"]
-pub const OH_AudioChannelSet_CH_SET_TOP_SIDE_RIGHT: OH_AudioChannelSet = 137438953472;
-#[doc = " Bottom center front channel.\n\n @since 11"]
-pub const OH_AudioChannelSet_CH_SET_BOTTOM_FRONT_CENTER: OH_AudioChannelSet = 274877906944;
-#[doc = " Bottom left front channel.\n\n @since 11"]
-pub const OH_AudioChannelSet_CH_SET_BOTTOM_FRONT_LEFT: OH_AudioChannelSet = 549755813888;
-#[doc = " Bottom right front channel.\n\n @since 11"]
-pub const OH_AudioChannelSet_CH_SET_BOTTOM_FRONT_RIGHT: OH_AudioChannelSet = 1099511627776;
-#[doc = " @brief Enumerates the audio channels.\n\n Each channel is mapped to a variable of uint64_t.\n\n @since 11"]
-pub type OH_AudioChannelSet = u64;
-#[doc = " Ambisonic attribute: order 1.\n\n @since 11"]
-pub const OH_AmbAttributeSet_AMB_ORD_1: OH_AmbAttributeSet = 1;
-#[doc = " Ambisonic attribute: order 2.\n\n @since 11"]
-pub const OH_AmbAttributeSet_AMB_ORD_2: OH_AmbAttributeSet = 2;
-#[doc = " Ambisonic attribute: order 3.\n\n @since 11"]
-pub const OH_AmbAttributeSet_AMB_ORD_3: OH_AmbAttributeSet = 3;
-#[doc = " Ambisonic attribute: ACN Component Ordering.\n\n @since 11"]
-pub const OH_AmbAttributeSet_AMB_COM_ACN: OH_AmbAttributeSet = 0;
-#[doc = " Ambisonic attribute: FUMA Component Ordering.\n\n @since 11"]
-pub const OH_AmbAttributeSet_AMB_COM_FUMA: OH_AmbAttributeSet = 256;
-#[doc = " Ambisonic attribute: N3D Normalization.\n\n @since 11"]
-pub const OH_AmbAttributeSet_AMB_NOR_N3D: OH_AmbAttributeSet = 0;
-#[doc = " Ambisonic attribute: SN3D Normalization.\n\n @since 11"]
-pub const OH_AmbAttributeSet_AMB_NOR_SN3D: OH_AmbAttributeSet = 4096;
-#[doc = " Channel layout: Ambisonic mode.\n\n @since 11"]
-pub const OH_AmbAttributeSet_AMB_MODE: OH_AmbAttributeSet = 17592186044416;
-#[doc = " @brief Ambisonic attribute set.\n\n A set of 64-bit integers indicate the ambisonic attributes.\n\n @since 11"]
-pub type OH_AmbAttributeSet = u64;
-#[doc = " Unknown.\n\n @since 11"]
-pub const OH_AudioChannelLayout_CH_LAYOUT_UNKNOWN: OH_AudioChannelLayout = 0;
-#[doc = " Mono layout; 1 audio channel in total.\n\n @since 11"]
-pub const OH_AudioChannelLayout_CH_LAYOUT_MONO: OH_AudioChannelLayout = 4;
-#[doc = " Stereo layout; 2 audio channels in total.\n\n @since 11"]
-pub const OH_AudioChannelLayout_CH_LAYOUT_STEREO: OH_AudioChannelLayout = 3;
-#[doc = " Stereo downmix layout; 2 audio channels in total.\n\n @since 11"]
-pub const OH_AudioChannelLayout_CH_LAYOUT_STEREO_DOWNMIX: OH_AudioChannelLayout = 1610612736;
-#[doc = " 2.1 layout; 3 audio channels in total.\n\n @since 11"]
-pub const OH_AudioChannelLayout_CH_LAYOUT_2POINT1: OH_AudioChannelLayout = 11;
-#[doc = " 3.0 layout; 3 audio channels in total.\n\n @since 11"]
-pub const OH_AudioChannelLayout_CH_LAYOUT_3POINT0: OH_AudioChannelLayout = 259;
-#[doc = " Surround; 3 audio channels in total.\n\n @since 11"]
-pub const OH_AudioChannelLayout_CH_LAYOUT_SURROUND: OH_AudioChannelLayout = 7;
-#[doc = " 3.1 layout; 4 audio channels in total.\n\n @since 11"]
-pub const OH_AudioChannelLayout_CH_LAYOUT_3POINT1: OH_AudioChannelLayout = 15;
-#[doc = " 4.0 layout; 4 audio channels in total.\n\n @since 11"]
-pub const OH_AudioChannelLayout_CH_LAYOUT_4POINT0: OH_AudioChannelLayout = 263;
-#[doc = " Quad side layout; 4 audio channels in total.\n\n @since 11"]
-pub const OH_AudioChannelLayout_CH_LAYOUT_QUAD_SIDE: OH_AudioChannelLayout = 1539;
-#[doc = " Quad layout; 4 audio channels in total.\n\n @since 11"]
-pub const OH_AudioChannelLayout_CH_LAYOUT_QUAD: OH_AudioChannelLayout = 51;
-#[doc = " 2.0.2 layout; 4 audio channels in total.\n\n @since 11"]
-pub const OH_AudioChannelLayout_CH_LAYOUT_2POINT0POINT2: OH_AudioChannelLayout = 206158430211;
-#[doc = " First-order FOA layout in ACN_N3D (ITU standards); 4 audio channels in total.\n\n @since 11"]
-pub const OH_AudioChannelLayout_CH_LAYOUT_AMB_ORDER1_ACN_N3D: OH_AudioChannelLayout =
-    17592186044417;
-#[doc = " First-order FOA layout in ACN_SN3D (ITU standards); 4 audio channels in total.\n\n @since 11"]
-pub const OH_AudioChannelLayout_CH_LAYOUT_AMB_ORDER1_ACN_SN3D: OH_AudioChannelLayout =
-    17592186048513;
-#[doc = " First-order FOA layout in FUMA (ITU standards); 4 audio channels in total.\n\n @since 11"]
-pub const OH_AudioChannelLayout_CH_LAYOUT_AMB_ORDER1_FUMA: OH_AudioChannelLayout = 17592186044673;
-#[doc = " 4.1 layout; 5 audio channels in total.\n\n @since 11"]
-pub const OH_AudioChannelLayout_CH_LAYOUT_4POINT1: OH_AudioChannelLayout = 271;
-#[doc = " 5.0 layout; 5 audio channels in total.\n\n @since 11"]
-pub const OH_AudioChannelLayout_CH_LAYOUT_5POINT0: OH_AudioChannelLayout = 1543;
-#[doc = " 5.0 rear layout; 5 audio channels in total.\n\n @since 11"]
-pub const OH_AudioChannelLayout_CH_LAYOUT_5POINT0_BACK: OH_AudioChannelLayout = 55;
-#[doc = " 2.1.2 layout; 5 audio channels in total.\n\n @since 11"]
-pub const OH_AudioChannelLayout_CH_LAYOUT_2POINT1POINT2: OH_AudioChannelLayout = 206158430219;
-#[doc = " 3.0.2 layout; 5 audio channels in total.\n\n @since 11"]
-pub const OH_AudioChannelLayout_CH_LAYOUT_3POINT0POINT2: OH_AudioChannelLayout = 206158430215;
-#[doc = " 5.1 layout; 6 audio channels in total.\n\n @since 11"]
-pub const OH_AudioChannelLayout_CH_LAYOUT_5POINT1: OH_AudioChannelLayout = 1551;
-#[doc = " 5.1 rear layout; 6 audio channels in total.\n\n @since 11"]
-pub const OH_AudioChannelLayout_CH_LAYOUT_5POINT1_BACK: OH_AudioChannelLayout = 63;
-#[doc = " 6.0 layout; 6 audio channels in total.\n\n @since 11"]
-pub const OH_AudioChannelLayout_CH_LAYOUT_6POINT0: OH_AudioChannelLayout = 1799;
-#[doc = " 3.1.2 layout; 6 audio channels in total.\n\n @since 11"]
-pub const OH_AudioChannelLayout_CH_LAYOUT_3POINT1POINT2: OH_AudioChannelLayout = 20495;
-#[doc = " 6.0 front layout; 6 audio channels in total.\n\n @since 11"]
-pub const OH_AudioChannelLayout_CH_LAYOUT_6POINT0_FRONT: OH_AudioChannelLayout = 1731;
-#[doc = " Hexagonal layout; 6 audio channels in total.\n\n @since 11"]
-pub const OH_AudioChannelLayout_CH_LAYOUT_HEXAGONAL: OH_AudioChannelLayout = 311;
-#[doc = " 6.1 layout; 7 audio channels in total.\n\n @since 11"]
-pub const OH_AudioChannelLayout_CH_LAYOUT_6POINT1: OH_AudioChannelLayout = 1807;
-#[doc = " 6.1 rear layout; 7 audio channels in total.\n\n @since 11"]
-pub const OH_AudioChannelLayout_CH_LAYOUT_6POINT1_BACK: OH_AudioChannelLayout = 319;
-#[doc = " 6.1 front layout; 7 audio channels in total.\n\n @since 11"]
-pub const OH_AudioChannelLayout_CH_LAYOUT_6POINT1_FRONT: OH_AudioChannelLayout = 1739;
-#[doc = " 7.0 layout; 7 audio channels in total.\n\n @since 11"]
-pub const OH_AudioChannelLayout_CH_LAYOUT_7POINT0: OH_AudioChannelLayout = 1591;
-#[doc = " 7.0 front layout; 7 audio channels in total.\n\n @since 11"]
-pub const OH_AudioChannelLayout_CH_LAYOUT_7POINT0_FRONT: OH_AudioChannelLayout = 1735;
-#[doc = " 7.1 layout; 8 audio channels in total.\n\n @since 11"]
-pub const OH_AudioChannelLayout_CH_LAYOUT_7POINT1: OH_AudioChannelLayout = 1599;
-#[doc = " Octagonal layout; 8 audio channels in total.\n\n @since 11"]
-pub const OH_AudioChannelLayout_CH_LAYOUT_OCTAGONAL: OH_AudioChannelLayout = 1847;
-#[doc = " 5.1.2 layout; 8 audio channels in total.\n\n @since 11"]
-pub const OH_AudioChannelLayout_CH_LAYOUT_5POINT1POINT2: OH_AudioChannelLayout = 206158431759;
-#[doc = " 7.1 wide layout; 8 audio channels in total.\n\n @since 11"]
-pub const OH_AudioChannelLayout_CH_LAYOUT_7POINT1_WIDE: OH_AudioChannelLayout = 1743;
-#[doc = " 7.1 rear wide layout; 8 audio channels in total.\n\n @since 11"]
-pub const OH_AudioChannelLayout_CH_LAYOUT_7POINT1_WIDE_BACK: OH_AudioChannelLayout = 255;
-#[doc = " Second-order HOA layout in ACN_N3D (ITU standards); 9 audio channels in total.\n\n @since 11"]
-pub const OH_AudioChannelLayout_CH_LAYOUT_AMB_ORDER2_ACN_N3D: OH_AudioChannelLayout =
-    17592186044418;
-#[doc = " Second-order HOA layout in ACN_SN3D (ITU standards); 9 audio channels in total.\n\n @since 11"]
-pub const OH_AudioChannelLayout_CH_LAYOUT_AMB_ORDER2_ACN_SN3D: OH_AudioChannelLayout =
-    17592186048514;
-#[doc = " Second-order HOA layout in FUMA (ITU standards); 9 audio channels in total.\n\n @since 11"]
-pub const OH_AudioChannelLayout_CH_LAYOUT_AMB_ORDER2_FUMA: OH_AudioChannelLayout = 17592186044674;
-#[doc = " 5.1.4 layout; 10 audio channels in total.\n\n @since 11"]
-pub const OH_AudioChannelLayout_CH_LAYOUT_5POINT1POINT4: OH_AudioChannelLayout = 185871;
-#[doc = " 7.1.2 layout; 10 audio channels in total.\n\n @since 11"]
-pub const OH_AudioChannelLayout_CH_LAYOUT_7POINT1POINT2: OH_AudioChannelLayout = 206158431807;
-#[doc = " 7.1.4 layout; 12 audio channels in total.\n\n @since 11"]
-pub const OH_AudioChannelLayout_CH_LAYOUT_7POINT1POINT4: OH_AudioChannelLayout = 185919;
-#[doc = " 10.2 layout; 12 audio channels in total.\n\n @since 11"]
-pub const OH_AudioChannelLayout_CH_LAYOUT_10POINT2: OH_AudioChannelLayout = 6442473271;
-#[doc = " 9.1.4 layout; 14 audio channels in total.\n\n @since 11"]
-pub const OH_AudioChannelLayout_CH_LAYOUT_9POINT1POINT4: OH_AudioChannelLayout = 6442636863;
-#[doc = " 9.1.6 layout; 16 audio channels in total.\n\n @since 11"]
-pub const OH_AudioChannelLayout_CH_LAYOUT_9POINT1POINT6: OH_AudioChannelLayout = 212601067071;
-#[doc = " Hexadecagonal layout; 16 audio channels in total.\n\n @since 11"]
-pub const OH_AudioChannelLayout_CH_LAYOUT_HEXADECAGONAL: OH_AudioChannelLayout = 6442710839;
-#[doc = " Third-order HOA layout in ACN_N3D (ITU standards); 16 audio channels in total.\n\n @since 11"]
-pub const OH_AudioChannelLayout_CH_LAYOUT_AMB_ORDER3_ACN_N3D: OH_AudioChannelLayout =
-    17592186044419;
-#[doc = " Third-order HOA layout in ACN_SN3D (ITU standards); 16 audio channels in total.\n\n @since 11"]
-pub const OH_AudioChannelLayout_CH_LAYOUT_AMB_ORDER3_ACN_SN3D: OH_AudioChannelLayout =
-    17592186048515;
-#[doc = " Third-order HOA layout in FUMA (ITU standards); 16 audio channels in total.\n\n @since 11"]
-pub const OH_AudioChannelLayout_CH_LAYOUT_AMB_ORDER3_FUMA: OH_AudioChannelLayout = 17592186044675;
-#[doc = " 22.2 layout; 24 audio channels in total.\n\n @since 11"]
-pub const OH_AudioChannelLayout_CH_LAYOUT_22POINT2: OH_AudioChannelLayout = 2164663779327;
-#[doc = " @brief Enumerates the layouts of audio channels.\n\n Int64 integers are used to indicate the appearance and sequence of speakers during recording or playback.\n\n @since 11"]
-pub type OH_AudioChannelLayout = u64;
 #[doc = " default input node type, this input node type supports getting audio data from application.\n\n @since 22"]
 #[cfg(feature = "api-22")]
 pub const OH_AudioNode_Type_INPUT_NODE_TYPE_DEFAULT: OH_AudioNode_Type = 1;
@@ -385,7 +199,6 @@ pub type OH_Audio_SampleRate = u32;
 #[doc = " @brief Define the audio format info structure, used to describe basic audio format.\n\n @since 22"]
 #[cfg(feature = "api-22")]
 #[repr(C)]
-#[derive(Debug, Copy, Clone)]
 pub struct OH_AudioFormat {
     #[doc = " @brief Audio sampling rate.\n\n @since 22"]
     pub samplingRate: OH_Audio_SampleRate,
@@ -1046,4 +859,118 @@ extern "C" {
         audioSuitePipeline: *mut OH_AudioSuitePipeline,
         fd: ::std::os::raw::c_int,
     ) -> OH_AudioSuite_Result;
+}
+#[doc = " @brief Define the audio converter format info structure, used to describe basic audio format.\n\n @since 26.0.0"]
+#[cfg(feature = "api-26")]
+#[repr(C)]
+pub struct OH_AudioConverter_Format {
+    #[doc = " @brief Audio encoding format type.\n\n @since 26.0.0"]
+    pub encodingType: OH_Audio_EncodingType,
+    #[doc = " @brief Audio sampling rate.\n\n @since 26.0.0"]
+    pub samplingRate: OH_Audio_SampleRate,
+    #[doc = " @brief Audio channel layout.\n\n @since 26.0.0"]
+    pub channelLayout: OH_AudioChannelLayout,
+    #[doc = " @brief Audio sample format.\n\n @since 26.0.0"]
+    pub sampleFormat: OH_Audio_SampleFormat,
+}
+#[repr(C)]
+#[derive(Debug, Copy, Clone)]
+pub struct OH_AudioConverterStruct {
+    _unused: [u8; 0],
+}
+#[doc = " @brief Declare the audio converter.\n The handle of audio converter is used for audio converter related functions.\n\n @since 26.0.0"]
+#[cfg(feature = "api-26")]
+pub type OH_AudioConverter = OH_AudioConverterStruct;
+#[doc = " @error The call was successful.\n\n @since 26.0.0"]
+#[cfg(feature = "api-26")]
+pub const OH_AudioConverter_Result_AUDIOCONVERTER_SUCCESS: OH_AudioConverter_Result = 0;
+#[doc = " @error This means that the function was executed with an invalid input parameter.\n\n @since 26.0.0"]
+#[cfg(feature = "api-26")]
+pub const OH_AudioConverter_Result_AUDIOCONVERTER_ERROR_INVALID_PARAM: OH_AudioConverter_Result = 1;
+#[doc = " @error Unsupported audio format, such as unsupported encoding type, sample format etc.\n\n @since 26.0.0"]
+#[cfg(feature = "api-26")]
+pub const OH_AudioConverter_Result_AUDIOCONVERTER_ERROR_UNSUPPORTED_FORMAT:
+    OH_AudioConverter_Result = 2;
+#[doc = " @error A system error has occurred.\n\n @since 26.0.0"]
+#[cfg(feature = "api-26")]
+pub const OH_AudioConverter_Result_AUDIOCONVERTER_ERROR_SYSTEM: OH_AudioConverter_Result = 3;
+#[doc = " @error Memory allocation failed.\n\n @since 26.0.0"]
+#[cfg(feature = "api-26")]
+pub const OH_AudioConverter_Result_AUDIOCONVERTER_ERROR_MEMORY_ALLOC_FAILED:
+    OH_AudioConverter_Result = 4;
+#[doc = " @error Buffer capacity is insufficient.\n\n @since 26.0.0"]
+#[cfg(feature = "api-26")]
+pub const OH_AudioConverter_Result_AUDIOCONVERTER_ERROR_BUFFER_TOO_SMALL: OH_AudioConverter_Result =
+    5;
+#[doc = " @error Audio converter instance is not initialized.\n\n @since 26.0.0"]
+#[cfg(feature = "api-26")]
+pub const OH_AudioConverter_Result_AUDIOCONVERTER_ERROR_NOT_INITIALIZED: OH_AudioConverter_Result =
+    6;
+#[doc = " @error Callback is invalid.\n\n @since 26.0.0"]
+#[cfg(feature = "api-26")]
+pub const OH_AudioConverter_Result_AUDIOCONVERTER_ERROR_CALLBACK_INVALID: OH_AudioConverter_Result =
+    7;
+#[doc = " @error Callback is not set.\n\n @since 26.0.0"]
+#[cfg(feature = "api-26")]
+pub const OH_AudioConverter_Result_AUDIOCONVERTER_ERROR_CALLBACK_NOT_SET: OH_AudioConverter_Result =
+    8;
+#[doc = " @brief Define the result of the function execution.\n\n @since 26.0.0"]
+#[cfg(feature = "api-26")]
+pub type OH_AudioConverter_Result = u32;
+extern "C" {
+    #[doc = " @brief Request to create the audio converter.\n\n The converter instance created by this function must be explicitly destroyed via {@link OH_AudioConverter_Destroy}.\n Supported audio format specifications (valid for Input/Output)\n The converter only supports PCM (Pulse Code Modulation) audio formats.\n Sample rate supports 8000 Hz, 11025 Hz, 12000 Hz, 16000 Hz, 22050 Hz, 24000 Hz, 32000 Hz, 44100 Hz, 48000 Hz,\n 64000 Hz, 88200 Hz, 96000 Hz, 176400 Hz and 192000 Hz.\n Channel layout supports {@link CH_LAYOUT_MONO}, {@link CH_LAYOUT_STEREO}, {@link CH_LAYOUT_STEREO_DOWNMIX},\n {@link CH_LAYOUT_2POINT1}, {@link CH_LAYOUT_3POINT0}, {@link CH_LAYOUT_SURROUND}, {@link CH_LAYOUT_3POINT1},\n {@link CH_LAYOUT_4POINT0}, {@link CH_LAYOUT_QUAD_SIDE}, {@link CH_LAYOUT_QUAD}, {@link CH_LAYOUT_2POINT0POINT2},\n {@link CH_LAYOUT_4POINT1}, {@link CH_LAYOUT_5POINT0}, {@link CH_LAYOUT_5POINT0_BACK},\n {@link CH_LAYOUT_2POINT1POINT2}, {@link CH_LAYOUT_3POINT0POINT2}, {@link CH_LAYOUT_5POINT1},\n {@link CH_LAYOUT_5POINT1_BACK}, {@link CH_LAYOUT_6POINT0}, {@link CH_LAYOUT_3POINT1POINT2},\n {@link CH_LAYOUT_6POINT0_FRONT}, {@link CH_LAYOUT_HEXAGONAL}, {@link CH_LAYOUT_6POINT1},\n {@link CH_LAYOUT_6POINT1_BACK}, {@link CH_LAYOUT_6POINT1_FRONT}, {@link CH_LAYOUT_7POINT0},\n {@link CH_LAYOUT_7POINT0_FRONT}, {@link CH_LAYOUT_7POINT1}, {@link CH_LAYOUT_OCTAGONAL},\n {@link CH_LAYOUT_5POINT1POINT2}, {@link CH_LAYOUT_7POINT1_WIDE} and {@link CH_LAYOUT_7POINT1_WIDE_BACK}.\n Sample format (bit depth) supports SAMPLE_U8 (8-bit unsigned PCM),\n SAMPLE_S16LE (16-bit short little-endian PCM), SAMPLE_S24LE (24-bit short little-endian PCM),\n SAMPLE_S32LE (32-bit short little-endian PCM), and SAMPLE_F32LE (32-bit float little-endian PCM).\n\n @param inputFormat Pointer to the input audio format configuration.\n @param outputFormat Pointer to the output audio format configuration.\n @param converter Pointer to a variable that receives the created audio converter instance.\n @return <ul>\n         <li>{@link #AUDIOCONVERTER_SUCCESS} if execution succeeds.</li>\n         <li>{@link #AUDIOCONVERTER_ERROR_INVALID_PARAM} if the input parameters are invalid</li>\n         <li>{@link #AUDIOCONVERTER_ERROR_UNSUPPORTED_FORMAT}\n             if the specified input/output format combination is unsupported</li>\n         <li>{@link #AUDIOCONVERTER_ERROR_MEMORY_ALLOC_FAILED} if memory allocation failed</li>\n         <li>{@link #AUDIOCONVERTER_ERROR_SYSTEM} if the system has other abnormalities</li>\n         </ul>\n @release OH_AudioConverter_Destroy {converter}\n @since 26.0.0"]
+    #[cfg(feature = "api-26")]
+    pub fn OH_AudioConverter_Create(
+        inputFormat: *const OH_AudioConverter_Format,
+        outputFormat: *const OH_AudioConverter_Format,
+        converter: *mut *mut OH_AudioConverter,
+    ) -> OH_AudioConverter_Result;
+}
+extern "C" {
+    #[doc = " @brief Request to release the converter.\n\n @param converter Reference created by OH_AudioConverter_Create.\n @since 26.0.0"]
+    #[cfg(feature = "api-26")]
+    pub fn OH_AudioConverter_Destroy(converter: *mut OH_AudioConverter);
+}
+#[doc = " Valid input data is available and provided.\n\n @since 26.0.0"]
+#[cfg(feature = "api-26")]
+pub const OH_AudioConverter_InputStatus_AUDIOCONVERTER_INPUT_HAVE_DATA:
+    OH_AudioConverter_InputStatus = 1;
+#[doc = " No input data is available temporarily.\n\n @since 26.0.0"]
+#[cfg(feature = "api-26")]
+pub const OH_AudioConverter_InputStatus_AUDIOCONVERTER_INPUT_NO_AVAILABLE_DATA:
+    OH_AudioConverter_InputStatus = 2;
+#[doc = " The input data stream is complete.\n\n @since 26.0.0"]
+#[cfg(feature = "api-26")]
+pub const OH_AudioConverter_InputStatus_AUDIOCONVERTER_INPUT_DATA_FINISHED:
+    OH_AudioConverter_InputStatus = 3;
+#[doc = " @brief Define the status of input audio data provided by the callback {@link OH_AudioConverter_RequestDataCallback}.\n The converter uses this status to determine how to handle subsequent conversion logic (e.g., continue pulling data,\n pause, or flush cached data).\n Note for callers: Even if the callback returns {@link AUDIOCONVERTER_INPUT_DATA_FINISHED},\n {@link OH_AudioConverter_Process} must be called repeatedly\n until it returns {@link AUDIOCONVERTER_SUCCESS} with outputSize\n being 0 (indicating all cached data has been flushed).\n\n @since 26.0.0"]
+#[cfg(feature = "api-26")]
+pub type OH_AudioConverter_InputStatus = u32;
+#[doc = " @brief Callback function of request data.\n\n The converter invokes this callback to actively request input audio data during {@link OH_AudioConverter_Process}.\n The caller must populate the output parameters (outInputData, outStatus) and return the valid size of input data.\n The maximum data size returned by a single callback is 400KB.\n The memory pointed to by outInputData must remain valid until {@link OH_AudioConverter_Process} returns.\n @param userData User-defined data passed to the callback.\n @param outInputData Pointer to a pointer that the callback sets to point to the input audio data buffer.\n @param outStatus Set by the callback to inform the converter about the current state of input data availability.\n @return Size of valid input data pointed to by outInputData.\n @since 26.0.0"]
+#[cfg(feature = "api-26")]
+pub type OH_AudioConverter_RequestDataCallback = ::std::option::Option<
+    unsafe extern "C" fn(
+        userData: *mut ::std::os::raw::c_void,
+        outInputData: *mut *const ::std::os::raw::c_void,
+        outStatus: *mut OH_AudioConverter_InputStatus,
+    ) -> i32,
+>;
+extern "C" {
+    #[doc = " @brief Set converter request data callback.\n\n This function binds the input data callback function for the audio converter.\n The callback is used by {@link OH_AudioConverter_Process} to pull input audio data dynamically.\n\n @param converter Reference created by OH_AudioConverter_Create.\n @param callback Callback function that will be invoked during {@link OH_AudioConverter_Process}\n to actively request input audio data.\n @param userData Pointer to an application data structure that will be passed to the callback functions.\n @return <ul>\n         <li>{@link #AUDIOCONVERTER_SUCCESS} if execution succeeds.</li>\n         <li>{@link #AUDIOCONVERTER_ERROR_INVALID_PARAM} if parameter is invalid,\n             e.g. converter is nullptr, e.t.c.</li>\n         <li>{@link #AUDIOCONVERTER_ERROR_NOT_INITIALIZED} if the converter instance is not initialized</li>\n         <li>{@link #AUDIOCONVERTER_ERROR_CALLBACK_INVALID} if callback is invalid,\n             e.g. invalid callback return, e.t.c.</li>\n         <li>{@link #AUDIOCONVERTER_ERROR_SYSTEM} if the system has other abnormalities</li>\n         </ul>\n @since 26.0.0"]
+    #[cfg(feature = "api-26")]
+    pub fn OH_AudioConverter_SetInputCallback(
+        converter: *mut OH_AudioConverter,
+        callback: OH_AudioConverter_RequestDataCallback,
+        userData: *mut ::std::os::raw::c_void,
+    ) -> OH_AudioConverter_Result;
+}
+extern "C" {
+    #[doc = " @brief Executing the audio format conversion.\n\n This function executes audio conversion to convert to the target format, and writes the result to the user-provided\n output buffer. This function must be called after {@link OH_AudioConverter_SetInputCallback}.\n The output buffer must be allocated and managed by the caller.\n\n @param converter Reference created by {@link OH_AudioConverter_Create}.\n @param outputData Pointer to the output buffer allocated by the caller to receive converted audio data.\n @param outputCapacity Size of the output buffer in bytes specified by the user.\n @param outputSize Size of output buffer the system really writes.\n Returns the number of bytes actually written on success.\n When {@link AUDIOCONVERTER_SUCCESS} is returned but outputSize is 0,\n it indicates that all buffered data has been fully flushed.\n @return <ul>\n         <li>{@link #AUDIOCONVERTER_SUCCESS} if execution succeeds.</li>\n         <li>{@link #AUDIOCONVERTER_ERROR_INVALID_PARAM} if parameter is invalid,\n             e.g. converter is nullptr, e.t.c.</li>\n         <li>{@link #AUDIOCONVERTER_ERROR_NOT_INITIALIZED} if the converter instance is not initialized</li>\n         <li>{@link #AUDIOCONVERTER_ERROR_CALLBACK_INVALID} if callback is invalid,\n             e.g. callback returned an invalid value, e.t.c.</li>\n         <li>{@link #AUDIOCONVERTER_ERROR_CALLBACK_NOT_SET} if no input callback is bound to the converter</li>\n         <li>{@link #AUDIOCONVERTER_ERROR_BUFFER_TOO_SMALL} if output buffer capacity is insufficient</li>\n         <li>{@link #AUDIOCONVERTER_ERROR_SYSTEM} if the system has other abnormalities</li>\n         </ul>\n @since 26.0.0"]
+    #[cfg(feature = "api-26")]
+    pub fn OH_AudioConverter_Process(
+        converter: *mut OH_AudioConverter,
+        outputData: *mut ::std::os::raw::c_void,
+        outputCapacity: i32,
+        outputSize: *mut i32,
+    ) -> OH_AudioConverter_Result;
 }
