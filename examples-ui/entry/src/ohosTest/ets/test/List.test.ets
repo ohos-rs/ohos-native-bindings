@@ -29,6 +29,7 @@ import sensorTestSuite from "./modules/Sensor.test";
 import udmfTest from "./modules/Udmf.test";
 import vibratorTest from "./modules/Vibrator.test";
 import vsyncTest from "./modules/Vsync.test";
+import windowManagerTest from "./modules/WindowManager.test";
 import xcomponentTest from "./modules/XComponent.test";
 
 export default function testsuite(): void {
@@ -63,5 +64,6 @@ export default function testsuite(): void {
   udmfTest();
   vibratorTest();
   vsyncTest();
+  windowManagerTest();
   xcomponentTest();
 }

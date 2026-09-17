@@ -41,6 +41,7 @@ struct Index {
     { name: "UDMF", page: "pages/Udmf", note: "plain text / html records" },
     { name: "Vibrator", page: "pages/Vibrator", note: "vibrate / custom effect" },
     { name: "Vsync", page: "pages/Vsync", note: "frame callbacks" },
+    { name: "WindowManager", page: "pages/WindowManager", note: "window properties / visibility" },
     { name: "XComponent", page: "pages/XComp", note: "surface + GL + touch" },
   ];
 

@@ -108,9 +108,14 @@ esac
 
 HAP_SIGN_BIN="$(find_hap_sign)" || fail \
   "hap-sign not found and cargo is unavailable"
+HAP_SIGN_DEVICE_ARGS=()
+if [ -n "${HAP_SIGN_DEVICE_ID:-}" ]; then
+  HAP_SIGN_DEVICE_ARGS=(--device-id "$HAP_SIGN_DEVICE_ID")
+fi
 "$HAP_SIGN_BIN" sign "$UNSIGNED_HAP" \
   --bundle-name "$BUNDLE" \
   --compatible-version 17 \
+  "${HAP_SIGN_DEVICE_ARGS[@]}" \
   --output "$SIGNED_HAP" \
   --force
 

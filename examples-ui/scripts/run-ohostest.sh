@@ -68,8 +68,8 @@ if [ -n "${HDC_TARGET:-}" ]; then
 fi
 TESTDIR="$ROOT/entry/src/ohosTest/ets/test"
 LIST="$TESTDIR/List.test.ets"
-LIST_BACKUP="$TESTDIR/.List.full.bak"
 mkdir -p "$DIAGNOSTICS_DIR"
+LIST_BACKUP="$(mktemp "$DIAGNOSTICS_DIR/List.test.ets.XXXXXX")"
 
 install_haps() {
   local label="$1"
@@ -165,13 +165,13 @@ declare -a MODULES=(
   udmf:Udmf
   vibrator:Vibrator
   vsync:Vsync
+  window_manager:WindowManager
   xcomponent:XComponent
 )
 
-# Keep a pristine copy of the full List once.
-if [ ! -f "$LIST_BACKUP" ]; then
-  cp "$LIST" "$LIST_BACKUP"
-fi
+# Keep a per-run pristine copy so an old local backup cannot restore a stale
+# module list after the selected-module runner exits.
+cp "$LIST" "$LIST_BACKUP"
 
 restore_list() {
   cp "$LIST_BACKUP" "$LIST"
@@ -208,6 +208,7 @@ verify_gesture_libraries() {
 
 cleanup() {
   restore_list
+  rm -f "$LIST_BACKUP"
   if [ "$screen_timeout_overridden" -eq 1 ]; then
     "${HDC[@]}" shell "power-shell timeout -r" >/dev/null 2>&1 || true
   fi
