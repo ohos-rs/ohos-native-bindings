@@ -104,6 +104,10 @@ impl Drop for TouchEvent {
     }
 }
 
+fn time_part_to_i64<T: Into<i64>>(value: T) -> i64 {
+    value.into()
+}
+
 fn push_status<T>(
     report: &mut Vec<String>,
     name: &str,
@@ -338,12 +342,12 @@ fn build_api_report(window_id: i32, has_ui_content: bool) -> String {
 
     match TouchEvent::new() {
         Some(event) => {
-            let mut now = libc::timespec {
-                tv_sec: 0,
-                tv_nsec: 0,
-            };
-            unsafe {
+            let mut now = libc::timespec::default();
+            let now_micros = unsafe {
                 libc::clock_gettime(libc::CLOCK_MONOTONIC, &mut now);
+                let now_micros = time_part_to_i64(now.tv_sec)
+                    .saturating_mul(1_000_000)
+                    .saturating_add(time_part_to_i64(now.tv_nsec) / 1_000);
                 OH_Input_SetTouchEventAction(event.raw.as_ptr(), 1);
                 OH_Input_SetTouchEventFingerId(event.raw.as_ptr(), 0);
                 OH_Input_SetTouchEventDisplayX(event.raw.as_ptr(), 1);
@@ -357,24 +361,16 @@ fn build_api_report(window_id: i32, has_ui_content: bool) -> String {
                 OH_Input_SetTouchEventGlobalY(event.raw.as_ptr(), global_y);
                 OH_Input_SetTouchEventWindowX(event.raw.as_ptr(), 1);
                 OH_Input_SetTouchEventWindowY(event.raw.as_ptr(), 1);
-                OH_Input_SetTouchEventActionTime(
-                    event.raw.as_ptr(),
-                    now.tv_sec * 1_000_000 + now.tv_nsec / 1_000,
-                );
-                OH_Input_SetTouchEventDownTime(
-                    event.raw.as_ptr(),
-                    now.tv_sec * 1_000_000 + now.tv_nsec / 1_000,
-                );
-            }
+                OH_Input_SetTouchEventActionTime(event.raw.as_ptr(), now_micros);
+                OH_Input_SetTouchEventDownTime(event.raw.as_ptr(), now_micros);
+                now_micros
+            };
             push_status(&mut report, "inject_touch_event", unsafe {
                 window.inject_touch_event(event.raw, 1, 1)
             });
             unsafe {
                 OH_Input_SetTouchEventAction(event.raw.as_ptr(), 3);
-                OH_Input_SetTouchEventActionTime(
-                    event.raw.as_ptr(),
-                    now.tv_sec * 1_000_000 + now.tv_nsec / 1_000 + 1,
-                );
+                OH_Input_SetTouchEventActionTime(event.raw.as_ptr(), now_micros.saturating_add(1));
             }
             push_status(&mut report, "inject_touch_event_up", unsafe {
                 window.inject_touch_event(event.raw, 1, 1)
