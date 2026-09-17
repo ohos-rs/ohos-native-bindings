@@ -7,11 +7,11 @@ edition = "2021"
 crate-type = ["cdylib"]
 
 [dependencies]
-libc                         = { workspace = true }
-napi-ohos                    = { workspace = true }
-napi-derive-ohos             = { workspace = true }
-ohos-image-native-binding    = { workspace = true, features = ["api-17"] }
-ohos-window-manager-binding  = { workspace = true, features = ["api-26"] }
+libc                        = { workspace = true }
+napi-ohos                   = { workspace = true }
+napi-derive-ohos            = { workspace = true }
+ohos-image-native-binding   = { workspace = true, features = ["api-17"] }
+ohos-window-manager-binding = { workspace = true, features = ["api-26"] }
 
 [build-dependencies]
 napi-build-ohos = { workspace = true }

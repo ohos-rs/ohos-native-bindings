@@ -2,19 +2,19 @@
 /* eslint-disable */
 
 /**
-  * Executes every WindowManager API available on the API-26 QEMU image.
-  *
-  * Each operation is recorded independently so one platform failure does not
-  * prevent the remaining native entry points from being exercised.
-  */
-export declare function apiReport(windowId: number): string
+ * Executes every WindowManager API available on the API-26 QEMU image.
+ *
+ * Each operation is recorded independently so one platform failure does not
+ * prevent the remaining native entry points from being exercised.
+ */
+export declare function apiReport(windowId: number): string;
 
 /** Reports asynchronous callbacks and unregisters the frame callback. */
-export declare function callbackReport(windowId: number): string
+export declare function callbackReport(windowId: number): string;
 
-export declare function layoutSmoke(displayId: number): string
+export declare function layoutSmoke(displayId: number): string;
 
-export declare function smoke(windowId: number): string
+export declare function smoke(windowId: number): string;
 
 /** Executes the API matrix for a window whose ArkUI content is loaded. */
-export declare function uiContentReport(windowId: number): string
+export declare function uiContentReport(windowId: number): string;

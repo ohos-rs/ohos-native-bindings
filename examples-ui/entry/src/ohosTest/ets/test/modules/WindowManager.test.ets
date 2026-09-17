@@ -45,7 +45,7 @@ export default function windowManagerTest(): void {
       console.info(`WINDOW_MANAGER_CALLBACK_REPORT ${result}`);
       expect(result).assertEqual(
         "snapshot_callbacks=0;snapshot_releases=0;frame_callbacks=0;" +
-        "frame_metrics_ok_mask=0;unregister_frame_callback=err:1300016",
+          "frame_metrics_ok_mask=0;unregister_frame_callback=err:1300016",
       );
     });
     it("reports invalid-window errors without accepting success", 0, () => {

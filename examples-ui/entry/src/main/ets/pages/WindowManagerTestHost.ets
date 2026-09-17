@@ -31,14 +31,11 @@ struct WindowManagerTestHost {
 
   build() {
     Column({ space: 8 }) {
-      Text("WindowManager QEMU host")
-        .fontSize(18)
-      Text(this.report)
-        .fontSize(10)
-      Text(this.callback)
-        .fontSize(10)
+      Text("WindowManager QEMU host").fontSize(18)
+      Text(this.report).fontSize(10)
+      Text(this.callback).fontSize(10)
     }
     .width("100%")
-    .height("100%")
+    .height("100%");
   }
 }
