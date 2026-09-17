@@ -4,6 +4,9 @@ version     = "0.1.0"
 edition     = "2021"
 license     = "MIT OR Apache-2.0"
 description = "OpenHarmony's AudioSuite sys binding for rust"
+repository  = "https://github.com/ohos-rs/ohos-native-bindings"
+documentation = "https://docs.rs/ohos-audiosuite-sys"
+readme      = "README.md"
 
 [dependencies]
 
