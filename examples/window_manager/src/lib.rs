@@ -182,16 +182,10 @@ pub fn smoke(window_id: i32) -> Result<String> {
 /// prevent the remaining native entry points from being exercised.
 #[napi]
 pub fn api_report(window_id: i32) -> String {
-    build_api_report(window_id, false)
+    build_api_report(window_id)
 }
 
-/// Executes the API matrix for a window whose ArkUI content is loaded.
-#[napi]
-pub fn ui_content_report(window_id: i32) -> String {
-    build_api_report(window_id, true)
-}
-
-fn build_api_report(window_id: i32, has_ui_content: bool) -> String {
+fn build_api_report(window_id: i32) -> String {
     let window = Window::from_id(window_id);
     let mut report = Vec::new();
     let properties = window.properties();
@@ -245,18 +239,11 @@ fn build_api_report(window_id: i32, has_ui_content: bool) -> String {
         .unwrap_or((true, true, -1.0, false, false, 0, 1, 1));
     push_status(&mut report, "touchable", window.set_touchable(touchable));
     push_status(&mut report, "focusable", window.set_focusable(focusable));
-    if has_ui_content {
-        push_status(
-            &mut report,
-            "background_color",
-            window.set_background_color("#00000000"),
-        );
-    } else {
-        // On the API-26 QEMU image this native function aborts inside
-        // libnative_window_manager.so when the test window has no UIContent.
-        // Keep it out of the aggregate probe so the remaining APIs still run.
-        report.push("background_color=known_qemu_abort:no_uicontent".to_owned());
-    }
+    push_status(
+        &mut report,
+        "background_color",
+        window.set_background_color("#00000000"),
+    );
     push_status(&mut report, "brightness", window.set_brightness(brightness));
     push_status(
         &mut report,
@@ -426,13 +413,11 @@ fn build_api_report(window_id: i32, has_ui_content: bool) -> String {
         "register_frame_callback",
         window.register_frame_metrics_measured_callback(frame_metrics_callback),
     );
-    if has_ui_content {
-        push_status(
-            &mut report,
-            "frame_redraw",
-            window.set_background_color("#ff000000"),
-        );
-    }
+    push_status(
+        &mut report,
+        "frame_redraw",
+        window.set_background_color("#ff000000"),
+    );
 
     report.join(";")
 }

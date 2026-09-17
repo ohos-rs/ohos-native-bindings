@@ -132,55 +132,6 @@ start_gesture_host() {
   return 1
 }
 
-start_window_manager_host() {
-  local label="$1"
-  local host_log="$DIAGNOSTICS_DIR/window-manager-host-$label.log"
-  local start_log="$DIAGNOSTICS_DIR/start-window-manager-$label.log"
-  local api_report
-  local callback_report
-  local expected_api_report
-  local expected_callback_report
-  local attempt
-
-  expected_api_report='properties=ok;avoid_area=ok;is_shown=ok;show=ok;status_bar_enabled=ok;status_bar_color=ok;navigation_bar_enabled=ok;touchable=ok;focusable=ok;background_color=ok;brightness=ok;keep_screen_on=ok;privacy_mode=err:201;snapshot=ok;register_key_filter=err:2000;get_key_filter=none;unregister_key_filter=err:2000;register_mouse_filter=err:2000;get_mouse_filter=none;unregister_mouse_filter=err:2000;register_touch_filter=err:2000;get_touch_filter=none;unregister_touch_filter=err:2000;visible_layouts=err:801;inject_touch_event=err:1300003;inject_touch_event_up=err:1300003;main_windows=err:801;main_window_snapshots=err:801;lock_cursor=err:801;unlock_cursor=err:801;density_info=some;default_density=ok;system_density=ok;custom_density=ok;register_density_callback=err:801;unregister_density_callback=err:1300016;register_frame_callback=ok;frame_redraw=ok'
-  expected_callback_report='snapshot_callbacks=0;snapshot_releases=0;frame_callbacks=0;frame_metrics_ok_mask=0;unregister_frame_callback=err:1300016'
-
-  "${HDC[@]}" shell "power-shell wakeup" >/dev/null 2>&1 || true
-  "${HDC[@]}" shell "hilog -r" >/dev/null 2>&1 || true
-  if ! "${HDC[@]}" shell "aa start -a WindowManagerTestAbility -b $BUNDLE" >"$start_log" 2>&1; then
-    cat "$start_log" >&2
-    echo "::error::WindowManagerTestAbility failed to start during $label"
-    return 1
-  fi
-
-  for attempt in $(seq 1 30); do
-    "${HDC[@]}" shell "hilog -x" >"$host_log" 2>&1 || true
-    if grep -q 'WINDOW_MANAGER_UI_CALLBACK_REPORT' "$host_log"; then
-      grep 'WINDOW_MANAGER_UI_.*_REPORT' "$host_log" | tail -2
-      api_report="$(grep 'WINDOW_MANAGER_UI_API_REPORT' "$host_log" | tail -1 | sed 's/^.*WINDOW_MANAGER_UI_API_REPORT //')"
-      callback_report="$(grep 'WINDOW_MANAGER_UI_CALLBACK_REPORT' "$host_log" | tail -1 | sed 's/^.*WINDOW_MANAGER_UI_CALLBACK_REPORT //')"
-      if [ "$api_report" != "$expected_api_report" ]; then
-        echo "::error::WindowManager UIContent API matrix changed during $label"
-        echo "expected: $expected_api_report" >&2
-        echo "actual:   $api_report" >&2
-        return 1
-      fi
-      if [ "$callback_report" != "$expected_callback_report" ]; then
-        echo "::error::WindowManager UIContent callback matrix changed during $label"
-        echo "expected: $expected_callback_report" >&2
-        echo "actual:   $callback_report" >&2
-        return 1
-      fi
-      return 0
-    fi
-    sleep 0.5
-  done
-
-  tail -200 "$host_log" >&2 || true
-  echo "::error::WindowManager UIContent probe timed out during $label"
-  return 1
-}
-
 # module dir name -> test file stem (AbilityAccessControl.test.ets etc.)
 declare -a MODULES=(
   ability_access_control:AbilityAccessControl
@@ -372,17 +323,6 @@ EOF
         continue
       fi
       HDC_TARGET="${HDC_TARGET:-}" "$ROOT/scripts/inject-xcomponent-gestures.sh"
-      ;;
-    window_manager)
-      echo "==> [$name] starting UIContent host"
-      if ! start_window_manager_host "$name"; then
-        total_fail=$((total_fail + 1))
-        failed_modules+=("$name(host)")
-        if [ "$FAIL_FAST" -eq 1 ]; then
-          break
-        fi
-        continue
-      fi
       ;;
   esac
 

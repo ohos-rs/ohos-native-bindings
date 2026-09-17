@@ -15,6 +15,3 @@ export declare function callbackReport(windowId: number): string;
 export declare function layoutSmoke(displayId: number): string;
 
 export declare function smoke(windowId: number): string;
-
-/** Executes the API matrix for a window whose ArkUI content is loaded. */
-export declare function uiContentReport(windowId: number): string;
