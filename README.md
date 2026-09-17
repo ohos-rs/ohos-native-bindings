@@ -39,6 +39,7 @@ A set of HarmonyNext native module bindings for Rust.
 | [ohos-vibrator-binding](./crates/vibrator) | ![Crates.io Version](https://img.shields.io/crates/v/ohos-vibrator-binding) | [vibrator](https://developer.huawei.com/consumer/cn/doc/harmonyos-references/_vibrator) binding |
 | [ohos-vsync-binding](./crates/vsync) | ![Crates.io Version](https://img.shields.io/crates/v/ohos-vsync-binding) | [vsync](https://developer.huawei.com/consumer/cn/doc/harmonyos-references-V5/_native_vsync-V5) binding |
 | [ohos-web-binding](./crates/web) | ![Crates.io Version](https://img.shields.io/crates/v/ohos-web-binding) | [arkweb](https://developer.huawei.com/consumer/cn/doc/harmonyos-references-V5/_web-V5) binding |
+| [ohos-window-manager-binding](./crates/window_manager) | ![Crates.io Version](https://img.shields.io/crates/v/ohos-window-manager-binding) | Native window manager binding |
 | [ohos-xcomponent-binding](./crates/xcomponent) | ![Crates.io Version](https://img.shields.io/crates/v/ohos-xcomponent-binding) | [xcomponent](https://developer.huawei.com/consumer/cn/doc/harmonyos-references-V5/_o_h___native_x_component-V5) binding |
 
 ## HMS Bindings

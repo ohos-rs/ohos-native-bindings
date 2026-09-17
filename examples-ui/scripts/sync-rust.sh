@@ -102,7 +102,7 @@ ALL_DEMOS=(
   ability_access_control accessibility ark_web arkui arkui_input ashmem asset bundle camera
   display display_soloist drawing fileshare fileuri hilog huks ime image
   image_native init jsvm native_buffer native_child_process native_window net_connection net_stack
-  pasteboard qos raw sensor udmf vibrator vsync xcomponent xcomponent_multi
+  pasteboard qos raw sensor udmf vibrator vsync window_manager xcomponent xcomponent_multi
 )
 # HMS OpenGTX needs the real libopengtx from the HMS SDK; it is not in the
 # OpenHarmony NDK. Build it separately: scripts/sync-rust.sh opengtx

@@ -3,8 +3,8 @@ import { window } from "@kit.ArkUI";
 import { hilog } from "@kit.PerformanceAnalysisKit";
 import { abilityDelegatorRegistry } from "@kit.TestKit";
 import { Hypium } from "@ohos/hypium";
-import { BusinessError } from "@kit.BasicServicesKit";
 import testsuite from "../test/List.test";
+import { setTestWindowId } from "../test/helpers/Utils";
 
 const TAG: string = "bindingsOhosTest";
 
@@ -21,19 +21,13 @@ export default class TestAbility extends UIAbility {
     hilog.info(0x0000, TAG, "TestAbility onDestroy");
   }
 
-  onWindowStageCreate(_windowStage: window.WindowStage): void {
-    // `aa test` starts this ability in a FRESH process: any app instance
-    // started earlier is killed and its .so state does not carry over. The
-    // ohosTest ArkTS pipeline (arkdown) cannot register router pages for the
-    // entry_test module either (loadContent fails with "page not found").
-    // NOTE: `aa test` also starts this ability in a fresh process and does
-    // not deliver a window for a second UIAbility started from here
-    // (startAbility resolves but SCB never activates EntryAbility), so
-    // host-page surface tests cannot run inside the test process.
-    // Surface-dependent behavior is verified on the main app's
-    // OhosTestHost page; the ohosTest suite pins the deterministic
-    // no-surface baseline of each binding.
+  onWindowStageCreate(windowStage: window.WindowStage): void {
+    // `aa test` starts this ability in a fresh process. Arkdown does not
+    // package router pages for entry_test, so this window intentionally has
+    // no UIContent. Window-manager tests record APIs that require UIContent
+    // separately instead of treating a platform abort as a passing test.
     hilog.info(0x0000, TAG, "TestAbility onWindowStageCreate");
+    setTestWindowId(windowStage.getMainWindowSync().getWindowProperties().id);
     const args = abilityDelegatorRegistry.getArguments();
     Hypium.hypiumTest(this.abilityDelegator, args, testsuite);
   }

@@ -2,6 +2,19 @@ import { abilityDelegatorRegistry } from "@kit.TestKit";
 import { fileIo } from "@kit.CoreFileKit";
 import { common } from "@kit.AbilityKit";
 
+let currentTestWindowId: number = -1;
+
+export function setTestWindowId(windowId: number): void {
+  currentTestWindowId = windowId;
+}
+
+export function testWindowId(): number {
+  if (currentTestWindowId < 0) {
+    throw new Error("test window ID has not been initialized");
+  }
+  return currentTestWindowId;
+}
+
 export function appContext(): common.Context {
   return abilityDelegatorRegistry.getAbilityDelegator().getAppContext();
 }
