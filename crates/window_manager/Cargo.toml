@@ -6,9 +6,9 @@ license     = "MIT OR Apache-2.0"
 description = "Safe OpenHarmony window manager bindings for Rust"
 
 [dependencies]
-ohos-enum-derive         = { workspace = true }
+ohos-enum-derive          = { workspace = true }
 ohos-image-native-binding = { workspace = true }
-ohos-window-manager-sys  = { workspace = true }
+ohos-window-manager-sys   = { workspace = true }
 
 [features]
 default = []
