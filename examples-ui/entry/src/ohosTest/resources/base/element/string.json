@@ -1,5 +1,3 @@
 {
-  "string": [
-    { "name": "camera_reason", "value": "camera binding ohosTest" }
-  ]
+  "string": [{ "name": "camera_reason", "value": "camera binding ohosTest" }]
 }
