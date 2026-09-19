@@ -37,6 +37,7 @@
     "pages/Udmf",
     "pages/Vibrator",
     "pages/Vsync",
+    "pages/WindowManager",
     "pages/XComp"
   ]
 }

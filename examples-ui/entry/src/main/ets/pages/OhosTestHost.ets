@@ -8,11 +8,8 @@ interface XComponentAttrs {
 }
 
 /**
- * Host surfaces for the ohosTest Hypium suite. Lives in the main module
- * because the ohosTest HAP's ArkTS pipeline (arkdown) does not register
- * router pages — loadContent from TestAbility ends in "page not found".
- * Instead the app starts this page directly. Device-side E2E scripts inspect
- * its live surfaces before `aa test` starts a separate Hypium process.
+ * Host surfaces for device-side gesture probes. The E2E script drives these
+ * surfaces before `aa test` starts the Hypium process.
  *
  * XComponent libraries must be loaded via libraryname (not import "lib*.so"),
  * otherwise module_exports calls XComponent::init without

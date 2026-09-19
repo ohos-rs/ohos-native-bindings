@@ -34,6 +34,23 @@
           "when": 'inuse',
         },
       },
+      {
+        // WindowManager privacy flag (normal, system grant)
+        "name": 'ohos.permission.PRIVACY_WINDOW',
+      },
+      {
+        // WindowManager desktop cursor lock (normal, system grant)
+        "name": 'ohos.permission.LOCK_WINDOW_CURSOR',
+      },
+      {
+        // WindowManager cross-window listing/snapshots (normal, user grant)
+        "name": 'ohos.permission.CUSTOM_SCREEN_CAPTURE',
+        "reason": '$string:screen_capture_reason',
+        "usedScene": {
+          "abilities": ['EntryAbility'],
+          "when": 'inuse',
+        },
+      },
     ],
     abilities: [
       {
