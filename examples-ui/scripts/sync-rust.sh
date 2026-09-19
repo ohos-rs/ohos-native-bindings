@@ -56,7 +56,11 @@ case "$OHOS_ARCH" in
     OHOS_ARCH="x64"
     ABI_DIR="x86_64"
     ;;
-  *) echo "error: unsupported architecture '$OHOS_ARCH' (expected arm64 or x64)" >&2; exit 2 ;;
+  armv7a|arm)
+    OHOS_ARCH="arm"
+    ABI_DIR="armeabi-v7a"
+    ;;
+  *) echo "error: unsupported architecture '$OHOS_ARCH' (expected arm64, armv7a, or x64)" >&2; exit 2 ;;
 esac
 LIBS_DIR="$DEMO_ROOT/entry/libs/$ABI_DIR"
 TYPES_DIR="$DEMO_ROOT/entry/src/main/ets/types"
