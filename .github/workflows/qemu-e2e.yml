@@ -484,6 +484,7 @@ jobs:
         env:
           E2E_MODULES: ${{ inputs.modules }}
           E2E_SUITE: ${{ inputs.suite }}
+          WINDOW_MANAGER_GRANT_SCREEN_CAPTURE: ${{ inputs.suite == 'window_manager' && '1' || '0' }}
         run: |
           set -euo pipefail
           if [ "$E2E_SUITE" = native_child_process ]; then

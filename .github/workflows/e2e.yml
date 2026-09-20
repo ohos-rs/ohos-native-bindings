@@ -32,7 +32,8 @@ jobs:
               ability_access_control ark_web arkui_input ashmem asset bundle camera display
               display_soloist drawing fileshare fileuri hilog huks image image_native ime init
               native_buffer native_window net_connection net_stack pasteboard raw sensor udmf vsync
-              window_manager
+            # WindowManager requires the 2in1 window service and runs in its
+            # dedicated workflow. Keep it above for x64 build coverage only.
             unsupported_modules: jsvm qos vibrator
           - name: ArkUI
             suite: arkui
