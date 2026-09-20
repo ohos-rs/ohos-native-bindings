@@ -21,9 +21,6 @@ on:
       build_modules:
         default: ""
         type: string
-      unsupported_modules:
-        default: ""
-        type: string
 
 permissions:
   contents: read
@@ -468,14 +465,6 @@ jobs:
               ;;
           esac
           pnpm run ui:sync -- --arch x64 --fail-fast "${examples[@]}"
-
-      - name: Report unavailable QEMU capabilities
-        if: ${{ inputs.unsupported_modules }}
-        shell: bash
-        env:
-          UNSUPPORTED_MODULES: ${{ inputs.unsupported_modules }}
-        run: |
-          echo "::notice::Built but not executed on this public QEMU image: $UNSUPPORTED_MODULES"
 
       - name: Run binding E2E
         if: ${{ inputs.suite != 'accessibility' }}

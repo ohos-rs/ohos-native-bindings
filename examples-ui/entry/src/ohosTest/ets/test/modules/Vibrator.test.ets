@@ -1,12 +1,12 @@
-import { describe, expect, it } from "@ohos/hypium";
+import { describe, it } from "@ohos/hypium";
 import { fileIo } from "@kit.CoreFileKit";
-import { appContext, ranOrThrew } from "../helpers/Utils";
+import { appContext } from "../helpers/Utils";
 import { cancel, customStart, start } from "libvibrator_test.so";
 
 export default function vibratorTest(): void {
   describe("vibrator", () => {
     it("start and cancel", 0, () => {
-      expect(ranOrThrew((): void => start())).assertTrue();
+      start();
       cancel();
     });
     it("customStart from rawfile", 0, async () => {
@@ -19,7 +19,7 @@ export default function vibratorTest(): void {
       );
       fileIo.writeSync(file.fd, content.buffer);
       fileIo.closeSync(file);
-      expect(ranOrThrew((): void => customStart(path))).assertTrue();
+      customStart(path);
       cancel();
     });
   });

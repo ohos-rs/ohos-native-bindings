@@ -359,7 +359,9 @@ EOF
     continue
   fi
   if [ "$name" = window_manager ] && [ "${WINDOW_MANAGER_GRANT_SCREEN_CAPTURE:-0}" = 1 ]; then
-    token_id="$("${HDC[@]}" shell 'atm dump -t' | tr -d '\r' | awk -F: '/com\.richerfu\.ohos_example/ { gsub(/[[:space:]]/, "", $1); print $1; exit }')"
+    token_dump="$DIAGNOSTICS_DIR/window-manager-access-tokens.log"
+    "${HDC[@]}" shell 'atm dump -t' | tr -d '\r' > "$token_dump"
+    token_id="$(awk -F: '/com\.richerfu\.ohos_example/ && !found { gsub(/[[:space:]]/, "", $1); print $1; found=1 }' "$token_dump")"
     if ! [[ "$token_id" =~ ^[0-9]+$ ]]; then
       echo "::error::Could not find the WindowManager test app access token" >&2
       exit 1
