@@ -111,6 +111,7 @@ HAP_SIGN_BIN="$(find_hap_sign)" || fail \
 "$HAP_SIGN_BIN" sign "$UNSIGNED_HAP" \
   --bundle-name "$BUNDLE" \
   --compatible-version 17 \
+  --device-id "${HAP_SIGN_DEVICE_ID:-*}" \
   --output "$SIGNED_HAP" \
   --force
 

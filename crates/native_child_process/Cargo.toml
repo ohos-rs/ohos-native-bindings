@@ -1,0 +1,30 @@
+[package]
+name                   = "ohos-native-child-process-binding"
+version                = "0.1.0"
+edition.workspace      = true
+rust-version.workspace = true
+license                = "MIT OR Apache-2.0"
+description            = "Rust bindings for AbilityKit native child processes"
+
+[dependencies]
+ohos-native-child-process-sys = { workspace = true }
+
+[features]
+default = []
+api-13  = ["ohos-native-child-process-sys/api-13"]
+api-14  = ["api-13", "ohos-native-child-process-sys/api-14"]
+api-15  = ["api-14", "ohos-native-child-process-sys/api-15"]
+api-16  = ["api-15", "ohos-native-child-process-sys/api-16"]
+api-17  = ["api-16", "ohos-native-child-process-sys/api-17"]
+api-18  = ["api-17", "ohos-native-child-process-sys/api-18"]
+api-19  = ["api-18", "ohos-native-child-process-sys/api-19"]
+api-20  = ["api-19", "ohos-native-child-process-sys/api-20"]
+api-21  = ["api-20", "ohos-native-child-process-sys/api-21"]
+api-22  = ["api-21", "ohos-native-child-process-sys/api-22"]
+api-23  = ["api-22", "ohos-native-child-process-sys/api-23"]
+api-24  = ["api-23", "ohos-native-child-process-sys/api-24"]
+api-25  = ["api-24", "ohos-native-child-process-sys/api-25"]
+api-26  = ["api-25", "ohos-native-child-process-sys/api-26"]
+
+[lints]
+workspace = true
