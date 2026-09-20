@@ -59,7 +59,7 @@ ohos-display-soloist-sys        = { version = "0.1.3", path = "sys/ohos-display-
 ohos-multi-modal-input-sys      = { version = "0.1.0", path = "sys/ohos-multi-modal-input-sys" }
 ohos-input-method-sys           = { version = "0.2.3", path = "sys/ohos-input-method-sys" }
 ohos-display-sys                = { version = "0.1.3", path = "sys/ohos-display-sys" }
-ohos-window-manager-sys         = { version = "0.1.1", path = "sys/ohos-window-manager-sys" }
+ohos-window-manager-sys         = { version = "0.1.2", path = "sys/ohos-window-manager-sys" }
 ohos-native-drawing-sys         = { version = "0.2.3", path = "sys/ohos-native-drawing-sys" }
 ohos-accessibility-sys          = { version = "0.0.4", path = "sys/ohos-accessibility-sys" }
 ohos-native-window-sys          = { version = "0.1.3", path = "sys/ohos-native-window-sys" }
