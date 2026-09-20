@@ -1,6 +1,6 @@
 use std::fmt::{Display, Formatter};
 
-use ohos_window_manager_sys::WindowManager_ErrorCode_OK;
+use ohos_native_window_manager_sys::WindowManager_ErrorCode_OK;
 
 pub type Result<T> = std::result::Result<T, Error>;
 
