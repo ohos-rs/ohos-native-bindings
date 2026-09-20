@@ -9,6 +9,9 @@ export declare function init(webTag: string): void;
  */
 export declare function initAndKeep(webTag: string): void;
 
+/** Register the custom scheme before ArkUI creates its first Web component. */
+export declare function prepareCustomProtocol(): void;
+
 /**
  * Re-register the proxy (if needed) and refresh the page so the injected
  * object becomes visible to the freshly loaded document.

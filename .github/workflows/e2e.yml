@@ -20,19 +20,20 @@ jobs:
         include:
           - name: Non-UI bindings
             suite: bindings
-            # Keep modules without validated QEMU runtime coverage in the
-            # x64 build coverage. Upgrading the image does not enable their
-            # E2E suites automatically.
             build_modules: >-
-              ability_access_control ark_web arkui_input ashmem asset bundle camera display
+              ability_access_control arkui_input ashmem asset bundle camera display
+              display_soloist drawing fileshare fileuri hilog huks image image_native ime init
+              jsvm native_buffer native_window net_connection net_stack pasteboard qos raw sensor
+              udmf vibrator vsync window_manager
+            modules: >-
+              ability_access_control arkui_input ashmem asset bundle camera display
               display_soloist drawing fileshare fileuri hilog huks image image_native ime init
               jsvm native_buffer native_window net_connection net_stack pasteboard qos raw sensor
               udmf vibrator vsync
-            modules: >-
-              ability_access_control ark_web arkui_input ashmem asset bundle camera display
-              display_soloist drawing fileshare fileuri hilog huks image image_native ime init
-              native_buffer native_window net_connection net_stack pasteboard raw sensor udmf vsync
-            unsupported_modules: jsvm qos vibrator
+            # WindowManager requires the 2in1 window service and runs in its
+            # dedicated workflow. Keep it above for x64 build coverage only.
+          # ArkWeb is intentionally excluded from the QEMU matrix for now.
+          # The v20260919 x86_64 image does not ship ArkWebCore/libarkweb_engine.so.
           - name: ArkUI
             suite: arkui
             modules: arkui
@@ -49,4 +50,3 @@ jobs:
       device_type: phone
       modules: ${{ matrix.modules }}
       build_modules: ${{ matrix.build_modules || matrix.modules }}
-      unsupported_modules: ${{ matrix.unsupported_modules || '' }}

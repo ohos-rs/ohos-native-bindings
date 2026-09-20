@@ -52,7 +52,8 @@ done
 case "$OHOS_ARCH" in
   arm64|aarch) OHOS_ARCH="arm64" ;;
   x86_64|x64) OHOS_ARCH="x64" ;;
-  *) echo "error: unsupported architecture '$OHOS_ARCH' (expected arm64 or x64)" >&2; exit 2 ;;
+  armv7a|arm) OHOS_ARCH="arm" ;;
+  *) echo "error: unsupported architecture '$OHOS_ARCH' (expected arm64, armv7a, or x64)" >&2; exit 2 ;;
 esac
 
 ROOT="$(cd "$(dirname "$0")/.." && pwd)"
@@ -78,8 +79,8 @@ fi
 export HAP_SIGN_DEVICE_ID
 TESTDIR="$ROOT/entry/src/ohosTest/ets/test"
 LIST="$TESTDIR/List.test.ets"
-LIST_BACKUP="$TESTDIR/.List.full.bak"
 mkdir -p "$DIAGNOSTICS_DIR"
+LIST_BACKUP="$(mktemp "$DIAGNOSTICS_DIR/List.test.ets.XXXXXX")"
 
 install_haps() {
   local label="$1"
@@ -100,6 +101,40 @@ install_haps() {
     echo "HAP installation failed during $label" >&2
     return 1
   fi
+}
+
+run_ohostest() {
+  local label="$1"
+  local log="$2"
+  local attempt_log
+  local attempt
+  local class_filter=""
+  local status=1
+
+  if [ "$label" = native_child_process ]; then
+    class_filter="-s class native_child_process_extended"
+  fi
+
+  for attempt in 1 2 3; do
+    attempt_log="$DIAGNOSTICS_DIR/ohostest-$label-attempt-$attempt.log"
+    "${HDC[@]}" shell "power-shell wakeup" >/dev/null 2>&1 || true
+    set +e
+    "${HDC[@]}" shell "aa test -b $BUNDLE -m entry_test -s unittest OpenHarmonyTestRunner -s timeout 120000 $class_filter" \
+      >"$attempt_log" 2>&1
+    status=$?
+    set -e
+    cp "$attempt_log" "$log"
+    if ! grep -Eqi 'screen is locked|unlock screen failed' "$attempt_log"; then
+      return "$status"
+    fi
+    if [ "$attempt" -lt 3 ]; then
+      echo "    screen is locked; waking, unlocking, and retrying aa test ($attempt/3)"
+      "${HDC[@]}" shell "power-shell wakeup" >/dev/null 2>&1 || true
+      "${HDC[@]}" shell "uitest uiInput swipe 400 450 400 100 600" >/dev/null 2>&1 || true
+      sleep 2
+    fi
+  done
+  return "$status"
 }
 
 start_gesture_host() {
@@ -145,7 +180,6 @@ start_gesture_host() {
 # module dir name -> test file stem (AbilityAccessControl.test.ets etc.)
 declare -a MODULES=(
   ability_access_control:AbilityAccessControl
-  ark_web:ArkWeb
   arkui:ArkUI
   arkui_input:ArkUIInput
   ashmem:Ashmem
@@ -176,13 +210,13 @@ declare -a MODULES=(
   udmf:Udmf
   vibrator:Vibrator
   vsync:Vsync
+  window_manager:WindowManager
   xcomponent:XComponent
 )
 
-# Keep a pristine copy of the full List once.
-if [ ! -f "$LIST_BACKUP" ]; then
-  cp "$LIST" "$LIST_BACKUP"
-fi
+# Keep a per-run pristine copy so an old local backup cannot restore a stale
+# module list after the selected-module runner exits.
+cp "$LIST" "$LIST_BACKUP"
 
 restore_list() {
   cp "$LIST_BACKUP" "$LIST"
@@ -205,6 +239,7 @@ verify_gesture_libraries() {
   case "$OHOS_ARCH" in
     arm64|aarch) abi_dir="arm64-v8a" ;;
     x86_64|x64) abi_dir="x86_64" ;;
+    arm|armv7a) abi_dir="armeabi-v7a" ;;
     *) echo "error: unsupported architecture '$OHOS_ARCH'" >&2; return 1 ;;
   esac
   entries="$(unzip -Z1 "$hap")"
@@ -219,6 +254,7 @@ verify_gesture_libraries() {
 
 cleanup() {
   restore_list
+  rm -f "$LIST_BACKUP"
   if [ "$screen_timeout_overridden" -eq 1 ]; then
     "${HDC[@]}" shell "power-shell timeout -r" >/dev/null 2>&1 || true
   fi
@@ -244,12 +280,14 @@ fi
 
 # Gesture modules need a live main-module surface in the same bundle process.
 needs_gesture_host=0
+needs_awake_device=0
 for m in "${selected[@]}"; do
   case "${m%%:*}" in
-    arkui|xcomponent) needs_gesture_host=1 ;;
+    arkui|xcomponent) needs_gesture_host=1; needs_awake_device=1 ;;
+    window_manager) needs_awake_device=1 ;;
   esac
 done
-if [ "$needs_gesture_host" -eq 1 ]; then
+if [ "$needs_awake_device" -eq 1 ]; then
   # Building and reinstalling the per-module HAPs can outlive the default
   # screen timeout. Apply the override before any build begins, while a fresh
   # QEMU guest is still unlocked.
@@ -272,6 +310,28 @@ if [ "$needs_gesture_host" -eq 1 ]; then
   verify_gesture_libraries "$TEST_HAP"
 fi
 install_haps full
+
+collect_failure_diagnostics() {
+  local label="$1"
+  local fault_paths="$DIAGNOSTICS_DIR/faultlogger-$label-paths.log"
+  local remote_path
+  local output_name
+
+  "${HDC[@]}" shell 'hilog -x | tail -2000' \
+    >"$DIAGNOSTICS_DIR/hilog-$label.log" 2>&1 || true
+  "${HDC[@]}" shell 'ls -laR /data/log/faultlog 2>/dev/null' \
+    >"$DIAGNOSTICS_DIR/faultlogger-$label-list.log" 2>&1 || true
+  "${HDC[@]}" shell \
+    "grep -R -l '$BUNDLE' /data/log/faultlog/faultlogger 2>/dev/null || true" \
+    | tr -d '\r' >"$fault_paths" || true
+
+  while IFS= read -r remote_path; do
+    [ -n "$remote_path" ] || continue
+    output_name="$(basename "$remote_path")"
+    "${HDC[@]}" file recv "$remote_path" \
+      "$DIAGNOSTICS_DIR/faultlogger-$label-$output_name" >/dev/null 2>&1 || true
+  done <"$fault_paths"
+}
 
 total_pass=0
 total_fail=0
@@ -319,6 +379,16 @@ EOF
     fi
     continue
   fi
+  if [ "$name" = window_manager ] && [ "${WINDOW_MANAGER_GRANT_SCREEN_CAPTURE:-0}" = 1 ]; then
+    token_dump="$DIAGNOSTICS_DIR/window-manager-access-tokens.log"
+    "${HDC[@]}" shell 'atm dump -t' | tr -d '\r' > "$token_dump"
+    token_id="$(awk -F: '/com\.richerfu\.ohos_example/ && !found { gsub(/[[:space:]]/, "", $1); print $1; found=1 }' "$token_dump")"
+    if ! [[ "$token_id" =~ ^[0-9]+$ ]]; then
+      echo "::error::Could not find the WindowManager test app access token" >&2
+      exit 1
+    fi
+    "${HDC[@]}" shell "atm perm -g -i $token_id -p ohos.permission.CUSTOM_SCREEN_CAPTURE"
+  fi
   "${HDC[@]}" shell "aa force-stop $BUNDLE" >/dev/null 2>&1 || true
 
   case "$name" in
@@ -338,11 +408,7 @@ EOF
 
   echo "==> [$name] aa test"
   log="$(mktemp)"
-  class_filter=""
-  if [ "$name" = native_child_process ]; then
-    class_filter="-s class native_child_process_extended"
-  fi
-  if ! "${HDC[@]}" shell "aa test -b $BUNDLE -m entry_test -s unittest OpenHarmonyTestRunner -s timeout 120000 $class_filter" >"$log" 2>&1; then
+  if ! run_ohostest "$name" "$log"; then
     :
   fi
   cp "$log" "$DIAGNOSTICS_DIR/ohostest-$name.log"
@@ -362,9 +428,12 @@ EOF
   echo "    pass=$pass fail=$fail"
   total_pass=$((total_pass + pass))
   total_fail=$((total_fail + fail))
-  if [ "$fail" -gt 0 ] || ! grep -q "TestFinished" "$log"; then
+  if [ "$pass" -eq 0 ] || [ "$fail" -gt 0 ] \
+    || ! grep -q "TestFinished" "$log" \
+    || grep -Eq 'TestFinished-ResultCode:[[:space:]]*-' "$log"; then
     failed_modules+=("$name")
     cp "$log" "$ROOT/ohostest-$name.log"
+    collect_failure_diagnostics "$name"
     if [ "$FAIL_FAST" -eq 1 ]; then
       rm -f "$log"
       break

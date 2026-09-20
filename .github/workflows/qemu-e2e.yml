@@ -21,9 +21,6 @@ on:
       build_modules:
         default: ""
         type: string
-      unsupported_modules:
-        default: ""
-        type: string
 
 permissions:
   contents: read
@@ -102,7 +99,7 @@ jobs:
             ~/.cargo/git
             ~/.ohos-qemu
             examples-ui/.tools
-          key: e2e-${{ runner.os }}-x86_64-${{ inputs.device_type }}-${{ env.OHOS_QEMU_RELEASE_TAG }}-${{ hashFiles('pnpm-lock.yaml', 'examples-ui/scripts/build-hap.sh', 'examples-ui/scripts/sync-rust.sh', 'examples-ui/scripts/run-ohostest.sh', 'examples-ui/scripts/prepare-qemu-native-child-process.sh', 'examples-ui/scripts/native-child-process-parent-exit.py', 'examples-ui/scripts/run-device-accessibility-e2e.sh', 'examples-ui/scripts/accessibility-enable.cpp', 'examples-ui/scripts/qemu-multitouch.py') }}
+          key: e2e-${{ runner.os }}-x86_64-${{ inputs.device_type }}-${{ env.OHOS_QEMU_RELEASE_TAG }}-${{ hashFiles('pnpm-lock.yaml', 'examples-ui/scripts/build-hap.sh', 'examples-ui/scripts/sync-rust.sh', 'examples-ui/scripts/run-ohostest.sh', 'examples-ui/scripts/run-ark-web-e2e.sh', 'examples-ui/scripts/prepare-qemu-native-child-process.sh', 'examples-ui/scripts/native-child-process-parent-exit.py', 'examples-ui/scripts/run-device-accessibility-e2e.sh', 'examples-ui/scripts/accessibility-enable.cpp', 'examples-ui/scripts/qemu-multitouch.py') }}
 
       - name: Install workspace and Rust build tools
         shell: bash
@@ -469,14 +466,6 @@ jobs:
           esac
           pnpm run ui:sync -- --arch x64 --fail-fast "${examples[@]}"
 
-      - name: Report unavailable QEMU capabilities
-        if: ${{ inputs.unsupported_modules }}
-        shell: bash
-        env:
-          UNSUPPORTED_MODULES: ${{ inputs.unsupported_modules }}
-        run: |
-          echo "::notice::Built but not executed on this public QEMU image: $UNSUPPORTED_MODULES"
-
       - name: Run binding E2E
         if: ${{ inputs.suite != 'accessibility' }}
         timeout-minutes: 120
@@ -484,6 +473,7 @@ jobs:
         env:
           E2E_MODULES: ${{ inputs.modules }}
           E2E_SUITE: ${{ inputs.suite }}
+          WINDOW_MANAGER_GRANT_SCREEN_CAPTURE: ${{ inputs.suite == 'window_manager' && '1' || '0' }}
         run: |
           set -euo pipefail
           if [ "$E2E_SUITE" = native_child_process ]; then
@@ -494,7 +484,11 @@ jobs:
             trap 'kill "$hilog_pid" 2>/dev/null || true' EXIT
           fi
           read -r -a modules <<<"$E2E_MODULES"
-          pnpm run test:ui -- --arch x64 --fail-fast "${modules[@]}"
+          if [ "$E2E_SUITE" = ark_web ]; then
+            pnpm run test:ui:ark-web -- --arch x64
+          else
+            pnpm run test:ui -- --arch x64 --fail-fast "${modules[@]}"
+          fi
 
       - name: Run Accessibility E2E
         if: ${{ inputs.suite == 'accessibility' }}

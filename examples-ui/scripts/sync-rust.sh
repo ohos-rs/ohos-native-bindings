@@ -56,7 +56,11 @@ case "$OHOS_ARCH" in
     OHOS_ARCH="x64"
     ABI_DIR="x86_64"
     ;;
-  *) echo "error: unsupported architecture '$OHOS_ARCH' (expected arm64 or x64)" >&2; exit 2 ;;
+  armv7a|arm)
+    OHOS_ARCH="arm"
+    ABI_DIR="armeabi-v7a"
+    ;;
+  *) echo "error: unsupported architecture '$OHOS_ARCH' (expected arm64, armv7a, or x64)" >&2; exit 2 ;;
 esac
 LIBS_DIR="$DEMO_ROOT/entry/libs/$ABI_DIR"
 TYPES_DIR="$DEMO_ROOT/entry/src/main/ets/types"
@@ -102,7 +106,7 @@ ALL_DEMOS=(
   ability_access_control accessibility ark_web arkui arkui_input ashmem asset bundle camera
   display display_soloist drawing fileshare fileuri hilog huks ime image
   image_native init jsvm native_buffer native_child_process native_window net_connection net_stack
-  pasteboard qos raw sensor udmf vibrator vsync xcomponent xcomponent_multi
+  pasteboard qos raw sensor udmf vibrator vsync window_manager xcomponent xcomponent_multi
 )
 # HMS OpenGTX needs the real libopengtx from the HMS SDK; it is not in the
 # OpenHarmony NDK. Build it separately: scripts/sync-rust.sh opengtx

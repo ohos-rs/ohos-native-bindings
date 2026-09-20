@@ -7,6 +7,10 @@
     {
       "name": "camera_reason",
       "value": "Used by the camera binding demo to show a preview and capture a photo."
+    },
+    {
+      "name": "screen_capture_reason",
+      "value": "Used by the WindowManager binding test to inspect desktop windows."
     }
   ]
 }

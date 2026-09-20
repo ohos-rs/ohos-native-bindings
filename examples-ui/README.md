@@ -33,6 +33,7 @@ pnpm run test:ui -- sensor vsync    # 只执行指定模块
 pnpm run test:ui -- native_child_process # API26+ 扩展 Native 子进程 E2E
 pnpm run test:ui -- --arch x64      # 在 x64 设备执行全部 ohosTest
 pnpm run test:ui -- --fail-fast     # 首个失败模块出现后立即结束
+pnpm run test:ui:ark-web -- --arch x64 # 同进程 Web 宿主中的 ArkWeb E2E
 pnpm run test:ui:xcomponent -- --arch x64 # QEMU XComponent 手势 E2E
 pnpm run test:ui:accessibility -- --arch x64 # QEMU/设备 AccessKit E2E
 
@@ -43,9 +44,12 @@ pnpm run prek:check
 
 ## 自动化约定
 
-- `entry/src/ohosTest/ets/test/modules/`：每个 binding 一个 Hypium 用例。
+- `entry/src/ohosTest/ets/test/modules/`：不依赖同进程 UI 宿主的 binding 使用
+  Hypium 用例。
 - `scripts/run-ohostest.sh`：每个 binding 使用独立 `aa test` 进程，避免多个 napi
   模块耗尽单进程 pthread TLS key。
+- `scripts/run-ark-web-e2e.sh`：启动独立主进程 Ability，在真实 Web 组件中验证
+  自定义协议、JS proxy 调用及刷新后的重新注入。
 - `scripts/run-qemu-xcomponent-gestures.sh`：按 `--arch` 指定的架构（默认 `arm64`）
   构建 `arkui`、`xcomponent`、`xcomponent_multi`，自动注入并验证 Tap、Pan、
   Swipe 和多点触控。

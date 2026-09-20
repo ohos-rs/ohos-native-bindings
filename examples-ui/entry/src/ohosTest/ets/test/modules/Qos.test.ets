@@ -9,7 +9,18 @@ export default function qosTest(): void {
       resetQos();
     });
     it("smoke", 0, () => {
-      expect(smoke().length > 0).assertTrue();
+      const result: string = smoke();
+      const levels: string[] = [
+        "Background",
+        "Utility",
+        "Default",
+        "UserInitiated",
+        "DeadlineRequest",
+        "UserInteractive",
+      ];
+      levels.forEach((level: string): void => {
+        expect(result).assertContain(`set ${level} -> got ${level}`);
+      });
     });
   });
 }

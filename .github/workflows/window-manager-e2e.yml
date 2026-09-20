@@ -1,0 +1,24 @@
+name: PR WindowManager 2in1 E2E
+
+on:
+  pull_request:
+    types: [opened, reopened, synchronize]
+  workflow_dispatch:
+
+concurrency:
+  group: pr-window-manager-2in1-${{ github.event.pull_request.number || github.ref }}
+  cancel-in-progress: true
+
+permissions:
+  contents: read
+
+jobs:
+  window-manager-2in1:
+    name: WindowManager 2in1 QEMU E2E
+    uses: ./.github/workflows/qemu-e2e.yml
+    with:
+      name: WindowManager 2in1
+      suite: window_manager
+      device_type: 2in1
+      release_tag: v20260919
+      modules: window_manager

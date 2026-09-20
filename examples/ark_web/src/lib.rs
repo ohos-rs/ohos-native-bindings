@@ -3,10 +3,17 @@ use std::sync::LazyLock;
 use napi_derive_ohos::napi;
 use napi_ohos::{Error, Result};
 use ohos_hilog_binding::hilog_info;
-use ohos_web_binding::{Web, WebProxyBuilder};
+use ohos_web_binding::{ArkWebResponse, CustomProtocol, Web, WebProxyBuilder};
 
 static WEB_PROXY: LazyLock<std::sync::Mutex<Vec<ohos_web_binding::WebProxy>>> =
     LazyLock::new(|| std::sync::Mutex::new(Vec::new()));
+
+/// Register the custom scheme before ArkUI creates its first Web component.
+#[napi]
+pub fn prepare_custom_protocol() {
+    CustomProtocol::add_protocol("custom");
+    CustomProtocol::register();
+}
 
 #[napi]
 pub fn init(web_tag: String) {
@@ -91,8 +98,17 @@ pub fn register_custom_protocol(web_tag: String) -> Result<bool> {
     let web = Web::new(web_tag);
     let handler = ohos_web_binding::CustomProtocolHandler::new();
     handler.on_request_start(|request, handle| {
-        hilog_info!("custom protocol request: {}", request.url());
+        let url = request.url();
+        hilog_info!("custom protocol request: {url}");
+        let response = ArkWebResponse::new();
+        response.set_status(200);
+        response.set_status_text("OK");
+        response.set_mime_type("text/html");
+        response.set_charset("UTF-8");
+        response.set_url(url);
+        handle.receive_response(response);
         handle.receive_data("<html><body><h1>Hello from custom protocol (rust)</h1></body></html>");
+        handle.finish();
         true
     });
     handler.on_request_stop(|request| {
