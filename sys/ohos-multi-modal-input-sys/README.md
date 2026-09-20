@@ -1,9 +1,9 @@
-# ohos-input-sys
+# ohos-multi-modal-input-sys
 
 Raw Rust FFI bindings for OpenHarmony's multimodal InputKit API.
 
 ```shell
-cargo add ohos-input-sys --features api-22
+cargo add ohos-multi-modal-input-sys --features api-22
 ```
 
 The bindings are generated from `multimodalinput/oh_input_manager.h` and link

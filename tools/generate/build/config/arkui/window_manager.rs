@@ -20,7 +20,7 @@ pub const WINDOW_MANAGER: Lazy<SysConfig> = Lazy::new(|| SysConfig {
     // Host-side unit tests exercise the safe conversions without linking an
     // OpenHarmony system image. The library is required only for OHOS targets.
     dynamic_library: vec![],
-    extra: r#"pub use ohos_input_sys::{Input_KeyEvent, Input_MouseEvent, Input_TouchEvent};
+    extra: r#"pub use ohos_multi_modal_input_sys::{Input_KeyEvent, Input_MouseEvent, Input_TouchEvent};
 
 #[cfg_attr(target_env = "ohos", link(name = "native_window_manager"))]
 unsafe extern "C" {}"#,

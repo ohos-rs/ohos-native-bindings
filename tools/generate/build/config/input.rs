@@ -5,7 +5,7 @@ use super::SysConfig;
 /// Multimodal InputKit types and functions shared with consumers such as
 /// Window Manager.
 pub const INPUT: Lazy<SysConfig> = Lazy::new(|| SysConfig {
-    name: "ohos-input-sys",
+    name: "ohos-multi-modal-input-sys",
     headers: vec!["multimodalinput/oh_input_manager.h"],
     white_list: vec!["Input_.*", "InputEvent_.*", "OH_Input_.*"],
     // PixelMap is owned by the native image binding. Keeping one canonical
