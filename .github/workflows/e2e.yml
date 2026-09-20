@@ -32,9 +32,8 @@ jobs:
               udmf vibrator vsync
             # WindowManager requires the 2in1 window service and runs in its
             # dedicated workflow. Keep it above for x64 build coverage only.
-          - name: ArkWeb
-            suite: ark_web
-            modules: ark_web
+          # ArkWeb is intentionally excluded from the QEMU matrix for now.
+          # The v20260919 x86_64 image does not ship ArkWebCore/libarkweb_engine.so.
           - name: ArkUI
             suite: arkui
             modules: arkui
