@@ -1,11 +1,11 @@
 [package]
-name          = "ohos-input-sys"
-version       = "0.1.1"
+name          = "ohos-multi-modal-input-sys"
+version       = "0.1.0"
 edition       = "2021"
 license       = "MIT OR Apache-2.0"
 description   = "Raw OpenHarmony multimodal InputKit bindings for Rust"
 repository    = "https://github.com/ohos-rs/ohos-native-bindings"
-documentation = "https://docs.rs/ohos-input-sys"
+documentation = "https://docs.rs/ohos-multi-modal-input-sys"
 readme        = "README.md"
 
 [dependencies]

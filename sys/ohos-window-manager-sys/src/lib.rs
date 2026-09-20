@@ -7,7 +7,7 @@
 // bindgen's bitfield accessors transmute/cast between identical types.
 #![allow(clippy::useless_transmute)]
 #![allow(clippy::unnecessary_cast)]
-pub use ohos_input_sys::{Input_KeyEvent, Input_MouseEvent, Input_TouchEvent};
+pub use ohos_multi_modal_input_sys::{Input_KeyEvent, Input_MouseEvent, Input_TouchEvent};
 
 #[cfg_attr(target_env = "ohos", link(name = "native_window_manager"))]
 unsafe extern "C" {}

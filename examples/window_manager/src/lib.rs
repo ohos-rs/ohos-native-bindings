@@ -6,7 +6,7 @@ use napi_ohos::{Error, Result, Status};
 use ohos_image_native_binding::{
     PixelFormat, PixelMap, PixelMapAlphaType, PixelMapInitializationOptions,
 };
-use ohos_input_sys::{
+use ohos_multi_modal_input_sys::{
     Input_KeyEvent, Input_MouseEvent, Input_TouchEvent, OH_Input_CreateTouchEvent,
     OH_Input_DestroyTouchEvent, OH_Input_SetTouchEventAction, OH_Input_SetTouchEventActionTime,
     OH_Input_SetTouchEventDisplayId, OH_Input_SetTouchEventDisplayX,
