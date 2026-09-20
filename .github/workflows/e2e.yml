@@ -21,17 +21,20 @@ jobs:
           - name: Non-UI bindings
             suite: bindings
             build_modules: >-
-              ability_access_control ark_web arkui_input ashmem asset bundle camera display
+              ability_access_control arkui_input ashmem asset bundle camera display
               display_soloist drawing fileshare fileuri hilog huks image image_native ime init
               jsvm native_buffer native_window net_connection net_stack pasteboard qos raw sensor
               udmf vibrator vsync window_manager
             modules: >-
-              ability_access_control ark_web arkui_input ashmem asset bundle camera display
+              ability_access_control arkui_input ashmem asset bundle camera display
               display_soloist drawing fileshare fileuri hilog huks image image_native ime init
               jsvm native_buffer native_window net_connection net_stack pasteboard qos raw sensor
               udmf vibrator vsync
             # WindowManager requires the 2in1 window service and runs in its
             # dedicated workflow. Keep it above for x64 build coverage only.
+          - name: ArkWeb
+            suite: ark_web
+            modules: ark_web
           - name: ArkUI
             suite: arkui
             modules: arkui

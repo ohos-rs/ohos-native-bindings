@@ -1,5 +1,4 @@
 import abilityAccessControlTest from "./modules/AbilityAccessControl.test";
-import arkWebTest from "./modules/ArkWeb.test";
 import arkuiInputTest from "./modules/ArkUIInput.test";
 import arkuiTest from "./modules/ArkUI.test";
 import ashmemTest from "./modules/Ashmem.test";
@@ -35,7 +34,6 @@ import xcomponentTest from "./modules/XComponent.test";
 
 export default function testsuite(): void {
   abilityAccessControlTest();
-  arkWebTest();
   arkuiInputTest();
   arkuiTest();
   ashmemTest();

@@ -3,6 +3,7 @@
     "pages/AccessibilityArkUiTestHost",
     "pages/AccessibilityMultiInstanceTestHost",
     "pages/AccessibilityXComponentTestHost",
+    "pages/ArkWebE2ETestHost",
     "pages/OhosTestHost",
     "pages/XComponentGestureHost",
     "pages/Index",

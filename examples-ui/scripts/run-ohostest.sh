@@ -180,7 +180,6 @@ start_gesture_host() {
 # module dir name -> test file stem (AbilityAccessControl.test.ets etc.)
 declare -a MODULES=(
   ability_access_control:AbilityAccessControl
-  ark_web:ArkWeb
   arkui:ArkUI
   arkui_input:ArkUIInput
   ashmem:Ashmem
@@ -312,6 +311,28 @@ if [ "$needs_gesture_host" -eq 1 ]; then
 fi
 install_haps full
 
+collect_failure_diagnostics() {
+  local label="$1"
+  local fault_paths="$DIAGNOSTICS_DIR/faultlogger-$label-paths.log"
+  local remote_path
+  local output_name
+
+  "${HDC[@]}" shell 'hilog -x | tail -2000' \
+    >"$DIAGNOSTICS_DIR/hilog-$label.log" 2>&1 || true
+  "${HDC[@]}" shell 'ls -laR /data/log/faultlog 2>/dev/null' \
+    >"$DIAGNOSTICS_DIR/faultlogger-$label-list.log" 2>&1 || true
+  "${HDC[@]}" shell \
+    "grep -R -l '$BUNDLE' /data/log/faultlog/faultlogger 2>/dev/null || true" \
+    | tr -d '\r' >"$fault_paths" || true
+
+  while IFS= read -r remote_path; do
+    [ -n "$remote_path" ] || continue
+    output_name="$(basename "$remote_path")"
+    "${HDC[@]}" file recv "$remote_path" \
+      "$DIAGNOSTICS_DIR/faultlogger-$label-$output_name" >/dev/null 2>&1 || true
+  done <"$fault_paths"
+}
+
 total_pass=0
 total_fail=0
 failed_modules=()
@@ -412,6 +433,7 @@ EOF
     || grep -Eq 'TestFinished-ResultCode:[[:space:]]*-' "$log"; then
     failed_modules+=("$name")
     cp "$log" "$ROOT/ohostest-$name.log"
+    collect_failure_diagnostics "$name"
     if [ "$FAIL_FAST" -eq 1 ]; then
       rm -f "$log"
       break

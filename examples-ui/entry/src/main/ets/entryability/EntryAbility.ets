@@ -14,7 +14,7 @@ export default class EntryAbility extends UIAbility {
 
   onWindowStageCreate(windowStage: window.WindowStage): void {
     hilog.info(DOMAIN, "testTag", "%{public}s", "Ability onWindowStageCreate");
-    // Start the automated XComponent / NodeContent / Web host immediately.
+    // Start the automated XComponent / NodeContent host immediately.
     // Device-side E2E drivers inspect these live surfaces before aa test starts
     // its isolated Hypium process; no navigation or button click is required.
     windowStage.loadContent("pages/OhosTestHost", (err) => {

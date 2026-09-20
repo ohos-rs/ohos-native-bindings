@@ -80,6 +80,16 @@
         startWindowBackground: '$color:start_window_background',
       },
       {
+        name: 'ArkWebE2ETestAbility',
+        srcEntry: './ets/entryability/ArkWebE2ETestAbility.ets',
+        description: '$string:EntryAbility_desc',
+        icon: '$media:layered_image',
+        label: '$string:EntryAbility_label',
+        exported: true,
+        startWindowIcon: '$media:startIcon',
+        startWindowBackground: '$color:start_window_background',
+      },
+      {
         name: 'AccessibilityArkUiTestAbility',
         srcEntry: './ets/entryability/AccessibilityArkUiTestAbility.ets',
         description: '$string:EntryAbility_desc',

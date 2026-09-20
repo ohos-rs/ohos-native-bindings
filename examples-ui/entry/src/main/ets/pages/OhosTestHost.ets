@@ -1,5 +1,4 @@
 import { NodeContent, router } from "@kit.ArkUI";
-import { webview } from "@kit.ArkWeb";
 
 interface XComponentAttrs {
   id: string;
@@ -58,7 +57,6 @@ struct OhosTestHost {
     type: XComponentType.SURFACE,
     libraryname: "xcomponent_multi_test",
   };
-  private webController: webview.WebviewController = new webview.WebviewController();
   private arkuiSlot: NodeContent = new NodeContent();
 
   build() {
@@ -113,12 +111,6 @@ struct OhosTestHost {
       }
       .width("100%")
       .height(72)
-      Web({ controller: this.webController, src: "about:blank" })
-        .id("ohosTest_web")
-        .width("100%")
-        .height(96)
-        .javaScriptAccess(true)
-        .domStorageAccess(true)
     }
     .width("100%")
     .height("100%");
