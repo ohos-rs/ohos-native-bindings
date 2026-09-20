@@ -62,7 +62,7 @@ OnConnect returning null produces code 16010008 and a null proxy.
 [Native child-process 2in1 E2E](../../.github/workflows/native-child-process-e2e.yml)
 runs independently of phone E2E. Both use the shared
 [QEMU runner](../../.github/workflows/qemu-e2e.yml), SDK 7.0 and release tag
-`v20260913`, with separate concurrency groups and device/version cache keys.
+`v20260919`, with separate concurrency groups and device/version cache keys.
 CI builds API26 x64 examples and requires KVM.
 
 The Native workflow prepares a private image with

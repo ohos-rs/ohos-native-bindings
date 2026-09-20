@@ -20,5 +20,5 @@ jobs:
       name: Native child process 2in1
       suite: native_child_process
       device_type: 2in1
-      release_tag: v20260913
+      release_tag: v20260919
       modules: native_child_process
