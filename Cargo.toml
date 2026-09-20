@@ -74,7 +74,9 @@ ohos-vibrator-sys               = { version = "0.2.3", path = "sys/ohos-vibrator
 ohos-qos-sys                    = { version = "0.2.3", path = "sys/ohos-qos-sys" }
 ohos-net-connection-sys         = { version = "0.1.3", path = "sys/ohos-net-connection-sys" }
 ohos-net-stack-sys              = { version = "0.1.3", path = "sys/ohos-net-stack-sys" }
+ohos-audio-base-sys             = { version = "0.1.0", path = "sys/ohos-audio-base-sys" }
 ohos-audio-sys                  = { version = "0.1.3", path = "sys/ohos-audio-sys" }
+ohos-audiosuite-sys             = { version = "0.1.0", path = "sys/ohos-audiosuite-sys" }
 ohos-fileuri-sys                = { version = "0.2.3", path = "sys/ohos-fileuri-sys" }
 ohos-fileshare-sys              = { version = "0.2.3", path = "sys/ohos-fileshare-sys" }
 ohos-arkui-input-sys            = { version = "0.1.3", path = "sys/ohos-arkui-input-sys" }

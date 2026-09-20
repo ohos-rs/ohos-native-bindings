@@ -8,198 +8,12 @@
 #![allow(clippy::useless_transmute)]
 #![allow(clippy::unnecessary_cast)]
 
+pub use ohos_audio_base_sys::*;
+
 #[link(name = "ohaudio")]
 unsafe extern "C" {}
 
 pub type clockid_t = ::std::os::raw::c_int;
-#[doc = " Channel set For FRONT-LEFT position"]
-pub const OH_AudioChannelSet_CH_SET_FRONT_LEFT: OH_AudioChannelSet = 1;
-#[doc = " Channel set For FRONT_RIGHT position"]
-pub const OH_AudioChannelSet_CH_SET_FRONT_RIGHT: OH_AudioChannelSet = 2;
-#[doc = " Channel set For FRONT_CENTER position"]
-pub const OH_AudioChannelSet_CH_SET_FRONT_CENTER: OH_AudioChannelSet = 4;
-#[doc = " Channel set For LOW_FREQUENCY position"]
-pub const OH_AudioChannelSet_CH_SET_LOW_FREQUENCY: OH_AudioChannelSet = 8;
-#[doc = " Channel set For BACK_LEFT position"]
-pub const OH_AudioChannelSet_CH_SET_BACK_LEFT: OH_AudioChannelSet = 16;
-#[doc = " Channel set For BACK_RIGHT position"]
-pub const OH_AudioChannelSet_CH_SET_BACK_RIGHT: OH_AudioChannelSet = 32;
-#[doc = " Channel set For FRONT_LEFT_OF_CENTER position"]
-pub const OH_AudioChannelSet_CH_SET_FRONT_LEFT_OF_CENTER: OH_AudioChannelSet = 64;
-#[doc = " Channel set For FRONT_RIGHT_OF_CENTER position"]
-pub const OH_AudioChannelSet_CH_SET_FRONT_RIGHT_OF_CENTER: OH_AudioChannelSet = 128;
-#[doc = " Channel set For BACK_CENTER position"]
-pub const OH_AudioChannelSet_CH_SET_BACK_CENTER: OH_AudioChannelSet = 256;
-#[doc = " Channel set For SIDE_LEFT position"]
-pub const OH_AudioChannelSet_CH_SET_SIDE_LEFT: OH_AudioChannelSet = 512;
-#[doc = " Channel set For SIDE_RIGHT position"]
-pub const OH_AudioChannelSet_CH_SET_SIDE_RIGHT: OH_AudioChannelSet = 1024;
-#[doc = " Channel set For TOP_CENTER position"]
-pub const OH_AudioChannelSet_CH_SET_TOP_CENTER: OH_AudioChannelSet = 2048;
-#[doc = " Channel set For TOP_FRONT_LEFT position"]
-pub const OH_AudioChannelSet_CH_SET_TOP_FRONT_LEFT: OH_AudioChannelSet = 4096;
-#[doc = " Channel set For TOP_FRONT_CENTER position"]
-pub const OH_AudioChannelSet_CH_SET_TOP_FRONT_CENTER: OH_AudioChannelSet = 8192;
-#[doc = " Channel set For TOP_FRONT_RIGHT position"]
-pub const OH_AudioChannelSet_CH_SET_TOP_FRONT_RIGHT: OH_AudioChannelSet = 16384;
-#[doc = " Channel set For TOP_BACK_LEFT position"]
-pub const OH_AudioChannelSet_CH_SET_TOP_BACK_LEFT: OH_AudioChannelSet = 32768;
-#[doc = " Channel set For TOP_BACK_CENTER position"]
-pub const OH_AudioChannelSet_CH_SET_TOP_BACK_CENTER: OH_AudioChannelSet = 65536;
-#[doc = " Channel set For TOP_BACK_RIGHT position"]
-pub const OH_AudioChannelSet_CH_SET_TOP_BACK_RIGHT: OH_AudioChannelSet = 131072;
-#[doc = " Channel set For STEREO_LEFT position"]
-pub const OH_AudioChannelSet_CH_SET_STEREO_LEFT: OH_AudioChannelSet = 536870912;
-#[doc = " Channel set For STEREO_RIGHT position"]
-pub const OH_AudioChannelSet_CH_SET_STEREO_RIGHT: OH_AudioChannelSet = 1073741824;
-#[doc = " Channel set For WIDE_LEFT position"]
-pub const OH_AudioChannelSet_CH_SET_WIDE_LEFT: OH_AudioChannelSet = 2147483648;
-#[doc = " Channel set For WIDE_RIGHT position"]
-pub const OH_AudioChannelSet_CH_SET_WIDE_RIGHT: OH_AudioChannelSet = 4294967296;
-#[doc = " Channel set For SURROUND_DIRECT_LEFT position"]
-pub const OH_AudioChannelSet_CH_SET_SURROUND_DIRECT_LEFT: OH_AudioChannelSet = 8589934592;
-#[doc = " Channel set For SURROUND_DIRECT_RIGHT position"]
-pub const OH_AudioChannelSet_CH_SET_SURROUND_DIRECT_RIGHT: OH_AudioChannelSet = 17179869184;
-#[doc = " Channel set For LOW_FREQUENCY_2 position"]
-pub const OH_AudioChannelSet_CH_SET_LOW_FREQUENCY_2: OH_AudioChannelSet = 34359738368;
-#[doc = " Channel set For TOP_SIDE_LEFT position"]
-pub const OH_AudioChannelSet_CH_SET_TOP_SIDE_LEFT: OH_AudioChannelSet = 68719476736;
-#[doc = " Channel set For TOP_SIDE_RIGHT position"]
-pub const OH_AudioChannelSet_CH_SET_TOP_SIDE_RIGHT: OH_AudioChannelSet = 137438953472;
-#[doc = " Channel set For BOTTOM_FRONT_CENTER position"]
-pub const OH_AudioChannelSet_CH_SET_BOTTOM_FRONT_CENTER: OH_AudioChannelSet = 274877906944;
-#[doc = " Channel set For BOTTOM_FRONT_LEFT position"]
-pub const OH_AudioChannelSet_CH_SET_BOTTOM_FRONT_LEFT: OH_AudioChannelSet = 549755813888;
-#[doc = " Channel set For BOTTOM_FRONT_RIGHT position"]
-pub const OH_AudioChannelSet_CH_SET_BOTTOM_FRONT_RIGHT: OH_AudioChannelSet = 1099511627776;
-#[doc = " @brief Audio Channel Set\n\n A 64-bit integer with bits set for each channel.\n @syscap SystemCapability.Multimedia.Media.Core\n @since 11"]
-pub type OH_AudioChannelSet = u64;
-#[doc = " Ambisonic attribute: order 1"]
-pub const OH_AmbAttributeSet_AMB_ORD_1: OH_AmbAttributeSet = 1;
-#[doc = " Ambisonic attribute: order 2"]
-pub const OH_AmbAttributeSet_AMB_ORD_2: OH_AmbAttributeSet = 2;
-#[doc = " Ambisonic attribute: order 3"]
-pub const OH_AmbAttributeSet_AMB_ORD_3: OH_AmbAttributeSet = 3;
-#[doc = " Ambisonic attribute: ACN Component Ordering"]
-pub const OH_AmbAttributeSet_AMB_COM_ACN: OH_AmbAttributeSet = 0;
-#[doc = " Ambisonic attribute: FUMA Component Ordering"]
-pub const OH_AmbAttributeSet_AMB_COM_FUMA: OH_AmbAttributeSet = 256;
-#[doc = " Ambisonic attribute: N3D Normalization"]
-pub const OH_AmbAttributeSet_AMB_NOR_N3D: OH_AmbAttributeSet = 0;
-#[doc = " Ambisonic attribute: SN3D Normalization"]
-pub const OH_AmbAttributeSet_AMB_NOR_SN3D: OH_AmbAttributeSet = 4096;
-#[doc = " Channel layout: Ambisonic mode"]
-pub const OH_AmbAttributeSet_AMB_MODE: OH_AmbAttributeSet = 17592186044416;
-#[doc = " @brief Ambisonic attribute set.\n\n A set of 64-bit integers indicate the ambisonic attributes.\n @syscap SystemCapability.Multimedia.Media.Core\n @since 11"]
-pub type OH_AmbAttributeSet = u64;
-#[doc = " Unknown Channel Layout"]
-pub const OH_AudioChannelLayout_CH_LAYOUT_UNKNOWN: OH_AudioChannelLayout = 0;
-#[doc = " Channel Layout For Mono, 1 channel in total"]
-pub const OH_AudioChannelLayout_CH_LAYOUT_MONO: OH_AudioChannelLayout = 4;
-#[doc = " Channel Layout For Stereo, 2 channels in total"]
-pub const OH_AudioChannelLayout_CH_LAYOUT_STEREO: OH_AudioChannelLayout = 3;
-#[doc = " Channel Layout For Stereo-Downmix, 2 channels in total"]
-pub const OH_AudioChannelLayout_CH_LAYOUT_STEREO_DOWNMIX: OH_AudioChannelLayout = 1610612736;
-#[doc = " Channel Layout For 2.1, 3 channels in total"]
-pub const OH_AudioChannelLayout_CH_LAYOUT_2POINT1: OH_AudioChannelLayout = 11;
-#[doc = " Channel Layout For 3.0, 3 channels in total"]
-pub const OH_AudioChannelLayout_CH_LAYOUT_3POINT0: OH_AudioChannelLayout = 259;
-#[doc = " Channel Layout For Surround, 3 channels in total"]
-pub const OH_AudioChannelLayout_CH_LAYOUT_SURROUND: OH_AudioChannelLayout = 7;
-#[doc = " Channel Layout For 3.1, 4 channels in total"]
-pub const OH_AudioChannelLayout_CH_LAYOUT_3POINT1: OH_AudioChannelLayout = 15;
-#[doc = " Channel Layout For 4.0, 4 channels in total"]
-pub const OH_AudioChannelLayout_CH_LAYOUT_4POINT0: OH_AudioChannelLayout = 263;
-#[doc = " Channel Layout For Quad-Side, 4 channels in total"]
-pub const OH_AudioChannelLayout_CH_LAYOUT_QUAD_SIDE: OH_AudioChannelLayout = 1539;
-#[doc = " Channel Layout For Quad, 4 channels in total"]
-pub const OH_AudioChannelLayout_CH_LAYOUT_QUAD: OH_AudioChannelLayout = 51;
-#[doc = " Channel Layout For 2.0.2, 4 channels in total"]
-pub const OH_AudioChannelLayout_CH_LAYOUT_2POINT0POINT2: OH_AudioChannelLayout = 206158430211;
-#[doc = " Channel Layout For ORDER1-ACN-N3D First Order Ambisonic(FOA), 4 channels in total"]
-pub const OH_AudioChannelLayout_CH_LAYOUT_AMB_ORDER1_ACN_N3D: OH_AudioChannelLayout =
-    17592186044417;
-#[doc = " Channel Layout For ORDER1-ACN-SN3D FOA, 4 channels in total"]
-pub const OH_AudioChannelLayout_CH_LAYOUT_AMB_ORDER1_ACN_SN3D: OH_AudioChannelLayout =
-    17592186048513;
-#[doc = " Channel Layout For ORDER1-FUMA FOA, 4 channels in total"]
-pub const OH_AudioChannelLayout_CH_LAYOUT_AMB_ORDER1_FUMA: OH_AudioChannelLayout = 17592186044673;
-#[doc = " Channel Layout For 4.1, 5 channels in total"]
-pub const OH_AudioChannelLayout_CH_LAYOUT_4POINT1: OH_AudioChannelLayout = 271;
-#[doc = " Channel Layout For 5.0, 5 channels in total"]
-pub const OH_AudioChannelLayout_CH_LAYOUT_5POINT0: OH_AudioChannelLayout = 1543;
-#[doc = " Channel Layout For 5.0-Back, 5 channels in total"]
-pub const OH_AudioChannelLayout_CH_LAYOUT_5POINT0_BACK: OH_AudioChannelLayout = 55;
-#[doc = " Channel Layout For 2.1.2, 5 channels in total"]
-pub const OH_AudioChannelLayout_CH_LAYOUT_2POINT1POINT2: OH_AudioChannelLayout = 206158430219;
-#[doc = " Channel Layout For 3.0.2, 5 channels in total"]
-pub const OH_AudioChannelLayout_CH_LAYOUT_3POINT0POINT2: OH_AudioChannelLayout = 206158430215;
-#[doc = " Channel Layout For 5.1, 6 channels in total"]
-pub const OH_AudioChannelLayout_CH_LAYOUT_5POINT1: OH_AudioChannelLayout = 1551;
-#[doc = " Channel Layout For 5.1-Back, 6 channels in total"]
-pub const OH_AudioChannelLayout_CH_LAYOUT_5POINT1_BACK: OH_AudioChannelLayout = 63;
-#[doc = " Channel Layout For 6.0, 6 channels in total"]
-pub const OH_AudioChannelLayout_CH_LAYOUT_6POINT0: OH_AudioChannelLayout = 1799;
-#[doc = " Channel Layout For 3.1.2, 6 channels in total"]
-pub const OH_AudioChannelLayout_CH_LAYOUT_3POINT1POINT2: OH_AudioChannelLayout = 20495;
-#[doc = " Channel Layout For 6.0-Front, 6 channels in total"]
-pub const OH_AudioChannelLayout_CH_LAYOUT_6POINT0_FRONT: OH_AudioChannelLayout = 1731;
-#[doc = " Channel Layout For Hexagonal, 6 channels in total"]
-pub const OH_AudioChannelLayout_CH_LAYOUT_HEXAGONAL: OH_AudioChannelLayout = 311;
-#[doc = " Channel Layout For 6.1, 7 channels in total"]
-pub const OH_AudioChannelLayout_CH_LAYOUT_6POINT1: OH_AudioChannelLayout = 1807;
-#[doc = " Channel Layout For 6.1-Back, 7 channels in total"]
-pub const OH_AudioChannelLayout_CH_LAYOUT_6POINT1_BACK: OH_AudioChannelLayout = 319;
-#[doc = " Channel Layout For 6.1-Front, 7 channels in total"]
-pub const OH_AudioChannelLayout_CH_LAYOUT_6POINT1_FRONT: OH_AudioChannelLayout = 1739;
-#[doc = " Channel Layout For 7.0, 7 channels in total"]
-pub const OH_AudioChannelLayout_CH_LAYOUT_7POINT0: OH_AudioChannelLayout = 1591;
-#[doc = " Channel Layout For 7.0-Front, 7 channels in total"]
-pub const OH_AudioChannelLayout_CH_LAYOUT_7POINT0_FRONT: OH_AudioChannelLayout = 1735;
-#[doc = " Channel Layout For 7.1, 8 channels in total"]
-pub const OH_AudioChannelLayout_CH_LAYOUT_7POINT1: OH_AudioChannelLayout = 1599;
-#[doc = " Channel Layout For Octagonal, 8 channels in total"]
-pub const OH_AudioChannelLayout_CH_LAYOUT_OCTAGONAL: OH_AudioChannelLayout = 1847;
-#[doc = " Channel Layout For 5.1.2, 8 channels in total"]
-pub const OH_AudioChannelLayout_CH_LAYOUT_5POINT1POINT2: OH_AudioChannelLayout = 206158431759;
-#[doc = " Channel Layout For 7.1-Wide, 8 channels in total"]
-pub const OH_AudioChannelLayout_CH_LAYOUT_7POINT1_WIDE: OH_AudioChannelLayout = 1743;
-#[doc = " Channel Layout For 7.1-Wide-Back, 8 channels in total"]
-pub const OH_AudioChannelLayout_CH_LAYOUT_7POINT1_WIDE_BACK: OH_AudioChannelLayout = 255;
-#[doc = " Channel Layout For ORDER2-ACN-N3D Higher Order Ambisonics(HOA), 9 channels in total"]
-pub const OH_AudioChannelLayout_CH_LAYOUT_AMB_ORDER2_ACN_N3D: OH_AudioChannelLayout =
-    17592186044418;
-#[doc = " Channel Layout For ORDER2-ACN-SN3D HOA, 9 channels in total"]
-pub const OH_AudioChannelLayout_CH_LAYOUT_AMB_ORDER2_ACN_SN3D: OH_AudioChannelLayout =
-    17592186048514;
-#[doc = " Channel Layout For ORDER2-FUMA HOA, 9 channels in total"]
-pub const OH_AudioChannelLayout_CH_LAYOUT_AMB_ORDER2_FUMA: OH_AudioChannelLayout = 17592186044674;
-#[doc = " Channel Layout For 5.1.4, 10 channels in total"]
-pub const OH_AudioChannelLayout_CH_LAYOUT_5POINT1POINT4: OH_AudioChannelLayout = 185871;
-#[doc = " Channel Layout For 7.1.2, 10 channels in total"]
-pub const OH_AudioChannelLayout_CH_LAYOUT_7POINT1POINT2: OH_AudioChannelLayout = 206158431807;
-#[doc = " Channel Layout For 7.1.4, 12 channels in total"]
-pub const OH_AudioChannelLayout_CH_LAYOUT_7POINT1POINT4: OH_AudioChannelLayout = 185919;
-#[doc = " Channel Layout For 10.2, 12 channels in total"]
-pub const OH_AudioChannelLayout_CH_LAYOUT_10POINT2: OH_AudioChannelLayout = 6442473271;
-#[doc = " Channel Layout For 9.1.4, 14 channels in total"]
-pub const OH_AudioChannelLayout_CH_LAYOUT_9POINT1POINT4: OH_AudioChannelLayout = 6442636863;
-#[doc = " Channel Layout For 9.1.6, 16 channels in total"]
-pub const OH_AudioChannelLayout_CH_LAYOUT_9POINT1POINT6: OH_AudioChannelLayout = 212601067071;
-#[doc = " Channel Layout For Hexadecagonal, 16 channels in total"]
-pub const OH_AudioChannelLayout_CH_LAYOUT_HEXADECAGONAL: OH_AudioChannelLayout = 6442710839;
-#[doc = " Channel Layout For ORDER3-ACN-N3D HOA, 16 channels in total"]
-pub const OH_AudioChannelLayout_CH_LAYOUT_AMB_ORDER3_ACN_N3D: OH_AudioChannelLayout =
-    17592186044419;
-#[doc = " Channel Layout For ORDER3-ACN-SN3D HOA, 16 channels in total"]
-pub const OH_AudioChannelLayout_CH_LAYOUT_AMB_ORDER3_ACN_SN3D: OH_AudioChannelLayout =
-    17592186048515;
-#[doc = " Channel Layout For ORDER3-FUMA HOA, 16 channels in total"]
-pub const OH_AudioChannelLayout_CH_LAYOUT_AMB_ORDER3_FUMA: OH_AudioChannelLayout = 17592186044675;
-#[doc = " Channel Layout For 22.2, 24 channels in total"]
-pub const OH_AudioChannelLayout_CH_LAYOUT_22POINT2: OH_AudioChannelLayout = 2164663779327;
-#[doc = " @brief Audio Channel Layout\n\n A 64-bit integer indicates that the appearance and order of the speakers for recording or playback.\n @syscap SystemCapability.Multimedia.Media.Core\n @since 11"]
-pub type OH_AudioChannelLayout = u64;
 #[doc = " @error The call was successful.\n\n @since 10"]
 pub const OH_AudioStream_Result_AUDIOSTREAM_SUCCESS: OH_AudioStream_Result = 0;
 #[doc = " @error This means that the function was executed with an invalid input parameter.\n\n @since 10"]
@@ -211,6 +25,13 @@ pub const OH_AudioStream_Result_AUDIOSTREAM_ERROR_SYSTEM: OH_AudioStream_Result 
 #[doc = " @error Unsupported audio format, such as unsupported encoding type, sample format etc.\n\n @since 19"]
 #[cfg(feature = "api-19")]
 pub const OH_AudioStream_Result_AUDIOSTREAM_ERROR_UNSUPPORTED_FORMAT: OH_AudioStream_Result = 4;
+#[doc = " @error Unsupported audio stream ability, including function and configuration.\n\n @since 26.0.0"]
+#[cfg(feature = "api-26")]
+pub const OH_AudioStream_Result_AUDIOSTREAM_ERROR_UNSUPPORTED_ABILITY: OH_AudioStream_Result =
+    6800104;
+#[doc = " @error Audio server process died.\n\n @since 26.0.0"]
+#[cfg(feature = "api-26")]
+pub const OH_AudioStream_Result_AUDIOSTREAM_ERROR_SERVICE_DIED: OH_AudioStream_Result = 6800302;
 #[doc = " @brief Define the result of the function execution.\n\n @since 10"]
 pub type OH_AudioStream_Result = u32;
 #[doc = " The type for audio stream is renderer.\n\n @since 10"]
@@ -247,7 +68,6 @@ pub type OH_AudioStream_EncodingType = u32;
 #[doc = " @brief Define the audio stream info structure, used to describe basic audio format.\n\n @since 19"]
 #[cfg(feature = "api-19")]
 #[repr(C)]
-#[derive(Debug, Copy, Clone)]
 pub struct OH_AudioStreamInfo {
     #[doc = " @brief Audio sampling rate.\n\n @since 19"]
     pub samplingRate: i32,
@@ -383,6 +203,10 @@ pub const OH_AudioStream_SourceType_AUDIOSTREAM_SOURCE_TYPE_UNPROCESSED: OH_Audi
 #[doc = " Live Broadcast source type.\n\n @since 20"]
 #[cfg(feature = "api-20")]
 pub const OH_AudioStream_SourceType_AUDIOSTREAM_SOURCE_TYPE_LIVE: OH_AudioStream_SourceType = 17;
+#[doc = " Voice call downlink source type.\n The audio capturer using this source type should be created after the voice call started.\n Note that ohos.permission.CAPTURE_PLAYBACK_DOWNLINK is needed when using\n {@link OH_AudioStreamBuilder_GenerateCapturer} to create the capturer stream,\n the function will return an error without permission.\n\n @since 26.0.0"]
+#[cfg(feature = "api-26")]
+pub const OH_AudioStream_SourceType_AUDIOSTREAM_SOURCE_TYPE_VOICE_DOWNLINK:
+    OH_AudioStream_SourceType = 22;
 #[doc = " @brief Defines the audio source type.\n\n @since 10"]
 pub type OH_AudioStream_SourceType = i32;
 #[doc = " Share mode"]
@@ -427,7 +251,7 @@ pub struct OH_AudioCapturerStruct {
 }
 #[doc = " @brief Declaring the audio capturer stream.\n The instance of renderer stream is used for capturing audio data.\n\n @since 10"]
 pub type OH_AudioCapturer = OH_AudioCapturerStruct;
-#[doc = " @brief Declaring the callback struct for renderer stream.\n\n @deprecated since 20\n @useinstead Use the callback type: OH_AudioRenderer_OnWriteDataCallback, OH_AudioRenderer_OutputDeviceChangeCallback,\n OH_AudioRenderer_OnInterruptEvent, OH_AudioRenderer_OnErrorCallback separately.\n @since 10"]
+#[doc = " @brief Declaring the callback struct for renderer stream.\n\n @deprecated since 20\n @useinstead Use the callback type: OH_AudioRenderer_OnWriteDataCallback, OH_AudioRenderer_OutputDeviceChangeCallback,\n OH_AudioRenderer_OnInterruptCallback, OH_AudioRenderer_OnErrorCallback separately.\n @since 10"]
 #[repr(C)]
 #[derive(Debug, Copy, Clone)]
 pub struct OH_AudioRenderer_Callbacks_Struct {
@@ -466,7 +290,7 @@ pub struct OH_AudioRenderer_Callbacks_Struct {
         ) -> i32,
     >,
 }
-#[doc = " @brief Declaring the callback struct for renderer stream.\n\n @deprecated since 20\n @useinstead Use the callback type: OH_AudioRenderer_OnWriteDataCallback, OH_AudioRenderer_OutputDeviceChangeCallback,\n OH_AudioRenderer_OnInterruptEvent, OH_AudioRenderer_OnErrorCallback separately.\n @since 10"]
+#[doc = " @brief Declaring the callback struct for renderer stream.\n\n @deprecated since 20\n @useinstead Use the callback type: OH_AudioRenderer_OnWriteDataCallback, OH_AudioRenderer_OutputDeviceChangeCallback,\n OH_AudioRenderer_OnInterruptCallback, OH_AudioRenderer_OnErrorCallback separately.\n @since 10"]
 pub type OH_AudioRenderer_Callbacks = OH_AudioRenderer_Callbacks_Struct;
 #[doc = " @brief Declaring the callback struct for capturer stream.\n\n @deprecated since 20\n @useinstead Use the callback type: OH_AudioCapturer_OnReadDataCallback, OH_AudioCapturer_OnDeviceChangeCallback,\n OH_AudioCapturer_OnInterruptCallback and OH_AudioCapturer_OnErrorCallback separately.\n @since 10"]
 #[repr(C)]
@@ -541,7 +365,7 @@ pub type OH_AudioRenderer_OnMarkReachedCallback = ::std::option::Option<
         userData: *mut ::std::os::raw::c_void,
     ),
 >;
-#[doc = " @brief This function pointer will point to the callback function that\n is used to write audio data with metadata\n\n @param renderer AudioRenderer where this event occurs.\n @param userData User data which is passed by user.\n @param audioData Audio data which is written by user.\n @param audioDataSize Audio data size which is the size of audio data written by user.\n @param metadata Metadata which is written by user.\n @param metadataSize Metadata size which is the size of metadata written by user.\n @return Error code of the callback function returned by user.\n @since 12"]
+#[doc = " @brief This function pointer will point to the callback function that\n is used to write audio data with metadata\n\n @param renderer AudioRenderer where this event occurs.\n @param userData User data which is passed by user.\n @param audioData Audio data which is written by user.\n @param audioDataSize Audio data size which is the size of audio data written by user, unit is byte.\n @param metadata Metadata which is written by user.\n @param metadataSize Metadata size which is the size of metadata written by user, unit is byte.\n @return Error code of the callback function returned by user.\n @since 12"]
 pub type OH_AudioRenderer_WriteDataWithMetadataCallback = ::std::option::Option<
     unsafe extern "C" fn(
         renderer: *mut OH_AudioRenderer,
@@ -572,7 +396,7 @@ pub const OH_AudioData_Callback_Result_AUDIO_DATA_CALLBACK_RESULT_VALID:
     OH_AudioData_Callback_Result = 0;
 #[doc = " @brief Defines enumeration of audio data callback result.\n\n @since 12"]
 pub type OH_AudioData_Callback_Result = i32;
-#[doc = " @brief Callback function of  write data.\n\n This function is similar with OH_AudioRenderer_Callbacks_Struct.OH_AudioRenderer_OnWriteData instead of the return\n value. The return result of this function indicates whether the data filled in the buffer is valid or invalid. If\n result is invalid, the data filled by user will not be played.\n\n @param renderer AudioRenderer where this callback occurs.\n @param userData User data which is passed by user.\n @param audioData Audio data pointer, where user should fill in audio data.\n @param audioDataSize Size of audio data that user should fill in.\n @return Audio Data callback result.\n @see OH_AudioRenderer_Callbacks_Struct.OH_AudioRenderer_OnWriteData\n @since 12"]
+#[doc = " @brief Callback function of  write data.\n\n This function is similar with OH_AudioRenderer_Callbacks_Struct.OH_AudioRenderer_OnWriteData instead of the return\n value. The return result of this function indicates whether the data filled in the buffer is valid or invalid. If\n result is invalid, the data filled by user will not be played.\n\n @param renderer AudioRenderer where this callback occurs.\n @param userData User data which is passed by user.\n @param audioData Audio data pointer, where user should fill in audio data.\n @param audioDataSize Size of audio data that user should fill in, unit is byte.\n @return Audio Data callback result.\n @see OH_AudioRenderer_Callbacks_Struct.OH_AudioRenderer_OnWriteData\n @since 12"]
 pub type OH_AudioRenderer_OnWriteDataCallback = ::std::option::Option<
     unsafe extern "C" fn(
         renderer: *mut OH_AudioRenderer,
@@ -635,6 +459,10 @@ pub const OH_AudioStream_PlaybackCaptureStartState_AUDIOSTREAM_PLAYBACKCAPTURE_S
 pub type OH_AudioStream_PlaybackCaptureStartState = u32;
 #[doc = " @error The call was successful."]
 pub const OH_AudioCommon_Result_AUDIOCOMMON_RESULT_SUCCESS: OH_AudioCommon_Result = 0;
+#[doc = " @error This means that caller does not have the required permission.\n\n @since 26.0.0"]
+#[cfg(feature = "api-26")]
+pub const OH_AudioCommon_Result_AUDIOCOMMON_RESULT_ERROR_PERMISSION_DENIED: OH_AudioCommon_Result =
+    201;
 #[doc = " @error This means that the input parameter is invalid."]
 pub const OH_AudioCommon_Result_AUDIOCOMMON_RESULT_ERROR_INVALID_PARAM: OH_AudioCommon_Result =
     6800101;
@@ -648,6 +476,10 @@ pub const OH_AudioCommon_Result_AUDIOCOMMON_RESULT_ERROR_UNSUPPORTED: OH_AudioCo
     6800104;
 #[doc = " @error This means the operation timed out."]
 pub const OH_AudioCommon_Result_AUDIOCOMMON_RESULT_ERROR_TIMEOUT: OH_AudioCommon_Result = 6800105;
+#[doc = " @error This means the input audio data does not match the required frame length.\n\n @since 26.0.0"]
+#[cfg(feature = "api-26")]
+pub const OH_AudioCommon_Result_AUDIOCOMMON_RESULT_ERROR_FRAME_LENGTH_MISMATCH:
+    OH_AudioCommon_Result = 6800106;
 #[doc = " @error This means the stream limit is reached."]
 pub const OH_AudioCommon_Result_AUDIOCOMMON_RESULT_ERROR_STREAM_LIMIT: OH_AudioCommon_Result =
     6800201;
@@ -677,6 +509,21 @@ pub const OH_AudioRingerMode_AUDIO_RINGER_MODE_NORMAL: OH_AudioRingerMode = 2;
 #[doc = " @brief Defines the ringer mode.\n\n @since 20"]
 #[cfg(feature = "api-20")]
 pub type OH_AudioRingerMode = u32;
+#[doc = " @brief Fidelity mode, no noise reduction.\n\n @since 26.0.0"]
+#[cfg(feature = "api-26")]
+pub const OH_AudioNoiseReductionMode_AUDIO_NOISE_REDUCTION_MODE_FIDELITY:
+    OH_AudioNoiseReductionMode = 0;
+#[doc = " @brief Pure vocals mode, strong noise reduction.\n\n @since 26.0.0"]
+#[cfg(feature = "api-26")]
+pub const OH_AudioNoiseReductionMode_AUDIO_NOISE_REDUCTION_MODE_PURE_VOCALS:
+    OH_AudioNoiseReductionMode = 1;
+#[doc = " @brief Standard mode, weak noise reduction.\n\n @since 26.0.0"]
+#[cfg(feature = "api-26")]
+pub const OH_AudioNoiseReductionMode_AUDIO_NOISE_REDUCTION_MODE_STANDARD:
+    OH_AudioNoiseReductionMode = 2;
+#[doc = " @brief Enumerates the noise reduction modes.\n\n @since 26.0.0"]
+#[cfg(feature = "api-26")]
+pub type OH_AudioNoiseReductionMode = u32;
 #[doc = " @brief Device connection."]
 pub const OH_AudioDevice_ChangeType_AUDIO_DEVICE_CHANGE_TYPE_CONNECT: OH_AudioDevice_ChangeType = 0;
 #[doc = " @brief Device disconnection."]
@@ -850,9 +697,12 @@ extern "C" {
 #[doc = " @brief Default behavior, used to clear behavior settings.\n\n @since 24"]
 #[cfg(feature = "api-24")]
 pub const OH_AudioSession_BehaviorFlags_DEFAULT_BEHAVIOR: OH_AudioSession_BehaviorFlags = 0;
-#[doc = " @brief When the audio stream is interrupted by the system, it will be muted.\n The application will receive an {@link #AUDIOSTREAM_INTERRUPT_HINT_MUTE} notification when playback is muted\n and an {@link #AUDIOSTREAM_INTERRUPT_HINT_UNMUTE} notification when playback is resumed.\n\n @since 24"]
+#[doc = " @brief When the system needs to stop or pause the audio stream, it performs a forced mute instead.\n In the audio session scenario, the application will receive a notification\n {@link AUDIO_SESSION_STATE_CHANGE_HINT_MUTE} when muted\n and a notification {@link AUDIO_SESSION_STATE_CHANGE_HINT_UNMUTE} when resumed.\n In the OH_AudioRenderer and OH_AudioCapturer scenarios, the application will receive a notification\n {@link AUDIOSTREAM_INTERRUPT_HINT_MUTE} when muted\n and a notification {@link AUDIOSTREAM_INTERRUPT_HINT_UNMUTE} when resumed.\n This flag cannot coexist with {@link PAUSE_WHEN_INTERRUPTED}; if both flags are set,\n only {@link PAUSE_WHEN_INTERRUPTED} will take effect.\n\n @since 24"]
 #[cfg(feature = "api-24")]
 pub const OH_AudioSession_BehaviorFlags_MUTE_WHEN_INTERRUPTED: OH_AudioSession_BehaviorFlags = 2;
+#[doc = " @brief When the system needs to stop the audio stream, it performs a pause instead.\n In the audio session scenario, the application will receive a notification\n {@link AUDIO_SESSION_STATE_CHANGE_HINT_PAUSE} when paused\n and a notification {@link AUDIO_SESSION_STATE_CHANGE_HINT_RESUME} when resumed.\n In the OH_AudioRenderer and OH_AudioCapturer scenarios, the application will receive a notification\n {@link AUDIOSTREAM_INTERRUPT_HINT_PAUSE} when paused\n and a notification {@link AUDIOSTREAM_INTERRUPT_HINT_RESUME} when resumed.\n This flag cannot coexist with {@link MUTE_WHEN_INTERRUPTED}; if both flags are set,\n only this flag will take effect.\n\n @since 26.0.0"]
+#[cfg(feature = "api-26")]
+pub const OH_AudioSession_BehaviorFlags_PAUSE_WHEN_INTERRUPTED: OH_AudioSession_BehaviorFlags = 4;
 #[doc = " @brief Enumerates the audio session behavior flags.\n\n @since 24"]
 #[cfg(feature = "api-24")]
 pub type OH_AudioSession_BehaviorFlags = u32;
@@ -918,7 +768,7 @@ extern "C" {
     ) -> OH_AudioStream_Result;
 }
 extern "C" {
-    #[doc = " Query the sample rate value of the capturer client.\n\n This function will return the capturer sample rate value without updating the state.\n\n @since 10\n\n @param capturer Reference created by OH_AudioStreamBuilder_GenerateCapturer()\n @param rate The state value to be updated\n @return Function result code:\n         {@link AUDIOSTREAM_SUCCESS} If the execution is successful.\n         {@link AUDIOSTREAM_ERROR_INVALID_PARAM} The param of capturer is nullptr."]
+    #[doc = " Query the sample rate value of the capturer client.\n\n This function will return the capturer sample rate value without updating the state.\n\n @since 10\n\n @param capturer Reference created by OH_AudioStreamBuilder_GenerateCapturer()\n @param rate Pointer to a variable that will be set for the sampling rate.\n @return Function result code:\n         {@link AUDIOSTREAM_SUCCESS} If the execution is successful.\n         {@link AUDIOSTREAM_ERROR_INVALID_PARAM} The param of capturer is nullptr."]
     pub fn OH_AudioCapturer_GetSamplingRate(
         capturer: *mut OH_AudioCapturer,
         rate: *mut i32,
@@ -960,7 +810,7 @@ extern "C" {
     ) -> OH_AudioStream_Result;
 }
 extern "C" {
-    #[doc = " Query the the time at which a particular frame was presented\n\n @since 10\n\n @param capturer Reference created by OH_AudioStreamBuilder_GenerateCapturer()\n @param clockId {@link #CLOCK_MONOTONIC}\n @param framePosition Pointer to a variable to receive the position\n @param timestamp Pointer to a variable to receive the timestamp\n @return Function result code:\n         {@link AUDIOSTREAM_SUCCESS} If the execution is successful.\n         {@link AUDIOSTREAM_ERROR_INVALID_PARAM}:\n                                                 1.The param of capturer is nullptr;\n                                                 2.The param of clockId invalid.\n         {@link AUDIOSTREAM_ERROR_ILLEGAL_STATE} Execution status exception."]
+    #[doc = " Query the the time at which a particular frame was presented\n\n @since 10\n\n @param capturer Reference created by OH_AudioStreamBuilder_GenerateCapturer()\n @param clockId {@link #CLOCK_MONOTONIC}\n @param framePosition Pointer to a variable to receive the position.\n @param timestamp Pointer to a variable to receive the timestamp, unit is nanosecond.\n @return Function result code:\n         {@link AUDIOSTREAM_SUCCESS} If the execution is successful.\n         {@link AUDIOSTREAM_ERROR_INVALID_PARAM}:\n                                                 1.The param of capturer is nullptr;\n                                                 2.The param of clockId invalid.\n         {@link AUDIOSTREAM_ERROR_ILLEGAL_STATE} Execution status exception."]
     pub fn OH_AudioCapturer_GetTimestamp(
         capturer: *mut OH_AudioCapturer,
         clockId: clockid_t,
@@ -982,7 +832,7 @@ extern "C" {
         count: *mut u32,
     ) -> OH_AudioStream_Result;
 }
-#[doc = " @brief Called when audio data is available to read. This function is similar to\n OH_AudioCapturer_Callbacks_Struct.OH_AudioCapturer_OnReadData.\n\n @param capturer Pointer to the AudioCapturer instance that triggers the callback.\n @param userData Pointer to the user data passed when setting the callback via\n OH_AudioStreamBuilder_SetCapturerReadDataCallback.\n @param audioData Pointer to the available audio data.\n @param audioDataSize Size of the available audio data.\n @see OH_AudioCapturer_Callbacks_Struct.OH_AudioCapturer_OnReadData\n @since 20"]
+#[doc = " @brief Called when audio data is available to read. This function is similar to\n OH_AudioCapturer_Callbacks_Struct.OH_AudioCapturer_OnReadData.\n\n @param capturer Pointer to the AudioCapturer instance that triggers the callback.\n @param userData Pointer to the user data passed when setting the callback via\n OH_AudioStreamBuilder_SetCapturerReadDataCallback.\n @param audioData Pointer to the available audio data.\n @param audioDataSize Size of the available audio data, unit is byte.\n @see OH_AudioCapturer_Callbacks_Struct.OH_AudioCapturer_OnReadData\n @since 20"]
 #[cfg(feature = "api-20")]
 pub type OH_AudioCapturer_OnReadDataCallback = ::std::option::Option<
     unsafe extern "C" fn(
@@ -1072,6 +922,41 @@ extern "C" {
         behavior: u32,
     ) -> OH_AudioStream_Result;
 }
+#[doc = " @brief Callback used to receive when the sensitive warning message playback for cellular call\n recording is finished.\n The application must wait for the permitted result before starting cellular call recording.\n\n @param capturer The pointer to the {@link OH_AudioCapturer} object created\n     by {@link OH_AudioStreamBuilder_GenerateCapturer}.\n @param userData The pointer to user data which is set in\n     {@link OH_AudioStreamBuilder_SetSensitiveRecordPermitCallback}.\n @param isPermitted Indicates whether the sensitive warning message playback is finished.\n     If the result is true, the recording can start, otherwise the recording is not permitted.\n @since 26.0.0"]
+#[cfg(feature = "api-26")]
+pub type OH_AudioCapturer_SensitiveRecordPermitCallback = ::std::option::Option<
+    unsafe extern "C" fn(
+        capturer: *mut OH_AudioCapturer,
+        userData: *mut ::std::os::raw::c_void,
+        isPermitted: bool,
+    ),
+>;
+extern "C" {
+    #[doc = " @brief Sets noise reduction mode for current audio capturer.\n The supported mode should be obtained by {@link #getSupportedNoiseReductionModes}.\n The actual effect may vary from different audio devices, and will be invalid when there are multiple direct\n streams running simultaneously.\n The mode can only be changed in created and stopped state.\n\n @param capturer [in] Pointer to the audio capturer created by {@link OH_AudioStreamBuilder_GenerateCapturer}.\n @param noiseReductionMode [in] The noise reduction mode to set.\n @return <ul>\n         <li>{@link AUDIOSTREAM_SUCCESS} If the execution is successful.</li>\n         <li>{@link AUDIOSTREAM_ERROR_INVALID_PARAM} The param of capturer is nullptr.\n                                                     The param of noiseReductionMode is invalid.</li>\n         <li>{@link AUDIOSTREAM_ERROR_ILLEGAL_STATE} Illegal state, audio capturer is in running state.</li>\n         <li>{@link AUDIOSTREAM_ERROR_UNSUPPORTED_ABILITY} The setted mode is not supported.</li>\n         <li>{@link AUDIOSTREAM_ERROR_SERVICE_DIED} Audio server process died.</li>\n         </ul>\n @since 26.0.0"]
+    #[cfg(feature = "api-26")]
+    pub fn OH_AudioCapturer_SetNoiseReductionMode(
+        capturer: *mut OH_AudioCapturer,
+        noiseReductionMode: OH_AudioNoiseReductionMode,
+    ) -> OH_AudioStream_Result;
+}
+extern "C" {
+    #[doc = " @brief Gets the noise reduction mode for current audio capturer.\n The mode will only consider the default and setted status, audio input device and stream concurrency will\n not be considered.\n\n @param capturer [in] Pointer to the audio capturer created by {@link OH_AudioStreamBuilder_GenerateCapturer}.\n @param noiseReductionMode [out] Pointer to get the input noise reduction mode, the default value is\n     {@link AUDIO_NOISE_REDUCTION_MODE_FIDELITY}.\n @return <ul>\n         <li>{@link AUDIOSTREAM_SUCCESS} If the execution is successful.</li>\n         <li>{@link AUDIOSTREAM_ERROR_INVALID_PARAM} The param of capturer is nullptr.\n                                                     The param of noiseReductionMode is nullptr.</li>\n         </ul>\n @since 26.0.0"]
+    #[cfg(feature = "api-26")]
+    pub fn OH_AudioCapturer_GetNoiseReductionMode(
+        capturer: *mut OH_AudioCapturer,
+        noiseReductionMode: *mut OH_AudioNoiseReductionMode,
+    ) -> OH_AudioStream_Result;
+}
+extern "C" {
+    #[doc = " @brief Gets all the supported noise reduction modes for current device platform.\n Currently the noise reduction effect is only supported when using\n {@link AUDIOSTREAM_SOURCE_TYPE_VOICE_MESSAGE}, other supported usage may be extened later.\n The supported modes will only consider the audio format and device platform,\n audio input device and stream concurrency will not be considered.\n @param capturer [in] Pointer to the audio capturer created by {@link OH_AudioStreamBuilder_GenerateCapturer}.\n @param noiseReductionModeArray [out] Pointer to a user-allocated array to get the supported noise reduction\n     modes, at least {@link AUDIO_NOISE_REDUCTION_MODE_FIDELITY} is supported.\n @param inModeArraySize [in] The allocated size of the 'noiseReductionModeArray' input parameter, it is\n     recommanded to allocate a larger size, such as 20, to adapt the new modes in the future.\n @param outModeArraySize [out] Pointer to get the actual modes size. When the supported modes size is larger\n     than 'inModeArraySize', only part of the modes will be filled into 'noiseReductionModeArray', and\n     the 'outModeArraySize' will be equal to 'inModeArraySize'.\n @return <ul>\n         <li>{@link AUDIOSTREAM_SUCCESS} If the execution is successful.</li>\n         <li>{@link AUDIOSTREAM_ERROR_INVALID_PARAM} The param of capturer is nullptr.\n                                                     The param of noiseReductionModeArray is nullptr.\n                                                     The param of outModeArraySize is nullptr.</li>\n         <li>{@link AUDIOSTREAM_ERROR_SERVICE_DIED} Audio server process died.</li>\n         </ul>\n @since 26.0.0"]
+    #[cfg(feature = "api-26")]
+    pub fn OH_AudioCapturer_GetSupportedNoiseReductionModes(
+        capturer: *mut OH_AudioCapturer,
+        noiseReductionModeArray: *mut OH_AudioNoiseReductionMode,
+        inModeArraySize: u32,
+        outModeArraySize: *mut u32,
+    ) -> OH_AudioStream_Result;
+}
 extern "C" {
     #[doc = " Request to release the renderer stream.\n\n @since 10\n\n @param renderer Reference created by OH_AudioStreamBuilder_GenerateRenderer()\n @return Function result code:\n         {@link AUDIOSTREAM_SUCCESS} If the execution is successful.\n         {@link AUDIOSTREAM_ERROR_INVALID_PARAM} The param of renderer is nullptr.\n         {@link AUDIOSTREAM_ERROR_ILLEGAL_STATE} Execution status exception."]
     pub fn OH_AudioRenderer_Release(renderer: *mut OH_AudioRenderer) -> OH_AudioStream_Result;
@@ -1100,7 +985,7 @@ extern "C" {
     ) -> OH_AudioStream_Result;
 }
 extern "C" {
-    #[doc = " Query the sample rate value of the renderer client\n\n This function will return the renderer sample rate value without updating the state.\n\n @since 10\n\n @param renderer Reference created by OH_AudioStreamBuilder_GenerateRenderer()\n @param rate The state value to be updated\n @return Function result code:\n         {@link AUDIOSTREAM_SUCCESS} If the execution is successful.\n         {@link AUDIOSTREAM_ERROR_INVALID_PARAM} The param of renderer is nullptr."]
+    #[doc = " Query the sample rate value of the renderer client\n\n This function will return the renderer sample rate value without updating the state.\n\n @since 10\n\n @param renderer Reference created by OH_AudioStreamBuilder_GenerateRenderer()\n @param rate Pointer to a variable that will be set for the sampling rate.\n @return Function result code:\n         {@link AUDIOSTREAM_SUCCESS} If the execution is successful.\n         {@link AUDIOSTREAM_ERROR_INVALID_PARAM} The param of renderer is nullptr."]
     pub fn OH_AudioRenderer_GetSamplingRate(
         renderer: *mut OH_AudioRenderer,
         rate: *mut i32,
@@ -1201,7 +1086,7 @@ extern "C" {
     ) -> OH_AudioStream_Result;
 }
 extern "C" {
-    #[doc = " Get Volume of current renderer.\n\n @since 12\n\n @param renderer Reference created by OH_AudioStreamBuilder_GenerateRenderer()\n @param volume Pointer to a variable to receive the volume.\n @return Function result code:\n         {@link AUDIOSTREAM_SUCCESS} If the execution is successful.\n         {@link AUDIOSTREAM_ERROR_INVALID_PARAM}:\n                                                 1.The param of renderer is nullptr;\n                                                 2.The param of volume is nullptr."]
+    #[doc = " Get the volume of current renderer.\n\n @since 12\n\n @param renderer Reference created by OH_AudioStreamBuilder_GenerateRenderer()\n @param volume Pointer to a variable to receive the volume.\n @return Function result code:\n         {@link AUDIOSTREAM_SUCCESS} If the execution is successful.\n         {@link AUDIOSTREAM_ERROR_INVALID_PARAM}:\n                                                 1.The param of renderer is nullptr;\n                                                 2.The param of volume is nullptr."]
     pub fn OH_AudioRenderer_GetVolume(
         renderer: *mut OH_AudioRenderer,
         volume: *mut f32,
@@ -1330,14 +1215,14 @@ extern "C" {
     ) -> OH_AudioStream_Result;
 }
 extern "C" {
-    #[doc = " @brief Get the loudness gain of current renderer.\n\n @param renderer AudioRender created by OH_AudioStreamBuilder_GenerateRenderer()\n @param loudnessGain Pointer to a variable to receive the loudness gain.\n @return Function result code:\n         {@link AUDIOSTREAM_SUCCESS} If the execution is successful.\n         {@link AUDIOSTREAM_ERROR_INVALID_PARAM}:\n                                                 1.The param of renderer is nullptr;\n                                                 2.The param of loudnessGain is nullptr.\n @since 20"]
+    #[doc = " @brief Get the loudness gain of current renderer.\n\n @param renderer AudioRender created by OH_AudioStreamBuilder_GenerateRenderer()\n @param loudnessGain Pointer to a variable to receive the loudness gain, unit is dB.\n @return Function result code:\n         {@link AUDIOSTREAM_SUCCESS} If the execution is successful.\n         {@link AUDIOSTREAM_ERROR_INVALID_PARAM}:\n                                                 1.The param of renderer is nullptr;\n                                                 2.The param of loudnessGain is nullptr.\n @since 20"]
     #[cfg(feature = "api-20")]
     pub fn OH_AudioRenderer_GetLoudnessGain(
         renderer: *mut OH_AudioRenderer,
         loudnessGain: *mut f32,
     ) -> OH_AudioStream_Result;
 }
-#[doc = " @brief Callback function of write data on Render.\n\n Different with OH_AudioRenderer_OnWriteDataCallback, this function allows the caller to write partial data which\n ranges from 0 to the callback buffer size. If 0 is returned, the callback thread will sleep for a while. Otherwise,\n the system may callback again immediately.\n\n @param renderer AudioRenderer where this callback occurs.\n @param userData User data which is passed by user.\n @param audioData Audio data pointer, where user should fill in audio data.\n @param audioDataSize Size of audio data that user should fill in.\n @return Length of the valid data that has written into audioData buffer. The return value must be in range of\n [0, audioDataSize]. If the return value is less than 0, the system changes it to 0. And, if the return value is\n greater than audioDataSize, the system changes it to audioDataSize. Note that the length of the returned buffer\n must be an integer multiple of the length of the single sample data. For example, for 2 channels and S16 format\n audio data, it must be an integer multiple of 4(2*16/8). Otherwise, it may cause noise during playback.\n @see OH_AudioRenderer_OnWriteDataCallback\n @since 20"]
+#[doc = " @brief Callback function of write data on Render.\n\n Different with OH_AudioRenderer_OnWriteDataCallback, this function allows the caller to write partial data which\n ranges from 0 to the callback buffer size. If 0 is returned, the callback thread will sleep for a while. Otherwise,\n the system may callback again immediately.\n\n @param renderer AudioRenderer where this callback occurs.\n @param userData User data which is passed by user.\n @param audioData Audio data pointer, where user should fill in audio data.\n @param audioDataSize Size of audio data that user should fill in, unit is byte.\n @return Length of the valid data that has written into audioData buffer. The return value must be in range of\n [0, audioDataSize]. If the return value is less than 0, the system changes it to 0. And, if the return value is\n greater than audioDataSize, the system changes it to audioDataSize. Note that the length of the returned buffer\n must be an integer multiple of the length of the single sample data. For example, for 2 channels and S16 format\n audio data, it must be an integer multiple of 4(2*16/8). Otherwise, it may cause noise during playback.\n @see OH_AudioRenderer_OnWriteDataCallback\n @since 20"]
 #[cfg(feature = "api-20")]
 pub type OH_AudioRenderer_OnWriteDataCallbackAdvanced = ::std::option::Option<
     unsafe extern "C" fn(
@@ -1607,11 +1492,37 @@ extern "C" {
     ) -> OH_AudioStream_Result;
 }
 extern "C" {
-    #[doc = " Sets target mode when using playback capture. Mode will decide what kind of streams to capture.\n This function is only available for {@link #AUDIOSTREAM_TYPE_CAPTURER} type.\n After setting playback capture mode, the {@link #OH_AudioStream_SourceType} will be ignored, so\n caller do not need to use {@link #OH_AudioStreamBuilder_SetCapturerInfo} if you only want to capture\n playback streams.\n Note that playback capture is only available for specific system applications currently, others do\n not have authorization.\n\n @param builder Reference provided by OH_AudioStreamBuilder_Create().\n @param mode The playback capture mode to set. This can be a combination of the available\n     {@link #OH_AudioStream_PlaybackCaptureMode}.\n @return Function result code:\n     {@link #AUDIOSTREAM_SUCCESS} If the execution is successful.\n     {@link #AUDIOSTREAM_ERROR_INVALID_PARAM} 1.The param of builder is nullptr;\n                                             2.The param of mode is invalid.\n @since 23"]
+    #[doc = " @brief Sets if the audio capturer can capture the audio data affected by loopback effect.\n When the same process enables reverb effect for audio loopback in hardware mode, and the\n target audio capturer is in {@link AUDIOSTREAM_LATENCY_MODE_FAST} mode, this function\n will take effect.\n\n @param builder reference provided by OH_AudioStreamBuilder_Create().\n @param enabled Whether application want to get audio data affected by loopback effect.\n @return function result code:\n     {@link AUDIOSTREAM_SUCCESS} if the execution is successful.\n     {@link AUDIOSTREAM_ERROR_INVALID_PARAM} the param of builder is nullptr.\n @since 26.0.0"]
+    #[cfg(feature = "api-26")]
+    pub fn OH_AudioStreamBuilder_SetCapturerLoopbackEffectEnabled(
+        builder: *mut OH_AudioStreamBuilder,
+        enabled: bool,
+    ) -> OH_AudioStream_Result;
+}
+extern "C" {
+    #[doc = " Sets target mode when using playback capture. Mode will decide what kind of streams to capture.\n This function is only available for {@link #AUDIOSTREAM_TYPE_CAPTURER} type.\n After setting playback capture mode, the {@link #OH_AudioStream_SourceType} will be ignored, so\n caller do not need to use {@link #OH_AudioStreamBuilder_SetCapturerInfo} if you only want to capture\n playback streams.\n\n Note that playback capture is only available for specific system applications at first, others do\n not have authorization. But since API version 26.0.0, this function supports the use of any application.\n\n @param builder Reference provided by OH_AudioStreamBuilder_Create().\n @param mode The playback capture mode to set. This can be a combination of the available\n {@link #OH_AudioStream_PlaybackCaptureMode}.\n @return <ul>\n     <li>{@link #AUDIOSTREAM_SUCCESS} If the execution is successful.</li>\n     <li>{@link #AUDIOSTREAM_ERROR_INVALID_PARAM} 1.The param of builder is nullptr;\n                        2.The param of mode is invalid.</li>\n     </ul>\n @since 23"]
     #[cfg(feature = "api-23")]
     pub fn OH_AudioStreamBuilder_SetPlaybackCaptureMode(
         builder: *mut OH_AudioStreamBuilder,
         mode: u32,
+    ) -> OH_AudioStream_Result;
+}
+extern "C" {
+    #[doc = " @brief Sets the callback to receive when the sensitive warning message playback is finished for\n voice downlink capturer stream.\n This function is only needed when using {@link AUDIOSTREAM_SOURCE_TYPE_VOICE_DOWNLINK} to record.\n This callback must be successfully set, otherwise the capturer can not be created.\n The sensitive warning message will be automatically added to the voice data sent to the other\n end of the call right after the audio capturer is created.\n The application should wait for the callback result before starting the capturer, otherwise an\n error will be returned by {@link OH_AudioCapturer_Start}.\n Make sure the audio capturer is created after the voice call started, otherwise an\n error will be returned by {@link OH_AudioStreamBuilder_GenerateCapturer}.\n\n @param builder The pointer to the {@link OH_AudioStreamBuilder} object created\n     by {@link OH_AudioStreamBuilder_Create}.\n @param callback Callback to the functions that will process capturer stream, NULL value is not allowed.\n @param userData The pointer to user data, which will be passed back to the application in the callback.\n     If application does not need to pass any data, NULL value is also allowed. But if data is not NULL, the\n        caller should check whether the data is still valid when receive the callback.\n @return <ul>\n         <li>{@link AUDIOSTREAM_SUCCESS} If the execution is successful.</li>\n         <li>{@link AUDIOSTREAM_ERROR_INVALID_PARAM} The param of builder or callback is nullptr.</li>\n         </ul>\n @since 26.0.0"]
+    #[cfg(feature = "api-26")]
+    pub fn OH_AudioStreamBuilder_SetSensitiveRecordPermitCallback(
+        builder: *mut OH_AudioStreamBuilder,
+        callback: OH_AudioCapturer_SensitiveRecordPermitCallback,
+        userData: *mut ::std::os::raw::c_void,
+    ) -> OH_AudioStream_Result;
+}
+extern "C" {
+    #[doc = " @brief Sets phone number and token for voice downlink capturer stream.\n This function is only needed when using {@link AUDIOSTREAM_SOURCE_TYPE_VOICE_DOWNLINK} to record.\n The phone number and token must be successfully set, otherwise the capturer can not be created. They\n will be used to check whether the voice downlink capturer matches the cellular call.\n\n @param builder The pointer to the {@link OH_AudioStreamBuilder} object created\n     by {@link OH_AudioStreamBuilder_Create}.\n @param cellularRecordPhoneNum The phone number for the target cellular call, which is used in makeCallWithToken(),\n     NULL value is not allowed.\n @param cellularRecordToken The token for the target cellular call, which can be obtained by makeCallWithToken()\n     function from call management, NULL value is not allowed.\n @return <ul>\n         <li>{@link AUDIOSTREAM_SUCCESS} If the execution is successful.</li>\n         <li>{@link AUDIOSTREAM_ERROR_INVALID_PARAM} The param of builder,\n              cellularRecordPhoneNum or cellularRecordToken is nullptr.</li>\n         </ul>\n @since 26.0.0"]
+    #[cfg(feature = "api-26")]
+    pub fn OH_AudioStreamBuilder_SetCellularRecordSecurityParams(
+        builder: *mut OH_AudioStreamBuilder,
+        cellularRecordPhoneNum: *const ::std::os::raw::c_char,
+        cellularRecordToken: *const ::std::os::raw::c_char,
     ) -> OH_AudioStream_Result;
 }
 #[repr(C)]
@@ -1728,6 +1639,16 @@ pub type OH_AudioRoutingManager_OnDeviceChangedCallback = ::std::option::Option<
         audioDeviceDescriptorArray: *mut OH_AudioDeviceDescriptorArray,
     ) -> i32,
 >;
+#[doc = " @brief This callback function pointer is used to return the preferred audio output device\n descriptors. Multiple audio device descriptors may be returned.\n\n @param audioDeviceDescriptorArray a pointer to {@link OH_AudioDeviceDescriptorArray} that will\n     be populated with the audio output device descriptor values. Do not release this pointer\n     separately; instead, call {@link OH_AudioRoutingManager_ReleaseDevices} to release the device\n     descriptor array when it is no longer needed.\n @since 26.0.0"]
+#[cfg(feature = "api-26")]
+pub type OH_AudioRoutingManager_OnPreferredOutputDeviceChangedCallback = ::std::option::Option<
+    unsafe extern "C" fn(audioDeviceDescriptorArray: *mut OH_AudioDeviceDescriptorArray) -> i32,
+>;
+#[doc = " @brief This callback function pointer is used to return the preferred audio input device\n descriptors. Multiple audio device descriptors may be returned.\n\n @param audioDeviceDescriptorArray pointer to {@link OH_AudioDeviceDescriptorArray} that will\n     be populated with the audio input device descriptor values. Do not release this pointer\n     separately; instead, call {@link OH_AudioRoutingManager_ReleaseDevices} to release the device\n     descriptor array when it is no longer needed.\n @since 26.0.0"]
+#[cfg(feature = "api-26")]
+pub type OH_AudioRoutingManager_OnPreferredInputDeviceChangedCallback = ::std::option::Option<
+    unsafe extern "C" fn(audioDeviceDescriptorArray: *mut OH_AudioDeviceDescriptorArray) -> i32,
+>;
 extern "C" {
     #[doc = " @brief Query the audio routing manager handle.\n which should be set as the first parameter in routing releated functions.\n\n @param audioRoutingManager the {@link OH_AudioRoutingManager}\n handle returned by {@link OH_AudioManager_GetAudioRoutingManager}.\n @return Function result code:\n         {@link AUDIOCOMMON_RESULT_SUCCESS} If the execution is successful.\n @since 12"]
     pub fn OH_AudioManager_GetAudioRoutingManager(
@@ -1779,6 +1700,40 @@ extern "C" {
     pub fn OH_AudioRoutingManager_UnregisterDeviceChangeCallback(
         audioRoutingManager: *mut OH_AudioRoutingManager,
         callback: OH_AudioRoutingManager_OnDeviceChangedCallback,
+    ) -> OH_AudioCommon_Result;
+}
+extern "C" {
+    #[doc = " @brief Subscribes to preferred output device change events. When the preferred output device for the target audio\n stream usage changes, registered clients will receive the callback. To avoid resource waste or other\n abnormal situations, when your application no longer needs this callback, you must release it by calling\n {@link OH_AudioRoutingManager_UnregisterPreferredOutputDevicesChangeCallback}.\n\n @param audioRoutingManager the {@link OH_AudioRoutingManager}\n     handle returned by {@link OH_AudioManager_GetAudioRoutingManager}.\n @param streamUsage the {@link OH_AudioStream_Usage} which is used as\n     the filter parameter for registering the preferred output device change event.\n @param callback the {@link OH_AudioRoutingManager_OnPreferredOutputDeviceChangedCallback} which is used\n     to receive preferred output device change events.\n @return {@link #AUDIOCOMMON_RESULT_SUCCESS} if execution succeeds,\n     or {@link #AUDIOCOMMON_RESULT_ERROR_INVALID_PARAM} if parameter validation fails,\n     or {@link #AUDIOCOMMON_RESULT_ERROR_SYSTEM} Audio client call audio service error, System error.\n @since 26.0.0"]
+    #[cfg(feature = "api-26")]
+    pub fn OH_AudioRoutingManager_RegisterPreferredOutputDevicesChangeCallback(
+        audioRoutingManager: *mut OH_AudioRoutingManager,
+        streamUsage: OH_AudioStream_Usage,
+        callback: OH_AudioRoutingManager_OnPreferredOutputDeviceChangedCallback,
+    ) -> OH_AudioCommon_Result;
+}
+extern "C" {
+    #[doc = " @brief Unsubscribes from the preferred output device change events that were registered via\n {@link OH_AudioRoutingManager_RegisterPreferredOutputDevicesChangeCallback}.\n\n @param audioRoutingManager the {@link OH_AudioRoutingManager}\n     handle returned by {@link OH_AudioManager_GetAudioRoutingManager}.\n @param callback the {@link OH_AudioRoutingManager_OnPreferredOutputDeviceChangedCallback} which is used\n     to receive preferred output device change event. When nullptr is passed,\n     the system will unregister all previously registered preferred output device change callbacks.\n @return {@link #AUDIOCOMMON_RESULT_SUCCESS} if execution succeeds,\n     or {@link #AUDIOCOMMON_RESULT_ERROR_INVALID_PARAM} if parameter validation fails,\n     or {@link #AUDIOCOMMON_RESULT_ERROR_SYSTEM} Audio client call audio service error, System error.\n @since 26.0.0"]
+    #[cfg(feature = "api-26")]
+    pub fn OH_AudioRoutingManager_UnregisterPreferredOutputDevicesChangeCallback(
+        audioRoutingManager: *mut OH_AudioRoutingManager,
+        callback: OH_AudioRoutingManager_OnPreferredOutputDeviceChangedCallback,
+    ) -> OH_AudioCommon_Result;
+}
+extern "C" {
+    #[doc = " @brief Subscribes to preferred input device change events. When preferred input device for target audio\n stream source type changes, registered clients will receive the callback. To avoid resource waste or other\n abnormal situations, when your application no longer needs this callback, you must release it by calling\n {@link OH_AudioRoutingManager_UnregisterPreferredInputDevicesChangeCallback}.\n\n @param audioRoutingManager the {@link OH_AudioRoutingManager}\n     handle returned by {@link OH_AudioManager_GetAudioRoutingManager}.\n @param sourceType the {@link OH_AudioStream_SourceType} which is used as\n     the filter parameter for registering the preferred input devices change event.\n @param callback the {@link OH_AudioRoutingManager_OnPreferredInputDeviceChangedCallback} which is used\n     to receive preferred input device change event.\n @return {@link #AUDIOCOMMON_RESULT_SUCCESS} if execution succeeds,\n     or {@link #AUDIOCOMMON_RESULT_ERROR_INVALID_PARAM} if parameter validation fails,\n     or {@link #AUDIOCOMMON_RESULT_ERROR_SYSTEM} Audio client call audio service error, System error.\n @since 26.0.0"]
+    #[cfg(feature = "api-26")]
+    pub fn OH_AudioRoutingManager_RegisterPreferredInputDevicesChangeCallback(
+        audioRoutingManager: *mut OH_AudioRoutingManager,
+        sourceType: OH_AudioStream_SourceType,
+        callback: OH_AudioRoutingManager_OnPreferredInputDeviceChangedCallback,
+    ) -> OH_AudioCommon_Result;
+}
+extern "C" {
+    #[doc = " @brief Unsubscribes from the preferred input device change events that were registered via\n {@link OH_AudioRoutingManager_RegisterPreferredInputDevicesChangeCallback}.\n\n @param audioRoutingManager the {@link OH_AudioRoutingManager}\n     handle returned by {@link OH_AudioManager_GetAudioRoutingManager}.\n @param callback the {@link OH_AudioRoutingManager_OnPreferredInputDeviceChangedCallback} which is used\n     to receive preferred input device change events. If nullptr is passed,\n     the system will unregister all previously registered preferred input device change callbacks.\n @return {@link #AUDIOCOMMON_RESULT_SUCCESS} if execution succeeds,\n     or {@link #AUDIOCOMMON_RESULT_ERROR_INVALID_PARAM} if parameter validation fails,\n     or {@link #AUDIOCOMMON_RESULT_ERROR_SYSTEM} Audio client call audio service error, System error.\n @since 26.0.0"]
+    #[cfg(feature = "api-26")]
+    pub fn OH_AudioRoutingManager_UnregisterPreferredInputDevicesChangeCallback(
+        audioRoutingManager: *mut OH_AudioRoutingManager,
+        callback: OH_AudioRoutingManager_OnPreferredInputDeviceChangedCallback,
     ) -> OH_AudioCommon_Result;
 }
 extern "C" {
@@ -1874,7 +1829,7 @@ pub const OH_AudioSession_StateChangeHint_AUDIO_SESSION_STATE_CHANGE_HINT_UNMUTE
 #[doc = " @brief Declare the audio session state change hints.\n\n @since 20"]
 #[cfg(feature = "api-20")]
 pub type OH_AudioSession_StateChangeHint = u32;
-#[doc = " @brief Recommend to continue the playback."]
+#[doc = " @brief Recommend to continue the playback.\n This event indicates that the application does not need to stop audio playback when switching devices.\n However, it should not be used to restart audio playback that has already been paused or stopped."]
 #[cfg(feature = "api-20")]
 pub const OH_AudioSession_OutputDeviceChangeRecommendedAction_DEVICE_CHANGE_RECOMMEND_TO_CONTINUE : OH_AudioSession_OutputDeviceChangeRecommendedAction = 0 ;
 #[doc = " @brief recommend to stop the playback."]
@@ -1965,14 +1920,14 @@ extern "C" {
     ) -> OH_AudioCommon_Result;
 }
 extern "C" {
-    #[doc = " @brief Activate the audio session for the current pid application.\n If {@link #OH_AudioSessionManager_SetScene} is called, it will take focus when calling this method.\n\n @param audioSessionManager the {@link #OH_AudioSessionManager}\n returned by the {@link #OH_AudioManager_GetAudioSessionManager}\n @param strategy pointer of {@link #OH_AudioSession_Strategy}\n which is used for setting audio session strategy\n @return {@link #AUDIOCOMMON_RESULT_SUCCESS} if execution succeeds\n or {@link #AUDIOCOMMON_REULT_INVALID_PARAM} if parameter validation fails\n or {@link #AUDIOCOMMON_RESULT_ERROR_ILLEGAL_STATE} if system illegal state\n @since 12"]
+    #[doc = " @brief Activate the audio session for the current pid application.\n If {@link #OH_AudioSessionManager_SetScene} is called, it will take focus when calling this method.\n If you want to take focus again after {@link #OH_AudioSessionManager_DeactivateAudioSession} is called,\n you must call {@link #OH_AudioSessionManager_SetScene} again.\n\n @param audioSessionManager the {@link #OH_AudioSessionManager}\n returned by the {@link #OH_AudioManager_GetAudioSessionManager}\n @param strategy pointer of {@link #OH_AudioSession_Strategy}\n which is used for setting audio session strategy\n @return <ul><li>{@link #AUDIOCOMMON_RESULT_SUCCESS} if execution succeeds</li><li>\n    {@link #AUDIOCOMMON_RESULT_ERROR_INVALID_PARAM} if parameter validation fails</li><li>\n    {@link #AUDIOCOMMON_RESULT_ERROR_ILLEGAL_STATE} if system illegal state</li></ul>\n @since 12"]
     pub fn OH_AudioSessionManager_ActivateAudioSession(
         audioSessionManager: *mut OH_AudioSessionManager,
         strategy: *const OH_AudioSession_Strategy,
     ) -> OH_AudioCommon_Result;
 }
 extern "C" {
-    #[doc = " @brief Deactivate the audio session for the current pid application.\n\n @param audioSessionManager the {@link #OH_AudioSessionManager}\n returned by the {@link #OH_AudioManager_GetAudioSessionManager}\n @return {@link #AUDIOCOMMON_RESULT_SUCCESS} if execution succeeds\n or {@link #AUDIOCOMMON_REULT_INVALID_PARAM} if parameter validation fails\n or {@link #AUDIOCOMMON_RESULT_ERROR_ILLEGAL_STATE} if system illegal state\n @since 12"]
+    #[doc = " @brief Deactivate the audio session for the current pid application.\n\n @param audioSessionManager the {@link #OH_AudioSessionManager}\n returned by the {@link #OH_AudioManager_GetAudioSessionManager}\n @return <ul><li>{@link #AUDIOCOMMON_RESULT_SUCCESS} if execution succeeds</li><li>\n    {@link #AUDIOCOMMON_RESULT_ERROR_INVALID_PARAM} if parameter validation fails</li><li>\n    {@link #AUDIOCOMMON_RESULT_ERROR_ILLEGAL_STATE} if system illegal state</li></ul>\n @since 12"]
     pub fn OH_AudioSessionManager_DeactivateAudioSession(
         audioSessionManager: *mut OH_AudioSessionManager,
     ) -> OH_AudioCommon_Result;
@@ -2104,7 +2059,7 @@ extern "C" {
     ) -> OH_AudioCommon_Result;
 }
 extern "C" {
-    #[doc = " @brief Sets the prefered record category with bluetooth and nearlink device.\n     The application can set this category before bluetooth and nearlink connected, and the system will\n     prefer to use bluetooth and nearlink to record when the device connected.\n     In scenarios where there are concurrent recording streams with higher priority,\n     the actual input device used by the application may differ from the prefered one.\n     The application can use {@link OH_AudioSessionManager_RegisterCurrentInputDeviceChangeCallback}\n     to register a callback to listen for the actual input device.\n\n @param audioSessionManager the {@link OH_AudioSessionManager} handle returned\n     by {@link OH_AudioManager_GetAudioSessionManager}.\n @param category The category application prefer to use when recording with bluetooth and nearlink.\n @return {@link #AUDIOCOMMON_RESULT_SUCCESS} if execution succeeds.\n     or {@link #AUDIOCOMMON_RESULT_ERROR_INVALID_PARAM} if parameter validation fails.\n     or {@link #AUDIOCOMMON_RESULT_ERROR_SYSTEM} Audio client call audio service error, System error.\n @since 21"]
+    #[doc = " @brief Sets the preferred record category with bluetooth and nearlink device.\n     The application can set this category before bluetooth and nearlink connected, and the system will\n     prefer to use bluetooth and nearlink to record when the device connected.\n     In scenarios where there are concurrent recording streams with higher priority,\n     the actual input device used by the application may differ from the preferred one.\n     The application can use {@link OH_AudioSessionManager_RegisterCurrentInputDeviceChangeCallback}\n     to register a callback to listen for the actual input device.\n\n @param audioSessionManager the {@link OH_AudioSessionManager} handle returned\n     by {@link OH_AudioManager_GetAudioSessionManager}.\n @param category The category application prefer to use when recording with bluetooth and nearlink.\n @return {@link #AUDIOCOMMON_RESULT_SUCCESS} if execution succeeds.\n     or {@link #AUDIOCOMMON_RESULT_ERROR_INVALID_PARAM} if parameter validation fails.\n     or {@link #AUDIOCOMMON_RESULT_ERROR_SYSTEM} Audio client call audio service error, System error.\n @since 21"]
     #[cfg(feature = "api-21")]
     pub fn OH_AudioSessionManager_SetBluetoothAndNearlinkPreferredRecordCategory(
         audioSessionManager: *mut OH_AudioSessionManager,
@@ -2112,7 +2067,7 @@ extern "C" {
     ) -> OH_AudioCommon_Result;
 }
 extern "C" {
-    #[doc = " @brief Gets the prefered record category with bluetooth and nearlink device.\n\n @param audioSessionManager the {@link OH_AudioSessionManager} handle returned\n     by {@link OH_AudioManager_GetAudioSessionManager}.\n @param category The category application prefer to use when recording with bluetooth and nearlink.\n @return {@link #AUDIOCOMMON_RESULT_SUCCESS} if execution succeeds.\n     or {@link #AUDIOCOMMON_RESULT_ERROR_INVALID_PARAM} if parameter validation fails.\n     or {@link #AUDIOCOMMON_RESULT_ERROR_SYSTEM} Audio client call audio service error, System error.\n @since 21"]
+    #[doc = " @brief Gets the preferred record category with bluetooth and nearlink device.\n\n @param audioSessionManager the {@link OH_AudioSessionManager} handle returned\n     by {@link OH_AudioManager_GetAudioSessionManager}.\n @param category The category application prefer to use when recording with bluetooth and nearlink.\n @return {@link #AUDIOCOMMON_RESULT_SUCCESS} if execution succeeds.\n     or {@link #AUDIOCOMMON_RESULT_ERROR_INVALID_PARAM} if parameter validation fails.\n     or {@link #AUDIOCOMMON_RESULT_ERROR_SYSTEM} Audio client call audio service error, System error.\n @since 21"]
     #[cfg(feature = "api-21")]
     pub fn OH_AudioSessionManager_GetBluetoothAndNearlinkPreferredRecordCategory(
         audioSessionManager: *mut OH_AudioSessionManager,
@@ -2231,6 +2186,33 @@ extern "C" {
         source: OH_AudioStream_SourceType,
     ) -> bool;
 }
+extern "C" {
+    #[doc = " @brief Returns if multichannel playback is supported for the specific audio stream info and usage type\n     in current device situation.\n\n @param streamManager {@link OH_AudioStreamManager} handle\n     provided by {@link OH_AudioManager_GetAudioStreamManager}.\n @param streamInfo reference of stream info structure to describe basic audio format.\n @param usage stream usage type used to decide the audio device and pipe type selection result.\n @return True if multichannel playback is supported in this situation.\n @since 26.0.0"]
+    #[cfg(feature = "api-26")]
+    pub fn OH_AudioStreamManager_IsMultichannelPlaybackSupported(
+        streamManager: *mut OH_AudioStreamManager,
+        streamInfo: *mut OH_AudioStreamInfo,
+        usage: OH_AudioStream_Usage,
+    ) -> bool;
+}
+extern "C" {
+    #[doc = " @brief Returns if direct playback is supported for the specific audio stream info and usage type\n     in current device situation.\n\n @param streamManager {@link OH_AudioStreamManager} handle\n     provided by {@link OH_AudioManager_GetAudioStreamManager}.\n @param streamInfo reference of stream info structure to describe basic audio format.\n @param usage stream usage type used to decide the audio device and pipe type selection result.\n @return True if direct playback is supported in this situation.\n @since 26.0.0"]
+    #[cfg(feature = "api-26")]
+    pub fn OH_AudioStreamManager_IsDirectPlaybackSupported(
+        streamManager: *mut OH_AudioStreamManager,
+        streamInfo: *mut OH_AudioStreamInfo,
+        usage: OH_AudioStream_Usage,
+    ) -> bool;
+}
+extern "C" {
+    #[doc = " @brief Returns if offload playback is supported for the specific audio stream info and usage type\n     in current device situation.\n\n @param streamManager {@link OH_AudioStreamManager} handle\n     provided by {@link OH_AudioManager_GetAudioStreamManager}.\n @param streamInfo reference of stream info structure to describe basic audio format.\n @param usage stream usage type used to decide the audio device and pipe type selection result.\n @return True if offload playback is supported in this situation.\n @since 26.0.0"]
+    #[cfg(feature = "api-26")]
+    pub fn OH_AudioStreamManager_IsOffloadPlaybackSupported(
+        streamManager: *mut OH_AudioStreamManager,
+        streamInfo: *mut OH_AudioStreamInfo,
+        usage: OH_AudioStream_Usage,
+    ) -> bool;
+}
 #[repr(C)]
 #[derive(Debug, Copy, Clone)]
 pub struct OH_AudioVolumeManager {
@@ -2335,5 +2317,361 @@ extern "C" {
     pub fn OH_AudioVolumeManager_UnregisterRingerModeChangeCallback(
         volumeManager: *mut OH_AudioVolumeManager,
         callback: OH_AudioVolumeManager_OnRingerModeChangeCallback,
+    ) -> OH_AudioCommon_Result;
+}
+#[repr(C)]
+#[derive(Debug, Copy, Clone)]
+pub struct OH_AudioAccessoryManager {
+    _unused: [u8; 0],
+}
+#[repr(C)]
+#[derive(Debug, Copy, Clone)]
+pub struct OH_AudioAccessory {
+    _unused: [u8; 0],
+}
+#[repr(C)]
+#[derive(Debug, Copy, Clone)]
+pub struct OH_AudioAccessoryInputStream {
+    _unused: [u8; 0],
+}
+#[doc = " @brief Bluetooth SPP (Signal Processing Plugin) connection.\n\n @since 26.0.0"]
+#[cfg(feature = "api-26")]
+pub const OH_AudioAccessoryType_AUDIO_ACCESSORY_TYPE_BT_SPP: OH_AudioAccessoryType = 1;
+#[doc = " @brief Enumerates audio accessory connection types.\n\n @since 26.0.0"]
+#[cfg(feature = "api-26")]
+pub type OH_AudioAccessoryType = u32;
+#[doc = " @brief Defines the basic information of an audio accessory.\n\n <b>Version Control:</b> Callers MUST set structSize to sizeof(OH_AudioAccessoryInfo)\n before passing this structure to the framework.\n\n @since 26.0.0"]
+#[cfg(feature = "api-26")]
+#[repr(C)]
+#[derive(Debug, Copy, Clone)]
+pub struct OH_AudioAccessoryInfo {
+    #[doc = " @brief Size of this structure in bytes.\n Must be initialized by the caller (e.g., info.structSize = sizeof(OH_AudioAccessoryInfo)).\n The framework uses this to determine which version of the structure is being used.\n\n @since 26.0.0"]
+    pub structSize: u32,
+    #[doc = " @brief Accessory name for UX display, such as \"DJI Mic 2\".\n The framework performs a deep copy of this field.\n\n @since 26.0.0"]
+    pub accessoryName: *const ::std::os::raw::c_char,
+    #[doc = " @brief Manufacturer name, such as \"DJI\".\n The framework performs a deep copy of this field.\n\n @since 26.0.0"]
+    pub manufacturer: *const ::std::os::raw::c_char,
+    #[doc = " @brief Model number, such as \"CP236\".\n The framework performs a deep copy of this field.\n\n @since 26.0.0"]
+    pub modelNumber: *const ::std::os::raw::c_char,
+    #[doc = " @brief MAC address of the accessory, such as \"00:11:22:33:44:55\".\n The framework performs a deep copy of this field.\n\n @since 26.0.0"]
+    pub macAddress: *const ::std::os::raw::c_char,
+    #[doc = " @brief Accessory connection type.\n\n @since 26.0.0"]
+    pub type_: OH_AudioAccessoryType,
+    #[doc = " @brief Indicates whether the accessory is a unidirectional audio device.\n true: unidirectional device; false: bidirectional device.\n\n @since 26.0.0"]
+    pub isUnidirectional: bool,
+}
+#[doc = " @brief Defines the noise reduction capability of an audio accessory.\n\n @since 26.0.0"]
+#[cfg(feature = "api-26")]
+#[repr(C)]
+#[derive(Debug, Copy, Clone)]
+pub struct OH_AudioAccessoryNoiseReductionCapability {
+    #[doc = " @brief Size of this structure in bytes.\n Must be initialized by the caller\n (e.g., info.structSize = sizeof(OH_AudioAccessoryNoiseReductionCapability)).\n The framework uses this to determine which version of the structure is being used.\n\n @since 26.0.0"]
+    pub structSize: u32,
+    #[doc = " @brief Array of supported noise reduction modes.\n\n @since 26.0.0"]
+    pub supportedModes: *const OH_AudioNoiseReductionMode,
+    #[doc = " @brief Number of supported noise reduction modes.\n\n @since 26.0.0"]
+    pub supportedModeCount: u32,
+    #[doc = " @brief The current noise reduction mode of the device.\n This represents the initial state when the capability is registered.\n\n @since 26.0.0"]
+    pub currentMode: OH_AudioNoiseReductionMode,
+}
+#[doc = " @brief Defines the capabilities of an audio accessory.\n\n <b>Version Control:</b> Callers MUST set structSize to sizeof(OH_AudioAccessoryCapabilities).\n\n @since 26.0.0"]
+#[cfg(feature = "api-26")]
+#[repr(C)]
+#[derive(Debug, Copy, Clone)]
+pub struct OH_AudioAccessoryCapabilities {
+    #[doc = " @brief Size of this structure in bytes.\n Must be initialized by the caller (e.g., caps.structSize = sizeof(OH_AudioAccessoryCapabilities)).\n\n @since 26.0.0"]
+    pub structSize: u32,
+    #[doc = " @brief Array of supported stream configurations.\n Each entry represents one valid combination of sample rate,\n format, and channel count.\n The framework performs a deep copy of this array.\n\n @since 26.0.0"]
+    pub streamProperties: *const OH_AudioStreamInfo,
+    #[doc = " @brief Number of supported stream configurations.\n\n @since 26.0.0"]
+    pub streamPropertyCount: u32,
+}
+#[doc = " @brief Callback for opening an input stream on an audio accessory.\n\n <b>When Called:</b> The audio framework calls this callback when an\n application requests audio capture from this audio accessory.\n The framework passes the audio stream information of the stream being\n opened, so the accessory can prepare the corresponding data path.\n\n <b>Usage Requirements:</b> In this callback, you MUST call\n {@link OH_AudioAccessoryInputStreamManager_RegisterStartCallback},\n {@link OH_AudioAccessoryInputStreamManager_RegisterStopCallback},\n {@link OH_AudioAccessoryInputStreamManager_RegisterReleaseCallback},\n {@link OH_AudioAccessoryInputStreamManager_RegisterLatencyCallback}, and\n {@link OH_AudioAccessoryInputStreamManager_RegisterFramePositionCallback} to\n register required stream callbacks. This is the ONLY time when callback\n registration is allowed.\n\n @param accessory [in] The audio accessory on which the stream is opened.\n @param stream [in] Reference to the newly created input stream.\n     Use this handle to register callbacks via Register...Callback.\n @param streamInfo [in] Pointer to the audio stream information of the stream\n     being opened. This parameter describes the requested stream format and\n     can be used by the accessory to configure its data path.\n @return <ul>\n         <li>`true` if the stream is accepted.</li>\n         <li>`false` otherwise.</li>\n         </ul>\n @see OH_AudioAccessoryInputStreamManager_RegisterStartCallback\n @since 26.0.0"]
+#[cfg(feature = "api-26")]
+pub type OH_AudioAccessory_OpenInputStreamCallback = ::std::option::Option<
+    unsafe extern "C" fn(
+        accessory: *mut OH_AudioAccessory,
+        stream: *mut OH_AudioAccessoryInputStream,
+        streamInfo: *mut OH_AudioStreamInfo,
+    ) -> bool,
+>;
+#[doc = " @brief Callback for stream started event.\n\n <b>When Called:</b> After the stream is successfully started and ready\n to receive audio data. After this callback returns, you may call Write()\n to send audio data.\n\n @param accessory [in] The audio accessory that owns this stream.\n @param stream [in] Reference to the input stream that is started.\n @return <ul>\n         <li>`true` if the start event is handled successfully.</li>\n         <li>`false` otherwise.</li>\n         </ul>\n @since 26.0.0"]
+#[cfg(feature = "api-26")]
+pub type OH_AudioAccessoryInputStream_StartCallback = ::std::option::Option<
+    unsafe extern "C" fn(
+        accessory: *mut OH_AudioAccessory,
+        stream: *mut OH_AudioAccessoryInputStream,
+    ) -> bool,
+>;
+#[doc = " @brief Callback for stream stopped event.\n\n <b>When Called:</b> After the stream is stopped. After this callback\n returns, you must stop calling Write(). The stream handle remains\n valid and may be started again.\n\n @param accessory [in] The audio accessory that owns this stream.\n @param stream [in] Reference to the input stream that is stopped.\n @return <ul>\n         <li>`true` if the stop event is handled successfully.</li>\n         <li>`false` otherwise.</li>\n         </ul>\n @since 26.0.0"]
+#[cfg(feature = "api-26")]
+pub type OH_AudioAccessoryInputStream_StopCallback = ::std::option::Option<
+    unsafe extern "C" fn(
+        accessory: *mut OH_AudioAccessory,
+        stream: *mut OH_AudioAccessoryInputStream,
+    ) -> bool,
+>;
+#[doc = " @brief Callback for stream released event.\n\n <b>When Called:</b> When the stream is being released. This is always\n the last callback for a stream. After this callback returns, the stream\n handle is no longer valid and must not be used.\n\n @param accessory [in] The audio accessory that owns this stream.\n @param stream [in] Reference to the input stream that is released.\n @return <ul>\n         <li>`true` if the release event is handled successfully.</li>\n         <li>`false` otherwise.</li>\n         </ul>\n @since 26.0.0"]
+#[cfg(feature = "api-26")]
+pub type OH_AudioAccessoryInputStream_ReleaseCallback = ::std::option::Option<
+    unsafe extern "C" fn(
+        accessory: *mut OH_AudioAccessory,
+        stream: *mut OH_AudioAccessoryInputStream,
+    ) -> bool,
+>;
+#[doc = " @brief Callback for querying the current latency of the stream.\n\n <b>When Called:</b> When the framework needs the current latency value\n reported by the accessory stream.\n\n @param accessory [in] The audio accessory that owns this stream.\n @param stream [in] Reference to the input stream.\n @param latency [out] Output parameter. Returns the latency, in milliseconds.\n @return <ul>\n         <li>`true` if the latency is obtained successfully.</li>\n         <li>`false` otherwise.</li>\n         </ul>\n @since 26.0.0"]
+#[cfg(feature = "api-26")]
+pub type OH_AudioAccessoryInputStream_GetLatencyCallback = ::std::option::Option<
+    unsafe extern "C" fn(
+        accessory: *mut OH_AudioAccessory,
+        stream: *mut OH_AudioAccessoryInputStream,
+        latency: *mut i32,
+    ) -> bool,
+>;
+#[doc = " @brief Callback for querying the current frame position of the stream.\n\n <b>When Called:</b> When the framework needs the current capture position\n reported by the accessory stream.\n\n @param accessory [in] The audio accessory that owns this stream.\n @param stream [in] Reference to the input stream.\n @param framePosition [out] Output parameter. Returns the cumulative number of audio\n     frames captured since the most recent successful start of this input\n     stream.\n @param timestamp [out] Returns the capture timestamp corresponding to the frame\n     position reported through {@p framePosition}. The timestamp must use the\n     {@link CLOCK_MONOTONIC} time base and is expressed in nanoseconds. It represents\n     the monotonic clock time at which the frame identified by {@p framePosition} was captured.\n @return <ul>\n         <li>`true` if the frame position is obtained successfully.</li>\n         <li>`false` otherwise.</li>\n         </ul>\n @since 26.0.0"]
+#[cfg(feature = "api-26")]
+pub type OH_AudioAccessoryInputStream_GetFramePositionCallback = ::std::option::Option<
+    unsafe extern "C" fn(
+        accessory: *mut OH_AudioAccessory,
+        stream: *mut OH_AudioAccessoryInputStream,
+        framePosition: *mut i64,
+        timestamp: *mut i64,
+    ) -> bool,
+>;
+extern "C" {
+    #[doc = " @brief Registers the callback for stream started event.\n\n <b>CRITICAL: Registration Timing Constraint</b>\n\n This function MUST be called ONLY during the execution of\n {@link OH_AudioAccessory_OpenInputStreamCallback}. Calling this\n function at any other time will result in {@link AUDIOCOMMON_RESULT_ERROR_ILLEGAL_STATE}.\n\n <b>Requirement:</b> This callback is MANDATORY. If not registered,\n the framework will reject the stream creation and trigger cleanup.\n\n @param stream [in] Pointer to the input stream handle.\n @param callback [in] Pointer to the callback function. Must not be null.\n @return <ul>\n         <li>{@link AUDIOCOMMON_RESULT_SUCCESS} if execution succeeds.</li>\n         <li>{@link AUDIOCOMMON_RESULT_ERROR_INVALID_PARAM} if parameters are null.</li>\n         <li>{@link AUDIOCOMMON_RESULT_ERROR_ILLEGAL_STATE} if called outside\n                  {@link OH_AudioAccessory_OpenInputStreamCallback} or stream is released.</li>\n         </ul>\n @since 26.0.0"]
+    #[cfg(feature = "api-26")]
+    pub fn OH_AudioAccessoryInputStreamManager_RegisterStartCallback(
+        stream: *mut OH_AudioAccessoryInputStream,
+        callback: OH_AudioAccessoryInputStream_StartCallback,
+    ) -> OH_AudioCommon_Result;
+}
+extern "C" {
+    #[doc = " @brief Registers the callback for stream stopped event.\n\n <b>CRITICAL: Registration Timing Constraint</b>\n\n This function MUST be called ONLY during the execution of\n {@link OH_AudioAccessory_OpenInputStreamCallback}. Calling this\n function at any other time will result in {@link AUDIOCOMMON_RESULT_ERROR_ILLEGAL_STATE}.\n\n <b>Requirement:</b> This callback is MANDATORY. If not registered,\n the framework will reject the stream creation and trigger cleanup.\n\n @param stream [in] Pointer to the input stream handle.\n @param callback [in] Pointer to the callback function. Must not be null.\n @return <ul>\n         <li>{@link AUDIOCOMMON_RESULT_SUCCESS} if execution succeeds.</li>\n         <li>{@link AUDIOCOMMON_RESULT_ERROR_INVALID_PARAM} if parameters are null.</li>\n         <li>{@link AUDIOCOMMON_RESULT_ERROR_ILLEGAL_STATE} if called outside\n                  {@link OH_AudioAccessory_OpenInputStreamCallback} or stream is released.</li>\n         </ul>\n @since 26.0.0"]
+    #[cfg(feature = "api-26")]
+    pub fn OH_AudioAccessoryInputStreamManager_RegisterStopCallback(
+        stream: *mut OH_AudioAccessoryInputStream,
+        callback: OH_AudioAccessoryInputStream_StopCallback,
+    ) -> OH_AudioCommon_Result;
+}
+extern "C" {
+    #[doc = " @brief Registers the callback for stream released event.\n\n <b>CRITICAL: Registration Timing Constraint</b>\n\n This function MUST be called ONLY during the execution of\n {@link OH_AudioAccessory_OpenInputStreamCallback}. Calling this\n function at any other time will result in {@link AUDIOCOMMON_RESULT_ERROR_ILLEGAL_STATE}.\n\n <b>Requirement:</b> This callback is MANDATORY. If not registered,\n the framework will reject the stream creation and trigger cleanup.\n\n @param stream [in] Pointer to the input stream handle.\n @param callback [in] Pointer to the callback function. Must not be null.\n @return <ul>\n         <li>{@link AUDIOCOMMON_RESULT_SUCCESS} if execution succeeds.</li>\n         <li>{@link AUDIOCOMMON_RESULT_ERROR_INVALID_PARAM} if parameters are null.</li>\n         <li>{@link AUDIOCOMMON_RESULT_ERROR_ILLEGAL_STATE} if called outside\n                  {@link OH_AudioAccessory_OpenInputStreamCallback} or stream is released.</li>\n         </ul>\n @since 26.0.0"]
+    #[cfg(feature = "api-26")]
+    pub fn OH_AudioAccessoryInputStreamManager_RegisterReleaseCallback(
+        stream: *mut OH_AudioAccessoryInputStream,
+        callback: OH_AudioAccessoryInputStream_ReleaseCallback,
+    ) -> OH_AudioCommon_Result;
+}
+extern "C" {
+    #[doc = " @brief Registers the callback for stream latency query.\n\n <b>CRITICAL: Registration Timing Constraint</b>\n\n This function MUST be called ONLY during the execution of\n {@link OH_AudioAccessory_OpenInputStreamCallback}. Calling this\n function at any other time will result in {@link AUDIOCOMMON_RESULT_ERROR_ILLEGAL_STATE}.\n\n <b>Requirement:</b> This callback is MANDATORY. If not registered,\n the framework will reject the stream creation and trigger cleanup.\n\n @param stream [in] Pointer to the input stream handle.\n @param callback [in] Pointer to the callback function. Must not be null.\n @return <ul>\n         <li>{@link AUDIOCOMMON_RESULT_SUCCESS} if execution succeeds.</li>\n         <li>{@link AUDIOCOMMON_RESULT_ERROR_INVALID_PARAM} if parameters are null.</li>\n         <li>{@link AUDIOCOMMON_RESULT_ERROR_ILLEGAL_STATE} if called outside\n                  {@link OH_AudioAccessory_OpenInputStreamCallback} or stream is released.</li>\n         </ul>\n @since 26.0.0"]
+    #[cfg(feature = "api-26")]
+    pub fn OH_AudioAccessoryInputStreamManager_RegisterLatencyCallback(
+        stream: *mut OH_AudioAccessoryInputStream,
+        callback: OH_AudioAccessoryInputStream_GetLatencyCallback,
+    ) -> OH_AudioCommon_Result;
+}
+extern "C" {
+    #[doc = " @brief Registers the callback for stream frame position query.\n\n <b>CRITICAL: Registration Timing Constraint</b>\n\n This function MUST be called ONLY during the execution of\n {@link OH_AudioAccessory_OpenInputStreamCallback}. Calling this\n function at any other time will result in {@link AUDIOCOMMON_RESULT_ERROR_ILLEGAL_STATE}.\n\n <b>Requirement:</b> This callback is MANDATORY. If not registered,\n the framework will reject the stream creation and trigger cleanup.\n\n @param stream [in] Pointer to the input stream handle.\n @param callback [in] Pointer to the callback function. Must not be null.\n @return <ul>\n         <li>{@link AUDIOCOMMON_RESULT_SUCCESS} if execution succeeds.</li>\n         <li>{@link AUDIOCOMMON_RESULT_ERROR_INVALID_PARAM} if parameters are null.</li>\n         <li>{@link AUDIOCOMMON_RESULT_ERROR_ILLEGAL_STATE} if called outside\n                  {@link OH_AudioAccessory_OpenInputStreamCallback} or stream is released.</li>\n         </ul>\n @since 26.0.0"]
+    #[cfg(feature = "api-26")]
+    pub fn OH_AudioAccessoryInputStreamManager_RegisterFramePositionCallback(
+        stream: *mut OH_AudioAccessoryInputStream,
+        callback: OH_AudioAccessoryInputStream_GetFramePositionCallback,
+    ) -> OH_AudioCommon_Result;
+}
+extern "C" {
+    #[doc = " @brief Writes audio data to the audio accessory input stream.\n\n This is a blocking interface. After being called, the function blocks until\n the whole frame is written successfully or an error occurs. Each call must\n write exactly 20 ms of audio data. The caller must ensure that dataSize\n matches the byte count corresponding to 20 ms under the current stream\n configuration. If dataSize does not match 20 ms of audio data, this\n function returns {@link AUDIOCOMMON_RESULT_ERROR_FRAME_LENGTH_MISMATCH}.\n The caller must invoke this function at a 20 ms cadence. That is, each call\n must submit 20 ms of audio data, and the interval between two consecutive\n calls must also be 20 ms.\n If the stream buffer does not currently have enough writable space for the\n whole frame, this function blocks until enough space becomes available or an\n error occurs. Partial-frame writes are not supported by this interface. If\n the last frame has less than 20 ms of audio data, the caller may discard\n this frame or pad it with zeros to 20 ms before calling this function.\n\n <b>Calling Context and Concurrency:</b>\n\n This function is not reentrant for the same stream. The caller is advised\n to use only one thread to write audio data serially to the same stream.\n If this function is called concurrently with the stop or release callback\n for the same stream, it returns\n {@link AUDIOCOMMON_RESULT_ERROR_ILLEGAL_STATE} if the stop or release\n operation completes before this function acquires the lock.\n\n @param stream [in] Pointer to the input stream handle.\n @param data [in] Pointer to the audio data buffer. Must not be null.\n @param dataSize [in] Size of the audio data in bytes. Must be > 0.\n @return <ul>\n         <li>{@link AUDIOCOMMON_RESULT_SUCCESS} if execution succeeds.</li>\n         <li>{@link AUDIOCOMMON_RESULT_ERROR_INVALID_PARAM} if parameters are null.</li>\n         <li>{@link AUDIOCOMMON_RESULT_ERROR_FRAME_LENGTH_MISMATCH} if dataSize does not correspond\n                  to 20 ms of audio data under the current stream configuration.</li>\n         <li>{@link AUDIOCOMMON_RESULT_ERROR_ILLEGAL_STATE} if stream is not started or the required\n                  stream callbacks are not fully registered.</li>\n         <li>{@link AUDIOCOMMON_RESULT_ERROR_SYSTEM} if audio server process die.</li>\n         </ul>\n @since 26.0.0"]
+    #[cfg(feature = "api-26")]
+    pub fn OH_AudioAccessoryInputStreamManager_Write(
+        stream: *mut OH_AudioAccessoryInputStream,
+        data: *const u8,
+        dataSize: u32,
+    ) -> OH_AudioCommon_Result;
+}
+extern "C" {
+    #[doc = " @brief Obtains the writable size of the audio accessory input stream buffer.\n\n This function can be used by the caller to probe current buffer availability\n before calling {@link OH_AudioAccessoryInputStreamManager_Write}. The returned\n writable size reflects the current state only, and may change immediately\n after the function returns.\n\n @param stream [in] Pointer to the input stream handle.\n @param writableSize [out] Output parameter. Returns the number of bytes that can be written.\n @return <ul>\n         <li>{@link AUDIOCOMMON_RESULT_SUCCESS} if execution succeeds.</li>\n         <li>{@link AUDIOCOMMON_RESULT_ERROR_INVALID_PARAM} if parameters are null.</li>\n         <li>{@link AUDIOCOMMON_RESULT_ERROR_ILLEGAL_STATE} if the stream is released.</li>\n         </ul>\n @since 26.0.0"]
+    #[cfg(feature = "api-26")]
+    pub fn OH_AudioAccessoryInputStreamManager_GetWritableSize(
+        stream: *mut OH_AudioAccessoryInputStream,
+        writableSize: *mut u32,
+    ) -> OH_AudioCommon_Result;
+}
+#[doc = " @brief Callback for noise reduction mode change on an accessory.\n\n <b>When Called:</b> When the system requests a change to the noise\n reduction mode on the accessory. This callback may be called at any time\n after the accessory is connected.\n\n @param accessory [in] The audio accessory.\n @param mode [in] The noise reduction mode to set on the accessory.\n @return <ul>\n         <li>`true` if the requested mode is handled successfully.</li>\n         <li>`false` otherwise.</li>\n         </ul>\n @since 26.0.0"]
+#[cfg(feature = "api-26")]
+pub type OH_AudioAccessory_SetNoiseReductionCallback = ::std::option::Option<
+    unsafe extern "C" fn(
+        accessory: *mut OH_AudioAccessory,
+        mode: OH_AudioNoiseReductionMode,
+    ) -> bool,
+>;
+extern "C" {
+    #[doc = " @brief Obtains the audio accessory manager instance.\n\n @param outManager [out] Returns a pointer to the manager handle.\n     Note that the handle is managed by the system and must not be released\n     by the caller, otherwise an exception may occur.\n @return <ul>\n         <li>{@link AUDIOCOMMON_RESULT_SUCCESS} if execution succeeds.</li>\n         <li>{@link AUDIOCOMMON_RESULT_ERROR_INVALID_PARAM} if manager is null.</li>\n         </ul>\n @since 26.0.0"]
+    #[cfg(feature = "api-26")]
+    pub fn OH_AudioManager_GetAccessoryManager(
+        outManager: *mut *mut OH_AudioAccessoryManager,
+    ) -> OH_AudioCommon_Result;
+}
+extern "C" {
+    #[doc = " @brief Creates an input audio accessory instance and registers its capabilities.\n\n This function creates only the audio accessory instance. It does not create\n any input stream immediately.\n\n The framework performs a deep copy of the accessoryName, manufacturer,\n modelNumber, and macAddress fields. The caller may free these buffers\n after this function returns.\n The framework also performs a deep copy of the streamProperties array\n in capabilities. The caller may free this array after this function returns.\n\n On success, the framework allocates an {@link OH_AudioAccessory} handle and\n returns it through accessory pointer.\n\n Input streams are created lazily by the framework when an application\n actually starts recording from this accessory. At that time, the framework\n creates a new {@link OH_AudioAccessoryInputStream} handle and invokes\n open stream. The callback receives the newly created stream handle\n and the requested stream information, and is where the caller must register\n the required stream callbacks.\n\n The stream handle is managed by the framework and must not be released by\n the caller. A stream remains valid until the framework invokes\n {@link OH_AudioAccessoryInputStream_ReleaseCallback} for that stream. After\n the release callback returns, the stream handle becomes invalid and must not\n be used again. During the lifetime of one accessory handle, input streams\n may be created and released multiple times.\n\n @param manager [in] Pointer to the audio accessory manager.\n @param info [in] Pointer to the accessory basic information. Must not be null.\n @param capabilities [in] Pointer to the accessory capabilities. Must not be null.\n @param openInputStream [in] Callback invoked when the framework opens an input stream.\n     Must not be null. The callback is invoked only when the framework creates\n     a stream for this accessory, not when this function is called.\n @param outOwnedAccessory [out] Returns the created accessory handle.\n @release Call {@link OH_AudioAccessoryManager_Disconnected} to disconnect\n     the accessory first if it has been connected, and then call\n     {@link OH_AudioAccessoryManager_Destroy} to destroy the accessory handle.\n     After a successful destroy, the accessory handle becomes invalid and must\n     not be used again.\n @return <ul>\n         <li>{@link AUDIOCOMMON_RESULT_SUCCESS} if execution succeeds.</li>\n         <li>{@link AUDIOCOMMON_RESULT_ERROR_INVALID_PARAM} if any parameter is null.</li>\n         <li>{@link AUDIOCOMMON_RESULT_ERROR_ILLEGAL_STATE} if the manager is not initialized.</li>\n         </ul>\n @since 26.0.0"]
+    #[cfg(feature = "api-26")]
+    pub fn OH_AudioAccessoryManager_CreateInput(
+        manager: *mut OH_AudioAccessoryManager,
+        info: *const OH_AudioAccessoryInfo,
+        capabilities: *const OH_AudioAccessoryCapabilities,
+        openInputStream: OH_AudioAccessory_OpenInputStreamCallback,
+        outOwnedAccessory: *mut *mut OH_AudioAccessory,
+    ) -> OH_AudioCommon_Result;
+}
+extern "C" {
+    #[doc = " @brief Sets the list of associated MAC addresses for the audio accessory.\n\n This interface replaces the existing list of associated MAC addresses\n linked to the accessory instance. It is designed for multi-transmitter\n scenarios (e.g., 1-to-2, 1-to-4 systems) where the group of connected\n transmitters may change dynamically.Call this after the accessory is created\n to report all currently active transmitters associated with the primary MAC.\n If a transmitter is replaced or disconnected, call this again with the\n updated list to overwrite the previous state. Safe to call during an active\n recording session.\n\n @param manager [in] Pointer to the audio accessory manager.\n @param accessory [in] Pointer to the accessory handle.\n @param macAddresses [in] Array of MAC addresses to associate.\n     <b>Can be null if count is 0</b>, indicating that all associated MAC addresses\n     should be cleared (e.g., when all secondary transmitters disconnect).\n     If not null, the framework performs a deep copy of these strings.\n     Each element must conform to the following rules:\n     - Must be a NUL-terminated ASCII string in colon-separated hexadecimal\n       notation, e.g. \"00:11:22:33:44:55\". Both upper-case and lower-case\n       hex digits (A-F / a-f) are accepted.\n     - Must be a non-null, non-empty string.\n     - Duplicate addresses within the same array are ignored; only the first\n       occurrence of each unique address takes effect.\n @param count [in] Number of MAC addresses in the array.\n @return <ul>\n         <li>{@link AUDIOCOMMON_RESULT_SUCCESS} if execution succeeds.</li>\n         <li>{@link AUDIOCOMMON_RESULT_ERROR_INVALID_PARAM} if parameters are invalid.</li>\n         <li>{@link AUDIOCOMMON_RESULT_ERROR_ILLEGAL_STATE} if the accessory is not created.</li>\n         </ul>\n @since 26.0.0"]
+    #[cfg(feature = "api-26")]
+    pub fn OH_AudioAccessoryManager_SetAssociatedMacAddresses(
+        manager: *mut OH_AudioAccessoryManager,
+        accessory: *mut OH_AudioAccessory,
+        macAddresses: *mut *const ::std::os::raw::c_char,
+        count: u32,
+    ) -> OH_AudioCommon_Result;
+}
+extern "C" {
+    #[doc = " @brief Registers the noise reduction capability of an audio accessory.\n\n The framework performs a deep copy of the supportedModes array and other\n fields in the capability structure. The caller may free the capability\n structure and the supportedModes array after this function returns.\n\n @param manager [in] Pointer to the audio accessory manager.\n @param accessory [in] Pointer to the accessory handle created by CreateInput.\n @param capability [in] Pointer to the noise reduction capability. Must not be null.\n @param onNoiseReduction [in] Callback invoked when the framework\n     requests a noise reduction mode change. May be null if the accessory\n     does not support dynamic mode switching. If provided, the callback must\n     return `true` on success and `false` on failure.\n @return <ul>\n         <li>{@link AUDIOCOMMON_RESULT_SUCCESS} if execution succeeds.</li>\n         <li>{@link AUDIOCOMMON_RESULT_ERROR_INVALID_PARAM} if parameters are invalid.</li>\n         <li>{@link AUDIOCOMMON_RESULT_ERROR_ILLEGAL_STATE} if the accessory is not created.</li>\n         </ul>\n @since 26.0.0"]
+    #[cfg(feature = "api-26")]
+    pub fn OH_AudioAccessoryManager_RegisterNoiseReductionCapability(
+        manager: *mut OH_AudioAccessoryManager,
+        accessory: *mut OH_AudioAccessory,
+        capability: *const OH_AudioAccessoryNoiseReductionCapability,
+        onNoiseReduction: OH_AudioAccessory_SetNoiseReductionCallback,
+    ) -> OH_AudioCommon_Result;
+}
+extern "C" {
+    #[doc = " @brief Sets the noise reduction mode of an audio accessory.\n\n This function allows the accessory service to actively synchronize the\n current noise reduction mode to the framework. It is typically used when\n the mode is changed through other means (e.g., hardware buttons or a\n companion app), ensuring the framework stays updated with the accessory's\n actual state.\n\n @param manager [in] Pointer to the audio accessory manager.\n @param accessory [in] Pointer to the accessory handle.\n @param mode [in] The noise reduction mode to set. Must be one of the modes\n     registered via RegisterNoiseReductionCapability.\n @return <ul>\n         <li>{@link AUDIOCOMMON_RESULT_SUCCESS} if execution succeeds.</li>\n         <li>{@link AUDIOCOMMON_RESULT_ERROR_INVALID_PARAM} if parameters are invalid.</li>\n         <li>{@link AUDIOCOMMON_RESULT_ERROR_ILLEGAL_STATE} if the accessory is not connected.</li>\n         <li>{@link AUDIOCOMMON_RESULT_ERROR_UNSUPPORTED} if the mode is not supported.</li>\n         </ul>\n @since 26.0.0"]
+    #[cfg(feature = "api-26")]
+    pub fn OH_AudioAccessoryManager_SetNoiseReductionMode(
+        manager: *mut OH_AudioAccessoryManager,
+        accessory: *mut OH_AudioAccessory,
+        mode: OH_AudioNoiseReductionMode,
+    ) -> OH_AudioCommon_Result;
+}
+extern "C" {
+    #[doc = " @brief Connects the audio accessory to the audio framework.\n\n All required capabilities must be registered before calling this function.\n\n <b>Recommendation:</b> It is recommended that third-party audio accessories\n prioritize integration with the Smart Life app. This ensures a consistent\n user experience for device discovery and connection, allowing the accessory\n service to avoid direct permission management.\n\n @permission ohos.permission.MANAGE_AUDIO_ACCESSORY\n @param manager [in] Pointer to the audio accessory manager.\n @param accessory [in] Pointer to the accessory handle to connect.\n @return <ul>\n         <li>{@link AUDIOCOMMON_RESULT_SUCCESS} if execution succeeds.</li>\n         <li>{@link AUDIOCOMMON_RESULT_ERROR_PERMISSION_DENIED} if the caller does not have the\n                  required permission.</li>\n         <li>{@link AUDIOCOMMON_RESULT_ERROR_INVALID_PARAM} if accessory is null.</li>\n         <li>{@link AUDIOCOMMON_RESULT_ERROR_ILLEGAL_STATE} if capabilities are not registered or\n                  the accessory is already connected.</li>\n         <li>{@link AUDIOCOMMON_RESULT_ERROR_SYSTEM} if audio server process die.</li>\n         </ul>\n @since 26.0.0"]
+    #[cfg(feature = "api-26")]
+    pub fn OH_AudioAccessoryManager_Connected(
+        manager: *mut OH_AudioAccessoryManager,
+        accessory: *mut OH_AudioAccessory,
+    ) -> OH_AudioCommon_Result;
+}
+extern "C" {
+    #[doc = " @brief Disconnects the audio accessory from the audio framework.\n\n @permission ohos.permission.MANAGE_AUDIO_ACCESSORY\n @param manager [in] Pointer to the audio accessory manager.\n @param accessory [in] Pointer to the accessory handle to disconnect.\n @return <ul>\n         <li>{@link AUDIOCOMMON_RESULT_SUCCESS} if execution succeeds.</li>\n         <li>{@link AUDIOCOMMON_RESULT_ERROR_PERMISSION_DENIED} if the caller does not have the\n                  required permission.</li>\n         <li>{@link AUDIOCOMMON_RESULT_ERROR_INVALID_PARAM} if accessory is null.</li>\n         <li>{@link AUDIOCOMMON_RESULT_ERROR_ILLEGAL_STATE} if the accessory is not connected.</li>\n         <li>{@link AUDIOCOMMON_RESULT_ERROR_SYSTEM} if audio server process die.</li>\n         </ul>\n @since 26.0.0"]
+    #[cfg(feature = "api-26")]
+    pub fn OH_AudioAccessoryManager_Disconnected(
+        manager: *mut OH_AudioAccessoryManager,
+        accessory: *mut OH_AudioAccessory,
+    ) -> OH_AudioCommon_Result;
+}
+extern "C" {
+    #[doc = " @brief Destroys the audio accessory instance.\n\n The accessory must be disconnected before destroying.\n\n @param manager [in] Pointer to the audio accessory manager.\n @param accessory [in] Pointer to the accessory handle to destroy.\n @return <ul>\n         <li>{@link AUDIOCOMMON_RESULT_SUCCESS} if execution succeeds.</li>\n         <li>{@link AUDIOCOMMON_RESULT_ERROR_INVALID_PARAM} if accessory is null.</li>\n         <li>{@link AUDIOCOMMON_RESULT_ERROR_ILLEGAL_STATE} if the accessory is still connected.</li>\n         </ul>\n @since 26.0.0"]
+    #[cfg(feature = "api-26")]
+    pub fn OH_AudioAccessoryManager_Destroy(
+        manager: *mut OH_AudioAccessoryManager,
+        accessory: *mut OH_AudioAccessory,
+    ) -> OH_AudioCommon_Result;
+}
+#[repr(C)]
+#[derive(Debug, Copy, Clone)]
+pub struct OH_AudioDebuggingManager {
+    _unused: [u8; 0],
+}
+extern "C" {
+    #[doc = " @brief Gets the audio debugging manager handle, which is a singleton.\n\n @param manager The output parameter to get {@link OH_AudioDebuggingManager} instance.\n @return {@link AUDIOCOMMON_RESULT_SUCCESS} if execution succeeds.\n     {@link AUDIOCOMMON_RESULT_ERROR_INVALID_PARAM} The param of manager is nullptr.\n @since 26.0.0"]
+    #[cfg(feature = "api-26")]
+    pub fn OH_AudioManager_GetAudioDebuggingManager(
+        manager: *mut *mut OH_AudioDebuggingManager,
+    ) -> OH_AudioCommon_Result;
+}
+extern "C" {
+    #[doc = " @brief Prints full audio runtime snapshot for current app process.\n The snapshot will contain all audio renderers, capturers, audio session information.\n Note that the information details and format may vary from different version, it can only be used for\n manual debugging, user should not rely on the information for actual function realization or file\n content extraction.\n\n @param manager {@link OH_AudioDebuggingManager} handle provided by {@link OH_AudioManager_GetAudioDebuggingManager}.\n @param fd is a file descriptor, indicates the location that the snapshot information will be written to.\n     If the fd is less than 0 or no writable, the snapshot information will be printed into the running log,\n     otherwise the snapshot will be written into the file.\n @return {@link AUDIOCOMMON_RESULT_SUCCESS} if execution succeeds.\n     {@link AUDIOCOMMON_RESULT_ERROR_INVALID_PARAM} The param of manager is nullptr.\n @since 26.0.0"]
+    #[cfg(feature = "api-26")]
+    pub fn OH_AudioDebuggingManager_PrintAppInfo(
+        manager: *mut OH_AudioDebuggingManager,
+        fd: i32,
+    ) -> OH_AudioCommon_Result;
+}
+extern "C" {
+    #[doc = " @brief Prints full audio runtime snapshot for target audio renderer instance.\n The snapshot will contain the stream, pipe, volume and device information.\n Note that the information details and format may vary from different version, it can only be used for\n manual debugging, user should not rely on the information for actual function realization or file\n content extraction.\n\n @param manager {@link OH_AudioDebuggingManager} handle provided by {@link OH_AudioManager_GetAudioDebuggingManager}.\n @param renderer Pointer to the target audio renderer instance to print snapshot.\n @param fd is a file descriptor, indicates the location that the snapshot information will be written to.\n     If the fd is less than 0 or no writable, the snapshot information will be printed into the running log,\n     otherwise the snapshot will be written into the file.\n @return {@link AUDIOCOMMON_RESULT_SUCCESS} if execution succeeds.\n     {@link AUDIOCOMMON_RESULT_ERROR_INVALID_PARAM} 1.The param of manager is nullptr;\n                                                    2.The param of renderer is nullptr;\n @since 26.0.0"]
+    #[cfg(feature = "api-26")]
+    pub fn OH_AudioDebuggingManager_PrintRendererInfo(
+        manager: *mut OH_AudioDebuggingManager,
+        renderer: *mut OH_AudioRenderer,
+        fd: i32,
+    ) -> OH_AudioCommon_Result;
+}
+extern "C" {
+    #[doc = " @brief Prints full audio runtime snapshot for target audio capturer instance.\n The snapshot will contain the stream, pipe, volume and device information.\n Note that the information details and format may vary from different version, it can only be used for\n manual debugging, user should not rely on the information for actual function realization or file\n content extraction.\n\n @param manager {@link OH_AudioDebuggingManager} handle provided by {@link OH_AudioManager_GetAudioDebuggingManager}.\n @param capturer Pointer to the target audio capturer instance to print snapshot.\n @param fd is a file descriptor, indicates the location that the snapshot information will be written to.\n     If the fd is less than 0 or no writable, the snapshot information will be printed into the running log,\n     otherwise the snapshot will be written into the file.\n @return {@link AUDIOCOMMON_RESULT_SUCCESS} if execution succeeds.\n     {@link AUDIOCOMMON_RESULT_ERROR_INVALID_PARAM} 1.The param of manager is nullptr;\n                                                    2.The param of capturer is nullptr;\n @since 26.0.0"]
+    #[cfg(feature = "api-26")]
+    pub fn OH_AudioDebuggingManager_PrintCapturerInfo(
+        manager: *mut OH_AudioDebuggingManager,
+        capturer: *mut OH_AudioCapturer,
+        fd: i32,
+    ) -> OH_AudioCommon_Result;
+}
+extern "C" {
+    #[doc = " @brief Prints full audio runtime snapshot for target audio session manager instance.\n The snapshot will contain the session status, scene, strategy and device information.\n Note that the information details and format may vary from different version, it can only be used for\n manual debugging, user should not rely on the information for actual function realization or file\n content extraction.\n\n @param manager {@link OH_AudioDebuggingManager} handle provided by {@link OH_AudioManager_GetAudioDebuggingManager}.\n @param session Pointer to the target audio session manager instance to print snapshot.\n @param fd is a file descriptor, indicates the location that the snapshot information will be written to.\n     If the fd is less than 0 or no writable, the snapshot information will be printed into the running log,\n     otherwise the snapshot will be written into the file.\n @return {@link AUDIOCOMMON_RESULT_SUCCESS} if execution succeeds.\n     {@link AUDIOCOMMON_RESULT_ERROR_INVALID_PARAM} 1.The param of manager is nullptr;\n                                                    2.The param of session is nullptr;\n @since 26.0.0"]
+    #[cfg(feature = "api-26")]
+    pub fn OH_AudioDebuggingManager_PrintSessionInfo(
+        manager: *mut OH_AudioDebuggingManager,
+        session: *mut OH_AudioSessionManager,
+        fd: i32,
+    ) -> OH_AudioCommon_Result;
+}
+#[repr(C)]
+#[derive(Debug, Copy, Clone)]
+pub struct OH_AudioDeviceEnhanceManager {
+    _unused: [u8; 0],
+}
+extern "C" {
+    #[doc = " @brief Obtains the audio device enhancement manager handle.\n\n This handle is used as the first parameter when calling enhanced audio device management functions.\n The functional APIs of this manager are only available on specific devices.\n Your application can first call {@link OH_AudioDeviceEnhanceManager_IsEnhancedRoutingSupported} to check\n if the system supports them before using.\n\n @param audioDeviceEnhanceManager Indicates the pointer to the {@link OH_AudioDeviceEnhanceManager}\n     handle obtained by this function.\n @return {@link AUDIOCOMMON_RESULT_SUCCESS} If the execution is successful,\n     or {@link AUDIOCOMMON_RESULT_ERROR_INVALID_PARAM} if the input audioDeviceEnhanceManager\n     pointer is NULL.\n @since 26.0.0"]
+    #[cfg(feature = "api-26")]
+    pub fn OH_AudioManager_GetAudioDeviceEnhanceManager(
+        audioDeviceEnhanceManager: *mut *mut OH_AudioDeviceEnhanceManager,
+    ) -> OH_AudioCommon_Result;
+}
+extern "C" {
+    #[doc = " @brief Queries whether the system supports the enhanced routing functions provided by this manager.\n\n The enhanced routing functions support selecting input and output devices for the application or audio streams.\n You are advised to call this API to check system support before using the enhanced routing functions.\n Even for the same type of host device, some models may support these functions while others may not due\n to hardware limitations. If the system does not support these enhanced routing functions, calling them will\n have no effect, and the system will select default input/output devices for the application or audio streams instead.\n\n @param audioDeviceEnhanceManager the {@link OH_AudioDeviceEnhanceManager} handle returned\n     by {@link OH_AudioManager_GetAudioDeviceEnhanceManager}.\n @param supported query result, true means the system supports the enhanced functions,\n     false means not supported.\n @return {@link AUDIOCOMMON_RESULT_SUCCESS} if execution succeeds,\n     or {@link AUDIOCOMMON_RESULT_ERROR_INVALID_PARAM} if audioDeviceEnhanceManager is NULL or\n     supported is NULL,\n     or {@link AUDIOCOMMON_RESULT_ERROR_SYSTEM} Audio service error occurs, such as the service died.\n @since 26.0.0"]
+    #[cfg(feature = "api-26")]
+    pub fn OH_AudioDeviceEnhanceManager_IsEnhancedRoutingSupported(
+        audioDeviceEnhanceManager: *mut OH_AudioDeviceEnhanceManager,
+        supported: *mut bool,
+    ) -> OH_AudioCommon_Result;
+}
+extern "C" {
+    #[doc = " @brief Sets the preferred output device for the application.\n\n This configuration applies to all playback streams created by the application, unless a specific\n output device is designated for an individual stream. When the application implements its own UX\n for output device selection, it can obtain the list of available output devices through\n {@link OH_AudioRoutingManager_GetAvailableDevices}, and use the\n {@link OH_AudioRoutingManager_GetPreferredOutputDevice} API to obtain the currently selected output\n device. The application can register a callback via\n {@link OH_AudioDeviceEnhanceManager_RegisterCurrentOutputDeviceChangeCallback} to listen for changes to\n the actual output device. The selection becomes invalid when the application exits or the selected\n device goes offline. After the application restarts or the device comes back online, the selection\n must be re-issued to take effect. If the system does not support this function, it will select a\n default output device for the application.\n\n @param audioDeviceEnhanceManager the {@link OH_AudioDeviceEnhanceManager} handle returned\n     by {@link OH_AudioManager_GetAudioDeviceEnhanceManager}.\n @param deviceDescriptor The target device. The available device must be in the array returned\n     by {@link OH_AudioRoutingManager_GetAvailableDevices}.\n     If nullptr is passed, system will clear the last selection and select a default\n     output device for your application.\n @return {@link AUDIOCOMMON_RESULT_SUCCESS} if execution succeeds,\n     or {@link AUDIOCOMMON_RESULT_ERROR_INVALID_PARAM}  if audioDeviceEnhanceManager is NULL,\n     deviceDescriptor is invalid, or the specified device has gone offline,\n     or {@link AUDIOCOMMON_RESULT_ERROR_SYSTEM} Audio service error occurs, such as the service died.\n @since 26.0.0"]
+    #[cfg(feature = "api-26")]
+    pub fn OH_AudioDeviceEnhanceManager_SelectOutputDevice(
+        audioDeviceEnhanceManager: *mut OH_AudioDeviceEnhanceManager,
+        deviceDescriptor: *mut OH_AudioDeviceDescriptor,
+    ) -> OH_AudioCommon_Result;
+}
+extern "C" {
+    #[doc = " @brief Sets the preferred input device for the application.\n\n This setting applies to all recording streams created by the application, unless a specific input device\n is designated for an individual stream. When the application implements its own UX for input device selection,\n it can obtain the list of available input devices through {@link OH_AudioRoutingManager_GetAvailableDevices},\n and use the {@link OH_AudioRoutingManager_GetPreferredInputDevice} API to obtain the currently selected input device.\n Your application can register a callback via\n {@link OH_AudioDeviceEnhanceManager_RegisterCurrentInputDeviceChangeCallback} to listen for changes to the actual\n input device. The selection becomes invalid when the application exits or the selected device goes offline.\n After the application restarts or the device comes back online, you must re-issue the selection for it to\n take effect. If the system does not support this function, a default input device will be selected automatically.\n\n @param audioDeviceEnhanceManager the {@link OH_AudioDeviceEnhanceManager} handle returned\n     by {@link OH_AudioManager_GetAudioDeviceEnhanceManager}.\n @param deviceDescriptor The target device. The available device must be in the array returned\n     by {@link OH_AudioRoutingManager_GetAvailableDevices}.\n     If nullptr is passed, system will clear the last selection and select a default\n     input device for your application.\n @return {@link AUDIOCOMMON_RESULT_SUCCESS} if execution succeeds,\n     or {@link AUDIOCOMMON_RESULT_ERROR_INVALID_PARAM} if audioDeviceEnhanceManager is NULL,\n     deviceDescriptor is invalid, or the specified input device has gone offline,\n     or {@link AUDIOCOMMON_RESULT_ERROR_SYSTEM} Audio service error occurs, such as the service died.\n @since 26.0.0"]
+    #[cfg(feature = "api-26")]
+    pub fn OH_AudioDeviceEnhanceManager_SelectInputDevice(
+        audioDeviceEnhanceManager: *mut OH_AudioDeviceEnhanceManager,
+        deviceDescriptor: *mut OH_AudioDeviceDescriptor,
+    ) -> OH_AudioCommon_Result;
+}
+extern "C" {
+    #[doc = " @brief Sets the preferred output device for a specific audio renderer.\n\n Your application must ensure that the specified renderer is valid. This selection only applies to\n the designated stream; other playback streams in your application will use the application's forced\n selection or the system's default output device. The selection becomes invalid when the application\n exits or the selected device goes offline. After the application restarts or the device comes back online,\n you must re-issue the selection for it to take effect. If the system does not support this function,\n it will select a default output device for the renderer.\n\n @param audioDeviceEnhanceManager the {@link OH_AudioDeviceEnhanceManager} handle returned\n     by {@link OH_AudioManager_GetAudioDeviceEnhanceManager}.\n @param renderer Indicates the renderer reference created by {@link OH_AudioStreamBuilder_GenerateRenderer}.\n @param deviceDescriptor The target device. The available device must be in the array returned\n     by {@link OH_AudioRoutingManager_GetAvailableDevices}.\n     If nullptr is passed, system will clear the last selection and select a default\n     output device for the renderer.\n @return {@link AUDIOCOMMON_RESULT_SUCCESS} if execution succeeds,\n     or {@link AUDIOCOMMON_RESULT_ERROR_INVALID_PARAM} if audioDeviceEnhanceManager is NULL, renderer is NULL,\n     deviceDescriptor is invalid, or the specified output device has gone offline,\n     or {@link AUDIOCOMMON_RESULT_ERROR_SYSTEM} Audio service error occurs, such as the service died.\n @since 26.0.0"]
+    #[cfg(feature = "api-26")]
+    pub fn OH_AudioDeviceEnhanceManager_SelectOutputDeviceForAudioRenderer(
+        audioDeviceEnhanceManager: *mut OH_AudioDeviceEnhanceManager,
+        renderer: *mut OH_AudioRenderer,
+        deviceDescriptor: *mut OH_AudioDeviceDescriptor,
+    ) -> OH_AudioCommon_Result;
+}
+extern "C" {
+    #[doc = " @brief Sets the preferred input device for a specific audio capturer.\n\n Your application must ensure that the specified capturer is valid. This selection only applies to\n the designated stream; other recording streams in your application will use the application's forced\n selection or the system's default input device. The selection becomes invalid when the application exits\n or the selected device goes offline. After the application restarts or the device comes back online,\n you must re-issue the selection for it to take effect. If the system does not support this function,\n it will select a default input device for the capturer.\n\n @param audioDeviceEnhanceManager the {@link OH_AudioDeviceEnhanceManager} handle returned\n     by {@link OH_AudioManager_GetAudioDeviceEnhanceManager}.\n @param capturer Indicates the capturer reference created by {@link OH_AudioStreamBuilder_GenerateCapturer}.\n @param deviceDescriptor The target device. The available device must be in the array returned\n     by {@link OH_AudioRoutingManager_GetAvailableDevices}.\n     If nullptr is passed, system will clear the last selection and select a default\n     input device for the capturer.\n @return {@link AUDIOCOMMON_RESULT_SUCCESS} if execution succeeds,\n     or {@link AUDIOCOMMON_RESULT_ERROR_INVALID_PARAM} if audioDeviceEnhanceManager is NULL, capturer is NULL,\n     deviceDescriptor is invalid, or the specified input device has gone offline,\n     or {@link AUDIOCOMMON_RESULT_ERROR_SYSTEM} Audio service error occurs, such as the service died.\n @since 26.0.0"]
+    #[cfg(feature = "api-26")]
+    pub fn OH_AudioDeviceEnhanceManager_SelectInputDeviceForAudioCapturer(
+        audioDeviceEnhanceManager: *mut OH_AudioDeviceEnhanceManager,
+        capturer: *mut OH_AudioCapturer,
+        deviceDescriptor: *mut OH_AudioDeviceDescriptor,
     ) -> OH_AudioCommon_Result;
 }

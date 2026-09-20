@@ -1,6 +1,8 @@
 # ohos-audio-sys
 
 This crate provides low-level sys bindings for the audio module in OpenHarmony.
+Shared channel-layout types are provided by and re-exported from
+`ohos-audio-base-sys`.
 
 ## Install
 
