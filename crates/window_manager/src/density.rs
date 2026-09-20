@@ -1,7 +1,7 @@
 use std::marker::PhantomData;
 use std::ptr::{self, NonNull};
 
-use ohos_window_manager_sys::{
+use ohos_native_window_manager_sys::{
     OH_WindowManager_DensityInfo, OH_WindowManager_DensityInfo_GetCustomDensity,
     OH_WindowManager_DensityInfo_GetDefaultDensity, OH_WindowManager_DensityInfo_GetSystemDensity,
     OH_WindowManager_DensityInfo_Release, OH_WindowManager_GetDensityInfoCopy,

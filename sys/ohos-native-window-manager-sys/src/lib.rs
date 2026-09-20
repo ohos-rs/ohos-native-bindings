@@ -9,9 +9,7 @@
 #![allow(clippy::unnecessary_cast)]
 pub use ohos_multi_modal_input_sys::{Input_KeyEvent, Input_MouseEvent, Input_TouchEvent};
 
-#[cfg_attr(target_env = "ohos", link(name = "native_window_manager"))]
-unsafe extern "C" {}
-
+#[link(name = "native_window_manager")]
 unsafe extern "C" {}
 
 #[doc = " @brief Describes the pixel image information.\n\n @since 15"]

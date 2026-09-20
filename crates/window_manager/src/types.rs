@@ -1,7 +1,7 @@
 #[cfg(feature = "api-15")]
 use ohos_enum_derive::EnumFrom;
 #[cfg(feature = "api-15")]
-use ohos_window_manager_sys::{
+use ohos_native_window_manager_sys::{
     WindowManager_AvoidArea, WindowManager_AvoidAreaType,
     WindowManager_AvoidAreaType_WINDOW_MANAGER_AVOID_AREA_TYPE_CUTOUT,
     WindowManager_AvoidAreaType_WINDOW_MANAGER_AVOID_AREA_TYPE_KEYBOARD,

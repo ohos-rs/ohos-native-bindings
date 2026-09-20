@@ -20,9 +20,9 @@ pub use manager::WindowManager;
 pub use manager::{MainWindowSnapshotCallback, RawPixelMap, WindowSnapshotConfig};
 #[cfg(feature = "api-15")]
 pub use ohos_image_native_binding::PixelMapNativeHandle;
-pub use ohos_window_manager_sys::Input_KeyEvent;
+pub use ohos_native_window_manager_sys::Input_KeyEvent;
 #[cfg(feature = "api-15")]
-pub use ohos_window_manager_sys::{Input_MouseEvent, Input_TouchEvent};
+pub use ohos_native_window_manager_sys::{Input_MouseEvent, Input_TouchEvent};
 #[cfg(feature = "api-21")]
 pub use types::MainWindowInfo;
 #[cfg(feature = "api-15")]

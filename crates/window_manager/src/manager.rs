@@ -4,14 +4,14 @@ use std::ffi::CStr;
 use std::ptr;
 
 #[cfg(feature = "api-21")]
-use ohos_window_manager_sys::{
+use ohos_native_window_manager_sys::{
     OH_PixelmapNative, OH_WindowManager_GetAllMainWindowInfo,
     OH_WindowManager_GetMainWindowSnapshot, OH_WindowManager_ReleaseAllMainWindowInfo,
     OH_WindowManager_ReleaseMainWindowSnapshot, WindowManager_MainWindowInfo,
     WindowManager_WindowSnapshotConfig,
 };
 #[cfg(feature = "api-17")]
-use ohos_window_manager_sys::{
+use ohos_native_window_manager_sys::{
     OH_WindowManager_GetAllWindowLayoutInfoList, OH_WindowManager_ReleaseAllWindowLayoutInfoList,
 };
 
