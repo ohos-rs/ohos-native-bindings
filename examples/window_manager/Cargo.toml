@@ -11,6 +11,7 @@ libc                        = { workspace = true }
 napi-ohos                   = { workspace = true }
 napi-derive-ohos            = { workspace = true }
 ohos-image-native-binding   = { workspace = true, features = ["api-17"] }
+ohos-input-sys              = { workspace = true, features = ["api-26"] }
 ohos-window-manager-binding = { workspace = true, features = ["api-26"] }
 
 [build-dependencies]

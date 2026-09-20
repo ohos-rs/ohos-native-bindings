@@ -7,6 +7,8 @@
 // bindgen's bitfield accessors transmute/cast between identical types.
 #![allow(clippy::useless_transmute)]
 #![allow(clippy::unnecessary_cast)]
+pub use ohos_input_sys::{Input_KeyEvent, Input_MouseEvent, Input_TouchEvent};
+
 #[cfg_attr(target_env = "ohos", link(name = "native_window_manager"))]
 unsafe extern "C" {}
 
@@ -18,6 +20,7 @@ unsafe extern "C" {}
 pub struct OH_PixelmapNative {
     _unused: [u8; 0],
 }
+#[cfg(feature = "api-26")]
 #[repr(C)]
 #[derive(Debug, Copy, Clone)]
 pub struct OH_WindowManager_FrameMetrics {
@@ -28,6 +31,7 @@ pub struct OH_WindowManager_FrameMetrics {
 pub type OH_WindowManager_FrameMetricsMeasuredCallback = ::std::option::Option<
     unsafe extern "C" fn(windowId: i32, metrics: *const OH_WindowManager_FrameMetrics),
 >;
+#[cfg(feature = "api-24")]
 #[repr(C)]
 #[derive(Debug, Copy, Clone)]
 pub struct OH_WindowManager_DensityInfo {
@@ -212,21 +216,6 @@ pub struct WindowManager_AvoidArea {
     pub rightRect: WindowManager_Rect,
     #[doc = " Bottom rectangle of the avoid area."]
     pub bottomRect: WindowManager_Rect,
-}
-#[repr(C)]
-#[derive(Debug, Copy, Clone)]
-pub struct Input_KeyEvent {
-    _unused: [u8; 0],
-}
-#[repr(C)]
-#[derive(Debug, Copy, Clone)]
-pub struct Input_MouseEvent {
-    _unused: [u8; 0],
-}
-#[repr(C)]
-#[derive(Debug, Copy, Clone)]
-pub struct Input_TouchEvent {
-    _unused: [u8; 0],
 }
 extern "C" {
     #[doc = " @brief Sets whether to display the status bar in a window.\n\n @param windowId Window ID. The default value is **0**. The value is an integer.\n @param enabled Whether to display the status bar. **true** to display, **false** otherwise.\n @param enableAnimation Whether to enable the show/hide animation of the status bar. **true** to enable, **false**\n     otherwise.\n @return Returns the result code.\n     {@link OK} the function call is successful.\n     {@link WINDOW_MANAGER_ERRORCODE_STATE_ABNORMAL} this window state is abnormal.\n     {@link WINDOW_MANAGER_ERRORCODE_SYSTEM_ABNORMAL} the window manager service works abnormally.\n @since 15"]

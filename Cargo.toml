@@ -56,6 +56,7 @@ ohos-xcomponent-sys             = { version = "0.1.3", path = "sys/ohos-xcompone
 ohos-arkui-sys                  = { version = "0.1.3", path = "sys/ohos-arkui-sys" }
 ohos-native-vsync-sys           = { version = "0.1.3", path = "sys/ohos-native-vsync-sys" }
 ohos-display-soloist-sys        = { version = "0.1.3", path = "sys/ohos-display-soloist-sys" }
+ohos-input-sys                  = { version = "0.1.0", path = "sys/ohos-input-sys" }
 ohos-input-method-sys           = { version = "0.2.3", path = "sys/ohos-input-method-sys" }
 ohos-display-sys                = { version = "0.1.3", path = "sys/ohos-display-sys" }
 ohos-window-manager-sys         = { version = "0.1.0", path = "sys/ohos-window-manager-sys" }

@@ -6,29 +6,18 @@ use napi_ohos::{Error, Result, Status};
 use ohos_image_native_binding::{
     PixelFormat, PixelMap, PixelMapAlphaType, PixelMapInitializationOptions,
 };
-use ohos_window_manager_binding::{
-    AvoidAreaType, DensityInfoRef, FrameMetrics, Input_KeyEvent, Input_MouseEvent,
-    Input_TouchEvent, RawDensityInfo, RawFrameMetrics, RawPixelMap, Window, WindowManager,
-    WindowSnapshotConfig,
+use ohos_input_sys::{
+    Input_KeyEvent, Input_MouseEvent, Input_TouchEvent, OH_Input_CreateTouchEvent,
+    OH_Input_DestroyTouchEvent, OH_Input_SetTouchEventAction, OH_Input_SetTouchEventActionTime,
+    OH_Input_SetTouchEventDisplayId, OH_Input_SetTouchEventDisplayX,
+    OH_Input_SetTouchEventDisplayY, OH_Input_SetTouchEventDownTime, OH_Input_SetTouchEventFingerId,
+    OH_Input_SetTouchEventGlobalX, OH_Input_SetTouchEventGlobalY, OH_Input_SetTouchEventWindowId,
+    OH_Input_SetTouchEventWindowX, OH_Input_SetTouchEventWindowY,
 };
-
-#[link(name = "ohinput")]
-unsafe extern "C" {
-    fn OH_Input_CreateTouchEvent() -> *mut Input_TouchEvent;
-    fn OH_Input_DestroyTouchEvent(event: *mut *mut Input_TouchEvent);
-    fn OH_Input_SetTouchEventAction(event: *mut Input_TouchEvent, action: i32);
-    fn OH_Input_SetTouchEventFingerId(event: *mut Input_TouchEvent, id: i32);
-    fn OH_Input_SetTouchEventDisplayX(event: *mut Input_TouchEvent, display_x: i32);
-    fn OH_Input_SetTouchEventDisplayY(event: *mut Input_TouchEvent, display_y: i32);
-    fn OH_Input_SetTouchEventDisplayId(event: *mut Input_TouchEvent, display_id: i32);
-    fn OH_Input_SetTouchEventActionTime(event: *mut Input_TouchEvent, action_time: i64);
-    fn OH_Input_SetTouchEventWindowId(event: *mut Input_TouchEvent, window_id: i32);
-    fn OH_Input_SetTouchEventGlobalX(event: *mut Input_TouchEvent, global_x: i32);
-    fn OH_Input_SetTouchEventGlobalY(event: *mut Input_TouchEvent, global_y: i32);
-    fn OH_Input_SetTouchEventWindowX(event: *mut Input_TouchEvent, window_x: i32);
-    fn OH_Input_SetTouchEventWindowY(event: *mut Input_TouchEvent, window_y: i32);
-    fn OH_Input_SetTouchEventDownTime(event: *mut Input_TouchEvent, down_time: i64);
-}
+use ohos_window_manager_binding::{
+    AvoidAreaType, DensityInfoRef, FrameMetrics, RawDensityInfo, RawFrameMetrics, RawPixelMap,
+    Window, WindowManager, WindowSnapshotConfig,
+};
 
 static SNAPSHOT_CALLBACKS: AtomicUsize = AtomicUsize::new(0);
 static SNAPSHOT_RELEASES: AtomicUsize = AtomicUsize::new(0);
