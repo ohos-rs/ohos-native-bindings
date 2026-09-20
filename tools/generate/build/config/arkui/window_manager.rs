@@ -14,10 +14,14 @@ pub const WINDOW_MANAGER: Lazy<SysConfig> = Lazy::new(|| SysConfig {
         "OH_WindowManager_.*",
         "OH_NativeWindowManager_.*",
     ],
-    block_list: vec![],
+    // These opaque event types are owned by InputKit. Reuse the canonical
+    // definitions instead of generating window-manager-local Rust types.
+    block_list: vec!["Input_.*"],
     // Host-side unit tests exercise the safe conversions without linking an
     // OpenHarmony system image. The library is required only for OHOS targets.
     dynamic_library: vec![],
-    extra: r#"#[cfg_attr(target_env = "ohos", link(name = "native_window_manager"))]
+    extra: r#"pub use ohos_input_sys::{Input_KeyEvent, Input_MouseEvent, Input_TouchEvent};
+
+#[cfg_attr(target_env = "ohos", link(name = "native_window_manager"))]
 unsafe extern "C" {}"#,
 });
