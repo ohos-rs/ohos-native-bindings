@@ -11,239 +11,239 @@
 #[link(name = "opengtx")]
 unsafe extern "C" {}
 
-#[doc = " @brief OpenGTX context.\n @since 5.0.0(12)"]
+#[doc = " @brief OpenGTX context.\n\n @since 5.0.0(12)"]
 #[repr(C)]
 #[derive(Debug, Copy, Clone)]
 pub struct OpenGTX_Context {
     _unused: [u8; 0],
 }
-#[doc = " sets the frame rate of LTPO by scene, such as 120 fps in game playing mode, 30 fps in dead mode"]
+#[doc = " @brief Scene mode.\n\n @since 5.0.0(12)"]
 pub const OpenGTX_LTPO_Mode_SCENE_MODE: OpenGTX_LTPO_Mode = 1;
-#[doc = " sets the frame rate of LTPO by touch mode. */\n/** If touches frequently, the frame rate will be set high."]
+#[doc = " @brief Touch mode.\n\n @since 5.0.0(12)"]
 pub const OpenGTX_LTPO_Mode_TOUCH_MODE: OpenGTX_LTPO_Mode = 16;
-#[doc = " sets the frame rate of LTPO by adaptive mode, integrated SCENE_MODE and TOUCH_MODE."]
+#[doc = " @brief Adaptive mode.\n\n @since 5.0.0(12)"]
 pub const OpenGTX_LTPO_Mode_ADAPTIVE_MODE: OpenGTX_LTPO_Mode = 256;
-#[doc = " @brief Defines the LTPO's mode to control frame rate in game.\n @since 5.0.0(12)"]
+#[doc = " @brief Describes the OpenGTX_LTPO modes for controlling the game frame rate.\n\n @since 5.0.0(12)"]
 pub type OpenGTX_LTPO_Mode = u32;
-#[doc = " UNITY TYPE."]
+#[doc = " @brief Unity.\n\n @since 5.0.0(12)"]
 pub const OpenGTX_EngineType_UNITY: OpenGTX_EngineType = 1;
-#[doc = " UNREAL TYPE."]
+#[doc = " @brief Unreal.\n\n @since 5.0.0(12)"]
 pub const OpenGTX_EngineType_UNREAL: OpenGTX_EngineType = 2;
-#[doc = " MESSIAH TYPE."]
+#[doc = " @brief Messiah.\n\n @since 5.0.0(12)"]
 pub const OpenGTX_EngineType_MESSIAH: OpenGTX_EngineType = 3;
-#[doc = " COCOS TYPE."]
+#[doc = " @brief Cocos.\n\n @since 5.0.0(12)"]
 pub const OpenGTX_EngineType_COCOS: OpenGTX_EngineType = 4;
-#[doc = " OTHERS TYPE."]
+#[doc = " @brief Other engines.\n\n @since 5.0.0(12)"]
 pub const OpenGTX_EngineType_OTHERS_ENGINE: OpenGTX_EngineType = 100;
-#[doc = " @brief Defines the game engine type\n @since 5.0.0(12)"]
+#[doc = " @brief Describes the underlying game engine types used by game apps.\n\n @since 5.0.0(12)"]
 pub type OpenGTX_EngineType = u32;
-#[doc = " SD mode, such as 480p."]
+#[doc = " @brief SD, for example, 480p.\n\n @since 5.0.0(12)"]
 pub const OpenGTX_PictureQualityMaxLevel_SD: OpenGTX_PictureQualityMaxLevel = 1;
-#[doc = " HD mode, such as 720p."]
+#[doc = " @brief HD, for example, 720p.\n\n @since 5.0.0(12)"]
 pub const OpenGTX_PictureQualityMaxLevel_HD: OpenGTX_PictureQualityMaxLevel = 2;
-#[doc = " FHD mode, such as 1080p."]
+#[doc = " @brief FHD, for example, 1080p.\n\n @since 5.0.0(12)"]
 pub const OpenGTX_PictureQualityMaxLevel_FHD: OpenGTX_PictureQualityMaxLevel = 3;
-#[doc = " QHD mode, such as 2k."]
+#[doc = " @brief QHD, for example, 2K.\n\n @since 5.0.0(12)"]
 pub const OpenGTX_PictureQualityMaxLevel_QHD: OpenGTX_PictureQualityMaxLevel = 4;
-#[doc = " UHD mode, such as 4k."]
+#[doc = " @brief UHD, for example, 4K.\n\n @since 5.0.0(12)"]
 pub const OpenGTX_PictureQualityMaxLevel_UHD: OpenGTX_PictureQualityMaxLevel = 5;
-#[doc = " @brief Defines the picture quality of game\n @since 5.0.0(12)"]
+#[doc = " @brief Describes the game app image quality levels.\n\n @since 5.0.0(12)"]
 pub type OpenGTX_PictureQualityMaxLevel = u32;
-#[doc = " @brief Defines the resolution value of game, such as 1920*1080\n @since 5.0.0(12)"]
+#[doc = " @brief Describes the resolution of a game app.\n\n @since 5.0.0(12)"]
 #[repr(C)]
 #[derive(Debug, Copy, Clone)]
 pub struct OpenGTX_ResolutionValue {
-    #[doc = " Height value of resolution."]
+    #[doc = " @brief Resolution height, in pixels. The value range is [360, 7680].\n\n @since 5.0.0(12)"]
     pub height: i32,
-    #[doc = " width value of resolution."]
+    #[doc = " @brief Resolution width, in pixels. The value range is [360, 7680].\n\n @since 5.0.0(12)"]
     pub width: i32,
 }
-#[doc = " Multiplayer Online Battle Arena."]
+#[doc = " @brief Multiplayer online battle arena (MOBA).\n\n @since 5.0.0(12)"]
 pub const OpenGTX_GameType_MOBA: OpenGTX_GameType = 1;
-#[doc = " Role-Playing Game."]
+#[doc = " @brief Role-playing game (RPG).\n\n @since 5.0.0(12)"]
 pub const OpenGTX_GameType_RPG: OpenGTX_GameType = 2;
-#[doc = " First-person shooting game."]
+#[doc = " @brief First-person shooter (FPS).\n\n @since 5.0.0(12)"]
 pub const OpenGTX_GameType_FPS: OpenGTX_GameType = 3;
-#[doc = " Race Game."]
+#[doc = " @brief Racing (RAC).\n\n @since 5.0.0(12)"]
 pub const OpenGTX_GameType_RAC: OpenGTX_GameType = 4;
-#[doc = " OTHERS."]
+#[doc = " @brief Other game types.\n\n @since 5.0.0(12)"]
 pub const OpenGTX_GameType_OTHERS_TYPE: OpenGTX_GameType = 100;
-#[doc = " @brief Defines the type of game\n @since 5.0.0(12)"]
+#[doc = " @brief Describes the game types.\n\n @since 5.0.0(12)"]
 pub type OpenGTX_GameType = u32;
-#[doc = " @brief Defines the Configure value set by game\n @since 5.0.0(12)"]
+#[doc = " @brief Describes the OpenGTX property settings.\n\n @since 5.0.0(12)"]
 #[repr(C)]
 #[derive(Debug, Copy, Clone)]
 pub struct OpenGTX_ConfigDescription {
-    #[doc = " the LTPO's mode to control frame rate."]
+    #[doc = " @brief LTPO mode, including the scene mode, touch mode, and adaptive mode.\n\n @since 5.0.0(12)"]
     pub mode: OpenGTX_LTPO_Mode,
-    #[doc = " the target frame rate of game."]
+    #[doc = " @brief Target frame rate of a game app. The value range is [30, 144].\n\n @since 5.0.0(12)"]
     pub targetFPS: i32,
-    #[doc = " the package name of game."]
+    #[doc = " @brief Game package name. The value is a string of 1 to 256 bytes.\n\n @since 5.0.0(12)"]
     pub packageName: *mut ::std::os::raw::c_char,
-    #[doc = " the version of game."]
+    #[doc = " @brief Game app version. The value is a string of 1 to 256 bytes.\n\n @since 5.0.0(12)"]
     pub appVersion: *mut ::std::os::raw::c_char,
-    #[doc = " the type of game engine."]
+    #[doc = " @brief Game engine type.\n\n @since 5.0.0(12)"]
     pub engineType: OpenGTX_EngineType,
-    #[doc = " the version of game engine."]
+    #[doc = " @brief Game engine version. The value is a string of 0 to 256 bytes.\n\n @since 5.0.0(12)"]
     pub engineVersion: *mut ::std::os::raw::c_char,
-    #[doc = " the type of game."]
+    #[doc = " @brief Game type.\n\n @since 5.0.0(12)"]
     pub gameType: OpenGTX_GameType,
-    #[doc = " the picture quality of game."]
+    #[doc = " @brief Image quality.\n\n @since 5.0.0(12)"]
     pub pictureQualityMaxLevel: OpenGTX_PictureQualityMaxLevel,
-    #[doc = " the resolution value of game."]
+    #[doc = " @brief Maximum resolution supported by a game app. The value ranges from 360p to 8K.\n\n @since 5.0.0(12)"]
     pub resolutionMaxValue: OpenGTX_ResolutionValue,
-    #[doc = " the main thread id of game."]
+    #[doc = " @brief ID of a logic thread of a game app. The value range is [0, ∞).\n\n @since 5.0.0(12)"]
     pub gameMainThreadId: i32,
-    #[doc = " the render thread id of game."]
+    #[doc = " @brief ID of a rendering thread of a game app. The value range is [0, ∞).\n\n @since 5.0.0(12)"]
     pub gameRenderThreadId: i32,
-    #[doc = " the key thread ids of game, set up to 5 values, fill in with 0 if less than 5."]
+    #[doc = " @brief List of key thread IDs of a game app. The ID value range is [0, ∞).\n\n @since 5.0.0(12)"]
     pub gameKeyThreadIds: [i32; 5usize],
-    #[doc = " the flag of support vulkan or not."]
+    #[doc = " @brief Indicates whether Vulkan is supported.\n <br>The value is **true** or **false**.\n\n @since 5.0.0(12)"]
     pub vulkanSupport: bool,
 }
-#[doc = " The temperature of device is normal, game can remain in its current configuration."]
+#[doc = " @brief Temperature level 1. The game can retain the current settings.\n\n @since 5.0.0(12)"]
 pub const OpenGTX_TempLevel_TEMP_LEVEL1: OpenGTX_TempLevel = 1;
-#[doc = " The temperature of device increase one level, game should reduce the imperceptible service,\n such as decelerate background update."]
+#[doc = " @brief Temperature level 2. The game should reduce unnecessary services, such as background updates.\n\n @since 5.0.0(12)"]
 pub const OpenGTX_TempLevel_TEMP_LEVEL2: OpenGTX_TempLevel = 2;
-#[doc = " The temperature of device increase two level, game should stop the imperceptible service and reduce\n Non-focused service, such as decelerate foreground update."]
+#[doc = " @brief Temperature level 3. The game should stop non-key services.\n\n @since 5.0.0(12)"]
 pub const OpenGTX_TempLevel_TEMP_LEVEL3: OpenGTX_TempLevel = 3;
-#[doc = " The temperature of device increase three level, game should reduce the game effects."]
+#[doc = " @brief Temperature level 4. The game should lower its gaming effect.\n\n @since 5.0.0(12)"]
 pub const OpenGTX_TempLevel_TEMP_LEVEL4: OpenGTX_TempLevel = 4;
-#[doc = " The temperature of device increase four level, game should reduce the game scene configuration,\n such as frame resolution、frame rate、quality."]
+#[doc = " @brief Temperature level 5. The game should lower its scene settings, such as the frame resolution, frame rate,\n and image quality.\n\n @since 5.0.0(12)"]
 pub const OpenGTX_TempLevel_TEMP_LEVEL5: OpenGTX_TempLevel = 5;
-#[doc = " The temperature of device increase five level(too high), game should keep the minimum configuration."]
+#[doc = " @brief Temperature level 6. The game should maintain the minimum settings.\n\n @since 5.0.0(12)"]
 pub const OpenGTX_TempLevel_TEMP_LEVEL6: OpenGTX_TempLevel = 6;
-#[doc = " @brief Defines temperature level of device.\n @since 5.0.0(12)"]
+#[doc = " @brief Describes the device temperature levels.\n\n @since 5.0.0(12)"]
 pub type OpenGTX_TempLevel = u32;
-#[doc = " @brief Defines three-dimensional Vector of OpenGTX.\n @since 5.0.0(12)"]
+#[doc = " @brief Describes an OpenGTX 3D vector.\n\n @since 5.0.0(12)"]
 #[repr(C)]
 #[derive(Debug, Copy, Clone)]
 pub struct OpenGTX_Vector3 {
-    #[doc = " The x-axis coordinate of a 3D vector."]
+    #[doc = " @brief X component of a 3D vector.\n <br>Value range: [-360, 360].\n\n @since 5.0.0(12)"]
     pub x: f32,
-    #[doc = " The y-axis coordinate of a 3D vector."]
+    #[doc = " @brief Y component of a 3D vector.\n <br>Value range: [-360, 360].\n\n @since 5.0.0(12)"]
     pub y: f32,
-    #[doc = " The z-axis coordinate of a 3D vector."]
+    #[doc = " @brief Z component of a 3D vector.\n <br>Value range: [-360, 360].\n\n @since 5.0.0(12)"]
     pub z: f32,
 }
-#[doc = " @brief Defines the frame render information struct, which specifies the required attributes per frame.\n @since 5.0.0(12)"]
+#[doc = " @brief Describes the frame rendering information. This struct is passed by a game app after obtaining the frame\n properties. The camera matrix in this parameter is typically used to optimize the image quality effect for render\n layer load-reduction schemes.\n\n @since 5.0.0(12)"]
 #[repr(C)]
 #[derive(Debug, Copy, Clone)]
 pub struct OpenGTX_FrameRenderInfo {
-    #[doc = " Position of the main camera."]
+    #[doc = " @brief Position of the main camera. The value range of **x**, **y**, and **z** is [-360, 360]. If the value is\n out of the range, itdoes not take effect and error code 401 is returned. Unit: deg.\n\n @since 5.0.0(12)"]
     pub mainCameraPosition: OpenGTX_Vector3,
-    #[doc = " Rotate of the main camera, include yaw、pitch、roll."]
+    #[doc = " @brief Rotation of the main camera, including yaw, pitch, and roll. The value range of **x**, **y**, and **z**\n is [-360, 360]. Ifthe value is out of the range, it does not take effect and error code 401 is returned. Unit:\n deg.\n\n @since 5.0.0(12)"]
     pub mainCameraRotate: OpenGTX_Vector3,
 }
-#[doc = " The scene of game login."]
+#[doc = " @brief Login.\n\n @since 5.0.0(12)"]
 pub const OpenGTX_SceneID_LOGIN: OpenGTX_SceneID = 1;
-#[doc = " The scene of game interface, such as main interface."]
+#[doc = " @brief Game hall.\n\n @since 5.0.0(12)"]
 pub const OpenGTX_SceneID_GAME_INTERFACE: OpenGTX_SceneID = 2;
-#[doc = " The scene of game loading."]
+#[doc = " @brief Loading a game.\n\n @since 5.0.0(12)"]
 pub const OpenGTX_SceneID_LOADING: OpenGTX_SceneID = 3;
-#[doc = " The scene of game playing."]
+#[doc = " @brief Playing a game.\n\n @since 5.0.0(12)"]
 pub const OpenGTX_SceneID_PLAYING: OpenGTX_SceneID = 4;
-#[doc = " The scene of spectator."]
+#[doc = " @brief Spectating a game.\n\n @since 5.0.0(12)"]
 pub const OpenGTX_SceneID_SPECTATOR: OpenGTX_SceneID = 5;
-#[doc = " The scene of character death."]
+#[doc = " @brief Preparing for combat.\n\n @since 5.0.0(12)"]
 pub const OpenGTX_SceneID_DEATH: OpenGTX_SceneID = 6;
-#[doc = " The scene of device heavy-load."]
+#[doc = " @brief Heavy load.\n\n @since 5.0.0(12)"]
 pub const OpenGTX_SceneID_HEAVY_LOAD: OpenGTX_SceneID = 7;
-#[doc = " The scene to be expanded."]
+#[doc = " @brief Other scenes.\n\n @since 5.0.0(12)"]
 pub const OpenGTX_SceneID_OTHERS_SCENE: OpenGTX_SceneID = 100;
-#[doc = " @brief Defines the type of game scene for OpenGTX algorithm.\n @since 5.0.0(12)"]
+#[doc = " @brief Describes the OpenGTX game scene types.\n\n @since 5.0.0(12)"]
 pub type OpenGTX_SceneID = u32;
-#[doc = " @brief Defines the game scene information struct, which specifies the required attributes per scene.\n @since 5.0.0(12)"]
+#[doc = " @brief Describes the game scene information. This struct is passed by a game app after obtaining the scene\n information.\n\n @since 5.0.0(12)"]
 #[repr(C)]
 #[derive(Debug, Copy, Clone)]
 pub struct OpenGTX_GameSceneInfo {
-    #[doc = " The Game Scene ID."]
+    #[doc = " @brief Game scene type.\n\n @since 5.0.0(12)"]
     pub sceneID: OpenGTX_SceneID,
-    #[doc = " The descriptions of game scenarios, such as \"driving\"."]
+    #[doc = " @brief Game scene description. The value is a string of 0 to 256 bytes.\n\n @since 5.0.0(12)"]
     pub description: *mut ::std::os::raw::c_char,
-    #[doc = " The recommended frame rate for the current scene."]
+    #[doc = " @brief Recommended frame rate for the current scene. The value range is 0 and [30, {@link targetFPS}]. If this\n variable is set to **0**, the value does not take effect. If the value is out of the range, it does not take\n effect and error code 401 is returned.\n\n @since 5.0.0(12)"]
     pub recommendFPS: i32,
-    #[doc = " The minimum frame rate expected for the current scene."]
+    #[doc = " @brief Expected minimum frame rate for the current scene. The value range is 0 and [30, {@link targetFPS}]. If\n this variable is set to **0**, the value does not take effect. If the value is out of the range, it does not\n take effect and error code 401 is returned.\n\n @since 5.0.0(12)"]
     pub minFPS: i32,
-    #[doc = " The maximum frame rate expected for the current scene."]
+    #[doc = " @brief Expected maximum frame rate for the current scene. The value range is 0 and [30, {@link targetFPS}]. If\n this variable is set to **0**, the value does not take effect. If the value is out of the range, it does not\n take effect and error code 401 is returned.\n\n @since 5.0.0(12)"]
     pub maxFPS: i32,
-    #[doc = " The resolution of the current scene."]
+    #[doc = " @brief Resolution of the current scene. The value ranges from 360p to 8K.\n\n @since 5.0.0(12)"]
     pub resolutionCurValue: OpenGTX_ResolutionValue,
 }
-#[doc = " @brief Defines the network latency for OpenGTX algorithm.\n @since 5.0.0(12)"]
+#[doc = " @brief Describes the current device network latency information. This struct is passed by a game app after obtaining\n the network latency information. This parameter is typically used to optimize the network latency.\n\n @since 5.0.0(12)"]
 #[repr(C)]
 #[derive(Debug, Copy, Clone)]
 pub struct OpenGTX_NetworkLatency {
-    #[doc = " The total latency of the game."]
+    #[doc = " @brief Total latency of a game, in ms. The value range is [0, 200].\n\n @since 5.0.0(12)"]
     pub total: i32,
-    #[doc = " The uplink latency of the game."]
+    #[doc = " @brief Uplink latency of a game, in ms. The value range is [0, 200].\n\n @since 5.0.0(12)"]
     pub up: i32,
-    #[doc = " The downlink latency of the game."]
+    #[doc = " @brief Downlink latency of a game, in ms. The value range is [0, 200].\n\n @since 5.0.0(12)"]
     pub down: i32,
 }
-#[doc = " @brief Defines the network information struct, which specifies the required attributes of network.\n @since 5.0.0(12)"]
+#[doc = " @brief Describes the current device network information. This struct is passed by a game app after obtaining the\n network information.\n\n @since 5.0.0(12)"]
 #[repr(C)]
 #[derive(Debug, Copy, Clone)]
 pub struct OpenGTX_NetworkInfo {
-    #[doc = " The network latency in the game.\n If the game cannot know the uplink and downlink latency, you can set 0 to the total latency,\n and the value is greater than or equal to 0.\n The total game latency is divided into 5 levels of 50ms, 100ms, 150ms, and 200ms,\n and the game application notifies OpenGTX when the gear changes."]
+    #[doc = " @brief Network latency in a game. If there is no uplink or downlink latency, set this variable to the value of\n **total** (total latency). The total game latency is divided into five levels: 0 ms, 50 ms, 100 ms, 150 ms, and\n 200 ms. When the level changes, the game app notifies OpenGTX of the change.\n\n @since 5.0.0(12)"]
     pub networkLatency: OpenGTX_NetworkLatency,
-    #[doc = " The game server address for IP format verifying."]
+    #[doc = " @brief Game server IP address. The value is a string of 1 to 256 bytes. Example: 10.10.10.10. This parameter\n supports both IPv4 and IPv6 address formats. The value is a string of 1 to 256 bytes. It cannot be an empty\n string or null. You are advised to verify the format before setting this parameter.\n\n @since 5.0.0(12)"]
     pub networkServerIP: *mut ::std::os::raw::c_char,
 }
-#[doc = " The operation is successful."]
+#[doc = " @brief The API execution is successful.\n\n @since 5.0.0(12)"]
 pub const OpenGTX_ErrorCode_OPENGTX_SUCCESS: OpenGTX_ErrorCode = 0;
-#[doc = " Invalid parameter."]
+#[doc = " @brief Invalid parameters, including a missing mandatory parameter, an incorrect parameter type, and an invalid\n parameter value.\n\n @since 5.0.0(12)"]
 pub const OpenGTX_ErrorCode_OPENGTX_INVALID_PARAMETER: OpenGTX_ErrorCode = 401;
-#[doc = " The context is not configured when activated."]
+#[doc = " @brief The OpenGTX context instance properties are not set. This error code is returned if the OpenGTX context\n instance is not configured when functions such as {@link HMS_OpenGTX_DispatchFrameRenderInfo} are called.\n\n @since 5.0.0(12)"]
 pub const OpenGTX_ErrorCode_OPENGTX_CONTEXT_NOT_CONFIG: OpenGTX_ErrorCode = 1009502001;
-#[doc = " The context is not active when dispatched."]
+#[doc = " @brief The OpenGTX context instance is not activated. This error code is returned if the OpenGTX context\n instance is not activated when functions such as {@link HMS_OpenGTX_DispatchFrameRenderInfo} are called.\n\n @since 5.0.0(12)"]
 pub const OpenGTX_ErrorCode_OPENGTX_CONTEXT_NOT_ACTIVE: OpenGTX_ErrorCode = 1009502002;
-#[doc = " @brief Defines error codes for OpenGTX APIs.\n @since 5.0.0(12)"]
+#[doc = " @brief Describes the error codes of OpenGTX API calls.\n\n @since 5.0.0(12)"]
 pub type OpenGTX_ErrorCode = u32;
-#[doc = " @ingroup Callbacks\n @brief\n This callback is to device report temperature level to game.\n @since 5.0.0(12)"]
+#[doc = " @ingroup Callbacks\n @brief Callback for device temperature information.\n\n @since 5.0.0(12)"]
 pub type OpenGTX_DeviceInfoCallback =
     ::std::option::Option<unsafe extern "C" fn(arg1: OpenGTX_TempLevel)>;
 extern "C" {
-    #[doc = " @brief Creates a OpenGTX context instance. The context structure is the main object used to interact with\n OpenGTX APIs, and is responsible for the management of the internal resources used by the OpenGTX algorithm.\n\n @param deviceInfoCallback function of device information {@link OpenGTX_DeviceInfoCallback}.\n @return Returns the pointer to a {@link OpenGTX_Context} context instance.\n @since 5.0.0(12)"]
+    #[doc = " @brief Creates an OpenGTX context instance. Each time this API is successfully called, an {@link OpenGTX_Context}\n object is created and a pointer to the {@link OpenGTX_Context} object is returned.\n\n @param deviceInfoCallback Callback for device temperature information, corresponding to\n     {@link OpenGTX_DeviceInfoCallback}.\n @return If the call is successful, a pointer to {@link OpenGTX_Context} is returned. If the call fails, a null\n     pointer is returned.\n @since 5.0.0(12)"]
     pub fn HMS_OpenGTX_CreateContext(
         deviceInfoCallback: OpenGTX_DeviceInfoCallback,
     ) -> *mut OpenGTX_Context;
 }
 extern "C" {
-    #[doc = " @brief Configure OpenGTX context instance for initialing. For instance, sets the LTPO's mode to control\n frame rate, sets the target frame rate of game, etc.\n\n @param context Pointer to the {@link OpenGTX_Context} instance. The value can not be null. Otherwise, an error\n code is returned.\n @param config Pointer to the {@link OpenGTX_ConfigDescription} instance. The object specifies the configure\n attributes added to the context instance. The value can not be null. Otherwise, an error code is returned.\n @return Execution result of the function. If the operation is successful, <b>OPENGTX_SUCCESS</b> is returned.\n If the operation fails, an error code is returned. For details, see {@link OpenGTX_ErrorCode}.\n @since 5.0.0(12)"]
+    #[doc = " @brief Initializes an OpenGTX context instance and sets the OpenGTX context instance properties.\n\n @param context Created OpenGTX context instance, that is, a pointer to the {@link OpenGTX_Context} instance. The\n     pointer cannot be null. Otherwise, an error code indicating failure is returned.\n @param config Initialization parameters of an OpenGTX context instance, that is, a pointer to\n     {@link OpenGTX_ConfigDescription}. The pointer cannot be null. Otherwise, an error code indicating failure is\n     returned.\n @return Execution result of the function. If the execution is successful, **OPENGTX_SUCCESS** is returned. If the\n     execution fails, an error code is returned. For details about the error codes, please refer to\n     {@link OpenGTX_ErrorCode}.\n @since 5.0.0(12)"]
     pub fn HMS_OpenGTX_SetConfiguration(
         context: *mut OpenGTX_Context,
         config: *const OpenGTX_ConfigDescription,
     ) -> OpenGTX_ErrorCode;
 }
 extern "C" {
-    #[doc = " @brief Destroy OpenGTX instance and memory resource reclamation.\n\n @param context Level-2 pointer to the {@link OpenGTX_Context} instance to destroy.\n @return Execution result of the function. If the operation is successful, <b>OPENGTX_SUCCESS</b> is returned.\n If the operation fails, an error code is returned. For details, see {@link OpenGTX_ErrorCode}.\n @since 5.0.0(12)"]
+    #[doc = " @brief Destroys an OpenGTX context instance and releases memory resources.\n\n @param context Created OpenGTX context instance, that is, a pointer to the {@link OpenGTX_Context} instance. The\n     pointer cannot be null. Otherwise, an error code indicating failure is returned.\n @return Execution result of the function. If the execution is successful, **OPENGTX_SUCCESS** is returned. If the\n     execution fails, an error code is returned. For details about the error codes, please refer to\n     {@link OpenGTX_ErrorCode}.\n @since 5.0.0(12)"]
     pub fn HMS_OpenGTX_DestroyContext(context: *mut *mut OpenGTX_Context) -> OpenGTX_ErrorCode;
 }
 extern "C" {
-    #[doc = " @brief Activate OpenGTX algorithm. An \"activated\" instance is ready to draw frames.\n In order to activate it, {@link HMS_OpenGTX_SetConfiguration} must be called. In case of any errors,\n the instance is considered to be inactive.\n\n @param context Pointer to the {@link OpenGTX_Context} instance. The value cannot be null.\n Otherwise, an error code is returned.\n @return Execution result of the function. If the operation is successful, <b>OPENGTX_SUCCESS</b> is returned.\n If the operation fails, an error code is returned. For details, see {@link OpenGTX_ErrorCode}.\n @since 5.0.0(12)"]
+    #[doc = " @brief Activates an OpenGTX context instance. Before using an OpenGTX context instance, you need to activate it.\n\n @param context Created OpenGTX context instance, that is, a pointer to the {@link OpenGTX_Context} instance. The\n     pointer cannot be null. Otherwise, an error code indicating failure is returned.\n @return Execution result of the function. If the execution is successful, **OPENGTX_SUCCESS** is returned. If the\n     execution fails, an error code is returned. For details about the error codes, please refer to\n     {@link OpenGTX_ErrorCode}.\n @since 5.0.0(12)"]
     pub fn HMS_OpenGTX_Activate(context: *mut OpenGTX_Context) -> OpenGTX_ErrorCode;
 }
 extern "C" {
-    #[doc = " @brief Deactivate OpenGTX algorithm.\n\n @param context Pointer to the {@link OpenGTX_Context} instance. The value cannot be null.\n Otherwise, an error code is returned.\n @return Execution result of the function. If the operation is successful, <b>OPENGTX_SUCCESS</b> is returned.\n If the operation fails, an error code is returned. For details, see {@link OpenGTX_ErrorCode}.\n @since 5.0.0(12)"]
+    #[doc = " @brief Deactivates an OpenGTX context instance. To activate the instance again, call the\n {@link HMS_OpenGTX_Activate} API.\n\n @param context Created OpenGTX context instance, that is, a pointer to the {@link OpenGTX_Context} instance. The\n     pointer cannot be null. Otherwise, an error code indicating failure is returned.\n @return Execution result of the function. If the execution is successful, **OPENGTX_SUCCESS** is returned. If the\n     execution fails, an error code is returned. For details about the error codes, please refer to\n     {@link OpenGTX_ErrorCode}.\n @since 5.0.0(12)"]
     pub fn HMS_OpenGTX_Deactivate(context: *mut OpenGTX_Context) -> OpenGTX_ErrorCode;
 }
 extern "C" {
-    #[doc = " @brief Set all required data of frame rendering for OpenGTX algorithm to reduce device load, such as LTPO.\n\n @param context Pointer to the {@link OpenGTX_Context} instance. The value can not be null.\n @param frameRenderInfo Pointer to the {@link OpenGTX_FrameRenderInfo}. The object specifies the dispatch attributes\n used by OpenGTX algorithm per frame. The value can not be null.\n @return Function execution result. If the operation is successful, OPENGTX_SUCCESS is returned.\n If the operation fails, an error code is returned. For details about the error codes, see {@link OpenGTX_ErrorCode}.\n @since 5.0.0(12)"]
+    #[doc = " @brief Sets the frame rendering information required for OpenGTX running. The information needs to be updated after\n each change to a frame.\n\n @param context Created OpenGTX context instance, that is, a pointer to the {@link OpenGTX_Context} instance. The\n     pointer cannot be null. Otherwise, an error code indicating failure is returned.\n @param frameRenderInfo Frame rendering information struct, that is, a pointer to {@link OpenGTX_FrameRenderInfo}.\n     The pointer cannot be null. Otherwise, an error code indicating failure is returned.\n @return Execution result of the function. If the execution is successful, **OPENGTX_SUCCESS** is returned. If the\n     execution fails, an error code is returned. For details about the error codes, please refer to\n     {@link OpenGTX_ErrorCode}.\n @since 5.0.0(12)"]
     pub fn HMS_OpenGTX_DispatchFrameRenderInfo(
         context: *mut OpenGTX_Context,
         frameRenderInfo: *const OpenGTX_FrameRenderInfo,
     ) -> OpenGTX_ErrorCode;
 }
 extern "C" {
-    #[doc = " @brief Set all required data of game scene for OpenGTX algorithm to reduce device load.\n\n @param context Pointer to the {@link OpenGTX_Context} instance. The value can not be null.\n @param gameSceneInfo Pointer to the {@link OpenGTX_GameSceneInfo}. The object specifies the dispatch attributes\n used by OpenGTX algorithm per scene. The value can not be null.\n @return Function execution result. If the operation is successful, OPENGTX_SUCCESS is returned.\n If the operation fails, an error code is returned. For details about the error codes, see {@link OpenGTX_ErrorCode}.\n @since 5.0.0(12)"]
+    #[doc = " @brief Sets the game scene information required for OpenGTX running.\n\n @param context Created OpenGTX context instance, that is, a pointer to the {@link OpenGTX_Context} instance. The\n     pointer cannot be null. Otherwise, an error code indicating failure is returned.\n @param gameSceneInfo Game scene information, that is, a pointer to {@link OpenGTX_GameSceneInfo}. The pointer cannot\n     be null. Otherwise, an error code indicating failure is returned.\n @return Execution result of the function. If the execution is successful, **OPENGTX_SUCCESS** is returned. If the\n     execution fails, an error code is returned. For details about the error codes, please refer to\n     {@link OpenGTX_ErrorCode}.\n @since 5.0.0(12)"]
     pub fn HMS_OpenGTX_DispatchGameSceneInfo(
         context: *mut OpenGTX_Context,
         gameSceneInfo: *const OpenGTX_GameSceneInfo,
     ) -> OpenGTX_ErrorCode;
 }
 extern "C" {
-    #[doc = " @brief Set all required data of network for OpenGTX algorithm to reduce device load.\n\n @param context Pointer to the {@link OpenGTX_Context} instance. The value can not be null.\n @param networkInfo Pointer to the {@link OpenGTX_NetworkInfo}. The object specifies the dispatch attributes\n used by OpenGTX algorithm when total latency changes. The value can not be null.\n @return Function execution result. If the operation is successful, OPENGTX_SUCCESS is returned.\n If the operation fails, an error code is returned. For details about the error codes, see {@link OpenGTX_ErrorCode}.\n @since 5.0.0(12)"]
+    #[doc = " @brief Sets the network latency information required for OpenGTX running.\n\n @param context Created OpenGTX context instance, that is, a pointer to the {@link OpenGTX_Context} instance. The\n     pointer cannot be null. Otherwise, an error code indicating failure is returned.\n @param networkInfo Network information, that is, a pointer to {@link OpenGTX_NetworkInfo}. The pointer cannot be\n     null. Otherwise, an error code indicating failure is returned.\n @return Execution result of the function. If the execution is successful, **OPENGTX_SUCCESS** is returned. If the\n     execution fails, an error code is returned. For details about the error codes, please refer to\n     {@link OpenGTX_ErrorCode}.\n @since 5.0.0(12)"]
     pub fn HMS_OpenGTX_DispatchNetworkInfo(
         context: *mut OpenGTX_Context,
         networkInfo: *const OpenGTX_NetworkInfo,
