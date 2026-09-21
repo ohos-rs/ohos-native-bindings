@@ -19,38 +19,192 @@ pub enum KeyEventType {
     Click,
 }
 
-/// Lossless ArkUI key code.
+/// ArkUI key code.
 ///
-/// Named constants cover navigation and activation keys commonly consumed by
-/// UI frameworks. Unknown and future platform values remain available through
-/// [`KeyCode::raw`].
-#[derive(Debug, Clone, Copy, PartialEq, Eq, Hash)]
-pub struct KeyCode(i32);
+/// This is the complete `ArkUI_KeyCode` set exposed by the API 26 headers.
+/// Unknown values returned by a newer runtime are normalized to
+/// [`KeyCode::Unknown`]; use [`KeyEvent::key_code_raw`] when the original value
+/// is required.
+#[derive(Debug, Clone, Copy, PartialEq, Eq, Hash, EnumFrom)]
+#[config(ArkUI_KeyCode, "ArkUI_KeyCode_ARKUI_KEYCODE_")]
+pub enum KeyCode {
+    Unknown,
+    Fn,
+    VolumeUp,
+    VolumeDown,
+    Power,
+    Camera,
+    VolumeMute,
+    Mute,
+    BrightnessUp,
+    BrightnessDown,
+    #[suffix("0")]
+    Digit0,
+    #[suffix("1")]
+    Digit1,
+    #[suffix("2")]
+    Digit2,
+    #[suffix("3")]
+    Digit3,
+    #[suffix("4")]
+    Digit4,
+    #[suffix("5")]
+    Digit5,
+    #[suffix("6")]
+    Digit6,
+    #[suffix("7")]
+    Digit7,
+    #[suffix("8")]
+    Digit8,
+    #[suffix("9")]
+    Digit9,
+    Star,
+    Pound,
+    DpadUp,
+    DpadDown,
+    DpadLeft,
+    DpadRight,
+    DpadCenter,
+    A,
+    B,
+    C,
+    D,
+    E,
+    F,
+    G,
+    H,
+    I,
+    J,
+    K,
+    L,
+    M,
+    N,
+    O,
+    P,
+    Q,
+    R,
+    S,
+    T,
+    U,
+    V,
+    W,
+    X,
+    Y,
+    Z,
+    Comma,
+    Period,
+    AltLeft,
+    AltRight,
+    ShiftLeft,
+    ShiftRight,
+    Tab,
+    Space,
+    Sym,
+    Explorer,
+    Envelope,
+    Enter,
+    Del,
+    Grave,
+    Minus,
+    Equals,
+    LeftBracket,
+    RightBracket,
+    Backslash,
+    Semicolon,
+    Apostrophe,
+    Slash,
+    At,
+    Plus,
+    Menu,
+    PageUp,
+    PageDown,
+    Escape,
+    ForwardDel,
+    CtrlLeft,
+    CtrlRight,
+    CapsLock,
+    ScrollLock,
+    MetaLeft,
+    MetaRight,
+    Function,
+    Sysrq,
+    Break,
+    MoveHome,
+    MoveEnd,
+    Insert,
+    Forward,
+    MediaPlay,
+    MediaPause,
+    MediaClose,
+    MediaEject,
+    MediaRecord,
+    #[suffix("F1")]
+    F1,
+    #[suffix("F2")]
+    F2,
+    #[suffix("F3")]
+    F3,
+    #[suffix("F4")]
+    F4,
+    #[suffix("F5")]
+    F5,
+    #[suffix("F6")]
+    F6,
+    #[suffix("F7")]
+    F7,
+    #[suffix("F8")]
+    F8,
+    #[suffix("F9")]
+    F9,
+    #[suffix("F10")]
+    F10,
+    #[suffix("F11")]
+    F11,
+    #[suffix("F12")]
+    F12,
+    NumLock,
+    Numpad0,
+    Numpad1,
+    Numpad2,
+    Numpad3,
+    Numpad4,
+    Numpad5,
+    Numpad6,
+    Numpad7,
+    Numpad8,
+    Numpad9,
+    NumpadDivide,
+    NumpadMultiply,
+    NumpadSubtract,
+    NumpadAdd,
+    NumpadDot,
+    NumpadComma,
+    NumpadEnter,
+    NumpadEquals,
+    NumpadLeftParen,
+    NumpadRightParen,
+    ButtonA,
+    ButtonB,
+    ButtonX,
+    ButtonY,
+    #[suffix("BUTTON_L1")]
+    ButtonL1,
+    #[suffix("BUTTON_R1")]
+    ButtonR1,
+    #[suffix("BUTTON_L2")]
+    ButtonL2,
+    #[suffix("BUTTON_R2")]
+    ButtonR2,
+    ButtonSelect,
+    ButtonStart,
+    ButtonMode,
+    ButtonThumbl,
+    ButtonThumbr,
+}
 
 impl KeyCode {
-    pub const ENTER: Self = Self(ArkUI_KeyCode_ARKUI_KEYCODE_ENTER);
-    pub const SPACE: Self = Self(ArkUI_KeyCode_ARKUI_KEYCODE_SPACE);
-    pub const TAB: Self = Self(ArkUI_KeyCode_ARKUI_KEYCODE_TAB);
-    pub const ESCAPE: Self = Self(ArkUI_KeyCode_ARKUI_KEYCODE_ESCAPE);
-    pub const DPAD_UP: Self = Self(ArkUI_KeyCode_ARKUI_KEYCODE_DPAD_UP);
-    pub const DPAD_DOWN: Self = Self(ArkUI_KeyCode_ARKUI_KEYCODE_DPAD_DOWN);
-    pub const DPAD_LEFT: Self = Self(ArkUI_KeyCode_ARKUI_KEYCODE_DPAD_LEFT);
-    pub const DPAD_RIGHT: Self = Self(ArkUI_KeyCode_ARKUI_KEYCODE_DPAD_RIGHT);
-    pub const MOVE_HOME: Self = Self(ArkUI_KeyCode_ARKUI_KEYCODE_MOVE_HOME);
-    pub const MOVE_END: Self = Self(ArkUI_KeyCode_ARKUI_KEYCODE_MOVE_END);
-    pub const PAGE_UP: Self = Self(ArkUI_KeyCode_ARKUI_KEYCODE_PAGE_UP);
-    pub const PAGE_DOWN: Self = Self(ArkUI_KeyCode_ARKUI_KEYCODE_PAGE_DOWN);
-    pub const BACKSPACE: Self = Self(ArkUI_KeyCode_ARKUI_KEYCODE_DEL);
-    pub const DELETE: Self = Self(ArkUI_KeyCode_ARKUI_KEYCODE_FORWARD_DEL);
-    pub const MENU: Self = Self(ArkUI_KeyCode_ARKUI_KEYCODE_MENU);
-    pub const F10: Self = Self(ArkUI_KeyCode_ARKUI_KEYCODE_F10);
-
-    pub const fn from_raw(value: i32) -> Self {
-        Self(value)
-    }
-
-    pub const fn raw(self) -> i32 {
-        self.0
+    pub fn raw(self) -> ArkUI_KeyCode {
+        self.into()
     }
 }
 
@@ -130,7 +284,15 @@ impl KeyEvent {
     }
 
     pub fn key_code(self) -> KeyCode {
-        KeyCode::from_raw(unsafe { OH_ArkUI_KeyEvent_GetKeyCode(self.input.raw()) })
+        KeyCode::try_from_raw(self.key_code_raw()).unwrap_or(KeyCode::Unknown)
+    }
+
+    /// Returns the unmodified platform key code.
+    ///
+    /// Prefer [`KeyEvent::key_code`] for normal matching. This method preserves
+    /// codes introduced by a runtime newer than the binding headers.
+    pub fn key_code_raw(self) -> ArkUI_KeyCode {
+        unsafe { OH_ArkUI_KeyEvent_GetKeyCode(self.input.raw()) }
     }
 
     pub fn key_text(self) -> String {
@@ -209,8 +371,13 @@ mod tests {
     use super::*;
 
     #[test]
-    fn preserves_future_key_codes_and_safely_rejects_future_enums() {
-        assert_eq!(KeyCode::from_raw(99_999).raw(), 99_999);
+    fn converts_key_codes_and_safely_rejects_future_enums() {
+        assert_eq!(KeyCode::Enter.raw(), ArkUI_KeyCode_ARKUI_KEYCODE_ENTER);
+        assert_eq!(
+            KeyCode::try_from_raw(ArkUI_KeyCode_ARKUI_KEYCODE_BUTTON_THUMBR),
+            Some(KeyCode::ButtonThumbr)
+        );
+        assert_eq!(KeyCode::try_from_raw(99_999), None);
         assert_eq!(KeyEventType::try_from_raw(99), None);
         assert_eq!(KeySource::try_from_raw(99), None);
         assert_eq!(KeyIntention::try_from_raw(99), None);
