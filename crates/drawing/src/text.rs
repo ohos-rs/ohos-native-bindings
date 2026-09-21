@@ -11,9 +11,10 @@ use ohos_native_drawing_sys::OH_Drawing_GetFontCollectionGlobalInstance;
 use ohos_native_drawing_sys::OH_Drawing_TypographyHandlerAddText;
 use ohos_native_drawing_sys::{
     OH_Drawing_ClearFontCaches, OH_Drawing_CreateFontCollection,
-    OH_Drawing_CreateSharedFontCollection, OH_Drawing_CreateTextStyle, OH_Drawing_CreateTypography,
-    OH_Drawing_CreateTypographyHandler, OH_Drawing_CreateTypographyStyle,
-    OH_Drawing_DestroyFontCollection, OH_Drawing_DestroyTextStyle, OH_Drawing_DestroyTypography,
+    OH_Drawing_CreateSharedFontCollection, OH_Drawing_CreateTextShadow, OH_Drawing_CreateTextStyle,
+    OH_Drawing_CreateTypography, OH_Drawing_CreateTypographyHandler,
+    OH_Drawing_CreateTypographyStyle, OH_Drawing_DestroyFontCollection,
+    OH_Drawing_DestroyTextShadow, OH_Drawing_DestroyTextStyle, OH_Drawing_DestroyTypography,
     OH_Drawing_DestroyTypographyHandler, OH_Drawing_DestroyTypographyStyle,
     OH_Drawing_DisableFontCollectionFallback, OH_Drawing_DisableFontCollectionSystemFont,
     OH_Drawing_FontCollection, OH_Drawing_Font_Metrics,
@@ -28,19 +29,19 @@ use ohos_native_drawing_sys::{
     OH_Drawing_RectHeightStyle_RECT_HEIGHT_STYLE_TIGHT, OH_Drawing_RectWidthStyle,
     OH_Drawing_RectWidthStyle_RECT_WIDTH_STYLE_MAX,
     OH_Drawing_RectWidthStyle_RECT_WIDTH_STYLE_TIGHT, OH_Drawing_RegisterFont,
-    OH_Drawing_RegisterFontBuffer, OH_Drawing_SetTextStyleColor,
+    OH_Drawing_RegisterFontBuffer, OH_Drawing_SetTextShadow, OH_Drawing_SetTextStyleColor,
     OH_Drawing_SetTextStyleFontFamilies, OH_Drawing_SetTextStyleFontSize,
     OH_Drawing_SetTextStyleFontStyleStruct, OH_Drawing_SetTextStyleForegroundBrush,
     OH_Drawing_SetTextStyleForegroundPen, OH_Drawing_SetTextStyleLetterSpacing,
     OH_Drawing_SetTextStyleLocale, OH_Drawing_SetTextStyleWordSpacing,
     OH_Drawing_SetTypographyTextAlign, OH_Drawing_SetTypographyTextDirection,
-    OH_Drawing_SetTypographyTextMaxLines, OH_Drawing_TextBox, OH_Drawing_TextStyle,
-    OH_Drawing_TextStyleAddFontFeature, OH_Drawing_TextStyleAddFontVariation,
-    OH_Drawing_Typography, OH_Drawing_TypographyCreate, OH_Drawing_TypographyGetHeight,
-    OH_Drawing_TypographyGetLineMetricsAt, OH_Drawing_TypographyGetLongestLine,
-    OH_Drawing_TypographyGetMaxWidth, OH_Drawing_TypographyHandlerPopTextStyle,
-    OH_Drawing_TypographyHandlerPushTextStyle, OH_Drawing_TypographyLayout,
-    OH_Drawing_TypographyPaint, OH_Drawing_TypographyStyle,
+    OH_Drawing_SetTypographyTextMaxLines, OH_Drawing_TextBox, OH_Drawing_TextShadow,
+    OH_Drawing_TextStyle, OH_Drawing_TextStyleAddFontFeature, OH_Drawing_TextStyleAddFontVariation,
+    OH_Drawing_TextStyleAddShadow, OH_Drawing_Typography, OH_Drawing_TypographyCreate,
+    OH_Drawing_TypographyGetHeight, OH_Drawing_TypographyGetLineMetricsAt,
+    OH_Drawing_TypographyGetLongestLine, OH_Drawing_TypographyGetMaxWidth,
+    OH_Drawing_TypographyHandlerPopTextStyle, OH_Drawing_TypographyHandlerPushTextStyle,
+    OH_Drawing_TypographyLayout, OH_Drawing_TypographyPaint, OH_Drawing_TypographyStyle,
 };
 #[cfg(feature = "api-20")]
 use ohos_native_drawing_sys::{
@@ -49,7 +50,7 @@ use ohos_native_drawing_sys::{
 
 #[cfg(feature = "api-20")]
 use crate::TextEncoding;
-use crate::{check_error, Brush, Canvas, FontStyle, Pen, Result, TextAlign, TextDirection};
+use crate::{check_error, Brush, Canvas, FontStyle, Pen, Point, Result, TextAlign, TextDirection};
 
 #[derive(Debug)]
 pub struct FontCollection {
@@ -266,6 +267,11 @@ impl TextStyle {
     pub fn set_foreground_pen(&mut self, pen: &Pen) {
         unsafe { OH_Drawing_SetTextStyleForegroundPen(self.raw.as_ptr(), pen.as_ptr()) };
     }
+
+    /// Adds a copy of `shadow` to this text style.
+    pub fn add_shadow(&mut self, shadow: &TextShadow) {
+        unsafe { OH_Drawing_TextStyleAddShadow(self.raw.as_ptr(), shadow.raw.as_ptr()) };
+    }
 }
 
 impl Default for TextStyle {
@@ -277,6 +283,27 @@ impl Default for TextStyle {
 impl Drop for TextStyle {
     fn drop(&mut self) {
         unsafe { OH_Drawing_DestroyTextStyle(self.raw.as_ptr()) };
+    }
+}
+
+/// Owned native text-shadow descriptor.
+#[derive(Debug)]
+pub struct TextShadow {
+    raw: NonNull<OH_Drawing_TextShadow>,
+}
+
+impl TextShadow {
+    pub fn new(color: u32, offset: &Point, blur_radius: f64) -> Self {
+        let raw = unsafe { OH_Drawing_CreateTextShadow() };
+        let raw = NonNull::new(raw).expect("OH_Drawing_CreateTextShadow returned null");
+        unsafe { OH_Drawing_SetTextShadow(raw.as_ptr(), color, offset.as_ptr(), blur_radius) };
+        Self { raw }
+    }
+}
+
+impl Drop for TextShadow {
+    fn drop(&mut self) {
+        unsafe { OH_Drawing_DestroyTextShadow(self.raw.as_ptr()) };
     }
 }
 

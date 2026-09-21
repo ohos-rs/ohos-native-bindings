@@ -7,6 +7,10 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+### Added
+
+- Add owned text-shadow construction and `TextStyle::add_shadow` wrappers.
+
 ## [0.2.3](https://github.com/ohos-rs/ohos-native-bindings/compare/ohos-drawing-binding-v0.2.2...ohos-drawing-binding-v0.2.3) - 2026-08-26
 
 ### Other

@@ -11,7 +11,7 @@ use ohos_xcomponent_sys::{
     OH_NativeXComponent_MouseEvent_Callback, OH_NativeXComponent_RegisterCallback,
     OH_NativeXComponent_RegisterKeyEventCallback, OH_NativeXComponent_RegisterMouseEventCallback,
     OH_NativeXComponent_RegisterOnFrameCallback, OH_NativeXComponent_RegisterUIInputEventCallback,
-    OH_NativeXComponent_SetExpectedFrameRateRange,
+    OH_NativeXComponent_SetExpectedFrameRateRange, OH_NativeXComponent_UnregisterOnFrameCallback,
 };
 
 #[cfg(all(feature = "accessibility", feature = "api-13"))]
@@ -262,6 +262,32 @@ impl NativeXComponent {
             return Err(Error::from_reason(
                 "XComponent register frame callback failed",
             ));
+        }
+        Ok(())
+    }
+
+    /// Stops native frame delivery and releases the registered Rust closure.
+    pub fn unregister_frame_callback(&self) -> Result<()> {
+        let ret: XComponentResultCode =
+            unsafe { OH_NativeXComponent_UnregisterOnFrameCallback(self.raw()).into() };
+        if ret != XComponentResultCode::Success {
+            return Err(Error::from_reason(
+                "XComponent unregister frame callback failed",
+            ));
+        }
+
+        #[cfg(not(feature = "multi_mode"))]
+        X_COMPONENT_CALLBACKS.with_borrow_mut(|callbacks| {
+            callbacks.on_frame_change = None;
+        });
+
+        #[cfg(feature = "multi_mode")]
+        if let Ok(id) = self.id() {
+            X_COMPONENT_CALLBACKS_MAP.with_borrow_mut(|callbacks| {
+                if let Some(callbacks) = callbacks.get_mut(&id) {
+                    callbacks.on_frame_change = None;
+                }
+            });
         }
         Ok(())
     }
