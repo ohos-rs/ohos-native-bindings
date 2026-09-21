@@ -117,7 +117,7 @@ pub type JSVM_Finalize = ::std::option::Option<
         finalizeHint: *mut ::std::os::raw::c_void,
     ),
 >;
-#[doc = " @brief Function pointer type for callback of ASCII output stream. The first parameter data is the data pointer.\n And the second parameter size is the data size to output. A null data pointer indicates the end of the stream.\n The third parameter streamData is the pointer passed in together with the callback to the API functions that\n generate data to the output stream. The callback returns true to indicate the stream can continue to accept\n data. Otherwise, it will abort the stream.\n\n @since 12"]
+#[doc = " @brief Function pointer type for callback of output stream. The first parameter data is the data pointer.\n And the second parameter size is the data size to output. A null data pointer indicates the end of the stream.\n The third parameter streamData is the pointer passed in together with the callback to the API functions that\n generate data to the output stream. The callback returns true to indicate the stream can continue to accept\n data. Otherwise, it will abort the stream.\n\n @since 12"]
 pub type JSVM_OutputStream = ::std::option::Option<
     unsafe extern "C" fn(
         data: *const ::std::os::raw::c_char,
@@ -283,7 +283,7 @@ pub const JSVM_MemoryPressureLevel_JSVM_MEMORY_PRESSURE_LEVEL_MODERATE: JSVM_Mem
 #[doc = " critical pressure."]
 pub const JSVM_MemoryPressureLevel_JSVM_MEMORY_PRESSURE_LEVEL_CRITICAL: JSVM_MemoryPressureLevel =
     2;
-#[doc = " Notifies that the system is running low on memory.\n WARNING: It has strong negative impact on the garbage collection performance.\n RECOMMEND: Use the other value instead to influence the garbage collection schedule.\n\n @since 22"]
+#[doc = " Notifies that the system is running low on memory and triggers garbage collection immediately.\n\n @since 22"]
 #[cfg(feature = "api-22")]
 pub const JSVM_MemoryPressureLevel_JSVM_MEMORY_PRESSURE_LEVEL_LOW_MEMORY: JSVM_MemoryPressureLevel =
     3;
@@ -823,6 +823,7 @@ pub type JSVM_HandlerForGC = ::std::option::Option<
         data: *mut ::std::os::raw::c_void,
     ),
 >;
+#[cfg(feature = "api-18")]
 #[repr(C)]
 #[derive(Debug, Copy, Clone)]
 pub struct JSVM_Data__ {
@@ -837,6 +838,12 @@ pub const JSVM_DebugOption_JSVM_SCOPE_CHECK: JSVM_DebugOption = 0;
 #[doc = " @brief Debug options.\n\n @since 20"]
 #[cfg(feature = "api-20")]
 pub type JSVM_DebugOption = u32;
+#[doc = " @brief Function pointer type for heap threshold callback.\n\n @param vm The VM instance whose heap usage is observed at or above the threshold.\n @param threshold The heap usage threshold in bytes.\n @param data The native pointer data.\n @since 26.0.0"]
+#[cfg(feature = "api-26")]
+pub type JSVM_HandlerForHeapThreshold = ::std::option::Option<
+    unsafe extern "C" fn(vm: JSVM_VM, threshold: u64, data: *mut ::std::os::raw::c_void),
+>;
+#[cfg(feature = "api-24")]
 #[repr(C)]
 #[derive(Debug, Copy, Clone)]
 pub struct JSVM_DeserializeResult__ {
@@ -1161,7 +1168,7 @@ extern "C" {
     ) -> JSVM_Status;
 }
 extern "C" {
-    #[doc = " @brief This API allocate the memory of array buffer backing store.\n\n @param byteLength size of backing store memory.\n @param initialized initialization status of the backing store memory.\n @param data pointer that recieve the backing store memory pointer.\n @return Returns JSVM funtions result code.\n         Returns {@link JSVM_OK } if allocation succeed.\\n\n         Returns {@link JSVM_INVALID_ARG } if data is null pointer.\\n\n         Returns {@link JSVM_GENERIC_FAILURE } if allocation failed.\\n\n @since 12"]
+    #[doc = " @brief This API allocate the memory of array buffer backing store.\n\n @param byteLength size of backing store memory.\n @param initialized initialization status of the backing store memory.\n @param data pointer that receive the backing store memory pointer.\n @return Returns JSVM funtions result code.\n         Returns {@link JSVM_OK } if allocation succeed.\\n\n         Returns {@link JSVM_INVALID_ARG } if data is null pointer.\\n\n         Returns {@link JSVM_GENERIC_FAILURE } if allocation failed.\\n\n @since 12"]
     pub fn OH_JSVM_AllocateArrayBufferBackingStoreData(
         byteLength: usize,
         initialized: JSVM_InitializedFlag,
@@ -1175,7 +1182,7 @@ extern "C" {
     ) -> JSVM_Status;
 }
 extern "C" {
-    #[doc = " @brief This API create an array buffer using the backing store data.\n\n @param env The environment that the API is invoked under.\n @param data pointer to the backing store memory.\n @param backingStoreSize size of backing store memory.\n @param offset start position of the array buffer in the backing store memory.\n @param arrayBufferSize size of the array buffer.\n @param result pointer that recieve the array buffer.\n @return Returns JSVM funtions result code.\n         Returns {@link JSVM_OK } if creation succeed.\\n\n         Returns {@link JSVM_INVALID_ARG } if any of the following condition reached:\\n\n         1. offset + arrayBufferSize > backingStoreSize\\n\n         2. backingStoreSize or arrayBufferSize equals zero\n         3. data or result is null pointer\n @since 12"]
+    #[doc = " @brief This API create an array buffer using the backing store data.\n\n @param env The environment that the API is invoked under.\n @param data pointer to the backing store memory.\n @param backingStoreSize size of backing store memory.\n @param offset start position of the array buffer in the backing store memory.\n @param arrayBufferSize size of the array buffer.\n @param result pointer that receive the array buffer.\n @return Returns JSVM funtions result code.\n         Returns {@link JSVM_OK } if creation succeed.\\n\n         Returns {@link JSVM_INVALID_ARG } if any of the following condition reached:\\n\n         1. offset + arrayBufferSize > backingStoreSize\\n\n         2. backingStoreSize or arrayBufferSize equals zero\n         3. data or result is null pointer\n @since 12"]
     pub fn OH_JSVM_CreateArrayBufferFromBackingStoreData(
         env: JSVM_Env,
         data: *mut ::std::os::raw::c_void,
@@ -1947,11 +1954,40 @@ extern "C" {
     ) -> JSVM_Status;
 }
 extern "C" {
-    #[doc = " @brief This funciton takes the current heap snapshot and output to the stream.\n\n @param vm The VM whose heap snapshot is taken.\n @param stream The output stream callback for receiving the data.\n @param streamData Optional data to be passed to the stream callback.\n @return Returns JSVM funtions result code.\n         Returns {@link JSVM_OK } in all cases.\\n\n @since 12"]
+    #[doc = " @brief This function takes the current heap snapshot and output to the stream.\n\n @param vm The VM whose heap snapshot is taken.\n @param stream The output stream callback for receiving the data.\n @param streamData Optional data to be passed to the stream callback.\n @return Returns JSVM funtions result code.\n         Returns {@link JSVM_OK } in all cases.\\n\n @since 12"]
     pub fn OH_JSVM_TakeHeapSnapshot(
         vm: JSVM_VM,
         stream: JSVM_OutputStream,
         streamData: *mut ::std::os::raw::c_void,
+    ) -> JSVM_Status;
+}
+extern "C" {
+    #[doc = " @brief This function takes the current heap snapshot and outputs it to the\n stream in raw heap format (binary format). The raw heap format is VM-specific\n and its layout is not guaranteed to be stable across different versions.\n This operation may pause the application temporarily, and frequent invocation\n may generate large snapshot files and increase disk usage, so callers should\n manage generated files appropriately if files are written to disk.\n The stream callback is invoked synchronously on the thread where the VM is\n running. The callback should avoid long blocking operations. If the callback\n returns false, the output stream is aborted, snapshot generation stops.\n\n @param vm The VM whose heap snapshot is taken.\n @param stream The output stream callback for receiving the binary data.\n @param streamData Optional data to be passed to the stream callback.\n @return Returns JSVM functions result code.\n         Returns JSVM_INVALID_ARG if vm or stream is NULL.\n         Returns JSVM_OK in all other cases.\n @since 26.0.0"]
+    #[cfg(feature = "api-26")]
+    pub fn OH_JSVM_TakeRawHeapSnapshot(
+        vm: JSVM_VM,
+        stream: JSVM_OutputStream,
+        streamData: *mut ::std::os::raw::c_void,
+    ) -> JSVM_Status;
+}
+extern "C" {
+    #[doc = " @brief Set a heap threshold callback for vm and the vm can only have one heap\n threshold callback. The registered callback should be cleared by\n OH_JSVM_ClearHeapThresholdCallback when it is no longer needed.\n This API is not thread-safe and must be called on the thread where the vm is\n running. The threshold is checked around GC, and the callback is invoked when\n the observed heap usage is greater than or equal to threshold. The callback\n will be called synchronously on the same thread, and threshold checks are\n skipped while the callback is running. After the callback returns, if the\n heap usage is still greater than or equal to threshold, the callback will be\n invoked again around the next GC. The callback does not need to be registered\n again after it returns. The registered callback is identified (threshold,\n callback, data).\n\n @param vm The VM whose heap usage will be monitored.\n @param threshold The heap usage threshold in bytes. The value must be greater\n than 0 and must not exceed heapSizeLimit, where heapSizeLimit is a field in\n JSVM_HeapStatistics.\n @param callback The callback function to be invoked when a threshold check\n observes heap usage greater than or equal to threshold.\n @param data Optional user-provided data passed to the callback.The caller is\n responsible for managing the lifetime of this data.\n @return Returns JSVM functions result code.\n         Returns JSVM_OK if the function executed successfully.\n         Returns JSVM_INVALID_ARG if vm or callback is NULL, or if threshold\n         is zero or exceeds heapSizeLimit, or if a heap threshold callback\n         has already been registered for the VM.\n @since 26.0.0"]
+    #[cfg(feature = "api-26")]
+    pub fn OH_JSVM_SetHeapThresholdCallback(
+        vm: JSVM_VM,
+        threshold: u64,
+        callback: JSVM_HandlerForHeapThreshold,
+        data: *mut ::std::os::raw::c_void,
+    ) -> JSVM_Status;
+}
+extern "C" {
+    #[doc = " @brief Clear the heap threshold callback previously registered for vm.\n This API is not thread-safe and must be called on the thread where the vm\n is running. The registered callback is identified (threshold, callback, data).\n\n @param vm The VM whose heap threshold callback is to be cleared.\n @param threshold The heap usage threshold in bytes which is previously registered.\n @param callback The callback function previously registered by\n        OH_JSVM_SetHeapThresholdCallback.\n @param data The user-provided data used during registration.\n @return Returns JSVM functions result code.\n         Returns JSVM_OK if the function executed successfully.\n         Returns JSVM_INVALID_ARG if vm or callback is NULL, or if the\n         (threshold, callback, data) does not match registered callback.\n @since 26.0.0"]
+    #[cfg(feature = "api-26")]
+    pub fn OH_JSVM_ClearHeapThresholdCallback(
+        vm: JSVM_VM,
+        threshold: u64,
+        callback: JSVM_HandlerForHeapThreshold,
+        data: *mut ::std::os::raw::c_void,
     ) -> JSVM_Status;
 }
 extern "C" {

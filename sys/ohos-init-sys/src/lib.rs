@@ -12,6 +12,6 @@
 unsafe extern "C" {}
 
 extern "C" {
-    #[doc = " @brief Queries whether a device supports a specified SystemCapability.\n @param cap SystemCapability whether supported\n @return true - Supports the specified SystemCapability.\n     false - The specified SystemCapability is not supported.\n @since 8"]
+    #[doc = " @brief Provides the API for querying whether a SystemCapability (SysCap) is supported.\n SysCap refers to a standalone feature in the operating system.\n Different devices support different SysCap sets. Each SysCap corresponds to one or more APIs.\n You can determine whether an API can be used by checking SysCap support.\n @param cap SystemCapability whether supported\n @return Checks whether a SysCap is supported.\n @since 8"]
     pub fn canIUse(cap: *const ::std::os::raw::c_char) -> bool;
 }

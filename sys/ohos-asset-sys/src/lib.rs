@@ -12,124 +12,124 @@
 unsafe extern "C" {}
 
 pub const ASSET_TAG_TYPE_MASK: u32 = 4026531840;
-#[doc = " The asset attribute tag is a Boolean value."]
+#[doc = " Boolean."]
 pub const Asset_TagType_ASSET_TYPE_BOOL: Asset_TagType = 268435456;
-#[doc = " The asset attribute tag is a number."]
+#[doc = " Number (uint32_t)."]
 pub const Asset_TagType_ASSET_TYPE_NUMBER: Asset_TagType = 536870912;
-#[doc = " The asset attribute tag is an array of bytes."]
+#[doc = " Bytes."]
 pub const Asset_TagType_ASSET_TYPE_BYTES: Asset_TagType = 805306368;
-#[doc = " @brief Enumerates the types of the asset attribute tags.\n\n @since 11"]
+#[doc = " @brief Enumerates the types of the keys of asset attributes.\n\n @since 11"]
 pub type Asset_TagType = u32;
 #[doc = " Sensitive user data in the form of bytes, such as passwords and tokens."]
 pub const Asset_Tag_ASSET_TAG_SECRET: Asset_Tag = 805306369;
 #[doc = " Asset alias (identifier) in the form of bytes."]
 pub const Asset_Tag_ASSET_TAG_ALIAS: Asset_Tag = 805306370;
-#[doc = " Time when the asset is accessible. The value is of the uint32 type, which is a 32-bit unsigned integer."]
+#[doc = " Access control based on the lock screen status. The value is of the uint32_t type."]
 pub const Asset_Tag_ASSET_TAG_ACCESSIBILITY: Asset_Tag = 536870915;
 #[doc = " A Boolean value indicating whether the asset is available only with a lock screen password."]
 pub const Asset_Tag_ASSET_TAG_REQUIRE_PASSWORD_SET: Asset_Tag = 268435460;
-#[doc = " User authentication type for the asset. The value is of the uint32 type."]
+#[doc = " User authentication type for the asset. The value is of the uint32_t type."]
 pub const Asset_Tag_ASSET_TAG_AUTH_TYPE: Asset_Tag = 536870917;
-#[doc = " Validity period of the user authentication, in seconds. The value is of the uint32 type."]
+#[doc = " Validity period of the user authentication, in seconds. The value is of the uint32_t type, in seconds."]
 pub const Asset_Tag_ASSET_TAG_AUTH_VALIDITY_PERIOD: Asset_Tag = 536870918;
 #[doc = " Challenge value, in the form of bytes, used for anti-replay during the authentication."]
 pub const Asset_Tag_ASSET_TAG_AUTH_CHALLENGE: Asset_Tag = 805306375;
 #[doc = " Authentication token, in the form of bytes, obtained after a successful user authentication."]
 pub const Asset_Tag_ASSET_TAG_AUTH_TOKEN: Asset_Tag = 805306376;
-#[doc = " Asset synchronization type. The value is of the uint32 type."]
+#[doc = " Asset sync type. The value is of the uint32_t type."]
 pub const Asset_Tag_ASSET_TAG_SYNC_TYPE: Asset_Tag = 536870928;
-#[doc = " A Boolean value indicating whether the asset needs to be stored persistently."]
+#[doc = " Whether the asset needs to be stored persistently. Verification of **ohos.permission.STORE_PERSISTENT_DATA**\n is required if **OH_Asset_Add** is called with this tag passed in."]
 pub const Asset_Tag_ASSET_TAG_IS_PERSISTENT: Asset_Tag = 268435473;
-#[doc = " An immutable custom field, in the form of bytes."]
+#[doc = " Custom data, which is of the bytes type and cannot be changed."]
 pub const Asset_Tag_ASSET_TAG_DATA_LABEL_CRITICAL_1: Asset_Tag = 805306400;
-#[doc = " An immutable custom field, in the form of bytes."]
+#[doc = " Custom data, which is of the bytes type and cannot be changed."]
 pub const Asset_Tag_ASSET_TAG_DATA_LABEL_CRITICAL_2: Asset_Tag = 805306401;
-#[doc = " An immutable custom field, in the form of bytes."]
+#[doc = " Custom data, which is of the bytes type and cannot be changed."]
 pub const Asset_Tag_ASSET_TAG_DATA_LABEL_CRITICAL_3: Asset_Tag = 805306402;
-#[doc = " An immutable custom field, in the form of bytes."]
+#[doc = " Custom data, which is of the bytes type and cannot be changed."]
 pub const Asset_Tag_ASSET_TAG_DATA_LABEL_CRITICAL_4: Asset_Tag = 805306403;
-#[doc = " A mutable custom field, in the form of bytes."]
+#[doc = " Custom data, which is of the bytes type and can be changed."]
 pub const Asset_Tag_ASSET_TAG_DATA_LABEL_NORMAL_1: Asset_Tag = 805306416;
-#[doc = " A mutable custom field, in the form of bytes."]
+#[doc = " Custom data, which is of the bytes type and can be changed."]
 pub const Asset_Tag_ASSET_TAG_DATA_LABEL_NORMAL_2: Asset_Tag = 805306417;
-#[doc = " A mutable custom field, in the form of bytes."]
+#[doc = " Custom data, which is of the bytes type and can be changed."]
 pub const Asset_Tag_ASSET_TAG_DATA_LABEL_NORMAL_3: Asset_Tag = 805306418;
-#[doc = " A mutable custom field, in the form of bytes."]
+#[doc = " Custom data, which is of the bytes type and can be changed."]
 pub const Asset_Tag_ASSET_TAG_DATA_LABEL_NORMAL_4: Asset_Tag = 805306419;
-#[doc = " A mutable custom field, in the form of bytes. The information of a local tag will not be synchronized.\n\n @since 12"]
+#[doc = " Custom data, which is of the bytes type, can be changed, but cannot be synced.\n @since 12"]
 pub const Asset_Tag_ASSET_TAG_DATA_LABEL_NORMAL_LOCAL_1: Asset_Tag = 805306420;
-#[doc = " A mutable custom field, in the form of bytes. The information of a local tag will not be synchronized.\n\n @since 12"]
+#[doc = " Custom data, which is of the bytes type, can be changed, but cannot be synced.\n @since 12"]
 pub const Asset_Tag_ASSET_TAG_DATA_LABEL_NORMAL_LOCAL_2: Asset_Tag = 805306421;
-#[doc = " A mutable custom field, in the form of bytes. The information of a local tag will not be synchronized.\n\n @since 12"]
+#[doc = " Custom data, which is of the bytes type, can be changed, but cannot be synced.\n @since 12"]
 pub const Asset_Tag_ASSET_TAG_DATA_LABEL_NORMAL_LOCAL_3: Asset_Tag = 805306422;
-#[doc = " A mutable custom field, in the form of bytes. The information of a local tag will not be synchronized.\n\n @since 12"]
+#[doc = " Custom data, which is of the bytes type, can be changed, but cannot be synced.\n @since 12"]
 pub const Asset_Tag_ASSET_TAG_DATA_LABEL_NORMAL_LOCAL_4: Asset_Tag = 805306423;
-#[doc = " Return type of the queried asset. The value is of the uint32 type."]
+#[doc = " Type of asset information to return. The value is of the uint32_t type."]
 pub const Asset_Tag_ASSET_TAG_RETURN_TYPE: Asset_Tag = 536870976;
-#[doc = " Maximum number of assets that can be returned at a time if multiple asset records match the specified conditions.\n The value is of the uint32 type."]
+#[doc = " Maximum number of assets that can be returned in a query operation. The value is of the uint32_t type."]
 pub const Asset_Tag_ASSET_TAG_RETURN_LIMIT: Asset_Tag = 536870977;
-#[doc = " Offset that indicates the start asset when multiple asset records are returned. The value is of the uint32 type."]
+#[doc = " Offset of the returned assets in a batch query. The value is of the uint32_t type."]
 pub const Asset_Tag_ASSET_TAG_RETURN_OFFSET: Asset_Tag = 536870978;
-#[doc = " Sorting order of the assets in the query result. The value is of the uint32 type."]
+#[doc = " Sorting order of the assets in the query result. The value is of the uint32_t type."]
 pub const Asset_Tag_ASSET_TAG_RETURN_ORDERED_BY: Asset_Tag = 536870979;
-#[doc = " Policy used to resolve the conflict occurred when an asset is added. The value is of the uint32 type."]
+#[doc = " Policy for resolving the conflict when an asset is added. The value is of the uint32_t type."]
 pub const Asset_Tag_ASSET_TAG_CONFLICT_RESOLUTION: Asset_Tag = 536870980;
-#[doc = " A tag whose value is a byte array indicating the update time of an Asset.\n\n @since 12"]
+#[doc = " Asset update time, in timestamp format. The value is of the bytes type.\n @since 12"]
 pub const Asset_Tag_ASSET_TAG_UPDATE_TIME: Asset_Tag = 805306437;
-#[doc = " A tag whose value is the uint32 type indicating the additional action.\n\n @since 12"]
+#[doc = " Additional operation type. The value is of the uint32_t type.\n @since 12"]
 pub const Asset_Tag_ASSET_TAG_OPERATION_TYPE: Asset_Tag = 536870982;
-#[doc = " A tag whose value is a bool indicating whether the attributes of an asset are required to be encrypted.\n\n @since 14"]
+#[doc = " Whether to encrypt the additional information customized by the service. The value is of the Boolean type.\n @since 14"]
 #[cfg(feature = "api-14")]
 pub const Asset_Tag_ASSET_TAG_REQUIRE_ATTR_ENCRYPTED: Asset_Tag = 268435527;
-#[doc = " A tag whose value is a byte array indicating the group id an asset belongs to.\n\n @since 18"]
+#[doc = " Group to which the asset belongs. The value is of the bytes type.\n @since 18"]
 #[cfg(feature = "api-18")]
 pub const Asset_Tag_ASSET_TAG_GROUP_ID: Asset_Tag = 805306440;
-#[doc = " A tag whose value is a 32-bit unsigned integer indicating the type of Asset encapsulation.\n\n @since 18"]
+#[doc = " Encrypted import/export type supported by the asset. The value is of the uint32_t type.\n @since 18"]
 #[cfg(feature = "api-18")]
 pub const Asset_Tag_ASSET_TAG_WRAP_TYPE: Asset_Tag = 536870985;
-#[doc = " @brief Enumerates the asset attribute tags.\n\n @since 11"]
+#[doc = " @brief Enumerates the keys of asset attributes.\n\n @since 11"]
 pub type Asset_Tag = u32;
-#[doc = " @error The operation is successful."]
+#[doc = " The operation is successful."]
 pub const Asset_ResultCode_ASSET_SUCCESS: Asset_ResultCode = 0;
-#[doc = " @error The caller doesn't have the permission."]
+#[doc = " The caller does not have the required permission."]
 pub const Asset_ResultCode_ASSET_PERMISSION_DENIED: Asset_ResultCode = 201;
-#[doc = " @error The parameter is invalid."]
+#[doc = " The parameter is invalid."]
 pub const Asset_ResultCode_ASSET_INVALID_ARGUMENT: Asset_ResultCode = 401;
-#[doc = " @error The ASSET service is unavailable."]
+#[doc = " The asset store service is unavailable."]
 pub const Asset_ResultCode_ASSET_SERVICE_UNAVAILABLE: Asset_ResultCode = 24000001;
-#[doc = " @error The asset is not found."]
+#[doc = " The asset is not found."]
 pub const Asset_ResultCode_ASSET_NOT_FOUND: Asset_ResultCode = 24000002;
-#[doc = " @error The asset already exists."]
+#[doc = " The asset already exists."]
 pub const Asset_ResultCode_ASSET_DUPLICATED: Asset_ResultCode = 24000003;
-#[doc = " @error Access to the asset is denied."]
+#[doc = " The access to the asset is denied."]
 pub const Asset_ResultCode_ASSET_ACCESS_DENIED: Asset_ResultCode = 24000004;
-#[doc = " @error The screen lock status does not match."]
+#[doc = " The lock screen status does not match."]
 pub const Asset_ResultCode_ASSET_STATUS_MISMATCH: Asset_ResultCode = 24000005;
-#[doc = " @error Insufficient memory."]
+#[doc = " The system memory is insufficient."]
 pub const Asset_ResultCode_ASSET_OUT_OF_MEMORY: Asset_ResultCode = 24000006;
-#[doc = " @error The asset is corrupted."]
+#[doc = " The asset is corrupted."]
 pub const Asset_ResultCode_ASSET_DATA_CORRUPTED: Asset_ResultCode = 24000007;
-#[doc = " @error The database operation failed."]
+#[doc = " The database operation failed."]
 pub const Asset_ResultCode_ASSET_DATABASE_ERROR: Asset_ResultCode = 24000008;
-#[doc = " @error The cryptography operation failed."]
+#[doc = " The cryptographic operation failed."]
 pub const Asset_ResultCode_ASSET_CRYPTO_ERROR: Asset_ResultCode = 24000009;
-#[doc = " @error IPC failed."]
+#[doc = " The IPC failed."]
 pub const Asset_ResultCode_ASSET_IPC_ERROR: Asset_ResultCode = 24000010;
-#[doc = " @error Calling the Bundle Manager service failed."]
+#[doc = " The Bundle Manager service is abnormal."]
 pub const Asset_ResultCode_ASSET_BMS_ERROR: Asset_ResultCode = 24000011;
-#[doc = " @error Calling the OS Account service failed."]
+#[doc = " The Account service is abnormal."]
 pub const Asset_ResultCode_ASSET_ACCOUNT_ERROR: Asset_ResultCode = 24000012;
-#[doc = " @error Calling the Access Token service failed."]
+#[doc = " The Access Token service is abnormal."]
 pub const Asset_ResultCode_ASSET_ACCESS_TOKEN_ERROR: Asset_ResultCode = 24000013;
-#[doc = " @error The file operation failed."]
+#[doc = " The file operation failed."]
 pub const Asset_ResultCode_ASSET_FILE_OPERATION_ERROR: Asset_ResultCode = 24000014;
-#[doc = " @error Getting the system time failed."]
+#[doc = " Failed to obtain the system time."]
 pub const Asset_ResultCode_ASSET_GET_SYSTEM_TIME_ERROR: Asset_ResultCode = 24000015;
-#[doc = " @error The cache exceeds the limit."]
+#[doc = " The number of cached assets exceeds the limit."]
 pub const Asset_ResultCode_ASSET_LIMIT_EXCEEDED: Asset_ResultCode = 24000016;
-#[doc = " @error The capability is not supported."]
+#[doc = " The function is not supported."]
 pub const Asset_ResultCode_ASSET_UNSUPPORTED: Asset_ResultCode = 24000017;
-#[doc = " @error Parameter verification failed.\n\n @since 20"]
+#[doc = " The parameter verification fails.\n @since 20"]
 #[cfg(feature = "api-20")]
 pub const Asset_ResultCode_ASSET_PARAM_VERIFICATION_FAILED: Asset_ResultCode = 24000018;
 #[doc = " @brief Enumerates the result codes used in the ASSET APIs.\n\n @since 11"]
@@ -146,46 +146,46 @@ pub type Asset_Accessibility = u32;
 pub const Asset_AuthType_ASSET_AUTH_TYPE_NONE: Asset_AuthType = 0;
 #[doc = " The asset can be accessed if any user authentication (such as PIN, facial, or fingerprint authentication) is\n successful."]
 pub const Asset_AuthType_ASSET_AUTH_TYPE_ANY: Asset_AuthType = 255;
-#[doc = " @brief Enumerates the user authentication types supported for assets.\n\n @since 11"]
+#[doc = " @brief Enumerates the user authentication types supported by assets.\n\n @since 11"]
 pub type Asset_AuthType = u32;
-#[doc = " Asset synchronization is not allowed."]
+#[doc = " Asset sync is not allowed."]
 pub const Asset_SyncType_ASSET_SYNC_TYPE_NEVER: Asset_SyncType = 0;
-#[doc = " Asset synchronization is allowed only on the local device, for example, in data restoration on the local device."]
+#[doc = " Asset sync is allowed only on the local device, for example, in data restore on the local device."]
 pub const Asset_SyncType_ASSET_SYNC_TYPE_THIS_DEVICE: Asset_SyncType = 1;
-#[doc = " Asset synchronization is allowed only between trusted devices, for example, in the case of cloning."]
+#[doc = " Asset sync is allowed only between trusted devices, for example, in the case of cloning."]
 pub const Asset_SyncType_ASSET_SYNC_TYPE_TRUSTED_DEVICE: Asset_SyncType = 2;
-#[doc = " Asset synchronization is allowed only between devices with trusted accounts.\n\n @since 12"]
+#[doc = " Asset sync is allowed only between the devices that are logged in with trusted accounts, for example, in cloud sync scenarios.\n @since 12"]
 pub const Asset_SyncType_ASSET_SYNC_TYPE_TRUSTED_ACCOUNT: Asset_SyncType = 4;
-#[doc = " @brief Enumerates the asset synchronization types.\n\n @since 11"]
+#[doc = " @brief Asset sync type.\n\n @since 11"]
 pub type Asset_SyncType = u32;
-#[doc = " An Asset with this attribute value is never allowed to be wrapped up."]
+#[doc = " Encrypted import/export is not allowed for the asset."]
 #[cfg(feature = "api-18")]
 pub const Asset_WrapType_ASSET_WRAP_TYPE_NEVER: Asset_WrapType = 0;
-#[doc = " An Asset with this attribute value can only be wrapped or unwrapped on devices logged in with trusted accounts."]
+#[doc = " Encrypted import/export is allowed for the asset only on devices where a trusted account is logged in."]
 #[cfg(feature = "api-18")]
 pub const Asset_WrapType_ASSET_WRAP_TYPE_TRUSTED_ACCOUNT: Asset_WrapType = 1;
-#[doc = " @brief An enum type indicates the type of Asset encapsulation.\n\n @since 18"]
+#[doc = " @brief Encrypted import/export type supported by the asset.\n\n @since 18"]
 #[cfg(feature = "api-18")]
 pub type Asset_WrapType = u32;
-#[doc = " Overwrite the existing asset."]
+#[doc = " Overwrite the original asset."]
 pub const Asset_ConflictResolution_ASSET_CONFLICT_OVERWRITE: Asset_ConflictResolution = 0;
 #[doc = " Throw an exception for the service to perform subsequent processing."]
 pub const Asset_ConflictResolution_ASSET_CONFLICT_THROW_ERROR: Asset_ConflictResolution = 1;
-#[doc = " @brief Enumerates the policies for resolving the conflict (for example, duplicate alias) occurred when\n an asset is added.\n\n @since 11"]
+#[doc = " @brief Policy for resolving the conflict (for example, a duplicate alias).\n\n @since 11"]
 pub type Asset_ConflictResolution = u32;
-#[doc = " The query result contains the asset in plaintext and its attributes."]
+#[doc = " The query result contains the asset plaintext and its attributes."]
 pub const Asset_ReturnType_ASSET_RETURN_ALL: Asset_ReturnType = 0;
 #[doc = " The query result contains only the asset attributes."]
 pub const Asset_ReturnType_ASSET_RETURN_ATTRIBUTES: Asset_ReturnType = 1;
-#[doc = " @brief Enumerates the types of the asset query result.\n\n @since 11"]
+#[doc = " @brief Type of the asset query result to return.\n\n @since 11"]
 pub type Asset_ReturnType = u32;
-#[doc = " Synchronization is required during operation."]
+#[doc = " Sync."]
 pub const Asset_OperationType_ASSET_NEED_SYNC: Asset_OperationType = 0;
-#[doc = " Logout is required during operation."]
+#[doc = " Logout."]
 pub const Asset_OperationType_ASSET_NEED_LOGOUT: Asset_OperationType = 1;
-#[doc = " @brief Enumerates the types of the additional action.\n\n @since 12"]
+#[doc = " @brief Enumerates the additional asset operation types.\n\n @since 12"]
 pub type Asset_OperationType = u32;
-#[doc = " @brief Defines an asset value in the forma of a binary array, that is, a variable-length byte array.\n\n @since 11"]
+#[doc = " @brief Defines a binary array, that is, an array of bytes with variable length.\n\n @since 11"]
 #[repr(C)]
 #[derive(Debug, Copy, Clone)]
 pub struct Asset_Blob {
@@ -205,55 +205,55 @@ pub union Asset_Value {
     #[doc = " Asset of the bytes type."]
     pub blob: Asset_Blob,
 }
-#[doc = " @brief Defines an asset attribute.\n\n @since 11"]
+#[doc = " @brief Defines an asset attribute, which consists of a tag and a value in the form of a key-value (KV) pair.\n\n @since 11"]
 #[repr(C)]
 #[derive(Copy, Clone)]
 pub struct Asset_Attr {
-    #[doc = " Tag of the asset attribute."]
+    #[doc = " Name of the asset attribute. The tag (the key in the KV pair) uniquely identifies an attribute."]
     pub tag: u32,
-    #[doc = " Value of the asset attribute."]
+    #[doc = " Defines the value of the asset attribute."]
     pub value: Asset_Value,
 }
-#[doc = " @brief Represents information about an asset.\n\n @since 11"]
+#[doc = " @brief Represents the query result of an asset.\n\n @since 11"]
 #[repr(C)]
 #[derive(Debug, Copy, Clone)]
 pub struct Asset_Result {
-    #[doc = " Number of asset attributes."]
+    #[doc = " Number of asset attributes in the query result."]
     pub count: u32,
     #[doc = " Pointer to the array of the asset attributes."]
     pub attrs: *mut Asset_Attr,
 }
-#[doc = " @brief Represents information about a set of assets.\n\n @since 11"]
+#[doc = " @brief Represents the query result of multiple assets.\n\n @since 11"]
 #[repr(C)]
 #[derive(Debug, Copy, Clone)]
 pub struct Asset_ResultSet {
-    #[doc = " Number of assets."]
+    #[doc = " Number of assets in the query result."]
     pub count: u32,
     #[doc = " Pointer to the array of the assets."]
     pub results: *mut Asset_Result,
 }
-#[doc = " @brief Represents information about the synchronization result.\n\n @since 20"]
+#[doc = " @brief Represents the sync result of an asset.\n\n @since 20"]
 #[cfg(feature = "api-20")]
 #[repr(C)]
 #[derive(Debug, Copy, Clone)]
 pub struct Asset_SyncResult {
-    #[doc = " The result code of synchronization."]
+    #[doc = " Sync result code of an asset."]
     pub resultCode: i32,
-    #[doc = " The total count of synchronized Assets."]
+    #[doc = " Total number of assets to be synced."]
     pub totalCount: u32,
-    #[doc = " The count of Assets that fail to synchronize."]
+    #[doc = " Number of assets that fail to be synced."]
     pub failedCount: u32,
 }
 extern "C" {
-    #[doc = " @brief Adds an asset. Permission ohos.permission.STORE_PERSISTENT_DATA is required when the Asset needs to be stored\n     persistently by setting {@link ASSET_TAG_IS_PERSISTENT} tag.\n\n @param attributes Pointer to the attributes of the asset to add.\n @param attributes Number of the attributes of the asset to add.\n @return {@link ASSET_SUCCESS} 0 - The operation is successful.\n     {@link ASSET_PERMISSION_DENIED} 201 - The caller doesn't have the permission.\n     {@link ASSET_INVALID_ARGUMENT} 401 - Parameter error. Possible causes:\n         1. Mandatory parameters are left unspecified.\n         2. Incorrect parameter types.\n         3. Parameter verification failed.\n     {@link ASSET_SERVICE_UNAVAILABLE} 24000001 - The ASSET service is unavailable.\n     {@link ASSET_DUPLICATED} 24000003 - The asset already exists.\n     {@link ASSET_STATUS_MISMATCH} 24000005 - The screen lock status does not match.\n     {@link ASSET_OUT_OF_MEMORY} 24000006 - Insufficient memory.\n     {@link ASSET_DATA_CORRUPTED} 24000007 - The asset is corrupted.\n     {@link ASSET_DATABASE_ERROR} 24000008 - The database operation failed.\n     {@link ASSET_CRYPTO_ERROR} 24000009 - The cryptography operation failed.\n     {@link ASSET_IPC_ERROR} 24000010 - IPC failed.\n     {@link ASSET_BMS_ERROR} 24000011 - Calling the Bundle Manager service failed.\n     {@link ASSET_ACCOUNT_ERROR} 24000012 - Calling the OS Account service failed.\n     {@link ASSET_ACCESS_TOKEN_ERROR} 24000013 - Calling the Access Token service failed.\n     {@link ASSET_FILE_OPERATION_ERROR} 24000014 - The file operation failed.\n     {@link ASSET_GET_SYSTEM_TIME_ERROR} 24000015 - Getting the system time failed.\n @since 11"]
+    #[doc = " @brief Adds an asset. Permission ohos.permission.STORE_PERSISTENT_DATA is required when the Asset needs to be stored\n persistently by setting {@link ASSET_TAG_IS_PERSISTENT} tag.\n\n @param attributes Attributes of the asset to add.\n @param attrCnt Number of the attributes of the asset to add.\n @return {@link ASSET_SUCCESS} 0 - The operation is successful.\n     {@link ASSET_PERMISSION_DENIED} 201 - The caller doesn't have the permission.\n     {@link ASSET_INVALID_ARGUMENT} 401 - Parameter error. Possible causes:\n         1. Mandatory parameters are left unspecified.\n         2. Incorrect parameter types.\n         3. Parameter verification failed.\n     {@link ASSET_SERVICE_UNAVAILABLE} 24000001 - The ASSET service is unavailable.\n     {@link ASSET_DUPLICATED} 24000003 - The asset already exists.\n     {@link ASSET_STATUS_MISMATCH} 24000005 - The screen lock status does not match.\n     {@link ASSET_OUT_OF_MEMORY} 24000006 - Insufficient memory.\n     {@link ASSET_DATA_CORRUPTED} 24000007 - The asset is corrupted.\n     {@link ASSET_DATABASE_ERROR} 24000008 - The database operation failed.\n     {@link ASSET_CRYPTO_ERROR} 24000009 - The cryptography operation failed.\n     {@link ASSET_IPC_ERROR} 24000010 - IPC failed.\n     {@link ASSET_BMS_ERROR} 24000011 - Calling the Bundle Manager service failed.\n     {@link ASSET_ACCOUNT_ERROR} 24000012 - Calling the OS Account service failed.\n     {@link ASSET_ACCESS_TOKEN_ERROR} 24000013 - Calling the Access Token service failed.\n     {@link ASSET_FILE_OPERATION_ERROR} 24000014 - The file operation failed.\n     {@link ASSET_GET_SYSTEM_TIME_ERROR} 24000015 - Getting the system time failed.\n @since 11"]
     pub fn OH_Asset_Add(attributes: *const Asset_Attr, attrCnt: u32) -> i32;
 }
 extern "C" {
-    #[doc = " @brief Removes one or more assets.\n\n @param query Pointer to the conditions for removing the assets.\n @param queryCnt Number of conditions for removing the assets.\n @return {@link ASSET_SUCCESS} 0 - The operation is successful.\n     {@link ASSET_INVALID_ARGUMENT} 401 - Parameter error. Possible causes:\n         1. Incorrect parameter types.\n         2. Parameter verification failed.\n     {@link ASSET_SERVICE_UNAVAILABLE} 24000001 - The ASSET service is unavailable.\n     {@link ASSET_NOT_FOUND} 24000002 - The asset is not found.\n     {@link ASSET_OUT_OF_MEMORY} 24000006 - Insufficient memory.\n     {@link ASSET_DATA_CORRUPTED} 24000007 - The asset is corrupted.\n     {@link ASSET_DATABASE_ERROR} 24000008 - The database operation failed.\n     {@link ASSET_IPC_ERROR} 24000010 - IPC failed.\n     {@link ASSET_BMS_ERROR} 24000011 - Calling the Bundle Manager service failed.\n     {@link ASSET_ACCOUNT_ERROR} 24000012 - Calling the OS Account service failed.\n     {@link ASSET_ACCESS_TOKEN_ERROR} 24000013 - Calling the Access Token service failed.\n     {@link ASSET_GET_SYSTEM_TIME_ERROR} 24000015 - Getting the system time failed.\n @since 11"]
+    #[doc = " @brief Removes one or more assets.\n\n @param query Attributes of the asset to remove.\n @param queryCnt Number of attributes.\n @return {@link ASSET_SUCCESS} 0 - The operation is successful.\n     {@link ASSET_INVALID_ARGUMENT} 401 - Parameter error. Possible causes:\n         1. Incorrect parameter types.\n         2. Parameter verification failed.\n     {@link ASSET_SERVICE_UNAVAILABLE} 24000001 - The ASSET service is unavailable.\n     {@link ASSET_NOT_FOUND} 24000002 - The asset is not found.\n     {@link ASSET_OUT_OF_MEMORY} 24000006 - Insufficient memory.\n     {@link ASSET_DATA_CORRUPTED} 24000007 - The asset is corrupted.\n     {@link ASSET_DATABASE_ERROR} 24000008 - The database operation failed.\n     {@link ASSET_IPC_ERROR} 24000010 - IPC failed.\n     {@link ASSET_BMS_ERROR} 24000011 - Calling the Bundle Manager service failed.\n     {@link ASSET_ACCOUNT_ERROR} 24000012 - Calling the OS Account service failed.\n     {@link ASSET_ACCESS_TOKEN_ERROR} 24000013 - Calling the Access Token service failed.\n     {@link ASSET_GET_SYSTEM_TIME_ERROR} 24000015 - Getting the system time failed.\n @since 11"]
     pub fn OH_Asset_Remove(query: *const Asset_Attr, queryCnt: u32) -> i32;
 }
 extern "C" {
-    #[doc = " @brief Updates an asset.\n\n @param query Pointer to the conditions for updating the asset.\n @param queryCnt Number of conditions for updating the asset.\n @param attributes Pointer to the attributes of the asset to update.\n @param attributes Number of the attributes of the asset to update.\n @return {@link ASSET_SUCCESS} 0 - The operation is successful.\n     {@link ASSET_INVALID_ARGUMENT} 401 - Parameter error. Possible causes:\n         1. Mandatory parameters are left unspecified.\n         2. Incorrect parameter types.\n         3. Parameter verification failed.\n     {@link ASSET_SERVICE_UNAVAILABLE} 24000001 - The ASSET service is unavailable.\n     {@link ASSET_NOT_FOUND} 24000002 - The asset is not found.\n     {@link ASSET_STATUS_MISMATCH} 24000005 - The screen lock status does not match.\n     {@link ASSET_OUT_OF_MEMORY} 24000006 - Insufficient memory.\n     {@link ASSET_DATA_CORRUPTED} 24000007 - The asset is corrupted.\n     {@link ASSET_DATABASE_ERROR} 24000008 - The database operation failed.\n     {@link ASSET_CRYPTO_ERROR} 24000009 - The cryptography operation failed.\n     {@link ASSET_IPC_ERROR} 24000010 - IPC failed.\n     {@link ASSET_BMS_ERROR} 24000011 - Calling the Bundle Manager service failed.\n     {@link ASSET_ACCOUNT_ERROR} 24000012 - Calling the OS Account service failed.\n     {@link ASSET_ACCESS_TOKEN_ERROR} 24000013 - Calling the Access Token service failed.\n     {@link ASSET_GET_SYSTEM_TIME_ERROR} 24000015 - Getting the system time failed.\n @since 11"]
+    #[doc = " @brief Updates an asset.\n\n @param query Attributes of the asset to update.\n @param queryCnt Number of attributes to update.\n @param attributesToUpdate Pointer to the attributes of the asset to update.\n @param updateCnt Number of the attributes of the asset to update.\n @return {@link ASSET_SUCCESS} 0 - The operation is successful.\n     {@link ASSET_INVALID_ARGUMENT} 401 - Parameter error. Possible causes:\n         1. Mandatory parameters are left unspecified.\n         2. Incorrect parameter types.\n         3. Parameter verification failed.\n     {@link ASSET_SERVICE_UNAVAILABLE} 24000001 - The ASSET service is unavailable.\n     {@link ASSET_NOT_FOUND} 24000002 - The asset is not found.\n     {@link ASSET_STATUS_MISMATCH} 24000005 - The screen lock status does not match.\n     {@link ASSET_OUT_OF_MEMORY} 24000006 - Insufficient memory.\n     {@link ASSET_DATA_CORRUPTED} 24000007 - The asset is corrupted.\n     {@link ASSET_DATABASE_ERROR} 24000008 - The database operation failed.\n     {@link ASSET_CRYPTO_ERROR} 24000009 - The cryptography operation failed.\n     {@link ASSET_IPC_ERROR} 24000010 - IPC failed.\n     {@link ASSET_BMS_ERROR} 24000011 - Calling the Bundle Manager service failed.\n     {@link ASSET_ACCOUNT_ERROR} 24000012 - Calling the OS Account service failed.\n     {@link ASSET_ACCESS_TOKEN_ERROR} 24000013 - Calling the Access Token service failed.\n     {@link ASSET_GET_SYSTEM_TIME_ERROR} 24000015 - Getting the system time failed.\n @since 11"]
     pub fn OH_Asset_Update(
         query: *const Asset_Attr,
         queryCnt: u32,
@@ -262,7 +262,7 @@ extern "C" {
     ) -> i32;
 }
 extern "C" {
-    #[doc = " @brief Preprocesses data before querying the asset that can be accessed only after a successful user authentication.\n\n @param query Pointer to the search criteria of the asset.\n @param queryCnt Number of the search criteria.\n @param challenge Pointer to the challenge value to be used when <b>OH_Asset_Query</b> is called.\n @return {@link ASSET_SUCCESS} 0 - The operation is successful.\n     {@link ASSET_INVALID_ARGUMENT} 401 - Parameter error. Possible causes:\n         1. Incorrect parameter types.\n         2. Parameter verification failed.\n     {@link ASSET_SERVICE_UNAVAILABLE} 24000001 - The ASSET service is unavailable.\n     {@link ASSET_NOT_FOUND} 24000002 - The asset is not found.\n     {@link ASSET_STATUS_MISMATCH} 24000005 - The screen lock status does not match.\n     {@link ASSET_OUT_OF_MEMORY} 24000006 - Insufficient memory.\n     {@link ASSET_DATA_CORRUPTED} 24000007 - The asset is corrupted.\n     {@link ASSET_DATABASE_ERROR} 24000008 - The database operation failed.\n     {@link ASSET_CRYPTO_ERROR} 24000009 - The cryptography operation failed.\n     {@link ASSET_IPC_ERROR} 24000010 - IPC failed.\n     {@link ASSET_BMS_ERROR} 24000011 - Calling the Bundle Manager service failed.\n     {@link ASSET_ACCOUNT_ERROR} 24000012 - Calling the OS Account service failed.\n     {@link ASSET_ACCESS_TOKEN_ERROR} 24000013 - Calling the Access Token service failed.\n     {@link ASSET_LIMIT_EXCEEDED} 24000016 - The cache exceeds the limit.\n     {@link ASSET_UNSUPPORTED} 24000017 - The capability is not supported.\n @since 11"]
+    #[doc = " @brief Performs preprocessing for the asset query. This API is used when user authentication is required for the\n access to the asset.\n\n @param query Attributes of the asset to query.\n @param queryCnt Number of attributes.\n @param challenge Challenge value, which is used when {@link OH_Asset_Query} is called.\n @return {@link ASSET_SUCCESS} 0 - The operation is successful.\n     {@link ASSET_INVALID_ARGUMENT} 401 - Parameter error. Possible causes:\n         1. Incorrect parameter types.\n         2. Parameter verification failed.\n     {@link ASSET_SERVICE_UNAVAILABLE} 24000001 - The ASSET service is unavailable.\n     {@link ASSET_NOT_FOUND} 24000002 - The asset is not found.\n     {@link ASSET_STATUS_MISMATCH} 24000005 - The screen lock status does not match.\n     {@link ASSET_OUT_OF_MEMORY} 24000006 - Insufficient memory.\n     {@link ASSET_DATA_CORRUPTED} 24000007 - The asset is corrupted.\n     {@link ASSET_DATABASE_ERROR} 24000008 - The database operation failed.\n     {@link ASSET_CRYPTO_ERROR} 24000009 - The cryptography operation failed.\n     {@link ASSET_IPC_ERROR} 24000010 - IPC failed.\n     {@link ASSET_BMS_ERROR} 24000011 - Calling the Bundle Manager service failed.\n     {@link ASSET_ACCOUNT_ERROR} 24000012 - Calling the OS Account service failed.\n     {@link ASSET_ACCESS_TOKEN_ERROR} 24000013 - Calling the Access Token service failed.\n     {@link ASSET_LIMIT_EXCEEDED} 24000016 - The cache exceeds the limit.\n     {@link ASSET_UNSUPPORTED} 24000017 - The capability is not supported.\n @since 11"]
     pub fn OH_Asset_PreQuery(
         query: *const Asset_Attr,
         queryCnt: u32,
@@ -270,7 +270,7 @@ extern "C" {
     ) -> i32;
 }
 extern "C" {
-    #[doc = " @brief Queries assets.\n\n @param query Pointer to the search criteria.\n @param queryCnt Number of the search criteria.\n @param resultSet Pointer to the query result obtained.\n @return {@link ASSET_SUCCESS} 0 - The operation is successful.\n     {@link ASSET_INVALID_ARGUMENT} 401 - Parameter error. Possible causes:\n         1. Incorrect parameter types.\n         2. Parameter verification failed.\n     {@link ASSET_SERVICE_UNAVAILABLE} 24000001 - The ASSET service is unavailable.\n     {@link ASSET_NOT_FOUND} 24000002 - The asset is not found.\n     {@link ASSET_ACCESS_DENIED} 24000004 - Access to the asset is denied.\n     {@link ASSET_STATUS_MISMATCH} 24000005 - The screen lock status does not match.\n     {@link ASSET_OUT_OF_MEMORY} 24000006 - Insufficient memory.\n     {@link ASSET_DATA_CORRUPTED} 24000007 - The asset is corrupted.\n     {@link ASSET_DATABASE_ERROR} 24000008 - The database operation failed.\n     {@link ASSET_CRYPTO_ERROR} 24000009 - The cryptography operation failed.\n     {@link ASSET_IPC_ERROR} 24000010 - IPC failed.\n     {@link ASSET_BMS_ERROR} 24000011 - Calling the Bundle Manager service failed.\n     {@link ASSET_ACCOUNT_ERROR} 24000012 - Calling the OS Account service failed.\n     {@link ASSET_ACCESS_TOKEN_ERROR} 24000013 - Calling the Access Token service failed.\n     {@link ASSET_UNSUPPORTED} 24000017 - The capability is not supported.\n @since 11"]
+    #[doc = " @brief Queries one or more assets.\n\n @param query Attributes of the asset to query.\n @param queryCnt Number of attributes.\n @param resultSet Array of query results.\n @return {@link ASSET_SUCCESS} 0 - The operation is successful.\n     {@link ASSET_INVALID_ARGUMENT} 401 - Parameter error. Possible causes:\n         1. Incorrect parameter types.\n         2. Parameter verification failed.\n     {@link ASSET_SERVICE_UNAVAILABLE} 24000001 - The ASSET service is unavailable.\n     {@link ASSET_NOT_FOUND} 24000002 - The asset is not found.\n     {@link ASSET_ACCESS_DENIED} 24000004 - Access to the asset is denied.\n     {@link ASSET_STATUS_MISMATCH} 24000005 - The screen lock status does not match.\n     {@link ASSET_OUT_OF_MEMORY} 24000006 - Insufficient memory.\n     {@link ASSET_DATA_CORRUPTED} 24000007 - The asset is corrupted.\n     {@link ASSET_DATABASE_ERROR} 24000008 - The database operation failed.\n     {@link ASSET_CRYPTO_ERROR} 24000009 - The cryptography operation failed.\n     {@link ASSET_IPC_ERROR} 24000010 - IPC failed.\n     {@link ASSET_BMS_ERROR} 24000011 - Calling the Bundle Manager service failed.\n     {@link ASSET_ACCOUNT_ERROR} 24000012 - Calling the OS Account service failed.\n     {@link ASSET_ACCESS_TOKEN_ERROR} 24000013 - Calling the Access Token service failed.\n     {@link ASSET_UNSUPPORTED} 24000017 - The capability is not supported.\n @since 11"]
     pub fn OH_Asset_Query(
         query: *const Asset_Attr,
         queryCnt: u32,
@@ -278,11 +278,11 @@ extern "C" {
     ) -> i32;
 }
 extern "C" {
-    #[doc = " @brief Processes data after the query of the asset that requires user authentication.\n\n @param handle Pointer to the handle of the data to process, which includes the challenge value returned by\n     <b>OH_Asset_PreQuery</b>.\n @param handleCnt Number of the elements in the handle attribute set.\n @return {@link ASSET_SUCCESS} 0 - The operation is successful.\n     {@link ASSET_INVALID_ARGUMENT} 401 - Parameter error. Possible causes:\n         1. Mandatory parameters are left unspecified.\n         2. Incorrect parameter types.\n         3. Parameter verification failed.\n     {@link ASSET_SERVICE_UNAVAILABLE} 24000001 - The ASSET service is unavailable.\n     {@link ASSET_OUT_OF_MEMORY} 24000006 - Insufficient memory.\n     {@link ASSET_IPC_ERROR} 24000010 - IPC failed.\n     {@link ASSET_BMS_ERROR} 24000011 - Calling the Bundle Manager service failed.\n     {@link ASSET_ACCOUNT_ERROR} 24000012 - Calling the OS Account service failed.\n     {@link ASSET_ACCESS_TOKEN_ERROR} 24000013 - Calling the Access Token service failed.\n @since 11"]
+    #[doc = " @brief Performs postprocessing for the asset query. This API is used when user authentication is required for the\n access to the asset.\n\n @param handle Handle of the query operation, including the challenge value returned by {@link OH_Asset_PreQuery}.\n @param handleCnt Number of elements in the handle attribute set.\n @return {@link ASSET_SUCCESS} 0 - The operation is successful.\n     {@link ASSET_INVALID_ARGUMENT} 401 - Parameter error. Possible causes:\n         1. Mandatory parameters are left unspecified.\n         2. Incorrect parameter types.\n         3. Parameter verification failed.\n     {@link ASSET_SERVICE_UNAVAILABLE} 24000001 - The ASSET service is unavailable.\n     {@link ASSET_OUT_OF_MEMORY} 24000006 - Insufficient memory.\n     {@link ASSET_IPC_ERROR} 24000010 - IPC failed.\n     {@link ASSET_BMS_ERROR} 24000011 - Calling the Bundle Manager service failed.\n     {@link ASSET_ACCOUNT_ERROR} 24000012 - Calling the OS Account service failed.\n     {@link ASSET_ACCESS_TOKEN_ERROR} 24000013 - Calling the Access Token service failed.\n @since 11"]
     pub fn OH_Asset_PostQuery(handle: *const Asset_Attr, handleCnt: u32) -> i32;
 }
 extern "C" {
-    #[doc = " @brief Query the result of synchronization.\n\n @param query Pointer to the search criteria.\n @param queryCnt Number of the search criteria.\n @param syncResult Pointer to the synchronization result obtained.\n @return {@link ASSET_SUCCESS} 0 - The operation is successful.\n     {@link ASSET_SERVICE_UNAVAILABLE} 24000001 - The ASSET service is unavailable.\n     {@link ASSET_OUT_OF_MEMORY} 24000006 - Insufficient memory.\n     {@link ASSET_IPC_ERROR} 24000010 - IPC failed.\n     {@link ASSET_BMS_ERROR} 24000011 - Calling the Bundle Manager service failed.\n     {@link ASSET_ACCOUNT_ERROR} 24000012 - Calling the OS Account service failed.\n     {@link ASSET_ACCESS_TOKEN_ERROR} 24000013 - Calling the Access Token service failed.\n     {@link ASSET_FILE_OPERATION_ERROR} 24000014 - The file operation failed.\n     {@link ASSET_PARAM_VERIFICATION_FAILED} 24000018 - Parameter verification failed.\n @since 20"]
+    #[doc = " @brief Queries the sync result of an asset.\n\n @param query Attributes of the asset to query the sync result.\n @param queryCnt Number of attributes.\n @param syncResult Sync result of the queried asset.\n @return {@link ASSET_SUCCESS} 0 - The operation is successful.\n     {@link ASSET_SERVICE_UNAVAILABLE} 24000001 - The ASSET service is unavailable.\n     {@link ASSET_OUT_OF_MEMORY} 24000006 - Insufficient memory.\n     {@link ASSET_IPC_ERROR} 24000010 - IPC failed.\n     {@link ASSET_BMS_ERROR} 24000011 - Calling the Bundle Manager service failed.\n     {@link ASSET_ACCOUNT_ERROR} 24000012 - Calling the OS Account service failed.\n     {@link ASSET_ACCESS_TOKEN_ERROR} 24000013 - Calling the Access Token service failed.\n     {@link ASSET_FILE_OPERATION_ERROR} 24000014 - The file operation failed.\n     {@link ASSET_PARAM_VERIFICATION_FAILED} 24000018 - Parameter verification failed.\n @since 20"]
     #[cfg(feature = "api-20")]
     pub fn OH_Asset_QuerySyncResult(
         query: *const Asset_Attr,
@@ -291,14 +291,14 @@ extern "C" {
     ) -> i32;
 }
 extern "C" {
-    #[doc = " @brief Parses the query result to obtain the specified attribute value.\n\n @param result Pointer to the query result to parse, which is obtained by <b>OH_Asset_Query</b>.\n @param tag Tag of the attribute to obtain.\n @return Returns <b>Asset_Attr</b> obtained if the operation is successful; returns <b>NULL</b> otherwise.\n     The attribute does not need to be released by the service.\n @since 11"]
+    #[doc = " @brief Parses the query result and obtains the specified attribute.\n\n @param result Query result returned by {@link OH_Asset_Query}.\n @param tag Key of the attribute to obtain.\n @return Returns <b>Asset_Attr</b> obtained if the operation is successful; returns <b>NULL</b> otherwise.\n     The attribute does not need to be released by the service.\n @since 11"]
     pub fn OH_Asset_ParseAttr(result: *const Asset_Result, tag: Asset_Tag) -> *mut Asset_Attr;
 }
 extern "C" {
-    #[doc = " @brief Releases the memory occupied by the challenge value.\n\n @param blob Pointer to the challenge value (obtained by <b>OH_Asset_PreQuery</b>) to release.\n @since 11"]
+    #[doc = " @brief Releases the memory occupied by the challenge value.\n\n @param blob Challenge value returned by {@link OH_Asset_PreQuery}.\n @since 11"]
     pub fn OH_Asset_FreeBlob(blob: *mut Asset_Blob);
 }
 extern "C" {
-    #[doc = " @brief Releases the memory occupied by the query result.\n\n @param resultSet Pointer to the query result (obtained by <b>OH_Asset_Query</b>) to release.\n @since 11"]
+    #[doc = " @brief Releases the memory occupied by the query result.\n\n @param resultSet Query result returned by {@link OH_Asset_Query}.\n @since 11"]
     pub fn OH_Asset_FreeResultSet(resultSet: *mut Asset_ResultSet);
 }

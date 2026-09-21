@@ -40,6 +40,7 @@ pub struct OH_Drawing_Brush {
 pub struct OH_Drawing_Path {
     _unused: [u8; 0],
 }
+#[cfg(feature = "api-23")]
 #[repr(C)]
 #[derive(Debug, Copy, Clone)]
 pub struct OH_Drawing_PathIterator {
@@ -70,7 +71,7 @@ pub struct OH_Drawing_PixelMap {
 pub struct OH_Drawing_ColorSpace {
     _unused: [u8; 0],
 }
-#[doc = " @brief Defines a point of 2d.\n\n @since 12\n @version 1.0"]
+#[doc = " @brief **OH_Drawing_Point2D** defines a two-dimensional coordinate point.<br>**OH_Drawing_Corner_Radii** defines\n rounded corner radii, consisting of an x-axis radius and a y-axis radius.\n\n @since 12\n @version 1.0"]
 #[repr(C)]
 #[derive(Debug, Copy, Clone)]
 pub struct OH_Drawing_Point2D {
@@ -79,7 +80,7 @@ pub struct OH_Drawing_Point2D {
 }
 #[doc = " @brief Defines corner radii, which is on x-axis and y-axis.\n\n @since 12\n @version 1.0"]
 pub type OH_Drawing_Corner_Radii = OH_Drawing_Point2D;
-#[doc = " @brief Defines a point of 3d, which is used to describe the coordinate point.\n\n @since 12\n @version 1.0"]
+#[doc = " @brief This struct describes a three-dimensional coordinate point.\n\n @since 12\n @version 1.0"]
 #[repr(C)]
 #[derive(Debug, Copy, Clone)]
 pub struct OH_Drawing_Point3D {
@@ -137,6 +138,7 @@ pub struct OH_Drawing_ColorFilter {
 pub struct OH_Drawing_Font {
     _unused: [u8; 0],
 }
+#[cfg(feature = "api-20")]
 #[repr(C)]
 #[derive(Debug, Copy, Clone)]
 pub struct OH_Drawing_FontFeatures {
@@ -147,6 +149,7 @@ pub struct OH_Drawing_FontFeatures {
 pub struct OH_Drawing_MemoryStream {
     _unused: [u8; 0],
 }
+#[cfg(feature = "api-13")]
 #[repr(C)]
 #[derive(Debug, Copy, Clone)]
 pub struct OH_Drawing_FontArguments {
@@ -192,137 +195,99 @@ pub struct OH_Drawing_GpuContext {
 pub struct OH_Drawing_Surface {
     _unused: [u8; 0],
 }
-#[doc = " Unknown format."]
+#[doc = " Unknown format.\n\n @since 8"]
 pub const OH_Drawing_ColorFormat_COLOR_FORMAT_UNKNOWN: OH_Drawing_ColorFormat = 0;
-#[doc = " Each pixel is represented by 8 bits, which together indicate alpha."]
+#[doc = " Each pixel is represented by 8 bits, which together indicate alpha.\n\n @since 8"]
 pub const OH_Drawing_ColorFormat_COLOR_FORMAT_ALPHA_8: OH_Drawing_ColorFormat = 1;
-#[doc = " Each pixel is represented by 16 bits. From the most significant bit to the least significant bit,\n the first 5 bits indicate red, the subsequent 6 bits indicate green, and the last 5 bits indicate blue."]
+#[doc = " Each pixel is represented by 16 bits. From the most significant bit to the least significant bit, the first 5\n bits indicate red, the subsequent 6 bits indicate green, and the last 5 bits indicate blue.\n\n @since 8"]
 pub const OH_Drawing_ColorFormat_COLOR_FORMAT_RGB_565: OH_Drawing_ColorFormat = 2;
-#[doc = " Each pixel is represented by 16 bits. From the most significant bit to the least significant bit,\n every 4 bits indicate alpha, red, green, and blue, respectively."]
+#[doc = " Each pixel is represented by 16 bits. From the most significant bit to the least significant bit, every 4 bits\n indicate alpha, red, green, and blue, respectively.\n\n @since 8"]
 pub const OH_Drawing_ColorFormat_COLOR_FORMAT_ARGB_4444: OH_Drawing_ColorFormat = 3;
-#[doc = " Each pixel is represented by 32 bits. From the most significant bit to the least significant bit,\n every 8 bits indicate alpha, red, green, and blue, respectively."]
+#[doc = " Each pixel is represented by 32 bits. From the most significant bit to the least significant bit, every 8 bits\n indicate alpha, red, green, and blue, respectively.\n\n @since 8"]
 pub const OH_Drawing_ColorFormat_COLOR_FORMAT_RGBA_8888: OH_Drawing_ColorFormat = 4;
-#[doc = " Each pixel is represented by 32 bits. From the most significant bit to the least significant bit,\n every 8 bits indicate blue, green, red, and alpha, respectively."]
+#[doc = " Each pixel is represented by 32 bits. From the most significant bit to the least significant bit, every 8 bits\n indicate blue, green, red, and alpha, respectively.\n\n @since 8"]
 pub const OH_Drawing_ColorFormat_COLOR_FORMAT_BGRA_8888: OH_Drawing_ColorFormat = 5;
-#[doc = " @brief Enumerates storage formats of bitmap pixels.\n\n @since 8\n @version 1.0"]
+#[doc = " @brief Defines an enum for the storage formats of bitmap pixels.\n\n @since 8\n @version 1.0"]
 pub type OH_Drawing_ColorFormat = u32;
-#[doc = " Unknown format."]
+#[doc = " Unknown format.\n\n @since 8"]
 pub const OH_Drawing_AlphaFormat_ALPHA_FORMAT_UNKNOWN: OH_Drawing_AlphaFormat = 0;
-#[doc = " The bitmap does not have the alpha component."]
+#[doc = " The bitmap does not have the alpha component.\n\n @since 8"]
 pub const OH_Drawing_AlphaFormat_ALPHA_FORMAT_OPAQUE: OH_Drawing_AlphaFormat = 1;
-#[doc = " The color component of each pixel is premultiplied by the alpha component."]
+#[doc = " The color component of each pixel is premultiplied by the alpha component.\n\n @since 8"]
 pub const OH_Drawing_AlphaFormat_ALPHA_FORMAT_PREMUL: OH_Drawing_AlphaFormat = 2;
-#[doc = " The color component of each pixel is not premultiplied by the alpha component."]
+#[doc = " The color component of each pixel is not premultiplied by the alpha component.\n\n @since 8"]
 pub const OH_Drawing_AlphaFormat_ALPHA_FORMAT_UNPREMUL: OH_Drawing_AlphaFormat = 3;
-#[doc = " @brief Enumerates alpha formats of bitmap pixels.\n\n @since 8\n @version 1.0"]
+#[doc = " @brief Defines an enum for the alpha formats of bitmap pixels.\n\n @since 8\n @version 1.0"]
 pub type OH_Drawing_AlphaFormat = u32;
-#[doc = " r = 0."]
+#[doc = " Clear mode. r = 0.\n\n @since 11"]
 pub const OH_Drawing_BlendMode_BLEND_MODE_CLEAR: OH_Drawing_BlendMode = 0;
-#[doc = " r = s."]
+#[doc = " r = s (The four channels of **result** are equal to the four channels of **source**, that is, the result is\n equal to the source.)\n\n @since 11"]
 pub const OH_Drawing_BlendMode_BLEND_MODE_SRC: OH_Drawing_BlendMode = 1;
-#[doc = " r = d."]
+#[doc = " r = d (The four channels of **result** are equal to the four channels of **destination**, that is, the result is\n equal to the destination.)\n\n @since 11"]
 pub const OH_Drawing_BlendMode_BLEND_MODE_DST: OH_Drawing_BlendMode = 2;
-#[doc = " r = s + (1-sa)*d."]
+#[doc = " r = s + (1 - sa) * d.\n\n @since 11"]
 pub const OH_Drawing_BlendMode_BLEND_MODE_SRC_OVER: OH_Drawing_BlendMode = 3;
-#[doc = " r = d + (1-da)*s."]
+#[doc = " r = d + (1 - da) * s.\n\n @since 11"]
 pub const OH_Drawing_BlendMode_BLEND_MODE_DST_OVER: OH_Drawing_BlendMode = 4;
-#[doc = " r = s * da."]
+#[doc = " r = s * da.\n\n @since 11"]
 pub const OH_Drawing_BlendMode_BLEND_MODE_SRC_IN: OH_Drawing_BlendMode = 5;
-#[doc = " r = d * sa."]
+#[doc = " r = d * sa.\n\n @since 11"]
 pub const OH_Drawing_BlendMode_BLEND_MODE_DST_IN: OH_Drawing_BlendMode = 6;
-#[doc = " r = s * (1-da)."]
+#[doc = " r = s * (1 - da).\n\n @since 11"]
 pub const OH_Drawing_BlendMode_BLEND_MODE_SRC_OUT: OH_Drawing_BlendMode = 7;
-#[doc = " r = d * (1-sa)."]
+#[doc = " r = d * (1 - sa).\n\n @since 11"]
 pub const OH_Drawing_BlendMode_BLEND_MODE_DST_OUT: OH_Drawing_BlendMode = 8;
-#[doc = " r = s*da + d*(1-sa)."]
+#[doc = " r = s * da + d * (1 - sa).\n\n @since 11"]
 pub const OH_Drawing_BlendMode_BLEND_MODE_SRC_ATOP: OH_Drawing_BlendMode = 9;
-#[doc = " r = d*sa + s*(1-da)."]
+#[doc = " r = d * sa + s * (1 - da).\n\n @since 11"]
 pub const OH_Drawing_BlendMode_BLEND_MODE_DST_ATOP: OH_Drawing_BlendMode = 10;
-#[doc = " r = s*(1-da) + d*(1-sa)."]
+#[doc = " r = s * (1 - da) + d * (1 - sa).\n\n @since 11"]
 pub const OH_Drawing_BlendMode_BLEND_MODE_XOR: OH_Drawing_BlendMode = 11;
-#[doc = " r = min(s + d, 1)."]
+#[doc = " r = min(s + d, 1).\n\n @since 11"]
 pub const OH_Drawing_BlendMode_BLEND_MODE_PLUS: OH_Drawing_BlendMode = 12;
-#[doc = " r = s*d."]
+#[doc = " r = s * d.\n\n @since 11"]
 pub const OH_Drawing_BlendMode_BLEND_MODE_MODULATE: OH_Drawing_BlendMode = 13;
-#[doc = " r = s + d - s*d."]
+#[doc = " Screen mode. r = s + d - s * d.\n\n @since 11"]
 pub const OH_Drawing_BlendMode_BLEND_MODE_SCREEN: OH_Drawing_BlendMode = 14;
-#[doc = " multiply or screen, depending on destination."]
+#[doc = " Overlay mode.\n\n @since 11"]
 pub const OH_Drawing_BlendMode_BLEND_MODE_OVERLAY: OH_Drawing_BlendMode = 15;
-#[doc = " rc = s + d - max(s*da, d*sa), ra = s + (1-sa)*d."]
+#[doc = " Darken mode. rc = s + d - max(s * da, d * sa), ra = s + (1 - sa) * d.\n\n @since 11"]
 pub const OH_Drawing_BlendMode_BLEND_MODE_DARKEN: OH_Drawing_BlendMode = 16;
-#[doc = " rc = s + d - min(s*da, d*sa), ra = s + (1-sa)*d."]
+#[doc = " Lighten mode. rc = rc = s + d - min(s * da, d * sa), ra = s + (1 - sa) * d.\n\n @since 11"]
 pub const OH_Drawing_BlendMode_BLEND_MODE_LIGHTEN: OH_Drawing_BlendMode = 17;
-#[doc = " brighten destination to reflect source."]
+#[doc = " Color dodge mode.\n\n @since 11"]
 pub const OH_Drawing_BlendMode_BLEND_MODE_COLOR_DODGE: OH_Drawing_BlendMode = 18;
-#[doc = " darken destination to reflect source."]
+#[doc = " Color burn mode.\n\n @since 11"]
 pub const OH_Drawing_BlendMode_BLEND_MODE_COLOR_BURN: OH_Drawing_BlendMode = 19;
-#[doc = " multiply or screen, depending on source."]
+#[doc = " Hard light mode.\n\n @since 11"]
 pub const OH_Drawing_BlendMode_BLEND_MODE_HARD_LIGHT: OH_Drawing_BlendMode = 20;
-#[doc = " lighten or darken, depending on source."]
+#[doc = " Soft light mode.\n\n @since 11"]
 pub const OH_Drawing_BlendMode_BLEND_MODE_SOFT_LIGHT: OH_Drawing_BlendMode = 21;
-#[doc = " rc = s + d - 2*(min(s*da, d*sa)), ra = s + (1-sa)*d."]
+#[doc = " Difference mode. rc = s + d - 2 * (min(s * da, d * sa)), ra = s + (1 - sa) * d.\n\n @since 11"]
 pub const OH_Drawing_BlendMode_BLEND_MODE_DIFFERENCE: OH_Drawing_BlendMode = 22;
-#[doc = " rc = s + d - two(s*d), ra = s + (1-sa)*d."]
+#[doc = " Exclusion mode. rc = s + d - two(s * d), ra = s + (1 - sa) * d.\n\n @since 11"]
 pub const OH_Drawing_BlendMode_BLEND_MODE_EXCLUSION: OH_Drawing_BlendMode = 23;
-#[doc = " r = s*(1-da) + d*(1-sa) + s*d."]
+#[doc = " Multiply mode. r = s * (1 - da) + d * (1 - sa) + s * d.\n\n @since 11"]
 pub const OH_Drawing_BlendMode_BLEND_MODE_MULTIPLY: OH_Drawing_BlendMode = 24;
-#[doc = " hue of source with saturation and luminosity of destination."]
+#[doc = " Hue mode.\n\n @since 11"]
 pub const OH_Drawing_BlendMode_BLEND_MODE_HUE: OH_Drawing_BlendMode = 25;
-#[doc = " saturation of source with hue and luminosity of destination."]
+#[doc = " Saturation mode.\n\n @since 11"]
 pub const OH_Drawing_BlendMode_BLEND_MODE_SATURATION: OH_Drawing_BlendMode = 26;
-#[doc = " hue and saturation of source with luminosity of destination."]
+#[doc = " Color mode.\n\n @since 11"]
 pub const OH_Drawing_BlendMode_BLEND_MODE_COLOR: OH_Drawing_BlendMode = 27;
-#[doc = " luminosity of source with hue and saturation of destination."]
+#[doc = " Luminosity mode.\n\n @since 11"]
 pub const OH_Drawing_BlendMode_BLEND_MODE_LUMINOSITY: OH_Drawing_BlendMode = 28;
-#[doc = " @brief The blending operation generates a new color for the two colors (source, destination).\n These operations are the same on the 4 color channels: red, green, blue, alpha.\n For these, we use alpha channel as an example, rather than naming each channel individually.\n\n For brevity, we use the following abbreviations.\n s  : source\n d  : destination\n sa : source alpha\n da : destination alpha\n\n Results are abbreviated\n r  : if all 4 channels are computed in the same manner\n ra : result alpha channel\n rc : result \"color\": red, green, blue channels\n\n @since 11\n @version 1.0"]
+#[doc = " @brief Defines an enum for blend modes. In blend mode, each operation generates a new color from two colors (source\n color and destination color).\n These operations are the same for the red, green, and blue color channels (the alpha channel follows a different\n rule).\n For simplicity, the following description uses the alpha channel as an example rather than naming each channel\n individually. For brevity, the following abbreviations are used:\n **s**: source.\n **d**: destination.\n **sa**: source alpha.\n **da**: destination alpha.\n The following abbreviations are used in the calculation result:\n **r**: The calculation methods of the four channels are the same.\n **ra**: used when only the alpha channel is manipulated.\n **rc**: used when the other three color channels are manipulated.\n\n @since 11\n @version 1.0"]
 pub type OH_Drawing_BlendMode = u32;
-#[doc = " @brief Defines image info struct.\n\n @since 12\n @version 1.0"]
-#[repr(C)]
-#[derive(Debug, Copy, Clone)]
-pub struct OH_Drawing_Image_Info {
-    #[doc = " storage for width of image"]
-    pub width: i32,
-    #[doc = " storage for height of image"]
-    pub height: i32,
-    #[doc = " storage for color formats"]
-    pub colorType: OH_Drawing_ColorFormat,
-    #[doc = " storage for alpha formats"]
-    pub alphaType: OH_Drawing_AlphaFormat,
-}
-#[doc = " @brief Defines rectstyle info struct.\n\n @since 12\n @version 1.0"]
-#[repr(C)]
-#[derive(Debug, Copy, Clone)]
-pub struct OH_Drawing_RectStyle_Info {
-    #[doc = " color of rectstyle"]
-    pub color: u32,
-    #[doc = " radius in left top of rectstyle"]
-    pub leftTopRadius: f64,
-    #[doc = " radius in right top of rectstyle"]
-    pub rightTopRadius: f64,
-    #[doc = " radius in right bottom of rectstyle"]
-    pub rightBottomRadius: f64,
-    #[doc = " radius in left bottom of rectstyle"]
-    pub leftBottomRadius: f64,
-}
-#[doc = " @brief Defines the string information struct.\n\n @since 14\n @version 1.0"]
-#[cfg(feature = "api-14")]
-#[repr(C)]
-#[derive(Debug, Copy, Clone)]
-pub struct OH_Drawing_String {
-    #[doc = " A pointer to a byte string containing UTF-16 encoded entities"]
-    pub strData: *mut u8,
-    #[doc = " The length of `strData` in bytes"]
-    pub strLen: u32,
-}
-#[doc = " uses bytes to represent UTF-8 or ASCII"]
+#[doc = " One byte used to indicate UTF-8 or ASCII characters.\n\n @since 12"]
 pub const OH_Drawing_TextEncoding_TEXT_ENCODING_UTF8: OH_Drawing_TextEncoding = 0;
-#[doc = " uses two byte words to represent most of Unicode"]
+#[doc = " Two bytes used to indicate most Unicode characters.\n\n @since 12"]
 pub const OH_Drawing_TextEncoding_TEXT_ENCODING_UTF16: OH_Drawing_TextEncoding = 1;
-#[doc = " uses four byte words to represent all of Unicode"]
+#[doc = " Four bytes used to indicate all Unicode characters.\n\n @since 12"]
 pub const OH_Drawing_TextEncoding_TEXT_ENCODING_UTF32: OH_Drawing_TextEncoding = 2;
-#[doc = " uses two byte words to represent glyph indices"]
+#[doc = " Two bytes used to indicate the glyph index.\n\n @since 12"]
 pub const OH_Drawing_TextEncoding_TEXT_ENCODING_GLYPH_ID: OH_Drawing_TextEncoding = 3;
-#[doc = " @brief Enumerates text encoding types.\n @since 12\n @version 1.0"]
+#[doc = " @brief Defines an enum for the text encoding types.\n\n @since 12\n @version 1.0"]
 pub type OH_Drawing_TextEncoding = u32;
 #[repr(C)]
 #[derive(Debug, Copy, Clone)]
@@ -334,40 +299,134 @@ pub struct OH_Drawing_FontMgr {
 pub struct OH_Drawing_FontStyleSet {
     _unused: [u8; 0],
 }
+#[cfg(feature = "api-13")]
 #[repr(C)]
 #[derive(Debug, Copy, Clone)]
 pub struct OH_Drawing_RecordCmdUtils {
     _unused: [u8; 0],
 }
+#[cfg(feature = "api-13")]
 #[repr(C)]
 #[derive(Debug, Copy, Clone)]
 pub struct OH_Drawing_RecordCmd {
     _unused: [u8; 0],
 }
+#[cfg(feature = "api-14")]
 #[repr(C)]
 #[derive(Debug, Copy, Clone)]
 pub struct OH_Drawing_Array {
     _unused: [u8; 0],
 }
-#[doc = " @brief Defines the pixel format of a bitmap, including the color type and alpha type.\n\n @since 8\n @version 1.0"]
+#[doc = " @brief This struct describes the style of a rectangle.\n\n @since 12\n @version 1.0"]
+#[repr(C)]
+#[derive(Debug, Copy, Clone)]
+pub struct OH_Drawing_RectStyle_Info {
+    #[doc = " Color of the rectangle.\n\n @since 12"]
+    pub color: u32,
+    #[doc = " Left top radius of the rectangle.\n\n @since 12"]
+    pub leftTopRadius: f64,
+    #[doc = " Right top radius of the rectangle.\n\n @since 12"]
+    pub rightTopRadius: f64,
+    #[doc = " Right bottom radius of the rectangle.\n\n @since 12"]
+    pub rightBottomRadius: f64,
+    #[doc = " Left bottom radius of the rectangle.\n\n @since 12"]
+    pub leftBottomRadius: f64,
+}
+#[doc = " @brief This struct describes the image information.\n\n @since 12\n @version 1.0"]
+#[repr(C)]
+#[derive(Debug, Copy, Clone)]
+pub struct OH_Drawing_Image_Info {
+    #[doc = " Width, in pixels.\n\n @since 12"]
+    pub width: i32,
+    #[doc = " Height, in pixels.\n\n @since 12"]
+    pub height: i32,
+    #[doc = " Color type.\n\n @since 12"]
+    pub colorType: OH_Drawing_ColorFormat,
+    #[doc = " Alpha type.\n\n @since 12"]
+    pub alphaType: OH_Drawing_AlphaFormat,
+}
+#[doc = " @brief This struct describes a string of characters encoded in UTF-16.\n\n @since 14\n @version 1.0"]
+#[cfg(feature = "api-14")]
+#[repr(C)]
+#[derive(Debug, Copy, Clone)]
+pub struct OH_Drawing_String {
+    #[doc = " Pointer to a byte array that stores characters in the UTF-16 encoding format.\n\n @since 14"]
+    pub strData: *mut u8,
+    #[doc = " Actual length of the string that **strData** points to, in bytes.\n\n @since 14"]
+    pub strLen: u32,
+}
+#[doc = " Operation successful.\n\n @since 12"]
+pub const OH_Drawing_ErrorCode_OH_DRAWING_SUCCESS: OH_Drawing_ErrorCode = 0;
+#[doc = " Permission denied.\n\n @since 12"]
+pub const OH_Drawing_ErrorCode_OH_DRAWING_ERROR_NO_PERMISSION: OH_Drawing_ErrorCode = 201;
+#[doc = " Invalid input parameter. For example, NULL is passed in.\n\n @since 12"]
+pub const OH_Drawing_ErrorCode_OH_DRAWING_ERROR_INVALID_PARAMETER: OH_Drawing_ErrorCode = 401;
+#[doc = " The input parameter is not in the valid range.\n\n @since 12"]
+pub const OH_Drawing_ErrorCode_OH_DRAWING_ERROR_PARAMETER_OUT_OF_RANGE: OH_Drawing_ErrorCode =
+    26200001;
+#[doc = " Failed to allocate memory.\n\n @since 13"]
+#[cfg(feature = "api-13")]
+pub const OH_Drawing_ErrorCode_OH_DRAWING_ERROR_ALLOCATION_FAILED: OH_Drawing_ErrorCode = 26200002;
+#[doc = " No function matches the input attribute ID.\n\n @since 21"]
+#[cfg(feature = "api-21")]
+pub const OH_Drawing_ErrorCode_OH_DRAWING_ERROR_ATTRIBUTE_ID_MISMATCH: OH_Drawing_ErrorCode =
+    26200003;
+#[doc = " The input parameter is incorrect. For example, the pointer of the input parameter is null.\n\n @since 22"]
+#[cfg(feature = "api-22")]
+pub const OH_Drawing_ErrorCode_OH_DRAWING_ERROR_INCORRECT_PARAMETER: OH_Drawing_ErrorCode =
+    26200004;
+#[doc = " File not found. The specified file does not exist or the path is incorrect.\n\n @since 23"]
+#[cfg(feature = "api-23")]
+pub const OH_Drawing_ErrorCode_OH_DRAWING_ERROR_FILE_NOT_FOUND: OH_Drawing_ErrorCode = 26200005;
+#[doc = " Failed to open the file, which is caused by insufficient permissions or I/O issues.\n\n @since 23"]
+#[cfg(feature = "api-23")]
+pub const OH_Drawing_ErrorCode_OH_DRAWING_ERROR_OPEN_FILE_FAILED: OH_Drawing_ErrorCode = 26200006;
+#[doc = " Fails to seek the file. The system cannot reposition the file read pointer.\n\n @since 23"]
+#[cfg(feature = "api-23")]
+pub const OH_Drawing_ErrorCode_OH_DRAWING_ERROR_FILE_SEEK_FAILED: OH_Drawing_ErrorCode = 26200007;
+#[doc = " Failed to obtain the file size. The system cannot obtain the file size information.\n\n @since 23"]
+#[cfg(feature = "api-23")]
+pub const OH_Drawing_ErrorCode_OH_DRAWING_ERROR_GET_FILE_SIZE_FAILED: OH_Drawing_ErrorCode =
+    26200008;
+#[doc = " Failed to read the file. The file cannot be read completely or contains unreadable data.\n\n @since 23"]
+#[cfg(feature = "api-23")]
+pub const OH_Drawing_ErrorCode_OH_DRAWING_ERROR_READ_FILE_FAILED: OH_Drawing_ErrorCode = 26200009;
+#[doc = " Empty file. The specified font file is empty and does not contain valid data.\n\n @since 23"]
+#[cfg(feature = "api-23")]
+pub const OH_Drawing_ErrorCode_OH_DRAWING_ERROR_EMPTY_FILE: OH_Drawing_ErrorCode = 26200010;
+#[doc = " Corrupted file. The file content is invalid or corrupted, and cannot be parsed.\n\n @since 23"]
+#[cfg(feature = "api-23")]
+pub const OH_Drawing_ErrorCode_OH_DRAWING_ERROR_FILE_CORRUPTED: OH_Drawing_ErrorCode = 26200011;
+#[doc = " @brief Defines an enum for the error codes that may be generated by the module.\n\n @since 12"]
+pub type OH_Drawing_ErrorCode = u32;
+extern "C" {
+    #[doc = " @brief Obtains the error code of the module.\n\n @return Returns the error code.\n @since 12\n @version 1.0"]
+    pub fn OH_Drawing_ErrorCodeGet() -> OH_Drawing_ErrorCode;
+}
+extern "C" {
+    #[doc = " @brief Resets the error code of this module to **OH_DRAWING_SUCCESS**.\n When a function that does not return an error code fails, the error code obtained through\n {@link OH_Drawing_ErrorCodeGet} is reset to the corresponding error number. However, it is not reset to\n **OH_DRAWING_SUCCESS** for a successful operation. By calling this function, you can manually reset the\n error code to **OH_DRAWING_SUCCESS**, avoiding interference between different functions and simplifying the\n debugging process.\n\n @since 18\n @version 1.0"]
+    #[cfg(feature = "api-18")]
+    pub fn OH_Drawing_ErrorCodeReset();
+}
+#[doc = " @brief This struct describes the pixel format of a bitmap, including the color type and alpha type.\n\n @since 8\n @version 1.0"]
 #[repr(C)]
 #[derive(Debug, Copy, Clone)]
 pub struct OH_Drawing_BitmapFormat {
-    #[doc = " Storage format of bitmap pixels"]
+    #[doc = " Storage format of bitmap pixels."]
     pub colorFormat: OH_Drawing_ColorFormat,
-    #[doc = " Alpha format of bitmap pixels"]
+    #[doc = " Alpha format of bitmap pixels."]
     pub alphaFormat: OH_Drawing_AlphaFormat,
 }
 extern "C" {
-    #[doc = " @brief Creates an <b>OH_Drawing_Bitmap</b> object.\n\n @syscap SystemCapability.Graphic.Graphic2D.NativeDrawing\n @return Returns the pointer to the <b>OH_Drawing_Bitmap</b> object created.\n @since 8\n @version 1.0"]
+    #[doc = " @brief Creates an **OH_Drawing_Bitmap** object.\n\n @return Returns the pointer to the **OH_Drawing_Bitmap** object created.\n @since 8\n @version 1.0"]
     pub fn OH_Drawing_BitmapCreate() -> *mut OH_Drawing_Bitmap;
 }
 extern "C" {
-    #[doc = " @brief Destroys an <b>OH_Drawing_Bitmap</b> object and reclaims the memory occupied by the object.\n\n @syscap SystemCapability.Graphic.Graphic2D.NativeDrawing\n @param bitmap Indicates the pointer to an <b>OH_Drawing_Bitmap</b> object.\n @since 8\n @version 1.0"]
+    #[doc = " @brief Destroys an **OH_Drawing_Bitmap** object and reclaims the memory occupied by the object.\n\n @param bitmap Pointer to an **OH_Drawing_Bitmap** object.\n @since 8\n @version 1.0"]
     pub fn OH_Drawing_BitmapDestroy(bitmap: *mut OH_Drawing_Bitmap);
 }
 extern "C" {
-    #[doc = " @brief Creates an <b>OH_Drawing_Bitmap</b> object with <b>OH_Drawing_Image_Info</b> object\n and sets the mem address or pixel storage.\n\n @syscap SystemCapability.Graphic.Graphic2D.NativeDrawing\n @param imageInfo Indicates the pointer to an <b>OH_Drawing_Image_Info</b> object.\n @param pixels the pointer to memory address or pixel storage.\n @param rowBytes size of pixel row or larger.\n @return Returns the pointer to the <b>OH_Drawing_Bitmap</b> object created.\n @since 12\n @version 1.0"]
+    #[doc = " @brief Creates an **OH_Drawing_Bitmap** object, with the address of the memory for storing the bitmap pixels set to\n the memory address that you applied for.\n This API may return an error code. For details, call {@link OH_Drawing_ErrorCodeGet}.\n If either **imageInfo** or **pixels** is NULL or **rowBytes** is **0**, **OH_DRAWING_ERROR_INVALID_PARAMETER** is\n returned.\n\n @param imageInfo Pointer to an {@link OH_Drawing_Image_Info} object.\n @param pixels Pointer to the start address of the memory for storing the bitmap pixels. You need to apply for the\n memory and ensure its validity.\n @param rowBytes Number of bytes in each row of pixels. The value is invalid if it is less than or equal to 0.\n @return Returns a pointer to the {@link OH_Drawing_Bitmap} object created.\n @since 12\n @version 1.0"]
     pub fn OH_Drawing_BitmapCreateFromPixels(
         imageInfo: *mut OH_Drawing_Image_Info,
         pixels: *mut ::std::os::raw::c_void,
@@ -375,7 +434,7 @@ extern "C" {
     ) -> *mut OH_Drawing_Bitmap;
 }
 extern "C" {
-    #[doc = " @brief Initializes the width and height of an <b>OH_Drawing_Bitmap</b> object\n and sets the pixel format for the bitmap.\n\n @syscap SystemCapability.Graphic.Graphic2D.NativeDrawing\n @param bitmap Indicates the pointer to an <b>OH_Drawing_Bitmap</b> object.\n @param width Indicates the width of the bitmap to be initialized.\n @param height Indicates the height of the bitmap to be initialized.\n @param bitmapFormat Indicates the pixel format of the bitmap to be initialized,\n                                including the pixel color type and alpha type.\n @since 8\n @version 1.0"]
+    #[doc = " @brief Initializes the width and height of a bitmap and sets the pixel format for the bitmap.\n This API may return an error code. For details, call {@link OH_Drawing_ErrorCodeGet}.\n If either **bitmap** or **bitmapFormat** is NULL, **OH_DRAWING_ERROR_INVALID_PARAMETER** is returned.\n\n @param bitmap Pointer to an **OH_Drawing_Bitmap** object.\n @param width Width of the bitmap to be initialized.\n @param height Height of the bitmap to be initialized.\n @param bitmapFormat Pointer to the pixel format of the bitmap to be initialized, including the pixel color type and\n alpha type.\n @since 8\n @version 1.0"]
     pub fn OH_Drawing_BitmapBuild(
         bitmap: *mut OH_Drawing_Bitmap,
         width: u32,
@@ -384,40 +443,40 @@ extern "C" {
     );
 }
 extern "C" {
-    #[doc = " @brief Obtains the width of a bitmap.\n\n @syscap SystemCapability.Graphic.Graphic2D.NativeDrawing\n @param bitmap Indicates the pointer to an <b>OH_Drawing_Bitmap</b> object.\n @return Returns the width.\n @since 8\n @version 1.0"]
+    #[doc = " @brief Obtains the width of a bitmap.\n This API may return an error code. For details, call {@link OH_Drawing_ErrorCodeGet}.\n If **bitmap** is NULL, **OH_DRAWING_ERROR_INVALID_PARAMETER** is returned.\n\n @param bitmap Pointer to an **OH_Drawing_Bitmap** object.\n @return Returns the width.\n @since 8\n @version 1.0"]
     pub fn OH_Drawing_BitmapGetWidth(bitmap: *mut OH_Drawing_Bitmap) -> u32;
 }
 extern "C" {
-    #[doc = " @brief Obtains the height of a bitmap.\n\n @syscap SystemCapability.Graphic.Graphic2D.NativeDrawing\n @param bitmap Indicates the pointer to an <b>OH_Drawing_Bitmap</b> object.\n @return Returns the height.\n @since 8\n @version 1.0"]
+    #[doc = " @brief Obtains the height of a bitmap.\n This API may return an error code. For details, call {@link OH_Drawing_ErrorCodeGet}.\n If **bitmap** is NULL, **OH_DRAWING_ERROR_INVALID_PARAMETER** is returned.\n\n @param bitmap Pointer to an **OH_Drawing_Bitmap** object.\n @return Returns the height.\n @since 8\n @version 1.0"]
     pub fn OH_Drawing_BitmapGetHeight(bitmap: *mut OH_Drawing_Bitmap) -> u32;
 }
 extern "C" {
-    #[doc = " @brief Obtains the color format of a bitmap.\n\n @syscap SystemCapability.Graphic.Graphic2D.NativeDrawing\n @param bitmap Indicates the pointer to an <b>OH_Drawing_Bitmap</b> object.\n @return Returns the bitmap color format.\n @since 12\n @version 1.0"]
+    #[doc = " @brief Obtains the pixel format of a bitmap.\n This API may return an error code. For details, call {@link OH_Drawing_ErrorCodeGet}.\n If **bitmap** is NULL, **OH_DRAWING_ERROR_INVALID_PARAMETER** is returned.\n\n @param bitmap Pointer to an **OH_Drawing_Bitmap** object.\n @return Returns the pixel format. For details about the supported formats, see {@link OH_Drawing_ColorFormat}.\n @since 12\n @version 1.0"]
     pub fn OH_Drawing_BitmapGetColorFormat(
         bitmap: *mut OH_Drawing_Bitmap,
     ) -> OH_Drawing_ColorFormat;
 }
 extern "C" {
-    #[doc = " @brief Obtains the alpha format of a bitmap.\n\n @syscap SystemCapability.Graphic.Graphic2D.NativeDrawing\n @param bitmap Indicates the pointer to an <b>OH_Drawing_Bitmap</b> object.\n @return Returns the bitmap alpha format.\n @since 12\n @version 1.0"]
+    #[doc = " @brief Obtains the alpha component of a bitmap.\n This API may return an error code. For details, call {@link OH_Drawing_ErrorCodeGet}.\n If **bitmap** is NULL, **OH_DRAWING_ERROR_INVALID_PARAMETER** is returned.\n\n @param bitmap Pointer to an **OH_Drawing_Bitmap** object.\n @return Returns the alpha component. For details about the supported formats, see {@link OH_Drawing_AlphaFormat}.\n @since 12\n @version 1.0"]
     pub fn OH_Drawing_BitmapGetAlphaFormat(
         bitmap: *mut OH_Drawing_Bitmap,
     ) -> OH_Drawing_AlphaFormat;
 }
 extern "C" {
-    #[doc = " @brief Obtains the pixel address of a bitmap. You can use this address to obtain the pixel data of the bitmap.\n\n @syscap SystemCapability.Graphic.Graphic2D.NativeDrawing\n @param bitmap Indicates the pointer to an <b>OH_Drawing_Bitmap</b> object.\n @return Returns the pixel address.\n @since 8\n @version 1.0"]
+    #[doc = " @brief Obtains the pixel address of a bitmap. You can use this address to obtain the pixel data of the bitmap.\n This API may return an error code. For details, call {@link OH_Drawing_ErrorCodeGet}.\n If **bitmap** is NULL, **OH_DRAWING_ERROR_INVALID_PARAMETER** is returned.\n\n @param bitmap Pointer to an **OH_Drawing_Bitmap** object.\n @return Returns the pixel address.\n @since 8\n @version 1.0"]
     pub fn OH_Drawing_BitmapGetPixels(
         bitmap: *mut OH_Drawing_Bitmap,
     ) -> *mut ::std::os::raw::c_void;
 }
 extern "C" {
-    #[doc = " @brief Gets the image info.\n\n @syscap SystemCapability.Graphic.Graphic2D.NativeDrawing\n @param bitmap Indicates the pointer to an <b>OH_Drawing_Bitmap</b> object.\n @param imageInfo Indicates the pointer to an <b>OH_Drawing_Image_Info</b> object.\n @since 12\n @version 1.0"]
+    #[doc = " @brief Obtains the image information of a bitmap.\n This API may return an error code. For details, call {@link OH_Drawing_ErrorCodeGet}.\n If either **bitmap** or **imageInfo** is NULL, **OH_DRAWING_ERROR_INVALID_PARAMETER** is returned.\n\n @param bitmap Pointer to the {@link OH_Drawing_Bitmap} object.\n @param imageInfo Pointer to an {@link OH_Drawing_Image_Info} object.\n @since 12\n @version 1.0"]
     pub fn OH_Drawing_BitmapGetImageInfo(
         bitmap: *mut OH_Drawing_Bitmap,
         imageInfo: *mut OH_Drawing_Image_Info,
     );
 }
 extern "C" {
-    #[doc = " @brief Copies a rect of pixels from bitmap to dstPixels. Copy starts at (srcX, srcY),\n and does not exceed bitmap width and height.\n\n @syscap SystemCapability.Graphic.Graphic2D.NativeDrawing\n @param bitmap Indicates the pointer to an <b>OH_Drawing_Bitmap</b> object.\n @param dstInfo Indicates the pointer to an <b>OH_Drawing_Image_Info</b> object.\n @param dstPixels Destination pixel storage.\n @param dstRowBytes Destination row length.\n @param srcX Column index whose absolute value is less than width.\n @param srcY Row index whose absolute value is less than height.\n @return Returns true if pixels are copied to dstPixels.\n @since 12\n @version 1.0"]
+    #[doc = " @brief Reads pixels of a rectangle in a bitmap to the specified buffer.\n This API may return an error code. For details, call {@link OH_Drawing_ErrorCodeGet}.\n If any of **bitmap**, **dstInfo**, and **dstPixels** is NULL, **OH_DRAWING_ERROR_INVALID_PARAMETER** is returned.\n\n @param bitmap Pointer to the {@link OH_Drawing_Bitmap} object.\n @param dstInfo Pointer to an {@link OH_Drawing_Image_Info} object.\n @param dstPixels Pointer to the buffer for storing the pixels read.\n @param dstRowBytes Number of bytes in each row of the pixel data read. The value must be greater than or equal to\n the minimum number of bytes in each row in the **OH_Drawing_Image_Info** object.\n @param srcX Start X coordinate of the pixel data to read from the bitmap. The value must be less than the width of\n the bitmap.\n @param srcY Start Y coordinate of the pixel data to read from the bitmap. The value must be less than the height of\n the bitmap.\n @return Returns **true** if the pixels are read; returns **false** otherwise.\n @since 12\n @version 1.0"]
     pub fn OH_Drawing_BitmapReadPixels(
         bitmap: *mut OH_Drawing_Bitmap,
         dstInfo: *const OH_Drawing_Image_Info,
@@ -427,97 +486,52 @@ extern "C" {
         srcY: i32,
     ) -> bool;
 }
-#[doc = " @error Operation completed successfully."]
-pub const OH_Drawing_ErrorCode_OH_DRAWING_SUCCESS: OH_Drawing_ErrorCode = 0;
-#[doc = " @error Permission verification failed."]
-pub const OH_Drawing_ErrorCode_OH_DRAWING_ERROR_NO_PERMISSION: OH_Drawing_ErrorCode = 201;
-#[doc = " @error Invalid input parameter. For example, the pointer in the parameter is a nullptr."]
-pub const OH_Drawing_ErrorCode_OH_DRAWING_ERROR_INVALID_PARAMETER: OH_Drawing_ErrorCode = 401;
-#[doc = " @error The parameter is not in the valid range."]
-pub const OH_Drawing_ErrorCode_OH_DRAWING_ERROR_PARAMETER_OUT_OF_RANGE: OH_Drawing_ErrorCode =
-    26200001;
-#[doc = " @error mem allocate failed.\n @since 13"]
-#[cfg(feature = "api-13")]
-pub const OH_Drawing_ErrorCode_OH_DRAWING_ERROR_ALLOCATION_FAILED: OH_Drawing_ErrorCode = 26200002;
-#[doc = " @error The attribute id is not recognized or supported.\n @since 21"]
-#[cfg(feature = "api-21")]
-pub const OH_Drawing_ErrorCode_OH_DRAWING_ERROR_ATTRIBUTE_ID_MISMATCH: OH_Drawing_ErrorCode =
-    26200003;
-#[doc = " @error incorrect input parameter. The possible cause is that the provided pointer is null.\n @since 22"]
-#[cfg(feature = "api-22")]
-pub const OH_Drawing_ErrorCode_OH_DRAWING_ERROR_INCORRECT_PARAMETER: OH_Drawing_ErrorCode =
-    26200004;
-#[doc = " @error File not found. The specified file does not exist or the path is incorrect..\n @since 23"]
-#[cfg(feature = "api-23")]
-pub const OH_Drawing_ErrorCode_OH_DRAWING_ERROR_FILE_NOT_FOUND: OH_Drawing_ErrorCode = 26200005;
-#[doc = " @error Failed to open the file. The file cannot be opened due to permission or I/O issues.\n @since 23"]
-#[cfg(feature = "api-23")]
-pub const OH_Drawing_ErrorCode_OH_DRAWING_ERROR_OPEN_FILE_FAILED: OH_Drawing_ErrorCode = 26200006;
-#[doc = " @error File seek failed. The system failed to reposition the file read pointer..\n @since 23"]
-#[cfg(feature = "api-23")]
-pub const OH_Drawing_ErrorCode_OH_DRAWING_ERROR_FILE_SEEK_FAILED: OH_Drawing_ErrorCode = 26200007;
-#[doc = " @error Failed to get the file size. The system was unable to obtain the file size information.\n @since 23"]
-#[cfg(feature = "api-23")]
-pub const OH_Drawing_ErrorCode_OH_DRAWING_ERROR_GET_FILE_SIZE_FAILED: OH_Drawing_ErrorCode =
-    26200008;
-#[doc = " @error Failed to read the file. The file could not be read completely or contains unreadable data.\n @since 23"]
-#[cfg(feature = "api-23")]
-pub const OH_Drawing_ErrorCode_OH_DRAWING_ERROR_READ_FILE_FAILED: OH_Drawing_ErrorCode = 26200009;
-#[doc = " @error Empty file. The specified file is empty and contains no valid data.\n @since 23"]
-#[cfg(feature = "api-23")]
-pub const OH_Drawing_ErrorCode_OH_DRAWING_ERROR_EMPTY_FILE: OH_Drawing_ErrorCode = 26200010;
-#[doc = " @error Corrupted file. The file content is invalid or damaged and cannot be parsed.\n @since 23"]
-#[cfg(feature = "api-23")]
-pub const OH_Drawing_ErrorCode_OH_DRAWING_ERROR_FILE_CORRUPTED: OH_Drawing_ErrorCode = 26200011;
-#[doc = " @brief Enumerates error codes of drawing.\n @since 12"]
-pub type OH_Drawing_ErrorCode = u32;
 extern "C" {
-    #[doc = " @brief Obtains the error code of the drawing module.\n\n @syscap SystemCapability.Graphic.Graphic2D.NativeDrawing\n @return Returns the error code.\n @since 12\n @version 1.0"]
-    pub fn OH_Drawing_ErrorCodeGet() -> OH_Drawing_ErrorCode;
+    #[doc = " @brief Gets the row bytes of the bitmap.\n\n @param bitmap Indicates the pointer to an <b>OH_Drawing_Bitmap</b> object.\n @param bytes Indicates the row bytes of the bitmap.\n @return Returns the error code.\n         Returns {@link OH_DRAWING_SUCCESS} if the operation is successful.\n         Returns {@link OH_DRAWING_ERROR_INCORRECT_PARAMETER} if bitmap or bytes is nullptr.\n @since 26.0.0"]
+    #[cfg(feature = "api-26")]
+    pub fn OH_Drawing_BitmapGetRowBytes(
+        bitmap: *mut OH_Drawing_Bitmap,
+        bytes: *mut u32,
+    ) -> OH_Drawing_ErrorCode;
 }
 extern "C" {
-    #[doc = " @brief Resets the error code of the drawing module to OH_DRAWING_SUCCESS.\n\n @syscap SystemCapability.Graphic.Graphic2D.NativeDrawing\n @since 18\n @version 1.0"]
-    #[cfg(feature = "api-18")]
-    pub fn OH_Drawing_ErrorCodeReset();
-}
-extern "C" {
-    #[doc = " @brief Creates an <b>OH_Drawing_Brush</b> object.\n\n @syscap SystemCapability.Graphic.Graphic2D.NativeDrawing\n @return Returns the pointer to the <b>OH_Drawing_Brush</b> object created.\n @since 8\n @version 1.0"]
+    #[doc = " @brief Creates an **OH_Drawing_Brush** object.\n\n @return Returns the pointer to the **OH_Drawing_Brush** object created.\n @since 8\n @version 1.0"]
     pub fn OH_Drawing_BrushCreate() -> *mut OH_Drawing_Brush;
 }
 extern "C" {
-    #[doc = " @brief Creates an <b>OH_Drawing_Brush</b> copy object.\n\n @syscap SystemCapability.Graphic.Graphic2D.NativeDrawing\n @param brush Indicates the pointer to an <b>OH_Drawing_Brush</b> object.\n @return Returns the pointer to the <b>OH_Drawing_Brush</b> object created.\n         If nullptr is returned, the creation fails.\n         The possible cause of the failure is that the available memory is empty or a nullptr is passed.\n @since 12\n @version 1.0"]
+    #[doc = " @brief Copies an existing {@link OH_Drawing_Brush} object to create a new one.\n This API may return an error code. For details, call {@link OH_Drawing_ErrorCodeGet}.\n If **brush** is NULL, **OH_DRAWING_ERROR_INVALID_PARAMETER** is returned.\n\n @param brush Pointer to an **OH_Drawing_Brush** object.\n @return Returns a pointer to the {@link OH_Drawing_Brush} object created. If NULL is returned, the creation fails.\n The possible failure cause is that no memory is available or **brush** is NULL.\n @since 12\n @version 1.0"]
     pub fn OH_Drawing_BrushCopy(brush: *mut OH_Drawing_Brush) -> *mut OH_Drawing_Brush;
 }
 extern "C" {
-    #[doc = " @brief Destroys an <b>OH_Drawing_Brush</b> object and reclaims the memory occupied by the object.\n\n @syscap SystemCapability.Graphic.Graphic2D.NativeDrawing\n @param brush Indicates the pointer to an <b>OH_Drawing_Brush</b> object.\n @since 8\n @version 1.0"]
+    #[doc = " @brief Destroys an **OH_Drawing_Brush** object and reclaims the memory occupied by the object.\n\n @param brush Pointer to an **OH_Drawing_Brush** object.\n @since 8\n @version 1.0"]
     pub fn OH_Drawing_BrushDestroy(brush: *mut OH_Drawing_Brush);
 }
 extern "C" {
-    #[doc = " @brief Checks whether anti-aliasing is enabled for a brush. If anti-aliasing is enabled,\n edges will be drawn with partial transparency.\n\n @syscap SystemCapability.Graphic.Graphic2D.NativeDrawing\n @param brush Indicates the pointer to an <b>OH_Drawing_Brush</b> object.\n @return Returns <b>true</b> if anti-aliasing is enabled; returns <b>false</b> otherwise.\n @since 8\n @version 1.0"]
+    #[doc = " @brief Checks whether anti-aliasing is enabled for a brush. Anti-aliasing makes the pixels around the shape edges\n semi-transparent.\n This API may return an error code. For details, call {@link OH_Drawing_ErrorCodeGet}.\n If **brush** is NULL, **OH_DRAWING_ERROR_INVALID_PARAMETER** is returned.\n\n @param brush Pointer to an **OH_Drawing_Brush** object.\n @return Returns **true** if anti-aliasing is enabled; returns **false** otherwise.\n @since 8\n @version 1.0"]
     pub fn OH_Drawing_BrushIsAntiAlias(brush: *const OH_Drawing_Brush) -> bool;
 }
 extern "C" {
-    #[doc = " @brief Enables or disables anti-aliasing for a brush. If anti-aliasing is enabled,\n edges will be drawn with partial transparency.\n\n @syscap SystemCapability.Graphic.Graphic2D.NativeDrawing\n @param brush Indicates the pointer to an <b>OH_Drawing_Brush</b> object.\n @param antiAlias Specifies whether to enable anti-aliasing. The value <b>true</b> means\n             to enable anti-aliasing, and <b>false</b> means the opposite.\n @since 8\n @version 1.0"]
+    #[doc = " @brief Enables or disables anti-aliasing for a brush. Anti-aliasing makes the pixels around the shape edges semi-\n transparent.\n This API may return an error code. For details, call {@link OH_Drawing_ErrorCodeGet}.\n If **brush** is NULL, **OH_DRAWING_ERROR_INVALID_PARAMETER** is returned.\n\n @param brush Pointer to an **OH_Drawing_Brush** object.\n @param antiAlias Whether to enable anti-aliasing. The value **true** means to enable anti-aliasing, and **false**\n means the opposite.\n @since 8\n @version 1.0"]
     pub fn OH_Drawing_BrushSetAntiAlias(brush: *mut OH_Drawing_Brush, antiAlias: bool);
 }
 extern "C" {
-    #[doc = " @brief Obtains the color of a brush. The color is used by the brush to fill in a shape.\n\n @syscap SystemCapability.Graphic.Graphic2D.NativeDrawing\n @param brush Indicates the pointer to an <b>OH_Drawing_Brush</b> object.\n @return Returns a 32-bit (ARGB) variable that describes the color.\n @since 8\n @version 1.0"]
+    #[doc = " @brief Obtains the color of a brush. The color is used by the brush to fill in a shape.\n This API may return an error code. For details, call {@link OH_Drawing_ErrorCodeGet}.\n If **brush** is NULL, **OH_DRAWING_ERROR_INVALID_PARAMETER** is returned.\n\n @param brush Pointer to an **OH_Drawing_Brush** object.\n @return Returns a 32-bit (ARGB) variable that describes the color.\n @since 8\n @version 1.0"]
     pub fn OH_Drawing_BrushGetColor(brush: *const OH_Drawing_Brush) -> u32;
 }
 extern "C" {
-    #[doc = " @brief Sets the color for a brush. The color will be used by the brush to fill in a shape.\n\n @syscap SystemCapability.Graphic.Graphic2D.NativeDrawing\n @param brush Indicates the pointer to an <b>OH_Drawing_Brush</b> object.\n @param color Indicates the color to set, which is a 32-bit (ARGB) variable.\n @since 8\n @version 1.0"]
+    #[doc = " @brief Sets the color for a brush. The color is used by the brush to fill in a shape.\n This API may return an error code. For details, call {@link OH_Drawing_ErrorCodeGet}.\n If **brush** is NULL, **OH_DRAWING_ERROR_INVALID_PARAMETER** is returned.\n\n @param brush Pointer to an **OH_Drawing_Brush** object.\n @param color Color, which is a 32-bit (ARGB) variable.\n @since 8\n @version 1.0"]
     pub fn OH_Drawing_BrushSetColor(brush: *mut OH_Drawing_Brush, color: u32);
 }
 extern "C" {
-    #[doc = " @brief Obtains the alpha of a brush. The alpha is used by the brush to fill in a shape.\n\n @syscap SystemCapability.Graphic.Graphic2D.NativeDrawing\n @param brush Indicates the pointer to an <b>OH_Drawing_Brush</b> object.\n @return Returns a 8-bit variable that describes the alpha.\n @since 11\n @version 1.0"]
+    #[doc = " @brief Obtains the alpha value of a brush. This value is used by the alpha channel when the brush fills in a shape.\n This API may return an error code. For details, call {@link OH_Drawing_ErrorCodeGet}.\n If **brush** is NULL, **OH_DRAWING_ERROR_INVALID_PARAMETER** is returned.\n\n @param brush Pointer to an **OH_Drawing_Brush** object.\n @return Returns an 8-bit variable that describes the alpha value.\n @since 11\n @version 1.0"]
     pub fn OH_Drawing_BrushGetAlpha(brush: *const OH_Drawing_Brush) -> u8;
 }
 extern "C" {
-    #[doc = " @brief Sets the alpha for a brush. The alpha will be used by the brush to fill in a shape.\n\n @syscap SystemCapability.Graphic.Graphic2D.NativeDrawing\n @param brush Indicates the pointer to an <b>OH_Drawing_Brush</b> object.\n @param alpha Indicates the alpha to set, which is a 8-bit variable.\n @since 11\n @version 1.0"]
+    #[doc = " @brief Sets the alpha value for a brush. This value is used by the alpha channel when the brush fills in a shape.\n This API may return an error code. For details, call {@link OH_Drawing_ErrorCodeGet}.\n If **brush** is NULL, **OH_DRAWING_ERROR_INVALID_PARAMETER** is returned.\n\n @param brush Pointer to an **OH_Drawing_Brush** object.\n @param alpha Alpha value, which is an 8-bit variable.\n @since 11\n @version 1.0"]
     pub fn OH_Drawing_BrushSetAlpha(brush: *mut OH_Drawing_Brush, alpha: u8);
 }
 extern "C" {
-    #[doc = " @brief Sets the color for a brush. The color will be used by the brush to fill in a shape.\n The color is an ARGB structure described by floating point numbers and interpreted as being in the colorSpaceManager.\n If colorSpaceManager is nullptr, then color is assumed to be in the sRGB color space.\n\n @syscap SystemCapability.Graphic.Graphic2D.NativeDrawing\n @param brush Indicates the pointer to an <b>OH_Drawing_Brush</b> object.\n @param a Indicates the alpha component of color, represented as a floating point number between 0 and 1.\n @param r Indicates the red component of color, represented as a floating point number between 0 and 1.\n @param g Indicates the green component of color, represented as a floating point number between 0 and 1.\n @param b Indicates the blue component of color, represented as a floating point number between 0 and 1.\n @param colorSpaceManager Indicates the pointer to an <b>OH_NativeColorSpaceManager</b> object.\n @return Returns the error code.\n         Returns {@link OH_DRAWING_SUCCESS} if the operation is successful.\n         Returns {@link OH_DRAWING_ERROR_INVALID_PARAMETER} if brush is nullptr.\n @since 20\n @version 1.0"]
+    #[doc = " @brief Sets a color for this brush. The color will be used by the brush to fill in a shape.\n The color is in ARGB format represented by floating-point numbers. The color space is specified by\n {@link OH_NativeColorSpaceManager}.\n If **colorSpaceManager** is a null pointer, the SRGB (standard red, green, and blue color space based on IEC 61966-2.\n 1:1999) color space is used as the default value.\n\n @param brush Pointer to an {@link OH_Drawing_Brush} object.\n @param a Alpha value of the color, which is a floating-point number ranging from 0.0 to 1.0. Values above 1.0\n default to 1.0, while values below 0.0 default to 0.0.\n @param r Red component of the color, which is a floating-point number ranging from 0.0 to 1.0. Values above 1.0\n default to 1.0, while values below 0.0 default to 0.0.\n @param g Green component of the color, which is a floating-point number ranging from 0.0 to 1.0. Values above 1.0\n default to 1.0, while values below 0.0 default to 0.0.\n @param b Blue component of the color, which is a floating-point number ranging from 0.0 to 1.0. Values above 1.0\n default to 1.0, while values below 0.0 default to 0.0.\n @param colorSpaceManager Pointer to an {@link OH_NativeColorSpaceManager} object.\n @return Execution result.\n **OH_DRAWING_SUCCESS** if the operation is successful.\n **OH_DRAWING_ERROR_INVALID_PARAMETER** if **brush** is NULL.\n @since 20\n @version 1.0"]
     #[cfg(feature = "api-20")]
     pub fn OH_Drawing_BrushSetColor4f(
         brush: *mut OH_Drawing_Brush,
@@ -529,7 +543,7 @@ extern "C" {
     ) -> OH_Drawing_ErrorCode;
 }
 extern "C" {
-    #[doc = " @brief Obtains the alpha component of a brush.\n\n @syscap SystemCapability.Graphic.Graphic2D.NativeDrawing\n @param brush Indicates the pointer to an <b>OH_Drawing_Brush</b> object.\n @param a Indicates the alpha component of color.\n @return Returns the error code.\n         Returns {@link OH_DRAWING_SUCCESS} if the operation is successful.\n         Returns {@link OH_DRAWING_ERROR_INVALID_PARAMETER} if brush or a is nullptr.\n @since 20\n @version 1.0"]
+    #[doc = " @brief Obtains the alpha value of the brush color.\n\n @param brush Pointer to an {@link OH_Drawing_Brush} object.\n @param a Alpha value of the color. The value is a floating-point number ranging from 0.0 to 1.0.\n @return Execution result.\n **OH_DRAWING_SUCCESS** if the operation is successful.\n **OH_DRAWING_ERROR_INVALID_PARAMETER** if **brush** or **a** is NULL.\n @since 20\n @version 1.0"]
     #[cfg(feature = "api-20")]
     pub fn OH_Drawing_BrushGetAlphaFloat(
         brush: *const OH_Drawing_Brush,
@@ -537,7 +551,7 @@ extern "C" {
     ) -> OH_Drawing_ErrorCode;
 }
 extern "C" {
-    #[doc = " @brief Obtains the red component of a brush.\n\n @syscap SystemCapability.Graphic.Graphic2D.NativeDrawing\n @param brush Indicates the pointer to an <b>OH_Drawing_Brush</b> object.\n @param r Indicates the red component of color.\n @return Returns the error code.\n         Returns {@link OH_DRAWING_SUCCESS} if the operation is successful.\n         Returns {@link OH_DRAWING_ERROR_INVALID_PARAMETER} if brush or r is nullptr.\n @since 20\n @version 1.0"]
+    #[doc = " @brief Obtains the red component of the brush color.\n\n @param brush Pointer to an {@link OH_Drawing_Brush} object.\n @param r Red component of the pen color. The value is a floating-point number ranging from 0.0 to 1.0.\n @return Execution result.\n **OH_DRAWING_SUCCESS** if the operation is successful.\n **OH_DRAWING_ERROR_INVALID_PARAMETER** if **brush** or **r** is NULL.\n @since 20\n @version 1.0"]
     #[cfg(feature = "api-20")]
     pub fn OH_Drawing_BrushGetRedFloat(
         brush: *const OH_Drawing_Brush,
@@ -545,7 +559,7 @@ extern "C" {
     ) -> OH_Drawing_ErrorCode;
 }
 extern "C" {
-    #[doc = " @brief Obtains the green component of a brush.\n\n @syscap SystemCapability.Graphic.Graphic2D.NativeDrawing\n @param brush Indicates the pointer to an <b>OH_Drawing_Brush</b> object.\n @param g Indicates the green component of color.\n @return Returns the error code.\n         Returns {@link OH_DRAWING_SUCCESS} if the operation is successful.\n         Returns {@link OH_DRAWING_ERROR_INVALID_PARAMETER} if brush or g is nullptr.\n @since 20\n @version 1.0"]
+    #[doc = " @brief Obtains the green component of the brush color.\n\n @param brush Pointer to an {@link OH_Drawing_Brush} object.\n @param g Green component of the pen color. The value is a floating-point number ranging from 0.0 to 1.0.\n @return Execution result.\n **OH_DRAWING_SUCCESS** if the operation is successful.\n **OH_DRAWING_ERROR_INVALID_PARAMETER** if **brush** or **g** is NULL.\n @since 20\n @version 1.0"]
     #[cfg(feature = "api-20")]
     pub fn OH_Drawing_BrushGetGreenFloat(
         brush: *const OH_Drawing_Brush,
@@ -553,7 +567,7 @@ extern "C" {
     ) -> OH_Drawing_ErrorCode;
 }
 extern "C" {
-    #[doc = " @brief Obtains the blue component of a brush.\n\n @syscap SystemCapability.Graphic.Graphic2D.NativeDrawing\n @param brush Indicates the pointer to an <b>OH_Drawing_Brush</b> object.\n @param b Indicates the blue component of color.\n @return Returns the error code.\n         Returns {@link OH_DRAWING_SUCCESS} if the operation is successful.\n         Returns {@link OH_DRAWING_ERROR_INVALID_PARAMETER} if brush or b is nullptr.\n @since 20\n @version 1.0"]
+    #[doc = " @brief Obtains the blue component of the brush color.\n\n @param brush Pointer to an {@link OH_Drawing_Brush} object.\n @param b Blue component of the pen color. The value is a floating-point number ranging from 0.0 to 1.0.\n @return Execution result.\n **OH_DRAWING_SUCCESS** if the operation is successful.\n **OH_DRAWING_ERROR_INVALID_PARAMETER** if **brush** or **b** is NULL.\n @since 20\n @version 1.0"]
     #[cfg(feature = "api-20")]
     pub fn OH_Drawing_BrushGetBlueFloat(
         brush: *const OH_Drawing_Brush,
@@ -561,120 +575,120 @@ extern "C" {
     ) -> OH_Drawing_ErrorCode;
 }
 extern "C" {
-    #[doc = " @brief Sets the shaderEffect for a brush.\n\n @syscap SystemCapability.Graphic.Graphic2D.NativeDrawing\n @param brush Indicates the pointer to an <b>OH_Drawing_Brush</b> object.\n @param shaderEffect Indicates the pointer to an <b>OH_Drawing_ShaderEffect</b> object.\n @since 11\n @version 1.0"]
+    #[doc = " @brief Sets the shader effect for a brush.\n This API may return an error code. For details, call {@link OH_Drawing_ErrorCodeGet}.\n If **brush** is NULL, **OH_DRAWING_ERROR_INVALID_PARAMETER** is returned.\n\n @param brush Pointer to an **OH_Drawing_Brush** object.\n @param shaderEffect Pointer to an **OH_Drawing_ShaderEffect** object. If NULL is passed in, the shader effect of the\n brush will be cleared.\n @since 11\n @version 1.0"]
     pub fn OH_Drawing_BrushSetShaderEffect(
         brush: *mut OH_Drawing_Brush,
         shaderEffect: *mut OH_Drawing_ShaderEffect,
     );
 }
 extern "C" {
-    #[doc = " @brief Sets the shadowLayer for a brush.\n\n @syscap SystemCapability.Graphic.Graphic2D.NativeDrawing\n @param brush Indicates the pointer to an <b>OH_Drawing_Brush</b> object.\n @param shadowLayer Indicates the pointer to an <b>OH_Drawing_ShadowLayer</b> object.\n @since 12\n @version 1.0"]
+    #[doc = " @brief Sets the shadow layer for a brush. The shadow layer effect takes effect only when text is drawn.\n This API may return an error code. For details, call {@link OH_Drawing_ErrorCodeGet}.\n If **brush** is NULL, **OH_DRAWING_ERROR_INVALID_PARAMETER** is returned.\n\n @param brush Pointer to an **OH_Drawing_Brush** object.\n @param shadowLayer Pointer to an **OH_Drawing_ShadowLayer** object. If NULL is passed in, the shadow layer effect of\n the brush will be cleared.\n @since 12\n @version 1.0"]
     pub fn OH_Drawing_BrushSetShadowLayer(
         brush: *mut OH_Drawing_Brush,
         shadowLayer: *mut OH_Drawing_ShadowLayer,
     );
 }
 extern "C" {
-    #[doc = " @brief Sets the filter for a brush.\n\n @syscap SystemCapability.Graphic.Graphic2D.NativeDrawing\n @param brush Indicates the pointer to an <b>OH_Drawing_Brush</b> object.\n @param filter Indicates the pointer to an <b>OH_Drawing_Filter</b> object.\n @since 11\n @version 1.0"]
+    #[doc = " @brief Sets the filter {@link OH_Drawing_Filter} for a brush. The filter is a container that holds a mask filter and\n color filter.\n This API may return an error code. For details, call {@link OH_Drawing_ErrorCodeGet}.\n If **brush** is NULL, **OH_DRAWING_ERROR_INVALID_PARAMETER** is returned.\n\n @param brush Pointer to an **OH_Drawing_Brush** object.\n @param filter Pointer to an **OH_Drawing_Filter** object. If null is passed in, the filter will be cleared.\n @since 11\n @version 1.0"]
     pub fn OH_Drawing_BrushSetFilter(brush: *mut OH_Drawing_Brush, filter: *mut OH_Drawing_Filter);
 }
 extern "C" {
-    #[doc = " @brief Gets the filter from a brush.\n\n @syscap SystemCapability.Graphic.Graphic2D.NativeDrawing\n @param brush Indicates the pointer to an <b>OH_Drawing_Brush</b> object.\n @param filter Indicates the pointer to an <b>OH_Drawing_Filter</b> object.\n @since 12\n @version 1.0"]
+    #[doc = " @brief Obtains the {@link OH_Drawing_Filter} object from the brush. The filter is a container that holds a mask\n filter and color filter.\n This API may return an error code. For details, call {@link OH_Drawing_ErrorCodeGet}.\n If either **brush** or **filter** is NULL, **OH_DRAWING_ERROR_INVALID_PARAMETER** is returned.\n\n @param brush Pointer to the {@link OH_Drawing_Brush} object.\n @param filter Pointer to an {@link OH_Drawing_Filter} object.\n @since 12\n @version 1.0"]
     pub fn OH_Drawing_BrushGetFilter(brush: *mut OH_Drawing_Brush, filter: *mut OH_Drawing_Filter);
 }
 extern "C" {
-    #[doc = " @brief Sets a blender that implements the specified blendmode enum for a brush.\n\n @syscap SystemCapability.Graphic.Graphic2D.NativeDrawing\n @param brush Indicates the pointer to an <b>OH_Drawing_Brush</b> object.\n @param blendMode Indicates the blend mode.\n @since 12\n @version 1.0"]
+    #[doc = " @brief Sets a blender for a brush. The blender implements the specified blend mode.\n This API may return an error code. For details, call {@link OH_Drawing_ErrorCodeGet}.\n If **brush** is NULL, **OH_DRAWING_ERROR_INVALID_PARAMETER** is returned.\n If **blendMode** is not set to one of the enumerated values, **OH_DRAWING_ERROR_PARAMETER_OUT_OF_RANGE** is returned.\n\n @param brush Pointer to the {@link OH_Drawing_Brush} object.\n @param blendMode Enumeration of blend modes.\n @since 12\n @version 1.0"]
     pub fn OH_Drawing_BrushSetBlendMode(
         brush: *mut OH_Drawing_Brush,
         blendMode: OH_Drawing_BlendMode,
     );
 }
 extern "C" {
-    #[doc = " @brief Resets all brush contents to their initial values.\n\n @syscap SystemCapability.Graphic.Graphic2D.NativeDrawing\n @param brush Indicates the pointer to an <b>OH_Drawing_Brush</b> object.\n @since 12\n @version 1.0"]
+    #[doc = " @brief Resets a brush to the initial state. All configured attributes are cleared.\n This API may return an error code. For details, call {@link OH_Drawing_ErrorCodeGet}.\n If **brush** is NULL, **OH_DRAWING_ERROR_INVALID_PARAMETER** is returned.\n\n @param brush Pointer to the {@link OH_Drawing_Brush} object.\n @since 12\n @version 1.0"]
     pub fn OH_Drawing_BrushReset(brush: *mut OH_Drawing_Brush);
 }
-#[doc = " single sample point (nearest neighbor)"]
+#[doc = " Nearest filter mode."]
 pub const OH_Drawing_FilterMode_FILTER_MODE_NEAREST: OH_Drawing_FilterMode = 0;
-#[doc = " interpolate between 2x2 sample points (bilinear interpolation)"]
+#[doc = " Linear filter mode."]
 pub const OH_Drawing_FilterMode_FILTER_MODE_LINEAR: OH_Drawing_FilterMode = 1;
-#[doc = " @brief Enumerates storage filter mode.\n\n @since 12\n @version 1.0"]
+#[doc = " @brief Defines an enum for the filter modes.\n\n @since 12\n @version 1.0"]
 pub type OH_Drawing_FilterMode = u32;
-#[doc = " ignore mipmap levels, sample from the \"base\""]
+#[doc = " Mipmap level ignored."]
 pub const OH_Drawing_MipmapMode_MIPMAP_MODE_NONE: OH_Drawing_MipmapMode = 0;
-#[doc = " sample from the nearest level"]
+#[doc = " Nearest sampling from two adjacent mipmap levels."]
 pub const OH_Drawing_MipmapMode_MIPMAP_MODE_NEAREST: OH_Drawing_MipmapMode = 1;
-#[doc = " interpolate between the two nearest levels"]
+#[doc = " Linear interpolation sampling between two adjacent mipmap levels."]
 pub const OH_Drawing_MipmapMode_MIPMAP_MODE_LINEAR: OH_Drawing_MipmapMode = 2;
-#[doc = " @brief Enumerates storage formats mipmap mode.\n\n @since 12\n @version 1.0"]
+#[doc = " @brief Defines an enum for the mipmap modes.\n\n @since 12\n @version 1.0"]
 pub type OH_Drawing_MipmapMode = u32;
 extern "C" {
-    #[doc = " @brief Creates an <b>OH_Drawing_SamplingOptions</b> object.\n\n @syscap SystemCapability.Graphic.Graphic2D.NativeDrawing\n @param filterMode sampling filter mode.\n @param mipmapMode sampling mipmap mode..\n @return Returns the pointer to the <b>OH_Drawing_SamplingOptions</b> object created.\n @since 12\n @version 1.0"]
+    #[doc = " @brief Creates an **OH_Drawing_SamplingOptions** object.\n This API may return an error code. For details, call {@link OH_Drawing_ErrorCodeGet}.\n If **mipmapMode** is not set to one of the enumerated values, **OH_DRAWING_ERROR_PARAMETER_OUT_OF_RANGE** is\n returned.\n\n @param filterMode Filter sampling mode.\n @param mipmapMode Mipmap mode.\n @return Returns a pointer to the created {@link OH_Drawing_SamplingOptions} object.\n @since 12\n @version 1.0"]
     pub fn OH_Drawing_SamplingOptionsCreate(
         filterMode: OH_Drawing_FilterMode,
         mipmapMode: OH_Drawing_MipmapMode,
     ) -> *mut OH_Drawing_SamplingOptions;
 }
 extern "C" {
-    #[doc = " @brief Creates an <b>OH_Drawing_SamplingOptions</b> copy object.\n\n @syscap SystemCapability.Graphic.Graphic2D.NativeDrawing\n @param samplingOptions Indicates the pointer to an <b>OH_Drawing_SamplingOptions</b> object.\n @return Returns the pointer to the <b>OH_Drawing_SamplingOptions</b> object created.\n @since 20\n @version 1.0"]
+    #[doc = " @brief Creates a copy of an {@link OH_Drawing_SamplingOptions} object.\n\n @param samplingOptions Pointer to the {@link OH_Drawing_SamplingOptions} object.\n @return Returns a pointer to the created {@link OH_Drawing_SamplingOptions} object copy. If NULL is returned, the\n creation fails. The possible failure cause is that no memory is available or **samplingOptions** is NULL.\n @since 20\n @version 1.0"]
     #[cfg(feature = "api-20")]
     pub fn OH_Drawing_SamplingOptionsCopy(
         samplingOptions: *mut OH_Drawing_SamplingOptions,
     ) -> *mut OH_Drawing_SamplingOptions;
 }
 extern "C" {
-    #[doc = " @brief Destroys an <b>OH_Drawing_SamplingOptions</b> object and reclaims the memory occupied by the object.\n\n @syscap SystemCapability.Graphic.Graphic2D.NativeDrawing\n @param samplingOptions Indicates the pointer to an <b>OH_Drawing_SamplingOptions</b> object.\n @since 12\n @version 1.0"]
+    #[doc = " @brief Destroys an **OH_Drawing_SamplingOptions** object and reclaims the memory occupied by the object.\n\n @param samplingOptions Pointer to the {@link OH_Drawing_SamplingOptions} object.\n @since 12\n @version 1.0"]
     pub fn OH_Drawing_SamplingOptionsDestroy(samplingOptions: *mut OH_Drawing_SamplingOptions);
 }
-#[doc = " Using sampling only inside bounds in a slower manner."]
+#[doc = " The source rectangle must be completely contained in the image."]
 pub const OH_Drawing_SrcRectConstraint_STRICT_SRC_RECT_CONSTRAINT: OH_Drawing_SrcRectConstraint = 0;
-#[doc = " Using sampling outside bounds in a faster manner."]
+#[doc = " The source rectangle can be partly outside the image."]
 pub const OH_Drawing_SrcRectConstraint_FAST_SRC_RECT_CONSTRAINT: OH_Drawing_SrcRectConstraint = 1;
-#[doc = " @brief Enumeration defines the constraint type.\n\n @since 12\n @version 1.0"]
+#[doc = " @brief Enumerates the constraint types of the source rectangle.\n\n @since 12\n @version 1.0"]
 pub type OH_Drawing_SrcRectConstraint = u32;
 extern "C" {
-    #[doc = " @brief Creates an <b>OH_Drawing_Canvas</b> object.\n\n @syscap SystemCapability.Graphic.Graphic2D.NativeDrawing\n @return Returns the pointer to the <b>OH_Drawing_Canvas</b> object created.\n @since 8\n @version 1.0"]
+    #[doc = " @brief Creates an **OH_Drawing_Canvas** object.\n\n @return Returns the pointer to the **OH_Drawing_Canvas** object created.\n @since 8\n @version 1.0"]
     pub fn OH_Drawing_CanvasCreate() -> *mut OH_Drawing_Canvas;
 }
 extern "C" {
-    #[doc = " @brief Creates an <b>OH_Drawing_Canvas</b> object from <b>OH_Drawing_PixelMap</b>.\n The OH_Drawing_PixelMap should be dissolved by OH_Drawing_PixelMapDissolve after the OH_Drawing_Canvas is destroyed.\n\n @syscap SystemCapability.Graphic.Graphic2D.NativeDrawing\n @param pixelMap Indicates the pointer to an <b>OH_Drawing_PixelMap</b> object.\n @return Returns the pointer to the <b>OH_Drawing_Canvas</b> object created.\n         If nullptr is returned, the creation fails.\n         The possible cause of the failure is that the available memory is empty or pixelMap is nullptr.\n @since 20\n @version 1.0"]
+    #[doc = " @brief Binds a pixel map to a canvas so that the content drawn on the canvas is output to the pixel map. (This\n process is called CPU rendering.) A canvas bound to a pixel map is a non-recording canvas.\n You should unbind the pixel map object by calling {@link OH_Drawing_PixelMapDissolve} after the canvas object is\n destroyed.\n\n @param pixelMap Pointer to the {@link OH_Drawing_PixelMap} object.\n @return Pointer to the created canvas object {@link OH_Drawing_Canvas}. If the returned object is NULL, the creation\n fails due to insufficient memory or an empty pixel map object.\n @since 20\n @version 1.0"]
     #[cfg(feature = "api-20")]
     pub fn OH_Drawing_CanvasCreateWithPixelMap(
         pixelMap: *mut OH_Drawing_PixelMap,
     ) -> *mut OH_Drawing_Canvas;
 }
 extern "C" {
-    #[doc = " @brief Destroys an <b>OH_Drawing_Canvas</b> object and reclaims the memory occupied by the object.\n\n @syscap SystemCapability.Graphic.Graphic2D.NativeDrawing\n @param canvas Indicates the pointer to an <b>OH_Drawing_Canvas</b> object.\n @since 8\n @version 1.0"]
+    #[doc = " @brief Destroys an **OH_Drawing_Canvas** object and reclaims the memory occupied by the object.\n\n @param canvas Pointer to an **OH_Drawing_Canvas** object.\n @since 8\n @version 1.0"]
     pub fn OH_Drawing_CanvasDestroy(canvas: *mut OH_Drawing_Canvas);
 }
 extern "C" {
-    #[doc = " @brief Binds a bitmap to a canvas so that the content drawn on the canvas\n is output to the bitmap (this process is called CPU rendering).\n\n @syscap SystemCapability.Graphic.Graphic2D.NativeDrawing\n @param canvas Indicates the pointer to an <b>OH_Drawing_Canvas</b> object.\n @param bitmap Indicates the pointer to an <b>OH_Drawing_Bitmap</b> object.\n @since 8\n @version 1.0"]
+    #[doc = " @brief Binds a bitmap to a canvas so that the content drawn on the canvas is output to the bitmap. (This process is\n called CPU rendering.) A canvas bound to a bitmap is a non-recording canvas.\n This API may return an error code. For details, call {@link OH_Drawing_ErrorCodeGet}.\n If either **canvas** or **bitmap** is NULL, **OH_DRAWING_ERROR_INVALID_PARAMETER** is returned.\n\n @param canvas Pointer to an **OH_Drawing_Canvas** object.\n @param bitmap Pointer to an **OH_Drawing_Bitmap** object.\n @since 8\n @version 1.0"]
     pub fn OH_Drawing_CanvasBind(canvas: *mut OH_Drawing_Canvas, bitmap: *mut OH_Drawing_Bitmap);
 }
 extern "C" {
-    #[doc = " @brief Attaches a pen to a canvas so that the canvas will use the style and color of the pen to outline a shape.\n\n @syscap SystemCapability.Graphic.Graphic2D.NativeDrawing\n @param canvas Indicates the pointer to an <b>OH_Drawing_Canvas</b> object.\n @param pen Indicates the pointer to an <b>OH_Drawing_Pen</b> object.\n @since 8\n @version 1.0"]
+    #[doc = " @brief Attaches a pen to a canvas so that the canvas can use the style and color of the pen to outline a shape. If\n the pen effect changes after this function is called, you must call the function again to use the new effect in the\n subsequent drawing.\n This API may return an error code. For details, call {@link OH_Drawing_ErrorCodeGet}.\n If either **canvas** or **pen** is NULL, **OH_DRAWING_ERROR_INVALID_PARAMETER** is returned.\n\n @param canvas Pointer to an **OH_Drawing_Canvas** object.\n @param pen Pointer to an **OH_Drawing_Pen** object.\n @since 8\n @version 1.0"]
     pub fn OH_Drawing_CanvasAttachPen(canvas: *mut OH_Drawing_Canvas, pen: *const OH_Drawing_Pen);
 }
 extern "C" {
-    #[doc = " @brief Detaches the pen from a canvas so that the canvas will not use the style\n and color of the pen to outline a shape.\n\n @syscap SystemCapability.Graphic.Graphic2D.NativeDrawing\n @param canvas Indicates the pointer to an <b>OH_Drawing_Canvas</b> object.\n @since 8\n @version 1.0"]
+    #[doc = " @brief Detaches the pen from a canvas so that the canvas can no longer use the style and color of the pen to outline\n a shape.\n This API may return an error code. For details, call {@link OH_Drawing_ErrorCodeGet}.\n If **canvas** is NULL, **OH_DRAWING_ERROR_INVALID_PARAMETER** is returned.\n\n @param canvas Pointer to an **OH_Drawing_Canvas** object.\n @since 8\n @version 1.0"]
     pub fn OH_Drawing_CanvasDetachPen(canvas: *mut OH_Drawing_Canvas);
 }
 extern "C" {
-    #[doc = " @brief Attaches a brush to a canvas so that the canvas will use the style and color of the brush to fill in a shape.\n\n @syscap SystemCapability.Graphic.Graphic2D.NativeDrawing\n @param canvas Indicates the pointer to an <b>OH_Drawing_Canvas</b> object.\n @param brush Indicates the pointer to an <b>OH_Drawing_Brush</b> object.\n @since 8\n @version 1.0"]
+    #[doc = " @brief Attaches a brush to a canvas so that the canvas can use the style and color of the brush to fill in a shape.\n If the brush effect changes after this function is called, you must call the function again to use the new effect in\n the subsequent drawing.\n This API may return an error code. For details, call {@link OH_Drawing_ErrorCodeGet}.\n If either **canvas** or **brush** is NULL, **OH_DRAWING_ERROR_INVALID_PARAMETER** is returned.\n\n @param canvas Pointer to an **OH_Drawing_Canvas** object.\n @param brush Pointer to an **OH_Drawing_Brush** object.\n @since 8\n @version 1.0"]
     pub fn OH_Drawing_CanvasAttachBrush(
         canvas: *mut OH_Drawing_Canvas,
         brush: *const OH_Drawing_Brush,
     );
 }
 extern "C" {
-    #[doc = " @brief Detaches the brush from a canvas so that the canvas will not use the style\n and color of the brush to fill in a shape.\n\n @syscap SystemCapability.Graphic.Graphic2D.NativeDrawing\n @param canvas Indicates the pointer to an <b>OH_Drawing_Canvas</b> object.\n @since 8\n @version 1.0"]
+    #[doc = " @brief Detaches the brush from a canvas so that the canvas can no longer use the previously set brush to fill in a\n shape.\n This API may return an error code. For details, call {@link OH_Drawing_ErrorCodeGet}.\n If **canvas** is NULL, **OH_DRAWING_ERROR_INVALID_PARAMETER** is returned.\n\n @param canvas Pointer to an **OH_Drawing_Canvas** object.\n @since 8\n @version 1.0"]
     pub fn OH_Drawing_CanvasDetachBrush(canvas: *mut OH_Drawing_Canvas);
 }
 extern "C" {
-    #[doc = " @brief Saves the current canvas status (canvas matrix) to the top of the stack.\n\n @syscap SystemCapability.Graphic.Graphic2D.NativeDrawing\n @param canvas Indicates the pointer to an <b>OH_Drawing_Canvas</b> object.\n @since 8\n @version 1.0"]
+    #[doc = " @brief Saves the current canvas status (canvas matrix) to the top of the stack. This function works with\n {@link OH_Drawing_CanvasRestore}.\n This API may return an error code. For details, call {@link OH_Drawing_ErrorCodeGet}.\n If **canvas** is NULL, **OH_DRAWING_ERROR_INVALID_PARAMETER** is returned.\n\n @param canvas Pointer to an **OH_Drawing_Canvas** object.\n @since 8\n @version 1.0"]
     pub fn OH_Drawing_CanvasSave(canvas: *mut OH_Drawing_Canvas);
 }
 extern "C" {
-    #[doc = " @brief Saves matrix and clip, and allocates a bitmap for subsequent drawing.\n Calling restore discards changes to matrix and clip, and draws the bitmap.\n\n @syscap SystemCapability.Graphic.Graphic2D.NativeDrawing\n @param canvas Indicates the pointer to an <b>OH_Drawing_Canvas</b> object.\n @param rect Indicates the pointer to an <b>OH_Drawing_Rect</b> object.\n @param brush Indicates the pointer to an <b>OH_Drawing_Brush</b> object.\n @since 12\n @version 1.0"]
+    #[doc = " @brief Saves the matrix and cropping region, and allocates a bitmap for subsequent drawing. If you call\n {@link OH_Drawing_CanvasRestore}, changes made to the matrix and clipping region are discarded,\n and the bitmap is drawn.\n This API may return an error code. For details, call {@link OH_Drawing_ErrorCodeGet}.\n If **canvas** is NULL, **OH_DRAWING_ERROR_INVALID_PARAMETER** is returned.\n\n @param canvas Pointer to the {@link OH_Drawing_Canvas} object.\n @param rect Pointer to the {@link OH_Drawing_Rect} object, which is used to limit the layer size. A null pointer\n means no limit.\n @param brush Pointer to an {@link OH_Drawing_Brush} object. The alpha value, filter effect, and blend mode of the\n brush are applied when the bitmap is drawn. If NULL is passed in, no effect is applied.\n @since 12\n @version 1.0"]
     pub fn OH_Drawing_CanvasSaveLayer(
         canvas: *mut OH_Drawing_Canvas,
         rect: *const OH_Drawing_Rect,
@@ -682,19 +696,19 @@ extern "C" {
     );
 }
 extern "C" {
-    #[doc = " @brief Restores the canvas status (canvas matrix) saved on the top of the stack.\n\n @syscap SystemCapability.Graphic.Graphic2D.NativeDrawing\n @param canvas Indicates the pointer to an <b>OH_Drawing_Canvas</b> object.\n @since 8\n @version 1.0"]
+    #[doc = " @brief Restores the canvas status (canvas matrix) saved on the top of the stack.\n This API may return an error code. For details, call {@link OH_Drawing_ErrorCodeGet}.\n If **canvas** is NULL, **OH_DRAWING_ERROR_INVALID_PARAMETER** is returned.\n\n @param canvas Pointer to an **OH_Drawing_Canvas** object.\n @since 8\n @version 1.0"]
     pub fn OH_Drawing_CanvasRestore(canvas: *mut OH_Drawing_Canvas);
 }
 extern "C" {
-    #[doc = " @brief Gets the number of the canvas status (canvas matrix) saved in the stack.\n\n @syscap SystemCapability.Graphic.Graphic2D.NativeDrawing\n @param canvas Indicates the pointer to an <b>OH_Drawing_Canvas</b> object.\n @return Returns a 32-bit variable that describes the number of canvas status.\n @since 11\n @version 1.0"]
+    #[doc = " @brief Obtains the number of canvas statuses (canvas matrices) saved in the stack.\n This API may return an error code. For details, call {@link OH_Drawing_ErrorCodeGet}.\n If **canvas** is NULL, **OH_DRAWING_ERROR_INVALID_PARAMETER** is returned.\n\n @param canvas Pointer to an **OH_Drawing_Canvas** object.\n @return Returns a 32-bit value that describes the number of canvas statuses (canvas matrices). The initial number is\n **1**.\n @since 11\n @version 1.0"]
     pub fn OH_Drawing_CanvasGetSaveCount(canvas: *mut OH_Drawing_Canvas) -> u32;
 }
 extern "C" {
-    #[doc = " @brief Restores the specific number of the canvas status (canvas matrix) saved in the stack.\n\n @syscap SystemCapability.Graphic.Graphic2D.NativeDrawing\n @param canvas Indicates the pointer to an <b>OH_Drawing_Canvas</b> object.\n @param saveCount Indicates the specific number of canvas status.\n @since 11\n @version 1.0"]
+    #[doc = " @brief Restores to a given number of canvas statuses (canvas matrices).\n This API may return an error code. For details, call {@link OH_Drawing_ErrorCodeGet}.\n If **canvas** is NULL, **OH_DRAWING_ERROR_INVALID_PARAMETER** is returned.\n\n @param canvas Pointer to an **OH_Drawing_Canvas** object.\n @param saveCount Number of canvas statuses (canvas matrices). If the value is less than or equal to 1, the canvas is\n restored to the initial state. If the value is greater than the number of canvas statuses that have been saved, no\n operation is performed.\n @since 11\n @version 1.0"]
     pub fn OH_Drawing_CanvasRestoreToCount(canvas: *mut OH_Drawing_Canvas, saveCount: u32);
 }
 extern "C" {
-    #[doc = " @brief Draws a line segment.\n\n @syscap SystemCapability.Graphic.Graphic2D.NativeDrawing\n @param canvas Indicates the pointer to an <b>OH_Drawing_Canvas</b> object.\n @param x1 Indicates the x coordinate of the start point of the line segment.\n @param y1 Indicates the y coordinate of the start point of the line segment.\n @param x2 Indicates the x coordinate of the end point of the line segment.\n @param y2 Indicates the y coordinate of the end point of the line segment.\n @since 8\n @version 1.0"]
+    #[doc = " @brief Draws a line segment.\n This API may return an error code. For details, call {@link OH_Drawing_ErrorCodeGet}.\n If **canvas** is NULL, **OH_DRAWING_ERROR_INVALID_PARAMETER** is returned.\n\n @param canvas Pointer to an **OH_Drawing_Canvas** object.\n @param x1 X coordinate of the start point of the line segment.\n @param y1 Y coordinate of the start point of the line segment.\n @param x2 X coordinate of the end point of the line segment.\n @param y2 Y coordinate of the end point of the line segment.\n @since 8\n @version 1.0"]
     pub fn OH_Drawing_CanvasDrawLine(
         canvas: *mut OH_Drawing_Canvas,
         x1: f32,
@@ -704,11 +718,11 @@ extern "C" {
     );
 }
 extern "C" {
-    #[doc = " @brief Draws a path.\n\n @syscap SystemCapability.Graphic.Graphic2D.NativeDrawing\n @param canvas Indicates the pointer to an <b>OH_Drawing_Canvas</b> object.\n @param path Indicates the pointer to an <b>OH_Drawing_Path</b> object.\n @since 8\n @version 1.0"]
+    #[doc = " @brief Draws a path.\n This API may return an error code. For details, call {@link OH_Drawing_ErrorCodeGet}.\n If either **canvas** or **path** is NULL, **OH_DRAWING_ERROR_INVALID_PARAMETER** is returned.\n\n @param canvas Pointer to an **OH_Drawing_Canvas** object.\n @param path Pointer to an **OH_Drawing_Path** object.\n @since 8\n @version 1.0"]
     pub fn OH_Drawing_CanvasDrawPath(canvas: *mut OH_Drawing_Canvas, path: *const OH_Drawing_Path);
 }
 extern "C" {
-    #[doc = " @brief Draw a pixel map on the grid, with the grid evenly distributed over the pixel map.\n\n @param cCanvas Indicates the pointer to an OH_Drawing_Canvas object.\n @param pixelMap Indicates the pointer to an OH_Drawing_PixelMap.\n @param meshWidth The number of columns in the mesh.\n @param meshHeight The number of rows in the mesh.\n @param vertices Indicates the vertex array that specifies the drawing positions of the mesh.\n @param verticesSize The size of vertices.\n @param vertOffset The number of vert elements to skip before drawing.\n @param colors Indicates the color array that specifies a color at each vertex.\n @param colorsSize The size of colors.\n @param colorOffset The number of color elements to skip before drawing.\n @return Returns the error code.\n         Returns {@link OH_DRAWING_SUCCESS} if the operation is successful.\n         Returns {@link OH_DRAWING_ERROR_INCORRECT_PARAMETER} if any of canvas, pixelMap\n                 and dst is nullptr.\n @since 23\n @version 1.0"]
+    #[doc = " @brief Draws a PixelMap based on a mesh, where mesh vertices are evenly distributed across the PixelMap. (This API\n works with brushes but not pens.)\n\n @param cCanvas Pointer to the {@link OH_Drawing_Canvas} object.\n @param pixelMap Pointer to the {@link OH_Drawing_PixelMap} object.\n @param meshWidth Number of columns in the mesh. The value is an integer greater than 0.\n @param meshHeight Number of rows in the mesh. The value is an integer greater than 0.\n @param vertices Pointer to the mesh vertex array.\n @param verticesSize Size of the mesh vertex array. The value must be ((meshWidth + 1) * (meshHeight + 1) +\n vertoffset) * 2.\n @param vertOffset Number of vertices to skip before drawing. The value is an integer greater than or equal to 0.\n @param colors Pointer to the mesh color array, which can be null.\n @param colorsSize Size of the mesh color array. If the array exists, the size must be (meshWidth + 1) * (meshHeight +\n 1) + colorOffset.\n @param colorOffset Number of colors to skip before drawing. The value is an integer greater than or equal to 0.\n @return Returns one of the following result codes:\n **OH_DRAWING_SUCCESS** if the operation is successful.\n **OH_DRAWING_ERROR_INCORRECT_PARAMETER** if any of the parameters, such as **cCanvas**, **pixelMap**, and **vertices*\n *, is empty or the input parameter does not meet the value rule.\n @since 23\n @version 1.0"]
     #[cfg(feature = "api-23")]
     pub fn OH_Drawing_CanvasDrawPixelMapMesh(
         cCanvas: *mut OH_Drawing_Canvas,
@@ -724,7 +738,7 @@ extern "C" {
     ) -> OH_Drawing_ErrorCode;
 }
 extern "C" {
-    #[doc = " @brief Divides the pixelmap into a grid with nine sections: four sides, four corners, and the center.\n Draws the specified section of the pixelmap onto the canvas, corners are unmodified or scaled down if they exceed\n the destination rectangle, center and four sides are scaled to fit remaining space.\n\n @syscap SystemCapability.Graphic.Graphic2D.NativeDrawing\n @param canvas Indicates the pointer to an <b>OH_Drawing_Canvas</b> object.\n @param pixelMap Indicates the pointer to an <b>OH_Drawing_PixelMap</b> object.\n @param center Divides the pixelmap into nine sections: four sides, four corners, and the center.\n @param dst The area of destination canvas.\n @param mode Filter mode.\n @return Returns the error code.\n         Returns {@link OH_DRAWING_SUCCESS} if the operation is successful.\n         Returns {@link OH_DRAWING_ERROR_INVALID_PARAMETER} if any of canvas, pixelMap\n                 and dst is nullptr.\n @since 18\n @version 1.0"]
+    #[doc = " @brief Splits a pixel map into nine sections using two horizontal and two vertical lines: four edge sections, four\n corner sections, and a central section.\n If the four corner sections are smaller than the target rectangle, they will be drawn in the target rectangle\n without scaling. Otherwise, they will be scaled to fit the target rectangle.\n Any remaining space will be filled by stretching or compressing the other five sections to cover the entire target\n rectangle.\n\n @param canvas Pointer to the {@link OH_Drawing_Canvas} object.\n @param pixelMap Pointer to the {@link OH_Drawing_PixelMap} object.\n @param center Pointer to the {@link OH_Drawing_Rect} object, which indicates the central rectangle splitting the\n pixel map. It divides the image into nine sections by extending its four edges.\n @param dst Pointer to the {@link OH_Drawing_Rect} object, which indicates the target region on the canvas.\n @param mode Enumeration of filter modes.\n @return Returns one of the following result codes:\n **OH_DRAWING_SUCCESS** if the operation is successful.\n **OH_DRAWING_ERROR_INVALID_PARAMETER** if **canvas**, **pixelMap**, or **dst** is NULL.\n @since 18\n @version 1.0"]
     #[cfg(feature = "api-18")]
     pub fn OH_Drawing_CanvasDrawPixelMapNine(
         canvas: *mut OH_Drawing_Canvas,
@@ -735,7 +749,7 @@ extern "C" {
     ) -> OH_Drawing_ErrorCode;
 }
 extern "C" {
-    #[doc = " @brief Draw the specified area of the Media::PixelMap to the specified area of the canvas.\n\n @syscap SystemCapability.Graphic.Graphic2D.NativeDrawing\n @param canvas Indicates the pointer to an <b>OH_Drawing_Canvas</b> object.\n @param pixelMap Indicates the pointer to an <b>OH_Drawing_PixelMap</b> object.\n @param src the area of source pixelmap.\n @param dst the area of destination canvas.\n @param samplingOptions the sampling mode.\n @since 12\n @version 1.0"]
+    #[doc = " @brief Draws a portion of a pixel map onto a specified area of the canvas.\n This API may return an error code. For details, call {@link OH_Drawing_ErrorCodeGet}.\n If one of **canvas**, **pixelMap**, or **dst** is NULL, **OH_DRAWING_ERROR_INVALID_PARAMETER** is returned.\n\n @param canvas Pointer to the {@link OH_Drawing_Canvas} object.\n @param pixelMap Pointer to the {@link OH_Drawing_PixelMap} object.\n @param src Pointer to a rectangle on the pixel map. If NULL is passed in, it refers to the entire pixel map.\n @param dst Pointer to a rectangle on the canvas.\n @param samplingOptions Pointer to the {@link OH_Drawing_SamplingOptions} object. A null pointer means that the\n default sampling options are used.\n @since 12\n @version 1.0"]
     pub fn OH_Drawing_CanvasDrawPixelMapRect(
         canvas: *mut OH_Drawing_Canvas,
         pixelMap: *mut OH_Drawing_PixelMap,
@@ -745,7 +759,7 @@ extern "C" {
     );
 }
 extern "C" {
-    #[doc = " @brief Draw the specified area of the Media::PixelMap to the specified area of the canvas.\n\n @syscap SystemCapability.Graphic.Graphic2D.NativeDrawing\n @param canvas Indicates the pointer to an <b>OH_Drawing_Canvas</b> object.\n @param pixelMap Indicates the pointer to an <b>OH_Drawing_PixelMap</b> object.\n @param src Indicates the area of source pixelmap.\n @param dst Indicates the area of destination canvas.\n @param samplingOptions Indicates the sampling mode.\n @param constraint Indicates constraint type.\n @return Returns the error code.\n         Returns {@link OH_DRAWING_SUCCESS} if the operation is successful.\n         Returns {@link OH_DRAWING_ERROR_INVALID_PARAMETER} if any of canvas, pixelMap\n                 and dst is nullptr.\n @since 20\n @version 1.0"]
+    #[doc = " @brief Draws a portion of a pixel map onto a specified area of the canvas.\n\n @param canvas Pointer to the {@link OH_Drawing_Canvas} object.\n @param pixelMap Pointer to the {@link OH_Drawing_PixelMap} object.\n @param src Pointer to a rectangle on the pixel map. If NULL is passed in, it refers to the entire pixel map.\n @param dst Pointer to a rectangle on the canvas.\n @param samplingOptions Pointer to the {@link OH_Drawing_SamplingOptions} object. A null pointer means that the\n default sampling options are used.\n @param constraint Constraint type. For details about the available options, see {@link OH_Drawing_SrcRectConstraint}.\n @return Execution result.\n **OH_DRAWING_SUCCESS** if the operation is successful.\n **OH_DRAWING_ERROR_INVALID_PARAMETER** if **canvas**, **pixelMap**, or **dst** is NULL.\n @since 20\n @version 1.0"]
     #[cfg(feature = "api-20")]
     pub fn OH_Drawing_CanvasDrawPixelMapRectConstraint(
         canvas: *mut OH_Drawing_Canvas,
@@ -757,36 +771,36 @@ extern "C" {
     ) -> OH_Drawing_ErrorCode;
 }
 extern "C" {
-    #[doc = " @brief Fills clipped canvas area with brush.\n\n @syscap SystemCapability.Graphic.Graphic2D.NativeDrawing\n @param canvas Indicates the pointer to an <b>OH_Drawing_Canvas</b> object.\n @param brush Indicates the pointer to an <b>OH_Drawing_Brush</b> object.\n @since 12\n @version 1.0"]
+    #[doc = " @brief Draws a background filled with a brush.\n This API may return an error code. For details, call {@link OH_Drawing_ErrorCodeGet}.\n If either **canvas** or **brush** is NULL, **OH_DRAWING_ERROR_INVALID_PARAMETER** is returned.\n\n @param canvas Pointer to an **OH_Drawing_Canvas** object.\n @param brush Pointer to an **OH_Drawing_Brush** object.\n @since 12\n @version 1.0"]
     pub fn OH_Drawing_CanvasDrawBackground(
         canvas: *mut OH_Drawing_Canvas,
         brush: *const OH_Drawing_Brush,
     );
 }
 extern "C" {
-    #[doc = " @brief Draws region using clip, matrix and paint.\n\n @syscap SystemCapability.Graphic.Graphic2D.NativeDrawing\n @param canvas Indicates the pointer to an <b>OH_Drawing_Canvas</b> object.\n @param region Indicates the pointer to an <b>OH_Drawing_Region</b> object.\n @since 12\n @version 1.0"]
+    #[doc = " @brief Draws a region.\n This API may return an error code. For details, call {@link OH_Drawing_ErrorCodeGet}.\n If either **canvas** or **region** is NULL, **OH_DRAWING_ERROR_INVALID_PARAMETER** is returned.\n\n @param canvas Pointer to an **OH_Drawing_Canvas** object.\n @param region Pointer to an **OH_Drawing_Region** object.\n @since 12\n @version 1.0"]
     pub fn OH_Drawing_CanvasDrawRegion(
         canvas: *mut OH_Drawing_Canvas,
         region: *const OH_Drawing_Region,
     );
 }
-#[doc = " Draw each point separately."]
+#[doc = " Draws each point separately."]
 pub const OH_Drawing_PointMode_POINT_MODE_POINTS: OH_Drawing_PointMode = 0;
-#[doc = " Draw each pair of points as a line segment."]
+#[doc = " Draws every two points as a line segment."]
 pub const OH_Drawing_PointMode_POINT_MODE_LINES: OH_Drawing_PointMode = 1;
-#[doc = " Draw the array of points as a open polygon."]
+#[doc = " Draws an array of points as an open polygon."]
 pub const OH_Drawing_PointMode_POINT_MODE_POLYGON: OH_Drawing_PointMode = 2;
-#[doc = " @brief Enumerates of scale to fit flags, selects if an array of points are drawn as discrete points, as lines,\n or as an open polygon.\n\n @since 12\n @version 1.0"]
+#[doc = " @brief Enumerates the modes of drawing multiple points. The modes include discrete points, line segments, and open\n polygons.\n\n @since 12\n @version 1.0"]
 pub type OH_Drawing_PointMode = u32;
 extern "C" {
-    #[doc = " @brief Draws a point.\n\n @syscap SystemCapability.Graphic.Graphic2D.NativeDrawing\n @param canvas Indicates the pointer to an <b>OH_Drawing_Canvas</b> object.\n @param point Indicates the pointer to an <b>OH_Drawing_Point</b> object.\n @return Returns the error code.\n         Returns {@link OH_DRAWING_SUCCESS} if the operation is successful.\n         Returns {@link OH_DRAWING_ERROR_INVALID_PARAMETER} if canvas or point is nullptr.\n @since 12\n @version 1.0"]
+    #[doc = " @brief Draws a point.\n\n @param canvas Pointer to the {@link OH_Drawing_Canvas} object.\n @param point Pointer to the {@link OH_Drawing_Point2D} object.\n @return Returns one of the following result codes:\n **OH_DRAWING_SUCCESS** if the operation is successful.\n **OH_DRAWING_ERROR_INVALID_PARAMETER** if either **canvas** or **point** is NULL.\n @since 12\n @version 1.0"]
     pub fn OH_Drawing_CanvasDrawPoint(
         canvas: *mut OH_Drawing_Canvas,
         point: *const OH_Drawing_Point2D,
     ) -> OH_Drawing_ErrorCode;
 }
 extern "C" {
-    #[doc = " @brief Draws point array as separate point, line segment or open polygon according to given point mode.\n\n @syscap SystemCapability.Graphic.Graphic2D.NativeDrawing\n @param canvas Indicates the pointer to an <b>OH_Drawing_Canvas</b> object.\n @param mode Draw points enum.\n @param count The point count.\n @param point2D Point struct array.\n @since 12\n @version 1.0"]
+    #[doc = " @brief Draws multiple points. You can draw a single point, a line segment, or an open polygon.\n This API may return an error code. For details, call {@link OH_Drawing_ErrorCodeGet}.\n If either **canvas** or **point2D** is NULL, or **count** is **0**, **OH_DRAWING_ERROR_INVALID_PARAMETER** is\n returned. If **mode** is not within the enumerated range, **OH_DRAWING_ERROR_PARAMETER_OUT_OF_RANGE** is returned.\n\n @param canvas Pointer to an **OH_Drawing_Canvas** object.\n @param mode Mode for drawing multiple points. For details, see {@link OH_Drawing_PointMode}.\n @param count Number of vertices, that is, the number of vertices in the vertex array.\n @param point2D Pointer to an array holding the vertices.\n @since 12\n @version 1.0"]
     pub fn OH_Drawing_CanvasDrawPoints(
         canvas: *mut OH_Drawing_Canvas,
         mode: OH_Drawing_PointMode,
@@ -795,7 +809,7 @@ extern "C" {
     );
 }
 extern "C" {
-    #[doc = " @brief Draws a bitmap.\n\n @syscap SystemCapability.Graphic.Graphic2D.NativeDrawing\n @param canvas Indicates the pointer to an <b>OH_Drawing_Canvas</b> object.\n @param bitmap Indicates the pointer to an <b>OH_Drawing_Bitmap</b> object.\n @param left Indicates the left position of the <b>OH_Drawing_Bitmap</b>.\n @param top Indicates the top position of the <b>OH_Drawing_Bitmap</b>.\n @since 11\n @version 1.0"]
+    #[doc = " @brief Draws a bitmap. A bitmap, also referred to as a dot matrix image, a pixel map image, or a grid image,\n includes single points called pixels (image elements).\n This API may return an error code. For details, call {@link OH_Drawing_ErrorCodeGet}.\n If either **canvas** or **bitmap** is NULL, **OH_DRAWING_ERROR_INVALID_PARAMETER** is returned.\n\n @param canvas Pointer to an **OH_Drawing_Canvas** object.\n @param bitmap Pointer to an **OH_Drawing_Bitmap** object.\n @param left X coordinate of the upper left corner of the bitmap.\n @param top Y coordinate of the upper left corner of the bitmap.\n @since 11\n @version 1.0"]
     pub fn OH_Drawing_CanvasDrawBitmap(
         canvas: *mut OH_Drawing_Canvas,
         bitmap: *const OH_Drawing_Bitmap,
@@ -804,7 +818,7 @@ extern "C" {
     );
 }
 extern "C" {
-    #[doc = " @brief Draw the specified area of the bitmap to the specified area of the canvas.\n\n @syscap SystemCapability.Graphic.Graphic2D.NativeDrawing\n @param canvas Indicates the pointer to an <b>OH_Drawing_Canvas</b> object.\n @param bitmap Indicates the pointer to an <b>OH_Drawing_Bitmap</b> object.\n @param src the area of source bitmap, can be nullptr.\n @param dst the area of destination canvas.\n @param samplingOptions the sampling mode.\n @since 12\n @version 1.0"]
+    #[doc = " @brief Draws a portion of a bitmap onto a specified area of the canvas.\n This API may return an error code. For details, call {@link OH_Drawing_ErrorCodeGet}.\n If one of **canvas**, **bitmap**, or **dst** is NULL, **OH_DRAWING_ERROR_INVALID_PARAMETER** is returned.\n\n @param canvas Pointer to the {@link OH_Drawing_Canvas} object.\n @param bitmap Pointer to the {@link OH_Drawing_Bitmap} object.\n @param src Pointer to a rectangle on the bitmap. If NULL is passed in, it refers to the entire bitmap.\n @param dst Pointer to a rectangle on the canvas.\n @param samplingOptions Pointer to the {@link OH_Drawing_SamplingOptions} object. A null pointer means that the\n default sampling options are used.\n @since 12\n @version 1.0"]
     pub fn OH_Drawing_CanvasDrawBitmapRect(
         canvas: *mut OH_Drawing_Canvas,
         bitmap: *const OH_Drawing_Bitmap,
@@ -814,11 +828,11 @@ extern "C" {
     );
 }
 extern "C" {
-    #[doc = " @brief Draws a rect.\n\n @syscap SystemCapability.Graphic.Graphic2D.NativeDrawing\n @param canvas Indicates the pointer to an <b>OH_Drawing_Canvas</b> object.\n @param rect Indicates the pointer to an <b>OH_Drawing_Rect</b> object.\n @since 11\n @version 1.0"]
+    #[doc = " @brief Draws a rectangle.\n This API may return an error code. For details, call {@link OH_Drawing_ErrorCodeGet}.\n If either **canvas** or **OH_Drawing_Rect** is NULL, **OH_DRAWING_ERROR_INVALID_PARAMETER** is returned.\n\n @param canvas Pointer to an **OH_Drawing_Canvas** object.\n @param rect Pointer to an **OH_Drawing_Rect** object.\n @since 11\n @version 1.0"]
     pub fn OH_Drawing_CanvasDrawRect(canvas: *mut OH_Drawing_Canvas, rect: *const OH_Drawing_Rect);
 }
 extern "C" {
-    #[doc = " @brief Draws a circle.\n\n @syscap SystemCapability.Graphic.Graphic2D.NativeDrawing\n @param canvas Indicates the pointer to an <b>OH_Drawing_Canvas</b> object.\n @param point Indicates the pointer to an <b>OH_Drawing_Point</b> object.\n @param radius Indicates the radius of the circle.\n @since 11\n @version 1.0"]
+    #[doc = " @brief Draws a circle. This API may return an error code. For details, call {@link OH_Drawing_ErrorCodeGet}. If\n either **canvas** or **point** is NULL, **OH_DRAWING_ERROR_INVALID_PARAMETER** is returned.\n If **radius** is less than or equal to 0, **OH_DRAWING_ERROR_PARAMETER_OUT_OF_RANGE** is returned.\n\n @param canvas Pointer to an **OH_Drawing_Canvas** object.\n @param point Pointer to an **OH_Drawing_Point** object, which indicates the center of the circle.\n @param radius Radius of the circle. The value is invalid if it is less than or equal to 0.\n @since 11\n @version 1.0"]
     pub fn OH_Drawing_CanvasDrawCircle(
         canvas: *mut OH_Drawing_Canvas,
         point: *const OH_Drawing_Point,
@@ -826,7 +840,7 @@ extern "C" {
     );
 }
 extern "C" {
-    #[doc = " @brief Fills the entire canvas with the specified color and blend mode.\n\n @syscap SystemCapability.Graphic.Graphic2D.NativeDrawing\n @param canvas Indicates the pointer to an <b>OH_Drawing_Canvas</b> object.\n @param color Indicates the color, which is a 32-bit variable.\n @param blendMode Indicates the blend mode.\n @return Returns the error code.\n         Returns {@link OH_DRAWING_SUCCESS} if the operation is successful.\n         Returns {@link OH_DRAWING_ERROR_INVALID_PARAMETER} if canvas is nullptr.\n @since 12\n @version 1.0"]
+    #[doc = " @brief Fills the entire canvas with the specified color and blend mode.\n\n @param canvas Pointer to the {@link OH_Drawing_Canvas} object.\n @param color Color, represented by a 32-bit (ARGB) variable.\n @param blendMode Blend mode.\n @return Returns one of the following result codes:\n **OH_DRAWING_SUCCESS** if the operation is successful.\n **OH_DRAWING_ERROR_INVALID_PARAMETER** if **canvas** is NULL.\n **OH_DRAWING_ERROR_PARAMETER_OUT_OF_RANGE** if **blendMode** is not set to one of the enumerated values.\n @since 12\n @version 1.0"]
     pub fn OH_Drawing_CanvasDrawColor(
         canvas: *mut OH_Drawing_Canvas,
         color: u32,
@@ -834,11 +848,11 @@ extern "C" {
     ) -> OH_Drawing_ErrorCode;
 }
 extern "C" {
-    #[doc = " @brief Draws an oval.\n\n @syscap SystemCapability.Graphic.Graphic2D.NativeDrawing\n @param canvas Indicates the pointer to an <b>OH_Drawing_Canvas</b> object.\n @param rect Indicates the pointer to an <b>OH_Drawing_Rect</b> object.\n @since 11\n @version 1.0"]
+    #[doc = " @brief Draws an oval. This API may return an error code. For details, call {@link OH_Drawing_ErrorCodeGet}. If\n either **canvas** or **rect** is NULL, **OH_DRAWING_ERROR_INVALID_PARAMETER** is returned.\n\n @param canvas Pointer to an **OH_Drawing_Canvas** object.\n @param rect Pointer to an **OH_Drawing_Rect** object.\n @since 11\n @version 1.0"]
     pub fn OH_Drawing_CanvasDrawOval(canvas: *mut OH_Drawing_Canvas, rect: *const OH_Drawing_Rect);
 }
 extern "C" {
-    #[doc = " @brief Draws an arc.\n\n @syscap SystemCapability.Graphic.Graphic2D.NativeDrawing\n @param canvas Indicates the pointer to an <b>OH_Drawing_Canvas</b> object.\n @param rect Indicates the pointer to an <b>OH_Drawing_Rect</b> object.\n @param startAngle Indicates the startAngle of the arc.\n @param sweepAngle Indicates the sweepAngle of the arc.\n @since 11\n @version 1.0"]
+    #[doc = " @brief Draws an arc. If the absolute value of the sweep angle exceeds 360 degrees, an ellipse is drawn.\n This API may return an error code. For details, call {@link OH_Drawing_ErrorCodeGet}.\n If either **canvas** or **rect** is NULL, **OH_DRAWING_ERROR_INVALID_PARAMETER** is returned.\n\n @param canvas Pointer to an **OH_Drawing_Canvas** object.\n @param rect Pointer to an **OH_Drawing_Rect** object.\n @param startAngle Start angle. When the degree is 0, the start point is located at the right end of the oval. A\n positive number indicates that the start point is placed clockwise, and a negative number indicates that the start\n point is placed counterclockwise.\n @param sweepAngle Angle to sweep, in degrees. A positive number indicates a clockwise sweep, and a negative value\n indicates a counterclockwise swipe. The valid range is from -360 degrees to 360 degrees. If the absolute value of\n the sweep angle exceeds 360 degrees, an ellipse is drawn.\n @since 11\n @version 1.0"]
     pub fn OH_Drawing_CanvasDrawArc(
         canvas: *mut OH_Drawing_Canvas,
         rect: *const OH_Drawing_Rect,
@@ -847,7 +861,7 @@ extern "C" {
     );
 }
 extern "C" {
-    #[doc = " @brief Draws an arc with use center.\n\n @syscap SystemCapability.Graphic.Graphic2D.NativeDrawing\n @param canvas Indicates the pointer to an <b>OH_Drawing_Canvas</b> object.\n @param rect Indicates the pointer to an <b>OH_Drawing_Rect</b> object.\n @param startAngle Indicates the startAngle of the arc.\n @param sweepAngle Indicates the sweepAngle of the arc.\n @param useCenter If true, include the center of the oval in the arc, and close it if it is being stroked.\n @return Returns the error code.\n         Returns {@link OH_DRAWING_SUCCESS} if the operation is successful.\n         Returns {@link OH_DRAWING_ERROR_INVALID_PARAMETER} if canvas or rect is nullptr.\n @since 18\n @version 1.0"]
+    #[doc = " @brief Draws an arc. It enables you to define the start angle, sweep angle, and whether the arc's endpoints should\n connect to its center.\n\n @param canvas Pointer to the {@link OH_Drawing_Canvas} object.\n @param rect Pointer to the {@link OH_Drawing_Rect} object.\n @param startAngle Start angle, in degrees. The value is a floating point number. When the degree is 0, the start\n point is located at the right end of the oval. A positive number indicates that the start point is placed clockwise,\n and a negative number indicates that the start point is placed counterclockwise.\n @param sweepAngle Angle to sweep, in degrees. The value is a floating point number. A positive number indicates a\n clockwise sweep, and a negative value indicates a counterclockwise swipe. The swipe angle can exceed 360 degrees,\n and a complete ellipse is drawn.\n @param useCenter Whether the start point and end point of the arc are connected to its center. The value **true**\n means that they are connected to the center; the value **false** means the opposite.\n @return Returns one of the following result codes:\n **OH_DRAWING_SUCCESS** if the operation is successful.\n **OH_DRAWING_ERROR_INVALID_PARAMETER** if either **canvas** or **rect** is NULL.\n @since 18\n @version 1.0"]
     #[cfg(feature = "api-18")]
     pub fn OH_Drawing_CanvasDrawArcWithCenter(
         canvas: *mut OH_Drawing_Canvas,
@@ -858,14 +872,14 @@ extern "C" {
     ) -> OH_Drawing_ErrorCode;
 }
 extern "C" {
-    #[doc = " @brief Draws a roundrect.\n\n @syscap SystemCapability.Graphic.Graphic2D.NativeDrawing\n @param canvas Indicates the pointer to an <b>OH_Drawing_Canvas</b> object.\n @param roundRect Indicates the pointer to an <b>OH_Drawing_RoundRect</b> object.\n @since 11\n @version 1.0"]
+    #[doc = " @brief Draws a rounded rectangle. This API may return an error code. For details, call\n {@link OH_Drawing_ErrorCodeGet}. If either **canvas** or **roundRect** is NULL,\n **OH_DRAWING_ERROR_INVALID_PARAMETER** is returned.\n\n @param canvas Pointer to an **OH_Drawing_Canvas** object.\n @param roundRect Pointer to an **OH_Drawing_RoundRect** object.\n @since 11\n @version 1.0"]
     pub fn OH_Drawing_CanvasDrawRoundRect(
         canvas: *mut OH_Drawing_Canvas,
         roundRect: *const OH_Drawing_RoundRect,
     );
 }
 extern "C" {
-    #[doc = " @brief Draw two nested rounded rectangles.\n\n @syscap SystemCapability.Graphic.Graphic2D.NativeDrawing\n @param canvas Indicates the pointer to an <b>OH_Drawing_Canvas</b> object.\n @param outer Rounded rectangle object, representing the outer rounded rectangle boundary.\n @param inner Rounded rectangle object, representing the internal rounded rectangle boundary.\n @return Returns the error code.\n         Returns {@link OH_DRAWING_SUCCESS} if the operation is successful.\n         Returns {@link OH_DRAWING_ERROR_INVALID_PARAMETER} if any of canvas, outer\n                 and inner is nullptr.\n @since 18\n @version 1.0"]
+    #[doc = " @brief Draws two nested rounded rectangles. The outer rectangle boundary must contain the inner rectangle boundary.\n Otherwise, there is no drawing effect.\n\n @param canvas Pointer to the {@link OH_Drawing_Canvas} object.\n @param outer Pointer to the {@link OH_Drawing_RoundRect} object, indicating the outer rounded rectangle.\n @param inner Pointer to the {@link OH_Drawing_RoundRect} object, indicating the inner rounded rectangle.\n @return Returns one of the following result codes:\n **OH_DRAWING_SUCCESS** if the operation is successful.\n **OH_DRAWING_ERROR_INVALID_PARAMETER** if **canvas**, **outer**, or **inner** is NULL.\n @since 18\n @version 1.0"]
     #[cfg(feature = "api-18")]
     pub fn OH_Drawing_CanvasDrawNestedRoundRect(
         canvas: *mut OH_Drawing_Canvas,
@@ -874,7 +888,7 @@ extern "C" {
     ) -> OH_Drawing_ErrorCode;
 }
 extern "C" {
-    #[doc = " @brief Draws a single character.\n\n @syscap SystemCapability.Graphic.Graphic2D.NativeDrawing\n @param canvas Indicates the pointer to an <b>OH_Drawing_Canvas</b> object.\n @param str Indicates the single character encoded in UTF-8.\n @param font Indicates the pointer to an <b>OH_Drawing_Font</b> object.\n @param x Indicates the horizontal offset applied to the single character.\n @param y Indicates the vertical offset applied to the single character.\n @return Returns the error code.\n         Returns {@link OH_DRAWING_SUCCESS} if the operation is successful.\n         Returns {@link OH_DRAWING_ERROR_INVALID_PARAMETER} if any of canvas, str\n                 and font is nullptr or strlen(str) is 0.\n @since 12\n @version 1.0"]
+    #[doc = " @brief Draws a single character. If the typeface of the current font does not support the character to draw, the\n system typeface is used to draw the character.\n\n @param canvas Pointer to the {@link OH_Drawing_Canvas} object.\n @param str Pointer to the single character to draw. A string can be passed in, but only the first character in the\n string is parsed and drawn in UTF-8 encoding.\n @param font Pointer to the {@link OH_Drawing_Font} object.\n @param x X coordinate of the left point of the character baseline.\n @param y Y coordinate of the left point of the character baseline.\n @return Returns one of the following result codes:\n **OH_DRAWING_SUCCESS** if the operation is successful.\n **OH_DRAWING_ERROR_INVALID_PARAMETER** if at least one of the parameters **canvas**, **str**, or **font** is NULL,\n or the length of **str** is **0**.\n @since 12\n @version 1.0"]
     pub fn OH_Drawing_CanvasDrawSingleCharacter(
         canvas: *mut OH_Drawing_Canvas,
         str_: *const ::std::os::raw::c_char,
@@ -884,7 +898,7 @@ extern "C" {
     ) -> OH_Drawing_ErrorCode;
 }
 extern "C" {
-    #[doc = " @brief Draws a single character with font features.\n\n @syscap SystemCapability.Graphic.Graphic2D.NativeDrawing\n @param canvas Indicates the pointer to an <b>OH_Drawing_Canvas</b> object.\n @param str Indicates the single character encoded in UTF-8.\n @param font Indicates the pointer to an <b>OH_Drawing_Font</b> object.\n @param x Indicates the horizontal offset applied to the single character.\n @param y Indicates the vertical offset applied to the single character.\n @param fontFeatures Indicates the pointer to an <b>OH_Drawing_FontFeatures</b> object.\n @return Returns the error code.\n         Returns {@link OH_DRAWING_SUCCESS} if the operation is successful.\n         Returns {@link OH_DRAWING_ERROR_INVALID_PARAMETER} if any of canvas, str, font\n                 or fontFeatures is nullptr, or if strlen(str) is 0.\n @since 20\n @version 1.0"]
+    #[doc = " @brief Draws a single character with font features. If the typeface of the current font does not support the\n character to draw, the system typeface is used to draw the character.\n\n @param canvas Pointer to the {@link OH_Drawing_Canvas} object.\n @param str Pointer to the single character to draw. A string can be passed in, but only the first character in the\n string is parsed and drawn in UTF-8 encoding.\n @param font Pointer to the {@link OH_Drawing_Font} object.\n @param x X coordinate of the left point of the character baseline.\n @param y Y coordinate of the left point of the character baseline.\n @param fontFeatures Pointer to the {@link OH_Drawing_FontFeatures} object. If no font feature is set, the preset\n font feature in the TrueType fonts (TTF) file is used.\n @return Execution result.\n **OH_DRAWING_SUCCESS** if the operation is successful.\n **OH_DRAWING_ERROR_INVALID_PARAMETER** if at least one of the parameters **canvas**, **str**, **font**, or **\n fontFeatures** is NULL, or the length of **str** is **0**.\n @since 20\n @version 1.0"]
     #[cfg(feature = "api-20")]
     pub fn OH_Drawing_CanvasDrawSingleCharacterWithFeatures(
         canvas: *mut OH_Drawing_Canvas,
@@ -896,7 +910,7 @@ extern "C" {
     ) -> OH_Drawing_ErrorCode;
 }
 extern "C" {
-    #[doc = " @brief Draws a textblob.\n\n @syscap SystemCapability.Graphic.Graphic2D.NativeDrawing\n @param canvas Indicates the pointer to an <b>OH_Drawing_Canvas</b> object.\n @param textBlob Indicates the pointer to an <b>OH_Drawing_TextBlob</b> object.\n @param x Indicates the horizontal offset applied to blob.\n @param y Indicates the vertical offset applied to blob.\n @since 11\n @version 1.0"]
+    #[doc = " @brief Draws a text blob. If the typeface used to construct **OH_Drawing_TextBlob** does not support a character,\n that character will not be drawn.\n This API may return an error code. For details, call {@link OH_Drawing_ErrorCodeGet}.\n If either **canvas** or **textBlob** is NULL, **OH_DRAWING_ERROR_INVALID_PARAMETER** is returned.\n\n @param canvas Pointer to an **OH_Drawing_Canvas** object.\n @param textBlob Pointer to an **OH_Drawing_TextBlob** object.\n @param x X coordinate of the left point of the text baseline.\n @param y Y coordinate of the left point of the text baseline.\n @since 11\n @version 1.0"]
     pub fn OH_Drawing_CanvasDrawTextBlob(
         canvas: *mut OH_Drawing_Canvas,
         textBlob: *const OH_Drawing_TextBlob,
@@ -904,14 +918,29 @@ extern "C" {
         y: f32,
     );
 }
-#[doc = " Clip with difference."]
+extern "C" {
+    #[doc = " @brief Draws the array of glyphs with specified font. Nothing is drawn if glyphCount is smaller than or equals to 0.\n\n @param canvas Indicates the pointer to an <b>OH_Drawing_Canvas</b> object.\n @param glyphIds Indicates an array of glyph IDs.\n @param glyphIdCount Indicates the size of glyphId array.\n @param glyphIdOffset Indicates the number of elements to skip before drawing in glyphIds array.\n @param positions Indicates an array of positions.\n @param positionCount Indicates the size of position array.\n @param positionOffset Indicates the number of elements to skip before drawing in positions array.\n @param glyphCount Indicates the number of glyphs to be drawn.\n @param font Indicates the font used for drawing.\n @return Returns the error code.\n Returns {@link OH_DRAWING_SUCCESS} if the operation is successful.\n Returns {@link OH_DRAWING_ERROR_INCORRECT_PARAMETER} if any of canvas, glyphIds, positions and font is nullptr.\n Returns {@link OH_DRAWING_ERROR_PARAMETER_OUT_OF_RANGE} if glyphIdOffset or positionOffset is less than 0, or if\n glyphIdCount is less than (glyphIdOffset + glyphCount) or positionCount is less than (positionOffset + glyphCount).\n @since 26.0.0"]
+    #[cfg(feature = "api-26")]
+    pub fn OH_Drawing_CanvasDrawGlyphs(
+        canvas: *const OH_Drawing_Canvas,
+        glyphIds: *const ::std::os::raw::c_int,
+        glyphIdCount: ::std::os::raw::c_int,
+        glyphIdOffset: ::std::os::raw::c_int,
+        positions: *const OH_Drawing_Point2D,
+        positionCount: ::std::os::raw::c_int,
+        positionOffset: ::std::os::raw::c_int,
+        glyphCount: ::std::os::raw::c_int,
+        font: *const OH_Drawing_Font,
+    ) -> OH_Drawing_ErrorCode;
+}
+#[doc = " Clips a specified area. That is, the difference set is obtained."]
 pub const OH_Drawing_CanvasClipOp_DIFFERENCE: OH_Drawing_CanvasClipOp = 0;
-#[doc = " Clip with intersection."]
+#[doc = " Retains a specified area. That is, the intersection is obtained."]
 pub const OH_Drawing_CanvasClipOp_INTERSECT: OH_Drawing_CanvasClipOp = 1;
-#[doc = " @brief Enumerates clip op.\n\n @since 11\n @version 1.0"]
+#[doc = " @brief Enumerates the canvas clipping modes.\n\n @since 11\n @version 1.0"]
 pub type OH_Drawing_CanvasClipOp = u32;
 extern "C" {
-    #[doc = " @brief Clip a rect.\n\n @syscap SystemCapability.Graphic.Graphic2D.NativeDrawing\n @param canvas Indicates the pointer to an <b>OH_Drawing_Canvas</b> object.\n @param rect Indicates the pointer to an <b>OH_Drawing_Rect</b> object.\n @param clipOp Indicates the operation to apply to clip.\n @param doAntiAlias Indicates whether clip operation requires anti-aliased.\n @since 11\n @version 1.0"]
+    #[doc = " @brief Clips a rectangle.\n This API may return an error code. For details, call {@link OH_Drawing_ErrorCodeGet}.\n If either **canvas** or **rect** is NULL, **OH_DRAWING_ERROR_INVALID_PARAMETER** is returned.\n If **clipOp** is not set to one of the enumerated values, **OH_DRAWING_ERROR_PARAMETER_OUT_OF_RANGE** is returned.\n\n @param canvas Pointer to an **OH_Drawing_Canvas** object.\n @param rect Pointer to an **OH_Drawing_Rect** object.\n @param clipOp Clip mode. For details about the available options, see {@link OH_Drawing_CanvasClipOp}.\n @param doAntiAlias Whether to enable anti-aliasing. The value **true** means to enable anti-aliasing, and **false**\n means the opposite.\n @since 11\n @version 1.0"]
     pub fn OH_Drawing_CanvasClipRect(
         canvas: *mut OH_Drawing_Canvas,
         rect: *const OH_Drawing_Rect,
@@ -920,7 +949,7 @@ extern "C" {
     );
 }
 extern "C" {
-    #[doc = " @brief Clip a round rect.\n\n @syscap SystemCapability.Graphic.Graphic2D.NativeDrawing\n @param canvas Indicates the pointer to an <b>OH_Drawing_Canvas</b> object.\n @param roundRect Indicates the pointer to an <b>OH_Drawing_RoundRect</b> object.\n @param clipOp Indicates the operation to apply to clip.\n @param doAntiAlias Indicates whether clip operation requires anti-aliased.\n @since 12\n @version 1.0"]
+    #[doc = " @brief Clips a rounded rectangle.\n This API may return an error code. For details, call {@link OH_Drawing_ErrorCodeGet}.\n If either **canvas** or **roundRect** is NULL, **OH_DRAWING_ERROR_INVALID_PARAMETER** is returned.\n If **clipOp** is not set to one of the enumerated values, **OH_DRAWING_ERROR_PARAMETER_OUT_OF_RANGE** is returned.\n\n @param canvas Pointer to an **OH_Drawing_Canvas** object.\n @param roundRect Pointer to an **OH_Drawing_RoundRect** object.\n @param clipOp Clip mode. For details about the available options, see {@link OH_Drawing_CanvasClipOp}.\n @param doAntiAlias Whether to perform anti-aliasing. The value **true** means to perform anti-aliasing, and **false**\n means the opposite.\n @since 12\n @version 1.0"]
     pub fn OH_Drawing_CanvasClipRoundRect(
         canvas: *mut OH_Drawing_Canvas,
         roundRect: *const OH_Drawing_RoundRect,
@@ -929,7 +958,7 @@ extern "C" {
     );
 }
 extern "C" {
-    #[doc = " @brief Clip a path.\n\n @syscap SystemCapability.Graphic.Graphic2D.NativeDrawing\n @param canvas Indicates the pointer to an <b>OH_Drawing_Canvas</b> object.\n @param path Indicates the pointer to an <b>OH_Drawing_Path</b> object.\n @param clipOp Indicates the operation to apply to clip.\n @param doAntiAlias Indicates whether clip operation requires anti-aliased.\n @since 11\n @version 1.0"]
+    #[doc = " @brief Clips a path.\n This API may return an error code. For details, call {@link OH_Drawing_ErrorCodeGet}.\n If either **canvas** or **path** is NULL, **OH_DRAWING_ERROR_INVALID_PARAMETER** is returned.\n If **clipOp** is not set to one of the enumerated values, **OH_DRAWING_ERROR_PARAMETER_OUT_OF_RANGE** is returned.\n\n @param canvas Pointer to an **OH_Drawing_Canvas** object.\n @param path Pointer to an **OH_Drawing_Path** object.\n @param clipOp Clip mode. For details about the available options, see {@link OH_Drawing_CanvasClipOp}.\n @param doAntiAlias Whether to enable anti-aliasing. The value **true** means to enable anti-aliasing, and **false**\n means the opposite.\n @since 11\n @version 1.0"]
     pub fn OH_Drawing_CanvasClipPath(
         canvas: *mut OH_Drawing_Canvas,
         path: *const OH_Drawing_Path,
@@ -938,7 +967,7 @@ extern "C" {
     );
 }
 extern "C" {
-    #[doc = " @brief Clips a region.\n\n @syscap SystemCapability.Graphic.Graphic2D.NativeDrawing\n @param canvas Indicates the pointer to an <b>OH_Drawing_Canvas</b> object.\n @param region Indicates the pointer to an <b>OH_Drawing_Region</b> object.\n @param clipOp To apply to clip.\n @return Returns the error code.\n         Returns {@link OH_DRAWING_SUCCESS} if the operation is successful.\n         Returns {@link OH_DRAWING_ERROR_INVALID_PARAMETER} if canvas or region is nullptr.\n @since 12\n @version 1.0"]
+    #[doc = " @brief Clips a rectangle.\n\n @param canvas Pointer to the {@link OH_Drawing_Canvas} object.\n @param region Pointer to the {@link OH_Drawing_Region} object.\n @param clipOp Clip mode. For details about the available options, see {@link OH_Drawing_CanvasClipOp}.\n @return Returns one of the following result codes:\n **OH_DRAWING_SUCCESS** if the operation is successful.\n **OH_DRAWING_ERROR_INVALID_PARAMETER** if either **canvas** or **region** is NULL.\n **OH_DRAWING_ERROR_PARAMETER_OUT_OF_RANGE** if **clipOp** is not set to one of the enumerated values.\n @since 12\n @version 1.0"]
     pub fn OH_Drawing_CanvasClipRegion(
         canvas: *mut OH_Drawing_Canvas,
         region: *const OH_Drawing_Region,
@@ -946,64 +975,64 @@ extern "C" {
     ) -> OH_Drawing_ErrorCode;
 }
 extern "C" {
-    #[doc = " @brief Rotates by degrees. Positive degrees rotates clockwise.\n\n @syscap SystemCapability.Graphic.Graphic2D.NativeDrawing\n @param canvas Indicates the pointer to an <b>OH_Drawing_Canvas</b> object.\n @param degrees Indicates the amount to rotate, in degrees.\n @param px Indicates the x-axis value of the point to rotate about.\n @param py Indicates the y-axis value of the point to rotate about.\n @since 11\n @version 1.0"]
+    #[doc = " @brief Rotates a canvas by a given angle. A positive value indicates a clockwise rotation, and a negative value\n indicates a counterclockwise rotation.\n This API may return an error code. For details, call {@link OH_Drawing_ErrorCodeGet}.\n If **canvas** is NULL, **OH_DRAWING_ERROR_INVALID_PARAMETER** is returned.\n\n @param canvas Pointer to an **OH_Drawing_Canvas** object.\n @param degrees Rotation angle.\n @param px X coordinate of the rotation point.\n @param py Y coordinate of the rotation point.\n @since 11\n @version 1.0"]
     pub fn OH_Drawing_CanvasRotate(canvas: *mut OH_Drawing_Canvas, degrees: f32, px: f32, py: f32);
 }
 extern "C" {
-    #[doc = " @brief Translates by dx along the x-axis and dy along the y-axis.\n\n @syscap SystemCapability.Graphic.Graphic2D.NativeDrawing\n @param canvas Indicates the pointer to an <b>OH_Drawing_Canvas</b> object.\n @param dx Indicates the distance to translate on x-axis.\n @param dy Indicates the distance to translate on y-axis.\n @since 11\n @version 1.0"]
+    #[doc = " @brief Translates a canvas by a given distance.\n This API may return an error code. For details, call {@link OH_Drawing_ErrorCodeGet}.\n If **canvas** is NULL, **OH_DRAWING_ERROR_INVALID_PARAMETER** is returned.\n\n @param canvas Pointer to an **OH_Drawing_Canvas** object.\n @param dx Distance to translate on the X axis.\n @param dy Distance to translate on the Y axis.\n @since 11\n @version 1.0"]
     pub fn OH_Drawing_CanvasTranslate(canvas: *mut OH_Drawing_Canvas, dx: f32, dy: f32);
 }
 extern "C" {
-    #[doc = " @brief Scales by sx on the x-axis and sy on the y-axis.\n\n @syscap SystemCapability.Graphic.Graphic2D.NativeDrawing\n @param canvas Indicates the pointer to an <b>OH_Drawing_Canvas</b> object.\n @param sx Indicates the amount to scale on x-axis.\n @param sy Indicates the amount to scale on y-axis.\n @since 11\n @version 1.0"]
+    #[doc = " @brief Scales a canvas.\n This API may return an error code. For details, call {@link OH_Drawing_ErrorCodeGet}.\n If **canvas** is NULL, **OH_DRAWING_ERROR_INVALID_PARAMETER** is returned.\n\n @param canvas Pointer to an **OH_Drawing_Canvas** object.\n @param sx Scale ratio on the X axis.\n @param sy Scale ratio on the Y axis.\n @since 11\n @version 1.0"]
     pub fn OH_Drawing_CanvasScale(canvas: *mut OH_Drawing_Canvas, sx: f32, sy: f32);
 }
 extern "C" {
-    #[doc = " @brief Skew by sx on the x-axis and sy on the y-axis.\n\n @syscap SystemCapability.Graphic.Graphic2D.NativeDrawing\n @param canvas Indicates the pointer to an <b>OH_Drawing_Canvas</b> object.\n @param sx Indicates the amount to skew on x-axis.\n @param sy Indicates the amount to skew on y-axis.\n @since 12\n @version 1.0"]
+    #[doc = " @brief Skews a canvas. This function premultiplies the current canvas matrix by a skew transformation matrix and\n applies the resulting matrix to the canvas. The skew transformation matrix is as follows:\n |1 sx 0|\n |sy 1 0|\n |0  0 1|\n This API may return an error code. For details, call {@link OH_Drawing_ErrorCodeGet}.\n If **canvas** is NULL, **OH_DRAWING_ERROR_INVALID_PARAMETER** is returned.\n\n @param canvas Pointer to an **OH_Drawing_Canvas** object.\n @param sx Amount of tilt on the X axis. A positive number tilts the drawing rightwards along the positive direction\n of the Y axis, and a negative number tilts the drawing leftwards along the positive direction of the Y axis.\n @param sy Amount of tilt on the Y axis. A positive number tilts the drawing downwards along the positive direction\n of the X axis, and a negative number tilts the drawing upwards along the positive direction of the X axis.\n @since 12\n @version 1.0"]
     pub fn OH_Drawing_CanvasSkew(canvas: *mut OH_Drawing_Canvas, sx: f32, sy: f32);
 }
 extern "C" {
-    #[doc = " @brief Get the width of a canvas.\n\n @syscap SystemCapability.Graphic.Graphic2D.NativeDrawing\n @param canvas Indicates the pointer to an <b>OH_Drawing_Canvas</b> object.\n @since 12\n @version 1.0"]
+    #[doc = " @brief Obtains the canvas width.\n This API may return an error code. For details, call {@link OH_Drawing_ErrorCodeGet}.\n If **canvas** is NULL, **OH_DRAWING_ERROR_INVALID_PARAMETER** is returned.\n\n @param canvas Pointer to the {@link OH_Drawing_Canvas} object.\n @return Returns the width.\n @since 12\n @version 1.0"]
     pub fn OH_Drawing_CanvasGetWidth(canvas: *mut OH_Drawing_Canvas) -> i32;
 }
 extern "C" {
-    #[doc = " @brief Get the height of a canvas.\n\n @syscap SystemCapability.Graphic.Graphic2D.NativeDrawing\n @param canvas Indicates the pointer to an <b>OH_Drawing_Canvas</b> object.\n @since 12\n @version 1.0"]
+    #[doc = " @brief Obtains the canvas height.\n This API may return an error code. For details, call {@link OH_Drawing_ErrorCodeGet}.\n If **canvas** is NULL, **OH_DRAWING_ERROR_INVALID_PARAMETER** is returned.\n\n @param canvas Pointer to the {@link OH_Drawing_Canvas} object.\n @return Returns the height.\n @since 12\n @version 1.0"]
     pub fn OH_Drawing_CanvasGetHeight(canvas: *mut OH_Drawing_Canvas) -> i32;
 }
 extern "C" {
-    #[doc = " @brief Get the bounds of clip of a canvas.\n\n @syscap SystemCapability.Graphic.Graphic2D.NativeDrawing\n @param canvas Indicates the pointer to an <b>OH_Drawing_Canvas</b> object.\n @param rect Indicates the pointer to an <b>OH_Drawing_Rect</b> object.\n @since 12\n @version 1.0"]
+    #[doc = " @brief Obtains the bounds of the cropping region of the canvas. This function cannot be used for a canvas of the\n recording type.\n This API may return an error code. For details, call {@link OH_Drawing_ErrorCodeGet}.\n If either **canvas** or **rect** is NULL, **OH_DRAWING_ERROR_INVALID_PARAMETER** is returned.\n\n @param canvas Pointer to the {@link OH_Drawing_Canvas} object.\n @param rect Pointer to the {@link OH_Drawing_Rect} object. You can call {@link OH_Drawing_RectCreate} to create a\n rectangle object.\n @since 12\n @version 1.0"]
     pub fn OH_Drawing_CanvasGetLocalClipBounds(
         canvas: *mut OH_Drawing_Canvas,
         rect: *mut OH_Drawing_Rect,
     );
 }
 extern "C" {
-    #[doc = " @brief Get a 3x3 matrix of the transform from local coordinates to 'device'.\n\n @syscap SystemCapability.Graphic.Graphic2D.NativeDrawing\n @param canvas Indicates the pointer to an <b>OH_Drawing_Canvas</b> object.\n @param matrix Indicates the pointer to an <b>OH_Drawing_Matrix</b> object.\n @since 12\n @version 1.0"]
+    #[doc = " @brief Obtains the 3x3 matrix of a canvas.\n This API may return an error code. For details, call {@link OH_Drawing_ErrorCodeGet}.\n If either **canvas** or **matrix** is NULL, **OH_DRAWING_ERROR_INVALID_PARAMETER** is returned.\n\n @param canvas Pointer to the {@link OH_Drawing_Canvas} object.\n @param matrix Pointer to the {@link OH_Drawing_Matrix} object. You can call {@link OH_Drawing_MatrixCreate} to\n create a matrix object.\n @since 12\n @version 1.0"]
     pub fn OH_Drawing_CanvasGetTotalMatrix(
         canvas: *mut OH_Drawing_Canvas,
         matrix: *mut OH_Drawing_Matrix,
     );
 }
 extern "C" {
-    #[doc = " @brief Use the passed matrix to transforming the geometry, then use existing matrix.\n\n @syscap SystemCapability.Graphic.Graphic2D.NativeDrawing\n @param canvas Indicates the pointer to an <b>OH_Drawing_Canvas</b> object.\n @param matrix Indicates the pointer to an <b>OH_Drawing_Matrix</b> object,\n represents the matrix which is passed.\n @since 12\n @version 1.0"]
+    #[doc = " @brief Preconcats the existing matrix of the canvas with the passed-in matrix. The drawing operation triggered\n before this API is called is not affected.\n This API may return an error code. For details, call {@link OH_Drawing_ErrorCodeGet}.\n If either **canvas** or **matrix** is NULL, **OH_DRAWING_ERROR_INVALID_PARAMETER** is returned.\n\n @param canvas Pointer to the {@link OH_Drawing_Canvas} object.\n @param matrix Pointer to the {@link OH_Drawing_Matrix} object.\n @since 12\n @version 1.0"]
     pub fn OH_Drawing_CanvasConcatMatrix(
         canvas: *mut OH_Drawing_Canvas,
         matrix: *mut OH_Drawing_Matrix,
     );
 }
-#[doc = " Use no shadow flags."]
+#[doc = " There is no shadow flag."]
 pub const OH_Drawing_CanvasShadowFlags_SHADOW_FLAGS_NONE: OH_Drawing_CanvasShadowFlags = 0;
 #[doc = " The occluding object is transparent."]
 pub const OH_Drawing_CanvasShadowFlags_SHADOW_FLAGS_TRANSPARENT_OCCLUDER:
     OH_Drawing_CanvasShadowFlags = 1;
-#[doc = " No need to analyze shadows."]
+#[doc = " No analysis on the shadows is required."]
 pub const OH_Drawing_CanvasShadowFlags_SHADOW_FLAGS_GEOMETRIC_ONLY: OH_Drawing_CanvasShadowFlags =
     2;
-#[doc = " Use all shadow flags."]
+#[doc = " All the preceding shadow flags are used."]
 pub const OH_Drawing_CanvasShadowFlags_SHADOW_FLAGS_ALL: OH_Drawing_CanvasShadowFlags = 3;
-#[doc = " @brief Enumerates of shadow flags.\n\n @since 12\n @version 1.0"]
+#[doc = " @brief Enumerates the shadow flags.\n\n @since 12\n @version 1.0"]
 pub type OH_Drawing_CanvasShadowFlags = u32;
 extern "C" {
-    #[doc = " @brief Use circular light to draw an offset spot shadow and outlining ambient shadow for the given path.\n\n @syscap SystemCapability.Graphic.Graphic2D.NativeDrawing\n @param canvas Indicates the pointer to an <b>OH_Drawing_Canvas</b> object.\n @param path Indicates the pointer to an <b>OH_Drawing_Path</b> object, use to generate shadows.\n @param planeParams Represents the value of the function which returns Z offset of the occluder from the\n canvas based on x and y.\n @param devLightPos Represents the position of the light relative to the canvas.\n @param lightRadius The radius of the circular light.\n @param ambientColor Ambient shadow's color.\n @param spotColor Spot shadow's color.\n @param flag Indicates the flag to control opaque occluder, shadow, and light position.\n @since 12\n @version 1.0"]
+    #[doc = " @brief Draws a spot shadow and uses a given path to outline the ambient shadow.\n This API may return an error code. For details, call {@link OH_Drawing_ErrorCodeGet}.\n If either **canvas** or **path** is NULL, **OH_DRAWING_ERROR_INVALID_PARAMETER** is returned.\n If **flag** is not set to one of the enumerated values, **OH_DRAWING_ERROR_PARAMETER_OUT_OF_RANGE** is returned.\n\n @param canvas Pointer to the {@link OH_Drawing_Canvas} object.\n @param path Pointer to the {@link OH_Drawing_Path} object, which is used to generate shadows.\n @param planeParams Z-axis offset of an occluder relative to the canvas, based on its x and y coordinates.\n @param devLightPos Position of the light relative to the canvas.\n @param lightRadius Radius of the light source. The value must be greater than or equal to 0.\n @param ambientColor Ambient shadow color, which is represented by a 32-bit (ARGB) variable.\n @param spotColor Point shadow color, which is represented by a 32-bit (ARGB) variable.\n @param flag Enumeration of shadow flags.\n @since 12\n @version 1.0"]
     pub fn OH_Drawing_CanvasDrawShadow(
         canvas: *mut OH_Drawing_Canvas,
         path: *mut OH_Drawing_Path,
@@ -1016,22 +1045,27 @@ extern "C" {
     );
 }
 extern "C" {
-    #[doc = " @brief Clears a canvas by using a specified color.\n\n @syscap SystemCapability.Graphic.Graphic2D.NativeDrawing\n @param canvas Indicates the pointer to an <b>OH_Drawing_Canvas</b> object.\n @param color Indicates the color, which is a 32-bit (ARGB) variable.\n @since 8\n @version 1.0"]
+    #[doc = " @brief Clears a canvas by using a given color.\n This API may return an error code. For details, call {@link OH_Drawing_ErrorCodeGet}.\n If **canvas** is NULL, **OH_DRAWING_ERROR_INVALID_PARAMETER** is returned.\n\n @param canvas Pointer to an **OH_Drawing_Canvas** object.\n @param color Color, which is a 32-bit (ARGB) variable.\n @since 8\n @version 1.0"]
     pub fn OH_Drawing_CanvasClear(canvas: *mut OH_Drawing_Canvas, color: u32);
 }
 extern "C" {
-    #[doc = " @brief Sets matrix of canvas.\n\n @syscap SystemCapability.Graphic.Graphic2D.NativeDrawing\n @param canvas Indicates the pointer to an <b>OH_Drawing_Canvas</b> object.\n @param matrix Indicates the pointer to an <b>OH_Drawing_Matrix</b> object.\n @since 12\n @version 1.0"]
+    #[doc = " @brief Sets the matrix status for a canvas.\n This API may return an error code. For details, call {@link OH_Drawing_ErrorCodeGet}.\n If either **canvas** or **matrix** is NULL, **OH_DRAWING_ERROR_INVALID_PARAMETER** is returned.\n\n @param canvas Pointer to the {@link OH_Drawing_Canvas} object.\n @param matrix Pointer to the {@link OH_Drawing_Matrix} object. You can call {@link OH_Drawing_MatrixCreate} to\n create a matrix object.\n @since 12\n @version 1.0"]
     pub fn OH_Drawing_CanvasSetMatrix(
         canvas: *mut OH_Drawing_Canvas,
         matrix: *mut OH_Drawing_Matrix,
     );
 }
 extern "C" {
-    #[doc = " @brief Reset matrix to the identity matrix, any prior matrix state is overwritten.\n\n @syscap SystemCapability.Graphic.Graphic2D.NativeDrawing\n @param canvas Indicates the pointer to an <b>OH_Drawing_Canvas</b> object.\n @since 12\n @version 1.0"]
+    #[doc = " @brief Resets the matrix of this canvas to an identity matrix.\n This API may return an error code. For details, call {@link OH_Drawing_ErrorCodeGet}.\n If **canvas** is NULL, **OH_DRAWING_ERROR_INVALID_PARAMETER** is returned.\n\n @param canvas Pointer to the {@link OH_Drawing_Canvas} object.\n @since 12\n @version 1.0"]
     pub fn OH_Drawing_CanvasResetMatrix(canvas: *mut OH_Drawing_Canvas);
 }
 extern "C" {
-    #[doc = " @brief Draws the specified source rectangle of the image onto the canvas,\n scaled and translated to the destination rectangle.\n\n @syscap SystemCapability.Graphic.Graphic2D.NativeDrawing\n @param canvas Indicates the pointer to an <b>OH_Drawing_Canvas</b> object.\n @param image Indicates the pointer to an <b>OH_Drawing_Image</b> object.\n @param src The area of source image.\n @param dst The area of destination canvas.\n @param samplingOptions Indicates the pointer to an <b>OH_Drawing_SamplingOptions</b> object.\n @param srcRectConstraint Constraint type.\n @since 12\n @version 1.0"]
+    #[doc = " @brief Reset the clip status.\n\n @param canvas Indicates the pointer to an <b>OH_Drawing_Canvas</b> object.\n @return Returns the error code.\n         Returns {@link OH_DRAWING_SUCCESS} if the operation is successful.\n         Returns {@link OH_DRAWING_ERROR_INVALID_PARAMETER} if canvas is nullptr.\n @since 26.0.0"]
+    #[cfg(feature = "api-26")]
+    pub fn OH_Drawing_CanvasResetClip(canvas: *mut OH_Drawing_Canvas) -> OH_Drawing_ErrorCode;
+}
+extern "C" {
+    #[doc = " @brief Draws a portion of an image onto a specified area of the canvas. The area selected by the source rectangle is\n scaled and translated to the destination rectangle.\n This API may return an error code. For details, call {@link OH_Drawing_ErrorCodeGet}.\n If one of **canvas**, **image**, **src**, or **dst** is NULL, **OH_DRAWING_ERROR_INVALID_PARAMETER** is returned.\n\n @param canvas Pointer to the {@link OH_Drawing_Canvas} object.\n @param image Pointer to the {@link OH_Drawing_Image} object.\n @param src Pointer to the {@link OH_Drawing_Rect} object.\n @param dst Pointer to the {@link OH_Drawing_Rect} object.\n @param samplingOptions Pointer to the {@link OH_Drawing_SamplingOptions} object. A null pointer means that the\n default sampling options are used.\n @param srcRectConstraint Constraint type. For details about the available options, see\n {@link OH_Drawing_SrcRectConstraint}.\n @since 12\n @version 1.0"]
     pub fn OH_Drawing_CanvasDrawImageRectWithSrc(
         canvas: *mut OH_Drawing_Canvas,
         image: *const OH_Drawing_Image,
@@ -1042,7 +1076,7 @@ extern "C" {
     );
 }
 extern "C" {
-    #[doc = " @brief Draws the specified source rectangle of the image onto the canvas,\n scaled and translated to the destination rectangle.\n\n @syscap SystemCapability.Graphic.Graphic2D.NativeDrawing\n @param canvas Indicates the pointer to an <b>OH_Drawing_Canvas</b> object.\n @param image Indicates the pointer to an <b>OH_Drawing_Image</b> object.\n @param rect Indicates the pointer to an <b>OH_Drawing_Rect</b> object.\n @param samplingOptions Indicates the pointer to an <b>OH_Drawing_SamplingOptions</b> object.\n @since 12\n @version 1.0"]
+    #[doc = " @brief Draws an image onto a specified area of the canvas.\n This API may return an error code. For details, call {@link OH_Drawing_ErrorCodeGet}.\n If one of **canvas**, **image**, or **dst** is NULL, **OH_DRAWING_ERROR_INVALID_PARAMETER** is returned.\n\n @param canvas Pointer to the {@link OH_Drawing_Canvas} object.\n @param image Pointer to the {@link OH_Drawing_Image} object.\n @param rect Pointer to the {@link OH_Drawing_Rect} object.\n @param samplingOptions Pointer to the {@link OH_Drawing_SamplingOptions} object. A null pointer means that the\n default sampling options are used.\n @since 12\n @version 1.0"]
     pub fn OH_Drawing_CanvasDrawImageRect(
         canvas: *mut OH_Drawing_Canvas,
         image: *mut OH_Drawing_Image,
@@ -1050,16 +1084,16 @@ extern "C" {
         samplingOptions: *mut OH_Drawing_SamplingOptions,
     );
 }
-#[doc = " The vertices are a triangle list."]
+#[doc = " Draws a triangle list. Specifically, a list of isolated triangles are drawn using every three vertices. If the\n number of vertices is not a multiple of 3, the extra vertices will be ignored."]
 pub const OH_Drawing_VertexMode_VERTEX_MODE_TRIANGLES: OH_Drawing_VertexMode = 0;
-#[doc = " The vertices are a triangle strip."]
+#[doc = " Draws a triangle strip. Specifically, the first triangle is drawn between the first 3 vertices, and all\n subsequent triangles use the previous 2 vertices plus the next additional vertex."]
 pub const OH_Drawing_VertexMode_VERTEX_MODE_TRIANGLES_STRIP: OH_Drawing_VertexMode = 1;
-#[doc = " The vertices are a triangle fan."]
+#[doc = " Draws a triangle fan. A triangle fan is similar to a triangle strip, except that all the triangles share one\n vertex (the first vertex)."]
 pub const OH_Drawing_VertexMode_VERTEX_MODE_TRIANGLE_FAN: OH_Drawing_VertexMode = 2;
-#[doc = " @brief Enumerates of vertices flags.\n\n @since 12\n @version 1.0"]
+#[doc = " @brief Enumerates the modes of interpreting the geometry of a given vertex.\n\n @since 12\n @version 1.0"]
 pub type OH_Drawing_VertexMode = u32;
 extern "C" {
-    #[doc = " @brief Draw a triangular mesh with vertex descriptions.\n\n @syscap SystemCapability.Graphic.Graphic2D.NativeDrawing\n @param canvas Indicates the pointer to an <b>OH_Drawing_Canvas</b> object.\n @param vertexMmode Draw a set of vertices.\n @param vertexCount Vertex count.\n @param positions Positions data pointer.\n @param texs Texture coordinate data pointer.\n @param colors Color data pointer.\n @param indexCount Index count.\n @param indices Index data pointer.\n @param mode Blend mode used for drawing.\n @since 12\n @version 1.0"]
+    #[doc = " @brief Draws a triangular grid described by a vertex array.\n This API may return an error code. For details, call {@link OH_Drawing_ErrorCodeGet}.\n If either **canvas** or **positions** is NULL, **vertexCount** is less than 3, or **indexCount** is less than 3 but\n not 0, **OH_DRAWING_ERROR_INVALID_PARAMETER** is returned.\n If either **vertexMmode** or **mode** is not set to one of the enumerated values, **\n OH_DRAWING_ERROR_PARAMETER_OUT_OF_RANGE** is returned.\n\n @param canvas Pointer to an **OH_Drawing_Canvas** object.\n @param vertexMmode Mode for drawing vertices. For details about the available options, see\n {@link OH_Drawing_VertexMode}.\n @param vertexCount Number of elements in the vertex array. The value must be greater than or equal to 3.\n @param positions Pointer to the array that holds the position of every vertex. The array cannot be null and its\n length must be equal to the value of **vertexCount**.\n @param texs Pointer to the array that holds the texture space coordinate corresponding to each vertex. The array can\n be null. If the array is not null, its length must be equal to the value of **vertexCount**.\n @param colors Pointer to the array that holds the color corresponding to each vertex. It is used for interpolation\n in a triangle. The array can be null. If the array is not null, its length must be equal to the value of **\n vertexCount**.\n @param indexCount Number of indices. The value can be 0 or a value greater than or equal to 3.\n @param indices Pointer to the array that holds the index of each vertex. The array can be null. If the array is not\n null, its length must be equal to the value of **indexCount**.\n @param mode Enumeration of blend modes. For details about the available options, see {@link OH_Drawing_BlendMode}.\n @since 12\n @version 1.0"]
     pub fn OH_Drawing_CanvasDrawVertices(
         canvas: *mut OH_Drawing_Canvas,
         vertexMmode: OH_Drawing_VertexMode,
@@ -1073,7 +1107,7 @@ extern "C" {
     );
 }
 extern "C" {
-    #[doc = " @brief Read pixels data from canvas.\n\n @syscap SystemCapability.Graphic.Graphic2D.NativeDrawing\n @param canvas Indicates the pointer to an <b>OH_Drawing_Canvas</b> object.\n @param imageInfo width, height, colorType, and alphaType of dstPixels.\n @param dstPixels destination pixel storage.\n @param dstRowBytes size of one row of pixels.\n @param srcX offset into canvas writable pixels on x-axis.\n @param srcY offset into canvas writable pixels on y-axis.\n @return true if pixels are copied to dstPixels.\n @since 12\n @version 1.0"]
+    #[doc = " @brief Copies pixel data from a canvas to a specified address. This function cannot be used for a canvas of the\n recording type.\n This API may return an error code. For details, call {@link OH_Drawing_ErrorCodeGet}.\n If one of **canvas**, **imageInfo**, or **dstPixels** is NULL, **OH_DRAWING_ERROR_INVALID_PARAMETER** is returned.\n\n @param canvas Pointer to the {@link OH_Drawing_Canvas} object.\n @param imageInfo Pointer to the {@link OH_Drawing_Image_Info} object.\n @param dstPixels Pointer to the start address for storing the pixel data.\n @param dstRowBytes Number of bytes in each row of pixels. The value is invalid if it is less than or equal to 0.\n @param srcX X offset of the pixels on the canvas, in px.\n @param srcY Y offset of the pixels on the canvas, in px.\n @return Returns **true** if the pixel data is copied to the start address of the storage; returns **false**\n otherwise.\n @since 12\n @version 1.0"]
     pub fn OH_Drawing_CanvasReadPixels(
         canvas: *mut OH_Drawing_Canvas,
         imageInfo: *mut OH_Drawing_Image_Info,
@@ -1084,7 +1118,7 @@ extern "C" {
     ) -> bool;
 }
 extern "C" {
-    #[doc = " @brief Read pixels data to a bitmap from canvas.\n\n @syscap SystemCapability.Graphic.Graphic2D.NativeDrawing\n @param canvas Indicates the pointer to an <b>OH_Drawing_Canvas</b> object.\n @param bitmap Indicates the pointer to an <b>OH_Drawing_Bitmap</b> object.\n @param srcX offset into canvas writable pixels on x-axis.\n @param srcY offset into canvas writable pixels on y-axis.\n @return true if pixels are copied to dstBitmap.\n @since 12\n @version 1.0"]
+    #[doc = " @brief Copies pixel data from a canvas to an image. This function cannot be used for a canvas of the recording type.\n This API may return an error code. For details, call {@link OH_Drawing_ErrorCodeGet}.\n If either **canvas** or **bitmap** is NULL, **OH_DRAWING_ERROR_INVALID_PARAMETER** is returned.\n\n @param canvas Pointer to the {@link OH_Drawing_Canvas} object.\n @param bitmap Pointer to the {@link OH_Drawing_Bitmap} object.\n @param srcX X offset of the pixels on the canvas, in px.\n @param srcY Y offset of the pixels on the canvas, in px.\n @return Returns **true** if the pixel data is copied to the image; returns **false** otherwise.\n @since 12\n @version 1.0"]
     pub fn OH_Drawing_CanvasReadPixelsToBitmap(
         canvas: *mut OH_Drawing_Canvas,
         bitmap: *mut OH_Drawing_Bitmap,
@@ -1093,21 +1127,21 @@ extern "C" {
     ) -> bool;
 }
 extern "C" {
-    #[doc = " @brief Checks whether the drawable area is empty.\n\n @syscap SystemCapability.Graphic.Graphic2D.NativeDrawing\n @param canvas Indicates the pointer to an <b>OH_Drawing_Canvas</b> object.\n @param isClipEmpty Indicates if drawable area is empty.\n @return Returns the error code.\n         Returns {@link OH_DRAWING_SUCCESS} if the operation is successful.\n         Returns {@link OH_DRAWING_ERROR_INVALID_PARAMETER} if canvas or isClipEmpty is nullptr.\n @since 12\n @version 1.0"]
+    #[doc = " @brief Checks whether the region that can be drawn is empty after clipping.\n\n @param canvas Pointer to the {@link OH_Drawing_Canvas} object.\n @param isClipEmpty Pointer to the variable that specifies whether the region is empty. The value **true** means that\n the region is empty, and **false** means the opposite.\n @return Returns one of the following result codes:\n **OH_DRAWING_SUCCESS** if the operation is successful.\n **OH_DRAWING_ERROR_INVALID_PARAMETER** if either **canvas** or **isClipEmpty** is NULL.\n @since 12\n @version 1.0"]
     pub fn OH_Drawing_CanvasIsClipEmpty(
         canvas: *mut OH_Drawing_Canvas,
         isClipEmpty: *mut bool,
     ) -> OH_Drawing_ErrorCode;
 }
 extern "C" {
-    #[doc = " @brief Gets image info of canvas.\n\n @syscap SystemCapability.Graphic.Graphic2D.NativeDrawing\n @param canvas Indicates the pointer to an <b>OH_Drawing_Canvas</b> object.\n @param imageInfo Indicates the pointer to an <b>OH_Drawing_Image_Info</b> object.\n @return Returns the error code.\n         Returns {@link OH_DRAWING_SUCCESS} if the operation is successful.\n         Returns {@link OH_DRAWING_ERROR_INVALID_PARAMETER} if canvas or imageInfo is nullptr.\n @since 12\n @version 1.0"]
+    #[doc = " @brief Obtains the image information of a canvas.\n\n @param canvas Pointer to the {@link OH_Drawing_Canvas} object.\n @param imageInfo Pointer to the {@link OH_Drawing_Image_Info} object.\n @return Returns one of the following result codes:\n **OH_DRAWING_SUCCESS** if the operation is successful.\n **OH_DRAWING_ERROR_INVALID_PARAMETER** if either **canvas** or **imageInfo** is NULL.\n @since 12\n @version 1.0"]
     pub fn OH_Drawing_CanvasGetImageInfo(
         canvas: *mut OH_Drawing_Canvas,
         imageInfo: *mut OH_Drawing_Image_Info,
     ) -> OH_Drawing_ErrorCode;
 }
 extern "C" {
-    #[doc = " @brief Replay drawing command.\n\n @syscap SystemCapability.Graphic.Graphic2D.NativeDrawing\n @param canvas Indicates the pointer to an <b>OH_Drawing_Canvas</b> object.\n @param recordCmd Indicates the pointer to an <b>OH_Drawing_RecordCmd</b> object.\n @return Returns the error code.\n         Returns {@link OH_DRAWING_SUCCESS} if the operation is successful.\n         Returns {@link OH_DRAWING_ERROR_INVALID_PARAMETER} if canvas or recordCmd is nullptr.\n @since 13\n @version 1.0"]
+    #[doc = " @brief Draws an **OH_Drawing_RecordCmd** object.\n\n @param canvas Pointer to the {@link OH_Drawing_Canvas} object. Only the canvas of the recording type is supported.\n @param recordCmd Pointer to the {@link OH_Drawing_RecordCmd} object.\n @return Returns one of the following result codes:\n **OH_DRAWING_SUCCESS** if the operation is successful.\n **OH_DRAWING_ERROR_INVALID_PARAMETER** if either **canvas** or **recordCmd** is NULL.\n @since 13\n @version 1.0"]
     #[cfg(feature = "api-13")]
     pub fn OH_Drawing_CanvasDrawRecordCmd(
         canvas: *mut OH_Drawing_Canvas,
@@ -1115,7 +1149,7 @@ extern "C" {
     ) -> OH_Drawing_ErrorCode;
 }
 extern "C" {
-    #[doc = " @brief Replay drawing command.\n\n @syscap SystemCapability.Graphic.Graphic2D.NativeDrawing\n @param canvas Indicates the pointer to an <b>OH_Drawing_Canvas</b> object.\n @param recordCmd Indicates the pointer to an <b>OH_Drawing_RecordCmd</b> object.\n @return Returns the error code.\n         Returns {@link OH_DRAWING_SUCCESS} if the operation is successful.\n         Returns {@link OH_DRAWING_ERROR_INVALID_PARAMETER} if canvas or recordCmd is nullptr.\n @since 19\n @version 1.0"]
+    #[doc = " @brief Draws an **OH_Drawing_RecordCmd** object. This API supports nesting.\n\n @param canvas Pointer to the {@link OH_Drawing_Canvas} object. Only the canvas of the recording type is supported.\n @param recordCmd Pointer to the {@link OH_Drawing_RecordCmd} object.\n @return Operation code.\n **OH_DRAWING_SUCCESS** if the operation is successful.\n **OH_DRAWING_ERROR_INVALID_PARAMETER** if either **canvas** or **recordCmd** is NULL.\n @since 19\n @version 1.0"]
     #[cfg(feature = "api-19")]
     pub fn OH_Drawing_CanvasDrawRecordCmdNesting(
         canvas: *mut OH_Drawing_Canvas,
@@ -1123,7 +1157,7 @@ extern "C" {
     ) -> OH_Drawing_ErrorCode;
 }
 extern "C" {
-    #[doc = " @brief Checks if the path has been cut off.\n\n @syscap SystemCapability.Graphic.Graphic2D.NativeDrawing\n @param canvas Indicates the pointer to an <b>OH_Drawing_Canvas</b> object.\n @param path Indicates the pointer to an <b>OH_Drawing_Path</b> object.\n @param quickReject Indicates if the path has been cut off.\n @return Returns the error code.\n         Returns {@link OH_DRAWING_SUCCESS} if the operation is successful.\n         Returns {@link OH_DRAWING_ERROR_INVALID_PARAMETER} if canvas or path is nullptr,\n                  or quickReject is nullptr.\n @since 18\n @version 1.0"]
+    #[doc = " @brief Checks whether the path is not intersecting with the canvas area. The canvas area includes its boundaries.\n\n @param canvas Pointer to the {@link OH_Drawing_Canvas} object.\n @param path Pointer to the {@link OH_Drawing_Path} object.\n @param quickReject Pointer to the check result. The value **true** means that the path is not intersecting with the\n canvas area, and **false** means the opposite.\n @return Returns one of the following result codes:\n **OH_DRAWING_SUCCESS** if the operation is successful.\n **OH_DRAWING_ERROR_INVALID_PARAMETER** if **canvas**, **path**, or **quickReject** is NULL.\n @since 18\n @version 1.0"]
     #[cfg(feature = "api-18")]
     pub fn OH_Drawing_CanvasQuickRejectPath(
         canvas: *mut OH_Drawing_Canvas,
@@ -1132,7 +1166,7 @@ extern "C" {
     ) -> OH_Drawing_ErrorCode;
 }
 extern "C" {
-    #[doc = " @brief Checks if the rect has been cut off.\n\n @syscap SystemCapability.Graphic.Graphic2D.NativeDrawing\n @param canvas Indicates the pointer to an <b>OH_Drawing_Canvas</b> object.\n @param rect Indicates the pointer to an <b>OH_Drawing_Rect</b> object.\n @param quickReject Indicates if the rect has been cut off.\n @return Returns the error code.\n         Returns {@link OH_DRAWING_SUCCESS} if the operation is successful.\n         Returns {@link OH_DRAWING_ERROR_INVALID_PARAMETER} if canvas or rect is nullptr,\n                  or quickReject is nullptr.\n @since 18\n @version 1.0"]
+    #[doc = " @brief Checks whether the rectangle is not intersecting with the canvas area. The canvas area includes its\n boundaries.\n\n @param canvas Pointer to the {@link OH_Drawing_Canvas} object.\n @param rect Pointer to the {@link OH_Drawing_Rect} object.\n @param quickReject Pointer to the check result. The value **true** means that the rectangle is not intersecting with\n the canvas area, and **false** means the opposite.\n @return Returns one of the following result codes:\n **OH_DRAWING_SUCCESS** if the operation is successful.\n **OH_DRAWING_ERROR_INVALID_PARAMETER** if **canvas**, **rect**, or **quickReject** is NULL.\n @since 18\n @version 1.0"]
     #[cfg(feature = "api-18")]
     pub fn OH_Drawing_CanvasQuickRejectRect(
         canvas: *mut OH_Drawing_Canvas,
@@ -1141,41 +1175,49 @@ extern "C" {
     ) -> OH_Drawing_ErrorCode;
 }
 extern "C" {
-    #[doc = " @brief Converts four variables (alpha, red, green, and blue) into a 32-bit (ARGB) variable that describes a color.\n\n @syscap SystemCapability.Graphic.Graphic2D.NativeDrawing\n @param alpha Indicates a variable that describes alpha. The value ranges from 0x00 to 0xFF.\n @param red Indicates a variable that describes red. The value ranges from 0x00 to 0xFF.\n @param green Indicates a variable that describes green. The value ranges from 0x00 to 0xFF.\n @param blue Indicates a variable that describes blue. The value ranges from 0x00 to 0xFF.\n @return Returns a 32-bit (ARGB) variable that describes the color.\n @since 8\n @version 1.0"]
+    #[doc = " @brief Checks if the current layer that drawn into the device is opaque.\n\n @param canvas Indicates the pointer to an <b>OH_Drawing_Canvas</b> object.\n @param isOpaque Indicates if the canvas is opaque.\n @return Returns the error code.\n         Returns {@link OH_DRAWING_SUCCESS} if the operation is successful.\n         Returns {@link OH_DRAWING_ERROR_INCORRECT_PARAMETER} if canvas or isOpaque is nullptr.\n @since 26.0.0"]
+    #[cfg(feature = "api-26")]
+    pub fn OH_Drawing_CanvasIsOpaque(
+        canvas: *const OH_Drawing_Canvas,
+        isOpaque: *mut bool,
+    ) -> OH_Drawing_ErrorCode;
+}
+extern "C" {
+    #[doc = " @brief Converts four variables (alpha, red, green, and blue) into a 32-bit (ARGB) variable that describes a color.\n\n @param alpha Alpha, which is a variable ranging from 0x00 to 0xFF.\n @param red Read, which is a variable ranging from 0x00 to 0xFF.\n @param green Green, which is a variable ranging from 0x00 to 0xFF.\n @param blue Blue, which is a variable ranging from 0x00 to 0xFF.\n @return Returns a 32-bit (ARGB) variable that describes the color.\n @since 8\n @version 1.0"]
     pub fn OH_Drawing_ColorSetArgb(alpha: u32, red: u32, green: u32, blue: u32) -> u32;
 }
 extern "C" {
-    #[doc = " @brief Creates an <b>OH_Drawing_ColorFilter</b> with a blend mode.\n\n @syscap SystemCapability.Graphic.Graphic2D.NativeDrawing\n @param color Indicates the color, which is a 32-bit (ARGB) variable.\n @param blendMode Indicates the blend mode.\n @return Returns the pointer to the <b>OH_Drawing_ColorFilter</b> object created.\n @since 11\n @version 1.0"]
+    #[doc = " @brief Creates an **OH_Drawing_ColorFilter** object with a given blend mode.\n\n @param color Color, which is a 32-bit (ARGB) variable.\n @param blendMode Blend mode. For details about the available options, see {@link OH_Drawing_BlendMode}.\n @return Returns the pointer to the **OH_Drawing_ColorFilter** object created.\n @since 11\n @version 1.0"]
     pub fn OH_Drawing_ColorFilterCreateBlendMode(
         color: u32,
         blendMode: OH_Drawing_BlendMode,
     ) -> *mut OH_Drawing_ColorFilter;
 }
 extern "C" {
-    #[doc = " @brief Creates an <b>OH_Drawing_ColorFilter</b> applies the outerColorFilter and then applies innerColorFilter.\n\n @syscap SystemCapability.Graphic.Graphic2D.NativeDrawing\n @param outerColorFilter Indicates the pointer to an <b>OH_Drawing_ColorFilter</b> object.\n @param innerColorFilter Indicates the pointer to an <b>OH_Drawing_ColorFilter</b> object.\n @return Returns the pointer to the <b>OH_Drawing_ColorFilter</b> object created.\n @since 11\n @version 1.0"]
+    #[doc = " @brief Creates an **OH_Drawing_ColorFilter** object by combining another two color filters.\n This API may return an error code. For details, call {@link OH_Drawing_ErrorCodeGet}.\n If either **outerColorFilter** or **innerColorFilter** is NULL, **OH_DRAWING_ERROR_INVALID_PARAMETER** is returned.\n\n @param outerColorFilter Pointer to the first color filter.\n @param innerColorFilter Pointer to the second color filter.\n @return Returns the pointer to the **OH_Drawing_ColorFilter** object created.\n @since 11\n @version 1.0"]
     pub fn OH_Drawing_ColorFilterCreateCompose(
         outerColorFilter: *mut OH_Drawing_ColorFilter,
         innerColorFilter: *mut OH_Drawing_ColorFilter,
     ) -> *mut OH_Drawing_ColorFilter;
 }
 extern "C" {
-    #[doc = " @brief Creates an <b>OH_Drawing_ColorFilter</b> with a 5x4 color matrix.\n\n @syscap SystemCapability.Graphic.Graphic2D.NativeDrawing\n @param matrix Indicates the matrix, which is represented as a float array of length 20.\n @return Returns the pointer to the <b>OH_Drawing_ColorFilter</b> object created.\n @since 11\n @version 1.0"]
+    #[doc = " @brief Creates an **OH_Drawing_ColorFilter** object with a given 5x4 color matrix.\n This API may return an error code. For details, call {@link OH_Drawing_ErrorCodeGet}.\n If **matrix** is NULL, **OH_DRAWING_ERROR_INVALID_PARAMETER** is returned.\n\n @param matrix Matrix, which is represented by a floating-point array with a length of 20.\n @return Returns the pointer to the **OH_Drawing_ColorFilter** object created.\n @since 11\n @version 1.0"]
     pub fn OH_Drawing_ColorFilterCreateMatrix(matrix: *const f32) -> *mut OH_Drawing_ColorFilter;
 }
 extern "C" {
-    #[doc = " @brief Creates an <b>OH_Drawing_ColorFilter</b> applies the gamma curve of SRGB to the RGB color channel.\n\n @syscap SystemCapability.Graphic.Graphic2D.NativeDrawing\n @return Returns the pointer to the <b>OH_Drawing_ColorFilter</b> object created.\n @since 11\n @version 1.0"]
+    #[doc = " @brief Creates an **OH_Drawing_ColorFilter** object that applies the sRGB gamma curve to the RGB channels.\n\n @return Returns the pointer to the **OH_Drawing_ColorFilter** object created.\n @since 11\n @version 1.0"]
     pub fn OH_Drawing_ColorFilterCreateLinearToSrgbGamma() -> *mut OH_Drawing_ColorFilter;
 }
 extern "C" {
-    #[doc = " @brief Creates an <b>OH_Drawing_ColorFilter</b> applies the RGB color channel to the gamma curve of SRGB.\n\n @syscap SystemCapability.Graphic.Graphic2D.NativeDrawing\n @return Returns the pointer to the <b>OH_Drawing_ColorFilter</b> object created.\n @since 11\n @version 1.0"]
+    #[doc = " @brief Creates an **OH_Drawing_ColorFilter** object that applies the RGB channels to the sRGB gamma curve.\n\n @return Returns the pointer to the **OH_Drawing_ColorFilter** object created.\n @since 11\n @version 1.0"]
     pub fn OH_Drawing_ColorFilterCreateSrgbGammaToLinear() -> *mut OH_Drawing_ColorFilter;
 }
 extern "C" {
-    #[doc = " @brief Creates an <b>OH_Drawing_ColorFilter</b> multiplies the luma of its input into the alpha channel,\n and sets the red, green, and blue channels to zero.\n\n @syscap SystemCapability.Graphic.Graphic2D.NativeDrawing\n @return Returns the pointer to the <b>OH_Drawing_ColorFilter</b> object created.\n @since 11\n @version 1.0"]
+    #[doc = " @brief Creates a **ColorFilter** object that multiplies the luma into the alpha channel and sets the RGB channels to\n zero.\n\n @return Returns the pointer to the **OH_Drawing_ColorFilter** object created.\n @since 11\n @version 1.0"]
     pub fn OH_Drawing_ColorFilterCreateLuma() -> *mut OH_Drawing_ColorFilter;
 }
 extern "C" {
-    #[doc = " @brief Creates an <b>OH_Drawing_ColorFilter</b> with the given mulColor used to multiply source color and addColor\n used to add to source color. The Alpha channel will not be affected.\n\n @syscap SystemCapability.Graphic.Graphic2D.NativeDrawing\n @param mulColor Indicates the color, which is a 32-bit (ARGB) variable.\n @param addColor Indicates the color, which is a 32-bit (ARGB) variable.\n @return Returns the pointer to the <b>OH_Drawing_ColorFilter</b> object created.\n @since 20\n @version 1.0"]
+    #[doc = " @brief Creates a lighting color filter. It multiplies the RGB channel values by one color and then adds another\n color value. The final output stays between 0 and 255.\n\n @param mulColor Color value used for multiplication.\n @param addColor Color value used for addition.\n @return Returns the pointer to the **OH_Drawing_ColorFilter** object created.\n @since 20\n @version 1.0"]
     #[cfg(feature = "api-20")]
     pub fn OH_Drawing_ColorFilterCreateLighting(
         mulColor: u32,
@@ -1183,124 +1225,124 @@ extern "C" {
     ) -> *mut OH_Drawing_ColorFilter;
 }
 extern "C" {
-    #[doc = " @brief Destroys an <b>OH_Drawing_ColorFilter</b> object and reclaims the memory occupied by the object.\n\n @syscap SystemCapability.Graphic.Graphic2D.NativeDrawing\n @param colorFilter Indicates the pointer to an <b>OH_Drawing_ColorFilter</b> object.\n @since 11\n @version 1.0"]
+    #[doc = " @brief Destroys an **OH_Drawing_ColorFilter** object and reclaims the memory occupied by the object.\n\n @param colorFilter Pointer to an **OH_Drawing_ColorFilter** object.\n @since 11\n @version 1.0"]
     pub fn OH_Drawing_ColorFilterDestroy(colorFilter: *mut OH_Drawing_ColorFilter);
 }
 extern "C" {
-    #[doc = " @brief Creates an <b>OH_Drawing_ColorSpace</b> object that represents the SRGB color space.\n\n @syscap SystemCapability.Graphic.Graphic2D.NativeDrawing\n @return Returns the pointer to the <b>OH_Drawing_ColorSpace</b> object created.\n @since 12\n @version 1.0"]
+    #[doc = " @brief Creates an sRGB color space.\n\n @return Returns a pointer to the {@link OH_Drawing_ColorSpace} object created.\n @since 12\n @version 1.0"]
     pub fn OH_Drawing_ColorSpaceCreateSrgb() -> *mut OH_Drawing_ColorSpace;
 }
 extern "C" {
-    #[doc = " @brief Creates an <b>OH_Drawing_ColorSpace</b> object with the SRGB primaries, but a linear (1.0) gamma.\n\n @syscap SystemCapability.Graphic.Graphic2D.NativeDrawing\n @return Returns the pointer to the <b>OH_Drawing_ColorSpace</b> object created.\n @since 12\n @version 1.0"]
+    #[doc = " @brief Creates an sRGB linear (Gamma 1.0) color space.\n\n @return Returns a pointer to the {@link OH_Drawing_ColorSpace} object created.\n @since 12\n @version 1.0"]
     pub fn OH_Drawing_ColorSpaceCreateSrgbLinear() -> *mut OH_Drawing_ColorSpace;
 }
 extern "C" {
-    #[doc = " @brief Destroys an <b>OH_Drawing_ColorSpace</b> object.\n\n @syscap SystemCapability.Graphic.Graphic2D.NativeDrawing\n @param colorSpace Indicates the pointer to an <b>OH_Drawing_ColorSpace</b> object.\n @since 12\n @version 1.0"]
+    #[doc = " @brief Destroys an **OH_Drawing_ColorSpace** object and reclaims the memory occupied by the object.\n\n @param colorSpace Pointer to an {@link OH_Drawing_ColorSpace} object.\n @since 12\n @version 1.0"]
     pub fn OH_Drawing_ColorSpaceDestroy(colorSpace: *mut OH_Drawing_ColorSpace);
 }
 extern "C" {
-    #[doc = " @brief Creates an <b>OH_Drawing_Filter</b> object.\n\n @syscap SystemCapability.Graphic.Graphic2D.NativeDrawing\n @return Returns the pointer to the <b>OH_Drawing_Filter</b> object created.\n @since 11\n @version 1.0"]
+    #[doc = " @brief Creates an **OH_Drawing_Filter** object.\n\n @return Returns the pointer to the <b>OH_Drawing_Filter</b> object created.\n @since 11\n @version 1.0"]
     pub fn OH_Drawing_FilterCreate() -> *mut OH_Drawing_Filter;
 }
 extern "C" {
-    #[doc = " @brief Sets an <b>OH_Drawing_ImageFilter</b> object for an <b>OH_Drawing_Filter</b> object.\n\n @syscap SystemCapability.Graphic.Graphic2D.NativeDrawing\n @param filter Indicates the pointer to an <b>OH_Drawing_Filter</b> object.\n @param imageFilter Indicates the pointer to an <b>OH_Drawing_ImageFilter</b> object.\n @since 12\n @version 1.0"]
+    #[doc = " @brief Sets an **OH_Drawing_ImageFilter** object for an **OH_Drawing_Filter** object.\n This API may return an error code. For details, call {@link OH_Drawing_ErrorCodeGet}.\n If **filter** is NULL, **OH_DRAWING_ERROR_INVALID_PARAMETER** is returned.\n\n @param filter Pointer to an {@link OH_Drawing_Filter} object.\n @param imageFilter Pointer to an {@link OH_Drawing_ImageFilter} object. If NULL is passed in, the image filter\n effect of the object will be cleared.\n @since 12\n @version 1.0"]
     pub fn OH_Drawing_FilterSetImageFilter(
         filter: *mut OH_Drawing_Filter,
         imageFilter: *mut OH_Drawing_ImageFilter,
     );
 }
 extern "C" {
-    #[doc = " @brief Sets an <b>OH_Drawing_MaskFilter</b> object for an <b>OH_Drawing_Filter</b> object.\n\n @syscap SystemCapability.Graphic.Graphic2D.NativeDrawing\n @param filter Indicates the pointer to an <b>OH_Drawing_Filter</b> object.\n @param maskFilter Indicates the pointer to an <b>OH_Drawing_MaskFilter</b> object.\n @since 11\n @version 1.0"]
+    #[doc = " @brief Sets an **OH_Drawing_MaskFilter** object for an **OH_Drawing_Filter** object.\n This API may return an error code. For details, call {@link OH_Drawing_ErrorCodeGet}.\n If **filter** is NULL, **OH_DRAWING_ERROR_INVALID_PARAMETER** is returned.\n\n @param filter Pointer to an {@link OH_Drawing_Filter} object.\n @param maskFilter Pointer to an {@link OH_Drawing_ColorFilter} object. If NULL is passed in, the mask filter effect\n of the object will be cleared.\n @since 11\n @version 1.0"]
     pub fn OH_Drawing_FilterSetMaskFilter(
         filter: *mut OH_Drawing_Filter,
         maskFilter: *mut OH_Drawing_MaskFilter,
     );
 }
 extern "C" {
-    #[doc = " @brief Sets an <b>OH_Drawing_ColorFilter</b> object for an <b>OH_Drawing_Filter</b> object.\n\n @syscap SystemCapability.Graphic.Graphic2D.NativeDrawing\n @param filter Indicates the pointer to an <b>OH_Drawing_Filter</b> object.\n @param colorFilter Indicates the pointer to an <b>OH_Drawing_ColorFilter</b> object.\n @since 11\n @version 1.0"]
+    #[doc = " @brief Sets an **OH_Drawing_ColorFilter** object for an **OH_Drawing_Filter** object.\n This API may return an error code. For details, call {@link OH_Drawing_ErrorCodeGet}.\n If **filter** is NULL, **OH_DRAWING_ERROR_INVALID_PARAMETER** is returned.\n\n @param filter Pointer to an {@link OH_Drawing_Filter} object.\n @param colorFilter Pointer to an {@link OH_Drawing_ColorFilter} object. If NULL is passed in, the color filter\n effect of the object will be cleared.\n @since 11\n @version 1.0"]
     pub fn OH_Drawing_FilterSetColorFilter(
         filter: *mut OH_Drawing_Filter,
         colorFilter: *mut OH_Drawing_ColorFilter,
     );
 }
 extern "C" {
-    #[doc = " @brief Gets an <b>OH_Drawing_ColorFilter</b> object from an <b>OH_Drawing_Filter</b> object.\n\n @syscap SystemCapability.Graphic.Graphic2D.NativeDrawing\n @param filter Indicates the pointer to an <b>OH_Drawing_Filter</b> object.\n @param colorFilter Indicates the pointer to an <b>OH_Drawing_ColorFilter</b> object.\n @since 12\n @version 1.0"]
+    #[doc = " @brief Obtains an **OH_Drawing_ColorFilter** object from an **OH_Drawing_Filter** object.\n This API may return an error code. For details, call {@link OH_Drawing_ErrorCodeGet}.\n If either **filter** or **colorFilter** is NULL, **OH_DRAWING_ERROR_INVALID_PARAMETER** is returned.\n\n @param filter Pointer to an {@link OH_Drawing_Filter} object.\n @param colorFilter Pointer to an {@link OH_Drawing_ColorFilter} object.\n @since 12\n @version 1.0"]
     pub fn OH_Drawing_FilterGetColorFilter(
         filter: *mut OH_Drawing_Filter,
         colorFilter: *mut OH_Drawing_ColorFilter,
     );
 }
 extern "C" {
-    #[doc = " @brief Destroys an <b>OH_Drawing_Filter</b> object and reclaims the memory occupied by the object.\n\n @syscap SystemCapability.Graphic.Graphic2D.NativeDrawing\n @param filter Indicates the pointer to an <b>OH_Drawing_Filter</b> object.\n @since 11\n @version 1.0"]
+    #[doc = " @brief Destroys an **OH_Drawing_Filter** object and reclaims the memory occupied by the object.\n\n @param filter Pointer to an {@link OH_Drawing_Filter} object.\n @since 11\n @version 1.0"]
     pub fn OH_Drawing_FilterDestroy(filter: *mut OH_Drawing_Filter);
 }
 extern "C" {
-    #[doc = " @brief Creates an <b>OH_Drawing_Font</b> object.\n\n @syscap SystemCapability.Graphic.Graphic2D.NativeDrawing\n @return Returns the pointer to the <b>OH_Drawing_Font</b> object created.\n @since 11\n @version 1.0"]
+    #[doc = " @brief Creates an **OH_Drawing_Font** object.\n\n @return Returns the pointer to the **OH_Drawing_Font** object created.\n @since 11\n @version 1.0"]
     pub fn OH_Drawing_FontCreate() -> *mut OH_Drawing_Font;
 }
-#[doc = " glyph outlines unchanged"]
+#[doc = " No font hinting is used.\n\n @since 12"]
 pub const OH_Drawing_FontHinting_FONT_HINTING_NONE: OH_Drawing_FontHinting = 0;
-#[doc = " minimal modification to improve contrast"]
+#[doc = " Slight font hinting is used to improve contrast.\n\n @since 12"]
 pub const OH_Drawing_FontHinting_FONT_HINTING_SLIGHT: OH_Drawing_FontHinting = 1;
-#[doc = " glyph outlines modified to improve contrast"]
+#[doc = " Normal font hinting is used to improve contrast.\n\n @since 12"]
 pub const OH_Drawing_FontHinting_FONT_HINTING_NORMAL: OH_Drawing_FontHinting = 2;
-#[doc = " modifies glyph outlines for maximum contrast"]
+#[doc = " Full font hinting is used to improve contrast.\n\n @since 12"]
 pub const OH_Drawing_FontHinting_FONT_HINTING_FULL: OH_Drawing_FontHinting = 3;
-#[doc = " @brief Enumerates font hinting pattern.\n\n @since 12\n @version 1.0"]
+#[doc = " @brief Defines an enum for the font hinting types.\n\n @since 12\n @version 1.0"]
 pub type OH_Drawing_FontHinting = u32;
-#[doc = " no transparent pixels on glyph edges"]
+#[doc = " No anti-aliasing processing is used.\n\n @since 12"]
 pub const OH_Drawing_FontEdging_FONT_EDGING_ALIAS: OH_Drawing_FontEdging = 0;
-#[doc = " may have transparent pixels on glyph edges"]
+#[doc = " Uses anti-aliasing to smooth the jagged edges.\n\n @since 12"]
 pub const OH_Drawing_FontEdging_FONT_EDGING_ANTI_ALIAS: OH_Drawing_FontEdging = 1;
-#[doc = " glyph positioned in pixel using transparency"]
+#[doc = " Uses sub-pixel anti-aliasing to provide a smoother effect for jagged edges.\n\n @since 12"]
 pub const OH_Drawing_FontEdging_FONT_EDGING_SUBPIXEL_ANTI_ALIAS: OH_Drawing_FontEdging = 2;
-#[doc = " @brief Enumerates font edging effect.\n\n @since 12\n @version 1.0"]
+#[doc = " @brief Enumerates the font edging types.\n\n @since 12\n @version 1.0"]
 pub type OH_Drawing_FontEdging = u32;
 extern "C" {
-    #[doc = " @brief Sets whether the font baselines and pixels alignment when the transformation matrix is \u{200b}\u{200b}axis aligned.\n\n @syscap SystemCapability.Graphic.Graphic2D.NativeDrawing\n @param font Indicates the pointer to an <b>OH_Drawing_Font</b> object.\n @param baselineSnap Indicates whether the font baselines and pixels alignment.\n @since 12\n @version 1.0"]
+    #[doc = " @brief Sets whether the font baselines and pixels alignment when the transformation matrix is axis aligned.\n\n @param font Indicates the pointer to an <b>OH_Drawing_Font</b> object.\n @param baselineSnap Indicates whether the font baselines and pixels alignment.\n @since 12\n @version 1.0"]
     pub fn OH_Drawing_FontSetBaselineSnap(font: *mut OH_Drawing_Font, baselineSnap: bool);
 }
 extern "C" {
-    #[doc = " @brief Gets whether the font baselines and pixels alignment when the transformation matrix is \u{200b}\u{200b}axis aligned.\n\n @syscap SystemCapability.Graphic.Graphic2D.NativeDrawing\n @param font Indicates the pointer to an <b>OH_Drawing_Font</b> object.\n @return Returns <b>true</b> if the font baselines and pixels alignment; returns <b>false</b> otherwise.\n @since 12\n @version 1.0"]
+    #[doc = " @brief Gets whether the font baselines and pixels alignment when the transformation matrix is axis aligned.\n\n @param font Indicates the pointer to an <b>OH_Drawing_Font</b> object.\n @return Returns <b>true</b> if the font baselines and pixels alignment; returns <b>false</b> otherwise.\n @since 12\n @version 1.0"]
     pub fn OH_Drawing_FontIsBaselineSnap(font: *const OH_Drawing_Font) -> bool;
 }
 extern "C" {
-    #[doc = " @brief Sets whether the font uses sub-pixel rendering.\n\n @syscap SystemCapability.Graphic.Graphic2D.NativeDrawing\n @param font Indicates the pointer to an <b>OH_Drawing_Font</b> object.\n @param isSubpixel Indicates whether the font uses sub-pixel rendering.\n @since 12\n @version 1.0"]
+    #[doc = " @brief Sets whether to use sub-pixel rendering for a font.\n This API may return an error code. For details, call {@link OH_Drawing_ErrorCodeGet}.\n If **font** is NULL, **OH_DRAWING_ERROR_INVALID_PARAMETER** is returned.\n\n @param font Pointer to the {@link OH_Drawing_Font} object.\n @param isSubpixel Whether sub-pixel rendering is used for a font. **true** means yes; **false** otherwise.\n @since 12\n @version 1.0"]
     pub fn OH_Drawing_FontSetSubpixel(font: *mut OH_Drawing_Font, isSubpixel: bool);
 }
 extern "C" {
-    #[doc = " @brief Gets whether the font uses sub-pixel rendering.\n\n @syscap SystemCapability.Graphic.Graphic2D.NativeDrawing\n @param font Indicates the pointer to an <b>OH_Drawing_Font</b> object.\n @return Returns <b>true</b> if the font uses sub-pixel rendering; returns <b>false</b> otherwise.\n @since 12\n @version 1.0"]
+    #[doc = " @brief Checks whether sub-pixel rendering is used for a font.\n This API may return an error code. For details, call {@link OH_Drawing_ErrorCodeGet}.\n If **font** is NULL, **OH_DRAWING_ERROR_INVALID_PARAMETER** is returned.\n\n @param font Pointer to the {@link OH_Drawing_Font} object.\n @return Whether sub-pixel rendering is used for a font. **true** means yes; **false** otherwise.\n @since 12\n @version 1.0"]
     pub fn OH_Drawing_FontIsSubpixel(font: *const OH_Drawing_Font) -> bool;
 }
 extern "C" {
-    #[doc = " @brief Sets whether the font outline is automatically adjusted.\n\n @syscap SystemCapability.Graphic.Graphic2D.NativeDrawing\n @param font Indicates the pointer to an <b>OH_Drawing_Font</b> object.\n @param isForceAutoHinting Indicates whether the font outline is automatically adjusted.\n @since 12\n @version 1.0"]
+    #[doc = " @brief Sets whether to forcibly use auto hinting, that is, whether to always hint glyphs.\n This API may return an error code. For details, call {@link OH_Drawing_ErrorCodeGet}.\n If **font** is NULL, **OH_DRAWING_ERROR_INVALID_PARAMETER** is returned.\n\n @param font Pointer to the {@link OH_Drawing_Font} object.\n @param isForceAutoHinting Whether to forcibly use auto hinting, that is, whether to always hint glyphs. **true**\n means yes; **false** otherwise.\n @since 12\n @version 1.0"]
     pub fn OH_Drawing_FontSetForceAutoHinting(font: *mut OH_Drawing_Font, isForceAutoHinting: bool);
 }
 extern "C" {
-    #[doc = " @brief Gets whether the font outline is automatically adjusted.\n\n @syscap SystemCapability.Graphic.Graphic2D.NativeDrawing\n @param font Indicates the pointer to an <b>OH_Drawing_Font</b> object.\n @return Returns <b>true</b> if the font outline is automatically adjusted; returns <b>false</b> otherwise.\n @since 12\n @version 1.0"]
+    #[doc = " @brief Checks whether auto hinting is forcibly used.\n This API may return an error code. For details, call {@link OH_Drawing_ErrorCodeGet}.\n If **font** is NULL, **OH_DRAWING_ERROR_INVALID_PARAMETER** is returned.\n\n @param font Pointer to the {@link OH_Drawing_Font} object.\n @return Whether auto hinting is forcibly used. **true** means yes; **false** otherwise.\n @since 12\n @version 1.0"]
     pub fn OH_Drawing_FontIsForceAutoHinting(font: *const OH_Drawing_Font) -> bool;
 }
 extern "C" {
-    #[doc = " @brief Sets an <b>OH_Drawing_Typeface</b> object for an <b>OH_Drawing_Font</b> object.\n\n @syscap SystemCapability.Graphic.Graphic2D.NativeDrawing\n @param font Indicates the pointer to an <b>OH_Drawing_Font</b> object.\n @param typeface Indicates the pointer to an <b>OH_Drawing_Typeface</b> object.\n @since 11\n @version 1.0"]
+    #[doc = " @brief Sets a typeface for a font.\n This API may return an error code. For details, call {@link OH_Drawing_ErrorCodeGet}.\n If **font** is NULL, **OH_DRAWING_ERROR_INVALID_PARAMETER** is returned.\n\n @param font Pointer to an **OH_Drawing_Font** object.\n @param typeface Pointer to an **OH_Drawing_Typeface** object. If NULL is passed in, the default **\n OH_Drawing_Typeface** object is used.\n @since 11\n @version 1.0"]
     pub fn OH_Drawing_FontSetTypeface(
         font: *mut OH_Drawing_Font,
         typeface: *mut OH_Drawing_Typeface,
     );
 }
 extern "C" {
-    #[doc = " @brief Gets an <b>OH_Drawing_Typeface</b> object from the <b>OH_Drawing_Font</b> object.\n\n @syscap SystemCapability.Graphic.Graphic2D.NativeDrawing\n @param font Indicates the pointer to an <b>OH_Drawing_Font</b> object.\n @return OH_Drawing_Typeface Indicates the pointer to an <b>OH_Drawing_Typeface</b> object.\n @since 12\n @version 1.0"]
+    #[doc = " @brief Obtains the typeface of a font.\n This API may return an error code. For details, call {@link OH_Drawing_ErrorCodeGet}.\n If **font** is NULL, **OH_DRAWING_ERROR_INVALID_PARAMETER** is returned.\n\n @param font Pointer to the {@link OH_Drawing_Font} object.\n @return Returns a pointer to the {@link OH_Drawing_Typeface} object.\n @since 12\n @version 1.0"]
     pub fn OH_Drawing_FontGetTypeface(font: *mut OH_Drawing_Font) -> *mut OH_Drawing_Typeface;
 }
 extern "C" {
-    #[doc = " @brief Sets text size for an <b>OH_Drawing_Font</b> object.\n\n @syscap SystemCapability.Graphic.Graphic2D.NativeDrawing\n @param font Indicates the pointer to an <b>OH_Drawing_Font</b> object.\n @param textSize Indicates the text size.\n @since 11\n @version 1.0"]
+    #[doc = " @brief Sets the text size for a font object.\n This API may return an error code. For details, call {@link OH_Drawing_ErrorCodeGet}.\n If **font** is NULL, **OH_DRAWING_ERROR_INVALID_PARAMETER** is returned.\n\n @param font Pointer to an **OH_Drawing_Font** object.\n @param textSize Text size. The value is a floating point number. If a negative number is passed in, the size is set\n to 0. If the size is 0, the text drawn will not be displayed.\n @since 11\n @version 1.0"]
     pub fn OH_Drawing_FontSetTextSize(font: *mut OH_Drawing_Font, textSize: f32);
 }
 extern "C" {
-    #[doc = " @brief Gets text size for an <b>OH_Drawing_Font</b> object.\n\n @syscap SystemCapability.Graphic.Graphic2D.NativeDrawing\n @param font Indicates the pointer to an <b>OH_Drawing_Font</b> object.\n @return Returns the size of text.\n @since 12\n @version 1.0"]
+    #[doc = " @brief Obtains the text size of a font object.\n This API may return an error code. For details, call {@link OH_Drawing_ErrorCodeGet}.\n If **font** is NULL, **OH_DRAWING_ERROR_INVALID_PARAMETER** is returned.\n\n @param font Pointer to the {@link OH_Drawing_Font} object.\n @return Returns a floating point number representing the text size.\n @since 12\n @version 1.0"]
     pub fn OH_Drawing_FontGetTextSize(font: *const OH_Drawing_Font) -> f32;
 }
 extern "C" {
-    #[doc = " @brief Calculate number of glyphs represented by text.\n\n @syscap SystemCapability.Graphic.Graphic2D.NativeDrawing\n @param font Indicates the pointer to an <b>OH_Drawing_Font</b> object.\n @param text Indicates the character storage encoded with text encoding.\n @param byteLength Indicates the text length in bytes.\n @param encoding Indicates the text encoding.\n @since 12\n @version 1.0"]
+    #[doc = " @brief Obtains the number of glyphs represented by text.\n This API may return an error code. For details, call {@link OH_Drawing_ErrorCodeGet}.\n If either **font** or **text** is NULL, **OH_DRAWING_ERROR_INVALID_PARAMETER** is returned.\n\n @param font Pointer to the {@link OH_Drawing_Font} object.\n @param text Pointer to the start address of the storage.\n @param byteLength Text length, in bytes.\n @param encoding Text encoding type {@link OH_Drawing_TextEncoding}.\n @return Returns the number of characters represented by the text (non-negative integer) on success;\n @since 12\n @version 1.0"]
     pub fn OH_Drawing_FontCountText(
         font: *mut OH_Drawing_Font,
         text: *const ::std::os::raw::c_void,
@@ -1309,7 +1351,7 @@ extern "C" {
     ) -> ::std::os::raw::c_int;
 }
 extern "C" {
-    #[doc = " @brief Converts text into glyph indices.\n\n @syscap SystemCapability.Graphic.Graphic2D.NativeDrawing\n @param font Indicates the pointer to an <b>OH_Drawing_Font</b> object.\n @param text Indicates the character storage encoded with text encoding.\n @param byteLength Indicates the text length in bytes.\n @param encoding Indicates the text encoding.\n @param glyphs Indicates the storage for glyph indices.\n @param maxGlyphCount Indicates the storage capacity.\n @return Returns the number of glyph indices represented by text.\n @since 12\n @version 1.0"]
+    #[doc = " @brief Converts text into glyph indices.\n This API may return an error code. For details, call {@link OH_Drawing_ErrorCodeGet}.\n If any of **font**, **text**, and **glyphs** is NULL, **byteLength** is **0**, or **maxGlyphCount** is less than or\n equal to 0, **OH_DRAWING_ERROR_INVALID_PARAMETER** is returned.\n\n @param font Pointer to the {@link OH_Drawing_Font} object.\n @param text Pointer to the start address of the storage.\n @param byteLength Text length, in bytes.\n @param encoding Text encoding type {@link OH_Drawing_TextEncoding}.\n @param glyphs Pointer to the start address for storing the glyph indices.\n @param maxGlyphCount Maximum number of glyphs.\n @return Returns the number of glyph indices.\n @since 12\n @version 1.0"]
     pub fn OH_Drawing_FontTextToGlyphs(
         font: *const OH_Drawing_Font,
         text: *const ::std::os::raw::c_void,
@@ -1320,7 +1362,7 @@ extern "C" {
     ) -> u32;
 }
 extern "C" {
-    #[doc = " @brief Retrieves the advance for each glyph in glyphs.\n\n @syscap SystemCapability.Graphic.Graphic2D.NativeDrawing\n @param font Indicates the pointer to an <b>OH_Drawing_Font</b> object.\n @param glyphs Indicates the array of glyph indices to be measured.\n @param count Indicates the number of glyphs.\n @param widths Indicates the text advances for each glyph returned to the caller.\n @since 12\n @version 1.0"]
+    #[doc = " @brief Obtains the width of each glyph in a string of text.\n This API may return an error code. For details, call {@link OH_Drawing_ErrorCodeGet}.\n If any of **font**, **glyphs**, and **widths** is NULL, or **count** is **0**, **OH_DRAWING_ERROR_INVALID_PARAMETER**\n is returned.\n\n @param font Pointer to the {@link OH_Drawing_Font} object.\n @param glyphs Pointer to the start address for storing the glyph indices.\n @param count Number of glyph indices.\n @param widths Pointer to the start address for storing the glyph widths.\n @since 12\n @version 1.0"]
     pub fn OH_Drawing_FontGetWidths(
         font: *const OH_Drawing_Font,
         glyphs: *const u16,
@@ -1329,7 +1371,7 @@ extern "C" {
     );
 }
 extern "C" {
-    #[doc = " @brief Measures the width of a single character.\n\n @syscap SystemCapability.Graphic.Graphic2D.NativeDrawing\n @param font Indicates the pointer to an <b>OH_Drawing_Font</b> object.\n @param str Indicates the single character encoded in UTF-8.\n @param textWidth Indicates the width of the single character.\n @return Returns the error code.\n         Returns {@link OH_DRAWING_SUCCESS} if the operation is successful.\n         Returns {@link OH_DRAWING_ERROR_INVALID_PARAMETER} if any of font, str\n                 and textWidth is nullptr or strlen(str) is 0.\n @since 12\n @version 1.0"]
+    #[doc = " @brief Measures the width of a single character. If the typeface of the current font does not support the character\n to measure, the system typeface is used to measure the character width.\n\n @param font Pointer to the {@link OH_Drawing_Font} object.\n @param str Pointer to the single character to measure. A string can be passed in, but only the first character in\n the string is parsed and measured in UTF-8 encoding.\n @param textWidth Pointer to the character width obtained.\n @return Returns one of the following result codes:\n **OH_DRAWING_SUCCESS** if the operation is successful.\n **OH_DRAWING_ERROR_INVALID_PARAMETER** if at least one of the parameters **font**, **str**, or **textWidth** is NULL,\n  or the length of **str** is **0**.\n @since 12\n @version 1.0"]
     pub fn OH_Drawing_FontMeasureSingleCharacter(
         font: *const OH_Drawing_Font,
         str_: *const ::std::os::raw::c_char,
@@ -1337,7 +1379,7 @@ extern "C" {
     ) -> OH_Drawing_ErrorCode;
 }
 extern "C" {
-    #[doc = " @brief Measures the width of a single character with font features.\n\n @syscap SystemCapability.Graphic.Graphic2D.NativeDrawing\n @param font Indicates the pointer to an <b>OH_Drawing_Font</b> object.\n @param str Indicates the single character encoded in UTF-8.\n @param fontFeatures Indicates the pointer to an <b>OH_Drawing_FontFeatures</b> object.\n @param textWidth Indicates the width of the single character.\n @return Returns the error code.\n         Returns {@link OH_DRAWING_SUCCESS} if the operation is successful.\n         Returns {@link OH_DRAWING_ERROR_INVALID_PARAMETER} if any of font, str\n                 fontFeatures or textWidth is nullptr, or if strlen(str) is 0.\n @since 20\n @version 1.0"]
+    #[doc = " @brief Measures the width of a single character with font features. If the typeface of the current font does not\n support the character to measure, the system typeface is used to measure the character width.\n\n @param font Pointer to the {@link OH_Drawing_Font} object.\n @param str Pointer to the single character to measure. A string can be passed in, but only the first character in\n the string is parsed and measured in UTF-8 encoding.\n @param fontFeatures Pointer to the {@link OH_Drawing_FontFeatures} object. If no font feature is set, the preset\n font feature in the TrueType fonts (TTF) file is used.\n @param textWidth Pointer to the obtained text width, which is used as an output parameter.\n @return Execution result.\n **OH_DRAWING_SUCCESS** if the operation is successful.\n Returns **OH_DRAWING_ERROR_INVALID_PARAMETER** if at least one of the parameters **font**, **str**, **fontFeatures**,\n  or **textWidth** is NULL, or the length of **str** is **0**.\n @since 20\n @version 1.0"]
     #[cfg(feature = "api-20")]
     pub fn OH_Drawing_FontMeasureSingleCharacterWithFeatures(
         font: *const OH_Drawing_Font,
@@ -1347,7 +1389,7 @@ extern "C" {
     ) -> OH_Drawing_ErrorCode;
 }
 extern "C" {
-    #[doc = " @brief Measures the width of text.\n\n @syscap SystemCapability.Graphic.Graphic2D.NativeDrawing\n @param font Indicates the pointer to an <b>OH_Drawing_Font</b> object.\n @param text Indicates the character storage encoded with text encoding.\n @param byteLength Indicates the text length in bytes.\n @param encoding Indicates the text encoding.\n @param bounds Gets the bounding box relative to (0, 0) if not nullptr.\n @param textWidth Indicates the width of text.\n @return Returns the error code.\n         Returns {@link OH_DRAWING_SUCCESS} if the operation is successful.\n         Returns {@link OH_DRAWING_ERROR_INVALID_PARAMETER} if any of font, text\n                 and textWidth is nullptr or byteLength is 0.\n @since 12\n @version 1.0"]
+    #[doc = " @brief Obtains the text width and bounding box.\n\n @param font Pointer to the {@link OH_Drawing_Font} object.\n @param text Pointer to the text.\n @param byteLength Length of the text, in bytes.\n @param encoding Encoding type of the text.\n @param bounds Pointer to the bounding box. The value can be NULL.\n @param textWidth Pointer to the text width.\n @return Returns one of the following result codes:\n **OH_DRAWING_SUCCESS** if the operation is successful.\n **OH_DRAWING_ERROR_INVALID_PARAMETER** if at least one of the parameters **font**, **text**, and **textWidth** is\n NULL, or **byteLength** is **0**.\n @since 12\n @version 1.0"]
     pub fn OH_Drawing_FontMeasureText(
         font: *const OH_Drawing_Font,
         text: *const ::std::os::raw::c_void,
@@ -1358,7 +1400,7 @@ extern "C" {
     ) -> OH_Drawing_ErrorCode;
 }
 extern "C" {
-    #[doc = " @brief Measures the width of text with brush or pen.\n\n @syscap SystemCapability.Graphic.Graphic2D.NativeDrawing\n @param font Indicates the pointer to an <b>OH_Drawing_Font</b> object.\n @param text Indicates the character storage encoded with text encoding.\n @param byteLength Indicates the text length in bytes.\n @param encoding Indicates the text encoding.\n @param brush Indicates the pointer to an <b>OH_Drawing_Brush</b> object.\n @param pen Indicates the pointer to an <b>OH_Drawing_Pen</b> object.\n @param bounds Gets the bounding box relative to (0, 0) if not nullptr.\n @param textWidth Indicates the width of text.\n @return Returns the error code.\n         Returns {@link OH_DRAWING_SUCCESS} if the operation is successful.\n         Returns {@link OH_DRAWING_ERROR_INVALID_PARAMETER} if any of font, text\n                 and textWidth is nullptr or byteLength is 0 or brush and pen are both not empty.\n @since 19\n @version 1.0"]
+    #[doc = " @brief Obtains the width and bounding box of the text with a brush or pen.\n\n @param font Pointer to the {@link OH_Drawing_Font} object.\n @param text Pointer to the text.\n @param byteLength Length of the text, in bytes.\n @param encoding Encoding type of the text.\n @param brush Pointer to the {@link OH_Drawing_Brush} object.\n @param pen Pointer to the {@link OH_Drawing_Pen} object.\n @param bounds Pointer to the bounding box. The value can be NULL.\n @param textWidth Pointer to the text width.\n @return Operation code.\n **OH_DRAWING_SUCCESS** if the operation is successful.\n Returns **OH_DRAWING_ERROR_INVALID_PARAMETER** if any of **font**, **text**, or **textWidth** is NULL, **byteLength**\n  is **0**, or a brush and a pen both exist.\n @since 19\n @version 1.0"]
     #[cfg(feature = "api-19")]
     pub fn OH_Drawing_FontMeasureTextWithBrushOrPen(
         font: *const OH_Drawing_Font,
@@ -1372,7 +1414,7 @@ extern "C" {
     ) -> OH_Drawing_ErrorCode;
 }
 extern "C" {
-    #[doc = " @brief Retrieves the advance and bounding box for each glyph in glyphs.\n\n @syscap SystemCapability.Graphic.Graphic2D.NativeDrawing\n @param font Indicates the pointer to an <b>OH_Drawing_Font</b> object.\n @param glyphs Indicates the array of glyph indices to be measured.\n @param count Indicates the number of glyphs.\n @param brush Indicates the pointer to an <b>OH_Drawing_Brush</b> object.\n @param pen Indicates the pointer to an <b>OH_Drawing_Pen</b> object.\n @param widths Indicates the text advances for each glyph returned to the caller.\n @param bounds Indicates the text bounding box for each glyph returned to the caller.\n @return Returns the error code.\n         Returns {@link OH_DRAWING_SUCCESS} if the operation is successful.\n         Returns {@link OH_DRAWING_ERROR_INVALID_PARAMETER} if any of font and glyphs is nullptr\n                 or count is no larger than 0 or brush and pen are both not empty.\n @since 19\n @version 1.0"]
+    #[doc = " @brief Obtains the width and bounding box of each glyph in a glyph array.\n\n @param font Pointer to the {@link OH_Drawing_Font} object.\n @param glyphs Pointer to the start address for storing the glyph indices.\n @param count Number of glyph indices, which must be the same as the size of glyphs array.\n @param brush Pointer to the {@link OH_Drawing_Brush} object.\n @param pen Pointer to the {@link OH_Drawing_Pen} object.\n @param widths Start address for storing the glyph width.\n @param bounds Start address for storing the glyph bounding box.\n @return Operation code.\n **OH_DRAWING_SUCCESS** if the operation is successful.\n Returns **OH_DRAWING_ERROR_INVALID_PARAMETER** if either **font** or **glyphs** is NULL, **count** is not greater\n than **0**, a brush and a pen both exist, or both **widths** and **bounds** are NULL.\n @since 19\n @version 1.0"]
     #[cfg(feature = "api-19")]
     pub fn OH_Drawing_FontGetWidthsBounds(
         font: *const OH_Drawing_Font,
@@ -1385,7 +1427,7 @@ extern "C" {
     ) -> OH_Drawing_ErrorCode;
 }
 extern "C" {
-    #[doc = " @brief Retrieves the positions for each glyph, beginning at the specified origin.\n\n @syscap SystemCapability.Graphic.Graphic2D.NativeDrawing\n @param font Indicates the pointer to an <b>OH_Drawing_Font</b> object.\n @param glyphs Indicates the array of glyph indices to be measured.\n @param count Indicates the number of glyphs.\n @param origin Indicates the location of the first glyph.\n @param points Indicates the relative position for each glyph returned to the caller.\n @return Returns the error code.\n         Returns {@link OH_DRAWING_SUCCESS} if the operation is successful.\n         Returns {@link OH_DRAWING_ERROR_INVALID_PARAMETER} if any of font, glyphs and points is nullptr or\n                 count is no larger than 0.\n @since 19\n @version 1.0"]
+    #[doc = " @brief Obtains the relative position of each glyph from the specified origin.\n\n @param font Pointer to the {@link OH_Drawing_Font} object.\n @param glyphs Pointer to the start address for storing the glyph indices.\n @param count Number of glyph indices, which must be the same as the size of glyphs array.\n @param origin Position of the first glyph. The value can be NULL, which means that the default value **(0, 0)** is\n used.\n @param points Start address for storing the relative position of a glyph.\n @return Operation code.\n **OH_DRAWING_SUCCESS** if the operation is successful.\n Returns **OH_DRAWING_ERROR_INVALID_PARAMETER** if any of **font**, **glyphs**, and **points** is NULL, or **count**\n is less than or equal to **0**.\n @since 19\n @version 1.0"]
     #[cfg(feature = "api-19")]
     pub fn OH_Drawing_FontGetPos(
         font: *const OH_Drawing_Font,
@@ -1396,7 +1438,7 @@ extern "C" {
     ) -> OH_Drawing_ErrorCode;
 }
 extern "C" {
-    #[doc = " @brief Returns the recommended spacing between lines.\n\n @syscap SystemCapability.Graphic.Graphic2D.NativeDrawing\n @param font Indicates the pointer to an <b>OH_Drawing_Font</b> object.\n @param spacing Indicates the recommended spacing between lines.\n @return Returns the error code.\n         Returns {@link OH_DRAWING_SUCCESS} if the operation is successful.\n         Returns {@link OH_DRAWING_ERROR_INVALID_PARAMETER} if any of font and spacing is nullptr.\n @since 19\n @version 1.0"]
+    #[doc = " @brief Obtains the recommended line spacing for a font.\n\n @param font Pointer to the {@link OH_Drawing_Font} object.\n @param spacing Recommended line spacing for a font.\n @return Operation code.\n **OH_DRAWING_SUCCESS** if the operation is successful.\n Returns **OH_DRAWING_ERROR_INVALID_PARAMETER** if either **font** or **spacing** is NULL.\n @since 19\n @version 1.0"]
     #[cfg(feature = "api-19")]
     pub fn OH_Drawing_FontGetSpacing(
         font: *const OH_Drawing_Font,
@@ -1404,114 +1446,114 @@ extern "C" {
     ) -> OH_Drawing_ErrorCode;
 }
 extern "C" {
-    #[doc = " @brief Enables or disables linearly scalable font for an <b>OH_Drawing_Font</b> object.\n\n @syscap SystemCapability.Graphic.Graphic2D.NativeDrawing\n @param font Indicates the pointer to an <b>OH_Drawing_Font</b> object.\n @param isLinearText Indicates whether to enable linearly scalable font.\n @since 11\n @version 1.0"]
+    #[doc = " @brief Sets linear scaling for a font.\n This API may return an error code. For details, call {@link OH_Drawing_ErrorCodeGet}.\n If **font** is NULL, **OH_DRAWING_ERROR_INVALID_PARAMETER** is returned.\n\n @param font Pointer to an **OH_Drawing_Font** object.\n @param isLinearText Whether to enable linear scaling. The value **true** means to enable linear scaling, and **false*\n * means the opposite.\n @since 11\n @version 1.0"]
     pub fn OH_Drawing_FontSetLinearText(font: *mut OH_Drawing_Font, isLinearText: bool);
 }
 extern "C" {
-    #[doc = " @brief Gets whether the font is linearly scalable.\n\n @syscap SystemCapability.Graphic.Graphic2D.NativeDrawing\n @param font Indicates the pointer to an <b>OH_Drawing_Font</b> object.\n @return Returns <b>true</b> if the font is linearly scalable; returns <b>false</b> otherwise.\n @since 12\n @version 1.0"]
+    #[doc = " @brief Checks whether linear scaling is used for a font object.\n This API may return an error code. For details, call {@link OH_Drawing_ErrorCodeGet}.\n If **font** is NULL, **OH_DRAWING_ERROR_INVALID_PARAMETER** is returned.\n\n @param font Pointer to the {@link OH_Drawing_Font} object.\n @return Returns **true** if linear scaling is used; returns **false** otherwise.\n @since 12\n @version 1.0"]
     pub fn OH_Drawing_FontIsLinearText(font: *const OH_Drawing_Font) -> bool;
 }
 extern "C" {
-    #[doc = " @brief Sets text skew on x-axis for an <b>OH_Drawing_Font</b> object.\n\n @syscap SystemCapability.Graphic.Graphic2D.NativeDrawing\n @param font Indicates the pointer to an <b>OH_Drawing_Font</b> object.\n @param skewX Indicates the additional shear on x-axis relative to y-axis.\n @since 11\n @version 1.0"]
+    #[doc = " @brief Sets a horizontal skew factor for a font.\n This API may return an error code. For details, call {@link OH_Drawing_ErrorCodeGet}.\n If **font** is NULL, **OH_DRAWING_ERROR_INVALID_PARAMETER** is returned.\n\n @param font Pointer to an **OH_Drawing_Font** object.\n @param skewX Skew of the X axis relative to the Y axis.\n @since 11\n @version 1.0"]
     pub fn OH_Drawing_FontSetTextSkewX(font: *mut OH_Drawing_Font, skewX: f32);
 }
 extern "C" {
-    #[doc = " @brief Gets text skew on x-axis for an <b>OH_Drawing_Font</b> object.\n\n @syscap SystemCapability.Graphic.Graphic2D.NativeDrawing\n @param font Indicates the pointer to an <b>OH_Drawing_Font</b> object.\n @return Returns additional skew on x-axis relative to y-axis.\n @since 12\n @version 1.0"]
+    #[doc = " @brief Obtains the horizontal skew factor of a font.\n This API may return an error code. For details, call {@link OH_Drawing_ErrorCodeGet}.\n If **font** is NULL, **OH_DRAWING_ERROR_INVALID_PARAMETER** is returned.\n\n @param font Pointer to the {@link OH_Drawing_Font} object.\n @return Returns a floating point number representing the horizontal skew factor.\n @since 12\n @version 1.0"]
     pub fn OH_Drawing_FontGetTextSkewX(font: *const OH_Drawing_Font) -> f32;
 }
 extern "C" {
-    #[doc = " @brief Enables or disables to increase stroke width to approximate bold fonts for an <b>OH_Drawing_Font</b> object.\n\n @syscap SystemCapability.Graphic.Graphic2D.NativeDrawing\n @param font Indicates the pointer to an <b>OH_Drawing_Font</b> object.\n @param isFakeBoldText Indicates whether to enable to increase stroke width.\n @since 11\n @version 1.0"]
+    #[doc = " @brief Sets fake bold for a font by increasing the stroke width.\n This API may return an error code. For details, call {@link OH_Drawing_ErrorCodeGet}.\n If **font** is NULL, **OH_DRAWING_ERROR_INVALID_PARAMETER** is returned.\n\n @param font Pointer to an **OH_Drawing_Font** object.\n @param isFakeBoldText Whether to set fake bold. The value **true** means to set fake bold, and **false** means the\n opposite.\n @since 11\n @version 1.0"]
     pub fn OH_Drawing_FontSetFakeBoldText(font: *mut OH_Drawing_Font, isFakeBoldText: bool);
 }
 extern "C" {
-    #[doc = " @brief Gets whether to increase the stroke width to approximate bold fonts.\n\n @syscap SystemCapability.Graphic.Graphic2D.NativeDrawing\n @param font Indicates the pointer to an <b>OH_Drawing_Font</b> object.\n @return Returns <b>true</b> to increase the stroke width to approximate bold fonts; returns <b>false</b> otherwise.\n @since 12\n @version 1.0"]
+    #[doc = " @brief Checks whether fake bold is used for a font.\n This API may return an error code. For details, call {@link OH_Drawing_ErrorCodeGet}.\n If **font** is NULL, **OH_DRAWING_ERROR_INVALID_PARAMETER** is returned.\n\n @param font Pointer to the {@link OH_Drawing_Font} object.\n @return Whether fake bold is used for a font. **true** means yes; **false** otherwise.\n @since 12\n @version 1.0"]
     pub fn OH_Drawing_FontIsFakeBoldText(font: *const OH_Drawing_Font) -> bool;
 }
 extern "C" {
-    #[doc = " @brief Sets text scale on x-axis for an <b>OH_Drawing_Font</b> object.\n\n @syscap SystemCapability.Graphic.Graphic2D.NativeDrawing\n @param font Indicates the pointer to an <b>OH_Drawing_Font</b> object.\n @param scaleX Indicates the text horizontal scale.\n @since 12\n @version 1.0"]
+    #[doc = " @brief Sets a horizontal scale factor for a font.\n This API may return an error code. For details, call {@link OH_Drawing_ErrorCodeGet}.\n If **font** is NULL, **OH_DRAWING_ERROR_INVALID_PARAMETER** is returned.\n\n @param font Pointer to the {@link OH_Drawing_Font} object.\n @param scaleX Horizontal scale factor.\n @since 12\n @version 1.0"]
     pub fn OH_Drawing_FontSetScaleX(font: *mut OH_Drawing_Font, scaleX: f32);
 }
 extern "C" {
-    #[doc = " @brief Gets text scale on x-axis from an <b>OH_Drawing_Font</b> object.\n\n @syscap SystemCapability.Graphic.Graphic2D.NativeDrawing\n @param font Indicates the pointer to an <b>OH_Drawing_Font</b> object.\n @return Returns text horizontal scale on x-axis.\n @since 12\n @version 1.0"]
+    #[doc = " @brief Obtains the horizontal scale ratio of this font.\n This API may return an error code. For details, call {@link OH_Drawing_ErrorCodeGet}.\n If **font** is NULL, **OH_DRAWING_ERROR_INVALID_PARAMETER** is returned.\n\n @param font Pointer to the {@link OH_Drawing_Font} object.\n @return Returns the horizontal scale factor.\n @since 12\n @version 1.0"]
     pub fn OH_Drawing_FontGetScaleX(font: *const OH_Drawing_Font) -> f32;
 }
 extern "C" {
-    #[doc = " @brief Sets hinting pattern for an <b>OH_Drawing_Font</b> object.\n\n @syscap SystemCapability.Graphic.Graphic2D.NativeDrawing\n @param font Indicates the pointer to an <b>OH_Drawing_Font</b> object.\n @param fontHinting Indicates the font hinting pattern.\n @since 12\n @version 1.0"]
+    #[doc = " @brief Sets a font hinting effect.\n This API may return an error code. For details, call {@link OH_Drawing_ErrorCodeGet}.\n If **font** is NULL, **OH_DRAWING_ERROR_INVALID_PARAMETER** is returned.\n If **fontHinting** is not set to one of the enumerated values, **OH_DRAWING_ERROR_PARAMETER_OUT_OF_RANGE** is\n returned.\n\n @param font Pointer to the {@link OH_Drawing_Font} object.\n @param fontHinting Enumeration of font hinting types {@link OH_Drawing_FontHinting}.\n @since 12\n @version 1.0"]
     pub fn OH_Drawing_FontSetHinting(
         font: *mut OH_Drawing_Font,
         fontHinting: OH_Drawing_FontHinting,
     );
 }
 extern "C" {
-    #[doc = " @brief Gets hinting pattern from an <b>OH_Drawing_Font</b> object.\n\n @syscap SystemCapability.Graphic.Graphic2D.NativeDrawing\n @param font Indicates the pointer to an <b>OH_Drawing_Font</b> object.\n @return Returns the font hinting pattern.\n @since 12\n @version 1.0"]
+    #[doc = " @brief Obtains the font hinting effect.\n This API may return an error code. For details, call {@link OH_Drawing_ErrorCodeGet}.\n If **font** is NULL, **OH_DRAWING_ERROR_INVALID_PARAMETER** is returned.\n\n @param font Pointer to the {@link OH_Drawing_Font} object.\n @return Returns the enumeration of font hinting types {@link OH_Drawing_FontHinting}.\n @since 12\n @version 1.0"]
     pub fn OH_Drawing_FontGetHinting(font: *const OH_Drawing_Font) -> OH_Drawing_FontHinting;
 }
 extern "C" {
-    #[doc = " @brief Sets whether to use bitmaps instead of outlines in the <b>OH_Drawing_Font</b> object.\n\n @syscap SystemCapability.Graphic.Graphic2D.NativeDrawing\n @param font Indicates the pointer to an <b>OH_Drawing_Font</b> object.\n @param isEmbeddedBitmaps Indicates whether to use bitmaps instead of outlines.\n @since 12\n @version 1.0"]
+    #[doc = " @brief Sets whether to use bitmaps in a font.\n This API may return an error code. For details, call {@link OH_Drawing_ErrorCodeGet}.\n If **font** is NULL, **OH_DRAWING_ERROR_INVALID_PARAMETER** is returned.\n\n @param font Pointer to the {@link OH_Drawing_Font} object.\n @param isEmbeddedBitmaps Whether to use bitmaps in the font. The value **true** means to use bitmaps in the font,\n and **false** means the opposite.\n @since 12\n @version 1.0"]
     pub fn OH_Drawing_FontSetEmbeddedBitmaps(font: *mut OH_Drawing_Font, isEmbeddedBitmaps: bool);
 }
 extern "C" {
-    #[doc = " @brief Gets whether to use bitmaps instead of outlines in the <b>OH_Drawing_Font</b> object.\n\n @syscap SystemCapability.Graphic.Graphic2D.NativeDrawing\n @param font Indicates the pointer to an <b>OH_Drawing_Font</b> object.\n @return Returns <b>true</b> if using bitmaps instead of outlines; returns <b>false</b> otherwise.\n @since 12\n @version 1.0"]
+    #[doc = " @brief Checks whether bitmaps are used in a font.\n This API may return an error code. For details, call {@link OH_Drawing_ErrorCodeGet}.\n If **font** is NULL, **OH_DRAWING_ERROR_INVALID_PARAMETER** is returned.\n\n @param font Pointer to the {@link OH_Drawing_Font} object.\n @return Returns **true** if bitmaps are used; returns **false** otherwise.\n @since 12\n @version 1.0"]
     pub fn OH_Drawing_FontIsEmbeddedBitmaps(font: *const OH_Drawing_Font) -> bool;
 }
 extern "C" {
-    #[doc = " @brief Sets the font edging effect for an <b>OH_Drawing_Font</b> object.\n\n @syscap SystemCapability.Graphic.Graphic2D.NativeDrawing\n @param font Indicates the pointer to an <b>OH_Drawing_Font</b> object.\n @param fontEdging Indicates the font edging effect.\n @since 12\n @version 1.0"]
+    #[doc = " @brief Sets a font edging effect.\n This API may return an error code. For details, call {@link OH_Drawing_ErrorCodeGet}.\n If **font** is NULL, **OH_DRAWING_ERROR_INVALID_PARAMETER** is returned.\n If **fontEdging** is not set to one of the enumerated values, **OH_DRAWING_ERROR_PARAMETER_OUT_OF_RANGE** is\n returned.\n\n @param font Pointer to the {@link OH_Drawing_Font} object.\n @param fontEdging Font edging effect.\n @since 12\n @version 1.0"]
     pub fn OH_Drawing_FontSetEdging(font: *mut OH_Drawing_Font, fontEdging: OH_Drawing_FontEdging);
 }
 extern "C" {
-    #[doc = " @brief Gets the font edging effect from an <b>OH_Drawing_Font</b> object.\n\n @syscap SystemCapability.Graphic.Graphic2D.NativeDrawing\n @param font Indicates the pointer to an <b>OH_Drawing_Font</b> object.\n @return Returns the font edging effect.\n @since 12\n @version 1.0"]
+    #[doc = " @brief Obtains the font edging effect.\n This API may return an error code. For details, call {@link OH_Drawing_ErrorCodeGet}.\n If **font** is NULL, **OH_DRAWING_ERROR_INVALID_PARAMETER** is returned.\n\n @param font Pointer to the {@link OH_Drawing_Font} object.\n @return Font edging effect.\n @since 12\n @version 1.0"]
     pub fn OH_Drawing_FontGetEdging(font: *const OH_Drawing_Font) -> OH_Drawing_FontEdging;
 }
 extern "C" {
-    #[doc = " @brief Destroys an <b>OH_Drawing_Font</b> object and reclaims the memory occupied by the object.\n\n @syscap SystemCapability.Graphic.Graphic2D.NativeDrawing\n @param font Indicates the pointer to an <b>OH_Drawing_Font</b> object.\n @since 11\n @version 1.0"]
+    #[doc = " @brief Destroys an **OH_Drawing_Font** object and reclaims the memory occupied by the object.\n\n @param font Pointer to an **OH_Drawing_Font** object.\n @since 11\n @version 1.0"]
     pub fn OH_Drawing_FontDestroy(font: *mut OH_Drawing_Font);
 }
-#[doc = " @brief Defines a run, supplies storage for the metrics of an <b>OH_Drawing_Font</b>.\n\n @since 12\n @version 1.0"]
+#[doc = " @brief This struct describes the measurement information about a font.\n\n @since 12\n @version 1.0"]
 #[repr(C)]
 #[derive(Debug, Copy, Clone)]
 pub struct OH_Drawing_Font_Metrics {
-    #[doc = " Indicating which metrics are valid"]
+    #[doc = " Measurement information that is valid.\n\n @since 12"]
     pub flags: u32,
-    #[doc = " storage for top in font metrics"]
+    #[doc = " Maximum distance from the baseline to the highest coordinate of a character.\n\n @since 12"]
     pub top: f32,
-    #[doc = " storage for ascent in font metrics"]
+    #[doc = " Recommended distance from the baseline to the highest coordinate of a character.\n\n @since 12"]
     pub ascent: f32,
-    #[doc = " storage for descent in font metrics"]
+    #[doc = " Recommended distance from the baseline to the lowest coordinate of a character.\n\n @since 12"]
     pub descent: f32,
-    #[doc = " storage for bottom in font metrics"]
+    #[doc = " Maximum distance from the baseline to the lowest coordinate of a character.\n\n @since 12"]
     pub bottom: f32,
-    #[doc = " storage for leading in font metrics"]
+    #[doc = " Gap between rows.\n\n @since 12"]
     pub leading: f32,
-    #[doc = "  Average character width, zero if unknown"]
+    #[doc = " Average character width, or zero if unknown.\n\n @since 12"]
     pub avgCharWidth: f32,
-    #[doc = " Maximum character width, zero if unknown"]
+    #[doc = " Maximum character width, or zero if unknown.\n\n @since 12"]
     pub maxCharWidth: f32,
-    #[doc = " Greatest extent to left of origin of any glyph bounding box, typically negative; deprecated with variable fonts"]
+    #[doc = " Maximum distance to the leftmost of the font bounding box. Generally, the value is a negative value. Variable\n fonts are not recommended.\n\n @since 12"]
     pub xMin: f32,
-    #[doc = " Greatest extent to right of origin of any glyph bounding box, typically positive; deprecated with variable fonts"]
+    #[doc = " Maximum distance to the rightmost of the font bounding box. Generally, the value is a negative value. Variable\n fonts are not recommended.\n\n @since 12"]
     pub xMax: f32,
-    #[doc = " Height of lower-case letter, zero if unknown, typically negative"]
+    #[doc = " Height of a lowercase letter, or zero if unknown. Generally, the value is a negative value.\n\n @since 12"]
     pub xHeight: f32,
-    #[doc = " Height of an upper-case letter, zero if unknown, typically negative"]
+    #[doc = " Height of an uppercase letter, or zero if unknown. Generally, the value is a negative value.\n\n @since 12"]
     pub capHeight: f32,
-    #[doc = " @brief Underline thickness"]
+    #[doc = " @brief Thickness of the underline.\n\n @since 12"]
     pub underlineThickness: f32,
-    #[doc = " Distance from baseline to top of stroke, typically positive"]
+    #[doc = " Position of the underline, that is, vertical distance from the baseline to the top of the underline. Generally,\n the value is a positive value.\n\n @since 12"]
     pub underlinePosition: f32,
-    #[doc = " Strikeout thickness"]
+    #[doc = " Thickness of the strikethrough.\n\n @since 12"]
     pub strikeoutThickness: f32,
-    #[doc = " Distance from baseline to bottom of stroke, typically negative"]
+    #[doc = " Position of the strikethrough, that is, vertical distance from the baseline to the bottom of the strikethrough.\n Generally, the value is a negative value.\n\n @since 12"]
     pub strikeoutPosition: f32,
 }
 extern "C" {
-    #[doc = " @brief Obtains the metrics of a font.\n\n @syscap SystemCapability.Graphic.Graphic2D.NativeDrawing\n @param font Indicates the pointer to an <b>OH_Drawing_Font</b> object.\n @param fontMetrics Indicates the pointer to an <b>OH_Drawing_Font_Metrics</b> object.\n @return Returns a float variable that recommended spacing between lines.\n @since 12\n @version 1.0"]
+    #[doc = " @brief Obtains the measurement information about a font.\n This API may return an error code. For details, call {@link OH_Drawing_ErrorCodeGet}.\n If either **font** or **fontMetrics** is NULL, **OH_DRAWING_ERROR_INVALID_PARAMETER** is returned.\n\n @param font Pointer to the {@link OH_Drawing_Font} object.\n @param fontMetrics Pointer to the {@link OH_Drawing_Font_Metrics} object.\n @return Returns a floating-point variable that indicates the recommended interline spacing.\n @since 12\n @version 1.0"]
     pub fn OH_Drawing_FontGetMetrics(
         font: *mut OH_Drawing_Font,
         fontMetrics: *mut OH_Drawing_Font_Metrics,
     ) -> f32;
 }
 extern "C" {
-    #[doc = " @brief Retrieves the bound rect for each glyph in glyph array.\n\n @syscap SystemCapability.Graphic.Graphic2D.NativeDrawing\n @param font Indicates the pointer to an <b>OH_Drawing_Font</b> object.\n @param glyphs Indicates the array of glyph indices to be measured.\n @param count Indicates the number of glyphs.\n @param bounds The bound rect array for each glyph, returned to the caller.\n @return Returns the error code.\n         Returns {@link OH_DRAWING_SUCCESS} if the operation is successful.\n         Returns {@link OH_DRAWING_ERROR_INVALID_PARAMETER} if any of font, glyphs\n                 and bounds is nullptr or count is 0.\n @since 18\n @version 1.0"]
+    #[doc = " @brief Obtains the rectangular bounding box for each glyph in the glyph array.\n\n @param font Pointer to the {@link OH_Drawing_Font} object.\n @param glyphs Pointer to a glyph array.\n @param count Length of the glyph array.\n @param bounds Pointer to a rectangular bounding box array.\n @return Returns one of the following result codes:\n **OH_DRAWING_SUCCESS** if the operation is successful.\n **OH_DRAWING_ERROR_INVALID_PARAMETER** if any of **font**, **glyphs**, or **bounds** is NULL or **count** is **0**.\n @since 18\n @version 1.0"]
     #[cfg(feature = "api-18")]
     pub fn OH_Drawing_FontGetBounds(
         font: *const OH_Drawing_Font,
@@ -1521,7 +1563,7 @@ extern "C" {
     ) -> OH_Drawing_ErrorCode;
 }
 extern "C" {
-    #[doc = " @brief Retrieves the path for specified Glyph.\n\n @syscap SystemCapability.Graphic.Graphic2D.NativeDrawing\n @param font Indicates the pointer to an <b>OH_Drawing_Font</b> object.\n @param glyph glyph index to be obtained.\n @param path The path object, returned to the caller.\n @return Returns the error code.\n         Returns {@link OH_DRAWING_SUCCESS} if the operation is successful.\n         Returns {@link OH_DRAWING_ERROR_INVALID_PARAMETER} if any of font, path\n                 is nullptr or glyph not exist.\n @since 18\n @version 1.0"]
+    #[doc = " @brief Obtains the path of a glyph.\n\n @param font Pointer to the {@link OH_Drawing_Font} object.\n @param glyph Glyph index.\n @param path Pointer to the {@link OH_Drawing_Path} object, which is used to store the glyph path.\n @return Returns one of the following result codes:\n **OH_DRAWING_SUCCESS** if the operation is successful.\n **OH_DRAWING_ERROR_INVALID_PARAMETER** if **font** or **path** is NULL or the specified glyph does not exist.\n @since 18\n @version 1.0"]
     #[cfg(feature = "api-18")]
     pub fn OH_Drawing_FontGetPathForGlyph(
         font: *const OH_Drawing_Font,
@@ -1530,7 +1572,7 @@ extern "C" {
     ) -> OH_Drawing_ErrorCode;
 }
 extern "C" {
-    #[doc = " @brief Get the text outline path.\n\n @syscap SystemCapability.Graphic.Graphic2D.NativeDrawing\n @param font Indicates the pointer to an <b>OH_Drawing_Font</b> object.\n @param text Indicates the character storage encoded with text encoding.\n @param byteLength Indicates to get the byte length of the corresponding text path. If this byte length is greater\n than the byte length of the text string, undefined behavior will occur.\n @param encoding <b>OH_Drawing_TextEncoding</b> Indicates the text encoding.\n @param x Indicates x coordinates of the text.\n @param y Indicates y coordinates of the text.\n @param path <b>OH_Drawing_Path</b> The path object, returned to the caller.\n @return Returns the error code.\n         Returns {@link OH_DRAWING_SUCCESS} if the operation is successful.\n         Returns {@link OH_DRAWING_ERROR_INVALID_PARAMETER} if any of font, text or path is nullptr.\n @since 18"]
+    #[doc = " @brief Obtains the text outline path.\n\n @param font Pointer to the {@link OH_Drawing_Font} object.\n @param text Pointer to the text string.\n @param byteLength Length of the text path. If the length is greater than the length of the text string, undefined\n behavior occurs.\n @param encoding Text encoding format. UTF-8, UTF-16, UTF-32, and glyph indices are supported. For details about the\n format, see {@link OH_Drawing_TextEncoding}.\n @param x X coordinate of the text in the drawing area, with the origin as the start point.\n @param y Y coordinate of the text in the drawing area, with the origin as the start point.\n @param path Pointer to the text outline path.\n @return Returns one of the following error codes:\n Returns {@link OH_DRAWING_SUCCESS} if the operation is successful.\n Returns {@link OH_DRAWING_ERROR_INVALID_PARAMETER} if any of **font**, **text**, or **path** is NULL.\n @since 18"]
     #[cfg(feature = "api-18")]
     pub fn OH_Drawing_FontGetTextPath(
         font: *const OH_Drawing_Font,
@@ -1543,12 +1585,25 @@ extern "C" {
     ) -> OH_Drawing_ErrorCode;
 }
 extern "C" {
-    #[doc = " @brief Creates an <b>OH_Drawing_FontFeatures</b> object.\n\n @syscap SystemCapability.Graphic.Graphic2D.NativeDrawing\n @return Returns the pointer to the <b>OH_Drawing_FontFeatures</b> object created.\n         If nullptr is returned, the creation fails.\n         The possible cause of the failure is that the available memory is empty.\n @since 20\n @version 1.0"]
+    #[doc = " @brief Gets the path outline for the given text with font fallback support.\n\n @param font Indicates the pointer to an <b>OH_Drawing_Font</b> object.\n @param text Indicates the pointer to the text data.\n @param byteLength Indicates the length of the text in bytes.\n @param encoding Indicates the text encoding type.\n @param x Indicates the x coordinate for the text path.\n @param y Indicates the y coordinate for the text path.\n @param path Indicates the pointer to an <b>OH_Drawing_Path</b> object to store the text path outline.\n @return Returns the error code.\n         Returns {@link OH_DRAWING_SUCCESS} if the operation is successful.\n         Returns {@link OH_DRAWING_ERROR_INCORRECT_PARAMETER} if any of font, text or path is nullptr, or\n                 byteLength is 0.\n @since 26.0.0"]
+    #[cfg(feature = "api-26")]
+    pub fn OH_Drawing_FontGetTextPathWithFallback(
+        font: *const OH_Drawing_Font,
+        text: *const ::std::os::raw::c_void,
+        byteLength: usize,
+        encoding: OH_Drawing_TextEncoding,
+        x: f32,
+        y: f32,
+        path: *mut OH_Drawing_Path,
+    ) -> OH_Drawing_ErrorCode;
+}
+extern "C" {
+    #[doc = " @brief Creates an **OH_Drawing_FontFeatures** object.\n\n @return Returns a pointer to the created {@link OH_Drawing_FontFeatures} object.\n If a null pointer is returned, the creation fails. A possible cause is that no memory is available.\n @since 20\n @version 1.0"]
     #[cfg(feature = "api-20")]
     pub fn OH_Drawing_FontFeaturesCreate() -> *mut OH_Drawing_FontFeatures;
 }
 extern "C" {
-    #[doc = " @brief Adds a font feature for an <b>OH_Drawing_FontFeatures</b> object.\n\n @syscap SystemCapability.Graphic.Graphic2D.NativeDrawing\n @param fontFeatures Indicates the pointer to an <b>OH_Drawing_FontFeatures</b> object.\n @param name Indicates the feature name.\n @param value Indicates the value of the feature.\n @return Returns the error code.\n         Returns {@link OH_DRAWING_SUCCESS} if the operation is successful.\n         Returns {@link OH_DRAWING_ERROR_INVALID_PARAMETER} if either fontFeatures or name is nullptr.\n @since 20\n @version 1.0"]
+    #[doc = " @brief Adds a font feature to an **OH_Drawing_FontFeatures** object.\n\n @param fontFeatures Pointer to the {@link OH_Drawing_FontFeatures} object.\n @param name Name of a font feature. Common font feature names include **liga**, **frac**, and **case**. A font\n feature needs a TTF file to work.\n @param value Value of the font feature. You are advised to determine the valid value range by using a font viewing\n tool or referring to the font document.\n @return Execution result.\n **OH_DRAWING_SUCCESS** if the operation is successful.\n Returns **OH_DRAWING_ERROR_INVALID_PARAMETER** if **fontFeatures** or **name** is a null pointer.\n @since 20\n @version 1.0"]
     #[cfg(feature = "api-20")]
     pub fn OH_Drawing_FontFeaturesAddFeature(
         fontFeatures: *mut OH_Drawing_FontFeatures,
@@ -1557,14 +1612,14 @@ extern "C" {
     ) -> OH_Drawing_ErrorCode;
 }
 extern "C" {
-    #[doc = " @brief Destroys an <b>OH_Drawing_FontFeatures</b> object and reclaims the memory occupied by the object.\n\n @syscap SystemCapability.Graphic.Graphic2D.NativeDrawing\n @param fontFeatures Indicates the pointer to an <b>OH_Drawing_FontFeatures</b> object.\n @return Returns the error code.\n         Returns {@link OH_DRAWING_SUCCESS} if the operation is successful.\n         Returns {@link OH_DRAWING_ERROR_INVALID_PARAMETER} if fontFeatures is nullptr.\n @since 20\n @version 1.0"]
+    #[doc = " @brief Destroys an **OH_Drawing_FontFeatures** object and reclaims the memory occupied by the object.\n\n @param fontFeatures Pointer to the {@link OH_Drawing_FontFeatures} object.\n @return Execution result.\n **OH_DRAWING_SUCCESS** if the operation is successful.\n Returns **OH_DRAWING_ERROR_INVALID_PARAMETER** if **fontFeatures** is NULL.\n @since 20\n @version 1.0"]
     #[cfg(feature = "api-20")]
     pub fn OH_Drawing_FontFeaturesDestroy(
         fontFeatures: *mut OH_Drawing_FontFeatures,
     ) -> OH_Drawing_ErrorCode;
 }
 extern "C" {
-    #[doc = " @brief Sets whether to follow the theme font. If the value is true, the theme font is used when typeface is not set.\n\n @syscap SystemCapability.Graphic.Graphic2D.NativeDrawing\n @param font Indicates the pointer to an <b>OH_Drawing_Font</b> object.\n @param followed Indicates whether to follow the theme font.\n @return Returns the error code.\n         Returns {@link OH_DRAWING_SUCCESS} if the operation is successful.\n         Returns {@link OH_DRAWING_ERROR_INVALID_PARAMETER} if font is nullptr.\n @since 15"]
+    #[doc = " @brief Sets whether to follow the theme font. When **followed** is set to **true**, the theme font is used if it is\n enabled by the system and no typeface is set.\n\n @param font Pointer to the {@link OH_Drawing_Font} object.\n @param followed Whether to follow the theme font. The value **true** means to follow the theme font, and **false**\n means the opposite.\n @return Returns one of the following result codes:\n **OH_DRAWING_SUCCESS** if the operation is successful.\n Returns **OH_DRAWING_ERROR_INVALID_PARAMETER** if **font** is NULL.\n @since 15"]
     #[cfg(feature = "api-15")]
     pub fn OH_Drawing_FontSetThemeFontFollowed(
         font: *mut OH_Drawing_Font,
@@ -1572,7 +1627,7 @@ extern "C" {
     ) -> OH_Drawing_ErrorCode;
 }
 extern "C" {
-    #[doc = " @brief Gets whether to follow the theme font.\n\n @syscap SystemCapability.Graphic.Graphic2D.NativeDrawing\n @param font Indicates the pointer to an <b>OH_Drawing_Font</b> object.\n @param followed Indicates whether to follow the theme font.\n @return Returns the error code.\n         Returns {@link OH_DRAWING_SUCCESS} if the operation is successful.\n         Returns {@link OH_DRAWING_ERROR_INVALID_PARAMETER} if font or followed is nullptr.\n @since 15"]
+    #[doc = " @brief Checks whether the font follows the theme font. By default, the theme font is not followed.\n\n @param font Pointer to the {@link OH_Drawing_Font} object.\n @param followed Check result. The value **true** means that the theme font is followed, and **false** means the\n opposite. It is used as an output parameter.\n @return Returns one of the following result codes:\n **OH_DRAWING_SUCCESS** if the operation is successful.\n Returns **OH_DRAWING_ERROR_INVALID_PARAMETER** if either **font** or **followed** is NULL.\n @since 15"]
     #[cfg(feature = "api-15")]
     pub fn OH_Drawing_FontIsThemeFontFollowed(
         font: *const OH_Drawing_Font,
@@ -1589,6 +1644,7 @@ pub struct OH_Drawing_FontCollection {
 pub struct OH_Drawing_Typography {
     _unused: [u8; 0],
 }
+#[cfg(feature = "api-18")]
 #[repr(C)]
 #[derive(Debug, Copy, Clone)]
 pub struct OH_Drawing_LineTypography {
@@ -1634,498 +1690,550 @@ pub struct OH_Drawing_FontParser {
 pub struct OH_Drawing_TextShadow {
     _unused: [u8; 0],
 }
+#[cfg(feature = "api-18")]
 #[repr(C)]
 #[derive(Debug, Copy, Clone)]
 pub struct OH_Drawing_TextTab {
     _unused: [u8; 0],
 }
+#[cfg(feature = "api-18")]
 #[repr(C)]
 #[derive(Debug, Copy, Clone)]
 pub struct OH_Drawing_TextLine {
     _unused: [u8; 0],
 }
+#[cfg(feature = "api-18")]
 #[repr(C)]
 #[derive(Debug, Copy, Clone)]
 pub struct OH_Drawing_Run {
     _unused: [u8; 0],
 }
+#[cfg(feature = "api-22")]
 #[repr(C)]
 #[derive(Debug, Copy, Clone)]
 pub struct OH_Drawing_FontFullDescriptor {
     _unused: [u8; 0],
 }
+#[cfg(feature = "api-24")]
 #[repr(C)]
 #[derive(Debug, Copy, Clone)]
 pub struct OH_Drawing_FontVariationAxis {
     _unused: [u8; 0],
 }
+#[cfg(feature = "api-24")]
 #[repr(C)]
 #[derive(Debug, Copy, Clone)]
 pub struct OH_Drawing_FontVariationInstance {
     _unused: [u8; 0],
 }
 extern "C" {
-    #[doc = " @brief Creates an <b>OH_Drawing_FontCollection</b> object.\n\n @syscap SystemCapability.Graphic.Graphic2D.NativeDrawing\n @return Returns the pointer to the <b>OH_Drawing_FontCollection</b> object created.\n @since 8\n @version 1.0"]
+    #[doc = " @brief Creates an {@link OH_Drawing_FontCollection} object.\n\n @syscap SystemCapability.Graphic.Graphic2D.NativeDrawing\n @return Pointer to the created font collection object. The font collection pointer object created by this function\n     can only be used by one {@link OH_Drawing_TypographyCreate} object and does not support shared use among\n     multiple OH_Drawing_TypographyCreate objects. To share the same OH_Drawing_FontCollection among multiple\n     OH_Drawing_TypographyCreate objects, use the {@link OH_Drawing_CreateSharedFontCollection} function to create\n     the OH_Drawing_FontCollection object.\n @since 8\n @version 1.0"]
     pub fn OH_Drawing_CreateFontCollection() -> *mut OH_Drawing_FontCollection;
 }
 extern "C" {
-    #[doc = " @brief Releases the memory occupied by an <b>OH_Drawing_FontCollection</b> object.\n\n @syscap SystemCapability.Graphic.Graphic2D.NativeDrawing\n @param fontCollection Indicates the pointer to an <b>OH_Drawing_FontCollection</b> object.\n @since 8\n @version 1.0"]
+    #[doc = " @brief Destroys an **OH_Drawing_FontCollection** object and reclaims the memory occupied by the object.\n\n @syscap SystemCapability.Graphic.Graphic2D.NativeDrawing\n @param fontCollection Pointer to an **OH_Drawing_FontCollection** object.\n @since 8\n @version 1.0"]
     pub fn OH_Drawing_DestroyFontCollection(fontCollection: *mut OH_Drawing_FontCollection);
 }
 extern "C" {
-    #[doc = " @brief Disable the font collection fallback.\n\n @syscap SystemCapability.Graphic.Graphic2D.NativeDrawing\n @param fontCollection Indicates the pointer to an <b>OH_Drawing_FontCollection</b> object.\n @since 12\n @version 1.0\n @deprecated since 18\n @useinstead OH_Drawing_DisableFontCollectionSystemFont"]
+    #[doc = " @brief Disables the system fonts.\n\n @syscap SystemCapability.Graphic.Graphic2D.NativeDrawing\n @param fontCollection Pointer to an {@link OH_Drawing_FontCollection} object.\n @since 12\n @version 1.0\n @deprecated since 18\n @useinstead OH_Drawing_DisableFontCollectionSystemFont"]
     pub fn OH_Drawing_DisableFontCollectionFallback(fontCollection: *mut OH_Drawing_FontCollection);
 }
 extern "C" {
-    #[doc = " @brief Disable the font collection systemfont.\n\n @syscap SystemCapability.Graphic.Graphic2D.NativeDrawing\n @param fontCollection Indicates the pointer to an <b>OH_Drawing_FontCollection</b> object.\n @since 12\n @version 1.0"]
+    #[doc = " @brief Disables system fonts. After disabling, the font collection object can only use registered custom fonts for\n text rendering.\n\n @syscap SystemCapability.Graphic.Graphic2D.NativeDrawing\n @param fontCollection Pointer to the font collection object {@link OH_Drawing_FontCollection} for which system fonts\n     are to be disabled.\n @since 12\n @version 1.0"]
     pub fn OH_Drawing_DisableFontCollectionSystemFont(
         fontCollection: *mut OH_Drawing_FontCollection,
     );
 }
 extern "C" {
-    #[doc = " @brief Creates an <b>OH_Drawing_FontCollection</b> object with shared usage between\n <b>OH_Drawing_TypographyCreate</b>.\n\n @syscap SystemCapability.Graphic.Graphic2D.NativeDrawing\n @return Returns the pointer to the <b>OH_Drawing_FontCollection</b> object created.\n @since 12\n @version 1.0"]
+    #[doc = " @brief Creates a shareable {@link OH_Drawing_FontCollection} object.\n\n @syscap SystemCapability.Graphic.Graphic2D.NativeDrawing\n @return Pointer to the created font collection object, which can be used by multiple\n     {@link OH_Drawing_TypographyCreate} objects.\n @since 12\n @version 1.0"]
     pub fn OH_Drawing_CreateSharedFontCollection() -> *mut OH_Drawing_FontCollection;
 }
 extern "C" {
-    #[doc = " @brief Clear font caches.\n\n @syscap SystemCapability.Graphic.Graphic2D.NativeDrawing\n @param fontCollection Indicates the pointer to an <b>OH_Drawing_FontCollection</b> object.\n @since 12\n @version 1.0"]
+    #[doc = " @brief Clears the font cache. (The font cache has a memory limit and a clearing mechanism. It occupies limited\n memory. You are not advised to clear it unless otherwise required.)\n\n @syscap SystemCapability.Graphic.Graphic2D.NativeDrawing\n @param fontCollection Pointer to an {@link OH_Drawing_FontCollection} object.\n @since 12\n @version 1.0"]
     pub fn OH_Drawing_ClearFontCaches(fontCollection: *mut OH_Drawing_FontCollection);
 }
 extern "C" {
-    #[doc = " @brief Get the <b>OH_Drawing_FontCollection</b> global instance.\n\n @syscap SystemCapability.Graphic.Graphic2D.NativeDrawing\n @return Return the pointer to the <b>OH_Drawing_FontCollection</b> global instance.\n @since 14\n @version 1.0"]
+    #[doc = " @brief Obtains the global font collection object {@link OH_Drawing_FontCollection}, which can be used to obtain\n theme font information. This object is prohibited from being released.\n\n @syscap SystemCapability.Graphic.Graphic2D.NativeDrawing\n @return Pointer to the global font collection object, which can be used by multiple\n     {@link OH_Drawing_TypographyCreate} objects and is prohibited from being released.\n @since 14\n @version 1.0"]
     #[cfg(feature = "api-14")]
     pub fn OH_Drawing_GetFontCollectionGlobalInstance() -> *mut OH_Drawing_FontCollection;
 }
-#[doc = " Right to left (RTL)"]
+#[doc = " Right to left (RTL)."]
 pub const OH_Drawing_TextDirection_TEXT_DIRECTION_RTL: OH_Drawing_TextDirection = 0;
-#[doc = " Left to right (LTR)"]
+#[doc = " Left to right (LTR)."]
 pub const OH_Drawing_TextDirection_TEXT_DIRECTION_LTR: OH_Drawing_TextDirection = 1;
-#[doc = " @brief Enumerates text directions.\n\n @since 8\n @version 1.0"]
+#[doc = " @brief Enumerates the text directions.\n\n @since 8\n @version 1.0"]
 pub type OH_Drawing_TextDirection = u32;
-#[doc = " Left-aligned"]
+#[doc = " Left-aligned."]
 pub const OH_Drawing_TextAlign_TEXT_ALIGN_LEFT: OH_Drawing_TextAlign = 0;
-#[doc = " Right-aligned"]
+#[doc = " Right-aligned."]
 pub const OH_Drawing_TextAlign_TEXT_ALIGN_RIGHT: OH_Drawing_TextAlign = 1;
-#[doc = " Center-aligned"]
+#[doc = " Center-aligned."]
 pub const OH_Drawing_TextAlign_TEXT_ALIGN_CENTER: OH_Drawing_TextAlign = 2;
 #[doc = " Justified, which means that each line (except the last line) is stretched so that every line has equal width,\n and the left and right margins are straight."]
 pub const OH_Drawing_TextAlign_TEXT_ALIGN_JUSTIFY: OH_Drawing_TextAlign = 3;
-#[doc = " <b>TEXT_ALIGN_START</b> achieves the same effect as <b>TEXT_ALIGN_LEFT</b>\n when <b>OH_Drawing_TextDirection</b> is <b>TEXT_DIRECTION_LTR</b>;\n it achieves the same effect as <b>TEXT_ALIGN_RIGHT</b>\n when <b>OH_Drawing_TextDirection</b> is <b>TEXT_DIRECTION_RTL</b>."]
+#[doc = " When **OH_Drawing_TextDirection** is set to **TEXT_DIRECTION_LTR**, **TEXT_ALIGN_START** and **TEXT_ALIGN_LEFT**\n are the same.<br>Similarly, when **OH_Drawing_TextDirection** is set to **TEXT_DIRECTION_RTL**, **\n TEXT_ALIGN_START** and **TEXT_ALIGN_RIGHT** are the same."]
 pub const OH_Drawing_TextAlign_TEXT_ALIGN_START: OH_Drawing_TextAlign = 4;
-#[doc = " <b>TEXT_ALIGN_END</b> achieves the same effect as <b>TEXT_ALIGN_RIGHT</b>\n when <b>OH_Drawing_TextDirection</b> is <b>TEXT_DIRECTION_LTR</b>;\n it achieves the same effect as <b>TEXT_ALIGN_LEFT</b>\n when <b>OH_Drawing_TextDirection</b> is <b>TEXT_DIRECTION_RTL</b>."]
+#[doc = " When **OH_Drawing_TextDirection** is set to **TEXT_DIRECTION_LTR**, **TEXT_ALIGN_END** and **TEXT_ALIGN_RIGHT**\n are the same.<br>Similarly, when **OH_Drawing_TextDirection** is set to **TEXT_DIRECTION_RTL**, **TEXT_ALIGN_END*\n * and **TEXT_ALIGN_LEFT** are the same."]
 pub const OH_Drawing_TextAlign_TEXT_ALIGN_END: OH_Drawing_TextAlign = 5;
-#[doc = " @brief Enumerates text alignment modes.\n\n @since 8\n @version 1.0"]
+#[doc = " @brief Enumerates the text alignment modes.\n\n @since 8\n @version 1.0"]
 pub type OH_Drawing_TextAlign = u32;
-#[doc = " Thin"]
+#[doc = " Thin."]
 pub const OH_Drawing_FontWeight_FONT_WEIGHT_100: OH_Drawing_FontWeight = 0;
-#[doc = " Extra-light"]
+#[doc = " Extra-light."]
 pub const OH_Drawing_FontWeight_FONT_WEIGHT_200: OH_Drawing_FontWeight = 1;
-#[doc = " Light"]
+#[doc = " Light."]
 pub const OH_Drawing_FontWeight_FONT_WEIGHT_300: OH_Drawing_FontWeight = 2;
-#[doc = " Normal/Regular"]
+#[doc = " Normal/Regular."]
 pub const OH_Drawing_FontWeight_FONT_WEIGHT_400: OH_Drawing_FontWeight = 3;
-#[doc = " Medium"]
+#[doc = " Medium."]
 pub const OH_Drawing_FontWeight_FONT_WEIGHT_500: OH_Drawing_FontWeight = 4;
-#[doc = " Semi-bold"]
+#[doc = " Semi-bold."]
 pub const OH_Drawing_FontWeight_FONT_WEIGHT_600: OH_Drawing_FontWeight = 5;
-#[doc = " Bold"]
+#[doc = " Bold."]
 pub const OH_Drawing_FontWeight_FONT_WEIGHT_700: OH_Drawing_FontWeight = 6;
-#[doc = " Extra-bold"]
+#[doc = " Extra-bold."]
 pub const OH_Drawing_FontWeight_FONT_WEIGHT_800: OH_Drawing_FontWeight = 7;
-#[doc = " Black"]
+#[doc = " Black."]
 pub const OH_Drawing_FontWeight_FONT_WEIGHT_900: OH_Drawing_FontWeight = 8;
-#[doc = " @brief Enumerates font weights.\n\n @since 8\n @version 1.0"]
+#[doc = " @brief Enumerates the font weights.\n\n @since 8\n @version 1.0"]
 pub type OH_Drawing_FontWeight = u32;
 #[doc = " Alphabetic, where the letters in alphabets like English sit on."]
 pub const OH_Drawing_TextBaseline_TEXT_BASELINE_ALPHABETIC: OH_Drawing_TextBaseline = 0;
-#[doc = " Ideographic. The baseline is at the bottom of the text area."]
+#[doc = " Ideographic, where the baseline is at the bottom of the text area."]
 pub const OH_Drawing_TextBaseline_TEXT_BASELINE_IDEOGRAPHIC: OH_Drawing_TextBaseline = 1;
-#[doc = " @brief Enumerates text baselines.\n\n @since 8\n @version 1.0"]
+#[doc = " @brief Enumerates the text baselines.\n\n @since 8\n @version 1.0"]
 pub type OH_Drawing_TextBaseline = u32;
 #[doc = " No decoration."]
 pub const OH_Drawing_TextDecoration_TEXT_DECORATION_NONE: OH_Drawing_TextDecoration = 0;
-#[doc = " A underline is used for decoration."]
+#[doc = " An underline is used for decoration."]
 pub const OH_Drawing_TextDecoration_TEXT_DECORATION_UNDERLINE: OH_Drawing_TextDecoration = 1;
 #[doc = " An overline is used for decoration."]
 pub const OH_Drawing_TextDecoration_TEXT_DECORATION_OVERLINE: OH_Drawing_TextDecoration = 2;
 #[doc = " A strikethrough is used for decoration."]
 pub const OH_Drawing_TextDecoration_TEXT_DECORATION_LINE_THROUGH: OH_Drawing_TextDecoration = 4;
-#[doc = " @brief Enumerates text decorations.\n\n @since 8\n @version 1.0"]
+#[doc = " @brief Enumerates the text decorations.\n\n @since 8\n @version 1.0"]
 pub type OH_Drawing_TextDecoration = u32;
-#[doc = " Normal style"]
+#[doc = " Normal style."]
 pub const OH_Drawing_FontStyle_FONT_STYLE_NORMAL: OH_Drawing_FontStyle = 0;
-#[doc = " Italic style"]
+#[doc = " Italic."]
 pub const OH_Drawing_FontStyle_FONT_STYLE_ITALIC: OH_Drawing_FontStyle = 1;
-#[doc = " Oblique style"]
+#[doc = " Oblique."]
 pub const OH_Drawing_FontStyle_FONT_STYLE_OBLIQUE: OH_Drawing_FontStyle = 2;
-#[doc = " @brief Enumerates font styles.\n\n @since 8\n @version 1.0"]
+#[doc = " @brief Font styles, including non-italic, italic, and oblique.\n\n @since 8\n @version 1.0"]
 pub type OH_Drawing_FontStyle = u32;
-#[doc = " Offset At Baseline"]
+#[doc = " Aligned to the baseline."]
 pub const OH_Drawing_PlaceholderVerticalAlignment_ALIGNMENT_OFFSET_AT_BASELINE:
     OH_Drawing_PlaceholderVerticalAlignment = 0;
-#[doc = " Above Baseline"]
+#[doc = " Aligned above the baseline."]
 pub const OH_Drawing_PlaceholderVerticalAlignment_ALIGNMENT_ABOVE_BASELINE:
     OH_Drawing_PlaceholderVerticalAlignment = 1;
-#[doc = " Below Baseline"]
+#[doc = " Aligned below the baseline."]
 pub const OH_Drawing_PlaceholderVerticalAlignment_ALIGNMENT_BELOW_BASELINE:
     OH_Drawing_PlaceholderVerticalAlignment = 2;
-#[doc = " Top of Row Box"]
+#[doc = " Aligned to the top of the row box."]
 pub const OH_Drawing_PlaceholderVerticalAlignment_ALIGNMENT_TOP_OF_ROW_BOX:
     OH_Drawing_PlaceholderVerticalAlignment = 3;
-#[doc = " Bottom of Row Box"]
+#[doc = " Aligned to the bottom of the row box."]
 pub const OH_Drawing_PlaceholderVerticalAlignment_ALIGNMENT_BOTTOM_OF_ROW_BOX:
     OH_Drawing_PlaceholderVerticalAlignment = 4;
-#[doc = " Center of Row Box"]
+#[doc = " Aligned to the center of the row box."]
 pub const OH_Drawing_PlaceholderVerticalAlignment_ALIGNMENT_CENTER_OF_ROW_BOX:
     OH_Drawing_PlaceholderVerticalAlignment = 5;
-#[doc = " Follow paragraph setting\n @since 20"]
+#[doc = " Follows the text vertical alignment.\n @since 20"]
 #[cfg(feature = "api-20")]
 pub const OH_Drawing_PlaceholderVerticalAlignment_ALIGNMENT_FOLLOW_PARAGRAPH:
     OH_Drawing_PlaceholderVerticalAlignment = 6;
-#[doc = " @brief Enumerates placeholder vertical alignment.\n\n @since 11\n @version 1.0"]
+#[doc = " @brief Enumerates the vertical alignment modes of placeholders.\n\n @since 11\n @version 1.0"]
 pub type OH_Drawing_PlaceholderVerticalAlignment = u32;
-#[doc = " @brief Defines the placeholder span.\n\n @since 11\n @version 1.0"]
+#[doc = " @brief This struct describes the placeholder that acts as a span.\n\n @since 11\n @version 1.0"]
 #[repr(C)]
 #[derive(Debug, Copy, Clone)]
 pub struct OH_Drawing_PlaceholderSpan {
-    #[doc = " width of placeholder"]
+    #[doc = " Width of a placeholder."]
     pub width: f64,
-    #[doc = " height of placeholder"]
+    #[doc = " Height of a placeholder."]
     pub height: f64,
-    #[doc = " alignment of placeholder"]
+    #[doc = " Alignment mode of a placeholder."]
     pub alignment: OH_Drawing_PlaceholderVerticalAlignment,
-    #[doc = " baseline of placeholder"]
+    #[doc = " Baseline of a placeholder."]
     pub baseline: OH_Drawing_TextBaseline,
-    #[doc = " baselineoffset of placeholder"]
+    #[doc = " Baseline offset of a placeholder."]
     pub baselineOffset: f64,
 }
-#[doc = " Solid style"]
+#[doc = " Solid style."]
 pub const OH_Drawing_TextDecorationStyle_TEXT_DECORATION_STYLE_SOLID:
     OH_Drawing_TextDecorationStyle = 0;
-#[doc = " Double style"]
+#[doc = " Double style."]
 pub const OH_Drawing_TextDecorationStyle_TEXT_DECORATION_STYLE_DOUBLE:
     OH_Drawing_TextDecorationStyle = 1;
-#[doc = " Dotted style"]
+#[doc = " Dotted style."]
 pub const OH_Drawing_TextDecorationStyle_TEXT_DECORATION_STYLE_DOTTED:
     OH_Drawing_TextDecorationStyle = 2;
-#[doc = " Dashed style"]
+#[doc = " Dashed style."]
 pub const OH_Drawing_TextDecorationStyle_TEXT_DECORATION_STYLE_DASHED:
     OH_Drawing_TextDecorationStyle = 3;
-#[doc = " Wavy style"]
+#[doc = " Wavy style."]
 pub const OH_Drawing_TextDecorationStyle_TEXT_DECORATION_STYLE_WAVY:
     OH_Drawing_TextDecorationStyle = 4;
-#[doc = " @brief Enumerates text decoration style.\n\n @since 11\n @version 1.0"]
+#[doc = " @brief Enumerates the text decoration styles.\n\n @since 11\n @version 1.0"]
 pub type OH_Drawing_TextDecorationStyle = u32;
-#[doc = " Head modal. It is valid only when maxLine is set to 1 in OH_Drawing_TypographyStyle."]
+#[doc = " Header ellipsis mode, that is, the ellipsis appears at the beginning of a line. This enumerated value is valid\n only when the maximum number of text lines is set to **1** by calling\n {@link OH_Drawing_SetTypographyTextMaxLines}."]
 pub const OH_Drawing_EllipsisModal_ELLIPSIS_MODAL_HEAD: OH_Drawing_EllipsisModal = 0;
-#[doc = " Middle modal. It is valid only when maxLine is set to 1 in OH_Drawing_TypographyStyle."]
+#[doc = " Middle ellipsis mode, that is, the ellipsis appears in the middle of a line. This enumerated value is valid only\n when the maximum number of text lines is set to **1** by calling {@link OH_Drawing_SetTypographyTextMaxLines}."]
 pub const OH_Drawing_EllipsisModal_ELLIPSIS_MODAL_MIDDLE: OH_Drawing_EllipsisModal = 1;
-#[doc = " Tail modal"]
+#[doc = " End ellipsis mode, that is, the ellipsis appears at the end of a line. This enumerated value is valid when the\n maximum number of text lines is set to any value by calling {@link OH_Drawing_SetTypographyTextMaxLines}."]
 pub const OH_Drawing_EllipsisModal_ELLIPSIS_MODAL_TAIL: OH_Drawing_EllipsisModal = 2;
-#[doc = " Head modal. It is valid for any value of maxLines in OH_Drawing_TypographyStyle.\n @since 24"]
+#[doc = " Header ellipsis mode, that is, the ellipsis appears at the beginning of a line. This enumerated value is valid\n when the maximum number of text lines is set to any value by calling\n {@link OH_Drawing_SetTypographyTextMaxLines}.\n @since 24"]
 #[cfg(feature = "api-24")]
 pub const OH_Drawing_EllipsisModal_ELLIPSIS_MODAL_MULTILINE_HEAD: OH_Drawing_EllipsisModal = 3;
-#[doc = " Middle modal. It is valid for any value of maxLines in OH_Drawing_TypographyStyle.\n @since 24"]
+#[doc = " Middle ellipsis mode, that is, the ellipsis appears in the middle of a line. This enumerated value is valid when\n the maximum number of text lines is set to any value by calling {@link OH_Drawing_SetTypographyTextMaxLines}.\n @since 24"]
 #[cfg(feature = "api-24")]
 pub const OH_Drawing_EllipsisModal_ELLIPSIS_MODAL_MULTILINE_MIDDLE: OH_Drawing_EllipsisModal = 4;
-#[doc = " @brief Enumerates ellipsis modal.\n\n @since 11\n @version 1.0"]
+#[doc = " @brief Enumerates the ellipsis styles.\n\n @since 11\n @version 1.0"]
 pub type OH_Drawing_EllipsisModal = u32;
-#[doc = " Greedy strategy"]
+#[doc = " Each line is filled as much as possible during line break."]
 pub const OH_Drawing_BreakStrategy_BREAK_STRATEGY_GREEDY: OH_Drawing_BreakStrategy = 0;
-#[doc = " Quality strategy"]
+#[doc = " Text continuity is preferentially considered during line break."]
 pub const OH_Drawing_BreakStrategy_BREAK_STRATEGY_HIGH_QUALITY: OH_Drawing_BreakStrategy = 1;
-#[doc = " Balanced strategy"]
+#[doc = " Line breaks are performed at the word boundary."]
 pub const OH_Drawing_BreakStrategy_BREAK_STRATEGY_BALANCED: OH_Drawing_BreakStrategy = 2;
-#[doc = " @brief Enumerates break strategy.\n\n @since 11\n @version 1.0"]
+#[doc = " @brief Enumerates the text break strategies.\n\n @since 11\n @version 1.0"]
 pub type OH_Drawing_BreakStrategy = u32;
-#[doc = " Normal type"]
+#[doc = " Normal mode."]
 pub const OH_Drawing_WordBreakType_WORD_BREAK_TYPE_NORMAL: OH_Drawing_WordBreakType = 0;
-#[doc = " Break All type"]
+#[doc = " Breaks the words at any character to prevent overflow."]
 pub const OH_Drawing_WordBreakType_WORD_BREAK_TYPE_BREAK_ALL: OH_Drawing_WordBreakType = 1;
-#[doc = " Break Word type"]
+#[doc = " Breaks the words at arbitrary points to prevent overflow."]
 pub const OH_Drawing_WordBreakType_WORD_BREAK_TYPE_BREAK_WORD: OH_Drawing_WordBreakType = 2;
-#[doc = " Break word with hyphens\n @since 18"]
+#[doc = " Attempts to break words at the end of each line by inserting a hyphen (\"-\"). If a hyphen cannot be added, the\n behavior is the same as `WORD_BREAK_TYPE_BREAK_WORD`.\n @since 18"]
 #[cfg(feature = "api-18")]
 pub const OH_Drawing_WordBreakType_WORD_BREAK_TYPE_BREAK_HYPHEN: OH_Drawing_WordBreakType = 3;
-#[doc = " @brief Enumerates word break type.\n\n @since 11\n @version 1.0"]
+#[doc = " @brief Enumerates the word break types.\n\n @since 11\n @version 1.0"]
 pub type OH_Drawing_WordBreakType = u32;
-#[doc = " Tight style"]
+#[doc = " Tight style. The text box height closely fits the text content boundary."]
 pub const OH_Drawing_RectHeightStyle_RECT_HEIGHT_STYLE_TIGHT: OH_Drawing_RectHeightStyle = 0;
-#[doc = " Max style"]
+#[doc = " Max style. The text box height takes the maximum height among all lines."]
 pub const OH_Drawing_RectHeightStyle_RECT_HEIGHT_STYLE_MAX: OH_Drawing_RectHeightStyle = 1;
-#[doc = " Includelinespacemiddle style"]
+#[doc = " Include line spacing middle style. The text box height includes the middle portion of the line spacing."]
 pub const OH_Drawing_RectHeightStyle_RECT_HEIGHT_STYLE_INCLUDELINESPACEMIDDLE:
     OH_Drawing_RectHeightStyle = 2;
-#[doc = " Includelinespacetop style"]
+#[doc = " Include line spacing top style. The text box height includes the top portion of the line spacing."]
 pub const OH_Drawing_RectHeightStyle_RECT_HEIGHT_STYLE_INCLUDELINESPACETOP:
     OH_Drawing_RectHeightStyle = 3;
-#[doc = " Includelinespacebottom style"]
+#[doc = " Include line spacing bottom style. The text box height includes the bottom portion of the line spacing."]
 pub const OH_Drawing_RectHeightStyle_RECT_HEIGHT_STYLE_INCLUDELINESPACEBOTTOM:
     OH_Drawing_RectHeightStyle = 4;
-#[doc = " Struct style"]
+#[doc = " Struct style. The Strut Style determines the text box height."]
 pub const OH_Drawing_RectHeightStyle_RECT_HEIGHT_STYLE_STRUCT: OH_Drawing_RectHeightStyle = 5;
-#[doc = " @brief Enumerates rect height style.\n\n @since 11\n @version 1.0"]
+#[doc = " @brief Enumerates the rectangle height styles.\n\n @since 11\n @version 1.0"]
 pub type OH_Drawing_RectHeightStyle = u32;
-#[doc = " Tight style"]
+#[doc = " Tight style. The text box height closely fits the text content boundary."]
 pub const OH_Drawing_RectWidthStyle_RECT_WIDTH_STYLE_TIGHT: OH_Drawing_RectWidthStyle = 0;
-#[doc = " Max style"]
+#[doc = " Max style. The text box height takes the maximum height among all lines."]
 pub const OH_Drawing_RectWidthStyle_RECT_WIDTH_STYLE_MAX: OH_Drawing_RectWidthStyle = 1;
-#[doc = " @brief Enumerates rect Width style.\n\n @since 11\n @version 1.0"]
+#[doc = " @brief Enumerates the rectangle width styles.\n\n @since 11\n @version 1.0"]
 pub type OH_Drawing_RectWidthStyle = u32;
-#[doc = " The list of system font configuration information was successfully obtained"]
+#[doc = " Operation successful."]
 pub const OH_Drawing_FontConfigInfoErrorCode_SUCCESS_FONT_CONFIG_INFO:
     OH_Drawing_FontConfigInfoErrorCode = 0;
-#[doc = " Unknown error"]
+#[doc = " Unknown error."]
 pub const OH_Drawing_FontConfigInfoErrorCode_ERROR_FONT_CONFIG_INFO_UNKNOWN:
     OH_Drawing_FontConfigInfoErrorCode = 1;
-#[doc = " Parse system config file error"]
+#[doc = " Failed to parse the system configuration file."]
 pub const OH_Drawing_FontConfigInfoErrorCode_ERROR_FONT_CONFIG_INFO_PARSE_FILE:
     OH_Drawing_FontConfigInfoErrorCode = 2;
-#[doc = " Alloc memory error"]
+#[doc = " Memory allocation fails."]
 pub const OH_Drawing_FontConfigInfoErrorCode_ERROR_FONT_CONFIG_INFO_ALLOC_MEMORY:
     OH_Drawing_FontConfigInfoErrorCode = 3;
-#[doc = " Copy string data error"]
+#[doc = " Failed to copy the string data."]
 pub const OH_Drawing_FontConfigInfoErrorCode_ERROR_FONT_CONFIG_INFO_COPY_STRING_DATA:
     OH_Drawing_FontConfigInfoErrorCode = 4;
-#[doc = " @brief Gets system font configuration information list result enum.\n\n @since 12\n @version 1.0"]
+#[doc = " @brief Enumerates the error codes for the system font configuration information list.\n\n @since 12\n @version 1.0"]
 pub type OH_Drawing_FontConfigInfoErrorCode = u32;
-#[doc = " @brief Fallback font information.\n\n @since 12\n @version 1.0"]
+#[doc = " @brief This struct describes the information about a font fallback.\n\n @since 12\n @version 1.0"]
 #[repr(C)]
 #[derive(Debug, Copy, Clone)]
 pub struct OH_Drawing_FontFallbackInfo {
-    #[doc = " The type of language supported by the font set. The language format is bcp47"]
+    #[doc = " Pointer to the language supported by the font fallback. The language format is bcp47."]
     pub language: *mut ::std::os::raw::c_char,
-    #[doc = " Font family name"]
+    #[doc = " Pointer to the name of a font family."]
     pub familyName: *mut ::std::os::raw::c_char,
 }
-#[doc = " @brief Fallback font group.\n\n @since 12\n @version 1.0"]
+#[doc = " @brief This struct describes the information about a font fallback group.\n\n @since 12\n @version 1.0"]
 #[repr(C)]
 #[derive(Debug, Copy, Clone)]
 pub struct OH_Drawing_FontFallbackGroup {
-    #[doc = " The name of the font set corresponding to the fallback font set. If the value is null,\n all fonts can be set using the fallback font set list."]
+    #[doc = " Name of the font set corresponding to the fallback font group. If the value is empty, all fonts in the fallback\n font set list can be used."]
     pub groupName: *mut ::std::os::raw::c_char,
-    #[doc = " Fallback font Info Size"]
+    #[doc = " Number of font fallbacks."]
     pub fallbackInfoSize: usize,
-    #[doc = " A list of font sets for fallback fonts"]
+    #[doc = " List of fallback font sets."]
     pub fallbackInfoSet: *mut OH_Drawing_FontFallbackInfo,
 }
-#[doc = " @brief Font weight mapping information.\n\n @since 12\n @version 1.0"]
+#[doc = " @brief This struct describes the information about a font weight mapping.\n\n @since 12\n @version 1.0"]
 #[repr(C)]
 #[derive(Debug, Copy, Clone)]
 pub struct OH_Drawing_FontAdjustInfo {
-    #[doc = " The font's original weight value"]
+    #[doc = " Original font weight."]
     pub weight: ::std::os::raw::c_int,
-    #[doc = " The font weight displayed in the application"]
+    #[doc = " Font weight displayed in the application."]
     pub to: ::std::os::raw::c_int,
 }
-#[doc = " @brief Alias font information.\n\n @since 12\n @version 1.0"]
+#[doc = " @brief This struct describes the information about a font alias.\n\n @since 12\n @version 1.0"]
 #[repr(C)]
 #[derive(Debug, Copy, Clone)]
 pub struct OH_Drawing_FontAliasInfo {
-    #[doc = " Font family name"]
+    #[doc = " Pointer to the name of a font family."]
     pub familyName: *mut ::std::os::raw::c_char,
-    #[doc = " Font weight value. When the weight value is greater than 0,\n the font set contains only fonts with the specified weight.\n When the weight value is equal to 0, the font set contains all fonts."]
+    #[doc = " Font weight value. If the value is greater than 0, the font family contains only the font with the specified\n weight. If the value is 0, the font family contains all fonts."]
     pub weight: ::std::os::raw::c_int,
 }
-#[doc = " @brief General font set information supported by the system.\n\n @since 12\n @version 1.0"]
+#[doc = " @brief This struct describes the information about generic fonts supported by the system.\n\n @since 12\n @version 1.0"]
 #[repr(C)]
 #[derive(Debug, Copy, Clone)]
 pub struct OH_Drawing_FontGenericInfo {
-    #[doc = " Font family name"]
+    #[doc = " Pointer to the name of a font family."]
     pub familyName: *mut ::std::os::raw::c_char,
-    #[doc = " The size of alias font lists"]
+    #[doc = " Number of font aliases."]
     pub aliasInfoSize: usize,
-    #[doc = " The size of font weight mapping information lists"]
+    #[doc = " Number of font weight mappings."]
     pub adjustInfoSize: usize,
-    #[doc = " List of alias fonts"]
+    #[doc = " Pointer to a set of font aliases."]
     pub aliasInfoSet: *mut OH_Drawing_FontAliasInfo,
-    #[doc = " Font weight mapping information lists"]
+    #[doc = " Pointer to a set of font weight mappings."]
     pub adjustInfoSet: *mut OH_Drawing_FontAdjustInfo,
 }
-#[doc = " @brief System font configuration information.\n\n @since 12\n @version 1.0"]
+#[doc = " @brief This struct describes the information about a system font configuration.\n\n @since 12\n @version 1.0"]
 #[repr(C)]
 #[derive(Debug, Copy, Clone)]
 pub struct OH_Drawing_FontConfigInfo {
-    #[doc = " Count of system font file paths"]
+    #[doc = " Number of system font file paths."]
     pub fontDirSize: usize,
-    #[doc = " List size of generic font sets"]
+    #[doc = " Number of generic fonts."]
     pub fontGenericInfoSize: usize,
-    #[doc = " Count of fallback font set lists"]
+    #[doc = " Number of font fallbacks."]
     pub fallbackGroupSize: usize,
-    #[doc = " List of system font file paths"]
+    #[doc = " Double pointer to the system font file paths."]
     pub fontDirSet: *mut *mut ::std::os::raw::c_char,
-    #[doc = " List of generic font sets"]
+    #[doc = " Pointer to a set of generic fonts."]
     pub fontGenericInfoSet: *mut OH_Drawing_FontGenericInfo,
-    #[doc = " List of fallback font sets"]
+    #[doc = " Pointer to a set of font fallbacks."]
     pub fallbackGroupSet: *mut OH_Drawing_FontFallbackGroup,
 }
-#[doc = " @brief Describes the font information.\n\n @since 12\n @version 1.0"]
+#[doc = " @brief This struct describes the detailed information about a system font.\n\n @since 12\n @version 1.0"]
 #[repr(C)]
 #[derive(Debug, Copy, Clone)]
 pub struct OH_Drawing_FontDescriptor {
-    #[doc = " The file path of System font"]
+    #[doc = " File path of the system font."]
     pub path: *mut ::std::os::raw::c_char,
-    #[doc = " A name that uniquely identifies the font"]
+    #[doc = " PostScript name that uniquely identifies the system font."]
     pub postScriptName: *mut ::std::os::raw::c_char,
-    #[doc = " The name of System font"]
+    #[doc = " Full name of the system font."]
     pub fullName: *mut ::std::os::raw::c_char,
-    #[doc = " The family of System font"]
+    #[doc = " Family of the system font."]
     pub fontFamily: *mut ::std::os::raw::c_char,
-    #[doc = " The subfont family of the system font"]
+    #[doc = " Subfamily of the system font."]
     pub fontSubfamily: *mut ::std::os::raw::c_char,
-    #[doc = " The weight of System font"]
+    #[doc = " Weight of the system font."]
     pub weight: ::std::os::raw::c_int,
-    #[doc = " The width of System font"]
+    #[doc = " Width of the system font."]
     pub width: ::std::os::raw::c_int,
-    #[doc = " Whether the system font is tilted"]
+    #[doc = " Slope of the system font."]
     pub italic: ::std::os::raw::c_int,
-    #[doc = " Whether the system font is compact"]
+    #[doc = " Whether the system font is monospace. The value true means the font is monospace, and false means the opposite."]
     pub monoSpace: bool,
-    #[doc = " whether symbolic fonts are supported"]
+    #[doc = " Whether the system font supports symbols. **true** means yes; **false** otherwise."]
     pub symbolic: bool,
 }
-#[doc = " @brief The metrics of line.\n\n @since 12\n @version 1.0"]
+#[doc = " @brief This struct describes the measurement information about a line of text.\n\n @since 12\n @version 1.0"]
 #[repr(C)]
 #[derive(Debug, Copy, Clone)]
 pub struct OH_Drawing_LineMetrics {
-    #[doc = " Text ascender height"]
+    #[doc = " Height of a character above the baseline, after taking the absolute value."]
     pub ascender: f64,
-    #[doc = " Tex descender height"]
+    #[doc = " Height of a character below the baseline, after taking the absolute value."]
     pub descender: f64,
-    #[doc = " The height of a capital letter"]
+    #[doc = " Height of an uppercase letter above the baseline."]
     pub capHeight: f64,
-    #[doc = " The height of a lowercase letter"]
+    #[doc = " Height of a lowercase letter, specifically the lowercase x, not including ascenders and descenders."]
     pub xHeight: f64,
-    #[doc = " Text width"]
+    #[doc = " Horizontal space taken up by a character."]
     pub width: f64,
-    #[doc = " Line height"]
+    #[doc = " Line height."]
     pub height: f64,
-    #[doc = " The distance from the left end of the text to the left end of the container,\n aligned to 0, is the width of the container minus the width of the line of text"]
+    #[doc = " Distance from the left edge of the leftmost character to the left edge of the container. For left alignment, the\n value is 0. For right alignment, the value is the container width minus the text width."]
     pub x: f64,
-    #[doc = " The height from the top of the text to the top of the container, the first line is 0,\n and the second line is the height of the first line"]
+    #[doc = " Height from the top edge of the character to the top of the container. The first line is 0, and the second line\n is the height of the first line."]
     pub y: f64,
-    #[doc = " Start Index"]
+    #[doc = " Index of the first character in the line."]
     pub startIndex: usize,
-    #[doc = " End Index"]
+    #[doc = " Index of the last character in the line."]
     pub endIndex: usize,
-    #[doc = " The metrics information of the first character"]
+    #[doc = " Measurement information of the first character."]
     pub firstCharMetrics: OH_Drawing_Font_Metrics,
 }
-#[doc = " both ascend of first row and last row style"]
+#[doc = " Enables the height set by calling {@link OH_Drawing_SetTextStyleFontHeight} for the top of the first line and\n the bottom of the last line in a paragraph."]
 pub const OH_Drawing_TextHeightBehavior_TEXT_HEIGHT_ALL: OH_Drawing_TextHeightBehavior = 0;
-#[doc = " forbidding ascend of first row style"]
+#[doc = " Disables the height set by calling {@link OH_Drawing_SetTextStyleFontHeight} for the top of the first line in a\n paragraph."]
 pub const OH_Drawing_TextHeightBehavior_TEXT_HEIGHT_DISABLE_FIRST_ASCENT:
     OH_Drawing_TextHeightBehavior = 1;
-#[doc = " forbidding ascend of last row style"]
+#[doc = " Disables the height set by calling {@link OH_Drawing_SetTextStyleFontHeight} for the bottom of the last line in\n a paragraph."]
 pub const OH_Drawing_TextHeightBehavior_TEXT_HEIGHT_DISABLE_LAST_ASCENT:
     OH_Drawing_TextHeightBehavior = 2;
-#[doc = " neither ascend of first row nor last row style"]
+#[doc = " Disables the height set by calling {@link OH_Drawing_SetTextStyleFontHeight} for both the top of the first line\n and the bottom of the last line in a paragraph."]
 pub const OH_Drawing_TextHeightBehavior_TEXT_HEIGHT_DISABLE_ALL: OH_Drawing_TextHeightBehavior = 3;
-#[doc = " @brief Enumerates of heightmode of text.\n\n @since 12\n @version 1.0"]
+#[doc = " @brief Enumerates the text height modifier patterns.\n\n @since 12\n @version 1.0"]
 pub type OH_Drawing_TextHeightBehavior = u32;
-#[doc = " None style"]
+#[doc = " No text style."]
 pub const OH_Drawing_TextStyleType_TEXT_STYLE_NONE: OH_Drawing_TextStyleType = 0;
-#[doc = " All attributes style"]
+#[doc = " All text styles."]
 pub const OH_Drawing_TextStyleType_TEXT_STYLE_ALL_ATTRIBUTES: OH_Drawing_TextStyleType = 1;
-#[doc = " Font style"]
+#[doc = " Font style."]
 pub const OH_Drawing_TextStyleType_TEXT_STYLE_FONT: OH_Drawing_TextStyleType = 2;
-#[doc = " Foreground style"]
+#[doc = " Text foreground style."]
 pub const OH_Drawing_TextStyleType_TEXT_STYLE_FOREGROUND: OH_Drawing_TextStyleType = 3;
-#[doc = " Background style"]
+#[doc = " Text background style."]
 pub const OH_Drawing_TextStyleType_TEXT_STYLE_BACKGROUND: OH_Drawing_TextStyleType = 4;
-#[doc = " Shadow style"]
+#[doc = " Text shadow style."]
 pub const OH_Drawing_TextStyleType_TEXT_STYLE_SHADOW: OH_Drawing_TextStyleType = 5;
-#[doc = " Decorations style"]
+#[doc = " Text decoration style."]
 pub const OH_Drawing_TextStyleType_TEXT_STYLE_DECORATIONS: OH_Drawing_TextStyleType = 6;
-#[doc = " Letter spacing style"]
+#[doc = " Text letter spacing style."]
 pub const OH_Drawing_TextStyleType_TEXT_STYLE_LETTER_SPACING: OH_Drawing_TextStyleType = 7;
-#[doc = " Word spacing style"]
+#[doc = " Text word spacing style."]
 pub const OH_Drawing_TextStyleType_TEXT_STYLE_WORD_SPACING: OH_Drawing_TextStyleType = 8;
-#[doc = " @brief Enumerates text style type.\n\n @since 12\n @version 1.0"]
+#[doc = " @brief Enumerates the text style types.\n\n @since 12\n @version 1.0"]
 pub type OH_Drawing_TextStyleType = u32;
+#[doc = " Ultra condensed font."]
 pub const OH_Drawing_FontWidth_FONT_WIDTH_ULTRA_CONDENSED: OH_Drawing_FontWidth = 1;
+#[doc = " Extra condensed font."]
 pub const OH_Drawing_FontWidth_FONT_WIDTH_EXTRA_CONDENSED: OH_Drawing_FontWidth = 2;
+#[doc = " Condensed font."]
 pub const OH_Drawing_FontWidth_FONT_WIDTH_CONDENSED: OH_Drawing_FontWidth = 3;
+#[doc = " Semi-condensed font."]
 pub const OH_Drawing_FontWidth_FONT_WIDTH_SEMI_CONDENSED: OH_Drawing_FontWidth = 4;
+#[doc = " Normal font."]
 pub const OH_Drawing_FontWidth_FONT_WIDTH_NORMAL: OH_Drawing_FontWidth = 5;
+#[doc = " Semi-expanded font."]
 pub const OH_Drawing_FontWidth_FONT_WIDTH_SEMI_EXPANDED: OH_Drawing_FontWidth = 6;
+#[doc = " Expanded font."]
 pub const OH_Drawing_FontWidth_FONT_WIDTH_EXPANDED: OH_Drawing_FontWidth = 7;
+#[doc = " Extra expanded font."]
 pub const OH_Drawing_FontWidth_FONT_WIDTH_EXTRA_EXPANDED: OH_Drawing_FontWidth = 8;
+#[doc = " Ultra expanded font."]
 pub const OH_Drawing_FontWidth_FONT_WIDTH_ULTRA_EXPANDED: OH_Drawing_FontWidth = 9;
-#[doc = " @brief Enumerates font width.\n\n @since 12\n @version 1.0"]
+#[doc = " @brief Enumerates the font widths.\n\n @since 12\n @version 1.0"]
 pub type OH_Drawing_FontWidth = u32;
-#[doc = " Line height maximum"]
+#[doc = " Maximum line height.<br>If line height scaling is enabled, the maximum line height takes effect only when **\n FontHeight** (which can be obtained from {@link OH_Drawing_TextStyleGetFontHeight}) is greater than 0.<br>The\n value is the positive part of a single-precision floating point number."]
 #[cfg(feature = "api-21")]
 pub const OH_Drawing_TextStyleAttributeId_TEXT_STYLE_ATTR_D_LINE_HEIGHT_MAXIMUM:
     OH_Drawing_TextStyleAttributeId = 0;
-#[doc = " Line height minimum"]
+#[doc = " Minimum line height.<br>If line height scaling is enabled, the minimum line height takes effect only when **\n FontHeight** (which can be obtained from {@link OH_Drawing_TextStyleGetFontHeight}) is greater than 0.<br>The\n value is the non-negative part of a single-precision floating point number. The default value is **0**."]
 #[cfg(feature = "api-21")]
 pub const OH_Drawing_TextStyleAttributeId_TEXT_STYLE_ATTR_D_LINE_HEIGHT_MINIMUM:
     OH_Drawing_TextStyleAttributeId = 1;
-#[doc = " Line height style"]
+#[doc = " Scaling base style of the line height. For details, see {@link OH_Drawing_LineHeightStyle}."]
 #[cfg(feature = "api-21")]
 pub const OH_Drawing_TextStyleAttributeId_TEXT_STYLE_ATTR_I_LINE_HEIGHT_STYLE:
     OH_Drawing_TextStyleAttributeId = 2;
-#[doc = " Font width"]
+#[doc = " Font width."]
 #[cfg(feature = "api-21")]
 pub const OH_Drawing_TextStyleAttributeId_TEXT_STYLE_ATTR_I_FONT_WIDTH:
     OH_Drawing_TextStyleAttributeId = 3;
-#[doc = " Font edging\n @since 24"]
+#[doc = " Font edge processing mode. Anti-aliasing is used by default. For details about how to process font edges, see\n {@link OH_Drawing_FontEdging}.\n @since 24"]
 #[cfg(feature = "api-24")]
 pub const OH_Drawing_TextStyleAttributeId_TEXT_STYLE_ATTR_I_FONT_EDGING:
     OH_Drawing_TextStyleAttributeId = 4;
-#[doc = " @brief Enumerates text style attribute.\n\n @since 21"]
+#[doc = " @brief Enumerates the text style attributes.\n\n @since 21"]
 #[cfg(feature = "api-21")]
 pub type OH_Drawing_TextStyleAttributeId = u32;
-#[doc = " Use the font size as the scale factor for line height scaling"]
+#[doc = " Uses the font size as the scaling base.<br>Formula for calculating the line height: **FontSize** x **FontHeight**\n .<br>**FontSize** can be obtained from the {@link OH_Drawing_TextStyleGetFontSize} API.<br>**FontHeight** can be\n obtained from the {@link OH_Drawing_TextStyleGetFontHeight} API."]
 #[cfg(feature = "api-21")]
 pub const OH_Drawing_LineHeightStyle_TEXT_LINE_HEIGHT_BY_FONT_SIZE: OH_Drawing_LineHeightStyle = 0;
-#[doc = " Use the text height after shaping as the scale factor for line height scaling"]
+#[doc = " Uses the font height as the scaling base.<br>Formula for calculating the line height: font height x **FontHeight*\n *.<br>The font height is obtained after the text is shaped using the font file.<br>**FontHeight** can be\n obtained from the {@link OH_Drawing_TextStyleGetFontHeight} API."]
 #[cfg(feature = "api-21")]
 pub const OH_Drawing_LineHeightStyle_TEXT_LINE_HEIGHT_BY_FONT_HEIGHT: OH_Drawing_LineHeightStyle =
     1;
-#[doc = " @brief Enumerates line height's scaling type.\n\n @since 21"]
+#[doc = " @brief Enumerates the scaling base styles of the line height. The default style is **TEXT_LINE_HEIGHT_BY_FONT_SIZE**.\n\n @since 21"]
 #[cfg(feature = "api-21")]
 pub type OH_Drawing_LineHeightStyle = u32;
-#[doc = " Line height maximum"]
+#[doc = " Maximum line height.<br>If line height scaling is enabled, the maximum line height takes effect only when **\n FontHeight** (which can be obtained from {@link OH_Drawing_TextStyleGetFontHeight}) is greater than 0.<br>The\n value is the positive part of a single-precision floating point number."]
 #[cfg(feature = "api-21")]
 pub const OH_Drawing_TypographyStyleAttributeId_TYPOGRAPHY_STYLE_ATTR_D_LINE_HEIGHT_MAXIMUM:
     OH_Drawing_TypographyStyleAttributeId = 0;
-#[doc = " Line height minimum"]
+#[doc = " Minimum line height.<br>If line height scaling is enabled, the minimum line height takes effect only when **\n FontHeight** (which can be obtained from {@link OH_Drawing_TextStyleGetFontHeight}) is greater than 0.<br>The\n value is the non-negative part of a single-precision floating point number. The default value is **0**."]
 #[cfg(feature = "api-21")]
 pub const OH_Drawing_TypographyStyleAttributeId_TYPOGRAPHY_STYLE_ATTR_D_LINE_HEIGHT_MINIMUM:
     OH_Drawing_TypographyStyleAttributeId = 1;
-#[doc = " Line spacing"]
+#[doc = " Interline spacing.<br>**lineSpacing** is not restricted by the maximum and minimum line heights.<br>By default,\n line spacing is added to the last line.<br>You can set **textHeightBehavior** to **DISABLE_LAST_ASCENT** in\n {@link OH_Drawing_TypographyTextSetHeightBehavior} to disable the line spacing of the last line.<br>The default\n value is **0**."]
 #[cfg(feature = "api-21")]
 pub const OH_Drawing_TypographyStyleAttributeId_TYPOGRAPHY_STYLE_ATTR_D_LINE_SPACING:
     OH_Drawing_TypographyStyleAttributeId = 2;
-#[doc = " Line height style"]
+#[doc = " Scaling base style of the line height. For details, see {@link OH_Drawing_LineHeightStyle}."]
 #[cfg(feature = "api-21")]
 pub const OH_Drawing_TypographyStyleAttributeId_TYPOGRAPHY_STYLE_ATTR_I_LINE_HEIGHT_STYLE:
     OH_Drawing_TypographyStyleAttributeId = 3;
-#[doc = " Font width"]
+#[doc = " Font width."]
 #[cfg(feature = "api-21")]
 pub const OH_Drawing_TypographyStyleAttributeId_TYPOGRAPHY_STYLE_ATTR_I_FONT_WIDTH:
     OH_Drawing_TypographyStyleAttributeId = 4;
-#[doc = " Compress head punctuation\n @since 23"]
+#[doc = " Whether to enable line-start punctuation compression during text typography.<br>**NOTE**<br>1. The font file\n must support the \"ss08\" feature in {@link OH_Drawing_FontFeature}; otherwise, compression cannot be applied.<br>\n 2. Only punctuation within the line-start punctuation compression range is affected by this feature.\n @since 23"]
 #[cfg(feature = "api-23")]
 pub const OH_Drawing_TypographyStyleAttributeId_TYPOGRAPHY_STYLE_ATTR_B_COMPRESS_HEAD_PUNCTUATION : OH_Drawing_TypographyStyleAttributeId = 5 ;
-#[doc = " Font padding\n @since 23"]
+#[doc = " Whether to enable the internal padding of the font during text typography.\n @since 23"]
 #[cfg(feature = "api-23")]
 pub const OH_Drawing_TypographyStyleAttributeId_TYPOGRAPHY_STYLE_ATTR_B_INCLUDE_FONT_PADDING:
     OH_Drawing_TypographyStyleAttributeId = 6;
-#[doc = " Fallback line spacing\n @since 23"]
+#[doc = " Whether to enable the line spacing fallback mechanism during text typography.\n @since 23"]
 #[cfg(feature = "api-23")]
 pub const OH_Drawing_TypographyStyleAttributeId_TYPOGRAPHY_STYLE_ATTR_B_FALLBACK_LINE_SPACING:
     OH_Drawing_TypographyStyleAttributeId = 7;
-#[doc = " Ellipsis modal\n @since 24"]
+#[doc = " Ellipsis style. For details about the ellipsis style, see {@link OH_Drawing_EllipsisModal}.\n @since 24"]
 #[cfg(feature = "api-24")]
 pub const OH_Drawing_TypographyStyleAttributeId_TYPOGRAPHY_STYLE_ATTR_I_ELLIPSIS_MODAL:
     OH_Drawing_TypographyStyleAttributeId = 8;
-#[doc = " @brief Enumerates typography style attribute.\n\n @since 21"]
+#[doc = " First-line indent array.<br>All values in the indent array must be greater than or equal to 0. Each element in\n the array represents the indentation value of a single line. If the actual number of text lines exceeds the\n length of the indent array, the last value of the array is applied to the extra lines.\n @since 26.0.0"]
+#[cfg(feature = "api-26")]
+pub const OH_Drawing_TypographyStyleAttributeId_TYPOGRAPHY_STYLE_ATTR_DA_LINE_HEAD_INDENT:
+    OH_Drawing_TypographyStyleAttributeId = 9;
+#[doc = " First-line indent of a paragraph. The indent value must be greater than or equal to 0.\n @since 26.0.0"]
+#[cfg(feature = "api-26")]
+pub const OH_Drawing_TypographyStyleAttributeId_TYPOGRAPHY_STYLE_ATTR_D_FIRST_LINE_HEAD_INDENT:
+    OH_Drawing_TypographyStyleAttributeId = 10;
+#[doc = " Last-line indent array.<br>All values in the indent array must be greater than or equal to 0. Each element in\n the array represents the indentation value of a single line. If the actual number of text lines exceeds the\n length of the indent array, the last value of the array is applied to the extra lines.\n @since 26.0.0"]
+#[cfg(feature = "api-26")]
+pub const OH_Drawing_TypographyStyleAttributeId_TYPOGRAPHY_STYLE_ATTR_DA_LINE_TAIL_INDENT:
+    OH_Drawing_TypographyStyleAttributeId = 11;
+#[doc = " @brief Enumerates the typography style attributes.\n <br>For the common attributes of the typography styles and text styles, you are advised to use the text style\n attributes, which can be obtained from {@link OH_Drawing_TextStyleAttributeId}.\n\n @since 21"]
 #[cfg(feature = "api-21")]
 pub type OH_Drawing_TypographyStyleAttributeId = u32;
+#[doc = " Whether to force reuse the rasterization result.\n True means to force reuse of the rasterization result. False means to allow updates to the rasterization result.\n The default value is false.\n @since 26.0.0"]
+#[cfg(feature = "api-26")]
+pub const OH_Drawing_TypographyAttributeId_TYPOGRAPHY_ATTR_B_FORCE_REUSE_RASTER_RESULT:
+    OH_Drawing_TypographyAttributeId = 0;
+#[doc = " @brief Enumerates the typography attributes.\n\n @since 26.0.0"]
+#[cfg(feature = "api-26")]
+pub type OH_Drawing_TypographyAttributeId = u32;
 extern "C" {
-    #[doc = " @brief Sets double value to the text style attribute.\n\n @param style Indicates the pointer to an <b>OH_Drawing_TextStyle</b> object.\n @param id Indicates the attribute id.\n @param value Indicates the value to set.\n @return Returns the error code.\n         Returns {@link OH_DRAWING_SUCCESS} if the operation is successful.\n         Returns {@link OH_DRAWING_ERROR_INVALID_PARAMETER} if the style is nullptr.\n         Returns {@link OH_DRAWING_ERROR_ATTRIBUTE_ID_MISMATCH} if the attribute id is not recognized or supported.\n         Returns {@link OH_DRAWING_ERROR_PARAMETER_OUT_OF_RANGE} if the value corresponding to the attribute id\n                  exceeds the allowable range.\n @since 21"]
+    #[doc = " @brief Obtains a bool-type typography attribute.\n\n @param typography Pointer to the typography object {@link OH_Drawing_Typography}, which is obtained from\n     {@link OH_Drawing_CreateTypography}.\n @param id Typography style attribute ID.\n @param value Pointer to the bool-type attribute. Used as an output parameter.\n @return Result code.\n     <br>Returns OH_DRAWING_SUCCESS, indicating that the execution is successful.\n     <br>Returns OH_DRAWING_ERROR_INCORRECT_PARAMETER, indicating that the typography or value parameter is a null\n     pointer.\n     <br>Returns OH_DRAWING_ERROR_ATTRIBUTE_ID_MISMATCH, indicating that the attribute ID passed in does not match\n     the called function.\n @since 26.0.0"]
+    #[cfg(feature = "api-26")]
+    pub fn OH_Drawing_GetTypographyAttributeBool(
+        typography: *const OH_Drawing_Typography,
+        id: OH_Drawing_TypographyAttributeId,
+        value: *mut bool,
+    ) -> OH_Drawing_ErrorCode;
+}
+extern "C" {
+    #[doc = " @brief Sets a bool-type typography attribute.\n\n @param typography Pointer to the typography object {@link OH_Drawing_Typography}, which is obtained from\n     {@link OH_Drawing_CreateTypography}.\n @param id Typography attribute ID, which specifies the bool-type attribute to set.\n @param value Bool value to set.\n @return Result code.\n     <br>Returns OH_DRAWING_SUCCESS, indicating that the execution is successful.\n     <br>Returns OH_DRAWING_ERROR_INCORRECT_PARAMETER, indicating that the typography parameter is a null pointer.\n     <br>Returns OH_DRAWING_ERROR_ATTRIBUTE_ID_MISMATCH, indicating that the attribute ID passed in does not match\n     the called function.\n @since 26.0.0"]
+    #[cfg(feature = "api-26")]
+    pub fn OH_Drawing_SetTypographyAttributeBool(
+        typography: *mut OH_Drawing_Typography,
+        id: OH_Drawing_TypographyAttributeId,
+        value: bool,
+    ) -> OH_Drawing_ErrorCode;
+}
+extern "C" {
+    #[doc = " @brief Sets the text style attribute of the **double** type.\n\n @param style Pointer to an {@link OH_Drawing_TextStyle} object.\n @param id Text style attribute ID.\n @param value Text style attribute value.\n @return Returns the execution result.\n     <br>**OH_DRAWING_SUCCESS** if the operation is successful.\n     <br>**OH_DRAWING_ERROR_INVALID_PARAMETER** if **style** is NULL.\n     <br>**OH_DRAWING_ERROR_ATTRIBUTE_ID_MISMATCH** if the input attribute ID does not match the called function.\n     <br>**OH_DRAWING_ERROR_PARAMETER_OUT_OF_RANGE** if the value corresponding to the attribute id exceeds the\n     allowable range.\n @since 21"]
     #[cfg(feature = "api-21")]
     pub fn OH_Drawing_SetTextStyleAttributeDouble(
         style: *mut OH_Drawing_TextStyle,
@@ -2134,7 +2242,7 @@ extern "C" {
     ) -> OH_Drawing_ErrorCode;
 }
 extern "C" {
-    #[doc = " @brief Gets the double type property's value from the text style.\n\n @param style Indicates the pointer to an <b>OH_Drawing_TextStyle</b> object.\n @param id Indicates the attribute id.\n @param value Indicates the return value of the interface.\n @return Returns the error code.\n         Returns {@link OH_DRAWING_SUCCESS} if the operation is successful.\n         Returns {@link OH_DRAWING_ERROR_INVALID_PARAMETER} if the style is nullptr.\n         Returns {@link OH_DRAWING_ERROR_ATTRIBUTE_ID_MISMATCH} if the attribute id is not recognized or supported.\n @since 21"]
+    #[doc = " @brief Obtains the text style attribute of the **double** type.\n\n @param style Pointer to an {@link OH_Drawing_TextStyle} object.\n @param id Text style attribute ID.\n @param value Pointer to the attribute of the **double** type. It is used as an output parameter.\n @return Returns the execution result.\n     <br>**OH_DRAWING_SUCCESS** if the operation is successful.\n     <br>**OH_DRAWING_ERROR_INVALID_PARAMETER** if **style** is NULL.\n     <br>**OH_DRAWING_ERROR_ATTRIBUTE_ID_MISMATCH** if the input attribute ID does not match the called function.\n @since 21"]
     #[cfg(feature = "api-21")]
     pub fn OH_Drawing_GetTextStyleAttributeDouble(
         style: *mut OH_Drawing_TextStyle,
@@ -2143,7 +2251,7 @@ extern "C" {
     ) -> OH_Drawing_ErrorCode;
 }
 extern "C" {
-    #[doc = " @brief Sets int value to the text style attribute.\n\n @param style Indicates the pointer to an <b>OH_Drawing_TextStyle</b> object.\n @param id Indicates the attribute id.\n @param value Indicates the value to set.\n @return Returns the error code.\n         Returns {@link OH_DRAWING_SUCCESS} if the operation is successful.\n         Returns {@link OH_DRAWING_ERROR_INVALID_PARAMETER} if the style is nullptr.\n         Returns {@link OH_DRAWING_ERROR_ATTRIBUTE_ID_MISMATCH} if the attribute id is not recognized or supported.\n         Returns {@link OH_DRAWING_ERROR_PARAMETER_OUT_OF_RANGE} if the value corresponding to the attribute id\n                  exceeds the allowable range.\n @since 21"]
+    #[doc = " @brief Sets the text style attribute of the **int** type.\n\n @param style Pointer to an {@link OH_Drawing_TextStyle} object.\n @param id Text style attribute ID.\n @param value Attribute value to set.\n @return Returns the execution result.\n     <br>**OH_DRAWING_SUCCESS** if the operation is successful.\n     <br>**OH_DRAWING_ERROR_INVALID_PARAMETER** if **style** is NULL.\n     <br>**OH_DRAWING_ERROR_ATTRIBUTE_ID_MISMATCH** if the input attribute ID does not match the called function.\n     <br>**OH_DRAWING_ERROR_PARAMETER_OUT_OF_RANGE** if the input value exceeds the value range of the attribute to\n     be set.\n @since 21"]
     #[cfg(feature = "api-21")]
     pub fn OH_Drawing_SetTextStyleAttributeInt(
         style: *mut OH_Drawing_TextStyle,
@@ -2152,7 +2260,7 @@ extern "C" {
     ) -> OH_Drawing_ErrorCode;
 }
 extern "C" {
-    #[doc = " @brief Gets the int type property's value from the text style.\n\n @param style Indicates the pointer to an <b>OH_Drawing_TextStyle</b> object.\n @param id Indicates the attribute id.\n @param value Indicates the return value of the interface.\n @return Returns the error code.\n         Returns {@link OH_DRAWING_SUCCESS} if the operation is successful.\n         Returns {@link OH_DRAWING_ERROR_INVALID_PARAMETER} if the style is nullptr.\n         Returns {@link OH_DRAWING_ERROR_ATTRIBUTE_ID_MISMATCH} if the attribute id is not recognized or supported.\n @since 21"]
+    #[doc = " @brief Obtains the text style attribute of the **int** type.\n\n @param style Pointer to an {@link OH_Drawing_TextStyle} object.\n @param id Text style attribute ID.\n @param value Pointer to the attribute of the **int** type. It is used as an output parameter.\n @return Returns the execution result.\n     <br>**OH_DRAWING_SUCCESS** if the operation is successful.\n     <br>**OH_DRAWING_ERROR_INVALID_PARAMETER** if **style** is NULL.\n     <br>**OH_DRAWING_ERROR_ATTRIBUTE_ID_MISMATCH** if the input attribute ID does not match the called function.\n @since 21"]
     #[cfg(feature = "api-21")]
     pub fn OH_Drawing_GetTextStyleAttributeInt(
         style: *mut OH_Drawing_TextStyle,
@@ -2161,7 +2269,7 @@ extern "C" {
     ) -> OH_Drawing_ErrorCode;
 }
 extern "C" {
-    #[doc = " @brief Sets double value to the typography style attribute.\n\n @param style Indicates the pointer to an <b>OH_Drawing_TypographyStyle</b> object.\n @param id Indicates the attribute id.\n @param value Indicates the value to set.\n @return Returns the error code.\n         Returns {@link OH_DRAWING_SUCCESS} if the operation is successful.\n         Returns {@link OH_DRAWING_ERROR_INVALID_PARAMETER} if the style is nullptr.\n         Returns {@link OH_DRAWING_ERROR_ATTRIBUTE_ID_MISMATCH} if the attribute id is not recognized or supported.\n         Returns {@link OH_DRAWING_ERROR_PARAMETER_OUT_OF_RANGE} if the value corresponding to the attribute id\n                  exceeds the allowable range.\n @since 21"]
+    #[doc = " @brief Sets the typography style attribute of the **double** type.\n\n @param style Pointer to an {@link OH_Drawing_TypographyStyle} object.\n @param id Attribute ID of the text style.\n @param value Attribute value to set.\n @return Returns the execution result.\n     <br>**OH_DRAWING_SUCCESS** if the operation is successful.\n     <br>**OH_DRAWING_ERROR_INVALID_PARAMETER** if **style** is NULL.\n     <br>**OH_DRAWING_ERROR_ATTRIBUTE_ID_MISMATCH** if the input attribute ID does not match the called function.\n     <br>**OH_DRAWING_ERROR_PARAMETER_OUT_OF_RANGE** if the value corresponding to the attribute id\n     exceeds the allowable range.\n @since 21"]
     #[cfg(feature = "api-21")]
     pub fn OH_Drawing_SetTypographyStyleAttributeDouble(
         style: *mut OH_Drawing_TypographyStyle,
@@ -2170,7 +2278,7 @@ extern "C" {
     ) -> OH_Drawing_ErrorCode;
 }
 extern "C" {
-    #[doc = " @brief Gets the double type property's value from the typography style.\n\n @param style Indicates the pointer to an <b>OH_Drawing_TypographyStyle</b> object.\n @param id Indicates the attribute id.\n @param value Indicates the return value of the interface.\n @return Returns the error code.\n         Returns {@link OH_DRAWING_SUCCESS} if the operation is successful.\n         Returns {@link OH_DRAWING_ERROR_INVALID_PARAMETER} if the style is nullptr.\n         Returns {@link OH_DRAWING_ERROR_ATTRIBUTE_ID_MISMATCH} if the attribute id is not recognized or supported.\n @since 21"]
+    #[doc = " @brief Obtains the typography style attribute of the **double** type.\n\n @param style Pointer to an {@link OH_Drawing_TypographyStyle} object.\n @param id Attribute ID of the text style.\n @param value Pointer to the attribute of the **double** type. It is used as an output parameter.\n @return Returns the execution result.\n     <br>**OH_DRAWING_SUCCESS** if the operation is successful.\n     <br>**OH_DRAWING_ERROR_INVALID_PARAMETER** if **style** is NULL.\n     <br>**OH_DRAWING_ERROR_ATTRIBUTE_ID_MISMATCH** if the input attribute ID does not match the called function.\n @since 21"]
     #[cfg(feature = "api-21")]
     pub fn OH_Drawing_GetTypographyStyleAttributeDouble(
         style: *mut OH_Drawing_TypographyStyle,
@@ -2179,7 +2287,7 @@ extern "C" {
     ) -> OH_Drawing_ErrorCode;
 }
 extern "C" {
-    #[doc = " @brief Sets int value to the typography style attribute.\n\n @param style Indicates the pointer to an <b>OH_Drawing_TypographyStyle</b> object.\n @param id Indicates the attribute id.\n @param value Indicates the value to set.\n @return Returns the error code.\n         Returns {@link OH_DRAWING_SUCCESS} if the operation is successful.\n         Returns {@link OH_DRAWING_ERROR_INVALID_PARAMETER} if the style is nullptr.\n         Returns {@link OH_DRAWING_ERROR_ATTRIBUTE_ID_MISMATCH} if the attribute id is not recognized or supported.\n         Returns {@link OH_DRAWING_ERROR_PARAMETER_OUT_OF_RANGE} if the value corresponding to the attribute id\n                  exceeds the allowable range.\n @since 21"]
+    #[doc = " @brief Sets the typography style attribute of the **int** type.\n\n @param style Pointer to an {@link OH_Drawing_TypographyStyle} object.\n @param id Attribute ID of the text style.\n @param value Attribute value to set.\n @return Returns the execution result.\n     <br>**OH_DRAWING_SUCCESS** if the operation is successful.\n     <br>**OH_DRAWING_ERROR_INVALID_PARAMETER** if **style** is NULL.\n     <br>**OH_DRAWING_ERROR_ATTRIBUTE_ID_MISMATCH** if the input attribute ID does not match the called function.\n     <br>**OH_DRAWING_ERROR_PARAMETER_OUT_OF_RANGE** if the input value exceeds the value range of the attribute to\n     be set.\n @since 21"]
     #[cfg(feature = "api-21")]
     pub fn OH_Drawing_SetTypographyStyleAttributeInt(
         style: *mut OH_Drawing_TypographyStyle,
@@ -2188,7 +2296,7 @@ extern "C" {
     ) -> OH_Drawing_ErrorCode;
 }
 extern "C" {
-    #[doc = " @brief Gets the int type property's value from the typography style.\n\n @param style Indicates the pointer to an <b>OH_Drawing_TypographyStyle</b> object.\n @param id Indicates the attribute id.\n @param value Indicates the return value of the interface.\n @return Returns the error code.\n         Returns {@link OH_DRAWING_SUCCESS} if the operation is successful.\n         Returns {@link OH_DRAWING_ERROR_INVALID_PARAMETER} if the style is nullptr.\n         Returns {@link OH_DRAWING_ERROR_ATTRIBUTE_ID_MISMATCH} if the attribute id is not recognized or supported.\n @since 21"]
+    #[doc = " @brief Obtains the typography style attribute of the **int** type.\n\n @param style Pointer to an {@link OH_Drawing_TypographyStyle} object.\n @param id Attribute ID of the text style.\n @param value Pointer to the attribute of the **int** type. It is used as an output parameter.\n @return Returns the execution result.\n     <br>**OH_DRAWING_SUCCESS** if the operation is successful.\n     <br>**OH_DRAWING_ERROR_INVALID_PARAMETER** if **style** is NULL.\n     <br>**OH_DRAWING_ERROR_ATTRIBUTE_ID_MISMATCH** if the input attribute ID does not match the called function.\n @since 21"]
     #[cfg(feature = "api-21")]
     pub fn OH_Drawing_GetTypographyStyleAttributeInt(
         style: *mut OH_Drawing_TypographyStyle,
@@ -2197,7 +2305,7 @@ extern "C" {
     ) -> OH_Drawing_ErrorCode;
 }
 extern "C" {
-    #[doc = " @brief Sets bool value to the typography style attribute.\n\n @param style Indicates the pointer to an <b>OH_Drawing_TypographyStyle</b> object.\n @param id Indicates the attribute id.\n @param value Indicates the value to set.\n @return Returns the error code.\n         Returns {@link OH_DRAWING_SUCCESS} if the operation is successful.\n         Returns {@link OH_DRAWING_ERROR_INCORRECT_PARAMETER} if the style is nullptr.\n         Returns {@link OH_DRAWING_ERROR_ATTRIBUTE_ID_MISMATCH} if the attribute id is not recognized or supported.\n @since 23"]
+    #[doc = " @brief Sets the typography style attribute of the **bool** type.\n\n @param style Pointer to an {@link OH_Drawing_TypographyStyle} object.\n @param id Attribute ID of the text style.\n @param value Attribute value to set.\n @return Returns the execution result.\n     <br>**OH_DRAWING_SUCCESS** if the operation is successful.\n     <br>**OH_DRAWING_ERROR_INCORRECT_PARAMETER** if **style** is NULL.\n     <br>**OH_DRAWING_ERROR_ATTRIBUTE_ID_MISMATCH** if the input attribute ID does not match the called function.\n @since 23"]
     #[cfg(feature = "api-23")]
     pub fn OH_Drawing_SetTypographyStyleAttributeBool(
         style: *mut OH_Drawing_TypographyStyle,
@@ -2206,7 +2314,7 @@ extern "C" {
     ) -> OH_Drawing_ErrorCode;
 }
 extern "C" {
-    #[doc = " @brief Gets the bool type property's value from the typography style.\n\n @param style Indicates the pointer to an <b>OH_Drawing_TypographyStyle</b> object.\n @param id Indicates the attribute id.\n @param value Indicates the return value of the interface.\n @return Returns the error code.\n         Returns {@link OH_DRAWING_SUCCESS} if the operation is successful.\n         Returns {@link OH_DRAWING_ERROR_INCORRECT_PARAMETER} if the style or value is nullptr.\n         Returns {@link OH_DRAWING_ERROR_ATTRIBUTE_ID_MISMATCH} if the attribute id is not recognized or supported.\n @since 23"]
+    #[doc = " @brief Obtains the typography style attribute of the **bool** type.\n\n @param style Pointer to an {@link OH_Drawing_TypographyStyle} object.\n @param id Attribute ID of the text style.\n @param value Pointer to the bool attribute. It is used as an output parameter.\n @return Returns the execution result.\n     <br>**OH_DRAWING_SUCCESS** if the operation is successful.\n     <br>**OH_DRAWING_ERROR_INCORRECT_PARAMETER** if **style** or **value** is NULL.\n     <br>**OH_DRAWING_ERROR_ATTRIBUTE_ID_MISMATCH** if the input attribute ID does not match the called function.\n @since 23"]
     #[cfg(feature = "api-23")]
     pub fn OH_Drawing_GetTypographyStyleAttributeBool(
         style: *mut OH_Drawing_TypographyStyle,
@@ -2214,160 +2322,180 @@ extern "C" {
         value: *mut bool,
     ) -> OH_Drawing_ErrorCode;
 }
-#[doc = " No badge"]
+extern "C" {
+    #[doc = " @brief Sets the typography style attribute of the floating-point array type.\n\n @param style Pointer to an {@link OH_Drawing_TypographyStyle} object.\n @param id Attribute ID of the text style.\n @param arrayValue Pointer to the floating-point array.\n @param arrayLength Length of the floating-point array.\n @return Returns the execution result.\n     <br>**OH_DRAWING_SUCCESS** if the operation is successful.\n     <br>**OH_DRAWING_ERROR_INCORRECT_PARAMETER** if the parameter **style** or **arrayValue** is a null pointer or\n     **arrayLength** is 0.\n     <br>**OH_DRAWING_ERROR_ATTRIBUTE_ID_MISMATCH** if the input attribute ID does not match the called function.\n @since 26.0.0"]
+    #[cfg(feature = "api-26")]
+    pub fn OH_Drawing_SetTypographyStyleAttributeDoubleArray(
+        style: *mut OH_Drawing_TypographyStyle,
+        id: OH_Drawing_TypographyStyleAttributeId,
+        arrayValue: *mut f64,
+        arrayLength: usize,
+    ) -> OH_Drawing_ErrorCode;
+}
+extern "C" {
+    #[doc = " @brief Obtains the typography style attribute of the floating-point array type.\n\n @param style Pointer to an {@link OH_Drawing_TypographyStyle} object.\n @param id Attribute ID of the text style.\n @param arrayValue Pointer to the floating-point array. It is used as an output parameter.\n @param arrayLength Length of the floating-point array. It is used as an output parameter.\n @return Returns the execution result.\n     <br>**OH_DRAWING_SUCCESS** if the operation is successful.\n     <br>**OH_DRAWING_ERROR_INCORRECT_PARAMETER** if the parameter **style** or **arrayValue** is a null pointer or **\n     arrayLength** is 0.\n     <br>**OH_DRAWING_ERROR_ATTRIBUTE_ID_MISMATCH** if the input attribute ID does not match the called function.\n @since 26.0.0"]
+    #[cfg(feature = "api-26")]
+    pub fn OH_Drawing_GetTypographyStyleAttributeDoubleArray(
+        style: *const OH_Drawing_TypographyStyle,
+        id: OH_Drawing_TypographyStyleAttributeId,
+        arrayValue: *mut *mut f64,
+        arrayLength: *mut usize,
+    ) -> OH_Drawing_ErrorCode;
+}
+#[doc = " Disable superscript or subscript."]
 #[cfg(feature = "api-20")]
 pub const OH_Drawing_TextBadgeType_TEXT_BADGE_NONE: OH_Drawing_TextBadgeType = 0;
-#[doc = " Superscript"]
+#[doc = " Enable superscript."]
 #[cfg(feature = "api-20")]
 pub const OH_Drawing_TextBadgeType_TEXT_SUPERSCRIPT: OH_Drawing_TextBadgeType = 1;
-#[doc = " Subscript"]
+#[doc = " Enable subscript."]
 #[cfg(feature = "api-20")]
 pub const OH_Drawing_TextBadgeType_TEXT_SUBSCRIPT: OH_Drawing_TextBadgeType = 2;
-#[doc = " @brief Type of badge.\n\n @since 20\n @version 1.0"]
+#[doc = " @brief Enumerates the text badge styles.\n\n @since 20\n @version 1.0"]
 #[cfg(feature = "api-20")]
 pub type OH_Drawing_TextBadgeType = u32;
-#[doc = " Baseline of text line"]
+#[doc = " Aligned to the baseline."]
 #[cfg(feature = "api-20")]
 pub const OH_Drawing_TextVerticalAlignment_TEXT_VERTICAL_ALIGNMENT_BASELINE:
     OH_Drawing_TextVerticalAlignment = 0;
-#[doc = " Bottom of text line"]
+#[doc = " Bottom aligned."]
 #[cfg(feature = "api-20")]
 pub const OH_Drawing_TextVerticalAlignment_TEXT_VERTICAL_ALIGNMENT_BOTTOM:
     OH_Drawing_TextVerticalAlignment = 1;
-#[doc = " Center of text line"]
+#[doc = " Center-aligned."]
 #[cfg(feature = "api-20")]
 pub const OH_Drawing_TextVerticalAlignment_TEXT_VERTICAL_ALIGNMENT_CENTER:
     OH_Drawing_TextVerticalAlignment = 2;
-#[doc = " Top of text line"]
+#[doc = " Top aligned."]
 #[cfg(feature = "api-20")]
 pub const OH_Drawing_TextVerticalAlignment_TEXT_VERTICAL_ALIGNMENT_TOP:
     OH_Drawing_TextVerticalAlignment = 3;
-#[doc = " @brief Type of vertical alignment.\n\n @since 20\n @version 1.0"]
+#[doc = " @brief Enumerates the vertical alignment modes.\n\n @since 20\n @version 1.0"]
 #[cfg(feature = "api-20")]
 pub type OH_Drawing_TextVerticalAlignment = u32;
-#[doc = " @brief Defines the font style struct.\n\n @since 12\n @version 1.0"]
+#[doc = " @brief This struct describes a font style.\n\n @since 12\n @version 1.0"]
 #[repr(C)]
 #[derive(Debug, Copy, Clone)]
 pub struct OH_Drawing_FontStyleStruct {
-    #[doc = " Font weight"]
+    #[doc = " Font weight."]
     pub weight: OH_Drawing_FontWeight,
-    #[doc = " Font width"]
+    #[doc = " Font width."]
     pub width: OH_Drawing_FontWidth,
-    #[doc = " Font slant"]
+    #[doc = " Font slant."]
     pub slant: OH_Drawing_FontStyle,
 }
-#[doc = " @brief Defines the fontfeature.\n\n @since 12\n @version 1.0"]
+#[doc = " @brief This struct describes a font feature.\n\n @since 12\n @version 1.0"]
 #[repr(C)]
 #[derive(Debug, Copy, Clone)]
 pub struct OH_Drawing_FontFeature {
-    #[doc = " key of fontfeature"]
+    #[doc = " Tag of the font feature."]
     pub tag: *mut ::std::os::raw::c_char,
-    #[doc = " value of fontfeature"]
+    #[doc = " Value of the font feature."]
     pub value: ::std::os::raw::c_int,
 }
-#[doc = " @brief Defines StrutStyle info struct.\n\n @since 12\n @version 1.0"]
+#[doc = " @brief This struct describes a strut style. The strut style determines the line spacing, baseline alignment mode,\n and other properties related to the line height when drawing text.\n\n @since 12\n @version 1.0"]
 #[repr(C)]
 #[derive(Debug, Copy, Clone)]
 pub struct OH_Drawing_StrutStyle {
-    #[doc = " The font weight to use when calculating the strut"]
+    #[doc = " Font weight used for calculating the strut."]
     pub weight: OH_Drawing_FontWeight,
-    #[doc = " The font style to use when calculating the strut"]
+    #[doc = " Font style used when calculating the strut."]
     pub style: OH_Drawing_FontStyle,
-    #[doc = " The size of the ascent plus descent in logical pixels"]
+    #[doc = " Size of the ascent plus descent in the logical pixels."]
     pub size: f64,
-    #[doc = " The minimum height of the strut, as a multiple of fontSize"]
+    #[doc = " Scale factor of the line height."]
     pub heightScale: f64,
-    #[doc = " Whether the height is override"]
+    #[doc = " Whether to enable height override. **true**: enabled; **false**: disabled."]
     pub heightOverride: bool,
-    #[doc = " Whether the halfleading is enable"]
+    #[doc = " Whether to enable half leading. **true**: enabled; **false**: disabled."]
     pub halfLeading: bool,
-    #[doc = " The additional leading to apply to the strut as a multiple of Size"]
+    #[doc = " Custom leading to be applied to the strut."]
     pub leading: f64,
-    #[doc = " Whether the strut height should be forced"]
+    #[doc = " Whether to forcibly use the strut height for all rows. **true** means yes; **false** otherwise."]
     pub forceStrutHeight: bool,
-    #[doc = " The size of font families"]
+    #[doc = " Number of font families."]
     pub familiesSize: usize,
-    #[doc = " The families of the font to use when calculating the strut"]
+    #[doc = " Double pointer to the font families used for calculating the strut."]
     pub families: *mut *mut ::std::os::raw::c_char,
 }
-#[doc = " @brief Defines the text rect struct.\n\n @since 24"]
+#[doc = " @brief Defines a text rectangle structure.\n\n @since 24"]
 #[cfg(feature = "api-24")]
 #[repr(C)]
 #[derive(Debug, Copy, Clone)]
 pub struct OH_Drawing_RectSize {
-    #[doc = " Rect width"]
+    #[doc = " Rectangle width."]
     pub width: f64,
-    #[doc = " Rect height"]
+    #[doc = " Rectangle height."]
     pub height: f64,
 }
 extern "C" {
-    #[doc = " @brief Creates an <b>OH_Drawing_TypographyStyle</b> object.\n\n @syscap SystemCapability.Graphic.Graphic2D.NativeDrawing\n @return Returns the pointer to the <b>OH_Drawing_TypographyStyle</b> object created.\n @since 8\n @version 1.0"]
+    #[doc = " @brief Creates an **OH_Drawing_TypographyStyle** object. Release this pointer by calling\n {@link OH_Drawing_DestroyTypographyStyle} when this object is no longer needed.\n\n @syscap SystemCapability.Graphic.Graphic2D.NativeDrawing\n @return Pointer to the created {@link OH_Drawing_TypographyStyle} object.\n @since 8\n @version 1.0"]
     pub fn OH_Drawing_CreateTypographyStyle() -> *mut OH_Drawing_TypographyStyle;
 }
 extern "C" {
-    #[doc = " @brief Releases the memory occupied by an <b>OH_Drawing_TypographyStyle</b> object.\n\n @syscap SystemCapability.Graphic.Graphic2D.NativeDrawing\n @param style Indicates the pointer to an <b>OH_Drawing_TypographyStyle</b> object.\n @since 8\n @version 1.0"]
+    #[doc = " @brief Destroys an **OH_Drawing_TypographyStyle** object and reclaims the memory occupied by the object.\n\n @syscap SystemCapability.Graphic.Graphic2D.NativeDrawing\n @param style Pointer to the {@link OH_Drawing_TypographyStyle} object, which is obtained from\n     {@link OH_Drawing_CreateTypographyStyle}.\n @since 8\n @version 1.0"]
     pub fn OH_Drawing_DestroyTypographyStyle(style: *mut OH_Drawing_TypographyStyle);
 }
 extern "C" {
-    #[doc = " @brief Sets the text direction.\n\n @syscap SystemCapability.Graphic.Graphic2D.NativeDrawing\n @param style Indicates the pointer to an <b>OH_Drawing_TypographyStyle</b> object.\n @param direction Indicates the text direction to set. For details, see the enum <b>OH_Drawing_TextDirection</b>.\n @since 8\n @version 1.0"]
+    #[doc = " @brief Sets the text direction in a typography style.\n\n @syscap SystemCapability.Graphic.Graphic2D.NativeDrawing\n @param style Pointer to the {@link OH_Drawing_TypographyStyle} object, which is obtained from\n     {@link OH_Drawing_CreateTypographyStyle}.\n @param direction Text direction. For details about the available options, see {@link OH_Drawing_TextDirection}.\n @since 8\n @version 1.0"]
     pub fn OH_Drawing_SetTypographyTextDirection(
         style: *mut OH_Drawing_TypographyStyle,
         direction: ::std::os::raw::c_int,
     );
 }
 extern "C" {
-    #[doc = " @brief Sets the text alignment mode.\n\n @syscap SystemCapability.Graphic.Graphic2D.NativeDrawing\n @param style Indicates the pointer to an <b>OH_Drawing_TypographyStyle</b> object.\n @param align Indicates the text alignment mode to set. For details, see the enum <b>OH_Drawing_TextAlign</b>.\n @since 8\n @version 1.0"]
+    #[doc = " @brief Text alignment mode.\n\n @syscap SystemCapability.Graphic.Graphic2D.NativeDrawing\n @param style Pointer to the {@link OH_Drawing_TypographyStyle} object, which is obtained from\n     {@link OH_Drawing_CreateTypographyStyle}.\n @param align Text alignment mode. For details about the available options, see {@link OH_Drawing_TextAlign}.\n @since 8\n @version 1.0"]
     pub fn OH_Drawing_SetTypographyTextAlign(
         style: *mut OH_Drawing_TypographyStyle,
         align: ::std::os::raw::c_int,
     );
 }
 extern "C" {
-    #[doc = " @brief Sets the maximum number of lines in a text file.\n\n @syscap SystemCapability.Graphic.Graphic2D.NativeDrawing\n @param style Indicates the pointer to an <b>OH_Drawing_TypographyStyle</b> object.\n @param lineNumber Indicates the maximum number of lines to set.\n @since 8\n @version 1.0"]
+    #[doc = " @brief Sets the maximum number of lines in the text.\n\n @syscap SystemCapability.Graphic.Graphic2D.NativeDrawing\n @param style Pointer to the {@link OH_Drawing_TypographyStyle} object, which is obtained from\n     {@link OH_Drawing_CreateTypographyStyle}.\n @param lineNumber Max lines, which is an integer. If 0 or a negative number is passed, no text is displayed.\n @since 8\n @version 1.0"]
     pub fn OH_Drawing_SetTypographyTextMaxLines(
         style: *mut OH_Drawing_TypographyStyle,
         lineNumber: ::std::os::raw::c_int,
     );
 }
 extern "C" {
-    #[doc = " @brief Creates an <b>OH_Drawing_TextStyle</b> object.\n\n @syscap SystemCapability.Graphic.Graphic2D.NativeDrawing\n @return Returns the pointer to the <b>OH_Drawing_TextStyle</b> object created.\n @since 8\n @version 1.0"]
+    #[doc = " @brief Creates a pointer to an **OH_Drawing_TextStyle** object. When the {@link OH_Drawing_TextStyle} is no longer\n needed, use {@link OH_Drawing_DestroyTextStyle} to release the pointer to the object.\n\n @syscap SystemCapability.Graphic.Graphic2D.NativeDrawing\n @return Pointer to the created {@link OH_Drawing_TextStyle} object.\n @since 8\n @version 1.0"]
     pub fn OH_Drawing_CreateTextStyle() -> *mut OH_Drawing_TextStyle;
 }
 extern "C" {
-    #[doc = " @brief Releases the memory occupied by an <b>OH_Drawing_TextStyle</b> object.\n\n @syscap SystemCapability.Graphic.Graphic2D.NativeDrawing\n @param style Indicates the pointer to an <b>OH_Drawing_TextStyle</b> object.\n @since 8\n @version 1.0"]
+    #[doc = " @brief Destroys an **OH_Drawing_TextStyle** object and reclaims the memory occupied by the object.\n\n @syscap SystemCapability.Graphic.Graphic2D.NativeDrawing\n @param style Pointer to the **OH_Drawing_TextStyle** object, which is obtained from\n     {@link OH_Drawing_CreateTextStyle}.\n @since 8\n @version 1.0"]
     pub fn OH_Drawing_DestroyTextStyle(style: *mut OH_Drawing_TextStyle);
 }
 extern "C" {
-    #[doc = " @brief Sets the text color.\n\n @syscap SystemCapability.Graphic.Graphic2D.NativeDrawing\n @param style Indicates the pointer to an <b>OH_Drawing_TextStyle</b> object.\n @param color Indicates the color to set.\n @since 8\n @version 1.0"]
+    #[doc = " @brief Sets the color for a text style.\n\n @syscap SystemCapability.Graphic.Graphic2D.NativeDrawing\n @param style Pointer to the {@link OH_Drawing_TextStyle} object, which is obtained from\n     {@link OH_Drawing_CreateTextStyle}.\n @param color Text color in ARGB format. For example, an input parameter of 0xFFFF0000 indicates opaque red.\n @since 8\n @version 1.0"]
     pub fn OH_Drawing_SetTextStyleColor(style: *mut OH_Drawing_TextStyle, color: u32);
 }
 extern "C" {
-    #[doc = " @brief Sets the font size.\n\n @syscap SystemCapability.Graphic.Graphic2D.NativeDrawing\n @param style Indicates the pointer to an <b>OH_Drawing_TextStyle</b> object.\n @param fontSize Indicates the font size to set.\n @since 8\n @version 1.0"]
+    #[doc = " @brief Sets the font size for a text style.\n\n @syscap SystemCapability.Graphic.Graphic2D.NativeDrawing\n @param style Pointer to the {@link OH_Drawing_TextStyle} object, which is obtained from\n     {@link OH_Drawing_CreateTextStyle}.\n @param fontSize Font size, in physical pixels (px).\n @since 8\n @version 1.0"]
     pub fn OH_Drawing_SetTextStyleFontSize(style: *mut OH_Drawing_TextStyle, fontSize: f64);
 }
 extern "C" {
-    #[doc = " @brief Sets the font weight.\n\n @syscap SystemCapability.Graphic.Graphic2D.NativeDrawing\n @param style Indicates the pointer to an <b>OH_Drawing_TextStyle</b> object.\n @param fontWeight Indicates the font weight to set. For details, see the enum <b>OH_Drawing_FontWeight</b>.\n @since 8\n @version 1.0"]
+    #[doc = " @brief Sets the font weight. Before <!--RP1-->OpenHarmony 6.1<!--RP1End-->, only variable fonts in system fonts\n support font weight adjustment. Starting from <!--RP1-->OpenHarmony 6.1<!--RP1End-->, both system fonts and variable\n fonts in third-party registered fonts support font weight adjustment. For non-variable fonts, the font weight does\n not change when the weight value is set to less than semi-bold, and a pseudo-bold effect may be triggered when the\n weight value is set to semi-bold or greater.\n\n @syscap SystemCapability.Graphic.Graphic2D.NativeDrawing\n @param style Pointer to the **OH_Drawing_TextStyle** object, which is obtained from\n     {@link OH_Drawing_CreateTextStyle}.\n @param fontWeight Font weight.\n     <br>For details about the available options, see {@link OH_Drawing_FontWeight}.\n @since 8\n @version 1.0"]
     pub fn OH_Drawing_SetTextStyleFontWeight(
         style: *mut OH_Drawing_TextStyle,
         fontWeight: ::std::os::raw::c_int,
     );
 }
 extern "C" {
-    #[doc = " @brief Sets the text baseline.\n\n @syscap SystemCapability.Graphic.Graphic2D.NativeDrawing\n @param style Indicates the pointer to an <b>OH_Drawing_TextStyle</b> object.\n @param baseline Indicates the text baseline to set. For details, see the enum <b>OH_Drawing_TextBaseline</b>.\n @since 8\n @version 1.0"]
+    #[doc = " @brief Sets the baseline for a text style.\n\n @syscap SystemCapability.Graphic.Graphic2D.NativeDrawing\n @param style Pointer to the **OH_Drawing_TextStyle** object, which is obtained from\n     {@link OH_Drawing_CreateTextStyle}.\n @param baseline Text baseline. For details about the available options, see {@link OH_Drawing_TextBaseline}.\n @since 8\n @version 1.0"]
     pub fn OH_Drawing_SetTextStyleBaseLine(
         style: *mut OH_Drawing_TextStyle,
         baseline: ::std::os::raw::c_int,
     );
 }
 extern "C" {
-    #[doc = " @brief Sets the text decoration.\n\n @syscap SystemCapability.Graphic.Graphic2D.NativeDrawing\n @param style Indicates the pointer to an <b>OH_Drawing_TextStyle</b> object.\n @param decoration Indicates the text decoration to set. For details, see the enum <b>OH_Drawing_TextDecoration</b>.\n @since 8\n @version 1.0"]
+    #[doc = " @brief Sets the decoration for a text style. Only one decoration can be set. To add multiple decorations, use\n {@link OH_Drawing_AddTextStyleDecoration}.\n\n @syscap SystemCapability.Graphic.Graphic2D.NativeDrawing\n @param style Pointer to the **OH_Drawing_TextStyle** object, which is obtained from\n     {@link OH_Drawing_CreateTextStyle}.\n @param decoration Text decoration. For details about the available options, see {@link OH_Drawing_TextDecoration}.\n @since 8\n @version 1.0"]
     pub fn OH_Drawing_SetTextStyleDecoration(
         style: *mut OH_Drawing_TextStyle,
         decoration: ::std::os::raw::c_int,
     );
 }
 extern "C" {
-    #[doc = " @brief Add the text decoration.\n\n @syscap SystemCapability.Graphic.Graphic2D.NativeDrawing\n @param style Indicates the pointer to an <b>OH_Drawing_TextStyle</b> object.\n @param decoration Indicates the text decoration to add. For details, see the enum <b>OH_Drawing_TextDecoration</b>.\n @since 18\n @version 1.0"]
+    #[doc = " @brief Adds the decoration for a text style. Multiple decoration lines can be displayed.\n\n @syscap SystemCapability.Graphic.Graphic2D.NativeDrawing\n @param style Pointer to the {@link OH_Drawing_TextStyle} object, which is obtained from\n     {@link OH_Drawing_CreateTextStyle}.\n @param decoration Decoration to add. The value **1** means to add an underline, **2** means to add an overline, and *\n     *4** means to add a strikethrough. You can add various decoration lines at a time via bitwise OR operations.\n     <br>If a decoration style that is not in the {@link OH_Drawing_TextDecoration} enumeration is set, the original\n     decoration is retained.\n @since 18\n @version 1.0"]
     #[cfg(feature = "api-18")]
     pub fn OH_Drawing_AddTextStyleDecoration(
         style: *mut OH_Drawing_TextStyle,
@@ -2375,7 +2503,7 @@ extern "C" {
     );
 }
 extern "C" {
-    #[doc = " @brief Remove the text decoration.\n\n @syscap SystemCapability.Graphic.Graphic2D.NativeDrawing\n @param style Indicates the pointer to an <b>OH_Drawing_TextStyle</b> object.\n @param decoration Indicates the text decoration to remove, shoud be match existing text decorations.\n For details, see the enum <b>OH_Drawing_TextDecoration</b>.\n @since 18\n @version 1.0"]
+    #[doc = " @brief Removes the decoration for a text style.\n\n @syscap SystemCapability.Graphic.Graphic2D.NativeDrawing\n @param style Pointer to the {@link OH_Drawing_TextStyle} object, which is obtained from\n     {@link OH_Drawing_CreateTextStyle}.\n @param decoration Decoration to remove. The value **1** means to remove an underline, **2** means to remove an\n     overline, and **4** means to remove a strikethrough. You can remove various text decorations at a time via\n     bitwise OR operations.\n     <br>If a decoration style that is not in the {@link OH_Drawing_TextDecoration} enumeration is set, the original\n     decoration is retained.\n @since 18\n @version 1.0"]
     #[cfg(feature = "api-18")]
     pub fn OH_Drawing_RemoveTextStyleDecoration(
         style: *mut OH_Drawing_TextStyle,
@@ -2383,15 +2511,15 @@ extern "C" {
     );
 }
 extern "C" {
-    #[doc = " @brief Sets the color for the text decoration.\n\n @syscap SystemCapability.Graphic.Graphic2D.NativeDrawing\n @param style Indicates the pointer to an <b>OH_Drawing_TextStyle</b> object.\n @param color Indicates the color to set.\n @since 8\n @version 1.0"]
+    #[doc = " @brief Sets the decoration color for a text style. If this API is not called or **color** is set to **0**, the\n decoration color follows the text color.\n\n @syscap SystemCapability.Graphic.Graphic2D.NativeDrawing\n @param style Pointer to the **OH_Drawing_TextStyle** object, which is obtained from\n     {@link OH_Drawing_CreateTextStyle}.\n @param color Color of the decoration line, in ARGB format. For example, 0xFFFF0000 indicates opaque red. If this API\n     is not called or color is set to 0, the decoration line color follows the text color.\n @since 8\n @version 1.0"]
     pub fn OH_Drawing_SetTextStyleDecorationColor(style: *mut OH_Drawing_TextStyle, color: u32);
 }
 extern "C" {
-    #[doc = " @brief Sets the font height.\n\n @syscap SystemCapability.Graphic.Graphic2D.NativeDrawing\n @param style Indicates the pointer to an <b>OH_Drawing_TextStyle</b> object.\n @param fontHeight Indicates the font height to set.\n @since 8\n @version 1.0"]
+    #[doc = " @brief Sets the line height based on the multiple of the font size.\n\n @syscap SystemCapability.Graphic.Graphic2D.NativeDrawing\n @param style Pointer to the **OH_Drawing_TextStyle** object, which is obtained from\n     {@link OH_Drawing_CreateTextStyle}.\n @param fontHeight Multiple of the font size.\n @since 8\n @version 1.0"]
     pub fn OH_Drawing_SetTextStyleFontHeight(style: *mut OH_Drawing_TextStyle, fontHeight: f64);
 }
 extern "C" {
-    #[doc = " @brief Sets the font families.\n\n @syscap SystemCapability.Graphic.Graphic2D.NativeDrawing\n @param style Indicates the pointer to an <b>OH_Drawing_TextStyle</b> object.\n @param fontFamiliesNumber Indicates the number of font families to set.\n @param fontFamilies Indicates the pointer to the font families to set.\n @since 8\n @version 1.0"]
+    #[doc = " @brief Sets the font families for a text style.\n\n @syscap SystemCapability.Graphic.Graphic2D.NativeDrawing\n @param style Pointer to the **OH_Drawing_TextStyle** object, which is obtained from\n     {@link OH_Drawing_CreateTextStyle}.\n @param fontFamiliesNumber Number of font families. A negative number is not allowed.\n @param fontFamilies Pointer to the font families.\n @since 8\n @version 1.0"]
     pub fn OH_Drawing_SetTextStyleFontFamilies(
         style: *mut OH_Drawing_TextStyle,
         fontFamiliesNumber: ::std::os::raw::c_int,
@@ -2399,120 +2527,120 @@ extern "C" {
     );
 }
 extern "C" {
-    #[doc = " @brief Sets the font style.\n\n @syscap SystemCapability.Graphic.Graphic2D.NativeDrawing\n @param style Indicates the pointer to an <b>OH_Drawing_TextStyle</b> object.\n @param fontStyle Indicates the font style to set. For details, see the enum <b>OH_Drawing_FontStyle</b>.\n @since 8\n @version 1.0"]
+    #[doc = " @brief Sets the font style for a text style.\n\n @syscap SystemCapability.Graphic.Graphic2D.NativeDrawing\n @param style Pointer to the **OH_Drawing_TextStyle** object, which is obtained from\n     {@link OH_Drawing_CreateTextStyle}.\n @param fontStyle Font style. The value **1** indicates italic, **2** indicates oblique, and **0** or other values\n     indicate non-italic. For details, see the {@link OH_Drawing_FontStyle} enum.\n @since 8\n @version 1.0"]
     pub fn OH_Drawing_SetTextStyleFontStyle(
         style: *mut OH_Drawing_TextStyle,
         fontStyle: ::std::os::raw::c_int,
     );
 }
 extern "C" {
-    #[doc = " @brief Sets the locale.\n\n @syscap SystemCapability.Graphic.Graphic2D.NativeDrawing\n @param style Indicates the pointer to an <b>OH_Drawing_TextStyle</b> object.\n @param locale Indicates the pointer to the locale to set.\n @since 8\n @version 1.0"]
+    #[doc = " @brief Sets the locale for a text style.\n\n @syscap SystemCapability.Graphic.Graphic2D.NativeDrawing\n @param style Pointer to the **OH_Drawing_TextStyle** object, which is obtained from\n     {@link OH_Drawing_CreateTextStyle}.\n @param locale Language type. The data type is a pointer to char. The format follows the BCP 47 language tag standard.\n     For example, 'en' represents English, 'zh-Hans' represents Simplified Chinese, and 'zh-Hant' represents\n     Traditional Chinese. If not specified, the default locale is 'zh-Hans'.\n @since 8\n @version 1.0"]
     pub fn OH_Drawing_SetTextStyleLocale(
         style: *mut OH_Drawing_TextStyle,
         locale: *const ::std::os::raw::c_char,
     );
 }
 extern "C" {
-    #[doc = " @brief Sets the foreground brush style.\n\n @syscap SystemCapability.Graphic.Graphic2D.NativeDrawing\n @param style Indicates the pointer to a text style object <b>OH_Drawing_TextStyle</b>.\n @param foregroundBrush Indicates the pointer to a brush object <b>OH_Drawing_Brush</b>.\n @since 12\n @version 1.0"]
+    #[doc = " @brief Sets the foreground brush for a text style.\n\n @syscap SystemCapability.Graphic.Graphic2D.NativeDrawing\n @param style Pointer to the {@link OH_Drawing_TextStyle} object, which is obtained from\n     {@link OH_Drawing_CreateTextStyle}.\n @param foregroundBrush Pointer to the {@link OH_Drawing_Brush} object, which is obtained from\n     {@link OH_Drawing_BrushCreate}.\n @since 12\n @version 1.0"]
     pub fn OH_Drawing_SetTextStyleForegroundBrush(
         style: *mut OH_Drawing_TextStyle,
         foregroundBrush: *mut OH_Drawing_Brush,
     );
 }
 extern "C" {
-    #[doc = " @brief Gets the foreground brush style.\n\n @syscap SystemCapability.Graphic.Graphic2D.NativeDrawing\n @param style Indicates the pointer to a text style object <b>OH_Drawing_TextStyle</b>.\n @param foregroundBrush Indicates the pointer to a brush object <b>OH_Drawing_Brush</b>.\n @since 12\n @version 1.0"]
+    #[doc = " @brief Obtains the foreground brush of a text style.\n\n @syscap SystemCapability.Graphic.Graphic2D.NativeDrawing\n @param style Pointer to the {@link OH_Drawing_TextStyle} object, which is obtained from\n     {@link OH_Drawing_CreateTextStyle}.\n @param foregroundBrush Pointer to the {@link OH_Drawing_Brush} object, which is obtained from\n     {@link OH_Drawing_BrushCreate}.\n @since 12\n @version 1.0"]
     pub fn OH_Drawing_TextStyleGetForegroundBrush(
         style: *mut OH_Drawing_TextStyle,
         foregroundBrush: *mut OH_Drawing_Brush,
     );
 }
 extern "C" {
-    #[doc = " @brief Sets the foreground pen style.\n\n @syscap SystemCapability.Graphic.Graphic2D.NativeDrawing\n @param style Indicates the pointer to a text style object <b>OH_Drawing_TextStyle</b>.\n @param foregroundPen Indicates the pointer to a pen object <b>OH_Drawing_Pen</b>.\n @since 12\n @version 1.0"]
+    #[doc = " @brief Sets the foreground pen for a text style.\n\n @syscap SystemCapability.Graphic.Graphic2D.NativeDrawing\n @param style Pointer to the {@link OH_Drawing_TextStyle} object, which is obtained from\n     {@link OH_Drawing_CreateTextStyle}.\n @param foregroundPen Pointer to the {@link OH_Drawing_Pen} object, which is obtained from\n     {@link OH_Drawing_PenCreate}.\n @since 12\n @version 1.0"]
     pub fn OH_Drawing_SetTextStyleForegroundPen(
         style: *mut OH_Drawing_TextStyle,
         foregroundPen: *mut OH_Drawing_Pen,
     );
 }
 extern "C" {
-    #[doc = " @brief Gets the foreground pen style.\n\n @syscap SystemCapability.Graphic.Graphic2D.NativeDrawing\n @param style Indicates the pointer to a text style object <b>OH_Drawing_TextStyle</b>.\n @param foregroundPen Indicates the pointer to a pen object <b>OH_Drawing_Pen</b>.\n @since 12\n @version 1.0"]
+    #[doc = " @brief Obtains the foreground pen of a text style.\n\n @syscap SystemCapability.Graphic.Graphic2D.NativeDrawing\n @param style Pointer to the {@link OH_Drawing_TextStyle} object, which is obtained from\n     {@link OH_Drawing_CreateTextStyle}.\n @param foregroundPen Pointer to the {@link OH_Drawing_Pen} object, which is obtained from\n     {@link OH_Drawing_PenCreate}.\n @since 12\n @version 1.0"]
     pub fn OH_Drawing_TextStyleGetForegroundPen(
         style: *mut OH_Drawing_TextStyle,
         foregroundPen: *mut OH_Drawing_Pen,
     );
 }
 extern "C" {
-    #[doc = " @brief Sets the background brush style.\n\n @syscap SystemCapability.Graphic.Graphic2D.NativeDrawing\n @param style Indicates the pointer to a text style object <b>OH_Drawing_TextStyle</b>.\n @param backgroundBrush Indicates the pointer to a brush object <b>OH_Drawing_Brush</b>.\n @since 12\n @version 1.0"]
+    #[doc = " @brief Sets the background brush for a text style.\n\n @syscap SystemCapability.Graphic.Graphic2D.NativeDrawing\n @param style Pointer to the {@link OH_Drawing_TextStyle} object, which is obtained from\n     {@link OH_Drawing_CreateTextStyle}.\n @param backgroundBrush Pointer to the {@link OH_Drawing_Brush} object, which is obtained from\n     {@link OH_Drawing_BrushCreate}.\n @since 12\n @version 1.0"]
     pub fn OH_Drawing_SetTextStyleBackgroundBrush(
         style: *mut OH_Drawing_TextStyle,
         backgroundBrush: *mut OH_Drawing_Brush,
     );
 }
 extern "C" {
-    #[doc = " @brief Gets the background brush style.\n\n @syscap SystemCapability.Graphic.Graphic2D.NativeDrawing\n @param style Indicates the pointer to a text style object <b>OH_Drawing_TextStyle</b>.\n @param backgroundBrush Indicates the pointer to a brush object <b>OH_Drawing_Brush</b>.\n @since 12\n @version 1.0"]
+    #[doc = " @brief Obtains the background brush of a text style.\n\n @syscap SystemCapability.Graphic.Graphic2D.NativeDrawing\n @param style Pointer to the {@link OH_Drawing_TextStyle} object, which is obtained from\n     {@link OH_Drawing_CreateTextStyle}.\n @param backgroundBrush Pointer to the {@link OH_Drawing_Brush} object, which is obtained from\n     {@link OH_Drawing_BrushCreate}.\n @since 12\n @version 1.0"]
     pub fn OH_Drawing_TextStyleGetBackgroundBrush(
         style: *mut OH_Drawing_TextStyle,
         backgroundBrush: *mut OH_Drawing_Brush,
     );
 }
 extern "C" {
-    #[doc = " @brief Sets the background pen style.\n\n @syscap SystemCapability.Graphic.Graphic2D.NativeDrawing\n @param style Indicates the pointer to a text style object <b>OH_Drawing_TextStyle</b>.\n @param backgroundPen Indicates the pointer to a pen object <b>OH_Drawing_Pen</b>.\n @since 12\n @version 1.0"]
+    #[doc = " @brief Sets the background pen for a text style.\n\n @syscap SystemCapability.Graphic.Graphic2D.NativeDrawing\n @param style Pointer to the {@link OH_Drawing_TextStyle} object, which is obtained from\n     {@link OH_Drawing_CreateTextStyle}.\n @param backgroundPen Pointer to the {@link OH_Drawing_Pen} object, which is obtained from\n     {@link OH_Drawing_PenCreate}.\n @since 12\n @version 1.0"]
     pub fn OH_Drawing_SetTextStyleBackgroundPen(
         style: *mut OH_Drawing_TextStyle,
         backgroundPen: *mut OH_Drawing_Pen,
     );
 }
 extern "C" {
-    #[doc = " @brief Gets the background pen style.\n\n @syscap SystemCapability.Graphic.Graphic2D.NativeDrawing\n @param style Indicates the pointer to a text style object <b>OH_Drawing_TextStyle</b>.\n @param backgroundPen Indicates the pointer to a pen object <b>OH_Drawing_Pen</b>.\n @since 12\n @version 1.0"]
+    #[doc = " @brief Obtains the background pen of a text style.\n\n @syscap SystemCapability.Graphic.Graphic2D.NativeDrawing\n @param style Pointer to the {@link OH_Drawing_TextStyle} object, which is obtained from\n     {@link OH_Drawing_CreateTextStyle}.\n @param backgroundPen Pointer to the {@link OH_Drawing_Pen} object, which is obtained from\n     {@link OH_Drawing_PenCreate}.\n @since 12\n @version 1.0"]
     pub fn OH_Drawing_TextStyleGetBackgroundPen(
         style: *mut OH_Drawing_TextStyle,
         backgroundPen: *mut OH_Drawing_Pen,
     );
 }
 extern "C" {
-    #[doc = " @brief Creates a pointer to an <b>OH_Drawing_TypographyCreate</b> object.\n\n @syscap SystemCapability.Graphic.Graphic2D.NativeDrawing\n @param style Indicates the pointer to an <b>OH_Drawing_TypographyStyle</b> object.\n @param fontCollection Indicates the pointer to an <b>OH_Drawing_FontCollection</b> object.\n @return Returns the pointer to the <b>OH_Drawing_TypographyCreate</b> object created.\n @since 8\n @version 1.0"]
+    #[doc = " @brief Creates an **OH_Drawing_TypographyCreate** object. Release this pointer by calling\n {@link OH_Drawing_DestroyTypographyHandler} when this object is no longer needed. You are advised to use the\n {@link OH_Drawing_CreateSharedFontCollection} function to create an {@link OH_Drawing_FontCollection} object.\n\n @syscap SystemCapability.Graphic.Graphic2D.NativeDrawing\n @param style Pointer to the {@link OH_Drawing_TypographyStyle} object, which is obtained from\n     {@link OH_Drawing_CreateTypographyStyle}.\n @param fontCollection Pointer to the {@link OH_Drawing_FontCollection} object, which is obtained from\n     {@link OH_Drawing_CreateFontCollection}.\n @return Pointer to the **OH_Drawing_TypographyCreate** object created.\n @since 8\n @version 1.0"]
     pub fn OH_Drawing_CreateTypographyHandler(
         style: *mut OH_Drawing_TypographyStyle,
         fontCollection: *mut OH_Drawing_FontCollection,
     ) -> *mut OH_Drawing_TypographyCreate;
 }
 extern "C" {
-    #[doc = " @brief Releases the memory occupied by an <b>OH_Drawing_TypographyCreate</b> object.\n\n @syscap SystemCapability.Graphic.Graphic2D.NativeDrawing\n @param handler Indicates the pointer to an <b>OH_Drawing_TypographyCreate</b> object.\n @since 8\n @version 1.0"]
+    #[doc = " @brief Destroys an **OH_Drawing_TypographyCreate** object and reclaims the memory occupied by the object.\n\n @syscap SystemCapability.Graphic.Graphic2D.NativeDrawing\n @param handler Pointer to the {@link OH_Drawing_TypographyCreate} object, which is obtained from\n     {@link OH_Drawing_CreateTypographyHandler}.\n @since 8\n @version 1.0"]
     pub fn OH_Drawing_DestroyTypographyHandler(handler: *mut OH_Drawing_TypographyCreate);
 }
 extern "C" {
-    #[doc = " @brief Sets the text style.\n\n @syscap SystemCapability.Graphic.Graphic2D.NativeDrawing\n @param handler Indicates the pointer to an <b>OH_Drawing_TypographyCreate</b> object.\n @param style Indicates the pointer to an <b>OH_Drawing_TextStyle</b> object.\n @since 8\n @version 1.0"]
+    #[doc = " @brief Pushes a text style into the text style stack. Any text added afterward will use the style currently on top\n of the stack.\n\n @syscap SystemCapability.Graphic.Graphic2D.NativeDrawing\n @param handler Pointer to the {@link OH_Drawing_TypographyCreate} object, which is obtained from\n     {@link OH_Drawing_CreateTypographyHandler}.\n @param style Pointer to the {@link OH_Drawing_TextStyle} object, which is obtained from\n     {@link OH_Drawing_CreateTextStyle}.\n @since 8\n @version 1.0"]
     pub fn OH_Drawing_TypographyHandlerPushTextStyle(
         handler: *mut OH_Drawing_TypographyCreate,
         style: *mut OH_Drawing_TextStyle,
     );
 }
 extern "C" {
-    #[doc = " @brief Sets the text content.\n\n @syscap SystemCapability.Graphic.Graphic2D.NativeDrawing\n @param handler Indicates the pointer to an <b>OH_Drawing_TypographyCreate</b> object.\n @param text Indicates the pointer to the text content to set.\n @since 8\n @version 1.0"]
+    #[doc = " @brief Adds text.\n\n @syscap SystemCapability.Graphic.Graphic2D.NativeDrawing\n @param handler Pointer to the {@link OH_Drawing_TypographyCreate} object, which is obtained from\n     {@link OH_Drawing_CreateTypographyHandler}.\n @param text Pointer to the text content.\n @since 8\n @version 1.0"]
     pub fn OH_Drawing_TypographyHandlerAddText(
         handler: *mut OH_Drawing_TypographyCreate,
         text: *const ::std::os::raw::c_char,
     );
 }
 extern "C" {
-    #[doc = " @brief Removes the topmost style in the stack, leaving the remaining styles in effect.\n\n @syscap SystemCapability.Graphic.Graphic2D.NativeDrawing\n @param handler Indicates the pointer to an <b>OH_Drawing_TypographyCreate</b> object.\n @since 8\n @version 1.0"]
+    #[doc = " @brief Pops the top text style out of the text style stack.\n\n @syscap SystemCapability.Graphic.Graphic2D.NativeDrawing\n @param handler Pointer to the {@link OH_Drawing_TypographyCreate} object, which is obtained from\n     {@link OH_Drawing_CreateTypographyHandler}.\n @since 8\n @version 1.0"]
     pub fn OH_Drawing_TypographyHandlerPopTextStyle(handler: *mut OH_Drawing_TypographyCreate);
 }
 extern "C" {
-    #[doc = " @brief Creates an <b>OH_Drawing_Typography</b> object.\n\n @syscap SystemCapability.Graphic.Graphic2D.NativeDrawing\n @param handler Indicates the pointer to an <b>OH_Drawing_TypographyCreate</b> object.\n @return Returns the pointer to the <b>OH_Drawing_Typography</b> object created.\n @since 8\n @version 1.0"]
+    #[doc = " @brief Creates an **OH_Drawing_Typography** object. Release this pointer by calling\n {@link OH_Drawing_DestroyTypography} when this object is no longer needed.\n\n @syscap SystemCapability.Graphic.Graphic2D.NativeDrawing\n @param handler Pointer to the {@link OH_Drawing_TypographyCreate} object, which is obtained from\n     {@link OH_Drawing_CreateTypographyHandler}.\n @return Pointer to the **OH_Drawing_Typography** object created.\n @since 8\n @version 1.0"]
     pub fn OH_Drawing_CreateTypography(
         handler: *mut OH_Drawing_TypographyCreate,
     ) -> *mut OH_Drawing_Typography;
 }
 extern "C" {
-    #[doc = " @brief Releases the memory occupied by an <b>OH_Drawing_Typography</b> object.\n\n @syscap SystemCapability.Graphic.Graphic2D.NativeDrawing\n @param typography Indicates the pointer to an <b>OH_Drawing_Typography</b> object.\n @since 8\n @version 1.0"]
+    #[doc = " @brief Destroys an **OH_Drawing_Typography** object and reclaims the memory occupied by the object.\n\n @syscap SystemCapability.Graphic.Graphic2D.NativeDrawing\n @param typography Pointer to the {@link OH_Drawing_Typography} object, which is obtained from\n     {@link OH_Drawing_CreateTypography}.\n @since 8\n @version 1.0"]
     pub fn OH_Drawing_DestroyTypography(typography: *mut OH_Drawing_Typography);
 }
 extern "C" {
-    #[doc = " @brief Lays out the typography.\n\n @syscap SystemCapability.Graphic.Graphic2D.NativeDrawing\n @param typography Indicates the pointer to an <b>OH_Drawing_Typography</b> object.\n @param maxWidth Indicates the maximum text width to set.\n @since 8\n @version 1.0"]
+    #[doc = " @brief Performs layout calculation on the typography object and wraps text based on the specified maximum width.\n After this API is called, the properties of the typography object can be correctly obtained.\n\n @syscap SystemCapability.Graphic.Graphic2D.NativeDrawing\n @param typography Pointer to the {@link OH_Drawing_Typography} object, which is obtained from\n     {@link OH_Drawing_CreateTypography}.\n @param maxWidth Maximum width of a single line in text typography, in physical pixels (px). The value must be\n     greater than 0.\n @since 8\n @version 1.0"]
     pub fn OH_Drawing_TypographyLayout(typography: *mut OH_Drawing_Typography, maxWidth: f64);
 }
 extern "C" {
-    #[doc = " @brief Paints text on the canvas.\n\n @syscap SystemCapability.Graphic.Graphic2D.NativeDrawing\n @param typography Indicates the pointer to an <b>OH_Drawing_Typography</b> object.\n @param canvas Indicates the pointer to an <b>OH_Drawing_Canvas</b> object.\n @param positionX Indicates the x coordinate.\n @param positionY Indicates the y coordinate.\n @since 8\n @version 1.0"]
+    #[doc = " @brief Draws text from the upper left corner at a specified position. This function must be called after\n {@link OH_Drawing_TypographyLayout} is called and applied.\n\n @syscap SystemCapability.Graphic.Graphic2D.NativeDrawing\n @param typography Pointer to the **OH_Drawing_Typography** object, which is obtained from\n     {@link OH_Drawing_CreateTypography}.\n @param canvas Pointer to the **OH_Drawing_Canvas** object, which is obtained from {@link OH_Drawing_CanvasCreate}.\n @param positionX Horizontal coordinate of the starting position for text drawing (that is, the x-coordinate of the\n     upper left corner of the text area), in physical pixels (px). The upper left corner of the canvas serves as the\n     coordinate origin, with the positive direction to the right.\n @param positionY Vertical coordinate of the starting position for text drawing (that is, the y-coordinate of the\n     upper left corner of the text area), in physical pixels (px). The upper left corner of the canvas serves as the\n     coordinate origin, with the positive direction downward.\n @since 8\n @version 1.0"]
     pub fn OH_Drawing_TypographyPaint(
         typography: *mut OH_Drawing_Typography,
         canvas: *mut OH_Drawing_Canvas,
@@ -2521,7 +2649,7 @@ extern "C" {
     );
 }
 extern "C" {
-    #[doc = " @brief Paints path text on the canvas.\n\n @syscap SystemCapability.Graphic.Graphic2D.NativeDrawing\n @param typography Indicates the pointer to an <b>OH_Drawing_Typography</b> object.\n @param canvas Indicates the pointer to an <b>OH_Drawing_Canvas</b> object.\n @param path Indicates path information.\n @param hOffset Indicates the distance along the path to add to the text's starting position.\n @param vOffset Indicates the distance above(-) or below(+) the path to position the text.\n @since 12\n @version 1.0"]
+    #[doc = " @brief Draws text along a specified path. This API must be called after {@link OH_Drawing_TypographyLayout} is\n called and takes effect. It is recommended to use {@link OH_Drawing_SetTypographyTextMaxLines} to set the maximum\n number of lines to 1 to avoid overlapping issues caused by text width exceeding the typography width.\n\n @syscap SystemCapability.Graphic.Graphic2D.NativeDrawing\n @param typography Pointer to the **OH_Drawing_Typography** object, which is obtained from\n     {@link OH_Drawing_CreateTypography}.\n @param canvas Pointer to the **OH_Drawing_Canvas** object, which is obtained from {@link OH_Drawing_CanvasCreate}.\n @param path Pointer to the **OH_Drawing_Path** object, which is obtained from {@link OH_Drawing_PathCreate}.\n @param hOffset Horizontal offset, in physical pixels (px). The horizontal offset of the text along the path (X-axis),\n     positive to the right and negative to the left.\n @param vOffset Vertical offset, in physical pixels (px). The vertical offset of the text along the path (Y-axis),\n     positive downward and negative upward.\n @since 12\n @version 1.0"]
     pub fn OH_Drawing_TypographyPaintOnPath(
         typography: *mut OH_Drawing_Typography,
         canvas: *mut OH_Drawing_Canvas,
@@ -2531,7 +2659,7 @@ extern "C" {
     );
 }
 extern "C" {
-    #[doc = " @brief Layout text within a constrained rectangle.\n\n @param typography Indicates the pointer to the text <b>OH_Drawing_Typography</b> object.\n @param constraintsRect Constraints height and width for layout.\n @param fitStrRangeArr On return, contains the character range of the paragraph that actually fit.\n Indicates the pointer to the array object <b>OH_Drawing_Array</b>.\n Releases memory by <b>OH_Drawing_ReleaseArrayBuffer</b>.\n @param fitStrRangeArrayLen On return, the size of the fit string array.\n @return Returns an <b>OH_Drawing_RectSize</b> object that represents the paragraph's actual rectangle.\n @since 24"]
+    #[doc = " @brief Arranges the text in the constraint rectangle.\n\n @param typography Pointer to the {@link OH_Drawing_Typography} object, which is obtained from\n     {@link OH_Drawing_CreateTypography}.\n @param constraintsRect Height and width of the constrained layout.\n @param fitStrRangeArr As an output parameter, it contains the character range of the paragraph text that is actually\n     contained. Pointer to array object {@link OH_Drawing_Array}.\n     <br>Releases the memory through {@link OH_Drawing_ReleaseArrayBuffer}.\n @param fitStrRangeArrayLen As an output parameter, it indicates the size of the contained string array.\n @return Actual text size after layout, including width and height information.\n @since 24"]
     #[cfg(feature = "api-24")]
     pub fn OH_Drawing_TypographyLayoutWithConstraintsWithBuffer(
         typography: *mut OH_Drawing_Typography,
@@ -2541,7 +2669,7 @@ extern "C" {
     ) -> OH_Drawing_RectSize;
 }
 extern "C" {
-    #[doc = " @brief Get range by array index.\n\n @param array Indicates the pointer to the text <b>OH_Drawing_Array</b> object.\n @param index Range's index in array.\n @return Returns Indicates the pointer to an <b>OH_Drawing_Range</b> object.\n @since 24"]
+    #[doc = " @brief Obtains the pointer to the OH_Drawing_Range object based on the array index.\n\n @param array Pointer to array object {@link OH_Drawing_Array}.\n @param index Index of the target {@link OH_Drawing_Range} object in the array.\n @return Returns the pointer to the OH_Drawing_Range object.\n @since 24"]
     #[cfg(feature = "api-24")]
     pub fn OH_Drawing_GetRangeByArrayIndex(
         array: *mut OH_Drawing_Array,
@@ -2549,64 +2677,64 @@ extern "C" {
     ) -> *mut OH_Drawing_Range;
 }
 extern "C" {
-    #[doc = " @brief Releases the memory occupied by an <b>OH_Drawing_Array</b> object.\n\n @param array Indicates the pointer to the text <b>OH_Drawing_Array</b> object.\n Supported array type: Fonts full name array, get by <b>OH_Drawing_GetSystemFontFullNamesByType</b>.\n Supported array type: Text lines array, get by <b>OH_Drawing_TypographyGetTextLines</b>.\n Supported array type: String indices array, get by <b>OH_Drawing_GetRunStringIndices</b>.\n Supported array type: Rect array, get by <b>OH_Drawing_RectCreateArray</b>.\n Supported array type: FontDescriptors array, get by <b>OH_Drawing_GetFontFullDescriptorsFromStream</b>.\n Supported array type: FontDescriptors array, get by <b>OH_Drawing_GetFontFullDescriptorsFromPath</b>.\n Supported array type: Text ranges array, get by <b>OH_Drawing_TypographyLayoutWithConstraintsWithBuffer</b>.\n @return Returns an error code.\n         Returns {@link OH_DRAWING_SUCCESS} if the operation is successful.\n         Returns {@link OH_DRAWING_ERROR_INCORRECT_PARAMETER} if the array is nullptr or not supported.\n @since 24"]
+    #[doc = " @brief Releases the memory occupied by the {@link OH_Drawing_Array} object.\n\n @param array Pointer to array object {@link OH_Drawing_Array}.\n     <br>Supported array types:\n     <br>Array of full font names, which is obtained through {@link OH_Drawing_GetSystemFontFullNamesByType}.\n     <br>Array of text lines, which is obtained through {@link OH_Drawing_TypographyGetTextLines}.\n     <br>Array of string indexes, which is obtained through {@link OH_Drawing_GetRunStringIndices}.\n     <br>Array of rectangles, which is obtained through {@link OH_Drawing_RectCreateArray}.\n     <br>Array of font descriptors, which is obtained through {@link OH_Drawing_GetFontFullDescriptorsFromStream} or\n     {@link OH_Drawing_GetFontFullDescriptorsFromPath}.\n     <br>Array of text ranges, which is obtained through {@link OH_Drawing_TypographyLayoutWithConstraintsWithBuffer}.\n @link OH_Drawing_GetFontFullDescriptorsFromPath}.\n     <br>Array of text ranges, which is obtained through {@link OH_Drawing_TypographyLayoutWithConstraintsWithBuffer}.\n @return Returns the execution result.\n     <br>**OH_DRAWING_SUCCESS** if the operation is successful.\n     <br>**OH_DRAWING_ERROR_INCORRECT_PARAMETER** if array is a null pointer or the type is not supported.\n @since 24"]
     #[cfg(feature = "api-24")]
     pub fn OH_Drawing_ReleaseArrayBuffer(array: *mut OH_Drawing_Array) -> OH_Drawing_ErrorCode;
 }
 extern "C" {
-    #[doc = " @brief Gets the max width.\n\n @syscap SystemCapability.Graphic.Graphic2D.NativeDrawing\n @param typography Indicates the pointer to an <b>OH_Drawing_Typography</b> object.\n @return Returns the max width.\n @since 9\n @version 1.1"]
+    #[doc = " @brief Obtains the typography width set by the user. This function must be called after\n {@link OH_Drawing_TypographyLayout} is called.\n\n @syscap SystemCapability.Graphic.Graphic2D.NativeDrawing\n @param typography Pointer to the **OH_Drawing_Typography** object, which is obtained from\n     {@link OH_Drawing_CreateTypography}.\n @return Maximum width, in physical pixels (px).\n @since 9\n @version 1.1"]
     pub fn OH_Drawing_TypographyGetMaxWidth(typography: *mut OH_Drawing_Typography) -> f64;
 }
 extern "C" {
-    #[doc = " @brief Gets the height.\n\n @syscap SystemCapability.Graphic.Graphic2D.NativeDrawing\n @param typography Indicates the pointer to an <b>OH_Drawing_Typography</b> object.\n @return Returns the height.\n @since 9\n @version 1.1"]
+    #[doc = " @brief Obtains the overall height of a typography object. This function must be called after\n {@link OH_Drawing_TypographyLayout} is called.\n\n @syscap SystemCapability.Graphic.Graphic2D.NativeDrawing\n @param typography Pointer to the **OH_Drawing_Typography** object, which is obtained from\n     {@link OH_Drawing_CreateTypography}.\n @return Returns the height, in physical pixels (px).\n @since 9\n @version 1.1"]
     pub fn OH_Drawing_TypographyGetHeight(typography: *mut OH_Drawing_Typography) -> f64;
 }
 extern "C" {
-    #[doc = " @brief Obtains the width of the longest line. You are advised to round up the return value in actual use.\n When the text content is empty, the minimum float value,\n that is, -340282346638528859811704183484516925440.000000, is returned.\n\n @syscap SystemCapability.Graphic.Graphic2D.NativeDrawing\n @param typography Pointer to an <b>OH_Drawing_Typography</b> object, which is obtained by\n {@link OH_Drawing_CreateTypography}.\n @return Returns the width of the longest line.\n @since 9\n @version 1.1"]
+    #[doc = " @brief Obtains the width of the longest line in a typography object. This function must be called after\n {@link OH_Drawing_TypographyLayout} is called. You are advised to round up the return value. If the text content is\n empty, **0.0** is returned.\n\n @syscap SystemCapability.Graphic.Graphic2D.NativeDrawing\n @param typography Pointer to the **OH_Drawing_Typography** object, which is obtained from\n     {@link OH_Drawing_CreateTypography}.\n @return Longest line width, in physical pixels (px).\n @since 9\n @version 1.1"]
     pub fn OH_Drawing_TypographyGetLongestLine(typography: *mut OH_Drawing_Typography) -> f64;
 }
 extern "C" {
-    #[doc = " @brief Obtains the width of the longest line with indent. You are advised to\n round up the return value in actual use. When the text content is empty, the\n minimum float value, that is, 0.0, is returned.\n\n @syscap SystemCapability.Graphic.Graphic2D.NativeDrawing\n @param typography Pointer to an <b>OH_Drawing_Typography</b> object, which is obtained by\n {@link OH_Drawing_CreateTypography}.\n @return Returns the width of the longest line with indent.\n @since 13\n @version 1.1"]
+    #[doc = " @brief Obtains the width of the longest line of a typography object, including its indentation. This function must\n be called after {@link OH_Drawing_TypographyLayout} is called. You are advised to round up the return value. If the\n text content is empty, **0.0** is returned.\n\n @syscap SystemCapability.Graphic.Graphic2D.NativeDrawing\n @param typography Pointer to the {@link OH_Drawing_Typography} object, which is obtained from\n     {@link OH_Drawing_CreateTypography}.\n @return Returns the width of the longest line (including the current line indent), in physical pixels (px).\n @since 13\n @version 1.1"]
     #[cfg(feature = "api-13")]
     pub fn OH_Drawing_TypographyGetLongestLineWithIndent(
         typography: *mut OH_Drawing_Typography,
     ) -> f64;
 }
 extern "C" {
-    #[doc = " @brief Gets the min intrinsic width.\n\n @syscap SystemCapability.Graphic.Graphic2D.NativeDrawing\n @param typography the pointer to an <b>OH_Drawing_Typography</b> object.\n @return Returns the min intrinsic width.\n @since 9\n @version 1.1"]
+    #[doc = " @brief Obtains the minimum intrinsic width in a typography object. This function must be called after\n {@link OH_Drawing_TypographyLayout} is called.\n\n @syscap SystemCapability.Graphic.Graphic2D.NativeDrawing\n @param typography Pointer to the **OH_Drawing_Typography** object, which is obtained from\n     {@link OH_Drawing_CreateTypography}.\n @return Minimum intrinsic width, in physical pixels (px).\n @since 9\n @version 1.1"]
     pub fn OH_Drawing_TypographyGetMinIntrinsicWidth(typography: *mut OH_Drawing_Typography)
         -> f64;
 }
 extern "C" {
-    #[doc = " @brief Gets the max intrinsic width.\n\n @syscap SystemCapability.Graphic.Graphic2D.NativeDrawing\n @param typography Indicates the pointer to an <b>OH_Drawing_Typography</b> object.\n @return Returns the max intrinsic width.\n @since 9\n @version 1.1"]
+    #[doc = " @brief Obtains the maximum intrinsic width in a typography object. This function must be called after\n {@link OH_Drawing_TypographyLayout} is called.\n\n @syscap SystemCapability.Graphic.Graphic2D.NativeDrawing\n @param typography Pointer to the **OH_Drawing_Typography** object, which is obtained from\n     {@link OH_Drawing_CreateTypography}.\n @return Maximum intrinsic width, in physical pixels (px).\n @since 9\n @version 1.1"]
     pub fn OH_Drawing_TypographyGetMaxIntrinsicWidth(typography: *mut OH_Drawing_Typography)
         -> f64;
 }
 extern "C" {
-    #[doc = " @brief Gets the alphabetic baseline.\n\n @syscap SystemCapability.Graphic.Graphic2D.NativeDrawing\n @param typography Indicates the pointer to an <b>OH_Drawing_Typography</b> object.\n @return Returns the alphabetic baseline.\n @since 9\n @version 1.1"]
+    #[doc = " @brief Obtains the alphabetic baseline position of the typography object. This API must be called after\n {@link OH_Drawing_TypographyLayout} is called.\n\n @syscap SystemCapability.Graphic.Graphic2D.NativeDrawing\n @param typography Pointer to the **OH_Drawing_Typography** object, which is obtained from\n     {@link OH_Drawing_CreateTypography}.\n @return Alphabetic baseline, in physical pixels (px).\n @since 9\n @version 1.1"]
     pub fn OH_Drawing_TypographyGetAlphabeticBaseline(
         typography: *mut OH_Drawing_Typography,
     ) -> f64;
 }
 extern "C" {
-    #[doc = " @brief Gets the ideographic baseline.\n\n @syscap SystemCapability.Graphic.Graphic2D.NativeDrawing\n @param typography Indicates the pointer to an <b>OH_Drawing_Typography</b> object.\n @return Returns the ideographic baseline.\n @since 9\n @version 1.1"]
+    #[doc = " @brief Obtains the ideographic baseline position of the typography object. This API must be called after\n {@link OH_Drawing_TypographyLayout} is called.\n\n @syscap SystemCapability.Graphic.Graphic2D.NativeDrawing\n @param typography Pointer to the **OH_Drawing_Typography** object, which is obtained from\n     {@link OH_Drawing_CreateTypography}.\n @return Returns the ideographic baseline, in physical pixel px.\n @since 9\n @version 1.1"]
     pub fn OH_Drawing_TypographyGetIdeographicBaseline(
         typography: *mut OH_Drawing_Typography,
     ) -> f64;
 }
 extern "C" {
-    #[doc = " @brief Sets the placeholder.\n\n @syscap SystemCapability.Graphic.Graphic2D.NativeDrawing\n @param handler Indicates the pointer to an <b>OH_Drawing_TypographyCreate</b> object.\n @param span Indicates the pointer to an <b>OH_Drawing_PlaceholderSpan</b> object.\n @since 11\n @version 1.0"]
+    #[doc = " @brief Adds a placeholder.\n\n @syscap SystemCapability.Graphic.Graphic2D.NativeDrawing\n @param handler Pointer to the {@link OH_Drawing_TypographyCreate} object, which is obtained from\n     {@link OH_Drawing_CreateTypographyHandler}.\n @param span Pointer to the {@link OH_Drawing_PlaceholderSpan} object.\n @since 11\n @version 1.0"]
     pub fn OH_Drawing_TypographyHandlerAddPlaceholder(
         handler: *mut OH_Drawing_TypographyCreate,
         span: *mut OH_Drawing_PlaceholderSpan,
     );
 }
 extern "C" {
-    #[doc = " @brief Gets the exceed maxLines.\n\n @syscap SystemCapability.Graphic.Graphic2D.NativeDrawing\n @param typography Indicates the pointer to an <b>OH_Drawing_Typography</b> object.\n @return Returns the exceed maxLines.\n @since 11\n @version 1.0"]
+    #[doc = " @brief Checks whether the text in the typography object exceeds the line limit. This function must be called after\n {@link OH_Drawing_TypographyLayout} is called. It returns **false** if the line limit is not set using\n {@link OH_Drawing_SetTypographyTextMaxLines}.\n\n @syscap SystemCapability.Graphic.Graphic2D.NativeDrawing\n @param typography Pointer to the **OH_Drawing_Typography** object, which is obtained from\n     {@link OH_Drawing_CreateTypography}.\n @return Returns **true** if the maximum number of lines is exceeded; returns **false** otherwise.\n @since 11\n @version 1.0"]
     pub fn OH_Drawing_TypographyDidExceedMaxLines(typography: *mut OH_Drawing_Typography) -> bool;
 }
 extern "C" {
-    #[doc = " @brief Gets the rects for range.\n\n @syscap SystemCapability.Graphic.Graphic2D.NativeDrawing\n @param typography Indicates the pointer to an <b>OH_Drawing_Typography</b> object.\n @param start Indicates the start of range to set.\n @param end Indicates the end of range to set.\n @param heightStyle Indicates the height style to set.\n For details, see the enum <b>OH_Drawing_RectHeightStyle</b>.\n @param widthStyle Indicates the width style to set.\n For details, see the enum <b>OH_Drawing_RectWidthStyle</b>.\n @return Returns the rects for range.\n @since 11\n @version 1.0"]
+    #[doc = " @brief Obtains text boxes in a given range of a typography object. This function must be called after\n {@link OH_Drawing_TypographyLayout} is called. Release this pointer by calling\n {@link OH_Drawing_TypographyDestroyTextBox} when this object is no longer needed.\n\n @syscap SystemCapability.Graphic.Graphic2D.NativeDrawing\n @param typography Pointer to the **OH_Drawing_Typography** object, which is obtained from\n     {@link OH_Drawing_CreateTypography}.\n @param start Start position. The value ranges from 0 to the text length, counted in UTF-16 code units. Must be less\n     than end; otherwise, an empty result is returned.\n @param end End position. The value ranges from 0 to the text length, counted in UTF-16 code units. If the value\n     exceeds the text length, the text length is used. If the value is 0, an empty result is returned.\n @param heightStyle Height style. For details about the available options, see {@link OH_Drawing_RectHeightStyle}.\n @param widthStyle Width style. For details about the available options, see {@link OH_Drawing_RectWidthStyle}.\n @return Text box in the specified range. For details, see {@link OH_Drawing_TextBox}.\n @since 11\n @version 1.0"]
     pub fn OH_Drawing_TypographyGetRectsForRange(
         typography: *mut OH_Drawing_Typography,
         start: usize,
@@ -2616,52 +2744,52 @@ extern "C" {
     ) -> *mut OH_Drawing_TextBox;
 }
 extern "C" {
-    #[doc = " @brief Gets the rects for placeholders.\n\n @syscap SystemCapability.Graphic.Graphic2D.NativeDrawing\n @param typography Indicates the pointer to an <b>OH_Drawing_Typography</b> object.\n @return Returns the rects for placeholders.\n @since 11\n @version 1.0"]
+    #[doc = " @brief Obtains text boxes for placeholders in a typography object. This function must be called after\n {@link OH_Drawing_TypographyLayout} is called. Release this pointer by calling\n {@link OH_Drawing_TypographyDestroyTextBox} when this object is no longer needed.\n\n @syscap SystemCapability.Graphic.Graphic2D.NativeDrawing\n @param typography Pointer to the **OH_Drawing_Typography** object, which is obtained from\n     {@link OH_Drawing_CreateTypography}.\n @return Placeholder text box. The return type is {@link OH_Drawing_TextBox}.\n @since 11\n @version 1.0"]
     pub fn OH_Drawing_TypographyGetRectsForPlaceholders(
         typography: *mut OH_Drawing_Typography,
     ) -> *mut OH_Drawing_TextBox;
 }
 extern "C" {
-    #[doc = " @brief Gets left from textbox.\n\n @syscap SystemCapability.Graphic.Graphic2D.NativeDrawing\n @param textbox Indicates the pointer to an <b>OH_Drawing_TextBox</b> object.\n @param index Indicates the index of textbox.\n @return Returns left from textbox.\n @since 11\n @version 1.0"]
+    #[doc = " @brief Obtains the left position of a text box.\n\n @syscap SystemCapability.Graphic.Graphic2D.NativeDrawing\n @param textbox Pointer to the **OH_Drawing_TextBox** object, which is obtained from\n     {@link OH_Drawing_TypographyGetRectsForRange} or {@link OH_Drawing_TypographyGetRectsForPlaceholders}.\n @param index Index of the text box. The value ranges from 0 to the number of text boxes minus 1. The number of text\n     boxes can be obtained through {@link OH_Drawing_GetSizeOfTextBox}. 0.0 is returned when the index is out of\n     range.\n @return Left position.\n @since 11\n @version 1.0"]
     pub fn OH_Drawing_GetLeftFromTextBox(
         textbox: *mut OH_Drawing_TextBox,
         index: ::std::os::raw::c_int,
     ) -> f32;
 }
 extern "C" {
-    #[doc = " @brief Gets right from textbox.\n\n @syscap SystemCapability.Graphic.Graphic2D.NativeDrawing\n @param textbox Indicates the pointer to an <b>OH_Drawing_TextBox</b> object.\n @param index Indicates the index of textbox.\n @return Returns right from textbox.\n @since 11\n @version 1.0"]
+    #[doc = " @brief Obtains the right position of a text box.\n\n @syscap SystemCapability.Graphic.Graphic2D.NativeDrawing\n @param textbox Pointer to the **OH_Drawing_TextBox** object, which is obtained from\n     {@link OH_Drawing_TypographyGetRectsForRange} or {@link OH_Drawing_TypographyGetRectsForPlaceholders}.\n @param index Index of the text box. The value ranges from 0 to the number of text boxes minus 1. The number of text\n     boxes can be obtained through {@link OH_Drawing_GetSizeOfTextBox}. 0.0 is returned when the value is out of\n     range.\n @return Right position.\n @since 11\n @version 1.0"]
     pub fn OH_Drawing_GetRightFromTextBox(
         textbox: *mut OH_Drawing_TextBox,
         index: ::std::os::raw::c_int,
     ) -> f32;
 }
 extern "C" {
-    #[doc = " @brief Gets top from textbox.\n\n @syscap SystemCapability.Graphic.Graphic2D.NativeDrawing\n @param textbox Indicates the pointer to an <b>OH_Drawing_TextBox</b> object.\n @param index Indicates the index of textbox.\n @return Returns top from textbox.\n @since 11\n @version 1.0"]
+    #[doc = " @brief Obtains the top position of a text box.\n\n @syscap SystemCapability.Graphic.Graphic2D.NativeDrawing\n @param textbox Pointer to the **OH_Drawing_TextBox** object, which is obtained from\n     {@link OH_Drawing_TypographyGetRectsForRange} or {@link OH_Drawing_TypographyGetRectsForPlaceholders}.\n @param index Index of the text box. The value ranges from 0 to the number of text boxes minus 1. The number of text\n     boxes can be obtained through {@link OH_Drawing_GetSizeOfTextBox}. 0.0 is returned when the value is out of\n     range.\n @return Top position.\n @since 11\n @version 1.0"]
     pub fn OH_Drawing_GetTopFromTextBox(
         textbox: *mut OH_Drawing_TextBox,
         index: ::std::os::raw::c_int,
     ) -> f32;
 }
 extern "C" {
-    #[doc = " @brief Gets bottom from textbox.\n\n @syscap SystemCapability.Graphic.Graphic2D.NativeDrawing\n @param textbox Indicates the pointer to an <b>OH_Drawing_TextBox</b> object.\n @param index Indicates the index of textbox.\n @return Returns bottom from textbox.\n @since 11\n @version 1.0"]
+    #[doc = " @brief Obtains the bottom position of a text box.\n\n @syscap SystemCapability.Graphic.Graphic2D.NativeDrawing\n @param textbox Pointer to the **OH_Drawing_TextBox** object, which is obtained from\n     {@link OH_Drawing_TypographyGetRectsForRange} or {@link OH_Drawing_TypographyGetRectsForPlaceholders}.\n @param index Index of the text box. The value ranges from 0 to the number of text boxes minus 1. The number of text\n     boxes can be obtained through {@link OH_Drawing_GetSizeOfTextBox}. 0.0 is returned when the value is out of\n     range.\n @return Bottom position.\n @since 11\n @version 1.0"]
     pub fn OH_Drawing_GetBottomFromTextBox(
         textbox: *mut OH_Drawing_TextBox,
         index: ::std::os::raw::c_int,
     ) -> f32;
 }
 extern "C" {
-    #[doc = " @brief Gets direction from textbox.\n\n @syscap SystemCapability.Graphic.Graphic2D.NativeDrawing\n @param textbox Indicates the pointer to an <b>OH_Drawing_TextBox</b> object.\n @param index Indicates the index of textbox.\n @return Returns direction from textbox.\n @since 11\n @version 1.0"]
+    #[doc = " @brief Obtains the text direction of a text box.\n\n @syscap SystemCapability.Graphic.Graphic2D.NativeDrawing\n @param textbox Pointer to the {@link OH_Drawing_TextBox} object, which is obtained from\n     {@link OH_Drawing_TypographyGetRectsForRange} or {@link OH_Drawing_TypographyGetRectsForPlaceholders}.\n @param index Index of the text box. The value ranges from 0 to the number of text boxes minus 1. The number of text\n     boxes can be obtained through {@link OH_Drawing_GetSizeOfTextBox}. If the index is out of range, 0 is returned.\n @return Text direction.\n @since 11\n @version 1.0"]
     pub fn OH_Drawing_GetTextDirectionFromTextBox(
         textbox: *mut OH_Drawing_TextBox,
         index: ::std::os::raw::c_int,
     ) -> ::std::os::raw::c_int;
 }
 extern "C" {
-    #[doc = " @brief Gets size of textBox.\n\n @syscap SystemCapability.Graphic.Graphic2D.NativeDrawing\n @param textBox Indicates the pointer to an <b>OH_Drawing_TextBox</b> object.\n @return Returns size of textBox.\n @since 11\n @version 1.0"]
+    #[doc = " @brief Obtains the number of text boxes.\n\n @syscap SystemCapability.Graphic.Graphic2D.NativeDrawing\n @param textBox Pointer to the **OH_Drawing_TextBox** object, which is obtained from\n     {@link OH_Drawing_TypographyGetRectsForRange} or {@link OH_Drawing_TypographyGetRectsForPlaceholders}.\n @return Number of text boxes.\n @since 11\n @version 1.0"]
     pub fn OH_Drawing_GetSizeOfTextBox(textBox: *mut OH_Drawing_TextBox) -> usize;
 }
 extern "C" {
-    #[doc = " @brief Gets the glyphposition at coordinate.\n\n @syscap SystemCapability.Graphic.Graphic2D.NativeDrawing\n @param typography Indicates the pointer to an <b>OH_Drawing_Typography</b> object.\n @param dx Indicates the positionX of typography to set.\n @param dy Indicates the positionY of typography to set.\n @return Returns the glyphposition at coordinate.\n @since 11\n @version 1.0\n @deprecated since 18\n @useinstead OH_Drawing_TypographyGetGlyphPositionAtCoordinateWithCluster"]
+    #[doc = " @brief Obtains the position and affinity of the glyph at the given coordinates.\n\n @syscap SystemCapability.Graphic.Graphic2D.NativeDrawing\n @param typography Pointer to the **OH_Drawing_Typography** object, which is obtained from\n     {@link OH_Drawing_CreateTypography}.\n @param dx X coordinate.\n @param dy Y coordinate.\n @return {@link OH_Drawing_PositionAndAffinity} struct that holds the position and affinity of the glyph cluster.\n @since 11\n @version 1.0\n @deprecated since 18\n @useinstead OH_Drawing_TypographyGetGlyphPositionAtCoordinateWithCluster"]
     pub fn OH_Drawing_TypographyGetGlyphPositionAtCoordinate(
         typography: *mut OH_Drawing_Typography,
         dx: f64,
@@ -2669,7 +2797,7 @@ extern "C" {
     ) -> *mut OH_Drawing_PositionAndAffinity;
 }
 extern "C" {
-    #[doc = " @brief Gets the glyphposition at coordinate with cluster.\n\n @syscap SystemCapability.Graphic.Graphic2D.NativeDrawing\n @param typography Indicates the pointer to an <b>OH_Drawing_Typography</b> object.\n @param dx Indicates the positionX of typography to set.\n @param dy Indicates the positionY of typography to set.\n @return Returns the glyphposition at coordinate with cluster.\n @since 11\n @version 1.0"]
+    #[doc = " @brief Obtains the index position and affinity of the character cluster to which the text at the coordinate belongs.\n A character cluster refers to a group of one or more characters. When the {@link OH_Drawing_PositionAndAffinity} is\n no longer needed, use {@link OH_Drawing_DestroyPositionAndAffinity} to release the pointer to the object.\n\n @syscap SystemCapability.Graphic.Graphic2D.NativeDrawing\n @param typography Pointer to the **OH_Drawing_Typography** object, which is obtained from\n     {@link OH_Drawing_CreateTypography}.\n @param dx X coordinate of the cursor, in px.\n @param dy Y coordinate of the cursor, in px.\n @return {@link OH_Drawing_PositionAndAffinity} struct that holds the position and affinity of the glyph cluster.\n @since 11\n @version 1.0"]
     pub fn OH_Drawing_TypographyGetGlyphPositionAtCoordinateWithCluster(
         typography: *mut OH_Drawing_Typography,
         dx: f64,
@@ -2677,116 +2805,116 @@ extern "C" {
     ) -> *mut OH_Drawing_PositionAndAffinity;
 }
 extern "C" {
-    #[doc = " @brief Gets position from position and affinity.\n\n @syscap SystemCapability.Graphic.Graphic2D.NativeDrawing\n @param positionAndAffinity Indicates the pointer to an <b>OH_Drawing_PositionAndAffinity</b> object.\n @return Returns position from position and affinity.\n @since 11\n @version 1.0"]
+    #[doc = " @brief Obtains the position attribute of an **OH_Drawing_PositionAndAffinity** object.\n\n @syscap SystemCapability.Graphic.Graphic2D.NativeDrawing\n @param positionAndAffinity Pointer to the OH_Drawing_PositionAndAffinity object, obtained by\n     {@link OH_Drawing_TypographyGetGlyphPositionAtCoordinateWithCluster}.\n @return Position attribute.\n @since 11\n @version 1.0"]
     pub fn OH_Drawing_GetPositionFromPositionAndAffinity(
         positionAndAffinity: *mut OH_Drawing_PositionAndAffinity,
     ) -> usize;
 }
 extern "C" {
-    #[doc = " @brief Gets affinity from position and affinity.\n\n @syscap SystemCapability.Graphic.Graphic2D.NativeDrawing\n @param positionAndAffinity Indicates the pointer to an <b>OH_Drawing_PositionAndAffinity</b> object.\n @return Returns affinity from position and affinity.\n @since 11\n @version 1.0"]
+    #[doc = " @brief Obtains the affinity attribute of an **OH_Drawing_PositionAndAffinity** object. The affinity determines\n whether the font is close to the front text or rear text.\n\n @syscap SystemCapability.Graphic.Graphic2D.NativeDrawing\n @param positionAndAffinity Pointer to the OH_Drawing_PositionAndAffinity object, obtained by\n     {@link OH_Drawing_TypographyGetGlyphPositionAtCoordinateWithCluster}.\n @return Affinity attribute.\n @since 11\n @version 1.0"]
     pub fn OH_Drawing_GetAffinityFromPositionAndAffinity(
         positionAndAffinity: *mut OH_Drawing_PositionAndAffinity,
     ) -> ::std::os::raw::c_int;
 }
 extern "C" {
-    #[doc = " @brief Gets the word boundary.\n\n @syscap SystemCapability.Graphic.Graphic2D.NativeDrawing\n @param typography Indicates the pointer to an <b>OH_Drawing_Typography</b> object.\n @param offset Indicates the size of text to set.\n @return Returns the word boundary.\n @since 11\n @version 1.0"]
+    #[doc = " @brief Obtains the word boundary in the typography object. When the {@link OH_Drawing_Range} is no longer needed,\n use {@link OH_Drawing_ReleaseRangeBuffer} to release the pointer to the object.\n\n @syscap SystemCapability.Graphic.Graphic2D.NativeDrawing\n @param typography Pointer to the **OH_Drawing_Typography** object, which is obtained from\n     {@link OH_Drawing_CreateTypography}.\n @param offset Word index. The value ranges from 0 to n-1, where n is the text length. If the value is out of range,\n     the default value is returned or an exception is thrown.\n @return {@link OH_Drawing_Range} struct that holds the word boundary.\n @since 11\n @version 1.0"]
     pub fn OH_Drawing_TypographyGetWordBoundary(
         typography: *mut OH_Drawing_Typography,
         offset: usize,
     ) -> *mut OH_Drawing_Range;
 }
 extern "C" {
-    #[doc = " @brief Gets start from range.\n\n @syscap SystemCapability.Graphic.Graphic2D.NativeDrawing\n @param range Indicates the pointer to an <b>OH_Drawing_Range</b> object.\n @return Returns start from range.\n @since 11\n @version 1.0"]
+    #[doc = " @brief Obtains the start position of an **OH_Drawing_Range** object.\n\n @syscap SystemCapability.Graphic.Graphic2D.NativeDrawing\n @param range Pointer to the **OH_Drawing_Range** object, which is obtained from\n     {@link OH_Drawing_TypographyGetWordBoundary}.\n @return Start position.\n @since 11\n @version 1.0"]
     pub fn OH_Drawing_GetStartFromRange(range: *mut OH_Drawing_Range) -> usize;
 }
 extern "C" {
-    #[doc = " @brief Gets end from range.\n\n @syscap SystemCapability.Graphic.Graphic2D.NativeDrawing\n @param range Indicates the pointer to an <b>OH_Drawing_Range</b> object.\n @return Returns end from range.\n @since 11\n @version 1.0"]
+    #[doc = " @brief Obtains the end position of an **OH_Drawing_Range** object.\n\n @syscap SystemCapability.Graphic.Graphic2D.NativeDrawing\n @param range Pointer to the **OH_Drawing_Range** object, which is obtained from\n     {@link OH_Drawing_TypographyGetWordBoundary}.\n @return End position.\n @since 11\n @version 1.0"]
     pub fn OH_Drawing_GetEndFromRange(range: *mut OH_Drawing_Range) -> usize;
 }
 extern "C" {
-    #[doc = " @brief Gets the line count.\n\n @syscap SystemCapability.Graphic.Graphic2D.NativeDrawing\n @param typography Indicates the pointer to an <b>OH_Drawing_Typography</b> object.\n @return Returns the line count.\n @since 11\n @version 1.0"]
+    #[doc = " @brief Obtains the number of lines in a typography object. This function must be called after\n {@link OH_Drawing_TypographyLayout} is called.\n\n @syscap SystemCapability.Graphic.Graphic2D.NativeDrawing\n @param typography Pointer to the **OH_Drawing_Typography** object, which is obtained from\n     {@link OH_Drawing_CreateTypography}.\n @return Number of rows obtained.\n @since 11\n @version 1.0"]
     pub fn OH_Drawing_TypographyGetLineCount(typography: *mut OH_Drawing_Typography) -> usize;
 }
 extern "C" {
-    #[doc = " @brief Sets the decoration style.\n\n @syscap SystemCapability.Graphic.Graphic2D.NativeDrawing\n @param style Indicates the pointer to an <b>OH_Drawing_TextStyle</b> object.\n @param decorationStyle Indicates the text decoration style to set.\n For details, see the enum <b>OH_Drawing_TextDecorationStyle</b>.\n @since 11\n @version 1.0"]
+    #[doc = " @brief Sets the decoration style for a text style.\n\n @syscap SystemCapability.Graphic.Graphic2D.NativeDrawing\n @param style Pointer to the **OH_Drawing_TextStyle** object, which is obtained from\n     {@link OH_Drawing_CreateTextStyle}.\n @param decorationStyle Text decoration style. For details about the available options, see\n     {@link OH_Drawing_TextDecorationStyle}.\n @since 11\n @version 1.0"]
     pub fn OH_Drawing_SetTextStyleDecorationStyle(
         style: *mut OH_Drawing_TextStyle,
         decorationStyle: ::std::os::raw::c_int,
     );
 }
 extern "C" {
-    #[doc = " @brief Sets the decoration thickness scale.\n\n @syscap SystemCapability.Graphic.Graphic2D.NativeDrawing\n @param style Indicates the pointer to an <b>OH_Drawing_TextStyle</b> object.\n @param decorationThicknessScale Indicates the thickness scale of text decoration to set.\n @since 11\n @version 1.0"]
+    #[doc = " @brief Sets the thickness scale factor for the decoration style of a text style.\n\n @syscap SystemCapability.Graphic.Graphic2D.NativeDrawing\n @param style Pointer to the **OH_Drawing_TextStyle** object, which is obtained from\n     {@link OH_Drawing_CreateTextStyle}.\n @param decorationThicknessScale Thickness scaling ratio. The default value is **1**. If the value is less than or\n     equal to 0, no decoration line is drawn.\n @since 11\n @version 1.0"]
     pub fn OH_Drawing_SetTextStyleDecorationThicknessScale(
         style: *mut OH_Drawing_TextStyle,
         decorationThicknessScale: f64,
     );
 }
 extern "C" {
-    #[doc = " @brief Sets the letter spacing.\n\n @syscap SystemCapability.Graphic.Graphic2D.NativeDrawing\n @param style Indicates the pointer to an <b>OH_Drawing_TextStyle</b> object.\n @param letterSpacing Indicates the letter space to set.\n @since 11\n @version 1.0"]
+    #[doc = " @brief Sets the letter spacing for a text style.\n\n @syscap SystemCapability.Graphic.Graphic2D.NativeDrawing\n @param style Pointer to the **OH_Drawing_TextStyle** object, which is obtained from\n     {@link OH_Drawing_CreateTextStyle}.\n @param letterSpacing Letter spacing value. A positive value increases the spacing, a negative value decreases it.\n     The default value is **0**, in px.\n @since 11\n @version 1.0"]
     pub fn OH_Drawing_SetTextStyleLetterSpacing(
         style: *mut OH_Drawing_TextStyle,
         letterSpacing: f64,
     );
 }
 extern "C" {
-    #[doc = " @brief Sets the word spacing.\n\n @syscap SystemCapability.Graphic.Graphic2D.NativeDrawing\n @param style Indicates the pointer to an <b>OH_Drawing_TextStyle</b> object.\n @param wordSpacing Indicates the word space to set.\n @since 11\n @version 1.0"]
+    #[doc = " @brief Sets the word spacing for a text style.\n\n @syscap SystemCapability.Graphic.Graphic2D.NativeDrawing\n @param style Pointer to the **OH_Drawing_TextStyle** object, which is obtained from\n     {@link OH_Drawing_CreateTextStyle}.\n @param wordSpacing Spacing size. A positive value increases the spacing, and a negative value decreases the spacing.\n     The default value is **0**, in px.\n @since 11\n @version 1.0"]
     pub fn OH_Drawing_SetTextStyleWordSpacing(style: *mut OH_Drawing_TextStyle, wordSpacing: f64);
 }
 extern "C" {
-    #[doc = " @brief Sets the half leading.\n\n @syscap SystemCapability.Graphic.Graphic2D.NativeDrawing\n @param style Indicates the pointer to an <b>OH_Drawing_TextStyle</b> object.\n @param halfLeading Indicates the half leading to set.\n @since 11\n @version 1.0"]
+    #[doc = " @brief Sets whether to enable half leading for a text style.\n\n @syscap SystemCapability.Graphic.Graphic2D.NativeDrawing\n @param style Pointer to the **OH_Drawing_TextStyle** object, which is obtained from\n     {@link OH_Drawing_CreateTextStyle}.\n @param halfLeading Whether the half leading takes effect. **true** means yes; **false** otherwise.\n @since 11\n @version 1.0"]
     pub fn OH_Drawing_SetTextStyleHalfLeading(style: *mut OH_Drawing_TextStyle, halfLeading: bool);
 }
 extern "C" {
-    #[doc = " @brief Sets the ellipsis.\n\n @syscap SystemCapability.Graphic.Graphic2D.NativeDrawing\n @param style Indicates the pointer to an <b>OH_Drawing_TextStyle</b> object.\n @param ellipsis Indicates the pointer to ellipsis style.\n @since 11\n @version 1.0\n @deprecated since 18\n @useinstead OH_Drawing_SetTypographyTextEllipsis"]
+    #[doc = " @brief Sets the ellipsis content for a text style.\n\n @syscap SystemCapability.Graphic.Graphic2D.NativeDrawing\n @param style Pointer to the **OH_Drawing_TextStyle** object, which is obtained from\n     {@link OH_Drawing_CreateTextStyle}.\n @param ellipsis Pointer to the ellipsis content. The data type is a pointer pointing to char.\n @since 11\n @version 1.0\n @deprecated since 18\n @useinstead OH_Drawing_SetTypographyTextEllipsis"]
     pub fn OH_Drawing_SetTextStyleEllipsis(
         style: *mut OH_Drawing_TextStyle,
         ellipsis: *const ::std::os::raw::c_char,
     );
 }
 extern "C" {
-    #[doc = " @brief Sets the ellipsis modal.\n\n @syscap SystemCapability.Graphic.Graphic2D.NativeDrawing\n @param style Indicates the pointer to an <b>OH_Drawing_TextStyle</b> object.\n @param ellipsisModal Indicates the ellipsis model to set. For details, see the enum <b>OH_Drawing_EllipsisModal</b>.\n @since 11\n @version 1.0\n @deprecated since 18\n @useinstead OH_Drawing_SetTypographyTextEllipsisModal"]
+    #[doc = " @brief Sets the ellipsis style for a text style.\n\n @syscap SystemCapability.Graphic.Graphic2D.NativeDrawing\n @param style Pointer to the **OH_Drawing_TextStyle** object, which is obtained from\n     {@link OH_Drawing_CreateTextStyle}.\n @param ellipsisModal Ellipsis style. For details about the available options, see {@link OH_Drawing_EllipsisModal}.\n @since 11\n @version 1.0\n @deprecated since 18\n @useinstead OH_Drawing_SetTypographyTextEllipsisModal"]
     pub fn OH_Drawing_SetTextStyleEllipsisModal(
         style: *mut OH_Drawing_TextStyle,
         ellipsisModal: ::std::os::raw::c_int,
     );
 }
 extern "C" {
-    #[doc = " @brief Sets the break strategy.\n\n @syscap SystemCapability.Graphic.Graphic2D.NativeDrawing\n @param style Indicates the pointer to an <b>OH_Drawing_TypographyStyle</b> object.\n @param breakStrategy Indicates the break strategy to set. For details, see the enum <b>OH_Drawing_BreakStrategy</b>.\n @since 11\n @version 1.0"]
+    #[doc = " @brief Sets the text break strategy.\n\n @syscap SystemCapability.Graphic.Graphic2D.NativeDrawing\n @param style Pointer to the {@link OH_Drawing_TypographyStyle} object, which is obtained from\n     {@link OH_Drawing_CreateTypographyStyle}.\n @param breakStrategy Break strategy. For details about the available options, see {@link OH_Drawing_BreakStrategy}.\n @since 11\n @version 1.0"]
     pub fn OH_Drawing_SetTypographyTextBreakStrategy(
         style: *mut OH_Drawing_TypographyStyle,
         breakStrategy: ::std::os::raw::c_int,
     );
 }
 extern "C" {
-    #[doc = " @brief Sets the word break type.\n\n @syscap SystemCapability.Graphic.Graphic2D.NativeDrawing\n @param style Indicates the pointer to an <b>OH_Drawing_TypographyStyle</b> object.\n @param wordBreakType Indicates the word break type to set. For details, see the enum <b>OH_Drawing_WordBreakType</b>.\n @since 11\n @version 1.0"]
+    #[doc = " @brief Sets the word break type.\n\n @syscap SystemCapability.Graphic.Graphic2D.NativeDrawing\n @param style Pointer to the {@link OH_Drawing_TypographyStyle} object, which is obtained from\n     {@link OH_Drawing_CreateTypographyStyle}.\n @param wordBreakType Word break type. For details about the available options, see {@link OH_Drawing_WordBreakType}.\n @since 11\n @version 1.0"]
     pub fn OH_Drawing_SetTypographyTextWordBreakType(
         style: *mut OH_Drawing_TypographyStyle,
         wordBreakType: ::std::os::raw::c_int,
     );
 }
 extern "C" {
-    #[doc = " @brief Sets the ellipsis modal.\n\n @syscap SystemCapability.Graphic.Graphic2D.NativeDrawing\n @param style Indicates the pointer to an <b>OH_Drawing_TypographyStyle</b> object.\n @param ellipsisModal Indicates the ellipsis modal to set. For details, see the enum <b>OH_Drawing_EllipsisModal</b>.\n @since 11\n @version 1.0"]
+    #[doc = " @brief Sets the ellipsis style for a text style.\n\n @syscap SystemCapability.Graphic.Graphic2D.NativeDrawing\n @param style Pointer to the **OH_Drawing_TypographyStyle** object, which is obtained from\n     {@link OH_Drawing_CreateTypographyStyle}.\n @param ellipsisModal Ellipsis style. For details about the available options, see {@link OH_Drawing_EllipsisModal}.\n @since 11\n @version 1.0"]
     pub fn OH_Drawing_SetTypographyTextEllipsisModal(
         style: *mut OH_Drawing_TypographyStyle,
         ellipsisModal: ::std::os::raw::c_int,
     );
 }
 extern "C" {
-    #[doc = " @brief get line height.\n\n @syscap SystemCapability.Graphic.Graphic2D.NativeDrawing\n @param typography Indicates the pointer to an <b>OH_Drawing_Typography</b> object.\n @param lineNumber Indicates the line number.\n @return Returns line height.\n @since 11\n @version 1.0"]
+    #[doc = " @brief Obtains the line height in a typography object. This function must be called after\n {@link OH_Drawing_TypographyLayout} is called.\n\n @syscap SystemCapability.Graphic.Graphic2D.NativeDrawing\n @param typography Pointer to the **OH_Drawing_Typography** object, which is obtained from\n     {@link OH_Drawing_CreateTypography}.\n @param lineNumber Index of the line number to obtain, starting from 0, with a maximum value of\n     {@link OH_Drawing_TypographyGetLineCount} - 1. 0.0 is returned when the index is out of range.\n @return Line height of the specified line, in physical pixels (px).\n @since 11\n @version 1.0"]
     pub fn OH_Drawing_TypographyGetLineHeight(
         typography: *mut OH_Drawing_Typography,
         lineNumber: ::std::os::raw::c_int,
     ) -> f64;
 }
 extern "C" {
-    #[doc = " @brief get line width.\n\n @syscap SystemCapability.Graphic.Graphic2D.NativeDrawing\n @param typography Indicates the pointer to an <b>OH_Drawing_Typography</b> object.\n @param lineNumber Indicates the line number.\n @return Returns line width.\n @since 11\n @version 1.0"]
+    #[doc = " @brief Obtains the line width of a specified line. This function must be called after\n {@link OH_Drawing_TypographyLayout} is called.\n\n @syscap SystemCapability.Graphic.Graphic2D.NativeDrawing\n @param typography Pointer to the **OH_Drawing_Typography** object, which is obtained from\n     {@link OH_Drawing_CreateTypography}.\n @param lineNumber Index of the line to obtain, starting from 0. The maximum value is\n     {@link OH_Drawing_TypographyGetLineCount} - 1. Returns 0.0 when the index is out of range.\n @return Width of the specified line, in physical pixels (px).\n @since 11\n @version 1.0"]
     pub fn OH_Drawing_TypographyGetLineWidth(
         typography: *mut OH_Drawing_Typography,
         lineNumber: ::std::os::raw::c_int,
     ) -> f64;
 }
 extern "C" {
-    #[doc = " @brief get line text range.\n\n @syscap SystemCapability.Graphic.Graphic2D.NativeDrawing\n @param typography Indicates the pointer to an <b>OH_Drawing_Typography</b> object.\n @param lineNumber Indicates the line number.\n @param includeSpaces Indicates whether spaces are contained.\n @return Returns line text range.\n @since 12\n @version 1.0"]
+    #[doc = " @brief Obtains the line bounds in a typography object. This function must be called after\n {@link OH_Drawing_TypographyLayout} is called. This function can only be used to obtain the bounds of existing lines.\n  That is, the line index must start from 0, and the maximum index is {@link OH_Drawing_TypographyGetLineCount} – 1.\n\n @syscap SystemCapability.Graphic.Graphic2D.NativeDrawing\n @param typography Pointer to the {@link OH_Drawing_Typography} object, which is obtained from\n     {@link OH_Drawing_CreateTypography}.\n @param lineNumber Row index.\n @param includeSpaces Whether the returned bounds contain spaces. The value **true** means that the bounds contain\n     spaces, and **false** means the opposite.\n @return Pointer to the {@link OH_Drawing_Range} object. If the line index is invalid, **start** and **end** in the\n     result value are both **0**.\n @since 12\n @version 1.0"]
     pub fn OH_Drawing_TypographyGetLineTextRange(
         typography: *mut OH_Drawing_Typography,
         lineNumber: ::std::os::raw::c_int,
@@ -2794,55 +2922,55 @@ extern "C" {
     ) -> *mut OH_Drawing_Range;
 }
 extern "C" {
-    #[doc = " @brief Creates an <b>OH_Drawing_FontDescriptor</b> object.\n\n @syscap SystemCapability.Graphic.Graphic2D.NativeDrawing\n @return Returns the pointer to the font descriptor object <b>OH_Drawing_FontDescriptor</b> created.\n @since 12\n @version 1.0"]
+    #[doc = " @brief Constructs a font descriptor object for describing detailed information about a system font. When the\n {@link OH_Drawing_FontDescriptor} is no longer needed, use {@link OH_Drawing_DestroyFontDescriptor} to release the\n pointer to the object.\n\n @syscap SystemCapability.Graphic.Graphic2D.NativeDrawing\n @return Pointer to the created {@link OH_Drawing_FontDescriptor} object.\n @since 12\n @version 1.0"]
     pub fn OH_Drawing_CreateFontDescriptor() -> *mut OH_Drawing_FontDescriptor;
 }
 extern "C" {
-    #[doc = " @brief Releases the memory occupied by an <b>OH_Drawing_FontDescriptor</b> object.\n\n @syscap SystemCapability.Graphic.Graphic2D.NativeDrawing\n @param descriptor the pointer to the font descriptor object <b>OH_Drawing_FontDescriptor</b>.\n @since 12\n @version 1.0"]
+    #[doc = " @brief Destroys an **OH_Drawing_FontDescriptor** object and reclaims the memory occupied by the object.\n\n @syscap SystemCapability.Graphic.Graphic2D.NativeDrawing\n @param descriptor Pointer to the {@link OH_Drawing_FontDescriptor} object, which is obtained from\n     {@link OH_Drawing_CreateFontDescriptor}.\n @since 12\n @version 1.0"]
     pub fn OH_Drawing_DestroyFontDescriptor(descriptor: *mut OH_Drawing_FontDescriptor);
 }
 extern "C" {
-    #[doc = " @brief Creates an <b>OH_Drawing_FontParser</b> object.\n\n @syscap SystemCapability.Graphic.Graphic2D.NativeDrawing\n @return Returns the pointer to the font parser object <b>OH_Drawing_FontParser</b>.\n @since 12\n @version 1.0"]
+    #[doc = " @brief Constructs a font parser object for parsing system fonts. When the {@link OH_Drawing_FontParser} is no longer\n needed, use {@link OH_Drawing_DestroyFontParser} to release the pointer to the object.\n\n @syscap SystemCapability.Graphic.Graphic2D.NativeDrawing\n @return Pointer to the created {@link OH_Drawing_FontParser} object.\n @since 12\n @version 1.0"]
     pub fn OH_Drawing_CreateFontParser() -> *mut OH_Drawing_FontParser;
 }
 extern "C" {
-    #[doc = " @brief Releases the memory occupied by an <b>OH_Drawing_FontParser</b> object.\n\n @syscap SystemCapability.Graphic.Graphic2D.NativeDrawing\n @param parser Indicates the pointer to the font parser object <b>OH_Drawing_FontParser</b>.\n @since 12\n @version 1.0"]
+    #[doc = " @brief Destroys an **OH_Drawing_FontParser** object and reclaims the memory occupied by the object.\n\n @syscap SystemCapability.Graphic.Graphic2D.NativeDrawing\n @param parser Pointer to the {@link OH_Drawing_FontParser} object, which is obtained from\n     {@link OH_Drawing_CreateFontParser}.\n @since 12\n @version 1.0"]
     pub fn OH_Drawing_DestroyFontParser(parser: *mut OH_Drawing_FontParser);
 }
 extern "C" {
-    #[doc = " @brief Gets a list of system font names.\n\n @syscap SystemCapability.Graphic.Graphic2D.NativeDrawing\n @param fontParser Indicates the pointer to the font parser object <b>OH_Drawing_FontParser</b>.\n @param num Returns the number of obtained system font names.\n @return Returns a list of obtained system fonts.\n @since 12\n @version 1.0"]
+    #[doc = " @brief Obtains the list of system font names. When the list is no longer needed, use\n {@link OH_Drawing_DestroySystemFontList} to release the memory. This API is supported only on phones and PC/2-in-1\n devices.\n\n @syscap SystemCapability.Graphic.Graphic2D.NativeDrawing\n @param fontParser Pointer to the {@link OH_Drawing_FontParser} object, which is obtained from\n     {@link OH_Drawing_CreateFontParser}.\n @param num Pointer to the number of system font names.\n @return System font list.\n @since 12\n @version 1.0"]
     pub fn OH_Drawing_FontParserGetSystemFontList(
         fontParser: *mut OH_Drawing_FontParser,
         num: *mut usize,
     ) -> *mut *mut ::std::os::raw::c_char;
 }
 extern "C" {
-    #[doc = " @brief Releases the memory occupied by a list of system font names.\n\n @syscap SystemCapability.Graphic.Graphic2D.NativeDrawing\n @param fontList Indicates the pointer to a list of system font names.\n @param num The number of obtained system font names.\n @since 12\n @version 1.0"]
+    #[doc = " @brief Reclaims the memory occupied by the system font list.\n\n @syscap SystemCapability.Graphic.Graphic2D.NativeDrawing\n @param fontList Double pointer to the list of system font names.\n @param num Number of system font names.\n @since 12\n @version 1.0"]
     pub fn OH_Drawing_DestroySystemFontList(fontList: *mut *mut ::std::os::raw::c_char, num: usize);
 }
 extern "C" {
-    #[doc = " @brief Gets information about the system font by font name.\n\n @syscap SystemCapability.Graphic.Graphic2D.NativeDrawing\n @param fontParser Indicates the pointer to the font parser object <b>OH_Drawing_FontParser</b>.\n @param name font name.\n @return Returns system fonts information.\n @since 12\n @version 1.0"]
+    #[doc = " @brief Obtains the information about a system font based on the given system font name. This API is supported only\n on phones and PC/2-in-1 devices.\n\n @syscap SystemCapability.Graphic.Graphic2D.NativeDrawing\n @param fontParser Pointer to the {@link OH_Drawing_FontParser} object, which is obtained from\n     {@link OH_Drawing_CreateFontParser}.\n @param name Name of the system font. For details about valid system font names, see\n     {@link OH_Drawing_FontParserGetSystemFontList}.\n @return Pointer to the system font descriptor object. When no longer needed, use\n     {@link OH_Drawing_DestroyFontDescriptor} to release the pointer.\n @since 12\n @version 1.0"]
     pub fn OH_Drawing_FontParserGetFontByName(
         fontParser: *mut OH_Drawing_FontParser,
         name: *const ::std::os::raw::c_char,
     ) -> *mut OH_Drawing_FontDescriptor;
 }
 extern "C" {
-    #[doc = " @brief Get line metrics information.\n\n @syscap SystemCapability.Graphic.Graphic2D.NativeDrawing\n @param typography Indicates the pointer to a typography object <b>OH_Drawing_Typography</b>.\n @return Indicates the pointer to a line metrics object <b>OH_Drawing_LineMetrics</b>.\n @since 12\n @version 1.0"]
+    #[doc = " @brief Obtains the line metrics in a typography object. This function must be called after\n {@link OH_Drawing_TypographyLayout} is called. Release this pointer by calling {@link OH_Drawing_DestroyLineMetrics}\n when this object is no longer needed.\n\n @syscap SystemCapability.Graphic.Graphic2D.NativeDrawing\n @param typography Pointer to the {@link OH_Drawing_Typography} object, which is obtained from\n     {@link OH_Drawing_CreateTypography}.\n @return Pointer to the {@link OH_Drawing_LineMetrics} object.\n @since 12\n @version 1.0"]
     pub fn OH_Drawing_TypographyGetLineMetrics(
         typography: *mut OH_Drawing_Typography,
     ) -> *mut OH_Drawing_LineMetrics;
 }
 extern "C" {
-    #[doc = " @brief Get the number of lines.\n\n @syscap SystemCapability.Graphic.Graphic2D.NativeDrawing\n @param lineMetrics Indicates the pointer to a line metrics object <b>OH_Drawing_LineMetrics</b>.\n @return Returns the number of lines.\n @since 12\n @version 1.0"]
+    #[doc = " @brief Obtains the number of lines.\n\n @syscap SystemCapability.Graphic.Graphic2D.NativeDrawing\n @param lineMetrics Pointer to the {@link OH_Drawing_LineMetrics} object, which is obtained from\n     {@link OH_Drawing_LineMetrics}.\n @return Number of lines.\n @since 12\n @version 1.0"]
     pub fn OH_Drawing_LineMetricsGetSize(lineMetrics: *mut OH_Drawing_LineMetrics) -> usize;
 }
 extern "C" {
-    #[doc = " @brief Releases the memory occupied by line metrics.\n\n @syscap SystemCapability.Graphic.Graphic2D.NativeDrawing\n @param lineMetrics Indicates the pointer to a line metrics object <b>OH_Drawing_LineMetrics</b>.\n @since 12\n @version 1.0"]
+    #[doc = " @brief Destroys an **OH_Drawing_LineMetrics** object and reclaims the memory occupied by the object.\n\n @syscap SystemCapability.Graphic.Graphic2D.NativeDrawing\n @param lineMetrics Pointer to the {@link OH_Drawing_LineMetrics} object, which is obtained from\n     {@link OH_Drawing_LineMetrics}.\n @since 12\n @version 1.0"]
     pub fn OH_Drawing_DestroyLineMetrics(lineMetrics: *mut OH_Drawing_LineMetrics);
 }
 extern "C" {
-    #[doc = " @brief Gets the specified line by line number.\n\n @syscap SystemCapability.Graphic.Graphic2D.NativeDrawing\n @param typography Indicates the pointer to a typography object <b>OH_Drawing_Typography</b>.\n @param lineNumber Line number.\n @param lineMetric Indicates the pointer to a line metrics object <b>OH_Drawing_LineMetrics</b>.\n @return Whether the line metrics was obtained.\n @since 12\n @version 1.0"]
+    #[doc = " @brief Obtains the position information of a specified line in the typography object. For details, see the\n {@link OH_Drawing_LineMetrics} struct. This API must be called after {@link OH_Drawing_TypographyLayout} is called.\n\n @syscap SystemCapability.Graphic.Graphic2D.NativeDrawing\n @param typography Pointer to the {@link OH_Drawing_Typography} object, which is obtained from\n     {@link OH_Drawing_CreateTypography}.\n @param lineNumber Index of the line to obtain, starting from 0 and up to {@link OH_Drawing_TypographyGetLineCount} -\n     1. Returns false when the index is out of range.\n @param lineMetric Pointer to the line metrics object {@link OH_Drawing_LineMetrics}, used as an output parameter.\n @return Whether the metrics of the given line is obtained. **true** means yes; **false** otherwise.\n @since 12\n @version 1.0"]
     pub fn OH_Drawing_TypographyGetLineMetricsAt(
         typography: *mut OH_Drawing_Typography,
         lineNumber: ::std::os::raw::c_int,
@@ -2850,55 +2978,55 @@ extern "C" {
     ) -> bool;
 }
 extern "C" {
-    #[doc = " @brief  Sets the ellipsis of lines in a text file.\n\n @syscap SystemCapability.Graphic.Graphic2D.NativeDrawing\n @param style Indicates the pointer to a typography object <b>OH_Drawing_Typography</b>.\n @param ellipsis Indicates the line textellipsis.\n @since 12\n @version 1.0"]
+    #[doc = " @brief Sets the ellipsis text for a typography style.\n\n @syscap SystemCapability.Graphic.Graphic2D.NativeDrawing\n @param style Pointer to the {@link OH_Drawing_TypographyStyle} object, which is obtained from\n     {@link OH_Drawing_CreateTypographyStyle}.\n @param ellipsis Ellipsis text.\n @since 12\n @version 1.0"]
     pub fn OH_Drawing_SetTypographyTextEllipsis(
         style: *mut OH_Drawing_TypographyStyle,
         ellipsis: *const ::std::os::raw::c_char,
     );
 }
 extern "C" {
-    #[doc = " @brief Sets the locale of lines in a text file.\n\n @syscap SystemCapability.Graphic.Graphic2D.NativeDrawing\n @param style Indicates the pointer to a typography style object\n <b>OH_Drawing_TypographyStyle</b>.\n @param locale Indicates the pointer to the locale to set.\n @since 12\n @version 1.0"]
+    #[doc = " @brief Sets the locale for a typography style.\n\n @syscap SystemCapability.Graphic.Graphic2D.NativeDrawing\n @param style Pointer to the {@link OH_Drawing_TypographyStyle} object, which is obtained from\n     {@link OH_Drawing_CreateTypographyStyle}.\n @param locale Locale. The data type is a pointer to char. The format follows the BCP 47 language tag standard, for\n     example, 'en' for English, 'zh-Hans' for Simplified Chinese, and 'zh-Hant' for Traditional Chinese. If not\n     specified, the default locale is 'zh-Hans'.\n @since 12\n @version 1.0"]
     pub fn OH_Drawing_SetTypographyTextLocale(
         style: *mut OH_Drawing_TypographyStyle,
         locale: *const ::std::os::raw::c_char,
     );
 }
 extern "C" {
-    #[doc = " @brief Sets the textSplitRatio of lines in a text file.\n\n @syscap SystemCapability.Graphic.Graphic2D.NativeDrawing\n @param style Indicates the pointer to a typography style object\n <b>OH_Drawing_TypographyStyle</b>.\n @param textSplitRatio Indicates the textSplitRatio of lines to set.\n @since 12\n @version 1.0"]
+    #[doc = " @brief Sets the text division ratio, which is used to determine the cursor position within a glyph when tapping to\n locate a character.\n\n @syscap SystemCapability.Graphic.Graphic2D.NativeDrawing\n @param style Pointer to the {@link OH_Drawing_TypographyStyle} object, which is obtained from\n     {@link OH_Drawing_CreateTypographyStyle}.\n @param textSplitRatio Text split ratio. The value range is [0, 1], and the default value is 0.5. When mapping click\n     coordinates to character positions, this is the threshold within a glyph for determining whether the position\n     belongs to the current character or the next character. A larger value favors the current character, and a\n     smaller value favors the next character.\n @since 12\n @version 1.0"]
     pub fn OH_Drawing_SetTypographyTextSplitRatio(
         style: *mut OH_Drawing_TypographyStyle,
         textSplitRatio: f32,
     );
 }
 extern "C" {
-    #[doc = " @brief Gets the TextStyle of lines in a text file.\n\n @syscap SystemCapability.Graphic.Graphic2D.NativeDrawing\n @param style Indicates the pointer to a typography style object\n <b>OH_Drawing_TypographyStyle</b>.\n @return Returns line text textstyle.\n @since 12\n @version 1.0"]
+    #[doc = " @brief Obtains the default text style of a typography style.\n\n @syscap SystemCapability.Graphic.Graphic2D.NativeDrawing\n @param style Pointer to the {@link OH_Drawing_TypographyStyle} object, which is obtained from\n     {@link OH_Drawing_CreateTypographyStyle}.\n @return Pointer to the {@link OH_Drawing_TextStyle} object. Release this pointer by calling\n     {@link OH_Drawing_DestroyTextStyle} when this object is no longer needed.\n @since 12\n @version 1.0"]
     pub fn OH_Drawing_TypographyGetTextStyle(
         style: *mut OH_Drawing_TypographyStyle,
     ) -> *mut OH_Drawing_TextStyle;
 }
 extern "C" {
-    #[doc = " @brief Gets the EffectiveAlign of lines in a text file.\n\n @syscap SystemCapability.Graphic.Graphic2D.NativeDrawing\n @param style Indicates the pointer to a typography style object\n <b>OH_Drawing_TypographyStyle</b>.\n @return Returns line text align.\n @since 12\n @version 1.0\n @deprecated since 18\n @useinstead OH_Drawing_TypographyStyleGetEffectiveAlignment"]
+    #[doc = " @brief Obtains the text alignment mode.\n\n @syscap SystemCapability.Graphic.Graphic2D.NativeDrawing\n @param style Pointer to the {@link OH_Drawing_TypographyStyle} object, which is obtained from\n     {@link OH_Drawing_CreateTypographyStyle}.\n @return Text alignment mode.\n @since 12\n @version 1.0\n @deprecated since 18\n @useinstead OH_Drawing_TypographyStyleGetEffectiveAlignment"]
     pub fn OH_Drawing_TypographyGetEffectiveAlignment(
         style: *mut OH_Drawing_TypographyStyle,
     ) -> ::std::os::raw::c_int;
 }
 extern "C" {
-    #[doc = " @brief Gets the UnlimitedLines of lines in a text file.\n\n @syscap SystemCapability.Graphic.Graphic2D.NativeDrawing\n @param style Indicates the pointer to a typography style object\n <b>OH_Drawing_TypographyStyle</b>.\n @return Returns whether the text has a maximum line limit,\n with true indicating a maximum line limit and false indicating no maximum line limit.\n @since 12\n @version 1.0"]
+    #[doc = " @brief Checks whether the maximum number of lines is limited for text.\n\n @syscap SystemCapability.Graphic.Graphic2D.NativeDrawing\n @param style Pointer to the {@link OH_Drawing_TypographyStyle} object, which is obtained from\n     {@link OH_Drawing_CreateTypographyStyle}.\n @return Whether the text has a maximum line limit. The value **true** means there is no maximum line limit, and **\n     false** means there is a maximum line limit.\n @since 12\n @version 1.0"]
     pub fn OH_Drawing_TypographyIsLineUnlimited(style: *mut OH_Drawing_TypographyStyle) -> bool;
 }
 extern "C" {
-    #[doc = " @brief Gets the IsEllipsized of lines in a text file.\n\n @syscap SystemCapability.Graphic.Graphic2D.NativeDrawing\n @param style Indicates the pointer to a typography style object\n <b>OH_Drawing_TypographyStyle</b>.\n @return Returns whether the text has ellipsis,\n true meaning there is an ellipsis and false meaning there is no ellipsis.\n @since 12\n @version 1.0"]
+    #[doc = " @brief Checks whether an ellipsis is configured for a typography style.\n\n @syscap SystemCapability.Graphic.Graphic2D.NativeDrawing\n @param style Pointer to the {@link OH_Drawing_TypographyStyle} object, which is obtained from\n     {@link OH_Drawing_CreateTypographyStyle}.\n @return Whether ellipsis is configured for the specified typography style. **true** means yes; **false** otherwise.\n @since 12\n @version 1.0"]
     pub fn OH_Drawing_TypographyIsEllipsized(style: *mut OH_Drawing_TypographyStyle) -> bool;
 }
 extern "C" {
-    #[doc = " @brief set line textstyle.\n\n @syscap SystemCapability.Graphic.Graphic2D.NativeDrawing\n @param handler Indicates the pointer to a typography style object\n <b>OH_Drawing_TypographyStyle</b>.\n @param style Indicates the pointer to a text style object <b>OH_Drawing_TextStyle</b>.\n @since 12\n @version 1.0"]
+    #[doc = " @brief Sets a text style.\n\n @syscap SystemCapability.Graphic.Graphic2D.NativeDrawing\n @param handler Pointer to the {@link OH_Drawing_TypographyStyle} object, which is obtained from\n     {@link OH_Drawing_CreateTypographyStyle}.\n @param style Pointer to the {@link OH_Drawing_TextStyle} object, which is obtained from\n     {@link OH_Drawing_CreateTextStyle}.\n @since 12\n @version 1.0"]
     pub fn OH_Drawing_SetTypographyTextStyle(
         handler: *mut OH_Drawing_TypographyStyle,
         style: *mut OH_Drawing_TextStyle,
     );
 }
 extern "C" {
-    #[doc = " @brief get line fontmetrics.\n\n @syscap SystemCapability.Graphic.Graphic2D.NativeDrawing\n @param typography Indicates the pointer to a typography object <b>OH_Drawing_Typography</b>.\n @param style Indicates the pointer to a text style object <b>OH_Drawing_TextStyle</b>.\n @param fontmetrics Indicates the pointer to a font metrics object <b>OH_Drawing_Font_Metrics</b>.\n @return Whether the font metrics was obtained.\n @since 12\n @version 1.0"]
+    #[doc = " @brief Obtains the font metrics of a text style.\n\n @syscap SystemCapability.Graphic.Graphic2D.NativeDrawing\n @param typography Pointer to the {@link OH_Drawing_Typography} object, which is obtained from\n     {@link OH_Drawing_CreateTypography}.\n @param style Pointer to the {@link OH_Drawing_TextStyle} object, which is obtained from\n     {@link OH_Drawing_CreateTextStyle}.\n @param fontmetrics Pointer to the {@link OH_Drawing_Font_Metrics} object, which is obtained from\n     {@link OH_Drawing_Font_Metrics}.\n @return Whether the font attributes are obtained. **true** means yes; **false** otherwise.\n @since 12\n @version 1.0"]
     pub fn OH_Drawing_TextStyleGetFontMetrics(
         typography: *mut OH_Drawing_Typography,
         style: *mut OH_Drawing_TextStyle,
@@ -2906,7 +3034,7 @@ extern "C" {
     ) -> bool;
 }
 extern "C" {
-    #[doc = " @brief Gets the position of the specified line or the first text of the specified line.\n\n @syscap SystemCapability.Graphic.Graphic2D.NativeDrawing\n @param typography Indicates the pointer to a typography object <b>OH_Drawing_Typography</b>.\n @param lineNumber Line number.\n @param oneLine True is the information for the whole line, and false is the information to get the first character\n @param includeWhitespace Whether the text width contains whitespace.\n @param drawingLineMetrics Indicates the pointer to a line metrics object <b>OH_Drawing_LineMetrics</b>.\n @return return whether the information was successfully fetched.\n @since 12\n @version 1.0"]
+    #[doc = " @brief Obtains the metrics of a given line or the metrics of the first character in a given line in a typography\n object. This function must be called after {@link OH_Drawing_TypographyLayout} is called.\n\n @syscap SystemCapability.Graphic.Graphic2D.NativeDrawing\n @param typography Pointer to the {@link OH_Drawing_Typography} object, which is obtained from\n     {@link OH_Drawing_CreateTypography}.\n @param lineNumber Index of the line number to obtain, starting from 0 and up to\n     {@link OH_Drawing_TypographyGetLineCount} - 1. Returns false when out of range.\n @param oneLine Whether to obtain the metrics of the entire line. The value **true** means to obtain the metrics of\n     the entire line, and **false** means to obtain the metrics of the first character in the line.\n @param includeWhitespace Whether the text width includes whitespace. The value true means whitespace is included,\n     and false means whitespace is not included.\n @param drawingLineMetrics Pointer to the {@link OH_Drawing_LineMetrics} object, which is obtained from\n     {@link OH_Drawing_LineMetrics}.\n @return Returns **true** if the metrics of the given line or the metrics of the first character in the given line is\n     obtained; returns **false** otherwise.\n @since 12\n @version 1.0"]
     pub fn OH_Drawing_TypographyGetLineInfo(
         typography: *mut OH_Drawing_Typography,
         lineNumber: ::std::os::raw::c_int,
@@ -2916,70 +3044,70 @@ extern "C" {
     ) -> bool;
 }
 extern "C" {
-    #[doc = " @brief Sets the font weight of text typography.\n\n @syscap SystemCapability.Graphic.Graphic2D.NativeDrawing\n @param style Indicates the pointer to a typography style object\n <b>OH_Drawing_TypographyStyle</b>.\n @param weight Indicates the font weight of text typography to set. For details,\n see the enum <b>OH_Drawing_FontWeight</b>.\n @since 12\n @version 1.0"]
+    #[doc = " @brief Sets the default font weight of the typography style. Before <!--RP1-->OpenHarmony 6.1<!--RP1End-->, only\n variable fonts in system fonts support font weight adjustment. Starting from <!--RP1-->OpenHarmony 6.1<!--RP1End-->,\n both system fonts and variable fonts in third-party registered fonts support font weight adjustment. For non-\n variable fonts, the font weight does not change when the weight value is set to less than semi-bold, and a pseudo-\n bold effect may be triggered when the weight value is set to semi-bold or greater.\n\n @syscap SystemCapability.Graphic.Graphic2D.NativeDrawing\n @param style Pointer to the {@link OH_Drawing_TypographyStyle} object, which is obtained from\n     {@link OH_Drawing_CreateTypographyStyle}.\n @param weight Font weight.\n     <br>For details about the available options, see {@link OH_Drawing_FontWeight}.\n @since 12\n @version 1.0"]
     pub fn OH_Drawing_SetTypographyTextFontWeight(
         style: *mut OH_Drawing_TypographyStyle,
         weight: ::std::os::raw::c_int,
     );
 }
 extern "C" {
-    #[doc = " @brief Sets the font style of text typography.\n\n @syscap SystemCapability.Graphic.Graphic2D.NativeDrawing\n @param style Indicates the pointer to a typography style object\n <b>OH_Drawing_TypographyStyle</b>.\n @param fontStyle Indicates the font style of text typography to set. For details,\n see the enum <b>OH_Drawing_FontStyle</b>.\n @since 12\n @version 1.0"]
+    #[doc = " @brief Sets the default font style for a typography style.\n\n @syscap SystemCapability.Graphic.Graphic2D.NativeDrawing\n @param style Pointer to the typography style object {@link OH_Drawing_TypographyStyle}, obtained by\n     {@link OH_Drawing_CreateTypographyStyle}.\n @param fontStyle Font style. The value **1** indicates italic, and **0** or other values indicate non-italic. For\n     details about the available options, see {@link OH_Drawing_FontStyle}.\n @since 12\n @version 1.0"]
     pub fn OH_Drawing_SetTypographyTextFontStyle(
         style: *mut OH_Drawing_TypographyStyle,
         fontStyle: ::std::os::raw::c_int,
     );
 }
 extern "C" {
-    #[doc = " @brief Sets the font family of text typography.\n\n @syscap SystemCapability.Graphic.Graphic2D.NativeDrawing\n @param style Indicates the pointer to a typography style object\n <b>OH_Drawing_TypographyStyle</b>.\n @param fontFamily Indicates the pointer to the font family of text typography to set.\n @since 12\n @version 1.0"]
+    #[doc = " @brief Sets the font family name for text.\n\n @syscap SystemCapability.Graphic.Graphic2D.NativeDrawing\n @param style Pointer to the {@link OH_Drawing_TypographyStyle} object, which is obtained from\n     {@link OH_Drawing_CreateTypographyStyle}.\n @param fontFamily Pointer to the name of the font family.\n @since 12\n @version 1.0"]
     pub fn OH_Drawing_SetTypographyTextFontFamily(
         style: *mut OH_Drawing_TypographyStyle,
         fontFamily: *const ::std::os::raw::c_char,
     );
 }
 extern "C" {
-    #[doc = " @brief Sets the font size of text typography.\n\n @syscap SystemCapability.Graphic.Graphic2D.NativeDrawing\n @param style Indicates the pointer to a typography style object\n <b>OH_Drawing_TypographyStyle</b>.\n @param fontSize Indicates the font size of text typography to set.\n @since 12\n @version 1.0"]
+    #[doc = " @brief Sets the font size for text.\n\n @syscap SystemCapability.Graphic.Graphic2D.NativeDrawing\n @param style Pointer to the typography style {@link OH_Drawing_TypographyStyle}, which is obtained from\n     {@link OH_Drawing_CreateTypographyStyle}.\n @param fontSize Font size (greater than 0), in px.\n @since 12\n @version 1.0"]
     pub fn OH_Drawing_SetTypographyTextFontSize(
         style: *mut OH_Drawing_TypographyStyle,
         fontSize: f64,
     );
 }
 extern "C" {
-    #[doc = " @brief Sets the font height of text typography.\n\n @syscap SystemCapability.Graphic.Graphic2D.NativeDrawing\n @param style Indicates the pointer to a typography style object\n <b>OH_Drawing_TypographyStyle</b>.\n @param fontHeight Indicates the font height of text typography to set.\n @since 12\n @version 1.0"]
+    #[doc = " @brief Sets the font height for text typography as a multiple of the current font size.\n\n @syscap SystemCapability.Graphic.Graphic2D.NativeDrawing\n @param style Pointer to the {@link OH_Drawing_TypographyStyle} object, which is obtained from\n     {@link OH_Drawing_CreateTypographyStyle}.\n @param fontHeight Font height, which is a multiple of the current font size. If the value is less than 0, it is\n     treated as 0.\n @since 12\n @version 1.0"]
     pub fn OH_Drawing_SetTypographyTextFontHeight(
         style: *mut OH_Drawing_TypographyStyle,
         fontHeight: f64,
     );
 }
 extern "C" {
-    #[doc = " @brief Sets the half leading of text typography.\n\n @syscap SystemCapability.Graphic.Graphic2D.NativeDrawing\n @param style Indicates the pointer to a typography style object\n <b>OH_Drawing_TypographyStyle</b>.\n @param halfLeading Indicates the half leading of text typography to set.\n @since 12\n @version 1.0"]
+    #[doc = " @brief Sets whether to enable half leading for text.\n\n @syscap SystemCapability.Graphic.Graphic2D.NativeDrawing\n @param style Pointer to the {@link OH_Drawing_TypographyStyle} object, which is obtained from\n     {@link OH_Drawing_CreateTypographyStyle}.\n @param halfLeading Whether to enable half leading. The value **true** means to enable half leading, and **false**\n     means the opposite.\n @since 12\n @version 1.0"]
     pub fn OH_Drawing_SetTypographyTextHalfLeading(
         style: *mut OH_Drawing_TypographyStyle,
         halfLeading: bool,
     );
 }
 extern "C" {
-    #[doc = " @brief Sets whether to enable line style for text typography.\n\n @syscap SystemCapability.Graphic.Graphic2D.NativeDrawing\n @param style Indicates the pointer to a typography style object\n <b>OH_Drawing_TypographyStyle</b>.\n @param useLineStyle Indicates whether the line style for text typography is used.\n @since 12\n @version 1.0"]
+    #[doc = " @brief Sets whether to enable the text line style.\n\n @syscap SystemCapability.Graphic.Graphic2D.NativeDrawing\n @param style Pointer to the typography style object {@link OH_Drawing_TypographyStyle}, obtained by\n     {@link OH_Drawing_CreateTypographyStyle}.\n @param useLineStyle Whether to enable the line style. The value **true** means to enable the line style, and **false*\n     * means the opposite.\n @since 12\n @version 1.0"]
     pub fn OH_Drawing_SetTypographyTextUseLineStyle(
         style: *mut OH_Drawing_TypographyStyle,
         useLineStyle: bool,
     );
 }
 extern "C" {
-    #[doc = " @brief Sets the font weight of line style for text typography.\n\n @syscap SystemCapability.Graphic.Graphic2D.NativeDrawing\n @param style Indicates the pointer to a typography style object\n <b>OH_Drawing_TypographyStyle</b>.\n @param weight Indicates the font weight of line style for text typography to set.\n For details, see the enum <b>OH_Drawing_FontWeight</b>.\n @since 12\n @version 1.0"]
+    #[doc = " @brief Sets the font weight of the text style in the strut style of the typography style. Before <!--RP1-->\n OpenHarmony 6.1<!--RP1End-->, only variable fonts in system fonts support font weight adjustment. Starting from <!--\n RP1-->OpenHarmony 6.1<!--RP1End-->, both system fonts and variable fonts in third-party registered fonts support\n font weight adjustment. For non-variable fonts, the font weight does not change when the weight value is set to less\n than semi-bold, and a pseudo-bold effect may be triggered when the weight value is set to semi-bold or greater.\n\n @syscap SystemCapability.Graphic.Graphic2D.NativeDrawing\n @param style Pointer to the {@link OH_Drawing_TypographyStyle} object, which is obtained from\n     {@link OH_Drawing_CreateTypographyStyle}.\n @param weight Font weight. For details about the available options, see {@link OH_Drawing_FontWeight}.\n @since 12\n @version 1.0"]
     pub fn OH_Drawing_SetTypographyTextLineStyleFontWeight(
         style: *mut OH_Drawing_TypographyStyle,
         weight: ::std::os::raw::c_int,
     );
 }
 extern "C" {
-    #[doc = " @brief Sets the font style of line style for text typography.\n\n @syscap SystemCapability.Graphic.Graphic2D.NativeDrawing\n @param style Indicates the pointer to a typography style object\n <b>OH_Drawing_TypographyStyle</b>.\n @param fontStyle Indicates the font style of line style for text typography to set. For details,\n see the enum <b>OH_Drawing_FontStyle</b>.\n @since 12\n @version 1.0"]
+    #[doc = " @brief Sets the font style of the strut style in a typography style.\n\n @syscap SystemCapability.Graphic.Graphic2D.NativeDrawing\n @param style Pointer to the typography style object {@link OH_Drawing_TypographyStyle}, obtained by\n     {@link OH_Drawing_CreateTypographyStyle}.\n @param fontStyle Font style. For details about the available options, see {@link OH_Drawing_FontStyle}.\n @since 12\n @version 1.0"]
     pub fn OH_Drawing_SetTypographyTextLineStyleFontStyle(
         style: *mut OH_Drawing_TypographyStyle,
         fontStyle: ::std::os::raw::c_int,
     );
 }
 extern "C" {
-    #[doc = " @brief Sets the font families of line style for text typography.\n\n @syscap SystemCapability.Graphic.Graphic2D.NativeDrawing\n @param style Indicates the pointer to a typography style object\n <b>OH_Drawing_TypographyStyle</b>.\n @param fontFamiliesNumber Indicates the number of font families to set.\n @param fontFamilies Indicates the pointer to the font families of line style for text typography to set.\n @since 12\n @version 1.0"]
+    #[doc = " @brief Sets the font family of the line style for text typography.\n\n @syscap SystemCapability.Graphic.Graphic2D.NativeDrawing\n @param style Pointer to a typography style object {@link OH_Drawing_TypographyStyle}, obtained by\n     {@link OH_Drawing_CreateTypographyStyle}.\n @param fontFamiliesNumber Number of font family names. Negative values are not allowed.\n @param fontFamilies Pointer to an array of font family types.\n @since 12\n @version 1.0"]
     pub fn OH_Drawing_SetTypographyTextLineStyleFontFamilies(
         style: *mut OH_Drawing_TypographyStyle,
         fontFamiliesNumber: ::std::os::raw::c_int,
@@ -2987,80 +3115,80 @@ extern "C" {
     );
 }
 extern "C" {
-    #[doc = " @brief Sets the font size of line style for text typography.\n\n @syscap SystemCapability.Graphic.Graphic2D.NativeDrawing\n @param style Indicates the pointer to a typography style object\n <b>OH_Drawing_TypographyStyle</b>.\n @param lineStyleFontSize Indicates the font size of line style for text typography to set.\n @since 12\n @version 1.0"]
+    #[doc = " @brief Sets the font size for a text line style.\n\n @syscap SystemCapability.Graphic.Graphic2D.NativeDrawing\n @param style Pointer to the typography style object {@link OH_Drawing_TypographyStyle}, obtained by\n     {@link OH_Drawing_CreateTypographyStyle}.\n @param lineStyleFontSize Font size (greater than 0), in physical pixels (px).\n @since 12\n @version 1.0"]
     pub fn OH_Drawing_SetTypographyTextLineStyleFontSize(
         style: *mut OH_Drawing_TypographyStyle,
         lineStyleFontSize: f64,
     );
 }
 extern "C" {
-    #[doc = " @brief Sets the font height of line style for text typography.\n\n @syscap SystemCapability.Graphic.Graphic2D.NativeDrawing\n @param style Indicates the pointer to a typography style object\n <b>OH_Drawing_TypographyStyle</b>.\n @param lineStyleFontHeight Indicates the font height of line style for text typography to set.\n @since 12\n @version 1.0"]
+    #[doc = " @brief Sets the font height of the line style for text typography as a multiple of the current font size.\n\n @syscap SystemCapability.Graphic.Graphic2D.NativeDrawing\n @param style Pointer to the typography style object {@link OH_Drawing_TypographyStyle}, obtained by\n     {@link OH_Drawing_CreateTypographyStyle}.\n @param lineStyleFontHeight Font height. The value must be greater than 0.\n @since 12\n @version 1.0"]
     pub fn OH_Drawing_SetTypographyTextLineStyleFontHeight(
         style: *mut OH_Drawing_TypographyStyle,
         lineStyleFontHeight: f64,
     );
 }
 extern "C" {
-    #[doc = " @brief Sets the half leading of line style for text typography.\n\n @syscap SystemCapability.Graphic.Graphic2D.NativeDrawing\n @param style Indicates the pointer to a typography style object\n <b>OH_Drawing_TypographyStyle</b>.\n @param lineStyleHalfLeading Indicates the half leading of line for text typography to set.\n @since 12\n @version 1.0"]
+    #[doc = " @brief Sets whether to enable half leading for a text line style.\n\n @syscap SystemCapability.Graphic.Graphic2D.NativeDrawing\n @param style Pointer to the typography style object {@link OH_Drawing_TypographyStyle}, obtained by\n     {@link OH_Drawing_CreateTypographyStyle}.\n @param lineStyleHalfLeading Whether the half leading takes effect. **true** means yes; **false** otherwise.\n @since 12\n @version 1.0"]
     pub fn OH_Drawing_SetTypographyTextLineStyleHalfLeading(
         style: *mut OH_Drawing_TypographyStyle,
         lineStyleHalfLeading: bool,
     );
 }
 extern "C" {
-    #[doc = " @brief Sets the spacing scale of line style for text typography.\n\n @syscap SystemCapability.Graphic.Graphic2D.NativeDrawing\n @param style Indicates the pointer to a typography style object\n <b>OH_Drawing_TypographyStyle</b>.\n @param spacingScale Indicates the space scale of line for text typography to set.\n @since 12\n @version 1.0"]
+    #[doc = " @brief Sets the spacing scale factor for a text line style.\n\n @syscap SystemCapability.Graphic.Graphic2D.NativeDrawing\n @param style Pointer to the typography style object {@link OH_Drawing_TypographyStyle}, obtained by\n     {@link OH_Drawing_CreateTypographyStyle}.\n @param spacingScale Line style spacing scale for scaling line spacing. A value greater than 1.0 increases the line\n     spacing, a value less than 1.0 decreases it, and 1.0 indicates the original spacing.\n @since 12\n @version 1.0"]
     pub fn OH_Drawing_SetTypographyTextLineStyleSpacingScale(
         style: *mut OH_Drawing_TypographyStyle,
         spacingScale: f64,
     );
 }
 extern "C" {
-    #[doc = " @brief Sets whether only line style is enabled for text typography.\n\n @syscap SystemCapability.Graphic.Graphic2D.NativeDrawing\n @param style Indicates the pointer to a typography style object\n <b>OH_Drawing_TypographyStyle</b>.\n @param lineStyleOnly Indicates the line style for text typography to set only.\n @since 12\n @version 1.0"]
+    #[doc = " @brief Sets whether to enable the text line style only.\n\n @syscap SystemCapability.Graphic.Graphic2D.NativeDrawing\n @param style Pointer to the typography style object {@link OH_Drawing_TypographyStyle}, obtained by\n     {@link OH_Drawing_CreateTypographyStyle}.\n @param lineStyleOnly Whether to enable the line style only. **true** means yes; **false** otherwise.\n @since 12\n @version 1.0"]
     pub fn OH_Drawing_SetTypographyTextLineStyleOnly(
         style: *mut OH_Drawing_TypographyStyle,
         lineStyleOnly: bool,
     );
 }
 extern "C" {
-    #[doc = " @brief Creates an <b>OH_Drawing_TextShadow</b> object.\n\n @syscap SystemCapability.Graphic.Graphic2D.NativeDrawing\n @return Returns the pointer to the text shadow object created <b>OH_Drawing_TextShadow</b>.\n @since 12\n @version 1.0"]
+    #[doc = " @brief Creates a pointer to a text shadow object. When the {@link OH_Drawing_TextShadow} is no longer needed, use\n {@link OH_Drawing_DestroyTextShadow} to release the pointer to the object.\n\n @syscap SystemCapability.Graphic.Graphic2D.NativeDrawing\n @return Pointer to the created text shadow object.\n @since 12\n @version 1.0"]
     pub fn OH_Drawing_CreateTextShadow() -> *mut OH_Drawing_TextShadow;
 }
 extern "C" {
-    #[doc = " @brief Releases the memory occupied by the text shadow object <b>OH_Drawing_TextShadow</b>.\n\n @syscap SystemCapability.Graphic.Graphic2D.NativeDrawing\n @param shadow Indicates the pointer to the text shadow object <b>OH_Drawing_TextShadow</b>.\n @since 12\n @version 1.0"]
+    #[doc = " @brief Releases the memory occupied by the text shadow object.\n\n @syscap SystemCapability.Graphic.Graphic2D.NativeDrawing\n @param shadow Pointer to the text shadow object {@link OH_Drawing_TextShadow}, obtained by\n     {@link OH_Drawing_CreateTextShadow}.\n @since 12\n @version 1.0"]
     pub fn OH_Drawing_DestroyTextShadow(shadow: *mut OH_Drawing_TextShadow);
 }
 extern "C" {
-    #[doc = " @brief Gets the vector of TextShadow in TextStyle.\n\n @syscap SystemCapability.Graphic.Graphic2D.NativeDrawing\n @param style Indicates the pointer to a text style object <b>OH_Drawing_TextStyle</b>.\n @param int Indicates the number in vector to set.\n @param style Indicates the pointer to the text shadow object <b>OH_Drawing_TextShadow</b>.\n @return Returns the vector of TextShadow.\n @since 12\n @version 1.0"]
+    #[doc = " @brief Obtains the text shadow container. When the {@link OH_Drawing_TextShadow} is no longer needed, use\n {@link OH_Drawing_DestroyTextShadows} to release the pointer to the object.\n\n @syscap SystemCapability.Graphic.Graphic2D.NativeDrawing\n @param style Pointer to the {@link OH_Drawing_TextStyle} object, which is obtained from\n     {@link OH_Drawing_CreateTextStyle}.\n @return Pointer to the text shadow container {@link OH_Drawing_TextShadow}.\n @since 12\n @version 1.0"]
     pub fn OH_Drawing_TextStyleGetShadows(
         style: *mut OH_Drawing_TextStyle,
     ) -> *mut OH_Drawing_TextShadow;
 }
 extern "C" {
-    #[doc = " @brief Gets the size of vector of TextShadow in TextStyle.\n\n @syscap SystemCapability.Graphic.Graphic2D.NativeDrawing\n @param style Indicates the pointer to a text style object <b>OH_Drawing_TextStyle</b>.\n @return Returns the size of vector.\n @since 12\n @version 1.0"]
+    #[doc = " @brief Obtains the size of the text shadow container.\n\n @syscap SystemCapability.Graphic.Graphic2D.NativeDrawing\n @param style Pointer to the {@link OH_Drawing_TextStyle} object, which is obtained from\n     {@link OH_Drawing_CreateTextStyle}.\n @return Size of the text shadow container.\n @since 12\n @version 1.0"]
     pub fn OH_Drawing_TextStyleGetShadowCount(
         style: *mut OH_Drawing_TextStyle,
     ) -> ::std::os::raw::c_int;
 }
 extern "C" {
-    #[doc = " @brief Adds element in vector of TextShadow in TextStyle.\n\n @syscap SystemCapability.Graphic.Graphic2D.NativeDrawing\n @param style Indicates the pointer to a text style object <b>OH_Drawing_TextStyle</b>.\n @param shadow Indicates the pointer to the text shadow object <b>OH_Drawing_TextShadow</b>.\n @since 12\n @version 1.0"]
+    #[doc = " @brief Adds a text shadow element to the text shadow container.\n\n @syscap SystemCapability.Graphic.Graphic2D.NativeDrawing\n @param style Pointer to the {@link OH_Drawing_TextStyle} object, which is obtained from\n     {@link OH_Drawing_CreateTextStyle}.\n @param shadow Pointer to the text shadow object {@link OH_Drawing_TextShadow}, created by\n     {@link OH_Drawing_CreateTextShadow}.\n @since 12\n @version 1.0"]
     pub fn OH_Drawing_TextStyleAddShadow(
         style: *mut OH_Drawing_TextStyle,
         shadow: *const OH_Drawing_TextShadow,
     );
 }
 extern "C" {
-    #[doc = " @brief clear elements in vector of TextShadow in TextStyle.\n\n @syscap SystemCapability.Graphic.Graphic2D.NativeDrawing\n @param style Indicates the pointer to a text style object <b>OH_Drawing_TextStyle</b>.\n @since 12\n @version 1.0"]
+    #[doc = " @brief Clears all elements in the text shadow container.\n\n @syscap SystemCapability.Graphic.Graphic2D.NativeDrawing\n @param style Pointer to the {@link OH_Drawing_TextStyle} object, which is obtained from\n     {@link OH_Drawing_CreateTextStyle}.\n @since 12\n @version 1.0"]
     pub fn OH_Drawing_TextStyleClearShadows(style: *mut OH_Drawing_TextStyle);
 }
 extern "C" {
-    #[doc = " @brief Gets element in vector of TextShadow with index.\n\n @syscap SystemCapability.Graphic.Graphic2D.NativeDrawing\n @param style Indicates the pointer to a text style object <b>OH_Drawing_TextStyle</b>.\n @param index Indicates the index to set.\n @return Returns the pointer to element with the index in vector of the text style object\n <b>OH_Drawing_TextStyle</b>.\n @since 12\n @version 1.0"]
+    #[doc = " @brief Obtains the element at the specified index in the text shadow container.\n\n @syscap SystemCapability.Graphic.Graphic2D.NativeDrawing\n @param style Pointer to the {@link OH_Drawing_TextStyle} object, which is obtained from\n     {@link OH_Drawing_CreateTextStyle}.\n @param index Subscript index, ranging from 0 to the number of shadows minus 1. The number of shadows can be obtained\n     via {@link OH_Drawing_TextStyleGetShadowCount}.\n @return Pointer to the text shadow object {@link OH_Drawing_TextShadow}.\n @since 12\n @version 1.0"]
     pub fn OH_Drawing_TextStyleGetShadowWithIndex(
         style: *mut OH_Drawing_TextStyle,
         index: ::std::os::raw::c_int,
     ) -> *mut OH_Drawing_TextShadow;
 }
 extern "C" {
-    #[doc = " @brief Set indents of the typography.\n\n @syscap SystemCapability.Graphic.Graphic2D.NativeDrawing\n @param typography Indicates the pointer to a typography object <b>OH_Drawing_Typography</b>.\n @param indentsNumber Indicates the pointer to the indents to set.\n @param indents Indicates the pointer to the indents to set.\n @since 12\n @version 1.0"]
+    #[doc = " @brief Sets indents for typography. If this function is not called, texts will have no indentation applied.\n\n @syscap SystemCapability.Graphic.Graphic2D.NativeDrawing\n @param typography Pointer to the {@link OH_Drawing_Typography} object, which is obtained from\n     {@link OH_Drawing_CreateTypography}.\n @param indentsNumber Number of indents. The value must be less than or equal to the length of the indents array to\n     avoid display exceptions caused by access to the out-of-bounds array.\n @param indents Pointer to a floating-point array, in which each element indicates an indentation width, in px.\n     Before calling {@link OH_Drawing_Typography} API, you need to declare and initialize the floating-point array.\n @since 12\n @version 1.0"]
     pub fn OH_Drawing_TypographySetIndents(
         typography: *mut OH_Drawing_Typography,
         indentsNumber: ::std::os::raw::c_int,
@@ -3068,31 +3196,31 @@ extern "C" {
     );
 }
 extern "C" {
-    #[doc = " @brief Gets element with index in vector of Indents.\n\n @syscap SystemCapability.Graphic.Graphic2D.NativeDrawing\n @param typography Indicates the pointer to a typography object <b>OH_Drawing_Typography</b>.\n @param index Indicates the index to set.\n @return float Indicates the element with the index in vector of Indents.\n @since 12\n @version 1.0"]
+    #[doc = " @brief Obtains indents with a given index in a typography object. The line index starts from 0.\n\n @syscap SystemCapability.Graphic.Graphic2D.NativeDrawing\n @param typography Pointer to the {@link OH_Drawing_Typography} object, which is obtained from\n     {@link OH_Drawing_CreateTypography}.\n @param index Subscript index of the indentation value. Returns 0.0 if index is less than 0. Returns the last\n     indentation value if index is greater than or equal to the number of indentation values.\n @return Value of the element corresponding to the index.\n @since 12\n @version 1.0"]
     pub fn OH_Drawing_TypographyGetIndentsWithIndex(
         typography: *mut OH_Drawing_Typography,
         index: ::std::os::raw::c_int,
     ) -> f32;
 }
 extern "C" {
-    #[doc = " @brief Releases the memory occupied by vector with the text shadow object <b>OH_Drawing_TextShadow</b>.\n\n @syscap SystemCapability.Graphic.Graphic2D.NativeDrawing\n @param shadow the pointer to the text shadow object <b>OH_Drawing_TextShadow</b>.\n @since 12\n @version 1.0"]
+    #[doc = " @brief Releases the memory occupied by the vector composed of **OH_Drawing_TextShadow** objects.\n\n @syscap SystemCapability.Graphic.Graphic2D.NativeDrawing\n @param shadow Pointer to the text shadow object {@link OH_Drawing_TextShadow}, obtained by\n     {@link OH_Drawing_CreateTextShadow}.\n @since 12\n @version 1.0"]
     pub fn OH_Drawing_DestroyTextShadows(shadow: *mut OH_Drawing_TextShadow);
 }
 extern "C" {
-    #[doc = " @brief Set mode of applying the leading over and under text.\n\n @syscap SystemCapability.Graphic.Graphic2D.NativeDrawing\n @param style Indicates the pointer to an <b>OH_Drawing_TypographyStyle</b> object.\n @param heightMode Indicates the mode to set.\n @since 12\n @version 1.0"]
+    #[doc = " @brief Sets a text height modifier pattern.\n\n @syscap SystemCapability.Graphic.Graphic2D.NativeDrawing\n @param style Pointer to the {@link OH_Drawing_TypographyStyle} object, which is obtained from\n     {@link OH_Drawing_CreateTypographyStyle}.\n @param heightMode Text height modifier mode. The value is an enumerated value of the\n     {@link OH_Drawing_TextHeightBehavior} type.\n @since 12\n @version 1.0"]
     pub fn OH_Drawing_TypographyTextSetHeightBehavior(
         style: *mut OH_Drawing_TypographyStyle,
         heightMode: OH_Drawing_TextHeightBehavior,
     );
 }
 extern "C" {
-    #[doc = " @brief Get mode of applying the leading over and under text.\n\n @syscap SystemCapability.Graphic.Graphic2D.NativeDrawing\n @param style Indicates the pointer to an <b>OH_Drawing_TypographyStyle</b> object.\n @return Returns the mode.\n @since 12\n @version 1.0"]
+    #[doc = " @brief Obtains the text height modifier pattern.\n\n @syscap SystemCapability.Graphic.Graphic2D.NativeDrawing\n @param style Pointer to the {@link OH_Drawing_TypographyStyle} object, which is obtained from\n     {@link OH_Drawing_CreateTypographyStyle}.\n @return Text height modifier mode, which is an enumerated value of the {@link OH_Drawing_TextHeightBehavior} type.\n @since 12\n @version 1.0"]
     pub fn OH_Drawing_TypographyTextGetHeightBehavior(
         style: *mut OH_Drawing_TypographyStyle,
     ) -> OH_Drawing_TextHeightBehavior;
 }
 extern "C" {
-    #[doc = " @brief Set struct of background rect and styleId of text.\n\n @syscap SystemCapability.Graphic.Graphic2D.NativeDrawing\n @param style Indicates the pointer to an <b>OH_Drawing_TextStyle</b> object.\n @param rectStyleInfo Indicates the pointer to an <b>OH_Drawing_RectStyle_Info</b> object.\n @param styleId Indicates the styleId of text to set.\n @since 12\n @version 1.0"]
+    #[doc = " @brief Sets a background rectangle and style ID for a text style. The style ID is valid only when the background box\n is a rounded rectangle.\n\n @syscap SystemCapability.Graphic.Graphic2D.NativeDrawing\n @param style Pointer to the **OH_Drawing_TextStyle** object, which is obtained from\n     {@link OH_Drawing_CreateTextStyle}.\n @param rectStyleInfo Pointer to the {@link OH_Drawing_RectStyle_Info} object.\n @param styleId Style ID. The style ID is valid only when the background box is a rounded rectangle. Text processing\n     is divided into multiple segments. Each segment has its own text style. **id** indicates the sequence number of\n     the background box in which the segment is drawn.\n     <br>If the ID of each segment in a row is **0**, all segments are drawn in the same background box. If a row\n     contains segments with IDs **0** and **1**, the segment with ID **0** is drawn in a background box, and the\n     segment with ID **1** is drawn in another background box. Other cases can be deduced in the same way.\n @since 12\n @version 1.0"]
     pub fn OH_Drawing_TextStyleSetBackgroundRect(
         style: *mut OH_Drawing_TextStyle,
         rectStyleInfo: *const OH_Drawing_RectStyle_Info,
@@ -3100,14 +3228,14 @@ extern "C" {
     );
 }
 extern "C" {
-    #[doc = " @brief Add symbols in creating typography.\n\n @syscap SystemCapability.Graphic.Graphic2D.NativeDrawing\n @param handler Indicates the pointer to an <b>OH_Drawing_TypographyCreate</b> object.\n @param symbol Indicates the symbol to set.\n @since 12\n @version 1.0"]
+    #[doc = " @brief Adds the symbol to use in the typography creation process.\n\n @syscap SystemCapability.Graphic.Graphic2D.NativeDrawing\n @param handler Pointer to the {@link OH_Drawing_TypographyCreate} object, which is obtained from\n     {@link OH_Drawing_CreateTypographyHandler}.\n @param symbol Symbol value. For details, see the Unicode value in the {@link HarmonyOS Symbol library}.\n @since 12\n @version 1.0"]
     pub fn OH_Drawing_TypographyHandlerAddSymbol(
         handler: *mut OH_Drawing_TypographyCreate,
         symbol: u32,
     );
 }
 extern "C" {
-    #[doc = " @brief Add font feature.\n\n @syscap SystemCapability.Graphic.Graphic2D.NativeDrawing\n @param style Indicates the pointer to an <b>OH_Drawing_TextStyle</b> object.\n @param tag Indicates the pointer to the tag to set.\n @param value Indicates the value to set.\n @since 12\n @version 1.0"]
+    #[doc = " @brief Adds a font feature for a text style.\n\n @syscap SystemCapability.Graphic.Graphic2D.NativeDrawing\n @param style Pointer to the **OH_Drawing_TextStyle** object, which is obtained from\n     {@link OH_Drawing_CreateTextStyle}.\n @param tag Pointer to the string identified by the keyword in the font feature key-value pair.\n @param value Value of the font feature key-value pair.\n @since 12\n @version 1.0"]
     pub fn OH_Drawing_TextStyleAddFontFeature(
         style: *mut OH_Drawing_TextStyle,
         tag: *const ::std::os::raw::c_char,
@@ -3115,7 +3243,7 @@ extern "C" {
     );
 }
 extern "C" {
-    #[doc = " @brief Add font variation.\n\n @syscap SystemCapability.Graphic.Graphic2D.NativeDrawing\n @param style Indicates the pointer to an <b>OH_Drawing_TextStyle</b> object.\n @param axis Indicates the pointer to font variation axis.\n @param value Indicates the font variation value to set.\n @since 12\n @version 1.0"]
+    #[doc = " @brief Adds a font variation. This function takes effect only when the corresponding font file (.ttf file) supports\n variable adjustment. Otherwise, calling this function does not take effect.\n\n @syscap SystemCapability.Graphic.Graphic2D.NativeDrawing\n @param style Pointer to the **OH_Drawing_TextStyle** object, which is obtained from\n     {@link OH_Drawing_CreateTextStyle}.\n @param axis Pointer to the key in the font variation key-value pair. Currently, only **'wght'** is supported,\n     indicating the font weight.\n @param value Value of the font variation key-value pair. Currently, the value range of **'wght'** for the default\n     font is \\[0,900\\].\n @since 12\n @version 1.0"]
     pub fn OH_Drawing_TextStyleAddFontVariation(
         style: *mut OH_Drawing_TextStyle,
         axis: *const ::std::os::raw::c_char,
@@ -3123,7 +3251,7 @@ extern "C" {
     );
 }
 extern "C" {
-    #[doc = " @brief Add font variation with normalization data.\n\n @param style Indicates the pointer to an <b>OH_Drawing_TextStyle</b> object.\n @param axis Indicates the pointer to font variation axis.\n @param normalizedValue Indicates the font variation value to set.\n @since 24"]
+    #[doc = " @brief Adds the normalized variable font attributes. This function takes effect only when the corresponding font\n file (.ttf file) supports variable adjustment.\n\n @param style Pointer to the **OH_Drawing_TextStyle** object, which is obtained from\n     {@link OH_Drawing_CreateTextStyle}.\n @param axis Pointer to the key in the font variation key-value pair.\n @param normalizedValue Value of the font variation key-value pair. The normalized value range is [-1,1], mapping the\n     range from the minimum value to the maximum value configured in the font file. **0** indicates the default value\n     configured in the font file.\n @since 24"]
     #[cfg(feature = "api-24")]
     pub fn OH_Drawing_TextStyleAddFontVariationWithNormalization(
         style: *mut OH_Drawing_TextStyle,
@@ -3132,98 +3260,98 @@ extern "C" {
     );
 }
 extern "C" {
-    #[doc = " @brief Get all font features.\n\n @syscap SystemCapability.Graphic.Graphic2D.NativeDrawing\n @param style Indicates the pointer to an <b>OH_Drawing_TextStyle</b> object.\n @return OH_Drawing_FontFeature Indicates the pointer to an array of structures of OH_Drawing_FontFeature.\n Get size of font feature by OH_Drawing_TextStyleGetFontFeatureSize.\n @since 12\n @version 1.0"]
+    #[doc = " @brief Obtains all the contents in a font feature map container of a text style.\n\n @syscap SystemCapability.Graphic.Graphic2D.NativeDrawing\n @param style Pointer to the **OH_Drawing_TextStyle** object, which is obtained from\n     {@link OH_Drawing_CreateTextStyle}.\n @return Pointer to the font feature struct, which stores all the contents obtained.\n @since 12\n @version 1.0"]
     pub fn OH_Drawing_TextStyleGetFontFeatures(
         style: *mut OH_Drawing_TextStyle,
     ) -> *mut OH_Drawing_FontFeature;
 }
 extern "C" {
-    #[doc = " @brief Release the memory occupied by array of structures of font features.\n\n @syscap SystemCapability.Graphic.Graphic2D.NativeDrawing\n @param fontFeature Indicates the pointer to an array of structures of OH_Drawing_FontFeature.\n @param fontFeatureSize Indicates the size of array of structures of OH_Drawing_FontFeature.\n @since 12\n @version 1.0"]
+    #[doc = " @brief Reclaims the memory occupied by the struct array that holds all the font features.\n\n @syscap SystemCapability.Graphic.Graphic2D.NativeDrawing\n @param fontFeature Pointer to the struct array that holds all the font features, which is obtained from\n     {@link OH_Drawing_TextStyleGetFontFeatures}.\n @param fontFeatureSize Size of the struct array that holds all the font features.\n @since 12\n @version 1.0"]
     pub fn OH_Drawing_TextStyleDestroyFontFeatures(
         fontFeature: *mut OH_Drawing_FontFeature,
         fontFeatureSize: usize,
     );
 }
 extern "C" {
-    #[doc = " @brief Get size of font features.\n\n @syscap SystemCapability.Graphic.Graphic2D.NativeDrawing\n @param style Indicates the pointer to an <b>OH_Drawing_TextStyle</b> object.\n @return Returns the size of fontfeatures map.\n @since 12\n @version 1.0"]
+    #[doc = " @brief Obtains the size of a font feature map container in a text style.\n\n @syscap SystemCapability.Graphic.Graphic2D.NativeDrawing\n @param style Pointer to the **OH_Drawing_TextStyle** object, which is obtained from\n     {@link OH_Drawing_CreateTextStyle}.\n @return Size of a font feature map container.\n @since 12\n @version 1.0"]
     pub fn OH_Drawing_TextStyleGetFontFeatureSize(style: *mut OH_Drawing_TextStyle) -> usize;
 }
 extern "C" {
-    #[doc = " @brief Clear font features.\n\n @syscap SystemCapability.Graphic.Graphic2D.NativeDrawing\n @param style Indicates the pointer to an <b>OH_Drawing_TextStyle</b> object.\n @since 12\n @version 1.0"]
+    #[doc = " @brief Clears all the contents in a font feature map container of a text style.\n\n @syscap SystemCapability.Graphic.Graphic2D.NativeDrawing\n @param style Pointer to the **OH_Drawing_TextStyle** object, which is obtained from\n     {@link OH_Drawing_CreateTextStyle}.\n @since 12\n @version 1.0"]
     pub fn OH_Drawing_TextStyleClearFontFeature(style: *mut OH_Drawing_TextStyle);
 }
 extern "C" {
-    #[doc = " @brief Set baseline shift of text.\n\n @syscap SystemCapability.Graphic.Graphic2D.NativeDrawing\n @param style Indicates the pointer to an <b>OH_Drawing_TextStyle</b> object.\n @param lineShift Indicates the baseline shift to set.\n @since 12\n @version 1.0"]
+    #[doc = " @brief Sets a baseline drift for a text style.\n\n @syscap SystemCapability.Graphic.Graphic2D.NativeDrawing\n @param style Pointer to the **OH_Drawing_TextStyle** object, which is obtained from\n     {@link OH_Drawing_CreateTextStyle}.\n @param lineShift Baseline offset of the text. A positive value shifts upward, and a negative value shifts downward,\n     in px.\n @since 12\n @version 1.0"]
     pub fn OH_Drawing_TextStyleSetBaselineShift(style: *mut OH_Drawing_TextStyle, lineShift: f64);
 }
 extern "C" {
-    #[doc = " @brief Get baseline shift of text.\n\n @syscap SystemCapability.Graphic.Graphic2D.NativeDrawing\n @param style Indicates the pointer to an <b>OH_Drawing_TextStyle</b> object.\n @return Returns the baseline shift.\n @since 12\n @version 1.0"]
+    #[doc = " @brief Obtains the baseline drift of a text style.\n\n @syscap SystemCapability.Graphic.Graphic2D.NativeDrawing\n @param style Pointer to the **OH_Drawing_TextStyle** object, which is obtained from\n     {@link OH_Drawing_CreateTextStyle}.\n @return Baseline shift.\n @since 12\n @version 1.0"]
     pub fn OH_Drawing_TextStyleGetBaselineShift(style: *mut OH_Drawing_TextStyle) -> f64;
 }
 extern "C" {
-    #[doc = " @brief Gets the text color.\n\n @syscap SystemCapability.Graphic.Graphic2D.NativeDrawing\n @param style Indicates the pointer to an <b>OH_Drawing_TextStyle</b> object.\n @return Returns the text color.\n @since 12\n @version 1.0"]
+    #[doc = " @brief Obtains the color of a text style.\n\n @syscap SystemCapability.Graphic.Graphic2D.NativeDrawing\n @param style Pointer to the {@link OH_Drawing_TextStyle} object, which is obtained from\n     {@link OH_Drawing_CreateTextStyle}.\n @return Text color.\n @since 12\n @version 1.0"]
     pub fn OH_Drawing_TextStyleGetColor(style: *mut OH_Drawing_TextStyle) -> u32;
 }
 extern "C" {
-    #[doc = " @brief Gets text decoration style.\n\n @syscap SystemCapability.Graphic.Graphic2D.NativeDrawing\n @param style Indicates the pointer to an <b>OH_Drawing_TextStyle</b> object.\n @return Returns text decoration style.\n @since 12\n @version 1.0"]
+    #[doc = " @brief Obtains the decoration style of a text style.\n\n @syscap SystemCapability.Graphic.Graphic2D.NativeDrawing\n @param style Pointer to the {@link OH_Drawing_TextStyle} object, which is obtained from\n     {@link OH_Drawing_CreateTextStyle}.\n @return Text decoration style. For details, see {@link OH_Drawing_TextDecorationStyle}.\n @since 12\n @version 1.0"]
     pub fn OH_Drawing_TextStyleGetDecorationStyle(
         style: *mut OH_Drawing_TextStyle,
     ) -> OH_Drawing_TextDecorationStyle;
 }
 extern "C" {
-    #[doc = " @brief Gets font weight.\n\n @syscap SystemCapability.Graphic.Graphic2D.NativeDrawing\n @param style Indicates the pointer to an <b>OH_Drawing_TextStyle</b> object.\n @return Returns font Weight.\n @since 12\n @version 1.0"]
+    #[doc = " @brief Obtains the font weight of a text style.\n\n @syscap SystemCapability.Graphic.Graphic2D.NativeDrawing\n @param style Pointer to the {@link OH_Drawing_TextStyle} object, which is obtained from\n     {@link OH_Drawing_CreateTextStyle}.\n @return Font weight. For details, see {@link OH_Drawing_FontWeight}.\n @since 12\n @version 1.0"]
     pub fn OH_Drawing_TextStyleGetFontWeight(
         style: *mut OH_Drawing_TextStyle,
     ) -> OH_Drawing_FontWeight;
 }
 extern "C" {
-    #[doc = " @brief Gets font style.\n\n @syscap SystemCapability.Graphic.Graphic2D.NativeDrawing\n @param style Indicates the pointer to an <b>OH_Drawing_TextStyle</b> object.\n @return Returns font style.\n @since 12\n @version 1.0"]
+    #[doc = " @brief Obtains the font style of a text style.\n\n @syscap SystemCapability.Graphic.Graphic2D.NativeDrawing\n @param style Pointer to the {@link OH_Drawing_TextStyle} object, which is obtained from\n     {@link OH_Drawing_CreateTextStyle}.\n @return Font style. For details, see {@link OH_Drawing_FontStyle}.\n @since 12\n @version 1.0"]
     pub fn OH_Drawing_TextStyleGetFontStyle(
         style: *mut OH_Drawing_TextStyle,
     ) -> OH_Drawing_FontStyle;
 }
 extern "C" {
-    #[doc = " @brief Gets the font baseline.\n\n @syscap SystemCapability.Graphic.Graphic2D.NativeDrawing\n @param style Indicates the pointer to an <b>OH_Drawing_TextStyle</b> object.\n @return Returns the font baseline.\n @since 12\n @version 1.0"]
+    #[doc = " @brief Obtains the baseline of a text style.\n\n @syscap SystemCapability.Graphic.Graphic2D.NativeDrawing\n @param style Pointer to the {@link OH_Drawing_TextStyle} object, which is obtained from\n     {@link OH_Drawing_CreateTextStyle}.\n @return Font baseline position. For details, see {@link OH_Drawing_TextBaseline}.\n @since 12\n @version 1.0"]
     pub fn OH_Drawing_TextStyleGetBaseline(
         style: *mut OH_Drawing_TextStyle,
     ) -> OH_Drawing_TextBaseline;
 }
 extern "C" {
-    #[doc = " @brief Gets a list of font families.\n\n @syscap SystemCapability.Graphic.Graphic2D.NativeDrawing\n @param style Indicates the pointer to an <b>OH_Drawing_TextStyle</b> object.\n @param num Indicates count of font families result.\n @return Returns a list of font families.\n @since 12\n @version 1.0"]
+    #[doc = " @brief Obtains the font family name list.\n\n @syscap SystemCapability.Graphic.Graphic2D.NativeDrawing\n @param style Pointer to the {@link OH_Drawing_TextStyle} object, which is obtained from\n     {@link OH_Drawing_CreateTextStyle}.\n @param num Pointer to the number of font families.\n @return Pointer to the obtained font family name list.\n @since 12\n @version 1.0"]
     pub fn OH_Drawing_TextStyleGetFontFamilies(
         style: *mut OH_Drawing_TextStyle,
         num: *mut usize,
     ) -> *mut *mut ::std::os::raw::c_char;
 }
 extern "C" {
-    #[doc = " @brief Releases the memory occupied by a list of font families.\n\n @syscap SystemCapability.Graphic.Graphic2D.NativeDrawing\n @param fontFamilies Indicates the pointer to a list of font families.\n @param num Indicates the count of obtained font families.\n @since 12\n @version 1.0"]
+    #[doc = " @brief Reclaims the memory occupied by the font families, where **num** specifies the number of font families.\n\n @syscap SystemCapability.Graphic.Graphic2D.NativeDrawing\n @param fontFamilies Double pointer to the font families.\n @param num Number of font families.\n @since 12\n @version 1.0"]
     pub fn OH_Drawing_TextStyleDestroyFontFamilies(
         fontFamilies: *mut *mut ::std::os::raw::c_char,
         num: usize,
     );
 }
 extern "C" {
-    #[doc = " @brief Gets font size.\n\n @syscap SystemCapability.Graphic.Graphic2D.NativeDrawing\n @param style Indicates the pointer to an <b>OH_Drawing_TextStyle</b> object.\n @return Returns font size.\n @since 12\n @version 1.0"]
+    #[doc = " @brief Obtains the font size of a text style.\n\n @syscap SystemCapability.Graphic.Graphic2D.NativeDrawing\n @param style Pointer to the {@link OH_Drawing_TextStyle} object, which is obtained from\n     {@link OH_Drawing_CreateTextStyle}.\n @return Font size.\n @since 12\n @version 1.0"]
     pub fn OH_Drawing_TextStyleGetFontSize(style: *mut OH_Drawing_TextStyle) -> f64;
 }
 extern "C" {
-    #[doc = " @brief Gets the letter spacing of the text.\n\n @syscap SystemCapability.Graphic.Graphic2D.NativeDrawing\n @param style Indicates the pointer to an <b>OH_Drawing_TextStyle</b> object.\n @return Returns the size of the letter spacing.\n @since 12\n @version 1.0"]
+    #[doc = " @brief Obtains the letter spacing of a text style.\n\n @syscap SystemCapability.Graphic.Graphic2D.NativeDrawing\n @param style Pointer to the {@link OH_Drawing_TextStyle} object, which is obtained from\n     {@link OH_Drawing_CreateTextStyle}.\n @return Letter spacing.\n @since 12\n @version 1.0"]
     pub fn OH_Drawing_TextStyleGetLetterSpacing(style: *mut OH_Drawing_TextStyle) -> f64;
 }
 extern "C" {
-    #[doc = " @brief Gets the word spacing of the text.\n\n @syscap SystemCapability.Graphic.Graphic2D.NativeDrawing\n @param style Indicates the pointer to an <b>OH_Drawing_TextStyle</b> object.\n @return Returns word spacing size.\n @since 12\n @version 1.0"]
+    #[doc = " @brief Obtains the word spacing of a text style.\n\n @syscap SystemCapability.Graphic.Graphic2D.NativeDrawing\n @param style Pointer to the {@link OH_Drawing_TextStyle} object, which is obtained from\n     {@link OH_Drawing_CreateTextStyle}.\n @return Word spacing.\n @since 12\n @version 1.0"]
     pub fn OH_Drawing_TextStyleGetWordSpacing(style: *mut OH_Drawing_TextStyle) -> f64;
 }
 extern "C" {
-    #[doc = " @brief Gets font height.\n\n @syscap SystemCapability.Graphic.Graphic2D.NativeDrawing\n @param style Indicates the pointer to an <b>OH_Drawing_TextStyle</b> object.\n @return Returns font height.\n @since 12\n @version 1.0"]
+    #[doc = " @brief Obtains the font height of a text style.\n\n @syscap SystemCapability.Graphic.Graphic2D.NativeDrawing\n @param style Pointer to the {@link OH_Drawing_TextStyle} object, which is obtained from\n     {@link OH_Drawing_CreateTextStyle}.\n @return Font height of a text style.\n @since 12\n @version 1.0"]
     pub fn OH_Drawing_TextStyleGetFontHeight(style: *mut OH_Drawing_TextStyle) -> f64;
 }
 extern "C" {
-    #[doc = " @brief Gets whether to set the text to half line spacing.\n\n @syscap SystemCapability.Graphic.Graphic2D.NativeDrawing\n @param style Indicates the pointer to an <b>OH_Drawing_TextStyle</b> object.\n @return Returns true indicates that the spacing takes effect,\n false indicates that the spacing does not take effect.\n @since 12\n @version 1.0"]
+    #[doc = " @brief Checks whether half leading is enabled for a text style.\n\n @syscap SystemCapability.Graphic.Graphic2D.NativeDrawing\n @param style Pointer to the {@link OH_Drawing_TextStyle} object, which is obtained from\n     {@link OH_Drawing_CreateTextStyle}.\n @return Whether half leading is enabled for a text style. **true** means enabled; **false** otherwise.\n @since 12\n @version 1.0"]
     pub fn OH_Drawing_TextStyleGetHalfLeading(style: *mut OH_Drawing_TextStyle) -> bool;
 }
 extern "C" {
-    #[doc = " @brief Sets the typography vertical alignment mode.\n\n @syscap SystemCapability.Graphic.Graphic2D.NativeDrawing\n @param style Indicates the pointer to an <b>OH_Drawing_TypographyStyle</b> object.\n @param align Indicates the typography vertical alignment mode. For details,\n see the enum <b>OH_Drawing_TextVerticalAlignment</b>.\n @since 20\n @version 1.0"]
+    #[doc = " @brief Vertical alignment mode of the text.\n\n @syscap SystemCapability.Graphic.Graphic2D.NativeDrawing\n @param style Pointer to the {@link OH_Drawing_TypographyStyle} object, which is obtained from\n     {@link OH_Drawing_CreateTypographyStyle}.\n @param align Vertical alignment mode of the text. The default mode is baseline alignment. For details about other\n     options, see {@link OH_Drawing_TextVerticalAlignment}.\n @since 20\n @version 1.0"]
     #[cfg(feature = "api-20")]
     pub fn OH_Drawing_SetTypographyVerticalAlignment(
         style: *mut OH_Drawing_TypographyStyle,
@@ -3231,13 +3359,13 @@ extern "C" {
     );
 }
 extern "C" {
-    #[doc = " @brief Gets the locale.\n\n @syscap SystemCapability.Graphic.Graphic2D.NativeDrawing\n @param style Indicates the pointer to an <b>OH_Drawing_TextStyle</b> object.\n @return Returns a locale of data type as a pointer to a char. As with the TextStyle lifecycle.\n No release is required and the return value is invalidated after the set method is called.\n @since 12\n @version 1.0"]
+    #[doc = " @brief Obtains the locale of a text style.\n\n @syscap SystemCapability.Graphic.Graphic2D.NativeDrawing\n @param style Pointer to the {@link OH_Drawing_TextStyle} object, which is obtained from\n     {@link OH_Drawing_CreateTextStyle}.\n @return Pointer to the locale in the format of language-country. For example, zh-CN indicates Chinese (China), and\n     en-US indicates English (United States). For details, see BCP 47.\n @since 12\n @version 1.0"]
     pub fn OH_Drawing_TextStyleGetLocale(
         style: *mut OH_Drawing_TextStyle,
     ) -> *const ::std::os::raw::c_char;
 }
 extern "C" {
-    #[doc = " @brief Sets whether to use superscript or subscript in text layout.\n\n @syscap SystemCapability.Graphic.Graphic2D.NativeDrawing\n @param style Pointer to an OH_Drawing_TextStyle object.\n @param textBadgeType Superscript or subscript to use.\n @since 20"]
+    #[doc = " @brief Sets whether to enable superscript or subscript for text typography. If this API is not called, superscript\n and subscript are disabled by default.\n\n @syscap SystemCapability.Graphic.Graphic2D.NativeDrawing\n @param style Pointer to the {@link OH_Drawing_TextStyle} object, which is obtained from\n     {@link OH_Drawing_CreateTextStyle}.\n @param textBadgeType Whether to enable superscript or subscript in text typography. TEXT_SUPERSCRIPT enables\n     superscript, TEXT_SUBSCRIPT enables subscript, and the default value TEXT_BADGE_NONE disables both.\n @since 20"]
     #[cfg(feature = "api-20")]
     pub fn OH_Drawing_SetTextStyleBadgeType(
         style: *mut OH_Drawing_TextStyle,
@@ -3245,47 +3373,47 @@ extern "C" {
     );
 }
 extern "C" {
-    #[doc = " @brief Sets the text style, including font weight, font width and font slant.\n\n @syscap SystemCapability.Graphic.Graphic2D.NativeDrawing\n @param drawingTextStyle Indicates the pointer to an <b>OH_Drawing_TextStyle</b> object.\n @param fontStyle Indicates an <b>OH_Drawing_FontStyleStruct</b> object.\n @since 12\n @version 1.0"]
+    #[doc = " @brief Sets the font style, including the font weight, width, and slant, for a text style.\n\n @syscap SystemCapability.Graphic.Graphic2D.NativeDrawing\n @param drawingTextStyle Pointer to the {@link OH_Drawing_TextStyle} object, which is obtained from\n     {@link OH_Drawing_CreateTextStyle}.\n @param fontStyle Font style, including the font weight, width, and slant.\n @since 12\n @version 1.0"]
     pub fn OH_Drawing_SetTextStyleFontStyleStruct(
         drawingTextStyle: *mut OH_Drawing_TextStyle,
         fontStyle: OH_Drawing_FontStyleStruct,
     );
 }
 extern "C" {
-    #[doc = " @brief Gets the text style, including font weight, font width and font slant.\n\n @syscap SystemCapability.Graphic.Graphic2D.NativeDrawing\n @param drawingTextStyle Indicates the pointer to an <b>OH_Drawing_TextStyle</b> object.\n @return Returns the <b>OH_Drawing_FontStyleStruct</b> object getted.\n @since 12\n @version 1.0"]
+    #[doc = " @brief Obtains the font style, including the font weight, width, and slant, of a text style.\n\n @syscap SystemCapability.Graphic.Graphic2D.NativeDrawing\n @param drawingTextStyle Pointer to the {@link OH_Drawing_TextStyle} object, which is obtained from\n     {@link OH_Drawing_CreateTextStyle}.\n @return Returns the obtained font style object.\n @since 12\n @version 1.0"]
     pub fn OH_Drawing_TextStyleGetFontStyleStruct(
         drawingTextStyle: *mut OH_Drawing_TextStyle,
     ) -> OH_Drawing_FontStyleStruct;
 }
 extern "C" {
-    #[doc = " @brief Sets the typography style, including font weight, font width and font slant.\n\n @syscap SystemCapability.Graphic.Graphic2D.NativeDrawing\n @param drawingStyle Indicates the pointer to an <b>OH_Drawing_TypographyStyle</b> object.\n @param fontStyle Indicates an <b>OH_Drawing_FontStyleStruct</b> object.\n @since 12\n @version 1.0"]
+    #[doc = " @brief Sets the font style, including the font weight, width, and slant, for the default text style of a typography\n style.\n\n @syscap SystemCapability.Graphic.Graphic2D.NativeDrawing\n @param drawingStyle Pointer to the {@link OH_Drawing_TypographyStyle} object, which is obtained from\n     {@link OH_Drawing_CreateTypographyStyle}.\n @param fontStyle Font style, including the font weight, width, and slant.\n @since 12\n @version 1.0"]
     pub fn OH_Drawing_SetTypographyStyleFontStyleStruct(
         drawingStyle: *mut OH_Drawing_TypographyStyle,
         fontStyle: OH_Drawing_FontStyleStruct,
     );
 }
 extern "C" {
-    #[doc = " @brief Gets the typography style, including font weight, font width and font slant.\n\n @syscap SystemCapability.Graphic.Graphic2D.NativeDrawing\n @param drawingStyle Indicates the pointer to an <b>OH_Drawing_TypographyStyle</b> object.\n @return Returns the <b>OH_Drawing_FontStyleStruct</b> object getted.\n @since 12\n @version 1.0"]
+    #[doc = " @brief Obtains the font style, including the font weight, width, and slant, of the default text style of a\n typography style.\n\n @syscap SystemCapability.Graphic.Graphic2D.NativeDrawing\n @param drawingStyle Pointer to the typography style object {@link OH_Drawing_TypographyStyle}, obtained by\n     {@link OH_Drawing_CreateTypographyStyle}.\n @return Font style, including the font weight, width, and slant.\n @since 12\n @version 1.0"]
     pub fn OH_Drawing_TypographyStyleGetFontStyleStruct(
         drawingStyle: *mut OH_Drawing_TypographyStyle,
     ) -> OH_Drawing_FontStyleStruct;
 }
 extern "C" {
-    #[doc = " @brief Gets whether the two TextStyle objects are equal.\n\n @syscap SystemCapability.Graphic.Graphic2D.NativeDrawing\n @param style Indicates source of comparison <b>OH_Drawing_TextStyle</b> object.\n @param comparedStyle Indicates comparison <b>OH_Drawing_TextStyle</b> object.\n @return Compare result.\n @since 12\n @version 1.0"]
+    #[doc = " @brief Checks whether two text styles are equal. The word width property is not involved in the comparison.\n\n @syscap SystemCapability.Graphic.Graphic2D.NativeDrawing\n @param style Pointer to the first text style.\n @param comparedStyle Pointer to the first text style.\n @return Whether two text style objects are equal. **true** if the source rectangle is equal to the destination\n     rectangle; **false** otherwise.\n @since 12\n @version 1.0"]
     pub fn OH_Drawing_TextStyleIsEqual(
         style: *const OH_Drawing_TextStyle,
         comparedStyle: *const OH_Drawing_TextStyle,
     ) -> bool;
 }
 extern "C" {
-    #[doc = " @brief Gets whether the font properties of two TextStyle objects are equal.\n\n @syscap SystemCapability.Graphic.Graphic2D.NativeDrawing\n @param style Indicates source of <b>comparison OH_Drawing_TextStyle</b> object.\n @param comparedStyle Indicates comparison <b>OH_Drawing_TextStyle</b> object.\n @return Compare result.\n @since 12\n @version 1.0"]
+    #[doc = " @brief Checks whether the font style properties of two text styles are equal.\n\n @syscap SystemCapability.Graphic.Graphic2D.NativeDrawing\n @param style Pointer to the first text style.\n @param comparedStyle Pointer to the first text style.\n @return true if the font style attributes of the two text style objects are equal; false otherwise.\n @since 12\n @version 1.0"]
     pub fn OH_Drawing_TextStyleIsEqualByFont(
         style: *const OH_Drawing_TextStyle,
         comparedStyle: *const OH_Drawing_TextStyle,
     ) -> bool;
 }
 extern "C" {
-    #[doc = " @brief Gets whether two TextStyle objects match attributes\n\n @syscap SystemCapability.Graphic.Graphic2D.NativeDrawing\n @param style Indicates enumerates of text style type.\n @param comparedStyle Indicates source of comparison <b>OH_Drawing_TextStyle</b> object.\n @param textStyleType Indicates comparison <b>OH_Drawing_TextStyle</b> object.\n @return Match attributes result.\n @since 12\n @version 1.0"]
+    #[doc = " @brief Checks whether two text styles have the same font style type.\n\n @syscap SystemCapability.Graphic.Graphic2D.NativeDrawing\n @param style Pointer to the first text style.\n @param comparedStyle Pointer to the first text style.\n @param textStyleType Text style types as in {@link OH_Drawing_TextStyleType}.\n @return Whether two text styles have the same font style type. **true** means yes; **false** otherwise.\n @since 12\n @version 1.0"]
     pub fn OH_Drawing_TextStyleIsAttributeMatched(
         style: *const OH_Drawing_TextStyle,
         comparedStyle: *const OH_Drawing_TextStyle,
@@ -3293,66 +3421,66 @@ extern "C" {
     ) -> bool;
 }
 extern "C" {
-    #[doc = " @brief Set placeholder of TextStyle.\n\n @syscap SystemCapability.Graphic.Graphic2D.NativeDrawing\n @param style Indicates the pointer to an <b>OH_Drawing_TextStyle</b> object.\n @since 12\n @version 1.0"]
+    #[doc = " @brief Adds a placeholder.\n\n @syscap SystemCapability.Graphic.Graphic2D.NativeDrawing\n @param style Pointer to the {@link OH_Drawing_TextStyle} object, which is obtained from\n     {@link OH_Drawing_CreateTextStyle}.\n @since 12\n @version 1.0"]
     pub fn OH_Drawing_TextStyleSetPlaceholder(style: *mut OH_Drawing_TextStyle);
 }
 extern "C" {
-    #[doc = " @brief Gets whether placeholder is enable.\n\n @syscap SystemCapability.Graphic.Graphic2D.NativeDrawing\n @param style Indicates the pointer to an <b>OH_Drawing_TextStyle</b> object.\n @return Whether placeholder is enable.\n @since 12\n @version 1.0"]
+    #[doc = " @brief Checks whether a placeholder is set for a text style.\n\n @syscap SystemCapability.Graphic.Graphic2D.NativeDrawing\n @param style Pointer to the {@link OH_Drawing_TextStyle} object, which is obtained from\n     {@link OH_Drawing_CreateTextStyle}.\n @return Checks whether a placeholder is set for a text style. **true** means yes; **false** otherwise.\n @since 12\n @version 1.0"]
     pub fn OH_Drawing_TextStyleIsPlaceholder(style: *mut OH_Drawing_TextStyle) -> bool;
 }
 extern "C" {
-    #[doc = " @brief Gets text alignment mode.\n\n @syscap SystemCapability.Graphic.Graphic2D.NativeDrawing\n @param style Indicates the pointer to an <b>OH_Drawing_TypographyStyle</b> object.\n @return Returns text alignment mode.\n @since 12\n @version 1.0"]
+    #[doc = " @brief Obtains the text alignment mode.\n\n @syscap SystemCapability.Graphic.Graphic2D.NativeDrawing\n @param style Pointer to the {@link OH_Drawing_TypographyStyle} object, which is obtained from\n     {@link OH_Drawing_CreateTypographyStyle}.\n @return Text alignment modes as in {@link OH_Drawing_TextAlign}.\n @since 12\n @version 1.0"]
     pub fn OH_Drawing_TypographyStyleGetEffectiveAlignment(
         style: *mut OH_Drawing_TypographyStyle,
     ) -> OH_Drawing_TextAlign;
 }
 extern "C" {
-    #[doc = " @brief Gets whether the hinting is enabled.\n\n @syscap SystemCapability.Graphic.Graphic2D.NativeDrawing\n @param style Indicates the pointer to an <b>OH_Drawing_TypographyStyle</b> object.\n @return True, if the hinting takes effect; False, if the hinting does not take effect.\n @since 12\n @version 1.0"]
+    #[doc = " @brief Checks whether font hinting is enabled for a typography style. Font hinting is used to improve the\n readability and appearance of small-sized text when rendering it.\n\n @syscap SystemCapability.Graphic.Graphic2D.NativeDrawing\n @param style Pointer to the typography style object {@link OH_Drawing_TypographyStyle}, obtained by\n     {@link OH_Drawing_CreateTypographyStyle}.\n @return Whether to enable font hinting for a typography style. **true**: enabled; **false**: disabled.\n @since 12\n @version 1.0"]
     pub fn OH_Drawing_TypographyStyleIsHintEnabled(style: *mut OH_Drawing_TypographyStyle) -> bool;
 }
 extern "C" {
-    #[doc = " @brief Gets system font configuration information.\n\n @syscap SystemCapability.Graphic.Graphic2D.NativeDrawing\n @param errorCode Indicates error code returned, based on the error code to\n release the memory of system font configuration information.\n For details, see the enum <b>OH_Drawing_FontConfigInfoErrorCode</b>.\n @return Returns a pointer to system font configuration information.\n Indicates the pointer to an <b>OH_Drawing_FontConfigInfo</b> object.\n @since 12\n @version 1.0"]
+    #[doc = " @brief Obtains the system font configuration.\n\n @syscap SystemCapability.Graphic.Graphic2D.NativeDrawing\n @param errorCode Error code. For details, see {@link OH_Drawing_FontConfigInfoErrorCode}.\n @return Pointer to the system font configuration. When it is no longer required, call\n     {@link OH_Drawing_DestroySystemFontConfigInfo} to release the pointer to the object.\n @since 12\n @version 1.0"]
     pub fn OH_Drawing_GetSystemFontConfigInfo(
         errorCode: *mut OH_Drawing_FontConfigInfoErrorCode,
     ) -> *mut OH_Drawing_FontConfigInfo;
 }
 extern "C" {
-    #[doc = " @brief Releases the memory occupied by system font configuration information.\n\n @syscap SystemCapability.Graphic.Graphic2D.NativeDrawing\n @param drawFontCfgInfo Indicates the pointer to an <b>OH_Drawing_FontConfigInfo</b> object.\n @since 12\n @version 1.0"]
+    #[doc = " @brief Reclaims the memory occupied by the system font configuration.\n\n @syscap SystemCapability.Graphic.Graphic2D.NativeDrawing\n @param drawFontCfgInfo Pointer to the {@link OH_Drawing_FontConfigInfo} object, which is obtained from\n     {@link OH_Drawing_GetSystemFontConfigInfo}.\n @since 12\n @version 1.0"]
     pub fn OH_Drawing_DestroySystemFontConfigInfo(drawFontCfgInfo: *mut OH_Drawing_FontConfigInfo);
 }
 extern "C" {
-    #[doc = " @brief Sets the strut style for text typography.\n\n @syscap SystemCapability.Graphic.Graphic2D.NativeDrawing\n @param style Indicates the pointer to an <b>OH_Drawing_TypographyStyle</b> object.\n @param strutstyle Indicates the pointer of <b>OH_Drawing_StrutStyle</b> object.\n @since 12\n @version 1.0"]
+    #[doc = " @brief Sets the strut style for a typography style.\n\n @syscap SystemCapability.Graphic.Graphic2D.NativeDrawing\n @param style Pointer to the typography style object {@link OH_Drawing_TypographyStyle}, obtained by\n     {@link OH_Drawing_CreateTypographyStyle}.\n @param strutstyle Pointer to the {@link OH_Drawing_StrutStyle} object, which is obtained from\n     {@link OH_Drawing_TypographyStyleGetStrutStyle}.\n @since 12\n @version 1.0"]
     pub fn OH_Drawing_SetTypographyStyleTextStrutStyle(
         style: *mut OH_Drawing_TypographyStyle,
         strutstyle: *mut OH_Drawing_StrutStyle,
     );
 }
 extern "C" {
-    #[doc = " @brief Releases the memory occupied by an <b>OH_Drawing_StrutStyle</b> object.\n\n @syscap SystemCapability.Graphic.Graphic2D.NativeDrawing\n @param strutstyle Indicates the pointer of <b>OH_Drawing_StrutStyle</b> object.\n @since 12\n @version 1.0"]
+    #[doc = " @brief Reclaims the memory occupied by a strut style.\n\n @syscap SystemCapability.Graphic.Graphic2D.NativeDrawing\n @param strutstyle Pointer to the {@link OH_Drawing_StrutStyle} object, which is obtained from\n     {@link OH_Drawing_TypographyStyleGetStrutStyle}.\n @since 12\n @version 1.0"]
     pub fn OH_Drawing_TypographyStyleDestroyStrutStyle(strutstyle: *mut OH_Drawing_StrutStyle);
 }
 extern "C" {
-    #[doc = " @brief Gets the strut style for text typography.\n\n @syscap SystemCapability.Graphic.Graphic2D.NativeDrawing\n @param style Indicates the pointer to an <b>OH_Drawing_TypographyStyle</b> object.\n @return Returns the pointer of <b>OH_Drawing_StrutStyle</b> object.\n @since 12\n @version 1.0"]
+    #[doc = " @brief Obtains the strut style of a typography style.\n\n @syscap SystemCapability.Graphic.Graphic2D.NativeDrawing\n @param style Pointer to the typography style object {@link OH_Drawing_TypographyStyle}, obtained by\n     {@link OH_Drawing_CreateTypographyStyle}.\n @return Pointer to the {@link OH_Drawing_StrutStyle} object.\n @since 12\n @version 1.0"]
     pub fn OH_Drawing_TypographyStyleGetStrutStyle(
         style: *mut OH_Drawing_TypographyStyle,
     ) -> *mut OH_Drawing_StrutStyle;
 }
 extern "C" {
-    #[doc = " @brief Overriding the struct StrutStyle equals operator.\n\n @syscap SystemCapability.Graphic.Graphic2D.NativeDrawing\n @param from Indicates source of comparison object.\n @param to Indicates comparison object.\n @since 12\n @version 1.0"]
+    #[doc = " @brief Checks whether two strut styles are equal.\n\n @syscap SystemCapability.Graphic.Graphic2D.NativeDrawing\n @param from Pointer to the first strut style.\n @param to Pointer to the second strut style.\n @since 12\n @version 1.0"]
     pub fn OH_Drawing_TypographyStyleStrutStyleEquals(
         from: *mut OH_Drawing_StrutStyle,
         to: *mut OH_Drawing_StrutStyle,
     ) -> bool;
 }
 extern "C" {
-    #[doc = " @brief Sets the hinting of text typography.\n\n @syscap SystemCapability.Graphic.Graphic2D.NativeDrawing\n @param style Indicates the pointer to an <b>OH_Drawing_TypographyStyle</b> object.\n @param hintsEnabled Indicates the hinting of text typography..\n @since 12\n @version 1.0"]
+    #[doc = " @brief Sets whether to enable font hinting for a typography style. Font hinting is used to improve the readability\n and appearance of small-sized text when rendering it.\n\n @syscap SystemCapability.Graphic.Graphic2D.NativeDrawing\n @param style Pointer to the typography style object {@link OH_Drawing_TypographyStyle}, obtained by\n     {@link OH_Drawing_CreateTypographyStyle}.\n @param hintsEnabled Whether to enable font hinting. **true**: enabled; **false**: disabled.\n @since 12\n @version 1.0"]
     pub fn OH_Drawing_TypographyStyleSetHintsEnabled(
         style: *mut OH_Drawing_TypographyStyle,
         hintsEnabled: bool,
     );
 }
 extern "C" {
-    #[doc = " @brief Getting all font metrics from target row.\n\n @syscap SystemCapability.Graphic.Graphic2D.NativeDrawing\n @param typography Indicates a pointer to a typesetting object.\n @param lineNumber Indicates specifies the number of rows.\n @param fontMetricsSize Indicates the return size of font metrics struct from current line.\n @return Returns all character measures for the current row.\n @since 12\n @version 1.0"]
+    #[doc = " @brief Obtains all font metrics from a given line in a typography object. This function must be called after\n {@link OH_Drawing_TypographyLayout} is called. Otherwise, a null pointer is returned. Release this pointer by\n calling {@link OH_Drawing_TypographyDestroyLineFontMetrics} when this object is no longer needed.\n\n @syscap SystemCapability.Graphic.Graphic2D.NativeDrawing\n @param typography Pointer to the {@link OH_Drawing_Typography} object, which is obtained from\n     {@link OH_Drawing_CreateTypography}.\n @param lineNumber Line number, which is an integer. The minimum value is 1, and the maximum value depends on the\n     number of lines parsed by the font engine after text input. If a value greater than the maximum number is passed\n     in, an error value is returned and an error message is printed.\n @param fontMetricsSize Pointer to the size of the struct.\n @return Returns all the font metrics.\n @since 12\n @version 1.0"]
     pub fn OH_Drawing_TypographyGetLineFontMetrics(
         typography: *mut OH_Drawing_Typography,
         lineNumber: usize,
@@ -3360,23 +3488,23 @@ extern "C" {
     ) -> *mut OH_Drawing_Font_Metrics;
 }
 extern "C" {
-    #[doc = " @brief Free up all the space taken up by the lineFontMetric.\n\n @syscap SystemCapability.Graphic.Graphic2D.NativeDrawing\n @param lineFontMetric Indicates the first address of the lineFontMetric gather to be destroyed.\n @since 12\n @version 1.0"]
+    #[doc = " @brief Reclaims the memory occupied by the struct array that holds all the font metrics of a given line.\n\n @syscap SystemCapability.Graphic.Graphic2D.NativeDrawing\n @param lineFontMetric Pointer to the first address of the struct array.\n @since 12\n @version 1.0"]
     pub fn OH_Drawing_TypographyDestroyLineFontMetrics(
         lineFontMetric: *mut OH_Drawing_Font_Metrics,
     );
 }
 extern "C" {
-    #[doc = " @brief Mark the Typography as dirty, and initially state the Typography.\n\n @syscap SystemCapability.Graphic.Graphic2D.NativeDrawing\n @param typography Indicates the pointer to the text <b>OH_Drawing_Typography</b> object.\n @since 12\n @version 1.0"]
+    #[doc = " @brief Marks a typography object as dirty data. This function is used to initialize the typography state.\n\n @syscap SystemCapability.Graphic.Graphic2D.NativeDrawing\n @param typography Pointer to the {@link OH_Drawing_Typography} object, which is obtained from\n     {@link OH_Drawing_CreateTypography}.\n @since 12\n @version 1.0"]
     pub fn OH_Drawing_TypographyMarkDirty(typography: *mut OH_Drawing_Typography);
 }
 extern "C" {
-    #[doc = " @brief Get the unresolved Glyphs count of lines in a text.\n\n @syscap SystemCapability.Graphic.Graphic2D.NativeDrawing\n @param typography Indicates the pointer to the text <b>OH_Drawing_Typography</b> object.\n @return Returns unresolved Glyphs count.\n @since 12\n @version 1.0"]
+    #[doc = " @brief Obtains the number of unresolved glyphs in a typography object. This function can be called only after\n {@link OH_Drawing_TypographyLayout} is called and applied.\n\n @syscap SystemCapability.Graphic.Graphic2D.NativeDrawing\n @param typography Pointer to the {@link OH_Drawing_Typography} object, which is obtained from\n     {@link OH_Drawing_CreateTypography}.\n @return Number of unresolved glyphs.\n @since 12\n @version 1.0"]
     pub fn OH_Drawing_TypographyGetUnresolvedGlyphsCount(
         typography: *mut OH_Drawing_Typography,
     ) -> i32;
 }
 extern "C" {
-    #[doc = " @brief Update the font size of lines in a text.\n\n @syscap SystemCapability.Graphic.Graphic2D.NativeDrawing\n @param typography Indicates the pointer to the text <b>OH_Drawing_Typography</b> object.\n @param from Indicates the source of the original font size.\n @param to Indicates the destination of the updated font size.\n @param fontSize Indicates the size of the font.\n @since 12\n @version 1.0"]
+    #[doc = " @brief Updates the font size in a typography object.\n\n @syscap SystemCapability.Graphic.Graphic2D.NativeDrawing\n @param typography Pointer to the {@link OH_Drawing_Typography} object, which is obtained from\n     {@link OH_Drawing_CreateTypography}.\n @param from Reserved field, which is not used.\n @param to Reserved field, which is not used.\n @param fontSize Updated font size. The value must be greater than 0, in px.\n @since 12\n @version 1.0"]
     pub fn OH_Drawing_TypographyUpdateFontSize(
         typography: *mut OH_Drawing_Typography,
         from: usize,
@@ -3385,12 +3513,12 @@ extern "C" {
     );
 }
 extern "C" {
-    #[doc = " @brief Update the font color of the typography\n\n @syscap SystemCapability.Graphic.Graphic2D.NativeDrawing\n @param typography Indicates the pointer to the text <b>OH_Drawing_Typography</b> object.\n @param color Indicates the color to update.\n @since 20\n @version 1.0"]
+    #[doc = " @brief Updates the font color in a typography object. This API call also updates the decoration color if it hasn't\n been set yet. The updated font color takes effect after you call {@link OH_Drawing_TypographyPaint} to draw the text.\n\n @syscap SystemCapability.Graphic.Graphic2D.NativeDrawing\n @param typography Pointer to the {@link OH_Drawing_Typography} object, which is obtained from\n     {@link OH_Drawing_CreateTypography}.\n @param color New font color.\n @since 20\n @version 1.0"]
     #[cfg(feature = "api-20")]
     pub fn OH_Drawing_TypographyUpdateFontColor(typography: *mut OH_Drawing_Typography, color: u32);
 }
 extern "C" {
-    #[doc = " @brief Update the decoration of the typography.\n\n @syscap SystemCapability.Graphic.Graphic2D.NativeDrawing\n @param typography Indicates the pointer to the text <b>OH_Drawing_Typography</b> object.\n @param decoration Indicates the text decoration to update. For details, see the enum\n <b>OH_Drawing_TextDecoration</b>.\n @since 20\n @version 1.0"]
+    #[doc = " @brief Updates the decoration type of a typography object. The updated decoration type takes effect after you call\n {@link OH_Drawing_TypographyPaint} to draw the text.\n\n @syscap SystemCapability.Graphic.Graphic2D.NativeDrawing\n @param typography Pointer to the {@link OH_Drawing_Typography} object, which is obtained from\n     {@link OH_Drawing_CreateTypography}.\n @param decoration Updated decoration type. For details, see {@link OH_Drawing_TextDecoration}. You can set multiple\n     text decoration types at a time via bitwise OR operations. If a decoration type that is not in the\n     {@link OH_Drawing_TextDecoration} enumeration is set, the original decoration is retained.\n @since 20\n @version 1.0"]
     #[cfg(feature = "api-20")]
     pub fn OH_Drawing_TypographyUpdateDecoration(
         typography: *mut OH_Drawing_Typography,
@@ -3398,7 +3526,7 @@ extern "C" {
     );
 }
 extern "C" {
-    #[doc = " @brief Update the decoration thickness scale of the typography.\n\n @syscap SystemCapability.Graphic.Graphic2D.NativeDrawing\n @param typography Indicates the pointer to the text <b>OH_Drawing_Typography</b> object.\n @param decorationThicknessScale Indicates the thickness scale of the text decoration to update.\n @since 20\n @version 1.0"]
+    #[doc = " @brief Updates the decoration thickness scale of a typography object. The updated decoration thickness scale takes\n effect after you call {@link OH_Drawing_TypographyPaint} to draw the text.\n\n @syscap SystemCapability.Graphic.Graphic2D.NativeDrawing\n @param typography Pointer to the {@link OH_Drawing_Typography} object, which is obtained from\n     {@link OH_Drawing_CreateTypography}.\n @param decorationThicknessScale Thickness scaling ratio of the updated text decoration line. The thickness of the\n     decoration line increases as the ratio increases. If the value is less than or equal to 0, the decoration line\n     will not be drawn.\n @since 20\n @version 1.0"]
     #[cfg(feature = "api-20")]
     pub fn OH_Drawing_TypographyUpdateDecorationThicknessScale(
         typography: *mut OH_Drawing_Typography,
@@ -3406,7 +3534,7 @@ extern "C" {
     );
 }
 extern "C" {
-    #[doc = " @brief Update the decoration style of typography.\n\n @syscap SystemCapability.Graphic.Graphic2D.NativeDrawing\n @param typography Indicates the pointer to the text <b>OH_Drawing_Typography</b> object.\n @param decorationStyle Indicates the text decoration style to update.\n For details, see the enum <b>OH_Drawing_TextDecorationStyle</b>.\n @since 20\n @version 1.0"]
+    #[doc = " @brief Updates the decoration style of a typography object. The updated decoration style takes effect after you call\n {@link OH_Drawing_TypographyPaint} to draw the text.\n\n @syscap SystemCapability.Graphic.Graphic2D.NativeDrawing\n @param typography Pointer to the {@link OH_Drawing_Typography} object, which is obtained from\n     {@link OH_Drawing_CreateTypography}.\n @param decorationStyle Updated text decoration style. For details about the available options, see\n     {@link OH_Drawing_TextDecorationStyle}.\n @since 20\n @version 1.0"]
     #[cfg(feature = "api-20")]
     pub fn OH_Drawing_TypographyUpdateDecorationStyle(
         typography: *mut OH_Drawing_Typography,
@@ -3414,7 +3542,7 @@ extern "C" {
     );
 }
 extern "C" {
-    #[doc = " @brief Updates the decoration color of the paragraph.\n\n @syscap SystemCapability.Graphic.Graphic2D.NativeDrawing\n @param typography Indicates the pointer to the text <b>OH_Drawing_Typography</b> object.\n @param color Indicates the text decoration color to update.\n @since 20\n @version 1.0"]
+    #[doc = " @brief Updates the decoration color of a typography object.\n <br> The updated decoration color takes effect after you call {@link OH_Drawing_TypographyPaint} to draw the text.\n\n @syscap SystemCapability.Graphic.Graphic2D.NativeDrawing\n @param typography Pointer to the {@link OH_Drawing_Typography} object, which is obtained from\n     {@link OH_Drawing_CreateTypography}.\n @param color Updated text decoration color.\n @since 20\n @version 1.0"]
     #[cfg(feature = "api-20")]
     pub fn OH_Drawing_TypographyUpdateDecorationColor(
         typography: *mut OH_Drawing_Typography,
@@ -3422,110 +3550,110 @@ extern "C" {
     );
 }
 extern "C" {
-    #[doc = " @brief Get whether the text layout enables line styles.\n\n @syscap SystemCapability.Graphic.Graphic2D.NativeDrawing\n @param style Indicates the pointer to the text <b>OH_Drawing_TypographyStyle</b> object.\n @return Whether or not to enable line styles in text layout only, true means enable, false means disable.\n @since 12\n @version 1.0"]
+    #[doc = " @brief Checks whether the text line style is enabled for a typography style.\n\n @syscap SystemCapability.Graphic.Graphic2D.NativeDrawing\n @param style Pointer to the {@link OH_Drawing_TypographyStyle} object, which is obtained from\n     {@link OH_Drawing_CreateTypographyStyle}.\n @return Whether the line style is enabled. **true**: enabled; **false**: disabled.\n @since 12\n @version 1.0"]
     pub fn OH_Drawing_TypographyTextGetLineStyle(style: *mut OH_Drawing_TypographyStyle) -> bool;
 }
 extern "C" {
-    #[doc = " @brief Get the font weight of line style for text typography.\n\n @syscap SystemCapability.Graphic.Graphic2D.NativeDrawing\n @param style Indicates the pointer to a typography style object\n <b>OH_Drawing_TypographyStyle</b>.\n @return Return the font weight of line style for text typography.\n For details, see the enum <b>OH_Drawing_FontWeight</b>.\n @since 12\n @version 1.0"]
+    #[doc = " @brief Obtains the font weight of a text line style.\n\n @syscap SystemCapability.Graphic.Graphic2D.NativeDrawing\n @param style Pointer to the {@link OH_Drawing_TypographyStyle} object, which is obtained from\n     {@link OH_Drawing_CreateTypographyStyle}.\n @return Font weight.\n     <br> For details about the available options, see {@link OH_Drawing_FontWeight}.\n @since 12\n @version 1.0"]
     pub fn OH_Drawing_TypographyTextlineStyleGetFontWeight(
         style: *mut OH_Drawing_TypographyStyle,
     ) -> OH_Drawing_FontWeight;
 }
 extern "C" {
-    #[doc = " @brief Get the font style of line style for text typography.\n\n @syscap SystemCapability.Graphic.Graphic2D.NativeDrawing\n @param style Indicates the pointer to a typography style object\n <b>OH_Drawing_TypographyStyle</b>.\n @return Return the font style of line style for text typography.\n For details, see the enum <b>OH_Drawing_FontStyle</b>.\n @since 12\n @version 1.0"]
+    #[doc = " @brief Obtains the font style of the strut style in a typography style.\n\n @syscap SystemCapability.Graphic.Graphic2D.NativeDrawing\n @param style Pointer to the {@link OH_Drawing_TypographyStyle} object, which is obtained from\n     {@link OH_Drawing_CreateTypographyStyle}.\n @return Font style of the strut style in a typography style. **1** indicates italic, and **0** or others indicate\n     non-italic. For details, see the {@link OH_Drawing_FontStyle} enumeration.\n @since 12\n @version 1.0"]
     pub fn OH_Drawing_TypographyTextlineStyleGetFontStyle(
         style: *mut OH_Drawing_TypographyStyle,
     ) -> OH_Drawing_FontStyle;
 }
 extern "C" {
-    #[doc = " @brief Get the font families of line style for text typography.\n\n @syscap SystemCapability.Graphic.Graphic2D.NativeDrawing\n @param style Indicates the pointer to a typography style object\n <b>OH_Drawing_TypographyStyle</b>.\n @param num The number of obtained font names.\n @return Return the font families of line style for text typography.\n @since 12\n @version 1.0"]
+    #[doc = " @brief Obtains the font families of a text line style.\n\n @syscap SystemCapability.Graphic.Graphic2D.NativeDrawing\n @param style Pointer to the {@link OH_Drawing_TypographyStyle} object, which is obtained from\n     {@link OH_Drawing_CreateTypographyStyle}.\n @param num Pointer to the number of font families.\n @return Font families.\n @since 12\n @version 1.0"]
     pub fn OH_Drawing_TypographyTextlineStyleGetFontFamilies(
         style: *mut OH_Drawing_TypographyStyle,
         num: *mut usize,
     ) -> *mut *mut ::std::os::raw::c_char;
 }
 extern "C" {
-    #[doc = " @brief Releases the memory occupied by a list of font families names.\n\n @syscap SystemCapability.Graphic.Graphic2D.NativeDrawing\n @param fontFamilies Indicates the pointer to a list of font families names.\n @param fontFamiliesNum Indicates the number of obtained font names.\n @since 12\n @version 1.0"]
+    #[doc = " @brief Releases the memory occupied by the font family name list.\n\n @syscap SystemCapability.Graphic.Graphic2D.NativeDrawing\n @param fontFamilies Pointer to the font families.\n @param fontFamiliesNum Number of font families.\n @since 12\n @version 1.0"]
     pub fn OH_Drawing_TypographyTextlineStyleDestroyFontFamilies(
         fontFamilies: *mut *mut ::std::os::raw::c_char,
         fontFamiliesNum: usize,
     );
 }
 extern "C" {
-    #[doc = " @brief Get the font size of font size for text typography.\n\n @syscap SystemCapability.Graphic.Graphic2D.NativeDrawing\n @param style Indicates the pointer to a typography style object\n <b>OH_Drawing_TypographyStyle</b>.\n @return Return the font size of font size for text typography.\n @since 12\n @version 1.0"]
+    #[doc = " @brief Obtains the font size of a text line style.\n\n @syscap SystemCapability.Graphic.Graphic2D.NativeDrawing\n @param style Pointer to the {@link OH_Drawing_TypographyStyle} object, which is obtained from\n     {@link OH_Drawing_CreateTypographyStyle}.\n @return Font size.\n @since 12\n @version 1.0"]
     pub fn OH_Drawing_TypographyTextlineStyleGetFontSize(
         style: *mut OH_Drawing_TypographyStyle,
     ) -> f64;
 }
 extern "C" {
-    #[doc = " @brief Get the font height scale in text layout.\n\n @syscap SystemCapability.Graphic.Graphic2D.NativeDrawing\n @param style Indicates the pointer to a typography style object\n <b>OH_Drawing_TypographyStyle</b>.\n @return Retrun the font height scale in text layout.\n @since 12\n @version 1.0"]
+    #[doc = " @brief Obtains the height scale factor of a text line style.\n\n @syscap SystemCapability.Graphic.Graphic2D.NativeDrawing\n @param style Pointer to the {@link OH_Drawing_TypographyStyle} object, which is obtained from\n     {@link OH_Drawing_CreateTypographyStyle}.\n @return Height scale factor.\n @since 12\n @version 1.0"]
     pub fn OH_Drawing_TypographyTextlineStyleGetHeightScale(
         style: *mut OH_Drawing_TypographyStyle,
     ) -> f64;
 }
 extern "C" {
-    #[doc = " @brief Get whether to enable font height for line styles in text layout only.\n\n @syscap SystemCapability.Graphic.Graphic2D.NativeDrawing\n @param style Indicates the pointer to a typography style object\n <b>OH_Drawing_TypographyStyle</b>.\n @return Whether or not to enable the font height for line styles in text layout only,\n true means enable, false means disable.\n @since 12\n @version 1.0"]
+    #[doc = " @brief Checks whether only the font height is used for a text line style.\n\n @syscap SystemCapability.Graphic.Graphic2D.NativeDrawing\n @param style Pointer to the {@link OH_Drawing_TypographyStyle} object, which is obtained from\n     {@link OH_Drawing_CreateTypographyStyle}.\n @return Method for calculating the height of a font block. **true** means that the height is calculated based on the\n     font size; **false** means that the height is calculated based on the line spacing.\n @since 12\n @version 1.0"]
     pub fn OH_Drawing_TypographyTextlineStyleGetHeightOnly(
         style: *mut OH_Drawing_TypographyStyle,
     ) -> bool;
 }
 extern "C" {
-    #[doc = " @brief Get the half leading of line style for text typography.\n\n @syscap SystemCapability.Graphic.Graphic2D.NativeDrawing\n @param style Indicates the pointer to a typography style object\n <b>OH_Drawing_TypographyStyle</b>.\n @return Whether to enable the text line half leading style, true means enable, false means disable.\n @since 12\n @version 1.0"]
+    #[doc = " @brief Checks whether half leading is enabled for a text line style.\n\n @syscap SystemCapability.Graphic.Graphic2D.NativeDrawing\n @param style Pointer to the {@link OH_Drawing_TypographyStyle} object, which is obtained from\n     {@link OH_Drawing_CreateTypographyStyle}.\n @return **true** if half leading is enabled; returns **false** otherwise.\n @since 12\n @version 1.0"]
     pub fn OH_Drawing_TypographyTextlineStyleGetHalfLeading(
         style: *mut OH_Drawing_TypographyStyle,
     ) -> bool;
 }
 extern "C" {
-    #[doc = " @brief Get the spacing scale of line style for text typography.\n\n @syscap SystemCapability.Graphic.Graphic2D.NativeDrawing\n @param style Indicates the pointer to a typography style object\n <b>OH_Drawing_TypographyStyle</b>.\n @return Return the spacing scale of line style for text typography.\n @since 12\n @version 1.0"]
+    #[doc = " @brief Obtains the spacing scale factor of a text line style.\n\n @syscap SystemCapability.Graphic.Graphic2D.NativeDrawing\n @param style Pointer to the {@link OH_Drawing_TypographyStyle} object, which is obtained from\n     {@link OH_Drawing_CreateTypographyStyle}.\n @return Spacing scale factor.\n @since 12\n @version 1.0"]
     pub fn OH_Drawing_TypographyTextlineStyleGetSpacingScale(
         style: *mut OH_Drawing_TypographyStyle,
     ) -> f64;
 }
 extern "C" {
-    #[doc = " @brief Get whether only line style is enabled for text typography.\n\n @syscap SystemCapability.Graphic.Graphic2D.NativeDrawing\n @param style Indicates the pointer to a typography style object\n <b>OH_Drawing_TypographyStyle</b>.\n @return Returns whether only line style is enabled for text layout, true means it is enabled,\n false means it is not.\n @since 12\n @version 1.0"]
+    #[doc = " @brief Checks whether only the text line style is enabled for a typography style.\n\n @syscap SystemCapability.Graphic.Graphic2D.NativeDrawing\n @param style Pointer to the {@link OH_Drawing_TypographyStyle} object, which is obtained from\n     {@link OH_Drawing_CreateTypographyStyle}.\n @return Whether only the text line style is enabled for a typography style. **true**: enabled; **false**: disabled.\n @since 12\n @version 1.0"]
     pub fn OH_Drawing_TypographyTextlineGetStyleOnly(
         style: *mut OH_Drawing_TypographyStyle,
     ) -> bool;
 }
 extern "C" {
-    #[doc = " @brief Get the text alignment mode.\n\n @syscap SystemCapability.Graphic.Graphic2D.NativeDrawing\n @param style Indicates the pointer to a typography style object\n <b>OH_Drawing_TypographyStyle</b>.\n @return Return the text alignment mode. For details, see the enum <b>OH_Drawing_TextAlign</b>.\n @since 12\n @version 1.0"]
+    #[doc = " @brief Obtains the text alignment mode.\n\n @syscap SystemCapability.Graphic.Graphic2D.NativeDrawing\n @param style Pointer to the {@link OH_Drawing_TypographyStyle} object, which is obtained from\n     {@link OH_Drawing_CreateTypographyStyle}.\n @return Alignment mode. For details about the available options, see {@link OH_Drawing_TextAlign}.\n @since 12\n @version 1.0"]
     pub fn OH_Drawing_TypographyGetTextAlign(
         style: *mut OH_Drawing_TypographyStyle,
     ) -> OH_Drawing_TextAlign;
 }
 extern "C" {
-    #[doc = " @brief Get the text direction.\n\n @syscap SystemCapability.Graphic.Graphic2D.NativeDrawing\n @param style Indicates the pointer to a typography style object\n <b>OH_Drawing_TypographyStyle</b>.\n @return Return the text direction. For details, see the enum <b>OH_Drawing_TextDirection</b>.\n @since 12\n @version 1.0"]
+    #[doc = " @brief Obtains the text direction of a typography style.\n\n @syscap SystemCapability.Graphic.Graphic2D.NativeDrawing\n @param style Pointer to the {@link OH_Drawing_TypographyStyle} object, which is obtained from\n     {@link OH_Drawing_CreateTypographyStyle}.\n @return Text direction. **0** means right-to-left; **1** means left-to-right. For details, see\n     {@link OH_Drawing_TextDirection}.\n @since 12\n @version 1.0"]
     pub fn OH_Drawing_TypographyGetTextDirection(
         style: *mut OH_Drawing_TypographyStyle,
     ) -> OH_Drawing_TextDirection;
 }
 extern "C" {
-    #[doc = " @brief Sets the maximum number of lines in a text.\n\n @syscap SystemCapability.Graphic.Graphic2D.NativeDrawing\n @param style Indicates the pointer to a typography style object\n <b>OH_Drawing_TypographyStyle</b>.\n @return Return the maximum number of lines in a text.\n @since 12\n @version 1.0"]
+    #[doc = " @brief Obtains the maximum number of lines.\n\n @syscap SystemCapability.Graphic.Graphic2D.NativeDrawing\n @param style Pointer to the {@link OH_Drawing_TypographyStyle} object, which is obtained from\n     {@link OH_Drawing_CreateTypographyStyle}.\n @return Maximum number of lines.\n @since 12\n @version 1.0"]
     pub fn OH_Drawing_TypographyGetTextMaxLines(style: *mut OH_Drawing_TypographyStyle) -> usize;
 }
 extern "C" {
-    #[doc = " @brief Get the ellipsis of lines in a text.\n\n @syscap SystemCapability.Graphic.Graphic2D.NativeDrawing\n @param style Indicates the pointer to a typography style object\n <b>OH_Drawing_TypographyStyle</b>.\n @return Return the ellipsis of lines in a text.\n @since 12\n @version 1.0"]
+    #[doc = " @brief Obtains the text ellipsis content of a typography style.\n\n @syscap SystemCapability.Graphic.Graphic2D.NativeDrawing\n @param style Pointer to the {@link OH_Drawing_TypographyStyle} object, which is obtained from\n     {@link OH_Drawing_CreateTypographyStyle}.\n @return Ellipsis text.\n @since 12\n @version 1.0"]
     pub fn OH_Drawing_TypographyGetTextEllipsis(
         style: *mut OH_Drawing_TypographyStyle,
     ) -> *mut ::std::os::raw::c_char;
 }
 extern "C" {
-    #[doc = " @brief Releases the memory occupied by a list of Ellipsis names.\n\n @syscap SystemCapability.Graphic.Graphic2D.NativeDrawing\n @param ellipsis Indicates the pointer to a list of Ellipsis names.\n @since 12\n @version 1.0"]
+    #[doc = " @brief Releases the memory occupied by the ellipsis text.\n\n @syscap SystemCapability.Graphic.Graphic2D.NativeDrawing\n @param ellipsis Pointer to the ellipsis text.\n @since 12\n @version 1.0"]
     pub fn OH_Drawing_TypographyDestroyEllipsis(ellipsis: *mut ::std::os::raw::c_char);
 }
 extern "C" {
-    #[doc = " @brief Overriding the class ParagraphStyle equals operator.\n\n @syscap SystemCapability.Graphic.Graphic2D.NativeDrawing\n @param from Indicates source of comparison object.\n @param to Indicates comparison object.\n @return Compare result.\n @since 12\n @version 1.0"]
+    #[doc = " @brief Checks whether two typography styles are the same. The text height modifier mode\n {@link OH_Drawing_TextHeightBehavior} is not involved in the comparison.\n\n @syscap SystemCapability.Graphic.Graphic2D.NativeDrawing\n @param from Pointer to the first typography style.\n @param to Pointer to the second typography style.\n @return Returns **true** if the two are the same; returns **false** otherwise.\n @since 12\n @version 1.0"]
     pub fn OH_Drawing_TypographyStyleEquals(
         from: *mut OH_Drawing_TypographyStyle,
         to: *mut OH_Drawing_TypographyStyle,
     ) -> bool;
 }
 extern "C" {
-    #[doc = " @brief Releases the memory occupied by text box.\n\n @syscap SystemCapability.Graphic.Graphic2D.NativeDrawing\n @param textBox Indicates the pointer to a text box object <b>OH_Drawing_TextBox</b>.\n @since 12\n @version 1.0"]
+    #[doc = " @brief Releases the memory occupied by a text box.\n\n @syscap SystemCapability.Graphic.Graphic2D.NativeDrawing\n @param textBox Pointer to the {@link OH_Drawing_TextBox} object.\n @since 12\n @version 1.0"]
     pub fn OH_Drawing_TypographyDestroyTextBox(textBox: *mut OH_Drawing_TextBox);
 }
 extern "C" {
-    #[doc = " @brief Sets the parameter of text-shadow.\n\n @syscap SystemCapability.Graphic.Graphic2D.NativeDrawing\n @param shadow Indicates the pointer to an <b>OH_Drawing_TextShadow</b> object.\n @param color Indicates the color setting of text-shadow.\n @param offset Indicates the pointer to an <b>OH_Drawing_Point</b> object.\n @param blurRadius Indicates the radius of blur for text-shadow.\n @since 12\n @version 1.0"]
+    #[doc = " @brief Sets the parameters of the text shadow object.\n\n @syscap SystemCapability.Graphic.Graphic2D.NativeDrawing\n @param shadow Pointer to the text shadow object {@link OH_Drawing_TextShadow}, obtained by\n     {@link OH_Drawing_CreateTextShadow}.\n @param color Color of the text shadow. For example, if the input parameter is 0xAABBCCDD, AA represents the alpha\n     value, BB represents the red component, CC represents the green component, and DD represents the blue component.\n @param offset Pointer to the coordinate point object {@link OH_Drawing_Point}, which indicates the offset of the\n     text shadow relative to the current text.\n @param blurRadius Blur radius. The value is a floating point number and has no unit. The value **0.0** means that\n     there is no blur effect.\n @since 12\n @version 1.0"]
     pub fn OH_Drawing_SetTextShadow(
         shadow: *mut OH_Drawing_TextShadow,
         color: u32,
@@ -3534,7 +3662,7 @@ extern "C" {
     );
 }
 extern "C" {
-    #[doc = " @brief Creates an <b>OH_Drawing_TextTab</b> object.\n\n @syscap SystemCapability.Graphic.Graphic2D.NativeDrawing\n @param alignment Indicates enumerates text tab alignment modes. TAB alignment, Support left alignment\n right alignment center alignment, other enumeration values are left alignment effect.\n @param location Indicates location of text tab.\n @return Returns the pointer to the <b>OH_Drawing_TextTab</b> object created. If the object returns NULL,\n the creation failed. The possible cause of the failure is that the application address space is used up.\n As a result, space cannot be allocated.\n @since 18\n @version 1.0"]
+    #[doc = " @brief Creates a text tab object.\n\n @syscap SystemCapability.Graphic.Graphic2D.NativeDrawing\n @param alignment Alignment mode of the text following the tab character. The value **1** means right alignment, **2**\n     means center alignment, and **0** or other values mean left alignment.\n @param location Alignment position of the text following the tab character. The unit is px. The minimum value is **1.\n     0**.\n @return Pointer to the **OH_Drawing_TextTab** object created. If a null pointer is returned, the creation fails. A\n     possible cause is that no memory is available.\n @since 18\n @version 1.0"]
     #[cfg(feature = "api-18")]
     pub fn OH_Drawing_CreateTextTab(
         alignment: OH_Drawing_TextAlign,
@@ -3542,22 +3670,22 @@ extern "C" {
     ) -> *mut OH_Drawing_TextTab;
 }
 extern "C" {
-    #[doc = " @brief Releases the memory occupied by an <b>OH_Drawing_TextTab</b> object.\n\n @syscap SystemCapability.Graphic.Graphic2D.NativeDrawing\n @param tab Indicates the pointer to an <b>OH_Drawing_TextTab</b> object.\n @since 18\n @version 1.0"]
+    #[doc = " @brief Releases the memory occupied by a text tab object.\n\n @syscap SystemCapability.Graphic.Graphic2D.NativeDrawing\n @param tab Pointer to an **OH_Drawing_TextTab** object.\n @since 18\n @version 1.0"]
     #[cfg(feature = "api-18")]
     pub fn OH_Drawing_DestroyTextTab(tab: *mut OH_Drawing_TextTab);
 }
 extern "C" {
-    #[doc = " @brief Get alignment of an <b>OH_Drawing_TextTab</b> object.\n\n @syscap SystemCapability.Graphic.Graphic2D.NativeDrawing\n @param tab Indicates the pointer to an <b>OH_Drawing_TextTab</b> object.\n @return Returns align of an <b>OH_Drawing_TextTab</b> object.\n @since 18\n @version 1.0"]
+    #[doc = " @brief Obtains the alignment mode of a text tab.\n\n @syscap SystemCapability.Graphic.Graphic2D.NativeDrawing\n @param tab Pointer to an **OH_Drawing_TextTab** object.\n @return Alignment mode. The value **1** means right alignment, **2** means center alignment, and **0** or other\n     values mean left alignment.\n @since 18\n @version 1.0"]
     #[cfg(feature = "api-18")]
     pub fn OH_Drawing_GetTextTabAlignment(tab: *mut OH_Drawing_TextTab) -> OH_Drawing_TextAlign;
 }
 extern "C" {
-    #[doc = " @brief Get location of an <b>OH_Drawing_TextTab</b> object.\n\n @syscap SystemCapability.Graphic.Graphic2D.NativeDrawing\n @param tab Indicates the pointer to an <b>OH_Drawing_TextTab</b> object.\n @return Returns location of an <b>OH_Drawing_TextTab</b> object.\n @since 18\n @version 1.0"]
+    #[doc = " @brief Obtains the location of a text tab.\n\n @syscap SystemCapability.Graphic.Graphic2D.NativeDrawing\n @param tab Pointer to an **OH_Drawing_TextTab** object.\n @return Position of the text tab.\n @since 18\n @version 1.0"]
     #[cfg(feature = "api-18")]
     pub fn OH_Drawing_GetTextTabLocation(tab: *mut OH_Drawing_TextTab) -> f32;
 }
 extern "C" {
-    #[doc = " @brief Sets the text tab of <b>OH_Drawing_TypographyStyle</b> object.\n Tab alignment does not take effect when text alignment is also set, Or when the ellipsis style is configured.\n When the tab is not set or the tab's location property is less than or equal to 0, it is the default space effect.\n And all tabs in the paragraph after the setting are aligned according to this tab effect.\n\n @syscap SystemCapability.Graphic.Graphic2D.NativeDrawing\n @param style Indicates the pointer to an <b>OH_Drawing_TypographyStyle</b> object.\n @param tab Indicates the pointer to an <b>OH_Drawing_TextTab</b> object.\n @since 18\n @version 1.0"]
+    #[doc = " @brief Sets the alignment mode and location of a text tab. When the text alignment mode or ellipsis style is set,\n the tab does not take effect. When the tab location is less than 1.0, the tab is replaced with a space.\n\n @syscap SystemCapability.Graphic.Graphic2D.NativeDrawing\n @param style Pointer to the typography style object {@link OH_Drawing_TypographyStyle}.\n @param tab Pointer to an **OH_Drawing_TextTab** object.\n @since 18\n @version 1.0"]
     #[cfg(feature = "api-18")]
     pub fn OH_Drawing_SetTypographyTextTab(
         style: *mut OH_Drawing_TypographyStyle,
@@ -3565,12 +3693,12 @@ extern "C" {
     );
 }
 extern "C" {
-    #[doc = " @brief Get DrawingArray size.\n\n @syscap SystemCapability.Graphic.Graphic2D.NativeDrawing\n @param drawingArray Indicates the pointer to the array object <b>OH_Drawing_Array</b>.\n @return Size of array.\n @since 14\n @version 1.0"]
+    #[doc = " @brief Obtains the number of objects in the input object array {@link OH_Drawing_Array}.\n\n @syscap SystemCapability.Graphic.Graphic2D.NativeDrawing\n @param drawingArray Pointer to the {@link OH_Drawing_Array} object array.\n @return Number of objects in the array.\n @since 14\n @version 1.0"]
     #[cfg(feature = "api-14")]
     pub fn OH_Drawing_GetDrawingArraySize(drawingArray: *mut OH_Drawing_Array) -> usize;
 }
 extern "C" {
-    #[doc = " @brief Sets whether to optimize whitespace at the end of each line for text typography.\n\n @syscap SystemCapability.Graphic.Graphic2D.NativeDrawing\n @param style Indicates the pointer to an <b>OH_Drawing_TypographyStyle</b> object.\n @param trailingSpaceOptimized Boolean value indicating whether to optimize whitespace at the end of each line\n for text typography to set.\n @since 20\n @version 1.0"]
+    #[doc = " @brief Sets whether to include the trailing spaces in alignment calculations during text typography.\n\n @syscap SystemCapability.Graphic.Graphic2D.NativeDrawing\n @param style Pointer to the typography style object {@link OH_Drawing_TypographyStyle}.\n @param trailingSpaceOptimized Whether trailing spaces participate in alignment calculation during text typography.\n     The value true means trailing spaces do not participate in calculation, and false means they do. The default\n     value is false. It is recommended to set this parameter to true for center-aligned text.\n @since 20\n @version 1.0"]
     #[cfg(feature = "api-20")]
     pub fn OH_Drawing_SetTypographyTextTrailingSpaceOptimized(
         style: *mut OH_Drawing_TypographyStyle,
@@ -3578,7 +3706,7 @@ extern "C" {
     );
 }
 extern "C" {
-    #[doc = " @brief Sets the text content. The content supports UTF-8, UTF-16, and UTF-32 formats.\n\n @syscap SystemCapability.Graphic.Graphic2D.NativeDrawing\n @param handler Indicates the pointer to an <b>OH_Drawing_TypographyCreate</b> object.\n @param text Indicates the pointer to the text content to set.\n @param byteLength Set the byte length of the text content.\n @param textEncodingType Indicates the text encoding type <b>OH_Drawing_TextEncoding</b>.\n @since 20\n @version 1.0"]
+    #[doc = " @brief Adds text encoded in a specified format.\n\n @syscap SystemCapability.Graphic.Graphic2D.NativeDrawing\n @param handler Pointer to the {@link OH_Drawing_TypographyCreate} object, which is obtained from\n     {@link OH_Drawing_CreateTypographyHandler}.\n @param text Pointer to the text content.\n @param byteLength Length of the text, in bytes.\n @param textEncodingType Text encoding type, which is an enumerated value of {@link OH_Drawing_TextEncoding}. Only **\n     TEXT_ENCODING_UTF8**, **TEXT_ENCODING_UTF16**, and **TEXT_ENCODING_UTF32** are supported.\n @since 20\n @version 1.0"]
     #[cfg(feature = "api-20")]
     pub fn OH_Drawing_TypographyHandlerAddEncodedText(
         handler: *mut OH_Drawing_TypographyCreate,
@@ -3588,7 +3716,7 @@ extern "C" {
     );
 }
 extern "C" {
-    #[doc = " @brief Set whether to enable automatic spacing between Chinese and English for paragraph.\n\n @syscap SystemCapability.Graphic.Graphic2D.NativeDrawing\n @param style Indicates the pointer to an <b>OH_Drawing_TypographyStyle</b> object.\n @param enableAutoSpace Indicates Whether to enable automatic spacing between Chinese and English.\n @since 20"]
+    #[doc = " @brief Sets whether to enable auto spacing for text typography.\n <br>Auto spacing is disabled by default. Once enabled, the spacing between CJK (Chinese, Japanese, and Korean\n characters) and Western characters (Latin, Cyrillic, and Greek letters), CJK and digits, CJK and copyright symbols,\n copyright symbols and digits, and copyright symbols and Western characters is automatically adjusted.\n\n @syscap SystemCapability.Graphic.Graphic2D.NativeDrawing\n @param style Pointer to an {@link OH_Drawing_TypographyStyle} object, obtained by\n     {@link OH_Drawing_CreateTypographyStyle}.\n @param enableAutoSpace Whether to enable automatic spacing in text typography. The value `true` means to enable\n     automatic spacing, and `false` means the opposite. The default value is `false`.\n @since 20"]
     #[cfg(feature = "api-20")]
     pub fn OH_Drawing_SetTypographyTextAutoSpace(
         style: *mut OH_Drawing_TypographyStyle,
@@ -3596,33 +3724,33 @@ extern "C" {
     );
 }
 extern "C" {
-    #[doc = " @brief Copy a typography style object.\n\n @syscap SystemCapability.Graphic.Graphic2D.NativeDrawing\n @param style Indicates the pointer to an <b>OH_Drawing_TypographyStyle</b> object.\n @return Returns the pointer to the copied <b>OH_Drawing_TypographyStyle</b> object.\n @since 20\n @version 1.0"]
+    #[doc = " @brief Creates a copy of an existing paragraph style object.\n\n @syscap SystemCapability.Graphic.Graphic2D.NativeDrawing\n @param style Pointer to the {@link OH_Drawing_TypographyStyle} object to be copied.\n @return Pointer to the copied {@link OH_Drawing_TypographyStyle} object. If a null pointer is returned, the creation\n     fails. The possible cause is that no memory is available or **style** is a null pointer. Release this pointer by\n     calling {@link OH_Drawing_DestroyTypographyStyle} when this object is no longer needed.\n @since 20\n @version 1.0"]
     #[cfg(feature = "api-20")]
     pub fn OH_Drawing_CopyTypographyStyle(
         style: *mut OH_Drawing_TypographyStyle,
     ) -> *mut OH_Drawing_TypographyStyle;
 }
 extern "C" {
-    #[doc = " @brief Copy a text style object.\n\n @syscap SystemCapability.Graphic.Graphic2D.NativeDrawing\n @param style Indicates the pointer to an <b>OH_Drawing_TextStyle</b> object.\n @return Returns the pointer to the copied <b>OH_Drawing_TextStyle</b> object.\n @since 20\n @version 1.0"]
+    #[doc = " @brief Creates a copy of an existing text style object.\n\n @syscap SystemCapability.Graphic.Graphic2D.NativeDrawing\n @param style Pointer to the {@link OH_Drawing_TextStyle} object to be copied.\n @return Pointer to the copied {@link OH_Drawing_TextStyle} object. If a null pointer is returned, the creation fails.\n      The possible cause is that no memory is available or **style** is a null pointer. Release this pointer by\n     calling {@link OH_Drawing_DestroyTextStyle} when this object is no longer needed.\n @since 20\n @version 1.0"]
     #[cfg(feature = "api-20")]
     pub fn OH_Drawing_CopyTextStyle(style: *mut OH_Drawing_TextStyle) -> *mut OH_Drawing_TextStyle;
 }
 extern "C" {
-    #[doc = " @brief Copy a text shadow object.\n\n @syscap SystemCapability.Graphic.Graphic2D.NativeDrawing\n @param shadow Indicates the pointer to an <b>OH_Drawing_TextShadow</b> object.\n @return Returns the pointer to the copied <b>OH_Drawing_TextShadow</b> object.\n @since 20\n @version 1.0"]
+    #[doc = " @brief Creates a copy of an existing text shadow object.\n\n @syscap SystemCapability.Graphic.Graphic2D.NativeDrawing\n @param shadow Pointer to the {@link OH_Drawing_TextShadow} object to be copied.\n @return Pointer to the copied {@link OH_Drawing_TextShadow} object. If a null pointer is returned, the creation\n     fails. The possible cause is that no memory is available or **shadow** is a null pointer. Release this pointer\n     by calling {@link OH_Drawing_DestroyTextShadow} when this object is no longer needed.\n @since 20\n @version 1.0"]
     #[cfg(feature = "api-20")]
     pub fn OH_Drawing_CopyTextShadow(
         shadow: *mut OH_Drawing_TextShadow,
     ) -> *mut OH_Drawing_TextShadow;
 }
 extern "C" {
-    #[doc = " @brief Releases the memory occupied by an <b>OH_Drawing_PositionAndAffinity</b> object.\n\n @param positionAndAffinity Indicates the pointer to an <b>OH_Drawing_PositionAndAffinity</b> object.\n @since 23"]
+    #[doc = " @brief Destroys an {@link OH_Drawing_PositionAndAffinity} object and reclaims the memory occupied by the object.\n\n @param positionAndAffinity Pointer to the {@link OH_Drawing_PositionAndAffinity} object.\n @since 23"]
     #[cfg(feature = "api-23")]
     pub fn OH_Drawing_DestroyPositionAndAffinity(
         positionAndAffinity: *mut OH_Drawing_PositionAndAffinity,
     );
 }
 extern "C" {
-    #[doc = " @brief Gets the character range corresponding to the specified glyph range.\n\n @param typography Indicates the pointer to an <b>OH_Drawing_Typography</b> object.\n @param glyphRangeStart Indicates the start of the glyph range.\n @param glyphRangeEnd Indicates the end of the glyph range.\n @param actualGlyphRange Indicates the pointer to an <b>OH_Drawing_Range</b> pointer.\n     If this parameter is <b>NULL</b>, the actual glyph range will not be provided,\n     indicating that the actual glyph range information is not required.\n     Releases memory by <b>OH_Drawing_ReleaseRangeBuffer</b>.\n @param textEncodingType Indicates the text encoding type <b>OH_Drawing_TextEncoding</b>.\n     Currently only UTF-8 and UTF-16 encoding types are supported.\n     For UTF-8 encoding, the returned character range represents byte ranges.\n     For UTF-16 encoding, the returned character range represents UTF-16 code unit ranges.\n @return The pointer to the <b>OH_Drawing_Range</b> object representing the character range.\n     Releases memory by <b>OH_Drawing_ReleaseRangeBuffer</b>.\n @since 24"]
+    #[doc = " @brief Obtains the character range corresponding to the specified glyph range.\n\n @param typography Pointer to the **OH_Drawing_Typography** object, which is obtained from\n     {@link OH_Drawing_CreateTypography}.\n @param glyphRangeStart Start position of the glyph range.\n @param glyphRangeEnd End position of the glyph range.\n @param actualGlyphRange Returns the actual font range, indicating the level-2 pointer to {@link OH_Drawing_Range}.\n     It is used as an output parameter.\n     <br>When the requested glyph range contains only a part of a complex glyph sequence, this parameter returns the\n     corresponding complete glyph range.\n     <br>For example, ligatures and combined emojis may consist of multiple atomic glyphs and must be processed as a\n     whole.\n     <br>If this parameter is NULL, the actual glyph range is not returned, indicating that the caller does not care\n     about the actual glyph range information.\n     <br>After use, release the object through the {@link OH_Drawing_ReleaseRangeBuffer} API.\n @param textEncodingType Text encoding type {@link OH_Drawing_TextEncoding}.\n     <br>Currently, only UTF-8 and UTF-16 encoding types are supported.\n     <br>For UTF-8 encoding, the returned character range indicates the byte range.\n     <br>For UTF-16 encoding, the returned character range indicates the UTF-16 code unit range.\n @return Returns the {@link OH_Drawing_Range} object pointer that indicates the character range. When the object is\n     no longer needed, use the {@link OH_Drawing_ReleaseRangeBuffer} API to release it.\n @since 24"]
     #[cfg(feature = "api-24")]
     pub fn OH_Drawing_TypographyGetCharacterRangeForGlyphRangeWithBuffer(
         typography: *mut OH_Drawing_Typography,
@@ -3633,7 +3761,7 @@ extern "C" {
     ) -> *mut OH_Drawing_Range;
 }
 extern "C" {
-    #[doc = " @brief Gets the character position and affinity from the specified coordinate.\n\n @param typography Indicates the pointer to an <b>OH_Drawing_Typography</b> object.\n @param dx Indicates the positionX of typography to set.\n @param dy Indicates the positionY of typography to set.\n @param textEncodingType Indicates the text encoding type <b>OH_Drawing_TextEncoding</b>.\n     Currently only UTF-8 and UTF-16 encoding types are supported.\n     For UTF-8 encoding, the returned position represents a byte offset.\n     For UTF-16 encoding, the returned position represents a UTF-16 code unit offset.\n @return The pointer to the <b>OH_Drawing_PositionAndAffinity</b> object.\n     Releases memory by <b>OH_Drawing_DestroyPositionAndAffinity</b>.\n @since 24"]
+    #[doc = " @brief Obtains the character position information closest to the specified coordinates.\n\n @param typography Pointer to the **OH_Drawing_Typography** object, which is obtained from\n     {@link OH_Drawing_CreateTypography}.\n @param dx Horizontal coordinate in the text layout area, in physical pixels (px).\n     <br>X offset relative to the top-left corner of the text layout area, with the right direction as positive.\n     <br>Supports floating-point values and accepts negative values, which indicate positions to the left of the text\n     layout area.\n     <br>If the coordinates are beyond the text layout area, the nearest character position is returned. It can be\n     obtained through a touch event or click event.\n @param dy Vertical coordinate in the text layout area, in physical pixels (px).\n     <br>Y offset relative to the top-left corner of the text layout area, with the downward direction as positive.\n     <br>Supports floating-point values and accepts negative values, which indicate positions above the text layout\n     area.\n     <br>If the coordinates are beyond the text layout area, the nearest character position is returned. It can be\n     obtained through a touch event or click event.\n @param textEncodingType Text encoding type {@link OH_Drawing_TextEncoding}.\n     <br>Currently, only UTF-8 and UTF-16 encoding types are supported.\n     <br>For UTF-8 encoding, the returned position indicates the byte offset. For UTF-16 encoding, the returned\n     position indicates the UTF-16 code unit offset.\n @return Returns the character index position and affinity at the coordinate. The return type is the\n     {@link OH_Drawing_PositionAndAffinity} structure.\n     <br>When the object is no longer needed, call {@link OH_Drawing_DestroyPositionAndAffinity} to release it.\n @since 24"]
     #[cfg(feature = "api-24")]
     pub fn OH_Drawing_TypographyGetCharacterPositionAtCoordinateWithBuffer(
         typography: *mut OH_Drawing_Typography,
@@ -3643,7 +3771,7 @@ extern "C" {
     ) -> *mut OH_Drawing_PositionAndAffinity;
 }
 extern "C" {
-    #[doc = " @brief Gets the glyph range corresponding to the specified character range.\n\n @param typography Indicates the pointer to an <b>OH_Drawing_Typography</b> object.\n @param characterRangeStart Indicates the start of the character range.\n @param characterRangeEnd Indicates the end of the character range.\n @param actualCharacterRange Indicates the pointer to an <b>OH_Drawing_Range</b> pointer.\n     If this parameter is <b>NULL</b>, the actual character range will not be provided,\n     indicating that the actual character range information is not required.\n     Releases memory by <b>OH_Drawing_ReleaseRangeBuffer</b>.\n @param textEncodingType Indicates the text encoding type <b>OH_Drawing_TextEncoding</b>.\n     Currently only UTF-8 and UTF-16 encoding types are supported.\n     For UTF-8 encoding, the input character range should be interpreted as byte ranges.\n     For UTF-16 encoding, the input character range should be interpreted as UTF-16 code unit ranges.\n @return The pointer to the <b>OH_Drawing_Range</b> object representing the glyph range.\n     Releases memory by <b>OH_Drawing_ReleaseRangeBuffer</b>.\n @since 24"]
+    #[doc = " @brief Obtains the glyph range corresponding to the specified character range.\n\n @param typography Pointer to the **OH_Drawing_Typography** object, which is obtained from\n     {@link OH_Drawing_CreateTypography}.\n @param characterRangeStart Start position of the character range.\n @param characterRangeEnd End position of the character range.\n @param actualCharacterRange Returns the actual character range, indicating the level-2 pointer to\n     {@link OH_Drawing_Range}. It is used as an output parameter.\n     <br>When the requested character range contains only a part of the combined character sequence, this parameter\n     returns the corresponding complete character range.\n     <br>For example, a combined character consisting of a base character and a diacritical mark must be processed as\n     a whole.\n     <br>If this parameter is NULL, the actual character range is not returned, indicating that the caller does not\n     care about the actual character range information.\n     <br>After use, release the object through the {@link OH_Drawing_ReleaseRangeBuffer} API.\n @param textEncodingType Text encoding type {@link OH_Drawing_TextEncoding}.\n     <br>Currently, only UTF-8 and UTF-16 encoding types are supported.\n     <br>For UTF-8 encoding, the input character range should be interpreted as a byte range. For UTF-16 encoding,\n     the input character range should be interpreted as a UTF-16 code unit range.\n @return Returns the {@link OH_Drawing_Range} object pointer that indicates the font range. If the object is no\n     longer needed, use the {@link OH_Drawing_ReleaseRangeBuffer} API to release it.\n @since 24"]
     #[cfg(feature = "api-24")]
     pub fn OH_Drawing_TypographyGetGlyphRangeForCharacterRangeWithBuffer(
         typography: *mut OH_Drawing_Typography,
@@ -3654,55 +3782,55 @@ extern "C" {
     ) -> *mut OH_Drawing_Range;
 }
 extern "C" {
-    #[doc = " @brief Releases the memory occupied by an <b>OH_Drawing_Range</b> object.\n\n @param range Indicates the pointer to an <b>OH_Drawing_Range</b> object.\n @since 24"]
+    #[doc = " @brief Releases the memory occupied by the {@link OH_Drawing_Range} object.\n\n @param range Pointer to the {@link OH_Drawing_Range} object.\n @since 24"]
     #[cfg(feature = "api-24")]
     pub fn OH_Drawing_ReleaseRangeBuffer(range: *mut OH_Drawing_Range);
 }
 extern "C" {
-    #[doc = " @brief Creates an <b>OH_Drawing_FontMgr</b> object.\n\n @syscap SystemCapability.Graphic.Graphic2D.NativeDrawing\n @return Returns the pointer to the <b>OH_Drawing_FontMgr</b> object created.\n @since 12\n @version 1.0"]
+    #[doc = " @brief Creates an **OH_Drawing_FontMgr** object, which can be used only to manage system fonts.\n\n @syscap SystemCapability.Graphic.Graphic2D.NativeDrawing\n @return Pointer to the {@link OH_Drawing_FontMgr} object created.\n @since 12\n @version 1.0"]
     pub fn OH_Drawing_FontMgrCreate() -> *mut OH_Drawing_FontMgr;
 }
 extern "C" {
-    #[doc = " @brief Releases the memory occupied by an <b>OH_Drawing_FontMgr</b> object.\n\n @syscap SystemCapability.Graphic.Graphic2D.NativeDrawing\n @param drawingFontMgr Indicates the pointer to an <b>OH_Drawing_FontMgr</b> object.\n @since 12\n @version 1.0"]
+    #[doc = " @brief Destroys an **OH_Drawing_FontMgr** object and reclaims the memory occupied by the object.\n\n @syscap SystemCapability.Graphic.Graphic2D.NativeDrawing\n @param drawingFontMgr Pointer to an {@link OH_Drawing_FontMgr} object, which is obtained from\n     {@link OH_Drawing_FontMgrCreate}.\n @since 12\n @version 1.0"]
     pub fn OH_Drawing_FontMgrDestroy(drawingFontMgr: *mut OH_Drawing_FontMgr);
 }
 extern "C" {
-    #[doc = " @brief Gets the count of font families.\n\n @syscap SystemCapability.Graphic.Graphic2D.NativeDrawing\n @param drawingFontMgr Indicates the pointer to an <b>OH_Drawing_FontMgr</b> object.\n @return Returns the count of font families.\n @since 12\n @version 1.0"]
+    #[doc = " @brief Obtains the number of font families.\n\n @syscap SystemCapability.Graphic.Graphic2D.NativeDrawing\n @param drawingFontMgr Pointer to an {@link OH_Drawing_FontMgr} object, which is obtained from\n     {@link OH_Drawing_FontMgrCreate}.\n @return Returns the number of font families.\n @since 12\n @version 1.0"]
     pub fn OH_Drawing_FontMgrGetFamilyCount(
         drawingFontMgr: *mut OH_Drawing_FontMgr,
     ) -> ::std::os::raw::c_int;
 }
 extern "C" {
-    #[doc = " @brief Gets the font family name by the index.\n\n @syscap SystemCapability.Graphic.Graphic2D.NativeDrawing\n @param drawingFontMgr Indicates the pointer to an <b>OH_Drawing_FontMgr</b> object.\n @param index Indicates the index to get the font family name.\n @return Returns the font family name corresponding to the index value.\n @since 12\n @version 1.0"]
+    #[doc = " @brief Obtains the font family name based on an index. When the returned name is no longer needed, use\n {@link OH_Drawing_FontMgrDestroyFamilyName} to release the memory occupied by the name.\n\n @syscap SystemCapability.Graphic.Graphic2D.NativeDrawing\n @param drawingFontMgr Pointer to an {@link OH_Drawing_FontMgr} object, which is obtained from\n     {@link OH_Drawing_FontMgrCreate}.\n @param index Index used to obtain the corresponding font family name. The value range is [0,\n     OH_Drawing_FontMgrGetFamilyCount() - 1].\n @return Font family name corresponding to the index. When no longer needed, use\n     {@link OH_Drawing_FontMgrDestroyFamilyName} to release the memory occupied by the name.\n @since 12\n @version 1.0"]
     pub fn OH_Drawing_FontMgrGetFamilyName(
         drawingFontMgr: *mut OH_Drawing_FontMgr,
         index: ::std::os::raw::c_int,
     ) -> *mut ::std::os::raw::c_char;
 }
 extern "C" {
-    #[doc = " @brief Releases the memory occupied by font family name.\n\n @syscap SystemCapability.Graphic.Graphic2D.NativeDrawing\n @param familyName Indicates the font family name.\n @since 12\n @version 1.0"]
+    #[doc = " @brief Reclaims the memory occupied by a font family name.\n\n @syscap SystemCapability.Graphic.Graphic2D.NativeDrawing\n @param familyName Pointer to a font family name.\n @since 12\n @version 1.0"]
     pub fn OH_Drawing_FontMgrDestroyFamilyName(familyName: *mut ::std::os::raw::c_char);
 }
 extern "C" {
-    #[doc = " @brief Creates an <b>OH_Drawing_FontStyleSet</b> object by <b>OH_Drawing_FontMgr</b> object.\n\n @syscap SystemCapability.Graphic.Graphic2D.NativeDrawing\n @param drawingFontMgr Indicates the pointer to an <b>OH_Drawing_FontMgr</b> object.\n @param index Indicates the index used to get the font style set object from the font manager object.\n @return Returns the pointer to the <b>OH_Drawing_FontStyleSet</b> object created.\n @since 12\n @version 1.0"]
+    #[doc = " @brief Creates a font style set object from a font manager object.\n\n @syscap SystemCapability.Graphic.Graphic2D.NativeDrawing\n @param drawingFontMgr Pointer to an {@link OH_Drawing_FontMgr} object, which is obtained from\n     {@link OH_Drawing_FontMgrCreate}.\n @param index Index value used to obtain the font style set object from the font manager object. Value range: [0,\n     OH_Drawing_FontMgrGetFamilyCount() - 1].\n @return Returns a pointer to the {@link OH_Drawing_FontStyleSet} object created.\n @since 12\n @version 1.0"]
     pub fn OH_Drawing_FontMgrCreateFontStyleSet(
         drawingFontMgr: *mut OH_Drawing_FontMgr,
         index: ::std::os::raw::c_int,
     ) -> *mut OH_Drawing_FontStyleSet;
 }
 extern "C" {
-    #[doc = " @brief Releases the memory occupied by an <b>OH_Drawing_FontStyleSet</b> object.\n\n @syscap SystemCapability.Graphic.Graphic2D.NativeDrawing\n @param drawingFontStyleSet Indicates the pointer to an <b>OH_Drawing_FontStyleSet</b> object.\n @since 12\n @version 1.0"]
+    #[doc = " @brief Reclaims the memory occupied by a font style set.\n\n @syscap SystemCapability.Graphic.Graphic2D.NativeDrawing\n @param drawingFontStyleSet Pointer to an {@link OH_Drawing_FontStyleSet} object.\n @since 12\n @version 1.0"]
     pub fn OH_Drawing_FontMgrDestroyFontStyleSet(drawingFontStyleSet: *mut OH_Drawing_FontStyleSet);
 }
 extern "C" {
-    #[doc = " @brief Get the pointer to an <b>OH_Drawing_FontStyleSet</b> object for the given font style set family name.\n\n @syscap SystemCapability.Graphic.Graphic2D.NativeDrawing\n @param drawingFontMgr Indicates the pointer to an <b>OH_Drawing_FontMgr</b> object.\n @param familyName Indicates the family name of a font style set to be matched.\n @return Returns the pointer to the <b>OH_Drawing_FontStyleSet</b> object matched.\n @since 12\n @version 1.0"]
+    #[doc = " @brief Obtains a font style set object based on a specified font family name. When the object is no longer needed,\n use {@link OH_Drawing_FontMgrDestroyFontStyleSet} to release it.\n\n @syscap SystemCapability.Graphic.Graphic2D.NativeDrawing\n @param drawingFontMgr Pointer to an {@link OH_Drawing_FontMgr} object, which is obtained from\n     {@link OH_Drawing_FontMgrCreate}.\n @param familyName Pointer to a font family name.\n @return Pointer to the corresponding font style set object {@link OH_Drawing_FontStyleSet}. When no longer needed,\n     use {@link OH_Drawing_FontMgrDestroyFontStyleSet} to release the object pointer. <br>NULL is returned if\n     matching fails.\n @since 12\n @version 1.0"]
     pub fn OH_Drawing_FontMgrMatchFamily(
         drawingFontMgr: *mut OH_Drawing_FontMgr,
         familyName: *const ::std::os::raw::c_char,
     ) -> *mut OH_Drawing_FontStyleSet;
 }
 extern "C" {
-    #[doc = " @brief Get the pointer to an <b>OH_Drawing_Typeface</b> object based on the given font style and family name.\n\n @syscap SystemCapability.Graphic.Graphic2D.NativeDrawing\n @param drawingFontMgr Indicates the pointer to an <b>OH_Drawing_FontMgr</b> object.\n @param familyName Indicates the family name of a font style set to be matched.\n @param fontStyle Indicates an <b>OH_Drawing_FontStyleStruct</b> object.\n @return Returns the pointer to the <b>OH_Drawing_Typeface</b> object matched.\n @since 12\n @version 1.0"]
+    #[doc = " @brief Obtains a typeface object based on the specified font style information and font family name. When the object\n is no longer needed, use {@link OH_Drawing_TypefaceDestroy} to release it.\n\n @syscap SystemCapability.Graphic.Graphic2D.NativeDrawing\n @param drawingFontMgr Pointer to an {@link OH_Drawing_FontMgr} object, which is obtained from\n     {@link OH_Drawing_FontMgrCreate}.\n @param familyName Pointer to a font family name.\n @param fontStyle Font style, including the font weight, width, and slant.\n @return Pointer to the {@link OH_Drawing_Typeface} object corresponding to the font style. Use\n     {@link OH_Drawing_TypefaceDestroy} to release the pointer when it is no longer needed. <br>NULL is returned if\n     the match fails.\n @since 12\n @version 1.0"]
     pub fn OH_Drawing_FontMgrMatchFamilyStyle(
         drawingFontMgr: *mut OH_Drawing_FontMgr,
         familyName: *const ::std::os::raw::c_char,
@@ -3710,7 +3838,7 @@ extern "C" {
     ) -> *mut OH_Drawing_Typeface;
 }
 extern "C" {
-    #[doc = " @brief Get the pointer to an <b>OH_Drawing_Typeface</b> object for the given character.\n\n @syscap SystemCapability.Graphic.Graphic2D.NativeDrawing\n @param drawingFontMgr Indicates the pointer to an <b>OH_Drawing_FontMgr</b> object.\n @param familyName Indicates the family name of a font style set to be matched.\n @param fontStyle Indicates an <b>OH_Drawing_FontStyleStruct</b> object.\n @param bcp47 Indicates an array of languages which indicate the language of character.\n @param bcp47Count Indicates the array size of bcp47.\n @param character Indicates a UTF8 value to be matched.\n @return Returns the pointer to the <b>OH_Drawing_Typeface</b> object matched.\n @since 12\n @version 1.0"]
+    #[doc = " @brief Obtains a typeface for the specified character. A null pointer is returned only when no typeface\n corresponding to the input UTF-8 character is found in the font management object. When the object is no longer\n needed, use {@link OH_Drawing_TypefaceDestroy} to release it.\n\n @syscap SystemCapability.Graphic.Graphic2D.NativeDrawing\n @param drawingFontMgr Pointer to an {@link OH_Drawing_FontMgr} object, which is obtained from\n     {@link OH_Drawing_FontMgrCreate}.\n @param familyName Pointer to a font family name.\n @param fontStyle Font style, including the font weight, width, and slant.\n @param bcp47 Array of BCP47 language codes, which is a combination of ISO 639, 15924, and 3166-1 language codes.\n @param bcp47Count Size of the bcp47 array, which must match the actual number of elements in the bcp47 array.\n @param character UTF-8 character used for matching.\n @return Pointer to the corresponding {@link OH_Drawing_Typeface} typeface object, or NULL if no typeface is matched.\n @since 12\n @version 1.0"]
     pub fn OH_Drawing_FontMgrMatchFamilyStyleCharacter(
         drawingFontMgr: *mut OH_Drawing_FontMgr,
         familyName: *const ::std::os::raw::c_char,
@@ -3721,14 +3849,14 @@ extern "C" {
     ) -> *mut OH_Drawing_Typeface;
 }
 extern "C" {
-    #[doc = " @brief Create a typeface for the given index.\n\n @syscap SystemCapability.Graphic.Graphic2D.NativeDrawing\n @param fontStyleSet Indicates the pointer to an <b>OH_Drawing_FontStyleSet</b> object.\n @param index Indicates the index of the typeface in this fontStyleSet.\n @return If successful, return a pointer to <b>OH_Drawing_Typeface</b> object; if failed, return nullptr.\n @since 12\n @version 1.0"]
+    #[doc = " @brief Gets a typeface for the specified index. When the object is no longer needed, use\n {@link OH_Drawing_TypefaceDestroy} to release it.\n\n @syscap SystemCapability.Graphic.Graphic2D.NativeDrawing\n @param fontStyleSet Pointer to an {@link OH_Drawing_FontStyleSet} object.\n @param index Index of the specified typeface object. The value range is [0, OH_Drawing_FontStyleSetCount() - 1].\n @return Typeface object if successful; NULL otherwise.\n @since 12\n @version 1.0"]
     pub fn OH_Drawing_FontStyleSetCreateTypeface(
         fontStyleSet: *mut OH_Drawing_FontStyleSet,
         index: ::std::os::raw::c_int,
     ) -> *mut OH_Drawing_Typeface;
 }
 extern "C" {
-    #[doc = " @brief Get font style for the specified typeface.\n\n @syscap SystemCapability.Graphic.Graphic2D.NativeDrawing\n @param fontStyleSet Indicates the pointer to an <b>OH_Drawing_FontStyleSet</b> object.\n @param index Indicates the index of the typeface in this fontStyleSet.\n @param styleName Indicates the style name returned.\n @return Return the <b>OH_Drawing_FontStyleStruct<b> structure.\n @since 12\n @version 1.0"]
+    #[doc = " @brief Obtains the font style. Call {@link OH_Drawing_FontStyleSetFreeStyleName} to release **styleName** when it is\n no longer needed, freeing up the allocated memory.\n\n @syscap SystemCapability.Graphic.Graphic2D.NativeDrawing\n @param fontStyleSet Pointer to an {@link OH_Drawing_FontStyleSet} object.\n @param index Index of the specified font style. The value range is [0, OH_Drawing_FontStyleSetCount() - 1].\n @param styleName String specifying the font style name. Call {@link OH_Drawing_FontStyleSetFreeStyleName} to release\n     it when it is no longer needed, freeing up the allocated memory.\n @return Returns the font style.\n @since 12\n @version 1.0"]
     pub fn OH_Drawing_FontStyleSetGetStyle(
         fontStyleSet: *mut OH_Drawing_FontStyleSet,
         index: i32,
@@ -3736,90 +3864,90 @@ extern "C" {
     ) -> OH_Drawing_FontStyleStruct;
 }
 extern "C" {
-    #[doc = " @brief Releases the memory  styleName string.\n\n @syscap SystemCapability.Graphic.Graphic2D.NativeDrawing\n @param styleName Indicates the pointer to a string type.\n @since 12\n @version 1.0"]
+    #[doc = " @brief Frees the memory occupied by a font style.\n\n @syscap SystemCapability.Graphic.Graphic2D.NativeDrawing\n @param styleName Double pointer to the string that specifies the font style name.\n @since 12\n @version 1.0"]
     pub fn OH_Drawing_FontStyleSetFreeStyleName(styleName: *mut *mut ::std::os::raw::c_char);
 }
 extern "C" {
-    #[doc = " @brief Get the closest matching typeface.\n\n @syscap SystemCapability.Graphic.Graphic2D.NativeDrawing\n @param fontStyleSet Indicates the pointer to an <b>OH_Drawing_FontStyleSet</b> object.\n @param fontStyleStruct Indicates the <b>OH_Drawing_FontStyleStruct</b> structure.\n @return A pointer to matched <b>OH_Drawing_Typeface</b>.\n @since 12\n @version 1.0"]
+    #[doc = " @brief Obtains the typeface closest to the font style (font weight, font width, and slant). When the object is no\n longer needed, use {@link OH_Drawing_TypefaceDestroy} to release it.\n\n @syscap SystemCapability.Graphic.Graphic2D.NativeDrawing\n @param fontStyleSet Pointer to an {@link OH_Drawing_FontStyleSet} object.\n @param fontStyleStruct Font style, including the font weight, width, and slant.\n @return Pointer to the corresponding typeface object {@link OH_Drawing_Typeface}, or NULL if matching fails.\n @since 12\n @version 1.0"]
     pub fn OH_Drawing_FontStyleSetMatchStyle(
         fontStyleSet: *mut OH_Drawing_FontStyleSet,
         fontStyleStruct: OH_Drawing_FontStyleStruct,
     ) -> *mut OH_Drawing_Typeface;
 }
 extern "C" {
-    #[doc = " @brief Get the count of typeface.\n\n @syscap SystemCapability.Graphic.Graphic2D.NativeDrawing\n @param fontStyleSet Indicates the pointer to an <b>OH_Drawing_FontStyleSet</b> object.\n @return The count of typeface in this font style set.\n @since 12\n @version 1.0"]
+    #[doc = " @brief Obtains the number of fonts in the font style set.\n\n @syscap SystemCapability.Graphic.Graphic2D.NativeDrawing\n @param fontStyleSet Pointer to an {@link OH_Drawing_FontStyleSet} object.\n @return Returns the number of fonts.\n @since 12\n @version 1.0"]
     pub fn OH_Drawing_FontStyleSetCount(
         fontStyleSet: *mut OH_Drawing_FontStyleSet,
     ) -> ::std::os::raw::c_int;
 }
-#[doc = " @brief Defines the options about GPU context.\n\n @since 12\n @version 1.0\n @deprecated since 18"]
+#[doc = " @brief This struct describes the options about the GPU context.\n\n @since 12\n @version 1.0\n @deprecated since 18"]
 #[repr(C)]
 #[derive(Debug, Copy, Clone)]
 pub struct OH_Drawing_GpuContextOptions {
-    #[doc = " If true this allows path mask textures to be cached"]
+    #[doc = " Whether to allow path mask textures to be cached. The value **true** means to allow the path mask textures to be\n cached, and **false** means the opposite."]
     pub allowPathMaskCaching: bool,
 }
 extern "C" {
-    #[doc = " @brief Creates an <b>OH_Drawing_GpuContext</b> object, whose GPU backend context is GL.\n\n @syscap SystemCapability.Graphic.Graphic2D.NativeDrawing\n @param gpuContextOptions Indicates the GPU context options.\n @return Returns the pointer to the <b>OH_Drawing_GpuContext</b> object created.\n @since 12\n @version 1.0\n @deprecated since 18\n @useinstead OH_Drawing_GpuContextCreate"]
+    #[doc = " @brief Creates an **OH_Drawing_GpuContext** object that uses OpenGL as the backend interface.\n\n @param gpuContextOptions GPU context options, which is {@link OH_Drawing_GpuContextOptions}.\n @return Returns the pointer to the {@link OH_Drawing_GpuContext} object created.\n @since 12\n @version 1.0\n @deprecated since 18\n @useinstead OH_Drawing_GpuContextCreate"]
     pub fn OH_Drawing_GpuContextCreateFromGL(
         gpuContextOptions: OH_Drawing_GpuContextOptions,
     ) -> *mut OH_Drawing_GpuContext;
 }
 extern "C" {
-    #[doc = " @brief Creates an <b>OH_Drawing_GpuContext</b> object, whose GPU backend context depends on device.\n\n @syscap SystemCapability.Graphic.Graphic2D.NativeDrawing\n @return Returns the pointer to the <b>OH_Drawing_GpuContext</b> object created.\n @since 16\n @version 1.0"]
+    #[doc = " @brief Creates an **OH_Drawing_GpuContext** object, for which the backend type depends on the device.\n\n @return Returns the pointer to the {@link OH_Drawing_GpuContext} object created.\n @since 16\n @version 1.0"]
     #[cfg(feature = "api-16")]
     pub fn OH_Drawing_GpuContextCreate() -> *mut OH_Drawing_GpuContext;
 }
 extern "C" {
-    #[doc = " @brief Destroys an <b>OH_Drawing_GpuContext</b> object and reclaims the memory occupied by the object.\n\n @syscap SystemCapability.Graphic.Graphic2D.NativeDrawing\n @param gpuContext Indicates the pointer to an <b>OH_Drawing_GpuContext</b> object.\n @since 12\n @version 1.0"]
+    #[doc = " @brief Destroys an **OH_Drawing_GpuContext** object and reclaims the memory occupied by the object.\n\n @param gpuContext Pointer to an {@link OH_Drawing_GpuContext} object.\n @since 12\n @version 1.0"]
     pub fn OH_Drawing_GpuContextDestroy(gpuContext: *mut OH_Drawing_GpuContext);
 }
 extern "C" {
-    #[doc = " @brief Creates an <b>OH_Drawing_Image</b> object.\n\n @syscap SystemCapability.Graphic.Graphic2D.NativeDrawing\n @return Returns the pointer to the <b>OH_Drawing_Image</b> object created.\n @since 12\n @version 1.0"]
+    #[doc = " @brief Creates an **OH_Drawing_Image** object that describes an array of two-dimensional pixels to draw.\n\n @return Returns a pointer to the {@link OH_Drawing_Image} object created.\n @since 12\n @version 1.0"]
     pub fn OH_Drawing_ImageCreate() -> *mut OH_Drawing_Image;
 }
 extern "C" {
-    #[doc = " @brief Destroys an <b>OH_Drawing_Image</b> object and reclaims the memory occupied by the object.\n\n @syscap SystemCapability.Graphic.Graphic2D.NativeDrawing\n @param image Indicates the pointer to an <b>OH_Drawing_Image</b> object.\n @since 12\n @version 1.0"]
+    #[doc = " @brief Destroys an **OH_Drawing_Image** object and reclaims the memory occupied by the object.\n\n @param image Pointer to the {@link OH_Drawing_Image} object.\n @since 12\n @version 1.0"]
     pub fn OH_Drawing_ImageDestroy(image: *mut OH_Drawing_Image);
 }
 extern "C" {
-    #[doc = " @brief Rebuilds an <b>OH_Drawing_Image</b> object, sharing or copying bitmap pixels.\n\n @syscap SystemCapability.Graphic.Graphic2D.NativeDrawing\n @param image Indicates the pointer to an <b>OH_Drawing_Image</b> object.\n @param bitmap Indicates the pointer to an <b>OH_Drawing_Bitmap</b> object.\n @return Returns true if successded.\n @since 12\n @version 1.0"]
+    #[doc = " @brief Builds an image from a bitmap by sharing or copying bitmap pixels. If the bitmap is marked as immutable, the\n pixel memory is shared, not copied.\n This API may return an error code. For details, call {@link OH_Drawing_ErrorCodeGet}.\n If either **image** or **bitmap** is NULL, **OH_DRAWING_ERROR_INVALID_PARAMETER** is returned.\n\n @param image Pointer to the {@link OH_Drawing_Image} object.\n @param bitmap Pointer to the {@link OH_Drawing_Bitmap} object.\n @return Returns **true** if the image is built; returns **false** otherwise.\n @since 12\n @version 1.0"]
     pub fn OH_Drawing_ImageBuildFromBitmap(
         image: *mut OH_Drawing_Image,
         bitmap: *mut OH_Drawing_Bitmap,
     ) -> bool;
 }
 extern "C" {
-    #[doc = " @brief Gets pixel count in each row of image.\n\n @syscap SystemCapability.Graphic.Graphic2D.NativeDrawing\n @param image Indicates the pointer to an <b>OH_Drawing_Image</b> object.\n @return Returns the width.\n @since 12\n @version 1.0"]
+    #[doc = " @brief Obtains the image width, that is, the number of pixels in each line.\n This API may return an error code. For details, call {@link OH_Drawing_ErrorCodeGet}.\n If **image** is NULL, **OH_DRAWING_ERROR_INVALID_PARAMETER** is returned.\n\n @param image Pointer to the {@link OH_Drawing_Image} object.\n @return Returns the width.\n @since 12\n @version 1.0"]
     pub fn OH_Drawing_ImageGetWidth(image: *mut OH_Drawing_Image) -> i32;
 }
 extern "C" {
-    #[doc = " @brief Gets pixel row count of image.\n\n @syscap SystemCapability.Graphic.Graphic2D.NativeDrawing\n @param image Indicates the pointer to an <b>OH_Drawing_Image</b> object.\n @return Returns the height.\n @since 12\n @version 1.0"]
+    #[doc = " @brief Obtains the image height, that is, the number of pixel lines.\n This API may return an error code. For details, call {@link OH_Drawing_ErrorCodeGet}.\n If **image** is NULL, **OH_DRAWING_ERROR_INVALID_PARAMETER** is returned.\n\n @param image Pointer to the {@link OH_Drawing_Image} object.\n @return Returns the height.\n @since 12\n @version 1.0"]
     pub fn OH_Drawing_ImageGetHeight(image: *mut OH_Drawing_Image) -> i32;
 }
 extern "C" {
-    #[doc = " @brief Gets the image info.\n\n @syscap SystemCapability.Graphic.Graphic2D.NativeDrawing\n @param image Indicates the pointer to an <b>OH_Drawing_Image</b> object.\n @param imageInfo Indicates the pointer to an <b>OH_Drawing_Image_Info</b> object.\n @since 12\n @version 1.0"]
+    #[doc = " @brief Obtains the image information. After this function is called, the passed-in image information object is\n filled.\n This API may return an error code. For details, call {@link OH_Drawing_ErrorCodeGet}.\n If either **image** or **imageInfo** is NULL, **OH_DRAWING_ERROR_INVALID_PARAMETER** is returned.\n\n @param image Pointer to the {@link OH_Drawing_Image} object.\n @param imageInfo Pointer to an  {@link OH_Drawing_Image_Info}  object, which can be created by calling\n {@link OH_Drawing_Image_Info}\n .\n @since 12\n @version 1.0"]
     pub fn OH_Drawing_ImageGetImageInfo(
         image: *mut OH_Drawing_Image,
         imageInfo: *mut OH_Drawing_Image_Info,
     );
 }
-#[doc = " Replicate the edge color if the shader effect draws outside of its original bounds."]
+#[doc = " Replicates the edge color if the shader effect draws outside of its original boundary."]
 pub const OH_Drawing_TileMode_CLAMP: OH_Drawing_TileMode = 0;
-#[doc = " Repeat the shader effect image horizontally and vertically."]
+#[doc = " Repeats the shader effect's image in both horizontal and vertical directions."]
 pub const OH_Drawing_TileMode_REPEAT: OH_Drawing_TileMode = 1;
-#[doc = " Repeat the shader effect image horizontally and vertically, alternating mirror images\n so that adjacent images always seam."]
+#[doc = " Repeats the shader effect's image in both horizontal and vertical directions, alternating mirror images."]
 pub const OH_Drawing_TileMode_MIRROR: OH_Drawing_TileMode = 2;
-#[doc = " Only draw within the original domain, return transparent-black everywhere else."]
+#[doc = " Renders the shader effect's image only within the original boundary, and returns transparent black elsewhere."]
 pub const OH_Drawing_TileMode_DECAL: OH_Drawing_TileMode = 3;
-#[doc = " @brief Enumerates tile mode.\n\n @since 11\n @version 1.0"]
+#[doc = " @brief Defines an enum for the tile modes of the shader effect.\n\n @since 11\n @version 1.0"]
 pub type OH_Drawing_TileMode = u32;
 extern "C" {
-    #[doc = " @brief Creates an <b>OH_Drawing_ShaderEffect</b> that generates a shader with single color.\n\n @syscap SystemCapability.Graphic.Graphic2D.NativeDrawing\n @param color Indicates the color used by the shader.\n @return Returns the pointer to the <b>OH_Drawing_ShaderEffect</b> object created.\n         If nullptr is returned, the creation fails.\n         The possible cause of the failure is that the available memory is empty.\n @since 12\n @version 1.0"]
+    #[doc = " @brief Creates an **OH_Drawing_ShaderEffect** object with a single color.\n\n @param color Color in the ARGB format. The value is a 32-bit unsigned integer.\n @return Returns the pointer to the {@link OH_Drawing_ShaderEffect} object created. If NULL is returned, the creation\n fails. The possible failure cause is that no memory is available.\n @since 12\n @version 1.0"]
     pub fn OH_Drawing_ShaderEffectCreateColorShader(color: u32) -> *mut OH_Drawing_ShaderEffect;
 }
 extern "C" {
-    #[doc = " @brief Creates an <b>OH_Drawing_ShaderEffect</b> that generates a linear gradient between the two specified points.\n\n @syscap SystemCapability.Graphic.Graphic2D.NativeDrawing\n @param startPt Indicates the start point for the gradient.\n @param endPt Indicates the end point for the gradient.\n @param colors Indicates the colors to be distributed between the two points.\n @param pos Indicates the relative position of each corresponding color in the colors array.\n @param size Indicates the number of colors and pos.\n @param tileMode Indicates the tile mode.\n @return Returns the pointer to the <b>OH_Drawing_ShaderEffect</b> object created.\n @since 11\n @version 1.0"]
+    #[doc = " @brief Creates a **ShaderEffect** object that generates a linear gradient between two points.\n This API may return an error code. For details, call {@link OH_Drawing_ErrorCodeGet}.\n If any of **startPt**, **endPt**, and **colors** is NULL, **OH_DRAWING_ERROR_INVALID_PARAMETER** is returned.\n If **tileMode** is not set to one of the enumerated values, **OH_DRAWING_ERROR_PARAMETER_OUT_OF_RANGE** is returned.\n\n @param startPt Start point.\n @param endPt End point.\n @param colors Colors to distribute between the two points.\n @param pos Relative position of each color in the color array. The array length must be the same as that of **colors*\n *. If **pos** is NULL, colors are evenly distributed between the start point and end point.\n @param size Number of colors and positions (if **pos** is not NULL).\n @param tileMode Tile mode of the shader effect. For details about the available options, see\n {@link OH_Drawing_TileMode}\n .\n @return Returns the pointer to the **OH_Drawing_ShaderEffect** object created.\n @since 11\n @version 1.0"]
     pub fn OH_Drawing_ShaderEffectCreateLinearGradient(
         startPt: *const OH_Drawing_Point,
         endPt: *const OH_Drawing_Point,
@@ -3830,7 +3958,7 @@ extern "C" {
     ) -> *mut OH_Drawing_ShaderEffect;
 }
 extern "C" {
-    #[doc = " @brief Creates an <b>OH_Drawing_ShaderEffect</b> that generates a linear gradient between the two specified points.\n\n @syscap SystemCapability.Graphic.Graphic2D.NativeDrawing\n @param startPt Indicates the start point for the gradient.\n @param endPt Indicates the end point for the gradient.\n @param colors Indicates the colors to be distributed between the two points.\n @param pos Indicates the relative position of each corresponding color in the colors array.\n            If pos is nullptr, the colors are evenly distributed between the start and end point.\n @param size Indicates the number of colors and pos(if pos is not nullptr).\n @param tileMode Indicates the tile mode.\n @param matrix Indicates the pointer to an <b>OH_Drawing_Matrix</b> object,\nwhich represents the local matrix of the created <b>OH_Drawing_ShaderEffect</b> object.\nIf matrix is nullptr, defaults to the identity matrix.\n @return Returns the pointer to the <b>OH_Drawing_ShaderEffect</b> object created.\n         If nullptr is returned, the creation fails.\n         The possible cause of the failure is any of startPt, endPt, colors and pos is nullptr.\n @since 12\n @version 1.0"]
+    #[doc = " @brief Creates a **ShaderEffect** object that generates a linear gradient between two points.\n This API may return an error code. For details, call {@link OH_Drawing_ErrorCodeGet}.\n If any of **startPt**, **endPt**, and **colors** is NULL, **OH_DRAWING_ERROR_INVALID_PARAMETER** is returned.\n If **tileMode** is not set to one of the enumerated values, **OH_DRAWING_ERROR_PARAMETER_OUT_OF_RANGE** is returned.\n\n @param startPt Start point.\n @param endPt End point.\n @param colors Colors to distribute between the two points.\n @param pos Relative position of each color in the color array. The array length must be the same as that of **colors*\n *. If **pos** is NULL, colors are evenly distributed between the start point and end point.\n @param size Number of colors and positions (if **pos** is not NULL).\n @param tileMode Tile mode of the shader effect. For details about the available options, see\n {@link OH_Drawing_TileMode}\n .\n @param matrix Matrix applied on the shader effect. If **matrix** is NULL, an identity matrix is applied by default.\n @return Returns the pointer to the {@link OH_Drawing_ShaderEffect} object created. If NULL is returned, the creation\n fails. The possible failure cause is that no memory is available or at least one of the parameters **startPt**, **\n endPt**, and **colors** is NULL.\n @since 12\n @version 1.0"]
     pub fn OH_Drawing_ShaderEffectCreateLinearGradientWithLocalMatrix(
         startPt: *const OH_Drawing_Point2D,
         endPt: *const OH_Drawing_Point2D,
@@ -3842,7 +3970,7 @@ extern "C" {
     ) -> *mut OH_Drawing_ShaderEffect;
 }
 extern "C" {
-    #[doc = " @brief Creates an <b>OH_Drawing_ShaderEffect</b> that generates a radial gradient given the center and radius.\n\n @syscap SystemCapability.Graphic.Graphic2D.NativeDrawing\n @param centerPt Indicates the center of the circle for the gradient.\n @param radius Indicates the radius of the circle for this gradient.\n @param colors Indicates the colors to be distributed between the two points.\n @param pos Indicates the relative position of each corresponding color in the colors array.\n @param size Indicates the number of colors and pos.\n @param tileMode Indicates the tile mode.\n @return Returns the pointer to the <b>OH_Drawing_ShaderEffect</b> object created.\n @since 11\n @version 1.0"]
+    #[doc = " @brief Creates an **OH_Drawing_ShaderEffect** object that generates a radial gradient based on the center and radius\n of a circle.\n The radial gradient transitions colors from the center to the ending shape in a radial manner.\n This API may return an error code. For details, call {@link OH_Drawing_ErrorCodeGet}.\n If either **centerPt** or **colors** is NULL, **OH_DRAWING_ERROR_INVALID_PARAMETER** is returned.\n If **tileMode** is not set to one of the enumerated values, **OH_DRAWING_ERROR_PARAMETER_OUT_OF_RANGE** is returned.\n\n @param centerPt Center of the circle.\n @param radius Radius of the gradient. The value should be a non-negative number.\n @param colors Colors to distribute in the radial direction.\n @param pos Relative position of each color in the color array. The array length must be the same as that of **colors*\n *. If **pos** is NULL, colors are evenly distributed in the radial direction.\n @param size Number of colors and positions (if **pos** is not NULL).\n @param tileMode Tile mode of the shader effect. For details about the available options, see\n {@link OH_Drawing_TileMode}\n .\n @return Returns the pointer to the **OH_Drawing_ShaderEffect** object created.\n @since 11\n @version 1.0"]
     pub fn OH_Drawing_ShaderEffectCreateRadialGradient(
         centerPt: *const OH_Drawing_Point,
         radius: f32,
@@ -3853,7 +3981,7 @@ extern "C" {
     ) -> *mut OH_Drawing_ShaderEffect;
 }
 extern "C" {
-    #[doc = " @brief Creates an <b>OH_Drawing_ShaderEffect</b> that generates a radial gradient given the center and radius.\n\n @syscap SystemCapability.Graphic.Graphic2D.NativeDrawing\n @param centerPt Indicates the center of the circle for the gradient.\n @param radius Indicates the radius of the circle for this gradient.\n @param colors Indicates the colors to be distributed between the two points.\n @param pos Indicates the relative position of each corresponding color in the colors array.\n @param size Indicates the number of colors and pos.\n @param tileMode Indicates the tile mode.\n @param matrix Indicates the pointer to an <b>OH_Drawing_Matrix</b> object,\nwhich represents the local matrix of the created <b>OH_Drawing_ShaderEffect</b> object.\nIf matrix is nullptr, defaults to the identity matrix.\n @return Returns the pointer to the <b>OH_Drawing_ShaderEffect</b> object created.\n         If nullptr is returned, the creation fails.\n         The possible cause of the failure is any of centerPt, colors and pos is nullptr.\n @since 12\n @version 1.0"]
+    #[doc = " @brief Creates an **OH_Drawing_ShaderEffect** object that generates a radial gradient based on the center and radius\n of a circle.\n The radial gradient transitions colors from the center to the ending shape in a radial manner.\n This API may return an error code. For details, call {@link OH_Drawing_ErrorCodeGet}.\n If either **centerPt** or **colors** is NULL, **OH_DRAWING_ERROR_INVALID_PARAMETER** is returned.\n If **tileMode** is not set to one of the enumerated values, **OH_DRAWING_ERROR_PARAMETER_OUT_OF_RANGE** is returned.\n\n @param centerPt Center of the circle.\n @param radius Radius of the gradient.\n @param colors Colors to distribute in the radial direction.\n @param pos Relative position of each color in the color array. The array length must be the same as that of **colors*\n *. If **pos** is NULL, colors are evenly distributed in the radial direction.\n @param size Number of colors and positions (if **pos** is not NULL).\n @param tileMode Tile mode of the shader effect. For details about the available options, see\n {@link OH_Drawing_TileMode}\n .\n @param matrix Matrix applied on the shader effect. If **matrix** is NULL, an identity matrix is applied by default.\n @return Returns the pointer to the {@link OH_Drawing_ShaderEffect} object created. If NULL is returned, the creation\n fails. The possible failure cause is that no memory is available or at least one of the parameters **centerPt** and *\n *colors** is NULL.\n @since 12\n @version 1.0"]
     pub fn OH_Drawing_ShaderEffectCreateRadialGradientWithLocalMatrix(
         centerPt: *const OH_Drawing_Point2D,
         radius: f32,
@@ -3865,7 +3993,7 @@ extern "C" {
     ) -> *mut OH_Drawing_ShaderEffect;
 }
 extern "C" {
-    #[doc = " @brief Creates an <b>OH_Drawing_ShaderEffect</b> that generates a sweep gradient given a center.\n\n @syscap SystemCapability.Graphic.Graphic2D.NativeDrawing\n @param centerPt Indicates the center of the circle for the gradient.\n @param colors Indicates the colors to be distributed between the two points.\n @param pos Indicates the relative position of each corresponding color in the colors array.\n @param size Indicates the number of colors and pos.\n @param tileMode Indicates the tile mode.\n @param matrix Indicates the pointer to an <b>OH_Drawing_Matrix</b> object,\nwhich represents the local matrix of the created <b>OH_Drawing_ShaderEffect</b> object.\nIf matrix is nullptr, defaults to the identity matrix.\n @return Returns the pointer to the <b>OH_Drawing_ShaderEffect</b> object created.\n @since 20\n @version 1.0"]
+    #[doc = " @brief Creates an **OH_Drawing_ShaderEffect** object that generates a sweep gradient based on the matrix\n transformation at the given center.\n A sweep gradient paints a gradient in a sweeping arc ranging from 0° to 360°.\n\n @param centerPt Center of the circle.\n @param colors Colors to distribute between the two points.\n @param pos Relative position of each color in the color array. The array length must be the same as that of **colors*\n *. If **pos** is NULL, colors are evenly distributed between the start angle (0°) and end angle (360°).\n @param size Number of colors and positions (if **pos** is not NULL).\n @param tileMode Tile mode of the shader effect. For details about the available options, see\n {@link OH_Drawing_TileMode}\n .\n @param matrix Matrix applied on the shader effect. If **matrix** is NULL, an identity matrix is applied by default.\n @return Returns the pointer to the {@link OH_Drawing_ShaderEffect} object created.\n A null pointer is returned if any of the following conditions is met:\n - The available memory is empty.\n - **centerPt** or **colors** is NULL.\n - The value of **tileMode** is out of the enumerated value range.\n @since 20\n @version 1.0"]
     #[cfg(feature = "api-20")]
     pub fn OH_Drawing_ShaderEffectCreateSweepGradientWithLocalMatrix(
         centerPt: *const OH_Drawing_Point,
@@ -3877,7 +4005,7 @@ extern "C" {
     ) -> *mut OH_Drawing_ShaderEffect;
 }
 extern "C" {
-    #[doc = " @brief Creates an <b>OH_Drawing_ShaderEffect</b> that generates a sweep gradient given a center.\n\n @syscap SystemCapability.Graphic.Graphic2D.NativeDrawing\n @param centerPt Indicates the center of the circle for the gradient.\n @param colors Indicates the colors to be distributed between the two points.\n @param pos Indicates the relative position of each corresponding color in the colors array.\n @param size Indicates the number of colors and pos.\n @param tileMode Indicates the tile mode.\n @return Returns the pointer to the <b>OH_Drawing_ShaderEffect</b> object created.\n @since 11\n @version 1.0"]
+    #[doc = " @brief Creates an **OH_Drawing_ShaderEffect** object that generates a sweep gradient based on the center.\n A sweep gradient paints a gradient in a sweeping arc ranging from 0° to 360°.\n This API may return an error code. For details, call {@link OH_Drawing_ErrorCodeGet}.\n If either **centerPt** or **colors** is NULL, **OH_DRAWING_ERROR_INVALID_PARAMETER** is returned.\n If **tileMode** is not set to one of the enumerated values, **OH_DRAWING_ERROR_PARAMETER_OUT_OF_RANGE** is returned.\n\n @param centerPt Center of the circle.\n @param colors Colors to distribute between the two points.\n @param pos Relative position of each color in the color array. The array length must be the same as that of **colors*\n *. If **pos** is NULL, colors are evenly distributed between the start angle (0°) and end angle (360°).\n @param size Number of colors and positions (if **pos** is not NULL).\n @param tileMode Tile mode of the shader effect. For details about the available options, see\n {@link OH_Drawing_TileMode}\n .\n @return Returns the pointer to the {@link OH_Drawing_ShaderEffect} object created.\n A null pointer is returned if any of the following conditions is met:\n - The available memory is empty.\n - **centerPt** or **colors** is NULL.\n - The value of **tileMode** is out of the enumerated value range.\n @since 11\n @version 1.0"]
     pub fn OH_Drawing_ShaderEffectCreateSweepGradient(
         centerPt: *const OH_Drawing_Point,
         colors: *const u32,
@@ -3887,7 +4015,7 @@ extern "C" {
     ) -> *mut OH_Drawing_ShaderEffect;
 }
 extern "C" {
-    #[doc = " @brief Creates an <b>OH_Drawing_ShaderEffect</b> that generates a image shader.\n\n @syscap SystemCapability.Graphic.Graphic2D.NativeDrawing\n @param image Indicates the pointer to an <b>OH_Drawing_Image</b> object.\n @param tileX Indicates the tileX.\n @param tileY Indicates the tileY.\n @param samplingOptions Indicates the pointer to an <b>OH_Drawing_SamplingOptions</b> object.\n @param matrix Indicates the pointer to an <b>OH_Drawing_Matrix</b> object.\n                          If matrix is nullptr, defaults to the identity matrix.\n @return Returns the pointer to the <b>OH_Drawing_ShaderEffect</b> object created.\n @since 12\n @version 1.0"]
+    #[doc = " @brief Creates an **OH_Drawing_ShaderEffect** object for an image shader. You are advised not to use the function\n for the canvas of the capture type because it affects the performance.\n This API may return an error code. For details, call {@link OH_Drawing_ErrorCodeGet}.\n If either **image** or **samplingOptions** is NULL, **OH_DRAWING_ERROR_INVALID_PARAMETER** is returned.\n If either **tileX** or **tileY** is not set to one of the enumerated values, **\n OH_DRAWING_ERROR_PARAMETER_OUT_OF_RANGE** is returned.\n\n @param image Pointer to the {@link OH_Drawing_Image} object.\n @param tileX Tile mode of the shader effect in the horizontal direction. For details about the available options,\n see {@link OH_Drawing_TileMode}.\n @param tileY Tile mode of the shader effect in the vertical direction. For details about the available options, see\n {@link OH_Drawing_TileMode}\n .\n @param samplingOptions Pointer to the {@link OH_Drawing_SamplingOptions} object.\n @param matrix Pointer to the {@link OH_Drawing_Matrix} object. If the pointer array is empty, the identity matrix is\n passed in.\n @return Returns the pointer to the {@link OH_Drawing_ShaderEffect} object created.\n A null pointer is returned if any of the following conditions is met:\n - The available memory is empty.\n - **image** or **samplingOptions** is NULL.\n - The value of **tileX** or **tileY** is out of the enumerated value range.\n @since 12\n @version 1.0"]
     pub fn OH_Drawing_ShaderEffectCreateImageShader(
         image: *mut OH_Drawing_Image,
         tileX: OH_Drawing_TileMode,
@@ -3897,7 +4025,7 @@ extern "C" {
     ) -> *mut OH_Drawing_ShaderEffect;
 }
 extern "C" {
-    #[doc = " @brief Creates an <b>OH_Drawing_ShaderEffect</b> that generates a pixel map shader.\n\n @syscap SystemCapability.Graphic.Graphic2D.NativeDrawing\n @param pixelMap Indicates the pointer to an <b>OH_Drawing_PixelMap</b> object.\n @param tileX Indicates the horizontal tile mode.\n @param tileY Indicates the vertical tile mode.\n @param samplingOptions Indicates the pointer to an <b>OH_Drawing_SamplingOptions</b> object. It cannot be null.\n @param matrix Indicates the pointer to an <b>OH_Drawing_Matrix</b> object.\n                          If matrix is nullptr, defaults to the identity matrix.\n @return Returns the pointer to the <b>OH_Drawing_ShaderEffect</b> object created.\n @since 20\n @version 1.0"]
+    #[doc = " @brief Creates a PixelMap shader object.\n\n @param pixelMap Pointer to the {@link OH_Drawing_PixelMap} object.\n @param tileX Tile mode of the shader effect in the horizontal direction. For details about the available options,\n see {@link OH_Drawing_TileMode}.\n @param tileY Tile mode of the shader effect in the vertical direction. For details about the available options, see\n {@link OH_Drawing_TileMode}\n .\n @param samplingOptions Pointer to the {@link OH_Drawing_SamplingOptions} object.\n @param matrix Pointer to the {@link OH_Drawing_Matrix} object. If the pointer array is empty, the identity matrix is\n passed in.\n @return Returns the pointer to the **OH_Drawing_ShaderEffect** object created.\n @since 20\n @version 1.0"]
     #[cfg(feature = "api-20")]
     pub fn OH_Drawing_ShaderEffectCreatePixelMapShader(
         pixelMap: *mut OH_Drawing_PixelMap,
@@ -3908,7 +4036,7 @@ extern "C" {
     ) -> *mut OH_Drawing_ShaderEffect;
 }
 extern "C" {
-    #[doc = " @brief Creates an <b>OH_Drawing_ShaderEffect</b> that generates a conical gradient given two circles.\n\n @syscap SystemCapability.Graphic.Graphic2D.NativeDrawing\n @param startPt Indicates the center of the start circle for the gradient.\n @param startRadius Indicates the radius of the start circle for this gradient.\n @param endPt Indicates the center of the end circle for the gradient.\n @param endRadius Indicates the radius of the end circle for this gradient.\n @param colors Indicates the colors to be distributed between the two points.\n @param pos Indicates the relative position of each corresponding color in the colors array.\n @param size Indicates the number of colors and pos.\n @param tileMode Indicates the tile mode.\n @param matrix Indicates the pointer to an <b>OH_Drawing_Matrix</b> object,\nwhich represents the local matrix of the created <b>OH_Drawing_ShaderEffect</b> object.\nIf matrix is nullptr, defaults to the identity matrix.\n @return Returns the pointer to the <b>OH_Drawing_ShaderEffect</b> object created.\n         If nullptr is returned, the creation fails.\n         The possible cause of the failure is any of startPt, endPt, colors and pos is nullptr.\n @since 12\n @version 1.0"]
+    #[doc = " @brief Creates an **OH_Drawing_ShaderEffect** object that generates a gradient between two given circles.\n This API may return an error code. For details, call {@link OH_Drawing_ErrorCodeGet}.\n If any of **startPt**, **endPt**, and **colors** is NULL, **OH_DRAWING_ERROR_INVALID_PARAMETER** is returned.\n If **tileMode** is not set to one of the enumerated values, **OH_DRAWING_ERROR_PARAMETER_OUT_OF_RANGE** is returned.\n\n @param startPt Pointer to the center of the start circle.\n @param startRadius Start radius of the gradient. The value should be a non-negative number.\n @param endPt Pointer to the center of the end circle.\n @param endRadius End radius of the gradient. The value should be a non-negative number.\n @param colors Colors to distribute between the two circles.\n @param pos Relative position of each color in the color array. The array length must be the same as that of **colors*\n *. If **pos** is NULL, colors are evenly distributed between the two circles.\n @param size Number of colors and positions (if **pos** is not NULL).\n @param tileMode Tile mode of the shader effect. For details about the available options, see\n {@link OH_Drawing_TileMode}\n .\n @param matrix Matrix applied on the shader effect. If **matrix** is NULL, an identity matrix is applied by default.\n @return Returns the pointer to the {@link OH_Drawing_ShaderEffect} object created. If the returned pointer is NULL,\n the creation fails. The possible causes are as follows:\n - The available memory is empty.\n - **startPt**, **endPt**, or **colors** is NULL.\n - The value of **tileMode** is out of the enumerated value range.\n @since 12\n @version 1.0"]
     pub fn OH_Drawing_ShaderEffectCreateTwoPointConicalGradient(
         startPt: *const OH_Drawing_Point2D,
         startRadius: f32,
@@ -3922,7 +4050,7 @@ extern "C" {
     ) -> *mut OH_Drawing_ShaderEffect;
 }
 extern "C" {
-    #[doc = " @brief Creates an <b>OH_Drawing_ShaderEffect</b> that generates by two shaders.\n\n @syscap SystemCapability.Graphic.Graphic2D.NativeDrawing\n @param dst Indicates the destination ShaderEffect pointer.\n @param src Indicates the source ShaderEffect pointer.\n @param mode Indicates the blend mode.\n @return Returns the pointer to the <b>OH_Drawing_ShaderEffect</b> object created.\n         If nullptr is returned, the creation fails.\n         The possible cause of the failure is that the available memory is empty or any of dst and src is nullptr.\n @since 20\n @version 1.0"]
+    #[doc = " @brief Creates a shader by blending two existing shaders in a certain way.\n\n @param dst Shader that serves as the destination color in blend mode.\n @param src Shader that serves as the source color in blend mode.\n @param mode Blend mode.\n @return Returns the pointer to the {@link OH_Drawing_ShaderEffect} object created.\n If the returned pointer is NULL, the creation fails. The possible causes are as follows:\n - The available memory is empty.\n - **dst** or **src** is NULL.\n - The value of **mode** is out of the enumerated value range.\n @since 20\n @version 1.0"]
     #[cfg(feature = "api-20")]
     pub fn OH_Drawing_ShaderEffectCreateCompose(
         dst: *mut OH_Drawing_ShaderEffect,
@@ -3931,11 +4059,11 @@ extern "C" {
     ) -> *mut OH_Drawing_ShaderEffect;
 }
 extern "C" {
-    #[doc = " @brief Destroys an <b>OH_Drawing_ShaderEffect</b> object and reclaims the memory occupied by the object.\n\n @syscap SystemCapability.Graphic.Graphic2D.NativeDrawing\n @param shaderEffect Indicates the pointer to an <b>OH_Drawing_ShaderEffect</b> object.\n @since 11\n @version 1.0"]
+    #[doc = " @brief Destroys an **OH_Drawing_ShaderEffect** object and reclaims the memory occupied by the object.\n\n @param shaderEffect Pointer to an **OH_Drawing_ShaderEffect** object.\n @since 11\n @version 1.0"]
     pub fn OH_Drawing_ShaderEffectDestroy(shaderEffect: *mut OH_Drawing_ShaderEffect);
 }
 extern "C" {
-    #[doc = " @brief Creates an <b>OH_Drawing_ImageFilter</b> object that blurs its input by the separate x and y sigmas.\n\n @syscap SystemCapability.Graphic.Graphic2D.NativeDrawing\n @param sigmaX Indicates the Gaussian sigma value for blurring along the x axis.\n @param sigmaY Indicates the Gaussian sigma value for blurring along the y axis.\n @param tileMode Indicates the tile mode applied at edges.\n @param imageFilter Indicates the input filter that is blurred, uses source bitmap if this is null.\n @return Returns the pointer to the <b>OH_Drawing_ImageFilter</b> object created.\n         If nullptr is returned, the creation fails.\n         The possible cause of the failure is that the available memory is empty.\n @since 12\n @version 1.0"]
+    #[doc = " @brief Creates an image filter with a given blur effect.\n\n @param sigmaX Standard deviation of the Gaussian blur to apply along the X axis. The value must be greater than 0.\n @param sigmaY Standard deviation of the Gaussian blur to apply along the Y axis. The value must be greater than 0.\n @param tileMode Tile mode of the shader effect. For details about the available options, see\n {@link OH_Drawing_TileMode}\n .\n @param imageFilter Pointer to the filter to which the image filter will be applied. If NULL is passed in, the image\n filter is directly applied to the original image.\n @return Returns the pointer to the <b>OH_Drawing_ImageFilter</b> object created.\n If nullptr is returned, the creation fails.\n The possible cause of the failure is that the available memory is empty.\n @since 12\n @version 1.0"]
     pub fn OH_Drawing_ImageFilterCreateBlur(
         sigmaX: f32,
         sigmaY: f32,
@@ -3944,7 +4072,7 @@ extern "C" {
     ) -> *mut OH_Drawing_ImageFilter;
 }
 extern "C" {
-    #[doc = " @brief Creates an <b>OH_Drawing_ImageFilter</b> object that blurs its input by the separate x and y sigmas.\n Supports an optional crop rectangle to restrict the blur effect to a specific region of the input.\n\n @syscap SystemCapability.Graphic.Graphic2D.NativeDrawing\n @param sigmaX Indicates the Gaussian sigma value for blurring along the x axis.\n @param sigmaY Indicates the Gaussian sigma value for blurring along the y axis.\n @param tileMode Indicates the tile mode applied at edges.\n @param input Indicates the input filter that is blurred, uses source bitmap if this is null.\n @param rect Indicates optional rectangle that crops the input and output.\n             If rect is null, the blur effect applies to the entire input image.\n @return Returns the pointer to the <b>OH_Drawing_ImageFilter</b> object created.\n @since 20\n @version 1.0"]
+    #[doc = " @brief Creates an image filter with a given blur effect.\n\n @param sigmaX Standard deviation of the Gaussian blur to apply along the X axis. The value must be greater than 0.0.\n @param sigmaY Standard deviation of the Gaussian blur to apply along the Y axis. The value must be greater than 0.0.\n @param tileMode Tile mode of the shader effect. For details about the available options, see\n {@link OH_Drawing_TileMode}\n .\n @param input Pointer to the filter to which the image filter will be applied. If NULL is passed in, the image filter\n is directly applied to the original image.\n @param rect Pointer to the rectangular region to be cropped. If NULL is passed in, the blur effect is directly\n applied to the entire image.\n @return Returns the pointer to the <b>OH_Drawing_ImageFilter</b> object created.\n @since 20\n @version 1.0"]
     #[cfg(feature = "api-20")]
     pub fn OH_Drawing_ImageFilterCreateBlurWithCrop(
         sigmaX: f32,
@@ -3955,14 +4083,14 @@ extern "C" {
     ) -> *mut OH_Drawing_ImageFilter;
 }
 extern "C" {
-    #[doc = " @brief Creates an <b>OH_Drawing_ImageFilter</b> object that applies the color filter to the input.\n\n @syscap SystemCapability.Graphic.Graphic2D.NativeDrawing\n @param colorFilter Indicates the color filter that transforms the input image.\n @param imageFilter Indicates the input filter, or uses the source bitmap if this is null.\n @return Returns the pointer to the <b>OH_Drawing_ImageFilter</b> object created.\n         If nullptr is returned, the creation fails.\n         The possible cause of the failure is that the available memory is empty or\n         a nullptr <b>OH_Drawing_ColorFilter</b> is passed.\n @since 12\n @version 1.0"]
+    #[doc = " @brief Creates an **OH_Drawing_ImageFilter** object with a color filter effect. This API may return an error code.\n For details, call {@link OH_Drawing_ErrorCodeGet}. If **colorFilter** is NULL, **OH_DRAWING_ERROR_INVALID_PARAMETER**\n is returned.\n\n @param colorFilter Pointer to an {@link OH_Drawing_ColorFilter} object.\n @param imageFilter Pointer to the filter to which the image filter will be applied. If NULL is passed in, the image\n filter is directly applied to the original image.\n @return Returns the pointer to the <b>OH_Drawing_ImageFilter</b> object created.\n If nullptr is returned, the creation fails.\n The possible cause of the failure is that the available memory is empty or\n a nullptr <b>OH_Drawing_ColorFilter</b> is passed.\n @since 12\n @version 1.0"]
     pub fn OH_Drawing_ImageFilterCreateFromColorFilter(
         colorFilter: *mut OH_Drawing_ColorFilter,
         imageFilter: *mut OH_Drawing_ImageFilter,
     ) -> *mut OH_Drawing_ImageFilter;
 }
 extern "C" {
-    #[doc = " @brief Creates an <b>OH_Drawing_ImageFilter</b> object with the provided x and y offset.\n\n @syscap SystemCapability.Graphic.Graphic2D.NativeDrawing\n @param x Indicates the x offset.\n @param y Indicates the y offset.\n @param imageFilter Indicates the input filter, or uses the source bitmap if this is null.\n @return Returns the pointer to the <b>OH_Drawing_ImageFilter</b> object created.\n         If nullptr is returned, the creation fails.\n         The possible cause of the failure is that the available memory is empty.\n @since 20\n @version 1.0"]
+    #[doc = " @brief Creates an offset filter to translate the input filter based on the specified vector.\n\n @param x Distance to translate on the X axis.\n @param y Distance to translate on the Y axis.\n @param imageFilter Filter to be translated. If NULL is passed in, the drawing result without the filtering effect is\n translated.\n @return Returns the pointer to the <b>OH_Drawing_ImageFilter</b> object created.\n If nullptr is returned, the creation fails.\n The possible cause of the failure is that the available memory is empty.\n @since 20\n @version 1.0"]
     #[cfg(feature = "api-20")]
     pub fn OH_Drawing_ImageFilterCreateOffset(
         x: f32,
@@ -3971,28 +4099,28 @@ extern "C" {
     ) -> *mut OH_Drawing_ImageFilter;
 }
 extern "C" {
-    #[doc = " @brief Creates an <b>OH_Drawing_ImageFilter</b> object that applies the shader to the input.\n\n @syscap SystemCapability.Graphic.Graphic2D.NativeDrawing\n @param shaderEffect Indicates the shader effect to be applied to the image.\n @return Returns the pointer to the <b>OH_Drawing_ImageFilter</b> object created.\n         If nullptr is returned, the creation fails.\n         The possible cause of the failure is that the available memory is empty or\n         a nullptr <b>OH_Drawing_ShaderEffect</b> is passed.\n @since 20\n @version 1.0"]
+    #[doc = " @brief Creates an **ImageFilter** object based on a shader.\n\n @param shaderEffect Shader effect to be applied to the image.\n @return Returns the pointer to the <b>OH_Drawing_ImageFilter</b> object created.\n If nullptr is returned, the creation fails.\n The possible cause of the failure is that the available memory is empty or\n a nullptr <b>OH_Drawing_ShaderEffect</b> is passed.\n @since 20\n @version 1.0"]
     #[cfg(feature = "api-20")]
     pub fn OH_Drawing_ImageFilterCreateFromShaderEffect(
         shaderEffect: *mut OH_Drawing_ShaderEffect,
     ) -> *mut OH_Drawing_ImageFilter;
 }
 extern "C" {
-    #[doc = " @brief Destroys an <b>OH_Drawing_ImageFilter</b> object and reclaims the memory occupied by the object.\n\n @syscap SystemCapability.Graphic.Graphic2D.NativeDrawing\n @param imageFilter Indicates the pointer to an <b>OH_Drawing_ImageFilter</b> object.\n @since 12\n @version 1.0"]
+    #[doc = " @brief Destroys an **OH_Drawing_ImageFilter** object and reclaims the memory occupied by the object.\n\n @param imageFilter Pointer to an {@link OH_Drawing_ImageFilter} object.\n @since 12\n @version 1.0"]
     pub fn OH_Drawing_ImageFilterDestroy(imageFilter: *mut OH_Drawing_ImageFilter);
 }
-#[doc = " Fuzzy inside and outside."]
+#[doc = " Blurs both inside and outside the original border."]
 pub const OH_Drawing_BlurType_NORMAL: OH_Drawing_BlurType = 0;
-#[doc = " Solid inside, fuzzy outside."]
+#[doc = " Draws solid inside the border, and blurs outside."]
 pub const OH_Drawing_BlurType_SOLID: OH_Drawing_BlurType = 1;
-#[doc = " Nothing inside, fuzzy outside."]
+#[doc = " Draws nothing inside the border, and blurs outside."]
 pub const OH_Drawing_BlurType_OUTER: OH_Drawing_BlurType = 2;
-#[doc = " Fuzzy inside, nothing outside."]
+#[doc = " Blurs inside the border, and draws nothing outside."]
 pub const OH_Drawing_BlurType_INNER: OH_Drawing_BlurType = 3;
-#[doc = " @brief Enumerates blur type.\n\n @since 11\n @version 1.0"]
+#[doc = " @brief Defines an enum for the blur types.\n\n @since 11\n @version 1.0"]
 pub type OH_Drawing_BlurType = u32;
 extern "C" {
-    #[doc = " @brief Creates an <b>OH_Drawing_MaskFilter</b> with a blur effect.\n\n @syscap SystemCapability.Graphic.Graphic2D.NativeDrawing\n @param blurType Indicates the blur type.\n @param sigma Indicates the standard deviation of the Gaussian blur to apply. Must be > 0.\n @param respectCTM Indicates the blur's sigma is modified by the CTM, default is true.\n @return Returns the pointer to the <b>OH_Drawing_MaskFilter</b> object created.\n @since 11\n @version 1.0"]
+    #[doc = " @brief Creates an **OH_Drawing_MaskFilter** object with a blur type.\n\n @param blurType Blur type.\n @param sigma Standard deviation of the Gaussian blur to apply. The value must be greater than 0.\n @param respectCTM Whether the blur standard deviation is modified by the current transformation matrix (CTM). The\n default value is **true**. **true**: The blur standard deviation is affected by the CTM. **false**: The blur\n standard deviation is fixed and not affected by the CTM.\n @return Returns the pointer to the **OH_Drawing_MaskFilter** object created.\n @since 11\n @version 1.0"]
     pub fn OH_Drawing_MaskFilterCreateBlur(
         blurType: OH_Drawing_BlurType,
         sigma: f32,
@@ -4000,24 +4128,24 @@ extern "C" {
     ) -> *mut OH_Drawing_MaskFilter;
 }
 extern "C" {
-    #[doc = " @brief Destroys an <b>OH_Drawing_MaskFilter</b> object and reclaims the memory occupied by the object.\n\n @syscap SystemCapability.Graphic.Graphic2D.NativeDrawing\n @param maskFilter Indicates the pointer to an <b>OH_Drawing_MaskFilter</b> object.\n @since 11\n @version 1.0"]
+    #[doc = " @brief Destroys an **OH_Drawing_MaskFilter** object and reclaims the memory occupied by the object.\n\n @param maskFilter Pointer to an **OH_Drawing_MaskFilter** object.\n @since 11\n @version 1.0"]
     pub fn OH_Drawing_MaskFilterDestroy(maskFilter: *mut OH_Drawing_MaskFilter);
 }
 extern "C" {
-    #[doc = " @brief Creates an <b>OH_Drawing_Matrix</b> object.\n\n @syscap SystemCapability.Graphic.Graphic2D.NativeDrawing\n @return Returns the pointer to the <b>OH_Drawing_Matrix</b> object created.\n @since 11\n @version 1.0"]
+    #[doc = " @brief Creates an **OH_Drawing_Matrix** object.\n\n @return Returns the pointer to the <b>OH_Drawing_Matrix</b> object created.\n @since 11\n @version 1.0"]
     pub fn OH_Drawing_MatrixCreate() -> *mut OH_Drawing_Matrix;
 }
 extern "C" {
-    #[doc = " @brief Creates an <b>OH_Drawing_Matrix</b> copy object.\n\n @syscap SystemCapability.Graphic.Graphic2D.NativeDrawing\n @param matrix Indicates the pointer to an <b>OH_Drawing_Matrix</b> object.\n @return Returns the pointer to the <b>OH_Drawing_Matrix</b> object created.\n @since 20\n @version 1.0"]
+    #[doc = " @brief Creates a copy of a matrix object.\n\n @param matrix Pointer to the {@link OH_Drawing_Matrix} object to be copied.\n @return Returns the pointer to the <b>OH_Drawing_Matrix</b> object created.\n @since 20\n @version 1.0"]
     #[cfg(feature = "api-20")]
     pub fn OH_Drawing_MatrixCopy(matrix: *const OH_Drawing_Matrix) -> *mut OH_Drawing_Matrix;
 }
 extern "C" {
-    #[doc = " @brief Creates an <b>OH_Drawing_Matrix</b> object with rotation. Sets matrix to\n rotate by degrees about a pivot point at (px, py).\n\n @syscap SystemCapability.Graphic.Graphic2D.NativeDrawing\n @param deg  angle of axes relative to upright axes\n @param x  pivot on x-axis.\n @param y  pivot on y-axis.\n @since 12\n @version 1.0"]
+    #[doc = " @brief Creates an **OH_Drawing_Matrix** with the rotation attribute.\n The matrix is obtained by rotating an identity matrix by a given degree around the rotation point (x, y).\n\n @param deg Angle to rotate, in degrees. A positive value indicates a clockwise rotation, and a negative value\n indicates a counterclockwise rotation.\n @param x Coordinate point on the X axis.\n @param y Coordinate point on the Y axis.\n @return Returns the pointer to the <b>OH_Drawing_Matrix</b> object created.\n @since 12\n @version 1.0"]
     pub fn OH_Drawing_MatrixCreateRotation(deg: f32, x: f32, y: f32) -> *mut OH_Drawing_Matrix;
 }
 extern "C" {
-    #[doc = " @brief Creates an <b>OH_Drawing_Matrix</b> object with scale. Sets matrix to scale\n by sx and sy, about a pivot point at (px, py).\n\n @syscap SystemCapability.Graphic.Graphic2D.NativeDrawing\n @param sx  horizontal scale factor.\n @param sy  vertical scale factor.\n @param px  pivot on x-axis.\n @param py  pivot on y-axis.\n @return Returns the pointer to the <b>OH_Drawing_Matrix</b> object created.\n @since 12\n @version 1.0"]
+    #[doc = " @brief Creates an **OH_Drawing_Matrix** with the scale attribute.\n The matrix is obtained by scaling an identity matrix with the factor (sx, sy) at the rotation point (px, py).\n\n @param sx Scale factor on the X axis. If a negative number is passed in, the matrix is mirrored around y = px before\n being scaled. The value is a floating point number.\n @param sy Scale factor on the Y axis. If a negative number is passed in, the matrix is mirrored around x = py before\n being scaled. The value is a floating point number.\n @param px Coordinate point on the X axis.\n @param py Coordinate point on the Y axis.\n @return Returns the pointer to the <b>OH_Drawing_Matrix</b> object created.\n @since 12\n @version 1.0"]
     pub fn OH_Drawing_MatrixCreateScale(
         sx: f32,
         sy: f32,
@@ -4026,11 +4154,11 @@ extern "C" {
     ) -> *mut OH_Drawing_Matrix;
 }
 extern "C" {
-    #[doc = " @brief Creates an <b>OH_Drawing_Matrix</b> object with translation.\n\n @syscap SystemCapability.Graphic.Graphic2D.NativeDrawing\n @param dx  horizontal translation.\n @param dy  vertical translation.\n @return Returns the pointer to the <b>OH_Drawing_Matrix</b> object created.\n @since 12\n @version 1.0"]
+    #[doc = " @brief Creates an **OH_Drawing_Matrix** with the translation attribute.\n The matrix is obtained by translating the identity matrix by the distance (dx, dy).\n\n @param dx Distance to translate on the X axis. A positive number indicates a translation towards the positive\n direction of the X axis, and a negative number indicates a translation towards the negative direction of the X axis.\n The value is a floating point number.\n @param dy Distance to translate on the Y axis. A positive number indicates a translation towards the positive\n direction of the Y axis, and a negative number indicates a translation towards the negative direction of the Y axis.\n The value is a floating point number.\n @return Returns the pointer to the <b>OH_Drawing_Matrix</b> object created.\n @since 12\n @version 1.0"]
     pub fn OH_Drawing_MatrixCreateTranslation(dx: f32, dy: f32) -> *mut OH_Drawing_Matrix;
 }
 extern "C" {
-    #[doc = " @brief Sets the params for a matrix.\n\n @syscap SystemCapability.Graphic.Graphic2D.NativeDrawing\n @param matrix Indicates the pointer to an <b>OH_Drawing_Matrix</b> object.\n @param scaleX  horizontal scale factor to store\n @param skewX   horizontal skew factor to store\n @param transX  horizontal translation to store\n @param skewY   vertical skew factor to store\n @param scaleY  vertical scale factor to store\n @param transY  vertical translation to store\n @param persp0  input x-axis values perspective factor to store\n @param persp1  input y-axis values perspective factor to store\n @param persp2  perspective scale factor to store\n @since 11\n @version 1.0"]
+    #[doc = " @brief Sets matrix parameters for an **OH_Drawing_Matrix** object.\n This API may return an error code. For details, call {@link OH_Drawing_ErrorCodeGet}.\n If **OH_Drawing_Matrix** is NULL, **OH_DRAWING_ERROR_INVALID_PARAMETER** is returned.\n\n @param matrix Pointer to an **OH_Drawing_Matrix** object.\n @param scaleX Scale factor on the X axis.\n @param skewX Skew factor on the X axis.\n @param transX Translation coefficient on the X axis.\n @param skewY Skew factor on the Y axis.\n @param scaleY Scale factor on the Y axis.\n @param transY Translation coefficient on the Y axis.\n @param persp0 Perspective coefficient of the X axis.\n @param persp1 Perspective coefficient of the Y axis.\n @param persp2 Perspective scale coefficient.\n @since 11\n @version 1.0"]
     pub fn OH_Drawing_MatrixSetMatrix(
         matrix: *mut OH_Drawing_Matrix,
         scaleX: f32,
@@ -4044,18 +4172,18 @@ extern "C" {
         persp2: f32,
     );
 }
-#[doc = " Scales in x and y to fill destination rect."]
+#[doc = " Scales the source rectangle both horizontally and vertically to exactly match the destination rectangle."]
 pub const OH_Drawing_ScaleToFit_SCALE_TO_FIT_FILL: OH_Drawing_ScaleToFit = 0;
-#[doc = " Scales and aligns to left and top."]
+#[doc = " Scales the source rectangle and aligns it to the left and top edges of the destination rectangle."]
 pub const OH_Drawing_ScaleToFit_SCALE_TO_FIT_START: OH_Drawing_ScaleToFit = 1;
-#[doc = " Scales and aligns to center."]
+#[doc = " Scales the source rectangle and aligns it to the center of the destination rectangle."]
 pub const OH_Drawing_ScaleToFit_SCALE_TO_FIT_CENTER: OH_Drawing_ScaleToFit = 2;
-#[doc = " Scales and aligns to right and bottom."]
+#[doc = " Scales the source rectangle and aligns it to the right and bottom edges of the destination rectangle."]
 pub const OH_Drawing_ScaleToFit_SCALE_TO_FIT_END: OH_Drawing_ScaleToFit = 3;
-#[doc = " @brief Enumerates of scale to fit flags, how matrix is constructed to map one rect to another.\n\n @since 12\n @version 1.0"]
+#[doc = " @brief Defines an enum for the matrix scaling modes.\n\n @since 12\n @version 1.0"]
 pub type OH_Drawing_ScaleToFit = u32;
 extern "C" {
-    #[doc = " @brief Sets matrix to scale and translate src rect to dst rect.\n\n @syscap SystemCapability.Graphic.Graphic2D.NativeDrawing\n @param matrix Indicates the pointer to an <b>OH_Drawing_Matrix</b> object.\n @param src Indicates the pointer to an <b>OH_Drawing_Rect</b> object rect to map from.\n @param dst Indicates the pointer to an <b>OH_Drawing_Rect</b> object rect to map to.\n @param stf Scales to fit enum method.\n @return Returns true if dst is empty, and sets matrix to:\n         | 0 0 0 |\n         | 0 0 0 |\n         | 0 0 1 |\n\n @since 12\n @version 1.0"]
+    #[doc = " @brief Scales a matrix to map a source rectangle to a destination rectangle.\n This API may return an error code. For details, call {@link OH_Drawing_ErrorCodeGet}.\n If any of **matrix**, **src**, and **dst** is NULL, **OH_DRAWING_ERROR_INVALID_PARAMETER** is returned.\n\n @param matrix Pointer to the {@link OH_Drawing_Matrix} object.\n @param src Pointer to the {@link OH_Drawing_Rect} object of the mapping source.\n @param dst Pointer to the {@link OH_Drawing_Rect} object of the mapping destination.\n @param stf Scaling mode. For details about the available options, see {@link OH_Drawing_ScaleToFit}.\n @return Returns true if dst is empty, and sets matrix to:\n | 0 0 0 |\n | 0 0 0 |\n | 0 0 1 |\n\n @since 12\n @version 1.0"]
     pub fn OH_Drawing_MatrixSetRectToRect(
         matrix: *mut OH_Drawing_Matrix,
         src: *const OH_Drawing_Rect,
@@ -4064,7 +4192,7 @@ extern "C" {
     ) -> bool;
 }
 extern "C" {
-    #[doc = " @brief Sets matrix to matrix multiplied by matrix constructed from rotating by degrees\n about pivot point(px, py), positive degrees rotates clockwise.\n        Given:\n\n                     | A B C |                        | c -s dx |\n            Matrix = | D E F |,  R(degrees, px, py) = | s  c dy |\n                     | G H I |                        | 0  0  1 |\n\n        where:\n\n            c  = cos(degrees)\n            s  = sin(degrees)\n            dx =  s * py + (1 - c) * px\n            dy = -s * px + (1 - c) * py\n\n        sets Matrix to:\n\n                                          | A B C | | c -s dx |   | Ac+Bs -As+Bc A*dx+B*dy+C |\n            Matrix * R(degrees, px, py) = | D E F | | s  c dy | = | Dc+Es -Ds+Ec D*dx+E*dy+F |\n                                          | G H I | | 0  0  1 |   | Gc+Hs -Gs+Hc G*dx+H*dy+I |\n\n @syscap SystemCapability.Graphic.Graphic2D.NativeDrawing\n @param matrix Indicates the pointer to an <b>OH_Drawing_Matrix</b> object.\n @param degree Indicates the angle of axes relative to upright axes.\n @param px Indicates the pivot on x-axis.\n @param py Indicates the pivot on y-axis.\n @since 12\n @version 1.0"]
+    #[doc = " @brief Premultiplies this matrix by a matrix that is derived from an identity matrix after it has been rotated by a\n given degree around the rotation point (px, py).\n This API may return an error code. For details, call {@link OH_Drawing_ErrorCodeGet}.\n If **matrix** is NULL, **OH_DRAWING_ERROR_INVALID_PARAMETER** is returned.\n\n @param matrix Pointer to the {@link OH_Drawing_Matrix} object.\n @param degree Angle to rotate, in degrees. A positive value indicates a clockwise rotation, and a negative value\n indicates a counterclockwise rotation.\n @param px X coordinate of the rotation point.\n @param py Y coordinate of the rotation point.\n @since 12\n @version 1.0"]
     pub fn OH_Drawing_MatrixPreRotate(
         matrix: *mut OH_Drawing_Matrix,
         degree: f32,
@@ -4073,7 +4201,7 @@ extern "C" {
     );
 }
 extern "C" {
-    #[doc = " @brief Sets matrix to forward scale by sx and sy, about a pivot point at (px, py).\n        Given:\n\n                    | A B C |                       | sx  0 dx |\n            Matrix =| D E F |,  S(sx, sy, px, py) = |  0 sy dy |\n                    | G H I |                       |  0  0  1 |\n\n        where:\n\n            dx = px - sx * px\n            dy = py - sy * py\n\n        sets Matrix to:\n\n                                         | A B C | | sx  0 dx |   | A*sx B*sy A*dx+B*dy+C |\n            Matrix * S(sx, sy, px, py) = | D E F | |  0 sy dy | = | D*sx E*sy D*dx+E*dy+F |\n                                         | G H I | |  0  0  1 |   | G*sx H*sy G*dx+H*dy+I |\n\n @syscap SystemCapability.Graphic.Graphic2D.NativeDrawing\n @param matrix Indicates the pointer to an <b>OH_Drawing_Matrix</b> object.\n @param sx Horizontal scale factor.\n @param sy Vertical scale factor.\n @param px Pivot on x-axis.\n @param py Pivot on y-axis.\n @since 12\n @version 1.0"]
+    #[doc = " @brief Premultiplies a matrix by an identity matrix that scales with the factor (sx, sy) at the scale point (px, py).\n\n @param matrix Pointer to the {@link OH_Drawing_Matrix} object.\n @param sx Scale factor on the X axis. If a negative number is passed in, the matrix is mirrored around y = px before\n being scaled. The value is a floating point number.\n @param sy Scale factor on the Y axis. If a negative number is passed in, the matrix is mirrored around x = py before\n being scaled. The value is a floating point number.\n @param px X coordinate of the scale point.\n @param py Y coordinate of the scale point.\n @since 12\n @version 1.0"]
     pub fn OH_Drawing_MatrixPreScale(
         matrix: *mut OH_Drawing_Matrix,
         sx: f32,
@@ -4083,11 +4211,11 @@ extern "C" {
     );
 }
 extern "C" {
-    #[doc = " @brief Sets forward matrix to translate by dx and dy.\n        Given:\n                     | A B C |               | 1 0 dx |\n            Matrix = | D E F |,  T(dx, dy) = | 0 1 dy |\n                     | G H I |               | 0 0  1 |\n        sets Matrix to:\n                                 | A B C | | 1 0 dx |   | A B A*dx+B*dy+C |\n            Matrix * T(dx, dy) = | D E F | | 0 1 dy | = | D E D*dx+E*dy+F |\n                                 | G H I | | 0 0  1 |   | G H G*dx+H*dy+I |\n\n @syscap SystemCapability.Graphic.Graphic2D.NativeDrawing\n @param matrix Indicates the pointer to an <b>OH_Drawing_Matrix</b> object.\n @param dx Indicates the horizontal translation.\n @param dy Indicates the vertical translation.\n @since 12\n @version 1.0"]
+    #[doc = " @brief Premultiplies this matrix by a matrix that is derived from an identity matrix after it has been translated by\n a given distance (dx, dy).\n This API may return an error code. For details, call {@link OH_Drawing_ErrorCodeGet}.\n If **matrix** is NULL, **OH_DRAWING_ERROR_INVALID_PARAMETER** is returned.\n\n @param matrix Pointer to the {@link OH_Drawing_Matrix} object.\n @param dx Horizontal distance to translate. A positive number indicates a translation towards the positive direction\n of the X axis, and a negative number indicates a translation towards the negative direction of the X axis. The value\n is a floating point number.\n @param dy Vertical distance to translate. A positive number indicates a translation towards the positive direction\n of the Y axis, and a negative number indicates a translation towards the negative direction of the Y axis. The value\n is a floating point number.\n @since 12\n @version 1.0"]
     pub fn OH_Drawing_MatrixPreTranslate(matrix: *mut OH_Drawing_Matrix, dx: f32, dy: f32);
 }
 extern "C" {
-    #[doc = " @brief Sets matrix to matrix constructed from rotating by degrees about pivot point(px, py),\n multiplied by matrix, positive degrees rotates clockwise.\n        Given:\n\n                     | J K L |                        | c -s dx |\n            Matrix = | M N O |,  R(degrees, px, py) = | s  c dy |\n                     | P Q R |                        | 0  0  1 |\n\n        where:\n\n            c  = cos(degrees)\n            s  = sin(degrees)\n            dx =  s * py + (1 - c) * px\n            dy = -s * px + (1 - c) * py\n\n        sets Matrix to:\n\n                                          |c -s dx| |J K L|   |cJ-sM+dx*P cK-sN+dx*Q cL-sO+dx+R|\n            R(degrees, px, py) * Matrix = |s  c dy| |M N O| = |sJ+cM+dy*P sK+cN+dy*Q sL+cO+dy*R|\n                                          |0  0  1| |P Q R|   |         P          Q          R|\n\n @syscap SystemCapability.Graphic.Graphic2D.NativeDrawing\n @param matrix Indicates the pointer to an <b>OH_Drawing_Matrix</b> object.\n @param degree Indicates the angle of axes relative to upright axes.\n @param px Indicates the pivot on x-axis.\n @param py Indicates the pivot on y-axis.\n @since 12\n @version 1.0"]
+    #[doc = " @brief Post multiplies this matrix by a matrix that is derived from an identity matrix after it has been rotated by\n a given degree around the rotation point (px, py).\n This API may return an error code. For details, call {@link OH_Drawing_ErrorCodeGet}.\n If **matrix** is NULL, **OH_DRAWING_ERROR_INVALID_PARAMETER** is returned.\n\n @param matrix Pointer to the {@link OH_Drawing_Matrix} object.\n @param degree Angle to rotate, in degrees. A positive value indicates a clockwise rotation, and a negative value\n indicates a counterclockwise rotation.\n @param px X coordinate of the rotation point.\n @param py Y coordinate of the rotation point.\n @since 12\n @version 1.0"]
     pub fn OH_Drawing_MatrixPostRotate(
         matrix: *mut OH_Drawing_Matrix,
         degree: f32,
@@ -4096,7 +4224,7 @@ extern "C" {
     );
 }
 extern "C" {
-    #[doc = " @brief Sets matrix to backward scale by sx and sy, about a pivot point at (px, py).\n        Given:\n                     | J K L |                       | sx  0 dx |\n            Matrix = | M N O |,  S(sx, sy, px, py) = |  0 sy dy |\n                     | P Q R |                       |  0  0  1 |\n        where:\n            dx = px - sx * px\n            dy = py - sy * py\n        sets Matrix to:\n                                         | sx  0 dx | | J K L |   | sx*J+dx*P sx*K+dx*Q sx*L+dx+R |\n            S(sx, sy, px, py) * Matrix = |  0 sy dy | | M N O | = | sy*M+dy*P sy*N+dy*Q sy*O+dy*R |\n                                         |  0  0  1 | | P Q R |   |         P         Q         R |\n\n @syscap SystemCapability.Graphic.Graphic2D.NativeDrawing\n @param matrix Indicates the pointer to an <b>OH_Drawing_Matrix</b> object.\n @param sx Horizontal scale factor.\n @param sy Vertical scale factor.\n @param px Pivot on x-axis.\n @param py Pivot on y-axis.\n @since 12\n @version 1.0"]
+    #[doc = " @brief Post multiplies a matrix by an identity matrix that scales with the factor (sx, sy) at the scale point (px,\n py).\n This API may return an error code. For details, call {@link OH_Drawing_ErrorCodeGet}.\n If **matrix** is NULL, **OH_DRAWING_ERROR_INVALID_PARAMETER** is returned.\n\n @param matrix Pointer to the {@link OH_Drawing_Matrix} object.\n @param sx Scale factor on the X axis. If a negative number is passed in, the matrix is mirrored around y = px before\n being scaled. The value is a floating point number.\n @param sy Scale factor on the Y axis. If a negative number is passed in, the matrix is mirrored around x = py before\n being scaled. The value is a floating point number.\n @param px X coordinate of the scale point.\n @param py Y coordinate of the scale point.\n @since 12\n @version 1.0"]
     pub fn OH_Drawing_MatrixPostScale(
         matrix: *mut OH_Drawing_Matrix,
         sx: f32,
@@ -4106,15 +4234,15 @@ extern "C" {
     );
 }
 extern "C" {
-    #[doc = " @brief Sets backward matrix to translate by (dx, dy).\n        Given:\n\n                     | J K L |               | 1 0 dx |\n            Matrix = | M N O |,  T(dx, dy) = | 0 1 dy |\n                     | P Q R |               | 0 0  1 |\n\n        sets Matrix to:\n\n                                 | 1 0 dx | | J K L |   | J+dx*P K+dx*Q L+dx*R |\n            T(dx, dy) * Matrix = | 0 1 dy | | M N O | = | M+dy*P N+dy*Q O+dy*R |\n                                 | 0 0  1 | | P Q R |   |      P      Q      R |\n\n @syscap SystemCapability.Graphic.Graphic2D.NativeDrawing\n @param matrix Indicates the pointer to an <b>OH_Drawing_Matrix</b> object.\n @param dx Indicates the horizontal translation.\n @param dy Indicates the vertical translation.\n @since 12\n @version 1.0"]
+    #[doc = " @brief Post multiplies this matrix by a matrix that is derived from an identity matrix after it has been translated\n by a given distance (dx, dy).\n This API may return an error code. For details, call {@link OH_Drawing_ErrorCodeGet}.\n If **matrix** is NULL, **OH_DRAWING_ERROR_INVALID_PARAMETER** is returned.\n\n @param matrix Pointer to the {@link OH_Drawing_Matrix} object.\n @param dx Horizontal distance to translate. A positive number indicates a translation towards the positive direction\n of the X axis, and a negative number indicates a translation towards the negative direction of the X axis. The value\n is a floating point number.\n @param dy Vertical distance to translate. A positive number indicates a translation towards the positive direction\n of the Y axis, and a negative number indicates a translation towards the negative direction of the Y axis. The value\n is a floating point number.\n @since 12\n @version 1.0"]
     pub fn OH_Drawing_MatrixPostTranslate(matrix: *mut OH_Drawing_Matrix, dx: f32, dy: f32);
 }
 extern "C" {
-    #[doc = " @brief Reset matrix to identity, which has no effect on mapped point, sets matrix to:\n        | 1 0 0 |\n        | 0 1 0 |\n        | 0 0 1 |\n\n @syscap SystemCapability.Graphic.Graphic2D.NativeDrawing\n @param matrix Indicates the pointer to an <b>OH_Drawing_Matrix</b> object.\n @since 12\n @version 1.0"]
+    #[doc = " @brief Resets a matrix to an identity matrix.\n This API may return an error code. For details, call {@link OH_Drawing_ErrorCodeGet}.\n If **matrix** is NULL, **OH_DRAWING_ERROR_INVALID_PARAMETER** is returned.\n\n @param matrix Pointer to the {@link OH_Drawing_Matrix} object.\n @since 12\n @version 1.0"]
     pub fn OH_Drawing_MatrixReset(matrix: *mut OH_Drawing_Matrix);
 }
 extern "C" {
-    #[doc = " @brief Sets matrix total to matrix a multiplied by matrix b.\n       Given:\n                    | A B C |          | J K L |\n                a = | D E F |,     b = | M N O |\n                    | G H I |          | P Q R |\n       sets Matrix total to:\n                            | A B C |   | J K L |   | AJ+BM+CP AK+BN+CQ AL+BO+CR |\n           total = a * b =  | D E F | * | M N O | = | DJ+EM+FP DK+EN+FQ DL+EO+FR |\n                            | G H I |   | P Q R |   | GJ+HM+IP GK+HN+IQ GL+HO+IR |\n @syscap SystemCapability.Graphic.Graphic2D.NativeDrawing\n @param total Indicates the pointer to an <b>OH_Drawing_Matrix</b> object that a * b.\n @param a Indicates the pointer to an <b>OH_Drawing_Matrix</b> object.\n @param b Indicates the pointer to an <b>OH_Drawing_Matrix</b> object.\n @since 12\n @version 1.0"]
+    #[doc = " @brief Multiplies two matrices to produce a new matrix.\n This API may return an error code. For details, call {@link OH_Drawing_ErrorCodeGet}.\n If any of **total**, **a**, and **b** is NULL, **OH_DRAWING_ERROR_INVALID_PARAMETER** is returned.\n\n @param total Pointer to the {@link OH_Drawing_Matrix} object.\n @param a Pointer to {@link OH_Drawing_Matrix} object a.\n @param b Pointer to {@link OH_Drawing_Matrix} object b.\n @since 12\n @version 1.0"]
     pub fn OH_Drawing_MatrixConcat(
         total: *mut OH_Drawing_Matrix,
         a: *const OH_Drawing_Matrix,
@@ -4122,14 +4250,14 @@ extern "C" {
     );
 }
 extern "C" {
-    #[doc = " @brief Gets nine matrix values contained by matrix into array.\n\n @syscap SystemCapability.Graphic.Graphic2D.NativeDrawing\n @param matrix Indicates the pointer to an <b>OH_Drawing_Matrix</b> object.\n @param value Storages for nine matrix values.\n @return Returns the error code.\n         Returns {@link OH_DRAWING_SUCCESS} if the operation is successful.\n         Returns {@link OH_DRAWING_ERROR_INVALID_PARAMETER} if matrix or value is nullptr.\n @since 12\n @version 1.0"]
+    #[doc = " @brief Obtains all element values of a matrix.\n\n @param matrix Pointer to the {@link OH_Drawing_Matrix} object.\n @param value Array used to store the obtained element values.\n @return Returns the error code.\n Returns {@link OH_DRAWING_SUCCESS} if the operation is successful.\n Returns {@link OH_DRAWING_ERROR_INVALID_PARAMETER} if matrix or value is nullptr.\n @since 12\n @version 1.0"]
     pub fn OH_Drawing_MatrixGetAll(
         matrix: *mut OH_Drawing_Matrix,
         value: *mut f32,
     ) -> OH_Drawing_ErrorCode;
 }
 extern "C" {
-    #[doc = " @brief Matrix a left-multiplied by matrix b.\n       Given:\n                    | A B C |          | J K L |\n                a = | D E F |,     b = | M N O |\n                    | G H I |          | P Q R |\n       Get:\n                   | J K L |     | A B C |     | AJ+DK+GL BJ+EK+HL CJ+FK+IL |\n           b * a = | M N O |  *  | D E F |  =  | AM+DN+GO BM+EN+HO CM+FN+IO |\n                   | P Q R |     | G H I |     | AP+DQ+GR BP+EQ+HR CP+FQ+IR |\n @param a Indicates the pointer to an <b>OH_Drawing_Matrix</b> object.\n @param b Indicates the pointer to an <b>OH_Drawing_Matrix</b> object.\n @return Returns the error code.\n         Returns {@link OH_DRAWING_SUCCESS} if the operation is successful.\n         Returns {@link OH_DRAWING_ERROR_INCORRECT_PARAMETER} if a or b is nullptr.\n @since 22\n @version 1.0"]
+    #[doc = " @brief Left-multiplies matrix a by matrix b.\n\n @param a Pointer to the {@link OH_Drawing_Matrix} object.\n @param b Pointer to the {@link OH_Drawing_Matrix} object.\n @return Returns the error code.\n Returns {@link OH_DRAWING_SUCCESS} if the operation is successful.\n Returns {@link OH_DRAWING_ERROR_INCORRECT_PARAMETER} if a or b is nullptr.\n @since 22\n @version 1.0"]
     #[cfg(feature = "api-22")]
     pub fn OH_Drawing_MatrixPreConcat(
         a: *mut OH_Drawing_Matrix,
@@ -4137,22 +4265,22 @@ extern "C" {
     ) -> OH_Drawing_ErrorCode;
 }
 extern "C" {
-    #[doc = " @brief Get one matrix value. Index is between the range of 0-8.\n @syscap SystemCapability.Graphic.Graphic2D.NativeDrawing\n @param matrix Indicates the pointer to an <b>OH_Drawing_Matrix</b> object.\n @param index one of 0-8.\n @return Returns value corresponding to index.Returns 0 if out of range.\n @since 12\n @version 1.0"]
+    #[doc = " @brief Obtains a matrix value of a given index, which ranges from 0 to 8.\n This API may return an error code. For details, call {@link OH_Drawing_ErrorCodeGet}.\n If **matrix** is NULL, **OH_DRAWING_ERROR_INVALID_PARAMETER** is returned.\n If **index** is less than 0 or greater than 8, **OH_DRAWING_ERROR_PARAMETER_OUT_OF_RANGE** is returned.\n\n @param matrix Pointer to the {@link OH_Drawing_Matrix} object.\n @param index Index, which ranges from 0 to 8.\n @return Returns value corresponding to index.Returns 0 if out of range.\n @since 12\n @version 1.0"]
     pub fn OH_Drawing_MatrixGetValue(
         matrix: *mut OH_Drawing_Matrix,
         index: ::std::os::raw::c_int,
     ) -> f32;
 }
 extern "C" {
-    #[doc = " @brief Sets matrix to rotate by degrees about a pivot point at (px, py). The pivot point is unchanged\n when mapped with matrix. Positive degrees rotates clockwise.\n\n @syscap SystemCapability.Graphic.Graphic2D.NativeDrawing\n @param matrix Indicates the pointer to an <b>OH_Drawing_Matrix</b> object.\n @param degree Indicates the angle of axes relative to upright axes.\n @param px Indicates the pivot on x-axis.\n @param py Indicates the pivot on y-axis.\n @since 12\n @version 1.0"]
+    #[doc = " @brief Sets this matrix as an identity matrix and rotates it by a given degree around the rotation point (px, py).\n This API may return an error code. For details, call {@link OH_Drawing_ErrorCodeGet}.\n If **matrix** is NULL, **OH_DRAWING_ERROR_INVALID_PARAMETER** is returned.\n\n @param matrix Pointer to the {@link OH_Drawing_Matrix} object.\n @param degree Angle to rotate, in degrees. A positive value indicates a clockwise rotation, and a negative value\n indicates a counterclockwise rotation.\n @param px Coordinate point on the X axis.\n @param py Coordinate point on the Y axis.\n @since 12\n @version 1.0"]
     pub fn OH_Drawing_MatrixRotate(matrix: *mut OH_Drawing_Matrix, degree: f32, px: f32, py: f32);
 }
 extern "C" {
-    #[doc = " @brief Sets matrix to translate by (dx, dy)\n\n @syscap SystemCapability.Graphic.Graphic2D.NativeDrawing\n @param matrix Indicates the pointer to an <b>OH_Drawing_Matrix</b> object.\n @param dx Indicates the horizontal translation.\n @param dy Indicates the vertical translation.\n @since 12\n @version 1.0"]
+    #[doc = " @brief Sets a matrix as an identity matrix and translates it by a given distance (dx, dy).\n This API may return an error code. For details, call {@link OH_Drawing_ErrorCodeGet}.\n If **matrix** is NULL, **OH_DRAWING_ERROR_INVALID_PARAMETER** is returned.\n\n @param matrix Pointer to the {@link OH_Drawing_Matrix} object.\n @param dx Distance to translate on the X axis. A positive number indicates a translation towards the positive\n direction of the X axis, and a negative number indicates a translation towards the negative direction of the X axis.\n The value is a floating point number.\n @param dy Distance to translate on the Y axis. A positive number indicates a translation towards the positive\n direction of the Y axis, and a negative number indicates a translation towards the negative direction of the Y axis.\n The value is a floating point number.\n @since 12\n @version 1.0"]
     pub fn OH_Drawing_MatrixTranslate(matrix: *mut OH_Drawing_Matrix, dx: f32, dy: f32);
 }
 extern "C" {
-    #[doc = " @brief Sets matrix to scale by sx and sy, about a pivot point at (px, py).\n\n @syscap SystemCapability.Graphic.Graphic2D.NativeDrawing\n @param matrix Indicates the pointer to an <b>OH_Drawing_Matrix</b> object.\n @param sx Indicates the horizontal scale factor.\n @param sy Indicates the vertical scale factor.\n @param px Indicates the pivot on x-axis.\n @param py Indicates the pivot on y-axis.\n @since 12\n @version 1.0"]
+    #[doc = " @brief Sets a matrix as an identity matrix and scales it with the factor (sx, sy) at the rotation point (px, py).\n This API may return an error code. For details, call {@link OH_Drawing_ErrorCodeGet}.\n If **matrix** is NULL, **OH_DRAWING_ERROR_INVALID_PARAMETER** is returned.\n\n @param matrix Pointer to the {@link OH_Drawing_Matrix} object.\n @param sx Scale factor on the X axis. If a negative number is passed in, the matrix is mirrored around y = px before\n being scaled. The value is a floating point number.\n @param sy Scale factor on the Y axis. If a negative number is passed in, the matrix is mirrored around x = py before\n being scaled. The value is a floating point number.\n @param px Coordinate point on the X axis.\n @param py Coordinate point on the Y axis.\n @since 12\n @version 1.0"]
     pub fn OH_Drawing_MatrixScale(
         matrix: *mut OH_Drawing_Matrix,
         sx: f32,
@@ -4162,14 +4290,14 @@ extern "C" {
     );
 }
 extern "C" {
-    #[doc = " @brief Sets inverse to reciprocal matrix, returning true if matrix can be inverted.\n\n @syscap SystemCapability.Graphic.Graphic2D.NativeDrawing\n @param matrix Indicates the pointer to an <b>OH_Drawing_Matrix</b> object.\n @param inverse Indicates the pointer to an <b>OH_Drawing_Matrix</b> object.\n @return Returns true if the matrix is not nullptr and can be inverted;\n         returns false if the matrix is nullptr or cannot be inverted.\n @since 12\n @version 1.0"]
+    #[doc = " @brief Inverts a matrix and returns the result.\n This API may return an error code. For details, call {@link OH_Drawing_ErrorCodeGet}.\n If either **matrix** or **inverse** is NULL, **OH_DRAWING_ERROR_INVALID_PARAMETER** is returned.\n\n @param matrix Pointer to the {@link OH_Drawing_Matrix} object.\n @param inverse Pointer to the inverse {@link OH_Drawing_Matrix} object. You can call {@link OH_Drawing_MatrixCreate}\n to create an inverse matrix object.\n @return Returns true if the matrix is not nullptr and can be inverted;\n returns false if the matrix is nullptr or cannot be inverted.\n @since 12\n @version 1.0"]
     pub fn OH_Drawing_MatrixInvert(
         matrix: *mut OH_Drawing_Matrix,
         inverse: *mut OH_Drawing_Matrix,
     ) -> bool;
 }
 extern "C" {
-    #[doc = " @brief Sets the params of matrix to map src to dst.\n Count must greater than or equal to zero, and less than or equal to four.\n\n @syscap SystemCapability.Graphic.Graphic2D.NativeDrawing\n @param matrix Indicates the pointer to an <b>OH_Drawing_Matrix</b> object.\n @param src Points to map from.\n @param dst Points to map to.\n @param count Number of point in src and dst.\n @return Returns true if matrix is constructed successfully.\n @since 12\n @version 1.0"]
+    #[doc = " @brief Generates a transformation matrix by setting source points and destination points.\n Both the number of source points and that of destination points must be in the range [0, 4]. This API may return an\n error code. For details, call {@link OH_Drawing_ErrorCodeGet}.\n If **matrix** is NULL, **OH_DRAWING_ERROR_INVALID_PARAMETER** is returned.\n If **count** is less than 0 or greater than 4, **OH_DRAWING_ERROR_PARAMETER_OUT_OF_RANGE** is returned.\n\n @param matrix Pointer to the {@link OH_Drawing_Matrix} object.\n @param src Array of source points. If NULL is passed in, **count** must be 0.\n @param dst Array of destination points. The number of destination points must be the same as that of source points.\n If NULL is passed in, **count** must be 0.\n @param count Number of source points or destination points. If 0 is passed in, the matrix is set to an identity\n matrix.\n @return Returns true if matrix is constructed successfully.\n @since 12\n @version 1.0"]
     pub fn OH_Drawing_MatrixSetPolyToPoly(
         matrix: *mut OH_Drawing_Matrix,
         src: *const OH_Drawing_Point2D,
@@ -4178,7 +4306,7 @@ extern "C" {
     ) -> bool;
 }
 extern "C" {
-    #[doc = " @brief Maps the src point array to the dst point array by matrix transformation.\n\n @syscap SystemCapability.Graphic.Graphic2D.NativeDrawing\n @param matrix Indicates the pointer to an <b>OH_Drawing_Matrix</b> object.\n @param src Points to map from.\n @param dst Points to map to.\n @param count Number of point in src and dst.\n @since 12\n @version 1.0"]
+    #[doc = " @brief Maps a source point array to a destination point array by means of matrix transformation.\n This API may return an error code. For details, call {@link OH_Drawing_ErrorCodeGet}.\n If any of **matrix**, **src**, and **dst** is NULL or **count** is less than or equal to 0, **\n OH_DRAWING_ERROR_INVALID_PARAMETER** is returned.\n\n @param matrix Pointer to the {@link OH_Drawing_Matrix} object.\n @param src Array of source points.\n @param dst Array of destination points. The number of destination points must be the same as that of source points.\n @param count Number of source points or destination points.\n @since 12\n @version 1.0"]
     pub fn OH_Drawing_MatrixMapPoints(
         matrix: *const OH_Drawing_Matrix,
         src: *const OH_Drawing_Point2D,
@@ -4187,7 +4315,7 @@ extern "C" {
     );
 }
 extern "C" {
-    #[doc = " @brief Sets dst to bounds of src corners mapped by matrix transformation.\n\n @syscap SystemCapability.Graphic.Graphic2D.NativeDrawing\n @param matrix Indicates the pointer to an <b>OH_Drawing_Matrix</b> object.\n @param src Rect to map from.\n @param dst Rect to map to.\n @return Returns true if the mapped src is equal to the dst; returns false is not equal.\n @since 12\n @version 1.0"]
+    #[doc = " @brief Maps a rectangle to the smallest rectangle that can enclose the vertices to which the four source vertices\n are mapped by means of matrix transformation.\n This API may return an error code. For details, call {@link OH_Drawing_ErrorCodeGet}.\n If any of **matrix**, **src**, and **dst** is NULL, **OH_DRAWING_ERROR_INVALID_PARAMETER** is returned.\n\n @param matrix Pointer to the {@link OH_Drawing_Matrix} object.\n @param src Source rectangle.\n @param dst Destination rectangle.\n @return Returns true if the mapped src is equal to the dst; returns false is not equal.\n @since 12\n @version 1.0"]
     pub fn OH_Drawing_MatrixMapRect(
         matrix: *const OH_Drawing_Matrix,
         src: *const OH_Drawing_Rect,
@@ -4195,18 +4323,18 @@ extern "C" {
     ) -> bool;
 }
 extern "C" {
-    #[doc = " @brief Returns true if the first matrix equals the second matrix.\n\n @syscap SystemCapability.Graphic.Graphic2D.NativeDrawing\n @param matrix Indicates the pointer to an <b>OH_Drawing_Matrix</b> object.\n @param other Indicates the pointer to an <b>OH_Drawing_Matrix</b> object.\n @return Returns true if the two matrices are equal; returns false if not equal.\n @since 12\n @version 1.0"]
+    #[doc = " @brief Checks whether two **OH_Drawing_Matrix** objects are equal.\n This API may return an error code. For details, call {@link OH_Drawing_ErrorCodeGet}.\n If either **matrix** or **other** is NULL, **OH_DRAWING_ERROR_INVALID_PARAMETER** is returned.\n\n @param matrix Pointer to one {@link OH_Drawing_Matrix} object.\n @param other Pointer to the other {@link OH_Drawing_Matrix} object.\n @return Returns true if the two matrices are equal; returns false if not equal.\n @since 12\n @version 1.0"]
     pub fn OH_Drawing_MatrixIsEqual(
         matrix: *mut OH_Drawing_Matrix,
         other: *mut OH_Drawing_Matrix,
     ) -> bool;
 }
 extern "C" {
-    #[doc = " @brief Returns true if matrix is identity.\n Identity matrix is :  | 1 0 0 |\n                       | 0 1 0 |\n                       | 0 0 1 |\n\n @syscap SystemCapability.Graphic.Graphic2D.NativeDrawing\n @param matrix Indicates the pointer to an <b>OH_Drawing_Matrix</b> object.\n @return Returns true if matrix is identity; returns false if not identity.\n @since 12\n @version 1.0"]
+    #[doc = " @brief Checks whether an **OH_Drawing_Matrix** object is an identity matrix.\n An identity matrix is as follows: | 1 0 0 || 0 1 0 || 0 0 1 |. This API may return an error code. For details, see\n {@link OH_Drawing_ErrorCodeGet}\n .\n If **matrix** is NULL, **OH_DRAWING_ERROR_INVALID_PARAMETER** is returned.\n\n @param matrix Pointer to the {@link OH_Drawing_Matrix} object.\n @return Returns true if matrix is identity; returns false if not identity.\n @since 12\n @version 1.0"]
     pub fn OH_Drawing_MatrixIsIdentity(matrix: *mut OH_Drawing_Matrix) -> bool;
 }
 extern "C" {
-    #[doc = " @brief Checks if the matrix is affine. An affine matrix preserves straight lines and has no perspective.\n\n @param matrix Indicates the pointer to an <b>OH_Drawing_Matrix</b> object.\n @param isAffine Indicates if the matrix is affine.\n @return Returns the error code.\n         Returns {@link OH_DRAWING_SUCCESS} if the operation is successful.\n         Returns {@link OH_DRAWING_ERROR_INCORRECT_PARAMETER} if matrix or isAffine is nullptr.\n @since 23"]
+    #[doc = " @brief Checks whether the existing matrix is an affine matrix, which includes transformations such as translation,\n rotation, and scaling.\n\n @param matrix Pointer to the {@link OH_Drawing_Matrix} object.\n @param isAffine Whether the existing matrix is an affine matrix. It is used as an output parameter. **true** means\n yes; **false** otherwise.\n @return Returns the error code.\n Returns {@link OH_DRAWING_SUCCESS} if the operation is successful.\n Returns {@link OH_DRAWING_ERROR_INCORRECT_PARAMETER} if matrix or isAffine is nullptr.\n @since 23"]
     #[cfg(feature = "api-23")]
     pub fn OH_Drawing_MatrixIsAffine(
         matrix: *const OH_Drawing_Matrix,
@@ -4214,7 +4342,7 @@ extern "C" {
     ) -> OH_Drawing_ErrorCode;
 }
 extern "C" {
-    #[doc = " @brief Sets matrix to matrix multiplied by matrix constructed from skewing by (kx, ky) about pivot point (px, py).\n\n @param matrix Indicates the pointer to an <b>OH_Drawing_Matrix</b> object.\n @param kx Indicates the horizontal skew factor.\n @param ky Indicates the vertical skew factor.\n @param px Indicates the pivot on x-axis.\n @param py Indicates the pivot on y-axis.\n @return Returns the error code.\n         Returns {@link OH_DRAWING_SUCCESS} if the operation is successful.\n         Returns {@link OH_DRAWING_ERROR_INCORRECT_PARAMETER} if matrix is nullptr.\n @since 23"]
+    #[doc = " @brief Left multiplies the current matrix by a matrix constructed based on (px, py) and (kx, ky).\n\n @param matrix Pointer to the {@link OH_Drawing_Matrix} object.\n @param kx Tilt on the X axis.\n @param ky Tilt on the Y axis.\n @param px X-coordinate of the tilt center.\n @param py Y-coordinate of the tilt center.\n @return Returns the error code.\n Returns {@link OH_DRAWING_SUCCESS} if the operation is successful.\n Returns {@link OH_DRAWING_ERROR_INCORRECT_PARAMETER} if matrix is nullptr.\n @since 23"]
     #[cfg(feature = "api-23")]
     pub fn OH_Drawing_MatrixPreSkew(
         matrix: *mut OH_Drawing_Matrix,
@@ -4225,7 +4353,7 @@ extern "C" {
     ) -> OH_Drawing_ErrorCode;
 }
 extern "C" {
-    #[doc = " @brief Checks if a rectangle will map to another rectangle after applying this matrix.\n\n @param matrix Indicates the pointer to an <b>OH_Drawing_Matrix</b> object.\n @param isRectStaysRect Indicates if the transformation keeps rectangles as rectangles.\n @return Returns the error code.\n         Returns {@link OH_DRAWING_SUCCESS} if the operation is successful.\n         Returns {@link OH_DRAWING_ERROR_INCORRECT_PARAMETER} if matrix or isRectStaysRect is nullptr.\n @since 23"]
+    #[doc = " @brief Checks whether the rectangle remains rectangular after being mapped by the current matrix. This condition is\n met when the matrix is an identity matrix or contains only affine transformations such as translation, scaling, and\n rotation by 90 degrees.\n\n @param matrix Pointer to the {@link OH_Drawing_Matrix} object.\n @param isRectStaysRect Whether a rectangle stays a rectangle after being mapped by a matrix. It is used as an output\n parameter.\n **true** means yes; **false** otherwise.\n @return Returns the error code.\n Returns {@link OH_DRAWING_SUCCESS} if the operation is successful.\n Returns {@link OH_DRAWING_ERROR_INCORRECT_PARAMETER} if matrix or isRectStaysRect is nullptr.\n @since 23"]
     #[cfg(feature = "api-23")]
     pub fn OH_Drawing_MatrixRectStaysRect(
         matrix: *const OH_Drawing_Matrix,
@@ -4233,7 +4361,7 @@ extern "C" {
     ) -> OH_Drawing_ErrorCode;
 }
 extern "C" {
-    #[doc = " @brief Sets the sine and cosine values for a rotation transformation around a point.\n\n @param matrix Indicates the pointer to an <b>OH_Drawing_Matrix</b> object.\n @param sinValue Indicates the sine of the angle of rotation.\n @param cosValue Indicates the cosine of the angle of rotation.\n @param px Indicates the x-coordinate of the point around which to rotate.\n @param py Indicates the y-coordinate of the point around which to rotate.\n @return Returns the error code.\n         Returns {@link OH_DRAWING_SUCCESS} if the operation is successful.\n         Returns {@link OH_DRAWING_ERROR_INCORRECT_PARAMETER} if matrix is nullptr.\n @since 23"]
+    #[doc = " @brief Sets the matrix to rotate around the rotation center (px, py) with the specified sine and cosine values.\n\n @param matrix Pointer to the {@link OH_Drawing_Matrix} object.\n @param sinValue Sine value of the rotation angle.\n @param cosValue Cosine value of the rotation angle.\n @param px X-axis coordinate of the rotation center.\n @param py Y-axis coordinate of the rotation center.\n @return Returns the error code.\n Returns {@link OH_DRAWING_SUCCESS} if the operation is successful.\n Returns {@link OH_DRAWING_ERROR_INCORRECT_PARAMETER} if matrix is nullptr.\n @since 23"]
     #[cfg(feature = "api-23")]
     pub fn OH_Drawing_MatrixSetSinCos(
         matrix: *mut OH_Drawing_Matrix,
@@ -4244,11 +4372,11 @@ extern "C" {
     ) -> OH_Drawing_ErrorCode;
 }
 extern "C" {
-    #[doc = " @brief Destroys an <b>OH_Drawing_Matrix</b> object and reclaims the memory occupied by the object.\n\n @syscap SystemCapability.Graphic.Graphic2D.NativeDrawing\n @param matrix Indicates the pointer to an <b>OH_Drawing_Matrix</b> object.\n @since 11\n @version 1.0"]
+    #[doc = " @brief Destroys an **OH_Drawing_Matrix** object and reclaims the memory occupied by the object.\n\n @param matrix Pointer to an **OH_Drawing_Matrix** object.\n @since 11\n @version 1.0"]
     pub fn OH_Drawing_MatrixDestroy(matrix: *mut OH_Drawing_Matrix);
 }
 extern "C" {
-    #[doc = " @brief Creates a <b>OH_Drawing_MemoryStream</b> object.\n\n @syscap SystemCapability.Graphic.Graphic2D.NativeDrawing\n @return Returns the pointer to the <b>OH_Drawing_MemoryStream</b> object created.\n @param data  file path.\n @param length  Data length.\n @param copyData  Copy data or not.\n @since 12\n @version 1.0"]
+    #[doc = " @brief Creates an **OH_Drawing_MemoryStream** object.\n This API may return an error code. For details, call {@link OH_Drawing_ErrorCodeGet}.\n If **data** is NULL or **length** is **0**, **OH_DRAWING_ERROR_INVALID_PARAMETER** is returned.\n\n @return Returns the pointer to the {@link OH_Drawing_MemoryStream} object created.\n @param data Pointer to the data.\n @param length Length of the data.\n @param copyData Whether to copy data. The value **true** means that the **OH_Drawing_MemoryStream** object copies\n the data, and **false** means that the **OH_Drawing_MemoryStream** object directly uses the data without copying.\n @since 12\n @version 1.0"]
     pub fn OH_Drawing_MemoryStreamCreate(
         data: *const ::std::os::raw::c_void,
         length: usize,
@@ -4256,68 +4384,134 @@ extern "C" {
     ) -> *mut OH_Drawing_MemoryStream;
 }
 extern "C" {
-    #[doc = " @brief Destroys an <b>OH_Drawing_MemoryStream</b> object and reclaims the memory occupied by the object.\n\n @syscap SystemCapability.Graphic.Graphic2D.NativeDrawing\n @param memoryStream Indicates the pointer to an <b>OH_Drawing_MemoryStream</b> object.\n @since 12\n @version 1.0"]
+    #[doc = " @brief Destroys an **OH_Drawing_MemoryStream** object and reclaims the memory occupied by the object.\n\n @param memoryStream Pointer to an {@link OH_Drawing_MemoryStream} object.\n @since 12\n @version 1.0"]
     pub fn OH_Drawing_MemoryStreamDestroy(memoryStream: *mut OH_Drawing_MemoryStream);
 }
-#[doc = " clockwise direction for adding closed contours"]
+#[doc = " Sets the start point of the path."]
+#[cfg(feature = "api-23")]
+pub const OH_Drawing_PathIteratorVerb_MOVE: OH_Drawing_PathIteratorVerb = 0;
+#[doc = " Adds a line segment."]
+#[cfg(feature = "api-23")]
+pub const OH_Drawing_PathIteratorVerb_LINE: OH_Drawing_PathIteratorVerb = 1;
+#[doc = " Adds a quadratic Bezier curve for smooth transitions."]
+#[cfg(feature = "api-23")]
+pub const OH_Drawing_PathIteratorVerb_QUAD: OH_Drawing_PathIteratorVerb = 2;
+#[doc = " Adds a conic curve."]
+#[cfg(feature = "api-23")]
+pub const OH_Drawing_PathIteratorVerb_CONIC: OH_Drawing_PathIteratorVerb = 3;
+#[doc = " Adds a cubic Bezier curve for smooth transitions."]
+#[cfg(feature = "api-23")]
+pub const OH_Drawing_PathIteratorVerb_CUBIC: OH_Drawing_PathIteratorVerb = 4;
+#[doc = " Closes the path."]
+#[cfg(feature = "api-23")]
+pub const OH_Drawing_PathIteratorVerb_CLOSE: OH_Drawing_PathIteratorVerb = 5;
+#[doc = " Completes the path configuration."]
+#[cfg(feature = "api-23")]
+pub const OH_Drawing_PathIteratorVerb_DONE: OH_Drawing_PathIteratorVerb = 6;
+#[doc = " @brief Enumerates the path operation types contained in an iterator. It is used to read path operation instructions.\n\n @since 23"]
+#[cfg(feature = "api-23")]
+pub type OH_Drawing_PathIteratorVerb = u32;
+extern "C" {
+    #[doc = " @brief Creates an **OH_Drawing_PathIterator** object.\n\n @param path Pointer to an {@link OH_Drawing_Path} object.\n @param pathIterator Double pointer to an {@link OH_Drawing_PathIterator} object, which serves as an output parameter.\n @return Execution result.\n **OH_DRAWING_SUCCESS** if the operation is successful.\n **OH_DRAWING_ERROR_INCORRECT_PARAMETER** if **path** or **pathIterator** is a null pointer.\n @since 23"]
+    #[cfg(feature = "api-23")]
+    pub fn OH_Drawing_PathIteratorCreate(
+        path: *const OH_Drawing_Path,
+        pathIterator: *mut *mut OH_Drawing_PathIterator,
+    ) -> OH_Drawing_ErrorCode;
+}
+extern "C" {
+    #[doc = " @brief Destroys an **OH_Drawing_PathIterator** object and reclaims the memory occupied by the object.\n\n @param pathIterator Pointer to an {@link OH_Drawing_PathIterator} object.\n @return Execution result.\n **OH_DRAWING_SUCCESS** if the operation is successful.\n **OH_DRAWING_ERROR_INCORRECT_PARAMETER** if **pathIterator** is a null pointer.\n @since 23"]
+    #[cfg(feature = "api-23")]
+    pub fn OH_Drawing_PathIteratorDestroy(
+        pathIterator: *mut OH_Drawing_PathIterator,
+    ) -> OH_Drawing_ErrorCode;
+}
+extern "C" {
+    #[doc = " @brief Checks whether there is any next operation in the path operation iterator.\n\n @param pathIterator Pointer to an {@link OH_Drawing_PathIterator} object.\n @param hasNext Whether there is a next operation in the path operation iterator, which serves as an output parameter.\n A value of **true** means there is a next operation; **false** means the opposite.\n @return Execution result.\n **OH_DRAWING_SUCCESS** if the operation is successful.\n **OH_DRAWING_ERROR_INCORRECT_PARAMETER** if **pathIterator** or **hasNext** is a null pointer.\n @since 23"]
+    #[cfg(feature = "api-23")]
+    pub fn OH_Drawing_PathIteratorHasNext(
+        pathIterator: *const OH_Drawing_PathIterator,
+        hasNext: *mut bool,
+    ) -> OH_Drawing_ErrorCode;
+}
+extern "C" {
+    #[doc = " @brief Retrieves the next operation in this path and moves the iterator to that operation.\n\n @param pathIterator Pointer to an {@link OH_Drawing_PathIterator} object.\n @param points Array of coordinate points.\n @param count Size of the coordinate point array.\n @param offset Offset of the write position relative to the start point in the array. The value range is [0, count –\n 4].\n @param verb Next operation of the current path, which serves as an output parameter.\n @return Execution result.\n **OH_DRAWING_SUCCESS** if the operation is successful.\n **OH_DRAWING_ERROR_INCORRECT_PARAMETER** if **pathIterator**, **points**, or **verb** is a null pointer.\n **OH_DRAWING_ERROR_PARAMETER_OUT_OF_RANGE** if **count** is less than offset + 4.\n @since 23"]
+    #[cfg(feature = "api-23")]
+    pub fn OH_Drawing_PathIteratorNext(
+        pathIterator: *mut OH_Drawing_PathIterator,
+        points: *mut OH_Drawing_Point2D,
+        count: u32,
+        offset: u32,
+        verb: *mut OH_Drawing_PathIteratorVerb,
+    ) -> OH_Drawing_ErrorCode;
+}
+extern "C" {
+    #[doc = " @brief Retrieves the next operation in this path, without moving the iterator.\n\n @param pathIterator Pointer to an {@link OH_Drawing_PathIterator} object.\n @param verb Next operation of the current path, which serves as an output parameter.\n @return Execution result.\n **OH_DRAWING_SUCCESS** if the operation is successful.\n **OH_DRAWING_ERROR_INCORRECT_PARAMETER** if **pathIterator** or **verb** is a null pointer.\n @since 23"]
+    #[cfg(feature = "api-23")]
+    pub fn OH_Drawing_PathIteratorPeek(
+        pathIterator: *const OH_Drawing_PathIterator,
+        verb: *mut OH_Drawing_PathIteratorVerb,
+    ) -> OH_Drawing_ErrorCode;
+}
+#[doc = " Adds a closed contour clockwise."]
 pub const OH_Drawing_PathDirection_PATH_DIRECTION_CW: OH_Drawing_PathDirection = 0;
-#[doc = " counter-clockwise direction for adding closed contours"]
+#[doc = " Adds a closed contour counterclockwise."]
 pub const OH_Drawing_PathDirection_PATH_DIRECTION_CCW: OH_Drawing_PathDirection = 1;
-#[doc = " @brief Direction for adding closed contours.\n\n @since 12\n @version 1.0"]
+#[doc = " @brief Enumerates the directions of a closed contour.\n\n @since 12\n @version 1.0"]
 pub type OH_Drawing_PathDirection = u32;
-#[doc = " Specifies that \"inside\" is computed by a non-zero sum of signed edge crossings"]
+#[doc = " For any point within the drawing area, a ray is cast in an arbitrary direction. The count starts at 0 for all\n intersections between this ray and the path.<br>Each clockwise intersection—where the path crosses the ray from\n left to right—results in the count being incremented by 1, while each counterclockwise intersection—where the\n path crosses the ray from right to left—causes the count to be decremented by 1. A point is deemed inside the\n path and needs to be colored if the final count is non-zero; if the count is 0, the point remains uncolored."]
 pub const OH_Drawing_PathFillType_PATH_FILL_TYPE_WINDING: OH_Drawing_PathFillType = 0;
-#[doc = " Specifies that \"inside\" is computed by an odd number of edge crossings"]
+#[doc = " For any point in the drawing area, a ray is cast in an arbitrary direction. If the number of intersections\n between this ray and the path is odd, the point is deemed inside the path and needs to be colored; if the number\n is even, it remains uncolored."]
 pub const OH_Drawing_PathFillType_PATH_FILL_TYPE_EVEN_ODD: OH_Drawing_PathFillType = 1;
-#[doc = " Same as Winding, but draws outside of the path, rather than inside"]
+#[doc = " Same as **PATH_FILL_TYPE_WINDING**, but draws outside of the path, rather than inside."]
 pub const OH_Drawing_PathFillType_PATH_FILL_TYPE_INVERSE_WINDING: OH_Drawing_PathFillType = 2;
-#[doc = " Same as EvenOdd, but draws outside of the path, rather than inside"]
+#[doc = " Same as **PATH_FILL_TYPE_EVEN_ODD**, but draws outside of the path, rather than inside."]
 pub const OH_Drawing_PathFillType_PATH_FILL_TYPE_INVERSE_EVEN_ODD: OH_Drawing_PathFillType = 3;
-#[doc = " @brief FillType of path.\n\n @since 12\n @version 1.0"]
+#[doc = " @brief Enumerates the fill types of a path.\n\n @since 12\n @version 1.0"]
 pub type OH_Drawing_PathFillType = u32;
-#[doc = " Appended to destination unaltered"]
+#[doc = " Adds a path in append mode."]
 pub const OH_Drawing_PathAddMode_PATH_ADD_MODE_APPEND: OH_Drawing_PathAddMode = 0;
-#[doc = " Add line if prior contour is not closed"]
+#[doc = " Adds a line segment to close the path if the previous path is not closed."]
 pub const OH_Drawing_PathAddMode_PATH_ADD_MODE_EXTEND: OH_Drawing_PathAddMode = 1;
-#[doc = " @brief Add mode of path.\n\n @since 12\n @version 1.0"]
+#[doc = " @brief Enumerates the path adding modes.\n\n @since 12\n @version 1.0"]
 pub type OH_Drawing_PathAddMode = u32;
 #[doc = " Difference operation."]
 pub const OH_Drawing_PathOpMode_PATH_OP_MODE_DIFFERENCE: OH_Drawing_PathOpMode = 0;
-#[doc = " Intersect operation."]
+#[doc = " Intersection operation."]
 pub const OH_Drawing_PathOpMode_PATH_OP_MODE_INTERSECT: OH_Drawing_PathOpMode = 1;
 #[doc = " Union operation."]
 pub const OH_Drawing_PathOpMode_PATH_OP_MODE_UNION: OH_Drawing_PathOpMode = 2;
-#[doc = " Xor operation."]
+#[doc = " XOR operation."]
 pub const OH_Drawing_PathOpMode_PATH_OP_MODE_XOR: OH_Drawing_PathOpMode = 3;
 #[doc = " Reverse difference operation."]
 pub const OH_Drawing_PathOpMode_PATH_OP_MODE_REVERSE_DIFFERENCE: OH_Drawing_PathOpMode = 4;
-#[doc = " @brief Operations when two paths are combined.\n\n @since 12\n @version 1.0"]
+#[doc = " @brief Enumerates the operation modes available for a path.\n\n @since 12\n @version 1.0"]
 pub type OH_Drawing_PathOpMode = u32;
-#[doc = " Gets position."]
+#[doc = " Matrix corresponding to the position information."]
 pub const OH_Drawing_PathMeasureMatrixFlags_GET_POSITION_MATRIX: OH_Drawing_PathMeasureMatrixFlags =
     0;
-#[doc = " Gets tangent."]
+#[doc = " Matrix corresponding to the tangent information."]
 pub const OH_Drawing_PathMeasureMatrixFlags_GET_TANGENT_MATRIX: OH_Drawing_PathMeasureMatrixFlags =
     1;
-#[doc = " Gets both position and tangent."]
+#[doc = " Matrix corresponding to the position and tangent information."]
 pub const OH_Drawing_PathMeasureMatrixFlags_GET_POSITION_AND_TANGENT_MATRIX:
     OH_Drawing_PathMeasureMatrixFlags = 2;
-#[doc = " @brief Enumerates the matrix information corresponding to the path measurements.\n\n @since 12\n @version 1.0"]
+#[doc = " @brief Enumerates the types of matrix information obtained during path measurement.\n\n @since 12\n @version 1.0"]
 pub type OH_Drawing_PathMeasureMatrixFlags = u32;
 extern "C" {
-    #[doc = " @brief Creates an <b>OH_Drawing_Path</b> object.\n\n @syscap SystemCapability.Graphic.Graphic2D.NativeDrawing\n @return Returns the pointer to the <b>OH_Drawing_Path</b> object created.\n @since 8\n @version 1.0"]
+    #[doc = " @brief Creates an **OH_Drawing_Path** object.\n\n @return Returns the pointer to the **OH_Drawing_Path** object created.\n @since 8\n @version 1.0"]
     pub fn OH_Drawing_PathCreate() -> *mut OH_Drawing_Path;
 }
 extern "C" {
-    #[doc = " @brief Creates an <b>OH_Drawing_Path</b> copy object.\n\n @syscap SystemCapability.Graphic.Graphic2D.NativeDrawing\n @param path Indicates the pointer to an <b>OH_Drawing_Path</b> object.\n @return Returns the pointer to the <b>OH_Drawing_Path</b> object created.\n @since 12\n @version 1.0"]
+    #[doc = " @brief Creates a copy of the {@link OH_Drawing_Path} object.\n This API may return an error code. For details, call {@link OH_Drawing_ErrorCodeGet}.\n If **path** is NULL, **OH_DRAWING_ERROR_INVALID_PARAMETER** is returned.\n\n @param path Pointer to the {@link OH_Drawing_Path} object.\n @return Pointer to the copy of the {@link OH_Drawing_Path} object.\n @since 12\n @version 1.0"]
     pub fn OH_Drawing_PathCopy(path: *mut OH_Drawing_Path) -> *mut OH_Drawing_Path;
 }
 extern "C" {
-    #[doc = " @brief Destroys an <b>OH_Drawing_Path</b> object and reclaims the memory occupied by the object.\n\n @syscap SystemCapability.Graphic.Graphic2D.NativeDrawing\n @param path Indicates the pointer to an <b>OH_Drawing_Path</b> object.\n @since 8\n @version 1.0"]
+    #[doc = " @brief Destroys an **OH_Drawing_Path** object and reclaims the memory occupied by the object.\n\n @param path Pointer to an **OH_Drawing_Path** object.\n @since 8\n @version 1.0"]
     pub fn OH_Drawing_PathDestroy(path: *mut OH_Drawing_Path);
 }
 extern "C" {
-    #[doc = " @brief Sets <b>OH_Drawing_Path</b> object with the same content of another.\n\n @syscap SystemCapability.Graphic.Graphic2D.NativeDrawing\n @param path Indicates the pointer to an <b>OH_Drawing_Path</b> object.\n @param other Indicates the pointer to an <b>OH_Drawing_Path</b> object to copy content from.\n @return Returns the error code.\n         Returns {@link OH_DRAWING_SUCCESS} if the operation is successful.\n         Returns {@link OH_DRAWING_ERROR_INVALID_PARAMETER} if path or other is nullptr.\n @since 20\n @version 1.0"]
+    #[doc = " @brief Sets a path object as the current path object.\n\n @param path Pointer to the {@link OH_Drawing_Path} object.\n @param other Pointer to the {@link OH_Drawing_Path} object to be set.\n @return Execution result.\n **OH_DRAWING_SUCCESS** if the operation is successful.\n **OH_DRAWING_ERROR_INVALID_PARAMETER** if **path** or **other** is NULL.\n @since 20\n @version 1.0"]
     #[cfg(feature = "api-20")]
     pub fn OH_Drawing_PathSetPath(
         path: *mut OH_Drawing_Path,
@@ -4325,7 +4519,7 @@ extern "C" {
     ) -> OH_Drawing_ErrorCode;
 }
 extern "C" {
-    #[doc = " @brief Checks if <b>OH_Drawing_Path</b> object is empty.\n\n @syscap SystemCapability.Graphic.Graphic2D.NativeDrawing\n @param path Indicates the pointer to an <b>OH_Drawing_Path</b> object.\n @param isEmpty Indicates the return value.\n @return Returns the error code.\n         Returns {@link OH_DRAWING_SUCCESS} if the operation is successful.\n         Returns {@link OH_DRAWING_ERROR_INVALID_PARAMETER} if path or isEmpty is nullptr.\n @since 20\n @version 1.0"]
+    #[doc = " @brief Checks whether a path object is empty.\n\n @param path Pointer to the {@link OH_Drawing_Path} object.\n @param isEmpty Whether the path object is empty. **true** means empty; **false** otherwise. It as an output\n parameter.\n @return Execution result.\n **OH_DRAWING_SUCCESS** if the operation is successful.\n **OH_DRAWING_ERROR_INVALID_PARAMETER** if **path** or **isEmpty** is NULL.\n @since 20\n @version 1.0"]
     #[cfg(feature = "api-20")]
     pub fn OH_Drawing_PathIsEmpty(
         path: *mut OH_Drawing_Path,
@@ -4333,7 +4527,7 @@ extern "C" {
     ) -> OH_Drawing_ErrorCode;
 }
 extern "C" {
-    #[doc = " @brief Checks if <b>OH_Drawing_Path</b> represents a rectangle.\n\n @syscap SystemCapability.Graphic.Graphic2D.NativeDrawing\n @param path Indicates the pointer to an <b>OH_Drawing_Path</b> object.\n @param rect Indicates the Pointer to an <b>OH_Drawing_Rect</b> object.\n @param isRect Indicates the return value.\n @return Returns the error code.\n         Returns {@link OH_DRAWING_SUCCESS} if the operation is successful.\n         Returns {@link OH_DRAWING_ERROR_INVALID_PARAMETER} if path or isRect is nullptr.\n @since 20\n @version 1.0"]
+    #[doc = " @brief Checks whether a path object forms a rectangle.\n\n @param path Pointer to the {@link OH_Drawing_Path} object.\n @param rect Pointer to the {@link OH_Drawing_Rect} object, which is used as an output parameter and can be null.\n @param isRect Whether a path forms a rectangle. **true** means yes; **false** otherwise. It as an output parameter.\n @return Execution result.\n **OH_DRAWING_SUCCESS** if the operation is successful.\n **OH_DRAWING_ERROR_INVALID_PARAMETER** if **path** or **isRect** is NULL.\n @since 20\n @version 1.0"]
     #[cfg(feature = "api-20")]
     pub fn OH_Drawing_PathIsRect(
         path: *mut OH_Drawing_Path,
@@ -4342,15 +4536,15 @@ extern "C" {
     ) -> OH_Drawing_ErrorCode;
 }
 extern "C" {
-    #[doc = " @brief Sets the start point of a path.\n\n @syscap SystemCapability.Graphic.Graphic2D.NativeDrawing\n @param path Indicates the pointer to an <b>OH_Drawing_Path</b> object.\n @param x Indicates the x coordinate of the start point.\n @param y Indicates the y coordinate of the start point.\n @since 8\n @version 1.0"]
+    #[doc = " @brief Sets the start point of this path.\n This API may return an error code. For details, call {@link OH_Drawing_ErrorCodeGet}.\n If **path** is NULL, **OH_DRAWING_ERROR_INVALID_PARAMETER** is returned.\n\n @param path Pointer to an **OH_Drawing_Path** object.\n @param x X coordinate of the start point.\n @param y Y coordinate of the start point.\n @since 8\n @version 1.0"]
     pub fn OH_Drawing_PathMoveTo(path: *mut OH_Drawing_Path, x: f32, y: f32);
 }
 extern "C" {
-    #[doc = " @brief Draws a line segment from the last point of a path to the target point.\n\n @syscap SystemCapability.Graphic.Graphic2D.NativeDrawing\n @param path Indicates the pointer to an <b>OH_Drawing_Path</b> object.\n @param x Indicates the x coordinate of the target point.\n @param y Indicates the y coordinate of the target point.\n @since 8\n @version 1.0"]
+    #[doc = " @brief Draws a line segment from the last point of this path to the target point. If the path is empty, the start\n point (0, 0) is used.\n This API may return an error code. For details, call {@link OH_Drawing_ErrorCodeGet}.\n If **path** is NULL, **OH_DRAWING_ERROR_INVALID_PARAMETER** is returned.\n\n @param path Pointer to an **OH_Drawing_Path** object.\n @param x X coordinate of the target point.\n @param y Y coordinate of the target point.\n @since 8\n @version 1.0"]
     pub fn OH_Drawing_PathLineTo(path: *mut OH_Drawing_Path, x: f32, y: f32);
 }
 extern "C" {
-    #[doc = " @brief Draws an arc to a path.\n\n This is done by using angle arc mode. In this mode, a rectangle that encloses an ellipse is specified first,\n and then a start angle and a sweep angle are specified.\n The arc is a portion of the ellipse defined by the start angle and the sweep angle.\n By default, a line segment from the last point of the path to the start point of the arc is also added.\n\n @syscap SystemCapability.Graphic.Graphic2D.NativeDrawing\n @param path Indicates the pointer to an <b>OH_Drawing_Path</b> object.\n @param x1 Indicates the x coordinate of the upper left corner of the rectangle.\n @param y1 Indicates the y coordinate of the upper left corner of the rectangle.\n @param x2 Indicates the x coordinate of the lower right corner of the rectangle.\n @param y2 Indicates the y coordinate of the lower right corner of the rectangle.\n @param startDeg Indicates the start angle, in degrees.\n @param sweepDeg Indicates the angle to sweep, in degrees.\n @since 8\n @version 1.0"]
+    #[doc = " @brief Draws an arc to a path. This is done by using angle arc mode. In this mode, a rectangle is specified first,\n and then a start angle and scanning degree are specified. The inscribed ellipse of the rectangle will be used to\n intercept the arc.\n The arc is a portion of the ellipse defined by the start angle and the sweep angle. If the path is empty, a line\n segment from the last point of the path to the start point of the arc is also added.\n This API may return an error code. For details, call {@link OH_Drawing_ErrorCodeGet}.\n If **path** is NULL, **OH_DRAWING_ERROR_INVALID_PARAMETER** is returned.\n\n @param path Pointer to an **OH_Drawing_Path** object.\n @param x1 X coordinate of the upper left corner of the rectangle.\n @param y1 Y coordinate of the upper left corner of the rectangle.\n @param x2 X coordinate of the lower right corner of the rectangle.\n @param y2 Y coordinate of the lower right corner of the rectangle.\n @param startDeg Start angle. The start direction (0°) of the angle is the positive direction of the X axis.\n @param sweepDeg Angle to sweep, in degrees. A positive number indicates a clockwise sweep, and a negative value\n indicates a counterclockwise swipe. The actual swipe degree is the modulo operation result of the input parameter by\n 360.\n @since 8\n @version 1.0"]
     pub fn OH_Drawing_PathArcTo(
         path: *mut OH_Drawing_Path,
         x1: f32,
@@ -4362,7 +4556,7 @@ extern "C" {
     );
 }
 extern "C" {
-    #[doc = " @brief Draws a quadratic Bezier curve from the last point of a path to the target point.\n\n @syscap SystemCapability.Graphic.Graphic2D.NativeDrawing\n @param path Indicates the pointer to an <b>OH_Drawing_Path</b> object.\n @param ctrlX Indicates the x coordinate of the control point.\n @param ctrlY Indicates the y coordinate of the control point.\n @param endX Indicates the x coordinate of the target point.\n @param endY Indicates the y coordinate of the target point.\n @since 8\n @version 1.0"]
+    #[doc = " @brief Draws a quadratic Bezier curve from the last point of a path to the target point. If the path is empty, the\n start point (0, 0) is used.\n This API may return an error code. For details, call {@link OH_Drawing_ErrorCodeGet}.\n If **path** is NULL, **OH_DRAWING_ERROR_INVALID_PARAMETER** is returned.\n\n @param path Pointer to an **OH_Drawing_Path** object.\n @param ctrlX X coordinate of the control point.\n @param ctrlY Y coordinate of the control point.\n @param endX X coordinate of the target point.\n @param endY Y coordinate of the target point.\n @since 8\n @version 1.0"]
     pub fn OH_Drawing_PathQuadTo(
         path: *mut OH_Drawing_Path,
         ctrlX: f32,
@@ -4372,7 +4566,7 @@ extern "C" {
     );
 }
 extern "C" {
-    #[doc = " @brief Draws a conic from the last point of a path to the target point.\n\n @syscap SystemCapability.Graphic.Graphic2D.NativeDrawing\n @param path Indicates the pointer to an <b>OH_Drawing_Path</b> object.\n @param ctrlX Indicates the x coordinate of the control point.\n @param ctrlY Indicates the y coordinate of the control point.\n @param endX Indicates the x coordinate of the target point.\n @param endY Indicates the y coordinate of the target point.\n @param weight Indicates the weight of added conic.\n @since 12\n @version 1.0"]
+    #[doc = " @brief Draws a conic curve from the last point of a path to the target point. If the path is empty, the start point (\n 0, 0) is used.\n This API may return an error code. For details, call {@link OH_Drawing_ErrorCodeGet}.\n If **path** is NULL, **OH_DRAWING_ERROR_INVALID_PARAMETER** is returned.\n\n @param path Pointer to the {@link OH_Drawing_Path} object.\n @param ctrlX X coordinate of the control point.\n @param ctrlY Y coordinate of the control point.\n @param endX X coordinate of the target point.\n @param endY Y coordinate of the target point.\n @param weight Weight of the curve, which determines its shape. The larger the value, the closer of the curve to the\n control point.\n If the value is less than or equal to **0**, the result is equivalent to a line segment from the start point to the\n end point, which is added by calling {@link OH_Drawing_PathLineTo}.\n If the value is **1**, the result is equivalent to {@link OH_Drawing_PathQuadTo}.\n @since 12\n @version 1.0"]
     pub fn OH_Drawing_PathConicTo(
         path: *mut OH_Drawing_Path,
         ctrlX: f32,
@@ -4383,7 +4577,7 @@ extern "C" {
     );
 }
 extern "C" {
-    #[doc = " @brief Draws a cubic Bezier curve from the last point of a path to the target point.\n\n @syscap SystemCapability.Graphic.Graphic2D.NativeDrawing\n @param path Indicates the pointer to an <b>OH_Drawing_Path</b> object.\n @param ctrlX1 Indicates the x coordinate of the first control point.\n @param ctrlY1 Indicates the y coordinate of the first control point.\n @param ctrlX2 Indicates the x coordinate of the second control point.\n @param ctrlY2 Indicates the y coordinate of the second control point.\n @param endX Indicates the x coordinate of the target point.\n @param endY Indicates the y coordinate of the target point.\n @since 8\n @version 1.0"]
+    #[doc = " @brief Draws a cubic Bezier curve from the last point of this path to the target point. If the path is empty, the\n start point (0, 0) is used.\n This API may return an error code. For details, call {@link OH_Drawing_ErrorCodeGet}.\n If **path** is NULL, **OH_DRAWING_ERROR_INVALID_PARAMETER** is returned.\n\n @param path Pointer to an **OH_Drawing_Path** object.\n @param ctrlX1 X coordinate of the first control point.\n @param ctrlY1 Y coordinate of the first control point.\n @param ctrlX2 X coordinate of the second control point.\n @param ctrlY2 Y coordinate of the second control point.\n @param endX X coordinate of the target point.\n @param endY Y coordinate of the target point.\n @since 8\n @version 1.0"]
     pub fn OH_Drawing_PathCubicTo(
         path: *mut OH_Drawing_Path,
         ctrlX1: f32,
@@ -4395,15 +4589,15 @@ extern "C" {
     );
 }
 extern "C" {
-    #[doc = " @brief Sets the relative starting point of a path.\n\n @syscap SystemCapability.Graphic.Graphic2D.NativeDrawing\n @param path Indicates the pointer to an <b>OH_Drawing_Path</b> object.\n @param x Indicates the x coordinate of the relative starting point.\n @param y Indicates the y coordinate of the relative starting point.\n @since 12\n @version 1.0"]
+    #[doc = " @brief Sets the start position relative to the last point of a path. If the path is empty, the start point (0, 0) is\n used.\n This API may return an error code. For details, call {@link OH_Drawing_ErrorCodeGet}.\n If **path** is NULL, **OH_DRAWING_ERROR_INVALID_PARAMETER** is returned.\n\n @param path Pointer to the {@link OH_Drawing_Path} object.\n @param x X-axis offset relative to the end point of a path. A positive number indicates an offset in the positive\n direction of the X axis, and a negative number indicates an offset in the negative direction of the X axis.\n @param y Y-axis offset relative to the end point of a path. A positive number indicates an offset in the positive\n direction of the Y axis, and a negative number indicates an offset in the negative direction of the Y axis.\n @since 12\n @version 1.0"]
     pub fn OH_Drawing_PathRMoveTo(path: *mut OH_Drawing_Path, x: f32, y: f32);
 }
 extern "C" {
-    #[doc = " @brief Draws a line segment from the last point of a path to the relative target point.\n\n @syscap SystemCapability.Graphic.Graphic2D.NativeDrawing\n @param path Indicates the pointer to an <b>OH_Drawing_Path</b> object.\n @param x Indicates the x coordinate of the relative target point.\n @param y Indicates the y coordinate of the relative target point.\n @since 12\n @version 1.0"]
+    #[doc = " @brief Draws a line segment from the last point of this path to a point relative to the last point. If the path is\n empty, the start point (0, 0) is used.\n This API may return an error code. For details, call {@link OH_Drawing_ErrorCodeGet}.\n If **path** is NULL, **OH_DRAWING_ERROR_INVALID_PARAMETER** is returned.\n\n @param path Pointer to the {@link OH_Drawing_Path} object.\n @param x X offset relative to the last point, which is used to specify the X coordinate of the target point.\n @param y Y offset relative to the last point, which is used to specify the X coordinate of the target point.\n @since 12\n @version 1.0"]
     pub fn OH_Drawing_PathRLineTo(path: *mut OH_Drawing_Path, x: f32, y: f32);
 }
 extern "C" {
-    #[doc = " @brief Draws a quadratic bezier curve from the last point of a path to the relative target point.\n\n @syscap SystemCapability.Graphic.Graphic2D.NativeDrawing\n @param path Indicates the pointer to an <b>OH_Drawing_Path</b> object.\n @param ctrlX Indicates the x coordinate of the relative control point.\n @param ctrlY Indicates the y coordinate of the relative control point.\n @param endX Indicates the x coordinate of the relative target point.\n @param endY Indicates the y coordinate of the relative target point.\n @since 12\n @version 1.0"]
+    #[doc = " @brief Draws a quadratic Bezier curve from the last point of this path to a point relative to the last point. If the\n path is empty, the start point (0, 0) is used.\n This API may return an error code. For details, call {@link OH_Drawing_ErrorCodeGet}.\n If **path** is NULL, **OH_DRAWING_ERROR_INVALID_PARAMETER** is returned.\n\n @param path Pointer to the {@link OH_Drawing_Path} object.\n @param ctrlX X offset relative to the last point, which is used to specify the X coordinate of the control point.\n @param ctrlY Y offset relative to the last point, which is used to specify the Y coordinate of the control point.\n @param endX X offset relative to the last point, which is used to specify the X coordinate of the target point.\n @param endY Y offset relative to the last point, which is used to specify the Y coordinate of the target point.\n @since 12\n @version 1.0"]
     pub fn OH_Drawing_PathRQuadTo(
         path: *mut OH_Drawing_Path,
         ctrlX: f32,
@@ -4413,7 +4607,7 @@ extern "C" {
     );
 }
 extern "C" {
-    #[doc = " @brief Draws a conic from the last point of a path to the relative target point.\n\n @syscap SystemCapability.Graphic.Graphic2D.NativeDrawing\n @param path Indicates the pointer to an <b>OH_Drawing_Path</b> object.\n @param ctrlX Indicates the x coordinate of the relative control point.\n @param ctrlY Indicates the y coordinate of the relative control point.\n @param endX Indicates the x coordinate of the relative target point.\n @param endY Indicates the y coordinate of the relative target point.\n @param weight Indicates the weight of added conic.\n @since 12\n @version 1.0"]
+    #[doc = " @brief Draws a conic curve from the last point of a path to a point relative to the last point. If the path is empty,\n the start point (0, 0) is used.\n This API may return an error code. For details, call {@link OH_Drawing_ErrorCodeGet}.\n If **path** is NULL, **OH_DRAWING_ERROR_INVALID_PARAMETER** is returned.\n\n @param path Pointer to the {@link OH_Drawing_Path} object.\n @param ctrlX X offset relative to the last point, which is used to specify the X coordinate of the control point.\n @param ctrlY Y offset relative to the last point, which is used to specify the Y coordinate of the control point.\n @param endX X offset relative to the last point, which is used to specify the X coordinate of the target point.\n @param endY Y offset relative to the last point, which is used to specify the Y coordinate of the target point.\n @param weight Weight of the curve, which determines its shape. The larger the value, the closer of the curve to the\n control point.\n If the value is less than or equal to **0**, the result is equivalent to a line segment from the start point to the\n end point, which is added by calling {@link OH_Drawing_PathRLineTo}.\n If the value is **1**, the result is equivalent to {@link OH_Drawing_PathRQuadTo}.\n @since 12\n @version 1.0"]
     pub fn OH_Drawing_PathRConicTo(
         path: *mut OH_Drawing_Path,
         ctrlX: f32,
@@ -4424,7 +4618,7 @@ extern "C" {
     );
 }
 extern "C" {
-    #[doc = " @brief Draws a cubic bezier curve from the last point of a path to the relative target point.\n\n @syscap SystemCapability.Graphic.Graphic2D.NativeDrawing\n @param path Indicates the pointer to an <b>OH_Drawing_Path</b> object.\n @param ctrlX1 Indicates the x coordinate of the first relative control point.\n @param ctrlY1 Indicates the y coordinate of the first relative control point.\n @param ctrlX2 Indicates the x coordinate of the second relative control point.\n @param ctrlY2 Indicates the y coordinate of the second relative control point.\n @param endX Indicates the x coordinate of the relative target point.\n @param endY Indicates the y coordinate of the relative target point.\n @since 12\n @version 1.0"]
+    #[doc = " @brief Draws a cubic Bezier curve from the last point of a path to a point relative to the last point. If the path\n is empty, the start point (0, 0) is used.\n This API may return an error code. For details, call {@link OH_Drawing_ErrorCodeGet}.\n If **path** is NULL, **OH_DRAWING_ERROR_INVALID_PARAMETER** is returned.\n\n @param path Pointer to the {@link OH_Drawing_Path} object.\n @param ctrlX1 X offset relative to the last point, which is used to specify the X coordinate of the first control\n point.\n @param ctrlY1 Y offset relative to the last point, which is used to specify the Y coordinate of the first control\n point.\n @param ctrlX2 X offset relative to the last point, which is used to specify the X coordinate of the second control\n point.\n @param ctrlY2 Y offset relative to the last point, which is used to specify the Y coordinate of the second control\n point.\n @param endX X offset relative to the last point, which is used to specify the X coordinate of the target point.\n @param endY Y offset relative to the last point, which is used to specify the Y coordinate of the target point.\n @since 12\n @version 1.0"]
     pub fn OH_Drawing_PathRCubicTo(
         path: *mut OH_Drawing_Path,
         ctrlX1: f32,
@@ -4436,7 +4630,7 @@ extern "C" {
     );
 }
 extern "C" {
-    #[doc = " @brief Adds a new contour to the path, defined by the rect, and wound in the specified direction.\n\n @syscap SystemCapability.Graphic.Graphic2D.NativeDrawing\n @param path Indicates the pointer to an <b>OH_Drawing_Path</b> object.\n @param left Indicates the left coordinate of the upper left corner of the rectangle.\n @param top Indicates the top coordinate of the upper top corner of the rectangle.\n @param right Indicates the right coordinate of the lower right corner of the rectangle.\n @param bottom Indicates the bottom coordinate of the lower bottom corner of the rectangle.\n @param pathDirection Indicates the path direction.\n @since 12\n @version 1.0"]
+    #[doc = " @brief Adds a rectangle to a path in the specified direction. The start point is the upper left corner of the\n rectangle.\n This API may return an error code. For details, call {@link OH_Drawing_ErrorCodeGet}.\n If **path** is NULL, **OH_DRAWING_ERROR_INVALID_PARAMETER** is returned.\n If **pathDirection** is not set to one of the enumerated values, **OH_DRAWING_ERROR_PARAMETER_OUT_OF_RANGE** is\n returned.\n\n @param path Pointer to the {@link OH_Drawing_Path} object.\n @param left X coordinate of the upper left corner of the rectangle.\n @param top Y coordinate of the upper left corner of the rectangle.\n @param right X coordinate of the lower right corner of the rectangle.\n @param bottom Y coordinate of the lower right corner of the rectangle.\n @param pathDirection {@link OH_Drawing_PathDirection} object.\n @since 12\n @version 1.0"]
     pub fn OH_Drawing_PathAddRect(
         path: *mut OH_Drawing_Path,
         left: f32,
@@ -4447,7 +4641,7 @@ extern "C" {
     );
 }
 extern "C" {
-    #[doc = " @brief Adds a new contour to the path, defined by the rect, and wound in the specified direction.\n\n @syscap SystemCapability.Graphic.Graphic2D.NativeDrawing\n @param path Indicates the pointer to an <b>OH_Drawing_Path</b> object.\n @param rect Indicates the pointer to an <b>OH_Drawing_Rect</b> object.\n @param pathDirection Indicates the path direction.\n @param start Indicates initial corner of rect to add.\n @since 12\n @version 1.0"]
+    #[doc = " @brief Adds a rectangle contour to a path in the specified direction.\n This API may return an error code. For details, call {@link OH_Drawing_ErrorCodeGet}.\n If either **path** or **rect** is NULL, **OH_DRAWING_ERROR_INVALID_PARAMETER** is returned.\n If **pathDirection** is not set to one of the enumerated values, **OH_DRAWING_ERROR_PARAMETER_OUT_OF_RANGE** is\n returned.\n\n @param path Pointer to the {@link OH_Drawing_Path} object.\n @param rect Pointer to the {@link OH_Drawing_Rect} object.\n @param pathDirection Indicates the path direction.\n @param start Start point, indicating the corner of the rectangle from which the path is drawn. The value **0** means\n the upper left corner, **1** means the upper right corner, **2** means the lower right corner, and **3** means the\n lower left corner.\n @since 12\n @version 1.0"]
     pub fn OH_Drawing_PathAddRectWithInitialCorner(
         path: *mut OH_Drawing_Path,
         rect: *const OH_Drawing_Rect,
@@ -4456,7 +4650,7 @@ extern "C" {
     );
 }
 extern "C" {
-    #[doc = " @brief Adds a new contour to the path, defined by the round rect, and wound in the specified direction.\n\n @syscap SystemCapability.Graphic.Graphic2D.NativeDrawing\n @param path Indicates the pointer to an <b>OH_Drawing_Path</b> object.\n @param roundRect Indicates the pointer to an <b>OH_Drawing_RoundRect</b> object.\n @param pathDirection Indicates the path direction.\n @since 12\n @version 1.0"]
+    #[doc = " @brief Adds a rounded rectangle to a path in the specified direction. When the path direction is clockwise, the\n start point is at the intersection of the rounded rectangle's left boundary and its lower left corner. When the path\n direction is counterclockwise, the start point is at the intersection point between the left boundary and the upper\n left corner.\n This API may return an error code. For details, call {@link OH_Drawing_ErrorCodeGet}.\n If either **path** or **roundRect** is NULL, **OH_DRAWING_ERROR_INVALID_PARAMETER** is returned.\n If **pathDirection** is not set to one of the enumerated values, **OH_DRAWING_ERROR_PARAMETER_OUT_OF_RANGE** is\n returned.\n\n @param path Pointer to the {@link OH_Drawing_Path} object.\n @param roundRect Pointer to the {@link OH_Drawing_RoundRect} object.\n @param pathDirection {@link OH_Drawing_PathDirection} object.\n @since 12\n @version 1.0"]
     pub fn OH_Drawing_PathAddRoundRect(
         path: *mut OH_Drawing_Path,
         roundRect: *const OH_Drawing_RoundRect,
@@ -4464,7 +4658,7 @@ extern "C" {
     );
 }
 extern "C" {
-    #[doc = " @brief Adds a oval to the path, defined by the rect, and wound in the specified direction.\n\n @syscap SystemCapability.Graphic.Graphic2D.NativeDrawing\n @param path Indicates the pointer to an <b>OH_Drawing_Path</b> object.\n @param rect Indicates the pointer to an <b>OH_Drawing_Rect</b> object.\n @param start Index of initial point of ellipse.\n @param pathDirection Indicates the path direction.\n @since 12\n @version 1.0"]
+    #[doc = " @brief Adds an oval to a path. **OH_Drawing_Rect** specifies the outer tangent rectangle of the oval, and **\n OH_Drawing_PathDirection** specifies whether the drawing is clockwise or counterclockwise.\n This API may return an error code. For details, call {@link OH_Drawing_ErrorCodeGet}.\n If either **path** or **rect** is NULL, **OH_DRAWING_ERROR_INVALID_PARAMETER** is returned.\n If **pathDirection** is not set to one of the enumerated values, **OH_DRAWING_ERROR_PARAMETER_OUT_OF_RANGE** is\n returned.\n\n @param path Pointer to the {@link OH_Drawing_Path} object.\n @param rect Pointer to the {@link OH_Drawing_Rect} object.\n @param start Start point of the oval.\n @param pathDirection {@link OH_Drawing_PathDirection} object.\n @since 12\n @version 1.0"]
     pub fn OH_Drawing_PathAddOvalWithInitialPoint(
         path: *mut OH_Drawing_Path,
         rect: *const OH_Drawing_Rect,
@@ -4473,7 +4667,7 @@ extern "C" {
     );
 }
 extern "C" {
-    #[doc = " @brief Adds a oval to the path, defined by the rect, and wound in the specified direction.\n\n @syscap SystemCapability.Graphic.Graphic2D.NativeDrawing\n @param path Indicates the pointer to an <b>OH_Drawing_Path</b> object.\n @param rect Indicates the pointer to an <b>OH_Drawing_Rect</b> object.\n @param pathDirection Indicates the path direction.\n @since 12\n @version 1.0"]
+    #[doc = " @brief Adds an oval to a path in the specified direction.\n This API may return an error code. For details, call {@link OH_Drawing_ErrorCodeGet}.\n If either **path** or **rect** is NULL, **OH_DRAWING_ERROR_INVALID_PARAMETER** is returned.\n If **pathDirection** is not set to one of the enumerated values, **OH_DRAWING_ERROR_PARAMETER_OUT_OF_RANGE** is\n returned.\n\n @param path Pointer to the {@link OH_Drawing_Path} object.\n @param rect Pointer to the {@link OH_Drawing_Rect} object.\n @param pathDirection {@link OH_Drawing_PathDirection} object.\n @since 12\n @version 1.0"]
     pub fn OH_Drawing_PathAddOval(
         path: *mut OH_Drawing_Path,
         rect: *const OH_Drawing_Rect,
@@ -4481,7 +4675,7 @@ extern "C" {
     );
 }
 extern "C" {
-    #[doc = " @brief Appends arc to path, as the start of new contour.Arc added is part of ellipse bounded by oval,\n from startAngle through sweepAngle. Both startAngle and sweepAngle are measured in degrees, where zero degrees\n is aligned with the positive x-axis, and positive sweeps extends arc clockwise.If sweepAngle <= -360, or\n sweepAngle >= 360; and startAngle modulo 90 is nearly zero, append oval instead of arc. Otherwise, sweepAngle\n values are treated modulo 360, and arc may or may not draw depending on numeric rounding.\n\n @syscap SystemCapability.Graphic.Graphic2D.NativeDrawing\n @param path Indicates the pointer to an <b>OH_Drawing_Path</b> object.\n @param rect Indicates the pointer to an <b>OH_Drawing_Rect</b> object.\n @param startAngle Indicates the starting angle of arc in degrees.\n @param sweepAngle Indicates the sweep, in degrees. Positive is clockwise.\n @since 12\n @version 1.0"]
+    #[doc = " @brief Adds an arc to a path as the start of a new contour. The arc added is part of the inscribed ellipse of the\n rectangle, from the start angle through the sweep angle. If the sweep angle is less than or equal to -360°, or if\n the sweep angle is greater than or equal to 360°, and start angle modulo 90 is nearly zero, an oval instead of an\n ellipse is added.\n This API may return an error code. For details, call {@link OH_Drawing_ErrorCodeGet}.\n If either **path** or **rect** is NULL, **OH_DRAWING_ERROR_INVALID_PARAMETER** is returned.\n\n @param path Pointer to the {@link OH_Drawing_Path} object.\n @param rect Pointer to the {@link OH_Drawing_Rect} object.\n @param startAngle Start angle of the arc, in degrees.\n @param sweepAngle Angle to sweep, in degrees. A positive number indicates a clockwise sweep, and a negative value\n indicates a counterclockwise swipe. The actual swipe degree is the modulo operation result of the input parameter by\n 360.\n @since 12\n @version 1.0"]
     pub fn OH_Drawing_PathAddArc(
         path: *mut OH_Drawing_Path,
         rect: *const OH_Drawing_Rect,
@@ -4490,7 +4684,7 @@ extern "C" {
     );
 }
 extern "C" {
-    #[doc = " @brief Appends src path to path, transformed by matrix. Transformed curves may have different verbs,\n point, and conic weights.\n\n @syscap SystemCapability.Graphic.Graphic2D.NativeDrawing\n @param path Indicates the pointer to an <b>OH_Drawing_Path</b> object.\n @param src Indicates the pointer to an <b>OH_Drawing_Path</b> object.\n @param matrix Indicates the length of the <b>OH_Drawing_Matrix</b> object.\n @since 12\n @version 1.0"]
+    #[doc = " @brief Transforms the points in a **src** path by a matrix and adds the new one to the current path.\n This API may return an error code. For details, call {@link OH_Drawing_ErrorCodeGet}.\n If either **path** or **src** is NULL, **OH_DRAWING_ERROR_INVALID_PARAMETER** is returned.\n\n @param path Pointer to the existing {@link OH_Drawing_Path} object.\n @param src Pointer to the source {@link OH_Drawing_Path} object.\n @param matrix Pointer to the {@link OH_Drawing_Matrix} object. A null pointer means an identity matrix.\n @since 12\n @version 1.0"]
     pub fn OH_Drawing_PathAddPath(
         path: *mut OH_Drawing_Path,
         src: *const OH_Drawing_Path,
@@ -4498,7 +4692,7 @@ extern "C" {
     );
 }
 extern "C" {
-    #[doc = " @brief Appends src path to path, transformed by matrix and mode. Transformed curves may have different verbs,\n point, and conic weights.\n\n @syscap SystemCapability.Graphic.Graphic2D.NativeDrawing\n @param path Indicates the pointer to an <b>OH_Drawing_Path</b> object.\n @param src Indicates the pointer to an <b>OH_Drawing_Path</b> object.\n @param matrix Indicates the length of the <b>OH_Drawing_Matrix</b> object.\n @param pathAddMode Indicates the add path's add mode.\n @since 12\n @version 1.0"]
+    #[doc = " @brief Transforms the points in a **src** path by a matrix and adds the new one to the current path with the\n specified adding mode.\n This API may return an error code. For details, call {@link OH_Drawing_ErrorCodeGet}.\n If either **path** or **src** is NULL, **OH_DRAWING_ERROR_INVALID_PARAMETER** is returned.\n If **pathAddMode** is not set to one of the enumerated values, **OH_DRAWING_ERROR_PARAMETER_OUT_OF_RANGE** is\n returned.\n\n @param path Pointer to the existing {@link OH_Drawing_Path} object.\n @param src Pointer to the source {@link OH_Drawing_Path} object.\n @param matrix Pointer to the {@link OH_Drawing_Matrix} object. A null pointer means an identity matrix.\n @param pathAddMode {@link OH_Drawing_PathAddMode} object.\n @since 12\n @version 1.0"]
     pub fn OH_Drawing_PathAddPathWithMatrixAndMode(
         path: *mut OH_Drawing_Path,
         src: *const OH_Drawing_Path,
@@ -4507,7 +4701,7 @@ extern "C" {
     );
 }
 extern "C" {
-    #[doc = " @brief Appends src path to path, transformed by mode. Transformed curves may have different verbs,\n point, and conic weights.\n\n @syscap SystemCapability.Graphic.Graphic2D.NativeDrawing\n @param path Indicates the pointer to an <b>OH_Drawing_Path</b> object.\n @param src Indicates the pointer to an <b>OH_Drawing_Path</b> object, which is Appends src path to path.\n @param pathAddMode Indicates the add path's add mode.\n @since 12\n @version 1.0"]
+    #[doc = " @brief Adds a **src** path to the current path with the specified adding mode.\n This API may return an error code. For details, call {@link OH_Drawing_ErrorCodeGet}.\n If either **path** or **src** is NULL, **OH_DRAWING_ERROR_INVALID_PARAMETER** is returned.\n If **pathAddMode** is not set to one of the enumerated values, **OH_DRAWING_ERROR_PARAMETER_OUT_OF_RANGE** is\n returned.\n\n @param path Pointer to the existing {@link OH_Drawing_Path} object.\n @param src Pointer to the source {@link OH_Drawing_Path} object.\n @param pathAddMode {@link OH_Drawing_PathAddMode} object.\n @since 12\n @version 1.0"]
     pub fn OH_Drawing_PathAddPathWithMode(
         path: *mut OH_Drawing_Path,
         src: *const OH_Drawing_Path,
@@ -4515,7 +4709,7 @@ extern "C" {
     );
 }
 extern "C" {
-    #[doc = " @brief Appends src path to path, transformed by offset and mode. Transformed curves may have different verbs,\n point, and conic weights.\n\n @syscap SystemCapability.Graphic.Graphic2D.NativeDrawing\n @param path Indicates the pointer to an <b>OH_Drawing_Path</b> object.\n @param src Indicates the pointer to an <b>OH_Drawing_Path</b> object.\n @param dx Indicates offset added to src path x-axis coordinates.\n @param dy Indicates offset added to src path y-axis coordinates.\n @param pathAddMode Indicates the add path's add mode.\n @since 12\n @version 1.0"]
+    #[doc = " @brief Translates a **src** path by an offset and adds the new one to the current path with the specified adding\n mode.\n This API may return an error code. For details, call {@link OH_Drawing_ErrorCodeGet}.\n If either **path** or **src** is NULL, **OH_DRAWING_ERROR_INVALID_PARAMETER** is returned.\n If **pathAddMode** is not set to one of the enumerated values, **OH_DRAWING_ERROR_PARAMETER_OUT_OF_RANGE** is\n returned.\n\n @param path Pointer to the existing {@link OH_Drawing_Path} object.\n @param src Pointer to the source {@link OH_Drawing_Path} object.\n @param dx X offset.\n @param dy Y offset.\n @param pathAddMode {@link OH_Drawing_PathAddMode} object.\n @since 12\n @version 1.0"]
     pub fn OH_Drawing_PathAddPathWithOffsetAndMode(
         path: *mut OH_Drawing_Path,
         src: *const OH_Drawing_Path,
@@ -4525,7 +4719,7 @@ extern "C" {
     );
 }
 extern "C" {
-    #[doc = " @brief Adds contour created from point array, adding (count - 1) line segments.\n\n @syscap SystemCapability.Graphic.Graphic2D.NativeDrawing\n @param path Indicates the pointer to an <b>OH_Drawing_Path</b> object.\n @param points Indicates the point array.\n @param count Indicates the size of point array.\n @param isClosed Indicates Whether to add lines that connect the end and start.\n @since 12\n @version 1.0"]
+    #[doc = " @brief Adds a polygon to a path.\n This API may return an error code. For details, call {@link OH_Drawing_ErrorCodeGet}.\n If either **path** or **points** is NULL or **count** is **0**, **OH_DRAWING_ERROR_INVALID_PARAMETER** is returned.\n\n @param path Pointer to the existing {@link OH_Drawing_Path} object.\n @param points Pointer to an array that holds the vertex coordinates of the polygon.\n @param count Size of the array.\n @param isClosed Whether the path is closed. The value **true** means that the path is closed, and **false** means\n the opposite.\n @since 12\n @version 1.0"]
     pub fn OH_Drawing_PathAddPolygon(
         path: *mut OH_Drawing_Path,
         points: *const OH_Drawing_Point2D,
@@ -4534,7 +4728,7 @@ extern "C" {
     );
 }
 extern "C" {
-    #[doc = " @brief  Adds a circle to the path, and wound in the specified direction.\n\n @syscap SystemCapability.Graphic.Graphic2D.NativeDrawing\n @param path Indicates the pointer to an <b>OH_Drawing_Path</b> object.\n @param x Indicates the x coordinate of the center of the circle.\n @param y Indicates the y coordinate of the center of the circle.\n @param radius Indicates the radius of the circle.\n @param pathDirection Indicates the path direction.\n @since 12\n @version 1.0"]
+    #[doc = " @brief Adds a circle to a path in the specified direction.\n This API may return an error code. For details, call {@link OH_Drawing_ErrorCodeGet}.\n If **path** is NULL, **OH_DRAWING_ERROR_INVALID_PARAMETER** is returned.\n If **radius** is less than or equal to 0, **OH_DRAWING_ERROR_PARAMETER_OUT_OF_RANGE** is returned.\n If **pathDirection** is not set to one of the enumerated values, **OH_DRAWING_ERROR_PARAMETER_OUT_OF_RANGE** is\n returned.\n\n @param path Pointer to the {@link OH_Drawing_Path} object.\n @param x X coordinate of the circle center.\n @param y Y coordinate of the circle center.\n @param radius Radius of the circle.\n @param pathDirection {@link OH_Drawing_PathDirection} object.\n @since 12\n @version 1.0"]
     pub fn OH_Drawing_PathAddCircle(
         path: *mut OH_Drawing_Path,
         x: f32,
@@ -4544,22 +4738,58 @@ extern "C" {
     );
 }
 extern "C" {
-    #[doc = " @brief Parses the svg path from the string.\n\n @syscap SystemCapability.Graphic.Graphic2D.NativeDrawing\n @param path Indicates the pointer to an <b>OH_Drawing_Path</b> object.\n @param str Indicates the string of the SVG path.\n @return Returns true if build path is successful, returns false otherwise.\n @since 12\n @version 1.0"]
+    #[doc = " @brief Parses the path represented by an SVG string.\n This API may return an error code. For details, call {@link OH_Drawing_ErrorCodeGet}.\n If either **path** or **str** is NULL, **OH_DRAWING_ERROR_INVALID_PARAMETER** is returned.\n\n @param path Pointer to the {@link OH_Drawing_Path} object.\n @param str Pointer to the SVG string.\n @return Returns whether the SVG string is successfully parsed. **true** means successful; **false** otherwise.\n @since 12\n @version 1.0"]
     pub fn OH_Drawing_PathBuildFromSvgString(
         path: *mut OH_Drawing_Path,
         str_: *const ::std::os::raw::c_char,
     ) -> bool;
 }
 extern "C" {
-    #[doc = " @brief Return the status that point (x, y) is contained by path.\n\n @syscap SystemCapability.Graphic.Graphic2D.NativeDrawing\n @param path Indicates the pointer to an <b>OH_Drawing_Path</b> object.\n @param x Indicates the x-axis value of containment test.\n @param y Indicates the y-axis value of containment test.\n @return Returns true if the point (x, y) is contained by path.\n @since 12\n @version 1.0"]
+    #[doc = " @brief Convert path to an SVG string.\n\n @param path Indicates the pointer to an <b>OH_Drawing_Path</b> object.\n @param str Indicates the SVG string. API users are responsible for allocating and freeing memory.\n @param strSize Indicates the SVG string memory size in bytes.\n @return Returns the error code.\n         Returns {@link OH_DRAWING_SUCCESS} if the operation is successful.\n         Returns {@link OH_DRAWING_ERROR_INCORRECT_PARAMETER} if path or strSize is nullptr.\n @since 26.0.0"]
+    #[cfg(feature = "api-26")]
+    pub fn OH_Drawing_PathConvertToSvgString(
+        path: *const OH_Drawing_Path,
+        str_: *mut ::std::os::raw::c_char,
+        strSize: *mut usize,
+    ) -> OH_Drawing_ErrorCode;
+}
+extern "C" {
+    #[doc = " @brief Get path point data.\n\n @param path Indicates the pointer to an <b>OH_Drawing_Path</b> object.\n @param points Indicates the path point array.\n @param count Indicates the size of point array.\n @return Returns the error code.\n         Returns {@link OH_DRAWING_SUCCESS} if the operation is successful.\n         Returns {@link OH_DRAWING_ERROR_INCORRECT_PARAMETER} if path or count is nullptr.\n @since 26.0.0"]
+    #[cfg(feature = "api-26")]
+    pub fn OH_Drawing_PathGetPointData(
+        path: *const OH_Drawing_Path,
+        points: *mut OH_Drawing_Point2D,
+        count: *mut u32,
+    ) -> OH_Drawing_ErrorCode;
+}
+extern "C" {
+    #[doc = " @brief Get path verb data.\n\n @param path Indicates the pointer to an <b>OH_Drawing_Path</b> object.\n @param verbs Indicates the path verb array.\n @param count Indicates the size of verb array.\n @return Returns the error code.\n         Returns {@link OH_DRAWING_SUCCESS} if the operation is successful.\n         Returns {@link OH_DRAWING_ERROR_INCORRECT_PARAMETER} if path or count is nullptr.\n @since 26.0.0"]
+    #[cfg(feature = "api-26")]
+    pub fn OH_Drawing_PathGetVerbData(
+        path: *const OH_Drawing_Path,
+        verbs: *mut OH_Drawing_PathIteratorVerb,
+        count: *mut u32,
+    ) -> OH_Drawing_ErrorCode;
+}
+extern "C" {
+    #[doc = " @brief Get path conic weight data.\n\n @param path Indicates the pointer to an <b>OH_Drawing_Path</b> object.\n @param conicWeights Indicates the path conic weight array.\n @param count Indicates the size of conic weight array.\n @return Returns the error code.\n         Returns {@link OH_DRAWING_SUCCESS} if the operation is successful.\n         Returns {@link OH_DRAWING_ERROR_INCORRECT_PARAMETER} if path or count is nullptr.\n @since 26.0.0"]
+    #[cfg(feature = "api-26")]
+    pub fn OH_Drawing_PathGetConicWeightData(
+        path: *const OH_Drawing_Path,
+        conicWeights: *mut f32,
+        count: *mut u32,
+    ) -> OH_Drawing_ErrorCode;
+}
+extern "C" {
+    #[doc = " @brief Checks whether a coordinate point is included in this path. For details, see {@link OH_Drawing_PathFillType}.\n This API may return an error code. For details, call {@link OH_Drawing_ErrorCodeGet}.\n If **path** is NULL, **OH_DRAWING_ERROR_INVALID_PARAMETER** is returned.\n\n @param path Pointer to the {@link OH_Drawing_Path} object.\n @param x Coordinate point on the X axis.\n @param y Coordinate point on the Y axis.\n @return Returns **true** if the coordinate point is included in the path; returns **false** otherwise.\n @since 12\n @version 1.0"]
     pub fn OH_Drawing_PathContains(path: *mut OH_Drawing_Path, x: f32, y: f32) -> bool;
 }
 extern "C" {
-    #[doc = " @brief Transforms verb array, point array, and weight by matrix. transform may change verbs\n and increase their number. path is replaced by transformed data.\n\n @syscap SystemCapability.Graphic.Graphic2D.NativeDrawing\n @param path Indicates the pointer to an <b>OH_Drawing_Path</b> object.\n @param matrix Indicates the pointer to an <b>OH_Drawing_Matrix</b> object.\n @since 12\n @version 1.0"]
+    #[doc = " @brief Transforms the points in a path by matrix.\n This API may return an error code. For details, call {@link OH_Drawing_ErrorCodeGet}.\n If either **path** or **matrix** is NULL, **OH_DRAWING_ERROR_INVALID_PARAMETER** is returned.\n\n @param path Pointer to the {@link OH_Drawing_Path} object.\n @param matrix Pointer to the {@link OH_Drawing_Matrix} object.\n @since 12\n @version 1.0"]
     pub fn OH_Drawing_PathTransform(path: *mut OH_Drawing_Path, matrix: *const OH_Drawing_Matrix);
 }
 extern "C" {
-    #[doc = " @brief Transforms verb array, point array, and weight by matrix.\n Transform may change verbs and increase their number.\n\n @syscap SystemCapability.Graphic.Graphic2D.NativeDrawing\n @param src Indicates the pointer to an <b>OH_Drawing_Path</b> object.\n @param matrix Indicates the pointer to an <b>OH_Drawing_Matrix</b> object.\n @param dst Indicates the pointer to an <b>OH_Drawing_Path</b> object.\n @param applyPerspectiveClip Indicates whether to apply perspective clip.\n @since 12\n @version 1.0"]
+    #[doc = " @brief Transforms the points in a path by matrix, and uses the new one to replace the **dst** path. If **dst** is\n NULL, the **src** path is replaced.\n This API may return an error code. For details, call {@link OH_Drawing_ErrorCodeGet}.\n If either **src** or **matrix** is NULL, **OH_DRAWING_ERROR_INVALID_PARAMETER** is returned.\n\n @param src Pointer to the {@link OH_Drawing_Path} object.\n @param matrix Pointer to the {@link OH_Drawing_Matrix} object.\n @param dst Pointer to the target {@link OH_Drawing_Path} object.\n @param applyPerspectiveClip Whether to apply perspective cropping to the new path. The value **true** means to apply\n perspective cropping, and **false** means the opposite.\n @since 12\n @version 1.0"]
     pub fn OH_Drawing_PathTransformWithPerspectiveClip(
         src: *mut OH_Drawing_Path,
         matrix: *const OH_Drawing_Matrix,
@@ -4568,14 +4798,14 @@ extern "C" {
     );
 }
 extern "C" {
-    #[doc = " @brief Sets FillType, the rule used to fill path.\n\n @syscap SystemCapability.Graphic.Graphic2D.NativeDrawing\n @param path Indicates the pointer to an <b>OH_Drawing_Path</b> object.\n @param pathFillType Indicates the add path's fill type.\n @since 12\n @version 1.0"]
+    #[doc = " @brief Sets the fill type of a path. The fill type determines how \"inside\" of the path is drawn.\n This API may return an error code. For details, call {@link OH_Drawing_ErrorCodeGet}.\n If **path** is NULL, **OH_DRAWING_ERROR_INVALID_PARAMETER** is returned.\n If **pathFillType** is not set to one of the enumerated values, **OH_DRAWING_ERROR_PARAMETER_OUT_OF_RANGE** is\n returned.\n\n @param path Pointer to the {@link OH_Drawing_Path} object.\n @param pathFillType {@link OH_Drawing_PathFillType} object.\n @since 12\n @version 1.0"]
     pub fn OH_Drawing_PathSetFillType(
         path: *mut OH_Drawing_Path,
         pathFillType: OH_Drawing_PathFillType,
     );
 }
 extern "C" {
-    #[doc = " @brief Gets FillType, the rule used to fill path.\n\n @syscap SystemCapability.Graphic.Graphic2D.NativeDrawing\n @param path Indicates the pointer to an <b>OH_Drawing_Path</b> object.\n @param pathFillType Indicates the FillType apply to path.\n @return Returns the error code.\n         Returns {@link OH_DRAWING_SUCCESS} if the operation is successful.\n         Returns {@link OH_DRAWING_ERROR_INVALID_PARAMETER} if path or pathFillType is nullptr.\n @since 20\n @version 1.0"]
+    #[doc = " @brief Obtains the fill type of a path.\n\n @param path Pointer to the {@link OH_Drawing_Path} object.\n @param pathFillType Pointer to the {@link OH_Drawing_PathFillType} object.\n @return Execution result.\n **OH_DRAWING_SUCCESS** if the operation is successful.\n **OH_DRAWING_ERROR_INVALID_PARAMETER** if **path** or **pathFillType** is NULL.\n @since 20\n @version 1.0"]
     #[cfg(feature = "api-20")]
     pub fn OH_Drawing_PathGetFillType(
         path: *mut OH_Drawing_Path,
@@ -4583,19 +4813,19 @@ extern "C" {
     ) -> OH_Drawing_ErrorCode;
 }
 extern "C" {
-    #[doc = " @brief Gets the length of the current path object.\n\n @syscap SystemCapability.Graphic.Graphic2D.NativeDrawing\n @param path Indicates the pointer to an <b>OH_Drawing_Path</b> object.\n @param forceClosed Indicates whether free to modify/delete the path after this call.\n @return Returns the length of the current path object.\n @since 12\n @version 1.0"]
+    #[doc = " @brief Obtains the length of a path.\n This API may return an error code. For details, call {@link OH_Drawing_ErrorCodeGet}.\n If **path** is NULL, **OH_DRAWING_ERROR_INVALID_PARAMETER** is returned.\n\n @param path Pointer to the {@link OH_Drawing_Path} object.\n @param forceClosed Whether the path is measured as a closed path. **true** means that the path is forcibly\n considered as a closed path; **false** means that the path is measured depending on whether it is a closed path.\n @return Returns the length of the path.\n @since 12\n @version 1.0"]
     pub fn OH_Drawing_PathGetLength(path: *mut OH_Drawing_Path, forceClosed: bool) -> f32;
 }
 extern "C" {
-    #[doc = " @brief Gets the smallest bounding box that contains the path.\n\n @syscap SystemCapability.Graphic.Graphic2D.NativeDrawing\n @param path Indicates the pointer to an <b>OH_Drawing_Path</b> object.\n @param rect Indicates the pointer to an <b>OH_Drawing_Rect</b> object.\n @since 12\n @version 1.0"]
+    #[doc = " @brief Obtains the minimum bounds that enclose a path.\n This API may return an error code. For details, call {@link OH_Drawing_ErrorCodeGet}.\n If either **path** or **rect** is NULL, **OH_DRAWING_ERROR_INVALID_PARAMETER** is returned.\n\n @param path Pointer to the {@link OH_Drawing_Path} object.\n @param rect Pointer to the {@link OH_Drawing_Rect} object.\n @since 12\n @version 1.0"]
     pub fn OH_Drawing_PathGetBounds(path: *mut OH_Drawing_Path, rect: *mut OH_Drawing_Rect);
 }
 extern "C" {
-    #[doc = " @brief Closes a path. A line segment from the start point to the last point of the path is added.\n\n @syscap SystemCapability.Graphic.Graphic2D.NativeDrawing\n @param path Indicates the pointer to an <b>OH_Drawing_Path</b> object.\n @since 8\n @version 1.0"]
+    #[doc = " @brief Draws a line segment from the current point to the start point of this path.\n This API may return an error code. For details, call {@link OH_Drawing_ErrorCodeGet}.\n If **path** is NULL, **OH_DRAWING_ERROR_INVALID_PARAMETER** is returned.\n\n @param path Pointer to the {@link OH_Drawing_Path} object.\n @since 8\n @version 1.0"]
     pub fn OH_Drawing_PathClose(path: *mut OH_Drawing_Path);
 }
 extern "C" {
-    #[doc = " @brief Offset path replaces dst.\n\n @syscap SystemCapability.Graphic.Graphic2D.NativeDrawing\n @param path Indicates the pointer to an <b>OH_Drawing_Path</b> object.\n @param dst Indicates the pointer to an <b>OH_Drawing_Path</b> object.\n @param dx Indicates offset added to dst path x-axis coordinates.\n @param dy Indicates offset added to dst path y-axis coordinates.\n @since 12\n @version 1.0"]
+    #[doc = " @brief Translates a path by an offset along the X axis and Y axis and adds the new one to the **dst** path.\n This API may return an error code. For details, call {@link OH_Drawing_ErrorCodeGet}.\n If **path** is NULL, **OH_DRAWING_ERROR_INVALID_PARAMETER** is returned.\n\n @param path Pointer to the existing {@link OH_Drawing_Path} object.\n @param dst Pointer to a destination path, which is an {@link OH_Drawing_Path} object. If NULL is passed in, the\n result is stored in the current path.\n @param dx X offset.\n @param dy Y offset.\n @since 12\n @version 1.0"]
     pub fn OH_Drawing_PathOffset(
         path: *mut OH_Drawing_Path,
         dst: *mut OH_Drawing_Path,
@@ -4604,15 +4834,15 @@ extern "C" {
     );
 }
 extern "C" {
-    #[doc = " @brief Resets path data.\n\n @syscap SystemCapability.Graphic.Graphic2D.NativeDrawing\n @param path Indicates the pointer to an <b>OH_Drawing_Path</b> object.\n @since 8\n @version 1.0"]
+    #[doc = " @brief Resets the path data.\n This API may return an error code. For details, call {@link OH_Drawing_ErrorCodeGet}.\n If **path** is NULL, **OH_DRAWING_ERROR_INVALID_PARAMETER** is returned.\n\n @param path Pointer to an **OH_Drawing_Path** object.\n @since 8\n @version 1.0"]
     pub fn OH_Drawing_PathReset(path: *mut OH_Drawing_Path);
 }
 extern "C" {
-    #[doc = " @brief Determines whether the path current contour is closed.\n\n @syscap SystemCapability.Graphic.Graphic2D.NativeDrawing\n @param path Indicates the pointer to an <b>OH_Drawing_Path</b> object.\n @param forceClosed Whether to close the Path.\n @return Returns <b>true</b> if the path current contour is closed; returns <b>false</b> otherwise.\n @since 12\n @version 1.0"]
+    #[doc = " @brief Checks whether a path is closed.\n This API may return an error code. For details, call {@link OH_Drawing_ErrorCodeGet}.\n If **path** is NULL, **OH_DRAWING_ERROR_INVALID_PARAMETER** is returned.\n\n @param path Pointer to the {@link OH_Drawing_Path} object.\n @param forceClosed Whether the path is measured as a closed path. The value **true** means that the path is\n considered closed during measurement, and **false** means that the path is measured based on the actual closed\n status.\n @return Returns **true** if the path is closed; returns **false** otherwise.\n @since 12\n @version 1.0"]
     pub fn OH_Drawing_PathIsClosed(path: *mut OH_Drawing_Path, forceClosed: bool) -> bool;
 }
 extern "C" {
-    #[doc = " @brief Gets the position and tangent of the distance from the starting position of the Path.\n\n @syscap SystemCapability.Graphic.Graphic2D.NativeDrawing\n @param path Indicates the pointer to an <b>OH_Drawing_Path</b> object.\n @param forceClosed Whether to close the Path.\n @param distance The distance from the start of the Path.\n @param position Sets to the position of distance from the starting position of the Path.\n @param tangent Sets to the tangent of distance from the starting position of the Path.\n @return Returns <b>true</b> if succeeded; returns <b>false</b> otherwise.\n @since 12\n @version 1.0"]
+    #[doc = " @brief Obtains the coordinates and tangent at a distance from the start point of this path.\n This API may return an error code. For details, call {@link OH_Drawing_ErrorCodeGet}.\n If any of **path**, **position**, or **tangent** is NULL, **OH_DRAWING_ERROR_INVALID_PARAMETER** is returned.\n\n @param path Pointer to the {@link OH_Drawing_Path} object.\n @param forceClosed Whether the path is measured as a closed path. The value **true** means that the path is\n considered closed during measurement, and **false** means that the path is measured based on the actual closed\n status.\n @param distance Distance from the start point. If the distance is less than 0, it is considered as 0. If the\n distance is greater than the path length, it is considered as the path length.\n @param position Pointer to the coordinates.\n @param tangent Pointer to the tangent, where **tangent.x** and **tangent.y** represent the cosine and sine of the\n tangent of the point, respectively.\n @return Returns whether the measurement is successful. **true** means successful; **false** otherwise.\n @since 12\n @version 1.0"]
     pub fn OH_Drawing_PathGetPositionTangent(
         path: *mut OH_Drawing_Path,
         forceClosed: bool,
@@ -4622,7 +4852,7 @@ extern "C" {
     ) -> bool;
 }
 extern "C" {
-    #[doc = " @brief Gets the path between the start and end points.\n\n @syscap SystemCapability.Graphic.Graphic2D.NativeDrawing\n @param path Indicates the pointer to an <b>OH_Drawing_Path</b> object.\n @param forceClosed Whether to close the path.\n @param start The distance from the starting point of the segment to the starting point of the path.\n @param stop The distance from the end point of the segment to the starting point of the path.\n @param startWithMoveTo Whether the path obtained moveTo to the starting segment.\n @param dst The path obtained.\n @param result Indicates the result of getting the path segment.\n               The value is false if the segment is zero-length or start >= stop, and true otherwise.\n @return Returns the error code.\n         Returns {@link OH_DRAWING_SUCCESS} if the operation is successful.\n         Returns {@link OH_DRAWING_ERROR_INVALID_PARAMETER} if any of path, dst and result is nullptr.\n @since 18\n @version 1.0"]
+    #[doc = " @brief Extracts a segment of a path and appends it to a destination path.\n\n @param path Pointer to the {@link OH_Drawing_Path} object.\n @param forceClosed Whether the path is measured as a closed path. The value **true** means that the path is\n considered closed during measurement, and **false** means that the path is measured based on the actual closed\n status.\n @param start Distance from the start point of the path to the start point of the segment. If it is less than 0, it\n defaults to 0. If it is greater than or equal to **stop**, the extraction fails.\n @param stop Distance from the start point of the path to the end point of the segment. If it is less than or equal\n to **start**, the extraction fails. If it is greater than the path length, it defaults to the path length.\n @param startWithMoveTo Whether to execute {@link OH_Drawing_PathMoveTo} in the destination path to move to its start\n point. The value **true** means to move to the start point, and **false** means the opposite.\n @param dst Pointer to a destination path, which is an {@link OH_Drawing_Path} object. If the extraction succeeds,\n the segment is appended to the path. If the extraction fails, nothing changes.\n @param result Pointer to the extraction result. The value **true** means that the extraction is successful, and **\n false** means the opposite. It as an output parameter.\n @return Returns one of the following result codes:\n **OH_DRAWING_SUCCESS** if the operation is successful.\n **OH_DRAWING_ERROR_INVALID_PARAMETER** if at least one of the **path**, **dst**, and **result** parameters is a null\n pointer.\n @since 18\n @version 1.0"]
     #[cfg(feature = "api-18")]
     pub fn OH_Drawing_PathGetSegment(
         path: *mut OH_Drawing_Path,
@@ -4635,7 +4865,7 @@ extern "C" {
     ) -> OH_Drawing_ErrorCode;
 }
 extern "C" {
-    #[doc = " @brief Combines two paths.\n\n @syscap SystemCapability.Graphic.Graphic2D.NativeDrawing\n @param path Indicates the pointer to an <b>OH_Drawing_Path</b> object.\n @param other Indicates the pointer to an <b>OH_Drawing_Path</b> object.\n @param op Indicates the operation to apply to combine.\n @return Returns <b>true</b> if constructed path is not empty; returns <b>false</b> otherwise.\n @since 12\n @version 1.0"]
+    #[doc = " @brief Combines two paths based on the specified operation mode.\n This API may return an error code. For details, call {@link OH_Drawing_ErrorCodeGet}.\n If either **path** or **srcPath** is NULL, **OH_DRAWING_ERROR_INVALID_PARAMETER** is returned.\n If **op** is not set to one of the enumerated values, **OH_DRAWING_ERROR_PARAMETER_OUT_OF_RANGE** is returned.\n\n @param path Pointer to an {@link OH_Drawing_Path} object, in which the resulting path is saved.\n @param other Pointer to the {@link OH_Drawing_Path} object.\n @param op Operation mode of the path. For details about the available options, see {@link OH_Drawing_PathOpMode}.\n @return Returns **true** if the resulting path is not empty; returns **false** otherwise.\n @since 12\n @version 1.0"]
     pub fn OH_Drawing_PathOp(
         path: *mut OH_Drawing_Path,
         other: *const OH_Drawing_Path,
@@ -4643,7 +4873,7 @@ extern "C" {
     ) -> bool;
 }
 extern "C" {
-    #[doc = " @brief Computes the corresponding matrix at the specified distance.\n\n @syscap SystemCapability.Graphic.Graphic2D.NativeDrawing\n @param path Indicates the pointer to an <b>OH_Drawing_Path</b> object.\n @param forceClosed Whether to close the Path.\n @param distance The distance from the start of the Path.\n @param matrix Indicates the pointer to an <b>OH_Drawing_Matrix</b> object.\n @param flag Indicates what should be returned in the matrix.\n @return Returns <b>false</b> if path is nullptr or zero-length;\nreturns <b>true</b> if path is not nullptr and not zero-length.\n @since 12\n @version 1.0"]
+    #[doc = " @brief Obtains a transformation matrix at a distance from the start point of this path.\n This API may return an error code. For details, call {@link OH_Drawing_ErrorCodeGet}.\n If either **path** or **matrix** is NULL, **OH_DRAWING_ERROR_INVALID_PARAMETER** is returned.\n If **flag** is not set to one of the enumerated values, **OH_DRAWING_ERROR_PARAMETER_OUT_OF_RANGE** is returned.\n\n @param path Pointer to the {@link OH_Drawing_Path} object.\n @param forceClosed Whether the path is measured as a closed path. The value **true** means that the path is\n considered closed during measurement, and **false** means that the path is measured based on the actual closed\n status.\n @param distance Distance from the start point. If the distance is less than 0, it is considered as 0. If the\n distance is greater than the path length, it is considered as the path length.\n @param matrix Pointer to the transformation matrix.\n @param flag Type of the matrix information. For details about the available options, see\n {@link OH_Drawing_PathMeasureMatrixFlags}\n .\n @return Returns **true** if the transformation matrix is obtained successfully; returns **false** otherwise. The\n possible failure cause is that **path** is NULL or the path length is 0.\n @since 12\n @version 1.0"]
     pub fn OH_Drawing_PathGetMatrix(
         path: *mut OH_Drawing_Path,
         forceClosed: bool,
@@ -4653,7 +4883,7 @@ extern "C" {
     ) -> bool;
 }
 extern "C" {
-    #[doc = " @brief Approximates the path with a series of line segments.\n\n @syscap SystemCapability.Graphic.Graphic2D.NativeDrawing\n @param path Indicates the pointer to an <b>OH_Drawing_Path</b> object.\n @param acceptableError Indicates the acceptable error for a line on the path. Should be no less than 0.\n @param vals Indicates the storage for the computed array containing point components.\n There are three components for each point:\n 1.Fraction along the length of the path that the point resides.\n 2.The x coordinate of the point.\n 3.The y coordinate of the point.\n @param count Returns with the size of array.\n @return Returns the error code.\n         Returns {@link OH_DRAWING_SUCCESS} if the operation is successful.\n         Returns {@link OH_DRAWING_ERROR_INVALID_PARAMETER} if path or count is nullptr.\n         Returns {@link OH_DRAWING_ERROR_PARAMETER_OUT_OF_RANGE} if acceptableError is less than 0.\n @since 20\n @version 1.0"]
+    #[doc = " @brief Converts the existing path into an approximate path consisting of consecutive line segments.\n\n @param path Pointer to the {@link OH_Drawing_Path} object.\n @param acceptableError Acceptable error of each line segment on the path. The value cannot be less than 0.\n 1. Avoid setting **acceptableError** to **0** as it heavily divides the curve path, significantly impacting\n performance and memory usage.\n 2. Setting a high **acceptableError** simplifies the path greatly by keeping only essential points, potentially\n distorting the original shape.\n 3. When you set a high **acceptableError** for curves such as ellipses, the fitting process often simplifies them to\n polygons by keeping just the start and end points of their Bezier curve segments.\n @param vals An array of approximate points of the path.\n Each point consists of three values, indicating:\n 1. Length ratio of the point to the start point of the path.\n 2. X coordinate of the point.\n 3. Y coordinate of the point.\n @param count Size of the returned array, which is at least 6. The size of the point array after fitting is returned\n if **vals** is a null pointer.\n @return Execution result.\n **OH_DRAWING_SUCCESS** if the operation is successful.\n **OH_DRAWING_ERROR_INVALID_PARAMETER** if **path** or **count** is a null pointer.\n **OH_DRAWING_ERROR_PARAMETER_OUT_OF_RANGE** if **acceptableError** is less than 0.\n @since 20\n @version 1.0"]
     #[cfg(feature = "api-20")]
     pub fn OH_Drawing_PathApproximate(
         path: *mut OH_Drawing_Path,
@@ -4663,7 +4893,7 @@ extern "C" {
     ) -> OH_Drawing_ErrorCode;
 }
 extern "C" {
-    #[doc = " @brief Performs interpolation between the current path and another path based on a given weight, and stores the\n result in the target path object.\n\n @syscap SystemCapability.Graphic.Graphic2D.NativeDrawing\n @param path Indicates the pointer to an <b>OH_Drawing_Path</b> object.\n @param other Indicates the pointer to an <b>OH_Drawing_Path</b> object to be interpolated with path.\n @param weight Indicates the interpolation weight, which must be in the range [0, 1].\n @param success Indicates the interpolation is success or not.\n @param interpolatedPath Indicates the pointer to an <b>OH_Drawing_Path</b> object to store the result.\n @return Returns the error code.\n         Returns {@link OH_DRAWING_SUCCESS} if the operation is successful.\n         Returns {@link OH_DRAWING_ERROR_INVALID_PARAMETER} if either path, other, success or interpolatedPath is\n                 nullptr.\n         Returns {@link OH_DRAWING_ERROR_PARAMETER_OUT_OF_RANGE} if weight is outside the range [0, 1].\n @since 20\n @version 1.0"]
+    #[doc = " @brief Interpolates between the existing path and another path based on the given weight and stores the result in\n the target path object.\n Interpolation is achievable if the two paths have the same number of points. The target path is created based on the\n structure of the existing path.\n\n @param path Pointer to the {@link OH_Drawing_Path} object.\n @param other Pointer to the {@link OH_Drawing_Path} object of the other path used for interpolation.\n @param weight Interpolation weight. The value range is [0, 1].\n @param success Whether the interpolation is successful. **true** means yes; **false** otherwise. It as an output\n parameter.\n @param interpolatedPath Pointer to the {@link OH_Drawing_Path} object used to store the interpolation result.\n @return Execution result.\n **OH_DRAWING_SUCCESS** if the operation is successful.\n **OH_DRAWING_ERROR_INVALID_PARAMETER** if **path**, **other**, **success**, or **interpolatedPath** is a null\n pointer.\n **OH_DRAWING_ERROR_PARAMETER_OUT_OF_RANGE** if **weight** is not in the range of [0, 1].\n @since 20\n @version 1.0"]
     #[cfg(feature = "api-20")]
     pub fn OH_Drawing_PathInterpolate(
         path: *mut OH_Drawing_Path,
@@ -4674,7 +4904,7 @@ extern "C" {
     ) -> OH_Drawing_ErrorCode;
 }
 extern "C" {
-    #[doc = " @brief Checks whether the current path is compatible with another path (other) for interpolation, which means\n they have exactly the same structure, both paths must have the same operations, in the same order.\n If any of the operations are of type CONIC, then the weights of those conics must also match.\n\n @syscap SystemCapability.Graphic.Graphic2D.NativeDrawing\n @param path Indicates the pointer to an <b>OH_Drawing_Path</b> object.\n @param other Indicates the pointer to an <b>OH_Drawing_Path</b> object to be interpolated with path.\n @param result Indicates whether the current path and the other path are compatible for interpolation.\n               The value is true if the paths are compatible, and false otherwise.\n @return Returns the error code.\n         Returns {@link OH_DRAWING_SUCCESS} if the operation is successful.\n         Returns {@link OH_DRAWING_ERROR_INVALID_PARAMETER} if either path, other or result is nullptr.\n @since 20\n @version 1.0"]
+    #[doc = " @brief Checks whether the existing path and another path (**other**) are compatible for interpolation in terms of\n structure and operation sequence.\n If the paths contain conic operations, the weight values of the operations must be the same.\n\n @param path Pointer to the {@link OH_Drawing_Path} object.\n @param other Pointer to the {@link OH_Drawing_Path} object.\n @param result Checks whether a path is compatible with another path. It is used as an output parameter.\n **true** if the paths are compatible, **false** otherwise.\n @return Execution result.\n **OH_DRAWING_SUCCESS** if the operation is successful.\n **OH_DRAWING_ERROR_INVALID_PARAMETER** if **path**, **other**, or **result** is a null pointer.\n @since 20\n @version 1.0"]
     #[cfg(feature = "api-20")]
     pub fn OH_Drawing_PathIsInterpolate(
         path: *mut OH_Drawing_Path,
@@ -4683,7 +4913,15 @@ extern "C" {
     ) -> OH_Drawing_ErrorCode;
 }
 extern "C" {
-    #[doc = " @brief Checks if the fill type is one of the INVERSE variants.\n\n @param path Indicates the pointer to an <b>OH_Drawing_Path</b> object.\n @param isInverse Indicates if the filltype is one of the INVERSE variants.\n @return Returns the error code.\n         Returns {@link OH_DRAWING_SUCCESS} if the operation is successful.\n         Returns {@link OH_DRAWING_ERROR_INCORRECT_PARAMETER} if path or isInverse is nullptr.\n @since 23\n @version 1.0"]
+    #[doc = " @brief Gets the last point of the path.\n\n @param path Indicates the pointer to an <b>OH_Drawing_Path</b> object.\n @param point Indicates the pointer to an <b>OH_Drawing_Point2D</b> object to store the last point.\n @return Returns the error code.\n         Returns {@link OH_DRAWING_SUCCESS} if the operation is successful.\n         Returns {@link OH_DRAWING_ERROR_INCORRECT_PARAMETER} if path or point is nullptr, or the path is empty.\n @since 26.0.0"]
+    #[cfg(feature = "api-26")]
+    pub fn OH_Drawing_PathGetLastPoint(
+        path: *mut OH_Drawing_Path,
+        point: *mut OH_Drawing_Point2D,
+    ) -> OH_Drawing_ErrorCode;
+}
+extern "C" {
+    #[doc = " @brief Checks whether the fill type of the path is the inverse type.\n\n @param path Pointer to the {@link OH_Drawing_Path} object.\n @param isInverse Whether the fill type is the inverse type. It is used as an output parameter. **true** if the fill\n type is the inverse type; **false** otherwise.\n @return Execution result.\n **OH_DRAWING_SUCCESS** if the operation is successful.\n **OH_DRAWING_ERROR_INCORRECT_PARAMETER** if **path** or **isInverse** is a null pointer.\n @since 23\n @version 1.0"]
     #[cfg(feature = "api-23")]
     pub fn OH_Drawing_PathIsInverseFillType(
         path: *const OH_Drawing_Path,
@@ -4691,25 +4929,34 @@ extern "C" {
     ) -> OH_Drawing_ErrorCode;
 }
 extern "C" {
-    #[doc = " @brief Toggles the INVERSE state of the filltype.\n\n @param path Indicates the pointer to an <b>OH_Drawing_Path</b> object.\n @return Returns the error code.\n         Returns {@link OH_DRAWING_SUCCESS} if the operation is successful.\n         Returns {@link OH_DRAWING_ERROR_INCORRECT_PARAMETER} if path is nullptr.\n @since 23\n @version 1.0"]
+    #[doc = " @brief Toggles the fill type of the path to the inverse type.\n\n @param path Pointer to the {@link OH_Drawing_Path} object.\n @return Execution result.\n **OH_DRAWING_SUCCESS** if the operation is successful.\n **OH_DRAWING_ERROR_INCORRECT_PARAMETER** if **path** is a null pointer.\n @since 23\n @version 1.0"]
     #[cfg(feature = "api-23")]
     pub fn OH_Drawing_PathToggleInverseFillType(path: *mut OH_Drawing_Path)
         -> OH_Drawing_ErrorCode;
 }
-#[doc = " Indicates translation effect."]
+extern "C" {
+    #[doc = " @brief Checks if two paths are equal.\n\n @param path Indicates the pointer to an <b>OH_Drawing_Path</b> object.\n @param other Indicates the pointer to another <b>OH_Drawing_Path</b> object to compare.\n @param equal Indicates whether the two paths are equal.\n @return Returns the error code.\n         Returns {@link OH_DRAWING_SUCCESS} if the operation is successful.\n         Returns {@link OH_DRAWING_ERROR_INCORRECT_PARAMETER} if path or other is nullptr, or equal is nullptr.\n @since 26.0.0"]
+    #[cfg(feature = "api-26")]
+    pub fn OH_Drawing_PathIsEqual(
+        path: *mut OH_Drawing_Path,
+        other: *mut OH_Drawing_Path,
+        equal: *mut bool,
+    ) -> OH_Drawing_ErrorCode;
+}
+#[doc = " Translation effect."]
 #[cfg(feature = "api-18")]
 pub const OH_Drawing_PathDashStyle_DRAWING_PATH_DASH_STYLE_TRANSLATE: OH_Drawing_PathDashStyle = 0;
-#[doc = " Indicates rotation effect."]
+#[doc = " Rotation effect."]
 #[cfg(feature = "api-18")]
 pub const OH_Drawing_PathDashStyle_DRAWING_PATH_DASH_STYLE_ROTATE: OH_Drawing_PathDashStyle = 1;
-#[doc = " Indicates morph effect."]
+#[doc = " Morphing effect."]
 #[cfg(feature = "api-18")]
 pub const OH_Drawing_PathDashStyle_DRAWING_PATH_DASH_STYLE_MORPH: OH_Drawing_PathDashStyle = 2;
-#[doc = " @brief Enumerate path dash style.\n\n @since 18\n @version 1.0"]
+#[doc = " @brief Enumerates the drawing styles for path effects.\n\n @since 18\n @version 1.0"]
 #[cfg(feature = "api-18")]
 pub type OH_Drawing_PathDashStyle = u32;
 extern "C" {
-    #[doc = " @brief Creates an <b>OH_Drawing_PathEffect</b> object that is a combination of paths,\n applying the inner path effect first and then the outer path effect.\n\n @syscap SystemCapability.Graphic.Graphic2D.NativeDrawing\n @param outer Indicates an <b>OH_Drawing_PathEffect</b> object\n @param inner Indicates an <b>OH_Drawing_PathEffect</b> object\n @return Returns the pointer to the <b>OH_Drawing_PathEffect</b> object created.\n @since 18\n @version 1.0"]
+    #[doc = " @brief Creates a path effect by sequentially applying the inner effect and then the outer effect.\n\n @param outer Pointer to an outer effect, which is an {@link OH_Drawing_PathEffect} object.\n @param inner Pointer to an inner effect, which is an {@link OH_Drawing_PathEffect} object.\n @return Returns a pointer to the created {@link OH_Drawing_PathEffect} object.\n If a null pointer is returned, the creation fails. The possible failure cause is that **inner** or **inner** is a\n null pointer.\n @since 18\n @version 1.0"]
     #[cfg(feature = "api-18")]
     pub fn OH_Drawing_CreateComposePathEffect(
         outer: *mut OH_Drawing_PathEffect,
@@ -4717,12 +4964,12 @@ extern "C" {
     ) -> *mut OH_Drawing_PathEffect;
 }
 extern "C" {
-    #[doc = " @brief Creates an <b>OH_Drawing_PathEffect</b> object\n that turns the included angle of the path into a fillet of a specified radius.\n\n @syscap SystemCapability.Graphic.Graphic2D.NativeDrawing\n @param radius Indicates the degree of curvature of the arc, the radius must be greater than zero.\n @return Returns the pointer to the <b>OH_Drawing_PathEffect</b> object created.\n         If nullptr is returned, the creation fails.\n         The possible cause of the failure is radius is zero or less.\n @since 18\n @version 1.0"]
+    #[doc = " @brief Creates a path effect that transforms the sharp angle between line segments into a rounded corner with the\n specified radius.\n\n @param radius Radius of the rounded corner. The value is valid only when it is greater than 0.\n @return Returns a pointer to the created {@link OH_Drawing_PathEffect} object.\n If a null pointer is returned, the creation fails. The possible failure cause is that **radius** is less than or\n equal to **0**.\n @since 18\n @version 1.0"]
     #[cfg(feature = "api-18")]
     pub fn OH_Drawing_CreateCornerPathEffect(radius: f32) -> *mut OH_Drawing_PathEffect;
 }
 extern "C" {
-    #[doc = " @brief Creates an <b>OH_Drawing_PathEffect</b> object.\n\n @syscap SystemCapability.Graphic.Graphic2D.NativeDrawing\n @param intervals Indicates a array which contain an even number of entries.\n @param count Indicates the number of elements of the intervals array.\n @param phase Indicates the offset into intervals array.\n @return Returns the pointer to the <b>OH_Drawing_PathEffect</b> object created.\n @since 12\n @version 1.0"]
+    #[doc = " @brief Creates a dashed path effect. The dashed line effect is determined by a group of \"on\" and \"off\" intervals.\n This API may return an error code. For details, call {@link OH_Drawing_ErrorCodeGet}.\n If **intervals** is NULL or **count** is less than or equal to 0, **OH_DRAWING_ERROR_INVALID_PARAMETER** is returned.\n\n @param intervals Pointer to the start address of the dashed line interval array. In the array, an even entry\n indicates an \"on\" interval and an odd entry indicates an \"off\" interval. The unit is px.\n @param count Number of entries in the dashed line interval array. The value must be an even number greater than 0.\n @param phase Offset in the dashed line interval array.\n @return Returns a pointer to the created {@link OH_Drawing_PathEffect} object.\n @since 12\n @version 1.0"]
     pub fn OH_Drawing_CreateDashPathEffect(
         intervals: *mut f32,
         count: ::std::os::raw::c_int,
@@ -4730,7 +4977,7 @@ extern "C" {
     ) -> *mut OH_Drawing_PathEffect;
 }
 extern "C" {
-    #[doc = " @brief Creates an <b>OH_Drawing_PathEffect</b> object\n that breaks the path and creates an irregular distribution on the path.\n\n @syscap SystemCapability.Graphic.Graphic2D.NativeDrawing\n @param segLength Indicates the maximum segment length of the path.\n @param deviation Indicates the deviation during drawing.\n @return Returns the pointer to the <b>OH_Drawing_PathEffect</b> object created.\n @since 18\n @version 1.0"]
+    #[doc = " @brief Creates a path effect that segments the path and scatters the segments in an irregular pattern along the path.\n\n @param segLength Distance along the path at which each segment is fragmented. An effect is created when it is\n greater than 0.\n @param deviation Maximum amount by which the end points of the segments can be randomly displaced during rendering.\n @return Returns a pointer to the created {@link OH_Drawing_PathEffect} object.\n @since 18\n @version 1.0"]
     #[cfg(feature = "api-18")]
     pub fn OH_Drawing_CreateDiscretePathEffect(
         segLength: f32,
@@ -4738,7 +4985,7 @@ extern "C" {
     ) -> *mut OH_Drawing_PathEffect;
 }
 extern "C" {
-    #[doc = " @brief Creates an <b>OH_Drawing_PathEffect</b> object and sets the path effect to a dash effect.\n\n @syscap SystemCapability.Graphic.Graphic2D.NativeDrawing\n @param path Indicates the pointer to an <b>OH_Drawing_Path</b> object.\n @param advance Indicates the distance between the dashed segments.\n @param phase Indicates the offset into intervals array.\n @param type Indicates the type of the path dash effect.\n @return Returns the pointer to the <b>OH_Drawing_PathEffect</b> object created.\n         If nullptr is returned, the creation fails.\n         The possible cause of the failure is advance and phase are zero or less.\n @since 18\n @version 1.0"]
+    #[doc = " @brief Creates a dashed path effect.\n\n @param path Pointer to an {@link OH_Drawing_Path} object.\n @param advance Length of each dashed line segment.\n @param phase Offset of the pattern within the dash segment length.\n @param type Style of the dashed path effect.\n @return Returns a pointer to the created {@link OH_Drawing_PathEffect} object.\n If a null pointer is returned, the creation fails. The possible failure cause is that **path** is a null pointer or *\n *advance** is less than or equal to **0**.\n @since 18\n @version 1.0"]
     #[cfg(feature = "api-18")]
     pub fn OH_Drawing_CreatePathDashEffect(
         path: *const OH_Drawing_Path,
@@ -4748,7 +4995,7 @@ extern "C" {
     ) -> *mut OH_Drawing_PathEffect;
 }
 extern "C" {
-    #[doc = " @brief Creates an <b>OH_Drawing_PathEffect</b> object by overlaying two path effects.\n\n @syscap SystemCapability.Graphic.Graphic2D.NativeDrawing\n @param firstPathEffect Indicates the pointer to an <b>OH_Drawing_PathEffect</b> object.\n @param secondPathEffect Indicates the pointer to an <b>OH_Drawing_PathEffect</b> object.\n @return Returns the pointer to the <b>OH_Drawing_PathEffect</b> object created.\n @since 18\n @version 1.0"]
+    #[doc = " @brief Creates an overlay path effect based on two distinct path effects that take effect separately.\n\n @param firstPathEffect Pointer to an {@link OH_Drawing_PathEffect} object.\n @param secondPathEffect Pointer to an {@link OH_Drawing_PathEffect} object.\n @return Returns a pointer to the created {@link OH_Drawing_PathEffect} object.\n If a null pointer is returned, the creation fails. The possible failure cause is that **firstPathEffect** or **\n secondPathEffect** is a null pointer.\n @since 18\n @version 1.0"]
     #[cfg(feature = "api-18")]
     pub fn OH_Drawing_CreateSumPathEffect(
         firstPathEffect: *mut OH_Drawing_PathEffect,
@@ -4756,47 +5003,47 @@ extern "C" {
     ) -> *mut OH_Drawing_PathEffect;
 }
 extern "C" {
-    #[doc = " @brief Destroys an <b>OH_Drawing_PathEffect</b> object and reclaims the memory occupied by the object.\n\n @syscap SystemCapability.Graphic.Graphic2D.NativeDrawing\n @param pathEffect Indicates the pointer to an <b>OH_Drawing_PathEffect</b> object.\n @since 12\n @version 1.0"]
+    #[doc = " @brief Destroys an **OH_Drawing_PathEffect** object and reclaims the memory occupied by the object.\n\n @param pathEffect Pointer to an {@link OH_Drawing_PathEffect} object.\n @since 12\n @version 1.0"]
     pub fn OH_Drawing_PathEffectDestroy(pathEffect: *mut OH_Drawing_PathEffect);
 }
 extern "C" {
-    #[doc = " @brief Creates an <b>OH_Drawing_Pen</b> object.\n\n @syscap SystemCapability.Graphic.Graphic2D.NativeDrawing\n @return Returns the pointer to the <b>OH_Drawing_Pen</b> object created.\n @since 8\n @version 1.0"]
+    #[doc = " @brief Creates an **OH_Drawing_Pen** object.\n\n @return Returns the pointer to the **OH_Drawing_Pen** object created.\n @since 8\n @version 1.0"]
     pub fn OH_Drawing_PenCreate() -> *mut OH_Drawing_Pen;
 }
 extern "C" {
-    #[doc = " @brief Creates an <b>OH_Drawing_Pen</b> copy object.\n\n @syscap SystemCapability.Graphic.Graphic2D.NativeDrawing\n @param pen Indicates the pointer to an <b>OH_Drawing_Pen</b> object.\n @return Returns the pointer to the <b>OH_Drawing_Pen</b> object created.\n         If nullptr is returned, the creation fails.\n         The possible cause of the failure is that the available memory is empty or a nullptr is passed.\n @since 12\n @version 1.0"]
+    #[doc = " @brief Creates a copy of the {@link OH_Drawing_Pen} object.\n This API may return an error code. For details, call {@link OH_Drawing_ErrorCodeGet}.\n If **pen** is NULL, **OH_DRAWING_ERROR_INVALID_PARAMETER** is returned.\n\n @param pen Pointer to an **OH_Drawing_Pen** object.\n @return Returns the pointer to the {@link OH_Drawing_Pen} object created. If NULL is returned, the creation fails.\n The possible failure cause is that no memory is available or **pen** is NULL.\n @since 12\n @version 1.0"]
     pub fn OH_Drawing_PenCopy(pen: *mut OH_Drawing_Pen) -> *mut OH_Drawing_Pen;
 }
 extern "C" {
-    #[doc = " @brief Destroys an <b>OH_Drawing_Pen</b> object and reclaims the memory occupied by the object.\n\n @syscap SystemCapability.Graphic.Graphic2D.NativeDrawing\n @param pen Indicates the pointer to an <b>OH_Drawing_Pen</b> object.\n @since 8\n @version 1.0"]
+    #[doc = " @brief Destroys an **OH_Drawing_Pen** object and reclaims the memory occupied by the object.\n\n @param pen Pointer to an **OH_Drawing_Pen** object.\n @since 8\n @version 1.0"]
     pub fn OH_Drawing_PenDestroy(pen: *mut OH_Drawing_Pen);
 }
 extern "C" {
-    #[doc = " @brief Checks whether anti-aliasing is enabled for a pen. If anti-aliasing is enabled,\n edges will be drawn with partial transparency.\n\n @syscap SystemCapability.Graphic.Graphic2D.NativeDrawing\n @param pen Indicates the pointer to an <b>OH_Drawing_Pen</b> object.\n @return Returns <b>true</b> if anti-aliasing is enabled; returns <b>false</b> otherwise.\n @since 8\n @version 1.0"]
+    #[doc = " @brief Checks whether anti-aliasing is enabled for a pen. Anti-aliasing makes the pixels around the shape edges semi-\n transparent.\n This API may return an error code. For details, call {@link OH_Drawing_ErrorCodeGet}.\n If **pen** is NULL, **OH_DRAWING_ERROR_INVALID_PARAMETER** is returned.\n\n @param pen Pointer to an **OH_Drawing_Pen** object.\n @return Returns **true** if anti-aliasing is enabled; returns **false** otherwise.\n @since 8\n @version 1.0"]
     pub fn OH_Drawing_PenIsAntiAlias(pen: *const OH_Drawing_Pen) -> bool;
 }
 extern "C" {
-    #[doc = " @brief Enables or disables anti-aliasing for a pen. If anti-aliasing is enabled,\n edges will be drawn with partial transparency.\n\n @syscap SystemCapability.Graphic.Graphic2D.NativeDrawing\n @param pen Indicates the pointer to an <b>OH_Drawing_Pen</b> object.\n @param antiAlias Specifies whether to enable anti-aliasing. The value <b>true</b> means\n             to enable anti-aliasing, and <b>false</b> means the opposite.\n @since 8\n @version 1.0"]
+    #[doc = " @brief Enables or disables anti-aliasing for a pen. Anti-aliasing makes the pixels around the shape edges semi-\n transparent.\n This API may return an error code. For details, call {@link OH_Drawing_ErrorCodeGet}.\n If **pen** is NULL, **OH_DRAWING_ERROR_INVALID_PARAMETER** is returned.\n\n @param pen Pointer to an **OH_Drawing_Pen** object.\n @param antiAlias Whether to enable anti-aliasing. The value **true** means to enable anti-aliasing, and **false**\n means the opposite.\n @since 8\n @version 1.0"]
     pub fn OH_Drawing_PenSetAntiAlias(pen: *mut OH_Drawing_Pen, antiAlias: bool);
 }
 extern "C" {
-    #[doc = " @brief Obtains the color of a pen. The color is used by the pen to outline a shape.\n\n @syscap SystemCapability.Graphic.Graphic2D.NativeDrawing\n @param pen Indicates the pointer to an <b>OH_Drawing_Pen</b> object.\n @return Returns a 32-bit (ARGB) variable that describes the color.\n @since 8\n @version 1.0"]
+    #[doc = " @brief Obtains the color of a pen. The color is used by the pen to outline a shape.\n This API may return an error code. For details, call {@link OH_Drawing_ErrorCodeGet}.\n If **pen** is NULL, **OH_DRAWING_ERROR_INVALID_PARAMETER** is returned.\n\n @param pen Pointer to an **OH_Drawing_Pen** object.\n @return Returns a 32-bit (ARGB) variable that describes the color.\n @since 8\n @version 1.0"]
     pub fn OH_Drawing_PenGetColor(pen: *const OH_Drawing_Pen) -> u32;
 }
 extern "C" {
-    #[doc = " @brief Sets the color for a pen. The color is used by the pen to outline a shape.\n\n @syscap SystemCapability.Graphic.Graphic2D.NativeDrawing\n @param pen Indicates the pointer to an <b>OH_Drawing_Pen</b> object.\n @param color Indicates the color to set, which is a 32-bit (ARGB) variable.\n @since 8\n @version 1.0"]
+    #[doc = " @brief Sets the color for a pen. The color is used by the pen to outline a shape.\n This API may return an error code. For details, call {@link OH_Drawing_ErrorCodeGet}.\n If **pen** is NULL, **OH_DRAWING_ERROR_INVALID_PARAMETER** is returned.\n\n @param pen Pointer to an **OH_Drawing_Pen** object.\n @param color Color, which is a 32-bit (ARGB) variable.\n @since 8\n @version 1.0"]
     pub fn OH_Drawing_PenSetColor(pen: *mut OH_Drawing_Pen, color: u32);
 }
 extern "C" {
-    #[doc = " @brief Obtains the alpha of a pen. The alpha is used by the pen to outline a shape.\n\n @syscap SystemCapability.Graphic.Graphic2D.NativeDrawing\n @param pen Indicates the pointer to an <b>OH_Drawing_Pen</b> object.\n @return Returns a 8-bit variable that describes the alpha.\n @since 11\n @version 1.0"]
+    #[doc = " @brief Obtains the alpha value of a pen. This value is used by the alpha channel when the pen outlines a shape.\n This API may return an error code. For details, call {@link OH_Drawing_ErrorCodeGet}.\n If **pen** is NULL, **OH_DRAWING_ERROR_INVALID_PARAMETER** is returned.\n\n @param pen Pointer to an **OH_Drawing_Pen** object.\n @return Returns an 8-bit variable that describes the alpha value.\n @since 11\n @version 1.0"]
     pub fn OH_Drawing_PenGetAlpha(pen: *const OH_Drawing_Pen) -> u8;
 }
 extern "C" {
-    #[doc = " @brief Sets the alpha for a pen. The alpha is used by the pen to outline a shape.\n\n @syscap SystemCapability.Graphic.Graphic2D.NativeDrawing\n @param pen Indicates the pointer to an <b>OH_Drawing_Pen</b> object.\n @param alpha Indicates the alpha to set, which is a 8-bit variable.\n @since 11\n @version 1.0"]
+    #[doc = " @brief Sets the alpha value for a pen. This value is used by the alpha channel when the pen outlines a shape.\n This API may return an error code. For details, call {@link OH_Drawing_ErrorCodeGet}.\n If **pen** is NULL, **OH_DRAWING_ERROR_INVALID_PARAMETER** is returned.\n\n @param pen Pointer to an **OH_Drawing_Pen** object.\n @param alpha Alpha value, which is an 8-bit variable.\n @since 11\n @version 1.0"]
     pub fn OH_Drawing_PenSetAlpha(pen: *mut OH_Drawing_Pen, alpha: u8);
 }
 extern "C" {
-    #[doc = " @brief Sets the color for a pen. The color will be used by the pen to fill in a shape.\n The color is an ARGB structure described by floating point numbers and interpreted as being in the colorSpaceManager.\n If colorSpaceManager is nullptr, then color is assumed to be in the sRGB color space.\n\n @syscap SystemCapability.Graphic.Graphic2D.NativeDrawing\n @param pen Indicates the pointer to an <b>OH_Drawing_Pen</b> object.\n @param a Indicates the alpha component of color, represented as a floating point number between 0 and 1.\n @param r Indicates the red component of color, represented as a floating point number between 0 and 1.\n @param g Indicates the green component of color, represented as a floating point number between 0 and 1.\n @param b Indicates the blue component of color, represented as a floating point number between 0 and 1.\n @param colorSpaceManager Indicates the pointer to an <b>OH_NativeColorSpaceManager</b> object.\n @return Returns the error code.\n         Returns {@link OH_DRAWING_SUCCESS} if the operation is successful.\n         Returns {@link OH_DRAWING_ERROR_INVALID_PARAMETER} if pen is nullptr.\n @since 20\n @version 1.0"]
+    #[doc = " @brief Sets the color for a pen, which is used to outline a shape.\n The color is in ARGB format represented by floating-point numbers. The color space is specified by\n {@link OH_NativeColorSpaceManager}\n .\n If **colorSpaceManager** is a null pointer, the SRGB (standard red, green, and blue color space based on IEC 61966-2.\n 1:1999) color space is used as the default value.\n\n @param pen Pointer to an {@link OH_Drawing_Pen} object.\n @param a Alpha value of the color, which is a floating-point number ranging from 0.0 to 1.0. Values above 1.0\n default to 1.0, while values below 0.0 default to 0.0.\n @param r Red component of the color, which is a floating-point number ranging from 0.0 to 1.0. Values above 1.0\n default to 1.0, while values below 0.0 default to 0.0.\n @param g Green component of the color, which is a floating-point number ranging from 0.0 to 1.0. Values above 1.0\n default to 1.0, while values below 0.0 default to 0.0.\n @param b Blue component of the color, which is a floating-point number ranging from 0.0 to 1.0. Values above 1.0\n default to 1.0, while values below 0.0 default to 0.0.\n @param colorSpaceManager Pointer to an {@link OH_NativeColorSpaceManager} object.\n @return Execution result.\n **OH_DRAWING_SUCCESS** if the operation is successful.\n **OH_DRAWING_ERROR_INVALID_PARAMETER** if **pen** is NULL.\n @since 20\n @version 1.0"]
     #[cfg(feature = "api-20")]
     pub fn OH_Drawing_PenSetColor4f(
         pen: *mut OH_Drawing_Pen,
@@ -4808,7 +5055,7 @@ extern "C" {
     ) -> OH_Drawing_ErrorCode;
 }
 extern "C" {
-    #[doc = " @brief Obtains the alpha component of a pen.\n\n @syscap SystemCapability.Graphic.Graphic2D.NativeDrawing\n @param pen Indicates the pointer to an <b>OH_Drawing_Pen</b> object.\n @param a Indicates the alpha component of color.\n @return Returns the error code.\n         Returns {@link OH_DRAWING_SUCCESS} if the operation is successful.\n         Returns {@link OH_DRAWING_ERROR_INVALID_PARAMETER} if pen or a is nullptr.\n @since 20\n @version 1.0"]
+    #[doc = " @brief Obtains the alpha value of the pen color.\n\n @param pen Pointer to an {@link OH_Drawing_Pen} object.\n @param a Alpha value of the pen color. The value is a floating-point number ranging from 0.0 to 1.0.\n @return Execution result.\n **OH_DRAWING_SUCCESS** if the operation is successful.\n **OH_DRAWING_ERROR_INVALID_PARAMETER** if **pen** or **a** is NULL.\n @since 20\n @version 1.0"]
     #[cfg(feature = "api-20")]
     pub fn OH_Drawing_PenGetAlphaFloat(
         pen: *mut OH_Drawing_Pen,
@@ -4816,13 +5063,13 @@ extern "C" {
     ) -> OH_Drawing_ErrorCode;
 }
 extern "C" {
-    #[doc = " @brief Obtains the red component of a pen.\n\n @syscap SystemCapability.Graphic.Graphic2D.NativeDrawing\n @param pen Indicates the pointer to an <b>OH_Drawing_Pen</b> object.\n @param r Indicates the red component of color.\n @return Returns the error code.\n         Returns {@link OH_DRAWING_SUCCESS} if the operation is successful.\n         Returns {@link OH_DRAWING_ERROR_INVALID_PARAMETER} if pen or r is nullptr.\n @since 20\n @version 1.0"]
+    #[doc = " @brief Obtains the red component of the pen color.\n\n @param pen Pointer to an {@link OH_Drawing_Pen} object.\n @param r Red component of the pen color. The value is a floating-point number ranging from 0.0 to 1.0.\n @return Execution result.\n **OH_DRAWING_SUCCESS** if the operation is successful.\n **OH_DRAWING_ERROR_INVALID_PARAMETER** if **pen** or **r** is NULL.\n @since 20\n @version 1.0"]
     #[cfg(feature = "api-20")]
     pub fn OH_Drawing_PenGetRedFloat(pen: *mut OH_Drawing_Pen, r: *mut f32)
         -> OH_Drawing_ErrorCode;
 }
 extern "C" {
-    #[doc = " @brief Obtains the green component of a pen.\n\n @syscap SystemCapability.Graphic.Graphic2D.NativeDrawing\n @param pen Indicates the pointer to an <b>OH_Drawing_Pen</b> object.\n @param g Indicates the green component of color.\n @return Returns the error code.\n         Returns {@link OH_DRAWING_SUCCESS} if the operation is successful.\n         Returns {@link OH_DRAWING_ERROR_INVALID_PARAMETER} if pen or g is nullptr.\n @since 20\n @version 1.0"]
+    #[doc = " @brief Obtains the green component of the pen color.\n\n @param pen Pointer to an {@link OH_Drawing_Pen} object.\n @param g Green component of the pen color. The value is a floating-point number ranging from 0.0 to 1.0.\n @return Execution result.\n **OH_DRAWING_SUCCESS** if the operation is successful.\n **OH_DRAWING_ERROR_INVALID_PARAMETER** if **pen** or **g** is NULL.\n @since 20\n @version 1.0"]
     #[cfg(feature = "api-20")]
     pub fn OH_Drawing_PenGetGreenFloat(
         pen: *mut OH_Drawing_Pen,
@@ -4830,7 +5077,7 @@ extern "C" {
     ) -> OH_Drawing_ErrorCode;
 }
 extern "C" {
-    #[doc = " @brief Obtains the blue component of a pen.\n\n @syscap SystemCapability.Graphic.Graphic2D.NativeDrawing\n @param pen Indicates the pointer to an <b>OH_Drawing_Pen</b> object.\n @param b Indicates the blue component of color.\n @return Returns the error code.\n         Returns {@link OH_DRAWING_SUCCESS} if the operation is successful.\n         Returns {@link OH_DRAWING_ERROR_INVALID_PARAMETER} if pen or b is nullptr.\n @since 20\n @version 1.0"]
+    #[doc = " @brief Obtains the blue component of the pen color.\n\n @param pen Pointer to an {@link OH_Drawing_Pen} object.\n @param b Blue component of the pen color. The value is a floating-point number ranging from 0.0 to 1.0.\n @return Execution result.\n **OH_DRAWING_SUCCESS** if the operation is successful.\n **OH_DRAWING_ERROR_INVALID_PARAMETER** if **pen** or **b** is NULL.\n @since 20\n @version 1.0"]
     #[cfg(feature = "api-20")]
     pub fn OH_Drawing_PenGetBlueFloat(
         pen: *mut OH_Drawing_Pen,
@@ -4838,88 +5085,88 @@ extern "C" {
     ) -> OH_Drawing_ErrorCode;
 }
 extern "C" {
-    #[doc = " @brief Obtains the thickness of a pen. This thickness determines the width of the outline of a shape.\n\n @syscap SystemCapability.Graphic.Graphic2D.NativeDrawing\n @param pen Indicates the pointer to an <b>OH_Drawing_Pen</b> object.\n @return Returns the thickness.\n @since 8\n @version 1.0"]
+    #[doc = " @brief Obtains the thickness of a pen. This thickness determines the width of the outline of a shape.\n This API may return an error code. For details, call {@link OH_Drawing_ErrorCodeGet}.\n If **pen** is NULL, **OH_DRAWING_ERROR_INVALID_PARAMETER** is returned.\n\n @param pen Pointer to an **OH_Drawing_Pen** object.\n @return Returns the thickness.\n @since 8\n @version 1.0"]
     pub fn OH_Drawing_PenGetWidth(pen: *const OH_Drawing_Pen) -> f32;
 }
 extern "C" {
-    #[doc = " @brief Sets the thickness for a pen. This thickness determines the width of the outline of a shape.\n\n @syscap SystemCapability.Graphic.Graphic2D.NativeDrawing\n @param pen Indicates the pointer to an <b>OH_Drawing_Pen</b> object.\n @param width Indicates the thickness to set, which is a variable.\n @since 8\n @version 1.0"]
+    #[doc = " @brief Sets the thickness for a pen. This thickness determines the width of the outline of a shape.\n This API may return an error code. For details, call {@link OH_Drawing_ErrorCodeGet}.\n If **pen** is NULL, **OH_DRAWING_ERROR_INVALID_PARAMETER** is returned.\n\n @param pen Pointer to an **OH_Drawing_Pen** object.\n @param width Thickness, which is a variable.\n @since 8\n @version 1.0"]
     pub fn OH_Drawing_PenSetWidth(pen: *mut OH_Drawing_Pen, width: f32);
 }
 extern "C" {
-    #[doc = " @brief Obtains the stroke miter limit of a polyline drawn by a pen.\n\n When the corner type is bevel, a beveled corner is displayed if the miter limit is exceeded,\n and a mitered corner is displayed if the miter limit is not exceeded.\n\n @syscap SystemCapability.Graphic.Graphic2D.NativeDrawing\n @param pen Indicates the pointer to an <b>OH_Drawing_Pen</b> object.\n @return Returns the miter limit.\n @since 8\n @version 1.0"]
+    #[doc = " @brief Obtains the stroke miter limit of a polyline drawn by a pen. When the corner type is bevel, a beveled corner\n is displayed if the miter limit is exceeded, and a mitered corner is displayed if the miter limit is not exceeded.\n This API may return an error code. For details, call {@link OH_Drawing_ErrorCodeGet}.\n If **pen** is NULL, **OH_DRAWING_ERROR_INVALID_PARAMETER** is returned.\n\n @param pen Pointer to an **OH_Drawing_Pen** object.\n @return Returns the miter limit.\n @since 8\n @version 1.0"]
     pub fn OH_Drawing_PenGetMiterLimit(pen: *const OH_Drawing_Pen) -> f32;
 }
 extern "C" {
-    #[doc = " @brief Sets the stroke miter limit for a polyline drawn by a pen.\n\n When the corner type is bevel, a beveled corner is displayed if the miter limit is exceeded,\n and a mitered corner is displayed if the miter limit is not exceeded.\n\n @syscap SystemCapability.Graphic.Graphic2D.NativeDrawing\n @param pen Indicates the pointer to an <b>OH_Drawing_Pen</b> object.\n @param miter Indicates a variable that describes the miter limit.\n @since 8\n @version 1.0"]
+    #[doc = " @brief Sets the stroke miter limit for a polyline drawn by a pen. When the corner type is bevel, a beveled corner is\n displayed if the miter limit is exceeded, and a mitered corner is displayed if the miter limit is not exceeded.\n This API may return an error code. For details, call {@link OH_Drawing_ErrorCodeGet}.\n If **pen** is NULL, **OH_DRAWING_ERROR_INVALID_PARAMETER** is returned.\n\n @param pen Pointer to an **OH_Drawing_Pen** object.\n @param miter Stroke miter limit, which is a variable.\n @since 8\n @version 1.0"]
     pub fn OH_Drawing_PenSetMiterLimit(pen: *mut OH_Drawing_Pen, miter: f32);
 }
 #[doc = " There is no cap style. Both ends of the line segment are cut off square."]
 pub const OH_Drawing_PenLineCapStyle_LINE_FLAT_CAP: OH_Drawing_PenLineCapStyle = 0;
-#[doc = " Square cap style. Both ends have a square, the height of which\n is half of the width of the line segment, with the same width."]
+#[doc = " Square cap style. Both ends have a square, the height of which is half of the width of the line segment, with\n the same width."]
 pub const OH_Drawing_PenLineCapStyle_LINE_SQUARE_CAP: OH_Drawing_PenLineCapStyle = 1;
-#[doc = " Round cap style. Both ends have a semicircle centered, the diameter of which\n is the same as the width of the line segment."]
+#[doc = " Round cap style. Both ends have a semicircle centered, the diameter of which is the same as the width of the\n line segment."]
 pub const OH_Drawing_PenLineCapStyle_LINE_ROUND_CAP: OH_Drawing_PenLineCapStyle = 2;
-#[doc = " @brief Enumerates line cap styles of a pen. The line cap style defines\n the style of both ends of a line segment drawn by the pen.\n\n @since 8\n @version 1.0"]
+#[doc = " @brief Enumerates the line cap styles of a pen. The line cap style defines the style of both ends of a line segment\n drawn by the pen.\n\n @since 8\n @version 1.0"]
 pub type OH_Drawing_PenLineCapStyle = u32;
 extern "C" {
-    #[doc = " @brief Obtains the line cap style of a pen.\n\n @syscap SystemCapability.Graphic.Graphic2D.NativeDrawing\n @param pen Indicates the pointer to an <b>OH_Drawing_Pen</b> object.\n @return Returns the line cap style.\n @since 8\n @version 1.0"]
+    #[doc = " @brief Obtains the line cap style of a pen.\n This API may return an error code. For details, call {@link OH_Drawing_ErrorCodeGet}.\n If **pen** is NULL, **OH_DRAWING_ERROR_INVALID_PARAMETER** is returned.\n\n @param pen Pointer to an **OH_Drawing_Pen** object.\n @return Returns the line cap style.\n @since 8\n @version 1.0"]
     pub fn OH_Drawing_PenGetCap(pen: *const OH_Drawing_Pen) -> OH_Drawing_PenLineCapStyle;
 }
 extern "C" {
-    #[doc = " @brief Sets the line cap style for a pen.\n\n @syscap SystemCapability.Graphic.Graphic2D.NativeDrawing\n @param pen Indicates the pointer to an <b>OH_Drawing_Pen</b> object.\n @param capStyle Indicates a variable that describes the line cap style.\n @since 8\n @version 1.0"]
+    #[doc = " @brief Sets the line cap style for a pen.\n This API may return an error code. For details, call {@link OH_Drawing_ErrorCodeGet}.\n If **pen** is NULL, **OH_DRAWING_ERROR_INVALID_PARAMETER** is returned.\n If **capStyle** is not set to one of the enumerated values, **OH_DRAWING_ERROR_PARAMETER_OUT_OF_RANGE** is returned.\n\n @param pen Pointer to an **OH_Drawing_Pen** object.\n @param capStyle Line cap style, which is a variable.\n @since 8\n @version 1.0"]
     pub fn OH_Drawing_PenSetCap(pen: *mut OH_Drawing_Pen, capStyle: OH_Drawing_PenLineCapStyle);
 }
-#[doc = " Mitered corner. If the angle of a polyline is small, its miter length may be inappropriate.\n In this case, you need to use the miter limit to limit the miter length."]
+#[doc = " Mitered corner. If the angle of a polyline is small, its miter length may be inappropriate. In this case, you\n need to use the miter limit to limit the miter length."]
 pub const OH_Drawing_PenLineJoinStyle_LINE_MITER_JOIN: OH_Drawing_PenLineJoinStyle = 0;
 #[doc = " Round corner."]
 pub const OH_Drawing_PenLineJoinStyle_LINE_ROUND_JOIN: OH_Drawing_PenLineJoinStyle = 1;
 #[doc = " Beveled corner."]
 pub const OH_Drawing_PenLineJoinStyle_LINE_BEVEL_JOIN: OH_Drawing_PenLineJoinStyle = 2;
-#[doc = " @brief Enumerates pen line join styles. The line join style defines\n the shape of the joints of a polyline segment drawn by the pen.\n\n @since 8\n @version 1.0"]
+#[doc = " @brief Enumerates the line join styles of a pen. The line join style defines the shape of the joints of a polyline\n segment drawn by the pen.\n\n @since 8\n @version 1.0"]
 pub type OH_Drawing_PenLineJoinStyle = u32;
 extern "C" {
-    #[doc = " @brief Obtains the line join style of a pen.\n\n @syscap SystemCapability.Graphic.Graphic2D.NativeDrawing\n @param pen Indicates the pointer to an <b>OH_Drawing_Pen</b> object.\n @return Returns the line join style.\n @since 8\n @version 1.0"]
+    #[doc = " @brief Obtains the line join style of a pen.\n This API may return an error code. For details, call {@link OH_Drawing_ErrorCodeGet}.\n If **pen** is NULL, **OH_DRAWING_ERROR_INVALID_PARAMETER** is returned.\n\n @param pen Pointer to an **OH_Drawing_Pen** object.\n @return Returns the line join style.\n @since 8\n @version 1.0"]
     pub fn OH_Drawing_PenGetJoin(pen: *const OH_Drawing_Pen) -> OH_Drawing_PenLineJoinStyle;
 }
 extern "C" {
-    #[doc = " @brief Sets the line join style for a pen.\n\n @syscap SystemCapability.Graphic.Graphic2D.NativeDrawing\n @param pen Indicates the pointer to an <b>OH_Drawing_Pen</b> object.\n @param joinStyle Indicates a variable that describes the line join style.\n @since 8\n @version 1.0"]
+    #[doc = " @brief Sets the join style for this pen.\n This API may return an error code. For details, call {@link OH_Drawing_ErrorCodeGet}.\n If **pen** is NULL, **OH_DRAWING_ERROR_INVALID_PARAMETER** is returned.\n If **joinStyle** is not set to one of the enumerated values, **OH_DRAWING_ERROR_PARAMETER_OUT_OF_RANGE** is returned.\n\n @param pen Pointer to an **OH_Drawing_Pen** object.\n @param joinStyle Join style.\n @since 8\n @version 1.0"]
     pub fn OH_Drawing_PenSetJoin(pen: *mut OH_Drawing_Pen, joinStyle: OH_Drawing_PenLineJoinStyle);
 }
 extern "C" {
-    #[doc = " @brief Sets the shaderEffect for a pen.\n\n @syscap SystemCapability.Graphic.Graphic2D.NativeDrawing\n @param pen Indicates the pointer to an <b>OH_Drawing_Pen</b> object.\n @param shaderEffect Indicates the pointer to an <b>OH_Drawing_ShaderEffect</b> object.\n @since 11\n @version 1.0"]
+    #[doc = " @brief Sets the shader effect for this pen.\n This API may return an error code. For details, call {@link OH_Drawing_ErrorCodeGet}.\n If **pen** is NULL, **OH_DRAWING_ERROR_INVALID_PARAMETER** is returned.\n\n @param pen Pointer to the {@link OH_Drawing_Pen} object.\n @param shaderEffect Pointer to an {@link OH_Drawing_ShaderEffect} object. If NULL is passed in, the shader effect\n will be cleared.\n @since 11\n @version 1.0"]
     pub fn OH_Drawing_PenSetShaderEffect(
         pen: *mut OH_Drawing_Pen,
         shaderEffect: *mut OH_Drawing_ShaderEffect,
     );
 }
 extern "C" {
-    #[doc = " @brief Sets the shadowLayer for a pen.\n\n @syscap SystemCapability.Graphic.Graphic2D.NativeDrawing\n @param pen Indicates the pointer to an <b>OH_Drawing_Pen</b> object.\n @param shadowLayer Indicates the pointer to an <b>OH_Drawing_ShadowLayer</b> object.\n @since 12\n @version 1.0"]
+    #[doc = " @brief Sets the shadow layer for a pen. The shadow layer effect takes effect only when text is drawn.\n This API may return an error code. For details, call {@link OH_Drawing_ErrorCodeGet}.\n If **pen** is NULL, **OH_DRAWING_ERROR_INVALID_PARAMETER** is returned.\n\n @param pen Pointer to the {@link OH_Drawing_Pen} object.\n @param shadowLayer Pointer to an {@link OH_Drawing_ShadowLayer} object. If NULL is passed in, the shadow layer\n effect will be cleared.\n @since 12\n @version 1.0"]
     pub fn OH_Drawing_PenSetShadowLayer(
         pen: *mut OH_Drawing_Pen,
         shadowLayer: *mut OH_Drawing_ShadowLayer,
     );
 }
 extern "C" {
-    #[doc = " @brief Sets the pathEffect for a pen.\n\n @syscap SystemCapability.Graphic.Graphic2D.NativeDrawing\n @param pen Indicates the pointer to an <b>OH_Drawing_Pen</b> object.\n @param pathEffect Indicates the pointer to an <b>OH_Drawing_PathEffect</b> object.\n @since 12\n @version 1.0"]
+    #[doc = " @brief Sets the path effect for this pen.\n This API may return an error code. For details, call {@link OH_Drawing_ErrorCodeGet}.\n If **pen** is NULL, **OH_DRAWING_ERROR_INVALID_PARAMETER** is returned.\n\n @param pen Pointer to the {@link OH_Drawing_Pen} object.\n @param pathEffect Pointer to an {@link OH_Drawing_PathEffect} object. If NULL is passed in, the path effect will be\n cleared.\n @since 12\n @version 1.0"]
     pub fn OH_Drawing_PenSetPathEffect(
         pen: *mut OH_Drawing_Pen,
         pathEffect: *mut OH_Drawing_PathEffect,
     );
 }
 extern "C" {
-    #[doc = " @brief Sets the filter for a pen.\n\n @syscap SystemCapability.Graphic.Graphic2D.NativeDrawing\n @param pen Indicates the pointer to an <b>OH_Drawing_Pen</b> object.\n @param filter Indicates the pointer to an <b>OH_Drawing_Filter</b> object.\n @since 11\n @version 1.0"]
+    #[doc = " @brief Sets a filter for a pen.\n This API may return an error code. For details, call {@link OH_Drawing_ErrorCodeGet}.\n If **pen** is NULL, **OH_DRAWING_ERROR_INVALID_PARAMETER** is returned.\n\n @param pen Pointer to the {@link OH_Drawing_Pen} object.\n @param filter Pointer to an {@link OH_Drawing_Filter} object. If NULL is passed in, the filter will be cleared.\n @since 11\n @version 1.0"]
     pub fn OH_Drawing_PenSetFilter(pen: *mut OH_Drawing_Pen, filter: *mut OH_Drawing_Filter);
 }
 extern "C" {
-    #[doc = " @brief Gets the filter from a pen.\n\n @syscap SystemCapability.Graphic.Graphic2D.NativeDrawing\n @param pen Indicates the pointer to an <b>OH_Drawing_Pen</b> object.\n @param filter Indicates the pointer to an <b>OH_Drawing_Filter</b> object.\n @since 12\n @version 1.0"]
+    #[doc = " @brief Obtains the {@link OH_Drawing_Filter} object from the pen. The filter is a container that holds a mask filter\n and color filter.\n This API may return an error code. For details, call {@link OH_Drawing_ErrorCodeGet}.\n If either **pen** or **filter** is NULL, **OH_DRAWING_ERROR_INVALID_PARAMETER** is returned.\n\n @param pen Pointer to the {@link OH_Drawing_Pen} object.\n @param filter Pointer to an {@link OH_Drawing_Filter} object.\n @since 12\n @version 1.0"]
     pub fn OH_Drawing_PenGetFilter(pen: *mut OH_Drawing_Pen, filter: *mut OH_Drawing_Filter);
 }
 extern "C" {
-    #[doc = " @brief Sets a blender that implements the specified blendmode enum for a pen.\n\n @syscap SystemCapability.Graphic.Graphic2D.NativeDrawing\n @param pen Indicates the pointer to an <b>OH_Drawing_Pen</b> object.\n @param blendMode Indicates the blend mode.\n @since 12\n @version 1.0"]
+    #[doc = " @brief Sets a blender for a pen. The blender implements the specified blend mode.\n This API may return an error code. For details, call {@link OH_Drawing_ErrorCodeGet}.\n If **pen** is NULL, **OH_DRAWING_ERROR_INVALID_PARAMETER** is returned.\n If **blendMode** is not set to one of the enumerated values, **OH_DRAWING_ERROR_PARAMETER_OUT_OF_RANGE** is returned.\n\n @param pen Pointer to the {@link OH_Drawing_Pen} object.\n @param blendMode Enumeration of blend modes.\n @since 12\n @version 1.0"]
     pub fn OH_Drawing_PenSetBlendMode(pen: *mut OH_Drawing_Pen, blendMode: OH_Drawing_BlendMode);
 }
 extern "C" {
-    #[doc = " @brief Gets the filled equivalent of the src path.\n\n @syscap SystemCapability.Graphic.Graphic2D.NativeDrawing\n @param pen Indicates the pointer to an <b>OH_Drawing_Pen</b> object.\n @param src Indicates the Path read to create a filled version.\n @param dst Indicates the resulting Path.\n @param rect Indicates the pointer to an <b>OH_Drawing_Rect</b> object that limits the PathEffect area if\nPen has PathEffect.\n @param matrix Indicates the pointer to an <b>OH_Drawing_Matrix</b> object that tranfomation applied to\nPathEffect if Pen has PathEffect.\n @return Returns true if get successes; false if get fails.\n @since 12\n @version 1.0"]
+    #[doc = " @brief Obtains the source path outline drawn using this pen and represents it using a destination path.\n This API may return an error code. For details, call {@link OH_Drawing_ErrorCodeGet}.\n If any of **pen**, **src**, and **dst** is NULL, **OH_DRAWING_ERROR_INVALID_PARAMETER** is returned.\n\n @param pen Pointer to the {@link OH_Drawing_Pen} object.\n @param src Pointer to the source {@link OH_Drawing_Path} object.\n @param dst Pointer to the target {@link OH_Drawing_Path} object.\n @param rect Pointer to an {@link OH_Drawing_Rect} object. NULL is recommended.\n @param matrix Pointer to an {@link OH_Drawing_Matrix} object. NULL is recommended. The default value is an identity\n matrix.\n @return Returns **true** if the destination path is obtained; returns **false** otherwise.\n @since 12\n @version 1.0"]
     pub fn OH_Drawing_PenGetFillPath(
         pen: *mut OH_Drawing_Pen,
         src: *const OH_Drawing_Path,
@@ -4929,45 +5176,45 @@ extern "C" {
     ) -> bool;
 }
 extern "C" {
-    #[doc = " @brief Resets all pen contents to their initial values.\n\n @syscap SystemCapability.Graphic.Graphic2D.NativeDrawing\n @param pen Indicates the pointer to an <b>OH_Drawing_Pen</b> object.\n @since 12\n @version 1.0"]
+    #[doc = " @brief Resets a pen to the initial state.\n This API may return an error code. For details, call {@link OH_Drawing_ErrorCodeGet}.\n If **pen** is NULL, **OH_DRAWING_ERROR_INVALID_PARAMETER** is returned.\n\n @param pen Pointer to the {@link OH_Drawing_Pen} object.\n @since 12\n @version 1.0"]
     pub fn OH_Drawing_PenReset(pen: *mut OH_Drawing_Pen);
 }
 extern "C" {
-    #[doc = " @brief Gets an <b>OH_Drawing_PixelMap</b> object.\n\n @syscap SystemCapability.Graphic.Graphic2D.NativeDrawing\n @param nativePixelMap Indicates a pointer to an native pixelmap supported by image framework.\n @return Returns the pointer to the <b>OH_Drawing_PixelMap</b> object.\n @since 12\n @version 1.0"]
+    #[doc = " @brief Obtains the pixel map defined by this module from a pixel map defined by the image framework.\n\n @param nativePixelMap Pointer to a {@link NativePixelMap_} object, which is the pixel map defined by the image\n framework.\n @return Returns the pointer to an {@link OH_Drawing_PixelMap} object, which is the pixel map defined by this module.\n If NULL is returned, the creation fails. The possible failure cause is that **NativePixelMap_** is NULL.\n @since 12\n @version 1.0"]
     pub fn OH_Drawing_PixelMapGetFromNativePixelMap(
         nativePixelMap: *mut NativePixelMap_,
     ) -> *mut OH_Drawing_PixelMap;
 }
 extern "C" {
-    #[doc = " @brief Gets an <b>OH_Drawing_PixelMap</b> object.\n\n @syscap SystemCapability.Graphic.Graphic2D.NativeDrawing\n @param pixelmapNative Indicates a pointer to the <b>OH_PixelmapNative</b> object supported by image framework.\n @return Returns the pointer to the <b>OH_Drawing_PixelMap</b> object.\n         If nullptr is returned, the get operation fails.\n         The possible cause of the failure is that a nullptr is passed.\n @since 12\n @version 1.0"]
+    #[doc = " @brief Obtains the pixel map defined by this module from a pixel map defined by the image framework.\n\n @param pixelmapNative Pointer to a {@link OH_PixelmapNative} object, which is the pixel map defined by the image\n framework.\n @return Returns the pointer to an {@link OH_Drawing_PixelMap} object, which is the pixel map defined by this module.\n If NULL is returned, the creation fails. The possible failure cause is that **OH_PixelmapNative** is NULL.\n @since 12\n @version 1.0"]
     pub fn OH_Drawing_PixelMapGetFromOhPixelMapNative(
         pixelmapNative: *mut OH_PixelmapNative,
     ) -> *mut OH_Drawing_PixelMap;
 }
 extern "C" {
-    #[doc = " @brief Dissolves the relationship between <b>OH_Drawing_PixelMap</b> object and <b>NativePixelMap_</b> or\n<b>OH_PixelmapNative</b> which is build by 'GetFrom' function.\n\n @syscap SystemCapability.Graphic.Graphic2D.NativeDrawing\n @param pixelMap Indicates a pointer to the <b>OH_Drawing_PixelMap</b>.\n @since 12\n @version 1.0"]
+    #[doc = " @brief Removes the relationship between a pixel map defined by this module and a pixel map defined by the image\n framework. The relationship is established by calling  {@link OH_Drawing_PixelMapGetFromNativePixelMap}  or\n {@link OH_Drawing_PixelMapGetFromOhPixelMapNative}\n .\n\n @param pixelMap Pointer to an {@link OH_Drawing_PixelMap} object.\n @since 12\n @version 1.0"]
     pub fn OH_Drawing_PixelMapDissolve(pixelMap: *mut OH_Drawing_PixelMap);
 }
 extern "C" {
-    #[doc = " @brief Creates an <b>OH_Drawing_Point</b> object.\n\n @syscap SystemCapability.Graphic.Graphic2D.NativeDrawing\n @param x Indicates the x-axis coordinates of the point.\n @param y Indicates the y-axis coordinates of the point.\n @return Returns the pointer to the <b>OH_Drawing_Point</b> object created.\n @since 11\n @version 1.0"]
+    #[doc = " @brief Creates an **OH_Drawing_Point** object.\n\n @param x X coordinate of the point.\n @param y Y coordinate of the point.\n @return Returns the pointer to the **OH_Drawing_Point** object created.\n @since 11\n @version 1.0"]
     pub fn OH_Drawing_PointCreate(x: f32, y: f32) -> *mut OH_Drawing_Point;
 }
 extern "C" {
-    #[doc = " @brief Gets the x-axis coordinate of the point.\n\n @syscap SystemCapability.Graphic.Graphic2D.NativeDrawing\n @param point Indicates the pointer to an <b>OH_Drawing_Point</b> object.\n @param x Indicates the x-axis coordinate of the point.\n @return Returns the error code.\n         Returns {@link OH_DRAWING_SUCCESS} if the operation is successful.\n         Returns {@link OH_DRAWING_ERROR_INVALID_PARAMETER} if point or x is nullptr.\n @since 12\n @version 1.0"]
+    #[doc = " @brief Obtains the X coordinate of a point.\n\n @param point Pointer to an {@link OH_Drawing_Point} object.\n @param x Pointer to the X coordinate.\n @return Returns one of the following result codes:\n **OH_DRAWING_SUCCESS** if the operation is successful.\n **OH_DRAWING_ERROR_INVALID_PARAMETER** if either **point** or **x** is NULL.\n @since 12\n @version 1.0"]
     pub fn OH_Drawing_PointGetX(
         point: *const OH_Drawing_Point,
         x: *mut f32,
     ) -> OH_Drawing_ErrorCode;
 }
 extern "C" {
-    #[doc = " @brief Gets the y-axis coordinate of the point.\n\n @syscap SystemCapability.Graphic.Graphic2D.NativeDrawing\n @param point Indicates the pointer to an <b>OH_Drawing_Point</b> object.\n @param y Indicates the y-axis coordinate of the point.\n @return Returns the error code.\n         Returns {@link OH_DRAWING_SUCCESS} if the operation is successful.\n         Returns {@link OH_DRAWING_ERROR_INVALID_PARAMETER} if point or y is nullptr.\n @since 12\n @version 1.0"]
+    #[doc = " @brief Obtains the Y coordinate of a point.\n\n @param point Pointer to an {@link OH_Drawing_Point} object.\n @param y Pointer to the Y coordinate.\n @return Returns one of the following result codes:\n **OH_DRAWING_SUCCESS** if the operation is successful.\n **OH_DRAWING_ERROR_INVALID_PARAMETER** if either **point** or **y** is NULL.\n @since 12\n @version 1.0"]
     pub fn OH_Drawing_PointGetY(
         point: *const OH_Drawing_Point,
         y: *mut f32,
     ) -> OH_Drawing_ErrorCode;
 }
 extern "C" {
-    #[doc = " @brief Sets the x-axis and y-axis coordinates of the point.\n\n @syscap SystemCapability.Graphic.Graphic2D.NativeDrawing\n @param point Indicates the pointer to an <b>OH_Drawing_Point</b> object.\n @param x Indicates the x-axis coordinate of the point.\n @param y Indicates the y-axis coordinate of the point.\n @return Returns the error code.\n         Returns {@link OH_DRAWING_SUCCESS} if the operation is successful.\n         Returns {@link OH_DRAWING_ERROR_INVALID_PARAMETER} if point is nullptr.\n @since 12\n @version 1.0"]
+    #[doc = " @brief Sets the X and Y coordinates of a point.\n\n @param point Pointer to an {@link OH_Drawing_Point} object.\n @param x Pointer to the X coordinate.\n @param y Pointer to the Y coordinate.\n @return Returns one of the following result codes:\n **OH_DRAWING_SUCCESS** if the operation is successful.\n **OH_DRAWING_ERROR_INVALID_PARAMETER** if **point** is NULL.\n @since 12\n @version 1.0"]
     pub fn OH_Drawing_PointSet(
         point: *mut OH_Drawing_Point,
         x: f32,
@@ -4975,23 +5222,37 @@ extern "C" {
     ) -> OH_Drawing_ErrorCode;
 }
 extern "C" {
-    #[doc = " @brief Destroys an <b>OH_Drawing_Point</b> object and reclaims the memory occupied by the object.\n\n @syscap SystemCapability.Graphic.Graphic2D.NativeDrawing\n @param point Indicates the pointer to an <b>OH_Drawing_Point</b> object.\n @since 11\n @version 1.0"]
+    #[doc = " @brief Negates the point's coordinates.\n\n @param point Indicates the pointer to an <b>OH_Drawing_Point</b> object.\n @return Returns the error code.\n         Returns {@link OH_DRAWING_SUCCESS} if the operation is successful.\n         Returns {@link OH_DRAWING_ERROR_INCORRECT_PARAMETER} if point is nullptr.\n @since 26.0.0"]
+    #[cfg(feature = "api-26")]
+    pub fn OH_Drawing_PointNegate(point: *mut OH_Drawing_Point) -> OH_Drawing_ErrorCode;
+}
+extern "C" {
+    #[doc = " @brief Offsets the point's coordinates by dx, dy.\n\n @param point Indicates the pointer to an <b>OH_Drawing_Point</b> object.\n @param dx Indicates the distance to offset on the x-axis in pixels.\n @param dy Indicates the distance to offset on the y-axis in pixels.\n @return Returns the error code.\n         Returns {@link OH_DRAWING_SUCCESS} if the operation is successful.\n         Returns {@link OH_DRAWING_ERROR_INCORRECT_PARAMETER} if point is nullptr.\n @since 26.0.0"]
+    #[cfg(feature = "api-26")]
+    pub fn OH_Drawing_PointOffset(
+        point: *mut OH_Drawing_Point,
+        dx: f32,
+        dy: f32,
+    ) -> OH_Drawing_ErrorCode;
+}
+extern "C" {
+    #[doc = " @brief Destroys an **OH_Drawing_Point** object and reclaims the memory occupied by the object.\n\n @param point Pointer to an **OH_Drawing_Point** object.\n @since 11\n @version 1.0"]
     pub fn OH_Drawing_PointDestroy(point: *mut OH_Drawing_Point);
 }
 extern "C" {
-    #[doc = " @brief Creates an <b>OH_Drawing_RecordCmdUtils</b> object.\n\n @syscap SystemCapability.Graphic.Graphic2D.NativeDrawing\n @return Returns the pointer to the <b>OH_Drawing_RecordCmdUtils</b> object created.\n @since 13\n @version 1.0"]
+    #[doc = " @brief Creates an **OH_Drawing_RecordCmdUtils** object.\n\n @return Returns the pointer to the **OH_Drawing_RecordCmdUtils** object created.\n @since 13\n @version 1.0"]
     #[cfg(feature = "api-13")]
     pub fn OH_Drawing_RecordCmdUtilsCreate() -> *mut OH_Drawing_RecordCmdUtils;
 }
 extern "C" {
-    #[doc = " @brief Destroys an <b>OH_Drawing_RecordCmdUtils</b> object and reclaims the memory occupied by the object.\n\n @syscap SystemCapability.Graphic.Graphic2D.NativeDrawing\n @param recordCmdUtils Indicates the pointer to an <b>OH_Drawing_RecordCmdUtils</b> object.\n @return Returns the error code.\n         Returns {@link OH_DRAWING_SUCCESS} if the operation is successful.\n         Returns {@link OH_DRAWING_ERROR_INVALID_PARAMETER} if recordCmdUtils is nullptr.\n @since 13\n @version 1.0"]
+    #[doc = " @brief Destroys an **OH_Drawing_RecordCmdUtils** object and reclaims the memory occupied by the object.\n\n @param recordCmdUtils Pointer to an {@link OH_Drawing_RecordCmdUtils} object.\n @return Returns one of the following result codes:\n **OH_DRAWING_SUCCESS** if the operation is successful.\n **OH_DRAWING_ERROR_INVALID_PARAMETER** if **recordCmdUtils** is NULL.\n @since 13\n @version 1.0"]
     #[cfg(feature = "api-13")]
     pub fn OH_Drawing_RecordCmdUtilsDestroy(
         recordCmdUtils: *mut OH_Drawing_RecordCmdUtils,
     ) -> OH_Drawing_ErrorCode;
 }
 extern "C" {
-    #[doc = " @brief Get the canvas that records the drawing command.\n\n @syscap SystemCapability.Graphic.Graphic2D.NativeDrawing\n @param recordCmdUtils Indicates the pointer to an <b>OH_Drawing_RecordCmdUtils</b> object.\n @param width Width of canvas object.\n @param height Height of canvas object.\n @param canvas Indicates a secondary pointer to an <b>OH_Drawing_Canvas</b>object.\n @return Returns the error code.\n         Returns {@link OH_DRAWING_SUCCESS} if the operation is successful.\n         Returns {@link OH_DRAWING_ERROR_INVALID_PARAMETER} if recordCmdUtils or canvas is nullptr,\n         width less than or equal to 0 or height less than or equal to 0.\n         Returns {@link OH_DRAWING_ERROR_ALLOCATION_FAILED} if no memory.\n @since 13\n @version 1.0"]
+    #[doc = " @brief Starts recording. This API must be used together with {@link OH_Drawing_RecordCmdUtilsFinishRecording}.\n The **OH_Drawing_RecordCmdUtils** object generates a canvas object of the recording type and calls the interface of\n the drawing object to record all drawing commands.\n\n @param recordCmdUtils Pointer to an {@link OH_Drawing_RecordCmdUtils} object.\n @param width Width of the canvas.\n @param height Height of the canvas.\n @param canvas Double pointer to the {@link OH_Drawing_Canvas} object. You do not need to release this pointer.\n This object does not support nested calling of {@link OH_Drawing_CanvasDrawRecordCmd}.\n @return Returns one of the following result codes:\n **OH_DRAWING_SUCCESS** if the operation is successful.\n **OH_DRAWING_ERROR_INVALID_PARAMETER** if either **recordCmdUtils** or **canvas** is NULL.\n **OH_DRAWING_ERROR_INVALID_PARAMETER** if either **width** or **height** is less than 0.\n **OH_DRAWING_ERROR_ALLOCATION_FAILED** if the system memory is insufficient.\n @since 13\n @version 1.0"]
     #[cfg(feature = "api-13")]
     pub fn OH_Drawing_RecordCmdUtilsBeginRecording(
         recordCmdUtils: *mut OH_Drawing_RecordCmdUtils,
@@ -5001,7 +5262,7 @@ extern "C" {
     ) -> OH_Drawing_ErrorCode;
 }
 extern "C" {
-    #[doc = " @brief Finish the recording and get the recording command object.\n\n @syscap SystemCapability.Graphic.Graphic2D.NativeDrawing\n @param recordCmdUtils Indicates the pointer to an <b>OH_Drawing_RecordCmdUtils</b> object.\n @param recordCmd Indicates a secondary pointer to an <b>OH_Drawing_RecordCmd</b> object.\n @return Returns the error code.\n         Returns {@link OH_DRAWING_SUCCESS} if the operation is successful.\n         Returns {@link OH_DRAWING_ERROR_INVALID_PARAMETER} if recordCmdUtils or recordCmd is nullptr.\n         Returns {@link OH_DRAWING_ERROR_ALLOCATION_FAILED} if no memory.\n @since 13\n @version 1.0"]
+    #[doc = " @brief Stops video recording. This function must be called after {@link OH_Drawing_RecordCmdUtilsBeginRecording}.\n The **OH_Drawing_RecordCmdUtils** object ends recording and stores the drawing commands recorded by the canvas\n object of the recording type into the generated {@link OH_Drawing_RecordCmdUtilsBeginRecording} object.\n\n @param recordCmdUtils Pointer to an {@link OH_Drawing_RecordCmdUtils} object.\n @param recordCmd Double pointer to the  {@link OH_Drawing_RecordCmd}  object. You need to call\n {@link OH_Drawing_CanvasDrawRecordCmd}\n to draw the object, and call {@link OH_Drawing_RecordCmdDestroy} to release it.\n @return Returns one of the following result codes:\n **OH_DRAWING_SUCCESS** if the operation is successful.\n **OH_DRAWING_ERROR_INVALID_PARAMETER** if either **recordCmdUtils** or **recordCmd** is NULL.\n **OH_DRAWING_ERROR_ALLOCATION_FAILED** if the system memory is insufficient.\n @since 13\n @version 1.0"]
     #[cfg(feature = "api-13")]
     pub fn OH_Drawing_RecordCmdUtilsFinishRecording(
         recordCmdUtils: *mut OH_Drawing_RecordCmdUtils,
@@ -5009,14 +5270,14 @@ extern "C" {
     ) -> OH_Drawing_ErrorCode;
 }
 extern "C" {
-    #[doc = " @brief Destroys an <b>OH_Drawing_RecordCmd</b> object and reclaims the memory occupied by the object.\n\n @syscap SystemCapability.Graphic.Graphic2D.NativeDrawing\n @param recordCmd Indicates the pointer to an <b>OH_Drawing_RecordCmd</b> object.\n @return Returns the error code.\n         Returns {@link OH_DRAWING_SUCCESS} if the operation is successful.\n         Returns {@link OH_DRAWING_ERROR_INVALID_PARAMETER} if recordCmd is nullptr.\n @since 13\n @version 1.0"]
+    #[doc = " @brief Destroys an **OH_Drawing_RecordCmd** object and reclaims the memory occupied by the object.\n\n @param recordCmd Pointer to an {@link OH_Drawing_RecordCmd} object.\n @return Returns one of the following result codes:\n **OH_DRAWING_SUCCESS** if the operation is successful.\n **OH_DRAWING_ERROR_INVALID_PARAMETER** if **recordCmd** is NULL.\n @since 13\n @version 1.0"]
     #[cfg(feature = "api-13")]
     pub fn OH_Drawing_RecordCmdDestroy(
         recordCmd: *mut OH_Drawing_RecordCmd,
     ) -> OH_Drawing_ErrorCode;
 }
 extern "C" {
-    #[doc = " @brief Creates an <b>OH_Drawing_Rect</b> object.\n\n @syscap SystemCapability.Graphic.Graphic2D.NativeDrawing\n @param left Indicates the left position of the rect.\n @param top Indicates the top position of the rect.\n @param right Indicates the right position of the rect.\n @param bottom Indicates the bottom position of the rect.\n @return Returns the pointer to the <b>OH_Drawing_Rect</b> object created.\n @since 11\n @version 1.0"]
+    #[doc = " @brief Creates an **OH_Drawing_Rect** object, without sorting the coordinates passed in. This means that the\n coordinates of the upper left corner of the rectangle can be greater than those of the lower right corner.\n\n @param left X coordinate of the upper left corner of the rectangle.\n @param top Y coordinate of the upper left corner of the rectangle.\n @param right X coordinate of the lower right corner of the rectangle.\n @param bottom Y coordinate of the lower right corner of the rectangle.\n @return Returns the pointer to the **OH_Drawing_Rect** object created.\n @since 11\n @version 1.0"]
     pub fn OH_Drawing_RectCreate(
         left: f32,
         top: f32,
@@ -5025,71 +5286,71 @@ extern "C" {
     ) -> *mut OH_Drawing_Rect;
 }
 extern "C" {
-    #[doc = " @brief If rect intersects other, sets rect to intersection.\n\n @syscap SystemCapability.Graphic.Graphic2D.NativeDrawing\n @param rect Indicates the pointer to an <b>OH_Drawing_Rect</b> object.\n @param other Indicates the pointer to an <b>OH_Drawing_Rect</b> object.\n @return Returns true if have area in common.\n @since 12\n @version 1.0"]
+    #[doc = " @brief Checks whether two rectangles intersect and if yes, sets **rect** to the area of intersection.\n This API may return an error code. For details, call {@link OH_Drawing_ErrorCodeGet}.\n If either **rect** or **other** is NULL, **OH_DRAWING_ERROR_INVALID_PARAMETER** is returned.\n\n @param rect Pointer to an **OH_Drawing_Rect** object.\n @param other Pointer to an **OH_Drawing_Rect** object.\n @return Returns **true** if they intersect (**rect** is set to the intersection area); returns **false** otherwise (*\n *rect** remains unchanged).\n @since 12\n @version 1.0"]
     pub fn OH_Drawing_RectIntersect(
         rect: *mut OH_Drawing_Rect,
         other: *const OH_Drawing_Rect,
     ) -> bool;
 }
 extern "C" {
-    #[doc = " @brief Sets rect to the union of rect and other.\n\n @syscap SystemCapability.Graphic.Graphic2D.NativeDrawing\n @param rect Indicates the pointer to an <b>OH_Drawing_Rect</b> object.\n @param other Indicates the pointer to an <b>OH_Drawing_Rect</b> object.\n @return Returns true if rect and other are not nullptr, and other is not empty;\n         false if rect or other is nullptr, or other is empty.\n @since 12\n @version 1.0"]
+    #[doc = " @brief Obtains the union of two rectangles.\n This API may return an error code. For details, call {@link OH_Drawing_ErrorCodeGet}.\n If either **rect** or **other** is NULL, **OH_DRAWING_ERROR_INVALID_PARAMETER** is returned.\n\n @param rect Pointer to an **OH_Drawing_Rect** object.\n @param other Pointer to an **OH_Drawing_Rect** object.\n @return Returns **true** if the union is obtained; returns **false** otherwise. The possible failure cause is that\n at least one of the parameters **rect** and **other** is NULL or the size of the rectangle specified by **other** is\n empty.\n @since 12\n @version 1.0"]
     pub fn OH_Drawing_RectJoin(rect: *mut OH_Drawing_Rect, other: *const OH_Drawing_Rect) -> bool;
 }
 extern "C" {
-    #[doc = " @brief Set the left position of the rect.\n\n @syscap SystemCapability.Graphic.Graphic2D.NativeDrawing\n @param rect Indicates the pointer to an <b>OH_Drawing_Rect</b> object.\n @param left Indicates the left position of the rect.\n @since 12\n @version 1.0"]
+    #[doc = " @brief Sets the horizontal coordinate of the upper left corner of a rectangle.\n This API may return an error code. For details, call {@link OH_Drawing_ErrorCodeGet}.\n If **rect** is NULL, **OH_DRAWING_ERROR_INVALID_PARAMETER** is returned.\n\n @param rect Pointer to an **OH_Drawing_Rect** object.\n @param left X coordinate of the upper left corner of the rectangle.\n @since 12\n @version 1.0"]
     pub fn OH_Drawing_RectSetLeft(rect: *mut OH_Drawing_Rect, left: f32);
 }
 extern "C" {
-    #[doc = " @brief Set the top position of the rect.\n\n @syscap SystemCapability.Graphic.Graphic2D.NativeDrawing\n @param rect Indicates the pointer to an <b>OH_Drawing_Rect</b> object.\n @param top Indicates the top position of the rect.\n @since 12\n @version 1.0"]
+    #[doc = " @brief Sets the vertical coordinate of the upper left corner of a rectangle.\n This API may return an error code. For details, call {@link OH_Drawing_ErrorCodeGet}.\n If **rect** is NULL, **OH_DRAWING_ERROR_INVALID_PARAMETER** is returned.\n\n @param rect Pointer to an **OH_Drawing_Rect** object.\n @param top Y coordinate of the upper left corner of the rectangle.\n @since 12\n @version 1.0"]
     pub fn OH_Drawing_RectSetTop(rect: *mut OH_Drawing_Rect, top: f32);
 }
 extern "C" {
-    #[doc = " @brief Set the right position of the rect.\n\n @syscap SystemCapability.Graphic.Graphic2D.NativeDrawing\n @param rect Indicates the pointer to an <b>OH_Drawing_Rect</b> object.\n @param right Indicates the right position of the rect.\n @since 12\n @version 1.0"]
+    #[doc = " @brief Sets the horizontal coordinate of the lower right corner of a rectangle.\n This API may return an error code. For details, call {@link OH_Drawing_ErrorCodeGet}.\n If **rect** is NULL, **OH_DRAWING_ERROR_INVALID_PARAMETER** is returned.\n\n @param rect Pointer to an **OH_Drawing_Rect** object.\n @param right X coordinate of the lower right corner of the rectangle.\n @since 12\n @version 1.0"]
     pub fn OH_Drawing_RectSetRight(rect: *mut OH_Drawing_Rect, right: f32);
 }
 extern "C" {
-    #[doc = " @brief Set the bottom position of the rect.\n\n @syscap SystemCapability.Graphic.Graphic2D.NativeDrawing\n @param rect Indicates the pointer to an <b>OH_Drawing_Rect</b> object.\n @param bottom Indicates the bottom position of the rect.\n @since 12\n @version 1.0"]
+    #[doc = " @brief Sets the vertical coordinate of the lower right corner of a rectangle.\n This API may return an error code. For details, call {@link OH_Drawing_ErrorCodeGet}.\n If **rect** is NULL, **OH_DRAWING_ERROR_INVALID_PARAMETER** is returned.\n\n @param rect Pointer to an **OH_Drawing_Rect** object.\n @param bottom Y coordinate of the lower right corner of the rectangle.\n @since 12\n @version 1.0"]
     pub fn OH_Drawing_RectSetBottom(rect: *mut OH_Drawing_Rect, bottom: f32);
 }
 extern "C" {
-    #[doc = " @brief Get the left position of the rect.\n\n @syscap SystemCapability.Graphic.Graphic2D.NativeDrawing\n @param rect Indicates the pointer to an <b>OH_Drawing_Rect</b> object.\n @return Return the left position of the rect.\n @since 12\n @version 1.0"]
+    #[doc = " @brief Obtains the X coordinate of the upper left corner of a rectangle.\n This API may return an error code. For details, call {@link OH_Drawing_ErrorCodeGet}.\n If **rect** is NULL, **OH_DRAWING_ERROR_INVALID_PARAMETER** is returned.\n\n @param rect Pointer to an **OH_Drawing_Rect** object.\n @return X coordinate of the upper left corner of the rectangle.\n @since 12\n @version 1.0"]
     pub fn OH_Drawing_RectGetLeft(rect: *mut OH_Drawing_Rect) -> f32;
 }
 extern "C" {
-    #[doc = " @brief Get the top position of the rect.\n\n @syscap SystemCapability.Graphic.Graphic2D.NativeDrawing\n @param rect Indicates the pointer to an <b>OH_Drawing_Rect</b> object.\n @return Return the top position of the rect.\n @since 12\n @version 1.0"]
+    #[doc = " @brief Obtains the Y coordinate of the upper left corner of a rectangle.\n This API may return an error code. For details, call {@link OH_Drawing_ErrorCodeGet}.\n If **rect** is NULL, **OH_DRAWING_ERROR_INVALID_PARAMETER** is returned.\n\n @param rect Pointer to an **OH_Drawing_Rect** object.\n @return Y coordinate of the upper left corner of the rectangle.\n @since 12\n @version 1.0"]
     pub fn OH_Drawing_RectGetTop(rect: *mut OH_Drawing_Rect) -> f32;
 }
 extern "C" {
-    #[doc = " @brief Get the right position of the rect.\n\n @syscap SystemCapability.Graphic.Graphic2D.NativeDrawing\n @param rect Indicates the pointer to an <b>OH_Drawing_Rect</b> object.\n @return Return the right position of the rect.\n @since 12\n @version 1.0"]
+    #[doc = " @brief Obtains the X coordinate of the lower right corner of a rectangle.\n This API may return an error code. For details, call {@link OH_Drawing_ErrorCodeGet}.\n If **rect** is NULL, **OH_DRAWING_ERROR_INVALID_PARAMETER** is returned.\n\n @param rect Pointer to an **OH_Drawing_Rect** object.\n @return X coordinate of the lower right corner of the rectangle.\n @since 12\n @version 1.0"]
     pub fn OH_Drawing_RectGetRight(rect: *mut OH_Drawing_Rect) -> f32;
 }
 extern "C" {
-    #[doc = " @brief Get the bottom position of the rect.\n\n @syscap SystemCapability.Graphic.Graphic2D.NativeDrawing\n @param rect Indicates the pointer to an <b>OH_Drawing_Rect</b> object.\n @return Return the bottom position of the rect.\n @since 12\n @version 1.0"]
+    #[doc = " @brief Obtains the Y coordinate of the lower right corner of a rectangle.\n This API may return an error code. For details, call {@link OH_Drawing_ErrorCodeGet}.\n If **rect** is NULL, **OH_DRAWING_ERROR_INVALID_PARAMETER** is returned.\n\n @param rect Pointer to an **OH_Drawing_Rect** object.\n @return Y coordinate of the lower right corner of the rectangle.\n @since 12\n @version 1.0"]
     pub fn OH_Drawing_RectGetBottom(rect: *mut OH_Drawing_Rect) -> f32;
 }
 extern "C" {
-    #[doc = " @brief Get the height position of the rect.\n\n @syscap SystemCapability.Graphic.Graphic2D.NativeDrawing\n @param rect Indicates the pointer to an <b>OH_Drawing_Rect</b> object.\n @since 12\n @version 1.0"]
+    #[doc = " @brief Obtains the height of a rectangle. The height is calculated by using the Y coordinate of the lower right\n corner of the rectangle minus the Y coordinate of the upper left corner.\n This API may return an error code. For details, call {@link OH_Drawing_ErrorCodeGet}.\n If **rect** is NULL, **OH_DRAWING_ERROR_INVALID_PARAMETER** is returned.\n @return Returns the height of the rectangle, in pixels.\n @param rect Pointer to an **OH_Drawing_Rect** object.\n @since 12\n @version 1.0"]
     pub fn OH_Drawing_RectGetHeight(rect: *mut OH_Drawing_Rect) -> f32;
 }
 extern "C" {
-    #[doc = " @brief Get the width position of the rect.\n\n @syscap SystemCapability.Graphic.Graphic2D.NativeDrawing\n @param rect Indicates the pointer to an <b>OH_Drawing_Rect</b> object.\n @return Returns the width.\n @since 12\n @version 1.0"]
+    #[doc = " @brief Obtains the width of a rectangle. The width is calculated by using the X coordinate of the lower right corner\n of the rectangle minus the X coordinate of the upper left corner.\n This API may return an error code. For details, call {@link OH_Drawing_ErrorCodeGet}.\n If **rect** is NULL, **OH_DRAWING_ERROR_INVALID_PARAMETER** is returned.\n\n @param rect Pointer to an **OH_Drawing_Rect** object.\n @return Returns the weight of the rectangle, in pixels.\n @since 12\n @version 1.0"]
     pub fn OH_Drawing_RectGetWidth(rect: *mut OH_Drawing_Rect) -> f32;
 }
 extern "C" {
-    #[doc = " @brief Copy the original rectangular object to the destination rectangular object.\n\n @syscap SystemCapability.Graphic.Graphic2D.NativeDrawing\n @param src Indicates the pointer to an <b>OH_Drawing_Rect</b> object.\n @param dst Indicates the pointer to an <b>OH_Drawing_Rect</b> object.\n @since 12\n @version 1.0"]
+    #[doc = " @brief Copies a source rectangle to create a new one.\n This API may return an error code. For details, call {@link OH_Drawing_ErrorCodeGet}.\n If either **src** or **dst** is NULL, **OH_DRAWING_ERROR_INVALID_PARAMETER** is returned.\n\n @param src Pointer to a source rectangle, which is an **OH_Drawing_Rect** object.\n @param dst Pointer to a destination rectangle, which is an **OH_Drawing_Rect** object.\n @since 12\n @version 1.0"]
     pub fn OH_Drawing_RectCopy(src: *mut OH_Drawing_Rect, dst: *mut OH_Drawing_Rect);
 }
 extern "C" {
-    #[doc = " @brief Destroys an <b>OH_Drawing_Rect</b> object and reclaims the memory occupied by the object.\n\n @syscap SystemCapability.Graphic.Graphic2D.NativeDrawing\n @param rect Indicates the pointer to an <b>OH_Drawing_Rect</b> object.\n @since 11\n @version 1.0"]
+    #[doc = " @brief Destroys an **OH_Drawing_Rect** object and reclaims the memory occupied by the object.\n\n @param rect Pointer to an **OH_Drawing_Rect** object.\n @since 11\n @version 1.0"]
     pub fn OH_Drawing_RectDestroy(rect: *mut OH_Drawing_Rect);
 }
 extern "C" {
-    #[doc = " @brief Creates an <b>OH_Drawing_Array</b> object, which is used to store multiple <b>OH_Drawing_Rect</b> object.\n\n @syscap SystemCapability.Graphic.Graphic2D.NativeDrawing\n @param size Indicates the size of the array object.\n @return Returns the pointer to the <b>OH_Drawing_Array</b> object created.\n         If nullptr is returned, the creation fails.\n         The possible cause of the failure is that the available memory is empty,\n         or size is invalid.\n @since 18\n @version 1.0"]
+    #[doc = " @brief Creates a rectangle array object to store multiple rectangle objects. Release this pointer by calling\n {@link OH_Drawing_RectDestroyArray}\n when this object is no longer needed.\n\n @param size Size of the rectangle array. The value cannot exceed 65536, which is the maximum number of glyph indices.\n @return Returns the pointer to the {@link OH_Drawing_Array} object created. If the returned object pointer is null,\n the creation fails.\n Possible causes are that no memory is available or an input parameter is incorrect.\n @since 18\n @version 1.0"]
     #[cfg(feature = "api-18")]
     pub fn OH_Drawing_RectCreateArray(size: usize) -> *mut OH_Drawing_Array;
 }
 extern "C" {
-    #[doc = " @brief Gets the size of an <b>OH_Drawing_Array</b> object.\n\n @syscap SystemCapability.Graphic.Graphic2D.NativeDrawing\n @param rectArray Indicates the array object.\n @param pSize Indicates the size pointer.\n @return Returns the error code.\n         Returns {@link OH_DRAWING_SUCCESS} if the operation is successful.\n         Returns {@link OH_DRAWING_ERROR_INVALID_PARAMETER} if rectArray or pSize is nullptr.\n @since 18\n @version 1.0"]
+    #[doc = " @brief Obtains the size of an {@link OH_Drawing_Array} object.\n\n @param rectArray Pointer to an {@link OH_Drawing_Array} object.\n @param pSize Pointer to the size_t type, which is used as an output parameter to store the size of the rectangle\n array.\n @return Returns one of the following result codes:\n **OH_DRAWING_SUCCESS** if the operation is successful.\n **OH_DRAWING_ERROR_INVALID_PARAMETER** if either **rectArray** or **pSize** is NULL.\n @since 18\n @version 1.0"]
     #[cfg(feature = "api-18")]
     pub fn OH_Drawing_RectGetArraySize(
         rectArray: *mut OH_Drawing_Array,
@@ -5097,7 +5358,7 @@ extern "C" {
     ) -> OH_Drawing_ErrorCode;
 }
 extern "C" {
-    #[doc = " @brief Gets the specified <b>OH_Drawing_Rect</b> object from <b>OH_Drawing_Array</b> object.\n\n @syscap SystemCapability.Graphic.Graphic2D.NativeDrawing\n @param rectArray Indicates the array object.\n @param index Indicates the index of array, caller must make sure the index is valid.\n @param rect Pointers to Pointer of <b>OH_Drawing_Rect</b> object, returned to the caller.\n @return Returns the error code.\n         Returns {@link OH_DRAWING_SUCCESS} if the operation is successful.\n         Returns {@link OH_DRAWING_ERROR_INVALID_PARAMETER} if rectArray or rect is nullptr,\n                 or index is invalid.\n @since 18\n @version 1.0"]
+    #[doc = " @brief Obtains the rectangle with the specified index in a rectangle array.\n\n @param rectArray Pointer to an {@link OH_Drawing_Array} object.\n @param index Index of the rectangle array.\n @param rect Double pointer to {@link OH_Drawing_Rect}, which is returned to the caller as an output parameter.\n @return Returns one of the following result codes:\n **OH_DRAWING_SUCCESS** if the operation is successful.\n **OH_DRAWING_ERROR_INVALID_PARAMETER** if **rectArray** or **rect** is null or **index** is out of range.\n @since 18\n @version 1.0"]
     #[cfg(feature = "api-18")]
     pub fn OH_Drawing_RectGetArrayElement(
         rectArray: *mut OH_Drawing_Array,
@@ -5106,12 +5367,12 @@ extern "C" {
     ) -> OH_Drawing_ErrorCode;
 }
 extern "C" {
-    #[doc = " @brief Destroys an array <b>OH_Drawing_Rect</b> object and reclaims the memory occupied by the object.\n\n @syscap SystemCapability.Graphic.Graphic2D.NativeDrawing\n @param rectArray Indicates the pointer to an <b>OH_Drawing_Array</b> object.\n @return Returns the error code.\n         Returns {@link OH_DRAWING_SUCCESS} if the operation is successful.\n         Returns {@link OH_DRAWING_ERROR_INVALID_PARAMETER} if rectArray is nullptr.\n @since 18\n @version 1.0"]
+    #[doc = " @brief Destroys an **OH_Drawing_Array** object and reclaims the memory occupied by the object.\n\n @param rectArray Pointer to an {@link OH_Drawing_Array} object.\n @return Returns one of the following result codes:\n **OH_DRAWING_SUCCESS** if the operation is successful.\n **OH_DRAWING_ERROR_INVALID_PARAMETER** if **rectArray** is NULL.\n @since 18\n @version 1.0"]
     #[cfg(feature = "api-18")]
     pub fn OH_Drawing_RectDestroyArray(rectArray: *mut OH_Drawing_Array) -> OH_Drawing_ErrorCode;
 }
 extern "C" {
-    #[doc = " @brief Determine whether one <b>OH_Drawing_Rect</b> object totally contains another <b>OH_Drawing_Rect</b> object.\n\n @param rect Indicates the pointer to an <b>OH_Drawing_Rect</b> object.\n @param other Indicates the pointer to an <b>OH_Drawing_Rect</b> object.\n @param isContains Indicates whether rect totally contains other.\n @return Returns the error code.\n         Returns {@link OH_DRAWING_SUCCESS} if the operation is successful.\n         Returns {@link OH_DRAWING_ERROR_INCORRECT_PARAMETER} if rect, other or isContains is nullptr.\n @since 22\n @version 1.0"]
+    #[doc = " @brief Checks whether a rectangle completely contains another rectangle.\n\n @param rect Pointer to the {@link OH_Drawing_Rect} object. This rectangle is used to check whether another rectangle\n (**other**) is contained.\n @param other Pointer to the {@link OH_Drawing_Rect} object. This rectangle is used to check whether it is contained\n by another rectangle (**rect**).\n @param isContains Result of whether a rectangle completely contains another rectangle. It is used as an output\n parameter. **true** indicates that **rect** completely contains **other**. **false** indicates that **rect** does\n not completely contain **other**.\n @return Returns one of the following result codes:\n **OH_DRAWING_SUCCESS** if the operation is successful.\n **OH_DRAWING_ERROR_INCORRECT_PARAMETER** if the **rect**, **other**, or **isContains** parameter is empty.\n @since 22\n @version 1.0"]
     #[cfg(feature = "api-22")]
     pub fn OH_Drawing_RectContains(
         rect: *mut OH_Drawing_Rect,
@@ -5120,7 +5381,7 @@ extern "C" {
     ) -> OH_Drawing_ErrorCode;
 }
 extern "C" {
-    #[doc = " @brief Add the specified values to the left and top boundaries of an <b>OH_Drawing_Rect</b> object.\n\n @param rect Indicates the pointer to an <b>OH_Drawing_Rect</b> object.\n @param left Indicates the value added to the left boundary of an <b>OH_Drawing_Rect</b> object.\n @param top Indicates the value added to the top boundary of an <b>OH_Drawing_Rect</b> object.\n @param right Indicates the value added to the right boundary of an <b>OH_Drawing_Rect</b> object.\n @param bottom Indicates the value added to the bottom boundary of an <b>OH_Drawing_Rect</b> object.\n @return Returns the error code.\n         Returns {@link OH_DRAWING_SUCCESS} if the operation is successful.\n         Returns {@link OH_DRAWING_ERROR_INCORRECT_PARAMETER} if rect is nullptr.\n @since 22\n @version 1.0"]
+    #[doc = " @brief Adds a specified value to the bounds of a rectangle.\n\n @param rect Pointer to the {@link OH_Drawing_Rect} object.\n @param left Value to be added to the left bound of the rectangle (X coordinate of the upper left corner of the\n rectangle).\n @param top Value to be added to the top bound of the rectangle (Y coordinate of the upper left corner of the\n rectangle).\n @param right Value to be added to the right bound of the rectangle (X coordinate of the lower right corner of the\n rectangle).\n @param bottom Value to be added to the bottom bound of the rectangle (Y coordinate of the lower right corner of the\n rectangle).\n @return Returns one of the following result codes:\n **OH_DRAWING_SUCCESS** if the operation is successful.\n **OH_DRAWING_ERROR_INCORRECT_PARAMETER** if the **rect** parameter is empty.\n @since 22\n @version 1.0"]
     #[cfg(feature = "api-22")]
     pub fn OH_Drawing_RectInset(
         rect: *mut OH_Drawing_Rect,
@@ -5131,7 +5392,7 @@ extern "C" {
     ) -> OH_Drawing_ErrorCode;
 }
 extern "C" {
-    #[doc = " @brief Checks if rect is empty.\n\n @param rect Indicates the pointer to an <b>OH_Drawing_Rect</b> object.\n @param isEmpty Indicates whether rect is empty.\n @return Returns the error code.\n         Returns {@link OH_DRAWING_SUCCESS} if the operation is successful.\n         Returns {@link OH_DRAWING_ERROR_INCORRECT_PARAMETER} if rect or isEmpty is nullptr.\n @since 23"]
+    #[doc = " @brief Checks whether a rectangle is empty.\n\n @param rect Pointer to the {@link OH_Drawing_Rect} object.\n @param isEmpty Whether a rectangle is empty. It is used as an output parameter. **true** means yes; **false**\n otherwise.\n @return Execution result.\n **OH_DRAWING_SUCCESS** if the operation is successful.\n **OH_DRAWING_ERROR_INCORRECT_PARAMETER** if **rect** or **isEmpty** is a null pointer.\n @since 23"]
     #[cfg(feature = "api-23")]
     pub fn OH_Drawing_RectIsEmpty(
         rect: *const OH_Drawing_Rect,
@@ -5139,7 +5400,7 @@ extern "C" {
     ) -> OH_Drawing_ErrorCode;
 }
 extern "C" {
-    #[doc = " @brief Offsets rect by adding dx to its left and right coordinates, and adding dy to its top and bottom\n coordinates.\n\n @param rect Indicates the pointer to an <b>OH_Drawing_Rect</b> object.\n @param dx Indicates the distance to offset on the x-axis in pixels.\n @param dy Indicates the distance to offset on the y-axis in pixels.\n @return Returns the error code.\n         Returns {@link OH_DRAWING_SUCCESS} if the operation is successful.\n         Returns {@link OH_DRAWING_ERROR_INCORRECT_PARAMETER} if rect is nullptr.\n @since 23"]
+    #[doc = " @brief Offsets a rectangle along the X axis and Y axis.\n\n @param rect Pointer to the {@link OH_Drawing_Rect} object.\n @param dx Offset on the X axis. A positive number indicates an offset towards the positive direction of the X axis,\n and a negative number indicates an offset towards the negative direction of the X axis.\n @param dy Offset on the Y axis. A positive number indicates an offset towards the positive direction of the Y axis,\n and a negative number indicates an offset towards the negative direction of the Y axis.\n @return Execution result.\n **OH_DRAWING_SUCCESS** if the operation is successful.\n **OH_DRAWING_ERROR_INCORRECT_PARAMETER** if **rect** is a null pointer.\n @since 23"]
     #[cfg(feature = "api-23")]
     pub fn OH_Drawing_RectOffset(
         rect: *mut OH_Drawing_Rect,
@@ -5148,7 +5409,7 @@ extern "C" {
     ) -> OH_Drawing_ErrorCode;
 }
 extern "C" {
-    #[doc = " @brief Offsets rect to a specific position and keeps the width and height unchanged.\n\n @param rect Indicates the pointer to an <b>OH_Drawing_Rect</b> object.\n @param newLeft Indicates the new left coordinate.\n @param newTop Indicates the new top coordinate.\n @return Returns the error code.\n         Returns {@link OH_DRAWING_SUCCESS} if the operation is successful.\n         Returns {@link OH_DRAWING_ERROR_INCORRECT_PARAMETER} if rect is nullptr.\n @since 23"]
+    #[doc = " @brief Offsets a rectangle to a specific position while keeping the width and height unchanged.\n\n @param rect Pointer to the {@link OH_Drawing_Rect} object.\n @param newLeft X coordinate of the upper left corner of the rectangle after the offset.\n @param newTop Y coordinate of the upper left corner of the rectangle after the offset.\n @return Execution result.\n **OH_DRAWING_SUCCESS** if the operation is successful.\n **OH_DRAWING_ERROR_INCORRECT_PARAMETER** if **rect** is a null pointer.\n @since 23"]
     #[cfg(feature = "api-23")]
     pub fn OH_Drawing_RectOffsetTo(
         rect: *mut OH_Drawing_Rect,
@@ -5157,17 +5418,17 @@ extern "C" {
     ) -> OH_Drawing_ErrorCode;
 }
 extern "C" {
-    #[doc = " @brief Sets the boundary coordinates of rect to zero.\n\n @param rect Indicates the pointer to an <b>OH_Drawing_Rect</b> object.\n @return Returns the error code.\n         Returns {@link OH_DRAWING_SUCCESS} if the operation is successful.\n         Returns {@link OH_DRAWING_ERROR_INCORRECT_PARAMETER} if rect is nullptr.\n @since 23"]
+    #[doc = " @brief Clears a rectangle (by setting the X and Y coordinates of the upper left corner and lower right corner to **0*\n *).\n\n @param rect Pointer to the {@link OH_Drawing_Rect} object.\n @return Execution result.\n **OH_DRAWING_SUCCESS** if the operation is successful.\n **OH_DRAWING_ERROR_INCORRECT_PARAMETER** if **rect** is a null pointer.\n @since 23"]
     #[cfg(feature = "api-23")]
     pub fn OH_Drawing_RectSetEmpty(rect: *mut OH_Drawing_Rect) -> OH_Drawing_ErrorCode;
 }
 extern "C" {
-    #[doc = " @brief Swaps the left and right if the left is greater than right; and swaps top and bottom if the top is greater\n than bottom. If the edges are already valid, then nothing is done.\n\n @param rect Indicates the pointer to an <b>OH_Drawing_Rect</b> object.\n @return Returns the error code.\n         Returns {@link OH_DRAWING_SUCCESS} if the operation is successful.\n         Returns {@link OH_DRAWING_ERROR_INCORRECT_PARAMETER} if rect is nullptr.\n @since 23"]
+    #[doc = " @brief Sorts the coordinates of a rectangle based on the actual position.\n\n @param rect Pointer to the {@link OH_Drawing_Rect} object.\n @return Execution result.\n **OH_DRAWING_SUCCESS** if the operation is successful.\n **OH_DRAWING_ERROR_INCORRECT_PARAMETER** if **rect** is a null pointer.\n @since 23"]
     #[cfg(feature = "api-23")]
     pub fn OH_Drawing_RectSort(rect: *mut OH_Drawing_Rect) -> OH_Drawing_ErrorCode;
 }
 extern "C" {
-    #[doc = " @brief Sets rect to the union of itself and another.\n\n @param rect Indicates the pointer to an <b>OH_Drawing_Rect</b> object.\n @param other Indicates the pointer to an <b>OH_Drawing_Rect</b> object.\n @return Returns the error code.\n         Returns {@link OH_DRAWING_SUCCESS} if the operation is successful.\n         Returns {@link OH_DRAWING_ERROR_INCORRECT_PARAMETER} if rect or other is nullptr.\n @since 23"]
+    #[doc = " @brief Sets the current rectangle to the union of this rectangle and another rectangle.\n\n @param rect Pointer to this {@link OH_Drawing_Rect} object.\n @param other Pointer to another {@link OH_Drawing_Rect} object.\n @return Execution result.\n **OH_DRAWING_SUCCESS** if the operation is successful.\n **OH_DRAWING_ERROR_INCORRECT_PARAMETER** if **rect** or **other** is a null pointer.\n @since 23"]
     #[cfg(feature = "api-23")]
     pub fn OH_Drawing_RectUnion(
         rect: *mut OH_Drawing_Rect,
@@ -5176,33 +5437,33 @@ extern "C" {
 }
 #[doc = " Difference operation."]
 pub const OH_Drawing_RegionOpMode_REGION_OP_MODE_DIFFERENCE: OH_Drawing_RegionOpMode = 0;
-#[doc = " Intersect operation."]
+#[doc = " Intersection operation."]
 pub const OH_Drawing_RegionOpMode_REGION_OP_MODE_INTERSECT: OH_Drawing_RegionOpMode = 1;
 #[doc = " Union operation."]
 pub const OH_Drawing_RegionOpMode_REGION_OP_MODE_UNION: OH_Drawing_RegionOpMode = 2;
-#[doc = " Xor operation."]
+#[doc = " XOR operation."]
 pub const OH_Drawing_RegionOpMode_REGION_OP_MODE_XOR: OH_Drawing_RegionOpMode = 3;
 #[doc = " Reverse difference operation."]
 pub const OH_Drawing_RegionOpMode_REGION_OP_MODE_REVERSE_DIFFERENCE: OH_Drawing_RegionOpMode = 4;
-#[doc = " Replace operation."]
+#[doc = " Replacement operation."]
 pub const OH_Drawing_RegionOpMode_REGION_OP_MODE_REPLACE: OH_Drawing_RegionOpMode = 5;
-#[doc = " @brief Operations when two regions are combined.\n\n @since 12\n @version 1.0"]
+#[doc = " @brief Enumerates the operation modes available for a region.\n\n @since 12\n @version 1.0"]
 pub type OH_Drawing_RegionOpMode = u32;
 extern "C" {
-    #[doc = " @brief Creates an <b>OH_Drawing_Region</b> object.\n\n @syscap SystemCapability.Graphic.Graphic2D.NativeDrawing\n @return Returns the pointer to the <b>OH_Drawing_Region</b> object created.\n @since 12\n @version 1.0"]
+    #[doc = " @brief Creates an **OH_Drawing_Region** object for more accurate graphical control.\n\n @return Returns the pointer to the {@link OH_Drawing_Region} object created.\n @since 12\n @version 1.0"]
     pub fn OH_Drawing_RegionCreate() -> *mut OH_Drawing_Region;
 }
 extern "C" {
-    #[doc = " @brief Creates an <b>OH_Drawing_Region</b> copy object.\n\n @syscap SystemCapability.Graphic.Graphic2D.NativeDrawing\n @param region Indicates the pointer to an <b>OH_Drawing_Region</b> object to copy.\n @return Returns the pointer to the <b>OH_Drawing_Region</b> object created.\n @since 20\n @version 1.0"]
+    #[doc = " @brief Creates a copy of a region object.\n\n @param region Pointer to the {@link OH_Drawing_Region} object to be copied.\n @return Returns the pointer to the **OH_Drawing_Region** object created.\n @since 20\n @version 1.0"]
     #[cfg(feature = "api-20")]
     pub fn OH_Drawing_RegionCopy(region: *const OH_Drawing_Region) -> *mut OH_Drawing_Region;
 }
 extern "C" {
-    #[doc = " @brief Determines whether the region contains the specified coordinates.\n\n @syscap SystemCapability.Graphic.Graphic2D.NativeDrawing\n @param region Indicates the pointer to an <b>OH_Drawing_Region</b> object.\n @param x x-coordinate.\n @param y y-coordinate.\n @return Returns <b>true</b> if (x, y) is inside region; returns <b>false</b> otherwise.\n @since 12\n @version 1.0"]
+    #[doc = " @brief Checks whether a region contains the specified point.\n This API may return an error code. For details, call {@link OH_Drawing_ErrorCodeGet}.\n If **region** is NULL, **OH_DRAWING_ERROR_INVALID_PARAMETER** is returned.\n\n @param region Pointer to the {@link OH_Drawing_Region} object.\n @param x X coordinate of the point.\n @param y Y coordinate of the point.\n @return Returns **true** if the region contains the specified point; returns **false** otherwise.\n @since 12\n @version 1.0"]
     pub fn OH_Drawing_RegionContains(region: *mut OH_Drawing_Region, x: i32, y: i32) -> bool;
 }
 extern "C" {
-    #[doc = " @brief Combines two regions.\n\n @syscap SystemCapability.Graphic.Graphic2D.NativeDrawing\n @param region Indicates the pointer to an <b>OH_Drawing_Region</b> object.\n @param other Indicates the pointer to an <b>OH_Drawing_Region</b> object.\n @param op Indicates the operation to apply to combine.\n @return Returns <b>true</b> if constructed Region is not empty; returns <b>false</b> otherwise.\n @since 12\n @version 1.0"]
+    #[doc = " @brief Combines two regions based on the specified operation mode.\n This API may return an error code. For details, call {@link OH_Drawing_ErrorCodeGet}.\n If either **region** or **dst** is NULL, **OH_DRAWING_ERROR_INVALID_PARAMETER** is returned.\n If **op** is not set to one of the enumerated values, **OH_DRAWING_ERROR_PARAMETER_OUT_OF_RANGE** is returned.\n\n @param region Pointer to an {@link OH_Drawing_Region} object, in which the resulting region is saved.\n @param other Pointer to the {@link OH_Drawing_Region} object.\n @param op Operation mode of the region. For details about the available options, see {@link OH_Drawing_RegionOpMode}.\n @return Returns **true** if the resulting region is not empty; returns false otherwise.\n @since 12\n @version 1.0"]
     pub fn OH_Drawing_RegionOp(
         region: *mut OH_Drawing_Region,
         other: *const OH_Drawing_Region,
@@ -5210,14 +5471,14 @@ extern "C" {
     ) -> bool;
 }
 extern "C" {
-    #[doc = " @brief Sets the region to the specified rect.\n\n @syscap SystemCapability.Graphic.Graphic2D.NativeDrawing\n @param region Indicates the pointer to an <b>OH_Drawing_Region</b> object.\n @param rect Indicates the pointer to an <b>OH_Drawing_Rect</b> object.\n @return Return true if constructed Region is not empty.\n @since 12\n @version 1.0"]
+    #[doc = " @brief Sets the boundary for an **OH_Drawing_Region** object.\n This API may return an error code. For details, call {@link OH_Drawing_ErrorCodeGet}.\n If either **region** or **rect** is NULL, **OH_DRAWING_ERROR_INVALID_PARAMETER** is returned.\n\n @param region Pointer to the {@link OH_Drawing_Region} object.\n @param rect Pointer to an **OH_Drawing_Rect** object.\n @return Returns **true** if the setting is successful; returns **false** otherwise.\n @since 12\n @version 1.0"]
     pub fn OH_Drawing_RegionSetRect(
         region: *mut OH_Drawing_Region,
         rect: *const OH_Drawing_Rect,
     ) -> bool;
 }
 extern "C" {
-    #[doc = " @brief Constructs region that matchs outline of path within clip.\n\n @syscap SystemCapability.Graphic.Graphic2D.NativeDrawing\n @param region Indicates the pointer to an <b>OH_Drawing_Region</b> object.\n @param path Indicates the pointer to an <b>OH_Drawing_Path</b> object.\n @param clip Indicates the pointer to an <b>OH_Drawing_Region</b> object.\n @return Returns <b>true</b> if constructed Region is not empty; returns <b>false</b> otherwise.\n @since 12\n @version 1.0"]
+    #[doc = " @brief Sets a region to the area described by the path.\n This API may return an error code. For details, call {@link OH_Drawing_ErrorCodeGet}.\n If **region**, **path**, or **clip** is NULL, **OH_DRAWING_ERROR_INVALID_PARAMETER** is returned.\n\n @param region Pointer to the {@link OH_Drawing_Region} object.\n @param path Pointer to the {@link OH_Drawing_Path} object.\n @param clip Pointer to the {@link OH_Drawing_Region} object.\n @return Returns **true** if the resulting region is not empty; returns false otherwise.\n @since 12\n @version 1.0"]
     pub fn OH_Drawing_RegionSetPath(
         region: *mut OH_Drawing_Region,
         path: *const OH_Drawing_Path,
@@ -5225,16 +5486,16 @@ extern "C" {
     ) -> bool;
 }
 extern "C" {
-    #[doc = " @brief Destroys an <b>OH_Drawing_Region</b> object and reclaims the memory occupied by the object.\n\n @syscap SystemCapability.Graphic.Graphic2D.NativeDrawing\n @param region Indicates the pointer to an <b>OH_Drawing_Region</b> object.\n @since 12\n @version 1.0"]
+    #[doc = " @brief Destroys an **OH_Drawing_Region** object and reclaims the memory occupied by the object.\n\n @param region Pointer to the {@link OH_Drawing_Region} object.\n @since 12\n @version 1.0"]
     pub fn OH_Drawing_RegionDestroy(region: *mut OH_Drawing_Region);
 }
 extern "C" {
-    #[doc = " @brief Set an <b>OH_Drawing_Region</b> empty.\n\n @param region Indicates the pointer to an <b>OH_Drawing_Region</b> object.\n @return Returns the error code.\n         Returns {@link OH_DRAWING_SUCCESS} if the operation is successful.\n         Returns {@link OH_DRAWING_ERROR_INCORRECT_PARAMETER} if region is nullptr.\n @since 22\n @version 1.0"]
+    #[doc = " @brief Sets the existing region to empty.\n\n @param region Pointer to the {@link OH_Drawing_Region} object.\n @return Returns one of the following result codes:\n **OH_DRAWING_SUCCESS** if the operation is successful.\n **OH_DRAWING_ERROR_INCORRECT_PARAMETER** if the **region** parameter is empty.\n @since 22\n @version 1.0"]
     #[cfg(feature = "api-22")]
     pub fn OH_Drawing_RegionEmpty(region: *mut OH_Drawing_Region) -> OH_Drawing_ErrorCode;
 }
 extern "C" {
-    #[doc = " @brief Set the path to the boundary of the region. If the region is empty, the path will also be empty.\n\n @param region Indicates the pointer to an <b>OH_Drawing_Region</b> object.\n @param path Indicates the pointer to an <b>OH_Drawing_Path</b> object.\n @return Returns the error code.\n         Returns {@link OH_DRAWING_SUCCESS} if the operation is successful.\n         Returns {@link OH_DRAWING_ERROR_INCORRECT_PARAMETER} if region or path is nullptr.\n @since 23"]
+    #[doc = " @brief Sets the path as the boundary of the region. If the region is empty, the path is also empty.\n\n @param region Pointer to the {@link OH_Drawing_Region} object.\n @param path Pointer to the {@link OH_Drawing_Path} object. It is used as an output parameter.\n @return Execution result.\n **OH_DRAWING_SUCCESS** if the operation is successful.\n **OH_DRAWING_ERROR_INCORRECT_PARAMETER** if **region** or **path** is a null pointer.\n @since 23"]
     #[cfg(feature = "api-23")]
     pub fn OH_Drawing_RegionGetBoundaryPath(
         region: *const OH_Drawing_Region,
@@ -5242,7 +5503,7 @@ extern "C" {
     ) -> OH_Drawing_ErrorCode;
 }
 extern "C" {
-    #[doc = " @brief Obtains the minimum bounding rectangle that encloses this path.\n\n @param region Indicates the pointer to an <b>OH_Drawing_Region</b> object.\n @param rect Indicates the pointer to an <b>OH_Drawing_Rect</b> object.\n @return Returns the error code.\n         Returns {@link OH_DRAWING_SUCCESS} if the operation is successful.\n         Returns {@link OH_DRAWING_ERROR_INCORRECT_PARAMETER} if region or rect is nullptr.\n @since 23"]
+    #[doc = " @brief Obtains the smallest bounding rectangle that contains the region.\n\n @param region Pointer to the {@link OH_Drawing_Region} object.\n @param rect Pointer to the {@link OH_Drawing_Rect} object. It is used as an output parameter.\n @return Execution result.\n **OH_DRAWING_SUCCESS** if the operation is successful.\n **OH_DRAWING_ERROR_INCORRECT_PARAMETER** if **region** or **rect** is a null pointer.\n @since 23"]
     #[cfg(feature = "api-23")]
     pub fn OH_Drawing_RegionGetBounds(
         region: *const OH_Drawing_Region,
@@ -5250,7 +5511,7 @@ extern "C" {
     ) -> OH_Drawing_ErrorCode;
 }
 extern "C" {
-    #[doc = " @brief Checks if the region contains more than one rectangle.\n\n @param region Indicates the pointer to an <b>OH_Drawing_Region</b> object.\n @param isComplex Indicates if the region is complex.\n @return Returns the error code.\n         Returns {@link OH_DRAWING_SUCCESS} if the operation is successful.\n         Returns {@link OH_DRAWING_ERROR_INCORRECT_PARAMETER} if region or isComplex is nullptr.\n @since 23"]
+    #[doc = " @brief Checks whether the region contains two or more rectangles.\n\n @param region Pointer to the {@link OH_Drawing_Region} object.\n @param isComplex Whether this region contains multiple rectangles. It is used as an output parameter. **true** means\n yes; **false** otherwise.\n @return Execution result.\n **OH_DRAWING_SUCCESS** if the operation is successful.\n **OH_DRAWING_ERROR_INCORRECT_PARAMETER** if **region** or **isComplex** is a null pointer.\n @since 23"]
     #[cfg(feature = "api-23")]
     pub fn OH_Drawing_RegionIsComplex(
         region: *const OH_Drawing_Region,
@@ -5258,7 +5519,7 @@ extern "C" {
     ) -> OH_Drawing_ErrorCode;
 }
 extern "C" {
-    #[doc = " @brief Checks if the region is empty.\n\n @param region Indicates the pointer to an <b>OH_Drawing_Region</b> object.\n @param isEmpty Indicates if the region is empty.\n @return Returns the error code.\n         Returns {@link OH_DRAWING_SUCCESS} if the operation is successful.\n         Returns {@link OH_DRAWING_ERROR_INCORRECT_PARAMETER} if region or isEmpty is nullptr.\n @since 23"]
+    #[doc = " @brief Checks whether the region is empty.\n\n @param region Pointer to the {@link OH_Drawing_Region} object.\n @param isEmpty Whether the region is empty. It is used as an output parameter. **true** means yes; **false**\n otherwise.\n @return Execution result.\n **OH_DRAWING_SUCCESS** if the operation is successful.\n **OH_DRAWING_ERROR_INCORRECT_PARAMETER** if **region** or **isEmpty** is a null pointer.\n @since 23"]
     #[cfg(feature = "api-23")]
     pub fn OH_Drawing_RegionIsEmpty(
         region: *const OH_Drawing_Region,
@@ -5266,7 +5527,7 @@ extern "C" {
     ) -> OH_Drawing_ErrorCode;
 }
 extern "C" {
-    #[doc = " @brief Checks if the region is equivalent to a single rectangle.\n\n @param region Indicates the pointer to an <b>OH_Drawing_Region</b> object.\n @param isRect Indicates if the region contains a single rectangle.\n @return Returns the error code.\n         Returns {@link OH_DRAWING_SUCCESS} if the operation is successful.\n         Returns {@link OH_DRAWING_ERROR_INCORRECT_PARAMETER} if region or isRect is nullptr.\n @since 23"]
+    #[doc = " @brief Checks whether the region the same as a rectangle.\n\n @param region Pointer to the {@link OH_Drawing_Region} object.\n @param isRect Whether the region the same as a rectangle. It is used as an output parameter. **true** means yes; **\n false** otherwise.\n @return Execution result.\n **OH_DRAWING_SUCCESS** if the operation is successful.\n **OH_DRAWING_ERROR_INCORRECT_PARAMETER** if **region** or **isRect** is a null pointer.\n @since 23"]
     #[cfg(feature = "api-23")]
     pub fn OH_Drawing_RegionIsRect(
         region: *const OH_Drawing_Region,
@@ -5274,7 +5535,7 @@ extern "C" {
     ) -> OH_Drawing_ErrorCode;
 }
 extern "C" {
-    #[doc = " @brief Checks if the region is equivalent to a single rectangle and it contains the specified rectangle.\n A false indicates that the region is not equivalent to a single rectangle or the rectangle is not contained by\n this region. A true is a guarantee that the rectangle is contained by this region.\n\n @param region Indicates the pointer to an <b>OH_Drawing_Region</b> object.\n @param left Indicates the left position of the rect.\n @param top Indicates the top position of the rect.\n @param right Indicates the right position of the rect.\n @param bottom Indicates the bottom position of the rect.\n @param isContained Indicates if the specified rectangle is contained in the region.\n @return Returns the error code.\n         Returns {@link OH_DRAWING_SUCCESS} if the operation is successful.\n         Returns {@link OH_DRAWING_ERROR_INCORRECT_PARAMETER} if region or isContained is nullptr.\n @since 23"]
+    #[doc = " @brief Checks whether the region is the same as a single rectangle and contains the specified rectangle.\n\n @param region Pointer to the {@link OH_Drawing_Region} object.\n @param left X coordinate of the upper left corner of the specified rectangle.\n @param top Y coordinate of the upper left corner of the specified rectangle.\n @param right X coordinate of the lower right corner of the specified rectangle.\n @param bottom Y coordinate of the lower right corner of the specified rectangle.\n @param isContained Whether the region is the same as a single rectangle and contains the specified rectangle. It is\n used as an output parameter.\n **true** if the current region is the same as a single rectangle and contains the specified rectangle; **false**\n otherwise.\n @return Execution result.\n **OH_DRAWING_SUCCESS** if the operation is successful.\n **OH_DRAWING_ERROR_INCORRECT_PARAMETER** if **region** or **isContained** is a null pointer.\n @since 23"]
     #[cfg(feature = "api-23")]
     pub fn OH_Drawing_RegionQuickContains(
         region: *const OH_Drawing_Region,
@@ -5286,7 +5547,7 @@ extern "C" {
     ) -> OH_Drawing_ErrorCode;
 }
 extern "C" {
-    #[doc = " @brief Checks if the region is empty, or if the specified rectangle does not intersect the region.\n\n @param region Indicates the pointer to an <b>OH_Drawing_Region</b> object.\n @param left Indicates the left position of the rect.\n @param top Indicates the top position of the rect.\n @param right Indicates the right position of the rect.\n @param bottom Indicates the bottom position of the rect.\n @param isReject Indicates if the specified rectangle does not intersect the region.\n @return Returns the error code.\n         Returns {@link OH_DRAWING_SUCCESS} if the operation is successful.\n         Returns {@link OH_DRAWING_ERROR_INCORRECT_PARAMETER} if region or isReject is nullptr.\n @since 23"]
+    #[doc = " @brief Checks whether the region is empty or does not intersect the specified rectangle.\n\n @param region Pointer to the {@link OH_Drawing_Region} object.\n @param left X coordinate of the upper left corner of the specified rectangle.\n @param top Y coordinate of the upper left corner of the specified rectangle.\n @param right X coordinate of the lower right corner of the specified rectangle.\n @param bottom Y coordinate of the lower right corner of the specified rectangle.\n @param isReject Whether the region is empty or whether the specified rectangle does not intersect with the region.\n It is used as an output parameter.\n **true** means yes; **false** otherwise.\n @return Execution result.\n **OH_DRAWING_SUCCESS** if the operation is successful.\n **OH_DRAWING_ERROR_INCORRECT_PARAMETER** if **region** or **isReject** is a null pointer.\n @since 23"]
     #[cfg(feature = "api-23")]
     pub fn OH_Drawing_RegionQuickReject(
         region: *const OH_Drawing_Region,
@@ -5298,7 +5559,7 @@ extern "C" {
     ) -> OH_Drawing_ErrorCode;
 }
 extern "C" {
-    #[doc = " @brief Translates the region by dx, dy. If the region is empty, do nothing.\n\n @param region Indicates the pointer to an <b>OH_Drawing_Region</b> object.\n @param dx Indicates the distance to translate on x-axis in pixels.\n @param dy Indicates the distance to translate on y-axis in pixels.\n @return Returns the error code.\n         Returns {@link OH_DRAWING_SUCCESS} if the operation is successful.\n         Returns {@link OH_DRAWING_ERROR_INCORRECT_PARAMETER} if region is nullptr.\n @since 23"]
+    #[doc = " @brief Translates the region by a specified distance on the X and Y axes. If the region is empty, no operation is\n performed.\n\n @param region Pointer to the {@link OH_Drawing_Region} object.\n @param dx Distance to be translated on the X axis, in pixels.\n @param dy Distance to be translated on the Y axis, in pixels.\n @return Execution result.\n **OH_DRAWING_SUCCESS** if the operation is successful.\n **OH_DRAWING_ERROR_INCORRECT_PARAMETER** if **region** is a null pointer.\n @since 23"]
     #[cfg(feature = "api-23")]
     pub fn OH_Drawing_RegionTranslate(
         region: *mut OH_Drawing_Region,
@@ -5307,24 +5568,24 @@ extern "C" {
     ) -> OH_Drawing_ErrorCode;
 }
 extern "C" {
-    #[doc = " @brief Defines an <b>OH_Drawing_RegisterFont</b>, which is used to register a customized font in the FontManager.\n\n @syscap SystemCapability.Graphic.Graphic2D.NativeDrawing\n @param OH_Drawing_FontCollection Indicates the pointer to an <b>OH_Drawing_FontCollection</b> object.\n @param fontFamily Indicates the family-name of the font which need to register.\n @param familySrc Indicates the path of the font file which need to register.\n @return error code.\n @since 11\n @version 1.0"]
+    #[doc = " @brief Registers a custom font with the font manager. The supported font file formats are .ttf and .otf.\n\n @syscap SystemCapability.Graphic.Graphic2D.NativeDrawing\n @param fontCollection Indicates the pointer to an <b>OH_Drawing_FontCollection</b> object.\n @param fontFamily Name of the font to register.\n @param familySrc Path to the font file to register.\n @return Result code.\n     <br>Returns 0 if the operation is successful.\n     <br>Returns 1 if the file does not exist.\n     <br>Returns 2 if opening the file fails.\n     <br>Returns 3 if reading the file fails.\n     <br>Returns 4 if seeking the file fails.\n     <br>Returns 5 if obtaining the file size fails.\n     <br>Returns 8 if fontCollection is NULL.\n     <br>Returns 9 if the file is corrupted.\n @since 11\n @version 1.0"]
     pub fn OH_Drawing_RegisterFont(
-        arg1: *mut OH_Drawing_FontCollection,
+        fontCollection: *mut OH_Drawing_FontCollection,
         fontFamily: *const ::std::os::raw::c_char,
         familySrc: *const ::std::os::raw::c_char,
     ) -> u32;
 }
 extern "C" {
-    #[doc = " @brief Defines an <b>OH_Drawing_RegisterFontBuffer</b>, which is used to register a customized font in the\n        FontManager.\n\n @syscap SystemCapability.Graphic.Graphic2D.NativeDrawing\n @param OH_Drawing_FontCollection Indicates the pointer to an <b>OH_Drawing_FontCollection</b> object.\n @param fontFamily Indicates the family-name of the font which need to register.\n @param fontBuffer Indicates the buffer of the font file which need to register.\n @param length Indicates the length of the font file which need to register.\n @return error code.\n @since 11\n @version 1.0"]
+    #[doc = " @brief Registers a font buffer in the font manager, supporting data read from ttf and otf files.\n\n @syscap SystemCapability.Graphic.Graphic2D.NativeDrawing\n @param fontCollection Indicates the pointer to an <b>OH_Drawing_FontCollection</b> object.\n @param fontFamily Font name of the font to register.\n @param fontBuffer Buffer of the font file to register.\n @param length Length of the font file to register. Must match the actual length of fontBuffer.\n @return Result code.\n     <br>Returns 0 if the operation is successful.\n     <br>Returns 6 if fontBuffer is NULL.\n     <br>Returns 7 if the buffer size is zero.\n     <br>Returns 8 if fontCollection is NULL.\n @since 11\n @version 1.0"]
     pub fn OH_Drawing_RegisterFontBuffer(
-        arg1: *mut OH_Drawing_FontCollection,
+        fontCollection: *mut OH_Drawing_FontCollection,
         fontFamily: *const ::std::os::raw::c_char,
         fontBuffer: *mut u8,
         length: usize,
     ) -> u32;
 }
 extern "C" {
-    #[doc = " @brief Defines an <b>OH_Drawing_RegisterFontByIndex</b>, which is used to register font from ttc file.\n\n @param fontCollection Indicates the pointer to an <b>OH_Drawing_FontCollection</b> object.\n @param fontFamily Indicates the family name of the font which need to register.\n @param familySrc Indicates the path of the font file which need to register.\n @param index Indicates the index of the font data in the ttc file.\n @return error code.\n @since 23"]
+    #[doc = " @brief Registers a custom font using a ttc/otc file, with the index parameter specifying the font index to register.\n\n @param fontCollection Pointer to an {@link OH_Drawing_FontCollection} object.\n @param fontFamily Family name of the font to register.\n @param familySrc Path of the font file to register.\n @param index Index of the font in the ttc/otc file. The value ranges from 0 to the total number of fonts minus 1.\n     For non-ttc/otc files, set this parameter to 0.\n @return Result code. 0 indicates function execution is successful, 1 indicates file does not exist, 2 indicates file\n     opening failure, 3 indicates file reading failure, 4 indicates file seeking failure, 5 indicates size obtaining\n     failure, 8 indicates fontCollection is NULL, and 9 indicates file corruption.\n @since 23"]
     #[cfg(feature = "api-23")]
     pub fn OH_Drawing_RegisterFontByIndex(
         fontCollection: *mut OH_Drawing_FontCollection,
@@ -5334,7 +5595,7 @@ extern "C" {
     ) -> u32;
 }
 extern "C" {
-    #[doc = " @brief Defines an <b>OH_Drawing_RegisterFontBufferByIndex</b>, which is used to register font from ttc buffer.\n\n @param fontCollection Indicates the pointer to an <b>OH_Drawing_FontCollection</b> object.\n @param fontFamily Indicates the family name of the font which need to register.\n @param fontBuffer Indicates the font data which need to register.\n @param length Indicates the font data length.\n @param index Indicates the index of the font data in the ttc file.\n @return error code.\n @since 23"]
+    #[doc = " @brief Registers a font using the font buffer of a TTC/OTC file.\n\n @param fontCollection Pointer to an {@link OH_Drawing_FontCollection} object.\n @param fontFamily Family name of the font to register.\n @param fontBuffer Font buffer of the font file to register.\n @param length Length of the byte stream data, which must match the actual length of fontBuffer.\n @param index Index of the font in the ttc/otc file. The value ranges from 0 to the number of fonts minus 1. For\n     files in non-ttc/otc formats, set this parameter to 0.\n @return Result code.\n     <br>Returns 0 the function is executed successfully.\n     <br>Returns 6 if fontBuffer is NULL.\n     <br>Returns 7 if the buffer size is zero.\n     <br>Returns 8 if fontCollection is NULL.\n     <br>Returns 9 if the file is corrupted.\n @since 23"]
     #[cfg(feature = "api-23")]
     pub fn OH_Drawing_RegisterFontBufferByIndex(
         fontCollection: *mut OH_Drawing_FontCollection,
@@ -5345,7 +5606,7 @@ extern "C" {
     ) -> u32;
 }
 extern "C" {
-    #[doc = " @brief Unregister a customized font by the font family.\n Unregistering a font that is currently in use by UI components may lead to text rendering anomalies,\n including garbled characters or missing glyphs.\n All typography using the unregistered font family should be destroyed and re-created.\n\n @syscap SystemCapability.Graphic.Graphic2D.NativeDrawing\n @param fontCollection Indicates the pointer to an <b>OH_Drawing_FontCollection</b> object.\n @param fontFamily Indicates the family-name of the font which need to be unregistered.\n @return error code.\n @since 20"]
+    #[doc = " @brief Unregisters a custom font by font name.\n <br>Unregistering a font that is currently in use may lead to text rendering exceptions (such as garbled characters\n or missing glyphs).\n <br>All typesetting objects that use the unregistered font name should be destroyed and recreated.\n\n @syscap SystemCapability.Graphic.Graphic2D.NativeDrawing\n @param fontCollection Pointer to an {@link OH_Drawing_FontCollection} object.\n @param fontFamily Font name to unregister.\n @return Result code. Returns 0 if the function is executed successfully, 8 if the input parameter is invalid, and 1\n     if the unregistration fails.\n @since 20"]
     #[cfg(feature = "api-20")]
     pub fn OH_Drawing_UnregisterFont(
         fontCollection: *mut OH_Drawing_FontCollection,
@@ -5353,27 +5614,27 @@ extern "C" {
     ) -> u32;
 }
 extern "C" {
-    #[doc = " @brief Checks whether the font format specified by the path is supported.\n\n @param path The absolute path to the font file.\n @return Returns true if the font is supported; otherwise, returns false.\n @since 23"]
+    #[doc = " @brief Checks whether the system supports the font format of the specified path.\n\n @param path Absolute path of the font file.\n @return Returns **true** if the font is supported; returns **false** otherwise.\n @since 23"]
     #[cfg(feature = "api-23")]
     pub fn OH_Drawing_IsFontSupportedFromPath(path: *const ::std::os::raw::c_char) -> bool;
 }
 extern "C" {
-    #[doc = " @brief Checks whether the font format specified by the buffer is supported.\n\n @param data A pointer to the memory buffer containing font data.\n @param dataLength The size of the font data in bytes.\n @return Returns true if the font is supported; otherwise, returns false.\n @since 23"]
+    #[doc = " @brief Checks whether the system supports the font format specified in the buffer.\n\n @param data Pointer to the buffer that contains the font data.\n @param dataLength Size of the font data, in bytes. Must match the actual length of data.\n @return Returns **true** if the font is supported; returns **false** otherwise.\n @since 23"]
     #[cfg(feature = "api-23")]
     pub fn OH_Drawing_IsFontSupportedFromBuffer(data: *mut u8, dataLength: usize) -> bool;
 }
-#[doc = " Index of top-left corner radii."]
+#[doc = " Top left corner of the rounded rectangle."]
 pub const OH_Drawing_CornerPos_CORNER_POS_TOP_LEFT: OH_Drawing_CornerPos = 0;
-#[doc = " Index of top-right corner radii."]
+#[doc = " Top right corner of the rounded rectangle."]
 pub const OH_Drawing_CornerPos_CORNER_POS_TOP_RIGHT: OH_Drawing_CornerPos = 1;
-#[doc = " Index of bottom-right corner radii."]
+#[doc = " Bottom right corner of the rounded rectangle."]
 pub const OH_Drawing_CornerPos_CORNER_POS_BOTTOM_RIGHT: OH_Drawing_CornerPos = 2;
-#[doc = " Index of bottom-left corner radii."]
+#[doc = " Bottom left corner of the rounded rectangle."]
 pub const OH_Drawing_CornerPos_CORNER_POS_BOTTOM_LEFT: OH_Drawing_CornerPos = 3;
-#[doc = " @brief Enumerates of corner radii position.\n\n @since 12\n @version 1.0"]
+#[doc = " @brief Defines an enum for the corner positions of a rounded rectangle.\n\n @since 12\n @version 1.0"]
 pub type OH_Drawing_CornerPos = u32;
 extern "C" {
-    #[doc = " @brief Creates an <b>OH_Drawing_RoundRect</b> object.\n\n @syscap SystemCapability.Graphic.Graphic2D.NativeDrawing\n @param rect Indicates the pointer to an <b>OH_Drawing_Rect</b> object.\n @param xRad Indicates the corner radii on x-axis.\n @param yRad Indicates the corner radii on y-axis.\n @return Returns the pointer to the <b>OH_Drawing_RoundRect</b> object created.\n @since 11\n @version 1.0"]
+    #[doc = " @brief Creates an **OH_Drawing_RoundRect** object. This API may return an error code. For details, call\n {@link OH_Drawing_ErrorCodeGet}\n .\n If **rect** is NULL, **OH_DRAWING_ERROR_INVALID_PARAMETER** is returned.\n\n @param rect Pointer to an **OH_Drawing_Rect** object.\n @param xRad Radius of the rounded corner on the X axis. A negative number is invalid.\n @param yRad Radius of the rounded corner on the Y axis. A negative number is invalid.\n @return Returns the pointer to the **OH_Drawing_RoundRect** object created.\n @since 11\n @version 1.0"]
     pub fn OH_Drawing_RoundRectCreate(
         rect: *const OH_Drawing_Rect,
         xRad: f32,
@@ -5381,14 +5642,14 @@ extern "C" {
     ) -> *mut OH_Drawing_RoundRect;
 }
 extern "C" {
-    #[doc = " @brief Creates an <b>OH_Drawing_RoundRect</b> copy object.\n\n @syscap SystemCapability.Graphic.Graphic2D.NativeDrawing\n @param roundRect Indicates the pointer to an <b>OH_Drawing_RoundRect</b> object to copy.\n @return Returns the pointer to the <b>OH_Drawing_RoundRect</b> object created.\n @since 20\n @version 1.0"]
+    #[doc = " @brief Creates a copy of a rounded rectangle.\n\n @param roundRect Pointer to an {@link OH_Drawing_RoundRect} object.\n @return Returns the pointer to the new **OH_Drawing_RoundRect** object created.\n @since 20\n @version 1.0"]
     #[cfg(feature = "api-20")]
     pub fn OH_Drawing_RoundRectCopy(
         roundRect: *const OH_Drawing_RoundRect,
     ) -> *mut OH_Drawing_RoundRect;
 }
 extern "C" {
-    #[doc = " @brief Sets the radiusX and radiusY for a specific corner position.\n\n @syscap SystemCapability.Graphic.Graphic2D.NativeDrawing\n @param roundRect Indicates the pointer to an <b>OH_Drawing_Rect</b> object.\n @param pos Indicates the corner radii position.\n @param radii Indicates the corner radii on x-axis and y-axis.\n @since 12\n @version 1.0"]
+    #[doc = " @brief Sets the radii of the specified rounded corner in this rounded rectangle.\n This API may return an error code. For details, call {@link OH_Drawing_ErrorCodeGet}.\n If **roundRect** is NULL, **OH_DRAWING_ERROR_INVALID_PARAMETER** is returned.\n\n @param roundRect Pointer to an **OH_Drawing_RoundRect** object.\n @param pos Position of the rounded corner. For details about the available options, see {@link OH_Drawing_CornerPos}.\n @param radii OH_Drawing_Corner_Radii struct, including the radii on the X axis and Y axis. A radius less than or\n equal to 0 is invalid.\n @since 12\n @version 1.0"]
     pub fn OH_Drawing_RoundRectSetCorner(
         roundRect: *mut OH_Drawing_RoundRect,
         pos: OH_Drawing_CornerPos,
@@ -5396,18 +5657,18 @@ extern "C" {
     );
 }
 extern "C" {
-    #[doc = " @brief Gets an <b>OH_Drawing_Corner_Radii</b> struct, the point is round corner radiusX and radiusY.\n\n @syscap SystemCapability.Graphic.Graphic2D.NativeDrawing\n @param roundRect Indicates the pointer to an <b>OH_Drawing_RoundRect</b> object.\n @param pos Indicates the corner radii position.\n @return Returns the corner radii of <b>OH_Drawing_Corner_Radii</b> struct.\n @since 12\n @version 1.0"]
+    #[doc = " @brief Obtains the radii of the specified rounded corner in a rounded rectangle.\n This API may return an error code. For details, call {@link OH_Drawing_ErrorCodeGet}.\n If **roundRect** is NULL, **OH_DRAWING_ERROR_INVALID_PARAMETER** is returned.\n\n @param roundRect Pointer to an **OH_Drawing_RoundRect** object.\n @param pos Position of the rounded corner. For details about the available options, see {@link OH_Drawing_CornerPos}.\n @return Returns an OH_Drawing_Corner_Radii struct, including the radii on the X axis and Y axis.\n @since 12\n @version 1.0"]
     pub fn OH_Drawing_RoundRectGetCorner(
         roundRect: *mut OH_Drawing_RoundRect,
         pos: OH_Drawing_CornerPos,
     ) -> OH_Drawing_Corner_Radii;
 }
 extern "C" {
-    #[doc = " @brief Destroys an <b>OH_Drawing_RoundRect</b> object and reclaims the memory occupied by the object.\n\n @syscap SystemCapability.Graphic.Graphic2D.NativeDrawing\n @param roundRect Indicates the pointer to an <b>OH_Drawing_RoundRect</b> object.\n @since 11\n @version 1.0"]
+    #[doc = " @brief Destroys an **OH_Drawing_RoundRect** object and reclaims the memory occupied by the object.\n\n @param roundRect Pointer to an **OH_Drawing_RoundRect** object.\n @since 11\n @version 1.0"]
     pub fn OH_Drawing_RoundRectDestroy(roundRect: *mut OH_Drawing_RoundRect);
 }
 extern "C" {
-    #[doc = " @brief Translates round rect by (dx, dy).\n\n @syscap SystemCapability.Graphic.Graphic2D.NativeDrawing\n @param roundRect Indicates the pointer to an <b>OH_Drawing_RoundRect</b> object.\n @param dx Indicates the offsets added to rect left and rect right.\n @param dy Indicates the offsets added to rect top and rect bottom.\n @return Returns the error code.\n         Returns {@link OH_DRAWING_SUCCESS} if the operation is successful.\n         Returns {@link OH_DRAWING_ERROR_INVALID_PARAMETER} if roundRect is nullptr.\n @since 12\n @version 1.0"]
+    #[doc = " @brief Translates a rounded rectangle by an offset along the X axis and Y axis.\n\n @param roundRect Pointer to an {@link OH_Drawing_Point2D} object.\n @param dx X offset.\n @param dy Y offset.\n @return Returns one of the following result codes:\n **OH_DRAWING_SUCCESS** if the operation is successful.\n **OH_DRAWING_ERROR_INVALID_PARAMETER** if **roundRect** is NULL.\n @since 12\n @version 1.0"]
     pub fn OH_Drawing_RoundRectOffset(
         roundRect: *mut OH_Drawing_RoundRect,
         dx: f32,
@@ -5415,7 +5676,7 @@ extern "C" {
     ) -> OH_Drawing_ErrorCode;
 }
 extern "C" {
-    #[doc = " @brief Creates an <b>OH_Drawing_ShadowLayer</b> object.\n\n @syscap SystemCapability.Graphic.Graphic2D.NativeDrawing\n @param blurRadius Indicates the blur radius of the shadow.\n @param x Indicates the offset point on x-axis.\n @param y Indicates the offset point on y-axis.\n @param color Indicates the shadow color.\n @return Returns the pointer to the <b>OH_Drawing_ShadowLayer</b> object created.\n @since 12\n @version 1.0"]
+    #[doc = " @brief Creates an **OH_Drawing_ShadowLayer** object.\n This API may return an error code. For details, call {@link OH_Drawing_ErrorCodeGet}.\n If **blurRadius** is less than or equal to 0, **OH_DRAWING_ERROR_PARAMETER_OUT_OF_RANGE** is returned.\n\n @param blurRadius Radius of the shadow layer. The value must be greater than 0.\n @param x Offset on the X axis.\n @param y Offset on the Y axis.\n @param color Color of the shadow.\n @return Returns the pointer to the **OH_Drawing_ShadowLayer** object created.\n @since 12\n @version 1.0"]
     pub fn OH_Drawing_ShadowLayerCreate(
         blurRadius: f32,
         x: f32,
@@ -5424,11 +5685,11 @@ extern "C" {
     ) -> *mut OH_Drawing_ShadowLayer;
 }
 extern "C" {
-    #[doc = " @brief Destroys an <b>OH_Drawing_ShadowLayer</b> object and reclaims the memory occupied by the object.\n\n @syscap SystemCapability.Graphic.Graphic2D.NativeDrawing\n @param shadowLayer Indicates the pointer to an <b>OH_Drawing_ShadowLayer</b> object.\n @since 12\n @version 1.0"]
+    #[doc = " @brief Destroys an **OH_Drawing_ShadowLayer** object and reclaims the memory occupied by the object.\n\n @param shadowLayer Pointer to the shadow layer.\n @since 12\n @version 1.0"]
     pub fn OH_Drawing_ShadowLayerDestroy(shadowLayer: *mut OH_Drawing_ShadowLayer);
 }
 extern "C" {
-    #[doc = " @brief Creates an <b>OH_Drawing_Surface</b> object on GPU indicated by context.\n\n @syscap SystemCapability.Graphic.Graphic2D.NativeDrawing\n @param gpuContext Indicates the pointer to an <b>OH_Drawing_GpuContext</b> object.\n @param flag Indicates whether an allocation should count against a cache budget.\n @param imageInfo Indicates the image info.\n @return Returns the pointer to the <b>OH_Drawing_Surface</b> object created.\n @since 12\n @version 1.0"]
+    #[doc = " @brief Creates an **OH_Drawing_Surface** object using the GPU context to manage the content drawn on the canvas.\n This API may return an error code. For details, call {@link OH_Drawing_ErrorCodeGet}.\n If **gpuContext** is NULL, **OH_DRAWING_ERROR_INVALID_PARAMETER** is returned.\n\n @param gpuContext Pointer to an {@link OH_Drawing_GpuContext} object.\n @param flag Whether the memory allocation is counted in the cache budget. **true** means yes; **false** otherwise.\n @param imageInfo Image information struct.\n @return Returns a pointer to the created {@link OH_Drawing_Surface} object.\n @since 12\n @version 1.0"]
     pub fn OH_Drawing_SurfaceCreateFromGpuContext(
         gpuContext: *mut OH_Drawing_GpuContext,
         flag: bool,
@@ -5436,7 +5697,7 @@ extern "C" {
     ) -> *mut OH_Drawing_Surface;
 }
 extern "C" {
-    #[doc = " @brief Creates an <b>OH_Drawing_Surface</b> object on GPU indicated by context which is on-screen.\n\n @syscap SystemCapability.Graphic.Graphic2D.NativeDrawing\n @param gpuContext Indicates the pointer to an <b>OH_Drawing_GpuContext</b> object.\n @param imageInfo Indicates the image info.\n @param window Indicates the pointer of the screen window.\n @return Returns the pointer to the <b>OH_Drawing_Surface</b> object created.\n @since 16\n @version 1.0"]
+    #[doc = " @brief Creates an **OH_Drawing_Surface** object bound to the window using the GPU context to manage the content\n drawn on the canvas.\n This API may return an error code. For details, call {@link OH_Drawing_ErrorCodeGet}.\n **OH_DRAWING_ERROR_INVALID_PARAMETER** if **gpuContext** or **window** is NULL.\n\n @param gpuContext Pointer to an {@link OH_Drawing_GpuContext} object.\n This object must be created by {@link OH_Drawing_GpuContextCreate}. Otherwise, the **OH_Drawing_Surface** object\n fails to be created.\n @param imageInfo Image information struct.\n @param window Pointer to the window object.\n @return Returns a pointer to the created {@link OH_Drawing_Surface} object.\n @since 16\n @version 1.0"]
     #[cfg(feature = "api-16")]
     pub fn OH_Drawing_SurfaceCreateOnScreen(
         gpuContext: *mut OH_Drawing_GpuContext,
@@ -5445,24 +5706,24 @@ extern "C" {
     ) -> *mut OH_Drawing_Surface;
 }
 extern "C" {
-    #[doc = " @brief Gets the canvas that draws into surface.\n\n @syscap SystemCapability.Graphic.Graphic2D.NativeDrawing\n @param surface Indicates the pointer to an <b>OH_Drawing_Surface</b> object.\n @return Returns the pointer to the <b>OH_Drawing_Canvas</b> object. The returned pointer does not need to be managed\n         by the caller.\n @since 12\n @version 1.0"]
+    #[doc = " @brief Obtains a canvas from an **OH_Drawing_Surface** object.\n This API may return an error code. For details, call {@link OH_Drawing_ErrorCodeGet}.\n If **surface** is NULL, **OH_DRAWING_ERROR_INVALID_PARAMETER** is returned.\n\n @param surface Pointer to an **OH_Drawing_Surface** object.\n @return Returns a pointer to the created {@link OH_Drawing_Canvas} object. The pointer returned does not need to be\n managed by the caller.\n @since 12\n @version 1.0"]
     pub fn OH_Drawing_SurfaceGetCanvas(surface: *mut OH_Drawing_Surface) -> *mut OH_Drawing_Canvas;
 }
 extern "C" {
-    #[doc = " @brief Resolves all pending GPU operations on the surface.\n\n @syscap SystemCapability.Graphic.Graphic2D.NativeDrawing\n @param surface Indicates the pointer to an <b>OH_Drawing_Surface</b> object.\n @return Returns the error code.\n         Returns {@link OH_DRAWING_SUCCESS} if the operation is successful.\n         Returns {@link OH_DRAWING_ERROR_INVALID_PARAMETER} if surface is nullptr.\n @since 16\n @version 1.0"]
+    #[doc = " @brief Pushes the drawing content from an **OH_Drawing_Surface** object to the GPU for rendering.\n\n @param surface Pointer to the created  {@link OH_Drawing_Surface}  object. This object must be created by calling\n {@link OH_Drawing_SurfaceCreateOnScreen}\n . Otherwise, calling the current API has no effect.\n @return Returns one of the following result codes:\n **OH_DRAWING_SUCCESS** if the operation is successful.\n **OH_DRAWING_ERROR_INVALID_PARAMETER** if **surface** is NULL.\n @since 16\n @version 1.0"]
     #[cfg(feature = "api-16")]
     pub fn OH_Drawing_SurfaceFlush(surface: *mut OH_Drawing_Surface) -> OH_Drawing_ErrorCode;
 }
 extern "C" {
-    #[doc = " @brief Destroys an <b>OH_Drawing_Surface</b> object and reclaims the memory occupied by the object.\n\n @syscap SystemCapability.Graphic.Graphic2D.NativeDrawing\n @param surface Indicates the pointer to an <b>OH_Drawing_Surface</b> object.\n @since 12\n @version 1.0"]
+    #[doc = " @brief Destroys an **OH_Drawing_Surface** object and reclaims the memory occupied.\n\n @param surface Pointer to an **OH_Drawing_Surface** object.\n @since 12\n @version 1.0"]
     pub fn OH_Drawing_SurfaceDestroy(surface: *mut OH_Drawing_Surface);
 }
 extern "C" {
-    #[doc = " @brief Creates an <b>OH_Drawing_TextBlobBuilder</b> object.\n\n @syscap SystemCapability.Graphic.Graphic2D.NativeDrawing\n @return Returns the pointer to the <b>OH_Drawing_TextBlobBuilder</b> object created.\n @since 11\n @version 1.0"]
+    #[doc = " @brief Creates an **OH_Drawing_TextBlobBuilder** object.\n\n @return Returns the pointer to the **OH_Drawing_TextBlobBuilder** object created.\n @since 11\n @version 1.0"]
     pub fn OH_Drawing_TextBlobBuilderCreate() -> *mut OH_Drawing_TextBlobBuilder;
 }
 extern "C" {
-    #[doc = " @brief Creates an <b>OH_Drawing_TextBlob</b> object from text.\n\n @syscap SystemCapability.Graphic.Graphic2D.NativeDrawing\n @param text Indicates the the pointer to text.\n @param byteLength Indicates the text length.\n @param font Indicates the pointer to an <b>OH_Drawing_Font</b> object.\n @param textEncoding Indicates the pointer to an <b>OH_Drawing_TextEncoding</b> object.\n @return Returns the pointer to the <b>OH_Drawing_TextBlob</b> object created.\n @since 12\n @version 1.0"]
+    #[doc = " @brief Creates an **OH_Drawing_TextBlob** object from the text.\n This API may return an error code. For details, call {@link OH_Drawing_ErrorCodeGet}.\n If either **text** or **font** is NULL, **OH_DRAWING_ERROR_INVALID_PARAMETER** is returned.\n If **textEncoding** is not set to one of the enumerated values, **OH_DRAWING_ERROR_PARAMETER_OUT_OF_RANGE** is\n returned.\n\n @param text Pointer to the text.\n @param byteLength Length of the text, in bytes.\n @param font Pointer to the {@link OH_Drawing_Font} object.\n @param textEncoding Text encoding type {@link OH_Drawing_TextEncoding}.\n @return Returns a pointer to the created {@link OH_Drawing_TextBlob} object.\n @since 12\n @version 1.0"]
     pub fn OH_Drawing_TextBlobCreateFromText(
         text: *const ::std::os::raw::c_void,
         byteLength: usize,
@@ -5471,7 +5732,7 @@ extern "C" {
     ) -> *mut OH_Drawing_TextBlob;
 }
 extern "C" {
-    #[doc = " @brief Creates an <b>OH_Drawing_TextBlob</b> object from pos text.\n\n @syscap SystemCapability.Graphic.Graphic2D.NativeDrawing\n @param text Indicates the the pointer to text.\n @param byteLength Indicates the text length.\n @param point2D Indicates the pointer to an <b>OH_Drawing_Point2D</b> array object.\n @param font Indicates the pointer to an <b>OH_Drawing_Font</b> object.\n @param textEncoding Indicates the pointer to an <b>OH_Drawing_TextEncoding</b> object.\n @return Returns the pointer to the <b>OH_Drawing_TextBlob</b> object created.\n @since 12\n @version 1.0"]
+    #[doc = " @brief Creates an **OH_Drawing_TextBlob** object from the text. The coordinates of each character in the **\n OH_Drawing_TextBlob** object are determined by the coordinate information in the **OH_Drawing_Point2D** array.\n This API may return an error code. For details, call {@link OH_Drawing_ErrorCodeGet}.\n If any of **text**, **point2D**, and **font** is NULL or **byteLength** is **0**, **\n OH_DRAWING_ERROR_INVALID_PARAMETER** is returned.\n If **textEncoding** is not set to one of the enumerated values, **OH_DRAWING_ERROR_PARAMETER_OUT_OF_RANGE** is\n returned.\n\n @param text Pointer to the text.\n @param byteLength Length of the text, in bytes.\n @param point2D Pointer to the start address of the  {@link OH_Drawing_Point2D}\n  array. The number of entries in the array is determined by  {@link OH_Drawing_FontCountText}\n .\n @param font Pointer to the {@link OH_Drawing_Font} object.\n @param textEncoding Text encoding type {@link OH_Drawing_TextEncoding}.\n @return Returns a pointer to the created {@link OH_Drawing_TextBlob} object.\n @since 12\n @version 1.0"]
     pub fn OH_Drawing_TextBlobCreateFromPosText(
         text: *const ::std::os::raw::c_void,
         byteLength: usize,
@@ -5481,7 +5742,7 @@ extern "C" {
     ) -> *mut OH_Drawing_TextBlob;
 }
 extern "C" {
-    #[doc = " @brief Creates an <b>OH_Drawing_TextBlob</b> object from pos text.\n\n @syscap SystemCapability.Graphic.Graphic2D.NativeDrawing\n @param str Indicates the the pointer to text.\n @param font Indicates the pointer to an <b>OH_Drawing_Font</b> object.\n @param textEncoding Indicates the pointer to an <b>OH_Drawing_TextEncoding</b> object.\n @return Returns the pointer to the <b>OH_Drawing_TextBlob</b> object created.\n @since 12\n @version 1.0"]
+    #[doc = " @brief Creates an **OH_Drawing_TextBlob** object from a string.\n This API may return an error code. For details, call {@link OH_Drawing_ErrorCodeGet}.\n If either **str** or **font** is NULL, **OH_DRAWING_ERROR_INVALID_PARAMETER** is returned.\n If **textEncoding** is not set to one of the enumerated values, **OH_DRAWING_ERROR_PARAMETER_OUT_OF_RANGE** is\n returned.\n\n @param str Pointer to a string.\n @param font Pointer to the {@link OH_Drawing_Font} object.\n @param textEncoding Text encoding type {@link OH_Drawing_TextEncoding}.\n @return Returns a pointer to the created {@link OH_Drawing_TextBlob} object.\n @since 12\n @version 1.0"]
     pub fn OH_Drawing_TextBlobCreateFromString(
         str_: *const ::std::os::raw::c_char,
         font: *const OH_Drawing_Font,
@@ -5489,31 +5750,31 @@ extern "C" {
     ) -> *mut OH_Drawing_TextBlob;
 }
 extern "C" {
-    #[doc = " @brief Gets the bounds of textblob, assigned to the pointer to an <b>OH_Drawing_Rect</b> object.\n\n @syscap SystemCapability.Graphic.Graphic2D.NativeDrawing\n @param textBlob Indicates the pointer to an <b>OH_Drawing_TextBlob</b> object.\n @param rect Indicates the pointer to an <b>OH_Drawing_Rect</b> object.\n @since 12\n @version 1.0"]
+    #[doc = " @brief Obtains the bounds of an **OH_Drawing_TextBlob** object.\n This API may return an error code. For details, call {@link OH_Drawing_ErrorCodeGet}.\n If either **textBlob** or **rect** is NULL, **OH_DRAWING_ERROR_INVALID_PARAMETER** is returned.\n\n @param textBlob Pointer to the {@link OH_Drawing_TextBlob} object.\n @param rect Pointer to the {@link OH_Drawing_Rect} object. You can call {@link OH_Drawing_Rect} to create a\n rectangle object.\n @since 12\n @version 1.0"]
     pub fn OH_Drawing_TextBlobGetBounds(
         textBlob: *mut OH_Drawing_TextBlob,
         rect: *mut OH_Drawing_Rect,
     );
 }
 extern "C" {
-    #[doc = " @brief Gets a non-zero value unique among all <b>OH_Drawing_TextBlob</b> objects.\n\n @syscap SystemCapability.Graphic.Graphic2D.NativeDrawing\n @param textBlob Indicates the pointer to an <b>OH_Drawing_TextBlob</b> object.\n @return Returns identifier for the <b>OH_Drawing_TextBlob</b> object.\n @since 12\n @version 1.0"]
+    #[doc = " @brief Obtains the unique identifier of a text blob. The identifier is a non-zero value.\n This API may return an error code. For details, call {@link OH_Drawing_ErrorCodeGet}.\n If **textBlob** is NULL, **OH_DRAWING_ERROR_INVALID_PARAMETER** is returned.\n\n @param textBlob Pointer to the {@link OH_Drawing_TextBlob} object.\n @return Returns the unique identifier of the text blob.\n @since 12\n @version 1.0"]
     pub fn OH_Drawing_TextBlobUniqueID(textBlob: *const OH_Drawing_TextBlob) -> u32;
 }
-#[doc = " @brief Defines a run, supplies storage for glyphs and positions.\n\n @since 11\n @version 1.0"]
+#[doc = " @brief This struct describes a run, which provides storage for glyphs and positions.\n\n @since 11\n @version 1.0"]
 #[repr(C)]
 #[derive(Debug, Copy, Clone)]
 pub struct OH_Drawing_RunBuffer {
-    #[doc = " storage for glyph indexes in run"]
+    #[doc = " Storage for glyph indexes in the run."]
     pub glyphs: *mut u16,
-    #[doc = " storage for glyph positions in run"]
+    #[doc = " Storage for glyph positions in the run."]
     pub pos: *mut f32,
-    #[doc = " storage for text UTF-8 code units in run"]
+    #[doc = " Storage for UTF-8 encoded text units in the run."]
     pub utf8text: *mut ::std::os::raw::c_char,
-    #[doc = " storage for glyph clusters (index of UTF-8 code unit)"]
+    #[doc = " Storage for glyph clusters (index of the UTF-8 encoded text unit) in the run."]
     pub clusters: *mut u32,
 }
 extern "C" {
-    #[doc = " @brief Alloc run with storage for glyphs and positions. The returned pointer does not need to be managed\n by the caller and is forbidden to be used after OH_Drawing_TextBlobBuilderMake is called.\n\n @syscap SystemCapability.Graphic.Graphic2D.NativeDrawing\n @param textBlobBuilder Indicates the pointer to an <b>OH_Drawing_TextBlobBuilder</b> object.\n @param font Indicates the pointer to an <b>OH_Drawing_Font</b> object.\n @param count Indicates the number of glyphs.\n @param rect Indicates the optional run bounding box.\n @since 11\n @version 1.0"]
+    #[doc = " @brief Allocates a run to store glyphs and positions. The pointer returned does not need to be managed by the caller.\n It can no longer be used after {@link OH_Drawing_TextBlobBuilderMake} is called.\n This API may return an error code. For details, call {@link OH_Drawing_ErrorCodeGet}.\n If either **textBlobBuilder** or **font** is NULL or **count** is less than or equal to 0, **\n OH_DRAWING_ERROR_INVALID_PARAMETER** is returned.\n\n @param textBlobBuilder Pointer to an **OH_Drawing_TextBlobBuilder** object.\n @param font Pointer to an **OH_Drawing_Font** object.\n @param count Number of text blobs.\n @param rect Rectangle of the text blob. The value NULL means that no rectangle is set.\n @return Returns the pointer to the **OH_Drawing_RunBuffer** object created.\n @since 11\n @version 1.0"]
     pub fn OH_Drawing_TextBlobBuilderAllocRunPos(
         textBlobBuilder: *mut OH_Drawing_TextBlobBuilder,
         font: *const OH_Drawing_Font,
@@ -5522,98 +5783,98 @@ extern "C" {
     ) -> *const OH_Drawing_RunBuffer;
 }
 extern "C" {
-    #[doc = " @brief Make an <b>OH_Drawing_TextBlob</b> from <b>OH_Drawing_TextBlobBuilder</b>.\n\n @syscap SystemCapability.Graphic.Graphic2D.NativeDrawing\n @param textBlobBuilder Indicates the pointer to an <b>OH_Drawing_TextBlobBuilder</b> object.\n @return Returns the pointer to the <b>OH_Drawing_TextBlob</b> object.\n @since 11\n @version 1.0"]
+    #[doc = " @brief Makes an **OH_Drawing_TextBlob** object from an **OH_Drawing_TextBlobBuilder**.\n This API may return an error code. For details, call {@link OH_Drawing_ErrorCodeGet}.\n If **textBlobBuilder** is NULL, **OH_DRAWING_ERROR_INVALID_PARAMETER** is returned.\n\n @param textBlobBuilder Pointer to an **OH_Drawing_TextBlobBuilder** object.\n @return Returns the pointer to the **OH_Drawing_TextBlob** object created.\n @since 11\n @version 1.0"]
     pub fn OH_Drawing_TextBlobBuilderMake(
         textBlobBuilder: *mut OH_Drawing_TextBlobBuilder,
     ) -> *mut OH_Drawing_TextBlob;
 }
 extern "C" {
-    #[doc = " @brief Destroys an <b>OH_Drawing_TextBlob</b> object and reclaims the memory occupied by the object.\n\n @syscap SystemCapability.Graphic.Graphic2D.NativeDrawing\n @param textBlob Indicates the pointer to an <b>OH_Drawing_TextBlob</b> object.\n @since 11\n @version 1.0"]
+    #[doc = " @brief Destroys an **OH_Drawing_TextBlob** object and reclaims the memory occupied by the object.\n\n @param textBlob Pointer to an **OH_Drawing_TextBlob** object.\n @since 11\n @version 1.0"]
     pub fn OH_Drawing_TextBlobDestroy(textBlob: *mut OH_Drawing_TextBlob);
 }
 extern "C" {
-    #[doc = " @brief Destroys an <b>OH_Drawing_TextBlobBuilder</b> object and reclaims the memory occupied by the object.\n\n @syscap SystemCapability.Graphic.Graphic2D.NativeDrawing\n @param textBlobBuilder Indicates the pointer to an <b>OH_Drawing_TextBlobBuilder</b> object.\n @since 11\n @version 1.0"]
+    #[doc = " @brief Destroys an **OH_Drawing_TextBlobBuilder** object and reclaims the memory occupied by the object.\n\n @param textBlobBuilder Pointer to an **OH_Drawing_TextBlobBuilder** object.\n @since 11\n @version 1.0"]
     pub fn OH_Drawing_TextBlobBuilderDestroy(textBlobBuilder: *mut OH_Drawing_TextBlobBuilder);
 }
-#[doc = " All font types"]
+#[doc = " All font types."]
 #[cfg(feature = "api-14")]
 pub const OH_Drawing_SystemFontType_ALL: OH_Drawing_SystemFontType = 1;
-#[doc = " System generic font type"]
+#[doc = " System font type."]
 #[cfg(feature = "api-14")]
 pub const OH_Drawing_SystemFontType_GENERIC: OH_Drawing_SystemFontType = 2;
-#[doc = " Stylish font type"]
+#[doc = " Style font type."]
 #[cfg(feature = "api-14")]
 pub const OH_Drawing_SystemFontType_STYLISH: OH_Drawing_SystemFontType = 4;
-#[doc = " Installed font types"]
+#[doc = " User-installed font type."]
 #[cfg(feature = "api-14")]
 pub const OH_Drawing_SystemFontType_INSTALLED: OH_Drawing_SystemFontType = 8;
-#[doc = " Customized font types\n @since 18"]
+#[doc = " Custom font type.\n @since 18"]
 #[cfg(feature = "api-18")]
 pub const OH_Drawing_SystemFontType_CUSTOMIZED: OH_Drawing_SystemFontType = 16;
-#[doc = " @brief An enumeration of system font types.\n\n @since 14"]
+#[doc = " @brief Defines an enum for the system font types.\n\n @since 14"]
 #[cfg(feature = "api-14")]
 pub type OH_Drawing_SystemFontType = u32;
-#[doc = " The file path of the font"]
+#[doc = " Font file path, of the {@link OH_Drawing_String} type."]
 #[cfg(feature = "api-22")]
 pub const OH_Drawing_FontFullDescriptorAttributeId_FULL_DESCRIPTOR_ATTR_S_PATH:
     OH_Drawing_FontFullDescriptorAttributeId = 0;
-#[doc = " A name that uniquely identifies the font"]
+#[doc = " Postscript font name, of the {@link OH_Drawing_String} type."]
 #[cfg(feature = "api-22")]
 pub const OH_Drawing_FontFullDescriptorAttributeId_FULL_DESCRIPTOR_ATTR_S_POSTSCRIPT_NAME:
     OH_Drawing_FontFullDescriptorAttributeId = 1;
-#[doc = " The full name of the font"]
+#[doc = " Font name, of the {@link OH_Drawing_String} type."]
 #[cfg(feature = "api-22")]
 pub const OH_Drawing_FontFullDescriptorAttributeId_FULL_DESCRIPTOR_ATTR_S_FULL_NAME:
     OH_Drawing_FontFullDescriptorAttributeId = 2;
-#[doc = " The family name of the font"]
+#[doc = " Font family name, of the {@link OH_Drawing_String} type."]
 #[cfg(feature = "api-22")]
 pub const OH_Drawing_FontFullDescriptorAttributeId_FULL_DESCRIPTOR_ATTR_S_FAMILY_NAME:
     OH_Drawing_FontFullDescriptorAttributeId = 3;
-#[doc = " The subfont family of the font"]
+#[doc = " Font subfamily name, of the {@link OH_Drawing_String} type."]
 #[cfg(feature = "api-22")]
 pub const OH_Drawing_FontFullDescriptorAttributeId_FULL_DESCRIPTOR_ATTR_S_SUB_FAMILY_NAME:
     OH_Drawing_FontFullDescriptorAttributeId = 4;
-#[doc = " The weight of the font"]
+#[doc = " Font weight, of the int type."]
 #[cfg(feature = "api-22")]
 pub const OH_Drawing_FontFullDescriptorAttributeId_FULL_DESCRIPTOR_ATTR_I_WEIGHT:
     OH_Drawing_FontFullDescriptorAttributeId = 5;
-#[doc = " The width of the font"]
+#[doc = " Font width style, of the int type."]
 #[cfg(feature = "api-22")]
 pub const OH_Drawing_FontFullDescriptorAttributeId_FULL_DESCRIPTOR_ATTR_I_WIDTH:
     OH_Drawing_FontFullDescriptorAttributeId = 6;
-#[doc = " Whether the font is tilted"]
+#[doc = " Whether the font is italic, of the int type. **1** means that the font is italic; **0** otherwise."]
 #[cfg(feature = "api-22")]
 pub const OH_Drawing_FontFullDescriptorAttributeId_FULL_DESCRIPTOR_ATTR_I_ITALIC:
     OH_Drawing_FontFullDescriptorAttributeId = 7;
-#[doc = " Whether the font is monospaced"]
+#[doc = " Whether the font is monospaced. The value is of the bool type. The value true means the font is monospaced, and\n false means the opposite."]
 #[cfg(feature = "api-22")]
 pub const OH_Drawing_FontFullDescriptorAttributeId_FULL_DESCRIPTOR_ATTR_B_MONO:
     OH_Drawing_FontFullDescriptorAttributeId = 8;
-#[doc = " whether symbolic fonts are supported"]
+#[doc = " Whether the font supports the symbol font, of the bool type. **true** means yes; **false** otherwise."]
 #[cfg(feature = "api-22")]
 pub const OH_Drawing_FontFullDescriptorAttributeId_FULL_DESCRIPTOR_ATTR_B_SYMBOLIC:
     OH_Drawing_FontFullDescriptorAttributeId = 9;
-#[doc = " The local postscript name of the font\n @since 23"]
+#[doc = " Extracts the postscript name of the font based on the system language configuration.\n @since 23"]
 #[cfg(feature = "api-23")]
 pub const OH_Drawing_FontFullDescriptorAttributeId_FULL_DESCRIPTOR_ATTR_S_LOCAL_POSTSCRIPT_NAME:
     OH_Drawing_FontFullDescriptorAttributeId = 10;
-#[doc = " The local full name of the font\n @since 23"]
+#[doc = " Extracts the full name of the font based on the system language configuration.\n @since 23"]
 #[cfg(feature = "api-23")]
 pub const OH_Drawing_FontFullDescriptorAttributeId_FULL_DESCRIPTOR_ATTR_S_LOCAL_FULL_NAME:
     OH_Drawing_FontFullDescriptorAttributeId = 11;
-#[doc = " The local family name of the font\n @since 23"]
+#[doc = " Extracts the font family name based on the system language configuration.\n @since 23"]
 #[cfg(feature = "api-23")]
 pub const OH_Drawing_FontFullDescriptorAttributeId_FULL_DESCRIPTOR_ATTR_S_LOCAL_FAMILY_NAME:
     OH_Drawing_FontFullDescriptorAttributeId = 12;
-#[doc = " The local sub family name of the font\n @since 23"]
+#[doc = " Extracts the font subfamily name based on the system language configuration.\n @since 23"]
 #[cfg(feature = "api-23")]
 pub const OH_Drawing_FontFullDescriptorAttributeId_FULL_DESCRIPTOR_ATTR_S_LOCAL_SUB_FAMILY_NAME:
     OH_Drawing_FontFullDescriptorAttributeId = 13;
-#[doc = " The version of the font\n @since 23"]
+#[doc = " Font version.\n @since 23"]
 #[cfg(feature = "api-23")]
 pub const OH_Drawing_FontFullDescriptorAttributeId_FULL_DESCRIPTOR_ATTR_S_VERSION:
     OH_Drawing_FontFullDescriptorAttributeId = 14;
-#[doc = " The manufacture of the font\n @since 23"]
+#[doc = " Font manufacturer information.\n @since 23"]
 #[cfg(feature = "api-23")]
 pub const OH_Drawing_FontFullDescriptorAttributeId_FULL_DESCRIPTOR_ATTR_S_MANUFACTURE:
     OH_Drawing_FontFullDescriptorAttributeId = 15;
@@ -5621,83 +5882,83 @@ pub const OH_Drawing_FontFullDescriptorAttributeId_FULL_DESCRIPTOR_ATTR_S_MANUFA
 #[cfg(feature = "api-23")]
 pub const OH_Drawing_FontFullDescriptorAttributeId_FULL_DESCRIPTOR_ATTR_S_COPYRIGHT:
     OH_Drawing_FontFullDescriptorAttributeId = 16;
-#[doc = " The trademark of the font\n @since 23"]
+#[doc = " Font trademark information.\n @since 23"]
 #[cfg(feature = "api-23")]
 pub const OH_Drawing_FontFullDescriptorAttributeId_FULL_DESCRIPTOR_ATTR_S_TRADEMARK:
     OH_Drawing_FontFullDescriptorAttributeId = 17;
-#[doc = " The license of the font\n @since 23"]
+#[doc = " Font license information.\n @since 23"]
 #[cfg(feature = "api-23")]
 pub const OH_Drawing_FontFullDescriptorAttributeId_FULL_DESCRIPTOR_ATTR_S_LICENSE:
     OH_Drawing_FontFullDescriptorAttributeId = 18;
-#[doc = " The array of the font variation axis\n @since 24"]
+#[doc = " Font variable axis array.\n @since 24"]
 #[cfg(feature = "api-24")]
 pub const OH_Drawing_FontFullDescriptorAttributeId_FULL_DESCRIPTOR_ATTR_O_VARIATION_AXIS:
     OH_Drawing_FontFullDescriptorAttributeId = 19;
-#[doc = " The array of the font variation instance\n @since 24"]
+#[doc = " Font variable instance array.\n @since 24"]
 #[cfg(feature = "api-24")]
 pub const OH_Drawing_FontFullDescriptorAttributeId_FULL_DESCRIPTOR_ATTR_O_VARIATION_INSTANCE:
     OH_Drawing_FontFullDescriptorAttributeId = 20;
-#[doc = " The font index in ttc file\n @since 23"]
+#[doc = " Font index.\n @since 23"]
 #[cfg(feature = "api-23")]
 pub const OH_Drawing_FontFullDescriptorAttributeId_FULL_DESCRIPTOR_ATTR_I_INDEX:
     OH_Drawing_FontFullDescriptorAttributeId = 21;
-#[doc = " @brief An enumeration of font full descriptor attribute.\n\n @since 22"]
+#[doc = " @brief Enumerates font descriptor attributes. You can use the corresponding APIs to obtain the attributes of\n different font descriptor types. For example, if **FULL_DESCRIPTOR_ATTR_I_WEIGHT** is of the int type, use the\n {@link OH_Drawing_GetFontFullDescriptorAttributeInt} API to obtain its attribute value.\n\n @since 22"]
 #[cfg(feature = "api-22")]
 pub type OH_Drawing_FontFullDescriptorAttributeId = u32;
-#[doc = " The key of the font variation axis"]
+#[doc = " Keyword identifier of the font variable axis."]
 #[cfg(feature = "api-24")]
 pub const OH_Drawing_FontVariationAxisAttributeId_FONT_VARIATION_AXIS_ATTR_S_KEY:
     OH_Drawing_FontVariationAxisAttributeId = 0;
-#[doc = " The min value of the font variation axis"]
+#[doc = " Minimum value of the font variable axis."]
 #[cfg(feature = "api-24")]
 pub const OH_Drawing_FontVariationAxisAttributeId_FONT_VARIATION_AXIS_ATTR_D_MIN_VALUE:
     OH_Drawing_FontVariationAxisAttributeId = 1;
-#[doc = " The max value of the font variation axis"]
+#[doc = " Maximum value of the font variable axis."]
 #[cfg(feature = "api-24")]
 pub const OH_Drawing_FontVariationAxisAttributeId_FONT_VARIATION_AXIS_ATTR_D_MAX_VALUE:
     OH_Drawing_FontVariationAxisAttributeId = 2;
-#[doc = " The default value of the font variation axis"]
+#[doc = " Default value of the font variable axis."]
 #[cfg(feature = "api-24")]
 pub const OH_Drawing_FontVariationAxisAttributeId_FONT_VARIATION_AXIS_ATTR_D_DEFAULT_VALUE:
     OH_Drawing_FontVariationAxisAttributeId = 3;
-#[doc = " The flags of the font variation axis"]
+#[doc = " Flag of the font variable axis. The value **0** indicates that the axis is visible to users, and the value **1**\n indicates that the axis should be hidden."]
 #[cfg(feature = "api-24")]
 pub const OH_Drawing_FontVariationAxisAttributeId_FONT_VARIATION_AXIS_ATTR_I_FLAGS:
     OH_Drawing_FontVariationAxisAttributeId = 4;
-#[doc = " The name of the font variation axis"]
+#[doc = " English name of the font variable axis."]
 #[cfg(feature = "api-24")]
 pub const OH_Drawing_FontVariationAxisAttributeId_FONT_VARIATION_AXIS_ATTR_S_NAME:
     OH_Drawing_FontVariationAxisAttributeId = 5;
-#[doc = " The local name of the font variation axis"]
+#[doc = " Localized name of the font variable axis."]
 #[cfg(feature = "api-24")]
 pub const OH_Drawing_FontVariationAxisAttributeId_FONT_VARIATION_AXIS_ATTR_S_LOCAL_NAME:
     OH_Drawing_FontVariationAxisAttributeId = 6;
-#[doc = " @brief An enumeration of font variation axis attribute.\n\n @since 24"]
+#[doc = " @brief Enumerates font variable axis attributes.\n\n @since 24"]
 #[cfg(feature = "api-24")]
 pub type OH_Drawing_FontVariationAxisAttributeId = u32;
-#[doc = " The name of the font variation instance"]
+#[doc = " English name of the font variable instance."]
 #[cfg(feature = "api-24")]
 pub const OH_Drawing_FontVariationInstanceAttributeId_FONT_VARIATION_INSTANCE_ATTR_S_NAME:
     OH_Drawing_FontVariationInstanceAttributeId = 0;
-#[doc = " The local name of the font variation instance"]
+#[doc = " Localized name of the font variable instance."]
 #[cfg(feature = "api-24")]
 pub const OH_Drawing_FontVariationInstanceAttributeId_FONT_VARIATION_INSTANCE_ATTR_S_LOCAL_NAME:
     OH_Drawing_FontVariationInstanceAttributeId = 1;
-#[doc = " @brief An enumeration of font variation instance attribute.\n\n @since 24"]
+#[doc = " @brief Enumerates font variable instance attributes.\n\n @since 24"]
 #[cfg(feature = "api-24")]
 pub type OH_Drawing_FontVariationInstanceAttributeId = u32;
-#[doc = " @brief Defines the font variation coordinate.\n\n @since 24"]
+#[doc = " @brief Variable font attribute key-value pair.\n\n @since 24"]
 #[cfg(feature = "api-24")]
 #[repr(C)]
 #[derive(Debug, Copy, Clone)]
 pub struct OH_Drawing_FontVariationInstanceCoordinate {
-    #[doc = " key of font variation coordinate"]
+    #[doc = " String identified by the keyword in the variable font attribute key-value pair."]
     pub axisKey: *mut ::std::os::raw::c_char,
-    #[doc = " value of font variation coordinate"]
+    #[doc = " Value of the variable font attribute key-value pair."]
     pub value: f64,
 }
 extern "C" {
-    #[doc = " @brief Obtain all system font descriptive symbols that match the specified font descriptor. Where the 'path'\n fields are not considered as valid matching values, It takes effect when the remaining fields are not\n default values, If all the fields of the parameters <b>OH_Drawing_FontDescriptor</b> are default, obtain all system\n font descriptors. If the match fails, return nullptr.\n\n @syscap SystemCapability.Graphic.Graphic2D.NativeDrawing\n @param desc The pointer to the <b>OH_Drawing_FontDescriptor</b> object. It is recommended to\n use <b>OH_Drawing_CreateFontDescriptor</b> to obtain a valid <b>OH_Drawing_FontDescriptor</b> instance.\n If you create your own <b>OH_Drawing_FontDescriptor</b> object, ensure that fields not intended for matching are\n set to their default values.\n @param num Indicates the count of obtained <b>OH_Drawing_FontDescriptor</b>.\n @return Returns an array of <b>OH_Drawing_FontDescriptor</b>. Released through the\n <b>OH_Drawing_DestroyFontDescriptors</b> interface after use.\n @since 18"]
+    #[doc = " @brief Obtains all system font descriptors that match a font descriptor. In the {@link OH_Drawing_FontDescriptor}\n struct, the **path** field is not used for matching, and other fields are valid only when they are not set to their\n default values.\n <br>If all fields in **desc** are set to their default values, all system font descriptors are returned.\n <br>If no matching is found, NULL is returned. Call {@link OH_Drawing_DestroyFontDescriptors} to release this\n pointer when the object is no longer needed.\n\n @syscap SystemCapability.Graphic.Graphic2D.NativeDrawing\n @param desc Pointer to the {@link OH_Drawing_FontDescriptor} object.\n     <br>It is recommended to use {@link OH_Drawing_CreateFontDescriptor} to obtain a valid\n     {@link OH_Drawing_FontDescriptor} instance.\n     <br>If you create a {@link OH_Drawing_FontDescriptor} instance yourself, ensure that the fields not used for\n     matching are set to default values.\n @param num Output parameter. Used to receive the number of members in the returned array.\n @return An array of {@link OH_Drawing_FontDescriptor} objects. Use {@link OH_Drawing_DestroyFontDescriptors} to\n     release the array.\n @since 18"]
     #[cfg(feature = "api-18")]
     pub fn OH_Drawing_MatchFontDescriptors(
         desc: *mut OH_Drawing_FontDescriptor,
@@ -5705,7 +5966,7 @@ extern "C" {
     ) -> *mut OH_Drawing_FontDescriptor;
 }
 extern "C" {
-    #[doc = " @brief Releases the <b>OH_Drawing_FontDescriptor</b> array.\n\n @syscap SystemCapability.Graphic.Graphic2D.NativeDrawing\n @param descriptors <b>OH_Drawing_FontDescriptor</b> object array.\n @param num Represents the number of members of the <b>OH_Drawing_FontDescriptor</b> array.\n @since 18"]
+    #[doc = " @brief Releases an array of {@link OH_Drawing_FontDescriptor} objects.\n\n @syscap SystemCapability.Graphic.Graphic2D.NativeDrawing\n @param descriptors Pointer to the array of {@link OH_Drawing_FontDescriptor} objects to be released.\n @param num Number of members in an array of {@link OH_Drawing_FontDescriptor} objects.\n @since 18"]
     #[cfg(feature = "api-18")]
     pub fn OH_Drawing_DestroyFontDescriptors(
         descriptors: *mut OH_Drawing_FontDescriptor,
@@ -5713,7 +5974,7 @@ extern "C" {
     );
 }
 extern "C" {
-    #[doc = " @brief Get the <b>OH_Drawing_FontDescriptor</b> object by the font full name and the font type, supporting generic\n fonts, stylish fonts, and installed fonts.\n\n @syscap SystemCapability.Graphic.Graphic2D.NativeDrawing\n @param fullName Indicates the full name object <b>OH_Drawing_String</b>.\n @param fontType Indicates enumerates of system font type object <b>OH_Drawing_SystemFontType</b>.\n @return Returns the pointer to a font descriptor object <b>OH_Drawing_FontDescriptor</b>.\n @since 14"]
+    #[doc = " @brief Obtains the specified font descriptor based on the font name and font type. This API supports system fonts,\n style fonts, and user-installed fonts. If the acquisition fails, NULL is returned.\n <br>A font descriptor is a data structure that describes font characteristics. It contains detailed information that\n defines the appearance and properties of a font.\n\n @syscap SystemCapability.Graphic.Graphic2D.NativeDrawing\n @param fullName Pointer to the font name, which is {@link OH_Drawing_String}.\n @param fontType Enum for the system font types, which is {@link OH_Drawing_SystemFontType}.\n @return Pointer to an {@link OH_Drawing_FontDescriptor} object. Call {@link OH_Drawing_DestroyFontDescriptor} to\n     release this pointer when the object is no longer needed.\n @since 14"]
     #[cfg(feature = "api-14")]
     pub fn OH_Drawing_GetFontDescriptorByFullName(
         fullName: *const OH_Drawing_String,
@@ -5721,14 +5982,14 @@ extern "C" {
     ) -> *mut OH_Drawing_FontDescriptor;
 }
 extern "C" {
-    #[doc = " @brief Obtain the corresponding font full name array by the font type.\n\n @syscap SystemCapability.Graphic.Graphic2D.NativeDrawing\n @param fontType Indicates enumerates of system font type object <b>OH_Drawing_SystemFontType</b>.\n @return Returns the pointer to full name array object <b>OH_Drawing_Array</b>.\n @since 14"]
+    #[doc = " @brief Obtains an array of font names by font type.\n\n @syscap SystemCapability.Graphic.Graphic2D.NativeDrawing\n @param fontType Enum for the system font types, which is {@link OH_Drawing_SystemFontType}.\n @return Returns the pointer to the {@link OH_Drawing_Array} object of the corresponding font type. Call\n     {@link OH_Drawing_DestroySystemFontFullNames} to release this pointer when the object is no longer needed.\n @since 14"]
     #[cfg(feature = "api-14")]
     pub fn OH_Drawing_GetSystemFontFullNamesByType(
         fontType: OH_Drawing_SystemFontType,
     ) -> *mut OH_Drawing_Array;
 }
 extern "C" {
-    #[doc = " @brief Get the specified full name object <b>OH_Drawing_String</b> by index from the\n <b>OH_Drawing_Array</b> object.\n\n @syscap SystemCapability.Graphic.Graphic2D.NativeDrawing\n @param fullNameArray Indicates an array of full name object <b>OH_Drawing_Array</b>.\n @param index The index of full name.\n @return Returns a full name object <b>OH_Drawing_String</b>.\n @since 14"]
+    #[doc = " @brief Obtains the font name at the corresponding position in the font name array by index. If the index is out of\n range or the array is invalid, NULL is returned.\n\n @syscap SystemCapability.Graphic.Graphic2D.NativeDrawing\n @param fullNameArray Pointer to an {@link OH_Drawing_Array} object.\n @param index Index of the font in the array.\n @return Returns the pointer to the font name, which is an {@link OH_Drawing_String} object.\n @since 14"]
     #[cfg(feature = "api-14")]
     pub fn OH_Drawing_GetSystemFontFullNameByIndex(
         fullNameArray: *mut OH_Drawing_Array,
@@ -5736,12 +5997,12 @@ extern "C" {
     ) -> *const OH_Drawing_String;
 }
 extern "C" {
-    #[doc = " @brief Releases the memory occupied by an array of font full names.\n\n @syscap SystemCapability.Graphic.Graphic2D.NativeDrawing\n @param fullNameArray Indicates an array of full name object <b>OH_Drawing_Array</b>.\n @since 14"]
+    #[doc = " @brief Releases the memory occupied by the font name array obtained by font type.\n\n @syscap SystemCapability.Graphic.Graphic2D.NativeDrawing\n @param fullNameArray Pointer to an {@link OH_Drawing_Array} object.\n @since 14"]
     #[cfg(feature = "api-14")]
     pub fn OH_Drawing_DestroySystemFontFullNames(fullNameArray: *mut OH_Drawing_Array);
 }
 extern "C" {
-    #[doc = " @brief Retrieves an array of font full descriptors from raw binary data.\n\n @param data Pointer to the raw binary font data buffer.\n @param size Size of the font data buffer in bytes.\n @return Returns a pointer to <b>OH_Drawing_Array</b> containing font full descriptors.\n         Returns <b>NULL</b> if the operation fails due to invalid data format or parsing errors.\n @since 22"]
+    #[doc = " @brief Obtains the font descriptor array based on the original binary data.\n\n @param data Pointer to the raw binary font data buffer.\n @param size Size of the font data buffer, in bytes.\n @return Returns the pointer to the {@link OH_Drawing_Array} array of the font descriptor corresponding to the font\n     file. Call {@link OH_Drawing_DestroyFontFullDescriptors} to release the pointer when the **OH_Drawing_Array**\n     object is no longer needed.\n     <br>Returns NULL if the operation fails due to an invalid data format or parsing error.\n @since 22"]
     #[cfg(feature = "api-22")]
     pub fn OH_Drawing_GetFontFullDescriptorsFromStream(
         data: *const ::std::os::raw::c_void,
@@ -5749,14 +6010,14 @@ extern "C" {
     ) -> *mut OH_Drawing_Array;
 }
 extern "C" {
-    #[doc = " @brief Obtains an array of font full descriptors from font file path.\n\n @param path The font file path.\n @return Returns a pointer to <b>OH_Drawing_Array</b> structure containing font full descriptors.\n         Returns <b>NULL</b> if no fonts are found, invalid path, no permission, or non-font file.\n @since 22"]
+    #[doc = " @brief Obtains an array of font descriptors based on the font file path.\n\n @param path Path of the font file to be queried.\n @return Returns the pointer to the {@link OH_Drawing_Array} array of the font descriptor corresponding to the font\n     file. Call {@link OH_Drawing_DestroyFontFullDescriptors} to release the pointer when the **OH_Drawing_Array**\n     object is no longer needed.\n     <br>Returns NULL if the font file is not found, the font file path is invalid, the font file does not have the\n     required permission, or the file is not in the font format.\n @since 22"]
     #[cfg(feature = "api-22")]
     pub fn OH_Drawing_GetFontFullDescriptorsFromPath(
         path: *const ::std::os::raw::c_char,
     ) -> *mut OH_Drawing_Array;
 }
 extern "C" {
-    #[doc = " @brief Retrieves a font full descriptor from an array by index.\n\n @param descriptorArray Pointer to the array of font full descriptors <b>OH_Drawing_Array</b>.\n @param index Zero-based index position of the descriptor to retrieve.\n @return Returns a pointer to <b>OH_Drawing_FontFullDescriptor</b> at the specified index.\n         Returns <b>NULL</b> if the index is out of bounds or the array is invalid.\n @since 22"]
+    #[doc = " @brief Obtains the font descriptor from the font descriptor array based on the index.\n\n @param descriptorArray Pointer to the font descriptor array {@link OH_Drawing_Array}.\n @param index Index of the array, starting from 0.\n @return Returns the pointer to the font descriptor object {@link OH_Drawing_FontFullDescriptor} at the specified\n     index.\n     <br>Returns NULL if the index is out of range or the array is invalid.\n @since 22"]
     #[cfg(feature = "api-22")]
     pub fn OH_Drawing_GetFontFullDescriptorByIndex(
         descriptorArray: *mut OH_Drawing_Array,
@@ -5764,17 +6025,17 @@ extern "C" {
     ) -> *const OH_Drawing_FontFullDescriptor;
 }
 extern "C" {
-    #[doc = " @brief Releases the memory occupied by an array of font full descriptors.\n\n @param descriptorArray Pointer to the array of font full descriptors <b>OH_Drawing_Array</b>.\n @since 22"]
+    #[doc = " @brief Releases the memory occupied by the font descriptor array.\n\n @param descriptorArray Pointer to the font descriptor array {@link OH_Drawing_Array}.\n @since 22"]
     #[cfg(feature = "api-22")]
     pub fn OH_Drawing_DestroyFontFullDescriptors(descriptorArray: *mut OH_Drawing_Array);
 }
 extern "C" {
-    #[doc = " @brief Releases the memory occupied by the font full descriptor. This function is used to free the pointer\n     allocated by <b>OH_Drawing_GetFontFullDescriptorByFullName<b> function.\n\n @param descriptor Pointer to the font full descriptor <b>OH_Drawing_FontFullDescriptor</b>.\n @since 24"]
+    #[doc = " @brief Releases the memory occupied by the font descriptor pointer. This function can be used to release the font\n descriptor pointer obtained by the {@link OH_Drawing_GetFontFullDescriptorByFullName} API.\n\n @param descriptor Pointer to the font descriptor object {@link OH_Drawing_FontFullDescriptor}.\n @since 24"]
     #[cfg(feature = "api-24")]
     pub fn OH_Drawing_DestroyFontFullDescriptor(descriptor: *const OH_Drawing_FontFullDescriptor);
 }
 extern "C" {
-    #[doc = " @brief Defines an <b>OH_Drawing_GetFontUnicodeArrayFromFile</b>, which is used to get unicode from font file.\n\n @param fontSrc Indicates the path of the font file.\n @param index Indicates the index of the font data in the ttc file.\n @param unicodeArray Output parameter to receive unicode, When no longer needed, use 'free()' to release.\n @param arrayLength Output parameter to receive the length of the unicode array.\n @return error code.\n         Returns <b>OH_DRAWING_SUCCESS</b> if the operation is successful.\n         Returns <b>OH_DRAWING_ERROR_INCORRECT_PARAMETER</b> if the fontSrc is invalid or non-font file.\n @since 23"]
+    #[doc = " @brief Obtains the Unicode code array from a font file.\n\n @param fontSrc Font file path.\n @param index Index of the font in the ttc/otc file. The value ranges from 0 to Font Count minus 1. Set this\n     parameter to 0 for non-ttc/otc files.\n @param unicodeArray Output parameter, which is used to receive the Unicode array. Use **free()** to release the\n     Unicode array when the array is no longer needed.\n @param arrayLength Output parameter, which is used to receive the length of the Unicode array.\n @return Result code.\n     <br>Returns OH_DRAWING_SUCCESS if the operation is successful.\n     <br>Returns OH_DRAWING_ERROR_INCORRECT_PARAMETER if the font path is invalid, a non-font file is passed in, or\n     the unicodeArray or arrayLength parameter is NULL.\n @since 23"]
     #[cfg(feature = "api-23")]
     pub fn OH_Drawing_GetFontUnicodeArrayFromFile(
         fontSrc: *const ::std::os::raw::c_char,
@@ -5784,7 +6045,7 @@ extern "C" {
     ) -> OH_Drawing_ErrorCode;
 }
 extern "C" {
-    #[doc = " @brief Defines an <b>OH_Drawing_GetFontUnicodeArrayFromBuffer</b>, which is used to get unicode from font buffer.\n\n @param fontBuffer Indicates the font data.\n @param length Indicates the font data length.\n @param index Indicates the index of the font data in the ttc file.\n @param unicodeArray Output parameter to receive unicode, When no longer needed, use 'free()' to release.\n @param arrayLength Output parameter to receive the length of the unicode array.\n @return error code.\n         Returns <b>OH_DRAWING_SUCCESS</b> if the operation is successful.\n         Returns <b>OH_DRAWING_ERROR_INCORRECT_PARAMETER</b> if the fontBuffer is invalid or non-font buffer.\n @since 23"]
+    #[doc = " @brief Obtains the Unicode code array from a font byte stream buffer.\n\n @param fontBuffer Font file data.\n @param length Length of the font file data.\n @param index Index of the font in the ttc/otc file. The value ranges from 0 to Font Count - 1. For non-ttc/otc files,\n     set this parameter to 0.\n @param unicodeArray Output parameter, which is used to receive the Unicode array. Use **free()** to release the\n     Unicode array when the array is no longer needed.\n @param arrayLength Output parameter, which is used to receive the length of the Unicode array.\n @return Result code.\n     <br>Returns OH_DRAWING_SUCCESS if the operation is successful.\n     <br>Returns OH_DRAWING_ERROR_INCORRECT_PARAMETER if the cached data is invalid, the cached data is not font file\n     data, or the parameters unicodeArray and arrayLength are NULL.\n @since 23"]
     #[cfg(feature = "api-23")]
     pub fn OH_Drawing_GetFontUnicodeArrayFromBuffer(
         fontBuffer: *mut u8,
@@ -5795,7 +6056,7 @@ extern "C" {
     ) -> OH_Drawing_ErrorCode;
 }
 extern "C" {
-    #[doc = " @brief Retrieves an integer attribute value from a font full descriptor.\n\n @param descriptor Pointer to the font full descriptor <b>OH_Drawing_FontFullDescriptor</b>.\n @param id Attribute identifier from <b>OH_Drawing_FontFullDescriptorAttributeId</b> enumeration.\n @param value Output parameter to receive the requested integer attribute value.\n @return Returns the error code.\n         Returns <b>OH_DRAWING_SUCCESS</b> if the operation is successful.\n         Returns <b>OH_DRAWING_ERROR_INCORRECT_PARAMETER</b> if the descriptor or value is NULL.\n         Returns <b>OH_DRAWING_ERROR_ATTRIBUTE_ID_MISMATCH</b> if the attribute id is not recognized or supported.\n @since 22"]
+    #[doc = " @brief Obtains the attributes of a font descriptor of the int type.\n\n @param descriptor Pointer to the font descriptor object {@link OH_Drawing_FontFullDescriptor}.\n @param id Font descriptor attribute ID. You can obtain the font descriptor attribute from\n     {@link OH_Drawing_FontFullDescriptorAttributeId}.\n @param value Pointer to the attribute of the **int** type. It is used as an output parameter.\n @return Returns the execution result.\n     <br>**OH_DRAWING_SUCCESS** if the operation is successful.\n     <br>**OH_DRAWING_ERROR_INCORRECT_PARAMETER** if the descriptor or value parameter is null.\n     <br>**OH_DRAWING_ERROR_ATTRIBUTE_ID_MISMATCH** if the input attribute ID does not match the called function.\n @since 22"]
     #[cfg(feature = "api-22")]
     pub fn OH_Drawing_GetFontFullDescriptorAttributeInt(
         descriptor: *const OH_Drawing_FontFullDescriptor,
@@ -5804,7 +6065,7 @@ extern "C" {
     ) -> OH_Drawing_ErrorCode;
 }
 extern "C" {
-    #[doc = " @brief Retrieves a boolean attribute value from a font full descriptor.\n\n @param descriptor Pointer to the font full descriptor <b>OH_Drawing_FontFullDescriptor</b>.\n @param id Attribute identifier from <b>OH_Drawing_FontFullDescriptorAttributeId</b> enumeration.\n @param value Output parameter to receive the requested boolean attribute value.\n @return Returns the error code.\n         Returns <b>OH_DRAWING_SUCCESS</b> if the operation is successful.\n         Returns <b>OH_DRAWING_ERROR_INCORRECT_PARAMETER</b> if the descriptor or value is NULL.\n         Returns <b>OH_DRAWING_ERROR_ATTRIBUTE_ID_MISMATCH</b> if the attribute id is not recognized or supported.\n @since 22"]
+    #[doc = " @brief Obtains the font descriptor attribute of the bool type.\n\n @param descriptor Pointer to the font descriptor object {@link OH_Drawing_FontFullDescriptor}.\n @param id Font descriptor attribute ID. You can obtain the font descriptor attribute from\n     {@link OH_Drawing_FontFullDescriptorAttributeId}.\n @param value Pointer to the bool attribute It is used as an output parameter.\n @return Returns the execution result.\n     <br>**OH_DRAWING_SUCCESS** if the operation is successful.\n     <br>**OH_DRAWING_ERROR_INCORRECT_PARAMETER** if the descriptor or value parameter is null.\n     <br>**OH_DRAWING_ERROR_ATTRIBUTE_ID_MISMATCH** if the input attribute ID does not match the called function.\n @since 22"]
     #[cfg(feature = "api-22")]
     pub fn OH_Drawing_GetFontFullDescriptorAttributeBool(
         descriptor: *const OH_Drawing_FontFullDescriptor,
@@ -5813,7 +6074,7 @@ extern "C" {
     ) -> OH_Drawing_ErrorCode;
 }
 extern "C" {
-    #[doc = " @brief Retrieves a string attribute value from a font full descriptor.\n\n @note The caller is responsible for manually releasing the internal <b>strData</b> member of the\n       <b>OH_Drawing_String</b> structure when it is no longer needed.\n\n @param descriptor Pointer to the font full descriptor <b>OH_Drawing_FontFullDescriptor</b>.\n @param id Attribute identifier from <b>OH_Drawing_FontFullDescriptorAttributeId</b> enumeration.\n @param str Output parameter to receive pointer to the requested string attribute value.\n @return Returns the error code.\n         Returns <b>OH_DRAWING_SUCCESS</b> if the operation is successful.\n         Returns <b>OH_DRAWING_ERROR_INCORRECT_PARAMETER</b> if the descriptor or str is NULL.\n         Returns <b>OH_DRAWING_ERROR_ATTRIBUTE_ID_MISMATCH</b> if the attribute id is not recognized or supported.\n @since 22"]
+    #[doc = " @brief Obtains the attributes of the {@link OH_Drawing_String} font descriptor.\n\n @note The caller is responsible for manually releasing the internal <b>strData</b> member of the\n     <b>OH_Drawing_String</b> structure when it is no longer needed.\n\n @param descriptor Pointer to the font descriptor object {@link OH_Drawing_FontFullDescriptor}.\n @param id Font descriptor attribute ID. You can obtain the font descriptor attribute from\n     {@link OH_Drawing_FontFullDescriptorAttributeId}.\n @param str Pointer to the **OH_Drawing_String** attribute. It is used as an output parameter.\n @return Returns the execution result.\n     <br>**OH_DRAWING_SUCCESS** if the operation is successful.\n     <br>**OH_DRAWING_ERROR_INCORRECT_PARAMETER** if **descriptor** or **str** is a null pointer.\n     <br>**OH_DRAWING_ERROR_ATTRIBUTE_ID_MISMATCH** if the input attribute ID does not match the called function.\n @since 22"]
     #[cfg(feature = "api-22")]
     pub fn OH_Drawing_GetFontFullDescriptorAttributeString(
         descriptor: *const OH_Drawing_FontFullDescriptor,
@@ -5822,7 +6083,7 @@ extern "C" {
     ) -> OH_Drawing_ErrorCode;
 }
 extern "C" {
-    #[doc = " @brief Retrieves a object array attribute value from a font full descriptor.\n\n @param descriptor Pointer to the font full descriptor <b>OH_Drawing_FontFullDescriptor</b>.\n @param id Attribute identifier from <b>OH_Drawing_FontFullDescriptorAttributeId</b> enumeration.\n @return Return the object array\n @since 24"]
+    #[doc = " @brief Obtains the object array attributes of the font descriptor.\n\n @param descriptor Pointer to the font descriptor object {@link OH_Drawing_FontFullDescriptor}.\n @param id Font descriptor attribute ID. You can obtain the font descriptor attribute from\n     {@link OH_Drawing_FontFullDescriptorAttributeId}.\n @return Array of objects returned, or NULL if the retrieval fails. When id is FULL_DESCRIPTOR_ATTR_O_VARIATION_AXIS,\n     use the {@link OH_Drawing_DestroyFontVariationAxis} API to release it when it is no longer needed. When id is\n     FULL_DESCRIPTOR_ATTR_O_VARIATION_INSTANCE, use the {@link OH_Drawing_DestroyFontVariationInstance} API to\n     release it when it is no longer needed.\n @since 24"]
     #[cfg(feature = "api-24")]
     pub fn OH_Drawing_GetFontFullDescriptorAttributeArray(
         descriptor: *const OH_Drawing_FontFullDescriptor,
@@ -5830,7 +6091,7 @@ extern "C" {
     ) -> *mut OH_Drawing_Array;
 }
 extern "C" {
-    #[doc = " @brief Retrieves a font variation axis from an array by index.\n\n @param array Pointer to the array of font variation axis <b>OH_Drawing_Array</b>.\n @param index Zero-based index position of the variation axis to retrieve.\n @return Returns a pointer to <b>OH_Drawing_FontVariationAxis</b> at the specified index.\n         Returns <b>NULL</b> if the index is out of bounds or the array is invalid.\n @since 24"]
+    #[doc = " @brief Obtains the corresponding font variable axis from the font variable axis array by index.\n\n @param array Pointer to the font variation axis array {@link OH_Drawing_Array}, obtained through\n     {@link OH_Drawing_GetFontFullDescriptorAttributeArray}.\n @param index Index of the array, starting from 0.\n @return Returns the pointer to the font variable axis object {@link OH_Drawing_FontVariationAxis} at the specified\n     index.\n     <br>Returns NULL if the index is out of range or the array is invalid.\n @since 24"]
     #[cfg(feature = "api-24")]
     pub fn OH_Drawing_GetFontVariationAxisByIndex(
         array: *mut OH_Drawing_Array,
@@ -5838,12 +6099,12 @@ extern "C" {
     ) -> *mut OH_Drawing_FontVariationAxis;
 }
 extern "C" {
-    #[doc = " @brief Releases the memory occupied by an array of font variation axis.\n\n @param fontVariaAxisArray Indicates an array of font variation axis object <b>OH_Drawing_Array</b>.\n @since 24"]
+    #[doc = " @brief Releases the memory occupied by the font variable axis array.\n\n @param fontVariaAxisArray Pointer to the font variable axis array object {@link OH_Drawing_Array}.\n @since 24"]
     #[cfg(feature = "api-24")]
     pub fn OH_Drawing_DestroyFontVariationAxis(fontVariaAxisArray: *mut OH_Drawing_Array);
 }
 extern "C" {
-    #[doc = " @brief Retrieves a double attribute value from a font variation axis.\n\n @param variationAxis Pointer to the font variation axis <b>OH_Drawing_FontVariationAxis</b>.\n @param id Attribute identifier from <b>OH_Drawing_FontVariationAxisAttributeId</b> enumeration.\n @param value Output parameter to receive the requested double attribute value.\n @return Returns the error code.\n         Returns <b>OH_DRAWING_SUCCESS</b> if the operation is successful.\n         Returns <b>OH_DRAWING_ERROR_INCORRECT_PARAMETER</b> if the variationAxis or value is NULL.\n         Returns <b>OH_DRAWING_ERROR_ATTRIBUTE_ID_MISMATCH</b> if the attribute id is not recognized or supported.\n @since 24"]
+    #[doc = " @brief Obtains the font variable axis attributes of the double type.\n\n @param variationAxis Pointer to the font variable axis object {@link OH_Drawing_FontVariationAxis}.\n @param id Font variable axis attribute ID. You can obtain the font variable axis attribute from\n     {@link OH_Drawing_FontVariationAxisAttributeId}.\n @param value Pointer to the attributes of the double type. It is used as an output parameter.\n @return Returns the execution result.\n     <br>**OH_DRAWING_SUCCESS** if the operation is successful.\n     <br>**OH_DRAWING_ERROR_INCORRECT_PARAMETER** if the parameter **variationAxis** or **value** is a null pointer.\n     <br>**OH_DRAWING_ERROR_ATTRIBUTE_ID_MISMATCH** if the input attribute ID does not match the called function.\n @since 24"]
     #[cfg(feature = "api-24")]
     pub fn OH_Drawing_GetFontVariationAxisAttributeDouble(
         variationAxis: *mut OH_Drawing_FontVariationAxis,
@@ -5852,7 +6113,7 @@ extern "C" {
     ) -> OH_Drawing_ErrorCode;
 }
 extern "C" {
-    #[doc = " @brief Retrieves a int attribute value from a font variation axis.\n\n @param variationAxis Pointer to the font variation axis <b>OH_Drawing_FontVariationAxis</b>.\n @param id Attribute identifier from <b>OH_Drawing_FontVariationAxisAttributeId</b> enumeration.\n @param value Output parameter to receive the requested int attribute value.\n @return Returns the error code.\n         Returns <b>OH_DRAWING_SUCCESS</b> if the operation is successful.\n         Returns <b>OH_DRAWING_ERROR_INCORRECT_PARAMETER</b> if the variationAxis or value is NULL.\n         Returns <b>OH_DRAWING_ERROR_ATTRIBUTE_ID_MISMATCH</b> if the attribute id is not recognized or supported.\n @since 24"]
+    #[doc = " @brief Obtains the font variable axis attributes of the int type.\n\n @param variationAxis Pointer to the font variable axis object {@link OH_Drawing_FontVariationAxis}.\n @param id Font variable axis attribute ID. You can obtain the font variable axis attribute from\n     {@link OH_Drawing_FontVariationAxisAttributeId}.\n @param value Pointer to the attribute of the **int** type. It is used as an output parameter.\n @return Returns the execution result.\n     <br>**OH_DRAWING_SUCCESS** if the operation is successful.\n     <br>**OH_DRAWING_ERROR_INCORRECT_PARAMETER** if the parameter **variationAxis** or **value** is a null pointer.\n     <br>**OH_DRAWING_ERROR_ATTRIBUTE_ID_MISMATCH** if the input attribute ID does not match the called function.\n @since 24"]
     #[cfg(feature = "api-24")]
     pub fn OH_Drawing_GetFontVariationAxisAttributeInt(
         variationAxis: *mut OH_Drawing_FontVariationAxis,
@@ -5861,7 +6122,7 @@ extern "C" {
     ) -> OH_Drawing_ErrorCode;
 }
 extern "C" {
-    #[doc = " @brief Retrieves a string attribute value from a font variation axis.\n\n @note The caller is responsible for manually releasing the internal <b>strData</b> member of the\n       <b>OH_Drawing_String</b> structure when it is no longer needed.\n\n @param variationAxis Pointer to the font variation axis <b>OH_Drawing_FontVariationAxis</b>.\n @param id Attribute identifier from <b>OH_Drawing_FontVariationAxisAttributeId</b> enumeration.\n @param str Output parameter to receive pointer to the requested string attribute value.\n @return Returns the error code.\n         Returns <b>OH_DRAWING_SUCCESS</b> if the operation is successful.\n         Returns <b>OH_DRAWING_ERROR_INCORRECT_PARAMETER</b> if the variationAxis or str is NULL.\n         Returns <b>OH_DRAWING_ERROR_ATTRIBUTE_ID_MISMATCH</b> if the attribute id is not recognized or supported.\n @since 24"]
+    #[doc = " @brief Obtains the font variable axis attributes of the {@link OH_Drawing_String} type.\n\n @note The caller is responsible for manually releasing the internal <b>strData</b> member of the\n     <b>OH_Drawing_String</b> structure when it is no longer needed.\n\n @param variationAxis Pointer to the font variable axis object {@link OH_Drawing_FontVariationAxis}.\n @param id Font variable axis attribute ID. You can obtain the font variable axis attribute from\n     {@link OH_Drawing_FontVariationAxisAttributeId}.\n @param str Pointer to the **OH_Drawing_String** attribute. It is used as an output parameter.\n @return Returns the execution result.\n     <br>**OH_DRAWING_SUCCESS** if the operation is successful.\n     <br>**OH_DRAWING_ERROR_INCORRECT_PARAMETER** if the parameter **variationAxis** or **str** is a null pointer.\n     <br>**OH_DRAWING_ERROR_ATTRIBUTE_ID_MISMATCH** if the input attribute ID does not match the called function.\n @since 24"]
     #[cfg(feature = "api-24")]
     pub fn OH_Drawing_GetFontVariationAxisAttributeStr(
         variationAxis: *mut OH_Drawing_FontVariationAxis,
@@ -5870,7 +6131,7 @@ extern "C" {
     ) -> OH_Drawing_ErrorCode;
 }
 extern "C" {
-    #[doc = " @brief Retrieves a font variation instance from an array by index.\n\n @param array Pointer to the array of font variation instance <b>OH_Drawing_Array</b>.\n @param index Zero-based index position of the variation instance to retrieve.\n @return Returns a pointer to <b>OH_Drawing_FontVariationInstance</b> at the specified index.\n         Returns <b>NULL</b> if the index is out of bounds or the array is invalid.\n @since 24"]
+    #[doc = " @brief Obtains the corresponding font variable instance from the font variable instance array by index.\n\n @param array Pointer to the font variation instance array {@link OH_Drawing_Array}. Obtained through\n     {@link OH_Drawing_GetFontFullDescriptorAttributeArray}.\n @param index Index of the array, starting from 0.\n @return Returns the pointer to the font variable instance object {@link OH_Drawing_FontVariationInstance} at the\n     specified index.\n     <br>Returns NULL if the index is out of range or the array is invalid.\n @since 24"]
     #[cfg(feature = "api-24")]
     pub fn OH_Drawing_GetFontVariationInstanceByIndex(
         array: *mut OH_Drawing_Array,
@@ -5878,12 +6139,12 @@ extern "C" {
     ) -> *mut OH_Drawing_FontVariationInstance;
 }
 extern "C" {
-    #[doc = " @brief Releases the memory occupied by an array of font variation instance.\n\n @param fontVariaAxisInstance Indicates an array of font variation instance object <b>OH_Drawing_Array</b>.\n @since 24"]
+    #[doc = " @brief Releases the memory occupied by the font variable instance array.\n\n @param fontVariaAxisInstance Pointer to the font variable instance array object {@link OH_Drawing_Array}.\n @since 24"]
     #[cfg(feature = "api-24")]
     pub fn OH_Drawing_DestroyFontVariationInstance(fontVariaAxisInstance: *mut OH_Drawing_Array);
 }
 extern "C" {
-    #[doc = " @brief Retrieves a string attribute value from a font variation instance.\n\n @note The caller is responsible for manually releasing the internal <b>strData</b> member of the\n       <b>OH_Drawing_String</b> structure when it is no longer needed.\n\n @param variationInstance Pointer to the font variation instance <b>OH_Drawing_FontVariationInstance</b>.\n @param id Attribute identifier from <b>OH_Drawing_FontVariationInstanceAttributeId</b> enumeration.\n @param str Output parameter to receive pointer to the requested string attribute value.\n @return Returns the error code.\n         Returns <b>OH_DRAWING_SUCCESS</b> if the operation is successful.\n         Returns <b>OH_DRAWING_ERROR_INCORRECT_PARAMETER</b> if the variationInstance or str is NULL.\n         Returns <b>OH_DRAWING_ERROR_ATTRIBUTE_ID_MISMATCH</b> if the attribute id is not recognized or supported.\n @since 24"]
+    #[doc = " @brief Obtains the font variable instance attributes of the {@link OH_Drawing_String} type.\n\n @note The caller is responsible for manually releasing the internal <b>strData</b> member of the\n     <b>OH_Drawing_String</b> structure when it is no longer needed.\n\n @param variationInstance Pointer to the font variable instance object {@link OH_Drawing_FontVariationInstance}.\n @param id Font variable instance attribute ID. You can obtain the font variable instance attribute from\n     {@link OH_Drawing_FontVariationInstanceAttributeId}.\n @param str Pointer to the **OH_Drawing_String** attribute. It is used as an output parameter.\n @return Returns the execution result.\n     <br>**OH_DRAWING_SUCCESS** if the operation is successful.\n     <br>**OH_DRAWING_ERROR_INCORRECT_PARAMETER** if the parameter **variationInstance** or **str** is a null pointer.\n     <br>**OH_DRAWING_ERROR_ATTRIBUTE_ID_MISMATCH** if the input attribute ID does not match the called function.\n @since 24"]
     #[cfg(feature = "api-24")]
     pub fn OH_Drawing_GetFontVariationInstanceAttributeStr(
         variationInstance: *mut OH_Drawing_FontVariationInstance,
@@ -5892,7 +6153,7 @@ extern "C" {
     ) -> OH_Drawing_ErrorCode;
 }
 extern "C" {
-    #[doc = " @brief Get the <b>OH_Drawing_FontVariationInstanceCoordinate</b> object.\n\n @param variationInstance Indicates the variation instance.\n @param arrayLength Indicates the length of OH_Drawing_FontVariationInstanceCoordinate list.\n @return Returns the pointer to a font variation coordinate list.\n @since 24"]
+    #[doc = " @brief Obtains the variable font attribute object of the font variable instance.\n\n @param variationInstance Pointer to the font variable instance.\n @param arrayLength Pointer to the list length of OH_Drawing_FontVariationInstanceCoordinate.\n @return Pointer to the font variation instance coordinate list. NULL if variationInstance is invalid.\n @since 24"]
     #[cfg(feature = "api-24")]
     pub fn OH_Drawing_GetFontVariationInstanceCoordinate(
         variationInstance: *mut OH_Drawing_FontVariationInstance,
@@ -5900,7 +6161,7 @@ extern "C" {
     ) -> *mut OH_Drawing_FontVariationInstanceCoordinate;
 }
 extern "C" {
-    #[doc = " @brief Get the <b>OH_Drawing_FontFullDescriptor</b> object by the font full name and the font type.\n\n @param fullName Indicates the full name object <b>OH_Drawing_String</b>.\n @param fontType Indicates enumerates of system font type object <b>OH_Drawing_SystemFontType</b>.\n @return Returns the pointer to a font full descriptor object <b>OH_Drawing_FontFullDescriptor</b>.\n     Release it through the {@link OH_Drawing_DestroyFontFullDescriptor} function after use.\n @since 24"]
+    #[doc = " @brief Obtains the complete font descriptor object based on the font name and type.\n\n @param fullName Pointer to the font name object {@link OH_Drawing_String}.\n @param fontType Enum for the system font type object, which is {@link OH_Drawing_SystemFontType}.\n @return Returns the pointer to the complete font descriptor object {@link OH_Drawing_FontFullDescriptor}. If\n     OH_Drawing_FontFullDescriptor is not required, use the {@link OH_Drawing_DestroyFontFullDescriptor} API to\n     release the pointer of the object.\n @since 24"]
     #[cfg(feature = "api-24")]
     pub fn OH_Drawing_GetFontFullDescriptorByFullName(
         fullName: *const OH_Drawing_String,
@@ -5908,80 +6169,80 @@ extern "C" {
     ) -> *const OH_Drawing_FontFullDescriptor;
 }
 extern "C" {
-    #[doc = " @brief Defines an <b>OH_Drawing_GetFontCountFromFile</b>, which is used to get font count from font file.\n\n @param fontSrc Indicates the path of the font file.\n @return font count.\n @since 23"]
+    #[doc = " @brief Obtains the number of fonts contained in a font file.\n\n @param fontSrc Font file path.\n @return Number of fonts.\n @since 23"]
     #[cfg(feature = "api-23")]
     pub fn OH_Drawing_GetFontCountFromFile(fontSrc: *const ::std::os::raw::c_char) -> u32;
 }
 extern "C" {
-    #[doc = " @brief Defines an <b>OH_Drawing_GetFontCountFromBuffer</b>, which is used to get font count from font buffer.\n\n @param fontBuffer Indicates the font data.\n @param length Indicates the font data length.\n @return font count.\n @since 23"]
+    #[doc = " @brief Obtains the number of fonts contained in a font buffer.\n\n @param fontBuffer Font buffer data.\n @param length Length of the font data.\n @return Number of fonts.\n @since 23"]
     #[cfg(feature = "api-23")]
     pub fn OH_Drawing_GetFontCountFromBuffer(fontBuffer: *mut u8, length: usize) -> u32;
 }
 extern "C" {
-    #[doc = " @brief Get the font path list.\n @param fontType Indicates enumerates of system font type object <b>OH_Drawing_SystemFontType</b>.\n @param pathCount The count of return path list.\n @return Returns a font path object <b>OH_Drawing_String</b> list.\n @since 23"]
+    #[doc = " @brief Obtains all font file paths of the specified font type.\n\n @param fontType Enum for the system font types, which is {@link OH_Drawing_SystemFontType}.\n @param pathCount Output parameter, used to receive the number of font paths returned.\n @return List of font paths returned. When no longer needed, use free to release the pointer to this object and the\n     pointer held internally by each OH_Drawing_String object.\n @since 23"]
     #[cfg(feature = "api-23")]
     pub fn OH_Drawing_GetFontPathsByType(
         fontType: OH_Drawing_SystemFontType,
         pathCount: *mut usize,
     ) -> *mut OH_Drawing_String;
 }
-#[doc = " Follow system's high contrast settings for text rendering"]
+#[doc = " Follows the high contrast mode for text rendering in the system settings."]
 #[cfg(feature = "api-20")]
 pub const OH_Drawing_TextHighContrast_TEXT_FOLLOW_SYSTEM_HIGH_CONTRAST:
     OH_Drawing_TextHighContrast = 0;
-#[doc = " Disable high contrast rendering regardless of system settings"]
+#[doc = " Disables the app's text rendering high contrast configuration. The priority of this mode is higher than the high\n contrast text configuration in system settings."]
 #[cfg(feature = "api-20")]
 pub const OH_Drawing_TextHighContrast_TEXT_APP_DISABLE_HIGH_CONTRAST: OH_Drawing_TextHighContrast =
     1;
-#[doc = " Enable high contrast rendering regardless of system settings"]
+#[doc = " Enables the app's text rendering high contrast configuration. The priority of this mode is higher than the high\n contrast text configuration in system settings."]
 #[cfg(feature = "api-20")]
 pub const OH_Drawing_TextHighContrast_TEXT_APP_ENABLE_HIGH_CONTRAST: OH_Drawing_TextHighContrast =
     2;
-#[doc = " @brief Defines text rendering high contrast mode to enhance readability.\n @since 20\n @version 1.0"]
+#[doc = " @brief Defines an enum of the high contrast modes for text rendering.\n\n @since 20\n @version 1.0"]
 #[cfg(feature = "api-20")]
 pub type OH_Drawing_TextHighContrast = u32;
-#[doc = " Uses the glyph defined in the font file, which could be an empty box, blank space, or custom symbol etc."]
+#[doc = " Uses the default glyph (which may be a blank box, space, or custom symbol) defined in the font file."]
 #[cfg(feature = "api-20")]
 pub const OH_Drawing_TextUndefinedGlyphDisplay_TEXT_NO_GLYPH_USE_DEFAULT:
     OH_Drawing_TextUndefinedGlyphDisplay = 0;
-#[doc = " Always render tofu blocks for missing glyphs."]
+#[doc = " Always uses tofu blocks to represent absent glyphs."]
 #[cfg(feature = "api-20")]
 pub const OH_Drawing_TextUndefinedGlyphDisplay_TEXT_NO_GLYPH_USE_TOFU:
     OH_Drawing_TextUndefinedGlyphDisplay = 1;
-#[doc = " @brief Visual representations for undefined (.notdef) glyphs.\n\n @syscap SystemCapability.Graphic.Graphic2D.NativeDrawing\n @since 20"]
+#[doc = " @brief Defines an enum of the modes for displaying undefined glyphs.\n\n @syscap SystemCapability.Graphic.Graphic2D.NativeDrawing\n @since 20"]
 #[cfg(feature = "api-20")]
 pub type OH_Drawing_TextUndefinedGlyphDisplay = u32;
 extern "C" {
-    #[doc = " @brief Sets high contrast mode of text rendering.\n\n @syscap SystemCapability.Graphic.Graphic2D.NativeDrawing\n @param action <b>OH_Drawing_TextHighContrast</b> object.\n @since 20"]
+    #[doc = " @brief Sets the high contrast mode for text rendering.\n <br>The setting of this API takes effect for the entire process, and all pages in the process share the same mode.\n <br>The text rendering high contrast mode can be set by calling this API, or enabled/disabled through the high\n contrast text configuration switch in the system settings screen. The text rendering high contrast mode set by this\n API takes precedence over the system settings.\n <br>This API does not take effect for the text drawing scenario.\n\n @syscap SystemCapability.Graphic.Graphic2D.NativeDrawing\n @param action High contrast mode for text rendering. The value is an enumerated value of the\n     {@link OH_Drawing_TextHighContrast} type.\n @since 20"]
     #[cfg(feature = "api-20")]
     pub fn OH_Drawing_SetTextHighContrast(action: OH_Drawing_TextHighContrast);
 }
 extern "C" {
-    #[doc = " @brief Controls how undefined glyphs are visually presented, affects all text rendered after this call.\n\n @syscap SystemCapability.Graphic.Graphic2D.NativeDrawing\n @param undefinedGlyphDisplay Indicates a <b>OH_Drawing_TextUndefinedGlyphDisplay</b> to be set.\n @since 20"]
+    #[doc = " @brief Sets the presentation mode of undefined glyphs. After this API is called, it affects all subsequently\n rendered text in the current process.\n\n @syscap SystemCapability.Graphic.Graphic2D.NativeDrawing\n @param undefinedGlyphDisplay Mode of displaying undefined glyphs. The value is an enumerated value of the\n     {@link OH_Drawing_TextUndefinedGlyphDisplay} type.\n @since 20"]
     #[cfg(feature = "api-20")]
     pub fn OH_Drawing_SetTextUndefinedGlyphDisplay(
         undefinedGlyphDisplay: OH_Drawing_TextUndefinedGlyphDisplay,
     );
 }
 extern "C" {
-    #[doc = " @brief Get text line information.\n\n @syscap SystemCapability.Graphic.Graphic2D.NativeDrawing\n @param typography Indicates the pointer to a typography object <b>OH_Drawing_Typography</b>.\n @return Indicates the pointer to a text line array object <b>OH_Drawing_Array</b>.\n @since 18"]
+    #[doc = " @brief Obtains the array of text lines in a typography object. This array contains one or more text line objects.\n Release this pointer by calling {@link OH_Drawing_DestroyTextLines} when this object is no longer needed.\n\n @syscap SystemCapability.Graphic.Graphic2D.NativeDrawing\n @param typography Pointer to the {@link OH_Drawing_Typography} object.\n @return Pointer to the text line array {@link OH_Drawing_Array}. <br>Returns NULL when typography is NULL.\n @since 18"]
     #[cfg(feature = "api-18")]
     pub fn OH_Drawing_TypographyGetTextLines(
         typography: *mut OH_Drawing_Typography,
     ) -> *mut OH_Drawing_Array;
 }
 extern "C" {
-    #[doc = " @brief Releases the memory occupied by the text line array object <b>OH_Drawing_Array</b>.\n\n @syscap SystemCapability.Graphic.Graphic2D.NativeDrawing\n @param lines Indicates the pointer to the text line array object <b>OH_Drawing_Array</b>.\n @since 18\n @version 1.0"]
+    #[doc = " @brief Releases the memory occupied by a text line array.\n\n @syscap SystemCapability.Graphic.Graphic2D.NativeDrawing\n @param lines Pointer to the {@link OH_Drawing_Array} object.\n @since 18\n @version 1.0"]
     #[cfg(feature = "api-18")]
     pub fn OH_Drawing_DestroyTextLines(lines: *mut OH_Drawing_Array);
 }
 extern "C" {
-    #[doc = " @brief Releases the memory occupied by the text line object <b>OH_Drawing_TextLine</b>.\n\n @syscap SystemCapability.Graphic.Graphic2D.NativeDrawing\n @param line Indicates the pointer to the text line object <b>OH_Drawing_TextLine</b>.\n @since 18\n @version 1.0"]
+    #[doc = " @brief Releases the memory of a single text line object. Only the memory of a text line object that is independently\n allocated can be released. The memory of a text line object obtained from a line array through\n {@link OH_Drawing_GetTextLineByIndex} cannot be released.\n\n @syscap SystemCapability.Graphic.Graphic2D.NativeDrawing\n @param line Pointer to the {@link OH_Drawing_TextLine} object.\n @since 18\n @version 1.0"]
     #[cfg(feature = "api-18")]
     pub fn OH_Drawing_DestroyTextLine(line: *mut OH_Drawing_TextLine);
 }
 extern "C" {
-    #[doc = " @brief Get the text line object by index.\n\n @syscap SystemCapability.Graphic.Graphic2D.NativeDrawing\n @param lines Indicates the pointer to the text line array object <b>OH_Drawing_Array</b>.\n @param index The text line object index.\n @return Indicates the pointer to a text line object <b>OH_Drawing_TextLine</b>.\n @since 18"]
+    #[doc = " @brief Obtains the text line object with the specified index in a text line array.\n\n @syscap SystemCapability.Graphic.Graphic2D.NativeDrawing\n @param lines Pointer to the {@link OH_Drawing_Array} object.\n @param index Index of the text line array.\n @return Pointer to the {@link OH_Drawing_TextLine} text line object at the specified index. <br>Returns NULL if\n     lines is NULL or the index is out of bounds.\n @since 18"]
     #[cfg(feature = "api-18")]
     pub fn OH_Drawing_GetTextLineByIndex(
         lines: *mut OH_Drawing_Array,
@@ -5989,12 +6250,12 @@ extern "C" {
     ) -> *mut OH_Drawing_TextLine;
 }
 extern "C" {
-    #[doc = " @brief Get the count of glyphs.\n\n @syscap SystemCapability.Graphic.Graphic2D.NativeDrawing\n @param line Indicates the pointer to an <b>OH_Drawing_TextLine</b> object.\n @return Returns the count of glyphs.\n @since 18\n @version 1.0"]
+    #[doc = " @brief Obtains the number of glyphs in a text line object.\n\n @syscap SystemCapability.Graphic.Graphic2D.NativeDrawing\n @param line Pointer to the {@link OH_Drawing_TextLine} object.\n @return Returns the number of glyphs in the text line object.\n @since 18\n @version 1.0"]
     #[cfg(feature = "api-18")]
     pub fn OH_Drawing_TextLineGetGlyphCount(line: *mut OH_Drawing_TextLine) -> f64;
 }
 extern "C" {
-    #[doc = " @brief Get the range of text line.\n\n @syscap SystemCapability.Graphic.Graphic2D.NativeDrawing\n @param line Indicates the pointer to an <b>OH_Drawing_TextLine</b> object.\n @param start Indicates the pointer to text line start position.\n @param end Indicates the pointer to text line end position.\n @since 18\n @version 1.0"]
+    #[doc = " @brief Obtains the range of the text in a text line object in the entire paragraph.\n\n @syscap SystemCapability.Graphic.Graphic2D.NativeDrawing\n @param line Pointer to the {@link OH_Drawing_TextLine} object.\n @param start Pointer to the start of the range.\n @param end Pointer to the end of the range.\n @since 18\n @version 1.0"]
     #[cfg(feature = "api-18")]
     pub fn OH_Drawing_TextLineGetTextRange(
         line: *mut OH_Drawing_TextLine,
@@ -6003,18 +6264,18 @@ extern "C" {
     );
 }
 extern "C" {
-    #[doc = " @brief Get the glyph runs array of text line.\n\n @syscap SystemCapability.Graphic.Graphic2D.NativeDrawing\n @param line Indicates the pointer to an <b>OH_Drawing_TextLine</b> object.\n @return Indicates the pointer to a glyph runs array object of text line <b>OH_Drawing_Array</b>.\n @since 18\n @version 1.0"]
+    #[doc = " @brief Obtains the array of text rendering units {@link OH_Drawing_Run} in the text line object.\n\n @syscap SystemCapability.Graphic.Graphic2D.NativeDrawing\n @param line Pointer to the {@link OH_Drawing_TextLine} object.\n @return Pointer to the {@link OH_Drawing_Array} array of text rendering units {@link OH_Drawing_Run}. When the\n     {@link OH_Drawing_Array} is no longer needed, please use the {@link OH_Drawing_DestroyRuns} API to release the\n     pointer of the object.\n @since 18\n @version 1.0"]
     #[cfg(feature = "api-18")]
     pub fn OH_Drawing_TextLineGetGlyphRuns(line: *mut OH_Drawing_TextLine)
         -> *mut OH_Drawing_Array;
 }
 extern "C" {
-    #[doc = " @brief Releases the memory occupied by the run array object <b>OH_Drawing_Array</b>.\n\n @syscap SystemCapability.Graphic.Graphic2D.NativeDrawing\n @param runs Indicates the pointer to the run array object <b>OH_Drawing_Array</b>.\n @since 18\n @version 1.0"]
+    #[doc = " @brief Releases the memory occupied by a glyph run array.\n\n @syscap SystemCapability.Graphic.Graphic2D.NativeDrawing\n @param runs Pointer to the {@link OH_Drawing_Array} array, which holds multiple {@link OH_Drawing_Run} objects.\n @since 18\n @version 1.0"]
     #[cfg(feature = "api-18")]
     pub fn OH_Drawing_DestroyRuns(runs: *mut OH_Drawing_Array);
 }
 extern "C" {
-    #[doc = " @brief Get the run object by index.\n\n @syscap SystemCapability.Graphic.Graphic2D.NativeDrawing\n @param runs Indicates the pointer to the run array object <b>OH_Drawing_Array</b>.\n @param index The run object index.\n @return Indicates the pointer to a run object <b>OH_Drawing_Run</b>.\n @since 18"]
+    #[doc = " @brief Obtains the glyph run object with the specified index in a glyph run array.\n\n @syscap SystemCapability.Graphic.Graphic2D.NativeDrawing\n @param runs Pointer to the {@link OH_Drawing_Array} array, which holds multiple {@link OH_Drawing_Run} objects.\n @param index Index of the glyph run array.\n @return Pointer to the text rendering unit object {@link OH_Drawing_Run} at the specified index. <br>NULL is\n     returned if runs is NULL or the index is out of bounds.\n @since 18"]
     #[cfg(feature = "api-18")]
     pub fn OH_Drawing_GetRunByIndex(
         runs: *mut OH_Drawing_Array,
@@ -6022,7 +6283,7 @@ extern "C" {
     ) -> *mut OH_Drawing_Run;
 }
 extern "C" {
-    #[doc = " @brief Paint the range of text line.\n\n @syscap SystemCapability.Graphic.Graphic2D.NativeDrawing\n @param line Indicates the pointer to an <b>OH_Drawing_TextLine</b> object.\n @param canvas Indicates the pointer to an <b>OH_Drawing_Canvas</b> object.\n @param x Represents the X-axis position on the canvas.\n @param y Represents the Y-axis position on the canvas.\n @since 18\n @version 1.0"]
+    #[doc = " @brief Paints a text line on the canvas with the coordinate point (x, y) as the upper left corner.\n\n @syscap SystemCapability.Graphic.Graphic2D.NativeDrawing\n @param line Pointer to the {@link OH_Drawing_TextLine} object.\n @param canvas Pointer to the target canvas for drawing, which is an {@link OH_Drawing_Canvas}.\n @param x Horizontal coordinate of the upper left corner, in px.\n @param y Vertical coordinate of the upper left corner, in px.\n @since 18\n @version 1.0"]
     #[cfg(feature = "api-18")]
     pub fn OH_Drawing_TextLinePaint(
         line: *mut OH_Drawing_TextLine,
@@ -6032,7 +6293,7 @@ extern "C" {
     );
 }
 extern "C" {
-    #[doc = " @brief Creates a truncated text line object.\n\n @syscap SystemCapability.Graphic.Graphic2D.NativeDrawing\n @param line Indicates the pointer to an <b>OH_Drawing_TextLine</b> object.\n @param width Indicates the text line width to set.\n @param mode Indicates the ellipsis model to set, EllipsisMode:MIDDLE is not supported.\n For details, see the enum <b>OH_Drawing_EllipsisModal</b>.\n @param ellipsis Indicates the ellipsis string to set.\n @return Returns the pointer to the <b>OH_Drawing_TextLine</b> object created.\n @since 18\n @version 1.0"]
+    #[doc = " @brief Creates a truncated text line object. Truncates the original text line based on the specified width,\n truncation type, and truncation mark string, inserts the specified mark string at the truncation position, and\n generates and returns a new independent text line object. The original text is not affected.\n\n @syscap SystemCapability.Graphic.Graphic2D.NativeDrawing\n @param line Pointer to the {@link OH_Drawing_TextLine} object.\n @param width Width of the truncated line, in physical pixels (px).\n @param mode Truncation type. The value is an enumerated value of {@link OH_Drawing_EllipsisModal}. Currently, only **\n     ELLIPSIS_MODAL_HEAD** and **ELLIPSIS_MODAL_TAIL** are supported.\n @param ellipsis Pointer to the string used to mark a truncation.\n @return Pointer to the truncated text line object {@link OH_Drawing_TextLine}. <br>NULL is returned when line or\n     ellipsis is NULL. <br>Please use {@link OH_Drawing_DestroyTextLine} to release the object's memory when it is no\n     longer needed.\n @since 18\n @version 1.0"]
     #[cfg(feature = "api-18")]
     pub fn OH_Drawing_TextLineCreateTruncatedLine(
         line: *mut OH_Drawing_TextLine,
@@ -6042,7 +6303,7 @@ extern "C" {
     ) -> *mut OH_Drawing_TextLine;
 }
 extern "C" {
-    #[doc = " @brief Gets the text line typographic bounds.\n\n @syscap SystemCapability.Graphic.Graphic2D.NativeDrawing\n @param line Indicates the pointer to an <b>OH_Drawing_TextLine</b> object.\n @param ascent Indicates the distance that the pointer points to remain above the baseline.\n @param descent Indicates the pointer to the distance that remains below the baseline.\n @param leading Indicates the pointer to the line Spacing.\n @return Returns The total width of the typesetting border.\n @since 18\n @version 1.0"]
+    #[doc = " @brief Obtains the typographic bounds of the text line object. The typographic bounds of a text line are related to\n the typographic font and typographic font size, and are independent of the characters themselves.\n <br>For example, for the string \" a b \", where there is one space before the 'a' character and one space after the '\n b' character, the typographic bounds include the bounds of the leading and trailing spaces. For example, for the\n string \"j\" or \"E\", the typographic bounds are the same, i.e., independent of the characters themselves.\n <br>The text height can be calculated using height = ascent + descent + leading.\n\n @syscap SystemCapability.Graphic.Graphic2D.NativeDrawing\n @param line Pointer to the text line object {@link OH_Drawing_TextLine}.\n @param ascent Pointer to the ascent height of the text line object. The unit is physical pixel.\n @param descent Pointer to the descent height of the text line object. The unit is physical pixel.\n @param leading Pointer to the leading of the text line object. The unit is physical pixel.\n @return Total width of the typographic bounds, in physical pixels.\n @since 18\n @version 1.0"]
     #[cfg(feature = "api-18")]
     pub fn OH_Drawing_TextLineGetTypographicBounds(
         line: *mut OH_Drawing_TextLine,
@@ -6052,19 +6313,19 @@ extern "C" {
     ) -> f64;
 }
 extern "C" {
-    #[doc = " @brief Gets the text line image bounds.\n\n @syscap SystemCapability.Graphic.Graphic2D.NativeDrawing\n @param line Indicates the pointer to an <b>OH_Drawing_TextLine</b> object.\n @return Returns the pointer to the <b>OH_Drawing_Rect</b> struct created.\n @since 18\n @version 1.0"]
+    #[doc = " @brief Obtains the image bounds of the text line object. The image bounds of a text line are related to the\n typographic font, typographic font size, and the characters themselves, and are equivalent to the visual bounds.\n <br>For example, for the string \" a b \", where there is one space before the 'a' character and one space after the '\n b' character, the user can only see \"a b\" on the UI, and the image bounds are the bounds excluding the leading and\n trailing spaces.\n <br>For example, for the string \"j\" or \"E\", the visual bounds are different, i.e., related to the characters\n themselves. The visual bounds width of the string \"j\" is smaller than that of the string \"E\", and the visual bounds\n height of the string \"j\" is greater than that of the string \"E\".\n\n @syscap SystemCapability.Graphic.Graphic2D.NativeDrawing\n @param line Pointer to the {@link OH_Drawing_TextLine} object.\n @return Pointer to the image bounds {@link OH_Drawing_Rect} of the text line object. <br>Returns NULL when the\n     passed-in line is NULL. <br>When the {@link OH_Drawing_Rect} is no longer needed, please use the\n     {@link OH_Drawing_RectDestroy} API to release the pointer of the object.\n @since 18\n @version 1.0"]
     #[cfg(feature = "api-18")]
     pub fn OH_Drawing_TextLineGetImageBounds(
         line: *mut OH_Drawing_TextLine,
     ) -> *mut OH_Drawing_Rect;
 }
 extern "C" {
-    #[doc = " @brief Gets the tail space width.\n\n @syscap SystemCapability.Graphic.Graphic2D.NativeDrawing\n @param line Indicates the pointer to an <b>OH_Drawing_TextLine</b> object.\n @return Returns the tail space width.\n @since 18\n @version 1.0"]
+    #[doc = " @brief Obtains the width of the spaces at the end of a text line object.\n\n @syscap SystemCapability.Graphic.Graphic2D.NativeDrawing\n @param line Pointer to the {@link OH_Drawing_TextLine} object.\n @return Width of the trailing whitespace characters of the text line object, in physical pixels (px).\n @since 18\n @version 1.0"]
     #[cfg(feature = "api-18")]
     pub fn OH_Drawing_TextLineGetTrailingSpaceWidth(line: *mut OH_Drawing_TextLine) -> f64;
 }
 extern "C" {
-    #[doc = " @brief Gets the string index of the given position.\n\n @syscap SystemCapability.Graphic.Graphic2D.NativeDrawing\n @param line Indicates the pointer to an <b>OH_Drawing_TextLine</b> object.\n @param point Indicates the pointer to an <b>OH_Drawing_Point</b> object.\n @return Returns the string index for a given position.\n @since 18"]
+    #[doc = " @brief Obtains the string index at the specified position in the text line object.\n\n @syscap SystemCapability.Graphic.Graphic2D.NativeDrawing\n @param line Pointer to the {@link OH_Drawing_TextLine} object.\n @param point Pointer to the position {@link OH_Drawing_Point} where the index is to be found.\n @return Returns the index of the character. For example, for the string \"abc\", the index of \"a\" is 0, the index of \"\n     b\" is 1, and the index of \"c\" is 2. If the specified position is at \"a\", then **0** is returned.\n @since 18"]
     #[cfg(feature = "api-18")]
     pub fn OH_Drawing_TextLineGetStringIndexForPosition(
         line: *mut OH_Drawing_TextLine,
@@ -6072,19 +6333,19 @@ extern "C" {
     ) -> i32;
 }
 extern "C" {
-    #[doc = " @brief Gets the offset of the given string index.\n\n @syscap SystemCapability.Graphic.Graphic2D.NativeDrawing\n @param line Indicates the pointer to an <b>OH_Drawing_TextLine</b> object.\n @param index The given string index.\n @return Returns the offset for a given string index.\n @since 18"]
+    #[doc = " @brief Obtains the offset of a character with the specified index in a text line object.\n\n @syscap SystemCapability.Graphic.Graphic2D.NativeDrawing\n @param line Pointer to the {@link OH_Drawing_TextLine} object.\n @param index Index of the character.\n @return Offset at the specified string index, in physical pixels (px).\n @since 18"]
     #[cfg(feature = "api-18")]
     pub fn OH_Drawing_TextLineGetOffsetForStringIndex(
         line: *mut OH_Drawing_TextLine,
         index: i32,
     ) -> f64;
 }
-#[doc = " @brief User-defined callback functions for using offsets and indexes.\n\n @syscap SystemCapability.Graphic.Graphic2D.NativeDrawing\n @param offset Character offset is traversed as an argument to the callback function.\n @param index Character index is traversed as an argument to the callback function.\n @param leadingEdge Whether the current offset is at the character front, as an argument to the callback function.\n @return The return value of the user-defined callback function.\n         If false is returned, the traversal continues.\n         If true is returned, the traversal stops.\n @since 18\n @version 1.0"]
+#[doc = " @brief Defines a custom callback used to receive the offset and index of each character in a text line object\n as its parameters.\n\n @syscap SystemCapability.Graphic.Graphic2D.NativeDrawing\n @param offset Offset of each character in the text line object.\n @param index Index of each character in the text line object.\n @param leadingEdge Whether the cursor is located at the leading edge of a character. **true** means that the\n     cursor is located at the front of the character, that is, the offset does not contain the character width.\n     **false** means that the cursor is located at the rear of the character, that is, the offset contains the\n     character width.\n @return Whether to stop calling the callback. **true** means to stop; **false** otherwise.\n @since 18\n @version 1.0"]
 #[cfg(feature = "api-18")]
 pub type Drawing_CaretOffsetsCallback =
     ::std::option::Option<unsafe extern "C" fn(offset: f64, index: i32, leadingEdge: bool) -> bool>;
 extern "C" {
-    #[doc = " @brief Enumerate caret offset and index in text lines.\n\n @syscap SystemCapability.Graphic.Graphic2D.NativeDrawing\n @param line Indicates the pointer to an <b>OH_Drawing_TextLine</b> object.\n @param callback User-defined callback functions, see <b>Drawing_CaretOffsetsCallback</b>.\n @since 18"]
+    #[doc = " @brief Enumerates the offset and index of each character in a text line object and passes them to a custom callback\n function. You can use the offset and index array for other operations.\n\n @syscap SystemCapability.Graphic.Graphic2D.NativeDrawing\n @param line Pointer to the {@link OH_Drawing_TextLine} object.\n @param callback User-defined function {@link Drawing_CaretOffsetsCallback}.\n @since 18"]
     #[cfg(feature = "api-18")]
     pub fn OH_Drawing_TextLineEnumerateCaretOffsets(
         line: *mut OH_Drawing_TextLine,
@@ -6092,7 +6353,7 @@ extern "C" {
     );
 }
 extern "C" {
-    #[doc = " @brief Gets the text offset based on the given alignment factor and alignment width.\n\n @syscap SystemCapability.Graphic.Graphic2D.NativeDrawing\n @param line Indicates the pointer to an <b>OH_Drawing_TextLine</b> object.\n @param alignmentFactor The coefficients that text needs to be aligned.\n                        Less than or equal to 0 is left justified, 0.5 is center justified,\n                        and greater than or equal to 1 is right justified.\n @param alignmentWidth The width of the text to be aligned.\n                       Returns 0 if it is less than the actual width of the text.\n @return Returns the offset of the aligned text.\n @since 18\n @version 1.0"]
+    #[doc = " @brief Obtains the offset of a text line object after alignment based on the alignment factor and alignment width.\n\n @syscap SystemCapability.Graphic.Graphic2D.NativeDrawing\n @param line Pointer to the {@link OH_Drawing_TextLine} object.\n @param alignmentFactor Alignment factor. A value less than or equal to 0.0 indicates left alignment, greater than 0.\n     0 and less than 0.5 indicates left-biased alignment, 0.5 indicates center alignment, greater than 0.5 and less\n     than 1.0 indicates right-biased alignment, and greater than or equal to 1.0 indicates right alignment.\n @param alignmentWidth Alignment width, i.e., the offset of the bottom-right corner of the text line object relative\n     to the starting position after final offset, in physical pixels (px). If the specified alignment width is less\n     than the actual width of the text line object, 0 is returned.\n @return Calculated offset required for alignment. The unit is physical pixel (px).\n @since 18\n @version 1.0"]
     #[cfg(feature = "api-18")]
     pub fn OH_Drawing_TextLineGetAlignmentOffset(
         line: *mut OH_Drawing_TextLine,
@@ -6101,19 +6362,19 @@ extern "C" {
     ) -> f64;
 }
 extern "C" {
-    #[doc = " @brief Creates an <b>OH_Drawing_LineTypography</b> object.\n\n @syscap SystemCapability.Graphic.Graphic2D.NativeDrawing\n @param handler Indicates the pointer to an <b>OH_Drawing_TypographyCreate</b> object.\n @return Returns the pointer to the <b>OH_Drawing_LineTypography</b> object created.\n @since 18"]
+    #[doc = " @brief Creates a pointer to a typography line object {@link OH_Drawing_LineTypography}. The typography line object\n serves as a container for storing text content and styles, and can be used to calculate single-line typography\n information.\n\n @syscap SystemCapability.Graphic.Graphic2D.NativeDrawing\n @param handler Pointer to the {@link OH_Drawing_TypographyCreate} object, which is obtained from\n     {@link OH_Drawing_CreateTypographyHandler}.\n @return Returns the pointer to the {@link OH_Drawing_LineTypography} object created.\n @since 18"]
     #[cfg(feature = "api-18")]
     pub fn OH_Drawing_CreateLineTypography(
         handler: *mut OH_Drawing_TypographyCreate,
     ) -> *mut OH_Drawing_LineTypography;
 }
 extern "C" {
-    #[doc = " @brief Releases the memory occupied by an <b>OH_Drawing_LineTypography</b> object.\n\n @syscap SystemCapability.Graphic.Graphic2D.NativeDrawing\n @param lineTypography Indicates the pointer to an <b>OH_Drawing_LineTypography</b> object.\n @since 18"]
+    #[doc = " @brief Releases the memory occupied by an {@link OH_Drawing_LineTypography} object.\n\n @syscap SystemCapability.Graphic.Graphic2D.NativeDrawing\n @param lineTypography Pointer to the {@link OH_Drawing_LineTypography} object, which is obtained from\n     {@link OH_Drawing_CreateLineTypography}.\n @since 18"]
     #[cfg(feature = "api-18")]
     pub fn OH_Drawing_DestroyLineTypography(lineTypography: *mut OH_Drawing_LineTypography);
 }
 extern "C" {
-    #[doc = " @brief Calculate the line breakpoint based on the width provided.\n\n @syscap SystemCapability.Graphic.Graphic2D.NativeDrawing\n @param lineTypography Indicates the pointer to an <b>OH_Drawing_TypographyCreate</b> object.\n @param startIndex Indicates the starting point for the line-break calculations.\n @param width Indicates the requested line-break width.\n @return Returns the count of the characters from startIndex that would cause the line break.\n @since 18"]
+    #[doc = " @brief Obtains the number of characters that can fit in the layout from the specified position within a limited\n layout width.\n\n @syscap SystemCapability.Graphic.Graphic2D.NativeDrawing\n @param lineTypography Pointer to the {@link OH_Drawing_LineTypography} object, which is obtained from\n     {@link OH_Drawing_CreateLineTypography}.\n @param startIndex Start position (inclusive) for calculating the typography. The value is an integer in the range [0,\n     total count of text characters).\n @param width Layout width. The value is a floating point number greater than 0, in px.\n @return Returns the number of characters.\n @since 18"]
     #[cfg(feature = "api-18")]
     pub fn OH_Drawing_LineTypographyGetLineBreak(
         lineTypography: *mut OH_Drawing_LineTypography,
@@ -6122,7 +6383,7 @@ extern "C" {
     ) -> usize;
 }
 extern "C" {
-    #[doc = " @brief Creates a text line object based on the text range provided.\n\n @syscap SystemCapability.Graphic.Graphic2D.NativeDrawing\n @param lineTypography Indicates the pointer to an <b>OH_Drawing_TypographyCreate</b> object.\n @param startIndex Indicates the starting index of the text range.\n @param count Indicates the characters count of the text range.\n @return Returns the pointer to the <b>OH_Drawing_TextLine</b> object created.\n @since 18"]
+    #[doc = " @brief Creates a pointer to an {@link OH_Drawing_TextLine} object based on the text content in a specified range.\n\n @syscap SystemCapability.Graphic.Graphic2D.NativeDrawing\n @param lineTypography Pointer to the {@link OH_Drawing_LineTypography} object, which is obtained from\n     {@link OH_Drawing_CreateLineTypography}.\n @param startIndex Start position for layout calculation. The value is an integer in the range [0, total number of\n     text characters).\n @param count Number of characters to be typeset from the specified typography start position. The value is an\n     integer in the range [0, total count of text characters), and the sum of startIndex and count cannot exceed the\n     total count of text characters.\n     <br>You can first use {@link OH_Drawing_LineTypographyGetLineBreak} to obtain a reasonable total count of\n     characters that can be typeset. If this value is set to 0, the content from startIndex to the end of the text is\n     returned.\n @return Pointer to the {@link OH_Drawing_TextLine} object.\n @since 18"]
     #[cfg(feature = "api-18")]
     pub fn OH_Drawing_LineTypographyCreateLine(
         lineTypography: *mut OH_Drawing_LineTypography,
@@ -6131,7 +6392,7 @@ extern "C" {
     ) -> *mut OH_Drawing_TextLine;
 }
 extern "C" {
-    #[doc = " @brief Gets the run glyph indices ,the offset of the index relative to the entire paragraph.\n\n @syscap SystemCapability.Graphic.Graphic2D.NativeDrawing\n @param run Indicates the pointer to an <b>OH_Drawing_Run</b> object.\n @param start The run of start index.\n @param length The run of length, if start and length are set to 0, then get all of the current run.\n @return Run of glyph indices array object <b>OH_Drawing_Array</b>.\n @since 18"]
+    #[doc = " @brief Obtains an array of character indices of glyphs within a specified range of a run, where the indices are\n offsets relative to the entire paragraph.\n\n @syscap SystemCapability.Graphic.Graphic2D.NativeDrawing\n @param run Pointer to an {@link OH_Drawing_Run} object.\n @param start Start position specified within the rendering unit. The value range is [0, glyphCount-1], where\n     glyphCount is the glyph count of the rendering unit. The method returns a null pointer when passing a negative\n     number or a value that exceeds the glyph count of the rendering unit.\n @param length Length specified within the rendering unit. When length is 0, the method obtains the character index\n     array of all characters in the rendering unit. When length is less than 0, the method returns a null pointer.\n     When start+length exceeds the actual range of the rendering unit, the method obtains valid data up to the end of\n     the rendering unit.\n @return Returns the character index array of the glyph. Call {@link OH_Drawing_DestroyRunStringIndices} to release\n     this pointer when the object is no longer needed.\n @since 18"]
     #[cfg(feature = "api-18")]
     pub fn OH_Drawing_GetRunStringIndices(
         run: *mut OH_Drawing_Run,
@@ -6140,7 +6401,7 @@ extern "C" {
     ) -> *mut OH_Drawing_Array;
 }
 extern "C" {
-    #[doc = " @brief Gets the run glyph indices by index.\n\n @syscap SystemCapability.Graphic.Graphic2D.NativeDrawing\n @param stringIndices the run glyph indices array object <b>OH_Drawing_Array</b>.\n @param index The run of glyph index.\n @return Run of glyph indices element.\n @since 18"]
+    #[doc = " @brief Obtains character indices of glyphs in a run by index.\n\n @syscap SystemCapability.Graphic.Graphic2D.NativeDrawing\n @param stringIndices Pointer to a character index array.\n @param index Subscript of the character index array for the rendering unit glyphs. The value range is [0,\n     arrayLength-1], where arrayLength is the number of elements in the stringIndices array. 0 is returned when the\n     value exceeds this range.\n @return Returns the character indices.\n @since 18"]
     #[cfg(feature = "api-18")]
     pub fn OH_Drawing_GetRunStringIndicesByIndex(
         stringIndices: *mut OH_Drawing_Array,
@@ -6148,12 +6409,12 @@ extern "C" {
     ) -> u64;
 }
 extern "C" {
-    #[doc = " @brief Releases the memory run glyph indices array.\n\n @syscap SystemCapability.Graphic.Graphic2D.NativeDrawing\n @param stringIndices glyph indices array object <b>OH_Drawing_Array</b>.\n @since 18"]
+    #[doc = " @brief Releases the pointer to a character index array object.\n\n @syscap SystemCapability.Graphic.Graphic2D.NativeDrawing\n @param stringIndices Pointer to a character index array.\n @since 18"]
     #[cfg(feature = "api-18")]
     pub fn OH_Drawing_DestroyRunStringIndices(stringIndices: *mut OH_Drawing_Array);
 }
 extern "C" {
-    #[doc = " @brief Gets the range run glyph location and length.\n\n @syscap SystemCapability.Graphic.Graphic2D.NativeDrawing\n @param run Indicates the pointer to an <b>OH_Drawing_Run</b> object.\n @param location The run of glyph location.\n @param length The run of glyph length.\n @since 18"]
+    #[doc = " @brief Obtains the range of glyphs generated by a run.\n\n @syscap SystemCapability.Graphic.Graphic2D.NativeDrawing\n @param run Pointer to an {@link OH_Drawing_Run} object.\n @param location Start position of the character range of the rendering unit glyph, which is an offset relative to\n     the whole paragraph. This is an output parameter. The caller must provide a valid pointer to receive the return\n     value.\n @param length Length of the character range of the rendering unit. This is an output parameter. The caller must\n     provide a valid pointer to receive the return value.\n @since 18"]
     #[cfg(feature = "api-18")]
     pub fn OH_Drawing_GetRunStringRange(
         run: *mut OH_Drawing_Run,
@@ -6162,7 +6423,7 @@ extern "C" {
     );
 }
 extern "C" {
-    #[doc = " @brief Gets the run typographic bound.\n\n @syscap SystemCapability.Graphic.Graphic2D.NativeDrawing\n @param run Indicates the pointer to an <b>OH_Drawing_Run</b> object.\n @param ascent The run of ascent.\n @param descent The run of descent.\n @param leading The run of leading.\n @return run typographic width.\n @since 18"]
+    #[doc = " @brief Obtains the typographic boundary of a run. The typographic boundary is related to the font and font size used\n for typography, but not the characters within the text.\n\n @syscap SystemCapability.Graphic.Graphic2D.NativeDrawing\n @param run Pointer to an {@link OH_Drawing_Run} object.\n @param ascent Pointer to the distance from the highest character in the rendering unit to the baseline, in px.\n @param descent Pointer to the distance from the lowest character in the rendering unit to the baseline, in px.\n @param leading Pointer to the line spacing of the rendering unit, in px.\n @return Typographic width of the rendering unit, in px.\n @since 18"]
     #[cfg(feature = "api-18")]
     pub fn OH_Drawing_GetRunTypographicBounds(
         run: *mut OH_Drawing_Run,
@@ -6172,7 +6433,7 @@ extern "C" {
     ) -> f32;
 }
 extern "C" {
-    #[doc = " @brief Paints text on the canvas.\n\n @syscap SystemCapability.Graphic.Graphic2D.NativeDrawing\n @param canvas Indicates the pointer to an <b>OH_Drawing_Canvas</b> object.\n @param run Indicates the pointer to an <b>OH_Drawing_Run</b> object.\n @param x Indicates the x coordinate.\n @param y Indicates the y coordinate.\n @since 18"]
+    #[doc = " @brief Paints the text contained in a run on the canvas.\n\n @syscap SystemCapability.Graphic.Graphic2D.NativeDrawing\n @param canvas Pointer to an {@link OH_Drawing_Canvas} object.\n @param run Pointer to an {@link OH_Drawing_Run} object.\n @param x X coordinate of the rendering unit, in px.\n @param y Y coordinate of the rendering unit, in px.\n @since 18"]
     #[cfg(feature = "api-18")]
     pub fn OH_Drawing_RunPaint(
         canvas: *mut OH_Drawing_Canvas,
@@ -6182,17 +6443,17 @@ extern "C" {
     );
 }
 extern "C" {
-    #[doc = " @brief Gets the run image bound.\n\n @syscap SystemCapability.Graphic.Graphic2D.NativeDrawing\n @param run Indicates the pointer to an <b>OH_Drawing_Run</b> object.\n @return The run image bounds to an <b>OH_Drawing_Rect</b> object.\n @since 18"]
+    #[doc = " @brief Obtains the image boundary of a run. The image boundary is related to characters and is equivalent to the\n visual boundary.\n\n @syscap SystemCapability.Graphic.Graphic2D.NativeDrawing\n @param run Pointer to an {@link OH_Drawing_Run} object.\n @return Returns the pointer to an {@link OH_Drawing_Rect} object. Call {@link OH_Drawing_DestroyRunImageBounds} to\n     release this pointer when the object is no longer needed.\n @since 18"]
     #[cfg(feature = "api-18")]
     pub fn OH_Drawing_GetRunImageBounds(run: *mut OH_Drawing_Run) -> *mut OH_Drawing_Rect;
 }
 extern "C" {
-    #[doc = " @brief Releases the memory run image bounds pointer.\n\n @syscap SystemCapability.Graphic.Graphic2D.NativeDrawing\n @param rect Run image bounds to an <b>OH_Drawing_Rect</b> object.\n @since 18"]
+    #[doc = " @brief Releases the pointer to an image boundary object of a run.\n\n @syscap SystemCapability.Graphic.Graphic2D.NativeDrawing\n @param rect Pointer to the image boundary, which is an {@link OH_Drawing_Rect} object.\n @since 18"]
     #[cfg(feature = "api-18")]
     pub fn OH_Drawing_DestroyRunImageBounds(rect: *mut OH_Drawing_Rect);
 }
 extern "C" {
-    #[doc = " @brief Gets the range glyph identifier for each character.\n\n @syscap SystemCapability.Graphic.Graphic2D.NativeDrawing\n @param run Indicates the pointer to an <b>OH_Drawing_Run</b> object.\n @param start The run of start index.\n @param length The run of length, if start and length are set to 0, then get all of the current run.\n @return Run of glyph array object <b>OH_Drawing_Array</b.\n @since 18"]
+    #[doc = " @brief Obtains an array of glyphs within the specified range of a run.\n\n @syscap SystemCapability.Graphic.Graphic2D.NativeDrawing\n @param run Pointer to an {@link OH_Drawing_Run} object.\n @param start Start position specified within the rendering unit. The value range is [0, glyphCount-1], where\n     glyphCount is the number of glyphs in the rendering unit. When a negative number is passed or the value exceeds\n     the number of glyphs in the rendering unit, the method returns a null pointer.\n @param length Length specified within the rendering unit. When length is 0, all glyphs of the rendering unit are\n     obtained. When length is less than 0, the method returns a null pointer. When start+length exceeds the actual\n     range of the rendering unit, valid data up to the end of the rendering unit is obtained.\n @return Returns the pointer to an {@link OH_Drawing_Array} object of a glyph array in a run. Call\n     {@link OH_Drawing_DestroyRunGlyphs} to release this pointer when the object is no longer needed.\n @since 18"]
     #[cfg(feature = "api-18")]
     pub fn OH_Drawing_GetRunGlyphs(
         run: *mut OH_Drawing_Run,
@@ -6201,17 +6462,17 @@ extern "C" {
     ) -> *mut OH_Drawing_Array;
 }
 extern "C" {
-    #[doc = " @brief Gets the glyph identifier by index.\n\n @syscap SystemCapability.Graphic.Graphic2D.NativeDrawing\n @param glyphs The run of glyph array object <b>OH_Drawing_Array</b>.\n @param index The run of glyph index.\n @return Run of glyph element.\n @since 18\n @version 1.0"]
+    #[doc = " @brief Obtains individual glyphs in a run by index.\n\n @syscap SystemCapability.Graphic.Graphic2D.NativeDrawing\n @param glyphs Pointer to the glyph array, which is an {@link OH_Drawing_Array} object.\n @param index Subscript of the rendering unit glyph array. The value range is [0, arrayLength-1], where arrayLength\n     is the number of elements in the glyphs array. 0 is returned when the value exceeds this range.\n @return Glyph ID of a single glyph in the rendering unit.\n @since 18\n @version 1.0"]
     #[cfg(feature = "api-18")]
     pub fn OH_Drawing_GetRunGlyphsByIndex(glyphs: *mut OH_Drawing_Array, index: usize) -> u16;
 }
 extern "C" {
-    #[doc = " @brief Releases the memory run glyph array.\n\n @syscap SystemCapability.Graphic.Graphic2D.NativeDrawing\n @param glyphs The run of glyph array object <b>OH_Drawing_Array</b>.\n @since 18"]
+    #[doc = " @brief Releases the pointer to a glyph array in a run.\n\n @syscap SystemCapability.Graphic.Graphic2D.NativeDrawing\n @param glyphs Pointer to the glyph array, which is an {@link OH_Drawing_Array} object.\n @since 18"]
     #[cfg(feature = "api-18")]
     pub fn OH_Drawing_DestroyRunGlyphs(glyphs: *mut OH_Drawing_Array);
 }
 extern "C" {
-    #[doc = " @brief Gets the range glyph position array.\n\n @syscap SystemCapability.Graphic.Graphic2D.NativeDrawing\n @param run Indicates the pointer to an <b>OH_Drawing_Run</b> object.\n @param start The run of start index.\n @param length The run of length, if start and length are set to 0, then get all of the current run.\n @return Run of position array object <b>OH_Drawing_Array</b>.\n @since 18"]
+    #[doc = " @brief Obtains the positions of glyphs within the specified range of a run.\n\n @syscap SystemCapability.Graphic.Graphic2D.NativeDrawing\n @param run Pointer to an {@link OH_Drawing_Run} object.\n @param start Start position specified within the rendering unit. The value range is [0, glyphCount-1], where\n     glyphCount is the glyph count of the rendering unit. The method returns a null pointer when a negative number is\n     passed or when the value exceeds the glyph count of the rendering unit.\n @param length Length specified within the rendering unit. When length is 0, all glyph positions of the rendering\n     unit are obtained. The method returns a null pointer when length is less than 0. When start+length exceeds the\n     actual range of the rendering unit, valid data up to the end of the rendering unit is obtained.\n @return Returns the pointer to an {@link OH_Drawing_Array} object of a glyph position array in a run. Call\n     {@link OH_Drawing_DestroyRunPositions} to release this pointer when the object is no longer needed.\n @since 18"]
     #[cfg(feature = "api-18")]
     pub fn OH_Drawing_GetRunPositions(
         run: *mut OH_Drawing_Run,
@@ -6220,7 +6481,7 @@ extern "C" {
     ) -> *mut OH_Drawing_Array;
 }
 extern "C" {
-    #[doc = " @brief Gets the glyph position by index.\n\n @syscap SystemCapability.Graphic.Graphic2D.NativeDrawing\n @param positions The run of position array object <b>OH_Drawing_Array</b>.\n @param index The run of glyph index.\n @return Run of glyph position pointer to an <b>OH_Drawing_Point</b> object.\n @since 18\n @version 1.0"]
+    #[doc = " @brief Obtains the positions of individual glyphs in a run by index.\n\n @syscap SystemCapability.Graphic.Graphic2D.NativeDrawing\n @param positions Pointer to the glyph position array, which is an {@link OH_Drawing_Array} object.\n @param index Subscript of the rendering unit glyph position array. The value range is [0, arrayLength-1], where\n     arrayLength is the number of elements in the positions array. The method returns null pointer when the value\n     exceeds the range.\n @return Returns the pointer to an {@link OH_Drawing_Point} object, which holds the positions of individual glyphs in\n     the run.\n @since 18\n @version 1.0"]
     #[cfg(feature = "api-18")]
     pub fn OH_Drawing_GetRunPositionsByIndex(
         positions: *mut OH_Drawing_Array,
@@ -6228,27 +6489,27 @@ extern "C" {
     ) -> *mut OH_Drawing_Point;
 }
 extern "C" {
-    #[doc = " @brief Releases the memory run of position array.\n\n @syscap SystemCapability.Graphic.Graphic2D.NativeDrawing\n @param positions The run of position array object <b>OH_Drawing_Array</b>.\n @since 18"]
+    #[doc = " @brief Releases the pointer to a glyph position array in a run.\n\n @syscap SystemCapability.Graphic.Graphic2D.NativeDrawing\n @param positions Pointer to the glyph position array, which is an {@link OH_Drawing_Array} object.\n @since 18"]
     #[cfg(feature = "api-18")]
     pub fn OH_Drawing_DestroyRunPositions(positions: *mut OH_Drawing_Array);
 }
 extern "C" {
-    #[doc = " @brief Gets the number of glyph.\n\n @syscap SystemCapability.Graphic.Graphic2D.NativeDrawing\n @param run Indicates the pointer to an <b>OH_Drawing_Run</b> object.\n @return The number of glyph.\n @since 18"]
+    #[doc = " @brief Obtains the number of glyphs in a run.\n\n @syscap SystemCapability.Graphic.Graphic2D.NativeDrawing\n @param run Pointer to an {@link OH_Drawing_Run} object.\n @return Returns the number of glyphs.\n @since 18"]
     #[cfg(feature = "api-18")]
     pub fn OH_Drawing_GetRunGlyphCount(run: *mut OH_Drawing_Run) -> u32;
 }
 extern "C" {
-    #[doc = " @brief Gets the Font Object of run.\n\n @syscap SystemCapability.Graphic.Graphic2D.NativeDrawing\n @param run Indicates the pointer to an <b>OH_Drawing_Run</b> object.\n @return The Font Object of run.\n @since 20\n @version 1.0"]
+    #[doc = " @brief Obtains the font object of a run.\n\n @syscap SystemCapability.Graphic.Graphic2D.NativeDrawing\n @param run Pointer to an {@link OH_Drawing_Run} object.\n @return Returns the pointer to an {@link OH_Drawing_Font} object in a run. Call {@link OH_Drawing_FontDestroy} to\n     release this pointer when the object is no longer needed.\n @since 20\n @version 1.0"]
     #[cfg(feature = "api-20")]
     pub fn OH_Drawing_GetRunFont(run: *mut OH_Drawing_Run) -> *mut OH_Drawing_Font;
 }
 extern "C" {
-    #[doc = " @brief Get the text direction.\n\n @syscap SystemCapability.Graphic.Graphic2D.NativeDrawing\n @param run Indicates the pointer to an <b>OH_Drawing_Run</b> object.\n @return Return the text direction of an <b>OH_Drawing_TextDirection</b> object.\n @since 20"]
+    #[doc = " @brief Obtains the text direction of a run.\n\n @syscap SystemCapability.Graphic.Graphic2D.NativeDrawing\n @param run Pointer to an {@link OH_Drawing_Run} object.\n @return Returns the text direction of a run. **0**: **TEXT_DIRECTION_RTL**, which means right-to-left; **1**: **\n     TEXT_DIRECTION_LTR**, which means left-to-right. For details, see {@link OH_Drawing_TextDirection}.\n @since 20"]
     #[cfg(feature = "api-20")]
     pub fn OH_Drawing_GetRunTextDirection(run: *mut OH_Drawing_Run) -> OH_Drawing_TextDirection;
 }
 extern "C" {
-    #[doc = " @brief Gets the glyph advance array.\n\n @syscap SystemCapability.Graphic.Graphic2D.NativeDrawing\n @param run Indicates the pointer to an <b>OH_Drawing_Run</b> object.\n @param start The run of start index.\n @param length The run of length, if start and length are set to 0, then get all of the current run.\n @return Indicates the pointer to the glyph advance array object <b>OH_Drawing_Array</b>.\n @since 20"]
+    #[doc = " @brief Obtains the glyph advance array of a run.\n\n @syscap SystemCapability.Graphic.Graphic2D.NativeDrawing\n @param run Pointer to an {@link OH_Drawing_Run} object.\n @param start Start position specified within the rendering unit. The value range is [0, glyphCount-1], where\n     glyphCount is the glyph count of the rendering unit. If the passed value exceeds the glyph count of the\n     rendering unit, the method returns null pointer.\n @param length Length specified within the rendering unit. When length is 0, obtains the widths of all glyphs from\n     start to the end of the rendering unit.\n @return Returns the pointer to an {@link OH_Drawing_Array} object of a glyph advance array in a run. Call\n     {@link OH_Drawing_DestroyRunGlyphAdvances} to release this pointer when the object is no longer needed.\n @since 20"]
     #[cfg(feature = "api-20")]
     pub fn OH_Drawing_GetRunGlyphAdvances(
         run: *mut OH_Drawing_Run,
@@ -6257,7 +6518,7 @@ extern "C" {
     ) -> *mut OH_Drawing_Array;
 }
 extern "C" {
-    #[doc = " @brief Gets the glyph advance by index.\n\n @syscap SystemCapability.Graphic.Graphic2D.NativeDrawing\n @param advances The glyph advance array object <b>OH_Drawing_Array</b>.\n @param index The run of glyph index.\n @return Run of glyph advance pointer to an <b>OH_Drawing_Point</b> object.\n @since 20"]
+    #[doc = " @brief Obtains the advances of individual glyphs in a run by index.\n\n @syscap SystemCapability.Graphic.Graphic2D.NativeDrawing\n @param advances Pointer to the glyph advance array, which is an {@link OH_Drawing_Array} object.\n @param index Subscript of the rendering unit glyph width array. The value range is [0, arrayLength-1], where\n     arrayLength is the number of elements in the advances array. A null pointer is returned when the value exceeds\n     the range.\n @return Returns the pointer to an {@link OH_Drawing_Point} object, which holds the advance of individual glyphs in\n     the run. **x** indicates the advance, and **y** is a reserved field and defaults to **0**.\n @since 20"]
     #[cfg(feature = "api-20")]
     pub fn OH_Drawing_GetRunGlyphAdvanceByIndex(
         advances: *mut OH_Drawing_Array,
@@ -6265,23 +6526,23 @@ extern "C" {
     ) -> *mut OH_Drawing_Point;
 }
 extern "C" {
-    #[doc = " @brief Releases the memory of glyph advance array.\n\n @syscap SystemCapability.Graphic.Graphic2D.NativeDrawing\n @param advances The run of glyph advance array object <b>OH_Drawing_Array</b>.\n @since 20"]
+    #[doc = " @brief Releases the pointer to a glyph advance array in a run.\n\n @syscap SystemCapability.Graphic.Graphic2D.NativeDrawing\n @param advances Pointer to the glyph advance array, which is an {@link OH_Drawing_Array} object.\n @since 20"]
     #[cfg(feature = "api-20")]
     pub fn OH_Drawing_DestroyRunGlyphAdvances(advances: *mut OH_Drawing_Array);
 }
 extern "C" {
-    #[doc = " @brief Creates a default <b>OH_Drawing_Typeface</b> object.\n\n @syscap SystemCapability.Graphic.Graphic2D.NativeDrawing\n @return Returns the pointer to the <b>OH_Drawing_Typeface</b> object created.\n @since 11\n @version 1.0"]
+    #[doc = " @brief Creates a default **OH_Drawing_Typeface** object.\n\n @return Returns the pointer to the **OH_Drawing_Typeface** object created.\n @since 11\n @version 1.0"]
     pub fn OH_Drawing_TypefaceCreateDefault() -> *mut OH_Drawing_Typeface;
 }
 extern "C" {
-    #[doc = " @brief Creates an <b>OH_Drawing_Typeface</b> object by file.\n\n @syscap SystemCapability.Graphic.Graphic2D.NativeDrawing\n @param path  file path.\n @param index  file index.\n @return Returns the pointer to the <b>OH_Drawing_Typeface</b> object created.\n @since 12\n @version 1.0"]
+    #[doc = " @brief Creates an **OH_Drawing_Typeface** object through a file.\n This API may return an error code. For details, call {@link OH_Drawing_ErrorCodeGet}.\n If **path** is NULL, **OH_DRAWING_ERROR_INVALID_PARAMETER** is returned.\n\n @param path Pointer to the file path.\n @param index File index.\n @return Returns a pointer to the created {@link OH_Drawing_Typeface} object.\n @since 12\n @version 1.0"]
     pub fn OH_Drawing_TypefaceCreateFromFile(
         path: *const ::std::os::raw::c_char,
         index: ::std::os::raw::c_int,
     ) -> *mut OH_Drawing_Typeface;
 }
 extern "C" {
-    #[doc = " @brief Creates an <b>OH_Drawing_Typeface</b> object with the specified font arguments from a file.\n If the <b>OH_Drawing_Typeface</b> object does not support the variations described in fontArguments,\n this function creates an <b>OH_Drawing_Typeface</b> object without font arguments.\n In this case, this function provides the same capability as {@link OH_Drawing_TypefaceCreateFromFile}.\n\n @syscap SystemCapability.Graphic.Graphic2D.NativeDrawing\n @param path Indicates the file path.\n @param fontArguments Indicates the pointer to an <b>OH_Drawing_FontArguments</b> object.\n @return Returns the pointer to the <b>OH_Drawing_Typeface</b> object created.\n         If nullptr is returned, the creation fails.\n         The possible cause of the failure is that the available memory is empty,\n         or either path or fontArguments is nullptr, or the path is invalid.\n @since 13\n @version 1.0"]
+    #[doc = " @brief Creates an **OH_Drawing_Typeface** object with font arguments through a file.\n If the **OH_Drawing_Typeface** object does not support the variation described in the font arguments, this function\n creates an **OH_Drawing_Typeface** object with the default font arguments.\n In this case, this function provides the same capability as {@link OH_Drawing_TypefaceCreateFromFile}.\n\n @param path Pointer to the file path.\n @param fontArguments Pointer to an {@link OH_Drawing_FontArguments} object.\n @return Returns a pointer to the created {@link OH_Drawing_Typeface} object.\n If a null pointer is returned, the creation fails. Possible causes are that no memory is available, the passed-in **\n path** or **fontArguments** is NULL, or the path is invalid.\n @since 13\n @version 1.0"]
     #[cfg(feature = "api-13")]
     pub fn OH_Drawing_TypefaceCreateFromFileWithArguments(
         path: *const ::std::os::raw::c_char,
@@ -6289,7 +6550,7 @@ extern "C" {
     ) -> *mut OH_Drawing_Typeface;
 }
 extern "C" {
-    #[doc = " @brief Creates an <b>OH_Drawing_Typeface</b> object with the specified font arguments from\n an existing <b>OH_Drawing_Typeface</b> object.\n\n @syscap SystemCapability.Graphic.Graphic2D.NativeDrawing\n @param current Indicates the existing <b>OH_Drawing_Typeface</b> object.\n @param fontArguments Indicates the pointer to an <b>OH_Drawing_FontArguments</b> object.\n @return Returns the pointer to the <b>OH_Drawing_Typeface</b> object created.\n         If nullptr is returned, the creation fails.\n         The possible cause of the failure is that the available memory is empty,\n         or either current or fontArguments is nullptr,\n         or current does not support the variations described in fontArguments.\n @since 13\n @version 1.0"]
+    #[doc = " @brief Creates an **OH_Drawing_Typeface** object with font arguments based on an existing **OH_Drawing_Typeface**\n object.\n\n @param current Pointer to the {@link OH_Drawing_Typeface} object.\n @param fontArguments Pointer to an {@link OH_Drawing_FontArguments} object.\n @return Returns a pointer to the created {@link OH_Drawing_Typeface} object.\n If a null pointer is returned, the creation fails. Possible causes are that no memory is available, the passed-in **\n path** or **fontArguments** is NULL, or the existing **OH_Drawing_FontArguments** object does not support the\n variation described in the font arguments.\n @since 13\n @version 1.0"]
     #[cfg(feature = "api-13")]
     pub fn OH_Drawing_TypefaceCreateFromCurrent(
         current: *const OH_Drawing_Typeface,
@@ -6297,23 +6558,23 @@ extern "C" {
     ) -> *mut OH_Drawing_Typeface;
 }
 extern "C" {
-    #[doc = " @brief Creates an <b>OH_Drawing_Typeface</b> object by given a stream. If the stream is not a valid\n font file, returns nullptr. Ownership of the stream is transferred, so the caller must not reference\n it or free it again.\n\n @syscap SystemCapability.Graphic.Graphic2D.NativeDrawing\n @param memoryStream Indicates the pointer to an <b>OH_Drawing_MemoryStream</b> object.\n @param index  memory stream index.\n @return Returns the pointer to the <b>OH_Drawing_Typeface</b> object created.\n @since 12\n @version 1.0"]
+    #[doc = " @brief Creates an **OH_Drawing_Typeface** object through a memory stream. If the memory stream is an invalid font\n file, a null pointer is returned. After the memory stream is passed in, the ownership is transferred and you cannot\n release it.\n This API may return an error code. For details, call {@link OH_Drawing_ErrorCodeGet}.\n If **memoryStream** is NULL, **OH_DRAWING_ERROR_INVALID_PARAMETER** is returned.\n\n @param memoryStream Pointer to an {@link OH_Drawing_MemoryStream} object.\n @param index Index of the memory stream.\n @return Returns a pointer to the created {@link OH_Drawing_Typeface} object.\n @since 12\n @version 1.0"]
     pub fn OH_Drawing_TypefaceCreateFromStream(
         memoryStream: *mut OH_Drawing_MemoryStream,
         index: i32,
     ) -> *mut OH_Drawing_Typeface;
 }
 extern "C" {
-    #[doc = " @brief Destroys an <b>OH_Drawing_Typeface</b> object and reclaims the memory occupied by the object.\n\n @syscap SystemCapability.Graphic.Graphic2D.NativeDrawing\n @param typeface Indicates the pointer to an <b>OH_Drawing_Typeface</b> object.\n @since 11\n @version 1.0"]
+    #[doc = " @brief Destroys an **OH_Drawing_Typeface** object and reclaims the memory occupied by the object.\n\n @param typeface Pointer to an **OH_Drawing_Typeface** object.\n @since 11\n @version 1.0"]
     pub fn OH_Drawing_TypefaceDestroy(typeface: *mut OH_Drawing_Typeface);
 }
 extern "C" {
-    #[doc = " @brief Creates an <b>OH_Drawing_FontArguments</b> object.\n\n @syscap SystemCapability.Graphic.Graphic2D.NativeDrawing\n @return Returns the pointer to the <b>OH_Drawing_FontArguments</b> object created.\n         If nullptr is returned, the creation fails.\n         The possible cause of the failure is that the available memory is empty.\n @since 13\n @version 1.0"]
+    #[doc = " @brief Creates an **OH_Drawing_FontArguments** object. The font arguments are used to create an **\n OH_Drawing_Typeface** object with custom attributes.\n\n @return Returns the pointer to the **OH_Drawing_FontArguments** object created.\n @since 13\n @version 1.0"]
     #[cfg(feature = "api-13")]
     pub fn OH_Drawing_FontArgumentsCreate() -> *mut OH_Drawing_FontArguments;
 }
 extern "C" {
-    #[doc = " @brief Adds a font variation axis for an <b>OH_Drawing_FontArguments</b> object.\n\n @syscap SystemCapability.Graphic.Graphic2D.NativeDrawing\n @param fontArguments Indicates the pointer to an <b>OH_Drawing_FontArguments</b> object.\n @param axis Indicates the axis tag, which must contain four ASCII characters.\n @param value Indicates the value of the axis field.\n @return Returns the error code.\n         Returns {@link OH_DRAWING_SUCCESS} if the operation is successful.\n         Returns {@link OH_DRAWING_ERROR_INVALID_PARAMETER} if either fontArguments or axis is nullptr,\n                 or the length of axis is not 4.\n @since 13\n @version 1.0"]
+    #[doc = " @brief Adds a variation to an **OH_Drawing_FontArguments** object.\n\n @param fontArguments Pointer to an {@link OH_Drawing_FontArguments} object.\n @param axis Pointer to the label of the variation. The value must contain four ASCII characters. The supported\n labels depend on the loaded font file. For example, **'wght'** is the font weight label.\n @param value Value of the variation label.\n @return Returns one of the following result codes:\n **OH_DRAWING_SUCCESS** if the operation is successful.\n **OH_DRAWING_ERROR_INVALID_PARAMETER** if either **fontArguments** or **axis** is NULL or the length of **axis** is\n not 4.\n @since 13\n @version 1.0"]
     #[cfg(feature = "api-13")]
     pub fn OH_Drawing_FontArgumentsAddVariation(
         fontArguments: *mut OH_Drawing_FontArguments,
@@ -6322,14 +6583,14 @@ extern "C" {
     ) -> OH_Drawing_ErrorCode;
 }
 extern "C" {
-    #[doc = " @brief Destroys an <b>OH_Drawing_FontArguments</b> object and reclaims the memory occupied by the object.\n\n @syscap SystemCapability.Graphic.Graphic2D.NativeDrawing\n @param fontArguments Indicates the pointer to an <b>OH_Drawing_FontArguments</b> object.\n @return Returns the error code.\n         Returns {@link OH_DRAWING_SUCCESS} if the operation is successful.\n         Returns {@link OH_DRAWING_ERROR_INVALID_PARAMETER} if fontArguments is nullptr.\n @since 13\n @version 1.0"]
+    #[doc = " @brief Destroys an **OH_Drawing_FontArguments** object.\n\n @param fontArguments Pointer to an {@link OH_Drawing_FontArguments} object.\n @return Returns one of the following result codes:\n **OH_DRAWING_SUCCESS** if the operation is successful.\n **OH_DRAWING_ERROR_INVALID_PARAMETER** if **fontArguments** is NULL.\n @since 13\n @version 1.0"]
     #[cfg(feature = "api-13")]
     pub fn OH_Drawing_FontArgumentsDestroy(
         fontArguments: *mut OH_Drawing_FontArguments,
     ) -> OH_Drawing_ErrorCode;
 }
 extern "C" {
-    #[doc = " @brief Checks if the typeface is bold.\n\n @param typeface Indicates the pointer to an <b>OH_Drawing_Typeface</b> object.\n @param isBold Indicates if the typeface is bold.\n @return Returns the error code.\n         Returns {@link OH_DRAWING_SUCCESS} if the operation is successful.\n         Returns {@link OH_DRAWING_ERROR_INCORRECT_PARAMETER} if typeface or isBold is nullptr.\n @since 23\n @version 1.0"]
+    #[doc = " @brief Checks whether the typeface is bold.\n\n @param typeface Pointer to the {@link OH_Drawing_Typeface} object.\n @param isBold Whether the typeface is bold. It is used as an output parameter. **true** if the typeface is bold; **\n false** otherwise.\n @return Execution result.\n **OH_DRAWING_SUCCESS** if the operation is successful.\n **OH_DRAWING_ERROR_INCORRECT_PARAMETER** if **typeface** or **isBold** is a null pointer.\n @since 23\n @version 1.0"]
     #[cfg(feature = "api-23")]
     pub fn OH_Drawing_TypefaceIsBold(
         typeface: *const OH_Drawing_Typeface,
@@ -6337,7 +6598,7 @@ extern "C" {
     ) -> OH_Drawing_ErrorCode;
 }
 extern "C" {
-    #[doc = " @brief Checks if the typeface is italic.\n\n @param typeface Indicates the pointer to an <b>OH_Drawing_Typeface</b> object.\n @param isItalic Indicates if the typeface is italic.\n @return Returns the error code.\n         Returns {@link OH_DRAWING_SUCCESS} if the operation is successful.\n         Returns {@link OH_DRAWING_ERROR_INCORRECT_PARAMETER} if typeface or italic is nullptr.\n @since 23\n @version 1.0"]
+    #[doc = " @brief Checks whether the typeface is italic.\n\n @param typeface Pointer to the {@link OH_Drawing_Typeface} object.\n @param isItalic Whether the typeface is italic. It is used as an output parameter. **true** if the typeface is\n italic; **false** otherwise.\n @return Execution result.\n **OH_DRAWING_SUCCESS** if the operation is successful.\n **OH_DRAWING_ERROR_INCORRECT_PARAMETER** if **typeface** or **isItalic** is a null pointer.\n @since 23\n @version 1.0"]
     #[cfg(feature = "api-23")]
     pub fn OH_Drawing_TypefaceIsItalic(
         typeface: *const OH_Drawing_Typeface,

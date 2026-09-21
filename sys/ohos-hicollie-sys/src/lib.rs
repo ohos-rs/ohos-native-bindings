@@ -11,54 +11,54 @@
 #[link(name = "ohhicollie")]
 unsafe extern "C" {}
 
-#[doc = " Success"]
+#[doc = " The operation is successful.\n\n @since 12"]
 pub const HiCollie_ErrorCode_HICOLLIE_SUCCESS: HiCollie_ErrorCode = 0;
-#[doc = " Invalid argument"]
+#[doc = " The parameter is invalid.\n\n @since 12"]
 pub const HiCollie_ErrorCode_HICOLLIE_INVALID_ARGUMENT: HiCollie_ErrorCode = 401;
-#[doc = " Wrong thread context"]
+#[doc = " The called thread is incorrect.\n\n @since 12"]
 pub const HiCollie_ErrorCode_HICOLLIE_WRONG_THREAD_CONTEXT: HiCollie_ErrorCode = 29800001;
-#[doc = " Remote call failed"]
+#[doc = " The remote call fails.\n\n @since 12"]
 pub const HiCollie_ErrorCode_HICOLLIE_REMOTE_FAILED: HiCollie_ErrorCode = 29800002;
-#[doc = " Invalid timer name\n @since 18"]
+#[doc = " The timer name is invalid.\n\n @since 18"]
 #[cfg(feature = "api-18")]
 pub const HiCollie_ErrorCode_HICOLLIE_INVALID_TIMER_NAME: HiCollie_ErrorCode = 29800003;
-#[doc = " Invalid timeout value\n @since 18"]
+#[doc = " The function execution timeout value is invalid.\n\n @since 18"]
 #[cfg(feature = "api-18")]
 pub const HiCollie_ErrorCode_HICOLLIE_INVALID_TIMEOUT_VALUE: HiCollie_ErrorCode = 29800004;
-#[doc = " Wrong process context\n @since 18"]
+#[doc = " The process to be accessed is incorrect.\n\n @since 18"]
 #[cfg(feature = "api-18")]
 pub const HiCollie_ErrorCode_HICOLLIE_WRONG_PROCESS_CONTEXT: HiCollie_ErrorCode = 29800005;
-#[doc = " The pointer used to save returned timer id should not be NULL\n @since 18"]
+#[doc = " The pointer used to save the returned timer ID is null.\n\n @since 18"]
 #[cfg(feature = "api-18")]
 pub const HiCollie_ErrorCode_HICOLLIE_WRONG_TIMER_ID_OUTPUT_PARAM: HiCollie_ErrorCode = 29800006;
-#[doc = " Call Report interface too frequently\n @since 24"]
+#[doc = " The reporting frequency exceeds the limit.\n\n @since 24"]
 #[cfg(feature = "api-24")]
 pub const HiCollie_ErrorCode_OH_HICOLLIE_REACH_REPORT_LIMIT: HiCollie_ErrorCode = 29800007;
-#[doc = " @brief Defines error code\n\n @since 12"]
+#[doc = " @brief Enumerates the error codes used in the HiCollie module.\n\n @since 12"]
 pub type HiCollie_ErrorCode = u32;
-#[doc = " @brief In stuck scenario, you need to implement this function to detect whether your business thread is stuck.\n HiCollie will call this function every 3 seconds in an independent thread.\n A possible implementation of this function is to send a message to your business thread.\n After the business thread receives it, it will set a flag,\n by checking the flag you can know whether the business thread is stuck or not.\n\n @since 12"]
+#[doc = " @brief Checks whether a service thread is stuck.\n This function is called by HiCollie every 3 seconds in a service thread.\n For example, this function can be used to send a message to a service thread and set a flag after the service thread\n receives the message. Then the flag is checked to determine whether the service thread is stuck.\n\n @since 12"]
 pub type OH_HiCollie_Task = ::std::option::Option<unsafe extern "C" fn()>;
 #[doc = " @brief In jank scenario, you need to insert two stub functions before and after\n each event processing of your business thread.\n By checking these two function executing timestamp, HiCollie will know consuming time for every event.\n If it exceeds the preset threshold, a jank event will be reported.\n This is the stub function inserted before each event processing.\n\n @param eventName Business thread processing event name.\n @since 12"]
 pub type OH_HiCollie_BeginFunc =
     ::std::option::Option<unsafe extern "C" fn(eventName: *const ::std::os::raw::c_char)>;
-#[doc = " @brief In jank scenario, you need to insert two stub functions before and after\n each event processing of your business thread.\n By checking these two function executing timestamp, HiCollie will know consuming time for every event.\n If it exceeds the preset threshold, a jank event will be reported.\n This is the stub function inserted after each event processing.\n\n @param eventName Business thread processing event name.\n @since 12"]
+#[doc = " @brief Records the end time when a service thread processes an event. This function is used in the jank event\n detection.\n HiCollie checks the execution time of the event. If the duration exceeds the preset threshold, a jank event is\n reported.\n This is the stub function inserted after each event processing.\n\n @param eventName Name of the service thread event.\n @since 12"]
 pub type OH_HiCollie_EndFunc =
     ::std::option::Option<unsafe extern "C" fn(eventName: *const ::std::os::raw::c_char)>;
-#[doc = " @brief Parameters used for jank detection.\n Pls note these parameters is not valid for API 12, it is only used for future extention.\n\n @since 12"]
+#[doc = " @brief Defines the parameters of the jank event detection. Note that this struct is supported since API 12.\n\n @since 12"]
 #[repr(C)]
 #[derive(Debug, Copy, Clone)]
 pub struct HiCollie_DetectionParam {
-    #[doc = " In jank scenario, it's the threshold exceed which sample stack will be collected."]
+    #[doc = " In jank scenario, it's the threshold exceed which sample stack will be collected.\n\n @since 12"]
     pub sampleStackTriggerTime: ::std::os::raw::c_int,
-    #[doc = " extended parameter for future use."]
+    #[doc = " Extended parameter for future use.\n\n @since 12"]
     pub reserved: ::std::os::raw::c_int,
 }
 extern "C" {
-    #[doc = " @brief Set up periodic tasks for stuck detection.\n\n @param task Periodic task executed every 3 seconds.\n @return {@link HICOLLIE_SUCCESS} 0 - Success.\n         {@link HICOLLIE_WRONG_THREAD_CONTEXT} 29800001 - Wrong thread context.\n              The function can not be called from main thread.\n @since 12"]
+    #[doc = " @brief Registers a callback used to periodically detect service thread stuck events.\n By default, the **BUSSINESS_THREAD_BLOCK_3S** event is reported when the thread is blocked for 3s and the **\n BUSSINESS_THREAD_BLOCK_6S** event is reported when the thread is blocked for 6s.\n\n @param task A periodic detection task that is executed every 3 seconds to check whether a service thread is stuck.\n @return {@link HICOLLIE_SUCCESS} 0 - Operation successful.\n {@link HICOLLIE_WRONG_THREAD_CONTEXT} 29800001 - Incorrect calling thread. This function should be called in a non-\n main thread.\n For details, see {@link HiCollie_ErrorCode}.\n @since 12"]
     pub fn OH_HiCollie_Init_StuckDetection(task: OH_HiCollie_Task) -> HiCollie_ErrorCode;
 }
 extern "C" {
-    #[doc = " @brief Set up periodic tasks for stuck detection.\n\n @param task Periodic task executed every stuckTimeout seconds.\n @param stuckTimeout Stuck detection interval.\n @return {@link HICOLLIE_SUCCESS} 0 - Success.\n         {@link HICOLLIE_INVALID_ARGUMENT} 401 - stuckTimeout is less than 3 seconds and greater than 15 seconds.\n         {@link HICOLLIE_WRONG_THREAD_CONTEXT} 29800001 - Wrong thread context\n              The function can not be called from main thread.\n @since 18"]
+    #[doc = " @brief Registers a callback used to periodically detect service thread stuck events.\n You can set the interval for the stuck event detection. The value range is [3, 15], in seconds.\n\n @param task Periodic detection task that is executed every **stuckTimeout** time to check whether a service thread\n is stuck.\n @param stuckTimeout Threshold for reporting a service thread stuck event, in seconds. When the task execution time\n exceeds the value of **stuckTimeout**, a stuck warning event is reported. When the task execution time exceeds twice\n the value of **stuckTimeout**, a stuck event is reported.\n The maximum value is **15s** and the minimum value is **3s**.\n @return {@link HICOLLIE_SUCCESS} 0 - Operation successful.\n {@link HICOLLIE_INVALID_ARGUMENT} 401 - Invalid detection time.\n {@link HICOLLIE_WRONG_THREAD_CONTEXT} 29800001 - Incorrect calling thread. This function should be called in a non-\n main thread.\n For details, see {@link HiCollie_ErrorCode}.\n @since 18"]
     #[cfg(feature = "api-18")]
     pub fn OH_HiCollie_Init_StuckDetectionWithTimeout(
         task: OH_HiCollie_Task,
@@ -66,7 +66,7 @@ extern "C" {
     ) -> HiCollie_ErrorCode;
 }
 extern "C" {
-    #[doc = " @brief Set up stub functions for jank detection.\n\n @param beginFunc The stub function before each event processing.\n @param endFunc The stub function after each event processing.\n @param param The parameter for jank detection setting.\n @return {@link HICOLLIE_SUCCESS} 0 - Success.\n         {@link HICOLLIE_INVALID_ARGUMENT} 401 - beginFunc and endFunc\n              must both have values or be empty, otherwise the value will be returned.\n         {@link HICOLLIE_WRONG_THREAD_CONTEXT} 29800001 - Wrong thread context.\n              The function can not be called from main thread.\n @since 12"]
+    #[doc = " @brief Registers a callback used to detect service thread jank events.\n To monitor service thread jank events, you can implement two callbacks as instrumentation functions, placing them\n before and after the service thread event.\n\n @param beginFunc Function used before the service thread event detection.\n @param endFunc Function used after the service thread event detection.\n @param param Extended parameter for future use.\n @return {@link HICOLLIE_SUCCESS} 0 - Operation successful.\n {@link HICOLLIE_INVALID_ARGUMENT} 401 - The begin and end functions are not both set or both unset; they must either\n both have valid values or both be empty.\n {@link HICOLLIE_WRONG_THREAD_CONTEXT} 29800001 - Incorrect calling thread. This function should be called in a non-\n main thread.\n For details, see {@link HiCollie_ErrorCode}.\n @since 12"]
     pub fn OH_HiCollie_Init_JankDetection(
         beginFunc: *mut OH_HiCollie_BeginFunc,
         endFunc: *mut OH_HiCollie_EndFunc,
@@ -74,51 +74,51 @@ extern "C" {
     ) -> HiCollie_ErrorCode;
 }
 extern "C" {
-    #[doc = " @brief Report a stuck event.\n\n @param isSixSecond boolean pointer.\n The value of the boolean pointer.True if it is stuck for 6 seconds. False if it is stuck for 3 seconds.\n @return {@link HICOLLIE_SUCCESS} 0 - Success.\n         {@link HICOLLIE_INVALID_ARGUMENT} 401 - if isSixSecond is nullptr.\n         {@link HICOLLIE_WRONG_THREAD_CONTEXT} 29800001 - Wrong thread context.\n              The function can only be called from hicollie internal monitor thread\n              where {@link OH_HiCollie_Task} run on.\n         {@link HICOLLIE_REMOTE_FAILED} 29800002 - Remote call failed.\n @since 12"]
+    #[doc = " @brief Reports a service thread stuck event and generates logs to help locate application stuck issues.\n Call **OH_HiCollie_Init_StuckDetection()** or **OH_HiCollie_Init_StuckDetectionWithTimeout()** to initialize the\n detection task.\n If the task times out, call **OH_HiCollie_Report()** to report the stuck event based on the service logic.\n\n @param isSixSecond Pointer to a Boolean value.  If the service thread is stuck for 6s, the value is **true**. If the\n service thread is stuck for 3s, the value is **false**.\n @return {@link HICOLLIE_SUCCESS} 0 - Operation successful.\n {@link HICOLLIE_INVALID_ARGUMENT} 401 - The begin and end functions are not both set or both unset; they must either\n both have valid values or both be empty.\n {@link HICOLLIE_WRONG_THREAD_CONTEXT} 29800001 - Incorrect calling thread. This function should be called in a non-\n main thread.\n {@link HICOLLIE_REMOTE_FAILED} 29800002 - Remote call error. The IPC remote service fails to be called.\n For details, see {@link HiCollie_ErrorCode}.\n @since 12"]
     pub fn OH_HiCollie_Report(isSixSecond: *mut bool) -> HiCollie_ErrorCode;
 }
 extern "C" {
-    #[doc = " @brief Report a stuck event while user input not response.\n\n @return {@link HICOLLIE_SUCCESS} 0 - Success.\n         {@link HICOLLIE_REMOTE_FAILED} 29800002 - Remote call failed.\n @since 24"]
+    #[doc = " @brief Reports an application input unresponsive event and generates logs to help locate application freeze issues.\n On a PC or tablet, a dialog box is displayed, prompting the user to wait or close the application. On other devices,\n no dialog box is displayed. You are advised to use this API in either of the following ways:\n Method 1 (recommended): Use this API together with **OH_HiCollie_Report**, **OH_HiCollie_Init_StuckDetection**, or **\n OH_HiCollie_Init_StuckDetectionWithTimeout**. The service thread periodically checks whether it is frozen through\n the preceding APIs. When the service thread is frozen and an input event (such as screen tapping, mouse clicking, or\n keyboard input) occurs, the service thread calls **OH_HiCollie_ReportInputBlock**.\n Method 2: If the service thread can detect its own freeze without using the **OH_HiCollie_Report**, **\n OH_HiCollie_Init_StuckDetection**, or **OH_HiCollie_Init_StuckDetectionWithTimeout** API, the application calls the *\n *OH_HiCollie_ReportInputBlock** API based on the service thread freeze and input event.\n\n @return {@link HICOLLIE_SUCCESS} 0 - Operation successful.\n {@link HICOLLIE_REMOTE_FAILED} 29800002 - Remote call error. The IPC remote service fails to be called.\n For details, see {@link HiCollie_ErrorCode}.\n @since 24"]
     #[cfg(feature = "api-24")]
     pub fn OH_HiCollie_ReportInputBlock() -> HiCollie_ErrorCode;
 }
-#[doc = " @brief When user call {@link OH_HiCollie_SetTimer} and do not call {@link OH_HiCollie_CancelTimer}\n in specific time, the callback function will be executed.\n\n @since 18"]
+#[doc = " @brief Triggered when {@link OH_HiCollie_CancelTimer} is not called within\n the custom task timeout period after {@link OH_HiCollie_SetTimer} is called.\n\n @since 18"]
 #[cfg(feature = "api-18")]
 pub type OH_HiCollie_Callback =
     ::std::option::Option<unsafe extern "C" fn(arg1: *mut ::std::os::raw::c_void)>;
-#[doc = " Default action is generate log file and do recovery"]
+#[doc = " Default action is generate log file and do recovery.\n\n @since 18"]
 #[cfg(feature = "api-18")]
 pub const HiCollie_Flag_HICOLLIE_FLAG_DEFAULT: HiCollie_Flag = -1;
-#[doc = " Default action is generate log file and do recovery"]
+#[doc = " Do nothing except call the callback function\n\n @since 18"]
 #[cfg(feature = "api-18")]
 pub const HiCollie_Flag_HICOLLIE_FLAG_NOOP: HiCollie_Flag = 0;
-#[doc = " Default action is generate log file and do recovery"]
+#[doc = " Generate log file\n\n @since 18"]
 #[cfg(feature = "api-18")]
 pub const HiCollie_Flag_HICOLLIE_FLAG_LOG: HiCollie_Flag = 1;
-#[doc = " Default action is generate log file and do recovery"]
+#[doc = " Do recovery by call the exit syscall\n\n @since 18"]
 #[cfg(feature = "api-18")]
 pub const HiCollie_Flag_HICOLLIE_FLAG_RECOVERY: HiCollie_Flag = 2;
-#[doc = " @brief Defines the actions that will be executed when timeout happens.\n\n @since 18"]
+#[doc = " @brief Enumerates the actions to be performed when a function times out.\n\n @since 18"]
 #[cfg(feature = "api-18")]
 pub type HiCollie_Flag = i32;
-#[doc = " @brief Defines the input parameter for {@link OH_HiCollie_SetTimer}\n\n @since 18"]
+#[doc = " @brief Defines the input parameters of the **OH_HiCollie_SetTimer** function.\n\n @since 18"]
 #[cfg(feature = "api-18")]
 #[repr(C)]
 #[derive(Debug, Copy, Clone)]
 pub struct HiCollie_SetTimerParam {
-    #[doc = " The timer name"]
+    #[doc = " The timer name\n\n @since 18"]
     pub name: *const ::std::os::raw::c_char,
-    #[doc = " The timeout threshold in seconds"]
+    #[doc = " Task timeout threshold, in seconds.\n\n @since 18"]
     pub timeout: ::std::os::raw::c_uint,
-    #[doc = " The callback function which is excuted when timeout happen"]
+    #[doc = " Callback executed when a timeout occurs.\n\n @since 18"]
     pub func: OH_HiCollie_Callback,
-    #[doc = " The callback function's parameter"]
+    #[doc = " The callback function's parameter.\n\n @since 18"]
     pub arg: *mut ::std::os::raw::c_void,
-    #[doc = " The action when timeout happens. Please refer to {@link HiCollie_Flag}"]
+    #[doc = " Action performed when a timeout occurs. For details, see {@link HiCollie_Flag}.\n\n @since 18"]
     pub flag: HiCollie_Flag,
 }
 extern "C" {
-    #[doc = " @brief This function should be used before calling a time-consuming function\n\n @param param Define the input parameter.\n @param id The pointer used to save returned timer id, it should not be NULL.\n @return {@link HICOLLIE_SUCCESS} 0 - Success.\n         {@link HICOLLIE_INVALID_TIMER_NAME} 29800003 - Invalid timer name, it should not be NULL or empty string.\n         {@link HICOLLIE_INVALID_TIMEOUT_VALUE} 29800004 - Invalid timeout value.\n         {@link HICOLLIE_WRONG_PROCESS_CONTEXT} 29800005 - Invalid process context, you should not call it\n              from appspawn and native process.\n         {@link HICOLLIE_WRONG_TIMER_ID_OUTPUT_PARAM} 29800006 - The pointer used to save returned timer id\n              should not be NULL.\n @since 18"]
+    #[doc = " @brief Registers a timer to check whether the execution time of a function or code block exceeds the custom time.\n This API is used together with the **OH_HiCollie_CancelTimer** API.\n\n @param param Input parameters.\n @param id Pointer to the returned timer ID, which should not be NULL.\n @return {@link HICOLLIE_SUCCESS} 0 - Operation successful.\n {@link HICOLLIE_INVALID_TIMER_NAME} 29800003 - Invalid timer name. The timer name cannot be NULL or an empty string.\n {@link HICOLLIE_INVALID_TIMEOUT_VALUE} 29800004 - Invalid timeout value.\n {@link HICOLLIE_WRONG_PROCESS_CONTEXT} 29800005 - Invalid process context for detection. This function cannot be\n called in the **appspawn** and **nativespawn** processes.\n {@link HICOLLIE_WRONG_TIMER_ID_OUTPUT_PARAM} 29800006 - The pointer used to save the returned timer ID is NULL.\n For details, see {@link HiCollie_ErrorCode}.\n @since 18"]
     #[cfg(feature = "api-18")]
     pub fn OH_HiCollie_SetTimer(
         param: HiCollie_SetTimerParam,
@@ -126,38 +126,38 @@ extern "C" {
     ) -> HiCollie_ErrorCode;
 }
 extern "C" {
-    #[doc = " @brief Cancel the timer right after calling the time-consuming function.\n\n @param id The timer id that is return from {@link OH_HiCollie_SetTimer}.\n @since 18"]
+    #[doc = " @brief Cancels a timer based on the ID.\n This API is used together with the **OH_HiCollie_SetTimer** API. It must be used after the function or code block is\n executed.\n If a timer is not canceled within the custom time, a callback function is executed to generate fault logs for the\n specified timeout event.\n\n @param id Timer ID updated after the {@link OH_HiCollie_SetTimer} function is executed.\n @since 18"]
     #[cfg(feature = "api-18")]
     pub fn OH_HiCollie_CancelTimer(id: ::std::os::raw::c_int);
 }
-#[doc = " @brief Main thread watchdog timeout for one period.\n\n @since 24"]
+#[doc = " @brief The main thread times out for one period.\n\n @since 24"]
 #[cfg(feature = "api-24")]
 pub const OH_HiCollie_Freeze_Type_OH_THREAD_BLOCK_3S: OH_HiCollie_Freeze_Type = 0;
-#[doc = " @brief Main thread watchdog timeout for two periods.\n\n @since 24"]
+#[doc = " @brief The main thread times out for two periods.\n\n @since 24"]
 #[cfg(feature = "api-24")]
 pub const OH_HiCollie_Freeze_Type_OH_THREAD_BLOCK_6S: OH_HiCollie_Freeze_Type = 1;
-#[doc = " @brief Ability lifecycle timeout for one period.\n\n @since 24"]
+#[doc = " @brief The ability lifecycle times out for one period.\n\n @since 24"]
 #[cfg(feature = "api-24")]
 pub const OH_HiCollie_Freeze_Type_OH_LIFECYCLE_HALF_TIMEOUT: OH_HiCollie_Freeze_Type = 2;
-#[doc = " @brief Ability lifecycle timeout for two periods.\n\n @since 24"]
+#[doc = " @brief The ability lifecycle times out for two periods.\n\n @since 24"]
 #[cfg(feature = "api-24")]
 pub const OH_HiCollie_Freeze_Type_OH_LIFECYCLE_TIMEOUT: OH_HiCollie_Freeze_Type = 3;
 #[doc = " @brief Input event processing timeout.\n\n @since 24"]
 #[cfg(feature = "api-24")]
 pub const OH_HiCollie_Freeze_Type_OH_APP_INPUT_BLOCK: OH_HiCollie_Freeze_Type = 4;
-#[doc = " @brief Freeze event reported by {@link OH_HiCollie_Report}.\n\n @since 24"]
+#[doc = " @brief A 3s freeze event is reported through {@link OH_HiCollie_Report}.\n\n @since 24"]
 #[cfg(feature = "api-24")]
 pub const OH_HiCollie_Freeze_Type_OH_BUSINESS_THREAD_BLOCK_3S: OH_HiCollie_Freeze_Type = 5;
-#[doc = " @brief Freeze event reported by {@link OH_HiCollie_Report}.\n\n @since 24"]
+#[doc = " @brief A 6s freeze event is reported through {@link OH_HiCollie_Report}.\n\n @since 24"]
 #[cfg(feature = "api-24")]
 pub const OH_HiCollie_Freeze_Type_OH_BUSINESS_THREAD_BLOCK_6S: OH_HiCollie_Freeze_Type = 6;
-#[doc = " @brief Freeze event reported by {@link OH_HiCollie_ReportInputBlock}.\n\n @since 24"]
+#[doc = " @brief A freeze event is reported through {@link OH_HiCollie_ReportInputBlock}.\n\n @since 24"]
 #[cfg(feature = "api-24")]
 pub const OH_HiCollie_Freeze_Type_OH_BUSINESS_INPUT_BLOCK: OH_HiCollie_Freeze_Type = 7;
-#[doc = " @brief Defines the freeze types returns in FreezeCallback\n\n @since 24"]
+#[doc = " @brief Enumerates the freeze event types returned by **FreezeCallback**.\n\n @since 24"]
 #[cfg(feature = "api-24")]
 pub type OH_HiCollie_Freeze_Type = u32;
-#[doc = " @brief the freeze callback used in {@link OH_HiCollie_SetFreezeCallback}\n\n @param type Freeze event type in {@link OH_HiCollie_Freeze_Type}\n @param buffer log buffer provided by the system, whose content will be moved to APP_FREEZE or APP_HICOLLIE\nHiAppEvent\n @param size buffer size can be used\n @return used buffer size\n @since 24"]
+#[doc = " @brief the freeze callback used in {@link OH_HiCollie_SetFreezeCallback}\n\n @param type Freeze event type in {@link OH_HiCollie_Freeze_Type}\n @param buffer log buffer provided by the system, whose content will be moved to APP_FREEZE or APP_HICOLLIE\n                 HiAppEvent\n @param size buffer size can be used\n @return used buffer size\n @since 24"]
 #[cfg(feature = "api-24")]
 pub type OH_HiCollie_FreezeCallback = ::std::option::Option<
     unsafe extern "C" fn(
@@ -167,14 +167,14 @@ pub type OH_HiCollie_FreezeCallback = ::std::option::Option<
     ) -> usize,
 >;
 extern "C" {
-    #[doc = " @brief Set freeze callback to system, system will callback when system detect freeze\n\n @param callback The function callback {@link OH_HiCollie_FreezeCallback}.\n @return The previous callback\n @since 24"]
+    #[doc = " @brief Sets the freeze event callback in the system. The system calls this function when a freeze event occurs.\n\n @param callback Callback function.\n @return Callback function passed last time in the current process.\n @since 24"]
     #[cfg(feature = "api-24")]
     pub fn OH_HiCollie_SetFreezeCallback(
         callback: OH_HiCollie_FreezeCallback,
     ) -> *mut ::std::os::raw::c_void;
 }
 extern "C" {
-    #[doc = " @brief Report a stuck event from process distinct from main app process.\n The APP_HICOLLIE event will be generated and caller process may not be killed\n\n @param isFreezeEvent boolean. True, BUSINESS_THREAD_BLOCK_6S will be reported.\n                                   False, BUSINESS_THREAD_BLOCK_3S will be reported.\n\n @return {@link HICOLLIE_SUCCESS} 0 - Success.\n         {@link OH_HICOLLIE_REACH_REPORT_LIMIT} 29800007 - report too frequently\n @since 24"]
+    #[doc = " @brief Reports a freeze event of a process. In this case, a **HiAppEvent** event of the **APP_HICOLLIE** type is\n generated.\n\n @param isFreezeEvent Type of the reported event. **true**: A 6s freeze event. **false**: A 3s freeze event.\n @return **HICOLLIE_SUCCESS**: 0 - The operation is successful.\n **OH_HICOLLIE_REACH_REPORT_LIMIT**: 29800007 - The reporting frequency is too high.\n @since 24"]
     #[cfg(feature = "api-24")]
     pub fn OH_HiCollie_AssociateProcessReport(isFreezeEvent: bool) -> HiCollie_ErrorCode;
 }
