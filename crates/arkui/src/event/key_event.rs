@@ -183,22 +183,35 @@ pub enum KeyCode {
     NumpadEquals,
     NumpadLeftParen,
     NumpadRightParen,
+    #[cfg(feature = "api-15")]
     ButtonA,
+    #[cfg(feature = "api-15")]
     ButtonB,
+    #[cfg(feature = "api-15")]
     ButtonX,
+    #[cfg(feature = "api-15")]
     ButtonY,
+    #[cfg(feature = "api-15")]
     #[suffix("BUTTON_L1")]
     ButtonL1,
+    #[cfg(feature = "api-15")]
     #[suffix("BUTTON_R1")]
     ButtonR1,
+    #[cfg(feature = "api-15")]
     #[suffix("BUTTON_L2")]
     ButtonL2,
+    #[cfg(feature = "api-15")]
     #[suffix("BUTTON_R2")]
     ButtonR2,
+    #[cfg(feature = "api-15")]
     ButtonSelect,
+    #[cfg(feature = "api-15")]
     ButtonStart,
+    #[cfg(feature = "api-15")]
     ButtonMode,
+    #[cfg(feature = "api-15")]
     ButtonThumbl,
+    #[cfg(feature = "api-15")]
     ButtonThumbr,
 }
 
@@ -373,6 +386,7 @@ mod tests {
     #[test]
     fn converts_key_codes_and_safely_rejects_future_enums() {
         assert_eq!(KeyCode::Enter.raw(), ArkUI_KeyCode_ARKUI_KEYCODE_ENTER);
+        #[cfg(feature = "api-15")]
         assert_eq!(
             KeyCode::try_from_raw(ArkUI_KeyCode_ARKUI_KEYCODE_BUTTON_THUMBR),
             Some(KeyCode::ButtonThumbr)

@@ -72,6 +72,16 @@ fn get_target_variant(variant: &syn::Variant, default_prefix: &str) -> Ident {
     format_ident!("{}{}", variant_prefix, upper_snake_variant)
 }
 
+fn get_cfg_attributes(variant: &syn::Variant) -> Vec<&syn::Attribute> {
+    variant
+        .attrs
+        .iter()
+        .filter(|attribute| {
+            attribute.path().is_ident("cfg") || attribute.path().is_ident("cfg_attr")
+        })
+        .collect()
+}
+
 #[proc_macro_derive(EnumFrom, attributes(config, prefix, suffix, alias))]
 pub fn enum_from(input: TokenStream) -> TokenStream {
     let input = parse_macro_input!(input as DeriveInput);
@@ -99,7 +109,9 @@ pub fn enum_from(input: TokenStream) -> TokenStream {
         .map(|v| {
             let variant = &v.ident;
             let target_variant = get_target_variant(v, &default_prefix);
+            let cfg_attributes = get_cfg_attributes(v);
             quote! {
+                #(#cfg_attributes)*
                 #name::#variant => #target_variant,
             }
         })
@@ -110,7 +122,9 @@ pub fn enum_from(input: TokenStream) -> TokenStream {
         .map(|v| {
             let variant = &v.ident;
             let target_variant = get_target_variant(v, &default_prefix);
+            let cfg_attributes = get_cfg_attributes(v);
             quote! {
+                #(#cfg_attributes)*
                 #target_variant => #name::#variant,
             }
         })
@@ -121,7 +135,9 @@ pub fn enum_from(input: TokenStream) -> TokenStream {
         .map(|v| {
             let variant = &v.ident;
             let target_variant = get_target_variant(v, &default_prefix);
+            let cfg_attributes = get_cfg_attributes(v);
             quote! {
+                #(#cfg_attributes)*
                 #target_variant => ::std::option::Option::Some(#name::#variant),
             }
         })
