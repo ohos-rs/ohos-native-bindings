@@ -261,14 +261,25 @@ impl ArkUIInputEvent {
     }
 
     pub fn mouse_button(&self) -> UIMouseEventButton {
-        UIMouseEventButton::from(unsafe { OH_ArkUI_MouseEvent_GetMouseButton(self.raw()) } as u32)
+        UIMouseEventButton::try_from_raw(self.mouse_button_raw() as u32)
+            .unwrap_or(UIMouseEventButton::None)
+    }
+
+    /// Returns the platform mouse-button value without discarding values
+    /// introduced by a newer SDK.
+    pub fn mouse_button_raw(&self) -> i32 {
+        unsafe { OH_ArkUI_MouseEvent_GetMouseButton(self.raw()) }
     }
 
     pub fn mouse_action(&self) -> UIMouseEventAction {
-        UIMouseEventAction::try_from_raw(
-            unsafe { OH_ArkUI_MouseEvent_GetMouseAction(self.raw()) } as u32
-        )
-        .unwrap_or(UIMouseEventAction::Unknown)
+        UIMouseEventAction::try_from_raw(self.mouse_action_raw() as u32)
+            .unwrap_or(UIMouseEventAction::Unknown)
+    }
+
+    /// Returns the platform mouse-action value without discarding values
+    /// introduced by a newer SDK.
+    pub fn mouse_action_raw(&self) -> i32 {
+        unsafe { OH_ArkUI_MouseEvent_GetMouseAction(self.raw()) }
     }
 
     pub fn pointer_set_stop_propagation(

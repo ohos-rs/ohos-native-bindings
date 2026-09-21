@@ -7,6 +7,10 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+### Added
+
+- Add safe ArkUI key-event, component-event union, and node animator wrappers so downstream UI frameworks do not need direct `ohos-arkui-sys` access.
+
 ## [0.3.0](https://github.com/ohos-rs/ohos-native-bindings/compare/ohos-arkui-binding-v0.2.5...ohos-arkui-binding-v0.3.0) - 2026-08-26
 
 ### Added
