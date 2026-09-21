@@ -166,3 +166,17 @@ api-24 = [
   "ohos-image-native-binding?/api-24",
   "ohos-udmf-binding?/api-24",
 ]
+api-25 = [
+  "api-24",
+  "ohos-arkui-sys/api-25",
+  "ohos-drawing-binding?/api-25",
+  "ohos-xcomponent-binding/api-25",
+  "ohos-arkui-input-binding/api-25",
+]
+api-26 = [
+  "api-25",
+  "ohos-arkui-sys/api-26",
+  "ohos-drawing-binding?/api-26",
+  "ohos-xcomponent-binding/api-26",
+  "ohos-arkui-input-binding/api-26",
+]

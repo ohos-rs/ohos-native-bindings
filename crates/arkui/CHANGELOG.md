@@ -11,6 +11,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 - Add safe ArkUI key-event, component-event union, and node animator wrappers so downstream UI frameworks do not need direct `ohos-arkui-sys` access.
 - Add `ArkUINode::native_xcomponent` so downstream frameworks do not need the XComponent sys crate to resolve a mounted surface.
+- Add API 25/26 feature forwarding and derive ArkUI key enums through `ohos-enum-derive`.
 
 ## [0.3.0](https://github.com/ohos-rs/ohos-native-bindings/compare/ohos-arkui-binding-v0.2.5...ohos-arkui-binding-v0.3.0) - 2026-08-26
 

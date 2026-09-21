@@ -10,6 +10,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ### Added
 
 - Add lossless raw mouse button and action accessors for forward-compatible event dispatch.
+- Add API 25/26 feature forwarding and typed hover enter/leave state access.
 
 ## [0.1.3](https://github.com/ohos-rs/ohos-native-bindings/compare/ohos-arkui-input-binding-v0.1.2...ohos-arkui-input-binding-v0.1.3) - 2026-08-26
 

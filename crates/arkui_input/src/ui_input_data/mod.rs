@@ -10,10 +10,10 @@ pub use pointer::ArkUIInputClonedEvent;
 
 use ohos_arkui_input_sys::{
     ArkUI_ErrorCode_ARKUI_ERROR_CODE_NO_ERROR, ArkUI_ModifierKeyName, ArkUI_UIInputEvent,
-    OH_ArkUI_PointerEvent_GetPointerCount, OH_ArkUI_PointerEvent_GetPointerId,
-    OH_ArkUI_UIInputEvent_GetAction, OH_ArkUI_UIInputEvent_GetEventTime,
-    OH_ArkUI_UIInputEvent_GetSourceType, OH_ArkUI_UIInputEvent_GetToolType,
-    OH_ArkUI_UIInputEvent_GetType,
+    OH_ArkUI_HoverEvent_IsHovered, OH_ArkUI_PointerEvent_GetPointerCount,
+    OH_ArkUI_PointerEvent_GetPointerId, OH_ArkUI_UIInputEvent_GetAction,
+    OH_ArkUI_UIInputEvent_GetEventTime, OH_ArkUI_UIInputEvent_GetSourceType,
+    OH_ArkUI_UIInputEvent_GetToolType, OH_ArkUI_UIInputEvent_GetType,
 };
 #[cfg(feature = "api-15")]
 use ohos_arkui_input_sys::{
@@ -112,6 +112,14 @@ impl ArkUIInputEvent {
 
     pub fn event_time(&self) -> i64 {
         unsafe { OH_ArkUI_UIInputEvent_GetEventTime(self.raw()) }
+    }
+
+    /// Whether the pointer is currently inside the target for a hover event.
+    ///
+    /// ArkUI exposes hover enter/leave through a dedicated accessor; the
+    /// generic action field is not defined for this event category.
+    pub fn is_hovered(&self) -> bool {
+        unsafe { OH_ArkUI_HoverEvent_IsHovered(self.raw()) }
     }
 
     /// Get the number of contact points from a pointer event (such as a touch, mouse, or axis event).
