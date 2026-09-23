@@ -47,5 +47,7 @@ thread_local! {
     pub static X_COMPONENT_CALLBACKS: RefCell<XComponentCallbacks> = RefCell::new(XComponentCallbacks::default());
 
     #[cfg(feature = "multi_mode")]
-    pub static X_COMPONENT_CALLBACKS_MAP: RefCell<HashMap<String, XComponentCallbacks>> = RefCell::new(HashMap::default());
+    // ArkUI-created native XComponents can share an empty ID before mounting.
+    // The NDK pointer is stable across registration, dispatch, and teardown.
+    pub static X_COMPONENT_CALLBACKS_MAP: RefCell<HashMap<usize, XComponentCallbacks>> = RefCell::new(HashMap::default());
 }
