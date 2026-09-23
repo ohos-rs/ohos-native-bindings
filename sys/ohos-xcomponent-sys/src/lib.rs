@@ -17,18 +17,18 @@ unsafe extern "C" {}
 
 pub const OH_NATIVE_XCOMPONENT_OBJ: &[u8; 26usize] = b"__NATIVE_XCOMPONENT_OBJ__\0";
 pub const OH_NATIVE_XCOMPONENT_MAX_TOUCH_POINTS_NUMBER: u32 = 10;
-#[doc = " Both the node and its child node respond to the hit test of a touch event, but its sibling node is blocked from\n  the hit test."]
+#[doc = " Default hit test mode. The node itself and its child nodes respond to the hit test, but block the hit test of\n sibling nodes. It does not affect the hit test of ancestor nodes."]
 pub const HitTestMode_HTM_DEFAULT: HitTestMode = 0;
-#[doc = " The node responds to the hit test of a touch event, but its child node and sibling node are blocked from the hit\n  test."]
+#[doc = " The node itself responds to the hit test and blocks the hit test of child nodes, sibling nodes, and ancestor\n nodes."]
 pub const HitTestMode_HTM_BLOCK: HitTestMode = 1;
-#[doc = " Both the node and its child node respond to the hit test of a touch event, and its sibling node is also\n  considered during the hit test."]
+#[doc = " The node itself and its child nodes respond to the hit test, preventing all sibling nodes and parent nodes with\n lower priority from participating in the hit test."]
 pub const HitTestMode_HTM_TRANSPARENT: HitTestMode = 2;
-#[doc = " The node does not respond to the hit test of a touch event, but its child node and sibling node are considered\n  during the hit test."]
+#[doc = " The node itself does not respond to the hit test and does not block the hit test of child nodes, sibling nodes,\n and ancestor nodes."]
 pub const HitTestMode_HTM_NONE: HitTestMode = 3;
 #[doc = " The node and its child nodes participate in hit tests, while blocking hit tests for all sibling nodes and parent\n nodes with lower priority.\n\n @since 20"]
 #[cfg(feature = "api-20")]
 pub const HitTestMode_HTM_BLOCK_HIERARCHY: HitTestMode = 4;
-#[doc = " The node does not respond to hit tests, and none of its descendants (including children and grandchildren)\n participate in hit tests either.\n\n @since 20"]
+#[doc = " The node itself does not respond to the hit test, and all its descendants (children, grandchildren, and more)\n also do not respond to the hit test. It does not affect the hit test of ancestor nodes.\n @since 20"]
 #[cfg(feature = "api-20")]
 pub const HitTestMode_HTM_BLOCK_DESCENDANTS: HitTestMode = 5;
 #[doc = " @brief Enumerates the hit test modes.\n\n @since 12"]
@@ -366,7 +366,7 @@ pub const OH_NativeXComponent_KeyCode_KEY_BTN_6: OH_NativeXComponent_KeyCode = 3
 pub const OH_NativeXComponent_KeyCode_KEY_BTN_7: OH_NativeXComponent_KeyCode = 3107;
 pub const OH_NativeXComponent_KeyCode_KEY_BTN_8: OH_NativeXComponent_KeyCode = 3108;
 pub const OH_NativeXComponent_KeyCode_KEY_BTN_9: OH_NativeXComponent_KeyCode = 3109;
-#[doc = " @brief Represents the key event code.\n\n @since 10\n @version 1.0"]
+#[doc = " @brief Enumerates the key codes for key events.\n\n @since 10\n @version 1.0"]
 pub type OH_NativeXComponent_KeyCode = i32;
 pub const OH_NativeXComponent_KeyAction_OH_NATIVEXCOMPONENT_KEY_ACTION_UNKNOWN:
     OH_NativeXComponent_KeyAction = -1;
@@ -374,74 +374,74 @@ pub const OH_NativeXComponent_KeyAction_OH_NATIVEXCOMPONENT_KEY_ACTION_DOWN:
     OH_NativeXComponent_KeyAction = 0;
 pub const OH_NativeXComponent_KeyAction_OH_NATIVEXCOMPONENT_KEY_ACTION_UP:
     OH_NativeXComponent_KeyAction = 1;
-#[doc = " @brief Represents the key event action.\n\n @since 10\n @version 1.0"]
+#[doc = " @brief Enumerates the key event actions.\n\n @since 10\n @version 1.0"]
 pub type OH_NativeXComponent_KeyAction = i32;
 pub const OH_XCOMPONENT_ID_LEN_MAX: u32 = 128;
-#[doc = " Trigger a touch event when a finger is pressed."]
+#[doc = " The touch event is triggered when a finger is pressed.\n @since 8"]
 pub const OH_NativeXComponent_TouchEventType_OH_NATIVEXCOMPONENT_DOWN:
     OH_NativeXComponent_TouchEventType = 0;
-#[doc = " Trigger a touch event when a finger is lifted."]
+#[doc = " The touch event is triggered when a finger is lifted.\n @since 8"]
 pub const OH_NativeXComponent_TouchEventType_OH_NATIVEXCOMPONENT_UP:
     OH_NativeXComponent_TouchEventType = 1;
-#[doc = " Trigger a touch event when a finger moves on the screen in pressed state."]
+#[doc = " The touch event is triggered when a finger is moved on the screen.\n @since 8"]
 pub const OH_NativeXComponent_TouchEventType_OH_NATIVEXCOMPONENT_MOVE:
     OH_NativeXComponent_TouchEventType = 2;
-#[doc = " Trigger an event when a touch event is canceled."]
+#[doc = " The event is triggered when a touch event is canceled.\n @since 8"]
 pub const OH_NativeXComponent_TouchEventType_OH_NATIVEXCOMPONENT_CANCEL:
     OH_NativeXComponent_TouchEventType = 3;
-#[doc = " Invalid touch type."]
+#[doc = " Invalid touch type.\n @since 8"]
 pub const OH_NativeXComponent_TouchEventType_OH_NATIVEXCOMPONENT_UNKNOWN:
     OH_NativeXComponent_TouchEventType = 4;
-#[doc = " @brief Represents the type of touch event.\n\n @since 8\n @version 1.0"]
+#[doc = " @brief Enumerates the touch event types.\n\n @since 8\n @version 1.0"]
 pub type OH_NativeXComponent_TouchEventType = u32;
-#[doc = " Indicates invalid tool type."]
+#[doc = " Unknown tool type.\n @since 9"]
 pub const OH_NativeXComponent_TouchPointToolType_OH_NATIVEXCOMPONENT_TOOL_TYPE_UNKNOWN:
     OH_NativeXComponent_TouchPointToolType = 0;
-#[doc = " Indicates a finger."]
+#[doc = " Finger.\n @since 9"]
 pub const OH_NativeXComponent_TouchPointToolType_OH_NATIVEXCOMPONENT_TOOL_TYPE_FINGER:
     OH_NativeXComponent_TouchPointToolType = 1;
-#[doc = " Indicates a stylus."]
+#[doc = " Stylus.\n @since 9"]
 pub const OH_NativeXComponent_TouchPointToolType_OH_NATIVEXCOMPONENT_TOOL_TYPE_PEN:
     OH_NativeXComponent_TouchPointToolType = 2;
-#[doc = " Indicates an eraser."]
+#[doc = " Rubber.\n @since 9"]
 pub const OH_NativeXComponent_TouchPointToolType_OH_NATIVEXCOMPONENT_TOOL_TYPE_RUBBER:
     OH_NativeXComponent_TouchPointToolType = 3;
-#[doc = " Indicates a brush."]
+#[doc = " Brush.\n @since 9"]
 pub const OH_NativeXComponent_TouchPointToolType_OH_NATIVEXCOMPONENT_TOOL_TYPE_BRUSH:
     OH_NativeXComponent_TouchPointToolType = 4;
-#[doc = " Indicates a pencil."]
+#[doc = " Pencil.\n @since 9"]
 pub const OH_NativeXComponent_TouchPointToolType_OH_NATIVEXCOMPONENT_TOOL_TYPE_PENCIL:
     OH_NativeXComponent_TouchPointToolType = 5;
-#[doc = " Indicates a brush."]
+#[doc = " Brush.\n @since 9"]
 pub const OH_NativeXComponent_TouchPointToolType_OH_NATIVEXCOMPONENT_TOOL_TYPE_AIRBRUSH:
     OH_NativeXComponent_TouchPointToolType = 6;
-#[doc = " Indicates a mouse."]
+#[doc = " Mouse.\n @since 9"]
 pub const OH_NativeXComponent_TouchPointToolType_OH_NATIVEXCOMPONENT_TOOL_TYPE_MOUSE:
     OH_NativeXComponent_TouchPointToolType = 7;
-#[doc = " Indicates a lens."]
+#[doc = " Lens.\n @since 9"]
 pub const OH_NativeXComponent_TouchPointToolType_OH_NATIVEXCOMPONENT_TOOL_TYPE_LENS:
     OH_NativeXComponent_TouchPointToolType = 8;
-#[doc = " @brief Represents the touch point tool type.\n\n @since 9\n @version 1.0"]
+#[doc = " @brief Enumerates the touch point tool types.\n\n @since 9\n @version 1.0"]
 pub type OH_NativeXComponent_TouchPointToolType = u32;
-#[doc = " Indicates an unknown input source type."]
+#[doc = " Unknown source type.\n @since 9"]
 pub const OH_NativeXComponent_EventSourceType_OH_NATIVEXCOMPONENT_SOURCE_TYPE_UNKNOWN:
     OH_NativeXComponent_EventSourceType = 0;
-#[doc = " Indicates that the input source generates a mouse multi-touch event."]
+#[doc = " Source that generates a mouse multi-click event.\n @since 9"]
 pub const OH_NativeXComponent_EventSourceType_OH_NATIVEXCOMPONENT_SOURCE_TYPE_MOUSE:
     OH_NativeXComponent_EventSourceType = 1;
-#[doc = " Indicates that the input source generates a touchscreen multi-touch event."]
+#[doc = " Source that generates a touchscreen multitouch event.\n @since 9"]
 pub const OH_NativeXComponent_EventSourceType_OH_NATIVEXCOMPONENT_SOURCE_TYPE_TOUCHSCREEN:
     OH_NativeXComponent_EventSourceType = 2;
-#[doc = " Indicates that the input source generates a touchpad multi-touch event."]
+#[doc = " Source that generates a touchpad multitouch event.\n @since 9"]
 pub const OH_NativeXComponent_EventSourceType_OH_NATIVEXCOMPONENT_SOURCE_TYPE_TOUCHPAD:
     OH_NativeXComponent_EventSourceType = 3;
-#[doc = " Indicates that the input source generates a joystick multi-touch event."]
+#[doc = " Source that generates a joystick multitouch event.\n @since 9"]
 pub const OH_NativeXComponent_EventSourceType_OH_NATIVEXCOMPONENT_SOURCE_TYPE_JOYSTICK:
     OH_NativeXComponent_EventSourceType = 4;
-#[doc = " @brief Indicates that the input source generates a keyboard event.\n\n @since 10\n @version 1.0"]
+#[doc = " @brief Source that generates a key event.\n\n @since 10\n @version 1.0"]
 pub const OH_NativeXComponent_EventSourceType_OH_NATIVEXCOMPONENT_SOURCE_TYPE_KEYBOARD:
     OH_NativeXComponent_EventSourceType = 5;
-#[doc = " @brief Represents the touch event source type.\n\n @since 9\n @version 1.0"]
+#[doc = " @brief Enumerates the touch event source types.\n\n @since 9\n @version 1.0"]
 pub type OH_NativeXComponent_EventSourceType = u32;
 pub const OH_NativeXComponent_MouseEventAction_OH_NATIVEXCOMPONENT_MOUSE_NONE:
     OH_NativeXComponent_MouseEventAction = 0;
@@ -451,11 +451,11 @@ pub const OH_NativeXComponent_MouseEventAction_OH_NATIVEXCOMPONENT_MOUSE_RELEASE
     OH_NativeXComponent_MouseEventAction = 2;
 pub const OH_NativeXComponent_MouseEventAction_OH_NATIVEXCOMPONENT_MOUSE_MOVE:
     OH_NativeXComponent_MouseEventAction = 3;
-#[doc = " Triggered when the mouse event is canceled.\n @since 18"]
+#[doc = " Mouse button canceling.<br> Note: Mouse button canceling is typically triggered in the following scenarios:<br>1.\n  Component focus loss: A currently focused **XComponent** loses focus due to a system event (such as pop-up\n interruption or app switching).<br> 2. Event interruption: During a mouse operation, a higher-priority event\n occurs (such as a system-level gesture or forced event stream recycling), causing the current mouse operation to\n be forcibly terminated.<br>3. Abnormal state exit: In scenarios such as component destruction or abnormal\n rendering environment, unfinished mouse events are marked as canceled.\n @since 18"]
 #[cfg(feature = "api-18")]
 pub const OH_NativeXComponent_MouseEventAction_OH_NATIVEXCOMPONENT_MOUSE_CANCEL:
     OH_NativeXComponent_MouseEventAction = 4;
-#[doc = " @brief Represents the mouse event action.\n\n @since 9\n @version 1.0"]
+#[doc = " @brief Enumerates the mouse event actions.\n\n @since 9\n @version 1.0"]
 pub type OH_NativeXComponent_MouseEventAction = u32;
 pub const OH_NativeXComponent_MouseEventButton_OH_NATIVEXCOMPONENT_NONE_BUTTON:
     OH_NativeXComponent_MouseEventButton = 0;
@@ -469,7 +469,7 @@ pub const OH_NativeXComponent_MouseEventButton_OH_NATIVEXCOMPONENT_BACK_BUTTON:
     OH_NativeXComponent_MouseEventButton = 8;
 pub const OH_NativeXComponent_MouseEventButton_OH_NATIVEXCOMPONENT_FORWARD_BUTTON:
     OH_NativeXComponent_MouseEventButton = 16;
-#[doc = " @brief Represents the mouse event button.\n\n @since 9\n @version 1.0"]
+#[doc = " @brief Enumerates the mouse event buttons.\n\n @since 9\n @version 1.0"]
 pub type OH_NativeXComponent_MouseEventButton = u32;
 pub const OH_NativeXComponent_TouchEvent_SourceTool_OH_NATIVEXCOMPONENT_SOURCETOOL_UNKNOWN:
     OH_NativeXComponent_TouchEvent_SourceTool = 0;
@@ -491,108 +491,108 @@ pub const OH_NativeXComponent_TouchEvent_SourceTool_OH_NATIVEXCOMPONENT_SOURCETO
     OH_NativeXComponent_TouchEvent_SourceTool = 8;
 pub const OH_NativeXComponent_TouchEvent_SourceTool_OH_NATIVEXCOMPONENT_SOURCETOOL_TOUCHPAD:
     OH_NativeXComponent_TouchEvent_SourceTool = 9;
-#[doc = " @brief Represents the source tool type of TouchEvent\n\n @since 10\n @version 1.0"]
+#[doc = " @brief Enumerates the source tool types of touch events.\n\n @since 10\n @version 1.0"]
 pub type OH_NativeXComponent_TouchEvent_SourceTool = u32;
-#[doc = " @brief Represents the historical point.\n\n @since 10\n @version 1.0"]
+#[doc = " @brief Represents a historical touch point.\n\n @since 10\n @version 1.0"]
 #[repr(C)]
 #[derive(Debug, Copy, Clone)]
 pub struct OH_NativeXComponent_HistoricalPoint {
-    #[doc = " Unique identifier of a finger."]
+    #[doc = " Unique identifier of the finger.\n @since 10"]
     pub id: i32,
-    #[doc = " X coordinate of the touch point relative to the left edge of the screen."]
+    #[doc = " X-coordinate of the touch point relative to the upper left corner of the application window where the XComponent\n is located.\n @since 10"]
     pub screenX: f32,
-    #[doc = " Y coordinate of the touch point relative to the upper edge of the screen."]
+    #[doc = " Y-coordinate of the touch point relative to the upper left corner of the application window where the XComponent\n is located.\n @since 10"]
     pub screenY: f32,
-    #[doc = " X coordinate of the touch point relative to the left edge of the element to touch."]
+    #[doc = " X-coordinate of the touch point relative to the left edge of the XComponent.\n @since 10"]
     pub x: f32,
-    #[doc = " Y coordinate of the touch point relative to the upper edge of the element to touch."]
+    #[doc = " Y-coordinate of the touch point relative to the upper edge of the XComponent.\n @since 10"]
     pub y: f32,
-    #[doc = " Touch type of the touch event."]
+    #[doc = " Touch type of the touch event.\n @since 10"]
     pub type_: OH_NativeXComponent_TouchEventType,
-    #[doc = " Contact area between the finger pad and the screen."]
+    #[doc = " Contact area between the finger pad and the screen.\n @since 10"]
     pub size: f64,
-    #[doc = " Pressure of the current touch event."]
+    #[doc = " Pressure of the touch event.\n @since 10"]
     pub force: f32,
-    #[doc = " Timestamp of the current touch event."]
+    #[doc = " Timestamp of the touch event. It is interval between the time when the event is triggered and the time when the\n system starts, in nanoseconds.\n @since 10"]
     pub timeStamp: i64,
-    #[doc = " The angle between projection on plane-X-Y and axis-Z of the current touch event."]
+    #[doc = " Angle between the projection on the x-y plane and the z-axis of the touch event.\n @since 10"]
     pub titlX: f32,
-    #[doc = " The angle between projection on plane-Y-Z and axis-Z of the current touch event."]
+    #[doc = " Angle between the projection on the y-z plane and the z-axis of the current touch event.\n @since 10"]
     pub titlY: f32,
-    #[doc = " The sourceTool of the current touch event."]
+    #[doc = " Source tool of the touch event.\n @since 10"]
     pub sourceTool: OH_NativeXComponent_TouchEvent_SourceTool,
 }
-#[doc = " @brief Represents the touch point information of touch event.\n\n @since 8\n @version 1.0"]
+#[doc = " @brief Describes the touch point of the touch event.\n\n @since 8\n @version 1.0"]
 #[repr(C)]
 #[derive(Debug, Copy, Clone)]
 pub struct OH_NativeXComponent_TouchPoint {
-    #[doc = " Unique identifier of a finger."]
+    #[doc = " Unique identifier of the finger.\n @since 8"]
     pub id: i32,
-    #[doc = " X coordinate of the touch point relative to the left edge of the screen."]
+    #[doc = " X-coordinate of the touch point relative to the upper left corner of the application window where the XComponent\n is located.\n @since 8"]
     pub screenX: f32,
-    #[doc = " Y coordinate of the touch point relative to the upper edge of the screen."]
+    #[doc = " Y-coordinate of the touch point relative to the upper left corner of the application window where the XComponent\n is located.\n @since 8"]
     pub screenY: f32,
-    #[doc = " X coordinate of the touch point relative to the left edge of the element to touch."]
+    #[doc = " X-coordinate of the touch point relative to the left edge of the XComponent.\n @since 8"]
     pub x: f32,
-    #[doc = " Y coordinate of the touch point relative to the upper edge of the element to touch."]
+    #[doc = " Y-coordinate of the touch point relative to the upper edge of the XComponent.\n @since 8"]
     pub y: f32,
-    #[doc = " Touch type of the touch event."]
+    #[doc = " Touch type of the touch event.\n @since 8"]
     pub type_: OH_NativeXComponent_TouchEventType,
-    #[doc = " Contact area between the finger pad and the screen."]
+    #[doc = " Contact area between the finger pad and the screen.\n @since 8"]
     pub size: f64,
-    #[doc = " Pressure of the current touch event."]
+    #[doc = " Pressure of the touch event.\n @since 8"]
     pub force: f32,
-    #[doc = " Timestamp of the current touch event."]
+    #[doc = " Timestamp of the touch event. It is interval between the time when the event is triggered and the time when the\n system starts, in nanoseconds.\n @since 8"]
     pub timeStamp: i64,
-    #[doc = " Whether the current point is pressed."]
+    #[doc = " Whether the current point is pressed. **true** when the point is pressed, **false** when it is released.\n @since 8"]
     pub isPressed: bool,
 }
-#[doc = " @brief Represents the touch event.\n\n @since 8\n @version 1.0"]
+#[doc = " @brief Defines the touch event.\n\n @since 8\n @version 1.0"]
 #[repr(C)]
 #[derive(Debug, Copy, Clone)]
 pub struct OH_NativeXComponent_TouchEvent {
-    #[doc = " Unique identifier of a finger."]
+    #[doc = " Unique identifier of the finger.\n @since 8"]
     pub id: i32,
-    #[doc = " X coordinate of the touch point relative to the left edge of the screen."]
+    #[doc = " X-coordinate of the touch point relative to the upper left corner of the application window where the XComponent\n is located.\n @since 8"]
     pub screenX: f32,
-    #[doc = " Y coordinate of the touch point relative to the upper edge of the screen."]
+    #[doc = " Y-coordinate of the touch point relative to the upper left corner of the application window where the XComponent\n is located.\n @since 8"]
     pub screenY: f32,
-    #[doc = " X coordinate of the touch point relative to the left edge of the element to touch."]
+    #[doc = " X-coordinate of the touch point relative to the left edge of the XComponent.\n @since 8"]
     pub x: f32,
-    #[doc = " Y coordinate of the touch point relative to the upper edge of the element to touch."]
+    #[doc = " Y-coordinate of the touch point relative to the upper edge of the XComponent.\n @since 8"]
     pub y: f32,
-    #[doc = " Touch type of the touch event."]
+    #[doc = " Touch type of the touch event.\n @since 8"]
     pub type_: OH_NativeXComponent_TouchEventType,
-    #[doc = " Contact area between the finger pad and the screen."]
+    #[doc = " Contact area between the finger pad and the screen.\n @since 8"]
     pub size: f64,
-    #[doc = " Pressure of the current touch event."]
+    #[doc = " Pressure of the touch event.\n @since 8"]
     pub force: f32,
-    #[doc = " ID of the device where the current touch event is generated."]
+    #[doc = " ID of the device where the current touch event is triggered.\n @since 8"]
     pub deviceId: i64,
-    #[doc = " Timestamp of the current touch event."]
+    #[doc = " Timestamp of the touch event. It is interval between the time when the event is triggered and the time when the\n system starts, in nanoseconds.\n @since 8"]
     pub timeStamp: i64,
-    #[doc = " Array of the current touch points."]
+    #[doc = " Array of the current touch points.\n @since 8"]
     pub touchPoints: [OH_NativeXComponent_TouchPoint; 10usize],
-    #[doc = " Number of current touch points."]
+    #[doc = " Number of current touch points. The value **1** indicates single-finger touch, while a value greater than **1**\n indicates multi-finger touch.\n @since 8"]
     pub numPoints: u32,
 }
-#[doc = " @brief Represents the mouse event information.\n\n @since 9\n @version 1.0"]
+#[doc = " @brief Defines a mouse event.\n\n @since 9\n @version 1.0"]
 #[repr(C)]
 #[derive(Debug, Copy, Clone)]
 pub struct OH_NativeXComponent_MouseEvent {
-    #[doc = " X coordinate of the mouse point relative to the left edge of the element to mouse."]
+    #[doc = " X coordinate of the clicked point relative to the upper left corner of the component. Unit: vp.\n @since 9"]
     pub x: f32,
-    #[doc = " Y coordinate of the mouse point relative to the upper edge of the element to mouse."]
+    #[doc = " Y coordinate of the clicked point relative to the upper left corner of the component. Unit: vp.\n @since 9"]
     pub y: f32,
-    #[doc = " X coordinate of the mouse point relative to the left edge of the screen."]
+    #[doc = " X coordinate of the click point relative to the upper left corner of the application screen where the XComponent\n is located. Unit: vp.\n @since 9"]
     pub screenX: f32,
-    #[doc = " Y coordinate of the mouse point relative to the upper edge of the screen."]
+    #[doc = " Y coordinate of the click point relative to the upper left corner of the application screen where the XComponent\n is located. Unit: vp.\n @since 9"]
     pub screenY: f32,
-    #[doc = " Timestamp of the current mouse event."]
+    #[doc = " Timestamp of the mouse event. It is interval between the time when the event is triggered and the time when the\n system starts, in nanoseconds.\n @since 9"]
     pub timestamp: i64,
-    #[doc = " Mouse event action."]
+    #[doc = " Action of the mouse event.\n @since 9"]
     pub action: OH_NativeXComponent_MouseEventAction,
-    #[doc = " Mouse event button."]
+    #[doc = " Button of the mouse event.\n @since 9"]
     pub button: OH_NativeXComponent_MouseEventButton,
 }
 #[repr(C)]
@@ -600,32 +600,32 @@ pub struct OH_NativeXComponent_MouseEvent {
 pub struct OH_NativeXComponent {
     _unused: [u8; 0],
 }
-#[doc = " @brief Registers the surface lifecycle and touch event callbacks.\n\n @since 8\n @version 1.0"]
+#[doc = " @brief Registers callbacks for the surface lifecycle and touch event.\n\n @since 8\n @version 1.0"]
 #[repr(C)]
 #[derive(Debug, Copy, Clone)]
 pub struct OH_NativeXComponent_Callback {
-    #[doc = " Called when the surface is created."]
+    #[doc = " Invoked when a surface is created.\n @since 8"]
     pub OnSurfaceCreated: ::std::option::Option<
         unsafe extern "C" fn(
             component: *mut OH_NativeXComponent,
             window: *mut ::std::os::raw::c_void,
         ),
     >,
-    #[doc = " Called when the surface is changed."]
+    #[doc = " Invoked when the surface changes.\n @since 8"]
     pub OnSurfaceChanged: ::std::option::Option<
         unsafe extern "C" fn(
             component: *mut OH_NativeXComponent,
             window: *mut ::std::os::raw::c_void,
         ),
     >,
-    #[doc = " Called when the surface is destroyed."]
+    #[doc = " Invoked when the surface is destroyed.\n @since 8"]
     pub OnSurfaceDestroyed: ::std::option::Option<
         unsafe extern "C" fn(
             component: *mut OH_NativeXComponent,
             window: *mut ::std::os::raw::c_void,
         ),
     >,
-    #[doc = " Called when a touch event is triggered."]
+    #[doc = " Invoked when a touch event is triggered.\n @since 8"]
     pub DispatchTouchEvent: ::std::option::Option<
         unsafe extern "C" fn(
             component: *mut OH_NativeXComponent,
@@ -633,18 +633,18 @@ pub struct OH_NativeXComponent_Callback {
         ),
     >,
 }
-#[doc = " @brief Registers the mouse event callbacks.\n\n @since 9\n @version 1.0"]
+#[doc = " @brief Registers callbacks for the mouse event.\n\n @since 9\n @version 1.0"]
 #[repr(C)]
 #[derive(Debug, Copy, Clone)]
 pub struct OH_NativeXComponent_MouseEvent_Callback {
-    #[doc = " Called when a mouse event is triggered."]
+    #[doc = " Invoked when a mouse event is triggered.\n @since 9"]
     pub DispatchMouseEvent: ::std::option::Option<
         unsafe extern "C" fn(
             component: *mut OH_NativeXComponent,
             window: *mut ::std::os::raw::c_void,
         ),
     >,
-    #[doc = " Called when a hover event is triggered."]
+    #[doc = " Invoked when a hover event is triggered.\n @since 9"]
     pub DispatchHoverEvent: ::std::option::Option<
         unsafe extern "C" fn(component: *mut OH_NativeXComponent, isHover: bool),
     >,
@@ -654,19 +654,19 @@ pub struct OH_NativeXComponent_MouseEvent_Callback {
 pub struct OH_NativeXComponent_KeyEvent {
     _unused: [u8; 0],
 }
-#[doc = " @brief Defines the expected frame rate range struct.\n\n @since 11\n @version 1.0"]
+#[doc = " @brief Defines the expected frame rate range.\n\n @since 11\n @version 1.0"]
 #[repr(C)]
 #[derive(Debug, Copy, Clone)]
 pub struct OH_NativeXComponent_ExpectedRateRange {
-    #[doc = " The minimum frame rate of dynamical callback rate range."]
+    #[doc = " Minimum value of the expected frame rate range. The unit is frame/second.\n @since 11"]
     pub min: i32,
-    #[doc = " The maximum frame rate of dynamical callback rate range."]
+    #[doc = " Maximum value of the expected frame rate range. The unit is frame/second.\n @since 11"]
     pub max: i32,
-    #[doc = " The expected frame rate of dynamical callback rate range."]
+    #[doc = " Expected frame rate. The unit is frame/second.\n @since 11"]
     pub expected: i32,
 }
 extern "C" {
-    #[doc = " @brief Obtains the ID of the ArkUI XComponent.\n\n @param component Indicates the pointer to this <b>OH_NativeXComponent</b> instance.\n @param id Indicates the char buffer to keep the ID of this <b>OH_NativeXComponent</b> instance.\\n\n        Notice that a null-terminator will be appended to the char buffer, so the size of the\\n\n        char buffer should be at least as large as the size of the real id length plus 1.\\n\n        It is recommended that the size of the char buffer be [OH_XCOMPONENT_ID_LEN_MAX + 1].\n @param size Indicates the pointer to the length of <b>id</b>, which you can receive.\n @return Returns the status code of the execution.\n @since 8\n @version 1.0"]
+    #[doc = " @brief Obtains the ID of ArkUI XComponent.\n\n @param component Pointer to an {@link OH_NativeXComponent} instance.\n @param id Pointer to the character buffer for storing the ID of the {@link OH_NativeXComponent} instance. Note that\n     null terminators will be attached to the character buffer, so the size of the character buffer should be at\n     least one unit greater than the length of the real ID. The recommended size is \\[\n     {@link OH_XCOMPONENT_ID_LEN_MAX} + 1].\n @param size Pointer to the length of the ID, used to receive the length information of the ID.\n @return Result code.\n         <ul>\n         <li>{@link OH_NATIVEXCOMPONENT_RESULT_SUCCESS} if the operation is successful.</li>\n         <li>{@link OH_NATIVEXCOMPONENT_RESULT_BAD_PARAMETER} if a parameter error occurs.</li>\n         </ul>\n @since 8\n @version 1.0"]
     pub fn OH_NativeXComponent_GetXComponentId(
         component: *mut OH_NativeXComponent,
         id: *mut ::std::os::raw::c_char,
@@ -674,7 +674,7 @@ extern "C" {
     ) -> i32;
 }
 extern "C" {
-    #[doc = " @brief Obtains the size of the surface held by the ArkUI XComponent.\n\n @param component Indicates the pointer to this <b>OH_NativeXComponent</b> instance.\n @param window Indicates the native window handler.\n @param width Indicates the pointer to the width of the current surface.\n @param height Indicates the pointer to the height of the current surface.\n @return Returns the status code of the execution.\n @since 8\n @version 1.0"]
+    #[doc = " @brief Obtains the size of the surface held by the ArkUI XComponent.\n\n @param component Pointer to an {@link OH_NativeXComponent} instance.\n @param window Handle to the **NativeWindow** instance.\n @param width Pointer to the width of the current surface. Unit: vp.\n @param height Pointer to the height of the current surface. Unit: vp.\n @return Result code.\n         <ul>\n         <li>{@link OH_NATIVEXCOMPONENT_RESULT_SUCCESS} if the operation is successful.</li>\n         <li>{@link OH_NATIVEXCOMPONENT_RESULT_BAD_PARAMETER} if a parameter error occurs.</li>\n         </ul>\n @since 8\n @version 1.0"]
     pub fn OH_NativeXComponent_GetXComponentSize(
         component: *mut OH_NativeXComponent,
         window: *const ::std::os::raw::c_void,
@@ -683,7 +683,7 @@ extern "C" {
     ) -> i32;
 }
 extern "C" {
-    #[doc = " @brief Obtains the offset of the surface held by the ArkUI XComponent.\n\n @param component Indicates the pointer to this <b>OH_NativeXComponent</b> instance.\n @param window Indicates the native window handler.\n @param x Indicates the pointer to the x coordinate of the current surface.\n @param y Indicates the pointer to the y coordinate of the current surface.\n @return Returns the status code of the execution.\n @since 8\n @version 1.0"]
+    #[doc = " @brief Obtains the offset of the surface held by the XComponent relative to the upper left corner of its parent\n component.\n\n @param component Pointer to an {@link OH_NativeXComponent} instance.\n @param window Handle to the **NativeWindow** instance.\n @param x Pointer to the x-coordinate of the current surface relative to the upper left corner of the **XComponent**'\n     s parent component. Unit: vp.\n @param y Pointer to the y-coordinate of the current surface relative to the upper left corner of the **XComponent**'\n     s parent component. Unit: vp.\n @return Result code.\n         <ul>\n         <li>{@link OH_NATIVEXCOMPONENT_RESULT_SUCCESS} if the operation is successful.</li>\n         <li>{@link OH_NATIVEXCOMPONENT_RESULT_BAD_PARAMETER} if a parameter error occurs.</li>\n         </ul>\n @since 8\n @version 1.0"]
     pub fn OH_NativeXComponent_GetXComponentOffset(
         component: *mut OH_NativeXComponent,
         window: *const ::std::os::raw::c_void,
@@ -692,7 +692,7 @@ extern "C" {
     ) -> i32;
 }
 extern "C" {
-    #[doc = " @brief Obtains the touch event dispatched by the ArkUI XComponent.\n\n @param component Indicates the pointer to this <b>OH_NativeXComponent</b> instance.\n @param window Indicates the native window handler.\n @param touchEvent Indicates the pointer to the current touch event.\n @return Returns the status code of the execution.\n @since 8\n @version 1.0"]
+    #[doc = " @brief Obtains the touch event scheduled by the ArkUI XComponent.\n\n @param component Pointer to an {@link OH_NativeXComponent} instance.\n @param window Handle to the **NativeWindow** instance.\n @param touchEvent Pointer to the current touch event.\n @return Result code.\n         <ul>\n         <li>{@link OH_NATIVEXCOMPONENT_RESULT_SUCCESS} if the operation is successful.</li>\n         <li>{@link OH_NATIVEXCOMPONENT_RESULT_BAD_PARAMETER} if a parameter error occurs.</li>\n         </ul>\n @since 8\n @version 1.0"]
     pub fn OH_NativeXComponent_GetTouchEvent(
         component: *mut OH_NativeXComponent,
         window: *const ::std::os::raw::c_void,
@@ -700,7 +700,7 @@ extern "C" {
     ) -> i32;
 }
 extern "C" {
-    #[doc = " @brief Obtains the touch pointer tool type by the ArkUI XComponent.\n\n @param component Indicates the pointer to this <b>OH_NativeXComponent</b> instance.\n @param pointIndex Indicates the pointer index in the touchPoints.\n @param toolType Indicates the tool Type of the pointer.\n @return Returns the status code of the execution.\n @since 9\n @version 1.0"]
+    #[doc = " @brief Obtains the ArkUI XComponent touch point tool type.\n\n @param component Pointer to an {@link OH_NativeXComponent} instance.\n @param pointIndex Pointer to the index of the touch point.\n @param toolType Pointer to the tool type.\n @return Result code.\n         <ul>\n         <li>{@link OH_NATIVEXCOMPONENT_RESULT_SUCCESS} if the operation is successful.</li>\n         <li>{@link OH_NATIVEXCOMPONENT_RESULT_BAD_PARAMETER} if a parameter error occurs.</li>\n         </ul>\n @since 9\n @version 1.0"]
     pub fn OH_NativeXComponent_GetTouchPointToolType(
         component: *mut OH_NativeXComponent,
         pointIndex: u32,
@@ -708,7 +708,7 @@ extern "C" {
     ) -> i32;
 }
 extern "C" {
-    #[doc = " @brief Obtains the touch pointer tiltX by the ArkUI XComponent.\n\n @param component Indicates the pointer to this <b>OH_NativeXComponent</b> instance.\n @param pointIndex Indicates the pointer index in the touchPoints.\n @param tiltX Indicates the x tilt of the pointer.\n @return Returns the status code of the execution.\n @since 9\n @version 1.0"]
+    #[doc = " @brief Obtains the angle between the Y-Z plane of the ArkUI XComponent touch point and the x-axis.\n\n @param component Pointer to an {@link OH_NativeXComponent} instance.\n @param pointIndex Pointer to the index of the touch point.\n @param tiltX Pointer to the angle between the Y-Z plane of the touch point and the x-axis.\n @return Result code.\n         <ul>\n         <li>{@link OH_NATIVEXCOMPONENT_RESULT_SUCCESS} if the operation is successful.</li>\n         <li>{@link OH_NATIVEXCOMPONENT_RESULT_BAD_PARAMETER} if a parameter error occurs.</li>\n         </ul>\n @since 9\n @version 1.0"]
     pub fn OH_NativeXComponent_GetTouchPointTiltX(
         component: *mut OH_NativeXComponent,
         pointIndex: u32,
@@ -716,7 +716,7 @@ extern "C" {
     ) -> i32;
 }
 extern "C" {
-    #[doc = " @brief Obtains the touch pointer tiltX by the ArkUI XComponent.\n\n @param component Indicates the pointer to this <b>OH_NativeXComponent</b> instance.\n @param pointIndex Indicates the pointer index in the touchPoints.\n @param tiltY Indicates the y tilt of the pointer.\n @return Returns the status code of the execution.\n @since 9\n @version 1.0"]
+    #[doc = " @brief Obtains the angle between the X-Z plane of the ArkUI XComponent touch point and the y-axis.\n\n @param component Pointer to an {@link OH_NativeXComponent} instance.\n @param pointIndex Pointer to the index of the touch point.\n @param tiltY Pointer to the angle between the X-Z plane of the touch point and the y-axis.\n @return Result code.\n         <ul>\n         <li>{@link OH_NATIVEXCOMPONENT_RESULT_SUCCESS} if the operation is successful.</li>\n         <li>{@link OH_NATIVEXCOMPONENT_RESULT_BAD_PARAMETER} if a parameter error occurs.</li>\n         </ul>\n @since 9\n @version 1.0"]
     pub fn OH_NativeXComponent_GetTouchPointTiltY(
         component: *mut OH_NativeXComponent,
         pointIndex: u32,
@@ -724,7 +724,7 @@ extern "C" {
     ) -> i32;
 }
 extern "C" {
-    #[doc = " @brief Obtains the x coordinate of a specific touch point relative to the upper left corner of\\n\n        the current application window from the ArkUI XComponent.\n\n @param component Indicates the pointer to this <b>OH_NativeXComponent</b> instance.\n @param pointIndex Indicates the pointer index in the touchPoints.\n @param windowX Indicates the x coordinate relative to the upper left corner of the current\\n\napplication window.\n @return Returns the status code of the execution.\n         {@link OH_NATIVEXCOMPONENT_RESULT_SUCCESS} get windowX success.\n         {@link OH_NATIVEXCOMPONENT_RESULT_BAD_PARAMETER} component is NULL, windowX is NULL\\n\n         or native XComponent is NULL.\n @since 12\n @version 1.0"]
+    #[doc = " @brief Obtains the x-coordinate of the touch point relative to the upper left corner of the application window where\n the ArkUI XComponent is located.\n\n @param component Pointer to an {@link OH_NativeXComponent} instance.\n @param pointIndex Pointer to the index of the touch point.\n @param windowX Pointer to the x-coordinate of the touch point relative to the upper left corner of the application\n     window.\n @return Result code.\n         <ul>\n         <li>{@link OH_NATIVEXCOMPONENT_RESULT_SUCCESS} if the operation is successful.</li>\n         <li>{@link OH_NATIVEXCOMPONENT_RESULT_BAD_PARAMETER} if the component, windowX,\n             or native XComponent is a null pointer.</li>\n         </ul>\n @since 12\n @version 1.0"]
     pub fn OH_NativeXComponent_GetTouchPointWindowX(
         component: *mut OH_NativeXComponent,
         pointIndex: u32,
@@ -732,7 +732,7 @@ extern "C" {
     ) -> i32;
 }
 extern "C" {
-    #[doc = " @brief Obtains the y coordinate of a specific touch point relative to the upper left corner of\\n\n        the current application window from the ArkUI XComponent.\n\n @param component Indicates the pointer to this <b>OH_NativeXComponent</b> instance.\n @param pointIndex Indicates the pointer index in the touchPoints.\n @param windowY Indicates the y coordinate relative to the upper left corner of the current\\n\napplication window.\n @return Returns the status code of the execution.\n         {@link OH_NATIVEXCOMPONENT_RESULT_SUCCESS} get windowY success.\n         {@link OH_NATIVEXCOMPONENT_RESULT_BAD_PARAMETER} component is NULL, windowY is NULL\\n\n         or native XComponent is NULL.\n @since 12\n @version 1.0"]
+    #[doc = " @brief Obtains the y-coordinate of the touch point relative to the upper left corner of the application window where\n the ArkUI XComponent is located.\n\n @param component Pointer to an {@link OH_NativeXComponent} instance.\n @param pointIndex Pointer to the index of the touch point.\n @param windowY Pointer to the y-coordinate of the touch point relative to the upper left corner of the application\n     window.\n @return Result code.\n         <ul>\n         <li>{@link OH_NATIVEXCOMPONENT_RESULT_SUCCESS} if the operation is successful.</li>\n         <li>{@link OH_NATIVEXCOMPONENT_RESULT_BAD_PARAMETER} if the component, windowY,\n             or native XComponent is a null pointer.</li>\n         </ul>\n @since 12\n @version 1.0"]
     pub fn OH_NativeXComponent_GetTouchPointWindowY(
         component: *mut OH_NativeXComponent,
         pointIndex: u32,
@@ -740,7 +740,7 @@ extern "C" {
     ) -> i32;
 }
 extern "C" {
-    #[doc = " @brief Obtains the x coordinate of a specific touch point relative to the upper left corner of\\n\n        the current screen from the ArkUI XComponent.\n\n @param component Indicates the pointer to this <b>OH_NativeXComponent</b> instance.\n @param pointIndex Indicates the pointer index in the touchPoints.\n @param displayX Indicates the x coordinate relative to the upper left corner of the current\\n\nscreen.\n @return Returns the status code of the execution.\n         {@link OH_NATIVEXCOMPONENT_RESULT_SUCCESS} get displayX success.\n         {@link OH_NATIVEXCOMPONENT_RESULT_BAD_PARAMETER} component is NULL, displayX is NULL\\n\n         or native XComponent is NULL.\n @since 12\n @version 1.0"]
+    #[doc = " @brief Obtains the x-coordinate of the touch point relative to the upper left corner of the screen where the ArkUI\n XComponent is located.\n\n @param component Pointer to an {@link OH_NativeXComponent} instance.\n @param pointIndex Pointer to the index of the touch point.\n @param displayX Pointer to the x-coordinate of the touch point relative to the upper left corner of the screen.\n @return Result code.\n         <ul>\n         <li>{@link OH_NATIVEXCOMPONENT_RESULT_SUCCESS} if the operation is successful.</li>\n         <li>{@link OH_NATIVEXCOMPONENT_RESULT_BAD_PARAMETER} if the component, displayX,\n             or native XComponent is a null pointer.</li>\n         </ul>\n @since 12\n @version 1.0"]
     pub fn OH_NativeXComponent_GetTouchPointDisplayX(
         component: *mut OH_NativeXComponent,
         pointIndex: u32,
@@ -748,7 +748,7 @@ extern "C" {
     ) -> i32;
 }
 extern "C" {
-    #[doc = " @brief Obtains the y coordinate of a specific touch point relative to the upper left corner of\\n\n        the current screen from the ArkUI XComponent.\n\n @param component Indicates the pointer to this <b>OH_NativeXComponent</b> instance.\n @param pointIndex Indicates the pointer index in the touchPoints.\n @param displayY Indicates the y coordinate relative to the upper left corner of the current\\n\nscreen.\n @return Returns the status code of the execution.\n         {@link OH_NATIVEXCOMPONENT_RESULT_SUCCESS} get displayY success.\n         {@link OH_NATIVEXCOMPONENT_RESULT_BAD_PARAMETER} component is NULL, displayY is NULL\\n\n         or native XComponent is NULL.\n @since 12\n @version 1.0"]
+    #[doc = " @brief Obtains the y-coordinate of the touch point relative to the upper left corner of the screen where the ArkUI\n XComponent is located.\n\n @param component Pointer to an {@link OH_NativeXComponent} instance.\n @param pointIndex Pointer to the index of the touch point.\n @param displayY Pointer to the y-coordinate of the touch point relative to the upper left corner of the screen.\n @return Result code.\n         <ul>\n         <li>{@link OH_NATIVEXCOMPONENT_RESULT_SUCCESS} if the operation is successful.</li>\n         <li>{@link OH_NATIVEXCOMPONENT_RESULT_BAD_PARAMETER} if the component, displayY,\n             or native XComponent is a null pointer.</li>\n         </ul>\n @since 12\n @version 1.0"]
     pub fn OH_NativeXComponent_GetTouchPointDisplayY(
         component: *mut OH_NativeXComponent,
         pointIndex: u32,
@@ -756,7 +756,7 @@ extern "C" {
     ) -> i32;
 }
 extern "C" {
-    #[doc = " @brief Obtains the touch event dispatched by the ArkUI XComponent.\n\n @param component Indicates the pointer to this <b>OH_NativeXComponent</b> instance.\n @param window Indicates the native window handler.\n @param size Length of the historical touch point array.\n @param historicalPoints Pointer to the historical touch point array.\n @return Returns the status code of the execution.\n @since 10\n @version 1.0"]
+    #[doc = " @brief Obtains the historical touch point data for the touch event of an **OH_NativeXComponent** instance. Some\n input devices report touch points at very high frequencies (up to 1 ms intervals). However, since UI updates\n typically do not require such high-frequency updates, the system consolidates touch events and reports them once per\n frame. All touch points collected during the current frame are preserved as historical touch points for applications\n that need direct access to this raw data.\n\n @param component Pointer to an {@link OH_NativeXComponent} instance.\n @param window Handle to the **NativeWindow** instance.\n @param size Length of the historical touch point array.\n @param historicalPoints Pointer to the historical touch point array.\n @return Result code.\n         <ul>\n         <li>{@link OH_NATIVEXCOMPONENT_RESULT_SUCCESS} if the operation is successful.</li>\n         <li>{@link OH_NATIVEXCOMPONENT_RESULT_BAD_PARAMETER} if a parameter error occurs.</li>\n         </ul>\n @since 10\n @version 1.0"]
     pub fn OH_NativeXComponent_GetHistoricalPoints(
         component: *mut OH_NativeXComponent,
         window: *const ::std::os::raw::c_void,
@@ -765,7 +765,7 @@ extern "C" {
     ) -> i32;
 }
 extern "C" {
-    #[doc = " @brief Obtains the mouse event dispatched by the ArkUI XComponent.\n\n @param component Indicates the pointer to this <b>OH_NativeXComponent</b> instance.\n @param window Indicates the native window handler.\n @param mouseEvent Indicates the pointer to the current mouse event.\n @return Returns the status code of the execution.\n @since 9\n @version 1.0"]
+    #[doc = " @brief Obtains the mouse event scheduled by the ArkUI XComponent.\n\n @param component Pointer to an {@link OH_NativeXComponent} instance.\n @param window Handle to the **NativeWindow** instance.\n @param mouseEvent Pointer to the current mouse event.\n @return Result code.\n         <ul>\n         <li>{@link OH_NATIVEXCOMPONENT_RESULT_SUCCESS} if the operation is successful.</li>\n         <li>{@link OH_NATIVEXCOMPONENT_RESULT_BAD_PARAMETER} if a parameter error occurs.</li>\n         </ul>\n @since 9\n @version 1.0"]
     pub fn OH_NativeXComponent_GetMouseEvent(
         component: *mut OH_NativeXComponent,
         window: *const ::std::os::raw::c_void,
@@ -773,26 +773,27 @@ extern "C" {
     ) -> i32;
 }
 extern "C" {
-    #[doc = " @brief Registers a callback for this <b>OH_NativeXComponent</b> instance.\n\n @param component Indicates the pointer to this <b>OH_NativeXComponent</b> instance.\n @param callback Indicates the pointer to a surface lifecycle and touch event callback.\n @return Returns the status code of the execution.\n @since 8\n @version 1.0"]
+    #[doc = " @brief Registers a callback for this {@link OH_NativeXComponent} instance.\n\n @param component Pointer to an {@link OH_NativeXComponent} instance.\n @param callback Pointer to the surface lifecycle and touch event callback.\n @return Result code.\n         <ul>\n         <li>{@link OH_NATIVEXCOMPONENT_RESULT_SUCCESS} if the operation is successful.</li>\n         <li>{@link OH_NATIVEXCOMPONENT_RESULT_BAD_PARAMETER} if a parameter error occurs.</li>\n         </ul>\n @since 8\n @version 1.0"]
     pub fn OH_NativeXComponent_RegisterCallback(
         component: *mut OH_NativeXComponent,
         callback: *mut OH_NativeXComponent_Callback,
     ) -> i32;
 }
 extern "C" {
-    #[doc = " @brief Registers a callback for this <b>OH_NativeXComponent</b> instance.\n\n @param component Indicates the pointer to this <b>OH_NativeXComponent</b> instance.\n @param callback Indicates the pointer to a mouse event callback.\n @return Returns the status code of the execution.\n @since 9\n @version 1.0"]
+    #[doc = " @brief Registers a mouse event callback for this {@link OH_NativeXComponent} instance.\n\n @param component Pointer to an {@link OH_NativeXComponent} instance.\n @param callback Pointer to the mouse event callback.\n @return Result code.\n         <ul>\n         <li>{@link OH_NATIVEXCOMPONENT_RESULT_SUCCESS} if the operation is successful.</li>\n         <li>{@link OH_NATIVEXCOMPONENT_RESULT_BAD_PARAMETER} if a parameter error occurs.</li>\n         </ul>\n @since 9\n @version 1.0"]
     pub fn OH_NativeXComponent_RegisterMouseEventCallback(
         component: *mut OH_NativeXComponent,
         callback: *mut OH_NativeXComponent_MouseEvent_Callback,
     ) -> i32;
 }
+#[cfg(feature = "api-20")]
 #[repr(C)]
 #[derive(Debug, Copy, Clone)]
 pub struct OH_NativeXComponent_ExtraMouseEventInfo {
     _unused: [u8; 0],
 }
 extern "C" {
-    #[doc = " @brief Obtains the extra mouse event dispatched by the ArkUI XComponent.\n\n @param component Indicates the pointer to this <b>OH_NativeXComponent</b> instance.\n @param extraMouseEventInfo Indicates the pointer to pointer of <b>OH_NativeXComponent_ExtraMouseEventInfo</b> instance.\n @return Returns the status code of the execution.\n         {@link ARKUI_ERROR_CODE_NO_ERROR} the execution is successful.\n         {@link ARKUI_ERROR_CODE_PARAM_INVALID} if a parameter error occurs.\n @since 20\n @version 1.0"]
+    #[doc = " @brief Obtains extended mouse event information from this {@link OH_NativeXComponent} instance.\n\n @param component Pointer to an {@link OH_NativeXComponent} instance.\n @param extraMouseEventInfo Address of a pointer to the {@link OH_NativeXComponent_ExtraMouseEventInfo} type.\n @return Result code.\n         <ul>\n         <li>{@link ARKUI_ERROR_CODE_NO_ERROR} if the operation is successful.</li>\n         <li>{@link ARKUI_ERROR_CODE_PARAM_INVALID} if a parameter error occurs.</li>\n         </ul>\n @since 20\n @version 1.0"]
     #[cfg(feature = "api-20")]
     pub fn OH_NativeXComponent_GetExtraMouseEventInfo(
         component: *mut OH_NativeXComponent,
@@ -800,7 +801,7 @@ extern "C" {
     ) -> i32;
 }
 extern "C" {
-    #[doc = " @brief Obtains the state of the modifier keys of the mouse event.\n\n @param extraMouseEventInfo Indicates the pointer to this <b>OH_NativeXComponent_ExtraMouseEventInfo</b> instance.\n @param keys Pointer to a variable where the current combination of pressed modifier keys will be returned.\n        The application can use bitwise operations to determine the state of each modifier key.\n        Modifier keys can be referred to {@link ArkUI_ModifierKeyName}.\n @return Returns the result code.\n         Returns {@link ARKUI_ERROR_CODE_NO_ERROR} if the operation is successful.\n         Returns {@link ARKUI_ERROR_CODE_PARAM_INVALID} if a parameter error occurs.\n @since 20\n @version 1.0"]
+    #[doc = " @brief Obtains the state of modifier keys from an {@link OH_NativeXComponent_ExtraMouseEventInfo} instance.\n\n @param extraMouseEventInfo Pointer to the extended mouse event information instance.\n @param keys Address of a 64-bit unsigned integer to receive the modifier key press state information.\n @return Result code.\n         <ul>\n         <li>{@link ARKUI_ERROR_CODE_NO_ERROR} if the operation is successful.</li>\n         <li>{@link ARKUI_ERROR_CODE_PARAM_INVALID} if a parameter error occurs.</li>\n         </ul>\n @since 20\n @version 1.0"]
     #[cfg(feature = "api-20")]
     pub fn OH_NativeXComponent_GetMouseEventModifierKeyStates(
         extraMouseEventInfo: *mut OH_NativeXComponent_ExtraMouseEventInfo,
@@ -808,7 +809,7 @@ extern "C" {
     ) -> i32;
 }
 extern "C" {
-    #[doc = " @brief Registers a callback for this <b>OH_NativeXComponent</b> instance.\n\n @param component Indicates the pointer to this <b>OH_NativeXComponent</b> instance.\n @param callback Indicates the pointer to a focus event callback.\n @return Returns the status code of the execution.\n @since 10\n @version 1.0"]
+    #[doc = " @brief Registers a focus event callback for this {@link OH_NativeXComponent} instance.\n\n @param component Pointer to an {@link OH_NativeXComponent} instance.\n @param callback Indicates the pointer to a focus event callback.\n @return Result code.\n         <ul>\n         <li>{@link OH_NATIVEXCOMPONENT_RESULT_SUCCESS} if the operation is successful.</li>\n         <li>{@link OH_NATIVEXCOMPONENT_RESULT_BAD_PARAMETER} if a parameter error occurs.</li>\n         </ul>\n @since 10\n @version 1.0"]
     pub fn OH_NativeXComponent_RegisterFocusEventCallback(
         component: *mut OH_NativeXComponent,
         callback: ::std::option::Option<
@@ -820,7 +821,7 @@ extern "C" {
     ) -> i32;
 }
 extern "C" {
-    #[doc = " @brief Registers a callback for this <b>OH_NativeXComponent</b> instance.\n\n @param component Indicates the pointer to this <b>OH_NativeXComponent</b> instance.\n @param callback Indicates the pointer to a key event callback.\n @return Returns the status code of the execution.\n @since 10\n @version 1.0"]
+    #[doc = " @brief Registers a key event callback for this {@link OH_NativeXComponent} instance.\n\n @param component Pointer to an {@link OH_NativeXComponent} instance.\n @param callback Indicates the pointer to a key event callback.\n @return Result code.\n         <ul>\n         <li>{@link OH_NATIVEXCOMPONENT_RESULT_SUCCESS} if the operation is successful.</li>\n         <li>{@link OH_NATIVEXCOMPONENT_RESULT_BAD_PARAMETER} if a parameter error occurs.</li>\n         </ul>\n @since 10\n @version 1.0"]
     pub fn OH_NativeXComponent_RegisterKeyEventCallback(
         component: *mut OH_NativeXComponent,
         callback: ::std::option::Option<
@@ -832,7 +833,20 @@ extern "C" {
     ) -> i32;
 }
 extern "C" {
-    #[doc = " @brief Registers a callback for this <b>OH_NativeXComponent</b> instance.\n\n @param component Indicates the pointer to this <b>OH_NativeXComponent</b> instance.\n @param callback Indicates the pointer to a blur event callback.\n @return Returns the status code of the execution.\n @since 10\n @version 1.0"]
+    #[doc = " @brief Registers a key event callback with a return value for this {@link OH_NativeXComponent} instance.\n The callback must return a result (true or false). If the callback returns true, the event will not be\n further propagated.\n If it returns false, the event will continue to be processed according to the normal event handling flow.\n\n @param component Pointer to an {@link OH_NativeXComponent} instance.\n @param callback Indicates the pointer to a key event callback. The callback must return a result.\n     When the return value is true, the event will not be further propagated.\n     When the return value is false, the event will continue to be processed according to\n     the normal event handling flow.\n @return Result code.\n         <ul>\n         <li>{@link OH_NATIVEXCOMPONENT_RESULT_SUCCESS} if the operation is successful.</li>\n         <li>{@link OH_NATIVEXCOMPONENT_RESULT_BAD_PARAMETER} if a parameter error occurs.</li>\n         <li>{@link OH_NATIVEXCOMPONENT_RESULT_FAILED} if any other error occurs</li>\n         </ul>\n @since 14"]
+    #[cfg(feature = "api-14")]
+    pub fn OH_NativeXComponent_RegisterKeyEventCallbackWithResult(
+        component: *mut OH_NativeXComponent,
+        callback: ::std::option::Option<
+            unsafe extern "C" fn(
+                component: *mut OH_NativeXComponent,
+                window: *mut ::std::os::raw::c_void,
+            ) -> bool,
+        >,
+    ) -> i32;
+}
+extern "C" {
+    #[doc = " @brief Registers a blur event callback for this {@link OH_NativeXComponent} instance.\n\n @param component Pointer to an {@link OH_NativeXComponent} instance.\n @param callback Indicates the pointer to a blur event callback.\n @return Result code.\n         <ul>\n         <li>{@link OH_NATIVEXCOMPONENT_RESULT_SUCCESS} if the operation is successful.</li>\n         <li>{@link OH_NATIVEXCOMPONENT_RESULT_BAD_PARAMETER} if a parameter error occurs.</li>\n         </ul>\n @since 10\n @version 1.0"]
     pub fn OH_NativeXComponent_RegisterBlurEventCallback(
         component: *mut OH_NativeXComponent,
         callback: ::std::option::Option<
@@ -844,49 +858,49 @@ extern "C" {
     ) -> i32;
 }
 extern "C" {
-    #[doc = " @brief Obtains the key event dispatched by the ArkUI XComponent.\n\n @param component Indicates the pointer to this <b>OH_NativeXComponent</b> instance.\n @param keyEvent Indicates the pointer to pointer of <b>OH_NativeXComponent_KeyEvent</b> instance.\n @return Returns the status code of the execution.\n @since 10\n @version 1.0"]
+    #[doc = " @brief Obtains the key event scheduled by the ArkUI XComponent.\n\n @param component Pointer to an {@link OH_NativeXComponent} instance.\n @param keyEvent Pointer to the current key event.\n @return Result code.\n         <ul>\n         <li>{@link OH_NATIVEXCOMPONENT_RESULT_SUCCESS} if the operation is successful.</li>\n         <li>{@link OH_NATIVEXCOMPONENT_RESULT_BAD_PARAMETER} if a parameter error occurs.</li>\n         </ul>\n @since 10\n @version 1.0"]
     pub fn OH_NativeXComponent_GetKeyEvent(
         component: *mut OH_NativeXComponent,
         keyEvent: *mut *mut OH_NativeXComponent_KeyEvent,
     ) -> i32;
 }
 extern "C" {
-    #[doc = " @brief Obtains the action of the key event.\n\n @param keyEvent Indicates the pointer to this <b>OH_NativeXComponent_KeyEvent</b> instance.\n @param action Indicates the action of the <b>OH_NativeXComponent_KeyEvent</b> instance.\n @return Returns the status code of the execution.\n @since 10\n @version 1.0"]
+    #[doc = " @brief Obtains the action of the specified key event.\n\n @param keyEvent Pointer to an {@link OH_NativeXComponent_KeyEvent} instance.\n @param action Pointer to the key event action.\n @return Result code.\n         <ul>\n         <li>{@link OH_NATIVEXCOMPONENT_RESULT_SUCCESS} if the operation is successful.</li>\n         <li>{@link OH_NATIVEXCOMPONENT_RESULT_BAD_PARAMETER} if a parameter error occurs.</li>\n         </ul>\n @since 10\n @version 1.0"]
     pub fn OH_NativeXComponent_GetKeyEventAction(
         keyEvent: *mut OH_NativeXComponent_KeyEvent,
         action: *mut OH_NativeXComponent_KeyAction,
     ) -> i32;
 }
 extern "C" {
-    #[doc = " @brief Obtains the keyCode of the key event.\n\n @param keyEvent Indicates the pointer to this <b>OH_NativeXComponent_KeyEvent</b> instance.\n @param code Indicates the keyCode of the <b>OH_NativeXComponent_KeyEvent</b> instance.\n @return Returns the status code of the execution.\n @since 10\n @version 1.0"]
+    #[doc = " @brief Obtains the key code of the specified key event.\n\n @param keyEvent Pointer to an {@link OH_NativeXComponent_KeyEvent} instance.\n @param code Pointer to the key code of the key event.\n @return Result code.\n         <ul>\n         <li>{@link OH_NATIVEXCOMPONENT_RESULT_SUCCESS} if the operation is successful.</li>\n         <li>{@link OH_NATIVEXCOMPONENT_RESULT_BAD_PARAMETER} if a parameter error occurs.</li>\n         </ul>\n @since 10\n @version 1.0"]
     pub fn OH_NativeXComponent_GetKeyEventCode(
         keyEvent: *mut OH_NativeXComponent_KeyEvent,
         code: *mut OH_NativeXComponent_KeyCode,
     ) -> i32;
 }
 extern "C" {
-    #[doc = " @brief Obtains the sourceType of the key event.\n\n @param keyEvent Indicates the pointer to this <b>OH_NativeXComponent_KeyEvent</b> instance.\n @param sourceType Indicates the sourceType of the <b>OH_NativeXComponent_KeyEvent</b> instance.\n @return Returns the status code of the execution.\n @since 10\n @version 1.0"]
+    #[doc = " @brief Obtains the source type of the specified key event.\n\n @param keyEvent Pointer to an {@link OH_NativeXComponent_KeyEvent} instance.\n @param sourceType Pointer to the source type of the key event.\n @return Result code.\n         <ul>\n         <li>{@link OH_NATIVEXCOMPONENT_RESULT_SUCCESS} if the operation is successful.</li>\n         <li>{@link OH_NATIVEXCOMPONENT_RESULT_BAD_PARAMETER} if a parameter error occurs.</li>\n         </ul>\n @since 10\n @version 1.0"]
     pub fn OH_NativeXComponent_GetKeyEventSourceType(
         keyEvent: *mut OH_NativeXComponent_KeyEvent,
         sourceType: *mut OH_NativeXComponent_EventSourceType,
     ) -> i32;
 }
 extern "C" {
-    #[doc = " @brief Obtains the deviceId of the key event.\n\n @param keyEvent Indicates the pointer to this <b>OH_NativeXComponent_KeyEvent</b> instance.\n @param deviceId Indicates the deviceId of the <b>OH_NativeXComponent_KeyEvent</b> instance.\n @return Returns the status code of the execution.\n @since 10\n @version 1.0"]
+    #[doc = " @brief Obtains the device ID of the specified key event.\n\n @param keyEvent Pointer to an {@link OH_NativeXComponent_KeyEvent} instance.\n @param deviceId Pointer to the device ID of the key event.\n @return Result code.\n         <ul>\n         <li>{@link OH_NATIVEXCOMPONENT_RESULT_SUCCESS} if the operation is successful.</li>\n         <li>{@link OH_NATIVEXCOMPONENT_RESULT_BAD_PARAMETER} if a parameter error occurs.</li>\n         </ul>\n @since 10\n @version 1.0"]
     pub fn OH_NativeXComponent_GetKeyEventDeviceId(
         keyEvent: *mut OH_NativeXComponent_KeyEvent,
         deviceId: *mut i64,
     ) -> i32;
 }
 extern "C" {
-    #[doc = " @brief Obtains the timestamp of the key event.\n\n @param keyEvent Indicates the pointer to this <b>OH_NativeXComponent_KeyEvent</b> instance.\n @param timestamp Indicates the timestamp of the <b>OH_NativeXComponent_KeyEvent</b> instance.\n @return Returns the status code of the execution.\n @since 10\n @version 1.0"]
+    #[doc = " @brief Obtains the timestamp of the specified key event.\n\n @param keyEvent Pointer to an {@link OH_NativeXComponent_KeyEvent} instance.\n @param timestamp Pointer to the timestamp of the key event.\n @return Result code.\n         <ul>\n         <li>{@link OH_NATIVEXCOMPONENT_RESULT_SUCCESS} if the operation is successful.</li>\n         <li>{@link OH_NATIVEXCOMPONENT_RESULT_BAD_PARAMETER} if a parameter error occurs.</li>\n         </ul>\n @since 10\n @version 1.0"]
     pub fn OH_NativeXComponent_GetKeyEventTimestamp(
         keyEvent: *mut OH_NativeXComponent_KeyEvent,
         timestamp: *mut i64,
     ) -> i32;
 }
 extern "C" {
-    #[doc = " @brief Obtains the state of the modifier keys of the key event.\n\n @param keyEvent Indicates the pointer to this <b>OH_NativeXComponent_KeyEvent</b> instance.\n @param keys Pointer to a variable where the current combination of pressed modifier keys will be returned.\n        The application can use bitwise operations to determine the state of each modifier key.\n        Modifier keys can be referred to {@link ArkUI_ModifierKeyName}.\n @return Returns the result code.\n         Returns {@link ARKUI_ERROR_CODE_NO_ERROR} if the operation is successful.\n         Returns {@link ARKUI_ERROR_CODE_PARAM_INVALID} if a parameter error occurs.\n @since 20\n @version 1.0"]
+    #[doc = " @brief Obtains the state of modifier keys from a key event.\n\n @param keyEvent Pointer to the key event.\n @param keys Address of a 64-bit unsigned integer to receive the modifier key press state information.\n @return Result code.\n         <ul>\n         <li>{@link ARKUI_ERROR_CODE_NO_ERROR} if the operation is successful.</li>\n         <li>{@link ARKUI_ERROR_CODE_PARAM_INVALID} if a parameter error occurs.</li>\n         </ul>\n @since 20\n @version 1.0"]
     #[cfg(feature = "api-20")]
     pub fn OH_NativeXComponent_GetKeyEventModifierKeyStates(
         keyEvent: *mut OH_NativeXComponent_KeyEvent,
@@ -894,7 +908,7 @@ extern "C" {
     ) -> i32;
 }
 extern "C" {
-    #[doc = " @brief Obtains the Num Lock state of the key event.\n\n @param keyEvent Indicates the pointer to this <b>OH_NativeXComponent_KeyEvent</b> instance.\n @param isNumLockOn Return whether the Num Lock is on.\n @return Returns the result code.\n         Returns {@link ARKUI_ERROR_CODE_NO_ERROR} if the operation is successful.\n         Returns {@link ARKUI_ERROR_CODE_PARAM_INVALID} if a parameter error occurs.\n @since 20\n @version 1.0"]
+    #[doc = " @brief Obtains the state of the NumLock key from a key event.\n\n @param keyEvent Pointer to the key event.\n @param isNumLockOn Pointer to a boolean variable to receive the state of the NumLock key. **true**: NumLock is\n     enabled. **false**: NumLock is disabled.\n @return Result code.\n         <ul>\n         <li>{@link ARKUI_ERROR_CODE_NO_ERROR} if the operation is successful.</li>\n         <li>{@link ARKUI_ERROR_CODE_PARAM_INVALID} if a parameter error occurs.</li>\n         </ul>\n @since 20\n @version 1.0"]
     #[cfg(feature = "api-20")]
     pub fn OH_NativeXComponent_GetKeyEventNumLockState(
         keyEvent: *mut OH_NativeXComponent_KeyEvent,
@@ -902,7 +916,7 @@ extern "C" {
     ) -> i32;
 }
 extern "C" {
-    #[doc = " @brief Obtains the Caps Lock state of the key event.\n\n @param keyEvent Indicates the pointer to this <b>OH_NativeXComponent_KeyEvent</b> instance.\n @param isCapsLockOn Return whether the Caps Lock is on.\n @return Returns the result code.\n         Returns {@link ARKUI_ERROR_CODE_NO_ERROR} if the operation is successful.\n         Returns {@link ARKUI_ERROR_CODE_PARAM_INVALID} if a parameter error occurs.\n @since 20\n @version 1.0"]
+    #[doc = " @brief Obtains the state of the CapsLock key from a key event.\n\n @param keyEvent Pointer to the key event.\n @param isCapsLockOn Pointer to a boolean variable to receive the state of the CapsLock key. **true**: CapsLock is\n     enabled. **false**: CapsLock is disabled.\n @return Result code.\n         <ul>\n         <li>{@link ARKUI_ERROR_CODE_NO_ERROR} if the operation is successful.</li>\n         <li>{@link ARKUI_ERROR_CODE_PARAM_INVALID} if a parameter error occurs.</li>\n         </ul>\n @since 20\n @version 1.0"]
     #[cfg(feature = "api-20")]
     pub fn OH_NativeXComponent_GetKeyEventCapsLockState(
         keyEvent: *mut OH_NativeXComponent_KeyEvent,
@@ -910,7 +924,7 @@ extern "C" {
     ) -> i32;
 }
 extern "C" {
-    #[doc = " @brief Obtains the Scroll Lock state of the key event.\n\n @param keyEvent Indicates the pointer to this <b>OH_NativeXComponent_KeyEvent</b> instance.\n @param isScrollLockOn Return whether the Scroll Lock is on.\n @return Returns the result code.\n         Returns {@link ARKUI_ERROR_CODE_NO_ERROR} if the operation is successful.\n         Returns {@link ARKUI_ERROR_CODE_PARAM_INVALID} if a parameter error occurs.\n @since 20\n @version 1.0"]
+    #[doc = " @brief Obtains the state of the ScrollLock key from a key event.\n\n @param keyEvent Pointer to the key event.\n @param isScrollLockOn Pointer to a boolean variable to receive the state of the ScrollLock key. **true**: ScrollLock\n     is enabled. **false**: ScrollLock is disabled.\n @return Result code.\n         <ul>\n         <li>{@link ARKUI_ERROR_CODE_NO_ERROR} if the operation is successful.</li>\n         <li>{@link ARKUI_ERROR_CODE_PARAM_INVALID} if a parameter error occurs.</li>\n         </ul>\n @since 20\n @version 1.0"]
     #[cfg(feature = "api-20")]
     pub fn OH_NativeXComponent_GetKeyEventScrollLockState(
         keyEvent: *mut OH_NativeXComponent_KeyEvent,
@@ -918,14 +932,14 @@ extern "C" {
     ) -> i32;
 }
 extern "C" {
-    #[doc = " @brief Set the Expected FrameRateRange.\n\n @param component Indicates the pointer to this <b>OH_NativeXComponent</b> instance.\n @param range Indicates the pointer to a expected rate range.\n @return Returns the status code of the execution.\n @since 11\n @version 1.0"]
+    #[doc = " @brief Sets the expected frame rate range.\n\n @param component Pointer to an {@link OH_NativeXComponent} instance.\n @param range Pointer to the expected frame rate information object of the\n     {@link OH_NativeXComponent_ExpectedRateRange} type.\n @return Result code.\n         <ul>\n         <li>{@link OH_NATIVEXCOMPONENT_RESULT_SUCCESS} if the operation is successful.</li>\n         <li>{@link OH_NATIVEXCOMPONENT_RESULT_BAD_PARAMETER} if a parameter error occurs.</li>\n         </ul>\n @since 11\n @version 1.0"]
     pub fn OH_NativeXComponent_SetExpectedFrameRateRange(
         component: *mut OH_NativeXComponent,
         range: *mut OH_NativeXComponent_ExpectedRateRange,
     ) -> i32;
 }
 extern "C" {
-    #[doc = " @brief Registers a callback for this <b>OH_NativeXComponent</b> instance.\n\n @param component Indicates the pointer to this <b>OH_NativeXComponent</b> instance.\n @param callback Indicates the pointer to a onFrame callback.\n @return Returns the status code of the execution.\n @since 11\n @version 1.0"]
+    #[doc = " @brief Registers the display update callback for this {@link OH_NativeXComponent} instance and enables the callback\n for each frame.\n\n @param component Pointer to an {@link OH_NativeXComponent} instance.\n @param callback Indicates the pointer to a onFrame callback.\n @return Result code.\n         <ul>\n         <li>{@link OH_NATIVEXCOMPONENT_RESULT_SUCCESS} if the operation is successful.</li>\n         <li>{@link OH_NATIVEXCOMPONENT_RESULT_BAD_PARAMETER} if a parameter error occurs.</li>\n         </ul>\n @since 11\n @version 1.0"]
     pub fn OH_NativeXComponent_RegisterOnFrameCallback(
         component: *mut OH_NativeXComponent,
         callback: ::std::option::Option<
@@ -938,51 +952,27 @@ extern "C" {
     ) -> i32;
 }
 extern "C" {
-    #[doc = " @brief UnRegister a callback for this <b>OH_NativeXComponent</b> instance.\n\n @param component Indicates the pointer to this <b>OH_NativeXComponent</b> instance.\n @return Returns the status code of the execution.\n @since 11\n @version 1.0"]
+    #[doc = " @brief Deregisters the display update callback for this {@link OH_NativeXComponent} instance and disables the\n callback for each frame.\n\n @param component Pointer to an {@link OH_NativeXComponent} instance.\n @return Result code.\n         <ul>\n         <li>{@link OH_NATIVEXCOMPONENT_RESULT_SUCCESS} if the operation is successful.</li>\n         <li>{@link OH_NATIVEXCOMPONENT_RESULT_BAD_PARAMETER} if a parameter error occurs.</li>\n         </ul>\n @since 11\n @version 1.0"]
     pub fn OH_NativeXComponent_UnregisterOnFrameCallback(
         component: *mut OH_NativeXComponent,
     ) -> i32;
 }
 extern "C" {
-    #[doc = " @brief Attaches the UI component created through the native API of ArkUI to this <b>OH_NativeXComponent</b> instance.\n\n @param component Indicates the pointer to the <b>OH_NativeXComponent</b> instance.\n @param root Indicates the pointer to the component instance created by the native API.\n @return Returns the error code.\n         Returns {@link OH_NATIVEXCOMPONENT_RESULT_SUCCESS} if the operation is successful.\n         Returns {@link OH_NATIVEXCOMPONENT_RESULT_BAD_PARAMETER} if a parameter error occurs.\n\n @since 12\n @deprecated since 20\n @useinstead OH_ArkUI_NodeContent_AddNode"]
+    #[doc = " @brief Attaches the UI component created through the native API of ArkUI to this **OH_NativeXComponent** instance.\n\n @param component Pointer to an {@link OH_NativeXComponent} instance.\n @param root Pointer to the component instance created through the native API.\n @return Result code.\n         <ul>\n         <li>{@link OH_NATIVEXCOMPONENT_RESULT_SUCCESS} if the operation is successful.</li>\n         <li>{@link OH_NATIVEXCOMPONENT_RESULT_BAD_PARAMETER} if a parameter error occurs.</li>\n         </ul>\n @since 12\n @deprecated since 20\n @useinstead OH_ArkUI_NodeContent_AddNode"]
     pub fn OH_NativeXComponent_AttachNativeRootNode(
         component: *mut OH_NativeXComponent,
         root: ArkUI_NodeHandle,
     ) -> i32;
 }
 extern "C" {
-    #[doc = " @brief Detaches the native component of ArkUI from this <b>OH_NativeXComponent</b> instance.\n\n @param component Indicates the pointer to the <b>OH_NativeXComponent</b> instance.\n @param root Indicates the pointer to the component instance created by the native API.\n @return Returns the error code.\n         Returns {@link OH_NATIVEXCOMPONENT_RESULT_SUCCESS} if the operation is successful.\n         Returns {@link OH_NATIVEXCOMPONENT_RESULT_BAD_PARAMETER} if a parameter error occurs.\n\n @since 12\n @deprecated since 20\n @useinstead OH_ArkUI_NodeContent_RemoveNode"]
+    #[doc = " @brief Detaches the native component of ArkUI from this **OH_NativeXComponent** instance.\n\n @param component Pointer to an {@link OH_NativeXComponent} instance.\n @param root Pointer to the component instance created through the native API.\n @return Result code.\n         <ul>\n         <li>{@link OH_NATIVEXCOMPONENT_RESULT_SUCCESS} if the operation is successful.</li>\n         <li>{@link OH_NATIVEXCOMPONENT_RESULT_BAD_PARAMETER} if a parameter error occurs.</li>\n         </ul>\n @since 12\n @deprecated since 20\n @useinstead OH_ArkUI_NodeContent_RemoveNode"]
     pub fn OH_NativeXComponent_DetachNativeRootNode(
         component: *mut OH_NativeXComponent,
         root: ArkUI_NodeHandle,
     ) -> i32;
 }
 extern "C" {
-    #[doc = " @brief Registers a callback for this <b>OH_NativeXComponent</b> instance.\n\n @param component Indicates the pointer to this <b>OH_NativeXComponent</b> instance.\n @param callback Indicates the pointer to a surface show event callback.\n @return Returns the status code of the execution.\n @since 12\n @version 1.0"]
-    pub fn OH_NativeXComponent_RegisterSurfaceShowCallback(
-        component: *mut OH_NativeXComponent,
-        callback: ::std::option::Option<
-            unsafe extern "C" fn(
-                component: *mut OH_NativeXComponent,
-                window: *mut ::std::os::raw::c_void,
-            ),
-        >,
-    ) -> i32;
-}
-extern "C" {
-    #[doc = " @brief Registers a callback for this <b>OH_NativeXComponent</b> instance.\n\n @param component Indicates the pointer to this <b>OH_NativeXComponent</b> instance.\n @param callback Indicates the pointer to a surface hide event callback.\n @return Returns the status code of the execution.\n @since 12\n @version 1.0"]
-    pub fn OH_NativeXComponent_RegisterSurfaceHideCallback(
-        component: *mut OH_NativeXComponent,
-        callback: ::std::option::Option<
-            unsafe extern "C" fn(
-                component: *mut OH_NativeXComponent,
-                window: *mut ::std::os::raw::c_void,
-            ),
-        >,
-    ) -> i32;
-}
-extern "C" {
-    #[doc = " @brief Registers a UI input event callback for an <b>OH_NativeXComponent</b> instance and enables the callback to be\n invoked when a UI input event is received. Currently, only axis events are supported.\n\n @param component Indicates the pointer to the <b>OH_NativeXComponent</b> instance.\n @param callback Indicates the pointer to the UI input event callback.\n @param type Indicates the type of the current UI input event.\n @return Returns the error code.\n         Returns {@link ARKUI_ERROR_CODE_NO_ERROR} if the operation is successful.\n         Returns {@link ARKUI_ERROR_CODE_PARAM_INVALID} if a parameter error occurs.\n @since 12"]
+    #[doc = " @brief Registers a UI input event callback for this {@link OH_NativeXComponent} instance and enables this callback\n to be invoked when a UI input event is received. Currently, only axis events are supported.\n\n @param component Pointer to an {@link OH_NativeXComponent} instance.\n @param callback Indicates the pointer to the UI input event callback.\n @param type Type of the current UI input event.\n @return Result code.\n         <ul>\n         <li>{@link ARKUI_ERROR_CODE_NO_ERROR} if the operation is successful.</li>\n         <li>{@link ARKUI_ERROR_CODE_PARAM_INVALID} if a parameter error occurs.</li>\n         </ul>\n @since 12"]
     pub fn OH_NativeXComponent_RegisterUIInputEventCallback(
         component: *mut OH_NativeXComponent,
         callback: ::std::option::Option<
@@ -996,14 +986,38 @@ extern "C" {
     ) -> i32;
 }
 extern "C" {
-    #[doc = " @brief Set whether the <b>OH_NativeXComponent</b> instance needs soft keyboard.\n @param component Indicates the pointer to this <b>OH_NativeXComponent</b> instance.\n @param needSoftKeyboard Indicates whether the <b>OH_NativeXComponent</b> instance needs soft keyboard or not.\n                           Default value is false.\n @return Returns the status code of the execution.\n @since 12\n @version 1.0"]
+    #[doc = " @brief Sets whether the soft keyboard is required for this {@link OH_NativeXComponent} instance.\n\n @param component Pointer to an {@link OH_NativeXComponent} instance.\n @param needSoftKeyboard Whether the soft keyboard is required for the current {@link OH_NativeXComponent} instance. *\n     *true** if the soft keyboard is required, **false** otherwise. The default value is **false**.\n @return Result code.\n         <ul>\n         <li>{@link OH_NATIVEXCOMPONENT_RESULT_SUCCESS} if the operation is successful.</li>\n         <li>{@link OH_NATIVEXCOMPONENT_RESULT_BAD_PARAMETER} if a parameter error occurs.</li>\n         </ul>\n @since 12\n @version 1.0"]
     pub fn OH_NativeXComponent_SetNeedSoftKeyboard(
         component: *mut OH_NativeXComponent,
         needSoftKeyboard: bool,
     ) -> i32;
 }
 extern "C" {
-    #[doc = " @brief Registers a custom event intercept callback for an <b>OH_NativeXComponent</b> instance.\n This enables the specified during hit testing.\n UI input-related operations are not supported on event objects received through this callback.\n For full functionality, use the <b>NODE_ON_TOUCH_INTERCEPT</b> event on native nodes instead.\n\n @param component Indicates the pointer to the <b>OH_NativeXComponent</b> instance.\n @param callback Indicates the pointer to the custom event intercept callback.\n @return Returns the error code.\n         Returns {@link ARKUI_ERROR_CODE_NO_ERROR} if the operation is successful.\n         Returns {@link ARKUI_ERROR_CODE_PARAM_INVALID} if a parameter error occurs.\n @since 12"]
+    #[doc = " @brief Registers a surface display callback for this {@link OH_NativeXComponent} instance. This callback is invoked\n after the application is switched to the foreground.\n\n @param component Pointer to an {@link OH_NativeXComponent} instance.\n @param callback Indicates the pointer to a surface show event callback.\n @return Result code.\n         <ul>\n         <li>{@link OH_NATIVEXCOMPONENT_RESULT_SUCCESS} if the operation is successful.</li>\n         <li>{@link OH_NATIVEXCOMPONENT_RESULT_BAD_PARAMETER} if a parameter error occurs.</li>\n         </ul>\n @since 12\n @version 1.0"]
+    pub fn OH_NativeXComponent_RegisterSurfaceShowCallback(
+        component: *mut OH_NativeXComponent,
+        callback: ::std::option::Option<
+            unsafe extern "C" fn(
+                component: *mut OH_NativeXComponent,
+                window: *mut ::std::os::raw::c_void,
+            ),
+        >,
+    ) -> i32;
+}
+extern "C" {
+    #[doc = " @brief Registers a surface hiding callback for this {@link OH_NativeXComponent} instance. This callback is invoked\n after the application is switched to the background.\n\n @param component Pointer to an {@link OH_NativeXComponent} instance.\n @param callback Indicates the pointer to a surface hide event callback.\n @return Result code.\n         <ul>\n         <li>{@link OH_NATIVEXCOMPONENT_RESULT_SUCCESS} if the operation is successful.</li>\n         <li>{@link OH_NATIVEXCOMPONENT_RESULT_BAD_PARAMETER} if a parameter error occurs.</li>\n         </ul>\n @since 12\n @version 1.0"]
+    pub fn OH_NativeXComponent_RegisterSurfaceHideCallback(
+        component: *mut OH_NativeXComponent,
+        callback: ::std::option::Option<
+            unsafe extern "C" fn(
+                component: *mut OH_NativeXComponent,
+                window: *mut ::std::os::raw::c_void,
+            ),
+        >,
+    ) -> i32;
+}
+extern "C" {
+    #[doc = " @brief Registers a custom event intercept callback for this {@link OH_NativeXComponent} instance and enables this\n callback to be invoked during hit testing. UI input–related operations are not supported on event objects received\n through this callback. For full functionality, use the {@link NODE_ON_TOUCH_INTERCEPT} event on native nodes instead.\n\n @param component Pointer to an {@link OH_NativeXComponent} instance.\n @param callback Indicates the pointer to the custom event intercept callback.\n @return Result code.\n         <ul>\n         <li>{@link ARKUI_ERROR_CODE_NO_ERROR} if the operation is successful.</li>\n         <li>{@link ARKUI_ERROR_CODE_PARAM_INVALID} if a parameter error occurs.</li>\n         </ul>\n @since 12"]
     pub fn OH_NativeXComponent_RegisterOnTouchInterceptCallback(
         component: *mut OH_NativeXComponent,
         callback: ::std::option::Option<
@@ -1015,7 +1029,7 @@ extern "C" {
     ) -> i32;
 }
 extern "C" {
-    #[doc = " @brief Obtains the touch event's source type dispatched by the ArkUI XComponent.\n\n @param component Indicates the pointer to this <b>OH_NativeXComponent</b> instance.\n @param pointId Indicates the id of the touch point which triggers this touch event.\n @param sourceType Indicates the source type of this touch event.\n @return Returns OH_NATIVEXCOMPONENT_RESULT_SUCCESS if success.\n         Returns OH_NATIVEXCOMPONENT_RESULT_BAD_PARAMETER if a parameter exception occurs.\n         Returns OH_NATIVEXCOMPONENT_RESULT_FAILED if other exceptions occur.\n @since 12\n @version 1.0"]
+    #[doc = " @brief Obtains the touch event source type of an ArkUI XComponent instance.\n\n @param component Pointer to an {@link OH_NativeXComponent} instance.\n @param pointId ID of the touch point. The touch event source type can be correctly returned only when the ID passed\n     in is the ID of the touch point that triggers the touch event. Otherwise, **\n     OH_NATIVEXCOMPONENT_RESULT_BAD_PARAMETER** is returned.\n @param sourceType Pointer to the touch event source type.\n @return Returns {@link OH_NATIVEXCOMPONENT_RESULT_SUCCESS} if the operation is successful.\n         <ul>\n         <li>{@link OH_NATIVEXCOMPONENT_RESULT_BAD_PARAMETER} if a parameter error occurs.</li>\n         <li>{@link OH_NATIVEXCOMPONENT_RESULT_FAILED} if any other error occurs.</li>\n         </ul>\n @since 12\n @version 1.0"]
     pub fn OH_NativeXComponent_GetTouchEventSourceType(
         component: *mut OH_NativeXComponent,
         pointId: i32,
@@ -1023,29 +1037,16 @@ extern "C" {
     ) -> i32;
 }
 extern "C" {
-    #[doc = " @brief Obtains the pointer to an <b>OH_NativeXComponent</b> instance based on the specified component\n instance created by the native API.\n\n @param node Indicates the pointer to the component instance created by the native API.\n @return Returns the pointer to the <b>OH_NativeXComponent</b> instance.\n @since 12\n @version 1.0"]
+    #[doc = " @brief Obtains a pointer of the {@link OH_NativeXComponent} type based on the specified component instance created\n by the native API.\n\n @param node Pointer to the component instance created through the native API.\n @return Pointer to an {@link OH_NativeXComponent} instance.\n @since 12\n @version 1.0"]
     pub fn OH_NativeXComponent_GetNativeXComponent(
         node: ArkUI_NodeHandle,
     ) -> *mut OH_NativeXComponent;
 }
 extern "C" {
-    #[doc = " @brief Obtains the pointer to the <b> ArkUI_AccessibilityProvider</b>\n instance of this <b>OH_NativeXComponent</b> instance.\n\n @param component Indicates the pointer to the <b>OH_NativeXComponent</b> instance.\n @param handle Indicates the pointer to the <b>ArkUI_AccessibilityProvider</b> instance.\n @return Returns {@link OH_NATIVEXCOMPONENT_RESULT_SUCCESS} if the operation is successful.\n         Returns {@link OH_NATIVEXCOMPONENT_RESULT_BAD_PARAMETER} if a parameter error occurs.\n @since 13"]
+    #[doc = " @brief Obtains the accessibility provider handle for an ArkUI XComponent.\n\n @param component Pointer to an {@link OH_NativeXComponent} instance.\n @param handle Pointer to an {@link ArkUI_AccessibilityProvider} instance.\n @return Returns {@link OH_NATIVEXCOMPONENT_RESULT_SUCCESS} if the operation is successful.\n         <ul>\n         <li>{@link OH_NATIVEXCOMPONENT_RESULT_BAD_PARAMETER} if a parameter error occurs.</li>\n         <li>{@link OH_NATIVEXCOMPONENT_RESULT_FAILED} if any other error occurs.</li>\n         </ul>\n @since 13"]
     #[cfg(feature = "api-13")]
     pub fn OH_NativeXComponent_GetNativeAccessibilityProvider(
         component: *mut OH_NativeXComponent,
         handle: *mut *mut ArkUI_AccessibilityProvider,
-    ) -> i32;
-}
-extern "C" {
-    #[doc = " @brief Registers a callback for this <b>OH_NativeXComponent</b> instance.\n\n @param component Indicates the pointer to this <b>OH_NativeXComponent</b> instance.\n @param callback Indicates the pointer to a key event callback with result.\n @return Returns the status code of the execution.\n         {@link OH_NATIVEXCOMPONENT_RESULT_SUCCESS} the callback function is successfully registered.\\n\n         {@link OH_NATIVEXCOMPONENT_RESULT_BAD_PARAMETER} component is nullptr or callback is nullptr.\\n\n @since 14\n @version 1.0"]
-    #[cfg(feature = "api-14")]
-    pub fn OH_NativeXComponent_RegisterKeyEventCallbackWithResult(
-        component: *mut OH_NativeXComponent,
-        callback: ::std::option::Option<
-            unsafe extern "C" fn(
-                component: *mut OH_NativeXComponent,
-                window: *mut ::std::os::raw::c_void,
-            ) -> bool,
-        >,
     ) -> i32;
 }

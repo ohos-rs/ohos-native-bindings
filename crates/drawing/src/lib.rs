@@ -38,7 +38,7 @@ pub use text::{
     DrawingFontCollection, DrawingFontMetrics, DrawingLineMetrics, DrawingLineMetricsRaw,
     DrawingPlaceholderSpan, DrawingTextBox, DrawingTextStyle, DrawingTypography,
     DrawingTypographyStyle, FontCollection, PositionAndAffinity, TextRectHeightStyle,
-    TextRectWidthStyle, TextStyle, Typography, TypographyBuilder, TypographyStyle,
+    TextRectWidthStyle, TextShadow, TextStyle, Typography, TypographyBuilder, TypographyStyle,
 };
 pub use text_blob::TextBlob;
 pub use types::{

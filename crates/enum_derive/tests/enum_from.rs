@@ -19,6 +19,8 @@ enum TestEnum {
     Http2,
     #[alias("RawEnum_FULL_OVERRIDE")]
     Alias,
+    #[cfg(any())]
+    Conditional,
 }
 
 #[test]

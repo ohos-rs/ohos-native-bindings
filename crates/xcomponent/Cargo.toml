@@ -84,6 +84,8 @@ api-24 = [
   "ohos-arkui-input-binding/api-24",
   "ohos-accessibility-binding?/api-24",
 ]
+api-25 = ["api-24", "ohos-xcomponent-sys/api-25", "ohos-arkui-input-binding/api-25"]
+api-26 = ["api-25", "ohos-xcomponent-sys/api-26", "ohos-arkui-input-binding/api-26"]
 
 [dependencies]
 napi-sys-ohos              = { workspace = true }

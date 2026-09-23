@@ -20,17 +20,17 @@ use ohos_arkui_input_sys::{
     OH_ArkUI_AxisEvent_GetAxisAction, OH_ArkUI_PointerEvent_GetChangedPointerId,
     OH_ArkUI_UIInputEvent_GetTargetDisplayId,
 };
-#[cfg(feature = "api-14")]
-use ohos_arkui_input_sys::{
-    OH_ArkUI_UIInputEvent_GetDeviceId, OH_ArkUI_UIInputEvent_GetPressedKeys,
-};
 #[cfg(feature = "api-17")]
 use ohos_arkui_input_sys::{
-    OH_ArkUI_UIInputEvent_GetEventTargetGlobalPositionX,
+    OH_ArkUI_HoverEvent_IsHovered, OH_ArkUI_UIInputEvent_GetEventTargetGlobalPositionX,
     OH_ArkUI_UIInputEvent_GetEventTargetGlobalPositionY,
     OH_ArkUI_UIInputEvent_GetEventTargetHeight, OH_ArkUI_UIInputEvent_GetEventTargetPositionX,
     OH_ArkUI_UIInputEvent_GetEventTargetPositionY, OH_ArkUI_UIInputEvent_GetEventTargetWidth,
     OH_ArkUI_UIInputEvent_GetModifierKeyStates,
+};
+#[cfg(feature = "api-14")]
+use ohos_arkui_input_sys::{
+    OH_ArkUI_UIInputEvent_GetDeviceId, OH_ArkUI_UIInputEvent_GetPressedKeys,
 };
 use std::ptr::NonNull;
 
@@ -112,6 +112,15 @@ impl ArkUIInputEvent {
 
     pub fn event_time(&self) -> i64 {
         unsafe { OH_ArkUI_UIInputEvent_GetEventTime(self.raw()) }
+    }
+
+    /// Whether the pointer is currently inside the target for a hover event.
+    ///
+    /// ArkUI exposes hover enter/leave through a dedicated accessor; the
+    /// generic action field is not defined for this event category.
+    #[cfg(feature = "api-17")]
+    pub fn is_hovered(&self) -> bool {
+        unsafe { OH_ArkUI_HoverEvent_IsHovered(self.raw()) }
     }
 
     /// Get the number of contact points from a pointer event (such as a touch, mouse, or axis event).

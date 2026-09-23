@@ -14,104 +14,104 @@ use napi_sys_ohos::*;
 #[link(name = "rawfile.z")]
 unsafe extern "C" {}
 
-#[doc = " @error Success"]
+#[doc = " Operation successful."]
 pub const ResourceManager_ErrorCode_SUCCESS: ResourceManager_ErrorCode = 0;
-#[doc = " @error Invalid input parameter"]
+#[doc = " Invalid input parameter."]
 pub const ResourceManager_ErrorCode_ERROR_CODE_INVALID_INPUT_PARAMETER: ResourceManager_ErrorCode =
     401;
-#[doc = " @error Invalid resource ID"]
+#[doc = " Invalid resource ID."]
 pub const ResourceManager_ErrorCode_ERROR_CODE_RES_ID_NOT_FOUND: ResourceManager_ErrorCode =
     9001001;
-#[doc = " @error No matching resource is found based on the resource ID"]
+#[doc = " No matching resource found based on the resource ID."]
 pub const ResourceManager_ErrorCode_ERROR_CODE_RES_NOT_FOUND_BY_ID: ResourceManager_ErrorCode =
     9001002;
-#[doc = " @error Invalid resource name"]
+#[doc = " Invalid resource name."]
 pub const ResourceManager_ErrorCode_ERROR_CODE_RES_NAME_NOT_FOUND: ResourceManager_ErrorCode =
     9001003;
-#[doc = " @error No matching resource is found based on the resource name"]
+#[doc = " No matching resource found based on the resource name."]
 pub const ResourceManager_ErrorCode_ERROR_CODE_RES_NOT_FOUND_BY_NAME: ResourceManager_ErrorCode =
     9001004;
-#[doc = " @error Invalid relative path"]
+#[doc = " Invalid relative path."]
 pub const ResourceManager_ErrorCode_ERROR_CODE_RES_PATH_INVALID: ResourceManager_ErrorCode =
     9001005;
-#[doc = " @error The resource is referenced cyclically"]
+#[doc = " Circular reference exists in the resource."]
 pub const ResourceManager_ErrorCode_ERROR_CODE_RES_REF_TOO_MUCH: ResourceManager_ErrorCode =
     9001006;
-#[doc = " @error Failed to format the resource obtained based on the resource ID"]
+#[doc = " Failed to format the resource obtained based on the resource ID."]
 pub const ResourceManager_ErrorCode_ERROR_CODE_RES_ID_FORMAT_ERROR: ResourceManager_ErrorCode =
     9001007;
-#[doc = " @error Failed to format the resource obtained based on the resource Name"]
+#[doc = " Failed to format the resource obtained based on the resource name."]
 pub const ResourceManager_ErrorCode_ERROR_CODE_RES_NAME_FORMAT_ERROR: ResourceManager_ErrorCode =
     9001008;
-#[doc = " @error Failed to access the system resource"]
+#[doc = " Failed to access system resources."]
 pub const ResourceManager_ErrorCode_ERROR_CODE_SYSTEM_RES_MANAGER_GET_FAILED:
     ResourceManager_ErrorCode = 9001009;
-#[doc = " @error Invalid overlay path"]
+#[doc = " Invalid overlay path."]
 pub const ResourceManager_ErrorCode_ERROR_CODE_OVERLAY_RES_PATH_INVALID: ResourceManager_ErrorCode =
     9001010;
-#[doc = " @error Out of memory"]
+#[doc = " A memory overflow occurs."]
 pub const ResourceManager_ErrorCode_ERROR_CODE_OUT_OF_MEMORY: ResourceManager_ErrorCode = 9001100;
-#[doc = " @brief The error code of resource manager.\n\n @since 12"]
+#[doc = " @brief Enumerates resource manager error codes.\n\n @since 12"]
 pub type ResourceManager_ErrorCode = u32;
-#[doc = " Indicates the vertical direction."]
+#[doc = " Portrait orientation."]
 pub const ResourceManager_Direction_DIRECTION_VERTICAL: ResourceManager_Direction = 0;
-#[doc = " Indicates the horizontal direction."]
+#[doc = " Landscape orientation."]
 pub const ResourceManager_Direction_DIRECTION_HORIZONTAL: ResourceManager_Direction = 1;
-#[doc = " @brief Enumerates screen directions.\n\n @since 12"]
+#[doc = " @brief Enumerates screen orientations.\n\n @since 12"]
 pub type ResourceManager_Direction = u32;
-#[doc = " Indicates dark mode."]
+#[doc = " Dark mode."]
 pub const ResourceManager_ColorMode_COLOR_MODE_DARK: ResourceManager_ColorMode = 0;
-#[doc = " Indicates light mode."]
+#[doc = " Light mode."]
 pub const ResourceManager_ColorMode_COLOR_MODE_LIGHT: ResourceManager_ColorMode = 1;
-#[doc = " @brief Enumerates color mode types.\n\n @since 12"]
+#[doc = " @brief Enumerates color modes.\n\n @since 12"]
 pub type ResourceManager_ColorMode = u32;
-#[doc = " Indicates a phone."]
+#[doc = " Smartphone."]
 pub const ResourceManager_DeviceType_DEVICE_TYPE_PHONE: ResourceManager_DeviceType = 0;
-#[doc = " Indicates a tablet."]
+#[doc = " Tablet."]
 pub const ResourceManager_DeviceType_DEVICE_TYPE_TABLET: ResourceManager_DeviceType = 1;
-#[doc = " Indicates a car."]
+#[doc = " Car head unit."]
 pub const ResourceManager_DeviceType_DEVICE_TYPE_CAR: ResourceManager_DeviceType = 2;
-#[doc = " Indicates a PC."]
+#[doc = " PC."]
 pub const ResourceManager_DeviceType_DEVICE_TYPE_PC: ResourceManager_DeviceType = 3;
-#[doc = " Indicates a smart TV."]
+#[doc = " Smart screen."]
 pub const ResourceManager_DeviceType_DEVICE_TYPE_TV: ResourceManager_DeviceType = 4;
-#[doc = " Indicates a wearable device."]
+#[doc = " Wearable."]
 pub const ResourceManager_DeviceType_DEVICE_TYPE_WEARABLE: ResourceManager_DeviceType = 6;
-#[doc = " Indicates a 2in1 device."]
+#[doc = " 2-in-1 device."]
 pub const ResourceManager_DeviceType_DEVICE_TYPE_2IN1: ResourceManager_DeviceType = 7;
 #[doc = " @brief Enumerates device types.\n\n @since 12"]
 pub type ResourceManager_DeviceType = u32;
-#[doc = " Indicates small screen density."]
+#[doc = " Screen density with small-scale dots per inch (SDPI)."]
 pub const ScreenDensity_SCREEN_SDPI: ScreenDensity = 120;
-#[doc = " Indicates medium screen density."]
+#[doc = " Screen density with medium-scale dots per inch (MDPI)."]
 pub const ScreenDensity_SCREEN_MDPI: ScreenDensity = 160;
-#[doc = " Indicates large screen density."]
+#[doc = " Screen density with large-scale dots per inch (LDPI)."]
 pub const ScreenDensity_SCREEN_LDPI: ScreenDensity = 240;
-#[doc = " Indicates extra-large screen density."]
+#[doc = " Screen density with extra-large-scale dots per inch (XLDPI)."]
 pub const ScreenDensity_SCREEN_XLDPI: ScreenDensity = 320;
-#[doc = " Indicates extra-extra-large screen density."]
+#[doc = " Screen density with extra-extra-large-scale dots per inch (XXLDPI)."]
 pub const ScreenDensity_SCREEN_XXLDPI: ScreenDensity = 480;
-#[doc = " Indicates extra-extra-extra-large screen density."]
+#[doc = " Screen density with extra-extra-extra-large-scale dots per inch (XXXLDPI)."]
 pub const ScreenDensity_SCREEN_XXXLDPI: ScreenDensity = 640;
-#[doc = " @brief Enumerates screen density types.\n\n @since 12"]
+#[doc = " @brief Enumerates the screen density types.\n\n @since 12"]
 pub type ScreenDensity = u32;
-#[doc = " @brief Enumerates device configuration.\n\n @since 12"]
+#[doc = " @brief Structure of the device status.\n\n @since 12"]
 #[repr(C)]
 #[derive(Debug, Copy, Clone)]
 pub struct ResourceManager_Configuration {
-    #[doc = " Indicates the screen direction of the current device."]
+    #[doc = " Screen orientation."]
     pub direction: ResourceManager_Direction,
-    #[doc = " Indicates the current system language, for example, zh-Hans-CN."]
+    #[doc = " Language, script, country or region, for example, `zh_Hans_CN`."]
     pub locale: *mut ::std::os::raw::c_char,
-    #[doc = " Indicates the device type."]
+    #[doc = " Device type."]
     pub deviceType: ResourceManager_DeviceType,
-    #[doc = " Indicates the screen density."]
+    #[doc = " Screen density."]
     pub screenDensity: ScreenDensity,
-    #[doc = " Indicates the color mode."]
+    #[doc = " Color mode."]
     pub colorMode: ResourceManager_ColorMode,
-    #[doc = " Indicates the mcc."]
+    #[doc = " Mobile country code (MCC)."]
     pub mcc: u32,
-    #[doc = " Indicates the mnc."]
+    #[doc = " Mobile network code (MNC)."]
     pub mnc: u32,
     #[doc = " Reserved attributes."]
     pub reserved: [u32; 20usize],
@@ -122,18 +122,18 @@ pub struct RawDir {
     _unused: [u8; 0],
 }
 extern "C" {
-    #[doc = " @brief Obtains the name of the file according to the index.\n\n You can use this method to traverse a raw file directory.\n\n @param rawDir Indicates the pointer to {@link RawDir}.\n @param index Indicates the file index in {@link RawDir}.\n @return Returns the name of the file according to the index,\n which can be passed to {@link OH_ResourceManager_OpenRawFile} as an input parameter;\n returns <b>NULL</b> if all files are returned.\n @see OH_ResourceManager_OpenRawFile\n @since 8\n @version 1.0"]
+    #[doc = " @brief Obtains the file name in the `rawfile` directory by index. When you need to traverse the `rawfile` directory,\n you can use this function together with {@link OH_ResourceManager_GetRawFileCount} to iterate through the directory\n in a loop.\n\n @param rawDir Input parameter. Pointer to a `RawDir` object, which is obtained through\n     {@link OH_ResourceManager_OpenRawDir}.\n @param index Input parameter. Index of the file in the `rawfile` directory, ranging from [0, total file count - 1].\n @return Pointer to the file name string, which can be used as an input parameter of\n     {@link OH_ResourceManager_OpenRawFile}.\n     <br>`NULL` is returned upon failure. Possible causes include `rawDir` being `NULL`, `index` being out of the\n     valid range, or the directory being empty.\n     <br>After {@link OH_ResourceManager_CloseRawDir} is called, this pointer is also released. If the file name\n     needs to be preserved, you must copy the string content in a timely manner.\n @see {@link OH_ResourceManager_OpenRawFile}\n @since 8\n @version 1.0"]
     pub fn OH_ResourceManager_GetRawFileName(
         rawDir: *mut RawDir,
         index: ::std::os::raw::c_int,
     ) -> *const ::std::os::raw::c_char;
 }
 extern "C" {
-    #[doc = " @brief get the count of the raw files in {@link RawDir}.\n\n You can use this method to get the valid index of {@link OH_ResourceManager_GetRawFileName}.\n\n @param rawDir Indicates the pointer to {@link RawDir}.\n @see OH_ResourceManager_GetRawFileName\n @since 8\n @version 1.0"]
+    #[doc = " @brief Obtains the number of subdirectories and files under `rawfile`. When traversal of the `rawfile` directory is\n needed, this function can be used with {@link OH_ResourceManager_GetRawFileName} to iterate through the directory in\n a loop.\n\n @param rawDir Input parameter. Pointer to a `RawDir` object, which is obtained through\n     {@link OH_ResourceManager_OpenRawDir}.\n @return Number of rawfile subdirectories and files, without recursively counting files and directories within\n     `rawfile` subdirectories. `0` is returned if `rawDir` is `NULL` or the directory is empty.\n @see {@link OH_ResourceManager_GetRawFileName}\n @since 8\n @version 1.0"]
     pub fn OH_ResourceManager_GetRawFileCount(rawDir: *mut RawDir) -> ::std::os::raw::c_int;
 }
 extern "C" {
-    #[doc = " @brief Closes an opened {@link RawDir} and releases all associated resources.\n\n\n\n @param rawDir Indicates the pointer to {@link RawDir}.\n @see OH_ResourceManager_OpenRawDir\n @since 8\n @version 1.0"]
+    #[doc = " @brief Closes an opened `RawDir` object and releases all associated resources. After traversing the `rawfile`\n directory, this function must be called to close the directory and release resources.\n\n @param rawDir Input parameter. Pointer to a `RawDir` object, which is obtained through\n     {@link OH_ResourceManager_OpenRawDir}. After the release, the pointer becomes invalid and cannot be used for\n     other operations.\n @see {@link OH_ResourceManager_OpenRawDir}\n @since 8\n @version 1.0"]
     pub fn OH_ResourceManager_CloseRawDir(rawDir: *mut RawDir);
 }
 #[repr(C)]
@@ -141,36 +141,36 @@ extern "C" {
 pub struct RawFile {
     _unused: [u8; 0],
 }
-#[doc = " @brief Provides access to a raw file.\n\n @since 11\n @version 1.0"]
+#[doc = " @brief `RawFile64` represents an opened rawfile object, which is used for accessing large files of 2 GB and above.\n It is obtained through {@link OH_ResourceManager_OpenRawFile64}, and must be closed and released through\n {@link OH_ResourceManager_CloseRawFile64} after use.\n\n @since 11\n @version 1.0"]
 #[repr(C)]
 #[derive(Debug, Copy, Clone)]
 pub struct RawFile64 {
     _unused: [u8; 0],
 }
-#[doc = " @brief Represent the raw file descriptor's info.\n\n The RawFileDescriptor is an output parameter in the {@link OH_ResourceManager_GetRawFileDescriptor},\n and describes the raw file's file descriptor, start position and the length in the HAP.\n\n @since 8\n @version 1.0"]
+#[doc = " @brief Provides rawfile file descriptor information, including the file descriptor, start position within the HAP,\n and file length.<br>This information is obtained through {@link OH_ResourceManager_GetRawFileDescriptorData}, and\n must be released through {@link OH_ResourceManager_ReleaseRawFileDescriptorData} after use.\n\n @since 8\n @version 1.0"]
 #[repr(C)]
 #[derive(Debug, Copy, Clone)]
 pub struct RawFileDescriptor {
-    #[doc = " the raw file fd"]
+    #[doc = " File descriptor of the rawfile."]
     pub fd: ::std::os::raw::c_int,
-    #[doc = " the offset from where the raw file starts in the HAP"]
+    #[doc = " Start position of the rawfile in the HAP, in bytes."]
     pub start: ::std::os::raw::c_long,
-    #[doc = " the length of the raw file in the HAP."]
+    #[doc = " Length of the rawfile, in bytes."]
     pub length: ::std::os::raw::c_long,
 }
-#[doc = " @brief Represent the raw file descriptor's info.\n\n The RawFileDescriptor64 is an output parameter in the {@link OH_ResourceManager_GetRawFileDescriptor64},\n and describes the raw file's file descriptor, start position and the length in the HAP.\n\n @since 11\n @version 1.0"]
+#[doc = " @brief Provides the rawfile file descriptor information, including the file descriptor, start position within the\n HAP, and file length. Large files larger than 2 GB are supported.<br>This information is obtained through\n {@link OH_ResourceManager_GetRawFileDescriptor64}, and must be released through\n {@link OH_ResourceManager_ReleaseRawFileDescriptor64} after use.\n\n @since 11\n @version 1.0"]
 #[repr(C)]
 #[derive(Debug, Copy, Clone)]
 pub struct RawFileDescriptor64 {
-    #[doc = " the raw file fd"]
+    #[doc = " File descriptor of the rawfile."]
     pub fd: ::std::os::raw::c_int,
-    #[doc = " the offset from where the raw file starts in the HAP"]
+    #[doc = " Start position of the rawfile in the HAP, in bytes."]
     pub start: i64,
-    #[doc = " the length of the raw file in the HAP."]
+    #[doc = " Length of the rawfile, in bytes."]
     pub length: i64,
 }
 extern "C" {
-    #[doc = " @brief Reads a raw file.\n\n This function attempts to read data of <b>length</b> bytes from the current offset.\n\n @param rawFile Indicates the pointer to {@link RawFile}.\n @param buf Indicates the pointer to the buffer for receiving the data read.\n @param length Indicates the number of bytes to read.\n @return Returns the number of bytes read if any;\n         if the number reaches the end of file (EOF) or rawFile is nullptr also returns <b>0</b>\n @since 8\n @version 1.0"]
+    #[doc = " @brief Reads data of the specified length from the current offset position of a rawfile file. The offset position\n moves forward by the specified length after the read operation. For example, if the current offset position is [0]\n and the specified length is 10, the offset position after data reading is [10].\n\n @param rawFile Input parameter. Pointer to a `RawFile` object, which is obtained through\n     {@link OH_ResourceManager_OpenRawFile}.\n @param buf Output parameter. Pointer to the buffer for receiving the read data. The memory is allocated by you and\n     needs to be freed after use.\n @param length Input parameter. Expected length of data to be read, in bytes.\n @return Length of the data read. If the file has been read and no data is available for reading, or if `rawFile` is\n     `NULL`, `0` is returned.\n @since 8\n @version 1.0"]
     pub fn OH_ResourceManager_ReadRawFile(
         rawFile: *const RawFile,
         buf: *mut ::std::os::raw::c_void,
@@ -178,7 +178,7 @@ extern "C" {
     ) -> ::std::os::raw::c_int;
 }
 extern "C" {
-    #[doc = " @brief Uses the 32-bit data type to seek a data read position based on the specified offset within a raw file.\n\n @param rawFile Indicates the pointer to {@link RawFile}.\n @param offset Indicates the specified offset.\n @param whence Indicates the new read position, which can be one of the following values: \\n\n <b>0</b>: The new read position is set to <b>offset</b>. \\n\n <b>1</b>: The read position is set to the current position plus <b>offset</b>. \\n\n <b>2</b>: The read position is set to the end of file (EOF) plus <b>offset</b>.\n @return Returns <b>(int) 0</b> if the operation is successful; returns <b>(int) -1</b> if an error\n occurs.\n @since 8\n @version 1.0"]
+    #[doc = " @brief Adjusts the offset position of a rawfile based on the specified offset and offset mode.\n\n @param rawFile Input parameter. Pointer to a `RawFile` object, which is obtained through\n     {@link OH_ResourceManager_OpenRawFile}.\n @param offset Input parameter. Specified offset. The value is an integer. A positive value indicates backward offset,\n     and a negative value indicates forward offset. The unit is bytes.\n @param whence Input parameter. Offset mode. The value can be `0`, `1`, or `2`.\n     <br>`0`: The offset is calculated from the beginning of the file.\n     <br>`1`: The offset is calculated from the current position.\n     <br>`2`: The offset is calculated from the end of the file.\n @return Seeking result.\n     <br>**0**: The operation is successful and the file offset is moved to the specified position.\n     <br>**-1**: The operation fails and the file offset remains unchanged. Possible cause: `rawFile` is `NULL`,\n     `offset` is out the file range, or `whence` is invalid.\n @since 8\n @version 1.0"]
     pub fn OH_ResourceManager_SeekRawFile(
         rawFile: *const RawFile,
         offset: ::std::os::raw::c_long,
@@ -186,51 +186,51 @@ extern "C" {
     ) -> ::std::os::raw::c_int;
 }
 extern "C" {
-    #[doc = " @brief Obtains the raw file length represented by an long.\n\n @param rawFile Indicates the pointer to {@link RawFile}.\n @return Returns the total length of the raw file. If rawFile is nullptr also returns 0.\n @since 8\n @version 1.0"]
+    #[doc = " @brief Obtains the length (in bytes) of a rawfile.\n\n @param rawFile Input parameter. Pointer to a `RawFile` object, which is obtained through\n     {@link OH_ResourceManager_OpenRawFile}.\n @return Length of the rawfile. If `rawFile` is `NULL`, `0` is returned.\n @since 8\n @version 1.0"]
     pub fn OH_ResourceManager_GetRawFileSize(rawFile: *mut RawFile) -> ::std::os::raw::c_long;
 }
 extern "C" {
-    #[doc = " @brief Obtains the remaining raw file length represented by an long.\n\n @param rawFile Indicates the pointer to {@link RawFile}.\n @return Returns the remaining length of the raw file. If rawFile is nullptr also returns 0.\n @since 11\n @version 1.0"]
+    #[doc = " @brief Obtains the remaining length (in bytes) of a rawfile from the current offset position to the end of the file.\n\n @param rawFile Input parameter. Pointer to a `RawFile` object, which is obtained through\n     {@link OH_ResourceManager_OpenRawFile}.\n @return Remaining length of the rawfile. If `rawFile` is `NULL`, `0` is returned.\n @since 11\n @version 1.0"]
     pub fn OH_ResourceManager_GetRawFileRemainingLength(
         rawFile: *const RawFile,
     ) -> ::std::os::raw::c_long;
 }
 extern "C" {
-    #[doc = " @brief Closes an opened {@link RawFile} and releases all associated resources.\n\n\n\n @param rawFile Indicates the pointer to {@link RawFile}.\n @see OH_ResourceManager_OpenRawFile\n @since 8\n @version 1.0"]
+    #[doc = " @brief Closes a `RawFile` object and releases all associated resources.\n\n @param rawFile Input parameter. Pointer to a `RawFile` object, which is obtained through\n     {@link OH_ResourceManager_OpenRawFile}. After the release, the pointer becomes invalid and cannot be used for\n     other operations.\n @see {@link OH_ResourceManager_OpenRawFile}\n @since 8\n @version 1.0"]
     pub fn OH_ResourceManager_CloseRawFile(rawFile: *mut RawFile);
 }
 extern "C" {
-    #[doc = " @brief Obtains the current offset of a raw file, represented by an long.\n\n The current offset of a raw file.\n\n @param rawFile Indicates the pointer to {@link RawFile}.\n @return Returns the current offset of a raw file. If rawFile is nullptr also returns 0.\n @since 8\n @version 1.0"]
+    #[doc = " @brief Obtains the current offset position (in bytes) of a rawfile. This information can be used to track progress\n during segmented reading, or to confirm the current offset position after seeking.\n\n @param rawFile Input parameter. Pointer to a `RawFile` object, which is obtained through\n     {@link OH_ResourceManager_OpenRawFile}.\n @return Current offset position of the rawfile. If the `rawFile` is `NULL`, `0` is returned.\n @since 8\n @version 1.0"]
     pub fn OH_ResourceManager_GetRawFileOffset(rawFile: *const RawFile) -> ::std::os::raw::c_long;
 }
 extern "C" {
-    #[doc = " @brief Opens the file descriptor of a raw file based on the long offset and file length.\n\n The opened raw file descriptor is used to read the raw file.\n\n @param rawFile Indicates the pointer to {@link RawFile}.\n @param descriptor Indicates the raw file's file descriptor, start position and the length in the HAP.\n @return Returns true: open the raw file descriptor successfully, false: the raw file is not allowed to access.\n @since 8\n @version 1.0\n @deprecated since 12\n @useinstead OH_ResourceManager_GetRawFileDescriptorData"]
+    #[doc = " @brief Obtains the rawfile descriptor information. After obtaining the file descriptor information, you can call\n functions such as **pread** to read the rawfile.\n\n @param rawFile Input parameter. Pointer to a `RawFile` object, which is obtained through\n     {@link OH_ResourceManager_OpenRawFile}.\n @param descriptor Output parameter. Reference to the {@link RawFileDescriptor} object, After use, you must call\n     {@link OH_ResourceManager_ReleaseRawFileDescriptor} to release the file descriptor, preventing file descriptor\n     leakage.\n @return <b>true</b> if the file is opened; returns <b>false</b> if the access to the file is rejected.\n @since 8\n @version 1.0\n @deprecated since 12\n @useinstead {@link OH_ResourceManager_GetRawFileDescriptorData}"]
     pub fn OH_ResourceManager_GetRawFileDescriptor(
         rawFile: *const RawFile,
         descriptor: *mut RawFileDescriptor,
     ) -> bool;
 }
 extern "C" {
-    #[doc = " @brief Obtains the file descriptor of a raw file based on the long offset and file length.\n\n The obtains raw file descriptor is used to read the raw file.\n\n @param rawFile Indicates the pointer to {@link RawFile}.\n @param descriptor Indicates the raw file's file descriptor, start position and the length in the HAP.\n @return Returns true: obtains the raw file descriptor successfully, false: the raw file is not allowed to access.\n @since 12\n @version 1.0"]
+    #[doc = " @brief Obtains the rawfile descriptor information. After obtaining the file descriptor information, you can call\n functions such as **pread** to read the rawfile.\n\n @param rawFile Input parameter. Pointer to a `RawFile` object, which is obtained through\n     {@link OH_ResourceManager_OpenRawFile}.\n @param descriptor Output parameter. Pointer to the `RawFileDescriptor` object, which is used to return the file\n     descriptor information. After use, you must call {@link OH_ResourceManager_ReleaseRawFileDescriptorData} to\n     release the file descriptor, preventing file descriptor leakage.\n @return Obtaining result. If the operation is successful, `true` is returned. If the operation fails, `false` is\n     returned. The possible cause is that `rawFile` or `descriptor` is `NULL` or the access to the rawfile is denied.\n @since 12\n @version 1.0"]
     pub fn OH_ResourceManager_GetRawFileDescriptorData(
         rawFile: *const RawFile,
         descriptor: *mut RawFileDescriptor,
     ) -> bool;
 }
 extern "C" {
-    #[doc = " @brief Closes the file descriptor of a raw file.\n\n The opened raw file descriptor must be released after used to avoid the file descriptor leak.\n\n @param descriptor Indicates the raw file's file descriptor, start position and the length in the HAP.\n @return Returns true: closes the raw file descriptor successfully, false: closes the raw file descriptor failed.\n @since 8\n @version 1.0\n @deprecated since 12\n @useinstead OH_ResourceManager_ReleaseRawFileDescriptorData"]
+    #[doc = " @brief Releases the file descriptor of a rawfile. To prevent file descriptor leakage, you are advised to release a\n rawfile descriptor immediately after use.\n\n @param descriptor Input parameter. Reference to the {@link RawFileDescriptor} object to be released.\n @return Release result. If the operation is successful, `true` is returned. If the operation fails, `false` is\n     returned. The possible cause is that `descriptor` is `NULL` or the file descriptor has been released.\n @since 8\n @version 1.0\n @deprecated since 12\n @useinstead {@link OH_ResourceManager_ReleaseRawFileDescriptorData}"]
     pub fn OH_ResourceManager_ReleaseRawFileDescriptor(
         descriptor: *const RawFileDescriptor,
     ) -> bool;
 }
 extern "C" {
-    #[doc = " @brief Release the file descriptor of a raw file.\n\n The opened raw file descriptor must be released after used to avoid the file descriptor leak.\n\n @param descriptor Indicates the raw file's file descriptor, start position and the length in the HAP.\n @return Returns true: release the raw file descriptor successfully, false: release the raw file descriptor failed.\n @since 12\n @version 1.0"]
+    #[doc = " @brief Releases rawfile file descriptor resources. After successful release, `fd` in `descriptor` becomes invalid\n and cannot be used any more.\n\n @param descriptor Input parameter. Pointer to the {@link RawFileDescriptor} object to be released.\n @return Release result. If the operation is successful, `true` is returned. If the operation fails, `false` is\n     returned. The possible cause is that `descriptor` is `NULL` or the file descriptor has been released.\n @since 12\n @version 1.0"]
     pub fn OH_ResourceManager_ReleaseRawFileDescriptorData(
         descriptor: *const RawFileDescriptor,
     ) -> bool;
 }
 extern "C" {
-    #[doc = " @brief Reads a raw file.\n\n This function attempts to read data of <b>length</b> bytes from the current offset. using a 64-bit\n\n @param rawFile Indicates the pointer to {@link RawFile64}.\n @param buf Indicates the pointer to the buffer for receiving the data read.\n @param length Indicates the number of bytes to read.\n @return Returns the number of bytes read if any;\n         returns <b>0</b> if the number reaches the end of file (EOF). or rawFile is nullptr also returns 0\n @since 11\n @version 1.0"]
+    #[doc = " @brief Reads data of the specified length from the current offset position of a rawfile file. The offset position\n moves forward by the specified length after the read operation. For example, if the current offset position is [0]\n and the specified length is 10, the offset position after data reading is [10].\n <br>Files larger than 2 GB are supported.\n\n @param rawFile Input parameter. Pointer to a `RawFile64` object, which is obtained through\n     {@link OH_ResourceManager_OpenRawFile64}.\n @param buf Output parameter. Pointer to the buffer for receiving the read data. The memory is allocated by you and\n     needs to be freed after use.\n @param length Input parameter. Expected length of data to be read, in bytes.\n @return Length of the data read. If the file has been read and no data is available for reading, or if `rawFile` is\n     `NULL`, `0` is returned.\n @since 11\n @version 1.0"]
     pub fn OH_ResourceManager_ReadRawFile64(
         rawFile: *const RawFile64,
         buf: *mut ::std::os::raw::c_void,
@@ -238,7 +238,7 @@ extern "C" {
     ) -> i64;
 }
 extern "C" {
-    #[doc = " @brief Uses the 64-bit data type to seek a data read position based on the specified offset within a raw file.\n\n @param rawFile Indicates the pointer to {@link RawFile64}.\n @param offset Indicates the specified offset.\n @param whence Indicates the new read position, which can be one of the following values: \\n\n <b>0</b>: The new read position is set to <b>offset</b>. \\n\n <b>1</b>: The read position is set to the current position plus <b>offset</b>. \\n\n <b>2</b>: The read position is set to the end of file (EOF) plus <b>offset</b>.\n @return Returns <b>(int) 0</b> if the operation is successful; returns <b>(int) -1</b> if an error\n occurs.\n @since 11\n @version 1.0"]
+    #[doc = " @brief Adjusts the offset position of a rawfile based on the specified offset and offset mode. Files larger than 2\n GB are supported.\n\n @param rawFile Input parameter. Pointer to a `RawFile64` object, which is obtained through\n     {@link OH_ResourceManager_OpenRawFile64}.\n @param offset Input parameter. Specified offset. The value is an integer. A positive value indicates backward offset,\n     and a negative value indicates forward offset. The unit is bytes.\n @param whence Input parameter. Offset mode. The value can be `0`, `1`, or `2`.\n     <br>`0`: The offset is calculated from the beginning of the file.\n     <br>`1`: The offset is calculated from the current position.\n     <br>`2`: The offset is calculated from the end of the file.\n @return Seeking result.\n     <br>**0**: The operation is successful and the file offset is moved to the specified position.\n     <br>**-1**: The operation fails and the file offset remains unchanged. Possible cause: `rawFile` is `NULL`,\n     `offset` is out the file range, or `whence` is invalid.\n @since 11\n @version 1.0"]
     pub fn OH_ResourceManager_SeekRawFile64(
         rawFile: *const RawFile64,
         offset: i64,
@@ -246,30 +246,30 @@ extern "C" {
     ) -> ::std::os::raw::c_int;
 }
 extern "C" {
-    #[doc = " @brief Obtains the raw file length represented by an int64_t.\n\n @param rawFile Indicates the pointer to {@link RawFile64}.\n @return Returns the total length of the raw file. If rawFile is nullptr also returns 0.\n @since 11\n @version 1.0"]
+    #[doc = " @brief Obtains the length (in bytes) of a rawfile. Files larger than 2 GB are supported.\n\n @param rawFile Input parameter. Pointer to a `RawFile64` object, which is obtained through\n     {@link OH_ResourceManager_OpenRawFile64}.\n @return Length of the rawfile. If `rawFile` is `NULL`, `0` is returned.\n @since 11\n @version 1.0"]
     pub fn OH_ResourceManager_GetRawFileSize64(rawFile: *mut RawFile64) -> i64;
 }
 extern "C" {
-    #[doc = " @brief Obtains the remaining raw file length represented by an int64_t.\n\n @param rawFile Indicates the pointer to {@link RawFile64}.\n @return Returns the remaining length of the raw file. If rawFile is nullptr also returns 0.\n @since 11\n @version 1.0"]
+    #[doc = " @brief Obtains the remaining length (in bytes) of a rawfile from the current offset position to the end of the file.\n Files larger than 2 GB are supported.\n\n @param rawFile Input parameter. Pointer to a `RawFile64` object, which is obtained through\n     {@link OH_ResourceManager_OpenRawFile64}.\n @return Remaining length of the rawfile. If `rawFile` is `NULL`, `0` is returned.\n @since 11\n @version 1.0"]
     pub fn OH_ResourceManager_GetRawFileRemainingLength64(rawFile: *const RawFile64) -> i64;
 }
 extern "C" {
-    #[doc = " @brief Closes an opened {@link RawFile64} and releases all associated resources.\n\n\n\n @param rawFile Indicates the pointer to {@link RawFile64}.\n @see OH_ResourceManager_OpenRawFile64\n @since 11\n @version 1.0"]
+    #[doc = " @brief Closes a `RawFile64` object and releases all associated resources.\n\n @param rawFile Input parameter. Pointer to a `RawFile64` object, which is obtained through\n     {@link OH_ResourceManager_OpenRawFile64}. After the release, the pointer becomes invalid and cannot be used for\n     other operations.\n @see {@link OH_ResourceManager_OpenRawFile64}\n @since 11\n @version 1.0"]
     pub fn OH_ResourceManager_CloseRawFile64(rawFile: *mut RawFile64);
 }
 extern "C" {
-    #[doc = " @brief Obtains the current offset of a raw file, represented by an int64_t.\n\n The current offset of a raw file.\n\n @param rawFile Indicates the pointer to {@link RawFile64}.\n @return Returns the current offset of a raw file. If rawFile is nullptr also returns 0.\n @since 11\n @version 1.0"]
+    #[doc = " @brief Obtains the current offset position (in bytes) of a rawfile. This information can be used to track progress\n during segmented reading, or to confirm the current offset position after seeking.\n <br>Files larger than 2 GB are supported.\n\n @param rawFile Input parameter. Pointer to a `RawFile64` object, which is obtained through\n     {@link OH_ResourceManager_OpenRawFile64}.\n @return Current offset position of the rawfile. If the `rawFile` is `NULL`, `0` is returned.\n @since 11\n @version 1.0"]
     pub fn OH_ResourceManager_GetRawFileOffset64(rawFile: *const RawFile64) -> i64;
 }
 extern "C" {
-    #[doc = " @brief Opens the file descriptor of a raw file based on the int64_t offset and file length.\n\n The opened raw file descriptor is used to read the raw file.\n\n @param rawFile Indicates the pointer to {@link RawFile64}.\n @param descriptor Indicates the raw file's file descriptor, start position and the length in the HAP.\n @return Returns true: open the raw file descriptor successfully, false: the raw file is not allowed to access.\n @since 11\n @version 1.0"]
+    #[doc = " @brief Obtains the rawfile descriptor information. After obtaining the file descriptor information, you can call\n functions such as **pread** to read the rawfile. Files larger than 2 GB are supported.\n\n @param rawFile Input parameter. Pointer to a `RawFile64` object, which is obtained through\n     {@link OH_ResourceManager_OpenRawFile64}.\n @param descriptor Output parameter. Pointer to the `RawFileDescriptor64` object, which is used to return the file\n     descriptor information. After use, you must call {@link OH_ResourceManager_ReleaseRawFileDescriptor64} to\n     release the file descriptor, preventing file descriptor leakage.\n @return Obtaining result. If the operation is successful, `true` is returned. If the operation fails, `false` is\n     returned. The possible cause is that `rawFile` or `descriptor` is `NULL` or the access to the rawfile is denied.\n @since 11\n @version 1.0"]
     pub fn OH_ResourceManager_GetRawFileDescriptor64(
         rawFile: *const RawFile64,
         descriptor: *mut RawFileDescriptor64,
     ) -> bool;
 }
 extern "C" {
-    #[doc = " @brief Closes the file descriptor of a raw file.\n\n The opened raw file descriptor must be released after used to avoid the file descriptor leak.\n\n @param descriptor Indicates the raw file's file descriptor, start position and the length in the HAP.\n @return Returns true: closes the raw file descriptor successfully, false: closes the raw file descriptor failed.\n @since 11\n @version 1.0"]
+    #[doc = " @brief Releases rawfile file descriptor resources. After successful release, `fd` in `descriptor` becomes invalid\n and cannot be used any more.\n\n @param descriptor Input parameter. Pointer to the `RawFileDescriptor64` object to be released, which is obtained\n     through {@link OH_ResourceManager_GetRawFileDescriptor64}.\n @return Release result. If the operation is successful, `true` is returned. If the operation fails, `false` is\n     returned. The possible cause is that `descriptor` is `NULL` or the file descriptor has been released.\n @since 11\n @version 1.0"]
     pub fn OH_ResourceManager_ReleaseRawFileDescriptor64(
         descriptor: *const RawFileDescriptor64,
     ) -> bool;
@@ -280,39 +280,39 @@ pub struct NativeResourceManager {
     _unused: [u8; 0],
 }
 extern "C" {
-    #[doc = " @brief Obtains the native resource manager based on the JavaScript resource manager.\n\n You need to obtain the resource manager to process raw files as required.\n\n @param env Indicates the pointer to the JavaScript Native Interface (napi) environment.\n @param jsResMgr Indicates the JavaScript resource manager.\n @return Returns the pointer to {@link NativeResourceManager}. If failed returns nullptr.\n @since 8\n @version 1.0"]
+    #[doc = " @brief Initializes a `NativeResourceManager` object.\n\n @param env Input parameter. Pointer to the JavaScript Native Interface (napi) environment.\n @param jsResMgr Input parameter. Reference to the JavaScript `ResourceManager` object.\n @return Pointer to the `NativeResourceManager` object. If the initialization fails, `NULL` is returned. The possible\n     cause is that the `env` or `jsResMgr` parameter is invalid.\n     <br>The memory is allocated by this function and must be released through\n     {@link OH_ResourceManager_ReleaseNativeResourceManager} after use.\n @since 8\n @version 1.0"]
     pub fn OH_ResourceManager_InitNativeResourceManager(
         env: napi_env,
         jsResMgr: napi_value,
     ) -> *mut NativeResourceManager;
 }
 extern "C" {
-    #[doc = " @brief Releases the native resource manager.\n\n\n\n @param resMgr Indicates the pointer to {@link RawDir}.\n @since 8\n @version 1.0"]
+    #[doc = " @brief Releases a `NativeResourceManager` object and its associated resources.\n\n @param resMgr Input parameter. Pointer to the `NativeResourceManager` object to be released. After the release, the\n     `resMgr` pointer becomes invalid and cannot be used for other operations.\n @since 8\n @version 1.0"]
     pub fn OH_ResourceManager_ReleaseNativeResourceManager(resMgr: *mut NativeResourceManager);
 }
 extern "C" {
-    #[doc = " @brief Opens a raw file directory.\n\n After it is opened, you can traverse its raw files.\n\n @param mgr Indicates the pointer to {@link NativeResourceManager} obtained by calling\n {@link OH_ResourceManager_InitNativeResourceManager}.\n @param dirName Indicates the name of the raw file directory to open. You can pass an empty string to open the\n top-level raw file directory.\n @return Returns the pointer to {@link RawDir}. If failed or mgr is nullptr also returns nullptr.\n         After you finish using the pointer, call {@link OH_ResourceManager_CloseRawDir} to release it.\n @see OH_ResourceManager_InitNativeResourceManager\n @see OH_ResourceManager_CloseRawDir\n @since 8\n @version 1.0"]
+    #[doc = " @brief Opens the `rawfile` directory.\n\n @param mgr Input parameter. Pointer to the `NativeResourceManager` object.\n @param dirName Input parameter. Path of the directory to be opened. Path relative to the `rawfile` root directory,\n     for example, `images/icons`. If the value is an empty string, the `rawfile` root directory is opened.\n @return Pointer to the `RawDir` object. If the call fails or `mgr` is null, `NULL` is returned. After use, call\n     {@link OH_ResourceManager_CloseRawDir} to release it.\n @see {@link OH_ResourceManager_InitNativeResourceManager}\n @see {@link OH_ResourceManager_CloseRawDir}\n @since 8\n @version 1.0"]
     pub fn OH_ResourceManager_OpenRawDir(
         mgr: *const NativeResourceManager,
         dirName: *const ::std::os::raw::c_char,
     ) -> *mut RawDir;
 }
 extern "C" {
-    #[doc = " @brief Opens a raw file.\n\n After it is opened, you can read its data.\n\n @param mgr Indicates the pointer to {@link NativeResourceManager} obtained by calling\n {@link OH_ResourceManager_InitNativeResourceManager}.\n @param fileName Indicates the file path relative to the top-level raw file directory.\n @return Returns the pointer to {@link RawFile}. If failed or mgr and fileName is nullptr also returns nullptr.\n After you finish using the pointer, call {@link OH_ResourceManager_CloseRawFile} to release it.\n @see OH_ResourceManager_InitNativeResourceManager\n @see OH_ResourceManager_CloseRawFile\n @since 8\n @version 1.0"]
+    #[doc = " @brief Opens a rawfile and returns a `RawFile` object for reading the rawfile content.\n\n @param mgr Input parameter. Pointer to the `NativeResourceManager` object.\n @param fileName Input parameter. Path of the file to be opened. Path relative to the `rawfile` root directory, for\n     example, `images/icons/1.png`.\n @return Pointer to the `RawFile` object. If the call fails or the input parameter is null, `NULL` is returned. After\n     use, call {@link OH_ResourceManager_CloseRawFile} to release it.\n @see {@link OH_ResourceManager_InitNativeResourceManager}\n @see {@link OH_ResourceManager_CloseRawFile}\n @since 8\n @version 1.0"]
     pub fn OH_ResourceManager_OpenRawFile(
         mgr: *const NativeResourceManager,
         fileName: *const ::std::os::raw::c_char,
     ) -> *mut RawFile;
 }
 extern "C" {
-    #[doc = " @brief Opens a raw file.\n\n After it is opened, you can read its data.\n\n @param mgr Indicates the pointer to {@link NativeResourceManager} obtained by calling\n {@link OH_ResourceManager_InitNativeResourceManager}.\n @param fileName Indicates the file path relative to the top-level raw file directory.\n @return Returns the pointer to {@link RawFile64}. If failed or mgr and fileName is nullptr also returns nullptr.\n After you finish using the pointer, call {@link OH_ResourceManager_CloseRawFile64} to release it.\n @see OH_ResourceManager_InitNativeResourceManager\n @see OH_ResourceManager_CloseRawFile64\n @since 11\n @version 1.0"]
+    #[doc = " @brief Opens a rawfile and returns a `RawFile` object for reading the rawfile content. Files larger than 2 GB are\n supported.\n\n @param mgr Input parameter. Pointer to the `NativeResourceManager` object.\n @param fileName Input parameter. Path of the file to be opened. Path relative to the `rawfile` root directory, for\n     example, `images/icons/1.png`.\n @return Pointer to the `RawFile` object. If the call fails or the input parameter is null, `NULL` is returned. After\n     use, call {@link OH_ResourceManager_CloseRawFile64} to release it.\n @see {@link OH_ResourceManager_InitNativeResourceManager}\n @see {@link OH_ResourceManager_CloseRawFile64}\n @since 11\n @version 1.0"]
     pub fn OH_ResourceManager_OpenRawFile64(
         mgr: *const NativeResourceManager,
         fileName: *const ::std::os::raw::c_char,
     ) -> *mut RawFile64;
 }
 extern "C" {
-    #[doc = " @brief Whether the rawfile resource is a directory or not.\n\n @param mgr Indicates the pointer to {@link NativeResourceManager} obtained by calling\n {@link OH_ResourceManager_InitNativeResourceManager}.\n @param path Indicates the rawfile resource relative path.\n @return Returns true means the file path is directory, else false.\n @since 12\n @version 1.0"]
+    #[doc = " @brief Checks whether the specified path is a subdirectory of `rawfile`. It is used to determine whether the\n specified path is a directory before traversing it, or whether the specified path is a file before opening it.\n\n @param mgr Input parameter. Pointer to the `NativeResourceManager` object.\n @param path Path to be checked. Path relative to the `rawfile` root directory, for example, `images/icons`.\n @return **true** if the path is a subdirectory in the **rawfile** directory; **false** otherwise.\n @since 12\n @version 1.0"]
     pub fn OH_ResourceManager_IsRawDir(
         mgr: *const NativeResourceManager,
         path: *const ::std::os::raw::c_char,
@@ -324,7 +324,7 @@ pub struct ArkUI_DrawableDescriptor {
     _unused: [u8; 0],
 }
 extern "C" {
-    #[doc = " @brief Obtains the Base64 code of the image resource.\n\n Obtains the Base64 code of the image resource corresponding to the specified resource ID.\n\n @param mgr Indicates the pointer to {@link NativeResourceManager}\n {@link OH_ResourceManager_InitNativeResourceManager}.\n @param resId Indicates the resource ID.\n @param resultValue the result write to resultValue.\n @param resultLen the media length write to resultLen.\n @param density The optional parameter ScreenDensity{@link ScreenDensity}, A value of 0 means\n to use the density of current system dpi.\n @return {@link SUCCESS} 0 - Success.\n         {@link ERROR_CODE_INVALID_INPUT_PARAMETER} 401 - The input parameter invalid. Possible causes:\n         1.Incorrect parameter types; 2.Parameter verification failed.\n{@link ERROR_CODE_RES_ID_NOT_FOUND} 9001001 - Invalid resource ID.\n{@link ERROR_CODE_RES_NOT_FOUND_BY_ID} 9001002 - No matching resource is found based on the resource ID.\n{@link ERROR_CODE_OUT_OF_MEMORY} 9001100 - Out of memory.\n @since 12"]
+    #[doc = " @brief Obtains the Base64-encoded string of the media resource by the specified resource ID and screen density.\n\n @param mgr Input parameter. Pointer to the NativeResourceManager object. The pointer is obtained through\n     {@link OH_ResourceManager_InitNativeResourceManager}.\n @param resId Input parameter. Resource ID.\n @param resultValue Output parameter. Pointer to the Base64-encoded string, which is allocated by **malloc()** and\n     must be released via **free()** after use.\n @param resultLen Output parameter. Length of the Base64 string, in bytes.\n @param density Input parameter, which is optional. Screen density. For details about the value range, see\n     {@link ScreenDensity}. The default value is **0**, indicating that the current system screen density is used.\n @return Result code.\n     <br>**SUCCESS**: Success.\n     <br>**ERROR_CODE_INVALID_INPUT_PARAMETER**: Invalid input parameter. Possible causes: 1. The parameter type is\n     incorrect. 2. Parameter verification failed.\n     <br>**ERROR_CODE_RES_ID_NOT_FOUND**: Invalid resource ID.\n     <br>**ERROR_CODE_RES_NOT_FOUND_BY_ID**: No matching resource is found based on the resource ID.\n     <br>**ERROR_CODE_OUT_OF_MEMORY**: Memory overflow occurs.\n @since 12"]
     pub fn OH_ResourceManager_GetMediaBase64(
         mgr: *const NativeResourceManager,
         resId: u32,
@@ -334,7 +334,7 @@ extern "C" {
     ) -> ResourceManager_ErrorCode;
 }
 extern "C" {
-    #[doc = " @brief Obtains the Base64 code of the image resource.\n\n Obtains the Base64 code of the image resource corresponding to the specified resource ID.\n\n @param mgr Indicates the pointer to {@link NativeResourceManager}\n {@link OH_ResourceManager_InitNativeResourceManager}.\n @param resId Indicates the resource ID.\n @param resultValue the result write to resultValue.\n @param resultLen the media length write to resultLen.\n @param density The optional parameter ScreenDensity{@link ScreenDensity}, A value of 0 means\n to use the density of current system dpi. If this attribute is not required, set this parameter to 0.\n @return {@link SUCCESS} 0 - Success.\n         {@link ERROR_CODE_INVALID_INPUT_PARAMETER} 401 - The input parameter invalid. Possible causes:\n         1.Incorrect parameter types; 2.Parameter verification failed.\n{@link ERROR_CODE_RES_ID_NOT_FOUND} 9001001 - Invalid resource ID.\n{@link ERROR_CODE_RES_NOT_FOUND_BY_ID} 9001002 - No matching resource is found based on the resource ID.\n{@link ERROR_CODE_OUT_OF_MEMORY} 9001100 - Out of memory.\n @since 12"]
+    #[doc = " @brief Obtains the Base64-encoded string of the media resource by the specified resource ID and screen density.\n\n @param mgr Input parameter. Pointer to the NativeResourceManager object. The pointer is obtained through\n     {@link OH_ResourceManager_InitNativeResourceManager}.\n @param resId Input parameter. Resource ID.\n @param resultValue Output parameter. Pointer to the Base64-encoded string, which is allocated by **malloc()** and\n     must be released via **free()** after use.\n @param resultLen Output parameter. Length of the Base64 string, in bytes.\n @param density Input parameter. Screen density. For details about the value range, see {@link ScreenDensity}. The\n     value **0** indicates that the current system screen density is used. If no specific density is required, set\n     this parameter to **0**.\n @return Result code.\n     <br>**SUCCESS**: Success.\n     <br>**ERROR_CODE_INVALID_INPUT_PARAMETER**: Invalid input parameter. Possible causes: 1. The parameter type is\n     incorrect. 2. Parameter verification failed.\n     <br>**ERROR_CODE_RES_ID_NOT_FOUND**: Invalid resource ID.\n     <br>**ERROR_CODE_RES_NOT_FOUND_BY_ID**: No matching resource is found based on the resource ID.\n     <br>**ERROR_CODE_OUT_OF_MEMORY**: Memory overflow occurs.\n @since 12"]
     pub fn OH_ResourceManager_GetMediaBase64Data(
         mgr: *const NativeResourceManager,
         resId: u32,
@@ -344,7 +344,7 @@ extern "C" {
     ) -> ResourceManager_ErrorCode;
 }
 extern "C" {
-    #[doc = " @brief Obtains the Base64 code of the image resource.\n\n Obtains the Base64 code of the image resource corresponding to the specified resource name.\n\n @param mgr Indicates the pointer to {@link NativeResourceManager}\n {@link OH_ResourceManager_InitNativeResourceManager}.\n @param resName Indicates the resource name.\n @param resultValue the result write to resultValue.\n @param resultLen the media length write to resultLen.\n @param density The optional parameter ScreenDensity{@link ScreenDensity}, A value of 0 means\n to use the density of current system dpi.\n @return {@link SUCCESS} 0 - Success.\n         {@link ERROR_CODE_INVALID_INPUT_PARAMETER} 401 - The input parameter invalid. Possible causes:\n         1.Incorrect parameter types; 2.Parameter verification failed.\n{@link ERROR_CODE_RES_NAME_NOT_FOUND} 9001003 - Invalid resource name.\n{@link ERROR_CODE_RES_NOT_FOUND_BY_NAME} 9001004 - No matching resource is found based on the resource name.\n{@link ERROR_CODE_OUT_OF_MEMORY} 9001100 - Out of memory.\n @since 12"]
+    #[doc = " @brief Obtains the Base64-encoded string of the media resource by the specified resource name and screen density.\n\n @param mgr Input parameter. Pointer to the NativeResourceManager object. The pointer is obtained through\n     {@link OH_ResourceManager_InitNativeResourceManager}.\n @param resName Input parameter. Resource name.\n @param resultValue Output parameter. Pointer to the Base64-encoded string, which is allocated by **malloc()** and\n     must be released via **free()** after use.\n @param resultLen Output parameter. Length of the Base64 string, in bytes.\n @param density Input parameter, which is optional. Screen density. For details about the value range, see\n     {@link ScreenDensity}. The default value is **0**, indicating that the current system screen density is used.\n @return Result code.\n     <br>**SUCCESS**: Success.\n     <br>**ERROR_CODE_INVALID_INPUT_PARAMETER**: Invalid input parameter. Possible causes: 1. The parameter type is\n     incorrect. 2. Parameter verification failed.\n     <br>**ERROR_CODE_RES_NAME_NOT_FOUND**: Invalid resource name.\n     <br>**ERROR_CODE_RES_NOT_FOUND_BY_NAME**: No matching resource is found based on the resource name.\n     <br>**ERROR_CODE_OUT_OF_MEMORY**: Memory overflow occurs.\n @since 12"]
     pub fn OH_ResourceManager_GetMediaBase64ByName(
         mgr: *const NativeResourceManager,
         resName: *const ::std::os::raw::c_char,
@@ -354,7 +354,7 @@ extern "C" {
     ) -> ResourceManager_ErrorCode;
 }
 extern "C" {
-    #[doc = " @brief Obtains the Base64 code of the image resource.\n\n Obtains the Base64 code of the image resource corresponding to the specified resource name.\n\n @param mgr Indicates the pointer to {@link NativeResourceManager}\n {@link OH_ResourceManager_InitNativeResourceManager}.\n @param resName Indicates the resource name.\n @param resultValue the result write to resultValue.\n @param resultLen the media length write to resultLen.\n @param density The optional parameter ScreenDensity{@link ScreenDensity}, A value of 0 means\n to use the density of current system dpi. If this attribute is not required, set this parameter to 0.\n @return {@link SUCCESS} 0 - Success.\n         {@link ERROR_CODE_INVALID_INPUT_PARAMETER} 401 - The input parameter invalid. Possible causes:\n         1.Incorrect parameter types; 2.Parameter verification failed.\n{@link ERROR_CODE_RES_NAME_NOT_FOUND} 9001003 - Invalid resource name.\n{@link ERROR_CODE_RES_NOT_FOUND_BY_NAME} 9001004 - No matching resource is found based on the resource name.\n{@link ERROR_CODE_OUT_OF_MEMORY} 9001100 - Out of memory.\n @since 12"]
+    #[doc = " @brief Obtains the Base64-encoded string of the media resource by the specified resource name and screen density.\n\n @param mgr Input parameter. Pointer to the NativeResourceManager object. The pointer is obtained through\n     {@link OH_ResourceManager_InitNativeResourceManager}.\n @param resName Input parameter. Resource name.\n @param resultValue Output parameter. Pointer to the Base64-encoded string, which is allocated by **malloc()** and\n     must be released via **free()** after use.\n @param resultLen Output parameter. Length of the Base64 string, in bytes.\n @param density Input parameter. Screen density. For details about the value range, see {@link ScreenDensity}. The\n     value **0** indicates that the current system screen density is used. If no specific density is required, set\n     this parameter to **0**.\n @return Result code.\n     <br>**SUCCESS**: Success.\n     <br>**ERROR_CODE_INVALID_INPUT_PARAMETER**: Invalid input parameter. Possible causes: 1. The parameter type is\n     incorrect. 2. Parameter verification failed.\n     <br>**ERROR_CODE_RES_NAME_NOT_FOUND**: Invalid resource name.\n     <br>**ERROR_CODE_RES_NOT_FOUND_BY_NAME**: No matching resource is found based on the resource name.\n     <br>**ERROR_CODE_OUT_OF_MEMORY**: Memory overflow occurs.\n @since 12"]
     pub fn OH_ResourceManager_GetMediaBase64DataByName(
         mgr: *const NativeResourceManager,
         resName: *const ::std::os::raw::c_char,
@@ -364,7 +364,7 @@ extern "C" {
     ) -> ResourceManager_ErrorCode;
 }
 extern "C" {
-    #[doc = " @brief Obtains the content of the image resource.\n\n Obtains the content of the specified screen density media file corresponding to a specified resource ID.\n\n @param mgr Indicates the pointer to {@link NativeResourceManager}\n {@link OH_ResourceManager_InitNativeResourceManager}.\n @param resId Indicates the resource ID.\n @param resultValue the result write to resultValue.\n @param resultLen the media length write to resultLen.\n @param density The optional parameter ScreenDensity{@link ScreenDensity}, A value of 0 means\n to use the density of current system dpi.\n @return {@link SUCCESS} 0 - Success.\n         {@link ERROR_CODE_INVALID_INPUT_PARAMETER} 401 - The input parameter invalid. Possible causes:\n         1.Incorrect parameter types; 2.Parameter verification failed.\n{@link ERROR_CODE_RES_ID_NOT_FOUND} 9001001 - Invalid resource ID.\n{@link ERROR_CODE_RES_NOT_FOUND_BY_ID} 9001002 - No matching resource is found based on the resource ID.\n{@link ERROR_CODE_OUT_OF_MEMORY} 9001100 - Out of memory.\n @since 12"]
+    #[doc = " @brief Obtains the binary data of the media resource by the specified resource ID and screen density.\n\n @param mgr Input parameter. Pointer to the NativeResourceManager object. The pointer is obtained through\n     {@link OH_ResourceManager_InitNativeResourceManager}.\n @param resId Input parameter. Resource ID.\n @param resultValue Output parameter. Pointer to the media data, which is allocated by **malloc()** and must be\n     released via **free()** after use.\n @param resultLen Output parameter. Data length, in bytes.\n @param density Input parameter, which is optional. Screen density. For details about the value range, see\n     {@link ScreenDensity}. The default value is **0**, indicating that the current system screen density is used.\n @return Result code.\n     <br>**SUCCESS**: Success.\n     <br>**ERROR_CODE_INVALID_INPUT_PARAMETER**: Invalid input parameter. Possible causes: 1. The parameter type is\n     incorrect. 2. Parameter verification failed.\n     <br>**ERROR_CODE_RES_ID_NOT_FOUND**: Invalid resource ID.\n     <br>**ERROR_CODE_RES_NOT_FOUND_BY_ID**: No matching resource is found based on the resource ID.\n     <br>**ERROR_CODE_OUT_OF_MEMORY**: Memory overflow occurs.\n @since 12"]
     pub fn OH_ResourceManager_GetMedia(
         mgr: *const NativeResourceManager,
         resId: u32,
@@ -374,7 +374,7 @@ extern "C" {
     ) -> ResourceManager_ErrorCode;
 }
 extern "C" {
-    #[doc = " @brief Obtains the content of the image resource.\n\n Obtains the content of the specified screen density media file corresponding to a specified resource ID.\n\n @param mgr Indicates the pointer to {@link NativeResourceManager}\n {@link OH_ResourceManager_InitNativeResourceManager}.\n @param resId Indicates the resource ID.\n @param resultValue the result write to resultValue.\n @param resultLen the media length write to resultLen.\n @param density The optional parameter ScreenDensity{@link ScreenDensity}, A value of 0 means\n to use the density of current system dpi. If this attribute is not required, set this parameter to 0.\n @return {@link SUCCESS} 0 - Success.\n         {@link ERROR_CODE_INVALID_INPUT_PARAMETER} 401 - The input parameter invalid. Possible causes:\n         1.Incorrect parameter types; 2.Parameter verification failed.\n{@link ERROR_CODE_RES_ID_NOT_FOUND} 9001001 - Invalid resource ID.\n{@link ERROR_CODE_RES_NOT_FOUND_BY_ID} 9001002 - No matching resource is found based on the resource ID.\n{@link ERROR_CODE_OUT_OF_MEMORY} 9001100 - Out of memory.\n @since 12"]
+    #[doc = " @brief Obtains the binary data of the media resource by the specified resource ID and screen density.\n\n @param mgr Input parameter. Pointer to the NativeResourceManager object. The pointer is obtained through\n     {@link OH_ResourceManager_InitNativeResourceManager}.\n @param resId Input parameter. Resource ID.\n @param resultValue Output parameter. Pointer to the media data, which is allocated by **malloc()** and must be\n     released via **free()** after use.\n @param resultLen Output parameter. Data length, in bytes.\n @param density Input parameter. Screen density. For details about the value range, see {@link ScreenDensity}. The\n     value **0** indicates that the current system screen density is used. If no specific density is required, set\n     this parameter to **0**.\n @return Result code.\n     <br>**SUCCESS**: Success.\n     <br>**ERROR_CODE_INVALID_INPUT_PARAMETER**: Invalid input parameter. Possible causes: 1. The parameter type is\n     incorrect. 2. Parameter verification failed.\n     <br>**ERROR_CODE_RES_ID_NOT_FOUND**: Invalid resource ID.\n     <br>**ERROR_CODE_RES_NOT_FOUND_BY_ID**: No matching resource is found based on the resource ID.\n     <br>**ERROR_CODE_OUT_OF_MEMORY**: Memory overflow occurs.\n @since 12"]
     pub fn OH_ResourceManager_GetMediaData(
         mgr: *const NativeResourceManager,
         resId: u32,
@@ -384,7 +384,7 @@ extern "C" {
     ) -> ResourceManager_ErrorCode;
 }
 extern "C" {
-    #[doc = " @brief Obtains the content of the image resource.\n\n Obtains the content of the specified screen density media file corresponding to a specified resource name.\n\n @param mgr Indicates the pointer to {@link NativeResourceManager}\n {@link OH_ResourceManager_InitNativeResourceManager}.\n @param resName Indicates the resource name.\n @param resultValue the result write to resultValue.\n @param resultLen the media length write to resultLen.\n @param density The optional parameter ScreenDensity{@link ScreenDensity}, A value of 0 means\n to use the density of current system dpi.\n @return {@link SUCCESS} 0 - Success.\n         {@link ERROR_CODE_INVALID_INPUT_PARAMETER} 401 - The input parameter invalid. Possible causes:\n         1.Incorrect parameter types; 2.Parameter verification failed.\n{@link ERROR_CODE_RES_NAME_NOT_FOUND} 9001003 - Invalid resource name.\n{@link ERROR_CODE_RES_NOT_FOUND_BY_NAME} 9001004 - No matching resource is found based on the resource name.\n{@link ERROR_CODE_OUT_OF_MEMORY} 9001100 - Out of memory.\n @since 12"]
+    #[doc = " @brief Obtains the binary data of the media resource by the specified resource name and screen density.\n\n @param mgr Input parameter. Pointer to the NativeResourceManager object. The pointer is obtained through\n     {@link OH_ResourceManager_InitNativeResourceManager}.\n @param resName Input parameter. Resource name.\n @param resultValue Output parameter. Pointer to the media data, which is allocated by **malloc()** and must be\n     released via **free()** after use.\n @param resultLen Output parameter. Data length, in bytes.\n @param density Input parameter, which is optional. Screen density. For details about the value range, see\n     {@link ScreenDensity}. The default value is **0**, indicating that the current system screen density is used.\n @return Result code.\n     <br>**SUCCESS**: Success.\n     <br>**ERROR_CODE_INVALID_INPUT_PARAMETER**: Invalid input parameter. Possible causes: 1. The parameter type is\n     incorrect. 2. Parameter verification failed.\n     <br>**ERROR_CODE_RES_NAME_NOT_FOUND**: Invalid resource name.\n     <br>**ERROR_CODE_RES_NOT_FOUND_BY_NAME**: No matching resource is found based on the resource name.\n     <br>**ERROR_CODE_OUT_OF_MEMORY**: Memory overflow occurs.\n @since 12"]
     pub fn OH_ResourceManager_GetMediaByName(
         mgr: *const NativeResourceManager,
         resName: *const ::std::os::raw::c_char,
@@ -394,7 +394,7 @@ extern "C" {
     ) -> ResourceManager_ErrorCode;
 }
 extern "C" {
-    #[doc = " @brief Obtains the content of the image resource.\n\n Obtains the content of the specified screen density media file corresponding to a specified resource name.\n\n @param mgr Indicates the pointer to {@link NativeResourceManager}\n {@link OH_ResourceManager_InitNativeResourceManager}.\n @param resName Indicates the resource name.\n @param resultValue the result write to resultValue.\n @param resultLen the media length write to resultLen.\n @param density The optional parameter ScreenDensity{@link ScreenDensity}, A value of 0 means\n to use the density of current system dpi. If this attribute is not required, set this parameter to 0.\n @return {@link SUCCESS} 0 - Success.\n         {@link ERROR_CODE_INVALID_INPUT_PARAMETER} 401 - The input parameter invalid. Possible causes:\n         1.Incorrect parameter types; 2.Parameter verification failed.\n{@link ERROR_CODE_RES_NAME_NOT_FOUND} 9001003 - Invalid resource name.\n{@link ERROR_CODE_RES_NOT_FOUND_BY_NAME} 9001004 - No matching resource is found based on the resource name.\n{@link ERROR_CODE_OUT_OF_MEMORY} 9001100 - Out of memory.\n @since 12"]
+    #[doc = " @brief Obtains the binary data of the media resource by the specified resource name and screen density.\n\n @param mgr Input parameter. Pointer to the NativeResourceManager object. The pointer is obtained through\n     {@link OH_ResourceManager_InitNativeResourceManager}.\n @param resName Input parameter. Resource name.\n @param resultValue Output parameter. Pointer to the media data, which is allocated by **malloc()** and must be\n     released via **free()** after use.\n @param resultLen Output parameter. Data length, in bytes.\n @param density Input parameter. Screen density. For details about the value range, see {@link ScreenDensity}. The\n     value **0** indicates that the current system screen density is used. If no specific density is required, set\n     this parameter to **0**.\n @return Result code.\n     <br>**SUCCESS**: Success.\n     <br>**ERROR_CODE_INVALID_INPUT_PARAMETER**: Invalid input parameter. Possible causes: 1. The parameter type is\n     incorrect. 2. Parameter verification failed.\n     <br>**ERROR_CODE_RES_NAME_NOT_FOUND**: Invalid resource name.\n     <br>**ERROR_CODE_RES_NOT_FOUND_BY_NAME**: No matching resource is found based on the resource name.\n     <br>**ERROR_CODE_OUT_OF_MEMORY**: Memory overflow occurs.\n @since 12"]
     pub fn OH_ResourceManager_GetMediaDataByName(
         mgr: *const NativeResourceManager,
         resName: *const ::std::os::raw::c_char,
@@ -404,7 +404,7 @@ extern "C" {
     ) -> ResourceManager_ErrorCode;
 }
 extern "C" {
-    #[doc = " @brief Obtains the DrawableDescriptor of the media file.\n\n Obtains the DrawableDescriptor of the media file corresponding to a specified resource ID.\n\n @param mgr Indicates the pointer to {@link NativeResourceManager}\n {@link OH_ResourceManager_InitNativeResourceManager}.\n @param resId Indicates the resource ID.\n @param drawableDescriptor the result write to drawableDescriptor.\n @param density The optional parameter ScreenDensity{@link ScreenDensity}, A value of 0 means\n to use the density of current system dpi.\n @param type The optional parameter means the media type, 0 means the normal media, 1 means the the theme style media.\n @return {@link SUCCESS} 0 - Success.\n         {@link ERROR_CODE_INVALID_INPUT_PARAMETER} 401 - The input parameter invalid. Possible causes:\n         1.Incorrect parameter types; 2.Parameter verification failed.\n{@link ERROR_CODE_RES_ID_NOT_FOUND} 9001001 - Invalid resource ID.\n{@link ERROR_CODE_RES_NOT_FOUND_BY_ID} 9001002 - No matching resource is found based on the resource ID.\n @since 12"]
+    #[doc = " @brief Obtains the DrawableDescriptor object of the icon resource by the specified resource ID, screen density, and\n icon type.\n\n @param mgr Input parameter. Pointer to the NativeResourceManager object. The pointer is obtained through\n     {@link OH_ResourceManager_InitNativeResourceManager}.\n @param resId Input parameter. Resource ID.\n @param drawableDescriptor Output parameter. Pointer to the DrawableDescriptor object.\n @param density Input parameter, which is optional. Screen density. For details about the value range, see\n     {@link ScreenDensity}. The default value is **0**, indicating that the current system screen density is used.\n @param type Input parameter, which is optional. Icon type. The default value is **0**.\n     <br>**0**: application icon.\n     <br>**1**: application theme icon.\n @return Result code.\n     <br>**SUCCESS**: Success.\n     <br>**ERROR_CODE_INVALID_INPUT_PARAMETER**: Invalid input parameter. Possible causes: 1. The parameter type is\n     incorrect. 2. Parameter verification failed.\n     <br>**ERROR_CODE_RES_ID_NOT_FOUND**: Invalid resource ID.\n     <br>**ERROR_CODE_RES_NOT_FOUND_BY_ID**: No matching resource is found based on the resource ID.\n @since 12"]
     pub fn OH_ResourceManager_GetDrawableDescriptor(
         mgr: *const NativeResourceManager,
         resId: u32,
@@ -414,7 +414,7 @@ extern "C" {
     ) -> ResourceManager_ErrorCode;
 }
 extern "C" {
-    #[doc = " @brief Obtains the DrawableDescriptor of the media file.\n\n Obtains the DrawableDescriptor of the media file corresponding to a specified resource ID.\n\n @param mgr Indicates the pointer to {@link NativeResourceManager}\n {@link OH_ResourceManager_InitNativeResourceManager}.\n @param resId Indicates the resource ID.\n @param drawableDescriptor the result write to drawableDescriptor.\n @param density The optional parameter ScreenDensity{@link ScreenDensity}, A value of 0 means\n to use the density of current system dpi. If this attribute is not required, set this parameter to 0.\n @param type The optional parameter means the media type, 0 means the normal media, 1 means the the theme style media.\n If this attribute is not required, set this parameter to 0.\n @return {@link SUCCESS} 0 - Success.\n         {@link ERROR_CODE_INVALID_INPUT_PARAMETER} 401 - The input parameter invalid. Possible causes:\n         1.Incorrect parameter types; 2.Parameter verification failed.\n{@link ERROR_CODE_RES_ID_NOT_FOUND} 9001001 - Invalid resource ID.\n{@link ERROR_CODE_RES_NOT_FOUND_BY_ID} 9001002 - No matching resource is found based on the resource ID.\n @since 12"]
+    #[doc = " @brief Obtains the DrawableDescriptor object of the icon resource by the specified resource ID, screen density, and\n icon type.\n\n @param mgr Input parameter. Pointer to the NativeResourceManager object. The pointer is obtained through\n     {@link OH_ResourceManager_InitNativeResourceManager}.\n @param resId Input parameter. Resource ID.\n @param drawableDescriptor Output parameter. Pointer to the DrawableDescriptor object.\n @param density Input parameter. Screen density. For details about the value range, see {@link ScreenDensity}. The\n     value **0** indicates that the current system screen density is used. If no specific density is required, set\n     this parameter to **0**.\n @param type Input parameter. Icon type. If no specific icon type is required, set this parameter to **0**.\n     <br>**0**: application icon.\n     <br>**1**: application theme icon.\n @return Result code.\n     <br>**SUCCESS**: Success.\n     <br>**ERROR_CODE_INVALID_INPUT_PARAMETER**: Invalid input parameter. Possible causes: 1. The parameter type is\n     incorrect. 2. Parameter verification failed.\n     <br>**ERROR_CODE_RES_ID_NOT_FOUND**: Invalid resource ID.\n     <br>**ERROR_CODE_RES_NOT_FOUND_BY_ID**: No matching resource is found based on the resource ID.\n @since 12"]
     pub fn OH_ResourceManager_GetDrawableDescriptorData(
         mgr: *const NativeResourceManager,
         resId: u32,
@@ -424,7 +424,7 @@ extern "C" {
     ) -> ResourceManager_ErrorCode;
 }
 extern "C" {
-    #[doc = " @brief Obtains the DrawableDescriptor of the media file.\n\n Obtains the DrawableDescriptor of the media file corresponding to a specified resource name.\n @param mgr Indicates the pointer to {@link NativeResourceManager}\n {@link OH_ResourceManager_InitNativeResourceManager}.\n @param resName Indicates the resource name.\n @param drawableDescriptor the result write to drawableDescriptor.\n @param density The optional parameter ScreenDensity{@link ScreenDensity}, A value of 0 means\n to use the density of current system dpi.\n @param type The optional parameter means the media type, 0 means the normal media, 1 means the the theme style media,\n 2 means the theme dynamic media.\n @return {@link SUCCESS} 0 - Success.\n         {@link ERROR_CODE_INVALID_INPUT_PARAMETER} 401 - The input parameter invalid. Possible causes:\n         1.Incorrect parameter types; 2.Parameter verification failed.\n{@link ERROR_CODE_RES_NAME_NOT_FOUND} 9001003 - Invalid resource name.\n{@link ERROR_CODE_RES_NOT_FOUND_BY_NAME} 9001004 - No matching resource is found based on the resource name.\n @since 12"]
+    #[doc = " @brief Obtains the DrawableDescriptor object of the icon resource by the specified resource name, screen density,\n and icon type.\n\n @param mgr Input parameter. Pointer to the NativeResourceManager object. The pointer is obtained through\n     {@link OH_ResourceManager_InitNativeResourceManager}.\n @param resName Input parameter. Resource name.\n @param drawableDescriptor Output parameter. Pointer to the DrawableDescriptor object.\n @param density Input parameter, which is optional. Screen density. For details about the value range, see\n     {@link ScreenDensity}. The default value is **0**, indicating that the current system screen density is used.\n @param type Input parameter, which is optional. Icon type. The default value is **0**.\n     <br>**0**: application icon.\n     <br>**1**: application theme icon.\n     <br>**2**: dynamic icon.\n @return Result code.\n     <br>**SUCCESS**: Success.\n     <br>**ERROR_CODE_INVALID_INPUT_PARAMETER**: Invalid input parameter. Possible causes: 1. The parameter type is\n     incorrect. 2. Parameter verification failed.\n     <br>**ERROR_CODE_RES_NAME_NOT_FOUND**: Invalid resource name.\n     <br>**ERROR_CODE_RES_NOT_FOUND_BY_NAME**: No matching resource is found based on the resource name.\n @since 12"]
     pub fn OH_ResourceManager_GetDrawableDescriptorByName(
         mgr: *const NativeResourceManager,
         resName: *const ::std::os::raw::c_char,
@@ -434,7 +434,7 @@ extern "C" {
     ) -> ResourceManager_ErrorCode;
 }
 extern "C" {
-    #[doc = " @brief Obtains the DrawableDescriptor of the media file.\n\n Obtains the DrawableDescriptor of the media file corresponding to a specified resource name.\n @param mgr Indicates the pointer to {@link NativeResourceManager}\n {@link OH_ResourceManager_InitNativeResourceManager}.\n @param resName Indicates the resource name.\n @param drawableDescriptor the result write to drawableDescriptor.\n @param density The optional parameter ScreenDensity{@link ScreenDensity}, A value of 0 means\n to use the density of current system dpi. If this attribute is not required, set this parameter to 0.\n @param type The optional parameter means the media type, 0 means the normal media, 1 means the the theme style media,\n 2 means the theme dynamic media. If this attribute is not required, set this parameter to 0.\n @return {@link SUCCESS} 0 - Success.\n         {@link ERROR_CODE_INVALID_INPUT_PARAMETER} 401 - The input parameter invalid. Possible causes:\n         1.Incorrect parameter types; 2.Parameter verification failed.\n{@link ERROR_CODE_RES_NAME_NOT_FOUND} 9001003 - Invalid resource name.\n{@link ERROR_CODE_RES_NOT_FOUND_BY_NAME} 9001004 - No matching resource is found based on the resource name.\n @since 12"]
+    #[doc = " @brief Obtains the DrawableDescriptor object of the icon resource by the specified resource name and screen density.\n\n @param mgr Input parameter. Pointer to the NativeResourceManager object. The pointer is obtained through\n     {@link OH_ResourceManager_InitNativeResourceManager}.\n @param resName Input parameter. Resource name.\n @param drawableDescriptor Output parameter. Pointer to the DrawableDescriptor object.\n @param density Input parameter. Screen density. For details about the value range, see {@link ScreenDensity}. The\n     value **0** indicates that the current system screen density is used. If no specific density is required, set\n     this parameter to **0**.\n @param type Input parameter. Icon type. If no specific icon type is required, set this parameter to **0**.\n     <br>**0**: application icon.\n     <br>**1**: application theme icon.\n     <br>**2**: dynamic icon.\n @return Result code.\n     <br>**SUCCESS**: Success.\n     <br>**ERROR_CODE_INVALID_INPUT_PARAMETER**: Invalid input parameter. Possible causes: 1. The parameter type is\n     incorrect. 2. Parameter verification failed.\n     <br>**ERROR_CODE_RES_NAME_NOT_FOUND**: Invalid resource name.\n     <br>**ERROR_CODE_RES_NOT_FOUND_BY_NAME**: No matching resource is found based on the resource name.\n @since 12"]
     pub fn OH_ResourceManager_GetDrawableDescriptorDataByName(
         mgr: *const NativeResourceManager,
         resName: *const ::std::os::raw::c_char,
@@ -444,7 +444,7 @@ extern "C" {
     ) -> ResourceManager_ErrorCode;
 }
 extern "C" {
-    #[doc = " @brief Obtains the symbol resource.\n\n Obtains the symbol resource corresponding to the specified resource ID.\n\n @param mgr Indicates the pointer to {@link NativeResourceManager}\n        {@link OH_ResourceManager_InitNativeResourceManager}.\n @param resId Indicates the resource ID.\n @param resultValue the result write to resultValue.\n @return {@link SUCCESS} 0 - Success.\n         {@link ERROR_CODE_INVALID_INPUT_PARAMETER} 401 - The input parameter invalid.\nPossible causes: Incorrect parameter types.\n{@link ERROR_CODE_RES_ID_NOT_FOUND} 9001001 - Invalid resource ID.\n{@link ERROR_CODE_RES_NOT_FOUND_BY_ID} 9001002 - No matching resource is found based on the resource ID.\n{@link ERROR_CODE_RES_REF_TOO_MUCH} 9001006 - The resource is referenced cyclically.\n @since 12"]
+    #[doc = " @brief Obtains the Unicode encoding of the symbol icon corresponding to the specified resource ID.\n\n @param mgr Input parameter. Pointer to the NativeResourceManager object. The pointer is obtained through\n     {@link OH_ResourceManager_InitNativeResourceManager}.\n @param resId Input parameter. Resource ID.\n @param resultValue Output parameter. Unicode encoding of the symbol icon.\n @return Result code.\n     <br>**SUCCESS**: Success.\n     <br>**ERROR_CODE_INVALID_INPUT_PARAMETER**: Invalid input parameter. Possible causes: 1. The parameter type is\n     incorrect. 2. Parameter verification failed.\n     <br>**ERROR_CODE_RES_ID_NOT_FOUND**: Invalid resource ID.\n     <br>**ERROR_CODE_RES_NOT_FOUND_BY_ID**: No matching resource is found based on the resource ID.\n     <br>**ERROR_CODE_RES_REF_TOO_MUCH**: The resource has a circular reference.\n @since 12"]
     pub fn OH_ResourceManager_GetSymbol(
         mgr: *const NativeResourceManager,
         resId: u32,
@@ -452,7 +452,7 @@ extern "C" {
     ) -> ResourceManager_ErrorCode;
 }
 extern "C" {
-    #[doc = " @brief Obtains the symbol resource.\n\n Obtains the symbol resource corresponding to the specified resource name.\n\n @param mgr Indicates the pointer to {@link NativeResourceManager}\n        {@link OH_ResourceManager_InitNativeResourceManager}.\n @param resName Indicates the resource name.\n @param resultValue the result write to resultValue.\n @return {@link SUCCESS} 0 - Success.\n         {@link ERROR_CODE_INVALID_INPUT_PARAMETER} 401 - The input parameter invalid.\nPossible causes: Incorrect parameter types.\n{@link ERROR_CODE_RES_NAME_NOT_FOUND} 9001003 - Invalid resource name.\n{@link ERROR_CODE_RES_NOT_FOUND_BY_NAME} 9001004 - No matching resource is found based on the resource name.\n{@link ERROR_CODE_RES_REF_TOO_MUCH} 9001006 - The resource is referenced cyclically.\n @since 12"]
+    #[doc = " @brief Obtains the Unicode encoding of the symbol icon corresponding to the specified resource name.\n\n @param mgr Input parameter. Pointer to the NativeResourceManager object. The pointer is obtained through\n     {@link OH_ResourceManager_InitNativeResourceManager}.\n @param resName Input parameter. Resource name.\n @param resultValue Output parameter. Unicode encoding of the symbol icon.\n @return Result code.\n     <br>**SUCCESS**: Success.\n     <br>**ERROR_CODE_INVALID_INPUT_PARAMETER**: Invalid input parameter. Possible causes: 1. The parameter type is\n     incorrect. 2. Parameter verification failed.\n     <br>**ERROR_CODE_RES_NAME_NOT_FOUND**: Invalid resource name.\n     <br>**ERROR_CODE_RES_NOT_FOUND_BY_NAME**: No matching resource is found based on the resource name.\n     <br>**ERROR_CODE_RES_REF_TOO_MUCH**: The resource has a circular reference.\n @since 12"]
     pub fn OH_ResourceManager_GetSymbolByName(
         mgr: *const NativeResourceManager,
         resName: *const ::std::os::raw::c_char,
@@ -460,7 +460,7 @@ extern "C" {
     ) -> ResourceManager_ErrorCode;
 }
 extern "C" {
-    #[doc = " @brief Obtains locales list.\n\n You need to call the OH_ResourceManager_ReleaseStringArray() method to release the memory of localinfo.\n\n @param mgr Indicates the pointer to {@link NativeResourceManager}\n        {@link OH_ResourceManager_InitNativeResourceManager}.\n @param resultValue the result write to resultValue.\n @param resultLen the locales length write to resultLen.\n @param includeSystem the parameter controls whether to include system resources,\n the default value is false, it has no effect when only system resources query the locales list.\n @return {@link SUCCESS} 0 - Success.\n         {@link ERROR_CODE_INVALID_INPUT_PARAMETER} 401 - The input parameter invalid.\nPossible causes: Incorrect parameter types.\n         {@link ERROR_CODE_OUT_OF_MEMORY} 9001100 - Out of memory.\n @since 12"]
+    #[doc = " @brief Obtains the list of languages supported by an application.\n\n @param mgr Input parameter. Pointer to the NativeResourceManager object. The pointer is obtained through\n     {@link OH_ResourceManager_InitNativeResourceManager}.\n @param resultValue Output parameter. Pointer to the language list array. The memory is allocated by this function\n     and must be released through {@link OH_ResourceManager_ReleaseStringArray} after use.\n @param resultLen Output parameter. Length of the language list.\n @param includeSystem Input parameter, which is optional.This parameter indicates whether to include system resources.\n     The value **true** indicates yes, and the value **false** indicates no. The default value is **false**.\n     <br>When the system resource manager object is used to obtain the language list, the system resource language\n     list is returned.\n @return Result code.\n     <br>**SUCCESS**: Success.\n     <br>**ERROR_CODE_INVALID_INPUT_PARAMETER**: Invalid input parameter. Possible causes: 1. The parameter type is\n     incorrect. 2. Parameter verification failed.\n     <br>**ERROR_CODE_OUT_OF_MEMORY**: Memory overflow occurs.\n @since 12"]
     pub fn OH_ResourceManager_GetLocales(
         mgr: *const NativeResourceManager,
         resultValue: *mut *mut *mut ::std::os::raw::c_char,
@@ -469,7 +469,7 @@ extern "C" {
     ) -> ResourceManager_ErrorCode;
 }
 extern "C" {
-    #[doc = " @brief Obtains locales list.\n\n You need to call the OH_ResourceManager_ReleaseStringArray() method to release the memory of localinfo.\n\n @param mgr Indicates the pointer to {@link NativeResourceManager}\n        {@link OH_ResourceManager_InitNativeResourceManager}.\n @param resultValue the result write to resultValue.\n @param resultLen the locales length write to resultLen.\n @param includeSystem the parameter controls whether to include system resources.\n If this attribute is not required, set this parameter to false.\n @return {@link SUCCESS} 0 - Success.\n         {@link ERROR_CODE_INVALID_INPUT_PARAMETER} 401 - The input parameter invalid.\nPossible causes: Incorrect parameter types.\n         {@link ERROR_CODE_OUT_OF_MEMORY} 9001100 - Out of memory.\n @since 12"]
+    #[doc = " @brief Obtains the list of languages supported by an application.\n\n @param mgr Input parameter. Pointer to the NativeResourceManager object. The pointer is obtained through\n     {@link OH_ResourceManager_InitNativeResourceManager}.\n @param resultValue Output parameter. Pointer to the language list array. The memory is allocated by this function\n     and must be released through {@link OH_ResourceManager_ReleaseStringArray} after use.\n @param resultLen Output parameter. Length of the language list.\n @param includeSystem Input parameter. This parameter indicates whether to include system resources. The value\n     **true** indicates yes, and the value **false** indicates no.\n     <br>When the system resource manager object is used to obtain the language list, the system resource language\n     list is returned.\n @return Result code.\n     <br>**SUCCESS**: Success.\n     <br>**ERROR_CODE_INVALID_INPUT_PARAMETER**: Invalid input parameter. Possible causes: 1. The parameter type is\n     incorrect. 2. Parameter verification failed.\n     <br>**ERROR_CODE_OUT_OF_MEMORY**: Memory overflow occurs.\n @since 12"]
     pub fn OH_ResourceManager_GetLocalesData(
         mgr: *const NativeResourceManager,
         resultValue: *mut *mut *mut ::std::os::raw::c_char,
@@ -478,14 +478,14 @@ extern "C" {
     ) -> ResourceManager_ErrorCode;
 }
 extern "C" {
-    #[doc = " @brief Obtains the device configuration.\n\n You need to call the OH_ResourceManager_ReleaseConfiguration() method to release the memory.\n If you use malloc to create a ResourceManager_Configuration object, you also need to call free to release it.\n\n @param mgr Indicates the pointer to {@link NativeResourceManager}\n        {@link OH_ResourceManager_InitNativeResourceManager}.\n @param configuration the result write to ResourceManager_Configuration.\n @return {@link SUCCESS} 0 - Success.\n         {@link ERROR_CODE_INVALID_INPUT_PARAMETER} 401 - The input parameter invalid.\nPossible causes: Incorrect parameter types.\n{@link ERROR_CODE_SYSTEM_RES_MANAGER_GET_FAILED} 9001009 - If failed to access the system resource.\n{@link ERROR_CODE_OUT_OF_MEMORY} 9001100 - Out of memory.\n @since 12\n @deprecated since 20\n @useinstead OH_ResourceManager_GetResourceConfiguration"]
+    #[doc = " @brief Obtains the configuration information of a device, such as the screen orientation, language and region,\n device type, screen density, and color mode.\n\n @param mgr Input parameter. Pointer to the NativeResourceManager object. The pointer is obtained through\n     {@link OH_ResourceManager_InitNativeResourceManager}.\n @param configuration Output parameter. Device configuration information, where **screenDensity** is the device\n     screen density (in dpi) divided by 160 and rounded to an integer.\n     <br>The memory for the locale string in **configuration** is allocated by this function, and must be released\n     through {@link OH_ResourceManager_ReleaseConfiguration} after use. If the memory for **configuration** is\n     allocated by **malloc()**, it must be released via **free()**.\n @return Result code.\n     <br>**SUCCESS**: Success.\n     <br>**ERROR_CODE_INVALID_INPUT_PARAMETER**: Invalid input parameter. Possible causes: 1. The parameter type is\n     incorrect. 2. Parameter verification failed.\n     <br>**ERROR_CODE_SYSTEM_RES_MANAGER_GET_FAILED**: Failed to access the system resource.\n     <br>**ERROR_CODE_OUT_OF_MEMORY**: Memory overflow occurs.\n @since 12\n @deprecated since 20\n @useinstead {@link OH_ResourceManager_GetResourceConfiguration}"]
     pub fn OH_ResourceManager_GetConfiguration(
         mgr: *const NativeResourceManager,
         configuration: *mut ResourceManager_Configuration,
     ) -> ResourceManager_ErrorCode;
 }
 extern "C" {
-    #[doc = " @brief Obtains the device configuration.\n\n You need to call the OH_ResourceManager_ReleaseConfiguration() method to release the memory.\n If you use malloc to create a ResourceManager_Configuration object, you also need to call free to release it.\n\n @param {NativeResourceManager} mgr Indicates the pointer to {@link NativeResourceManager}\n        {@link OH_ResourceManager_InitNativeResourceManager}.\n @param {ResourceManager_Configuration} configuration the result write to ResourceManager_Configuration.\n @return {@link SUCCESS} 0 - Success.\n{@link ERROR_CODE_SYSTEM_RES_MANAGER_GET_FAILED} 9001009 - If failed to access the system resource.\n{@link ERROR_CODE_OUT_OF_MEMORY} 9001100 - Out of memory.\n @since 20"]
+    #[doc = " @brief Obtains the configuration information of a device, such as the screen orientation, language and region, device\n type, screen density, and color mode.\n\n @param {NativeResourceManager} mgr Indicates the pointer to {@link NativeResourceManager}\n     {@link OH_ResourceManager_InitNativeResourceManager}.\n @param {ResourceManager_Configuration} configuration the result write to ResourceManager_Configuration.\n @return Result code.\n     <br>**SUCCESS**: Success.\n     <br>**ERROR_CODE_SYSTEM_RES_MANAGER_GET_FAILED**: Failed to access the system resource.\n     <br>**ERROR_CODE_OUT_OF_MEMORY**: Memory overflow occurs.\n @since 20"]
     #[cfg(feature = "api-20")]
     pub fn OH_ResourceManager_GetResourceConfiguration(
         mgr: *const NativeResourceManager,
@@ -493,13 +493,13 @@ extern "C" {
     ) -> ResourceManager_ErrorCode;
 }
 extern "C" {
-    #[doc = " @brief Release the device configuration.\n @param configuration the object need to release.\n @return {@link SUCCESS} 0 - Success.\n{@link ERROR_CODE_INVALID_INPUT_PARAMETER} 401 - The input parameter invalid.\nPossible causes: Incorrect parameter types.\n @since 12"]
+    #[doc = " @brief Releases the memory requested through the {@link OH_ResourceManager_GetConfiguration} or\n {@link OH_ResourceManager_GetResourceConfiguration} function.\n\n @param configuration Input parameter. Pointer to the {@link ResourceManager_Configuration} object whose memory needs\n     to be deallocated.\n @return Result code.\n     <br>**SUCCESS**: Success.\n     <br>**ERROR_CODE_INVALID_INPUT_PARAMETER**: Invalid input parameter. Possible causes: 1. The parameter type is\n     incorrect. 2. Parameter verification failed.\n @since 12"]
     pub fn OH_ResourceManager_ReleaseConfiguration(
         configuration: *mut ResourceManager_Configuration,
     ) -> ResourceManager_ErrorCode;
 }
 extern "C" {
-    #[doc = " @brief Obtains the character string.\n\n Obtains the character string corresponding to a specified resource ID.\n Obtain normal resource by calling OH_ResourceManager_GetString(mgr, resId, resultValue),\nobtain a formatted resource with replacements for %d, %s, %f,\ncall OH_ResourceManager_GetString(mgr, resId, resultValue, 10, \"format\", 10.10).\n You need to call free() to release the memory for the string.\n\n @param mgr Indicates the pointer to {@link NativeResourceManager}\n        {@link OH_ResourceManager_InitNativeResourceManager}.\n @param resId Indicates the resource ID.\n @param resultValue the result write to resultValue.\n @param { const char* | int | float } args - Indicates the formatting string resource parameters.\n @return {@link SUCCESS} 0 - Success.\n         {@link ERROR_CODE_INVALID_INPUT_PARAMETER} 401 - The input parameter invalid.\nPossible causes: Incorrect parameter types.\n{@link ERROR_CODE_RES_ID_NOT_FOUND} 9001001 - Invalid resource ID.\n{@link ERROR_CODE_RES_NOT_FOUND_BY_ID} 9001002 - No matching resource is found based on the resource ID.\n{@link ERROR_CODE_RES_REF_TOO_MUCH} 9001006 - The resource is referenced cyclically.\n{@link ERROR_CODE_OUT_OF_MEMORY} 9001100 - Out of memory.\n @since 12"]
+    #[doc = " @brief Obtains a plain or formatted string based on the specified resource ID.\n\n @param mgr Input parameter. Pointer to the NativeResourceManager object. The pointer is obtained through\n     {@link OH_ResourceManager_InitNativeResourceManager}.\n @param resId Input parameter. Resource ID.\n @param resultValue Output parameter. Pointer to the string, which is allocated by **malloc()** and must be released\n     via **free()** after use.\n @param ... Input parameter, which is optional. Variable parameter list, which is used for string formatting. The\n     following types are supported: const char*, int, and float.\n     <br>You do not need to set this parameter when obtaining a plain string. This parameter is mandatory to obtain a\n     formatted string. The variable parameters must be passed in the order corresponding to the placeholders in the\n     string. The number and types of the parameters must match the placeholders in the string. For example, if the\n     string contains three placeholders %d, %s, and %f, the API should be called as follows:\n     **OH_ResourceManager_GetString(mgr, resId, resultValue, 10, \"format\", 10.10)**.\n @return Result code.\n     <br>**SUCCESS**: Success.\n     <br>**ERROR_CODE_INVALID_INPUT_PARAMETER**: Invalid input parameter. Possible causes: 1. The parameter type is\n     incorrect. 2. Parameter verification failed.\n     <br>**ERROR_CODE_RES_ID_NOT_FOUND**: Invalid resource ID.\n     <br>**ERROR_CODE_RES_NOT_FOUND_BY_ID**: No matching resource is found based on the resource ID.\n     <br>**ERROR_CODE_RES_REF_TOO_MUCH**: The resource has a circular reference.\n     <br>**ERROR_CODE_OUT_OF_MEMORY**: Memory overflow occurs.\n @since 12"]
     pub fn OH_ResourceManager_GetString(
         mgr: *const NativeResourceManager,
         resId: u32,
@@ -508,7 +508,7 @@ extern "C" {
     ) -> ResourceManager_ErrorCode;
 }
 extern "C" {
-    #[doc = " @brief Obtains the character string.\n\n Obtains the character string corresponding to a specified resource name.\n Obtain normal resource by calling OH_ResourceManager_GetString(mgr, resName, resultValue),\nobtain a formatted resource with replacements for %d, %s, %f,\ncall OH_ResourceManager_GetString(mgr, resName, resultValue, 10, \"format\", 10.10).\n You need to call free() to release the memory for the string.\n\n @param mgr Indicates the pointer to {@link NativeResourceManager}\n        {@link OH_ResourceManager_InitNativeResourceManager}.\n @param resName Indicates the resource name.\n @param resultValue the result write to resultValue.\n @param { const char* | int | float } args - Indicates the formatting string resource parameters.\n @return {@link SUCCESS} 0 - Success.\n         {@link ERROR_CODE_INVALID_INPUT_PARAMETER} 401 - The input parameter invalid.\nPossible causes: Incorrect parameter types.\n{@link ERROR_CODE_RES_NAME_NOT_FOUND} 9001003 - Invalid resource name.\n{@link ERROR_CODE_RES_NOT_FOUND_BY_NAME} 9001004 - No matching resource is found based on the resource name.\n{@link ERROR_CODE_RES_REF_TOO_MUCH} 9001006 - The resource is referenced cyclically.\n{@link ERROR_CODE_OUT_OF_MEMORY} 9001100 - Out of memory.\n @since 12"]
+    #[doc = " @brief Obtains a plain or formatted string based on the specified resource name.\n\n @param mgr Input parameter. Pointer to the NativeResourceManager object. The pointer is obtained through\n     {@link OH_ResourceManager_InitNativeResourceManager}.\n @param resName Input parameter. Resource name.\n @param resultValue Output parameter. Pointer to the string, which is allocated by **malloc()** and must be released\n     via **free()** after use.\n @param ... Input parameter, which is optional. Variable parameter list, which is used for string formatting. The\n     following types are supported: const char*, int, and float.\n     <br>You do not need to set this parameter when obtaining a plain string. This parameter is mandatory to obtain a\n     formatted string. The variable parameters must be passed in the order corresponding to the placeholders in the\n     string. The number and types of the parameters must match the placeholders in the string. For example, if the\n     string contains three placeholders %d, %s, and %f, the API should be called as follows:\n     **OH_ResourceManager_GetStringByName(mgr, resName, resultValue, 10, \"format\", 10.10)**.\n @return Result code.\n     <br>**SUCCESS**: Success.\n     <br>**ERROR_CODE_INVALID_INPUT_PARAMETER**: Invalid input parameter. Possible causes: 1. The parameter type is\n     incorrect. 2. Parameter verification failed.\n     <br>**ERROR_CODE_RES_NAME_NOT_FOUND**: Invalid resource name.\n     <br>**ERROR_CODE_RES_NOT_FOUND_BY_NAME**: No matching resource is found based on the resource name.\n     <br>**ERROR_CODE_RES_REF_TOO_MUCH**: The resource has a circular reference.\n     <br>**ERROR_CODE_OUT_OF_MEMORY**: Memory overflow occurs.\n @since 12"]
     pub fn OH_ResourceManager_GetStringByName(
         mgr: *const NativeResourceManager,
         resName: *const ::std::os::raw::c_char,
@@ -517,7 +517,7 @@ extern "C" {
     ) -> ResourceManager_ErrorCode;
 }
 extern "C" {
-    #[doc = " @brief Obtains the array of character strings.\n\n Obtains the array of character strings corresponding to a specified resource ID.\n You need to call the OH_ResourceManager_ReleaseStringArray() method to release the memory of string array.\n\n @param mgr Indicates the pointer to {@link NativeResourceManager}\n        {@link OH_ResourceManager_InitNativeResourceManager}.\n @param resId Indicates the resource ID.\n @param resultValue the result write to resultValue.\n @param resultLen the StringArray length write to resultLen.\n @return {@link SUCCESS} 0 - Success.\n         {@link ERROR_CODE_INVALID_INPUT_PARAMETER} 401 - The input parameter invalid.\nPossible causes: Incorrect parameter types.\n{@link ERROR_CODE_RES_ID_NOT_FOUND} 9001001 - Invalid resource ID.\n{@link ERROR_CODE_RES_NOT_FOUND_BY_ID} 9001002 - No matching resource is found based on the resource ID.\n{@link ERROR_CODE_RES_REF_TOO_MUCH} 9001006 - The resource is referenced cyclically.\n{@link ERROR_CODE_OUT_OF_MEMORY} 9001100 - Out of memory.\n @since 12"]
+    #[doc = " @brief Obtains the string array based on the specified resource ID.\n\n @param mgr Input parameter. Pointer to the NativeResourceManager object. The pointer is obtained through\n     {@link OH_ResourceManager_InitNativeResourceManager}.\n @param resId Input parameter. Resource ID.\n @param resultValue Output parameter. Pointer to the string array. The memory is allocated by this function and must\n     be released through {@link OH_ResourceManager_ReleaseStringArray} after use.\n @param resultLen Output parameter. Length of the string array.\n @return Result code.\n     <br>**SUCCESS**: Success.\n     <br>**ERROR_CODE_INVALID_INPUT_PARAMETER**: Invalid input parameter. Possible causes: 1. The parameter type is\n     incorrect. 2. Parameter verification failed.\n     <br>**ERROR_CODE_RES_ID_NOT_FOUND**: Invalid resource ID.\n     <br>**ERROR_CODE_RES_NOT_FOUND_BY_ID**: No matching resource is found based on the resource ID.\n     <br>**ERROR_CODE_RES_REF_TOO_MUCH**: The resource has a circular reference.\n     <br>**ERROR_CODE_OUT_OF_MEMORY**: Memory overflow occurs.\n @since 12"]
     pub fn OH_ResourceManager_GetStringArray(
         mgr: *const NativeResourceManager,
         resId: u32,
@@ -526,7 +526,7 @@ extern "C" {
     ) -> ResourceManager_ErrorCode;
 }
 extern "C" {
-    #[doc = " @brief Obtains the array of character strings.\n\n Obtains the array of character strings corresponding to a specified resource name.\n You need to call the OH_ResourceManager_ReleaseStringArray() method to release the memory of string array.\n\n @param mgr Indicates the pointer to {@link NativeResourceManager}\n        {@link OH_ResourceManager_InitNativeResourceManager}.\n @param resName Indicates the resource name.\n @param resultValue the result write to resultValue.\n @param resultLen the StringArray length write to resultLen.\n @return {@link SUCCESS} 0 - Success.\n         {@link ERROR_CODE_INVALID_INPUT_PARAMETER} 401 - The input parameter invalid.\nPossible causes: Incorrect parameter types.\n{@link ERROR_CODE_RES_NAME_NOT_FOUND} 9001003 - Invalid resource name.\n{@link ERROR_CODE_RES_NOT_FOUND_BY_NAME} 9001004 - No matching resource is found based on the resource name.\n{@link ERROR_CODE_RES_REF_TOO_MUCH} 9001006 - The resource is referenced cyclically.\n{@link ERROR_CODE_OUT_OF_MEMORY} 9001100 - Out of memory.\n @since 12"]
+    #[doc = " @brief Obtains the string array based on the specified resource name.\n\n @param mgr Input parameter. Pointer to the NativeResourceManager object. The pointer is obtained through\n     {@link OH_ResourceManager_InitNativeResourceManager}.\n @param resName Input parameter. Resource name.\n @param resultValue Output parameter. Pointer to the string array. The memory is allocated by this function and must\n     be released through {@link OH_ResourceManager_ReleaseStringArray} after use.\n @param resultLen Output parameter. Length of the string array.\n @return Result code.\n     <br>**SUCCESS**: Success.\n     <br>**ERROR_CODE_INVALID_INPUT_PARAMETER**: Invalid input parameter. Possible causes: 1. The parameter type is\n     incorrect. 2. Parameter verification failed.\n     <br>**ERROR_CODE_RES_NAME_NOT_FOUND**: Invalid resource name.\n     <br>**ERROR_CODE_RES_NOT_FOUND_BY_NAME**: No matching resource is found based on the resource name.\n     <br>**ERROR_CODE_RES_REF_TOO_MUCH**: The resource has a circular reference.\n     <br>**ERROR_CODE_OUT_OF_MEMORY**: Memory overflow occurs.\n @since 12"]
     pub fn OH_ResourceManager_GetStringArrayByName(
         mgr: *const NativeResourceManager,
         resName: *const ::std::os::raw::c_char,
@@ -535,14 +535,14 @@ extern "C" {
     ) -> ResourceManager_ErrorCode;
 }
 extern "C" {
-    #[doc = " @brief Release the array of character strings.\n @param resValue the array of character strings corresponding to the specified resource name.\n @param len the length of array.\n @return {@link SUCCESS} 0 - Success.\n{@link ERROR_CODE_INVALID_INPUT_PARAMETER} 401 - The input parameter invalid.\nPossible causes: Incorrect parameter types.\n @since 12"]
+    #[doc = " @brief Releases the memory of the string array.\n\n @param resValue Input parameter. Pointer to the string array to be released.\n @param len Input parameter. Length of the string array.\n @return Result code.\n     <br>**SUCCESS**: Success.\n     <br>**ERROR_CODE_INVALID_INPUT_PARAMETER**: Invalid input parameter. Possible causes: 1. The parameter type is\n     incorrect. 2. Parameter verification failed.\n @since 12"]
     pub fn OH_ResourceManager_ReleaseStringArray(
         resValue: *mut *mut *mut ::std::os::raw::c_char,
         len: u32,
     ) -> ResourceManager_ErrorCode;
 }
 extern "C" {
-    #[doc = " @brief Obtains the singular-plural character string represented.\n\n Obtains the singular-plural character string represented by the ID string corresponding to the specified number.\n You need to call free() to release the memory for the string.\n\n @param mgr Indicates the pointer to {@link NativeResourceManager}\n        {@link OH_ResourceManager_InitNativeResourceManager}.\n @param resId Indicates the resource ID.\n @param num - Indicates the number.\n @param resultValue the result write to resultValue.\n @return {@link SUCCESS} 0 - Success.\n         {@link ERROR_CODE_INVALID_INPUT_PARAMETER} 401 - The input parameter invalid.\nPossible causes: Incorrect parameter types.\n{@link ERROR_CODE_RES_ID_NOT_FOUND} 9001001 - Invalid resource ID.\n{@link ERROR_CODE_RES_NOT_FOUND_BY_ID} 9001002 - No matching resource is found based on the resource ID.\n{@link ERROR_CODE_RES_REF_TOO_MUCH} 9001006 - The resource is referenced cyclically.\n{@link ERROR_CODE_OUT_OF_MEMORY} 9001100 - Out of memory.\n @since 12\n @deprecated since 18\n @useinstead OH_ResourceManager_GetIntPluralString"]
+    #[doc = " @brief Obtains the plural string based on the specified resource ID.\n <br>The Chinese language does not distinguish between singular and plural forms in strings, whereas other languages\n do. For details about the specific rules, see {@link language plural rules}.\n <br>In languages such as English and German, plural categories include cardinal forms (for example, 1, 2, 3) and\n ordinal forms (for example, 1st, 2nd, 3rd). This function applies only to cardinal forms.\n\n @param mgr Input parameter. Pointer to the NativeResourceManager object. The pointer is obtained through\n     {@link OH_ResourceManager_InitNativeResourceManager}.\n @param resId Input parameter. Resource ID.\n @param num Input parameter. Quantity value, which is used to obtain the corresponding plural string based on the\n     plural rules of the current language.\n @param resultValue Output parameter. Pointer to the string. The memory is allocated by **malloc()**, and must be\n     released via **free()**.\n @return Result code.\n     <br>**SUCCESS**: Success.\n     <br>**ERROR_CODE_INVALID_INPUT_PARAMETER**: Invalid input parameter. Possible causes: 1. The parameter type is\n     incorrect. 2. Parameter verification failed.\n     <br>**ERROR_CODE_RES_ID_NOT_FOUND**: Invalid resource ID.\n     <br>**ERROR_CODE_RES_NOT_FOUND_BY_ID**: No matching resource is found based on the resource ID.\n     <br>**ERROR_CODE_RES_REF_TOO_MUCH**: The resource has a circular reference.\n     <br>**ERROR_CODE_OUT_OF_MEMORY**: Memory overflow occurs.\n @since 12\n @deprecated since 16\n @useinstead {@link OH_ResourceManager_GetIntPluralString}"]
     pub fn OH_ResourceManager_GetPluralString(
         mgr: *const NativeResourceManager,
         resId: u32,
@@ -551,7 +551,7 @@ extern "C" {
     ) -> ResourceManager_ErrorCode;
 }
 extern "C" {
-    #[doc = " @brief Obtains the singular-plural character string represented.\n\n Obtains the singular-plural character string represented by the Name string corresponding to the specified number.\n You need to call free() to release the memory for the string.\n\n @param mgr Indicates the pointer to {@link NativeResourceManager}\n        {@link OH_ResourceManager_InitNativeResourceManager}.\n @param resName Indicates the resource name.\n @param num - Indicates the number.\n @param resultValue the result write to resultValue.\n @return {@link SUCCESS} 0 - Success.\n         {@link ERROR_CODE_INVALID_INPUT_PARAMETER} 401 - The input parameter invalid.\nPossible causes: Incorrect parameter types.\n{@link ERROR_CODE_RES_NAME_NOT_FOUND} 9001003 - Invalid resource name.\n{@link ERROR_CODE_RES_NOT_FOUND_BY_NAME} 9001004 - No matching resource is found based on the resource name.\n{@link ERROR_CODE_RES_REF_TOO_MUCH} 9001006 - The resource is referenced cyclically.\n{@link ERROR_CODE_OUT_OF_MEMORY} 9001100 - Out of memory.\n @since 12\n @deprecated since 18\n @useinstead OH_ResourceManager_GetIntPluralStringByName"]
+    #[doc = " @brief Obtains the plural string based on the specified resource name.\n <br>The Chinese language does not distinguish between singular and plural forms in strings, whereas other languages\n do. For details about the specific rules, see {@link language plural rules}.\n <br>In languages such as English and German, plural categories include cardinal forms (for example, 1, 2, 3) and\n ordinal forms (for example, 1st, 2nd, 3rd). This function applies only to cardinal forms.\n\n @param mgr Input parameter. Pointer to the NativeResourceManager object. The pointer is obtained through\n     {@link OH_ResourceManager_InitNativeResourceManager}.\n @param resName Input parameter. Resource name.\n @param num Input parameter. Quantity value, which is used to obtain the corresponding plural string based on the\n     plural rules of the current language.\n @param resultValue Output parameter. Pointer to the string. The memory is allocated by **malloc()**, and must be\n     released via **free()**.\n @return Result code.\n     <br>**SUCCESS**: Success.\n     <br>**ERROR_CODE_INVALID_INPUT_PARAMETER**: Invalid input parameter. Possible causes: 1. The parameter type is\n     incorrect. 2. Parameter verification failed.\n     <br>**ERROR_CODE_RES_NAME_NOT_FOUND**: Invalid resource name.\n     <br>**ERROR_CODE_RES_NOT_FOUND_BY_NAME**: No matching resource is found based on the resource name.\n     <br>**ERROR_CODE_RES_REF_TOO_MUCH**: The resource has a circular reference.\n     <br>**ERROR_CODE_OUT_OF_MEMORY**: Memory overflow occurs.\n @since 12\n @deprecated since 16\n @useinstead {@link OH_ResourceManager_GetIntPluralStringByName}"]
     pub fn OH_ResourceManager_GetPluralStringByName(
         mgr: *const NativeResourceManager,
         resName: *const ::std::os::raw::c_char,
@@ -560,7 +560,7 @@ extern "C" {
     ) -> ResourceManager_ErrorCode;
 }
 extern "C" {
-    #[doc = " @brief Obtains the singular-plural character string represented.\n\n Obtains the singular-plural character string represented by the ID string corresponding to the specified number.\n You need to call free() to release the memory for the string.\n\n @param mgr Indicates the pointer to {@link NativeResourceManager}\n        {@link OH_ResourceManager_InitNativeResourceManager}.\n @param resId Indicates the resource ID.\n @param num - an integer used to get the correct string for the current plural rules.\n @param resultValue the result write to resultValue.\n @param { const char* | int | float } args - Indicates the formatting string resource parameters.\n @return {@link SUCCESS} 0 - Success.\n         {@link ERROR_CODE_INVALID_INPUT_PARAMETER} 401 - The input parameter invalid.\nPossible causes: Incorrect parameter types.\n{@link ERROR_CODE_RES_ID_NOT_FOUND} 9001001 - Invalid resource ID.\n{@link ERROR_CODE_RES_NOT_FOUND_BY_ID} 9001002 - No matching resource is found based on the resource ID.\n{@link ERROR_CODE_RES_REF_TOO_MUCH} 9001006 - The resource is referenced cyclically.\n{@link ERROR_CODE_OUT_OF_MEMORY} 9001100 - Out of memory.\n @since 18"]
+    #[doc = " @brief Obtains the corresponding plural string and formats it based on the specified resource ID, integer quantity,\n and variable parameters.\n <br>The Chinese language does not distinguish between singular and plural forms in strings, whereas other languages\n do. For details about the specific rules, see {@link language plural rules}.\n <br>In languages such as English and German, plural categories include cardinal forms (for example, 1, 2, 3) and\n ordinal forms (for example, 1st, 2nd, 3rd). This function applies only to cardinal forms.\n\n @param mgr Input parameter. Pointer to the NativeResourceManager object. The pointer is obtained through\n     {@link OH_ResourceManager_InitNativeResourceManager}.\n @param resId Input parameter. Resource ID.\n @param num Input parameter. Quantity value (integer), which is used to obtain the corresponding plural string based\n     on the plural rules of the current language.\n @param resultValue Output parameter. Pointer to the string. The memory is allocated by **malloc()**, and must be\n     released via **free()**.\n @param ... Input parameter, which is optional. Variable parameter list, which is used for string formatting. The\n     following types are supported: const char*, int, and float.\n     <br>You do not need to set this parameter when obtaining a plain string. This parameter is mandatory to obtain a\n     formatted string. The variable parameters must be passed in the order corresponding to the placeholders in the\n     string. The number and types of the parameters must match the placeholders in the string. For example, if the\n     string contains three placeholders %d, %s, and %f, the API should be called as follows:\n     **OH_ResourceManager_GetIntPluralString(mgr, resId, 10, resultValue, 10, \"format\", 10.10)**.\n @return Result code.\n     <br>**SUCCESS**: Success.\n     <br>**ERROR_CODE_INVALID_INPUT_PARAMETER**: Invalid input parameter. Possible causes: 1. The parameter type is\n     incorrect. 2. Parameter verification failed.\n     <br>**ERROR_CODE_RES_ID_NOT_FOUND**: Invalid resource ID.\n     <br>**ERROR_CODE_RES_NOT_FOUND_BY_ID**: No matching resource is found based on the resource ID.\n     <br>**ERROR_CODE_RES_REF_TOO_MUCH**: The resource has a circular reference.\n     <br>**ERROR_CODE_OUT_OF_MEMORY**: Memory overflow occurs.\n @since 18"]
     #[cfg(feature = "api-18")]
     pub fn OH_ResourceManager_GetIntPluralString(
         mgr: *const NativeResourceManager,
@@ -571,18 +571,7 @@ extern "C" {
     ) -> ResourceManager_ErrorCode;
 }
 extern "C" {
-    #[doc = " @brief Obtains the singular-plural character string represented.\n\n Obtains the singular-plural character string represented by the ID string corresponding to the specified number.\n You need to call free() to release the memory for the string.\n\n @param mgr Indicates the pointer to {@link NativeResourceManager}\n        {@link OH_ResourceManager_InitNativeResourceManager}.\n @param resId Indicates the resource ID.\n @param num - a double parameter used to get the correct string for the current plural rules.\n @param resultValue the result write to resultValue.\n @param { const char* | int | float } args - Indicates the formatting string resource parameters.\n @return {@link SUCCESS} 0 - Success.\n         {@link ERROR_CODE_INVALID_INPUT_PARAMETER} 401 - The input parameter invalid.\nPossible causes: Incorrect parameter types.\n{@link ERROR_CODE_RES_ID_NOT_FOUND} 9001001 - Invalid resource ID.\n{@link ERROR_CODE_RES_NOT_FOUND_BY_ID} 9001002 - No matching resource is found based on the resource ID.\n{@link ERROR_CODE_RES_REF_TOO_MUCH} 9001006 - The resource is referenced cyclically.\n{@link ERROR_CODE_OUT_OF_MEMORY} 9001100 - Out of memory.\n @since 18"]
-    #[cfg(feature = "api-18")]
-    pub fn OH_ResourceManager_GetDoublePluralString(
-        mgr: *const NativeResourceManager,
-        resId: u32,
-        num: f64,
-        resultValue: *mut *mut ::std::os::raw::c_char,
-        ...
-    ) -> ResourceManager_ErrorCode;
-}
-extern "C" {
-    #[doc = " @brief Obtains the singular-plural character string represented.\n\n Obtains the singular-plural character string represented by the Name string corresponding to the specified number.\n You need to call free() to release the memory for the string.\n\n @param mgr Indicates the pointer to {@link NativeResourceManager}\n        {@link OH_ResourceManager_InitNativeResourceManager}.\n @param resName Indicates the resource name.\n @param num - an integer used to get the correct string for the current plural rules.\n @param resultValue the result write to resultValue.\n @param { const char* | int | float } args - Indicates the formatting string resource parameters.\n @return {@link SUCCESS} 0 - Success.\n         {@link ERROR_CODE_INVALID_INPUT_PARAMETER} 401 - The input parameter invalid.\nPossible causes: Incorrect parameter types.\n{@link ERROR_CODE_RES_NAME_NOT_FOUND} 9001003 - Invalid resource name.\n{@link ERROR_CODE_RES_NOT_FOUND_BY_NAME} 9001004 - No matching resource is found based on the resource name.\n{@link ERROR_CODE_RES_REF_TOO_MUCH} 9001006 - The resource is referenced cyclically.\n{@link ERROR_CODE_OUT_OF_MEMORY} 9001100 - Out of memory.\n @since 18"]
+    #[doc = " @brief Obtains the corresponding plural string and formats it based on the specified resource name, integer quantity,\n and variable parameters.\n <br>The Chinese language does not distinguish between singular and plural forms in strings, whereas other languages\n do. For details about the specific rules, see {@link language plural rules}.\n <br>In languages such as English and German, plural categories include cardinal forms (for example, 1, 2, 3) and\n ordinal forms (for example, 1st, 2nd, 3rd). This function applies only to cardinal forms.\n\n @param mgr Input parameter. Pointer to the NativeResourceManager object. The pointer is obtained through\n     {@link OH_ResourceManager_InitNativeResourceManager}.\n @param resName Input parameter. Resource name.\n @param num Input parameter. Quantity value (integer), which is used to obtain the corresponding plural string based\n     on the plural rules of the current language.\n @param resultValue Output parameter. Pointer to the string. The memory is allocated by **malloc()**, and must be\n     released via **free()**.\n @param ... Input parameter, which is optional. Variable parameter list, which is used for string formatting. The\n     following types are supported: const char*, int, and float.\n     <br>You do not need to set this parameter when obtaining a plain string. This parameter is mandatory to obtain a\n     formatted string. The variable parameters must be passed in the order corresponding to the placeholders in the\n     string. The number and types of the parameters must match the placeholders in the string. For example, if the\n     string contains three placeholders %d, %s, and %f, the API should be called as follows:\n     **OH_ResourceManager_GetIntPluralStringByName(mgr, resName, 10, resultValue, 10, \"format\", 10.10)**.\n @return Result code.\n     <br>**SUCCESS**: Success.\n     <br>**ERROR_CODE_INVALID_INPUT_PARAMETER**: Invalid input parameter. Possible causes: 1. The parameter type is\n     incorrect. 2. Parameter verification failed.\n     <br>**ERROR_CODE_RES_NAME_NOT_FOUND**: Invalid resource name.\n     <br>**ERROR_CODE_RES_NOT_FOUND_BY_NAME**: No matching resource is found based on the resource name.\n     <br>**ERROR_CODE_RES_REF_TOO_MUCH**: The resource has a circular reference.\n     <br>**ERROR_CODE_OUT_OF_MEMORY**: Memory overflow occurs.\n @since 18"]
     #[cfg(feature = "api-18")]
     pub fn OH_ResourceManager_GetIntPluralStringByName(
         mgr: *const NativeResourceManager,
@@ -593,7 +582,18 @@ extern "C" {
     ) -> ResourceManager_ErrorCode;
 }
 extern "C" {
-    #[doc = " @brief Obtains the singular-plural character string represented.\n\n Obtains the singular-plural character string represented by the Name string corresponding to the specified number.\n You need to call free() to release the memory for the string.\n\n @param mgr Indicates the pointer to {@link NativeResourceManager}\n        {@link OH_ResourceManager_InitNativeResourceManager}.\n @param resName Indicates the resource name.\n @param num - a double parameter used to get the correct string for the current plural rules.\n @param resultValue the result write to resultValue.\n @param { const char* | int | float } args - Indicates the formatting string resource parameters.\n @return {@link SUCCESS} 0 - Success.\n         {@link ERROR_CODE_INVALID_INPUT_PARAMETER} 401 - The input parameter invalid.\nPossible causes: Incorrect parameter types.\n{@link ERROR_CODE_RES_NAME_NOT_FOUND} 9001003 - Invalid resource name.\n{@link ERROR_CODE_RES_NOT_FOUND_BY_NAME} 9001004 - No matching resource is found based on the resource name.\n{@link ERROR_CODE_RES_REF_TOO_MUCH} 9001006 - The resource is referenced cyclically.\n{@link ERROR_CODE_OUT_OF_MEMORY} 9001100 - Out of memory.\n @since 18"]
+    #[doc = " @brief Obtains the corresponding plural string and formats it based on the specified resource ID, floating-point\n quantity, and variable parameters.\n <br>The Chinese language does not distinguish between singular and plural forms in strings, whereas other languages\n do. For details about the specific rules, see {@link language plural rules}.\n <br>In languages such as English and German, plural categories include cardinal forms (for example, 1, 2, 3) and\n ordinal forms (for example, 1st, 2nd, 3rd). This function applies only to cardinal forms.\n\n @param mgr Input parameter. Pointer to the NativeResourceManager object. The pointer is obtained through\n     {@link OH_ResourceManager_InitNativeResourceManager}.\n @param resId Input parameter. Resource ID.\n @param num Input parameter. Quantity value (floating-point), which is used to obtain the corresponding plural string\n     based on the plural rules of the current language.\n @param resultValue Output parameter. Pointer to the string. The memory is allocated by **malloc()**, and must be\n     released via **free()**.\n @param ... Input parameter, which is optional. Variable parameter list, which is used for string formatting. The\n     following types are supported: const char*, int, and float.\n     <br>You do not need to set this parameter when obtaining a plain string. This parameter is mandatory to obtain a\n     formatted string. The variable parameters must be passed in the order corresponding to the placeholders in the\n     string. The number and types of the parameters must match the placeholders in the string. For example, if the\n     string contains three placeholders %d, %s, and %f, the API should be called as follows:\n     **OH_ResourceManager_GetDoublePluralString(mgr, resId, 1.1, resultValue, 10, \"format\", 10.10)**.\n @return Result code.\n     <br>**SUCCESS**: Success.\n     <br>**ERROR_CODE_INVALID_INPUT_PARAMETER**: Invalid input parameter. Possible causes: 1. The parameter type is\n     incorrect. 2. Parameter verification failed.\n     <br>**ERROR_CODE_RES_ID_NOT_FOUND**: Invalid resource ID.\n     <br>**ERROR_CODE_RES_NOT_FOUND_BY_ID**: No matching resource is found based on the resource ID.\n     <br>**ERROR_CODE_RES_REF_TOO_MUCH**: The resource has a circular reference.\n     <br>**ERROR_CODE_OUT_OF_MEMORY**: Memory overflow occurs.\n @since 18"]
+    #[cfg(feature = "api-18")]
+    pub fn OH_ResourceManager_GetDoublePluralString(
+        mgr: *const NativeResourceManager,
+        resId: u32,
+        num: f64,
+        resultValue: *mut *mut ::std::os::raw::c_char,
+        ...
+    ) -> ResourceManager_ErrorCode;
+}
+extern "C" {
+    #[doc = " @brief Obtains the corresponding plural string and formats it based on the specified resource name, floating-point\n quantity, and variable parameters.\n <br>The Chinese language does not distinguish between singular and plural forms in strings, whereas other languages\n do. For details about the specific rules, see {@link language plural rules}.\n <br>In languages such as English and German, plural categories include cardinal forms (for example, 1, 2, 3) and\n ordinal forms (for example, 1st, 2nd, 3rd). This function applies only to cardinal forms.\n\n @param mgr Input parameter. Pointer to the NativeResourceManager object. The pointer is obtained through\n     {@link OH_ResourceManager_InitNativeResourceManager}.\n @param resName Input parameter. Resource name.\n @param num Input parameter. Quantity value (floating-point), which is used to obtain the corresponding plural string\n     based on the plural rules of the current language.\n @param resultValue Output parameter. Pointer to the string. The memory is allocated by **malloc()**, and must be\n     released via **free()**.\n @param ... Input parameter, which is optional. Variable parameter list, which is used for string formatting. The\n     following types are supported: const char*, int, and float.\n     <br>You do not need to set this parameter when obtaining a plain string. This parameter is mandatory to obtain a\n     formatted string. The variable parameters must be passed in the order corresponding to the placeholders in the\n     string. The number and types of the parameters must match the placeholders in the string. For example, if the\n     string contains three placeholders %d, %s, and %f, the API should be called as follows:\n     **OH_ResourceManager_GetDoublePluralStringByName(mgr, resName, 1.1, resultValue, 10, \"format\", 10.10)**.\n @return Result code.\n     <br>**SUCCESS**: Success.\n     <br>**ERROR_CODE_INVALID_INPUT_PARAMETER**: Invalid input parameter. Possible causes: 1. The parameter type is\n     incorrect. 2. Parameter verification failed.\n     <br>**ERROR_CODE_RES_NAME_NOT_FOUND**: Invalid resource name.\n     <br>**ERROR_CODE_RES_NOT_FOUND_BY_NAME**: No matching resource is found based on the resource name.\n     <br>**ERROR_CODE_RES_REF_TOO_MUCH**: The resource has a circular reference.\n     <br>**ERROR_CODE_OUT_OF_MEMORY**: Memory overflow occurs.\n @since 18"]
     #[cfg(feature = "api-18")]
     pub fn OH_ResourceManager_GetDoublePluralStringByName(
         mgr: *const NativeResourceManager,
@@ -604,7 +604,7 @@ extern "C" {
     ) -> ResourceManager_ErrorCode;
 }
 extern "C" {
-    #[doc = " @brief Obtains the color resource.\n\n Obtains the color resource corresponding to the specified resource ID.\n\n @param mgr Indicates the pointer to {@link NativeResourceManager}\n        {@link OH_ResourceManager_InitNativeResourceManager}.\n @param resId Indicates the resource ID.\n @param resultValue the result write to resultValue.\n @return {@link SUCCESS} 0 - Success.\n         {@link ERROR_CODE_INVALID_INPUT_PARAMETER} 401 - The input parameter invalid.\nPossible causes: Incorrect parameter types.\n{@link ERROR_CODE_RES_ID_NOT_FOUND} 9001001 - Invalid resource ID.\n{@link ERROR_CODE_RES_NOT_FOUND_BY_ID} 9001002 - No matching resource is found based on the resource ID.\n{@link ERROR_CODE_RES_REF_TOO_MUCH} 9001006 - The resource is referenced cyclically.\n @since 12"]
+    #[doc = " @brief Obtains the color resource value based on the specified resource ID.\n\n @param mgr Input parameter. Pointer to the NativeResourceManager object. The pointer is obtained through\n     {@link OH_ResourceManager_InitNativeResourceManager}.\n @param resId Input parameter. Resource ID.\n @param resultValue Output parameter. Color resource value.\n @return Result code.\n     <br>**SUCCESS**: Success.\n     <br>**ERROR_CODE_INVALID_INPUT_PARAMETER**: Invalid input parameter. Possible causes: 1. The parameter type is\n     incorrect. 2. Parameter verification failed.\n     <br>**ERROR_CODE_RES_ID_NOT_FOUND**: Invalid resource ID.\n     <br>**ERROR_CODE_RES_NOT_FOUND_BY_ID**: No matching resource is found based on the resource ID.\n     <br>**ERROR_CODE_RES_REF_TOO_MUCH**: The resource has a circular reference.\n @since 12"]
     pub fn OH_ResourceManager_GetColor(
         mgr: *const NativeResourceManager,
         resId: u32,
@@ -612,7 +612,7 @@ extern "C" {
     ) -> ResourceManager_ErrorCode;
 }
 extern "C" {
-    #[doc = " @brief Obtains the color resource.\n\n Obtains the color resource corresponding to the specified resource name.\n\n @param mgr Indicates the pointer to {@link NativeResourceManager}\n        {@link OH_ResourceManager_InitNativeResourceManager}.\n @param resName Indicates the resource name.\n @param resultValue the result write to resultValue.\n @return {@link SUCCESS} 0 - Success.\n         {@link ERROR_CODE_INVALID_INPUT_PARAMETER} 401 - The input parameter invalid.\nPossible causes: Incorrect parameter types.\n{@link ERROR_CODE_RES_NAME_NOT_FOUND} 9001003 - Invalid resource name.\n{@link ERROR_CODE_RES_NOT_FOUND_BY_NAME} 9001004 - No matching resource is found based on the resource name.\n{@link ERROR_CODE_RES_REF_TOO_MUCH} 9001006 - The resource is referenced cyclically.\n @since 12"]
+    #[doc = " @brief Obtains the color resource value based on the specified resource name.\n\n @param mgr Input parameter. Pointer to the NativeResourceManager object. The pointer is obtained through\n     {@link OH_ResourceManager_InitNativeResourceManager}.\n @param resName Input parameter. Resource name.\n @param resultValue Output parameter. Color resource value.\n @return Result code.\n     <br>**SUCCESS**: Success.\n     <br>**ERROR_CODE_INVALID_INPUT_PARAMETER**: Invalid input parameter. Possible causes: 1. The parameter type is\n     incorrect. 2. Parameter verification failed.\n     <br>**ERROR_CODE_RES_NAME_NOT_FOUND**: Invalid resource name.\n     <br>**ERROR_CODE_RES_NOT_FOUND_BY_NAME**: No matching resource is found based on the resource name.\n     <br>**ERROR_CODE_RES_REF_TOO_MUCH**: The resource has a circular reference.\n @since 12"]
     pub fn OH_ResourceManager_GetColorByName(
         mgr: *const NativeResourceManager,
         resName: *const ::std::os::raw::c_char,
@@ -620,7 +620,7 @@ extern "C" {
     ) -> ResourceManager_ErrorCode;
 }
 extern "C" {
-    #[doc = " @brief Obtains the Int resource.\n\n Obtains the Int resource corresponding to the specified resource ID.\n\n @param mgr Indicates the pointer to {@link NativeResourceManager}\n        {@link OH_ResourceManager_InitNativeResourceManager}.\n @param resId Indicates the resource ID.\n @param resultValue the result write to resultValue.\n @return {@link SUCCESS} 0 - Success.\n         {@link ERROR_CODE_INVALID_INPUT_PARAMETER} 401 - The input parameter invalid.\nPossible causes: Incorrect parameter types.\n{@link ERROR_CODE_RES_ID_NOT_FOUND} 9001001 - Invalid resource ID.\n{@link ERROR_CODE_RES_NOT_FOUND_BY_ID} 9001002 - No matching resource is found based on the resource ID.\n{@link ERROR_CODE_RES_REF_TOO_MUCH} 9001006 - The resource is referenced cyclically.\n @since 12"]
+    #[doc = " @brief Obtains the integer resource value based on the specified resource ID.\n\n @param mgr Input parameter. Pointer to the NativeResourceManager object. The pointer is obtained through\n     {@link OH_ResourceManager_InitNativeResourceManager}.\n @param resId Input parameter. Resource ID.\n @param resultValue Output parameter. Integer resource value.\n @return Result code.\n     <br>**SUCCESS**: Success.\n     <br>**ERROR_CODE_INVALID_INPUT_PARAMETER**: Invalid input parameter. Possible causes: 1. The parameter type is\n     incorrect. 2. Parameter verification failed.\n     <br>**ERROR_CODE_RES_ID_NOT_FOUND**: Invalid resource ID.\n     <br>**ERROR_CODE_RES_NOT_FOUND_BY_ID**: No matching resource is found based on the resource ID.\n     <br>**ERROR_CODE_RES_REF_TOO_MUCH**: The resource has a circular reference.\n @since 12"]
     pub fn OH_ResourceManager_GetInt(
         mgr: *const NativeResourceManager,
         resId: u32,
@@ -628,7 +628,7 @@ extern "C" {
     ) -> ResourceManager_ErrorCode;
 }
 extern "C" {
-    #[doc = " @brief Obtains the Int resource.\n\n Obtains the Int resource corresponding to the specified resource name.\n\n @param mgr Indicates the pointer to {@link NativeResourceManager}\n        {@link OH_ResourceManager_InitNativeResourceManager}.\n @param resName Indicates the resource name.\n @param resultValue the result write to resultValue.\n @return {@link SUCCESS} 0 - Success.\n         {@link ERROR_CODE_INVALID_INPUT_PARAMETER} 401 - The input parameter invalid.\nPossible causes: Incorrect parameter types.\n{@link ERROR_CODE_RES_NAME_NOT_FOUND} 9001003 - Invalid resource name.\n{@link ERROR_CODE_RES_NOT_FOUND_BY_NAME} 9001004 - No matching resource is found based on the resource name.\n{@link ERROR_CODE_RES_REF_TOO_MUCH} 9001006 - The resource is referenced cyclically.\n @since 12"]
+    #[doc = " @brief Obtains the integer resource value based on the specified resource name.\n\n @param mgr Input parameter. Pointer to the NativeResourceManager object. The pointer is obtained through\n     {@link OH_ResourceManager_InitNativeResourceManager}.\n @param resName Input parameter. Resource name.\n @param resultValue Output parameter. Integer resource value.\n @return Result code.\n     <br>**SUCCESS**: Success.\n     <br>**ERROR_CODE_INVALID_INPUT_PARAMETER**: Invalid input parameter. Possible causes: 1. The parameter type is\n     incorrect. 2. Parameter verification failed.\n     <br>**ERROR_CODE_RES_NAME_NOT_FOUND**: Invalid resource name.\n     <br>**ERROR_CODE_RES_NOT_FOUND_BY_NAME**: No matching resource is found based on the resource name.\n     <br>**ERROR_CODE_RES_REF_TOO_MUCH**: The resource has a circular reference.\n @since 12"]
     pub fn OH_ResourceManager_GetIntByName(
         mgr: *const NativeResourceManager,
         resName: *const ::std::os::raw::c_char,
@@ -636,7 +636,7 @@ extern "C" {
     ) -> ResourceManager_ErrorCode;
 }
 extern "C" {
-    #[doc = " @brief Obtains the Float resource.\n\n Obtains the Int resource corresponding to the specified resource ID.\n\n @param mgr Indicates the pointer to {@link NativeResourceManager}\n        {@link OH_ResourceManager_InitNativeResourceManager}.\n @param resId Indicates the resource ID.\n @param resultValue the result write to resultValue.\n @return {@link SUCCESS} 0 - Success.\n         {@link ERROR_CODE_INVALID_INPUT_PARAMETER} 401 - The input parameter invalid.\nPossible causes: Incorrect parameter types.\n{@link ERROR_CODE_RES_ID_NOT_FOUND} 9001001 - Invalid resource ID.\n{@link ERROR_CODE_RES_NOT_FOUND_BY_ID} 9001002 - No matching resource is found based on the resource ID.\n{@link ERROR_CODE_RES_REF_TOO_MUCH} 9001006 - The resource is referenced cyclically.\n @since 12"]
+    #[doc = " @brief Obtains the floating-point resource value based on the specified resource ID.\n\n @param mgr Input parameter. Pointer to the NativeResourceManager object. The pointer is obtained through\n     {@link OH_ResourceManager_InitNativeResourceManager}.\n @param resId Input parameter. Resource ID.\n @param resultValue Output parameter. Floating-point resource value.\n @return Result code.\n     <br>**SUCCESS**: Success.\n     <br>**ERROR_CODE_INVALID_INPUT_PARAMETER**: Invalid input parameter. Possible causes: 1. The parameter type is\n     incorrect. 2. Parameter verification failed.\n     <br>**ERROR_CODE_RES_ID_NOT_FOUND**: Invalid resource ID.\n     <br>**ERROR_CODE_RES_NOT_FOUND_BY_ID**: No matching resource is found based on the resource ID.\n     <br>**ERROR_CODE_RES_REF_TOO_MUCH**: The resource has a circular reference.\n @since 12"]
     pub fn OH_ResourceManager_GetFloat(
         mgr: *const NativeResourceManager,
         resId: u32,
@@ -644,7 +644,7 @@ extern "C" {
     ) -> ResourceManager_ErrorCode;
 }
 extern "C" {
-    #[doc = " @brief Obtains the Float resource.\n\n Obtains the Float resource corresponding to the specified resource name.\n\n @param mgr Indicates the pointer to {@link NativeResourceManager}\n        {@link OH_ResourceManager_InitNativeResourceManager}.\n @param resName Indicates the resource name.\n @param resultValue the result write to resultValue.\n @return {@link SUCCESS} 0 - Success.\n         {@link ERROR_CODE_INVALID_INPUT_PARAMETER} 401 - The input parameter invalid.\nPossible causes: Incorrect parameter types.\n{@link ERROR_CODE_RES_NAME_NOT_FOUND} 9001003 - Invalid resource name.\n{@link ERROR_CODE_RES_NOT_FOUND_BY_NAME} 9001004 - No matching resource is found based on the resource name.\n{@link ERROR_CODE_RES_REF_TOO_MUCH} 9001006 - The resource is referenced cyclically.\n @since 12"]
+    #[doc = " @brief Obtains the floating-point resource value based on the specified resource name.\n\n @param mgr Input parameter. Pointer to the NativeResourceManager object. The pointer is obtained through\n     {@link OH_ResourceManager_InitNativeResourceManager}.\n @param resName Input parameter. Resource name.\n @param resultValue Output parameter. Floating-point resource value.\n @return Result code.\n     <br>**SUCCESS**: Success.\n     <br>**ERROR_CODE_INVALID_INPUT_PARAMETER**: Invalid input parameter. Possible causes: 1. The parameter type is\n     incorrect. 2. Parameter verification failed.\n     <br>**ERROR_CODE_RES_NAME_NOT_FOUND**: Invalid resource name.\n     <br>**ERROR_CODE_RES_NOT_FOUND_BY_NAME**: No matching resource is found based on the resource name.\n     <br>**ERROR_CODE_RES_REF_TOO_MUCH**: The resource has a circular reference.\n @since 12"]
     pub fn OH_ResourceManager_GetFloatByName(
         mgr: *const NativeResourceManager,
         resName: *const ::std::os::raw::c_char,
@@ -652,7 +652,7 @@ extern "C" {
     ) -> ResourceManager_ErrorCode;
 }
 extern "C" {
-    #[doc = " @brief Obtains the boolean result.\n\n Obtains the boolean result with a specified resource ID.\n\n @param mgr Indicates the pointer to {@link NativeResourceManager}\n        {@link OH_ResourceManager_InitNativeResourceManager}.\n @param resId Indicates the resource ID.\n @param resultValue the result write to resultValue.\n @return {@link SUCCESS} 0 - Success.\n         {@link ERROR_CODE_INVALID_INPUT_PARAMETER} 401 - The input parameter invalid.\nPossible causes: Incorrect parameter types.\n{@link ERROR_CODE_RES_ID_NOT_FOUND} 9001001 - Invalid resource ID.\n{@link ERROR_CODE_RES_NOT_FOUND_BY_ID} 9001002 - No matching resource is found based on the resource ID.\n{@link ERROR_CODE_RES_REF_TOO_MUCH} 9001006 - The resource is referenced cyclically.\n @since 12"]
+    #[doc = " @brief Obtains the Boolean resource value based on the specified resource ID.\n\n @param mgr Input parameter. Pointer to the NativeResourceManager object. The pointer is obtained through\n     {@link OH_ResourceManager_InitNativeResourceManager}.\n @param resId Input parameter. Resource ID.\n @param resultValue Output parameter. Boolean resource value.\n @return Result code.\n     <br>**SUCCESS**: Success.\n     <br>**ERROR_CODE_INVALID_INPUT_PARAMETER**: Invalid input parameter. Possible causes: 1. The parameter type is\n     incorrect. 2. Parameter verification failed.\n     <br>**ERROR_CODE_RES_ID_NOT_FOUND**: Invalid resource ID.\n     <br>**ERROR_CODE_RES_NOT_FOUND_BY_ID**: No matching resource is found based on the resource ID.\n     <br>**ERROR_CODE_RES_REF_TOO_MUCH**: The resource has a circular reference.\n @since 12"]
     pub fn OH_ResourceManager_GetBool(
         mgr: *const NativeResourceManager,
         resId: u32,
@@ -660,7 +660,7 @@ extern "C" {
     ) -> ResourceManager_ErrorCode;
 }
 extern "C" {
-    #[doc = " @brief Obtains the boolean result.\n\n Obtains the boolean result with a specified resource name.\n\n @param mgr Indicates the pointer to {@link NativeResourceManager}\n        {@link OH_ResourceManager_InitNativeResourceManager}.\n @param resName Indicates the resource name.\n @param resultValue the result write to resultValue.\n @return {@link SUCCESS} 0 - Success.\n         {@link ERROR_CODE_INVALID_INPUT_PARAMETER} 401 - The input parameter invalid.\nPossible causes: Incorrect parameter types.\n{@link ERROR_CODE_RES_NAME_NOT_FOUND} 9001003 - Invalid resource name.\n{@link ERROR_CODE_RES_NOT_FOUND_BY_NAME} 9001004 - No matching resource is found based on the resource name.\n{@link ERROR_CODE_RES_REF_TOO_MUCH} 9001006 - The resource is referenced cyclically.\n @since 12"]
+    #[doc = " @brief Obtains the Boolean resource value based on the specified resource name.\n\n @param mgr Input parameter. Pointer to the NativeResourceManager object. The pointer is obtained through\n     {@link OH_ResourceManager_InitNativeResourceManager}.\n @param resName Input parameter. Resource name.\n @param resultValue Output parameter. Boolean resource value.\n @return Result code.\n     <br>**SUCCESS**: Success.\n     <br>**ERROR_CODE_INVALID_INPUT_PARAMETER**: Invalid input parameter. Possible causes: 1. The parameter type is\n     incorrect. 2. Parameter verification failed.\n     <br>**ERROR_CODE_RES_NAME_NOT_FOUND**: Invalid resource name.\n     <br>**ERROR_CODE_RES_NOT_FOUND_BY_NAME**: No matching resource is found based on the resource name.\n     <br>**ERROR_CODE_RES_REF_TOO_MUCH**: The resource has a circular reference.\n @since 12"]
     pub fn OH_ResourceManager_GetBoolByName(
         mgr: *const NativeResourceManager,
         resName: *const ::std::os::raw::c_char,
@@ -668,14 +668,14 @@ extern "C" {
     ) -> ResourceManager_ErrorCode;
 }
 extern "C" {
-    #[doc = " @brief Add overlay resources during application runtime.\n @param mgr Indicates the pointer to {@link NativeResourceManager}\n        {@link OH_ResourceManager_InitNativeResourceManager}.\n @param path Indicates the application overlay path.\n @return {@link SUCCESS} 0 - Success.\n         {@link ERROR_CODE_INVALID_INPUT_PARAMETER} 401 - The input parameter invalid.\nPossible causes: Incorrect parameter types.\n{@link ERROR_CODE_OVERLAY_RES_PATH_INVALID} 9001010 - Invalid overlay path.\n @since 12"]
+    #[doc = " @brief Dynamically loads overlay resources during application runtime to implement theme switching or resource\n overriding.\n\n @param mgr Input parameter. Pointer to the NativeResourceManager object. The pointer is obtained through\n     {@link OH_ResourceManager_InitNativeResourceManager}.\n @param path Input parameter. Absolute path of the HSP or HAP resource package to be loaded.\n @return Result code.\n     <br>**SUCCESS**: Success.\n     <br>**ERROR_CODE_INVALID_INPUT_PARAMETER**: Invalid input parameter. Possible causes: 1. The parameter type is\n     incorrect. 2. Parameter verification failed.\n     <br>**ERROR_CODE_OVERLAY_RES_PATH_INVALID**: Invalid overlay path.\n @since 12"]
     pub fn OH_ResourceManager_AddResource(
         mgr: *const NativeResourceManager,
         path: *const ::std::os::raw::c_char,
     ) -> ResourceManager_ErrorCode;
 }
 extern "C" {
-    #[doc = " @brief Remove overlay resources during application runtime.\n @param mgr Indicates the pointer to {@link NativeResourceManager}\n        {@link OH_ResourceManager_InitNativeResourceManager}.\n @param path Indicates the application overlay path.\n @return {@link SUCCESS} 0 - Success.\n         {@link ERROR_CODE_INVALID_INPUT_PARAMETER} 401 - The input parameter invalid.\nPossible causes: Incorrect parameter types.\n{@link ERROR_CODE_OVERLAY_RES_PATH_INVALID} 9001010 - Invalid overlay path.\n @since 12"]
+    #[doc = " @brief Removes the specified overlay resource during application runtime and restores the original resource before\n the override.\n\n @param mgr Input parameter. Pointer to the NativeResourceManager object. The pointer is obtained through\n     {@link OH_ResourceManager_InitNativeResourceManager}.\n @param path Input parameter. Absolute path of the HSP or HAP resource package to be removed.\n @return Result code.\n     <br>**SUCCESS**: Success.\n     <br>**ERROR_CODE_INVALID_INPUT_PARAMETER**: Invalid input parameter. Possible causes: 1. The parameter type is\n     incorrect. 2. Parameter verification failed.\n     <br>**ERROR_CODE_OVERLAY_RES_PATH_INVALID**: Invalid overlay path.\n @since 12"]
     pub fn OH_ResourceManager_RemoveResource(
         mgr: *const NativeResourceManager,
         path: *const ::std::os::raw::c_char,

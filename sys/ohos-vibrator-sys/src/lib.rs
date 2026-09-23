@@ -11,26 +11,27 @@
 #[link(name = "ohvibrator.z")]
 unsafe extern "C" {}
 
-#[doc = "< Vibration is used for unknown, lowest priority"]
+#[doc = " Unknown scenario"]
 pub const Vibrator_Usage_VIBRATOR_USAGE_UNKNOWN: Vibrator_Usage = 0;
-#[doc = "< Vibration is used for alarm"]
+#[doc = " Alarming"]
 pub const Vibrator_Usage_VIBRATOR_USAGE_ALARM: Vibrator_Usage = 1;
-#[doc = "< Vibration is used for ring"]
+#[doc = " Ringing"]
 pub const Vibrator_Usage_VIBRATOR_USAGE_RING: Vibrator_Usage = 2;
-#[doc = "< Vibration is used for notification"]
+#[doc = " Notification"]
 pub const Vibrator_Usage_VIBRATOR_USAGE_NOTIFICATION: Vibrator_Usage = 3;
-#[doc = "< Vibration is used for communication"]
+#[doc = " Telecommunications"]
 pub const Vibrator_Usage_VIBRATOR_USAGE_COMMUNICATION: Vibrator_Usage = 4;
-#[doc = "< Vibration is used for touch"]
+#[doc = " Touch"]
 pub const Vibrator_Usage_VIBRATOR_USAGE_TOUCH: Vibrator_Usage = 5;
-#[doc = "< Vibration is used for media"]
+#[doc = " Multimedia"]
 pub const Vibrator_Usage_VIBRATOR_USAGE_MEDIA: Vibrator_Usage = 6;
-#[doc = "< Vibration is used for physical feedback"]
+#[doc = " Physical feedback"]
 pub const Vibrator_Usage_VIBRATOR_USAGE_PHYSICAL_FEEDBACK: Vibrator_Usage = 7;
-#[doc = "< Vibration is used for simulate reality"]
+#[doc = " Simulated reality"]
 pub const Vibrator_Usage_VIBRATOR_USAGE_SIMULATED_REALITY: Vibrator_Usage = 8;
+#[doc = " Simulated reality"]
 pub const Vibrator_Usage_VIBRATOR_USAGE_MAX: Vibrator_Usage = 9;
-#[doc = " @brief Enumerates vibration usages scenarios.\n\n @since 11"]
+#[doc = " @brief Enumerates the vibration scenarios.\n\n @since 11"]
 pub type Vibrator_Usage = u32;
 #[doc = " @brief Defines the vibrator attribute.\n\n @since 11"]
 #[repr(C)]
@@ -48,17 +49,17 @@ pub struct Vibrator_FileDescription {
     pub length: i64,
 }
 extern "C" {
-    #[doc = " @brief Controls the vibrator to vibrate continuously for a given duration.\n\n @param duration - Vibration duration, in milliseconds.\n @param attribute - Vibration attribute. For details, see {@link Vibrator_Attribute}.\n @return Returns <b>0</b> if the operation is successful; returns the following error code otherwise.\n {@link PERMISSION_DENIED} Permission verification failed.\\n\n {@link PARAMETER_ERROR} Parameter check failed. For example, the parameter is invalid,\n or the parameter type passed in is incorrect.\\n\n {@link UNSUPPORTED} The API is not supported on the device. The device supports the corresponding SysCap,\n but does not support certain APIs in this SysCap.\\n\n {@link DEVICE_OPERATION_FAILED} The operation on the device failed.\\n\n @permission ohos.permission.VIBRATE\n\n @since 11"]
+    #[doc = " @brief Controls the vibrator to vibrate continuously for a given duration.\n\n @param duration Vibration duration, in milliseconds.\n @param attribute Vibration attribute. For details, see **VibrateAttribute**.\n @return Returns **0** if the operation is successful; returns a non-zero value otherwise.\n For details, see {@link Vibrator_ErrorCode}.\n @permission ohos.permission.VIBRATE\n\n @since 11"]
     pub fn OH_Vibrator_PlayVibration(duration: i32, attribute: Vibrator_Attribute) -> i32;
 }
 extern "C" {
-    #[doc = " @brief Controls the vibrator to vibrate with the custom sequence.\n\n @param fileDescription - File descriptor of the custom vibration effect.\n For details, see {@link Vibrator_FileDescription}.\n @param vibrateAttribute - Vibration attribute. For details, see {@link Vibrator_Attribute}.\n @return Returns <b>0</b> if the operation is successful; returns the following error code otherwise.\n {@link PERMISSION_DENIED} Permission verification failed.\\n\n {@link PARAMETER_ERROR} Parameter check failed. For example, the parameter is invalid,\n or the parameter type passed in is incorrect.\\n\n {@link UNSUPPORTED} The API is not supported on the device. The device supports the corresponding SysCap,\n but does not support certain APIs in this SysCap.\\n\n {@link DEVICE_OPERATION_FAILED} The operation on the device failed.\\n\n @permission ohos.permission.VIBRATE\n\n @since 11"]
+    #[doc = " @brief Configure the vibrator to vibrate with the custom sequence.\n\n @param fileDescription File descriptor of the custom vibration effect.\n For details, see {@link Vibrator_FileDescription}.\n @param vibrateAttribute Vibration attribute. For details, see {@link Vibrator_Attribute}.\n @return Returns **0** if the operation is successful; returns a non-zero value otherwise.\n For details, see {@link Vibrator_ErrorCode}.\n @permission ohos.permission.VIBRATE\n\n @since 11"]
     pub fn OH_Vibrator_PlayVibrationCustom(
         fileDescription: Vibrator_FileDescription,
         vibrateAttribute: Vibrator_Attribute,
     ) -> i32;
 }
 extern "C" {
-    #[doc = " @brief Stop the motor vibration according to the input mode.\n\n @permission ohos.permission.VIBRATE\n @return Returns <b>0</b> if the operation is successful; returns the following error code otherwise.\n {@link PERMISSION_DENIED} Permission verification failed.\\n\n {@link UNSUPPORTED} The API is not supported on the device. The device supports the corresponding SysCap,\n but does not support certain APIs in this SysCap.\\n\n {@link DEVICE_OPERATION_FAILED} The operation on the device failed.\\n\n @permission ohos.permission.VIBRATE\n\n @since 11"]
+    #[doc = " @brief Stops the vibration.\n\n @permission ohos.permission.VIBRATE\n @return Returns **0** if the operation is successful; returns a non-zero value otherwise.\n For details, see {@link Vibrator_ErrorCode}.\n @permission ohos.permission.VIBRATE\n\n @since 11"]
     pub fn OH_Vibrator_Cancel() -> i32;
 }

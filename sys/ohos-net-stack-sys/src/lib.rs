@@ -117,6 +117,9 @@ pub const Http_ErrCode_OH_HTTP_REMOTE_FILE_NOT_FOUND: Http_ErrCode = 2300078;
 #[doc = " @brief Authentication error."]
 #[cfg(feature = "api-20")]
 pub const Http_ErrCode_OH_HTTP_AUTHENTICATION_ERROR: Http_ErrCode = 2300094;
+#[doc = " @brief The request was intercepted by the HTTP global interceptor.\n @since 26.0.0"]
+#[cfg(feature = "api-26")]
+pub const Http_ErrCode_OH_HTTP_REQUEST_INTERCEPTED: Http_ErrCode = 2300996;
 #[doc = " @brief It is not allowed to access this domain."]
 #[cfg(feature = "api-20")]
 pub const Http_ErrCode_OH_HTTP_ACCESS_DOMAIN_NOT_ALLOWED: Http_ErrCode = 2300998;
@@ -237,12 +240,12 @@ pub const Http_ResponseCode_OH_HTTP_VERSION: Http_ResponseCode = 505;
 #[doc = " @brief Defines http response code.\n\n @since 20"]
 #[cfg(feature = "api-20")]
 pub type Http_ResponseCode = u32;
-#[doc = " @brief Buffer.\n\n @since 20"]
+#[doc = " @brief Defines the HTTP buffer structure.\n\n @since 20"]
 #[cfg(feature = "api-20")]
 #[repr(C)]
 #[derive(Debug, Copy, Clone)]
 pub struct Http_Buffer {
-    #[doc = " Content. Buffer will not be copied."]
+    #[doc = " Buffer data."]
     pub buffer: *const ::std::os::raw::c_char,
     #[doc = " Buffer length."]
     pub length: u32,
@@ -286,45 +289,46 @@ pub const Http_CertType_OH_HTTP_P12: Http_CertType = 2;
 #[doc = " @brief Defines the Cert Type.\n\n @since 20"]
 #[cfg(feature = "api-20")]
 pub type Http_CertType = u32;
+#[cfg(feature = "api-20")]
 #[repr(C)]
 #[derive(Debug, Copy, Clone)]
 pub struct Http_Headers {
     _unused: [u8; 0],
 }
-#[doc = " @brief The value type of the header map of the request or response.\n\n @since 20"]
+#[doc = " @brief Defines the type of a mapped value in a request or response header.\n\n @since 20"]
 #[cfg(feature = "api-20")]
 #[repr(C)]
 #[derive(Debug, Copy, Clone)]
 pub struct Http_HeaderValue {
-    #[doc = " Value."]
+    #[doc = " Value of a key-value pair in the header."]
     pub value: *mut ::std::os::raw::c_char,
-    #[doc = " Point to the next {@link Http_HeaderValue}."]
+    #[doc = " Pointer to Pointer to the next **Http_HeaderValue**."]
     pub next: *mut Http_HeaderValue,
 }
-#[doc = " @brief All key-value pairs of the headers of the request or response.\n\n @since 20"]
+#[doc = " @brief Defines all key-value pairs in the request or response header.\n\n @since 20"]
 #[cfg(feature = "api-20")]
 #[repr(C)]
 #[derive(Debug, Copy, Clone)]
 pub struct Http_HeaderEntry {
-    #[doc = " Key."]
+    #[doc = " Key in the request or response header."]
     pub key: *mut ::std::os::raw::c_char,
-    #[doc = " Value, see {@link Http_HeaderValue}."]
+    #[doc = " Value of the key in the request or response header. For details, see {@link Http_HeaderValue}."]
     pub value: *mut Http_HeaderValue,
-    #[doc = " Points to the next key-value pair {@link Http_HeaderEntry}"]
+    #[doc = " Pointer to Pointer to the next **Http_HeaderEntry**."]
     pub next: *mut Http_HeaderEntry,
 }
-#[doc = " @brief Client certificate which is sent to the remote server, the the remote server will use it to verify the\n client's identification.\n\n @since 20"]
+#[doc = " @brief Defines the client certificate sent to a remote server, which will be used by the server to verify the\n identity of the client.\n\n @since 20"]
 #[cfg(feature = "api-20")]
 #[repr(C)]
 #[derive(Debug, Copy, Clone)]
 pub struct Http_ClientCert {
-    #[doc = " A path to a client certificate."]
+    #[doc = " Path of the certificate file."]
     pub certPath: *mut ::std::os::raw::c_char,
-    #[doc = " Client certificate type, see {@link Http_CertType}."]
+    #[doc = " Certificate type. The default value is **PEM**. For details, see {@link Http_CertType}."]
     pub type_: Http_CertType,
-    #[doc = " File path of your client certificate private key."]
+    #[doc = " Path of the certificate key file."]
     pub keyPath: *mut ::std::os::raw::c_char,
-    #[doc = " Password for your client certificate private key."]
+    #[doc = " Password of the certificate key file."]
     pub keyPassword: *mut ::std::os::raw::c_char,
 }
 #[doc = " No proxy"]
@@ -339,107 +343,107 @@ pub const Http_ProxyType_HTTP_PROXY_CUSTOM: Http_ProxyType = 2;
 #[doc = " @brief Proxy type. Used to distinguish different proxy configurations.\n\n @since 20"]
 #[cfg(feature = "api-20")]
 pub type Http_ProxyType = u32;
-#[doc = " @brief Custom proxy configuration.\n\n @since 20"]
+#[doc = " @brief Defines the custom proxy configuration.\n\n @since 20"]
 #[cfg(feature = "api-20")]
 #[repr(C)]
 #[derive(Debug, Copy, Clone)]
 pub struct Http_CustomProxy {
-    #[doc = " Indicates the URL of the proxy server. If you do not set port explicitly, port will be 1080."]
+    #[doc = " Host name of the proxy server. If no port is explicitly set, the port number is defaulted to **1080**."]
     pub host: *const ::std::os::raw::c_char,
     pub port: i32,
     pub exclusionLists: *const ::std::os::raw::c_char,
 }
-#[doc = " @brief Proxy configuration.\n\n @since 20"]
+#[doc = " @brief Defines the proxy configuration structure.\n\n @since 20"]
 #[cfg(feature = "api-20")]
 #[repr(C)]
 #[derive(Debug, Copy, Clone)]
 pub struct Http_Proxy {
-    #[doc = " Distinguish the proxy type used by the request, see {@link Http_ProxyType}."]
+    #[doc = " Proxy configuration type. For details, see {@link Http_ProxyType}."]
     pub proxyType: Http_ProxyType,
-    #[doc = " Custom proxy configuration, see {@link Http_CustomProxy}."]
+    #[doc = " Custom proxy configuration. For details, see {@link Http_CustomProxy}."]
     pub customProxy: Http_CustomProxy,
 }
-#[doc = " @brief Response timing information. It will be collected in {@link Http_Response.performanceTiming}.\n\n @since 20"]
+#[doc = " @brief Defines the HTTP response timing information, which will be collected via {@link Http_Response}.\n\n @since 20"]
 #[cfg(feature = "api-20")]
 #[repr(C)]
 #[derive(Debug, Copy, Clone)]
 pub struct Http_PerformanceTiming {
-    #[doc = " The total time in milliseconds for the HTTP transfer, including name resolving, TCP connect etc."]
+    #[doc = " Duration from the time when the request is initiated to the time when the DNS resolution is complete."]
     pub dnsTiming: f64,
-    #[doc = " The time in milliseconds from the start until the remote host name was resolved."]
+    #[doc = " Duration from the time when the request is initiated to the time when the TCP connection is complete."]
     pub tcpTiming: f64,
-    #[doc = " The time in milliseconds from the start until the connection to the remote host (or proxy) was completed."]
+    #[doc = " Duration from the time when the request is initiated to the time when the TLS connection is complete."]
     pub tlsTiming: f64,
-    #[doc = " The time in milliseconds, it took from the start until the transfer is just about to begin."]
+    #[doc = " Duration from the time when the request is initiated to the time when the first byte is sent."]
     pub firstSendTiming: f64,
-    #[doc = " The time in milliseconds from last modification time of the remote file."]
+    #[doc = " Duration from the time when the request is initiated to the time when the first byte is received."]
     pub firstReceiveTiming: f64,
-    #[doc = " The time in milliseconds, it took from the start until the first byte is received."]
+    #[doc = " Duration from the time when the request is initiated to the time when the request is complete."]
     pub totalFinishTiming: f64,
-    #[doc = " The time in milliseconds it took for all redirection steps including name lookup, connect, etc."]
+    #[doc = " Duration from the time when the request is initiated to the time when all redirection steps are complete."]
     pub redirectTiming: f64,
 }
-#[doc = " @brief Defines the parameters for http request options.\n\n @since 20"]
+#[doc = " @brief Defines the structure of HTTP requests.\n\n @since 20"]
 #[cfg(feature = "api-20")]
 #[repr(C)]
 #[derive(Debug, Copy, Clone)]
 pub struct Http_RequestOptions {
-    #[doc = " Request method."]
+    #[doc = " HTTP request method."]
     pub method: *const ::std::os::raw::c_char,
-    #[doc = " Priority of http requests. A larger value indicates a higher priority."]
+    #[doc = " HTTP request priority."]
     pub priority: u32,
-    #[doc = " Header of http requests, see {@link Http_Headers}."]
+    #[doc = " Pointer to the HTTP request header. For details, see {@link Http_Headers}."]
     pub headers: *mut Http_Headers,
-    #[doc = " Read timeout interval."]
+    #[doc = " Read timeout duration."]
     pub readTimeout: u32,
-    #[doc = " Connection timeout interval."]
+    #[doc = " Connection timeout duration."]
     pub connectTimeout: u32,
-    #[doc = " Use the protocol. The default value is automatically specified by the system, see {@link Http_HttpProtocol}."]
+    #[doc = " HTTP protocol. For details, see {@link Http_HttpProtocol}."]
     pub httpProtocol: Http_HttpProtocol,
-    #[doc = " Indicates whether to use the HTTP proxy. The default value is false,\n and http proxy config, see {@link Http_Proxy}."]
+    #[doc = " Pointer to the HTTP proxy configuration, which indicates whether to use a proxy. By default, proxy is not used.\n For details, see {@link Http_Proxy}."]
     pub httpProxy: *mut Http_Proxy,
-    #[doc = " CA certificate of the user-specified path."]
+    #[doc = " Certificate path. If the CA certificate path is set, the system uses the CA certificate in the specified path.\n Otherwise, the system uses the preset CA certificate."]
     pub caPath: *const ::std::os::raw::c_char,
-    #[doc = " Set the download start position. This parameter can be used only in the GET method."]
+    #[doc = " Download start position. This field can be used only for the GET method."]
     pub resumeFrom: i64,
-    #[doc = " Set the download end position. This parameter can be used only in the GET method."]
+    #[doc = " Download end position. This field can be used only for the GET method."]
     pub resumeTo: i64,
-    #[doc = " Client certificates can be transferred, see {@link Http_ClientCert}."]
+    #[doc = " Pointer to the client certificate configuration. For details, see {@link Http_ClientCert}."]
     pub clientCert: *mut Http_ClientCert,
-    #[doc = " Set the DNS resolution for the https server."]
+    #[doc = " HTTPS server for DNS resolution."]
     pub dnsOverHttps: *const ::std::os::raw::c_char,
-    #[doc = " The address family can be specified when target domain name is resolved, see {@link Http_AddressFamilyType}."]
+    #[doc = " IP address family. For details, see {@link Http_AddressFamilyType}."]
     pub addressFamily: Http_AddressFamilyType,
 }
-#[doc = " @brief Defines the parameters for http response.\n\n @since 20"]
+#[doc = " @brief Defines the structure of HTTP responses.\n\n @since 20"]
 #[cfg(feature = "api-20")]
 #[repr(C)]
 #[derive(Debug, Copy, Clone)]
 pub struct Http_Response {
-    #[doc = " Response body, see {@link Http_Buffer}."]
+    #[doc = " HTTP response data. For details, see {@link Http_Buffer}."]
     pub body: Http_Buffer,
-    #[doc = " Server status code, see {@link Http_ResponseCode}."]
+    #[doc = " HTTP response code. For details, see {@link Http_ResponseCode}."]
     pub responseCode: Http_ResponseCode,
-    #[doc = " Header of http response, see {@link Http_Headers}."]
+    #[doc = " Pointer to the HTTP response header. For details, see {@link Http_Headers}."]
     pub headers: *mut Http_Headers,
-    #[doc = " Cookies returned by the server."]
+    #[doc = " Pointer to the HTTP response cookies."]
     pub cookies: *mut ::std::os::raw::c_char,
-    #[doc = " The time taken of various stages of HTTP request, see {@link Http_PerformanceTiming}."]
+    #[doc = " Pointer to the HTTP response timing. For details, see {@link Http_PerformanceTiming}."]
     pub performanceTiming: *mut Http_PerformanceTiming,
-    #[doc = " @brief Response deletion function.\n\n @param response Indicates the response to be deleted. It is a pointer that points to {@link Http_Response}.\n @since 20"]
+    #[doc = " @brief Callback function for destroying an HTTP response.\n\n @param response Pointer to the HTTP response to be destroyed. For details, see {@link Http_Response}.\n @since 20"]
     pub destroyResponse:
         ::std::option::Option<unsafe extern "C" fn(response: *mut *mut Http_Response)>,
 }
-#[doc = " @brief Http request.\n\n @since 20"]
+#[doc = " @brief Defines an HTTP request.\n\n @since 20"]
 #[cfg(feature = "api-20")]
 #[repr(C)]
 #[derive(Debug, Copy, Clone)]
 pub struct Http_Request {
-    #[doc = " The request id for every single request. Generated by system."]
+    #[doc = " ID of an HTTP request."]
     pub requestId: u32,
-    #[doc = " Request url."]
+    #[doc = " Pointer to the HTTP request URL."]
     pub url: *mut ::std::os::raw::c_char,
-    #[doc = " Request options, see {@link Http_RequestOptions}."]
+    #[doc = " Pointer to the HTTP request configuration. For details, see {@link Http_RequestOptions}."]
     pub options: *mut Http_RequestOptions,
 }
 #[doc = " @brief Callback function that is invoked when response is received.\n\n @param response Http response struct, see {@link Http_Response}.\n @param errCode Response error code.\n @since 20"]
@@ -461,22 +465,22 @@ pub type Http_OnHeaderReceiveCallback =
 #[doc = " @brief Empty callback function for requested DataEnd or Canceled event callback.\n\n @since 20"]
 #[cfg(feature = "api-20")]
 pub type Http_OnVoidCallback = ::std::option::Option<unsafe extern "C" fn()>;
-#[doc = " @brief Callbacks to watch different events.\n\n @since 20"]
+#[doc = " @brief Defines the callback for various HTTP events.\n\n @since 20"]
 #[cfg(feature = "api-20")]
 #[repr(C)]
 #[derive(Debug, Copy, Clone)]
 pub struct Http_EventsHandler {
-    #[doc = " Callback function when the response body is received"]
+    #[doc = " Callback invoked when a response body is received. For details, see {@link Http_OnDataReceiveCallback}."]
     pub onDataReceive: Http_OnDataReceiveCallback,
-    #[doc = " Callback function during uploading"]
+    #[doc = " Callback invoked when an upload is triggered. For details, see {@link Http_OnProgressCallback}."]
     pub onUploadProgress: Http_OnProgressCallback,
-    #[doc = " Callback function during downloading"]
+    #[doc = " Callback invoked when a download is triggered. For details, see {@link Http_OnProgressCallback}."]
     pub onDownloadProgress: Http_OnProgressCallback,
-    #[doc = " Callback function when a header is received"]
+    #[doc = " Callback invoked when a header is received. For details, see {@link Http_OnHeaderReceiveCallback}."]
     pub onHeadersReceive: Http_OnHeaderReceiveCallback,
-    #[doc = " Callback function at the end of the transfer"]
+    #[doc = " Callback invoked when the transmission is complete. For details, see {@link Http_OnVoidCallback}."]
     pub onDataEnd: Http_OnVoidCallback,
-    #[doc = " Callback function when a request is canceled"]
+    #[doc = " Callback invoked when the request is canceled. For details, see {@link Http_OnVoidCallback}."]
     pub onCanceled: Http_OnVoidCallback,
 }
 extern "C" {
@@ -535,34 +539,34 @@ extern "C" {
     #[cfg(feature = "api-20")]
     pub fn OH_Http_Destroy(request: *mut *mut Http_Request);
 }
-#[doc = " PEM certificate"]
+#[doc = " PEM certificate."]
 pub const NetStack_CertType_NETSTACK_CERT_TYPE_PEM: NetStack_CertType = 0;
-#[doc = " DER certificate"]
+#[doc = " DER certificate."]
 pub const NetStack_CertType_NETSTACK_CERT_TYPE_DER: NetStack_CertType = 1;
-#[doc = " Invalid certificate"]
+#[doc = " Invalid certificate."]
 pub const NetStack_CertType_NETSTACK_CERT_TYPE_INVALID: NetStack_CertType = 2;
-#[doc = " @brief Enumerates certificate types.\n\n @since 11\n @version 1.0"]
+#[doc = " @brief Certificate type enums.\n\n @since 11\n @version 1.0"]
 pub type NetStack_CertType = u32;
 #[doc = " @brief Defines the certificate data structure.\n\n @since 11\n @version 1.0"]
 #[repr(C)]
 #[derive(Debug, Copy, Clone)]
 pub struct NetStack_CertBlob {
-    #[doc = " Certificate type"]
+    #[doc = " Certificate type."]
     pub type_: NetStack_CertType,
-    #[doc = " Certificate content length"]
+    #[doc = " Certificate content length."]
     pub size: u32,
-    #[doc = " Certificate content"]
+    #[doc = " Certificate data."]
     pub data: *mut u8,
 }
-#[doc = " Public key pinning"]
+#[doc = " Public key lock type."]
 pub const NetStack_CertificatePinningKind_PUBLIC_KEY: NetStack_CertificatePinningKind = 0;
-#[doc = " @brief Defines the certificate lock type.\n\n @since 12\n @version 1.0"]
+#[doc = " @brief Certificate pinning type enums.\n\n @since 12\n @version 1.0"]
 pub type NetStack_CertificatePinningKind = u32;
 #[doc = " Sha256"]
 pub const NetStack_HashAlgorithm_SHA_256: NetStack_HashAlgorithm = 0;
-#[doc = " @brief Defines the hash algorithm.\n\n @since 12\n @version 1.0"]
+#[doc = " @brief Hash algorithm enums.\n\n @since 12\n @version 1.0"]
 pub type NetStack_HashAlgorithm = u32;
-#[doc = " @brief Defines the certificate lock information.\n\n @since 12\n @version 1.0"]
+#[doc = " @brief Defines certificate pinning information.\n\n @since 12\n @version 1.0"]
 #[repr(C)]
 #[derive(Copy, Clone)]
 pub struct NetStack_CertificatePinning {
@@ -578,47 +582,47 @@ pub struct NetStack_CertificatePinning {
 pub union NetStack_CertificatePinning__bindgen_ty_1 {
     pub publicKeyHash: *mut ::std::os::raw::c_char,
 }
-#[doc = " @brief Defines the certificate information.\n\n @since 12\n @version 1.0"]
+#[doc = " @brief Define certificate information.\n\n @since 12\n @version 1.0"]
 #[repr(C)]
 #[derive(Debug, Copy, Clone)]
 pub struct NetStack_Certificates {
-    #[doc = " PEM content of the certificates"]
+    #[doc = " PEM content of the certificate."]
     pub content: *mut *mut ::std::os::raw::c_char,
-    #[doc = " Number of certificates"]
+    #[doc = " Number of certificates."]
     pub length: usize,
 }
 extern "C" {
-    #[doc = " @brief Provides certificate chain verification APIs for external systems.\n\n @param cert Certificate to be verified.\n @param caCert CA certificate specified by the user. If this parameter is left blank, the preset certificate is used.\n @return 0 - success.\n 2305001 - Unspecified error.\n 2305002 - Unable to get issuer certificate.\n 2305003 - Unable to get certificate revocation list (CRL).\n 2305004 - Unable to decrypt certificate signature.\n 2305005 - Unable to decrypt CRL signature.\n 2305006 - Unable to decode issuer public key.\n 2305007 - Certificate signature failure.\n 2305008 - CRL signature failure.\n 2305009 - Certificate is not yet valid.\n 2305010 - Certificate has expired.\n 2305011 - CRL is not yet valid.\n 2305012 - CRL has expired.\n 2305023 - Certificate has been revoked.\n 2305024 - Invalid certificate authority (CA).\n 2305027 - Certificate is untrusted.\n @syscap SystemCapability.Communication.NetStack\n @since 11\n @version 1.0"]
+    #[doc = " @brief Provides certificate chain verification APIs for external systems.\n\n @param cert Certificate to be verified.\n @param caCert Certificate specified by the user. If this parameter is left blank, the preset certificate is used for\n     verification.\n @return **0**: Success.\n     <br>**2305001**: Unknown error.\n     <br>**2305002**: Failed to obtain the issuer certificate.\n     <br>**2305003**: Failed to obtain the certificate revocation list (CRL).\n     <br>**2305004**: Failed to decrypt the certificate signature.\n     <br>**2305005**: Failed to decrypt the CRL signature.\n     <br>**2305006**: Failed to decode the issuer public key.\n     <br>**2305007**: Failed to sign the certificate.\n     <br>**2305008**: Failed to sign the CRL.\n     <br>**2305009**: Certificate not activated.\n     <br>**2305010**: Certificate expired.\n     <br>**2305011**: CRL not activated.\n     <br>**2305012**: CRL expired.\n     <br>**2305023**: Certificate revoked.\n     <br>**2305024**: Invalid certificate authority (CA).\n     <br>**2305027**: Untrusted certificate.\n @syscap SystemCapability.Communication.NetStack\n @since 11\n @version 1.0"]
     pub fn OH_NetStack_CertVerification(
         cert: *const NetStack_CertBlob,
         caCert: *const NetStack_CertBlob,
     ) -> u32;
 }
 extern "C" {
-    #[doc = " @brief Gets pin set for hostname.\n\n @param hostname Hostname.\n @param pin Certificate lock information.\n @return 0 - Success.\n         401 - Parameter error.\n         2305999 - Out of memory.\n @syscap SystemCapability.Communication.NetStack\n @since 12\n @version 1.0"]
+    #[doc = " @brief Obtains the certificate lock information.\n\n @param hostname Host name.\n @param pin Defines the certificate lock information structure.\n @return **0**: Success.\n     <br>**401**: Parameter error.\n     <br>**2305999**: Memory error.\n @syscap SystemCapability.Communication.NetStack\n @since 12\n @version 1.0"]
     pub fn OH_NetStack_GetPinSetForHostName(
         hostname: *const ::std::os::raw::c_char,
         pin: *mut NetStack_CertificatePinning,
     ) -> i32;
 }
 extern "C" {
-    #[doc = " @brief Gets certificates for hostname.\n\n @param hostname Hostname.\n @param certs Certificate Information.\n @return 0 - Success.\n         401 - Parameter error.\n         2305999 - Out of memory.\n @syscap SystemCapability.Communication.NetStack\n @since 12\n @version 1.0"]
+    #[doc = " @brief Obtains the certificate information.\n\n @param hostname Host name.\n @param certs Defines the certificate information structure.\n @return **0**: Success.\n     <br>**401**: Parameter error.\n     <br>**2305999**: Memory error.\n @syscap SystemCapability.Communication.NetStack\n @since 12\n @version 1.0"]
     pub fn OH_NetStack_GetCertificatesForHostName(
         hostname: *const ::std::os::raw::c_char,
         certs: *mut NetStack_Certificates,
     ) -> i32;
 }
 extern "C" {
-    #[doc = " @brief Frees content of the certificates.\n\n @param certs Certificate.\n @syscap SystemCapability.Communication.NetStack\n @since 12\n @version 1.0"]
+    #[doc = " @brief Releases the certificate content.\n\n @param certs Represents the certificate information.\n @syscap SystemCapability.Communication.NetStack\n @since 12\n @version 1.0"]
     pub fn OH_Netstack_DestroyCertificatesContent(certs: *mut NetStack_Certificates);
 }
 extern "C" {
-    #[doc = " @brief Checks whether the Cleartext traffic is permitted.\n\n @permission ohos.permission.INTERNET\n @return 0 - Success.\n         201 - Permission denied.\n         401 - Parameter error.\n @param isCleartextPermitted Indicates output parameter,\n        {@code true} if the Cleartext traffic is permitted, {@code false} otherwise.\n @since 18"]
+    #[doc = " @brief Boolean value indicating whether plaintext HTTP is allowed.\n\n @permission ohos.permission.INTERNET\n @return **0**: Success.\n     <br>**201**: Permission denied.\n     <br>**401**: Parameter error.\n @param isCleartextPermitted Boolean value indicating whether plaintext HTTP is allowed. The value **true** means\n     that plaintext HTTP is allowed, and the value **false** means the opposite.\n @since 18"]
     #[cfg(feature = "api-18")]
     pub fn OH_Netstack_IsCleartextPermitted(isCleartextPermitted: *mut bool) -> i32;
 }
 extern "C" {
-    #[doc = " @brief Checks whether the Cleartext traffic for a specified hostname is permitted.\n\n @permission ohos.permission.INTERNET\n @return 0 - Success.\n         201 - Permission denied.\n         401 - Parameter error.\n @param hostname Indicates the host name.\n @param isCleartextPermitted Indicates output parameter,\n        {@code true} if the Cleartext traffic for a specified hostname is permitted, {@code false} otherwise.\n @since 18"]
+    #[doc = " @brief Boolean value indicating whether host name–based plaintext HTTP is allowed.\n\n @permission ohos.permission.INTERNET\n @return **0**: Success.\n     <br>**201**: Permission denied.\n     <br>**401**: Parameter error.\n @param hostname Host name.\n @param isCleartextPermitted Boolean value indicating whether host name–based plaintext HTTP is allowed. The value **\n     true** means that host name–based plaintext HTTP is allowed, and the value **false** means the opposite.\n @since 18"]
     #[cfg(feature = "api-18")]
     pub fn OH_Netstack_IsCleartextPermittedByHostName(
         hostname: *const ::std::os::raw::c_char,
@@ -626,74 +630,91 @@ extern "C" {
     ) -> i32;
 }
 extern "C" {
-    #[doc = " @brief Checks whether the component is configured for Cleartext traffic interception.\n\n @return 0 - Success.\n         2100001 - Invalid parameter value.\n @param component Indicates the component name.\n @param componentCfg Indicates output parameter,\n        {@code true} if the component is configured for Cleartext traffic interception, {@code false} otherwise.\n @since 20"]
+    #[doc = " @brief Checks whether plaintext HTTP interception is enabled.\n\n @return **0**: Success.\n     <br>**2100001**: Invalid parameter value.\n @param component Component name. The following components are supported: Network Kit and ArkWeb.\n @param componentCfg Output parameter, which indicates whether plaintext HTTP interception is enabled. The value **\n     true** indicates that plaintext HTTP interception is enabled, and the value **false** indicates the opposite.\n @since 20"]
     #[cfg(feature = "api-20")]
     pub fn OH_Netstack_IsCleartextCfgByComponent(
         component: *const ::std::os::raw::c_char,
         componentCfg: *mut bool,
     ) -> i32;
 }
-#[doc = " @brief Defines the parameters for connection closing by the server.\n\n @since 11\n @version 1.0"]
+extern "C" {
+    #[doc = " @brief Creates and verifies a sorted certificate chain.\n\n @detail This function verifies the provided certificate chain and constructs\n         a sorted chain output. It allocates memory for the output chain,\n         which must be explicitly freed by the caller to avoid memory leaks.\n\n @param cert Certificate chain to be verified. Cannot be NULL or empty.\n @param certCount Certificate number of param cert.\n @param caCert CA certificate specified by the user. If NULL, the preset certificate is used.\n @param hostname The expected server hostname.\n @param outSortedChain Pointer to receive the sorted certificate chain.\n                     Can be NULL if the caller does not need the chain data.\n                     Valid only if return value is 0.\n                     Allocated memory must be freed using OH_NetStack_FreeCertChain.\n @param outSortedCount Pointer to receive the count of sorted certificates.\n @return 0 - success.\n         2305001 - Unspecified error.\n         2305002 - Unable to get issuer certificate.\n         2305004 - Unable to decrypt certificate signature.\n         2305006 - Unable to decode issuer public key.\n         2305007 - Certificate signature failure.\n         2305009 - Certificate is not yet valid.\n         2305010 - Certificate has expired.\n         2305024 - Invalid certificate authority (CA).\n         2305062 - Hostname verification failed.\n         2305027 - Certificate is untrusted.\n @stagemodelonly\n @since 26.0.0\n @note After use, you must call {@link OH_NetStack_FreeCertChain} to release the\n       allocated memory pointed by outSortedChain. Failure to do so will cause memory leaks."]
+    #[cfg(feature = "api-26")]
+    pub fn OH_NetStack_CreateAndVerifySortedCertChain(
+        cert: *const NetStack_CertBlob,
+        certCount: usize,
+        caCert: *const NetStack_CertBlob,
+        hostname: *const ::std::os::raw::c_char,
+        outSortedChain: *mut *mut NetStack_CertBlob,
+        outSortedCount: *mut usize,
+    ) -> u32;
+}
+extern "C" {
+    #[doc = " @brief Frees the certificate chain allocated by OH_NetStack_CreateAndVerifySortedCertChain.\n\n @detail This function must be used to free the memory pointed to by outSortedChain\n         from OH_NetStack_CreateAndVerifySortedCertChain.\n         Do NOT use free() or malloc() directly on this memory.\n\n @param certChain The certificate chain pointer received from outSortedChain.\n                  If NULL, this function does nothing.\n @param certCount The number of certificates in the chain.\n @stagemodelonly\n @since 26.0.0"]
+    #[cfg(feature = "api-26")]
+    pub fn OH_NetStack_FreeCertChain(certChain: *mut NetStack_CertBlob, certCount: usize);
+}
+#[doc = " @brief Defines the parameters for the connection closure received by the WebSocket client.\n\n @since 11\n @version 1.0"]
 #[repr(C)]
 #[derive(Debug, Copy, Clone)]
 pub struct WebSocket_CloseResult {
-    #[doc = " Error code"]
+    #[doc = " Error code."]
     pub code: u32,
-    #[doc = " Error cause"]
+    #[doc = " Error cause."]
     pub reason: *const ::std::os::raw::c_char,
 }
-#[doc = " @brief Defines the parameters for proactive connection closing by the client.\n\n @since 11\n @version 1.0"]
+#[doc = " @brief Defines the parameters for the proactive connection closure initiated by the WebSocket client.\n\n @since 11\n @version 1.0"]
 #[repr(C)]
 #[derive(Debug, Copy, Clone)]
 pub struct WebSocket_CloseOption {
-    #[doc = " Error code"]
+    #[doc = " Error code."]
     pub code: u32,
-    #[doc = " Error cause"]
+    #[doc = " Error cause."]
     pub reason: *const ::std::os::raw::c_char,
 }
-#[doc = " @brief Defines the parameters for the connection error reported by the server.\n\n @since 11\n @version 1.0"]
+#[doc = " @brief Defines the parameters for the connection error received by the WebSocket client.\n\n @since 11\n @version 1.0"]
 #[repr(C)]
 #[derive(Debug, Copy, Clone)]
 pub struct WebSocket_ErrorResult {
-    #[doc = " Error code"]
+    #[doc = " Error code."]
     pub errorCode: u32,
-    #[doc = " Error message"]
+    #[doc = " Error message."]
     pub errorMessage: *const ::std::os::raw::c_char,
 }
-#[doc = " @brief Defines the parameters for the connection success reported by the server.\n\n @since 11\n @version 1.0"]
+#[doc = " @brief Defines the parameters for the connection success received by the WebSocket client.\n\n @since 11\n @version 1.0"]
 #[repr(C)]
 #[derive(Debug, Copy, Clone)]
 pub struct WebSocket_OpenResult {
-    #[doc = " Connection success code"]
+    #[doc = " Result code for successful WebSocket client connection."]
     pub code: u32,
-    #[doc = " Connection success reason"]
+    #[doc = " Reason for successful WebSocket client connection."]
     pub reason: *const ::std::os::raw::c_char,
 }
-#[doc = " @brief Defines the callback function invoked when an <b>open</b> message is received.\n\n @param client websocket client.\n @param openResult Content of the <b>open</b> message received by the websocket client.\n @since 11\n @version 1.0"]
+#[doc = " @brief Callback invoked when the WebSocket client receives an **Open** message.\n\n @param client WebSocket client.\n @param openResult Content of the **Open** message sent from the WebSocket server to client.\n @since 11\n @version 1.0"]
 pub type WebSocket_OnOpenCallback = ::std::option::Option<
     unsafe extern "C" fn(client: *mut WebSocket, openResult: WebSocket_OpenResult),
 >;
-#[doc = " @brief Defines the callback function invoked when data is received.\n\n @param client websocket client.\n @param data Data received by the websocket client.\n @param length Length of the data received by the websocket client.\n @since 11\n @version 1.0"]
+#[doc = " @brief Callback invoked when the WebSocket client receives a **Message** message.\n\n @param client WebSocket client.\n @param data Data received by the WebSocket client.\n @param length Length of the data received by the WebSocket client.\n @since 11\n @version 1.0"]
 pub type WebSocket_OnMessageCallback = ::std::option::Option<
     unsafe extern "C" fn(client: *mut WebSocket, data: *mut ::std::os::raw::c_char, length: u32),
 >;
-#[doc = " @brief Defines the callback function invoked when an error message is received.\n\n @param client websocket client.\n @param errorResult Content of the connection error message received by the websocket client.\n @since 11\n @version 1.0"]
+#[doc = " @brief Callback invoked when the WebSocket client receives an **Error** message.\n\n @param client WebSocket client.\n @param errorResult Content of the **Error** message sent from the WebSocket server to client.\n @since 11\n @version 1.0"]
 pub type WebSocket_OnErrorCallback = ::std::option::Option<
     unsafe extern "C" fn(client: *mut WebSocket, errorResult: WebSocket_ErrorResult),
 >;
-#[doc = " @brief Defines the callback function invoked when a <b>close</b> message is received.\n\n @param client webSocket client.\n @param closeResult Content of the <b>close</b> message received by the webSocket client.\n @since 11\n @version 1.0"]
+#[doc = " @brief Callback invoked when the WebSocket client receives a **Close** message.\n\n @param client WebSocket client.\n @param closeResult Content of the **Close** message sent from the WebSocket server to client.\n @since 11\n @version 1.0"]
 pub type WebSocket_OnCloseCallback = ::std::option::Option<
     unsafe extern "C" fn(client: *mut WebSocket, closeResult: WebSocket_CloseResult),
 >;
-#[doc = " @brief Adds the header linked list to the websocket client.\n\n @since 11\n @version 1.0"]
+#[doc = " @brief Defines the header linked list added to the WebSocket client.\n\n @since 11\n @version 1.0"]
 #[repr(C)]
 #[derive(Debug, Copy, Clone)]
 pub struct WebSocket_Header {
-    #[doc = " Header field name"]
+    #[doc = " Pointer to the field name of a header."]
     pub fieldName: *const ::std::os::raw::c_char,
-    #[doc = " Header field content"]
+    #[doc = " Pointer to the field value of a header."]
     pub fieldValue: *const ::std::os::raw::c_char,
-    #[doc = " Next pointer of the header linked list"]
+    #[doc = " Next pointer of the header linked list."]
     pub next: *mut WebSocket_Header,
 }
 #[doc = " @brief Defines the parameters for the connection between the WebSocket client and server.\n\n @param headers Header information.\n @since 11\n @version 1.0"]
@@ -702,62 +723,62 @@ pub struct WebSocket_Header {
 pub struct WebSocket_RequestOptions {
     pub headers: *mut WebSocket_Header,
 }
-#[doc = " @brief Defines the WebSocket client structure.\n\n @since 11\n @version 1.0"]
+#[doc = " @brief Defines the parameters for the connection closure received by the WebSocket client.\n\n @since 11\n @version 1.0"]
 #[repr(C)]
 #[derive(Debug, Copy, Clone)]
 pub struct WebSocket {
-    #[doc = " Pointer to the callback invoked when a connection message is received"]
+    #[doc = " Pointer to the callback invoked when the WebSocket client receives a connection message."]
     pub onOpen: WebSocket_OnOpenCallback,
-    #[doc = " Pointer to the callback invoked when a message is received"]
+    #[doc = " Pointer to the callback invoked when the WebSocket client receives a message."]
     pub onMessage: WebSocket_OnMessageCallback,
-    #[doc = " Pointer to the callback invoked when an error message is received"]
+    #[doc = " Pointer to the callback invoked when the WebSocket client receives an error message."]
     pub onError: WebSocket_OnErrorCallback,
-    #[doc = " Pointer to the callback invoked when a close message is received"]
+    #[doc = " Pointer to the callback invoked when the WebSocket client receives a close message."]
     pub onClose: WebSocket_OnCloseCallback,
-    #[doc = " Content of the request for establishing a connection on the client"]
+    #[doc = " Options of the connection request."]
     pub requestOptions: WebSocket_RequestOptions,
 }
-#[doc = " Operation success."]
+#[doc = " Operation successful."]
 pub const WebSocket_ErrCode_WEBSOCKET_OK: WebSocket_ErrCode = 0;
-#[doc = " @brief Error code base."]
+#[doc = " @brief Base value of the error code.\n"]
 pub const WebSocket_ErrCode_E_BASE: WebSocket_ErrCode = 1000;
-#[doc = " @brief The websocket client is null."]
+#[doc = " @brief The WebSocket client is empty.\n"]
 pub const WebSocket_ErrCode_WEBSOCKET_CLIENT_NULL: WebSocket_ErrCode = 1001;
-#[doc = " @brief A  webSocket client is not created."]
+#[doc = " @brief The WebSocket client is not created.\n"]
 pub const WebSocket_ErrCode_WEBSOCKET_CLIENT_NOT_CREATED: WebSocket_ErrCode = 1002;
-#[doc = " @brief An error occurs while setting up a websocket connection."]
+#[doc = " @brief An error occurred during WebSocket connection establishment.\n"]
 pub const WebSocket_ErrCode_WEBSOCKET_CONNECTION_ERROR: WebSocket_ErrCode = 1003;
-#[doc = " @brief An error occurs while parsing websocket connection parameters."]
+#[doc = " @brief An error occurred when parsing WebSocket connection parameters.\n"]
 pub const WebSocket_ErrCode_WEBSOCKET_CONNECTION_PARSE_URL_ERROR: WebSocket_ErrCode = 1005;
-#[doc = " @brief The memory is insufficient for creating a context during websocket connection setup."]
+#[doc = " @brief The memory is insufficient during WebSocket client connection establishment.\n"]
 pub const WebSocket_ErrCode_WEBSOCKET_CONNECTION_NO_MEMORY: WebSocket_ErrCode = 1006;
-#[doc = " @brief The websocket connection is closed by the peer."]
+#[doc = " @brief The WebSocket connection is closed by the peer end.\n"]
 pub const WebSocket_ErrCode_WEBSOCKET_CONNECTION_CLOSED_BY_PEER: WebSocket_ErrCode = 1007;
-#[doc = " @brief The websocket connection is destroyed."]
+#[doc = " @brief The WebSocket connection is disconnected.\n"]
 pub const WebSocket_ErrCode_WEBSOCKET_DESTROYED: WebSocket_ErrCode = 1008;
-#[doc = " @brief An incorrect protocol is used for websocket connection."]
+#[doc = " @brief Incorrect protocol.\n"]
 pub const WebSocket_ErrCode_WEBSOCKET_PROTOCOL_ERROR: WebSocket_ErrCode = 1009;
-#[doc = " @brief The memory for the websocket client to send data is insufficient."]
+#[doc = " @brief The system memory is insufficient when the WebSocket client sends data.\n"]
 pub const WebSocket_ErrCode_WEBSOCKET_SEND_NO_MEMORY: WebSocket_ErrCode = 1010;
-#[doc = " @brief The data sent by the websocket client is null."]
+#[doc = " @brief The sent data is empty.\n"]
 pub const WebSocket_ErrCode_WEBSOCKET_SEND_DATA_NULL: WebSocket_ErrCode = 1011;
-#[doc = " @brief The length of the data sent by the websocket client exceeds the limit."]
+#[doc = " @brief The length of the sent data exceeds the limit.\n"]
 pub const WebSocket_ErrCode_WEBSOCKET_DATA_LENGTH_EXCEEDED: WebSocket_ErrCode = 1012;
-#[doc = " @brief The queue length of the data sent by the websocket client exceeds the limit."]
+#[doc = " @brief The length of the sent data queue exceeds the limit.\n"]
 pub const WebSocket_ErrCode_WEBSOCKET_QUEUE_LENGTH_EXCEEDED: WebSocket_ErrCode = 1013;
-#[doc = " @brief The context of the websocket client is null."]
+#[doc = " @brief The context of the WebSocket client is null.\n"]
 pub const WebSocket_ErrCode_WEBSOCKET_NO_CLIENT_CONTEXT: WebSocket_ErrCode = 1014;
-#[doc = " @brief The header of the webSocket client is null."]
+#[doc = " @brief The protocol header of the WebSocket client is empty.\n"]
 pub const WebSocket_ErrCode_WEBSOCKET_NO_HEADER_CONTEXT: WebSocket_ErrCode = 1015;
-#[doc = " @brief The header of the websocket client exceeds the limit."]
+#[doc = " @brief The protocol header of the WebSocket client exceeds the limit.\n"]
 pub const WebSocket_ErrCode_WEBSOCKET_HEADER_EXCEEDED: WebSocket_ErrCode = 1016;
-#[doc = " @brief The websocket client is not connected."]
+#[doc = " @brief The WebSocket client is not connected.\n"]
 pub const WebSocket_ErrCode_WEBSOCKET_NO_CONNECTION: WebSocket_ErrCode = 1017;
-#[doc = " @brief The websocket client does not have the connection context."]
+#[doc = " @brief No WebSocket connection context is released.\n"]
 pub const WebSocket_ErrCode_WEBSOCKET_NO_CONNECTION_CONTEXT: WebSocket_ErrCode = 1018;
 pub type WebSocket_ErrCode = u32;
 extern "C" {
-    #[doc = " @brief Constructor of websocket.\n\n @param onOpen Callback function invoked when a connection setup message is received.\n @param onMessage Callback function invoked when a message is received.\n @param onError Callback function invoked when a connection error message is received.\n @param onclose Callback function invoked when a connection closing message is closed.\n\n @return Pointer to the websocket client if success; NULL otherwise.\n @syscap SystemCapability.Communication.NetStack\n @since 11\n @version 1.0"]
+    #[doc = " @brief Constructor used to create a WebSocket client.\n\n @param onOpen Callback invoked when the WebSocket client receives an **open** message.\n @param onMessage Callback invoked when the WebSocket client receives a **Message** message.\n @param onError Callback invoked when the WebSocket client receives an **error** message.\n @param onclose Callback invoked when the WebSocket client receives a **close** message.\n @return Pointer to the WebSocket client if the operation is successful; **NULL** otherwise.\n @syscap SystemCapability.Communication.NetStack\n @since 11\n @version 1.0"]
     pub fn OH_WebSocketClient_Constructor(
         onOpen: WebSocket_OnOpenCallback,
         onMessage: WebSocket_OnMessageCallback,
@@ -766,14 +787,14 @@ extern "C" {
     ) -> *mut WebSocket;
 }
 extern "C" {
-    #[doc = " @brief Adds the header information to the client request.\n\n @param client Pointer to the websocket client.\n @param header Header information\n @return 0 if success; non-0 otherwise. For details about error codes, see {@link OH_Websocket_ErrCode}.\n @syscap SystemCapability.Communication.NetStack\n @since 11\n @version 1.0"]
+    #[doc = " @brief Adds the header information to the client request.\n\n @param client Pointer to the WebSocket client.\n @param header Header information.\n @return **0** if the operation is successful; a non-0 value otherwise. For details about the return values, see **\n     OH_Websocket_ErrCode**.\n @syscap SystemCapability.Communication.NetStack\n @since 11\n @version 1.0"]
     pub fn OH_WebSocketClient_AddHeader(
         client: *mut WebSocket,
         header: WebSocket_Header,
     ) -> ::std::os::raw::c_int;
 }
 extern "C" {
-    #[doc = " @brief Connects the client to the server.\n\n @param client Pointer to the websocket client.\n @param url URL for the client to connect to the server.\n @param options Optional parameters.\n @return 0 if success; non-0 otherwise. For details about error codes, see {@link OH_Websocket_ErrCode}.\n @permission ohos.permission.INTERNET\n @syscap SystemCapability.Communication.NetStack\n @since 11\n @version 1.0"]
+    #[doc = " @brief Connects the WebSocket client to the server.\n\n @param client Pointer to the WebSocket client.\n @param url IP address for the WebSocket client to connect to the server.\n @param options Optional parameters for connection establishment.\n @return **0** if the operation is successful; a non-0 value otherwise. For details about the return values, see **\n     OH_Websocket_ErrCode**.\n @permission ohos.permission.INTERNET\n @syscap SystemCapability.Communication.NetStack\n @since 11\n @version 1.0"]
     pub fn OH_WebSocketClient_Connect(
         client: *mut WebSocket,
         url: *const ::std::os::raw::c_char,
@@ -781,7 +802,7 @@ extern "C" {
     ) -> ::std::os::raw::c_int;
 }
 extern "C" {
-    #[doc = " @brief Sends data from the client to the server.\n\n @param client Pointer to the websocket client.\n @param data Data sent by the client.\n @param length Length of the data sent by the client.\n @return 0 if success; non-0 otherwise. For details about error codes, see {@link OH_Websocket_ErrCode}.\n @permission ohos.permission.INTERNET\n @syscap SystemCapability.Communication.NetStack\n @since 11\n @version 1.0"]
+    #[doc = " @brief Sends data from the WebSocket client to the server.\n\n @param client WebSocket client.\n @param data Data sent by the WebSocket client.\n @param length Length of the data sent by the WebSocket client.\n @return **0** if the operation is successful; a non-0 value otherwise. For details about the return values, see **\n     OH_Websocket_ErrCode**.\n @permission ohos.permission.INTERNET\n @syscap SystemCapability.Communication.NetStack\n @since 11\n @version 1.0"]
     pub fn OH_WebSocketClient_Send(
         client: *mut WebSocket,
         data: *mut ::std::os::raw::c_char,
@@ -789,13 +810,13 @@ extern "C" {
     ) -> ::std::os::raw::c_int;
 }
 extern "C" {
-    #[doc = " @brief Closes a webSocket connection.\n\n @param client Pointer to the websocket client.\n @param options Optional parameters.\n @return 0 if success; non-0 otherwise. For details about error codes, see {@link OH_Websocket_ErrCode}.\n @permission ohos.permission.INTERNET\n @syscap SystemCapability.Communication.NetStack\n @since 11\n @version 1.0"]
+    #[doc = " @brief Closes the connection on the WebSocket client.\n\n @param client WebSocket client.\n @param options Optional parameters for connection closure.\n @return **0** if the operation is successful; a non-0 value otherwise. For details about the return values, see **\n     OH_Websocket_ErrCode**.\n @permission ohos.permission.INTERNET\n @syscap SystemCapability.Communication.NetStack\n @since 11\n @version 1.0"]
     pub fn OH_WebSocketClient_Close(
         client: *mut WebSocket,
         options: WebSocket_CloseOption,
     ) -> ::std::os::raw::c_int;
 }
 extern "C" {
-    #[doc = " @brief Releases the context and resources of the websocket connection.\n\n @param client Pointer to the websocket client.\n @return 0 if success; non-0 otherwise. For details about error codes, see {@link OH_Websocket_ErrCode}.\n @permission ohos.permission.INTERNET\n @syscap SystemCapability.Communication.NetStack\n @since 11\n @version 1.0"]
+    #[doc = " @brief Destroys the WebSocket client and releases the context and resources of the WebSocket connection. Usage:\n\n @param client WebSocket client.\n @return **0** if the operation is successful; a non-0 value otherwise. For details about the return values, see **\n     OH_Websocket_ErrCode**.\n @permission ohos.permission.INTERNET\n @syscap SystemCapability.Communication.NetStack\n @since 11\n @version 1.0"]
     pub fn OH_WebSocketClient_Destroy(client: *mut WebSocket) -> ::std::os::raw::c_int;
 }

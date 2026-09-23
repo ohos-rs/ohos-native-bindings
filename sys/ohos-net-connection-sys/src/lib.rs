@@ -39,114 +39,114 @@ pub struct addrinfo {
     pub ai_canonname: *mut ::std::os::raw::c_char,
     pub ai_next: *mut addrinfo,
 }
-#[doc = " MMS"]
+#[doc = " MMS."]
 pub const NetConn_NetCap_NETCONN_NET_CAPABILITY_MMS: NetConn_NetCap = 0;
-#[doc = " Not Metered"]
+#[doc = " Non-metered network."]
 pub const NetConn_NetCap_NETCONN_NET_CAPABILITY_NOT_METERED: NetConn_NetCap = 11;
-#[doc = " Internet"]
+#[doc = " Internet."]
 pub const NetConn_NetCap_NETCONN_NET_CAPABILITY_INTERNET: NetConn_NetCap = 12;
-#[doc = " Not VPN"]
+#[doc = " Non-VPN."]
 pub const NetConn_NetCap_NETCONN_NET_CAPABILITY_NOT_VPN: NetConn_NetCap = 15;
-#[doc = " Validated"]
+#[doc = " Verified."]
 pub const NetConn_NetCap_NETCONN_NET_CAPABILITY_VALIDATED: NetConn_NetCap = 16;
-#[doc = " Portal\n @since 12"]
+#[doc = " Portal.\n @since 12"]
 pub const NetConn_NetCap_NETCONN_NET_CAPABILITY_PORTAL: NetConn_NetCap = 17;
-#[doc = " In checking network connectivity.\n @since 12"]
+#[doc = " Connectivity check.\n @since 12"]
 pub const NetConn_NetCap_NETCONN_NET_CAPABILITY_CHECKING_CONNECTIVITY: NetConn_NetCap = 31;
-#[doc = " @brief Defines network capabilities.\n\n @since 11\n @version 1.0"]
+#[doc = " @brief Enumerates the network capabilities.\n\n @since 11\n @version 1.0"]
 pub type NetConn_NetCap = u32;
-#[doc = " Cellular network"]
+#[doc = " Cellular network."]
 pub const NetConn_NetBearerType_NETCONN_BEARER_CELLULAR: NetConn_NetBearerType = 0;
-#[doc = " WIFI"]
+#[doc = " Wi-Fi."]
 pub const NetConn_NetBearerType_NETCONN_BEARER_WIFI: NetConn_NetBearerType = 1;
-#[doc = " Bluetooth\n @since 12"]
+#[doc = " Bluetooth.\n @since 12"]
 pub const NetConn_NetBearerType_NETCONN_BEARER_BLUETOOTH: NetConn_NetBearerType = 2;
-#[doc = " Ethernet"]
+#[doc = " Ethernet."]
 pub const NetConn_NetBearerType_NETCONN_BEARER_ETHERNET: NetConn_NetBearerType = 3;
-#[doc = " VPN\n @since 12"]
+#[doc = " VPN.\n @since 12"]
 pub const NetConn_NetBearerType_NETCONN_BEARER_VPN: NetConn_NetBearerType = 4;
-#[doc = " @brief Defines network bearer types.\n\n @since 11\n @version 1.0"]
+#[doc = " @brief Enumerates the network carrier types.\n\n @since 11\n @version 1.0"]
 pub type NetConn_NetBearerType = u32;
-#[doc = " @error Success return code on success"]
+#[doc = " Success."]
 #[cfg(feature = "api-15")]
 pub const NetConn_ErrorCode_NETCONN_SUCCESS: NetConn_ErrorCode = 0;
-#[doc = " @error Permission verification failed"]
+#[doc = " Missing permissions."]
 #[cfg(feature = "api-15")]
 pub const NetConn_ErrorCode_NETCONN_PERMISSION_DENIED: NetConn_ErrorCode = 201;
-#[doc = " @error Parameter check failed"]
+#[doc = " Invalid parameter."]
 #[cfg(feature = "api-15")]
 pub const NetConn_ErrorCode_NETCONN_PARAMETER_ERROR: NetConn_ErrorCode = 401;
-#[doc = " @error Failed to connect to the service"]
+#[doc = " Service connection failure."]
 #[cfg(feature = "api-15")]
 pub const NetConn_ErrorCode_NETCONN_OPERATION_FAILED: NetConn_ErrorCode = 2100002;
-#[doc = " @error System internal error.\n 1. Memory-related error, for example, insufficient memory or memory data copy failures.\n 2. Null pointer error, for example, using memory that has already been released."]
+#[doc = " Internal error.1. Memory-related error, for example, insufficient memory, memory data copy failure, or memory\n request failure.2. Null pointer, for example, access to a released memory pointer."]
 #[cfg(feature = "api-15")]
 pub const NetConn_ErrorCode_NETCONN_INTERNAL_ERROR: NetConn_ErrorCode = 2100003;
-#[doc = " @brief Enumerates NetConn error codes.\n\n @since 15"]
+#[doc = " @brief Enumerates network connection error codes.\n\n @since 15"]
 #[cfg(feature = "api-15")]
 pub type NetConn_ErrorCode = u32;
-#[doc = " ICMP"]
+#[doc = " Internet Control Message Protocol."]
 #[cfg(feature = "api-20")]
 pub const NetConn_PacketsType_NETCONN_PACKETS_ICMP: NetConn_PacketsType = 0;
-#[doc = " UDP"]
+#[doc = " User Datagram Protocol."]
 #[cfg(feature = "api-20")]
 pub const NetConn_PacketsType_NETCONN_PACKETS_UDP: NetConn_PacketsType = 1;
-#[doc = " @brief Enumerates packets type of trace route.\n\n @since 20"]
+#[doc = " @brief Enumerates trace route packet types.\n\n @since 20"]
 #[cfg(feature = "api-20")]
 pub type NetConn_PacketsType = u32;
-#[doc = " @brief Defines the network handle.\n\n @since 11\n @version 1.0"]
+#[doc = " @brief Defines network handles for network IDs.\n\n @since 11\n @version 1.0"]
 #[repr(C)]
 #[derive(Debug, Copy, Clone)]
 pub struct NetConn_NetHandle {
-    #[doc = " Network ID"]
+    #[doc = " Network ID."]
     pub netId: i32,
 }
-#[doc = " @brief Defines all network capabilities.\n\n @since 11\n @version 1.0"]
+#[doc = " @brief Defines network capability sets.\n\n @since 11\n @version 1.0"]
 #[repr(C)]
 #[derive(Debug, Copy, Clone)]
 pub struct NetConn_NetCapabilities {
-    #[doc = " Uplink bandwidth"]
+    #[doc = " Uplink bandwidth."]
     pub linkUpBandwidthKbps: u32,
-    #[doc = " Downlink bandwidth"]
+    #[doc = " Downlink bandwidth."]
     pub linkDownBandwidthKbps: u32,
     #[doc = " Network capability list"]
     pub netCaps: [NetConn_NetCap; 32usize],
-    #[doc = " Actual size of the network capability list"]
+    #[doc = " Actual size of the network capability list."]
     pub netCapsSize: i32,
     #[doc = " Bearer type list"]
     pub bearerTypes: [NetConn_NetBearerType; 32usize],
-    #[doc = " Actual size of the bearer type list"]
+    #[doc = " Actual size of the bearer type list."]
     pub bearerTypesSize: i32,
 }
-#[doc = " @brief Defines the network address.\n\n @since 11\n @version 1.0"]
+#[doc = " @brief Defines network addresses.\n\n @since 11\n @version 1.0"]
 #[repr(C)]
 #[derive(Debug, Copy, Clone)]
 pub struct NetConn_NetAddr {
-    #[doc = " Network address family"]
+    #[doc = " Network address family."]
     pub family: u8,
-    #[doc = " Prefix length"]
+    #[doc = " Prefix length."]
     pub prefixlen: u8,
-    #[doc = " Port number"]
+    #[doc = " Port number."]
     pub port: u8,
     #[doc = " Address"]
     pub address: [::std::os::raw::c_char; 256usize],
 }
-#[doc = " @brief Defines the route configuration information.\n\n @since 11\n @version 1.0"]
+#[doc = " @brief Defines the route configuration.\n\n @since 11\n @version 1.0"]
 #[repr(C)]
 #[derive(Debug, Copy, Clone)]
 pub struct NetConn_Route {
     #[doc = " Network interface"]
     pub iface: [::std::os::raw::c_char; 256usize],
-    #[doc = " Destination address"]
+    #[doc = " Destination address."]
     pub destination: NetConn_NetAddr,
-    #[doc = " Gateway address"]
+    #[doc = " Gateway IP address."]
     pub gateway: NetConn_NetAddr,
-    #[doc = " Gateway exists or not"]
+    #[doc = " Whether a gateway exists."]
     pub hasGateway: i32,
-    #[doc = " Default route or not"]
+    #[doc = " Whether the default route is used."]
     pub isDefaultRoute: i32,
 }
-#[doc = " @brief Defines the proxy configuration information.\n\n @since 11\n @version 1.0"]
+#[doc = " @brief Defines the proxy configuration.\n\n @since 11\n @version 1.0"]
 #[repr(C)]
 #[derive(Debug, Copy, Clone)]
 pub struct NetConn_HttpProxy {
@@ -154,9 +154,9 @@ pub struct NetConn_HttpProxy {
     pub host: [::std::os::raw::c_char; 256usize],
     #[doc = " Exclusion list of proxy servers"]
     pub exclusionList: [[::std::os::raw::c_char; 256usize]; 256usize],
-    #[doc = " Actual size of the exclusion list"]
+    #[doc = " Actual size of the exclusion list."]
     pub exclusionListSize: i32,
-    #[doc = " Port number"]
+    #[doc = " Port number."]
     pub port: u16,
 }
 #[doc = " @brief Defines the network connection properties.\n\n @since 11\n @version 1.0"]
@@ -169,33 +169,33 @@ pub struct NetConn_ConnectionProperties {
     pub domain: [::std::os::raw::c_char; 256usize],
     #[doc = " TCP buffer size"]
     pub tcpBufferSizes: [::std::os::raw::c_char; 256usize],
-    #[doc = " MTU"]
+    #[doc = " Maximum transmission unit."]
     pub mtu: u16,
     #[doc = " Address list"]
     pub netAddrList: [NetConn_NetAddr; 32usize],
-    #[doc = " Actual size of the address list"]
+    #[doc = " Actual size of the address list."]
     pub netAddrListSize: i32,
     #[doc = " DNS list"]
     pub dnsList: [NetConn_NetAddr; 32usize],
-    #[doc = " Actual size of the DNS list"]
+    #[doc = " Actual size of the DNS list."]
     pub dnsListSize: i32,
     #[doc = " Route list"]
     pub routeList: [NetConn_Route; 64usize],
-    #[doc = " Actual size of the route list"]
+    #[doc = " Actual size of the route list."]
     pub routeListSize: i32,
-    #[doc = " HTTP proxy information"]
+    #[doc = " HTTP proxy information."]
     pub httpProxy: NetConn_HttpProxy,
 }
-#[doc = " @brief Defines the network handle list.\n\n @since 11\n @version 1.0"]
+#[doc = " @brief Defines the network list.\n\n @since 11\n @version 1.0"]
 #[repr(C)]
 #[derive(Debug, Copy, Clone)]
 pub struct NetConn_NetHandleList {
     #[doc = " Network handle list"]
     pub netHandles: [NetConn_NetHandle; 32usize],
-    #[doc = " Actual size of the network handle list"]
+    #[doc = " Actual size of the network handle list."]
     pub netHandleListSize: i32,
 }
-#[doc = " @brief Pointer to the custom DNS resolver.\n\n @param host The host name to query.\n @param serv Service name.\n @param hint Pointer to the addrinfo structure.\n @param res Store DNS query results and return them in a linked list format.\n\n @since 11\n @version 1.0"]
+#[doc = " @brief Defines the pointer to the custom DNS resolver.\n\n @param host Host name.\n @param serv Service name.\n @param hint Pointer to the addrinfo structure.\n @param res DNS query result, which is in the format of linked lists.\n @since 11\n @version 1.0"]
 pub type OH_NetConn_CustomDnsResolver = ::std::option::Option<
     unsafe extern "C" fn(
         host: *const ::std::os::raw::c_char,
@@ -204,78 +204,87 @@ pub type OH_NetConn_CustomDnsResolver = ::std::option::Option<
         res: *mut *mut addrinfo,
     ) -> ::std::os::raw::c_int,
 >;
-#[doc = " @brief Callback for application’s http proxy information changed.\n\n @param proxy The changed proxy information, may be a null pointer.\n\n @since 12\n @version 1.0"]
+#[doc = " @brief Defines the callback invoked when the HTTP proxy information of the application changes.\n\n @param proxy Proxy configuration information (probably a null pointer).\n @since 12\n @version 1.0"]
 pub type OH_NetConn_AppHttpProxyChange =
     ::std::option::Option<unsafe extern "C" fn(proxy: *mut NetConn_HttpProxy)>;
-#[doc = " @brief Definition of network specifier.\n\n @since 12\n @version 1.0"]
+#[doc = " @brief Defines the one-shot callback used to receive the global HTTP proxy re-authentication result.\n\n This callback is invoked at most once for each successful call to\n OH_NetConn_RefreshGlobalHttpProxyWithCallback.\n\n @param result The re-authentication result. 0 indicates success. Other values indicate failure.\n @param proxy The refreshed global HTTP proxy information when result is 0. If re-authentication\n     fails, proxy is NULL.<br>\n     The proxy object is owned by the system and is valid only during this callback\n     invocation. The caller must not free or modify it. If the caller needs to use the\n     proxy information after the callback returns, the caller must make a deep copy.\n @param userContext The user-defined data passed to OH_NetConn_RefreshGlobalHttpProxyWithCallback. The system\n     does not access, copy, or release it.\n\n @since 26.0.0"]
+#[cfg(feature = "api-26")]
+pub type OH_NetConn_GlobalHttpProxyRefreshCallback = ::std::option::Option<
+    unsafe extern "C" fn(
+        result: i32,
+        proxy: *const NetConn_HttpProxy,
+        userContext: *mut ::std::os::raw::c_void,
+    ),
+>;
+#[doc = " @brief Defines network feature sets.\n\n @since 12\n @version 1.0"]
 #[repr(C)]
 #[derive(Debug, Copy, Clone)]
 pub struct NetConn_NetSpecifier {
-    #[doc = " Network capabilities."]
+    #[doc = " Network capability set."]
     pub caps: NetConn_NetCapabilities,
-    #[doc = " Network identifier"]
+    #[doc = " Network ID."]
     pub bearerPrivateIdentifier: *mut ::std::os::raw::c_char,
 }
-#[doc = " @brief Callback for network available.\n\n @param netHandle The network handle.\n\n @since 12\n @version 1.0"]
+#[doc = " @brief Defines the callback invoked when the network is available.\n\n @param netHandle Network handle.\n @since 12\n @version 1.0"]
 pub type OH_NetConn_NetworkAvailable =
     ::std::option::Option<unsafe extern "C" fn(netHandle: *mut NetConn_NetHandle)>;
-#[doc = " @brief Callback for network capabilities changed.\n\n @param netHandle The network handle.\n @param netCapabilities The network capabilities.\n\n @since 12\n @version 1.0"]
+#[doc = " @brief Defines the callback invoked when the network capabilities change.\n\n @param netHandle Network handle.\n @param netCapabilities Network capability set.\n @since 12\n @version 1.0"]
 pub type OH_NetConn_NetCapabilitiesChange = ::std::option::Option<
     unsafe extern "C" fn(
         netHandle: *mut NetConn_NetHandle,
         netCapabilities: *mut NetConn_NetCapabilities,
     ),
 >;
-#[doc = " @brief Callback for network connection properties changed.\n\n @param netHandle The network handle.\n @param connConnetionProperties The network connection properties.\n\n @since 12\n @version 1.0"]
+#[doc = " @brief Defines the callback invoked when network connection properties change.\n\n @param netHandle Network handle.\n @param connConnetionProperties Network connection properties.\n @since 12\n @version 1.0"]
 pub type OH_NetConn_NetConnectionPropertiesChange = ::std::option::Option<
     unsafe extern "C" fn(
         netHandle: *mut NetConn_NetHandle,
         connConnetionProperties: *mut NetConn_ConnectionProperties,
     ),
 >;
-#[doc = " @brief Callback for network lost.\n\n @param netHandle The network handle.\n\n @since 12\n @version 1.0"]
+#[doc = " @brief Defines the callback invoked when the network is disconnected.\n\n @param netHandle Network handle.\n @since 12\n @version 1.0"]
 pub type OH_NetConn_NetLost =
     ::std::option::Option<unsafe extern "C" fn(netHandle: *mut NetConn_NetHandle)>;
-#[doc = " @brief Callback for network unavailable, this function invoked while network can not be available in given timeout.\n\n @since 12\n @version 1.0"]
+#[doc = " @brief Defines the callback invoked when the network is unavailable. This callback is triggered when the network is\n not activated within the specified timeout interval. If the timeout interval is not set, this callback is not\n triggered.\n\n @since 12\n @version 1.0"]
 pub type OH_NetConn_NetUnavailable = ::std::option::Option<unsafe extern "C" fn()>;
-#[doc = " @brief Callback for network blocked status changed.\n\n @param netHandle The network handle.\n @param blocked The flag used to indicate whether the network will be blocked.\n\n @since 12\n @version 1.0"]
+#[doc = " @brief Defines the callback invoked when the network blocking status changes.\n\n @param netHandle Network handle.\n @param blocked Whether the network is blocked. The value true indicates that the network is blocked, and the value\n     false indicates the opposite.\n @since 12\n @version 1.0"]
 pub type OH_NetConn_NetBlockStatusChange =
     ::std::option::Option<unsafe extern "C" fn(netHandle: *mut NetConn_NetHandle, blocked: bool)>;
-#[doc = " @brief Defines the network connection callbacks.\n\n @since 12\n @version 1.0"]
+#[doc = " @brief Defines a struct for the network status listener callback collection. All callback events must be registered;\n those not requiring attention can be set to empty.\n\n @since 12\n @version 1.0"]
 #[repr(C)]
 #[derive(Debug, Copy, Clone)]
 pub struct NetConn_NetConnCallback {
-    #[doc = " Callback for network available"]
+    #[doc = " Callback invoked when the network is available."]
     pub onNetworkAvailable: OH_NetConn_NetworkAvailable,
-    #[doc = " Callback for network capabilities changed"]
+    #[doc = " Callback invoked when the network capabilities change."]
     pub onNetCapabilitiesChange: OH_NetConn_NetCapabilitiesChange,
-    #[doc = " Callback for network connection properties changed"]
+    #[doc = " Callback invoked when network connection properties change."]
     pub onConnetionProperties: OH_NetConn_NetConnectionPropertiesChange,
-    #[doc = " Callback for network lost"]
+    #[doc = " Callback invoked when the network is disconnected."]
     pub onNetLost: OH_NetConn_NetLost,
-    #[doc = " Callback for network unavailable, this function invoked while network can not be available in given timeout"]
+    #[doc = " Callback invoked when the network is unavailable. This callback is triggered when the network is not activated\n within the specified timeout interval. If the timeout interval is not set, this callback is not triggered."]
     pub onNetUnavailable: OH_NetConn_NetUnavailable,
-    #[doc = " Callback for network blocked status changed"]
+    #[doc = " Callback invoked when the network blocking status changes."]
     pub onNetBlockStatusChange: OH_NetConn_NetBlockStatusChange,
 }
-#[doc = " @brief Defines the probe result information.\n\n @since 20"]
+#[doc = " @brief Defines the probe result.\n\n @since 20"]
 #[cfg(feature = "api-20")]
 #[repr(C)]
 #[derive(Debug, Copy, Clone)]
 pub struct NetConn_ProbeResultInfo {
-    #[doc = " Number of jumps"]
+    #[doc = " Packet loss rate, in percentage. The value **100** indicates 100% packet loss, and the value **50** indicates 50%\n packet loss."]
     pub lossRate: u8,
-    #[doc = " RTT in micro seconds, min/avg/max/std"]
+    #[doc = " Round-trip time in ms, including the maximum, minimum, average, and standard deviations."]
     pub rtt: [u32; 4usize],
 }
-#[doc = " @brief Defines the network trace route option.\n\n @since 20"]
+#[doc = " @brief Defines the network trace route options.\n\n @since 20"]
 #[cfg(feature = "api-20")]
 #[repr(C)]
 #[derive(Debug, Copy, Clone)]
 pub struct NetConn_TraceRouteOption {
-    #[doc = " Maximum number of jumps, default is 30"]
+    #[doc = " Maximum number of hops in the probe result. The value must be the same as that of **TraceRouteInfo**. The\n maximum number of hops is 30, which is also the default value."]
     pub maxJumpNumber: u8,
-    #[doc = " Packets type"]
+    #[doc = " Protocol type of the probe packet. The default value is **NETCONN_PACKETS_ICMP**."]
     pub packetsType: NetConn_PacketsType,
 }
 #[doc = " @brief Defines the trace route information.\n\n @since 20"]
@@ -283,45 +292,45 @@ pub struct NetConn_TraceRouteOption {
 #[repr(C)]
 #[derive(Debug, Copy, Clone)]
 pub struct NetConn_TraceRouteInfo {
-    #[doc = " Number of jumps"]
+    #[doc = " Number of hops."]
     pub jumpNo: u8,
-    #[doc = " host name or address"]
+    #[doc = " Host name or address."]
     pub address: [::std::os::raw::c_char; 256usize],
-    #[doc = " RTT in micro seconds"]
+    #[doc = " Round-trip time in ms, including the maximum, minimum, average, and standard deviations."]
     pub rtt: [u32; 4usize],
 }
 extern "C" {
-    #[doc = " @brief Checks whether a default activated data network is available.\n\n @param hasDefaultNet Pointer to the result that specifies whether a default activated data network is available.\n @return 0 - Success. 201 - Missing permissions.\n         401 - Parameter error. 2100002 - Unable to connect to service.\n         2100003 - Internal error.\n @permission ohos.permission.GET_NETWORK_INFO\n @syscap SystemCapability.Communication.NetManager.Core\n @since 11\n @version 1.0"]
+    #[doc = " @brief Checks whether a default activated data network is available.\n\n @param hasDefaultNet Whether there is a default network.\n @return **0**: Success. **201**: Missing permissions.\n     <br>**401**: Parameter error. **2100002**: Service connection failure.\n     <br>**2100003**: Internal error.\n @permission ohos.permission.GET_NETWORK_INFO\n @syscap SystemCapability.Communication.NetManager.Core\n @since 11\n @version 1.0"]
     pub fn OH_NetConn_HasDefaultNet(hasDefaultNet: *mut i32) -> i32;
 }
 extern "C" {
-    #[doc = " @brief Obtains the default activated data network.\n\n @param netHandle Pointer to the network handle that contains the network ID.\n @return 0 - Success. 201 - Missing permissions.\n         401 - Parameter error. 2100002 - Unable to connect to service.\n         2100003 - Internal error.\n @permission ohos.permission.GET_NETWORK_INFO\n @syscap SystemCapability.Communication.NetManager.Core\n @since 11\n @version 1.0"]
+    #[doc = " @brief Obtains the default activated data network.\n\n @param netHandle Network ID.\n @return **0**: Success. **201**: Missing permissions.\n     <br>**401**: Parameter error. **2100002**: Service connection failure.\n     <br>**2100003**: Internal error.\n @permission ohos.permission.GET_NETWORK_INFO\n @syscap SystemCapability.Communication.NetManager.Core\n @since 11\n @version 1.0"]
     pub fn OH_NetConn_GetDefaultNet(netHandle: *mut NetConn_NetHandle) -> i32;
 }
 extern "C" {
-    #[doc = " @brief Checks whether metering is enabled for the default data network.\n\n @param isMetered Pointer to the result that specifies whether metering is enabled.\n @return 0 - Success. 201 - Missing permissions.\n         401 - Parameter error. 2100002 - Unable to connect to service.\n         2100003 - Internal error.\n @permission ohos.permission.GET_NETWORK_INFO\n @syscap SystemCapability.Communication.NetManager.Core\n @since 11\n @version 1.0"]
+    #[doc = " @brief Checks whether metering is enabled for the default data network.\n\n @param isMetered Whether metering is enabled.\n @return **0**: Success. **201**: Missing permissions.\n     <br>**401**: Parameter error. **2100002**: Service connection failure.\n     <br>**2100003**: Internal error.\n @permission ohos.permission.GET_NETWORK_INFO\n @syscap SystemCapability.Communication.NetManager.Core\n @since 11\n @version 1.0"]
     pub fn OH_NetConn_IsDefaultNetMetered(isMetered: *mut i32) -> i32;
 }
 extern "C" {
-    #[doc = " @brief Obtains the connection properties of a data network.\n\n @param netHandle Pointer to the network handle that contains the network ID.\n @param prop Pointer to the connection properties.\n @return 0 - Success. 201 - Missing permissions.\n         401 - Parameter error. 2100002 - Unable to connect to service.\n         2100003 - Internal error.\n @permission ohos.permission.GET_NETWORK_INFO\n @syscap SystemCapability.Communication.NetManager.Core\n @since 11\n @version 1.0"]
+    #[doc = " @brief Obtains the link information of a data network.\n\n @param netHandle Network ID.\n @param prop Link information.\n @return **0**: Success. **201**: Missing permissions.\n     <br>**401**: Parameter error. **2100002**: Service connection failure.\n     <br>**2100003**: Internal error.\n @permission ohos.permission.GET_NETWORK_INFO\n @syscap SystemCapability.Communication.NetManager.Core\n @since 11\n @version 1.0"]
     pub fn OH_NetConn_GetConnectionProperties(
         netHandle: *mut NetConn_NetHandle,
         prop: *mut NetConn_ConnectionProperties,
     ) -> i32;
 }
 extern "C" {
-    #[doc = " @brief Obtains the capabilities of a data network.\n\n @param netHandle Pointer to the network handle that contains the network ID.\n @param netCapacities Pointer to the network capabilities.\n @return 0 - Success. 201 - Missing permissions.\n         401 - Parameter error. 2100002 - Unable to connect to service.\n         2100003 - Internal error.\n @permission ohos.permission.GET_NETWORK_INFO\n @syscap SystemCapability.Communication.NetManager.Core\n @since 11\n @version 1.0"]
+    #[doc = " @brief Obtains the capabilities of a data network.\n\n @param netHandle Network ID.\n @param netCapabilities Capability set.\n @return **0**: Success. **201**: Missing permissions.\n     <br>**401**: Parameter error. **2100002**: Service connection failure.\n     <br>**2100003**: Internal error.\n @permission ohos.permission.GET_NETWORK_INFO\n @syscap SystemCapability.Communication.NetManager.Core\n @since 11\n @version 1.0"]
     pub fn OH_NetConn_GetNetCapabilities(
         netHandle: *mut NetConn_NetHandle,
         netCapabilities: *mut NetConn_NetCapabilities,
     ) -> i32;
 }
 extern "C" {
-    #[doc = " @brief Obtains the default http proxy.\n\n @param httpProxy Pointer to the HTTP proxy.\n @return 0 - Success. 201 - Missing permissions.\n         401 - Parameter error. 2100002 - Unable to connect to service.\n         2100003 - Internal error.\n @syscap SystemCapability.Communication.NetManager.Core\n @since 11\n @version 1.0"]
+    #[doc = " @brief Obtains the default network proxy.\n\n @param httpProxy Proxy configuration.\n @return **0**: Success. **201**: Missing permissions.\n     <br>**401**: Parameter error. **2100002**: Service connection failure.\n     <br>**2100003**: Internal error.\n @syscap SystemCapability.Communication.NetManager.Core\n @since 11\n @version 1.0"]
     pub fn OH_NetConn_GetDefaultHttpProxy(httpProxy: *mut NetConn_HttpProxy) -> i32;
 }
 extern "C" {
-    #[doc = " @brief Get DNS result with netId.\n\n @param host The host name to query.\n @param serv Service name.\n @param hint Pointer to the addrinfo structure.\n @param res Store DNS query results and return them in a linked list format.\n @param netId DNS query netId, 0 is used for default netid query.\n @return 0 - Success. 201 - Missing permissions.\n         401 - Parameter error. 2100002 - Unable to connect to service.\n         2100003 - Internal error.\n @permission ohos.permission.INTERNET\n @syscap SystemCapability.Communication.NetManager.Core\n @since 11\n @version 1.0"]
+    #[doc = " @brief Obtains the DNS result based on the specified **netId**.\n\n @param host Host name.\n @param serv Service name.\n @param hint Pointer to the addrinfo structure.\n @param res DNS query result, which is in the format of linked lists.\n @param netId If **netId** is set to **0**, the default **netid** is used for query.\n @return **0**: Success. **201**: Missing permissions.\n     <br>**401**: Parameter error. **2100002**: Service connection failure.\n     <br>**2100003**: Internal error.\n @permission ohos.permission.INTERNET\n @syscap SystemCapability.Communication.NetManager.Core\n @since 11\n @version 1.0"]
     pub fn OH_NetConn_GetAddrInfo(
         host: *mut ::std::os::raw::c_char,
         serv: *mut ::std::os::raw::c_char,
@@ -331,44 +340,62 @@ extern "C" {
     ) -> i32;
 }
 extern "C" {
-    #[doc = " @brief Free DNS result.\n\n @param res DNS query result chain header.\n @return 0 - Success. 201 - Missing permissions.\n         401 - Parameter error. 2100002 - Unable to connect to service.\n         2100003 - Internal error.\n @permission ohos.permission.INTERNET\n @syscap SystemCapability.Communication.NetManager.Core\n @since 11\n @version 1.0"]
+    #[doc = " @brief Releases the DNS query result.\n\n @param res Header of the DNS query result, which is in the format of linked lists.\n @return **0**: Success. **201**: Missing permissions.\n     <br>**401**: Parameter error. **2100002**: Service connection failure.\n     <br>**2100003**: Internal error.\n @permission ohos.permission.INTERNET\n @syscap SystemCapability.Communication.NetManager.Core\n @since 11\n @version 1.0"]
     pub fn OH_NetConn_FreeDnsResult(res: *mut addrinfo) -> i32;
 }
 extern "C" {
-    #[doc = " @brief Queries all activated data networks.\n\n @param netHandleList Network handle that stores the network ID list.\n @return 0 - Success. 201 - Missing permissions.\n         401 - Parameter error. 2100002 - Unable to connect to service.\n         2100003 - Internal error.\n @permission ohos.permission.GET_NETWORK_INFO\n @syscap SystemCapability.Communication.NetManager.Core\n @since 11\n @version 1.0"]
+    #[doc = " @brief Obtains all activated data networks.\n\n @param netHandleList Network information list.\n @return **0**: Success. **201**: Missing permissions.\n     <br>**401**: Parameter error. **2100002**: Service connection failure.\n     <br>**2100003**: Internal error.\n @permission ohos.permission.GET_NETWORK_INFO\n @syscap SystemCapability.Communication.NetManager.Core\n @since 11\n @version 1.0"]
     pub fn OH_NetConn_GetAllNets(netHandleList: *mut NetConn_NetHandleList) -> i32;
 }
 extern "C" {
-    #[doc = " @brief Registers a custom DNS resolver.\n\n @param resolver Pointer to the custom DNS resolver.\n @return Returns the result code.\n         {@link NETMANAGER_EXT_SUCCESS} if the operation is successful.\n         {@link NETMANAGER_ERR_PARAMETER_ERROR} Parameter error. Please enter a correct parameter.\n @syscap SystemCapability.Communication.NetManager.Core\n @since 13\n @version 1.0"]
+    #[doc = " @brief Registers a custom DNS resolver.\n\n @param resolver Pointer to the custom DNS resolver.\n @return Result code.\n     <br>**NETMANAGER_EXT_SUCCESS**: Operation success.\n     <br>**NETMANAGER_ERR_PARAMETER_ERROR**: Parameter error. Enter a correct parameter.\n @deprecated since 26.0.0\n @useinstead OH_NetConn_RegisterCustomDnsResolver\n @since 13\n @version 1.0"]
     #[cfg(feature = "api-13")]
     pub fn OH_NetConn_RegisterDnsResolver(resolver: OH_NetConn_CustomDnsResolver) -> i32;
 }
 extern "C" {
-    #[doc = " @brief Unregisters a custom DNS resolver.\n\n @return 0 - Success.\n         2100002 - Unable to connect to service.\n         2100003 - Internal error.\n @syscap SystemCapability.Communication.NetManager.Core\n @since 13\n @version 1.0"]
+    #[doc = " @brief Unregisters a custom DNS resolver.\n\n @return **0**: Success.\n     <br>**2100002**: Service connection failure.\n     <br>**2100003**: Internal error.\n @deprecated since 26.0.0\n @useinstead OH_NetConn_UnregisterCustomDnsResolver\n @since 13\n @version 1.0"]
     #[cfg(feature = "api-13")]
     pub fn OH_NetConn_UnregisterDnsResolver() -> i32;
 }
 extern "C" {
-    #[doc = " @brief Binds a socket to the specific network.\n\n @param socketFd Socket constructed by user.\n @param netHandle Pointer to the network handle that contains the network ID.\n @return 0 - Success.\n         401 - Parameter error.\n         2100002 - Unable to connect to service.\n         2100003 - Internal error.\n @syscap SystemCapability.Communication.NetManager.Core\n @since 12\n @version 1.0"]
+    #[doc = " @brief Registers a custom DNS resolver to intercept and override DNS queries.\n        Falls back to system DNS if no result is specified.\n        Only a single resolver is allowed. You must unregister the existing one before registering a new one.\n\n @param resolver Pointer to the custom DNS resolver. If the resolver returns 0, skip system DNS;\n        otherwise, fallback to system DNS.\n @return 0 - Success.\n         401 - Parameter error. Please enter a correct parameter.\n         2101008 - Resolver already exists. use OH_NetConn_UnregisterCustomDnsResolver before registering a new one.\n @stagemodelonly\n @since 26.0.0"]
+    #[cfg(feature = "api-26")]
+    pub fn OH_NetConn_RegisterCustomDnsResolver(resolver: OH_NetConn_CustomDnsResolver) -> i32;
+}
+extern "C" {
+    #[doc = " @brief Unregisters the custom DNS resolver.\n\n @return 0 - Success.\n         2100003 - Internal error.\n @stagemodelonly\n @since 26.0.0"]
+    #[cfg(feature = "api-26")]
+    pub fn OH_NetConn_UnregisterCustomDnsResolver() -> i32;
+}
+extern "C" {
+    #[doc = " @brief Binds a socket to the specified network.\n\n @param socketFd Socket constructed by the user.\n @param netHandle Pointer to the network handle containing the network ID.\n @return **0**: Success.\n     <br>**401**: Parameter error.\n     <br>**2100002**: Service connection failure.\n     <br>**2100003**: Internal error.\n @syscap SystemCapability.Communication.NetManager.Core\n @since 12\n @version 1.0"]
     pub fn OH_NetConn_BindSocket(socketFd: i32, netHandle: *mut NetConn_NetHandle) -> i32;
 }
 extern "C" {
-    #[doc = " @brief Sets http proxy information to current application.\n\n @param httpProxy Information about the proxy that needs to be set.\n @return 0 - Success.\n         401 - Parameter error.\n @syscap SystemCapability.Communication.NetManager.Core\n @since 12\n @version 1.0"]
+    #[doc = " @brief Sets an HTTP proxy for the current application.\n\n @param httpProxy HTTP proxy to set.\n @return **0**: Success.\n     <br>**401**: Parameter error.\n @syscap SystemCapability.Communication.NetManager.Core\n @since 12\n @version 1.0"]
     pub fn OH_NetConn_SetAppHttpProxy(httpProxy: *mut NetConn_HttpProxy) -> i32;
 }
 extern "C" {
-    #[doc = " @brief Registers callback to listen for changes to the application-level http proxy.\n\n @param appHttpProxyChange Callback that need to be registered to listen for changes to the http proxy.\n @param callbackId Callback id returned after registration, associated with a registered callback.\n @return 0 - Success.\n         401 - Parameter error.\n @syscap SystemCapability.Communication.NetManager.Core\n @since 12\n @version 1.0"]
+    #[doc = " @brief Registers a callback for HTTP proxy changes of the application.\n\n @param appHttpProxyChange Callback to register.\n @param callbackId ID of the registered callback.\n @return **0**: Success.\n     <br>**401**: Parameter error.\n @syscap SystemCapability.Communication.NetManager.Core\n @since 12\n @version 1.0"]
     pub fn OH_NetConn_RegisterAppHttpProxyCallback(
         appHttpProxyChange: OH_NetConn_AppHttpProxyChange,
         callbackId: *mut u32,
     ) -> i32;
 }
 extern "C" {
-    #[doc = " @brief Unregisters a callback function that listens for application-level proxy changes.\n\n @param callbackId Id of the callback function that needs to be deregistered.\n @syscap SystemCapability.Communication.NetManager.Core\n @since 12\n @version 1.0"]
+    #[doc = " @brief Unregisters the callback for HTTP proxy changes of the application.\n\n @param callbackId ID of the callback to unregister.\n @syscap SystemCapability.Communication.NetManager.Core\n @since 12\n @version 1.0"]
     pub fn OH_NetConn_UnregisterAppHttpProxyCallback(callbackId: u32);
 }
 extern "C" {
-    #[doc = " @brief Registers callback, used to monitor specific network status.\n\n @param netSpecifier specifier information.\n @param callback The callback needed to be registered.\n @param timeout The timeout period in milliseconds.\n @param callbackId out param, corresponding to a registered callback.\n @return 0 - Success.\n         201 - Permission denied.\n         401 - Parameter error.\n         2100002 - Failed to connect to the service.\n         2100003 - System internal error.\n         2101008 - The callback already exists.\n         2101022 - The number of requests exceeded the maximum allowed.\n @permission ohos.permission.GET_NETWORK_INFO\n @syscap SystemCapability.Communication.NetManager.Core\n @since 12\n @version 1.0"]
+    #[doc = " @brief Requests global HTTP proxy re-authentication and reports the result through a one-shot callback.\n\n This function submits an asynchronous re-authentication request. A return value of 0 indicates\n that the request has been accepted. It does not indicate that re-authentication has succeeded.\n The final result is reported through the callback.<br>\n\n If this function returns 0, the callback will be invoked at most once. After the callback is\n invoked, it is automatically released by the system.<br>\n\n If this function returns a non-zero value, the callback will not be invoked.<br>\n\n The callback may be invoked on a system worker thread. The caller must ensure that the callback\n implementation is thread-safe and returns quickly.<br>\n\n The caller must ensure that the callback function and userData remain valid until the callback\n is invoked.\n\n @permission ohos.permission.INTERNET\n @param callback The one-shot callback used to receive the re-authentication result. It must not be NULL.\n @param userContext The user-defined data passed to the callback. It can be NULL. The system does\n     not access, copy, or release it.\n @return <ul><li>0 - Success.</li>\n     <li>201 - Permission denied.</li>\n     <li>401 - Parameter error.</li></ul>\n @since 26.0.0"]
+    #[cfg(feature = "api-26")]
+    pub fn OH_NetConn_RefreshGlobalHttpProxyWithCallback(
+        callback: OH_NetConn_GlobalHttpProxyRefreshCallback,
+        userContext: *mut ::std::os::raw::c_void,
+    ) -> i32;
+}
+extern "C" {
+    #[doc = " @brief Registers a callback for network status changes.\n\n @param netSpecifier Network feature set.\n @param callback Registered callbacks.\n @param timeout Timeout duration, in milliseconds. The value **0** indicates infinite waiting.\n @param callbackId Callback IDs.\n @return **0**: Success.\n     <br>**201**: Missing permissions.\n     <br>**401**: Parameter error.\n     <br>**2100002**: Service connection failure.\n     <br>**2100003**: Internal error.\n     <br>**2101008**: Callback already registered.\n     <br>**2101022**: Maximum number of requests exceeded.\n @permission ohos.permission.GET_NETWORK_INFO\n @syscap SystemCapability.Communication.NetManager.Core\n @since 12\n @version 1.0"]
     pub fn OH_NetConn_RegisterNetConnCallback(
         specifier: *mut NetConn_NetSpecifier,
         netConnCallback: *mut NetConn_NetConnCallback,
@@ -377,28 +404,28 @@ extern "C" {
     ) -> i32;
 }
 extern "C" {
-    #[doc = " @brief Registers a callback to listen default network's status changed.\n\n @param callback The callback needed to be registered.\n @param callbackId out param, corresponding to a registered callback.\n @return 0 - Success.\n         201 - Permission denied.\n         401 - Parameter error.\n         2100002 - Failed to connect to the service.\n         2100003 - System internal error.\n         2101008 - The callback already exists.\n         2101022 - The number of requests exceeded the maximum allowed.\n @permission ohos.permission.GET_NETWORK_INFO\n @syscap SystemCapability.Communication.NetManager.Core\n @since 12\n @version 1.0"]
+    #[doc = " @brief Registers a callback for status changes of the default network.\n\n @param callback Registered callbacks.\n @param callbackId Callback IDs.\n @return **0**: Success.\n     <br>**201**: Missing permissions.\n     <br>**401**: Parameter error.\n     <br>**2100002**: Service connection failure.\n     <br>**2100003**: Internal error.\n     <br>**2101008**: Callback already registered.\n     <br>**2101022**: Maximum number of requests exceeded.\n @permission ohos.permission.GET_NETWORK_INFO\n @syscap SystemCapability.Communication.NetManager.Core\n @since 12\n @version 1.0"]
     pub fn OH_NetConn_RegisterDefaultNetConnCallback(
         netConnCallback: *mut NetConn_NetConnCallback,
         callbackId: *mut u32,
     ) -> i32;
 }
 extern "C" {
-    #[doc = " @brief Unregisters network status callback.\n\n @param callBackId the id corresponding to a registered callback.\n @return 0 - Success.\n         201 - Permission denied.\n         401 - Parameter error.\n         2100002 - Failed to connect to the service.\n         2100003 - System internal error.\n         2101007 - The callback does not exists.\n @permission ohos.permission.GET_NETWORK_INFO\n @syscap SystemCapability.Communication.NetManager.Core\n @since 12\n @version 1.0"]
+    #[doc = " @brief Unregisters the callback for network status changes.\n\n @param callBackId ID of the callback to unregister.\n @return **0**: Success.\n     <br>**201**: Missing permissions.\n     <br>**401**: Parameter error.\n     <br>**2100002**: Service connection failure.\n     <br>**2100003**: Internal error.\n     <br>**2101007**: Callback not exist.\n @permission ohos.permission.GET_NETWORK_INFO\n @syscap SystemCapability.Communication.NetManager.Core\n @since 12\n @version 1.0"]
     pub fn OH_NetConn_UnregisterNetConnCallback(callBackId: u32) -> i32;
 }
 extern "C" {
-    #[doc = " @brief Sets the URL of the current PAC script.\n\n @param pacUrl the URL of the current PAC script.\n @return the result defines in {@link NetConn_ErrorCode}.\n         {@link NETCONN_SUCCESS} Success.\n         {@link NETCONN_PERMISSION_DENIED} Permission denied.\n         {@link NETCONN_PARAMETER_ERROR} Parameter check failed.\n         {@link NETCONN_OPERATION_FAILED} Failed to connect to the service.\n         {@link NETCONN_INTERNAL_ERROR} System internal error.\n @permission ohos.permission.SET_PAC_URL\n @since 15"]
+    #[doc = " @brief Sets the URL of the system-level Proxy Auto Config (PAC) script, for example, **http://127.0.0.1:21998/\n PacProxyScript.pac**. You can obtain the proxy information by parsing the URL.\n\n @param pacUrl Address of the PAC script.\n @return Result code defined in {@link NetConn_ErrorCode}.\n     <br>{@link NETCONN_SUCCESS}: success.\n     <br>{@link NETCONN_PERMISSION_DENIED}: permission denied.\n     <br>{@link NETCONN_PARAMETER_ERROR}: parameter error.\n     <br>{@link NETCONN_OPERATION_FAILED}: unable to connect to the service.\n     <br>{@link NETCONN_INTERNAL_ERROR}: internal error.\n @permission ohos.permission.SET_PAC_URL\n @since 15"]
     #[cfg(feature = "api-15")]
     pub fn OH_NetConn_SetPacUrl(pacUrl: *const ::std::os::raw::c_char) -> NetConn_ErrorCode;
 }
 extern "C" {
-    #[doc = " @brief Obtains the URL of the current PAC script.\n\n @param pacUrl the URL of the current PAC script.\n @return the result defines in {@link NetConn_ErrorCode}.\n         {@link NETCONN_SUCCESS} Success.\n         {@link NETCONN_PARAMETER_ERROR} Parameter check failed.\n         {@link NETCONN_OPERATION_FAILED} Failed to connect to the service.\n         {@link NETCONN_INTERNAL_ERROR} System internal error.\n @since 15"]
+    #[doc = " @brief Obtains the URL of the system-level PAC script.\n\n @param pacUrl URL of the PAC script.\n @return Result code defined in {@link NetConn_ErrorCode}.\n     <br>{@link NETCONN_SUCCESS}: success.\n     <br>{@link NETCONN_PARAMETER_ERROR}: parameter error.\n     <br>{@link NETCONN_OPERATION_FAILED}: unable to connect to the service.\n     <br>{@link NETCONN_INTERNAL_ERROR}: internal error.\n @since 15"]
     #[cfg(feature = "api-15")]
     pub fn OH_NetConn_GetPacUrl(pacUrl: *mut ::std::os::raw::c_char) -> NetConn_ErrorCode;
 }
 extern "C" {
-    #[doc = " @brief Query a network probe result.\n\n @param destination Pointer to the destination.\n @param duration probe duration. Unit: second.\n @param probeResultInfo Pointer to probe loss rate and rtt.\n @return 0 - Success.\n         201 - Missing permissions.\n         401 - Parameter error.\n         2100003 - Internal error.\n @permission ohos.permission.INTERNET\n @since 20"]
+    #[doc = " @brief Queries network probe results. If an exception (for example, network disconnection) occurs and the request\n fails to be sent, the API immediately returns the result without performing subsequent detection. This API involves\n network operations. Do not call it in the main process. Otherwise, the UI may freeze.\n\n @param destination Target domain name or IP address to be detected. For a domain name, the domain name is resolved\n     to the target IP address before the detection, and then the detection is initiated. The domain name resolution\n     time is not included in the probe duration indicated by duration.\n @param duration Probe duration. in seconds. The detection interval is 1 second. Therefore, you can use this field to\n     control the number of detections.\n @param probeResultInfo Packet loss rate and round-trip time (RTT).\n @return **0**: Success.\n     <br>**201**: Missing permissions.\n     <br>**401**: Parameter error.\n     <br>**2100003**: Internal error.\n @permission ohos.permission.INTERNET\n @since 20"]
     #[cfg(feature = "api-20")]
     pub fn OH_NetConn_QueryProbeResult(
         destination: *mut ::std::os::raw::c_char,
@@ -407,7 +434,7 @@ extern "C" {
     ) -> i32;
 }
 extern "C" {
-    #[doc = " @brief Query a network trace route.\n\n @param destination Pointer to the destination.\n @param option Pointer to the trace route option\n @param traceRouteInfo Pointer to trace route result.\n @return 0 - Success.\n         201 - Missing permissions.\n @permission ohos.permission.INTERNET and ohos.permission.LOCATION and ohos.permission.ACCESS_NET_TRACE_INFO\n @since 20"]
+    #[doc = " @brief Queries network trace route information.\n\n @param destination Destination address.\n @param option Route options.\n @param traceRouteInfo Route result. An array pointer needs to be passed. The array size indicates the number of\n     route hops, which is **30** by default. If you customize the number of hops, ensure that the array size is the\n     same as the value of **maxJumpNumber** in the **option** field.\n @return **0**: Success.\n     <br>**201**: Missing permissions.\n @permission ohos.permission.INTERNET and ohos.permission.LOCATION and ohos.permission.ACCESS_NET_TRACE_INFO\n @since 20"]
     #[cfg(feature = "api-20")]
     pub fn OH_NetConn_QueryTraceRoute(
         destination: *mut ::std::os::raw::c_char,

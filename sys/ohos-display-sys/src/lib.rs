@@ -11,84 +11,84 @@
 #[link(name = "native_display_manager")]
 unsafe extern "C" {}
 
-#[doc = " device rotation 0 degree"]
+#[doc = " The display is rotated clockwise by 0 degrees."]
 pub const NativeDisplayManager_Rotation_DISPLAY_MANAGER_ROTATION_0: NativeDisplayManager_Rotation =
     0;
-#[doc = " device rotation 90 degrees"]
+#[doc = " The display is rotated clockwise by 90 degrees."]
 pub const NativeDisplayManager_Rotation_DISPLAY_MANAGER_ROTATION_90: NativeDisplayManager_Rotation =
     1;
-#[doc = " device rotation 180 degrees"]
+#[doc = " The display is rotated clockwise by 180 degrees."]
 pub const NativeDisplayManager_Rotation_DISPLAY_MANAGER_ROTATION_180:
     NativeDisplayManager_Rotation = 2;
-#[doc = " device rotation 270 degree"]
+#[doc = " The display is rotated clockwise by 270 degrees."]
 pub const NativeDisplayManager_Rotation_DISPLAY_MANAGER_ROTATION_270:
     NativeDisplayManager_Rotation = 3;
-#[doc = " @brief Enumerates rotations.\n\n @since 12\n @version 1.0"]
+#[doc = " @brief Enumerates the clockwise rotation angles of a display.\n\n @since 12\n @version 1.0"]
 pub type NativeDisplayManager_Rotation = u32;
-#[doc = " device portrait show"]
+#[doc = " The display is in portrait mode."]
 pub const NativeDisplayManager_Orientation_DISPLAY_MANAGER_PORTRAIT:
     NativeDisplayManager_Orientation = 0;
-#[doc = " device landscape show"]
+#[doc = " The display is in landscape mode."]
 pub const NativeDisplayManager_Orientation_DISPLAY_MANAGER_LANDSCAPE:
     NativeDisplayManager_Orientation = 1;
-#[doc = " device portrait inverted show"]
+#[doc = " The display is in reverse portrait mode."]
 pub const NativeDisplayManager_Orientation_DISPLAY_MANAGER_PORTRAIT_INVERTED:
     NativeDisplayManager_Orientation = 2;
-#[doc = " device landscape inverted show"]
+#[doc = " The display is in reverse landscape mode."]
 pub const NativeDisplayManager_Orientation_DISPLAY_MANAGER_LANDSCAPE_INVERTED:
     NativeDisplayManager_Orientation = 3;
-#[doc = " device unknow show"]
+#[doc = " The screen orientation is unknown."]
 pub const NativeDisplayManager_Orientation_DISPLAY_MANAGER_UNKNOWN:
     NativeDisplayManager_Orientation = 4;
-#[doc = " @brief Enumerates orientations.\n\n @since 12\n @version 1.0"]
+#[doc = " @brief Enumerates the orientations of a display.\n\n @since 12\n @version 1.0"]
 pub type NativeDisplayManager_Orientation = u32;
-#[doc = " @error Operation is successful"]
+#[doc = " Success."]
 pub const NativeDisplayManager_ErrorCode_DISPLAY_MANAGER_OK: NativeDisplayManager_ErrorCode = 0;
-#[doc = " @error Operation no permission"]
+#[doc = " Permission verification fails. The application does not have the permission to use the API."]
 pub const NativeDisplayManager_ErrorCode_DISPLAY_MANAGER_ERROR_NO_PERMISSION:
     NativeDisplayManager_ErrorCode = 201;
-#[doc = " @error Operation not system app"]
+#[doc = " Permission verification fails. A non-system application attempts to call a system API."]
 pub const NativeDisplayManager_ErrorCode_DISPLAY_MANAGER_ERROR_NOT_SYSTEM_APP:
     NativeDisplayManager_ErrorCode = 202;
-#[doc = " @error Operation invalid param"]
+#[doc = " Parameter check fails."]
 pub const NativeDisplayManager_ErrorCode_DISPLAY_MANAGER_ERROR_INVALID_PARAM:
     NativeDisplayManager_ErrorCode = 401;
-#[doc = " @error Operation device not supported"]
+#[doc = " The device does not support the API."]
 pub const NativeDisplayManager_ErrorCode_DISPLAY_MANAGER_ERROR_DEVICE_NOT_SUPPORTED:
     NativeDisplayManager_ErrorCode = 801;
-#[doc = " @error Operation screen invalid"]
+#[doc = " The display is invalid."]
 pub const NativeDisplayManager_ErrorCode_DISPLAY_MANAGER_ERROR_INVALID_SCREEN:
     NativeDisplayManager_ErrorCode = 1400001;
-#[doc = " @error Operation invalid call"]
+#[doc = " The current operation object does not have the operation permission."]
 pub const NativeDisplayManager_ErrorCode_DISPLAY_MANAGER_ERROR_INVALID_CALL:
     NativeDisplayManager_ErrorCode = 1400002;
-#[doc = " @error Operation system abnormal"]
+#[doc = " The system service is abnormal."]
 pub const NativeDisplayManager_ErrorCode_DISPLAY_MANAGER_ERROR_SYSTEM_ABNORMAL:
     NativeDisplayManager_ErrorCode = 1400003;
-#[doc = " @error Operation illegal param.\n\n @since 20"]
+#[doc = " Invalid parameter.\n @since 20"]
 #[cfg(feature = "api-20")]
 pub const NativeDisplayManager_ErrorCode_DISPLAY_MANAGER_ERROR_ILLEGAL_PARAM:
     NativeDisplayManager_ErrorCode = 1400004;
-#[doc = " @brief Enumerates the result types of the display manager interface.\n\n @since 12\n @version 1.0"]
+#[doc = " @brief Enumerates the status codes returned by the display manager interface.\n\n @since 12\n @version 1.0"]
 pub type NativeDisplayManager_ErrorCode = u32;
-#[doc = " display mode unknown"]
+#[doc = " The display mode of the device is unknown."]
 pub const NativeDisplayManager_FoldDisplayMode_DISPLAY_MANAGER_FOLD_DISPLAY_MODE_UNKNOWN:
     NativeDisplayManager_FoldDisplayMode = 0;
-#[doc = " display mode full"]
+#[doc = " The device is displayed in full screen."]
 pub const NativeDisplayManager_FoldDisplayMode_DISPLAY_MANAGER_FOLD_DISPLAY_MODE_FULL:
     NativeDisplayManager_FoldDisplayMode = 1;
-#[doc = " display mode main"]
+#[doc = " The main screen of the device is displayed."]
 pub const NativeDisplayManager_FoldDisplayMode_DISPLAY_MANAGER_FOLD_DISPLAY_MODE_MAIN:
     NativeDisplayManager_FoldDisplayMode = 2;
-#[doc = " display mode sub"]
+#[doc = " The subscreen of the device is displayed."]
 pub const NativeDisplayManager_FoldDisplayMode_DISPLAY_MANAGER_FOLD_DISPLAY_MODE_SUB:
     NativeDisplayManager_FoldDisplayMode = 3;
-#[doc = " display mode coordination"]
+#[doc = " Both screens of the device are displayed in collaborative mode."]
 pub const NativeDisplayManager_FoldDisplayMode_DISPLAY_MANAGER_FOLD_DISPLAY_MODE_COORDINATION:
     NativeDisplayManager_FoldDisplayMode = 4;
-#[doc = " @brief Enumerates the fold display mode.\n\n @since 12\n @version 1.0"]
+#[doc = " @brief Enumerates the display modes of a foldable device.\n\n @since 12\n @version 1.0"]
 pub type NativeDisplayManager_FoldDisplayMode = u32;
-#[doc = " @brief Defines the display rect data structure.\n\n @since 12\n @version 1.0"]
+#[doc = " @brief The struct describes a rectangle.\n\n @since 12\n @version 1.0"]
 #[repr(C)]
 #[derive(Debug, Copy, Clone)]
 pub struct NativeDisplayManager_Rect {
@@ -97,7 +97,7 @@ pub struct NativeDisplayManager_Rect {
     pub width: u32,
     pub height: u32,
 }
-#[doc = " @brief Defines the display waterfallDisplayAreaRects data structure.\n\n @since 12\n @version 1.0"]
+#[doc = " @brief The struct describes the curved area on a waterfall display.\n\n @since 12\n @version 1.0"]
 #[repr(C)]
 #[derive(Debug, Copy, Clone)]
 pub struct NativeDisplayManager_WaterfallDisplayAreaRects {
@@ -106,7 +106,7 @@ pub struct NativeDisplayManager_WaterfallDisplayAreaRects {
     pub right: NativeDisplayManager_Rect,
     pub bottom: NativeDisplayManager_Rect,
 }
-#[doc = " @brief Defines the display cutout info data structure.\n\n @since 12\n @version 1.0"]
+#[doc = " @brief The struct describes the unusable area of a display, including punch hole, notch, and curved area of a\n waterfall display.\n\n @since 12\n @version 1.0"]
 #[repr(C)]
 #[derive(Debug, Copy, Clone)]
 pub struct NativeDisplayManager_CutoutInfo {
@@ -114,278 +114,278 @@ pub struct NativeDisplayManager_CutoutInfo {
     pub boundingRects: *mut NativeDisplayManager_Rect,
     pub waterfallDisplayAreaRects: NativeDisplayManager_WaterfallDisplayAreaRects,
 }
-#[doc = " display state unknown"]
+#[doc = " Unknown."]
 #[cfg(feature = "api-14")]
 pub const NativeDisplayManager_DisplayState_DISPLAY_MANAGER_DISPLAY_STATE_UNKNOWN:
     NativeDisplayManager_DisplayState = 0;
-#[doc = " display state off"]
+#[doc = " The display is shut down."]
 #[cfg(feature = "api-14")]
 pub const NativeDisplayManager_DisplayState_DISPLAY_MANAGER_DISPLAY_STATE_OFF:
     NativeDisplayManager_DisplayState = 1;
-#[doc = " display state on"]
+#[doc = " The display is powered on."]
 #[cfg(feature = "api-14")]
 pub const NativeDisplayManager_DisplayState_DISPLAY_MANAGER_DISPLAY_STATE_ON:
     NativeDisplayManager_DisplayState = 2;
-#[doc = " display state doze"]
+#[doc = " The display is in sleep mode."]
 #[cfg(feature = "api-14")]
 pub const NativeDisplayManager_DisplayState_DISPLAY_MANAGER_DISPLAY_STATE_DOZE:
     NativeDisplayManager_DisplayState = 3;
-#[doc = " display state doze suspend"]
+#[doc = " The display is in sleep mode, and the CPU is suspended."]
 #[cfg(feature = "api-14")]
 pub const NativeDisplayManager_DisplayState_DISPLAY_MANAGER_DISPLAY_STATE_DOZE_SUSPEND:
     NativeDisplayManager_DisplayState = 4;
-#[doc = " display state vr"]
+#[doc = " The display is in VR mode."]
 #[cfg(feature = "api-14")]
 pub const NativeDisplayManager_DisplayState_DISPLAY_MANAGER_DISPLAY_STATE_VR:
     NativeDisplayManager_DisplayState = 5;
-#[doc = " display state on suspend"]
+#[doc = " The display is powered on, and the CPU is suspended."]
 #[cfg(feature = "api-14")]
 pub const NativeDisplayManager_DisplayState_DISPLAY_MANAGER_DISPLAY_STATE_ON_SUSPEND:
     NativeDisplayManager_DisplayState = 6;
-#[doc = " @brief Enumerates of the display state.\n\n @since 14\n @version 1.0"]
+#[doc = " @brief Enumerates the states of a display.\n\n @since 14\n @version 1.0"]
 #[cfg(feature = "api-14")]
 pub type NativeDisplayManager_DisplayState = u32;
-#[doc = " display is not in use"]
+#[doc = " The device is currently not in use."]
 #[cfg(feature = "api-20")]
 pub const NativeDisplayManager_SourceMode_DISPLAY_SOURCE_MODE_NONE:
     NativeDisplayManager_SourceMode = 0;
-#[doc = " display is in main mode"]
+#[doc = " The primary screen of the device is currently in use."]
 #[cfg(feature = "api-20")]
 pub const NativeDisplayManager_SourceMode_DISPLAY_SOURCE_MODE_MAIN:
     NativeDisplayManager_SourceMode = 1;
-#[doc = " display is in mirror mode"]
+#[doc = " The device is currently in mirror display mode."]
 #[cfg(feature = "api-20")]
 pub const NativeDisplayManager_SourceMode_DISPLAY_SOURCE_MODE_MIRROR:
     NativeDisplayManager_SourceMode = 2;
-#[doc = " display is in extend mode"]
+#[doc = " The device is currently in extended display mode."]
 #[cfg(feature = "api-20")]
 pub const NativeDisplayManager_SourceMode_DISPLAY_SOURCE_MODE_EXTEND:
     NativeDisplayManager_SourceMode = 3;
-#[doc = " display stands alone"]
+#[doc = " The device is currently in independent display mode."]
 #[cfg(feature = "api-20")]
 pub const NativeDisplayManager_SourceMode_DISPLAY_SOURCE_MODE_ALONE:
     NativeDisplayManager_SourceMode = 4;
-#[doc = " @brief Enumerates of the display source mode.\n\n @since 20\n @version 1.0"]
+#[doc = " @brief Enumerates the source modes of a device.\n\n @since 20\n @version 1.0"]
 #[cfg(feature = "api-20")]
 pub type NativeDisplayManager_SourceMode = u32;
-#[doc = " @brief Defines the display hdr structure.\n\n @since 14\n @version 1.0"]
+#[doc = " @brief The struct describes all the HDR formats supported by a display.\n\n @since 14\n @version 1.0"]
 #[cfg(feature = "api-14")]
 #[repr(C)]
 #[derive(Debug, Copy, Clone)]
 pub struct NativeDisplayManager_DisplayHdrFormat {
-    #[doc = " hdrFormat length"]
+    #[doc = " Number of HDR formats supported by the display."]
     pub hdrFormatLength: u32,
-    #[doc = " hdrFormat pointer"]
+    #[doc = " Data of the HDR formats supported by the display."]
     pub hdrFormats: *mut u32,
 }
-#[doc = " @brief Defines the display color space structure.\n\n @since 14\n @version 1.0"]
+#[doc = " @brief The struct describes all the color spaces supported by a display.\n\n @since 14\n @version 1.0"]
 #[cfg(feature = "api-14")]
 #[repr(C)]
 #[derive(Debug, Copy, Clone)]
 pub struct NativeDisplayManager_DisplayColorSpace {
-    #[doc = " color space length"]
+    #[doc = " Number of color spaces supported by the display."]
     pub colorSpaceLength: u32,
-    #[doc = " color space pointer"]
+    #[doc = " Data of the color spaces supported by the display."]
     pub colorSpaces: *mut u32,
 }
-#[doc = " @brief Defines the display structure.\n\n @since 14\n @version 1.0"]
+#[doc = " @brief The struct describes the information about a display.\n\n @since 14\n @version 1.0"]
 #[cfg(feature = "api-14")]
 #[repr(C)]
 #[derive(Debug, Copy, Clone)]
 pub struct NativeDisplayManager_DisplayInfo {
-    #[doc = " display id"]
+    #[doc = " ID of the display. The value is a non-negative integer."]
     pub id: u32,
     #[doc = " display name"]
     pub name: [::std::os::raw::c_char; 33usize],
-    #[doc = " display is alive"]
+    #[doc = " Whether the display is active. **true** if active, **false** otherwise."]
     pub isAlive: bool,
-    #[doc = " display width"]
+    #[doc = " Width of the display, in px. The value is a non-negative integer."]
     pub width: i32,
-    #[doc = " display height"]
+    #[doc = " Height of the display, in px. The value is a non-negative integer."]
     pub height: i32,
-    #[doc = " display physical width"]
+    #[doc = " Physical width of the display, in px. The value is a non-negative integer."]
     pub physicalWidth: i32,
-    #[doc = " display physical height"]
+    #[doc = " Physical height of the display, in px. The value is a non-negative integer."]
     pub physicalHeight: i32,
-    #[doc = " display refresh rate"]
+    #[doc = " Refresh rate of the display, in Hz. The value is a non-negative integer."]
     pub refreshRate: u32,
-    #[doc = " display available width"]
+    #[doc = " Width of the available area on the screen of the display, in px. The value is a non-negative integer.\n\n This API can be properly called on devices running OpenHarmony 7.0.0 or later.\n For devices running versions earlier than OpenHarmony 7.0.0,\n this API can be properly called on PCs/2-in-1 devices and tablets,\n but does not work for other device types.\n To obtain the width of the available area on the current device screen, you can use the width attribute."]
     pub availableWidth: u32,
-    #[doc = " display available height"]
+    #[doc = " Height of the available area on the screen of the display, in px. The value is a non-negative integer.\n\n This API can be properly called on devices running OpenHarmony 7.0.0 or later.\n For devices running versions earlier than OpenHarmony 7.0.0,\n this API can be properly called on PCs/2-in-1 devices and tablets,\n but does not work for other device types.\n To obtain the height of the available area on the current device screen, you can use the height attribute."]
     pub availableHeight: u32,
-    #[doc = " display density dpi"]
+    #[doc = " Physical pixel density of the display, that is, the number of pixels per inch. The value must be a floating-\n point number greater than 0. The unit is px. Generally, the value is **160.0** or **480.0**. The actual value\n depends on the optional values provided by the device in use."]
     pub densityDPI: f32,
-    #[doc = " display density pixels"]
+    #[doc = " Logical pixel density of the display, which is the scaling coefficient between physical pixels and logical\n pixels. The value is a floating-point number greater than 0 and is restricted by the range of **densityDPI**.\n The value range is [0.5, 4.0]. Generally, the value is **1.0** or **3.0**. The actual value depends on the\n density DPI provided by the device in use."]
     pub densityPixels: f32,
-    #[doc = " display scale density"]
+    #[doc = " Scaling factor for fonts displayed on the display. The value must be a floating-point number greater than 0.\n Generally, the value is the same as that of **densityPixels**."]
     pub scaledDensity: f32,
-    #[doc = " display xdpi"]
+    #[doc = " Exact physical pixels per inch of the display in the X dimension. The value must be a floating-point number\n greater than 0."]
     pub xDPI: f32,
-    #[doc = " display ydpi"]
+    #[doc = " Exact physical pixels per inch of the display in the Y dimension. The value must be a floating-point number\n greater than 0."]
     pub yDPI: f32,
-    #[doc = " display rotation"]
+    #[doc = " Clockwise rotation angle of the display."]
     pub rotation: NativeDisplayManager_Rotation,
-    #[doc = " display state"]
+    #[doc = " State of the display."]
     pub state: NativeDisplayManager_DisplayState,
-    #[doc = " display orientation"]
+    #[doc = " Orientation of the display."]
     pub orientation: NativeDisplayManager_Orientation,
-    #[doc = " display hdr format"]
+    #[doc = " All the HDR formats supported by the display."]
     pub hdrFormat: *mut NativeDisplayManager_DisplayHdrFormat,
-    #[doc = " display color space"]
+    #[doc = " All the color spaces supported by the display."]
     pub colorSpace: *mut NativeDisplayManager_DisplayColorSpace,
 }
-#[doc = " @brief Defines the displays structure.\n\n @since 14\n @version 1.0"]
+#[doc = " @brief The struct describes the information about displays of a device with multiple screens.\n\n @since 14\n @version 1.0"]
 #[cfg(feature = "api-14")]
 #[repr(C)]
 #[derive(Debug, Copy, Clone)]
 pub struct NativeDisplayManager_DisplaysInfo {
-    #[doc = " displays length"]
+    #[doc = " Number of displays of a device with multiple screens."]
     pub displaysLength: u32,
-    #[doc = " displays pointer"]
+    #[doc = " An array of NativeDisplayManager_DisplayInfo structs, each containing information about a display."]
     pub displaysInfo: *mut NativeDisplayManager_DisplayInfo,
 }
 extern "C" {
-    #[doc = " @brief Obtain the default display Id.\n\n @param displayId Indicates the pointer to an <b>uint64_t</b> object.\n @return { @link DISPLAY_MANAGER_OK } If the operation is successful\n         { @link DISPLAY_MANAGER_ERROR_INVALID_PARAM } If Parameter error.\n         { @link DISPLAY_MANAGER_ERROR_SYSTEM_ABNORMAL } If display manager service works abnormally.\n @since 12"]
+    #[doc = " @brief Obtains the ID of the default display.\n\n @param displayId Pointer to the display ID. The value is a non-negative integer.\n @return <ul><li>{@link DISPLAY_MANAGER_OK} If the operation is successful.</li>\n     <li>{@link DISPLAY_MANAGER_ERROR_INVALID_PARAM} If parameter error.</li>\n     <li>{@link DISPLAY_MANAGER_ERROR_SYSTEM_ABNORMAL} If display manager service works abnormally.</li></ul>\n @since 12"]
     pub fn OH_NativeDisplayManager_GetDefaultDisplayId(
         displayId: *mut u64,
     ) -> NativeDisplayManager_ErrorCode;
 }
 extern "C" {
-    #[doc = " @brief Obtain the default display width.\n\n @param displayWidth Indicates the pointer to an <b>int32_t</b> object.\n @return { @link DISPLAY_MANAGER_OK } If the operation is successful\n         { @link DISPLAY_MANAGER_ERROR_INVALID_PARAM } If Parameter error.\n         { @link DISPLAY_MANAGER_ERROR_SYSTEM_ABNORMAL } If display manager service works abnormally.\n @since 12"]
+    #[doc = " @brief Obtains the width of the default display.\n\n @param displayWidth Pointer to the width, in px. The value is an integer.\n @return <ul><li>{@link DISPLAY_MANAGER_OK} If the operation is successful.</li>\n     <li>{@link DISPLAY_MANAGER_ERROR_INVALID_PARAM} If parameter error.</li>\n     <li>{@link DISPLAY_MANAGER_ERROR_SYSTEM_ABNORMAL} If display manager service works abnormally.</li></ul>\n @since 12"]
     pub fn OH_NativeDisplayManager_GetDefaultDisplayWidth(
         displayWidth: *mut i32,
     ) -> NativeDisplayManager_ErrorCode;
 }
 extern "C" {
-    #[doc = " @brief Obtain the default display height.\n\n @param displayHeight Indicates the pointer to an <b>int32_t</b> object.\n @return { @link DISPLAY_MANAGER_OK } If the operation is successful\n         { @link DISPLAY_MANAGER_ERROR_INVALID_PARAM } If Parameter error.\n         { @link DISPLAY_MANAGER_ERROR_SYSTEM_ABNORMAL } If display manager service works abnormally.\n @since 12"]
+    #[doc = " @brief Obtains the height of the default display.\n\n @param displayHeight Pointer to the height, in px. The value is an integer.\n @return <ul><li>{@link DISPLAY_MANAGER_OK} If the operation is successful.</li>\n     <li>{@link DISPLAY_MANAGER_ERROR_INVALID_PARAM} If parameter error.</li>\n     <li>{@link DISPLAY_MANAGER_ERROR_SYSTEM_ABNORMAL} If display manager service works abnormally.</li></ul>\n @since 12"]
     pub fn OH_NativeDisplayManager_GetDefaultDisplayHeight(
         displayHeight: *mut i32,
     ) -> NativeDisplayManager_ErrorCode;
 }
 extern "C" {
-    #[doc = " @brief Obtain the default display rotation.\n\n @param displayRotation Indicates the pointer to an <b>NativeDisplayManager_Rotation</b> object.\n @return { @link DISPLAY_MANAGER_OK } If the operation is successful\n         { @link DISPLAY_MANAGER_ERROR_INVALID_PARAM } If Parameter error.\n         { @link DISPLAY_MANAGER_ERROR_SYSTEM_ABNORMAL } If display manager service works abnormally.\n @since 12"]
+    #[doc = " @brief Obtains the clockwise rotation angle of the default display.\n\n @param displayRotation Pointer to the clockwise rotation angle. For details about the available options, see\n     {@link NativeDisplayManager_Rotation}.\n @return <ul><li>{@link DISPLAY_MANAGER_OK} If the operation is successful.</li>\n     <li>{@link DISPLAY_MANAGER_ERROR_INVALID_PARAM} If parameter error.</li>\n     <li>{@link DISPLAY_MANAGER_ERROR_SYSTEM_ABNORMAL} If display manager service works abnormally.</li></ul>\n @since 12"]
     pub fn OH_NativeDisplayManager_GetDefaultDisplayRotation(
         displayRotation: *mut NativeDisplayManager_Rotation,
     ) -> NativeDisplayManager_ErrorCode;
 }
 extern "C" {
-    #[doc = " @brief Obtain the default display orientation.\n\n @param displayOrientation Indicates the pointer to an <b>NativeDisplayManager_Orientation</b> object.\n @return { @link DISPLAY_MANAGER_OK } If the operation is successful\n         { @link DISPLAY_MANAGER_ERROR_INVALID_PARAM } If Parameter error.\n         { @link DISPLAY_MANAGER_ERROR_SYSTEM_ABNORMAL } If display manager service works abnormally.\n @since 12"]
+    #[doc = " @brief Obtains the orientation of the default display.\n\n @param displayOrientation Pointer to the orientation. For details about the available options, see\n     {@link NativeDisplayManager_Orientation}.\n @return <ul><li>{@link DISPLAY_MANAGER_OK} If the operation is successful.</li>\n     <li>{@link DISPLAY_MANAGER_ERROR_INVALID_PARAM} If parameter error.</li>\n     <li>{@link DISPLAY_MANAGER_ERROR_SYSTEM_ABNORMAL} If display manager service works abnormally.</li></ul>\n @since 12"]
     pub fn OH_NativeDisplayManager_GetDefaultDisplayOrientation(
         displayOrientation: *mut NativeDisplayManager_Orientation,
     ) -> NativeDisplayManager_ErrorCode;
 }
 extern "C" {
-    #[doc = " @brief Obtain the default display virtualPixels.\n\n @param virtualPixels Indicates the pointer to an <b>float</b> object.\n @return { @link DISPLAY_MANAGER_OK } If the operation is successful\n         { @link DISPLAY_MANAGER_ERROR_INVALID_PARAM } If Parameter error.\n         { @link DISPLAY_MANAGER_ERROR_SYSTEM_ABNORMAL } If display manager service works abnormally.\n @since 12"]
+    #[doc = " @brief Obtains the virtual pixel ratio of the default display.\n\n @param virtualPixels Pointer to the virtual pixel ratio. The value is a floating-point number, and it is usually the\n     same as that of **densityPixels**.\n @return <ul><li>{@link DISPLAY_MANAGER_OK} If the operation is successful.</li>\n     <li>{@link DISPLAY_MANAGER_ERROR_INVALID_PARAM} If parameter error.</li>\n     <li>{@link DISPLAY_MANAGER_ERROR_SYSTEM_ABNORMAL} If display manager service works abnormally.</li></ul>\n @since 12"]
     pub fn OH_NativeDisplayManager_GetDefaultDisplayVirtualPixelRatio(
         virtualPixels: *mut f32,
     ) -> NativeDisplayManager_ErrorCode;
 }
 extern "C" {
-    #[doc = " @brief Obtain the default display refreshRate.\n\n @param refreshRate Indicates the pointer to an <b>uint32_t</b> object.\n @return { @link DISPLAY_MANAGER_OK } If the operation is successful\n         { @link DISPLAY_MANAGER_ERROR_INVALID_PARAM } If Parameter error.\n         { @link DISPLAY_MANAGER_ERROR_SYSTEM_ABNORMAL } If display manager service works abnormally.\n @since 12"]
+    #[doc = " @brief Obtains the refresh rate of the default display.\n\n @param refreshRate Pointer to the refresh rate. The value is an integer, in Hz.\n @return <ul><li>{@link DISPLAY_MANAGER_OK} If the operation is successful.</li>\n     <li>{@link DISPLAY_MANAGER_ERROR_INVALID_PARAM} If parameter error.</li>\n     <li>{@link DISPLAY_MANAGER_ERROR_SYSTEM_ABNORMAL} If display manager service works abnormally.</li></ul>\n @since 12"]
     pub fn OH_NativeDisplayManager_GetDefaultDisplayRefreshRate(
         refreshRate: *mut u32,
     ) -> NativeDisplayManager_ErrorCode;
 }
 extern "C" {
-    #[doc = " @brief Obtain the default display densityDpi.\n\n @param densityDpi Indicates the pointer to an <b>int32_t</b> object.\n @return { @link DISPLAY_MANAGER_OK } If the operation is successful\n         { @link DISPLAY_MANAGER_ERROR_INVALID_PARAM } If Parameter error.\n         { @link DISPLAY_MANAGER_ERROR_SYSTEM_ABNORMAL } If display manager service works abnormally.\n @since 12"]
+    #[doc = " @brief Obtains the physical pixel density of the default display.\n\n @param densityDpi Pointer to the physical pixel density, that is, the number of pixels per inch. The value is an\n     integer, in px. The actual value depends on the options provided in device settings.\n @return <ul><li>{@link DISPLAY_MANAGER_OK} If the operation is successful.</li>\n     <li>{@link DISPLAY_MANAGER_ERROR_INVALID_PARAM} If parameter error.</li>\n     <li>{@link DISPLAY_MANAGER_ERROR_SYSTEM_ABNORMAL} If display manager service works abnormally.</li></ul>\n @since 12"]
     pub fn OH_NativeDisplayManager_GetDefaultDisplayDensityDpi(
         densityDpi: *mut i32,
     ) -> NativeDisplayManager_ErrorCode;
 }
 extern "C" {
-    #[doc = " @brief Obtain the default display densityPixels.\n\n @param densityPixels Indicates the pointer to an <b>float</b> object.\n @return { @link DISPLAY_MANAGER_OK } If the operation is successful\n         { @link DISPLAY_MANAGER_ERROR_INVALID_PARAM } If Parameter error.\n         { @link DISPLAY_MANAGER_ERROR_SYSTEM_ABNORMAL } If display manager service works abnormally.\n @since 12"]
+    #[doc = " @brief Obtains the logical pixel density of the default display.\n\n @param densityPixels Pointer to the logical pixel density, which indicates the scaling coefficient of the physical\n     pixels and logical pixels. The value is a floating-point number in the range [0.5, 4.0]. Generally, the value is\n     **1.0** or **3.0**. The actual value depends on the density DPI provided by the device in use.\n @return <ul><li>{@link DISPLAY_MANAGER_OK} If the operation is successful.</li>\n     <li>{@link DISPLAY_MANAGER_ERROR_INVALID_PARAM} If parameter error.</li>\n     <li>{@link DISPLAY_MANAGER_ERROR_SYSTEM_ABNORMAL} If display manager service works abnormally.</li></ul>\n @since 12"]
     pub fn OH_NativeDisplayManager_GetDefaultDisplayDensityPixels(
         densityPixels: *mut f32,
     ) -> NativeDisplayManager_ErrorCode;
 }
 extern "C" {
-    #[doc = " @brief Obtain the default display scaledDensity.\n\n @param scaledDensity Indicates the pointer to an <b>float</b> object.\n @return { @link DISPLAY_MANAGER_OK } If the operation is successful\n         { @link DISPLAY_MANAGER_ERROR_INVALID_PARAM } If Parameter error.\n         { @link DISPLAY_MANAGER_ERROR_SYSTEM_ABNORMAL } If display manager service works abnormally.\n @since 12"]
+    #[doc = " @brief Obtains the scale factor of fonts displayed on the default display.\n\n @param scaledDensity Pointer to the scale factor. The value is a floating-point number, and it is usually the same\n     as that of **densityPixels**.\n @return <ul><li>{@link DISPLAY_MANAGER_OK} If the operation is successful.</li>\n     <li>{@link DISPLAY_MANAGER_ERROR_INVALID_PARAM} If parameter error.</li>\n     <li>{@link DISPLAY_MANAGER_ERROR_SYSTEM_ABNORMAL} If display manager service works abnormally.</li></ul>\n @since 12"]
     pub fn OH_NativeDisplayManager_GetDefaultDisplayScaledDensity(
         scaledDensity: *mut f32,
     ) -> NativeDisplayManager_ErrorCode;
 }
 extern "C" {
-    #[doc = " @brief Obtain the default display xDpi.\n\n @param xDpi Indicates the pointer to an <b>float</b> object.\n @return { @link DISPLAY_MANAGER_OK } If the operation is successful\n         { @link DISPLAY_MANAGER_ERROR_INVALID_PARAM } If Parameter error.\n         { @link DISPLAY_MANAGER_ERROR_SYSTEM_ABNORMAL } If display manager service works abnormally.\n @since 12"]
+    #[doc = " @brief Obtains the number of physical pixels per inch on the default display in the X dimension.\n\n @param xDpi Pointer to the number of physical pixels per inch in the X dimension. The value is a floating-point\n     number.\n @return <ul><li>{@link DISPLAY_MANAGER_OK} If the operation is successful.</li>\n     <li>{@link DISPLAY_MANAGER_ERROR_INVALID_PARAM} If parameter error.</li>\n     <li>{@link DISPLAY_MANAGER_ERROR_SYSTEM_ABNORMAL} If display manager service works abnormally.</li></ul>\n @since 12"]
     pub fn OH_NativeDisplayManager_GetDefaultDisplayDensityXdpi(
         xDpi: *mut f32,
     ) -> NativeDisplayManager_ErrorCode;
 }
 extern "C" {
-    #[doc = " @brief Obtain the default display yDpi.\n\n @param yDpi Indicates the pointer to an <b>float</b> object.\n @return { @link DISPLAY_MANAGER_OK } If the operation is successful\n         { @link DISPLAY_MANAGER_ERROR_INVALID_PARAM } If Parameter error.\n         { @link DISPLAY_MANAGER_ERROR_SYSTEM_ABNORMAL } If display manager service works abnormally.\n @since 12"]
+    #[doc = " @brief Obtains the number of physical pixels per inch on the default display in the Y dimension.\n\n @param yDpi Pointer to the number of physical pixels per inch in the Y dimension. The value is a floating-point\n     number.\n @return <ul><li>{@link DISPLAY_MANAGER_OK} If the operation is successful.</li>\n     <li>{@link DISPLAY_MANAGER_ERROR_INVALID_PARAM} If parameter error.</li>\n     <li>{@link DISPLAY_MANAGER_ERROR_SYSTEM_ABNORMAL} If display manager service works abnormally.</li></ul>\n @since 12"]
     pub fn OH_NativeDisplayManager_GetDefaultDisplayDensityYdpi(
         yDpi: *mut f32,
     ) -> NativeDisplayManager_ErrorCode;
 }
 extern "C" {
-    #[doc = " @brief Create the cutout info of the device.\n\n @param cutoutInfo Indicates the pointer to an <b>NativeDisplayManager_CutoutInfo</b> object.\n @return { @link DISPLAY_MANAGER_OK } If the operation is successful\n         { @link DISPLAY_MANAGER_ERROR_INVALID_PARAM } If Parameter error.\n         { @link DISPLAY_MANAGER_ERROR_SYSTEM_ABNORMAL } If display manager service works abnormally.\n @since 12"]
+    #[doc = " @brief Obtains the unusable area of the default display, including punch hole, notch, and curved area of a waterfall\n display.\n\n @param cutoutInfo Double pointer to the unusable area information, which is encapsulated in\n     {@link NativeDisplayManager_CutoutInfo}.\n @return <ul><li>{@link DISPLAY_MANAGER_OK} If the operation is successful.</li>\n     <li>{@link DISPLAY_MANAGER_ERROR_INVALID_PARAM} If parameter error.</li>\n     <li>{@link DISPLAY_MANAGER_ERROR_SYSTEM_ABNORMAL} If display manager service works abnormally.</li></ul>\n @since 12"]
     pub fn OH_NativeDisplayManager_CreateDefaultDisplayCutoutInfo(
         cutoutInfo: *mut *mut NativeDisplayManager_CutoutInfo,
     ) -> NativeDisplayManager_ErrorCode;
 }
 extern "C" {
-    #[doc = " @brief Destroy an <b>NativeDisplayManager_CutoutInfo</b> object and reclaims the memory occupied by the object.\n\n @param cutoutInfo Indicates the pointer to an <b>NativeDisplayManager_CutoutInfo</b> object.\n @return { @link DISPLAY_MANAGER_OK } If the operation is successful\n         { @link DISPLAY_MANAGER_ERROR_INVALID_PARAM } If Parameter error.\n @since 12"]
+    #[doc = " @brief Destroys the unusable area of the default display, including punch hole, notch, and curved area of a\n waterfall display.\n\n @param cutoutInfo Pointer to the unusable area information object, which is obtained by calling\n     {@link OH_NativeDisplayManager_CreateDefaultDisplayCutoutInfo}. For details, see\n     {@link NativeDisplayManager_CutoutInfo}.\n @return <ul><li>{@link DISPLAY_MANAGER_OK} If the operation is successful.</li>\n     <li>{@link DISPLAY_MANAGER_ERROR_INVALID_PARAM} If parameter error.</li></ul>\n @since 12"]
     pub fn OH_NativeDisplayManager_DestroyDefaultDisplayCutoutInfo(
         cutoutInfo: *mut NativeDisplayManager_CutoutInfo,
     ) -> NativeDisplayManager_ErrorCode;
 }
 extern "C" {
-    #[doc = " @brief Check whether the device is foldable.\n\n @return { bool } true means the device is foldable.\n @since 12"]
+    #[doc = " @brief Checks whether the current device is foldable.\n\n @return { bool } true means the device is foldable.\n @since 12"]
     pub fn OH_NativeDisplayManager_IsFoldable() -> bool;
 }
 extern "C" {
-    #[doc = " @brief Get the display mode of the foldable device.\n\n @param displayMode Indicates the pointer to an <b>NativeDisplayManager_FoldDisplayMode</b> object.\n @return { @link DISPLAY_MANAGER_OK } If the operation is successful\n         { @link DISPLAY_MANAGER_ERROR_INVALID_PARAM } If Parameter error.\n         { @link DISPLAY_MANAGER_ERROR_DEVICE_NOT_SUPPORTED } device not support.\n @since 12"]
+    #[doc = " @brief Obtains the display mode of the foldable device.\n\n @param displayMode Pointer to the display mode. For details about the available options, see\n     {@link NativeDisplayManager_FoldDisplayMode}.\n @return <ul><li>{@link DISPLAY_MANAGER_OK} If the operation is successful.</li>\n     <li>{@link DISPLAY_MANAGER_ERROR_INVALID_PARAM} If parameter error.</li>\n     <li>{@link DISPLAY_MANAGER_ERROR_DEVICE_NOT_SUPPORTED} If device not support.</li></ul>\n @since 12"]
     pub fn OH_NativeDisplayManager_GetFoldDisplayMode(
         displayMode: *mut NativeDisplayManager_FoldDisplayMode,
     ) -> NativeDisplayManager_ErrorCode;
 }
-#[doc = " @brief the callback function type when display change.\n\n @param displayId change display id.\n @since 12"]
+#[doc = " @brief Defines a callback function to listen for display status changes.\n\n @param displayId ID of the display.\n @since 12"]
 pub type OH_NativeDisplayManager_DisplayChangeCallback =
     ::std::option::Option<unsafe extern "C" fn(displayId: u64)>;
 extern "C" {
-    #[doc = " @brief Register the callback for display change listener.\n\n @param displayChangeCallback display change callback.\n @param listenerIndex Indicates the pointer to an <b>uint32_t</b> object. used in unregister call.\n @return { @link DISPLAY_MANAGER_OK } If the operation is successful\n         { @link DISPLAY_MANAGER_ERROR_INVALID_PARAM } If Parameter error.\n         { @link DISPLAY_MANAGER_ERROR_SYSTEM_ABNORMAL } If display manager service works abnormally.\n @since 12"]
+    #[doc = " @brief Registers a listener for display status changes (such as rotation, refresh rate, DPI, and resolution changes).\n\n @param displayChangeCallback Callback function triggered when the display status is changed. For details, see\n     {@link OH_NativeDisplayManager_DisplayChangeCallback}.\n @param listenerIndex Pointer to the index of the listener registered. It can be used as an input parameter of\n     {@link OH_NativeDisplayManager_UnregisterDisplayChangeListener}.\n @return <ul><li>{@link DISPLAY_MANAGER_OK} If the operation is successful.</li>\n     <li>{@link DISPLAY_MANAGER_ERROR_INVALID_PARAM} If parameter error.</li>\n     <li>{@link DISPLAY_MANAGER_ERROR_SYSTEM_ABNORMAL} If display manager service works abnormally.</li></ul>\n @since 12"]
     pub fn OH_NativeDisplayManager_RegisterDisplayChangeListener(
         displayChangeCallback: OH_NativeDisplayManager_DisplayChangeCallback,
         listenerIndex: *mut u32,
     ) -> NativeDisplayManager_ErrorCode;
 }
 extern "C" {
-    #[doc = " @brief Unregister the callback for display changes listener.\n\n @param listenerIndex display changed listener index.\n @return { @link DISPLAY_MANAGER_OK } If the operation is successful\n         { @link DISPLAY_MANAGER_ERROR_INVALID_PARAM } If Parameter error.\n         { @link DISPLAY_MANAGER_ERROR_SYSTEM_ABNORMAL } If display manager service works abnormally.\n @since 12"]
+    #[doc = " @brief Unregisters a listener for display status changes.\n\n @param listenerIndex Index of the listener returned when\n     {@link OH_NativeDisplayManager_RegisterDisplayChangeListener} is called.\n @return <ul><li>{@link DISPLAY_MANAGER_OK} If the operation is successful.</li>\n     <li>{@link DISPLAY_MANAGER_ERROR_INVALID_PARAM} If parameter error.</li>\n     <li>{@link DISPLAY_MANAGER_ERROR_SYSTEM_ABNORMAL} If display manager service works abnormally.</li></ul>\n @since 12"]
     pub fn OH_NativeDisplayManager_UnregisterDisplayChangeListener(
         listenerIndex: u32,
     ) -> NativeDisplayManager_ErrorCode;
 }
-#[doc = " @brief the callback function type when display fold change.\n\n @param displayMode current fold display mode.\n @since 12"]
+#[doc = " @brief Defines a callback function to listen for folded/unfolded state changes of the display.\n\n @param displayMode Folded or unfolded state of the display. For details about the available options, see\n     {@link NativeDisplayManager_FoldDisplayMode}.\n @since 12"]
 pub type OH_NativeDisplayManager_FoldDisplayModeChangeCallback =
     ::std::option::Option<unsafe extern "C" fn(displayMode: NativeDisplayManager_FoldDisplayMode)>;
 extern "C" {
-    #[doc = " @brief Register the callback for display mode change listener.\n\n @param displayModeChangeCallback display mode change callback.\n @param listenerIndex Indicates the pointer to an <b>uint32_t</b> object. used in unregister call.\n @return { @link DISPLAY_MANAGER_OK } If the operation is successful\n         { @link DISPLAY_MANAGER_ERROR_INVALID_PARAM } If Parameter error.\n         { @link DISPLAY_MANAGER_ERROR_DEVICE_NOT_SUPPORTED } device not support.\n         { @link DISPLAY_MANAGER_ERROR_SYSTEM_ABNORMAL } If display manager service works abnormally.\n @since 12"]
+    #[doc = " @brief Registers a listener for folded/unfolded state changes of the display.\n\n @param displayModeChangeCallback Callback function triggered when the folded/unfolded state of the display is\n     changed. For details, see {@link OH_NativeDisplayManager_FoldDisplayModeChangeCallback}.\n @param listenerIndex Pointer to the index of the listener registered. It can be used as an input parameter of\n     {@link OH_NativeDisplayManager_UnregisterFoldDisplayModeChangeListener}.\n @return <ul><li>{@link DISPLAY_MANAGER_OK} If the operation is successful.</li>\n     <li>{@link DISPLAY_MANAGER_ERROR_INVALID_PARAM} If parameter error.</li>\n     <li>{@link DISPLAY_MANAGER_ERROR_DEVICE_NOT_SUPPORTED} If device not support.</li>\n     <li>{@link DISPLAY_MANAGER_ERROR_SYSTEM_ABNORMAL} If display manager service works abnormally.</li></ul>\n @since 12"]
     pub fn OH_NativeDisplayManager_RegisterFoldDisplayModeChangeListener(
         displayModeChangeCallback: OH_NativeDisplayManager_FoldDisplayModeChangeCallback,
         listenerIndex: *mut u32,
     ) -> NativeDisplayManager_ErrorCode;
 }
 extern "C" {
-    #[doc = " @brief Unregister the callback for display mode change listener.\n\n @param listenerIndex display mode change listener index.\n @return { @link DISPLAY_MANAGER_OK } If the operation is successful\n         { @link DISPLAY_MANAGER_ERROR_INVALID_PARAM } If Parameter error.\n         { @link DISPLAY_MANAGER_ERROR_DEVICE_NOT_SUPPORTED } device not support.\n         { @link DISPLAY_MANAGER_ERROR_SYSTEM_ABNORMAL } If display manager service works abnormally.\n @since 12"]
+    #[doc = " @brief Unregisters a listener for folded/unfolded state changes of the display.\n\n @param listenerIndex Index of the listener returned when\n     {@link OH_NativeDisplayManager_RegisterFoldDisplayModeChangeListener} is called.\n @return <ul><li>{@link DISPLAY_MANAGER_OK} If the operation is successful.</li>\n     <li>{@link DISPLAY_MANAGER_ERROR_INVALID_PARAM} If parameter error.</li>\n     <li>{@link DISPLAY_MANAGER_ERROR_DEVICE_NOT_SUPPORTED} If device not support.</li>\n     <li>{@link DISPLAY_MANAGER_ERROR_SYSTEM_ABNORMAL} If display manager service works abnormally.</li></ul>\n @since 12"]
     pub fn OH_NativeDisplayManager_UnregisterFoldDisplayModeChangeListener(
         listenerIndex: u32,
     ) -> NativeDisplayManager_ErrorCode;
 }
 extern "C" {
-    #[doc = " @brief Create all displays.\n\n @param allDisplays Output parameter for all displays information.\n @return { @link DISPLAY_MANAGER_OK } If the operation is successful.\n         { @link DISPLAY_MANAGER_ERROR_INVALID_PARAM } If Parameter error.\n         { @link DISPLAY_MANAGER_ERROR_SYSTEM_ABNORMAL } If display manager service works abnormally.\n @since 14"]
+    #[doc = " @brief Obtains the object that contains the information about all displays.\n\n @param allDisplays Double pointer to the display information, which is encapsulated in\n     {@link NativeDisplayManager_DisplaysInfo}.\n @return <ul><li>{@link DISPLAY_MANAGER_OK} If the operation is successful.</li>\n     <li>{@link DISPLAY_MANAGER_ERROR_INVALID_PARAM} If parameter error.</li>\n     <li>{@link DISPLAY_MANAGER_ERROR_SYSTEM_ABNORMAL} If display manager service works abnormally.</li></ul>\n @since 14"]
     #[cfg(feature = "api-14")]
     pub fn OH_NativeDisplayManager_CreateAllDisplays(
         allDisplays: *mut *mut NativeDisplayManager_DisplaysInfo,
     ) -> NativeDisplayManager_ErrorCode;
 }
 extern "C" {
-    #[doc = " @brief Destroy all displays.\n\n @param allDisplays all displays to be free.\n @since 14"]
+    #[doc = " @brief Destroys the object that contains the information about all displays.\n\n @param allDisplays Pointer to the display information object, which is obtained by calling\n     {@link OH_NativeDisplayManager_CreateAllDisplays}. For details, see {@link NativeDisplayManager_DisplaysInfo}.\n @since 14"]
     #[cfg(feature = "api-14")]
     pub fn OH_NativeDisplayManager_DestroyAllDisplays(
         allDisplays: *mut NativeDisplayManager_DisplaysInfo,
     );
 }
 extern "C" {
-    #[doc = " @brief Create display information by display id.\n\n @param displayId The display id.\n @param displayInfo The pointer to the display information.\n @return { @link DISPLAY_MANAGER_OK } If the operation is successful.\n         { @link DISPLAY_MANAGER_ERROR_INVALID_PARAM } If Parameter error.\n         { @link DISPLAY_MANAGER_ERROR_SYSTEM_ABNORMAL } If display manager service works abnormally.\n @since 14"]
+    #[doc = " @brief Obtains the object that contains the information about a display.\n\n @param displayId ID of the display. The value must be a non-negative integer.\n @param displayInfo Double pointer to the display information, which is encapsulated in\n     {@link NativeDisplayManager_DisplayInfo}.\n @return <ul><li>{@link DISPLAY_MANAGER_OK} If the operation is successful.</li>\n     <li>{@link DISPLAY_MANAGER_ERROR_INVALID_PARAM} If parameter error.</li>\n     <li>{@link DISPLAY_MANAGER_ERROR_SYSTEM_ABNORMAL} If display manager service works abnormally.</li></ul>\n @since 14"]
     #[cfg(feature = "api-14")]
     pub fn OH_NativeDisplayManager_CreateDisplayById(
         displayId: u32,
@@ -393,25 +393,25 @@ extern "C" {
     ) -> NativeDisplayManager_ErrorCode;
 }
 extern "C" {
-    #[doc = " @brief Destroy the display information.\n\n @param displayInfo the target display to be free.\n @since 14"]
+    #[doc = " @brief Destroys the object that contains the information about a display.\n\n @param displayInfo Pointer to the display information object, which is obtained by calling\n     {@link OH_NativeDisplayManager_CreateDisplayById} or {@link OH_NativeDisplayManager_CreatePrimaryDisplay}. For\n     details, see {@link NativeDisplayManager_DisplayInfo}.\n @since 14"]
     #[cfg(feature = "api-14")]
     pub fn OH_NativeDisplayManager_DestroyDisplay(
         displayInfo: *mut NativeDisplayManager_DisplayInfo,
     );
 }
 extern "C" {
-    #[doc = " @brief Create a primary display.\n\n @param displayInfo The information of the created display.\n @return { @link DISPLAY_MANAGER_OK } If the operation is successful.\n         { @link DISPLAY_MANAGER_ERROR_INVALID_PARAM } If Parameter error.\n         { @link DISPLAY_MANAGER_ERROR_SYSTEM_ABNORMAL } If display manager service works abnormally.\n @since 14"]
+    #[doc = " @brief Obtains the object that contains the information about the primary display. For devices other than 2-in-1\n devices, the displayInfo object obtained contains information about the built-in screen. For 2-in-1 devices with an\n external screen, the displayInfo object obtained contains information about the current primary screen. For 2-in-1\n devices without an external screen, the displayInfo object obtained contains information about the built-in screen.\n\n @param displayInfo Double pointer to the display information, which is encapsulated in\n     {@link NativeDisplayManager_DisplayInfo}.\n @return <ul><li>{@link DISPLAY_MANAGER_OK} If the operation is successful.</li>\n     <li>{@link DISPLAY_MANAGER_ERROR_INVALID_PARAM} If parameter error.</li>\n     <li>{@link DISPLAY_MANAGER_ERROR_SYSTEM_ABNORMAL} If display manager service works abnormally.</li></ul>\n @since 14"]
     #[cfg(feature = "api-14")]
     pub fn OH_NativeDisplayManager_CreatePrimaryDisplay(
         displayInfo: *mut *mut NativeDisplayManager_DisplayInfo,
     ) -> NativeDisplayManager_ErrorCode;
 }
-#[doc = " @brief the callback function type when available area change.\n\n @param displayId The changed display id.\n @since 20"]
+#[doc = " @brief Defines a callback function to listen for available area changes of a display.\n\n @param displayId Display ID, which is a non-negative integer.\n @since 20"]
 #[cfg(feature = "api-20")]
 pub type OH_NativeDisplayManager_AvailableAreaChangeCallback =
     ::std::option::Option<unsafe extern "C" fn(displayId: u64)>;
 extern "C" {
-    #[doc = " @brief Register the callback for available area change listener.\n\n @param availableAreaChangeCallback Available area change callback.\n @param listenerIndex Indicates the pointer to an <b>uint32_t</b> object. used in unregister call.\n @return { @link DISPLAY_MANAGER_OK } If the operation is successful\n         { @link DISPLAY_MANAGER_ERROR_ILLEGAL_PARAM } If Parameter illegal.\n         { @link DISPLAY_MANAGER_ERROR_SYSTEM_ABNORMAL } If display manager service works abnormally.\n @since 20"]
+    #[doc = " @brief Registers a listener for available area changes of the display.\n\n This API can be properly called on devices running OpenHarmony 7.0.0 or later.\n For devices running versions earlier than OpenHarmony 7.0.0,\n this API can be properly called on PCs/2-in-1 devices and tablets.\n If being called on other device types, it does not take effect and no error is reported.\n\n @param availableAreaChangeCallback Callback function triggered when the available area of the display changes.\n     For details, see {@link OH_NativeDisplayManager_AvailableAreaChangeCallback}.\n @param listenerIndex Pointer to the index of the listener registered.\n     It can be used as an input parameter of {@link OH_NativeDisplayManager_UnregisterAvailableAreaChangeListener}.\n @return <ul><li>{@link DISPLAY_MANAGER_OK} If the operation is successful.</li>\n     <li>{@link DISPLAY_MANAGER_ERROR_ILLEGAL_PARAM} If parameter illegal.</li>\n     <li>{@link DISPLAY_MANAGER_ERROR_SYSTEM_ABNORMAL} If display manager service works abnormally.</li></ul>\n @since 20"]
     #[cfg(feature = "api-20")]
     pub fn OH_NativeDisplayManager_RegisterAvailableAreaChangeListener(
         availableAreaChangeCallback: OH_NativeDisplayManager_AvailableAreaChangeCallback,
@@ -419,14 +419,14 @@ extern "C" {
     ) -> NativeDisplayManager_ErrorCode;
 }
 extern "C" {
-    #[doc = " @brief Unregister the callback for available area changes listener.\n\n @param listenerIndex The display changed listener index.\n @return { @link DISPLAY_MANAGER_OK } If the operation is successful\n         { @link DISPLAY_MANAGER_ERROR_ILLEGAL_PARAM } If Parameter illegal.\n         { @link DISPLAY_MANAGER_ERROR_SYSTEM_ABNORMAL } If display manager service works abnormally.\n @since 20"]
+    #[doc = " @brief Unregisters a listener for available area changes of the display.\n\n This API can be properly called on devices running OpenHarmony 7.0.0 or later.\n For devices running versions earlier than OpenHarmony 7.0.0,\n this API can be properly called on PCs/2-in-1 devices and tablets.\n If being called on other device types, it does not take effect and no error is reported.\n\n @param listenerIndex Index of the listener returned\n     when {@link OH_NativeDisplayManager_RegisterAvailableAreaChangeListener} is called.\n @return <ul><li>{@link DISPLAY_MANAGER_OK} If the operation is successful.</li>\n     <li>{@link DISPLAY_MANAGER_ERROR_ILLEGAL_PARAM} If parameter illegal.</li>\n     <li>{@link DISPLAY_MANAGER_ERROR_SYSTEM_ABNORMAL} If display manager service works abnormally.</li></ul>\n @since 20"]
     #[cfg(feature = "api-20")]
     pub fn OH_NativeDisplayManager_UnregisterAvailableAreaChangeListener(
         listenerIndex: u32,
     ) -> NativeDisplayManager_ErrorCode;
 }
 extern "C" {
-    #[doc = " @brief Create the available area.\n\n @param displayId The display id.\n @param availableArea Indicates the pointer to an <b>NativeDisplayManager_Rect</b> object.\n @return { @link DISPLAY_MANAGER_OK } If the operation is successful\n         { @link DISPLAY_MANAGER_ERROR_DEVICE_NOT_SUPPORTED } device not support.\n         { @link DISPLAY_MANAGER_ERROR_SYSTEM_ABNORMAL } If display manager service works abnormally.\n @since 20"]
+    #[doc = " @brief Obtains the available area of a display.\n\n This API can be properly called on devices running OpenHarmony 7.0.0 or later.\n For devices running versions earlier than OpenHarmony 7.0.0,\n this API can be properly called on PCs/2-in-1 devices and tablets, but does not work for other device types.\n To obtain the available screen area on the current device, call\n {@link OH_NativeDisplayManager_GetDefaultDisplayWidth} and {@link OH_NativeDisplayManager_GetDefaultDisplayHeight}.\n\n @param displayId Display ID, which is a non-negative integer.\n @param availableArea Double pointer to the available area of the display. For details, see\n     {@link NativeDisplayManager_Rect}.\n @return <ul><li>{@link DISPLAY_MANAGER_OK} If the operation is successful.</li>\n     <li>{@link DISPLAY_MANAGER_ERROR_ILLEGAL_PARAM} If parameter illegal.</li>\n     <li>{@link DISPLAY_MANAGER_ERROR_SYSTEM_ABNORMAL} If display manager service works abnormally.</li></ul>\n @since 20"]
     #[cfg(feature = "api-20")]
     pub fn OH_NativeDisplayManager_CreateAvailableArea(
         displayId: u64,
@@ -434,18 +434,18 @@ extern "C" {
     ) -> NativeDisplayManager_ErrorCode;
 }
 extern "C" {
-    #[doc = " @brief Destroy an <b>NativeDisplayManager_Rect</b> object and reclaims the memory occupied by the object.\n\n @param availableArea Indicates the pointer to an <b>NativeDisplayManager_Rect</b> object.\n @return { @link DISPLAY_MANAGER_OK } If the operation is successful\n         { @link DISPLAY_MANAGER_ERROR_ILLEGAL_PARAM } If Parameter illegal.\n @since 20"]
+    #[doc = " @brief Destroys the available area of a display.\n\n @param availableArea Pointer to the available area, which is obtained by calling\n     {@link OH_NativeDisplayManager_CreateAvailableArea}.\n     For details about the available area, see {@link NativeDisplayManager_Rect}.\n @return <ul><li>{@link DISPLAY_MANAGER_OK} If the operation is successful.</li>\n     <li>{@link DISPLAY_MANAGER_ERROR_ILLEGAL_PARAM} If parameter illegal.</li></ul>\n @since 20"]
     #[cfg(feature = "api-20")]
     pub fn OH_NativeDisplayManager_DestroyAvailableArea(
         availableArea: *mut NativeDisplayManager_Rect,
     ) -> NativeDisplayManager_ErrorCode;
 }
-#[doc = " @brief the callback function type when display connect.\n\n @param displayId The added display id.\n @since 20"]
+#[doc = " @brief Defines a callback function to listen for display addition events.\n\n @param displayId Display ID, which is a non-negative integer.\n @since 20"]
 #[cfg(feature = "api-20")]
 pub type OH_NativeDisplayManager_DisplayAddCallback =
     ::std::option::Option<unsafe extern "C" fn(displayId: u64)>;
 extern "C" {
-    #[doc = " @brief Register the callback for display connect listener.\n\n @param displayAddCallback display add callback.\n @param listenerIndex Indicates the pointer to an <b>uint32_t</b> object. used in unregister call.\n @return { @link DISPLAY_MANAGER_OK } If the operation is successful\n         { @link DISPLAY_MANAGER_ERROR_ILLEGAL_PARAM } If Parameter illegal.\n         { @link DISPLAY_MANAGER_ERROR_SYSTEM_ABNORMAL } If display manager service works abnormally.\n @since 20"]
+    #[doc = " @brief Registers a listener for display addition events (for example, monitor inserted).\n\n @param displayAddCallback Callback function triggered when a display is added. For details, see\n     {@link OH_NativeDisplayManager_DisplayAddCallback}.\n @param listenerIndex Pointer to the index of the listener registered.\n     It can be used as an input parameter of {@link OH_NativeDisplayManager_UnregisterDisplayAddListener}.\n @return <ul><li>{@link DISPLAY_MANAGER_OK} If the operation is successful.</li>\n     <li>{@link DISPLAY_MANAGER_ERROR_ILLEGAL_PARAM} If parameter illegal.</li>\n     <li>{@link DISPLAY_MANAGER_ERROR_SYSTEM_ABNORMAL} If display manager service works abnormally.</li></ul>\n @since 20"]
     #[cfg(feature = "api-20")]
     pub fn OH_NativeDisplayManager_RegisterDisplayAddListener(
         displayAddCallback: OH_NativeDisplayManager_DisplayAddCallback,
@@ -453,18 +453,18 @@ extern "C" {
     ) -> NativeDisplayManager_ErrorCode;
 }
 extern "C" {
-    #[doc = " @brief Unregister the callback for display connect listener.\n\n @param listenerIndex The display add listener index.\n @return { @link DISPLAY_MANAGER_OK } If the operation is successful\n         { @link DISPLAY_MANAGER_ERROR_ILLEGAL_PARAM } If Parameter illegal.\n         { @link DISPLAY_MANAGER_ERROR_SYSTEM_ABNORMAL } If display manager service works abnormally.\n @since 20"]
+    #[doc = " @brief Unregisters a listener for display addition events.\n\n @param listenerIndex Index of the listener returned when {@link OH_NativeDisplayManager_RegisterDisplayAddListener}\n     is called.\n @return <ul><li>{@link DISPLAY_MANAGER_OK} If the operation is successful.</li>\n     <li>{@link DISPLAY_MANAGER_ERROR_ILLEGAL_PARAM} If parameter illegal.</li>\n     <li>{@link DISPLAY_MANAGER_ERROR_SYSTEM_ABNORMAL} If display manager service works abnormally.</li></ul>\n @since 20"]
     #[cfg(feature = "api-20")]
     pub fn OH_NativeDisplayManager_UnregisterDisplayAddListener(
         listenerIndex: u32,
     ) -> NativeDisplayManager_ErrorCode;
 }
-#[doc = " @brief the callback function type when display disconnect.\n\n @param displayId The removed display id.\n @since 20"]
+#[doc = " @brief Defines a callback function to listen for display removal events.\n\n @param displayId Display ID, which is a non-negative integer.\n @since 20"]
 #[cfg(feature = "api-20")]
 pub type OH_NativeDisplayManager_DisplayRemoveCallback =
     ::std::option::Option<unsafe extern "C" fn(displayId: u64)>;
 extern "C" {
-    #[doc = " @brief Register the callback for display disconnect listener.\n\n @param displayRemoveCallback display remove callback.\n @param listenerIndex Indicates the pointer to an <b>uint32_t</b> object. used in unregister call.\n @return { @link DISPLAY_MANAGER_OK } If the operation is successful\n         { @link DISPLAY_MANAGER_ERROR_ILLEGAL_PARAM } If Parameter illegal.\n         { @link DISPLAY_MANAGER_ERROR_SYSTEM_ABNORMAL } If display manager service works abnormally.\n @since 20"]
+    #[doc = " @brief Registers a listener for display removal events (for example, monitor removed).\n\n @param displayRemoveCallback Callback function triggered when a display is removed. For details, see\n     {@link OH_NativeDisplayManager_DisplayRemoveCallback}.\n @param listenerIndex Pointer to the index of the listener registered.\n     It can be used as an input parameter of {@link OH_NativeDisplayManager_UnregisterDisplayRemoveListener}.\n @return <ul><li>{@link DISPLAY_MANAGER_OK} If the operation is successful.</li>\n     <li>{@link DISPLAY_MANAGER_ERROR_ILLEGAL_PARAM} If parameter illegal.</li>\n     <li>{@link DISPLAY_MANAGER_ERROR_SYSTEM_ABNORMAL} If display manager service works abnormally.</li></ul>\n @since 20"]
     #[cfg(feature = "api-20")]
     pub fn OH_NativeDisplayManager_RegisterDisplayRemoveListener(
         displayRemoveCallback: OH_NativeDisplayManager_DisplayRemoveCallback,
@@ -472,14 +472,14 @@ extern "C" {
     ) -> NativeDisplayManager_ErrorCode;
 }
 extern "C" {
-    #[doc = " @brief Unregister the callback for display disconnect listener.\n\n @param listenerIndex The display remove listener index.\n @return { @link DISPLAY_MANAGER_OK } If the operation is successful\n         { @link DISPLAY_MANAGER_ERROR_ILLEGAL_PARAM } If Parameter illegal.\n         { @link DISPLAY_MANAGER_ERROR_SYSTEM_ABNORMAL } If display manager service works abnormally.\n @since 20"]
+    #[doc = " @brief Unregisters the listener for display removal events.\n\n @param listenerIndex Index of the listener returned when\n     {@link OH_NativeDisplayManager_RegisterDisplayRemoveListener} is called.\n @return <ul><li>{@link DISPLAY_MANAGER_OK} If the operation is successful.</li>\n     <li>{@link DISPLAY_MANAGER_ERROR_ILLEGAL_PARAM} If parameter illegal.</li>\n     <li>{@link DISPLAY_MANAGER_ERROR_SYSTEM_ABNORMAL} If display manager service works abnormally.</li></ul>\n @since 20"]
     #[cfg(feature = "api-20")]
     pub fn OH_NativeDisplayManager_UnregisterDisplayRemoveListener(
         listenerIndex: u32,
     ) -> NativeDisplayManager_ErrorCode;
 }
 extern "C" {
-    #[doc = " @brief Get the source mode of the device.\n\n @param displayId The display id.\n @param sourceMode Indicates the pointer to an <b>NativeDisplayManager_SourceMode</b> object.\n @return { @link DISPLAY_MANAGER_OK } If the operation is successful\n         { @link DISPLAY_MANAGER_ERROR_SYSTEM_ABNORMAL } If display manager service works abnormally.\n @since 20"]
+    #[doc = " @brief Obtains the display source mode. The default value is **DisplaySourceMode.None**.\n\n @param displayId Display ID, which is a non-negative integer.\n @param sourceMode Pointer to the source mode. For details about the available options, see\n     {@link NativeDisplayManager_SourceMode}.\n @return <ul><li>{@link DISPLAY_MANAGER_OK} If the operation is successful.</li>\n     <li>{@link DISPLAY_MANAGER_ERROR_ILLEGAL_PARAM} If Parameter illegal.</li>\n     <li>{@link DISPLAY_MANAGER_ERROR_SYSTEM_ABNORMAL} If display manager service works abnormally.</li></ul>\n @since 20"]
     #[cfg(feature = "api-20")]
     pub fn OH_NativeDisplayManager_GetDisplaySourceMode(
         displayId: u64,
@@ -487,7 +487,7 @@ extern "C" {
     ) -> NativeDisplayManager_ErrorCode;
 }
 extern "C" {
-    #[doc = " @brief Get the position of the device.\n\n @param displayId The display id.\n @param x The x-coordinate of the screen's top-left corner relative to the primary screen's origin (in px).\n @param y The y-coordinate of the screen's top-left corner relative to the primary screen's origin (in px).\n @return { @link DISPLAY_MANAGER_OK } If the operation is successful\n         { @link DISPLAY_MANAGER_ERROR_SYSTEM_ABNORMAL } If display manager service works abnormally.\n @since 20"]
+    #[doc = " @brief Obtains the display position, that is, the x-coordinate and y-coordinate relative to the original point (the\n upper left corner of the main screen).\n\n @param displayId Display ID, which is a non-negative integer.\n @param x Pointer to the x-coordinate relative to the upper left corner of the main screen, in px. The value must be\n     an integer and is returned as an output parameter.\n @param y Pointer to the y-coordinate relative to the upper left corner of the main screen, in px. The value must be\n     an integer and is returned as an output parameter.\n @return <ul><li>{@link DISPLAY_MANAGER_OK} If the operation is successful.</li>\n     <li>{@link DISPLAY_MANAGER_ERROR_ILLEGAL_PARAM} If Parameter illegal.</li>\n     <li>{@link DISPLAY_MANAGER_ERROR_SYSTEM_ABNORMAL} If display manager service works abnormally.</li></ul>\n @since 20"]
     #[cfg(feature = "api-20")]
     pub fn OH_NativeDisplayManager_GetDisplayPosition(
         displayId: u64,
