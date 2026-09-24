@@ -10,6 +10,16 @@ pub enum AssetValue {
     Blob(ManuallyDrop<AssetBlob>),
 }
 
+impl Drop for AssetValue {
+    fn drop(&mut self) {
+        if let AssetValue::Blob(blob) = self {
+            // The native API borrows this buffer for the duration of the call.
+            // Own and release it afterwards, including buffers copied from a query result.
+            unsafe { ManuallyDrop::drop(blob) };
+        }
+    }
+}
+
 pub struct AssetAttr {
     pub tag: AssetTag,
     pub value: AssetValue,
