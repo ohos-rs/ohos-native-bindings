@@ -40,31 +40,33 @@ impl ArkWeb_HttpBodyStream {
     }
 }
 
-pub unsafe fn OH_ArkWebHttpBodyStream_SetUserData(
+pub(crate) unsafe fn OH_ArkWebHttpBodyStream_SetUserData(
     s: *mut ArkWeb_HttpBodyStream,
     data: *mut c_void,
 ) -> i32 {
     (*s).user_data.set(data);
     0
 }
-pub unsafe fn OH_ArkWebHttpBodyStream_GetUserData(s: *const ArkWeb_HttpBodyStream) -> *mut c_void {
+pub(crate) unsafe fn OH_ArkWebHttpBodyStream_GetUserData(
+    s: *const ArkWeb_HttpBodyStream,
+) -> *mut c_void {
     (*s).user_data.get()
 }
-pub unsafe fn OH_ArkWebHttpBodyStream_SetReadCallback(
+pub(crate) unsafe fn OH_ArkWebHttpBodyStream_SetReadCallback(
     s: *mut ArkWeb_HttpBodyStream,
     callback: ReadCallback,
 ) -> i32 {
     (*s).read.set(callback);
     0
 }
-pub unsafe fn OH_ArkWebHttpBodyStream_Init(
+pub(crate) unsafe fn OH_ArkWebHttpBodyStream_Init(
     s: *mut ArkWeb_HttpBodyStream,
     callback: InitCallback,
 ) -> i32 {
     (*s).init.set(callback);
     (*s).init_result.get()
 }
-pub unsafe fn OH_ArkWebHttpBodyStream_Read(
+pub(crate) unsafe fn OH_ArkWebHttpBodyStream_Read(
     s: *const ArkWeb_HttpBodyStream,
     buffer: *mut u8,
     len: i32,
@@ -72,16 +74,16 @@ pub unsafe fn OH_ArkWebHttpBodyStream_Read(
     (*s).buffer.set(buffer);
     (*s).length.set(len);
 }
-pub unsafe fn OH_ArkWebHttpBodyStream_IsEof(s: *const ArkWeb_HttpBodyStream) -> bool {
+pub(crate) unsafe fn OH_ArkWebHttpBodyStream_IsEof(s: *const ArkWeb_HttpBodyStream) -> bool {
     (*s).eof.get()
 }
-pub unsafe fn OH_ArkWebHttpBodyStream_IsChunked(_: *const ArkWeb_HttpBodyStream) -> bool {
+pub(crate) unsafe fn OH_ArkWebHttpBodyStream_IsChunked(_: *const ArkWeb_HttpBodyStream) -> bool {
     true
 }
-pub unsafe fn OH_ArkWebHttpBodyStream_IsInMemory(_: *const ArkWeb_HttpBodyStream) -> bool {
+pub(crate) unsafe fn OH_ArkWebHttpBodyStream_IsInMemory(_: *const ArkWeb_HttpBodyStream) -> bool {
     false
 }
-pub unsafe fn OH_ArkWebHttpBodyStream_GetSize(_: *const ArkWeb_HttpBodyStream) -> u64 {
+pub(crate) unsafe fn OH_ArkWebHttpBodyStream_GetSize(_: *const ArkWeb_HttpBodyStream) -> u64 {
     0
 }
 

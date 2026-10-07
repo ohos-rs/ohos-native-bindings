@@ -37,14 +37,14 @@ impl HttpBodyStream {
         unsafe { OH_ArkWebHttpBodyStream_IsInMemory(self.raw.as_ptr()) }
     }
 
-    pub fn read<F>(&self, size: usize, mut callback: F)
+    pub fn read<F>(&self, size: usize, callback: F)
     where
         F: FnMut(Vec<u8>) + 'static,
     {
         let buf = vec![0; size.min(i32::MAX as usize)];
 
         let ctx = ReadCallbackContext {
-            callback: Box::new(move |buf| callback(buf)),
+            callback: Box::new(callback),
             buffer: buf,
         };
         let ctx_ptr = Box::into_raw(Box::new(ctx)) as *mut c_void;
