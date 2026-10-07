@@ -614,9 +614,16 @@ impl BindingSuite {
             child.finish("return", Some(&callback))? == 0,
             "stale PID fixture did not exit normally",
         )?;
-        raw_error(NativeChildProcess::kill(child.pid), 16010010)?;
+        // The exit callback can precede AppMgr's child-record removal. In that
+        // window the missing OS process reports SERVICE_ERROR; after removal
+        // it reports INVALID_PID. Preserve the actual native rejection code.
+        let code = match NativeChildProcess::kill(child.pid) {
+            Err(NativeChildProcessError::InternalError(code @ (16010003 | 16010010))) => code,
+            Err(error) => return Err(format!("unexpected stale PID error: {error}").into()),
+            Ok(()) => return Err("kill accepted an exited child PID".into()),
+        };
         callback.close()?;
-        Ok("stale_pid_code=16010010; exited=true".into())
+        Ok(format!("stale_pid_code={code}; exited=true"))
     }
 
     fn callbacks() -> Result<String> {
