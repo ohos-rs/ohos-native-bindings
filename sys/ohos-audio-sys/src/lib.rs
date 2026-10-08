@@ -1563,6 +1563,7 @@ extern "C" {
         callback: OH_AudioManager_OnAudioSceneChangeCallback,
     ) -> OH_AudioCommon_Result;
 }
+#[cfg(feature = "api-20")]
 #[repr(C)]
 #[derive(Debug, Copy, Clone)]
 pub struct OH_AudioResourceManager {
@@ -1575,6 +1576,7 @@ extern "C" {
         resourceManager: *mut *mut OH_AudioResourceManager,
     ) -> OH_AudioCommon_Result;
 }
+#[cfg(feature = "api-20")]
 #[repr(C)]
 #[derive(Debug, Copy, Clone)]
 pub struct OH_AudioWorkgroup {
@@ -2129,6 +2131,7 @@ extern "C" {
         behavior: u32,
     ) -> OH_AudioCommon_Result;
 }
+#[cfg(feature = "api-19")]
 #[repr(C)]
 #[derive(Debug, Copy, Clone)]
 pub struct OH_AudioStreamManager {
@@ -2213,6 +2216,7 @@ extern "C" {
         usage: OH_AudioStream_Usage,
     ) -> bool;
 }
+#[cfg(feature = "api-20")]
 #[repr(C)]
 #[derive(Debug, Copy, Clone)]
 pub struct OH_AudioVolumeManager {
@@ -2319,16 +2323,19 @@ extern "C" {
         callback: OH_AudioVolumeManager_OnRingerModeChangeCallback,
     ) -> OH_AudioCommon_Result;
 }
+#[cfg(feature = "api-26")]
 #[repr(C)]
 #[derive(Debug, Copy, Clone)]
 pub struct OH_AudioAccessoryManager {
     _unused: [u8; 0],
 }
+#[cfg(feature = "api-26")]
 #[repr(C)]
 #[derive(Debug, Copy, Clone)]
 pub struct OH_AudioAccessory {
     _unused: [u8; 0],
 }
+#[cfg(feature = "api-26")]
 #[repr(C)]
 #[derive(Debug, Copy, Clone)]
 pub struct OH_AudioAccessoryInputStream {
@@ -2574,6 +2581,7 @@ extern "C" {
         accessory: *mut OH_AudioAccessory,
     ) -> OH_AudioCommon_Result;
 }
+#[cfg(feature = "api-26")]
 #[repr(C)]
 #[derive(Debug, Copy, Clone)]
 pub struct OH_AudioDebuggingManager {
@@ -2621,6 +2629,7 @@ extern "C" {
         fd: i32,
     ) -> OH_AudioCommon_Result;
 }
+#[cfg(feature = "api-26")]
 #[repr(C)]
 #[derive(Debug, Copy, Clone)]
 pub struct OH_AudioDeviceEnhanceManager {

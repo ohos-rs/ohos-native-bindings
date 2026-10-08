@@ -159,6 +159,21 @@ pub const UDMF_META_OPENHARMONY_STYLED_STRING: &[u8; 26usize] = b"openharmony.st
 pub const UDMF_META_OPENHARMONY_WANT: &[u8; 17usize] = b"openharmony.want\0";
 pub const UDMF_META_GENERAL_FILE_URI: &[u8; 17usize] = b"general.file-uri\0";
 pub const UDMF_METE_GENERAL_CONTENT_FORM: &[u8; 21usize] = b"general.content-form\0";
+#[doc = " @brief No permission.\n\n @since 26.0.0"]
+#[cfg(feature = "api-26")]
+pub const Udmf_AuthPermission_UDMF_PERM_NONE: Udmf_AuthPermission = 0;
+#[doc = " @brief Read permission.\n\n @since 26.0.0"]
+#[cfg(feature = "api-26")]
+pub const Udmf_AuthPermission_UDMF_PERM_READ: Udmf_AuthPermission = 1;
+#[doc = " @brief Write permission.\n\n @since 26.0.0"]
+#[cfg(feature = "api-26")]
+pub const Udmf_AuthPermission_UDMF_PERM_WRITE: Udmf_AuthPermission = 2;
+#[doc = " @brief Persist permission.\n\n @since 26.0.0"]
+#[cfg(feature = "api-26")]
+pub const Udmf_AuthPermission_UDMF_PERM_PERSIST: Udmf_AuthPermission = 4;
+#[doc = " @brief Describes authorization permission values.\n\n @since 26.0.0"]
+#[cfg(feature = "api-26")]
+pub type Udmf_AuthPermission = u32;
 #[repr(C)]
 #[derive(Debug, Copy, Clone)]
 pub struct OH_UdsPlainText {
@@ -179,33 +194,38 @@ pub struct OH_UdsHtml {
 pub struct OH_UdsAppItem {
     _unused: [u8; 0],
 }
+#[cfg(feature = "api-13")]
 #[repr(C)]
 #[derive(Debug, Copy, Clone)]
 pub struct OH_UdsFileUri {
     _unused: [u8; 0],
 }
+#[cfg(feature = "api-13")]
 #[repr(C)]
 #[derive(Debug, Copy, Clone)]
 pub struct OH_UdsPixelMap {
     _unused: [u8; 0],
 }
+#[cfg(feature = "api-14")]
 #[repr(C)]
 #[derive(Debug, Copy, Clone)]
 pub struct OH_UdsContentForm {
     _unused: [u8; 0],
 }
+#[cfg(feature = "api-13")]
 #[repr(C)]
 #[derive(Debug, Copy, Clone)]
 pub struct OH_UdsArrayBuffer {
     _unused: [u8; 0],
 }
+#[cfg(feature = "api-22")]
 #[repr(C)]
 #[derive(Debug, Copy, Clone)]
 pub struct OH_UdsDetails {
     _unused: [u8; 0],
 }
 extern "C" {
-    #[doc = " @brief Creation a pointer to the instance of the {@link OH_UdsPlainText}.\n\n @return If the operation is successful, a pointer to the instance of the {@link OH_UdsPlainText}\n structure is returned. If the operation is failed, nullptr is returned.\n @see OH_UdsPlainText\n @since 12"]
+    #[doc = " @brief Creates a pointer to the instance of the {@link OH_UdsPlainText}.\n\n @return If the operation is successful, a pointer to the instance of the {@link OH_UdsPlainText}\n structure is returned. If the operation is failed, nullptr is returned.\n @see OH_UdsPlainText\n @since 12"]
     pub fn OH_UdsPlainText_Create() -> *mut OH_UdsPlainText;
 }
 extern "C" {
@@ -258,7 +278,7 @@ extern "C" {
     ) -> ::std::os::raw::c_int;
 }
 extern "C" {
-    #[doc = " @brief Creation a pointer to the instance of the {@link OH_UdsHyperlink}.\n\n @return If the operation is successful, a pointer to the instance of {@link OH_UdsHyperlink}\n structure is returned. If the operation is failed, nullptr is returned.\n @see OH_UdsHyperlink\n @since 12"]
+    #[doc = " @brief Creates a pointer to the instance of the {@link OH_UdsHyperlink}.\n\n @return If the operation is successful, a pointer to the instance of {@link OH_UdsHyperlink}\n structure is returned. If the operation is failed, nullptr is returned.\n @see OH_UdsHyperlink\n @since 12"]
     pub fn OH_UdsHyperlink_Create() -> *mut OH_UdsHyperlink;
 }
 extern "C" {
@@ -310,7 +330,7 @@ extern "C" {
     ) -> ::std::os::raw::c_int;
 }
 extern "C" {
-    #[doc = " @brief Creation a pointer to the instance of the {@link OH_UdsHtml}.\n\n @return If the operation is successful, a pointer to the instance of the {@link OH_UdsHtml}\n structure is returned. If the operation is failed, nullptr is returned.\n @see OH_UdsHtml\n @since 12"]
+    #[doc = " @brief Creates a pointer to the instance of the {@link OH_UdsHtml}.\n\n @return If the operation is successful, a pointer to the instance of the {@link OH_UdsHtml}\n structure is returned. If the operation is failed, nullptr is returned.\n @see OH_UdsHtml\n @since 12"]
     pub fn OH_UdsHtml_Create() -> *mut OH_UdsHtml;
 }
 extern "C" {
@@ -360,7 +380,15 @@ extern "C" {
     ) -> ::std::os::raw::c_int;
 }
 extern "C" {
-    #[doc = " @brief Creation a pointer to the instance of the {@link OH_UdsAppItem}.\n\n @return If the operation is successful, a pointer to the instance of the {@link OH_UdsAppItem}\n structure is returned. sIf the operation is failed, nullptr is returned.\n @see OH_UdsAppItem\n @since 12"]
+    #[doc = " @brief Set the authorization policy to {@link OH_UdsHtml}.\n @param pThis Represents a pointer to an instance of {@link OH_UdsHtml}.\n @param authPolicy Represents auth policy.\n @return Returns the status code of the execution. See {@link Udmf_ErrCode}.\n         {@link UDMF_E_OK} success.\n         {@link UDMF_E_INVALID_PARAM} The error code for common invalid args.\n @since 26.0.0\n @see OH_UdsHtml Udmf_ErrCode"]
+    #[cfg(feature = "api-26")]
+    pub fn OH_UdsHtml_SetAuthPolicy(
+        pThis: *mut OH_UdsHtml,
+        authPolicy: u32,
+    ) -> ::std::os::raw::c_int;
+}
+extern "C" {
+    #[doc = " @brief Creates a pointer to the instance of the {@link OH_UdsAppItem}.\n\n @return If the operation is successful, a pointer to the instance of the {@link OH_UdsAppItem}\n structure is returned. sIf the operation is failed, nullptr is returned.\n @see OH_UdsAppItem\n @since 12"]
     pub fn OH_UdsAppItem_Create() -> *mut OH_UdsAppItem;
 }
 extern "C" {
@@ -455,7 +483,7 @@ extern "C" {
     ) -> ::std::os::raw::c_int;
 }
 extern "C" {
-    #[doc = " @brief Creation a pointer to the instance of the {@link OH_UdsFileUri}.\n\n @return If the operation is successful, a pointer to the instance of the {@link OH_UdsFileUri}\n structure is returned. If the memory is not enough, nullptr is returned.\n @see OH_UdsFileUri\n @since 13"]
+    #[doc = " @brief Creates a pointer to the instance of the {@link OH_UdsFileUri}.\n\n @return If the operation is successful, a pointer to the instance of the {@link OH_UdsFileUri}\n structure is returned. If the memory is not enough, nullptr is returned.\n @see OH_UdsFileUri\n @since 13"]
     #[cfg(feature = "api-13")]
     pub fn OH_UdsFileUri_Create() -> *mut OH_UdsFileUri;
 }
@@ -512,7 +540,15 @@ extern "C" {
     ) -> ::std::os::raw::c_int;
 }
 extern "C" {
-    #[doc = " @brief Creation a pointer to the instance of the {@link OH_UdsPixelMap}.\n\n @return If the operation is successful, a pointer to the instance of the {@link OH_UdsPixelMap}\n structure is returned. If the memory is not enough, nullptr is returned.\n @see OH_UdsPixelMap\n @since 13"]
+    #[doc = " @brief Set the authorization policy to {@link OH_UdsFileUri}.\n @param pThis Represents a pointer to an instance of {@link OH_UdsFileUri}.\n @param authPolicy Indicates the identity authorization policy.\n @return Returns the status code of the execution. See {@link Udmf_ErrCode}.\n         {@link UDMF_E_OK} success.\n         {@link UDMF_E_INVALID_PARAM} The error code for common invalid args.\n @see OH_UdsFileUri Udmf_ErrCode\n @since 26.0.0"]
+    #[cfg(feature = "api-26")]
+    pub fn OH_UdsFileUri_SetAuthPolicy(
+        pThis: *mut OH_UdsFileUri,
+        authPolicy: u32,
+    ) -> ::std::os::raw::c_int;
+}
+extern "C" {
+    #[doc = " @brief Creates a pointer to the instance of the {@link OH_UdsPixelMap}.\n\n @return If the operation is successful, a pointer to the instance of the {@link OH_UdsPixelMap}\n structure is returned. If the memory is not enough, nullptr is returned.\n @see OH_UdsPixelMap\n @since 13"]
     #[cfg(feature = "api-13")]
     pub fn OH_UdsPixelMap_Create() -> *mut OH_UdsPixelMap;
 }
@@ -559,7 +595,7 @@ extern "C" {
     ) -> ::std::os::raw::c_int;
 }
 extern "C" {
-    #[doc = " @brief Creation a pointer to the instance of the {@link OH_UdsArrayBuffer}.\n\n @return If the operation is successful, a pointer to the instance of the {@link OH_UdsArrayBuffer}\n structure is returned. If the memory is not enough, nullptr is returned.\n @see OH_UdsArrayBuffer\n @since 13"]
+    #[doc = " @brief Creates a pointer to the instance of the {@link OH_UdsArrayBuffer}.\n\n @return If the operation is successful, a pointer to the instance of the {@link OH_UdsArrayBuffer}\n structure is returned. If the memory is not enough, nullptr is returned.\n @see OH_UdsArrayBuffer\n @since 13"]
     #[cfg(feature = "api-13")]
     pub fn OH_UdsArrayBuffer_Create() -> *mut OH_UdsArrayBuffer;
 }
@@ -587,7 +623,7 @@ extern "C" {
     ) -> ::std::os::raw::c_int;
 }
 extern "C" {
-    #[doc = " @brief Creation a pointer to the instance of the {@link OH_UdsContentForm}.\n\n @return If the operation is successful, a pointer to the instance of the {@link OH_UdsContentForm}\n structure is returned. If the operation is failed, nullptr is returned.\n @see OH_UdsContentForm\n @since 14"]
+    #[doc = " @brief Creates a pointer to the instance of the {@link OH_UdsContentForm}.\n\n @return If the operation is successful, a pointer to the instance of the {@link OH_UdsContentForm}\n structure is returned. If the operation is failed, nullptr is returned.\n @see OH_UdsContentForm\n @since 14"]
     #[cfg(feature = "api-14")]
     pub fn OH_UdsContentForm_Create() -> *mut OH_UdsContentForm;
 }
@@ -700,7 +736,7 @@ extern "C" {
     ) -> ::std::os::raw::c_int;
 }
 extern "C" {
-    #[doc = " @brief Creation a pointer to the instance of the {@link OH_UdsDetails}.\n\n @return If the operation is successful, a pointer to the instance of the {@link OH_UdsDetails}\n structure is returned. If the operation is failed, nullptr is returned.\n @since 22\n @see OH_UdsDetails"]
+    #[doc = " @brief Creates a pointer to the instance of the {@link OH_UdsDetails}.\n\n @return If the operation is successful, a pointer to the instance of the {@link OH_UdsDetails}\n structure is returned. If the operation is failed, nullptr is returned.\n @since 22\n @see OH_UdsDetails"]
     #[cfg(feature = "api-22")]
     pub fn OH_UdsDetails_Create() -> *mut OH_UdsDetails;
 }
@@ -818,6 +854,7 @@ pub struct OH_UdmfData {
 pub struct OH_UdmfRecord {
     _unused: [u8; 0],
 }
+#[cfg(feature = "api-13")]
 #[repr(C)]
 #[derive(Debug, Copy, Clone)]
 pub struct OH_UdmfRecordProvider {
@@ -828,11 +865,13 @@ pub struct OH_UdmfRecordProvider {
 pub struct OH_UdmfProperty {
     _unused: [u8; 0],
 }
+#[cfg(feature = "api-15")]
 #[repr(C)]
 #[derive(Debug, Copy, Clone)]
 pub struct OH_Udmf_ProgressInfo {
     _unused: [u8; 0],
 }
+#[cfg(feature = "api-15")]
 #[repr(C)]
 #[derive(Debug, Copy, Clone)]
 pub struct OH_UdmfGetDataParams {
@@ -843,16 +882,19 @@ pub struct OH_UdmfGetDataParams {
 pub type OH_Udmf_DataProgressListener = ::std::option::Option<
     unsafe extern "C" fn(progressInfo: *mut OH_Udmf_ProgressInfo, data: *mut OH_UdmfData),
 >;
+#[cfg(feature = "api-20")]
 #[repr(C)]
 #[derive(Debug, Copy, Clone)]
 pub struct OH_UdmfOptions {
     _unused: [u8; 0],
 }
+#[cfg(feature = "api-20")]
 #[repr(C)]
 #[derive(Debug, Copy, Clone)]
 pub struct OH_UdmfDataLoadParams {
     _unused: [u8; 0],
 }
+#[cfg(feature = "api-20")]
 #[repr(C)]
 #[derive(Debug, Copy, Clone)]
 pub struct OH_UdmfDataLoadInfo {
@@ -864,7 +906,7 @@ pub type OH_Udmf_DataLoadHandler = ::std::option::Option<
     unsafe extern "C" fn(acceptableInfo: *mut OH_UdmfDataLoadInfo) -> *mut OH_UdmfData,
 >;
 extern "C" {
-    #[doc = " @brief Creation a pointer to the instance of the {@link OH_UdmfData}.\n\n @return If the operation is successful, a pointer to the instance of the {@link OH_UdmfData}\n structure is returned. If the operation is failed, nullptr is returned.\n @see OH_UdmfData.\n @since 12"]
+    #[doc = " @brief Creates a pointer to the instance of the {@link OH_UdmfData}.\n\n @return If the operation is successful, a pointer to the instance of the {@link OH_UdmfData}\n structure is returned. If the operation is failed, nullptr is returned.\n @see OH_UdmfData.\n @since 12"]
     pub fn OH_UdmfData_Create() -> *mut OH_UdmfData;
 }
 extern "C" {
@@ -934,7 +976,7 @@ extern "C" {
     ) -> ::std::os::raw::c_int;
 }
 extern "C" {
-    #[doc = " @brief Creation a pointer to the instance of the {@link OH_UdmfRecord}, it's relate with UDS data.\n\n @return If the operation is successful, a pointer to the instance of the {@link OH_UdmfRecord}\n structure is returned. If the operation is failed, nullptr is returned.\n @see OH_UdmfRecord.\n @since 12"]
+    #[doc = " @brief Creates a pointer to the instance of the {@link OH_UdmfRecord}, it's relate with UDS data.\n\n @return If the operation is successful, a pointer to the instance of the {@link OH_UdmfRecord}\n structure is returned. If the operation is failed, nullptr is returned.\n @see OH_UdmfRecord.\n @since 12"]
     pub fn OH_UdmfRecord_Create() -> *mut OH_UdmfRecord;
 }
 extern "C" {
@@ -1133,7 +1175,7 @@ extern "C" {
     pub fn OH_UdmfData_IsLocal(data: *mut OH_UdmfData) -> bool;
 }
 extern "C" {
-    #[doc = " @brief Creation a pointer to the instance of the {@link OH_UdmfProperty}\n from a {@link OH_UdmfData} data.\n\n @param unifiedData Represents a pointer to an instance of {@link OH_UdmfData}.\n @return If the operation is successful, a pointer to the instance of the {@link OH_UdmfProperty}\n structure is returned. If the operation is failed, nullptr is returned.\n @see OH_UdmfData OH_UdmfProperty.\n @since 12"]
+    #[doc = " @brief Creates a pointer to the instance of the {@link OH_UdmfProperty}\n from a {@link OH_UdmfData} data.\n\n @param unifiedData Represents a pointer to an instance of {@link OH_UdmfData}.\n @return If the operation is successful, a pointer to the instance of the {@link OH_UdmfProperty}\n structure is returned. If the operation is failed, nullptr is returned.\n @see OH_UdmfData OH_UdmfProperty.\n @since 12"]
     pub fn OH_UdmfProperty_Create(unifiedData: *mut OH_UdmfData) -> *mut OH_UdmfProperty;
 }
 extern "C" {
@@ -1198,7 +1240,15 @@ extern "C" {
     ) -> ::std::os::raw::c_int;
 }
 extern "C" {
-    #[doc = " @brief Creation a pointer to the instance of the {@link OH_UdmfOptions}.\n\n @return If the operation is successful, a pointer to the instance of the {@link OH_UdmfOptions}\n structure is returned. If the operation is failed, nullptr is returned.\n @see OH_UdmfOptions.\n @since 20"]
+    #[doc = " @brief Set auth permission to the {@link OH_UdmfProperty}.\n\n @param pThis Represents a pointer to an instance of {@link OH_UdmfProperty}.\n @param authPolicy Represents auth permission.\n @return Returns the status code of the execution. See {@link Udmf_ErrCode}.\n         {@link UDMF_E_OK} success.\n         {@link UDMF_E_INVALID_PARAM} The error code for common invalid args.\n @see OH_UdmfProperty Udmf_ErrCode\n @since 26.0.0"]
+    #[cfg(feature = "api-26")]
+    pub fn OH_UdmfProperty_SetAuthPermission(
+        pThis: *mut OH_UdmfProperty,
+        authPolicy: u32,
+    ) -> ::std::os::raw::c_int;
+}
+extern "C" {
+    #[doc = " @brief Creates a pointer to the instance of the {@link OH_UdmfOptions}.\n\n @return If the operation is successful, a pointer to the instance of the {@link OH_UdmfOptions}\n structure is returned. If the operation is failed, nullptr is returned.\n @see OH_UdmfOptions.\n @since 20"]
     #[cfg(feature = "api-20")]
     pub fn OH_UdmfOptions_Create() -> *mut OH_UdmfOptions;
 }
@@ -1327,7 +1377,7 @@ extern "C" {
     ) -> ::std::os::raw::c_int;
 }
 extern "C" {
-    #[doc = " @brief Creation a pointer to the instance of the {@link OH_UdmfGetDataParams}.\n\n @return If the operation is successful, a pointer to the instance of the {@link OH_UdmfGetDataParams}\n structure is returned. If the operation is failed, nullptr is returned.\n @see OH_UdmfGetDataParams\n @since 15"]
+    #[doc = " @brief Creates a pointer to the instance of the {@link OH_UdmfGetDataParams}.\n\n @return If the operation is successful, a pointer to the instance of the {@link OH_UdmfGetDataParams}\n structure is returned. If the operation is failed, nullptr is returned.\n @see OH_UdmfGetDataParams\n @since 15"]
     #[cfg(feature = "api-15")]
     pub fn OH_UdmfGetDataParams_Create() -> *mut OH_UdmfGetDataParams;
 }
@@ -1377,7 +1427,7 @@ extern "C" {
     );
 }
 extern "C" {
-    #[doc = " @brief Creation a pointer to the instance of the {@link OH_UdmfDataLoadParams}.\n\n @return If the operation is successful, a pointer to the instance of the {@link OH_UdmfDataLoadParams}\n structure is returned. If the operation is failed, nullptr is returned.\n @see OH_UdmfDataLoadParams\n @since 20"]
+    #[doc = " @brief Creates a pointer to the instance of the {@link OH_UdmfDataLoadParams}.\n\n @return If the operation is successful, a pointer to the instance of the {@link OH_UdmfDataLoadParams}\n structure is returned. If the operation is failed, nullptr is returned.\n @see OH_UdmfDataLoadParams\n @since 20"]
     #[cfg(feature = "api-20")]
     pub fn OH_UdmfDataLoadParams_Create() -> *mut OH_UdmfDataLoadParams;
 }
@@ -1403,7 +1453,7 @@ extern "C" {
     );
 }
 extern "C" {
-    #[doc = " @brief Creation a pointer to the instance of the {@link OH_UdmfDataLoadInfo}.\n\n @return If the operation is successful, a pointer to the instance of the {@link OH_UdmfDataLoadInfo}\n structure is returned. If the operation is failed, nullptr is returned.\n @see OH_UdmfDataLoadInfo\n @since 20"]
+    #[doc = " @brief Creates a pointer to the instance of the {@link OH_UdmfDataLoadInfo}.\n\n @return If the operation is successful, a pointer to the instance of the {@link OH_UdmfDataLoadInfo}\n structure is returned. If the operation is failed, nullptr is returned.\n @see OH_UdmfDataLoadInfo\n @since 20"]
     #[cfg(feature = "api-20")]
     pub fn OH_UdmfDataLoadInfo_Create() -> *mut OH_UdmfDataLoadInfo;
 }
@@ -1484,7 +1534,7 @@ pub struct OH_Utd {
     _unused: [u8; 0],
 }
 extern "C" {
-    #[doc = " @brief Prouct a pointer to the instance of the {@link OH_Utd}.\n\n @param typeId Represents type of UTD, reference udmf_meta.h.\n @return If the operation is successful, a pointer to the instance of the {@link OH_Utd}\n structure is returned.If the operation is failed, nullptr is returned.\n Must be destroyed with {@link OH_Utd_DestroyTypeDescriptor} when not needed.\n @see OH_Utd.\n @since 12"]
+    #[doc = " @brief Creates a pointer to the instance of the {@link OH_Utd}.\n\n @param typeId Represents type of UTD, reference udmf_meta.h.\n @return If the operation is successful, a pointer to the instance of the {@link OH_Utd}\n structure is returned.If the operation is failed, nullptr is returned.\n Must be destroyed with {@link OH_Utd_Destroy} when not needed.\n @see OH_Utd.\n @since 12"]
     pub fn OH_Utd_Create(typeId: *const ::std::os::raw::c_char) -> *mut OH_Utd;
 }
 extern "C" {

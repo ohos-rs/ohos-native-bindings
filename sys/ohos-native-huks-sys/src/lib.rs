@@ -56,21 +56,21 @@ pub const OH_HUKS_IMPORT_WRAPPED_KEY_TOTAL_BLOBS: u32 = 10;
 pub const OH_Huks_KeyPurpose_OH_HUKS_KEY_PURPOSE_ENCRYPT: OH_Huks_KeyPurpose = 1;
 #[doc = " Used to decrypt the cipher text."]
 pub const OH_Huks_KeyPurpose_OH_HUKS_KEY_PURPOSE_DECRYPT: OH_Huks_KeyPurpose = 2;
-#[doc = " Used to sign data."]
+#[doc = " Used for signing."]
 pub const OH_Huks_KeyPurpose_OH_HUKS_KEY_PURPOSE_SIGN: OH_Huks_KeyPurpose = 4;
 #[doc = " Used to verify the signature."]
 pub const OH_Huks_KeyPurpose_OH_HUKS_KEY_PURPOSE_VERIFY: OH_Huks_KeyPurpose = 8;
 #[doc = " Used to derive a key."]
 pub const OH_Huks_KeyPurpose_OH_HUKS_KEY_PURPOSE_DERIVE: OH_Huks_KeyPurpose = 16;
-#[doc = " Used for an encrypted export."]
+#[doc = " Used for exporting a key in ciphertext."]
 pub const OH_Huks_KeyPurpose_OH_HUKS_KEY_PURPOSE_WRAP: OH_Huks_KeyPurpose = 32;
-#[doc = " Used for an encrypted import."]
+#[doc = " Used for importing a key in ciphertext."]
 pub const OH_Huks_KeyPurpose_OH_HUKS_KEY_PURPOSE_UNWRAP: OH_Huks_KeyPurpose = 64;
 #[doc = " Used to generate a message authentication code (MAC)."]
 pub const OH_Huks_KeyPurpose_OH_HUKS_KEY_PURPOSE_MAC: OH_Huks_KeyPurpose = 128;
 #[doc = " Used for key agreement."]
 pub const OH_Huks_KeyPurpose_OH_HUKS_KEY_PURPOSE_AGREE: OH_Huks_KeyPurpose = 256;
-#[doc = " @brief Enumerates the key purposes.\n\n @since 9\n @version 1.0"]
+#[doc = " @brief Enumerates the key purposes. Multiple purposes can be combined using bitwise OR (\\|).\n\n @since 9\n @version 1.0"]
 pub type OH_Huks_KeyPurpose = u32;
 #[doc = " No digest algorithm."]
 pub const OH_Huks_KeyDigest_OH_HUKS_DIGEST_NONE: OH_Huks_KeyDigest = 0;
@@ -92,41 +92,41 @@ pub const OH_Huks_KeyDigest_OH_HUKS_DIGEST_SHA512: OH_Huks_KeyDigest = 14;
 pub type OH_Huks_KeyDigest = u32;
 #[doc = " No padding algorithm."]
 pub const OH_Huks_KeyPadding_OH_HUKS_PADDING_NONE: OH_Huks_KeyPadding = 0;
-#[doc = " Optimal Asymmetric Encryption Padding (OAEP)."]
+#[doc = " OAEP."]
 pub const OH_Huks_KeyPadding_OH_HUKS_PADDING_OAEP: OH_Huks_KeyPadding = 1;
-#[doc = " Probabilistic Signature Scheme (PSS)."]
+#[doc = " PSS."]
 pub const OH_Huks_KeyPadding_OH_HUKS_PADDING_PSS: OH_Huks_KeyPadding = 2;
-#[doc = " Public Key Cryptography Standards (PKCS) #1 v1.5."]
+#[doc = " PKCS1_V1_5."]
 pub const OH_Huks_KeyPadding_OH_HUKS_PADDING_PKCS1_V1_5: OH_Huks_KeyPadding = 3;
 #[doc = " PKCS #5."]
 pub const OH_Huks_KeyPadding_OH_HUKS_PADDING_PKCS5: OH_Huks_KeyPadding = 4;
 #[doc = " PKCS #7."]
 pub const OH_Huks_KeyPadding_OH_HUKS_PADDING_PKCS7: OH_Huks_KeyPadding = 5;
-#[doc = " ISO IEC 9796-2\n @since 18"]
+#[doc = " ISO IEC 9796-2.\n @since 18"]
 #[cfg(feature = "api-18")]
 pub const OH_Huks_KeyPadding_OH_HUKS_PADDING_ISO_IEC_9796_2: OH_Huks_KeyPadding = 6;
-#[doc = " ISO IEC 9797-1\n @since 18"]
+#[doc = " ISO IEC 9797-1.\n @since 18"]
 #[cfg(feature = "api-18")]
 pub const OH_Huks_KeyPadding_OH_HUKS_PADDING_ISO_IEC_9797_1: OH_Huks_KeyPadding = 7;
-#[doc = " @brief Enumerates the padding algorithms.\n\n @since 9\n @version 1.0"]
+#[doc = " @brief Enumerates the padding algorithm types.\n\n @since 9\n @version 1.0"]
 pub type OH_Huks_KeyPadding = u32;
-#[doc = " Electronic Code Block (ECB) mode."]
+#[doc = " ECB."]
 pub const OH_Huks_CipherMode_OH_HUKS_MODE_ECB: OH_Huks_CipherMode = 1;
-#[doc = " Cipher Block Chaining (CBC) mode."]
+#[doc = " CBC."]
 pub const OH_Huks_CipherMode_OH_HUKS_MODE_CBC: OH_Huks_CipherMode = 2;
-#[doc = " Counter (CTR) mode."]
+#[doc = " CTR."]
 pub const OH_Huks_CipherMode_OH_HUKS_MODE_CTR: OH_Huks_CipherMode = 3;
-#[doc = " Output Feedback (OFB) mode."]
+#[doc = " OFB."]
 pub const OH_Huks_CipherMode_OH_HUKS_MODE_OFB: OH_Huks_CipherMode = 4;
-#[doc = " Cipher Feedback (CFB) mode.\n @since 12"]
+#[doc = " CFB.\n @since 12"]
 pub const OH_Huks_CipherMode_OH_HUKS_MODE_CFB: OH_Huks_CipherMode = 5;
-#[doc = " Counter with CBC-MAC (CCM) mode."]
+#[doc = " CCM."]
 pub const OH_Huks_CipherMode_OH_HUKS_MODE_CCM: OH_Huks_CipherMode = 31;
-#[doc = " Galois/Counter (GCM) mode."]
+#[doc = " GCM."]
 pub const OH_Huks_CipherMode_OH_HUKS_MODE_GCM: OH_Huks_CipherMode = 32;
-#[doc = " @brief Enumerates the cipher modes.\n\n @since 9\n @version 1.0"]
+#[doc = " @brief Cipher mode.\n\n @since 9\n @version 1.0"]
 pub type OH_Huks_CipherMode = u32;
-#[doc = " Rivest-Shamir-Adleman (RSA) key of 512 bits."]
+#[doc = " RSA key of 512 bits."]
 pub const OH_Huks_KeySize_OH_HUKS_RSA_KEY_SIZE_512: OH_Huks_KeySize = 512;
 #[doc = " RSA key of 768 bits."]
 pub const OH_Huks_KeySize_OH_HUKS_RSA_KEY_SIZE_768: OH_Huks_KeySize = 768;
@@ -138,7 +138,7 @@ pub const OH_Huks_KeySize_OH_HUKS_RSA_KEY_SIZE_2048: OH_Huks_KeySize = 2048;
 pub const OH_Huks_KeySize_OH_HUKS_RSA_KEY_SIZE_3072: OH_Huks_KeySize = 3072;
 #[doc = " RSA key of 4096 bits."]
 pub const OH_Huks_KeySize_OH_HUKS_RSA_KEY_SIZE_4096: OH_Huks_KeySize = 4096;
-#[doc = " Elliptic Curve Cryptography (ECC) key of 224 bits."]
+#[doc = " ECC key of 224 bits."]
 pub const OH_Huks_KeySize_OH_HUKS_ECC_KEY_SIZE_224: OH_Huks_KeySize = 224;
 #[doc = " ECC key of 256 bits."]
 pub const OH_Huks_KeySize_OH_HUKS_ECC_KEY_SIZE_256: OH_Huks_KeySize = 256;
@@ -146,7 +146,7 @@ pub const OH_Huks_KeySize_OH_HUKS_ECC_KEY_SIZE_256: OH_Huks_KeySize = 256;
 pub const OH_Huks_KeySize_OH_HUKS_ECC_KEY_SIZE_384: OH_Huks_KeySize = 384;
 #[doc = " ECC key of 521 bits."]
 pub const OH_Huks_KeySize_OH_HUKS_ECC_KEY_SIZE_521: OH_Huks_KeySize = 521;
-#[doc = " Advanced Encryption Standard (AES) key of 128 bits."]
+#[doc = " AES key of 128 bits."]
 pub const OH_Huks_KeySize_OH_HUKS_AES_KEY_SIZE_128: OH_Huks_KeySize = 128;
 #[doc = " AES key of 192 bits."]
 pub const OH_Huks_KeySize_OH_HUKS_AES_KEY_SIZE_192: OH_Huks_KeySize = 192;
@@ -156,15 +156,15 @@ pub const OH_Huks_KeySize_OH_HUKS_AES_KEY_SIZE_256: OH_Huks_KeySize = 256;
 pub const OH_Huks_KeySize_OH_HUKS_AES_KEY_SIZE_512: OH_Huks_KeySize = 512;
 #[doc = " Curve25519 key of 256 bits."]
 pub const OH_Huks_KeySize_OH_HUKS_CURVE25519_KEY_SIZE_256: OH_Huks_KeySize = 256;
-#[doc = " Diffie-Hellman (DH) key of 2048 bits."]
+#[doc = " DH key of 2048 bits."]
 pub const OH_Huks_KeySize_OH_HUKS_DH_KEY_SIZE_2048: OH_Huks_KeySize = 2048;
 #[doc = " DH key of 3072 bits."]
 pub const OH_Huks_KeySize_OH_HUKS_DH_KEY_SIZE_3072: OH_Huks_KeySize = 3072;
 #[doc = " DH key of 4096 bits."]
 pub const OH_Huks_KeySize_OH_HUKS_DH_KEY_SIZE_4096: OH_Huks_KeySize = 4096;
-#[doc = " ShangMi2 (SM2) key of 256 bits."]
+#[doc = " SM2 key of 256 bits."]
 pub const OH_Huks_KeySize_OH_HUKS_SM2_KEY_SIZE_256: OH_Huks_KeySize = 256;
-#[doc = " ShangMi4 (SM4) key of 128 bits."]
+#[doc = " SM4 key of 128 bits."]
 pub const OH_Huks_KeySize_OH_HUKS_SM4_KEY_SIZE_128: OH_Huks_KeySize = 128;
 #[doc = " DES key of 64 bits.\n @since 18"]
 #[cfg(feature = "api-18")]
@@ -175,7 +175,7 @@ pub const OH_Huks_KeySize_OH_HUKS_3DES_KEY_SIZE_128: OH_Huks_KeySize = 128;
 #[doc = " 3DES key of 192 bits.\n @since 18"]
 #[cfg(feature = "api-18")]
 pub const OH_Huks_KeySize_OH_HUKS_3DES_KEY_SIZE_192: OH_Huks_KeySize = 192;
-#[doc = " @brief Enumerates the key sizes.\n\n @since 9\n @version 1.0"]
+#[doc = " @brief Enumerates the key sizes of different algorithms.\n\n @since 9\n @version 1.0"]
 pub type OH_Huks_KeySize = u32;
 #[doc = " RSA."]
 pub const OH_Huks_KeyAlg_OH_HUKS_ALG_RSA: OH_Huks_KeyAlg = 1;
@@ -183,9 +183,9 @@ pub const OH_Huks_KeyAlg_OH_HUKS_ALG_RSA: OH_Huks_KeyAlg = 1;
 pub const OH_Huks_KeyAlg_OH_HUKS_ALG_ECC: OH_Huks_KeyAlg = 2;
 #[doc = " DSA."]
 pub const OH_Huks_KeyAlg_OH_HUKS_ALG_DSA: OH_Huks_KeyAlg = 3;
-#[doc = " AES."]
+#[doc = " Advanced Encryption Standard (AES)."]
 pub const OH_Huks_KeyAlg_OH_HUKS_ALG_AES: OH_Huks_KeyAlg = 20;
-#[doc = " HMAC."]
+#[doc = " HMAC algorithm."]
 pub const OH_Huks_KeyAlg_OH_HUKS_ALG_HMAC: OH_Huks_KeyAlg = 50;
 #[doc = " HKDF."]
 pub const OH_Huks_KeyAlg_OH_HUKS_ALG_HKDF: OH_Huks_KeyAlg = 51;
@@ -199,7 +199,7 @@ pub const OH_Huks_KeyAlg_OH_HUKS_ALG_X25519: OH_Huks_KeyAlg = 101;
 pub const OH_Huks_KeyAlg_OH_HUKS_ALG_ED25519: OH_Huks_KeyAlg = 102;
 #[doc = " DH."]
 pub const OH_Huks_KeyAlg_OH_HUKS_ALG_DH: OH_Huks_KeyAlg = 103;
-#[doc = " SM2."]
+#[doc = " ShangMi2 (SM2)."]
 pub const OH_Huks_KeyAlg_OH_HUKS_ALG_SM2: OH_Huks_KeyAlg = 150;
 #[doc = " SM3."]
 pub const OH_Huks_KeyAlg_OH_HUKS_ALG_SM3: OH_Huks_KeyAlg = 151;
@@ -214,44 +214,44 @@ pub const OH_Huks_KeyAlg_OH_HUKS_ALG_3DES: OH_Huks_KeyAlg = 161;
 #[doc = " CMAC.\n @since 18"]
 #[cfg(feature = "api-18")]
 pub const OH_Huks_KeyAlg_OH_HUKS_ALG_CMAC: OH_Huks_KeyAlg = 162;
-#[doc = " @brief Enumerates the key algorithms.\n\n @since 9\n @version 1.0"]
+#[doc = " @brief Enumerates the algorithms for keys.\n\n @since 9\n @version 1.0"]
 pub type OH_Huks_KeyAlg = u32;
-#[doc = " Key material format (Length-Value format), X25519 key agreement, and AES-256-GCM encryption and decryption.\n  | x25519_plain_pubkey_length  (4 Byte) | x25519_plain_pubkey |  agreekey_aad_length (4 Byte) | agreekey_aad\n  |   agreekey_nonce_length     (4 Byte) |   agreekey_nonce    |\n  |   agreekey_aead_tag_len     (4 Byte) |  agreekey_aead_tag  |\n  |    kek_enc_data_length      (4 Byte) |    kek_enc_data     |    kek_aad_length    (4 Byte) | kek_aad\n  |      kek_nonce_length       (4 Byte) |      kek_nonce      |   kek_aead_tag_len   (4 Byte) | kek_aead_tag\n  |   key_material_size_len     (4 Byte) |  key_material_size  |   key_mat_enc_length (4 Byte) | key_mat_enc_data"]
+#[doc = " Key material in Length-Value format, using X25519 for key agreement and AES-256-GCM for encryption and\n decryption. For details about the material format, see the preceding description."]
 pub const OH_Huks_AlgSuite_OH_HUKS_UNWRAP_SUITE_X25519_AES_256_GCM_NOPADDING: OH_Huks_AlgSuite = 1;
-#[doc = " Key material format (Length-Value format), ECDH-p256 key agreement, and AES-256-GCM encryption and decryption.\n  |  ECC_plain_pubkey_length    (4 Byte) |  ECC_plain_pubkey   |  agreekey_aad_length (4 Byte) | agreekey_aad\n  |   agreekey_nonce_length     (4 Byte) |   agreekey_nonce    |\n  |   agreekey_aead_tag_len     (4 Byte) | agreekey_aead_tag   |\n  |    kek_enc_data_length      (4 Byte) |    kek_enc_data     |    kek_aad_length    (4 Byte) | kek_aad\n  |      kek_nonce_length       (4 Byte) |      kek_nonce      |   kek_aead_tag_len   (4 Byte) | kek_aead_tag\n  |   key_material_size_len     (4 Byte) |  key_material_size  |   key_mat_enc_length (4 Byte) | key_mat_enc_data"]
+#[doc = " Key material in Length-Value format, using ECDH-p256 for key agreement and AES-256-GCM for encryption and\n decryption. For details about the material format, see the preceding description."]
 pub const OH_Huks_AlgSuite_OH_HUKS_UNWRAP_SUITE_ECDH_AES_256_GCM_NOPADDING: OH_Huks_AlgSuite = 2;
-#[doc = " @brief Use SM2 and then use SM4-ECB-NoPadding to encrypt the key\n\n @since 23"]
+#[doc = " @brief Key material in Length-Value format, using the temporary SM4 key to encrypt the imported key and using\n the SM2 key that has been imported to HUKS to encrypt the SM4 key. For details about the material format, see\n the preceding description.\n\n @since 23"]
 #[cfg(feature = "api-23")]
 pub const OH_Huks_AlgSuite_OH_HUKS_UNWRAP_SUITE_SM2_SM4_ECB_NOPADDING: OH_Huks_AlgSuite = 5;
-#[doc = " @brief Enumerates the algorithm suites required for ciphertext imports.\n\n @since 9\n @version 1.0"]
+#[doc = " @brief Enumerates the algorithm suites that can be used for importing of a key in ciphertext.\n <br>Key material format for **OH_HUKS_UNWRAP_SUITE_X25519_AES_256_GCM_NOPADDING**:\n | x25519_plain_pubkey_length  (4 Byte) | x25519_plain_pubkey |  agreekey_aad_length (4 Byte) | agreekey_aad\n |   agreekey_nonce_length     (4 Byte) |   agreekey_nonce    | agreekey_aead_tag_len(4 Byte) | agreekey_aead_tag\n |    kek_enc_data_length      (4 Byte) |    kek_enc_data     |    kek_aad_length    (4 Byte) | kek_aad\n |      kek_nonce_length       (4 Byte) |      kek_nonce      |   kek_aead_tag_len   (4 Byte) | kek_aead_tag\n |   key_material_size_len     (4 Byte) |  key_material_size  |   key_mat_enc_length (4 Byte) | key_mat_enc_data\n\n <br>Key material format for **OH_HUKS_UNWRAP_SUITE_ECDH_AES_256_GCM_NOPADDING**:\n |  ECC_plain_pubkey_length    (4 Byte) |  ECC_plain_pubkey   |  agreekey_aad_length (4 Byte) | agreekey_aad\n |   agreekey_nonce_length     (4 Byte) |   agreekey_nonce    | agreekey_aead_tag_len(4 Byte) | agreekey_aead_tag\n |    kek_enc_data_length      (4 Byte) |    kek_enc_data     |    kek_aad_length    (4 Byte) | kek_aad\n |      kek_nonce_length       (4 Byte) |      kek_nonce      |   kek_aead_tag_len   (4 Byte) | kek_aead_tag\n |   key_material_size_len     (4 Byte) |  key_material_size  |   key_mat_enc_length (4 Byte) | key_mat_enc_data\n\n <br>Key material format for **OH_HUKS_UNWRAP_SUITE_SM2_SM4_ECB_NOPADDING**:\n |     kek_SM4_enc_length      (4 Byte) |      EN_SM4_key     | importkey_enc_length (4 Byte) | importkey_enc\n\n @since 9\n @version 1.0"]
 pub type OH_Huks_AlgSuite = u32;
 #[doc = " Key generated by default."]
 pub const OH_Huks_KeyGenerateType_OH_HUKS_KEY_GENERATE_TYPE_DEFAULT: OH_Huks_KeyGenerateType = 0;
 #[doc = " Derived key."]
 pub const OH_Huks_KeyGenerateType_OH_HUKS_KEY_GENERATE_TYPE_DERIVE: OH_Huks_KeyGenerateType = 1;
-#[doc = " Key obtained by key agreement."]
+#[doc = " Key generated by key agreement."]
 pub const OH_Huks_KeyGenerateType_OH_HUKS_KEY_GENERATE_TYPE_AGREE: OH_Huks_KeyGenerateType = 2;
-#[doc = " @brief Enumerates the key generation types.\n\n @since 9\n @version 1.0"]
+#[doc = " @brief Enumerates the types of the key generated.\n\n @since 9\n @version 1.0"]
 pub type OH_Huks_KeyGenerateType = u32;
-#[doc = " Import a public key using an API."]
+#[doc = " Import a public key using a function."]
 pub const OH_Huks_KeyFlag_OH_HUKS_KEY_FLAG_IMPORT_KEY: OH_Huks_KeyFlag = 1;
-#[doc = " Generate a key by using an API."]
+#[doc = " Generate a key by using a function."]
 pub const OH_Huks_KeyFlag_OH_HUKS_KEY_FLAG_GENERATE_KEY: OH_Huks_KeyFlag = 2;
-#[doc = " Generate a key by using a key agreement API."]
+#[doc = " Generate a key by using a key agreement function."]
 pub const OH_Huks_KeyFlag_OH_HUKS_KEY_FLAG_AGREE_KEY: OH_Huks_KeyFlag = 3;
-#[doc = " Derive a key by using an API."]
+#[doc = " Derive a key by using a function."]
 pub const OH_Huks_KeyFlag_OH_HUKS_KEY_FLAG_DERIVE_KEY: OH_Huks_KeyFlag = 4;
-#[doc = " @brief Enumerates the key generation modes.\n\n @since 9\n @version 1.0"]
+#[doc = " @brief Enumerates the key generation types.\n\n @since 9\n @version 1.0"]
 pub type OH_Huks_KeyFlag = u32;
-#[doc = " The key is managed locally."]
+#[doc = " Return the key to the service via the API."]
 pub const OH_Huks_KeyStorageType_OH_HUKS_STORAGE_TEMP: OH_Huks_KeyStorageType = 0;
-#[doc = " The key is managed by the HUKS service."]
+#[doc = " Store the key in HUKS."]
 pub const OH_Huks_KeyStorageType_OH_HUKS_STORAGE_PERSISTENT: OH_Huks_KeyStorageType = 1;
-#[doc = " The key is only used in huks."]
+#[doc = " Store the key generated from key derivation or key agreement in HUKS."]
 pub const OH_Huks_KeyStorageType_OH_HUKS_STORAGE_ONLY_USED_IN_HUKS: OH_Huks_KeyStorageType = 2;
-#[doc = " The key can be allowed to export."]
+#[doc = " Return the key generated from key derivation or key agreement to the service."]
 pub const OH_Huks_KeyStorageType_OH_HUKS_STORAGE_KEY_EXPORT_ALLOWED: OH_Huks_KeyStorageType = 3;
-#[doc = " @brief Enumerates the key storage modes.\n\n @since 9\n @version 1.0"]
+#[doc = " @brief Enumerates the key storage types.\n\n @since 9\n @version 1.0"]
 pub type OH_Huks_KeyStorageType = u32;
 #[doc = " Public key."]
 pub const OH_Huks_ImportKeyType_OH_HUKS_KEY_TYPE_PUBLIC_KEY: OH_Huks_ImportKeyType = 0;
@@ -259,19 +259,19 @@ pub const OH_Huks_ImportKeyType_OH_HUKS_KEY_TYPE_PUBLIC_KEY: OH_Huks_ImportKeyTy
 pub const OH_Huks_ImportKeyType_OH_HUKS_KEY_TYPE_PRIVATE_KEY: OH_Huks_ImportKeyType = 1;
 #[doc = " Public and private key pair."]
 pub const OH_Huks_ImportKeyType_OH_HUKS_KEY_TYPE_KEY_PAIR: OH_Huks_ImportKeyType = 2;
-#[doc = " @brief Enumerates the types of keys to import. By default,\n    a public key is imported. This field is not required when a symmetric key is imported.\n\n @since 9\n @version 1.0"]
+#[doc = " @brief Enumerates the types of the key to import. By default, a public key is imported. This field is not required\n when a symmetric key is imported.\n\n @since 9\n @version 1.0"]
 pub type OH_Huks_ImportKeyType = u32;
-#[doc = " Salt length matches digest."]
+#[doc = " The salt length is set to the digest length."]
 pub const OH_Huks_RsaPssSaltLenType_OH_HUKS_RSA_PSS_SALT_LEN_DIGEST: OH_Huks_RsaPssSaltLenType = 0;
-#[doc = " Set salt length to maximum possible, default type."]
+#[doc = " The salt length is set to the maximum length."]
 pub const OH_Huks_RsaPssSaltLenType_OH_HUKS_RSA_PSS_SALT_LEN_MAX: OH_Huks_RsaPssSaltLenType = 1;
-#[doc = " @brief Enumerates the salt_len types to set when PSS padding is used in RSA signing or signature\n verification.\n\n @since 10\n @version 1.0"]
+#[doc = " @brief Enumerates the length types of the salt value in PSS padding mode of the RSA algorithm.\n\n @since 10\n @version 1.0"]
 pub type OH_Huks_RsaPssSaltLenType = u32;
-#[doc = " The operation is successful."]
+#[doc = " Success."]
 pub const OH_Huks_ErrCode_OH_HUKS_SUCCESS: OH_Huks_ErrCode = 0;
 #[doc = " Permission verification failed."]
 pub const OH_Huks_ErrCode_OH_HUKS_ERR_CODE_PERMISSION_FAIL: OH_Huks_ErrCode = 201;
-#[doc = " Invalid parameters are detected."]
+#[doc = " Invalid parameter (universal)."]
 pub const OH_Huks_ErrCode_OH_HUKS_ERR_CODE_ILLEGAL_ARGUMENT: OH_Huks_ErrCode = 401;
 #[doc = " The API is not supported."]
 pub const OH_Huks_ErrCode_OH_HUKS_ERR_CODE_NOT_SUPPORTED_API: OH_Huks_ErrCode = 801;
@@ -279,13 +279,13 @@ pub const OH_Huks_ErrCode_OH_HUKS_ERR_CODE_NOT_SUPPORTED_API: OH_Huks_ErrCode = 
 pub const OH_Huks_ErrCode_OH_HUKS_ERR_CODE_FEATURE_NOT_SUPPORTED: OH_Huks_ErrCode = 12000001;
 #[doc = " Key algorithm parameters are missing."]
 pub const OH_Huks_ErrCode_OH_HUKS_ERR_CODE_MISSING_CRYPTO_ALG_ARGUMENT: OH_Huks_ErrCode = 12000002;
-#[doc = " Invalid key algorithm parameters are detected."]
+#[doc = " Invalid key algorithm parameter."]
 pub const OH_Huks_ErrCode_OH_HUKS_ERR_CODE_INVALID_CRYPTO_ALG_ARGUMENT: OH_Huks_ErrCode = 12000003;
-#[doc = " Failed to operate the file."]
+#[doc = " File operation failed."]
 pub const OH_Huks_ErrCode_OH_HUKS_ERR_CODE_FILE_OPERATION_FAIL: OH_Huks_ErrCode = 12000004;
 #[doc = " The process communication failed."]
 pub const OH_Huks_ErrCode_OH_HUKS_ERR_CODE_COMMUNICATION_FAIL: OH_Huks_ErrCode = 12000005;
-#[doc = " Failed to operate the algorithm library."]
+#[doc = " Crypto operation failed."]
 pub const OH_Huks_ErrCode_OH_HUKS_ERR_CODE_CRYPTO_FAIL: OH_Huks_ErrCode = 12000006;
 #[doc = " Failed to access the key because the key has expired."]
 pub const OH_Huks_ErrCode_OH_HUKS_ERR_CODE_KEY_AUTH_PERMANENTLY_INVALIDATED: OH_Huks_ErrCode =
@@ -302,54 +302,54 @@ pub const OH_Huks_ErrCode_OH_HUKS_ERR_CODE_ITEM_NOT_EXIST: OH_Huks_ErrCode = 120
 pub const OH_Huks_ErrCode_OH_HUKS_ERR_CODE_INTERNAL_ERROR: OH_Huks_ErrCode = 12000012;
 #[doc = " The authentication credential does not exist."]
 pub const OH_Huks_ErrCode_OH_HUKS_ERR_CODE_CREDENTIAL_NOT_EXIST: OH_Huks_ErrCode = 12000013;
-#[doc = " The memory is not sufficient."]
+#[doc = " Insufficient memory."]
 pub const OH_Huks_ErrCode_OH_HUKS_ERR_CODE_INSUFFICIENT_MEMORY: OH_Huks_ErrCode = 12000014;
-#[doc = " Failed to call service."]
+#[doc = " Failed to invoke the service."]
 pub const OH_Huks_ErrCode_OH_HUKS_ERR_CODE_CALL_SERVICE_FAILED: OH_Huks_ErrCode = 12000015;
-#[doc = " A device password is required but not set.\n\n @since 11"]
+#[doc = " The lock screen password required is not set.\n @since 11"]
 pub const OH_Huks_ErrCode_OH_HUKS_ERR_CODE_DEVICE_PASSWORD_UNSET: OH_Huks_ErrCode = 12000016;
-#[doc = " The key with same alias is already exist.\n\n @since 20"]
+#[doc = " A key with the same name already exists.\n @since 20"]
 #[cfg(feature = "api-20")]
 pub const OH_Huks_ErrCode_OH_HUKS_ERR_CODE_KEY_ALREADY_EXIST: OH_Huks_ErrCode = 12000017;
-#[doc = " The input parameter is invalid..\n\n @since 20"]
+#[doc = " An input parameter is invalid.\n @since 20"]
 #[cfg(feature = "api-20")]
 pub const OH_Huks_ErrCode_OH_HUKS_ERR_CODE_INVALID_ARGUMENT: OH_Huks_ErrCode = 12000018;
-#[doc = " The item already exists.\n\n @since 22"]
+#[doc = " The entity already exists.\n @since 22"]
 #[cfg(feature = "api-22")]
 pub const OH_Huks_ErrCode_OH_HUKS_ERR_CODE_ITEM_EXISTS: OH_Huks_ErrCode = 12000019;
-#[doc = " An error occurred in the external module.\n\n @since 22"]
+#[doc = " The provider or UKey internal execution fails.\n @since 22"]
 #[cfg(feature = "api-22")]
 pub const OH_Huks_ErrCode_OH_HUKS_ERR_CODE_EXTERNAL_MODULE: OH_Huks_ErrCode = 12000020;
-#[doc = " The Ukey PIN is locked.\n\n @since 22"]
+#[doc = " The PIN is locked.\n @since 22"]
 #[cfg(feature = "api-22")]
 pub const OH_Huks_ErrCode_OH_HUKS_ERR_CODE_PIN_LOCKED: OH_Huks_ErrCode = 12000021;
-#[doc = " The Ukey PIN is incorrect.\n\n @since 22"]
+#[doc = " Incorrect PIN.\n @since 22"]
 #[cfg(feature = "api-22")]
 pub const OH_Huks_ErrCode_OH_HUKS_ERR_CODE_PIN_INCORRECT: OH_Huks_ErrCode = 12000022;
-#[doc = " The Ukey PIN is not authenticated.\n\n @since 22"]
+#[doc = " PIN authentication fails.\n @since 22"]
 #[cfg(feature = "api-22")]
 pub const OH_Huks_ErrCode_OH_HUKS_ERR_CODE_PIN_NO_AUTH: OH_Huks_ErrCode = 12000023;
-#[doc = " The device or resource is busy.\n\n @since 22"]
+#[doc = " The provider or UKey resources are being used.\n @since 22"]
 #[cfg(feature = "api-22")]
 pub const OH_Huks_ErrCode_OH_HUKS_ERR_CODE_BUSY: OH_Huks_ErrCode = 12000024;
-#[doc = " The resource exceeds  the limit.\n\n @since 22"]
+#[doc = " The resource limit is exceeded.\n @since 22"]
 #[cfg(feature = "api-22")]
 pub const OH_Huks_ErrCode_OH_HUKS_ERR_CODE_EXCEED_LIMIT: OH_Huks_ErrCode = 12000025;
-#[doc = " @brief Enumerates the error codes.\n\n @since 9\n @version 1.0"]
+#[doc = " @brief Enumerates error codes.\n\n @since 9\n @version 1.0"]
 pub type OH_Huks_ErrCode = u32;
 #[doc = " Invalid tag type."]
 pub const OH_Huks_TagType_OH_HUKS_TAG_TYPE_INVALID: OH_Huks_TagType = 0;
 #[doc = " int32_t."]
 pub const OH_Huks_TagType_OH_HUKS_TAG_TYPE_INT: OH_Huks_TagType = 268435456;
-#[doc = " uin32_t."]
+#[doc = " uint32_t."]
 pub const OH_Huks_TagType_OH_HUKS_TAG_TYPE_UINT: OH_Huks_TagType = 536870912;
-#[doc = " uin64_t."]
+#[doc = " uint64_t."]
 pub const OH_Huks_TagType_OH_HUKS_TAG_TYPE_ULONG: OH_Huks_TagType = 805306368;
 #[doc = " Boolean."]
 pub const OH_Huks_TagType_OH_HUKS_TAG_TYPE_BOOL: OH_Huks_TagType = 1073741824;
-#[doc = " OH_Huks_Blob."]
+#[doc = " {@link OH_Huks_Blob}."]
 pub const OH_Huks_TagType_OH_HUKS_TAG_TYPE_BYTES: OH_Huks_TagType = 1342177280;
-#[doc = " @brief Enumerates the tag types.\n @see OH_Huks_Param\n\n @since 9\n @version 1.0"]
+#[doc = " @brief Enumerates parameter types.\n\n @see OH_Huks_Param\n\n @since 9\n @version 1.0"]
 pub type OH_Huks_TagType = u32;
 #[doc = " Fingerprint authentication."]
 pub const OH_Huks_UserAuthType_OH_HUKS_USER_AUTH_TYPE_FINGERPRINT: OH_Huks_UserAuthType = 1;
@@ -357,42 +357,42 @@ pub const OH_Huks_UserAuthType_OH_HUKS_USER_AUTH_TYPE_FINGERPRINT: OH_Huks_UserA
 pub const OH_Huks_UserAuthType_OH_HUKS_USER_AUTH_TYPE_FACE: OH_Huks_UserAuthType = 2;
 #[doc = " PIN authentication."]
 pub const OH_Huks_UserAuthType_OH_HUKS_USER_AUTH_TYPE_PIN: OH_Huks_UserAuthType = 4;
-#[doc = " Enum for tui pin auth type.\n\n @since 20"]
+#[doc = " TUI PIN authentication.\n @since 20"]
 #[cfg(feature = "api-20")]
 pub const OH_Huks_UserAuthType_OH_HUKS_USER_AUTH_TYPE_TUI_PIN: OH_Huks_UserAuthType = 32;
-#[doc = " @brief Enumerates the user authentication types.\n\n @since 9\n @version 1.0"]
+#[doc = " @brief Enumerates the user authentication types in key access control.\n\n @since 9\n @version 1.0"]
 pub type OH_Huks_UserAuthType = u32;
-#[doc = " The key is invalid after the password is cleared."]
+#[doc = " The key becomes invalid after the password is cleared."]
 pub const OH_Huks_AuthAccessType_OH_HUKS_AUTH_ACCESS_INVALID_CLEAR_PASSWORD:
     OH_Huks_AuthAccessType = 1;
-#[doc = " The key is invalid after a new biometric feature is enrolled."]
+#[doc = " The key becomes invalid after a new biometric feature is enrolled."]
 pub const OH_Huks_AuthAccessType_OH_HUKS_AUTH_ACCESS_INVALID_NEW_BIO_ENROLL:
     OH_Huks_AuthAccessType = 2;
-#[doc = " The key is always valid.\n\n @since 11"]
+#[doc = " The key is always valid.\n @since 11"]
 pub const OH_Huks_AuthAccessType_OH_HUKS_AUTH_ACCESS_ALWAYS_VALID: OH_Huks_AuthAccessType = 4;
-#[doc = " @brief Enumerates the access control types.\n\n @since 9\n @version 1.0"]
+#[doc = " @brief Enumerates the rules for invalidating a key.\n\n @since 9\n @version 1.0"]
 pub type OH_Huks_AuthAccessType = u32;
-#[doc = " Key file storage security level for device encryption standard.\n @since 11"]
+#[doc = " The key can be accessed only after the device is started.\n @since 11"]
 pub const OH_Huks_AuthStorageLevel_OH_HUKS_AUTH_STORAGE_LEVEL_DE: OH_Huks_AuthStorageLevel = 0;
-#[doc = " Key file storage security level for credential encryption standard.\n @since 11"]
+#[doc = " The key can be accessed only after the first unlock of the device.\n @since 11"]
 pub const OH_Huks_AuthStorageLevel_OH_HUKS_AUTH_STORAGE_LEVEL_CE: OH_Huks_AuthStorageLevel = 1;
-#[doc = " Key file storage security level for enhanced credential encryption standard.\n @since 11"]
+#[doc = " The key can be accessed only when the device is unlocked.\n @since 11"]
 pub const OH_Huks_AuthStorageLevel_OH_HUKS_AUTH_STORAGE_LEVEL_ECE: OH_Huks_AuthStorageLevel = 2;
-#[doc = " @brief Enumerates key file storage authentication levels.\n\n @since 11"]
+#[doc = " @brief Enumerates the security levels for storing the key generated or imported.\n\n @since 11"]
 pub type OH_Huks_AuthStorageLevel = u32;
-#[doc = " Auth mode for local scenarios.\n @since 12"]
+#[doc = " Local authentication.\n @since 12"]
 pub const OH_Huks_UserAuthMode_OH_HUKS_USER_AUTH_MODE_LOCAL: OH_Huks_UserAuthMode = 0;
-#[doc = " Auth mode for co-auth scenarios.\n @since 12"]
+#[doc = " Cross-device collaborative authentication.\n @since 12"]
 pub const OH_Huks_UserAuthMode_OH_HUKS_USER_AUTH_MODE_COAUTH: OH_Huks_UserAuthMode = 1;
-#[doc = " @brief Enumerates the user authentication mode.\n\n @since 12\n @version 1.0"]
+#[doc = " @brief Enumerates the user authentication modes in key access control.\n\n @since 12\n @version 1.0"]
 pub type OH_Huks_UserAuthMode = u32;
 #[doc = " Normal challenge, which is of 32 bytes by default."]
 pub const OH_Huks_ChallengeType_OH_HUKS_CHALLENGE_TYPE_NORMAL: OH_Huks_ChallengeType = 0;
-#[doc = " Custom challenge, which supports only one authentication for multiple keys.\n  The valid value of a custom challenge is of 8 bytes."]
+#[doc = " Custom challenge, which supports one-time authentication for multiple keys. The valid value of a custom\n challenge is of 8 bytes."]
 pub const OH_Huks_ChallengeType_OH_HUKS_CHALLENGE_TYPE_CUSTOM: OH_Huks_ChallengeType = 1;
 #[doc = " Challenge is not required."]
 pub const OH_Huks_ChallengeType_OH_HUKS_CHALLENGE_TYPE_NONE: OH_Huks_ChallengeType = 2;
-#[doc = " @brief Enumerates the types of the challenges generated when a key is used.\n @see OH_Huks_ChallengePosition\n\n @since 9\n @version 1.0"]
+#[doc = " @brief Enumerates the types of the challenge generated when a key is used.\n\n @see OH_Huks_ChallengePosition\n\n @since 9\n @version 1.0"]
 pub type OH_Huks_ChallengeType = u32;
 #[doc = " Bytes 0 to 7."]
 pub const OH_Huks_ChallengePosition_OH_HUKS_CHALLENGE_POS_0: OH_Huks_ChallengePosition = 0;
@@ -404,42 +404,42 @@ pub const OH_Huks_ChallengePosition_OH_HUKS_CHALLENGE_POS_2: OH_Huks_ChallengePo
 pub const OH_Huks_ChallengePosition_OH_HUKS_CHALLENGE_POS_3: OH_Huks_ChallengePosition = 3;
 #[doc = " @brief Enumerates the positions of the 8-byte valid value in a custom challenge generated.\n\n @since 9\n @version 1.0"]
 pub type OH_Huks_ChallengePosition = u32;
-#[doc = " The signature carries authentication information. This field is specified when a key\n is generated or imported. When the key is used to sign data, the data will be added with\n the authentication information and then be signed.\n NOTICE:\n The carried authentication information contains personal identification details. Developers are required\n to clearly state the purpose of use, retention policy, and destruction method of such personal information in\n their privacy statement."]
+#[doc = " The signature carries authentication information. This field is specified when a key is generated or imported.\n When the key is used for signing, the data will be added with the authentication information and then be signed.\n Note: The carried authentication information includes identity information. You need to describe the purpose,\n retention policy, and destruction method of the identity information in the privacy statement."]
 pub const OH_Huks_SecureSignType_OH_HUKS_SECURE_SIGN_WITH_AUTHINFO: OH_Huks_SecureSignType = 1;
-#[doc = " @brief Enumerates the signature types of the keys generated or imported.\n\n @since 9\n @version 1.0"]
+#[doc = " @brief Enumerates the signature types of the key generated or imported.\n\n @since 9\n @version 1.0"]
 pub type OH_Huks_SecureSignType = u32;
-#[doc = " @brief The default type specifics the key is stored in huks.\n\n @since 22"]
+#[doc = " @brief Default type. The key is stored in HUKS.\n\n @since 22"]
 #[cfg(feature = "api-22")]
 pub const OH_Huks_KeyClassType_OH_HUKS_KEY_CLASS_DEFAULT: OH_Huks_KeyClassType = 0;
-#[doc = " @brief The key is stored in external crypto provider.\n\n @since 22"]
+#[doc = " @brief The key is stored in an external encryption capability provider.\n\n @since 22"]
 #[cfg(feature = "api-22")]
 pub const OH_Huks_KeyClassType_OH_HUKS_KEY_CLASS_EXTENSION: OH_Huks_KeyClassType = 1;
-#[doc = " @brief Enumerates the types of keys.\n\n @since 22"]
+#[doc = " @brief Key type.\n\n @since 22"]
 #[cfg(feature = "api-22")]
 pub type OH_Huks_KeyClassType = u32;
-#[doc = " The hardware unique key wrap type.\n\n @since 20"]
+#[doc = " Wrap type of the unique hardware key.\n @since 20"]
 #[cfg(feature = "api-20")]
 pub const OH_Huks_KeyWrapType_OH_HUKS_KEY_WRAP_TYPE_HUK_BASED: OH_Huks_KeyWrapType = 2;
-#[doc = " Enum for key wrap type.\n\n @since 20"]
+#[doc = " Enumerates the wrap type of the key generated or imported.\n @since 20"]
 #[cfg(feature = "api-20")]
 pub type OH_Huks_KeyWrapType = u32;
-#[doc = " Tags for key parameters. The value range is 1 to 200. */\n/** Algorithm."]
+#[doc = " Algorithm type. For details, see {@link OH_Huks_KeyAlg}."]
 pub const OH_Huks_Tag_OH_HUKS_TAG_ALGORITHM: OH_Huks_Tag = 536870913;
-#[doc = " Key purpose."]
+#[doc = " Key purpose. For details, see {@link OH_Huks_KeyPurpose}."]
 pub const OH_Huks_Tag_OH_HUKS_TAG_PURPOSE: OH_Huks_Tag = 536870914;
-#[doc = " Key size."]
+#[doc = " Key length, in bits. For details, see {@link OH_Huks_KeySize}."]
 pub const OH_Huks_Tag_OH_HUKS_TAG_KEY_SIZE: OH_Huks_Tag = 536870915;
-#[doc = " Digest algorithm."]
+#[doc = " Digest algorithm. For details, see {@link OH_Huks_KeyDigest}."]
 pub const OH_Huks_Tag_OH_HUKS_TAG_DIGEST: OH_Huks_Tag = 536870916;
-#[doc = " Padding algorithm."]
+#[doc = " Padding algorithm. For details, see {@link OH_Huks_KeyPadding}."]
 pub const OH_Huks_Tag_OH_HUKS_TAG_PADDING: OH_Huks_Tag = 536870917;
-#[doc = " Cipher mode."]
+#[doc = " Encryption mode. For details, see {@link OH_Huks_CipherMode}."]
 pub const OH_Huks_Tag_OH_HUKS_TAG_BLOCK_MODE: OH_Huks_Tag = 536870918;
 #[doc = " Key type."]
 pub const OH_Huks_Tag_OH_HUKS_TAG_KEY_TYPE: OH_Huks_Tag = 536870919;
 #[doc = " Associated authentication data."]
 pub const OH_Huks_Tag_OH_HUKS_TAG_ASSOCIATED_DATA: OH_Huks_Tag = 1342177288;
-#[doc = " Field for key encryption and decryption."]
+#[doc = " **NONCE** field for key encryption and decryption."]
 pub const OH_Huks_Tag_OH_HUKS_TAG_NONCE: OH_Huks_Tag = 1342177289;
 #[doc = " Initialized vector (IV)."]
 pub const OH_Huks_Tag_OH_HUKS_TAG_IV: OH_Huks_Tag = 1342177290;
@@ -459,71 +459,71 @@ pub const OH_Huks_Tag_OH_HUKS_TAG_AGREE_PUBLIC_KEY_IS_KEY_ALIAS: OH_Huks_Tag = 1
 pub const OH_Huks_Tag_OH_HUKS_TAG_AGREE_PRIVATE_KEY_ALIAS: OH_Huks_Tag = 1342177301;
 #[doc = " Public key used for key agreement."]
 pub const OH_Huks_Tag_OH_HUKS_TAG_AGREE_PUBLIC_KEY: OH_Huks_Tag = 1342177302;
-#[doc = " Alias of the key."]
+#[doc = " Key alias."]
 pub const OH_Huks_Tag_OH_HUKS_TAG_KEY_ALIAS: OH_Huks_Tag = 1342177303;
-#[doc = " Size of the derived key."]
+#[doc = " Size of the derived key, in bytes."]
 pub const OH_Huks_Tag_OH_HUKS_TAG_DERIVE_KEY_SIZE: OH_Huks_Tag = 536870936;
-#[doc = " Type of the key to import. For details, see {@link OH_Huks_ImportKeyType}."]
+#[doc = " Type of the imported key. For details, see {@link OH_Huks_ImportKeyType}."]
 pub const OH_Huks_Tag_OH_HUKS_TAG_IMPORT_KEY_TYPE: OH_Huks_Tag = 536870937;
-#[doc = " Algorithm suite required for encrypted imports."]
+#[doc = " Suite of the imported encryption key. For details, see {@link OH_Huks_AlgSuite}."]
 pub const OH_Huks_Tag_OH_HUKS_TAG_UNWRAP_ALGORITHM_SUITE: OH_Huks_Tag = 536870938;
-#[doc = " Storage mode of derived or agree keys. For details, see {@link OH_Huks_KeyStorageType}."]
+#[doc = " Storage type of the derived key or key produced after key agreement. For details, see\n {@link OH_Huks_KeyStorageType}."]
 pub const OH_Huks_Tag_OH_HUKS_TAG_DERIVED_AGREED_KEY_STORAGE_FLAG: OH_Huks_Tag = 536870941;
-#[doc = " Type of rsa pss salt length."]
+#[doc = " Salt length type when the padding mode of the RSA algorithm is PSS. For details, see\n {@link OH_Huks_RsaPssSaltLenType}."]
 pub const OH_Huks_Tag_OH_HUKS_TAG_RSA_PSS_SALT_LEN_TYPE: OH_Huks_Tag = 536870942;
-#[doc = " Tags for access control and user authentication. The value range is 301 to 500. */\n/** All users in the multi-user scenario."]
+#[doc = " All users in the multi-user scenario."]
 pub const OH_Huks_Tag_OH_HUKS_TAG_ALL_USERS: OH_Huks_Tag = 1073742125;
 #[doc = " Multi-user ID."]
 pub const OH_Huks_Tag_OH_HUKS_TAG_USER_ID: OH_Huks_Tag = 536871214;
-#[doc = " Specifies whether key access control is required."]
+#[doc = " Whether key access control is required."]
 pub const OH_Huks_Tag_OH_HUKS_TAG_NO_AUTH_REQUIRED: OH_Huks_Tag = 1073742127;
-#[doc = " User authentication type in key access control."]
+#[doc = " User authentication mode in key access control. For details, see {@link OH_Huks_UserAuthType}."]
 pub const OH_Huks_Tag_OH_HUKS_TAG_USER_AUTH_TYPE: OH_Huks_Tag = 536871216;
-#[doc = " Timeout duration for key access."]
+#[doc = " Timeout duration for key access in key access control, in seconds."]
 pub const OH_Huks_Tag_OH_HUKS_TAG_AUTH_TIMEOUT: OH_Huks_Tag = 536871217;
 #[doc = " Authentication token for the key."]
 pub const OH_Huks_Tag_OH_HUKS_TAG_AUTH_TOKEN: OH_Huks_Tag = 1342177586;
-#[doc = "  Access control type. For details, see {@link OH_Huks_AuthAccessType}.\n  This parameter must be set together with the user authentication type."]
+#[doc = " Key access control type, which must be set together with the user authentication type. For details, see\n {@link OH_Huks_AuthAccessType}."]
 pub const OH_Huks_Tag_OH_HUKS_TAG_KEY_AUTH_ACCESS_TYPE: OH_Huks_Tag = 536871219;
-#[doc = " Signature type for the key to be generated or imported."]
+#[doc = " Signature type of the key generated or imported."]
 pub const OH_Huks_Tag_OH_HUKS_TAG_KEY_SECURE_SIGN_TYPE: OH_Huks_Tag = 536871220;
 #[doc = " Challenge type. For details, see {@link OH_Huks_ChallengeType}."]
 pub const OH_Huks_Tag_OH_HUKS_TAG_CHALLENGE_TYPE: OH_Huks_Tag = 536871221;
-#[doc = "  Position of the 8-byte valid value in a custom challenge.\n  For details, see {@link OH_Huks_ChallengePosition}."]
+#[doc = "  Position of the 8-byte valid value in a custom challenge. For details, see {@link OH_Huks_ChallengePosition}."]
 pub const OH_Huks_Tag_OH_HUKS_TAG_CHALLENGE_POS: OH_Huks_Tag = 536871222;
-#[doc = " Purpose of key authentication"]
+#[doc = " Type of the key authentication purpose."]
 pub const OH_Huks_Tag_OH_HUKS_TAG_KEY_AUTH_PURPOSE: OH_Huks_Tag = 536871223;
-#[doc = " Security level of access control for key file storage, whose optional values are from OH_Huks_AuthStorageLevel.\n\n @since 11"]
+#[doc = " Security levels for storing the key. For details, see {@link OH_Huks_AuthStorageLevel}.\n @since 11"]
 pub const OH_Huks_Tag_OH_HUKS_TAG_AUTH_STORAGE_LEVEL: OH_Huks_Tag = 536871228;
-#[doc = " Authentication mode of the user authtoken，whose optional values are from enum HuksUserAuthMode.\n\n @since 12"]
+#[doc = " User authentication mode in key access control. For details, see {@link OH_Huks_UserAuthMode}.\n @since 12"]
 pub const OH_Huks_Tag_OH_HUKS_TAG_USER_AUTH_MODE: OH_Huks_Tag = 536871231;
-#[doc = " Tags for key attestation. The value range is 501 to 600. */\n/** Challenge value used in the attestation."]
+#[doc = " Challenge value used in the attestation."]
 pub const OH_Huks_Tag_OH_HUKS_TAG_ATTESTATION_CHALLENGE: OH_Huks_Tag = 1342177781;
-#[doc = " Application ID used in the attestation."]
+#[doc = " ID of the application that has the key during key authentication."]
 pub const OH_Huks_Tag_OH_HUKS_TAG_ATTESTATION_APPLICATION_ID: OH_Huks_Tag = 1342177782;
-#[doc = " Alias of the key."]
+#[doc = " Key alias."]
 pub const OH_Huks_Tag_OH_HUKS_TAG_ATTESTATION_ID_ALIAS: OH_Huks_Tag = 1342177791;
-#[doc = " Security level used in the attestation."]
+#[doc = " Security level used in key attestation."]
 pub const OH_Huks_Tag_OH_HUKS_TAG_ATTESTATION_ID_SEC_LEVEL_INFO: OH_Huks_Tag = 1342177794;
-#[doc = " Version information used in the attestation."]
+#[doc = " Version information used in key attestation."]
 pub const OH_Huks_Tag_OH_HUKS_TAG_ATTESTATION_ID_VERSION_INFO: OH_Huks_Tag = 1342177795;
-#[doc = " @brief The tag indicates whether to overwrite the key with same alias\n\n @since 20"]
+#[doc = " @brief Whether to overwrite the key with the same name.\n\n @since 20"]
 #[cfg(feature = "api-20")]
 pub const OH_Huks_Tag_OH_HUKS_TAG_KEY_OVERRIDE: OH_Huks_Tag = 1073742344;
-#[doc = " @brief The tag indicates the length of AEAD for CCM mode.\n\n @since 22"]
+#[doc = " @brief Length of the specified AEAD in CCM mode.\n\n @since 22"]
 #[cfg(feature = "api-22")]
 pub const OH_Huks_Tag_OH_HUKS_TAG_AE_TAG_LEN: OH_Huks_Tag = 536871433;
-#[doc = " @brief The tag indicates the key class type.\n\n @since 22"]
+#[doc = " @brief Key type, which is used to distinguish the key managed by HUKS on the device from the key stored in an\n external device.\n\n @since 22"]
 #[cfg(feature = "api-22")]
 pub const OH_Huks_Tag_OH_HUKS_TAG_KEY_CLASS: OH_Huks_Tag = 536871434;
-#[doc = " @brief The tag indicates a group of shared keys among applications with the same developer ID.\n\n @since 23"]
+#[doc = " @brief Group ID. Keys can be shared among the same group of developers with the same developer ID.\n\n @since 23"]
 #[cfg(feature = "api-23")]
 pub const OH_Huks_Tag_OH_HUKS_TAG_KEY_ACCESS_GROUP: OH_Huks_Tag = 1342177803;
-#[doc = " 601 to 1000 are reserved for other tags.\n\n Extended tags. The value range is 1001 to 9999.\n/\n/** Specifies whether it is a key alias."]
+#[doc = " Whether it is a key alias."]
 pub const OH_Huks_Tag_OH_HUKS_TAG_IS_KEY_ALIAS: OH_Huks_Tag = 1073742825;
 #[doc = " Key storage mode. For details, see {@link OH_Huks_KeyStorageType}."]
 pub const OH_Huks_Tag_OH_HUKS_TAG_KEY_STORAGE_FLAG: OH_Huks_Tag = 536871914;
-#[doc = " Specifies whether to allow the key to be wrapped."]
+#[doc = " Whether to allow the key to be wrapped."]
 pub const OH_Huks_Tag_OH_HUKS_TAG_IS_ALLOWED_WRAP: OH_Huks_Tag = 1073742827;
 #[doc = " Key wrap type."]
 pub const OH_Huks_Tag_OH_HUKS_TAG_KEY_WRAP_TYPE: OH_Huks_Tag = 536871916;
@@ -533,43 +533,43 @@ pub const OH_Huks_Tag_OH_HUKS_TAG_KEY_AUTH_ID: OH_Huks_Tag = 1342178285;
 pub const OH_Huks_Tag_OH_HUKS_TAG_KEY_ROLE: OH_Huks_Tag = 536871918;
 #[doc = " Key flag. For details, see {@link OH_Huks_KeyFlag}."]
 pub const OH_Huks_Tag_OH_HUKS_TAG_KEY_FLAG: OH_Huks_Tag = 536871919;
-#[doc = " Specifies whether this API is asynchronous."]
+#[doc = " Whether the invocation is asynchronous."]
 pub const OH_Huks_Tag_OH_HUKS_TAG_IS_ASYNCHRONIZED: OH_Huks_Tag = 536871920;
 #[doc = " Key domain."]
 pub const OH_Huks_Tag_OH_HUKS_TAG_KEY_DOMAIN: OH_Huks_Tag = 536871923;
-#[doc = " Key access control based on device password setting status.\n True means the key can only be generated and used when the password is set.\n\n @since 11"]
+#[doc = " Whether the key is accessible only when the user sets a lock screen password.<br> **true** indicates that the\n key can be generated and used only when a password is set. **false** indicates that the key can be generated and\n used without setting a password.\n @since 11"]
 pub const OH_Huks_Tag_OH_HUKS_TAG_IS_DEVICE_PASSWORD_SET: OH_Huks_Tag = 1073742836;
-#[doc = " Authenticated Encryption."]
+#[doc = " AEAD in GCM mode."]
 pub const OH_Huks_Tag_OH_HUKS_TAG_AE_TAG: OH_Huks_Tag = 1342187289;
-#[doc = " 11000 to 12000 are reserved.\n\n 20001 to N are reserved for other tags.\n/\n/** Symmetric key data."]
+#[doc = " Symmetric key data."]
 pub const OH_Huks_Tag_OH_HUKS_TAG_SYMMETRIC_KEY_DATA: OH_Huks_Tag = 1342197281;
 #[doc = " Public key data of the asymmetric key pair."]
 pub const OH_Huks_Tag_OH_HUKS_TAG_ASYMMETRIC_PUBLIC_KEY_DATA: OH_Huks_Tag = 1342197282;
 #[doc = " Private key data of the asymmetric key pair."]
 pub const OH_Huks_Tag_OH_HUKS_TAG_ASYMMETRIC_PRIVATE_KEY_DATA: OH_Huks_Tag = 1342197283;
-#[doc = " @brief Enumerates the tag values used in parameter sets.\n\n @since 9\n @version 1.0"]
+#[doc = " @brief Enumerates the tags contained in a parameter set.\n <br>1 to 200: key parameter tag values.\n <br>301 to 500: tag values related to access control and authentication of key usage.\n <br>501 to 600: tag values related to key authentication.\n <br>601 to 1000: reserved values for other types of tag values.\n <br>1001 to 9999: extended tag values.\n <br>11000 to 12000: reserved values.\n <br>20001 to N: reserved tag values.\n\n @since 9\n @version 1.0"]
 pub type OH_Huks_Tag = u32;
-#[doc = " @brief Defines the return data, including the result code and message.\n\n @since 9\n @version 1.0"]
+#[doc = " @brief Defines the returned data, including a status code and related description.\n\n @since 9\n @version 1.0"]
 #[repr(C)]
 #[derive(Debug, Copy, Clone)]
 pub struct OH_Huks_Result {
-    #[doc = " Result code."]
+    #[doc = " Status code. For details, see {@link OH_Huks_ErrCode}."]
     pub errorCode: i32,
-    #[doc = " Description of the result code."]
+    #[doc = " Description of the status code."]
     pub errorMsg: *const ::std::os::raw::c_char,
-    #[doc = " Other data returned."]
+    #[doc = " Other data."]
     pub data: *mut u8,
 }
-#[doc = " @brief Defines the structure for storing data.\n\n @since 9\n @version 1.0"]
+#[doc = " @brief Defines the struct of a binary large object (BLOB).\n\n @since 9\n @version 1.0"]
 #[repr(C)]
 #[derive(Debug, Copy, Clone)]
 pub struct OH_Huks_Blob {
-    #[doc = " Data size."]
+    #[doc = " Data size in bytes."]
     pub size: u32,
-    #[doc = " Pointer to the memory in which the data is stored."]
+    #[doc = " Pointer to the data."]
     pub data: *mut u8,
 }
-#[doc = " @brief Defines the parameter structure in a parameter set.\n\n @since 9\n @version 1.0"]
+#[doc = " @brief Defines the types of the parameters in a parameter set.\n\n @since 9\n @version 1.0"]
 #[repr(C)]
 #[derive(Copy, Clone)]
 pub struct OH_Huks_Param {
@@ -591,7 +591,7 @@ pub union OH_Huks_Param__bindgen_ty_1 {
     #[doc = " Parameter of the struct OH_Huks_Blob type."]
     pub blob: OH_Huks_Blob,
 }
-#[doc = " @brief Defines the structure of the parameter set.\n\n @since 9\n @version 1.0"]
+#[doc = " @brief Defines the struct of a parameter set.\n\n @since 9\n @version 1.0"]
 #[repr(C)]
 pub struct OH_Huks_ParamSet {
     #[doc = " Memory size of the parameter set."]
@@ -601,7 +601,7 @@ pub struct OH_Huks_ParamSet {
     #[doc = " Parameter array."]
     pub params: __IncompleteArrayField<OH_Huks_Param>,
 }
-#[doc = " @brief Defines the structure of the certificate chain.\n\n @since 9\n @version 1.0"]
+#[doc = " @brief Defines the struct of a certificate chain.\n\n @since 9\n @version 1.0"]
 #[repr(C)]
 #[derive(Debug, Copy, Clone)]
 pub struct OH_Huks_CertChain {
@@ -610,16 +610,16 @@ pub struct OH_Huks_CertChain {
     #[doc = " Number of certificates."]
     pub certsCount: u32,
 }
-#[doc = " @brief Defines the key information structure.\n\n @since 9\n @version 1.0"]
+#[doc = " @brief Defines the struct of key information.\n\n @since 9\n @version 1.0"]
 #[repr(C)]
 #[derive(Debug, Copy, Clone)]
 pub struct OH_Huks_KeyInfo {
-    #[doc = " Alias of the key."]
+    #[doc = " Key alias."]
     pub alias: OH_Huks_Blob,
     #[doc = " Pointer to the key parameter set."]
     pub paramSet: *mut OH_Huks_ParamSet,
 }
-#[doc = " @brief Defines the structure of a public key.\n\n @since 9\n @version 1.0"]
+#[doc = " @brief Defines the struct of a public key.\n\n @since 9\n @version 1.0"]
 #[repr(C)]
 #[derive(Debug, Copy, Clone)]
 pub struct OH_Huks_PubKeyInfo {
@@ -627,14 +627,14 @@ pub struct OH_Huks_PubKeyInfo {
     pub keyAlg: OH_Huks_KeyAlg,
     #[doc = " Length of the public key."]
     pub keySize: u32,
-    #[doc = " Length of the n or X value."]
+    #[doc = " Length of **n** or **X**."]
     pub nOrXSize: u32,
-    #[doc = " Length of the e or Y value."]
+    #[doc = " Length of **e** or **Y**."]
     pub eOrYSize: u32,
-    #[doc = " Placeholder size."]
+    #[doc = " Placeholder size, intended for memory alignment or reserving space for future algorithmic extensions."]
     pub placeHolder: u32,
 }
-#[doc = " @brief Defines the structure of an RSA key.\n\n @since 9\n @version 1.0"]
+#[doc = " @brief Defines the struct for an RSA key.\n\n @since 9\n @version 1.0"]
 #[repr(C)]
 #[derive(Debug, Copy, Clone)]
 pub struct OH_Huks_KeyMaterialRsa {
@@ -642,14 +642,14 @@ pub struct OH_Huks_KeyMaterialRsa {
     pub keyAlg: OH_Huks_KeyAlg,
     #[doc = " Length of the key."]
     pub keySize: u32,
-    #[doc = " Length of the n value."]
+    #[doc = " Length of **n**."]
     pub nSize: u32,
-    #[doc = " Length of the e value."]
+    #[doc = " Length of **e**."]
     pub eSize: u32,
-    #[doc = " Length of the d value."]
+    #[doc = " Length of **d**."]
     pub dSize: u32,
 }
-#[doc = " @brief Defines the structure of an ECC key.\n\n @since 9\n @version 1.0"]
+#[doc = " @brief Defines the struct for an ECC key.\n\n @since 9\n @version 1.0"]
 #[repr(C)]
 #[derive(Debug, Copy, Clone)]
 pub struct OH_Huks_KeyMaterialEcc {
@@ -657,14 +657,14 @@ pub struct OH_Huks_KeyMaterialEcc {
     pub keyAlg: OH_Huks_KeyAlg,
     #[doc = " Length of the key."]
     pub keySize: u32,
-    #[doc = " Length of the x value."]
+    #[doc = " Length of **x**."]
     pub xSize: u32,
-    #[doc = " Length of the y value."]
+    #[doc = " Length of **y**."]
     pub ySize: u32,
-    #[doc = " Length of the z value."]
+    #[doc = " Length of **z**, which corresponds to the size of the private key d."]
     pub zSize: u32,
 }
-#[doc = " @brief Defines the structure of a DSA key.\n\n @since 9\n @version 1.0"]
+#[doc = " @brief Defines the struct for a DSA key.\n\n @since 9\n @version 1.0"]
 #[repr(C)]
 #[derive(Debug, Copy, Clone)]
 pub struct OH_Huks_KeyMaterialDsa {
@@ -672,18 +672,18 @@ pub struct OH_Huks_KeyMaterialDsa {
     pub keyAlg: OH_Huks_KeyAlg,
     #[doc = " Length of the key."]
     pub keySize: u32,
-    #[doc = " Length of the x value."]
+    #[doc = " Length of **x**."]
     pub xSize: u32,
-    #[doc = " Length of the y value."]
+    #[doc = " Length of **y**."]
     pub ySize: u32,
-    #[doc = " Length of the p value."]
+    #[doc = " Length of **p**."]
     pub pSize: u32,
-    #[doc = " Length of the q value."]
+    #[doc = " Length of **q**."]
     pub qSize: u32,
-    #[doc = " Length of the g value."]
+    #[doc = " Length of **g**."]
     pub gSize: u32,
 }
-#[doc = " @brief Defines the structure of a DH key.\n\n @since 9\n @version 1.0"]
+#[doc = " @brief Defines the struct for a DH key.\n\n @since 9\n @version 1.0"]
 #[repr(C)]
 #[derive(Debug, Copy, Clone)]
 pub struct OH_Huks_KeyMaterialDh {
@@ -695,10 +695,10 @@ pub struct OH_Huks_KeyMaterialDh {
     pub pubKeySize: u32,
     #[doc = " Length of the private key."]
     pub priKeySize: u32,
-    #[doc = " Reserved."]
+    #[doc = " Reserved field."]
     pub reserved: u32,
 }
-#[doc = " @brief Defines the structure of a 25519 key.\n\n @since 9\n @version 1.0"]
+#[doc = " @brief Defines a struct of a 25519 key.\n\n @since 9\n @version 1.0"]
 #[repr(C)]
 #[derive(Debug, Copy, Clone)]
 pub struct OH_Huks_KeyMaterial25519 {
@@ -710,25 +710,25 @@ pub struct OH_Huks_KeyMaterial25519 {
     pub pubKeySize: u32,
     #[doc = " Length of the private key."]
     pub priKeySize: u32,
-    #[doc = " Reserved."]
+    #[doc = " Reserved field."]
     pub reserved: u32,
 }
-#[doc = " @brief Defines the structure of the alias set.\n\n @since 20\n @version 1.0"]
+#[doc = " @brief Defines the struct of a key alias set.\n\n @since 20\n @version 1.0"]
 #[cfg(feature = "api-20")]
 #[repr(C)]
 #[derive(Debug, Copy, Clone)]
 pub struct OH_Huks_KeyAliasSet {
-    #[doc = " Number of aliases."]
+    #[doc = " Number of key aliases."]
     pub aliasesCnt: u32,
-    #[doc = " Aliases array."]
+    #[doc = " Pointer to the key alias set."]
     pub aliases: *mut OH_Huks_Blob,
 }
 extern "C" {
-    #[doc = " @brief Obtains the current HUKS SDK version.\n\n @param sdkVersion Indicates the pointer to the SDK version (in string format) obtained.\n @return {@link OH_Huks_ErrCode#OH_HUKS_SUCCESS} 0 - If the operation is successful.\n         {@link OH_Huks_ErrCode#OH_HUKS_ERR_CODE_ILLEGAL_ARGUMENT} 401 - If sdkVersion or\n             sdkVersion->data is null, or if sdkVersion->size is too small.\n @since 9\n @version 1.0"]
+    #[doc = " @brief Obtains the current HUKS SDK version number.\n\n @param sdkVersion Pointer to the SDK version (string) obtained.\n @return Possible error codes (**errorCode**):\n     <br>OH_HUKS_SUCCESS 0: Operation successful.\n     <br>OH_HUKS_ERR_CODE_ILLEGAL_ARGUMENT 401: The value of **sdkVersion** or **sdkVersion->data** is null,\n     or the value of **sdkVersion->size** is too small.\n @since 9\n @version 1.0"]
     pub fn OH_Huks_GetSdkVersion(sdkVersion: *mut OH_Huks_Blob) -> OH_Huks_Result;
 }
 extern "C" {
-    #[doc = " @brief Generates a key.\n\n @param keyAlias Indicates the pointer to the alias of the key to generate.\n    The alias must be unique in the process of the service. Otherwise, the key will be overwritten.\n @param paramSetIn Indicates the pointer to the parameter set for generating the key.\n @param paramSetOut Indicates the pointer to a temporary key generated. If the generated key is\n    not of a temporary type, this parameter is a null pointer.\n @return {@link OH_Huks_ErrCode#OH_HUKS_SUCCESS} 0 - If the operation is successful.\n         {@link OH_Huks_ErrCode#OH_HUKS_ERR_CODE_ILLEGAL_ARGUMENT} 401 - If keyAlias or paramSetIn or\n             paramSetOut is invalid.\n         {@link OH_Huks_ErrCode#OH_HUKS_ERR_CODE_INTERNAL_ERROR} 12000012 - If Device environment or\n             input parameter abnormal.\n         {@link OH_Huks_ErrCode#OH_HUKS_ERR_CODE_FILE_OPERATION_FAIL} 12000004 - If failed to remove file,\n             or if failed to write file.\n         {@link OH_Huks_ErrCode#OH_HUKS_ERR_CODE_INVALID_CRYPTO_ALG_ARGUMENT} 12000003 - If the key argument\n             is invalid.\n         {@link OH_Huks_ErrCode#OH_HUKS_ERR_CODE_ITEM_NOT_EXIST} 12000011 - If the base key file is not exist.\n         {@link OH_Huks_ErrCode#OH_HUKS_ERR_CODE_MISSING_CRYPTO_ALG_ARGUMENT} 12000002 - If failed to\n             get key argument.\n         {@link OH_Huks_ErrCode#OH_HUKS_ERR_CODE_COMMUNICATION_FAIL} 12000005 - If Ipc communication failed.\n         {@link OH_Huks_ErrCode#OH_HUKS_ERR_CODE_CRYPTO_FAIL} 12000006 - If crypto engine failed.\n         {@link OH_Huks_ErrCode#OH_HUKS_ERR_CODE_INSUFFICIENT_MEMORY} 12000014 - If the memory is insufficient.\n         {@link OH_Huks_ErrCode#OH_HUKS_ERR_CODE_CALL_SERVICE_FAILED} 12000015 - If Failed to obtain\n             the security information via UserIAM.\n         {@link OH_Huks_ErrCode#OH_HUKS_ERR_CODE_DEVICE_PASSWORD_UNSET} 12000016 - If device password is required\n             but not set.\n         {@link OH_Huks_ErrCode#OH_HUKS_ERR_CODE_FEATURE_NOT_SUPPORTED} 12000001 - If the feature is not support.\n         {@link OH_Huks_ErrCode#OH_HUKS_ERR_CODE_KEY_ALREADY_EXIST} 12000017 - If the key with same alias is\n             already exist, added since api level 20.\n         {@link OH_Huks_ErrCode#OH_HUKS_ERR_CODE_INVALID_ARGUMENT} 12000018 - If the group id specified by the\n             access group tag is invalid, added since api level 23.\n @since 9\n @version 1.0"]
+    #[doc = " @brief Generates a key.\n\n @param keyAlias Pointer to the alias of the key to generate. The alias must be unique in the process of the service.\n @param paramSetIn Pointer to the parameters for generating the key.\n @param paramSetOut If a temporary key is generated, this parameter stores the key data. If a non-temporary key is\n     generated, this parameter can be left empty.\n @return Possible error codes (**errorCode**):\n     <br>OH_HUKS_SUCCESS 0: Operation successful.\n     <br>OH_HUKS_ERR_CODE_ILLEGAL_ARGUMENT 401: The **keyAlias**, **paramSetIn**, or **paramSetOut**\n     parameter is invalid.\n     <br>OH_HUKS_ERR_CODE_FEATURE_NOT_SUPPORTED 12000001: This feature is not supported currently.\n     <br>OH_HUKS_ERR_CODE_MISSING_CRYPTO_ALG_ARGUMENT 12000002: Failed to obtain the key parameter.\n     <br>OH_HUKS_ERR_CODE_INVALID_CRYPTO_ALG_ARGUMENT 12000003: The key parameter is invalid.\n     <br>OH_HUKS_ERR_CODE_FILE_OPERATION_FAIL 12000004: Failed to delete or write the file.\n     <br>OH_HUKS_ERR_CODE_COMMUNICATION_FAIL 12000005: IPC communication failed.\n     <br>OH_HUKS_ERR_CODE_CRYPTO_FAIL 12000006: The encryption engine fails.\n     <br>OH_HUKS_ERR_CODE_ITEM_NOT_EXIST 12000011: The basic key file does not exist.\n     <br>OH_HUKS_ERR_CODE_INTERNAL_ERROR 12000012: The device environment or input parameters are abnormal.\n     <br>OH_HUKS_ERR_CODE_INSUFFICIENT_MEMORY 12000014: Insufficient memory.\n     <br>OH_HUKS_ERR_CODE_CALL_SERVICE_FAILED 12000015: Failed to connect to the user IAM.\n     <br>OH_HUKS_ERR_CODE_DEVICE_PASSWORD_UNSET 12000016: No device password is set.\n     <br>OH_HUKS_ERR_CODE_KEY_ALREADY_EXIST 12000017: A key with the same name already exists. (This error\n     code is added in API version 20.)\n     <br>OH_HUKS_ERR_CODE_INVALID_ARGUMENT 12000018: The group name specified by accessing the group tag is\n     invalid. (This error code is added in API version 23.)\n @since 9\n @version 1.0"]
     pub fn OH_Huks_GenerateKeyItem(
         keyAlias: *const OH_Huks_Blob,
         paramSetIn: *const OH_Huks_ParamSet,
@@ -736,7 +736,7 @@ extern "C" {
     ) -> OH_Huks_Result;
 }
 extern "C" {
-    #[doc = " @brief Imports a key in plaintext.\n\n @param keyAlias Indicates the pointer to the alias of the key to import.\n    The alias must be unique in the process of the service. Otherwise, the key will be overwritten.\n @param paramSet Indicates the pointer to the parameters of the key to import.\n @param key Indicates the pointer to the key to import. The key must be in the format required by the HUKS.\n    For details, see {@link HuksTypeApi}.\n @return {@link OH_Huks_ErrCode#OH_HUKS_SUCCESS} 0 - If the operation is successful.\n         {@link OH_Huks_ErrCode#OH_HUKS_ERR_CODE_ILLEGAL_ARGUMENT} 401 - If keyAlias or paramSet or key is invalid.\n         {@link OH_Huks_ErrCode#OH_HUKS_ERR_CODE_INTERNAL_ERROR} 12000012 - If Device environment or\n             input parameter abnormal.\n         {@link OH_Huks_ErrCode#OH_HUKS_ERR_CODE_FILE_OPERATION_FAIL} 12000004 - If failed to remove file,\n             or if failed to write file.\n         {@link OH_Huks_ErrCode#OH_HUKS_ERR_CODE_INVALID_CRYPTO_ALG_ARGUMENT} 12000003 - If the key argument\n             is invalid.\n         {@link OH_Huks_ErrCode#OH_HUKS_ERR_CODE_MISSING_CRYPTO_ALG_ARGUMENT} 12000002 - If failed to\n             get key argument.\n         {@link OH_Huks_ErrCode#OH_HUKS_ERR_CODE_COMMUNICATION_FAIL} 12000005 - If Ipc communication failed.\n         {@link OH_Huks_ErrCode#OH_HUKS_ERR_CODE_INSUFFICIENT_MEMORY} 12000014 - If the memory is insufficient.\n         {@link OH_Huks_ErrCode#OH_HUKS_ERR_CODE_CALL_SERVICE_FAILED} 12000015 - If Failed to obtain\n             the security information via UserIAM.\n         {@link OH_Huks_ErrCode#OH_HUKS_ERR_CODE_FEATURE_NOT_SUPPORTED} 12000001 - If the feature is not support.\n         {@link OH_Huks_ErrCode#OH_HUKS_ERR_CODE_KEY_ALREADY_EXIST} 12000017 - If the key with same alias is\n             already exist, added since api level 20.\n         {@link OH_Huks_ErrCode#OH_HUKS_ERR_CODE_INVALID_ARGUMENT} 12000018 - If the group id specified by the\n             access group tag is invalid, added since api level 23.\n @since 9\n @version 1.0"]
+    #[doc = " @brief Imports a key in plaintext.\n\n @param keyAlias Pointer to the alias of the key to import. The alias must be unique in the process of the service.\n @param paramSet Pointer to the properties of the key to import.\n @param key Pointer to the data of the key to import, complying with the format requirements of HUKS. For details,\n     see {@link native_huks_type.h}.\n @return Possible error codes (**errorCode**):\n     <br>OH_HUKS_SUCCESS 0: Operation successful.\n     <br>OH_HUKS_ERR_CODE_ILLEGAL_ARGUMENT 401: The **keyAlias**, **paramSet**, or **key** parameter is\n     invalid.\n     <br>OH_HUKS_ERR_CODE_FEATURE_NOT_SUPPORTED 12000001: This feature is not supported currently.\n     <br>OH_HUKS_ERR_CODE_MISSING_CRYPTO_ALG_ARGUMENT 12000002: Failed to obtain the key parameter.\n     <br>OH_HUKS_ERR_CODE_INVALID_CRYPTO_ALG_ARGUMENT 12000003: The key parameter is invalid.\n     <br>OH_HUKS_ERR_CODE_FILE_OPERATION_FAIL 12000004: Failed to delete or write the file.\n     <br>OH_HUKS_ERR_CODE_COMMUNICATION_FAIL 12000005: IPC communication failed.\n     <br>OH_HUKS_ERR_CODE_INTERNAL_ERROR 12000012: The device environment or input parameters are abnormal.\n     <br>OH_HUKS_ERR_CODE_INSUFFICIENT_MEMORY 12000014: Insufficient memory.\n     <br>OH_HUKS_ERR_CODE_CALL_SERVICE_FAILED 12000015: Failed to connect to the user IAM.\n     <br>OH_HUKS_ERR_CODE_KEY_ALREADY_EXIST 12000017: A key with the same name already exists. (This error\n     code is added in API version 20.)\n     <br>OH_HUKS_ERR_CODE_INVALID_ARGUMENT 12000018: The group name specified by accessing the group tag is\n     invalid. (This error code is added in API version 23.)\n @since 9\n @version 1.0"]
     pub fn OH_Huks_ImportKeyItem(
         keyAlias: *const OH_Huks_Blob,
         paramSet: *const OH_Huks_ParamSet,
@@ -744,7 +744,7 @@ extern "C" {
     ) -> OH_Huks_Result;
 }
 extern "C" {
-    #[doc = " @brief Imports a wrapped key.\n\n @param keyAlias Indicates the pointer to the alias of the key to import.\n    The alias must be unique in the process of the service. Otherwise, the key will be overwritten.\n @param wrappingKeyAlias Indicates the pointer to the alias of the wrapping key,\n    which is obtained through key agreement and used to decrypt the key to import.\n @param paramSet Indicates the pointer to the parameters of the wrapped key to import.\n @param wrappedKeyData Indicates the pointer to the wrapped key to import.\n    The key must be in the format required by the HUKS. For details, see {@link OH_Huks_AlgSuite}.\n @return {@link OH_Huks_ErrCode#OH_HUKS_SUCCESS} 0 - If the operation is successful.\n         {@link OH_Huks_ErrCode#OH_HUKS_ERR_CODE_ILLEGAL_ARGUMENT} 401 - If keyAlias or wrappingKeyAlias or\n             paramSet or wrappedKeyData is invalid.\n         {@link OH_Huks_ErrCode#OH_HUKS_ERR_CODE_INTERNAL_ERROR} 12000012 - If Device environment or\n             input parameter abnormal.\n         {@link OH_Huks_ErrCode#OH_HUKS_ERR_CODE_FILE_OPERATION_FAIL} 12000004 - If failed to remove file,\n             or if failed to write file.\n         {@link OH_Huks_ErrCode#OH_HUKS_ERR_CODE_INVALID_CRYPTO_ALG_ARGUMENT} 12000003 - If the key argument\n             is invalid.\n         {@link OH_Huks_ErrCode#OH_HUKS_ERR_CODE_MISSING_CRYPTO_ALG_ARGUMENT} 12000002 - If failed to\n             get key argument.\n         {@link OH_Huks_ErrCode#OH_HUKS_ERR_CODE_COMMUNICATION_FAIL} 12000005 - If Ipc communication failed.\n         {@link OH_Huks_ErrCode#OH_HUKS_ERR_CODE_CRYPTO_FAIL} 12000006 - If crypto engine failed.\n         {@link OH_Huks_ErrCode#OH_HUKS_ERR_CODE_INSUFFICIENT_MEMORY} 12000014 - If the memory is insufficient.\n         {@link OH_Huks_ErrCode#OH_HUKS_ERR_CODE_CALL_SERVICE_FAILED} 12000015 - If Failed to obtain\n             the security information via UserIAM.\n         {@link OH_Huks_ErrCode#OH_HUKS_ERR_CODE_FEATURE_NOT_SUPPORTED} 12000001 - If the feature is not support.\n         {@link OH_Huks_ErrCode#OH_HUKS_ERR_CODE_KEY_ALREADY_EXIST} 12000017 - If the key with same alias is\n             already exist, added since api level 20.\n         {@link OH_Huks_ErrCode#OH_HUKS_ERR_CODE_INVALID_ARGUMENT} 12000018 - If the group id specified by the\n             access group tag is invalid, added since api level 23.\n @since 9\n @version 1.0"]
+    #[doc = " @brief Imports a key in ciphertext.\n\n @param keyAlias Pointer to the alias of the key to import. The alias must be unique in the process of the service.\n @param wrappingKeyAlias Pointer to the alias of the key used for key negotiation or digital envelope decryption.\n     The key corresponding to this alias must already exist. The negotiated or decrypted key is\n     then used to decrypt the key to import.\n @param paramSet Pointer to the parameters for importing the key in ciphertext.\n @param wrappedKeyData Pointer to the data of the key to import, complying with the format requirements of HUKS. For\n     details, see {@link OH_Huks_AlgSuite}.\n @return Possible error codes (**errorCode**):\n     <br>OH_HUKS_SUCCESS 0: Operation successful.\n     <br>OH_HUKS_ERR_CODE_ILLEGAL_ARGUMENT 401: One or more of the **keyAlias**, **wrappingKeyAlias**, **\n     paramSet**, and **wrappedKeyData** parameters are invalid.\n     <br>OH_HUKS_ERR_CODE_FEATURE_NOT_SUPPORTED 12000001: This feature is not supported currently.\n     <br>OH_HUKS_ERR_CODE_MISSING_CRYPTO_ALG_ARGUMENT 12000002: Failed to obtain the key parameter.\n     <br>OH_HUKS_ERR_CODE_INVALID_CRYPTO_ALG_ARGUMENT 12000003: The key parameter is invalid.\n     <br>OH_HUKS_ERR_CODE_FILE_OPERATION_FAIL 12000004: Failed to delete or write the file.\n     <br>OH_HUKS_ERR_CODE_COMMUNICATION_FAIL 12000005: IPC communication failed.\n     <br>OH_HUKS_ERR_CODE_CRYPTO_FAIL 12000006: The encryption engine fails.\n     <br>OH_HUKS_ERR_CODE_INTERNAL_ERROR 12000012: The device environment or input parameters are abnormal.\n     <br>OH_HUKS_ERR_CODE_INSUFFICIENT_MEMORY 12000014: Insufficient memory.\n     <br>OH_HUKS_ERR_CODE_CALL_SERVICE_FAILED 12000015: Failed to connect to the user IAM.\n     <br>OH_HUKS_ERR_CODE_KEY_ALREADY_EXIST 12000017: A key with the same name already exists. (This error\n     code is added in API version 20.)\n     <br>OH_HUKS_ERR_CODE_INVALID_ARGUMENT 12000018: The group name specified by accessing the group tag is\n     invalid. (This error code is added in API version 23.)\n @since 9\n @version 1.0"]
     pub fn OH_Huks_ImportWrappedKeyItem(
         keyAlias: *const OH_Huks_Blob,
         wrappingKeyAlias: *const OH_Huks_Blob,
@@ -753,7 +753,7 @@ extern "C" {
     ) -> OH_Huks_Result;
 }
 extern "C" {
-    #[doc = " @brief Exports a public key.\n\n @param keyAlias Indicates the pointer to the alias of the public key to export.\n    The alias must be the same as the alias for the key generated.\n @param paramSet Indicates the pointer to the parameters required for exporting the public key.\n @param key Indicates the pointer to the public key exported.\n @return {@link OH_Huks_ErrCode#OH_HUKS_SUCCESS} 0 - If the operation is successful.\n         {@link OH_Huks_ErrCode#OH_HUKS_ERR_CODE_ILLEGAL_ARGUMENT} 401 - If keyAlias or\n             paramSet or key is invalid.\n         {@link OH_Huks_ErrCode#OH_HUKS_ERR_CODE_INTERNAL_ERROR} 12000012 - If Device environment or\n             input parameter abnormal.\n         {@link OH_Huks_ErrCode#OH_HUKS_ERR_CODE_ITEM_NOT_EXIST} 12000011 - If the key file is not exist.\n         {@link OH_Huks_ErrCode#OH_HUKS_ERR_CODE_INVALID_CRYPTO_ALG_ARGUMENT} 12000003 - If the key argument\n             is invalid.\n         {@link OH_Huks_ErrCode#OH_HUKS_ERR_CODE_MISSING_CRYPTO_ALG_ARGUMENT} 12000002 - If failed to\n             get key argument.\n         {@link OH_Huks_ErrCode#OH_HUKS_ERR_CODE_COMMUNICATION_FAIL} 12000005 - If Ipc communication failed.\n         {@link OH_Huks_ErrCode#OH_HUKS_ERR_CODE_INSUFFICIENT_MEMORY} 12000014 - If the memory is insufficient.\n         {@link OH_Huks_ErrCode#OH_HUKS_ERR_CODE_FEATURE_NOT_SUPPORTED} 12000001 - If the feature is not support.\n         {@link OH_Huks_ErrCode#OH_HUKS_ERR_CODE_INVALID_ARGUMENT} 12000018 - If the group id specified by the\n             access group tag is invalid, added since api level 23.\n @since 9\n @version 1.0"]
+    #[doc = " @brief Exports the public key.\n\n @param keyAlias Pointer to the alias of the public key to export. It must be the same as the alias used for\n     generating the key.\n @param paramSet Pointer to the parameters for exporting the public key.\n @param key Pointer to the public key exported.\n @return Possible error codes (**errorCode**):\n     <br>OH_HUKS_SUCCESS 0: Operation successful.\n     <br>OH_HUKS_ERR_CODE_ILLEGAL_ARGUMENT 401: The **keyAlias**, **paramSet**, or **key** parameter is\n     invalid.\n     <br>OH_HUKS_ERR_CODE_FEATURE_NOT_SUPPORTED 12000001: This feature is not supported currently.\n     <br>OH_HUKS_ERR_CODE_MISSING_CRYPTO_ALG_ARGUMENT 12000002: Failed to obtain the key parameter.\n     <br>OH_HUKS_ERR_CODE_INVALID_CRYPTO_ALG_ARGUMENT 12000003: The key parameter is invalid.\n     <br>OH_HUKS_ERR_CODE_COMMUNICATION_FAIL 12000005: IPC communication failed.\n     <br>OH_HUKS_ERR_CODE_ITEM_NOT_EXIST 12000011: The key file does not exist.\n     <br>OH_HUKS_ERR_CODE_INTERNAL_ERROR 12000012: The device environment or input parameters are abnormal.\n     <br>OH_HUKS_ERR_CODE_INSUFFICIENT_MEMORY 12000014: Insufficient memory.\n     <br>OH_HUKS_ERR_CODE_INVALID_ARGUMENT 12000018: The group name specified by accessing the group tag is\n     invalid. (This error code is added in API version 23.)\n @since 9\n @version 1.0"]
     pub fn OH_Huks_ExportPublicKeyItem(
         keyAlias: *const OH_Huks_Blob,
         paramSet: *const OH_Huks_ParamSet,
@@ -761,14 +761,14 @@ extern "C" {
     ) -> OH_Huks_Result;
 }
 extern "C" {
-    #[doc = " @brief Deletes a key.\n\n @param keyAlias Indicates the pointer to the alias of the key to delete.\n    The alias must be the same as the alias for the key generated.\n @param paramSet Indicates the pointer to the parameters required for deleting the key.\n    By default, this parameter is a null pointer.\n @return {@link OH_Huks_ErrCode#OH_HUKS_SUCCESS} 0 - If the operation is successful.\n         {@link OH_Huks_ErrCode#OH_HUKS_ERR_CODE_ILLEGAL_ARGUMENT} 401 - If keyAlias or paramSet is invalid.\n         {@link OH_Huks_ErrCode#OH_HUKS_ERR_CODE_INTERNAL_ERROR} 12000012 - If Device environment or\n             input parameter abnormal.\n         {@link OH_Huks_ErrCode#OH_HUKS_ERR_CODE_INVALID_CRYPTO_ALG_ARGUMENT} 12000003 - If the key argument\n             is invalid.\n         {@link OH_Huks_ErrCode#OH_HUKS_ERR_CODE_ITEM_NOT_EXIST} 12000011 - If the key file is not exist.\n         {@link OH_Huks_ErrCode#OH_HUKS_ERR_CODE_MISSING_CRYPTO_ALG_ARGUMENT} 12000002 - If failed to\n             get key argument.\n         {@link OH_Huks_ErrCode#OH_HUKS_ERR_CODE_COMMUNICATION_FAIL} 12000005 - If Ipc communication failed.\n         {@link OH_Huks_ErrCode#OH_HUKS_ERR_CODE_INSUFFICIENT_MEMORY} 12000014 - If the memory is insufficient.\n         {@link OH_Huks_ErrCode#OH_HUKS_ERR_CODE_INVALID_ARGUMENT} 12000018 - If the group id specified by the\n             access group tag is invalid, added since api level 23.\n @since 9\n @version 1.0"]
+    #[doc = " @brief Deletes a key.\n\n @param keyAlias Pointer to the alias of the key to delete. It must be the same as the alias used for generating the\n     key.\n @param paramSet Pointer to the parameters for deleting the key. By default, this parameter is a null pointer. The\n     default key storage level is {@link OH_HUKS_AUTH_STORAGE_LEVEL_CE}.\n @return Possible error codes (**errorCode**):\n     <br>OH_HUKS_SUCCESS 0: Operation successful.\n     <br>OH_HUKS_ERR_CODE_ILLEGAL_ARGUMENT 401: The **keyAlias** or **paramSet** parameter is invalid.\n     <br>OH_HUKS_ERR_CODE_MISSING_CRYPTO_ALG_ARGUMENT 12000002: Failed to obtain the key parameter.\n     <br>OH_HUKS_ERR_CODE_INVALID_CRYPTO_ALG_ARGUMENT 12000003: The key parameter is invalid.\n     <br>OH_HUKS_ERR_CODE_COMMUNICATION_FAIL 12000005: IPC communication failed.\n     <br>OH_HUKS_ERR_CODE_ITEM_NOT_EXIST 12000011: The key file does not exist.\n     <br>OH_HUKS_ERR_CODE_INTERNAL_ERROR 12000012: The device environment or input parameters are abnormal.\n     <br>OH_HUKS_ERR_CODE_INSUFFICIENT_MEMORY 12000014: Insufficient memory.\n     <br>OH_HUKS_ERR_CODE_INVALID_ARGUMENT 12000018: The group name specified by accessing the group tag is\n     invalid. (This error code is added in API version 23.)\n @since 9\n @version 1.0"]
     pub fn OH_Huks_DeleteKeyItem(
         keyAlias: *const OH_Huks_Blob,
         paramSet: *const OH_Huks_ParamSet,
     ) -> OH_Huks_Result;
 }
 extern "C" {
-    #[doc = " @brief Obtains the attributes of a key.\n\n @param keyAlias Indicates the pointer to the alias of the target key.\n @param paramSetIn Indicates the pointer to the attribute tag required for\n    obtaining the attributes. By default, this parameter is a null pointer.\n @param paramSetOut Indicates the pointer to the attributes obtained.\n @return {@link OH_Huks_ErrCode#OH_HUKS_SUCCESS} 0 - If the operation is successful.\n         {@link OH_Huks_ErrCode#OH_HUKS_ERR_CODE_ILLEGAL_ARGUMENT} 401 - If keyAlias or paramSetIn or\n             paramSetOut is invalid.\n         {@link OH_Huks_ErrCode#OH_HUKS_ERR_CODE_INTERNAL_ERROR} 12000012 - If Device environment or\n             input parameter abnormal.\n         {@link OH_Huks_ErrCode#OH_HUKS_ERR_CODE_INVALID_CRYPTO_ALG_ARGUMENT} 12000003 - If the key argument\n             is invalid.\n         {@link OH_Huks_ErrCode#OH_HUKS_ERR_CODE_ITEM_NOT_EXIST} 12000011 - If the key file is not exist.\n         {@link OH_Huks_ErrCode#OH_HUKS_ERR_CODE_MISSING_CRYPTO_ALG_ARGUMENT} 12000002 - If failed to\n             get key argument.\n         {@link OH_Huks_ErrCode#OH_HUKS_ERR_CODE_COMMUNICATION_FAIL} 12000005 - If Ipc communication failed.\n         {@link OH_Huks_ErrCode#OH_HUKS_ERR_CODE_INSUFFICIENT_MEMORY} 12000014 - If the memory is insufficient.\n         {@link OH_Huks_ErrCode#OH_HUKS_ERR_CODE_FEATURE_NOT_SUPPORTED} 12000001 - If the feature is not support.\n         {@link OH_Huks_ErrCode#OH_HUKS_ERR_CODE_INVALID_ARGUMENT} 12000018 - If the group id specified by the\n             access group tag is invalid, added since api level 23.\n @since 9\n @version 1.0"]
+    #[doc = " @brief Obtains the properties of a key.\n\n @param keyAlias Pointer to the alias of the target key.\n @param paramSetIn Pointer to the tag required for obtaining the properties. By default, this parameter is a null\n     pointer.\n @param paramSetOut Pointer to the key properties obtained.\n @return Possible error codes (**errorCode**):\n     <br>OH_HUKS_SUCCESS 0: Operation successful.\n     <br>OH_HUKS_ERR_CODE_ILLEGAL_ARGUMENT 401: The **keyAlias**, **paramSetIn**, or **paramSetOut**\n     parameter is invalid.\n     <br>OH_HUKS_ERR_CODE_FEATURE_NOT_SUPPORTED 12000001: This feature is not supported currently.\n     <br>OH_HUKS_ERR_CODE_MISSING_CRYPTO_ALG_ARGUMENT 12000002: Failed to obtain the key parameter.\n     <br>OH_HUKS_ERR_CODE_INVALID_CRYPTO_ALG_ARGUMENT 12000003: The key parameter is invalid.\n     <br>OH_HUKS_ERR_CODE_COMMUNICATION_FAIL 12000005: IPC communication failed.\n     <br>OH_HUKS_ERR_CODE_ITEM_NOT_EXIST 12000011: The key file does not exist.\n     <br>OH_HUKS_ERR_CODE_INTERNAL_ERROR 12000012: The device environment or input parameters are abnormal.\n     <br>OH_HUKS_ERR_CODE_INSUFFICIENT_MEMORY 12000014: Insufficient memory.\n     <br>OH_HUKS_ERR_CODE_INVALID_ARGUMENT 12000018: The group name specified by accessing the group tag is\n     invalid. (This error code is added in API version 23.)\n @since 9\n @version 1.0"]
     pub fn OH_Huks_GetKeyItemParamSet(
         keyAlias: *const OH_Huks_Blob,
         paramSetIn: *const OH_Huks_ParamSet,
@@ -776,14 +776,14 @@ extern "C" {
     ) -> OH_Huks_Result;
 }
 extern "C" {
-    #[doc = " @brief Checks whether a key exists.\n\n @param keyAlias Indicates the pointer to the alias of the target key.\n @param paramSet Indicates the pointer to the attribute tag required for checking the key.\n    By default, this parameter is a null pointer.\n @return {@link OH_Huks_ErrCode#OH_HUKS_SUCCESS} 0 - If the operation is successful.\n         {@link OH_Huks_ErrCode#OH_HUKS_ERR_CODE_ILLEGAL_ARGUMENT} 401 - If keyAlias or paramSet is invalid.\n         {@link OH_Huks_ErrCode#OH_HUKS_ERR_CODE_INTERNAL_ERROR} 12000012 - If Device environment or\n             input parameter abnormal.\n         {@link OH_Huks_ErrCode#OH_HUKS_ERR_CODE_INVALID_CRYPTO_ALG_ARGUMENT} 12000003 - If the key argument\n             is invalid.\n         {@link OH_Huks_ErrCode#OH_HUKS_ERR_CODE_ITEM_NOT_EXIST} 12000011 - If the key file is not exist.\n         {@link OH_Huks_ErrCode#OH_HUKS_ERR_CODE_MISSING_CRYPTO_ALG_ARGUMENT} 12000002 - If failed to\n             get key argument.\n         {@link OH_Huks_ErrCode#OH_HUKS_ERR_CODE_COMMUNICATION_FAIL} 12000005 - If Ipc communication failed.\n         {@link OH_Huks_ErrCode#OH_HUKS_ERR_CODE_INSUFFICIENT_MEMORY} 12000014 - If the memory is insufficient.\n         {@link OH_Huks_ErrCode#OH_HUKS_ERR_CODE_INVALID_ARGUMENT} 12000018 - If the group id specified by the\n             access group tag is invalid, added since api level 23.\n @since 9\n @version 1.0"]
+    #[doc = " @brief Checks whether a key exists.\n\n @param keyAlias Pointer to the alias of the key to check.\n @param paramSet Pointer to the parameters for checking the key. By default, this parameter is a null pointer.\n @return Possible error codes (**errorCode**):\n     <br>OH_HUKS_SUCCESS 0: Operation successful.\n     <br>OH_HUKS_ERR_CODE_ILLEGAL_ARGUMENT 401: The **keyAlias** or **paramSet** parameter is invalid.\n     <br>OH_HUKS_ERR_CODE_MISSING_CRYPTO_ALG_ARGUMENT 12000002: Failed to obtain the key parameter.\n     <br>OH_HUKS_ERR_CODE_INVALID_CRYPTO_ALG_ARGUMENT 12000003: The key parameter is invalid.\n     <br>OH_HUKS_ERR_CODE_COMMUNICATION_FAIL 12000005: IPC communication failed.\n     <br>OH_HUKS_ERR_CODE_ITEM_NOT_EXIST 12000011: The key file does not exist.\n     <br>OH_HUKS_ERR_CODE_INTERNAL_ERROR 12000012: The device environment or input parameters are abnormal.\n     <br>OH_HUKS_ERR_CODE_INSUFFICIENT_MEMORY 12000014: Insufficient memory.\n     <br>OH_HUKS_ERR_CODE_INVALID_ARGUMENT 12000018: The group name specified by accessing the group tag is\n     invalid. (This error code is added in API version 23.)\n @since 9\n @version 1.0"]
     pub fn OH_Huks_IsKeyItemExist(
         keyAlias: *const OH_Huks_Blob,
         paramSet: *const OH_Huks_ParamSet,
     ) -> OH_Huks_Result;
 }
 extern "C" {
-    #[doc = " @brief Obtain the key certificate chain. This API can be called only by system applications.\n\n @permission ohos.permission.ATTEST_KEY\n @param keyAlias Indicates the pointer to the alias of the target key.\n @param paramSet Indicates the pointer to the parameters required for obtaining the key certificate.\n @param certChain Indicates the pointer to the key certificate chain obtained.\n @return {@link OH_Huks_ErrCode#OH_HUKS_SUCCESS} 0 - If the operation is successful.\n         {@link OH_Huks_ErrCode#OH_HUKS_ERR_CODE_ILLEGAL_ARGUMENT} 401 - If keyAlias or\n             paramSet or certChain is invalid.\n         {@link OH_Huks_ErrCode#OH_HUKS_ERR_CODE_INTERNAL_ERROR} 12000012 - If Device environment or\n             input parameter abnormal.\n         {@link OH_Huks_ErrCode#OH_HUKS_ERR_CODE_INVALID_CRYPTO_ALG_ARGUMENT} 12000003 - If the key argument\n             is invalid.\n         {@link OH_Huks_ErrCode#OH_HUKS_ERR_CODE_ITEM_NOT_EXIST} 12000011 - If the key file is not exist.\n         {@link OH_Huks_ErrCode#OH_HUKS_ERR_CODE_MISSING_CRYPTO_ALG_ARGUMENT} 12000002 - If failed to\n             get key argument.\n         {@link OH_Huks_ErrCode#OH_HUKS_ERR_CODE_COMMUNICATION_FAIL} 12000005 - If Ipc communication failed.\n         {@link OH_Huks_ErrCode#OH_HUKS_ERR_CODE_CRYPTO_FAIL} 12000006 - If crypto engine failed.\n         {@link OH_Huks_ErrCode#OH_HUKS_ERR_CODE_INSUFFICIENT_MEMORY} 12000014 - If the memory is insufficient.\n         {@link OH_Huks_ErrCode#OH_HUKS_ERR_CODE_FEATURE_NOT_SUPPORTED} 12000001 - If the feature is not support.\n         {@link OH_Huks_ErrCode#OH_HUKS_ERR_CODE_PERMISSION_FAIL} 201 - If the permission check failed,\n             please apply for the required permissions first.\n         {@link OH_Huks_ErrCode#OH_HUKS_ERR_CODE_INVALID_ARGUMENT} 12000018 - If the group id specified by the\n             access group tag is invalid, added since api level 23.\n @since 9\n @version 1.0"]
+    #[doc = " @brief Obtains the certificate chain of a key. This API is open only to system applications.\n\n @permission ohos.permission.ATTEST_KEY\n @param keyAlias Pointer to the alias of the target key.\n @param paramSet Pointer to the parameters for obtaining the certificate chain.\n @param certChain Pointer to the certificate chain obtained.\n @return Possible error codes (**errorCode**):\n     <br>OH_HUKS_SUCCESS 0: Operation successful.\n     <br>OH_HUKS_ERR_CODE_PERMISSION_FAIL 201: Permission check failed. Request the permission first.\n     <br>OH_HUKS_ERR_CODE_ILLEGAL_ARGUMENT 401: The **keyAlias**, **paramSet**, or **certChain** parameter is\n     invalid.\n     <br>OH_HUKS_ERR_CODE_FEATURE_NOT_SUPPORTED 12000001: This feature is not supported currently.\n     <br>OH_HUKS_ERR_CODE_MISSING_CRYPTO_ALG_ARGUMENT 12000002: Failed to obtain the key parameter.\n     <br>OH_HUKS_ERR_CODE_INVALID_CRYPTO_ALG_ARGUMENT 12000003: The key parameter is invalid.\n     <br>OH_HUKS_ERR_CODE_COMMUNICATION_FAIL 12000005: IPC communication failed.\n     <br>OH_HUKS_ERR_CODE_CRYPTO_FAIL 12000006: The encryption engine fails.\n     <br>OH_HUKS_ERR_CODE_ITEM_NOT_EXIST 12000011: The key file does not exist.\n     <br>OH_HUKS_ERR_CODE_INTERNAL_ERROR 12000012: The device environment or input parameters are abnormal.\n     <br>OH_HUKS_ERR_CODE_INSUFFICIENT_MEMORY 12000014: Insufficient memory.\n     <br>OH_HUKS_ERR_CODE_INVALID_ARGUMENT 12000018: The group name specified by accessing the group tag is\n     invalid. (This error code is added in API version 23.)\n @since 9\n @version 1.0"]
     pub fn OH_Huks_AttestKeyItem(
         keyAlias: *const OH_Huks_Blob,
         paramSet: *const OH_Huks_ParamSet,
@@ -791,7 +791,7 @@ extern "C" {
     ) -> OH_Huks_Result;
 }
 extern "C" {
-    #[doc = " @brief Obtain the key certificate chain.\n\n @param keyAlias Indicates the pointer to the alias of the target key.\n @param paramSet Indicates the pointer to the parameters required for obtaining the key certificate.\n @param certChain Indicates the pointer to the key certificate chain obtained.\n @return {@link OH_Huks_ErrCode#OH_HUKS_SUCCESS} 0 - If the operation is successful.\n         {@link OH_Huks_ErrCode#OH_HUKS_ERR_CODE_ILLEGAL_ARGUMENT} 401 - If keyAlias or\n             paramSet or certChain is invalid.\n         {@link OH_Huks_ErrCode#OH_HUKS_ERR_CODE_INTERNAL_ERROR} 12000012 - If Device environment or\n             input parameter abnormal.\n         {@link OH_Huks_ErrCode#OH_HUKS_ERR_CODE_INVALID_CRYPTO_ALG_ARGUMENT} 12000003 - If the key argument\n             is invalid.\n         {@link OH_Huks_ErrCode#OH_HUKS_ERR_CODE_ITEM_NOT_EXIST} 12000011 - If the key file is not exist.\n         {@link OH_Huks_ErrCode#OH_HUKS_ERR_CODE_MISSING_CRYPTO_ALG_ARGUMENT} 12000002 - If failed to\n             get key argument.\n         {@link OH_Huks_ErrCode#OH_HUKS_ERR_CODE_COMMUNICATION_FAIL} 12000005 - If Ipc communication failed.\n         {@link OH_Huks_ErrCode#OH_HUKS_ERR_CODE_CRYPTO_FAIL} 12000006 - If crypto engine failed.\n         {@link OH_Huks_ErrCode#OH_HUKS_ERR_CODE_INSUFFICIENT_MEMORY} 12000014 - If the memory is insufficient.\n         {@link OH_Huks_ErrCode#OH_HUKS_ERR_CODE_FEATURE_NOT_SUPPORTED} 12000001 - If the feature is not support.\n         {@link OH_Huks_ErrCode#OH_HUKS_ERR_CODE_PERMISSION_FAIL} 201 - If the permission check failed,\n             please apply for the required permissions first.\n         {@link OH_Huks_ErrCode#OH_HUKS_ERR_CODE_INVALID_ARGUMENT} 12000018 - If the group id specified by the\n             access group tag is invalid, added since api level 23.\n @since 11\n @version 1.0\n @note this is a networking duration interface caller need to get the certChain in asynchronous thread"]
+    #[doc = " @brief Obtains the certificate chain of a key. This is a networking duration interface caller need to get the\n certChain in asynchronous thread\n\n @param keyAlias Pointer to the alias of the target key.\n @param paramSet Pointer to the parameters for obtaining the certificate chain.\n @param certChain Pointer to the certificate chain obtained.\n @return Possible error codes (**errorCode**):\n     <br>OH_HUKS_SUCCESS 0: Operation successful.\n     <br>OH_HUKS_ERR_CODE_ILLEGAL_ARGUMENT 401: The **keyAlias**, **paramSet**, or **certChain** parameter is\n     invalid.\n     <br>OH_HUKS_ERR_CODE_FEATURE_NOT_SUPPORTED 12000001: This feature is not supported currently.\n     <br>OH_HUKS_ERR_CODE_MISSING_CRYPTO_ALG_ARGUMENT 12000002: Failed to obtain the key parameter.\n     <br>OH_HUKS_ERR_CODE_INVALID_CRYPTO_ALG_ARGUMENT 12000003: The key parameter is invalid.\n     <br>OH_HUKS_ERR_CODE_COMMUNICATION_FAIL 12000005: IPC communication failed.\n     <br>OH_HUKS_ERR_CODE_CRYPTO_FAIL 12000006: The encryption engine fails.\n     <br>OH_HUKS_ERR_CODE_ITEM_NOT_EXIST 12000011: The key file does not exist.\n     <br>OH_HUKS_ERR_CODE_INTERNAL_ERROR 12000012: The device environment or input parameters are abnormal.\n     <br>OH_HUKS_ERR_CODE_INSUFFICIENT_MEMORY 12000014: Insufficient memory.\n     <br>OH_HUKS_ERR_CODE_INVALID_ARGUMENT 12000018: The group name specified by accessing the group tag is\n     invalid. (This error code is added in API version 23.)\n @since 11\n @version 1.0"]
     pub fn OH_Huks_AnonAttestKeyItem(
         keyAlias: *const OH_Huks_Blob,
         paramSet: *const OH_Huks_ParamSet,
@@ -799,7 +799,7 @@ extern "C" {
     ) -> OH_Huks_Result;
 }
 extern "C" {
-    #[doc = " @brief Initializes the key session interface and obtains a handle (mandatory) and token value (optional).\n\n @param keyAlias Indicates the pointer to the alias of the target key.\n @param paramSet Indicates the pointer to the parameters for the initialization operation.\n @param handle Indicates the pointer to the handle of the key session obtained.\n    This handle is required for subsequent operations, including {@link OH_Huks_UpdateSession},\n {@link OH_Huks_FinishSession}, and {@link OH_Huks_AbortSession}.\n @param token Indicates the pointer to the token value obtained.\n @return {@link OH_Huks_ErrCode#OH_HUKS_SUCCESS} 0 - If the operation is successful.\n         {@link OH_Huks_ErrCode#OH_HUKS_ERR_CODE_ILLEGAL_ARGUMENT} 401 - If keyAlias or paramSet or handle or\n             token is invalid.\n         {@link OH_Huks_ErrCode#OH_HUKS_ERR_CODE_INTERNAL_ERROR} 12000012 - If Device environment or\n             input parameter abnormal.\n         {@link OH_Huks_ErrCode#OH_HUKS_ERR_CODE_INVALID_CRYPTO_ALG_ARGUMENT} 12000003 - If the key argument\n             is invalid.\n         {@link OH_Huks_ErrCode#OH_HUKS_ERR_CODE_ITEM_NOT_EXIST} 12000011 - If the key file is not exist.\n         {@link OH_Huks_ErrCode#OH_HUKS_ERR_CODE_MISSING_CRYPTO_ALG_ARGUMENT} 12000002 - If failed to\n             get key argument.\n         {@link OH_Huks_ErrCode#OH_HUKS_ERR_CODE_COMMUNICATION_FAIL} 12000005 - If Ipc communication failed.\n         {@link OH_Huks_ErrCode#OH_HUKS_ERR_CODE_SESSION_LIMIT} 12000010 - If reached max session limit.\n         {@link OH_Huks_ErrCode#OH_HUKS_ERR_CODE_CRYPTO_FAIL} 12000006 - If crypto engine\n             the Ukey driver operation failed.\n         {@link OH_Huks_ErrCode#OH_HUKS_ERR_CODE_INSUFFICIENT_MEMORY} 12000014 - If the memory is insufficient.\n         {@link OH_Huks_ErrCode#OH_HUKS_ERR_CODE_FEATURE_NOT_SUPPORTED} 12000001 - If the feature is not support.\n         {@link OH_Huks_ErrCode#OH_HUKS_ERR_CODE_INVALID_ARGUMENT} 12000018 - If the aead length is invalid or\n             the group id specified by the access group tag is invalid, added since api level 22.\n         {@link OH_Huks_ErrCode#OH_HUKS_ERR_CODE_EXTERNAL_MODULE} 12000020 - If the provider operation failed,\n             added since api level 22.\n         {@link OH_Huks_ErrCode#OH_HUKS_ERR_CODE_PIN_LOCKED} 12000021 - If the UKey PIN is locked,\n             added since api level 22.\n         {@link OH_Huks_ErrCode#OH_HUKS_ERR_CODE_PIN_NO_AUTH} 12000023 - If the Ukey PIN not authenticated,\n             added since api level 22.\n         {@link OH_Huks_ErrCode#OH_HUKS_ERR_CODE_BUSY} 12000024 - If the provider or Ukey is busy,\n             added since api level 22.\n @since 9\n @version 1.0\n @see OH_Huks_UpdateSession\n @see OH_Huks_FinishSession\n @see OH_Huks_AbortSession"]
+    #[doc = " @brief Initializes a key session. This function returns a session handle (mandatory) and a challenge value (optional)\n .\n\n @param keyAlias Pointer to the alias of the key to be operated.\n @param paramSet Pointer to the parameters for the initialization operation.\n @param handle Pointer to the handle of the key session. This handle is required for subsequent operations of the\n     same key, including {@link OH_Huks_UpdateSession}, {@link OH_Huks_FinishSession} and\n     {@link OH_Huks_AbortSession}.\n @param token Pointer to the token used for key access control.\n @return Possible error codes (**errorCode**):\n     <br>OH_HUKS_SUCCESS 0: Operation successful.\n     <br>OH_HUKS_ERR_CODE_ILLEGAL_ARGUMENT 401: The **keyAlias**, **paramSet**, **handle**, or **token**\n     parameter is invalid.\n     <br>OH_HUKS_ERR_CODE_FEATURE_NOT_SUPPORTED 12000001: This feature is not supported currently.\n     <br>OH_HUKS_ERR_CODE_MISSING_CRYPTO_ALG_ARGUMENT 12000002: Failed to obtain the key parameter.\n     <br>OH_HUKS_ERR_CODE_INVALID_CRYPTO_ALG_ARGUMENT 12000003: The key parameter is invalid.\n     <br>OH_HUKS_ERR_CODE_COMMUNICATION_FAIL 12000005: IPC communication failed.\n     <br>OH_HUKS_ERR_CODE_CRYPTO_FAIL 12000006: The encryption engine fails.\n     <br>OH_HUKS_ERR_CODE_SESSION_LIMIT 12000010: Hit the session limit.\n     <br>OH_HUKS_ERR_CODE_ITEM_NOT_EXIST 12000011: The key file does not exist.\n     <br>OH_HUKS_ERR_CODE_INTERNAL_ERROR 12000012: The device environment or input parameters are abnormal.\n     <br>OH_HUKS_ERR_CODE_INSUFFICIENT_MEMORY 12000014: Insufficient memory.\n     <br>OH_HUKS_ERR_CODE_INVALID_ARGUMENT 12000018: The specified AEAD length is invalid or the group name\n     specified by accessing the group tag is invalid. (This error code is added in API version 22.)\n     <br>OH_HUKS_ERR_CODE_EXTERNAL_MODULE 12000020: The provider or UKey internal execution fails. (This\n     error code is added in API version 22.)\n     <br>OH_HUKS_ERR_CODE_PIN_LOCKED 12000021: The PIN is locked. (This error code is added in API version 22.\n     )\n     <br>OH_HUKS_ERR_CODE_PIN_NO_AUTH 12000023: The PIN authentication fails. (This error code is added in\n     API version 22.)\n     <br>OH_HUKS_ERR_CODE_BUSY 12000024: The resource in the provider or UKey is being used. (This error code\n     is added in API version 22.)\n @since 9\n @version 1.0\n @see OH_Huks_UpdateSession\n @see OH_Huks_FinishSession\n @see OH_Huks_AbortSession"]
     pub fn OH_Huks_InitSession(
         keyAlias: *const OH_Huks_Blob,
         paramSet: *const OH_Huks_ParamSet,
@@ -808,7 +808,7 @@ extern "C" {
     ) -> OH_Huks_Result;
 }
 extern "C" {
-    #[doc = " @brief Adds data by segment for the key operation, performs the related key operation,\n    and outputs the processed data.\n\n @param handle Indicates the pointer to the key session handle, which is generated by {@link OH_Huks_InitSession}.\n @param paramSet Indicates the pointer to the parameters required for the key operation.\n @param inData Indicates the pointer to the data to be processed.\n    This API can be called multiples time to process large data by segment.\n @param outData Indicates the pointer to the output data.\n @return {@link OH_Huks_ErrCode#OH_HUKS_SUCCESS} 0 - If the operation is successful.\n         {@link OH_Huks_ErrCode#OH_HUKS_ERR_CODE_ILLEGAL_ARGUMENT} 401 - If handle or paramSet or inData or\n             outData is invalid.\n         {@link OH_Huks_ErrCode#OH_HUKS_ERR_CODE_INTERNAL_ERROR} 12000012 - If Device environment or\n             input parameter abnormal.\n         {@link OH_Huks_ErrCode#OH_HUKS_ERR_CODE_INVALID_CRYPTO_ALG_ARGUMENT} 12000003 - If the key argument\n             is invalid.\n         {@link OH_Huks_ErrCode#OH_HUKS_ERR_CODE_ITEM_NOT_EXIST} 12000011 - If the key file is not exist,\n             or if the handle is not exist.\n         {@link OH_Huks_ErrCode#OH_HUKS_ERR_CODE_MISSING_CRYPTO_ALG_ARGUMENT} 12000002 - If failed to\n             get key argument.\n         {@link OH_Huks_ErrCode#OH_HUKS_ERR_CODE_COMMUNICATION_FAIL} 12000005 - If Ipc communication failed.\n         {@link OH_Huks_ErrCode#OH_HUKS_ERR_CODE_CREDENTIAL_NOT_EXIST} 12000013 - If credemtial is not exist.\n         {@link OH_Huks_ErrCode#OH_HUKS_ERR_CODE_CRYPTO_FAIL} 12000006 - If crypto engine\n             the Ukey driver operation failed.\n         {@link OH_Huks_ErrCode#OH_HUKS_ERR_CODE_KEY_AUTH_VERIFY_FAILED} 12000008 - If auth token verify failed.\n         {@link OH_Huks_ErrCode#OH_HUKS_ERR_CODE_KEY_AUTH_PERMANENTLY_INVALIDATED} 12000007 - If auth token info\n             verify failed.\n         {@link OH_Huks_ErrCode#OH_HUKS_ERR_CODE_KEY_AUTH_TIME_OUT} 12000009 - If authentication token timed out.\n         {@link OH_Huks_ErrCode#OH_HUKS_ERR_CODE_INSUFFICIENT_MEMORY} 12000014 - If the memory is insufficient.\n         {@link OH_Huks_ErrCode#OH_HUKS_ERR_CODE_DEVICE_PASSWORD_UNSET} 12000016 - If device password is required\n             but not set.\n         {@link OH_Huks_ErrCode#OH_HUKS_ERR_CODE_FEATURE_NOT_SUPPORTED} 12000001 - If the feature is not support.\n         {@link OH_Huks_ErrCode#OH_HUKS_ERR_CODE_EXTERNAL_MODULE} 12000020 - If the provider operation failed,\n             added since api level 22.\n         {@link OH_Huks_ErrCode#OH_HUKS_ERR_CODE_PIN_LOCKED} 12000021 - If the UKey PIN is locked,\n             added since api level 22.\n         {@link OH_Huks_ErrCode#OH_HUKS_ERR_CODE_PIN_NO_AUTH} 12000023 - If the Ukey PIN not authenticated,\n             added since api level 22.\n         {@link OH_Huks_ErrCode#OH_HUKS_ERR_CODE_BUSY} 12000024 - If the provider or Ukey is busy,\n             added since api level 22.\n         {@link OH_Huks_ErrCode#OH_HUKS_ERR_CODE_INVALID_ARGUMENT} 12000018 - If the group id specified by the\n             access group tag is invalid, added since api level 23.\n @since 9\n @version 1.0\n @see OH_Huks_InitSession\n @see OH_Huks_FinishSession\n @see OH_Huks_AbortSession"]
+    #[doc = " @brief Adds data by segment for the key operation, performs the related key operation, and outputs the processed\n data.\n\n @param handle Pointer to the key session handle, which is returned by {@link OH_Huks_InitSession}.\n @param paramSet Pointer to the parameters required for the key operation.\n @param inData Pointer to the data to be processed. If there is a large amount of data to be processed, you can call\n     this function multiple times to process data by segment.\n @param outData Pointer to the output data.\n @return Possible error codes (**errorCode**):\n     <br>OH_HUKS_SUCCESS 0: Operation successful.\n     <br>OH_HUKS_ERR_CODE_ILLEGAL_ARGUMENT 401: Invalid **handle**, **paramSet**, **inData**, or **outData**.\n     <br>OH_HUKS_ERR_CODE_FEATURE_NOT_SUPPORTED 12000001: This feature is not supported currently.\n     <br>OH_HUKS_ERR_CODE_MISSING_CRYPTO_ALG_ARGUMENT 12000002: Failed to obtain the key parameter.\n     <br>OH_HUKS_ERR_CODE_INVALID_CRYPTO_ALG_ARGUMENT 12000003: The key parameter is invalid.\n     <br>OH_HUKS_ERR_CODE_COMMUNICATION_FAIL 12000005: IPC communication failed.\n     <br>OH_HUKS_ERR_CODE_CRYPTO_FAIL 12000006: The encryption engine fails.\n     <br>OH_HUKS_ERR_CODE_KEY_AUTH_PERMANENTLY_INVALIDATED 12000007: Failed to verify the access token\n     information.\n     <br>OH_HUKS_ERR_CODE_KEY_AUTH_VERIFY_FAILED 12000008: Failed to verify the authentication token.\n     <br>OH_HUKS_ERR_CODE_KEY_AUTH_TIME_OUT 12000009: The authentication token times out.\n     <br>OH_HUKS_ERR_CODE_ITEM_NOT_EXIST 12000011: The key file or the handle does not exist.\n     <br>OH_HUKS_ERR_CODE_INTERNAL_ERROR 12000012: The device environment or input parameters are abnormal.\n     <br>OH_HUKS_ERR_CODE_CREDENTIAL_NOT_EXIST 12000013: The certificate does not exist.\n     <br>OH_HUKS_ERR_CODE_INSUFFICIENT_MEMORY 12000014: Insufficient memory.\n     <br>OH_HUKS_ERR_CODE_DEVICE_PASSWORD_UNSET 12000016: No device password is set.\n     <br>OH_HUKS_ERR_CODE_INVALID_ARGUMENT 12000018: The group name specified by accessing the group tag is\n     invalid. (This error code is added in API version 23.)\n     <br>OH_HUKS_ERR_CODE_EXTERNAL_MODULE 12000020: The provider or UKey internal execution fails. (This\n     error code is added in API version 22.)\n     <br>OH_HUKS_ERR_CODE_PIN_LOCKED 12000021: The PIN is locked. (This error code is added in API version 22.\n     )\n     <br>OH_HUKS_ERR_CODE_PIN_NO_AUTH 12000023: The PIN authentication fails. (This error code is added in\n     API version 22.)\n     <br>OH_HUKS_ERR_CODE_BUSY 12000024: The resource in the provider or UKey is being used. (This error code\n     is added in API version 22.)\n @since 9\n @version 1.0\n @see OH_Huks_InitSession\n @see OH_Huks_FinishSession\n @see OH_Huks_AbortSession"]
     pub fn OH_Huks_UpdateSession(
         handle: *const OH_Huks_Blob,
         paramSet: *const OH_Huks_ParamSet,
@@ -817,7 +817,7 @@ extern "C" {
     ) -> OH_Huks_Result;
 }
 extern "C" {
-    #[doc = " @brief Ends the key session.\n\n @param handle Indicates the pointer to the key session handle, which is generated by {@link OH_Huks_InitSession}.\n @param paramSet Indicates the pointer to the parameters required for the key operation.\n @param inData Indicates the pointer to the data to be processed.\n @param outData Indicates the pointer to the output data.\n @return {@link OH_Huks_ErrCode#OH_HUKS_SUCCESS} 0 - If the operation is successful.\n         {@link OH_Huks_ErrCode#OH_HUKS_ERR_CODE_ILLEGAL_ARGUMENT} 401 - If handle or paramSet or inData or\n             outData is invalid.\n         {@link OH_Huks_ErrCode#OH_HUKS_ERR_CODE_INTERNAL_ERROR} 12000012 - If Device environment or\n             input parameter abnormal.\n         {@link OH_Huks_ErrCode#OH_HUKS_ERR_CODE_INVALID_CRYPTO_ALG_ARGUMENT} 12000003 - If the key argument\n             is invalid.\n         {@link OH_Huks_ErrCode#OH_HUKS_ERR_CODE_ITEM_NOT_EXIST} 12000011 - If the key file is not exist,\n             or if the handle is not exist.\n         {@link OH_Huks_ErrCode#OH_HUKS_ERR_CODE_MISSING_CRYPTO_ALG_ARGUMENT} 12000002 - If failed to\n             get key argument.\n         {@link OH_Huks_ErrCode#OH_HUKS_ERR_CODE_COMMUNICATION_FAIL} 12000005 - If Ipc communication failed.\n         {@link OH_Huks_ErrCode#OH_HUKS_ERR_CODE_CREDENTIAL_NOT_EXIST} 12000013 - If credemtial is not exist.\n         {@link OH_Huks_ErrCode#OH_HUKS_ERR_CODE_CRYPTO_FAIL} 12000006 - If crypto engine\n         or the Ukey driver operation failed.\n         {@link OH_Huks_ErrCode#OH_HUKS_ERR_CODE_KEY_AUTH_VERIFY_FAILED} 12000008 - If auth token verify failed.\n         {@link OH_Huks_ErrCode#OH_HUKS_ERR_CODE_KEY_AUTH_PERMANENTLY_INVALIDATED} 12000007 - If auth token info\n             verify failed.\n         {@link OH_Huks_ErrCode#OH_HUKS_ERR_CODE_KEY_AUTH_TIME_OUT} 12000009 - If authentication token timed out.\n         {@link OH_Huks_ErrCode#OH_HUKS_ERR_CODE_INSUFFICIENT_MEMORY} 12000014 - If the memory is insufficient.\n         {@link OH_Huks_ErrCode#OH_HUKS_ERR_CODE_DEVICE_PASSWORD_UNSET} 12000016 - If device password is required\n             but not set.\n         {@link OH_Huks_ErrCode#OH_HUKS_ERR_CODE_FEATURE_NOT_SUPPORTED} 12000001 - If the feature is not support.\n         {@link OH_Huks_ErrCode#OH_HUKS_ERR_CODE_KEY_ALREADY_EXIST} 12000017 - If the key with same alias is\n             already exist, added since api level 20.\n         {@link OH_Huks_ErrCode#OH_HUKS_ERR_CODE_EXTERNAL_MODULE} 12000020 - If the provider operation failed,\n             added since api level 22.\n         {@link OH_Huks_ErrCode#OH_HUKS_ERR_CODE_PIN_LOCKED} 12000021 - If the UKey PIN is locked,\n             added since api level 22.\n         {@link OH_Huks_ErrCode#OH_HUKS_ERR_CODE_PIN_NO_AUTH} 12000023 - If the Ukey PIN not authenticated,\n             added since api level 22.\n         {@link OH_Huks_ErrCode#OH_HUKS_ERR_CODE_BUSY} 12000024 - If the provider or Ukey is busy,\n             added since api level 22.\n         {@link OH_Huks_ErrCode#OH_HUKS_ERR_CODE_INVALID_ARGUMENT} 12000018 - If the group id specified by the\n             access group tag is invalid, added since api level 23.\n @since 9\n @version 1.0\n @see OH_Huks_InitSession\n @see OH_Huks_UpdateSession\n @see OH_Huks_AbortSession"]
+    #[doc = " @brief Finishes a key session.\n\n @param handle Pointer to the key session handle, which is returned by {@link OH_Huks_InitSession}.\n @param paramSet Pointer to the parameters required for the key operation.\n @param inData Pointer to the data to be passed in.\n @param outData Pointer to the output data.\n @return Possible error codes (**errorCode**):\n     <br>OH_HUKS_SUCCESS 0: Operation successful.\n     <br>OH_HUKS_ERR_CODE_ILLEGAL_ARGUMENT 401: Invalid **handle**, **paramSet**, **inData**, or **outData**.\n     <br>OH_HUKS_ERR_CODE_FEATURE_NOT_SUPPORTED 12000001: This feature is not supported currently.\n     <br>OH_HUKS_ERR_CODE_MISSING_CRYPTO_ALG_ARGUMENT 12000002: Failed to obtain the key parameter.\n     <br>OH_HUKS_ERR_CODE_INVALID_CRYPTO_ALG_ARGUMENT 12000003: The key parameter is invalid.\n     <br>OH_HUKS_ERR_CODE_COMMUNICATION_FAIL 12000005: IPC communication failed.\n     <br>OH_HUKS_ERR_CODE_CRYPTO_FAIL 12000006: The encryption engine fails.\n     <br>OH_HUKS_ERR_CODE_KEY_AUTH_PERMANENTLY_INVALIDATED 12000007: Failed to verify the access token\n     information.\n     <br>OH_HUKS_ERR_CODE_KEY_AUTH_VERIFY_FAILED 12000008: Failed to verify the authentication token.\n     <br>OH_HUKS_ERR_CODE_KEY_AUTH_TIME_OUT 12000009: The authentication token times out.\n     <br>OH_HUKS_ERR_CODE_ITEM_NOT_EXIST 12000011: The key file or the handle does not exist.\n     <br>OH_HUKS_ERR_CODE_INTERNAL_ERROR 12000012: The device environment or input parameters are abnormal.\n     <br>OH_HUKS_ERR_CODE_CREDENTIAL_NOT_EXIST 12000013: The certificate does not exist.\n     <br>OH_HUKS_ERR_CODE_INSUFFICIENT_MEMORY 12000014: Insufficient memory.\n     <br>OH_HUKS_ERR_CODE_DEVICE_PASSWORD_UNSET 12000016: No device password is set.\n     <br>OH_HUKS_ERR_CODE_KEY_ALREADY_EXIST 12000017: A key with the same name already exists. (This error\n     code is added in API version 20.)\n     <br>OH_HUKS_ERR_CODE_INVALID_ARGUMENT 12000018: The group name specified by accessing the group tag is\n     invalid. (This error code is added in API version 23.)\n     <br>OH_HUKS_ERR_CODE_EXTERNAL_MODULE 12000020: The provider or UKey internal execution fails. (This\n     error code is added in API version 22.)\n     <br>OH_HUKS_ERR_CODE_PIN_LOCKED 12000021: The PIN is locked. (This error code is added in API version 22.\n     )\n     <br>OH_HUKS_ERR_CODE_PIN_NO_AUTH 12000023: The PIN authentication fails. (This error code is added in\n     API version 22.)\n     <br>OH_HUKS_ERR_CODE_BUSY 12000024: The resource in the provider or UKey is being used. (This error code\n     is added in API version 22.)\n @since 9\n @version 1.0\n @see OH_Huks_InitSession\n @see OH_Huks_UpdateSession\n @see OH_Huks_AbortSession"]
     pub fn OH_Huks_FinishSession(
         handle: *const OH_Huks_Blob,
         paramSet: *const OH_Huks_ParamSet,
@@ -826,14 +826,14 @@ extern "C" {
     ) -> OH_Huks_Result;
 }
 extern "C" {
-    #[doc = " @brief Aborts a key session.\n\n @param handle Indicates the pointer to the key session handle, which is generated by {@link OH_Huks_InitSession}.\n @param paramSet Indicates the pointer to the parameters required for aborting the key session.\n    By default, this parameter is a null pointer.\n @return {@link OH_Huks_ErrCode#OH_HUKS_SUCCESS} 0 - If the operation is successful.\n         {@link OH_Huks_ErrCode#OH_HUKS_ERR_CODE_ILLEGAL_ARGUMENT} 401 - If handle or paramSet or inData or\n             outData is invalid.\n         {@link OH_Huks_ErrCode#OH_HUKS_ERR_CODE_INTERNAL_ERROR} 12000012 - If Device environment or\n             input parameter abnormal.\n         {@link OH_Huks_ErrCode#OH_HUKS_ERR_CODE_INVALID_CRYPTO_ALG_ARGUMENT} 12000003 - If the key argument\n             is invalid.\n         {@link OH_Huks_ErrCode#OH_HUKS_ERR_CODE_ITEM_NOT_EXIST} 12000011 - or if the handle is not exist.\n         {@link OH_Huks_ErrCode#OH_HUKS_ERR_CODE_MISSING_CRYPTO_ALG_ARGUMENT} 12000002 - If failed to\n             get key argument.\n         {@link OH_Huks_ErrCode#OH_HUKS_ERR_CODE_COMMUNICATION_FAIL} 12000005 - If Ipc communication failed.\n         {@link OH_Huks_ErrCode#OH_HUKS_ERR_CODE_CREDENTIAL_NOT_EXIST} 12000013 - If credemtial is not exist.\n         {@link OH_Huks_ErrCode#OH_HUKS_ERR_CODE_INSUFFICIENT_MEMORY} 12000014 - If the memory is insufficient.\n         {@link OH_Huks_ErrCode#OH_HUKS_ERR_CODE_EXTERNAL_MODULE} 12000020 - If the provider operation failed,\n             added since api level 22.\n         {@link OH_Huks_ErrCode#OH_HUKS_ERR_CODE_BUSY} 12000024 - If the provider or Ukey is busy,\n             added since api level 22.\n         {@link OH_Huks_ErrCode#OH_HUKS_ERR_CODE_INVALID_ARGUMENT} 12000018 - If the group id specified by the\n             access group tag is invalid, added since api level 23.\n @since 9\n @version 1.0\n @see OH_Huks_InitSession\n @see OH_Huks_UpdateSession\n @see OH_Huks_FinishSession"]
+    #[doc = " @brief Aborts a key session.\n\n @param handle Pointer to the key session handle, which is returned by {@link OH_Huks_InitSession}.\n @param paramSet Pointer to the parameters for aborting the key session. By default, this parameter is a null pointer.\n @return Possible error codes (**errorCode**):\n     <br>OH_HUKS_SUCCESS 0: Operation successful.\n     <br>OH_HUKS_ERR_CODE_ILLEGAL_ARGUMENT 401: The **handle** or **paramSet** parameter is invalid.\n     <br>OH_HUKS_ERR_CODE_MISSING_CRYPTO_ALG_ARGUMENT 12000002: Failed to obtain the key parameter.\n     <br>OH_HUKS_ERR_CODE_INVALID_CRYPTO_ALG_ARGUMENT 12000003: The key parameter is invalid.\n     <br>OH_HUKS_ERR_CODE_COMMUNICATION_FAIL 12000005: IPC communication failed.\n     <br>OH_HUKS_ERR_CODE_ITEM_NOT_EXIST 12000011: The key file or the handle does not exist.\n     <br>OH_HUKS_ERR_CODE_INTERNAL_ERROR 12000012: The device environment or input parameters are abnormal.\n     <br>OH_HUKS_ERR_CODE_CREDENTIAL_NOT_EXIST 12000013: The certificate does not exist.\n     <br>OH_HUKS_ERR_CODE_INSUFFICIENT_MEMORY 12000014: Insufficient memory.\n     <br>OH_HUKS_ERR_CODE_INVALID_ARGUMENT 12000018: The group name specified by accessing the group tag is\n     invalid. (This error code is added in API version 23.)\n     <br>OH_HUKS_ERR_CODE_EXTERNAL_MODULE 12000020: The provider or UKey internal execution fails. (This\n     error code is added in API version 22.)\n     <br>OH_HUKS_ERR_CODE_BUSY 12000024: The resource in the provider or UKey is being used. (This error code\n     is added in API version 22.)\n @since 9\n @version 1.0\n @see OH_Huks_InitSession\n @see OH_Huks_UpdateSession\n @see OH_Huks_FinishSession"]
     pub fn OH_Huks_AbortSession(
         handle: *const OH_Huks_Blob,
         paramSet: *const OH_Huks_ParamSet,
     ) -> OH_Huks_Result;
 }
 extern "C" {
-    #[doc = " @brief Get key alias list.\n\n @param paramSet Indicates the pointer to the parameters required for getting key alias list.\n     By default, this parameter is a null pointer.\n @param outData Indicates the pointer to the output data.\n @return {@link OH_Huks_ErrCode#OH_HUKS_SUCCESS} 0 - If the operation is successful.\n         {@link OH_Huks_ErrCode#OH_HUKS_ERR_CODE_ILLEGAL_ARGUMENT} 401 - If paramSet or outData is invalid.\n         {@link OH_Huks_ErrCode#OH_HUKS_ERR_CODE_INTERNAL_ERROR} 12000012 - If Device environment or\n             input parameter abnormal.\n         {@link OH_Huks_ErrCode#OH_HUKS_ERR_CODE_COMMUNICATION_FAIL} 12000005 - If Ipc communication failed.\n         {@link OH_Huks_ErrCode#OH_HUKS_ERR_CODE_INSUFFICIENT_MEMORY} 12000014 - If the memory is insufficient.\n         {@link OH_Huks_ErrCode#OH_HUKS_ERR_CODE_INVALID_ARGUMENT} 12000018 - If the group id specified by the\n             access group tag is invalid, added since api level 23.\n @since 20"]
+    #[doc = " @brief Obtains the key alias set.\n\n @param paramSet Pointer to the parameters for obtaining the key alias set. By default, this parameter is a null\n     pointer.\n @param outData Double pointer to the obtained key alias set. After the key alias set is used, you need to use\n     {@link OH_Huks_FreeKeyAliasSet} to release the memory allocated by the system.\n @return Possible error codes (**errorCode**):\n     <br>OH_HUKS_SUCCESS 0: Operation successful.\n     <br>OH_HUKS_ERR_CODE_ILLEGAL_ARGUMENT 401: The **paramSet** or **outData** parameter is invalid.\n     <br>OH_HUKS_ERR_CODE_COMMUNICATION_FAIL 12000005: IPC communication failed.\n     <br>OH_HUKS_ERR_CODE_INTERNAL_ERROR 12000012: The device environment or input parameters are abnormal.\n     <br>OH_HUKS_ERR_CODE_INSUFFICIENT_MEMORY 12000014: Insufficient memory.\n     <br>OH_HUKS_ERR_CODE_INVALID_ARGUMENT 12000018: The group name specified by accessing the group tag is\n     invalid. (This error code is added in API version 23.)\n @since 20"]
     #[cfg(feature = "api-20")]
     pub fn OH_Huks_ListAliases(
         paramSet: *const OH_Huks_ParamSet,
@@ -841,7 +841,7 @@ extern "C" {
     ) -> OH_Huks_Result;
 }
 extern "C" {
-    #[doc = " @brief Export the wrapped key encrypted by a specific key.\n\n @param keyAlias Indicates the pointer to the alias of the key to export.\n @param paramSet Indicates the pointer to the export parameters.\n @param wrappedKey Indicates the - indicates the wrapped key to export.\n @return {@link OH_Huks_ErrCode#OH_HUKS_SUCCESS} 0 - If the operation is successful.\n         {@link OH_Huks_ErrCode#OH_HUKS_ERR_CODE_NOT_SUPPORTED_API} 801 - api is not supported\n         {@link OH_Huks_ErrCode#OH_HUKS_ERR_CODE_FILE_OPERATION_FAIL} 12000004 - If failed to remove file,\n             or if failed to write file.\n         {@link OH_Huks_ErrCode#OH_HUKS_ERR_CODE_COMMUNICATION_FAIL} 12000005 - If Ipc communication failed.\n         {@link OH_Huks_ErrCode#OH_HUKS_ERR_CODE_ITEM_NOT_EXIST} 12000011 - If the key file is not exist.\n         {@link OH_Huks_ErrCode#OH_HUKS_ERR_CODE_INTERNAL_ERROR} 12000012 - If Device environment or\n             input parameter abnormal.\n         {@link OH_Huks_ErrCode#OH_HUKS_ERR_CODE_INSUFFICIENT_MEMORY} 12000014 - If the memory is insufficient.\n         {@link OH_Huks_ErrCode#OH_HUKS_ERR_CODE_INVALID_ARGUMENT} 12000018 - If the input parameter is invalid.\n @since 20"]
+    #[doc = " @brief Exports a wrapped key.\n\n @param keyAlias Pointer to the alias of the key to export.\n @param paramSet Pointer to the parameters for encrypting the exported key.\n @param wrappedKey Pointer to the wrapped key to export.\n @return Possible error codes (**errorCode**):\n     <br>OH_HUKS_SUCCESS 0: Operation successful.\n     <br>OH_HUKS_ERR_CODE_NOT_SUPPORTED_API 801: The API is not supported.\n     <br>OH_HUKS_ERR_CODE_FILE_OPERATION_FAIL 12000004: Failed to delete or write the file.\n     <br>OH_HUKS_ERR_CODE_COMMUNICATION_FAIL 12000005: IPC communication failed.\n     <br>OH_HUKS_ERR_CODE_ITEM_NOT_EXIST 12000011: The key file does not exist.\n     <br>OH_HUKS_ERR_CODE_INTERNAL_ERROR 12000012: The device environment or input parameters are abnormal.\n     <br>OH_HUKS_ERR_CODE_INSUFFICIENT_MEMORY 12000014: Insufficient memory.\n     <br>OH_HUKS_ERR_CODE_INVALID_ARGUMENT 12000018: The key alias, parameter set, or wrapped key is invalid.\n @since 20"]
     #[cfg(feature = "api-20")]
     pub fn OH_Huks_WrapKey(
         keyAlias: *const OH_Huks_Blob,
@@ -850,7 +850,7 @@ extern "C" {
     ) -> OH_Huks_Result;
 }
 extern "C" {
-    #[doc = " @brief Import the wrapped key encrypted by a specific key.\n\n @param keyAlias Indicates the pointer to the alias of the key to import.\n    The alias must be unique in the process of the service. Otherwise, the key will be overwritten.\n @param paramSet Indicates the pointer to the import parameters.\n @param wrappedKey Indicates the - indicates the wrapped key to import.\n @return {@link OH_Huks_ErrCode#OH_HUKS_SUCCESS} 0 - If the operation is successful.\n         {@link OH_Huks_ErrCode#OH_HUKS_ERR_CODE_NOT_SUPPORTED_API} 801 - api is not supported\n         {@link OH_Huks_ErrCode#OH_HUKS_ERR_CODE_FILE_OPERATION_FAIL} 12000004 - If failed to remove file,\n             or if failed to write file.\n         {@link OH_Huks_ErrCode#OH_HUKS_ERR_CODE_COMMUNICATION_FAIL} 12000005 - If Ipc communication failed.\n         {@link OH_Huks_ErrCode#OH_HUKS_ERR_CODE_INTERNAL_ERROR} 12000012 - If Device environment or\n             input parameter abnormal.\n         {@link OH_Huks_ErrCode#OH_HUKS_ERR_CODE_INSUFFICIENT_MEMORY} 12000014 - If the memory is insufficient.\n         {@link OH_Huks_ErrCode#OH_HUKS_ERR_CODE_CALL_SERVICE_FAILED} 12000015 - If connect userIam failed.\n         {@link OH_Huks_ErrCode#OH_HUKS_ERR_CODE_INVALID_ARGUMENT} 12000018 - If the input parameter is invalid.\n @since 20"]
+    #[doc = " @brief Imports a wrapped key.\n\n @param keyAlias Pointer to the alias of the key to import. The alias must be unique in the service process.\n     Otherwise, the key will be overwritten.\n @param paramSet Pointer to the parameters for encrypting the imported key.\n @param wrappedKey Pointer to the wrapped key to import.\n @return Possible error codes (**errorCode**):\n     <br>OH_HUKS_SUCCESS 0: Operation successful.\n     <br>OH_HUKS_ERR_CODE_NOT_SUPPORTED_API 801: The API is not supported.\n     <br>OH_HUKS_ERR_CODE_FILE_OPERATION_FAIL 12000004: Failed to delete or write the file.\n     <br>OH_HUKS_ERR_CODE_COMMUNICATION_FAIL 12000005: IPC communication failed.\n     <br>OH_HUKS_ERR_CODE_INTERNAL_ERROR 12000012: The device environment or input parameters are abnormal.\n     <br>OH_HUKS_ERR_CODE_INSUFFICIENT_MEMORY 12000014: Insufficient memory.\n     <br>OH_HUKS_ERR_CODE_CALL_SERVICE_FAILED 12000015: Failed to connect to the user IAM.\n     <br>OH_HUKS_ERR_CODE_INVALID_ARGUMENT 12000018: The key alias, parameter set, or wrapped key is invalid.\n @since 20"]
     #[cfg(feature = "api-20")]
     pub fn OH_Huks_UnwrapKey(
         keyAlias: *const OH_Huks_Blob,
@@ -859,11 +859,11 @@ extern "C" {
     ) -> OH_Huks_Result;
 }
 extern "C" {
-    #[doc = " @brief Initializing the parameter set, with no parameter information, allocating the default available memory space\n        for the parameter set.\n        The parameter set after initialisation needs to be released via OH_Huks_FreeParamSet.\n        The set of parameters to which parameters are added must use OH_Huks_AddParams to add parameters and must use\n        OH_Huks_BuildParamSet to construct the parameter set.\n\n @param paramSet Indicates the double pointer to the parameter set to initialize.\n @return {@link OH_Huks_ErrCode#OH_HUKS_SUCCESS} 0 - If the initialization is successful.\n         {@link OH_Huks_ErrCode#OH_HUKS_ERR_CODE_INSUFFICIENT_MEMORY} 12000014 - If the memory is insufficient.\n         {@link OH_Huks_ErrCode#OH_HUKS_ERR_CODE_ILLEGAL_ARGUMENT} 401 - If the paramset is null.\n @since 9\n @version 1.0"]
+    #[doc = " @brief Initializes a parameter set. No parameter information is required, and the default available memory space is\n allocated to the parameter set. The initialized parameter set needs to be released by using\n {@link OH_Huks_FreeParamSet}. To add parameters to a parameter set, you need to use {@link OH_Huks_AddParams} to add\n parameters and use {@link OH_Huks_BuildParamSet} to construct the parameter set.\n\n @param paramSet Pointer to the parameter set to initialize.\n @return Possible error codes (**errorCode**):\n     <br>OH_HUKS_SUCCESS 0: Initialization successful.\n     <br>OH_HUKS_ERR_CODE_INSUFFICIENT_MEMORY 12000014: Insufficient memory.\n     <br>OH_HUKS_ERR_CODE_ILLEGAL_ARGUMENT 401: **paramSet** is invalid.\n @since 9\n @version 1.0"]
     pub fn OH_Huks_InitParamSet(paramSet: *mut *mut OH_Huks_ParamSet) -> OH_Huks_Result;
 }
 extern "C" {
-    #[doc = " @brief Adds parameters to a parameter set.\n\n @param paramSet Indicates the pointer to the parameter set to which parameters are to be added.\n @param params Indicates the pointer to the array of parameters to add.\n @param paramCnt Indicates the number of parameters to add.\n @return {@link OH_Huks_ErrCode#OH_HUKS_SUCCESS} 0 - If the operation is successful.\n         {@link OH_Huks_ErrCode#OH_HUKS_ERR_CODE_ILLEGAL_ARGUMENT} 401 - If params is null or paramSet is invalid.\n @since 9\n @version 1.0"]
+    #[doc = " @brief Adds parameters to a parameter set. After the parameters are added, use {@link OH_Huks_BuildParamSet} to\n construct a parameter set.\n\n @param paramSet Pointer to the parameter set to which parameters are to be added. This parameter needs to be\n     initialized by using {@link OH_Huks_InitParamSet}.\n @param params Pointer to an array of parameters to add.\n @param paramCnt Number of parameters to add.\n @return Possible error codes (**errorCode**):\n     <br>OH_HUKS_SUCCESS 0: Operation successful.\n     <br>OH_HUKS_ERR_CODE_ILLEGAL_ARGUMENT 401: **params** is a null pointer or **paramSet** is invalid.\n @since 9\n @version 1.0"]
     pub fn OH_Huks_AddParams(
         paramSet: *mut OH_Huks_ParamSet,
         params: *const OH_Huks_Param,
@@ -871,15 +871,15 @@ extern "C" {
     ) -> OH_Huks_Result;
 }
 extern "C" {
-    #[doc = " @brief After initializing the parameter set and adding parameters, serialize the parameter set and copy the\n        blob type data to the adjacent memory area at the end of the paramSet structure.\n\n @param paramSet Indicates the double pointer to the parameter set to construct.\n @return {@link OH_Huks_ErrCode#OH_HUKS_SUCCESS} 0 - If the operation is successful.\n         {@link OH_Huks_ErrCode#OH_HUKS_ERR_CODE_ILLEGAL_ARGUMENT} 401 - If paramSet is invalid.\n         {@link OH_Huks_ErrCode#OH_HUKS_ERR_CODE_INSUFFICIENT_MEMORY} 12000014 - If the memory is insufficient.\n @since 9\n @version 1.0"]
+    #[doc = " @brief Constructs a parameter set. After {@link OH_Huks_InitParamSet} is called to initialize the parameter set and\n {@link OH_Huks_AddParams} is called to add parameters, serialize the parameter set and copy the data of the BLOB\n type to the adjacent memory area at the end of the **paramSet** structure.\n\n @param paramSet Double pointer to the parameter set to build.\n @return Possible error codes (**errorCode**):\n     <br>OH_HUKS_SUCCESS 0: Operation successful.\n     <br>OH_HUKS_ERR_CODE_ILLEGAL_ARGUMENT 401: **paramSet** is invalid.\n     <br>OH_HUKS_ERR_CODE_INSUFFICIENT_MEMORY 12000014: Insufficient memory.\n @since 9\n @version 1.0"]
     pub fn OH_Huks_BuildParamSet(paramSet: *mut *mut OH_Huks_ParamSet) -> OH_Huks_Result;
 }
 extern "C" {
-    #[doc = " @brief Destroys a parameter set.\n\n @param paramSet Indicates the double pointer to the parameter set to destroy.\n @since 9\n @version 1.0"]
+    #[doc = " @brief Frees a parameter set. This function frees the memory allocated by {@link OH_Huks_InitParamSet}.\n\n @param paramSet Pointer to the parameter set to free.\n @since 9\n @version 1.0"]
     pub fn OH_Huks_FreeParamSet(paramSet: *mut *mut OH_Huks_ParamSet);
 }
 extern "C" {
-    #[doc = " @brief Copies a parameter set (deep copy).\n\n @param fromParamSet Indicates the pointer to the parameter set to copy.\n @param fromParamSetSize Indicates the memory size occupied by the source parameter set.\n @param paramSet Indicates the double pointer to the new parameter set generated.\n @return {@link OH_Huks_ErrCode#OH_HUKS_SUCCESS} 0 - If the operation is successful.\n         {@link OH_Huks_ErrCode#OH_HUKS_ERR_CODE_ILLEGAL_ARGUMENT} 401 - If fromParamSet or fromParamSetSize\n         or paramSet is invalid.\n         {@link OH_Huks_ErrCode#OH_HUKS_ERR_CODE_INSUFFICIENT_MEMORY} 12000014 - If the memory is insufficient.\n @since 9\n @version 1.0"]
+    #[doc = " @brief Copies a parameter set (deep copy).\n\n @param fromParamSet Pointer to the parameter set to copy.\n @param fromParamSetSize Size of the memory occupied by the copied parameter set.\n @param paramSet Double pointer to the new parameter set generated.\n @return Possible error codes (**errorCode**):\n     <br>OH_HUKS_SUCCESS 0: Operation successful.\n     <br>OH_HUKS_ERR_CODE_ILLEGAL_ARGUMENT 401: **fromParamSet**, **fromParamSetSize**, or **paramSet**\n     is invalid.\n     <br>OH_HUKS_ERR_CODE_INSUFFICIENT_MEMORY 12000014: Insufficient memory.\n @since 9\n @version 1.0"]
     pub fn OH_Huks_CopyParamSet(
         fromParamSet: *const OH_Huks_ParamSet,
         fromParamSetSize: u32,
@@ -887,7 +887,7 @@ extern "C" {
     ) -> OH_Huks_Result;
 }
 extern "C" {
-    #[doc = " @brief Obtains parameters from a parameter set.\n\n @param paramSet Indicates the pointer to the target parameter set.\n @param tag Indicates the value of the parameter to be obtained.\n @param param Indicates the double pointer to the parameter obtained.\n @return {@link OH_Huks_ErrCode#OH_HUKS_SUCCESS} 0 - If the operation is successful,\n         {@link OH_Huks_ErrCode#OH_HUKS_ERR_CODE_ILLEGAL_ARGUMENT} 401 - If paramSet or param is invalid,\n         or if the param doesn't exist in the pararmSet.\n @since 9\n @version 1.0"]
+    #[doc = " @brief Obtains a parameter from a parameter set.\n\n @param paramSet Pointer to the parameter set to check.\n @param tag Tag value of the parameter to be obtained.\n @param param Double pointer to the obtained parameter.\n @return Possible error codes (**errorCode**):\n     <br>OH_HUKS_SUCCESS 0: Operation successful.\n     <br>OH_HUKS_ERR_CODE_ILLEGAL_ARGUMENT 401: **paramSet** or **param** is invalid, or **param** is not in *\n     *paramSet**.\n @since 9\n @version 1.0"]
     pub fn OH_Huks_GetParam(
         paramSet: *const OH_Huks_ParamSet,
         tag: u32,
@@ -895,26 +895,26 @@ extern "C" {
     ) -> OH_Huks_Result;
 }
 extern "C" {
-    #[doc = " @brief Refreshes data of the <b>Blob</b> type in a parameter set.\n\n @param paramSet Indicates the pointer to the target parameter set.\n @param isCopy Specifies whether to copy the data of the <b>Blob</b> type to the parameter set.\n    If yes, the data of the <b>Blob</b> type will be copied to the parameter set.\n    Otherwise, only the address of the <b>Blob</b> data will be refreshed.\n @return {@link OH_Huks_ErrCode#OH_HUKS_SUCCESS} 0 - If operation is successful.\n         {@link OH_Huks_ErrCode#OH_HUKS_ERR_CODE_ILLEGAL_ARGUMENT} 401 - If paramSet is invalid.\n         {@link OH_Huks_ErrCode#OH_HUKS_ERR_CODE_INSUFFICIENT_MEMORY} 12000014 - If the memory is insufficient.\n @since 9\n @version 1.0"]
+    #[doc = " @brief Refreshes the {@link OH_Huks_Blob} data in the parameter set.\n\n @param paramSet Pointer to the parameter set to check.\n @param isCopy If the value is **true**, the address of the {@link OH_Huks_Blob} data is refreshed and copied to the\n     parameter set. If the value is **false**, only the address of the {@link OH_Huks_Blob} data is refreshed.\n @return Possible error codes (**errorCode**):\n     <br>OH_HUKS_SUCCESS 0: Operation successful.\n     <br>OH_HUKS_ERR_CODE_ILLEGAL_ARGUMENT 401: **paramSet** is invalid.\n     <br>OH_HUKS_ERR_CODE_INSUFFICIENT_MEMORY 12000014: Insufficient memory.\n @since 9\n @version 1.0"]
     pub fn OH_Huks_FreshParamSet(paramSet: *mut OH_Huks_ParamSet, isCopy: bool) -> OH_Huks_Result;
 }
 extern "C" {
-    #[doc = " @brief Checks whether the parameters in a parameter set are valid.\n\n @param paramSet Indicates the pointer to the parameter set to check.\n @return {@link OH_Huks_ErrCode#OH_HUKS_SUCCESS} 0 - If the parameters in the parameter set are valid.\n         {@link OH_Huks_ErrCode#OH_HUKS_ERR_CODE_ILLEGAL_ARGUMENT} 401 - If paramSet is invalid or\n         the parameter set has invalid, duplicate, or incorrect tags.\n @since 9\n @version 1.0"]
+    #[doc = " @brief Checks whether the tags in a parameter set are valid.\n\n @param paramSet Pointer to the parameter set to check.\n @return Possible error codes (**errorCode**):\n     <br>OH_HUKS_SUCCESS 0: All tags in **paramSet** are valid.\n     <br>OH_HUKS_ERR_CODE_ILLEGAL_ARGUMENT 401: **paramSet** is invalid, or the parameter set contains\n     invalid, duplicate, or incorrect tags.\n @since 9\n @version 1.0"]
     pub fn OH_Huks_IsParamSetTagValid(paramSet: *const OH_Huks_ParamSet) -> OH_Huks_Result;
 }
 extern "C" {
-    #[doc = " @brief Checks whether a parameter set is of the valid size.\n\n @param paramSet Indicates the pointer to the parameter set to check.\n @param size Indicates the memory size occupied by the parameter set.\n @return {@link OH_Huks_ErrCode#OH_HUKS_SUCCESS} 0 - If the parameter set is of the valid size.\n         {@link OH_Huks_ErrCode#OH_HUKS_ERR_CODE_ILLEGAL_ARGUMENT} 401 - If paramSet is invalid.\n @since 9\n @version 1.0"]
+    #[doc = " @brief Checks whether a parameter set is of the valid size.\n\n @param paramSet Pointer to the parameter set to check.\n @param size Memory size occupied by the parameter set.\n @return Possible error codes (**errorCode**):\n     <br>OH_HUKS_SUCCESS 0: The size of the parameter set is valid.\n     <br>OH_HUKS_ERR_CODE_ILLEGAL_ARGUMENT 401: The **paramSet** or **size** parameter is invalid.\n @since 9\n @version 1.0"]
     pub fn OH_Huks_IsParamSetValid(paramSet: *const OH_Huks_ParamSet, size: u32) -> OH_Huks_Result;
 }
 extern "C" {
-    #[doc = " @brief Checks whether two parameters are the same.\n\n @param baseParam Indicates the pointer to the first parameter.\n @param param Indicates the pointer to the second parameter.\n @return {@link OH_Huks_ErrCode#OH_HUKS_SUCCESS} 0 - If the two parameters are the same.\n         {@link OH_Huks_ErrCode#OH_HUKS_ERR_CODE_ILLEGAL_ARGUMENT} 401 - If one of the paramSet is invalid,\n         or if the params don't match, or if the tag inside is invalid.\n @since 9\n @version 1.0"]
+    #[doc = " @brief Checks whether two parameters are the same.\n\n @param baseParam Pointer to the first parameter to compare.\n @param param Pointer to the second parameter to compare.\n @return Possible error codes (**errorCode**):\n     <br>OH_HUKS_SUCCESS 0: The two parameters to be compared are the same.\n     <br>OH_HUKS_ERR_CODE_ILLEGAL_ARGUMENT 401: One of the parameters is invalid or the parameters do not\n     match.\n @since 9\n @version 1.0"]
     pub fn OH_Huks_CheckParamMatch(
         baseParam: *const OH_Huks_Param,
         param: *const OH_Huks_Param,
     ) -> OH_Huks_Result;
 }
 extern "C" {
-    #[doc = " @brief Destroys a key alias parameter set.\n\n @param keyAliasSet Indicates the pointer to the key alias parameter set to destroy.\n @since 20\n @version 1.0"]
+    #[doc = " @brief Frees a key alias set.\n\n @param keyAliasSet Pointer to the key alias set to be destroyed.\n @since 20\n @version 1.0"]
     #[cfg(feature = "api-20")]
     pub fn OH_Huks_FreeKeyAliasSet(keyAliasSet: *mut OH_Huks_KeyAliasSet);
 }

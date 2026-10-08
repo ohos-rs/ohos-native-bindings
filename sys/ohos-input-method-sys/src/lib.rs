@@ -392,6 +392,14 @@ extern "C" {
     ) -> InputMethod_ErrorCode;
 }
 extern "C" {
+    #[doc = " @brief Set whether the editor supports consuming key events into TextConfig.\n\n @param config Represents a pointer to an {@link InputMethod_TextConfig} instance which will be set.\n @param consumeKeyEvents Indicates whether the editor supports consuming key events.\n @return Returns a specific error code.\n     {@link IME_ERR_OK} - success.\n     {@link IME_ERR_NULL_POINTER} - unexpected null pointer.\n Specific error codes can be referenced {@link InputMethod_ErrorCode}.\n @since 26.0.0"]
+    #[cfg(feature = "api-26")]
+    pub fn OH_TextConfig_SetConsumeKeyEvents(
+        config: *mut InputMethod_TextConfig,
+        consumeKeyEvents: bool,
+    ) -> InputMethod_ErrorCode;
+}
+extern "C" {
     #[doc = " @brief Get input type from TextConfig\n\n @param config Represents a pointer to an {@link InputMethod_TextConfig} instance which will be get from.\n @param inputType Represents a pointer to an {@link InputMethod_TextInputType} instance.\n     The text input type of text Editor\n @return Returns a specific error code.\n     {@link IME_ERR_OK} - success.\n     {@link IME_ERR_NULL_POINTER} - unexpected null pointer.\n Specific error codes can be referenced {@link InputMethod_ErrorCode}.\n @since 12"]
     pub fn OH_TextConfig_GetInputType(
         config: *mut InputMethod_TextConfig,
@@ -457,6 +465,14 @@ extern "C" {
         config: *mut InputMethod_TextConfig,
         abilityName: *mut u16,
         length: *mut usize,
+    ) -> InputMethod_ErrorCode;
+}
+extern "C" {
+    #[doc = " @brief Get whether the editor supports consuming key events from TextConfig.\n\n @param config Represents a pointer to an {@link InputMethod_TextConfig} instance which will be get from.\n @param consumeKeyEvents Indicates Indicates whether the editor supports consuming key events.\n @return Returns a specific error code.\n     {@link IME_ERR_OK} - success.\n     {@link IME_ERR_NULL_POINTER} - unexpected null pointer.\n Specific error codes can be referenced {@link InputMethod_ErrorCode}.\n @since 26.0.0"]
+    #[cfg(feature = "api-26")]
+    pub fn OH_TextConfig_GetConsumeKeyEvents(
+        config: *mut InputMethod_TextConfig,
+        consumeKeyEvents: *mut bool,
     ) -> InputMethod_ErrorCode;
 }
 #[repr(C)]
@@ -882,13 +898,12 @@ extern "C" {
         size: usize,
     ) -> InputMethod_ErrorCode;
 }
-#[doc = " @brief Defines the ArkUI native context object.\n\n @since 12"]
 #[repr(C)]
 #[derive(Debug, Copy, Clone)]
 pub struct ArkUI_Context {
     _unused: [u8; 0],
 }
-#[doc = " @brief Defines the pointer to the context instance object pointer definition of ArkUI on the native side.\n\n @since 12"]
+#[doc = " @brief Defines the pointer to the context instance object of ArkUI on the native side.\n\n @since 12"]
 pub type ArkUI_ContextHandle = *mut ArkUI_Context;
 extern "C" {
     #[doc = " @brief Attach application to the input method service.\n\n @param textEditorProxy Represents a pointer to an {@link InputMethod_TextEditorProxy} instance.\n     The caller needs to manage the lifecycle of textEditorProxy.\n     If the call succeeds, caller cannot release textEditorProxy until the next attach or detach call.\n @param options Represents a pointer to an {@link InputMethod_AttachOptions} instance.\n     The options when attaching input method.\n @param inputMethodProxy Represents a pointer to an {@link InputMethod_InputMethodProxy} instance.\n     Lifecycle is maintained until the next attach or detach call.\n @return Returns a specific error code.\n     {@link IME_ERR_OK} - success.\n     {@link IME_ERR_PARAMCHECK} - parameter check failed.\n     {@link IME_ERR_IMCLIENT} - input method client error.\n     {@link IME_ERR_IMMS} - input method manager service error.\n     {@link IME_ERR_NULL_POINTER} - unexpected null pointer.\n Specific error codes can be referenced {@link InputMethod_ErrorCode}.\n @since 12"]

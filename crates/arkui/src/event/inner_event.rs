@@ -1,7 +1,7 @@
 //! Node event wrappers and utility event payload types.
 
 use ohos_arkui_sys::{
-    ArkUI_NodeEvent, ArkUI_NumberValue, OH_ArkUI_NodeEvent_GetDragEvent,
+    ArkUI_NodeComponentEvent, ArkUI_NodeEvent, ArkUI_NumberValue, OH_ArkUI_NodeEvent_GetDragEvent,
     OH_ArkUI_NodeEvent_GetEventType, OH_ArkUI_NodeEvent_GetInputEvent,
     OH_ArkUI_NodeEvent_GetNodeComponentEvent, OH_ArkUI_NodeEvent_GetNumberValue,
     OH_ArkUI_NodeEvent_GetPreDragStatus, OH_ArkUI_NodeEvent_GetStringAsyncEvent,
@@ -76,6 +76,12 @@ impl Event {
         }
     }
 
+    /// Returns the key-event view when this node event carries key input.
+    #[cfg(feature = "api-20")]
+    pub fn key_event(&self) -> Option<super::KeyEvent> {
+        self.input_event().and_then(super::KeyEvent::from_input)
+    }
+
     pub fn node_component_event(&self) -> Option<NonNull<c_void>> {
         let event = unsafe { OH_ArkUI_NodeEvent_GetNodeComponentEvent(self.raw()) };
         NonNull::new(event.cast())
@@ -118,6 +124,32 @@ impl Event {
 
     pub fn f32_value(&self, index: i32) -> Option<f32> {
         self.number_value(index).map(|v| unsafe { v.f32_ })
+    }
+
+    /// Reads an integer directly from the component-event data union.
+    ///
+    /// Some ArkUI component callbacks do not expose their populated union
+    /// through `OH_ArkUI_NodeEvent_GetNumberValue`. This accessor keeps the
+    /// callback-scoped unsafe layout knowledge inside the binding crate.
+    pub fn component_i32(&self, index: usize) -> Option<i32> {
+        self.component_number(index)
+            .map(|value| unsafe { value.i32_ })
+    }
+
+    /// Reads a float directly from the component-event data union.
+    pub fn component_f32(&self, index: usize) -> Option<f32> {
+        self.component_number(index)
+            .map(|value| unsafe { value.f32_ })
+    }
+
+    fn component_number(&self, index: usize) -> Option<ArkUI_NumberValue> {
+        if index >= 12 {
+            return None;
+        }
+        let component = self
+            .node_component_event()?
+            .cast::<ArkUI_NodeComponentEvent>();
+        Some(unsafe { component.as_ref().data[index] })
     }
 
     pub fn string_value(&self, index: i32) -> Option<String> {

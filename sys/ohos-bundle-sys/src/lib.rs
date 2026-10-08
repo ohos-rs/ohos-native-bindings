@@ -11,14 +11,14 @@
 #[link(name = "bundle_ndk.z")]
 unsafe extern "C" {}
 
-#[doc = " @error No error.\n @since 21"]
+#[doc = " Operation success.\n @since 21"]
 #[cfg(feature = "api-21")]
 pub const BundleManager_ErrorCode_BUNDLE_MANAGER_ERROR_CODE_NO_ERROR: BundleManager_ErrorCode = 0;
-#[doc = " @error permission denied.\n @since 21"]
+#[doc = " No access permission.\n @since 21"]
 #[cfg(feature = "api-21")]
 pub const BundleManager_ErrorCode_BUNDLE_MANAGER_ERROR_CODE_PERMISSION_DENIED:
     BundleManager_ErrorCode = 201;
-#[doc = " @error param invalid.\n @since 21"]
+#[doc = " Invalid parameter.\n @since 21"]
 #[cfg(feature = "api-21")]
 pub const BundleManager_ErrorCode_BUNDLE_MANAGER_ERROR_CODE_PARAM_INVALID: BundleManager_ErrorCode =
     401;
@@ -30,7 +30,7 @@ pub type BundleManager_ErrorCode = u32;
 pub struct ArkUI_DrawableDescriptor {
     _unused: [u8; 0],
 }
-#[doc = " @brief Indicates ability resource info.\n\n @since 21"]
+#[doc = " @brief The struct describes the ability resource information.\n\n @since 21"]
 #[cfg(feature = "api-21")]
 #[repr(C)]
 #[derive(Debug, Copy, Clone)]
@@ -38,7 +38,7 @@ pub struct OH_NativeBundle_AbilityResourceInfo {
     _unused: [u8; 0],
 }
 extern "C" {
-    #[doc = " @brief Get the bundle name of the abilityResourceInfo.\n\n @param abilityResourceInfo The ability resource info that has been obtained.\n @param bundleName The bundle name obtained from abilityResourceInfo.\n @return The error code.\n         {@link BUNDLE_MANAGER_ERROR_CODE_NO_ERROR} if the operation is successful.\n         {@link BUNDLE_MANAGER_ERROR_CODE_PARAM_INVALID} if the abilityResourceInfo is invalid.\n @since 21"]
+    #[doc = " @brief Obtains the bundle name of the ability. After using this function, you must manually release the\n pointer returned to prevent memory leakage.\n\n @param abilityResourceInfo Pointer to the ability resource information.\n @param bundleName Double pointer to the bundle name.\n @return One of the following operation results:\n     <ul><li>{@link BUNDLE_MANAGER_ERROR_CODE_NO_ERROR}: The retrieval is successful.\n     </li><li>{@link BUNDLE_MANAGER_ERROR_CODE_PARAM_INVALID}: The retrieval fails because the\n     **abilityResourceInfo** parameter is nullptr.</li></ul>\n @since 21"]
     #[cfg(feature = "api-21")]
     pub fn OH_NativeBundle_GetBundleName(
         abilityResourceInfo: *mut OH_NativeBundle_AbilityResourceInfo,
@@ -46,7 +46,7 @@ extern "C" {
     ) -> BundleManager_ErrorCode;
 }
 extern "C" {
-    #[doc = " @brief Get the module name of the abilityResourceInfo.\n\n @param abilityResourceInfo The ability resource info that has been obtained.\n @param moduleName The module name obtained from abilityResourceInfo.\n @return The error code.\n         {@link BUNDLE_MANAGER_ERROR_CODE_NO_ERROR} if the operation is successful.\n         {@link BUNDLE_MANAGER_ERROR_CODE_PARAM_INVALID} if the abilityResourceInfo is invalid.\n @since 21"]
+    #[doc = " @brief Obtains the module name of the ability. After using this function, you must manually release the pointer\n returned to prevent memory leakage.\n\n @param abilityResourceInfo Pointer to the ability resource information.\n @param moduleName Double pointer to the module name.\n @return One of the following operation results:\n     <ul><li>{@link BUNDLE_MANAGER_ERROR_CODE_NO_ERROR}: The retrieval is successful.\n     </li><li>{@link BUNDLE_MANAGER_ERROR_CODE_PARAM_INVALID}: The retrieval fails because the\n     **abilityResourceInfo** parameter is nullptr.</li></ul>\n @since 21"]
     #[cfg(feature = "api-21")]
     pub fn OH_NativeBundle_GetModuleName(
         abilityResourceInfo: *mut OH_NativeBundle_AbilityResourceInfo,
@@ -54,7 +54,7 @@ extern "C" {
     ) -> BundleManager_ErrorCode;
 }
 extern "C" {
-    #[doc = " @brief Get the ability name of the abilityResourceInfo.\n\n @param abilityResourceInfo The ability resource info that has been obtained.\n @param abilityName The ability name obtained from abilityResourceInfo.\n @return The error code.\n         {@link BUNDLE_MANAGER_ERROR_CODE_NO_ERROR} if the operation is successful.\n         {@link BUNDLE_MANAGER_ERROR_CODE_PARAM_INVALID} if the abilityResourceInfo is invalid.\n @since 21"]
+    #[doc = " @brief Obtains the ability name. After using this function, you must manually release the pointer returned to\n prevent memory leakage.\n\n @param abilityResourceInfo Pointer to the ability resource information.\n @param abilityName Double pointer to the ability name.\n @return One of the following operation results:\n     <ul><li>{@link BUNDLE_MANAGER_ERROR_CODE_NO_ERROR}: The retrieval is successful.\n     </li><li>{@link BUNDLE_MANAGER_ERROR_CODE_PARAM_INVALID}: The retrieval fails because the\n     **abilityResourceInfo** parameter is nullptr.</li></ul>\n @since 21"]
     #[cfg(feature = "api-21")]
     pub fn OH_NativeBundle_GetAbilityName(
         abilityResourceInfo: *mut OH_NativeBundle_AbilityResourceInfo,
@@ -62,7 +62,7 @@ extern "C" {
     ) -> BundleManager_ErrorCode;
 }
 extern "C" {
-    #[doc = " @brief Get the label of the abilityResourceInfo.\n\n @param abilityResourceInfo The ability resource info that has been obtained.\n @param label The label obtained from abilityResourceInfo.\n @return The error code.\n         {@link BUNDLE_MANAGER_ERROR_CODE_NO_ERROR} if the operation is successful.\n         {@link BUNDLE_MANAGER_ERROR_CODE_PARAM_INVALID} if the abilityResourceInfo is invalid.\n @since 21"]
+    #[doc = " @brief Obtains the application name of the ability. After using this function, you must manually release the\n pointerreturned to prevent memory leakage.\n\n @param abilityResourceInfo Pointer to the ability resource information.\n @param label Double pointer to the application name.\n @return One of the following operation results:\n     <ul><li>{@link BUNDLE_MANAGER_ERROR_CODE_NO_ERROR}: The retrieval is successful.\n     </li><li>{@link BUNDLE_MANAGER_ERROR_CODE_PARAM_INVALID}: The retrieval fails because the\n     **abilityResourceInfo** parameter is nullptr.</li></ul>\n @since 21"]
     #[cfg(feature = "api-21")]
     pub fn OH_NativeBundle_GetLabel(
         abilityResourceInfo: *mut OH_NativeBundle_AbilityResourceInfo,
@@ -70,7 +70,7 @@ extern "C" {
     ) -> BundleManager_ErrorCode;
 }
 extern "C" {
-    #[doc = " @brief Get the appIndex of the abilityResourceInfo.\n\n @param abilityResourceInfo The ability resource info that has been obtained.\n @param appIndex The appIndex obtained from abilityResourceInfo.\n @return The error code.\n         {@link BUNDLE_MANAGER_ERROR_CODE_NO_ERROR} if the operation is successful.\n         {@link BUNDLE_MANAGER_ERROR_CODE_PARAM_INVALID} if the abilityResourceInfo is invalid.\n @since 21"]
+    #[doc = " @brief Obtains the clone index of the ability.\n\n @param abilityResourceInfo Pointer to the ability resource information.\n @param appIndex Pointer to the clone index.\n @return One of the following operation results:\n     <ul><li>{@link BUNDLE_MANAGER_ERROR_CODE_NO_ERROR}: The retrieval is successful.\n     </li><li>{@link BUNDLE_MANAGER_ERROR_CODE_PARAM_INVALID}: The retrieval fails because the **\n     abilityResourceInfo** parameter is nullptr.</li></ul>\n @since 21"]
     #[cfg(feature = "api-21")]
     pub fn OH_NativeBundle_GetAppIndex(
         abilityResourceInfo: *mut OH_NativeBundle_AbilityResourceInfo,
@@ -78,7 +78,7 @@ extern "C" {
     ) -> BundleManager_ErrorCode;
 }
 extern "C" {
-    #[doc = " @brief Check whether abilityResourceInfo is the default application.\n\n @param abilityResourceInfo The ability resource info that has been obtained.\n @param isDefault Check whether abilityResourceInfo is the default application.\n @return The error code.\n         {@link BUNDLE_MANAGER_ERROR_CODE_NO_ERROR} if the operation is successful.\n         {@link BUNDLE_MANAGER_ERROR_CODE_PARAM_INVALID} if the abilityResourceInfo is invalid.\n @since 21"]
+    #[doc = " @brief Checks whether the application to which the ability belongs is a default application.\n\n @param abilityResourceInfo Pointer to the ability resource information.\n @param isDefault Pointer to the check result for whether the application is a default application. A default\n     application is the preferred application set by the user for a specific file type or operation. **true** if the\n     application is a default application, **false** otherwise.\n @return One of the following operation results:\n     <ul><li>{@link BUNDLE_MANAGER_ERROR_CODE_NO_ERROR}: The query is successful.\n     </li><li>{@link BUNDLE_MANAGER_ERROR_CODE_PARAM_INVALID}: The query fails because the abilityResourceInfo\n     parameter is nullptr.</li></ul>\n @since 21"]
     #[cfg(feature = "api-21")]
     pub fn OH_NativeBundle_CheckDefaultApp(
         abilityResourceInfo: *mut OH_NativeBundle_AbilityResourceInfo,
@@ -86,7 +86,7 @@ extern "C" {
     ) -> BundleManager_ErrorCode;
 }
 extern "C" {
-    #[doc = " @brief Destroy the ability resource info.\n\n @param abilityResourceInfo The ability resource info to be deleted.\n @param count Indicates the ability resource array size.\n @return The error code.\n         {@link BUNDLE_MANAGER_ERROR_CODE_NO_ERROR} if the operation is successful.\n         {@link BUNDLE_MANAGER_ERROR_CODE_PARAM_INVALID} if the abilityResourceInfo is invalid.\n @since 21"]
+    #[doc = " @brief Releases memory allocated for ability resource information.\n\n @param abilityResourceInfo Pointer to the ability resource information.\n @param count Size of the ability resource information array.\n @return One of the following operation results:\n     <ul><li>{@link BUNDLE_MANAGER_ERROR_CODE_NO_ERROR}: The release is successful.\n     </li><li>{@link BUNDLE_MANAGER_ERROR_CODE_PARAM_INVALID}: The release fails because the\n     **abilityResourceInfo** parameter is nullptr.</li></ul>\n @since 21"]
     #[cfg(feature = "api-21")]
     pub fn OH_AbilityResourceInfo_Destroy(
         abilityResourceInfo: *mut OH_NativeBundle_AbilityResourceInfo,
@@ -94,99 +94,99 @@ extern "C" {
     ) -> BundleManager_ErrorCode;
 }
 extern "C" {
-    #[doc = " @brief Get the size of ability resource info.\n\n @return The size of ability resource info.\n\n @since 21"]
+    #[doc = " @brief Obtains the size of a single {@link OH_NativeBundle_AbilityResourceInfo} struct.\n\n @return Size of a single {@link OH_NativeBundle_AbilityResourceInfo} struct.\n @since 21"]
     #[cfg(feature = "api-21")]
     pub fn OH_NativeBundle_GetSize() -> ::std::os::raw::c_int;
 }
 extern "C" {
-    #[doc = " @brief Get the drawable descriptor of the abilityResourceInfo.\n\n @param abilityResourceInfo The ability resource info that has been obtained.\n @param drawableIcon The drawable descriptor obtained from abilityResourceInfo.\n @return The error code.\n         {@link BUNDLE_MANAGER_ERROR_CODE_NO_ERROR} if the operation is successful.\n         {@link BUNDLE_MANAGER_ERROR_CODE_PARAM_INVALID} if the abilityResourceInfo is invalid.\n @since 21"]
+    #[doc = " @brief Obtains the {@link DrawableDescriptor} object of the ability icon resource. After using this function, you\n must manually release the pointer returned to prevent memory leakage.\n\n @param abilityResourceInfo Pointer to the ability resource information.\n @param drawableIcon Double pointer to the {@link DrawableDescriptor} object.\n @return One of the following operation results:\n     <ul><li>{@link BUNDLE_MANAGER_ERROR_CODE_NO_ERROR}: The retrieval is successful.\n     </li><li>{@link BUNDLE_MANAGER_ERROR_CODE_PARAM_INVALID}: The retrieval fails because the\n     **abilityResourceInfo** parameter is nullptr.</li></ul>\n @since 21"]
     #[cfg(feature = "api-21")]
     pub fn OH_NativeBundle_GetDrawableDescriptor(
         abilityResourceInfo: *mut OH_NativeBundle_AbilityResourceInfo,
         drawableIcon: *mut *mut ArkUI_DrawableDescriptor,
     ) -> BundleManager_ErrorCode;
 }
-#[doc = " @brief Indicates information of application\n\n @syscap SystemCapability.BundleManager.BundleFramework.Core\n @since 9"]
+#[doc = " @brief The struct describes the application information, including the bundle name and fingerprint information.\n\n @syscap SystemCapability.BundleManager.BundleFramework.Core\n @since 9"]
 #[repr(C)]
 #[derive(Debug, Copy, Clone)]
 pub struct OH_NativeBundle_ApplicationInfo {
-    #[doc = " Indicates the name of application\n @syscap SystemCapability.BundleManager.BundleFramework.Core\n @since 9"]
+    #[doc = " Pointer to the bundle name of the application.\n @syscap SystemCapability.BundleManager.BundleFramework.Core\n @since 9"]
     pub bundleName: *mut ::std::os::raw::c_char,
-    #[doc = " Indicates the fingerprint of application\n @syscap SystemCapability.BundleManager.BundleFramework.Core\n @since 9"]
+    #[doc = " Pointer to the fingerprint information of the application. It is generated by calculating the hash value of the\n signing certificate using the SHA-256 algorithm. This field changes when the used signing certificate changes.\n @syscap SystemCapability.BundleManager.BundleFramework.Core\n @since 9"]
     pub fingerprint: *mut ::std::os::raw::c_char,
 }
-#[doc = " @brief Indicates information of elementName.\n\n @since 13"]
+#[doc = " @brief The struct describes the elementName information.\n\n @since 13"]
 #[cfg(feature = "api-13")]
 #[repr(C)]
 #[derive(Debug, Copy, Clone)]
 pub struct OH_NativeBundle_ElementName {
-    #[doc = " Indicates the name of application."]
+    #[doc = " Pointer to the bundle name of the application."]
     pub bundleName: *mut ::std::os::raw::c_char,
-    #[doc = " Indicates the name of module."]
+    #[doc = " Pointer to the module name."]
     pub moduleName: *mut ::std::os::raw::c_char,
-    #[doc = " Indicates the name of ability."]
+    #[doc = " Pointer to the ability name."]
     pub abilityName: *mut ::std::os::raw::c_char,
 }
-#[doc = " @brief Indicates information of metadata.\n\n @since 20"]
+#[doc = " @brief The struct describes the metadata information.\n\n @since 20"]
 #[cfg(feature = "api-20")]
 #[repr(C)]
 #[derive(Debug, Copy, Clone)]
 pub struct OH_NativeBundle_Metadata {
-    #[doc = " @brief Indicates the metadata name."]
+    #[doc = " @brief Pointer to the name of the metadata.\n"]
     pub name: *mut ::std::os::raw::c_char,
-    #[doc = " @brief Indicates the metadata value."]
+    #[doc = " @brief Pointer to the value of the metadata.\n"]
     pub value: *mut ::std::os::raw::c_char,
-    #[doc = " @brief Indicates the metadata resource."]
+    #[doc = " @brief Pointer to the resource linked to the metadata.\n"]
     pub resource: *mut ::std::os::raw::c_char,
 }
-#[doc = " @brief Indicates information of module metadata.\n\n @since 20"]
+#[doc = " @brief The struct describes the metadata of a module.\n\n @since 20"]
 #[cfg(feature = "api-20")]
 #[repr(C)]
 #[derive(Debug, Copy, Clone)]
 pub struct OH_NativeBundle_ModuleMetadata {
-    #[doc = " @brief Indicates the moduleName of module."]
+    #[doc = " @brief Pointer to the module name.\n"]
     pub moduleName: *mut ::std::os::raw::c_char,
-    #[doc = " @brief Indicates the metadata array of module."]
+    #[doc = " @brief Pointer to an array containing the module's metadata.\n"]
     pub metadataArray: *mut OH_NativeBundle_Metadata,
-    #[doc = " @brief Indicates the metadata array size of module."]
+    #[doc = " @brief Number of elements in the metadata array.\n"]
     pub metadataArraySize: usize,
 }
 extern "C" {
-    #[doc = " @brief Obtains the application info based on the The current bundle.\n\n @return Returns the newly created OH_NativeBundle_ApplicationInfo object, if the returned object is NULL,\n it indicates creation failure. The possible cause of failure could be that the application address space is full,\n leading to space allocation failure.\n @since 9\n @version 1.0"]
+    #[doc = " @brief Obtains the current application information, including the bundle name and fingerprint information.\n\n @return Pointer to the OH_NativeBundle_ApplicationInfo object. If the attribute of the returned object is NULL,\n     the creation fails. The possible cause is that the application address space is full, causing space\n     allocation to fail.\n @since 9\n @version 1.0"]
     pub fn OH_NativeBundle_GetCurrentApplicationInfo() -> OH_NativeBundle_ApplicationInfo;
 }
 extern "C" {
-    #[doc = " @brief Obtains the appId of application. AppId indicates the ID of the application to which this bundle belongs\n The application ID uniquely identifies an application. It is determined by the bundle name and signature.\n After utilizing this interface, to prevent memory leaks,\n it is necessary to manually release the pointer returned by the interface.\n\n @return Returns the newly created string that indicates appId information,\n if the returned object is NULL, it indicates creation failure.\n The possible cause of failure could be that the application address space is full,\n leading to space allocation failure.\n @since 11\n @version 1.0"]
+    #[doc = " @brief Obtains the appId of the current application. The appId is the unique identifier of an application and is\n determined by the bundle name and signature information of the application. After using this function, you must\n manually release the pointer returned to prevent memory leakage.\n\n @return Pointer to a new string that indicates the appID. If the returned object is NULL, the creation fails.\n     <br> The possible cause is that the application address space is full, causing space allocation to fail.\n @since 11\n @version 1.0"]
     pub fn OH_NativeBundle_GetAppId() -> *mut ::std::os::raw::c_char;
 }
 extern "C" {
-    #[doc = " @brief Obtains the appIdentifier of application. AppIdentifier does not change along the application lifecycle,\n including version updates, certificate changes, public and private key changes, and application transfer.\n After utilizing this interface, to prevent memory leaks,\n it is necessary to manually release the pointer returned by the interface.\n\n @return Returns the newly created string that indicates app identifier information,\n if the returned object is NULL, it indicates creation failure.\n The possible cause of failure could be that the application address space is full,\n leading to space allocation failure.\n @since 11\n @version 1.0"]
+    #[doc = " @brief Obtains the appIdentifier of the current application. The appIdentifier does not change throughout the\n application lifecycle, including version updates, certificate changes, public and private key changes, and\n application migration. After using this function, you must manually release the pointer returned to prevent memory\n leakage.\n\n @return Pointer to a new string that indicates the appIdentifier. If the returned object is NULL, the creation\n     fails. The possible cause is that the application address space is full, causing space allocation to fail.\n @since 11\n @version 1.0"]
     pub fn OH_NativeBundle_GetAppIdentifier() -> *mut ::std::os::raw::c_char;
 }
 extern "C" {
-    #[doc = " @brief Obtains information of the entry mainElement based on the current application, including bundle name,\n module name, and ability name.\n After utilizing this interface, to prevent memory leaks,\n it is necessary to manually release the pointer returned by the interface.\n\n @return Returns the newly created OH_NativeBundle_ElementName object, if the returned object is NULL,\n it indicates creation failure. The possible cause of failure could be that the application address space is full,\n leading to space allocation failure.\n @since 13"]
+    #[doc = " @brief Obtains the mainElement information of the current application, including the bundle name, module name, and\n ability name. After using this function, you must manually release the pointer returned to prevent memory leakage.\n\n @return Pointer to the OH_NativeBundle_ElementName object. If the attribute of the returned object is NULL,\n     the creation fails. The possible cause is that the application address space is full, causing space\n     allocation to fail.\n @since 13"]
     #[cfg(feature = "api-13")]
     pub fn OH_NativeBundle_GetMainElementName() -> OH_NativeBundle_ElementName;
 }
 extern "C" {
-    #[doc = " @brief Obtains the compatible device type of the current application.\n After utilizing this interface, to prevent memory leaks,\n it is necessary to manually release the pointer returned by the interface.\n\n @return Returns the newly created string that indicates the compatible device type,\n if the returned object is NULL, it indicates creation failure.\n The possible cause of failure could be that the application address space is full,\n leading to space allocation failure.\n @since 14\n @version 1.0"]
+    #[doc = " @brief Obtains the compatible device type of the current application. It helps you optimize the layout and font\n size when distributing mobile applications to tablets or 2-in-1 devices. After using this function, you must\n manually release the pointer returned to prevent memory leakage.\n\n @return Pointer to a new string that indicates the compatible device type. If the returned object is NULL, the\n     creation fails.\n     <br> The possible cause is that the application address space is full, causing space allocation to fail.\n @since 14\n @version 1.0"]
     #[cfg(feature = "api-14")]
     pub fn OH_NativeBundle_GetCompatibleDeviceType() -> *mut ::std::os::raw::c_char;
 }
 extern "C" {
-    #[doc = " @brief Obtains the application debug mode.\n\n @param isDebugMode Indicates whether the application is in debug mode.\n @return Returns true if call successful, false otherwise.\n @since 20"]
+    #[doc = " @brief Checks whether the current application is in debug mode.\n\n @param isDebugMode Pointer to the check result indicating whether the application is in debug mode. **true** if in\n     debug mode, **false** otherwise.\n @return Operation result. **true** if the call is successful, **false** otherwise.\n @since 20"]
     #[cfg(feature = "api-20")]
     pub fn OH_NativeBundle_IsDebugMode(isDebugMode: *mut bool) -> bool;
 }
 extern "C" {
-    #[doc = " @brief Obtains the module metadata array of the current application.\n After utilizing this interface, to prevent memory leaks,\n it is necessary to manually release the pointer returned by the interface.\n\n @param size Indicates the module metadata array size.\n @return Returns the newly created module metadata array, if the returned object is NULL,\n it indicates creation failure. The possible cause of failure could be that the application address space is full,\n leading to space allocation failure.\n @since 20"]
+    #[doc = " @brief Obtains the module metadata array of the current application. After using this function, you must manually\n release the pointer returned to prevent memory leakage.\n\n @param size Pointer to the size of the module metadata array.\n @return An array of module metadata. If the returned object is NULL, the retrieval fails.\n     <br> The possible cause is that the application address space is full, causing space allocation to fail.\n @since 20"]
     #[cfg(feature = "api-20")]
     pub fn OH_NativeBundle_GetModuleMetadata(
         size: *mut usize,
     ) -> *mut OH_NativeBundle_ModuleMetadata;
 }
 extern "C" {
-    #[doc = " @brief Obtain a list of ability that support opening files in a certain format.\n\n @permission ohos.permission.GET_ABILITY_INFO\n @param fileType Indicates the file type.\n @param abilityResourceInfo Indicates the ability resource array.\n @param size Indicates the ability resource array size.\n @return Returns {@link BUNDLE_MANAGER_ERROR_CODE_NO_ERROR} if the call is successful.\n Returns {@link BUNDLE_MANAGER_ERROR_CODE_PERMISSION_DENIED} if the caller has no correct permission.\n @since 21"]
+    #[doc = " @brief Obtain a list of ability that support opening files in a certain format.\n\n @permission ohos.permission.GET_ABILITY_INFO\n @param fileType Indicates the file type.\n @param abilityResourceInfo Indicates the ability resource array.\n @param size Indicates the ability resource array size.\n @return <ul><li>Returns {@link BUNDLE_MANAGER_ERROR_CODE_NO_ERROR} if the call is successful.</li><li>\n     Returns {@link BUNDLE_MANAGER_ERROR_CODE_PERMISSION_DENIED} if the caller has no correct permission.</li></ul>\n @since 21"]
     #[cfg(feature = "api-21")]
     pub fn OH_NativeBundle_GetAbilityResourceInfo(
         fileType: *mut ::std::os::raw::c_char,

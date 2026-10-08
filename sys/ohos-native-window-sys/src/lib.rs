@@ -275,7 +275,7 @@ extern "C" {
     ) -> i32;
 }
 extern "C" {
-    #[doc = " @brief Sets metaData of a native window.\n\n @syscap SystemCapability.Graphic.Graphic2D.NativeWindow\n @param window Indicates the pointer to a <b>OHNativeWindow</b> instance.\n @param sequence Indicates the sequence to a produce buffer.\n @param size Indicates the size of a <b>OHHDRMetaData</b> vector.\n @param metaDate Indicates the pointer to a <b>OHHDRMetaData</b> vector.\n @return Returns an error code, 0 is success, otherwise, failed.\n @since 9\n @version 1.0\n @deprecated since 10"]
+    #[doc = " @brief Sets metaData of a native window.\n\n @syscap SystemCapability.Graphic.Graphic2D.NativeWindow\n @param window Indicates the pointer to a <b>OHNativeWindow</b> instance.\n @param sequence Indicates the sequence to a produce buffer.\n @param size Indicates the size of a <b>OHHDRMetaData</b> vector.\n @param metaData Indicates the pointer to a <b>OHHDRMetaData</b> vector.\n @return Returns an error code, 0 is success, otherwise, failed.\n @since 9\n @version 1.0\n @deprecated since 10"]
     pub fn OH_NativeWindow_NativeWindowSetMetaData(
         window: *mut OHNativeWindow,
         sequence: u32,
@@ -415,4 +415,24 @@ extern "C" {
     #[doc = " @brief Flushes the <b>OHNativeWindowBuffer</b> filled with the content to the buffer queue through an \\n\n <b>OHNativeWindow</b> instance for content consumption, and unlock the <b>OHNativeWindowBuffer</b>.\n This interface is a non-thread-safe type interface.\\n\n\n @syscap SystemCapability.Graphic.Graphic2D.NativeWindow\n @param window Indicates the pointer to a <b>OHNativeWindow</b> instance.\n @return {@link NATIVE_ERROR_OK} 0 - Success.\n     {@link NATIVE_ERROR_INVALID_ARGUMENTS} 40001000 - window is NULL.\n     {@link NATIVE_ERROR_UNKNOWN} 50002000 - surface of window is NULL.\n @since 23\n @version 1.0"]
     #[cfg(feature = "api-23")]
     pub fn OH_NativeWindow_UnlockAndFlushBuffer(window: *mut OHNativeWindow) -> i32;
+}
+extern "C" {
+    #[doc = " @brief Set the 3D metadata of the native window.\\n\n This interface is a non-thread-safe type interface.\\n\n\n @syscap SystemCapability.Graphic.Graphic2D.NativeWindow\n @param window Indicates the pointer to a <b>OHNativeWindow</b> instance.\n @param metadataKey Indicates the 3D metadata type of native window, see <b>OH_NativeBuffer_3D_MetadataKey</b>.\n @param size Indicates the size of a uint8_t vector.\n @param metadata Indicates the pointer to a uint8_t vector.\n @return {@link NATIVE_ERROR_OK} 0 - Success.\n     {@link NATIVE_ERROR_INVALID_ARGUMENTS} 40001000 - window or metadata is NULL.\n     {@link NATIVE_ERROR_UNKNOWN} 50002000 - set 3D metadata failed.\n     {@link NATIVE_ERROR_UNSUPPORTED} 50102000 - unsupported metadata key.\n @since 26.0.0\n @version 1.0"]
+    #[cfg(feature = "api-26")]
+    pub fn OH_NativeWindow_Set3DMetadataValue(
+        window: *mut OHNativeWindow,
+        metadataKey: OH_NativeBuffer_3D_MetadataKey,
+        size: i32,
+        metadata: *mut u8,
+    ) -> i32;
+}
+extern "C" {
+    #[doc = " @brief Get the 3D metadata of the native window.\\n\n This interface is a non-thread-safe type interface.\\n\n\n @syscap SystemCapability.Graphic.Graphic2D.NativeWindow\n @param window Indicates the pointer to a <b>OHNativeWindow</b> instance.\n @param metadataKey Indicates the 3D metadata type of native window, see <b>OH_NativeBuffer_3D_MetadataKey</b>.\n @param size Indicates the size of a uint8_t vector.\n @param metadata Indicates the pointer to a uint8_t vector.\n @return {@link NATIVE_ERROR_OK} 0 - Success.\n     {@link NATIVE_ERROR_INVALID_ARGUMENTS} 40001000 - window, metadata, or size is NULL.\n     {@link NATIVE_ERROR_UNKNOWN} 50002000 - copy or allocate memory failed, otherwise get 3D metadata failed.\n     {@link NATIVE_ERROR_UNSUPPORTED} 50102000 - unsupported metadata key.\n @since 26.0.0\n @version 1.0"]
+    #[cfg(feature = "api-26")]
+    pub fn OH_NativeWindow_Get3DMetadataValue(
+        window: *mut OHNativeWindow,
+        metadataKey: OH_NativeBuffer_3D_MetadataKey,
+        size: *mut i32,
+        metadata: *mut *mut u8,
+    ) -> i32;
 }

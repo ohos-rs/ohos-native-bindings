@@ -12,6 +12,6 @@
 unsafe extern "C" {}
 
 extern "C" {
-    #[doc = " @brief Checks whether this application has been granted the given permission.\n\n @param permission - Name of the permission to be granted.\n @return true  - The permission has been granted to this application.\n         false - The permission has not been granted to this application.\n @since 12"]
+    #[doc = " @brief Checks whether a permission is granted to this application.\n @param permission - Pointer to the permission to check. For details about the permission,\n     see [the application permission list](docroot://security/AccessToken/app-permissions.md).\n @return Returns true if the permission has been granted to the application. Returns false otherwise.\n @since 12"]
     pub fn OH_AT_CheckSelfPermission(permission: *const ::std::os::raw::c_char) -> bool;
 }

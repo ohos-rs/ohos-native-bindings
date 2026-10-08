@@ -37,33 +37,33 @@ pub const ArkWeb_ErrorCode_ARKWEB_COOKIE_MANAGER_INITIALIZE_FAILED: ArkWeb_Error
 #[cfg(feature = "api-20")]
 pub const ArkWeb_ErrorCode_ARKWEB_COOKIE_SAVE_FAILED: ArkWeb_ErrorCode = 17100109;
 pub type ArkWeb_ErrorCode = u32;
-#[doc = " @error The operation is successful."]
+#[doc = " Operation successful."]
 #[cfg(feature = "api-20")]
 pub const ArkWeb_BlanklessErrorCode_ARKWEB_BLANKLESS_SUCCESS: ArkWeb_BlanklessErrorCode = 0;
-#[doc = " @error Unidentified error."]
+#[doc = " Unknown error."]
 #[cfg(feature = "api-20")]
 pub const ArkWeb_BlanklessErrorCode_ARKWEB_BLANKLESS_ERR_UNKNOWN: ArkWeb_BlanklessErrorCode = -1;
-#[doc = " @error Invalid parameter."]
+#[doc = " Invalid parameter."]
 #[cfg(feature = "api-20")]
 pub const ArkWeb_BlanklessErrorCode_ARKWEB_BLANKLESS_ERR_INVALID_ARGS: ArkWeb_BlanklessErrorCode =
     -2;
-#[doc = " @error The web controller is not bound to a component."]
+#[doc = " **WebViewController** is not bound to any component."]
 #[cfg(feature = "api-20")]
 pub const ArkWeb_BlanklessErrorCode_ARKWEB_BLANKLESS_ERR_CONTROLLER_NOT_INITED:
     ArkWeb_BlanklessErrorCode = -3;
-#[doc = " @error The key value is not matched. The OH_NativeArkWeb_SetBlanklessLoadingWithKey\n and OH_NativeArkWeb_GetBlanklessInfoWithKey APIs must be used in pair and use the same key value."]
+#[doc = " The key value is not matched. The **OH_NativeArkWeb_SetBlanklessLoadingWithKey** and **\n OH_NativeArkWeb_GetBlanklessInfoWithKey** APIs must be used in pair and use the same key value."]
 #[cfg(feature = "api-20")]
 pub const ArkWeb_BlanklessErrorCode_ARKWEB_BLANKLESS_ERR_KEY_NOT_MATCH: ArkWeb_BlanklessErrorCode =
     -4;
-#[doc = " @error If the similarity is low, the system determines that the change is too large.\n As a result, the OH_NativeArkWeb_SetBlanklessLoadingWithKey API fails to enable frame interpolation."]
+#[doc = " When the similarity is low, the system will deem the scene change too abrupt and frame insertion through the **\n OH_NativeArkWeb_SetBlanklessLoadingWithKey** API will fail."]
 #[cfg(feature = "api-20")]
 pub const ArkWeb_BlanklessErrorCode_ARKWEB_BLANKLESS_ERR_SIGNIFICANT_CHANGE:
     ArkWeb_BlanklessErrorCode = -5;
-#[doc = " @error The device does not support this feature."]
+#[doc = " This device does not support this feature."]
 #[cfg(feature = "api-20")]
 pub const ArkWeb_BlanklessErrorCode_ARKWEB_BLANKLESS_ERR_DEVICE_NOT_SUPPORT:
     ArkWeb_BlanklessErrorCode = 801;
-#[doc = " @brief Defines an enum for the error codes of the white screen optimization solution.\n\n @since 20"]
+#[doc = " @brief Enumerates the error codes for the blankless loading.\n\n @since 20"]
 #[cfg(feature = "api-20")]
 pub type ArkWeb_BlanklessErrorCode = i32;
 #[doc = " @brief Defines the javascript bridge data type.\n\n @since 12"]
@@ -102,6 +102,7 @@ pub struct ArkWeb_WebMessage {
 }
 #[doc = " @brief Defines the ArkWeb_WebMessage.\n\n @since 12"]
 pub type ArkWeb_WebMessagePtr = *mut ArkWeb_WebMessage;
+#[cfg(feature = "api-18")]
 #[repr(C)]
 #[derive(Debug, Copy, Clone)]
 pub struct ArkWeb_JavaScriptValue {
@@ -144,7 +145,7 @@ pub type ArkWeb_OnComponentCallback = ::std::option::Option<
         userData: *mut ::std::os::raw::c_void,
     ),
 >;
-#[doc = " @brief Defines the scroll callback of the native ArkWeb.\n\n @param webTag The name of the web component.\n @param userData The data set by user.\n @param x X-axis scrolling offset.\n @param y Y-axis scrolling offset.\n\n @since 18"]
+#[doc = " @brief Called when the **Web** component is scrolled.\n\n @param webTag Name of the **Web** component.\n @param userData Pointer to user-defined data.\n @param x Scrolling offset of the X axis. Unit: vp.\n @param y Scrolling offset of the Y axis. Unit: vp.\n @since 18"]
 #[cfg(feature = "api-18")]
 pub type ArkWeb_OnScrollCallback = ::std::option::Option<
     unsafe extern "C" fn(
@@ -490,7 +491,7 @@ extern "C" {
     pub fn OH_ArkWeb_GetNativeAPI(type_: ArkWeb_NativeAPIVariantKind) -> *mut ArkWeb_AnyNativeAPI;
 }
 extern "C" {
-    #[doc = " @brief Register a scrolling event callback.\n @param webTag The name of the web component.\n @param callback The ArkWeb scrolling callback.\n @param userData The data set by user.\n @return Returns whether the registration was successful, false indicates failure.\n\n @syscap SystemCapability.Web.Webview.Core\n @since 18"]
+    #[doc = " @brief Register a scrolling event callback.\n @param webTag Name of the **Web** component.\n @param callback Callback used when a page is scrolled.\n @param userData Pointer to user-defined data.\n @return **true** is returned if the operation is successful; otherwise, **false** is returned.\n @since 18"]
     #[cfg(feature = "api-18")]
     pub fn OH_ArkWeb_RegisterScrollCallback(
         webTag: *const ::std::os::raw::c_char,
@@ -1468,7 +1469,7 @@ extern "C" {
     );
 }
 extern "C" {
-    #[doc = " @brief Set a header to ArkWeb_Response.\n @param response The ArkWeb_Response.\n @param name The name of the header.\n @param value The value of the header.\n @param overwirte If true will overwrite the exsits header, if false otherwise.\n @return {@link ARKWEB_NET_OK} 0 - Success.\n         {@link ARKWEB_INVALID_PARAM} 17100101 - Invalid param.\n\n @syscap SystemCapability.Web.Webview.Core\n @since 12"]
+    #[doc = " @brief Set a header to ArkWeb_Response.\n @param response The ArkWeb_Response.\n @param name The name of the header.\n @param value The value of the header.\n @param overwrite If true will overwrite the exists header, if false otherwise.\n @return {@link ARKWEB_NET_OK} 0 - Success.\n         {@link ARKWEB_INVALID_PARAM} 17100101 - Invalid param.\n\n @since 12"]
     pub fn OH_ArkWebResponse_SetHeaderByName(
         response: *mut ArkWeb_Response,
         name: *const ::std::os::raw::c_char,
@@ -1553,31 +1554,39 @@ pub type NativeArkWeb_OnDestroyCallback =
 #[cfg(feature = "api-20")]
 pub type OH_ArkWeb_OnCookieSaveCallback =
     ::std::option::Option<unsafe extern "C" fn(errorCode: ArkWeb_ErrorCode)>;
-#[doc = " @brief Defines the blankless information.\n\n @since 20"]
+#[doc = " @brief Defines the callback function type invoked when the cookie fetching operation completes.\n\n @param errorCode The result code of the cookie fetching operation.\n        {@link ARKWEB_SUCCESS} fetch cookie success.\n        {@link ARKWEB_INVALID_URL} invalid url.\n        {@link ARKWEB_LIBRARY_OPEN_FAILURE} Failed to open the library.\n        {@link ARKWEB_LIBRARY_SYMBOL_NOT_FOUND} The required symbol was not found in the library.\n @param cookieValue Get the cookie value corresponding to the URL. This function will allocate memory for the\n                    cookieValue string and caller must release the string by {@link OH_ArkWeb_ReleaseString}.\n @since 26.0.0"]
+#[cfg(feature = "api-26")]
+pub type OH_ArkWeb_OnCookieFetchCallback = ::std::option::Option<
+    unsafe extern "C" fn(errorCode: ArkWeb_ErrorCode, cookieValue: *mut ::std::os::raw::c_char),
+>;
+#[doc = " @brief Describes prediction information about blankless loading, including the first screen similarity, first screen\n loading duration, and error codes. The application determines whether to enable the blankless loading solution based\n on the prediction information.\n\n @since 20"]
 #[cfg(feature = "api-20")]
 #[repr(C)]
 #[derive(Debug, Copy, Clone)]
 pub struct ArkWeb_BlanklessInfo {
-    #[doc = " The errCode of the blankless."]
+    #[doc = " Error codes of blankless loading. For details, see {@link ArkWeb_BlanklessErrorCode}."]
     pub errCode: ArkWeb_BlanklessErrorCode,
-    #[doc = " The estimated similarity of the history snapshots."]
+    #[doc = " First screen similarity, which is calculated based on the historical first screen content. The value ranges from\n 0 to 1.0. 1.0 indicates that the content is the same. A value closer to 1 indicates a higher similarity. This\n value is lagging, and the similarity of the local loading is displayed in the next loading. You are advised not\n to enable the blankless loading frame insertion solution when the similarity is low."]
     pub similarity: f64,
-    #[doc = " The loadingTime of the history loading."]
+    #[doc = " Loading duration estimated based on the historical first screen loading durations, in milliseconds. The value\n must be greater than 0."]
     pub loadingTime: i32,
 }
-#[doc = " the system default ArkWeb engine.\n @since 20"]
+#[doc = " @brief Default system kernel. For OpenHarmony 6.0, the default kernel is M132.\n\n @since 20"]
 #[cfg(feature = "api-20")]
 pub const ArkWebEngineVersion_SYSTEM_DEFAULT: ArkWebEngineVersion = 0;
-#[doc = " ArkWeb M114 version.\n @since 20"]
+#[doc = " @brief Legacy kernel of OpenHarmony 6.0. You can select this legacy kernel. If it does not exist, the setting\n is invalid.\n\n @since 20"]
 #[cfg(feature = "api-20")]
 pub const ArkWebEngineVersion_ARKWEB_M114: ArkWebEngineVersion = 1;
-#[doc = " ArkWeb M132 version.\n @since 20"]
+#[doc = " @brief Evergreen kernel of OpenHarmony 6.0, which is M132 by default. If it does not exist, the setting is\n invalid.\n\n @since 20"]
 #[cfg(feature = "api-20")]
 pub const ArkWebEngineVersion_ARKWEB_M132: ArkWebEngineVersion = 2;
-#[doc = " ArkWeb auto use the newest ArkWeb Engine version.\n Evergreen Web Engine.\n @since 23"]
+#[doc = " @brief Evergreen kernel of OpenHarmony 7.0, which is M144 by default. If it does not exist, the setting is\n invalid.\n\n @since 26.0.0"]
+#[cfg(feature = "api-26")]
+pub const ArkWebEngineVersion_ARKWEB_M144: ArkWebEngineVersion = 3;
+#[doc = " @brief Evergreen kernel, which is the latest kernel of the system. You can choose to use the latest kernel for\n each system version. This setting takes effect for OpenHarmony 6.1 and later versions.\n\n @since 23"]
 #[cfg(feature = "api-23")]
 pub const ArkWebEngineVersion_ARKWEB_EVERGREEN: ArkWebEngineVersion = 99999;
-#[doc = " @brief ArkWeb Engine Version.\n\n <strong>ArkWeb Dual Web Engine Versioning Convention</strong>:\n <p>See [ArkWeb Dual Web Engine Versioning Convention] for switching between Legacy and Evergreen Web Engine.\n\n @since 20"]
+#[doc = " @brief For details about the ArkWeb kernel version, see\n [Adaptation Guide for the M114 Kernel on OpenHarmony 6.0]\n (https://gitcode.com/openharmony-tpc/chromium_src/blob/master/web/ReleaseNote/CompatibleWithLegacyWebEngine_6.0.md),\n [Adaptation Guide for the M114 Kernel on OpenHarmony 7.0]\n (https://gitcode.com/openharmony-tpc/chromium_src/blob/master/web/ReleaseNote/CompatibleWithLegacyWebEngine_7.0.md).\n\n @since 20"]
 #[cfg(feature = "api-20")]
 pub type ArkWebEngineVersion = u32;
 extern "C" {
@@ -1654,7 +1663,7 @@ extern "C" {
     );
 }
 extern "C" {
-    #[doc = " @brief Sets whether to enable blankless page loading. This API must be used in pair with the\n OH_NativeArkWeb_GetBlanklessInfoWithKey API.\n\n @permission ohos.permission.INTERNET and ohos.permission.GET_NETWORK_INFO\n @param webTag webTag used when the webviewController is created.\n @param key Key value that uniquely identifies the current page. It must be the same as the key value of the\n OH_NativeArkWeb_GetBlanklessInfoWithKey API.\n @param isStarted Whether to enable frame interpolation. The value true indicates to enable frame\n interpolation, and the value false indicates the opposite.\n The default value is false.\n The value can be true or false.\n Action for setting an invalid value: N/A.\n @return Whether the API is successfully called. For details, see ArkWeb_BlanklessErrorCode.\n @since 20"]
+    #[doc = " @brief Sets whether to enable blankless loading. This API must be used together with the {@link OH_NativeArkWeb_GetBlanklessInfoWithKey}\n API.\n\n @permission ohos.permission.INTERNET and ohos.permission.GET_NETWORK_INFO\n @param webTag Name of the **Web** component.\n @param key Key value that uniquely identifies the page. The value must be the same as the key value of the {@link OH_NativeArkWeb_GetBlanklessInfoWithKey}\n API.\n The value cannot be empty and can contain a maximum of 2048 characters.\n When an invalid value is set, the error code {@link ArkWeb_BlanklessErrorCode} is returned and the frame insertion\n does not take effect.\n @param isStarted Whether to enable frame insertion. The value **true** indicates to enable frame insertion, and **\n false** indicates the opposite.\n The default value is **false**.\n @return Whether the API is successfully called. For details, see {@link ArkWeb_BlanklessErrorCode}.\n @since 20"]
     #[cfg(feature = "api-20")]
     pub fn OH_NativeArkWeb_SetBlanklessLoadingWithKey(
         webTag: *const ::std::os::raw::c_char,
@@ -1663,7 +1672,7 @@ extern "C" {
     ) -> ArkWeb_BlanklessErrorCode;
 }
 extern "C" {
-    #[doc = " @brief Clears the blankless loading cache of the page with a specified key value.\n\n @param key The list of key values of pages cached in the blankless loading solution. These key values are\n specified in OH_NativeArkWeb_GetBlanklessInfoWithKey.\n The default value is the list of key values of all pages cached in the blankless loading solution.\n The key length cannot exceed 2048 characters, and the number of keys must be less than or equal to 100. The\n URL is the same as that input to the Web component during page loading.\n When the key length exceeds 2048 characters, the key does not take effect. When the number of keys exceeds\n 100, the first 100 keys are used. If this parameter is set to NULL, the default value is used.\n @param size Size of the key list.\n @since 20"]
+    #[doc = " @brief Clears the blankless loading cache of the page with a specified key value.\n\n @param key The list of key values of pages cached in the blankless loading solution. These key values are\n specified in OH_NativeArkWeb_GetBlanklessInfoWithKey.\n\n The default value is the list of key values of all pages cached in the blankless loading solution.\n\n The key length cannot exceed 2048 characters, and the number of keys must be less than or equal to 100. The\n URL is the same as that input to the Web component during page loading.\n\n When the key length exceeds 2048 characters, the key does not take effect. When the number of keys exceeds\n 100, the first 100 keys are used. If this parameter is set to NULL, the default value is used.\n\n @param size Size of the key array.\n The default value is **0**.\n The value ranges from 0 to 100. If the size exceeds 100, the first 100 keys are used.\n When an invalid value is set, the value **0** is used.\n @since 20"]
     #[cfg(feature = "api-20")]
     pub fn OH_NativeArkWeb_ClearBlanklessLoadingCache(
         key: *mut *const ::std::os::raw::c_char,
@@ -1671,7 +1680,7 @@ extern "C" {
     );
 }
 extern "C" {
-    #[doc = " @brief Obtains the prediction information about the blankless loading solution and enables the generation\n of the transition frame for the current loading. The application determines whether to enable the blankless\n loading solution based on the information.\n This API applies to pages in an applet or web application whose URLs are not fixed or cannot be uniquely\n identified.\n\n @permission ohos.permission.INTERNET and ohos.permission.GET_NETWORK_INFO\n @param webTag webTag used when the webviewController is created.\n Default value: N/A.\n The value cannot be empty.\n When an invalid value is set, the error code is returned, and the API does not take effect.\n @param key Key value that uniquely identifies the current page.\n @return Return value of the ArkWeb_BlanklessInfo type.\n @since 20"]
+    #[doc = " @brief Obtains the first screen loading prediction information, and starts to generate the loading transition frame.\n The application determines whether to enable blankless loading based on the information. For details, see {@link ArkWeb_BlanklessInfo}\n . This API must be used together with the {@link OH_NativeArkWeb_SetBlanklessLoadingWithKey} API and must be called\n before the page loading API is triggered and after **WebViewController** is bound to the **Web** component.\n\n @permission ohos.permission.INTERNET and ohos.permission.GET_NETWORK_INFO\n @param webTag Name of the **Web** component.\n @param key Key value that uniquely identifies the page.\n The value cannot be empty and can contain a maximum of 2048 characters.\n Invalid values do not take effect.\n @return Prediction information about blankless loading, including the first screen similarity and first screen\n loading duration. The application determines whether to enable blankless loading based on the prediction information.\n @since 20"]
     #[cfg(feature = "api-20")]
     pub fn OH_NativeArkWeb_GetBlanklessInfoWithKey(
         webTag: *const ::std::os::raw::c_char,
@@ -1679,7 +1688,7 @@ extern "C" {
     ) -> ArkWeb_BlanklessInfo;
 }
 extern "C" {
-    #[doc = " @brief Sets the cache capacity of the blankless loading solution and returns the value that takes effect.\n\n @param capacity Cache capacity, in MB. The maximum value is 100 MB.\n The default value is 30 MB.\n The value ranges from 0 to 100. If this parameter is set to 0, no cache capacity is available and the\n functionality is disabled globally.\n When the value is set to a number smaller than 0, the value 0 takes effect. When the value is set to a\n number greater than 100, the value 100 takes effect.\n @return The effective value that ranges from 0 MB to 100 MB.\n @since 20"]
+    #[doc = " @brief Sets the persistent cache capacity of the blankless loading solution and returns the value that takes effect.\n The default cache capacity is 30 MB, and the maximum cache capacity is 100 MB. When this limit is exceeded,\n transition frames that are not frequently used are eliminated.\n\n @param capacity Persistent cache capacity, in MB. The maximum value is 100 MB.\n The default value is 30 MB.\n The value ranges from 0 to 100. If this parameter is set to **0**, no cache capacity is available and the\n functionality is disabled globally.\n When a value less than 0 is set, the value **0** takes effect. When a value greater than 100 is set, the value **100*\n * takes effect.\n @return The effective value that ranges from 0 MB to 100 MB.\n When a value less than 0 is set, the value **0** takes effect. When a value greater than 100 is set, the value **100*\n * takes effect.\n @since 20"]
     #[cfg(feature = "api-20")]
     pub fn OH_NativeArkWeb_SetBlanklessLoadingCacheCapacity(capacity: u32) -> u32;
 }
@@ -1694,12 +1703,12 @@ extern "C" {
     pub fn OH_ArkWebCookieManager_SaveCookieAsync(callback: OH_ArkWeb_OnCookieSaveCallback);
 }
 extern "C" {
-    #[doc = " Set active ArkWeb engine version.\n If the system does not support the specified version, it will not take effect.\n\n This is a global static API that must be called before initializeWebEngine, and it will have no effect if any\n Web components are loaded.\n\n <strong>Legacy Web Engine Compatibility Note</strong>:\n <p>When using legacy ArkWeb Engine, some ArkWeb newly created API will not take effect,<br>\n see [Compatible with Legacy Web Engine in release note] for compatibility guidelines.\n </p>\n\n @param { ArkWebEngineVersion } webEngineVersion - the ArkWebEngineVersion\n @since 20"]
+    #[doc = " Sets the ArkWeb kernel version. If the system does not support the specified version, the setting is invalid.\n This API is a global static method and must be called before **initializeWebEngine** is called. If any **Web**\n component has been loaded, the setting of this API is invalid.\n\n @param { ArkWebEngineVersion } webEngineVersion - ArkWeb kernel version.\n        For details, see {@link ArkWebEngineVersion}.\n @since 20"]
     #[cfg(feature = "api-20")]
     pub fn OH_NativeArkWeb_SetActiveWebEngineVersion(webEngineVersion: ArkWebEngineVersion);
 }
 extern "C" {
-    #[doc = " Get currently active ArkWeb engine version.\n @return { ArkWebEngineVersion } Active ArkWeb Engine version as defined by ArkWebEngineVersion\n @since 20"]
+    #[doc = " Obtains the current ArkWeb kernel version.\n\n @return The current ArkWeb kernel version defined by {@link ArkWebEngineVersion}.\n @since 20"]
     #[cfg(feature = "api-20")]
     pub fn OH_NativeArkWeb_GetActiveWebEngineVersion() -> ArkWebEngineVersion;
 }
@@ -1709,7 +1718,29 @@ extern "C" {
     pub fn OH_NativeArkWeb_LazyInitializeWebEngineInCookieManager(lazy: bool);
 }
 extern "C" {
-    #[doc = " Check if the currently active ArkWeb engine is Evergreen.\n @return { bool } true means the application is using the Evergreen Web Engine, false means not.\n @since 23"]
+    #[doc = " Checks whether the ArkWeb kernel used by the application is the evergreen kernel, that is, the latest kernel of the\n system.\n\n @return Whether the kernel used by the application is the evergreen kernel. The value **true** indicates that the\n         kernel used by the application is the evergreen kernel, and **false** indicates the opposite.\n @since 23"]
     #[cfg(feature = "api-23")]
     pub fn OH_NativeArkWeb_IsActiveWebEngineEvergreen() -> bool;
+}
+extern "C" {
+    #[doc = " @brief Synchronously obtains the cookie value corresponding to a specified URL.\n\n @param url URL to which the cookie to be obtained belongs. A complete URL is recommended.\n @param incognito True indicates that the memory cookies of the webview in privacy mode are obtained,\n                  and false indicates that cookies in non-privacy mode are obtained.\n @param includeHttpOnly If true HTTP-only cookies will also be included in the cookieValue.\n @param includePartitionedCookies If true, allows fetching first-party partitioned cookies.\n @param cookieValue Get the cookie value corresponding to the URL. This function will allocate memory for the\n                    *cookieValue string and caller must release the string by {@link OH_ArkWeb_ReleaseString}.\n @return Fetch cookie result code.\n     <ul>\n         <li>{@link ARKWEB_SUCCESS} fetch cookie success.</li>\n         <li>{@link ARKWEB_INVALID_URL} invalid url.</li>\n         <li>{@link ARKWEB_INVALID_PARAM} cookieValue is nullptr.</li>\n         <li>{@link ARKWEB_LIBRARY_OPEN_FAILURE} Failed to open the library.</li>\n         <li>{@link ARKWEB_LIBRARY_SYMBOL_NOT_FOUND} The required symbol was not found in the library.</li>\n         <li>{@link ARKWEB_COOKIE_MANAGER_NOT_INITIALIZED} It is not allowed to call on a non-UI thread without\n                                                           initializing the CookieManager interface. please\n                                                           initialize the CookieManager interface using\n                                                           OH_ArkWeb_GetNativeAPI first.</li>\n     </ul>\n @since 26.0.0"]
+    #[cfg(feature = "api-26")]
+    pub fn OH_ArkWebCookieManager_FetchCookieSync(
+        url: *const ::std::os::raw::c_char,
+        incognito: bool,
+        includeHttpOnly: bool,
+        includePartitionedCookies: bool,
+        cookieValue: *mut *mut ::std::os::raw::c_char,
+    ) -> ArkWeb_ErrorCode;
+}
+extern "C" {
+    #[doc = " @brief Asynchronously obtains the cookie value corresponding to a specified URL.\n\n @param url URL to which the cookie to be obtained belongs. A complete URL is recommended.\n @param incognito True indicates that the memory cookies of the webview in privacy mode are obtained,\n                  and false indicates that cookies in non-privacy mode are obtained.\n @param includeHttpOnly If true HTTP-only cookies will also be included in the cookieValue.\n @param includePartitionedCookies If true, allows fetching first-party partitioned cookies.\n @param callback Callback execute when fetch cookie done.\n @since 26.0.0"]
+    #[cfg(feature = "api-26")]
+    pub fn OH_ArkWebCookieManager_FetchCookieAsync(
+        url: *const ::std::os::raw::c_char,
+        incognito: bool,
+        includeHttpOnly: bool,
+        includePartitionedCookies: bool,
+        callback: OH_ArkWeb_OnCookieFetchCallback,
+    );
 }

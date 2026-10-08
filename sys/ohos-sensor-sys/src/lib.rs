@@ -45,21 +45,21 @@ pub const Sensor_Type_SENSOR_TYPE_PEDOMETER: Sensor_Type = 266;
 pub const Sensor_Type_SENSOR_TYPE_HEART_RATE: Sensor_Type = 278;
 #[doc = " @brief Enumerates the sensor types.\n\n @since 11"]
 pub type Sensor_Type = u32;
-#[doc = " @error The operation is successful.\n @since 11"]
+#[doc = " Operation success.\n @since 11"]
 pub const Sensor_Result_SENSOR_SUCCESS: Sensor_Result = 0;
-#[doc = " @error Permission verification failed.\n @since 11"]
+#[doc = " Permission verification failed.\n @since 11"]
 pub const Sensor_Result_SENSOR_PERMISSION_DENIED: Sensor_Result = 201;
-#[doc = " @error Parameter check failed. For example, a mandatory parameter is not passed in,\n or the parameter type passed in is incorrect.\n @since 11"]
+#[doc = " An error occurs during parameter verification. For example, a mandatory parameter is not passed in, or the\n parameter type passed in is incorrect.\n @since 11"]
 pub const Sensor_Result_SENSOR_PARAMETER_ERROR: Sensor_Result = 401;
-#[doc = " @error The sensor service is abnormal.\n @since 11"]
+#[doc = " The sensor service is abnormal.\n @since 11"]
 pub const Sensor_Result_SENSOR_SERVICE_EXCEPTION: Sensor_Result = 14500101;
 #[doc = " @brief Enumerates the sensor result codes.\n\n @since 11"]
 pub type Sensor_Result = u32;
 #[doc = " The sensor data is unreliable. It is possible that the sensor does not contact with the device to measure.\n @since 11"]
 pub const Sensor_Accuracy_SENSOR_ACCURACY_UNRELIABLE: Sensor_Accuracy = 0;
-#[doc = " The sensor data is at a low accuracy level. The data must be calibrated based on\n the environment before being used.\n @since 11"]
+#[doc = " The sensor data is at a low accuracy level. The data must be calibrated based on the environment before being\n used.\n @since 11"]
 pub const Sensor_Accuracy_SENSOR_ACCURACY_LOW: Sensor_Accuracy = 1;
-#[doc = " The sensor data is at a medium accuracy level. You are advised to calibrate the data\n based on the environment before using it.\n @since 11"]
+#[doc = " The sensor data is at a medium accuracy level. You are advised to calibrate the data based on the environment\n before using it.\n @since 11"]
 pub const Sensor_Accuracy_SENSOR_ACCURACY_MEDIUM: Sensor_Accuracy = 2;
 #[doc = " The sensor data is at a high accuracy level. The data can be used directly.\n @since 11"]
 pub const Sensor_Accuracy_SENSOR_ACCURACY_HIGH: Sensor_Accuracy = 3;
@@ -71,15 +71,15 @@ pub struct Sensor_Info {
     _unused: [u8; 0],
 }
 extern "C" {
-    #[doc = " @brief Creates an array of {@link Sensor_Info} instances with the given number.\n\n @param count - Number of {@link Sensor_Info} instances to create.\n @return Returns the double pointer to the array of {@link Sensor_Info} instances\n if the operation is successful;\n returns <b>NULL</b> otherwise.\n @since 11"]
+    #[doc = " @brief Creates an instance array using a given number. For details, see {@link Sensor_Info}.\n\n @param count Number of instances to be created. For details, see {@link Sensor_Info}.\n @return Double pointer to the {@link Sensor_Info} instance array if the operation is successful; NULL otherwise.\n @since 11"]
     pub fn OH_Sensor_CreateInfos(count: u32) -> *mut *mut Sensor_Info;
 }
 extern "C" {
-    #[doc = " @brief Destroys an array of {@link Sensor_Info} instances and reclaims memory.\n\n @param sensors - Double pointer to the array of {@link Sensor_Info} instances.\n @param count - Number of {@link Sensor_Info} instances to destroy.\n @return Returns <b>SENSOR_SUCCESS</b> if the operation is successful;\n returns an error code defined in {@link Sensor_Result} otherwise.\n @since 11"]
+    #[doc = " @brief Destroys the sensor instance array and reclaims the memory. For details, see {@link Sensor_Info}.\n\n @param sensors Double pointer to the {@link Sensor_Info} instance array.\n @param count Number of {@link Sensor_Info} instances to be destroyed.\n @return **SENSOR_SUCCESS** if the operation is successful; an error code defined in {@link Sensor_Result} otherwise.\n @since 11"]
     pub fn OH_Sensor_DestroyInfos(sensors: *mut *mut Sensor_Info, count: u32) -> i32;
 }
 extern "C" {
-    #[doc = " @brief Obtains the sensor name.\n\n @param sensor - Pointer to the sensor information.\n @param sensorName - Pointer to the sensor name.\n @param length - Pointer to the length, in bytes.\n @return Returns <b>SENSOR_SUCCESS</b> if the operation is successful;\n returns an error code defined in {@link Sensor_Result} otherwise.\n @since 11"]
+    #[doc = " @brief Obtains the sensor name.\n\n @param sensor Pointer to the sensor information.\n @param sensorName Pointer to the sensor data.\n @param length Pointer to the length, in bytes.\n @return **SENSOR_SUCCESS** if the operation is successful; an error code defined in {@link Sensor_Result} otherwise.\n @since 11"]
     pub fn OH_SensorInfo_GetName(
         sensor: *mut Sensor_Info,
         sensorName: *mut ::std::os::raw::c_char,
@@ -87,7 +87,7 @@ extern "C" {
     ) -> i32;
 }
 extern "C" {
-    #[doc = " @brief Obtains the sensor's vendor name.\n\n @param sensor - Pointer to the sensor information.\n @param vendorName - Pointer to the vendor name.\n @param length - Pointer to the length, in bytes.\n @return Returns <b>SENSOR_SUCCESS</b> if the operation is successful;\n returns an error code defined in {@link Sensor_Result} otherwise.\n @since 11"]
+    #[doc = " @brief Obtains the sensor's vendor name.\n\n @param sensor Pointer to the sensor information.\n @param vendorName Pointer to the vendor name.\n @param length Pointer to the length, in bytes.\n @return **SENSOR_SUCCESS** if the operation is successful; an error code defined in {@link Sensor_Result} otherwise.\n @since 11"]
     pub fn OH_SensorInfo_GetVendorName(
         sensor: *mut Sensor_Info,
         vendorName: *mut ::std::os::raw::c_char,
@@ -95,22 +95,22 @@ extern "C" {
     ) -> i32;
 }
 extern "C" {
-    #[doc = " @brief Obtains the sensor type.\n\n @param sensor - Pointer to the sensor information.\n @param sensorType - Pointer to the sensor type.\n @return Returns <b>SENSOR_SUCCESS</b> if the operation is successful;\n returns an error code defined in {@link Sensor_Result} otherwise.\n @since 11"]
+    #[doc = " @brief Obtains the sensor type.\n\n @param sensor Pointer to the sensor information.\n @param sensorType Pointer to the sensor type.\n @return **SENSOR_SUCCESS** if the operation is successful; an error code defined in {@link Sensor_Result} otherwise.\n @since 11"]
     pub fn OH_SensorInfo_GetType(sensor: *mut Sensor_Info, sensorType: *mut Sensor_Type) -> i32;
 }
 extern "C" {
-    #[doc = " @brief Obtains the sensor resolution.\n\n @param sensor - Pointer to the sensor information.\n @param resolution - Pointer to the sensor resolution.\n @return Returns <b>SENSOR_SUCCESS</b> if the operation is successful;\n returns an error code defined in {@link Sensor_Result} otherwise.\n @since 11"]
+    #[doc = " @brief Obtains the sensor resolution.\n\n @param sensor Pointer to the sensor information.\n @param resolution Pointer to the sensor resolution {@link Sensor_Accuracy}.\n @return **SENSOR_SUCCESS** if the operation is successful; an error code defined in {@link Sensor_Result} otherwise.\n @since 11"]
     pub fn OH_SensorInfo_GetResolution(sensor: *mut Sensor_Info, resolution: *mut f32) -> i32;
 }
 extern "C" {
-    #[doc = " @brief Obtains the minimum data reporting interval of a sensor.\n\n @param sensor - Pointer to the sensor information.\n @param minSamplingInterval - Pointer to the minimum data reporting interval, in nanoseconds.\n @return Returns <b>SENSOR_SUCCESS</b> if the operation is successful;\n returns an error code defined in {@link Sensor_Result} otherwise.\n @since 11"]
+    #[doc = " @brief Obtains the minimum data reporting interval of a sensor.\n\n @param sensor Pointer to the sensor information.\n @param minSamplingInterval Pointer to the minimum data reporting interval, in nanoseconds.\n @return **SENSOR_SUCCESS** if the operation is successful; an error code defined in {@link Sensor_Result} otherwise.\n @since 11"]
     pub fn OH_SensorInfo_GetMinSamplingInterval(
         sensor: *mut Sensor_Info,
         minSamplingInterval: *mut i64,
     ) -> i32;
 }
 extern "C" {
-    #[doc = " @brief Obtains the maximum data reporting interval of a sensor.\n\n @param sensor - Pointer to the sensor information.\n @param maxSamplingInterval - Pointer to the maximum data reporting interval, in nanoseconds.\n @return Returns <b>SENSOR_SUCCESS</b> if the operation is successful;\n returns an error code defined in {@link Sensor_Result} otherwise.\n @since 11"]
+    #[doc = " @brief Obtains the maximum data reporting interval of a sensor.\n\n @param sensor Pointer to the sensor information.\n @param maxSamplingInterval Pointer to the maximum data reporting interval, in nanoseconds.\n @return **SENSOR_SUCCESS** if the operation is successful; an error code defined in {@link Sensor_Result} otherwise.\n @since 11"]
     pub fn OH_SensorInfo_GetMaxSamplingInterval(
         sensor: *mut Sensor_Info,
         maxSamplingInterval: *mut i64,
@@ -122,18 +122,18 @@ pub struct Sensor_Event {
     _unused: [u8; 0],
 }
 extern "C" {
-    #[doc = " @brief Obtains the sensor type.\n\n @param sensorEvent - Pointer to the sensor data information.\n @param sensorType - Pointer to the sensor type.\n @return Returns <b>SENSOR_SUCCESS</b> if the operation is successful;\n returns an error code defined in {@link Sensor_Result} otherwise.\n @since 11"]
+    #[doc = " @brief Obtains the sensor type.\n\n @param sensorEvent Pointer to the sensor data information.\n @param sensorType Pointer to the sensor type.\n @return **SENSOR_SUCCESS** if the operation is successful; an error code defined in {@link Sensor_Result} otherwise.\n @since 11"]
     pub fn OH_SensorEvent_GetType(
         sensorEvent: *mut Sensor_Event,
         sensorType: *mut Sensor_Type,
     ) -> i32;
 }
 extern "C" {
-    #[doc = " @brief Obtains the timestamp of sensor data.\n\n @param sensorEvent - Pointer to the sensor data information.\n @param timestamp - Pointer to the timestamp.\n @return Returns <b>SENSOR_SUCCESS</b> if the operation is successful;\n returns an error code defined in {@link Sensor_Result} otherwise.\n @since 11"]
+    #[doc = " @brief Obtains the timestamp of sensor data.\n\n @param sensorEvent Pointer to the sensor data information.\n @param timestamp Pointer to the timestamp.\n @return **SENSOR_SUCCESS** if the operation is successful; an error code defined in {@link Sensor_Result} otherwise.\n @since 11"]
     pub fn OH_SensorEvent_GetTimestamp(sensorEvent: *mut Sensor_Event, timestamp: *mut i64) -> i32;
 }
 extern "C" {
-    #[doc = " @brief Obtains the accuracy of sensor data.\n\n @param sensorEvent - Pointer to the sensor data information.\n @param accuracy - Pointer to the accuracy.\n @return Returns <b>SENSOR_SUCCESS</b> if the operation is successful;\n returns an error code defined in {@link Sensor_Result} otherwise.\n @since 11"]
+    #[doc = " @brief Obtains the accuracy of sensor data.\n\n @param sensorEvent Pointer to the sensor data information.\n @param accuracy Pointer to the accuracy.\n @return **SENSOR_SUCCESS** if the operation is successful; an error code defined in {@link Sensor_Result} otherwise.\n @since 11"]
     pub fn OH_SensorEvent_GetAccuracy(
         sensorEvent: *mut Sensor_Event,
         accuracy: *mut Sensor_Accuracy,
@@ -153,22 +153,22 @@ pub struct Sensor_SubscriptionId {
     _unused: [u8; 0],
 }
 extern "C" {
-    #[doc = " @brief Creates a {@link Sensor_SubscriptionId} instance.\n\n @return Returns the pointer to the {@link Sensor_SubscriptionId} instance if the operation is successful;\n returns <b>NULL</b> otherwise.\n @since 11"]
+    #[doc = " @brief Creates a {@link Sensor_SubscriptionId} instance.\n\n @return Pointer to the {@link Sensor_SubscriptionId} instance if the operation is successful; **NULL** otherwise.\n @since 11"]
     pub fn OH_Sensor_CreateSubscriptionId() -> *mut Sensor_SubscriptionId;
 }
 extern "C" {
-    #[doc = " @brief Destroys a {@link Sensor_SubscriptionId} instance and reclaims memory.\n\n @param id - Pointer to the {@link Sensor_SubscriptionId} instance.\n @return Returns <b>SENSOR_SUCCESS</b> if the operation is successful;\n returns an error code defined in {@link Sensor_Result} otherwise.\n @since 11"]
+    #[doc = " @brief Destroys a {@link Sensor_SubscriptionId} instance and reclaims the memory.\n\n @param id Pointer to the {@link Sensor_SubscriptionId} instance.\n @return **SENSOR_SUCCESS** if the operation is successful; an error code defined in {@link Sensor_Result} otherwise.\n @since 11"]
     pub fn OH_Sensor_DestroySubscriptionId(id: *mut Sensor_SubscriptionId) -> i32;
 }
 extern "C" {
-    #[doc = " @brief Obtains the sensor type.\n\n @param id - Pointer to the sensor subscription ID.\n @param sensorType - Pointer to the sensor type.\n @return Returns <b>SENSOR_SUCCESS</b> if the operation is successful;\n returns an error code defined in {@link Sensor_Result} otherwise.\n @since 11"]
+    #[doc = " @brief Obtains the sensor type.\n\n @param id Pointer to the sensor subscription ID.\n @param sensorType Pointer to the sensor type.\n @return **SENSOR_SUCCESS** if the operation is successful; an error code defined in {@link Sensor_Result} otherwise.\n @since 11"]
     pub fn OH_SensorSubscriptionId_GetType(
         id: *mut Sensor_SubscriptionId,
         sensorType: *mut Sensor_Type,
     ) -> i32;
 }
 extern "C" {
-    #[doc = " @brief Sets the sensor type.\n\n @param id - Pointer to the sensor subscription ID.\n @param sensorType - Sensor type to set.\n @return Returns <b>SENSOR_SUCCESS</b> if the operation is successful;\n returns an error code defined in {@link Sensor_Result} otherwise.\n @since 11"]
+    #[doc = " @brief Sets the sensor type.\n\n @param id Pointer to the sensor subscription ID.\n @param sensorType Sensor type to set.\n @return **SENSOR_SUCCESS** if the operation is successful; an error code defined in {@link Sensor_Result} otherwise.\n @since 11"]
     pub fn OH_SensorSubscriptionId_SetType(
         id: *mut Sensor_SubscriptionId,
         sensorType: Sensor_Type,
@@ -180,30 +180,30 @@ pub struct Sensor_SubscriptionAttribute {
     _unused: [u8; 0],
 }
 extern "C" {
-    #[doc = " @brief Creates a {@link Sensor_SubscriptionAttribute} instance.\n\n @return Returns the pointer to the {@link Sensor_SubscriptionAttribute} instance if the operation is successful;\n returns <b>NULL</b> otherwise.\n @since 11"]
+    #[doc = " @brief Creates a {@link Sensor_SubscriptionAttribute} instance.\n\n @return Pointer to the {@link Sensor_SubscriptionAttribute} instance if the operation is successful; **NULL**\n otherwise.\n @since 11"]
     pub fn OH_Sensor_CreateSubscriptionAttribute() -> *mut Sensor_SubscriptionAttribute;
 }
 extern "C" {
-    #[doc = " @brief Destroys a {@link Sensor_SubscriptionAttribute} instance and reclaims memory.\n\n @param attribute - Pointer to the {@link Sensor_SubscriptionAttribute} instance.\n @return Returns <b>SENSOR_SUCCESS</b> if the operation is successful;\n returns an error code defined in {@link Sensor_Result} otherwise.\n @since 11"]
+    #[doc = " @brief Destroys a {@link Sensor_SubscriptionAttribute} instance and reclaims the memory.\n\n @param attribute Pointer to the {@link Sensor_SubscriptionAttribute} instance.\n @return **SENSOR_SUCCESS** if the operation is successful; an error code defined in {@link Sensor_Result} otherwise.\n @since 11"]
     pub fn OH_Sensor_DestroySubscriptionAttribute(
         attribute: *mut Sensor_SubscriptionAttribute,
     ) -> i32;
 }
 extern "C" {
-    #[doc = " @brief Sets the sensor data reporting interval.\n\n @param attribute - Pointer to the sensor subscription attribute.\n @param samplingInterval - Data reporting interval to set, in nanoseconds.\n @return Returns <b>SENSOR_SUCCESS</b> if the operation is successful;\n returns an error code defined in {@link Sensor_Result} otherwise.\n @since 11"]
+    #[doc = " @brief Sets the sensor data reporting interval.\n\n @param attribute Pointer to the sensor subscription attribute.\n @param samplingInterval Data reporting interval to set, in nanoseconds.\n @return **SENSOR_SUCCESS** if the operation is successful; an error code defined in {@link Sensor_Result} otherwise.\n @since 11"]
     pub fn OH_SensorSubscriptionAttribute_SetSamplingInterval(
         attribute: *mut Sensor_SubscriptionAttribute,
         samplingInterval: i64,
     ) -> i32;
 }
 extern "C" {
-    #[doc = " @brief Obtains the sensor data reporting interval.\n\n @param attribute - Pointer to the sensor subscription attribute.\n @param samplingInterval - Pointer to the data reporting interval, in nanoseconds.\n @return Returns <b>SENSOR_SUCCESS</b> if the operation is successful;\n returns an error code defined in {@link Sensor_Result} otherwise.\n @since 11"]
+    #[doc = " @brief Obtains the sensor data reporting interval.\n\n @param attribute Pointer to the sensor subscription attribute.\n @param samplingInterval Pointer to the data reporting interval, in nanoseconds.\n @return **SENSOR_SUCCESS** if the operation is successful; an error code defined in {@link Sensor_Result} otherwise.\n @since 11"]
     pub fn OH_SensorSubscriptionAttribute_GetSamplingInterval(
         attribute: *mut Sensor_SubscriptionAttribute,
         samplingInterval: *mut i64,
     ) -> i32;
 }
-#[doc = " @brief Defines the callback function used to report sensor data.\n @since 11"]
+#[doc = " @brief Defines the callback function used to report sensor data.\n\n @param event Pointer to the sensor data information.\n @since 11"]
 pub type Sensor_EventCallback =
     ::std::option::Option<unsafe extern "C" fn(event: *mut Sensor_Event)>;
 #[repr(C)]
@@ -212,33 +212,33 @@ pub struct Sensor_Subscriber {
     _unused: [u8; 0],
 }
 extern "C" {
-    #[doc = " @brief Creates a {@link Sensor_Subscriber} instance.\n\n @return Returns the pointer to the {@link Sensor_Subscriber} instance\n if the operation is successful; returns <b>NULL</b> otherwise.\n @since 11"]
+    #[doc = " @brief Creates a {@link Sensor_Subscriber} instance.\n\n @return Pointer to the {@link Sensor_Subscriber} instance if the operation is successful; **NULL** otherwise.\n @since 11"]
     pub fn OH_Sensor_CreateSubscriber() -> *mut Sensor_Subscriber;
 }
 extern "C" {
-    #[doc = " @brief Destroys a {@link Sensor_Subscriber} instance and reclaims memory.\n\n @param subscriber - Pointer to the {@link Sensor_Subscriber} instance.\n @return Returns <b>SENSOR_SUCCESS</b> if the operation is successful;\n returns an error code defined in {@link Sensor_Result} otherwise.\n @since 11"]
+    #[doc = " @brief Destroys a {@link Sensor_Subscriber} instance and reclaims the memory.\n\n @param subscriber Pointer to the {@link Sensor_Subscriber} instance.\n @return **SENSOR_SUCCESS** if the operation is successful; an error code defined in {@link Sensor_Result} otherwise.\n @since 11"]
     pub fn OH_Sensor_DestroySubscriber(subscriber: *mut Sensor_Subscriber) -> i32;
 }
 extern "C" {
-    #[doc = " @brief Sets a callback function to report sensor data.\n\n @param subscriber - Pointer to the sensor subscriber information.\n @param callback - Callback function to set.\n @return Returns <b>SENSOR_SUCCESS</b> if the operation is successful;\n returns an error code defined in {@link Sensor_Result} otherwise.\n @since 11"]
+    #[doc = " @brief Sets a callback function to report sensor data.\n\n @param subscriber Pointer to the sensor subscriber information.\n @param callback Sets the callback function.\n @return **SENSOR_SUCCESS** if the operation is successful; an error code defined in {@link Sensor_Result} otherwise.\n @since 11"]
     pub fn OH_SensorSubscriber_SetCallback(
         subscriber: *mut Sensor_Subscriber,
         callback: Sensor_EventCallback,
     ) -> i32;
 }
 extern "C" {
-    #[doc = " @brief Obtains the callback function used to report sensor data.\n\n @param subscriber - Pointer to the sensor subscriber information.\n @param callback - Pointer to the callback function.\n @return Returns <b>SENSOR_SUCCESS</b> if the operation is successful;\n returns an error code defined in {@link Sensor_Result} otherwise.\n @since 11"]
+    #[doc = " @brief Obtains the callback function used to report sensor data.\n\n @param subscriber Pointer to the sensor subscriber information.\n @param callback Pointer to the callback function.\n @return **SENSOR_SUCCESS** if the operation is successful; an error code defined in {@link Sensor_Result} otherwise.\n @since 11"]
     pub fn OH_SensorSubscriber_GetCallback(
         subscriber: *mut Sensor_Subscriber,
         callback: *mut Sensor_EventCallback,
     ) -> i32;
 }
 extern "C" {
-    #[doc = " @brief Obtains information about all sensors on the device.\n\n @param infos - Double pointer to the information about all sensors on the device.\n For details, see {@link Sensor_Info}.\n @param count - Pointer to the number of sensors on the device.\n @return Returns <b>SENSOR_SUCCESS</b> if the operation is successful; returns the following error code otherwise.\n {@link SENSOR_PARAMETER_ERROR} Parameter check failed. For example, the parameter is invalid,\n or the parameter type passed in is incorrect.\\n\n {@link SENSOR_SERVICE_EXCEPTION} The sensor service is abnormal.\\n\n\n @since 11"]
+    #[doc = " @brief Obtains information about all sensors on the device.\n\n @param infos Double pointer to the information about all sensors on the device. For details, see {@link Sensor_Info}.\n @param count Pointer to the number of sensors on the device.\n @return **SENSOR_SUCCESS** if the operation is successful; an error code defined in {@link Sensor_Result} otherwise.\n The error code can be:\n - {@link SENSOR_PARAMETER_ERROR} if the parameter verification fails. For example, the parameter is invalid or the\n parameter type is incorrect.\n - {@link SENSOR_SERVICE_EXCEPTION} if the sensor service is abnormal.\n @since 11"]
     pub fn OH_Sensor_GetInfos(infos: *mut *mut Sensor_Info, count: *mut u32) -> Sensor_Result;
 }
 extern "C" {
-    #[doc = " @brief Subscribes to sensor data. The system will report sensor data to the subscriber at the specified frequency.\n If you need to apply for the ohos.permission.ACCELEROMETER permission when subscribing to the accelerometer sensor,\n you need to apply for the ohos.permission.GYROSCOPE permission when subscribing to the gyroscope sensor, and you need\n to apply for the ohos.permission.ACTIVITY_MOTION permission when subscribing to the pedometer related sensor. Apply\n for ohos.permission.READ_HEALTH_DATA permission when subscribing to health-related sensors, such as heart rate\n sensors, otherwise the subscription fails. Other sensors do not require permissions.\n\n @param id - Pointer to the sensor subscription ID. For details, see {@link Sensor_SubscriptionId}.\n @param attribute - Pointer to the subscription attribute, which is used to specify the data reporting frequency.\n For details, see {@link Sensor_SubscriptionAttribute}.\n @param subscriber - Pointer to the subscriber information, which is used to specify the callback function for\n reporting the sensor data. For details, see {@link Sensor_Subscriber}.\n @return Returns <b>SENSOR_SUCCESS</b> if the operation is successful; returns the following error code otherwise.\n {@link SENSOR_PERMISSION_DENIED} Permission verification failed.\\n\n {@link SENSOR_PARAMETER_ERROR} Parameter check failed. For example, the parameter is invalid,\n or the parameter type passed in is incorrect.\\n\n {@link SENSOR_SERVICE_EXCEPTION} The sensor service is abnormal.\\n\n @permission ohos.permission.ACCELEROMETER or ohos.permission.GYROSCOPE or\n             ohos.permission.ACTIVITY_MOTION or ohos.permission.READ_HEALTH_DATA\n @since 11"]
+    #[doc = " @brief Subscribes to sensor data. The system will report sensor data to the subscriber at the specified frequency.\n To subscribe to data of acceleration sensors, request the **ohos.permission.ACCELEROMETER** permission. To subscribe\n to data of gyroscope sensors, request the **ohos.permission.GYROSCOPE** permission. To subscribe to data of\n pedometer-related sensors, request the **ohos.permission.ACTIVITY_MOTION** permission. To subscribe to data of\n health-related sensors, such as heart rate sensors, request the **ohos.permission.READ_HEALTH_DATA** permission.\n Otherwise, the subscription fails. You do not need to request any permission to subscribe to data of other types of\n sensors.\n\n @param id Pointer to the sensor subscription ID. For details, see {@link Sensor_SubscriptionId}.\n @param attribute Pointer to the subscription attribute, which is used to specify the data reporting frequency. For\n details, see {@link Sensor_SubscriptionAttribute}.\n @param subscriber Pointer to the subscriber information, which is used by the callback function to report sensor\n data. For details, see {@link Sensor_Subscriber}.\n @return **SENSOR_SUCCESS** if the operation is successful; an error code defined in {@link Sensor_Result} otherwise.\n The error code can be:\n - {@link SENSOR_PERMISSION_DENIED} if the permission verification fails.\n - {@link SENSOR_PARAMETER_ERROR} if the parameter verification fails. For example, the parameter is invalid or the\n parameter type is incorrect.\n - {@link SENSOR_SERVICE_EXCEPTION} if the sensor service is abnormal.\n @permission ohos.permission.ACCELEROMETER or ohos.permission.GYROSCOPE or\n ohos.permission.ACTIVITY_MOTION or ohos.permission.READ_HEALTH_DATA\n @since 11"]
     pub fn OH_Sensor_Subscribe(
         id: *const Sensor_SubscriptionId,
         attribute: *const Sensor_SubscriptionAttribute,
@@ -246,7 +246,7 @@ extern "C" {
     ) -> Sensor_Result;
 }
 extern "C" {
-    #[doc = " @brief Unsubscribes from sensor data.\n If you need to apply for the ohos.permission.ACCELEROMETER permission to unsubscribe from the accelerometer sensor,\n you need to request the ohos.permission.GYROSCOPE permission to unsubscribe from the gyroscope sensor, and you need\n to request the ohos.permission.ACTIVITY_MOTION permission to unsubscribe from the pedometer-related sensor. When you\n unsubscribe from health-related sensors, such as heart rate sensors, apply for ohos.permission.READ_HEALTH_DATA\n permissions, otherwise the subscription will fail. Other sensors do not require permissions.\n\n @param id - Pointer to the sensor subscription ID. For details, see {@link Sensor_SubscriptionId}.\n @param subscriber - Pointer to the subscriber information, which is used to specify the callback function for\n reporting the sensor data. For details, see {@link Sensor_Subscriber}.\n @return Returns <b>SENSOR_SUCCESS</b> if the operation is successful; returns the following error code otherwise.\n {@link SENSOR_PERMISSION_DENIED} Permission verification failed.\\n\n {@link SENSOR_PARAMETER_ERROR} Parameter check failed. For example, the parameter is invalid,\n or the parameter type passed in is incorrect.\\n\n {@link SENSOR_SERVICE_EXCEPTION} The sensor service is abnormal.\\n\n @permission ohos.permission.ACCELEROMETER or ohos.permission.GYROSCOPE or\n             ohos.permission.ACTIVITY_MOTION or ohos.permission.READ_HEALTH_DATA\n\n @since 11"]
+    #[doc = " @brief Unsubscribes from sensor data. To unsubscribe from data of acceleration sensors, request the **ohos.\n permission.ACCELEROMETER** permission. To unsubscribe from data of gyroscope sensors, request the **ohos.permission.\n GYROSCOPE** permission. To unsubscribe from data of pedometer-related sensors, request the **ohos.permission.\n ACTIVITY_MOTION** permission. To unsubscribe from data of health-related sensors, request the **ohos.permission.\n READ_HEALTH_DATA** permission. Otherwise, the unsubscription fails. You do not need to request any permission to\n unsubscribe from data of other types of sensors.\n\n @param id Pointer to the sensor subscription ID. For details, see {@link Sensor_SubscriptionId}.\n @param subscriber Pointer to the subscriber information, which is used by the callback function to report sensor\n data. For details, see {@link Sensor_Subscriber}.\n @return **SENSOR_SUCCESS** if the operation is successful; an error code defined in {@link Sensor_Result} otherwise.\n The error code can be:\n - {@link SENSOR_PERMISSION_DENIED} if the permission verification fails.\n - {@link SENSOR_PARAMETER_ERROR} if the parameter verification fails. For example, the parameter is invalid or the\n parameter type is incorrect.\n - {@link SENSOR_SERVICE_EXCEPTION} if the sensor service is abnormal.\n @permission ohos.permission.ACCELEROMETER or ohos.permission.GYROSCOPE or\n ohos.permission.ACTIVITY_MOTION or ohos.permission.READ_HEALTH_DATA\n\n @since 11"]
     pub fn OH_Sensor_Unsubscribe(
         id: *const Sensor_SubscriptionId,
         subscriber: *const Sensor_Subscriber,

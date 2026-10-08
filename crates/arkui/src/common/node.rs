@@ -12,6 +12,10 @@ use ohos_arkui_sys::{
     OH_ArkUI_NodeUtils_GetLayoutPositionInWindow, OH_ArkUI_NodeUtils_GetLayoutSize,
     OH_ArkUI_NodeUtils_GetPositionWithTranslateInWindow,
 };
+#[cfg(feature = "xcomponent")]
+use ohos_xcomponent_binding::{NativeXComponent, XComponentRaw};
+#[cfg(feature = "xcomponent")]
+use ohos_xcomponent_sys::OH_NativeXComponent_GetNativeXComponent;
 
 #[cfg(feature = "napi")]
 use ohos_arkui_sys::OH_ArkUI_GetNodeHandleFromNapiValue;
@@ -50,6 +54,16 @@ impl ArkUINode {
     /// Returns the native ArkUI node handle.
     pub fn raw_handle(&self) -> ArkUI_NodeHandle {
         self.raw
+    }
+
+    /// Returns the native XComponent represented by this ArkUI node.
+    ///
+    /// Non-XComponent nodes and nodes whose native surface has already been
+    /// released return `None`.
+    #[cfg(feature = "xcomponent")]
+    pub fn native_xcomponent(&self) -> Option<NativeXComponent> {
+        let raw = unsafe { OH_NativeXComponent_GetNativeXComponent(self.raw) };
+        std::ptr::NonNull::new(raw).map(|raw| NativeXComponent::new(XComponentRaw(raw.as_ptr())))
     }
 
     /// Obtain the accessibility provider associated with this custom node.

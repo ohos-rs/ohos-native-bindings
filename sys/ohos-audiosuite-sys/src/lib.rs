@@ -321,6 +321,7 @@ extern "C" {
     #[cfg(feature = "api-22")]
     pub static OH_EQUALIZER_PARAM_ROCK: OH_EqualizerFrequencyBandGains;
 }
+#[cfg(feature = "api-22")]
 #[repr(C)]
 #[derive(Debug, Copy, Clone)]
 pub struct OH_AudioSuiteEngineStruct {
@@ -329,6 +330,7 @@ pub struct OH_AudioSuiteEngineStruct {
 #[doc = " @brief Declare the audio engine.\n The handle of audio suite engine is used for audio suite engine related functions.\n\n @since 22"]
 #[cfg(feature = "api-22")]
 pub type OH_AudioSuiteEngine = OH_AudioSuiteEngineStruct;
+#[cfg(feature = "api-22")]
 #[repr(C)]
 #[derive(Debug, Copy, Clone)]
 pub struct OH_AudioSuitePipelineStruct {
@@ -337,6 +339,7 @@ pub struct OH_AudioSuitePipelineStruct {
 #[doc = " @brief Declare the audio pipeline.\n The handle of audio suite pipeline is used for audio pipeline related functions.\n\n @since 22"]
 #[cfg(feature = "api-22")]
 pub type OH_AudioSuitePipeline = OH_AudioSuitePipelineStruct;
+#[cfg(feature = "api-22")]
 #[repr(C)]
 #[derive(Debug, Copy, Clone)]
 pub struct OH_AudioNodeStruct {
@@ -345,6 +348,7 @@ pub struct OH_AudioNodeStruct {
 #[doc = " @brief Declare the audio node.\n The handle of audio suite node is used for audio suite node related functions.\n\n @since 22"]
 #[cfg(feature = "api-22")]
 pub type OH_AudioNode = OH_AudioNodeStruct;
+#[cfg(feature = "api-22")]
 #[repr(C)]
 #[derive(Debug, Copy, Clone)]
 pub struct OH_AudioNodeBuilderStruct {
@@ -873,6 +877,7 @@ pub struct OH_AudioConverter_Format {
     #[doc = " @brief Audio sample format.\n\n @since 26.0.0"]
     pub sampleFormat: OH_Audio_SampleFormat,
 }
+#[cfg(feature = "api-26")]
 #[repr(C)]
 #[derive(Debug, Copy, Clone)]
 pub struct OH_AudioConverterStruct {
