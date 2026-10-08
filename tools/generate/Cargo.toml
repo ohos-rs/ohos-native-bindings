@@ -10,3 +10,10 @@ bindgen   = { workspace = true }
 once_cell = { workspace = true }
 anyhow    = { workspace = true }
 regex     = { workspace = true }
+syn       = { workspace = true, features = ["full"] }
+
+[dev-dependencies]
+anyhow  = { workspace = true }
+bindgen = { workspace = true }
+regex   = { workspace = true }
+syn     = { workspace = true, features = ["full"] }

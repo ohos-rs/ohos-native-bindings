@@ -1559,6 +1559,7 @@ extern "C" {
 pub struct Camera_VideoOutput {
     _unused: [u8; 0],
 }
+#[cfg(feature = "api-26")]
 #[repr(C)]
 #[derive(Debug, Copy, Clone)]
 pub struct OH_Camera_MetadataObjectExt {

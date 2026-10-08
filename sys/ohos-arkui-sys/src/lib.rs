@@ -13678,6 +13678,7 @@ pub struct ArkUI_GestureEventTargetInfo {
 pub struct ArkUI_ParallelInnerGestureEvent {
     _unused: [u8; 0],
 }
+#[cfg(feature = "api-26")]
 #[repr(C)]
 #[derive(Debug, Copy, Clone)]
 pub struct ArkUI_ParallelGestureEvent {

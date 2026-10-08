@@ -46,6 +46,7 @@ pub struct OH_Drawing_Path {
 pub struct OH_Drawing_PathIterator {
     _unused: [u8; 0],
 }
+#[cfg(feature = "api-23")]
 #[repr(C)]
 #[derive(Debug, Copy, Clone)]
 pub struct OH_Drawing_Lattice {
