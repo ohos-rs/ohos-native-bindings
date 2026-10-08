@@ -25,19 +25,10 @@ macro_rules! editor_callback {
 }
 
 fn char16_ptr_to_string(ptr: *const u16, length: usize) -> String {
-    let mut result = String::new();
-
-    unsafe {
-        let slice = std::slice::from_raw_parts(ptr, length);
-
-        for &unit in slice {
-            if let Some(Ok(c)) = char::decode_utf16(std::iter::once(unit)).next() {
-                result.push(c);
-            }
-        }
+    if ptr.is_null() || length == 0 {
+        return String::new();
     }
-
-    result
+    String::from_utf16_lossy(unsafe { std::slice::from_raw_parts(ptr, length) })
 }
 
 pub unsafe extern "C" fn delete_backward(editor: *mut InputMethod_TextEditorProxy, len: i32) {
@@ -75,12 +66,17 @@ pub unsafe extern "C" fn get_left_text_of_cursor(
     len: *mut usize,
 ) {
     let Some(callback) = editor_callback!(editor, get_left_text_of_cursor) else {
+        if !len.is_null() {
+            *len = 0;
+        }
         return;
     };
     let utf16: Vec<u16> = callback(number).encode_utf16().collect();
     if !text.is_null() && !len.is_null() && *len >= utf16.len() {
         std::ptr::copy_nonoverlapping(utf16.as_ptr(), text, utf16.len());
         *len = utf16.len();
+    } else if !len.is_null() {
+        *len = 0;
     }
 }
 
@@ -91,12 +87,17 @@ pub unsafe extern "C" fn get_right_text_of_cursor(
     len: *mut usize,
 ) {
     let Some(callback) = editor_callback!(editor, get_right_text_of_cursor) else {
+        if !len.is_null() {
+            *len = 0;
+        }
         return;
     };
     let utf16: Vec<u16> = callback(number).encode_utf16().collect();
     if !text.is_null() && !len.is_null() && *len >= utf16.len() {
         std::ptr::copy_nonoverlapping(utf16.as_ptr(), text, utf16.len());
         *len = utf16.len();
+    } else if !len.is_null() {
+        *len = 0;
     }
 }
 
@@ -105,7 +106,12 @@ pub unsafe extern "C" fn get_text_config(
     config: *mut InputMethod_TextConfig,
 ) {
     if let Some(callback) = editor_callback!(editor, get_text_config) {
-        callback(TextConfig { raw: config });
+        // The service owns this config and its cursor. The callback only fills
+        // it; dropping these wrappers must not destroy either native object.
+        callback(TextConfig {
+            raw: config,
+            owned: false,
+        });
     }
 }
 
@@ -187,4 +193,32 @@ pub unsafe extern "C" fn set_preview_text(
         callback(char16_ptr_to_string(text, length), start, end);
     }
     0
+}
+
+#[cfg(test)]
+mod tests {
+    use super::*;
+
+    #[test]
+    fn ndk_text_decoder_keeps_non_bmp_characters_and_replaces_invalid_units() {
+        let text: Vec<u16> = "a😀中b".encode_utf16().collect();
+        assert_eq!(char16_ptr_to_string(text.as_ptr(), text.len()), "a😀中b");
+        assert_eq!(char16_ptr_to_string([0xd800, 0x61].as_ptr(), 2), "�a");
+        assert_eq!(char16_ptr_to_string(std::ptr::null(), 0), "");
+    }
+
+    #[test]
+    fn absent_surrounding_text_callback_reports_zero_output_length() {
+        let mut text = [0u16; 4];
+        let mut length = text.len();
+        unsafe {
+            get_left_text_of_cursor(std::ptr::null_mut(), 4, text.as_mut_ptr(), &mut length);
+        }
+        assert_eq!(length, 0);
+        length = text.len();
+        unsafe {
+            get_right_text_of_cursor(std::ptr::null_mut(), 4, text.as_mut_ptr(), &mut length);
+        }
+        assert_eq!(length, 0);
+    }
 }
