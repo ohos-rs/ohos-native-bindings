@@ -1,6 +1,6 @@
 [package]
-name        = "ohos-window-manager-sys"
-version     = "0.1.2"
+name        = "ohos-native-window-manager-sys"
+version     = "0.1.0"
 edition     = "2021"
 license     = "MIT OR Apache-2.0"
 description = "Raw OpenHarmony window manager bindings for Rust"

@@ -27,8 +27,6 @@ use super::X_COMPONENT_CALLBACKS;
 
 #[cfg(feature = "multi_mode")]
 use super::X_COMPONENT_CALLBACKS_MAP;
-#[cfg(feature = "multi_mode")]
-use crate::tool::resolve_id;
 
 /// Resolve the callback set registered for `xcomponent`, if any.
 fn callbacks_for(xcomponent: *mut OH_NativeXComponent) -> Option<XComponentCallbacks> {
@@ -40,8 +38,7 @@ fn callbacks_for(xcomponent: *mut OH_NativeXComponent) -> Option<XComponentCallb
 
     #[cfg(feature = "multi_mode")]
     {
-        let id = resolve_id(xcomponent)?;
-        X_COMPONENT_CALLBACKS_MAP.with_borrow(|cb| cb.get(&id).cloned())
+        X_COMPONENT_CALLBACKS_MAP.with_borrow(|cb| cb.get(&(xcomponent as usize)).cloned())
     }
 }
 
@@ -226,5 +223,56 @@ pub unsafe extern "C" fn on_ui_input_event(
     if let Some(callback) = callbacks_for(xcomponent).and_then(|cb| cb.on_ui_input_event) {
         let arkui_input_event = ArkUIInputEvent::from_raw(event);
         let _ = callback(XComponentRaw(xcomponent), arkui_input_event);
+    }
+}
+
+#[cfg(all(test, feature = "callbacks", feature = "multi_mode"))]
+mod tests {
+    use std::{cell::Cell, rc::Rc};
+
+    use crate::NativeXComponent;
+
+    use super::*;
+
+    #[test]
+    fn callbacks_are_isolated_when_native_components_share_an_empty_id() {
+        // These pointers are only used as registry keys; no NDK function
+        // dereferences them in this test.
+        let first = NativeXComponent::with_id(
+            XComponentRaw(0x1000usize as *mut OH_NativeXComponent),
+            String::new(),
+        );
+        let second = NativeXComponent::with_id(
+            XComponentRaw(0x2000usize as *mut OH_NativeXComponent),
+            String::new(),
+        );
+        let first_calls = Rc::new(Cell::new(0));
+        let second_calls = Rc::new(Cell::new(0));
+
+        let calls = first_calls.clone();
+        first
+            .on_hover_event(move |_, _| {
+                calls.set(calls.get() + 1);
+                Ok(())
+            })
+            .unwrap();
+        let calls = second_calls.clone();
+        second
+            .on_hover_event(move |_, _| {
+                calls.set(calls.get() + 1);
+                Ok(())
+            })
+            .unwrap();
+
+        unsafe { on_hover_event(first.raw(), true) };
+        assert_eq!(first_calls.get(), 1);
+        assert_eq!(second_calls.get(), 0);
+
+        first.unregister_callbacks();
+        unsafe { on_hover_event(first.raw(), true) };
+        unsafe { on_hover_event(second.raw(), true) };
+        assert_eq!(first_calls.get(), 1);
+        assert_eq!(second_calls.get(), 1);
+        second.unregister_callbacks();
     }
 }

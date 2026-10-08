@@ -1,7 +1,7 @@
 use std::marker::PhantomData;
 use std::ptr::NonNull;
 
-use ohos_window_manager_sys::{
+use ohos_native_window_manager_sys::{
     OH_WindowManager_FrameMetrics, OH_WindowManager_FrameMetrics_GetInputHandlingDuration,
     OH_WindowManager_FrameMetrics_GetLayoutMeasureDuration,
     OH_WindowManager_FrameMetrics_GetVsyncTimestamp,

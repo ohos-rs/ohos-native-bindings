@@ -11,7 +11,7 @@ to `libohinput.so`. API12 is the baseline; APIs introduced in later platform
 versions are enabled through the corresponding `api-*` feature.
 
 The crate owns the canonical `Input_*` event types used by other native APIs,
-including `ohos-window-manager-sys`.
+including `ohos-native-window-manager-sys`.
 
 ## License
 

@@ -1,4 +1,4 @@
-use ohos_window_manager_sys::{
+use ohos_native_window_manager_sys::{
     Input_KeyEvent, OH_NativeWindowManager_KeyEventFilter,
     OH_NativeWindowManager_RegisterKeyEventFilter, OH_NativeWindowManager_UnregisterKeyEventFilter,
 };
@@ -13,9 +13,9 @@ use std::ptr::NonNull;
 #[cfg(feature = "api-15")]
 use ohos_image_native_binding::PixelMapNativeHandle;
 #[cfg(feature = "api-20")]
-use ohos_window_manager_sys::OH_WindowManager_InjectTouchEvent;
+use ohos_native_window_manager_sys::OH_WindowManager_InjectTouchEvent;
 #[cfg(feature = "api-15")]
-use ohos_window_manager_sys::{
+use ohos_native_window_manager_sys::{
     Input_MouseEvent, Input_TouchEvent, OH_NativeWindowManager_MouseEventFilter,
     OH_NativeWindowManager_RegisterMouseEventFilter,
     OH_NativeWindowManager_RegisterTouchEventFilter, OH_NativeWindowManager_TouchEventFilter,
@@ -30,14 +30,14 @@ use ohos_window_manager_sys::{
     WindowManager_AvoidArea, WindowManager_WindowProperties,
 };
 #[cfg(feature = "api-26")]
-use ohos_window_manager_sys::{
+use ohos_native_window_manager_sys::{
     OH_NativeWindowManager_GetKeyEventFilter, OH_NativeWindowManager_GetMouseEventFilter,
     OH_NativeWindowManager_GetTouchEventFilter,
     OH_WindowManager_RegisterFrameMetricsMeasuredCallback,
     OH_WindowManager_UnregisterFrameMetricsMeasuredCallback,
 };
 #[cfg(feature = "api-22")]
-use ohos_window_manager_sys::{OH_WindowManager_LockCursor, OH_WindowManager_UnlockCursor};
+use ohos_native_window_manager_sys::{OH_WindowManager_LockCursor, OH_WindowManager_UnlockCursor};
 
 #[cfg(feature = "api-15")]
 use crate::error::{check, Error};
