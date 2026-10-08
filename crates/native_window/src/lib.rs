@@ -1,8 +1,8 @@
 use libc::pollfd;
 use ohos_native_window_sys::{
     NativeWindow as NativeWindowRaw, OHNativeWindowBuffer as OHNativeWindowBufferRaw,
-    OH_NativeWindow_CreateNativeWindowFromSurfaceId, OH_NativeWindow_DestroyNativeWindow,
-    OH_NativeWindow_GetSurfaceId, OH_NativeWindow_NativeObjectReference,
+    OH_NativeWindow_CreateNativeWindowFromSurfaceId, OH_NativeWindow_GetSurfaceId,
+    OH_NativeWindow_NativeObjectReference,
     OH_NativeWindow_NativeObjectUnreference, OH_NativeWindow_NativeWindowAbortBuffer,
     OH_NativeWindow_NativeWindowFlushBuffer, OH_NativeWindow_NativeWindowHandleOpt,
     OH_NativeWindow_NativeWindowRequestBuffer, Region_Rect,
@@ -50,9 +50,7 @@ impl NativeWindow {
     /// created in this process, e.g. the one reported by
     /// `XComponentController::onSurfaceCreated`.
     ///
-    /// The creation hands out one owned reference, which is retired right away
-    /// through `OH_NativeWindow_DestroyNativeWindow`; the guard below then holds
-    /// its own `NativeObjectReference` and releases it on drop.
+    /// The creation hands out one owned reference, released on drop.
     pub fn from_surface_id(surface_id: u64) -> Result<Self, NativeWindowError> {
         let mut window: *mut NativeWindowRaw = std::ptr::null_mut();
         let ret =
@@ -60,13 +58,6 @@ impl NativeWindow {
         if ret != 0 {
             return Err(NativeWindowError::InternalError(ret));
         }
-
-        let referenced = unsafe { OH_NativeWindow_NativeObjectReference(window.cast()) };
-        if referenced != 0 {
-            unsafe { OH_NativeWindow_DestroyNativeWindow(window.cast()) };
-            return Err(NativeWindowError::InternalError(referenced));
-        }
-        unsafe { OH_NativeWindow_DestroyNativeWindow(window.cast()) };
 
         let Some(window) = NonNull::new(window) else {
             return Err(NativeWindowError::InternalError(-1));
