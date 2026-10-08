@@ -6,6 +6,7 @@ use ohos_arkui_input_binding::ArkUIErrorCode;
 
 #[cfg(not(feature = "napi"))]
 /// Error type returned by ArkUI wrapper APIs.
+#[derive(Debug)]
 pub struct ArkUIError {
     /// ArkUI status code.
     pub code: ArkUIErrorCode,

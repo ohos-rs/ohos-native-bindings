@@ -162,11 +162,13 @@ impl NativeBufferHandle {
 }
 
 /// Borrowed handle for `OH_NativeColorSpaceManager`.
+#[cfg(feature = "api-13")]
 #[derive(Clone, Copy, Debug, PartialEq, Eq)]
 pub struct NativeColorSpaceManagerHandle {
     raw: NonNull<sys::OH_NativeColorSpaceManager>,
 }
 
+#[cfg(feature = "api-13")]
 impl NativeColorSpaceManagerHandle {
     /// Creates a handle from a raw color-space pointer.
     pub fn from_raw(raw: *mut sys::OH_NativeColorSpaceManager) -> Option<Self> {

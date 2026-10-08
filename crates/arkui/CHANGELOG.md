@@ -7,6 +7,11 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+### Fixed
+
+- Align text helpers, joystick key sources, and dialog state APIs with their minimum native API levels.
+- Gate N-API context consumers and support error formatting when building without default features.
+
 ### Added
 
 - Add safe ArkUI key-event, component-event union, and node animator wrappers so downstream UI frameworks do not need direct `ohos-arkui-sys` access.

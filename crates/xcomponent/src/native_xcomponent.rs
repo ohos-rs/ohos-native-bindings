@@ -18,11 +18,13 @@ use ohos_xcomponent_sys::{
 use ohos_xcomponent_sys::OH_NativeXComponent_GetNativeAccessibilityProvider;
 
 use crate::{
-    code::XComponentResultCode, dispatch_touch_event, events::lookup_raw_window, key_event,
-    on_frame_change, on_hover_event, on_mouse_event, on_surface_changed, on_surface_created,
-    on_surface_destroyed, on_ui_input_event, raw::XComponentRaw, tool::resolve_id, KeyEventData,
-    MouseEventData, RawWindow, TouchEventData, WindowRaw, XComponentOffset, XComponentSize,
+    code::XComponentResultCode, events::lookup_raw_window, key_event, on_frame_change,
+    on_hover_event, on_mouse_event, on_ui_input_event, raw::XComponentRaw, tool::resolve_id,
+    KeyEventData, MouseEventData, RawWindow, TouchEventData, WindowRaw, XComponentOffset,
+    XComponentSize,
 };
+#[cfg(feature = "callbacks")]
+use crate::{dispatch_touch_event, on_surface_changed, on_surface_created, on_surface_destroyed};
 
 #[cfg(not(feature = "multi_mode"))]
 use crate::X_COMPONENT_CALLBACKS;

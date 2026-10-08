@@ -11,5 +11,5 @@ pub const PASTEBOARD: Lazy<SysConfig> = Lazy::new(|| SysConfig {
     white_list: vec!["OH_.*"],
     block_list: vec!["OH_Ud.*"],
     dynamic_library: vec!["pasteboard"],
-    extra: "\n\nuse ohos_udmf_sys::*;",
+    extra: "\n\n#[cfg(feature = \"api-13\")]\nuse ohos_udmf_sys::OH_UdmfData;",
 });
