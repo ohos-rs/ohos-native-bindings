@@ -83,6 +83,8 @@ impl Drop for UdmfRecord {
 
 /// A container-owned record. Dropping this view never destroys the native record.
 pub struct UdmfRecordRef<'data> {
+    // Reading a borrowed record requires API 13, but API 12 can still enumerate it.
+    #[cfg_attr(not(feature = "api-13"), expect(dead_code))]
     raw: NonNull<OH_UdmfRecord>,
     _data: std::marker::PhantomData<&'data super::UdmfData>,
 }

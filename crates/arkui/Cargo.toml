@@ -9,7 +9,7 @@ description = "OpenHarmony's arkui binding for rust"
 workspace = true
 
 [dependencies]
-libloading = { workspace = true }
+libloading                 = { workspace = true }
 ohos-arkui-sys             = { workspace = true }
 napi-sys-ohos              = { workspace = true, optional = true }
 napi-ohos                  = { workspace = true, optional = true }
