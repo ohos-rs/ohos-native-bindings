@@ -1,6 +1,6 @@
 //! Module api::drag::event wrappers and related types.
 
-use std::{os::raw::c_char, ptr::NonNull};
+use std::{marker::PhantomData, os::raw::c_char, ptr::NonNull};
 
 use ohos_arkui_input_binding::ArkUIErrorCode;
 use ohos_arkui_sys::*;
@@ -14,7 +14,7 @@ use ohos_udmf_binding::UdmfGetDataParams;
 
 use crate::{check_arkui_status, ArkUIError, ArkUIResult, DragResult, DropOperation};
 
-#[derive(Clone, Copy)]
+/// Callback-scoped drag status. Only owned status values may escape its listener.
 pub(crate) struct DragAndDropInfo {
     raw: NonNull<ArkUI_DragAndDropInfo>,
 }
@@ -32,20 +32,24 @@ impl DragAndDropInfo {
         unsafe { OH_ArkUI_DragAndDropInfo_GetDragStatus(self.raw()).into() }
     }
 
-    pub(crate) fn drag_event(&self) -> Option<DragEvent> {
+    pub(crate) fn drag_event(&self) -> Option<DragEvent<'_>> {
         let event = unsafe { OH_ArkUI_DragAndDropInfo_GetDragEvent(self.raw()) };
         unsafe { DragEvent::from_raw(event) }
     }
 }
 
 #[derive(Clone, Copy)]
-pub(crate) struct DragEvent {
+pub struct DragEvent<'event> {
     raw: NonNull<ArkUI_DragEvent>,
+    _event: PhantomData<&'event ()>,
 }
 
-impl DragEvent {
+impl DragEvent<'_> {
     pub(crate) unsafe fn from_raw(raw: *mut ArkUI_DragEvent) -> Option<Self> {
-        NonNull::new(raw).map(|raw| Self { raw })
+        NonNull::new(raw).map(|raw| Self {
+            raw,
+            _event: PhantomData,
+        })
     }
 
     pub(crate) fn raw(&self) -> *mut ArkUI_DragEvent {
@@ -73,7 +77,7 @@ impl DragEvent {
         }
     }
 
-    pub(crate) fn set_drag_result(&self, result: DragResult) -> ArkUIResult<()> {
+    pub fn set_drag_result(&self, result: DragResult) -> ArkUIResult<()> {
         unsafe { check_arkui_status!(OH_ArkUI_DragEvent_SetDragResult(self.raw(), result.into())) }
     }
 
@@ -96,7 +100,7 @@ impl DragEvent {
     }
 
     #[cfg(feature = "udmf")]
-    pub(crate) fn get_udmf_data(&self, data: &UdmfData) -> ArkUIResult<()> {
+    pub fn get_udmf_data(&self, data: &mut UdmfData) -> ArkUIResult<()> {
         unsafe {
             check_arkui_status!(OH_ArkUI_DragEvent_GetUdmfData(
                 self.raw(),
@@ -182,11 +186,11 @@ impl DragEvent {
         unsafe { OH_ArkUI_DragEvent_GetPreviewRectHeight(self.raw()) }
     }
 
-    pub(crate) fn touch_point_x_to_window(&self) -> f32 {
+    pub fn touch_point_x_to_window(&self) -> f32 {
         unsafe { OH_ArkUI_DragEvent_GetTouchPointXToWindow(self.raw()) }
     }
 
-    pub(crate) fn touch_point_y_to_window(&self) -> f32 {
+    pub fn touch_point_y_to_window(&self) -> f32 {
         unsafe { OH_ArkUI_DragEvent_GetTouchPointYToWindow(self.raw()) }
     }
 

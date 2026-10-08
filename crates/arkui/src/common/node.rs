@@ -211,6 +211,28 @@ impl ArkUINode {
         Ok(size.into())
     }
 
+    /// Sets the unit used by numeric node attributes (for example physical pixels).
+    pub fn set_length_metric_unit(
+        &self,
+        unit: crate::types::advanced::LengthMetricUnit,
+    ) -> ArkUIResult<()> {
+        ARK_UI_NATIVE_NODE_API_1.with(|api| api.set_length_metric_unit(self, unit))
+    }
+
+    /// Returns the layout position in physical screen coordinates.
+    pub fn layout_position_in_screen(&self) -> ArkUIResult<IntOffset> {
+        let mut offset = ArkUI_IntOffset { x: 0, y: 0 };
+        unsafe {
+            check_arkui_status!(
+                ohos_arkui_sys::OH_ArkUI_NodeUtils_GetLayoutPositionInScreen(
+                    self.raw(),
+                    &mut offset
+                )
+            )
+        }?;
+        Ok(offset.into())
+    }
+
     /// Returns this node's layout position in the current window.
     pub fn layout_position_in_window(&self) -> ArkUIResult<IntOffset> {
         let mut offset: ArkUI_IntOffset = unsafe { std::mem::zeroed() };

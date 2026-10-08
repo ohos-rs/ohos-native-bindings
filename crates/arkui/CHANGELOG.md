@@ -9,6 +9,9 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Fixed
 
+- Keep API-14 key callbacks independent of the API-20 input discriminator and resolve lock-state queries only when the runtime provides them.
+- Borrow key and drag events from their native callbacks; own drag actions, listeners, UDMF data and preview maps through disposal.
+
 - Align text helpers, joystick key sources, and dialog state APIs with their minimum native API levels.
 - Gate N-API context consumers and support error formatting when building without default features.
 
