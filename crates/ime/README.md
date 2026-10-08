@@ -80,13 +80,6 @@ Register `on_delete_forward`, `on_move_cursor`, `on_set_selection`, and
 thread as other editor callbacks. Text decoding preserves surrogate pairs and
 replaces invalid UTF-16 units instead of silently dropping them.
 
-## Host lifecycle regression tests
-
-Run `bash crates/ime/tests/run-host.sh --offline` from the repository root.
-The script builds a host-only NDK double and tests the real binding's FFI calls,
-including delayed keyboard callbacks, failed transitions, replacement sessions,
-and callback reentry. It does not change or emulate a device's system libraries.
-
 ## License
 
 MIT OR Apache-2.0
