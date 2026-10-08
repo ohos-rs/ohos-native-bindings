@@ -1,10 +1,8 @@
 //! Safe wrappers for ArkUI key input events.
 
-use std::ffi::CStr;
+use std::{ffi::CStr, marker::PhantomData, sync::OnceLock};
 
-use ohos_arkui_input_binding::ArkUIInputEvent;
-#[cfg(feature = "api-20")]
-use ohos_arkui_input_binding::UIInputEvent;
+use ohos_arkui_input_binding::{sys::ArkUI_UIInputEvent, ArkUIInputEvent};
 use ohos_arkui_sys::*;
 use ohos_enum_derive::EnumFrom;
 
@@ -276,19 +274,52 @@ pub enum KeyIntention {
     Camera,
 }
 
-/// Borrow-free view of a callback-scoped ArkUI key input event.
+/// Borrowed view of a callback-scoped ArkUI key input event.
 ///
 /// The wrapper is copyable, but its native event must only be accessed during
 /// the callback that produced it.
 #[derive(Debug, Clone, Copy, PartialEq, Eq)]
-pub struct KeyEvent {
+pub struct KeyEvent<'event> {
     input: ArkUIInputEvent,
+    _event: PhantomData<&'event super::inner_event::Event>,
 }
 
-impl KeyEvent {
-    #[cfg(feature = "api-20")]
-    pub(crate) fn from_input(input: ArkUIInputEvent) -> Option<Self> {
-        (input.event_type == UIInputEvent::Key).then_some(Self { input })
+impl<'event> KeyEvent<'event> {
+    pub(crate) fn from_input(
+        input: ArkUIInputEvent,
+        _event: &'event super::inner_event::Event,
+    ) -> Self {
+        Self {
+            input,
+            _event: PhantomData,
+        }
+    }
+
+    pub fn device_id(self) -> i32 {
+        self.input.device_id()
+    }
+
+    pub fn event_time(self) -> i64 {
+        self.input.event_time()
+    }
+
+    pub fn pressed_keys(
+        self,
+        keys: &mut [i32],
+    ) -> Result<usize, ohos_arkui_input_binding::ArkUIInputError> {
+        self.input.pressed_keys(keys)
+    }
+
+    /// Queries API-19 lock state when supported by the running system.
+    /// Missing symbols and failed queries return `None`, not an unlocked state.
+    /// This does not introduce a load-time dependency on API-19 symbols.
+    pub fn lock_state(self) -> KeyLockState {
+        let queries = LockQueries::get();
+        KeyLockState {
+            caps_lock: queries.query(queries.caps, self.input.raw()),
+            num_lock: queries.query(queries.num, self.input.raw()),
+            scroll_lock: queries.query(queries.scroll, self.input.raw()),
+        }
     }
 
     pub fn event_type(self) -> KeyEventType {
@@ -376,6 +407,57 @@ impl KeyEvent {
             ))
         }?;
         Ok(state)
+    }
+}
+
+/// Lock-key state, available independently for each optional runtime query.
+#[derive(Clone, Copy, Debug, Default, PartialEq, Eq)]
+pub struct KeyLockState {
+    pub caps_lock: Option<bool>,
+    pub num_lock: Option<bool>,
+    pub scroll_lock: Option<bool>,
+}
+
+type LockQuery = unsafe extern "C" fn(*const ArkUI_UIInputEvent, *mut bool) -> u32;
+
+struct LockQueries {
+    _library: libloading::os::unix::Library,
+    caps: Option<LockQuery>,
+    num: Option<LockQuery>,
+    scroll: Option<LockQuery>,
+}
+
+impl LockQueries {
+    fn get() -> &'static Self {
+        static QUERIES: OnceLock<LockQueries> = OnceLock::new();
+        QUERIES.get_or_init(|| {
+            let library = libloading::os::unix::Library::this();
+            // SAFETY: the SDK defines these API-19 symbols with this signature.
+            // The process library is retained with the resolved function pointers.
+            unsafe {
+                Self {
+                    caps: library
+                        .get::<LockQuery>(b"OH_ArkUI_KeyEvent_IsCapsLockOn\0")
+                        .ok()
+                        .map(|s| *s),
+                    num: library
+                        .get::<LockQuery>(b"OH_ArkUI_KeyEvent_IsNumLockOn\0")
+                        .ok()
+                        .map(|s| *s),
+                    scroll: library
+                        .get::<LockQuery>(b"OH_ArkUI_KeyEvent_IsScrollLockOn\0")
+                        .ok()
+                        .map(|s| *s),
+                    _library: library,
+                }
+            }
+        })
+    }
+
+    fn query(&self, query: Option<LockQuery>, event: *const ArkUI_UIInputEvent) -> Option<bool> {
+        let mut state = false;
+        // SAFETY: KeyEvent is borrowed from the still-active node callback.
+        (unsafe { query?(event, &mut state) } == 0).then_some(state)
     }
 }
 

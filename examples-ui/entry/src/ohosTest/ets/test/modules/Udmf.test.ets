@@ -1,6 +1,7 @@
 import { describe, expect, it } from "@ohos/hypium";
 import { ranOrThrew } from "../helpers/Utils";
 import {
+  fileUriOwnershipRoundtrip,
   htmlRoundtrip,
   plainTextRoundtrip,
   recordAndData,
@@ -18,6 +19,9 @@ export default function udmfTest(): void {
     });
     it("recordAndData", 0, () => {
       expect(recordAndData("record")).assertContain("count=");
+    });
+    it("fileUriOwnershipRoundtrip", 0, () => {
+      expect(fileUriOwnershipRoundtrip()).assertTrue();
     });
     it("utdEquals", 0, () => {
       expect(ranOrThrew((): boolean => utdEquals())).assertTrue();

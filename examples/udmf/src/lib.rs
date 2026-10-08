@@ -1,6 +1,8 @@
 use napi_derive_ohos::napi;
 use napi_ohos::{Error, Result};
-use ohos_udmf_binding::{UdmfData, UdmfMeta, UdmfRecord, Uds, UdsHtml, UdsPlainText, Utd};
+use ohos_udmf_binding::{
+    UdmfData, UdmfMeta, UdmfRecord, Uds, UdsFileUri, UdsHtml, UdsPlainText, Utd,
+};
 
 fn to_err(e: ohos_udmf_binding::UdmfError) -> Error {
     Error::from_reason(e.to_string())
@@ -37,7 +39,7 @@ pub fn record_and_data(text: String) -> Result<String> {
     record.add(Uds::PlainText(plain)).map_err(to_err)?;
     record.add(Uds::Html(html)).map_err(to_err)?;
 
-    let data = UdmfData::new();
+    let mut data = UdmfData::new();
     data.add_record(&record).map_err(to_err)?;
     let count = data.count();
     let records = data.records().map_err(to_err)?;
@@ -61,4 +63,49 @@ pub fn smoke() -> Result<String> {
         record_and_data("record".to_string())?,
         utd_equals()?
     ))
+}
+
+/// Exercise real UDMF ownership: source records may be released after adding,
+/// queried records are borrowed, and repeated queries/container drops stay valid.
+#[napi]
+pub fn file_uri_ownership_roundtrip() -> Result<bool> {
+    let expected =
+        "file://com.richerfu.ohos_example/data/storage/el2/base/files/space%20%E4%B8%AD.txt";
+    for _ in 0..100 {
+        let mut data = UdmfData::try_new().map_err(to_err)?;
+        for file_type in ["general.file", "general.folder"] {
+            let uri = UdsFileUri::new().map_err(to_err)?;
+            uri.set_file_uri(expected).map_err(to_err)?;
+            uri.set_file_type(file_type).map_err(to_err)?;
+            let record = UdmfRecord::try_new().map_err(to_err)?;
+            record.add_file_uri(&uri).map_err(to_err)?;
+            data.add_record(&record).map_err(to_err)?;
+            // The native container retains the added contents.
+        }
+        if data.count() != 2 {
+            return Ok(false);
+        }
+        for _ in 0..3 {
+            let records = data.records().map_err(to_err)?;
+            if records.len() != 2 {
+                return Ok(false);
+            }
+            for (record, expected_type) in records.iter().zip(["general.file", "general.folder"]) {
+                let uri = record.file_uri().map_err(to_err)?;
+                if uri.file_uri().map_err(to_err)? != expected
+                    || uri.file_type().map_err(to_err)? != expected_type
+                {
+                    return Ok(false);
+                }
+            }
+        }
+        let uri = data.record(0).map_err(to_err)?.file_uri().map_err(to_err)?;
+        drop(data);
+        if uri.file_uri().map_err(to_err)? != expected {
+            return Ok(false);
+        }
+    }
+    let uri = UdsFileUri::new().map_err(to_err)?;
+    Ok(uri.set_file_uri("file://invalid\0uri").is_err()
+        && uri.set_file_type("general.file\0").is_err())
 }
