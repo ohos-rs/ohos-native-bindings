@@ -5,6 +5,7 @@ use ohos_input_method_sys::{
 
 pub struct Cursor {
     pub(crate) raw: *mut InputMethod_CursorInfo,
+    pub(crate) owned: bool,
 }
 
 #[derive(Debug, Clone, Copy)]
@@ -18,7 +19,7 @@ pub struct Rect {
 impl Cursor {
     pub fn new(rect: Rect) -> Self {
         let raw = unsafe { OH_CursorInfo_Create(rect.left, rect.top, rect.width, rect.height) };
-        Cursor { raw }
+        Cursor { raw, owned: true }
     }
 
     pub fn rect(&self) -> Rect {
@@ -46,8 +47,10 @@ impl Cursor {
 
 impl Drop for Cursor {
     fn drop(&mut self) {
-        unsafe {
-            OH_CursorInfo_Destroy(self.raw);
+        if self.owned {
+            unsafe {
+                OH_CursorInfo_Destroy(self.raw);
+            }
         }
     }
 }

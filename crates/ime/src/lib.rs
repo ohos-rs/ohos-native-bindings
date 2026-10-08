@@ -5,8 +5,10 @@ mod error;
 mod ime;
 mod private_command;
 mod proxy;
+mod session;
 mod text_config;
 mod text_editor;
+mod text_state;
 
 pub use attach::*;
 pub use cursor::*;
@@ -16,3 +18,4 @@ pub use ime::*;
 pub use private_command::*;
 pub use text_config::*;
 pub use text_editor::*;
+pub use text_state::TextState;

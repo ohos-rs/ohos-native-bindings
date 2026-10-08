@@ -11,6 +11,7 @@ use crate::{Cursor, EnterKey, InputType};
 
 pub struct TextConfig {
     pub(crate) raw: *mut InputMethod_TextConfig,
+    pub(crate) owned: bool,
 }
 
 #[derive(Debug, Clone, Copy)]
@@ -22,13 +23,16 @@ pub struct Selection {
 impl TextConfig {
     pub fn new() -> Self {
         let raw = unsafe { OH_TextConfig_Create() };
-        TextConfig { raw }
+        TextConfig { raw, owned: true }
     }
 
     pub fn cursor(&self) -> Cursor {
         let mut cursor_raw = ptr::null_mut();
         unsafe { OH_TextConfig_GetCursorInfo(self.raw, &mut cursor_raw) };
-        Cursor { raw: cursor_raw }
+        Cursor {
+            raw: cursor_raw,
+            owned: false,
+        }
     }
 
     pub fn enter_key(&self) -> EnterKey {
@@ -85,8 +89,10 @@ impl TextConfig {
 
 impl Drop for TextConfig {
     fn drop(&mut self) {
-        unsafe {
-            OH_TextConfig_Destroy(self.raw);
+        if self.owned {
+            unsafe {
+                OH_TextConfig_Destroy(self.raw);
+            }
         }
     }
 }
