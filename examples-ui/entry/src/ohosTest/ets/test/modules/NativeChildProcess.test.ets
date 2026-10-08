@@ -205,8 +205,7 @@ export default function nativeChildProcessTest(): void {
     );
     it("kill rejects a child PID after its exit has been observed", 0, async () => {
       const report: string = await bindingScenario("kill_stale");
-      const code = field(report, "stale_pid_code");
-      expect(code === "16010010" || code === "16010003").assertTrue();
+      expect(field(report, "stale_pid_code")).assertEqual("16010010");
       expect(field(report, "exited")).assertEqual("true");
     });
     it("entry handler error returns safely across the official ABI", 0, async () => {
