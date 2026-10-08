@@ -8,7 +8,7 @@ use std::{
 
 use accesskit::{
     Action, ActionHandler, ActionRequest, ActivationHandler, Node, NodeId, Rect, Role, Tree,
-    TreeUpdate,
+    TreeId, TreeUpdate,
 };
 use accesskit_ohos::Adapter;
 use napi_derive_ohos::napi;
@@ -139,7 +139,10 @@ struct ExampleActionHandler {
 
 impl ActionHandler for ExampleActionHandler {
     fn do_action(&mut self, request: ActionRequest) {
-        if request.target == BUTTON_ID && request.action == Action::Click {
+        if request.target_tree == TreeId::ROOT
+            && request.target_node == BUTTON_ID
+            && request.action == Action::Click
+        {
             self.kind.action_counter().fetch_add(1, Ordering::Relaxed);
         }
     }
@@ -161,6 +164,7 @@ fn full_tree(kind: SurfaceKind) -> TreeUpdate {
     TreeUpdate {
         nodes: vec![(ROOT_ID, root), (BUTTON_ID, button_node(kind))],
         tree: Some(Tree::new(ROOT_ID)),
+        tree_id: TreeId::ROOT,
         focus: BUTTON_ID,
     }
 }
@@ -169,6 +173,7 @@ fn button_update(kind: SurfaceKind) -> TreeUpdate {
     TreeUpdate {
         nodes: vec![(BUTTON_ID, button_node(kind))],
         tree: None,
+        tree_id: TreeId::ROOT,
         focus: BUTTON_ID,
     }
 }
