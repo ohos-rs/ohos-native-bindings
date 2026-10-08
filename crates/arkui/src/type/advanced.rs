@@ -226,7 +226,7 @@ pub enum PixelRoundCalcPolicy {
 
 #[derive(Debug, Clone, Copy, PartialEq, Eq, EnumFrom)]
 #[config(ArkUI_DialogState, "ArkUI_DialogState_DIALOG_")]
-#[cfg(feature = "api-19")]
+#[cfg(feature = "api-20")]
 /// Runtime state of native/custom dialogs.
 pub enum DialogState {
     Uninitialized,
@@ -317,6 +317,7 @@ pub enum KeySourceType {
     Unknown,
     TypeMouse,
     TypeKeyboard,
+    #[cfg(feature = "api-15")]
     TypeJoystick,
 }
 

@@ -14,8 +14,11 @@ use ohos_arkui_sys::{
     OH_ArkUI_AnimateOption_SetPlayMode, OH_ArkUI_AnimateOption_SetTempo,
 };
 
+#[cfg(feature = "napi")]
 use crate::api::ARK_UI_NATIVE_ANIMATE_API_1;
-use crate::{AnimationFinishCallbackType, AnimationMode, ArkUIContext, ArkUIResult, Curve};
+use crate::{AnimationFinishCallbackType, AnimationMode, Curve};
+#[cfg(feature = "napi")]
+use crate::{ArkUIContext, ArkUIResult};
 
 use super::AnimationFrameRateRange;
 use crate::animate::context::{AnimationFinishContext, AnimationUpdateContext};

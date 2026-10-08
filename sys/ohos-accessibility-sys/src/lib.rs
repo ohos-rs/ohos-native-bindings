@@ -8,7 +8,8 @@
 #![allow(clippy::useless_transmute)]
 #![allow(clippy::unnecessary_cast)]
 
-use ohos_arkui_input_sys::*;
+#[cfg(feature = "api-23")]
+use ohos_arkui_input_sys::ArkUI_NodeHandle;
 
 #[link(name = "ace_ndk.z")]
 unsafe extern "C" {}

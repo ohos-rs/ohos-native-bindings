@@ -73,6 +73,27 @@ The root `package.json` replaces the former `justfile`; pnpm manages tools,
 prek manages Git hooks, and oxk formats/lints ArkTS. See
 [`examples-ui/README.md`](./examples-ui/README.md) for device setup and test details.
 
+Check publishable crates independently after changing API feature gates:
+
+```sh
+node tools/check-crate-features.mjs                    # default features on the host
+pnpm run check:rust:features                          # each declared API level on aarch64 OHOS
+pnpm run lint:rust                                    # Clippy, API 13 through 26 in order
+node tools/check-crate-features.mjs --target armv7-unknown-linux-ohos -p ohos-image-native-binding --all-api-levels
+```
+
+The checker also disables default features for crates with nonempty defaults.
+Each API level is checked with default features disabled, both with and without
+optional capabilities. Capabilities that require a higher API (such as net-stack
+HTTP at API 20) are excluded from lower levels. Examples are linted separately
+with their declared dependencies and features.
+Each configuration runs in a separate Cargo invocation so workspace examples and
+other packages cannot enable features that hide missing gates or feature forwarding.
+Use `--offline` when all dependencies are already cached. PR CI checks host
+defaults and runs Clippy with warnings denied at API 13 through 26 on all three
+OHOS targets, selecting only API features each crate declares. It does not use
+`--all-features`.
+
 ## Contribution
 
 ![contribution](https://img.shields.io/badge/PR-welcome-green)

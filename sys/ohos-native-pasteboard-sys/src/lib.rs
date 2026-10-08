@@ -8,7 +8,8 @@
 #![allow(clippy::useless_transmute)]
 #![allow(clippy::unnecessary_cast)]
 
-use ohos_udmf_sys::*;
+#[cfg(feature = "api-13")]
+use ohos_udmf_sys::OH_UdmfData;
 
 #[link(name = "pasteboard")]
 unsafe extern "C" {}

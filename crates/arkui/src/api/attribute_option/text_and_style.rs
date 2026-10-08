@@ -26,9 +26,9 @@ use super::base::non_null_or_panic;
 use super::base::with_cstring;
 use crate::{ArkUIError, ArkUIResult};
 
-#[cfg(any(feature = "api-20", feature = "api-22"))]
+#[cfg(feature = "api-14")]
 use super::base::c_char_ptr_to_string;
-#[cfg(any(feature = "api-20", feature = "api-22"))]
+#[cfg(feature = "api-14")]
 use crate::check_arkui_status;
 
 #[cfg(feature = "api-22")]

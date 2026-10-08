@@ -87,6 +87,7 @@ impl NativeDialogHandle {
     }
 
     /// Returns current dialog state.
+    #[cfg(feature = "api-20")]
     pub fn state(&self) -> ArkUIResult<crate::DialogState> {
         let mut state = ArkUI_DialogState_DIALOG_UNINITIALIZED;
         unsafe { check_arkui_status!(OH_ArkUI_CustomDialog_GetState(self.raw(), &mut state)) }?;

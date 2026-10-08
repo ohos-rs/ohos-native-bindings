@@ -16,5 +16,5 @@ pub const ACCESSIBILITY: Lazy<SysConfig> = Lazy::new(|| SysConfig {
         "OH_PixelmapNative",
     ],
     dynamic_library: vec!["ace_ndk.z"],
-    extra: "\n\nuse ohos_arkui_input_sys::*;",
+    extra: "\n\n#[cfg(feature = \"api-23\")]\nuse ohos_arkui_input_sys::ArkUI_NodeHandle;",
 });

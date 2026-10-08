@@ -3,17 +3,18 @@
 use std::{os::raw::c_void, ptr::NonNull};
 
 use ohos_arkui_input_binding::ArkUIErrorCode;
+#[cfg(feature = "napi")]
+use ohos_arkui_sys::OH_ArkUI_CreateDragActionWithContext;
 #[cfg(feature = "udmf")]
 use ohos_arkui_sys::OH_ArkUI_DragAction_SetData;
 #[cfg(feature = "image")]
 use ohos_arkui_sys::OH_ArkUI_DragAction_SetPixelMaps;
 use ohos_arkui_sys::{
-    ArkUI_DragAction, ArkUI_DragAndDropInfo, OH_ArkUI_CreateDragActionWithContext,
-    OH_ArkUI_CreateDragActionWithNode, OH_ArkUI_DragAction_Dispose,
-    OH_ArkUI_DragAction_RegisterStatusListener, OH_ArkUI_DragAction_SetDragPreviewOption,
-    OH_ArkUI_DragAction_SetPointerId, OH_ArkUI_DragAction_SetTouchPointX,
-    OH_ArkUI_DragAction_SetTouchPointY, OH_ArkUI_DragAction_UnregisterStatusListener,
-    OH_ArkUI_StartDrag,
+    ArkUI_DragAction, ArkUI_DragAndDropInfo, OH_ArkUI_CreateDragActionWithNode,
+    OH_ArkUI_DragAction_Dispose, OH_ArkUI_DragAction_RegisterStatusListener,
+    OH_ArkUI_DragAction_SetDragPreviewOption, OH_ArkUI_DragAction_SetPointerId,
+    OH_ArkUI_DragAction_SetTouchPointX, OH_ArkUI_DragAction_SetTouchPointY,
+    OH_ArkUI_DragAction_UnregisterStatusListener, OH_ArkUI_StartDrag,
 };
 #[cfg(feature = "image")]
 use ohos_image_native_binding::PixelMapNativeHandle;
@@ -48,6 +49,7 @@ impl DragAction {
         Ok(Self::from_non_null(action))
     }
 
+    #[cfg(feature = "napi")]
     pub(crate) fn new_with_context(ui_context: crate::ArkUIContext) -> ArkUIResult<Self> {
         let action = unsafe { OH_ArkUI_CreateDragActionWithContext(ui_context.raw()) };
         let action = NonNull::new(action).ok_or_else(|| {
@@ -198,6 +200,7 @@ impl ArkUIHandle {
         DragAction::new_with_node(node)
     }
 
+    #[cfg(feature = "napi")]
     pub(crate) fn create_drag_action_with_context(
         &self,
         ui_context: crate::ArkUIContext,

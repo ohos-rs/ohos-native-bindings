@@ -12,6 +12,44 @@ permissions:
   contents: read
 
 jobs:
+  crate-features:
+    name: Crate features (${{ matrix.name }})
+    runs-on: ubuntu-latest
+    strategy:
+      fail-fast: false
+      matrix:
+        include:
+          - name: publish defaults
+            args: ""
+          - name: aarch64 API levels
+            args: --target aarch64-unknown-linux-ohos --all-api-levels --lint
+          - name: armv7 API levels
+            args: --target armv7-unknown-linux-ohos --all-api-levels --lint
+          - name: x86_64 API levels
+            args: --target x86_64-unknown-linux-ohos --all-api-levels --lint
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup OpenHarmony SDK
+        uses: openharmony-rs/setup-ohos-sdk@v1.0.1
+        with:
+          version: "7.0"
+
+      - name: Setup Rust
+        uses: dtolnay/rust-toolchain@stable
+        with:
+          targets: aarch64-unknown-linux-ohos,armv7-unknown-linux-ohos,x86_64-unknown-linux-ohos
+          components: clippy
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: "22"
+
+      - name: Check crates independently
+        run: node tools/check-crate-features.mjs ${{ matrix.args }}
+
   check:
     runs-on: ubuntu-latest
     steps:
@@ -50,8 +88,4 @@ jobs:
           pnpm run lint:ui
 
       - name: Check Rust
-        run: |
-          cargo fmt --check
-          cargo clippy --workspace --exclude generate --target aarch64-unknown-linux-ohos --all-targets --all-features -- -D warnings
-          cargo clippy --workspace --exclude generate --target armv7-unknown-linux-ohos --all-targets --all-features -- -D warnings
-          cargo clippy --workspace --exclude generate --target x86_64-unknown-linux-ohos --all-targets --all-features -- -D warnings
+        run: cargo fmt --check

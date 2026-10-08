@@ -12,9 +12,9 @@ pub mod types;
 
 pub use ohos_image_native_sys as sys;
 
-pub use common::{
-    ImageString, NativeBufferHandle, NativeColorSpaceManagerHandle, PixelMapNativeHandle,
-};
+#[cfg(feature = "api-13")]
+pub use common::NativeColorSpaceManagerHandle;
+pub use common::{ImageString, NativeBufferHandle, PixelMapNativeHandle};
 pub use error::{ImageNativeError, ImageNativeResult};
 pub use image::{Image, ImageRef, NativeImage};
 #[cfg(feature = "api-18")]

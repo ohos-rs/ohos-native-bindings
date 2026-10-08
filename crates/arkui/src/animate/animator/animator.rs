@@ -3,7 +3,9 @@
 use ohos_arkui_input_binding::ArkUIErrorCode;
 use ohos_arkui_sys::OH_ArkUI_GetContextByNode;
 
-use crate::{ArkUIContext, ArkUIError, ArkUINode, ArkUIResult};
+#[cfg(feature = "napi")]
+use crate::ArkUIContext;
+use crate::{ArkUIError, ArkUINode, ArkUIResult};
 
 use super::{native, AnimatorOption};
 
@@ -14,6 +16,7 @@ pub struct Animator {
 
 impl Animator {
     /// Create an animator from context and options.
+    #[cfg(feature = "napi")]
     pub fn create(ctx: ArkUIContext, option: &AnimatorOption) -> ArkUIResult<Self> {
         let handle = native::AnimatorHandle::create(ctx.raw(), option.inner()?)?;
         Ok(Self { handle })
@@ -59,6 +62,7 @@ pub struct AnimatorController {
 }
 
 impl AnimatorController {
+    #[cfg(feature = "napi")]
     pub fn new(ctx: ArkUIContext, keyframe_size: i32) -> ArkUIResult<Self> {
         let option = AnimatorOption::new(keyframe_size)?;
         let animator = Animator::create(ctx, &option)?;
