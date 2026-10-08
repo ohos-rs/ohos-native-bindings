@@ -66,6 +66,8 @@ ohos-accessibility-sys          = { version = "0.0.5", path = "sys/ohos-accessib
 ohos-native-window-sys          = { version = "0.1.4", path = "sys/ohos-native-window-sys" }
 ohos-native-child-process-sys   = { version = "0.1.0", path = "sys/ohos-native-child-process-sys" }
 ohos-native-buffer-sys          = { version = "0.1.4", path = "sys/ohos-native-buffer-sys" }
+ohos-egl-sys                    = { version = "0.1.0", path = "sys/ohos-egl-sys" }
+ohos-gles-sys                   = { version = "0.1.0", path = "sys/ohos-gles-sys" }
 ohos-udmf-sys                   = { version = "0.0.5", path = "sys/ohos-udmf-sys" }
 ohos-native-pasteboard-sys      = { version = "0.1.4", path = "sys/ohos-native-pasteboard-sys" }
 ohos-image-sys                  = { version = "0.0.5", path = "sys/ohos-image-sys" }
