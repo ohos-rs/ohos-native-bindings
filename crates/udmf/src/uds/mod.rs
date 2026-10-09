@@ -1,4 +1,9 @@
+#[cfg(feature = "api-13")]
+mod file_uri;
 mod html;
+
+#[cfg(feature = "api-13")]
+pub use file_uri::UdsFileUri;
 #[cfg(feature = "api-13")]
 mod pixel_map;
 mod plain_text;

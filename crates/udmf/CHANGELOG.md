@@ -7,6 +7,15 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+### Added
+
+- Add fallible file-URI records and typed file URI/type getters and setters (API 13).
+- Add fallible data and record allocation.
+
+### Fixed
+
+- Release owned UDMF containers on drop. Return lifetime-bound, non-owning records from `record`/`records`; these methods and `add_record` now require mutable container access.
+
 ## [0.0.6](https://github.com/ohos-rs/ohos-native-bindings/compare/ohos-udmf-binding-v0.0.5...ohos-udmf-binding-v0.0.6) - 2026-08-26
 
 ### Other

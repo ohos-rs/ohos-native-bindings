@@ -5,7 +5,7 @@ pub mod attribute_option;
 #[cfg(feature = "api-19")]
 pub mod custom_dialog;
 pub(crate) mod dialog;
-pub(crate) mod drag;
+pub mod drag;
 pub mod gesture;
 pub(crate) mod node;
 pub mod node_content;

@@ -10,7 +10,7 @@ use crate::{UdmfError, UdmfIntention};
 #[cfg(feature = "api-13")]
 use crate::{UdsHtml, UdsPlainText};
 
-use super::UdmfRecord;
+use super::{UdmfRecord, UdmfRecordRef};
 
 pub struct UdmfData {
     raw: NonNull<OH_UdmfData>,
@@ -18,8 +18,13 @@ pub struct UdmfData {
 
 impl UdmfData {
     pub fn new() -> Self {
-        let raw = NonNull::new(unsafe { OH_UdmfData_Create() }).expect("OH_UdmfData_create failed");
-        Self { raw }
+        Self::try_new().expect("OH_UdmfData_Create failed")
+    }
+
+    pub fn try_new() -> Result<Self, UdmfError> {
+        NonNull::new(unsafe { OH_UdmfData_Create() })
+            .map(|raw| Self { raw })
+            .ok_or_else(|| UdmfError::UdmfInitError("OH_UdmfData_Create returned null".into()))
     }
 
     pub fn from_raw(raw: *mut OH_UdmfData) -> Self {
@@ -47,7 +52,7 @@ impl UdmfData {
         }
     }
 
-    pub fn add_record(&self, record: &UdmfRecord) -> Result<(), UdmfError> {
+    pub fn add_record(&mut self, record: &UdmfRecord) -> Result<(), UdmfError> {
         let ret = unsafe { OH_UdmfData_AddRecord(self.raw.as_ptr(), record.raw.as_ptr()) };
         if ret != 0 {
             return Err(UdmfError::InternalError(ret));
@@ -61,30 +66,29 @@ impl UdmfData {
     }
 
     #[cfg(feature = "api-13")]
-    pub fn record(&self, index: u32) -> Result<UdmfRecord, UdmfError> {
+    pub fn record(&mut self, index: u32) -> Result<UdmfRecordRef<'_>, UdmfError> {
         let ret = unsafe { OH_UdmfData_GetRecord(self.raw.as_ptr(), index) };
         if ret.is_null() {
             return Err(UdmfError::UdmfInitError(String::from(
                 "UdmfData::record get record failed",
             )));
         }
-        Ok(UdmfRecord::from_raw(ret))
+        Ok(unsafe { UdmfRecordRef::from_raw(ret) })
     }
 
-    pub fn records(&self) -> Result<Vec<UdmfRecord>, UdmfError> {
+    pub fn records(&mut self) -> Result<Vec<UdmfRecordRef<'_>>, UdmfError> {
         let mut count = 0;
         let ret = unsafe { OH_UdmfData_GetRecords(self.raw.as_ptr(), &mut count) };
-        if ret.is_null() {
-            return Err(UdmfError::InternalError(-1));
-        }
         if count == 0 {
             Ok(vec![])
+        } else if ret.is_null() {
+            Err(UdmfError::InternalError(-1))
         } else {
             let mut records = Vec::with_capacity(count as usize);
             for i in 0..count {
                 let record_ptr = unsafe { *ret.offset(i as isize) };
                 if !record_ptr.is_null() {
-                    records.push(UdmfRecord::from_raw(record_ptr));
+                    records.push(unsafe { UdmfRecordRef::from_raw(record_ptr) });
                 }
             }
             Ok(records)
@@ -172,5 +176,12 @@ impl UdmfData {
 impl Default for UdmfData {
     fn default() -> Self {
         Self::new()
+    }
+}
+
+impl Drop for UdmfData {
+    fn drop(&mut self) {
+        // GetRecord(s) returns container-owned views, not independently owned records.
+        unsafe { OH_UdmfData_Destroy(self.raw.as_ptr()) };
     }
 }
