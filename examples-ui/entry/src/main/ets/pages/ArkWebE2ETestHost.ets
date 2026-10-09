@@ -18,7 +18,7 @@ const WEB_TAG: string = "ark-web-e2e-surface";
 @Entry
 @Component
 struct ArkWebE2ETestHost {
-  private readonly controller: webview.WebviewController = new webview.WebviewController();
+  private readonly controller: webview.WebviewController = new webview.WebviewController(WEB_TAG);
   @State private status: string = "ark-web-e2e-starting";
   private setupComplete: boolean = false;
   private verificationStarted: boolean = false;
@@ -68,9 +68,9 @@ struct ArkWebE2ETestHost {
         throw new Error(`custom protocol response is unavailable: ${customPage}`);
       }
       const invocationResult: string = await this.controller.runJavaScript(
-        "ipc.postMessage('ark-web-e2e'); ipc.ping(); 'invoked'",
+        "ipc.postMessage('ark-web-e2e'); ipc.ping(); true",
       );
-      if (invocationResult !== "invoked") {
+      if (invocationResult !== "true") {
         throw new Error(`JavaScript proxy invocation failed: ${invocationResult}`);
       }
       if (!this.refreshRequested) {
@@ -79,6 +79,25 @@ struct ArkWebE2ETestHost {
         this.status = "ark-web-e2e-refreshing";
         refreshPage(WEB_TAG);
         return;
+      }
+      this.status = "ark-web-e2e-reading-bodies";
+      await this.controller.runJavaScript("runBodyStreamTests(); 'started'");
+      let bodyStatus: string = "running";
+      for (let attempt: number = 0; attempt < 200; attempt++) {
+        bodyStatus = JSON.parse(
+          await this.controller.runJavaScript("window.bodyE2EStatus"),
+        ) as string;
+        if (bodyStatus.startsWith("pass:")) {
+          console.info(`ArkWeb body stream E2E ${bodyStatus}`);
+          break;
+        }
+        if (bodyStatus.startsWith("fail:")) {
+          throw new Error(bodyStatus);
+        }
+        await new Promise<void>((resolve) => setTimeout(resolve, 100));
+      }
+      if (!bodyStatus.startsWith("pass:")) {
+        throw new Error(`body stream tests timed out: ${bodyStatus}`);
       }
       this.status = "ark-web-e2e-pass";
     } catch (error) {

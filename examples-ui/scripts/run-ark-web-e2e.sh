@@ -57,7 +57,7 @@ collect_diagnostics() {
   local remote_path
   local output_name
 
-  "${HDC[@]}" shell 'hilog -x | tail -2000' \
+  "${HDC[@]}" shell 'hilog -x' \
     >"$DIAGNOSTICS_DIR/ark-web-hilog.log" 2>&1 || true
   "${HDC[@]}" shell 'ls -laR /data/log/faultlog 2>/dev/null' \
     >"$DIAGNOSTICS_DIR/ark-web-faultlogger-list.log" 2>&1 || true
@@ -121,7 +121,7 @@ for _attempt in $(seq 1 45); do
     ark-web-e2e-pass)
       printf '%s\n' "$last_layout" >"$DIAGNOSTICS_DIR/ark-web-layout-pass.json"
       collect_diagnostics
-      echo "    ArkWeb proxy registration, refresh, and JavaScript invocation passed"
+      echo "    ArkWeb proxy, refresh, binary/partial/large/Blob/empty and native chunked body reads passed"
       exit 0
       ;;
     ark-web-e2e-fail:*)
