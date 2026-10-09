@@ -84,7 +84,9 @@ struct ArkWebE2ETestHost {
       await this.controller.runJavaScript("runBodyStreamTests(); 'started'");
       let bodyStatus: string = "running";
       for (let attempt: number = 0; attempt < 200; attempt++) {
-        bodyStatus = JSON.parse(await this.controller.runJavaScript("window.bodyE2EStatus")) as string;
+        bodyStatus = JSON.parse(
+          await this.controller.runJavaScript("window.bodyE2EStatus"),
+        ) as string;
         if (bodyStatus.startsWith("pass:")) {
           console.info(`ArkWeb body stream E2E ${bodyStatus}`);
           break;
