@@ -3,7 +3,9 @@ use std::sync::LazyLock;
 use napi_derive_ohos::napi;
 use napi_ohos::{Error, Result};
 use ohos_hilog_binding::hilog_info;
-use ohos_web_binding::{ArkWebResponse, CustomProtocol, Web, WebProxyBuilder};
+use ohos_web_binding::{
+    ArkWebResponse, CustomProtocol, CustomProtocolOption, Web, WebProxyBuilder,
+};
 
 static WEB_PROXY: LazyLock<std::sync::Mutex<Vec<ohos_web_binding::WebProxy>>> =
     LazyLock::new(|| std::sync::Mutex::new(Vec::new()));
@@ -11,7 +13,13 @@ static WEB_PROXY: LazyLock<std::sync::Mutex<Vec<ohos_web_binding::WebProxy>>> =
 /// Register the custom scheme before ArkUI creates its first Web component.
 #[napi]
 pub fn prepare_custom_protocol() {
-    CustomProtocol::add_protocol("custom");
+    CustomProtocol::add_protocol_with_option(
+        "custom",
+        CustomProtocolOption::Standard
+            | CustomProtocolOption::Secure
+            | CustomProtocolOption::CorsEnabled
+            | CustomProtocolOption::FetchEnabled,
+    );
     CustomProtocol::register();
 }
 
@@ -100,14 +108,17 @@ pub fn register_custom_protocol(web_tag: String) -> Result<bool> {
     handler.on_request_start(|request, handle| {
         let url = request.url();
         hilog_info!("custom protocol request: {url}");
+        if url.starts_with("custom://demo/body/") {
+            body_stream_e2e::handle_body(request, handle);
+            return true;
+        }
         let response = ArkWebResponse::new();
         response.set_status(200);
         response.set_status_text("OK");
         response.set_mime_type("text/html");
         response.set_charset("UTF-8");
-        response.set_url(url);
         handle.receive_response(response);
-        handle.receive_data("<html><body><h1>Hello from custom protocol (rust)</h1></body></html>");
+        handle.receive_data(body_stream_e2e::PAGE);
         handle.finish();
         true
     });
@@ -117,3 +128,4 @@ pub fn register_custom_protocol(web_tag: String) -> Result<bool> {
     web.custom_protocol("custom", handler)
         .map_err(|e| Error::from_reason(e.to_string()))
 }
+mod body_stream_e2e;

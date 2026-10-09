@@ -30,15 +30,15 @@ impl ResourceRequest {
         }
     }
 
+    /// Obtain an owned body stream on the ArkWeb I/O thread. Reads initialize
+    /// automatically; use `initialize` first if metadata is needed before reading.
     pub fn http_body_stream(&self) -> Option<HttpBodyStream> {
         let mut raw = ptr::null_mut();
         unsafe {
             OH_ArkWebResourceRequest_GetHttpBodyStream(self.raw.as_ptr(), &mut raw);
-            if raw.is_null() {
-                None
-            } else {
-                Some(HttpBodyStream::new(raw))
-            }
+            // Construction only checks null; registration and initialization
+            // errors are reported by the operation's completion callback.
+            HttpBodyStream::new(raw).ok()
         }
     }
 
