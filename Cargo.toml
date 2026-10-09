@@ -15,7 +15,7 @@ ohos-ashmem-binding                 = { version = "0.1.0", path = "crates/ashmem
 ohos-bundle-binding                 = { version = "0.1.4", path = "crates/bundle" }
 ohos-init-binding                   = { version = "0.1.4", path = "crates/init" }
 ohos-hilog-binding                  = { version = "0.2.4", path = "crates/hilog" }
-ohos-asset-binding                  = { version = "0.1.4", path = "crates/asset" }
+ohos-asset-binding                  = { version = "0.1.5", path = "crates/asset" }
 ohos-resource-manager-binding       = { version = "0.3.4", path = "crates/resource_manager" }
 ohos-image-binding                  = { version = "0.1.4", path = "crates/image" }
 ohos-image-native-binding           = { version = "0.0.7", path = "crates/image_native" }
@@ -28,11 +28,11 @@ ohos-ime-binding                    = { version = "0.3.1", path = "crates/ime" }
 ohos-display-binding                = { version = "0.1.4", path = "crates/display" }
 ohos-window-manager-binding         = { version = "0.1.1", path = "crates/window_manager" }
 ohos-drawing-binding                = { version = "0.2.4", path = "crates/drawing" }
-ohos-native-window-binding          = { version = "0.3.1", path = "crates/native_window" }
+ohos-native-window-binding          = { version = "0.3.2", path = "crates/native_window" }
 ohos-native-buffer-binding          = { version = "0.2.6", path = "crates/native_buffer" }
 ohos-udmf-binding                   = { version = "0.0.7", path = "crates/udmf" }
 ohos-pasteboard-binding             = { version = "0.0.7", path = "crates/pasteboard" }
-ohos-web-binding                    = { version = "0.2.4", path = "crates/web" }
+ohos-web-binding                    = { version = "0.3.0", path = "crates/web" }
 ohos-sensor-binding                 = { version = "0.2.4", path = "crates/sensor" }
 ohos-vibrator-binding               = { version = "0.2.4", path = "crates/vibrator" }
 ohos-fileuri-binding                = { version = "0.2.4", path = "crates/fileuri" }
