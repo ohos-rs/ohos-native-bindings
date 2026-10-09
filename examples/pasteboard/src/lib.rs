@@ -37,7 +37,7 @@ pub fn set_pasteboard_data(content: String) -> Result<()> {
         .add(Uds::PlainText(plain))
         .map_err(|e| Error::from_reason(e.to_string()))?;
 
-    let data = UdmfData::new();
+    let mut data = UdmfData::new();
     data.add_record(&record)
         .map_err(|e| Error::from_reason(e.to_string()))?;
 

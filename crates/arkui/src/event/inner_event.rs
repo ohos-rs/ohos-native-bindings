@@ -77,9 +77,16 @@ impl Event {
     }
 
     /// Returns the key-event view when this node event carries key input.
-    #[cfg(feature = "api-20")]
-    pub fn key_event(&self) -> Option<super::KeyEvent> {
-        self.input_event().and_then(super::KeyEvent::from_input)
+    #[cfg(feature = "api-14")]
+    pub fn key_event(&self) -> Option<super::KeyEvent<'_>> {
+        if !matches!(
+            self.event_type(),
+            NodeEventType::OnKeyEvent | NodeEventType::OnKeyPreIme
+        ) {
+            return None;
+        }
+        self.input_event()
+            .map(|input| super::KeyEvent::from_input(input, self))
     }
 
     pub fn node_component_event(&self) -> Option<NonNull<c_void>> {
@@ -87,9 +94,10 @@ impl Event {
         NonNull::new(event.cast())
     }
 
-    pub fn drag_event(&self) -> Option<NonNull<c_void>> {
+    /// Borrows the native drag event for this node callback.
+    pub fn drag_event(&self) -> Option<crate::api::drag::DragEvent<'_>> {
         let event = unsafe { OH_ArkUI_NodeEvent_GetDragEvent(self.raw()) };
-        NonNull::new(event.cast())
+        unsafe { crate::api::drag::DragEvent::from_raw(event) }
     }
 
     #[cfg(feature = "api-22")]

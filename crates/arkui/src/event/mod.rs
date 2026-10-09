@@ -5,6 +5,6 @@ pub mod inner_event;
 mod key_event;
 
 #[cfg(feature = "api-14")]
-pub use key_event::{KeyCode, KeyEvent, KeyEventType, KeyIntention, KeySource};
+pub use key_event::{KeyCode, KeyEvent, KeyEventType, KeyIntention, KeyLockState, KeySource};
 
 pub(crate) use inner_event::*;

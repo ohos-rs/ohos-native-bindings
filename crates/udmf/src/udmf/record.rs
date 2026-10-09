@@ -16,16 +16,29 @@ pub struct UdmfRecord {
 
 impl UdmfRecord {
     pub fn new() -> Self {
-        let ret = unsafe { OH_UdmfRecord_Create() };
-        Self {
-            raw: NonNull::new(ret).expect("OH_UdmfRecord_Create failed"),
-        }
+        Self::try_new().expect("OH_UdmfRecord_Create failed")
+    }
+
+    pub fn try_new() -> Result<Self, UdmfError> {
+        NonNull::new(unsafe { OH_UdmfRecord_Create() })
+            .map(|raw| Self { raw })
+            .ok_or_else(|| UdmfError::UdmfInitError("OH_UdmfRecord_Create returned null".into()))
     }
 
     pub fn from_raw(raw: *mut OH_UdmfRecord) -> Self {
         Self {
             raw: NonNull::new(raw).expect("OH_UdmfRecord_Create from a raw ptr failed"),
         }
+    }
+
+    #[cfg(feature = "api-13")]
+    pub fn add_file_uri(&self, uri: &crate::UdsFileUri) -> Result<(), UdmfError> {
+        let status =
+            unsafe { ohos_udmf_sys::OH_UdmfRecord_AddFileUri(self.raw.as_ptr(), uri.raw.as_ptr()) };
+        if status != 0 {
+            return Err(UdmfError::InternalError(status));
+        }
+        Ok(())
     }
 
     pub fn add(&self, value: Uds) -> Result<(), UdmfError> {
@@ -65,5 +78,33 @@ impl Default for UdmfRecord {
 impl Drop for UdmfRecord {
     fn drop(&mut self) {
         unsafe { OH_UdmfRecord_Destroy(self.raw.as_ptr()) }
+    }
+}
+
+/// A container-owned record. Dropping this view never destroys the native record.
+pub struct UdmfRecordRef<'data> {
+    // Reading a borrowed record requires API 13, but API 12 can still enumerate it.
+    #[cfg_attr(not(feature = "api-13"), expect(dead_code))]
+    raw: NonNull<OH_UdmfRecord>,
+    _data: std::marker::PhantomData<&'data super::UdmfData>,
+}
+
+impl UdmfRecordRef<'_> {
+    pub(crate) unsafe fn from_raw(raw: *mut OH_UdmfRecord) -> Self {
+        Self {
+            raw: NonNull::new(raw).expect("non-null record"),
+            _data: std::marker::PhantomData,
+        }
+    }
+
+    #[cfg(feature = "api-13")]
+    pub fn file_uri(&self) -> Result<crate::UdsFileUri, UdmfError> {
+        let uri = crate::UdsFileUri::new()?;
+        let status =
+            unsafe { ohos_udmf_sys::OH_UdmfRecord_GetFileUri(self.raw.as_ptr(), uri.raw.as_ptr()) };
+        if status != 0 {
+            return Err(UdmfError::InternalError(status));
+        }
+        Ok(uri)
     }
 }
