@@ -2,10 +2,9 @@ use libc::pollfd;
 use ohos_native_window_sys::{
     NativeWindow as NativeWindowRaw, OHNativeWindowBuffer as OHNativeWindowBufferRaw,
     OH_NativeWindow_CreateNativeWindowFromSurfaceId, OH_NativeWindow_GetSurfaceId,
-    OH_NativeWindow_NativeObjectReference,
-    OH_NativeWindow_NativeObjectUnreference, OH_NativeWindow_NativeWindowAbortBuffer,
-    OH_NativeWindow_NativeWindowFlushBuffer, OH_NativeWindow_NativeWindowHandleOpt,
-    OH_NativeWindow_NativeWindowRequestBuffer, Region_Rect,
+    OH_NativeWindow_NativeObjectReference, OH_NativeWindow_NativeObjectUnreference,
+    OH_NativeWindow_NativeWindowAbortBuffer, OH_NativeWindow_NativeWindowFlushBuffer,
+    OH_NativeWindow_NativeWindowHandleOpt, OH_NativeWindow_NativeWindowRequestBuffer, Region_Rect,
 };
 use std::{
     mem::MaybeUninit,
