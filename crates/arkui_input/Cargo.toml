@@ -13,7 +13,7 @@ ohos-enum-derive     = { workspace = true }
 workspace = true
 
 [[example]]
-name = "pen_pointer"
+name              = "pen_pointer"
 required-features = ["api-24"]
 
 [features]
