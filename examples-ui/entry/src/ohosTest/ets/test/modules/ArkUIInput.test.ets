@@ -1,6 +1,5 @@
 import { describe, expect, it } from "@ohos/hypium";
 import { lastClonedEvent, lastEvent } from "libarkui_input_test.so";
-import { waitUntil } from "../helpers/Utils";
 
 export default function arkuiInputTest(): void {
   describe("arkui_input", () => {

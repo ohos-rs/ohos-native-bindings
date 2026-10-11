@@ -11,7 +11,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 - Add API 24 owned pointer event creation, cloning, all 33 cloned-event setters,
   and typed gesture-competition dispatch with a matching destructor.
-- Add API 21 keyboard and joystick input-source variants.
+- Add API 22 keyboard and joystick input-source variants.
 - Add host ownership/FFI regression tests and a native pen event smoke example.
 
 ### Fixed

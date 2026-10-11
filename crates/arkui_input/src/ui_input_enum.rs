@@ -42,9 +42,9 @@ pub enum UIInputSourceType {
     Unknown,
     Mouse,
     TouchScreen,
-    #[cfg(feature = "api-21")]
+    #[cfg(feature = "api-22")]
     Key,
-    #[cfg(feature = "api-21")]
+    #[cfg(feature = "api-22")]
     Joystick,
 }
 
