@@ -1191,6 +1191,289 @@ extern "C" {
     ) -> ArkUI_ErrorCode;
 }
 extern "C" {
+    #[doc = " @brief Sets an action type for a cloned event. This API applies to touch, mouse, and axis events. This API can be\n used only for the **ArkUI_UIInputEvent** objects created by {@link OH_ArkUI_PointerEvent_CreateClonedPointerEvent}\n and {@link OH_ArkUI_PointerEvent_CreatePointerEvent}.\n\n @param event Pointer to the target **ArkUI_UIInputEvent** object.\n @param type Type of the cloned event, including {@link UI_TOUCH_EVENT_ACTION} for the touch event,\n     {@link UI_MOUSE_EVENT_ACTION} for the mouse event, and {@link UI_AXIS_EVENT_ACTION} for the axis event.\n @return Result code.\n     <br>Returns {@link ARKUI_ERROR_CODE_NO_ERROR} if the operation is successful.\n     <br>Returns {@link ARKUI_ERROR_CODE_PARAM_INVALID} if a parameter error occurs.\n     <br>Returns {@link ARKUI_ERROR_CODE_NOT_CLONED_POINTER_EVENT} if the input event pointer is not a cloned event\n     pointer.\n @since 24"]
+    #[cfg(feature = "api-24")]
+    pub fn OH_ArkUI_ClonedEvent_SetActionType(
+        event: *const ArkUI_UIInputEvent,
+        type_: i32,
+    ) -> ArkUI_ErrorCode;
+}
+extern "C" {
+    #[doc = " @brief Sets a source type for a cloned event. This API applies to touch, mouse, and axis events. This API can be\n used only for the **ArkUI_UIInputEvent** objects created by {@link OH_ArkUI_PointerEvent_CreateClonedPointerEvent}\n and {@link OH_ArkUI_PointerEvent_CreatePointerEvent}.\n\n @param event Pointer to the target **ArkUI_UIInputEvent** object.\n @param sourceType Source type of the clone event. The value is an integer within the range of [0,5]. The value **0**\n     indicates unknown, **1** indicates the mouse, **2** indicates the touchscreen, **4** indicates the keyboard, and\n     **5** indicates the handle control.\n @return Result code.\n     <br>Returns {@link ARKUI_ERROR_CODE_NO_ERROR} if the operation is successful.\n     <br>Returns {@link ARKUI_ERROR_CODE_PARAM_INVALID} if a parameter error occurs.\n     <br>Returns {@link ARKUI_ERROR_CODE_NOT_CLONED_POINTER_EVENT} if the input event pointer is not a cloned event\n     pointer.\n @since 24"]
+    #[cfg(feature = "api-24")]
+    pub fn OH_ArkUI_ClonedEvent_SetSourceType(
+        event: *const ArkUI_UIInputEvent,
+        sourceType: i32,
+    ) -> ArkUI_ErrorCode;
+}
+extern "C" {
+    #[doc = " @brief Sets a tool type for a cloned event. This API applies to touch, mouse, and axis events. This API can be used\n only for the **ArkUI_UIInputEvent** objects created by {@link OH_ArkUI_PointerEvent_CreateClonedPointerEvent} and\n {@link OH_ArkUI_PointerEvent_CreatePointerEvent}.\n\n @param event Pointer to the target **ArkUI_UIInputEvent** object.\n @param toolType Tool type of the cloned event. The value is defined in the {@link UI_INPUT_EVENT_TOOL_TYPE}\n     enumeration.\n @return Result code.\n     <br>Returns {@link ARKUI_ERROR_CODE_NO_ERROR} if the operation is successful.\n     <br>Returns {@link ARKUI_ERROR_CODE_PARAM_INVALID} if a parameter error occurs.\n     <br>Returns {@link ARKUI_ERROR_CODE_NOT_CLONED_POINTER_EVENT} if the input event pointer is not a cloned event\n     pointer.\n @since 24"]
+    #[cfg(feature = "api-24")]
+    pub fn OH_ArkUI_ClonedEvent_SetToolType(
+        event: *const ArkUI_UIInputEvent,
+        toolType: i32,
+    ) -> ArkUI_ErrorCode;
+}
+extern "C" {
+    #[doc = " @brief Sets the pressure applied to a touchscreen for a cloned event. This API applies to touch events. This API can\n be used only for the **ArkUI_UIInputEvent** objects created by\n {@link OH_ArkUI_PointerEvent_CreateClonedPointerEvent} and {@link OH_ArkUI_PointerEvent_CreatePointerEvent}.\n\n @param event Pointer to the target **ArkUI_UIInputEvent** object.\n @param pressure Pressure applied to the touchscreen. The value range is [0,1]. For some devices, the value may be\n     greater than **1**.\n @return Result code.\n     <br>Returns {@link ARKUI_ERROR_CODE_NO_ERROR} if the operation is successful.\n     <br>Returns {@link ARKUI_ERROR_CODE_PARAM_INVALID} if a parameter error occurs.\n     <br>Returns {@link ARKUI_ERROR_CODE_NOT_CLONED_POINTER_EVENT} if the input event pointer is not a cloned event\n     pointer.\n     <br>Returns {@link ARKUI_ERROR_INPUT_EVENT_TYPE_NOT_SUPPORTED} if the event type is not supported.\n @since 24"]
+    #[cfg(feature = "api-24")]
+    pub fn OH_ArkUI_ClonedEvent_SetPressure(
+        event: *const ArkUI_UIInputEvent,
+        pressure: f32,
+    ) -> ArkUI_ErrorCode;
+}
+extern "C" {
+    #[doc = " @brief Sets the pressure applied to a touchscreen for a specific touch point in a cloned event. This API applies to\n touch events. This API can be used only for the **ArkUI_UIInputEvent** objects created by\n {@link OH_ArkUI_PointerEvent_CreateClonedPointerEvent} and {@link OH_ArkUI_PointerEvent_CreatePointerEvent}.\n\n @param event Pointer to the target **ArkUI_UIInputEvent** object.\n @param pressure Pressure applied to the touchscreen. The value range is [0,1]. For some devices, the value may be\n     greater than **1**.\n @param pointerIndex Index of the target touch point in the multi-touch data list.\n @return Result code.\n     <br>Returns {@link ARKUI_ERROR_CODE_NO_ERROR} if the operation is successful.\n     <br>Returns {@link ARKUI_ERROR_CODE_PARAM_INVALID} if a parameter error occurs.\n     <br>Returns {@link ARKUI_ERROR_CODE_NOT_CLONED_POINTER_EVENT} if the input event pointer is not a cloned event\n     pointer.\n     <br>Returns {@link ARKUI_ERROR_INPUT_EVENT_TYPE_NOT_SUPPORTED} if the event type is not supported.\n @since 24"]
+    #[cfg(feature = "api-24")]
+    pub fn OH_ArkUI_ClonedEvent_SetPressureByIndex(
+        event: *const ArkUI_UIInputEvent,
+        pressure: f32,
+        pointerIndex: i32,
+    ) -> ArkUI_ErrorCode;
+}
+extern "C" {
+    #[doc = " @brief Sets the time when a cloned UI input event occurs. This API applies to touch, mouse, and axis events. This\n API can be used only for the **ArkUI_UIInputEvent** objects created by\n {@link OH_ArkUI_PointerEvent_CreateClonedPointerEvent} and {@link OH_ArkUI_PointerEvent_CreatePointerEvent}.\n\n @param event Pointer to the target **ArkUI_UIInputEvent** object.\n @param timestamp Time when the cloned UI input event occurs, in ns.\n @return Result code.\n     <br>Returns {@link ARKUI_ERROR_CODE_NO_ERROR} if the operation is successful.\n     <br>Returns {@link ARKUI_ERROR_CODE_PARAM_INVALID} if a parameter error occurs.\n     <br>Returns {@link ARKUI_ERROR_CODE_NOT_CLONED_POINTER_EVENT} if the input event pointer is not a cloned event\n     pointer.\n @since 24"]
+    #[cfg(feature = "api-24")]
+    pub fn OH_ArkUI_ClonedEvent_SetEventTime(
+        event: *const ArkUI_UIInputEvent,
+        timestamp: i64,
+    ) -> ArkUI_ErrorCode;
+}
+extern "C" {
+    #[doc = " @brief Sets the ID of the device that triggers a cloned UI input event. This API applies to touch, mouse, and axis\n events. This API can be used only for the **ArkUI_UIInputEvent** objects created by\n {@link OH_ArkUI_PointerEvent_CreateClonedPointerEvent} and {@link OH_ArkUI_PointerEvent_CreatePointerEvent}.\n\n @param event Pointer to the target **ArkUI_UIInputEvent** object.\n @param deviceId ID of the device that triggers the cloned UI input event, which can be obtained by calling\n     {@link OH_ArkUI_UIInputEvent_GetDeviceId}.\n @return Result code.\n     <br>Returns {@link ARKUI_ERROR_CODE_NO_ERROR} if the operation is successful.\n     <br>Returns {@link ARKUI_ERROR_CODE_PARAM_INVALID} if a parameter error occurs.\n     <br>Returns {@link ARKUI_ERROR_CODE_NOT_CLONED_POINTER_EVENT} if the input event pointer is not a cloned event\n     pointer.\n @since 24"]
+    #[cfg(feature = "api-24")]
+    pub fn OH_ArkUI_ClonedEvent_SetDeviceId(
+        event: *const ArkUI_UIInputEvent,
+        deviceId: i32,
+    ) -> ArkUI_ErrorCode;
+}
+extern "C" {
+    #[doc = " @brief Sets the ID of the display where a cloned UI input event occurs. This API applies to touch, mouse, and axis\n events. This API can be used only for the **ArkUI_UIInputEvent** objects created by\n {@link OH_ArkUI_PointerEvent_CreateClonedPointerEvent} and {@link OH_ArkUI_PointerEvent_CreatePointerEvent}.\n\n @param event Pointer to the target **ArkUI_UIInputEvent** object.\n @param targetDisplayId ID of the display where the cloned UI input event occurs, which can be obtained by calling\n     {@link OH_ArkUI_UIInputEvent_GetTargetDisplayId}.\n @return Result code.\n     <br>Returns {@link ARKUI_ERROR_CODE_NO_ERROR} if the operation is successful.\n     <br>Returns {@link ARKUI_ERROR_CODE_PARAM_INVALID} if a parameter error occurs.\n     <br>Returns {@link ARKUI_ERROR_CODE_NOT_CLONED_POINTER_EVENT} if the input event pointer is not a cloned event\n     pointer.\n @since 24"]
+    #[cfg(feature = "api-24")]
+    pub fn OH_ArkUI_ClonedEvent_SetTargetDisplayId(
+        event: *const ArkUI_UIInputEvent,
+        targetDisplayId: i32,
+    ) -> ArkUI_ErrorCode;
+}
+extern "C" {
+    #[doc = " @brief Sets the touch point ID for a cloned pointer event. This API applies to touch events. This API can be used\n only for the **ArkUI_UIInputEvent** objects created by {@link OH_ArkUI_PointerEvent_CreateClonedPointerEvent} and\n {@link OH_ArkUI_PointerEvent_CreatePointerEvent}.\n\n @param event Pointer to the target **ArkUI_UIInputEvent** object.\n @param fingerId ID of the touch point that triggers the event, which can be obtained by calling\n     {@link OH_ArkUI_PointerEvent_GetPointerId}.\n @return Result code.\n     <br>Returns {@link ARKUI_ERROR_CODE_NO_ERROR} if the operation is successful.\n     <br>Returns {@link ARKUI_ERROR_CODE_PARAM_INVALID} if a parameter error occurs.\n     <br>Returns {@link ARKUI_ERROR_CODE_NOT_CLONED_POINTER_EVENT} if the input event pointer is not a cloned event\n     pointer.\n     <br>Returns {@link ARKUI_ERROR_INPUT_EVENT_TYPE_NOT_SUPPORTED} if the event type is not supported.\n @since 24"]
+    #[cfg(feature = "api-24")]
+    pub fn OH_ArkUI_ClonedEvent_SetChangedFingerId(
+        event: *const ArkUI_UIInputEvent,
+        fingerId: i32,
+    ) -> ArkUI_ErrorCode;
+}
+extern "C" {
+    #[doc = " @brief Sets the touch point ID of a specific contact point in a cloned event. This API applies to touch events. This\n API can be used only for the **ArkUI_UIInputEvent** objects created by\n {@link OH_ArkUI_PointerEvent_CreateClonedPointerEvent} and {@link OH_ArkUI_PointerEvent_CreatePointerEvent}.\n\n @param event Pointer to the target **ArkUI_UIInputEvent** object.\n @param fingerId Touch point ID of the specific contact point, which can be obtained by calling\n     {@link OH_ArkUI_PointerEvent_GetChangedPointerId}.\n @param pointerIndex Index of the target touch point in the multi-touch data list.\n @return Result code.\n     <br>Returns {@link ARKUI_ERROR_CODE_NO_ERROR} if the operation is successful.\n     <br>Returns {@link ARKUI_ERROR_CODE_PARAM_INVALID} if a parameter error occurs.\n     <br>Returns {@link ARKUI_ERROR_CODE_NOT_CLONED_POINTER_EVENT} if the input event pointer is not a cloned event\n     pointer.\n     <br>Returns {@link ARKUI_ERROR_INPUT_EVENT_TYPE_NOT_SUPPORTED} if the event type is not supported.\n @since 24"]
+    #[cfg(feature = "api-24")]
+    pub fn OH_ArkUI_ClonedEvent_SetFingerIdByIndex(
+        event: *const ArkUI_UIInputEvent,
+        fingerId: i32,
+        pointerIndex: i32,
+    ) -> ArkUI_ErrorCode;
+}
+extern "C" {
+    #[doc = " @brief Sets the X-coordinate and Y-coordinate of a cloned event relative to the upper left corner of the current\n window. This API applies to touch, mouse, and axis events. This API can be used only for the **ArkUI_UIInputEvent**\n objects created by {@link OH_ArkUI_PointerEvent_CreateClonedPointerEvent} and\n {@link OH_ArkUI_PointerEvent_CreatePointerEvent}.\n\n @param event Pointer to the target **ArkUI_UIInputEvent** object.\n @param x X-coordinate of the event relative to the upper left corner of the current window, in px.\n @param y Y-coordinate of the event relative to the upper left corner of the current window, in px.\n @return Result code.\n     <br>Returns {@link ARKUI_ERROR_CODE_NO_ERROR} if the operation is successful.\n     <br>Returns {@link ARKUI_ERROR_CODE_PARAM_INVALID} if a parameter error occurs.\n     <br>Returns {@link ARKUI_ERROR_CODE_NOT_CLONED_POINTER_EVENT} if the input event pointer is not a cloned event\n     pointer.\n @since 24"]
+    #[cfg(feature = "api-24")]
+    pub fn OH_ArkUI_ClonedEvent_SetChangedWindowPosition(
+        event: *const ArkUI_UIInputEvent,
+        x: f32,
+        y: f32,
+    ) -> ArkUI_ErrorCode;
+}
+extern "C" {
+    #[doc = " @brief Sets the X-coordinate and Y-coordinate of a specific contact point of a cloned event relative to the upper\n left corner of the current window. This API applies to touch events. This API can be used only for the **\n ArkUI_UIInputEvent** objects created by {@link OH_ArkUI_PointerEvent_CreateClonedPointerEvent} and\n {@link OH_ArkUI_PointerEvent_CreatePointerEvent}.\n\n @param event Pointer to the target **ArkUI_UIInputEvent** object.\n @param x X-coordinate of the event relative to the upper left corner of the current window, in px.\n @param y Y-coordinate of the event relative to the upper left corner of the current window, in px.\n @param pointerIndex Index of the target touch point in the multi-touch data list.\n @return Result code.\n     <br>Returns {@link ARKUI_ERROR_CODE_NO_ERROR} if the operation is successful.\n     <br>Returns {@link ARKUI_ERROR_CODE_PARAM_INVALID} if a parameter error occurs.\n     <br>Returns {@link ARKUI_ERROR_CODE_NOT_CLONED_POINTER_EVENT} if the input event pointer is not a cloned event\n     pointer.\n     <br>Returns {@link ARKUI_ERROR_INPUT_EVENT_TYPE_NOT_SUPPORTED} if the event type is not supported.\n @since 24"]
+    #[cfg(feature = "api-24")]
+    pub fn OH_ArkUI_ClonedEvent_SetWindowPositionByIndex(
+        event: *const ArkUI_UIInputEvent,
+        x: f32,
+        y: f32,
+        pointerIndex: i32,
+    ) -> ArkUI_ErrorCode;
+}
+extern "C" {
+    #[doc = " @brief Sets the X-coordinate and Y-coordinate of a cloned event relative to the upper left corner of the current\n screen. This API applies to touch, mouse, and axis events. This API can be used only for the **ArkUI_UIInputEvent**\n objects created by {@link OH_ArkUI_PointerEvent_CreateClonedPointerEvent} and\n {@link OH_ArkUI_PointerEvent_CreatePointerEvent}.\n\n @param event Pointer to the target **ArkUI_UIInputEvent** object.\n @param x X-coordinate of the event relative to the upper left corner of the current screen, in px.\n @param y Y-coordinate of the event relative to the upper left corner of the current screen, in px.\n @return Result code.\n     <br>Returns {@link ARKUI_ERROR_CODE_NO_ERROR} if the operation is successful.\n     <br>Returns {@link ARKUI_ERROR_CODE_PARAM_INVALID} if a parameter error occurs.\n     <br>Returns {@link ARKUI_ERROR_CODE_NOT_CLONED_POINTER_EVENT} if the input event pointer is not a cloned event\n     pointer.\n @since 24"]
+    #[cfg(feature = "api-24")]
+    pub fn OH_ArkUI_ClonedEvent_SetChangedScreenPosition(
+        event: *const ArkUI_UIInputEvent,
+        x: f32,
+        y: f32,
+    ) -> ArkUI_ErrorCode;
+}
+extern "C" {
+    #[doc = " @brief Sets the X-coordinate and Y-coordinate of a specific contact point of a cloned event relative to the upper\n left corner of the current screen. This API applies to touch events. This API can be used only for the **\n ArkUI_UIInputEvent** objects created by {@link OH_ArkUI_PointerEvent_CreateClonedPointerEvent} and\n {@link OH_ArkUI_PointerEvent_CreatePointerEvent}.\n\n @param event Pointer to the target **ArkUI_UIInputEvent** object.\n @param x X-coordinate of the event relative to the upper left corner of the current screen, in px.\n @param y Y-coordinate of the event relative to the upper left corner of the current screen, in px.\n @param pointerIndex Index of the target touch point in the multi-touch data list.\n @return Result code.\n     <br>Returns {@link ARKUI_ERROR_CODE_NO_ERROR} if the operation is successful.\n     <br>Returns {@link ARKUI_ERROR_CODE_PARAM_INVALID} if a parameter error occurs.\n     <br>Returns {@link ARKUI_ERROR_CODE_NOT_CLONED_POINTER_EVENT} if the input event pointer is not a cloned event\n     pointer.\n     <br>Returns {@link ARKUI_ERROR_INPUT_EVENT_TYPE_NOT_SUPPORTED} if the event type is not supported.\n @since 24"]
+    #[cfg(feature = "api-24")]
+    pub fn OH_ArkUI_ClonedEvent_SetScreenPositionByIndex(
+        event: *const ArkUI_UIInputEvent,
+        x: f32,
+        y: f32,
+        pointerIndex: i32,
+    ) -> ArkUI_ErrorCode;
+}
+extern "C" {
+    #[doc = " @brief Sets the coordinates of a cloned event in the {@link global coordinate system}. This API applies to touch\n events. This API can be used only for the **ArkUI_UIInputEvent** objects created by\n {@link OH_ArkUI_PointerEvent_CreateClonedPointerEvent} and {@link OH_ArkUI_PointerEvent_CreatePointerEvent}.\n\n @param event Pointer to the target **ArkUI_UIInputEvent** object.\n @param x X-coordinate of the event relative to the global display, in px.\n @param y Y-coordinate of the event relative to the global display, in px.\n @return Result code.\n     <br>Returns {@link ARKUI_ERROR_CODE_NO_ERROR} if the operation is successful.\n     <br>Returns {@link ARKUI_ERROR_CODE_PARAM_INVALID} if a parameter error occurs.\n     <br>Returns {@link ARKUI_ERROR_CODE_NOT_CLONED_POINTER_EVENT} if the input event pointer is not a cloned event\n     pointer.\n @since 24"]
+    #[cfg(feature = "api-24")]
+    pub fn OH_ArkUI_ClonedEvent_SetChangedGlobalDisplayPosition(
+        event: *const ArkUI_UIInputEvent,
+        x: f32,
+        y: f32,
+    ) -> ArkUI_ErrorCode;
+}
+extern "C" {
+    #[doc = " @brief Sets the coordinates of a cloned event in the {@link global coordinate system}. This API applies to touch\n events. This API can be used only for the **ArkUI_UIInputEvent** objects created by\n {@link OH_ArkUI_PointerEvent_CreateClonedPointerEvent} and {@link OH_ArkUI_PointerEvent_CreatePointerEvent}.\n\n @param event Pointer to the target **ArkUI_UIInputEvent** object.\n @param x X-coordinate of the event relative to the global display, in px.\n @param y Y-coordinate of the event relative to the global display, in px.\n @param pointerIndex Index of the target touch point in the multi-touch data list.\n @return Result code.\n     <br>Returns {@link ARKUI_ERROR_CODE_NO_ERROR} if the operation is successful.\n     <br>Returns {@link ARKUI_ERROR_CODE_PARAM_INVALID} if a parameter error occurs.\n     <br>Returns {@link ARKUI_ERROR_CODE_NOT_CLONED_POINTER_EVENT} if the input event pointer is not a cloned event\n     pointer.\n     <br>Returns {@link ARKUI_ERROR_INPUT_EVENT_TYPE_NOT_SUPPORTED} if the event type is not supported.\n @since 24"]
+    #[cfg(feature = "api-24")]
+    pub fn OH_ArkUI_ClonedEvent_SetGlobalDisplayPositionByIndex(
+        event: *const ArkUI_UIInputEvent,
+        x: f32,
+        y: f32,
+        pointerIndex: i32,
+    ) -> ArkUI_ErrorCode;
+}
+extern "C" {
+    #[doc = " @brief Sets the unique handle of an event processing session. This handle must be used for any further operations on\n the event. For a given finger, only one event with this handle is in the active state at a time. This API applies to\n touch, mouse, and axis events. This API can be used only for the **ArkUI_UIInputEvent** objects created by\n {@link OH_ArkUI_PointerEvent_CreateClonedPointerEvent} and {@link OH_ArkUI_PointerEvent_CreatePointerEvent}.\n\n @param event Pointer to the target **ArkUI_UIInputEvent** object.\n @param eventHandleId Unique handle of an event processing session.\n @return Result code.\n     <br>Returns {@link ARKUI_ERROR_CODE_NO_ERROR} if the operation is successful.\n     <br>Returns {@link ARKUI_ERROR_CODE_PARAM_INVALID} if a parameter error occurs.\n     <br>Returns {@link ARKUI_ERROR_CODE_NOT_CLONED_POINTER_EVENT} if the input event pointer is not a cloned event\n     pointer.\n @since 24"]
+    #[cfg(feature = "api-24")]
+    pub fn OH_ArkUI_ClonedEvent_SetHandleId(
+        event: *const ArkUI_UIInputEvent,
+        eventHandleId: i32,
+    ) -> ArkUI_ErrorCode;
+}
+extern "C" {
+    #[doc = " @brief Sets the tilt angle of a cloned event relative to the XZ and YZ planes. The value range is [-90, 90]. A\n positive value indicates a tilt to the right. This API applies to touch events. This API can be used only for the **\n ArkUI_UIInputEvent** objects created by {@link OH_ArkUI_PointerEvent_CreateClonedPointerEvent} and\n {@link OH_ArkUI_PointerEvent_CreatePointerEvent}.\n\n @param event Pointer to the target **ArkUI_UIInputEvent** object.\n @param tiltX Tilt angle of the cloned event relative to the YZ plane, in deg.\n @param tiltY Tilt angle of the cloned event relative to the XZ plane, in deg.\n @return Result code.\n     <br>Returns {@link ARKUI_ERROR_CODE_NO_ERROR} if the operation is successful.\n     <br>Returns {@link ARKUI_ERROR_CODE_PARAM_INVALID} if a parameter error occurs.\n     <br>Returns {@link ARKUI_ERROR_CODE_NOT_CLONED_POINTER_EVENT} if the input event pointer is not a cloned event\n     pointer.\n     <br>Returns {@link ARKUI_ERROR_INPUT_EVENT_TYPE_NOT_SUPPORTED} if the event type is not supported.\n @since 24"]
+    #[cfg(feature = "api-24")]
+    pub fn OH_ArkUI_ClonedEvent_SetTiltAngle(
+        event: *const ArkUI_UIInputEvent,
+        tiltX: f32,
+        tiltY: f32,
+    ) -> ArkUI_ErrorCode;
+}
+extern "C" {
+    #[doc = " @brief Sets the rotation angle of the stylus around the Z-axis in a cloned event. This API applies to touch events.\n This API can be used only for the **ArkUI_UIInputEvent** objects created by\n {@link OH_ArkUI_PointerEvent_CreateClonedPointerEvent} and {@link OH_ArkUI_PointerEvent_CreatePointerEvent}.\n\n @param event Pointer to the target **ArkUI_UIInputEvent** object.\n @param rollAngle Rotation angle of the stylus around the Z-axis in the cloned event, in deg.\n @return Result code.\n     <br>Returns {@link ARKUI_ERROR_CODE_NO_ERROR} if the operation is successful.\n     <br>Returns {@link ARKUI_ERROR_CODE_PARAM_INVALID} if a parameter error occurs.\n     <br>Returns {@link ARKUI_ERROR_CODE_NOT_CLONED_POINTER_EVENT} if the input event pointer is not a cloned event\n     pointer.\n     <br>Returns {@link ARKUI_ERROR_INPUT_EVENT_TYPE_NOT_SUPPORTED} if the event type is not supported.\n @since 24"]
+    #[cfg(feature = "api-24")]
+    pub fn OH_ArkUI_ClonedEvent_SetRollAngle(
+        event: *const ArkUI_UIInputEvent,
+        rollAngle: f32,
+    ) -> ArkUI_ErrorCode;
+}
+extern "C" {
+    #[doc = " @brief Sets all pressed keys in a cloned event. This API applies to touch, mouse, and axis events. This API can be\n used only for the **ArkUI_UIInputEvent** objects created by {@link OH_ArkUI_PointerEvent_CreateClonedPointerEvent}\n and {@link OH_ArkUI_PointerEvent_CreatePointerEvent}.\n\n @param event Pointer to the target **ArkUI_UIInputEvent** object.\n @param pressedKeyCodes Array of all pressed key values. The value is {@link ArkUI_KeyCode}.\n @param length Length of the array of the pressed keys.\n @return Result code.\n     <br>Returns {@link ARKUI_ERROR_CODE_NO_ERROR} if the operation is successful.\n     <br>Returns {@link ARKUI_ERROR_CODE_PARAM_INVALID} if a parameter error occurs.\n     <br>Returns {@link ARKUI_ERROR_CODE_NOT_CLONED_POINTER_EVENT} if the input event pointer is not a cloned event\n     pointer.\n @since 24"]
+    #[cfg(feature = "api-24")]
+    pub fn OH_ArkUI_ClonedEvent_SetPressedKeys(
+        event: *const ArkUI_UIInputEvent,
+        pressedKeyCodes: *mut i32,
+        length: i32,
+    ) -> ArkUI_ErrorCode;
+}
+extern "C" {
+    #[doc = " @brief Sets the width and height of the finger contact area for a cloned event. This API applies to touch events.\n This API can be used only for the **ArkUI_UIInputEvent** objects created by\n {@link OH_ArkUI_PointerEvent_CreateClonedPointerEvent} and {@link OH_ArkUI_PointerEvent_CreatePointerEvent}.\n\n @param event Pointer to the target **ArkUI_UIInputEvent** object.\n @param width Width of the touch area of the cloned event, in px.\n @param height Height of the touch area of the cloned event, in px.\n @return Result code.\n     <br>Returns {@link ARKUI_ERROR_CODE_NO_ERROR} if the operation is successful.\n     <br>Returns {@link ARKUI_ERROR_CODE_PARAM_INVALID} if a parameter error occurs.\n     <br>Returns {@link ARKUI_ERROR_CODE_NOT_CLONED_POINTER_EVENT} if the input event pointer is not a cloned event\n     pointer.\n     <br>Returns {@link ARKUI_ERROR_INPUT_EVENT_TYPE_NOT_SUPPORTED} if the event type is not supported.\n @since 24"]
+    #[cfg(feature = "api-24")]
+    pub fn OH_ArkUI_ClonedEvent_SetChangedTouchArea(
+        event: *const ArkUI_UIInputEvent,
+        width: f32,
+        height: f32,
+    ) -> ArkUI_ErrorCode;
+}
+extern "C" {
+    #[doc = " @brief Sets the width and height of the finger contact area for a specific contact point of a cloned event. This API\n applies to touch events. This API can be used only for the **ArkUI_UIInputEvent** objects created by\n {@link OH_ArkUI_PointerEvent_CreateClonedPointerEvent} and {@link OH_ArkUI_PointerEvent_CreatePointerEvent}.\n\n @param event Pointer to the target **ArkUI_UIInputEvent** object.\n @param width Width of the touch area of the cloned event, in px.\n @param height Height of the touch area of the cloned event, in px.\n @param pointerIndex Index of the target touch point in the multi-touch data list.\n @return Result code.\n     <br>Returns {@link ARKUI_ERROR_CODE_NO_ERROR} if the operation is successful.\n     <br>Returns {@link ARKUI_ERROR_CODE_PARAM_INVALID} if a parameter error occurs.\n     <br>Returns {@link ARKUI_ERROR_CODE_NOT_CLONED_POINTER_EVENT} if the input event pointer is not a cloned event\n     pointer.\n     <br>Returns {@link ARKUI_ERROR_INPUT_EVENT_TYPE_NOT_SUPPORTED} if the event type is not supported.\n @since 24"]
+    #[cfg(feature = "api-24")]
+    pub fn OH_ArkUI_ClonedEvent_SetTouchAreaByIndex(
+        event: *const ArkUI_UIInputEvent,
+        width: f32,
+        height: f32,
+        pointerIndex: i32,
+    ) -> ArkUI_ErrorCode;
+}
+extern "C" {
+    #[doc = " @brief Sets whether a cloned event is triggered by the left or right hand. This API applies to touch events. This\n API can be used only for the **ArkUI_UIInputEvent** objects created by\n {@link OH_ArkUI_PointerEvent_CreateClonedPointerEvent} and {@link OH_ArkUI_PointerEvent_CreatePointerEvent}.\n\n @param event Pointer to the target **ArkUI_UIInputEvent** object.\n @param hand Whether the touch point is on the left or right hand. {@link ARKUI_EVENT_HAND_LEFT} indicates the left\n     hand, and {@link ARKUI_EVENT_HAND_RIGHT} indicates the right hand.\n @return Result code.\n     <br>Returns {@link ARKUI_ERROR_CODE_NO_ERROR} if the operation is successful.\n     <br>Returns {@link ARKUI_ERROR_CODE_PARAM_INVALID} if a parameter error occurs.\n     <br>Returns {@link ARKUI_ERROR_CODE_NOT_CLONED_POINTER_EVENT} if the input event pointer is not a cloned event\n     pointer.\n     <br>Returns {@link ARKUI_ERROR_INPUT_EVENT_TYPE_NOT_SUPPORTED} if the event type is not supported.\n @since 24"]
+    #[cfg(feature = "api-24")]
+    pub fn OH_ArkUI_ClonedEvent_SetChangedInteractionHand(
+        event: *const ArkUI_UIInputEvent,
+        hand: i32,
+    ) -> ArkUI_ErrorCode;
+}
+extern "C" {
+    #[doc = " @brief Sets whether a specific contact point of a cloned event is triggered by the left or right hand. This API\n applies to touch events. This API can be used only for the **ArkUI_UIInputEvent** objects created by\n {@link OH_ArkUI_PointerEvent_CreateClonedPointerEvent} and {@link OH_ArkUI_PointerEvent_CreatePointerEvent}.\n\n @param event Pointer to the target **ArkUI_UIInputEvent** object.\n @param hand Whether the touch point is on the left or right hand. {@link ARKUI_EVENT_HAND_LEFT} indicates the left\n     hand, and {@link ARKUI_EVENT_HAND_RIGHT} indicates the right hand.\n @param pointerIndex Index of the target touch point in the multi-touch data list.\n @return Result code.\n     <br>Returns {@link ARKUI_ERROR_CODE_NO_ERROR} if the operation is successful.\n     <br>Returns {@link ARKUI_ERROR_CODE_PARAM_INVALID} if a parameter error occurs.\n     <br>Returns {@link ARKUI_ERROR_CODE_NOT_CLONED_POINTER_EVENT} if the input event pointer is not a cloned event\n     pointer.\n     <br>Returns {@link ARKUI_ERROR_INPUT_EVENT_TYPE_NOT_SUPPORTED} if the event type is not supported.\n @since 24"]
+    #[cfg(feature = "api-24")]
+    pub fn OH_ArkUI_ClonedEvent_SetInteractionHandByIndex(
+        event: *const ArkUI_UIInputEvent,
+        hand: i32,
+        pointerIndex: i32,
+    ) -> ArkUI_ErrorCode;
+}
+extern "C" {
+    #[doc = " @brief Sets the time when a specific touch point is pressed in a cloned event. This API applies to touch events.\n This API can be used only for the **ArkUI_UIInputEvent** objects created by\n {@link OH_ArkUI_PointerEvent_CreateClonedPointerEvent} and {@link OH_ArkUI_PointerEvent_CreatePointerEvent}.\n\n @param event Pointer to the target **ArkUI_UIInputEvent** object.\n @param pressedTime Time when the specific touch point, in ns.\n @param pointerIndex Index of the target touch point in the multi-touch data list.\n @return Result code.\n     <br>Returns {@link ARKUI_ERROR_CODE_NO_ERROR} if the operation is successful.\n     <br>Returns {@link ARKUI_ERROR_CODE_PARAM_INVALID} if a parameter error occurs.\n     <br>Returns {@link ARKUI_ERROR_CODE_NOT_CLONED_POINTER_EVENT} if the input event pointer is not a cloned event\n     pointer.\n     <br>Returns {@link ARKUI_ERROR_INPUT_EVENT_TYPE_NOT_SUPPORTED} if the event type is not supported.\n @since 24"]
+    #[cfg(feature = "api-24")]
+    pub fn OH_ArkUI_ClonedEvent_SetPressedTimeByIndex(
+        event: *const ArkUI_UIInputEvent,
+        pressedTime: i64,
+        pointerIndex: i32,
+    ) -> ArkUI_ErrorCode;
+}
+extern "C" {
+    #[doc = " Sets the pinch axis scaling value for a cloned event. This API applies to axis events. This API can be used only for\n the **ArkUI_UIInputEvent** objects created by {@link OH_ArkUI_PointerEvent_CreateClonedPointerEvent} and\n {@link OH_ArkUI_PointerEvent_CreatePointerEvent}.\n @param event Pointer to the target **ArkUI_UIInputEvent** object.\n @param pinchAxisScaleValue Scaling value of the pinch axis, in vp. The value range is [0, +∞).\n @return Result code.\n     <br>Returns {@link ARKUI_ERROR_CODE_NO_ERROR} if the operation is successful.\n     <br>Returns {@link ARKUI_ERROR_CODE_PARAM_INVALID} if a parameter error occurs.\n     <br>Returns {@link ARKUI_ERROR_CODE_NOT_CLONED_POINTER_EVENT} if the input event pointer is not a cloned event\n     pointer.\n     <br>Returns {@link ARKUI_ERROR_INPUT_EVENT_TYPE_NOT_SUPPORTED} if the event type is not supported.\n @since 24"]
+    #[cfg(feature = "api-24")]
+    pub fn OH_ArkUI_ClonedEvent_SetPinchAxisScaleValue(
+        event: *const ArkUI_UIInputEvent,
+        pinchAxisScaleValue: f64,
+    ) -> ArkUI_ErrorCode;
+}
+extern "C" {
+    #[doc = " Sets the horizontal axis scaling value for a cloned event. This API applies to axis events. This API can be used\n only for the **ArkUI_UIInputEvent** objects created by {@link OH_ArkUI_PointerEvent_CreateClonedPointerEvent} and\n {@link OH_ArkUI_PointerEvent_CreatePointerEvent}.\n @param event Pointer to the target **ArkUI_UIInputEvent** object.\n @param horizontalAxisScaleValue Horizontal axis scaling value, in vp.\n @return Result code.\n     <br>Returns {@link ARKUI_ERROR_CODE_NO_ERROR} if the operation is successful.\n     <br>Returns {@link ARKUI_ERROR_CODE_PARAM_INVALID} if a parameter error occurs.\n     <br>Returns {@link ARKUI_ERROR_CODE_NOT_CLONED_POINTER_EVENT} if the input event pointer is not a cloned event\n     pointer.\n     <br>Returns {@link ARKUI_ERROR_INPUT_EVENT_TYPE_NOT_SUPPORTED} if the event type is not supported.\n @since 24"]
+    #[cfg(feature = "api-24")]
+    pub fn OH_ArkUI_ClonedEvent_SetHorizontalAxisScaleValue(
+        event: *const ArkUI_UIInputEvent,
+        horizontalAxisScaleValue: f64,
+    ) -> ArkUI_ErrorCode;
+}
+extern "C" {
+    #[doc = " Sets the vertical axis scaling value for a cloned event. This API applies to axis events. This API can be used only\n for the **ArkUI_UIInputEvent** objects created by {@link OH_ArkUI_PointerEvent_CreateClonedPointerEvent} and\n {@link OH_ArkUI_PointerEvent_CreatePointerEvent}.\n @param event Pointer to the target **ArkUI_UIInputEvent** object.\n @param verticalAxisScaleValue Vertical axis scaling value, in vp.\n @return Result code.\n     <br>Returns {@link ARKUI_ERROR_CODE_NO_ERROR} if the operation is successful.\n     <br>Returns {@link ARKUI_ERROR_CODE_PARAM_INVALID} if a parameter error occurs.\n     <br>Returns {@link ARKUI_ERROR_CODE_NOT_CLONED_POINTER_EVENT} if the input event pointer is not a cloned event\n     pointer.\n     <br>Returns {@link ARKUI_ERROR_INPUT_EVENT_TYPE_NOT_SUPPORTED} if the event type is not supported.\n @since 24"]
+    #[cfg(feature = "api-24")]
+    pub fn OH_ArkUI_ClonedEvent_SetVerticalAxisScaleValue(
+        event: *const ArkUI_UIInputEvent,
+        verticalAxisScaleValue: f64,
+    ) -> ArkUI_ErrorCode;
+}
+extern "C" {
+    #[doc = " @brief Sets the scrolling step coefficient for a cloned event. This API applies to axis events. This API can be used\n only for the **ArkUI_UIInputEvent** objects created by {@link OH_ArkUI_PointerEvent_CreateClonedPointerEvent} and\n {@link OH_ArkUI_PointerEvent_CreatePointerEvent}.\n\n @param event Pointer to the target **ArkUI_UIInputEvent** object.\n @param scrollStep Scrolling step coefficient of the cloned event. The value is an integer within the range of [0,\n     65535].\n @return Result code.\n     <br>Returns {@link ARKUI_ERROR_CODE_NO_ERROR} if the operation is successful.\n     <br>Returns {@link ARKUI_ERROR_CODE_PARAM_INVALID} if a parameter error occurs.\n     <br>Returns {@link ARKUI_ERROR_CODE_NOT_CLONED_POINTER_EVENT} if the input event pointer is not a cloned event\n     pointer.\n     <br>Returns {@link ARKUI_ERROR_INPUT_EVENT_TYPE_NOT_SUPPORTED} if the event type is not supported.\n @since 24"]
+    #[cfg(feature = "api-24")]
+    pub fn OH_ArkUI_ClonedEvent_SetScrollStep(
+        event: *const ArkUI_UIInputEvent,
+        scrollStep: i32,
+    ) -> ArkUI_ErrorCode;
+}
+extern "C" {
+    #[doc = " @brief Sets a button type for a cloned event. This API applies to mouse events. This API can be used only for the **\n ArkUI_UIInputEvent** objects created by {@link OH_ArkUI_PointerEvent_CreateClonedPointerEvent} and\n {@link OH_ArkUI_PointerEvent_CreatePointerEvent}.\n\n @param event Pointer to the target **ArkUI_UIInputEvent** object.\n @param button Mouse button type of the clone event. The value is defined by the {@link anonymous5} enumeration.\n @return Result code.\n     <br>Returns {@link ARKUI_ERROR_CODE_NO_ERROR} if the operation is successful.\n     <br>Returns {@link ARKUI_ERROR_CODE_PARAM_INVALID} if a parameter error occurs.\n     <br>Returns {@link ARKUI_ERROR_CODE_NOT_CLONED_POINTER_EVENT} if the input event pointer is not a cloned event\n     pointer.\n     <br>Returns {@link ARKUI_ERROR_INPUT_EVENT_TYPE_NOT_SUPPORTED} if the event type is not supported.\n @since 24"]
+    #[cfg(feature = "api-24")]
+    pub fn OH_ArkUI_ClonedEvent_SetMouseButton(
+        event: *const ArkUI_UIInputEvent,
+        button: i32,
+    ) -> ArkUI_ErrorCode;
+}
+extern "C" {
+    #[doc = " @brief Sets the movement delta of the mouse along the x-axis in a two-dimensional plane. The value is the original\n movement data of the mouse hardware, which is expressed in the unit of the mouse movement distance in the physical\n world. This API applies to mouse events. This API can be used only for the **ArkUI_UIInputEvent** objects created by\n {@link OH_ArkUI_PointerEvent_CreateClonedPointerEvent} and {@link OH_ArkUI_PointerEvent_CreatePointerEvent}.\n\n @param event Pointer to the target **ArkUI_UIInputEvent** object.\n @param rawDeltaX X-axis offset of the mouse position relative to the position in the previously reported mouse event.\n @return Result code.\n     <br>Returns {@link ARKUI_ERROR_CODE_NO_ERROR} if the operation is successful.\n     <br>Returns {@link ARKUI_ERROR_CODE_PARAM_INVALID} if a parameter error occurs.\n     <br>Returns {@link ARKUI_ERROR_CODE_NOT_CLONED_POINTER_EVENT} if the input event pointer is not a cloned event\n     pointer.\n     <br>Returns {@link ARKUI_ERROR_INPUT_EVENT_TYPE_NOT_SUPPORTED} if the event type is not supported.\n @since 24"]
+    #[cfg(feature = "api-24")]
+    pub fn OH_ArkUI_ClonedEvent_SetRawDeltaX(
+        event: *const ArkUI_UIInputEvent,
+        rawDeltaX: f32,
+    ) -> ArkUI_ErrorCode;
+}
+extern "C" {
+    #[doc = " @brief Sets the movement delta of the mouse along the y-axis in a two-dimensional plane. The value is the original\n movement data of the mouse hardware, which is expressed in the unit of the mouse movement distance in the physical\n world. This API applies to mouse events. This API can be used only for the **ArkUI_UIInputEvent** objects created by\n {@link OH_ArkUI_PointerEvent_CreateClonedPointerEvent} and {@link OH_ArkUI_PointerEvent_CreatePointerEvent}.\n\n @param event Pointer to the target **ArkUI_UIInputEvent** object.\n @param rawDeltaY Y-axis offset of the mouse position relative to the position in the previously reported mouse event.\n @return Result code.\n     <br>Returns {@link ARKUI_ERROR_CODE_NO_ERROR} if the operation is successful.\n     <br>Returns {@link ARKUI_ERROR_CODE_PARAM_INVALID} if a parameter error occurs.\n     <br>Returns {@link ARKUI_ERROR_CODE_NOT_CLONED_POINTER_EVENT} if the input event pointer is not a cloned event\n     pointer.\n     <br>Returns {@link ARKUI_ERROR_INPUT_EVENT_TYPE_NOT_SUPPORTED} if the event type is not supported.\n @since 24"]
+    #[cfg(feature = "api-24")]
+    pub fn OH_ArkUI_ClonedEvent_SetRawDeltaY(
+        event: *const ArkUI_UIInputEvent,
+        rawDeltaY: f32,
+    ) -> ArkUI_ErrorCode;
+}
+extern "C" {
+    #[doc = " @brief Sets the pressed keys in a cloned event. This API applies to mouse events. This API can be used only for the *\n *ArkUI_UIInputEvent** objects created by {@link OH_ArkUI_PointerEvent_CreateClonedPointerEvent} and\n {@link OH_ArkUI_PointerEvent_CreatePointerEvent}.\n\n @param event Pointer to the target **ArkUI_UIInputEvent** object.\n @param pressedButtons Pointer to the array of the pressed keys. For the values of the keys, see {@link anonymous5}.\n @param length Length of the array of the pressed keys.\n @return Result code.\n     <br>Returns {@link ARKUI_ERROR_CODE_NO_ERROR} if the operation is successful.\n     <br>Returns {@link ARKUI_ERROR_CODE_PARAM_INVALID} if a parameter error occurs.\n     <br>Returns {@link ARKUI_ERROR_CODE_NOT_CLONED_POINTER_EVENT} if the input event pointer is not a cloned event\n     pointer.\n     <br>Returns {@link ARKUI_ERROR_INPUT_EVENT_TYPE_NOT_SUPPORTED} if the event type is not supported.\n @since 24"]
+    #[cfg(feature = "api-24")]
+    pub fn OH_ArkUI_ClonedEvent_SetPressedButtons(
+        event: *const ArkUI_UIInputEvent,
+        pressedButtons: *const i32,
+        length: i32,
+    ) -> ArkUI_ErrorCode;
+}
+extern "C" {
     #[doc = " @brief Posts a cloned event to a specific node using a specified competition strategy. This API can be used only for\n the **ArkUI_UIInputEvent** objects created by {@link OH_ArkUI_PointerEvent_CreateClonedPointerEvent} and\n {@link OH_ArkUI_PointerEvent_CreatePointerEvent}.\n\n @param node Target node.\n @param event Pointer to the target **ArkUI_UIInputEvent** object.\n @param strategy Competition strategy. The value is {@link ArkUI_CompetitionStrategy}.\n @return Result code.\n     <br>Returns {@link ARKUI_ERROR_CODE_NO_ERROR} if the operation is successful.\n     <br>Returns {@link ARKUI_ERROR_CODE_PARAM_INVALID} if a parameter error occurs.\n     <br>Returns {@link ARKUI_ERROR_CODE_NOT_CLONED_POINTER_EVENT} if the input event pointer is not a cloned event\n     pointer.\n     <br>Returns {@link ARKUI_ERROR_CODE_POST_CLONED_COMPONENT_STATUS_ABNORMAL} if the component status is abnormal.\n     <br>Returns {@link ARKUI_ERROR_CODE_POST_CLONED_NO_COMPONENT_HIT_TO_RESPOND_TO_THE_EVENT} if no component is hit\n     to respond to the event.\n @since 24"]
     #[cfg(feature = "api-24")]
     pub fn OH_ArkUI_PointerEvent_PostClonedEventWithStrategy(
@@ -1198,4 +1481,25 @@ extern "C" {
         event: *const ArkUI_UIInputEvent,
         strategy: ArkUI_CompetitionStrategy,
     ) -> ArkUI_ErrorCode;
+}
+
+#[doc = " API related to UI components. For details, see the struct definition in <arkui/native_node.h>."]
+pub const ArkUI_NativeAPIVariantKind_ARKUI_NATIVE_NODE: ArkUI_NativeAPIVariantKind = 0;
+#[doc = " API related to dialog boxes. For details, see the struct definition in <arkui/native_dialog.h>."]
+pub const ArkUI_NativeAPIVariantKind_ARKUI_NATIVE_DIALOG: ArkUI_NativeAPIVariantKind = 1;
+#[doc = " API related to gestures. For details, see the struct definition in <arkui/native_gesture.h>."]
+pub const ArkUI_NativeAPIVariantKind_ARKUI_NATIVE_GESTURE: ArkUI_NativeAPIVariantKind = 2;
+#[doc = " API related to animations. For details, see the struct definition in <arkui/native_animate.h>."]
+pub const ArkUI_NativeAPIVariantKind_ARKUI_NATIVE_ANIMATE: ArkUI_NativeAPIVariantKind = 3;
+#[doc = " API related to multi-threaded UI components. For details, see the {@link struct} definition in\n {@link native_node.h}.\n @since 22"]
+#[cfg(feature = "api-22")]
+pub const ArkUI_NativeAPIVariantKind_ARKUI_MULTI_THREAD_NATIVE_NODE: ArkUI_NativeAPIVariantKind = 4;
+#[doc = " @brief Defines the native API types.\n\n @since 12"]
+pub type ArkUI_NativeAPIVariantKind = u32;
+extern "C" {
+    #[doc = " @brief Obtains the native API set of a specified type.\n\n @param type Indicates the type of the native API set provided by ArkUI, for example, <b>ARKUI_NATIVE_NODE</b>\n and <b>ARKUI_NATIVE_GESTURE</b>.\n @param structName Indicates the name of a native struct defined in the corresponding header file, for example,\n <b>ArkUI_NativeNodeAPI_1</b> in <arkui/native_node.h>.\n @return Returns the pointer to the abstract native API, which can be used after being converted into a specific type.\n @code {.cpp}\n #include<arkui/native_interface.h>\n #include<arkui/native_node.h>\n #include<arkui/native_gesture.h>\n\n auto* anyNativeAPI = OH_ArkUI_QueryModuleInterfaceByName(ARKUI_NATIVE_NODE, \"ArkUI_NativeNodeAPI_1\");\n if (anyNativeAPI) {\n     auto nativeNodeApi = reinterpret_cast<ArkUI_NativeNodeAPI_1*>(anyNativeAPI);\n }\n auto anyGestureAPI = OH_ArkUI_QueryModuleInterface(ARKUI_NATIVE_GESTURE, \"ArkUI_NativeGestureAPI_1\");\n if (anyNativeAPI) {\n     auto basicGestureApi = reinterpret_cast<ArkUI_NativeGestureAPI_1*>(anyGestureAPI);\n }\n @endcode\n\n @since 12"]
+    pub fn OH_ArkUI_QueryModuleInterfaceByName(
+        type_: ArkUI_NativeAPIVariantKind,
+        structName: *const ::std::os::raw::c_char,
+    ) -> *mut ::std::os::raw::c_void;
 }

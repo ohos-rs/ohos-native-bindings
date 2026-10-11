@@ -42,6 +42,45 @@ pub enum UIInputSourceType {
     Unknown,
     Mouse,
     TouchScreen,
+    #[cfg(feature = "api-21")]
+    Key,
+    #[cfg(feature = "api-21")]
+    Joystick,
+}
+
+/// Event categories supported by the API 24 pointer event constructors.
+#[cfg(feature = "api-24")]
+#[derive(Debug, Clone, Copy, PartialEq, Eq, EnumFrom)]
+#[config(
+    ArkUI_UIInputEvent_Type,
+    "ArkUI_UIInputEvent_Type_ARKUI_UIINPUTEVENT_TYPE_"
+)]
+pub enum UIPointerEventType {
+    Touch,
+    Mouse,
+    Axis,
+}
+
+/// Category-specific action codes; mouse and touch codes are not interchangeable.
+#[cfg(feature = "api-24")]
+#[derive(Debug, Clone, Copy, PartialEq, Eq)]
+pub enum UIPointerEventAction {
+    Touch(UIInputAction),
+    Mouse(UIMouseEventAction),
+    Axis(UIAxisEventAction),
+}
+
+#[cfg(feature = "api-24")]
+#[derive(Debug, Clone, Copy, PartialEq, Eq, EnumFrom)]
+#[config(
+    ArkUI_CompetitionStrategy,
+    "ArkUI_CompetitionStrategy_ARKUI_COMPETITION_STRATEGY_"
+)]
+pub enum UIEventCompetitionStrategy {
+    /// Injected events and existing gestures can be processed independently.
+    Default,
+    /// The injector's gestures compete with the receiving node's gestures.
+    Competition,
 }
 
 #[derive(Debug, Clone, Copy, PartialEq, Eq, EnumFrom)]

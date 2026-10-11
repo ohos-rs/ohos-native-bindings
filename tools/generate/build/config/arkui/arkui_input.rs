@@ -4,7 +4,7 @@ use crate::config::SysConfig;
 
 pub const ARKUI_INPUT: Lazy<SysConfig> = Lazy::new(|| SysConfig {
     name: "ohos-arkui-input-sys",
-    headers: vec!["arkui/ui_input_event.h"],
+    headers: vec!["arkui/ui_input_event.h", "arkui/native_interface.h"],
     white_list: vec![
         ".*UIInputEvent.*",
         ".*UI_TOUCH_EVENT.*",
@@ -17,6 +17,9 @@ pub const ARKUI_INPUT: Lazy<SysConfig> = Lazy::new(|| SysConfig {
         ".*ArkUI_InteractionHand.*",
         "OH_ArkUI_UIInputEvent.*",
         "OH_ArkUI_PointerEvent.*",
+        "OH_ArkUI_ClonedEvent.*",
+        "OH_ArkUI_QueryModuleInterfaceByName",
+        "ArkUI_NativeAPIVariantKind.*",
         "OH_ArkUI_TouchEvent.*",
         "OH_ArkUI_AxisEvent.*",
         "OH_ArkUI_MouseEvent.*",

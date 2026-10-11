@@ -1,8 +1,12 @@
 mod axis;
+#[cfg(feature = "api-24")]
+mod cloned_pointer;
 #[cfg(feature = "api-22")]
 mod coasting;
 mod pointer;
 
+#[cfg(feature = "api-24")]
+pub use cloned_pointer::ArkUIOwnedPointerEvent;
 #[cfg(feature = "api-22")]
 pub use coasting::ArkUICoastingAxisEvent;
 #[cfg(feature = "api-15")]
