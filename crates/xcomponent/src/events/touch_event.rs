@@ -90,6 +90,8 @@ impl From<OH_NativeXComponent_TouchEvent> for TouchEventData {
                 timestamp: point.timeStamp,
                 is_pressed: point.isPressed,
                 event_tool_type: TouchPointTool::Unknown,
+                tilt_x: None,
+                tilt_y: None,
             });
         }
 
@@ -123,6 +125,9 @@ pub struct TouchPointData {
     pub timestamp: i64,
     pub is_pressed: bool,
     pub event_tool_type: TouchPointTool,
+    /// Native pen tilt in degrees, when supplied by XComponent.
+    pub tilt_x: Option<f32>,
+    pub tilt_y: Option<f32>,
 }
 
 impl Default for TouchPointData {
@@ -139,6 +144,8 @@ impl Default for TouchPointData {
             timestamp: 0,
             is_pressed: false,
             event_tool_type: TouchPointTool::Unknown,
+            tilt_x: None,
+            tilt_y: None,
         }
     }
 }

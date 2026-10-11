@@ -65,10 +65,7 @@ impl DragEvent<'_> {
         }
     }
 
-    pub(crate) fn set_suggested_drop_operation(
-        &self,
-        drop_operation: DropOperation,
-    ) -> ArkUIResult<()> {
+    pub fn set_suggested_drop_operation(&self, drop_operation: DropOperation) -> ArkUIResult<()> {
         unsafe {
             check_arkui_status!(OH_ArkUI_DragEvent_SetSuggestedDropOperation(
                 self.raw(),

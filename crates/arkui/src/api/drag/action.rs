@@ -28,8 +28,16 @@ use crate::{check_arkui_status, ArkUIError, ArkUIHandle, ArkUIResult};
 
 use super::{DragAndDropInfo, DragPreviewOption};
 
+/// Owned snapshot of native drag completion. No callback-scoped handle escapes.
+#[derive(Clone, Copy, Debug, PartialEq, Eq)]
+pub struct DragCompletion {
+    pub status: crate::DragStatus,
+    pub result: Option<crate::DragResult>,
+    pub operation: Option<crate::DropOperation>,
+}
+
 struct DragStatusListenerCallbackContext {
-    callback: Box<dyn Fn(crate::DragStatus)>,
+    callback: Box<dyn Fn(DragCompletion)>,
 }
 
 /// Owns an outbound drag action and unregisters its listener before destruction.
@@ -110,11 +118,11 @@ impl DragAction {
         Ok(())
     }
 
-    pub(crate) fn set_touch_point_x(&mut self, x: f32) -> ArkUIResult<()> {
+    pub fn set_touch_point_x(&mut self, x: f32) -> ArkUIResult<()> {
         unsafe { check_arkui_status!(OH_ArkUI_DragAction_SetTouchPointX(self.raw(), x)) }
     }
 
-    pub(crate) fn set_touch_point_y(&mut self, y: f32) -> ArkUIResult<()> {
+    pub fn set_touch_point_y(&mut self, y: f32) -> ArkUIResult<()> {
         unsafe { check_arkui_status!(OH_ArkUI_DragAction_SetTouchPointY(self.raw(), y)) }
     }
 
@@ -153,6 +161,14 @@ impl DragAction {
     }
 
     pub fn register_status_listener<T: Fn(crate::DragStatus) + 'static>(
+        &mut self,
+        listener: T,
+    ) -> ArkUIResult<()> {
+        self.register_completion_listener(move |completion| listener(completion.status))
+    }
+
+    /// The status and drop result are copied while the native callback is valid.
+    pub fn register_completion_listener<T: Fn(DragCompletion) + 'static>(
         &mut self,
         listener: T,
     ) -> ArkUIResult<()> {
@@ -227,5 +243,14 @@ unsafe extern "C" fn drag_action_status_listener_callback_trampoline(
     unsafe { Rc::increment_strong_count(callback.as_ptr()) };
     let callback = unsafe { Rc::from_raw(callback.as_ptr()) };
     let status = drag_info.drag_status();
-    (callback.callback)(status);
+    let event = drag_info.drag_event();
+    let completion = DragCompletion {
+        status,
+        result: event.as_ref().and_then(|event| event.drag_result().ok()),
+        operation: event.as_ref().and_then(|event| event.drop_operation().ok()),
+    };
+    // Rust panics must never unwind through a native C callback.
+    let _ = std::panic::catch_unwind(std::panic::AssertUnwindSafe(|| {
+        (callback.callback)(completion)
+    }));
 }
