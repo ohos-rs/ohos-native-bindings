@@ -9,6 +9,15 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Added
 
+- Add API 24 owned pointer event creation, cloning, all 33 cloned-event setters,
+  and typed gesture-competition dispatch with a matching destructor.
+- Add API 22 keyboard and joystick input-source variants.
+- Add host ownership/FFI regression tests and a native pen event smoke example.
+
+### Fixed
+
+- Initialize ArkUI's NativeNode interface before API 24 event allocation so
+  native clone/destruction also work in applications that initially render only ArkTS.
 - Add lossless raw mouse button and action accessors for forward-compatible event dispatch.
 - Add API 25/26 feature forwarding and typed hover enter/leave state access.
 

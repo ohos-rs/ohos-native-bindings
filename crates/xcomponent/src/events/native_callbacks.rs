@@ -110,13 +110,35 @@ pub unsafe extern "C" fn dispatch_touch_event(
     let touch_event_data = touch_event.assume_init();
     let mut data = TouchEventData::from(touch_event_data);
 
-    data.touch_points.iter_mut().for_each(|point| {
-        let mut tool = 0;
-        let ret = OH_NativeXComponent_GetTouchPointToolType(xcomponent, point.id as _, &mut tool);
-        if ret == 0 {
-            point.event_tool_type = tool.into();
-        }
-    });
+    data.touch_points
+        .iter_mut()
+        .enumerate()
+        .for_each(|(index, point)| {
+            let mut tool = 0;
+            let ret = OH_NativeXComponent_GetTouchPointToolType(xcomponent, index as _, &mut tool);
+            if ret == 0 {
+                point.event_tool_type = tool.into();
+            }
+            // These APIs take the contact's array index, not its arbitrary pointer ID.
+            let mut tilt_x = 0.0;
+            let mut tilt_y = 0.0;
+            if ohos_xcomponent_sys::OH_NativeXComponent_GetTouchPointTiltX(
+                xcomponent,
+                index as _,
+                &mut tilt_x,
+            ) == 0
+            {
+                point.tilt_x = tilt_x.is_finite().then_some(tilt_x);
+            }
+            if ohos_xcomponent_sys::OH_NativeXComponent_GetTouchPointTiltY(
+                xcomponent,
+                index as _,
+                &mut tilt_y,
+            ) == 0
+            {
+                point.tilt_y = tilt_y.is_finite().then_some(tilt_y);
+            }
+        });
 
     let _ = callback(XComponentRaw(xcomponent), WindowRaw(window), data);
 }
