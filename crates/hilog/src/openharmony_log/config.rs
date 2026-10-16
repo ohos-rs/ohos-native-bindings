@@ -2,7 +2,7 @@ use crate::LogLevel;
 
 use super::FormatFn;
 use log::{Level, LevelFilter, Record};
-use std::ffi::{c_char, CString};
+use std::ffi::{CStr, CString};
 use std::fmt;
 
 /// Filter for android logger.
@@ -41,22 +41,13 @@ fn openharmony_log_priority_from_level(level: Level) -> LogLevel {
     }
 }
 
-/// Asks OpenHarmony liblog if a message with given `tag` and `priority` should be logged, using
-/// `default_prio` as the level filter in case no system- or process-wide overrides are set.
-fn openharmony_is_loggable_len(prio: LogLevel, tag: &str) -> bool {
-    // SAFETY: tag points to a valid string tag.len() bytes long.
-    unsafe {
-        ohos_hilogs_sys::OH_LOG_IsLoggable(
-            ohos_hilogs_sys::LOG_DOMAIN,
-            tag.as_ptr() as *const c_char,
-            prio.into(),
-        )
-    }
-}
-
-fn openharmony_is_loggable(tag: &str, record_level: Level) -> bool {
+/// Checks the system log policy with a null-terminated tag.
+fn openharmony_is_loggable(tag: &CStr, record_level: Level) -> bool {
     let prio = openharmony_log_priority_from_level(record_level);
-    openharmony_is_loggable_len(prio, tag)
+    // SAFETY: CStr provides a null-terminated tag that remains alive for the call.
+    unsafe {
+        ohos_hilogs_sys::OH_LOG_IsLoggable(ohos_hilogs_sys::LOG_DOMAIN, tag.as_ptr(), prio.into())
+    }
 }
 
 impl Config {
@@ -82,7 +73,10 @@ impl Config {
     }
 
     pub(crate) fn is_loggable(&self, tag: &str, level: Level) -> bool {
-        openharmony_is_loggable(tag, level)
+        if let Some(tag) = &self.tag {
+            return openharmony_is_loggable(tag, level);
+        }
+        CString::new(tag).is_ok_and(|tag| openharmony_is_loggable(&tag, level))
     }
 
     pub fn with_filter(mut self, filter: env_filter::Filter) -> Self {
