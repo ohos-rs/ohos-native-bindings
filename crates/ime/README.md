@@ -33,14 +33,38 @@ let ime = IME::new_with_main_thread_callbacks(AttachOptions::new(false));
 
 `IME::new` preserves the platform default callback thread.
 
+Use `IME::new_for_window(options, native_window_id)` to associate the editor with
+its actual OHOS window. `set_consume_key_events(false)` lets an application handle
+hardware text and shortcuts while retaining native composition. The API-26
+configuration entry point is loaded dynamically; older runtimes return `false`
+and keep their existing input path. Configuration and cursor updates remain
+owned by that editor and are refreshed after its background attachment commits.
+
+
+`prepare_background_attachment` returns a worker request and a cancellation
+handle for editors using the default IPC callback thread. Run the request's
+`run(show_keyboard)` on a worker; keep the cancellation handle on the UI thread.
+After `Ok(true)`, check that the originating editor is still focused before
+calling `commit`. Dropping an uncommitted handle cancels the request. An in-flight
+native call finishes before cancellation releases its editor, so closing a
+window never frees a callback table still used by native code. Preparing another
+request cancels the previous uncommitted request for that editor.
+
+The ordinary `IME` remains confined to its owning thread. Background attachment
+is unavailable for main-thread callback mode. Update the cached text and cursor
+normally while a connection is pending, then call `try_refresh_configuration`
+and update the latest text snapshot after accepting the connection; native notifications can return `IME_ERR_IMCLIENT`
+while attachment owns the native session guard.
+
 Stale-session errors invalidate the input proxy's usable state, not the native
 editor's lifetime. Recovery reuses the editor callback table, so a delayed
 `OnInputStop` can still report keyboard status safely. Explicit detach disables
 Rust callbacks. If attach/detach fails without establishing a release boundary,
-the native table is retained until the next successful attach/detach; application
-callback closures are not retained after the `IME` is dropped. If there is no
-later successful transition, the small retired native allocation remains until
-process exit.
+the native table is retained until the next successful attach/detach. The retired
+table does not retain application callback closures. A pending background request
+keeps its editor and callbacks alive until its native call returns. If there is
+no later successful transition, the small retired native allocation remains
+until process exit.
 
 Native proxy operations are serialized across sessions. Reentrant or competing
 native operations return `IME_ERR_IMCLIENT` through the `try_*` APIs instead of
@@ -79,6 +103,18 @@ Register `on_delete_forward`, `on_move_cursor`, `on_set_selection`, and
 `on_extend_action` for system editing requests. These callbacks run on the same
 thread as other editor callbacks. Text decoding preserves surrogate pairs and
 replaces invalid UTF-16 units instead of silently dropping them.
+
+## Host lifetime tests
+
+The host harness compiles the production session and attachment code against a
+mock native API. It checks blocked attachment, cancellation, replacement,
+callback-table lifetime, and cached text without requiring OHOS libraries:
+
+```shell
+cargo test --manifest-path crates/ime/tests/host/Cargo.toml --features api-22
+```
+
+Native callback threading and UI behavior still require device validation.
 
 ## License
 

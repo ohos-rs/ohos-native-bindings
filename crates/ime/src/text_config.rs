@@ -5,9 +5,38 @@ use ohos_input_method_sys::{
     OH_TextConfig_SetEnterKeyType, OH_TextConfig_SetInputType, OH_TextConfig_SetPreviewTextSupport,
     OH_TextConfig_SetSelection, OH_TextConfig_SetWindowId,
 };
-use std::ptr;
+use std::{ptr, sync::OnceLock};
 
-use crate::{Cursor, EnterKey, InputType};
+use crate::{Cursor, EnterKey, ImeError, ImeResult, InputType};
+
+type SetConsumeKeyEvents = unsafe extern "C" fn(*mut InputMethod_TextConfig, bool) -> u32;
+
+struct KeyEventConfiguration {
+    _library: libloading::Library,
+    set_consume_key_events: SetConsumeKeyEvents,
+}
+
+impl KeyEventConfiguration {
+    fn get() -> Option<&'static Self> {
+        static CONFIGURATION: OnceLock<Option<KeyEventConfiguration>> = OnceLock::new();
+        CONFIGURATION
+            .get_or_init(|| {
+                // This attribute was added in API 26. Resolve it at runtime so
+                // older systems can keep using the existing IME input path.
+                let library = unsafe { libloading::Library::new("libohinputmethod.so") }.ok()?;
+                let set_consume_key_events = unsafe {
+                    *library
+                        .get::<SetConsumeKeyEvents>(b"OH_TextConfig_SetConsumeKeyEvents\0")
+                        .ok()?
+                };
+                Some(Self {
+                    _library: library,
+                    set_consume_key_events,
+                })
+            })
+            .as_ref()
+    }
+}
 
 pub struct TextConfig {
     pub(crate) raw: *mut InputMethod_TextConfig,
@@ -21,6 +50,22 @@ pub struct Selection {
 }
 
 impl TextConfig {
+    pub(crate) fn supports_key_event_configuration() -> bool {
+        KeyEventConfiguration::get().is_some()
+    }
+
+    pub(crate) fn set_consume_key_events(&self, enabled: bool) -> ImeResult<bool> {
+        let Some(configuration) = KeyEventConfiguration::get() else {
+            return Ok(false);
+        };
+        let status = unsafe { (configuration.set_consume_key_events)(self.raw, enabled) };
+        if status == 0 {
+            Ok(true)
+        } else {
+            Err(ImeError::new("set-consume-key-events", status))
+        }
+    }
+
     pub fn new() -> Self {
         let raw = unsafe { OH_TextConfig_Create() };
         TextConfig { raw, owned: true }

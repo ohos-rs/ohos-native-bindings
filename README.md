@@ -1,3 +1,6 @@
+> [!IMPORTANT]
+> Remove this line to confirm you've reviewed this PR before submitting.
+
 # ohos-native-bindings
 
 A set of HarmonyNext native module bindings for Rust.
