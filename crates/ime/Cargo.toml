@@ -12,8 +12,8 @@ workspace = true
 ohos-input-method-sys = { workspace = true }
 ohos-enum-derive      = { workspace = true }
 rustc-hash            = { workspace = true }
-libloading           = { workspace = true }
-log                  = "0.4"
+libloading            = { workspace = true }
+log                   = "0.4"
 
 [features]
 default = []
