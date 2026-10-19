@@ -122,10 +122,13 @@ impl ImeAttachment {
             result = ime.show_attached();
         }
         if self.state.cancelled() {
-            completed(ime.try_detach().map(|()| false));
+            completed(self.cleanup().map(|()| false));
             return;
         }
         if let Err(error) = result {
+            if let Err(cleanup_error) = self.cleanup() {
+                log::warn!("IME attachment failure cleanup failed: {cleanup_error}");
+            }
             completed(Err(error));
             return;
         }
@@ -145,10 +148,14 @@ impl ImeAttachment {
         let cancelled = *status == AttachmentStatus::Cancelled;
         drop(status);
         if cancelled {
-            if let Err(error) = ime.try_detach() {
+            if let Err(error) = self.cleanup() {
                 log::warn!("IME attachment cancellation cleanup failed: {error}");
             }
         }
+    }
+
+    fn cleanup(&self) -> ImeResult<()> {
+        self.inner.detach(&mut NativeSessions::wait_for_cleanup())
     }
 }
 

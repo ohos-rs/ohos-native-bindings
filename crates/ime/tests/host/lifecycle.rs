@@ -127,6 +127,7 @@ struct Native {
     attaches: usize,
     detaches: usize,
     shows: usize,
+    show_error: u32,
     block: bool,
     entered: bool,
     release: bool,
@@ -142,6 +143,7 @@ static NATIVE: Mutex<Native> = Mutex::new(Native {
     attaches: 0,
     detaches: 0,
     shows: 0,
+    show_error: 0,
     block: false,
     entered: false,
     release: false,
@@ -190,7 +192,7 @@ unsafe fn OH_InputMethodProxy_ShowKeyboard(raw: *mut u8) -> u32 {
     let mut state = NATIVE.lock().expect("native state");
     assert_eq!(state.active, raw as usize);
     state.shows += 1;
-    0
+    state.show_error
 }
 unsafe fn OH_InputMethodProxy_HideKeyboard(_: *mut u8) -> u32 {
     0
@@ -550,4 +552,50 @@ fn completed_attachment_cancellation_keeps_blocking_detach_on_its_worker() {
     assert_ne!(*DETACH_THREAD.lock().expect("detach thread"), Some(caller));
     assert!(!cancellation.commit());
     assert_eq!(NATIVE.lock().expect("native state").active, 0);
+}
+
+#[test]
+fn failed_keyboard_show_cleans_up_before_the_next_attachment() {
+    let _test = reset();
+    NATIVE.lock().expect("native state").show_error = InputMethod_ErrorCode_IME_ERR_DETACHED;
+    let ime = editor();
+    let (attachment, cancellation) = ime.prepare_background_attachment().expect("prepare");
+    assert!(run_attachment(attachment, true).is_err());
+    drop(cancellation);
+    finish_attachments();
+    assert_eq!(NATIVE.lock().expect("native state").active, 0);
+    NATIVE.lock().expect("native state").show_error = 0;
+    let (attachment, cancellation) = ime.prepare_background_attachment().expect("prepare retry");
+    assert!(run_attachment(attachment, true).expect("reattach"));
+    assert!(cancellation.commit());
+    finish_attachments();
+    assert_eq!(NATIVE.lock().expect("native state").attaches, 2);
+    ime.try_detach().expect("detach");
+}
+
+#[test]
+fn cancellation_waits_for_a_busy_native_session_before_releasing_callbacks() {
+    let _test = reset();
+    let ime = editor();
+    let (attachment, cancellation) = ime.prepare_background_attachment().expect("prepare");
+    let (result_sender, result_receiver) = std::sync::mpsc::channel();
+    let (finished_sender, finished_receiver) = std::sync::mpsc::channel();
+    let worker = std::thread::spawn(move || {
+        attachment.run(false, |result| {
+            result_sender.send(result).expect("result receiver")
+        });
+        finished_sender.send(()).expect("completion receiver");
+    });
+    assert!(result_receiver.recv().expect("result").expect("attach"));
+    let sessions = session::NativeSessions::acquire("test-notification").expect("native session");
+    cancellation.cancel();
+    let finished_early = finished_receiver.recv_timeout(Duration::from_millis(50));
+    drop(sessions);
+    worker.join().expect("attachment worker");
+    assert!(matches!(
+        finished_early,
+        Err(std::sync::mpsc::RecvTimeoutError::Timeout)
+    ));
+    assert_eq!(NATIVE.lock().expect("native state").active, 0);
+    assert_eq!(NATIVE.lock().expect("native state").destroyed.len(), 1);
 }

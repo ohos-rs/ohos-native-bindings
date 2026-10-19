@@ -25,6 +25,14 @@ struct RetiredEditor(TextEditor);
 unsafe impl Send for RetiredEditor {}
 
 impl NativeSessions {
+    pub(crate) fn wait_for_cleanup() -> MutexGuard<'static, Self> {
+        // Only the attachment worker may wait: UI callbacks signal cancellation
+        // without joining it, so a reentrant native callback cannot wait on itself.
+        SESSIONS
+            .lock()
+            .unwrap_or_else(std::sync::PoisonError::into_inner)
+    }
+
     pub(crate) fn acquire(operation: &'static str) -> ImeResult<MutexGuard<'static, Self>> {
         // Native calls can synchronously invoke application callbacks. Do not
         // deadlock if one reenters the binding or waits on a competing thread.
