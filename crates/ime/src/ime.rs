@@ -1,8 +1,8 @@
 use std::marker::PhantomData;
 use std::ptr::{self, NonNull};
 use std::rc::Rc;
-use std::sync::atomic::{AtomicBool, AtomicU64, AtomicU8, Ordering};
-use std::sync::{Arc, Mutex, MutexGuard, RwLock, Weak};
+use std::sync::atomic::{AtomicBool, AtomicU64, Ordering};
+use std::sync::{Arc, Condvar, Mutex, MutexGuard, RwLock, Weak};
 
 use ohos_input_method_sys::{
     InputMethod_ErrorCode_IME_ERR_DETACHED, InputMethod_ErrorCode_IME_ERR_NULL_POINTER,
@@ -31,7 +31,7 @@ struct IMEInner {
     id: u64,
     native: Mutex<NativeEditor>,
     attachment_serial: Mutex<()>,
-    pending_attachment: Mutex<Option<Weak<AtomicU8>>>,
+    pending_attachment: Mutex<Option<Weak<AttachmentState>>>,
     show_on_attach: bool,
     callbacks: SharedCallbacks,
     needs_attach: AtomicBool,
@@ -53,94 +53,119 @@ struct NativeEditor {
 // closures and synchronized snapshots, without borrowing ArkUI or N-API state.
 unsafe impl Send for NativeEditor {}
 
-const ATTACH_PENDING: u8 = 0;
-const ATTACH_CANCELLED: u8 = 1;
-const ATTACH_COMMITTED: u8 = 2;
-
-/// An IPC-thread-callback editor's connection work, runnable on a worker.
-/// Keep its cancellation handle until the result has been accepted by the UI.
-pub struct ImeAttachment {
-    inner: Arc<IMEInner>,
-    state: Arc<AtomicU8>,
+#[derive(Clone, Copy, PartialEq)]
+enum AttachmentStatus {
+    Pending,
+    Cancelled,
+    Committed,
 }
 
-/// Dropping an uncommitted request cancels it and releases its native session.
-pub struct ImeAttachmentCancellation {
+struct AttachmentState {
+    status: Mutex<AttachmentStatus>,
+    changed: Condvar,
+}
+
+impl AttachmentState {
+    fn transition(&self, status: AttachmentStatus) -> bool {
+        let mut current = self
+            .status
+            .lock()
+            .unwrap_or_else(std::sync::PoisonError::into_inner);
+        if *current != AttachmentStatus::Pending {
+            return false;
+        }
+        *current = status;
+        self.changed.notify_one();
+        true
+    }
+
+    fn cancelled(&self) -> bool {
+        *self
+            .status
+            .lock()
+            .unwrap_or_else(std::sync::PoisonError::into_inner)
+            == AttachmentStatus::Cancelled
+    }
+}
+
+/// An IPC-thread-callback editor's connection work, runnable on a worker.
+/// The worker stays responsible for cleanup until the UI accepts or cancels it.
+pub struct ImeAttachment {
     inner: Arc<IMEInner>,
-    state: Arc<AtomicU8>,
+    state: Arc<AttachmentState>,
+}
+
+/// Dropping an uncommitted request signals cancellation without native IPC.
+pub struct ImeAttachmentCancellation {
+    state: Arc<AttachmentState>,
 }
 
 impl ImeAttachment {
-    /// Connect without blocking the UI thread. A cancelled request returns false.
-    pub fn run(self, show_keyboard: bool) -> ImeResult<bool> {
-        // A cancelled old request must finish cleanup before a newer request for
-        // this same editor attaches. Other editors retain separate native IDs.
+    /// Report the result before waiting for the UI's commit or cancellation.
+    /// `completed` must deliver the result without waiting for this worker to exit.
+    pub fn run(self, show_keyboard: bool, completed: impl FnOnce(ImeResult<bool>)) {
         let _serial = self
             .inner
             .attachment_serial
             .lock()
             .unwrap_or_else(std::sync::PoisonError::into_inner);
-        if self.state.load(Ordering::Acquire) == ATTACH_CANCELLED {
-            return Ok(false);
+        if self.state.cancelled() {
+            completed(Ok(false));
+            return;
         }
         let ime = IME {
             inner: self.inner.clone(),
             main_thread: PhantomData,
         };
         let mut result = ime.try_attach();
-        if result.is_ok() && show_keyboard && self.state.load(Ordering::Acquire) != ATTACH_CANCELLED
-        {
+        if result.is_ok() && show_keyboard && !self.state.cancelled() {
             result = ime.show_attached();
         }
-        if self.state.load(Ordering::Acquire) == ATTACH_CANCELLED {
-            ime.try_detach()?;
-            return Ok(false);
+        if self.state.cancelled() {
+            completed(ime.try_detach().map(|()| false));
+            return;
         }
-        result.map(|()| true)
+        if let Err(error) = result {
+            completed(Err(error));
+            return;
+        }
+        completed(Ok(true));
+        let mut status = self
+            .state
+            .status
+            .lock()
+            .unwrap_or_else(std::sync::PoisonError::into_inner);
+        while *status == AttachmentStatus::Pending {
+            status = self
+                .state
+                .changed
+                .wait(status)
+                .unwrap_or_else(std::sync::PoisonError::into_inner);
+        }
+        let cancelled = *status == AttachmentStatus::Cancelled;
+        drop(status);
+        if cancelled {
+            if let Err(error) = ime.try_detach() {
+                log::warn!("IME attachment cancellation cleanup failed: {error}");
+            }
+        }
     }
 }
 
 impl ImeAttachmentCancellation {
     /// Accept a completed connection only if its focus request is still current.
     pub fn commit(&self) -> bool {
-        self.state
-            .compare_exchange(
-                ATTACH_PENDING,
-                ATTACH_COMMITTED,
-                Ordering::AcqRel,
-                Ordering::Acquire,
-            )
-            .is_ok()
+        self.state.transition(AttachmentStatus::Committed)
     }
 
-    pub fn cancel(&self) -> ImeResult<()> {
-        if self
-            .state
-            .compare_exchange(
-                ATTACH_PENDING,
-                ATTACH_CANCELLED,
-                Ordering::AcqRel,
-                Ordering::Acquire,
-            )
-            .is_ok()
-        {
-            // If attach currently owns the native guard, it observes cancellation
-            // after its IPC call returns and performs this cleanup on its worker.
-            IME {
-                inner: self.inner.clone(),
-                main_thread: PhantomData,
-            }
-            .try_detach()?;
-        }
-        Ok(())
+    pub fn cancel(&self) {
+        self.state.transition(AttachmentStatus::Cancelled);
     }
 }
 
 impl Drop for ImeAttachmentCancellation {
     fn drop(&mut self) {
-        if let Err(error) = self.cancel() {
-            log::warn!("IME attachment cancellation cleanup deferred: {error}");
-        }
+        self.cancel();
     }
 }
 
@@ -287,7 +312,10 @@ impl IME {
                 ohos_input_method_sys::InputMethod_ErrorCode_IME_ERR_IMCLIENT,
             ));
         }
-        let state = Arc::new(AtomicU8::new(ATTACH_PENDING));
+        let state = Arc::new(AttachmentState {
+            status: Mutex::new(AttachmentStatus::Pending),
+            changed: Condvar::new(),
+        });
         let previous = self
             .inner
             .pending_attachment
@@ -296,22 +324,14 @@ impl IME {
             .replace(Arc::downgrade(&state))
             .and_then(|state| state.upgrade());
         if let Some(previous) = previous {
-            // Preparation happens before the new task can run, so dropping the
-            // old cancellation handle later cannot detach the new connection.
-            drop(ImeAttachmentCancellation {
-                inner: self.inner.clone(),
-                state: previous,
-            });
+            previous.transition(AttachmentStatus::Cancelled);
         }
         Ok((
             ImeAttachment {
                 inner: self.inner.clone(),
                 state: state.clone(),
             },
-            ImeAttachmentCancellation {
-                inner: self.inner.clone(),
-                state,
-            },
+            ImeAttachmentCancellation { state },
         ))
     }
 

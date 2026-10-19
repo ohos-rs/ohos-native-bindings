@@ -43,9 +43,13 @@ owned by that editor and are refreshed after its background attachment commits.
 
 `prepare_background_attachment` returns a worker request and a cancellation
 handle for editors using the default IPC callback thread. Run the request's
-`run(show_keyboard)` on a worker; keep the cancellation handle on the UI thread.
-After `Ok(true)`, check that the originating editor is still focused before
-calling `commit`. Dropping an uncommitted handle cancels the request. An in-flight
+`run(show_keyboard, completed)` on a worker; deliver the result to the UI from
+`completed` without waiting for the worker to exit. Keep the cancellation handle
+on the UI thread. After `Ok(true)`, check that the originating editor is still
+focused before calling `commit`. Dropping an uncommitted handle only signals
+cancellation; the original worker performs native cleanup. The worker waits for
+that acceptance or cancellation, so cancellation cannot perform synchronous IPC
+on the UI thread. An in-flight
 native call finishes before cancellation releases its editor, so closing a
 window never frees a callback table still used by native code. Preparing another
 request cancels the previous uncommitted request for that editor.

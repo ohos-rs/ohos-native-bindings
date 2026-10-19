@@ -153,6 +153,9 @@ static NATIVE: Mutex<Native> = Mutex::new(Native {
     selection_error: 0,
 });
 static CHANGED: Condvar = Condvar::new();
+static DETACH_CHANGED: Condvar = Condvar::new();
+static DETACH_CONTROL: Mutex<(bool, bool, bool)> = Mutex::new((false, false, false));
+static DETACH_THREAD: Mutex<Option<std::thread::ThreadId>> = Mutex::new(None);
 unsafe fn OH_InputMethodController_Attach(editor: *mut u8, _: bool, raw: *mut *mut u8) -> u32 {
     let mut state = NATIVE.lock().expect("native state");
     state.attaches += 1;
@@ -169,6 +172,14 @@ unsafe fn OH_InputMethodController_Attach(editor: *mut u8, _: bool, raw: *mut *m
     0
 }
 unsafe fn OH_InputMethodController_Detach(raw: *mut u8) -> u32 {
+    *DETACH_THREAD.lock().expect("detach thread") = Some(std::thread::current().id());
+    let mut control = DETACH_CONTROL.lock().expect("detach control");
+    control.1 = true;
+    DETACH_CHANGED.notify_all();
+    while control.0 && !control.2 {
+        control = DETACH_CHANGED.wait(control).expect("release detach");
+    }
+    drop(control);
     let mut state = NATIVE.lock().expect("native state");
     assert_eq!(state.active, raw as usize);
     state.active = 0;
@@ -230,12 +241,39 @@ mod proxy;
 mod session;
 pub use ime::*;
 static TEST_LOCK: Mutex<()> = Mutex::new(());
-fn reset() -> MutexGuard<'static, ()> {
+static ATTACHMENT_WORKERS: Mutex<Vec<std::thread::JoinHandle<()>>> = Mutex::new(Vec::new());
+struct TestGuard {
+    _lock: MutexGuard<'static, ()>,
+}
+impl Drop for TestGuard {
+    fn drop(&mut self) {
+        finish_attachments();
+    }
+}
+fn finish_attachments() {
+    let workers = std::mem::take(&mut *ATTACHMENT_WORKERS.lock().expect("workers"));
+    for worker in workers {
+        worker.join().expect("attachment worker");
+    }
+}
+fn run_attachment(attachment: ImeAttachment, show: bool) -> ImeResult<bool> {
+    let (sender, receiver) = std::sync::mpsc::channel();
+    let worker = std::thread::spawn(move || {
+        attachment.run(show, |result| {
+            sender.send(result).expect("attachment result receiver");
+        })
+    });
+    ATTACHMENT_WORKERS.lock().expect("workers").push(worker);
+    receiver.recv().expect("attachment result")
+}
+fn reset() -> TestGuard {
     let test = TEST_LOCK.lock().expect("test lock");
+    *DETACH_CONTROL.lock().expect("detach control") = (false, false, false);
+    *DETACH_THREAD.lock().expect("detach thread") = None;
     let mut state = NATIVE.lock().expect("native state");
     assert_eq!(state.active, 0);
     *state = Native::default();
-    test
+    TestGuard { _lock: test }
 }
 fn editor() -> IME {
     IME::new_for_window(AttachOptions::new(false), 7)
@@ -260,7 +298,7 @@ fn cancellation_before_run_never_attaches() {
     let ime = editor();
     let (task, cancel) = ime.prepare_background_attachment().expect("prepare");
     drop(cancel);
-    assert!(!task.run(true).expect("cancelled"));
+    assert!(!run_attachment(task, true).expect("cancelled"));
     assert_eq!(NATIVE.lock().expect("state").attaches, 0);
 }
 #[test]
@@ -268,7 +306,7 @@ fn committed_connection_survives_handle_drop() {
     let _test = reset();
     let ime = editor();
     let (task, cancel) = ime.prepare_background_attachment().expect("prepare");
-    assert!(std::thread::spawn(move || task.run(true))
+    assert!(std::thread::spawn(move || run_attachment(task, true))
         .join()
         .expect("worker")
         .expect("attach"));
@@ -283,9 +321,9 @@ fn cancel_in_flight_cleans_up_without_show() {
     block_attach();
     let ime = editor();
     let (task, cancel) = ime.prepare_background_attachment().expect("prepare");
-    let worker = std::thread::spawn(move || task.run(true));
+    let worker = std::thread::spawn(move || run_attachment(task, true));
     wait_entered();
-    assert!(cancel.cancel().is_err());
+    cancel.cancel();
     release_attach();
     assert!(!worker.join().expect("worker").expect("cancelled"));
     assert_eq!(NATIVE.lock().expect("state").shows, 0);
@@ -297,12 +335,12 @@ fn newer_request_waits_for_cancelled_request_cleanup() {
     block_attach();
     let ime = editor();
     let (first, first_cancel) = ime.prepare_background_attachment().expect("prepare");
-    let first_worker = std::thread::spawn(move || first.run(true));
+    let first_worker = std::thread::spawn(move || run_attachment(first, true));
     wait_entered();
     let (second, second_cancel) = ime
         .prepare_background_attachment()
         .expect("prepare replacement");
-    let second_worker = std::thread::spawn(move || second.run(true));
+    let second_worker = std::thread::spawn(move || run_attachment(second, true));
     release_attach();
     assert!(!first_worker.join().expect("first").expect("cancelled"));
     assert!(second_worker.join().expect("second").expect("attach"));
@@ -318,7 +356,7 @@ fn dropping_window_during_attach_keeps_native_editor_alive() {
     block_attach();
     let ime = editor();
     let (task, cancel) = ime.prepare_background_attachment().expect("prepare");
-    let worker = std::thread::spawn(move || task.run(true));
+    let worker = std::thread::spawn(move || run_attachment(task, true));
     wait_entered();
     drop(ime);
     drop(cancel);
@@ -334,7 +372,7 @@ fn text_queries_observe_updates_during_blocked_attach() {
     block_attach();
     let ime = editor();
     let (task, cancel) = ime.prepare_background_attachment().expect("prepare");
-    let worker = std::thread::spawn(move || task.run(false));
+    let worker = std::thread::spawn(move || run_attachment(task, false));
     wait_entered();
     assert!(ime
         .try_update_text_state(TextState {
@@ -418,7 +456,7 @@ fn old_window_cancellation_does_not_detach_new_window() {
     let _test = reset();
     let first = editor();
     let (task, cancel) = first.prepare_background_attachment().expect("prepare");
-    assert!(task.run(false).expect("attach"));
+    assert!(run_attachment(task, false).expect("attach"));
     let second = editor();
     second.try_attach().expect("second attach");
     let active = NATIVE.lock().expect("state").active;
@@ -432,7 +470,7 @@ fn failed_attach_retains_callback_allocation_until_next_transition() {
     NATIVE.lock().expect("state").fail = true;
     let ime = editor();
     let (task, cancel) = ime.prepare_background_attachment().expect("prepare");
-    assert!(task.run(false).is_err());
+    assert!(run_attachment(task, false).is_err());
     drop(cancel);
     drop(ime);
     assert!(NATIVE.lock().expect("state").destroyed.is_empty());
@@ -447,8 +485,9 @@ fn canceled_completed_result_cannot_commit() {
     let _test = reset();
     let ime = editor();
     let (task, cancel) = ime.prepare_background_attachment().expect("prepare");
-    assert!(task.run(true).expect("attach"));
-    cancel.cancel().expect("cancel completed");
+    assert!(run_attachment(task, true).expect("attach"));
+    cancel.cancel();
+    finish_attachments();
     assert!(!cancel.commit());
     assert_eq!(NATIVE.lock().expect("state").active, 0);
 }
@@ -466,7 +505,7 @@ fn accepted_connection_refreshes_attributes_changed_during_attach() {
     block_attach();
     let ime = editor();
     let (task, cancellation) = ime.prepare_background_attachment().expect("prepare");
-    let worker = std::thread::spawn(move || task.run(false));
+    let worker = std::thread::spawn(move || run_attachment(task, false));
     wait_entered();
     assert!(ime
         .try_update_configuration(EnterKey::Newline, InputType::Multiline)
@@ -487,4 +526,28 @@ fn accepted_connection_refreshes_attributes_changed_during_attach() {
     ime.try_refresh_configuration().expect("inactive refresh");
     assert_eq!(NATIVE.lock().expect("native state").cursor_notifications, 1);
     second.try_detach().expect("detach");
+}
+
+#[test]
+fn completed_attachment_cancellation_keeps_blocking_detach_on_its_worker() {
+    let _test = reset();
+    let caller = std::thread::current().id();
+    let ime = editor();
+    let (attachment, cancellation) = ime.prepare_background_attachment().expect("prepare");
+    assert!(run_attachment(attachment, false).expect("attached"));
+    DETACH_CONTROL.lock().expect("detach control").0 = true;
+    cancellation.cancel();
+    let control = DETACH_CONTROL.lock().expect("detach control");
+    let (mut control, timeout) = DETACH_CHANGED
+        .wait_timeout_while(control, Duration::from_secs(5), |control| !control.1)
+        .expect("detach entered");
+    let entered = control.1 && !timeout.timed_out();
+    control.2 = true;
+    DETACH_CHANGED.notify_all();
+    drop(control);
+    finish_attachments();
+    assert!(entered);
+    assert_ne!(*DETACH_THREAD.lock().expect("detach thread"), Some(caller));
+    assert!(!cancellation.commit());
+    assert_eq!(NATIVE.lock().expect("native state").active, 0);
 }
