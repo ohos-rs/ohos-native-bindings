@@ -101,6 +101,8 @@ pub struct ImeAttachmentCancellation {
 }
 
 impl ImeAttachment {
+    /// Block a dedicated worker until the UI commits or cancels the connection.
+    /// Never call this from a native callback or reenter it on the same editor.
     /// Report the result before waiting for the UI's commit or cancellation.
     /// `completed` must deliver the result without waiting for this worker to exit.
     pub fn run(self, show_keyboard: bool, completed: impl FnOnce(ImeResult<bool>)) {
