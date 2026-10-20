@@ -12,6 +12,7 @@ pub const ARKUI: Lazy<SysConfig> = Lazy::new(|| {
             "arkui/native_dialog.h",
             "arkui/native_gesture.h",
             "arkui/native_interface.h",
+            "arkui/native_interface_focus.h",
             "arkui/native_key_event.h",
             "arkui/native_node.h",
             "arkui/native_node_napi.h",

@@ -17,48 +17,60 @@ accessibility = ["dep:ohos-accessibility-binding"]
 
 default = ["callbacks"]
 
-api-13 = ["ohos-xcomponent-sys/api-13", "ohos-arkui-input-binding/api-13", "ohos-accessibility-binding?/api-13"]
+api-13 = [
+  "ohos-xcomponent-sys/api-13",
+  "ohos-arkui-input-binding/api-13",
+  "ohos-accessibility-binding?/api-13",
+  "ohos-hilog-binding?/api-13",
+]
 api-14 = [
   "api-13",
   "ohos-xcomponent-sys/api-14",
   "ohos-arkui-input-binding/api-14",
   "ohos-accessibility-binding?/api-14",
+  "ohos-hilog-binding?/api-14",
 ]
 api-15 = [
   "api-14",
   "ohos-xcomponent-sys/api-15",
   "ohos-arkui-input-binding/api-15",
   "ohos-accessibility-binding?/api-15",
+  "ohos-hilog-binding?/api-15",
 ]
 api-16 = [
   "api-15",
   "ohos-xcomponent-sys/api-16",
   "ohos-arkui-input-binding/api-16",
   "ohos-accessibility-binding?/api-16",
+  "ohos-hilog-binding?/api-16",
 ]
 api-17 = [
   "api-16",
   "ohos-xcomponent-sys/api-17",
   "ohos-arkui-input-binding/api-17",
   "ohos-accessibility-binding?/api-17",
+  "ohos-hilog-binding?/api-17",
 ]
 api-18 = [
   "api-17",
   "ohos-xcomponent-sys/api-18",
   "ohos-arkui-input-binding/api-18",
   "ohos-accessibility-binding?/api-18",
+  "ohos-hilog-binding?/api-18",
 ]
 api-19 = [
   "api-18",
   "ohos-xcomponent-sys/api-19",
   "ohos-arkui-input-binding/api-19",
   "ohos-accessibility-binding?/api-19",
+  "ohos-hilog-binding?/api-19",
 ]
 api-20 = [
   "api-19",
   "ohos-xcomponent-sys/api-20",
   "ohos-arkui-input-binding/api-20",
   "ohos-accessibility-binding?/api-20",
+  "ohos-hilog-binding?/api-20",
 ]
 api-21 = [
   "api-20",

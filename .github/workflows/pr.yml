@@ -89,3 +89,8 @@ jobs:
 
       - name: Check Rust
         run: cargo fmt --check
+
+      - name: Check generator fixtures
+        env:
+          OHOS_BINDINGS_SKIP_GENERATION: "1"
+        run: cargo test -p generate

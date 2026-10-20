@@ -12,6 +12,7 @@ const { values } = parseArgs({
     "all-api-levels": { type: "boolean", default: false },
     lint: { type: "boolean", default: false },
     offline: { type: "boolean", default: false },
+    "verify-forwarding-only": { type: "boolean", default: false },
   },
 });
 const root = fileURLToPath(new URL("../", import.meta.url));
@@ -47,14 +48,57 @@ const workspace = JSON.parse(metadata.stdout);
 function packageDirectory(pkg) {
   return path.relative(root, pkg.manifest_path).split(path.sep)[0];
 }
-const packages = workspace.packages
+const nativePackages = workspace.packages
   .filter(
     (pkg) =>
       workspace.workspace_members.includes(pkg.id) &&
-      ["crates", "sys"].includes(packageDirectory(pkg)) &&
-      (pkg.publish === null || pkg.publish.length > 0),
+      ["crates", "sys"].includes(packageDirectory(pkg)),
   )
   .sort((a, b) => a.name.localeCompare(b.name, "en"));
+
+// Check declared edges, not only a unified build: a sibling dependency can
+// otherwise hide a missing API forward by enabling the feature transitively.
+const packagesByName = new Map(nativePackages.map((pkg) => [pkg.name, pkg]));
+const forwardingErrors = [];
+let forwardedEdges = 0;
+for (const pkg of nativePackages) {
+  for (const [feature, enabled] of Object.entries(pkg.features)) {
+    const api = /^api-(\d+)$/.exec(feature);
+    if (!api) continue;
+    const previous = `api-${Number(api[1]) - 1}`;
+    if (Number(api[1]) > 13 && !enabled.includes(previous)) {
+      forwardingErrors.push(`${pkg.name}/${feature} must inherit ${previous}`);
+    }
+    for (const dependency of pkg.dependencies) {
+      if (dependency.kind !== null) continue;
+      const target = packagesByName.get(dependency.name);
+      // Forward only levels actually exposed by this dependency. Higher parent
+      // levels inherit the child's last supported level through the API chain.
+      if (!target || !Object.hasOwn(target.features, feature)) continue;
+      const name = dependency.rename ?? dependency.name;
+      const strong = `${name}/${feature}`;
+      const expected = `${name}${dependency.optional ? "?" : ""}/${feature}`;
+      if (!enabled.includes(expected)) {
+        forwardingErrors.push(`${pkg.name}/${feature} must forward ${expected}`);
+      } else {
+        forwardedEdges++;
+      }
+      if (dependency.optional && enabled.includes(strong)) {
+        forwardingErrors.push(
+          `${pkg.name}/${feature} must use ${expected}; activate capabilities explicitly with dep:${name}`,
+        );
+      }
+    }
+  }
+}
+if (forwardingErrors.length) {
+  process.stderr.write(`${forwardingErrors.join("\n")}\n`);
+  process.exit(1);
+}
+console.log(`API forwarding: ${nativePackages.length} packages, ${forwardedEdges} dependency edges checked`);
+if (values["verify-forwarding-only"]) process.exit(0);
+
+const packages = nativePackages.filter((pkg) => pkg.publish === null || pkg.publish.length > 0);
 for (const name of values.package ?? []) {
   if (!packages.some((pkg) => pkg.name === name)) {
     throw new Error(`Unknown publishable workspace package: ${name}`);
@@ -95,7 +139,7 @@ for (const pkg of packages) {
       ]);
     }
     const apiFeatures = Object.keys(pkg.features)
-      .filter((feature) => /^api-(1[3-9]|2[0-6])$/.test(feature))
+      .filter((feature) => /^api-\d+$/.test(feature))
       .sort((a, b) => Number(a.slice(4)) - Number(b.slice(4)));
     for (const feature of apiFeatures) {
       configurations.push([feature, ["--no-default-features", "--features", feature]]);
