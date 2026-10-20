@@ -1,8 +1,8 @@
 //! Safe wrappers for ArkUI key input events.
 
-use std::{ffi::CStr, marker::PhantomData, sync::OnceLock};
+use std::{ffi::CStr, marker::PhantomData};
 
-use ohos_arkui_input_binding::{sys::ArkUI_UIInputEvent, ArkUIInputEvent};
+use ohos_arkui_input_binding::ArkUIInputEvent;
 use ohos_arkui_sys::*;
 use ohos_enum_derive::EnumFrom;
 
@@ -310,15 +310,13 @@ impl<'event> KeyEvent<'event> {
         self.input.pressed_keys(keys)
     }
 
-    /// Queries API-19 lock state when supported by the running system.
-    /// Missing symbols and failed queries return `None`, not an unlocked state.
-    /// This does not introduce a load-time dependency on API-19 symbols.
+    /// Queries lock state through the API-19 bindings. Failed queries remain unknown.
+    #[cfg(feature = "api-19")]
     pub fn lock_state(self) -> KeyLockState {
-        let queries = LockQueries::get();
         KeyLockState {
-            caps_lock: queries.query(queries.caps, self.input.raw()),
-            num_lock: queries.query(queries.num, self.input.raw()),
-            scroll_lock: queries.query(queries.scroll, self.input.raw()),
+            caps_lock: self.caps_lock_on().ok(),
+            num_lock: self.num_lock_on().ok(),
+            scroll_lock: self.scroll_lock_on().ok(),
         }
     }
 
@@ -410,55 +408,12 @@ impl<'event> KeyEvent<'event> {
     }
 }
 
-/// Lock-key state, available independently for each optional runtime query.
+/// Lock-key state; an unsuccessful query remains unknown independently of other keys.
 #[derive(Clone, Copy, Debug, Default, PartialEq, Eq)]
 pub struct KeyLockState {
     pub caps_lock: Option<bool>,
     pub num_lock: Option<bool>,
     pub scroll_lock: Option<bool>,
-}
-
-type LockQuery = unsafe extern "C" fn(*const ArkUI_UIInputEvent, *mut bool) -> u32;
-
-struct LockQueries {
-    _library: libloading::os::unix::Library,
-    caps: Option<LockQuery>,
-    num: Option<LockQuery>,
-    scroll: Option<LockQuery>,
-}
-
-impl LockQueries {
-    fn get() -> &'static Self {
-        static QUERIES: OnceLock<LockQueries> = OnceLock::new();
-        QUERIES.get_or_init(|| {
-            let library = libloading::os::unix::Library::this();
-            // SAFETY: the SDK defines these API-19 symbols with this signature.
-            // The process library is retained with the resolved function pointers.
-            unsafe {
-                Self {
-                    caps: library
-                        .get::<LockQuery>(b"OH_ArkUI_KeyEvent_IsCapsLockOn\0")
-                        .ok()
-                        .map(|s| *s),
-                    num: library
-                        .get::<LockQuery>(b"OH_ArkUI_KeyEvent_IsNumLockOn\0")
-                        .ok()
-                        .map(|s| *s),
-                    scroll: library
-                        .get::<LockQuery>(b"OH_ArkUI_KeyEvent_IsScrollLockOn\0")
-                        .ok()
-                        .map(|s| *s),
-                    _library: library,
-                }
-            }
-        })
-    }
-
-    fn query(&self, query: Option<LockQuery>, event: *const ArkUI_UIInputEvent) -> Option<bool> {
-        let mut state = false;
-        // SAFETY: KeyEvent is borrowed from the still-active node callback.
-        (unsafe { query?(event, &mut state) } == 0).then_some(state)
-    }
 }
 
 #[cfg(test)]

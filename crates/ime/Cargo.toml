@@ -12,7 +12,6 @@ workspace = true
 ohos-input-method-sys = { workspace = true }
 ohos-enum-derive      = { workspace = true }
 rustc-hash            = { workspace = true }
-libloading            = { workspace = true }
 log                   = "0.4"
 
 [features]
@@ -27,3 +26,7 @@ api-19  = ["api-18", "ohos-input-method-sys/api-19"]
 api-20  = ["api-19", "ohos-input-method-sys/api-20"]
 api-21  = ["api-20", "ohos-input-method-sys/api-21"]
 api-22  = ["api-21", "ohos-input-method-sys/api-22"]
+api-23  = ["api-22", "ohos-input-method-sys/api-23"]
+api-24  = ["api-23", "ohos-input-method-sys/api-24"]
+api-25  = ["api-24", "ohos-input-method-sys/api-25"]
+api-26  = ["api-25", "ohos-input-method-sys/api-26"]

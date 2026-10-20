@@ -9,23 +9,29 @@ description = "Safe OpenHarmony window manager bindings for Rust"
 ohos-enum-derive               = { workspace = true }
 ohos-image-native-binding      = { workspace = true }
 ohos-native-window-manager-sys = { workspace = true }
+ohos-multi-modal-input-sys     = { workspace = true, optional = true }
 
 [features]
 default = []
-api-13  = ["ohos-native-window-manager-sys/api-13"]
-api-14  = ["api-13", "ohos-native-window-manager-sys/api-14"]
-api-15  = ["api-14", "ohos-native-window-manager-sys/api-15"]
-api-16  = ["api-15", "ohos-native-window-manager-sys/api-16"]
-api-17  = ["api-16", "ohos-native-window-manager-sys/api-17"]
-api-18  = ["api-17", "ohos-native-window-manager-sys/api-18"]
-api-19  = ["api-18", "ohos-native-window-manager-sys/api-19"]
-api-20  = ["api-19", "ohos-native-window-manager-sys/api-20"]
-api-21  = ["api-20", "ohos-native-window-manager-sys/api-21"]
-api-22  = ["api-21", "ohos-native-window-manager-sys/api-22"]
-api-23  = ["api-22", "ohos-native-window-manager-sys/api-23"]
-api-24  = ["api-23", "ohos-native-window-manager-sys/api-24"]
-api-25  = ["api-24", "ohos-native-window-manager-sys/api-25"]
-api-26  = ["api-25", "ohos-native-window-manager-sys/api-26"]
+api-13 = ["ohos-native-window-manager-sys/api-13"]
+api-14 = ["api-13", "ohos-native-window-manager-sys/api-14"]
+api-15 = [
+  "api-14",
+  "ohos-native-window-manager-sys/api-15",
+  "dep:ohos-multi-modal-input-sys",
+  "ohos-multi-modal-input-sys/api-15",
+]
+api-16 = ["api-15", "ohos-native-window-manager-sys/api-16"]
+api-17 = ["api-16", "ohos-native-window-manager-sys/api-17"]
+api-18 = ["api-17", "ohos-native-window-manager-sys/api-18"]
+api-19 = ["api-18", "ohos-native-window-manager-sys/api-19"]
+api-20 = ["api-19", "ohos-native-window-manager-sys/api-20"]
+api-21 = ["api-20", "ohos-native-window-manager-sys/api-21"]
+api-22 = ["api-21", "ohos-native-window-manager-sys/api-22"]
+api-23 = ["api-22", "ohos-native-window-manager-sys/api-23"]
+api-24 = ["api-23", "ohos-native-window-manager-sys/api-24"]
+api-25 = ["api-24", "ohos-native-window-manager-sys/api-25"]
+api-26 = ["api-25", "ohos-native-window-manager-sys/api-26"]
 
 [lints]
 workspace = true

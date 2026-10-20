@@ -17169,3 +17169,9 @@ extern "C" {
         writeLength: *mut u32,
     ) -> ArkUI_ErrorCode;
 }
+
+extern "C" {
+    /// Requests focus for an ArkUI node. `native_interface_focus.h`, API 15+.
+    #[cfg(feature = "api-15")]
+    pub fn OH_ArkUI_FocusRequest(node: ArkUI_NodeHandle) -> ArkUI_ErrorCode;
+}

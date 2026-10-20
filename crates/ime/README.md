@@ -34,10 +34,10 @@ let ime = IME::new_with_main_thread_callbacks(AttachOptions::new(false));
 `IME::new` preserves the platform default callback thread.
 
 Use `IME::new_for_window(options, native_window_id)` to associate the editor with
-its actual OHOS window. `set_consume_key_events(false)` lets an application handle
-hardware text and shortcuts while retaining native composition. The API-26
-configuration entry point is loaded dynamically; older runtimes return `false`
-and keep their existing input path. Configuration and cursor updates remain
+its actual OHOS window. `set_consume_key_events(true)` lets an application handle
+hardware text and shortcuts while retaining native composition. Enable the `api-26` Cargo feature to link this configuration API; the resulting
+application requires API 26 or newer. Without the feature, the setter returns
+`false` and does not call the unavailable API. Configuration and cursor updates remain
 owned by that editor and are refreshed after its background attachment commits.
 
 

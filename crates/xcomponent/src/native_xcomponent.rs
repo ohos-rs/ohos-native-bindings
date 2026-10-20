@@ -39,6 +39,20 @@ pub struct NativeXComponent {
 }
 
 impl NativeXComponent {
+    /// Sets editor keyboard demand independently of current soft-keyboard visibility.
+    pub fn set_need_soft_keyboard(&self, needed: bool) -> Result<()> {
+        let status = unsafe {
+            ohos_xcomponent_sys::OH_NativeXComponent_SetNeedSoftKeyboard(self.raw(), needed)
+        };
+        if status == 0 {
+            Ok(())
+        } else {
+            Err(Error::from_reason(format!(
+                "Cannot set XComponent keyboard demand: {status}"
+            )))
+        }
+    }
+
     pub fn new(raw: XComponentRaw) -> Self {
         Self { raw, id: None }
     }

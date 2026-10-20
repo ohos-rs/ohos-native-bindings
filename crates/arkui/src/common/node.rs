@@ -51,6 +51,12 @@ pub struct ArkUINode {
 }
 
 impl ArkUINode {
+    /// Synchronously requests focus for this live node (API 15+).
+    #[cfg(feature = "api-15")]
+    pub fn request_focus(&self) -> ArkUIResult<()> {
+        check_arkui_status!(unsafe { ohos_arkui_sys::OH_ArkUI_FocusRequest(self.raw) })
+    }
+
     /// Returns the native ArkUI node handle.
     pub fn raw_handle(&self) -> ArkUI_NodeHandle {
         self.raw

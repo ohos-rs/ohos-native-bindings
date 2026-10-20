@@ -346,7 +346,7 @@ impl IME {
 
     /// Declare that this editor handles unconsumed hardware letters, characters
     /// and function keys. Set this before attaching the editor. Returns false
-    /// when the OS predates the optional API-26 attribute.
+    /// when the `api-26` feature is disabled. Enabling it requires API 26 or newer.
     pub fn set_consume_key_events(&self, enabled: bool) -> bool {
         self.inner
             .configuration
