@@ -15,3 +15,4 @@ rustc-hash = "2"
 
 [features]
 api-22 = []
+api-26 = ["api-22"]

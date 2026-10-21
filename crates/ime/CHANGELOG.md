@@ -7,8 +7,20 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+### Breaking
+
+- Window ownership, lifecycle serialization and attachment workers move to
+  the host. The binding no longer coordinates sessions or reclaims tables from
+  a global retired-editor pool. Detach before transferring ownership.
+- Remove the unpublished `ImeAttachment`, `ImeAttachmentCancellation`,
+  `prepare_background_attachment` and `try_refresh_configuration` APIs.
+- `IME::set_consume_key_events(bool)` is available only with `api-26` and returns
+  `()`, not a runtime capability boolean. Enable the feature for API-26 targets.
+
 ### Added
 
+- Add `IME::{new_for_window,set_window_id,show_attached}` and the API-26-only
+  `IME::set_consume_key_events`/`TextConfig::set_consume_key_events`.
 - Synchronize editor configuration, cursor, text and selection state; expose
   forward deletion, cursor movement, selection and extended editing callbacks.
 

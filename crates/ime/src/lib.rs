@@ -5,7 +5,6 @@ mod error;
 mod ime;
 mod private_command;
 mod proxy;
-mod session;
 mod text_config;
 mod text_editor;
 mod text_state;

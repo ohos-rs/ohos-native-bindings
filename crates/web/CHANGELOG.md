@@ -7,6 +7,11 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+### Added
+
+- Add `WebEngine::active_version` (API 20) and `WebEngine::is_evergreen`
+  (API 23), selected and linked through Cargo features.
+
 ### Breaking changes
 
 - HTTP body reads consume the stream and initialize lazily. Single reads return
