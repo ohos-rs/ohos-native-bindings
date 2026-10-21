@@ -108,3 +108,6 @@ jobs:
 
       - name: Check drawing helpers with native substitutes
         run: bash crates/drawing/tests/run-host.sh
+
+      - name: Check native clipboard and UDMF copies with native substitutes
+        run: bash crates/pasteboard/tests/run-host.sh
