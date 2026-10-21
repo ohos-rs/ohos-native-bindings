@@ -7,8 +7,8 @@ use std::{
 };
 
 use accesskit::{
-    Action, ActionHandler, ActionRequest, ActivationHandler, Node, NodeId, Rect, Role, Tree,
-    TreeId, TreeUpdate,
+    Action, ActionHandler, ActionRequest, ActivationHandler, Node, NodeId, Rect, Role, TreeId,
+    TreeInfo, TreeUpdate,
 };
 use accesskit_ohos::Adapter;
 use napi_derive_ohos::napi;
@@ -163,7 +163,7 @@ fn full_tree(kind: SurfaceKind) -> TreeUpdate {
     root.set_bounds(Rect::new(0.0, 0.0, 360.0, 128.0));
     TreeUpdate {
         nodes: vec![(ROOT_ID, root), (BUTTON_ID, button_node(kind))],
-        tree: Some(Tree::new(ROOT_ID)),
+        tree: Some(TreeInfo::new(ROOT_ID)),
         tree_id: TreeId::ROOT,
         focus: BUTTON_ID,
     }
