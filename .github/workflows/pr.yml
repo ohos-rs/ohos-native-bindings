@@ -94,3 +94,8 @@ jobs:
         env:
           OHOS_BINDINGS_SKIP_GENERATION: "1"
         run: cargo test -p generate
+
+      - name: Check thin IME primitives with native substitutes
+        run: |
+          cargo test --manifest-path crates/ime/tests/host/Cargo.toml
+          cargo test --manifest-path crates/ime/tests/host/Cargo.toml --all-features

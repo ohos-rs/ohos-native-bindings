@@ -7,6 +7,10 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+### Fixed
+
+- Make API 18 inherit API 17 so native features remain cumulative.
+
 ## [0.2.5](https://github.com/ohos-rs/ohos-native-bindings/compare/ohos-native-buffer-binding-v0.2.4...ohos-native-buffer-binding-v0.2.5) - 2026-08-26
 
 ### Other
