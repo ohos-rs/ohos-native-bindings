@@ -12,14 +12,8 @@ use ohos_arkui_input_binding::ArkUIErrorCode;
 ///
 /// ```
 pub struct RootNode {
-    base: Option<MountedRoot>,
+    base: Option<Rc<RefCell<ArkUINode>>>,
     handle: ArkUIHandle,
-}
-
-struct MountedRoot {
-    node: Rc<RefCell<ArkUINode>>,
-    attached: bool,
-    retention: Option<crate::common::node_retention::NodeRetention>,
 }
 
 impl RootNode {
@@ -54,7 +48,6 @@ impl RootNode {
                 "Mount root node failed, the node handle is borrowed",
             ));
         }
-        let retention = base.borrow().retain_native()?;
         // Same event-dispatch contract as every wrapper-mounted child: the
         // receiver resolves callbacks through this identity-stable wrapper.
         crate::common::node_registry::register(&base.borrow(), base.clone())?;
@@ -69,24 +62,15 @@ impl RootNode {
             crate::common::node_registry::unregister(&base.borrow());
             return Err(error);
         }
-        self.base = Some(MountedRoot {
-            node: base,
-            attached: true,
-            retention: Some(retention),
-        });
+        self.base = Some(base);
         Ok(())
     }
 
     pub fn unmount(&mut self) -> ArkUIResult<()> {
         // If root node is empty, just ignore it.
-        if let Some(base) = self.base.as_mut() {
-            if base.attached {
-                self.handle.remove_node(&base.node.borrow())?;
-                base.attached = false;
-                // Release our claim only after the native edge is gone.
-                base.retention.take();
-            }
-            base.node.borrow_mut().dispose()?;
+        if let Some(base) = self.base.as_ref() {
+            self.handle.remove_node(&base.borrow())?;
+            base.borrow_mut().dispose()?;
             self.base = None;
         }
         Ok(())
@@ -100,10 +84,9 @@ impl RootNode {
     /// through it. Rust-side state is released; the native handle and the
     /// event registry entry becomes a harmless stale `Weak` and is pruned on
     /// lookup or handle reuse.
-    ///
     /// # Safety
-    /// The underlying NodeContent or its subtree must already be destroyed;
-    /// no native parent edge may still depend on this owner's create reference.
+    /// The native NodeContent and its subtree must already have been destroyed,
+    /// so no native parent edge can depend on the released wrapper state.
     pub unsafe fn into_inert(mut self) {
         self.base = None;
     }
@@ -111,12 +94,6 @@ impl RootNode {
 
 impl Drop for RootNode {
     fn drop(&mut self) {
-        if self.unmount().is_err() && self.base.as_ref().is_some_and(|base| base.attached) {
-            if let Some(base) = self.base.take() {
-                // A live native slot still owns its edge. Keep its node and
-                // guard quarantined rather than enabling premature disposal.
-                std::mem::forget(base);
-            }
-        }
+        let _ = self.unmount();
     }
 }

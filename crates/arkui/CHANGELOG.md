@@ -18,7 +18,10 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Added
 
-- Add owned NodeContent roots and UI-thread native attachment targets with synchronous retirement of external content.
+- Expose `NodeContent`, identity-stable `add_existing_node` and
+  `unsafe ArkUINodeRaw::borrowed_node` for externally retained ArkTS nodes.
+- Expose `ArkUINode::retain_native`, `NodeRetention`, event-route registration
+  and native receiver add/remove operations for host-owned NodeContent moves.
 - Add callback-scoped custom layout helpers, copied integer attributes, typed view/input policies, and event/gesture registration on identity-stable nodes.
 - Add safe ArkUI key-event, component-event union, and node animator wrappers so downstream UI frameworks do not need direct `ohos-arkui-sys` access.
 - Add `ArkUINode::native_xcomponent` so downstream frameworks do not need the XComponent sys crate to resolve a mounted surface.

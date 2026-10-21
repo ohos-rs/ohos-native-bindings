@@ -23,7 +23,12 @@ thread_local! {
 }
 
 /// Register the single identity-stable wrapper for a native node handle.
-pub(crate) fn register(node: &ArkUINode, wrapper: NodeWrapper) -> ArkUIResult<()> {
+///
+/// Call on the node's owning UI thread. `node` must identify `wrapper`'s native
+/// handle. Keep a strong `Rc` and any required native retention guard until
+/// the external edge is detached. Registration holds only a `Weak` reference
+/// and rejects a second live wrapper for the same handle.
+pub fn register(node: &ArkUINode, wrapper: Rc<RefCell<ArkUINode>>) -> ArkUIResult<()> {
     let key = node.raw_handle() as usize;
     if key == 0 {
         return Err(ArkUIError::new(
@@ -48,7 +53,11 @@ pub(crate) fn register(node: &ArkUINode, wrapper: NodeWrapper) -> ArkUIResult<()
 }
 
 /// Remove event routing for a node that is about to be disposed.
-pub(crate) fn unregister(node: &ArkUINode) {
+///
+/// Call on the owning UI thread after removing the native event receiver.
+/// For a NodeContent move, keep the same `Rc` and register it again before
+/// restoring the receiver.
+pub fn unregister(node: &ArkUINode) {
     NODE_EVENT_WRAPPERS.with(|wrappers| {
         wrappers.borrow_mut().remove(&(node.raw_handle() as usize));
     });
@@ -77,7 +86,6 @@ mod tests {
             raw: id as ArkUI_NodeHandle,
             tag: ArkUINodeType::Custom,
             children: Vec::new(),
-            pending_children: Vec::new(),
             event_handle: EventHandle::default(),
             owns_raw: true,
             retained: Default::default(),
