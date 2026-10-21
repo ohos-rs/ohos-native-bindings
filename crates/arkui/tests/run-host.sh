@@ -6,3 +6,5 @@ test_tmp="$(mktemp -d "${TMPDIR:-/tmp}/ohos-arkui-host.XXXXXX")"
 trap 'rm -rf "$test_tmp"' EXIT
 rustc --edition 2021 --test "$test_dir/host.rs" -o "$test_tmp/tests"
 "$test_tmp/tests" "$@"
+rustc --edition 2021 --test "$test_dir/root_host.rs" -o "$test_tmp/root-tests"
+"$test_tmp/root-tests" "$@"

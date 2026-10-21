@@ -42,15 +42,31 @@ pub struct ArkUINode {
     pub(crate) tag: ArkUINodeType,
     /// Child nodes owned by this node in wrapper layer.
     pub(crate) children: Vec<Rc<RefCell<ArkUINode>>>,
+    pub(crate) pending_children: Vec<Rc<RefCell<ArkUINode>>>,
     /// Event callbacks bound to this node.
     pub(crate) event_handle: EventHandle,
     /// Whether this wrapper owns the reference acquired by `createNode`.
     /// Nodes obtained from query APIs are borrowed and must never decrement
     /// the native reference count.
     pub(crate) owns_raw: bool,
+    pub(crate) retained: super::node_retention::NativeRetentions,
 }
 
 impl ArkUINode {
+    pub(crate) fn retain_native(&self) -> ArkUIResult<super::node_retention::NodeRetention> {
+        if !self.owns_raw || self.raw.is_null() {
+            return Err(ArkUIError::new(
+                ArkUIErrorCode::ParamInvalid,
+                "native retention requires an owned node",
+            ));
+        }
+        self.retained.retain().ok_or_else(|| {
+            ArkUIError::new(
+                ArkUIErrorCode::ParamInvalid,
+                "native node retention count exhausted",
+            )
+        })
+    }
     /// Synchronously requests focus for this live node (API 15+).
     #[cfg(feature = "api-15")]
     pub fn request_focus(&self) -> ArkUIResult<()> {
@@ -110,8 +126,10 @@ impl ArkUINode {
             raw: self.raw,
             tag: self.tag,
             children: self.children.clone(),
+            pending_children: self.pending_children.clone(),
             event_handle: self.event_handle.clone(),
             owns_raw: false,
+            retained: self.retained.clone(),
         }
     }
 
@@ -134,8 +152,10 @@ impl ArkUINode {
             raw,
             tag: ArkUINodeType::Custom,
             children: vec![],
+            pending_children: vec![],
             event_handle: Default::default(),
             owns_raw: false,
+            retained: Default::default(),
         })
     }
 
@@ -163,6 +183,12 @@ impl ArkUINode {
     /// then is this node's own `createNode` reference released. Borrowed
     /// children are detached but never disposed by this wrapper.
     pub fn dispose(&mut self) -> ArkUIResult<()> {
+        if self.retained.is_retained() {
+            return Err(ArkUIError::new(
+                ArkUIErrorCode::ParamInvalid,
+                "cannot dispose a node with active native owners",
+            ));
+        }
         if !self.owns_raw {
             return Err(ArkUIError::new(
                 ArkUIErrorCode::ParamInvalid,
@@ -179,13 +205,18 @@ impl ArkUINode {
             ));
         }
 
-        while let Some(child) = self.children.last().cloned() {
-            ARK_UI_NATIVE_NODE_API_1.with(|api| api.remove_child(self, &child.borrow()))?;
-            self.children.pop();
-            if child.borrow().is_owned() {
-                child.borrow_mut().dispose()?;
-            }
-        }
+        let parent = self.borrowed_clone();
+        super::child_retirement::retire(
+            &mut self.children,
+            &mut self.pending_children,
+            |child| ARK_UI_NATIVE_NODE_API_1.with(|api| api.remove_child(&parent, &child.borrow())),
+            |child| {
+                if child.borrow().is_owned() {
+                    child.borrow_mut().dispose()?;
+                }
+                Ok(())
+            },
+        )?;
 
         let registered_events = self
             .event_handle
@@ -319,8 +350,10 @@ impl Default for ArkUINode {
             raw: std::ptr::null_mut(),
             tag: ArkUINodeType::Custom,
             children: vec![],
+            pending_children: vec![],
             event_handle: Default::default(),
             owns_raw: false,
+            retained: Default::default(),
         }
     }
 }
@@ -334,6 +367,25 @@ pub struct ArkUINodeRaw {
     pub(crate) value: sys::napi_value,
     /// Native ArkUI handle.
     pub raw: ArkUI_NodeHandle,
+}
+
+#[cfg(feature = "napi")]
+impl ArkUINodeRaw {
+    /// Borrows the node represented by this ArkTS value. Keep its ArkTS owner
+    /// alive until the returned node is detached; this does not acquire ownership.
+    ///
+    /// # Safety
+    /// The ArkTS owner must keep the native handle alive until this borrowed
+    /// wrapper has been detached and discarded, on the owning UI thread.
+    pub unsafe fn borrowed_node(&self) -> ArkUIResult<ArkUINode> {
+        // SAFETY: the caller keeps this ArkTS node owner alive through retirement.
+        unsafe { ArkUINode::from_raw_handle(self.raw) }.ok_or_else(|| {
+            ArkUIError::new(
+                ArkUIErrorCode::ParamInvalid,
+                "ArkTS value has no native node",
+            )
+        })
+    }
 }
 
 #[cfg(feature = "napi")]
@@ -379,8 +431,10 @@ mod tests {
             raw: id as ArkUI_NodeHandle,
             tag: ArkUINodeType::Custom,
             children: Vec::new(),
+            pending_children: Vec::new(),
             event_handle: Default::default(),
             owns_raw,
+            retained: Default::default(),
         }
     }
 

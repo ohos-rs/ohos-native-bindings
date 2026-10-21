@@ -2,6 +2,10 @@
 
 pub mod attribute;
 pub mod built_in_component;
+#[cfg(feature = "napi")]
+pub mod content_root;
+#[cfg(feature = "napi")]
+pub mod native_attachment;
 pub mod root;
 
 pub(crate) use attribute::*;

@@ -60,6 +60,19 @@ copy their dimensions when storing layout inputs for later use. `ArkUIEvent`
 and `ArkUIGesture` remain available after converting a component into its
 identity-stable node. `off_event` retires one handler while preserving others.
 
+### Native content ownership
+
+With `napi`, `ContentRoot` owns a NodeContent object for a host ContentSlot.
+Create, mount, unmount and destroy it on its creating UI thread.
+`NativeAttachment` connects externally owned ArkTS content through opaque
+target IDs. The external creator must retain its node until synchronous
+`retire` succeeds. Failed detachment retains the target for a later retry;
+`invalidate` rejects late construction results.
+
+Active roots and attachment targets retain their native owners. Explicit node
+disposal returns an error until these owners retire. Unmount retries continue
+disposal after the native edge has been detached successfully.
+
 ## License
 
 MIT OR Apache-2.0

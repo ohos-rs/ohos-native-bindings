@@ -77,8 +77,10 @@ mod tests {
             raw: id as ArkUI_NodeHandle,
             tag: ArkUINodeType::Custom,
             children: Vec::new(),
+            pending_children: Vec::new(),
             event_handle: EventHandle::default(),
             owns_raw: true,
+            retained: Default::default(),
         }))
     }
 
