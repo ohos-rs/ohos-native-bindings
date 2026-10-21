@@ -34,6 +34,12 @@ pub trait ArkUICommonAttribute: ArkUIAttributeBasic {
         ARK_UI_NATIVE_NODE_API_1.with(|api| api.get_attribute(self.raw(), attribute))
     }
 
+    /// Copies an integer member of a native attribute's numeric array.
+    /// The caller selects attributes documented to return an i32 at this index.
+    fn i32_attribute(&self, attribute: ArkUINodeAttributeType, index: usize) -> ArkUIResult<i32> {
+        ARK_UI_NATIVE_NODE_API_1.with(|api| api.i32_attribute(self.raw(), attribute, index))
+    }
+
     fn reset_attribute(&self, attribute: ArkUINodeAttributeType) -> ArkUIResult<()> {
         ARK_UI_NATIVE_NODE_API_1.with(|api| api.reset_attribute(self.raw(), attribute))
     }

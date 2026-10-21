@@ -10,6 +10,17 @@ use super::ArkUIAttributeBasic;
 
 /// Event registration helpers shared by components.
 pub trait ArkUIEvent: ArkUIAttributeBasic {
+    /// Unregisters one native event and releases its Rust callback.
+    /// Other event handlers and the node's mounted identity remain intact.
+    fn off_event(&mut self, event_type: NodeEventType) -> crate::ArkUIResult<()> {
+        let node = self.borrow_mut();
+        ARK_UI_NATIVE_NODE_API_1.with(|api| api.unregister_node_event(node, event_type))?;
+        node.event_handle
+            .callbacks
+            .retain(|(kind, _)| *kind != event_type);
+        Ok(())
+    }
+
     fn on_event<T: Fn(&Event) + 'static>(&mut self, event_type: NodeEventType, cb: T) {
         let node = self.borrow_mut();
         ARK_UI_NATIVE_NODE_API_1

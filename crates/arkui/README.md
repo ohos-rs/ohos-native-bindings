@@ -64,6 +64,14 @@ Typed text insertion/deletion handlers log decode failures and leave the
 native return value unchanged instead of passing fabricated empty text.
 NodeContent callback panics are logged and contained at the FFI boundary.
 
+### Custom layout
+
+Custom-node measure and layout helpers use physical pixels and validate the
+callback phase. Borrowed layout constraints remain valid for that callback;
+copy their dimensions when storing layout inputs for later use. `ArkUIEvent`
+and `ArkUIGesture` remain available after converting a component into its
+identity-stable node. `off_event` retires one handler while preserving others.
+
 ## License
 
 MIT OR Apache-2.0
