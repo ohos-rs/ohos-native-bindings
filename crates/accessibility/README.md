@@ -15,6 +15,14 @@ Platform adapters such as AccessKit should implement `ProviderCallbacks` and
 retain their own accessibility tree. This crate intentionally does not own a
 UI toolkit's tree or action model.
 
+## Action description lifetime
+
+`ElementInfo::set_operation_actions` accepts `&[(ActionType, &'static CStr)]`.
+Use static descriptions such as `c"Activate"`. ArkUI shallow-copies these
+pointers into element snapshots and exposes no retirement notification. Dynamic
+text therefore requires caller-owned process-lifetime storage; the caller
+controls its allocation policy.
+
 ## License
 
 MIT OR Apache-2.0

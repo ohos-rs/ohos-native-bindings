@@ -73,6 +73,12 @@ Active roots and attachment targets retain their native owners. Explicit node
 disposal returns an error until these owners retire. Unmount retries continue
 disposal after the native edge has been detached successfully.
 
+### Retained accessibility providers
+
+The `accessibility,api-23` features expose `NodeAccessibility` on API-23 and
+newer runtimes. It retains the owned Custom node and its native-owner guard
+until callbacks retire. `new` returns a registration or the native error.
+
 ## License
 
 MIT OR Apache-2.0

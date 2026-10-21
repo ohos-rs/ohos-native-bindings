@@ -1,4 +1,8 @@
-use std::{ffi::CString, marker::PhantomData, ptr::NonNull};
+use std::{
+    ffi::{CStr, CString},
+    marker::PhantomData,
+    ptr::NonNull,
+};
 
 use ohos_accessibility_sys::*;
 
@@ -95,16 +99,24 @@ impl ElementInfo<'_> {
         Ok(self)
     }
 
-    pub fn set_operation_actions(&mut self, actions: &[(ActionType, &str)]) -> Result<&mut Self> {
+    /// Sets action descriptions retained by shallow copies of the native tree.
+    /// Descriptions must remain valid for the process lifetime because ArkUI
+    /// exposes no notification after all native copies have retired.
+    ///
+    /// ```compile_fail
+    /// use ohos_accessibility_binding::{ActionType, ElementInfo};
+    /// let description = std::ffi::CString::new("Activate").unwrap();
+    /// let mut element = ElementInfo::new().unwrap();
+    /// element.set_operation_actions(&[(ActionType::Click, description.as_c_str())]).unwrap();
+    /// ```
+    pub fn set_operation_actions(
+        &mut self,
+        actions: &[(ActionType, &'static CStr)],
+    ) -> Result<&mut Self> {
         let count = i32::try_from(actions.len()).map_err(|_| AccessibilityError::BadParameter)?;
-        let descriptions = actions
-            .iter()
-            .map(|(_, description)| CString::new(*description))
-            .collect::<std::result::Result<Vec<_>, _>>()?;
         let mut raw_actions = actions
             .iter()
-            .zip(&descriptions)
-            .map(|((action, _), description)| ArkUI_AccessibleAction {
+            .map(|(action, description)| ArkUI_AccessibleAction {
                 actionType: (*action).into(),
                 description: description.as_ptr(),
             })
@@ -340,15 +352,30 @@ impl ElementInfoList<'_> {
     }
 }
 
-pub struct EventInfo {
+/// An event retaining the Rust borrow of its attached element until submission.
+///
+/// ```compile_fail
+/// use ohos_accessibility_binding::{ElementInfo, EventInfo};
+/// let mut event = EventInfo::new().unwrap();
+/// {
+///     let element = ElementInfo::new().unwrap();
+///     event.set_element_info(&element).unwrap();
+/// }
+/// drop(event);
+/// ```
+pub struct EventInfo<'a> {
     raw: NonNull<ArkUI_AccessibilityEventInfo>,
+    _element: PhantomData<&'a ()>,
 }
 
-impl EventInfo {
+impl<'a> EventInfo<'a> {
     pub fn new() -> Result<Self> {
         let raw = unsafe { OH_ArkUI_CreateAccessibilityEventInfo() };
         NonNull::new(raw)
-            .map(|raw| Self { raw })
+            .map(|raw| Self {
+                raw,
+                _element: PhantomData,
+            })
             .ok_or(AccessibilityError::NullHandle("accessibility event info"))
     }
 
@@ -377,13 +404,13 @@ impl EventInfo {
         Ok(self)
     }
 
-    pub fn set_element_info(&mut self, value: &ElementInfo<'_>) -> Result<&mut Self> {
+    pub fn set_element_info(&mut self, value: &'a ElementInfo<'_>) -> Result<&mut Self> {
         check(unsafe { OH_ArkUI_AccessibilityEventSetElementInfo(self.as_raw(), value.as_raw()) })?;
         Ok(self)
     }
 }
 
-impl Drop for EventInfo {
+impl Drop for EventInfo<'_> {
     fn drop(&mut self) {
         unsafe { OH_ArkUI_DestoryAccessibilityEventInfo(self.as_raw()) }
     }
