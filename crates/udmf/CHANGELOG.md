@@ -11,8 +11,16 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 - Add API-12 general-entry byte copies and type enumeration for owned and
   borrowed records, plus data-container type enumeration and membership queries.
+- Add API-12 `plain_text()` / `html()` typed getters on owned and borrowed
+  records for interoperation with standard text clipboards.
+- Reject empty general-entry input before native calls with `UdmfError::EmptyEntry`.
+
 - Add fallible file-URI records and typed file URI/type getters and setters (API 13).
 - Add fallible data and record allocation.
+
+### Breaking
+
+- `UdmfError` has a new `EmptyEntry` variant. Update exhaustive matches.
 
 ### Fixed
 

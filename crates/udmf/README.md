@@ -25,6 +25,17 @@ native record. The SDK validates the supported identifiers and size (the
 general-entry API accepts up to 4 KiB). Use typed UDS methods for standard UDS
 records such as plain text, HTML and pixel maps.
 
+The upstream `OH_UdmfRecord_AddGeneralEntry` rejects `count == 0`.
+Empty input returns `UdmfError::EmptyEntry` before a native call, with no sentinel
+encoding. General entries store an `ARRAY_BUFFER`; built-in plain-text and
+HTML UDS records are not readable as raw bytes through `general_entry`.
+For other apps' standard text clipboards, call `plain_text()` / `html()` on
+`UdmfRecord` or `UdmfRecordRef`, then the existing UDS content getters.
+These typed methods return independently owned UDS instances (API 12).
+Both upstream facts are in
+[`framework/ndkimpl/data/udmf.cpp`](https://github.com/openharmony/distributeddatamgr_udmf/blob/master/framework/ndkimpl/data/udmf.cpp)
+(`OH_UdmfRecord_AddGeneralEntry` and `GetValueFromUint8Array`).
+
 `UdmfRecord::general_entry` and `UdmfRecordRef::general_entry` return owned
 byte vectors copied from record-owned storage. `types()` returns copied
 identifiers on owned records, borrowed records and `UdmfData`.
