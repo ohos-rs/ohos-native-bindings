@@ -20,6 +20,10 @@ println!("window size: {}x{}", properties.window_rect.width, properties.window_r
 
 APIs introduced after API 15 are enabled by the matching `api-*` feature.
 
+Enable `input` to borrow `KeyEventRef` in a native key-filter callback and query
+its Window ID. This capability explicitly enables API 15 and the native input
+library; API-level selection alone keeps that extra library optional.
+
 ## License
 
 MIT OR Apache-2.0
