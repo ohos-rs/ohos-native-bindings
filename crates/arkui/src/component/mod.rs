@@ -1,5 +1,7 @@
 //! Component definitions and common component attribute traits.
 
+#[cfg(all(feature = "accessibility", feature = "api-23"))]
+pub mod accessibility;
 pub mod attribute;
 pub mod built_in_component;
 pub mod root;
