@@ -115,7 +115,17 @@ impl ArkUINode {
         }
     }
 
-    pub fn from_raw_handle(raw: ArkUI_NodeHandle) -> Option<Self> {
+    /// Borrows a native node without acquiring its create reference.
+    ///
+    /// # Safety
+    /// A non-null handle must remain live on its owning UI thread until the
+    /// returned wrapper and every attachment using it have been discarded.
+    ///
+    /// ```compile_fail
+    /// use ohos_arkui_binding::common::node::ArkUINode;
+    /// let node = ArkUINode::from_raw_handle(std::ptr::null_mut());
+    /// ```
+    pub unsafe fn from_raw_handle(raw: ArkUI_NodeHandle) -> Option<Self> {
         if raw.is_null() {
             return None;
         }
@@ -239,6 +249,19 @@ impl ArkUINode {
         Ok(offset.into())
     }
 
+    /// Returns the untransformed layout offset from the native parent, in pixels (API 12).
+    pub fn layout_position(&self) -> ArkUIResult<IntOffset> {
+        let mut offset = ArkUI_IntOffset { x: 0, y: 0 };
+        // SAFETY: the live node and writable offset remain valid throughout this synchronous call.
+        unsafe {
+            check_arkui_status!(ohos_arkui_sys::OH_ArkUI_NodeUtils_GetLayoutPosition(
+                self.raw(),
+                &mut offset
+            ))
+        }?;
+        Ok(offset.into())
+    }
+
     /// Returns this node's layout position in the current window.
     pub fn layout_position_in_window(&self) -> ArkUIResult<IntOffset> {
         let mut offset: ArkUI_IntOffset = unsafe { std::mem::zeroed() };
@@ -280,6 +303,13 @@ impl ArkUIAttributeBasic for ArkUINode {
 }
 
 impl ArkUICommonAttribute for ArkUINode {}
+
+// Preserve event registration after a component has become an identity-stable
+// shared node through `into_node`, just as common attribute mutation does.
+impl crate::ArkUIEvent for ArkUINode {}
+
+// Identity-stable nodes keep gesture attachment available after `into_node`.
+impl crate::ArkUIGesture for ArkUINode {}
 
 /// This implementation just for event and animation to use it.
 /// When you need to create a new node, you should add raw and tag at the same time.

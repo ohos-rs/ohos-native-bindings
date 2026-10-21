@@ -49,7 +49,8 @@ pub(super) unsafe extern "C" fn node_custom_event_receiver(event: *mut ArkUI_Nod
     let Some(event) = crate::NodeCustomEvent::from_raw(event) else {
         return;
     };
-    let Some(node) = event.node_handle() else {
+    // SAFETY: the node is used synchronously before its native callback returns.
+    let Some(node) = (unsafe { event.node_handle() }) else {
         return;
     };
     let key = super::node_custom_event_map_key(node.raw(), event.event_type());

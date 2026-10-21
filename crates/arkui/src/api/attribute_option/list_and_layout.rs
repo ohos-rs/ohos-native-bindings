@@ -252,20 +252,28 @@ impl NodeAdapterEvent {
         unsafe { OH_ArkUI_NodeAdapterEvent_GetType(self.raw()).into() }
     }
 
-    pub fn removed_node(&self) -> Option<crate::ArkUINode> {
-        crate::ArkUINode::from_raw_handle(unsafe {
-            OH_ArkUI_NodeAdapterEvent_GetRemovedNode(self.raw())
-        })
+    /// Borrows a node associated with this adapter event.
+    ///
+    /// # Safety
+    /// Retain its external native owner until the returned wrapper is discarded.
+    pub unsafe fn removed_node(&self) -> Option<crate::ArkUINode> {
+        unsafe {
+            crate::ArkUINode::from_raw_handle(OH_ArkUI_NodeAdapterEvent_GetRemovedNode(self.raw()))
+        }
     }
 
     pub fn item_index(&self) -> u32 {
         unsafe { OH_ArkUI_NodeAdapterEvent_GetItemIndex(self.raw()) }
     }
 
-    pub fn host_node(&self) -> Option<crate::ArkUINode> {
-        crate::ArkUINode::from_raw_handle(unsafe {
-            OH_ArkUI_NodeAdapterEvent_GetHostNode(self.raw())
-        })
+    /// Borrows a node associated with this adapter event.
+    ///
+    /// # Safety
+    /// Retain its external native owner until the returned wrapper is discarded.
+    pub unsafe fn host_node(&self) -> Option<crate::ArkUINode> {
+        unsafe {
+            crate::ArkUINode::from_raw_handle(OH_ArkUI_NodeAdapterEvent_GetHostNode(self.raw()))
+        }
     }
 
     pub fn set_item(&mut self, node: &crate::ArkUINode) -> ArkUIResult<()> {
@@ -415,7 +423,10 @@ impl NodeAdapter {
         Ok(items
             .iter()
             .copied()
-            .filter_map(crate::ArkUINode::from_raw_handle)
+            .filter_map(|node| {
+                // SAFETY: these handles are owned by the queried live adapter.
+                unsafe { crate::ArkUINode::from_raw_handle(node) }
+            })
             .collect())
     }
 }

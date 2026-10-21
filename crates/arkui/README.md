@@ -52,6 +52,14 @@ let _ = (pan, native);
 Use `on_tap_gesture` for taps, `on_pan_gesture` for continuous dragging, and
 `on_swipe_gesture` for a fast directional swipe.
 
+### Custom layout
+
+Custom-node measure and layout helpers use physical pixels and validate the
+callback phase. Borrowed layout constraints remain valid for that callback;
+copy their dimensions when storing layout inputs for later use. `ArkUIEvent`
+and `ArkUIGesture` remain available after converting a component into its
+identity-stable node. `off_event` retires one handler while preserving others.
+
 ## License
 
 MIT OR Apache-2.0

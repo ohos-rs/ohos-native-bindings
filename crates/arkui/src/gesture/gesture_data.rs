@@ -86,9 +86,9 @@ pub struct PanGestureData {
 pub struct PinchGestureData {
     /// Scale factor.
     pub scale: f32,
-    /// Pinch center x.
+    /// Pinch center x in physical pixels, independent of the node length metric unit.
     pub center_x: f32,
-    /// Pinch center y.
+    /// Pinch center y in physical pixels, independent of the node length metric unit.
     pub center_y: f32,
 }
 

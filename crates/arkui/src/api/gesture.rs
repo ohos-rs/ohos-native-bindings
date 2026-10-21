@@ -943,9 +943,15 @@ impl GestureEventRef {
         }
     }
 
-    pub fn node(&self) -> Option<crate::ArkUINode> {
+    /// Borrows the callback's native node.
+    ///
+    /// # Safety
+    /// Keep the native owner alive until the returned wrapper is discarded;
+    /// otherwise, use the node only within this native callback.
+    pub unsafe fn node(&self) -> Option<crate::ArkUINode> {
         let node = unsafe { OH_ArkUI_GestureEvent_GetNode(self.raw()) };
-        crate::ArkUINode::from_raw_handle(node)
+        // SAFETY: this native query returns a node owned by the queried live tree.
+        unsafe { crate::ArkUINode::from_raw_handle(node) }
     }
 }
 
@@ -1381,9 +1387,15 @@ impl TouchRecognizerRef {
         self.raw.as_ptr().cast()
     }
 
-    pub fn node(&self) -> Option<crate::ArkUINode> {
+    /// Borrows the callback's native node.
+    ///
+    /// # Safety
+    /// Keep the native owner alive until the returned wrapper is discarded;
+    /// otherwise, use the node only within this native callback.
+    pub unsafe fn node(&self) -> Option<crate::ArkUINode> {
         let node = unsafe { OH_ArkUI_TouchRecognizer_GetNodeHandle(self.raw()) };
-        crate::ArkUINode::from_raw_handle(node)
+        // SAFETY: this native query returns a node owned by the queried live tree.
+        unsafe { crate::ArkUINode::from_raw_handle(node) }
     }
 
     pub fn cancel_touch(&self, info: GestureInterruptInfoRef) -> ArkUIResult<()> {
