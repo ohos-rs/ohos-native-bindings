@@ -9,6 +9,12 @@ pub enum Error {
     Native(i64),
     UnexpectedNull,
     InteriorNul,
+    /// This window already has an owned or retiring key filter.
+    #[cfg(feature = "key-filter")]
+    KeyFilterInUse,
+    /// All 32 concurrent trampoline slots are occupied.
+    #[cfg(feature = "key-filter")]
+    KeyFilterLimit,
 }
 
 impl Error {
@@ -16,6 +22,8 @@ impl Error {
         match self {
             Self::Native(code) => Some(*code),
             Self::UnexpectedNull | Self::InteriorNul => None,
+            #[cfg(feature = "key-filter")]
+            Self::KeyFilterInUse | Self::KeyFilterLimit => None,
         }
     }
 }
@@ -26,6 +34,12 @@ impl Display for Error {
             Self::Native(code) => write!(f, "window manager error code {code}"),
             Self::UnexpectedNull => f.write_str("window manager returned a null pointer"),
             Self::InteriorNul => f.write_str("string contains an interior NUL byte"),
+            #[cfg(feature = "key-filter")]
+            Self::KeyFilterInUse => f.write_str("window key filter is already owned or retiring"),
+            #[cfg(feature = "key-filter")]
+            Self::KeyFilterLimit => {
+                f.write_str("all 32 concurrent window key filters are occupied")
+            }
         }
     }
 }
