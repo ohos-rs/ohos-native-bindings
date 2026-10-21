@@ -7,7 +7,7 @@ edition      = "2021"
 rust-version = "1.88"
 
 [workspace.dependencies]
-ohos-native-image-sys = { version = "0.1.0", path = "sys/ohos-native-image-sys" }
+ohos-native-image-sys     = { version = "0.1.0", path = "sys/ohos-native-image-sys" }
 ohos-native-image-binding = { version = "0.1.0", path = "crates/native_image" }
 # Match the registry AccessKit types consumed by the pinned OHOS adapter.
 accesskit                           = { git = "https://github.com/richerfu/accesskit.git", rev = "18a3c2050ab1690de3626c72a641330f8d14f703" }
