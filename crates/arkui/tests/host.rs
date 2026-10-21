@@ -51,12 +51,8 @@ mod geometry;
 #[path = "../src/event/mixed_string.rs"]
 mod mixed_string;
 
-#[path = "../src/common/child_retirement.rs"]
-mod child_retirement;
 #[path = "../src/common/node_retention.rs"]
 mod node_retention;
-#[path = "../src/common/operation.rs"]
-mod operation;
 
 #[test]
 fn constraint_allocations_retire_once_on_return_and_unwind() {

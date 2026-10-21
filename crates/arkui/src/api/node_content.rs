@@ -89,6 +89,7 @@ impl NodeContent {
     }
 
     /// Registers a callback invoked when node-content events are emitted.
+    /// Panics are logged and contained at the native callback boundary.
     pub fn register_callback<T: Fn(&mut NodeContentEvent) + 'static>(
         &mut self,
         callback: T,
@@ -115,7 +116,11 @@ impl NodeContent {
         if let Err(err) = register_result {
             // If reset fails, retain the context for a later cleanup attempt;
             // a previously installed trampoline could still read this data.
-            let _ = self.clear_callback();
+            if let Err(error) = self.clear_callback() {
+                log::error!(
+                    "NodeContent callback cleanup failed; retaining native context: {error:?}"
+                );
+            }
             return Err(err);
         }
         Ok(())
@@ -146,7 +151,9 @@ impl Drop for NodeContent {
     fn drop(&mut self) {
         // If native code refuses retirement, leave its context allocated so a
         // later callback cannot dereference freed Rust state.
-        let _ = self.clear_callback();
+        if let Err(error) = self.clear_callback() {
+            log::error!("NodeContent Drop cleanup failed; retaining native context: {error:?}");
+        }
     }
 }
 
@@ -184,5 +191,7 @@ unsafe extern "C" fn node_content_callback_trampoline(event: *mut ArkUI_NodeCont
         .callback
         .clone();
     // A user panic must not unwind across ArkUI's native callback boundary.
-    let _ = std::panic::catch_unwind(std::panic::AssertUnwindSafe(|| callback(&mut event)));
+    if std::panic::catch_unwind(std::panic::AssertUnwindSafe(|| callback(&mut event))).is_err() {
+        log::error!("NodeContent callback panicked");
+    }
 }
