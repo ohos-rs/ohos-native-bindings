@@ -19,11 +19,22 @@ impl UdmfRecord {
     ///
     /// The SDK copies the input and validates its supported type and size.
     /// Interior NULs in `type_id` are rejected without calling the SDK.
+    /// Empty input returns [`UdmfError::EmptyEntry`] without calling native code:
+    /// upstream `OH_UdmfRecord_AddGeneralEntry` rejects `count == 0`.
+    /// General entries use `ARRAY_BUFFER`; use typed UDS methods for plain text
+    /// and HTML rather than treating built-in UDS records as raw bytes.
+    ///
+    /// See [upstream udmf.cpp](https://github.com/openharmony/distributeddatamgr_udmf/blob/master/framework/ndkimpl/data/udmf.cpp).
     pub fn add_general_entry(&self, type_id: &str, bytes: &[u8]) -> Result<(), UdmfError> {
         super::native_data::add_general_entry(self.raw, type_id, bytes)
     }
 
     /// Copies a general entry out of record-owned native storage (API 12).
+    ///
+    /// Upstream `GetValueFromUint8Array` reads an `ARRAY_BUFFER` payload;
+    /// built-in plain-text/HTML UDS records are not general byte entries.
+    /// Use [`Self::plain_text`] or [`Self::html`] for those types.
+    /// See [upstream udmf.cpp](https://github.com/openharmony/distributeddatamgr_udmf/blob/master/framework/ndkimpl/data/udmf.cpp).
     pub fn general_entry(&self, type_id: &str) -> Result<Vec<u8>, UdmfError> {
         super::native_data::general_entry(self.raw, type_id)
     }
@@ -31,6 +42,16 @@ impl UdmfRecord {
     /// Copies every native type identifier in this record (API 12).
     pub fn types(&self) -> Result<Vec<String>, UdmfError> {
         super::native_data::record_types(self.raw)
+    }
+
+    /// Reads this record's plain-text UDS into an independently owned object (API 12).
+    pub fn plain_text(&self) -> Result<crate::UdsPlainText, UdmfError> {
+        super::native_data::plain_text(self.raw)
+    }
+
+    /// Reads this record's HTML UDS into an independently owned object (API 12).
+    pub fn html(&self) -> Result<crate::UdsHtml, UdmfError> {
+        super::native_data::html(self.raw)
     }
 
     pub fn new() -> Self {
@@ -107,6 +128,10 @@ pub struct UdmfRecordRef<'data> {
 
 impl UdmfRecordRef<'_> {
     /// Copies a general entry while its owning data container is borrowed (API 12).
+    ///
+    /// This reads the native `ARRAY_BUFFER`, not built-in plain-text/HTML UDS.
+    /// Use [`Self::plain_text`] or [`Self::html`] for standard text records.
+    /// See [upstream udmf.cpp](https://github.com/openharmony/distributeddatamgr_udmf/blob/master/framework/ndkimpl/data/udmf.cpp).
     pub fn general_entry(&self, type_id: &str) -> Result<Vec<u8>, UdmfError> {
         super::native_data::general_entry(self.raw, type_id)
     }
@@ -114,6 +139,20 @@ impl UdmfRecordRef<'_> {
     /// Copies every native type identifier in this borrowed record (API 12).
     pub fn types(&self) -> Result<Vec<String>, UdmfError> {
         super::native_data::record_types(self.raw)
+    }
+
+    /// Reads plain-text UDS while the container is borrowed (API 12).
+    ///
+    /// The returned native UDS object is independently owned.
+    pub fn plain_text(&self) -> Result<crate::UdsPlainText, UdmfError> {
+        super::native_data::plain_text(self.raw)
+    }
+
+    /// Reads HTML UDS while the container is borrowed (API 12).
+    ///
+    /// The returned native UDS object is independently owned.
+    pub fn html(&self) -> Result<crate::UdsHtml, UdmfError> {
+        super::native_data::html(self.raw)
     }
 
     pub(crate) unsafe fn from_raw(raw: *mut OH_UdmfRecord) -> Self {
