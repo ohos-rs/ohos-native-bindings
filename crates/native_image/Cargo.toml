@@ -13,9 +13,12 @@ ohos-native-image-sys.workspace = true
 ohos-native-buffer-binding.workspace = true
 ohos-native-window-sys.workspace = true
 libc.workspace = true
+glow = { workspace = true, optional = true }
+khronos-egl = { workspace = true, optional = true }
 
 [features]
 default = []
+texture-readback = ["api-13", "dep:glow", "dep:khronos-egl"]
 api-13 = ["ohos-native-image-sys/api-13", "ohos-native-buffer-binding/api-13", "ohos-native-window-sys/api-13"]
 api-14 = ["api-13", "ohos-native-image-sys/api-14", "ohos-native-buffer-binding/api-14", "ohos-native-window-sys/api-14"]
 api-15 = ["api-14", "ohos-native-image-sys/api-15", "ohos-native-buffer-binding/api-15", "ohos-native-window-sys/api-15"]

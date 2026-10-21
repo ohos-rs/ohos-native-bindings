@@ -4,7 +4,12 @@
 use super::*;
 use std::{io::Write, os::unix::net::UnixStream};
 
-static TEST_LOCK: Mutex<()> = Mutex::new(());
+pub(super) static TEST_LOCK: Mutex<()> = Mutex::new(());
+
+#[cfg(feature = "texture-readback")]
+pub(super) fn native_destroyed() -> usize {
+    STATE.lock().unwrap().destroyed
+}
 
 #[derive(Default)]
 struct State {
@@ -33,6 +38,11 @@ static STATE: Mutex<State> = Mutex::new(State {
 #[no_mangle]
 unsafe extern "C" fn OH_ConsumerSurface_Create() -> *mut OH_NativeImage {
     NonNull::dangling().as_ptr()
+}
+#[cfg(feature = "api-13")]
+#[no_mangle]
+unsafe extern "C" fn OH_ConsumerSurface_SetDefaultUsage(_: *mut OH_NativeImage, _: u64) -> i32 {
+    0
 }
 #[no_mangle]
 unsafe extern "C" fn OH_NativeImage_SetOnFrameAvailableListener(

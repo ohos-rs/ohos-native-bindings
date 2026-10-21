@@ -98,6 +98,8 @@ napi-derive-ohos = { version = "1.1.3" }
 napi-build-ohos  = { version = "1.1.3" }
 
 libc              = { version = "0.2" }
+glow              = { version = "0.18" }
+khronos-egl       = { version = "6", default-features = false, features = ["static", "no-pkg-config", "1_5"] }
 syn               = { version = "2.0" }
 quote             = { version = "1.0" }
 proc-macro2       = { version = "1.0" }

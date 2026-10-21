@@ -1,6 +1,10 @@
 //! Owned NativeImage consumers and fenced CPU mappings.
 mod fence;
 mod layout;
+#[cfg(feature = "texture-readback")]
+mod texture;
+#[cfg(feature = "texture-readback")]
+pub use texture::{TextureContext, TextureReader};
 #[cfg(all(test, not(target_env = "ohos")))]
 mod tests;
 use ohos_native_buffer_binding::NativeBuffer;
@@ -141,6 +145,12 @@ impl ConsumerSurface {
         })?;
         Ok(surface)
     }
+    fn retire_callback(&mut self) -> Option<Callback> {
+        let mut callbacks = callbacks()
+            .lock()
+            .unwrap_or_else(std::sync::PoisonError::into_inner);
+        callbacks.remove(&self.listener)
+    }
     /// Surface identity accepted by ArkUI BuilderNode's texture render options.
     pub fn id(&mut self) -> Result<u64, Error> {
         // Creating the producer window registers it with SurfaceUtils, which
@@ -217,12 +227,7 @@ impl ConsumerSurface {
 impl Drop for ConsumerSurface {
     fn drop(&mut self) {
         // Removing the registry entry first also makes late callbacks harmless.
-        let callback = {
-            let mut callbacks = callbacks()
-                .lock()
-                .unwrap_or_else(std::sync::PoisonError::into_inner);
-            callbacks.remove(&self.listener)
-        };
+        let callback = self.retire_callback();
         // SAFETY: no frame can outlive its mutable consumer borrow. Registry
         // identities never dereference freed data, even during native teardown.
         unsafe {
