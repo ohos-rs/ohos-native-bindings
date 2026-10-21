@@ -34,6 +34,11 @@ pub fn get_pasteboard_data() -> Result<String> {
 }
 ```
 
+The optional `napi` feature provides `Clipboard::{has_data, has_text, text,
+set_text}` for API-12 system module calls. Each call uses the current UI
+callback's `&Env`; no module, value or environment survives it. Presence queries
+read MIME metadata, while content access follows system permission policy.
+
 ## License
 
 MIT OR Apache-2.0
