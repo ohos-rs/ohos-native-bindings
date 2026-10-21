@@ -1,9 +1,9 @@
 #!/usr/bin/env bash
 set -euo pipefail
 test_dir="$(cd -- "$(dirname -- "${BASH_SOURCE[0]}")" && pwd)"
-test_tmp="$(mktemp -d "${TMPDIR:-/tmp}/ohos-drawing-host.XXXXXX")"
-trap 'rm -rf "$test_tmp"' EXIT
-rustc --edition 2021 --test "$test_dir/filter_matrix_host.rs" -o "$test_tmp/filter-matrix"
-"$test_tmp/filter-matrix" "$@"
-rustc --edition 2021 --test "$test_dir/text_host.rs" -o "$test_tmp/text"
-"$test_tmp/text" "$@"
+test_output="$test_dir/../../../target/drawing-host"
+mkdir -p "$test_output"
+rustc --edition 2021 --test "$test_dir/filter_matrix_host.rs" -o "$test_output/filter-matrix"
+"$test_output/filter-matrix" "$@"
+rustc --edition 2021 --test "$test_dir/text_host.rs" -o "$test_output/text"
+"$test_output/text" "$@"

@@ -16,6 +16,7 @@ mod sampling;
 mod text;
 mod text_blob;
 mod text_boxes;
+mod text_decoration;
 #[cfg(not(feature = "api-20"))]
 mod text_encoding;
 mod types;
@@ -34,6 +35,8 @@ pub use font::{Font, FontManager, FontMetrics, TextMeasure, Typeface};
 pub use geometry::{Point, Rect, RoundRect};
 pub use image::Image;
 pub use matrix::Matrix;
+/// The complete SDK placeholder descriptor, including alignment and baseline.
+pub use ohos_native_drawing_sys::OH_Drawing_PlaceholderSpan as PlaceholderSpan;
 pub use path::Path;
 pub use pen::Pen;
 pub use sampling::SamplingOptions;
@@ -45,6 +48,7 @@ pub use text::{
 };
 pub use text_blob::TextBlob;
 pub use text_boxes::RangeBox;
+pub use text_decoration::TextDecoration;
 pub use types::{
     AlphaFormat, BitmapFormat, BlendMode, ClipOperation, ColorFormat, CornerPosition,
     DecorationPattern, EllipsisMode, FilterMode, FontEdging, FontHinting, FontSlant, FontStyle,

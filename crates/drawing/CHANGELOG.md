@@ -8,9 +8,16 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ## [Unreleased]
 
 - Add owned typography ranges, placeholders, metrics, decorations and ellipsis;
-  handle embedded NUL without panicking on earlier APIs.
-
+  add fallible `TypographyBuilder::try_add_text` for earlier APIs' C-string limits.
 - Add owned image blur and color blend filters, and preserve full 3×3 matrices.
+
+### Breaking
+
+- The unpublished placeholder helper now takes a complete SDK `PlaceholderSpan`;
+  the caller selects alignment, baseline and offset.
+- The unpublished decoration helper now takes a combinable `TextDecoration`
+  mask, including overline. Interior NULs are not replaced on older text APIs;
+  `try_add_text` returns an error and existing `add_text` retains its panic contract.
 
 ### Added
 

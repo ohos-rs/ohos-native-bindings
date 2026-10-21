@@ -1,6 +1,11 @@
 //! Production dialog ownership with deterministic native substitutes.
 #![allow(dead_code, non_camel_case_types)]
+extern crate self as log;
 extern crate self as ohos_arkui_sys;
+#[macro_export]
+macro_rules! error {
+    ($($args:tt)*) => { eprintln!($($args)*); }
+}
 
 use std::{
     cell::RefCell,
@@ -31,14 +36,9 @@ impl ArkUIError {
 }
 #[path = "../src/common/node_retention.rs"]
 mod node_retention;
-#[path = "../src/common/operation.rs"]
-mod operation;
 mod common {
     pub(crate) mod node_retention {
         pub(crate) use crate::node_retention::NodeRetention;
-    }
-    pub(crate) mod operation {
-        pub(crate) use crate::operation::{Active, Operation};
     }
 }
 

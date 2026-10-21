@@ -3,68 +3,66 @@ name        = "ohos-native-image-binding"
 version     = "0.1.0"
 edition     = "2021"
 license     = "MIT OR Apache-2.0"
-description = "Owned OpenHarmony NativeImage consumer surfaces and fenced RGBA frames"
+description = "Thin OpenHarmony NativeImage consumers and fenced native buffers"
 
 [lints]
 workspace = true
 
 [dependencies]
 ohos-native-image-sys.workspace      = true
-ohos-native-buffer-binding.workspace = true
+ohos-native-buffer-sys.workspace     = true
 ohos-native-window-sys.workspace     = true
 libc.workspace                       = true
-glow                                 = { workspace = true, optional = true }
-khronos-egl                          = { workspace = true, optional = true }
+log.workspace                        = true
 
 [features]
 default = []
-texture-readback = ["api-13", "dep:glow", "dep:khronos-egl"]
-api-13 = ["ohos-native-image-sys/api-13", "ohos-native-buffer-binding/api-13", "ohos-native-window-sys/api-13"]
+api-13 = ["ohos-native-image-sys/api-13", "ohos-native-buffer-sys/api-13", "ohos-native-window-sys/api-13"]
 api-14 = [
   "api-13",
   "ohos-native-image-sys/api-14",
-  "ohos-native-buffer-binding/api-14",
+  "ohos-native-buffer-sys/api-14",
   "ohos-native-window-sys/api-14",
 ]
 api-15 = [
   "api-14",
   "ohos-native-image-sys/api-15",
-  "ohos-native-buffer-binding/api-15",
+  "ohos-native-buffer-sys/api-15",
   "ohos-native-window-sys/api-15",
 ]
 api-16 = [
   "api-15",
   "ohos-native-image-sys/api-16",
-  "ohos-native-buffer-binding/api-16",
+  "ohos-native-buffer-sys/api-16",
   "ohos-native-window-sys/api-16",
 ]
 api-17 = [
   "api-16",
   "ohos-native-image-sys/api-17",
-  "ohos-native-buffer-binding/api-17",
+  "ohos-native-buffer-sys/api-17",
   "ohos-native-window-sys/api-17",
 ]
 api-18 = [
   "api-17",
   "ohos-native-image-sys/api-18",
-  "ohos-native-buffer-binding/api-18",
+  "ohos-native-buffer-sys/api-18",
   "ohos-native-window-sys/api-18",
 ]
 api-19 = [
   "api-18",
   "ohos-native-image-sys/api-19",
-  "ohos-native-buffer-binding/api-19",
+  "ohos-native-buffer-sys/api-19",
   "ohos-native-window-sys/api-19",
 ]
 api-20 = [
   "api-19",
   "ohos-native-image-sys/api-20",
-  "ohos-native-buffer-binding/api-20",
+  "ohos-native-buffer-sys/api-20",
   "ohos-native-window-sys/api-20",
 ]
-api-21 = ["api-20", "ohos-native-image-sys/api-21", "ohos-native-window-sys/api-21"]
-api-22 = ["api-21", "ohos-native-image-sys/api-22", "ohos-native-window-sys/api-22"]
-api-23 = ["api-22", "ohos-native-image-sys/api-23", "ohos-native-window-sys/api-23"]
-api-24 = ["api-23", "ohos-native-image-sys/api-24", "ohos-native-window-sys/api-24"]
-api-25 = ["api-24", "ohos-native-image-sys/api-25", "ohos-native-window-sys/api-25"]
-api-26 = ["api-25", "ohos-native-image-sys/api-26", "ohos-native-window-sys/api-26"]
+api-21 = ["api-20", "ohos-native-image-sys/api-21", "ohos-native-window-sys/api-21", "ohos-native-buffer-sys/api-21"]
+api-22 = ["api-21", "ohos-native-image-sys/api-22", "ohos-native-window-sys/api-22", "ohos-native-buffer-sys/api-22"]
+api-23 = ["api-22", "ohos-native-image-sys/api-23", "ohos-native-window-sys/api-23", "ohos-native-buffer-sys/api-23"]
+api-24 = ["api-23", "ohos-native-image-sys/api-24", "ohos-native-window-sys/api-24", "ohos-native-buffer-sys/api-24"]
+api-25 = ["api-24", "ohos-native-image-sys/api-25", "ohos-native-window-sys/api-25", "ohos-native-buffer-sys/api-25"]
+api-26 = ["api-25", "ohos-native-image-sys/api-26", "ohos-native-window-sys/api-26", "ohos-native-buffer-sys/api-26"]

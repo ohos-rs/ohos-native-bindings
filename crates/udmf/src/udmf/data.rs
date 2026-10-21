@@ -17,6 +17,16 @@ pub struct UdmfData {
 }
 
 impl UdmfData {
+    /// Copies every native type identifier in this container (API 12).
+    pub fn types(&self) -> Result<Vec<String>, UdmfError> {
+        super::native_data::data_types(self.raw)
+    }
+
+    /// Queries a native type identifier, rejecting interior NULs (API 12).
+    pub fn has_type(&self, type_id: &str) -> Result<bool, UdmfError> {
+        super::native_data::has_type(self.raw, type_id)
+    }
+
     pub fn new() -> Self {
         Self::try_new().expect("OH_UdmfData_Create failed")
     }

@@ -94,3 +94,23 @@ jobs:
         env:
           OHOS_BINDINGS_SKIP_GENERATION: "1"
         run: cargo test -p generate
+
+      - name: Check thin IME primitives with native substitutes
+        run: |
+          cargo test --manifest-path crates/ime/tests/host/Cargo.toml
+          cargo test --manifest-path crates/ime/tests/host/Cargo.toml --all-features
+
+      - name: Check ArkUI callback helpers with native substitutes
+        run: bash crates/arkui/tests/run-host.sh
+
+      - name: Check bounded resource reads with native substitutes
+        run: bash crates/resource_manager/tests/run-host.sh
+
+      - name: Check drawing helpers with native substitutes
+        run: bash crates/drawing/tests/run-host.sh
+
+      - name: Check native clipboard and UDMF copies with native substitutes
+        run: bash crates/pasteboard/tests/run-host.sh
+
+      - name: Check NativeImage owners with native substitutes
+        run: bash crates/native_image/tests/run-host.sh
