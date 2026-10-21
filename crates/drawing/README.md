@@ -21,3 +21,8 @@ use ohos_drawing_binding as drawing;
 ## License
 
 MIT OR Apache-2.0
+
+`ImageFilter` owns API-12 bitmap filters; `Filter::set_image_filter` retains the
+native filter value. `ColorFilter::blend` blends an ARGB color (API 11).
+`Matrix::from_values`, `values` and cloning preserve all nine row-major
+coefficients, including perspective. These owners stay on their drawing thread.
