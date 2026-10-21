@@ -9,6 +9,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Fixed
 
+- Copy mixed-event values with indexed output storage, retain accessibility text, and retire NodeContent callbacks safely during reentrant calls.
 - Keep API-14 key callbacks independent of the API-20 input discriminator and resolve lock-state queries only when the runtime provides them.
 - Borrow key and drag events from their native callbacks; own drag actions, listeners, UDMF data and preview maps through disposal.
 
