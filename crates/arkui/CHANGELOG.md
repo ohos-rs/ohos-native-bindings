@@ -7,10 +7,32 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+### Breaking
+
+- `Dialog::content` owns transferred content until successful native removal
+  and disposal. Use fallible `remove_content`, `close` and `dispose` to retry
+  cleanup; failed Drop logs and retains native-reachable owners for safety.
+- `accessibility` selects API 23, matching `NodeAccessibility`'s native API
+  floor. Enable it only on API-23+ runtimes.
+- `ArkUINode::from_raw_handle`, `CustomNodeEventData::{removed_node,host_node}`,
+  `GestureEventRef::node`, `TouchRecognizerRef::node` and
+  `GestureEventData::node_handle` are unsafe. Keep the native owner live for
+  the complete lifetime of each returned borrowed wrapper.
+- `LayoutConstraintHandle<'event>` is callback-scoped and no longer Copy or
+  Clone. It disposes its native constraint snapshot on Drop; copy dimensions
+  rather than retaining the guard outside the callback.
+- `KeyEvent::lock_state` requires `api-19`. Enable it only for API-19+ runtimes;
+  lock queries link directly through the sys crate instead of runtime loading.
+- `Event::string_value` returns `Result<String, StringValueError>` instead of
+  `Option<String>`. Native errors, invalid UTF-8 and capacity failures are
+  distinct. The fixed 1 MiB cap is removed.
+
 ### Fixed
 
 - Copy mixed-event values with indexed output storage, retain accessibility text, and retire NodeContent callbacks safely during reentrant calls.
-- Keep API-14 key callbacks independent of the API-20 input discriminator and resolve lock-state queries only when the runtime provides them.
+- Keep API-14 key callbacks independent of the API-20 input discriminator.
+- Forward API features weakly to the optional XComponent binding, so API
+  selection alone does not enable that capability.
 - Borrow key and drag events from their native callbacks; own drag actions, listeners, UDMF data and preview maps through disposal.
 
 - Align text helpers, joystick key sources, and dialog state APIs with their minimum native API levels.
@@ -19,9 +41,13 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ### Added
 
 - Own dialog content and dismiss callback data through native cleanup, with custom content style and animation control.
-
-- Add owned NodeContent roots and UI-thread native attachment targets with synchronous retirement of external content.
+- Expose `NodeContent`, identity-stable `add_existing_node` and
+  `unsafe ArkUINodeRaw::borrowed_node` for externally retained ArkTS nodes.
+- Expose `ArkUINode::retain_native`, `NodeRetention`, event-route registration
+  and native receiver add/remove operations for host-owned NodeContent moves.
+- Add `ArkUINode::{parent,remove_from_parent}` for native parent edges.
 - Add callback-scoped custom layout helpers, copied integer attributes, typed view/input policies, and event/gesture registration on identity-stable nodes.
+- Add `ArkUINode::request_focus` for the native API-15 focus operation.
 - Add safe ArkUI key-event, component-event union, and node animator wrappers so downstream UI frameworks do not need direct `ohos-arkui-sys` access.
 - Add `ArkUINode::native_xcomponent` so downstream frameworks do not need the XComponent sys crate to resolve a mounted surface.
 - Add API 25/26 feature forwarding and derive the complete API 26 ArkUI key-code, event-type, source, and intention enums through `ohos-enum-derive`.
