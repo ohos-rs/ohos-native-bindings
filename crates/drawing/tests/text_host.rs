@@ -50,6 +50,12 @@ unsafe fn OH_Drawing_TypographyDestroyTextBox(p: *mut OH_Drawing_TextBox) {
 mod text_boxes;
 #[path = "../src/text_encoding.rs"]
 mod text_encoding;
+const OH_Drawing_TextDecoration_TEXT_DECORATION_NONE: u32 = 0;
+const OH_Drawing_TextDecoration_TEXT_DECORATION_UNDERLINE: u32 = 1;
+const OH_Drawing_TextDecoration_TEXT_DECORATION_OVERLINE: u32 = 2;
+const OH_Drawing_TextDecoration_TEXT_DECORATION_LINE_THROUGH: u32 = 4;
+#[path = "../src/text_decoration.rs"]
+mod text_decoration;
 #[test]
 fn snapshots_outlive_native_storage_and_preserve_visual_direction() {
     let marker = Arc::new(());
@@ -80,10 +86,23 @@ fn array_guard_releases_storage_if_copying_unwinds() {
     assert!(weak.upgrade().is_none());
 }
 #[test]
-fn legacy_text_replaces_only_nuls_without_losing_utf8_or_truncating_suffix() {
-    for text in ["", "a😀界", "\0", "a\0😀\0界"] {
-        let native = text_encoding::nul_terminated(text);
-        assert_eq!(native.to_str().unwrap(), text.replace('\0', "\u{fffd}"));
+fn legacy_text_preserves_utf8_and_rejects_nuls_without_replacement() {
+    for text in ["", "a😀界"] {
+        let native = text_encoding::nul_terminated(text).unwrap();
+        assert_eq!(native.to_str().unwrap(), text);
         assert_eq!(native.as_bytes_with_nul().last(), Some(&0));
     }
+    for text in ["\0", "a\0😀\0界"] {
+        assert!(text_encoding::nul_terminated(text).is_err());
+    }
+}
+
+#[test]
+fn all_native_decoration_bits_are_caller_combinable() {
+    use text_decoration::TextDecoration as D;
+    assert_eq!(D::NONE.bits(), 0);
+    assert_eq!((D::UNDERLINE | D::OVERLINE | D::LINE_THROUGH).bits(), 7);
+    let mut decoration = D::OVERLINE;
+    decoration |= D::LINE_THROUGH;
+    assert_eq!(decoration.bits(), 6);
 }
