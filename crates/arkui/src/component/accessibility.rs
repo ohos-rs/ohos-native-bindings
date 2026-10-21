@@ -10,7 +10,6 @@ use crate::{ArkUIError, ArkUINode, ArkUIResult};
 pub struct NodeAccessibility {
     // Callback registration must retire before the final native node reference.
     _registration: ProviderRegistration<'static>,
-    _retained: crate::common::node_retention::NodeRetention,
     _owner: Rc<RefCell<ArkUINode>>,
 }
 impl NodeAccessibility {
@@ -26,11 +25,11 @@ impl NodeAccessibility {
         instance: &str,
         callbacks: C,
     ) -> ArkUIResult<Self> {
-        if !owner.borrow().is_owned() {
+        if !owner.borrow().is_owned() || owner.borrow().raw_handle().is_null() {
             return Err(invalid("Accessibility requires an owned node"));
         }
         let mut node = owner.borrow().raw_handle();
-        let retained = owner.borrow().retain_native()?;
+        ArkUINode::bind_rc(owner);
         // SAFETY: registration retires before _owner releases the native node.
         let provider: Provider<'static> = unsafe { Provider::from_node_handle(&mut node) }
             .map_err(|error| invalid(error.to_string()))?;
@@ -39,7 +38,6 @@ impl NodeAccessibility {
             .map_err(|error| invalid(error.to_string()))?;
         Ok(Self {
             _registration: registration,
-            _retained: retained,
             _owner: owner.clone(),
         })
     }

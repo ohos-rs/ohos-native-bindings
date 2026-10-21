@@ -94,8 +94,14 @@ edge without changing those routes or the host's attachment bookkeeping.
 ### Retained accessibility providers
 
 The `accessibility,api-23` features expose `NodeAccessibility` on API-23 and
-newer runtimes. It retains the owned Custom node and its native-owner guard
+newer runtimes. It retains a strong `Rc` to the owned Custom node
 until callbacks retire. `new` returns a registration or the native error.
+
+### Accessibility API floor
+
+The `accessibility` capability enables `api-23`, so `NodeAccessibility` and its
+native provider are selected together. Target an API-23+ runtime when enabling
+this feature.
 
 ## License
 

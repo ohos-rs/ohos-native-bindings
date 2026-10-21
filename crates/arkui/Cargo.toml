@@ -28,7 +28,7 @@ ohos-udmf-binding          = { workspace = true, optional = true }
 default       = ["napi", "xcomponent"]
 napi          = ["dep:napi-ohos", "dep:napi-sys-ohos"]
 xcomponent    = ["dep:ohos-xcomponent-binding", "dep:ohos-xcomponent-sys"]
-accessibility = ["dep:ohos-accessibility-binding", "ohos-xcomponent-binding?/accessibility"]
+accessibility = ["api-23", "dep:ohos-accessibility-binding", "ohos-xcomponent-binding?/accessibility"]
 image         = ["dep:ohos-image-binding", "dep:ohos-image-native-binding"]
 drawing       = ["dep:ohos-drawing-binding"]
 udmf          = ["dep:ohos-udmf-binding"]
