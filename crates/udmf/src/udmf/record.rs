@@ -15,6 +15,24 @@ pub struct UdmfRecord {
 }
 
 impl UdmfRecord {
+    /// Adds custom bytes under a native UDMF type identifier (API 12).
+    ///
+    /// The SDK copies the input and validates its supported type and size.
+    /// Interior NULs in `type_id` are rejected without calling the SDK.
+    pub fn add_general_entry(&self, type_id: &str, bytes: &[u8]) -> Result<(), UdmfError> {
+        super::native_data::add_general_entry(self.raw, type_id, bytes)
+    }
+
+    /// Copies a general entry out of record-owned native storage (API 12).
+    pub fn general_entry(&self, type_id: &str) -> Result<Vec<u8>, UdmfError> {
+        super::native_data::general_entry(self.raw, type_id)
+    }
+
+    /// Copies every native type identifier in this record (API 12).
+    pub fn types(&self) -> Result<Vec<String>, UdmfError> {
+        super::native_data::record_types(self.raw)
+    }
+
     pub fn new() -> Self {
         Self::try_new().expect("OH_UdmfRecord_Create failed")
     }
@@ -83,13 +101,21 @@ impl Drop for UdmfRecord {
 
 /// A container-owned record. Dropping this view never destroys the native record.
 pub struct UdmfRecordRef<'data> {
-    // Reading a borrowed record requires API 13, but API 12 can still enumerate it.
-    #[cfg_attr(not(feature = "api-13"), expect(dead_code))]
     raw: NonNull<OH_UdmfRecord>,
     _data: std::marker::PhantomData<&'data super::UdmfData>,
 }
 
 impl UdmfRecordRef<'_> {
+    /// Copies a general entry while its owning data container is borrowed (API 12).
+    pub fn general_entry(&self, type_id: &str) -> Result<Vec<u8>, UdmfError> {
+        super::native_data::general_entry(self.raw, type_id)
+    }
+
+    /// Copies every native type identifier in this borrowed record (API 12).
+    pub fn types(&self) -> Result<Vec<String>, UdmfError> {
+        super::native_data::record_types(self.raw)
+    }
+
     pub(crate) unsafe fn from_raw(raw: *mut OH_UdmfRecord) -> Self {
         Self {
             raw: NonNull::new(raw).expect("non-null record"),

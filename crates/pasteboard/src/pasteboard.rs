@@ -10,6 +10,29 @@ pub struct Pasteboard {
 }
 
 impl Pasteboard {
+    /// Clears the native system pasteboard (API 13).
+    pub fn clear(&self) -> Result<(), PasteboardError> {
+        crate::native_data::clear(self.raw)
+    }
+
+    /// Copies the native MIME-type list (API 14).
+    ///
+    /// The native array and strings belong to this pasteboard instance and
+    /// are released by the SDK, not by the caller.
+    #[cfg(feature = "api-14")]
+    pub fn mime_types(&self) -> Result<Vec<String>, PasteboardError> {
+        crate::native_data::mime_types(self.raw)
+    }
+
+    /// Returns the native content-change counter (API 18).
+    ///
+    /// Zero also represents a failed query. The counter resets when the
+    /// service/system restarts; clearing data does not reset it.
+    #[cfg(feature = "api-18")]
+    pub fn change_count(&self) -> u32 {
+        crate::native_data::change_count(self.raw)
+    }
+
     pub fn new() -> Self {
         let raw = unsafe { OH_Pasteboard_Create() };
         #[cfg(debug_assertions)]
