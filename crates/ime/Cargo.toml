@@ -12,7 +12,7 @@ workspace = true
 ohos-input-method-sys = { workspace = true }
 ohos-enum-derive      = { workspace = true }
 rustc-hash            = { workspace = true }
-log                   = "0.4"
+log                   = { workspace = true }
 
 [features]
 default = []

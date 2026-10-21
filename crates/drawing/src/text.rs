@@ -228,11 +228,10 @@ impl TextStyle {
         unsafe { OH_Drawing_SetTextStyleColor(self.raw.as_ptr(), color) };
     }
 
-    /// Sets underline/strike-through lines, their color and pattern.
+    /// Sets the caller's native decoration mask, color and pattern.
     pub fn set_decoration(
         &mut self,
-        underline: bool,
-        strike: bool,
+        decoration: crate::TextDecoration,
         color: u32,
         pattern: crate::DecorationPattern,
     ) {
@@ -240,7 +239,7 @@ impl TextStyle {
         unsafe {
             ohos_native_drawing_sys::OH_Drawing_SetTextStyleDecoration(
                 self.raw.as_ptr(),
-                i32::from(underline) | (i32::from(strike) << 2),
+                decoration.bits(),
             );
             ohos_native_drawing_sys::OH_Drawing_SetTextStyleDecorationColor(
                 self.raw.as_ptr(),
@@ -645,17 +644,17 @@ impl TypographyBuilder {
         unsafe { OH_Drawing_TypographyHandlerPopTextStyle(self.raw.as_ptr()) };
     }
 
-    /// Adds an inline box entirely above the alphabetic baseline.
-    pub fn add_placeholder(&mut self, width: f64, height: f64) -> Result<()> {
-        if !width.is_finite() || !height.is_finite() || width < 0.0 || height < 0.0 {
+    /// Adds the caller's complete native inline-box descriptor.
+    pub fn add_placeholder(&mut self, span: &crate::PlaceholderSpan) -> Result<()> {
+        if !span.width.is_finite()
+            || !span.height.is_finite()
+            || !span.baselineOffset.is_finite()
+            || span.width < 0.0
+            || span.height < 0.0
+        {
             return Err(crate::DrawingError::invalid_parameter());
         }
-        let mut span = OH_Drawing_PlaceholderSpan {
-            width, height,
-            alignment: ohos_native_drawing_sys::OH_Drawing_PlaceholderVerticalAlignment_ALIGNMENT_ABOVE_BASELINE,
-            baseline: ohos_native_drawing_sys::OH_Drawing_TextBaseline_TEXT_BASELINE_ALPHABETIC,
-            baselineOffset: 0.0,
-        };
+        let mut span = *span;
         // SAFETY: the builder is owned and native copies the stack descriptor.
         unsafe {
             ohos_native_drawing_sys::OH_Drawing_TypographyHandlerAddPlaceholder(
@@ -666,9 +665,20 @@ impl TypographyBuilder {
         Ok(())
     }
 
-    /// Adds UTF-8 text. Before API 20, embedded NUL characters are displayed as
-    /// U+FFFD because the platform's text API requires a C string.
+    /// Adds UTF-8 text, preserving the existing infallible convenience API.
+    ///
+    /// # Panics
+    ///
+    /// Before API 20, interior NULs cannot be represented by the native C-string
+    /// API. Use [`Self::try_add_text`] to receive an error instead of a panic.
     pub fn add_text(&mut self, text: &str) {
+        self.try_add_text(text)
+            .expect("native text API cannot represent an interior NUL");
+    }
+
+    /// Adds UTF-8 without modifying it. Before API 20, an interior NUL returns
+    /// an invalid-parameter error before calling the native C-string API.
+    pub fn try_add_text(&mut self, text: &str) -> Result<()> {
         #[cfg(feature = "api-20")]
         unsafe {
             OH_Drawing_TypographyHandlerAddEncodedText(
@@ -681,11 +691,13 @@ impl TypographyBuilder {
 
         #[cfg(not(feature = "api-20"))]
         {
-            let text = crate::text_encoding::nul_terminated(text);
+            let text = crate::text_encoding::nul_terminated(text)
+                .map_err(|_| crate::DrawingError::invalid_parameter())?;
             // SAFETY: both the builder and NUL-terminated text remain live
             // throughout this synchronous call, which copies the text.
             unsafe { OH_Drawing_TypographyHandlerAddText(self.raw.as_ptr(), text.as_ptr()) };
         }
+        Ok(())
     }
 
     pub fn build(self) -> Typography {

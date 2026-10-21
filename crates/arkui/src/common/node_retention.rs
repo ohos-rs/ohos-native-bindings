@@ -16,7 +16,14 @@ impl NativeRetentions {
     }
 }
 
-pub(crate) struct NodeRetention(Rc<Cell<usize>>);
+/// Prevents safe disposal of a wrapper-owned node while a native edge uses it.
+///
+/// Dropping the guard releases only the disposal inhibition, not the node.
+/// The host must detach its native edge before dropping this guard and must
+/// keep the node's `Rc` alive for as long as it needs its event route.
+/// Guards are confined to the node's owning UI thread.
+#[must_use = "keep this guard until the native edge has been detached"]
+pub struct NodeRetention(Rc<Cell<usize>>);
 
 impl Drop for NodeRetention {
     fn drop(&mut self) {

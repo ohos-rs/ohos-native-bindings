@@ -31,4 +31,8 @@ Typography exposes copied font metrics, line counts, UTF-16 range boxes and
 placeholder rectangles. Returned rectangles own their data; native arrays are
 released before return. Decorations and ellipsis use API11/12 setters. Text
 input preserves embedded NUL on API20's length-aware path; earlier APIs render
-NUL as U+FFFD while preserving the rest of the UTF-8 text.
+text through a C string. `TypographyBuilder::try_add_text` rejects an interior
+NUL on those APIs instead of replacing bytes; existing `add_text` keeps its
+panic contract. `add_placeholder` takes the complete SDK `PlaceholderSpan`
+with caller-selected alignment, baseline and offset. `TextDecoration` combines
+underline, overline and line-through with `|`.

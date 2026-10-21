@@ -9,10 +9,12 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Fixed
 
+- Forward API levels to the optional hilog dependency without enabling it.
 - Gate callback-only imports so Clippy succeeds with the callbacks feature disabled.
 
 ### Added
 
+- Add `NativeXComponent::set_need_soft_keyboard(bool)` (API 12).
 - Add frame-callback unregistration with Rust callback cleanup.
 - Add API 25/26 feature forwarding for XComponent and ArkUI input bindings.
 

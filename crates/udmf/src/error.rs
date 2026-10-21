@@ -1,5 +1,8 @@
 #[derive(Debug)]
 pub enum UdmfError {
+    /// A native general entry must contain at least one byte.
+    EmptyEntry,
+
     /// Call system api failed
     InternalError(i32),
 
@@ -19,6 +22,7 @@ pub enum UdmfError {
 impl std::fmt::Display for UdmfError {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         match self {
+            UdmfError::EmptyEntry => f.write_str("A general entry must not be empty"),
             UdmfError::InternalError(err) => write!(f, "Call system api failed: {}", err),
             UdmfError::UtdInitError(err) => {
                 write!(f, "Create a new Utd with type {:?} failed.", err)

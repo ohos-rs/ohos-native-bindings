@@ -1,7 +1,12 @@
 //! Run the production root lifecycle with deterministic native substitutes.
 #![allow(dead_code, non_upper_case_globals)]
 
+extern crate self as log;
 extern crate self as ohos_arkui_input_binding;
+#[macro_export]
+macro_rules! error {
+    ($($args:tt)*) => { eprintln!($($args)*); }
+}
 
 use std::{
     cell::RefCell,
