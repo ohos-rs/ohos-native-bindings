@@ -7,6 +7,11 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+### Added
+
+- Add fallible `ResourceManager::from_napi_value(Unknown<'_>)`, reporting null
+  native initialization without retaining the callback's N-API value.
+
 ## [0.3.3](https://github.com/ohos-rs/ohos-native-bindings/compare/ohos-resource-manager-binding-v0.3.2...ohos-resource-manager-binding-v0.3.3) - 2026-08-26
 
 ### Other
