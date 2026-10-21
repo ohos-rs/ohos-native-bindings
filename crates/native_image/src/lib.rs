@@ -1,57 +1,49 @@
-//! Owned NativeImage consumers and fenced CPU mappings.
+//! Thin NativeImage consumer ownership, native listeners and acquire fences.
 mod fence;
-mod layout;
 #[cfg(all(test, not(target_env = "ohos")))]
 mod tests;
-use ohos_native_buffer_binding::NativeBuffer;
+
 use ohos_native_image_sys::*;
 use ohos_native_window_sys::{
-    OHNativeWindowBuffer, OH_NativeWindow_NativeObjectReference,
+    OHNativeWindow, OHNativeWindowBuffer, OH_NativeWindow_NativeObjectReference,
     OH_NativeWindow_NativeObjectUnreference,
 };
 use std::{
     cell::Cell,
-    collections::BTreeMap,
-    ffi::c_void,
     fmt,
     marker::PhantomData,
-    os::fd::{AsRawFd, FromRawFd, OwnedFd},
+    os::fd::{AsRawFd, FromRawFd, IntoRawFd, OwnedFd},
     ptr::NonNull,
-    sync::{
-        atomic::{AtomicUsize, Ordering},
-        Arc, Mutex, OnceLock,
-    },
     time::Duration,
 };
 
-type Callback = Arc<dyn Fn() + Send + Sync>;
-fn callbacks() -> &'static Mutex<BTreeMap<usize, Callback>> {
-    static CALLBACKS: OnceLock<Mutex<BTreeMap<usize, Callback>>> = OnceLock::new();
-    CALLBACKS.get_or_init(Mutex::default)
-}
-unsafe extern "C" fn available(context: *mut c_void) {
-    // The context is a monotonic registry identity, never a borrowed address.
-    let callback = callbacks()
-        .lock()
-        .unwrap_or_else(std::sync::PoisonError::into_inner)
-        .get(&(context as usize))
-        .cloned();
-    if let Some(callback) = callback {
-        let _ = std::panic::catch_unwind(std::panic::AssertUnwindSafe(move || callback()));
-    }
-}
-/// A failed NativeImage operation or rejected buffer layout.
+/// The SDK listener descriptor; its context remains owned by the caller.
+pub use ohos_native_image_sys::OH_OnFrameAvailableListener as FrameAvailableListener;
+
+// The NativeImage header documents this status but does not declare its enum.
+const NATIVE_ERROR_NO_BUFFER: i32 = 40_601_000;
+
+/// A native operation failure, or a rejected null handle/dimension.
 #[derive(Debug, Clone, Copy)]
 pub struct Error {
     operation: &'static str,
     code: i32,
 }
+
+impl Error {
+    /// Native status, or -1 for a rejected null handle/invalid dimension.
+    pub const fn code(self) -> i32 {
+        self.code
+    }
+}
+
 impl fmt::Display for Error {
     fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
         write!(f, "NativeImage {} failed ({})", self.operation, self.code)
     }
 }
 impl std::error::Error for Error {}
+
 fn check(operation: &'static str, code: i32) -> Result<(), Error> {
     if code == 0 {
         Ok(())
@@ -60,18 +52,44 @@ fn check(operation: &'static str, code: i32) -> Result<(), Error> {
     }
 }
 
-/// Tightly packed RGBA pixels copied after their producer fence.
-/// Alpha samples preserve the producer's representation; RGBX formats become opaque.
-pub struct RgbaFrame {
-    /// Physical width.
-    pub width: u32,
-    /// Physical height.
-    pub height: u32,
-    /// Four bytes per pixel, with no row padding.
-    pub pixels: Vec<u8>,
+/// Native buffer-usage flags. No usage is selected implicitly by the binding.
+#[derive(Clone, Copy, Debug, PartialEq, Eq)]
+pub struct BufferUsage(u64);
+
+impl BufferUsage {
+    /// CPU-readable memory.
+    pub const CPU_READ: Self =
+        Self(ohos_native_buffer_sys::OH_NativeBuffer_Usage_NATIVEBUFFER_USAGE_CPU_READ as u64);
+    /// CPU-writable memory.
+    pub const CPU_WRITE: Self =
+        Self(ohos_native_buffer_sys::OH_NativeBuffer_Usage_NATIVEBUFFER_USAGE_CPU_WRITE as u64);
+    /// Native hardware render target.
+    pub const HW_RENDER: Self =
+        Self(ohos_native_buffer_sys::OH_NativeBuffer_Usage_NATIVEBUFFER_USAGE_HW_RENDER as u64);
+    /// Native hardware texture.
+    pub const HW_TEXTURE: Self =
+        Self(ohos_native_buffer_sys::OH_NativeBuffer_Usage_NATIVEBUFFER_USAGE_HW_TEXTURE as u64);
+
+    /// Wraps a caller-selected SDK usage mask, preserving all bits.
+    pub const fn from_bits(bits: u64) -> Self {
+        Self(bits)
+    }
+
+    /// Returns the unmodified native usage mask.
+    pub const fn bits(self) -> u64 {
+        self.0
+    }
 }
-/// A unique CPU consumer. It may move between threads; operations are serialized
-/// by mutable borrowing and never use or depend on an EGL context.
+
+impl std::ops::BitOr for BufferUsage {
+    type Output = Self;
+
+    fn bitor(self, rhs: Self) -> Self {
+        Self(self.0 | rhs.0)
+    }
+}
+
+/// A unique native consumer with serialized operations and no EGL state.
 ///
 /// ```compile_fail
 /// fn needs_sync<T: Sync>() {}
@@ -79,107 +97,130 @@ pub struct RgbaFrame {
 /// ```
 pub struct ConsumerSurface {
     raw: NonNull<OH_NativeImage>,
-    listener: usize,
+    listening: bool,
     _not_sync: PhantomData<Cell<()>>,
 }
-// SAFETY: this CPU-only owner has no thread-affine EGL state. Its native APIs
-// require serialization, which mutable borrowing enforces, including buffer guards.
+
+// SAFETY: this consumer never owns an EGL context. Native calls require
+// serialization, enforced by mutable ownership, including the frame borrow.
 unsafe impl Send for ConsumerSurface {}
+
 impl ConsumerSurface {
-    /// Creates a CPU consumer using native default usage on API 12.
-    /// With `api-13`, requests CPU-readable, GPU-renderable buffers.
-    /// The callback runs on a producer thread and must only enqueue a wake.
-    /// It must not call NativeImage interfaces or retire consumers from the callback.
-    pub fn new(callback: impl Fn() + Send + Sync + 'static) -> Result<Self, Error> {
-        // SAFETY: creation takes no arguments and returns a unique native owner.
+    /// Creates a consumer with the SDK's default usage (API 12).
+    pub fn new() -> Result<Self, Error> {
+        // SAFETY: creation takes no arguments and transfers a unique native owner.
         let raw = NonNull::new(unsafe { OH_ConsumerSurface_Create() }).ok_or(Error {
             operation: "create",
             code: -1,
         })?;
-        Self::with_raw(raw, callback, 1 | (1 << 8))
-    }
-    fn with_raw(
-        raw: NonNull<OH_NativeImage>,
-        callback: impl Fn() + Send + Sync + 'static,
-        usage: u64,
-    ) -> Result<Self, Error> {
-        let mut surface = Self {
+        Ok(Self {
             raw,
-            listener: 0,
+            listening: false,
             _not_sync: PhantomData,
-        };
-        #[cfg(feature = "api-13")]
-        // SAFETY: surface retains the live, unique consumer.
-        check("usage", unsafe {
-            OH_ConsumerSurface_SetDefaultUsage(raw.as_ptr(), usage)
-        })?;
-        #[cfg(not(feature = "api-13"))]
-        let _ = usage;
-        static NEXT: AtomicUsize = AtomicUsize::new(1);
-        #[allow(deprecated)] // Keep the binding's Rust 1.88 baseline.
-        let id = NEXT
-            .fetch_update(Ordering::Relaxed, Ordering::Relaxed, |id| id.checked_add(1))
-            .map_err(|_| Error {
-                operation: "listener identity",
-                code: -1,
-            })?;
-        callbacks()
-            .lock()
-            .unwrap_or_else(std::sync::PoisonError::into_inner)
-            .insert(id, Arc::new(callback));
-        surface.listener = id;
-        // SAFETY: the context is only converted back to a registry identity;
-        // callbacks retain their own Arc while concurrent retirement removes it.
-        check("listen", unsafe {
-            OH_NativeImage_SetOnFrameAvailableListener(
-                raw.as_ptr(),
-                OH_OnFrameAvailableListener {
-                    context: id as *mut c_void,
-                    onFrameAvailable: Some(available),
-                },
-            )
-        })?;
+        })
+    }
+
+    /// Creates a consumer with exactly the caller's usage flags (API 13).
+    #[cfg(feature = "api-13")]
+    pub fn with_usage(usage: BufferUsage) -> Result<Self, Error> {
+        let mut surface = Self::new()?;
+        surface.set_usage(usage)?;
         Ok(surface)
     }
-    /// Surface identity accepted by ArkUI BuilderNode's texture render options.
-    pub fn id(&mut self) -> Result<u64, Error> {
-        // Creating the producer window registers it with SurfaceUtils, which
-        // ArkUI's texture exporter uses to resolve the consumer's surface ID.
-        // The window is borrowed here and remains owned by NativeImage.
-        // SAFETY: this mutable owner serializes initialization of its producer.
-        if unsafe { OH_NativeImage_AcquireNativeWindow(self.raw.as_ptr()) }.is_null() {
-            return Err(Error {
+
+    /// Sets future producer-buffer usage without interpreting the flags (API 13).
+    #[cfg(feature = "api-13")]
+    pub fn set_usage(&mut self, usage: BufferUsage) -> Result<(), Error> {
+        // SAFETY: mutable ownership serializes this live consumer's native call.
+        check("usage", unsafe {
+            OH_ConsumerSurface_SetDefaultUsage(self.raw.as_ptr(), usage.bits())
+        })
+    }
+
+    /// Registers the native listener without a closure registry or context owner.
+    ///
+    /// # Safety
+    ///
+    /// The callback and context must remain valid for every possible invocation,
+    /// including in-flight callbacks after replacement, unregistration or Drop.
+    /// The caller must establish native callback quiescence before freeing the
+    /// context. Calls may arrive on a producer thread; context access must be
+    /// synchronized. The callback must not unwind or call/reenter NativeImage
+    /// operations. The binding does not retain or destroy the context.
+    pub unsafe fn set_frame_available_listener(
+        &mut self,
+        listener: FrameAvailableListener,
+    ) -> Result<(), Error> {
+        // SAFETY: the caller supplies the callback/context lifetime and thread contract.
+        check("listen", unsafe {
+            OH_NativeImage_SetOnFrameAvailableListener(self.raw.as_ptr(), listener)
+        })?;
+        self.listening = true;
+        Ok(())
+    }
+
+    /// Unregisters the native listener. This does not prove that in-flight
+    /// callbacks have completed; its context remains the caller's responsibility.
+    pub fn unset_frame_available_listener(&mut self) -> Result<(), Error> {
+        if self.listening {
+            // SAFETY: mutable ownership serializes access to this live native image.
+            check("unlisten", unsafe {
+                OH_NativeImage_UnsetOnFrameAvailableListener(self.raw.as_ptr())
+            })?;
+            self.listening = false;
+        }
+        Ok(())
+    }
+
+    /// Acquires the SDK-owned producer-window handle, valid until consumer Drop.
+    ///
+    /// The caller must not destroy this borrowed handle.
+    pub fn acquire_native_window(&mut self) -> Result<NonNull<OHNativeWindow>, Error> {
+        // SAFETY: mutable ownership serializes initialization of the producer window.
+        NonNull::new(unsafe { OH_NativeImage_AcquireNativeWindow(self.raw.as_ptr()) }).ok_or(
+            Error {
                 operation: "producer window",
                 code: -1,
-            });
-        }
+            },
+        )
+    }
+
+    /// Queries the surface identity without acquiring a producer window.
+    pub fn surface_id(&mut self) -> Result<u64, Error> {
         let mut id = 0;
-        // SAFETY: this owner keeps the native image and output pointer live.
+        // SAFETY: the live consumer owns the native image and id is writable.
         check("surface ID", unsafe {
             OH_NativeImage_GetSurfaceId(self.raw.as_ptr(), &mut id)
         })?;
         Ok(id)
     }
-    /// Update future producer-buffer dimensions. Outstanding frames retain their size.
+
+    /// Sets future producer-buffer dimensions, retaining outstanding frames (API 13).
     #[cfg(feature = "api-13")]
     pub fn resize(&mut self, width: u32, height: u32) -> Result<(), Error> {
-        validate_size(width, height)?;
-        // SAFETY: the mutable owner serializes this native operation.
+        if width == 0 || height == 0 || width > i32::MAX as u32 || height > i32::MAX as u32 {
+            return Err(Error {
+                operation: "native dimensions",
+                code: -1,
+            });
+        }
+        // SAFETY: dimensions fit the SDK's positive signed integers.
         check("resize", unsafe {
             OH_ConsumerSurface_SetDefaultSize(self.raw.as_ptr(), width as i32, height as i32)
         })
     }
-    /// Acquire a frame, or None if the producer has no pending buffer. No waiting.
+
+    /// Acquires a native buffer/fence, or None when the SDK reports no buffer.
     pub fn acquire(&mut self) -> Result<Option<Frame<'_>>, Error> {
         let mut buffer = std::ptr::null_mut();
         let mut fence = -1;
-        // SAFETY: mutable borrowing serializes acquisition and owns both outputs.
+        // SAFETY: mutable borrowing serializes acquisition; outputs are writable.
         let code = unsafe {
             OH_NativeImage_AcquireNativeWindowBuffer(self.raw.as_ptr(), &mut buffer, &mut fence)
         };
-        // SAFETY: a nonnegative returned descriptor transfers ownership to the caller.
+        // SAFETY: the SDK transfers ownership of any nonnegative output descriptor.
         let fence = (fence >= 0).then(|| unsafe { OwnedFd::from_raw_fd(fence) });
-        if code == 40601000 {
+        if code == NATIVE_ERROR_NO_BUFFER {
             return Ok(None);
         }
         check("acquire", code)?;
@@ -187,19 +228,19 @@ impl ConsumerSurface {
             operation: "null buffer",
             code: -1,
         })?;
-        // SAFETY: acquisition returns a live window buffer. The NDK requires
-        // retaining this wrapper until release and a matching unreference.
+        // SAFETY: the SDK requires this explicit retain while using the window buffer.
         let retain = unsafe { OH_NativeWindow_NativeObjectReference(buffer.as_ptr().cast()) };
         if retain != 0 {
-            use std::os::fd::IntoRawFd;
-            let release_fence = fence.map_or(-1, IntoRawFd::into_raw_fd);
-            // SAFETY: acquisition still needs releasing when retaining fails.
-            unsafe {
+            // SAFETY: return the acquisition and its owned fence before propagating failure.
+            let released = unsafe {
                 OH_NativeImage_ReleaseNativeWindowBuffer(
                     self.raw.as_ptr(),
                     buffer.as_ptr(),
-                    release_fence,
-                );
+                    fence.map_or(-1, IntoRawFd::into_raw_fd),
+                )
+            };
+            if released != 0 {
+                log::error!("NativeImage release after retain failure: {released}");
             }
             return Err(Error {
                 operation: "retain buffer",
@@ -210,31 +251,25 @@ impl ConsumerSurface {
             surface: self,
             buffer,
             fence,
-            ready: false,
         }))
     }
 }
+
 impl Drop for ConsumerSurface {
     fn drop(&mut self) {
-        // Removing the registry entry first also makes late callbacks harmless.
-        let callback = {
-            let mut callbacks = callbacks()
-                .lock()
-                .unwrap_or_else(std::sync::PoisonError::into_inner);
-            callbacks.remove(&self.listener)
-        };
-        // SAFETY: no frame can outlive its mutable consumer borrow. Registry
-        // identities never dereference freed data, even during native teardown.
+        if let Err(error) = self.unset_frame_available_listener() {
+            log::error!("NativeImage cleanup: {error}");
+        }
+        // SAFETY: all frame borrows have ended. Native destruction does not
+        // release caller-owned listener contexts.
         unsafe {
-            OH_NativeImage_UnsetOnFrameAvailableListener(self.raw.as_ptr());
             let mut raw = self.raw.as_ptr();
             OH_NativeImage_Destroy(&mut raw);
         }
-        // Captured owner destructors may reenter the registry.
-        drop(callback);
     }
 }
-/// A frame guard retains its consumer, acquire fence and native buffer until release.
+
+/// An acquisition guard retaining the consumer, buffer wrapper and fence.
 ///
 /// ```compile_fail
 /// use ohos_native_image_binding::{ConsumerSurface, Frame};
@@ -246,21 +281,27 @@ pub struct Frame<'a> {
     surface: &'a mut ConsumerSurface,
     buffer: NonNull<OHNativeWindowBuffer>,
     fence: Option<OwnedFd>,
-    ready: bool,
 }
+
 impl fmt::Debug for Frame<'_> {
     fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
-        let layout = NativeBuffer::try_from_window_buffer_ptr(self.buffer.as_ptr())
-            .map(|buffer| buffer.config())
-            .ok();
         f.debug_struct("NativeImageFrame")
-            .field("layout", &layout)
-            .field("ready", &self.ready)
+            .field("buffer", &self.buffer)
+            .field("pending_fence", &self.fence.is_some())
             .finish()
     }
 }
+
 impl Frame<'_> {
-    /// Wait up to timeout for GPU writes. Use a worker for nonzero timeouts.
+    /// Borrows the opaque window-buffer handle until this frame is released.
+    ///
+    /// The caller must not unreference or release it. Reading its contents through
+    /// unsafe native APIs requires first observing a successful acquire-fence wait.
+    pub fn native_window_buffer(&self) -> NonNull<OHNativeWindowBuffer> {
+        self.buffer
+    }
+
+    /// Waits within the caller's timeout for the acquire fence; performs no mapping.
     pub fn wait(&mut self, timeout: Duration) -> Result<bool, Error> {
         if let Some(fence) = &self.fence {
             let mut poll = libc::pollfd {
@@ -282,77 +323,35 @@ impl Frame<'_> {
                     code: std::io::Error::last_os_error().raw_os_error().unwrap_or(-1),
                 });
             }
-            if result == 0 {
-                return Ok(false);
-            }
-            if !fence::ready(poll.revents)? {
+            if result == 0 || !fence::ready(poll.revents)? {
                 return Ok(false);
             }
         }
-        self.ready = true;
         self.fence = None;
         Ok(true)
     }
-    /// Copy RGBA/RGBX/BGRA/BGRX pixels, respecting the native row stride.
-    /// Rejects unsignalled fences, unsupported formats and incomplete mappings.
-    pub fn copy_rgba(&self) -> Result<RgbaFrame, Error> {
-        if !self.ready {
-            return Err(Error {
-                operation: "unsignalled fence",
-                code: -1,
-            });
-        }
-        let buffer =
-            NativeBuffer::try_from_window_buffer_ptr(self.buffer.as_ptr()).map_err(|_| Error {
-                operation: "native buffer",
-                code: -1,
-            })?;
-        let config = buffer.config();
-        let width = u32::try_from(config.width).map_err(|_| Error {
-            operation: "width",
-            code: -1,
-        })?;
-        let height = u32::try_from(config.height).map_err(|_| Error {
-            operation: "height",
-            code: -1,
-        })?;
-        let layout = validate_size(width, height)?;
-        layout::validate_format(config.format)?;
-        layout.mapped_len(config.stride)?;
-        let mapped = buffer.map_owned().map_err(|_| Error {
-            operation: "map",
-            code: -1,
-        })?;
-        let pixels = layout::copy(mapped.bytes(), config.stride, config.format, layout)?;
-        Ok(RgbaFrame {
-            width,
-            height,
-            pixels,
-        })
-    }
 }
+
 impl Drop for Frame<'_> {
     fn drop(&mut self) {
-        use std::os::fd::IntoRawFd;
-        // On a timeout, return the still-owned fence to the queue so the producer
-        // cannot overwrite a buffer whose GPU writes have not finished.
         let fence = self.fence.take().map_or(-1, IntoRawFd::into_raw_fd);
-        // SAFETY: this guard exclusively owns the acquisition; the system takes
-        // ownership of a nonnegative release fence, as specified by the NDK.
-        unsafe {
+        // SAFETY: this guard owns the acquisition; the SDK consumes the release
+        // fence, including an unsignalled acquire fence returned without a wait.
+        let released = unsafe {
             OH_NativeImage_ReleaseNativeWindowBuffer(
                 self.surface.raw.as_ptr(),
                 self.buffer.as_ptr(),
                 fence,
-            );
+            )
+        };
+        if released != 0 {
+            log::error!("NativeImage frame release: {released}");
         }
-        // SAFETY: balances the explicit retain after acquisition, after the
-        // consumer has finished using the wrapper in its release operation.
-        unsafe {
-            OH_NativeWindow_NativeObjectUnreference(self.buffer.as_ptr().cast());
+        // SAFETY: balances our retain after the native release finished using the wrapper.
+        let unreferenced =
+            unsafe { OH_NativeWindow_NativeObjectUnreference(self.buffer.as_ptr().cast()) };
+        if unreferenced != 0 {
+            log::error!("NativeImage frame unreference: {unreferenced}");
         }
     }
-}
-fn validate_size(width: u32, height: u32) -> Result<layout::Layout, Error> {
-    layout::Layout::new(width, height)
 }

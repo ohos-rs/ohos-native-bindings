@@ -111,3 +111,6 @@ jobs:
 
       - name: Check native clipboard and UDMF copies with native substitutes
         run: bash crates/pasteboard/tests/run-host.sh
+
+      - name: Check NativeImage owners with native substitutes
+        run: bash crates/native_image/tests/run-host.sh
