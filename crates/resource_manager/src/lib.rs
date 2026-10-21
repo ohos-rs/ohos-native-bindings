@@ -20,12 +20,10 @@ use ohos_resource_manager_sys::{
 };
 
 mod bounded_read;
-mod configuration;
 mod error;
 mod info;
 mod raw_dir;
 
-pub use configuration::Configuration;
 pub use error::*;
 pub use info::*;
 pub use raw_dir::*;
@@ -37,7 +35,6 @@ pub struct ResourceManager {
 
 impl ResourceManager {
     /// Opens a HAP raw resource (API 8), rejecting NULs and absent resources.
-    /// Serialize access with other calls on the same native manager.
     pub fn open_raw_file(&self, path: &str) -> Result<RawFile, RawFileError> {
         let path = CString::new(path)
             .map_err(|_| RawFileError::FfiInnerError("raw resource path contains NUL".into()))?;

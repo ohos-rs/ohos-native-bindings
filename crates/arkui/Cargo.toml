@@ -9,6 +9,7 @@ description = "OpenHarmony's arkui binding for rust"
 workspace = true
 
 [dependencies]
+log                        = { workspace = true }
 ohos-arkui-sys             = { workspace = true }
 napi-sys-ohos              = { workspace = true, optional = true }
 napi-ohos                  = { workspace = true, optional = true }
@@ -27,7 +28,7 @@ ohos-udmf-binding          = { workspace = true, optional = true }
 default       = ["napi", "xcomponent"]
 napi          = ["dep:napi-ohos", "dep:napi-sys-ohos"]
 xcomponent    = ["dep:ohos-xcomponent-binding", "dep:ohos-xcomponent-sys"]
-accessibility = ["dep:ohos-accessibility-binding", "ohos-xcomponent-binding?/accessibility"]
+accessibility = ["api-23", "dep:ohos-accessibility-binding", "ohos-xcomponent-binding?/accessibility"]
 image         = ["dep:ohos-image-binding", "dep:ohos-image-native-binding"]
 drawing       = ["dep:ohos-drawing-binding"]
 udmf          = ["dep:ohos-udmf-binding"]

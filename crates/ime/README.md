@@ -33,52 +33,24 @@ let ime = IME::new_with_main_thread_callbacks(AttachOptions::new(false));
 
 `IME::new` preserves the platform default callback thread.
 
-Use `IME::new_for_window(options, native_window_id)` to associate the editor with
-its actual OHOS window. `set_consume_key_events(true)` lets an application handle
-hardware text and shortcuts while retaining native composition. Enable the `api-26` Cargo feature to link this configuration API; the resulting
-application requires API 26 or newer. Without the feature, the setter returns
-`false` and does not call the unavailable API. Configuration and cursor updates remain
-owned by that editor and are refreshed after its background attachment commits.
+The host owns the process-wide IME's window routing and serialized lifecycle.
+Detach the previous editor before transferring ownership. `try_attach` performs
+the native attachment synchronously; `show_attached` shows its keyboard without
+implicitly attaching or recovering. The host chooses any worker/event queue and
+cancellation policy.
 
+`IME::new_for_window(options, window_id)` selects the actual native Window ID;
+zero selects the main window. `set_window_id` changes the next attachment's
+configuration. With `api-26`, `IME::set_consume_key_events(bool)` configures
+hardware-key consumption. It is compiled only with that feature and requires
+an API-26 runtime. `TextConfig::set_consume_key_events` exposes the fallible
+native setter directly.
 
-`prepare_background_attachment` returns a worker request and a cancellation
-handle for editors using the default IPC callback thread. Run the request's
-`run(show_keyboard, completed)` on a worker; deliver the result to the UI from
-`completed` without waiting for the worker to exit. Keep the cancellation handle
-on the UI thread. After `Ok(true)`, check that the originating editor is still
-focused before calling `commit`. Dropping an uncommitted handle only signals
-cancellation; the original worker performs native cleanup. The worker waits for
-that acceptance or cancellation, so cancellation cannot perform synchronous IPC
-on the UI thread. An in-flight
-native call finishes before cancellation releases its editor, so closing a
-window never frees a callback table still used by native code. Preparing another
-request cancels the previous uncommitted request for that editor.
-
-The ordinary `IME` remains confined to its owning thread. Background attachment
-is unavailable for main-thread callback mode. Update the cached text and cursor
-normally while a connection is pending, then call `try_refresh_configuration`
-and update the latest text snapshot after accepting the connection; native notifications can return `IME_ERR_IMCLIENT`
-while attachment owns the native session guard.
-
-Stale-session errors invalidate the input proxy's usable state, not the native
-editor's lifetime. Recovery reuses the editor callback table, so a delayed
-`OnInputStop` can still report keyboard status safely. Explicit detach disables
-Rust callbacks. If attach/detach fails without establishing a release boundary,
-the native table is retained until the next successful attach/detach. The retired
-table does not retain application callback closures. A pending background request
-keeps its editor and callbacks alive until its native call returns. If there is
-no later successful transition, the small retired native allocation remains
-until process exit.
-
-Native proxy operations are serialized across sessions. Reentrant or competing
-native operations return `IME_ERR_IMCLIENT` through the `try_*` APIs instead of
-waiting inside a native callback. Applications can retry after the current call
-has returned.
-
-Each `IME` owns an independent callback set. Activating one session safely
-replaces the previously active native editor, and a later activation repairs a
-proxy invalidated by another ArkUI input or an application lifecycle change.
-Use the `try_*` methods when the caller needs the HarmonyOS error code:
+Native callbacks remain allocated across stale-session recovery. Failed detach
+retains the table for retry. If Drop cannot establish a native release boundary,
+it logs and leaves the native table allocated until process exit, after
+unregistering Rust callbacks. Use fallible detach before releasing the owner.
+Use the `try_*` methods to inspect native errors:
 
 ```rust
 ime.try_show_keyboard()?;
@@ -89,10 +61,9 @@ ime.try_detach()?;
 
 Configure the native editor with `try_update_configuration(EnterKey, InputType)`
 and `try_update_cursor(Rect)`. Attributes and the absolute physical screen
-cursor rectangle are retained for the next attach. Updates are sent only when
-this editor owns the active native session, so an inactive window cannot change
-another window's editor. Registering a preview callback enables preview text in
-the attachment configuration. These APIs must be called on the editor's thread.
+cursor rectangle are retained for the next attach. The host sends updates only
+to its current editor. Registering a preview callback enables preview text in
+the attachment configuration. Call these APIs on the editor's thread.
 
 `try_update_text_state(TextState)` retains a snapshot for IPC-thread requests
 for text before/after the selection and the absolute cursor index. `offset`
@@ -108,17 +79,11 @@ Register `on_delete_forward`, `on_move_cursor`, `on_set_selection`, and
 thread as other editor callbacks. Text decoding preserves surrogate pairs and
 replaces invalid UTF-16 units instead of silently dropping them.
 
-## Host lifetime tests
+## Host tests
 
-The host harness compiles the production session and attachment code against a
-mock native API. It checks blocked attachment, cancellation, replacement,
-callback-table lifetime, and cached text without requiring OHOS libraries:
-
-```shell
-cargo test --manifest-path crates/ime/tests/host/Cargo.toml --features api-22
-```
-
-Native callback threading and UI behavior still require device validation.
+`cargo test --manifest-path crates/ime/tests/host/Cargo.toml --features api-26`
+runs production IME code with native substitutes. Native callback timing and
+window/keyboard behavior also need device acceptance.
 
 ## License
 

@@ -893,10 +893,13 @@ impl super::TextInput {
             self,
             crate::NodeEventType::TextInputOnWillInsert,
             move |event| {
-                let should_insert = cb(
-                    event.f32_value(0).unwrap_or_default(),
-                    event.string_value(0).unwrap_or_default(),
-                );
+                let Ok(text) = event
+                    .string_value(0)
+                    .inspect_err(|error| log::error!("{error}"))
+                else {
+                    return;
+                };
+                let should_insert = cb(event.f32_value(0).unwrap_or_default(), text);
                 let _ = event.set_return_bool(should_insert);
             },
         );
@@ -907,10 +910,13 @@ impl super::TextInput {
             self,
             crate::NodeEventType::TextInputOnDidInsert,
             move |event| {
-                cb(
-                    event.f32_value(0).unwrap_or_default(),
-                    event.string_value(0).unwrap_or_default(),
-                );
+                let Ok(text) = event
+                    .string_value(0)
+                    .inspect_err(|error| log::error!("{error}"))
+                else {
+                    return;
+                };
+                cb(event.f32_value(0).unwrap_or_default(), text);
             },
         );
     }
@@ -920,10 +926,16 @@ impl super::TextInput {
             self,
             crate::NodeEventType::TextInputOnWillDelete,
             move |event| {
+                let Ok(text) = event
+                    .string_value(0)
+                    .inspect_err(|error| log::error!("{error}"))
+                else {
+                    return;
+                };
                 let should_delete = cb(
                     event.f32_value(0).unwrap_or_default(),
                     event.i32_value(1).unwrap_or_default(),
-                    event.string_value(0).unwrap_or_default(),
+                    text,
                 );
                 let _ = event.set_return_bool(should_delete);
             },
@@ -935,10 +947,16 @@ impl super::TextInput {
             self,
             crate::NodeEventType::TextInputOnDidDelete,
             move |event| {
+                let Ok(text) = event
+                    .string_value(0)
+                    .inspect_err(|error| log::error!("{error}"))
+                else {
+                    return;
+                };
                 cb(
                     event.f32_value(0).unwrap_or_default(),
                     event.i32_value(1).unwrap_or_default(),
-                    event.string_value(0).unwrap_or_default(),
+                    text,
                 );
             },
         );

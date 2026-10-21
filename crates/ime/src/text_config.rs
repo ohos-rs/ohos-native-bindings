@@ -7,9 +7,7 @@ use ohos_input_method_sys::{
 };
 use std::ptr;
 
-#[cfg(feature = "api-26")]
-use crate::ImeError;
-use crate::{Cursor, EnterKey, ImeResult, InputType};
+use crate::{Cursor, EnterKey, InputType};
 
 pub struct TextConfig {
     pub(crate) raw: *mut InputMethod_TextConfig,
@@ -23,24 +21,17 @@ pub struct Selection {
 }
 
 impl TextConfig {
-    pub(crate) fn supports_key_event_configuration() -> bool {
-        cfg!(feature = "api-26")
-    }
-
+    /// Configures native hardware-key consumption (API 26).
     #[cfg(feature = "api-26")]
-    pub(crate) fn set_consume_key_events(&self, enabled: bool) -> ImeResult<bool> {
+    pub fn set_consume_key_events(&self, enabled: bool) -> crate::ImeResult<()> {
+        // SAFETY: the configuration is owned here or borrowed from its callback.
         let status =
             unsafe { ohos_input_method_sys::OH_TextConfig_SetConsumeKeyEvents(self.raw, enabled) };
         if status == 0 {
-            Ok(true)
+            Ok(())
         } else {
-            Err(ImeError::new("set-consume-key-events", status))
+            Err(crate::ImeError::new("set-consume-key-events", status))
         }
-    }
-
-    #[cfg(not(feature = "api-26"))]
-    pub(crate) fn set_consume_key_events(&self, _enabled: bool) -> ImeResult<bool> {
-        Ok(false)
     }
 
     pub fn new() -> Self {
