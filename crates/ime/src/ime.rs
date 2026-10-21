@@ -1,8 +1,7 @@
-use std::marker::PhantomData;
+use std::cell::{Cell, RefCell};
 use std::ptr::{self, NonNull};
 use std::rc::Rc;
-use std::sync::atomic::{AtomicBool, AtomicU64, Ordering};
-use std::sync::{Arc, Condvar, Mutex, MutexGuard, RwLock, Weak};
+use std::sync::{Arc, RwLock};
 
 use ohos_input_method_sys::{
     InputMethod_ErrorCode_IME_ERR_DETACHED, InputMethod_ErrorCode_IME_ERR_NULL_POINTER,
@@ -13,169 +12,27 @@ use ohos_input_method_sys::{
 };
 
 use crate::proxy::{register_callbacks, unregister_callbacks, IMECallbacks, SharedCallbacks};
-use crate::session::NativeSessions;
 use crate::{
     Action, AttachOptions, Cursor, Direction, EnterKey, ImeError, ImeResult, InputType,
-    KeyboardStatus, Rect, Selection, TextConfig, TextEditor, TextState,
+    KeyboardStatus, Rect, Selection, TextEditor, TextState,
 };
-
-static NEXT_SESSION_ID: AtomicU64 = AtomicU64::new(1);
 
 #[derive(Clone)]
 pub struct IME {
-    inner: Arc<IMEInner>,
-    main_thread: PhantomData<Rc<()>>,
+    inner: Rc<IMEInner>,
 }
 
 struct IMEInner {
-    id: u64,
-    native: Mutex<NativeEditor>,
-    attachment_serial: Mutex<()>,
-    pending_attachment: Mutex<Option<Weak<AttachmentState>>>,
-    show_on_attach: bool,
+    raw: RefCell<Option<NonNull<InputMethod_InputMethodProxy>>>,
+    option: AttachOptions,
+    text_editor: RefCell<Option<TextEditor>>,
     callbacks: SharedCallbacks,
-    needs_attach: AtomicBool,
+    needs_attach: Cell<bool>,
     configuration: Arc<RwLock<EditorConfiguration>>,
     text_state: Arc<RwLock<TextState>>,
-    text_notified: AtomicBool,
+    text_notified: Cell<bool>,
     #[cfg(feature = "api-22")]
     callbacks_in_main_thread: bool,
-}
-
-struct NativeEditor {
-    raw: Option<NonNull<InputMethod_InputMethodProxy>>,
-    editor: Option<TextEditor>,
-    generation: u64,
-}
-
-// SAFETY: these opaque native handles are only accessed under their Mutex and
-// the process-wide NativeSessions guard. Their Rust callbacks use Send + Sync
-// closures and synchronized snapshots, without borrowing ArkUI or N-API state.
-unsafe impl Send for NativeEditor {}
-
-#[derive(Clone, Copy, PartialEq)]
-enum AttachmentStatus {
-    Pending,
-    Cancelled,
-    Committed,
-}
-
-struct AttachmentState {
-    status: Mutex<AttachmentStatus>,
-    changed: Condvar,
-}
-
-impl AttachmentState {
-    fn transition(&self, status: AttachmentStatus) -> bool {
-        let mut current = self
-            .status
-            .lock()
-            .unwrap_or_else(std::sync::PoisonError::into_inner);
-        if *current != AttachmentStatus::Pending {
-            return false;
-        }
-        *current = status;
-        self.changed.notify_one();
-        true
-    }
-
-    fn cancelled(&self) -> bool {
-        *self
-            .status
-            .lock()
-            .unwrap_or_else(std::sync::PoisonError::into_inner)
-            == AttachmentStatus::Cancelled
-    }
-}
-
-/// An IPC-thread-callback editor's connection work, runnable on a worker.
-/// The worker stays responsible for cleanup until the UI accepts or cancels it.
-pub struct ImeAttachment {
-    inner: Arc<IMEInner>,
-    state: Arc<AttachmentState>,
-}
-
-/// Dropping an uncommitted request signals cancellation without native IPC.
-pub struct ImeAttachmentCancellation {
-    state: Arc<AttachmentState>,
-}
-
-impl ImeAttachment {
-    /// Block a dedicated worker until the UI commits or cancels the connection.
-    /// Never call this from a native callback or reenter it on the same editor.
-    /// Report the result before waiting for the UI's commit or cancellation.
-    /// `completed` must deliver the result without waiting for this worker to exit.
-    pub fn run(self, show_keyboard: bool, completed: impl FnOnce(ImeResult<bool>)) {
-        let _serial = self
-            .inner
-            .attachment_serial
-            .lock()
-            .unwrap_or_else(std::sync::PoisonError::into_inner);
-        if self.state.cancelled() {
-            completed(Ok(false));
-            return;
-        }
-        let ime = IME {
-            inner: self.inner.clone(),
-            main_thread: PhantomData,
-        };
-        let mut result = ime.try_attach();
-        if result.is_ok() && show_keyboard && !self.state.cancelled() {
-            result = ime.show_attached();
-        }
-        if self.state.cancelled() {
-            completed(self.cleanup().map(|()| false));
-            return;
-        }
-        if let Err(error) = result {
-            if let Err(cleanup_error) = self.cleanup() {
-                log::warn!("IME attachment failure cleanup failed: {cleanup_error}");
-            }
-            completed(Err(error));
-            return;
-        }
-        completed(Ok(true));
-        let mut status = self
-            .state
-            .status
-            .lock()
-            .unwrap_or_else(std::sync::PoisonError::into_inner);
-        while *status == AttachmentStatus::Pending {
-            status = self
-                .state
-                .changed
-                .wait(status)
-                .unwrap_or_else(std::sync::PoisonError::into_inner);
-        }
-        let cancelled = *status == AttachmentStatus::Cancelled;
-        drop(status);
-        if cancelled {
-            if let Err(error) = self.cleanup() {
-                log::warn!("IME attachment cancellation cleanup failed: {error}");
-            }
-        }
-    }
-
-    fn cleanup(&self) -> ImeResult<()> {
-        self.inner.detach(&mut NativeSessions::wait_for_cleanup())
-    }
-}
-
-impl ImeAttachmentCancellation {
-    /// Accept a completed connection only if its focus request is still current.
-    pub fn commit(&self) -> bool {
-        self.state.transition(AttachmentStatus::Committed)
-    }
-
-    pub fn cancel(&self) {
-        self.state.transition(AttachmentStatus::Cancelled);
-    }
-}
-
-impl Drop for ImeAttachmentCancellation {
-    fn drop(&mut self) {
-        self.cancel();
-    }
 }
 
 #[derive(Clone, Copy)]
@@ -185,12 +42,13 @@ struct EditorConfiguration {
     input_type: InputType,
     cursor: Option<Rect>,
     preview_supported: bool,
+    #[cfg(feature = "api-26")]
     consume_key_events: bool,
 }
 
 impl PartialEq for IME {
     fn eq(&self, other: &Self) -> bool {
-        Arc::ptr_eq(&self.inner, &other.inner)
+        Rc::ptr_eq(&self.inner, &other.inner)
     }
 }
 
@@ -198,7 +56,7 @@ impl Eq for IME {}
 
 impl std::hash::Hash for IME {
     fn hash<H: std::hash::Hasher>(&self, state: &mut H) {
-        std::ptr::hash(Arc::as_ptr(&self.inner), state);
+        std::ptr::hash(Rc::as_ptr(&self.inner), state);
     }
 }
 
@@ -207,10 +65,32 @@ impl IME {
         Self::with_callback_thread(option, false, 0)
     }
 
-    /// Bind this editor to the actual OHOS Window ID from getWindowProperties().id.
-    /// Framework-local IDs and native rendering surface handles are not window IDs.
+    /// Creates an editor for the actual native Window ID. Zero selects the
+    /// main window. Rendering surface IDs are not native Window IDs.
     pub fn new_for_window(option: AttachOptions, window_id: i32) -> Self {
         Self::with_callback_thread(option, false, window_id)
+    }
+
+    /// Sets the native Window ID used by the next attachment.
+    pub fn set_window_id(&self, window_id: i32) {
+        self.inner
+            .configuration
+            .write()
+            .unwrap_or_else(std::sync::PoisonError::into_inner)
+            .window_id = window_id;
+    }
+
+    /// Sets API-26 hardware-key consumption for the next attachment.
+    ///
+    /// Requires an API-26 runtime. Native configuration errors are logged
+    /// because the SDK's configuration callback has no error return channel.
+    #[cfg(feature = "api-26")]
+    pub fn set_consume_key_events(&self, enabled: bool) {
+        self.inner
+            .configuration
+            .write()
+            .unwrap_or_else(std::sync::PoisonError::into_inner)
+            .consume_key_events = enabled;
     }
 
     /// Create an IME whose TextEditor callbacks are dispatched on the main
@@ -233,6 +113,7 @@ impl IME {
             input_type: InputType::Text,
             cursor: None,
             preview_supported: false,
+            #[cfg(feature = "api-26")]
             consume_key_events: false,
         }));
         let callback_configuration = configuration.clone();
@@ -266,13 +147,14 @@ impl IME {
                     .read()
                     .unwrap_or_else(std::sync::PoisonError::into_inner);
                 config.set_window_id(configuration.window_id);
+                #[cfg(feature = "api-26")]
+                if let Err(error) = config.set_consume_key_events(configuration.consume_key_events)
+                {
+                    log::error!("Cannot configure native editor key consumption: {error}");
+                }
                 config.set_enter_key(configuration.enter_key);
                 config.set_input_type(configuration.input_type);
                 config.set_preview_text_supported(configuration.preview_supported);
-                if let Err(error) = config.set_consume_key_events(configuration.consume_key_events)
-                {
-                    log::warn!("Cannot configure native editor key handling: {error}");
-                }
                 let state = config_state
                     .read()
                     .unwrap_or_else(std::sync::PoisonError::into_inner);
@@ -287,73 +169,19 @@ impl IME {
             ..Default::default()
         };
         Self {
-            inner: Arc::new(IMEInner {
-                id: next_session_id(),
-                native: Mutex::new(NativeEditor {
-                    raw: None,
-                    editor: None,
-                    generation: 0,
-                }),
-                attachment_serial: Mutex::new(()),
-                pending_attachment: Mutex::new(None),
-                show_on_attach: option.is_showing_keyboard(),
+            inner: Rc::new(IMEInner {
+                raw: RefCell::new(None),
+                option,
+                text_editor: RefCell::new(None),
                 callbacks: Arc::new(RwLock::new(callbacks)),
-                needs_attach: AtomicBool::new(true),
+                needs_attach: Cell::new(true),
                 configuration,
                 text_state,
-                text_notified: AtomicBool::new(false),
+                text_notified: Cell::new(false),
                 #[cfg(feature = "api-22")]
                 callbacks_in_main_thread,
             }),
-            main_thread: PhantomData,
         }
-    }
-
-    /// Prepare background attachment using the platform's IPC callback thread.
-    /// The ordinary IME handle remains confined to its owning UI thread.
-    pub fn prepare_background_attachment(
-        &self,
-    ) -> ImeResult<(ImeAttachment, ImeAttachmentCancellation)> {
-        #[cfg(feature = "api-22")]
-        if self.inner.callbacks_in_main_thread {
-            return Err(ImeError::new(
-                "background-main-thread-callbacks",
-                ohos_input_method_sys::InputMethod_ErrorCode_IME_ERR_IMCLIENT,
-            ));
-        }
-        let state = Arc::new(AttachmentState {
-            status: Mutex::new(AttachmentStatus::Pending),
-            changed: Condvar::new(),
-        });
-        let previous = self
-            .inner
-            .pending_attachment
-            .lock()
-            .unwrap_or_else(std::sync::PoisonError::into_inner)
-            .replace(Arc::downgrade(&state))
-            .and_then(|state| state.upgrade());
-        if let Some(previous) = previous {
-            previous.transition(AttachmentStatus::Cancelled);
-        }
-        Ok((
-            ImeAttachment {
-                inner: self.inner.clone(),
-                state: state.clone(),
-            },
-            ImeAttachmentCancellation { state },
-        ))
-    }
-
-    /// Declare that this editor handles unconsumed hardware letters, characters
-    /// and function keys. Set this before attaching the editor. Returns false
-    /// when the `api-26` feature is disabled. Enabling it requires API 26 or newer.
-    pub fn set_consume_key_events(&self, enabled: bool) -> bool {
-        self.inner
-            .configuration
-            .write()
-            .unwrap_or_else(std::sync::PoisonError::into_inner)
-            .consume_key_events = enabled;
-        TextConfig::supports_key_event_configuration()
     }
 
     pub fn insert_text<T>(&self, callback: T)
@@ -474,8 +302,7 @@ impl IME {
             configuration.enter_key = enter_key;
             configuration.input_type = input_type;
         }
-        let sessions = NativeSessions::acquire("notify")?;
-        let Some(raw) = self.active_proxy(&sessions) else {
+        let Some(raw) = self.active_proxy() else {
             return Ok(());
         };
         let code = unsafe {
@@ -496,41 +323,12 @@ impl IME {
             .write()
             .unwrap_or_else(std::sync::PoisonError::into_inner)
             .cursor = Some(rect);
-        let sessions = NativeSessions::acquire("notify")?;
-        let Some(raw) = self.active_proxy(&sessions) else {
+        let Some(raw) = self.active_proxy() else {
             return Ok(());
         };
         let cursor = Cursor::new(rect);
         let code = unsafe { OH_InputMethodProxy_NotifyCursorUpdate(raw.as_ptr(), cursor.raw) };
         self.notification_result("update-cursor", code)
-    }
-
-    /// Publish attributes and cursor changes cached while background attachment
-    /// held the native session guard. Call after accepting its completed result.
-    pub fn try_refresh_configuration(&self) -> ImeResult<()> {
-        let sessions = NativeSessions::acquire("notify")?;
-        let Some(raw) = self.active_proxy(&sessions) else {
-            return Ok(());
-        };
-        let configuration = *self
-            .inner
-            .configuration
-            .read()
-            .unwrap_or_else(std::sync::PoisonError::into_inner);
-        let code = unsafe {
-            OH_InputMethodProxy_NotifyConfigurationChange(
-                raw.as_ptr(),
-                configuration.enter_key.into(),
-                configuration.input_type.into(),
-            )
-        };
-        self.notification_result("update-configuration", code)?;
-        if let Some(rect) = configuration.cursor {
-            let cursor = Cursor::new(rect);
-            let code = unsafe { OH_InputMethodProxy_NotifyCursorUpdate(raw.as_ptr(), cursor.raw) };
-            self.notification_result("update-cursor", code)?;
-        }
-        Ok(())
     }
 
     /// Cache text for IPC-thread queries and notify the active native editor.
@@ -548,16 +346,14 @@ impl IME {
                 false
             } else {
                 *previous = state;
-                // A busy session or failed notification must leave this snapshot retryable.
-                self.inner.text_notified.store(false, Ordering::Release);
+                self.inner.text_notified.set(false);
                 true
             }
         };
-        if !changed && self.inner.text_notified.load(Ordering::Acquire) {
+        if !changed && self.inner.text_notified.get() {
             return Ok(());
         }
-        let sessions = NativeSessions::acquire("notify")?;
-        let Some(raw) = self.active_proxy(&sessions) else {
+        let Some(raw) = self.active_proxy() else {
             return Ok(());
         };
         let state = self
@@ -584,16 +380,13 @@ impl IME {
             )
         };
         self.notification_result("update-selection", code)?;
-        self.inner.text_notified.store(true, Ordering::Release);
+        self.inner.text_notified.set(true);
         Ok(())
     }
 
-    fn active_proxy(
-        &self,
-        sessions: &NativeSessions,
-    ) -> Option<NonNull<InputMethod_InputMethodProxy>> {
-        (sessions.active_id == self.inner.id && !self.inner.needs_attach.load(Ordering::Acquire))
-            .then(|| self.inner.native().raw)
+    fn active_proxy(&self) -> Option<NonNull<InputMethod_InputMethodProxy>> {
+        (!self.inner.needs_attach.get())
+            .then(|| *self.inner.raw.borrow())
             .flatten()
     }
 
@@ -608,41 +401,32 @@ impl IME {
         Err(error)
     }
 
-    /// Attach this editor, replacing any other `IME` session previously
-    /// attached through this binding.
+    /// Attaches this editor synchronously using the native controller.
+    ///
+    /// The host serializes window ownership and native operations. This binding
+    /// neither queues work nor tracks which window owns the process-wide IME.
     pub fn try_attach(&self) -> ImeResult<()> {
-        let mut sessions = NativeSessions::acquire("attach")?;
-        if self.active_proxy(&sessions).is_some() {
+        if self.active_proxy().is_some() {
             return Ok(());
         }
 
         // Keep the same callback table across stale-session recovery. Neither
         // NOT_EDITABLE nor DETACHED proves that OnInputStop has finished with it.
-        let mut native = self.inner.native();
-        if native.editor.is_none() {
+        if self.inner.text_editor.borrow().is_none() {
             let editor = TextEditor::new();
             #[cfg(feature = "api-22")]
             if self.inner.callbacks_in_main_thread {
                 editor.set_callback_in_main_thread(true)?;
             }
             register_callbacks(editor.raw, self.inner.callbacks.clone());
-            native.editor = Some(editor);
+            self.inner.text_editor.replace(Some(editor));
         }
-        let Some(editor) = native.editor.as_ref().map(|editor| editor.raw) else {
-            return Err(ImeError::new(
-                "attach",
-                InputMethod_ErrorCode_IME_ERR_NULL_POINTER,
-            ));
-        };
-        native.raw.take();
+        let editor = self.inner.text_editor.borrow().as_ref().unwrap().raw;
+        self.inner.raw.borrow_mut().take();
         self.invalidate_session();
-        native.generation = sessions.generation;
-        // Even a failed attach may replace the NDK's global proxy. Never let an
-        // older Rust session use its previous handle after this attempt.
-        sessions.active_id = 0;
         let mut raw: *mut InputMethod_InputMethodProxy = ptr::null_mut();
-        let options = AttachOptions::new(self.inner.show_on_attach);
-        let code = unsafe { OH_InputMethodController_Attach(editor, options.raw, &mut raw) };
+        let code =
+            unsafe { OH_InputMethodController_Attach(editor, self.inner.option.raw, &mut raw) };
         if code != 0 {
             // The NDK can retain the callback table even when attach fails.
             return Err(ImeError::new("attach", code));
@@ -654,10 +438,8 @@ impl IME {
             ));
         };
 
-        sessions.complete_transition(self.inner.id);
-        native.generation = sessions.generation;
-        native.raw = Some(raw);
-        self.inner.needs_attach.store(false, Ordering::Release);
+        self.inner.raw.replace(Some(raw));
+        self.inner.needs_attach.set(false);
         Ok(())
     }
 
@@ -690,8 +472,7 @@ impl IME {
 
     /// Hide the keyboard without ending this editor session.
     pub fn try_hide_keyboard(&self) -> ImeResult<()> {
-        let sessions = NativeSessions::acquire("hide-keyboard")?;
-        let Some(raw) = self.active_proxy(&sessions) else {
+        let Some(raw) = self.active_proxy() else {
             // Inactive/stale editors must not call through an invalid proxy.
             self.invalidate_session();
             return Ok(());
@@ -712,21 +493,20 @@ impl IME {
         let _ = self.try_hide_keyboard();
     }
 
-    /// End this session without detaching an editor which replaced it. If the
-    /// native cleanup fails, callbacks are disabled and their allocation is
-    /// retained until a later successful native attach/detach.
+    /// Detaches this editor synchronously. On failure its callback table is
+    /// retained so the host can retry. Call before transferring IME ownership.
     pub fn try_detach(&self) -> ImeResult<()> {
-        let mut sessions = NativeSessions::acquire("detach")?;
-        self.inner.detach(&mut sessions)
+        self.inner.detach()
     }
 
     pub fn detach(&self) {
         let _ = self.try_detach();
     }
 
-    fn show_attached(&self) -> ImeResult<()> {
-        let sessions = NativeSessions::acquire("show-keyboard")?;
-        let Some(raw) = self.active_proxy(&sessions) else {
+    /// Shows the keyboard through the attached proxy, without attaching or
+    /// recovering a stale connection. The host owns lifecycle recovery.
+    pub fn show_attached(&self) -> ImeResult<()> {
+        let Some(raw) = self.active_proxy() else {
             return Err(ImeError::new(
                 "show-keyboard",
                 InputMethod_ErrorCode_IME_ERR_DETACHED,
@@ -750,73 +530,43 @@ impl IME {
     }
 
     fn invalidate_session(&self) {
-        self.inner.needs_attach.store(true, Ordering::Release);
-        self.inner.text_notified.store(false, Ordering::Release);
+        self.inner.needs_attach.set(true);
+        self.inner.text_notified.set(false);
     }
 }
 
 impl IMEInner {
-    fn native(&self) -> MutexGuard<'_, NativeEditor> {
-        self.native
-            .lock()
-            .unwrap_or_else(std::sync::PoisonError::into_inner)
-    }
-
-    fn detach(&self, sessions: &mut NativeSessions) -> ImeResult<()> {
-        self.needs_attach.store(true, Ordering::Release);
-        self.text_notified.store(false, Ordering::Release);
-        let mut native = self.native();
-        let raw = native.raw.take();
-        let mut result = Ok(());
-        if sessions.active_id == self.id {
-            sessions.active_id = 0;
-            if let Some(raw) = raw {
-                let code = unsafe { OH_InputMethodController_Detach(raw.as_ptr()) };
-                if code == 0 {
-                    sessions.complete_transition(0);
-                } else {
-                    result = Err(ImeError::new("detach", code));
-                }
-            }
+    fn detach(&self) -> ImeResult<()> {
+        self.needs_attach.set(true);
+        self.text_notified.set(false);
+        let Some(raw) = *self.raw.borrow() else {
+            return Ok(());
+        };
+        // SAFETY: this proxy was returned by the native Attach operation.
+        let code = unsafe { OH_InputMethodController_Detach(raw.as_ptr()) };
+        if code != 0 {
+            return Err(ImeError::new("detach", code));
         }
-        if let Some(editor) = native.editor.take() {
+        self.raw.borrow_mut().take();
+        if let Some(editor) = self.text_editor.borrow_mut().take() {
             unregister_callbacks(editor.raw);
-            if native.generation < sessions.generation {
-                drop(editor);
-            } else {
-                NativeSessions::retire(editor);
-            }
+            drop(editor);
         }
-        result
+        Ok(())
     }
 }
 
 impl Drop for IMEInner {
     fn drop(&mut self) {
-        if let Ok(mut sessions) = NativeSessions::acquire("detach") {
-            if let Err(error) = self.detach(&mut sessions) {
-                log::warn!("Cannot detach dropped IME: {error}");
-            }
-        } else if let Some(editor) = self
-            .native
-            .get_mut()
-            .unwrap_or_else(std::sync::PoisonError::into_inner)
-            .editor
-            .take()
-        {
-            // A synchronous native callback may drop a different Rust session.
-            // Its pointer cannot be freed until the in-flight transition ends.
-            unregister_callbacks(editor.raw);
-            NativeSessions::retire(editor);
+        if let Err(error) = self.detach() {
+            log::error!("Cannot detach dropped IME: {error}");
         }
-    }
-}
-
-fn next_session_id() -> u64 {
-    loop {
-        let id = NEXT_SESSION_ID.fetch_add(1, Ordering::Relaxed);
-        if id != 0 {
-            return id;
+        if let Some(editor) = self.text_editor.get_mut().take() {
+            // A failed attach/detach is not a native lifetime boundary. Retire
+            // callbacks but keep the table alive rather than risk a native UAF.
+            unregister_callbacks(editor.raw);
+            log::error!("Retaining native editor after unsuccessful IME cleanup");
+            std::mem::forget(editor);
         }
     }
 }

@@ -36,6 +36,16 @@ pub fn register(node: &ArkUINode, wrapper: Rc<RefCell<ArkUINode>>) -> ArkUIResul
             "cannot register events for a null ArkUI node",
         ));
     }
+    if wrapper
+        .try_borrow()
+        .map(|wrapper| wrapper.raw_handle() as usize != key)
+        .unwrap_or(true)
+    {
+        return Err(ArkUIError::new(
+            ArkUIErrorCode::ParamInvalid,
+            "event wrapper must identify the same unborrowed native node",
+        ));
+    }
 
     NODE_EVENT_WRAPPERS.with(|wrappers| {
         let mut wrappers = wrappers.borrow_mut();
@@ -114,5 +124,13 @@ mod tests {
         register(&node.borrow(), node.clone()).expect("register wrapper");
         drop(node);
         assert!(resolve(42 as ArkUI_NodeHandle).is_none());
+    }
+
+    #[test]
+    fn mismatched_wrapper_cannot_register_a_route() {
+        let first = fake_node(43);
+        let second = fake_node(44);
+        assert!(register(&first.borrow(), second).is_err());
+        assert!(resolve(43 as ArkUI_NodeHandle).is_none());
     }
 }

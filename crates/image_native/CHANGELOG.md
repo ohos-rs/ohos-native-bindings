@@ -9,6 +9,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Fixed
 
+- Forward API levels directly to the native-buffer binding.
 - Gate the native color-space handle and its export behind API 13 so default-feature builds and package verification succeed.
 
 ## [0.0.6](https://github.com/ohos-rs/ohos-native-bindings/compare/ohos-image-native-binding-v0.0.5...ohos-image-native-binding-v0.0.6) - 2026-08-26

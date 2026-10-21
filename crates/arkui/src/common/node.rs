@@ -496,4 +496,15 @@ mod tests {
         assert!(node.dispose().is_err());
         assert_eq!(node.raw_handle() as usize, 7);
     }
+
+    #[test]
+    fn a_retention_guard_rejects_disposal_before_any_native_call() {
+        let mut node = fake_node(8, true);
+        let retention = node.retain_native().unwrap();
+        assert!(node.dispose().is_err());
+        assert_eq!(node.raw_handle() as usize, 8);
+        assert!(node.is_owned());
+        drop(retention);
+        assert!(!node.retained.is_retained());
+    }
 }
