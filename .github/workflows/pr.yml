@@ -105,3 +105,6 @@ jobs:
 
       - name: Check bounded resource reads with native substitutes
         run: bash crates/resource_manager/tests/run-host.sh
+
+      - name: Check drawing helpers with native substitutes
+        run: bash crates/drawing/tests/run-host.sh
