@@ -10,7 +10,7 @@ use ohos_udmf_sys::{
     OH_UdmfRecord_AddGeneralEntry, OH_UdmfRecord_GetGeneralEntry, OH_UdmfRecord_GetTypes,
 };
 
-use crate::UdmfError;
+use crate::{UdmfError, UdsHtml, UdsPlainText};
 
 fn type_id(value: &str) -> Result<CString, UdmfError> {
     CString::new(value).map_err(|e| UdmfError::CommonError(e.to_string()))
@@ -29,6 +29,9 @@ pub(super) fn add_general_entry(
     id: &str,
     bytes: &[u8],
 ) -> Result<(), UdmfError> {
+    if bytes.is_empty() {
+        return Err(UdmfError::EmptyEntry);
+    }
     let id = type_id(id)?;
     let count = u32::try_from(bytes.len()).map_err(|e| UdmfError::CommonError(e.to_string()))?;
     // SAFETY: the owner keeps the record live. The SDK copies the identifier
@@ -72,6 +75,26 @@ pub(super) fn general_entry(
     // never free or adopt the record-owned allocation.
     copy.extend_from_slice(unsafe { std::slice::from_raw_parts(bytes, len) });
     Ok(copy)
+}
+
+pub(super) fn plain_text(record: NonNull<OH_UdmfRecord>) -> Result<UdsPlainText, UdmfError> {
+    let text = UdsPlainText::new();
+    // SAFETY: both the live record and the independently owned output UDS
+    // instance remain valid throughout this synchronous conversion.
+    check_status(unsafe {
+        ohos_udmf_sys::OH_UdmfRecord_GetPlainText(record.as_ptr(), text.raw.as_ptr())
+    })?;
+    Ok(text)
+}
+
+pub(super) fn html(record: NonNull<OH_UdmfRecord>) -> Result<UdsHtml, UdmfError> {
+    let html = UdsHtml::new();
+    // SAFETY: both native instances are live. On failure, the temporary output
+    // is dropped normally; on success, the returned UDS owns its native instance.
+    check_status(unsafe {
+        ohos_udmf_sys::OH_UdmfRecord_GetHtml(record.as_ptr(), html.raw.as_ptr())
+    })?;
+    Ok(html)
 }
 
 pub(super) fn record_types(record: NonNull<OH_UdmfRecord>) -> Result<Vec<String>, UdmfError> {

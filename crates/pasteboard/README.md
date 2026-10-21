@@ -40,6 +40,8 @@ Use `ohos-udmf-binding` records and `UdmfRecord::add_general_entry` for custom
 byte entries. Standard UDS values use their typed record methods.
 `Pasteboard::set_data` publishes the resulting container, and `data()` returns
 an owned container whose records can enumerate types and copy general entries.
+Read standard text clipboards with record `plain_text()` / `html()` getters;
+the native general-entry byte API is for `ARRAY_BUFFER` payloads.
 
 - `clear()` clears the native pasteboard with `api-13`.
 - `mime_types()` copies every returned MIME type with `api-14`; the SDK owns

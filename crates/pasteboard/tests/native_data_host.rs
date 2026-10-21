@@ -9,6 +9,7 @@ use std::{
     ffi::{CStr, CString},
     os::raw::c_char,
     ptr::NonNull,
+    sync::atomic::{AtomicUsize, Ordering},
 };
 
 #[path = "../src/error.rs"]
@@ -68,6 +69,55 @@ pub struct OH_UdmfRecord {
     calls: usize,
     bad_buffer: bool,
     empty_buffer: bool,
+    plain_text: String,
+    html: String,
+}
+
+static LIVE_TYPED_UDS: AtomicUsize = AtomicUsize::new(0);
+
+pub struct OH_UdsPlainText(String);
+pub struct OH_UdsHtml(String);
+
+pub struct UdsPlainText {
+    raw: NonNull<OH_UdsPlainText>,
+}
+
+impl UdsPlainText {
+    fn new() -> Self {
+        LIVE_TYPED_UDS.fetch_add(1, Ordering::SeqCst);
+        Self {
+            raw: NonNull::from(Box::leak(Box::new(OH_UdsPlainText(String::new())))),
+        }
+    }
+}
+
+impl Drop for UdsPlainText {
+    fn drop(&mut self) {
+        // SAFETY: this test owner uniquely owns its boxed native substitute.
+        unsafe { drop(Box::from_raw(self.raw.as_ptr())) };
+        LIVE_TYPED_UDS.fetch_sub(1, Ordering::SeqCst);
+    }
+}
+
+pub struct UdsHtml {
+    raw: NonNull<OH_UdsHtml>,
+}
+
+impl UdsHtml {
+    fn new() -> Self {
+        LIVE_TYPED_UDS.fetch_add(1, Ordering::SeqCst);
+        Self {
+            raw: NonNull::from(Box::leak(Box::new(OH_UdsHtml(String::new())))),
+        }
+    }
+}
+
+impl Drop for UdsHtml {
+    fn drop(&mut self) {
+        // SAFETY: this test owner uniquely owns its boxed native substitute.
+        unsafe { drop(Box::from_raw(self.raw.as_ptr())) };
+        LIVE_TYPED_UDS.fetch_sub(1, Ordering::SeqCst);
+    }
 }
 
 #[derive(Default)]
@@ -141,6 +191,29 @@ unsafe fn OH_UdmfRecord_GetGeneralEntry(
 unsafe fn OH_UdmfRecord_GetTypes(record: *mut OH_UdmfRecord, count: *mut u32) -> *mut *mut c_char {
     // SAFETY: live owner and out-pointer supplied by the production helper.
     unsafe { (*record).types.get(count) }
+}
+
+unsafe fn OH_UdmfRecord_GetPlainText(
+    record: *mut OH_UdmfRecord,
+    text: *mut OH_UdsPlainText,
+) -> i32 {
+    // SAFETY: the helper supplies live record and independently allocated output.
+    let record = unsafe { &*record };
+    if record.status == 0 {
+        // SAFETY: this writable output is uniquely owned by the helper.
+        unsafe { (*text).0 = record.plain_text.clone() };
+    }
+    record.status
+}
+
+unsafe fn OH_UdmfRecord_GetHtml(record: *mut OH_UdmfRecord, html: *mut OH_UdsHtml) -> i32 {
+    // SAFETY: the helper supplies live record and independently allocated output.
+    let record = unsafe { &*record };
+    if record.status == 0 {
+        // SAFETY: this writable output is uniquely owned by the helper.
+        unsafe { (*html).0 = record.html.clone() };
+    }
+    record.status
 }
 
 unsafe fn OH_UdmfData_GetTypes(data: *mut OH_UdmfData, count: *mut u32) -> *mut *mut c_char {
@@ -233,6 +306,48 @@ fn interior_nul_type_ids_are_rejected_before_ffi() {
     let mut data = OH_UdmfData::default();
     assert!(udmf_native_data::has_type(NonNull::from(&mut data), "x\0y").is_err());
     assert_eq!(data.queries, 0);
+}
+
+#[test]
+fn empty_general_entries_return_a_typed_error_without_calling_native() {
+    let mut record = OH_UdmfRecord::default();
+    assert!(matches!(
+        udmf_native_data::add_general_entry(NonNull::from(&mut record), "application/x-empty", &[]),
+        Err(UdmfError::EmptyEntry)
+    ));
+    assert_eq!(record.calls, 0);
+}
+
+#[test]
+fn typed_plain_text_and_html_are_owned_and_failed_outputs_are_released() {
+    let mut record = OH_UdmfRecord {
+        plain_text: "Other app's text 😀".into(),
+        html: "<b>Other app</b>".into(),
+        ..Default::default()
+    };
+    let raw = NonNull::from(&mut record);
+    let text = udmf_native_data::plain_text(raw).unwrap();
+    let html = udmf_native_data::html(raw).unwrap();
+    assert_eq!(LIVE_TYPED_UDS.load(Ordering::SeqCst), 2);
+    // Standard UDS values have no custom ARRAY_BUFFER representation.
+    assert!(udmf_native_data::general_entry(raw, "general.plain-text").is_err());
+    record.status = -9;
+    assert!(matches!(
+        udmf_native_data::plain_text(raw),
+        Err(UdmfError::InternalError(-9))
+    ));
+    assert!(matches!(
+        udmf_native_data::html(raw),
+        Err(UdmfError::InternalError(-9))
+    ));
+    assert_eq!(LIVE_TYPED_UDS.load(Ordering::SeqCst), 2);
+    drop(record);
+    // SAFETY: each independently returned UDS owner remains live after the record.
+    assert_eq!(unsafe { &text.raw.as_ref().0 }, "Other app's text 😀");
+    // SAFETY: same independent ownership guarantee for HTML.
+    assert_eq!(unsafe { &html.raw.as_ref().0 }, "<b>Other app</b>");
+    drop((text, html));
+    assert_eq!(LIVE_TYPED_UDS.load(Ordering::SeqCst), 0);
 }
 
 #[test]
