@@ -7,6 +7,26 @@ use crate::{Alignment, ArkUINode, ArkUIResult, DismissReason};
 
 use ohos_arkui_sys::ArkUI_NativeDialogHandle;
 
+#[derive(Default)]
+struct Operation(std::cell::Cell<bool>);
+
+impl Operation {
+    fn enter(&self) -> Option<Active<'_>> {
+        if self.0.replace(true) {
+            None
+        } else {
+            Some(Active(&self.0))
+        }
+    }
+}
+
+struct Active<'a>(&'a std::cell::Cell<bool>);
+impl Drop for Active<'_> {
+    fn drop(&mut self) {
+        self.0.set(false);
+    }
+}
+
 pub(crate) struct InnerDialogDismissData {
     pub dismiss_handle: Option<fn(DialogDismissData) -> Option<bool>>,
     pub data: Option<*mut c_void>,
@@ -28,7 +48,7 @@ pub struct Dialog {
     pub(crate) raw: ArkUI_NativeDialogHandle,
     pub(crate) inner_dismiss_data: Rc<RefCell<InnerDialogDismissData>>,
     content: RefCell<Option<DialogContent>>,
-    operation: crate::common::operation::Operation,
+    operation: Operation,
 }
 
 struct DialogContent {
@@ -69,7 +89,7 @@ impl Dialog {
         self.set_content(node.clone(), false)
     }
 
-    fn begin(&self) -> ArkUIResult<crate::common::operation::Active<'_>> {
+    fn begin(&self) -> ArkUIResult<Active<'_>> {
         self.operation
             .enter()
             .ok_or_else(|| invalid("dialog ownership operation is in progress"))
@@ -139,6 +159,7 @@ impl Dialog {
     }
 
     /// Installs a UI-thread closure; true blocks dismissal synchronously.
+    /// Panics are logged and allow dismissal.
     pub fn dismiss_handler(
         &self,
         handler: impl Fn(DismissReason) -> bool + 'static,
@@ -171,8 +192,10 @@ impl Dialog {
     pub fn content<T: Into<ArkUINode>>(&self, content: T) -> ArkUIResult<()> {
         let node = Rc::new(RefCell::new(content.into()));
         if let Err(error) = self.set_content(node.clone(), true) {
-            if node.borrow_mut().dispose().is_err() {
+            let cleanup = node.borrow_mut().dispose();
+            if let Err(cleanup_error) = cleanup {
                 // Native code may still own an edge after a failed mutation.
+                log::error!("Dialog content cleanup failed; retaining node: {cleanup_error:?}");
                 std::mem::forget(node);
             }
             return Err(error);
@@ -282,10 +305,13 @@ impl Dialog {
 impl Drop for Dialog {
     fn drop(&mut self) {
         if !self.raw.is_null() {
-            let _ = self.close();
-            if self.dispose().is_err() {
+            if let Err(error) = self.close() {
+                log::error!("Dialog Drop close failed: {error:?}");
+            }
+            if let Err(error) = self.dispose() {
                 // The native controller can still reach its callback/content.
                 // Retain the complete owners when native retirement fails.
+                log::error!("Dialog Drop disposal failed; retaining native owners: {error:?}");
                 std::mem::forget(self.inner_dismiss_data.clone());
                 if let Some(content) = self.content.get_mut().take() {
                     std::mem::forget(content);

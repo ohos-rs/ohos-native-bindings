@@ -7,6 +7,10 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+### Fixed
+
+- Forward API features directly to audio-base-sys.
+
 ### Changed
 
 - Re-export shared audio channel layout types from `ohos-audio-base-sys`.

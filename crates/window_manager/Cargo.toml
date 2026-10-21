@@ -13,6 +13,7 @@ ohos-multi-modal-input-sys     = { workspace = true, optional = true }
 
 [features]
 default = []
+input = ["api-15", "dep:ohos-multi-modal-input-sys"]
 api-13 = [
   "ohos-native-window-manager-sys/api-13",
   "ohos-image-native-binding/api-13",
@@ -27,7 +28,6 @@ api-14 = [
 api-15 = [
   "api-14",
   "ohos-native-window-manager-sys/api-15",
-  "dep:ohos-multi-modal-input-sys",
   "ohos-multi-modal-input-sys?/api-15",
   "ohos-image-native-binding/api-15",
 ]
