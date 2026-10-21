@@ -10,7 +10,7 @@ workspace = true
 
 [features]
 default = []
-napi = ["dep:napi-ohos"]
+napi    = ["dep:napi-ohos"]
 api-13  = ["ohos-native-pasteboard-sys/api-13", "ohos-udmf-binding/api-13"]
 api-14  = ["api-13", "ohos-native-pasteboard-sys/api-14", "ohos-udmf-binding/api-14"]
 api-15  = ["api-14", "ohos-native-pasteboard-sys/api-15", "ohos-udmf-binding/api-15"]
