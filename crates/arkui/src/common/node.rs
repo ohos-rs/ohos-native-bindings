@@ -90,6 +90,31 @@ impl ArkUINode {
         ARK_UI_NATIVE_NODE_API_1.with(|api| api.remove_event_receiver(self))
     }
 
+    /// Returns the native parent handle, or `None` when detached.
+    ///
+    /// Query on the node's owning UI thread. The returned handle is borrowed;
+    /// using it through a raw-handle API requires that API's safety contract.
+    pub fn parent(&self) -> ArkUIResult<Option<ArkUI_NodeHandle>> {
+        ARK_UI_NATIVE_NODE_API_1.with(|api| api.get_parent(self))
+    }
+
+    /// Removes this node's native parent edge on its owning UI thread.
+    ///
+    /// An already detached node succeeds. This changes only the native edge:
+    /// event routing and host-owned attachment bookkeeping stay intact.
+    /// For wrapper-owned child lists, use `ArkUICommonAttribute::remove_child`.
+    pub fn remove_from_parent(&self) -> ArkUIResult<()> {
+        let Some(parent) = self.parent()? else {
+            return Ok(());
+        };
+        // SAFETY: getParent returned this live node's parent on its UI thread;
+        // the borrowed wrapper is used only for the immediate removal call.
+        let parent = unsafe { Self::from_raw_handle(parent) }.ok_or_else(|| {
+            ArkUIError::new(ArkUIErrorCode::ParamInvalid, "native parent is null")
+        })?;
+        ARK_UI_NATIVE_NODE_API_1.with(|api| api.remove_child(&parent, self))
+    }
+
     /// Synchronously requests focus for this live node (API 15+).
     #[cfg(feature = "api-15")]
     pub fn request_focus(&self) -> ArkUIResult<()> {

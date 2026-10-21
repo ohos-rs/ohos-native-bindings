@@ -75,6 +75,8 @@ freeing the node. The host detaches the external edge, drops the guard, then
 retries disposal. Use `common::node_registry::{register,unregister}` and
 `ArkUINode::{add_event_receiver,remove_event_receiver}` on the UI thread to
 preserve an identity-stable node's event route across NodeContent moves.
+`ArkUINode::{parent,remove_from_parent}` query and detach the native parent
+edge without changing those routes or the host's attachment bookkeeping.
 
 ## License
 
