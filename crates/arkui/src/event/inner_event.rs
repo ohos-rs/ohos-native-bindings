@@ -166,8 +166,11 @@ impl Event {
     }
 
     /// Copies a mixed-event UTF-8 string into owned storage during the callback.
-    /// Reads at most 1 MiB and rejects truncation.
-    pub fn string_value(&self, index: i32) -> Option<String> {
+    ///
+    /// Returns distinct errors instead of treating malformed or oversized
+    /// output as an absent value. Buffer growth is bounded only by the native
+    /// i32 interface and fallible allocation.
+    pub fn string_value(&self, index: i32) -> Result<String, super::StringValueError> {
         super::mixed_string::copy(index, |index, pointers, sizes| {
             // SAFETY: the helper supplies indexed arrays and writable storage
             // for this callback; the native API does not retain either array.

@@ -327,7 +327,10 @@ unsafe extern "C" fn dialog_dismiss_callback(event: *mut ArkUI_DialogDismissEven
         let reason = OH_ArkUI_DialogDismissEvent_GetDismissReason(event) as u32;
         let blocked =
             std::panic::catch_unwind(std::panic::AssertUnwindSafe(|| callback(reason.into())))
-                .unwrap_or(true);
+                .unwrap_or_else(|_| {
+                    log::error!("Dialog dismiss callback panicked; allowing dismissal");
+                    false
+                });
         OH_ArkUI_DialogDismissEvent_SetShouldBlockDismiss(event, blocked);
         return;
     }
@@ -344,7 +347,10 @@ unsafe extern "C" fn dialog_dismiss_callback(event: *mut ArkUI_DialogDismissEven
                 data: custom_data,
             })
         }))
-        .unwrap_or(Some(true));
+        .unwrap_or_else(|_| {
+            log::error!("Dialog dismiss callback panicked; leaving native dismissal unchanged");
+            None
+        });
         if let Some(block) = ret {
             if block {
                 OH_ArkUI_DialogDismissEvent_SetShouldBlockDismiss(event, block);

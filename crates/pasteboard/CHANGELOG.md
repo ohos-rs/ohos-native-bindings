@@ -7,8 +7,6 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
-- Add per-call system clipboard access behind the `napi` feature.
-
 ## [0.0.6](https://github.com/ohos-rs/ohos-native-bindings/compare/ohos-pasteboard-binding-v0.0.5...ohos-pasteboard-binding-v0.0.6) - 2026-08-26
 
 ### Other

@@ -42,7 +42,6 @@ pub struct ArkUINode {
     pub(crate) tag: ArkUINodeType,
     /// Child nodes owned by this node in wrapper layer.
     pub(crate) children: Vec<Rc<RefCell<ArkUINode>>>,
-    pub(crate) pending_children: Vec<Rc<RefCell<ArkUINode>>>,
     /// Event callbacks bound to this node.
     pub(crate) event_handle: EventHandle,
     /// Whether this wrapper owns the reference acquired by `createNode`.
@@ -53,7 +52,13 @@ pub struct ArkUINode {
 }
 
 impl ArkUINode {
-    pub(crate) fn retain_native(&self) -> ArkUIResult<super::node_retention::NodeRetention> {
+    /// Prevents safe `dispose` from freeing this node while a native owner uses it.
+    ///
+    /// Retained nodes return an error from `dispose` without touching the native
+    /// handle. Detach the external native edge before dropping the guard, then
+    /// retry disposal. This guard does not acquire a native reference or retain
+    /// the wrapper's `Rc`; keep both on the owning UI thread.
+    pub fn retain_native(&self) -> ArkUIResult<super::node_retention::NodeRetention> {
         if !self.owns_raw || self.raw.is_null() {
             return Err(ArkUIError::new(
                 ArkUIErrorCode::ParamInvalid,
@@ -67,6 +72,49 @@ impl ArkUINode {
             )
         })
     }
+
+    /// Installs this binding's native event receiver on the node's UI thread.
+    ///
+    /// Register the identity-stable wrapper with `common::node_registry::register`
+    /// first. A NodeContent move may remove and restore this receiver without
+    /// changing the registered Rust event handlers.
+    pub fn add_event_receiver(&self) -> ArkUIResult<()> {
+        ARK_UI_NATIVE_NODE_API_1.with(|api| api.add_event_receiver(self))
+    }
+
+    /// Removes this binding's native event receiver on the node's UI thread.
+    ///
+    /// The Rust route remains registered for a subsequent NodeContent move.
+    /// Unregister the route separately when retiring the wrapper.
+    pub fn remove_event_receiver(&self) -> ArkUIResult<()> {
+        ARK_UI_NATIVE_NODE_API_1.with(|api| api.remove_event_receiver(self))
+    }
+
+    /// Returns the native parent handle, or `None` when detached.
+    ///
+    /// Query on the node's owning UI thread. The returned handle is borrowed;
+    /// using it through a raw-handle API requires that API's safety contract.
+    pub fn parent(&self) -> ArkUIResult<Option<ArkUI_NodeHandle>> {
+        ARK_UI_NATIVE_NODE_API_1.with(|api| api.get_parent(self))
+    }
+
+    /// Removes this node's native parent edge on its owning UI thread.
+    ///
+    /// An already detached node succeeds. This changes only the native edge:
+    /// event routing and host-owned attachment bookkeeping stay intact.
+    /// For wrapper-owned child lists, use `ArkUICommonAttribute::remove_child`.
+    pub fn remove_from_parent(&self) -> ArkUIResult<()> {
+        let Some(parent) = self.parent()? else {
+            return Ok(());
+        };
+        // SAFETY: getParent returned this live node's parent on its UI thread;
+        // the borrowed wrapper is used only for the immediate removal call.
+        let parent = unsafe { Self::from_raw_handle(parent) }.ok_or_else(|| {
+            ArkUIError::new(ArkUIErrorCode::ParamInvalid, "native parent is null")
+        })?;
+        ARK_UI_NATIVE_NODE_API_1.with(|api| api.remove_child(&parent, self))
+    }
+
     /// Synchronously requests focus for this live node (API 15+).
     #[cfg(feature = "api-15")]
     pub fn request_focus(&self) -> ArkUIResult<()> {
@@ -126,7 +174,6 @@ impl ArkUINode {
             raw: self.raw,
             tag: self.tag,
             children: self.children.clone(),
-            pending_children: self.pending_children.clone(),
             event_handle: self.event_handle.clone(),
             owns_raw: false,
             retained: self.retained.clone(),
@@ -152,7 +199,6 @@ impl ArkUINode {
             raw,
             tag: ArkUINodeType::Custom,
             children: vec![],
-            pending_children: vec![],
             event_handle: Default::default(),
             owns_raw: false,
             retained: Default::default(),
@@ -205,18 +251,13 @@ impl ArkUINode {
             ));
         }
 
-        let parent = self.borrowed_clone();
-        super::child_retirement::retire(
-            &mut self.children,
-            &mut self.pending_children,
-            |child| ARK_UI_NATIVE_NODE_API_1.with(|api| api.remove_child(&parent, &child.borrow())),
-            |child| {
-                if child.borrow().is_owned() {
-                    child.borrow_mut().dispose()?;
-                }
-                Ok(())
-            },
-        )?;
+        while let Some(child) = self.children.last().cloned() {
+            ARK_UI_NATIVE_NODE_API_1.with(|api| api.remove_child(self, &child.borrow()))?;
+            self.children.pop();
+            if child.borrow().is_owned() {
+                child.borrow_mut().dispose()?;
+            }
+        }
 
         let registered_events = self
             .event_handle
@@ -350,7 +391,6 @@ impl Default for ArkUINode {
             raw: std::ptr::null_mut(),
             tag: ArkUINodeType::Custom,
             children: vec![],
-            pending_children: vec![],
             event_handle: Default::default(),
             owns_raw: false,
             retained: Default::default(),
@@ -371,14 +411,13 @@ pub struct ArkUINodeRaw {
 
 #[cfg(feature = "napi")]
 impl ArkUINodeRaw {
-    /// Borrows the node represented by this ArkTS value. Keep its ArkTS owner
-    /// alive until the returned node is detached; this does not acquire ownership.
+    /// Borrows the native node without retaining its ArkTS owner.
     ///
     /// # Safety
-    /// The ArkTS owner must keep the native handle alive until this borrowed
-    /// wrapper has been detached and discarded, on the owning UI thread.
+    /// The caller must retain the external owner until the borrowed wrapper
+    /// has been detached and discarded. All access stays on the owning UI thread.
     pub unsafe fn borrowed_node(&self) -> ArkUIResult<ArkUINode> {
-        // SAFETY: the caller keeps this ArkTS node owner alive through retirement.
+        // SAFETY: the caller keeps the external native owner alive.
         unsafe { ArkUINode::from_raw_handle(self.raw) }.ok_or_else(|| {
             ArkUIError::new(
                 ArkUIErrorCode::ParamInvalid,
@@ -431,7 +470,6 @@ mod tests {
             raw: id as ArkUI_NodeHandle,
             tag: ArkUINodeType::Custom,
             children: Vec::new(),
-            pending_children: Vec::new(),
             event_handle: Default::default(),
             owns_raw,
             retained: Default::default(),
@@ -457,5 +495,16 @@ mod tests {
         let mut node = fake_node(7, false);
         assert!(node.dispose().is_err());
         assert_eq!(node.raw_handle() as usize, 7);
+    }
+
+    #[test]
+    fn a_retention_guard_rejects_disposal_before_any_native_call() {
+        let mut node = fake_node(8, true);
+        let retention = node.retain_native().unwrap();
+        assert!(node.dispose().is_err());
+        assert_eq!(node.raw_handle() as usize, 8);
+        assert!(node.is_owned());
+        drop(retention);
+        assert!(!node.retained.is_retained());
     }
 }

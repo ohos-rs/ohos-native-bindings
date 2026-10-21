@@ -10,7 +10,6 @@ workspace = true
 
 [features]
 default = []
-napi    = ["dep:napi-ohos"]
 api-13  = ["ohos-native-pasteboard-sys/api-13", "ohos-udmf-binding/api-13"]
 api-14  = ["api-13", "ohos-native-pasteboard-sys/api-14", "ohos-udmf-binding/api-14"]
 api-15  = ["api-14", "ohos-native-pasteboard-sys/api-15", "ohos-udmf-binding/api-15"]
@@ -25,6 +24,5 @@ api-23  = ["api-22", "ohos-native-pasteboard-sys/api-23", "ohos-udmf-binding/api
 api-24  = ["api-23", "ohos-native-pasteboard-sys/api-24", "ohos-udmf-binding/api-24"]
 
 [dependencies]
-napi-ohos                  = { workspace = true, optional = true }
 ohos-native-pasteboard-sys = { workspace = true }
 ohos-udmf-binding          = { workspace = true }

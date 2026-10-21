@@ -111,11 +111,14 @@ impl RootNode {
 
 impl Drop for RootNode {
     fn drop(&mut self) {
-        if self.unmount().is_err() && self.base.as_ref().is_some_and(|base| base.attached) {
-            if let Some(base) = self.base.take() {
-                // A live native slot still owns its edge. Keep its node and
-                // guard quarantined rather than enabling premature disposal.
-                std::mem::forget(base);
+        if let Err(error) = self.unmount() {
+            log::error!("RootNode Drop cleanup failed: {error:?}; use unmount for retry");
+            if self.base.as_ref().is_some_and(|base| base.attached) {
+                if let Some(base) = self.base.take() {
+                    // The native edge remains live. Keep its disposal guard
+                    // rather than permitting safe disposal of the attached node.
+                    std::mem::forget(base);
+                }
             }
         }
     }
