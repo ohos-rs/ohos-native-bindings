@@ -59,6 +59,8 @@ pub struct FontCollection {
 }
 
 impl FontCollection {
+    /// Creates a collection for one typography builder. Use [`Self::shared`]
+    /// when preparing more than one paragraph with the same collection.
     pub fn new() -> Self {
         let raw = unsafe { OH_Drawing_CreateFontCollection() };
         Self {
@@ -67,6 +69,8 @@ impl FontCollection {
         }
     }
 
+    /// Creates a collection that can be reused by multiple typography builders.
+    /// This does not make the wrapper safe to share between threads.
     pub fn shared() -> Self {
         let raw = unsafe { OH_Drawing_CreateSharedFontCollection() };
         Self {
@@ -172,6 +176,23 @@ impl TypographyStyle {
     pub fn set_max_lines(&mut self, line_number: i32) {
         unsafe { OH_Drawing_SetTypographyTextMaxLines(self.raw.as_ptr(), line_number) };
     }
+
+    /// Sets the ellipsis glyph and its placement (head, middle or tail).
+    pub fn set_ellipsis(&mut self, text: &str, mode: crate::EllipsisMode) -> Result<()> {
+        let text = CString::new(text).map_err(|_| crate::DrawingError::invalid_parameter())?;
+        // SAFETY: the style is owned and native copies the temporary C string.
+        unsafe {
+            ohos_native_drawing_sys::OH_Drawing_SetTypographyTextEllipsis(
+                self.raw.as_ptr(),
+                text.as_ptr(),
+            );
+            ohos_native_drawing_sys::OH_Drawing_SetTypographyTextEllipsisModal(
+                self.raw.as_ptr(),
+                mode as i32,
+            );
+        }
+        Ok(())
+    }
 }
 
 impl Default for TypographyStyle {
@@ -207,8 +228,49 @@ impl TextStyle {
         unsafe { OH_Drawing_SetTextStyleColor(self.raw.as_ptr(), color) };
     }
 
+    /// Sets underline/strike-through lines, their color and pattern.
+    pub fn set_decoration(
+        &mut self,
+        underline: bool,
+        strike: bool,
+        color: u32,
+        pattern: crate::DecorationPattern,
+    ) {
+        // SAFETY: the style is owned; these functions copy scalar values.
+        unsafe {
+            ohos_native_drawing_sys::OH_Drawing_SetTextStyleDecoration(
+                self.raw.as_ptr(),
+                i32::from(underline) | (i32::from(strike) << 2),
+            );
+            ohos_native_drawing_sys::OH_Drawing_SetTextStyleDecorationColor(
+                self.raw.as_ptr(),
+                color,
+            );
+            ohos_native_drawing_sys::OH_Drawing_SetTextStyleDecorationStyle(
+                self.raw.as_ptr(),
+                pattern as i32,
+            );
+        }
+    }
+
     pub fn set_font_size(&mut self, font_size: f64) {
         unsafe { OH_Drawing_SetTextStyleFontSize(self.raw.as_ptr(), font_size) };
+    }
+
+    /// Sets line height as a multiple of font size. Zero restores font metrics.
+    /// Non-finite and negative multipliers are rejected before calling native code.
+    pub fn set_font_height(&mut self, multiplier: f64) -> Result<()> {
+        if !multiplier.is_finite() || multiplier < 0.0 {
+            return Err(crate::DrawingError::invalid_parameter());
+        }
+        // SAFETY: this wrapper owns the live native style for this call.
+        unsafe {
+            ohos_native_drawing_sys::OH_Drawing_SetTextStyleFontHeight(
+                self.raw.as_ptr(),
+                multiplier,
+            )
+        };
+        Ok(())
     }
 
     pub fn set_font_style(&mut self, style: FontStyle) {
@@ -583,6 +645,29 @@ impl TypographyBuilder {
         unsafe { OH_Drawing_TypographyHandlerPopTextStyle(self.raw.as_ptr()) };
     }
 
+    /// Adds an inline box entirely above the alphabetic baseline.
+    pub fn add_placeholder(&mut self, width: f64, height: f64) -> Result<()> {
+        if !width.is_finite() || !height.is_finite() || width < 0.0 || height < 0.0 {
+            return Err(crate::DrawingError::invalid_parameter());
+        }
+        let mut span = OH_Drawing_PlaceholderSpan {
+            width, height,
+            alignment: ohos_native_drawing_sys::OH_Drawing_PlaceholderVerticalAlignment_ALIGNMENT_ABOVE_BASELINE,
+            baseline: ohos_native_drawing_sys::OH_Drawing_TextBaseline_TEXT_BASELINE_ALPHABETIC,
+            baselineOffset: 0.0,
+        };
+        // SAFETY: the builder is owned and native copies the stack descriptor.
+        unsafe {
+            ohos_native_drawing_sys::OH_Drawing_TypographyHandlerAddPlaceholder(
+                self.raw.as_ptr(),
+                &mut span,
+            )
+        };
+        Ok(())
+    }
+
+    /// Adds UTF-8 text. Before API 20, embedded NUL characters are displayed as
+    /// U+FFFD because the platform's text API requires a C string.
     pub fn add_text(&mut self, text: &str) {
         #[cfg(feature = "api-20")]
         unsafe {
@@ -596,7 +681,9 @@ impl TypographyBuilder {
 
         #[cfg(not(feature = "api-20"))]
         {
-            let text = CString::new(text).expect("text contains interior NUL");
+            let text = crate::text_encoding::nul_terminated(text);
+            // SAFETY: both the builder and NUL-terminated text remain live
+            // throughout this synchronous call, which copies the text.
             unsafe { OH_Drawing_TypographyHandlerAddText(self.raw.as_ptr(), text.as_ptr()) };
         }
     }
@@ -621,6 +708,60 @@ pub struct Typography {
 }
 
 impl Typography {
+    /// Tight UTF-16 range boxes with the native direction of each visual run.
+    /// Coordinates use the paragraph's layout units (API 11).
+    pub fn range_boxes(&self, start: usize, end: usize) -> Vec<crate::RangeBox> {
+        // SAFETY: native clamps the range to this owned, live paragraph.
+        let raw = unsafe {
+            ohos_native_drawing_sys::OH_Drawing_TypographyGetRectsForRange(
+                self.raw.as_ptr(),
+                start,
+                end,
+                OH_Drawing_RectHeightStyle_RECT_HEIGHT_STYLE_TIGHT,
+                OH_Drawing_RectWidthStyle_RECT_WIDTH_STYLE_TIGHT,
+            )
+        };
+        crate::text_boxes::TextBoxes::collect(raw)
+    }
+    /// Resolves the font metrics of a text style in this paragraph (API 12).
+    pub fn font_metrics(&self, style: &TextStyle) -> Option<DrawingFontMetrics> {
+        let mut metrics = std::mem::MaybeUninit::<OH_Drawing_Font_Metrics>::uninit();
+        // SAFETY: both owned objects are live and native initializes metrics on success.
+        unsafe {
+            ohos_native_drawing_sys::OH_Drawing_TextStyleGetFontMetrics(
+                self.raw.as_ptr(),
+                style.raw.as_ptr(),
+                metrics.as_mut_ptr(),
+            )
+            .then(|| metrics.assume_init().into())
+        }
+    }
+
+    /// Number of lines after layout.
+    pub fn line_count(&self) -> usize {
+        // SAFETY: this wrapper owns the live paragraph.
+        unsafe { ohos_native_drawing_sys::OH_Drawing_TypographyGetLineCount(self.raw.as_ptr()) }
+    }
+
+    /// Tight rectangles for a UTF-16 range, as `[left, top, right, bottom]`.
+    pub fn range_rectangles(&self, start: usize, end: usize) -> Vec<[f32; 4]> {
+        self.range_boxes(start, end)
+            .into_iter()
+            .map(|range| range.bounds)
+            .collect()
+    }
+
+    /// Laid-out inline boxes, as `[left, top, right, bottom]`.
+    pub fn placeholder_rectangles(&self) -> Vec<[f32; 4]> {
+        // SAFETY: the live paragraph owns its placeholder layout.
+        let raw = unsafe {
+            ohos_native_drawing_sys::OH_Drawing_TypographyGetRectsForPlaceholders(self.raw.as_ptr())
+        };
+        crate::text_boxes::TextBoxes::collect(raw)
+            .into_iter()
+            .map(|range| range.bounds)
+            .collect()
+    }
     pub fn as_ptr(&self) -> *mut OH_Drawing_Typography {
         self.raw.as_ptr()
     }

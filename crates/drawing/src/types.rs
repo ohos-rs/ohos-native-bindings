@@ -322,3 +322,28 @@ impl ImageInfo {
         }
     }
 }
+/// Placement of an ellipsis in a constrained paragraph (API 12).
+#[derive(Clone, Copy, Debug, PartialEq, Eq)]
+pub enum EllipsisMode {
+    /// Omit text from the beginning.
+    Head = 0,
+    /// Omit text from the middle.
+    Middle = 1,
+    /// Omit text from the end.
+    Tail = 2,
+}
+
+/// Pattern of a text decoration line (API 11).
+#[derive(Clone, Copy, Debug, PartialEq, Eq)]
+pub enum DecorationPattern {
+    /// A continuous line.
+    Solid = 0,
+    /// Two continuous lines.
+    Double = 1,
+    /// Dots.
+    Dotted = 2,
+    /// Dashes.
+    Dashed = 3,
+    /// A wave.
+    Wavy = 4,
+}

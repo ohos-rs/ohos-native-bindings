@@ -26,3 +26,9 @@ MIT OR Apache-2.0
 native filter value. `ColorFilter::blend` blends an ARGB color (API 11).
 `Matrix::from_values`, `values` and cloning preserve all nine row-major
 coefficients, including perspective. These owners stay on their drawing thread.
+
+Typography exposes copied font metrics, line counts, UTF-16 range boxes and
+placeholder rectangles. Returned rectangles own their data; native arrays are
+released before return. Decorations and ellipsis use API11/12 setters. Text
+input preserves embedded NUL on API20's length-aware path; earlier APIs render
+NUL as U+FFFD while preserving the rest of the UTF-8 text.

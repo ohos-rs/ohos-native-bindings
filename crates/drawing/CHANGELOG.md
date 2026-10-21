@@ -7,6 +7,9 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+- Add owned typography ranges, placeholders, metrics, decorations and ellipsis;
+  handle embedded NUL without panicking on earlier APIs.
+
 - Add owned image blur and color blend filters, and preserve full 3×3 matrices.
 
 ### Added

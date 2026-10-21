@@ -15,6 +15,9 @@ mod pen;
 mod sampling;
 mod text;
 mod text_blob;
+mod text_boxes;
+#[cfg(not(feature = "api-20"))]
+mod text_encoding;
 mod types;
 
 pub use bitmap::Bitmap;
@@ -41,9 +44,10 @@ pub use text::{
     TextRectWidthStyle, TextShadow, TextStyle, Typography, TypographyBuilder, TypographyStyle,
 };
 pub use text_blob::TextBlob;
+pub use text_boxes::RangeBox;
 pub use types::{
-    AlphaFormat, BitmapFormat, BlendMode, ClipOperation, ColorFormat, CornerPosition, FilterMode,
-    FontEdging, FontHinting, FontSlant, FontStyle, FontWeight, FontWidth, ImageInfo, LineCap,
-    LineJoin, MipmapMode, PathDirection, PathFillType, TextAlign, TextDirection, TextEncoding,
-    TileMode,
+    AlphaFormat, BitmapFormat, BlendMode, ClipOperation, ColorFormat, CornerPosition,
+    DecorationPattern, EllipsisMode, FilterMode, FontEdging, FontHinting, FontSlant, FontStyle,
+    FontWeight, FontWidth, ImageInfo, LineCap, LineJoin, MipmapMode, PathDirection, PathFillType,
+    TextAlign, TextDirection, TextEncoding, TileMode,
 };
