@@ -96,6 +96,12 @@ The `accessibility,api-23` features expose `NodeAccessibility` on API-23 and
 newer runtimes. It retains the owned Custom node and its native-owner guard
 until callbacks retire. `new` returns a registration or the native error.
 
+### Accessibility API floor
+
+The `accessibility` capability enables `api-23`, so `NodeAccessibility` and its
+native provider are selected together. Target an API-23+ runtime when enabling
+this feature.
+
 ## License
 
 MIT OR Apache-2.0
