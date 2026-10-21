@@ -9,6 +9,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Added
 
+- Add API-12 general-entry byte copies and type enumeration for owned and
+  borrowed records, plus data-container type enumeration and membership queries.
 - Add fallible file-URI records and typed file URI/type getters and setters (API 13).
 - Add fallible data and record allocation.
 
