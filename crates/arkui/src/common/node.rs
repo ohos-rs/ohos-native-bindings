@@ -48,29 +48,24 @@ pub struct ArkUINode {
     /// Nodes obtained from query APIs are borrowed and must never decrement
     /// the native reference count.
     pub(crate) owns_raw: bool,
-    pub(crate) retained: super::node_retention::NativeRetentions,
+    pub(crate) self_weak: std::rc::Weak<RefCell<ArkUINode>>,
 }
 
 impl ArkUINode {
-    /// Prevents safe `dispose` from freeing this node while a native owner uses it.
-    ///
-    /// Retained nodes return an error from `dispose` without touching the native
-    /// handle. Detach the external native edge before dropping the guard, then
-    /// retry disposal. This guard does not acquire a native reference or retain
-    /// the wrapper's `Rc`; keep both on the owning UI thread.
-    pub fn retain_native(&self) -> ArkUIResult<super::node_retention::NodeRetention> {
-        if !self.owns_raw || self.raw.is_null() {
-            return Err(ArkUIError::new(
-                ArkUIErrorCode::ParamInvalid,
-                "native retention requires an owned node",
-            ));
-        }
-        self.retained.retain().ok_or_else(|| {
-            ArkUIError::new(
-                ArkUIErrorCode::ParamInvalid,
-                "native node retention count exhausted",
-            )
+    /// Converts this node into its identity-stable shared owner.
+    pub fn into_rc(self) -> Rc<RefCell<Self>> {
+        Rc::new_cyclic(|weak| {
+            let mut node = self;
+            node.self_weak = weak.clone();
+            RefCell::new(node)
         })
+    }
+
+    /// Binds a node wrapped in an `Rc` by its caller to that shared owner.
+    pub fn bind_rc(rc: &Rc<RefCell<Self>>) {
+        if rc.borrow().self_weak.strong_count() == 0 {
+            rc.borrow_mut().self_weak = Rc::downgrade(rc);
+        }
     }
 
     /// Installs this binding's native event receiver on the node's UI thread.
@@ -176,7 +171,7 @@ impl ArkUINode {
             children: self.children.clone(),
             event_handle: self.event_handle.clone(),
             owns_raw: false,
-            retained: self.retained.clone(),
+            self_weak: Default::default(),
         }
     }
 
@@ -201,7 +196,7 @@ impl ArkUINode {
             children: vec![],
             event_handle: Default::default(),
             owns_raw: false,
-            retained: Default::default(),
+            self_weak: Default::default(),
         })
     }
 
@@ -227,9 +222,10 @@ impl ArkUINode {
     /// The root must already be detached from its external parent. Each direct
     /// child edge is removed before that child is recursively disposed; only
     /// then is this node's own `createNode` reference released. Borrowed
-    /// children are detached but never disposed by this wrapper.
+    /// children are detached but never disposed by this wrapper. Disposal fails
+    /// while another strong `Rc` owner is active; drop that owner before retrying.
     pub fn dispose(&mut self) -> ArkUIResult<()> {
-        if self.retained.is_retained() {
+        if self.self_weak.strong_count() > 1 {
             return Err(ArkUIError::new(
                 ArkUIErrorCode::ParamInvalid,
                 "cannot dispose a node with active native owners",
@@ -393,7 +389,7 @@ impl Default for ArkUINode {
             children: vec![],
             event_handle: Default::default(),
             owns_raw: false,
-            retained: Default::default(),
+            self_weak: Default::default(),
         }
     }
 }
@@ -472,7 +468,7 @@ mod tests {
             children: Vec::new(),
             event_handle: Default::default(),
             owns_raw,
-            retained: Default::default(),
+            self_weak: Default::default(),
         }
     }
 
@@ -498,13 +494,29 @@ mod tests {
     }
 
     #[test]
-    fn a_retention_guard_rejects_disposal_before_any_native_call() {
-        let mut node = fake_node(8, true);
-        let retention = node.retain_native().unwrap();
-        assert!(node.dispose().is_err());
-        assert_eq!(node.raw_handle() as usize, 8);
-        assert!(node.is_owned());
-        drop(retention);
-        assert!(!node.retained.is_retained());
+    fn a_second_rc_owner_rejects_disposal_before_any_native_call() {
+        let node = fake_node(8, true).into_rc();
+        let other_owner = node.clone();
+        assert_eq!(node.borrow().self_weak.strong_count(), 2);
+        assert!(node.borrow_mut().dispose().is_err());
+        assert_eq!(node.borrow().raw_handle() as usize, 8);
+        assert!(node.borrow().is_owned());
+        drop(other_owner);
+        assert_eq!(node.borrow().self_weak.strong_count(), 1);
+    }
+
+    #[test]
+    fn binding_a_callers_rc_is_idempotent() {
+        let node = Rc::new(RefCell::new(fake_node(9, true)));
+        ArkUINode::bind_rc(&node);
+        ArkUINode::bind_rc(&node);
+        assert!(Rc::ptr_eq(
+            &node.borrow().self_weak.upgrade().unwrap(),
+            &node
+        ));
+        let other_owner = node.clone();
+        assert!(node.borrow_mut().dispose().is_err());
+        drop(other_owner);
+        assert_eq!(node.borrow().self_weak.strong_count(), 1);
     }
 }
