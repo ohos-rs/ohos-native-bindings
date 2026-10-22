@@ -18,9 +18,11 @@ use ohos_native_drawing_sys::{
     OH_Drawing_DestroyTypographyHandler, OH_Drawing_DestroyTypographyStyle,
     OH_Drawing_DisableFontCollectionFallback, OH_Drawing_DisableFontCollectionSystemFont,
     OH_Drawing_FontCollection, OH_Drawing_Font_Metrics,
-    OH_Drawing_GetAffinityFromPositionAndAffinity, OH_Drawing_GetPositionFromPositionAndAffinity,
-    OH_Drawing_LineMetrics, OH_Drawing_PlaceholderSpan, OH_Drawing_PositionAndAffinity,
-    OH_Drawing_RectHeightStyle,
+    OH_Drawing_GetAffinityFromPositionAndAffinity, OH_Drawing_GetBottomFromTextBox,
+    OH_Drawing_GetLeftFromTextBox, OH_Drawing_GetPositionFromPositionAndAffinity,
+    OH_Drawing_GetRightFromTextBox, OH_Drawing_GetSizeOfTextBox,
+    OH_Drawing_GetTextDirectionFromTextBox, OH_Drawing_GetTopFromTextBox, OH_Drawing_LineMetrics,
+    OH_Drawing_PlaceholderSpan, OH_Drawing_PositionAndAffinity, OH_Drawing_RectHeightStyle,
     OH_Drawing_RectHeightStyle_RECT_HEIGHT_STYLE_INCLUDELINESPACEBOTTOM,
     OH_Drawing_RectHeightStyle_RECT_HEIGHT_STYLE_INCLUDELINESPACEMIDDLE,
     OH_Drawing_RectHeightStyle_RECT_HEIGHT_STYLE_INCLUDELINESPACETOP,
@@ -30,16 +32,27 @@ use ohos_native_drawing_sys::{
     OH_Drawing_RectWidthStyle_RECT_WIDTH_STYLE_MAX,
     OH_Drawing_RectWidthStyle_RECT_WIDTH_STYLE_TIGHT, OH_Drawing_RegisterFont,
     OH_Drawing_RegisterFontBuffer, OH_Drawing_SetTextShadow, OH_Drawing_SetTextStyleColor,
-    OH_Drawing_SetTextStyleFontFamilies, OH_Drawing_SetTextStyleFontSize,
+    OH_Drawing_SetTextStyleDecoration, OH_Drawing_SetTextStyleDecorationColor,
+    OH_Drawing_SetTextStyleDecorationStyle, OH_Drawing_SetTextStyleFontFamilies,
+    OH_Drawing_SetTextStyleFontHeight, OH_Drawing_SetTextStyleFontSize,
     OH_Drawing_SetTextStyleFontStyleStruct, OH_Drawing_SetTextStyleForegroundBrush,
     OH_Drawing_SetTextStyleForegroundPen, OH_Drawing_SetTextStyleLetterSpacing,
     OH_Drawing_SetTextStyleLocale, OH_Drawing_SetTextStyleWordSpacing,
     OH_Drawing_SetTypographyTextAlign, OH_Drawing_SetTypographyTextDirection,
-    OH_Drawing_SetTypographyTextMaxLines, OH_Drawing_TextBox, OH_Drawing_TextShadow,
-    OH_Drawing_TextStyle, OH_Drawing_TextStyleAddFontFeature, OH_Drawing_TextStyleAddFontVariation,
-    OH_Drawing_TextStyleAddShadow, OH_Drawing_Typography, OH_Drawing_TypographyCreate,
-    OH_Drawing_TypographyGetHeight, OH_Drawing_TypographyGetLineMetricsAt,
-    OH_Drawing_TypographyGetLongestLine, OH_Drawing_TypographyGetMaxWidth,
+    OH_Drawing_SetTypographyTextEllipsis, OH_Drawing_SetTypographyTextEllipsisModal,
+    OH_Drawing_SetTypographyTextMaxLines, OH_Drawing_TextBox,
+    OH_Drawing_TextDecoration_TEXT_DECORATION_LINE_THROUGH,
+    OH_Drawing_TextDecoration_TEXT_DECORATION_NONE,
+    OH_Drawing_TextDecoration_TEXT_DECORATION_OVERLINE,
+    OH_Drawing_TextDecoration_TEXT_DECORATION_UNDERLINE,
+    OH_Drawing_TextDirection_TEXT_DIRECTION_RTL, OH_Drawing_TextShadow, OH_Drawing_TextStyle,
+    OH_Drawing_TextStyleAddFontFeature, OH_Drawing_TextStyleAddFontVariation,
+    OH_Drawing_TextStyleAddShadow, OH_Drawing_TextStyleGetFontMetrics, OH_Drawing_Typography,
+    OH_Drawing_TypographyCreate, OH_Drawing_TypographyDestroyTextBox,
+    OH_Drawing_TypographyGetHeight, OH_Drawing_TypographyGetLineCount,
+    OH_Drawing_TypographyGetLineMetricsAt, OH_Drawing_TypographyGetLongestLine,
+    OH_Drawing_TypographyGetMaxWidth, OH_Drawing_TypographyGetRectsForPlaceholders,
+    OH_Drawing_TypographyGetRectsForRange, OH_Drawing_TypographyHandlerAddPlaceholder,
     OH_Drawing_TypographyHandlerPopTextStyle, OH_Drawing_TypographyHandlerPushTextStyle,
     OH_Drawing_TypographyLayout, OH_Drawing_TypographyPaint, OH_Drawing_TypographyStyle,
 };
@@ -50,7 +63,10 @@ use ohos_native_drawing_sys::{
 
 #[cfg(feature = "api-20")]
 use crate::TextEncoding;
-use crate::{check_error, Brush, Canvas, FontStyle, Pen, Point, Result, TextAlign, TextDirection};
+use crate::{
+    check_error, Brush, Canvas, DecorationPattern, DrawingError, EllipsisMode, FontStyle, Pen,
+    Point, Result, TextAlign, TextDirection,
+};
 
 #[derive(Debug)]
 pub struct FontCollection {
@@ -59,6 +75,8 @@ pub struct FontCollection {
 }
 
 impl FontCollection {
+    /// Creates a collection for one typography builder. Use [`Self::shared`]
+    /// when preparing more than one paragraph with the same collection.
     pub fn new() -> Self {
         let raw = unsafe { OH_Drawing_CreateFontCollection() };
         Self {
@@ -67,6 +85,8 @@ impl FontCollection {
         }
     }
 
+    /// Creates a collection that can be reused by multiple typography builders.
+    /// This does not make the wrapper safe to share between threads.
     pub fn shared() -> Self {
         let raw = unsafe { OH_Drawing_CreateSharedFontCollection() };
         Self {
@@ -172,6 +192,17 @@ impl TypographyStyle {
     pub fn set_max_lines(&mut self, line_number: i32) {
         unsafe { OH_Drawing_SetTypographyTextMaxLines(self.raw.as_ptr(), line_number) };
     }
+
+    /// Sets the ellipsis glyph and its placement (head, middle or tail).
+    pub fn set_ellipsis(&mut self, text: &str, mode: EllipsisMode) -> Result<()> {
+        let text = CString::new(text).map_err(|_| DrawingError::invalid_parameter())?;
+        // SAFETY: the style is owned and native copies the temporary C string.
+        unsafe {
+            OH_Drawing_SetTypographyTextEllipsis(self.raw.as_ptr(), text.as_ptr());
+            OH_Drawing_SetTypographyTextEllipsisModal(self.raw.as_ptr(), mode as i32);
+        }
+        Ok(())
+    }
 }
 
 impl Default for TypographyStyle {
@@ -183,6 +214,41 @@ impl Default for TypographyStyle {
 impl Drop for TypographyStyle {
     fn drop(&mut self) {
         unsafe { OH_Drawing_DestroyTypographyStyle(self.raw.as_ptr()) };
+    }
+}
+
+/// Native text-decoration flags, combinable with `|` (API 11).
+#[derive(Clone, Copy, Debug, Default, PartialEq, Eq)]
+pub struct TextDecoration(i32);
+
+impl TextDecoration {
+    /// No decoration.
+    pub const NONE: Self = Self(OH_Drawing_TextDecoration_TEXT_DECORATION_NONE as i32);
+    /// Underline.
+    pub const UNDERLINE: Self = Self(OH_Drawing_TextDecoration_TEXT_DECORATION_UNDERLINE as i32);
+    /// Overline.
+    pub const OVERLINE: Self = Self(OH_Drawing_TextDecoration_TEXT_DECORATION_OVERLINE as i32);
+    /// Line through the text.
+    pub const LINE_THROUGH: Self =
+        Self(OH_Drawing_TextDecoration_TEXT_DECORATION_LINE_THROUGH as i32);
+
+    /// Returns the SDK's decoration mask.
+    pub const fn bits(self) -> i32 {
+        self.0
+    }
+}
+
+impl std::ops::BitOr for TextDecoration {
+    type Output = Self;
+
+    fn bitor(self, rhs: Self) -> Self {
+        Self(self.0 | rhs.0)
+    }
+}
+
+impl std::ops::BitOrAssign for TextDecoration {
+    fn bitor_assign(&mut self, rhs: Self) {
+        self.0 |= rhs.0;
     }
 }
 
@@ -207,8 +273,34 @@ impl TextStyle {
         unsafe { OH_Drawing_SetTextStyleColor(self.raw.as_ptr(), color) };
     }
 
+    /// Sets the caller's native decoration mask, color and pattern.
+    pub fn set_decoration(
+        &mut self,
+        decoration: TextDecoration,
+        color: u32,
+        pattern: DecorationPattern,
+    ) {
+        // SAFETY: the style is owned; these functions copy scalar values.
+        unsafe {
+            OH_Drawing_SetTextStyleDecoration(self.raw.as_ptr(), decoration.bits());
+            OH_Drawing_SetTextStyleDecorationColor(self.raw.as_ptr(), color);
+            OH_Drawing_SetTextStyleDecorationStyle(self.raw.as_ptr(), pattern as i32);
+        }
+    }
+
     pub fn set_font_size(&mut self, font_size: f64) {
         unsafe { OH_Drawing_SetTextStyleFontSize(self.raw.as_ptr(), font_size) };
+    }
+
+    /// Sets line height as a multiple of font size. Zero restores font metrics.
+    /// Non-finite and negative multipliers are rejected before calling native code.
+    pub fn set_font_height(&mut self, multiplier: f64) -> Result<()> {
+        if !multiplier.is_finite() || multiplier < 0.0 {
+            return Err(DrawingError::invalid_parameter());
+        }
+        // SAFETY: this wrapper owns the live native style for this call.
+        unsafe { OH_Drawing_SetTextStyleFontHeight(self.raw.as_ptr(), multiplier) };
+        Ok(())
     }
 
     pub fn set_font_style(&mut self, style: FontStyle) {
@@ -583,7 +675,36 @@ impl TypographyBuilder {
         unsafe { OH_Drawing_TypographyHandlerPopTextStyle(self.raw.as_ptr()) };
     }
 
+    /// Adds the caller's complete native inline-box descriptor.
+    pub fn add_placeholder(&mut self, span: &OH_Drawing_PlaceholderSpan) -> Result<()> {
+        if !span.width.is_finite()
+            || !span.height.is_finite()
+            || !span.baselineOffset.is_finite()
+            || span.width < 0.0
+            || span.height < 0.0
+        {
+            return Err(DrawingError::invalid_parameter());
+        }
+        let mut span = *span;
+        // SAFETY: the builder is owned and native copies the stack descriptor.
+        unsafe { OH_Drawing_TypographyHandlerAddPlaceholder(self.raw.as_ptr(), &mut span) };
+        Ok(())
+    }
+
+    /// Adds UTF-8 text, preserving the existing infallible convenience API.
+    ///
+    /// # Panics
+    ///
+    /// Before API 20, interior NULs cannot be represented by the native C-string
+    /// API. Use [`Self::try_add_text`] to receive an error instead of a panic.
     pub fn add_text(&mut self, text: &str) {
+        self.try_add_text(text)
+            .expect("native text API cannot represent an interior NUL");
+    }
+
+    /// Adds UTF-8 without modifying it. Before API 20, an interior NUL returns
+    /// an invalid-parameter error before calling the native C-string API.
+    pub fn try_add_text(&mut self, text: &str) -> Result<()> {
         #[cfg(feature = "api-20")]
         unsafe {
             OH_Drawing_TypographyHandlerAddEncodedText(
@@ -596,9 +717,12 @@ impl TypographyBuilder {
 
         #[cfg(not(feature = "api-20"))]
         {
-            let text = CString::new(text).expect("text contains interior NUL");
+            let text = CString::new(text).map_err(|_| DrawingError::invalid_parameter())?;
+            // SAFETY: both the builder and NUL-terminated text remain live
+            // throughout this synchronous call, which copies the text.
             unsafe { OH_Drawing_TypographyHandlerAddText(self.raw.as_ptr(), text.as_ptr()) };
         }
+        Ok(())
     }
 
     pub fn build(self) -> Typography {
@@ -615,12 +739,110 @@ impl Drop for TypographyBuilder {
     }
 }
 
+/// An owned visual range rectangle; it holds no native handles.
+#[derive(Clone, Copy, Debug)]
+pub struct RangeBox {
+    /// Left, top, right and bottom in paragraph layout units.
+    pub bounds: [f32; 4],
+    /// Whether the visual run reads from right to left.
+    pub rtl: bool,
+}
+
+struct TextBoxes(NonNull<OH_Drawing_TextBox>);
+
+impl TextBoxes {
+    fn collect(raw: *mut OH_Drawing_TextBox) -> Vec<RangeBox> {
+        let Some(raw) = NonNull::new(raw) else {
+            return Vec::new();
+        };
+        let _boxes = Self(raw);
+        // SAFETY: native returned this owned array; getters only receive indices
+        // within its count and the API-11 guard releases it after all copies.
+        unsafe {
+            let count = OH_Drawing_GetSizeOfTextBox(raw.as_ptr()).min(i32::MAX as usize);
+            (0..count as i32)
+                .map(|index| RangeBox {
+                    bounds: [
+                        OH_Drawing_GetLeftFromTextBox(raw.as_ptr(), index),
+                        OH_Drawing_GetTopFromTextBox(raw.as_ptr(), index),
+                        OH_Drawing_GetRightFromTextBox(raw.as_ptr(), index),
+                        OH_Drawing_GetBottomFromTextBox(raw.as_ptr(), index),
+                    ],
+                    rtl: OH_Drawing_GetTextDirectionFromTextBox(raw.as_ptr(), index)
+                        == OH_Drawing_TextDirection_TEXT_DIRECTION_RTL as i32,
+                })
+                .collect()
+        }
+    }
+}
+
+impl Drop for TextBoxes {
+    fn drop(&mut self) {
+        // SAFETY: this unique native array owner is released exactly once.
+        unsafe { OH_Drawing_TypographyDestroyTextBox(self.0.as_ptr()) };
+    }
+}
+
 #[derive(Debug)]
 pub struct Typography {
     raw: NonNull<OH_Drawing_Typography>,
 }
 
 impl Typography {
+    /// Tight UTF-16 range boxes with the native direction of each visual run.
+    /// Coordinates use the paragraph's layout units (API 11).
+    pub fn range_boxes(&self, start: usize, end: usize) -> Vec<RangeBox> {
+        // SAFETY: native clamps the range to this owned, live paragraph.
+        let raw = unsafe {
+            OH_Drawing_TypographyGetRectsForRange(
+                self.raw.as_ptr(),
+                start,
+                end,
+                OH_Drawing_RectHeightStyle_RECT_HEIGHT_STYLE_TIGHT,
+                OH_Drawing_RectWidthStyle_RECT_WIDTH_STYLE_TIGHT,
+            )
+        };
+        TextBoxes::collect(raw)
+    }
+
+    /// Resolves the font metrics of a text style in this paragraph (API 12).
+    pub fn font_metrics(&self, style: &TextStyle) -> Option<DrawingFontMetrics> {
+        let mut metrics = std::mem::MaybeUninit::<OH_Drawing_Font_Metrics>::uninit();
+        // SAFETY: both owned objects are live and native initializes metrics on success.
+        unsafe {
+            OH_Drawing_TextStyleGetFontMetrics(
+                self.raw.as_ptr(),
+                style.raw.as_ptr(),
+                metrics.as_mut_ptr(),
+            )
+            .then(|| metrics.assume_init().into())
+        }
+    }
+
+    /// Number of lines after layout.
+    pub fn line_count(&self) -> usize {
+        // SAFETY: this wrapper owns the live paragraph.
+        unsafe { OH_Drawing_TypographyGetLineCount(self.raw.as_ptr()) }
+    }
+
+    /// Tight rectangles for a UTF-16 range, as `[left, top, right, bottom]`.
+    pub fn range_rectangles(&self, start: usize, end: usize) -> Vec<[f32; 4]> {
+        self.range_boxes(start, end)
+            .into_iter()
+            .map(|range| range.bounds)
+            .collect()
+    }
+
+    /// Laid-out inline boxes, as `[left, top, right, bottom]`.
+    pub fn placeholder_rectangles(&self) -> Vec<[f32; 4]> {
+        // SAFETY: the live paragraph owns its placeholder layout.
+        let raw = unsafe { OH_Drawing_TypographyGetRectsForPlaceholders(self.raw.as_ptr()) };
+        TextBoxes::collect(raw)
+            .into_iter()
+            .map(|range| range.bounds)
+            .collect()
+    }
+
     pub fn as_ptr(&self) -> *mut OH_Drawing_Typography {
         self.raw.as_ptr()
     }

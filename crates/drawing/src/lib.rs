@@ -31,19 +31,22 @@ pub use font::{Font, FontManager, FontMetrics, TextMeasure, Typeface};
 pub use geometry::{Point, Rect, RoundRect};
 pub use image::Image;
 pub use matrix::Matrix;
+/// The complete SDK placeholder descriptor, including alignment and baseline.
+pub use ohos_native_drawing_sys::OH_Drawing_PlaceholderSpan as PlaceholderSpan;
 pub use path::Path;
 pub use pen::Pen;
 pub use sampling::SamplingOptions;
 pub use text::{
     DrawingFontCollection, DrawingFontMetrics, DrawingLineMetrics, DrawingLineMetricsRaw,
     DrawingPlaceholderSpan, DrawingTextBox, DrawingTextStyle, DrawingTypography,
-    DrawingTypographyStyle, FontCollection, PositionAndAffinity, TextRectHeightStyle,
-    TextRectWidthStyle, TextShadow, TextStyle, Typography, TypographyBuilder, TypographyStyle,
+    DrawingTypographyStyle, FontCollection, PositionAndAffinity, RangeBox, TextDecoration,
+    TextRectHeightStyle, TextRectWidthStyle, TextShadow, TextStyle, Typography, TypographyBuilder,
+    TypographyStyle,
 };
 pub use text_blob::TextBlob;
 pub use types::{
-    AlphaFormat, BitmapFormat, BlendMode, ClipOperation, ColorFormat, CornerPosition, FilterMode,
-    FontEdging, FontHinting, FontSlant, FontStyle, FontWeight, FontWidth, ImageInfo, LineCap,
-    LineJoin, MipmapMode, PathDirection, PathFillType, TextAlign, TextDirection, TextEncoding,
-    TileMode,
+    AlphaFormat, BitmapFormat, BlendMode, ClipOperation, ColorFormat, CornerPosition,
+    DecorationPattern, EllipsisMode, FilterMode, FontEdging, FontHinting, FontSlant, FontStyle,
+    FontWeight, FontWidth, ImageInfo, LineCap, LineJoin, MipmapMode, PathDirection, PathFillType,
+    TextAlign, TextDirection, TextEncoding, TileMode,
 };
