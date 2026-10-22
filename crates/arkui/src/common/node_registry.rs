@@ -23,7 +23,13 @@ thread_local! {
 }
 
 /// Register the single identity-stable wrapper for a native node handle.
-pub(crate) fn register(node: &ArkUINode, wrapper: NodeWrapper) -> ArkUIResult<()> {
+///
+/// Call on the node's owning UI thread. `node` must identify `wrapper`'s native
+/// handle. Use `ArkUINode::into_rc` or `ArkUINode::bind_rc` before borrowing
+/// the wrapper for registration. Keep a strong `Rc` until the external edge
+/// is detached. Registration holds only a `Weak` reference
+/// and rejects a second live wrapper for the same handle.
+pub fn register(node: &ArkUINode, wrapper: Rc<RefCell<ArkUINode>>) -> ArkUIResult<()> {
     let key = node.raw_handle() as usize;
     if key == 0 {
         return Err(ArkUIError::new(
@@ -31,6 +37,24 @@ pub(crate) fn register(node: &ArkUINode, wrapper: NodeWrapper) -> ArkUIResult<()
             "cannot register events for a null ArkUI node",
         ));
     }
+    if wrapper
+        .try_borrow()
+        .map(|wrapper| wrapper.raw_handle() as usize != key)
+        .unwrap_or(true)
+    {
+        return Err(ArkUIError::new(
+            ArkUIErrorCode::ParamInvalid,
+            "event wrapper must identify the same unborrowed native node",
+        ));
+    }
+
+    if wrapper.borrow().self_weak.strong_count() == 0 && wrapper.try_borrow_mut().is_err() {
+        return Err(ArkUIError::new(
+            ArkUIErrorCode::ParamInvalid,
+            "bind the event wrapper before borrowing it for registration",
+        ));
+    }
+    ArkUINode::bind_rc(&wrapper);
 
     NODE_EVENT_WRAPPERS.with(|wrappers| {
         let mut wrappers = wrappers.borrow_mut();
@@ -48,7 +72,11 @@ pub(crate) fn register(node: &ArkUINode, wrapper: NodeWrapper) -> ArkUIResult<()
 }
 
 /// Remove event routing for a node that is about to be disposed.
-pub(crate) fn unregister(node: &ArkUINode) {
+///
+/// Call on the owning UI thread after removing the native event receiver.
+/// For a NodeContent move, keep the same `Rc` and register it again before
+/// restoring the receiver.
+pub fn unregister(node: &ArkUINode) {
     NODE_EVENT_WRAPPERS.with(|wrappers| {
         wrappers.borrow_mut().remove(&(node.raw_handle() as usize));
     });
@@ -73,13 +101,15 @@ mod tests {
     use crate::{ArkUINodeType, EventHandle};
 
     fn fake_node(id: usize) -> NodeWrapper {
-        Rc::new(RefCell::new(ArkUINode {
+        ArkUINode {
             raw: id as ArkUI_NodeHandle,
             tag: ArkUINodeType::Custom,
             children: Vec::new(),
             event_handle: EventHandle::default(),
             owns_raw: true,
-        }))
+            self_weak: Default::default(),
+        }
+        .into_rc()
     }
 
     #[test]
@@ -104,5 +134,13 @@ mod tests {
         register(&node.borrow(), node.clone()).expect("register wrapper");
         drop(node);
         assert!(resolve(42 as ArkUI_NodeHandle).is_none());
+    }
+
+    #[test]
+    fn mismatched_wrapper_cannot_register_a_route() {
+        let first = fake_node(43);
+        let second = fake_node(44);
+        assert!(register(&first.borrow(), second).is_err());
+        assert!(resolve(43 as ArkUI_NodeHandle).is_none());
     }
 }

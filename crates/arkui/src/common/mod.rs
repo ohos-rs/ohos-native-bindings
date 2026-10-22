@@ -4,7 +4,7 @@ pub mod attribute;
 pub mod error;
 pub mod handle;
 pub mod node;
-pub(crate) mod node_registry;
+pub mod node_registry;
 #[cfg(feature = "napi")]
 pub mod ui_context;
 
