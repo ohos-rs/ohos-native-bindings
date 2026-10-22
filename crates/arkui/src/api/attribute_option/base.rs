@@ -389,6 +389,10 @@ impl AccessibilityValue {
         }
     }
 
+    pub(crate) fn into_raw(self) -> *mut ArkUI_AccessibilityValue {
+        self.raw.as_ptr()
+    }
+
     pub fn dispose(self) {
         unsafe { OH_ArkUI_AccessibilityValue_Dispose(self.raw()) }
     }
