@@ -53,7 +53,6 @@ pub struct Dialog {
 
 struct DialogContent {
     node: Rc<RefCell<ArkUINode>>,
-    retention: Option<crate::common::node_retention::NodeRetention>,
     attached: bool,
     owned: bool,
 }
@@ -102,12 +101,14 @@ impl Dialog {
                 "remove existing content before attaching a new dialog node",
             ));
         }
-        let retention = node.borrow().retain_native()?;
+        if !node.borrow().is_owned() || node.borrow().raw().is_null() {
+            return Err(invalid("native retention requires an owned node"));
+        }
+        ArkUINode::bind_rc(&node);
         let raw = node.borrow().raw();
         ARK_UI_NATIVE_DIALOG_API_1.with(|api| api.set_content(self.raw, raw))?;
         *self.content.borrow_mut() = Some(DialogContent {
             node,
-            retention: Some(retention),
             attached: true,
             owned,
         });
@@ -130,18 +131,15 @@ impl Dialog {
             ARK_UI_NATIVE_DIALOG_API_1.with(|api| api.remove_content(self.raw))?;
             if let Some(content) = self.content.borrow_mut().as_mut() {
                 content.attached = false;
-                content.retention.take();
             }
         }
-        let owned = self
-            .content
-            .borrow()
-            .as_ref()
-            .filter(|content| content.owned)
-            .map(|content| content.node.clone());
-        if let Some(node) = owned {
-            if node.borrow().is_owned() {
-                node.borrow_mut().dispose()?;
+        {
+            // Borrow the stored owner: cloning it here would itself block disposal.
+            let content = self.content.borrow();
+            if let Some(content) = content.as_ref().filter(|content| content.owned) {
+                if content.node.borrow().is_owned() {
+                    content.node.borrow_mut().dispose()?;
+                }
             }
         }
         self.content.borrow_mut().take();
@@ -190,7 +188,7 @@ impl Dialog {
 
     /// Set dialog content node.
     pub fn content<T: Into<ArkUINode>>(&self, content: T) -> ArkUIResult<()> {
-        let node = Rc::new(RefCell::new(content.into()));
+        let node = content.into().into_rc();
         if let Err(error) = self.set_content(node.clone(), true) {
             let cleanup = node.borrow_mut().dispose();
             if let Err(cleanup_error) = cleanup {

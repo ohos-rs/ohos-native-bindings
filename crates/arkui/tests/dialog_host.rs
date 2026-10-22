@@ -34,23 +34,15 @@ impl ArkUIError {
         Self
     }
 }
-#[path = "../src/common/node_retention.rs"]
-mod node_retention;
-mod common {
-    pub(crate) mod node_retention {
-        pub(crate) use crate::node_retention::NodeRetention;
-    }
-}
-
 pub struct ArkUINode {
-    retained: node_retention::NativeRetentions,
+    self_weak: std::rc::Weak<RefCell<ArkUINode>>,
     disposed: bool,
 }
 static NODE_DISPOSALS: AtomicUsize = AtomicUsize::new(0);
 impl ArkUINode {
     fn new() -> Self {
         Self {
-            retained: Default::default(),
+            self_weak: Default::default(),
             disposed: false,
         }
     }
@@ -60,11 +52,20 @@ impl ArkUINode {
     fn is_owned(&self) -> bool {
         !self.disposed
     }
-    fn retain_native(&self) -> ArkUIResult<node_retention::NodeRetention> {
-        self.retained.retain().ok_or(ArkUIError)
+    fn into_rc(self) -> Rc<RefCell<Self>> {
+        Rc::new_cyclic(|weak| {
+            let mut node = self;
+            node.self_weak = weak.clone();
+            RefCell::new(node)
+        })
+    }
+    fn bind_rc(rc: &Rc<RefCell<Self>>) {
+        if rc.borrow().self_weak.strong_count() == 0 {
+            rc.borrow_mut().self_weak = Rc::downgrade(rc);
+        }
     }
     fn dispose(&mut self) -> ArkUIResult<()> {
-        if self.retained.is_retained() {
+        if self.self_weak.strong_count() > 1 {
             return Err(ArkUIError);
         }
         self.disposed = true;
@@ -157,6 +158,7 @@ fn shared_content_stays_owned_until_successful_native_removal() {
     let node = Rc::new(RefCell::new(ArkUINode::new()));
     let dialog = dialog::Dialog::new().unwrap();
     dialog.content_node(&node).unwrap();
+    assert_eq!(Rc::strong_count(&node), 2);
     assert!(node.borrow_mut().dispose().is_err());
     FAIL_REMOVE.store(true, Ordering::SeqCst);
     assert!(dialog.remove_content().is_err());
@@ -165,6 +167,7 @@ fn shared_content_stays_owned_until_successful_native_removal() {
     dialog.remove_content().unwrap();
     dialog.remove_content().unwrap();
     assert_eq!(REMOVED.load(Ordering::SeqCst), 1);
+    assert_eq!(Rc::strong_count(&node), 1);
     node.borrow_mut().dispose().unwrap();
 }
 
@@ -179,7 +182,7 @@ fn transferred_content_disposes_after_its_dialog_edge_retires() {
 }
 
 #[test]
-fn failed_drop_keeps_the_native_contents_guard_quarantined() {
+fn failed_drop_keeps_the_native_contents_rc_retained() {
     let _serial = TEST_LOCK.lock().unwrap();
     let node = Rc::new(RefCell::new(ArkUINode::new()));
     let dialog = dialog::Dialog::new().unwrap();
@@ -187,5 +190,6 @@ fn failed_drop_keeps_the_native_contents_guard_quarantined() {
     FAIL_REMOVE.store(true, Ordering::SeqCst);
     drop(dialog);
     FAIL_REMOVE.store(false, Ordering::SeqCst);
+    assert_eq!(Rc::strong_count(&node), 2);
     assert!(node.borrow_mut().dispose().is_err());
 }
