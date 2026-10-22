@@ -51,9 +51,6 @@ mod geometry;
 #[path = "../src/event/mixed_string.rs"]
 mod mixed_string;
 
-#[path = "../src/common/node_retention.rs"]
-mod node_retention;
-
 #[test]
 fn constraint_allocations_retire_once_on_return_and_unwind() {
     let event = NodeCustomEvent;
