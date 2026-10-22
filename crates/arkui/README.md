@@ -72,6 +72,24 @@ copy their dimensions when storing layout inputs for later use. `ArkUIEvent`
 and `ArkUIGesture` remain available after converting a component into its
 identity-stable node. `off_event` retires one handler while preserving others.
 
+### Externally owned nodes
+
+`NodeContent` wraps a content handle. It does not retain the ArkTS owner.
+`unsafe ArkUINodeRaw::borrowed_node` borrows an externally retained node on
+its owning UI thread. Keep its owner alive until the node is detached and the
+wrapper discarded. `ArkUICommonAttribute::add_existing_node` attaches an
+identity-stable `Rc<RefCell<ArkUINode>>` without replacing its event receiver.
+The host layer owns N-API references, attachment IDs and retirement routing.
+
+`ArkUINode::retain_native` returns a `common::node_retention::NodeRetention`
+guard. While any guard is held, safe `dispose` returns an error without
+freeing the node. The host detaches the external edge, drops the guard, then
+retries disposal. Use `common::node_registry::{register,unregister}` and
+`ArkUINode::{add_event_receiver,remove_event_receiver}` on the UI thread to
+preserve an identity-stable node's event route across NodeContent moves.
+`ArkUINode::{parent,remove_from_parent}` query and detach the native parent
+edge without changing those routes or the host's attachment bookkeeping.
+
 ## License
 
 MIT OR Apache-2.0

@@ -1116,10 +1116,26 @@ pub trait ArkUICommonAttribute: ArkUIAttributeBasic {
         // A detached node cannot deliver UI events. Keep its registered
         // callbacks for a possible reattach, but remove the native receiver
         // and its identity route until that happens.
-        let _ =
-            ARK_UI_NATIVE_NODE_API_1.with(|api| api.remove_event_receiver(&removed_node.borrow()));
-        crate::common::node_registry::unregister(&removed_node.borrow());
+        if removed_node.borrow().owns_raw {
+            let _ = ARK_UI_NATIVE_NODE_API_1
+                .with(|api| api.remove_event_receiver(&removed_node.borrow()));
+            crate::common::node_registry::unregister(&removed_node.borrow());
+        }
         Ok(Some(self.borrow_mut().children_mut().remove(index)))
+    }
+
+    /// Attaches an identity-stable, externally owned node without changing its
+    /// original event pipeline. Its external owner must outlive this attachment.
+    fn add_existing_node(&mut self, child: Rc<RefCell<ArkUINode>>) -> ArkUIResult<()> {
+        if child.borrow().owns_raw {
+            return Err(ArkUIError::new(
+                ArkUIErrorCode::ParamInvalid,
+                "add_existing_node requires an externally owned node",
+            ));
+        }
+        ARK_UI_NATIVE_NODE_API_1.with(|api| api.add_child(self.raw(), &child.borrow()))?;
+        self.borrow_mut().children_mut().push(child);
+        Ok(())
     }
 
     /// Mount a wrapper-owned child, preserving its `Rc` identity.

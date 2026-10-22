@@ -48,9 +48,73 @@ pub struct ArkUINode {
     /// Nodes obtained from query APIs are borrowed and must never decrement
     /// the native reference count.
     pub(crate) owns_raw: bool,
+    pub(crate) retained: super::node_retention::NativeRetentions,
 }
 
 impl ArkUINode {
+    /// Prevents safe `dispose` from freeing this node while a native owner uses it.
+    ///
+    /// Retained nodes return an error from `dispose` without touching the native
+    /// handle. Detach the external native edge before dropping the guard, then
+    /// retry disposal. This guard does not acquire a native reference or retain
+    /// the wrapper's `Rc`; keep both on the owning UI thread.
+    pub fn retain_native(&self) -> ArkUIResult<super::node_retention::NodeRetention> {
+        if !self.owns_raw || self.raw.is_null() {
+            return Err(ArkUIError::new(
+                ArkUIErrorCode::ParamInvalid,
+                "native retention requires an owned node",
+            ));
+        }
+        self.retained.retain().ok_or_else(|| {
+            ArkUIError::new(
+                ArkUIErrorCode::ParamInvalid,
+                "native node retention count exhausted",
+            )
+        })
+    }
+
+    /// Installs this binding's native event receiver on the node's UI thread.
+    ///
+    /// Register the identity-stable wrapper with `common::node_registry::register`
+    /// first. A NodeContent move may remove and restore this receiver without
+    /// changing the registered Rust event handlers.
+    pub fn add_event_receiver(&self) -> ArkUIResult<()> {
+        ARK_UI_NATIVE_NODE_API_1.with(|api| api.add_event_receiver(self))
+    }
+
+    /// Removes this binding's native event receiver on the node's UI thread.
+    ///
+    /// The Rust route remains registered for a subsequent NodeContent move.
+    /// Unregister the route separately when retiring the wrapper.
+    pub fn remove_event_receiver(&self) -> ArkUIResult<()> {
+        ARK_UI_NATIVE_NODE_API_1.with(|api| api.remove_event_receiver(self))
+    }
+
+    /// Returns the native parent handle, or `None` when detached.
+    ///
+    /// Query on the node's owning UI thread. The returned handle is borrowed;
+    /// using it through a raw-handle API requires that API's safety contract.
+    pub fn parent(&self) -> ArkUIResult<Option<ArkUI_NodeHandle>> {
+        ARK_UI_NATIVE_NODE_API_1.with(|api| api.get_parent(self))
+    }
+
+    /// Removes this node's native parent edge on its owning UI thread.
+    ///
+    /// An already detached node succeeds. This changes only the native edge:
+    /// event routing and host-owned attachment bookkeeping stay intact.
+    /// For wrapper-owned child lists, use `ArkUICommonAttribute::remove_child`.
+    pub fn remove_from_parent(&self) -> ArkUIResult<()> {
+        let Some(parent) = self.parent()? else {
+            return Ok(());
+        };
+        // SAFETY: getParent returned this live node's parent on its UI thread;
+        // the borrowed wrapper is used only for the immediate removal call.
+        let parent = unsafe { Self::from_raw_handle(parent) }.ok_or_else(|| {
+            ArkUIError::new(ArkUIErrorCode::ParamInvalid, "native parent is null")
+        })?;
+        ARK_UI_NATIVE_NODE_API_1.with(|api| api.remove_child(&parent, self))
+    }
+
     /// Synchronously requests focus for this live node (API 15+).
     #[cfg(feature = "api-15")]
     pub fn request_focus(&self) -> ArkUIResult<()> {
@@ -112,6 +176,7 @@ impl ArkUINode {
             children: self.children.clone(),
             event_handle: self.event_handle.clone(),
             owns_raw: false,
+            retained: self.retained.clone(),
         }
     }
 
@@ -136,6 +201,7 @@ impl ArkUINode {
             children: vec![],
             event_handle: Default::default(),
             owns_raw: false,
+            retained: Default::default(),
         })
     }
 
@@ -163,6 +229,12 @@ impl ArkUINode {
     /// then is this node's own `createNode` reference released. Borrowed
     /// children are detached but never disposed by this wrapper.
     pub fn dispose(&mut self) -> ArkUIResult<()> {
+        if self.retained.is_retained() {
+            return Err(ArkUIError::new(
+                ArkUIErrorCode::ParamInvalid,
+                "cannot dispose a node with active native owners",
+            ));
+        }
         if !self.owns_raw {
             return Err(ArkUIError::new(
                 ArkUIErrorCode::ParamInvalid,
@@ -321,6 +393,7 @@ impl Default for ArkUINode {
             children: vec![],
             event_handle: Default::default(),
             owns_raw: false,
+            retained: Default::default(),
         }
     }
 }
@@ -334,6 +407,24 @@ pub struct ArkUINodeRaw {
     pub(crate) value: sys::napi_value,
     /// Native ArkUI handle.
     pub raw: ArkUI_NodeHandle,
+}
+
+#[cfg(feature = "napi")]
+impl ArkUINodeRaw {
+    /// Borrows the native node without retaining its ArkTS owner.
+    ///
+    /// # Safety
+    /// The caller must retain the external owner until the borrowed wrapper
+    /// has been detached and discarded. All access stays on the owning UI thread.
+    pub unsafe fn borrowed_node(&self) -> ArkUIResult<ArkUINode> {
+        // SAFETY: the caller keeps the external native owner alive.
+        unsafe { ArkUINode::from_raw_handle(self.raw) }.ok_or_else(|| {
+            ArkUIError::new(
+                ArkUIErrorCode::ParamInvalid,
+                "ArkTS value has no native node",
+            )
+        })
+    }
 }
 
 #[cfg(feature = "napi")]
@@ -381,6 +472,7 @@ mod tests {
             children: Vec::new(),
             event_handle: Default::default(),
             owns_raw,
+            retained: Default::default(),
         }
     }
 
@@ -403,5 +495,16 @@ mod tests {
         let mut node = fake_node(7, false);
         assert!(node.dispose().is_err());
         assert_eq!(node.raw_handle() as usize, 7);
+    }
+
+    #[test]
+    fn a_retention_guard_rejects_disposal_before_any_native_call() {
+        let mut node = fake_node(8, true);
+        let retention = node.retain_native().unwrap();
+        assert!(node.dispose().is_err());
+        assert_eq!(node.raw_handle() as usize, 8);
+        assert!(node.is_owned());
+        drop(retention);
+        assert!(!node.retained.is_retained());
     }
 }

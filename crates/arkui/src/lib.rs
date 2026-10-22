@@ -33,6 +33,7 @@ pub use ohos_image_binding as image_binding;
 #[cfg(feature = "image")]
 pub use ohos_image_native_binding as image_native_binding;
 
+pub use api::node_content::NodeContent;
 pub use common::handle::ArkUIHandle;
 pub use component::built_in_component::XComponent;
 pub use component::root::RootNode;
