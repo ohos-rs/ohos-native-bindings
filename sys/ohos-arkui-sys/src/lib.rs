@@ -14314,6 +14314,49 @@ extern "C" {
     #[cfg(feature = "api-26")]
     pub fn OH_ArkUI_NativeModule_GetErrorMessage() -> *const ::std::os::raw::c_char;
 }
+#[doc = " Key events are used for focus navigation."]
+#[cfg(feature = "api-15")]
+pub const ArkUI_KeyProcessingMode_ARKUI_KEY_PROCESSING_MODE_FOCUS_NAVIGATION:
+    ArkUI_KeyProcessingMode = 0;
+#[doc = " Key events are passed up to ancestor components."]
+#[cfg(feature = "api-15")]
+pub const ArkUI_KeyProcessingMode_ARKUI_KEY_PROCESSING_MODE_FOCUS_ANCESTOR_EVENT:
+    ArkUI_KeyProcessingMode = 1;
+#[doc = " @brief Enumerates the key event processing priority modes.\n\n @since 15"]
+#[cfg(feature = "api-15")]
+pub type ArkUI_KeyProcessingMode = u32;
+extern "C" {
+    #[doc = " @brief Requests focus for a specific node.\n\n @param node Node.\n @return Result code.\n     <br>Returns {@link ARKUI_ERROR_CODE_NO_ERROR} if the operation is successful.\n     <br>Returns {@link ARKUI_ERROR_CODE_FOCUS_NON_FOCUSABLE} if the node cannot receive focus.\n     <br>Returns {@link ARKUI_ERROR_CODE_FOCUS_NON_FOCUSABLE_ANCESTOR} if the ancestor node cannot receive focus.\n     <br>Returns {@link ARKUI_ERROR_CODE_FOCUS_NON_EXISTENT} if the node does not exist.\n @since 15"]
+    #[cfg(feature = "api-15")]
+    pub fn OH_ArkUI_FocusRequest(node: ArkUI_NodeHandle) -> ArkUI_ErrorCode;
+}
+extern "C" {
+    #[doc = " @brief Clears the focus to the root container node.\n\n @param uiContext UI instance object pointer.\n @since 15"]
+    #[cfg(feature = "api-15")]
+    pub fn OH_ArkUI_FocusClear(uiContext: ArkUI_ContextHandle);
+}
+extern "C" {
+    #[doc = " @brief Sets the focus activation state for the current page. When activated, the focused node displays a focus box.\n\n @param uiContext UI instance object pointer.\n @param isActive Whether to enter or exit the focus activation state. The value **true** means to enter the focus\n     activation state, and **false** means to exit the focus activation state.\n @param isAutoInactive Whether to automatically exit the focus active state on touch or mouse down events. **true**:\n     Automatically exit the focus active state. **false**: Maintain the current state until the corresponding setting\n     API is called.\n @since 15"]
+    #[cfg(feature = "api-15")]
+    pub fn OH_ArkUI_FocusActivate(
+        uiContext: ArkUI_ContextHandle,
+        isActive: bool,
+        isAutoInactive: bool,
+    );
+}
+extern "C" {
+    #[doc = " @brief Configures the focus transfer behavior when pages are switched.\n\n @param uiContext UI instance object pointer.\n @param autoTransfer Whether to automatically transfer focus when pages are switched. The value **true** means to\n     automatically transfer focus when pages are switched, and **false** means the opposite.\n @since 15"]
+    #[cfg(feature = "api-15")]
+    pub fn OH_ArkUI_FocusSetAutoTransfer(uiContext: ArkUI_ContextHandle, autoTransfer: bool);
+}
+extern "C" {
+    #[doc = " @brief Sets the mode for processing key events.\n\n @param uiContext UI instance object pointer.\n @param mode Key event processing priority mode.\n @since 15"]
+    #[cfg(feature = "api-15")]
+    pub fn OH_ArkUI_FocusSetKeyProcessingMode(
+        uiContext: ArkUI_ContextHandle,
+        mode: ArkUI_KeyProcessingMode,
+    );
+}
 #[doc = " Unknown key"]
 #[cfg(feature = "api-14")]
 pub const ArkUI_KeyCode_ARKUI_KEYCODE_UNKNOWN: ArkUI_KeyCode = -1;

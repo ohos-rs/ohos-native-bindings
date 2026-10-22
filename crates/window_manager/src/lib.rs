@@ -1,6 +1,8 @@
 mod error;
 #[cfg(feature = "api-26")]
 mod frame_metrics;
+#[cfg(feature = "input")]
+mod key_event;
 mod manager;
 mod types;
 mod window;
@@ -15,6 +17,8 @@ pub use density::{DensityInfoChangeCallback, DensityInfoRef, RawDensityInfo};
 pub use error::{Error, Result};
 #[cfg(feature = "api-26")]
 pub use frame_metrics::{FrameMetrics, FrameMetricsMeasuredCallback, RawFrameMetrics};
+#[cfg(feature = "input")]
+pub use key_event::KeyEventRef;
 pub use manager::WindowManager;
 #[cfg(feature = "api-21")]
 pub use manager::{MainWindowSnapshotCallback, RawPixelMap, WindowSnapshotConfig};

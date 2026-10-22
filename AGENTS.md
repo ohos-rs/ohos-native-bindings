@@ -1,0 +1,8 @@
+# Native binding constraints
+
+- Native capabilities must be selected by Cargo features and linked through the matching `*-sys` package. Runtime capability loading through `libloading`, `dlopen`, `dlsym`, or equivalent symbol probes is forbidden.
+- Keep FFI declarations in `sys/*` and ownership, lifetime validation, null checks and native error handling in the owning binding crate. Applications and framework facades consume binding APIs, not `*-sys` dependencies or locally copied FFI declarations.
+- Generated sys declarations must come from SDK headers through `tools/generate`. Add missing headers to the owning generator config and regenerate; do not append handwritten declarations to generated `lib.rs` files.
+- Features introducing newer APIs must state their minimum runtime API. Runtime version checks do not make a linked symbol compatible with older loaders. With a feature disabled, its native symbols must not be referenced.
+- Every `api-N` feature must inherit the previous API and explicitly forward the same API to each direct native binding/sys dependency that exposes it. Do not rely on a sibling's transitive feature unification. Optional dependencies use `dependency?/api-N`; activate a required capability separately with `dep:dependency`. If a dependency ends at an older API, retain that level through the inherited chain rather than referencing a nonexistent feature. Run `node tools/check-crate-features.mjs --verify-forwarding-only`; the regular CI feature matrix runs this check automatically.
+- Host regressions must use statically linked substitutes or Rust mocks. They must not reintroduce dynamic loaders.

@@ -1,0 +1,18 @@
+[package]
+name    = "ohos-ime-lifecycle-tests"
+version = "0.1.0"
+edition = "2021"
+publish = false
+
+[workspace]
+
+[lib]
+path = "lifecycle.rs"
+
+[dependencies]
+log        = "0.4"
+rustc-hash = "2"
+
+[features]
+api-22 = []
+api-26 = ["api-22"]

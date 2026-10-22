@@ -7,9 +7,16 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+### Breaking
+
+- `KeyEvent::lock_state` requires `api-19`. Enable it only for API-19+ runtimes;
+  lock queries link directly through the sys crate instead of runtime loading.
+
 ### Fixed
 
-- Keep API-14 key callbacks independent of the API-20 input discriminator and resolve lock-state queries only when the runtime provides them.
+- Keep API-14 key callbacks independent of the API-20 input discriminator.
+- Forward API features weakly to the optional XComponent binding, so API
+  selection alone does not enable that capability.
 - Borrow key and drag events from their native callbacks; own drag actions, listeners, UDMF data and preview maps through disposal.
 
 - Align text helpers, joystick key sources, and dialog state APIs with their minimum native API levels.
@@ -17,6 +24,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Added
 
+- Add `ArkUINode::request_focus` for the native API-15 focus operation.
 - Add safe ArkUI key-event, component-event union, and node animator wrappers so downstream UI frameworks do not need direct `ohos-arkui-sys` access.
 - Add `ArkUINode::native_xcomponent` so downstream frameworks do not need the XComponent sys crate to resolve a mounted surface.
 - Add API 25/26 feature forwarding and derive the complete API 26 ArkUI key-code, event-type, source, and intention enums through `ohos-enum-derive`.

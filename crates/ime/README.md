@@ -33,24 +33,24 @@ let ime = IME::new_with_main_thread_callbacks(AttachOptions::new(false));
 
 `IME::new` preserves the platform default callback thread.
 
-Stale-session errors invalidate the input proxy's usable state, not the native
-editor's lifetime. Recovery reuses the editor callback table, so a delayed
-`OnInputStop` can still report keyboard status safely. Explicit detach disables
-Rust callbacks. If attach/detach fails without establishing a release boundary,
-the native table is retained until the next successful attach/detach; application
-callback closures are not retained after the `IME` is dropped. If there is no
-later successful transition, the small retired native allocation remains until
-process exit.
+The host owns the process-wide IME's window routing and serialized lifecycle.
+Detach the previous editor before transferring ownership. `try_attach` performs
+the native attachment synchronously; `show_attached` shows its keyboard without
+implicitly attaching or recovering. The host chooses any worker/event queue and
+cancellation policy.
 
-Native proxy operations are serialized across sessions. Reentrant or competing
-native operations return `IME_ERR_IMCLIENT` through the `try_*` APIs instead of
-waiting inside a native callback. Applications can retry after the current call
-has returned.
+`IME::new_for_window(options, window_id)` selects the actual native Window ID;
+zero selects the main window. `set_window_id` changes the next attachment's
+configuration. With `api-26`, `IME::set_consume_key_events(bool)` configures
+hardware-key consumption. It is compiled only with that feature and requires
+an API-26 runtime. `TextConfig::set_consume_key_events` exposes the fallible
+native setter directly.
 
-Each `IME` owns an independent callback set. Activating one session safely
-replaces the previously active native editor, and a later activation repairs a
-proxy invalidated by another ArkUI input or an application lifecycle change.
-Use the `try_*` methods when the caller needs the HarmonyOS error code:
+Native callbacks remain allocated across stale-session recovery. Failed detach
+retains the table for retry. If Drop cannot establish a native release boundary,
+it logs and leaves the native table allocated until process exit, after
+unregistering Rust callbacks. Use fallible detach before releasing the owner.
+Use the `try_*` methods to inspect native errors:
 
 ```rust
 ime.try_show_keyboard()?;
@@ -61,10 +61,9 @@ ime.try_detach()?;
 
 Configure the native editor with `try_update_configuration(EnterKey, InputType)`
 and `try_update_cursor(Rect)`. Attributes and the absolute physical screen
-cursor rectangle are retained for the next attach. Updates are sent only when
-this editor owns the active native session, so an inactive window cannot change
-another window's editor. Registering a preview callback enables preview text in
-the attachment configuration. These APIs must be called on the editor's thread.
+cursor rectangle are retained for the next attach. The host sends updates only
+to its current editor. Registering a preview callback enables preview text in
+the attachment configuration. Call these APIs on the editor's thread.
 
 `try_update_text_state(TextState)` retains a snapshot for IPC-thread requests
 for text before/after the selection and the absolute cursor index. `offset`
@@ -79,6 +78,12 @@ Register `on_delete_forward`, `on_move_cursor`, `on_set_selection`, and
 `on_extend_action` for system editing requests. These callbacks run on the same
 thread as other editor callbacks. Text decoding preserves surrogate pairs and
 replaces invalid UTF-16 units instead of silently dropping them.
+
+## Host tests
+
+`cargo test --manifest-path crates/ime/tests/host/Cargo.toml --features api-26`
+runs production IME code with native substitutes. Native callback timing and
+window/keyboard behavior also need device acceptance.
 
 ## License
 

@@ -67,6 +67,14 @@ files          = '\.toml$'
 pass_filenames = false
 
 [[repos.hooks]]
+id             = "api-feature-forwarding"
+name           = "native API feature forwarding"
+language       = "system"
+entry          = "node tools/check-crate-features.mjs --verify-forwarding-only"
+files          = '(^|/)(Cargo\.toml|check-crate-features\.mjs)$'
+pass_filenames = false
+
+[[repos.hooks]]
 id             = "oxk-format"
 name           = "oxk format"
 language       = "system"

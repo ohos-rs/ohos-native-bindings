@@ -21,6 +21,19 @@ pub struct Selection {
 }
 
 impl TextConfig {
+    /// Configures native hardware-key consumption (API 26).
+    #[cfg(feature = "api-26")]
+    pub fn set_consume_key_events(&self, enabled: bool) -> crate::ImeResult<()> {
+        // SAFETY: the configuration is owned here or borrowed from its callback.
+        let status =
+            unsafe { ohos_input_method_sys::OH_TextConfig_SetConsumeKeyEvents(self.raw, enabled) };
+        if status == 0 {
+            Ok(())
+        } else {
+            Err(crate::ImeError::new("set-consume-key-events", status))
+        }
+    }
+
     pub fn new() -> Self {
         let raw = unsafe { OH_TextConfig_Create() };
         TextConfig { raw, owned: true }

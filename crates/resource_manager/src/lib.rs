@@ -33,6 +33,20 @@ pub struct ResourceManager {
 }
 
 impl ResourceManager {
+    /// Converts an ArkTS resource manager during its active N-API callback.
+    /// The ArkTS value is not retained; null native results are reported as errors.
+    #[cfg(feature = "napi")]
+    pub fn from_napi_value(
+        value: napi_ohos::bindgen_prelude::Unknown<'_>,
+    ) -> napi_ohos::Result<Self> {
+        let value = value.value();
+        let raw = unsafe { OH_ResourceManager_InitNativeResourceManager(value.env, value.value) };
+        let resource_manager = NonNull::new(raw).ok_or_else(|| {
+            napi_ohos::Error::from_reason("Failed to initialize native resource manager")
+        })?;
+        Ok(Self { resource_manager })
+    }
+
     /// Use the resource manager from arkts to create a raw file manager.
     /// Be aware that none of these methods are thread-safe.
     /// ### Example
