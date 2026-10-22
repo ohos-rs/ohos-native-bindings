@@ -97,6 +97,17 @@ The `accessibility,api-23` features expose `NodeAccessibility` on API-23 and
 newer runtimes. It retains a strong `Rc` to the owned Custom node
 until callbacks retire. `new` returns a registration or the native error.
 
+### Owned dialog content
+
+`Dialog::content` owns its transferred node; `content_node` retains a shared
+owned node. Content remains protected from disposal until native detachment
+succeeds. `remove_content` and `dispose` preserve failed cleanup for retry.
+Dismiss callbacks run synchronously on the UI thread and retain their callback
+data throughout reentrant calls.
+
+Panicking dismiss handlers are logged and allow dismissal. Native cleanup
+errors stay retryable through `remove_content`, `close` and `dispose`.
+
 ### Accessibility API floor
 
 The `accessibility` capability enables `api-23`, so `NodeAccessibility` and its
