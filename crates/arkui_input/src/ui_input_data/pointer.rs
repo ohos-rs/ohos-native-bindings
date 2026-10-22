@@ -2,8 +2,10 @@
 use ohos_arkui_input_sys::OH_ArkUI_PointerEvent_GetRollAngle;
 #[cfg(feature = "api-15")]
 use ohos_arkui_input_sys::{
-    ArkUI_ErrorCode_ARKUI_ERROR_CODE_PARAM_INVALID, ArkUI_InteractionHand_ARKUI_EVENT_HAND_NONE,
-    ArkUI_NodeHandle, OH_ArkUI_MouseEvent_GetPressedButtons, OH_ArkUI_MouseEvent_GetRawDeltaX,
+    ArkUI_ErrorCode_ARKUI_ERROR_CODE_PARAM_INVALID,
+    ArkUI_ErrorCode_ARKUI_ERROR_CODE_POST_CLONED_NO_COMPONENT_HIT_TO_RESPOND_TO_THE_EVENT as POST_CLONED_NO_HIT,
+    ArkUI_InteractionHand_ARKUI_EVENT_HAND_NONE, ArkUI_NodeHandle,
+    OH_ArkUI_MouseEvent_GetPressedButtons, OH_ArkUI_MouseEvent_GetRawDeltaX,
     OH_ArkUI_MouseEvent_GetRawDeltaY, OH_ArkUI_PointerEvent_CreateClonedEvent,
     OH_ArkUI_PointerEvent_DestroyClonedEvent, OH_ArkUI_PointerEvent_GetInteractionHand,
     OH_ArkUI_PointerEvent_GetInteractionHandByIndex, OH_ArkUI_PointerEvent_GetPressedTimeByIndex,
@@ -393,8 +395,43 @@ impl ArkUIInputClonedEvent {
         })
     }
 
-    pub fn post_to_node(&self, node: ArkUI_NodeHandle) -> Result<(), ArkUIInputError> {
+    /// Posts the clone, preserving every native status as an error on failure.
+    ///
+    /// # Safety
+    ///
+    /// `node` must remain live throughout dispatch, including synchronous
+    /// callbacks. Call on the node's ArkUI UI thread.
+    ///
+    /// ```compile_fail
+    /// use ohos_arkui_input_binding::ArkUIInputClonedEvent;
+    /// fn post(event: &ArkUIInputClonedEvent) {
+    ///     event.post_to_node(std::ptr::null_mut()).unwrap();
+    /// }
+    /// ```
+    pub unsafe fn post_to_node(&self, node: ArkUI_NodeHandle) -> Result<(), ArkUIInputError> {
+        // SAFETY: the clone owns the event; the caller guarantees a live target
+        // and UI-thread validity through synchronous callbacks.
         check_status(unsafe { OH_ArkUI_PointerEvent_PostClonedEvent(node, self.raw()) })
+    }
+
+    /// Posts this API-15 clone, returning false when no component handles its hit.
+    /// Native failures other than no-hit remain errors; this owner stays reusable.
+    ///
+    /// # Safety
+    /// `node` must remain a live native node throughout dispatch, including any
+    /// synchronous callbacks. Call on the node's ArkUI UI thread.
+    pub unsafe fn post_to_node_if_hit(
+        &self,
+        node: ArkUI_NodeHandle,
+    ) -> Result<bool, ArkUIInputError> {
+        // SAFETY: the clone owns its event; the caller guarantees node validity
+        // and UI-thread dispatch through synchronous callbacks.
+        let code = unsafe { OH_ArkUI_PointerEvent_PostClonedEvent(node, self.raw()) };
+        if code == POST_CLONED_NO_HIT as i32 {
+            return Ok(false);
+        }
+        check_status(code)?;
+        Ok(true)
     }
 }
 
