@@ -1,3 +1,4 @@
+use crate::{bounded_read::BoundedRead, RawFileError};
 use ohos_resource_manager_sys::{
     OH_ResourceManager_CloseRawDir, OH_ResourceManager_CloseRawFile,
     OH_ResourceManager_CloseRawFile64, OH_ResourceManager_GetRawFileCount,
@@ -148,6 +149,23 @@ pub struct RawFile {
 }
 
 impl RawFile {
+    /// Reads the remaining bytes with a caller-selected limit before allocating.
+    /// Partial reads advance the native cursor; invalid lengths and premature EOF fail.
+    pub fn read_bounded(&self, limit: usize) -> Result<Vec<u8>, RawFileError> {
+        // SAFETY: this file owns the native handle throughout the operation.
+        let remaining = unsafe { OH_ResourceManager_GetRawFileRemainingLength(self.raw.as_ptr()) };
+        BoundedRead::new(remaining, limit)?.read(|output| {
+            // SAFETY: output is writable for exactly the requested length, bounded
+            // to the native signed return range. The native API retains no slice.
+            unsafe {
+                OH_ResourceManager_ReadRawFile(
+                    self.raw.as_ptr(),
+                    output.as_mut_ptr().cast(),
+                    output.len(),
+                )
+            }
+        })
+    }
     pub fn from_raw(raw: *mut ohos_resource_manager_sys::RawFile) -> Self {
         #[cfg(debug_assertions)]
         assert!(!raw.is_null(), "RawFile is null");
