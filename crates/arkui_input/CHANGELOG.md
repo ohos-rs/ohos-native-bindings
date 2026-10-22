@@ -9,6 +9,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Added
 
+- Add API-15 `unsafe ArkUIInputClonedEvent::post_to_node_if_hit`, distinguishing
+  native no-hit from dispatch failure without consuming the clone.
 - Add API 24 owned pointer event creation, cloning, all 33 cloned-event setters,
   and typed gesture-competition dispatch with a matching destructor.
 - Add API 22 keyboard and joystick input-source variants.
@@ -20,6 +22,12 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
   native clone/destruction also work in applications that initially render only ArkTS.
 - Add lossless raw mouse button and action accessors for forward-compatible event dispatch.
 - Add API 25/26 feature forwarding and typed hover enter/leave state access.
+
+### Breaking
+
+- `ArkUIInputClonedEvent::post_to_node` is now unsafe, like
+  `post_to_node_if_hit`: keep the raw target live through synchronous callbacks
+  and dispatch on its ArkUI UI thread.
 
 ## [0.1.3](https://github.com/ohos-rs/ohos-native-bindings/compare/ohos-arkui-input-binding-v0.1.2...ohos-arkui-input-binding-v0.1.3) - 2026-08-26
 
