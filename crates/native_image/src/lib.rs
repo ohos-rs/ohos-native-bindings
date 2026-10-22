@@ -1,5 +1,8 @@
 //! Thin NativeImage consumer ownership, native listeners and acquire fences.
 
+mod texture;
+pub use texture::TextureImage;
+
 use ohos_native_image_sys::*;
 use ohos_native_window_sys::{
     OHNativeWindow, OHNativeWindowBuffer, OH_NativeWindow_NativeObjectReference,
