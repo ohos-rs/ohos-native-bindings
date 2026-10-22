@@ -1,0 +1,28 @@
+[package]
+name                   = "ohos-avplayer-binding"
+version                = "0.1.0"
+edition.workspace      = true
+rust-version.workspace = true
+license                = "MIT OR Apache-2.0"
+description            = "Owned OpenHarmony AVPlayer handles and callback-borrowed metadata"
+[dependencies]
+ohos-avplayer-sys.workspace = true
+log.workspace               = true
+[features]
+default = []
+api-13  = ["ohos-avplayer-sys/api-13"]
+api-14  = ["api-13", "ohos-avplayer-sys/api-14"]
+api-15  = ["api-14", "ohos-avplayer-sys/api-15"]
+api-16  = ["api-15", "ohos-avplayer-sys/api-16"]
+api-17  = ["api-16", "ohos-avplayer-sys/api-17"]
+api-18  = ["api-17", "ohos-avplayer-sys/api-18"]
+api-19  = ["api-18", "ohos-avplayer-sys/api-19"]
+api-20  = ["api-19", "ohos-avplayer-sys/api-20"]
+api-21  = ["api-20", "ohos-avplayer-sys/api-21"]
+api-22  = ["api-21", "ohos-avplayer-sys/api-22"]
+api-23  = ["api-22", "ohos-avplayer-sys/api-23"]
+api-24  = ["api-23", "ohos-avplayer-sys/api-24"]
+api-25  = ["api-24", "ohos-avplayer-sys/api-25"]
+api-26  = ["api-25", "ohos-avplayer-sys/api-26"]
+[lints]
+workspace = true

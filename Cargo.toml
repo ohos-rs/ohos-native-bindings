@@ -7,6 +7,8 @@ edition      = "2021"
 rust-version = "1.88"
 
 [workspace.dependencies]
+ohos-avplayer-sys         = { version = "0.1.0", path = "sys/ohos-avplayer-sys" }
+ohos-avplayer-binding     = { version = "0.1.0", path = "crates/avplayer" }
 ohos-native-image-sys     = { version = "0.1.0", path = "sys/ohos-native-image-sys" }
 ohos-native-image-binding = { version = "0.1.0", path = "crates/native_image" }
 # Match the registry AccessKit types consumed by the pinned OHOS adapter.
