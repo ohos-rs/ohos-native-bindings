@@ -165,9 +165,18 @@ impl<'a> Provider<'a> {
     /// The official API copies the event during this call; the event wrapper
     /// may therefore be dropped after this method returns.
     pub fn send_event(self, event: &EventInfo, callback: Option<EventCompletionCallback>) {
-        unsafe { OH_ArkUI_SendAccessibilityAsyncEvent(self.as_raw(), event.as_raw(), callback) }
+        // ArkUI rejects a null completion callback even when the caller does
+        // not need the result.
+        let callback = callback.unwrap_or(ignore_event_completion);
+        // SAFETY: the live provider and event remain valid through the call;
+        // either completion function remains valid for the asynchronous reply.
+        unsafe {
+            OH_ArkUI_SendAccessibilityAsyncEvent(self.as_raw(), event.as_raw(), Some(callback))
+        }
     }
 }
+
+unsafe extern "C" fn ignore_event_completion(_error_code: i32) {}
 
 pub struct ProviderRegistration<'a> {
     provider: Provider<'a>,

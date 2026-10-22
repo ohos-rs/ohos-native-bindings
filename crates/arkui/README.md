@@ -91,6 +91,18 @@ preserve an identity-stable node's event route across NodeContent moves.
 `ArkUINode::{parent,remove_from_parent}` query and detach the native parent
 edge without changing those routes or the host's attachment bookkeeping.
 
+### Retained accessibility providers
+
+The `accessibility,api-23` features expose `NodeAccessibility` on API-23 and
+newer runtimes. It retains a strong `Rc` to the owned Custom node
+until callbacks retire. `new` returns a registration or the native error.
+
+### Accessibility API floor
+
+The `accessibility` capability enables `api-23`, so `NodeAccessibility` and its
+native provider are selected together. Target an API-23+ runtime when enabling
+this feature.
+
 ## License
 
 MIT OR Apache-2.0

@@ -9,6 +9,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Breaking
 
+- `accessibility` selects API 23, matching `NodeAccessibility`'s native API
+  floor. Enable it only on API-23+ runtimes.
 - `ArkUINode::from_raw_handle`, `CustomNodeEventData::{removed_node,host_node}`,
   `GestureEventRef::node`, `TouchRecognizerRef::node` and
   `GestureEventData::node_handle` are unsafe. Keep the native owner live for
