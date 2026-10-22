@@ -24,7 +24,7 @@ pub use color::{argb, Color};
 pub use effect::{PathEffect, ShaderEffect, ShadowLayer};
 pub use error::{check_error, DrawingError, Result};
 pub use error_code::DrawingErrorCode;
-pub use filter::{ColorFilter, Filter, MaskFilter};
+pub use filter::{ColorFilter, Filter, ImageFilter, MaskFilter};
 #[cfg(feature = "api-20")]
 pub use font::FontFeatures;
 pub use font::{Font, FontManager, FontMetrics, TextMeasure, Typeface};

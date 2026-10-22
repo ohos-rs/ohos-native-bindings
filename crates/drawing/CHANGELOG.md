@@ -7,6 +7,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+- Add owned image blur and color blend filters, and preserve full 3×3 matrices.
+
 ### Added
 
 - Add owned text-shadow construction and `TextStyle::add_shadow` wrappers.

@@ -14,6 +14,21 @@ pub struct Matrix {
 }
 
 impl Matrix {
+    /// Creates a row-major 3×3 matrix, preserving perspective coefficients.
+    pub fn from_values(values: [f32; 9]) -> Self {
+        let matrix = Self::new();
+        let [a, b, c, d, e, f, g, h, i] = values;
+        // SAFETY: `matrix` owns a live drawing matrix; all nine coefficients are passed by value.
+        unsafe { OH_Drawing_MatrixSetMatrix(matrix.raw.as_ptr(), a, b, c, d, e, f, g, h, i) };
+        matrix
+    }
+    /// Returns all nine row-major coefficients, including perspective.
+    pub fn values(&self) -> Result<[f32; 9]> {
+        let mut values = [0.0; 9];
+        // SAFETY: `self` retains the matrix and `values` has room for nine coefficients.
+        check_error(unsafe { OH_Drawing_MatrixGetAll(self.raw.as_ptr(), values.as_mut_ptr()) })?;
+        Ok(values)
+    }
     pub fn new() -> Self {
         Self::from_raw(unsafe { OH_Drawing_MatrixCreate() })
     }
@@ -93,10 +108,10 @@ impl Default for Matrix {
 
 impl Clone for Matrix {
     fn clone(&self) -> Self {
-        let [a, b, c, d, e, f] = self
-            .affine_values()
-            .expect("OH_Drawing_MatrixGetAll failed for a live matrix");
-        Self::from_affine(a, b, c, d, e, f)
+        Self::from_values(
+            self.values()
+                .expect("OH_Drawing_MatrixGetAll failed for a live matrix"),
+        )
     }
 }
 
