@@ -9,6 +9,9 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Breaking
 
+- `Dialog::content` owns transferred content until successful native removal
+  and disposal. Use fallible `remove_content`, `close` and `dispose` to retry
+  cleanup; failed Drop logs and retains native-reachable owners for safety.
 - `accessibility` selects API 23, matching `NodeAccessibility`'s native API
   floor. Enable it only on API-23+ runtimes.
 - `ArkUINode::from_raw_handle`, `CustomNodeEventData::{removed_node,host_node}`,
@@ -37,6 +40,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Added
 
+- Own dialog content and dismiss callback data through native cleanup, with custom content style and animation control.
 - Expose `NodeContent`, identity-stable `add_existing_node` and
   `unsafe ArkUINodeRaw::borrowed_node` for externally retained ArkTS nodes.
 - Expose `ArkUINode::{into_rc,bind_rc}` with shared-owner disposal checks,

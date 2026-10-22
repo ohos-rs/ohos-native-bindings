@@ -54,7 +54,14 @@ impl ArkUINativeDialogAPI1 {
         unsafe {
             if let Some(create_dialog_controller) = (*self.raw()).create {
                 let ret = create_dialog_controller();
-                Ok(ret)
+                if ret.is_null() {
+                    Err(ArkUIError::new(
+                        ArkUIErrorCode::ParamInvalid,
+                        "dialog creation returned null",
+                    ))
+                } else {
+                    Ok(ret)
+                }
             } else {
                 Err(ArkUIError::new(
                     ArkUIErrorCode::AttributeOrEventNotSupported,
@@ -226,26 +233,66 @@ impl ArkUINativeDialogAPI1 {
         }
     }
 
+    pub(crate) fn remove_content(&self, dialog: ArkUI_NativeDialogHandle) -> ArkUIResult<()> {
+        // SAFETY: the caller owns this live controller on its UI thread.
+        unsafe {
+            let function = (*self.raw()).removeContent.ok_or_else(|| {
+                ArkUIError::new(
+                    ArkUIErrorCode::AttributeOrEventNotSupported,
+                    "dialog removeContent is unavailable",
+                )
+            })?;
+            check_arkui_status!(function(dialog))
+        }
+    }
+    pub(crate) fn custom_style(
+        &self,
+        dialog: ArkUI_NativeDialogHandle,
+        enabled: bool,
+    ) -> ArkUIResult<()> {
+        // SAFETY: the caller owns this live controller on its UI thread.
+        unsafe {
+            let function = (*self.raw()).enableCustomStyle.ok_or_else(|| {
+                ArkUIError::new(
+                    ArkUIErrorCode::AttributeOrEventNotSupported,
+                    "dialog custom style is unavailable",
+                )
+            })?;
+            check_arkui_status!(function(dialog, enabled))
+        }
+    }
+    pub(crate) fn custom_animation(
+        &self,
+        dialog: ArkUI_NativeDialogHandle,
+        enabled: bool,
+    ) -> ArkUIResult<()> {
+        // SAFETY: the caller owns this live controller on its UI thread.
+        unsafe {
+            let function = (*self.raw()).enableCustomAnimation.ok_or_else(|| {
+                ArkUIError::new(
+                    ArkUIErrorCode::AttributeOrEventNotSupported,
+                    "dialog custom animation is unavailable",
+                )
+            })?;
+            check_arkui_status!(function(dialog, enabled))
+        }
+    }
     pub(crate) fn register_dismiss(
         &self,
         dialog: ArkUI_NativeDialogHandle,
-        data: Rc<RefCell<InnerDialogDismissData>>,
+        data: *mut c_void,
     ) -> ArkUIResult<()> {
+        // SAFETY: Dialog retains the stable context until controller disposal.
         unsafe {
-            if let Some(register_dismiss_with_data) =
-                (*self.raw()).registerOnWillDismissWithUserData
-            {
-                check_arkui_status!(register_dismiss_with_data(
-                    dialog,
-                    Box::into_raw(Box::new(data)) as *mut c_void,
-                    Some(dialog_dismiss_callback)
-                ))
-            } else {
-                Err(ArkUIError::new(
-                    ArkUIErrorCode::AttributeOrEventNotSupported,
-                    "ArkUI_NativeDialogAPI_1::registerOnWillDismissWithUserData is None",
-                ))
-            }
+            let function = (*self.raw())
+                .registerOnWillDismissWithUserData
+                .ok_or_else(|| {
+                    ArkUIError::new(
+                        ArkUIErrorCode::AttributeOrEventNotSupported,
+                        "dialog dismiss callback is unavailable",
+                    )
+                })?;
+            check_arkui_status!(function(dialog, data, Some(dialog_dismiss_callback)))
         }
     }
 }
@@ -257,22 +304,52 @@ impl Default for ArkUINativeDialogAPI1 {
 }
 
 unsafe extern "C" fn dialog_dismiss_callback(event: *mut ArkUI_DialogDismissEvent) {
+    if event.is_null() {
+        return;
+    }
     let user_data = OH_ArkUI_DialogDismissEvent_GetUserData(event);
 
-    #[cfg(debug_assertions)]
-    assert!(!user_data.is_null(), "user_data is NULL");
-
-    let user_data_rc: &Rc<RefCell<InnerDialogDismissData>> =
-        &*(user_data as *const Rc<RefCell<InnerDialogDismissData>>);
-
-    let data = user_data_rc.borrow_mut();
-
-    if let Some(handle) = data.dismiss_handle.as_ref() {
+    if user_data.is_null() {
+        return;
+    }
+    let pointer = user_data as *const RefCell<InnerDialogDismissData>;
+    // SAFETY: registration retains this Rc allocation until native disposal.
+    // Keep a callback-owned reference so reentrant disposal cannot free it.
+    let user_data_rc = unsafe {
+        Rc::increment_strong_count(pointer);
+        Rc::from_raw(pointer)
+    };
+    let Ok(data) = user_data_rc.try_borrow() else {
+        return;
+    };
+    if let Some(callback) = data.callback.clone() {
+        drop(data);
         let reason = OH_ArkUI_DialogDismissEvent_GetDismissReason(event) as u32;
+        let blocked =
+            std::panic::catch_unwind(std::panic::AssertUnwindSafe(|| callback(reason.into())))
+                .unwrap_or_else(|_| {
+                    log::error!("Dialog dismiss callback panicked; allowing dismissal");
+                    false
+                });
+        OH_ArkUI_DialogDismissEvent_SetShouldBlockDismiss(event, blocked);
+        return;
+    }
 
-        let ret = handle(DialogDismissData {
-            dismiss_reason: reason.into(),
-            data: data.data,
+    let handle = data.dismiss_handle;
+    let custom_data = data.data;
+    let _custom_owner = data.data_owner.clone();
+    drop(data);
+    if let Some(handle) = handle {
+        let reason = OH_ArkUI_DialogDismissEvent_GetDismissReason(event) as u32;
+        let ret = std::panic::catch_unwind(std::panic::AssertUnwindSafe(|| {
+            handle(DialogDismissData {
+                dismiss_reason: reason.into(),
+                data: custom_data,
+            })
+        }))
+        .unwrap_or_else(|_| {
+            log::error!("Dialog dismiss callback panicked; leaving native dismissal unchanged");
+            None
         });
         if let Some(block) = ret {
             if block {
