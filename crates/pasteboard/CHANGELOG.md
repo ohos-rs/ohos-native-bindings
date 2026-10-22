@@ -7,6 +7,16 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+### Added
+
+- Add native `Pasteboard::clear` (API 13), copied `mime_types` (API 14)
+  and native `change_count` revision queries (API 18).
+
+### Breaking
+
+- Withdraw the unpublished ArkTS Clipboard bridge in favor of native pasteboard
+  and UDMF entries. Revision queries use the native change counter.
+
 ## [0.0.6](https://github.com/ohos-rs/ohos-native-bindings/compare/ohos-pasteboard-binding-v0.0.5...ohos-pasteboard-binding-v0.0.6) - 2026-08-26
 
 ### Other

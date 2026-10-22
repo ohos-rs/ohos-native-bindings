@@ -17,6 +17,22 @@ pub struct UdmfData {
 }
 
 impl UdmfData {
+    /// Copies every native type identifier in this container (API 12).
+    pub fn types(&self) -> Result<Vec<String>, UdmfError> {
+        let mut count = 0;
+        // SAFETY: the owner keeps this data live and count is writable.
+        let types = unsafe { OH_UdmfData_GetTypes(self.raw.as_ptr(), &mut count) };
+        // SAFETY: this SDK-owned array is valid until the next mutation/destruction.
+        unsafe { super::record::copy_types(types, count) }
+    }
+
+    /// Queries a native type identifier, rejecting interior NULs (API 12).
+    pub fn has_type(&self, type_id: &str) -> Result<bool, UdmfError> {
+        let id = CString::new(type_id).map_err(|e| UdmfError::CommonError(e.to_string()))?;
+        // SAFETY: both pointers remain live throughout this synchronous query.
+        Ok(unsafe { OH_UdmfData_HasType(self.raw.as_ptr(), id.as_ptr()) })
+    }
+
     pub fn new() -> Self {
         Self::try_new().expect("OH_UdmfData_Create failed")
     }
