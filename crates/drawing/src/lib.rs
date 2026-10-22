@@ -48,5 +48,5 @@ pub use types::{
     AlphaFormat, BitmapFormat, BlendMode, ClipOperation, ColorFormat, CornerPosition,
     DecorationPattern, EllipsisMode, FilterMode, FontEdging, FontHinting, FontSlant, FontStyle,
     FontWeight, FontWidth, ImageInfo, LineCap, LineJoin, MipmapMode, PathDirection, PathFillType,
-    TextAlign, TextDirection, TextEncoding, TileMode,
+    PlaceholderAlignment, PlaceholderBaseline, TextAlign, TextDirection, TextEncoding, TileMode,
 };

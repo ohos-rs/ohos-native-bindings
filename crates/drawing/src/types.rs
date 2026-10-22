@@ -348,3 +348,37 @@ pub enum DecorationPattern {
     /// A wave.
     Wavy = 4,
 }
+
+/// Native placeholder alignment within its surrounding text line.
+#[derive(Clone, Copy, Debug, PartialEq, Eq, EnumFrom)]
+#[config(
+    OH_Drawing_PlaceholderVerticalAlignment,
+    "OH_Drawing_PlaceholderVerticalAlignment_ALIGNMENT_"
+)]
+pub enum PlaceholderAlignment {
+    /// Places the baseline at the descriptor offset.
+    OffsetAtBaseline,
+    /// Places the placeholder above the baseline.
+    AboveBaseline,
+    /// Places the placeholder below the baseline.
+    BelowBaseline,
+    /// Aligns with the top of the line box.
+    TopOfRowBox,
+    /// Aligns with the bottom of the line box.
+    BottomOfRowBox,
+    /// Centers within the line box.
+    CenterOfRowBox,
+    /// Follows paragraph alignment (API 20+).
+    #[cfg(feature = "api-20")]
+    FollowParagraph,
+}
+
+/// Native baseline used by a placeholder descriptor.
+#[derive(Clone, Copy, Debug, PartialEq, Eq, EnumFrom)]
+#[config(OH_Drawing_TextBaseline, "OH_Drawing_TextBaseline_TEXT_BASELINE_")]
+pub enum PlaceholderBaseline {
+    /// Uses the alphabetic text baseline.
+    Alphabetic,
+    /// Uses the ideographic text baseline.
+    Ideographic,
+}
