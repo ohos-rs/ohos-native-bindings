@@ -45,6 +45,23 @@ impl NativeWindow {
         }
     }
 
+    /// Acquires an owned native reference from a borrowed producer window.
+    ///
+    /// # Safety
+    /// The pointer must identify a live SDK native window for this call. Its
+    /// producer surface has a separate lifetime: retain that producer owner
+    /// until all users of the returned window have completed.
+    pub unsafe fn retain_from_ptr(window: NonNull<c_void>) -> Result<Self, NativeWindowError> {
+        // SAFETY: caller proves the borrowed pointer remains live while retained.
+        let status = unsafe { OH_NativeWindow_NativeObjectReference(window.as_ptr()) };
+        if status != 0 {
+            return Err(NativeWindowError::InternalError(status));
+        }
+        Ok(Self {
+            window: window.cast(),
+        })
+    }
+
     /// Create a `NativeWindow` from the `surfaceId` of a surface that was
     /// created in this process, e.g. the one reported by
     /// `XComponentController::onSurfaceCreated`.

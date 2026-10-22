@@ -25,6 +25,7 @@ use header_since::{HeaderSinceInventory, IncludedHeaders};
 static CONFIG: Lazy<Vec<Lazy<SysConfig>>> = Lazy::new(|| {
     vec![
         config::ARKUI,
+        config::AVPLAYER,
         config::XCOMPONENT,
         config::RESOURCE_MANAGER,
         config::ABILITY,
