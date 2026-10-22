@@ -37,8 +37,9 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 - Expose `NodeContent`, identity-stable `add_existing_node` and
   `unsafe ArkUINodeRaw::borrowed_node` for externally retained ArkTS nodes.
-- Expose `ArkUINode::retain_native`, `NodeRetention`, event-route registration
-  and native receiver add/remove operations for host-owned NodeContent moves.
+- Expose `ArkUINode::{into_rc,bind_rc}` with shared-owner disposal checks,
+  event-route registration and native receiver add/remove operations for
+  host-owned NodeContent moves.
 - Add `ArkUINode::{parent,remove_from_parent}` for native parent edges.
 - Add callback-scoped custom layout helpers, copied integer attributes, typed view/input policies, and event/gesture registration on identity-stable nodes.
 - Add `ArkUINode::request_focus` for the native API-15 focus operation.
