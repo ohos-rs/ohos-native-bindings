@@ -10,6 +10,68 @@ pub struct Pasteboard {
 }
 
 impl Pasteboard {
+    /// Clears the native system pasteboard (API 13).
+    pub fn clear(&self) -> Result<(), PasteboardError> {
+        // SAFETY: the owner keeps the pasteboard instance live for this call.
+        let status = unsafe { OH_Pasteboard_ClearData(self.raw.as_ptr()) };
+        if status == 0 {
+            Ok(())
+        } else {
+            Err(PasteboardError::InternalError(status))
+        }
+    }
+
+    /// Copies the native MIME-type list (API 14).
+    ///
+    /// The native array and strings belong to this pasteboard instance and
+    /// are released by the SDK, not by the caller.
+    #[cfg(feature = "api-14")]
+    pub fn mime_types(&self) -> Result<Vec<String>, PasteboardError> {
+        let mut count = 0;
+        // SAFETY: the pasteboard instance is live and count is writable.
+        let types = unsafe { OH_Pasteboard_GetMimeTypes(self.raw.as_ptr(), &mut count) };
+        if count == 0 {
+            return Ok(Vec::new());
+        }
+        let len = count as usize;
+        if types.is_null()
+            || len > isize::MAX as usize / std::mem::size_of::<*mut std::os::raw::c_char>()
+        {
+            return Err(PasteboardError::CommonError(
+                "invalid native MIME-type array".into(),
+            ));
+        }
+        let mut copy = Vec::new();
+        copy.try_reserve_exact(len)
+            .map_err(|e| PasteboardError::CommonError(e.to_string()))?;
+        // SAFETY: the SDK returns count pointers owned by this pasteboard.
+        // The SDK replaces/frees this cache on later queries/destruction; copy
+        // both the strings and the array without freeing either native owner.
+        for &value in unsafe { std::slice::from_raw_parts(types, len) } {
+            if value.is_null() {
+                return Err(PasteboardError::CommonError(
+                    "null native MIME-type string".into(),
+                ));
+            }
+            // SAFETY: every SDK MIME-type pointer names a live NUL-terminated string.
+            let value = unsafe { std::ffi::CStr::from_ptr(value) }
+                .to_str()
+                .map_err(|e| PasteboardError::CommonError(e.to_string()))?;
+            copy.push(value.to_owned());
+        }
+        Ok(copy)
+    }
+
+    /// Returns the native content-change counter (API 18).
+    ///
+    /// Zero also represents a failed query. The counter resets when the
+    /// service/system restarts; clearing data does not reset it.
+    #[cfg(feature = "api-18")]
+    pub fn change_count(&self) -> u32 {
+        // SAFETY: the owner keeps the pasteboard instance live for this query.
+        unsafe { OH_Pasteboard_GetChangeCount(self.raw.as_ptr()) }
+    }
+
     pub fn new() -> Self {
         let raw = unsafe { OH_Pasteboard_Create() };
         #[cfg(debug_assertions)]
