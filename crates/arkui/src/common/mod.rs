@@ -5,7 +5,6 @@ pub mod error;
 pub mod handle;
 pub mod node;
 pub mod node_registry;
-pub mod node_retention;
 #[cfg(feature = "napi")]
 pub mod ui_context;
 

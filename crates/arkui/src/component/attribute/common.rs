@@ -19,6 +19,14 @@ pub trait ArkUIAttributeBasic {
 /// This trait is used to set common attribute for node.
 /// Every node should implement this trait, include the custom node.
 pub trait ArkUICommonAttribute: ArkUIAttributeBasic {
+    /// Converts this component into its identity-stable shared node.
+    fn into_node(self) -> Rc<RefCell<ArkUINode>>
+    where
+        Self: Sized + Into<ArkUINode>,
+    {
+        self.into().into_rc()
+    }
+
     fn set_attribute(
         &self,
         attribute: ArkUINodeAttributeType,
@@ -1127,6 +1135,7 @@ pub trait ArkUICommonAttribute: ArkUIAttributeBasic {
     /// Attaches an identity-stable, externally owned node without changing its
     /// original event pipeline. Its external owner must outlive this attachment.
     fn add_existing_node(&mut self, child: Rc<RefCell<ArkUINode>>) -> ArkUIResult<()> {
+        ArkUINode::bind_rc(&child);
         if child.borrow().owns_raw {
             return Err(ArkUIError::new(
                 ArkUIErrorCode::ParamInvalid,
@@ -1146,6 +1155,7 @@ pub trait ArkUICommonAttribute: ArkUIAttributeBasic {
     /// accepts only that identity for the native handle, preventing split
     /// wrapper state without becoming another node owner.
     fn add_child(&mut self, child: Rc<RefCell<ArkUINode>>) -> ArkUIResult<()> {
+        ArkUINode::bind_rc(&child);
         if !child.borrow().owns_raw {
             return Err(ArkUIError::new(
                 ArkUIErrorCode::ParamInvalid,
@@ -1176,7 +1186,7 @@ pub trait ArkUICommonAttribute: ArkUIAttributeBasic {
     /// `FrameNode` handles bridged into native code. Registering wrapper user data and event
     /// receivers on those nodes can interfere with their original input pipeline.
     fn add_existing_child<T: Into<ArkUINode>>(&mut self, child: T) -> ArkUIResult<()> {
-        let child_handle: Rc<RefCell<ArkUINode>> = Rc::new(RefCell::new(child.into()));
+        let child_handle: Rc<RefCell<ArkUINode>> = child.into().into_rc();
         ARK_UI_NATIVE_NODE_API_1.with(|api| api.add_child(self.raw(), &child_handle.borrow()))?;
         self.borrow_mut().children_mut().push(child_handle);
         Ok(())
@@ -1186,6 +1196,7 @@ pub trait ArkUICommonAttribute: ArkUIAttributeBasic {
     ///
     /// See [`Self::add_child`] for the identity contract.
     fn insert_child(&mut self, child: Rc<RefCell<ArkUINode>>, index: usize) -> ArkUIResult<()> {
+        ArkUINode::bind_rc(&child);
         if !child.borrow().owns_raw {
             return Err(ArkUIError::new(
                 ArkUIErrorCode::ParamInvalid,
@@ -1217,7 +1228,7 @@ pub trait ArkUICommonAttribute: ArkUIAttributeBasic {
         child: T,
         index: usize,
     ) -> ArkUIResult<()> {
-        let child_handle: Rc<RefCell<ArkUINode>> = Rc::new(RefCell::new(child.into()));
+        let child_handle: Rc<RefCell<ArkUINode>> = child.into().into_rc();
         ARK_UI_NATIVE_NODE_API_1
             .with(|api| api.insert_child(self.raw(), &child_handle.borrow(), index as i32))?;
         self.borrow_mut()
