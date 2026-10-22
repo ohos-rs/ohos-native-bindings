@@ -28,7 +28,7 @@ macro_rules! define_common_component {
             /// registered on this component stay attached, and the same
             /// handle remains valid for mutations after mounting.
             pub fn into_node(self) -> std::rc::Rc<std::cell::RefCell<ArkUINode>> {
-                std::rc::Rc::new(std::cell::RefCell::new(self.0))
+                self.0.into_rc()
             }
         }
 
