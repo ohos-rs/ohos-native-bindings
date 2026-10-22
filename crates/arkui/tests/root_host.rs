@@ -31,20 +31,40 @@ impl ArkUIError {
 }
 pub type ArkUIResult<T> = Result<T, ArkUIError>;
 
-#[path = "../src/common/node_retention.rs"]
-mod node_retention;
-
 pub struct ArkUINode {
     owns_raw: bool,
-    retained: node_retention::NativeRetentions,
+    self_weak: std::rc::Weak<RefCell<ArkUINode>>,
     disposed: bool,
 }
 impl ArkUINode {
-    fn retain_native(&self) -> ArkUIResult<node_retention::NodeRetention> {
-        self.retained.retain().ok_or(ArkUIError)
+    fn new() -> Self {
+        Self {
+            owns_raw: true,
+            self_weak: Default::default(),
+            disposed: false,
+        }
+    }
+    fn into_rc(self) -> Rc<RefCell<Self>> {
+        Rc::new_cyclic(|weak| {
+            let mut node = self;
+            node.self_weak = weak.clone();
+            RefCell::new(node)
+        })
+    }
+    fn bind_rc(rc: &Rc<RefCell<Self>>) {
+        if rc.borrow().self_weak.strong_count() == 0 {
+            rc.borrow_mut().self_weak = Rc::downgrade(rc);
+        }
+    }
+    fn raw_handle(&self) -> *mut std::ffi::c_void {
+        if self.disposed {
+            std::ptr::null_mut()
+        } else {
+            std::ptr::dangling_mut()
+        }
     }
     fn dispose(&mut self) -> ArkUIResult<()> {
-        if self.retained.is_retained() {
+        if self.self_weak.strong_count() > 1 {
             return Err(ArkUIError);
         }
         self.disposed = true;
@@ -89,9 +109,6 @@ impl ApiSlot {
 }
 static ARK_UI_NATIVE_NODE_API_1: ApiSlot = ApiSlot;
 mod common {
-    pub(crate) mod node_retention {
-        pub(crate) use crate::node_retention::NodeRetention;
-    }
     pub(crate) mod node_registry {
         pub(crate) fn register(
             _: &crate::ArkUINode,
@@ -109,38 +126,33 @@ mod root;
 fn detached_roots_retry_disposal_without_repeating_native_removal() {
     let _serial = TEST_LOCK.lock().unwrap();
     REMOVALS.store(0, Ordering::SeqCst);
-    let node = Rc::new(RefCell::new(ArkUINode {
-        owns_raw: true,
-        retained: Default::default(),
-        disposed: false,
-    }));
-    let other_owner = node.borrow().retain_native().unwrap();
+    let node = ArkUINode::new().into_rc();
+    let other_owner = node.clone();
+    let weak = Rc::downgrade(&node);
     let mut root = root::RootNode::new(ArkUIHandle);
-    root.mount_node(node.clone()).unwrap();
+    root.mount_node(node).unwrap();
+    assert_eq!(other_owner.borrow().self_weak.strong_count(), 2);
     assert!(root.unmount().is_err());
     assert_eq!(REMOVALS.load(Ordering::SeqCst), 1);
-    assert!(!node.borrow().disposed);
+    assert!(!other_owner.borrow().disposed);
     drop(other_owner);
     root.unmount().unwrap();
     assert_eq!(REMOVALS.load(Ordering::SeqCst), 1);
-    assert!(node.borrow().disposed);
+    assert!(weak.upgrade().is_none());
 }
 
 #[test]
-fn dropping_a_root_quarantines_its_guard_when_the_native_edge_survives() {
+fn dropping_a_root_retains_its_rc_when_the_native_edge_survives() {
     let _serial = TEST_LOCK.lock().unwrap();
     REMOVALS.store(0, Ordering::SeqCst);
-    let node = Rc::new(RefCell::new(ArkUINode {
-        owns_raw: true,
-        retained: Default::default(),
-        disposed: false,
-    }));
+    // Exercise binding of a caller-created Rc as well as into_rc above.
+    let node = Rc::new(RefCell::new(ArkUINode::new()));
     let mut root = root::RootNode::new(ArkUIHandle);
     root.mount_node(node.clone()).unwrap();
     FAIL_REMOVAL.store(true, Ordering::SeqCst);
     drop(root);
     FAIL_REMOVAL.store(false, Ordering::SeqCst);
     assert_eq!(REMOVALS.load(Ordering::SeqCst), 1);
-    assert!(node.borrow().retained.is_retained());
+    assert_eq!(Rc::strong_count(&node), 2);
     assert!(node.borrow_mut().dispose().is_err());
 }
