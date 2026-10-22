@@ -19,7 +19,6 @@ pub struct RootNode {
 struct MountedRoot {
     node: Rc<RefCell<ArkUINode>>,
     attached: bool,
-    retention: Option<crate::common::node_retention::NodeRetention>,
 }
 
 impl RootNode {
@@ -32,7 +31,7 @@ impl RootNode {
     }
 
     pub fn mount<T: Into<ArkUINode>>(&mut self, node: T) -> ArkUIResult<()> {
-        self.mount_node(Rc::new(RefCell::new(node.into())))
+        self.mount_node(node.into().into_rc())
     }
 
     /// Mount an identity-stable wrapper as the NodeContent root.
@@ -48,13 +47,13 @@ impl RootNode {
                 "Mount root node failed, a base node is already mounted",
             ));
         }
-        if !base.borrow().owns_raw {
+        if !base.borrow().owns_raw || base.borrow().raw_handle().is_null() {
             return Err(ArkUIError::new(
                 ArkUIErrorCode::ParamInvalid,
-                "Mount root node failed, the node handle is borrowed",
+                "Mount root node failed, the node handle is borrowed or null",
             ));
         }
-        let retention = base.borrow().retain_native()?;
+        ArkUINode::bind_rc(&base);
         // Same event-dispatch contract as every wrapper-mounted child: the
         // receiver resolves callbacks through this identity-stable wrapper.
         crate::common::node_registry::register(&base.borrow(), base.clone())?;
@@ -72,7 +71,6 @@ impl RootNode {
         self.base = Some(MountedRoot {
             node: base,
             attached: true,
-            retention: Some(retention),
         });
         Ok(())
     }
@@ -83,8 +81,6 @@ impl RootNode {
             if base.attached {
                 self.handle.remove_node(&base.node.borrow())?;
                 base.attached = false;
-                // Release our claim only after the native edge is gone.
-                base.retention.take();
             }
             base.node.borrow_mut().dispose()?;
             self.base = None;
@@ -115,8 +111,8 @@ impl Drop for RootNode {
             log::error!("RootNode Drop cleanup failed: {error:?}; use unmount for retry");
             if self.base.as_ref().is_some_and(|base| base.attached) {
                 if let Some(base) = self.base.take() {
-                    // The native edge remains live. Keep its disposal guard
-                    // rather than permitting safe disposal of the attached node.
+                    // The native edge remains live. Keep its strong Rc owner
+                    // so safe disposal of the attached node stays blocked.
                     std::mem::forget(base);
                 }
             }
