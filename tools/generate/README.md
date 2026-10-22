@@ -12,6 +12,11 @@ The generator processes all registered sys crates. Check the resulting diff befo
 committing. `native_child_process` uses `AbilityKit/native_child_process.h` and links
 `child_process`, following the same registration path as the other components.
 
+To regenerate a selected API without rewriting unrelated sys crates, set
+`OHOS_BINDINGS_GENERATE_ONLY=ohos-native-image-sys` (comma-separated crate names).
+NativeImage declarations are generated from `native_image/native_image.h`, including
+their API gates; maintain declarations through the generator configuration.
+
 API12 is the baseline. Later declarations are gated by their `@since` annotations.
 For opaque records whose comments bindgen drops, the generator recovers annotations
 from forward declarations in the included headers and combines them with the

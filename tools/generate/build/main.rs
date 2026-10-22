@@ -42,6 +42,7 @@ static CONFIG: Lazy<Vec<Lazy<SysConfig>>> = Lazy::new(|| {
         config::NATIVE_WINDOW,
         config::ACCESSIBILITY,
         config::NATIVE_BUFFER,
+        config::NATIVE_IMAGE,
         config::PASTEBOARD,
         config::UDMF,
         config::IMAGE_NATIVE,
@@ -321,14 +322,29 @@ fn format_rust_file(path: &Path) -> anyhow::Result<()> {
 fn main() {
     // Unit tests exercise generation with fixtures and must not rewrite the workspace.
     println!("cargo:rerun-if-env-changed=OHOS_BINDINGS_SKIP_GENERATION");
+    println!("cargo:rerun-if-env-changed=OHOS_BINDINGS_GENERATE_ONLY");
     println!("cargo:rerun-if-changed=build");
     if env::var_os("OHOS_BINDINGS_SKIP_GENERATION").is_some_and(|value| value == "1") {
         return;
     }
     let mut header_inventory = HeaderSinceInventory::default();
+    // Targeted SDK additions must not rewrite unrelated, locally edited sys crates.
+    let selected = env::var("OHOS_BINDINGS_GENERATE_ONLY").ok();
+    let configs: Vec<_> = CONFIG
+        .iter()
+        .filter(|config| {
+            selected
+                .as_ref()
+                .is_none_or(|names| names.split(',').any(|name| name.trim() == config.name))
+        })
+        .collect();
+    assert!(
+        !configs.is_empty(),
+        "No registered sys configuration matched OHOS_BINDINGS_GENERATE_ONLY"
+    );
     let mut failed_configs = Vec::new();
     let mut generated_files = Vec::new();
-    CONFIG
+    configs
         .iter()
         .for_each(|i| match generate_code(i, &mut header_inventory) {
             Ok((output_file, header_since)) => {
@@ -372,7 +388,7 @@ fn main() {
         }
     }
 
-    for config in CONFIG.iter() {
+    for config in &configs {
         let manifest_path = match sys_crate_folder(config) {
             Ok(crate_dir) => crate_dir.join("Cargo.toml"),
             Err(e) => {
