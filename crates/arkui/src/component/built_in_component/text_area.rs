@@ -803,10 +803,13 @@ impl super::TextArea {
             self,
             crate::NodeEventType::TextAreaOnWillInsert,
             move |event| {
-                let should_insert = cb(
-                    event.f32_value(0).unwrap_or_default(),
-                    event.string_value(0).unwrap_or_default(),
-                );
+                let Ok(text) = event
+                    .string_value(0)
+                    .inspect_err(|error| log::error!("{error}"))
+                else {
+                    return;
+                };
+                let should_insert = cb(event.f32_value(0).unwrap_or_default(), text);
                 let _ = event.set_return_bool(should_insert);
             },
         );
@@ -817,10 +820,13 @@ impl super::TextArea {
             self,
             crate::NodeEventType::TextAreaOnDidInsert,
             move |event| {
-                cb(
-                    event.f32_value(0).unwrap_or_default(),
-                    event.string_value(0).unwrap_or_default(),
-                );
+                let Ok(text) = event
+                    .string_value(0)
+                    .inspect_err(|error| log::error!("{error}"))
+                else {
+                    return;
+                };
+                cb(event.f32_value(0).unwrap_or_default(), text);
             },
         );
     }
@@ -830,10 +836,16 @@ impl super::TextArea {
             self,
             crate::NodeEventType::TextAreaOnWillDelete,
             move |event| {
+                let Ok(text) = event
+                    .string_value(0)
+                    .inspect_err(|error| log::error!("{error}"))
+                else {
+                    return;
+                };
                 let should_delete = cb(
                     event.f32_value(0).unwrap_or_default(),
                     event.i32_value(1).unwrap_or_default(),
-                    event.string_value(0).unwrap_or_default(),
+                    text,
                 );
                 let _ = event.set_return_bool(should_delete);
             },
@@ -845,10 +857,16 @@ impl super::TextArea {
             self,
             crate::NodeEventType::TextAreaOnDidDelete,
             move |event| {
+                let Ok(text) = event
+                    .string_value(0)
+                    .inspect_err(|error| log::error!("{error}"))
+                else {
+                    return;
+                };
                 cb(
                     event.f32_value(0).unwrap_or_default(),
                     event.i32_value(1).unwrap_or_default(),
-                    event.string_value(0).unwrap_or_default(),
+                    text,
                 );
             },
         );

@@ -52,6 +52,18 @@ let _ = (pan, native);
 Use `on_tap_gesture` for taps, `on_pan_gesture` for continuous dragging, and
 `on_swipe_gesture` for a fast directional swipe.
 
+### Callback string errors
+
+`Event::string_value(index)` returns `Result<String, event::StringValueError>`.
+It distinguishes an invalid index, native failure, malformed UTF-8, missing
+termination and allocation/capacity failure. Buffers grow without a fixed
+policy size cap. The legacy strcpy status workaround is limited to API-12
+builds; API-13+ builds require the native success status.
+
+Typed text insertion/deletion handlers log decode failures and leave the
+native return value unchanged instead of passing fabricated empty text.
+NodeContent callback panics are logged and contained at the FFI boundary.
+
 ## License
 
 MIT OR Apache-2.0

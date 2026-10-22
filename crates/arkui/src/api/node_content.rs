@@ -1,6 +1,6 @@
 //! Module api::node_content wrappers and related types.
 
-use std::{os::raw::c_void, ptr::NonNull};
+use std::{os::raw::c_void, ptr::NonNull, rc::Rc};
 
 use ohos_arkui_sys::{
     ArkUI_NodeContentEvent, ArkUI_NodeContentHandle, OH_ArkUI_NodeContentEvent_GetEventType,
@@ -41,7 +41,7 @@ impl NodeContentEvent {
 }
 
 struct NodeContentCallbackContext {
-    callback: Box<dyn Fn(&mut NodeContentEvent)>,
+    callback: Rc<dyn Fn(&mut NodeContentEvent)>,
 }
 
 /// Safe wrapper for `ArkUI_NodeContentHandle`.
@@ -89,54 +89,71 @@ impl NodeContent {
     }
 
     /// Registers a callback invoked when node-content events are emitted.
+    /// Panics are logged and contained at the native callback boundary.
     pub fn register_callback<T: Fn(&mut NodeContentEvent) + 'static>(
         &mut self,
         callback: T,
     ) -> ArkUIResult<()> {
         self.clear_callback()?;
         let context = Box::into_raw(Box::new(NodeContentCallbackContext {
-            callback: Box::new(callback),
+            callback: Rc::new(callback),
         }));
         let context = non_null_or_panic(context, "NodeContentCallbackContext");
         if let Err(err) = self
             .handle
             .set_node_content_user_data(context.as_ptr().cast())
         {
-            unsafe {
-                drop(Box::from_raw(context.as_ptr()));
-            }
-            return Err(err);
-        }
-        let register_result = self
-            .handle
-            .register_node_content_callback(Some(node_content_callback_trampoline));
-        if let Err(err) = register_result {
-            let _ = self.handle.set_node_content_user_data(std::ptr::null_mut());
+            // SAFETY: native registration has not acquired the allocated box.
             unsafe {
                 drop(Box::from_raw(context.as_ptr()));
             }
             return Err(err);
         }
         self.callback_context = Some(context);
+        let register_result = self
+            .handle
+            .register_node_content_callback(Some(node_content_callback_trampoline));
+        if let Err(err) = register_result {
+            // If reset fails, retain the context for a later cleanup attempt;
+            // a previously installed trampoline could still read this data.
+            if let Err(error) = self.clear_callback() {
+                log::error!(
+                    "NodeContent callback cleanup failed; retaining native context: {error:?}"
+                );
+            }
+            return Err(err);
+        }
         Ok(())
     }
 
     /// Unregisters the callback and releases callback resources.
     pub fn clear_callback(&mut self) -> ArkUIResult<()> {
-        let unregister_result = self.handle.register_node_content_callback(None);
-        let clear_data_result = self.handle.set_node_content_user_data(std::ptr::null_mut());
-
-        if unregister_result.is_ok() || clear_data_result.is_ok() {
-            if let Some(context) = self.callback_context.take() {
-                unsafe {
-                    drop(Box::from_raw(context.as_ptr()));
-                }
+        if self.callback_context.is_none() {
+            return Ok(());
+        }
+        // RegisterCallback rejects a null callback. Keep the static trampoline
+        // installed and remove its user data before releasing the closure.
+        self.handle
+            .set_node_content_user_data(std::ptr::null_mut())?;
+        if let Some(context) = self.callback_context.take() {
+            // SAFETY: registration allocated this box; native code can no
+            // longer obtain it after the successful user-data reset.
+            unsafe {
+                drop(Box::from_raw(context.as_ptr()));
             }
         }
 
-        unregister_result?;
-        clear_data_result?;
         Ok(())
+    }
+}
+
+impl Drop for NodeContent {
+    fn drop(&mut self) {
+        // If native code refuses retirement, leave its context allocated so a
+        // later callback cannot dereference freed Rust state.
+        if let Err(error) = self.clear_callback() {
+            log::error!("NodeContent Drop cleanup failed; retaining native context: {error:?}");
+        }
     }
 }
 
@@ -168,6 +185,13 @@ unsafe extern "C" fn node_content_callback_trampoline(event: *mut ArkUI_NodeCont
     if user_data.is_null() {
         return;
     }
-    let callback = unsafe { &*(user_data as *mut NodeContentCallbackContext) };
-    (callback.callback)(&mut event);
+    // SAFETY: user data is installed by register_callback and is live on this
+    // UI thread. Clone before calling so clearing from the callback is safe.
+    let callback = unsafe { &*(user_data as *mut NodeContentCallbackContext) }
+        .callback
+        .clone();
+    // A user panic must not unwind across ArkUI's native callback boundary.
+    if std::panic::catch_unwind(std::panic::AssertUnwindSafe(|| callback(&mut event))).is_err() {
+        log::error!("NodeContent callback panicked");
+    }
 }

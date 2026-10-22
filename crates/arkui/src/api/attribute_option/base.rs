@@ -10,8 +10,7 @@ use std::{
 use ohos_arkui_input_binding::ArkUIErrorCode;
 use ohos_arkui_sys::*;
 
-use crate::check_arkui_status;
-use crate::{ArkUIError, ArkUIResult};
+use crate::{check_arkui_status, ArkUIError, ArkUIResult};
 
 pub(in crate::api::attribute_option) fn non_null_or_panic<T>(
     ptr: *mut T,
@@ -362,6 +361,8 @@ impl AlignmentRuleOption {
 /// Accessibility value wrapper exposed by ArkUI attributes.
 pub struct AccessibilityValue {
     raw: NonNull<ArkUI_AccessibilityValue>,
+    // ArkUI's option stores a borrowed text pointer until the attribute consumes it.
+    text: Option<CString>,
 }
 
 impl AccessibilityValue {
@@ -384,6 +385,7 @@ impl AccessibilityValue {
     pub(crate) fn from_raw(raw: *mut ArkUI_AccessibilityValue) -> Self {
         Self {
             raw: non_null_or_panic(raw, "ArkUI_AccessibilityValue"),
+            text: None,
         }
     }
 
@@ -450,9 +452,17 @@ impl AccessibilityValue {
     }
 
     pub fn set_text(&mut self, text: &str) -> ArkUIResult<()> {
-        with_cstring(text, |text_ptr| unsafe {
-            OH_ArkUI_AccessibilityValue_SetText(self.raw(), text_ptr)
-        })
+        let text = CString::new(text).map_err(|_| {
+            ArkUIError::new(
+                ArkUIErrorCode::ParamInvalid,
+                "accessibility text contains interior NUL bytes",
+            )
+        })?;
+        // SAFETY: both the old and new text remain live through the setter;
+        // the new buffer then lives until replacement or option disposal.
+        unsafe { OH_ArkUI_AccessibilityValue_SetText(self.raw(), text.as_ptr()) };
+        self.text = Some(text);
+        Ok(())
     }
 
     pub fn get_text(&self) -> Option<String> {

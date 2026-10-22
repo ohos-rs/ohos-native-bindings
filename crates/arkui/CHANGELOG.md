@@ -11,9 +11,13 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 - `KeyEvent::lock_state` requires `api-19`. Enable it only for API-19+ runtimes;
   lock queries link directly through the sys crate instead of runtime loading.
+- `Event::string_value` returns `Result<String, StringValueError>` instead of
+  `Option<String>`. Native errors, invalid UTF-8 and capacity failures are
+  distinct. The fixed 1 MiB cap is removed.
 
 ### Fixed
 
+- Copy mixed-event values with indexed output storage, retain accessibility text, and retire NodeContent callbacks safely during reentrant calls.
 - Keep API-14 key callbacks independent of the API-20 input discriminator.
 - Forward API features weakly to the optional XComponent binding, so API
   selection alone does not enable that capability.

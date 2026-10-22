@@ -10,7 +10,7 @@ use ohos_arkui_sys::{
 };
 #[cfg(feature = "api-22")]
 use std::ffi::CString;
-use std::{cell::RefCell, ffi::CStr, os::raw::c_char, os::raw::c_void, ptr::NonNull, rc::Rc};
+use std::{cell::RefCell, ffi::CStr, os::raw::c_void, ptr::NonNull, rc::Rc};
 
 use crate::NodeEventType;
 
@@ -112,11 +112,16 @@ impl Event {
     }
 
     pub(crate) fn number_value(&self, index: i32) -> Option<ArkUI_NumberValue> {
-        let mut value = ArkUI_NumberValue { i32_: 0 };
-        let status = unsafe { OH_ArkUI_NodeEvent_GetNumberValue(self.raw(), index, &mut value) };
+        let index = usize::try_from(index).ok().filter(|i| *i < 12)?;
+        let mut values = [ArkUI_NumberValue { i32_: 0 }; 12];
+        // SAFETY: the API indexes the caller's array by `index`; passing a
+        // single union here would write out of bounds for every index > 0.
+        let status = unsafe {
+            OH_ArkUI_NodeEvent_GetNumberValue(self.raw(), index as i32, values.as_mut_ptr())
+        };
         if status == ohos_arkui_input_binding::sys::ArkUI_ErrorCode_ARKUI_ERROR_CODE_NO_ERROR as i32
         {
-            Some(value)
+            Some(values[index])
         } else {
             None
         }
@@ -160,24 +165,17 @@ impl Event {
         Some(unsafe { component.as_ref().data[index] })
     }
 
-    pub fn string_value(&self, index: i32) -> Option<String> {
-        let mut ptr: *mut c_char = std::ptr::null_mut();
-        let mut size = 0;
-        let status =
-            unsafe { OH_ArkUI_NodeEvent_GetStringValue(self.raw(), index, &mut ptr, &mut size) };
-        if status != ohos_arkui_input_binding::sys::ArkUI_ErrorCode_ARKUI_ERROR_CODE_NO_ERROR as i32
-            || ptr.is_null()
-            || size <= 0
-        {
-            return None;
-        }
-        let bytes = unsafe { std::slice::from_raw_parts(ptr.cast::<u8>(), size as usize) };
-        let bytes = if bytes.last() == Some(&0) {
-            &bytes[..bytes.len() - 1]
-        } else {
-            bytes
-        };
-        Some(String::from_utf8_lossy(bytes).into_owned())
+    /// Copies a mixed-event UTF-8 string into owned storage during the callback.
+    ///
+    /// Returns distinct errors instead of treating malformed or oversized
+    /// output as an absent value. Buffer growth is bounded only by the native
+    /// i32 interface and fallible allocation.
+    pub fn string_value(&self, index: i32) -> Result<String, super::StringValueError> {
+        super::mixed_string::copy(index, |index, pointers, sizes| {
+            // SAFETY: the helper supplies indexed arrays and writable storage
+            // for this callback; the native API does not retain either array.
+            unsafe { OH_ArkUI_NodeEvent_GetStringValue(self.raw(), index, pointers, sizes) }
+        })
     }
 
     pub fn async_string(&self) -> Option<String> {
@@ -244,6 +242,14 @@ impl Event {
         let status =
             unsafe { OH_ArkUI_NodeEvent_SetReturnNumberValue(self.raw(), values.as_mut_ptr(), 1) };
         status == ohos_arkui_input_binding::sys::ArkUI_ErrorCode_ARKUI_ERROR_CODE_NO_ERROR as i32
+    }
+
+    /// Returns two float values, for example the x/y distances of an API-12 will-scroll event.
+    pub fn set_return_f32_pair(&self, first: f32, second: f32) -> bool {
+        self.set_return_values(&mut [
+            ArkUI_NumberValue { f32_: first },
+            ArkUI_NumberValue { f32_: second },
+        ])
     }
 
     pub fn set_return_bool(&self, value: bool) -> bool {
