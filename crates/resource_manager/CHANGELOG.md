@@ -9,6 +9,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Added
 
+- Add `ResourceManager::open_raw_file` and `RawFile::read_bounded(limit)` with
+  a caller-selected limit and checked partial-read progress.
 - Add fallible `ResourceManager::from_napi_value(Unknown<'_>)`, reporting null
   native initialization without retaining the callback's N-API value.
 
