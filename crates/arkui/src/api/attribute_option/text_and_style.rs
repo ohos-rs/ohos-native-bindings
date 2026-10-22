@@ -559,7 +559,8 @@ impl TextSelectionMenuOptions {
                 &mut node
             ))
         }?;
-        Ok(crate::ArkUINode::from_raw_handle(node))
+        // SAFETY: this native query returns a node owned by the queried live tree.
+        Ok(unsafe { crate::ArkUINode::from_raw_handle(node) })
     }
 
     pub fn set_response_type(&mut self, response_type: crate::TextResponseType) -> ArkUIResult<()> {

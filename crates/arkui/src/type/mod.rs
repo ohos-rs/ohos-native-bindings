@@ -16,10 +16,12 @@ pub mod gesture_event;
 pub mod gesture_group_mode;
 pub mod gesture_mask;
 pub mod gesture_priority;
+pub mod input;
 pub mod node_type;
 pub mod overlay;
 pub mod scroll;
 pub mod text_alignment;
+pub mod view;
 
 pub(crate) use advanced::*;
 pub(crate) use alignment::*;

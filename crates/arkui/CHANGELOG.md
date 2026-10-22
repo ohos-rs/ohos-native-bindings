@@ -9,6 +9,13 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Breaking
 
+- `ArkUINode::from_raw_handle`, `CustomNodeEventData::{removed_node,host_node}`,
+  `GestureEventRef::node`, `TouchRecognizerRef::node` and
+  `GestureEventData::node_handle` are unsafe. Keep the native owner live for
+  the complete lifetime of each returned borrowed wrapper.
+- `LayoutConstraintHandle<'event>` is callback-scoped and no longer Copy or
+  Clone. It disposes its native constraint snapshot on Drop; copy dimensions
+  rather than retaining the guard outside the callback.
 - `KeyEvent::lock_state` requires `api-19`. Enable it only for API-19+ runtimes;
   lock queries link directly through the sys crate instead of runtime loading.
 - `Event::string_value` returns `Result<String, StringValueError>` instead of
@@ -28,6 +35,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Added
 
+- Add callback-scoped custom layout helpers, copied integer attributes, typed view/input policies, and event/gesture registration on identity-stable nodes.
 - Add `ArkUINode::request_focus` for the native API-15 focus operation.
 - Add safe ArkUI key-event, component-event union, and node animator wrappers so downstream UI frameworks do not need direct `ohos-arkui-sys` access.
 - Add `ArkUINode::native_xcomponent` so downstream frameworks do not need the XComponent sys crate to resolve a mounted surface.

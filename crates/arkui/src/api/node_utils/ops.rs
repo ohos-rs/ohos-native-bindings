@@ -560,7 +560,8 @@ impl ActiveChildrenInfo {
 
     pub fn node_by_index(&self, index: i32) -> Option<ArkUINode> {
         let node = unsafe { OH_ArkUI_ActiveChildrenInfo_GetNodeByIndex(self.raw(), index) };
-        ArkUINode::from_raw_handle(node)
+        // SAFETY: this native query returns a node owned by the queried live tree.
+        unsafe { ArkUINode::from_raw_handle(node) }
     }
 }
 
@@ -1024,14 +1025,16 @@ impl ArkUIHandle {
     pub(crate) fn get_parent_in_page_tree(&self, node: &ArkUINode) -> Option<ArkUINode> {
         let _ = self.raw();
         let parent = unsafe { OH_ArkUI_NodeUtils_GetParentInPageTree(node.raw()) };
-        ArkUINode::from_raw_handle(parent)
+        // SAFETY: this native query returns a node owned by the queried live tree.
+        unsafe { ArkUINode::from_raw_handle(parent) }
     }
 
     #[cfg(feature = "api-14")]
     pub(crate) fn get_current_page_root_node(&self, node: &ArkUINode) -> Option<ArkUINode> {
         let _ = self.raw();
         let root = unsafe { OH_ArkUI_NodeUtils_GetCurrentPageRootNode(node.raw()) };
-        ArkUINode::from_raw_handle(root)
+        // SAFETY: this native query returns a node owned by the queried live tree.
+        unsafe { ArkUINode::from_raw_handle(root) }
     }
 
     #[cfg(feature = "api-14")]
@@ -1103,7 +1106,8 @@ impl ArkUIHandle {
                 expand_mode
             ))
         }?;
-        Ok(ArkUINode::from_raw_handle(subnode))
+        // SAFETY: this native query returns a node owned by the queried live tree.
+        Ok(unsafe { ArkUINode::from_raw_handle(subnode) })
     }
 
     #[cfg(feature = "api-18")]
@@ -1290,7 +1294,8 @@ impl ArkUIHandle {
         unsafe {
             check_arkui_status!(OH_ArkUI_NodeUtils_GetAttachedNodeHandleById(id, &mut node))
         }?;
-        Ok(ArkUINode::from_raw_handle(node))
+        // SAFETY: this native query returns a node owned by the queried live tree.
+        Ok(unsafe { ArkUINode::from_raw_handle(node) })
     }
 
     #[cfg(all(feature = "api-15", feature = "image"))]
@@ -1443,7 +1448,8 @@ impl ArkUIHandle {
                 unique_id, &mut node
             ))
         }?;
-        Ok(ArkUINode::from_raw_handle(node))
+        // SAFETY: this native query returns a node owned by the queried live tree.
+        Ok(unsafe { ArkUINode::from_raw_handle(node) })
     }
 
     #[cfg(feature = "api-20")]

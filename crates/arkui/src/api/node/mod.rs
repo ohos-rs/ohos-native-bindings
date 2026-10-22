@@ -134,6 +134,28 @@ impl ArkUINativeNodeAPI1 {
         }
     }
 
+    pub(crate) fn i32_attribute(
+        &self,
+        node: &ArkUINode,
+        attr: ArkUINodeAttributeType,
+        index: usize,
+    ) -> ArkUIResult<i32> {
+        // SAFETY: the node is live on its owning UI thread. Copy the declared
+        // integer union member before another call can replace ArkUI's buffer.
+        unsafe {
+            let item = (*self.raw())
+                .getAttribute
+                .and_then(|get| get(node.raw(), attr.into()).as_ref());
+            match item.filter(|item| !item.value.is_null() && index < item.size.max(0) as usize) {
+                Some(item) => Ok((*item.value.add(index)).i32_),
+                None => Err(ArkUIError::new(
+                    ArkUIErrorCode::AttributeOrEventNotSupported,
+                    "integer attribute is unavailable",
+                )),
+            }
+        }
+    }
+
     pub(crate) fn add_child(&self, parent: &ArkUINode, child: &ArkUINode) -> ArkUIResult<()> {
         unsafe {
             if let Some(add_child) = (*self.raw()).addChild {
