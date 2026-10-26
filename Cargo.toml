@@ -13,7 +13,7 @@ ohos-native-image-sys     = { version = "0.1.0", path = "sys/ohos-native-image-s
 ohos-native-image-binding = { version = "0.1.0", path = "crates/native_image" }
 # Match the registry AccessKit types consumed by the pinned OHOS adapter.
 accesskit                           = { version = "0.24" }
-accesskit_ohos                      = { git = "https://github.com/richerfu/accesskit.git", rev = "65751bfa2b83a0b0b06eaf564b4c83d032c33749" }
+accesskit_ohos                      = { git = "https://github.com/richerfu/accesskit.git", rev = "aa8688e89b8ba65f6e12a8cfd542a785d8efd471" }
 ohos-accessibility-binding          = { version = "0.2.0", path = "crates/accessibility" }
 ohos-ashmem-binding                 = { version = "0.1.0", path = "crates/ashmem" }
 ohos-bundle-binding                 = { version = "0.1.4", path = "crates/bundle" }
@@ -118,7 +118,6 @@ log               = { version = "0.4" }
 not_unsafe_ptr_arg_deref = "allow"
 
 [patch.crates-io]
-# accesskit_ohos consumes the public binding package. Until 0.1.0 is
-# published, examples and E2E must resolve that package to this workspace so
-# every provider uses the exact same Rust type and native callback registry.
+# Keep adapter providers and native callback state on the workspace binding.
+# External adapters must accept this workspace's accessibility compatibility line.
 ohos-accessibility-binding = { path = "crates/accessibility" }
