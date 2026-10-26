@@ -7,6 +7,13 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+### Breaking
+
+- Upgrade `ohos-arkui-input-binding` to 0.2 and
+  `ohos-accessibility-binding` to 0.2. Public input callbacks and accessibility
+  provider APIs expose types from these new, incompatible dependency versions.
+  Consumers passing these types across crate boundaries must upgrade together.
+
 ### Fixed
 
 - Forward API levels to the optional hilog dependency without enabling it.

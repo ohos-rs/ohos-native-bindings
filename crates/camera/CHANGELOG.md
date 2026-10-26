@@ -7,6 +7,12 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+### Breaking
+
+- Upgrade the optional `ohos-xcomponent-binding` dependency to 0.6.
+  `CameraXComponentAttachment::attach` accepts its `NativeXComponent` type;
+  consumers enabling `xcomponent` must use the matching dependency version.
+
 ## [0.1.3](https://github.com/ohos-rs/ohos-native-bindings/compare/ohos-camera-binding-v0.1.2...ohos-camera-binding-v0.1.3) - 2026-08-26
 
 ### Other
