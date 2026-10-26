@@ -1,5 +1,10 @@
-use cut_info::DisplayCutInfo;
-use fold_mode::FoldMode;
+pub use cut_info::{DisplayCutInfo, Rect, WaterfallDisplayAreaRect};
+#[cfg(feature = "api-14")]
+pub use display_info::{all_displays, display_by_id, primary_display, DisplayInfo, DisplayState};
+#[cfg(feature = "api-20")]
+pub use display_info::{display_available_area, display_position, display_source_mode, SourceMode};
+pub use error::{DisplayError, Result};
+pub use fold_mode::FoldMode;
 use ohos_display_sys::{
     OH_NativeDisplayManager_CreateDefaultDisplayCutoutInfo,
     OH_NativeDisplayManager_DestroyDefaultDisplayCutoutInfo,
@@ -16,10 +21,13 @@ use ohos_display_sys::{
     OH_NativeDisplayManager_GetDefaultDisplayWidth, OH_NativeDisplayManager_GetFoldDisplayMode,
     OH_NativeDisplayManager_IsFoldable,
 };
-use orientation::Orientation;
-use rotation::Rotation;
+pub use orientation::Orientation;
+pub use rotation::Rotation;
 
 mod cut_info;
+#[cfg(feature = "api-14")]
+mod display_info;
+mod error;
 mod event;
 mod fold_mode;
 mod orientation;
