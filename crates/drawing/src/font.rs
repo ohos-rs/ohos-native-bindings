@@ -2,14 +2,17 @@ use std::{ffi::CString, path::Path, ptr::NonNull, rc::Rc};
 
 use ohos_native_drawing_sys::{
     OH_Drawing_Font, OH_Drawing_FontCountText, OH_Drawing_FontCreate, OH_Drawing_FontDestroy,
-    OH_Drawing_FontGetMetrics, OH_Drawing_FontGetTextSize, OH_Drawing_FontMeasureText,
-    OH_Drawing_FontMgr, OH_Drawing_FontMgrCreate, OH_Drawing_FontMgrDestroy,
-    OH_Drawing_FontMgrMatchFamilyStyle, OH_Drawing_FontSetBaselineSnap, OH_Drawing_FontSetEdging,
-    OH_Drawing_FontSetFakeBoldText, OH_Drawing_FontSetHinting, OH_Drawing_FontSetLinearText,
-    OH_Drawing_FontSetScaleX, OH_Drawing_FontSetSubpixel, OH_Drawing_FontSetTextSize,
-    OH_Drawing_FontSetTextSkewX, OH_Drawing_FontSetTypeface, OH_Drawing_Font_Metrics,
-    OH_Drawing_MemoryStreamCreate, OH_Drawing_Typeface, OH_Drawing_TypefaceCreateFromFile,
-    OH_Drawing_TypefaceCreateFromStream, OH_Drawing_TypefaceDestroy,
+    OH_Drawing_FontGetEdging, OH_Drawing_FontGetHinting, OH_Drawing_FontGetMetrics,
+    OH_Drawing_FontGetScaleX, OH_Drawing_FontGetTextSize, OH_Drawing_FontGetTextSkewX,
+    OH_Drawing_FontIsBaselineSnap, OH_Drawing_FontIsFakeBoldText, OH_Drawing_FontIsLinearText,
+    OH_Drawing_FontIsSubpixel, OH_Drawing_FontMeasureText, OH_Drawing_FontMgr,
+    OH_Drawing_FontMgrCreate, OH_Drawing_FontMgrDestroy, OH_Drawing_FontMgrMatchFamilyStyle,
+    OH_Drawing_FontSetBaselineSnap, OH_Drawing_FontSetEdging, OH_Drawing_FontSetFakeBoldText,
+    OH_Drawing_FontSetHinting, OH_Drawing_FontSetLinearText, OH_Drawing_FontSetScaleX,
+    OH_Drawing_FontSetSubpixel, OH_Drawing_FontSetTextSize, OH_Drawing_FontSetTextSkewX,
+    OH_Drawing_FontSetTypeface, OH_Drawing_Font_Metrics, OH_Drawing_MemoryStreamCreate,
+    OH_Drawing_Typeface, OH_Drawing_TypefaceCreateFromFile, OH_Drawing_TypefaceCreateFromStream,
+    OH_Drawing_TypefaceDestroy,
 };
 #[cfg(feature = "api-20")]
 use ohos_native_drawing_sys::{
@@ -178,6 +181,15 @@ impl Font {
         }
     }
 
+    #[cfg(feature = "api-20")]
+    pub(crate) unsafe fn from_raw_owned(raw: *mut OH_Drawing_Font) -> Option<Self> {
+        NonNull::new(raw).map(|raw| Self {
+            raw,
+            _owned_typeface: None,
+            _shared_typeface: None,
+        })
+    }
+
     pub(crate) fn as_ptr(&self) -> *mut OH_Drawing_Font {
         self.raw.as_ptr()
     }
@@ -192,6 +204,10 @@ impl Font {
 
     pub fn set_fake_bold(&mut self, fake_bold: bool) {
         unsafe { OH_Drawing_FontSetFakeBoldText(self.raw.as_ptr(), fake_bold) };
+    }
+
+    pub fn is_fake_bold(&self) -> bool {
+        unsafe { OH_Drawing_FontIsFakeBoldText(self.raw.as_ptr()) }
     }
 
     pub fn set_typeface(&mut self, typeface: Typeface) {
@@ -211,28 +227,56 @@ impl Font {
         unsafe { OH_Drawing_FontSetScaleX(self.raw.as_ptr(), scale_x) };
     }
 
+    pub fn scale_x(&self) -> f32 {
+        unsafe { OH_Drawing_FontGetScaleX(self.raw.as_ptr()) }
+    }
+
     pub fn set_linear_text(&mut self, linear: bool) {
         unsafe { OH_Drawing_FontSetLinearText(self.raw.as_ptr(), linear) };
+    }
+
+    pub fn is_linear_text(&self) -> bool {
+        unsafe { OH_Drawing_FontIsLinearText(self.raw.as_ptr()) }
     }
 
     pub fn set_subpixel(&mut self, subpixel: bool) {
         unsafe { OH_Drawing_FontSetSubpixel(self.raw.as_ptr(), subpixel) };
     }
 
+    pub fn is_subpixel(&self) -> bool {
+        unsafe { OH_Drawing_FontIsSubpixel(self.raw.as_ptr()) }
+    }
+
     pub fn set_baseline_snap(&mut self, baseline_snap: bool) {
         unsafe { OH_Drawing_FontSetBaselineSnap(self.raw.as_ptr(), baseline_snap) };
+    }
+
+    pub fn is_baseline_snap(&self) -> bool {
+        unsafe { OH_Drawing_FontIsBaselineSnap(self.raw.as_ptr()) }
     }
 
     pub fn set_hinting(&mut self, hinting: FontHinting) {
         unsafe { OH_Drawing_FontSetHinting(self.raw.as_ptr(), hinting.into()) };
     }
 
+    pub fn hinting(&self) -> FontHinting {
+        unsafe { OH_Drawing_FontGetHinting(self.raw.as_ptr()) }.into()
+    }
+
     pub fn set_edging(&mut self, edging: FontEdging) {
         unsafe { OH_Drawing_FontSetEdging(self.raw.as_ptr(), edging.into()) };
     }
 
+    pub fn edging(&self) -> FontEdging {
+        unsafe { OH_Drawing_FontGetEdging(self.raw.as_ptr()) }.into()
+    }
+
     pub fn set_skew_x(&mut self, skew_x: f32) {
         unsafe { OH_Drawing_FontSetTextSkewX(self.raw.as_ptr(), skew_x) };
+    }
+
+    pub fn skew_x(&self) -> f32 {
+        unsafe { OH_Drawing_FontGetTextSkewX(self.raw.as_ptr()) }
     }
 
     pub fn count_text(&self, text: &str, encoding: TextEncoding) -> i32 {

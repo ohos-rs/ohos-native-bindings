@@ -43,7 +43,11 @@ pub use text::{
     TextRectHeightStyle, TextRectWidthStyle, TextShadow, TextStyle, Typography, TypographyBuilder,
     TypographyStyle,
 };
-pub use text_blob::TextBlob;
+#[cfg(feature = "api-18")]
+pub use text::{
+    GlyphRun, GlyphRuns, LineTypographicBounds, RunTypographicBounds, TextLine, TextLines,
+};
+pub use text_blob::{TextBlob, TextBlobBuilder};
 pub use types::{
     AlphaFormat, BitmapFormat, BlendMode, ClipOperation, ColorFormat, CornerPosition,
     DecorationPattern, EllipsisMode, FilterMode, FontEdging, FontHinting, FontSlant, FontStyle,

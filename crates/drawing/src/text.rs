@@ -9,6 +9,22 @@ use ohos_enum_derive::EnumFrom;
 use ohos_native_drawing_sys::OH_Drawing_GetFontCollectionGlobalInstance;
 #[cfg(not(feature = "api-20"))]
 use ohos_native_drawing_sys::OH_Drawing_TypographyHandlerAddText;
+#[cfg(feature = "api-18")]
+use ohos_native_drawing_sys::{
+    OH_Drawing_Array, OH_Drawing_DestroyRunGlyphs, OH_Drawing_DestroyRunPositions,
+    OH_Drawing_DestroyRunStringIndices, OH_Drawing_DestroyRuns, OH_Drawing_DestroyTextLines,
+    OH_Drawing_GetDrawingArraySize, OH_Drawing_GetRunByIndex, OH_Drawing_GetRunGlyphCount,
+    OH_Drawing_GetRunGlyphs, OH_Drawing_GetRunGlyphsByIndex, OH_Drawing_GetRunPositions,
+    OH_Drawing_GetRunPositionsByIndex, OH_Drawing_GetRunStringIndices,
+    OH_Drawing_GetRunStringIndicesByIndex, OH_Drawing_GetRunStringRange,
+    OH_Drawing_GetRunTypographicBounds, OH_Drawing_GetTextLineByIndex, OH_Drawing_PointGetX,
+    OH_Drawing_PointGetY, OH_Drawing_Run, OH_Drawing_RunPaint, OH_Drawing_TextLine,
+    OH_Drawing_TextLineGetAlignmentOffset, OH_Drawing_TextLineGetGlyphCount,
+    OH_Drawing_TextLineGetGlyphRuns, OH_Drawing_TextLineGetOffsetForStringIndex,
+    OH_Drawing_TextLineGetStringIndexForPosition, OH_Drawing_TextLineGetTextRange,
+    OH_Drawing_TextLineGetTrailingSpaceWidth, OH_Drawing_TextLineGetTypographicBounds,
+    OH_Drawing_TextLinePaint, OH_Drawing_TypographyGetTextLines,
+};
 use ohos_native_drawing_sys::{
     OH_Drawing_ClearFontCaches, OH_Drawing_CreateFontCollection,
     OH_Drawing_CreateSharedFontCollection, OH_Drawing_CreateTextShadow, OH_Drawing_CreateTextStyle,
@@ -58,15 +74,18 @@ use ohos_native_drawing_sys::{
 };
 #[cfg(feature = "api-20")]
 use ohos_native_drawing_sys::{
-    OH_Drawing_TypographyHandlerAddEncodedText, OH_Drawing_UnregisterFont,
+    OH_Drawing_DestroyRunGlyphAdvances, OH_Drawing_GetRunFont,
+    OH_Drawing_GetRunGlyphAdvanceByIndex, OH_Drawing_GetRunGlyphAdvances,
+    OH_Drawing_GetRunTextDirection, OH_Drawing_TypographyHandlerAddEncodedText,
+    OH_Drawing_UnregisterFont,
 };
 
-#[cfg(feature = "api-20")]
-use crate::TextEncoding;
 use crate::{
     check_error, Brush, Canvas, DecorationPattern, DrawingError, EllipsisMode, FontStyle, Pen,
     Point, Result, TextAlign, TextDirection,
 };
+#[cfg(feature = "api-20")]
+use crate::{Font, TextEncoding};
 
 #[derive(Debug)]
 pub struct FontCollection {
@@ -874,10 +893,367 @@ impl Typography {
                 .then(|| metrics.assume_init().into())
         }
     }
+
+    /// Returns the laid-out text lines of this paragraph (`OH_Drawing_TypographyGetTextLines`, API 18).
+    #[cfg(feature = "api-18")]
+    pub fn text_lines(&self) -> TextLines<'_> {
+        let raw = unsafe { OH_Drawing_TypographyGetTextLines(self.raw.as_ptr()) };
+        TextLines {
+            raw: NonNull::new(raw),
+            _owner: std::marker::PhantomData,
+        }
+    }
 }
 
 impl Drop for Typography {
     fn drop(&mut self) {
         unsafe { OH_Drawing_DestroyTypography(self.raw.as_ptr()) };
+    }
+}
+
+/// Typographic metrics of a laid-out [`TextLine`] (API 18).
+#[cfg(feature = "api-18")]
+#[derive(Debug, Clone, Copy, PartialEq)]
+pub struct LineTypographicBounds {
+    pub width: f64,
+    pub ascent: f64,
+    pub descent: f64,
+    pub leading: f64,
+}
+
+/// Typographic metrics of a laid-out [`GlyphRun`] (API 18).
+#[cfg(feature = "api-18")]
+#[derive(Debug, Clone, Copy, PartialEq)]
+pub struct RunTypographicBounds {
+    pub width: f32,
+    pub ascent: f32,
+    pub descent: f32,
+    pub leading: f32,
+}
+
+/// Owned array of [`TextLine`] items returned by [`Typography::text_lines`] (API 18).
+#[cfg(feature = "api-18")]
+#[derive(Debug)]
+pub struct TextLines<'a> {
+    raw: Option<NonNull<OH_Drawing_Array>>,
+    _owner: std::marker::PhantomData<&'a Typography>,
+}
+
+#[cfg(feature = "api-18")]
+impl<'a> TextLines<'a> {
+    pub fn len(&self) -> usize {
+        self.raw.map_or(0, |raw| unsafe {
+            OH_Drawing_GetDrawingArraySize(raw.as_ptr())
+        })
+    }
+
+    pub fn is_empty(&self) -> bool {
+        self.len() == 0
+    }
+
+    pub fn get(&self, index: usize) -> Option<TextLine<'_>> {
+        let raw = self.raw?;
+        let line = unsafe { OH_Drawing_GetTextLineByIndex(raw.as_ptr(), index) };
+        NonNull::new(line).map(|raw| TextLine {
+            raw,
+            _owner: std::marker::PhantomData,
+        })
+    }
+
+    pub fn iter(&self) -> impl Iterator<Item = TextLine<'_>> + '_ {
+        (0..self.len()).filter_map(|index| self.get(index))
+    }
+}
+
+#[cfg(feature = "api-18")]
+impl Drop for TextLines<'_> {
+    fn drop(&mut self) {
+        if let Some(raw) = self.raw {
+            unsafe { OH_Drawing_DestroyTextLines(raw.as_ptr()) };
+        }
+    }
+}
+
+/// A borrowed text line within a [`TextLines`] array (API 18).
+#[cfg(feature = "api-18")]
+#[derive(Clone, Copy, Debug)]
+pub struct TextLine<'a> {
+    raw: NonNull<OH_Drawing_TextLine>,
+    _owner: std::marker::PhantomData<&'a TextLines<'a>>,
+}
+
+#[cfg(feature = "api-18")]
+impl<'a> TextLine<'a> {
+    pub fn as_ptr(&self) -> *mut OH_Drawing_TextLine {
+        self.raw.as_ptr()
+    }
+
+    pub fn glyph_count(&self) -> usize {
+        let count = unsafe { OH_Drawing_TextLineGetGlyphCount(self.raw.as_ptr()) };
+        if count.is_finite() && count > 0.0 {
+            count as usize
+        } else {
+            0
+        }
+    }
+
+    pub fn text_range(&self) -> (usize, usize) {
+        let mut start = 0usize;
+        let mut end = 0usize;
+        unsafe { OH_Drawing_TextLineGetTextRange(self.raw.as_ptr(), &mut start, &mut end) };
+        (start, end)
+    }
+
+    pub fn typographic_bounds(&self) -> LineTypographicBounds {
+        let mut ascent = 0.0;
+        let mut descent = 0.0;
+        let mut leading = 0.0;
+        let width = unsafe {
+            OH_Drawing_TextLineGetTypographicBounds(
+                self.raw.as_ptr(),
+                &mut ascent,
+                &mut descent,
+                &mut leading,
+            )
+        };
+        LineTypographicBounds {
+            width,
+            ascent,
+            descent,
+            leading,
+        }
+    }
+
+    pub fn trailing_space_width(&self) -> f64 {
+        unsafe { OH_Drawing_TextLineGetTrailingSpaceWidth(self.raw.as_ptr()) }
+    }
+
+    pub fn alignment_offset(&self, factor: f64, width: f64) -> f64 {
+        unsafe { OH_Drawing_TextLineGetAlignmentOffset(self.raw.as_ptr(), factor, width) }
+    }
+
+    pub fn string_index_for_position(&self, x: f32, y: f32) -> i32 {
+        let point = Point::new(x, y);
+        unsafe { OH_Drawing_TextLineGetStringIndexForPosition(self.raw.as_ptr(), point.as_ptr()) }
+    }
+
+    pub fn offset_for_string_index(&self, index: i32) -> f64 {
+        unsafe { OH_Drawing_TextLineGetOffsetForStringIndex(self.raw.as_ptr(), index) }
+    }
+
+    pub fn paint(&self, canvas: &Canvas, x: f64, y: f64) {
+        unsafe { OH_Drawing_TextLinePaint(self.raw.as_ptr(), canvas.as_ptr(), x, y) };
+    }
+
+    pub fn glyph_runs(&self) -> GlyphRuns<'_> {
+        let raw = unsafe { OH_Drawing_TextLineGetGlyphRuns(self.raw.as_ptr()) };
+        GlyphRuns {
+            raw: NonNull::new(raw),
+            _owner: std::marker::PhantomData,
+        }
+    }
+}
+
+/// Owned array of [`GlyphRun`] items returned by [`TextLine::glyph_runs`] (API 18).
+#[cfg(feature = "api-18")]
+#[derive(Debug)]
+pub struct GlyphRuns<'a> {
+    raw: Option<NonNull<OH_Drawing_Array>>,
+    _owner: std::marker::PhantomData<&'a TextLine<'a>>,
+}
+
+#[cfg(feature = "api-18")]
+impl<'a> GlyphRuns<'a> {
+    pub fn len(&self) -> usize {
+        self.raw.map_or(0, |raw| unsafe {
+            OH_Drawing_GetDrawingArraySize(raw.as_ptr())
+        })
+    }
+
+    pub fn is_empty(&self) -> bool {
+        self.len() == 0
+    }
+
+    pub fn get(&self, index: usize) -> Option<GlyphRun<'_>> {
+        let raw = self.raw?;
+        let run = unsafe { OH_Drawing_GetRunByIndex(raw.as_ptr(), index) };
+        NonNull::new(run).map(|raw| GlyphRun {
+            raw,
+            _owner: std::marker::PhantomData,
+        })
+    }
+
+    pub fn iter(&self) -> impl Iterator<Item = GlyphRun<'_>> + '_ {
+        (0..self.len()).filter_map(|index| self.get(index))
+    }
+}
+
+#[cfg(feature = "api-18")]
+impl Drop for GlyphRuns<'_> {
+    fn drop(&mut self) {
+        if let Some(raw) = self.raw {
+            unsafe { OH_Drawing_DestroyRuns(raw.as_ptr()) };
+        }
+    }
+}
+
+/// A borrowed shaped glyph run within a [`GlyphRuns`] array (API 18).
+#[cfg(feature = "api-18")]
+#[derive(Clone, Copy, Debug)]
+pub struct GlyphRun<'a> {
+    raw: NonNull<OH_Drawing_Run>,
+    _owner: std::marker::PhantomData<&'a GlyphRuns<'a>>,
+}
+
+#[cfg(feature = "api-18")]
+impl<'a> GlyphRun<'a> {
+    pub fn as_ptr(&self) -> *mut OH_Drawing_Run {
+        self.raw.as_ptr()
+    }
+
+    pub fn glyph_count(&self) -> u32 {
+        unsafe { OH_Drawing_GetRunGlyphCount(self.raw.as_ptr()) }
+    }
+
+    pub fn string_range(&self) -> (u64, u64) {
+        let mut location = 0u64;
+        let mut length = 0u64;
+        unsafe { OH_Drawing_GetRunStringRange(self.raw.as_ptr(), &mut location, &mut length) };
+        (location, length)
+    }
+
+    pub fn typographic_bounds(&self) -> RunTypographicBounds {
+        let mut ascent = 0.0;
+        let mut descent = 0.0;
+        let mut leading = 0.0;
+        let width = unsafe {
+            OH_Drawing_GetRunTypographicBounds(
+                self.raw.as_ptr(),
+                &mut ascent,
+                &mut descent,
+                &mut leading,
+            )
+        };
+        RunTypographicBounds {
+            width,
+            ascent,
+            descent,
+            leading,
+        }
+    }
+
+    pub fn glyphs(&self) -> Vec<u16> {
+        let count = self.glyph_count();
+        if count == 0 {
+            return Vec::new();
+        }
+        unsafe {
+            let arr = OH_Drawing_GetRunGlyphs(self.raw.as_ptr(), 0, count as i64);
+            if arr.is_null() {
+                return Vec::new();
+            }
+            let len = OH_Drawing_GetDrawingArraySize(arr);
+            let mut out = Vec::with_capacity(len);
+            for index in 0..len {
+                out.push(OH_Drawing_GetRunGlyphsByIndex(arr, index));
+            }
+            OH_Drawing_DestroyRunGlyphs(arr);
+            out
+        }
+    }
+
+    pub fn positions(&self) -> Vec<(f32, f32)> {
+        let count = self.glyph_count();
+        if count == 0 {
+            return Vec::new();
+        }
+        unsafe {
+            let arr = OH_Drawing_GetRunPositions(self.raw.as_ptr(), 0, count as i64);
+            if arr.is_null() {
+                return Vec::new();
+            }
+            let len = OH_Drawing_GetDrawingArraySize(arr);
+            let mut out = Vec::with_capacity(len);
+            for index in 0..len {
+                let pt = OH_Drawing_GetRunPositionsByIndex(arr, index);
+                let mut x = 0.0f32;
+                let mut y = 0.0f32;
+                if !pt.is_null() {
+                    OH_Drawing_PointGetX(pt, &mut x);
+                    OH_Drawing_PointGetY(pt, &mut y);
+                }
+                out.push((x, y));
+            }
+            OH_Drawing_DestroyRunPositions(arr);
+            out
+        }
+    }
+
+    pub fn string_indices(&self) -> Vec<u64> {
+        let count = self.glyph_count();
+        if count == 0 {
+            return Vec::new();
+        }
+        unsafe {
+            let arr = OH_Drawing_GetRunStringIndices(self.raw.as_ptr(), 0, count as i64);
+            if arr.is_null() {
+                return Vec::new();
+            }
+            let len = OH_Drawing_GetDrawingArraySize(arr);
+            let mut out = Vec::with_capacity(len);
+            for index in 0..len {
+                out.push(OH_Drawing_GetRunStringIndicesByIndex(arr, index));
+            }
+            OH_Drawing_DestroyRunStringIndices(arr);
+            out
+        }
+    }
+
+    pub fn paint(&self, canvas: &Canvas, x: f64, y: f64) {
+        unsafe { OH_Drawing_RunPaint(canvas.as_ptr(), self.raw.as_ptr(), x, y) };
+    }
+
+    /// Returns an owned [`Font`] copy for this glyph run (`OH_Drawing_GetRunFont`, API 20).
+    #[cfg(feature = "api-20")]
+    pub fn font(&self) -> Option<Font> {
+        unsafe { Font::from_raw_owned(OH_Drawing_GetRunFont(self.raw.as_ptr())) }
+    }
+
+    /// Returns the text direction of this glyph run (`OH_Drawing_GetRunTextDirection`, API 20).
+    #[cfg(feature = "api-20")]
+    pub fn text_direction(&self) -> TextDirection {
+        let raw = unsafe { OH_Drawing_GetRunTextDirection(self.raw.as_ptr()) };
+        if raw == OH_Drawing_TextDirection_TEXT_DIRECTION_RTL {
+            TextDirection::Rtl
+        } else {
+            TextDirection::Ltr
+        }
+    }
+
+    /// Returns per-glyph horizontal advances for this glyph run (`OH_Drawing_GetRunGlyphAdvances`, API 20).
+    #[cfg(feature = "api-20")]
+    pub fn glyph_advances(&self) -> Vec<f32> {
+        let count = self.glyph_count();
+        if count == 0 {
+            return Vec::new();
+        }
+        unsafe {
+            let arr = OH_Drawing_GetRunGlyphAdvances(self.raw.as_ptr(), 0, count);
+            if arr.is_null() {
+                return Vec::new();
+            }
+            let len = OH_Drawing_GetDrawingArraySize(arr);
+            let mut out = Vec::with_capacity(len);
+            for index in 0..len {
+                let pt = OH_Drawing_GetRunGlyphAdvanceByIndex(arr, index);
+                let mut advance = 0.0f32;
+                if !pt.is_null() {
+                    OH_Drawing_PointGetX(pt, &mut advance);
+                }
+                out.push(advance);
+            }
+            OH_Drawing_DestroyRunGlyphAdvances(arr);
+            out
+        }
     }
 }
