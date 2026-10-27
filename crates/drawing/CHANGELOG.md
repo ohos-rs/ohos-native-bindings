@@ -7,6 +7,12 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [0.2.6](https://github.com/ohos-rs/ohos-native-bindings/compare/ohos-drawing-binding-v0.2.5...ohos-drawing-binding-v0.2.6) - 2026-10-27
+
+### Added
+
+- expand ArkUI, Drawing, ResourceManager, and DeviceInfo bindings ([#199](https://github.com/ohos-rs/ohos-native-bindings/pull/199))
+
 - Add owned typography ranges, placeholders, metrics, decorations and ellipsis;
   add fallible `TypographyBuilder::try_add_text` for earlier APIs' C-string limits.
 - Add owned image blur and color blend filters, and preserve full 3×3 matrices.

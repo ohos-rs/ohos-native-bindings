@@ -7,6 +7,12 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [0.3.6](https://github.com/ohos-rs/ohos-native-bindings/compare/ohos-resource-manager-binding-v0.3.5...ohos-resource-manager-binding-v0.3.6) - 2026-10-27
+
+### Added
+
+- expand ArkUI, Drawing, ResourceManager, and DeviceInfo bindings ([#199](https://github.com/ohos-rs/ohos-native-bindings/pull/199))
+
 ### Added
 
 - Add `ResourceManager::open_raw_file` and `RawFile::read_bounded(limit)` with
