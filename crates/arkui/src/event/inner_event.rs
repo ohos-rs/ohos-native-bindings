@@ -155,6 +155,16 @@ impl Event {
             .map(|value| unsafe { value.f32_ })
     }
 
+    /// Returns the hover state carried by an `OnHover` component event.
+    ///
+    /// `NODE_ON_HOVER` populates `ArkUI_NodeComponentEvent.data[0].i32` rather
+    /// than the number-value array read by `OH_ArkUI_NodeEvent_GetNumberValue`.
+    pub fn is_hovered(&self) -> Option<bool> {
+        self.component_i32(0)
+            .or_else(|| self.i32_value(0))
+            .map(|value| value != 0)
+    }
+
     fn component_number(&self, index: usize) -> Option<ArkUI_NumberValue> {
         if index >= 12 {
             return None;

@@ -17,6 +17,7 @@ accesskit_ohos                      = { git = "https://github.com/richerfu/acces
 ohos-accessibility-binding          = { version = "0.2.0", path = "crates/accessibility" }
 ohos-ashmem-binding                 = { version = "0.1.0", path = "crates/ashmem" }
 ohos-bundle-binding                 = { version = "0.1.4", path = "crates/bundle" }
+ohos-device-binding                 = { version = "0.1.0", path = "crates/device" }
 ohos-init-binding                   = { version = "0.1.4", path = "crates/init" }
 ohos-hilog-binding                  = { version = "0.2.5", path = "crates/hilog" }
 ohos-asset-binding                  = { version = "0.1.6", path = "crates/asset" }
@@ -52,6 +53,7 @@ ohos-camera-binding                 = { version = "0.3.0", path = "crates/camera
 ohos-huks-binding                   = { version = "0.1.2", path = "crates/huks" }
 
 ohos-bundle-sys                 = { version = "0.1.4", path = "sys/ohos-bundle-sys" }
+ohos-device-sys                 = { version = "0.1.0", path = "sys/ohos-device-sys" }
 ohos-init-sys                   = { version = "0.1.4", path = "sys/ohos-init-sys" }
 ohos-hilogs-sys                 = { version = "0.1.4", path = "sys/ohos-hilogs-sys" }
 ohos-asset-sys                  = { version = "0.1.4", path = "sys/ohos-asset-sys" }

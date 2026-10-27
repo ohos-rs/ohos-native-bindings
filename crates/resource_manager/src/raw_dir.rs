@@ -199,6 +199,21 @@ impl RawFile {
         ret
     }
 
+    /// Reads up to `buffer.len()` bytes directly into `buffer` and returns the actual byte count read.
+    pub fn read_into(&self, buffer: &mut [u8]) -> Result<usize, RawFileError> {
+        if buffer.is_empty() {
+            return Ok(0);
+        }
+        let len = buffer.len().min(i32::MAX as usize);
+        let n = unsafe {
+            OH_ResourceManager_ReadRawFile(self.raw.as_ptr(), buffer.as_mut_ptr().cast(), len)
+        };
+        usize::try_from(n)
+            .ok()
+            .filter(|&count| count <= len)
+            .ok_or_else(|| RawFileError::FfiInnerError("raw resource read failed".into()))
+    }
+
     pub fn remain(&self) -> i32 {
         unsafe { OH_ResourceManager_GetRawFileRemainingLength(self.raw.as_ptr()) as _ }
     }
@@ -267,6 +282,21 @@ impl RawFile64 {
             )
         };
         ret
+    }
+
+    /// Reads up to `buffer.len()` bytes directly into `buffer` and returns the actual byte count read.
+    pub fn read_into(&self, buffer: &mut [u8]) -> Result<usize, RawFileError> {
+        if buffer.is_empty() {
+            return Ok(0);
+        }
+        let len = i64::try_from(buffer.len()).unwrap_or(i64::MAX);
+        let n = unsafe {
+            OH_ResourceManager_ReadRawFile64(self.raw.as_ptr(), buffer.as_mut_ptr().cast(), len)
+        };
+        usize::try_from(n)
+            .ok()
+            .filter(|&count| count <= buffer.len())
+            .ok_or_else(|| RawFileError::FfiInnerError("raw resource read failed".into()))
     }
 
     pub fn remain(&self) -> i64 {
