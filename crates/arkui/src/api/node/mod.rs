@@ -616,13 +616,11 @@ impl ArkUINativeNodeAPI1 {
         // The receiver resolves callbacks through the thread-local registry
         // keyed by (handle, event type); the native user_data slot stays
         // untouched so it cannot dangle into registry-owned memory.
+        // Only the per-node custom-event receiver is installed so the host
+        // process's global custom-event receiver slot is never overwritten
+        // and custom callbacks are never dispatched twice.
         self.register_node_custom_event(node, event_type, target_id, std::ptr::null_mut())?;
         if let Err(err) = self.add_node_custom_event_receiver(node) {
-            let _ = self.unregister_node_custom_event(node, event_type);
-            return Err(err);
-        }
-        if let Err(err) = self.register_node_custom_event_receiver() {
-            let _ = self.remove_node_custom_event_receiver(node);
             let _ = self.unregister_node_custom_event(node, event_type);
             return Err(err);
         }
@@ -643,7 +641,16 @@ impl ArkUINativeNodeAPI1 {
     ) -> ArkUIResult<()> {
         self.unregister_node_custom_event(node, event_type)?;
         self.clear_node_custom_event_callback(node.raw(), event_type);
+        if !Self::has_node_custom_event_callbacks(node.raw()) {
+            let _ = self.remove_node_custom_event_receiver(node);
+        }
         Ok(())
+    }
+
+    fn has_node_custom_event_callbacks(node_handle: ArkUI_NodeHandle) -> bool {
+        let raw = node_handle as usize;
+        NODE_CUSTOM_EVENT_CALLBACKS
+            .with(|callbacks| callbacks.borrow().keys().any(|(handle, _)| *handle == raw))
     }
 
     fn clear_node_custom_event_callback(

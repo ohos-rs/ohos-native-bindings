@@ -45,6 +45,17 @@ pub trait ArkUIEvent: ArkUIAttributeBasic {
             .expect("ArkUI_NativeNodeAPI_1::registerNodeCustomEvent is None");
     }
 
+    /// Unregisters one custom node event and releases its Rust callback.
+    /// Removes the per-node custom event receiver once the last custom event is unregistered.
+    fn off_custom_event(
+        &mut self,
+        event_type: crate::NodeCustomEventType,
+    ) -> crate::ArkUIResult<()> {
+        let node = self.borrow_mut();
+        ARK_UI_NATIVE_NODE_API_1
+            .with(|api| api.unregister_node_custom_event_callback(node, event_type))
+    }
+
     fn on_custom_measure<T: Fn(&crate::NodeCustomEvent) + 'static>(&mut self, cb: T) {
         self.on_custom_event(crate::NodeCustomEventType::OnMeasure, cb);
     }
@@ -109,7 +120,7 @@ pub trait ArkUIEvent: ArkUIAttributeBasic {
 
     fn on_hover<T: Fn(bool) + 'static>(&mut self, cb: T) {
         self.on_event(NodeEventType::OnHover, move |event| {
-            cb(event.i32_value(0).unwrap_or_default() != 0);
+            cb(event.is_hovered().unwrap_or_default());
         });
     }
 
