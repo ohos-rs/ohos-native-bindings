@@ -7,6 +7,12 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [0.5.1](https://github.com/ohos-rs/ohos-native-bindings/compare/ohos-arkui-binding-v0.5.0...ohos-arkui-binding-v0.5.1) - 2026-10-27
+
+### Added
+
+- expand ArkUI, Drawing, ResourceManager, and DeviceInfo bindings ([#199](https://github.com/ohos-rs/ohos-native-bindings/pull/199))
+
 ### Breaking
 
 - `Dialog::content` owns transferred content until successful native removal
