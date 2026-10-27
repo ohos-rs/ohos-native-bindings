@@ -32,6 +32,7 @@ static CONFIG: Lazy<Vec<Lazy<SysConfig>>> = Lazy::new(|| {
         config::NATIVE_CHILD_PROCESS,
         config::ASSET,
         config::BUNDLE,
+        config::DEVICE,
         config::HILOG,
         config::INIT,
         config::VSYNC,
