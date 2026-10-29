@@ -882,6 +882,15 @@ impl Typography {
         unsafe { OH_Drawing_TypographyGetHeight(self.raw.as_ptr()) }
     }
 
+    /// Width required to lay out the paragraph without soft line breaks (API 8).
+    /// Read after `layout`; unlike `longest_line`, this includes clipped text.
+    pub fn max_intrinsic_width(&self) -> f64 {
+        // SAFETY: this owner keeps the laid-out paragraph alive.
+        unsafe {
+            ohos_native_drawing_sys::OH_Drawing_TypographyGetMaxIntrinsicWidth(self.raw.as_ptr())
+        }
+    }
+
     pub fn longest_line(&self) -> f64 {
         unsafe { OH_Drawing_TypographyGetLongestLine(self.raw.as_ptr()) }
     }

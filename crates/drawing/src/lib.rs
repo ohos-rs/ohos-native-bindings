@@ -12,6 +12,8 @@ mod image;
 mod matrix;
 mod path;
 mod pen;
+#[cfg(feature = "api-13")]
+mod recording;
 mod sampling;
 mod text;
 mod text_blob;
@@ -35,6 +37,8 @@ pub use matrix::Matrix;
 pub use ohos_native_drawing_sys::OH_Drawing_PlaceholderSpan as PlaceholderSpan;
 pub use path::Path;
 pub use pen::Pen;
+#[cfg(feature = "api-13")]
+pub use recording::{RecordCmd, Recording};
 pub use sampling::SamplingOptions;
 pub use text::{
     DrawingFontCollection, DrawingFontMetrics, DrawingLineMetrics, DrawingLineMetricsRaw,

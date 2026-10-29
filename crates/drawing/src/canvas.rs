@@ -90,6 +90,19 @@ impl Canvas {
         unsafe { OH_Drawing_CanvasSave(self.raw.as_ptr()) };
     }
 
+    /// Saves an isolated native layer. Its bounds use the current canvas units.
+    /// The brush is applied to the layer when `restore` is called (API 12).
+    pub fn save_layer(&self, bounds: Option<&Rect>, brush: Option<&Brush>) {
+        // SAFETY: the canvas and optional borrowed objects remain live for this call.
+        unsafe {
+            ohos_native_drawing_sys::OH_Drawing_CanvasSaveLayer(
+                self.raw.as_ptr(),
+                bounds.map_or(std::ptr::null(), |rect| rect.as_ptr().cast_const()),
+                brush.map_or(std::ptr::null(), |brush| brush.as_ptr().cast_const()),
+            )
+        };
+    }
+
     pub fn restore(&self) {
         unsafe { OH_Drawing_CanvasRestore(self.raw.as_ptr()) };
     }
