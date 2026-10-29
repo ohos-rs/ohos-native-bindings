@@ -7,6 +7,12 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [0.2.7](https://github.com/ohos-rs/ohos-native-bindings/compare/ohos-drawing-binding-v0.2.6...ohos-drawing-binding-v0.2.7) - 2026-10-29
+
+### Added
+
+- *(drawing)* add owned native command recordings ([#202](https://github.com/ohos-rs/ohos-native-bindings/pull/202))
+
 ## [0.2.6](https://github.com/ohos-rs/ohos-native-bindings/compare/ohos-drawing-binding-v0.2.5...ohos-drawing-binding-v0.2.6) - 2026-10-27
 
 ### Added
