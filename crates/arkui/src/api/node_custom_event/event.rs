@@ -51,12 +51,24 @@ impl NodeCustomEvent {
     /// The child must belong to this custom node on the current UI thread.
     pub fn measure_child(&self, child: &ArkUINode) -> ArkUIResult<()> {
         self.layout_node(crate::NodeCustomEventType::OnMeasure)?;
-        let constraint = self.layout_constraint_in_measure().ok_or_else(|| {
+        let mut constraint = self.layout_constraint_in_measure().ok_or_else(|| {
             crate::ArkUIError::new(
                 crate::arkui_input_binding::ArkUIErrorCode::ParamInvalid,
                 "measure event has no layout constraint",
             )
         })?;
+        self.measure_child_with_constraint(child, &mut constraint)
+    }
+
+    /// Measures a live child with an owned constraint snapshot. The child must
+    /// belong to this custom node, and the current event must be its measure
+    /// event. The snapshot is borrowed only for this synchronous call.
+    pub fn measure_child_with_constraint(
+        &self,
+        child: &ArkUINode,
+        constraint: &mut LayoutConstraintHandle<'_>,
+    ) -> ArkUIResult<()> {
+        self.layout_node(crate::NodeCustomEventType::OnMeasure)?;
         // SAFETY: the guard owns this constraint and releases it after the
         // synchronous measureNode call; native code does not retain it.
         crate::ARK_UI_NATIVE_NODE_API_1
