@@ -7,6 +7,34 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+### Added
+
+- `ArkUINodeAttributeItem` keeps up to 16 numbers inline and converts from
+  arrays and slices of `ArkUINodeAttributeNumber`, `f32`, `i32` and `u32`;
+  `from_numbers` builds one from a borrowed slice.
+- `ArkUICommonAttribute::set_number_slice_attribute` and `set_str_attribute`
+  set numbers and strings without heap allocation; `f32_attribute`,
+  `u32_attribute` and `f32_pair_attribute` copy values out of a native
+  attribute without allocating. `set_i32/u32/f32/bool_attribute` no longer
+  allocate.
+- `ArkUIContext::post_frame_callback` (api-18) and `post_idle_callback`
+  (api-20) post frame and idle callbacks on a UI context, without a node;
+  `ArkUIContext::raw_handle` returns its native handle.
+- `ArkUIContext::enable_event_passthrough` and `RawInputEventType` (api-26).
+
+### Changed
+
+- Frame and idle callbacks (`post_frame_callback`, `post_idle_callback` on
+  nodes and contexts) take `FnOnce`, as ArkUI calls them once; `Fn`
+  callbacks still compile.
+
+### Breaking
+
+- `ArkUICommonAttribute::set_string_attribute` and `id` take
+  `impl AsRef<str>` instead of `impl Into<String>`, so a value reaches ArkUI
+  without a copy. Pass a `&str` or `String` where a `char` or another
+  `Into<String>` type was passed.
+
 ## [0.5.2](https://github.com/ohos-rs/ohos-native-bindings/compare/ohos-arkui-binding-v0.5.1...ohos-arkui-binding-v0.5.2) - 2026-10-29
 
 ### Added
