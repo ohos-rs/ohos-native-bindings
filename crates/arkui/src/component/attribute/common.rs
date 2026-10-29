@@ -48,6 +48,23 @@ pub trait ArkUICommonAttribute: ArkUIAttributeBasic {
         ARK_UI_NATIVE_NODE_API_1.with(|api| api.i32_attribute(self.raw(), attribute, index))
     }
 
+    /// Copies an unsigned integer member of a native attribute's numeric array.
+    /// The caller selects attributes documented to return a u32 at this index.
+    fn u32_attribute(&self, attribute: ArkUINodeAttributeType, index: usize) -> ArkUIResult<u32> {
+        ARK_UI_NATIVE_NODE_API_1.with(|api| api.u32_attribute(self.raw(), attribute, index))
+    }
+
+    /// Copies a float member of a native attribute's numeric array without heap allocation.
+    /// The caller selects attributes documented to return an f32 at this index.
+    fn f32_attribute(&self, attribute: ArkUINodeAttributeType, index: usize) -> ArkUIResult<f32> {
+        ARK_UI_NATIVE_NODE_API_1.with(|api| api.f32_attribute(self.raw(), attribute, index))
+    }
+
+    /// Copies a `(x, y)` float pair from a native attribute without heap allocation.
+    fn f32_pair_attribute(&self, attribute: ArkUINodeAttributeType) -> ArkUIResult<(f32, f32)> {
+        ARK_UI_NATIVE_NODE_API_1.with(|api| api.f32_pair_attribute(self.raw(), attribute))
+    }
+
     fn reset_attribute(&self, attribute: ArkUINodeAttributeType) -> ArkUIResult<()> {
         ARK_UI_NATIVE_NODE_API_1.with(|api| api.reset_attribute(self.raw(), attribute))
     }
@@ -57,19 +74,28 @@ pub trait ArkUICommonAttribute: ArkUIAttributeBasic {
         attribute: ArkUINodeAttributeType,
         values: Vec<ArkUINodeAttributeNumber>,
     ) -> ArkUIResult<()> {
-        self.set_attribute(attribute, ArkUINodeAttributeItem::NumberValue(values))
+        self.set_attribute(attribute, ArkUINodeAttributeItem::from(values.as_slice()))
+    }
+
+    /// Sets a numeric array attribute from a borrowed slice without heap allocation when `values.len() <= 16`.
+    fn set_number_slice_attribute(
+        &self,
+        attribute: ArkUINodeAttributeType,
+        values: &[ArkUINodeAttributeNumber],
+    ) -> ArkUIResult<()> {
+        self.set_attribute(attribute, ArkUINodeAttributeItem::from_numbers(values))
     }
 
     fn set_i32_attribute(&self, attribute: ArkUINodeAttributeType, value: i32) -> ArkUIResult<()> {
-        self.set_number_attribute(attribute, vec![ArkUINodeAttributeNumber::Int(value)])
+        self.set_attribute(attribute, ArkUINodeAttributeItem::from(value))
     }
 
     fn set_u32_attribute(&self, attribute: ArkUINodeAttributeType, value: u32) -> ArkUIResult<()> {
-        self.set_number_attribute(attribute, vec![ArkUINodeAttributeNumber::Uint(value)])
+        self.set_attribute(attribute, ArkUINodeAttributeItem::from(value))
     }
 
     fn set_f32_attribute(&self, attribute: ArkUINodeAttributeType, value: f32) -> ArkUIResult<()> {
-        self.set_number_attribute(attribute, vec![ArkUINodeAttributeNumber::Float(value)])
+        self.set_attribute(attribute, ArkUINodeAttributeItem::from(value))
     }
 
     fn set_bool_attribute(
@@ -77,15 +103,20 @@ pub trait ArkUICommonAttribute: ArkUIAttributeBasic {
         attribute: ArkUINodeAttributeType,
         value: bool,
     ) -> ArkUIResult<()> {
-        self.set_i32_attribute(attribute, if value { 1 } else { 0 })
+        self.set_attribute(attribute, ArkUINodeAttributeItem::from(value))
     }
 
-    fn set_string_attribute<T: Into<String>>(
+    fn set_string_attribute<T: AsRef<str>>(
         &self,
         attribute: ArkUINodeAttributeType,
         value: T,
     ) -> ArkUIResult<()> {
-        self.set_attribute(attribute, ArkUINodeAttributeItem::String(value.into()))
+        self.set_str_attribute(attribute, value.as_ref())
+    }
+
+    /// Sets a string attribute directly from a borrowed `&str` without allocating an intermediate `String`.
+    fn set_str_attribute(&self, attribute: ArkUINodeAttributeType, value: &str) -> ArkUIResult<()> {
+        ARK_UI_NATIVE_NODE_API_1.with(|api| api.set_str_attribute(self.raw(), attribute, value))
     }
 
     fn set_object_attribute(
@@ -129,7 +160,7 @@ pub trait ArkUICommonAttribute: ArkUIAttributeBasic {
         self.set_bool_attribute(crate::ArkUINodeAttributeType::Enabled, enabled)
     }
 
-    fn id<T: Into<String>>(&self, id: T) -> ArkUIResult<()> {
+    fn id<T: AsRef<str>>(&self, id: T) -> ArkUIResult<()> {
         self.set_string_attribute(crate::ArkUINodeAttributeType::Id, id)
     }
 

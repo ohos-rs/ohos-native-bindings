@@ -123,7 +123,7 @@ struct NodeForceDarkCallbackContext {
 
 #[cfg(any(feature = "api-18", feature = "api-20"))]
 struct NodeTimestampFrameCallbackContext {
-    callback: Box<dyn Fn(u64, u32)>,
+    callback: Box<dyn FnOnce(u64, u32)>,
 }
 
 #[cfg(feature = "api-15")]
@@ -1898,35 +1898,125 @@ impl ArkUIHandle {
     }
 
     #[cfg(feature = "api-20")]
-    pub(crate) fn post_idle_callback<T: Fn(u64, u32) + 'static>(
+    pub(crate) fn post_idle_callback<T: FnOnce(u64, u32) + 'static>(
         &self,
         node: &ArkUINode,
         callback: T,
     ) -> ArkUIResult<()> {
         let context = self.context_by_node(node)?;
-        let callback = Box::into_raw(Box::new(NodeTimestampFrameCallbackContext {
-            callback: Box::new(callback),
-        }));
-        let result = unsafe {
-            check_arkui_status!(ohos_arkui_sys::OH_ArkUI_PostIdleCallback(
-                context,
-                callback.cast(),
-                Some(node_idle_callback_trampoline)
-            ))
-        };
-        if let Err(err) = result {
-            unsafe {
-                drop(Box::from_raw(callback));
-            }
-            return Err(err);
-        }
-        Ok(())
+        post_idle_callback_on_context(context, callback)
     }
 
     #[cfg(feature = "api-22")]
     pub(crate) fn swiper_finish_animation(&self, node: &ArkUINode) -> ArkUIResult<()> {
         let _ = self.raw();
         unsafe { check_arkui_status!(ohos_arkui_sys::OH_ArkUI_Swiper_FinishAnimation(node.raw())) }
+    }
+}
+
+#[cfg(feature = "api-18")]
+fn post_frame_callback_on_context<T: FnOnce(u64, u32) + 'static>(
+    context: ArkUI_ContextHandle,
+    callback: T,
+) -> ArkUIResult<()> {
+    if context.is_null() {
+        return Err(ArkUIError::new(
+            ArkUIErrorCode::ParamInvalid,
+            "ArkUI_ContextHandle is null",
+        ));
+    }
+    let callback = Box::into_raw(Box::new(NodeTimestampFrameCallbackContext {
+        callback: Box::new(callback),
+    }));
+    let result = unsafe {
+        check_arkui_status!(ohos_arkui_sys::OH_ArkUI_PostFrameCallback(
+            context,
+            callback.cast(),
+            Some(node_frame_callback_trampoline)
+        ))
+    };
+    if let Err(err) = result {
+        unsafe {
+            drop(Box::from_raw(callback));
+        }
+        return Err(err);
+    }
+    Ok(())
+}
+
+#[cfg(feature = "api-20")]
+fn post_idle_callback_on_context<T: FnOnce(u64, u32) + 'static>(
+    context: ArkUI_ContextHandle,
+    callback: T,
+) -> ArkUIResult<()> {
+    if context.is_null() {
+        return Err(ArkUIError::new(
+            ArkUIErrorCode::ParamInvalid,
+            "ArkUI_ContextHandle is null",
+        ));
+    }
+    let callback = Box::into_raw(Box::new(NodeTimestampFrameCallbackContext {
+        callback: Box::new(callback),
+    }));
+    let result = unsafe {
+        check_arkui_status!(ohos_arkui_sys::OH_ArkUI_PostIdleCallback(
+            context,
+            callback.cast(),
+            Some(node_idle_callback_trampoline)
+        ))
+    };
+    if let Err(err) = result {
+        unsafe {
+            drop(Box::from_raw(callback));
+        }
+        return Err(err);
+    }
+    Ok(())
+}
+
+#[cfg(all(feature = "napi", feature = "api-18"))]
+impl crate::common::ui_context::ArkUIContext {
+    /// Registers a one-shot callback executed on the UI thread during the next ArkUI frame (`OH_ArkUI_PostFrameCallback`).
+    pub fn post_frame_callback<T: FnOnce(u64, u32) + 'static>(
+        &self,
+        callback: T,
+    ) -> ArkUIResult<()> {
+        post_frame_callback_on_context(self.raw(), callback)
+    }
+}
+
+#[cfg(all(feature = "napi", feature = "api-20"))]
+impl crate::common::ui_context::ArkUIContext {
+    /// Registers a one-shot callback executed at the end of the next idle frame (`OH_ArkUI_PostIdleCallback`).
+    pub fn post_idle_callback<T: FnOnce(u64, u32) + 'static>(
+        &self,
+        callback: T,
+    ) -> ArkUIResult<()> {
+        post_idle_callback_on_context(self.raw(), callback)
+    }
+}
+
+#[cfg(all(feature = "napi", feature = "api-26"))]
+impl crate::common::ui_context::ArkUIContext {
+    /// Enables or disables direct input event passthrough without resampling (`OH_ArkUI_EnableEventPassthrough`).
+    pub fn enable_event_passthrough(
+        &self,
+        enabled: bool,
+        event_type: crate::common::ui_context::RawInputEventType,
+    ) -> ArkUIResult<()> {
+        if self.raw().is_null() {
+            return Err(ArkUIError::new(
+                ArkUIErrorCode::ParamInvalid,
+                "ArkUI_ContextHandle is null",
+            ));
+        }
+        unsafe {
+            check_arkui_status!(ohos_arkui_sys::OH_ArkUI_EnableEventPassthrough(
+                self.raw(),
+                enabled,
+                event_type.into(),
+            ))
+        }
     }
 }
 
@@ -1941,7 +2031,10 @@ impl ArkUINode {
 #[cfg(feature = "api-18")]
 impl ArkUINode {
     /// Register a one-shot callback during the next ArkUI frame for this node's UI context.
-    pub fn post_frame_callback<T: Fn(u64, u32) + 'static>(&self, callback: T) -> ArkUIResult<()> {
+    pub fn post_frame_callback<T: FnOnce(u64, u32) + 'static>(
+        &self,
+        callback: T,
+    ) -> ArkUIResult<()> {
         let context = unsafe { OH_ArkUI_GetContextByNode(self.raw()) };
         if context.is_null() {
             return Err(ArkUIError::new(
@@ -1949,31 +2042,17 @@ impl ArkUINode {
                 "OH_ArkUI_GetContextByNode returned null",
             ));
         }
-
-        let callback = Box::into_raw(Box::new(NodeTimestampFrameCallbackContext {
-            callback: Box::new(callback),
-        }));
-        let result = unsafe {
-            check_arkui_status!(ohos_arkui_sys::OH_ArkUI_PostFrameCallback(
-                context,
-                callback.cast(),
-                Some(node_frame_callback_trampoline)
-            ))
-        };
-        if let Err(err) = result {
-            unsafe {
-                drop(Box::from_raw(callback));
-            }
-            return Err(err);
-        }
-        Ok(())
+        post_frame_callback_on_context(context, callback)
     }
 }
 
 #[cfg(feature = "api-20")]
 impl ArkUINode {
     /// Register a one-shot callback at the end of the next idle frame for this node's UI context.
-    pub fn post_idle_callback<T: Fn(u64, u32) + 'static>(&self, callback: T) -> ArkUIResult<()> {
+    pub fn post_idle_callback<T: FnOnce(u64, u32) + 'static>(
+        &self,
+        callback: T,
+    ) -> ArkUIResult<()> {
         let context = unsafe { OH_ArkUI_GetContextByNode(self.raw()) };
         if context.is_null() {
             return Err(ArkUIError::new(
@@ -1981,24 +2060,7 @@ impl ArkUINode {
                 "OH_ArkUI_GetContextByNode returned null",
             ));
         }
-
-        let callback = Box::into_raw(Box::new(NodeTimestampFrameCallbackContext {
-            callback: Box::new(callback),
-        }));
-        let result = unsafe {
-            check_arkui_status!(ohos_arkui_sys::OH_ArkUI_PostIdleCallback(
-                context,
-                callback.cast(),
-                Some(node_idle_callback_trampoline)
-            ))
-        };
-        if let Err(err) = result {
-            unsafe {
-                drop(Box::from_raw(callback));
-            }
-            return Err(err);
-        }
-        Ok(())
+        post_idle_callback_on_context(context, callback)
     }
 
     /// Add supported UI state tracking for this node.

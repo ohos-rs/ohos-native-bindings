@@ -5,6 +5,30 @@ use napi_sys_ohos as sys;
 use ohos_arkui_sys::{ArkUI_ContextHandle, OH_ArkUI_GetContextFromNapiValue};
 use std::ptr;
 
+#[cfg(feature = "api-26")]
+/// Raw input event stream category controlled by [`ArkUIContext::enable_event_passthrough`].
+#[derive(Debug, Clone, Copy, PartialEq, Eq)]
+pub enum RawInputEventType {
+    /// Touch input events (`ARKUI_RAW_INPUT_EVENT_TYPE_TOUCH`).
+    Touch,
+    /// Mouse pointer events (`ARKUI_RAW_INPUT_EVENT_TYPE_MOUSE`).
+    Mouse,
+}
+
+#[cfg(feature = "api-26")]
+impl From<RawInputEventType> for ohos_arkui_sys::ArkUI_RawInputEventType {
+    fn from(value: RawInputEventType) -> Self {
+        match value {
+            RawInputEventType::Touch => {
+                ohos_arkui_sys::ArkUI_RawInputEventType_ARKUI_RAW_INPUT_EVENT_TYPE_TOUCH
+            }
+            RawInputEventType::Mouse => {
+                ohos_arkui_sys::ArkUI_RawInputEventType_ARKUI_RAW_INPUT_EVENT_TYPE_MOUSE
+            }
+        }
+    }
+}
+
 #[derive(Clone, Copy)]
 /// Wrapper around `ArkUI_ContextHandle` obtained from N-API values.
 pub struct ArkUIContext {
@@ -16,6 +40,11 @@ pub struct ArkUIContext {
 }
 
 impl ArkUIContext {
+    /// Returns the underlying native `ArkUI_ContextHandle`.
+    pub fn raw_handle(&self) -> ArkUI_ContextHandle {
+        self.raw
+    }
+
     pub(crate) fn raw(&self) -> ArkUI_ContextHandle {
         self.raw
     }
