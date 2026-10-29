@@ -7,7 +7,9 @@ use ohos_native_vsync_sys::{
 };
 
 #[cfg(feature = "api-14")]
-use ohos_native_vsync_sys::OH_NativeVSync_Create_ForAssociatedWindow;
+use ohos_native_vsync_sys::{
+    OH_NativeVSync_Create_ForAssociatedWindow, OH_NativeVSync_DVSyncSwitch,
+};
 
 #[cfg(feature = "api-20")]
 pub use ohos_native_vsync_sys::OH_NativeVSync_ExpectedRateRange;
@@ -151,6 +153,11 @@ impl Vsync {
             OH_NativeVSync_GetPeriod(self.raw.as_ptr(), &mut period);
         }
         period
+    }
+
+    #[cfg(feature = "api-14")]
+    pub fn set_dvsync(&self, enable: bool) -> i32 {
+        unsafe { OH_NativeVSync_DVSyncSwitch(self.raw.as_ptr(), enable) }
     }
 
     #[cfg(feature = "api-20")]
