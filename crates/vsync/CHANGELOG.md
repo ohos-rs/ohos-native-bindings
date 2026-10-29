@@ -7,6 +7,12 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [0.3.2](https://github.com/ohos-rs/ohos-native-bindings/compare/ohos-vsync-binding-v0.3.1...ohos-vsync-binding-v0.3.2) - 2026-10-29
+
+### Added
+
+- *(arkui)* read and write node attributes without heap allocation  ([#204](https://github.com/ohos-rs/ohos-native-bindings/pull/204))
+
 ### Added
 
 - `Vsync::set_dvsync` (api-14) switches DVSync on or off

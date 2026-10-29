@@ -26,8 +26,8 @@ ohos-image-binding                  = { version = "0.1.4", path = "crates/image"
 ohos-image-native-binding           = { version = "0.0.8", path = "crates/image_native" }
 ohos-ability-access-control-binding = { version = "0.1.4", path = "crates/ability_access_control" }
 ohos-xcomponent-binding             = { version = "0.6.0", path = "crates/xcomponent" }
-ohos-arkui-binding                  = { version = "0.5.2", path = "crates/arkui" }
-ohos-vsync-binding                  = { version = "0.3.1", path = "crates/vsync" }
+ohos-arkui-binding                  = { version = "0.5.3", path = "crates/arkui" }
+ohos-vsync-binding                  = { version = "0.3.2", path = "crates/vsync" }
 ohos-display-soloist-binding        = { version = "0.3.1", path = "crates/native_display_soloist" }
 ohos-ime-binding                    = { version = "0.4.0", path = "crates/ime" }
 ohos-display-binding                = { version = "0.1.5", path = "crates/display" }

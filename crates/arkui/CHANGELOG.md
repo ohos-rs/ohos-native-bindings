@@ -7,6 +7,12 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [0.5.3](https://github.com/ohos-rs/ohos-native-bindings/compare/ohos-arkui-binding-v0.5.2...ohos-arkui-binding-v0.5.3) - 2026-10-29
+
+### Added
+
+- *(arkui)* read and write node attributes without heap allocation  ([#204](https://github.com/ohos-rs/ohos-native-bindings/pull/204))
+
 ### Added
 
 - `ArkUINodeAttributeItem` keeps up to 16 numbers inline and converts from
