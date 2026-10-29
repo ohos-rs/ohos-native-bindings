@@ -114,6 +114,24 @@ impl ArkUINativeNodeAPI1 {
         })
     }
 
+    pub(crate) fn set_str_attribute(
+        &self,
+        node: &ArkUINode,
+        attr: ArkUINodeAttributeType,
+        value: &str,
+    ) -> ArkUIResult<()> {
+        ArkUINodeAttributeItem::with_str_raw(value, |value| unsafe {
+            if let Some(set_attribute) = (*self.raw()).setAttribute {
+                check_arkui_status!(set_attribute(node.raw(), attr.into(), value))
+            } else {
+                Err(ArkUIError::new(
+                    ArkUIErrorCode::AttributeOrEventNotSupported,
+                    "ArkUI_NativeNodeAPI_1::setAttribute is None",
+                ))
+            }
+        })
+    }
+
     pub(crate) fn get_attribute(
         &self,
         node: &ArkUINode,
@@ -151,6 +169,71 @@ impl ArkUINativeNodeAPI1 {
                 None => Err(ArkUIError::new(
                     ArkUIErrorCode::AttributeOrEventNotSupported,
                     "integer attribute is unavailable",
+                )),
+            }
+        }
+    }
+
+    pub(crate) fn u32_attribute(
+        &self,
+        node: &ArkUINode,
+        attr: ArkUINodeAttributeType,
+        index: usize,
+    ) -> ArkUIResult<u32> {
+        // SAFETY: the node is live on its owning UI thread. Copy the declared
+        // unsigned union member before another call can replace ArkUI's buffer.
+        unsafe {
+            let item = (*self.raw())
+                .getAttribute
+                .and_then(|get| get(node.raw(), attr.into()).as_ref());
+            match item.filter(|item| !item.value.is_null() && index < item.size.max(0) as usize) {
+                Some(item) => Ok((*item.value.add(index)).u32_),
+                None => Err(ArkUIError::new(
+                    ArkUIErrorCode::AttributeOrEventNotSupported,
+                    "unsigned integer attribute is unavailable",
+                )),
+            }
+        }
+    }
+
+    pub(crate) fn f32_attribute(
+        &self,
+        node: &ArkUINode,
+        attr: ArkUINodeAttributeType,
+        index: usize,
+    ) -> ArkUIResult<f32> {
+        // SAFETY: the node is live on its owning UI thread. Copy the declared
+        // float union member before another call can replace ArkUI's buffer.
+        unsafe {
+            let item = (*self.raw())
+                .getAttribute
+                .and_then(|get| get(node.raw(), attr.into()).as_ref());
+            match item.filter(|item| !item.value.is_null() && index < item.size.max(0) as usize) {
+                Some(item) => Ok((*item.value.add(index)).f32_),
+                None => Err(ArkUIError::new(
+                    ArkUIErrorCode::AttributeOrEventNotSupported,
+                    "float attribute is unavailable",
+                )),
+            }
+        }
+    }
+
+    pub(crate) fn f32_pair_attribute(
+        &self,
+        node: &ArkUINode,
+        attr: ArkUINodeAttributeType,
+    ) -> ArkUIResult<(f32, f32)> {
+        // SAFETY: the node is live on its owning UI thread. Copy both float
+        // union members synchronously before ArkUI reuses the return buffer.
+        unsafe {
+            let item = (*self.raw())
+                .getAttribute
+                .and_then(|get| get(node.raw(), attr.into()).as_ref());
+            match item.filter(|item| !item.value.is_null() && item.size >= 2) {
+                Some(item) => Ok(((*item.value).f32_, (*item.value.add(1)).f32_)),
+                None => Err(ArkUIError::new(
+                    ArkUIErrorCode::AttributeOrEventNotSupported,
+                    "float pair attribute is unavailable",
                 )),
             }
         }

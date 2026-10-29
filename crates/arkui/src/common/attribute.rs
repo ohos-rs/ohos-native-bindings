@@ -8,6 +8,9 @@ use ohos_arkui_sys::{ArkUI_AttributeItem, ArkUI_NumberValue};
 
 use super::error::{ArkUIError, ArkUIResult};
 
+const INLINE_ATTRIBUTE_NUMBERS: usize = 16;
+const INLINE_ATTRIBUTE_STRING_BYTES: usize = 256;
+
 #[derive(Debug, Clone, Copy, PartialEq)]
 /// Numeric value used in ArkUI attribute arrays.
 pub enum ArkUINodeAttributeNumber {
@@ -21,6 +24,11 @@ pub enum ArkUINodeAttributeNumber {
 
 /// Generic attribute payload accepted by ArkUI node attribute APIs.
 pub enum ArkUINodeAttributeItem {
+    /// Stack-allocated numeric array payload for common attribute arities (up to 16 values).
+    InlineNumbers {
+        len: u8,
+        values: [ArkUINodeAttributeNumber; INLINE_ATTRIBUTE_NUMBERS],
+    },
     /// Numeric array payload.
     NumberValue(Vec<ArkUINodeAttributeNumber>),
     /// String payload.
@@ -31,6 +39,22 @@ pub enum ArkUINodeAttributeItem {
     Object(*mut ::std::os::raw::c_void),
     /// Composite payload for attributes that accept numbers, string, and object together.
     Composite(ArkUINodeCompositeAttributeItem),
+}
+
+impl ArkUINodeAttributeItem {
+    /// Builds a numeric attribute item without heap allocation when `values.len() <= 16`.
+    pub fn from_numbers(values: &[ArkUINodeAttributeNumber]) -> Self {
+        if values.len() <= INLINE_ATTRIBUTE_NUMBERS {
+            let mut inline = [ArkUINodeAttributeNumber::Uint(0); INLINE_ATTRIBUTE_NUMBERS];
+            inline[..values.len()].copy_from_slice(values);
+            Self::InlineNumbers {
+                len: values.len() as u8,
+                values: inline,
+            }
+        } else {
+            Self::NumberValue(values.to_vec())
+        }
+    }
 }
 
 #[derive(Debug, Clone, Default)]
@@ -64,7 +88,19 @@ impl ArkUINodeCompositeAttributeItem {
 
 impl From<ArkUINodeAttributeNumber> for ArkUINodeAttributeItem {
     fn from(value: ArkUINodeAttributeNumber) -> Self {
-        Self::NumberValue(vec![value])
+        Self::from_numbers(&[value])
+    }
+}
+
+impl<const N: usize> From<[ArkUINodeAttributeNumber; N]> for ArkUINodeAttributeItem {
+    fn from(value: [ArkUINodeAttributeNumber; N]) -> Self {
+        Self::from_numbers(&value)
+    }
+}
+
+impl From<&[ArkUINodeAttributeNumber]> for ArkUINodeAttributeItem {
+    fn from(value: &[ArkUINodeAttributeNumber]) -> Self {
+        Self::from_numbers(value)
     }
 }
 
@@ -76,62 +112,178 @@ impl From<Vec<ArkUINodeAttributeNumber>> for ArkUINodeAttributeItem {
 
 impl From<f32> for ArkUINodeAttributeItem {
     fn from(value: f32) -> Self {
-        Self::NumberValue(vec![ArkUINodeAttributeNumber::Float(value)])
+        Self::from_numbers(&[ArkUINodeAttributeNumber::Float(value)])
     }
 }
 
 impl From<i32> for ArkUINodeAttributeItem {
     fn from(value: i32) -> Self {
-        Self::NumberValue(vec![ArkUINodeAttributeNumber::Int(value)])
+        Self::from_numbers(&[ArkUINodeAttributeNumber::Int(value)])
     }
 }
 
 impl From<u32> for ArkUINodeAttributeItem {
     fn from(value: u32) -> Self {
-        Self::NumberValue(vec![ArkUINodeAttributeNumber::Uint(value)])
+        Self::from_numbers(&[ArkUINodeAttributeNumber::Uint(value)])
     }
 }
 
 impl From<bool> for ArkUINodeAttributeItem {
     fn from(value: bool) -> Self {
-        Self::NumberValue(vec![ArkUINodeAttributeNumber::Int(if value {
-            1
+        Self::from_numbers(&[ArkUINodeAttributeNumber::Int(if value { 1 } else { 0 })])
+    }
+}
+
+impl<const N: usize> From<[f32; N]> for ArkUINodeAttributeItem {
+    fn from(value: [f32; N]) -> Self {
+        if N <= INLINE_ATTRIBUTE_NUMBERS {
+            let mut inline = [ArkUINodeAttributeNumber::Uint(0); INLINE_ATTRIBUTE_NUMBERS];
+            for (dst, src) in inline.iter_mut().zip(value) {
+                *dst = ArkUINodeAttributeNumber::Float(src);
+            }
+            Self::InlineNumbers {
+                len: N as u8,
+                values: inline,
+            }
         } else {
-            0
-        })])
+            Self::NumberValue(
+                value
+                    .into_iter()
+                    .map(ArkUINodeAttributeNumber::Float)
+                    .collect(),
+            )
+        }
+    }
+}
+
+impl From<&[f32]> for ArkUINodeAttributeItem {
+    fn from(value: &[f32]) -> Self {
+        if value.len() <= INLINE_ATTRIBUTE_NUMBERS {
+            let mut inline = [ArkUINodeAttributeNumber::Uint(0); INLINE_ATTRIBUTE_NUMBERS];
+            for (dst, &src) in inline.iter_mut().zip(value) {
+                *dst = ArkUINodeAttributeNumber::Float(src);
+            }
+            Self::InlineNumbers {
+                len: value.len() as u8,
+                values: inline,
+            }
+        } else {
+            Self::NumberValue(
+                value
+                    .iter()
+                    .copied()
+                    .map(ArkUINodeAttributeNumber::Float)
+                    .collect(),
+            )
+        }
+    }
+}
+
+impl<const N: usize> From<[i32; N]> for ArkUINodeAttributeItem {
+    fn from(value: [i32; N]) -> Self {
+        if N <= INLINE_ATTRIBUTE_NUMBERS {
+            let mut inline = [ArkUINodeAttributeNumber::Uint(0); INLINE_ATTRIBUTE_NUMBERS];
+            for (dst, src) in inline.iter_mut().zip(value) {
+                *dst = ArkUINodeAttributeNumber::Int(src);
+            }
+            Self::InlineNumbers {
+                len: N as u8,
+                values: inline,
+            }
+        } else {
+            Self::NumberValue(
+                value
+                    .into_iter()
+                    .map(ArkUINodeAttributeNumber::Int)
+                    .collect(),
+            )
+        }
+    }
+}
+
+impl From<&[i32]> for ArkUINodeAttributeItem {
+    fn from(value: &[i32]) -> Self {
+        if value.len() <= INLINE_ATTRIBUTE_NUMBERS {
+            let mut inline = [ArkUINodeAttributeNumber::Uint(0); INLINE_ATTRIBUTE_NUMBERS];
+            for (dst, &src) in inline.iter_mut().zip(value) {
+                *dst = ArkUINodeAttributeNumber::Int(src);
+            }
+            Self::InlineNumbers {
+                len: value.len() as u8,
+                values: inline,
+            }
+        } else {
+            Self::NumberValue(
+                value
+                    .iter()
+                    .copied()
+                    .map(ArkUINodeAttributeNumber::Int)
+                    .collect(),
+            )
+        }
+    }
+}
+
+impl<const N: usize> From<[u32; N]> for ArkUINodeAttributeItem {
+    fn from(value: [u32; N]) -> Self {
+        if N <= INLINE_ATTRIBUTE_NUMBERS {
+            let mut inline = [ArkUINodeAttributeNumber::Uint(0); INLINE_ATTRIBUTE_NUMBERS];
+            for (dst, src) in inline.iter_mut().zip(value) {
+                *dst = ArkUINodeAttributeNumber::Uint(src);
+            }
+            Self::InlineNumbers {
+                len: N as u8,
+                values: inline,
+            }
+        } else {
+            Self::NumberValue(
+                value
+                    .into_iter()
+                    .map(ArkUINodeAttributeNumber::Uint)
+                    .collect(),
+            )
+        }
+    }
+}
+
+impl From<&[u32]> for ArkUINodeAttributeItem {
+    fn from(value: &[u32]) -> Self {
+        if value.len() <= INLINE_ATTRIBUTE_NUMBERS {
+            let mut inline = [ArkUINodeAttributeNumber::Uint(0); INLINE_ATTRIBUTE_NUMBERS];
+            for (dst, &src) in inline.iter_mut().zip(value) {
+                *dst = ArkUINodeAttributeNumber::Uint(src);
+            }
+            Self::InlineNumbers {
+                len: value.len() as u8,
+                values: inline,
+            }
+        } else {
+            Self::NumberValue(
+                value
+                    .iter()
+                    .copied()
+                    .map(ArkUINodeAttributeNumber::Uint)
+                    .collect(),
+            )
+        }
     }
 }
 
 impl From<Vec<f32>> for ArkUINodeAttributeItem {
     fn from(value: Vec<f32>) -> Self {
-        Self::NumberValue(
-            value
-                .into_iter()
-                .map(ArkUINodeAttributeNumber::Float)
-                .collect(),
-        )
+        Self::from(value.as_slice())
     }
 }
 
 impl From<Vec<i32>> for ArkUINodeAttributeItem {
     fn from(value: Vec<i32>) -> Self {
-        Self::NumberValue(
-            value
-                .into_iter()
-                .map(ArkUINodeAttributeNumber::Int)
-                .collect(),
-        )
+        Self::from(value.as_slice())
     }
 }
 
 impl From<Vec<u32>> for ArkUINodeAttributeItem {
     fn from(value: Vec<u32>) -> Self {
-        Self::NumberValue(
-            value
-                .into_iter()
-                .map(ArkUINodeAttributeNumber::Uint)
-                .collect(),
-        )
+        Self::from(value.as_slice())
     }
 }
 
@@ -227,6 +379,22 @@ impl_from_object_wrapper!(crate::TextSelectionMenuOptions);
 impl_from_object_wrapper!(crate::TextLayoutManager);
 
 impl ArkUINodeAttributeItem {
+    /// Borrow a native string attribute view without heap allocation when `value` fits inline.
+    pub(crate) fn with_str_raw<R>(
+        value: &str,
+        call: impl FnOnce(&ArkUI_AttributeItem) -> ArkUIResult<R>,
+    ) -> ArkUIResult<R> {
+        with_c_str(value, |string| {
+            let raw = ArkUI_AttributeItem {
+                value: std::ptr::null(),
+                size: 0,
+                string,
+                object: std::ptr::null_mut(),
+            };
+            call(&raw)
+        })
+    }
+
     /// Borrow a native attribute view for exactly one synchronous ArkUI call.
     ///
     /// `ArkUI_AttributeItem` contains borrowed pointers. Keeping the backing
@@ -237,40 +405,113 @@ impl ArkUINodeAttributeItem {
         self,
         call: impl FnOnce(&ArkUI_AttributeItem) -> ArkUIResult<R>,
     ) -> ArkUIResult<R> {
-        let value = match self {
-            Self::NumberValue(number_values) => {
-                ArkUINodeCompositeAttributeItem::new().with_number_values(number_values)
+        match self {
+            Self::InlineNumbers { len, values } => {
+                let count = usize::from(len);
+                let mut raw_numbers = [ArkUI_NumberValue { u32_: 0 }; INLINE_ATTRIBUTE_NUMBERS];
+                for (dst, src) in raw_numbers[..count].iter_mut().zip(&values[..count]) {
+                    *dst = raw_number_value(src);
+                }
+                let raw = ArkUI_AttributeItem {
+                    value: if count == 0 {
+                        std::ptr::null()
+                    } else {
+                        raw_numbers.as_ptr()
+                    },
+                    size: count as i32,
+                    string: std::ptr::null(),
+                    object: std::ptr::null_mut(),
+                };
+                call(&raw)
             }
-            Self::Object(object) => ArkUINodeCompositeAttributeItem::new().with_object(object),
-            Self::String(string) => ArkUINodeCompositeAttributeItem::new().with_string(string),
-            Self::Composite(value) => value,
-        };
+            Self::NumberValue(number_values) => with_raw_numbers(&number_values, |value, size| {
+                let raw = ArkUI_AttributeItem {
+                    value,
+                    size,
+                    string: std::ptr::null(),
+                    object: std::ptr::null_mut(),
+                };
+                call(&raw)
+            }),
+            Self::Object(object) => {
+                let raw = ArkUI_AttributeItem {
+                    value: std::ptr::null(),
+                    size: 0,
+                    string: std::ptr::null(),
+                    object,
+                };
+                call(&raw)
+            }
+            Self::String(string) => Self::with_str_raw(&string, call),
+            Self::Composite(value) => with_raw_numbers(&value.number_values, |numbers, size| {
+                let object = value.object.unwrap_or(std::ptr::null_mut());
+                match value.string {
+                    Some(string) => with_c_str(&string, |c_str| {
+                        let raw = ArkUI_AttributeItem {
+                            value: numbers,
+                            size,
+                            string: c_str,
+                            object,
+                        };
+                        call(&raw)
+                    }),
+                    None => {
+                        let raw = ArkUI_AttributeItem {
+                            value: numbers,
+                            size,
+                            string: std::ptr::null(),
+                            object,
+                        };
+                        call(&raw)
+                    }
+                }
+            }),
+        }
+    }
+}
 
-        let number_values = value
-            .number_values
-            .iter()
-            .map(raw_number_value)
-            .collect::<Vec<_>>();
-        let string = value.string.map(CString::new).transpose().map_err(|_| {
+fn with_raw_numbers<R>(
+    values: &[ArkUINodeAttributeNumber],
+    call: impl FnOnce(*const ArkUI_NumberValue, i32) -> ArkUIResult<R>,
+) -> ArkUIResult<R> {
+    if values.is_empty() {
+        return call(std::ptr::null(), 0);
+    }
+    if values.len() <= INLINE_ATTRIBUTE_NUMBERS {
+        let mut inline = [ArkUI_NumberValue { u32_: 0 }; INLINE_ATTRIBUTE_NUMBERS];
+        for (dst, src) in inline[..values.len()].iter_mut().zip(values) {
+            *dst = raw_number_value(src);
+        }
+        call(inline.as_ptr(), values.len() as i32)
+    } else {
+        let heap = values.iter().map(raw_number_value).collect::<Vec<_>>();
+        call(heap.as_ptr(), heap.len() as i32)
+    }
+}
+
+fn with_c_str<R>(
+    value: &str,
+    call: impl FnOnce(*const std::os::raw::c_char) -> ArkUIResult<R>,
+) -> ArkUIResult<R> {
+    let bytes = value.as_bytes();
+    if bytes.contains(&0) {
+        return Err(ArkUIError::new(
+            ArkUIErrorCode::ParamInvalid,
+            "attribute string contains interior NUL bytes",
+        ));
+    }
+    if bytes.len() < INLINE_ATTRIBUTE_STRING_BYTES {
+        let mut inline = [0u8; INLINE_ATTRIBUTE_STRING_BYTES];
+        inline[..bytes.len()].copy_from_slice(bytes);
+        call(inline.as_ptr().cast())
+    } else {
+        let c_str = CString::new(bytes).map_err(|_| {
             ArkUIError::new(
                 ArkUIErrorCode::ParamInvalid,
                 "attribute string contains interior NUL bytes",
             )
         })?;
-        let raw = ArkUI_AttributeItem {
-            value: if number_values.is_empty() {
-                std::ptr::null()
-            } else {
-                number_values.as_ptr()
-            },
-            size: number_values.len() as i32,
-            string: string
-                .as_ref()
-                .map_or(std::ptr::null(), |value| value.as_ptr()),
-            object: value.object.unwrap_or(std::ptr::null_mut()),
-        };
-
-        call(&raw)
+        call(c_str.as_ptr())
     }
 }
 
@@ -386,5 +627,22 @@ mod tests {
     fn raw_view_rejects_interior_nul_instead_of_panicking() {
         let result = ArkUINodeAttributeItem::String("bad\0value".into()).with_raw(|_| Ok(()));
         assert!(result.is_err());
+        let str_result = ArkUINodeAttributeItem::with_str_raw("bad\0value", |_| Ok(()));
+        assert!(str_result.is_err());
+    }
+
+    #[test]
+    fn inline_numeric_arrays_convert_without_heap_wrapping() {
+        ArkUINodeAttributeItem::from([0i32, 0, 120, 48])
+            .with_raw(|raw| {
+                assert_eq!(raw.size, 4);
+                assert!(!raw.value.is_null());
+                assert!(raw.string.is_null());
+                assert!(raw.object.is_null());
+                assert_eq!(unsafe { (*raw.value.add(2)).i32_ }, 120);
+                assert_eq!(unsafe { (*raw.value.add(3)).i32_ }, 48);
+                Ok(())
+            })
+            .expect("inline array conversion");
     }
 }
