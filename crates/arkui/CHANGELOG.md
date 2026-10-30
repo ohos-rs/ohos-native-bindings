@@ -7,11 +7,13 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [0.6.0](https://github.com/ohos-rs/ohos-native-bindings/compare/ohos-arkui-binding-v0.5.2...ohos-arkui-binding-v0.6.0) - 2026-10-29
+
 ### Added
 
 - `ArkUINodeAttributeItem` keeps up to 16 numbers inline and converts from
   arrays and slices of `ArkUINodeAttributeNumber`, `f32`, `i32` and `u32`;
-  `from_numbers` builds one from a borrowed slice.
+  `from_numbers` builds one from a borrowed slice. ([#204](https://github.com/ohos-rs/ohos-native-bindings/pull/204))
 - `ArkUICommonAttribute::set_number_slice_attribute` and `set_str_attribute`
   set numbers and strings without heap allocation; `f32_attribute`,
   `u32_attribute` and `f32_pair_attribute` copy values out of a native
@@ -30,6 +32,9 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Breaking
 
+- `ArkUINodeAttributeItem` adds `InlineNumbers` to a public exhaustive enum.
+  Update exhaustive matches to handle this variant; numeric conversions
+  can now produce it instead of `NumberValue`.
 - `ArkUICommonAttribute::set_string_attribute` and `id` take
   `impl AsRef<str>` instead of `impl Into<String>`, so a value reaches ArkUI
   without a copy. Pass a `&str` or `String` where a `char` or another
