@@ -15,7 +15,7 @@ jobs:
   bindings-qemu:
     name: ${{ matrix.name }} QEMU E2E
     strategy:
-      fail-fast: false
+      fail-fast: true
       matrix:
         include:
           - name: Non-UI bindings
