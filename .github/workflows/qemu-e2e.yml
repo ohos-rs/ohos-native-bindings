@@ -450,6 +450,14 @@ jobs:
           echo "ACCESSIBILITY_E2E_ENABLE_COMMAND=$enable_helper_device com.richerfu.ohos_example/AccessibilityE2ETestExtension" \
             >> "$GITHUB_ENV"
 
+      - name: Capture OpenHarmony system logs
+        shell: bash
+        run: |
+          set -euo pipefail
+          nohup "$HDC_BIN" -t "$HDC_TARGET" shell hilog \
+            >"$E2E_DIAGNOSTICS_DIR/hilog.log" 2>&1 </dev/null &
+          echo "$!" >"$RUNNER_TEMP/ohos-hilog.pid"
+
       - name: Build Rust examples
         timeout-minutes: 45
         shell: bash
@@ -530,6 +538,9 @@ jobs:
         if: ${{ always() }}
         shell: bash
         run: |
+          if [ -f "$RUNNER_TEMP/ohos-hilog.pid" ]; then
+            kill "$(cat "$RUNNER_TEMP/ohos-hilog.pid")" 2>/dev/null || true
+          fi
           if [ -f "$RUNNER_TEMP/ohos-qemu.pid" ]; then
             kill "$(cat "$RUNNER_TEMP/ohos-qemu.pid")" 2>/dev/null || true
           fi
