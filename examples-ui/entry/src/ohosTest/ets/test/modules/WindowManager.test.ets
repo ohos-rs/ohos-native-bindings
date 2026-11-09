@@ -23,9 +23,12 @@ async function testWindowId(): Promise<number> {
 
 export default function windowManagerTest(): void {
   describe("window_manager", () => {
-    it("reads visible window layouts", 0, () => {
-      const result: string = layoutSmoke(0);
-      expect(result).assertEqual("layout_count=2");
+    it("reads visible window layouts", 0, async () => {
+      const result: string = layoutSmoke(await testWindowId());
+      console.info(`WINDOW_MANAGER_LAYOUT_REPORT ${result}`);
+      // System windows vary between images; the visible test window must be listed.
+      expect(result).assertContain("test_window_found=true;");
+      expect(result).assertContain("test_window_nonempty=true");
     });
     it("reads the active test window", 0, async () => {
       const windowId: number = await testWindowId();

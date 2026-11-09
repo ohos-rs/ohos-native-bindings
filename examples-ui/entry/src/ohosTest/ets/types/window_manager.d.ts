@@ -12,6 +12,6 @@ export declare function apiReport(windowId: number): string;
 /** Reports asynchronous callbacks and unregisters the frame callback. */
 export declare function callbackReport(windowId: number): string;
 
-export declare function layoutSmoke(displayId: number): string;
+export declare function layoutSmoke(windowId: number): string;
 
 export declare function smoke(windowId: number): string;
