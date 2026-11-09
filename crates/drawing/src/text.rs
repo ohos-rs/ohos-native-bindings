@@ -52,12 +52,12 @@ use ohos_native_drawing_sys::{
     OH_Drawing_SetTextStyleDecorationStyle, OH_Drawing_SetTextStyleFontFamilies,
     OH_Drawing_SetTextStyleFontHeight, OH_Drawing_SetTextStyleFontSize,
     OH_Drawing_SetTextStyleFontStyleStruct, OH_Drawing_SetTextStyleForegroundBrush,
-    OH_Drawing_SetTextStyleForegroundPen, OH_Drawing_SetTextStyleLetterSpacing,
-    OH_Drawing_SetTextStyleLocale, OH_Drawing_SetTextStyleWordSpacing,
-    OH_Drawing_SetTypographyTextAlign, OH_Drawing_SetTypographyTextDirection,
-    OH_Drawing_SetTypographyTextEllipsis, OH_Drawing_SetTypographyTextEllipsisModal,
-    OH_Drawing_SetTypographyTextMaxLines, OH_Drawing_TextBox,
-    OH_Drawing_TextDecoration_TEXT_DECORATION_LINE_THROUGH,
+    OH_Drawing_SetTextStyleForegroundPen, OH_Drawing_SetTextStyleHalfLeading,
+    OH_Drawing_SetTextStyleLetterSpacing, OH_Drawing_SetTextStyleLocale,
+    OH_Drawing_SetTextStyleWordSpacing, OH_Drawing_SetTypographyTextAlign,
+    OH_Drawing_SetTypographyTextDirection, OH_Drawing_SetTypographyTextEllipsis,
+    OH_Drawing_SetTypographyTextEllipsisModal, OH_Drawing_SetTypographyTextMaxLines,
+    OH_Drawing_TextBox, OH_Drawing_TextDecoration_TEXT_DECORATION_LINE_THROUGH,
     OH_Drawing_TextDecoration_TEXT_DECORATION_NONE,
     OH_Drawing_TextDecoration_TEXT_DECORATION_OVERLINE,
     OH_Drawing_TextDecoration_TEXT_DECORATION_UNDERLINE,
@@ -320,6 +320,16 @@ impl TextStyle {
         // SAFETY: this wrapper owns the live native style for this call.
         unsafe { OH_Drawing_SetTextStyleFontHeight(self.raw.as_ptr(), multiplier) };
         Ok(())
+    }
+
+    /// Controls how extra line height from [`Self::set_font_height`] is distributed.
+    ///
+    /// When enabled, extra leading is split equally above and below the text.
+    /// When disabled (the native default), leading follows the font's ascent and
+    /// descent proportions. Available since API 11; no feature flag is required.
+    pub fn set_half_leading(&mut self, enabled: bool) {
+        // SAFETY: this wrapper owns the live native style; the call copies a boolean.
+        unsafe { OH_Drawing_SetTextStyleHalfLeading(self.raw.as_ptr(), enabled) };
     }
 
     pub fn set_font_style(&mut self, style: FontStyle) {
