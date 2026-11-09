@@ -7,6 +7,12 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+### Added
+
+- `ArkUINode::snapshot()` captures an attached, rendered node using default
+  snapshot settings and returns an owned `PixelMap`. Requires `image,api-15`
+  and an API-15+ runtime; call it on the owning UI thread.
+
 ## [0.6.0](https://github.com/ohos-rs/ohos-native-bindings/compare/ohos-arkui-binding-v0.5.2...ohos-arkui-binding-v0.6.0) - 2026-10-29
 
 ### Added

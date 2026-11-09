@@ -72,6 +72,14 @@ copy their dimensions when storing layout inputs for later use. `ArkUIEvent`
 and `ArkUIGesture` remain available after converting a component into its
 identity-stable node. `off_event` retires one handler while preserving others.
 
+### Node snapshots
+
+Enable `image,api-15` to use `ArkUINode::snapshot()` on API-15+ runtimes.
+Call it on the owning UI thread after the node is attached and rendered.
+It uses the default native snapshot settings and returns an owned
+`ohos_image_native_binding::PixelMap`, released when dropped. Native snapshot
+errors are returned as `ArkUIError`; the node remains attached.
+
 ### Externally owned nodes
 
 `NodeContent` wraps a content handle. It does not retain the ArkTS owner.

@@ -52,6 +52,30 @@ pub struct ArkUINode {
 }
 
 impl ArkUINode {
+    /// Captures this attached, rendered node without detaching or redirecting it.
+    ///
+    /// Call on the owning UI thread. The returned PixelMap owns the native
+    /// snapshot and releases it on drop. Requires API 15 and the `image` feature.
+    #[cfg(all(feature = "api-15", feature = "image"))]
+    pub fn snapshot(&self) -> ArkUIResult<ohos_image_native_binding::PixelMap> {
+        let mut pixelmap = std::ptr::null_mut();
+        // SAFETY: the node is live on its UI thread. Default snapshot options
+        // are selected by null; the out pointer receives a newly owned map.
+        check_arkui_status!(unsafe {
+            ohos_arkui_sys::OH_ArkUI_GetNodeSnapshot(
+                self.raw(),
+                std::ptr::null_mut(),
+                &mut pixelmap,
+            )
+        })?;
+        ohos_image_native_binding::PixelMap::from_raw(pixelmap.cast()).ok_or_else(|| {
+            ArkUIError::new(
+                ArkUIErrorCode::ParamInvalid,
+                "node snapshot returned no pixel map",
+            )
+        })
+    }
+
     /// Converts this node into its identity-stable shared owner.
     pub fn into_rc(self) -> Rc<RefCell<Self>> {
         Rc::new_cyclic(|weak| {
