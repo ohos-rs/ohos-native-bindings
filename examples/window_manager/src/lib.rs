@@ -128,17 +128,19 @@ fn make_pixel_map() -> std::result::Result<PixelMap, String> {
 }
 
 #[napi]
-pub fn layout_smoke(display_id: i64) -> String {
-    match WindowManager::visible_window_layouts(display_id) {
-        Ok(layouts) => format!("layout_count={}", layouts.len()),
-        Err(error) => format!(
-            "layout_error={}:{}",
-            error
-                .code()
-                .map_or_else(|| "none".to_owned(), |code| code.to_string()),
-            error
-        ),
-    }
+pub fn layout_smoke(window_id: i32) -> Result<String> {
+    let properties = Window::from_id(window_id)
+        .properties()
+        .map_err(|error| Error::new(Status::GenericFailure, error.to_string()))?;
+    let layouts = WindowManager::visible_window_layouts(i64::from(properties.display_id))
+        .map_err(|error| Error::new(Status::GenericFailure, error.to_string()))?;
+    let rect = properties.window_rect;
+    Ok(format!(
+        "layout_count={};test_window_found={};test_window_nonempty={}",
+        layouts.len(),
+        layouts.contains(&rect),
+        rect.width > 0 && rect.height > 0,
+    ))
 }
 
 #[napi]
