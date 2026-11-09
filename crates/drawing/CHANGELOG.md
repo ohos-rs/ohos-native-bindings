@@ -7,6 +7,12 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [0.2.8](https://github.com/ohos-rs/ohos-native-bindings/compare/ohos-drawing-binding-v0.2.7...ohos-drawing-binding-v0.2.8) - 2026-11-09
+
+### Added
+
+- *(drawing)* expose half-leading text style control ([#206](https://github.com/ohos-rs/ohos-native-bindings/pull/206))
+
 ### Added
 
 - Add `TextStyle::set_half_leading` to distribute extra line height equally above
