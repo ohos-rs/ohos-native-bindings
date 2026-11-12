@@ -7,6 +7,12 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [0.3.2](https://github.com/ohos-rs/ohos-native-bindings/compare/ohos-web-binding-v0.3.1...ohos-web-binding-v0.3.2) - 2026-11-12
+
+### Added
+
+- *(web)* expose Controller and Web run_javascript bindings ([#210](https://github.com/ohos-rs/ohos-native-bindings/pull/210))
+
 ### Added
 
 - Add `Web::run_javascript` and `Controller::run_javascript` for evaluating
