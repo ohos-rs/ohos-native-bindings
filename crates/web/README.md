@@ -18,6 +18,25 @@ use ohos_web_binding as web;
 // Use the safe Rust APIs exposed by `ohos-web-binding` from your native module.
 ```
 
+## JavaScript evaluation
+
+Call `Web::run_javascript` on the UI thread after the component's controller has
+attached (`on_controller_attach`). The completion closure (`Send + 'static`) runs at
+most once — potentially on an ArkWeb worker thread — with the UTF-8 result bytes
+(`None` if ArkWeb supplies no bridge payload):
+
+```rust,no_run
+use ohos_web_binding::Web;
+
+let web = Web::new("main_web".to_string());
+web.run_javascript("1 + 1", |bytes| {
+    if let Some(bytes) = bytes {
+        println!("result: {}", String::from_utf8_lossy(bytes));
+    }
+})?;
+# Ok::<(), ohos_web_binding::ArkWebError>(())
+```
+
 ## HTTP request bodies
 
 Body streams belong to the ArkWeb I/O thread. Reads initialize automatically and
