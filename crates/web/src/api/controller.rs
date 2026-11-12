@@ -17,7 +17,7 @@ unsafe extern "C" fn on_javascript_callback<F>(
     data: *const ArkWeb_JavaScriptBridgeData,
     user_data: *mut c_void,
 ) where
-    F: FnOnce(Option<&[u8]>) + 'static,
+    F: FnOnce(Option<&[u8]>) + Send + 'static,
 {
     if user_data.is_null() {
         return;
@@ -134,8 +134,8 @@ impl Controller {
     }
 
     /// Evaluates `js_code` in the page currently displayed by `web_tag` and invokes
-    /// `callback` once on the owning UI thread with the result bytes (`None` if
-    /// ArkWeb supplies no bridge payload).
+    /// `callback` once with the result bytes (`None` if ArkWeb supplies no bridge
+    /// payload). ArkWeb may invoke `callback` on an internal worker thread.
     pub fn run_javascript<F>(
         &self,
         web_tag: &str,
@@ -143,7 +143,7 @@ impl Controller {
         callback: F,
     ) -> Result<(), ArkWebError>
     where
-        F: FnOnce(Option<&[u8]>) + 'static,
+        F: FnOnce(Option<&[u8]>) + Send + 'static,
     {
         self.check_member_missing("runJavaScript")?;
         let Some(raw) = self.raw else {

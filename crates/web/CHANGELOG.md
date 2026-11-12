@@ -11,7 +11,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 - Add `Web::run_javascript` and `Controller::run_javascript` for evaluating
   JavaScript on an attached `Web` component and receiving the single-shot result
-  bytes on the UI thread.
+  bytes via a `Send + 'static` completion callback.
 - Add `WebEngine::active_version` (API 20) and `WebEngine::is_evergreen`
   (API 23), selected and linked through Cargo features.
 

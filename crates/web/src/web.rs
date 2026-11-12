@@ -96,11 +96,11 @@ impl Web {
     }
 
     /// Evaluates `js_code` in the page currently displayed by this `Web` component
-    /// and invokes `callback` once on the owning UI thread with the result bytes
-    /// (`None` if ArkWeb supplies no bridge payload).
+    /// and invokes `callback` once with the result bytes (`None` if ArkWeb supplies
+    /// no bridge payload). ArkWeb may invoke `callback` on an internal worker thread.
     pub fn run_javascript<F>(&self, js_code: &str, callback: F) -> Result<(), ArkWebError>
     where
-        F: FnOnce(Option<&[u8]>) + 'static,
+        F: FnOnce(Option<&[u8]>) + Send + 'static,
     {
         ARK_WEB_CONTROLLER_API.run_javascript(&self.web_tag, js_code, callback)
     }

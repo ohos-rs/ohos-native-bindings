@@ -21,10 +21,14 @@ mod controller;
 pub use controller::Controller;
 
 use std::{
-    cell::{Cell, RefCell},
+    cell::RefCell,
     collections::VecDeque,
     ffi::{c_char, c_void, CStr},
     rc::Rc,
+    sync::{
+        atomic::{AtomicUsize, Ordering},
+        Arc, Mutex,
+    },
 };
 
 pub const ArkWeb_NativeAPIVariantKind_ARKWEB_NATIVE_CONTROLLER: u32 = 1;
@@ -198,10 +202,10 @@ pub unsafe fn OH_ArkWeb_GetNativeAPI(kind: u32) -> *mut c_void {
     })
 }
 
-struct DropCounter(Rc<Cell<usize>>);
+struct DropCounter(Arc<AtomicUsize>);
 impl Drop for DropCounter {
     fn drop(&mut self) {
-        self.0.set(self.0.get() + 1);
+        self.0.fetch_add(1, Ordering::SeqCst);
     }
 }
 
@@ -210,48 +214,69 @@ fn delivers_utf8_empty_and_null_bridge_payloads_and_drops_closure_once() {
     let (harness, controller) =
         Harness::install(std::mem::size_of::<ArkWeb_ControllerAPI>(), true);
 
-    let drops = Rc::new(Cell::new(0));
+    let drops = Arc::new(AtomicUsize::new(0));
     let guard = DropCounter(drops.clone());
-    let received = Rc::new(RefCell::new(None));
+    let received = Arc::new(Mutex::new(None));
     let slot = received.clone();
 
     controller
         .run_javascript("web-1", "1 + 1", move |bytes| {
             let _keep = guard;
-            *slot.borrow_mut() = Some(bytes.map(<[u8]>::to_vec));
+            *slot.lock().unwrap() = Some(bytes.map(<[u8]>::to_vec));
         })
         .unwrap();
 
-    assert_eq!(drops.get(), 0, "closure retained while in flight");
+    assert_eq!(drops.load(Ordering::SeqCst), 0, "closure retained while in flight");
     assert_eq!(harness.calls.borrow().len(), 1);
     assert_eq!(harness.calls.borrow()[0].web_tag, "web-1");
     assert_eq!(harness.calls.borrow()[0].script, b"1 + 1");
 
-    harness.complete_next(Some(Some(b"2")));
-    assert_eq!(*received.borrow(), Some(Some(b"2".to_vec())));
-    assert_eq!(drops.get(), 1, "closure dropped immediately after completion");
+    // Simulate ArkWeb completing the callback on an internal worker thread.
+    let call = harness.calls.borrow_mut().pop_front().unwrap();
+    let cb = call.callback.expect("callback must be present");
+    let raw_user_data = call.user_data as usize;
+    let tag = std::ffi::CString::new(call.web_tag).unwrap();
+    std::thread::spawn(move || {
+        let payload = b"2";
+        let bridge = ArkWeb_JavaScriptBridgeData {
+            buffer: payload.as_ptr(),
+            size: payload.len(),
+        };
+        unsafe {
+            cb(tag.as_ptr(), &bridge, raw_user_data as *mut c_void);
+        }
+    })
+    .join()
+    .unwrap();
+
+    assert_eq!(*received.lock().unwrap(), Some(Some(b"2".to_vec())));
+    assert_eq!(
+        drops.load(Ordering::SeqCst),
+        1,
+        "closure dropped immediately after worker-thread completion"
+    );
 
     // Null bridge pointer -> None
-    let null_out = Rc::new(RefCell::new(Some(Some(vec![1_u8]))));
+    let null_out = Arc::new(Mutex::new(Some(Some(vec![1_u8]))));
     let slot = null_out.clone();
     controller
         .run_javascript("web-1", "void 0", move |bytes| {
-            *slot.borrow_mut() = Some(bytes.map(<[u8]>::to_vec));
+            *slot.lock().unwrap() = Some(bytes.map(<[u8]>::to_vec));
         })
         .unwrap();
     harness.complete_next(None);
-    assert_eq!(*null_out.borrow(), Some(None));
+    assert_eq!(*null_out.lock().unwrap(), Some(None));
 
     // Null buffer inside non-null bridge struct -> Some(&[])
-    let null_buf_out = Rc::new(RefCell::new(None));
+    let null_buf_out = Arc::new(Mutex::new(None));
     let slot = null_buf_out.clone();
     controller
         .run_javascript("web-1", "''", move |bytes| {
-            *slot.borrow_mut() = Some(bytes.map(<[u8]>::to_vec));
+            *slot.lock().unwrap() = Some(bytes.map(<[u8]>::to_vec));
         })
         .unwrap();
     harness.complete_next(Some(None));
-    assert_eq!(*null_buf_out.borrow(), Some(Some(vec![])));
+    assert_eq!(*null_buf_out.lock().unwrap(), Some(Some(vec![])));
 }
 
 #[test]
@@ -288,7 +313,7 @@ fn rejects_missing_member_struct_truncation_and_interior_nul_web_tag() {
     ));
 
     let (_harness, valid) = Harness::install(std::mem::size_of::<ArkWeb_ControllerAPI>(), true);
-    let drops = Rc::new(Cell::new(0));
+    let drops = Arc::new(AtomicUsize::new(0));
     let guard = DropCounter(drops.clone());
     assert!(matches!(
         valid.run_javascript("bad\0tag", "1", move |_| {
@@ -297,7 +322,7 @@ fn rejects_missing_member_struct_truncation_and_interior_nul_web_tag() {
         Err(ArkWebError::WebviewCreateFailed(_))
     ));
     assert_eq!(
-        drops.get(),
+        drops.load(Ordering::SeqCst),
         1,
         "early validation error drops callback without leaking"
     );

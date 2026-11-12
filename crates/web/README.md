@@ -21,9 +21,9 @@ use ohos_web_binding as web;
 ## JavaScript evaluation
 
 Call `Web::run_javascript` on the UI thread after the component's controller has
-attached (`on_controller_attach`). The completion closure runs at most once on the
-owning UI thread with the UTF-8 result bytes (`None` if ArkWeb supplies no bridge
-payload):
+attached (`on_controller_attach`). The completion closure (`Send + 'static`) runs at
+most once — potentially on an ArkWeb worker thread — with the UTF-8 result bytes
+(`None` if ArkWeb supplies no bridge payload):
 
 ```rust,no_run
 use ohos_web_binding::Web;
