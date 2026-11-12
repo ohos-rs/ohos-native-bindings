@@ -37,13 +37,6 @@ web.run_javascript("1 + 1", |bytes| {
 # Ok::<(), ohos_web_binding::ArkWebError>(())
 ```
 
-Host regression tests cover script buffer NUL-termination, bridge payload
-slices, single-shot closure drop semantics, and panic containment across FFI:
-
-```shell
-crates/web/tests/run-javascript.sh
-```
-
 ## HTTP request bodies
 
 Body streams belong to the ArkWeb I/O thread. Reads initialize automatically and
