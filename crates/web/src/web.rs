@@ -5,7 +5,7 @@ use ohos_web_sys::OH_ArkWeb_SetSchemeHandler;
 use crate::{
     callback::{OnControllerAttachContext, OnDestroyContext, OnPageBeginContext, OnPageEndContext},
     error::ArkWebError,
-    CustomProtocolHandler, ARK_WEB_COMPONENT_API,
+    CustomProtocolHandler, ARK_WEB_COMPONENT_API, ARK_WEB_CONTROLLER_API,
 };
 
 #[derive(Debug, Clone)]
@@ -93,6 +93,16 @@ impl Web {
 
         ARK_WEB_COMPONENT_API.on_destroy(self.web_tag.clone(), user_data)?;
         Ok(())
+    }
+
+    /// Evaluates `js_code` in the page currently displayed by this `Web` component
+    /// and invokes `callback` once on the owning UI thread with the result bytes
+    /// (`None` if ArkWeb supplies no bridge payload).
+    pub fn run_javascript<F>(&self, js_code: &str, callback: F) -> Result<(), ArkWebError>
+    where
+        F: FnOnce(Option<&[u8]>) + 'static,
+    {
+        ARK_WEB_CONTROLLER_API.run_javascript(&self.web_tag, js_code, callback)
     }
 
     /// Register a custom protocol handler for the web view.
