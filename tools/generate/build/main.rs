@@ -34,6 +34,7 @@ static CONFIG: Lazy<Vec<Lazy<SysConfig>>> = Lazy::new(|| {
         config::BUNDLE,
         config::DEVICE,
         config::HILOG,
+        config::HITRACE,
         config::INIT,
         config::VSYNC,
         config::NATIVE_DISPLAY_SOLOIST,
@@ -100,6 +101,8 @@ api-21  = ["api-20"]
 api-22  = ["api-21"]
 api-23  = ["api-22"]
 api-24  = ["api-23"]
+api-25  = ["api-24"]
+api-26  = ["api-25"]
 
 [lints]
 workspace = true

@@ -18,6 +18,9 @@ pub mod dialog;
 pub mod event;
 /// Gesture builders and gesture data.
 pub mod gesture;
+/// ArkUI RenderNode, ContentModifier, and render property bindings (API 20).
+#[cfg(feature = "api-20")]
+pub mod render_node;
 /// ArkUI enums and value types.
 pub mod r#type;
 

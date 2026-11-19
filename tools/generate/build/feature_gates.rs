@@ -539,7 +539,10 @@ impl DeclarationKind {
 
     fn is_complete(self, declaration: &str) -> bool {
         match self {
-            Self::Function => syn::parse_str::<syn::ForeignItemFn>(declaration).is_ok(),
+            Self::Function => {
+                syn::parse_str::<syn::ForeignItemFn>(declaration).is_ok()
+                    || syn::parse_str::<syn::ItemFn>(declaration).is_ok()
+            }
             // Self aliases are also recorded under a type key.
             Self::Type => {
                 syn::parse_str::<syn::ItemType>(declaration).is_ok()

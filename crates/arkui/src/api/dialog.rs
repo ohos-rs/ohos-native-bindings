@@ -10,6 +10,8 @@ use std::{
 
 use ohos_arkui_input_binding::sys::ArkUI_NodeHandle;
 use ohos_arkui_input_binding::ArkUIErrorCode;
+#[cfg(feature = "api-15")]
+use ohos_arkui_sys::ArkUI_NativeDialogAPI_2;
 use ohos_arkui_sys::{
     ArkUI_DialogDismissEvent, ArkUI_NativeAPIVariantKind_ARKUI_NATIVE_DIALOG,
     ArkUI_NativeDialogAPI_1, ArkUI_NativeDialogHandle,
@@ -23,10 +25,16 @@ use crate::{
 };
 
 thread_local! {
-    /// ArkUI_NativeNodeAPI_1 struct
+    /// ArkUI_NativeDialogAPI_1 struct
     /// Only can be used in main thread
     pub(crate) static ARK_UI_NATIVE_DIALOG_API_1: LazyCell<ArkUINativeDialogAPI1> =
     LazyCell::new(ArkUINativeDialogAPI1::new);
+
+    /// ArkUI_NativeDialogAPI_2 struct (API 15+)
+    /// Only can be used in main thread
+    #[cfg(feature = "api-15")]
+    pub(crate) static ARK_UI_NATIVE_DIALOG_API_2: LazyCell<Option<ArkUINativeDialogAPI2>> =
+    LazyCell::new(ArkUINativeDialogAPI2::new);
 }
 
 pub(crate) struct ArkUINativeDialogAPI1(pub(crate) NonNull<ArkUI_NativeDialogAPI_1>);
@@ -300,6 +308,44 @@ impl ArkUINativeDialogAPI1 {
 impl Default for ArkUINativeDialogAPI1 {
     fn default() -> Self {
         Self::new()
+    }
+}
+
+#[cfg(feature = "api-15")]
+pub(crate) struct ArkUINativeDialogAPI2(pub(crate) NonNull<ArkUI_NativeDialogAPI_2>);
+
+#[cfg(feature = "api-15")]
+impl ArkUINativeDialogAPI2 {
+    pub(crate) fn raw(&self) -> *mut ArkUI_NativeDialogAPI_2 {
+        self.0.as_ptr()
+    }
+
+    pub(crate) fn new() -> Option<Self> {
+        let raw_ptr = unsafe {
+            OH_ArkUI_QueryModuleInterfaceByName(
+                ArkUI_NativeAPIVariantKind_ARKUI_NATIVE_DIALOG,
+                c"ArkUI_NativeDialogAPI_2".as_ptr(),
+            )
+        };
+        NonNull::new(raw_ptr.cast()).map(Self)
+    }
+
+    pub(crate) fn set_keyboard_avoid_distance(
+        &self,
+        dialog: ArkUI_NativeDialogHandle,
+        distance: f32,
+        unit: crate::types::advanced::LengthMetricUnit,
+    ) -> ArkUIResult<()> {
+        // SAFETY: the caller owns this live controller on its UI thread.
+        unsafe {
+            let function = (*self.raw()).setKeyboardAvoidDistance.ok_or_else(|| {
+                ArkUIError::new(
+                    ArkUIErrorCode::AttributeOrEventNotSupported,
+                    "ArkUI_NativeDialogAPI_2::setKeyboardAvoidDistance is None",
+                )
+            })?;
+            check_arkui_status!(function(dialog, distance, unit.into()))
+        }
     }
 }
 

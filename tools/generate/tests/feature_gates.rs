@@ -93,3 +93,87 @@ fn filtered_functions_do_not_erase_opaque_header_since() {
     assert_eq!(gates["OH_Camera_MetadataObjectExt"], 26);
     assert!(!output.contains("OH_MetadataObjectExt_GetType"));
 }
+
+#[test]
+fn multiline_impl_fn_does_not_swallow_following_extern_gates() {
+    let raw = r#"
+#[doc = " @since 12"]
+pub struct SampleId {
+    pub _bitfield_1: [u8; 8usize],
+}
+impl SampleId {
+    #[inline]
+    pub fn new_bitfield_1(
+        valid: u64,
+        chain_id: u64,
+    ) -> [u8; 8usize] {
+        let _ = (valid, chain_id);
+        [0; 8]
+    }
+}
+#[doc = " @since 19"]
+pub type Sample_Level = u32;
+extern "C" {
+    #[doc = " @since 19"]
+    pub fn OH_Sample_StartEx(level: Sample_Level);
+}
+#[doc = " @since 22"]
+pub type OH_Sample_Listener = ::std::option::Option<unsafe extern "C" fn(enabled: bool)>;
+extern "C" {
+    #[doc = " @since 22"]
+    pub fn OH_Sample_Register(cb: OH_Sample_Listener) -> i32;
+}
+"#;
+    let (output, versions, _) = feature_gates::add_feature_gates(raw, &BTreeMap::new(), None);
+    assert!(versions.contains(&19));
+    assert!(versions.contains(&22));
+    let file = syn::parse_file(&output).unwrap();
+    let has_api_cfg = |attrs: &[syn::Attribute], expected: &str| {
+        attrs.iter().any(|attr| {
+            let mut matched = false;
+            if attr.path().is_ident("cfg") {
+                let _ = attr.parse_nested_meta(|meta| {
+                    if meta.path.is_ident("feature") {
+                        let value: syn::LitStr = meta.value()?.parse()?;
+                        matched = value.value() == expected;
+                    }
+                    Ok(())
+                });
+            }
+            matched
+        })
+    };
+    let mut saw_start_ex = false;
+    let mut saw_register = false;
+    for item in file.items {
+        match item {
+            syn::Item::Impl(item_impl) => {
+                for impl_item in item_impl.items {
+                    if let syn::ImplItem::Fn(func) = impl_item {
+                        assert!(
+                            !has_api_cfg(&func.attrs, "api-19")
+                                && !has_api_cfg(&func.attrs, "api-22"),
+                            "impl fn should not inherit later extern gates"
+                        );
+                    }
+                }
+            }
+            syn::Item::ForeignMod(foreign) => {
+                for foreign_item in foreign.items {
+                    if let syn::ForeignItem::Fn(func) = foreign_item {
+                        if func.sig.ident == "OH_Sample_StartEx" {
+                            saw_start_ex = true;
+                            assert!(has_api_cfg(&func.attrs, "api-19"));
+                        } else if func.sig.ident == "OH_Sample_Register" {
+                            saw_register = true;
+                            assert!(has_api_cfg(&func.attrs, "api-22"));
+                        }
+                    }
+                }
+            }
+            _ => {}
+        }
+    }
+    assert!(saw_start_ex);
+    assert!(saw_register);
+}

@@ -37,6 +37,24 @@ struct DialogContent {
 }
 
 impl Dialog {
+    /// Sets the clearance between this dialog and the IME before showing it (API 15).
+    #[cfg(feature = "api-15")]
+    pub fn keyboard_avoid_distance(
+        &self,
+        distance: f32,
+        unit: crate::types::advanced::LengthMetricUnit,
+    ) -> ArkUIResult<()> {
+        crate::api::ARK_UI_NATIVE_DIALOG_API_2.with(|api| {
+            let api = api.as_ref().ok_or_else(|| {
+                crate::ArkUIError::new(
+                    ohos_arkui_input_binding::ArkUIErrorCode::AttributeOrEventNotSupported,
+                    "ArkUI_NativeDialogAPI_2 is unavailable",
+                )
+            })?;
+            api.set_keyboard_avoid_distance(self.raw, distance, unit)
+        })
+    }
+
     /// Create a new dialog controller.
     pub fn new() -> ArkUIResult<Self> {
         let dialog_controller = ARK_UI_NATIVE_DIALOG_API_1.with(|api| api.create())?;

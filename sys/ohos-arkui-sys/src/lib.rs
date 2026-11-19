@@ -14985,6 +14985,1322 @@ extern "C" {
         state: *mut bool,
     ) -> ArkUI_ErrorCode;
 }
+#[cfg(feature = "api-20")]
+#[repr(C)]
+#[derive(Debug, Copy, Clone)]
+pub struct ArkUI_RenderNode {
+    _unused: [u8; 0],
+}
+#[doc = " @brief Defines a render node pointer.\n\n @since 20"]
+#[cfg(feature = "api-20")]
+pub type ArkUI_RenderNodeHandle = *mut ArkUI_RenderNode;
+#[cfg(feature = "api-20")]
+#[repr(C)]
+#[derive(Debug, Copy, Clone)]
+pub struct ArkUI_RenderContentModifier {
+    _unused: [u8; 0],
+}
+#[doc = " @brief Defines a content modifier pointer.\n\n @since 20"]
+#[cfg(feature = "api-20")]
+pub type ArkUI_RenderContentModifierHandle = *mut ArkUI_RenderContentModifier;
+#[cfg(feature = "api-20")]
+#[repr(C)]
+#[derive(Debug, Copy, Clone)]
+pub struct ArkUI_FloatProperty {
+    _unused: [u8; 0],
+}
+#[doc = " @brief Defines a float property pointer.\n\n @since 20"]
+#[cfg(feature = "api-20")]
+pub type ArkUI_FloatPropertyHandle = *mut ArkUI_FloatProperty;
+#[cfg(feature = "api-20")]
+#[repr(C)]
+#[derive(Debug, Copy, Clone)]
+pub struct ArkUI_Vector2Property {
+    _unused: [u8; 0],
+}
+#[doc = " @brief Defines a 2D vector property pointer.\n\n @since 20"]
+#[cfg(feature = "api-20")]
+pub type ArkUI_Vector2PropertyHandle = *mut ArkUI_Vector2Property;
+#[cfg(feature = "api-20")]
+#[repr(C)]
+#[derive(Debug, Copy, Clone)]
+pub struct ArkUI_ColorProperty {
+    _unused: [u8; 0],
+}
+#[doc = " @brief Defines a color property pointer.\n\n @since 20"]
+#[cfg(feature = "api-20")]
+pub type ArkUI_ColorPropertyHandle = *mut ArkUI_ColorProperty;
+#[cfg(feature = "api-20")]
+#[repr(C)]
+#[derive(Debug, Copy, Clone)]
+pub struct ArkUI_FloatAnimatableProperty {
+    _unused: [u8; 0],
+}
+#[doc = " @brief Defines an animatable float property pointer.\n\n @since 20"]
+#[cfg(feature = "api-20")]
+pub type ArkUI_FloatAnimatablePropertyHandle = *mut ArkUI_FloatAnimatableProperty;
+#[cfg(feature = "api-20")]
+#[repr(C)]
+#[derive(Debug, Copy, Clone)]
+pub struct ArkUI_Vector2AnimatableProperty {
+    _unused: [u8; 0],
+}
+#[doc = " @brief Defines an animatable 2D vector property pointer.\n\n @since 20"]
+#[cfg(feature = "api-20")]
+pub type ArkUI_Vector2AnimatablePropertyHandle = *mut ArkUI_Vector2AnimatableProperty;
+#[cfg(feature = "api-20")]
+#[repr(C)]
+#[derive(Debug, Copy, Clone)]
+pub struct ArkUI_ColorAnimatableProperty {
+    _unused: [u8; 0],
+}
+#[doc = " @brief Defines an animatable color property pointer.\n\n @since 20"]
+#[cfg(feature = "api-20")]
+pub type ArkUI_ColorAnimatablePropertyHandle = *mut ArkUI_ColorAnimatableProperty;
+#[cfg(feature = "api-20")]
+#[repr(C)]
+#[derive(Debug, Copy, Clone)]
+pub struct ArkUI_RectShape {
+    _unused: [u8; 0],
+}
+#[doc = " @brief Defines a rectangle shape option.\n\n @since 20"]
+#[cfg(feature = "api-20")]
+pub type ArkUI_RectShapeOption = ArkUI_RectShape;
+#[cfg(feature = "api-20")]
+#[repr(C)]
+#[derive(Debug, Copy, Clone)]
+pub struct ArkUI_NodeBorderStyle {
+    _unused: [u8; 0],
+}
+#[doc = " @brief Defines a node border style option.\n\n @since 20"]
+#[cfg(feature = "api-20")]
+pub type ArkUI_NodeBorderStyleOption = ArkUI_NodeBorderStyle;
+#[cfg(feature = "api-20")]
+#[repr(C)]
+#[derive(Debug, Copy, Clone)]
+pub struct ArkUI_NodeBorderWidth {
+    _unused: [u8; 0],
+}
+#[doc = " @brief Defines a node border width option.\n\n @since 20"]
+#[cfg(feature = "api-20")]
+pub type ArkUI_NodeBorderWidthOption = ArkUI_NodeBorderWidth;
+#[cfg(feature = "api-20")]
+#[repr(C)]
+#[derive(Debug, Copy, Clone)]
+pub struct ArkUI_NodeBorderColor {
+    _unused: [u8; 0],
+}
+#[doc = " @brief Defines a node border color option.\n\n @since 20"]
+#[cfg(feature = "api-20")]
+pub type ArkUI_NodeBorderColorOption = ArkUI_NodeBorderColor;
+#[cfg(feature = "api-20")]
+#[repr(C)]
+#[derive(Debug, Copy, Clone)]
+pub struct ArkUI_NodeBorderRadius {
+    _unused: [u8; 0],
+}
+#[doc = " @brief Defines a node border radius option.\n\n @since 20"]
+#[cfg(feature = "api-20")]
+pub type ArkUI_NodeBorderRadiusOption = ArkUI_NodeBorderRadius;
+#[cfg(feature = "api-20")]
+#[repr(C)]
+#[derive(Debug, Copy, Clone)]
+pub struct ArkUI_CircleShape {
+    _unused: [u8; 0],
+}
+#[doc = " @brief Defines a circle shape option.\n\n @since 20"]
+#[cfg(feature = "api-20")]
+pub type ArkUI_CircleShapeOption = ArkUI_CircleShape;
+#[cfg(feature = "api-20")]
+#[repr(C)]
+#[derive(Debug, Copy, Clone)]
+pub struct ArkUI_RoundRectShape {
+    _unused: [u8; 0],
+}
+#[doc = " @brief Defines a rounded rectangle shape option.\n\n @since 20"]
+#[cfg(feature = "api-20")]
+pub type ArkUI_RoundRectShapeOption = ArkUI_RoundRectShape;
+#[cfg(feature = "api-20")]
+#[repr(C)]
+#[derive(Debug, Copy, Clone)]
+pub struct ArkUI_CommandPath {
+    _unused: [u8; 0],
+}
+#[doc = " @brief Defines a custom path option.\n\n @since 20"]
+#[cfg(feature = "api-20")]
+pub type ArkUI_CommandPathOption = ArkUI_CommandPath;
+#[cfg(feature = "api-20")]
+#[repr(C)]
+#[derive(Debug, Copy, Clone)]
+pub struct ArkUI_RenderNodeMaskOption {
+    _unused: [u8; 0],
+}
+#[cfg(feature = "api-20")]
+#[repr(C)]
+#[derive(Debug, Copy, Clone)]
+pub struct ArkUI_RenderNodeClipOption {
+    _unused: [u8; 0],
+}
+#[cfg(feature = "api-26")]
+#[repr(C)]
+#[derive(Debug, Copy, Clone)]
+pub struct ArkUI_RenderBlurStyleOption {
+    _unused: [u8; 0],
+}
+extern "C" {
+    #[doc = " @brief Creates a blur style object.\n\n @return Pointer to a blur style object. The default blur radius is 0.0.\n @since 26.0.0"]
+    #[cfg(feature = "api-26")]
+    pub fn OH_ArkUI_RenderNodeUtils_CreateBlurStyleOption() -> *mut ArkUI_RenderBlurStyleOption;
+}
+extern "C" {
+    #[doc = " @brief Dispose of a blur style object.\n\n @param option {@link ArkUI_RenderBlurStyleOption} pointer to the blur style object to be disposed of.\n @since 26.0.0"]
+    #[cfg(feature = "api-26")]
+    pub fn OH_ArkUI_RenderNodeUtils_DisposeBlurStyleOption(
+        option: *mut ArkUI_RenderBlurStyleOption,
+    );
+}
+extern "C" {
+    #[doc = " @brief Sets a blur radius for a target blur style.\n\n @param option {@link ArkUI_RenderBlurStyleOption} pointer to the target blur style for which the blur radius is to\n     be set.\n @param radius Blur radius to be set. The value range is [0, +∞). Unit: px. The blur radius is used to control the\n     blur density. A larger radius indicates a higher blur density. The value **0** indicates that no blur processing\n     is performed. For background blur processing, a radius of 80 can achieve a good frosted glass effect. Avoid\n     using a blur radius greater than 200 pixels, as this may cause performance degradation.\n @return Result code.\n     <br>Returns {@link ARKUI_ERROR_CODE_NO_ERROR} if the operation is successful.\n     <br>Returns {@link ARKUI_ERROR_CODE_PARAM_INVALID} if a parameter error occurs.\n @since 26.0.0"]
+    #[cfg(feature = "api-26")]
+    pub fn OH_ArkUI_RenderNodeUtils_SetBlurStyleOptionRadius(
+        option: *mut ArkUI_RenderBlurStyleOption,
+        radius: f32,
+    ) -> i32;
+}
+extern "C" {
+    #[doc = " @brief Sets a background blur style for a render node.\n\n @param node **ArkUI_RenderNodeHandle** pointer to the target render node for which the background blur style is to\n     be set.\n @param option {@link ArkUI_RenderBlurStyleOption} pointer to the blur style to be set.\n @return Result code.\n     <br>Returns {@link ARKUI_ERROR_CODE_NO_ERROR} if the operation is successful.\n     <br>Returns {@link ARKUI_ERROR_CODE_PARAM_INVALID} if a parameter error occurs.\n     <br>Returns {@link ARKUI_ERROR_CODE_RENDER_IS_FROM_FRAME_NODE} if the target node originates from a FrameNode.\n     <br>Returns {@link ARKUI_ERROR_CODE_CAPI_INIT_ERROR} if C API initialization failed.\n @since 26.0.0"]
+    #[cfg(feature = "api-26")]
+    pub fn OH_ArkUI_RenderNodeUtils_SetBackgroundBlurOption(
+        node: ArkUI_RenderNodeHandle,
+        option: *mut ArkUI_RenderBlurStyleOption,
+    ) -> i32;
+}
+extern "C" {
+    #[doc = " @brief Resets a background blur style for a render node. After the reset, there is no background blur style.\n\n @param node **ArkUI_RenderNodeHandle** pointer to the target render node for which the background blur style is to\n     be reset.\n @return Result code.\n     <br>Returns {@link ARKUI_ERROR_CODE_NO_ERROR} if the operation is successful.\n     <br>Returns {@link ARKUI_ERROR_CODE_PARAM_INVALID} if a parameter error occurs.\n     <br>Returns {@link ARKUI_ERROR_CODE_RENDER_IS_FROM_FRAME_NODE} if the target node originates from a FrameNode.\n     <br>Returns {@link ARKUI_ERROR_CODE_CAPI_INIT_ERROR} if C API initialization failed.\n @since 26.0.0"]
+    #[cfg(feature = "api-26")]
+    pub fn OH_ArkUI_RenderNodeUtils_ResetBackgroundBlurOption(node: ArkUI_RenderNodeHandle) -> i32;
+}
+extern "C" {
+    #[doc = " @brief Sets a foreground blur style for a render node.\n\n @param node **ArkUI_RenderNodeHandle** pointer to the target render node for which the foreground blur style is to\n     be set.\n @param option {@link ArkUI_RenderBlurStyleOption} pointer to the blur style to be set.\n @return Result code.\n     <br>Returns {@link ARKUI_ERROR_CODE_NO_ERROR} if the operation is successful.\n     <br>Returns {@link ARKUI_ERROR_CODE_PARAM_INVALID} if a parameter error occurs.\n     <br>Returns {@link ARKUI_ERROR_CODE_RENDER_IS_FROM_FRAME_NODE} if the target node originates from a FrameNode.\n     <br>Returns {@link ARKUI_ERROR_CODE_CAPI_INIT_ERROR} if C API initialization failed.\n @since 26.0.0"]
+    #[cfg(feature = "api-26")]
+    pub fn OH_ArkUI_RenderNodeUtils_SetForegroundBlurOption(
+        node: ArkUI_RenderNodeHandle,
+        option: *mut ArkUI_RenderBlurStyleOption,
+    ) -> i32;
+}
+extern "C" {
+    #[doc = " @brief Resets a foreground blur style for a render node. After the reset, there is no foreground blur style.\n\n @param node **ArkUI_RenderNodeHandle** pointer to the target render node for which the foreground blur style is to\n     be reset.\n @return Result code.\n     <br>Returns {@link ARKUI_ERROR_CODE_NO_ERROR} if the operation is successful.\n     <br>Returns {@link ARKUI_ERROR_CODE_PARAM_INVALID} if a parameter error occurs.\n     <br>Returns {@link ARKUI_ERROR_CODE_RENDER_IS_FROM_FRAME_NODE} if the target node originates from a FrameNode.\n     <br>Returns {@link ARKUI_ERROR_CODE_CAPI_INIT_ERROR} if C API initialization failed.\n @since 26.0.0"]
+    #[cfg(feature = "api-26")]
+    pub fn OH_ArkUI_RenderNodeUtils_ResetForegroundBlurOption(node: ArkUI_RenderNodeHandle) -> i32;
+}
+extern "C" {
+    #[doc = " @brief Sets a content blur style for a render node.\n\n @param node **ArkUI_RenderNodeHandle** pointer to the target render node for which the content blur style is to be\n     set.\n @param option {@link ArkUI_RenderBlurStyleOption} pointer to the blur style to be set.\n @return Result code.\n     <br>Returns {@link ARKUI_ERROR_CODE_NO_ERROR} if the operation is successful.\n     <br>Returns {@link ARKUI_ERROR_CODE_PARAM_INVALID} if a parameter error occurs.\n     <br>Returns {@link ARKUI_ERROR_CODE_RENDER_IS_FROM_FRAME_NODE} if the target node originates from a FrameNode.\n     <br>Returns {@link ARKUI_ERROR_CODE_CAPI_INIT_ERROR} if C API initialization failed.\n @since 26.0.0"]
+    #[cfg(feature = "api-26")]
+    pub fn OH_ArkUI_RenderNodeUtils_SetContentBlurOption(
+        node: ArkUI_RenderNodeHandle,
+        option: *mut ArkUI_RenderBlurStyleOption,
+    ) -> i32;
+}
+extern "C" {
+    #[doc = " @brief Resets a content blur style for a render node. After the reset, there is no content blur style.\n\n @param node **ArkUI_RenderNodeHandle** pointer to the target render node for which the content blur style is to be\n     reset.\n @return Result code.\n     <br>Returns {@link ARKUI_ERROR_CODE_NO_ERROR} if the operation is successful.\n     <br>Returns {@link ARKUI_ERROR_CODE_PARAM_INVALID} if a parameter error occurs.\n     <br>Returns {@link ARKUI_ERROR_CODE_RENDER_IS_FROM_FRAME_NODE} if the target node originates from a FrameNode.\n     <br>Returns {@link ARKUI_ERROR_CODE_CAPI_INIT_ERROR} if C API initialization failed.\n @since 26.0.0"]
+    #[cfg(feature = "api-26")]
+    pub fn OH_ArkUI_RenderNodeUtils_ResetContentBlurOption(node: ArkUI_RenderNodeHandle) -> i32;
+}
+extern "C" {
+    #[doc = " @brief Adds a child render node to the parent custom node.\n\n The parent node supports only nodes of the **ARKUI_NODE_CUSTOM** type in\n [ArkUI_NodeType](capi-native-node-h.md#arkui_nodetype). Each custom node can be mounted to only one\n **ArkUI_RenderNodeHandle**. **customNode** cannot be mounted to another **ArkUI_NodeHandle**.\n\n @param node Target parent node.\n @param child Child render node to be added.\n @return Result code.\n     <br>Returns {@link ARKUI_ERROR_CODE_NO_ERROR} if the operation is successful.\n     <br>Returns {@link ARKUI_ERROR_CODE_PARAM_INVALID} if a parameter error occurs.\n     <br>Returns {@link ARKUI_ERROR_CODE_CAPI_INIT_ERROR} if C API initialization failed.\n     <br>Returns {@link ARKUI_ERROR_CODE_NOT_CUSTOM_NODE} if the target node is not a custom node.\n     <br>Returns {@link ARKUI_ERROR_CODE_CHILD_EXISTED} if the target node already has a child node.\n     <br>Returns {@link ARKUI_ERROR_CODE_RENDER_PARENT_EXISTED} if the target rendering node already has a parent\n     node.\n     <br>Returns {@link ARKUI_ERROR_CODE_RENDER_HAS_INVALID_FRAME_NODE} if the current render node originates from a\n     FrameNode that has been either detached as a child node or destroyed. This specification is supported since API\n     version 22.\n @since 20"]
+    #[cfg(feature = "api-20")]
+    pub fn OH_ArkUI_RenderNodeUtils_AddRenderNode(
+        node: ArkUI_NodeHandle,
+        child: ArkUI_RenderNodeHandle,
+    ) -> i32;
+}
+extern "C" {
+    #[doc = " @brief Removes the specified child render node from the parent node.\n\n @param node Target parent node.\n @param child Child render node to be removed.\n @return Result code.\n     <br>Returns {@link ARKUI_ERROR_CODE_NO_ERROR} if the operation is successful.\n     <br>Returns {@link ARKUI_ERROR_CODE_PARAM_INVALID} if a parameter error occurs.\n     <br>Returns {@link ARKUI_ERROR_CODE_CAPI_INIT_ERROR} if C API initialization failed.\n     <br>Returns {@link ARKUI_ERROR_CODE_NOT_CUSTOM_NODE} if the target node is not a custom node.\n @since 20"]
+    #[cfg(feature = "api-20")]
+    pub fn OH_ArkUI_RenderNodeUtils_RemoveRenderNode(
+        node: ArkUI_NodeHandle,
+        child: ArkUI_RenderNodeHandle,
+    ) -> i32;
+}
+extern "C" {
+    #[doc = " @brief Clears child render nodes in the parent node.\n\n @param node Target parent node.\n @return Result code.\n     <br>Returns {@link ARKUI_ERROR_CODE_NO_ERROR} if the operation is successful.\n     <br>Returns {@link ARKUI_ERROR_CODE_PARAM_INVALID} if a parameter error occurs.\n     <br>Returns {@link ARKUI_ERROR_CODE_CAPI_INIT_ERROR} if C API initialization failed.\n     <br>Returns {@link ARKUI_ERROR_CODE_NOT_CUSTOM_NODE} if the target node is not a custom node.\n @since 20"]
+    #[cfg(feature = "api-20")]
+    pub fn OH_ArkUI_RenderNodeUtils_ClearRenderNodeChildren(node: ArkUI_NodeHandle) -> i32;
+}
+extern "C" {
+    #[doc = " @brief Marks the target node, triggering its lifecycle and child nodes to re-render.\n\n @param node Target node.\n @return Result code.\n     <br>Returns {@link ARKUI_ERROR_CODE_NO_ERROR} if the operation is successful.\n     <br>Returns {@link ARKUI_ERROR_CODE_PARAM_INVALID} if a parameter error occurs.\n     <br>Returns {@link ARKUI_ERROR_CODE_CAPI_INIT_ERROR} if C API initialization failed.\n @since 20"]
+    #[cfg(feature = "api-20")]
+    pub fn OH_ArkUI_RenderNodeUtils_Invalidate(node: ArkUI_NodeHandle) -> i32;
+}
+extern "C" {
+    #[doc = " @brief Creates a render node.\n\n @return Target render node.\n @since 20"]
+    #[cfg(feature = "api-20")]
+    pub fn OH_ArkUI_RenderNodeUtils_CreateNode() -> ArkUI_RenderNodeHandle;
+}
+extern "C" {
+    #[doc = " @brief Destroys the render node.\n\n @param node Target render node.\n @return Result code.\n     <br>Returns {@link ARKUI_ERROR_CODE_NO_ERROR} if the operation is successful.\n     <br>Returns {@link ARKUI_ERROR_CODE_PARAM_INVALID} if a parameter error occurs.\n     <br>Returns {@link ARKUI_ERROR_CODE_CAPI_INIT_ERROR} if C API initialization failed.\n @since 20"]
+    #[cfg(feature = "api-20")]
+    pub fn OH_ArkUI_RenderNodeUtils_DisposeNode(node: ArkUI_RenderNodeHandle) -> i32;
+}
+extern "C" {
+    #[doc = " @brief Adds a child node to the target parent render node.\n\n @param node Target parent render node.\n @param child Child render node to be added.\n @return Result code.\n     <br>Returns {@link ARKUI_ERROR_CODE_NO_ERROR} if the operation is successful.\n     <br>Returns {@link ARKUI_ERROR_CODE_PARAM_INVALID} if a parameter error occurs.\n     <br>Returns {@link ARKUI_ERROR_CODE_CAPI_INIT_ERROR} if C API initialization failed.\n     <br>Returns {@link ARKUI_ERROR_CODE_RENDER_IS_FROM_FRAME_NODE} if the target node originates from a FrameNode.\n     This specification is supported since API version 22.\n     <br>Returns {@link ARKUI_ERROR_CODE_RENDER_HAS_INVALID_FRAME_NODE} if the current render node originates from a\n     FrameNode that has been either detached as a child node or destroyed. This specification is supported since API\n     version 22.\n @since 20"]
+    #[cfg(feature = "api-20")]
+    pub fn OH_ArkUI_RenderNodeUtils_AddChild(
+        node: ArkUI_RenderNodeHandle,
+        child: ArkUI_RenderNodeHandle,
+    ) -> i32;
+}
+extern "C" {
+    #[doc = " @brief Adds a child node after the target child node of the parent node.\n\n @param node Target parent render node.\n @param child Child render node to be added.\n @param sibling Target child node, which is used to determine the reference sibling render node of the insertion\n     position. If the node is not in the current child node list of **node**, the node is appended to the end.\n @return Error code.\n     {@link ARKUI_ERROR_CODE_NO_ERROR} Success.\n     {@link ARKUI_ERROR_CODE_PARAM_INVALID} Function parameter exception.\n     {@link ARKUI_ERROR_CODE_CAPI_INIT_ERROR} if CAPI init error.\n     {@link ARKUI_ERROR_CODE_RENDER_IS_FROM_FRAME_NODE} if the node is obtained from a FrameNode. Add since api 22.\n     {@link ARKUI_ERROR_CODE_RENDER_HAS_INVALID_FRAME_NODE} if the child is obtained from a FrameNode, and its\n     corresponding FrameNode is\n     no longer in the adopted state. Add since api 22.\n @since 20"]
+    #[cfg(feature = "api-20")]
+    pub fn OH_ArkUI_RenderNodeUtils_InsertChildAfter(
+        node: ArkUI_RenderNodeHandle,
+        child: ArkUI_RenderNodeHandle,
+        sibling: ArkUI_RenderNodeHandle,
+    ) -> i32;
+}
+extern "C" {
+    #[doc = " @brief Removes a child node from the specified render node.\n\n @param node Target parent render node.\n @param child Child render node to be removed.\n @return Result code.\n     <br>Returns {@link ARKUI_ERROR_CODE_NO_ERROR} if the operation is successful.\n     <br>Returns {@link ARKUI_ERROR_CODE_PARAM_INVALID} if a parameter error occurs.\n     <br>Returns {@link ARKUI_ERROR_CODE_CAPI_INIT_ERROR} if C API initialization failed.\n     <br>Returns {@link ARKUI_ERROR_CODE_RENDER_IS_FROM_FRAME_NODE} if the target node originates from a FrameNode.\n     This specification is supported since API version 22.\n @since 20"]
+    #[cfg(feature = "api-20")]
+    pub fn OH_ArkUI_RenderNodeUtils_RemoveChild(
+        node: ArkUI_RenderNodeHandle,
+        child: ArkUI_RenderNodeHandle,
+    ) -> i32;
+}
+extern "C" {
+    #[doc = " @brief Clears all child nodes of the specified render node.\n\n @param node Target render node.\n @return Result code.\n     <br>Returns {@link ARKUI_ERROR_CODE_NO_ERROR} if the operation is successful.\n     <br>Returns {@link ARKUI_ERROR_CODE_PARAM_INVALID} if a parameter error occurs.\n     <br>Returns {@link ARKUI_ERROR_CODE_CAPI_INIT_ERROR} if C API initialization failed.\n     <br>Returns {@link ARKUI_ERROR_CODE_RENDER_IS_FROM_FRAME_NODE} if the target node originates from a FrameNode.\n     This specification is supported since API version 22.\n @since 20"]
+    #[cfg(feature = "api-20")]
+    pub fn OH_ArkUI_RenderNodeUtils_ClearChildren(node: ArkUI_RenderNodeHandle) -> i32;
+}
+extern "C" {
+    #[doc = " @brief Obtains the child node at the specified index.\n\n @param node Target parent render node.\n @param index Zero-based index of the child node.\n @param child Render node pointer used to receive the child node.\n @return Result code.\n     <br>Returns {@link ARKUI_ERROR_CODE_NO_ERROR} if the operation is successful.\n     <br>Returns {@link ARKUI_ERROR_CODE_PARAM_INVALID} if a parameter error occurs.\n     <br>Returns {@link ARKUI_ERROR_CODE_CAPI_INIT_ERROR} if C API initialization failed.\n     <br>Returns {@link ARKUI_ERROR_CODE_RENDER_CHILD_NOT_EXIST} if the corresponding render child node is not found.\n     <br>Returns {@link ARKUI_ERROR_CODE_RENDER_IS_FROM_FRAME_NODE} if the target node originates from a FrameNode.\n     This specification is supported since API version 22.\n @since 20"]
+    #[cfg(feature = "api-20")]
+    pub fn OH_ArkUI_RenderNodeUtils_GetChild(
+        node: ArkUI_RenderNodeHandle,
+        index: i32,
+        child: *mut ArkUI_RenderNodeHandle,
+    ) -> i32;
+}
+extern "C" {
+    #[doc = " @brief Obtains the first child node of the specified render node.\n\n @param node Target render node.\n @param child Render node pointer used to receive the first child node.\n @return Result code.\n     <br>Returns {@link ARKUI_ERROR_CODE_NO_ERROR} if the operation is successful.\n     <br>Returns {@link ARKUI_ERROR_CODE_PARAM_INVALID} if a parameter error occurs.\n     <br>Returns {@link ARKUI_ERROR_CODE_CAPI_INIT_ERROR} if C API initialization failed.\n     <br>Returns {@link ARKUI_ERROR_CODE_RENDER_CHILD_NOT_EXIST} if the corresponding render child node is not found.\n     <br>Returns {@link ARKUI_ERROR_CODE_RENDER_IS_FROM_FRAME_NODE} if the target node originates from a FrameNode.\n     This specification is supported since API version 22.\n @since 20"]
+    #[cfg(feature = "api-20")]
+    pub fn OH_ArkUI_RenderNodeUtils_GetFirstChild(
+        node: ArkUI_RenderNodeHandle,
+        child: *mut ArkUI_RenderNodeHandle,
+    ) -> i32;
+}
+extern "C" {
+    #[doc = " @brief Obtains the next sibling node of the specified node.\n\n @param node Reference node.\n @param sibling Pointer to the render node, which is used to receive the next sibling node.\n @return Result code.\n     <br>Returns {@link ARKUI_ERROR_CODE_NO_ERROR} if the operation is successful.\n     <br>Returns {@link ARKUI_ERROR_CODE_PARAM_INVALID} if a parameter error occurs.\n     <br>Returns {@link ARKUI_ERROR_CODE_CAPI_INIT_ERROR} if C API initialization failed.\n     <br>Returns {@link ARKUI_ERROR_CODE_RENDER_CHILD_NOT_EXIST} if the corresponding render child node is not found.\n @since 20"]
+    #[cfg(feature = "api-20")]
+    pub fn OH_ArkUI_RenderNodeUtils_GetNextSibling(
+        node: ArkUI_RenderNodeHandle,
+        sibling: *mut ArkUI_RenderNodeHandle,
+    ) -> i32;
+}
+extern "C" {
+    #[doc = " @brief Obtains the previous sibling node of the specified node.\n\n @param node Reference node.\n @param sibling Pointer to the render node, which is used to receive the previous sibling node.\n @return Result code.\n     <br>Returns {@link ARKUI_ERROR_CODE_NO_ERROR} if the operation is successful.\n     <br>Returns {@link ARKUI_ERROR_CODE_PARAM_INVALID} if a parameter error occurs.\n     <br>Returns {@link ARKUI_ERROR_CODE_CAPI_INIT_ERROR} if C API initialization failed.\n     <br>Returns {@link ARKUI_ERROR_CODE_RENDER_CHILD_NOT_EXIST} if the corresponding render child node is not found.\n @since 20"]
+    #[cfg(feature = "api-20")]
+    pub fn OH_ArkUI_RenderNodeUtils_GetPreviousSibling(
+        node: ArkUI_RenderNodeHandle,
+        sibling: *mut ArkUI_RenderNodeHandle,
+    ) -> i32;
+}
+extern "C" {
+    #[doc = " @brief Obtains all child render nodes of the parent render node. The caller is responsible for releasing the\n returned child node array.\n\n @param node Target parent render node.\n @param children Pointer array used to store all child render nodes.\n @param count Pointer used to store the number of obtained child nodes.\n @return Result code.\n     <br>Returns {@link ARKUI_ERROR_CODE_NO_ERROR} if the operation is successful.\n     <br>Returns {@link ARKUI_ERROR_CODE_PARAM_INVALID} if a parameter error occurs.\n     <br>Returns {@link ARKUI_ERROR_CODE_CAPI_INIT_ERROR} if C API initialization failed.\n     <br>Returns {@link ARKUI_ERROR_CODE_RENDER_IS_FROM_FRAME_NODE} if the target node originates from a FrameNode.\n     This specification is supported since API version 22.\n @since 20"]
+    #[cfg(feature = "api-20")]
+    pub fn OH_ArkUI_RenderNodeUtils_GetChildren(
+        node: ArkUI_RenderNodeHandle,
+        children: *mut *mut ArkUI_RenderNodeHandle,
+        count: *mut i32,
+    ) -> i32;
+}
+extern "C" {
+    #[doc = " @brief Obtains the number of child render nodes of the specified render node.\n\n @param node Target parent render node.\n @param count Pointer used to store the number of child nodes.\n @return Result code.\n     <br>Returns {@link ARKUI_ERROR_CODE_NO_ERROR} if the operation is successful.\n     <br>Returns {@link ARKUI_ERROR_CODE_PARAM_INVALID} if a parameter error occurs.\n     <br>Returns {@link ARKUI_ERROR_CODE_CAPI_INIT_ERROR} if C API initialization failed.\n     <br>Returns {@link ARKUI_ERROR_CODE_RENDER_IS_FROM_FRAME_NODE} if the target node originates from a FrameNode.\n     This specification is supported since API version 22.\n @since 20"]
+    #[cfg(feature = "api-20")]
+    pub fn OH_ArkUI_RenderNodeUtils_GetChildrenCount(
+        node: ArkUI_RenderNodeHandle,
+        count: *mut i32,
+    ) -> i32;
+}
+extern "C" {
+    #[doc = " @brief Sets the background color for the render node.\n\n @param node Target render node.\n @param color ARGB color value (32-bit unsigned integer).\n     <br>Default value: **0x00000000**.\n     <br>**Description of color byte layout**:\n     <br>- Bits 24-31: alpha channel (0x00 for fully transparent, 0xFF for fully opaque).\n     <br>- Bits 16-23: red channel.\n     <br>- Bits 8-15: green channel.\n     <br>- Bits 0-7: blue channel.\n @return Result code.\n     <br>Returns {@link ARKUI_ERROR_CODE_NO_ERROR} if the operation is successful.\n     <br>Returns {@link ARKUI_ERROR_CODE_PARAM_INVALID} if a parameter error occurs.\n     <br>Returns {@link ARKUI_ERROR_CODE_CAPI_INIT_ERROR} if C API initialization failed.\n     <br>Returns {@link ARKUI_ERROR_CODE_RENDER_IS_FROM_FRAME_NODE} if the target node originates from a FrameNode.\n     This specification is supported since API version 22.\n @since 20"]
+    #[cfg(feature = "api-20")]
+    pub fn OH_ArkUI_RenderNodeUtils_SetBackgroundColor(
+        node: ArkUI_RenderNodeHandle,
+        color: u32,
+    ) -> i32;
+}
+extern "C" {
+    #[doc = " @brief Obtains the background color of the render node.\n\n @param node Target render node.\n @param color Integer pointer used to store the obtained RGBA color value.\n     <br>Default value: **0x00000000**.\n     <br>**Description of color byte layout**:\n     <br>- Bits 24-31: alpha channel (0x00 for fully transparent, 0xFF for fully opaque).\n     <br>- Bits 16-23: red channel.\n     <br>- Bits 8-15: green channel.\n     <br>- Bits 0-7: blue channel.\n @return Result code.\n     <br>Returns {@link ARKUI_ERROR_CODE_NO_ERROR} if the operation is successful.\n     <br>Returns {@link ARKUI_ERROR_CODE_PARAM_INVALID} if a parameter error occurs.\n     <br>Returns {@link ARKUI_ERROR_CODE_CAPI_INIT_ERROR} if C API initialization failed.\n     <br>Returns {@link ARKUI_ERROR_CODE_RENDER_IS_FROM_FRAME_NODE} if the target node originates from a FrameNode.\n     This specification is supported since API version 22.\n @since 20"]
+    #[cfg(feature = "api-20")]
+    pub fn OH_ArkUI_RenderNodeUtils_GetBackgroundColor(
+        node: ArkUI_RenderNodeHandle,
+        color: *mut u32,
+    ) -> i32;
+}
+extern "C" {
+    #[doc = " @brief Sets whether to clip the render node.\n\n @param node Target render node.\n @param clipToFrame Whether to clip the current render node. **1**: Clip to frame. **0**: Do not clip.\n     <br>Default value: **0**.\n @return Result code.\n     <br>Returns {@link ARKUI_ERROR_CODE_NO_ERROR} if the operation is successful.\n     <br>Returns {@link ARKUI_ERROR_CODE_PARAM_INVALID} if a parameter error occurs.\n     <br>Returns {@link ARKUI_ERROR_CODE_CAPI_INIT_ERROR} if C API initialization failed.\n     <br>Returns {@link ARKUI_ERROR_CODE_PARAM_OUT_OF_RANGE} if the parameter value is out of range.\n     <br>Returns {@link ARKUI_ERROR_CODE_RENDER_IS_FROM_FRAME_NODE} if the target node originates from a FrameNode.\n     This specification is supported since API version 22.\n @since 20"]
+    #[cfg(feature = "api-20")]
+    pub fn OH_ArkUI_RenderNodeUtils_SetClipToFrame(
+        node: ArkUI_RenderNodeHandle,
+        clipToFrame: i32,
+    ) -> i32;
+}
+extern "C" {
+    #[doc = " @brief Obtains whether the render node is clipped.\n\n @param node Target render node.\n @param clipToFrame Integer pointer used to receive the clipping status (1 or 0).\n     <br>Default value: **0**.\n @return Result code.\n     <br>Returns {@link ARKUI_ERROR_CODE_NO_ERROR} if the operation is successful.\n     <br>Returns {@link ARKUI_ERROR_CODE_PARAM_INVALID} if a parameter error occurs.\n     <br>Returns {@link ARKUI_ERROR_CODE_CAPI_INIT_ERROR} if C API initialization failed.\n     <br>Returns {@link ARKUI_ERROR_CODE_RENDER_IS_FROM_FRAME_NODE} if the target node originates from a FrameNode.\n     This specification is supported since API version 22.\n @since 20"]
+    #[cfg(feature = "api-20")]
+    pub fn OH_ArkUI_RenderNodeUtils_GetClipToFrame(
+        node: ArkUI_RenderNodeHandle,
+        clipToFrame: *mut i32,
+    ) -> i32;
+}
+extern "C" {
+    #[doc = " @brief Sets whether to clip to the bounds of the render node.\n\n @param node Target render node.\n @param clipToBounds Clipping flag. **1**: Clip to bounds. **0**: Do not clip.\n     <br>Default value: **0**.\n @return Result code.\n     <br>Returns {@link ARKUI_ERROR_CODE_NO_ERROR} if the operation is successful.\n     <br>Returns {@link ARKUI_ERROR_CODE_PARAM_INVALID} if a parameter error occurs.\n     <br>Returns {@link ARKUI_ERROR_CODE_CAPI_INIT_ERROR} if C API initialization failed.\n     <br>Returns {@link ARKUI_ERROR_CODE_PARAM_OUT_OF_RANGE} if the parameter value is out of range.\n     <br>Returns {@link ARKUI_ERROR_CODE_RENDER_IS_FROM_FRAME_NODE} if the target node originates from a FrameNode.\n     This specification is supported since API version 22.\n @since 20"]
+    #[cfg(feature = "api-20")]
+    pub fn OH_ArkUI_RenderNodeUtils_SetClipToBounds(
+        node: ArkUI_RenderNodeHandle,
+        clipToBounds: i32,
+    ) -> i32;
+}
+extern "C" {
+    #[doc = " @brief Sets whether clipping to the bounds of the render node is enabled.\n\n @param node Target render node.\n @param clipToBounds Clipping flag. **1**: Clip to bounds. **0**: Do not clip.\n     <br>Default value: **0**.\n @return Result code.\n     <br>Returns {@link ARKUI_ERROR_CODE_NO_ERROR} if the operation is successful.\n     <br>Returns {@link ARKUI_ERROR_CODE_PARAM_INVALID} if a parameter error occurs.\n     <br>Returns {@link ARKUI_ERROR_CODE_CAPI_INIT_ERROR} if C API initialization failed.\n     <br>Returns {@link ARKUI_ERROR_CODE_RENDER_IS_FROM_FRAME_NODE} if the target node originates from a FrameNode.\n     This specification is supported since API version 22.\n @since 20"]
+    #[cfg(feature = "api-20")]
+    pub fn OH_ArkUI_RenderNodeUtils_GetClipToBounds(
+        node: ArkUI_RenderNodeHandle,
+        clipToBounds: *mut i32,
+    ) -> i32;
+}
+extern "C" {
+    #[doc = " @brief Sets the opacity value for the render node.\n\n @param node Target render node.\n @param opacity Opacity value (0.0–1.0).\n     <br>Default value: **1**.\n @return Result code.\n     <br>Returns {@link ARKUI_ERROR_CODE_NO_ERROR} if the operation is successful.\n     <br>Returns {@link ARKUI_ERROR_CODE_PARAM_INVALID} if a parameter error occurs.\n     <br>Returns {@link ARKUI_ERROR_CODE_CAPI_INIT_ERROR} if C API initialization failed.\n     <br>Returns {@link ARKUI_ERROR_CODE_PARAM_OUT_OF_RANGE} if the parameter value is out of range.\n     <br>Returns {@link ARKUI_ERROR_CODE_RENDER_IS_FROM_FRAME_NODE} if the target node originates from a FrameNode.\n     This specification is supported since API version 22.\n @since 20"]
+    #[cfg(feature = "api-20")]
+    pub fn OH_ArkUI_RenderNodeUtils_SetOpacity(node: ArkUI_RenderNodeHandle, opacity: f32) -> i32;
+}
+extern "C" {
+    #[doc = " @brief Obtains the opacity value of the render node.\n\n @param node Target render node.\n @param opacity Pointer used to store the opacity value (0.0–1.0).\n     <br>Default value: **1**.\n @return Result code.\n     <br>Returns {@link ARKUI_ERROR_CODE_NO_ERROR} if the operation is successful.\n     <br>Returns {@link ARKUI_ERROR_CODE_PARAM_INVALID} if a parameter error occurs.\n     <br>Returns {@link ARKUI_ERROR_CODE_CAPI_INIT_ERROR} if C API initialization failed.\n     <br>Returns {@link ARKUI_ERROR_CODE_RENDER_IS_FROM_FRAME_NODE} if the target node originates from a FrameNode.\n     This specification is supported since API version 22.\n @since 20"]
+    #[cfg(feature = "api-20")]
+    pub fn OH_ArkUI_RenderNodeUtils_GetOpacity(
+        node: ArkUI_RenderNodeHandle,
+        opacity: *mut f32,
+    ) -> i32;
+}
+extern "C" {
+    #[doc = " @brief Sets the size for the render node.\n\n @param node Target render node.\n @param width Width value (in px).\n     <br>Default value: **0**, in px. The value must be greater than or equal to 0. If a negative value is passed,\n     {@link ARKUI_ERROR_CODE_PARAM_OUT_OF_RANGE} is returned.\n @param height Height value (in px).\n     <br>Default value: **0**, in px. The value must be greater than or equal to 0. If a negative value is passed,\n     {@link ARKUI_ERROR_CODE_PARAM_OUT_OF_RANGE} is returned.\n @return Result code.\n     <br>Returns {@link ARKUI_ERROR_CODE_NO_ERROR} if the operation is successful.\n     <br>Returns {@link ARKUI_ERROR_CODE_PARAM_INVALID} if a parameter error occurs.\n     <br>Returns {@link ARKUI_ERROR_CODE_CAPI_INIT_ERROR} if C API initialization failed.\n     <br>Returns {@link ARKUI_ERROR_CODE_PARAM_OUT_OF_RANGE} if the parameter value is out of range.\n     <br>Returns {@link ARKUI_ERROR_CODE_RENDER_IS_FROM_FRAME_NODE} if the target node originates from a FrameNode.\n     This specification is supported since API version 22.\n @since 20"]
+    #[cfg(feature = "api-20")]
+    pub fn OH_ArkUI_RenderNodeUtils_SetSize(
+        node: ArkUI_RenderNodeHandle,
+        width: i32,
+        height: i32,
+    ) -> i32;
+}
+extern "C" {
+    #[doc = " @brief Obtains the size of the render node.\n\n @param node Target render node.\n @param width Pointer used to store the width value (in px).\n     <br>Default value: **0**, in px.\n @param height Pointer used to store the height value (in px).\n     <br>Default value: **0**, in px.\n @return Result code.\n     <br>Returns {@link ARKUI_ERROR_CODE_NO_ERROR} if the operation is successful.\n     <br>Returns {@link ARKUI_ERROR_CODE_PARAM_INVALID} if a parameter error occurs.\n     <br>Returns {@link ARKUI_ERROR_CODE_CAPI_INIT_ERROR} if C API initialization failed.\n     <br>Returns {@link ARKUI_ERROR_CODE_RENDER_IS_FROM_FRAME_NODE} if the target node originates from a FrameNode.\n     This specification is supported since API version 22.\n @since 20"]
+    #[cfg(feature = "api-20")]
+    pub fn OH_ArkUI_RenderNodeUtils_GetSize(
+        node: ArkUI_RenderNodeHandle,
+        width: *mut i32,
+        height: *mut i32,
+    ) -> i32;
+}
+extern "C" {
+    #[doc = " @brief Sets the position coordinates for the render node.\n\n @param node Target render node.\n @param x X-coordinate (in px).\n     <br>Default value: **0**, in px.\n @param y Y-coordinate (in px).\n     <br>Default value: **0**, in px.\n @return Result code.\n     <br>Returns {@link ARKUI_ERROR_CODE_NO_ERROR} if the operation is successful.\n     <br>Returns {@link ARKUI_ERROR_CODE_PARAM_INVALID} if a parameter error occurs.\n     <br>Returns {@link ARKUI_ERROR_CODE_CAPI_INIT_ERROR} if C API initialization failed.\n     <br>Returns {@link ARKUI_ERROR_CODE_RENDER_IS_FROM_FRAME_NODE} if the target node originates from a FrameNode.\n     This specification is supported since API version 22.\n @since 20"]
+    #[cfg(feature = "api-20")]
+    pub fn OH_ArkUI_RenderNodeUtils_SetPosition(
+        node: ArkUI_RenderNodeHandle,
+        x: i32,
+        y: i32,
+    ) -> i32;
+}
+extern "C" {
+    #[doc = " @brief Obtains the position coordinates of the render node. The coordinates are the position offset of the render\n node relative to its parent node after the layout. The unit is px. The coordinates are the result after the parent\n node lays out the node. Therefore, the **offset** attribute that takes effect after the layout and the **position**\n attribute that does not participate in the layout do not affect the coordinates.\n\n @param node Target render node.\n @param x Pointer used to store the x-coordinate (in px).\n     <br>Default value: **0**, in px.\n @param y Pointer used to store the y-coordinate (in px).\n     <br>Default value: **0**, in px.\n @return Result code.\n     <br>Returns {@link ARKUI_ERROR_CODE_NO_ERROR} if the operation is successful.\n     <br>Returns {@link ARKUI_ERROR_CODE_PARAM_INVALID} if a parameter error occurs.\n     <br>Returns {@link ARKUI_ERROR_CODE_CAPI_INIT_ERROR} if C API initialization failed.\n     <br>Returns {@link ARKUI_ERROR_CODE_RENDER_IS_FROM_FRAME_NODE} if the target node originates from a FrameNode.\n     This specification is supported since API version 22.\n @since 20"]
+    #[cfg(feature = "api-20")]
+    pub fn OH_ArkUI_RenderNodeUtils_GetPosition(
+        node: ArkUI_RenderNodeHandle,
+        x: *mut i32,
+        y: *mut i32,
+    ) -> i32;
+}
+extern "C" {
+    #[doc = " @brief Sets the pivot point for the transformation of the render node.\n\n @param node Target render node.\n @param x X-coordinate of the pivot point. Standard value range: 0.0–1.0.\n     <br>Default value: **0.5**.\n @param y Y-coordinate of the pivot point. Standard value range: 0.0–1.0.\n     <br>Default value: **0.5**.\n @return Result code.\n     <br>Returns {@link ARKUI_ERROR_CODE_NO_ERROR} if the operation is successful.\n     <br>Returns {@link ARKUI_ERROR_CODE_PARAM_INVALID} if a parameter error occurs.\n     <br>Returns {@link ARKUI_ERROR_CODE_CAPI_INIT_ERROR} if C API initialization failed.\n     <br>Returns {@link ARKUI_ERROR_CODE_RENDER_IS_FROM_FRAME_NODE} if the target node originates from a FrameNode.\n     This specification is supported since API version 22.\n @since 20"]
+    #[cfg(feature = "api-20")]
+    pub fn OH_ArkUI_RenderNodeUtils_SetPivot(node: ArkUI_RenderNodeHandle, x: f32, y: f32) -> i32;
+}
+extern "C" {
+    #[doc = " @brief Obtains the pivot point coordinates of the render node.\n\n @param node Target render node.\n @param x Pointer used to store the x-coordinate of the pivot point.\n     <br>Default value: **0.5**.\n @param y Pointer used to store the y-coordinate of the pivot point.\n     <br>Default value: **0.5**.\n @return Result code.\n     <br>Returns {@link ARKUI_ERROR_CODE_NO_ERROR} if the operation is successful.\n     <br>Returns {@link ARKUI_ERROR_CODE_PARAM_INVALID} if a parameter error occurs.\n     <br>Returns {@link ARKUI_ERROR_CODE_CAPI_INIT_ERROR} if C API initialization failed.\n     <br>Returns {@link ARKUI_ERROR_CODE_RENDER_IS_FROM_FRAME_NODE} if the target node originates from a FrameNode.\n     This specification is supported since API version 22.\n @since 20"]
+    #[cfg(feature = "api-20")]
+    pub fn OH_ArkUI_RenderNodeUtils_GetPivot(
+        node: ArkUI_RenderNodeHandle,
+        x: *mut f32,
+        y: *mut f32,
+    ) -> i32;
+}
+extern "C" {
+    #[doc = " @brief Sets the scale factors for the render node.\n\n @param node Target render node.\n @param x Scale factor on the x-axis.\n     <br>Default value: **1**.\n @param y Scale factor on the y-axis.\n     <br>Default value: **1**.\n @return Result code.\n     <br>Returns {@link ARKUI_ERROR_CODE_NO_ERROR} if the operation is successful.\n     <br>Returns {@link ARKUI_ERROR_CODE_PARAM_INVALID} if a parameter error occurs.\n     <br>Returns {@link ARKUI_ERROR_CODE_CAPI_INIT_ERROR} if C API initialization failed.\n     <br>Returns {@link ARKUI_ERROR_CODE_RENDER_IS_FROM_FRAME_NODE} if the target node originates from a FrameNode.\n     This specification is supported since API version 22.\n @since 20"]
+    #[cfg(feature = "api-20")]
+    pub fn OH_ArkUI_RenderNodeUtils_SetScale(node: ArkUI_RenderNodeHandle, x: f32, y: f32) -> i32;
+}
+extern "C" {
+    #[doc = " @brief Obtains the scale factors of the render node.\n\n @param node Target render node.\n @param x Pointer used to store the scale factor on the x-axis.\n     <br>Default value: **1**.\n @param y Pointer used to store the scale factor on the y-axis.\n     <br>Default value: **1**.\n @return Result code.\n     <br>Returns {@link ARKUI_ERROR_CODE_NO_ERROR} if the operation is successful.\n     <br>Returns {@link ARKUI_ERROR_CODE_PARAM_INVALID} if a parameter error occurs.\n     <br>Returns {@link ARKUI_ERROR_CODE_CAPI_INIT_ERROR} if C API initialization failed.\n     <br>Returns {@link ARKUI_ERROR_CODE_RENDER_IS_FROM_FRAME_NODE} if the target node originates from a FrameNode.\n     This specification is supported since API version 22.\n @since 20"]
+    #[cfg(feature = "api-20")]
+    pub fn OH_ArkUI_RenderNodeUtils_GetScale(
+        node: ArkUI_RenderNodeHandle,
+        x: *mut f32,
+        y: *mut f32,
+    ) -> i32;
+}
+extern "C" {
+    #[doc = " @brief Sets the translation offset for the render node.\n\n @param node Target render node.\n @param x Horizontal translation offset (in pixels).\n     <br>Default value: **0**.\n @param y Vertical translation offset (in pixels).\n     <br>Default value: **0**.\n @return Result code.\n     <br>Returns {@link ARKUI_ERROR_CODE_NO_ERROR} if the operation is successful.\n     <br>Returns {@link ARKUI_ERROR_CODE_PARAM_INVALID} if a parameter error occurs.\n     <br>Returns {@link ARKUI_ERROR_CODE_CAPI_INIT_ERROR} if C API initialization failed.\n     <br>Returns {@link ARKUI_ERROR_CODE_RENDER_IS_FROM_FRAME_NODE} if the target node originates from a FrameNode.\n     This specification is supported since API version 22.\n @since 20"]
+    #[cfg(feature = "api-20")]
+    pub fn OH_ArkUI_RenderNodeUtils_SetTranslation(
+        node: ArkUI_RenderNodeHandle,
+        x: f32,
+        y: f32,
+    ) -> i32;
+}
+extern "C" {
+    #[doc = " @brief Obtains the translation offset of the render node.\n\n @param node Target render node.\n @param x Pointer used to store the horizontal translation offset.\n     <br>Default value: **0**.\n @param y Pointer used to store the vertical translation offset.\n     <br>Default value: **0**.\n @return Result code.\n     <br>Returns {@link ARKUI_ERROR_CODE_NO_ERROR} if the operation is successful.\n     <br>Returns {@link ARKUI_ERROR_CODE_PARAM_INVALID} if a parameter error occurs.\n     <br>Returns {@link ARKUI_ERROR_CODE_CAPI_INIT_ERROR} if C API initialization failed.\n     <br>Returns {@link ARKUI_ERROR_CODE_RENDER_IS_FROM_FRAME_NODE} if the target node originates from a FrameNode.\n     This specification is supported since API version 22.\n @since 20"]
+    #[cfg(feature = "api-20")]
+    pub fn OH_ArkUI_RenderNodeUtils_GetTranslation(
+        node: ArkUI_RenderNodeHandle,
+        x: *mut f32,
+        y: *mut f32,
+    ) -> i32;
+}
+extern "C" {
+    #[doc = " @brief Sets the rotation angles for the render node.\n\n @param node Target render node.\n @param x Rotation angle around the x-axis (in degrees).\n     <br>Default value: **0**.\n @param y Rotation angle around the y-axis (in degrees).\n     <br>Default value: **0**.\n @param z Rotation angle around the z-axis (in degrees).\n     <br>Default value: **0**.\n @return Result code.\n     <br>Returns {@link ARKUI_ERROR_CODE_NO_ERROR} if the operation is successful.\n     <br>Returns {@link ARKUI_ERROR_CODE_PARAM_INVALID} if a parameter error occurs.\n     <br>Returns {@link ARKUI_ERROR_CODE_CAPI_INIT_ERROR} if C API initialization failed.\n     <br>Returns {@link ARKUI_ERROR_CODE_RENDER_IS_FROM_FRAME_NODE} if the target node originates from a FrameNode.\n     This specification is supported since API version 22.\n @since 20"]
+    #[cfg(feature = "api-20")]
+    pub fn OH_ArkUI_RenderNodeUtils_SetRotation(
+        node: ArkUI_RenderNodeHandle,
+        x: f32,
+        y: f32,
+        z: f32,
+    ) -> i32;
+}
+extern "C" {
+    #[doc = " @brief Obtains the rotation angles of the render node.\n\n @param node Target render node.\n @param x Pointer used to store the rotation angle around the x-axis (in degrees).\n     <br>Default value: **0**.\n @param y Pointer used to store the rotation angle around the y-axis (in degrees).\n     <br>Default value: **0**.\n @param z Pointer used to store the rotation angle around the z-axis (in degrees).\n     <br>Default value: **0**.\n @return Result code.\n     <br>Returns {@link ARKUI_ERROR_CODE_NO_ERROR} if the operation is successful.\n     <br>Returns {@link ARKUI_ERROR_CODE_PARAM_INVALID} if a parameter error occurs.\n     <br>Returns {@link ARKUI_ERROR_CODE_CAPI_INIT_ERROR} if C API initialization failed.\n     <br>Returns {@link ARKUI_ERROR_CODE_RENDER_IS_FROM_FRAME_NODE} if the target node originates from a FrameNode.\n     This specification is supported since API version 22.\n @since 20"]
+    #[cfg(feature = "api-20")]
+    pub fn OH_ArkUI_RenderNodeUtils_GetRotation(
+        node: ArkUI_RenderNodeHandle,
+        x: *mut f32,
+        y: *mut f32,
+        z: *mut f32,
+    ) -> i32;
+}
+extern "C" {
+    #[doc = " @brief Sets the transformation matrix for the render node.\n\n @param node Target render node.\n @param matrix Float array of 4x4 transformation matrix (16 consecutive values).\n     The transformation matrix should be provided as 16 consecutive floating-point values in row-major order:\n       [m00, m01, m02, m03,\n        m10, m11, m12, m13,\n        m20, m21, m22, m23,\n        m30, m31, m32, m33]\n     Where the matrix represents:\n       | m00 m01 m02 m03 |\n       | m10 m11 m12 m13 |\n       | m20 m21 m22 m23 |\n       | m30 m31 m32 m33 |\n     Matrix components:\n       | m00  | Scaling value of the x-axis. The default value is **1** for the identity matrix.     |\n       | m01  | The second value, which is affected by the rotation or tilt of the x, y, and z axes.  |\n       | m02  | The third value, which is affected by the rotation of the x, y, and z axes.  |\n       | m03  | The fourth value, which is affected by perspective projection.              |\n       | m10  | The fifth value, which is affected by the rotation or tilt of the x, y, and z axes.  |\n       | m11  | Scaling value of the y-axis. The default value is **1** for the identity matrix.     |\n       | m12  | The seventh value, which is affected by the rotation of the x, y, and z axes.  |\n       | m13  | The eighth value, which is affected by perspective projection.              |\n       | m20  | The ninth value, which is affected by the rotation of the x, y, and z axes.  |\n       | m21  | The tenth value, which is affected by the rotation of the x, y, and z axes. |\n       | m22  | Scaling value of the z-axis. The default value is **1** for the identity matrix.     |\n       | m23  | The 12th value, which is affected by perspective projection.              |\n       | m30  | Translation value of the x-axis, in px. The default value is **0** for the identity matrix.|\n       | m31  | Translation value of the y-axis, in px. The default value is **0** for the identity matrix.|\n       | m32  | Translation value of the z-axis, in px. The default value is **0** for the identity matrix.|\n       | m33  | Valid in homogeneous coordinates, presenting the perspective projection effect.   |\n @return Result code.\n     <br>Returns {@link ARKUI_ERROR_CODE_NO_ERROR} if the operation is successful.\n     <br>Returns {@link ARKUI_ERROR_CODE_PARAM_INVALID} if a parameter error occurs.\n     <br>Returns {@link ARKUI_ERROR_CODE_CAPI_INIT_ERROR} if C API initialization failed.\n     <br>Returns {@link ARKUI_ERROR_CODE_PARAM_OUT_OF_RANGE} if the parameter value is out of range.\n     <br>Returns {@link ARKUI_ERROR_CODE_RENDER_IS_FROM_FRAME_NODE} if the target node originates from a FrameNode.\n     This specification is supported since API version 22.\n @since 20"]
+    #[cfg(feature = "api-20")]
+    pub fn OH_ArkUI_RenderNodeUtils_SetTransform(
+        node: ArkUI_RenderNodeHandle,
+        matrix: *mut f32,
+    ) -> i32;
+}
+extern "C" {
+    #[doc = " @brief Sets the shadow color for the render node.\n\n @param node Target render node.\n @param color ARGB color value (32-bit unsigned integer).\n     <br>Default value: **0x00000000**.\n     <br>**Description of color byte layout**:\n     <br>- Bits 24-31: alpha channel (0x00 for fully transparent, 0xFF for fully opaque).\n     <br>- Bits 16-23: red channel.\n     <br>- Bits 8-15: green channel.\n     <br>- Bits 0-7: blue channel.\n @return Result code.\n     <br>Returns {@link ARKUI_ERROR_CODE_NO_ERROR} if the operation is successful.\n     <br>Returns {@link ARKUI_ERROR_CODE_PARAM_INVALID} if a parameter error occurs.\n     <br>Returns {@link ARKUI_ERROR_CODE_CAPI_INIT_ERROR} if C API initialization failed.\n     <br>Returns {@link ARKUI_ERROR_CODE_RENDER_IS_FROM_FRAME_NODE} if the target node originates from a FrameNode.\n     This specification is supported since API version 22.\n @since 20"]
+    #[cfg(feature = "api-20")]
+    pub fn OH_ArkUI_RenderNodeUtils_SetShadowColor(node: ArkUI_RenderNodeHandle, color: u32)
+        -> i32;
+}
+extern "C" {
+    #[doc = " @brief Obtains the shadow color of the render node.\n\n @param node Target render node.\n @param color Integer pointer used to store the obtained RGBA color value.\n     <br>Default value: **0xFF000000**.\n     <br>**Description of color byte layout**:\n     <br>- Bits 24-31: alpha channel (0x00 for fully transparent, 0xFF for fully opaque).\n     <br>- Bits 16-23: red channel.\n     <br>- Bits 8-15: green channel.\n     <br>- Bits 0-7: blue channel.\n @return Result code.\n     <br>Returns {@link ARKUI_ERROR_CODE_NO_ERROR} if the operation is successful.\n     <br>Returns {@link ARKUI_ERROR_CODE_PARAM_INVALID} if a parameter error occurs.\n     <br>Returns {@link ARKUI_ERROR_CODE_CAPI_INIT_ERROR} if C API initialization failed.\n     <br>Returns {@link ARKUI_ERROR_CODE_RENDER_IS_FROM_FRAME_NODE} if the target node originates from a FrameNode.\n     This specification is supported since API version 22.\n @since 20"]
+    #[cfg(feature = "api-20")]
+    pub fn OH_ArkUI_RenderNodeUtils_GetShadowColor(
+        node: ArkUI_RenderNodeHandle,
+        color: *mut u32,
+    ) -> i32;
+}
+extern "C" {
+    #[doc = " @brief Sets the shadow offset for the render node.\n\n @param node Target render node.\n @param x Horizontal offset (in pixels).\n     <br>Default value: **0**.\n @param y Vertical offset (in pixels).\n     <br>Default value: **0**.\n @return Result code.\n     <br>Returns {@link ARKUI_ERROR_CODE_NO_ERROR} if the operation is successful.\n     <br>Returns {@link ARKUI_ERROR_CODE_PARAM_INVALID} if a parameter error occurs.\n     <br>Returns {@link ARKUI_ERROR_CODE_CAPI_INIT_ERROR} if C API initialization failed.\n     <br>Returns {@link ARKUI_ERROR_CODE_RENDER_IS_FROM_FRAME_NODE} if the target node originates from a FrameNode.\n     This specification is supported since API version 22.\n @since 20"]
+    #[cfg(feature = "api-20")]
+    pub fn OH_ArkUI_RenderNodeUtils_SetShadowOffset(
+        node: ArkUI_RenderNodeHandle,
+        x: i32,
+        y: i32,
+    ) -> i32;
+}
+extern "C" {
+    #[doc = " @brief Obtains the shadow offset of the render node.\n\n @param node Target render node.\n @param x Pointer used to store the horizontal offset.\n     <br>Default value: **0**, in px.\n @param y Pointer used to store the vertical offset.\n     <br>Default value: **0**, in px.\n @return Result code.\n     <br>Returns {@link ARKUI_ERROR_CODE_NO_ERROR} if the operation is successful.\n     <br>Returns {@link ARKUI_ERROR_CODE_PARAM_INVALID} if a parameter error occurs.\n     <br>Returns {@link ARKUI_ERROR_CODE_CAPI_INIT_ERROR} if C API initialization failed.\n     <br>Returns {@link ARKUI_ERROR_CODE_RENDER_IS_FROM_FRAME_NODE} if the target node originates from a FrameNode.\n     This specification is supported since API version 22.\n @since 20"]
+    #[cfg(feature = "api-20")]
+    pub fn OH_ArkUI_RenderNodeUtils_GetShadowOffset(
+        node: ArkUI_RenderNodeHandle,
+        x: *mut i32,
+        y: *mut i32,
+    ) -> i32;
+}
+extern "C" {
+    #[doc = " @brief Sets the shadow alpha (transparency) for the render node.\n\n @param node Target render node.\n @param alpha Shadow alpha value (0.0–1.0).\n     <br>Default value: **0**.\n @return Result code.\n     <br>Returns {@link ARKUI_ERROR_CODE_NO_ERROR} if the operation is successful.\n     <br>Returns {@link ARKUI_ERROR_CODE_PARAM_INVALID} if a parameter error occurs.\n     <br>Returns {@link ARKUI_ERROR_CODE_CAPI_INIT_ERROR} if C API initialization failed.\n     <br>Returns {@link ARKUI_ERROR_CODE_PARAM_OUT_OF_RANGE} if the parameter value is out of range.\n     <br>Returns {@link ARKUI_ERROR_CODE_RENDER_IS_FROM_FRAME_NODE} if the target node originates from a FrameNode.\n     This specification is supported since API version 22.\n @since 20"]
+    #[cfg(feature = "api-20")]
+    pub fn OH_ArkUI_RenderNodeUtils_SetShadowAlpha(node: ArkUI_RenderNodeHandle, alpha: f32)
+        -> i32;
+}
+extern "C" {
+    #[doc = " @brief Obtains the shadow alpha (transparency) of the render node.\n\n @param node Target render node.\n @param alpha Pointer used to store the shadow alpha value.\n     <br>Default value: **1**.\n @return Result code.\n     <br>Returns {@link ARKUI_ERROR_CODE_NO_ERROR} if the operation is successful.\n     <br>Returns {@link ARKUI_ERROR_CODE_PARAM_INVALID} if a parameter error occurs.\n     <br>Returns {@link ARKUI_ERROR_CODE_CAPI_INIT_ERROR} if C API initialization failed.\n     <br>Returns {@link ARKUI_ERROR_CODE_RENDER_IS_FROM_FRAME_NODE} if the target node originates from a FrameNode.\n     This specification is supported since API version 22.\n @since 20"]
+    #[cfg(feature = "api-20")]
+    pub fn OH_ArkUI_RenderNodeUtils_GetShadowAlpha(
+        node: ArkUI_RenderNodeHandle,
+        alpha: *mut f32,
+    ) -> i32;
+}
+extern "C" {
+    #[doc = " @brief Sets the shadow elevation for the render node.\n\n @param node Target render node.\n @param elevation Elevation.\n     <br>Default value: **0**.\n @return Result code.\n     <br>Returns {@link ARKUI_ERROR_CODE_NO_ERROR} if the operation is successful.\n     <br>Returns {@link ARKUI_ERROR_CODE_PARAM_INVALID} if a parameter error occurs.\n     <br>Returns {@link ARKUI_ERROR_CODE_CAPI_INIT_ERROR} if C API initialization failed.\n     <br>Returns {@link ARKUI_ERROR_CODE_PARAM_OUT_OF_RANGE} if the parameter value is out of range.\n     <br>Returns {@link ARKUI_ERROR_CODE_RENDER_IS_FROM_FRAME_NODE} if the target node originates from a FrameNode.\n     This specification is supported since API version 22.\n @since 20"]
+    #[cfg(feature = "api-20")]
+    pub fn OH_ArkUI_RenderNodeUtils_SetShadowElevation(
+        node: ArkUI_RenderNodeHandle,
+        elevation: f32,
+    ) -> i32;
+}
+extern "C" {
+    #[doc = " @brief Obtains the shadow elevation of the render node.\n\n @param node Target render node.\n @param elevation Pointer used to store the elevation value.\n     <br>Default value: **0**.\n @return Result code.\n     <br>Returns {@link ARKUI_ERROR_CODE_NO_ERROR} if the operation is successful.\n     <br>Returns {@link ARKUI_ERROR_CODE_PARAM_INVALID} if a parameter error occurs.\n     <br>Returns {@link ARKUI_ERROR_CODE_CAPI_INIT_ERROR} if C API initialization failed.\n     <br>Returns {@link ARKUI_ERROR_CODE_RENDER_IS_FROM_FRAME_NODE} if the target node originates from a FrameNode.\n     This specification is supported since API version 22.\n @since 20"]
+    #[cfg(feature = "api-20")]
+    pub fn OH_ArkUI_RenderNodeUtils_GetShadowElevation(
+        node: ArkUI_RenderNodeHandle,
+        elevation: *mut f32,
+    ) -> i32;
+}
+extern "C" {
+    #[doc = " @brief Sets the shadow radius for the render node.\n\n @param node Target render node.\n @param radius Radius value.\n     <br>Default value: **0**. The value must be greater than or equal to 0. If a negative value is passed,\n     {@link ARKUI_ERROR_CODE_PARAM_OUT_OF_RANGE} is returned.\n @return Result code.\n     <br>Returns {@link ARKUI_ERROR_CODE_NO_ERROR} if the operation is successful.\n     <br>Returns {@link ARKUI_ERROR_CODE_PARAM_INVALID} if a parameter error occurs.\n     <br>Returns {@link ARKUI_ERROR_CODE_CAPI_INIT_ERROR} if C API initialization failed.\n     <br>Returns {@link ARKUI_ERROR_CODE_PARAM_OUT_OF_RANGE} if the parameter value is out of range.\n     <br>Returns {@link ARKUI_ERROR_CODE_RENDER_IS_FROM_FRAME_NODE} if the target node originates from a FrameNode.\n     This specification is supported since API version 22.\n @since 20"]
+    #[cfg(feature = "api-20")]
+    pub fn OH_ArkUI_RenderNodeUtils_SetShadowRadius(
+        node: ArkUI_RenderNodeHandle,
+        radius: f32,
+    ) -> i32;
+}
+extern "C" {
+    #[doc = " @brief Obtains the shadow radius of the render node.\n\n @param node Target render node.\n @param radius Pointer used to store the radius value.\n     <br>Default value: **0**.\n @return Result code.\n     <br>Returns {@link ARKUI_ERROR_CODE_NO_ERROR} if the operation is successful.\n     <br>Returns {@link ARKUI_ERROR_CODE_PARAM_INVALID} if a parameter error occurs.\n     <br>Returns {@link ARKUI_ERROR_CODE_CAPI_INIT_ERROR} if C API initialization failed.\n     <br>Returns {@link ARKUI_ERROR_CODE_RENDER_IS_FROM_FRAME_NODE} if the target node originates from a FrameNode.\n     This specification is supported since API version 22.\n @since 20"]
+    #[cfg(feature = "api-20")]
+    pub fn OH_ArkUI_RenderNodeUtils_GetShadowRadius(
+        node: ArkUI_RenderNodeHandle,
+        radius: *mut f32,
+    ) -> i32;
+}
+extern "C" {
+    #[doc = " @brief Sets the border style for the render node.\n\n @param node Target render node.\n @param borderStyle Pointer to the border style.\n     <br>Default value in the struct pointer: {@link ARKUI_BORDER_STYLE_SOLID}.\n @return Result code.\n     <br>Returns {@link ARKUI_ERROR_CODE_NO_ERROR} if the operation is successful.\n     <br>Returns {@link ARKUI_ERROR_CODE_PARAM_INVALID} if a parameter error occurs.\n     <br>Returns {@link ARKUI_ERROR_CODE_CAPI_INIT_ERROR} if C API initialization failed.\n     <br>Returns {@link ARKUI_ERROR_CODE_RENDER_IS_FROM_FRAME_NODE} if the target node originates from a FrameNode.\n     This specification is supported since API version 22.\n @since 20"]
+    #[cfg(feature = "api-20")]
+    pub fn OH_ArkUI_RenderNodeUtils_SetBorderStyle(
+        node: ArkUI_RenderNodeHandle,
+        borderStyle: *mut ArkUI_NodeBorderStyleOption,
+    ) -> i32;
+}
+extern "C" {
+    #[doc = " @brief Obtains the border style of the render node.\n\n @param node Target render node.\n @param borderStyle Pointer used to store the border style.\n     <br>Default value in the struct pointer: {@link ARKUI_BORDER_STYLE_SOLID}.\n @return Result code.\n     <br>Returns {@link ARKUI_ERROR_CODE_NO_ERROR} if the operation is successful.\n     <br>Returns {@link ARKUI_ERROR_CODE_PARAM_INVALID} if a parameter error occurs.\n     <br>Returns {@link ARKUI_ERROR_CODE_CAPI_INIT_ERROR} if C API initialization failed.\n     <br>Returns {@link ARKUI_ERROR_CODE_RENDER_IS_FROM_FRAME_NODE} if the target node originates from a FrameNode.\n     This specification is supported since API version 22.\n @since 20"]
+    #[cfg(feature = "api-20")]
+    pub fn OH_ArkUI_RenderNodeUtils_GetBorderStyle(
+        node: ArkUI_RenderNodeHandle,
+        borderStyle: *mut *mut ArkUI_NodeBorderStyleOption,
+    ) -> i32;
+}
+extern "C" {
+    #[doc = " @brief Sets the border width for the render node. The border width must be smaller than the node size.\n\n @param node Target render node.\n @param borderWidth Pointer to the border width.\n     <br>Default value in the struct pointer: **0**. Unit: px.\n @return Result code.\n     <br>Returns {@link ARKUI_ERROR_CODE_NO_ERROR} if the operation is successful.\n     <br>Returns {@link ARKUI_ERROR_CODE_PARAM_INVALID} if a parameter error occurs.\n     <br>Returns {@link ARKUI_ERROR_CODE_CAPI_INIT_ERROR} if C API initialization failed.\n     <br>Returns {@link ARKUI_ERROR_CODE_RENDER_IS_FROM_FRAME_NODE} if the target node originates from a FrameNode.\n     This specification is supported since API version 22.\n @since 20"]
+    #[cfg(feature = "api-20")]
+    pub fn OH_ArkUI_RenderNodeUtils_SetBorderWidth(
+        node: ArkUI_RenderNodeHandle,
+        borderWidth: *mut ArkUI_NodeBorderWidthOption,
+    ) -> i32;
+}
+extern "C" {
+    #[doc = " @brief Obtains the border width of the render node.\n\n @param node Target render node.\n @param borderWidth Pointer used to store the border width.\n     <br>Default value in the struct pointer: **0**. Unit: px.\n @return Result code.\n     <br>Returns {@link ARKUI_ERROR_CODE_NO_ERROR} if the operation is successful.\n     <br>Returns {@link ARKUI_ERROR_CODE_PARAM_INVALID} if a parameter error occurs.\n     <br>Returns {@link ARKUI_ERROR_CODE_CAPI_INIT_ERROR} if C API initialization failed.\n     <br>Returns {@link ARKUI_ERROR_CODE_RENDER_IS_FROM_FRAME_NODE} if the target node originates from a FrameNode.\n     This specification is supported since API version 22.\n @since 20"]
+    #[cfg(feature = "api-20")]
+    pub fn OH_ArkUI_RenderNodeUtils_GetBorderWidth(
+        node: ArkUI_RenderNodeHandle,
+        borderWidth: *mut *mut ArkUI_NodeBorderWidthOption,
+    ) -> i32;
+}
+extern "C" {
+    #[doc = " @brief Sets the border color for the render node.\n\n @param node Target render node.\n @param borderColor Pointer to the border color.\n     <br>Default value in the struct pointer: **0x00000000**.\n @return Result code.\n     <br>Returns {@link ARKUI_ERROR_CODE_NO_ERROR} if the operation is successful.\n     <br>Returns {@link ARKUI_ERROR_CODE_PARAM_INVALID} if a parameter error occurs.\n     <br>Returns {@link ARKUI_ERROR_CODE_CAPI_INIT_ERROR} if C API initialization failed.\n     <br>Returns {@link ARKUI_ERROR_CODE_RENDER_IS_FROM_FRAME_NODE} if the target node originates from a FrameNode.\n     This specification is supported since API version 22.\n @since 20"]
+    #[cfg(feature = "api-20")]
+    pub fn OH_ArkUI_RenderNodeUtils_SetBorderColor(
+        node: ArkUI_RenderNodeHandle,
+        borderColor: *mut ArkUI_NodeBorderColorOption,
+    ) -> i32;
+}
+extern "C" {
+    #[doc = " @brief Obtains the border color of the render node.\n\n @param node Target render node.\n @param borderColor Pointer used to store the border color.\n     <br>Default value in the struct pointer: **0x00000000**.\n @return Result code.\n     <br>Returns {@link ARKUI_ERROR_CODE_NO_ERROR} if the operation is successful.\n     <br>Returns {@link ARKUI_ERROR_CODE_PARAM_INVALID} if a parameter error occurs.\n     <br>Returns {@link ARKUI_ERROR_CODE_CAPI_INIT_ERROR} if C API initialization failed.\n     <br>Returns {@link ARKUI_ERROR_CODE_RENDER_IS_FROM_FRAME_NODE} if the target node originates from a FrameNode.\n     This specification is supported since API version 22.\n @since 20"]
+    #[cfg(feature = "api-20")]
+    pub fn OH_ArkUI_RenderNodeUtils_GetBorderColor(
+        node: ArkUI_RenderNodeHandle,
+        borderColor: *mut *mut ArkUI_NodeBorderColorOption,
+    ) -> i32;
+}
+extern "C" {
+    #[doc = " @brief Sets the border corner radius for the render node.\n\n @param node Target render node.\n @param borderRadius Pointer to the border radius.\n     <br>Default value in the struct pointer: **0**.\n @return Result code.\n     <br>Returns {@link ARKUI_ERROR_CODE_NO_ERROR} if the operation is successful.\n     <br>Returns {@link ARKUI_ERROR_CODE_PARAM_INVALID} if a parameter error occurs.\n     <br>Returns {@link ARKUI_ERROR_CODE_CAPI_INIT_ERROR} if C API initialization failed.\n     <br>Returns {@link ARKUI_ERROR_CODE_RENDER_IS_FROM_FRAME_NODE} if the target node originates from a FrameNode.\n     This specification is supported since API version 22.\n @since 20"]
+    #[cfg(feature = "api-20")]
+    pub fn OH_ArkUI_RenderNodeUtils_SetBorderRadius(
+        node: ArkUI_RenderNodeHandle,
+        borderRadius: *mut ArkUI_NodeBorderRadiusOption,
+    ) -> i32;
+}
+extern "C" {
+    #[doc = " @brief Obtains the border corner radius of the render node.\n\n @param node Target render node.\n @param borderRadius Pointer used to store the border corner radius.\n     <br>Default value in the struct pointer: **0**.\n @return Result code.\n     <br>Returns {@link ARKUI_ERROR_CODE_NO_ERROR} if the operation is successful.\n     <br>Returns {@link ARKUI_ERROR_CODE_PARAM_INVALID} if a parameter error occurs.\n     <br>Returns {@link ARKUI_ERROR_CODE_CAPI_INIT_ERROR} if C API initialization failed.\n     <br>Returns {@link ARKUI_ERROR_CODE_RENDER_IS_FROM_FRAME_NODE} if the target node originates from a FrameNode.\n     This specification is supported since API version 22.\n @since 20"]
+    #[cfg(feature = "api-20")]
+    pub fn OH_ArkUI_RenderNodeUtils_GetBorderRadius(
+        node: ArkUI_RenderNodeHandle,
+        borderRadius: *mut *mut ArkUI_NodeBorderRadiusOption,
+    ) -> i32;
+}
+extern "C" {
+    #[doc = " @brief Applies a mask to the render node using the mask configuration.\n\n The mask is created as follows:\n 1. Add brightness and a linear color filter to the mask layer.\n 2. Draw the mask graphic under this filter.\n 3. Use the original node image as the source color and the mask graphic as the target color, and blend them into a\n mask image using the [BlendMode.SRC_IN](../apis-arkgraphics2d/arkts-apis-graphics-drawing-e.md#blendmode) API.\n\n @param node Target render node.\n @param mask Pointer to the mask configuration.\n @return Result code.\n     <br>Returns {@link ARKUI_ERROR_CODE_NO_ERROR} if the operation is successful.\n     <br>Returns {@link ARKUI_ERROR_CODE_PARAM_INVALID} if a parameter error occurs.\n     <br>Returns {@link ARKUI_ERROR_CODE_CAPI_INIT_ERROR} if C API initialization failed.\n     <br>Returns {@link ARKUI_ERROR_CODE_RENDER_IS_FROM_FRAME_NODE} if the target node originates from a FrameNode.\n     This specification is supported since API version 22.\n @since 20"]
+    #[cfg(feature = "api-20")]
+    pub fn OH_ArkUI_RenderNodeUtils_SetMask(
+        node: ArkUI_RenderNodeHandle,
+        mask: *mut ArkUI_RenderNodeMaskOption,
+    ) -> i32;
+}
+extern "C" {
+    #[doc = " @brief Applies clipping to the render node using the clipping configuration.\n\n @param node Target render node.\n @param clip Pointer to the clipping configuration.\n @return Result code.\n     <br>Returns {@link ARKUI_ERROR_CODE_NO_ERROR} if the operation is successful.\n     <br>Returns {@link ARKUI_ERROR_CODE_PARAM_INVALID} if a parameter error occurs.\n     <br>Returns {@link ARKUI_ERROR_CODE_CAPI_INIT_ERROR} if C API initialization failed.\n     <br>Returns {@link ARKUI_ERROR_CODE_RENDER_IS_FROM_FRAME_NODE} if the target node originates from a FrameNode.\n     This specification is supported since API version 22.\n @since 20"]
+    #[cfg(feature = "api-20")]
+    pub fn OH_ArkUI_RenderNodeUtils_SetClip(
+        node: ArkUI_RenderNodeHandle,
+        clip: *mut ArkUI_RenderNodeClipOption,
+    ) -> i32;
+}
+extern "C" {
+    #[doc = " @brief Marks whether to prioritize drawing the node and its child nodes.\n\n @param node Target render node.\n @param markNodeGroup Whether to prioritize drawing the node and its child nodes.\n     <br>**true**: Enable drawing priority. **false**: Disable drawing priority.\n @return Result code.\n     <br>Returns {@link ARKUI_ERROR_CODE_NO_ERROR} if the operation is successful.\n     <br>Returns {@link ARKUI_ERROR_CODE_PARAM_INVALID} if a parameter error occurs.\n     <br>Returns {@link ARKUI_ERROR_CODE_CAPI_INIT_ERROR} if C API initialization failed.\n     <br>Returns {@link ARKUI_ERROR_CODE_RENDER_IS_FROM_FRAME_NODE} if the target node originates from a FrameNode.\n     This specification is supported since API version 22.\n @since 20"]
+    #[cfg(feature = "api-20")]
+    pub fn OH_ArkUI_RenderNodeUtils_SetMarkNodeGroup(
+        node: ArkUI_RenderNodeHandle,
+        markNodeGroup: bool,
+    ) -> i32;
+}
+extern "C" {
+    #[doc = " @brief Sets the bounds for the render node.\n\n @param node Target render node.\n @param x X-coordinate of the upper left corner of the bounds, in pixels.\n     <br>Default value: **0**.\n @param y Y-coordinate of the upper left corner of the bounds, in pixels.\n     <br>Default value: **0**.\n @param width Width of the bounds (in pixels).\n     <br>Default value: **0**. The value must be greater than or equal to 0. If a negative value is passed,\n     {@link ARKUI_ERROR_CODE_PARAM_OUT_OF_RANGE} is returned.\n @param height Height of the bounds (in pixels).\n     <br>Default value: **0**. The value must be greater than or equal to 0. If a negative value is passed,\n     {@link ARKUI_ERROR_CODE_PARAM_OUT_OF_RANGE} is returned.\n @return Result code.\n     <br>Returns {@link ARKUI_ERROR_CODE_NO_ERROR} if the operation is successful.\n     <br>Returns {@link ARKUI_ERROR_CODE_PARAM_INVALID} if a parameter error occurs.\n     <br>Returns {@link ARKUI_ERROR_CODE_CAPI_INIT_ERROR} if C API initialization failed.\n     <br>Returns {@link ARKUI_ERROR_CODE_PARAM_OUT_OF_RANGE} if the parameter value is out of range.\n     <br>Returns {@link ARKUI_ERROR_CODE_RENDER_IS_FROM_FRAME_NODE} if the target node originates from a FrameNode.\n     This specification is supported since API version 22.\n @since 20"]
+    #[cfg(feature = "api-20")]
+    pub fn OH_ArkUI_RenderNodeUtils_SetBounds(
+        node: ArkUI_RenderNodeHandle,
+        x: i32,
+        y: i32,
+        width: i32,
+        height: i32,
+    ) -> i32;
+}
+extern "C" {
+    #[doc = " @brief Obtains the bounds of the render node.\n\n @param node Target render node.\n @param x Pointer used to store the x-coordinate of the upper left corner of the bounds, in pixels.\n     <br>Default value: **0**.\n @param y Pointer used to store the y-coordinate of the upper left corner of the bounds, in pixels.\n     <br>Default value: **0**.\n @param width Pointer used to store the width of the bounds (in pixels).\n     <br>Default value: **0**.\n @param height Pointer used to store the height of the bounds (in pixels).\n     <br>Default value: **0**.\n @return Result code.\n     <br>Returns {@link ARKUI_ERROR_CODE_NO_ERROR} if the operation is successful.\n     <br>Returns {@link ARKUI_ERROR_CODE_PARAM_INVALID} if a parameter error occurs.\n     <br>Returns {@link ARKUI_ERROR_CODE_CAPI_INIT_ERROR} if C API initialization failed.\n     <br>Returns {@link ARKUI_ERROR_CODE_RENDER_IS_FROM_FRAME_NODE} if the target node originates from a FrameNode.\n     This specification is supported since API version 22.\n @since 20"]
+    #[cfg(feature = "api-20")]
+    pub fn OH_ArkUI_RenderNodeUtils_GetBounds(
+        node: ArkUI_RenderNodeHandle,
+        x: *mut i32,
+        y: *mut i32,
+        width: *mut i32,
+        height: *mut i32,
+    ) -> i32;
+}
+extern "C" {
+    #[doc = " @brief Sets the drawing region for the render node. This drawing region is mainly used to address drawing issues\n caused by exceeding boundaries. When possible, set the size according to the actual drawing range.\n\n @param node Target render node.\n @param x X-coordinate of the upper left corner of the bounds, in pixels.\n @param y Y-coordinate of the upper left corner of the bounds, in pixels.\n @param w Width of the bounds (in pixels).\n @param h Height of the bounds (in pixels).\n @return Result code.\n     <br>Returns {@link ARKUI_ERROR_CODE_NO_ERROR} if the operation is successful.\n     <br>Returns {@link ARKUI_ERROR_CODE_PARAM_INVALID} if a parameter error occurs.\n     <br>Returns {@link ARKUI_ERROR_CODE_CAPI_INIT_ERROR} if C API initialization failed.\n     <br>Returns {@link ARKUI_ERROR_CODE_RENDER_IS_FROM_FRAME_NODE} if the target node originates from a FrameNode.\n     This specification is supported since API version 22.\n @since 20"]
+    #[cfg(feature = "api-20")]
+    pub fn OH_ArkUI_RenderNodeUtils_SetDrawRegion(
+        node: ArkUI_RenderNodeHandle,
+        x: f32,
+        y: f32,
+        w: f32,
+        h: f32,
+    ) -> i32;
+}
+extern "C" {
+    #[doc = " @brief Attaches a content modifier to the render node.\n\n @param node Target render node.\n @param modifier Content modifier.\n @return Result code.\n     <br>Returns {@link ARKUI_ERROR_CODE_NO_ERROR} if the operation is successful.\n     <br>Returns {@link ARKUI_ERROR_CODE_PARAM_INVALID} if a parameter error occurs.\n     <br>Returns {@link ARKUI_ERROR_CODE_CAPI_INIT_ERROR} if C API initialization failed.\n     <br>Returns {@link ARKUI_ERROR_CODE_RENDER_IS_FROM_FRAME_NODE} if the target node originates from a FrameNode.\n     This specification is supported since API version 22.\n @since 20"]
+    #[cfg(feature = "api-20")]
+    pub fn OH_ArkUI_RenderNodeUtils_AttachContentModifier(
+        node: ArkUI_RenderNodeHandle,
+        modifier: ArkUI_RenderContentModifierHandle,
+    ) -> i32;
+}
+extern "C" {
+    #[doc = " @brief Creates a content modifier.\n\n @return Content modifier.\n @since 20"]
+    #[cfg(feature = "api-20")]
+    pub fn OH_ArkUI_RenderNodeUtils_CreateContentModifier() -> ArkUI_RenderContentModifierHandle;
+}
+extern "C" {
+    #[doc = " @brief Disposes of the content modifier.\n\n @param modifier Content modifier.\n @since 20"]
+    #[cfg(feature = "api-20")]
+    pub fn OH_ArkUI_RenderNodeUtils_DisposeContentModifier(
+        modifier: ArkUI_RenderContentModifierHandle,
+    );
+}
+extern "C" {
+    #[doc = " @brief Attaches a float property to the target content modifier.\n\n @param modifier Target content modifier.\n @param property Float property.\n @return Result code.\n     <br>Returns {@link ARKUI_ERROR_CODE_NO_ERROR} if the operation is successful.\n     <br>Returns {@link ARKUI_ERROR_CODE_PARAM_INVALID} if a parameter error occurs.\n     <br>Returns {@link ARKUI_ERROR_CODE_CAPI_INIT_ERROR} if C API initialization failed.\n @since 20"]
+    #[cfg(feature = "api-20")]
+    pub fn OH_ArkUI_RenderNodeUtils_AttachFloatProperty(
+        modifier: ArkUI_RenderContentModifierHandle,
+        property: ArkUI_FloatPropertyHandle,
+    ) -> i32;
+}
+extern "C" {
+    #[doc = " @brief Attaches a 2D vector property to the target content modifier.\n\n @param modifier Target content modifier.\n @param property 2D vector property.\n @return Result code.\n     <br>Returns {@link ARKUI_ERROR_CODE_NO_ERROR} if the operation is successful.\n     <br>Returns {@link ARKUI_ERROR_CODE_PARAM_INVALID} if a parameter error occurs.\n     <br>Returns {@link ARKUI_ERROR_CODE_CAPI_INIT_ERROR} if C API initialization failed.\n @since 20"]
+    #[cfg(feature = "api-20")]
+    pub fn OH_ArkUI_RenderNodeUtils_AttachVector2Property(
+        modifier: ArkUI_RenderContentModifierHandle,
+        property: ArkUI_Vector2PropertyHandle,
+    ) -> i32;
+}
+extern "C" {
+    #[doc = " @brief Attaches a color property to the target content modifier.\n\n @param modifier Target content modifier.\n @param property Color property.\n @return Result code.\n     <br>Returns {@link ARKUI_ERROR_CODE_NO_ERROR} if the operation is successful.\n     <br>Returns {@link ARKUI_ERROR_CODE_PARAM_INVALID} if a parameter error occurs.\n     <br>Returns {@link ARKUI_ERROR_CODE_CAPI_INIT_ERROR} if C API initialization failed.\n @since 20"]
+    #[cfg(feature = "api-20")]
+    pub fn OH_ArkUI_RenderNodeUtils_AttachColorProperty(
+        modifier: ArkUI_RenderContentModifierHandle,
+        property: ArkUI_ColorPropertyHandle,
+    ) -> i32;
+}
+extern "C" {
+    #[doc = " @brief Attaches an animatable float property to the target content modifier.\n\n @param modifier Target content modifier.\n @param property Animatable float property.\n @return Result code.\n     <br>Returns {@link ARKUI_ERROR_CODE_NO_ERROR} if the operation is successful.\n     <br>Returns {@link ARKUI_ERROR_CODE_PARAM_INVALID} if a parameter error occurs.\n     <br>Returns {@link ARKUI_ERROR_CODE_CAPI_INIT_ERROR} if C API initialization failed.\n @since 20"]
+    #[cfg(feature = "api-20")]
+    pub fn OH_ArkUI_RenderNodeUtils_AttachFloatAnimatableProperty(
+        modifier: ArkUI_RenderContentModifierHandle,
+        property: ArkUI_FloatAnimatablePropertyHandle,
+    ) -> i32;
+}
+extern "C" {
+    #[doc = " @brief Attaches an animatable 2D vector property to the target content modifier.\n\n @param modifier Target content modifier.\n @param property Animatable 2D vector property.\n @return Result code.\n     <br>Returns {@link ARKUI_ERROR_CODE_NO_ERROR} if the operation is successful.\n     <br>Returns {@link ARKUI_ERROR_CODE_PARAM_INVALID} if a parameter error occurs.\n     <br>Returns {@link ARKUI_ERROR_CODE_CAPI_INIT_ERROR} if C API initialization failed.\n @since 20"]
+    #[cfg(feature = "api-20")]
+    pub fn OH_ArkUI_RenderNodeUtils_AttachVector2AnimatableProperty(
+        modifier: ArkUI_RenderContentModifierHandle,
+        property: ArkUI_Vector2AnimatablePropertyHandle,
+    ) -> i32;
+}
+extern "C" {
+    #[doc = " @brief Attaches an animatable color property to the target content modifier.\n\n @param modifier Target content modifier.\n @param property Animatable color property.\n @return Result code.\n     <br>Returns {@link ARKUI_ERROR_CODE_NO_ERROR} if the operation is successful.\n     <br>Returns {@link ARKUI_ERROR_CODE_PARAM_INVALID} if a parameter error occurs.\n     <br>Returns {@link ARKUI_ERROR_CODE_CAPI_INIT_ERROR} if C API initialization failed.\n @since 20"]
+    #[cfg(feature = "api-20")]
+    pub fn OH_ArkUI_RenderNodeUtils_AttachColorAnimatableProperty(
+        modifier: ArkUI_RenderContentModifierHandle,
+        property: ArkUI_ColorAnimatablePropertyHandle,
+    ) -> i32;
+}
+extern "C" {
+    #[doc = " @brief Creates a float property.\n\n @param value Property value.\n @return Float property.\n @since 20"]
+    #[cfg(feature = "api-20")]
+    pub fn OH_ArkUI_RenderNodeUtils_CreateFloatProperty(value: f32) -> ArkUI_FloatPropertyHandle;
+}
+extern "C" {
+    #[doc = " @brief Sets the value of the float property.\n\n @param property Float property.\n @param value Property value.\n @return Result code.\n     <br>Returns {@link ARKUI_ERROR_CODE_NO_ERROR} if the operation is successful.\n     <br>Returns {@link ARKUI_ERROR_CODE_PARAM_INVALID} if a parameter error occurs.\n     <br>Returns {@link ARKUI_ERROR_CODE_CAPI_INIT_ERROR} if C API initialization failed.\n @since 20"]
+    #[cfg(feature = "api-20")]
+    pub fn OH_ArkUI_RenderNodeUtils_SetFloatPropertyValue(
+        property: ArkUI_FloatPropertyHandle,
+        value: f32,
+    ) -> i32;
+}
+extern "C" {
+    #[doc = " @brief Obtains the value of the float property.\n\n @param property Float property.\n @param value Pointer used to store the property value.\n @return Result code.\n     <br>Returns {@link ARKUI_ERROR_CODE_NO_ERROR} if the operation is successful.\n     <br>Returns {@link ARKUI_ERROR_CODE_PARAM_INVALID} if a parameter error occurs.\n     <br>Returns {@link ARKUI_ERROR_CODE_CAPI_INIT_ERROR} if C API initialization failed.\n @since 20"]
+    #[cfg(feature = "api-20")]
+    pub fn OH_ArkUI_RenderNodeUtils_GetFloatPropertyValue(
+        property: ArkUI_FloatPropertyHandle,
+        value: *mut f32,
+    ) -> i32;
+}
+extern "C" {
+    #[doc = " @brief Disposes of the float property.\n\n @param property Float property.\n @since 20"]
+    #[cfg(feature = "api-20")]
+    pub fn OH_ArkUI_RenderNodeUtils_DisposeFloatProperty(property: ArkUI_FloatPropertyHandle);
+}
+extern "C" {
+    #[doc = " @brief Creates a 2D vector property.\n\n @param x X-coordinate of the property.\n @param y Y-coordinate of the property.\n @return 2D vector property.\n @since 20"]
+    #[cfg(feature = "api-20")]
+    pub fn OH_ArkUI_RenderNodeUtils_CreateVector2Property(
+        x: f32,
+        y: f32,
+    ) -> ArkUI_Vector2PropertyHandle;
+}
+extern "C" {
+    #[doc = " @brief Sets the value of the 2D vector property.\n\n @param property 2D vector property.\n @param x X-coordinate of the property.\n @param y Y-coordinate of the property.\n @return Result code.\n     <br>Returns {@link ARKUI_ERROR_CODE_NO_ERROR} if the operation is successful.\n     <br>Returns {@link ARKUI_ERROR_CODE_PARAM_INVALID} if a parameter error occurs.\n     <br>Returns {@link ARKUI_ERROR_CODE_CAPI_INIT_ERROR} if C API initialization failed.\n @since 20"]
+    #[cfg(feature = "api-20")]
+    pub fn OH_ArkUI_RenderNodeUtils_SetVector2PropertyValue(
+        property: ArkUI_Vector2PropertyHandle,
+        x: f32,
+        y: f32,
+    ) -> i32;
+}
+extern "C" {
+    #[doc = " @brief Obtains the value of the 2D vector property.\n\n @param property 2D vector property.\n @param x Pointer used to store the x-coordinate of the property.\n @param y Pointer used to store the y-coordinate of the property.\n @return Result code.\n     <br>Returns {@link ARKUI_ERROR_CODE_NO_ERROR} if the operation is successful.\n     <br>Returns {@link ARKUI_ERROR_CODE_PARAM_INVALID} if a parameter error occurs.\n     <br>Returns {@link ARKUI_ERROR_CODE_CAPI_INIT_ERROR} if C API initialization failed.\n @since 20"]
+    #[cfg(feature = "api-20")]
+    pub fn OH_ArkUI_RenderNodeUtils_GetVector2PropertyValue(
+        property: ArkUI_Vector2PropertyHandle,
+        x: *mut f32,
+        y: *mut f32,
+    ) -> i32;
+}
+extern "C" {
+    #[doc = " @brief Disposes of the 2D vector property.\n\n @param property 2D vector property.\n @since 20"]
+    #[cfg(feature = "api-20")]
+    pub fn OH_ArkUI_RenderNodeUtils_DisposeVector2Property(property: ArkUI_Vector2PropertyHandle);
+}
+extern "C" {
+    #[doc = " @brief Creates a color property.\n\n @param value Property value.\n @return Color property.\n @since 20"]
+    #[cfg(feature = "api-20")]
+    pub fn OH_ArkUI_RenderNodeUtils_CreateColorProperty(value: u32) -> ArkUI_ColorPropertyHandle;
+}
+extern "C" {
+    #[doc = " @brief Sets the value of the color property.\n\n @param property Color property.\n @param value Property value.\n @return Result code.\n     <br>Returns {@link ARKUI_ERROR_CODE_NO_ERROR} if the operation is successful.\n     <br>Returns {@link ARKUI_ERROR_CODE_PARAM_INVALID} if a parameter error occurs.\n     <br>Returns {@link ARKUI_ERROR_CODE_CAPI_INIT_ERROR} if C API initialization failed.\n @since 20"]
+    #[cfg(feature = "api-20")]
+    pub fn OH_ArkUI_RenderNodeUtils_SetColorPropertyValue(
+        property: ArkUI_ColorPropertyHandle,
+        value: u32,
+    ) -> i32;
+}
+extern "C" {
+    #[doc = " @brief Obtains the value of the color property.\n\n @param property Color property.\n @param value Pointer used to store the property value.\n @return Result code.\n     <br>Returns {@link ARKUI_ERROR_CODE_NO_ERROR} if the operation is successful.\n     <br>Returns {@link ARKUI_ERROR_CODE_PARAM_INVALID} if a parameter error occurs.\n     <br>Returns {@link ARKUI_ERROR_CODE_CAPI_INIT_ERROR} if C API initialization failed.\n @since 20"]
+    #[cfg(feature = "api-20")]
+    pub fn OH_ArkUI_RenderNodeUtils_GetColorPropertyValue(
+        property: ArkUI_ColorPropertyHandle,
+        value: *mut u32,
+    ) -> i32;
+}
+extern "C" {
+    #[doc = " @brief Disposes of the color property.\n\n @param property Color property.\n @since 20"]
+    #[cfg(feature = "api-20")]
+    pub fn OH_ArkUI_RenderNodeUtils_DisposeColorProperty(property: ArkUI_ColorPropertyHandle);
+}
+extern "C" {
+    #[doc = " @brief Creates an animatable float property.\n\n @param value Property value.\n @return Animatable float property.\n @since 20"]
+    #[cfg(feature = "api-20")]
+    pub fn OH_ArkUI_RenderNodeUtils_CreateFloatAnimatableProperty(
+        value: f32,
+    ) -> ArkUI_FloatAnimatablePropertyHandle;
+}
+extern "C" {
+    #[doc = " @brief Sets the value of the animatable float property.\n\n @param property Animatable float property.\n @param value Property value.\n @return Result code.\n     <br>Returns {@link ARKUI_ERROR_CODE_NO_ERROR} if the operation is successful.\n     <br>Returns {@link ARKUI_ERROR_CODE_PARAM_INVALID} if a parameter error occurs.\n     <br>Returns {@link ARKUI_ERROR_CODE_CAPI_INIT_ERROR} if C API initialization failed.\n @since 20"]
+    #[cfg(feature = "api-20")]
+    pub fn OH_ArkUI_RenderNodeUtils_SetFloatAnimatablePropertyValue(
+        property: ArkUI_FloatAnimatablePropertyHandle,
+        value: f32,
+    ) -> i32;
+}
+extern "C" {
+    #[doc = " @brief Obtains the value of the animatable float property.\n\n @param property Animatable float property.\n @param value Pointer used to store the property value.\n @return Result code.\n     <br>Returns {@link ARKUI_ERROR_CODE_NO_ERROR} if the operation is successful.\n     <br>Returns {@link ARKUI_ERROR_CODE_PARAM_INVALID} if a parameter error occurs.\n     <br>Returns {@link ARKUI_ERROR_CODE_CAPI_INIT_ERROR} if C API initialization failed.\n @since 20"]
+    #[cfg(feature = "api-20")]
+    pub fn OH_ArkUI_RenderNodeUtils_GetFloatAnimatablePropertyValue(
+        property: ArkUI_FloatAnimatablePropertyHandle,
+        value: *mut f32,
+    ) -> i32;
+}
+extern "C" {
+    #[doc = " @brief Disposes of the animatable float property.\n\n @param property Animatable float property.\n @since 20"]
+    #[cfg(feature = "api-20")]
+    pub fn OH_ArkUI_RenderNodeUtils_DisposeFloatAnimatableProperty(
+        property: ArkUI_FloatAnimatablePropertyHandle,
+    );
+}
+extern "C" {
+    #[doc = " @brief Creates an animatable 2D vector property.\n\n @param x X-coordinate of the property.\n @param y Y-coordinate of the property.\n @return Animatable 2D vector property.\n @since 20"]
+    #[cfg(feature = "api-20")]
+    pub fn OH_ArkUI_RenderNodeUtils_CreateVector2AnimatableProperty(
+        x: f32,
+        y: f32,
+    ) -> ArkUI_Vector2AnimatablePropertyHandle;
+}
+extern "C" {
+    #[doc = " @brief Sets the value of the animatable 2D vector property.\n\n @param property Animatable 2D vector property.\n @param x X-coordinate of the property.\n @param y Y-coordinate of the property.\n @return Result code.\n     <br>Returns {@link ARKUI_ERROR_CODE_NO_ERROR} if the operation is successful.\n     <br>Returns {@link ARKUI_ERROR_CODE_PARAM_INVALID} if a parameter error occurs.\n     <br>Returns {@link ARKUI_ERROR_CODE_CAPI_INIT_ERROR} if C API initialization failed.\n @since 20"]
+    #[cfg(feature = "api-20")]
+    pub fn OH_ArkUI_RenderNodeUtils_SetVector2AnimatablePropertyValue(
+        property: ArkUI_Vector2AnimatablePropertyHandle,
+        x: f32,
+        y: f32,
+    ) -> i32;
+}
+extern "C" {
+    #[doc = " @brief Obtains the value of the animatable 2D vector property.\n\n @param property Animatable 2D vector property.\n @param x Pointer used to store the x-coordinate of the property.\n @param y Pointer used to store the y-coordinate of the property.\n @return Result code.\n     <br>Returns {@link ARKUI_ERROR_CODE_NO_ERROR} if the operation is successful.\n     <br>Returns {@link ARKUI_ERROR_CODE_PARAM_INVALID} if a parameter error occurs.\n     <br>Returns {@link ARKUI_ERROR_CODE_CAPI_INIT_ERROR} if C API initialization failed.\n @since 20"]
+    #[cfg(feature = "api-20")]
+    pub fn OH_ArkUI_RenderNodeUtils_GetVector2AnimatablePropertyValue(
+        property: ArkUI_Vector2AnimatablePropertyHandle,
+        x: *mut f32,
+        y: *mut f32,
+    ) -> i32;
+}
+extern "C" {
+    #[doc = " @brief Disposes of the animatable 2D vector property.\n\n @param property Animatable 2D vector property.\n @since 20"]
+    #[cfg(feature = "api-20")]
+    pub fn OH_ArkUI_RenderNodeUtils_DisposeVector2AnimatableProperty(
+        property: ArkUI_Vector2AnimatablePropertyHandle,
+    );
+}
+extern "C" {
+    #[doc = " @brief Creates an animatable color property.\n\n @param value Property value.\n @return Animatable color property.\n @since 20"]
+    #[cfg(feature = "api-20")]
+    pub fn OH_ArkUI_RenderNodeUtils_CreateColorAnimatableProperty(
+        value: u32,
+    ) -> ArkUI_ColorAnimatablePropertyHandle;
+}
+extern "C" {
+    #[doc = " @brief Sets the value of the animatable color property.\n\n @param property Animatable color property.\n @param value Property value.\n @return Result code.\n     <br>Returns {@link ARKUI_ERROR_CODE_NO_ERROR} if the operation is successful.\n     <br>Returns {@link ARKUI_ERROR_CODE_PARAM_INVALID} if a parameter error occurs.\n     <br>Returns {@link ARKUI_ERROR_CODE_CAPI_INIT_ERROR} if C API initialization failed.\n @since 20"]
+    #[cfg(feature = "api-20")]
+    pub fn OH_ArkUI_RenderNodeUtils_SetColorAnimatablePropertyValue(
+        property: ArkUI_ColorAnimatablePropertyHandle,
+        value: u32,
+    ) -> i32;
+}
+extern "C" {
+    #[doc = " @brief Obtains the value of the animatable color property.\n\n @param property Animatable color property.\n @param value Pointer used to store the property value.\n @return Result code.\n     <br>Returns {@link ARKUI_ERROR_CODE_NO_ERROR} if the operation is successful.\n     <br>Returns {@link ARKUI_ERROR_CODE_PARAM_INVALID} if a parameter error occurs.\n     <br>Returns {@link ARKUI_ERROR_CODE_CAPI_INIT_ERROR} if C API initialization failed.\n @since 20"]
+    #[cfg(feature = "api-20")]
+    pub fn OH_ArkUI_RenderNodeUtils_GetColorAnimatablePropertyValue(
+        property: ArkUI_ColorAnimatablePropertyHandle,
+        value: *mut u32,
+    ) -> i32;
+}
+extern "C" {
+    #[doc = " @brief Disposes of the animatable color property.\n\n @param property Animatable color property.\n @since 20"]
+    #[cfg(feature = "api-20")]
+    pub fn OH_ArkUI_RenderNodeUtils_DisposeColorAnimatableProperty(
+        property: ArkUI_ColorAnimatablePropertyHandle,
+    );
+}
+extern "C" {
+    #[doc = " @brief Sets the **onDraw** callback function for the content modifier.\n\n @param modifier Target content modifier.\n @param userData Custom data to be passed to the callback.\n @param callback The draw event receiver callback.\n @return Result code.\n     <br>Returns {@link ARKUI_ERROR_CODE_NO_ERROR} if the operation is successful.\n     <br>Returns {@link ARKUI_ERROR_CODE_PARAM_INVALID} if a parameter error occurs.\n     <br>Returns {@link ARKUI_ERROR_CODE_CAPI_INIT_ERROR} if C API initialization failed.\n @since 20"]
+    #[cfg(feature = "api-20")]
+    pub fn OH_ArkUI_RenderNodeUtils_SetContentModifierOnDraw(
+        modifier: ArkUI_RenderContentModifierHandle,
+        userData: *mut ::std::os::raw::c_void,
+        callback: ::std::option::Option<
+            unsafe extern "C" fn(
+                context: *mut ArkUI_DrawContext,
+                userData: *mut ::std::os::raw::c_void,
+            ),
+        >,
+    ) -> i32;
+}
+extern "C" {
+    #[doc = " @brief Creates a rectangle shape option.\n\n @return Pointer to the rectangle shape option.\n @since 20"]
+    #[cfg(feature = "api-20")]
+    pub fn OH_ArkUI_RenderNodeUtils_CreateRectShapeOption() -> *mut ArkUI_RectShapeOption;
+}
+extern "C" {
+    #[doc = " @brief Disposes of the rectangle shape option.\n\n @param option Pointer to the rectangle shape option.\n @since 20"]
+    #[cfg(feature = "api-20")]
+    pub fn OH_ArkUI_RenderNodeUtils_DisposeRectShapeOption(option: *mut ArkUI_RectShapeOption);
+}
+extern "C" {
+    #[doc = " @brief Sets the edge value for the rectangle shape option. When the left and top boundaries are set to negative\n values, part of the content that exceeds the node may fail to draw due to the layer overlay effect involved in\n display.\n\n @param option Pointer to the rectangle shape option.\n @param edgeValue Edge value to set.\n @param direction Edge direction to apply the value.\n @since 20"]
+    #[cfg(feature = "api-20")]
+    pub fn OH_ArkUI_RenderNodeUtils_SetRectShapeOptionEdgeValue(
+        option: *mut ArkUI_RectShapeOption,
+        edgeValue: f32,
+        direction: ArkUI_EdgeDirection,
+    );
+}
+extern "C" {
+    #[doc = " @brief Creates a node border style option.\n\n @return Pointer to the node border style option.\n @since 20"]
+    #[cfg(feature = "api-20")]
+    pub fn OH_ArkUI_RenderNodeUtils_CreateNodeBorderStyleOption() -> *mut ArkUI_NodeBorderStyleOption;
+}
+extern "C" {
+    #[doc = " @brief Disposes of the node border style option.\n\n @param option Pointer to the node border style option.\n @since 20"]
+    #[cfg(feature = "api-20")]
+    pub fn OH_ArkUI_RenderNodeUtils_DisposeNodeBorderStyleOption(
+        option: *mut ArkUI_NodeBorderStyleOption,
+    );
+}
+extern "C" {
+    #[doc = " @brief Sets the edge style for the node border style option.\n\n @param option Pointer to the node border style option.\n @param edgeStyle Edge border style value of the node border style option.\n @param direction Edge direction.\n @since 20"]
+    #[cfg(feature = "api-20")]
+    pub fn OH_ArkUI_RenderNodeUtils_SetNodeBorderStyleOptionEdgeStyle(
+        option: *mut ArkUI_NodeBorderStyleOption,
+        edgeStyle: ArkUI_BorderStyle,
+        direction: ArkUI_EdgeDirection,
+    );
+}
+extern "C" {
+    #[doc = " @brief Creates a node border width option.\n\n @return Pointer to the node border width option.\n @since 20"]
+    #[cfg(feature = "api-20")]
+    pub fn OH_ArkUI_RenderNodeUtils_CreateNodeBorderWidthOption() -> *mut ArkUI_NodeBorderWidthOption;
+}
+extern "C" {
+    #[doc = " @brief Disposes of the node border width option.\n\n @param option Pointer to the node border width option.\n @since 20"]
+    #[cfg(feature = "api-20")]
+    pub fn OH_ArkUI_RenderNodeUtils_DisposeNodeBorderWidthOption(
+        option: *mut ArkUI_NodeBorderWidthOption,
+    );
+}
+extern "C" {
+    #[doc = " @brief Sets the edge width for the node border width option.\n\n @param option Pointer to the node border width option.\n @param edgeWidth Edge width of the node border width option.\n     <br>Value range: [0, +∞).\n @param direction Edge direction.\n @since 20"]
+    #[cfg(feature = "api-20")]
+    pub fn OH_ArkUI_RenderNodeUtils_SetNodeBorderWidthOptionEdgeWidth(
+        option: *mut ArkUI_NodeBorderWidthOption,
+        edgeWidth: f32,
+        direction: ArkUI_EdgeDirection,
+    );
+}
+extern "C" {
+    #[doc = " @brief Creates a node border color option.\n\n @return Pointer to the node border color option.\n @since 20"]
+    #[cfg(feature = "api-20")]
+    pub fn OH_ArkUI_RenderNodeUtils_CreateNodeBorderColorOption() -> *mut ArkUI_NodeBorderColorOption;
+}
+extern "C" {
+    #[doc = " @brief Disposes of the node border color option.\n\n @param option Pointer to the node border color option.\n @since 20"]
+    #[cfg(feature = "api-20")]
+    pub fn OH_ArkUI_RenderNodeUtils_DisposeNodeBorderColorOption(
+        option: *mut ArkUI_NodeBorderColorOption,
+    );
+}
+extern "C" {
+    #[doc = " @brief Sets the edge color for the node border color option.\n\n @param option Pointer to the node border color option.\n @param edgeColor Edge color of the node border color option.\n @param direction Edge direction.\n @since 20"]
+    #[cfg(feature = "api-20")]
+    pub fn OH_ArkUI_RenderNodeUtils_SetNodeBorderColorOptionEdgeColor(
+        option: *mut ArkUI_NodeBorderColorOption,
+        edgeColor: u32,
+        direction: ArkUI_EdgeDirection,
+    );
+}
+extern "C" {
+    #[doc = " @brief Creates a node border radius option.\n\n @return Pointer to the node border radius option.\n @since 20"]
+    #[cfg(feature = "api-20")]
+    pub fn OH_ArkUI_RenderNodeUtils_CreateNodeBorderRadiusOption(
+    ) -> *mut ArkUI_NodeBorderRadiusOption;
+}
+extern "C" {
+    #[doc = " @brief Disposes of the node border radius option.\n\n @param option Pointer to the node border radius option.\n @since 20"]
+    #[cfg(feature = "api-20")]
+    pub fn OH_ArkUI_RenderNodeUtils_DisposeNodeBorderRadiusOption(
+        option: *mut ArkUI_NodeBorderRadiusOption,
+    );
+}
+extern "C" {
+    #[doc = " @brief Sets the corner radius for the node border radius option. Note that the input parameter **cornerRadius** is\n of type uint32_t, and only positive integers are supported.\n\n @param option Pointer to the node border radius option.\n @param cornerRadius Corner radius of the node border radius option.\n @param direction Edge direction.\n @since 20"]
+    #[cfg(feature = "api-20")]
+    pub fn OH_ArkUI_RenderNodeUtils_SetNodeBorderRadiusOptionCornerRadius(
+        option: *mut ArkUI_NodeBorderRadiusOption,
+        cornerRadius: u32,
+        direction: ArkUI_CornerDirection,
+    );
+}
+extern "C" {
+    #[doc = " @brief Creates a circle shape option.\n\n @return Pointer to the circle shape option.\n @since 20"]
+    #[cfg(feature = "api-20")]
+    pub fn OH_ArkUI_RenderNodeUtils_CreateCircleShapeOption() -> *mut ArkUI_CircleShapeOption;
+}
+extern "C" {
+    #[doc = " @brief Disposes of the circle shape option.\n\n @param option Pointer to the circle shape option.\n @since 20"]
+    #[cfg(feature = "api-20")]
+    pub fn OH_ArkUI_RenderNodeUtils_DisposeCircleShapeOption(option: *mut ArkUI_CircleShapeOption);
+}
+extern "C" {
+    #[doc = " @brief Sets the x-coordinate of the center for the circle shape option.\n\n @param option Pointer to the circle shape option.\n @param centerX X-coordinate of the center of the circle shape option.\n @since 20"]
+    #[cfg(feature = "api-20")]
+    pub fn OH_ArkUI_RenderNodeUtils_SetCircleShapeOptionCenterX(
+        option: *mut ArkUI_CircleShapeOption,
+        centerX: f32,
+    );
+}
+extern "C" {
+    #[doc = " @brief Sets the y-coordinate of the center for the circle shape option.\n\n @param option Pointer to the circle shape option.\n @param centerY Y-coordinate of the center of the circle shape option.\n @since 20"]
+    #[cfg(feature = "api-20")]
+    pub fn OH_ArkUI_RenderNodeUtils_SetCircleShapeOptionCenterY(
+        option: *mut ArkUI_CircleShapeOption,
+        centerY: f32,
+    );
+}
+extern "C" {
+    #[doc = " @brief Sets the radius value for the circle shape option.\n\n @param option Pointer to the circle shape option.\n @param radius Radius, in pixels.\n @since 20"]
+    #[cfg(feature = "api-20")]
+    pub fn OH_ArkUI_RenderNodeUtils_SetCircleShapeOptionRadius(
+        option: *mut ArkUI_CircleShapeOption,
+        radius: f32,
+    );
+}
+extern "C" {
+    #[doc = " @brief Creates a rounded rectangle shape option.\n\n @return Pointer to the rounded rectangle shape option.\n @since 20"]
+    #[cfg(feature = "api-20")]
+    pub fn OH_ArkUI_RenderNodeUtils_CreateRoundRectShapeOption() -> *mut ArkUI_RoundRectShapeOption;
+}
+extern "C" {
+    #[doc = " @brief Disposes of the rounded rectangle shape option.\n\n @param option Pointer to the rounded rectangle shape option.\n @since 20"]
+    #[cfg(feature = "api-20")]
+    pub fn OH_ArkUI_RenderNodeUtils_DisposeRoundRectShapeOption(
+        option: *mut ArkUI_RoundRectShapeOption,
+    );
+}
+extern "C" {
+    #[doc = " @brief Sets the edge values for the rounded rectangle shape option.\n\n @param option Pointer to the rounded rectangle shape option.\n @param edgeValue Edge value to set.\n @param direction Edge direction to apply the value.\n @since 20"]
+    #[cfg(feature = "api-20")]
+    pub fn OH_ArkUI_RenderNodeUtils_SetRoundRectShapeOptionEdgeValue(
+        option: *mut ArkUI_RoundRectShapeOption,
+        edgeValue: f32,
+        direction: ArkUI_EdgeDirection,
+    );
+}
+extern "C" {
+    #[doc = " @brief Sets the coordinates for the target corner.\n\n @param option Pointer to the rounded rectangle shape option.\n @param x X-coordinate of the target corner, in pixels.\n @param y Y-coordinate of the target corner, in pixels.\n @param direction Direction of the target corner.\n @since 20"]
+    #[cfg(feature = "api-20")]
+    pub fn OH_ArkUI_RenderNodeUtils_SetRoundRectShapeOptionCornerXY(
+        option: *mut ArkUI_RoundRectShapeOption,
+        x: f32,
+        y: f32,
+        direction: ArkUI_CornerDirection,
+    );
+}
+extern "C" {
+    #[doc = " @brief Creates a custom drawing path option.\n\n @return Pointer to the custom drawing path option.\n @since 20"]
+    #[cfg(feature = "api-20")]
+    pub fn OH_ArkUI_RenderNodeUtils_CreateCommandPathOption() -> *mut ArkUI_CommandPathOption;
+}
+extern "C" {
+    #[doc = " @brief Disposes of the custom drawing path option.\n\n @param option Pointer to the custom drawing path option.\n @since 20"]
+    #[cfg(feature = "api-20")]
+    pub fn OH_ArkUI_RenderNodeUtils_DisposeCommandPathOption(option: *mut ArkUI_CommandPathOption);
+}
+extern "C" {
+    #[doc = " @brief Sets the command values for the custom drawing path option.\n\n @param option Pointer to the custom drawing path option.\n @param commands Command values. The input parameter format is {@link \\<path>shape}.\n @since 20"]
+    #[cfg(feature = "api-20")]
+    pub fn OH_ArkUI_RenderNodeUtils_SetCommandPathOptionCommands(
+        option: *mut ArkUI_CommandPathOption,
+        commands: *mut ::std::os::raw::c_char,
+    );
+}
+extern "C" {
+    #[doc = " @brief Creates a mask from a rectangle shape.\n\n @param shape Pointer to the rectangle shape option.\n @return Pointer to the render node mask.\n @since 20"]
+    #[cfg(feature = "api-20")]
+    pub fn OH_ArkUI_RenderNodeUtils_CreateRenderNodeMaskOptionFromRectShape(
+        shape: *mut ArkUI_RectShapeOption,
+    ) -> *mut ArkUI_RenderNodeMaskOption;
+}
+extern "C" {
+    #[doc = " @brief Creates a mask from a rounded rectangle shape.\n\n @param shape Pointer to the rounded rectangle shape option.\n @return Pointer to the render node mask.\n @since 20"]
+    #[cfg(feature = "api-20")]
+    pub fn OH_ArkUI_RenderNodeUtils_CreateRenderNodeMaskOptionFromRoundRectShape(
+        shape: *mut ArkUI_RoundRectShapeOption,
+    ) -> *mut ArkUI_RenderNodeMaskOption;
+}
+extern "C" {
+    #[doc = " @brief Creates a mask from a circle shape.\n\n @param shape Pointer to the circle shape option.\n @return Pointer to the render node mask.\n @since 20"]
+    #[cfg(feature = "api-20")]
+    pub fn OH_ArkUI_RenderNodeUtils_CreateRenderNodeMaskOptionFromCircleShape(
+        shape: *mut ArkUI_CircleShapeOption,
+    ) -> *mut ArkUI_RenderNodeMaskOption;
+}
+extern "C" {
+    #[doc = " @brief Creates a mask from an oval shape.\n\n @param shape Pointer to the oval shape option.\n @return Pointer to the render node mask.\n @since 20"]
+    #[cfg(feature = "api-20")]
+    pub fn OH_ArkUI_RenderNodeUtils_CreateRenderNodeMaskOptionFromOvalShape(
+        shape: *mut ArkUI_RectShapeOption,
+    ) -> *mut ArkUI_RenderNodeMaskOption;
+}
+extern "C" {
+    #[doc = " @brief Creates a mask from a custom drawing path.\n\n @param path Pointer to the custom drawing path option.\n @return Pointer to the render node mask.\n @since 20"]
+    #[cfg(feature = "api-20")]
+    pub fn OH_ArkUI_RenderNodeUtils_CreateRenderNodeMaskOptionFromCommandPath(
+        path: *mut ArkUI_CommandPathOption,
+    ) -> *mut ArkUI_RenderNodeMaskOption;
+}
+extern "C" {
+    #[doc = " @brief Disposes of the render node mask option.\n\n @param option Pointer to the render node mask.\n @since 20"]
+    #[cfg(feature = "api-20")]
+    pub fn OH_ArkUI_RenderNodeUtils_DisposeRenderNodeMaskOption(
+        option: *mut ArkUI_RenderNodeMaskOption,
+    );
+}
+extern "C" {
+    #[doc = " @brief Sets the fill color for the render node mask option.\n\n @param mask Pointer to the render node mask.\n @param fillColor Fill color of the mask.\n @since 20"]
+    #[cfg(feature = "api-20")]
+    pub fn OH_ArkUI_RenderNodeUtils_SetRenderNodeMaskOptionFillColor(
+        mask: *mut ArkUI_RenderNodeMaskOption,
+        fillColor: u32,
+    );
+}
+extern "C" {
+    #[doc = " @brief Sets the stroke color for the render node mask option.\n\n @param mask Pointer to the render node mask.\n @param strokeColor Stroke color of the mask.\n @since 20"]
+    #[cfg(feature = "api-20")]
+    pub fn OH_ArkUI_RenderNodeUtils_SetRenderNodeMaskOptionStrokeColor(
+        mask: *mut ArkUI_RenderNodeMaskOption,
+        strokeColor: u32,
+    );
+}
+extern "C" {
+    #[doc = " @brief Sets the stroke width for the render node mask option. Drawing with the corresponding width is performed\n centered on the border path.\n\n @param mask Pointer to the render node mask.\n @param strokeWidth Stroke width of the mask.\n     <br>Value range: (0, +∞). If the value is a negative number or 0, the stroke width is set to 1 pixel during\n     drawing.\n @since 20"]
+    #[cfg(feature = "api-20")]
+    pub fn OH_ArkUI_RenderNodeUtils_SetRenderNodeMaskOptionStrokeWidth(
+        mask: *mut ArkUI_RenderNodeMaskOption,
+        strokeWidth: f32,
+    );
+}
+extern "C" {
+    #[doc = " @brief Creates a render node clip option from a rectangle shape.\n\n @param shape Pointer to the rectangle shape option.\n @return Pointer to the render node clip.\n @since 20"]
+    #[cfg(feature = "api-20")]
+    pub fn OH_ArkUI_RenderNodeUtils_CreateRenderNodeClipOptionFromRectShape(
+        shape: *mut ArkUI_RectShapeOption,
+    ) -> *mut ArkUI_RenderNodeClipOption;
+}
+extern "C" {
+    #[doc = " @brief Creates a render node clip option from a rounded rectangle shape.\n\n @param shape Pointer to the rounded rectangle shape option.\n @return Pointer to the render node clip.\n @since 20"]
+    #[cfg(feature = "api-20")]
+    pub fn OH_ArkUI_RenderNodeUtils_CreateRenderNodeClipOptionFromRoundRectShape(
+        shape: *mut ArkUI_RoundRectShapeOption,
+    ) -> *mut ArkUI_RenderNodeClipOption;
+}
+extern "C" {
+    #[doc = " @brief Creates a render node clip option from a circle shape.\n\n @param shape Pointer to the circle shape option.\n @return Pointer to the render node clip.\n @since 20"]
+    #[cfg(feature = "api-20")]
+    pub fn OH_ArkUI_RenderNodeUtils_CreateRenderNodeClipOptionFromCircleShape(
+        shape: *mut ArkUI_CircleShapeOption,
+    ) -> *mut ArkUI_RenderNodeClipOption;
+}
+extern "C" {
+    #[doc = " @brief Creates a render node clip option from an oval shape.\n\n @param shape Pointer to the oval shape option.\n @return Pointer to the render node clip.\n @since 20"]
+    #[cfg(feature = "api-20")]
+    pub fn OH_ArkUI_RenderNodeUtils_CreateRenderNodeClipOptionFromOvalShape(
+        shape: *mut ArkUI_RectShapeOption,
+    ) -> *mut ArkUI_RenderNodeClipOption;
+}
+extern "C" {
+    #[doc = " @brief Creates a render node clip option from a custom drawing path.\n\n @param path Pointer to the custom drawing path option.\n @return Pointer to the render node clip.\n @since 20"]
+    #[cfg(feature = "api-20")]
+    pub fn OH_ArkUI_RenderNodeUtils_CreateRenderNodeClipOptionFromCommandPath(
+        path: *mut ArkUI_CommandPathOption,
+    ) -> *mut ArkUI_RenderNodeClipOption;
+}
+extern "C" {
+    #[doc = " @brief Disposes of the render node clip option.\n\n @param option Pointer to the render node clip.\n @since 20"]
+    #[cfg(feature = "api-20")]
+    pub fn OH_ArkUI_RenderNodeUtils_DisposeRenderNodeClipOption(
+        option: *mut ArkUI_RenderNodeClipOption,
+    );
+}
+extern "C" {
+    #[doc = " @brief Obtains the RenderNode of the target node that has been accepted as a child node. If a RenderNode is obtained\n through this API, when the {@link disposeNode} API of {@link ArkUI_NativeNodeAPI_1} is invoked to destroy the\n FrameNode, the {@link OH_ArkUI_RenderNodeUtils_DisposeNode} API needs to be invoked additionally to release the\n RenderNode.\n\n @param node Pointer to **ArkUI_NodeHandle**, which specifies the target node.\n @param renderNode Pointer to **ArkUI_RenderNodeHandle**, which specifies the RenderNode of the target node.\n @return Result code.\n     <br>Returns {@link ARKUI_ERROR_CODE_NO_ERROR} if the operation is successful.\n     <br>Returns {@link ARKUI_ERROR_CODE_PARAM_INVALID} if a parameter error occurs.\n     <br>Returns {@link ARKUI_ERROR_CODE_CAPI_INIT_ERROR} if C API initialization failed.\n     <br>Returns {@link ARKUI_ERROR_CODE_RENDER_NOT_ADOPTED_NODE} if this node is not accepted as a child node.\n @since 22"]
+    #[cfg(feature = "api-22")]
+    pub fn OH_ArkUI_RenderNodeUtils_GetRenderNode(
+        node: ArkUI_NodeHandle,
+        renderNode: *mut ArkUI_RenderNodeHandle,
+    ) -> i32;
+}
+extern "C" {
+    #[doc = " @brief Sets the border range for a rounded rectangle shape option. This function defines the geometric frame of a\n rounded rectangle by specifying its position and size.\n\n @param option Pointer to the rounded rectangle shape option to be configured.\n @param x X coordinate of the upper left corner of the rectangle, which is used to determine the position of the left\n     boundary.\n @param y Y coordinate of the upper left corner of the rectangle, which is used to determine the position of the\n     upper boundary.\n @param width Width of the rectangle, which indicates the horizontal span starting from the X coordinate and is used\n     to determine the position of the right boundary. That is, the X coordinate of the lower right corner of the\n     rectangle is equal to **x** + **width**.\n @param height Height of the rectangle, which indicates the vertical span starting from the Y coordinate and is used\n     to determine the position of the bottom boundary. That is, the Y coordinate of the lower right corner of the\n     rectangle is equal to **y** + **height**.\n @since 26.0.0"]
+    #[cfg(feature = "api-26")]
+    pub fn OH_ArkUI_RenderNodeUtils_SetRoundRectShapeOptionValue(
+        option: *mut ArkUI_RoundRectShapeOption,
+        x: f32,
+        y: f32,
+        width: f32,
+        height: f32,
+    );
+}
+extern "C" {
+    #[doc = " @brief Sets the border range for a rectangle shape option. This function defines the geometric frame of a rectangle\n by specifying its position and size.\n\n @param option Pointer to the rectangle shape option to be configured.\n @param x X coordinate of the upper left corner of the rectangle, which is used to determine the position of the left\n     boundary.\n @param y Y coordinate of the upper left corner of the rectangle, which is used to determine the position of the\n     upper boundary.\n @param width Width of the rectangle, which indicates the horizontal span starting from the X coordinate and is used\n     to determine the position of the right boundary. That is, the X coordinate of the lower right corner of the\n     rectangle is equal to **x** + **width**.\n @param height Height of the rectangle, which indicates the vertical span starting from the Y coordinate and is used\n     to determine the position of the bottom boundary. That is, the Y coordinate of the lower right corner of the\n     rectangle is equal to **y** + **height**.\n @since 26.0.0"]
+    #[cfg(feature = "api-26")]
+    pub fn OH_ArkUI_RenderNodeUtils_SetRectShapeOptionValue(
+        option: *mut ArkUI_RectShapeOption,
+        x: f32,
+        y: f32,
+        width: f32,
+        height: f32,
+    );
+}
+extern "C" {
+    #[doc = " @brief Insert a child render node at the specified position in the parent node.\n\n @param node the target parent node. Only customNode type parent nodes are supported.\n @param child the child RenderNode to insert.\n @param position the index at which to insert the child node.\n     The position must be within the range [0, currentChildCount].\n     If the position equals currentChildCount, it is equivalent to an add operation.\n @return Error code.\n     <ul><li>{@link ARKUI_ERROR_CODE_NO_ERROR} Success.\n     </li><li>{@link ARKUI_ERROR_CODE_PARAM_INVALID} Function parameter exception.\n     </li><li>{@link ARKUI_ERROR_CODE_CAPI_INIT_ERROR} if CAPI init error.\n     </li><li>{@link ARKUI_ERROR_CODE_NOT_CUSTOM_NODE} The node is not a customNode.\n     </li><li>{@link ARKUI_ERROR_CODE_CHILD_EXISTED} The node already has a child.\n     </li><li>{@link ARKUI_ERROR_CODE_RENDER_PARENT_EXISTED} The child already has a parent node.\n     </li><li>{@link ARKUI_ERROR_CODE_RENDER_HAS_INVALID_FRAME_NODE} if the child is obtained from a FrameNode,\n     and its corresponding FrameNode is no longer in the adopted state.</li></ul>\n @since 26.0.0"]
+    #[cfg(feature = "api-26")]
+    pub fn OH_ArkUI_RenderNodeUtils_InsertRenderNodeAt(
+        node: ArkUI_NodeHandle,
+        child: ArkUI_RenderNodeHandle,
+        position: i32,
+    ) -> ArkUI_ErrorCode;
+}
+extern "C" {
+    #[doc = " @brief Get the number of child render nodes of the specified parent node.\n\n @param node the parent node to query.\n @param count the count of the child render node.\n @return Error code.\n     <ul><li>{@link ARKUI_ERROR_CODE_NO_ERROR} Success.\n     </li><li>{@link ARKUI_ERROR_CODE_PARAM_INVALID} Function parameter exception.\n     </li><li>{@link ARKUI_ERROR_CODE_CAPI_INIT_ERROR} if CAPI init error.</li></ul>\n @since 26.0.0"]
+    #[cfg(feature = "api-26")]
+    pub fn OH_ArkUI_RenderNodeUtils_GetRenderNodeChildrenCount(
+        node: ArkUI_NodeHandle,
+        count: *mut i32,
+    ) -> ArkUI_ErrorCode;
+}
+extern "C" {
+    #[doc = " @brief Get the child render node at the specified position from the parent node.\n\n @param node Indicates the target parent node.\n @param position Index location. The position must be in the range [0, childCount-1].\n @param child the output parameter that will receive the child render node handle. Cannot be null.\n @return Error code.\n     <ul><li>{@link ARKUI_ERROR_CODE_NO_ERROR} Success.\n     </li><li>{@link ARKUI_ERROR_CODE_PARAM_INVALID} Function parameter exception.\n     </li><li>{@link ARKUI_ERROR_CODE_CAPI_INIT_ERROR} if CAPI init error.</li></ul>\n @since 26.0.0"]
+    #[cfg(feature = "api-26")]
+    pub fn OH_ArkUI_RenderNodeUtils_GetRenderNodeAt(
+        node: ArkUI_NodeHandle,
+        position: i32,
+        child: *mut ArkUI_RenderNodeHandle,
+    ) -> ArkUI_ErrorCode;
+}
 extern "C" {
     #[doc = " @brief Obtains a <b>FrameNode</b> object on the ArkTS side and maps it to an <b>ArkUI_NodeHandle</b> object on the\n native side.\n\n @param env Indicates the NAPI environment pointer.\n @param frameNode Indicates the <b>FrameNode</b> object created on the ArkTS side.\n @param handle Indicates the pointer to the <b>ArkUI_NodeHandle</b> object.\n @return Returns the error code.\n         Returns {@link ARKUI_ERROR_CODE_NO_ERROR} if the operation is successful.\n         Returns {@link ARKUI_ERROR_CODE_PARAM_INVALID} if a parameter error occurs.\n @since 12"]
     pub fn OH_ArkUI_GetNodeHandleFromNapiValue(

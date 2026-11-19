@@ -429,6 +429,48 @@ pub struct ArkUINodeRaw {
     pub raw: ArkUI_NodeHandle,
 }
 
+/// Owns the native reference acquired when importing an ArkTS BuilderNode frame.
+/// The ArkTS owner must remain live until the native child edge is detached.
+#[cfg(feature = "napi")]
+pub struct ImportedFrameNode {
+    frame: ArkUINodeRaw,
+}
+
+#[cfg(feature = "napi")]
+impl ImportedFrameNode {
+    /// Imports one frame on its UI thread. Each successful import has one release.
+    pub fn new(
+        env: &napi_ohos::Env,
+        value: &napi_ohos::bindgen_prelude::Object<'_>,
+    ) -> napi_ohos::Result<Self> {
+        use napi_ohos::JsValue;
+        // SAFETY: conversion runs on the active UI-thread N-API callback; `Drop`
+        // releases the acquired native node reference via `ARK_UI_NATIVE_NODE_API_1`.
+        let frame = unsafe { ArkUINodeRaw::from_napi_value(env.raw(), value.raw()) }?;
+        Ok(Self { frame })
+    }
+
+    /// Borrows this import for attachment to another native node.
+    ///
+    /// # Safety
+    /// Keep this lease and the ArkTS frame owner alive until all borrowers are detached.
+    pub unsafe fn borrowed_node(&self) -> ArkUIResult<ArkUINode> {
+        unsafe { self.frame.borrowed_node() }
+    }
+}
+
+#[cfg(feature = "napi")]
+impl Drop for ImportedFrameNode {
+    fn drop(&mut self) {
+        if !self.frame.raw.is_null() {
+            if let Err(error) = ARK_UI_NATIVE_NODE_API_1.with(|api| api.dispose_raw(self.frame.raw))
+            {
+                log::error!("ImportedFrameNode Drop disposal failed: {error:?}");
+            }
+        }
+    }
+}
+
 #[cfg(feature = "napi")]
 impl ArkUINodeRaw {
     /// Borrows the native node without retaining its ArkTS owner.
