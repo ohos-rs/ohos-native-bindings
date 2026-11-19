@@ -25,8 +25,10 @@ pub struct FrameNotification {
 impl FrameNotification {
     /// Creates a non-reusable callback identity for use with native image producers.
     pub fn new(wake: impl Fn() + Send + Sync + 'static) -> Option<Self> {
+        // The workspace supports Rust 1.88, before the rename to try_update.
+        #[allow(deprecated)]
         let token = NEXT
-            .try_update(Ordering::Relaxed, Ordering::Relaxed, |n| n.checked_add(1))
+            .fetch_update(Ordering::Relaxed, Ordering::Relaxed, |n| n.checked_add(1))
             .ok()?;
         let wake: Arc<Wake> = Arc::new(wake);
         routes()
