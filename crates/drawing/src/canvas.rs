@@ -235,6 +235,30 @@ impl Canvas {
         };
     }
 
+    /// Intersects or subtracts a rounded rectangle from the current clip.
+    pub fn clip_round_rect(&self, rect: &RoundRect, operation: ClipOperation, anti_alias: bool) {
+        unsafe {
+            ohos_native_drawing_sys::OH_Drawing_CanvasClipRoundRect(
+                self.raw.as_ptr(),
+                rect.as_ptr(),
+                operation.into(),
+                anti_alias,
+            )
+        };
+    }
+
+    /// Draws the area between enclosing and enclosed rounded rectangles (API 18).
+    #[cfg(feature = "api-18")]
+    pub fn draw_nested_round_rect(&self, outer: &RoundRect, inner: &RoundRect) -> Result<()> {
+        check_error(unsafe {
+            ohos_native_drawing_sys::OH_Drawing_CanvasDrawNestedRoundRect(
+                self.raw.as_ptr(),
+                outer.as_ptr(),
+                inner.as_ptr(),
+            )
+        })
+    }
+
     pub fn clip_rect(&self, rect: &Rect, operation: ClipOperation, anti_alias: bool) {
         unsafe {
             OH_Drawing_CanvasClipRect(

@@ -18,6 +18,8 @@ pub mod dialog;
 pub mod event;
 /// Gesture builders and gesture data.
 pub mod gesture;
+#[cfg(all(feature = "api-20", feature = "drawing"))]
+pub mod render_node;
 /// ArkUI enums and value types.
 pub mod r#type;
 

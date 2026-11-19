@@ -34,6 +34,7 @@ static CONFIG: Lazy<Vec<Lazy<SysConfig>>> = Lazy::new(|| {
         config::BUNDLE,
         config::DEVICE,
         config::HILOG,
+        config::HITRACE,
         config::INIT,
         config::VSYNC,
         config::NATIVE_DISPLAY_SOLOIST,
