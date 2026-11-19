@@ -104,7 +104,6 @@ pub struct AvPlayer {
     close_failed: Option<Error>,
     info_registered: bool,
     error_registered: bool,
-    events: Option<Box<EventDelivery>>,
     _not_sync: PhantomData<Cell<()>>,
 }
 // SAFETY: the native player supports serialized calls across threads; mutable
@@ -121,7 +120,6 @@ impl AvPlayer {
             close_failed: None,
             info_registered: false,
             error_registered: false,
-            events: None,
             _not_sync: PhantomData,
         })
     }
@@ -174,24 +172,6 @@ impl AvPlayer {
             sys::OH_AVPlayer_SetVideoSurface(self.raw()?, window.as_ptr().cast())
         })
     }
-    /// Receives playback events on the native delivery thread. The handler
-    /// must enqueue work and return without synchronously calling the player.
-    pub fn on_event(
-        &mut self,
-        notify: impl for<'a> Fn(PlayerEvent<'a>) + Send + Sync + 'static,
-    ) -> Result<(), Error> {
-        self.clear_callbacks()?;
-        let mut delivery = Box::new(EventDelivery(Box::new(notify)));
-        let token = std::ptr::from_mut(delivery.as_mut()).cast();
-        self.events = Some(delivery);
-        // SAFETY: the allocation stays owned until both native callbacks drain,
-        // including a failure partway through the two registrations.
-        unsafe {
-            self.set_info_callback(Some(deliver_info), token)?;
-            self.set_error_callback(Some(deliver_error), token)
-        }
-    }
-
     /// Registers a native info callback (API 12).
     ///
     /// # Safety
@@ -247,9 +227,7 @@ impl AvPlayer {
         // callback owner until that setter successfully drains native delivery.
         unsafe { self.set_info_callback(None, std::ptr::null_mut()) }?;
         // SAFETY: the same explicit drain contract applies to the error callback.
-        unsafe { self.set_error_callback(None, std::ptr::null_mut()) }?;
-        self.events = None;
-        Ok(())
+        unsafe { self.set_error_callback(None, std::ptr::null_mut()) }
     }
     /// Starts asynchronous preparation (API 11).
     pub fn prepare(&mut self) -> Result<(), Error> {
@@ -397,53 +375,11 @@ impl Drop for AvPlayer {
     fn drop(&mut self) {
         if let Err(error) = self.close_sync() {
             log::error!("{error}; retaining native source after failed close");
-            if let Some(events) = self.events.take() {
-                // Native delivery might still refer to this allocation.
-                std::mem::forget(events);
-            }
             if let Some(source) = self.source.take() {
                 std::mem::forget(source);
             }
         }
     }
-}
-
-/// Event data borrowed only while the native callback is executing.
-pub enum PlayerEvent<'a> {
-    /// A native info notification with optional borrowed metadata.
-    Info(InfoType, Option<InfoRef<'a>>),
-    /// An error code and the native message when one was provided.
-    Error(i32, Option<&'a CStr>),
-}
-
-struct EventDelivery(Box<dyn for<'a> Fn(PlayerEvent<'a>) + Send + Sync>);
-
-unsafe extern "C" fn deliver_info(
-    _: *mut RawPlayer,
-    kind: InfoType,
-    body: *mut RawFormat,
-    token: *mut c_void,
-) {
-    let _ = std::panic::catch_unwind(std::panic::AssertUnwindSafe(|| {
-        // SAFETY: owned registration outlives both callbacks. The SDK borrows
-        // the format only for this invocation; the closure cannot retain it.
-        let delivery = unsafe { &*token.cast::<EventDelivery>() };
-        (delivery.0)(PlayerEvent::Info(kind, unsafe { InfoRef::from_raw(body) }));
-    }));
-}
-unsafe extern "C" fn deliver_error(
-    _: *mut RawPlayer,
-    code: i32,
-    message: *const std::ffi::c_char,
-    token: *mut c_void,
-) {
-    let _ = std::panic::catch_unwind(std::panic::AssertUnwindSafe(|| {
-        // SAFETY: the live registration supplies the token, and the SDK's
-        // optional NUL-terminated message is valid until the callback returns.
-        let delivery = unsafe { &*token.cast::<EventDelivery>() };
-        let message = (!message.is_null()).then(|| unsafe { CStr::from_ptr(message) });
-        (delivery.0)(PlayerEvent::Error(code, message));
-    }));
 }
 
 /// Native metadata keys with SDK-defined storage and values.

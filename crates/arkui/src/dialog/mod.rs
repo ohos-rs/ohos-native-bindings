@@ -44,27 +44,15 @@ impl Dialog {
         distance: f32,
         unit: crate::types::advanced::LengthMetricUnit,
     ) -> ArkUIResult<()> {
-        use ohos_arkui_sys::{
-            ArkUI_NativeAPIVariantKind_ARKUI_NATIVE_DIALOG, ArkUI_NativeDialogAPI_2,
-            OH_ArkUI_QueryModuleInterfaceByName,
-        };
-        let api = unsafe {
-            OH_ArkUI_QueryModuleInterfaceByName(
-                ArkUI_NativeAPIVariantKind_ARKUI_NATIVE_DIALOG,
-                c"ArkUI_NativeDialogAPI_2".as_ptr(),
-            )
-            .cast::<ArkUI_NativeDialogAPI_2>()
-            .as_ref()
-        };
-        let set = api
-            .and_then(|api| api.setKeyboardAvoidDistance)
-            .ok_or_else(|| {
+        crate::api::ARK_UI_NATIVE_DIALOG_API_2.with(|api| {
+            let api = api.as_ref().ok_or_else(|| {
                 crate::ArkUIError::new(
-                    ohos_arkui_input_binding::ArkUIErrorCode::ParamInvalid,
-                    "ArkUI dialog keyboard avoidance is unavailable",
+                    ohos_arkui_input_binding::ArkUIErrorCode::AttributeOrEventNotSupported,
+                    "ArkUI_NativeDialogAPI_2 is unavailable",
                 )
             })?;
-        crate::check_arkui_status!(unsafe { set(self.raw, distance, unit.into()) })
+            api.set_keyboard_avoid_distance(self.raw, distance, unit)
+        })
     }
 
     /// Create a new dialog controller.

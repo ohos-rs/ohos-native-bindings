@@ -2048,6 +2048,18 @@ impl ArkUINode {
 
 #[cfg(feature = "api-20")]
 impl ArkUINode {
+    /// Returns the ArkUI unique ID for this node (`OH_ArkUI_NodeUtils_GetNodeUniqueId`, API 20).
+    pub fn unique_id(&self) -> ArkUIResult<i32> {
+        let mut unique_id = -1;
+        unsafe {
+            check_arkui_status!(OH_ArkUI_NodeUtils_GetNodeUniqueId(
+                self.raw(),
+                &mut unique_id
+            ))
+        }?;
+        Ok(unique_id)
+    }
+
     /// Register a one-shot callback at the end of the next idle frame for this node's UI context.
     pub fn post_idle_callback<T: FnOnce(u64, u32) + 'static>(
         &self,

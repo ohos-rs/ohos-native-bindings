@@ -11,6 +11,371 @@
 #[link(name = "hitrace_ndk.z")]
 unsafe extern "C" {}
 
+#[repr(C)]
+#[derive(Copy, Clone, Debug, Default, Eq, Hash, Ord, PartialEq, PartialOrd)]
+pub struct __BindgenBitfieldUnit<Storage> {
+    storage: Storage,
+}
+impl<Storage> __BindgenBitfieldUnit<Storage> {
+    #[inline]
+    pub const fn new(storage: Storage) -> Self {
+        Self { storage }
+    }
+}
+impl<Storage> __BindgenBitfieldUnit<Storage>
+where
+    Storage: AsRef<[u8]> + AsMut<[u8]>,
+{
+    #[inline]
+    pub fn get_bit(&self, index: usize) -> bool {
+        debug_assert!(index / 8 < self.storage.as_ref().len());
+        let byte_index = index / 8;
+        let byte = self.storage.as_ref()[byte_index];
+        let bit_index = if cfg!(target_endian = "big") {
+            7 - (index % 8)
+        } else {
+            index % 8
+        };
+        let mask = 1 << bit_index;
+        byte & mask == mask
+    }
+    #[inline]
+    pub fn set_bit(&mut self, index: usize, val: bool) {
+        debug_assert!(index / 8 < self.storage.as_ref().len());
+        let byte_index = index / 8;
+        let byte = &mut self.storage.as_mut()[byte_index];
+        let bit_index = if cfg!(target_endian = "big") {
+            7 - (index % 8)
+        } else {
+            index % 8
+        };
+        let mask = 1 << bit_index;
+        if val {
+            *byte |= mask;
+        } else {
+            *byte &= !mask;
+        }
+    }
+    #[inline]
+    pub fn get(&self, bit_offset: usize, bit_width: u8) -> u64 {
+        debug_assert!(bit_width <= 64);
+        debug_assert!(bit_offset / 8 < self.storage.as_ref().len());
+        debug_assert!((bit_offset + (bit_width as usize)) / 8 <= self.storage.as_ref().len());
+        let mut val = 0;
+        for i in 0..(bit_width as usize) {
+            if self.get_bit(i + bit_offset) {
+                let index = if cfg!(target_endian = "big") {
+                    bit_width as usize - 1 - i
+                } else {
+                    i
+                };
+                val |= 1 << index;
+            }
+        }
+        val
+    }
+    #[inline]
+    pub fn set(&mut self, bit_offset: usize, bit_width: u8, val: u64) {
+        debug_assert!(bit_width <= 64);
+        debug_assert!(bit_offset / 8 < self.storage.as_ref().len());
+        debug_assert!((bit_offset + (bit_width as usize)) / 8 <= self.storage.as_ref().len());
+        for i in 0..(bit_width as usize) {
+            let mask = 1 << i;
+            let val_bit_is_set = val & mask == mask;
+            let index = if cfg!(target_endian = "big") {
+                bit_width as usize - 1 - i
+            } else {
+                i
+            };
+            self.set_bit(index + bit_offset, val_bit_is_set);
+        }
+    }
+}
+#[doc = " @brief Invalid **HiTraceId**.\n\n @since 12"]
+pub const HiTraceId_Valid_HITRACE_ID_INVALID: HiTraceId_Valid = 0;
+#[doc = " @brief Valid **HiTraceId**.\n\n @since 12"]
+pub const HiTraceId_Valid_HITRACE_ID_VALID: HiTraceId_Valid = 1;
+#[doc = " @brief Enumerates whether a **HiTraceId** instance is valid.\n\n @since 12"]
+pub type HiTraceId_Valid = u32;
+#[doc = " @brief Version 1.\n\n @since 12"]
+pub const HiTrace_Version_HITRACE_VER_1: HiTrace_Version = 0;
+#[doc = " @brief Enumerates the HiTrace versions.\n\n @since 12"]
+pub type HiTrace_Version = u32;
+#[doc = " @brief Default flag.\n\n @since 12"]
+pub const HiTrace_Flag_HITRACE_FLAG_DEFAULT: HiTrace_Flag = 0;
+#[doc = " @brief Asynchronous call flag.When this flag is set, both synchronous and asynchronous calls are traced.By\n default, only synchronous calls are traced.\n\n @since 12"]
+pub const HiTrace_Flag_HITRACE_FLAG_INCLUDE_ASYNC: HiTrace_Flag = 1;
+#[doc = " @brief No span flag.When this flag is set, no span information is created. By default, span information is\n created.\n\n @since 12"]
+pub const HiTrace_Flag_HITRACE_FLAG_DONOT_CREATE_SPAN: HiTrace_Flag = 2;
+#[doc = " @brief Trace point flag.When this flag is set in the debugging scenario, the HiLog logs of the trace point are\n printed upon calling the **OH_HiTrace_Tracepoint()** API. By default, the HiLog logs are not printed.\n\n @since 12"]
+pub const HiTrace_Flag_HITRACE_FLAG_TP_INFO: HiTrace_Flag = 4;
+#[doc = " @brief No begin and end flag.When this flag is set in the debugging scenario, the HiLog logs about the begin and\n end of tracing are printed when the **OH_HiTrace_BeginChain()** and **OH_HiTrace_EndChain()** APIs are called.\n By default,the HiLog logs about the begin and end of tracing are not printed.\n\n @since 12"]
+pub const HiTrace_Flag_HITRACE_FLAG_NO_BE_INFO: HiTrace_Flag = 8;
+#[doc = " @brief Log association flag.When this flag is set, the **HiTraceId** information is not added to the HiLog logs.\n By default, the **HiTraceId** information is added to the HiLog logs.\n\n @since 12"]
+pub const HiTrace_Flag_HITRACE_FLAG_DONOT_ENABLE_LOG: HiTrace_Flag = 16;
+#[doc = " @brief Failure trigger flag. This is a reserved flag.\n\n @since 12"]
+pub const HiTrace_Flag_HITRACE_FLAG_FAULT_TRIGGER: HiTrace_Flag = 32;
+#[doc = " @brief Device-to-device trace point flag. It is a subset of **HITRACE_FLAG_TP_INFO** and is used in debugging\n scenarios.When the **HITRACE_FLAG_TP_INFO** flag is set, the **HITRACE_FLAG_D2D_TP_INFO** flag does not take\n effect.When **HITRACE_FLAG_TP_INFO** is not set and **HITRACE_FLAG_D2D_TP_INFO** is set, the HiLog logs of the\n trace point are printed only when the **mode** parameter is set to **HITRACE_CM_DEVICE** upon calling\n **OH_HiTrace_Tracepoint()**.\n\n @since 12"]
+pub const HiTrace_Flag_HITRACE_FLAG_D2D_TP_INFO: HiTrace_Flag = 64;
+#[doc = " @brief Enumerates the HiTrace flags.\n\n @since 12"]
+pub type HiTrace_Flag = u32;
+#[doc = " @brief CS trace point.\n\n @since 12"]
+pub const HiTrace_Tracepoint_Type_HITRACE_TP_CS: HiTrace_Tracepoint_Type = 0;
+#[doc = " @brief CR trace point.\n\n @since 12"]
+pub const HiTrace_Tracepoint_Type_HITRACE_TP_CR: HiTrace_Tracepoint_Type = 1;
+#[doc = " @brief SS trace point.\n\n @since 12"]
+pub const HiTrace_Tracepoint_Type_HITRACE_TP_SS: HiTrace_Tracepoint_Type = 2;
+#[doc = " @brief SR trace point.\n\n @since 12"]
+pub const HiTrace_Tracepoint_Type_HITRACE_TP_SR: HiTrace_Tracepoint_Type = 3;
+#[doc = " @brief General type, which identifies the trace points except **HITRACE_TP_CS**, **HITRACE_TP_CR**,\n **HITRACE_TP_SS**, and **HITRACE_TP_SR**.\n\n @since 12"]
+pub const HiTrace_Tracepoint_Type_HITRACE_TP_GENERAL: HiTrace_Tracepoint_Type = 4;
+#[doc = " @brief Enumerates the trace point types.\n\n @since 12"]
+pub type HiTrace_Tracepoint_Type = u32;
+#[doc = " @brief Default communication.\n\n @since 12"]
+pub const HiTrace_Communication_Mode_HITRACE_CM_DEFAULT: HiTrace_Communication_Mode = 0;
+#[doc = " @brief Inter-thread communication.\n\n @since 12"]
+pub const HiTrace_Communication_Mode_HITRACE_CM_THREAD: HiTrace_Communication_Mode = 1;
+#[doc = " @brief Inter-process communication (IPC).\n\n @since 12"]
+pub const HiTrace_Communication_Mode_HITRACE_CM_PROCESS: HiTrace_Communication_Mode = 2;
+#[doc = " @brief Inter-device communication.\n\n @since 12"]
+pub const HiTrace_Communication_Mode_HITRACE_CM_DEVICE: HiTrace_Communication_Mode = 3;
+#[doc = " @brief Enumerates the trace communication types.\n\n @since 12"]
+pub type HiTrace_Communication_Mode = u32;
+#[doc = " @brief Level used only for debugging, which has the lowest priority.\n\n @since 19"]
+#[cfg(feature = "api-19")]
+pub const HiTrace_Output_Level_HITRACE_LEVEL_DEBUG: HiTrace_Output_Level = 0;
+#[doc = " @brief Level for the log version.\n\n @since 19"]
+#[cfg(feature = "api-19")]
+pub const HiTrace_Output_Level_HITRACE_LEVEL_INFO: HiTrace_Output_Level = 1;
+#[doc = " @brief Level for the log version, which has a higher priority than **INFO**.\n\n @since 19"]
+#[cfg(feature = "api-19")]
+pub const HiTrace_Output_Level_HITRACE_LEVEL_CRITICAL: HiTrace_Output_Level = 2;
+#[doc = " @brief Level for the nolog version, which has the highest priority.\n\n @since 19"]
+#[cfg(feature = "api-19")]
+pub const HiTrace_Output_Level_HITRACE_LEVEL_COMMERCIAL: HiTrace_Output_Level = 3;
+#[doc = " @brief The maximum output level.\n\n @since 19"]
+#[cfg(feature = "api-19")]
+pub const HiTrace_Output_Level_HITRACE_LEVEL_MAX: HiTrace_Output_Level = 3;
+#[doc = " @brief Enumerates the HiTrace output levels. The trace output level lower than the threshold does not take effect.\n The log version threshold is **HITRACE_LEVEL_INFO**, and the nolog version threshold is **HITRACE_LEVEL_COMMERCIAL**.\n\n @since 19"]
+#[cfg(feature = "api-19")]
+pub type HiTrace_Output_Level = u32;
+#[doc = " @brief Defines a **HiTraceId** instance.\n\n @struct HiTraceId\n @since 12"]
+#[repr(C)]
+#[repr(align(8))]
+#[derive(Debug, Copy, Clone)]
+pub struct HiTraceId {
+    pub _bitfield_align_1: [u64; 0],
+    pub _bitfield_1: __BindgenBitfieldUnit<[u8; 16usize]>,
+}
+impl HiTraceId {
+    #[inline]
+    pub fn valid(&self) -> u64 {
+        unsafe { ::std::mem::transmute(self._bitfield_1.get(0usize, 1u8) as u64) }
+    }
+    #[inline]
+    pub fn set_valid(&mut self, val: u64) {
+        unsafe {
+            let val: u64 = ::std::mem::transmute(val);
+            self._bitfield_1.set(0usize, 1u8, val as u64)
+        }
+    }
+    #[inline]
+    pub fn ver(&self) -> u64 {
+        unsafe { ::std::mem::transmute(self._bitfield_1.get(1usize, 3u8) as u64) }
+    }
+    #[inline]
+    pub fn set_ver(&mut self, val: u64) {
+        unsafe {
+            let val: u64 = ::std::mem::transmute(val);
+            self._bitfield_1.set(1usize, 3u8, val as u64)
+        }
+    }
+    #[inline]
+    pub fn chainId(&self) -> u64 {
+        unsafe { ::std::mem::transmute(self._bitfield_1.get(4usize, 60u8) as u64) }
+    }
+    #[inline]
+    pub fn set_chainId(&mut self, val: u64) {
+        unsafe {
+            let val: u64 = ::std::mem::transmute(val);
+            self._bitfield_1.set(4usize, 60u8, val as u64)
+        }
+    }
+    #[inline]
+    pub fn flags(&self) -> u64 {
+        unsafe { ::std::mem::transmute(self._bitfield_1.get(64usize, 12u8) as u64) }
+    }
+    #[inline]
+    pub fn set_flags(&mut self, val: u64) {
+        unsafe {
+            let val: u64 = ::std::mem::transmute(val);
+            self._bitfield_1.set(64usize, 12u8, val as u64)
+        }
+    }
+    #[inline]
+    pub fn spanId(&self) -> u64 {
+        unsafe { ::std::mem::transmute(self._bitfield_1.get(76usize, 26u8) as u64) }
+    }
+    #[inline]
+    pub fn set_spanId(&mut self, val: u64) {
+        unsafe {
+            let val: u64 = ::std::mem::transmute(val);
+            self._bitfield_1.set(76usize, 26u8, val as u64)
+        }
+    }
+    #[inline]
+    pub fn parentSpanId(&self) -> u64 {
+        unsafe { ::std::mem::transmute(self._bitfield_1.get(102usize, 26u8) as u64) }
+    }
+    #[inline]
+    pub fn set_parentSpanId(&mut self, val: u64) {
+        unsafe {
+            let val: u64 = ::std::mem::transmute(val);
+            self._bitfield_1.set(102usize, 26u8, val as u64)
+        }
+    }
+    #[inline]
+    pub fn new_bitfield_1(
+        valid: u64,
+        ver: u64,
+        chainId: u64,
+        flags: u64,
+        spanId: u64,
+        parentSpanId: u64,
+    ) -> __BindgenBitfieldUnit<[u8; 16usize]> {
+        let mut __bindgen_bitfield_unit: __BindgenBitfieldUnit<[u8; 16usize]> = Default::default();
+        __bindgen_bitfield_unit.set(0usize, 1u8, {
+            let valid: u64 = unsafe { ::std::mem::transmute(valid) };
+            valid as u64
+        });
+        __bindgen_bitfield_unit.set(1usize, 3u8, {
+            let ver: u64 = unsafe { ::std::mem::transmute(ver) };
+            ver as u64
+        });
+        __bindgen_bitfield_unit.set(4usize, 60u8, {
+            let chainId: u64 = unsafe { ::std::mem::transmute(chainId) };
+            chainId as u64
+        });
+        __bindgen_bitfield_unit.set(64usize, 12u8, {
+            let flags: u64 = unsafe { ::std::mem::transmute(flags) };
+            flags as u64
+        });
+        __bindgen_bitfield_unit.set(76usize, 26u8, {
+            let spanId: u64 = unsafe { ::std::mem::transmute(spanId) };
+            spanId as u64
+        });
+        __bindgen_bitfield_unit.set(102usize, 26u8, {
+            let parentSpanId: u64 = unsafe { ::std::mem::transmute(parentSpanId) };
+            parentSpanId as u64
+        });
+        __bindgen_bitfield_unit
+    }
+}
+#[doc = " @brief Defines a callback to listen for whether the trace capture is enabled.\n\n @param traceStatus Whether the trace capture is enabled for the current application.\n     The value **true** indicates that the trace capture is enabled, and **false** indicates the opposite.\n @since 22"]
+#[cfg(feature = "api-22")]
+pub type OH_HiTrace_TraceEventListener =
+    ::std::option::Option<unsafe extern "C" fn(traceStatus: bool)>;
+extern "C" {
+    #[doc = " @brief Starts tracing.\n If the current thread's TLS does not contain a valid HiTrace ID, this function generates one, stores it in TLS, and\n returns it.\n If the current thread's TLS already contains a valid HiTrace ID, this function does not start tracing and returns an\n invalid HiTrace ID with all property values being 0.\n\n @param name Name of the traced service.\n @param flags Trace flags. For details, see {@link HiTrace_Flag}.\n @return The {@link HiTraceId} struct.\n @since 12"]
+    pub fn OH_HiTrace_BeginChain(
+        name: *const ::std::os::raw::c_char,
+        flags: ::std::os::raw::c_int,
+    ) -> HiTraceId;
+}
+extern "C" {
+    #[doc = " @brief Stops tracing.Stops tracing and sets the HiTrace ID in the TLS of the current thread to invalid.\n\n @since 12"]
+    pub fn OH_HiTrace_EndChain();
+}
+extern "C" {
+    #[doc = " @brief Obtains the HiTrace ID in the TLS of the current thread.\n\n @return The {@link HiTraceId} struct.\n @since 12"]
+    pub fn OH_HiTrace_GetId() -> HiTraceId;
+}
+extern "C" {
+    #[doc = " @brief Sets the given HiTrace ID to the TLS of the current thread. If the given HiTrace ID is invalid, no operation\n is performed.\n\n @param id {@link HiTraceId} to set.\n @since 12"]
+    pub fn OH_HiTrace_SetId(id: *const HiTraceId);
+}
+extern "C" {
+    #[doc = " @brief Clears the HiTrace ID in the current thread's TLS.\n\n @since 12"]
+    pub fn OH_HiTrace_ClearId();
+}
+extern "C" {
+    #[doc = " @brief Creates a trace span.\n Specifically, create a **HiTraceId**, use the **chainId** and **spanId** in the TLS of the current thread to\n initialize the **chainId** and **parentSpanId** of the **HiTraceId**, generate a new **spanId** for the **HiTraceId**\n , and return the **HiTraceId**.\n\n @return The {@link HiTraceId} struct.\n @since 12"]
+    pub fn OH_HiTrace_CreateSpan() -> HiTraceId;
+}
+extern "C" {
+    #[doc = " @brief Adds a trace point for the HiTraceMeter logging.\n When **type** is set to **HITRACE_TP_CS** and **HITRACE_TP_SR**, the HiTraceMeter tracing starts. When **type** is\n set to **HITRACE_TP_CR** and **HITRACE_TP_SS**, the HiTraceMeter tracing ends. When **type** is set to **\n HITRACE_TP_GENERAL**, the HiTraceMeter tracing does not start.\n The tracing points of **HITRACE_TP_CS** and **HITRACE_TP_CR** must be used in pairs; the tracing points of **\n HITRACE_TP_SR** and **HITRACE_TP_SS** must be used in pairs. Otherwise, the start and end trace points of\n HiTraceMeter cannot match each other.\n\n @param mode Trace communication mode. For details, see {@link HiTrace_Communication_Mode}.\n @param type Trace information type. For details, see {@link HiTrace_Tracepoint_Type}.\n @param id {@link HiTraceId} for implementing trace points.\n @param fmt Formatted string of the trace description information passed by the HiTraceMeter logging.\n @since 12"]
+    pub fn OH_HiTrace_Tracepoint(
+        mode: HiTrace_Communication_Mode,
+        type_: HiTrace_Tracepoint_Type,
+        id: *const HiTraceId,
+        fmt: *const ::std::os::raw::c_char,
+        ...
+    );
+}
+extern "C" {
+    #[doc = " @brief Initializes a **HiTraceId**.\n\n @param id {@link HiTraceId} to initialize.\n @since 12"]
+    pub fn OH_HiTrace_InitId(id: *mut HiTraceId);
+}
+extern "C" {
+    #[doc = " @brief Creates a **HiTraceId** based on a byte array.\n\n @param id {@link HiTraceId} to create.\n @param pIdArray Byte array.\n @param len Length of the byte array.\n @since 12"]
+    pub fn OH_HiTrace_IdFromBytes(
+        id: *mut HiTraceId,
+        pIdArray: *const u8,
+        len: ::std::os::raw::c_int,
+    );
+}
+extern "C" {
+    #[doc = " @brief Checks whether the **HiTraceId** is valid.\n\n @param id {@link HiTraceId} to check.\n @return The value **true** indicates that {@link HiTraceId} is valid, and **false** indicates the opposite.\n @since 12"]
+    pub fn OH_HiTrace_IsIdValid(id: *const HiTraceId) -> bool;
+}
+extern "C" {
+    #[doc = " @brief Checks whether the trace flag is enabled for the **HiTraceId**.\n\n @param id {@link HiTraceId} to check.\n @param flag Trace flag. For details, see {@link HiTrace_Flag}.\n @return The value **true** indicates that the flag is enabled for the {@link HiTraceId}, and **false** indicates the\n     opposite.\n @since 12"]
+    pub fn OH_HiTrace_IsFlagEnabled(id: *const HiTraceId, flag: HiTrace_Flag) -> bool;
+}
+extern "C" {
+    #[doc = " @brief Enables the trace flag specified in **HiTraceId**.\n\n @param id {@link HiTraceId} for which the trace flag is enabled.\n @param flag Trace flag. For details, see {@link HiTrace_Flag}.\n @since 12"]
+    pub fn OH_HiTrace_EnableFlag(id: *const HiTraceId, flag: HiTrace_Flag);
+}
+extern "C" {
+    #[doc = " @brief Obtains the trace flag set in **HiTraceId**.\n\n @param id {@link HiTraceId} for which the trace flag is obtained.\n @return Trace flag set in {@link HiTraceId}.\n @since 12"]
+    pub fn OH_HiTrace_GetFlags(id: *const HiTraceId) -> ::std::os::raw::c_int;
+}
+extern "C" {
+    #[doc = " @brief Sets the trace flag to {@link HiTraceId}.\n\n @param id {@link HiTraceId} to which the trace flag is set.\n @param flags Trace flag. For details, see {@link HiTrace_Flag}.\n @since 12"]
+    pub fn OH_HiTrace_SetFlags(id: *mut HiTraceId, flags: ::std::os::raw::c_int);
+}
+extern "C" {
+    #[doc = " @brief Obtains the trace chain ID in **HiTraceId**.\n\n @param id {@link HiTraceId} for which the trace chain ID is obtained.\n @return Trace chain ID.\n @since 12"]
+    pub fn OH_HiTrace_GetChainId(id: *const HiTraceId) -> u64;
+}
+extern "C" {
+    #[doc = " @brief Sets the trace chain ID in **HiTraceId**.\n\n @param id {@link HiTraceId} to which the trace chain ID is to be set.\n @param chainId Trace chain ID to set.\n @since 12"]
+    pub fn OH_HiTrace_SetChainId(id: *mut HiTraceId, chainId: u64);
+}
+extern "C" {
+    #[doc = " @brief Obtains the span ID in **HiTraceId**.\n\n @param id {@link HiTraceId} for which span ID is obtained.\n @return Span ID set in {@link HiTraceId}.\n @since 12"]
+    pub fn OH_HiTrace_GetSpanId(id: *const HiTraceId) -> u64;
+}
+extern "C" {
+    #[doc = " @brief Sets the span ID in **HiTraceId**.\n\n @param id {@link HiTraceId} to which the span ID is set.\n @param spanId Span ID to set.\n @since 12"]
+    pub fn OH_HiTrace_SetSpanId(id: *mut HiTraceId, spanId: u64);
+}
+extern "C" {
+    #[doc = " @brief Obtains the parent span ID in **HiTraceId**.\n\n @param id {@link HiTraceId} for which the parent span ID is obtained.\n @return Parent span ID set in {@link HiTraceId}.\n @since 12"]
+    pub fn OH_HiTrace_GetParentSpanId(id: *const HiTraceId) -> u64;
+}
+extern "C" {
+    #[doc = " @brief Sets the **ParentSpanId** in a **HiTraceId** instance.\n\n @param id {@link HiTraceId} to which the parent span ID is set.\n @param parentSpanId Parent span ID to set.\n @since 12"]
+    pub fn OH_HiTrace_SetParentSpanId(id: *mut HiTraceId, parentSpanId: u64);
+}
+extern "C" {
+    #[doc = " @brief Converts **HiTraceId** into a byte array for cache or communication.\n\n @param id {@link HiTraceId} to convert.\n @param pIdArray Byte array.\n @param len Length of the byte array.\n @return Returns the length of the byte array after conversion.\n @since 12"]
+    pub fn OH_HiTrace_IdToBytes(
+        id: *const HiTraceId,
+        pIdArray: *mut u8,
+        len: ::std::os::raw::c_int,
+    ) -> ::std::os::raw::c_int;
+}
 extern "C" {
     #[doc = " @brief Marks the start of a synchronous trace.\n This API is used with **OH_HiTrace_FinishTrace()** in pairs.\n The two APIs can be nested. The stack data structure is used for matching during trace parsing.\n Since API version 19, you are advised to use the **OH_HiTrace_StartTraceEx()** API to specify the trace output level.\n\n @param name Name of a synchronous trace.\n @since 10"]
     pub fn OH_HiTrace_StartTrace(name: *const ::std::os::raw::c_char);
@@ -20,6 +385,72 @@ extern "C" {
     pub fn OH_HiTrace_FinishTrace();
 }
 extern "C" {
+    #[doc = " @brief Marks the start of an asynchronous trace.\n This API is used to start tracing before an asynchronous operation. The start and end of an asynchronous trace do\n not occur in sequence. Therefore, a unique task ID is required to identify them.\n It must be used with **OH_HiTrace_FinishAsyncTrace()** in pairs. The start and end identified by the same name and\n task ID constitute an asynchronous trace task.\n If multiple trace tasks with the same name need to be performed at the same time or a trace task needs to be\n performed multiple times concurrently, different task IDs must be specified.\n If the trace tasks with the same name are not performed at the same time, the same **taskId** can be used.\n Since API version 19, you are advised to use the **OH_HiTrace_StartAsyncTraceEx()** API to specify the trace output\n level and category.\n\n @param name Name of the asynchronous trace.\n @param taskId ID of the asynchronous trace. The start and end of an asynchronous trace do not occur in sequence.\n Therefore, the start and end of an asynchronous trace need to be matched based on the task name and the unique task\n ID together.\n @since 10"]
+    pub fn OH_HiTrace_StartAsyncTrace(name: *const ::std::os::raw::c_char, taskId: i32);
+}
+extern "C" {
+    #[doc = " @brief Marks the end of an asynchronous trace.\n This API is called in the callback function after an asynchronous trace is complete.\n It is used with **OH_HiTrace_StartAsyncTrace()** in pairs. Its name and task ID must be the same as those of **\n OH_HiTrace_StartAsyncTrace()**.\n Since API version 19, you are advised to use the **OH_HiTrace_FinishAsyncTraceEx()** API to specify the trace output\n level.\n\n @param name Name of the asynchronous trace.\n @param taskId ID of the asynchronous trace. The start and end of an asynchronous trace do not occur in sequence.\n Therefore, the start and end of an asynchronous trace need to be matched based on the task name and the unique task\n ID together.\n @since 10"]
+    pub fn OH_HiTrace_FinishAsyncTrace(name: *const ::std::os::raw::c_char, taskId: i32);
+}
+extern "C" {
     #[doc = " @brief Traces the value change of an integer variable based on its name.\n This API can be executed for multiple times to trace the value change of a given integer variable at different time\n points.\n Since API version 19, you are advised to use the **OH_HiTrace_CountTraceEx()** API to specify the trace output level.\n\n @param name Name of the integer variable. It does not need to be the same as the real variable name.\n @param count Integer value.\n @since 10"]
     pub fn OH_HiTrace_CountTrace(name: *const ::std::os::raw::c_char, count: i64);
+}
+extern "C" {
+    #[doc = " @brief Marks the start of a synchronous trace task with the trace output level specified.\n This API is used with **OH_HiTrace_FinishTraceEx()** in pairs.\n The two APIs can be nested. The stack data structure is used for matching during trace parsing.\n\n @param level Trace output level.\n @param name Name of a synchronous trace.\n @param customArgs Key-value pair. Use commas (,) to separate multiple key-value pairs, for example, **\"key1=value1,\n     key2=value2\"**.\n @since 19"]
+    #[cfg(feature = "api-19")]
+    pub fn OH_HiTrace_StartTraceEx(
+        level: HiTrace_Output_Level,
+        name: *const ::std::os::raw::c_char,
+        customArgs: *const ::std::os::raw::c_char,
+    );
+}
+extern "C" {
+    #[doc = " @brief Marks the end of a synchronous trace task with the trace output level specified.\n It must be used with **OH_HiTrace_StartTraceEx()** in pairs. Its level must be the same as those of **\n OH_HiTrace_StartTraceEx()**.\n During trace data parsing, the system matches it with the **OH_HiTrace_StartTraceEx()** API recently invoked in the\n service process.\n @param level Trace output level.\n @since 19"]
+    #[cfg(feature = "api-19")]
+    pub fn OH_HiTrace_FinishTraceEx(level: HiTrace_Output_Level);
+}
+extern "C" {
+    #[doc = " @brief Marks the start of an asynchronous trace task with the trace output level specified.\n This API is used to start tracing before an asynchronous operation. The start and end of an asynchronous trace do\n not occur in sequence. Therefore, a unique task ID is required to identify them.\n It is used with **OH_HiTrace_FinishAsyncTraceEx()** in pairs. The start and end identified by the same name and task\n ID constitute an asynchronous trace task.\n If multiple trace tasks with the same name need to be performed at the same time or a trace task needs to be\n performed multiple times concurrently, different task IDs must be specified.\n If the trace tasks with the same name are not performed at the same time, the same **taskId** can be used.\n Task IDs of different processes does not interfere with each other.\n\n @param level Trace output level.\n @param name Name of the asynchronous trace.\n @param taskId ID of the asynchronous trace.\n @param customCategory Custom category name, which is used to collect asynchronous trace data of the same type.\n @param customArgs Key-value pair. Use commas (,) to separate multiple key-value pairs, for example, **\"key1=value1,\n     key2=value2\"**.\n @since 19"]
+    #[cfg(feature = "api-19")]
+    pub fn OH_HiTrace_StartAsyncTraceEx(
+        level: HiTrace_Output_Level,
+        name: *const ::std::os::raw::c_char,
+        taskId: i32,
+        customCategory: *const ::std::os::raw::c_char,
+        customArgs: *const ::std::os::raw::c_char,
+    );
+}
+extern "C" {
+    #[doc = " @brief Marks the end of an asynchronous trace task with the trace output level specified.\n This API is used to stop tracing after an asynchronous operation is complete, for example, in a callback function.\n It is used with **OH_HiTrace_StartAsyncTraceEx()** in pairs. Its level, name and task ID must be the same as those\n of **OH_HiTrace_StartAsyncTraceEx()**.\n\n @param level Trace output level.\n @param name Name of the asynchronous trace.\n @param taskId ID of the asynchronous trace.\n @since 19"]
+    #[cfg(feature = "api-19")]
+    pub fn OH_HiTrace_FinishAsyncTraceEx(
+        level: HiTrace_Output_Level,
+        name: *const ::std::os::raw::c_char,
+        taskId: i32,
+    );
+}
+extern "C" {
+    #[doc = " @brief Marks an integer variable trace task with the trace output level specified.\n\n @param level Trace output level.\n @param name Name of the integer variable. It does not need to be the same as the actual variable name.\n @param count Integer value.\n @since 19"]
+    #[cfg(feature = "api-19")]
+    pub fn OH_HiTrace_CountTraceEx(
+        level: HiTrace_Output_Level,
+        name: *const ::std::os::raw::c_char,
+        count: i64,
+    );
+}
+extern "C" {
+    #[doc = " @brief Checks whether trace capture is enabled for an application.\n\n @return When it is enabled, **true** is returned;\n     when it is disabled or stopped, **false** is returned. In this case,\n     calling the HiTraceMeter API does not take effect.\n @since 19"]
+    #[cfg(feature = "api-19")]
+    pub fn OH_HiTrace_IsTraceEnabled() -> bool;
+}
+extern "C" {
+    #[doc = " @brief Registers a callback to notify whether the application trace capture is enabled. This API uses a synchronous\n callback to return the result.\n\n @param callback Registered callback.\n @return Callback registration status.\n >= **0**: The registration is successful. The callback index for unregistration is returned. The index ranges from 0\n to 9.\n **-1**: The maximum number of callbacks has been reached.\n **-2**: Invalid parameter. The parameter is not of the **TraceEventListener** type.\n @since 22"]
+    #[cfg(feature = "api-22")]
+    pub fn OH_HiTrace_RegisterTraceListener(callback: OH_HiTrace_TraceEventListener) -> i32;
+}
+extern "C" {
+    #[doc = " @brief Unregisters the callback used to notify whether the application trace capture is enabled.\n You can use this function to unregister the callback function associated with the callback index returned by\n {@link OH_HiTrace_RegisterTraceListener}.\n\n @param index Index of the registered callback.\n @return Callback unregistration status.\n **0**: Unregistration succeeded.\n **-1**: The callback corresponding to the index is not registered.\n **-2**: Invalid index. The index value is not within the range of 0 to 9.\n @since 22"]
+    #[cfg(feature = "api-22")]
+    pub fn OH_HiTrace_UnregisterTraceListener(index: i32) -> i32;
 }

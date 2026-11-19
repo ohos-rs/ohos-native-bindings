@@ -52,16 +52,6 @@ pub struct ArkUINode {
 }
 
 impl ArkUINode {
-    /// Returns the ArkUI unique ID used by UIContext component snapshots (API 20).
-    #[cfg(feature = "api-20")]
-    pub fn unique_id(&self) -> ArkUIResult<i32> {
-        let mut id = -1;
-        check_arkui_status!(unsafe {
-            ohos_arkui_sys::OH_ArkUI_NodeUtils_GetNodeUniqueId(self.raw(), &mut id)
-        })?;
-        Ok(id)
-    }
-
     /// Captures this attached, rendered node without detaching or redirecting it.
     ///
     /// Call on the owning UI thread. The returned PixelMap owns the native
@@ -444,7 +434,6 @@ pub struct ArkUINodeRaw {
 #[cfg(feature = "napi")]
 pub struct ImportedFrameNode {
     frame: ArkUINodeRaw,
-    dispose: unsafe extern "C" fn(ArkUI_NodeHandle),
 }
 
 #[cfg(feature = "napi")]
@@ -455,23 +444,10 @@ impl ImportedFrameNode {
         value: &napi_ohos::bindgen_prelude::Object<'_>,
     ) -> napi_ohos::Result<Self> {
         use napi_ohos::JsValue;
-        use ohos_arkui_sys::{
-            ArkUI_NativeAPIVariantKind_ARKUI_NATIVE_NODE, ArkUI_NativeNodeAPI_1,
-            OH_ArkUI_QueryModuleInterfaceByName,
-        };
-        let api = unsafe {
-            OH_ArkUI_QueryModuleInterfaceByName(
-                ArkUI_NativeAPIVariantKind_ARKUI_NATIVE_NODE,
-                c"ArkUI_NativeNodeAPI_1".as_ptr(),
-            )
-            .cast::<ArkUI_NativeNodeAPI_1>()
-            .as_ref()
-        };
-        let dispose = api
-            .and_then(|api| api.disposeNode)
-            .ok_or_else(|| napi_ohos::Error::from_reason("ArkUI disposeNode is unavailable"))?;
+        // SAFETY: conversion runs on the active UI-thread N-API callback; `Drop`
+        // releases the acquired native node reference via `ARK_UI_NATIVE_NODE_API_1`.
         let frame = unsafe { ArkUINodeRaw::from_napi_value(env.raw(), value.raw()) }?;
-        Ok(Self { frame, dispose })
+        Ok(Self { frame })
     }
 
     /// Borrows this import for attachment to another native node.
@@ -486,7 +462,12 @@ impl ImportedFrameNode {
 #[cfg(feature = "napi")]
 impl Drop for ImportedFrameNode {
     fn drop(&mut self) {
-        unsafe { (self.dispose)(self.frame.raw) };
+        if !self.frame.raw.is_null() {
+            if let Err(error) = ARK_UI_NATIVE_NODE_API_1.with(|api| api.dispose_raw(self.frame.raw))
+            {
+                log::error!("ImportedFrameNode Drop disposal failed: {error:?}");
+            }
+        }
     }
 }
 

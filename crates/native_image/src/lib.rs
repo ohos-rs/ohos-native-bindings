@@ -1,8 +1,6 @@
 //! Thin NativeImage consumer ownership, native listeners and acquire fences.
 
-mod notification;
 mod texture;
-pub use notification::FrameNotification;
 pub use texture::TextureImage;
 
 use ohos_native_image_sys::*;
