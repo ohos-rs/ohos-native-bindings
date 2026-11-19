@@ -7,6 +7,12 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [0.2.9](https://github.com/ohos-rs/ohos-native-bindings/compare/ohos-drawing-binding-v0.2.8...ohos-drawing-binding-v0.2.9) - 2026-11-19
+
+### Added
+
+- expose ArkUI RenderNode, drawing rounded-rect, dialog keyboard avoid and HiTrace bindings ([#212](https://github.com/ohos-rs/ohos-native-bindings/pull/212))
+
 ## [0.2.8](https://github.com/ohos-rs/ohos-native-bindings/compare/ohos-drawing-binding-v0.2.7...ohos-drawing-binding-v0.2.8) - 2026-11-09
 
 ### Added

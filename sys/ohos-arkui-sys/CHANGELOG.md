@@ -7,6 +7,12 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [0.1.7](https://github.com/ohos-rs/ohos-native-bindings/compare/ohos-arkui-sys-v0.1.6...ohos-arkui-sys-v0.1.7) - 2026-11-19
+
+### Added
+
+- expose ArkUI RenderNode, drawing rounded-rect, dialog keyboard avoid and HiTrace bindings ([#212](https://github.com/ohos-rs/ohos-native-bindings/pull/212))
+
 ### Added
 
 - Generate API-15 focus declarations from the SDK's native_interface_focus.h.
