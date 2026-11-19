@@ -7,6 +7,12 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [0.3.1](https://github.com/ohos-rs/ohos-native-bindings/compare/ohos-camera-binding-v0.3.0...ohos-camera-binding-v0.3.1) - 2026-11-19
+
+### Other
+
+- updated the following local packages: ohos-xcomponent-binding
+
 ### Breaking
 
 - Upgrade the optional `ohos-xcomponent-binding` dependency to 0.6.

@@ -7,6 +7,12 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [0.6.1](https://github.com/ohos-rs/ohos-native-bindings/compare/ohos-xcomponent-binding-v0.6.0...ohos-xcomponent-binding-v0.6.1) - 2026-11-19
+
+### Other
+
+- updated the following local packages: ohos-xcomponent-sys
+
 ### Breaking
 
 - Upgrade `ohos-arkui-input-binding` to 0.2 and
