@@ -63,9 +63,10 @@ unsafe impl Send for OwnedHotkey {}
 
 impl OwnedHotkey {
     fn from_spec(spec: &HotkeySpec) -> Result<Self> {
-        let len = i32::try_from(spec.pre_keys.len()).map_err(|_| InputError::ParameterError)?;
+        let len = i32::try_from(spec.pre_keys.len())
+            .map_err(|_| InputError::CommonError("too many pre_keys".into()))?;
         let raw = NonNull::new(unsafe { sys::OH_Input_CreateHotkey() })
-            .ok_or(InputError::AllocationFailed)?;
+            .ok_or_else(|| InputError::CommonError("OH_Input_CreateHotkey returned null".into()))?;
         let mut pre_keys = spec.pre_keys.clone();
         unsafe {
             sys::OH_Input_SetPreKeys(raw.as_ptr(), pre_keys.as_mut_ptr(), len);
@@ -89,7 +90,9 @@ impl Drop for OwnedHotkey {
 
 unsafe fn read_hotkey(raw: *const sys::Input_Hotkey) -> Result<HotkeySpec> {
     if raw.is_null() {
-        return Err(InputError::ParameterError);
+        return Err(InputError::CommonError(
+            "Input_Hotkey pointer is null".into(),
+        ));
     }
     let mut pre_keys_ptr: *mut i32 = ptr::null_mut();
     let mut pre_key_count: i32 = 0;
@@ -132,7 +135,9 @@ pub fn system_hotkeys() -> Result<Vec<HotkeySpec>> {
     }
     let raw = unsafe { sys::OH_Input_CreateAllSystemHotkeys(count) };
     if raw.is_null() {
-        return Err(InputError::AllocationFailed);
+        return Err(InputError::CommonError(
+            "OH_Input_CreateAllSystemHotkeys returned null".into(),
+        ));
     }
     let guard = OwnedSystemHotkeys { raw, count };
     let mut actual_count = count;
@@ -377,10 +382,15 @@ mod tests {
         let spec = HotkeySpec::new(vec![2072], 2017);
         let err = hub
             .register(&spec, Arc::new(|_| {}), || {
-                Err(InputError::OccupiedBySystem)
+                Err(InputError::InternalError(
+                    sys::Input_Result_INPUT_OCCUPIED_BY_SYSTEM,
+                ))
             })
             .unwrap_err();
-        assert_eq!(err, InputError::OccupiedBySystem);
+        assert_eq!(
+            err,
+            InputError::InternalError(sys::Input_Result_INPUT_OCCUPIED_BY_SYSTEM)
+        );
         assert!(hub.slots.is_empty());
     }
 }

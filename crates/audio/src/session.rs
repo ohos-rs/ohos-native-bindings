@@ -84,10 +84,9 @@ static DEACTIVATED_HUB: LazyLock<Mutex<SessionHub<AudioSessionDeactivatedReason>
 unsafe extern "C" fn on_deactivated_trampoline(
     event: sys::OH_AudioSession_DeactivatedEvent,
 ) -> i32 {
-    dispatch_hub(
-        &DEACTIVATED_HUB,
-        AudioSessionDeactivatedReason::from_raw(event.reason),
-    );
+    if let Some(reason) = AudioSessionDeactivatedReason::try_from_raw(event.reason) {
+        dispatch_hub(&DEACTIVATED_HUB, reason);
+    }
     0
 }
 
@@ -97,10 +96,9 @@ static STATE_CHANGE_HUB: LazyLock<Mutex<SessionHub<AudioSessionStateChangeHint>>
 
 #[cfg(feature = "api-20")]
 unsafe extern "C" fn on_state_change_trampoline(event: sys::OH_AudioSession_StateChangedEvent) {
-    dispatch_hub(
-        &STATE_CHANGE_HUB,
-        AudioSessionStateChangeHint::from_raw(event.stateChangeHint),
-    );
+    if let Some(hint) = AudioSessionStateChangeHint::try_from_raw(event.stateChangeHint) {
+        dispatch_hub(&STATE_CHANGE_HUB, hint);
+    }
 }
 
 /// Handle to the process-global OpenHarmony `OH_AudioSessionManager` singleton (`@since 12`).
@@ -117,15 +115,15 @@ impl AudioSessionManager {
     pub fn get() -> Result<Self> {
         let mut raw: *mut sys::OH_AudioSessionManager = ptr::null_mut();
         check_common(unsafe { sys::OH_AudioManager_GetAudioSessionManager(&mut raw) })?;
-        NonNull::new(raw)
-            .map(|raw| Self { raw })
-            .ok_or(AudioError::UnexpectedNull)
+        NonNull::new(raw).map(|raw| Self { raw }).ok_or_else(|| {
+            AudioError::CommonError("OH_AudioManager_GetAudioSessionManager returned null".into())
+        })
     }
 
     /// Activates the application's audio session with the given concurrency mode (`@since 12`).
     pub fn activate(&self, mode: AudioSessionConcurrencyMode) -> Result<()> {
         let strategy = sys::OH_AudioSession_Strategy {
-            concurrencyMode: mode.to_raw(),
+            concurrencyMode: mode.into(),
         };
         check_common(unsafe {
             sys::OH_AudioSessionManager_ActivateAudioSession(self.raw.as_ptr(), &strategy)
@@ -172,7 +170,7 @@ impl AudioSessionManager {
     #[cfg(feature = "api-20")]
     pub fn set_scene(&self, scene: AudioSessionScene) -> Result<()> {
         check_common(unsafe {
-            sys::OH_AudioSessionManager_SetScene(self.raw.as_ptr(), scene.to_raw())
+            sys::OH_AudioSessionManager_SetScene(self.raw.as_ptr(), scene.into())
         })
     }
 

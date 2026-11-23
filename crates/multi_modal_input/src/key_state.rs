@@ -1,32 +1,20 @@
 use std::ptr::NonNull;
 
+use ohos_enum_derive::EnumFrom;
 use ohos_multi_modal_input_sys as sys;
+use ohos_multi_modal_input_sys::*;
 
 use crate::error::{check_status, InputError, Result};
 
 /// Press or toggle state reported for a key (API 12).
-#[derive(Clone, Copy, Debug, PartialEq, Eq)]
+#[derive(Clone, Copy, Debug, PartialEq, Eq, EnumFrom)]
+#[config(Input_KeyStateAction, "Input_KeyStateAction_KEY_")]
 pub enum KeyStateAction {
     Default,
     Pressed,
     Released,
     SwitchOn,
     SwitchOff,
-    Unknown(i32),
-}
-
-impl KeyStateAction {
-    #[allow(non_upper_case_globals)]
-    pub const fn from_raw(value: sys::Input_KeyStateAction) -> Self {
-        match value {
-            sys::Input_KeyStateAction_KEY_DEFAULT => Self::Default,
-            sys::Input_KeyStateAction_KEY_PRESSED => Self::Pressed,
-            sys::Input_KeyStateAction_KEY_RELEASED => Self::Released,
-            sys::Input_KeyStateAction_KEY_SWITCH_ON => Self::SwitchOn,
-            sys::Input_KeyStateAction_KEY_SWITCH_OFF => Self::SwitchOff,
-            other => Self::Unknown(other),
-        }
-    }
 }
 
 /// Snapshot of a queried key's state (API 12).
@@ -43,7 +31,7 @@ impl OwnedKeyState {
     fn new() -> Result<Self> {
         NonNull::new(unsafe { sys::OH_Input_CreateKeyState() })
             .map(Self)
-            .ok_or(InputError::AllocationFailed)
+            .ok_or_else(|| InputError::CommonError("OH_Input_CreateKeyState returned null".into()))
     }
 
     fn as_ptr(&self) -> *mut sys::Input_KeyState {
@@ -65,8 +53,10 @@ pub fn query_key_state(key_code: i32) -> Result<KeyStateInfo> {
         sys::OH_Input_SetKeyCode(state.as_ptr(), key_code);
         check_status(sys::OH_Input_GetKeyState(state.as_ptr()))?;
         let key_code = sys::OH_Input_GetKeyCode(state.as_ptr());
-        let pressed = KeyStateAction::from_raw(sys::OH_Input_GetKeyPressed(state.as_ptr()));
-        let switch = KeyStateAction::from_raw(sys::OH_Input_GetKeySwitch(state.as_ptr()));
+        let pressed = KeyStateAction::try_from_raw(sys::OH_Input_GetKeyPressed(state.as_ptr()))
+            .unwrap_or(KeyStateAction::Default);
+        let switch = KeyStateAction::try_from_raw(sys::OH_Input_GetKeySwitch(state.as_ptr()))
+            .unwrap_or(KeyStateAction::Default);
         Ok(KeyStateInfo {
             key_code,
             pressed,

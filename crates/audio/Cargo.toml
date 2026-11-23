@@ -12,6 +12,7 @@ workspace = true
 [dependencies]
 ohos-audio-sys      = { workspace = true }
 ohos-audio-base-sys = { workspace = true }
+ohos-enum-derive    = { workspace = true }
 
 [features]
 default = []

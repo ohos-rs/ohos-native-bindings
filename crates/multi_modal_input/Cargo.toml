@@ -11,6 +11,7 @@ workspace = true
 
 [dependencies]
 ohos-multi-modal-input-sys = { workspace = true }
+ohos-enum-derive           = { workspace = true }
 ohos-image-native-binding  = { workspace = true, optional = true }
 
 [features]

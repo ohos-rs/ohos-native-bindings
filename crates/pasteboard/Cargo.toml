@@ -25,4 +25,5 @@ api-24  = ["api-23", "ohos-native-pasteboard-sys/api-24", "ohos-udmf-binding/api
 
 [dependencies]
 ohos-native-pasteboard-sys = { workspace = true }
+ohos-enum-derive           = { workspace = true }
 ohos-udmf-binding          = { workspace = true }

@@ -5,6 +5,8 @@
 //! Explicit close and Drop can block while releasing surface buffers; run them
 //! on an application-owned media worker when UI latency matters.
 use ohos_avplayer_sys as sys;
+use ohos_avplayer_sys::*;
+use ohos_enum_derive::EnumFrom;
 use std::{
     cell::Cell,
     ffi::{c_void, CStr},
@@ -105,7 +107,8 @@ impl SeekMode {
 }
 
 /// Audio stream usage reported to the system audio policy (API 12).
-#[derive(Clone, Copy, Debug, PartialEq, Eq)]
+#[derive(Clone, Copy, Debug, PartialEq, Eq, EnumFrom)]
+#[config(OH_AudioStream_Usage, "OH_AudioStream_Usage_AUDIOSTREAM_USAGE_")]
 pub enum AudioStreamUsage {
     Unknown,
     Music,
@@ -123,33 +126,12 @@ pub enum AudioStreamUsage {
     VideoCommunication,
 }
 
-impl AudioStreamUsage {
-    fn raw(self) -> sys::OH_AudioStream_Usage {
-        match self {
-            Self::Unknown => sys::OH_AudioStream_Usage_AUDIOSTREAM_USAGE_UNKNOWN,
-            Self::Music => sys::OH_AudioStream_Usage_AUDIOSTREAM_USAGE_MUSIC,
-            Self::VoiceCommunication => {
-                sys::OH_AudioStream_Usage_AUDIOSTREAM_USAGE_VOICE_COMMUNICATION
-            }
-            Self::VoiceAssistant => sys::OH_AudioStream_Usage_AUDIOSTREAM_USAGE_VOICE_ASSISTANT,
-            Self::Alarm => sys::OH_AudioStream_Usage_AUDIOSTREAM_USAGE_ALARM,
-            Self::VoiceMessage => sys::OH_AudioStream_Usage_AUDIOSTREAM_USAGE_VOICE_MESSAGE,
-            Self::Ringtone => sys::OH_AudioStream_Usage_AUDIOSTREAM_USAGE_RINGTONE,
-            Self::Notification => sys::OH_AudioStream_Usage_AUDIOSTREAM_USAGE_NOTIFICATION,
-            Self::Accessibility => sys::OH_AudioStream_Usage_AUDIOSTREAM_USAGE_ACCESSIBILITY,
-            Self::Movie => sys::OH_AudioStream_Usage_AUDIOSTREAM_USAGE_MOVIE,
-            Self::Game => sys::OH_AudioStream_Usage_AUDIOSTREAM_USAGE_GAME,
-            Self::Audiobook => sys::OH_AudioStream_Usage_AUDIOSTREAM_USAGE_AUDIOBOOK,
-            Self::Navigation => sys::OH_AudioStream_Usage_AUDIOSTREAM_USAGE_NAVIGATION,
-            Self::VideoCommunication => {
-                sys::OH_AudioStream_Usage_AUDIOSTREAM_USAGE_VIDEO_COMMUNICATION
-            }
-        }
-    }
-}
-
 /// Audio focus interruption mode for an AVPlayer (API 12).
-#[derive(Clone, Copy, Debug, PartialEq, Eq)]
+#[derive(Clone, Copy, Debug, PartialEq, Eq, EnumFrom)]
+#[config(
+    OH_AudioInterrupt_Mode,
+    "OH_AudioInterrupt_Mode_AUDIOSTREAM_INTERRUPT_MODE_"
+)]
 pub enum AudioInterruptMode {
     /// Shares the application's audio focus session.
     Share,
@@ -157,112 +139,59 @@ pub enum AudioInterruptMode {
     Independent,
 }
 
-impl AudioInterruptMode {
-    fn raw(self) -> sys::OH_AudioInterrupt_Mode {
-        match self {
-            Self::Share => sys::OH_AudioInterrupt_Mode_AUDIOSTREAM_INTERRUPT_MODE_SHARE,
-            Self::Independent => sys::OH_AudioInterrupt_Mode_AUDIOSTREAM_INTERRUPT_MODE_INDEPENDENT,
-        }
-    }
-}
-
 /// Audio effect mode for an AVPlayer (API 12).
-#[derive(Clone, Copy, Debug, PartialEq, Eq)]
+#[derive(Clone, Copy, Debug, PartialEq, Eq, EnumFrom)]
+#[config(
+    OH_AudioStream_AudioEffectMode,
+    "OH_AudioStream_AudioEffectMode_EFFECT_"
+)]
 pub enum AudioEffectMode {
     None,
     Default,
 }
 
-impl AudioEffectMode {
-    fn raw(self) -> sys::OH_AudioStream_AudioEffectMode {
-        match self {
-            Self::None => sys::OH_AudioStream_AudioEffectMode_EFFECT_NONE,
-            Self::Default => sys::OH_AudioStream_AudioEffectMode_EFFECT_DEFAULT,
-        }
-    }
-}
-
 /// Discrete playback speed presets supported from API 11.
-#[derive(Clone, Copy, Debug, PartialEq, Eq)]
+#[derive(Clone, Copy, Debug, PartialEq, Eq, EnumFrom)]
+#[config(AVPlaybackSpeed, "AVPlaybackSpeed_AV_SPEED_")]
 pub enum PlaybackSpeed {
     #[cfg(feature = "api-13")]
+    #[suffix("FORWARD_0_125_X")]
     Forward0_125x,
     #[cfg(feature = "api-13")]
+    #[suffix("FORWARD_0_25_X")]
     Forward0_25x,
+    #[suffix("FORWARD_0_50_X")]
     Forward0_50x,
+    #[suffix("FORWARD_0_75_X")]
     Forward0_75x,
+    #[suffix("FORWARD_1_00_X")]
     Forward1_00x,
+    #[suffix("FORWARD_1_25_X")]
     Forward1_25x,
+    #[suffix("FORWARD_1_50_X")]
     Forward1_50x,
+    #[suffix("FORWARD_1_75_X")]
     Forward1_75x,
+    #[suffix("FORWARD_2_00_X")]
     Forward2_00x,
     #[cfg(feature = "api-13")]
+    #[suffix("FORWARD_3_00_X")]
     Forward3_00x,
 }
 
-impl PlaybackSpeed {
-    fn raw(self) -> sys::AVPlaybackSpeed {
-        match self {
-            #[cfg(feature = "api-13")]
-            Self::Forward0_125x => sys::AVPlaybackSpeed_AV_SPEED_FORWARD_0_125_X,
-            #[cfg(feature = "api-13")]
-            Self::Forward0_25x => sys::AVPlaybackSpeed_AV_SPEED_FORWARD_0_25_X,
-            Self::Forward0_50x => sys::AVPlaybackSpeed_AV_SPEED_FORWARD_0_50_X,
-            Self::Forward0_75x => sys::AVPlaybackSpeed_AV_SPEED_FORWARD_0_75_X,
-            Self::Forward1_00x => sys::AVPlaybackSpeed_AV_SPEED_FORWARD_1_00_X,
-            Self::Forward1_25x => sys::AVPlaybackSpeed_AV_SPEED_FORWARD_1_25_X,
-            Self::Forward1_50x => sys::AVPlaybackSpeed_AV_SPEED_FORWARD_1_50_X,
-            Self::Forward1_75x => sys::AVPlaybackSpeed_AV_SPEED_FORWARD_1_75_X,
-            Self::Forward2_00x => sys::AVPlaybackSpeed_AV_SPEED_FORWARD_2_00_X,
-            #[cfg(feature = "api-13")]
-            Self::Forward3_00x => sys::AVPlaybackSpeed_AV_SPEED_FORWARD_3_00_X,
-        }
-    }
-
-    #[allow(non_upper_case_globals)]
-    fn from_raw(raw: sys::AVPlaybackSpeed) -> Result<Self, Error> {
-        match raw {
-            #[cfg(feature = "api-13")]
-            sys::AVPlaybackSpeed_AV_SPEED_FORWARD_0_125_X => Ok(Self::Forward0_125x),
-            #[cfg(feature = "api-13")]
-            sys::AVPlaybackSpeed_AV_SPEED_FORWARD_0_25_X => Ok(Self::Forward0_25x),
-            sys::AVPlaybackSpeed_AV_SPEED_FORWARD_0_50_X => Ok(Self::Forward0_50x),
-            sys::AVPlaybackSpeed_AV_SPEED_FORWARD_0_75_X => Ok(Self::Forward0_75x),
-            sys::AVPlaybackSpeed_AV_SPEED_FORWARD_1_00_X => Ok(Self::Forward1_00x),
-            sys::AVPlaybackSpeed_AV_SPEED_FORWARD_1_25_X => Ok(Self::Forward1_25x),
-            sys::AVPlaybackSpeed_AV_SPEED_FORWARD_1_50_X => Ok(Self::Forward1_50x),
-            sys::AVPlaybackSpeed_AV_SPEED_FORWARD_1_75_X => Ok(Self::Forward1_75x),
-            sys::AVPlaybackSpeed_AV_SPEED_FORWARD_2_00_X => Ok(Self::Forward2_00x),
-            #[cfg(feature = "api-13")]
-            sys::AVPlaybackSpeed_AV_SPEED_FORWARD_3_00_X => Ok(Self::Forward3_00x),
-            _ => Err(invalid("playback speed")),
-        }
-    }
-}
-
 /// Media stream category (API 9/23).
-#[derive(Clone, Copy, Debug, PartialEq, Eq)]
+#[derive(Clone, Copy, Debug, PartialEq, Eq, EnumFrom)]
+#[config(OH_MediaType, "OH_MediaType_MEDIA_TYPE_")]
 pub enum MediaType {
+    #[suffix("AUD")]
     Audio,
+    #[suffix("VID")]
     Video,
     Subtitle,
     #[cfg(feature = "api-20")]
     TimedMetadata,
     #[cfg(feature = "api-20")]
     Auxiliary,
-}
-
-#[cfg(feature = "api-23")]
-impl MediaType {
-    fn raw(self) -> sys::OH_MediaType {
-        match self {
-            Self::Audio => sys::OH_MediaType_MEDIA_TYPE_AUD,
-            Self::Video => sys::OH_MediaType_MEDIA_TYPE_VID,
-            Self::Subtitle => sys::OH_MediaType_MEDIA_TYPE_SUBTITLE,
-            Self::TimedMetadata => sys::OH_MediaType_MEDIA_TYPE_TIMED_METADATA,
-            Self::Auxiliary => sys::OH_MediaType_MEDIA_TYPE_AUXILIARY,
-        }
-    }
 }
 
 /// A uniquely owned player. Moving it to a media worker is supported; concurrent
@@ -479,7 +408,7 @@ impl AvPlayer {
     /// Sets a discrete playback speed preset (API 11).
     pub fn set_playback_speed(&mut self, speed: PlaybackSpeed) -> Result<(), Error> {
         check("playback speed", unsafe {
-            sys::OH_AVPlayer_SetPlaybackSpeed(self.raw()?, speed.raw())
+            sys::OH_AVPlayer_SetPlaybackSpeed(self.raw()?, speed.into())
         })
     }
     /// Reads the current discrete playback speed preset (API 11).
@@ -488,31 +417,31 @@ impl AvPlayer {
         check("get playback speed", unsafe {
             sys::OH_AVPlayer_GetPlaybackSpeed(self.raw()?, &mut speed)
         })?;
-        PlaybackSpeed::from_raw(speed)
+        PlaybackSpeed::try_from_raw(speed).ok_or_else(|| invalid("playback speed"))
     }
     /// Sets the audio stream usage for this player (API 12).
     pub fn set_audio_renderer_info(&mut self, usage: AudioStreamUsage) -> Result<(), Error> {
         check("audio renderer info", unsafe {
-            sys::OH_AVPlayer_SetAudioRendererInfo(self.raw()?, usage.raw())
+            sys::OH_AVPlayer_SetAudioRendererInfo(self.raw()?, usage.into())
         })
     }
     /// Sets the audio interruption mode for this player (API 12).
     pub fn set_audio_interrupt_mode(&mut self, mode: AudioInterruptMode) -> Result<(), Error> {
         check("audio interrupt mode", unsafe {
-            sys::OH_AVPlayer_SetAudioInterruptMode(self.raw()?, mode.raw())
+            sys::OH_AVPlayer_SetAudioInterruptMode(self.raw()?, mode.into())
         })
     }
     /// Sets the audio effect mode for this player (API 12).
     pub fn set_audio_effect_mode(&mut self, mode: AudioEffectMode) -> Result<(), Error> {
         check("audio effect mode", unsafe {
-            sys::OH_AVPlayer_SetAudioEffectMode(self.raw()?, mode.raw())
+            sys::OH_AVPlayer_SetAudioEffectMode(self.raw()?, mode.into())
         })
     }
     /// Mutes or unmutes the specified media stream (API 23).
     #[cfg(feature = "api-23")]
     pub fn set_media_muted(&mut self, media_type: MediaType, muted: bool) -> Result<(), Error> {
         check("media muted", unsafe {
-            sys::OH_AVPlayer_SetMediaMuted(self.raw()?, media_type.raw(), muted)
+            sys::OH_AVPlayer_SetMediaMuted(self.raw()?, media_type.into(), muted)
         })
     }
     /// Returns whether the player is currently playing (API 11).

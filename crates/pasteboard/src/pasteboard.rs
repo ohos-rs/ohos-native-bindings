@@ -4,39 +4,20 @@ use std::{
     ptr::NonNull,
 };
 
+use ohos_enum_derive::EnumFrom;
 use ohos_native_pasteboard_sys::*;
 use ohos_udmf_binding::{UdmfData, UdsValue};
 
 use crate::error::PasteboardError;
 
 /// Pasteboard change source for observer subscriptions (API 13).
-#[derive(Clone, Copy, Debug, PartialEq, Eq)]
+#[derive(Clone, Copy, Debug, PartialEq, Eq, EnumFrom)]
+#[config(Pasteboard_NotifyType, "Pasteboard_NotifyType_NOTIFY_", c_int)]
 pub enum PasteboardNotifyType {
     /// Local device pasteboard data changed.
     LocalDataChange,
     /// Remote device pasteboard data changed.
     RemoteDataChange,
-    /// Unrecognized SDK notify type.
-    Other(u32),
-}
-
-impl PasteboardNotifyType {
-    fn as_raw(self) -> c_int {
-        match self {
-            Self::LocalDataChange => Pasteboard_NotifyType_NOTIFY_LOCAL_DATA_CHANGE as c_int,
-            Self::RemoteDataChange => Pasteboard_NotifyType_NOTIFY_REMOTE_DATA_CHANGE as c_int,
-            Self::Other(raw) => raw as c_int,
-        }
-    }
-
-    #[allow(non_upper_case_globals)]
-    fn from_raw(raw: Pasteboard_NotifyType) -> Self {
-        match raw {
-            Pasteboard_NotifyType_NOTIFY_LOCAL_DATA_CHANGE => Self::LocalDataChange,
-            Pasteboard_NotifyType_NOTIFY_REMOTE_DATA_CHANGE => Self::RemoteDataChange,
-            other => Self::Other(other),
-        }
-    }
 }
 
 struct ObserverContext {
@@ -54,7 +35,9 @@ unsafe extern "C" fn observer_notify_trampoline(
     // `observer_finalize_trampoline`.
     let state = unsafe { &*context.cast::<ObserverContext>() };
     let _ = catch_unwind(AssertUnwindSafe(|| {
-        (state.callback)(PasteboardNotifyType::from_raw(notify_type));
+        if let Some(kind) = PasteboardNotifyType::try_from_raw(notify_type) {
+            (state.callback)(kind);
+        }
     }));
 }
 
@@ -308,11 +291,7 @@ impl Pasteboard {
         observer: &PasteboardObserver,
     ) -> Result<(), PasteboardError> {
         let status = unsafe {
-            OH_Pasteboard_Subscribe(
-                self.raw.as_ptr(),
-                notify_type.as_raw(),
-                observer.raw.as_ptr(),
-            )
+            OH_Pasteboard_Subscribe(self.raw.as_ptr(), notify_type.into(), observer.raw.as_ptr())
         };
         if status == 0 {
             Ok(())
@@ -328,11 +307,7 @@ impl Pasteboard {
         observer: &PasteboardObserver,
     ) -> Result<(), PasteboardError> {
         let status = unsafe {
-            OH_Pasteboard_Unsubscribe(
-                self.raw.as_ptr(),
-                notify_type.as_raw(),
-                observer.raw.as_ptr(),
-            )
+            OH_Pasteboard_Unsubscribe(self.raw.as_ptr(), notify_type.into(), observer.raw.as_ptr())
         };
         if status == 0 {
             Ok(())

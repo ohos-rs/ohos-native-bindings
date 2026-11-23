@@ -67,15 +67,15 @@ unsafe extern "C" fn on_write_data_trampoline(
     audio_data_size: i32,
 ) -> sys::OH_AudioData_Callback_Result {
     if user_data.is_null() || audio_data.is_null() || audio_data_size <= 0 {
-        return AudioDataCallbackResult::Invalid.to_raw();
+        return AudioDataCallbackResult::Invalid.into();
     }
     let state = unsafe { &mut *user_data.cast::<WriteDataBox>() };
     let buffer = unsafe {
         std::slice::from_raw_parts_mut(audio_data.cast::<u8>(), audio_data_size as usize)
     };
     match catch_unwind(AssertUnwindSafe(|| (state.0)(buffer))) {
-        Ok(res) => res.to_raw(),
-        Err(_) => AudioDataCallbackResult::Invalid.to_raw(),
+        Ok(res) => res.into(),
+        Err(_) => AudioDataCallbackResult::Invalid.into(),
     }
 }
 
@@ -89,7 +89,7 @@ unsafe extern "C" fn on_device_change_trampoline(
     }
     let state = unsafe { &mut *user_data.cast::<DeviceChangeBox>() };
     let _ = catch_unwind(AssertUnwindSafe(|| {
-        (state.0)(DeviceChangeReason::from_raw(reason));
+        (state.0)(DeviceChangeReason::try_from_raw(reason).unwrap_or(DeviceChangeReason::Unknown));
     }));
 }
 
@@ -105,10 +105,12 @@ unsafe extern "C" fn on_interrupt_trampoline(
     }
     let state = unsafe { &mut *user_data.cast::<InterruptBox>() };
     let _ = catch_unwind(AssertUnwindSafe(|| {
-        (state.0)(
-            InterruptForceType::from_raw(force_type),
-            InterruptHint::from_raw(hint),
-        );
+        if let Some(force) = InterruptForceType::try_from_raw(force_type) {
+            (state.0)(
+                force,
+                InterruptHint::try_from_raw(hint).unwrap_or(InterruptHint::None),
+            );
+        }
     }));
 }
 
@@ -123,7 +125,7 @@ unsafe extern "C" fn on_error_trampoline(
     }
     let state = unsafe { &mut *user_data.cast::<ErrorBox>() };
     let _ = catch_unwind(AssertUnwindSafe(|| {
-        (state.0)(AudioError::from_stream_result(error));
+        (state.0)(AudioError::InternalError(error));
     }));
 }
 
@@ -147,7 +149,9 @@ impl AudioStreamBuilder {
                 sys::OH_AudioStream_Type_AUDIOSTREAM_TYPE_RENDERER,
             )
         })?;
-        let raw = NonNull::new(raw).ok_or(AudioError::UnexpectedNull)?;
+        let raw = NonNull::new(raw).ok_or_else(|| {
+            AudioError::CommonError("OH_AudioStreamBuilder_Create returned null".into())
+        })?;
         Ok(Self {
             raw,
             callbacks: RendererCallbacks::empty(),
@@ -174,7 +178,7 @@ impl AudioStreamBuilder {
     /// Sets PCM sample format (`@since 10`).
     pub fn sample_format(&mut self, format: SampleFormat) -> Result<&mut Self> {
         check_stream(unsafe {
-            sys::OH_AudioStreamBuilder_SetSampleFormat(self.raw.as_ptr(), format.to_raw())
+            sys::OH_AudioStreamBuilder_SetSampleFormat(self.raw.as_ptr(), format.into())
         })?;
         Ok(self)
     }
@@ -182,7 +186,7 @@ impl AudioStreamBuilder {
     /// Sets stream encoding type (`@since 10`).
     pub fn encoding_type(&mut self, encoding: EncodingType) -> Result<&mut Self> {
         check_stream(unsafe {
-            sys::OH_AudioStreamBuilder_SetEncodingType(self.raw.as_ptr(), encoding.to_raw())
+            sys::OH_AudioStreamBuilder_SetEncodingType(self.raw.as_ptr(), encoding.into())
         })?;
         Ok(self)
     }
@@ -190,7 +194,7 @@ impl AudioStreamBuilder {
     /// Sets stream latency mode (`@since 10`).
     pub fn latency_mode(&mut self, mode: LatencyMode) -> Result<&mut Self> {
         check_stream(unsafe {
-            sys::OH_AudioStreamBuilder_SetLatencyMode(self.raw.as_ptr(), mode.to_raw())
+            sys::OH_AudioStreamBuilder_SetLatencyMode(self.raw.as_ptr(), mode.into())
         })?;
         Ok(self)
     }
@@ -206,7 +210,7 @@ impl AudioStreamBuilder {
     /// Sets renderer usage scenario (`@since 10`).
     pub fn usage(&mut self, usage: StreamUsage) -> Result<&mut Self> {
         check_stream(unsafe {
-            sys::OH_AudioStreamBuilder_SetRendererInfo(self.raw.as_ptr(), usage.to_raw())
+            sys::OH_AudioStreamBuilder_SetRendererInfo(self.raw.as_ptr(), usage.into())
         })?;
         Ok(self)
     }
@@ -214,7 +218,7 @@ impl AudioStreamBuilder {
     /// Sets audio focus interruption mode (`@since 12`).
     pub fn interrupt_mode(&mut self, mode: InterruptMode) -> Result<&mut Self> {
         check_stream(unsafe {
-            sys::OH_AudioStreamBuilder_SetRendererInterruptMode(self.raw.as_ptr(), mode.to_raw())
+            sys::OH_AudioStreamBuilder_SetRendererInterruptMode(self.raw.as_ptr(), mode.into())
         })?;
         Ok(self)
     }
@@ -222,7 +226,7 @@ impl AudioStreamBuilder {
     /// Sets playback capture privacy policy (`@since 12`).
     pub fn privacy(&mut self, privacy: PrivacyType) -> Result<&mut Self> {
         check_stream(unsafe {
-            sys::OH_AudioStreamBuilder_SetRendererPrivacy(self.raw.as_ptr(), privacy.to_raw())
+            sys::OH_AudioStreamBuilder_SetRendererPrivacy(self.raw.as_ptr(), privacy.into())
         })?;
         Ok(self)
     }
@@ -239,7 +243,7 @@ impl AudioStreamBuilder {
     #[cfg(feature = "api-19")]
     pub fn volume_mode(&mut self, mode: VolumeMode) -> Result<&mut Self> {
         check_stream(unsafe {
-            sys::OH_AudioStreamBuilder_SetVolumeMode(self.raw.as_ptr(), mode.to_raw())
+            sys::OH_AudioStreamBuilder_SetVolumeMode(self.raw.as_ptr(), mode.into())
         })?;
         Ok(self)
     }
@@ -327,7 +331,9 @@ impl AudioStreamBuilder {
         check_stream(unsafe {
             sys::OH_AudioStreamBuilder_GenerateRenderer(self.raw.as_ptr(), &mut raw)
         })?;
-        let raw = NonNull::new(raw).ok_or(AudioError::UnexpectedNull)?;
+        let raw = NonNull::new(raw).ok_or_else(|| {
+            AudioError::CommonError("OH_AudioStreamBuilder_GenerateRenderer returned null".into())
+        })?;
         let callbacks = std::mem::replace(&mut self.callbacks, RendererCallbacks::empty());
         Ok(AudioRenderer {
             raw: Some(raw),
@@ -361,7 +367,7 @@ impl AudioRenderer {
     fn raw(&self) -> Result<*mut sys::OH_AudioRenderer> {
         self.raw
             .map(NonNull::as_ptr)
-            .ok_or(AudioError::IllegalState)
+            .ok_or_else(|| AudioError::CommonError("audio renderer is closed".into()))
     }
 
     /// Starts playback (`@since 10`).
@@ -388,7 +394,7 @@ impl AudioRenderer {
     pub fn state(&mut self) -> Result<StreamState> {
         let mut state = 0;
         check_stream(unsafe { sys::OH_AudioRenderer_GetCurrentState(self.raw()?, &mut state) })?;
-        Ok(StreamState::from_raw(state))
+        Ok(StreamState::try_from_raw(state).unwrap_or(StreamState::Invalid))
     }
 
     /// Returns the sampling rate in Hz (`@since 10`).
@@ -409,14 +415,16 @@ impl AudioRenderer {
     pub fn sample_format(&mut self) -> Result<SampleFormat> {
         let mut format = 0;
         check_stream(unsafe { sys::OH_AudioRenderer_GetSampleFormat(self.raw()?, &mut format) })?;
-        Ok(SampleFormat::from_raw(format))
+        SampleFormat::try_from_raw(format)
+            .ok_or_else(|| AudioError::CommonError(format!("unknown sample format {format}")))
     }
 
     /// Returns the latency mode (`@since 10`).
     pub fn latency_mode(&mut self) -> Result<LatencyMode> {
         let mut mode = 0;
         check_stream(unsafe { sys::OH_AudioRenderer_GetLatencyMode(self.raw()?, &mut mode) })?;
-        Ok(LatencyMode::from_raw(mode))
+        LatencyMode::try_from_raw(mode)
+            .ok_or_else(|| AudioError::CommonError(format!("unknown latency mode {mode}")))
     }
 
     /// Returns the system stream ID (`@since 10`).
@@ -445,7 +453,9 @@ impl AudioRenderer {
     /// Sets playback volume in `0.0..=1.0` (`@since 12`).
     pub fn set_volume(&mut self, volume: f32) -> Result<()> {
         if !volume.is_finite() || !(0.0..=1.0).contains(&volume) {
-            return Err(AudioError::InvalidParam);
+            return Err(AudioError::CommonError(
+                "volume must be finite and within 0.0..=1.0".into(),
+            ));
         }
         check_stream(unsafe { sys::OH_AudioRenderer_SetVolume(self.raw()?, volume) })
     }
@@ -453,7 +463,9 @@ impl AudioRenderer {
     /// Ramps playback volume to `volume` (`0.0..=1.0`) over `duration_ms` (`@since 12`).
     pub fn set_volume_with_ramp(&mut self, volume: f32, duration_ms: i32) -> Result<()> {
         if !volume.is_finite() || !(0.0..=1.0).contains(&volume) || duration_ms < 0 {
-            return Err(AudioError::InvalidParam);
+            return Err(AudioError::CommonError(
+                "volume must be within 0.0..=1.0 and duration_ms >= 0".into(),
+            ));
         }
         check_stream(unsafe {
             sys::OH_AudioRenderer_SetVolumeWithRamp(self.raw()?, volume, duration_ms)
@@ -470,7 +482,9 @@ impl AudioRenderer {
     /// Sets playback speed in `0.25..=4.0` (`@since 11`).
     pub fn set_speed(&mut self, speed: f32) -> Result<()> {
         if !speed.is_finite() || !(0.25..=4.0).contains(&speed) {
-            return Err(AudioError::InvalidParam);
+            return Err(AudioError::CommonError(
+                "speed must be finite and within 0.25..=4.0".into(),
+            ));
         }
         check_stream(unsafe { sys::OH_AudioRenderer_SetSpeed(self.raw()?, speed) })
     }
@@ -500,7 +514,7 @@ impl AudioRenderer {
 
     /// Sets the audio effect mode (`@since 12`).
     pub fn set_effect_mode(&mut self, mode: AudioEffectMode) -> Result<()> {
-        check_stream(unsafe { sys::OH_AudioRenderer_SetEffectMode(self.raw()?, mode.to_raw()) })
+        check_stream(unsafe { sys::OH_AudioRenderer_SetEffectMode(self.raw()?, mode.into()) })
     }
 
     /// Returns the stream underflow count (`@since 12`).
@@ -525,7 +539,9 @@ impl AudioRenderer {
     #[cfg(feature = "api-20")]
     pub fn set_loudness_gain(&mut self, gain_db: f32) -> Result<()> {
         if !gain_db.is_finite() || !(-90.0..=24.0).contains(&gain_db) {
-            return Err(AudioError::InvalidParam);
+            return Err(AudioError::CommonError(
+                "gain_db must be finite and within -90.0..=24.0".into(),
+            ));
         }
         check_stream(unsafe { sys::OH_AudioRenderer_SetLoudnessGain(self.raw()?, gain_db) })
     }
@@ -535,7 +551,7 @@ impl AudioRenderer {
     pub fn latency(&mut self, latency_type: LatencyType) -> Result<i32> {
         let mut latency_ms = 0;
         check_stream(unsafe {
-            sys::OH_AudioRenderer_GetLatency(self.raw()?, latency_type.to_raw(), &mut latency_ms)
+            sys::OH_AudioRenderer_GetLatency(self.raw()?, latency_type.into(), &mut latency_ms)
         })?;
         Ok(latency_ms)
     }

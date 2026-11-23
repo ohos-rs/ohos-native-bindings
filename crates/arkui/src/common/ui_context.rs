@@ -5,6 +5,14 @@ use napi_sys_ohos as sys;
 #[cfg(feature = "api-15")]
 use ohos_arkui_input_binding::ArkUIErrorCode;
 use ohos_arkui_sys::{ArkUI_ContextHandle, OH_ArkUI_GetContextFromNapiValue};
+#[cfg(feature = "api-15")]
+use ohos_arkui_sys::{
+    ArkUI_KeyProcessingMode,
+    ArkUI_KeyProcessingMode_ARKUI_KEY_PROCESSING_MODE_FOCUS_ANCESTOR_EVENT,
+    ArkUI_KeyProcessingMode_ARKUI_KEY_PROCESSING_MODE_FOCUS_NAVIGATION,
+};
+#[cfg(feature = "api-15")]
+use ohos_enum_derive::EnumFrom;
 use std::ptr;
 
 #[cfg(feature = "api-15")]
@@ -12,26 +20,16 @@ use crate::{ArkUIError, ArkUIResult};
 
 /// Key event processing priority mode configured via [`ArkUIContext::set_key_processing_mode`] (API 15).
 #[cfg(feature = "api-15")]
-#[derive(Debug, Clone, Copy, PartialEq, Eq)]
+#[derive(Debug, Clone, Copy, PartialEq, Eq, EnumFrom)]
+#[config(
+    ArkUI_KeyProcessingMode,
+    "ArkUI_KeyProcessingMode_ARKUI_KEY_PROCESSING_MODE_"
+)]
 pub enum KeyProcessingMode {
     /// Key events are used for focus navigation.
     FocusNavigation,
     /// Key events are propagated up to ancestor components first.
     FocusAncestorEvent,
-}
-
-#[cfg(feature = "api-15")]
-impl From<KeyProcessingMode> for ohos_arkui_sys::ArkUI_KeyProcessingMode {
-    fn from(value: KeyProcessingMode) -> Self {
-        match value {
-            KeyProcessingMode::FocusNavigation => {
-                ohos_arkui_sys::ArkUI_KeyProcessingMode_ARKUI_KEY_PROCESSING_MODE_FOCUS_NAVIGATION
-            }
-            KeyProcessingMode::FocusAncestorEvent => {
-                ohos_arkui_sys::ArkUI_KeyProcessingMode_ARKUI_KEY_PROCESSING_MODE_FOCUS_ANCESTOR_EVENT
-            }
-        }
-    }
 }
 
 #[cfg(feature = "api-26")]
