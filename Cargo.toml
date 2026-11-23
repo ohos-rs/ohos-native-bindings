@@ -39,8 +39,8 @@ ohos-window-manager-binding         = { version = "0.1.2", path = "crates/window
 ohos-drawing-binding                = { version = "0.2.9", path = "crates/drawing" }
 ohos-native-window-binding          = { version = "0.3.3", path = "crates/native_window" }
 ohos-native-buffer-binding          = { version = "0.2.7", path = "crates/native_buffer" }
-ohos-udmf-binding                   = { version = "0.0.9", path = "crates/udmf" }
-ohos-pasteboard-binding             = { version = "0.0.9", path = "crates/pasteboard" }
+ohos-udmf-binding                   = { version = "0.1.0", path = "crates/udmf" }
+ohos-pasteboard-binding             = { version = "0.1.0", path = "crates/pasteboard" }
 ohos-web-binding                    = { version = "0.3.3", path = "crates/web" }
 ohos-sensor-binding                 = { version = "0.2.4", path = "crates/sensor" }
 ohos-vibrator-binding               = { version = "0.2.4", path = "crates/vibrator" }
