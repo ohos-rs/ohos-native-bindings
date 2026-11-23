@@ -4,6 +4,9 @@ pub use display_info::{all_displays, display_by_id, primary_display, DisplayInfo
 #[cfg(feature = "api-20")]
 pub use display_info::{display_available_area, display_position, display_source_mode, SourceMode};
 pub use error::{DisplayError, Result};
+#[cfg(feature = "api-20")]
+pub use event::{on_available_area_change, on_display_add, on_display_remove};
+pub use event::{on_display_change, on_fold_display_mode_change, DisplayListener};
 pub use fold_mode::FoldMode;
 use ohos_display_sys::{
     OH_NativeDisplayManager_CreateDefaultDisplayCutoutInfo,

@@ -2,8 +2,37 @@
 
 use napi_ohos::bindgen_prelude::{check_status, FromNapiValue, TypeName, ValidateNapiValue};
 use napi_sys_ohos as sys;
+#[cfg(feature = "api-15")]
+use ohos_arkui_input_binding::ArkUIErrorCode;
 use ohos_arkui_sys::{ArkUI_ContextHandle, OH_ArkUI_GetContextFromNapiValue};
 use std::ptr;
+
+#[cfg(feature = "api-15")]
+use crate::{ArkUIError, ArkUIResult};
+
+/// Key event processing priority mode configured via [`ArkUIContext::set_key_processing_mode`] (API 15).
+#[cfg(feature = "api-15")]
+#[derive(Debug, Clone, Copy, PartialEq, Eq)]
+pub enum KeyProcessingMode {
+    /// Key events are used for focus navigation.
+    FocusNavigation,
+    /// Key events are propagated up to ancestor components first.
+    FocusAncestorEvent,
+}
+
+#[cfg(feature = "api-15")]
+impl From<KeyProcessingMode> for ohos_arkui_sys::ArkUI_KeyProcessingMode {
+    fn from(value: KeyProcessingMode) -> Self {
+        match value {
+            KeyProcessingMode::FocusNavigation => {
+                ohos_arkui_sys::ArkUI_KeyProcessingMode_ARKUI_KEY_PROCESSING_MODE_FOCUS_NAVIGATION
+            }
+            KeyProcessingMode::FocusAncestorEvent => {
+                ohos_arkui_sys::ArkUI_KeyProcessingMode_ARKUI_KEY_PROCESSING_MODE_FOCUS_ANCESTOR_EVENT
+            }
+        }
+    }
+}
 
 #[cfg(feature = "api-26")]
 /// Raw input event stream category controlled by [`ArkUIContext::enable_event_passthrough`].
@@ -47,6 +76,62 @@ impl ArkUIContext {
 
     pub(crate) fn raw(&self) -> ArkUI_ContextHandle {
         self.raw
+    }
+
+    /// Clears focus back to the root container of this UI context (API 15).
+    #[cfg(feature = "api-15")]
+    pub fn clear_focus(&self) -> ArkUIResult<()> {
+        if self.raw.is_null() {
+            return Err(ArkUIError::new(
+                ArkUIErrorCode::ParamInvalid,
+                "ArkUI_ContextHandle is null",
+            ));
+        }
+        // SAFETY: `self.raw` is a live non-null context on the UI thread.
+        unsafe { ohos_arkui_sys::OH_ArkUI_FocusClear(self.raw) };
+        Ok(())
+    }
+
+    /// Enters or exits the focus activation state for the current page (API 15).
+    #[cfg(feature = "api-15")]
+    pub fn activate_focus(&self, is_active: bool, is_auto_inactive: bool) -> ArkUIResult<()> {
+        if self.raw.is_null() {
+            return Err(ArkUIError::new(
+                ArkUIErrorCode::ParamInvalid,
+                "ArkUI_ContextHandle is null",
+            ));
+        }
+        // SAFETY: `self.raw` is a live non-null context on the UI thread.
+        unsafe { ohos_arkui_sys::OH_ArkUI_FocusActivate(self.raw, is_active, is_auto_inactive) };
+        Ok(())
+    }
+
+    /// Configures whether focus automatically transfers on page switch (API 15).
+    #[cfg(feature = "api-15")]
+    pub fn set_focus_auto_transfer(&self, auto_transfer: bool) -> ArkUIResult<()> {
+        if self.raw.is_null() {
+            return Err(ArkUIError::new(
+                ArkUIErrorCode::ParamInvalid,
+                "ArkUI_ContextHandle is null",
+            ));
+        }
+        // SAFETY: `self.raw` is a live non-null context on the UI thread.
+        unsafe { ohos_arkui_sys::OH_ArkUI_FocusSetAutoTransfer(self.raw, auto_transfer) };
+        Ok(())
+    }
+
+    /// Configures the key event processing priority mode (API 15).
+    #[cfg(feature = "api-15")]
+    pub fn set_key_processing_mode(&self, mode: KeyProcessingMode) -> ArkUIResult<()> {
+        if self.raw.is_null() {
+            return Err(ArkUIError::new(
+                ArkUIErrorCode::ParamInvalid,
+                "ArkUI_ContextHandle is null",
+            ));
+        }
+        // SAFETY: `self.raw` is a live non-null context on the UI thread.
+        unsafe { ohos_arkui_sys::OH_ArkUI_FocusSetKeyProcessingMode(self.raw, mode.into()) };
+        Ok(())
     }
 }
 

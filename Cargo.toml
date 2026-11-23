@@ -7,12 +7,14 @@ edition      = "2021"
 rust-version = "1.88"
 
 [workspace.dependencies]
-ohos-hitrace-sys          = { version = "0.1.0", path = "sys/ohos-hitrace-sys" }
-ohos-hitrace-binding      = { version = "0.1.0", path = "crates/hitrace" }
-ohos-avplayer-sys         = { version = "0.1.0", path = "sys/ohos-avplayer-sys" }
-ohos-avplayer-binding     = { version = "0.1.0", path = "crates/avplayer" }
-ohos-native-image-sys     = { version = "0.1.0", path = "sys/ohos-native-image-sys" }
-ohos-native-image-binding = { version = "0.1.0", path = "crates/native_image" }
+ohos-hitrace-sys               = { version = "0.1.0", path = "sys/ohos-hitrace-sys" }
+ohos-hitrace-binding           = { version = "0.1.0", path = "crates/hitrace" }
+ohos-avplayer-sys              = { version = "0.1.0", path = "sys/ohos-avplayer-sys" }
+ohos-avplayer-binding          = { version = "0.1.0", path = "crates/avplayer" }
+ohos-audio-binding             = { version = "0.1.0", path = "crates/audio" }
+ohos-multi-modal-input-binding = { version = "0.1.0", path = "crates/multi_modal_input" }
+ohos-native-image-sys          = { version = "0.1.0", path = "sys/ohos-native-image-sys" }
+ohos-native-image-binding      = { version = "0.1.0", path = "crates/native_image" }
 # Match the registry AccessKit types consumed by the pinned OHOS adapter.
 accesskit                           = { version = "0.24" }
 accesskit_ohos                      = { git = "https://github.com/richerfu/accesskit.git", rev = "aa8688e89b8ba65f6e12a8cfd542a785d8efd471" }

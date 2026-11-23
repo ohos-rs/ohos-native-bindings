@@ -140,6 +140,21 @@ impl ArkUINode {
         check_arkui_status!(unsafe { ohos_arkui_sys::OH_ArkUI_FocusRequest(self.raw) })
     }
 
+    /// Clears focus back to the root container of this node's UI context (API 15+).
+    #[cfg(feature = "api-15")]
+    pub fn clear_focus(&self) -> ArkUIResult<()> {
+        let context = unsafe { OH_ArkUI_GetContextByNode(self.raw) };
+        if context.is_null() {
+            return Err(ArkUIError::new(
+                ArkUIErrorCode::ParamInvalid,
+                "OH_ArkUI_GetContextByNode returned null",
+            ));
+        }
+        // SAFETY: `context` belongs to this live attached node on the UI thread.
+        unsafe { ohos_arkui_sys::OH_ArkUI_FocusClear(context) };
+        Ok(())
+    }
+
     /// Returns the native ArkUI node handle.
     pub fn raw_handle(&self) -> ArkUI_NodeHandle {
         self.raw

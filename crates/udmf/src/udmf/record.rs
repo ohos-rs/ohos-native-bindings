@@ -13,7 +13,10 @@ use ohos_udmf_sys::{
 };
 
 #[cfg(feature = "api-13")]
-use ohos_udmf_sys::OH_UdmfRecord_AddPixelMap;
+use ohos_udmf_sys::{
+    OH_UdmfRecord_AddFileUri, OH_UdmfRecord_AddPixelMap, OH_UdmfRecord_GetFileUri,
+    OH_UdmfRecord_GetPixelMap,
+};
 
 use crate::{UdmfError, Uds, UdsHtml, UdsPlainText};
 
@@ -95,12 +98,20 @@ impl UdmfRecord {
 
     #[cfg(feature = "api-13")]
     pub fn add_file_uri(&self, uri: &crate::UdsFileUri) -> Result<(), UdmfError> {
-        let status =
-            unsafe { ohos_udmf_sys::OH_UdmfRecord_AddFileUri(self.raw.as_ptr(), uri.raw.as_ptr()) };
-        if status != 0 {
-            return Err(UdmfError::InternalError(status));
-        }
-        Ok(())
+        let status = unsafe { OH_UdmfRecord_AddFileUri(self.raw.as_ptr(), uri.raw.as_ptr()) };
+        check_status(status)
+    }
+
+    /// Reads this record's file-URI UDS into an independently owned object (API 13).
+    #[cfg(feature = "api-13")]
+    pub fn file_uri(&self) -> Result<crate::UdsFileUri, UdmfError> {
+        read_file_uri(self.raw)
+    }
+
+    /// Reads this record's PixelMap UDS into an independently owned object (API 13).
+    #[cfg(feature = "api-13")]
+    pub fn pixel_map(&self) -> Result<crate::UdsPixelMap, UdmfError> {
+        read_pixel_map(self.raw)
     }
 
     pub fn add(&self, value: Uds) -> Result<(), UdmfError> {
@@ -187,13 +198,15 @@ impl UdmfRecordRef<'_> {
 
     #[cfg(feature = "api-13")]
     pub fn file_uri(&self) -> Result<crate::UdsFileUri, UdmfError> {
-        let uri = crate::UdsFileUri::new()?;
-        let status =
-            unsafe { ohos_udmf_sys::OH_UdmfRecord_GetFileUri(self.raw.as_ptr(), uri.raw.as_ptr()) };
-        if status != 0 {
-            return Err(UdmfError::InternalError(status));
-        }
-        Ok(uri)
+        read_file_uri(self.raw)
+    }
+
+    /// Reads PixelMap UDS while the container is borrowed (API 13).
+    ///
+    /// The returned native UDS object is independently owned.
+    #[cfg(feature = "api-13")]
+    pub fn pixel_map(&self) -> Result<crate::UdsPixelMap, UdmfError> {
+        read_pixel_map(self.raw)
     }
 }
 
@@ -246,6 +259,22 @@ fn read_html(record: NonNull<OH_UdmfRecord>) -> Result<UdsHtml, UdmfError> {
     // is dropped normally; on success, the returned UDS owns its native instance.
     check_status(unsafe { OH_UdmfRecord_GetHtml(record.as_ptr(), html.raw.as_ptr()) })?;
     Ok(html)
+}
+
+#[cfg(feature = "api-13")]
+fn read_file_uri(record: NonNull<OH_UdmfRecord>) -> Result<crate::UdsFileUri, UdmfError> {
+    let uri = crate::UdsFileUri::new()?;
+    // SAFETY: both native instances are live throughout this synchronous copy.
+    check_status(unsafe { OH_UdmfRecord_GetFileUri(record.as_ptr(), uri.raw.as_ptr()) })?;
+    Ok(uri)
+}
+
+#[cfg(feature = "api-13")]
+fn read_pixel_map(record: NonNull<OH_UdmfRecord>) -> Result<crate::UdsPixelMap, UdmfError> {
+    let pixel_map = crate::UdsPixelMap::try_new()?;
+    // SAFETY: both native instances are live throughout this synchronous copy.
+    check_status(unsafe { OH_UdmfRecord_GetPixelMap(record.as_ptr(), pixel_map.raw.as_ptr()) })?;
+    Ok(pixel_map)
 }
 
 fn read_record_types(record: NonNull<OH_UdmfRecord>) -> Result<Vec<String>, UdmfError> {
