@@ -7,6 +7,12 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [0.0.9](https://github.com/ohos-rs/ohos-native-bindings/compare/ohos-pasteboard-binding-v0.0.8...ohos-pasteboard-binding-v0.0.9) - 2026-11-23
+
+### Added
+
+- add audio & multimodal-input bindings and complete display/udmf/pasteboard/avplayer/arkui/web APIs ([#214](https://github.com/ohos-rs/ohos-native-bindings/pull/214))
+
 ### Added
 
 - Add native `Pasteboard::clear` (API 13), copied `mime_types` (API 14)
