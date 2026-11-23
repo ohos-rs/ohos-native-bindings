@@ -7,6 +7,12 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [0.6.3](https://github.com/ohos-rs/ohos-native-bindings/compare/ohos-arkui-binding-v0.6.2...ohos-arkui-binding-v0.6.3) - 2026-11-23
+
+### Added
+
+- add audio & multimodal-input bindings and complete display/udmf/pasteboard/avplayer/arkui/web APIs ([#214](https://github.com/ohos-rs/ohos-native-bindings/pull/214))
+
 ## [0.6.2](https://github.com/ohos-rs/ohos-native-bindings/compare/ohos-arkui-binding-v0.6.1...ohos-arkui-binding-v0.6.2) - 2026-11-19
 
 ### Added
