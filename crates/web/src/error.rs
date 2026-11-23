@@ -4,6 +4,7 @@ pub enum ArkWebError {
     ArkWebApiMemberMissing(String),
     EvaluateScriptCallbackAlreadyExists,
     JsApiRegisterFailed(String),
+    NativeError { operation: &'static str, code: u32 },
 }
 
 impl std::fmt::Display for ArkWebError {
@@ -20,6 +21,9 @@ impl std::fmt::Display for ArkWebError {
             }
             ArkWebError::JsApiRegisterFailed(obj_name) => {
                 write!(f, "JS API register failed: {}", obj_name)
+            }
+            ArkWebError::NativeError { operation, code } => {
+                write!(f, "ArkWeb {} failed with error code {}", operation, code)
             }
         }
     }

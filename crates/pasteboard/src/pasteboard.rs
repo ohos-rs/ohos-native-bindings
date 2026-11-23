@@ -1,9 +1,137 @@
-use std::{ffi::CString, ptr::NonNull};
+use std::{
+    ffi::{c_int, c_void, CString},
+    panic::{catch_unwind, AssertUnwindSafe},
+    ptr::NonNull,
+};
 
+use ohos_enum_derive::EnumFrom;
 use ohos_native_pasteboard_sys::*;
 use ohos_udmf_binding::{UdmfData, UdsValue};
 
 use crate::error::PasteboardError;
+
+/// Pasteboard change source for observer subscriptions (API 13).
+#[derive(Clone, Copy, Debug, PartialEq, Eq, EnumFrom)]
+#[config(Pasteboard_NotifyType, "Pasteboard_NotifyType_NOTIFY_", c_int)]
+pub enum PasteboardNotifyType {
+    /// Local device pasteboard data changed.
+    LocalDataChange,
+    /// Remote device pasteboard data changed.
+    RemoteDataChange,
+}
+
+struct ObserverContext {
+    callback: Box<dyn Fn(PasteboardNotifyType) + Send + Sync>,
+}
+
+unsafe extern "C" fn observer_notify_trampoline(
+    context: *mut c_void,
+    notify_type: Pasteboard_NotifyType,
+) {
+    if context.is_null() {
+        return;
+    }
+    // SAFETY: `context` stays live until `OH_PasteboardObserver_Destroy` invokes
+    // `observer_finalize_trampoline`.
+    let state = unsafe { &*context.cast::<ObserverContext>() };
+    let _ = catch_unwind(AssertUnwindSafe(|| {
+        if let Some(kind) = PasteboardNotifyType::try_from_raw(notify_type) {
+            (state.callback)(kind);
+        }
+    }));
+}
+
+unsafe extern "C" fn observer_finalize_trampoline(context: *mut c_void) {
+    if context.is_null() {
+        return;
+    }
+    // SAFETY: `OH_PasteboardObserver_SetData` transfers ownership of the boxed
+    // context to the native observer, which calls finalize once on destroy.
+    let _ = catch_unwind(AssertUnwindSafe(|| unsafe {
+        drop(Box::from_raw(context.cast::<ObserverContext>()));
+    }));
+}
+
+/// Owned native pasteboard observer (API 13).
+pub struct PasteboardObserver {
+    raw: NonNull<OH_PasteboardObserver>,
+}
+
+// SAFETY: native observer handles are synchronized by the pasteboard service and
+// the stored callback is `Send + Sync`.
+unsafe impl Send for PasteboardObserver {}
+unsafe impl Sync for PasteboardObserver {}
+
+impl PasteboardObserver {
+    /// Creates an observer invoking `callback` on pasteboard changes (API 13).
+    pub fn new<F>(callback: F) -> Result<Self, PasteboardError>
+    where
+        F: Fn(PasteboardNotifyType) + Send + Sync + 'static,
+    {
+        let raw = NonNull::new(unsafe { OH_PasteboardObserver_Create() }).ok_or_else(|| {
+            PasteboardError::CommonError("OH_PasteboardObserver_Create returned null".into())
+        })?;
+        let observer = Self { raw };
+        let ctx = Box::into_raw(Box::new(ObserverContext {
+            callback: Box::new(callback),
+        }))
+        .cast::<c_void>();
+        // SAFETY: `observer.raw` is live and `ctx` is owned by the observer if
+        // registration succeeds; on error we reclaim `ctx` immediately.
+        let status = unsafe {
+            OH_PasteboardObserver_SetData(
+                observer.raw.as_ptr(),
+                ctx,
+                Some(observer_notify_trampoline),
+                Some(observer_finalize_trampoline),
+            )
+        };
+        if status != 0 {
+            unsafe {
+                drop(Box::from_raw(ctx.cast::<ObserverContext>()));
+            }
+            return Err(PasteboardError::InternalError(status));
+        }
+        Ok(observer)
+    }
+}
+
+impl Drop for PasteboardObserver {
+    fn drop(&mut self) {
+        // SAFETY: uniquely owned observer; destroys it and triggers finalize.
+        let _ = unsafe { OH_PasteboardObserver_Destroy(self.raw.as_ptr()) };
+    }
+}
+
+/// RAII subscription that unsubscribes from a [`Pasteboard`] before destroying
+/// its [`PasteboardObserver`] (API 13).
+#[must_use = "dropping a PasteboardSubscription unsubscribes immediately"]
+pub struct PasteboardSubscription<'a> {
+    pasteboard: &'a Pasteboard,
+    notify_type: PasteboardNotifyType,
+    observer: PasteboardObserver,
+    active: bool,
+}
+
+impl PasteboardSubscription<'_> {
+    /// Explicitly unsubscribes and surfaces any native status error.
+    pub fn unsubscribe(mut self) -> Result<(), PasteboardError> {
+        self.active = false;
+        self.pasteboard
+            .unsubscribe(self.notify_type, &self.observer)
+    }
+}
+
+impl Drop for PasteboardSubscription<'_> {
+    fn drop(&mut self) {
+        if self.active {
+            self.active = false;
+            let _ = self
+                .pasteboard
+                .unsubscribe(self.notify_type, &self.observer);
+        }
+    }
+}
 
 pub struct Pasteboard {
     raw: NonNull<OH_Pasteboard>,
@@ -73,12 +201,15 @@ impl Pasteboard {
     }
 
     pub fn new() -> Self {
+        Self::try_new().expect("OH_Pasteboard_Create failed")
+    }
+
+    /// Creates a native pasteboard handle, returning an error on allocation failure (API 13).
+    pub fn try_new() -> Result<Self, PasteboardError> {
         let raw = unsafe { OH_Pasteboard_Create() };
-        #[cfg(debug_assertions)]
-        assert!(!raw.is_null(), "OH_Pasteboard_Create failed");
-        Self {
-            raw: NonNull::new(raw).expect("OH_Pasteboard_Create failed"),
-        }
+        NonNull::new(raw).map(|raw| Self { raw }).ok_or_else(|| {
+            PasteboardError::CommonError("OH_Pasteboard_Create returned null".into())
+        })
     }
 
     pub fn data(&self) -> Result<UdmfData, PasteboardError> {
@@ -86,6 +217,11 @@ impl Pasteboard {
         let raw = unsafe { OH_Pasteboard_GetData(self.raw.as_ptr(), &mut ret) };
         if ret != 0 {
             return Err(PasteboardError::InternalError(ret));
+        }
+        if raw.is_null() {
+            return Err(PasteboardError::CommonError(
+                "OH_Pasteboard_GetData returned null".into(),
+            ));
         }
         let udmf_data = UdmfData::from_raw(raw);
         Ok(udmf_data)
@@ -124,13 +260,79 @@ impl Pasteboard {
         let types = t
             .get_type()
             .map_err(|e| PasteboardError::CommonError(e.to_string()))?;
-        let s = CString::new(types.to_string()).expect("CString::new failed");
-        let ret = unsafe { OH_Pasteboard_HasType(self.raw.as_ptr(), s.as_ptr().cast()) };
-        Ok(ret)
+        self.has_type_str(&types.to_string())
+    }
+
+    /// Checks whether the pasteboard contains data of the specified MIME or UTD type string (API 13).
+    pub fn has_type_str(&self, mime_or_utd: &str) -> Result<bool, PasteboardError> {
+        let s =
+            CString::new(mime_or_utd).map_err(|e| PasteboardError::CommonError(e.to_string()))?;
+        // SAFETY: both pointers stay live for the synchronous query.
+        Ok(unsafe { OH_Pasteboard_HasType(self.raw.as_ptr(), s.as_ptr()) })
     }
 
     pub fn is_remote_data(&self) -> bool {
         unsafe { OH_Pasteboard_IsRemoteData(self.raw.as_ptr()) }
+    }
+
+    /// Checks whether pasteboard data resides on a remote device without fetching it (API 24).
+    #[cfg(feature = "api-24")]
+    pub fn has_remote_data(&self) -> bool {
+        unsafe { OH_Pasteboard_HasRemoteData(self.raw.as_ptr()) }
+    }
+
+    /// Subscribes an existing observer to pasteboard changes (API 13).
+    ///
+    /// Prefer [`Self::on_change`] so unsubscription is guaranteed before the
+    /// observer is destroyed.
+    pub fn subscribe(
+        &self,
+        notify_type: PasteboardNotifyType,
+        observer: &PasteboardObserver,
+    ) -> Result<(), PasteboardError> {
+        let status = unsafe {
+            OH_Pasteboard_Subscribe(self.raw.as_ptr(), notify_type.into(), observer.raw.as_ptr())
+        };
+        if status == 0 {
+            Ok(())
+        } else {
+            Err(PasteboardError::InternalError(status))
+        }
+    }
+
+    /// Unsubscribes a previously subscribed observer (API 13).
+    pub fn unsubscribe(
+        &self,
+        notify_type: PasteboardNotifyType,
+        observer: &PasteboardObserver,
+    ) -> Result<(), PasteboardError> {
+        let status = unsafe {
+            OH_Pasteboard_Unsubscribe(self.raw.as_ptr(), notify_type.into(), observer.raw.as_ptr())
+        };
+        if status == 0 {
+            Ok(())
+        } else {
+            Err(PasteboardError::InternalError(status))
+        }
+    }
+
+    /// Subscribes a callback to pasteboard changes and returns an RAII guard (API 13).
+    pub fn on_change<F>(
+        &self,
+        notify_type: PasteboardNotifyType,
+        callback: F,
+    ) -> Result<PasteboardSubscription<'_>, PasteboardError>
+    where
+        F: Fn(PasteboardNotifyType) + Send + Sync + 'static,
+    {
+        let observer = PasteboardObserver::new(callback)?;
+        self.subscribe(notify_type, &observer)?;
+        Ok(PasteboardSubscription {
+            pasteboard: self,
+            notify_type,
+            observer,
+            active: true,
+        })
     }
 
     pub fn set_data(&self, data: &UdmfData) -> Result<(), PasteboardError> {

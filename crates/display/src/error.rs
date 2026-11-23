@@ -1,6 +1,5 @@
 use std::fmt;
 
-#[cfg(feature = "api-14")]
 use ohos_display_sys::{
     NativeDisplayManager_ErrorCode, NativeDisplayManager_ErrorCode_DISPLAY_MANAGER_OK,
 };
@@ -35,7 +34,6 @@ impl std::error::Error for DisplayError {}
 
 pub type Result<T> = std::result::Result<T, DisplayError>;
 
-#[cfg(feature = "api-14")]
 #[allow(non_upper_case_globals)]
 pub(crate) fn check_status(code: NativeDisplayManager_ErrorCode) -> Result<()> {
     if code == NativeDisplayManager_ErrorCode_DISPLAY_MANAGER_OK {

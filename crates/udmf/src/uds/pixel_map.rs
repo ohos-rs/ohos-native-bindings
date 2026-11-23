@@ -1,6 +1,6 @@
 use std::{ffi::CStr, ptr::NonNull, str::FromStr};
 
-use ohos_image_native_binding::PixelMapNativeHandle;
+use ohos_image_native_binding::{PixelMap, PixelMapInitializationOptions, PixelMapNativeHandle};
 use ohos_udmf_sys::{
     OH_UdsPixelMap, OH_UdsPixelMap_Create, OH_UdsPixelMap_Destroy, OH_UdsPixelMap_GetPixelMap,
     OH_UdsPixelMap_GetType, OH_UdsPixelMap_SetPixelMap,
@@ -16,9 +16,13 @@ pub struct UdsPixelMap {
 
 impl UdsPixelMap {
     pub fn new() -> Self {
-        let raw =
-            NonNull::new(unsafe { OH_UdsPixelMap_Create() }).expect("OH_UdsPixelMap_Create failed");
-        Self { raw }
+        Self::try_new().expect("OH_UdsPixelMap_Create failed")
+    }
+
+    pub fn try_new() -> Result<Self, UdmfError> {
+        NonNull::new(unsafe { OH_UdsPixelMap_Create() })
+            .map(|raw| Self { raw })
+            .ok_or_else(|| UdmfError::UdsInitError("OH_UdsPixelMap_Create returned null".into()))
     }
 
     pub fn from_raw(raw: *mut OH_UdsPixelMap) -> Self {
@@ -38,6 +42,22 @@ impl UdsPixelMap {
 
     pub fn get_pixel_map(&self, pixelmap: &PixelMapNativeHandle) {
         unsafe { OH_UdsPixelMap_GetPixelMap(self.raw.as_ptr(), pixelmap.as_raw().cast()) }
+    }
+
+    /// Allocates an owned `PixelMap` container and populates it from this UDS entry (API 13).
+    pub fn to_pixel_map(&self) -> Result<PixelMap, UdmfError> {
+        let mut options = PixelMapInitializationOptions::new()
+            .map_err(|e| UdmfError::CommonError(e.to_string()))?;
+        options
+            .set_width(1)
+            .map_err(|e| UdmfError::CommonError(e.to_string()))?;
+        options
+            .set_height(1)
+            .map_err(|e| UdmfError::CommonError(e.to_string()))?;
+        let pixel_map = PixelMap::create_empty(&mut options)
+            .map_err(|e| UdmfError::CommonError(e.to_string()))?;
+        self.get_pixel_map(&pixel_map.handle());
+        Ok(pixel_map)
     }
 }
 

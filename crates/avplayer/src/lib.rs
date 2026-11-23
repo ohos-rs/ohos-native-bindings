@@ -5,6 +5,8 @@
 //! Explicit close and Drop can block while releasing surface buffers; run them
 //! on an application-owned media worker when UI latency matters.
 use ohos_avplayer_sys as sys;
+use ohos_avplayer_sys::*;
+use ohos_enum_derive::EnumFrom;
 use std::{
     cell::Cell,
     ffi::{c_void, CStr},
@@ -13,6 +15,8 @@ use std::{
     ptr::NonNull,
 };
 
+#[cfg(feature = "api-20")]
+pub use sys::AVPlayerOnInfoType_AV_INFO_TYPE_PLAYBACK_RATE_DONE as INFO_PLAYBACK_RATE_DONE;
 /// Metadata borrowed by a native callback; never destroy or retain it.
 pub use sys::OH_AVFormat as RawFormat;
 /// Native player pointer supplied to callbacks; never destroy it in a callback.
@@ -29,11 +33,17 @@ pub use sys::{
 /// Native message kinds, preserving SDK values.
 pub use sys::{
     AVPlayerOnInfoType as InfoType,
+    AVPlayerOnInfoType_AV_INFO_TYPE_AUDIO_OUTPUT_DEVICE_CHANGE as INFO_AUDIO_OUTPUT_DEVICE_CHANGE,
     AVPlayerOnInfoType_AV_INFO_TYPE_BUFFERING_UPDATE as INFO_BUFFERING,
+    AVPlayerOnInfoType_AV_INFO_TYPE_DURATION_UPDATE as INFO_DURATION_UPDATE,
     AVPlayerOnInfoType_AV_INFO_TYPE_EOS as INFO_END,
+    AVPlayerOnInfoType_AV_INFO_TYPE_INTERRUPT_EVENT as INFO_INTERRUPT_EVENT,
     AVPlayerOnInfoType_AV_INFO_TYPE_POSITION_UPDATE as INFO_POSITION,
+    AVPlayerOnInfoType_AV_INFO_TYPE_RESOLUTION_CHANGE as INFO_RESOLUTION_CHANGE,
     AVPlayerOnInfoType_AV_INFO_TYPE_SEEKDONE as INFO_SEEK_DONE,
+    AVPlayerOnInfoType_AV_INFO_TYPE_SPEEDDONE as INFO_SPEED_DONE,
     AVPlayerOnInfoType_AV_INFO_TYPE_STATE_CHANGE as INFO_STATE_CHANGE,
+    AVPlayerOnInfoType_AV_INFO_TYPE_VOLUME_CHANGE as INFO_VOLUME_CHANGE,
 };
 /// Native player states, preserving SDK values.
 pub use sys::{
@@ -94,6 +104,94 @@ impl SeekMode {
             Self::Closest => sys::AVPlayerSeekMode_AV_SEEK_CLOSEST,
         }
     }
+}
+
+/// Audio stream usage reported to the system audio policy (API 12).
+#[derive(Clone, Copy, Debug, PartialEq, Eq, EnumFrom)]
+#[config(OH_AudioStream_Usage, "OH_AudioStream_Usage_AUDIOSTREAM_USAGE_")]
+pub enum AudioStreamUsage {
+    Unknown,
+    Music,
+    VoiceCommunication,
+    VoiceAssistant,
+    Alarm,
+    VoiceMessage,
+    Ringtone,
+    Notification,
+    Accessibility,
+    Movie,
+    Game,
+    Audiobook,
+    Navigation,
+    VideoCommunication,
+}
+
+/// Audio focus interruption mode for an AVPlayer (API 12).
+#[derive(Clone, Copy, Debug, PartialEq, Eq, EnumFrom)]
+#[config(
+    OH_AudioInterrupt_Mode,
+    "OH_AudioInterrupt_Mode_AUDIOSTREAM_INTERRUPT_MODE_"
+)]
+pub enum AudioInterruptMode {
+    /// Shares the application's audio focus session.
+    Share,
+    /// Manages independent audio focus for this player.
+    Independent,
+}
+
+/// Audio effect mode for an AVPlayer (API 12).
+#[derive(Clone, Copy, Debug, PartialEq, Eq, EnumFrom)]
+#[config(
+    OH_AudioStream_AudioEffectMode,
+    "OH_AudioStream_AudioEffectMode_EFFECT_"
+)]
+pub enum AudioEffectMode {
+    None,
+    Default,
+}
+
+/// Discrete playback speed presets supported from API 11.
+#[derive(Clone, Copy, Debug, PartialEq, Eq, EnumFrom)]
+#[config(AVPlaybackSpeed, "AVPlaybackSpeed_AV_SPEED_")]
+pub enum PlaybackSpeed {
+    #[cfg(feature = "api-13")]
+    #[suffix("FORWARD_0_125_X")]
+    Forward0_125x,
+    #[cfg(feature = "api-13")]
+    #[suffix("FORWARD_0_25_X")]
+    Forward0_25x,
+    #[suffix("FORWARD_0_50_X")]
+    Forward0_50x,
+    #[suffix("FORWARD_0_75_X")]
+    Forward0_75x,
+    #[suffix("FORWARD_1_00_X")]
+    Forward1_00x,
+    #[suffix("FORWARD_1_25_X")]
+    Forward1_25x,
+    #[suffix("FORWARD_1_50_X")]
+    Forward1_50x,
+    #[suffix("FORWARD_1_75_X")]
+    Forward1_75x,
+    #[suffix("FORWARD_2_00_X")]
+    Forward2_00x,
+    #[cfg(feature = "api-13")]
+    #[suffix("FORWARD_3_00_X")]
+    Forward3_00x,
+}
+
+/// Media stream category (API 9/23).
+#[derive(Clone, Copy, Debug, PartialEq, Eq, EnumFrom)]
+#[config(OH_MediaType, "OH_MediaType_MEDIA_TYPE_")]
+pub enum MediaType {
+    #[suffix("AUD")]
+    Audio,
+    #[suffix("VID")]
+    Video,
+    Subtitle,
+    #[cfg(feature = "api-20")]
+    TimedMetadata,
+    #[cfg(feature = "api-20")]
+    Auxiliary,
 }
 
 /// A uniquely owned player. Moving it to a media worker is supported; concurrent
@@ -298,6 +396,74 @@ impl AvPlayer {
             sys::OH_AVPlayer_SetPlaybackRate(self.raw()?, rate)
         })
     }
+    /// Reads the current playback rate (API 23).
+    #[cfg(feature = "api-23")]
+    pub fn get_playback_rate(&mut self) -> Result<f32, Error> {
+        let mut rate = 0.0;
+        check("get playback rate", unsafe {
+            sys::OH_AVPlayer_GetPlaybackRate(self.raw()?, &mut rate)
+        })?;
+        Ok(rate)
+    }
+    /// Sets a discrete playback speed preset (API 11).
+    pub fn set_playback_speed(&mut self, speed: PlaybackSpeed) -> Result<(), Error> {
+        check("playback speed", unsafe {
+            sys::OH_AVPlayer_SetPlaybackSpeed(self.raw()?, speed.into())
+        })
+    }
+    /// Reads the current discrete playback speed preset (API 11).
+    pub fn playback_speed(&mut self) -> Result<PlaybackSpeed, Error> {
+        let mut speed = 0;
+        check("get playback speed", unsafe {
+            sys::OH_AVPlayer_GetPlaybackSpeed(self.raw()?, &mut speed)
+        })?;
+        PlaybackSpeed::try_from_raw(speed).ok_or_else(|| invalid("playback speed"))
+    }
+    /// Sets the audio stream usage for this player (API 12).
+    pub fn set_audio_renderer_info(&mut self, usage: AudioStreamUsage) -> Result<(), Error> {
+        check("audio renderer info", unsafe {
+            sys::OH_AVPlayer_SetAudioRendererInfo(self.raw()?, usage.into())
+        })
+    }
+    /// Sets the audio interruption mode for this player (API 12).
+    pub fn set_audio_interrupt_mode(&mut self, mode: AudioInterruptMode) -> Result<(), Error> {
+        check("audio interrupt mode", unsafe {
+            sys::OH_AVPlayer_SetAudioInterruptMode(self.raw()?, mode.into())
+        })
+    }
+    /// Sets the audio effect mode for this player (API 12).
+    pub fn set_audio_effect_mode(&mut self, mode: AudioEffectMode) -> Result<(), Error> {
+        check("audio effect mode", unsafe {
+            sys::OH_AVPlayer_SetAudioEffectMode(self.raw()?, mode.into())
+        })
+    }
+    /// Mutes or unmutes the specified media stream (API 23).
+    #[cfg(feature = "api-23")]
+    pub fn set_media_muted(&mut self, media_type: MediaType, muted: bool) -> Result<(), Error> {
+        check("media muted", unsafe {
+            sys::OH_AVPlayer_SetMediaMuted(self.raw()?, media_type.into(), muted)
+        })
+    }
+    /// Returns whether the player is currently playing (API 11).
+    pub fn is_playing(&mut self) -> Result<bool, Error> {
+        let raw = self.raw()?;
+        Ok(unsafe { sys::OH_AVPlayer_IsPlaying(raw) })
+    }
+    /// Returns whether loop playback is enabled (API 11).
+    pub fn is_looping(&mut self) -> Result<bool, Error> {
+        let raw = self.raw()?;
+        Ok(unsafe { sys::OH_AVPlayer_IsLooping(raw) })
+    }
+    /// Reads the current playback position in milliseconds, or returns an error if unavailable (API 23).
+    #[cfg(feature = "api-23")]
+    pub fn playback_position(&mut self) -> Result<i32, Error> {
+        let pos = unsafe { sys::OH_AVPlayer_GetPlaybackPosition(self.raw()?) };
+        if pos < 0 {
+            Err(invalid("playback position"))
+        } else {
+            Ok(pos)
+        }
+    }
     /// Sets native playback repetition (API 11).
     pub fn looping(&mut self, enabled: bool) -> Result<(), Error> {
         let raw = self.raw()?; // SAFETY: exclusive live handle.
@@ -387,6 +553,8 @@ impl Drop for AvPlayer {
 pub enum InfoField {
     /// Native playback state.
     State,
+    /// State change reason (1 = user, 2 = system).
+    StateChangeReason,
     /// Current position in milliseconds.
     CurrentPosition,
     /// Duration in milliseconds.
@@ -401,6 +569,20 @@ pub enum InfoField {
     VideoHeight,
     /// Completed seek position in milliseconds.
     SeekPosition,
+    /// Audio interrupt event type.
+    InterruptType,
+    /// Audio interrupt force type.
+    InterruptForce,
+    /// Audio interrupt hint.
+    InterruptHint,
+    /// Audio output device change reason.
+    AudioDeviceChangeReason,
+    /// Discrete playback speed value.
+    PlaybackSpeed,
+    /// Message type (1 = first video frame rendered).
+    MessageType,
+    /// Live stream indicator (1 = live).
+    IsLiveStream,
 }
 impl InfoField {
     fn key(self) -> *const std::ffi::c_char {
@@ -408,6 +590,7 @@ impl InfoField {
         unsafe {
             match self {
                 Self::State => sys::OH_PLAYER_STATE,
+                Self::StateChangeReason => sys::OH_PLAYER_STATE_CHANGE_REASON,
                 Self::CurrentPosition => sys::OH_PLAYER_CURRENT_POSITION,
                 Self::Duration => sys::OH_PLAYER_DURATION,
                 Self::BufferingType => sys::OH_PLAYER_BUFFERING_TYPE,
@@ -415,6 +598,13 @@ impl InfoField {
                 Self::VideoWidth => sys::OH_PLAYER_VIDEO_WIDTH,
                 Self::VideoHeight => sys::OH_PLAYER_VIDEO_HEIGHT,
                 Self::SeekPosition => sys::OH_PLAYER_SEEK_POSITION,
+                Self::InterruptType => sys::OH_PLAYER_AUDIO_INTERRUPT_TYPE,
+                Self::InterruptForce => sys::OH_PLAYER_AUDIO_INTERRUPT_FORCE,
+                Self::InterruptHint => sys::OH_PLAYER_AUDIO_INTERRUPT_HINT,
+                Self::AudioDeviceChangeReason => sys::OH_PLAYER_AUDIO_DEVICE_CHANGE_REASON,
+                Self::PlaybackSpeed => sys::OH_PLAYER_PLAYBACK_SPEED,
+                Self::MessageType => sys::OH_PLAYER_MESSAGE_TYPE,
+                Self::IsLiveStream => sys::OH_PLAYER_IS_LIVE_STREAM,
             }
         }
     }
@@ -445,5 +635,16 @@ impl<'callback> InfoRef<'callback> {
         let mut value = 0;
         // SAFETY: metadata/key remain live for this synchronous scalar copy.
         unsafe { sys::OH_AVFormat_GetIntValue(self.raw.as_ptr(), key, &mut value) }.then_some(value)
+    }
+    /// Copies an SDK 64-bit integer value, or returns None when the field is absent.
+    pub fn long(&self, field: InfoField) -> Option<i64> {
+        let key = field.key();
+        if key.is_null() {
+            return None;
+        }
+        let mut value = 0;
+        // SAFETY: metadata/key remain live for this synchronous scalar copy.
+        unsafe { sys::OH_AVFormat_GetLongValue(self.raw.as_ptr(), key, &mut value) }
+            .then_some(value)
     }
 }

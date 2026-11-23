@@ -1,0 +1,32 @@
+[package]
+name                   = "ohos-audio-binding"
+version                = "0.1.0"
+edition.workspace      = true
+rust-version.workspace = true
+license                = "MIT OR Apache-2.0"
+description            = "Safe Rust bindings for OpenHarmony OHAudio (AudioRenderer and AudioSessionManager)"
+
+[lints]
+workspace = true
+
+[dependencies]
+ohos-audio-sys      = { workspace = true }
+ohos-audio-base-sys = { workspace = true }
+ohos-enum-derive    = { workspace = true }
+
+[features]
+default = []
+api-13  = ["ohos-audio-sys/api-13", "ohos-audio-base-sys/api-13"]
+api-14  = ["api-13", "ohos-audio-sys/api-14", "ohos-audio-base-sys/api-14"]
+api-15  = ["api-14", "ohos-audio-sys/api-15", "ohos-audio-base-sys/api-15"]
+api-16  = ["api-15", "ohos-audio-sys/api-16", "ohos-audio-base-sys/api-16"]
+api-17  = ["api-16", "ohos-audio-sys/api-17", "ohos-audio-base-sys/api-17"]
+api-18  = ["api-17", "ohos-audio-sys/api-18", "ohos-audio-base-sys/api-18"]
+api-19  = ["api-18", "ohos-audio-sys/api-19", "ohos-audio-base-sys/api-19"]
+api-20  = ["api-19", "ohos-audio-sys/api-20", "ohos-audio-base-sys/api-20"]
+api-21  = ["api-20", "ohos-audio-sys/api-21", "ohos-audio-base-sys/api-21"]
+api-22  = ["api-21", "ohos-audio-sys/api-22", "ohos-audio-base-sys/api-22"]
+api-23  = ["api-22", "ohos-audio-sys/api-23", "ohos-audio-base-sys/api-23"]
+api-24  = ["api-23", "ohos-audio-sys/api-24", "ohos-audio-base-sys/api-24"]
+api-25  = ["api-24", "ohos-audio-sys/api-25", "ohos-audio-base-sys/api-25"]
+api-26  = ["api-25", "ohos-audio-sys/api-26", "ohos-audio-base-sys/api-26"]
