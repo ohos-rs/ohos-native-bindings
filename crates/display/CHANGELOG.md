@@ -7,6 +7,12 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [0.2.0](https://github.com/ohos-rs/ohos-native-bindings/compare/ohos-display-binding-v0.1.6...ohos-display-binding-v0.2.0) - 2026-11-25
+
+### Fixed
+
+- *(display)* [**breaking**] return Result instead of asserting on native display errors ([#216](https://github.com/ohos-rs/ohos-native-bindings/pull/216))
+
 ### Breaking
 
 - `default_display_cutout_info`, `default_display_density_dpi`,

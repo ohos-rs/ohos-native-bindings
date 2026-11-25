@@ -34,7 +34,7 @@ ohos-arkui-binding                  = { version = "0.6.3", path = "crates/arkui"
 ohos-vsync-binding                  = { version = "0.3.2", path = "crates/vsync" }
 ohos-display-soloist-binding        = { version = "0.3.1", path = "crates/native_display_soloist" }
 ohos-ime-binding                    = { version = "0.4.0", path = "crates/ime" }
-ohos-display-binding                = { version = "0.1.6", path = "crates/display" }
+ohos-display-binding                = { version = "0.2.0", path = "crates/display" }
 ohos-window-manager-binding         = { version = "0.1.2", path = "crates/window_manager" }
 ohos-drawing-binding                = { version = "0.2.9", path = "crates/drawing" }
 ohos-native-window-binding          = { version = "0.3.3", path = "crates/native_window" }
