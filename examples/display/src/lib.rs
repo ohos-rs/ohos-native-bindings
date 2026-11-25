@@ -1,5 +1,4 @@
-use std::fmt::Display;
-use std::panic::{catch_unwind, AssertUnwindSafe};
+use std::fmt::{Debug, Display};
 
 use napi_derive_ohos::napi;
 use ohos_display_binding::{
@@ -7,13 +6,20 @@ use ohos_display_binding::{
     default_display_density_x_dpi, default_display_density_y_dpi, default_display_height,
     default_display_id, default_display_orientation, default_display_refresh_rate,
     default_display_rotation, default_display_scaled_density, default_display_virtual_pixel_ratio,
-    default_display_width, fold_display_mode, is_foldable,
+    default_display_width, fold_display_mode, is_foldable, Result,
 };
 
-fn call<T: Display>(label: &str, f: impl FnOnce() -> T) -> String {
-    match catch_unwind(AssertUnwindSafe(f)) {
+fn call<T: Display>(label: &str, f: impl FnOnce() -> Result<T>) -> String {
+    match f() {
         Ok(value) => format!("{label}={value}"),
-        Err(_) => format!("{label}=panic"),
+        Err(err) => format!("{label}=err({err})"),
+    }
+}
+
+fn call_debug<T: Debug>(label: &str, f: impl FnOnce() -> Result<T>) -> String {
+    match f() {
+        Ok(value) => format!("{label}={value:?}"),
+        Err(err) => format!("{label}=err({err})"),
     }
 }
 
@@ -27,16 +33,14 @@ pub fn smoke() -> String {
         call("pixel", default_display_density_pixel),
         call("xdpi", default_display_density_x_dpi),
         call("ydpi", default_display_density_y_dpi),
-        call("orientation", || {
-            format!("{:?}", default_display_orientation())
-        }),
-        call("rotation", || format!("{:?}", default_display_rotation())),
+        call_debug("orientation", default_display_orientation),
+        call_debug("rotation", default_display_rotation),
         call("refresh", default_display_refresh_rate),
         call("scaled_density", default_display_scaled_density),
         call("vpr", default_display_virtual_pixel_ratio),
-        call("foldable", is_foldable),
-        call("fold_mode", || format!("{:?}", fold_display_mode())),
-        call("cutout", || format!("{:?}", default_display_cutout_info())),
+        format!("foldable={}", is_foldable()),
+        call_debug("fold_mode", fold_display_mode),
+        call_debug("cutout", default_display_cutout_info),
     ]
     .join("\n")
 }
