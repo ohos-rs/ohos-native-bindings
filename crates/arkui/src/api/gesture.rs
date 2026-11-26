@@ -987,7 +987,7 @@ impl GestureEventTargetInfoRef {
     }
 }
 
-#[derive(Clone, Copy, Debug)]
+#[derive(Clone, Copy, Debug, PartialEq, Eq, Hash)]
 /// Borrowed wrapper around `ArkUI_GestureRecognizer`.
 pub struct GestureRecognizerRef {
     raw: NonNull<ArkUI_GestureRecognizer>,
@@ -1076,6 +1076,11 @@ impl GestureRecognizerRef {
 
     pub fn is_built_in(&self) -> bool {
         unsafe { ohos_arkui_sys::OH_ArkUI_IsBuiltInGesture(self.raw()) }
+    }
+
+    /// Returns the ArkUI gesture recognizer type via `ArkUI_NativeGestureAPI_1::getGestureType`.
+    pub fn gesture_type(&self) -> ArkUIResult<GestureRecognizerType> {
+        ARK_UI_NATIVE_GESTURE_API_1.with(|api| api.get_gesture_type(self.as_handle()))
     }
 
     pub fn tag(&self) -> ArkUIResult<String> {
