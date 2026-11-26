@@ -5,11 +5,9 @@ use std::{cell::RefCell, os::raw::c_void, rc::Rc};
 use ohos_arkui_input_binding::ArkUIErrorCode;
 use ohos_arkui_sys::{ArkUI_GestureEventActionType, ArkUI_GestureRecognizerHandle};
 
-#[cfg(any(feature = "api-19", feature = "api-22"))]
-use crate::GestureRecognizerRef;
 use crate::{
-    ArkUIError, ArkUIResult, GestureDirection, GestureEventAction, GestureRecognizerType,
-    ARK_UI_NATIVE_GESTURE_API_1,
+    ArkUIError, ArkUIResult, GestureDirection, GestureEventAction, GestureRecognizerRef,
+    GestureRecognizerType, ARK_UI_NATIVE_GESTURE_API_1,
 };
 
 use super::GestureEventData;
@@ -183,6 +181,11 @@ impl Gesture {
     pub fn gesture_type(&self) -> ArkUIResult<GestureRecognizerType> {
         let raw = self.raw_handle()?;
         ARK_UI_NATIVE_GESTURE_API_1.with(|api| api.get_gesture_type(raw))
+    }
+
+    /// Returns a borrowed [`GestureRecognizerRef`] handle while this gesture is still live.
+    pub fn as_recognizer(&self) -> Option<GestureRecognizerRef> {
+        GestureRecognizerRef::from_handle(*self.raw.borrow())
     }
 
     #[cfg(feature = "api-19")]
