@@ -7,6 +7,12 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [0.6.4](https://github.com/ohos-rs/ohos-native-bindings/compare/ohos-arkui-binding-v0.6.3...ohos-arkui-binding-v0.6.4) - 2026-11-26
+
+### Added
+
+- *(arkui)* expose GestureRecognizerRef::gesture_type and recognizer identity ([#218](https://github.com/ohos-rs/ohos-native-bindings/pull/218))
+
 ### Added
 
 - Expose `GestureRecognizerRef::gesture_type()` (via `ArkUI_NativeGestureAPI_1::getGestureType`), derive `PartialEq`, `Eq`, and `Hash` on `GestureRecognizerRef`, and add `Gesture::as_recognizer()` so node gesture interrupters can identify which recognizer is being arbitrated.
