@@ -4,6 +4,12 @@ All notable changes to this project will be documented in this file.
 
 ## [Unreleased]
 
+## [0.2.1](https://github.com/ohos-rs/ohos-native-bindings/compare/ohos-accessibility-binding-v0.2.0...ohos-accessibility-binding-v0.2.1) - 2026-11-27
+
+### Other
+
+- updated the following local packages: ohos-enum-derive
+
 ### Breaking
 
 - `ElementInfo::set_operation_actions` takes `&[(ActionType, &'static CStr)]`

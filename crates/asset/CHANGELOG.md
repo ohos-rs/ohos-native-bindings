@@ -7,6 +7,12 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [0.1.7](https://github.com/ohos-rs/ohos-native-bindings/compare/ohos-asset-binding-v0.1.6...ohos-asset-binding-v0.1.7) - 2026-11-27
+
+### Fixed
+
+- support #[fallback] in EnumFrom and guard FFI enum/callback conversions ([#220](https://github.com/ohos-rs/ohos-native-bindings/pull/220))
+
 ### Fixed
 
 - Make API 18 inherit API 17 so native features remain cumulative.

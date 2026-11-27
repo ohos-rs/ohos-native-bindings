@@ -7,6 +7,12 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [0.4.1](https://github.com/ohos-rs/ohos-native-bindings/compare/ohos-ime-binding-v0.4.0...ohos-ime-binding-v0.4.1) - 2026-11-27
+
+### Fixed
+
+- support #[fallback] in EnumFrom and guard FFI enum/callback conversions ([#220](https://github.com/ohos-rs/ohos-native-bindings/pull/220))
+
 ### Breaking
 
 - Window ownership, lifecycle serialization and attachment workers move to

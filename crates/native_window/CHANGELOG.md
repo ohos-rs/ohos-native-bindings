@@ -7,6 +7,12 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [0.3.4](https://github.com/ohos-rs/ohos-native-bindings/compare/ohos-native-window-binding-v0.3.3...ohos-native-window-binding-v0.3.4) - 2026-11-27
+
+### Other
+
+- updated the following local packages: ohos-enum-derive
+
 ### Fixed
 
 - Restore cumulative API 16/17 selection and direct native-buffer forwarding.
