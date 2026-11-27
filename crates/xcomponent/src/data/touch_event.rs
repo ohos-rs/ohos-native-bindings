@@ -12,5 +12,6 @@ pub enum TouchEvent {
     Up,
     Move,
     Cancel,
+    #[fallback]
     Unknown,
 }

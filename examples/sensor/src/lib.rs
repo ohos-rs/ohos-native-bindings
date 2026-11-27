@@ -30,7 +30,7 @@ pub fn sensor_list() -> Result<String> {
     for info in list {
         out.push_str(&format!(
             "{}: {} ({}) resolution={} interval=[{}, {}]ns\n",
-            info.sensor_type as i32,
+            i32::from(info.sensor_type),
             info.sensor_name,
             info.sensor_vendor_name,
             info.sensor_resolution,

@@ -4,6 +4,7 @@ use ohos_enum_derive::EnumFrom;
 
 #[derive(Debug, Clone, Copy, PartialEq, Eq, EnumFrom)]
 #[config(ArkWeb_NetError, "ArkWeb_NetError_ARKWEB_ERR_")]
+#[repr(i32)]
 pub enum NetError {
     #[prefix("ArkWeb_NetError_ARKWEB_NET_")]
     Ok = 0,
@@ -269,4 +270,6 @@ pub enum NetError {
     DnsNameHttpsOnly = -809,
     DnsRequestCanceled = -810,
     DnsNoMatchingSupportedAlpn = -811,
+    #[fallback]
+    Unknown(ArkWeb_NetError) = i32::MIN,
 }

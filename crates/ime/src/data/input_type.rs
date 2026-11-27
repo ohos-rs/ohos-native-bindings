@@ -8,6 +8,7 @@ use ohos_enum_derive::EnumFrom;
     "InputMethod_TextInputType_IME_TEXT_INPUT_TYPE_"
 )]
 pub enum InputType {
+    #[fallback]
     None,
     Text,
     Multiline,
@@ -22,4 +23,6 @@ pub enum InputType {
     UserName,
     NewPassword,
     NumberDecimal,
+    #[cfg(feature = "api-20")]
+    OneTimeCode,
 }

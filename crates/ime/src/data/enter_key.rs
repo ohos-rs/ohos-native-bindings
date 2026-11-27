@@ -5,6 +5,7 @@ use ohos_enum_derive::EnumFrom;
 #[derive(Debug, Clone, Copy, PartialEq, Eq, EnumFrom)]
 #[config(InputMethod_EnterKeyType, "InputMethod_EnterKeyType_IME_ENTER_KEY_")]
 pub enum EnterKey {
+    #[fallback]
     Unspecified,
     None,
     Go,

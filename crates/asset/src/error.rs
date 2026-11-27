@@ -105,7 +105,7 @@ impl AssetResultCode {
             }
             AssetResultCode::LimitExceeded => ohos_asset_sys::Asset_ResultCode_ASSET_LIMIT_EXCEEDED,
             AssetResultCode::Unsupported => ohos_asset_sys::Asset_ResultCode_ASSET_UNSUPPORTED,
-            AssetResultCode::UnknownError(_code) => unimplemented!(),
+            AssetResultCode::UnknownError(code) => code,
         }
     }
 }

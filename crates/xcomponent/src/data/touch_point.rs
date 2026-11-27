@@ -8,6 +8,7 @@ use ohos_enum_derive::EnumFrom;
     "OH_NativeXComponent_TouchPointToolType_OH_NATIVEXCOMPONENT_TOOL_TYPE_"
 )]
 pub enum TouchPointTool {
+    #[fallback]
     Unknown,
     Finger,
     Pen,
