@@ -66,6 +66,8 @@ pub enum GestureData {
     LongPress(LongPressGestureData),
     /// Swipe gesture payload.
     Swipe(SwipeGestureData),
+    /// Group, built-in click/drag, or future gesture recognizer without typed payload.
+    Other,
 }
 
 /// Pan gesture data.

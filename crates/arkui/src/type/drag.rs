@@ -8,6 +8,7 @@ use ohos_enum_derive::EnumFrom;
 #[config(ArkUI_PreDragStatus, "ArkUI_PreDragStatus_ARKUI_PRE_DRAG_STATUS_")]
 /// Lifecycle status used by the pre-drag detection phase.
 pub enum PreDragStatus {
+    #[fallback]
     Unknown,
     ActionDetecting,
     ReadyToTriggerDrag,
@@ -25,6 +26,8 @@ pub enum DragResult {
     Successful,
     Failed,
     Canceled,
+    #[fallback]
+    Other(ArkUI_DragResult),
 }
 
 #[derive(Debug, Clone, Copy, PartialEq, Eq, EnumFrom)]
@@ -33,4 +36,6 @@ pub enum DragResult {
 pub enum DropOperation {
     Copy,
     Move,
+    #[fallback]
+    Other(ArkUI_DropOperation),
 }

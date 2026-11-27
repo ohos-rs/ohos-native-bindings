@@ -1696,7 +1696,7 @@ unsafe extern "C" fn target_receiver(event: *mut ArkUI_GestureEvent, extra_param
             let velocity = OH_ArkUI_SwipeGesture_GetVelocity(event);
             GestureData::Swipe(SwipeGestureData { angle, velocity })
         }
-        _ => unreachable!("Invalid gesture type"),
+        _ => GestureData::Other,
     };
 
     let callback = data.gesture_callback.clone();

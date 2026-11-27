@@ -59,6 +59,9 @@ pub enum TextInputType {
     NewPassword,
     /// Decimal number.
     NumberDecimal,
+    /// One-time verification code (`@since 20`).
+    #[cfg(feature = "api-20")]
+    OneTimeCode,
 }
 
 /// Keyboard mode of a multiline editor.
@@ -73,6 +76,9 @@ pub enum TextAreaType {
     PhoneNumber,
     /// E-mail address.
     Email,
+    /// One-time verification code (`@since 20`).
+    #[cfg(feature = "api-20")]
+    OneTimeCode,
 }
 
 /// Action shown on the software keyboard's return key.

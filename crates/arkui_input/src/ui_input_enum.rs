@@ -8,17 +8,21 @@ use ohos_enum_derive::EnumFrom;
     "ArkUI_UIInputEvent_Type_ARKUI_UIINPUTEVENT_TYPE_"
 )]
 pub enum UIInputEvent {
+    #[fallback]
     Unknown,
     Touch,
     Axis,
     Mouse,
     #[cfg(feature = "api-20")]
     Key,
+    #[cfg(feature = "api-24")]
+    DigitalCrown,
 }
 
 #[derive(Debug, Clone, Copy, PartialEq, Eq, EnumFrom)]
 #[config(UI_TOUCH_EVENT_ACTION, "UI_TOUCH_EVENT_ACTION_", i32)]
 pub enum UIInputAction {
+    #[fallback]
     Cancel,
     Down,
     Move,
@@ -28,6 +32,7 @@ pub enum UIInputAction {
 #[derive(Debug, Clone, Copy, PartialEq, Eq, EnumFrom)]
 #[config(UI_INPUT_EVENT_TOOL_TYPE, "UI_INPUT_EVENT_TOOL_TYPE_")]
 pub enum UIInputToolType {
+    #[fallback]
     Unknown,
     Finger,
     Pen,
@@ -39,6 +44,7 @@ pub enum UIInputToolType {
 #[derive(Debug, Clone, Copy, PartialEq, Eq, EnumFrom)]
 #[config(UI_INPUT_EVENT_SOURCE_TYPE, "UI_INPUT_EVENT_SOURCE_TYPE_")]
 pub enum UIInputSourceType {
+    #[fallback]
     Unknown,
     Mouse,
     TouchScreen,
@@ -86,6 +92,7 @@ pub enum UIEventCompetitionStrategy {
 #[derive(Debug, Clone, Copy, PartialEq, Eq, EnumFrom)]
 #[config(UI_MOUSE_EVENT_ACTION, "UI_MOUSE_EVENT_ACTION_")]
 pub enum UIMouseEventAction {
+    #[fallback]
     Unknown,
     Press,
     Release,
@@ -97,6 +104,7 @@ pub enum UIMouseEventAction {
 #[derive(Debug, Clone, Copy, PartialEq, Eq, EnumFrom)]
 #[config(UI_MOUSE_EVENT_BUTTON, "UI_MOUSE_EVENT_BUTTON_")]
 pub enum UIMouseEventButton {
+    #[fallback]
     None,
     Left,
     Right,
@@ -124,6 +132,7 @@ pub enum UIFocusAxisEventAbs {
 #[derive(Debug, Clone, Copy, PartialEq, Eq, EnumFrom)]
 #[config(UI_AXIS_EVENT_ACTION, "UI_AXIS_EVENT_ACTION_")]
 pub enum UIAxisEventAction {
+    #[fallback]
     None,
     Begin,
     Update,
@@ -138,6 +147,7 @@ pub enum UIAxisEventAction {
     "ArkUI_CoastingAxisEventPhase_ARKUI_COASTING_AXIS_EVENT_PHASE_"
 )]
 pub enum UICoastingAxisEventPhase {
+    #[fallback]
     None,
     Begin,
     Update,
@@ -147,6 +157,7 @@ pub enum UICoastingAxisEventPhase {
 #[derive(Debug, Clone, Copy, PartialEq, Eq, EnumFrom)]
 #[config(HitTestMode, "HitTestMode_HTM_")]
 pub enum HitTest {
+    #[fallback]
     Default,
     Block,
     Transparent,
@@ -170,6 +181,7 @@ pub enum ModifierKey {
 #[derive(Debug, Clone, Copy, PartialEq, Eq, EnumFrom)]
 #[config(ArkUI_InteractionHand, "ArkUI_InteractionHand_ARKUI_EVENT_HAND_")]
 pub enum InteractionHand {
+    #[fallback]
     None,
     Left,
     Right,
