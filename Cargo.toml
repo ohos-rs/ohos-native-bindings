@@ -10,51 +10,51 @@ rust-version = "1.88"
 ohos-hitrace-sys               = { version = "0.1.0", path = "sys/ohos-hitrace-sys" }
 ohos-hitrace-binding           = { version = "0.1.0", path = "crates/hitrace" }
 ohos-avplayer-sys              = { version = "0.1.0", path = "sys/ohos-avplayer-sys" }
-ohos-avplayer-binding          = { version = "0.1.1", path = "crates/avplayer" }
-ohos-audio-binding             = { version = "0.1.0", path = "crates/audio" }
-ohos-multi-modal-input-binding = { version = "0.1.0", path = "crates/multi_modal_input" }
+ohos-avplayer-binding          = { version = "0.1.2", path = "crates/avplayer" }
+ohos-audio-binding             = { version = "0.1.1", path = "crates/audio" }
+ohos-multi-modal-input-binding = { version = "0.1.1", path = "crates/multi_modal_input" }
 ohos-native-image-sys          = { version = "0.1.0", path = "sys/ohos-native-image-sys" }
 ohos-native-image-binding      = { version = "0.1.0", path = "crates/native_image" }
 # Match the registry AccessKit types consumed by the pinned OHOS adapter.
 accesskit                           = { version = "0.24" }
 accesskit_ohos                      = { git = "https://github.com/richerfu/accesskit.git", rev = "aa8688e89b8ba65f6e12a8cfd542a785d8efd471" }
-ohos-accessibility-binding          = { version = "0.2.0", path = "crates/accessibility" }
+ohos-accessibility-binding          = { version = "0.2.1", path = "crates/accessibility" }
 ohos-ashmem-binding                 = { version = "0.1.0", path = "crates/ashmem" }
 ohos-bundle-binding                 = { version = "0.1.4", path = "crates/bundle" }
 ohos-device-binding                 = { version = "0.1.0", path = "crates/device" }
 ohos-init-binding                   = { version = "0.1.4", path = "crates/init" }
-ohos-hilog-binding                  = { version = "0.2.5", path = "crates/hilog" }
-ohos-asset-binding                  = { version = "0.1.6", path = "crates/asset" }
+ohos-hilog-binding                  = { version = "0.2.6", path = "crates/hilog" }
+ohos-asset-binding                  = { version = "0.1.7", path = "crates/asset" }
 ohos-resource-manager-binding       = { version = "0.3.6", path = "crates/resource_manager" }
-ohos-image-binding                  = { version = "0.1.4", path = "crates/image" }
-ohos-image-native-binding           = { version = "0.0.8", path = "crates/image_native" }
+ohos-image-binding                  = { version = "0.1.5", path = "crates/image" }
+ohos-image-native-binding           = { version = "0.0.9", path = "crates/image_native" }
 ohos-ability-access-control-binding = { version = "0.1.4", path = "crates/ability_access_control" }
-ohos-xcomponent-binding             = { version = "0.6.1", path = "crates/xcomponent" }
-ohos-arkui-binding                  = { version = "0.6.4", path = "crates/arkui" }
+ohos-xcomponent-binding             = { version = "0.6.2", path = "crates/xcomponent" }
+ohos-arkui-binding                  = { version = "0.6.5", path = "crates/arkui" }
 ohos-vsync-binding                  = { version = "0.3.2", path = "crates/vsync" }
 ohos-display-soloist-binding        = { version = "0.3.1", path = "crates/native_display_soloist" }
-ohos-ime-binding                    = { version = "0.4.0", path = "crates/ime" }
-ohos-display-binding                = { version = "0.2.0", path = "crates/display" }
-ohos-window-manager-binding         = { version = "0.1.2", path = "crates/window_manager" }
-ohos-drawing-binding                = { version = "0.2.9", path = "crates/drawing" }
-ohos-native-window-binding          = { version = "0.3.3", path = "crates/native_window" }
+ohos-ime-binding                    = { version = "0.4.1", path = "crates/ime" }
+ohos-display-binding                = { version = "0.2.1", path = "crates/display" }
+ohos-window-manager-binding         = { version = "0.1.3", path = "crates/window_manager" }
+ohos-drawing-binding                = { version = "0.2.10", path = "crates/drawing" }
+ohos-native-window-binding          = { version = "0.3.4", path = "crates/native_window" }
 ohos-native-buffer-binding          = { version = "0.2.7", path = "crates/native_buffer" }
-ohos-udmf-binding                   = { version = "0.1.0", path = "crates/udmf" }
-ohos-pasteboard-binding             = { version = "0.1.0", path = "crates/pasteboard" }
-ohos-web-binding                    = { version = "0.3.3", path = "crates/web" }
-ohos-sensor-binding                 = { version = "0.2.4", path = "crates/sensor" }
-ohos-vibrator-binding               = { version = "0.2.4", path = "crates/vibrator" }
+ohos-udmf-binding                   = { version = "0.1.1", path = "crates/udmf" }
+ohos-pasteboard-binding             = { version = "0.1.1", path = "crates/pasteboard" }
+ohos-web-binding                    = { version = "0.3.4", path = "crates/web" }
+ohos-sensor-binding                 = { version = "0.2.5", path = "crates/sensor" }
+ohos-vibrator-binding               = { version = "0.2.5", path = "crates/vibrator" }
 ohos-fileuri-binding                = { version = "0.2.4", path = "crates/fileuri" }
 ohos-fileshare-binding              = { version = "0.2.4", path = "crates/fileshare" }
-ohos-qos-binding                    = { version = "0.2.4", path = "crates/qos" }
+ohos-qos-binding                    = { version = "0.2.5", path = "crates/qos" }
 ohos-net-connection-binding         = { version = "0.1.4", path = "crates/net_connection" }
-ohos-net-stack-binding              = { version = "0.1.4", path = "crates/net_stack" }
+ohos-net-stack-binding              = { version = "0.1.5", path = "crates/net_stack" }
 ohos-native-child-process-binding   = { version = "0.1.0", path = "crates/native_child_process" }
-ohos-arkui-input-binding            = { version = "0.2.0", path = "crates/arkui_input" }
-ohos-jsvm-binding                   = { version = "0.1.4", path = "crates/jsvm" }
-hms-opengtx-binding                 = { version = "0.1.4", path = "crates/opengtx" }
-ohos-camera-binding                 = { version = "0.3.1", path = "crates/camera" }
-ohos-huks-binding                   = { version = "0.1.2", path = "crates/huks" }
+ohos-arkui-input-binding            = { version = "0.2.1", path = "crates/arkui_input" }
+ohos-jsvm-binding                   = { version = "0.1.5", path = "crates/jsvm" }
+hms-opengtx-binding                 = { version = "0.1.5", path = "crates/opengtx" }
+ohos-camera-binding                 = { version = "0.3.2", path = "crates/camera" }
+ohos-huks-binding                   = { version = "0.1.3", path = "crates/huks" }
 
 ohos-bundle-sys                 = { version = "0.1.4", path = "sys/ohos-bundle-sys" }
 ohos-device-sys                 = { version = "0.1.0", path = "sys/ohos-device-sys" }
@@ -98,7 +98,7 @@ ohos-camera-sys                 = { version = "0.1.3", path = "sys/ohos-camera-s
 ohos-native-huks-sys            = { version = "0.1.3", path = "sys/ohos-native-huks-sys" }
 ohos-hicollie-sys               = { version = "0.1.1", path = "sys/ohos-hicollie-sys" }
 
-ohos-enum-derive = { version = "0.1.2", path = "crates/enum_derive" }
+ohos-enum-derive = { version = "0.1.3", path = "crates/enum_derive" }
 
 napi-sys-ohos    = { version = "1.1.3", features = ["napi8"] }
 napi-ohos        = { version = "1.1.3" }

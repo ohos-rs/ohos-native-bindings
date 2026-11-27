@@ -7,6 +7,12 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [0.2.5](https://github.com/ohos-rs/ohos-native-bindings/compare/ohos-qos-binding-v0.2.4...ohos-qos-binding-v0.2.5) - 2026-11-27
+
+### Other
+
+- updated the following local packages: ohos-enum-derive
+
 ## [0.2.3](https://github.com/ohos-rs/ohos-native-bindings/compare/ohos-qos-binding-v0.2.2...ohos-qos-binding-v0.2.3) - 2026-08-26
 
 ### Other

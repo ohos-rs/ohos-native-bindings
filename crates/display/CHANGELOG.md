@@ -7,6 +7,12 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [0.2.1](https://github.com/ohos-rs/ohos-native-bindings/compare/ohos-display-binding-v0.2.0...ohos-display-binding-v0.2.1) - 2026-11-27
+
+### Fixed
+
+- support #[fallback] in EnumFrom and guard FFI enum/callback conversions ([#220](https://github.com/ohos-rs/ohos-native-bindings/pull/220))
+
 ## [0.2.0](https://github.com/ohos-rs/ohos-native-bindings/compare/ohos-display-binding-v0.1.6...ohos-display-binding-v0.2.0) - 2026-11-25
 
 ### Fixed

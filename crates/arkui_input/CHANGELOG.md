@@ -7,6 +7,12 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [0.2.1](https://github.com/ohos-rs/ohos-native-bindings/compare/ohos-arkui-input-binding-v0.2.0...ohos-arkui-input-binding-v0.2.1) - 2026-11-27
+
+### Fixed
+
+- support #[fallback] in EnumFrom and guard FFI enum/callback conversions ([#220](https://github.com/ohos-rs/ohos-native-bindings/pull/220))
+
 ### Added
 
 - Add API-15 `unsafe ArkUIInputClonedEvent::post_to_node_if_hit`, distinguishing

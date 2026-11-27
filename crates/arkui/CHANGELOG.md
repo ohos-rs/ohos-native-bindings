@@ -7,6 +7,12 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [0.6.5](https://github.com/ohos-rs/ohos-native-bindings/compare/ohos-arkui-binding-v0.6.4...ohos-arkui-binding-v0.6.5) - 2026-11-27
+
+### Fixed
+
+- support #[fallback] in EnumFrom and guard FFI enum/callback conversions ([#220](https://github.com/ohos-rs/ohos-native-bindings/pull/220))
+
 ## [0.6.4](https://github.com/ohos-rs/ohos-native-bindings/compare/ohos-arkui-binding-v0.6.3...ohos-arkui-binding-v0.6.4) - 2026-11-26
 
 ### Added

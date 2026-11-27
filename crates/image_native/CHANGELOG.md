@@ -7,6 +7,12 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [0.0.9](https://github.com/ohos-rs/ohos-native-bindings/compare/ohos-image-native-binding-v0.0.8...ohos-image-native-binding-v0.0.9) - 2026-11-27
+
+### Other
+
+- updated the following local packages: ohos-enum-derive
+
 ### Fixed
 
 - Forward API levels directly to the native-buffer binding.

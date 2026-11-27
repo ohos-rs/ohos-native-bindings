@@ -7,6 +7,12 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [0.1.1](https://github.com/ohos-rs/ohos-native-bindings/compare/ohos-audio-binding-v0.1.0...ohos-audio-binding-v0.1.1) - 2026-11-27
+
+### Other
+
+- updated the following local packages: ohos-enum-derive
+
 ## [0.1.0](https://github.com/ohos-rs/ohos-native-bindings/releases/tag/ohos-audio-binding-v0.1.0) - 2026-11-23
 
 ### Added
