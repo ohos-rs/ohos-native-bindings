@@ -3,6 +3,7 @@ use ohos_display_sys::{
     NativeDisplayManager_Orientation_DISPLAY_MANAGER_LANDSCAPE_INVERTED,
     NativeDisplayManager_Orientation_DISPLAY_MANAGER_PORTRAIT,
     NativeDisplayManager_Orientation_DISPLAY_MANAGER_PORTRAIT_INVERTED,
+    NativeDisplayManager_Orientation_DISPLAY_MANAGER_UNKNOWN,
 };
 
 use ohos_enum_derive::EnumFrom;
@@ -17,4 +18,7 @@ pub enum Orientation {
     Landscape,
     PortraitInverted,
     LandscapeInverted,
+    Unknown,
+    #[fallback]
+    Other(u32),
 }

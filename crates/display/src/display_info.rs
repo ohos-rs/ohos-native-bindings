@@ -373,4 +373,41 @@ mod tests {
         assert!(info.hdr_formats.is_empty());
         assert!(info.color_spaces.is_empty());
     }
+
+    #[test]
+    fn maps_unknown_and_out_of_range_display_enums_without_panicking() {
+        let name = [0 as std::os::raw::c_char; 33];
+        // Virtual displays on HarmonyOS 2-in-1 / MateBook devices (e.g. displayId=1023)
+        // report `DISPLAY_MANAGER_UNKNOWN` (4) for orientation.
+        let virtual_raw = NativeDisplayManager_DisplayInfo {
+            id: 1023,
+            name,
+            isAlive: true,
+            width: 1920,
+            height: 1080,
+            physicalWidth: 0,
+            physicalHeight: 0,
+            refreshRate: 60,
+            availableWidth: 1920,
+            availableHeight: 1080,
+            densityDPI: 160.0,
+            densityPixels: 1.0,
+            scaledDensity: 1.0,
+            xDPI: 160.0,
+            yDPI: 160.0,
+            rotation: 99,
+            state: 0,
+            orientation: ohos_display_sys::NativeDisplayManager_Orientation_DISPLAY_MANAGER_UNKNOWN,
+            hdrFormat: ptr::null_mut(),
+            colorSpace: ptr::null_mut(),
+        };
+
+        let info = unsafe { DisplayInfo::from_raw(&virtual_raw) };
+        assert_eq!(info.id, 1023);
+        assert_eq!(info.orientation, Orientation::Unknown);
+        assert_eq!(info.rotation, Rotation::Other(99));
+        assert_eq!(info.state, DisplayState::Unknown);
+        assert_eq!(Orientation::from(77), Orientation::Other(77));
+        assert_eq!(crate::FoldMode::from(77), crate::FoldMode::Other(77));
+    }
 }
