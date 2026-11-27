@@ -20,4 +20,6 @@ pub enum FoldMode {
     Sub,
     Full,
     Coordination,
+    #[fallback]
+    Other(u32),
 }

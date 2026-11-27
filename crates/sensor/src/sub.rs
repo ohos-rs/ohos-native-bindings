@@ -25,6 +25,9 @@ pub struct SensorCallbackEvent {
 
 impl SensorCallbackEvent {
     pub fn new(event: *mut Sensor_Event) -> Result<Self, SensorError> {
+        if event.is_null() {
+            return Err(SensorError::InternalError(-1));
+        }
         let mut timestamp = 0;
         match unsafe { OH_SensorEvent_GetTimestamp(event, &mut timestamp) } {
             0 => {}
@@ -173,13 +176,17 @@ impl Drop for SensorSubscriber {
 }
 
 unsafe extern "C" fn sensor_callback(event: *mut Sensor_Event) {
-    let sensor_event = SensorCallbackEvent::new(event).unwrap();
+    let Ok(sensor_event) = SensorCallbackEvent::new(event) else {
+        return;
+    };
 
-    if let Some(callback) = SENSOR_SUBSCRIBE_CALLBACK
-        .read()
-        .unwrap()
-        .get(&sensor_event.sensor_type)
-    {
-        callback(sensor_event);
+    let guard = match SENSOR_SUBSCRIBE_CALLBACK.read() {
+        Ok(guard) => guard,
+        Err(poisoned) => poisoned.into_inner(),
+    };
+    if let Some(callback) = guard.get(&sensor_event.sensor_type) {
+        let _ = std::panic::catch_unwind(std::panic::AssertUnwindSafe(|| {
+            callback(sensor_event);
+        }));
     }
 }

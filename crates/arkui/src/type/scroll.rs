@@ -39,7 +39,11 @@ pub enum ScrollDirection {
     /// Horizontal scrolling.
     Horizontal,
     /// Scrolling disabled.
+    #[fallback]
     None,
+    /// Two-axis free scrolling (`@since 20`).
+    #[cfg(feature = "api-20")]
+    Free,
 }
 
 #[derive(Debug, Clone, Copy, PartialEq, Eq, EnumFrom)]

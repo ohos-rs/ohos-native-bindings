@@ -4,6 +4,7 @@ use ohos_vibrator_sys::*;
 #[derive(Debug, Clone, Copy, PartialEq, Eq, EnumFrom)]
 #[config(Vibrator_Usage, "Vibrator_Usage_VIBRATOR_USAGE_")]
 pub enum VibratorUsage {
+    #[fallback]
     Unknown,
     Alarm,
     Ring,

@@ -8,6 +8,7 @@ use ohos_enum_derive::EnumFrom;
     "InputMethod_KeyboardStatus_IME_KEYBOARD_STATUS_"
 )]
 pub enum KeyboardStatus {
+    #[fallback]
     None,
     Hide,
     Show,

@@ -8,6 +8,7 @@ use ohos_enum_derive::EnumFrom;
     "OH_NativeXComponent_MouseEventAction_OH_NATIVEXCOMPONENT_MOUSE_"
 )]
 pub enum MouseAction {
+    #[fallback]
     None,
     Press,
     Release,

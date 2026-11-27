@@ -8,6 +8,7 @@ use ohos_enum_derive::EnumFrom;
     "OH_NativeXComponent_KeyAction_OH_NATIVEXCOMPONENT_KEY_ACTION_"
 )]
 pub enum Action {
+    #[fallback]
     Unknown,
     Down,
     Up,

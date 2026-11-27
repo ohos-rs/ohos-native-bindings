@@ -8,6 +8,7 @@ use ohos_enum_derive::EnumFrom;
     "OH_NativeXComponent_MouseEventButton_OH_NATIVEXCOMPONENT_"
 )]
 pub enum MouseButton {
+    #[fallback]
     NoneButton,
     LeftButton,
     RightButton,

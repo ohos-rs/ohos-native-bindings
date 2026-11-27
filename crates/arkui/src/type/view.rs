@@ -8,6 +8,7 @@ use ohos_enum_derive::EnumFrom;
 #[config(ArkUI_HitTestMode, "ArkUI_HitTestMode_ARKUI_HIT_TEST_MODE_", i32)]
 pub enum HitTestMode {
     /// Test this component and its children, blocking siblings behind it.
+    #[fallback]
     Default,
     /// Test this component and block child/sibling hit tests.
     Block,
@@ -15,6 +16,12 @@ pub enum HitTestMode {
     Transparent,
     /// Skip this component while allowing its children and ancestors.
     None,
+    /// Block ancestor hit testing while allowing this component and its descendants (`@since 20`).
+    #[cfg(feature = "api-20")]
+    BlockHierarchy,
+    /// Test this component while skipping all descendants (`@since 20`).
+    #[cfg(feature = "api-20")]
+    BlockDescendants,
 }
 
 /// How a component participates in accessibility traversal.

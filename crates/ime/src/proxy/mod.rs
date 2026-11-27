@@ -123,8 +123,11 @@ pub unsafe extern "C" fn handle_extend_action(
     editor: *mut InputMethod_TextEditorProxy,
     action: InputMethod_ExtendAction,
 ) {
-    if let Some(callback) = editor_callback!(editor, handle_extend_action) {
-        callback(Action::from(action));
+    if let (Some(callback), Some(action)) = (
+        editor_callback!(editor, handle_extend_action),
+        Action::try_from_raw(action),
+    ) {
+        callback(action);
     }
 }
 
@@ -155,11 +158,15 @@ pub unsafe extern "C" fn receive_private_command(
     let Some(callback) = editor_callback!(editor, receive_private_command) else {
         return 0;
     };
-    let commands = std::slice::from_raw_parts(command, len)
-        .iter()
-        .copied()
-        .map(|raw| PrivateCommand { raw })
-        .collect();
+    let commands = if command.is_null() || len == 0 {
+        Vec::new()
+    } else {
+        std::slice::from_raw_parts(command, len)
+            .iter()
+            .copied()
+            .map(|raw| PrivateCommand { raw })
+            .collect()
+    };
     callback(commands);
     0
 }

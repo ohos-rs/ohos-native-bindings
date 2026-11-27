@@ -8,6 +8,7 @@ use ohos_enum_derive::EnumFrom;
     "OH_NativeXComponent_EventSourceType_OH_NATIVEXCOMPONENT_SOURCE_TYPE_"
 )]
 pub enum EventSource {
+    #[fallback]
     Unknown,
     Mouse,
     Touchscreen,

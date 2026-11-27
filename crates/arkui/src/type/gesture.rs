@@ -15,6 +15,12 @@ pub enum GestureRecognizerType {
     RotationGesture,
     SwipeGesture,
     GroupGesture,
+    #[cfg(feature = "api-20")]
+    ClickGesture,
+    #[cfg(feature = "api-20")]
+    DragDrop,
+    #[fallback]
+    Other(ArkUI_GestureRecognizerType),
 }
 
 #[derive(Debug, Clone, Copy, PartialEq, Eq, EnumFrom)]

@@ -5,6 +5,7 @@ use ohos_enum_derive::EnumFrom;
 #[derive(Debug, Clone, Copy, PartialEq, Eq, EnumFrom)]
 #[config(OH_NativeXComponent_KeyCode, "OH_NativeXComponent_KeyCode_KEY_", u32)]
 pub enum KeyCode {
+    #[fallback]
     Unknown,
     Fn,
     Home,

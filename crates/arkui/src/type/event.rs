@@ -167,6 +167,8 @@ pub enum NodeEventType {
     GridOnDidScroll,
     #[cfg(feature = "api-22")]
     GridOnScrollBarUpdate,
+    #[fallback]
+    Other(ArkUI_NodeEventType),
 }
 
 #[cfg(feature = "api-22")]

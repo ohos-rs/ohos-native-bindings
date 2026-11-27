@@ -29,6 +29,8 @@ pub enum GestureRecognizerState {
     Blocked,
     Successful,
     Failed,
+    #[fallback]
+    Other(ArkUI_GestureRecognizerState),
 }
 
 #[derive(Debug, Clone, Copy, PartialEq, Eq, EnumFrom)]
@@ -39,6 +41,7 @@ pub enum TextSpanType {
     Text,
     Image,
     Mixed,
+    #[fallback]
     Default,
 }
 
@@ -53,6 +56,7 @@ pub enum TextResponseType {
     RightClick,
     LongPress,
     Select,
+    #[fallback]
     Default,
 }
 
@@ -72,6 +76,8 @@ pub enum NavDestinationState {
     OnWillAppear,
     OnWillDisappear,
     OnBackPress,
+    #[fallback]
+    Other(ArkUI_NavDestinationState),
 }
 
 #[derive(Debug, Clone, Copy, PartialEq, Eq, EnumFrom)]
@@ -86,6 +92,8 @@ pub enum RouterPageState {
     OnShow,
     OnHide,
     OnBackPress,
+    #[fallback]
+    Other(ArkUI_RouterPageState),
 }
 
 #[derive(Debug, Clone, Copy, PartialEq, Eq, EnumFrom)]
@@ -195,6 +203,8 @@ pub enum ListItemSwipeActionState {
     Collapsed,
     Expanded,
     Actioning,
+    #[fallback]
+    Other(ArkUI_ListItemSwipeActionState),
 }
 
 #[derive(Debug, Clone, Copy, PartialEq, Eq, EnumFrom)]
@@ -235,6 +245,8 @@ pub enum DialogState {
     Appeared,
     Disappearing,
     Disappeared,
+    #[fallback]
+    Other(ArkUI_DialogState),
 }
 
 #[derive(Debug, Clone, Copy, PartialEq, Eq, EnumFrom)]
@@ -246,6 +258,8 @@ pub enum DialogState {
 pub enum NodeContentEventType {
     OnAttachToWindow,
     OnDetachFromWindow,
+    #[fallback]
+    Other(ArkUI_NodeContentEventType),
 }
 
 #[derive(Debug, Clone, Copy, PartialEq, Eq, EnumFrom)]
@@ -291,6 +305,7 @@ pub enum NodeDirtyFlag {
 #[cfg(feature = "api-22")]
 /// Phase of coasting-axis events.
 pub enum CoastingAxisEventPhase {
+    #[fallback]
     None,
     Begin,
     Update,
@@ -302,6 +317,7 @@ pub enum CoastingAxisEventPhase {
 #[cfg(feature = "api-14")]
 /// Key event action type.
 pub enum KeyEventType {
+    #[fallback]
     Unknown,
     Down,
     Up,
@@ -314,6 +330,7 @@ pub enum KeyEventType {
 #[cfg(feature = "api-14")]
 /// Input source that generated a key event.
 pub enum KeySourceType {
+    #[fallback]
     Unknown,
     TypeMouse,
     TypeKeyboard,
@@ -326,6 +343,7 @@ pub enum KeySourceType {
 #[cfg(feature = "api-14")]
 /// Key intention semantic mapped by ArkUI.
 pub enum KeyIntension {
+    #[fallback]
     Unknown,
     Up,
     Down,
@@ -389,6 +407,8 @@ pub enum NodeCustomEventType {
     OnDrawFront,
     #[cfg(feature = "api-20")]
     OnDrawBehind,
+    #[fallback]
+    Other(ArkUI_NodeCustomEventType),
 }
 
 #[derive(Debug, Clone, Copy, PartialEq, Eq, EnumFrom)]
@@ -408,6 +428,7 @@ pub enum LengthMetricUnit {
 #[config(ArkUI_DragStatus, "ArkUI_DragStatus_ARKUI_DRAG_STATUS_")]
 /// Real-time drag status in drag lifecycle events.
 pub enum DragStatus {
+    #[fallback]
     Unknown,
     Started,
     Ended,

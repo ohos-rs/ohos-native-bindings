@@ -9,7 +9,7 @@ use ohos_arkui_sys::{
 };
 
 bitflags! {
-    #[derive(PartialEq)]
+    #[derive(Debug, Clone, Copy, PartialEq, Eq)]
     pub struct GestureEventAction: u32 {
         const Accept = 1;
         const Update = 2;
@@ -43,14 +43,46 @@ impl From<GestureEventAction> for ArkUI_GestureEventActionType {
 }
 
 impl From<ArkUI_GestureEventActionType> for GestureEventAction {
+    #[allow(clippy::unnecessary_cast)]
     fn from(value: ArkUI_GestureEventActionType) -> Self {
-        match value {
-            #![allow(non_upper_case_globals)]
-            ArkUI_GestureEventActionType_GESTURE_EVENT_ACTION_ACCEPT => GestureEventAction::Accept,
-            ArkUI_GestureEventActionType_GESTURE_EVENT_ACTION_UPDATE => GestureEventAction::Update,
-            ArkUI_GestureEventActionType_GESTURE_EVENT_ACTION_END => GestureEventAction::End,
-            ArkUI_GestureEventActionType_GESTURE_EVENT_ACTION_CANCEL => GestureEventAction::Cancel,
-            _ => unreachable!("Invalid ArkUI_GestureEventActionType"),
+        let raw = value as u32;
+        let mut action = GestureEventAction::empty();
+        if raw & (ArkUI_GestureEventActionType_GESTURE_EVENT_ACTION_ACCEPT as u32) != 0 {
+            action |= GestureEventAction::Accept;
         }
+        if raw & (ArkUI_GestureEventActionType_GESTURE_EVENT_ACTION_UPDATE as u32) != 0 {
+            action |= GestureEventAction::Update;
+        }
+        if raw & (ArkUI_GestureEventActionType_GESTURE_EVENT_ACTION_END as u32) != 0 {
+            action |= GestureEventAction::End;
+        }
+        if raw & (ArkUI_GestureEventActionType_GESTURE_EVENT_ACTION_CANCEL as u32) != 0 {
+            action |= GestureEventAction::Cancel;
+        }
+        action
+    }
+}
+
+#[cfg(test)]
+mod tests {
+    use super::*;
+
+    #[test]
+    fn converts_combined_and_unknown_gesture_action_masks_without_panicking() {
+        assert_eq!(
+            GestureEventAction::from(0 as ArkUI_GestureEventActionType),
+            GestureEventAction::empty()
+        );
+        let combined = (ArkUI_GestureEventActionType_GESTURE_EVENT_ACTION_ACCEPT
+            | ArkUI_GestureEventActionType_GESTURE_EVENT_ACTION_UPDATE)
+            as ArkUI_GestureEventActionType;
+        assert_eq!(
+            GestureEventAction::from(combined),
+            GestureEventAction::Accept | GestureEventAction::Update
+        );
+        assert_eq!(
+            GestureEventAction::from(0x8000_0001u32 as ArkUI_GestureEventActionType),
+            GestureEventAction::Accept
+        );
     }
 }

@@ -17,4 +17,6 @@ pub enum Rotation {
     Rotation90,
     Rotation180,
     Rotation270,
+    #[fallback]
+    Other(u32),
 }

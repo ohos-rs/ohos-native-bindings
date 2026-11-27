@@ -15,4 +15,6 @@ pub enum DrawingErrorCode {
     AttributeIdMismatch,
     #[cfg(feature = "api-22")]
     IncorrectParameter,
+    #[fallback]
+    Other(OH_Drawing_ErrorCode),
 }

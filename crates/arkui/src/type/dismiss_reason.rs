@@ -6,10 +6,13 @@ use ohos_enum_derive::EnumFrom;
 
 #[derive(Debug, Clone, Copy, PartialEq, Eq, EnumFrom)]
 #[config(ArkUI_DismissReason, "ArkUI_DismissReason_DIALOG_DISMISS_", i32)]
+#[repr(u32)]
 /// Reason reported when a dialog is dismissed.
 pub enum DismissReason {
     BackPress = 0,
     TouchOutside,
     CloseButton,
     SlideDown,
+    #[fallback]
+    Other(ArkUI_DismissReason),
 }
