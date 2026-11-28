@@ -7,6 +7,12 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [0.3.5](https://github.com/ohos-rs/ohos-native-bindings/compare/ohos-web-binding-v0.3.4...ohos-web-binding-v0.3.5) - 2026-11-28
+
+### Added
+
+- *(web)* expose ResourceRequest identity and user data APIs ([#222](https://github.com/ohos-rs/ohos-native-bindings/pull/222))
+
 ### Added
 
 - Expose `ResourceRequest::raw()`, `ResourceRequest::as_id()`, `ResourceRequest::set_user_token()` / `user_token()`, `ResourceRequest::set_user_data()` / `user_data()`, and derive `Debug`, `PartialEq`, `Eq`, and `Hash` on `ResourceRequest` so custom protocol handlers can correlate and attach per-request state across `on_request_start` and `on_request_stop`.
