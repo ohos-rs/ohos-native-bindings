@@ -7,6 +7,14 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+### Added
+
+- Expose `ResourceRequest::raw()`, `ResourceRequest::as_id()`, `ResourceRequest::set_user_token()` / `user_token()`, `ResourceRequest::set_user_data()` / `user_data()`, and derive `Debug`, `PartialEq`, `Eq`, and `Hash` on `ResourceRequest` so custom protocol handlers can correlate and attach per-request state across `on_request_start` and `on_request_stop`.
+
+### Fixed
+
+- Reclaim `CustomProtocolHandlerContext` user data on `CustomProtocolHandler::drop` and guard `on_request_start` / `on_request_stop` FFI callbacks against null pointers and unwinding panics.
+
 ## [0.3.4](https://github.com/ohos-rs/ohos-native-bindings/compare/ohos-web-binding-v0.3.3...ohos-web-binding-v0.3.4) - 2026-11-27
 
 ### Fixed

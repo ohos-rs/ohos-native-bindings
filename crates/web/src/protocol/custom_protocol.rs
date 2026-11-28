@@ -155,6 +155,13 @@ impl CustomProtocolHandler {
 impl Drop for CustomProtocolHandler {
     fn drop(&mut self) {
         unsafe {
+            let user_data_raw = OH_ArkWebSchemeHandler_GetUserData(self.raw.as_ptr());
+            if !user_data_raw.is_null() {
+                let _ = OH_ArkWebSchemeHandler_SetUserData(self.raw.as_ptr(), ptr::null_mut());
+                drop(Box::from_raw(
+                    user_data_raw as *mut CustomProtocolHandlerContext,
+                ));
+            }
             OH_ArkWeb_DestroySchemeHandler(self.raw.as_ptr());
         }
     }
@@ -172,53 +179,65 @@ extern "C" fn on_request_start(
     resource_handler: *const ArkWeb_ResourceHandler,
     intercept: *mut bool,
 ) {
-    let user_data_raw = unsafe { OH_ArkWebSchemeHandler_GetUserData(schema_handle) };
-
-    if user_data_raw.is_null() {
+    if !intercept.is_null() {
         unsafe {
             *intercept = false;
         }
+    }
+    if schema_handle.is_null()
+        || resource_request.is_null()
+        || resource_handler.is_null()
+        || intercept.is_null()
+    {
         return;
     }
 
-    let mut user_data = unsafe {
-        ManuallyDrop::new(Box::from_raw(
-            user_data_raw as *mut CustomProtocolHandlerContext,
-        ))
-    };
+    let _ = std::panic::catch_unwind(std::panic::AssertUnwindSafe(|| {
+        let user_data_raw = unsafe { OH_ArkWebSchemeHandler_GetUserData(schema_handle) };
+        if user_data_raw.is_null() {
+            return;
+        }
 
-    if let Some(request) = &mut user_data.request {
-        let ret = request(
-            ResourceRequest::new(resource_request),
-            ResourceHandle::new(resource_handler as _),
-        );
-        unsafe {
-            *intercept = ret;
+        let mut user_data = unsafe {
+            ManuallyDrop::new(Box::from_raw(
+                user_data_raw as *mut CustomProtocolHandlerContext,
+            ))
+        };
+
+        if let Some(request) = &mut user_data.request {
+            let ret = request(
+                ResourceRequest::new(resource_request),
+                ResourceHandle::new(resource_handler as _),
+            );
+            unsafe {
+                *intercept = ret;
+            }
         }
-    } else {
-        unsafe {
-            *intercept = false;
-        }
-    }
+    }));
 }
 
 extern "C" fn on_request_stop(
     schema_handle: *const ArkWeb_SchemeHandler,
     resource_request: *const ArkWeb_ResourceRequest,
 ) {
-    let user_data_raw = unsafe { OH_ArkWebSchemeHandler_GetUserData(schema_handle) };
-
-    if user_data_raw.is_null() {
+    if schema_handle.is_null() || resource_request.is_null() {
         return;
     }
 
-    let mut user_data = unsafe {
-        ManuallyDrop::new(Box::from_raw(
-            user_data_raw as *mut CustomProtocolHandlerContext,
-        ))
-    };
+    let _ = std::panic::catch_unwind(std::panic::AssertUnwindSafe(|| {
+        let user_data_raw = unsafe { OH_ArkWebSchemeHandler_GetUserData(schema_handle) };
+        if user_data_raw.is_null() {
+            return;
+        }
 
-    if let Some(response) = &mut user_data.response {
-        response(ResourceRequest::new(resource_request as _));
-    }
+        let mut user_data = unsafe {
+            ManuallyDrop::new(Box::from_raw(
+                user_data_raw as *mut CustomProtocolHandlerContext,
+            ))
+        };
+
+        if let Some(response) = &mut user_data.response {
+            response(ResourceRequest::new(resource_request as _));
+        }
+    }));
 }
