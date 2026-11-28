@@ -1,5 +1,6 @@
 use std::{
     collections::HashMap,
+    ffi::c_void,
     ptr::{self, NonNull},
 };
 
@@ -9,14 +10,17 @@ use ohos_web_sys::{
     OH_ArkWebResourceRequest_GetFrameUrl, OH_ArkWebResourceRequest_GetHttpBodyStream,
     OH_ArkWebResourceRequest_GetMethod, OH_ArkWebResourceRequest_GetReferrer,
     OH_ArkWebResourceRequest_GetRequestHeaders, OH_ArkWebResourceRequest_GetResourceType,
-    OH_ArkWebResourceRequest_GetUrl, OH_ArkWebResourceRequest_HasGesture,
-    OH_ArkWebResourceRequest_IsMainFrame, OH_ArkWebResourceRequest_IsRedirect,
+    OH_ArkWebResourceRequest_GetUrl, OH_ArkWebResourceRequest_GetUserData,
+    OH_ArkWebResourceRequest_HasGesture, OH_ArkWebResourceRequest_IsMainFrame,
+    OH_ArkWebResourceRequest_IsRedirect, OH_ArkWebResourceRequest_SetUserData,
 };
 
 use crate::{
-    HttpBodyStream, Method, Referrer, ResourceType, ResponseHeaderKey, ResponseHeaderValue, Url,
+    ArkWebError, HttpBodyStream, Method, Referrer, ResourceType, ResponseHeaderKey,
+    ResponseHeaderValue, Url,
 };
 
+#[derive(Debug, PartialEq, Eq, Hash)]
 pub struct ResourceRequest {
     raw: NonNull<ArkWeb_ResourceRequest>,
 }
@@ -28,6 +32,68 @@ impl ResourceRequest {
                 raw: NonNull::new_unchecked(raw),
             }
         }
+    }
+
+    /// Returns the underlying native `ArkWeb_ResourceRequest` pointer.
+    pub fn raw(&self) -> *mut ArkWeb_ResourceRequest {
+        self.raw.as_ptr()
+    }
+
+    /// Returns the numeric address of the native `ArkWeb_ResourceRequest` handle,
+    /// suitable for correlating the same request across `on_request_start` and
+    /// `on_request_stop`.
+    pub fn as_id(&self) -> usize {
+        self.raw.as_ptr() as usize
+    }
+
+    /// Stores an opaque integer token on the native `ArkWeb_ResourceRequest` via
+    /// `OH_ArkWebResourceRequest_SetUserData`.
+    pub fn set_user_token(&self, token: usize) -> Result<(), ArkWebError> {
+        let ret = unsafe {
+            OH_ArkWebResourceRequest_SetUserData(
+                self.raw.as_ptr(),
+                ptr::without_provenance_mut(token),
+            )
+        };
+        if ret == 0 {
+            Ok(())
+        } else {
+            Err(ArkWebError::NativeError {
+                operation: "OH_ArkWebResourceRequest_SetUserData",
+                code: ret as u32,
+            })
+        }
+    }
+
+    /// Reads back the integer token previously stored with [`Self::set_user_token`]
+    /// (`0` if unset).
+    pub fn user_token(&self) -> usize {
+        unsafe { OH_ArkWebResourceRequest_GetUserData(self.raw.as_ptr()) }.addr()
+    }
+
+    /// Attaches a raw `user_data` pointer to this native `ArkWeb_ResourceRequest`
+    /// via `OH_ArkWebResourceRequest_SetUserData`.
+    ///
+    /// # Safety
+    ///
+    /// Callers that later dereference [`Self::user_data`] must ensure `user_data`
+    /// remains valid and properly aligned for that access.
+    pub unsafe fn set_user_data(&self, user_data: *mut c_void) -> Result<(), ArkWebError> {
+        let ret = unsafe { OH_ArkWebResourceRequest_SetUserData(self.raw.as_ptr(), user_data) };
+        if ret == 0 {
+            Ok(())
+        } else {
+            Err(ArkWebError::NativeError {
+                operation: "OH_ArkWebResourceRequest_SetUserData",
+                code: ret as u32,
+            })
+        }
+    }
+
+    /// Returns the raw `user_data` pointer attached to this native
+    /// `ArkWeb_ResourceRequest` via `OH_ArkWebResourceRequest_GetUserData`.
+    pub fn user_data(&self) -> *mut c_void {
+        unsafe { OH_ArkWebResourceRequest_GetUserData(self.raw.as_ptr()) }
     }
 
     /// Obtain an owned body stream on the ArkWeb I/O thread. Reads initialize
